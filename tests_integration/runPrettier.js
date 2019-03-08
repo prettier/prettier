@@ -55,16 +55,27 @@ function runPrettier(dir, args, options) {
     write.push({ filename, content });
   });
 
+  const origStatSync = fs.statSync;
+
+  jest.spyOn(fs, "statSync").mockImplementation(filename => {
+    if (path.basename(filename) === `virtualDirectory`) {
+      return origStatSync(path.join(__dirname, __filename));
+    }
+    return origStatSync(filename);
+  });
+
   const originalCwd = process.cwd();
   const originalArgv = process.argv;
   const originalExitCode = process.exitCode;
   const originalStdinIsTTY = process.stdin.isTTY;
   const originalStdoutIsTTY = process.stdout.isTTY;
+  const originalEnv = process.env;
 
   process.chdir(normalizeDir(dir));
   process.stdin.isTTY = !!options.isTTY;
   process.stdout.isTTY = !!options.stdoutIsTTY;
   process.argv = ["path/to/node", "path/to/prettier/bin"].concat(args);
+  process.env = Object.assign({}, process.env, options.env);
 
   jest.resetModules();
 
@@ -74,6 +85,9 @@ function runPrettier(dir, args, options) {
   jest.spyOn(require(thirdParty), "getStream").mockImplementation(() => ({
     then: handler => handler(options.input || "")
   }));
+  jest
+    .spyOn(require(thirdParty), "isCI")
+    .mockImplementation(() => process.env.CI);
   jest
     .spyOn(require(thirdParty), "cosmiconfig")
     .mockImplementation((moduleName, options) =>
@@ -98,6 +112,7 @@ function runPrettier(dir, args, options) {
     process.exitCode = originalExitCode;
     process.stdin.isTTY = originalStdinIsTTY;
     process.stdout.isTTY = originalStdoutIsTTY;
+    process.env = originalEnv;
     jest.restoreAllMocks();
   }
 
@@ -109,8 +124,13 @@ function runPrettier(dir, args, options) {
     Object.keys(result).forEach(name => {
       test(`(${name})`, () => {
         const value =
+          // \r is trimmed from jest snapshots by default;
+          // manually replacing this character with /*CR*/ to test its true presence
+          // If ignoreLineEndings is specified, \r is simply deleted instead
           typeof result[name] === "string"
-            ? stripAnsi(result[name])
+            ? options.ignoreLineEndings
+              ? stripAnsi(result[name]).replace(/\r/g, "")
+              : stripAnsi(result[name]).replace(/\r/g, "/*CR*/")
             : result[name];
         if (name in testOptions) {
           if (name === "status" && testOptions[name] === "non-zero") {

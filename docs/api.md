@@ -12,13 +12,13 @@ const prettier = require("prettier");
 `format` is used to format text using Prettier. [Options](options.md) may be provided to override the defaults.
 
 ```js
-prettier.format("foo ( );", { semi: false, parser: "babylon" });
+prettier.format("foo ( );", { semi: false, parser: "babel" });
 // -> "foo()"
 ```
 
 ## `prettier.check(source [, options])`
 
-`check` checks to see if the file has been formatted with Prettier given those options and returns a `Boolean`. This is similar to the `--list-different` parameter in the CLI and is useful for running Prettier in CI scenarios.
+`check` checks to see if the file has been formatted with Prettier given those options and returns a `Boolean`. This is similar to the `--check` or `--list-different` parameter in the CLI and is useful for running Prettier in CI scenarios.
 
 ## `prettier.formatWithCursor(source [, options])`
 
@@ -27,7 +27,7 @@ prettier.format("foo ( );", { semi: false, parser: "babylon" });
 The `cursorOffset` option should be provided, to specify where the cursor is. This option cannot be used with `rangeStart` and `rangeEnd`.
 
 ```js
-prettier.formatWithCursor(" 1", { cursorOffset: 2, parser: "babylon" });
+prettier.formatWithCursor(" 1", { cursorOffset: 2, parser: "babel" });
 // -> { formatted: '1;\n', cursorOffset: 1 }
 ```
 
@@ -51,6 +51,7 @@ prettier.resolveConfig(filePath).then(options => {
 
 If `options.editorconfig` is `true` and an [`.editorconfig` file](http://editorconfig.org/) is in your project, Prettier will parse it and convert its properties to the corresponding prettier configuration. This configuration will be overridden by `.prettierrc`, etc. Currently, the following EditorConfig properties are supported:
 
+- `end_of_line`
 - `indent_style`
 - `indent_size`/`tab_width`
 - `max_line_length`
@@ -85,7 +86,7 @@ As you repeatedly call `resolveConfig`, the file system structure will be cached
 
 Setting `options.ignorePath` (`string`) and `options.withNodeModules` (`boolean`) influence the value of `ignored` (`false` by default).
 
-Providing [plugin](./plugins.md) paths in `options.plugins` (`string[]`) helps extract `inferredParser` for files that are not supported by Prettier core.
+Providing [plugin](plugins.md) paths in `options.plugins` (`string[]`) helps extract `inferredParser` for files that are not supported by Prettier core.
 
 Use `prettier.getFileInfo.sync(filePath [, options])` if you'd like to use sync version.
 
@@ -129,8 +130,8 @@ Prettier's built-in parsers are exposed as properties on the `parsers` argument.
 
 ```js
 prettier.format("lodash ( )", {
-  parser(text, { babylon }) {
-    const ast = babylon(text);
+  parser(text, { babel }) {
+    const ast = babel(text);
     ast.program.body[0].expression.callee.name = "_";
     return ast;
   }

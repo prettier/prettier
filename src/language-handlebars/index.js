@@ -1,13 +1,15 @@
 "use strict";
 
 const printer = require("./printer-glimmer");
-const languageExtend = require("../utils/language-extend");
+const createLanguage = require("../utils/create-language");
 
 const languages = [
-  languageExtend({}, require("linguist-languages/data/handlebars"), {
-    since: null, // unreleased
-    parsers: ["glimmer"],
-    vscodeLanguageIds: ["handlebars"]
+  createLanguage(require("linguist-languages/data/handlebars"), {
+    override: {
+      since: null, // unreleased
+      parsers: ["glimmer"],
+      vscodeLanguageIds: ["handlebars"]
+    }
   })
 ];
 

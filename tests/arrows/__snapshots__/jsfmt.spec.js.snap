@@ -1,6 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`arrow_function_expression.js - babylon-verify 1`] = `
+exports[`arrow_function_expression.js 1`] = `
+====================================options=====================================
+arrowParens: "avoid"
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 (a => {}).length
 typeof (() => {});
 export default (() => {})();
@@ -36,7 +42,8 @@ a = b => c;
 a = b => {
   return c
 };
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 (a => {}).length;
 typeof (() => {});
 export default (() => {})();
@@ -74,9 +81,16 @@ a = b => {
   return c;
 };
 
+================================================================================
 `;
 
-exports[`arrow_function_expression.js - babylon-verify 2`] = `
+exports[`arrow_function_expression.js 2`] = `
+====================================options=====================================
+arrowParens: "always"
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 (a => {}).length
 typeof (() => {});
 export default (() => {})();
@@ -112,7 +126,8 @@ a = b => c;
 a = b => {
   return c
 };
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 ((a) => {}).length;
 typeof (() => {});
 export default (() => {})();
@@ -150,23 +165,46 @@ a = (b) => {
   return c;
 };
 
+================================================================================
 `;
 
-exports[`block_like.js - babylon-verify 1`] = `
-a = () => ({} = this);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`block_like.js 1`] = `
+====================================options=====================================
+arrowParens: "avoid"
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 a = () => ({} = this);
 
+=====================================output=====================================
+a = () => ({} = this);
+
+================================================================================
 `;
 
-exports[`block_like.js - babylon-verify 2`] = `
-a = () => ({} = this);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`block_like.js 2`] = `
+====================================options=====================================
+arrowParens: "always"
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 a = () => ({} = this);
 
+=====================================output=====================================
+a = () => ({} = this);
+
+================================================================================
 `;
 
-exports[`call.js - babylon-verify 1`] = `
+exports[`call.js 1`] = `
+====================================options=====================================
+arrowParens: "avoid"
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 Seq(typeDef.interface.groups).forEach(group =>
   Seq(group.members).forEach((member, memberName) =>
     markdownDoc(
@@ -247,7 +285,8 @@ jest.mock(
 fooooooooooooooooooooooooooooooooooooooooooooooooooo(action => next =>
     dispatch(action),
 );
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 Seq(typeDef.interface.groups).forEach(group =>
   Seq(group.members).forEach((member, memberName) =>
     markdownDoc(member.doc, {
@@ -337,9 +376,16 @@ fooooooooooooooooooooooooooooooooooooooooooooooooooo(action => next =>
   dispatch(action)
 );
 
+================================================================================
 `;
 
-exports[`call.js - babylon-verify 2`] = `
+exports[`call.js 2`] = `
+====================================options=====================================
+arrowParens: "always"
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 Seq(typeDef.interface.groups).forEach(group =>
   Seq(group.members).forEach((member, memberName) =>
     markdownDoc(
@@ -420,7 +466,8 @@ jest.mock(
 fooooooooooooooooooooooooooooooooooooooooooooooooooo(action => next =>
     dispatch(action),
 );
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 Seq(typeDef.interface.groups).forEach((group) =>
   Seq(group.members).forEach((member, memberName) =>
     markdownDoc(member.doc, {
@@ -510,9 +557,16 @@ fooooooooooooooooooooooooooooooooooooooooooooooooooo((action) => (next) =>
   dispatch(action)
 );
 
+================================================================================
 `;
 
-exports[`comment.js - babylon-verify 1`] = `
+exports[`comment.js 1`] = `
+====================================options=====================================
+arrowParens: "avoid"
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * Curried function that ends with a BEM CSS Selector
  *
@@ -543,7 +597,8 @@ export const bem = block =>
   ) => <span>{info.item.widget.missingProp}</span>}
   data={data}
 />
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * Curried function that ends with a BEM CSS Selector
  *
@@ -575,9 +630,16 @@ export const bem = block =>
   data={data}
 />;
 
+================================================================================
 `;
 
-exports[`comment.js - babylon-verify 2`] = `
+exports[`comment.js 2`] = `
+====================================options=====================================
+arrowParens: "always"
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * Curried function that ends with a BEM CSS Selector
  *
@@ -608,7 +670,8 @@ export const bem = block =>
   ) => <span>{info.item.widget.missingProp}</span>}
   data={data}
 />
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * Curried function that ends with a BEM CSS Selector
  *
@@ -640,9 +703,16 @@ export const bem = (block) =>
   data={data}
 />;
 
+================================================================================
 `;
 
-exports[`currying.js - babylon-verify 1`] = `
+exports[`currying.js 1`] = `
+====================================options=====================================
+arrowParens: "avoid"
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const fn = b => c => d => {
   return 3;
 };
@@ -660,7 +730,8 @@ const mw = store => next => action => {
 const middleware = options => (req, res, next) => {
   // ...
 };
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const fn = b => c => d => {
   return 3;
 };
@@ -679,9 +750,16 @@ const middleware = options => (req, res, next) => {
   // ...
 };
 
+================================================================================
 `;
 
-exports[`currying.js - babylon-verify 2`] = `
+exports[`currying.js 2`] = `
+====================================options=====================================
+arrowParens: "always"
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const fn = b => c => d => {
   return 3;
 };
@@ -699,7 +777,8 @@ const mw = store => next => action => {
 const middleware = options => (req, res, next) => {
   // ...
 };
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const fn = (b) => (c) => (d) => {
   return 3;
 };
@@ -718,33 +797,57 @@ const middleware = (options) => (req, res, next) => {
   // ...
 };
 
+================================================================================
 `;
 
-exports[`long-call-no-args.js - babylon-verify 1`] = `
+exports[`long-call-no-args.js 1`] = `
+====================================options=====================================
+arrowParens: "avoid"
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 veryLongCall(VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_LONG_CONSTANT, () => {})
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 veryLongCall(
   VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_LONG_CONSTANT,
   () => {}
 );
 
+================================================================================
 `;
 
-exports[`long-call-no-args.js - babylon-verify 2`] = `
+exports[`long-call-no-args.js 2`] = `
+====================================options=====================================
+arrowParens: "always"
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 veryLongCall(VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_LONG_CONSTANT, () => {})
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 veryLongCall(
   VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_LONG_CONSTANT,
   () => {}
 );
 
+================================================================================
 `;
 
-exports[`long-contents.js - babylon-verify 1`] = `
+exports[`long-contents.js 1`] = `
+====================================options=====================================
+arrowParens: "avoid"
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const foo = () => {
   expect(arg1, arg2, arg3).toEqual({message: 'test', messageType: 'SMS', status: 'Unknown', created: '11/01/2017 13:36'});
 };
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const foo = () => {
   expect(arg1, arg2, arg3).toEqual({
     message: "test",
@@ -754,13 +857,21 @@ const foo = () => {
   });
 };
 
+================================================================================
 `;
 
-exports[`long-contents.js - babylon-verify 2`] = `
+exports[`long-contents.js 2`] = `
+====================================options=====================================
+arrowParens: "always"
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const foo = () => {
   expect(arg1, arg2, arg3).toEqual({message: 'test', messageType: 'SMS', status: 'Unknown', created: '11/01/2017 13:36'});
 };
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const foo = () => {
   expect(arg1, arg2, arg3).toEqual({
     message: "test",
@@ -770,9 +881,16 @@ const foo = () => {
   });
 };
 
+================================================================================
 `;
 
-exports[`parens.js - babylon-verify 1`] = `
+exports[`parens.js 1`] = `
+====================================options=====================================
+arrowParens: "avoid"
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 promise.then(
   (result) => result,
   (err) => err
@@ -788,7 +906,8 @@ foo(a => { return b })
 foo(c, a => b)
 foo(c, a => b, d)
 foo(a => b, d)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 promise.then(result => result, err => err);
 
 promise.then(
@@ -810,9 +929,16 @@ foo(c, a => b);
 foo(c, a => b, d);
 foo(a => b, d);
 
+================================================================================
 `;
 
-exports[`parens.js - babylon-verify 2`] = `
+exports[`parens.js 2`] = `
+====================================options=====================================
+arrowParens: "always"
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 promise.then(
   (result) => result,
   (err) => err
@@ -828,7 +954,8 @@ foo(a => { return b })
 foo(c, a => b)
 foo(c, a => b, d)
 foo(a => b, d)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 promise.then((result) => result, (err) => err);
 
 promise.then(
@@ -850,16 +977,24 @@ foo(c, (a) => b);
 foo(c, (a) => b, d);
 foo((a) => b, d);
 
+================================================================================
 `;
 
-exports[`short_body.js - babylon-verify 1`] = `
+exports[`short_body.js 1`] = `
+====================================options=====================================
+arrowParens: "avoid"
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const initializeSnapshotState = (
   testFile: Path,
   update: boolean,
   testPath: string,
   expand: boolean,
 ) => new SnapshotState(testFile, update, testPath, expand);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const initializeSnapshotState = (
   testFile: Path,
   update: boolean,
@@ -867,16 +1002,24 @@ const initializeSnapshotState = (
   expand: boolean
 ) => new SnapshotState(testFile, update, testPath, expand);
 
+================================================================================
 `;
 
-exports[`short_body.js - babylon-verify 2`] = `
+exports[`short_body.js 2`] = `
+====================================options=====================================
+arrowParens: "always"
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const initializeSnapshotState = (
   testFile: Path,
   update: boolean,
   testPath: string,
   expand: boolean,
 ) => new SnapshotState(testFile, update, testPath, expand);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const initializeSnapshotState = (
   testFile: Path,
   update: boolean,
@@ -884,18 +1027,35 @@ const initializeSnapshotState = (
   expand: boolean
 ) => new SnapshotState(testFile, update, testPath, expand);
 
+================================================================================
 `;
 
-exports[`type_params.js - babylon-verify 1`] = `
+exports[`type_params.js 1`] = `
+====================================options=====================================
+arrowParens: "avoid"
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <T>(a) => { }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <T>(a) => {};
 
+================================================================================
 `;
 
-exports[`type_params.js - babylon-verify 2`] = `
+exports[`type_params.js 2`] = `
+====================================options=====================================
+arrowParens: "always"
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <T>(a) => { }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <T>(a) => {};
 
+================================================================================
 `;

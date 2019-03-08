@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`lowercase.css - css-verify 1`] = `
+exports[`lowercase.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 @charset "UTF-8";
 
 $myVar: TRANSLATEX(0);
@@ -43,7 +48,8 @@ $myVar7: linear-gradient(to right, RGBA(0,0,0,0.5), RGB(255,255,255));
   TRANSFORM: SCALEX(1);
   TRANSFORM: SCALEY(1);
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 @charset "UTF-8";
 
 $myVar: TRANSLATEX(0);
@@ -90,4 +96,5 @@ $myVar7: linear-gradient(to right, RGBA(0, 0, 0, 0.5), RGB(255, 255, 255));
   transform: SCALEY(1);
 }
 
+================================================================================
 `;

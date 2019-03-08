@@ -4,8 +4,9 @@ const createError = require("../common/parser-create-error");
 const includeShebang = require("../common/parser-include-shebang");
 const hasPragma = require("./pragma").hasPragma;
 const locFns = require("./loc");
+const postprocess = require("./postprocess");
 
-function parse(text /*, parsers, opts*/) {
+function parse(text, parsers, opts) {
   // Fixes Node 4 issue (#1986)
   "use strict"; // eslint-disable-line
   // Inline the require to avoid loading all the JS if we don't use it
@@ -28,7 +29,7 @@ function parse(text /*, parsers, opts*/) {
   }
 
   includeShebang(text, ast);
-  return ast;
+  return postprocess(ast, Object.assign({}, opts, { originalText: text }));
 }
 
 // Export as a plugin so we can reuse the same bundle for UMD loading

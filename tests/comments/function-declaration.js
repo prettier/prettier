@@ -39,3 +39,23 @@ class C {
 class C {
   f/* f */(/* args */) /* returns */ {}
 }
+
+function foo() 
+// this is a function
+{
+  return 42
+}
+
+function foo() // this is a function
+{
+  return 42
+}
+
+function foo() { // this is a function
+  return 42
+}
+
+function foo() {
+  // this is a function
+  return 42;
+}

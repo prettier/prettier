@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`boolean.js - flow-verify 1`] = `
+exports[`boolean.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 function veryOptimistic(isThisAwesome: true): boolean {
@@ -38,7 +43,8 @@ function alwaysFalsy(x: boolean): false {
     return x;
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 function veryOptimistic(isThisAwesome: true): boolean {
@@ -77,9 +83,15 @@ function alwaysFalsy(x: boolean): false {
   }
 }
 
+================================================================================
 `;
 
-exports[`number.js - flow-verify 1`] = `
+exports[`number.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 function highlander(howMany: 1): number {
@@ -103,7 +115,8 @@ bar(3); // error
 type ComparatorResult = -1 | 0 | 1
 function sort(fn: (x: any, y: any) => ComparatorResult) {}
 sort((x, y) => -1);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 function highlander(howMany: 1): number {
@@ -127,9 +140,15 @@ type ComparatorResult = -1 | 0 | 1;
 function sort(fn: (x: any, y: any) => ComparatorResult) {}
 sort((x, y) => -1);
 
+================================================================================
 `;
 
-exports[`string.js - flow-verify 1`] = `
+exports[`string.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 type NoSpaces = "foobar"
@@ -137,7 +156,8 @@ type NoSpaces = "foobar"
 
 type HasSpaces = "foo bar"
 ("foo bar": HasSpaces);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 type NoSpaces = "foobar";
@@ -146,4 +166,5 @@ type NoSpaces = "foobar";
 type HasSpaces = "foo bar";
 ("foo bar": HasSpaces);
 
+================================================================================
 `;

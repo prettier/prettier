@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`es5.js - flow-verify 1`] = `
+exports[`es5.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 function send_single_email(
   app,
   email_id,
@@ -17,7 +22,8 @@ function send_single_email(
   reply_to);
   return "nothing";
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 function send_single_email(
   app,
   email_id,
@@ -37,9 +43,16 @@ function send_single_email(
   return "nothing";
 }
 
+================================================================================
 `;
 
-exports[`es5.js - flow-verify 2`] = `
+exports[`es5.js 2`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
 function send_single_email(
   app,
   email_id,
@@ -56,7 +69,8 @@ function send_single_email(
   reply_to);
   return "nothing";
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 function send_single_email(
   app,
   email_id,
@@ -76,9 +90,16 @@ function send_single_email(
   return "nothing";
 }
 
+================================================================================
 `;
 
-exports[`es5.js - flow-verify 3`] = `
+exports[`es5.js 3`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
 function send_single_email(
   app,
   email_id,
@@ -95,7 +116,8 @@ function send_single_email(
   reply_to);
   return "nothing";
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 function send_single_email(
   app,
   email_id,
@@ -115,9 +137,15 @@ function send_single_email(
   return "nothing";
 }
 
+================================================================================
 `;
 
-exports[`function-calls.js - flow-verify 1`] = `
+exports[`function-calls.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const a = (param1, param2, param3) => {}
 
 a('value', 'value2', 'value3');
@@ -136,7 +164,8 @@ a.b().c(
   },
   () => {}
 );
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const a = (param1, param2, param3) => {};
 
 a("value", "value2", "value3");
@@ -160,9 +189,16 @@ a.b().c(
   () => {}
 );
 
+================================================================================
 `;
 
-exports[`function-calls.js - flow-verify 2`] = `
+exports[`function-calls.js 2`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
 const a = (param1, param2, param3) => {}
 
 a('value', 'value2', 'value3');
@@ -181,7 +217,8 @@ a.b().c(
   },
   () => {}
 );
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const a = (param1, param2, param3) => {};
 
 a("value", "value2", "value3");
@@ -205,9 +242,16 @@ a.b().c(
   () => {},
 );
 
+================================================================================
 `;
 
-exports[`function-calls.js - flow-verify 3`] = `
+exports[`function-calls.js 3`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
 const a = (param1, param2, param3) => {}
 
 a('value', 'value2', 'value3');
@@ -226,7 +270,8 @@ a.b().c(
   },
   () => {}
 );
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const a = (param1, param2, param3) => {};
 
 a("value", "value2", "value3");
@@ -250,17 +295,15 @@ a.b().c(
   () => {}
 );
 
+================================================================================
 `;
 
-exports[`jsx.js - flow-verify 1`] = `
-<div
-  onClick={() =>
-    doSomething({
-      foo: bar
-    })
-  }
-/>;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`jsx.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <div
   onClick={() =>
     doSomething({
@@ -269,9 +312,25 @@ exports[`jsx.js - flow-verify 1`] = `
   }
 />;
 
+=====================================output=====================================
+<div
+  onClick={() =>
+    doSomething({
+      foo: bar
+    })
+  }
+/>;
+
+================================================================================
 `;
 
-exports[`jsx.js - flow-verify 2`] = `
+exports[`jsx.js 2`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
 <div
   onClick={() =>
     doSomething({
@@ -279,7 +338,8 @@ exports[`jsx.js - flow-verify 2`] = `
     })
   }
 />;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <div
   onClick={() =>
     doSomething({
@@ -288,9 +348,16 @@ exports[`jsx.js - flow-verify 2`] = `
   }
 />;
 
+================================================================================
 `;
 
-exports[`jsx.js - flow-verify 3`] = `
+exports[`jsx.js 3`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
 <div
   onClick={() =>
     doSomething({
@@ -298,7 +365,8 @@ exports[`jsx.js - flow-verify 3`] = `
     })
   }
 />;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <div
   onClick={() =>
     doSomething({
@@ -307,9 +375,15 @@ exports[`jsx.js - flow-verify 3`] = `
   }
 />;
 
+================================================================================
 `;
 
-exports[`object.js - flow-verify 1`] = `
+exports[`object.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const a = {
   b: true,
   c: {
@@ -331,7 +405,8 @@ const aLong = {
   dHasALongName: 'a-long-value-too',
   eHasABooleanExpression: a === a,
 };
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const a = {
   b: true,
   c: {
@@ -354,9 +429,16 @@ const aLong = {
   eHasABooleanExpression: a === a
 };
 
+================================================================================
 `;
 
-exports[`object.js - flow-verify 2`] = `
+exports[`object.js 2`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
 const a = {
   b: true,
   c: {
@@ -378,7 +460,8 @@ const aLong = {
   dHasALongName: 'a-long-value-too',
   eHasABooleanExpression: a === a,
 };
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const a = {
   b: true,
   c: {
@@ -401,9 +484,16 @@ const aLong = {
   eHasABooleanExpression: a === a,
 };
 
+================================================================================
 `;
 
-exports[`object.js - flow-verify 3`] = `
+exports[`object.js 3`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
 const a = {
   b: true,
   c: {
@@ -425,7 +515,8 @@ const aLong = {
   dHasALongName: 'a-long-value-too',
   eHasABooleanExpression: a === a,
 };
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const a = {
   b: true,
   c: {
@@ -448,9 +539,15 @@ const aLong = {
   eHasABooleanExpression: a === a,
 };
 
+================================================================================
 `;
 
-exports[`trailing_whitespace.js - flow-verify 1`] = `
+exports[`trailing_whitespace.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 let example = [
   'FOO',
   'BAR',
@@ -494,7 +591,8 @@ this.getAttribute(function(s)
 this.getAttribute(function(s) /*string*/ {
   console.log()
 });
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 let example = [
   "FOO",
   "BAR"
@@ -539,9 +637,16 @@ this.getAttribute(function(s) /*string*/ {
   console.log();
 });
 
+================================================================================
 `;
 
-exports[`trailing_whitespace.js - flow-verify 2`] = `
+exports[`trailing_whitespace.js 2`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
 let example = [
   'FOO',
   'BAR',
@@ -585,7 +690,8 @@ this.getAttribute(function(s)
 this.getAttribute(function(s) /*string*/ {
   console.log()
 });
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 let example = [
   "FOO",
   "BAR",
@@ -630,9 +736,16 @@ this.getAttribute(function(s) /*string*/ {
   console.log();
 });
 
+================================================================================
 `;
 
-exports[`trailing_whitespace.js - flow-verify 3`] = `
+exports[`trailing_whitespace.js 3`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
 let example = [
   'FOO',
   'BAR',
@@ -676,7 +789,8 @@ this.getAttribute(function(s)
 this.getAttribute(function(s) /*string*/ {
   console.log()
 });
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 let example = [
   "FOO",
   "BAR",
@@ -721,4 +835,5 @@ this.getAttribute(function(s) /*string*/ {
   console.log();
 });
 
+================================================================================
 `;

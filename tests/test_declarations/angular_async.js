@@ -2,9 +2,21 @@ beforeEach(async(() => {
   // code
 }));
 
+beforeEach(done =>
+  foo()
+    .bar()
+    .bar(),
+);
+
 afterAll(async(() => {
   console.log('Hello');
 }));
+
+afterAll(done =>
+  foo()
+    .bar()
+    .bar(),
+);
 
 it('should create the app', async(() => {
   //code

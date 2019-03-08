@@ -1,14 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`underscore.js - flow-verify 1`] = `
-interface C<T> {
-  foo(): CArrays<T>;
-  bar(): C<any>;
-}
-interface CArrays<T> extends C<Array<T>> {
-  bar(): C<any>;
-}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`underscore.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 interface C<T> {
   foo(): CArrays<T>;
   bar(): C<any>;
@@ -17,4 +14,14 @@ interface CArrays<T> extends C<Array<T>> {
   bar(): C<any>;
 }
 
+=====================================output=====================================
+interface C<T> {
+  foo(): CArrays<T>;
+  bar(): C<any>;
+}
+interface CArrays<T> extends C<Array<T>> {
+  bar(): C<any>;
+}
+
+================================================================================
 `;

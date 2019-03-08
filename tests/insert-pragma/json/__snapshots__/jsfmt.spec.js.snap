@@ -1,6 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`does-nothing.json - json-verify 1`] = `
+exports[`does-nothing.json 1`] = `
+====================================options=====================================
+insertPragma: true
+parsers: ["json"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 {"allOn": "Single", "Line": "example",
 "noSpace":true,
   "quote": {
@@ -14,7 +20,8 @@ exports[`does-nothing.json - json-verify 1`] = `
       "trailing": "commas by accident"},
   ],
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 {
   "allOn": "Single",
   "Line": "example",
@@ -24,15 +31,10 @@ exports[`does-nothing.json - json-verify 1`] = `
     "indented": true
   },
   "phoneNumbers": [
-    {
-      "type": "home",
-      "number": "212 555-1234"
-    },
-    {
-      "type": "office",
-      "trailing": "commas by accident"
-    }
+    { "type": "home", "number": "212 555-1234" },
+    { "type": "office", "trailing": "commas by accident" }
   ]
 }
 
+================================================================================
 `;

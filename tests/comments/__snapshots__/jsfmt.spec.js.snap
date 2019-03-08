@@ -1,13 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`assignment-pattern.js - flow-verify 1`] = `
+exports[`assignment-pattern.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const { a /* comment */ = 1 } = b;
 
 const { c = 1 /* comment */ } = d;
 
 let {a //comment
 = b} = c
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const { a /* comment */ = 1 } = b;
 
 const { c = 1 /* comment */ } = d;
@@ -16,16 +22,23 @@ let {
   a = b //comment
 } = c;
 
+================================================================================
 `;
 
-exports[`before-comma.js - flow-verify 1`] = `
+exports[`before-comma.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const foo = {
   a: 'a' /* comment for this line */,
 
   /* Section B */
   b: 'b',
 };
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const foo = {
   a: "a" /* comment for this line */,
 
@@ -33,9 +46,169 @@ const foo = {
   b: "b"
 };
 
+================================================================================
 `;
 
-exports[`blank.js - flow-verify 1`] = `
+exports[`binary-expressions.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+function addition() {
+	0
+	// Comment
+	+ x
+}
+
+function multiplication() {
+	0
+	// Comment
+	* x
+}
+
+function division() {
+	0
+	// Comment
+	/ x
+}
+
+function substraction() {
+	0
+	// Comment
+	- x
+}
+
+function remainder() {
+	0
+	// Comment
+	% x
+}
+
+function exponentiation() {
+	0
+	// Comment
+	** x
+}
+
+function leftShift() {
+	0
+	// Comment
+	<< x
+}
+
+function rightShift() {
+	0
+	// Comment
+	>> x
+}
+
+function unsignedRightShift() {
+	0
+	// Comment
+	>>> x
+}
+
+function bitwiseAnd() {
+	0
+	// Comment
+	& x
+}
+
+function bitwiseOr() {
+	0
+	// Comment
+	| x
+}
+
+function bitwiseXor() {
+	0
+	// Comment
+	^ x
+}
+
+=====================================output=====================================
+function addition() {
+  0 +
+    // Comment
+    x;
+}
+
+function multiplication() {
+  0 *
+    // Comment
+    x;
+}
+
+function division() {
+  0 /
+    // Comment
+    x;
+}
+
+function substraction() {
+  0 -
+    // Comment
+    x;
+}
+
+function remainder() {
+  0 %
+    // Comment
+    x;
+}
+
+function exponentiation() {
+  0 **
+    // Comment
+    x;
+}
+
+function leftShift() {
+  0 <<
+    // Comment
+    x;
+}
+
+function rightShift() {
+  0 >>
+    // Comment
+    x;
+}
+
+function unsignedRightShift() {
+  0 >>>
+    // Comment
+    x;
+}
+
+function bitwiseAnd() {
+  0 &
+    // Comment
+    x;
+}
+
+function bitwiseOr() {
+  0 |
+    // Comment
+    x;
+}
+
+function bitwiseXor() {
+  0 ^
+    // Comment
+    x;
+}
+
+================================================================================
+`;
+
+exports[`blank.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // This file only
 // has comments. This comment
 // should still exist
@@ -57,7 +230,8 @@ exports[`blank.js - flow-verify 1`] = `
 // comment
 
 // comment
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // This file only
 // has comments. This comment
 // should still exist
@@ -80,9 +254,15 @@ exports[`blank.js - flow-verify 1`] = `
 
 // comment
 
+================================================================================
 `;
 
-exports[`break-continue-statements.js - flow-verify 1`] = `
+exports[`break-continue-statements.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 for (;;) {
   break /* comment */;
   continue /* comment */;
@@ -94,7 +274,8 @@ loop: for (;;) {
   continue /* comment */ loop;
   continue loop /* comment */;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 for (;;) {
   break; /* comment */
   continue; /* comment */
@@ -107,9 +288,15 @@ loop: for (;;) {
   continue loop /* comment */;
 }
 
+================================================================================
 `;
 
-exports[`call_comment.js - flow-verify 1`] = `
+exports[`call_comment.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 render( // Warm any cache
   <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
   container
@@ -119,7 +306,8 @@ React.render( // Warm any cache
   <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
   container
 );
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 render(
   // Warm any cache
   <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
@@ -132,9 +320,15 @@ React.render(
   container
 );
 
+================================================================================
 `;
 
-exports[`closure-compiler-type-cast.js - flow-verify 1`] = `
+exports[`closure-compiler-type-cast.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // test to make sure comments are attached correctly
 let inlineComment = /* some comment */ (
   someReallyLongFunctionCall(withLots, ofArguments));
@@ -145,6 +339,7 @@ let object = {
 
 // preserve parens only for type casts
 let assignment = /** @type {string} */ (getValue());
+let value = /** @type {string} */ (this.members[0]).functionCall();
 
 functionCall(1 + /** @type {string} */ (value), /** @type {!Foo} */ ({}));
 
@@ -155,7 +350,34 @@ function returnValue() {
 var newArray = /** @type {array} */ (numberOrString).map(x => x);
 var newArray = /** @type {array} */ ((numberOrString)).map(x => x);
 var newArray = /** @type {array} */ ((numberOrString).map(x => x));
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+const data = functionCall(
+  arg1,
+  arg2,
+  /** @type {{height: number, width: number}} */ (arg3));
+
+// Invalid type casts
+const v = /** @type {} */ (value);
+const v = /** @type {}} */ (value);
+const v = /** @type } */ (value);
+const v = /** @type { */ (value);
+const v = /** @type {{} */ (value);
+
+const style = /** @type {{
+  width: number,
+  height: number,
+  marginTop: number,
+  marginLeft: number,
+  marginRight: number,
+  marginBottom: number,
+}} */ ({
+  width,
+  height,
+  ...margins,
+});
+
+=====================================output=====================================
 // test to make sure comments are attached correctly
 let inlineComment = /* some comment */ someReallyLongFunctionCall(
   withLots,
@@ -168,6 +390,7 @@ let object = {
 
 // preserve parens only for type casts
 let assignment = /** @type {string} */ (getValue());
+let value = /** @type {string} */ (this.members[0]).functionCall();
 
 functionCall(1 + /** @type {string} */ (value), /** @type {!Foo} */ ({}));
 
@@ -179,9 +402,41 @@ var newArray = /** @type {array} */ (numberOrString).map(x => x);
 var newArray = /** @type {array} */ (numberOrString).map(x => x);
 var newArray = /** @type {array} */ (numberOrString.map(x => x));
 
+const data = functionCall(
+  arg1,
+  arg2,
+  /** @type {{height: number, width: number}} */ (arg3)
+);
+
+// Invalid type casts
+const v = /** @type {} */ value;
+const v = /** @type {}} */ value;
+const v = /** @type } */ value;
+const v = /** @type { */ value;
+const v = /** @type {{} */ value;
+
+const style = /** @type {{
+  width: number,
+  height: number,
+  marginTop: number,
+  marginLeft: number,
+  marginRight: number,
+  marginBottom: number,
+}} */ ({
+  width,
+  height,
+  ...margins
+});
+
+================================================================================
 `;
 
-exports[`dangling.js - flow-verify 1`] = `
+exports[`dangling.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 var x = {/* dangling */};
 var x = {
   // dangling
@@ -190,9 +445,12 @@ var x = [/* dangling */];
 function x() {
   /* dangling */
 }
+new Thing(/* dangling */);
+Thing(/* dangling */);
 declare class Foo extends Qux<string> {/* dangling */}
 export /* dangling */{};
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 var x = {
   /* dangling */
 };
@@ -205,43 +463,65 @@ var x = [
 function x() {
   /* dangling */
 }
+new Thing(/* dangling */);
+Thing(/* dangling */);
 declare class Foo extends Qux<string> {
   /* dangling */
 }
 export /* dangling */{};
 
+================================================================================
 `;
 
-exports[`dangling_array.js - flow-verify 1`] = `
+exports[`dangling_array.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 expect(() => {}).toTriggerReadyStateChanges([
   // Nothing.
 ]);
 
 [1 /* first comment */, 2 /* second comment */, 3];
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 expect(() => {}).toTriggerReadyStateChanges([
   // Nothing.
 ]);
 
 [1 /* first comment */, 2 /* second comment */, 3];
 
+================================================================================
 `;
 
-exports[`dangling_for.js - flow-verify 1`] = `
+exports[`dangling_for.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 for // comment
 (;;);
 
 for /* comment */(;;);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // comment
 for (;;);
 
 /* comment */
 for (;;);
 
+================================================================================
 `;
 
-exports[`dynamic_imports.js - flow-verify 1`] = `
+exports[`dynamic_imports.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 import(/* Hello */ 'something')
 
 import('something' /* Hello */)
@@ -249,7 +529,8 @@ import('something' /* Hello */)
 import(/* Hello */ 'something' /* Hello */)
 
 import('something' /* Hello */ + 'else')
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 import(/* Hello */ "something");
 
 import("something" /* Hello */);
@@ -258,9 +539,15 @@ import(/* Hello */ "something" /* Hello */);
 
 import("something" /* Hello */ + "else");
 
+================================================================================
 `;
 
-exports[`export.js - flow-verify 1`] = `
+exports[`export.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 export //comment
 {}
 
@@ -279,7 +566,8 @@ export {
   fooo, // comment
   barr, // comment
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 export //comment
 {};
 
@@ -299,18 +587,31 @@ export {
   barr // comment
 };
 
+================================================================================
 `;
 
-exports[`first-line.js - flow-verify 1`] = `
+exports[`first-line.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 a // comment
 b
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 a; // comment
 b;
 
+================================================================================
 `;
 
-exports[`flow_union.js - flow-verify 1`] = `
+exports[`flow_union.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 type UploadState<E, EM, D>
   // The upload hasnt begun yet
   = {type: "Not_begun"}
@@ -330,7 +631,8 @@ type UploadState<E, EM, D>
   | C
   // Uploading to aws3 and CreatePostMutation succeeded
   | D;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 type UploadState<E, EM, D> =
   // The upload hasnt begun yet
   | { type: "Not_begun" }
@@ -351,9 +653,15 @@ type UploadState<E, EM, D> =
   // Uploading to aws3 and CreatePostMutation succeeded
   | D;
 
+================================================================================
 `;
 
-exports[`function-declaration.js - flow-verify 1`] = `
+exports[`function-declaration.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 function a(/* comment */) {} // comment
 function b() {} // comment
 function c(/* comment */ argA, argB, argC) {} // comment
@@ -395,7 +703,28 @@ class C {
 class C {
   f/* f */(/* args */) /* returns */ {}
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+function foo() 
+// this is a function
+{
+  return 42
+}
+
+function foo() // this is a function
+{
+  return 42
+}
+
+function foo() { // this is a function
+  return 42
+}
+
+function foo() {
+  // this is a function
+  return 42;
+}
+
+=====================================output=====================================
 function a(/* comment */) {} // comment
 function b() {} // comment
 function c(/* comment */ argA, argB, argC) {} // comment
@@ -438,9 +767,35 @@ class C {
   f /* f */(/* args */) /* returns */ {}
 }
 
+function foo() {
+  // this is a function
+  return 42;
+}
+
+function foo() {
+  // this is a function
+  return 42;
+}
+
+function foo() {
+  // this is a function
+  return 42;
+}
+
+function foo() {
+  // this is a function
+  return 42;
+}
+
+================================================================================
 `;
 
-exports[`if.js - flow-verify 1`] = `
+exports[`if.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 if (1)
 // comment
 {
@@ -502,7 +857,8 @@ else if (15) // comment
 /* comment */
 /* comment */ // comment
 true
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 if (1) {
   // comment
   false;
@@ -579,9 +935,15 @@ if (14) {
   /* comment */ // comment
   true;
 
+================================================================================
 `;
 
-exports[`issues.js - flow-verify 1`] = `
+exports[`issues.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // Does not need to break as it fits in 80 columns
 this.call(a, /* comment */ b);
 
@@ -689,7 +1051,8 @@ const result = asyncExecute('non_existing_command', /* args */ []);
 foo({}
   // Hi
 );
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // Does not need to break as it fits in 80 columns
 this.call(a, /* comment */ b);
 
@@ -803,9 +1166,15 @@ foo(
   // Hi
 );
 
+================================================================================
 `;
 
-exports[`jsx.js - flow-verify 1`] = `
+exports[`jsx.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <div>
   {
     /* comment */
@@ -926,21 +1295,29 @@ onClick={() => {}}>
   {}
   <Component />
 </Wrapper>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <div>{/* comment */}</div>;
 
 <div>{/* comment */}</div>;
 
-<div>{/* comment
-*/}</div>;
+<div>
+  {/* comment
+   */}
+</div>;
 
-<div>{a /* comment
-*/}</div>;
+<div>
+  {
+    a
+    /* comment
+     */
+  }
+</div>;
 
 <div>
   {
     /* comment
-*/
+     */
     a
   }
 </div>;
@@ -1030,9 +1407,15 @@ onClick={() => {}}>
   <Component />
 </Wrapper>;
 
+================================================================================
 `;
 
-exports[`last-arg.js - flow-verify 1`] = `
+exports[`last-arg.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 type f = (
   currentRequest: {a: number},
   // TODO this is a very very very very long comment that makes it go > 80 columns
@@ -1127,7 +1510,8 @@ class Foo {
     lol4 /*string*/
   ) {} /* string*/
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 type f = (
   currentRequest: { a: number }
   // TODO this is a very very very very long comment that makes it go > 80 columns
@@ -1215,9 +1599,15 @@ class Foo {
   ) {} /* string*/
 }
 
+================================================================================
 `;
 
-exports[`preserve-new-line-last.js - flow-verify 1`] = `
+exports[`preserve-new-line-last.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 function f() {
   a
   /* eslint-disable */
@@ -1239,7 +1629,8 @@ function name() {
   // comment3 why func3 commented
   // func3()
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 function f() {
   a;
   /* eslint-disable */
@@ -1262,9 +1653,15 @@ function name() {
   // func3()
 }
 
+================================================================================
 `;
 
-exports[`return-statement.js - flow-verify 1`] = `
+exports[`return-statement.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 function jsx() {
   return (
     // Comment
@@ -1386,7 +1783,8 @@ function inlineComment() {
     /* hi */ 42
   ) || 42
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 function jsx() {
   return (
     // Comment
@@ -1517,9 +1915,87 @@ function inlineComment() {
   return /* hi */ 42 || 42;
 }
 
+================================================================================
 `;
 
-exports[`switch.js - flow-verify 1`] = `
+exports[`single-star-jsdoc.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/*
+ * Looking good!
+ */
+
+if(true) {
+    /*
+     * Oh no
+     */
+}
+
+  /** first line
+* second line
+   * third line */
+
+  /* first line
+* second line
+   * third line */
+
+  /*! first line
+*second line
+   *  third line */
+
+/*!
+* Extracted from vue codebase
+* https://github.com/vuejs/vue/blob/cfd73c2386623341fdbb3ac636c4baf84ea89c2c/src/compiler/parser/html-parser.js
+* HTML Parser By John Resig (ejohn.org)
+* Modified by Juriy "kangax" Zaytsev
+* Original code by Erik Arvidsson, Mozilla Public License
+* http://erik.eae.net/simplehtmlparser/simplehtmlparser.js
+*/
+
+=====================================output=====================================
+/*
+ * Looking good!
+ */
+
+if (true) {
+  /*
+   * Oh no
+   */
+}
+
+/** first line
+ * second line
+ * third line */
+
+/* first line
+ * second line
+ * third line */
+
+/*! first line
+ *second line
+ *  third line */
+
+/*!
+ * Extracted from vue codebase
+ * https://github.com/vuejs/vue/blob/cfd73c2386623341fdbb3ac636c4baf84ea89c2c/src/compiler/parser/html-parser.js
+ * HTML Parser By John Resig (ejohn.org)
+ * Modified by Juriy "kangax" Zaytsev
+ * Original code by Erik Arvidsson, Mozilla Public License
+ * http://erik.eae.net/simplehtmlparser/simplehtmlparser.js
+ */
+
+================================================================================
+`;
+
+exports[`switch.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 switch (node && node.type) {
   case "Property":
   case "MethodDefinition":
@@ -1558,7 +2034,8 @@ switch (foo) {
     doThing();
   } //comment
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 switch (node && node.type) {
   case "Property":
   case "MethodDefinition":
@@ -1597,9 +2074,15 @@ switch (foo) {
   } //comment
 }
 
+================================================================================
 `;
 
-exports[`template-literal.js - flow-verify 1`] = `
+exports[`template-literal.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 \`
 \${a // comment
 }
@@ -1612,7 +2095,8 @@ exports[`template-literal.js - flow-verify 1`] = `
 d //comment
 };
 \`
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 \`
 \${
   a // comment
@@ -1628,24 +2112,37 @@ d //comment
 };
 \`;
 
+================================================================================
 `;
 
-exports[`trailing_space.js - flow-verify 1`] = `
+exports[`trailing_space.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 #!/there/is-space-here->         
 
 // Do not trim trailing whitespace from this source file!
 
 // There is some space here ->                        
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 #!/there/is-space-here->
 
 // Do not trim trailing whitespace from this source file!
 
 // There is some space here ->
 
+================================================================================
 `;
 
-exports[`trailing-jsdocs.js - flow-verify 1`] = `
+exports[`trailing-jsdocs.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const CONNECTION_STATUS = exports.CONNECTION_STATUS = {
   CLOSED: Object.freeze({ kind: 'CLOSED' }),
   CONNECTED: Object.freeze({ kind: 'CONNECTED' }),
@@ -1668,7 +2165,8 @@ const CONNECTION_STATUS = exports.CONNECTION_STATUS = {
 */ /**
 * A single unit of data exchanged between the peers of a \`ReactiveSocket\`.
 */
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const CONNECTION_STATUS = (exports.CONNECTION_STATUS = {
   CLOSED: Object.freeze({ kind: "CLOSED" }),
   CONNECTED: Object.freeze({ kind: "CONNECTED" }),
@@ -1697,37 +2195,54 @@ const CONNECTION_STATUS = (exports.CONNECTION_STATUS = {
  * A single unit of data exchanged between the peers of a \`ReactiveSocket\`.
  */
 
+================================================================================
 `;
 
-exports[`try.js - flow-verify 1`] = `
-// comment 1
+exports[`try.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// Comment 1
+try { // Comment 2
+  // Comment 3
+}
+// Comment 4
+catch(e) { // Comment 5
+  // Comment 6
+}
+// Comment 7
+finally { // Comment 8
+  // Comment 9
+}
+// Comment 10
+
+=====================================output=====================================
+// Comment 1
 try {
-  // comment 2
-}
-// comment 3
-catch(e) {
-  // comment 4
-}
-// comment 5
-finally // comment 6
-{
-  // comment 7
-}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// comment 1
-try {
-  // comment 2
+  // Comment 2
+  // Comment 3
 } catch (e) {
-  // comment 3
-  // comment 4
-} finally { // comment 6
-  // comment 5
-  // comment 7
+  // Comment 4
+  // Comment 5
+  // Comment 6
+} finally {
+  // Comment 7
+  // Comment 8
+  // Comment 9
 }
+// Comment 10
 
+================================================================================
 `;
 
-exports[`variable_declarator.js - flow-verify 1`] = `
+exports[`variable_declarator.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 let obj = // Comment
 {
   key: 'val'
@@ -1783,7 +2298,19 @@ tag\`
 val
 val
 \`;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+let // Comment
+  foo = 'val';
+
+let // Comment
+  foo = 'val',
+  bar = 'val';
+
+const foo = 123
+// Nothing to see here.
+;["2", "3"].forEach(x => console.log(x))
+
+=====================================output=====================================
 let obj =
   // Comment
   {
@@ -1846,4 +2373,71 @@ val
 val
 \`;
 
+let // Comment
+  foo = "val";
+
+let // Comment
+  foo = "val",
+  bar = "val";
+
+const foo = 123;
+// Nothing to see here.
+["2", "3"].forEach(x => console.log(x));
+
+================================================================================
+`;
+
+exports[`while.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+while(
+    true
+    // Comment
+  ) {}
+
+while(true)// Comment
+{}
+
+while(true){}// Comment
+
+while(true)/*Comment*/{}
+
+while(
+  true // Comment
+  && true // Comment
+  ){}
+
+while(true) {} // comment
+
+while(true) /* comment */ ++x; 
+
+=====================================output=====================================
+while (
+  true
+  // Comment
+) {}
+
+while (true) {
+  // Comment
+}
+
+while (true) {} // Comment
+
+while (true) {
+  /*Comment*/
+}
+
+while (
+  true && // Comment
+  true // Comment
+) {}
+
+while (true) {} // comment
+
+while (true) /* comment */ ++x;
+
+================================================================================
 `;

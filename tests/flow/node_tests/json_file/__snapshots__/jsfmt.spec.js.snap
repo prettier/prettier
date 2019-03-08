@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.js - flow-verify 1`] = `
+exports[`test.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 let data = require('./package/index.json');
@@ -24,7 +29,8 @@ let data4 = require('./json_array');
 (require('./json_false'): void); // error, should be false
 (require('./json_null'): void); // error, should be null
 (require('./json_negative_number'): -1); // ok
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 let data = require("./package/index.json");
@@ -49,4 +55,5 @@ let data4 = require("./json_array");
 (require("./json_null"): void); // error, should be null
 (require("./json_negative_number"): -1); // ok
 
+================================================================================
 `;

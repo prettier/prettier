@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`break.js - flow-verify 1`] = `
+exports[`break.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 var X = {
   perform: function<    
      A, B, C, D, E, F, G,     
@@ -11,7 +16,8 @@ var X = {
    ): G {
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 var X = {
   perform: function<
     A,
@@ -25,9 +31,16 @@ var X = {
   >(method: T, scope: any, a: A, b: B, c: C, d: D, e: E, f: F): G {}
 };
 
+================================================================================
 `;
 
-exports[`break.js - flow-verify 2`] = `
+exports[`break.js 2`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
 var X = {
   perform: function<    
      A, B, C, D, E, F, G,     
@@ -38,7 +51,8 @@ var X = {
    ): G {
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 var X = {
   perform: function<
     A,
@@ -52,45 +66,89 @@ var X = {
   >(method: T, scope: any, a: A, b: B, c: C, d: D, e: E, f: F): G {},
 };
 
+================================================================================
 `;
 
-exports[`generic.js - flow-verify 1`] = `
-const identity = <T>(t: T): T => t;
-const a = 1;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`generic.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const identity = <T>(t: T): T => t;
 const a = 1;
 
+=====================================output=====================================
+const identity = <T>(t: T): T => t;
+const a = 1;
+
+================================================================================
 `;
 
-exports[`generic.js - flow-verify 2`] = `
-const identity = <T>(t: T): T => t;
-const a = 1;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`generic.js 2`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
 const identity = <T>(t: T): T => t;
 const a = 1;
 
+=====================================output=====================================
+const identity = <T>(t: T): T => t;
+const a = 1;
+
+================================================================================
 `;
 
-exports[`interface.js - flow-verify 1`] = `
+exports[`interface.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 interface A { 'C': string; }
 interface B { "D": boolean; }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-interface A { C: string }
-interface B { D: boolean }
 
+=====================================output=====================================
+interface A {
+  C: string;
+}
+interface B {
+  D: boolean;
+}
+
+================================================================================
 `;
 
-exports[`interface.js - flow-verify 2`] = `
+exports[`interface.js 2`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
 interface A { 'C': string; }
 interface B { "D": boolean; }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-interface A { C: string }
-interface B { D: boolean }
 
+=====================================output=====================================
+interface A {
+  C: string;
+}
+interface B {
+  D: boolean;
+}
+
+================================================================================
 `;
 
-exports[`nullable.js - flow-verify 1`] = `
+exports[`nullable.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 function formatEntireFile(
   fileVersion: FileVersion,
   range: atom$Range,
@@ -100,7 +158,8 @@ function formatEntireFile(
 }> {}
 
 function foo(): Promise<?boolean> {}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 function formatEntireFile(
   fileVersion: FileVersion,
   range: atom$Range
@@ -111,9 +170,16 @@ function formatEntireFile(
 
 function foo(): Promise<?boolean> {}
 
+================================================================================
 `;
 
-exports[`nullable.js - flow-verify 2`] = `
+exports[`nullable.js 2`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
 function formatEntireFile(
   fileVersion: FileVersion,
   range: atom$Range,
@@ -123,7 +189,8 @@ function formatEntireFile(
 }> {}
 
 function foo(): Promise<?boolean> {}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 function formatEntireFile(
   fileVersion: FileVersion,
   range: atom$Range,
@@ -134,9 +201,44 @@ function formatEntireFile(
 
 function foo(): Promise<?boolean> {}
 
+================================================================================
 `;
 
-exports[`trailing.js - flow-verify 1`] = `
+exports[`single-identifier.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const longVariableName: Array<number> = this.foo.bar.baz.collider.body.vertices.reduce();
+
+=====================================output=====================================
+const longVariableName: Array<number> = this.foo.bar.baz.collider.body.vertices.reduce();
+
+================================================================================
+`;
+
+exports[`single-identifier.js 2`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
+const longVariableName: Array<number> = this.foo.bar.baz.collider.body.vertices.reduce();
+
+=====================================output=====================================
+const longVariableName: Array<number> = this.foo.bar.baz.collider.body.vertices.reduce();
+
+================================================================================
+`;
+
+exports[`trailing.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 type State = {
   errors: Immutable.Map<
     Ahohohhohohohohohohohohohohooh,
@@ -144,7 +246,8 @@ type State = {
   >,
   shouldValidate: boolean,
 };
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 type State = {
   errors: Immutable.Map<
     Ahohohhohohohohohohohohohohooh,
@@ -153,9 +256,16 @@ type State = {
   shouldValidate: boolean
 };
 
+================================================================================
 `;
 
-exports[`trailing.js - flow-verify 2`] = `
+exports[`trailing.js 2`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
 type State = {
   errors: Immutable.Map<
     Ahohohhohohohohohohohohohohooh,
@@ -163,7 +273,8 @@ type State = {
   >,
   shouldValidate: boolean,
 };
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 type State = {
   errors: Immutable.Map<
     Ahohohhohohohohohohohohohohooh,
@@ -172,52 +283,83 @@ type State = {
   shouldValidate: boolean,
 };
 
+================================================================================
 `;
 
-exports[`type.js - flow-verify 1`] = `
+exports[`type.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 type F = <T>(T) => T;
 type G = (<A, B>(A) => B);
 type H = { 'A': string, "B": number };
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 type F = <T>(T) => T;
 type G = <A, B>(A) => B;
 type H = { A: string, B: number };
 
+================================================================================
 `;
 
-exports[`type.js - flow-verify 2`] = `
+exports[`type.js 2`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
 type F = <T>(T) => T;
 type G = (<A, B>(A) => B);
 type H = { 'A': string, "B": number };
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 type F = <T>(T) => T;
 type G = <A, B>(A) => B;
 type H = { A: string, B: number };
 
+================================================================================
 `;
 
-exports[`union.js - flow-verify 1`] = `
+exports[`union.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 type Foo = Promise<
   { ok: true, bar: string, baz: SomeOtherLongType } | 
   { ok: false, bar: SomeOtherLongType }
 >;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 type Foo = Promise<
   | { ok: true, bar: string, baz: SomeOtherLongType }
   | { ok: false, bar: SomeOtherLongType }
 >;
 
+================================================================================
 `;
 
-exports[`union.js - flow-verify 2`] = `
+exports[`union.js 2`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
 type Foo = Promise<
   { ok: true, bar: string, baz: SomeOtherLongType } | 
   { ok: false, bar: SomeOtherLongType }
 >;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 type Foo = Promise<
   | { ok: true, bar: string, baz: SomeOtherLongType }
   | { ok: false, bar: SomeOtherLongType },
 >;
 
+================================================================================
 `;

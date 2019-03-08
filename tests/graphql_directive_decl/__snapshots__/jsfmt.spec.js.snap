@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`directive_decl.graphql - graphql-verify 1`] = `
+exports[`directive_decl.graphql 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 directive @a on QUERY
 directive @a(as: String) on QUERY
 directive @a(as: String = 1) on QUERY
@@ -17,7 +22,8 @@ directive @a(as: String) on QUERY
 
 
 directive @a(as: String = 1) on QUERY
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 directive @a on QUERY
 directive @a(as: String) on QUERY
 directive @a(as: String = 1) on QUERY
@@ -31,4 +37,5 @@ directive @a(as: String) on QUERY
 
 directive @a(as: String = 1) on QUERY
 
+================================================================================
 `;

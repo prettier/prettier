@@ -181,11 +181,19 @@ function attach(comments, ast, text, options) {
 
   comments.forEach((comment, i) => {
     if (
-      (options.parser === "json" || options.parser === "json5") &&
-      locStart(comment) - locStart(ast) <= 0
+      options.parser === "json" ||
+      options.parser === "json5" ||
+      options.parser === "__js_expression" ||
+      options.parser === "__vue_expression"
     ) {
-      addLeadingComment(ast, comment);
-      return;
+      if (locStart(comment) - locStart(ast) <= 0) {
+        addLeadingComment(ast, comment);
+        return;
+      }
+      if (locEnd(comment) - locEnd(ast) >= 0) {
+        addTrailingComment(ast, comment);
+        return;
+      }
     }
 
     decorateComment(ast, comment, options);
@@ -356,7 +364,7 @@ function findExpressionIndexForComment(quasis, comment, options) {
 
 function getQuasiRange(expr) {
   if (expr.start !== undefined) {
-    // Babylon
+    // Babel
     return { start: expr.start, end: expr.end };
   }
   // Flow
@@ -435,7 +443,10 @@ function printTrailingComment(commentPath, print, options) {
     return concat([" ", contents]);
   }
 
-  return concat([lineSuffix(" " + contents), !isBlock ? breakParent : ""]);
+  return concat([
+    lineSuffix(concat([" ", contents])),
+    !isBlock ? breakParent : ""
+  ]);
 }
 
 function printDanglingComments(path, options, sameIndent, filter) {

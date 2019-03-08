@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`multiple.js - flow-verify 1`] = `
+exports[`multiple.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 var assert = require('assert'),
   lookup = require('../lookup');
 
@@ -23,7 +28,8 @@ var templateTagsMapping = {
     return key;
   }),
   data;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 var assert = require("assert"),
   lookup = require("../lookup");
 
@@ -50,12 +56,20 @@ var templateTagsMapping = {
   }),
   data;
 
+================================================================================
 `;
 
-exports[`string.js - flow-verify 1`] = `
+exports[`string.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 elements[0].innerHTML = '<div></div><div></div><div></div><div></div><div></div><div></div>';
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 elements[0].innerHTML =
   "<div></div><div></div><div></div><div></div><div></div><div></div>";
 
+================================================================================
 `;

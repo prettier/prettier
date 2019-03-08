@@ -1,21 +1,33 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`any.js - flow-verify 1`] = `
+exports[`any.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 const dict: {[key: string]: number} = {}
 const k: any = 'foo'
 const val: string = dict[k] // error: number incompatible with string
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 const dict: { [key: string]: number } = {};
 const k: any = "foo";
 const val: string = dict[k]; // error: number incompatible with string
 
+================================================================================
 `;
 
-exports[`compatible.js - flow-verify 1`] = `
+exports[`compatible.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 function foo0(x: Array<{[key: string]: mixed}>): Array<{[key: string]: mixed}> {
@@ -31,7 +43,8 @@ function foo2(
   // x's prototype has a toString method
   return x;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 function foo0(
@@ -50,9 +63,15 @@ function foo2(x: {
   return x;
 }
 
+================================================================================
 `;
 
-exports[`dictionary.js - flow-verify 1`] = `
+exports[`dictionary.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* Dictionary types are object types that include an indexer, which specifies a
  * key type and a value type. The presence of an indexer makes the object type
  * unsealed, but all added properties must be consistent with the indexer
@@ -373,7 +392,8 @@ function subtype_optional_c_to_dict(
 ): {[k:string]:B} { // error: C ~> B
   return x;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* Dictionary types are object types that include an indexer, which specifies a
  * key type and a value type. The presence of an indexer makes the object type
  * unsealed, but all added properties must be consistent with the indexer
@@ -651,9 +671,15 @@ function subtype_optional_c_to_dict(x: { p?: C }): { [k: string]: B } {
   return x;
 }
 
+================================================================================
 `;
 
-exports[`incompatible.js - flow-verify 1`] = `
+exports[`incompatible.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 var x : {[key: string]: string} = {};
@@ -711,7 +737,8 @@ function foo8(x: {[key: string]: number}) {
   (x.foo: string); // error
   (x.foo: number);
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 var x: { [key: string]: string } = {};
@@ -774,9 +801,15 @@ function foo8(x: { [key: string]: number }) {
   (x.foo: number);
 }
 
+================================================================================
 `;
 
-exports[`issue-1745.js - flow-verify 1`] = `
+exports[`issue-1745.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 class A {
@@ -802,7 +835,8 @@ class B {
     this.x = { bar: 0 }; // no error
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 class A {
@@ -829,9 +863,15 @@ class B {
   }
 }
 
+================================================================================
 `;
 
-exports[`test.js - flow-verify 1`] = `
+exports[`test.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 type Params = {count: number; [name: string]: string};
 type QueryFunction = (params: Params) => string;
 
@@ -842,7 +882,8 @@ var o: { foo: QueryFunction } = {
 };
 
 module.exports = o;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 type Params = { count: number, [name: string]: string };
 type QueryFunction = (params: Params) => string;
 
@@ -854,19 +895,27 @@ var o: { foo: QueryFunction } = {
 
 module.exports = o;
 
+================================================================================
 `;
 
-exports[`test_client.js - flow-verify 1`] = `
+exports[`test_client.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 var o = require('./test');
 
 o.foo = function (params) {
   return params.count; // error, number ~/~ string
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 var o = require("./test");
 
 o.foo = function(params) {
   return params.count; // error, number ~/~ string
 };
 
+================================================================================
 `;

@@ -46,3 +46,8 @@
     content: "\21D3";
 }
 
+/* Ignore escape "\" in CSS classes */
+.bar\/baz {
+    animation-name: \@mymove;
+    content: "\21D3";
+}

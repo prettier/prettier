@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`optional.js - flow-verify 1`] = `
+exports[`optional.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 type F = {
   (x: string): number;
   p?: string;
@@ -11,7 +16,8 @@ function f(x) {
 }
 
 (f: F);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 type F = {
   (x: string): number,
   p?: string
@@ -23,9 +29,15 @@ function f(x) {
 
 (f: F);
 
+================================================================================
 `;
 
-exports[`primitives.js - flow-verify 1`] = `
+exports[`primitives.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 var x = Boolean(4);
 function foo(fn:(value:any)=>boolean) { }
 foo(Boolean);
@@ -47,7 +59,8 @@ type Callable = {
 declare var callable: Callable;
 callable(0); // error, number ~> string
 callable.call(null, 0); // error, number ~> string
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 var x = Boolean(4);
 function foo(fn: (value: any) => boolean) {}
 foo(Boolean);
@@ -70,4 +83,5 @@ declare var callable: Callable;
 callable(0); // error, number ~> string
 callable.call(null, 0); // error, number ~> string
 
+================================================================================
 `;

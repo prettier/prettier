@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.js - flow-verify 1`] = `
+exports[`test.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 function Foo() { return {}; }
 var foo: number = new Foo(); // error (returns object literal above)
 
@@ -24,7 +29,8 @@ function makeUnion(): number | {x: string} {
   return {x: 'x'};
 }
 (new makeUnion(): {x: string}); // error: \`number\` returns {}, missing prop x
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 function Foo() {
   return {};
 }
@@ -57,9 +63,15 @@ function makeUnion(): number | { x: string } {
 }
 (new makeUnion(): { x: string }); // error: \`number\` returns {}, missing prop x
 
+================================================================================
 `;
 
-exports[`test2.js - flow-verify 1`] = `
+exports[`test2.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 declare class D {
   constructor(): { x: number }; // OK
   y: any;
@@ -71,7 +83,8 @@ d.x = ""; // error, string ~/~ number (but property x is found)
 (new D: D); // error, new D is an object, D not in proto chain
 
 module.exports = D;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 declare class D {
   constructor(): { x: number }; // OK
   y: any;
@@ -84,4 +97,5 @@ d.x = ""; // error, string ~/~ number (but property x is found)
 
 module.exports = D;
 
+================================================================================
 `;

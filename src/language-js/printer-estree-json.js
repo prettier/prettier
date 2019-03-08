@@ -1,10 +1,13 @@
 "use strict";
 
 const { concat, hardline, indent, join } = require("../doc").builders;
+const preprocess = require("./preprocess");
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
   switch (node.type) {
+    case "JsonRoot":
+      return concat([path.call(print, "node"), hardline]);
     case "ArrayExpression":
       return node.elements.length === 0
         ? "[]"
@@ -71,6 +74,7 @@ function clean(node, newNode /*, parent*/) {
 }
 
 module.exports = {
+  preprocess,
   print: genericPrint,
   massageAstNode: clean
 };

@@ -58,6 +58,8 @@ const {
   hasEmptyRawBefore,
   isKeyValuePairNode,
   isDetachedRulesetCallNode,
+  isTemplatePlaceholderNode,
+  isTemplatePropNode,
   isPostcssSimpleVarNode,
   isSCSSMapItemNode,
   isInlineValueCommentNode,
@@ -145,6 +147,8 @@ function genericPrint(path, options, print) {
       ]);
     }
     case "css-decl": {
+      const parentNode = path.getParentNode();
+
       return concat([
         node.raws.before.replace(/[\s;]/g, ""),
         insideICSSRuleNode(path) ? node.prop : maybeToLowerCase(node.prop),
@@ -156,18 +160,18 @@ function genericPrint(path, options, print) {
         node.raws.important
           ? node.raws.important.replace(/\s*!\s*important/i, " !important")
           : node.important
-            ? " !important"
-            : "",
+          ? " !important"
+          : "",
         node.raws.scssDefault
           ? node.raws.scssDefault.replace(/\s*!default/i, " !default")
           : node.scssDefault
-            ? " !default"
-            : "",
+          ? " !default"
+          : "",
         node.raws.scssGlobal
           ? node.raws.scssGlobal.replace(/\s*!global/i, " !global")
           : node.scssGlobal
-            ? " !global"
-            : "",
+          ? " !global"
+          : "",
         node.nodes
           ? concat([
               " {",
@@ -177,10 +181,16 @@ function genericPrint(path, options, print) {
               softline,
               "}"
             ])
+          : isTemplatePropNode(node) &&
+            !parentNode.raws.semicolon &&
+            options.originalText[options.locEnd(node) - 1] !== ";"
+          ? ""
           : ";"
       ]);
     }
     case "css-atrule": {
+      const parentNode = path.getParentNode();
+
       return concat([
         "@",
         // If a Less file ends up being parsed with the SCSS parser, Less
@@ -191,7 +201,14 @@ function genericPrint(path, options, print) {
           : maybeToLowerCase(node.name),
         node.params
           ? concat([
-              isDetachedRulesetCallNode(node) ? "" : " ",
+              isDetachedRulesetCallNode(node)
+                ? ""
+                : isTemplatePlaceholderNode(node) &&
+                  /^\s*\n/.test(node.raws.afterName)
+                ? /^\s*\n\s*\n/.test(node.raws.afterName)
+                  ? concat([hardline, hardline])
+                  : hardline
+                : " ",
               path.call(print, "params")
             ])
           : "",
@@ -211,8 +228,8 @@ function genericPrint(path, options, print) {
               ])
             )
           : node.name === "else"
-            ? " "
-            : "",
+          ? " "
+          : "",
         node.nodes
           ? concat([
               isSCSSControlDirectiveNode(node) ? "" : " ",
@@ -226,6 +243,10 @@ function genericPrint(path, options, print) {
               softline,
               "}"
             ])
+          : isTemplatePlaceholderNode(node) &&
+            !parentNode.raws.semicolon &&
+            options.originalText[options.locEnd(node) - 1] !== ";"
+          ? ""
           : ";"
       ]);
     }
@@ -321,7 +342,7 @@ function genericPrint(path, options, print) {
           ? node.value
           : adjustNumbers(
               isHTMLTag(node.value) ||
-              isKeyframeAtRuleKeywords(path, node.value)
+                isKeyframeAtRuleKeywords(path, node.value)
                 ? node.value.toLowerCase()
                 : node.value
             )
@@ -490,6 +511,27 @@ function genericPrint(path, options, print) {
           continue;
         }
 
+        // Ignore escape `\`
+        if (
+          iNode.value &&
+          iNode.value.indexOf("\\") !== -1 &&
+          iNextNode &&
+          iNextNode.type !== "value-comment"
+        ) {
+          continue;
+        }
+
+        // Ignore escaped `/`
+        if (
+          iPrevNode &&
+          iPrevNode.value &&
+          iPrevNode.value.indexOf("\\") === iPrevNode.value.length - 1 &&
+          iNode.type === "value-operator" &&
+          iNode.value === "/"
+        ) {
+          continue;
+        }
+
         // Ignore `\` (i.e. `$variable: \@small;`)
         if (iNode.value === "\\") {
           continue;
@@ -583,19 +625,9 @@ function genericPrint(path, options, print) {
           continue;
         }
 
-        // Ignore inline comment, they already contain newline at end (i.e. `// Comment`)
         // Add `hardline` after inline comment (i.e. `// comment\n foo: bar;`)
-        const isInlineComment = isInlineValueCommentNode(iNode);
-
-        if (
-          (iPrevNode && isInlineValueCommentNode(iPrevNode)) ||
-          isInlineComment ||
-          isInlineValueCommentNode(iNextNode)
-        ) {
-          if (isInlineComment) {
-            parts.push(hardline);
-          }
-
+        if (isInlineValueCommentNode(iNode)) {
+          parts.push(hardline);
           continue;
         }
 
@@ -625,7 +657,11 @@ function genericPrint(path, options, print) {
 
         // Formatting `grid` property
         if (isGridValue) {
-          if (iNode.source.start.line !== iNextNode.source.start.line) {
+          if (
+            iNode.source &&
+            iNextNode.source &&
+            iNode.source.start.line !== iNextNode.source.start.line
+          ) {
             parts.push(hardline);
 
             didBreak = true;
@@ -737,8 +773,8 @@ function genericPrint(path, options, print) {
           ),
           ifBreak(
             isSCSS(options.parser, options.originalText) &&
-            isSCSSMapItem &&
-            shouldPrintComma(options)
+              isSCSSMapItem &&
+              shouldPrintComma(options)
               ? ","
               : ""
           ),

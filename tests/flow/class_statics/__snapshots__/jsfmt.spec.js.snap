@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.js - flow-verify 1`] = `
+exports[`test.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 class A {
   static x: number;
   static y: string;
@@ -62,7 +67,8 @@ class E {
 module.exports = {
   A: A, B: B, C: C, D: D, E: E
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 class A {
   static x: number;
   static y: string;
@@ -129,4 +135,5 @@ module.exports = {
   E: E
 };
 
+================================================================================
 `;

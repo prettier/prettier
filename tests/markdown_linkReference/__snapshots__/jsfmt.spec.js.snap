@@ -1,34 +1,72 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`cjk.md - markdown-verify 1`] = `
-[這是一段很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長的段落][]
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-[這是一段很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長的段落][]
-
-`;
-
-exports[`cjk.md - markdown-verify 2`] = `
-[這是一段很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長的段落][]
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`cjk.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 [這是一段很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長的段落][]
 
+=====================================output=====================================
+[這是一段很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長的段落][]
+
+================================================================================
 `;
 
-exports[`collapsed.md - markdown-verify 1`] = `
-[hello][]
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-[hello][]
+exports[`cjk.md 2`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "never"
+                                                                                | printWidth
+=====================================input======================================
+[這是一段很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長的段落][]
 
+=====================================output=====================================
+[這是一段很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長很長的段落][]
+
+================================================================================
 `;
 
-exports[`collapsed.md - markdown-verify 2`] = `
-[hello][]
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`collapsed.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 [hello][]
 
+=====================================output=====================================
+[hello][]
+
+================================================================================
 `;
 
-exports[`definition.md - markdown-verify 1`] = `
+exports[`collapsed.md 2`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "never"
+                                                                                | printWidth
+=====================================input======================================
+[hello][]
+
+=====================================output=====================================
+[hello][]
+
+================================================================================
+`;
+
+exports[`definition.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 [just-url]: https://example.com
 [url-with-short-title]: https://example.com "title"
 [url-with-long-title]: https://example.com "a long, long title. It's really really long. Here have words."
@@ -37,7 +75,8 @@ exports[`definition.md - markdown-verify 1`] = `
 [long]: https://example.com/a-long-url/another-segment/yet-another-segment/a-really-long-file-name.php.aspx 
 [long-with-title]: https://example.com/a-long-url/another-segment/yet-another-segment/a-really-long-file-name.php.aspx "look a title!"
 [long-with-empty-title]: https://example.com/a-long-url/another-segment/yet-another-segment/a-really-long-file-name.php.aspx ""
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 [just-url]: https://example.com
 [url-with-short-title]: https://example.com "title"
 [url-with-long-title]:
@@ -52,9 +91,16 @@ exports[`definition.md - markdown-verify 1`] = `
 [long-with-empty-title]:
   https://example.com/a-long-url/another-segment/yet-another-segment/a-really-long-file-name.php.aspx
 
+================================================================================
 `;
 
-exports[`definition.md - markdown-verify 2`] = `
+exports[`definition.md 2`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "never"
+                                                                                | printWidth
+=====================================input======================================
 [just-url]: https://example.com
 [url-with-short-title]: https://example.com "title"
 [url-with-long-title]: https://example.com "a long, long title. It's really really long. Here have words."
@@ -63,7 +109,8 @@ exports[`definition.md - markdown-verify 2`] = `
 [long]: https://example.com/a-long-url/another-segment/yet-another-segment/a-really-long-file-name.php.aspx 
 [long-with-title]: https://example.com/a-long-url/another-segment/yet-another-segment/a-really-long-file-name.php.aspx "look a title!"
 [long-with-empty-title]: https://example.com/a-long-url/another-segment/yet-another-segment/a-really-long-file-name.php.aspx ""
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 [just-url]: https://example.com
 [url-with-short-title]: https://example.com "title"
 [url-with-long-title]: https://example.com "a long, long title. It's really really long. Here have words."
@@ -72,37 +119,76 @@ exports[`definition.md - markdown-verify 2`] = `
 [long-with-title]: https://example.com/a-long-url/another-segment/yet-another-segment/a-really-long-file-name.php.aspx "look a title!"
 [long-with-empty-title]: https://example.com/a-long-url/another-segment/yet-another-segment/a-really-long-file-name.php.aspx
 
+================================================================================
 `;
 
-exports[`full.md - markdown-verify 1`] = `
-[hello][world]
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-[hello][world]
-
-`;
-
-exports[`full.md - markdown-verify 2`] = `
-[hello][world]
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`full.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 [hello][world]
 
+=====================================output=====================================
+[hello][world]
+
+================================================================================
 `;
 
-exports[`shortcut.md - markdown-verify 1`] = `
-[hello]
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-[hello]
+exports[`full.md 2`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "never"
+                                                                                | printWidth
+=====================================input======================================
+[hello][world]
 
+=====================================output=====================================
+[hello][world]
+
+================================================================================
 `;
 
-exports[`shortcut.md - markdown-verify 2`] = `
-[hello]
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`shortcut.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 [hello]
 
+=====================================output=====================================
+[hello]
+
+================================================================================
 `;
 
-exports[`title.md - markdown-verify 1`] = `
+exports[`shortcut.md 2`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "never"
+                                                                                | printWidth
+=====================================input======================================
+[hello]
+
+=====================================output=====================================
+[hello]
+
+================================================================================
+`;
+
+exports[`title.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 [ref]: https://example.com (bar)
 [other-ref]: https://example.com (Shakespeare's "Romeo and Juliet" is a famous play)
 
@@ -128,7 +214,8 @@ exports[`title.md - markdown-verify 1`] = `
 [a]: https://example.com '\\\\"'
 [a]: https://example.com (\\\\")
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 [ref]: https://example.com "bar"
 [other-ref]:
   https://example.com
@@ -155,9 +242,16 @@ https://example.com (\\\\\\))
 [a]: https://example.com '"'
 [a]: https://example.com '"'
 
+================================================================================
 `;
 
-exports[`title.md - markdown-verify 2`] = `
+exports[`title.md 2`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "never"
+                                                                                | printWidth
+=====================================input======================================
 [ref]: https://example.com (bar)
 [other-ref]: https://example.com (Shakespeare's "Romeo and Juliet" is a famous play)
 
@@ -183,7 +277,8 @@ exports[`title.md - markdown-verify 2`] = `
 [a]: https://example.com '\\\\"'
 [a]: https://example.com (\\\\")
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 [ref]: https://example.com "bar"
 [other-ref]: https://example.com (Shakespeare's "Romeo and Juliet" is a famous play)
 
@@ -206,4 +301,5 @@ exports[`title.md - markdown-verify 2`] = `
 [a]: https://example.com '"'
 [a]: https://example.com '"'
 
+================================================================================
 `;

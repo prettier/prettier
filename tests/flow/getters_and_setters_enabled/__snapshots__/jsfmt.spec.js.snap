@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`class.js - flow-verify 1`] = `
+exports[`class.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @flow
  */
@@ -59,7 +64,8 @@ var testSubtypingGetterAndSetter: number = foo.propWithSubtypingGetterAndSetter;
 
 var testPropOverridenWithGetter: number = foo.propOverriddenWithGetter; // Error string ~> number
 foo.propOverriddenWithSetter = 123; // Error number ~> string
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @flow
  */
@@ -139,9 +145,15 @@ var testSubtypingGetterAndSetter: number = foo.propWithSubtypingGetterAndSetter;
 var testPropOverridenWithGetter: number = foo.propOverriddenWithGetter; // Error string ~> number
 foo.propOverriddenWithSetter = 123; // Error number ~> string
 
+================================================================================
 `;
 
-exports[`declare_class.js - flow-verify 1`] = `
+exports[`declare_class.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @flow
  */
@@ -189,7 +201,8 @@ var testSubtypingGetterAndSetter: number = foo.propWithSubtypingGetterAndSetter;
 
 var testPropOverridenWithGetter: number = foo.propOverriddenWithGetter; // Error string ~> number
 foo.propOverriddenWithSetter = 123; // Error number ~> string
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @flow
  */
@@ -238,9 +251,15 @@ var testSubtypingGetterAndSetter: number = foo.propWithSubtypingGetterAndSetter;
 var testPropOverridenWithGetter: number = foo.propOverriddenWithGetter; // Error string ~> number
 foo.propOverriddenWithSetter = 123; // Error number ~> string
 
+================================================================================
 `;
 
-exports[`object.js - flow-verify 1`] = `
+exports[`object.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @flow
  */
@@ -304,7 +323,8 @@ obj.exampleOfOrderOfGetterAndSetter = new C(); // Error C ~> B
 // And this example shows the danger of using the setter's type.
 var testExampleOrOrderOfGetterAndSetterReordered: number =
   obj.exampleOfOrderOfGetterAndSetterReordered; // Error A ~> B
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @flow
  */
@@ -387,9 +407,15 @@ obj.exampleOfOrderOfGetterAndSetter = new C(); // Error C ~> B
 var testExampleOrOrderOfGetterAndSetterReordered: number =
   obj.exampleOfOrderOfGetterAndSetterReordered; // Error A ~> B
 
+================================================================================
 `;
 
-exports[`object_type.js - flow-verify 1`] = `
+exports[`object_type.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @flow
  */
@@ -443,7 +469,8 @@ function test(obj: T) {
   var testExampleOrOrderOfGetterAndSetterReordered: number =
     obj.exampleOfOrderOfGetterAndSetterReordered; // Error A ~> B
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @flow
  */
@@ -499,9 +526,15 @@ function test(obj: T) {
     obj.exampleOfOrderOfGetterAndSetterReordered; // Error A ~> B
 }
 
+================================================================================
 `;
 
-exports[`react.js - flow-verify 1`] = `
+exports[`react.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @flow
  */
@@ -520,7 +553,8 @@ const Example = React.createClass({
 (<Example a={0} />); // ok
 (<Example a="bad" />); // error: number ~> string
 (<Example a={0} c={0} />); // error: number ~> string
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @flow
  */
@@ -544,9 +578,15 @@ const Example = React.createClass({
 <Example a="bad" />; // error: number ~> string
 <Example a={0} c={0} />; // error: number ~> string
 
+================================================================================
 `;
 
-exports[`variance.js - flow-verify 1`] = `
+exports[`variance.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 class A {}
@@ -617,7 +657,8 @@ class Base {
   // ok: read/write invariant with get/set
   getset: B;
 });
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 class A {}
@@ -705,4 +746,5 @@ class Base {
   getset: B;
 });
 
+================================================================================
 `;

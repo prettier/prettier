@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`throw_expression.js - babylon-verify 1`] = `
+exports[`throw_expression.js 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 function save(filename = throw new TypeError("Argument required")) {}
 
 lint(ast, {
@@ -18,7 +23,8 @@ class Product {
   get id() { return this._id; }
   set id(value) { this._id = value || throw new Error("Invalid value"); }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 function save(filename = throw new TypeError("Argument required")) {}
 
 lint(ast, {
@@ -30,10 +36,10 @@ function getEncoder(encoding) {
     encoding === "utf8"
       ? new UTF8Encoder()
       : encoding === "utf16le"
-        ? new UTF16Encoder(false)
-        : encoding === "utf16be"
-          ? new UTF16Encoder(true)
-          : throw new Error("Unsupported encoding");
+      ? new UTF16Encoder(false)
+      : encoding === "utf16be"
+      ? new UTF16Encoder(true)
+      : throw new Error("Unsupported encoding");
 }
 
 class Product {
@@ -45,4 +51,5 @@ class Product {
   }
 }
 
+================================================================================
 `;

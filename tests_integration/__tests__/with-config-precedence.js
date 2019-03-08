@@ -3,13 +3,21 @@
 const runPrettier = require("../runPrettier");
 
 describe("CLI overrides take precedence without --config-precedence", () => {
-  runPrettier("cli/config/", ["--print-width", "1", "**/*.js"]).test({
+  runPrettier("cli/config/", [
+    "--end-of-line",
+    "lf",
+    "--print-width",
+    "1",
+    "**/*.js"
+  ]).test({
     status: 0
   });
 });
 
 describe("CLI overrides take precedence with --config-precedence cli-override", () => {
   runPrettier("cli/config/", [
+    "--end-of-line",
+    "lf",
     "--print-width",
     "1",
     "--config-precedence",
@@ -22,6 +30,8 @@ describe("CLI overrides take precedence with --config-precedence cli-override", 
 
 describe("CLI overrides take lower precedence with --config-precedence file-override", () => {
   runPrettier("cli/config/js/", [
+    "--end-of-line",
+    "crlf",
     "--tab-width",
     "1",
     "--config-precedence",
@@ -34,6 +44,8 @@ describe("CLI overrides take lower precedence with --config-precedence file-over
 
 describe("CLI overrides are still applied when no config is found with --config-precedence file-override", () => {
   runPrettier("cli/config/no-config/", [
+    "--end-of-line",
+    "lf",
     "--tab-width",
     "6",
     "--config-precedence",
@@ -60,6 +72,8 @@ describe("CLI overrides gets ignored when config exists with --config-precedence
 
 describe("CLI overrides gets applied when no config exists with --config-precedence prefer-file", () => {
   runPrettier("cli/config/no-config/", [
+    "--end-of-line",
+    "lf",
     "--print-width",
     "1",
     "--tab-width",

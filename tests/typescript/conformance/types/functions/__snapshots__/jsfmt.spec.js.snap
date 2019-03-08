@@ -1,6 +1,28 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`functionImplementationErrors.ts - typescript-verify 1`] = `
+exports[`TSFunctionTypeNoUnnecessaryParentheses.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class Foo {
+  bar: (() => boolean);
+}
+=====================================output=====================================
+class Foo {
+  bar: () => boolean;
+}
+
+================================================================================
+`;
+
+exports[`functionImplementationErrors.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @allowUnreachableCode: true
 
 // FunctionExpression with no return type annotation with multiple return statements with unrelated types
@@ -75,7 +97,8 @@ var f13 = () => {
     return new Base();
     return new AnotherClass();
 };
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @allowUnreachableCode: true
 
 // FunctionExpression with no return type annotation with multiple return statements with unrelated types
@@ -158,9 +181,15 @@ var f13 = () => {
   return new AnotherClass();
 };
 
+================================================================================
 `;
 
-exports[`functionImplementations.ts - typescript-verify 1`] = `
+exports[`functionImplementations.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @allowUnreachableCode: true
 
 // FunctionExpression with no return type annotation and no return statement returns void
@@ -319,7 +348,8 @@ var f12: (x: number) => any = x => { // should be (x: number) => Base | AnotherC
     return; // should be ignored
     return new AnotherClass();
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @allowUnreachableCode: true
 
 // FunctionExpression with no return type annotation and no return statement returns void
@@ -499,48 +529,75 @@ var f12: (x: number) => any = x => {
   return new AnotherClass();
 };
 
+================================================================================
 `;
 
-exports[`functionOverloadCompatibilityWithVoid01.ts - typescript-verify 1`] = `
+exports[`functionOverloadCompatibilityWithVoid01.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 function f(x: string): number;
 function f(x: string): void {
     return;
 } 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 function f(x: string): number;
 function f(x: string): void {
   return;
 }
 
+================================================================================
 `;
 
-exports[`functionOverloadCompatibilityWithVoid02.ts - typescript-verify 1`] = `
+exports[`functionOverloadCompatibilityWithVoid02.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 function f(x: string): void;
 function f(x: string): number {
     return 0;
 } 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 function f(x: string): void;
 function f(x: string): number {
   return 0;
 }
 
+================================================================================
 `;
 
-exports[`functionOverloadCompatibilityWithVoid03.ts - typescript-verify 1`] = `
+exports[`functionOverloadCompatibilityWithVoid03.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 function f(x: string): void;
 function f(x: string): void {
     return;
 } 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 function f(x: string): void;
 function f(x: string): void {
   return;
 }
 
+================================================================================
 `;
 
-exports[`functionOverloadErrorsSyntax.ts - typescript-verify 1`] = `
+exports[`functionOverloadErrorsSyntax.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 //Function overload signature with optional parameter followed by non-optional parameter
 function fn4a(x?: number, y: string);
 function fn4a() { }
@@ -551,7 +608,8 @@ function fn4b() { }
 //Function overload signature with rest param followed by non-optional parameter
 function fn5(x: string, ...y: any[], z: string);
 function fn5() { }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 //Function overload signature with optional parameter followed by non-optional parameter
 function fn4a(x?: number, y: string);
 function fn4a() {}
@@ -563,16 +621,29 @@ function fn4b() {}
 function fn5(x: string, ...y: any[], z: string);
 function fn5() {}
 
+================================================================================
 `;
 
-exports[`functionTypeTypeParameters.ts - typescript-verify 1`] = `
-type FuncWithTypeParameter = <T, P>() => {};
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`functionTypeTypeParameters.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 type FuncWithTypeParameter = <T, P>() => {};
 
+=====================================output=====================================
+type FuncWithTypeParameter = <T, P>() => {};
+
+================================================================================
 `;
 
-exports[`parameterInitializersForwardReferencing.ts - typescript-verify 1`] = `
+exports[`parameterInitializersForwardReferencing.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 function left(a, b = a, c = b) {
     a;
     b;
@@ -614,7 +685,8 @@ var x = (a = b, b = c, c = d) => { var d; };
 // Should not produce errors - can reference later parameters if they occur within a function expression initializer.
 function f(a, b = function () { return c; }, c = b()) {
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 function left(a, b = a, c = b) {
   a;
   b;
@@ -670,4 +742,5 @@ function f(
   c = b()
 ) {}
 
+================================================================================
 `;

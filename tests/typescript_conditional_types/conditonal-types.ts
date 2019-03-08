@@ -7,3 +7,11 @@ interface DeepReadonlyArray<T> extends ReadonlyArray<DeepReadonly<T>> {}
 type DeepReadonlyObject<T> = {
     readonly [P in NonFunctionPropertyNames<T>]: DeepReadonly<T[P]>;
 };
+
+type TypeName<T> =
+  T extends string ? "string" :
+  T extends number ? "number" :
+  T extends boolean ? "boolean" :
+  T extends undefined ? "undefined" :
+  T extends Function ? "function" :
+  "object";

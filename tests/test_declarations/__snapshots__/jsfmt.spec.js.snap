@@ -1,13 +1,30 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`angular_async.js - flow-verify 1`] = `
+exports[`angular_async.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 beforeEach(async(() => {
   // code
 }));
 
+beforeEach(done =>
+  foo()
+    .bar()
+    .bar(),
+);
+
 afterAll(async(() => {
   console.log('Hello');
 }));
+
+afterAll(done =>
+  foo()
+    .bar()
+    .bar(),
+);
 
 it('should create the app', async(() => {
   //code
@@ -23,14 +40,27 @@ it("does something really long and complicated so I have to write a very long na
 * no errors are thrown when calling isTestCall(parent)
 */
 function x() { async(() => {}) }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 beforeEach(async(() => {
   // code
 }));
 
+beforeEach(done =>
+  foo()
+    .bar()
+    .bar()
+);
+
 afterAll(async(() => {
   console.log("Hello");
 }));
+
+afterAll(done =>
+  foo()
+    .bar()
+    .bar()
+);
 
 it("should create the app", async(() => {
   //code
@@ -41,24 +71,43 @@ it("does something really long and complicated so I have to write a very long na
 }));
 
 /*
-* isTestCall(parent) should only be called when parent exists
-* and parent.type is CallExpression. This test makes sure that
-* no errors are thrown when calling isTestCall(parent)
-*/
+ * isTestCall(parent) should only be called when parent exists
+ * and parent.type is CallExpression. This test makes sure that
+ * no errors are thrown when calling isTestCall(parent)
+ */
 function x() {
   async(() => {});
 }
 
+================================================================================
 `;
 
-exports[`angular_async.js - flow-verify 2`] = `
+exports[`angular_async.js 2`] = `
+====================================options=====================================
+arrowParens: "always"
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 beforeEach(async(() => {
   // code
 }));
 
+beforeEach(done =>
+  foo()
+    .bar()
+    .bar(),
+);
+
 afterAll(async(() => {
   console.log('Hello');
 }));
+
+afterAll(done =>
+  foo()
+    .bar()
+    .bar(),
+);
 
 it('should create the app', async(() => {
   //code
@@ -74,14 +123,27 @@ it("does something really long and complicated so I have to write a very long na
 * no errors are thrown when calling isTestCall(parent)
 */
 function x() { async(() => {}) }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 beforeEach(async(() => {
   // code
 }));
 
+beforeEach((done) =>
+  foo()
+    .bar()
+    .bar()
+);
+
 afterAll(async(() => {
   console.log("Hello");
 }));
+
+afterAll((done) =>
+  foo()
+    .bar()
+    .bar()
+);
 
 it("should create the app", async(() => {
   //code
@@ -92,17 +154,23 @@ it("does something really long and complicated so I have to write a very long na
 }));
 
 /*
-* isTestCall(parent) should only be called when parent exists
-* and parent.type is CallExpression. This test makes sure that
-* no errors are thrown when calling isTestCall(parent)
-*/
+ * isTestCall(parent) should only be called when parent exists
+ * and parent.type is CallExpression. This test makes sure that
+ * no errors are thrown when calling isTestCall(parent)
+ */
 function x() {
   async(() => {});
 }
 
+================================================================================
 `;
 
-exports[`angular_fakeAsync.js - flow-verify 1`] = `
+exports[`angular_fakeAsync.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 beforeEach(fakeAsync(() => {
   // code
 }));
@@ -119,13 +187,16 @@ it("does something really long and complicated so I have to write a very long na
   // code
 }));
 
+it("does something really long and complicated so I have to write a very long name for the test", fakeAsync(() => new SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS));
+
 /*
 * isTestCall(parent) should only be called when parent exists
 * and parent.type is CallExpression. This test makes sure that
 * no errors are thrown when calling isTestCall(parent)
 */
 function x() { fakeAsync(() => {}) }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 beforeEach(fakeAsync(() => {
   // code
 }));
@@ -142,18 +213,28 @@ it("does something really long and complicated so I have to write a very long na
   // code
 }));
 
+it("does something really long and complicated so I have to write a very long name for the test", fakeAsync(() =>
+  new SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS()));
+
 /*
-* isTestCall(parent) should only be called when parent exists
-* and parent.type is CallExpression. This test makes sure that
-* no errors are thrown when calling isTestCall(parent)
-*/
+ * isTestCall(parent) should only be called when parent exists
+ * and parent.type is CallExpression. This test makes sure that
+ * no errors are thrown when calling isTestCall(parent)
+ */
 function x() {
   fakeAsync(() => {});
 }
 
+================================================================================
 `;
 
-exports[`angular_fakeAsync.js - flow-verify 2`] = `
+exports[`angular_fakeAsync.js 2`] = `
+====================================options=====================================
+arrowParens: "always"
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 beforeEach(fakeAsync(() => {
   // code
 }));
@@ -170,13 +251,16 @@ it("does something really long and complicated so I have to write a very long na
   // code
 }));
 
+it("does something really long and complicated so I have to write a very long name for the test", fakeAsync(() => new SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS));
+
 /*
 * isTestCall(parent) should only be called when parent exists
 * and parent.type is CallExpression. This test makes sure that
 * no errors are thrown when calling isTestCall(parent)
 */
 function x() { fakeAsync(() => {}) }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 beforeEach(fakeAsync(() => {
   // code
 }));
@@ -193,18 +277,27 @@ it("does something really long and complicated so I have to write a very long na
   // code
 }));
 
+it("does something really long and complicated so I have to write a very long name for the test", fakeAsync(() =>
+  new SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS()));
+
 /*
-* isTestCall(parent) should only be called when parent exists
-* and parent.type is CallExpression. This test makes sure that
-* no errors are thrown when calling isTestCall(parent)
-*/
+ * isTestCall(parent) should only be called when parent exists
+ * and parent.type is CallExpression. This test makes sure that
+ * no errors are thrown when calling isTestCall(parent)
+ */
 function x() {
   fakeAsync(() => {});
 }
 
+================================================================================
 `;
 
-exports[`angularjs_inject.js - flow-verify 1`] = `
+exports[`angularjs_inject.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 beforeEach(inject(($fooService, $barService) => {
   // code
 }));
@@ -231,7 +324,8 @@ it("does something really long and complicated so I have to write a very long na
 * no errors are thrown when calling isTestCall(parent)
 */
 function x() { inject(() => {}) }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 beforeEach(inject(($fooService, $barService) => {
   // code
 }));
@@ -256,17 +350,24 @@ it("does something really long and complicated so I have to write a very long na
 }));
 
 /*
-* isTestCall(parent) should only be called when parent exists
-* and parent.type is CallExpression. This test makes sure that
-* no errors are thrown when calling isTestCall(parent)
-*/
+ * isTestCall(parent) should only be called when parent exists
+ * and parent.type is CallExpression. This test makes sure that
+ * no errors are thrown when calling isTestCall(parent)
+ */
 function x() {
   inject(() => {});
 }
 
+================================================================================
 `;
 
-exports[`angularjs_inject.js - flow-verify 2`] = `
+exports[`angularjs_inject.js 2`] = `
+====================================options=====================================
+arrowParens: "always"
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 beforeEach(inject(($fooService, $barService) => {
   // code
 }));
@@ -293,7 +394,8 @@ it("does something really long and complicated so I have to write a very long na
 * no errors are thrown when calling isTestCall(parent)
 */
 function x() { inject(() => {}) }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 beforeEach(inject(($fooService, $barService) => {
   // code
 }));
@@ -318,17 +420,23 @@ it("does something really long and complicated so I have to write a very long na
 }));
 
 /*
-* isTestCall(parent) should only be called when parent exists
-* and parent.type is CallExpression. This test makes sure that
-* no errors are thrown when calling isTestCall(parent)
-*/
+ * isTestCall(parent) should only be called when parent exists
+ * and parent.type is CallExpression. This test makes sure that
+ * no errors are thrown when calling isTestCall(parent)
+ */
 function x() {
   inject(() => {});
 }
 
+================================================================================
 `;
 
-exports[`jest-each.js - flow-verify 1`] = `
+exports[`jest-each.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 describe.each\`
 a|b|expected
 \${11   } | \${  1  }|\${222}
@@ -372,7 +480,8 @@ describe.each\`a    | b    | expected
 \${11111111111} | \${a().b().c().d()} | \${2}
 \${1} | \${2} | \${3}
 \${2} | \${1} | \${3}\`
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 describe.each\`
   a            | b        | expected
   \${11}        | \${1}     | \${222}
@@ -424,9 +533,16 @@ describe.each\`
   \${2} | \${1} | \${3}
 \`;
 
+================================================================================
 `;
 
-exports[`jest-each.js - flow-verify 2`] = `
+exports[`jest-each.js 2`] = `
+====================================options=====================================
+arrowParens: "always"
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 describe.each\`
 a|b|expected
 \${11   } | \${  1  }|\${222}
@@ -470,7 +586,8 @@ describe.each\`a    | b    | expected
 \${11111111111} | \${a().b().c().d()} | \${2}
 \${1} | \${2} | \${3}
 \${2} | \${1} | \${3}\`
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 describe.each\`
   a            | b        | expected
   \${11}        | \${1}     | \${222}
@@ -522,9 +639,15 @@ describe.each\`
   \${2} | \${1} | \${3}
 \`;
 
+================================================================================
 `;
 
-exports[`test_declarations.js - flow-verify 1`] = `
+exports[`test_declarations.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // Shouldn't break
 
 it("does something really long and complicated so I have to write a very long name for the test", () => {
@@ -631,7 +754,32 @@ it.only.only("does something really long and complicated so I have to write a ve
 });
 
 xskip("does something really long and complicated so I have to write a very long name for the test", () => {});
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// timeout
+
+it(\`handles
+  some
+    newlines
+  does something really long and complicated so I have to write a very long name for the test\`, () => {
+  console.log("hello!");
+}, 2500)
+
+it("does something quick", () => {
+  console.log("hello!")
+}, 1000000000)
+
+it(
+  'succeeds if the test finishes in time',
+  () => new Promise(resolve => setTimeout(resolve, 10))
+);
+
+it(
+  'succeeds if the test finishes in time',
+  () => new Promise(resolve => setTimeout(resolve, 10)),
+  250
+);
+
+=====================================output=====================================
 // Shouldn't break
 
 it("does something really long and complicated so I have to write a very long name for the test", () => {
@@ -752,9 +900,38 @@ xskip(
   () => {}
 );
 
+// timeout
+
+it(\`handles
+  some
+    newlines
+  does something really long and complicated so I have to write a very long name for the test\`, () => {
+  console.log("hello!");
+}, 2500);
+
+it("does something quick", () => {
+  console.log("hello!");
+}, 1000000000);
+
+it("succeeds if the test finishes in time", () =>
+  new Promise(resolve => setTimeout(resolve, 10)));
+
+it(
+  "succeeds if the test finishes in time",
+  () => new Promise(resolve => setTimeout(resolve, 10)),
+  250
+);
+
+================================================================================
 `;
 
-exports[`test_declarations.js - flow-verify 2`] = `
+exports[`test_declarations.js 2`] = `
+====================================options=====================================
+arrowParens: "always"
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // Shouldn't break
 
 it("does something really long and complicated so I have to write a very long name for the test", () => {
@@ -861,7 +1038,32 @@ it.only.only("does something really long and complicated so I have to write a ve
 });
 
 xskip("does something really long and complicated so I have to write a very long name for the test", () => {});
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// timeout
+
+it(\`handles
+  some
+    newlines
+  does something really long and complicated so I have to write a very long name for the test\`, () => {
+  console.log("hello!");
+}, 2500)
+
+it("does something quick", () => {
+  console.log("hello!")
+}, 1000000000)
+
+it(
+  'succeeds if the test finishes in time',
+  () => new Promise(resolve => setTimeout(resolve, 10))
+);
+
+it(
+  'succeeds if the test finishes in time',
+  () => new Promise(resolve => setTimeout(resolve, 10)),
+  250
+);
+
+=====================================output=====================================
 // Shouldn't break
 
 it("does something really long and complicated so I have to write a very long name for the test", () => {
@@ -982,4 +1184,27 @@ xskip(
   () => {}
 );
 
+// timeout
+
+it(\`handles
+  some
+    newlines
+  does something really long and complicated so I have to write a very long name for the test\`, () => {
+  console.log("hello!");
+}, 2500);
+
+it("does something quick", () => {
+  console.log("hello!");
+}, 1000000000);
+
+it("succeeds if the test finishes in time", () =>
+  new Promise((resolve) => setTimeout(resolve, 10)));
+
+it(
+  "succeeds if the test finishes in time",
+  () => new Promise((resolve) => setTimeout(resolve, 10)),
+  250
+);
+
+================================================================================
 `;

@@ -38,3 +38,8 @@ import {
   SelectionSetNode,
   /* tslint:enable */
 } from 'graphql';
+
+import x, {
+  // comment
+  y
+} from 'z';

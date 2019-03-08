@@ -43,7 +43,7 @@ function printDoc(doc) {
   }
 
   if (doc.type === "line") {
-    if (doc.literalline) {
+    if (doc.literal) {
       return "literalline";
     }
     if (doc.hard) {
@@ -59,6 +59,10 @@ function printDoc(doc) {
     return "breakParent";
   }
 
+  if (doc.type === "trim") {
+    return "trim";
+  }
+
   if (doc.type === "concat") {
     return "[" + doc.parts.map(printDoc).join(", ") + "]";
   }
@@ -71,14 +75,10 @@ function printDoc(doc) {
     return doc.n === -Infinity
       ? "dedentToRoot(" + printDoc(doc.contents) + ")"
       : doc.n < 0
-        ? "dedent(" + printDoc(doc.contents) + ")"
-        : doc.n.type === "root"
-          ? "markAsRoot(" + printDoc(doc.contents) + ")"
-          : "align(" +
-            JSON.stringify(doc.n) +
-            ", " +
-            printDoc(doc.contents) +
-            ")";
+      ? "dedent(" + printDoc(doc.contents) + ")"
+      : doc.n.type === "root"
+      ? "markAsRoot(" + printDoc(doc.contents) + ")"
+      : "align(" + JSON.stringify(doc.n) + ", " + printDoc(doc.contents) + ")";
   }
 
   if (doc.type === "if-break") {

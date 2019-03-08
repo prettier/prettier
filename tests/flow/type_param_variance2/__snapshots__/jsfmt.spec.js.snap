@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`promise.js - flow-verify 1`] = `
+exports[`promise.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * Here the definition of Promise<T> is routed to the class Promise
  * in the user-specified library libs/Promise.js
@@ -25,7 +30,8 @@ async function run() {
 }
 
 run()
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * Here the definition of Promise<T> is routed to the class Promise
  * in the user-specified library libs/Promise.js
@@ -51,4 +57,5 @@ async function run() {
 
 run();
 
+================================================================================
 `;

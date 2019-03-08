@@ -20,6 +20,7 @@ const CATEGORIES_ORDER = [
   "Common",
   "JavaScript",
   "Markdown",
+  "HTML",
   "Special"
 ];
 const ENABLED_OPTIONS = [
@@ -30,10 +31,13 @@ const ENABLED_OPTIONS = [
   "semi",
   "singleQuote",
   "bracketSpacing",
+  "jsxSingleQuote",
   "jsxBracketSameLine",
+  "quoteProps",
   "arrowParens",
   "trailingComma",
   "proseWrap",
+  "htmlWhitespaceSensitivity",
   "insertPragma",
   "requirePragma"
 ];
@@ -216,6 +220,9 @@ class Playground extends React.Component {
                       {editorState.showSidebar ? "Hide" : "Show"} options
                     </Button>
                     <Button onClick={this.clearContent}>Clear</Button>
+                    <ClipboardButton copy={JSON.stringify(options, null, 2)}>
+                      Copy config JSON
+                    </ClipboardButton>
                   </div>
                   <div className="bottom-bar-buttons bottom-bar-buttons-right">
                     <ClipboardButton copy={window.location.href}>
@@ -267,8 +274,8 @@ function getSecondFormat(formatted, reformatted) {
   return formatted === ""
     ? ""
     : formatted === reformatted
-      ? "✓ Second format is unchanged."
-      : reformatted;
+    ? "✓ Second format is unchanged."
+    : reformatted;
 }
 
 export default Playground;

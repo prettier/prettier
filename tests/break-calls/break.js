@@ -33,3 +33,11 @@ const mapChargeItems = fp.flow(
 );
 
 expect(new LongLongLongLongLongRange([0, 0], [0, 0])).toEqualAtomLongLongLongLongRange(new LongLongLongRange([0, 0], [0, 0]));
+
+["red", "white", "blue", "black", "hotpink", "rebeccapurple"].reduce(
+  (allColors, color) => {
+    return allColors.concat(color);
+  },
+  []
+);
+

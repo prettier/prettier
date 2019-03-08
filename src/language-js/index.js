@@ -3,67 +3,82 @@
 const estreePrinter = require("./printer-estree");
 const estreeJsonPrinter = require("./printer-estree-json");
 const options = require("./options");
-const languageExtend = require("../utils/language-extend");
+const createLanguage = require("../utils/create-language");
 
 const languages = [
-  languageExtend({}, require("linguist-languages/data/javascript"), {
-    since: "0.0.0",
-    parsers: ["babylon", "flow"],
-    vscodeLanguageIds: ["javascript"]
+  createLanguage(require("linguist-languages/data/javascript"), {
+    override: {
+      since: "0.0.0",
+      parsers: ["babel", "flow"],
+      vscodeLanguageIds: ["javascript"]
+    },
+    extend: {
+      interpreters: ["nodejs"]
+    }
   }),
-  Object.assign(
-    languageExtend({}, require("linguist-languages/data/javascript"), {
+  createLanguage(require("linguist-languages/data/javascript"), {
+    override: {
       name: "Flow",
       since: "0.0.0",
-      parsers: ["babylon", "flow"],
-      vscodeLanguageIds: ["javascript"]
-    }),
-    // overwrite
-    {
+      parsers: ["babel", "flow"],
+      vscodeLanguageIds: ["javascript"],
+
       aliases: [],
       filenames: [],
       extensions: [".js.flow"]
     }
-  ),
-  languageExtend({}, require("linguist-languages/data/jsx"), {
-    since: "0.0.0",
-    parsers: ["babylon", "flow"],
-    vscodeLanguageIds: ["javascriptreact"]
   }),
-  languageExtend({}, require("linguist-languages/data/typescript"), {
-    since: "1.4.0",
-    parsers: ["typescript-eslint"],
-    vscodeLanguageIds: ["typescript", "typescriptreact"]
+  createLanguage(require("linguist-languages/data/jsx"), {
+    override: {
+      since: "0.0.0",
+      parsers: ["babel", "flow"],
+      vscodeLanguageIds: ["javascriptreact"]
+    }
   }),
-  Object.assign(
-    languageExtend({}, require("linguist-languages/data/json"), {
+  createLanguage(require("linguist-languages/data/typescript"), {
+    override: {
+      since: "1.4.0",
+      parsers: ["typescript"],
+      vscodeLanguageIds: ["typescript", "typescriptreact"]
+    }
+  }),
+  createLanguage(require("linguist-languages/data/json"), {
+    override: {
       name: "JSON.stringify",
       since: "1.13.0",
       parsers: ["json-stringify"],
-      vscodeLanguageIds: ["json"]
-    }),
-    // overwrite
-    {
+      vscodeLanguageIds: ["json"],
+
       extensions: [], // .json file defaults to json instead of json-stringify
       filenames: ["package.json", "package-lock.json", "composer.json"]
     }
-  ),
-  languageExtend({}, require("linguist-languages/data/json"), {
-    since: "1.5.0",
-    parsers: ["json"],
-    filenames: [".prettierrc"],
-    vscodeLanguageIds: ["json"]
   }),
-  languageExtend({}, require("linguist-languages/data/json-with-comments"), {
-    since: "1.5.0",
-    parsers: ["json"],
-    filenames: [".eslintrc"],
-    vscodeLanguageIds: ["jsonc"]
+  createLanguage(require("linguist-languages/data/json"), {
+    override: {
+      since: "1.5.0",
+      parsers: ["json"],
+      vscodeLanguageIds: ["json"]
+    },
+    extend: {
+      filenames: [".prettierrc"]
+    }
   }),
-  languageExtend({}, require("linguist-languages/data/json5"), {
-    since: "1.13.0",
-    parsers: ["json5"],
-    vscodeLanguageIds: ["json5"]
+  createLanguage(require("linguist-languages/data/json-with-comments"), {
+    override: {
+      since: "1.5.0",
+      parsers: ["json"],
+      vscodeLanguageIds: ["jsonc"]
+    },
+    extend: {
+      filenames: [".eslintrc"]
+    }
+  }),
+  createLanguage(require("linguist-languages/data/json5"), {
+    override: {
+      since: "1.13.0",
+      parsers: ["json5"],
+      vscodeLanguageIds: ["json5"]
+    }
   })
 ];
 

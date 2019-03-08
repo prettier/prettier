@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`at-rules.css - css-verify 1`] = `
+exports[`at-rules.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 a {
 @include section-type-1(
 $header:
@@ -34,7 +39,8 @@ box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15),
 )
 );
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 a {
   @include section-type-1(
     $header: (
@@ -66,9 +72,16 @@ a {
   );
 }
 
+================================================================================
 `;
 
-exports[`at-rules.css - scss-verify 1`] = `
+exports[`at-rules.css 2`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
 a {
 @include section-type-1(
 $header:
@@ -102,7 +115,8 @@ box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15),
 )
 );
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 a {
   @include section-type-1(
     $header: (
@@ -134,31 +148,52 @@ a {
   );
 }
 
+================================================================================
 `;
 
-exports[`declaration.css - css-verify 1`] = `
+exports[`declaration.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 a {
     margin: $bar,;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 a {
   margin: $bar;
 }
 
+================================================================================
 `;
 
-exports[`declaration.css - scss-verify 1`] = `
+exports[`declaration.css 2`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
 a {
     margin: $bar,;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 a {
   margin: $bar;
 }
 
+================================================================================
 `;
 
-exports[`list.css - css-verify 1`] = `
+exports[`list.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 $colors: hotpink deepskyblue firebrick,;
 $list: (a,);
 $list: ('Helvetica', 'Arial', sans-serif,);
@@ -207,7 +242,8 @@ $breakpoint-map: (
     vertical-rhythm: 1.618
   )
 );
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 $colors: hotpink deepskyblue firebrick;
 $list: (a);
 $list: ("Helvetica", "Arial", sans-serif);
@@ -254,9 +290,16 @@ $breakpoint-map: (
   )
 );
 
+================================================================================
 `;
 
-exports[`list.css - scss-verify 1`] = `
+exports[`list.css 2`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
 $colors: hotpink deepskyblue firebrick,;
 $list: (a,);
 $list: ('Helvetica', 'Arial', sans-serif,);
@@ -305,7 +348,8 @@ $breakpoint-map: (
     vertical-rhythm: 1.618
   )
 );
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 $colors: hotpink deepskyblue firebrick;
 $list: (a);
 $list: ("Helvetica", "Arial", sans-serif);
@@ -352,9 +396,15 @@ $breakpoint-map: (
   ),
 );
 
+================================================================================
 `;
 
-exports[`map.css - css-verify 1`] = `
+exports[`map.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 $map: (
     small: 767px,
     medium: 992px,
@@ -366,7 +416,8 @@ $map: (
     'huge': (min-width: 1200px),
 );
 $map: ( small: 767px, medium: 992px, large: 1200px );
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 $map: (
   small: 767px,
   medium: 992px,
@@ -389,9 +440,16 @@ $map: (
   large: 1200px
 );
 
+================================================================================
 `;
 
-exports[`map.css - scss-verify 1`] = `
+exports[`map.css 2`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
 $map: (
     small: 767px,
     medium: 992px,
@@ -403,7 +461,8 @@ $map: (
     'huge': (min-width: 1200px),
 );
 $map: ( small: 767px, medium: 992px, large: 1200px );
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 $map: (
   small: 767px,
   medium: 992px,
@@ -426,9 +485,15 @@ $map: (
   large: 1200px,
 );
 
+================================================================================
 `;
 
-exports[`selector_list.css - css-verify 1`] = `
+exports[`selector_list.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkasdhkajsdhakjsdhkajsdhjkahskjdkjahsjkdjkakjsdm,
 asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkasdhkajsdhakjsdhkajsdhjkahskjdkjahsjkdjkakjsdm, {
 
@@ -439,7 +504,8 @@ asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkasdhkajsdhakjsdhkajsdhjkahskjdkjahsj
      color: red;
  }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkasdhkajsdhakjsdhkajsdhjkahskjdkjahsjkdjkakjsdm,
 asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkasdhkajsdhakjsdhkajsdhjkahskjdkjahsjkdjkakjsdm {
 }
@@ -450,9 +516,16 @@ asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkasdhkajsdhakjsdhkajsdhjkahskjdkjahsj
   }
 }
 
+================================================================================
 `;
 
-exports[`selector_list.css - scss-verify 1`] = `
+exports[`selector_list.css 2`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
 asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkasdhkajsdhakjsdhkajsdhjkahskjdkjahsjkdjkakjsdm,
 asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkasdhkajsdhakjsdhkajsdhjkahskjdkjahsjkdjkakjsdm, {
 
@@ -463,7 +536,8 @@ asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkasdhkajsdhakjsdhkajsdhjkahskjdkjahsj
      color: red;
  }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkasdhkajsdhakjsdhkajsdhjkahskjdkjahsjkdjkakjsdm,
 asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkasdhkajsdhakjsdhkajsdhjkahskjdkjahsjkdjkakjsdm {
 }
@@ -474,24 +548,40 @@ asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkasdhkajsdhakjsdhkajsdhjkahskjdkjahsj
   }
 }
 
+================================================================================
 `;
 
-exports[`variable.css - css-verify 1`] = `
+exports[`variable.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 $test: 1,;
 $margin: 0, 2em, 0, 1.5em,;
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 $test: 1;
 $margin: 0, 2em, 0, 1.5em;
 
+================================================================================
 `;
 
-exports[`variable.css - scss-verify 1`] = `
+exports[`variable.css 2`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
 $test: 1,;
 $margin: 0, 2em, 0, 1.5em,;
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 $test: 1;
 $margin: 0, 2em, 0, 1.5em;
 
+================================================================================
 `;

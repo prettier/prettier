@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`fetch.js - flow-verify 1`] = `
+exports[`fetch.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 // most of the details are tested in the separate file
@@ -26,7 +31,8 @@ const c: Promise<Blob> =
   .then(response => response.blob()); // correct
 
 const d: Promise<Blob> = fetch('image.png'); // incorrect
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 // most of the details are tested in the separate file
@@ -51,9 +57,15 @@ const c: Promise<Blob> = fetch("image.png").then(response => response.blob()); /
 
 const d: Promise<Blob> = fetch("image.png"); // incorrect
 
+================================================================================
 `;
 
-exports[`headers.js - flow-verify 1`] = `
+exports[`headers.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 const a = new Headers("'Content-Type': 'image/jpeg'"); // not correct
@@ -86,7 +98,8 @@ e.forEach((val: string) => val); // correct
 e.forEach((val: string, key: string) => \`\${key}: \${val}\`); // correct
 e.forEach((val: string, key: string, o: Headers) => {}); // correct
 e.forEach(() => {}, {}); // correct
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 const a = new Headers("'Content-Type': 'image/jpeg'"); // not correct
@@ -120,9 +133,15 @@ e.forEach((val: string, key: string) => \`\${key}: \${val}\`); // correct
 e.forEach((val: string, key: string, o: Headers) => {}); // correct
 e.forEach(() => {}, {}); // correct
 
+================================================================================
 `;
 
-exports[`request.js - flow-verify 1`] = `
+exports[`request.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 const a: Request = new Request(); // incorrect
 const b: Request = new Request('http://example.org'); // correct
@@ -186,7 +205,8 @@ const l: Request = new Request('http://example.org', {
 new Request('/', { method: 'post' }); // correct
 new Request('/', { method: 'hello' }); // correct
 new Request('/', { method: null }); // incorrect
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 const a: Request = new Request(); // incorrect
 const b: Request = new Request("http://example.org"); // correct
@@ -251,9 +271,15 @@ new Request("/", { method: "post" }); // correct
 new Request("/", { method: "hello" }); // correct
 new Request("/", { method: null }); // incorrect
 
+================================================================================
 `;
 
-exports[`response.js - flow-verify 1`] = `
+exports[`response.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 const a: Response = new Response(); // correct
 const b: Response = new Response(new Blob()); // correct
@@ -298,7 +324,8 @@ h.text().then((t: string) => t); // correct
 h.text().then((t: Buffer) => t); // incorrect
 h.arrayBuffer().then((ab: ArrayBuffer) => ab); // correct
 h.arrayBuffer().then((ab: Buffer) => ab); // incorrect
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 const a: Response = new Response(); // correct
 const b: Response = new Response(new Blob()); // correct
@@ -344,9 +371,15 @@ h.text().then((t: Buffer) => t); // incorrect
 h.arrayBuffer().then((ab: ArrayBuffer) => ab); // correct
 h.arrayBuffer().then((ab: Buffer) => ab); // incorrect
 
+================================================================================
 `;
 
-exports[`urlsearchparams.js - flow-verify 1`] = `
+exports[`urlsearchparams.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 const a = new URLSearchParams("key1=value1"); // correct
@@ -380,7 +413,8 @@ e.forEach((val: string) => val); // correct
 e.forEach((val: string, key: string) => \`\${key}: \${val}\`); // correct
 e.forEach((val: string, key: string, o: URLSearchParams) => {}); // correct
 e.forEach(() => {}, {}); // correct
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 const a = new URLSearchParams("key1=value1"); // correct
@@ -415,4 +449,5 @@ e.forEach((val: string, key: string) => \`\${key}: \${val}\`); // correct
 e.forEach((val: string, key: string, o: URLSearchParams) => {}); // correct
 e.forEach(() => {}, {}); // correct
 
+================================================================================
 `;

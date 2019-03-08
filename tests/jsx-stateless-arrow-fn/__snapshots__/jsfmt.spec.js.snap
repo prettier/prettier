@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.js - flow-verify 1`] = `
+exports[`test.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const render1 = ({ styles }) => (
   <div style={styles} key="something">
     Keep the wrapping parens. Put each key on its own line.
@@ -74,7 +79,8 @@ const renderTernary = (props) =>
     {props.showTheOtherThing ? <div>I am here</div> : <div attr="blah" />}
     {props.showTheOtherThing ? <div>I am here!!</div> : null}
   </BaseForm>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const render1 = ({ styles }) => (
   <div style={styles} key="something">
     Keep the wrapping parens. Put each key on its own line.
@@ -246,4 +252,5 @@ const renderTernary = props => (
   </BaseForm>
 );
 
+================================================================================
 `;

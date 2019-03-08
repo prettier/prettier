@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`const.js - flow-verify 1`] = `
+exports[`const.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const x = 0;
 
 // errors: const cannot be reassigned
@@ -28,7 +33,8 @@ declare var bazzes: { baz: string }[];
 for (const { baz } of bazzes) {
   (baz: number); // error: string ~> number
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const x = 0;
 
 // errors: const cannot be reassigned
@@ -57,9 +63,15 @@ for (const { baz } of bazzes) {
   (baz: number); // error: string ~> number
 }
 
+================================================================================
 `;
 
-exports[`rebinding.js - flow-verify 1`] = `
+exports[`rebinding.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow
  * test errors on illegal rebinding/reassignment
  *
@@ -257,7 +269,8 @@ function fn_params_clash_fn_binding(x,y) {
   let x = 0; // error: x already bound
   var y = 0; // OK
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow
  * test errors on illegal rebinding/reassignment
  *
@@ -456,9 +469,15 @@ function fn_params_clash_fn_binding(x, y) {
   var y = 0; // OK
 }
 
+================================================================================
 `;
 
-exports[`scope.js - flow-verify 1`] = `
+exports[`scope.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 function block_scope() {
   let a: number = 0;
   var b: number = 0;
@@ -568,7 +587,8 @@ function default_param_2() {
     return x;
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 function block_scope() {
   let a: number = 0;
   var b: number = 0;
@@ -683,9 +703,15 @@ function default_param_2() {
   }
 }
 
+================================================================================
 `;
 
-exports[`tdz.js - flow-verify 1`] = `
+exports[`tdz.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /** @flow */
 
 // -- types ---
@@ -786,7 +812,8 @@ f(a); // error: undefined ~/> number
 a = 10;
 
 f(a); // ok, a: number (not ?number)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /** @flow */
 
 // -- types ---
@@ -898,4 +925,5 @@ a = 10;
 
 f(a); // ok, a: number (not ?number)
 
+================================================================================
 `;

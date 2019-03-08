@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.js - babylon-verify 1`] = `
+exports[`test.js 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 setTimeout(function() {
   thing();
 }, 500);
@@ -36,6 +41,28 @@ func(() => {
 func(() => {
   thing();
 }, /regex.*?/);
+
+func(() => {
+  thing();
+}, 1 ? 2 : 3);
+
+func(function() {
+  return thing()
+}, 1 ? 2 : 3);
+
+func(() => {
+  thing();
+}, something() ? someOtherThing() : somethingElse(true, 0));
+
+
+func(() => {
+  thing();
+}, something(longArgumentName, anotherLongArgumentName) ? someOtherThing() : somethingElse(true, 0));
+
+
+func(() => {
+  thing();
+}, something(longArgumentName, anotherLongArgumentName, anotherLongArgumentName, anotherLongArgumentName) ? someOtherThing() : somethingElse(true, 0));
 
 compose((a) => {
   return a.thing;
@@ -92,7 +119,8 @@ setTimeout(/* blip */ function() {
 func((args) => {
   execute(args);
 }, result => result && console.log("success"))
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 setTimeout(function() {
   thing();
 }, 500);
@@ -128,6 +156,50 @@ func(() => {
 func(() => {
   thing();
 }, /regex.*?/);
+
+func(
+  () => {
+    thing();
+  },
+  1 ? 2 : 3
+);
+
+func(
+  function() {
+    return thing();
+  },
+  1 ? 2 : 3
+);
+
+func(
+  () => {
+    thing();
+  },
+  something() ? someOtherThing() : somethingElse(true, 0)
+);
+
+func(
+  () => {
+    thing();
+  },
+  something(longArgumentName, anotherLongArgumentName)
+    ? someOtherThing()
+    : somethingElse(true, 0)
+);
+
+func(
+  () => {
+    thing();
+  },
+  something(
+    longArgumentName,
+    anotherLongArgumentName,
+    anotherLongArgumentName,
+    anotherLongArgumentName
+  )
+    ? someOtherThing()
+    : somethingElse(true, 0)
+);
 
 compose(
   a => {
@@ -211,4 +283,5 @@ func(
   result => result && console.log("success")
 );
 
+================================================================================
 `;

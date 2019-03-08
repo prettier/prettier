@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.js - flow-verify 1`] = `
+exports[`test.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 var x: { } = { foo: 0 };
 var y: { foo?: string } = x; // OK in TypeScript, not OK in Flow
 
@@ -13,7 +18,8 @@ o.foo = 0; // future widening is constrained
 function bar(config: { foo?: number }) {}
 bar({});
 bar({foo: ""});
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 var x: {} = { foo: 0 };
 var y: { foo?: string } = x; // OK in TypeScript, not OK in Flow
 
@@ -27,9 +33,15 @@ function bar(config: { foo?: number }) {}
 bar({});
 bar({ foo: "" });
 
+================================================================================
 `;
 
-exports[`test2.js - flow-verify 1`] = `
+exports[`test2.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 var a: { foo?: string } = {};
 a.foo = undefined; // This is not an error
 a.foo = null; // But this is an error
@@ -43,7 +55,8 @@ var d: { foo?: string } = { foo: null }; // But this is an error
 
 var e: { foo?: ?string } = { foo: undefined }; // This is fine
 var f: { foo?: ?string } = { foo: null }; // Also fine
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 var a: { foo?: string } = {};
 a.foo = undefined; // This is not an error
 a.foo = null; // But this is an error
@@ -58,9 +71,15 @@ var d: { foo?: string } = { foo: null }; // But this is an error
 var e: { foo?: ?string } = { foo: undefined }; // This is fine
 var f: { foo?: ?string } = { foo: null }; // Also fine
 
+================================================================================
 `;
 
-exports[`test3.js - flow-verify 1`] = `
+exports[`test3.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 /*
@@ -117,7 +136,8 @@ class A {
         this.x.b = 'hello';
     }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 /*
@@ -175,9 +195,15 @@ class A {
   }
 }
 
+================================================================================
 `;
 
-exports[`test3_exact_annot.js - flow-verify 1`] = `
+exports[`test3_exact_annot.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* The logic that allows ({}: {p?:T}), described in test3.js, should _not_ also
    fire for exact annotations. */
 
@@ -185,7 +211,8 @@ const a: {| a: number |} = { a: 1 };
 const b: { a: number, b?: number } = a; // error: property \`b\` not found
 b.b = 0; // because subsequent writes would widen the exact object
 (a.b: number); // error: property \`b\` not found
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* The logic that allows ({}: {p?:T}), described in test3.js, should _not_ also
    fire for exact annotations. */
 
@@ -194,9 +221,15 @@ const b: { a: number, b?: number } = a; // error: property \`b\` not found
 b.b = 0; // because subsequent writes would widen the exact object
 (a.b: number); // error: property \`b\` not found
 
+================================================================================
 `;
 
-exports[`test3_failure.js - flow-verify 1`] = `
+exports[`test3_failure.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // generalization of failure in test3.js
 
 class A<O: {x: { a: number, b?: string}}> {
@@ -206,7 +239,8 @@ class A<O: {x: { a: number, b?: string}}> {
     this.o.x.b = 'hello'; // this is a spurious error (see test3.js for details)
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // generalization of failure in test3.js
 
 class A<O: { x: { a: number, b?: string } }> {
@@ -217,4 +251,5 @@ class A<O: { x: { a: number, b?: string } }> {
   }
 }
 
+================================================================================
 `;

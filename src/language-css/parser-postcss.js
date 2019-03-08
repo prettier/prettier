@@ -556,7 +556,7 @@ const parser = {
     if (endNode && node.source && !node.source.end) {
       node = endNode;
     }
-    if (node.source) {
+    if (node.source && node.source.end) {
       return lineColumnToIndex(node.source.end, node.source.input.css);
     }
     return null;

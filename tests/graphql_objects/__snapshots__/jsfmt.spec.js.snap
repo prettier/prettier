@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`objects.graphql - graphql-verify 1`] = `
+exports[`objects.graphql 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 {
   shortWithObj(obj: { hello: "world", x: 5 })
   multilineObj(obj: {
@@ -10,7 +15,8 @@ exports[`objects.graphql - graphql-verify 1`] = `
   longWithObj(obj: { ,,longString: "hello world this is a very long string!", list: [1, 2, 3, 4, 5, 6, 7] })
   emptyObj(arg: {})
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 {
   shortWithObj(obj: { hello: "world", x: 5 })
   multilineObj(obj: { hello: "world", x: 5 })
@@ -23,4 +29,5 @@ exports[`objects.graphql - graphql-verify 1`] = `
   emptyObj(arg: {})
 }
 
+================================================================================
 `;

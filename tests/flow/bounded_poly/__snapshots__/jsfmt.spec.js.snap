@@ -1,11 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`scope.js - flow-verify 1`] = `
+exports[`scope.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 function foo<X, Y:X>(x:X, y:Y):void { }
 foo(0, "");
 
 function bar<X:number, Y:X>(x:X, y:Y): number { return y*0; }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 function foo<X, Y: X>(x: X, y: Y): void {}
 foo(0, "");
 
@@ -13,9 +19,15 @@ function bar<X: number, Y: X>(x: X, y: Y): number {
   return y * 0;
 }
 
+================================================================================
 `;
 
-exports[`test.js - flow-verify 1`] = `
+exports[`test.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 function foo<T: number>(x: T): T {
     var _ = x * 1; // OK
     var y: string = x; // error
@@ -41,7 +53,8 @@ var c: C<string> = new C; // error, since T = string is incompatible with number
 var q: number = c.qux(0);
 /* 2 more errors, since argument U = number is incompatible with T = string, and
  * result T = string is incompatible with number */
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 function foo<T: number>(x: T): T {
   var _ = x * 1; // OK
   var y: string = x; // error
@@ -71,4 +84,5 @@ var q: number = c.qux(0);
 /* 2 more errors, since argument U = number is incompatible with T = string, and
  * result T = string is incompatible with number */
 
+================================================================================
 `;

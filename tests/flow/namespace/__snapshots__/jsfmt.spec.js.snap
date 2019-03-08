@@ -1,17 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`client.js - flow-verify 1`] = `
+exports[`client.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 var ns = require('./namespace')
 
 var bar: string = ns.foo
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 var ns = require("./namespace");
 
 var bar: string = ns.foo;
 
+================================================================================
 `;
 
-exports[`namespace.js - flow-verify 1`] = `
+exports[`namespace.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /*@flow*/// import type { T } from '...'
 type T = (x:number) => void;
 var f: T = function(x:string): void { }
@@ -29,7 +41,8 @@ var s1:Seq = [0,[0]];
 var s2:Seq = [[""]];
 
 module.exports = { foo: ("": number) };
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /*@flow*/ // import type { T } from '...'
 type T = (x: number) => void;
 var f: T = function(x: string): void {};
@@ -48,4 +61,5 @@ var s2: Seq = [[""]];
 
 module.exports = { foo: ("": number) };
 
+================================================================================
 `;

@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`buffer.js - flow-verify 1`] = `
+exports[`buffer.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 let bool: boolean = false;
@@ -58,7 +63,8 @@ buffer = Buffer.from("foo", "utf8");
 // flow didn't used to support a subclass hiding a superclass member, so this
 // used to check out as ok, even though it is not correct.
 buffer = Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72], (a:number) => a + 1, {}); // error
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 let bool: boolean = false;
@@ -138,4 +144,5 @@ buffer = Buffer.from(
   {}
 ); // error
 
+================================================================================
 `;

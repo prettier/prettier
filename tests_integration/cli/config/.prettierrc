@@ -1,3 +1,4 @@
+endOfLine: 'lf'
 overrides:
 - files: "*.js"
   options:

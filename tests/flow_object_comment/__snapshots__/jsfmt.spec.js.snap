@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`flow_object_comment.js - flow-verify 1`] = `
+exports[`flow_object_comment.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 export default (
   {
     foo,
@@ -12,7 +17,8 @@ export default (
     bar?: Object,
   },
 ) => {}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 export default ({
   foo,
   bar
@@ -23,4 +29,5 @@ export default ({
   bar?: Object
 }) => {};
 
+================================================================================
 `;

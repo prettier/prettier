@@ -1,13 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.js - flow-verify 1`] = `
+exports[`test.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 var React = require('react');
 
 class C extends React.PureComponent {
   props: { x: number };
 }
 (<C />); // error (\`x\` is a required prop)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 var React = require("react");
 
 class C extends React.PureComponent {
@@ -15,4 +21,5 @@ class C extends React.PureComponent {
 }
 <C />; // error (\`x\` is a required prop)
 
+================================================================================
 `;

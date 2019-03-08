@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`declares.js - flow-verify 1`] = `
+exports[`declares.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 declare module "CJS_Named" {
   declare var num1: number;
   declare var str1: string;
@@ -22,7 +27,8 @@ declare module "ES" {
   declare export type T = number;
   declare var exports: number;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 declare module "CJS_Named" {
   declare var num1: number;
   declare var str1: string;
@@ -45,4 +51,5 @@ declare module "ES" {
   declare var exports: number;
 }
 
+================================================================================
 `;

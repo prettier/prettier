@@ -1,3 +1,319 @@
+# 1.16.4
+
+[diff](https://github.com/prettier/prettier/compare/1.16.3...1.16.4)
+
+- API: Fix `prettier.getSupportInfo()` reporting babel parser for older versions of Prettier. ([#5826] by [@azz])
+
+  In version `1.16.0` of Prettier, the `babylon` parser was renamed to `babel`. Unfortunately this lead to a minor breaking change: `prettier.getSupportInfo('1.15.0')` would report that it supported `babel`, not `babylon`, which breaks text-editor integrations. This has now been fixed.
+
+[@azz]: https://github.com/azz
+[#5826]: https://github.com/prettier/prettier/pull/5826
+
+# 1.16.3
+
+[diff](https://github.com/prettier/prettier/compare/1.16.2...1.16.3)
+
+- TypeScript: Revert "Update typescript-estree to new package name" ([#5818] by [@ikatyang])
+
+  There's an internal change introduced in Prettier 1.16.2,
+  which updated `typescript-estree` to its new package name,
+  but unfortunately it broke the output
+  so we reverted it as a temporary workaround for now.
+
+  <!-- prettier-ignore -->
+  ```ts
+  // Input
+  export default {
+    load<K, T>(k: K, t: T) {
+      return {k, t};
+    }
+  }
+
+  // Output (Prettier 1.16.2)
+  export default {
+    load(k: K, t: T) {
+      return { k, t };
+    }
+  };
+
+  // Output (Prettier 1.16.3)
+  export default {
+    load<K, T>(k: K, t: T) {
+      return { k, t };
+    }
+  };
+  ```
+
+[@ikatyang]: https://github.com/ikatyang
+[#5818]: https://github.com/prettier/prettier/pull/5818
+
+# 1.16.2
+
+[diff](https://github.com/prettier/prettier/compare/1.16.1...1.16.2)
+
+- CLI: Fix CI detection to avoid unwanted TTY behavior ([#5804] by [@kachkaev])
+
+  In Prettier 1.16.0 and 1.16.1, `--list-different` and `--check` logged every file in some CI environments, instead of just unformatted files.
+  This unwanted behavior is now fixed.
+
+- HTML: Do not format non-normal whitespace as normal whitespace ([#5797] by [@ikatyang])
+
+  Previously, only non-breaking whitespaces (U+00A0) are marked as non-normal whitespace,
+  which means other non-normal whitespaces such as non-breaking narrow whitespaces (U+202F)
+  could be formatted as normal whitespaces, which breaks the output. We now follow the spec to
+  exclude all non-[ASCII whitespace](https://infra.spec.whatwg.org/#ascii-whitespace) from whitespace normalization.
+
+  (`·` represents a non-breaking narrow whitespace)
+
+  <!-- prettier-ignore -->
+  ```html
+  <!-- Input -->
+  Prix·:·32·€
+
+  <!-- Output (Prettier 1.16.1) -->
+  Prix : 32 €
+
+  <!-- Output (Prettier 1.16.2) -->
+  Prix·:·32·€
+  ```
+
+- JavaScript: Fix record type cast comment detection ([#5793] by [@yangsu])
+
+  Previously, type cast comments with record types were ignored and prettier
+  stripped the subsequent parens. Prettier 1.16.2 handles these cases correctly.
+
+  <!-- prettier-ignore -->
+  ```js
+  // Input
+  const v = /** @type {{key: number}} */ (value);
+
+  // Output (Prettier 1.16.1)
+  const v = /** @type {{key: number}} */ value;
+
+  // Output (Prettier 1.16.2)
+  const v = /** @type {{key: number}} */ (value);
+  ```
+
+[@ikatyang]: https://github.com/ikatyang
+[@kachkaev]: https://github.com/kachkaev
+[@yangsu]: https://github.com/yangsu
+[#5793]: https://github.com/prettier/prettier/pull/5793
+[#5797]: https://github.com/prettier/prettier/pull/5797
+[#5804]: https://github.com/prettier/prettier/pull/5804
+
+# 1.16.1
+
+[diff](https://github.com/prettier/prettier/compare/1.16.0...1.16.1)
+
+- JavaScript: Do not format functions with arguments as react hooks ([#5778] by [@SimenB])
+
+  The formatting added in Prettier 1.16 would format any function receiving an
+  arrow function and an array literal to match React Hook's documentation.
+  Prettier will now format this the same as before that change if the arrow
+  function receives any arguments.
+
+  <!-- prettier-ignore -->
+  ```js
+  // Input
+  ["red", "white", "blue", "black", "hotpink", "rebeccapurple"].reduce(
+    (allColors, color) => {
+      return allColors.concat(color);
+    },
+    []
+  );
+
+  // Output (Prettier 1.16.0)
+  ["red", "white", "blue", "black", "hotpink", "rebeccapurple"].reduce((
+    allColors,
+    color
+  ) => {
+    return allColors.concat(color);
+  }, []);
+
+  // Output (Prettier 1.16.1)
+  ["red", "white", "blue", "black", "hotpink", "rebeccapurple"].reduce(
+    (allColors, color) => {
+      return allColors.concat(color);
+    },
+    []
+  );
+  ```
+
+- JavaScript: Add necessary parentheses for decorators ([#5785] by [@ikatyang])
+
+  Parentheses for decorators with nested call expressions are optional for legacy decorators
+  but they're required for decorators in the current [proposal](https://tc39.github.io/proposal-decorators/#sec-syntax).
+
+  <!-- prettier-ignore -->
+  ```js
+  // Input
+  class X {
+    @(computed().volatile())
+    prop
+  }
+
+  // Output (Prettier 1.16.0)
+  class X {
+    @computed().volatile()
+    prop
+  }
+
+  // Output (Prettier 1.16.1)
+  class X {
+    @(computed().volatile())
+    prop
+  }
+  ```
+
+- TypeScript: Stable parentheses for function type in the return type of arrow function ([#5790] by [@ikatyang])
+
+  There's a regression introduced in 1.16 that
+  parentheses for function type in the return type of arrow function were kept adding/removing.
+  Their parentheses are always printed now.
+
+  <!-- prettier-ignore -->
+  ```ts
+  // Input
+  const foo = (): (() => void) => (): void => null;
+  const bar = (): () => void => (): void => null;
+
+  // First Output (Prettier 1.16.0)
+  const foo = (): () => void => (): void => null;
+  const bar = (): (() => void) => (): void => null;
+
+  // Second Output (Prettier 1.16.0)
+  const foo = (): (() => void) => (): void => null;
+  const bar = (): () => void => (): void => null;
+
+  // Output (Prettier 1.16.1)
+  const foo = (): (() => void) => (): void => null;
+  const bar = (): (() => void) => (): void => null;
+  ```
+
+- MDX: Correctly recognize inline JSX ([#5783] by [@ikatyang])
+
+  Previously, some inline JSXs are wrongly recognized as block HTML/JSX,
+  which causes unexpected behaviors. This issue is now fixed.
+
+  <!-- prettier-ignore -->
+  ```md
+  <!-- Input -->
+  _foo <InlineJSX /> bar_
+
+  <!-- Output (Prettier 1.16.0) -->
+  _foo
+
+  <InlineJSX /> bar_
+
+  <!-- Output (Prettier 1.16.1) -->
+  _foo <InlineJSX /> bar_
+  ```
+
+[@ikatyang]: https://github.com/ikatyang
+[@simenb]: https://github.com/SimenB
+[#5778]: https://github.com/prettier/prettier/pull/5778
+[#5783]: https://github.com/prettier/prettier/pull/5783
+[#5785]: https://github.com/prettier/prettier/pull/5785
+[#5790]: https://github.com/prettier/prettier/pull/5790
+
+# 1.16.0
+
+[diff](https://github.com/prettier/prettier/compare/1.15.3...1.16.0)
+
+🔗 [Release Notes](https://prettier.io/blog/2019/01/20/1.16.0.html)
+
+# 1.15.3
+
+[diff](https://github.com/prettier/prettier/compare/1.15.2...1.15.3)
+
+- JavaScript: support `htm` ([#5565](https://github.com/prettier/prettier/pull/5565))
+- JavaScript: support logical assignment operator ([#5489](https://github.com/prettier/prettier/pull/5489))
+- JavaScript: do not add quotes for interpolation-only attributes in `html` templates ([#5544](https://github.com/prettier/prettier/pull/5544))
+- JavaScript: add missing parenthesis for binary in optional member ([#5543](https://github.com/prettier/prettier/pull/5543))
+- JavaScript: fix a parser regression ([#5530](https://github.com/prettier/prettier/pull/5530))
+- JavaScript: improve union types with leading comments ([#5575](https://github.com/prettier/prettier/pull/5575))
+- TypeScript: support BigInt ([#5546](https://github.com/prettier/prettier/pull/5546), [#5577](https://github.com/prettier/prettier/pull/5577))
+- TypeScript: inline method decorators should stay inlined ([#5444](https://github.com/prettier/prettier/pull/5444))
+- TypeScript: do not change `module` into `namespace` and break/hug their body correctly ([#5551](https://github.com/prettier/prettier/pull/5551))
+- TypeScript: do not add invalid semicolon for construct in interface with `// prettier-ignore` ([#5469](https://github.com/prettier/prettier/pull/5469))
+- HTML: do not touch comments ([#5525](https://github.com/prettier/prettier/pull/5525))
+- HTML: preserve bogus comments `<! ... >`/`<? ... >` ([#5565](https://github.com/prettier/prettier/pull/5565))
+- HTML: support IE conditional start/end comment ([#5470](https://github.com/prettier/prettier/pull/5470))
+- HTML: do not add extra indentation for js template in `<script>` ([#5527](https://github.com/prettier/prettier/pull/5527))
+- HTML: leading spaces for the first interpolation in `<textarea>` are sensitive ([#5468](https://github.com/prettier/prettier/pull/5468))
+- HTML: preserve content for element in `<pre>` correctly ([#5473](https://github.com/prettier/prettier/pull/5473))
+- HTML: correct column for error code frame ([#5553](https://github.com/prettier/prettier/pull/5553))
+- Angular: support interpolation in attributes ([#5573](https://github.com/prettier/prettier/pull/5573))
+- Angular: do not print colon for `then` and `else` in `*ngIf` ([#5542](https://github.com/prettier/prettier/pull/5542))
+- Angular/Vue: do not normalize tag/attribute names ([#5526](https://github.com/prettier/prettier/pull/5526), [#5549](https://github.com/prettier/prettier/pull/5549))
+- Vue: preserve custom block ([#5458](https://github.com/prettier/prettier/pull/5458))
+- Vue: remove unnecessary semicolon and preserve necessary semicolon for single expression in event bindings ([#5519](https://github.com/prettier/prettier/pull/5519))
+- Vue: group `slot-scope` correctly ([#5563](https://github.com/prettier/prettier/pull/5563))
+- Markdown: do not trim content in inline-math ([#5485](https://github.com/prettier/prettier/pull/5485))
+- Markdown: add more category to CJK regex ([#5480](https://github.com/prettier/prettier/pull/5480))
+- SCSS: update parser for performance improvements ([#5481](https://github.com/prettier/prettier/pull/5481))
+- YAML: preserve the first document head end marker `---` ([#5502](https://github.com/prettier/prettier/pull/5502))
+- API: resolve `ignored` field correctly in `.getFileInfo()` with absolute filePath ([#5570](https://github.com/prettier/prettier/pull/5570))
+- API/CLI: fix a bug that caches for `.js` config files did not respect `.clearConfigCache()` ([#5558](https://github.com/prettier/prettier/pull/5558))
+- API/CLI: ignore `unset` in `.editorconfig` ([#5550](https://github.com/prettier/prettier/pull/5550))
+- CLI: report status code `0` for `--list-different` + `--write` ([#5512](https://github.com/prettier/prettier/pull/5512))
+- Standalone: fix a regression for browser compatibility ([#5560](https://github.com/prettier/prettier/pull/5560))
+
+# 1.15.2
+
+[diff](https://github.com/prettier/prettier/compare/1.15.1...1.15.2)
+
+- CLI: allow flag overriding ([#5390](https://github.com/prettier/prettier/pull/5390))
+- JavaScript: do not apply test call formatting to arrow function without body ([#5366](https://github.com/prettier/prettier/pull/5366))
+- JavaScript: do not duplicate comments in styled-components ([#5416](https://github.com/prettier/prettier/pull/5416))
+- JavaScript: do not indent comments behind variable declarations ([#5434](https://github.com/prettier/prettier/pull/5434))
+- JavaScript: inline property decorator should stay inline ([#5364](https://github.com/prettier/prettier/pull/5364), [#5423](https://github.com/prettier/prettier/pull/5423))
+- JavaScript: treat `createSelector` as function composition ([#5430](https://github.com/prettier/prettier/pull/5430))
+- Flow: do not move flow comment for function argument to its body ([#5435](https://github.com/prettier/prettier/pull/5435))
+- Flow: force-break interface body to be consistent with TypeScript interface ([#5432](https://github.com/prettier/prettier/pull/5432))
+- Flow/TypeScript: remove extra indentation for `extends` ([#5432](https://github.com/prettier/prettier/pull/5432))
+- TypeScript: distinguish `module` and `namespace` correctly ([#5432](https://github.com/prettier/prettier/pull/5432))
+- HTML: handle CRLF correctly ([#5393](https://github.com/prettier/prettier/pull/5393))
+- HTML: handle `<pre>` with interpolation ([#5400](https://github.com/prettier/prettier/pull/5400))
+- HTML: preserve content for `<template>` with unknown `lang` ([#5388](https://github.com/prettier/prettier/pull/5388))
+- HTML: preserve incomplete IE conditional comments ([#5429](https://github.com/prettier/prettier/pull/5429))
+- HTML: preserve unterminated IE conditional comments ([#5424](https://github.com/prettier/prettier/pull/5424))
+- HTML: treat capital element as custom element ([#5395](https://github.com/prettier/prettier/pull/5395))
+- Angular: add missing parens for pipe in ternary ([#5397](https://github.com/prettier/prettier/pull/5397))
+- Angular: correctly print unary expression with operator `+` ([#5405](https://github.com/prettier/prettier/pull/5405))
+- Angular: correctly handle parens ([#5387](https://github.com/prettier/prettier/pull/5387))
+- Angular/Vue: whitespaces between interpolation and text are sensitive ([#5396](https://github.com/prettier/prettier/pull/5396))
+- Vue: do not add invalid semicolon for `v-on` attribute value ([#5418](https://github.com/prettier/prettier/pull/5418))
+- SCSS: do not crash on grid value ([#5394](https://github.com/prettier/prettier/pull/5394))
+- Markdown: handle CRLF correctly ([#5414](https://github.com/prettier/prettier/pull/5414))
+- Markdown: identify CJK correctly ([#5402](https://github.com/prettier/prettier/pull/5402))
+- MDX: treat JSX code block same as in Markdown ([#5391](https://github.com/prettier/prettier/pull/5391))
+
+# 1.15.1
+
+[diff](https://github.com/prettier/prettier/compare/1.15.0...1.15.1)
+
+- Markdown: do not keep increasing backslashes for dollar sign ([#5358](https://github.com/prettier/prettier/pull/5358))
+
+# 1.15.0
+
+[diff](https://github.com/prettier/prettier/compare/1.14.3...1.15.0)
+
+🔗 [Release Notes](https://prettier.io/blog/2018/11/07/1.15.0.html)
+
+# 1.14.3
+
+[diff](https://github.com/prettier/prettier/compare/1.14.2...1.14.3)
+
+- Chore: add missing LICENSE ([#5114](https://github.com/prettier/prettier/pull/5114))
+
+# 1.14.2
+
+[diff](https://github.com/prettier/prettier/compare/1.14.1...1.14.2)
+
+- YAML: fix the line ending issue on Windows ([#4957](https://github.com/prettier/prettier/pull/4957))
+- TypeScript: better error message ([#4947](https://github.com/prettier/prettier/pull/4947))
+
 # 1.14.1
 
 [diff](https://github.com/prettier/prettier/compare/1.14.0...1.14.1)
@@ -45,7 +361,7 @@
 - Better handling of trailing spaces in Markdown ([#4593](https://github.com/prettier/prettier/pull/4593))
 - Fix empty file error in JSON and GraphQL ([#4553](https://github.com/prettier/prettier/pull/4553))
 - Preserve decorator on TypeScript interfaces ([#4632](https://github.com/prettier/prettier/pull/4632))
-- Inline \_ or $ in the root of a method chain ([#4621](https://github.com/prettier/prettier/pull/4621))
+- Inline \_ or \$ in the root of a method chain ([#4621](https://github.com/prettier/prettier/pull/4621))
 
 # 1.13.4
 

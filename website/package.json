@@ -5,7 +5,8 @@
     "publish-gh-pages": "docusaurus-publish",
     "start": "concurrently \"docusaurus-start\" \"webpack -d -w\"",
     "svgo": "svgo --pretty --indent=2 --config=svgo.yml",
-    "svgo-all": "find static | grep '\\.svg$' | xargs -Iz -n 1 yarn svgo z"
+    "svgo-all": "find static | grep '\\.svg$' | xargs -Iz -n 1 yarn svgo z",
+    "update-stable-docs": "rm -rf ./versioned_docs ./versions.json && docusaurus-version stable"
   },
   "dependencies": {
     "clipboard": "2.0.0",
@@ -15,7 +16,7 @@
     "lz-string": "1.4.4",
     "prop-types": "15.6.1",
     "react": "16.3.1",
-    "react-dom": "16.3.1"
+    "react-dom": "16.3.3"
   },
   "devDependencies": {
     "@sandhose/prettier-animated-logo": "1.0.3",
@@ -23,7 +24,7 @@
     "babel-preset-env": "1.6.1",
     "babel-preset-react": "6.24.1",
     "concurrently": "3.5.1",
-    "docusaurus": "1.3.1",
+    "docusaurus": "1.6.2",
     "js-yaml": "3.10.0",
     "svgo": "1.0.4",
     "webpack": "4.5.0",

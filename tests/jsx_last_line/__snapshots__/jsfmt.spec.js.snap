@@ -1,6 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`last_line.js - flow-verify 1`] = `
+exports[`last_line.js 1`] = `
+====================================options=====================================
+jsxBracketSameLine: true
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <SomeHighlyConfiguredComponent
   onEnter={this.onEnter}
   onLeave={this.onLeave}
@@ -11,7 +17,8 @@ exports[`last_line.js - flow-verify 1`] = `
   <div>and the children go here</div>
   <div>and here too</div>
 </SomeHighlyConfiguredComponent>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <SomeHighlyConfiguredComponent
   onEnter={this.onEnter}
   onLeave={this.onLeave}
@@ -22,9 +29,16 @@ exports[`last_line.js - flow-verify 1`] = `
   <div>and here too</div>
 </SomeHighlyConfiguredComponent>;
 
+================================================================================
 `;
 
-exports[`last_line.js - flow-verify 2`] = `
+exports[`last_line.js 2`] = `
+====================================options=====================================
+jsxBracketSameLine: false
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <SomeHighlyConfiguredComponent
   onEnter={this.onEnter}
   onLeave={this.onLeave}
@@ -35,7 +49,8 @@ exports[`last_line.js - flow-verify 2`] = `
   <div>and the children go here</div>
   <div>and here too</div>
 </SomeHighlyConfiguredComponent>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <SomeHighlyConfiguredComponent
   onEnter={this.onEnter}
   onLeave={this.onLeave}
@@ -47,16 +62,24 @@ exports[`last_line.js - flow-verify 2`] = `
   <div>and here too</div>
 </SomeHighlyConfiguredComponent>;
 
+================================================================================
 `;
 
-exports[`single_prop_multiline_string.js - flow-verify 1`] = `
+exports[`single_prop_multiline_string.js 1`] = `
+====================================options=====================================
+jsxBracketSameLine: true
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <path d="M4.765 16.829l3.069-2.946 5.813 5.748
   11.33-11.232 3.006 3.18-14.36 14.080z" />;
 
 <Component text="Text
   with
   newlines">Content</Component>;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <path
   d="M4.765 16.829l3.069-2.946 5.813 5.748
   11.33-11.232 3.006 3.18-14.36 14.080z"
@@ -69,16 +92,24 @@ exports[`single_prop_multiline_string.js - flow-verify 1`] = `
   Content
 </Component>;
 
+================================================================================
 `;
 
-exports[`single_prop_multiline_string.js - flow-verify 2`] = `
+exports[`single_prop_multiline_string.js 2`] = `
+====================================options=====================================
+jsxBracketSameLine: false
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <path d="M4.765 16.829l3.069-2.946 5.813 5.748
   11.33-11.232 3.006 3.18-14.36 14.080z" />;
 
 <Component text="Text
   with
   newlines">Content</Component>;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <path
   d="M4.765 16.829l3.069-2.946 5.813 5.748
   11.33-11.232 3.006 3.18-14.36 14.080z"
@@ -92,4 +123,5 @@ exports[`single_prop_multiline_string.js - flow-verify 2`] = `
   Content
 </Component>;
 
+================================================================================
 `;

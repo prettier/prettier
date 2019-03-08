@@ -1,54 +1,197 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`await.js - babylon-verify 1`] = `
+exports[`await.js 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const doBothThings = async () => {
     const request = doAsyncThing();
     return (await request)::doSyncThing();
 };
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const doBothThings = async () => {
   const request = doAsyncThing();
   return (await request)::doSyncThing();
 };
 
+================================================================================
 `;
 
-exports[`await.js - babylon-verify 2`] = `
+exports[`await.js 2`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
 const doBothThings = async () => {
     const request = doAsyncThing();
     return (await request)::doSyncThing();
 };
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const doBothThings = async () => {
   const request = doAsyncThing()
   return (await request)::doSyncThing()
 }
 
+================================================================================
 `;
 
-exports[`bind_parens.js - babylon-verify 1`] = `
+exports[`bind_parens.js 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 (a || b)::c;
 a || (b::c);
 ::obj.prop;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+(void 0)::func();
+(+0)::is(-0);
+a::(b.c);
+a::(b.c());
+a::b.c();
+a::(b.c()());
+a::((b.c())());
+a::(b.c())();
+a::(b.c().d);
+a::(c().d.e);
+a::(b());
+a::(b::c());
+a::(b()::c);
+a::(b().c::d);
+a::(b.c::d);
+a::(b::c.d);
+a::(b.c::d::e);
+a::(b::c::d);
+a::(b::c::d.e);
+a::((b::c::d).e);
+a::(void 0);
+a::(b.c()::d.e);
+a::(b.c::d.e);
+a::(b.c::d.e)::f.g;
+b.c::d.e;
+(b.c::d).e;
+(b::c::d).e;
+
+=====================================output=====================================
 (a || b)::c;
 a || b::c;
 ::obj.prop;
+(void 0)::func();
+(+0)::is(-0);
+a::b.c;
+a::(b.c());
+a::b.c();
+a::(b.c()());
+a::(b.c()());
+a::(b.c())();
+a::(b.c().d);
+a::(c().d.e);
+a::(b());
+a::(b::c());
+a::(b()::c);
+a::(b().c::d);
+a::(b.c::d);
+a::(b::c.d);
+a::(b.c::d::e);
+a::(b::c::d);
+a::(b::c::d.e);
+a::(b::c::d).e;
+a::(void 0);
+a::(b.c()::d.e);
+a::(b.c::d.e);
+a::(b.c::d.e)::f.g;
+b.c::d.e;
+(b.c::d).e;
+(b::c::d).e;
 
+================================================================================
 `;
 
-exports[`bind_parens.js - babylon-verify 2`] = `
+exports[`bind_parens.js 2`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
 (a || b)::c;
 a || (b::c);
 ::obj.prop;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+(void 0)::func();
+(+0)::is(-0);
+a::(b.c);
+a::(b.c());
+a::b.c();
+a::(b.c()());
+a::((b.c())());
+a::(b.c())();
+a::(b.c().d);
+a::(c().d.e);
+a::(b());
+a::(b::c());
+a::(b()::c);
+a::(b().c::d);
+a::(b.c::d);
+a::(b::c.d);
+a::(b.c::d::e);
+a::(b::c::d);
+a::(b::c::d.e);
+a::((b::c::d).e);
+a::(void 0);
+a::(b.c()::d.e);
+a::(b.c::d.e);
+a::(b.c::d.e)::f.g;
+b.c::d.e;
+(b.c::d).e;
+(b::c::d).e;
+
+=====================================output=====================================
 ;(a || b)::c
 a || b::c
 ;::obj.prop
+;(void 0)::func()
+;(+0)::is(-0)
+a::b.c
+a::(b.c())
+a::b.c()
+a::(b.c()())
+a::(b.c()())
+a::(b.c())()
+a::(b.c().d)
+a::(c().d.e)
+a::(b())
+a::(b::c())
+a::(b()::c)
+a::(b().c::d)
+a::(b.c::d)
+a::(b::c.d)
+a::(b.c::d::e)
+a::(b::c::d)
+a::(b::c::d.e)
+a::(b::c::d).e
+a::(void 0)
+a::(b.c()::d.e)
+a::(b.c::d.e)
+a::(b.c::d.e)::f.g
+b.c::d.e
+;(b.c::d).e
+;(b::c::d).e
 
+================================================================================
 `;
 
-exports[`long_name_method.js - babylon-verify 1`] = `
+exports[`long_name_method.js 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 class X {
   constructor() {
     this.testLongNameMethodAndSomethingElseLallala = ::this.testLongNameMethodAndSomethingElseLallala;
@@ -57,7 +200,8 @@ class X {
   testLongNameMethodAndSomethingElseLallala() {
     return true;
   }
-}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+}
+=====================================output=====================================
 class X {
   constructor() {
     this.testLongNameMethodAndSomethingElseLallala =
@@ -69,9 +213,16 @@ class X {
   }
 }
 
+================================================================================
 `;
 
-exports[`long_name_method.js - babylon-verify 2`] = `
+exports[`long_name_method.js 2`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
 class X {
   constructor() {
     this.testLongNameMethodAndSomethingElseLallala = ::this.testLongNameMethodAndSomethingElseLallala;
@@ -80,7 +231,8 @@ class X {
   testLongNameMethodAndSomethingElseLallala() {
     return true;
   }
-}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+}
+=====================================output=====================================
 class X {
   constructor() {
     this.testLongNameMethodAndSomethingElseLallala =
@@ -92,9 +244,15 @@ class X {
   }
 }
 
+================================================================================
 `;
 
-exports[`method_chain.js - babylon-verify 1`] = `
+exports[`method_chain.js 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 import {interval} from 'rxjs/observable/interval';
 import {filter} from 'rxjs/operator/filter';
 import {take} from 'rxjs/operator/take';
@@ -112,7 +270,8 @@ function test(observable) {
         )
         ::map(someFunction);
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 import { interval } from "rxjs/observable/interval";
 import { filter } from "rxjs/operator/filter";
 import { take } from "rxjs/operator/take";
@@ -131,9 +290,16 @@ function test(observable) {
     ::map(someFunction);
 }
 
+================================================================================
 `;
 
-exports[`method_chain.js - babylon-verify 2`] = `
+exports[`method_chain.js 2`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
 import {interval} from 'rxjs/observable/interval';
 import {filter} from 'rxjs/operator/filter';
 import {take} from 'rxjs/operator/take';
@@ -151,7 +317,8 @@ function test(observable) {
         )
         ::map(someFunction);
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 import { interval } from "rxjs/observable/interval"
 import { filter } from "rxjs/operator/filter"
 import { take } from "rxjs/operator/take"
@@ -170,9 +337,15 @@ function test(observable) {
     ::map(someFunction)
 }
 
+================================================================================
 `;
 
-exports[`short_name_method.js - babylon-verify 1`] = `
+exports[`short_name_method.js 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 class X {
   constructor() {
     this.shortMethod = ::this.shortMethod;
@@ -181,7 +354,8 @@ class X {
   shortMethod() {
     return true;
   }
-}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+}
+=====================================output=====================================
 class X {
   constructor() {
     this.shortMethod = ::this.shortMethod;
@@ -192,9 +366,16 @@ class X {
   }
 }
 
+================================================================================
 `;
 
-exports[`short_name_method.js - babylon-verify 2`] = `
+exports[`short_name_method.js 2`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
 class X {
   constructor() {
     this.shortMethod = ::this.shortMethod;
@@ -203,7 +384,8 @@ class X {
   shortMethod() {
     return true;
   }
-}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+}
+=====================================output=====================================
 class X {
   constructor() {
     this.shortMethod = ::this.shortMethod
@@ -214,26 +396,5 @@ class X {
   }
 }
 
-`;
-
-exports[`unary.js - babylon-verify 1`] = `
-(void 0)::func();
-
-(+0)::is(-0);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-(void 0)::func();
-
-(+0)::is(-0);
-
-`;
-
-exports[`unary.js - babylon-verify 2`] = `
-(void 0)::func();
-
-(+0)::is(-0);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-;(void 0)::func()
-
-;(+0)::is(-0)
-
+================================================================================
 `;

@@ -5,7 +5,7 @@ title: Integrating with ESLint
 
 If you are using ESLint, integrating Prettier to your workflow is straightforward.
 
-There are two different ways you might want to integrate Prettier into ESLint. You may enable either one separately, or both.
+There are two different ways you might want to integrate Prettier into ESLint. You may enable either one separately, or use both together.
 
 ## Use ESLint to run Prettier
 
@@ -48,7 +48,7 @@ yarn add --dev eslint-config-prettier
 
 There are a few rules that this disables that you may want to turn back on as long as you don't use them with particular options which conflict with Prettier. See [the docs](https://github.com/prettier/eslint-config-prettier#special-rules) for details.
 
-## Why not both?
+## Use both
 
 `eslint-plugin-prettier` exposes a `"recommended"` configuration that turns on both `eslint-plugin-prettier` and `eslint-config-prettier`, all you need in your `.eslintrc.json` is:
 

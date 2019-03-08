@@ -6,6 +6,7 @@ const {
   builders: { hardline, literalline, concat, markAsRoot },
   utils: { mapDoc }
 } = require("../doc");
+const { getFencedCodeBlockValue } = require("./utils");
 
 function embed(path, print, textToDoc, options) {
   const node = path.getValue();
@@ -20,7 +21,10 @@ function embed(path, print, textToDoc, options) {
       const style = styleUnit.repeat(
         Math.max(3, util.getMaxContinuousCount(node.value, styleUnit) + 1)
       );
-      const doc = textToDoc(node.value, { parser });
+      const doc = textToDoc(
+        getFencedCodeBlockValue(node, options.originalText),
+        { parser }
+      );
       return markAsRoot(
         concat([
           style,
@@ -38,7 +42,7 @@ function embed(path, print, textToDoc, options) {
       concat([
         "---",
         hardline,
-        node.value.trim()
+        node.value && node.value.trim()
           ? replaceNewlinesWithLiterallines(
               textToDoc(node.value, { parser: "yaml" })
             )
@@ -46,6 +50,14 @@ function embed(path, print, textToDoc, options) {
         "---"
       ])
     );
+  }
+
+  // MDX
+  switch (node.type) {
+    case "importExport":
+      return textToDoc(node.value, { parser: "babel" });
+    case "jsx":
+      return textToDoc(node.value, { parser: "__js_expression" });
   }
 
   return null;
@@ -69,16 +81,14 @@ function embed(path, print, textToDoc, options) {
   }
 
   function replaceNewlinesWithLiterallines(doc) {
-    return mapDoc(
-      doc,
-      currentDoc =>
-        typeof currentDoc === "string" && currentDoc.includes("\n")
-          ? concat(
-              currentDoc
-                .split(/(\n)/g)
-                .map((v, i) => (i % 2 === 0 ? v : literalline))
-            )
-          : currentDoc
+    return mapDoc(doc, currentDoc =>
+      typeof currentDoc === "string" && currentDoc.includes("\n")
+        ? concat(
+            currentDoc
+              .split(/(\n)/g)
+              .map((v, i) => (i % 2 === 0 ? v : literalline))
+          )
+        : currentDoc
     );
   }
 }

@@ -1,14 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`no-semi.ts - typescript-verify 1`] = `
+exports[`no-semi.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
 export class Mutation {
   private set: NQuad[];
   private delete: NQuad[];
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 export class Mutation {
   private set: NQuad[]
   private delete: NQuad[]
 }
 
+================================================================================
 `;

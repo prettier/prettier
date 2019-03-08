@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`arrow_call.js - flow-verify 1`] = `
+exports[`arrow_call.js 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const testResults = results.testResults.map(testResult =>
   formatResult(testResult, formatter, reporter)
 );
@@ -43,7 +48,10 @@ const composition = (ViewComponent, ContainerComponent) =>
   class extends React.Component {
     static propTypes = {};
   };
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+promise.then(result => result.veryLongVariable.veryLongPropertyName > someOtherVariable ? "ok" : "fail");
+
+=====================================output=====================================
 const testResults = results.testResults.map(testResult =>
   formatResult(testResult, formatter, reporter)
 );
@@ -93,9 +101,22 @@ const composition = (ViewComponent, ContainerComponent) =>
     static propTypes = {};
   };
 
+promise.then(result =>
+  result.veryLongVariable.veryLongPropertyName > someOtherVariable
+    ? "ok"
+    : "fail"
+);
+
+================================================================================
 `;
 
-exports[`arrow_call.js - flow-verify 2`] = `
+exports[`arrow_call.js 2`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
 const testResults = results.testResults.map(testResult =>
   formatResult(testResult, formatter, reporter)
 );
@@ -138,7 +159,10 @@ const composition = (ViewComponent, ContainerComponent) =>
   class extends React.Component {
     static propTypes = {};
   };
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+promise.then(result => result.veryLongVariable.veryLongPropertyName > someOtherVariable ? "ok" : "fail");
+
+=====================================output=====================================
 const testResults = results.testResults.map(testResult =>
   formatResult(testResult, formatter, reporter),
 );
@@ -188,9 +212,22 @@ const composition = (ViewComponent, ContainerComponent) =>
     static propTypes = {};
   };
 
+promise.then(result =>
+  result.veryLongVariable.veryLongPropertyName > someOtherVariable
+    ? "ok"
+    : "fail",
+);
+
+================================================================================
 `;
 
-exports[`arrow_call.js - flow-verify 3`] = `
+exports[`arrow_call.js 3`] = `
+====================================options=====================================
+arrowParens: "always"
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const testResults = results.testResults.map(testResult =>
   formatResult(testResult, formatter, reporter)
 );
@@ -233,7 +270,10 @@ const composition = (ViewComponent, ContainerComponent) =>
   class extends React.Component {
     static propTypes = {};
   };
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+promise.then(result => result.veryLongVariable.veryLongPropertyName > someOtherVariable ? "ok" : "fail");
+
+=====================================output=====================================
 const testResults = results.testResults.map((testResult) =>
   formatResult(testResult, formatter, reporter)
 );
@@ -283,4 +323,11 @@ const composition = (ViewComponent, ContainerComponent) =>
     static propTypes = {};
   };
 
+promise.then((result) =>
+  result.veryLongVariable.veryLongPropertyName > someOtherVariable
+    ? "ok"
+    : "fail"
+);
+
+================================================================================
 `;

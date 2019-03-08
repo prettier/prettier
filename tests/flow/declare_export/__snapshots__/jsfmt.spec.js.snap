@@ -1,24 +1,43 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`B.js - flow-verify 1`] = `
+exports[`B.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 exports.numberValue = 42;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 exports.numberValue = 42;
 
+================================================================================
 `;
 
-exports[`C.js - flow-verify 1`] = `
-/* @flow */
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`C.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
+=====================================output=====================================
+/* @flow */
+
+================================================================================
 `;
 
-exports[`CommonJS_Clobbering_Class.js - flow-verify 1`] = `
+exports[`CommonJS_Clobbering_Class.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @providesModule CommonJS_Clobbering_Class
  * @flow
@@ -40,7 +59,8 @@ class Test extends Base {
 };
 
 module.exports = Test;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @providesModule CommonJS_Clobbering_Class
  * @flow
@@ -73,9 +93,15 @@ class Test extends Base {
 
 module.exports = Test;
 
+================================================================================
 `;
 
-exports[`CommonJS_Clobbering_Lit.js - flow-verify 1`] = `
+exports[`CommonJS_Clobbering_Lit.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @providesModule CommonJS_Clobbering_Lit
  * @flow
@@ -88,7 +114,8 @@ module.exports = {
   numberValue4: 4,
   numberValue5: 5
 };
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @providesModule CommonJS_Clobbering_Lit
  * @flow
@@ -102,9 +129,15 @@ module.exports = {
   numberValue5: 5
 };
 
+================================================================================
 `;
 
-exports[`CommonJS_Named.js - flow-verify 1`] = `
+exports[`CommonJS_Named.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @providesModule CommonJS_Named
  * @flow
@@ -115,7 +148,8 @@ exports.numberValue2 = 2;
 exports.numberValue3 = 3;
 exports.numberValue4 = 4;
 exports.numberValue5 = 5;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @providesModule CommonJS_Named
  * @flow
@@ -127,16 +161,23 @@ exports.numberValue3 = 3;
 exports.numberValue4 = 4;
 exports.numberValue5 = 5;
 
+================================================================================
 `;
 
-exports[`ES6_Default_AnonFunction1.js - flow-verify 1`] = `
+exports[`ES6_Default_AnonFunction1.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @providesModule ES6_Default_AnonFunction1
  * @flow
  */
 
 declare export default () => number;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @providesModule ES6_Default_AnonFunction1
  * @flow
@@ -144,16 +185,23 @@ declare export default () => number;
 
 declare export default () => number;
 
+================================================================================
 `;
 
-exports[`ES6_Default_AnonFunction2.js - flow-verify 1`] = `
+exports[`ES6_Default_AnonFunction2.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @providesModule ES6_Default_AnonFunction2
  * @flow
  */
 
 declare export default () =>number;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @providesModule ES6_Default_AnonFunction2
  * @flow
@@ -161,9 +209,15 @@ declare export default () =>number;
 
 declare export default () => number;
 
+================================================================================
 `;
 
-exports[`ES6_Default_NamedClass1.js - flow-verify 1`] = `
+exports[`ES6_Default_NamedClass1.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @providesModule ES6_Default_NamedClass1
  * @flow
@@ -176,13 +230,16 @@ declare export default class FooImpl { givesANum(): number; };
 // Default-exported class should also be available in local scope
 declare export { FooImpl as Foo }
 declare export function getAFoo(): FooImpl;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @providesModule ES6_Default_NamedClass1
  * @flow
  */
 
-declare export default class FooImpl { givesANum(): number }
+declare export default class FooImpl {
+  givesANum(): number;
+}
 
 // Regression test for https://github.com/facebook/flow/issues/511
 //
@@ -190,33 +247,49 @@ declare export default class FooImpl { givesANum(): number }
 declare export { FooImpl as Foo };
 declare export function getAFoo(): FooImpl;
 
+================================================================================
 `;
 
-exports[`ES6_Default_NamedClass2.js - flow-verify 1`] = `
+exports[`ES6_Default_NamedClass2.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @providesModule ES6_Default_NamedClass2
  * @flow
  */
 
 declare export default class Foo { givesANum(): number; };
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @providesModule ES6_Default_NamedClass2
  * @flow
  */
 
-declare export default class Foo { givesANum(): number }
+declare export default class Foo {
+  givesANum(): number;
+}
 
+================================================================================
 `;
 
-exports[`ES6_Default_NamedFunction1.js - flow-verify 1`] = `
+exports[`ES6_Default_NamedFunction1.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @providesModule ES6_Default_NamedFunction1
  * @flow
  */
 
 declare export default function foo():number;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @providesModule ES6_Default_NamedFunction1
  * @flow
@@ -224,16 +297,23 @@ declare export default function foo():number;
 
 declare export default function foo(): number;
 
+================================================================================
 `;
 
-exports[`ES6_Default_NamedFunction2.js - flow-verify 1`] = `
+exports[`ES6_Default_NamedFunction2.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @providesModule ES6_Default_NamedFunction2
  * @flow
  */
 
 declare export default function foo():number;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @providesModule ES6_Default_NamedFunction2
  * @flow
@@ -241,29 +321,43 @@ declare export default function foo():number;
 
 declare export default function foo(): number;
 
+================================================================================
 `;
 
-exports[`ES6_DefaultAndNamed.js - flow-verify 1`] = `
+exports[`ES6_DefaultAndNamed.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 declare export default number;
 declare export var str: string;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 declare export default number;
 declare export var str: string;
 
+================================================================================
 `;
 
-exports[`ES6_ExportAllFrom_Intermediary1.js - flow-verify 1`] = `
+exports[`ES6_ExportAllFrom_Intermediary1.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @providesModule ES6_ExportAllFrom_Intermediary1
  * @flow
  */
 
 declare export * from "ES6_ExportAllFrom_Source1";
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @providesModule ES6_ExportAllFrom_Intermediary1
  * @flow
@@ -271,16 +365,23 @@ declare export * from "ES6_ExportAllFrom_Source1";
 
 declare export * from "ES6_ExportAllFrom_Source1"
 
+================================================================================
 `;
 
-exports[`ES6_ExportAllFrom_Intermediary2.js - flow-verify 1`] = `
+exports[`ES6_ExportAllFrom_Intermediary2.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @providesModule ES6_ExportAllFrom_Intermediary2
  * @flow
  */
 
 declare export * from "ES6_ExportAllFrom_Source2";
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @providesModule ES6_ExportAllFrom_Intermediary2
  * @flow
@@ -288,16 +389,23 @@ declare export * from "ES6_ExportAllFrom_Source2";
 
 declare export * from "ES6_ExportAllFrom_Source2"
 
+================================================================================
 `;
 
-exports[`ES6_ExportAllFrom_Source1.js - flow-verify 1`] = `
+exports[`ES6_ExportAllFrom_Source1.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @providesModule ES6_ExportAllFrom_Source1
  * @flow
  */
 
 declare export var numberValue1: number;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @providesModule ES6_ExportAllFrom_Source1
  * @flow
@@ -305,16 +413,23 @@ declare export var numberValue1: number;
 
 declare export var numberValue1: number;
 
+================================================================================
 `;
 
-exports[`ES6_ExportAllFrom_Source2.js - flow-verify 1`] = `
+exports[`ES6_ExportAllFrom_Source2.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @providesModule ES6_ExportAllFrom_Source2
  * @flow
  */
 
 declare export var numberValue2: number;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @providesModule ES6_ExportAllFrom_Source2
  * @flow
@@ -322,22 +437,35 @@ declare export var numberValue2: number;
 
 declare export var numberValue2: number;
 
+================================================================================
 `;
 
-exports[`ES6_ExportAllFromMulti.js - flow-verify 1`] = `
+exports[`ES6_ExportAllFromMulti.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 declare export * from "./ES6_ExportAllFrom_Source1";
 declare export * from "./ES6_ExportAllFrom_Source2";
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 declare export * from "./ES6_ExportAllFrom_Source1"
 declare export * from "./ES6_ExportAllFrom_Source2"
 
+================================================================================
 `;
 
-exports[`ES6_ExportFrom_Intermediary1.js - flow-verify 1`] = `
+exports[`ES6_ExportFrom_Intermediary1.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @providesModule ES6_ExportFrom_Intermediary1
  * @flow
@@ -347,7 +475,8 @@ declare export {
   numberValue1,
   numberValue2 as numberValue2_renamed
 } from "ES6_ExportFrom_Source1";
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @providesModule ES6_ExportFrom_Intermediary1
  * @flow
@@ -358,9 +487,15 @@ declare export {
   numberValue2 as numberValue2_renamed
 } from "ES6_ExportFrom_Source1";
 
+================================================================================
 `;
 
-exports[`ES6_ExportFrom_Intermediary2.js - flow-verify 1`] = `
+exports[`ES6_ExportFrom_Intermediary2.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @providesModule ES6_ExportFrom_Intermediary2
  * @flow
@@ -370,7 +505,8 @@ declare export {
   numberValue1,
   numberValue2 as numberValue2_renamed2
 } from "ES6_ExportFrom_Source2";
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @providesModule ES6_ExportFrom_Intermediary2
  * @flow
@@ -381,9 +517,15 @@ declare export {
   numberValue2 as numberValue2_renamed2
 } from "ES6_ExportFrom_Source2";
 
+================================================================================
 `;
 
-exports[`ES6_ExportFrom_Source1.js - flow-verify 1`] = `
+exports[`ES6_ExportFrom_Source1.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @providesModule ES6_ExportFrom_Source1
  * @flow
@@ -391,7 +533,8 @@ exports[`ES6_ExportFrom_Source1.js - flow-verify 1`] = `
 
 declare export var numberValue1: number;
 declare export var numberValue2: number;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @providesModule ES6_ExportFrom_Source1
  * @flow
@@ -400,9 +543,15 @@ declare export var numberValue2: number;
 declare export var numberValue1: number;
 declare export var numberValue2: number;
 
+================================================================================
 `;
 
-exports[`ES6_ExportFrom_Source2.js - flow-verify 1`] = `
+exports[`ES6_ExportFrom_Source2.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @providesModule ES6_ExportFrom_Source2
  * @flow
@@ -410,7 +559,8 @@ exports[`ES6_ExportFrom_Source2.js - flow-verify 1`] = `
 
 declare export var numberValue1: number;
 declare export var numberValue2: number;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @providesModule ES6_ExportFrom_Source2
  * @flow
@@ -419,9 +569,15 @@ declare export var numberValue2: number;
 declare export var numberValue1: number;
 declare export var numberValue2: number;
 
+================================================================================
 `;
 
-exports[`ES6_Named1.js - flow-verify 1`] = `
+exports[`ES6_Named1.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @providesModule ES6_Named1
  * @flow
@@ -443,7 +599,8 @@ declare export class NumberGenerator { givesANumber(): number; };
 
 declare export var varDeclNumber1: number;
 declare export var varDeclNumber2: number;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @providesModule ES6_Named1
  * @flow
@@ -461,14 +618,22 @@ declare export { specifierNumber3 };
 declare export { groupedSpecifierNumber1, groupedSpecifierNumber2 };
 
 declare export function givesANumber(): number;
-declare export class NumberGenerator { givesANumber(): number }
+declare export class NumberGenerator {
+  givesANumber(): number;
+}
 
 declare export var varDeclNumber1: number;
 declare export var varDeclNumber2: number;
 
+================================================================================
 `;
 
-exports[`ES6_Named2.js - flow-verify 1`] = `
+exports[`ES6_Named2.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @providesModule ES6_Named2
  * @flow
@@ -488,7 +653,8 @@ declare export class NumberGenerator2 { givesANumber(): number; };
 
 declare export var varDeclNumber3: number;
 declare export var varDeclNumber4: number;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @providesModule ES6_Named2
  * @flow
@@ -504,14 +670,22 @@ declare export { specifierNumber5 as specifierNumber5Renamed };
 declare export { groupedSpecifierNumber3, groupedSpecifierNumber4 };
 
 declare export function givesANumber2(): number;
-declare export class NumberGenerator2 { givesANumber(): number }
+declare export class NumberGenerator2 {
+  givesANumber(): number;
+}
 
 declare export var varDeclNumber3: number;
 declare export var varDeclNumber4: number;
 
+================================================================================
 `;
 
-exports[`ProvidesModuleA.js - flow-verify 1`] = `
+exports[`ProvidesModuleA.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @providesModule A
  * @flow
@@ -522,7 +696,8 @@ exports.numberValue2 = 42;
 exports.numberValue3 = 42;
 exports.numberValue4 = 42;
 exports.stringValue = "str";
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @providesModule A
  * @flow
@@ -534,9 +709,15 @@ exports.numberValue3 = 42;
 exports.numberValue4 = 42;
 exports.stringValue = "str";
 
+================================================================================
 `;
 
-exports[`ProvidesModuleCJSDefault.js - flow-verify 1`] = `
+exports[`ProvidesModuleCJSDefault.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @providesModule CJSDefault
  * @flow
@@ -545,7 +726,8 @@ exports[`ProvidesModuleCJSDefault.js - flow-verify 1`] = `
 module.exports = {
   numberValue: 42
 };
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @providesModule CJSDefault
  * @flow
@@ -555,22 +737,35 @@ module.exports = {
   numberValue: 42
 };
 
+================================================================================
 `;
 
-exports[`ProvidesModuleD.js - flow-verify 1`] = `
+exports[`ProvidesModuleD.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @providesModule D
  * @flow
  */
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @providesModule D
  * @flow
  */
 
+================================================================================
 `;
 
-exports[`ProvidesModuleES6Default.js - flow-verify 1`] = `
+exports[`ProvidesModuleES6Default.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @providesModule ES6Default
  * @flow
@@ -581,7 +776,8 @@ export default {
   numberValue: 42,
 };
 */
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @providesModule ES6Default
  * @flow
@@ -593,16 +789,29 @@ export default {
 };
 */
 
+================================================================================
 `;
 
-exports[`SideEffects.js - flow-verify 1`] = `
-/* @flow */
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`SideEffects.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
+=====================================output=====================================
+/* @flow */
+
+================================================================================
 `;
 
-exports[`es6modules.js - flow-verify 1`] = `
+exports[`es6modules.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 // ===================== //
@@ -894,7 +1103,8 @@ var at2: string = numberValue8; // Error: number ~> string
 
 var at3: number = numberValue9;
 var at4: string = numberValue9; // Error: number ~> string
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 // ===================== //
@@ -1164,4 +1374,5 @@ var at2: string = numberValue8; // Error: number ~> string
 var at3: number = numberValue9;
 var at4: string = numberValue9; // Error: number ~> string
 
+================================================================================
 `;

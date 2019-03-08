@@ -5,7 +5,7 @@ title: Why Prettier?
 
 ## Building and enforcing a style guide
 
-By far the biggest reason for adopting Prettier is to stop all the on-going debates over styles. It is generally accepted that having a common style guide is valuable for a project and team but getting there is a very painful and unrewarding process. People get very emotional around particular ways of writing code and nobody likes spending time writing and receiving nits.
+By far the biggest reason for adopting Prettier is to stop all the on-going debates over styles. [It is generally accepted that having a common style guide is valuable for a project and team](https://www.smashingmagazine.com/2012/10/why-coding-style-matters/) but getting there is a very painful and unrewarding process. People get very emotional around particular ways of writing code and nobody likes spending time writing and receiving nits.
 
 So why choose the "Prettier style guide" over any other random style guide? Because Prettier is the only "style guide" that is fully automatic. Even if Prettier does not format all code 100% the way you'd like, it's worth the "sacrifice" given the unique benefits of Prettier, don't you think?
 

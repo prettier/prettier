@@ -1,49 +1,76 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`client_optional.js - flow-verify 1`] = `
+exports[`client_optional.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 var qux = require('./optional');
 
 qux(0);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 var qux = require("./optional");
 
 qux(0);
 
+================================================================================
 `;
 
-exports[`default.js - flow-verify 1`] = `
+exports[`default.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 function f<T>(foo, bar = foo): [T, T] {
   return [foo, bar];
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 function f<T>(foo, bar = foo): [T, T] {
   return [foo, bar];
 }
 
+================================================================================
 `;
 
-exports[`generic.js - flow-verify 1`] = `
+exports[`generic.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 function x<T>(x: T = 0) {}
 
 class C {
   x<T>(x: T = 0) {}
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 function x<T>(x: T = 0) {}
 
 class C {
   x<T>(x: T = 0) {}
 }
 
+================================================================================
 `;
 
-exports[`loop.js - flow-verify 1`] = `
+exports[`loop.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* Regression test. Improper handling of OptionalT repositioning can cause
  * reasons to grow "optional x" -> "optional optional x" -> "optional optional
  * optional x", which thwarts reason-based caches that prevent nontermination.
  */
 function f<T:*>(x:T,y?:T) { x = y }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* Regression test. Improper handling of OptionalT repositioning can cause
  * reasons to grow "optional x" -> "optional optional x" -> "optional optional
  * optional x", which thwarts reason-based caches that prevent nontermination.
@@ -52,20 +79,33 @@ function f<T: *>(x: T, y?: T) {
   x = y;
 }
 
+================================================================================
 `;
 
-exports[`maybe.js - flow-verify 1`] = `
+exports[`maybe.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 function foo(x?: string): ?string {
     return x;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 function foo(x?: string): ?string {
   return x;
 }
 
+================================================================================
 `;
 
-exports[`nullable.js - flow-verify 1`] = `
+exports[`nullable.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 function optionalNullable1(x: {y?: ?number}) {
@@ -115,7 +155,8 @@ function optionalNullable8(x: {y?: ?number}) {
     x.y++;
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 function optionalNullable1(x: { y?: ?number }) {
@@ -166,9 +207,15 @@ function optionalNullable8(x: { y?: ?number }) {
   }
 }
 
+================================================================================
 `;
 
-exports[`optional.js - flow-verify 1`] = `
+exports[`optional.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 function bar(x?,y?) { x * 0; }
 bar(0);
 
@@ -182,7 +229,8 @@ qux(0,...[42, ""]); // Error, number ~> string
 qux(0,...["",42]); // No error
 
 module.exports = qux;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 function bar(x?, y?) {
   x * 0;
 }
@@ -202,9 +250,15 @@ qux(0, ...["", 42]); // No error
 
 module.exports = qux;
 
+================================================================================
 `;
 
-exports[`optional_param.js - flow-verify 1`] = `
+exports[`optional_param.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 function foo(x?: string): string {
     if (x == null) { return 'foo'; }
@@ -240,7 +294,8 @@ function testOptionalNullableFlowingToNullable(x?: ?string): ?string {
   var f = function(y: ?string) {};
   f(x);
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 function foo(x?: string): string {
   if (x == null) {
@@ -289,9 +344,15 @@ function testOptionalNullableFlowingToNullable(x?: ?string): ?string {
   f(x);
 }
 
+================================================================================
 `;
 
-exports[`optional_param2.js - flow-verify 1`] = `
+exports[`optional_param2.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 declare class I<V> {
     map<M>(
         mapper: (value?: V) => M
@@ -299,16 +360,23 @@ declare class I<V> {
 }
 var i:I<number> = new I();
 var j:I<number> = i.map(id => id);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 declare class I<V> {
   map<M>(mapper: (value?: V) => M): I<M>;
 }
 var i: I<number> = new I();
 var j: I<number> = i.map(id => id);
 
+================================================================================
 `;
 
-exports[`optional_param3.js - flow-verify 1`] = `
+exports[`optional_param3.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 function foo(x?: number) {}
 foo(undefined); // ok
 
@@ -316,7 +384,8 @@ function bar(x = "bar"): string {
   return x;
 }
 bar(undefined); // ok
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 function foo(x?: number) {}
 foo(undefined); // ok
 
@@ -325,9 +394,15 @@ function bar(x = "bar"): string {
 }
 bar(undefined); // ok
 
+================================================================================
 `;
 
-exports[`optional_param4.js - flow-verify 1`] = `
+exports[`optional_param4.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 function foo(x?: number, ...y: Array<string>): [?number, Array<string>] {
@@ -341,7 +416,8 @@ foo(123, 'hello'); // OK
 
 foo(true); // ERROR boolean ~> number
 foo(123, true); // ERROR boolean ~> string
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 function foo(x?: number, ...y: Array<string>): [?number, Array<string>] {
@@ -355,9 +431,15 @@ foo(123), // OK
 foo(true); // ERROR boolean ~> number
 foo(123, true); // ERROR boolean ~> string
 
+================================================================================
 `;
 
-exports[`undefined.js - flow-verify 1`] = `
+exports[`undefined.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 var x;
 
 function foo(bar? = undefined) {
@@ -367,7 +449,8 @@ function foo(bar? = undefined) {
 function bar() {
     return x.duck;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 var x;
 
 function foo(bar? = undefined) {
@@ -378,9 +461,15 @@ function bar() {
   return x.duck;
 }
 
+================================================================================
 `;
 
-exports[`undefined2.js - flow-verify 1`] = `
+exports[`undefined2.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 var x;
 
 function foo(bar?) {
@@ -390,7 +479,8 @@ function foo(bar?) {
 function bar() {
     return x.duck;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 var x;
 
 function foo(bar?) {
@@ -401,4 +491,5 @@ function bar() {
   return x.duck;
 }
 
+================================================================================
 `;

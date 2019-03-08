@@ -1,0 +1,25 @@
+[
+    a ? (b | c : d) : (e | f : g),
+    a | b | c | d,
+    ((a | b) | c) | d,
+    a | b:(c | d),
+    { a: b | c },
+    (a + b) | c,
+    (a | b) + c,
+    fn(a | b),
+    a?.b(c | d),
+    a[b | c],
+    ($students | async).items,
+    ($students | async)(),
+    myData | myPipe:'arg1':'arg2':'arg3',
+    value
+      | pipeA: {
+        keyA: reallySuperLongValue,
+        keyB: shortValue | pipeB | pipeC: valueToPipeC
+      } : {
+        keyA: reallySuperLongValue,
+        keyB: shortValue | pipeB | pipeC: valueToPipeC
+      }
+      | aaa,
+   (hideLinqPanel ? "ReportSelection.HideShowLabel_Show.String" : "ReportSelection.HideShowLabel_Hide.String") | localize:(localizationSection) 
+]

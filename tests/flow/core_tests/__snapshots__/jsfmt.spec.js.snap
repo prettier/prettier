@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`boolean.js - flow-verify 1`] = `
+exports[`boolean.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 // Boolean (the class) tests. booleans (the literals) are not part of core.js
@@ -43,7 +48,8 @@ let tests = [
     Boolean("");
   },
 ];
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 // Boolean (the class) tests. booleans (the literals) are not part of core.js
@@ -87,9 +93,15 @@ let tests = [
   }
 ];
 
+================================================================================
 `;
 
-exports[`map.js - flow-verify 1`] = `
+exports[`map.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 function* generator(): Iterable<[string, number]> {
@@ -122,7 +134,8 @@ let tests = [
     x.get(123); // error, wrong key type
   },
 ];
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 function* generator(): Iterable<[string, number]> {
@@ -156,9 +169,15 @@ let tests = [
   }
 ];
 
+================================================================================
 `;
 
-exports[`regexp.js - flow-verify 1`] = `
+exports[`regexp.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 let tests = [
@@ -188,7 +207,8 @@ let tests = [
     new RegExp('foo', 'z'); // error
   }
 ];
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 let tests = [
@@ -219,9 +239,15 @@ let tests = [
   }
 ];
 
+================================================================================
 `;
 
-exports[`weakset.js - flow-verify 1`] = `
+exports[`weakset.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 let ws = new WeakSet();
@@ -258,7 +284,8 @@ function* numbers(): Iterable<number> {
 }
 
 let ws5 = new WeakSet(numbers()); // error, must be objects
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 let ws = new WeakSet();
@@ -296,4 +323,5 @@ function* numbers(): Iterable<number> {
 
 let ws5 = new WeakSet(numbers()); // error, must be objects
 
+================================================================================
 `;

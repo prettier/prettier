@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`trailing-comma.ts - typescript-verify 1`] = `
+exports[`trailing-comma.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 export interface ShopQueryResult {
   chic: boolean;
   location: number[];
@@ -15,7 +20,8 @@ export interface ShopQueryResult {
   shop: string;
   distance: number;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 export interface ShopQueryResult {
   chic: boolean;
   location: number[];
@@ -31,9 +37,15 @@ export interface ShopQueryResult {
   distance: number;
 }
 
+================================================================================
 `;
 
-exports[`tuple.ts - typescript-verify 1`] = `
+exports[`tuple.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 
 export type SCMRawResource = [
 	number /*handle*/,
@@ -43,7 +55,8 @@ export type SCMRawResource = [
 	boolean /*strike through*/,
 	boolean /*faded*/
 ];
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 export type SCMRawResource = [
   number /*handle*/,
   string /*resourceUri*/,
@@ -53,4 +66,5 @@ export type SCMRawResource = [
   boolean /*faded*/
 ];
 
+================================================================================
 `;

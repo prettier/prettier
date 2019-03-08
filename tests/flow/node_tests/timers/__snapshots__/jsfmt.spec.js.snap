@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`timers.js - flow-verify 1`] = `
+exports[`timers.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 function setImmediateCallback(): number {
@@ -8,7 +13,8 @@ function setImmediateCallback(): number {
 }
 
 setImmediate(setImmediateCallback);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 function setImmediateCallback(): number {
@@ -17,4 +23,5 @@ function setImmediateCallback(): number {
 
 setImmediate(setImmediateCallback);
 
+================================================================================
 `;

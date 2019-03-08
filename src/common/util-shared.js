@@ -20,6 +20,21 @@ function getNextNonSpaceNonCommentCharacterIndex(text, node, options) {
 }
 
 module.exports = {
+  getMaxContinuousCount: util.getMaxContinuousCount,
+  getStringWidth: util.getStringWidth,
+  getAlignmentSize: util.getAlignmentSize,
+  getIndentSize: util.getIndentSize,
+  skip: util.skip,
+  skipWhitespace: util.skipWhitespace,
+  skipSpaces: util.skipSpaces,
+  skipNewline: util.skipNewline,
+  skipToLineEnd: util.skipToLineEnd,
+  skipEverythingButNewLine: util.skipEverythingButNewLine,
+  skipInlineComment: util.skipInlineComment,
+  skipTrailingComment: util.skipTrailingComment,
+  hasNewline: util.hasNewline,
+  hasNewlineInRange: util.hasNewlineInRange,
+  hasSpaces: util.hasSpaces,
   isNextLineEmpty,
   isNextLineEmptyAfterIndex: util.isNextLineEmptyAfterIndex,
   isPreviousLineEmpty,

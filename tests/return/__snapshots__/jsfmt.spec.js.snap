@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`binaryish.js - flow-verify 1`] = `
+exports[`binaryish.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 function f() {
   return (
     property.isIdentifier() &&
@@ -24,7 +29,8 @@ function f() {
   return !filePath.includes(coverageDirectory) &&
     !filePath.endsWith(\`.\${SNAPSHOT_EXTENSION}\`);
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 function f() {
   return (
     property.isIdentifier() &&
@@ -49,9 +55,15 @@ function f() {
   );
 }
 
+================================================================================
 `;
 
-exports[`comment.js - flow-verify 1`] = `
+exports[`comment.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 function f() {
   return /* a */;
 }
@@ -77,7 +89,8 @@ fn(function f() {
       .bar()
   );
 });
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 function f() {
   return /* a */;
 }
@@ -106,4 +119,5 @@ fn(function f() {
   );
 });
 
+================================================================================
 `;

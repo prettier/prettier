@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`break.js - flow-verify 1`] = `
+exports[`break.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 h(f(g(() => {
   a
 })))
@@ -36,7 +41,16 @@ const mapChargeItems = fp.flow(
 );
 
 expect(new LongLongLongLongLongRange([0, 0], [0, 0])).toEqualAtomLongLongLongLongRange(new LongLongLongRange([0, 0], [0, 0]));
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+["red", "white", "blue", "black", "hotpink", "rebeccapurple"].reduce(
+  (allColors, color) => {
+    return allColors.concat(color);
+  },
+  []
+);
+
+
+=====================================output=====================================
 h(
   f(
     g(() => {
@@ -78,9 +92,22 @@ expect(
   new LongLongLongLongLongRange([0, 0], [0, 0])
 ).toEqualAtomLongLongLongLongRange(new LongLongLongRange([0, 0], [0, 0]));
 
+["red", "white", "blue", "black", "hotpink", "rebeccapurple"].reduce(
+  (allColors, color) => {
+    return allColors.concat(color);
+  },
+  []
+);
+
+================================================================================
 `;
 
-exports[`parent.js - flow-verify 1`] = `
+exports[`parent.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 runtimeAgent.getProperties(
   objectId,
   false, // ownProperties
@@ -90,7 +117,8 @@ runtimeAgent.getProperties(
     return 1
   },
 );
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 runtimeAgent.getProperties(
   objectId,
   false, // ownProperties
@@ -101,4 +129,76 @@ runtimeAgent.getProperties(
   }
 );
 
+================================================================================
+`;
+
+exports[`react.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+function helloWorld() {
+  useEffect(() => {
+    // do something
+  }, [props.value])
+  useEffect(() => {
+    // do something
+  }, [props.value, props.value, props.value, props.value, props.value, props.value, props.value, props.value, props.value, props.value, props.value])
+}
+
+function helloWorldWithReact() {
+  React.useEffect(() => {
+    // do something
+  }, [props.value])
+  React.useEffect(() => {
+    // do something
+  }, [props.value, props.value, props.value, props.value, props.value, props.value, props.value, props.value, props.value, props.value, props.value])
+}
+
+
+=====================================output=====================================
+function helloWorld() {
+  useEffect(() => {
+    // do something
+  }, [props.value]);
+  useEffect(() => {
+    // do something
+  }, [
+    props.value,
+    props.value,
+    props.value,
+    props.value,
+    props.value,
+    props.value,
+    props.value,
+    props.value,
+    props.value,
+    props.value,
+    props.value
+  ]);
+}
+
+function helloWorldWithReact() {
+  React.useEffect(() => {
+    // do something
+  }, [props.value]);
+  React.useEffect(() => {
+    // do something
+  }, [
+    props.value,
+    props.value,
+    props.value,
+    props.value,
+    props.value,
+    props.value,
+    props.value,
+    props.value,
+    props.value,
+    props.value,
+    props.value
+  ]);
+}
+
+================================================================================
 `;

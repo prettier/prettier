@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`apply.js - flow-verify 1`] = `
+exports[`apply.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 function apply<Args: $ReadOnlyArray<mixed>, Ret>(
@@ -41,7 +46,8 @@ applyType(withRest, ['hi', 123]); // No error
 applyType(withRest, ['hi', 456]); // Error - 456 ~> 123
 applyType(withRest, ['hi']); // Error - too few args
 applyType(withRest, ['hi', 123, false]); // Error - too many args
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 function apply<Args: $ReadOnlyArray<mixed>, Ret>(
@@ -91,9 +97,15 @@ applyType(withRest, ["hi", 456]); // Error - 456 ~> 123
 applyType(withRest, ["hi"]); // Error - too few args
 applyType(withRest, ["hi", 123, false]); // Error - too many args
 
+================================================================================
 `;
 
-exports[`issue3443.js - flow-verify 1`] = `
+exports[`issue3443.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 // Adapted from https://github.com/facebook/flow/issues/3443
@@ -112,7 +124,8 @@ function foo(...args) {
   foo(1, ...args);
 }
 foo(123);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 // Adapted from https://github.com/facebook/flow/issues/3443
@@ -132,9 +145,15 @@ function foo(...args) {
 }
 foo(123);
 
+================================================================================
 `;
 
-exports[`jsx.js - flow-verify 1`] = `
+exports[`jsx.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @jsx JSX
  * @flow
@@ -182,7 +201,8 @@ declare function ExpectsChildrenArray(props: any, children: Array<string>): stri
 (<ExpectsChildrenArray>Hi</ExpectsChildrenArray>); // No error - 1 child is fine
 (<ExpectsChildrenArray>{123}</ExpectsChildrenArray>); // Error: number ~> string
 (<ExpectsChildrenArray>Hi {"there"}</ExpectsChildrenArray>); // No error - 2 children is fine
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @jsx JSX
  * @flow
@@ -234,9 +254,15 @@ declare function ExpectsChildrenArray(
 <ExpectsChildrenArray>{123}</ExpectsChildrenArray>; // Error: number ~> string
 <ExpectsChildrenArray>Hi {"there"}</ExpectsChildrenArray>; // No error - 2 children is fine
 
+================================================================================
 `;
 
-exports[`spread.js - flow-verify 1`] = `
+exports[`spread.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 function fun(x: 'hi', y: 123) {}
@@ -265,7 +291,8 @@ funWithRestArray('hi', ...arrOf123, ...arrOf123); // No error - ignore the fact 
 // 1. 'bye' ~> 123 in case the first spread is empty
 // 2. 'bye' ~> number in case the first spread is not empty
 funWithRestArray('hi', ...arrOf123, 'bye', ...arrOf123);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 function fun(x: "hi", y: 123) {}
@@ -294,4 +321,5 @@ funWithRestArray("hi", ...arrOf123, ...arrOf123); // No error - ignore the fact 
 // 2. 'bye' ~> number in case the first spread is not empty
 funWithRestArray("hi", ...arrOf123, "bye", ...arrOf123);
 
+================================================================================
 `;

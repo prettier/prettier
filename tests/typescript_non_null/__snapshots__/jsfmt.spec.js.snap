@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`member-chain.js - typescript-verify 1`] = `
+exports[`member-chain.js 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const { somePropThatHasAReallyLongName, anotherPropThatHasALongName } = this.props.imReallySureAboutThis!;
 
 const { somePropThatHasAReallyLongName, anotherPropThatHasALongName } = this.props.imReallySureAboutThis!.anotherObject;
@@ -8,7 +13,8 @@ const { somePropThatHasAReallyLongName, anotherPropThatHasALongName } = this.pro
 this.foo.get("bar")!.doThings().more();
 
 foo!.bar().baz().what();
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const {
   somePropThatHasAReallyLongName,
   anotherPropThatHasALongName
@@ -29,9 +35,15 @@ foo!
   .baz()
   .what();
 
+================================================================================
 `;
 
-exports[`parens.ts - typescript-verify 1`] = `
+exports[`parens.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 (a ? b : c) ![tokenKey];
 (a || b) ![tokenKey];
 (void 0)!;
@@ -43,7 +55,8 @@ async function f() {
 function* g() {
     return (yield * foo())!;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 (a ? b : c)![tokenKey];
 (a || b)![tokenKey];
 (void 0)!;
@@ -56,4 +69,5 @@ function* g() {
   return (yield* foo())!;
 }
 
+================================================================================
 `;

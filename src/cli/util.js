@@ -7,7 +7,6 @@ const fs = require("fs");
 const globby = require("globby");
 const chalk = require("chalk");
 const readline = require("readline");
-const leven = require("leven");
 const stringify = require("json-stable-stringify");
 
 const minimist = require("./minimist");
@@ -20,19 +19,22 @@ const optionsModule = require("../main/options");
 const optionsNormalizer = require("../main/options-normalizer");
 const thirdParty = require("../common/third-party");
 const arrayify = require("../utils/arrayify");
+const isTTY = require("../utils/is-tty");
 
 const OPTION_USAGE_THRESHOLD = 25;
 const CHOICE_USAGE_MARGIN = 3;
 const CHOICE_USAGE_INDENTATION = 2;
 
 function getOptions(argv, detailedOptions) {
-  return detailedOptions.filter(option => option.forwardToApi).reduce(
-    (current, option) =>
-      Object.assign(current, {
-        [option.forwardToApi]: argv[option.name]
-      }),
-    {}
-  );
+  return detailedOptions
+    .filter(option => option.forwardToApi)
+    .reduce(
+      (current, option) =>
+        Object.assign(current, {
+          [option.forwardToApi]: argv[option.name]
+        }),
+      {}
+    );
 }
 
 function cliifyOptions(object, apiDetailedOptionMap) {
@@ -53,11 +55,11 @@ function diff(a, b) {
 
 function handleError(context, filename, error) {
   if (error instanceof errors.UndefinedParserError) {
-    if (context.argv["write"] && process.stdout.isTTY) {
+    if (context.argv["write"] && isTTY()) {
       readline.clearLine(process.stdout, 0);
       readline.cursorTo(process.stdout, 0, null);
     }
-    if (!context.argv["list-different"]) {
+    if (!context.argv["check"] && !context.argv["list-different"]) {
       process.exitCode = 2;
     }
     context.logger.error(error.message);
@@ -132,7 +134,7 @@ function writeOutput(context, result, options) {
 }
 
 function listDifferent(context, input, options, filename) {
-  if (!context.argv["list-different"]) {
+  if (!context.argv["check"] && !context.argv["list-different"]) {
     return;
   }
 
@@ -145,8 +147,8 @@ function listDifferent(context, input, options, filename) {
     if (!prettier.check(input, options)) {
       if (!context.argv["write"]) {
         context.logger.log(filename);
+        process.exitCode = 1;
       }
-      process.exitCode = 1;
     }
   } catch (error) {
     context.logger.error(error.message);
@@ -381,7 +383,7 @@ function formatStdin(context) {
 
       writeOutput(context, format(context, input, options), options);
     } catch (error) {
-      handleError(context, "stdin", error);
+      handleError(context, relativeFilepath || "stdin", error);
     }
   });
 }
@@ -440,18 +442,25 @@ function formatFiles(context) {
   // before any files are actually written
   const ignorer = createIgnorerFromContextOrDie(context);
 
+  let numberOfUnformattedFilesFound = 0;
+
+  if (context.argv["check"]) {
+    context.logger.log("Checking formatting...");
+  }
+
   eachFilename(context, context.filePatterns, (filename, options) => {
     const fileIgnored = ignorer.filter([filename]).length === 0;
     if (
       fileIgnored &&
       (context.argv["debug-check"] ||
         context.argv["write"] ||
+        context.argv["check"] ||
         context.argv["list-different"])
     ) {
       return;
     }
 
-    if (context.argv["write"] && process.stdout.isTTY) {
+    if (isTTY()) {
       // Don't use `console.log` here since we need to replace this line.
       context.logger.log(filename, { newline: false });
     }
@@ -495,22 +504,17 @@ function formatFiles(context) {
 
     const isDifferent = output !== input;
 
-    if (context.argv["list-different"] && isDifferent) {
-      context.logger.log(filename);
-      process.exitCode = 1;
+    if (isTTY()) {
+      // Remove previously printed filename to log it with duration.
+      readline.clearLine(process.stdout, 0);
+      readline.cursorTo(process.stdout, 0, null);
     }
 
     if (context.argv["write"]) {
-      if (process.stdout.isTTY) {
-        // Remove previously printed filename to log it with duration.
-        readline.clearLine(process.stdout, 0);
-        readline.cursorTo(process.stdout, 0, null);
-      }
-
       // Don't write the file if it won't change in order not to invalidate
       // mtime based caches.
       if (isDifferent) {
-        if (!context.argv["list-different"]) {
+        if (!context.argv["check"] && !context.argv["list-different"]) {
           context.logger.log(`${filename} ${Date.now() - start}ms`);
         }
 
@@ -523,7 +527,7 @@ function formatFiles(context) {
           // Don't exit the process if one file failed
           process.exitCode = 2;
         }
-      } else if (!context.argv["list-different"]) {
+      } else if (!context.argv["check"] && !context.argv["list-different"]) {
         context.logger.log(`${chalk.grey(filename)} ${Date.now() - start}ms`);
       }
     } else if (context.argv["debug-check"]) {
@@ -532,10 +536,39 @@ function formatFiles(context) {
       } else {
         process.exitCode = 2;
       }
-    } else if (!context.argv["list-different"]) {
+    } else if (!context.argv["check"] && !context.argv["list-different"]) {
       writeOutput(context, result, options);
     }
+
+    if (
+      (context.argv["check"] || context.argv["list-different"]) &&
+      isDifferent
+    ) {
+      context.logger.log(filename);
+      numberOfUnformattedFilesFound += 1;
+    }
   });
+
+  // Print check summary based on expected exit code
+  if (context.argv["check"]) {
+    context.logger.log(
+      numberOfUnformattedFilesFound === 0
+        ? "All matched files use Prettier code style!"
+        : context.argv["write"]
+        ? "Code style issues fixed in the above file(s)."
+        : "Code style issues found in the above file(s). Forgot to run Prettier?"
+    );
+  }
+
+  // Ensure non-zero exitCode when using --check/list-different is not combined with --write
+  if (
+    (context.argv["check"] || context.argv["list-different"]) &&
+    numberOfUnformattedFilesFound > 0 &&
+    !process.exitCode &&
+    !context.argv["write"]
+  ) {
+    process.exitCode = 1;
+  }
 }
 
 function getOptionsWithOpposites(options) {
@@ -642,40 +675,6 @@ function flattenArray(array) {
   return [].concat.apply([], array);
 }
 
-function getOptionWithLevenSuggestion(context, options, optionName) {
-  // support aliases
-  const optionNameContainers = flattenArray(
-    options.map((option, index) => [
-      { value: option.name, index },
-      option.alias ? { value: option.alias, index } : null
-    ])
-  ).filter(Boolean);
-
-  const optionNameContainer = optionNameContainers.find(
-    optionNameContainer => optionNameContainer.value === optionName
-  );
-
-  if (optionNameContainer !== undefined) {
-    return options[optionNameContainer.index];
-  }
-
-  const suggestedOptionNameContainer = optionNameContainers.find(
-    optionNameContainer => leven(optionNameContainer.value, optionName) < 3
-  );
-
-  if (suggestedOptionNameContainer !== undefined) {
-    const suggestedOptionName = suggestedOptionNameContainer.value;
-    context.logger.warn(
-      `Unknown option name "${optionName}", did you mean "${suggestedOptionName}"?`
-    );
-
-    return options[suggestedOptionNameContainer.index];
-  }
-
-  context.logger.warn(`Unknown option name "${optionName}"`);
-  return options.find(option => option.name === "help");
-}
-
 function createChoiceUsages(choices, margin, indentation) {
   const activeChoices = choices.filter(
     choice => !choice.deprecated && choice.since !== null
@@ -692,11 +691,9 @@ function createChoiceUsages(choices, margin, indentation) {
   );
 }
 
-function createDetailedUsage(context, optionName) {
-  const option = getOptionWithLevenSuggestion(
-    context,
-    getOptionsWithOpposites(context.detailedOptions),
-    optionName
+function createDetailedUsage(context, flag) {
+  const option = getOptionsWithOpposites(context.detailedOptions).find(
+    option => option.name === flag || option.alias === flag
   );
 
   const header = createOptionUsageHeader(option);
@@ -848,12 +845,16 @@ function normalizeDetailedOptionMap(detailedOptionMap) {
 
 function createMinimistOptions(detailedOptions) {
   return {
+    // we use vnopts' AliasSchema to handle aliases for better error messages
+    alias: {},
     boolean: detailedOptions
       .filter(option => option.type === "boolean")
-      .map(option => option.name),
+      .map(option => [option.name].concat(option.alias || []))
+      .reduce((a, b) => a.concat(b)),
     string: detailedOptions
       .filter(option => option.type !== "boolean")
-      .map(option => option.name),
+      .map(option => [option.name].concat(option.alias || []))
+      .reduce((a, b) => a.concat(b)),
     default: detailedOptions
       .filter(option => !option.deprecated)
       .filter(
@@ -866,13 +867,6 @@ function createMinimistOptions(detailedOptions) {
       .reduce(
         (current, option) =>
           Object.assign({ [option.name]: option.default }, current),
-        {}
-      ),
-    alias: detailedOptions
-      .filter(option => option.alias !== undefined)
-      .reduce(
-        (current, option) =>
-          Object.assign({ [option.name]: option.alias }, current),
         {}
       )
   };

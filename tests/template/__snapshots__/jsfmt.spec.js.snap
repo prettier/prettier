@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`arrow.js - flow-verify 1`] = `
+exports[`arrow.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 () => a\`
 	a
 \`;
@@ -8,7 +13,8 @@ exports[`arrow.js - flow-verify 1`] = `
 () => \`
 	a
 \`;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 () => a\`
 	a
 \`;
@@ -17,9 +23,15 @@ exports[`arrow.js - flow-verify 1`] = `
 	a
 \`;
 
+================================================================================
 `;
 
-exports[`call.js - flow-verify 1`] = `
+exports[`call.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 insertRule(\`*, *:before, *:after {
   box-sizing: inherit;
 }\`);
@@ -32,7 +44,8 @@ new Error(formatErrorMessage\`
   This a really bad error.
   Which has more than one line.
 \`);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 insertRule(\`*, *:before, *:after {
   box-sizing: inherit;
 }\`);
@@ -46,9 +59,15 @@ new Error(formatErrorMessage\`
   Which has more than one line.
 \`);
 
+================================================================================
 `;
 
-exports[`comment.js - flow-verify 1`] = `
+exports[`comment.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 \`
 (?:\${escapeChar}[\\\\S\\\\s]|(?:(?!\${// Using \`XRegExp.union\` safely rewrites backreferences in \`left\` and \`right\`.
 // Intentionally not passing \`basicFlags\` to \`XRegExp.union\` since any syntax
@@ -61,7 +80,8 @@ XRegExp.union([left, right], '', {conjunction: 'or'}).source})[^\${escapeChar}])
 g
 // h
 }\`;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 \`
 (?:\${escapeChar}[\\\\S\\\\s]|(?:(?!\${
   // Using \`XRegExp.union\` safely rewrites backreferences in \`left\` and \`right\`.
@@ -78,9 +98,15 @@ g
   // h
 }\`;
 
+================================================================================
 `;
 
-exports[`faulty-locations.js - flow-verify 1`] = `
+exports[`faulty-locations.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 var o = {
   [\`key\`]: () => {
     // Comment
@@ -95,7 +121,8 @@ var x = {
     }
   \`
 };
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 var o = {
   [\`key\`]: () => {
     // Comment
@@ -111,9 +138,15 @@ var x = {
   \`
 };
 
+================================================================================
 `;
 
-exports[`graphql.js - flow-verify 1`] = `
+exports[`graphql.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 module.exports = Relay.createContainer(
   // ...
   {
@@ -132,7 +165,8 @@ module.exports = Relay.createContainer(
     },
   },
 );
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 module.exports = Relay.createContainer(
   // ...
   {
@@ -150,9 +184,68 @@ module.exports = Relay.createContainer(
   }
 );
 
+================================================================================
 `;
 
-exports[`inline.js - flow-verify 1`] = `
+exports[`indent.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const foo = () => {
+  {
+    {
+      {
+        return \`
+line 1
+line 2
+...
+line n
+\${foo({
+  many: keys,
+  many: keys
+})}
+line n + 1
+line n + 2
+line n + n
+\`;
+      }
+    }
+  }
+};
+=====================================output=====================================
+const foo = () => {
+  {
+    {
+      {
+        return \`
+line 1
+line 2
+...
+line n
+\${foo({
+  many: keys,
+  many: keys
+})}
+line n + 1
+line n + 2
+line n + n
+\`;
+      }
+    }
+  }
+};
+
+================================================================================
+`;
+
+exports[`inline.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 this._pipe.write(\`\\n\\n Pattern matches \${total} \${pluralizeTest}\`);
 this._pipe.write(
   \`\\n\\n Pattern matches \${total} \${pluralizeTest}\`
@@ -211,7 +304,11 @@ this._pipe.write(\`
   \`
     a
   \`;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// https://github.com/prettier/prettier/issues/5529
+editTitle += \`\${iconHTML({ class: "reply-to-glyph" })}\`;
+
+=====================================output=====================================
 this._pipe.write(\`\\n\\n Pattern matches \${total} \${pluralizeTest}\`);
 this._pipe.write(\`\\n\\n Pattern matches \${total} \${pluralizeTest}\`);
 this._pipe.write(\`\\n\\n Pattern matches \${total} \${pluralizeTest}\`);
@@ -261,9 +358,18 @@ this._pipe.write(\`
     a
   \`;
 
+// https://github.com/prettier/prettier/issues/5529
+editTitle += \`\${iconHTML({ class: "reply-to-glyph" })}\`;
+
+================================================================================
 `;
 
-exports[`parenthesis.js - flow-verify 1`] = `
+exports[`parenthesis.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // "ArrowFunctionExpression"
 (() => {})\`\`;
 
@@ -318,7 +424,8 @@ b.c\`\`;
 function* f() {
   (yield 1)\`\`;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // "ArrowFunctionExpression"
 (() => {})\`\`;
 
@@ -374,4 +481,5 @@ function* f() {
   (yield 1)\`\`;
 }
 
+================================================================================
 `;

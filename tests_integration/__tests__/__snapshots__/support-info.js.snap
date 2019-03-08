@@ -407,12 +407,32 @@ exports[`API getSupportInfo() with version 1.8.0 -> 1.8.2 1`] = `
           \\"start\\": 0,"
 `;
 
-exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
+exports[`API getSupportInfo() with version 1.8.2 -> 1.16.0 1`] = `
 "Snapshot Diff:
 - First value
 + Second value
 
-@@ -14,10 +14,16 @@
+@@ -1,34 +1,49 @@
+  Object {
+    \\"languages\\": Object {
++     \\"Angular\\": Array [
++       \\"angular\\",
++     ],
+      \\"CSS\\": Array [
+        \\"css\\",
+      ],
+      \\"Flow\\": Array [
+-       \\"babylon\\",
++       \\"babel\\",
+        \\"flow\\",
+      ],
+      \\"GraphQL\\": Array [
+        \\"graphql\\",
+      ],
++     \\"HTML\\": Array [
++       \\"html\\",
++     ],
+      \\"JSON\\": Array [
         \\"json\\",
       ],
       \\"JSON with Comments\\": Array [
@@ -425,11 +445,27 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
 +       \\"json5\\",
 +     ],
       \\"JSX\\": Array [
-        \\"babylon\\",
+-       \\"babylon\\",
++       \\"babel\\",
         \\"flow\\",
       ],
       \\"JavaScript\\": Array [
-@@ -37,12 +43,26 @@
+-       \\"babylon\\",
++       \\"babel\\",
+        \\"flow\\",
+      ],
+      \\"Less\\": Array [
+        \\"less\\",
+      ],
++     \\"MDX\\": Array [
++       \\"mdx\\",
++     ],
+      \\"Markdown\\": Array [
+        \\"markdown\\",
+      ],
+      \\"PostCSS\\": Array [
+        \\"css\\",
+@@ -37,12 +52,26 @@
         \\"scss\\",
       ],
       \\"TypeScript\\": Array [
@@ -456,7 +492,53 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
         \\"type\\": \\"boolean\\",
       },
       \\"cursorOffset\\": Object {
-@@ -73,16 +93,28 @@
+@@ -52,37 +81,76 @@
+          \\"start\\": -1,
+          \\"step\\": 1,
+        },
+        \\"type\\": \\"int\\",
+      },
++     \\"endOfLine\\": Object {
++       \\"choices\\": Array [
++         \\"auto\\",
++         \\"lf\\",
++         \\"crlf\\",
++         \\"cr\\",
++       ],
++       \\"default\\": \\"auto\\",
++       \\"type\\": \\"choice\\",
++     },
+      \\"filepath\\": Object {
+        \\"default\\": undefined,
+        \\"type\\": \\"path\\",
+      },
++     \\"htmlWhitespaceSensitivity\\": Object {
++       \\"choices\\": Array [
++         \\"css\\",
++         \\"strict\\",
++         \\"ignore\\",
++       ],
++       \\"default\\": \\"css\\",
++       \\"type\\": \\"choice\\",
++     },
+      \\"insertPragma\\": Object {
+        \\"default\\": false,
+        \\"type\\": \\"boolean\\",
+      },
+      \\"jsxBracketSameLine\\": Object {
+        \\"default\\": false,
+        \\"type\\": \\"boolean\\",
+      },
++     \\"jsxSingleQuote\\": Object {
++       \\"default\\": false,
++       \\"type\\": \\"boolean\\",
++     },
+      \\"parser\\": Object {
+        \\"choices\\": Array [
+          \\"flow\\",
+-         \\"babylon\\",
++         \\"babel\\",
++         \\"babel-flow\\",
           \\"typescript\\",
           \\"css\\",
           \\"less\\",
@@ -466,8 +548,11 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
 +         \\"json-stringify\\",
           \\"graphql\\",
           \\"markdown\\",
++         \\"mdx\\",
 +         \\"vue\\",
 +         \\"yaml\\",
++         \\"html\\",
++         \\"angular\\",
         ],
 -       \\"default\\": \\"babylon\\",
 +       \\"default\\": undefined,
@@ -486,7 +571,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
         \\"range\\": Object {
           \\"end\\": Infinity,
           \\"start\\": 0,
-@@ -90,14 +122,15 @@
+@@ -90,14 +158,15 @@
         },
         \\"type\\": \\"int\\",
       },
@@ -505,6 +590,59 @@ exports[`API getSupportInfo() with version 1.8.2 -> undefined 1`] = `
       \\"rangeEnd\\": Object {
         \\"default\\": Infinity,
         \\"range\\": Object {"
+`;
+
+exports[`API getSupportInfo() with version 1.16.0 -> undefined 1`] = `
+"Snapshot Diff:
+- First value
++ Second value
+
+@@ -37,10 +37,13 @@
+        \\"flow\\",
+      ],
+      \\"Less\\": Array [
+        \\"less\\",
+      ],
++     \\"Lightning Web Components\\": Array [
++       \\"lwc\\",
++     ],
+      \\"MDX\\": Array [
+        \\"mdx\\",
+      ],
+      \\"Markdown\\": Array [
+        \\"markdown\\",
+@@ -135,10 +138,11 @@
+          \\"mdx\\",
+          \\"vue\\",
+          \\"yaml\\",
+          \\"html\\",
+          \\"angular\\",
++         \\"lwc\\",
+        ],
+        \\"default\\": undefined,
+        \\"type\\": \\"choice\\",
+      },
+      \\"pluginSearchDirs\\": Object {
+@@ -165,10 +169,19 @@
+          \\"preserve\\",
+        ],
+        \\"default\\": \\"preserve\\",
+        \\"type\\": \\"choice\\",
+      },
++     \\"quoteProps\\": Object {
++       \\"choices\\": Array [
++         \\"as-needed\\",
++         \\"consistent\\",
++         \\"preserve\\",
++       ],
++       \\"default\\": \\"as-needed\\",
++       \\"type\\": \\"choice\\",
++     },
+      \\"rangeEnd\\": Object {
+        \\"default\\": Infinity,
+        \\"range\\": Object {
+          \\"end\\": Infinity,
+          \\"start\\": 0,"
 `;
 
 exports[`CLI --support-info (stderr) 1`] = `""`;
@@ -541,10 +679,10 @@ exports[`CLI --support-info (stdout) 1`] = `
         \\".xsjslib\\"
       ],
       \\"filenames\\": [\\"Jakefile\\"],
-      \\"interpreters\\": [\\"node\\"],
+      \\"interpreters\\": [\\"node\\", \\"nodejs\\"],
       \\"linguistLanguageId\\": 183,
       \\"name\\": \\"JavaScript\\",
-      \\"parsers\\": [\\"babylon\\", \\"flow\\"],
+      \\"parsers\\": [\\"babel\\", \\"flow\\"],
       \\"since\\": \\"0.0.0\\",
       \\"tmScope\\": \\"source.js\\",
       \\"type\\": \\"programming\\",
@@ -561,7 +699,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"interpreters\\": [\\"node\\"],
       \\"linguistLanguageId\\": 183,
       \\"name\\": \\"Flow\\",
-      \\"parsers\\": [\\"babylon\\", \\"flow\\"],
+      \\"parsers\\": [\\"babel\\", \\"flow\\"],
       \\"since\\": \\"0.0.0\\",
       \\"tmScope\\": \\"source.js\\",
       \\"type\\": \\"programming\\",
@@ -575,7 +713,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"group\\": \\"JavaScript\\",
       \\"linguistLanguageId\\": 178,
       \\"name\\": \\"JSX\\",
-      \\"parsers\\": [\\"babylon\\", \\"flow\\"],
+      \\"parsers\\": [\\"babel\\", \\"flow\\"],
       \\"since\\": \\"0.0.0\\",
       \\"tmScope\\": \\"source.js.jsx\\",
       \\"type\\": \\"programming\\",
@@ -791,6 +929,69 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"wrap\\": true
     },
     {
+      \\"extensions\\": [\\".mdx\\"],
+      \\"name\\": \\"MDX\\",
+      \\"parsers\\": [\\"mdx\\"],
+      \\"since\\": \\"1.15.0\\",
+      \\"vscodeLanguageIds\\": [\\"mdx\\"]
+    },
+    {
+      \\"aceMode\\": \\"html\\",
+      \\"aliases\\": [\\"xhtml\\"],
+      \\"codemirrorMimeType\\": \\"text/html\\",
+      \\"codemirrorMode\\": \\"htmlmixed\\",
+      \\"color\\": \\"#e34c26\\",
+      \\"extensions\\": [\\".component.html\\"],
+      \\"filenames\\": [],
+      \\"linguistLanguageId\\": 146,
+      \\"name\\": \\"Angular\\",
+      \\"parsers\\": [\\"angular\\"],
+      \\"since\\": \\"1.15.0\\",
+      \\"tmScope\\": \\"text.html.basic\\",
+      \\"type\\": \\"markup\\",
+      \\"vscodeLanguageIds\\": [\\"html\\"]
+    },
+    {
+      \\"aceMode\\": \\"html\\",
+      \\"aliases\\": [\\"xhtml\\"],
+      \\"codemirrorMimeType\\": \\"text/html\\",
+      \\"codemirrorMode\\": \\"htmlmixed\\",
+      \\"color\\": \\"#e34c26\\",
+      \\"extensions\\": [
+        \\".html\\",
+        \\".htm\\",
+        \\".html.hl\\",
+        \\".inc\\",
+        \\".st\\",
+        \\".xht\\",
+        \\".xhtml\\",
+        \\".mjml\\"
+      ],
+      \\"linguistLanguageId\\": 146,
+      \\"name\\": \\"HTML\\",
+      \\"parsers\\": [\\"html\\"],
+      \\"since\\": \\"1.15.0\\",
+      \\"tmScope\\": \\"text.html.basic\\",
+      \\"type\\": \\"markup\\",
+      \\"vscodeLanguageIds\\": [\\"html\\"]
+    },
+    {
+      \\"aceMode\\": \\"html\\",
+      \\"aliases\\": [\\"xhtml\\"],
+      \\"codemirrorMimeType\\": \\"text/html\\",
+      \\"codemirrorMode\\": \\"htmlmixed\\",
+      \\"color\\": \\"#e34c26\\",
+      \\"extensions\\": [],
+      \\"filenames\\": [],
+      \\"linguistLanguageId\\": 146,
+      \\"name\\": \\"Lightning Web Components\\",
+      \\"parsers\\": [\\"lwc\\"],
+      \\"since\\": \\"1.17.0\\",
+      \\"tmScope\\": \\"text.html.basic\\",
+      \\"type\\": \\"markup\\",
+      \\"vscodeLanguageIds\\": [\\"html\\"]
+    },
+    {
       \\"aceMode\\": \\"html\\",
       \\"color\\": \\"#2c3e50\\",
       \\"extensions\\": [\\".vue\\"],
@@ -869,12 +1070,62 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"type\\": \\"int\\"
     },
     {
+      \\"category\\": \\"Global\\",
+      \\"choices\\": [
+        {
+          \\"description\\": \\"Maintain existing\\\\n(mixed values within one file are normalised by looking at what's used after the first line)\\",
+          \\"value\\": \\"auto\\"
+        },
+        {
+          \\"description\\": \\"Line Feed only (\\\\\\\\n), common on Linux and macOS as well as inside git repos\\",
+          \\"value\\": \\"lf\\"
+        },
+        {
+          \\"description\\": \\"Carriage Return + Line Feed characters (\\\\\\\\r\\\\\\\\n), common on Windows\\",
+          \\"value\\": \\"crlf\\"
+        },
+        {
+          \\"description\\": \\"Carriage Return character only (\\\\\\\\r), used very rarely\\",
+          \\"value\\": \\"cr\\"
+        }
+      ],
+      \\"default\\": \\"auto\\",
+      \\"description\\": \\"Which end of line characters to apply.\\",
+      \\"name\\": \\"endOfLine\\",
+      \\"pluginDefaults\\": {},
+      \\"since\\": \\"1.15.0\\",
+      \\"type\\": \\"choice\\"
+    },
+    {
       \\"category\\": \\"Special\\",
       \\"description\\": \\"Specify the input filepath. This will be used to do parser inference.\\",
       \\"name\\": \\"filepath\\",
       \\"pluginDefaults\\": {},
       \\"since\\": \\"1.4.0\\",
       \\"type\\": \\"path\\"
+    },
+    {
+      \\"category\\": \\"HTML\\",
+      \\"choices\\": [
+        {
+          \\"description\\": \\"Respect the default value of CSS display property.\\",
+          \\"value\\": \\"css\\"
+        },
+        {
+          \\"description\\": \\"Whitespaces are considered sensitive.\\",
+          \\"value\\": \\"strict\\"
+        },
+        {
+          \\"description\\": \\"Whitespaces are considered insensitive.\\",
+          \\"value\\": \\"ignore\\"
+        }
+      ],
+      \\"default\\": \\"css\\",
+      \\"description\\": \\"How to handle whitespaces in HTML.\\",
+      \\"name\\": \\"htmlWhitespaceSensitivity\\",
+      \\"pluginDefaults\\": {},
+      \\"since\\": \\"1.15.0\\",
+      \\"type\\": \\"choice\\"
     },
     {
       \\"category\\": \\"Special\\",
@@ -895,10 +1146,20 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"type\\": \\"boolean\\"
     },
     {
+      \\"category\\": \\"JavaScript\\",
+      \\"default\\": false,
+      \\"description\\": \\"Use single quotes in JSX.\\",
+      \\"name\\": \\"jsxSingleQuote\\",
+      \\"pluginDefaults\\": {},
+      \\"since\\": \\"1.15.0\\",
+      \\"type\\": \\"boolean\\"
+    },
+    {
       \\"category\\": \\"Global\\",
       \\"choices\\": [
         { \\"description\\": \\"Flow\\", \\"value\\": \\"flow\\" },
-        { \\"description\\": \\"JavaScript\\", \\"value\\": \\"babylon\\" },
+        { \\"description\\": \\"JavaScript\\", \\"since\\": \\"1.16.0\\", \\"value\\": \\"babel\\" },
+        { \\"description\\": \\"Flow\\", \\"since\\": \\"1.16.0\\", \\"value\\": \\"babel-flow\\" },
         {
           \\"description\\": \\"TypeScript\\",
           \\"since\\": \\"1.4.0\\",
@@ -916,8 +1177,16 @@ exports[`CLI --support-info (stdout) 1`] = `
         },
         { \\"description\\": \\"GraphQL\\", \\"since\\": \\"1.5.0\\", \\"value\\": \\"graphql\\" },
         { \\"description\\": \\"Markdown\\", \\"since\\": \\"1.8.0\\", \\"value\\": \\"markdown\\" },
+        { \\"description\\": \\"MDX\\", \\"since\\": \\"1.15.0\\", \\"value\\": \\"mdx\\" },
         { \\"description\\": \\"Vue\\", \\"since\\": \\"1.10.0\\", \\"value\\": \\"vue\\" },
-        { \\"description\\": \\"YAML\\", \\"since\\": \\"1.14.0\\", \\"value\\": \\"yaml\\" }
+        { \\"description\\": \\"YAML\\", \\"since\\": \\"1.14.0\\", \\"value\\": \\"yaml\\" },
+        { \\"description\\": \\"HTML\\", \\"since\\": \\"1.15.0\\", \\"value\\": \\"html\\" },
+        { \\"description\\": \\"Angular\\", \\"since\\": \\"1.15.0\\", \\"value\\": \\"angular\\" },
+        {
+          \\"description\\": \\"Lightning Web Components\\",
+          \\"since\\": \\"1.17.0\\",
+          \\"value\\": \\"lwc\\"
+        }
       ],
       \\"description\\": \\"Which parser to use.\\",
       \\"name\\": \\"parser\\",
@@ -979,6 +1248,29 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"name\\": \\"proseWrap\\",
       \\"pluginDefaults\\": {},
       \\"since\\": \\"1.8.2\\",
+      \\"type\\": \\"choice\\"
+    },
+    {
+      \\"category\\": \\"JavaScript\\",
+      \\"choices\\": [
+        {
+          \\"description\\": \\"Only add quotes around object properties where required.\\",
+          \\"value\\": \\"as-needed\\"
+        },
+        {
+          \\"description\\": \\"If at least one property in an object requires quotes, quote all properties.\\",
+          \\"value\\": \\"consistent\\"
+        },
+        {
+          \\"description\\": \\"Respect the input use of quotes in object properties.\\",
+          \\"value\\": \\"preserve\\"
+        }
+      ],
+      \\"default\\": \\"as-needed\\",
+      \\"description\\": \\"Change when properties in objects are quoted.\\",
+      \\"name\\": \\"quoteProps\\",
+      \\"pluginDefaults\\": {},
+      \\"since\\": \\"1.17.0\\",
       \\"type\\": \\"choice\\"
     },
     {

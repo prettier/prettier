@@ -19,7 +19,9 @@ module.exports = ({ types: t }) => ({
         t.isMemberExpression(callee, { computed: false }) &&
         (t.isArrayExpression(callee.object) ||
           (t.isIdentifier(callee.object) &&
-            /^[A-Z_]+$/.test(callee.object.name))) &&
+            (/^[A-Z_]+$/.test(callee.object.name) ||
+              // https://github.com/eemeli/yaml/blob/1005d01/src/Anchors.js#L45
+              callee.object.name === "names"))) &&
         t.isIdentifier(callee.property, { name: "includes" })
       ) {
         callee.property.name = "indexOf";

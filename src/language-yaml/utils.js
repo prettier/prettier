@@ -1,8 +1,6 @@
 "use strict";
 
-function getLast(array) {
-  return array[array.length - 1];
-}
+const { getLast } = require("../common/util");
 
 function getAncestorCount(path, filter) {
   let counter = 0;
@@ -16,8 +14,16 @@ function getAncestorCount(path, filter) {
   return counter;
 }
 
-function isNode(value) {
-  return value && typeof value.type === "string";
+/**
+ * @param {any} value
+ * @param {string[]=} types
+ */
+function isNode(value, types) {
+  return (
+    value &&
+    typeof value.type === "string" &&
+    (!types || types.indexOf(value.type) !== -1)
+  );
 }
 
 function mapNode(node, callback, parent) {
@@ -38,16 +44,6 @@ function defineShortcut(x, key, getter) {
     get: getter,
     enumerable: false
   });
-}
-
-function createNull() {
-  return {
-    type: "null",
-    position: {
-      start: { line: -1, column: -1, offset: -1 },
-      end: { line: -1, column: -1, offset: -1 }
-    }
-  };
 }
 
 function isNextLineEmpty(node, text) {
@@ -76,12 +72,12 @@ function isLastDescendantNode(path) {
   const node = path.getValue();
 
   switch (node.type) {
+    case "tag":
+    case "anchor":
     case "comment":
-    case "verbatimTag":
-    case "shorthandTag":
-    case "nonSpecificTag":
       return false;
   }
+
   const pathStackLength = path.stack.length;
 
   for (let i = 1; i < pathStackLength; i++) {
@@ -116,53 +112,48 @@ function hasPrettierIgnore(path) {
   if (node.type === "documentBody") {
     const document = path.getParentNode();
     return (
-      document.head.children.length !== 0 &&
-      (lastItem => lastItem.type === "comment" && isPrettierIgnore(lastItem))(
-        getLast(document.head.children)
-      )
+      hasEndComments(document.head) &&
+      isPrettierIgnore(getLast(document.head.endComments))
     );
   }
 
   return (
-    "leadingComments" in node &&
-    node.leadingComments.length !== 0 &&
-    isPrettierIgnore(getLast(node.leadingComments))
+    hasLeadingComments(node) && isPrettierIgnore(getLast(node.leadingComments))
   );
 }
 
-function hasExplicitDocumentEndMarker(document, text) {
+function isEmptyNode(node) {
+  return (!node.children || node.children.length === 0) && !hasComments(node);
+}
+
+function hasComments(node) {
   return (
-    text.slice(
-      document.position.end.offset - 4,
-      document.position.end.offset
-    ) === "\n..."
+    hasLeadingComments(node) ||
+    hasMiddleComments(node) ||
+    hasIndicatorComment(node) ||
+    hasTrailingComment(node) ||
+    hasEndComments(node)
   );
-}
-
-function isBlockValue(node) {
-  switch (node.type) {
-    case "blockFolded":
-    case "blockLiteral":
-      return true;
-    default:
-      return false;
-  }
 }
 
 function hasLeadingComments(node) {
-  return "leadingComments" in node && node.leadingComments.length !== 0;
+  return node && node.leadingComments && node.leadingComments.length !== 0;
 }
 
 function hasMiddleComments(node) {
-  return "middleComments" in node && node.middleComments.length !== 0;
+  return node && node.middleComments && node.middleComments.length !== 0;
 }
 
-function hasTrailingComments(node) {
-  return "trailingComments" in node && node.trailingComments.length !== 0;
+function hasIndicatorComment(node) {
+  return node && node.indicatorComment;
+}
+
+function hasTrailingComment(node) {
+  return node && node.trailingComment;
 }
 
 function hasEndComments(node) {
-  return "endComments" in node && node.endComments.length !== 0;
+  return node && node.endComments && node.endComments.length !== 0;
 }
 
 /**
@@ -201,27 +192,25 @@ function splitWithSingleSpace(text) {
 function getFlowScalarLineContents(nodeType, content, options) {
   const rawLineContents = content
     .split("\n")
-    .map(
-      (lineContent, index, lineContents) =>
-        index === 0 && index === lineContents.length - 1
-          ? lineContent
-          : index !== 0 && index !== lineContents.length - 1
-            ? lineContent.trim()
-            : index === 0
-              ? lineContent.trimRight()
-              : lineContent.trimLeft()
+    .map((lineContent, index, lineContents) =>
+      index === 0 && index === lineContents.length - 1
+        ? lineContent
+        : index !== 0 && index !== lineContents.length - 1
+        ? lineContent.trim()
+        : index === 0
+        ? lineContent.trimRight()
+        : lineContent.trimLeft()
     );
 
   if (options.proseWrap === "preserve") {
-    return rawLineContents.map(
-      lineContent => (lineContent.length === 0 ? [] : [lineContent])
+    return rawLineContents.map(lineContent =>
+      lineContent.length === 0 ? [] : [lineContent]
     );
   }
 
   return rawLineContents
-    .map(
-      lineContent =>
-        lineContent.length === 0 ? [] : splitWithSingleSpace(lineContent)
+    .map(lineContent =>
+      lineContent.length === 0 ? [] : splitWithSingleSpace(lineContent)
     )
     .reduce(
       (reduced, lineContentWords, index) =>
@@ -234,11 +223,10 @@ function getFlowScalarLineContents(nodeType, content, options) {
           : reduced.concat([lineContentWords]),
       []
     )
-    .map(
-      lineContentWords =>
-        options.proseWrap === "never"
-          ? [lineContentWords.join(" ")]
-          : lineContentWords
+    .map(lineContentWords =>
+      options.proseWrap === "never"
+        ? [lineContentWords.join(" ")]
+        : lineContentWords
     );
 }
 
@@ -267,17 +255,16 @@ function getBlockValueLineContents(
 
   if (options.proseWrap === "preserve" || node.type === "blockLiteral") {
     return removeUnnecessaryTrailingNewlines(
-      rawLineContents.map(
-        lineContent => (lineContent.length === 0 ? [] : [lineContent])
+      rawLineContents.map(lineContent =>
+        lineContent.length === 0 ? [] : [lineContent]
       )
     );
   }
 
   return removeUnnecessaryTrailingNewlines(
     rawLineContents
-      .map(
-        lineContent =>
-          lineContent.length === 0 ? [] : splitWithSingleSpace(lineContent)
+      .map(lineContent =>
+        lineContent.length === 0 ? [] : splitWithSingleSpace(lineContent)
       )
       .reduce(
         (reduced, lineContentWords, index) =>
@@ -300,11 +287,10 @@ function getBlockValueLineContents(
           []
         )
       )
-      .map(
-        lineContentWords =>
-          options.proseWrap === "never"
-            ? [lineContentWords.join(" ")]
-            : lineContentWords
+      .map(lineContentWords =>
+        options.proseWrap === "never"
+          ? [lineContentWords.join(" ")]
+          : lineContentWords
       )
   );
 
@@ -327,9 +313,9 @@ function getBlockValueLineContents(
     return trailingNewlineCount === 0
       ? lineContents
       : trailingNewlineCount >= 2 && !isLastDescendant
-        ? // next empty line
-          lineContents.slice(0, -(trailingNewlineCount - 1))
-        : lineContents.slice(0, -trailingNewlineCount);
+      ? // next empty line
+        lineContents.slice(0, -(trailingNewlineCount - 1))
+      : lineContents.slice(0, -trailingNewlineCount);
   }
 }
 
@@ -337,10 +323,9 @@ module.exports = {
   getLast,
   getAncestorCount,
   isNode,
-  isBlockValue,
+  isEmptyNode,
   mapNode,
   defineShortcut,
-  createNull,
   isNextLineEmpty,
   isLastDescendantNode,
   getBlockValueLineContents,
@@ -349,7 +334,7 @@ module.exports = {
   hasPrettierIgnore,
   hasLeadingComments,
   hasMiddleComments,
-  hasTrailingComments,
-  hasEndComments,
-  hasExplicitDocumentEndMarker
+  hasIndicatorComment,
+  hasTrailingComment,
+  hasEndComments
 };

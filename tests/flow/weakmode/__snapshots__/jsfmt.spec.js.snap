@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`should_fail_without_weak.js - flow-verify 1`] = `
+exports[`should_fail_without_weak.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 // This should fail without weak mode, because of the glaring type error.
 
@@ -11,7 +16,8 @@ function returns_a_string() {
 function expects_an_int() {
   return returns_a_string() * 10;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 // This should fail without weak mode, because of the glaring type error.
 
@@ -23,9 +29,15 @@ function expects_an_int() {
   return returns_a_string() * 10;
 }
 
+================================================================================
 `;
 
-exports[`should_pass_with_weak.js - flow-verify 1`] = `
+exports[`should_pass_with_weak.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow weak */
 // This should fail without weak mode, because of the glaring type error.
 
@@ -36,7 +48,8 @@ function returns_a_string() {
 function expects_an_int() {
   return returns_a_string() * 10;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow weak */
 // This should fail without weak mode, because of the glaring type error.
 
@@ -48,4 +61,5 @@ function expects_an_int() {
   return returns_a_string() * 10;
 }
 
+================================================================================
 `;

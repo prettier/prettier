@@ -17,5 +17,10 @@ delete a?.b;
 a?.b[3].c?.(x).d.e?.f[3].g?.(y).h;
 
 (a?.b).c();
+(a?.b[c]).c();
 
 (a?.b)?.c.d?.e;
+(a ? b : c)?.d;
+
+(list || list2)?.length;
+(list || list2)?.[(list || list2)];

@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`styled-components.js - flow-verify 1`] = `
+exports[`styled-components.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <style jsx>{\`
   p {
     color: red;
@@ -19,7 +24,8 @@ exports[`styled-components.js - flow-verify 1`] = `
      }
   \`}
 </style>;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <style jsx>{\`
   p {
     color: red;
@@ -40,4 +46,5 @@ exports[`styled-components.js - flow-verify 1`] = `
   \`}
 </style>;
 
+================================================================================
 `;

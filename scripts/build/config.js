@@ -1,6 +1,7 @@
 "use strict";
 
 const path = require("path");
+const PROJECT_ROOT = path.resolve(__dirname, "../..");
 
 /**
  * @typedef {Object} Bundle
@@ -36,7 +37,23 @@ const parsers = [
   },
   {
     input: "src/language-js/parser-typescript.js",
-    target: "universal"
+    target: "universal",
+    replace: {
+      // node v4 compatibility for @typescript-eslint/typescript-estree
+      "(!unique.includes(raw))": "(unique.indexOf(raw) === -1)"
+    }
+  },
+  {
+    input: "src/language-js/parser-angular.js",
+    target: "universal",
+    alias: {
+      // Force using the CJS file, instead of ESM; i.e. get the file
+      // from `"main"` instead of `"module"` (rollup default) of package.json
+      "lines-and-columns": require.resolve("lines-and-columns"),
+      "@angular/compiler/src": path.resolve(
+        `${PROJECT_ROOT}/node_modules/@angular/compiler/esm2015/src`
+      )
+    }
   },
   {
     input: "src/language-css/parser-postcss.js",
@@ -53,10 +70,6 @@ const parsers = [
     target: "universal"
   },
   {
-    input: "src/language-vue/parser-vue.js",
-    target: "universal"
-  },
-  {
     input: "src/language-handlebars/parser-glimmer.js",
     target: "universal",
     commonjs: {
@@ -68,8 +81,8 @@ const parsers = [
     }
   },
   {
-    input: "src/language-html/parser-parse5.js",
-    target: "node"
+    input: "src/language-html/parser-html.js",
+    target: "universal"
   },
   {
     input: "src/language-yaml/parser-yaml.js",
@@ -116,9 +129,10 @@ const coreBundles = [
     type: "core",
     target: "node",
     replace: {
-      // cosmiconfig@5 uses `require` to resolve js config, which caused Error:
+      // cosmiconfig@5 -> import-fresh uses `require` to resolve js config, which caused Error:
       // Dynamic requires are not currently supported by rollup-plugin-commonjs.
-      "require(filepath)": "eval('require')(filepath)"
+      "require(filePath)": "eval('require')(filePath)",
+      "require.cache": "eval('require').cache"
     }
   }
 ];
