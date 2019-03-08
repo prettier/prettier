@@ -21,7 +21,6 @@ const {
 
 const UTF8BOM = 0xfeff;
 
-const CURSOR = Symbol("cursor");
 const PLACEHOLDERS = {
   cursorOffset: "<<<PRETTIER_CURSOR>>>",
   rangeStart: "<<<PRETTIER_RANGE_START>>>",
