@@ -143,3 +143,5 @@ Examples:
   (a?.b[c]).c();
   let value = /** @type {string} */ (this.members[0]).functionCall();
   ```
+
+- CLI: Plugins published as a scoped NPM package (e.g.: `@name/prettier-plugin-foo`) are now automatically registered ([#5945] by [@Kocal])
