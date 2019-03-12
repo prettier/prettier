@@ -28,7 +28,7 @@ exports[`throw error for unsupported extension (stdout) 1`] = `""`;
 exports[`throw error for unsupported extension (write) 1`] = `Array []`;
 
 exports[`throw error with invalid config format (stderr) 1`] = `
-"[error] Invalid configuration file: Config is only allowed to be an object, but received string in \\"<cwd>/tests_integration/cli/config/invalid/file/.prettierrc\\"
+"[error] Invalid configuration file: Cannot find module '--invalid--' from '<cwd>/tests_integration/cli/config/invalid/file'
 "
 `;
 

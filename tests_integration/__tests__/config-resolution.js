@@ -25,6 +25,12 @@ describe("accepts configuration from --config", () => {
   });
 });
 
+describe("resolves external configuration from package.json", () => {
+  runPrettier("cli/config/", ["external-config/index.js"]).test({
+    status: 0
+  });
+});
+
 describe("resolves configuration file with --find-config-path file", () => {
   runPrettier("cli/config/", ["--find-config-path", "no-config/file.js"]).test({
     status: 0
@@ -260,5 +266,13 @@ test("API resolveConfig resolves relative path values based on config filepath",
   expect(prettier.resolveConfig.sync(`${currentDir}/index.js`)).toMatchObject({
     plugins: [path.join(parentDir, "path-to-plugin")],
     pluginSearchDirs: [path.join(parentDir, "path-to-plugin-search-dir")]
+  });
+});
+
+test("API resolveConfig de-references to an external module", () => {
+  const currentDir = path.join(__dirname, "../cli/config/external-config");
+  expect(prettier.resolveConfig.sync(`${currentDir}/index.js`)).toEqual({
+    printWidth: 77,
+    semi: false
   });
 });
