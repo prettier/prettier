@@ -109,14 +109,16 @@ If you don't want to use `package.json`, you can use any of the supported extens
 "@company/prettier-config"
 ```
 
-This method does **not** offer a way to _extend_ the configuration to overwrite some properties from the shared configuration. If you need to do that, import the file in a `.prettierrc.js` file and export the modifications, e.g:
+An example configuration repository is available [here](https://github.com/azz/prettier-config).
 
-```js
-module.exports = {
-  ...require("@company/prettier-config"),
-  semi: false
-};
-```
+> Note: This method does **not** offer a way to _extend_ the configuration to overwrite some properties from the shared configuration. If you need to do that, import the file in a `.prettierrc.js` file and export the modifications, e.g:
+>
+> ```js
+> module.exports = {
+>   ...require("@company/prettier-config"),
+>   semi: false
+> };
+> ```
 
 ## Setting the [parser](options.md#parser) option
 

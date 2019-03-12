@@ -60,14 +60,16 @@ Examples:
   "@company/prettier-config"
   ```
 
-  This method does **not** offer a way to _extend_ the configuration to overwrite some properties from the shared configuration. If you need to do that, import the file in a `.prettierrc.js` file and export the modifications, e.g:
+  An example configuration repository is available [here](https://github.com/azz/prettier-config).
 
-  ```js
-  module.exports = {
-    ...require("@company/prettier-config"),
-    semi: false
-  };
-  ```
+  > Note: This method does **not** offer a way to _extend_ the configuration to overwrite some properties from the shared configuration. If you need to do that, import the file in a `.prettierrc.js` file and export the modifications, e.g:
+  >
+  > ```js
+  > module.exports = {
+  >   ...require("@company/prettier-config"),
+  >   semi: false
+  > };
+  > ```
 
 - JavaScript: Add an option to modify when Prettier quotes object properties ([#5934] by [@azz])
   **`--quote-props <as-needed|preserve|consistent>`**
