@@ -28,6 +28,10 @@
   greyImage: /images/users/used_by_webpack.svg
   infoLink: https://webpack.js.org/
   pinned: true
+- caption: Dropbox
+  image: /images/users/dropbox.svg
+  infoLink: https://dropbox.com/
+  pinned: true
 - caption: Danger
   image: /images/users/danger-200x100.png
   greyImage: /images/users/used_by_danger.svg
