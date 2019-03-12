@@ -64,7 +64,7 @@ Examples:
 
   ```js
   module.exports = {
-    ...require("@company/prettierc"),
+    ...require("@company/prettier-config"),
     semi: false
   };
   ```

@@ -113,7 +113,7 @@ This method does **not** offer a way to _extend_ the configuration to overwrite 
 
 ```js
 module.exports = {
-  ...require("@company/prettierc"),
+  ...require("@company/prettier-config"),
   semi: false
 };
 ```
