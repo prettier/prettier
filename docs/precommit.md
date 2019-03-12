@@ -7,28 +7,15 @@ You can use Prettier with a pre-commit tool. This can re-format your files that 
 
 ## Option 1. [lint-staged](https://github.com/okonet/lint-staged)
 
-**Use Case:** Useful for when you need to use other tools on top of Prettier (e.g. ESLint)
+**Use Case:** Useful for when you want to use other code quality tools along with Prettier (e.g. ESLint, Stylelint, etc.) or if you need support for partially staged files (`git add --patch`).
 
-Install it along with [husky](https://github.com/typicode/husky):
+_Make sure Prettier is installed and is in your `devDependencies` before you proceed._
 
 ```bash
-yarn add lint-staged husky --dev
+npx mrm lint-staged
 ```
 
-and add this config to your `package.json`:
-
-```json
-{
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.{js,json,css,md}": ["prettier --write", "git add"]
-  }
-}
-```
+This will install [husky](https://github.com/typicode/husky) and [lint-staged](https://github.com/okonet/lint-staged), then add a configuration to the project’s `package.json` that will automatically format supported files in a pre-commit hook.
 
 See https://github.com/okonet/lint-staged#configuration for more details about how you can configure lint-staged.
 
