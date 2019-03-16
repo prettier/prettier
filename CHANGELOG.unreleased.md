@@ -41,3 +41,27 @@ Examples:
   ```
 
 -->
+
+- JavaScript: Don't break simple template literals ([#5979] by [@jwbay])
+
+  <!-- prettier-ignore -->
+  ```js
+  // Input
+  console.log(chalk.white(`Covered Lines below threshold: ${coverageSettings.lines}%. Actual: ${coverageSummary.total.lines.pct}%`))
+
+  // Output (Prettier stable)
+  console.log(
+    chalk.white(
+      `Covered Lines below threshold: ${coverageSettings.lines}%. Actual: ${
+        coverageSummary.total.lines.pct
+      }%`
+    )
+  );
+
+  // Output (Prettier master)
+  console.log(
+    chalk.white(
+      `Covered Lines below threshold: ${coverageSettings.lines}%. Actual: ${coverageSummary.total.lines.pct}%`
+    )
+  );
+  ```

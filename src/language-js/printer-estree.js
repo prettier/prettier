@@ -2364,7 +2364,7 @@ function printPathNoParens(path, options, print, args) {
     case "TemplateElement":
       return join(literalline, n.value.raw.split(/\r?\n/g));
     case "TemplateLiteral": {
-      const expressions = path.map(print, "expressions");
+      let expressions = path.map(print, "expressions");
       const parentNode = path.getParentNode();
 
       if (isJestEachTemplateLiteral(n, parentNode)) {
@@ -2372,6 +2372,19 @@ function printPathNoParens(path, options, print, args) {
         if (printed) {
           return printed;
         }
+      }
+
+      const isSimple = isSimpleTemplateLiteral(n);
+      if (isSimple) {
+        expressions = expressions.map(
+          doc =>
+            printDocToString(
+              doc,
+              Object.assign({}, options, {
+                printWidth: Infinity
+              })
+            ).formatted
+        );
       }
 
       parts.push("`");
@@ -2399,15 +2412,17 @@ function printPathNoParens(path, options, print, args) {
 
           let printed = expressions[i];
 
-          // Breaks at the template element boundaries (${ and }) are preferred to breaking
-          // in the middle of a MemberExpression
-          if (
-            (n.expressions[i].comments && n.expressions[i].comments.length) ||
-            n.expressions[i].type === "MemberExpression" ||
-            n.expressions[i].type === "OptionalMemberExpression" ||
-            n.expressions[i].type === "ConditionalExpression"
-          ) {
-            printed = concat([indent(concat([softline, printed])), softline]);
+          if (!isSimple) {
+            // Breaks at the template element boundaries (${ and }) are preferred to breaking
+            // in the middle of a MemberExpression
+            if (
+              (n.expressions[i].comments && n.expressions[i].comments.length) ||
+              n.expressions[i].type === "MemberExpression" ||
+              n.expressions[i].type === "OptionalMemberExpression" ||
+              n.expressions[i].type === "ConditionalExpression"
+            ) {
+              printed = concat([indent(concat([softline, printed])), softline]);
+            }
           }
 
           const aligned =
@@ -3870,6 +3885,54 @@ function printJestEachTemplateLiteral(node, expressions, options) {
     );
     return concat(parts);
   }
+}
+
+/** @param node {import("estree").TemplateLiteral} */
+function isSimpleTemplateLiteral(node) {
+  if (node.expressions.length === 0) {
+    return false;
+  }
+
+  return node.expressions.every(expr => {
+    // Disallow comments since printDocToString can't print them here
+    if (expr.comments) {
+      return false;
+    }
+
+    // Allow `x` and `this`
+    if (expr.type === "Identifier" || expr.type === "ThisExpression") {
+      return true;
+    }
+
+    // Allow `a.b.c`, `a.b[c]`, and `this.x.y`
+    if (
+      (expr.type === "MemberExpression" ||
+        expr.type === "OptionalMemberExpression") &&
+      (expr.property.type === "Identifier" || expr.property.type === "Literal")
+    ) {
+      let ancestor = expr;
+      while (
+        ancestor.type === "MemberExpression" ||
+        ancestor.type === "OptionalMemberExpression"
+      ) {
+        ancestor = ancestor.object;
+        if (ancestor.comments) {
+          return false;
+        }
+      }
+
+      if (
+        ancestor.type === "Identifier" ||
+        ancestor.type === "ThisExpression"
+      ) {
+        return true;
+      }
+
+      return false;
+    }
+
+    return false;
+  });
 }
 
 const functionCompositionFunctionNames = new Set([
