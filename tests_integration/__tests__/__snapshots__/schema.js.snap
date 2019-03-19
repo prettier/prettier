@@ -118,6 +118,11 @@ This option cannot be used with --range-start and --range-end.",
           "description": "Use single quotes in JSX.",
           "type": "boolean",
         },
+        "neverIndentImports": Object {
+          "default": false,
+          "description": "Never indent import statements, so the built-in VSCode \\"Organize Imports\\" feature may do its job.",
+          "type": "boolean",
+        },
         "parser": Object {
           "default": undefined,
           "description": "Which parser to use.",

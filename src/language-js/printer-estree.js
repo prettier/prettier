@@ -1001,10 +1001,11 @@ function printPathNoParens(path, options, print, args) {
         }
 
         if (
-          grouped.length === 1 &&
-          standalones.length === 0 &&
-          n.specifiers &&
-          !n.specifiers.some(node => node.comments)
+          options.neverIndentImports ||
+          (grouped.length === 1 &&
+            standalones.length === 0 &&
+            n.specifiers &&
+            !n.specifiers.some(node => node.comments))
         ) {
           parts.push(
             concat([

@@ -190,3 +190,25 @@ Examples:
   // Output (Prettier master)
   <div *ngIf="isRendered | async"></div>
   ```
+
+- JavaScript: Add option neverIndentImports to skip import statements formatting ([] by [@DmitryKoterov])
+
+  People sometimes prefer to use VSCode's built-in source.organizeImports feature which, among other things, places all imports on the same line. Adding neverIndentImports to Prettier to optionally disable import statements indentation.
+
+  <!-- prettier-ignore -->
+  ```html
+  // Input (assuming the line is long)
+  import { Lorem, ipsum, ..., amet, consectetur } from "some-module";
+
+  // Output (Prettier stable)
+  import {
+    Lorem,
+    ipsum,
+    ...
+    amet,
+    consectetur
+  } from "some-module";
+
+  // Output (Prettier master with neverIndentImports=true)
+  import { Lorem, ipsum, ..., amet, consectetur } from "some-module";
+  ```

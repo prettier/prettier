@@ -274,6 +274,19 @@ Default: log
 
 exports[`show detailed usage with --help loglevel (write) 1`] = `Array []`;
 
+exports[`show detailed usage with --help never-indent-imports (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help never-indent-imports (stdout) 1`] = `
+"--never-indent-imports
+
+  Never indent import statements, so the built-in VSCode \\"Organize Imports\\" feature may do its job.
+
+Default: false
+"
+`;
+
+exports[`show detailed usage with --help never-indent-imports (write) 1`] = `Array []`;
+
 exports[`show detailed usage with --help no-bracket-spacing (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help no-bracket-spacing (stdout) 1`] = `

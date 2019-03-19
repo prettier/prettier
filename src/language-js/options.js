@@ -24,6 +24,15 @@ module.exports = {
     ]
   },
   bracketSpacing: commonOptions.bracketSpacing,
+  neverIndentImports: {
+    since: "1.16.5",
+    category: CATEGORY_JAVASCRIPT,
+    type: "boolean",
+    default: false,
+    description:
+      "Never indent import statements, so the built-in VSCode" +
+      ' "Organize Imports" feature may do its job.'
+  },
   jsxBracketSameLine: {
     since: "0.17.0",
     category: CATEGORY_JAVASCRIPT,

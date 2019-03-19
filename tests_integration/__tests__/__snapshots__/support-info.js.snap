@@ -611,7 +611,22 @@ exports[`API getSupportInfo() with version 1.16.0 -> undefined 1`] = `
       ],
       \\"Markdown\\": Array [
         \\"markdown\\",
-@@ -135,10 +138,11 @@
+@@ -116,10 +119,14 @@
+      },
+      \\"jsxSingleQuote\\": Object {
+        \\"default\\": false,
+        \\"type\\": \\"boolean\\",
+      },
++     \\"neverIndentImports\\": Object {
++       \\"default\\": false,
++       \\"type\\": \\"boolean\\",
++     },
+      \\"parser\\": Object {
+        \\"choices\\": Array [
+          \\"flow\\",
+          \\"babel\\",
+          \\"babel-flow\\",
+@@ -135,10 +142,11 @@
           \\"mdx\\",
           \\"vue\\",
           \\"yaml\\",
@@ -623,7 +638,7 @@ exports[`API getSupportInfo() with version 1.16.0 -> undefined 1`] = `
         \\"type\\": \\"choice\\",
       },
       \\"pluginSearchDirs\\": Object {
-@@ -165,10 +169,19 @@
+@@ -165,10 +173,19 @@
           \\"preserve\\",
         ],
         \\"default\\": \\"preserve\\",
@@ -1152,6 +1167,15 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"name\\": \\"jsxSingleQuote\\",
       \\"pluginDefaults\\": {},
       \\"since\\": \\"1.15.0\\",
+      \\"type\\": \\"boolean\\"
+    },
+    {
+      \\"category\\": \\"JavaScript\\",
+      \\"default\\": false,
+      \\"description\\": \\"Never indent import statements, so the built-in VSCode \\\\\\"Organize Imports\\\\\\" feature may do its job.\\",
+      \\"name\\": \\"neverIndentImports\\",
+      \\"pluginDefaults\\": {},
+      \\"since\\": \\"1.16.5\\",
       \\"type\\": \\"boolean\\"
     },
     {

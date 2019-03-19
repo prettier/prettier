@@ -72,6 +72,8 @@ Format options:
                            Defaults to false.
   --jsx-single-quote       Use single quotes in JSX.
                            Defaults to false.
+  --never-indent-imports   Never indent import statements, so the built-in VSCode \\"Organize Imports\\" feature may do its job.
+                           Defaults to false.
   --parser <flow|babel|babel-flow|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|html|angular|lwc>
                            Which parser to use.
   --print-width <int>      The line length where Prettier will try wrap.
@@ -224,6 +226,8 @@ Format options:
   --jsx-bracket-same-line  Put > on the last line instead of at a new line.
                            Defaults to false.
   --jsx-single-quote       Use single quotes in JSX.
+                           Defaults to false.
+  --never-indent-imports   Never indent import statements, so the built-in VSCode \\"Organize Imports\\" feature may do its job.
                            Defaults to false.
   --parser <flow|babel|babel-flow|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|html|angular|lwc>
                            Which parser to use.
