@@ -433,7 +433,26 @@ f[(a::b)];
 f[a::b];
 ```
 
+### JavaScript: Format JS embedded in template literals ([#5993] by [@thorn0])
+
+Template literals preceded by a `/* JS */` or `/* JavaScript */` comment get a special treatment: their content is formatted as JavaScript.
+
+<!-- prettier-ignore -->
+```js
+// Input
+const code = /* JS */ `    alert(   1)`;
+
+// Output (Prettier stable)
+const code = /* JS */ `    alert(   1)`;
+
+// Output (Prettier master)
+const code = /* JS */ `
+  alert(1);
+`;
+```
+
 [#5979]: https://github.com/prettier/prettier/pull/5979
+[#6159]: https://github.com/prettier/prettier/pull/5993
 [#6086]: https://github.com/prettier/prettier/pull/6086
 [#6088]: https://github.com/prettier/prettier/pull/6088
 [#6089]: https://github.com/prettier/prettier/pull/6089

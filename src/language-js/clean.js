@@ -185,7 +185,7 @@ function clean(ast, newObj, parent) {
       ast.leadingComments.some(
         comment =>
           comment.type === "CommentBlock" &&
-          ["GraphQL", "HTML"].some(
+          ["GraphQL", "HTML", "JS", "JavaScript"].some(
             languageName => comment.value === ` ${languageName} `
           )
       );

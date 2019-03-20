@@ -137,7 +137,7 @@ function needsParens(path, options) {
     if (
       node.extra &&
       node.extra.parenthesized &&
-      /^PRETTIER_HTML_PLACEHOLDER_\d+_\d+_IN_JS$/.test(node.name)
+      /^PRETTIER_[A-Z]+_PLACEHOLDER_\d+_\d+_IN_JS$/.test(node.name)
     ) {
       return true;
     }

@@ -135,18 +135,24 @@ function embed(path, print, textToDoc, options) {
         ]);
       }
 
-      const htmlParser = isHtml(path)
+      const embeddedParser = isHtml(path)
         ? "html"
         : isAngularComponentTemplate(path)
         ? "angular"
+        : isJavaScript(path)
+        ? "babel"
         : undefined;
 
-      if (htmlParser) {
+      if (embeddedParser) {
+        const language = embeddedParser === "babel" ? "JS" : "HTML";
+        const uniqueId = options.nestingLevel || 0;
         return printHtmlTemplateLiteral(
           path,
           print,
           textToDoc,
-          htmlParser,
+          embeddedParser,
+          index =>
+            `PRETTIER_${language}_PLACEHOLDER_${index}_${uniqueId}_IN_JS`,
           options.embeddedInHtml
         );
       }
@@ -584,23 +590,24 @@ function isHtml(path) {
   );
 }
 
-// The counter is needed to distinguish nested embeds.
-let htmlTemplateLiteralCounter = 0;
+//     - /* JS */ `...`
+//     - /* JavaScript */ `...`
+function isJavaScript(path) {
+  const node = path.getValue();
+  return (
+    hasLanguageComment(node, "JS") || hasLanguageComment(node, "JavaScript")
+  );
+}
 
 function printHtmlTemplateLiteral(
   path,
   print,
   textToDoc,
   parser,
+  composePlaceholder,
   escapeClosingScriptTag
 ) {
   const node = path.getValue();
-
-  const counter = htmlTemplateLiteralCounter;
-  htmlTemplateLiteralCounter = (htmlTemplateLiteralCounter + 1) >>> 0;
-
-  const composePlaceholder = index =>
-    `PRETTIER_HTML_PLACEHOLDER_${index}_${counter}_IN_JS`;
 
   const text = node.quasis
     .map((quasi, index, quasis) =>

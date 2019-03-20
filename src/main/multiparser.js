@@ -26,6 +26,7 @@ function textToDoc(text, partialNextOptions, parentOptions, printAstToDoc) {
         parentOptions.parser === "angular" ||
         parentOptions.parser === "lwc"
       ),
+      nestingLevel: (parentOptions.nestingLevel || 0) + 1,
       originalText: text
     }),
     { passThrough: true }
