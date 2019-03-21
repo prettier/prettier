@@ -42,6 +42,35 @@ Examples:
 
 -->
 
+- Config: Support shared configurations ([#5963] by [@azz])
+
+  Sharing a Prettier configuration is simple: just publish a module that exports a configuration object, say `@company/prettier-config`, and reference it in your `package.json`:
+
+  ```json
+  {
+    "name": "my-cool-library",
+    "version": "9000.0.1",
+    "prettier": "@company/prettier-config"
+  }
+  ```
+
+  If you don't want to use `package.json`, you can use any of the supported extensions to export a string, e.g. `.prettierrc.json`:
+
+  ```json
+  "@company/prettier-config"
+  ```
+
+  An example configuration repository is available [here](https://github.com/azz/prettier-config).
+
+  > Note: This method does **not** offer a way to _extend_ the configuration to overwrite some properties from the shared configuration. If you need to do that, import the file in a `.prettierrc.js` file and export the modifications, e.g:
+  >
+  > ```js
+  > module.exports = {
+  >   ...require("@company/prettier-config"),
+  >   semi: false
+  > };
+  > ```
+
 - JavaScript: Add an option to modify when Prettier quotes object properties ([#5934] by [@azz])
   **`--quote-props <as-needed|preserve|consistent>`**
 
@@ -145,3 +174,19 @@ Examples:
   ```
 
 - CLI: Plugins published as a scoped NPM package (e.g.: `@name/prettier-plugin-foo`) are now automatically registered ([#5945] by [@Kocal])
+
+- Angular: Don't add unnecessary parentheses to pipes ([#5929] by [@voithos])
+
+  In some cases, wrapping parentheses were being added to certain pipes inside attributes, but they are no longer added when they don't affect the result of the expression.
+
+  <!-- prettier-ignore -->
+  ```html
+  // Input
+  <div *ngIf="isRendered | async"></div>
+
+  // Output (Prettier stable)
+  <div *ngIf="(isRendered | async)"></div>
+
+  // Output (Prettier master)
+  <div *ngIf="isRendered | async"></div>
+  ```
