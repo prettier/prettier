@@ -30,6 +30,7 @@
   pinned: true
 - caption: Dropbox
   image: /images/users/dropbox.svg
+  greyImage: /images/users/dropbox_grey.svg
   infoLink: https://dropbox.com/
   pinned: true
 - caption: Danger
