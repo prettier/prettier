@@ -42,6 +42,22 @@ Examples:
 
 -->
 
+- JavaScript: Add parentheses for immediately-constructed fn/class ([#5996] by [@bakkot])
+
+  ```
+  // Input
+  new class {};
+  new function() {}
+
+  // Output (Prettier stable)
+  new class {}();
+  new function() {}();
+
+  // Output (Prettier master)
+  new (class {})();
+  new (function() {})();
+  ```
+
 - Config: Support shared configurations ([#5963] by [@azz])
 
   Sharing a Prettier configuration is simple: just publish a module that exports a configuration object, say `@company/prettier-config`, and reference it in your `package.json`:
