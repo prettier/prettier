@@ -104,14 +104,7 @@ function needsParens(path, options) {
 
   // Closure compiler requires that type casted expressions to be surrounded by
   // parentheses.
-  if (
-    hasClosureCompilerTypeCastComment(
-      options.originalText,
-      path,
-      options.locStart,
-      options.locEnd
-    )
-  ) {
+  if (hasClosureCompilerTypeCastComment(options.originalText, path)) {
     return true;
   }
 
