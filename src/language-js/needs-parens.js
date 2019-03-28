@@ -610,6 +610,7 @@ function needsParens(path, options) {
 
     case "FunctionExpression":
       switch (parent.type) {
+        case "NewExpression":
         case "CallExpression":
           return name === "callee"; // Not strictly necessary, but it's clearer to the reader if IIFEs are wrapped in parentheses.
         case "TaggedTemplateExpression":
@@ -649,7 +650,14 @@ function needsParens(path, options) {
       }
 
     case "ClassExpression":
-      return parent.type === "ExportDefaultDeclaration";
+      switch (parent.type) {
+        case "ExportDefaultDeclaration":
+          return true;
+        case "NewExpression":
+          return name === "callee" && parent.callee === node;
+        default:
+          return false;
+      }
 
     case "OptionalMemberExpression":
       return parent.type === "MemberExpression";
