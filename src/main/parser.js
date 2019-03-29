@@ -29,10 +29,10 @@ function resolveParser(opts, parsers) {
   parsers = parsers || getParsers(opts);
 
   if (typeof opts.parser === "function") {
-    // Custom parser API always works with JavaScript.
+    const astFormat = opts.astFormat || "estree";
     return {
       parse: opts.parser,
-      astFormat: "estree",
+      astFormat,
       locStart,
       locEnd
     };
