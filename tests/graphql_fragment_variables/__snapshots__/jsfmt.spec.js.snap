@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fragment_variables.graphql 1`] = `
+====================================options=====================================
+experimentalFragmentVariables: true
+parsers: ["graphql"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+fragment F($var: Int) on Type {
+  field
+}
+=====================================output=====================================
+fragment F($var: Int) on Type {
+  field
+}
+
+================================================================================
+`;

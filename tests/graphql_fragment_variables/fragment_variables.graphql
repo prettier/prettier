@@ -1,0 +1,3 @@
+fragment F($var: Int) on Type {
+  field
+}

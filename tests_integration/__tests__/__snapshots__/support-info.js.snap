@@ -5,12 +5,16 @@ exports[`API getSupportInfo() with version 0.0.0 -> 1.0.0 1`] = `
 - First value
 + Second value
 
-@@ -16,19 +16,35 @@
+@@ -16,19 +16,39 @@
     \\"options\\": Object {
       \\"bracketSpacing\\": Object {
         \\"default\\": true,
         \\"type\\": \\"boolean\\",
       },
++     \\"experimentalFragmentVariables\\": Object {
++       \\"default\\": false,
++       \\"type\\": \\"boolean\\",
++     },
 +     \\"jsxBracketSameLine\\": Object {
 +       \\"default\\": false,
 +       \\"type\\": \\"boolean\\",
@@ -41,7 +45,7 @@ exports[`API getSupportInfo() with version 0.0.0 -> 1.0.0 1`] = `
         \\"type\\": \\"boolean\\",
       },
       \\"tabWidth\\": Object {
-@@ -43,17 +59,15 @@
+@@ -43,17 +63,15 @@
       \\"trailingComma\\": Object {
         \\"choices\\": Array [
           \\"none\\",
@@ -141,7 +145,7 @@ exports[`API getSupportInfo() with version 1.0.0 -> 1.4.0 1`] = `
         \\"flow\\",
       ],
       \\"JSX\\": Array [
-@@ -10,24 +13,51 @@
+@@ -10,28 +13,55 @@
       ],
       \\"JavaScript\\": Array [
         \\"babylon\\",
@@ -174,6 +178,10 @@ exports[`API getSupportInfo() with version 1.0.0 -> 1.4.0 1`] = `
 +       },
 +       \\"type\\": \\"int\\",
 +     },
+      \\"experimentalFragmentVariables\\": Object {
+        \\"default\\": false,
+        \\"type\\": \\"boolean\\",
+      },
 +     \\"filepath\\": Object {
 +       \\"default\\": undefined,
 +       \\"type\\": \\"path\\",
@@ -193,7 +201,7 @@ exports[`API getSupportInfo() with version 1.0.0 -> 1.4.0 1`] = `
         \\"type\\": \\"choice\\",
       },
       \\"printWidth\\": Object {
-@@ -37,10 +67,28 @@
+@@ -41,10 +71,28 @@
           \\"start\\": 0,
           \\"step\\": 1,
         },
@@ -249,7 +257,7 @@ exports[`API getSupportInfo() with version 1.4.0 -> 1.5.0 1`] = `
         \\"flow\\",
       ],
       \\"JavaScript\\": Array [
-@@ -54,10 +63,12 @@
+@@ -58,10 +67,12 @@
         \\"choices\\": Array [
           \\"flow\\",
           \\"babylon\\",
@@ -301,7 +309,7 @@ exports[`API getSupportInfo() with version 1.5.0 -> 1.7.1 1`] = `
         \\"typescript\\",
       ],
     },
-@@ -62,11 +62,13 @@
+@@ -66,11 +66,13 @@
       \\"parser\\": Object {
         \\"choices\\": Array [
           \\"flow\\",
@@ -316,7 +324,7 @@ exports[`API getSupportInfo() with version 1.5.0 -> 1.7.1 1`] = `
         ],
         \\"default\\": \\"babylon\\",
         \\"type\\": \\"choice\\",
-@@ -96,10 +98,14 @@
+@@ -100,10 +102,14 @@
           \\"start\\": 0,
           \\"step\\": 1,
         },
@@ -352,7 +360,7 @@ exports[`API getSupportInfo() with version 1.7.1 -> 1.8.0 1`] = `
       ],
       \\"SCSS\\": Array [
         \\"scss\\",
-@@ -53,10 +56,14 @@
+@@ -57,10 +60,14 @@
       },
       \\"filepath\\": Object {
         \\"default\\": undefined,
@@ -367,7 +375,7 @@ exports[`API getSupportInfo() with version 1.7.1 -> 1.8.0 1`] = `
         \\"type\\": \\"boolean\\",
       },
       \\"parser\\": Object {
-@@ -67,10 +74,11 @@
+@@ -71,10 +78,11 @@
           \\"css\\",
           \\"less\\",
           \\"scss\\",
@@ -386,7 +394,7 @@ exports[`API getSupportInfo() with version 1.8.0 -> 1.8.2 1`] = `
 - First value
 + Second value
 
-@@ -88,10 +88,18 @@
+@@ -92,10 +92,18 @@
           \\"start\\": 0,
           \\"step\\": 1,
         },
@@ -492,7 +500,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> 1.16.0 1`] = `
         \\"type\\": \\"boolean\\",
       },
       \\"cursorOffset\\": Object {
-@@ -52,37 +81,76 @@
+@@ -52,41 +81,80 @@
           \\"start\\": -1,
           \\"step\\": 1,
         },
@@ -508,6 +516,10 @@ exports[`API getSupportInfo() with version 1.8.2 -> 1.16.0 1`] = `
 +       \\"default\\": \\"auto\\",
 +       \\"type\\": \\"choice\\",
 +     },
+      \\"experimentalFragmentVariables\\": Object {
+        \\"default\\": false,
+        \\"type\\": \\"boolean\\",
+      },
       \\"filepath\\": Object {
         \\"default\\": undefined,
         \\"type\\": \\"path\\",
@@ -571,7 +583,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> 1.16.0 1`] = `
         \\"range\\": Object {
           \\"end\\": Infinity,
           \\"start\\": 0,
-@@ -90,14 +158,15 @@
+@@ -94,14 +162,15 @@
         },
         \\"type\\": \\"int\\",
       },
@@ -611,7 +623,7 @@ exports[`API getSupportInfo() with version 1.16.0 -> undefined 1`] = `
       ],
       \\"Markdown\\": Array [
         \\"markdown\\",
-@@ -135,10 +138,11 @@
+@@ -139,10 +142,11 @@
           \\"mdx\\",
           \\"vue\\",
           \\"yaml\\",
@@ -623,7 +635,7 @@ exports[`API getSupportInfo() with version 1.16.0 -> undefined 1`] = `
         \\"type\\": \\"choice\\",
       },
       \\"pluginSearchDirs\\": Object {
-@@ -165,10 +169,19 @@
+@@ -169,10 +173,19 @@
           \\"preserve\\",
         ],
         \\"default\\": \\"preserve\\",
@@ -1095,6 +1107,15 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"pluginDefaults\\": {},
       \\"since\\": \\"1.15.0\\",
       \\"type\\": \\"choice\\"
+    },
+    {
+      \\"category\\": \\"GraphQL\\",
+      \\"default\\": false,
+      \\"description\\": \\"Enable parsing GraphQL fragment variables.\\",
+      \\"name\\": \\"experimentalFragmentVariables\\",
+      \\"pluginDefaults\\": {},
+      \\"since\\": \\"0.17.0\\",
+      \\"type\\": \\"boolean\\"
     },
     {
       \\"category\\": \\"Special\\",

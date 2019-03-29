@@ -35,19 +35,25 @@ function removeTokens(node) {
   return node;
 }
 
-function fallbackParser(parse, source) {
+function fallbackParser(parse, source, opts) {
+  const parserOptions = {
+    allowLegacySDLImplementsInterfaces: false,
+    experimentalFragmentVariables: opts.experimentalFragmentVariables
+  };
   try {
-    return parse(source, { allowLegacySDLImplementsInterfaces: false });
+    return parse(source, parserOptions);
   } catch (_) {
-    return parse(source, { allowLegacySDLImplementsInterfaces: true });
+    parserOptions.allowLegacySDLImplementsInterfaces = true;
+    return parse(source, parserOptions);
   }
 }
 
-function parse(text /*, parsers, opts*/) {
+function parse(text, _parsers, opts) {
   // Inline the require to avoid loading all the JS if we don't use it
   const parser = require("graphql/language");
+  opts = opts || {};
   try {
-    const ast = fallbackParser(parser.parse, text);
+    const ast = fallbackParser(parser.parse, text, opts);
     ast.comments = parseComments(ast);
     removeTokens(ast);
     return ast;
