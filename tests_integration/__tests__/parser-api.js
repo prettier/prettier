@@ -30,6 +30,19 @@ test("allows usage of prettier's supported parsers", () => {
   expect(output).toEqual("bar();\n");
 });
 
+test("allows customizing both parser and AST formatter", () => {
+  const output = prettier.format("query Foo { node }", {
+    parser(text, parsers) {
+      expect(typeof parsers.graphql).toEqual("function");
+      const ast = parsers.graphql(text);
+      ast.definitions[0].name.value = "Bar"
+      return ast;
+    },
+    astFormat: "graphql",
+  });
+  expect(output).toEqual("query Bar {\n  node\n}\n");
+})
+
 describe("allows passing a string to resolve a parser", () => {
   runPrettier("./custom-parsers/", [
     "--end-of-line",

@@ -134,7 +134,8 @@ prettier.format("lodash ( )", {
     const ast = babel(text);
     ast.program.body[0].expression.callee.name = "_";
     return ast;
-  }
+  },
+  astFormat: 'babel',
 });
 // -> "_();\n"
 ```
