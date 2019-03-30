@@ -1764,7 +1764,9 @@ function printPathNoParens(path, options, print, args) {
             )) ||
           needsHardlineAfterDanglingComment(n);
         const elseOnSameLine =
-          n.consequent.type === "BlockStatement" && !commentOnOwnLine;
+          options.braceStyle === "1tbs" &&
+          n.consequent.type === "BlockStatement" &&
+          !commentOnOwnLine;
         parts.push(elseOnSameLine ? " " : hardline);
 
         if (hasDanglingComments(n)) {
@@ -1886,7 +1888,7 @@ function printPathNoParens(path, options, print, args) {
       const doBody = group(concat(["do", clause]));
       parts = [doBody];
 
-      if (n.body.type === "BlockStatement") {
+      if (n.body.type === "BlockStatement" && options.braceStyle === "1tbs") {
         parts.push(" ");
       } else {
         parts.push(hardline);
@@ -1943,7 +1945,13 @@ function printPathNoParens(path, options, print, args) {
         "try ",
         path.call(print, "block"),
         n.handler ? concat([" ", path.call(print, "handler")]) : "",
-        n.finalizer ? concat([" finally ", path.call(print, "finalizer")]) : ""
+        n.finalizer
+          ? concat([
+              options.braceStyle !== "1tbs" ? hardline : " ",
+              "finally ",
+              path.call(print, "finalizer")
+            ])
+          : ""
       ]);
     case "CatchClause":
       if (n.param) {
@@ -1962,6 +1970,7 @@ function printPathNoParens(path, options, print, args) {
         const param = path.call(print, "param");
 
         return concat([
+          options.braceStyle !== "1tbs" ? hardline : "",
           "catch ",
           hasComments
             ? concat(["(", indent(concat([softline, param])), softline, ") "])

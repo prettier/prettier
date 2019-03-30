@@ -611,7 +611,26 @@ exports[`API getSupportInfo() with version 1.16.0 -> undefined 1`] = `
       ],
       \\"Markdown\\": Array [
         \\"markdown\\",
-@@ -135,10 +138,11 @@
+@@ -68,10 +71,18 @@
+          \\"always\\",
+        ],
+        \\"default\\": \\"avoid\\",
+        \\"type\\": \\"choice\\",
+      },
++     \\"braceStyle\\": Object {
++       \\"choices\\": Array [
++         \\"1tbs\\",
++         \\"stroustrup\\",
++       ],
++       \\"default\\": \\"1tbs\\",
++       \\"type\\": \\"choice\\",
++     },
+      \\"bracketSpacing\\": Object {
+        \\"default\\": true,
+        \\"type\\": \\"boolean\\",
+      },
+      \\"cursorOffset\\": Object {
+@@ -135,10 +146,11 @@
           \\"mdx\\",
           \\"vue\\",
           \\"yaml\\",
@@ -623,7 +642,7 @@ exports[`API getSupportInfo() with version 1.16.0 -> undefined 1`] = `
         \\"type\\": \\"choice\\",
       },
       \\"pluginSearchDirs\\": Object {
-@@ -165,10 +169,19 @@
+@@ -165,10 +177,19 @@
           \\"preserve\\",
         ],
         \\"default\\": \\"preserve\\",
@@ -1047,6 +1066,22 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"name\\": \\"arrowParens\\",
       \\"pluginDefaults\\": {},
       \\"since\\": \\"1.9.0\\",
+      \\"type\\": \\"choice\\"
+    },
+    {
+      \\"category\\": \\"JavaScript\\",
+      \\"choices\\": [
+        { \\"description\\": \\"Put all braces on the same line\\", \\"value\\": \\"1tbs\\" },
+        {
+          \\"description\\": \\"Put closing brace on it's own line.\\",
+          \\"value\\": \\"stroustrup\\"
+        }
+      ],
+      \\"default\\": \\"1tbs\\",
+      \\"description\\": \\"Choose style of braced statements\\",
+      \\"name\\": \\"braceStyle\\",
+      \\"pluginDefaults\\": {},
+      \\"since\\": \\"1.17.0\\",
       \\"type\\": \\"choice\\"
     },
     {

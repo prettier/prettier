@@ -32,6 +32,24 @@ Object {
             },
           ],
         },
+        "braceStyle": Object {
+          "default": "1tbs",
+          "description": "Choose style of braced statements",
+          "oneOf": Array [
+            Object {
+              "description": "Put all braces on the same line",
+              "enum": Array [
+                "1tbs",
+              ],
+            },
+            Object {
+              "description": "Put closing brace on it's own line.",
+              "enum": Array [
+                "stroustrup",
+              ],
+            },
+          ],
+        },
         "bracketSpacing": Object {
           "default": true,
           "description": "Print spaces between brackets.",

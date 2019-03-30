@@ -18,6 +18,24 @@ Default: avoid
 
 exports[`show detailed usage with --help arrow-parens (write) 1`] = `Array []`;
 
+exports[`show detailed usage with --help brace-style (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help brace-style (stdout) 1`] = `
+"--brace-style <1tbs|stroustrup>
+
+  Choose style of braced statements
+
+Valid options:
+
+  1tbs         Put all braces on the same line
+  stroustrup   Put closing brace on it's own line.
+
+Default: 1tbs
+"
+`;
+
+exports[`show detailed usage with --help brace-style (write) 1`] = `Array []`;
+
 exports[`show detailed usage with --help bracket-spacing (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help bracket-spacing (stdout) 1`] = `

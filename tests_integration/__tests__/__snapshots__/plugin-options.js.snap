@@ -5,8 +5,8 @@ exports[` 1`] = `
 - First value
 + Second value
 
-@@ -17,10 +17,12 @@
-                             Defaults to avoid.
+@@ -20,10 +20,12 @@
+                             Defaults to 1tbs.
     --no-bracket-spacing     Do not print spaces between brackets.
     --end-of-line <auto|lf|crlf|cr>
                              Which end of line characters to apply.

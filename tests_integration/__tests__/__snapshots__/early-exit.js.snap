@@ -61,6 +61,9 @@ Format options:
   --arrow-parens <avoid|always>
                            Include parentheses around a sole arrow function parameter.
                            Defaults to avoid.
+  --brace-style <1tbs|stroustrup>
+                           Choose style of braced statements
+                           Defaults to 1tbs.
   --no-bracket-spacing     Do not print spaces between brackets.
   --end-of-line <auto|lf|crlf|cr>
                            Which end of line characters to apply.
@@ -214,6 +217,9 @@ Format options:
   --arrow-parens <avoid|always>
                            Include parentheses around a sole arrow function parameter.
                            Defaults to avoid.
+  --brace-style <1tbs|stroustrup>
+                           Choose style of braced statements
+                           Defaults to 1tbs.
   --no-bracket-spacing     Do not print spaces between brackets.
   --end-of-line <auto|lf|crlf|cr>
                            Which end of line characters to apply.

@@ -70,6 +70,23 @@ module.exports = {
       }
     ]
   },
+  braceStyle: {
+    since: "1.17.0",
+    category: CATEGORY_JAVASCRIPT,
+    type: "choice",
+    default: "1tbs",
+    description: "Choose style of braced statements",
+    choices: [
+      {
+        value: "1tbs",
+        description: "Put all braces on the same line"
+      },
+      {
+        value: "stroustrup",
+        description: "Put closing brace on it's own line."
+      }
+    ]
+  },
   trailingComma: {
     since: "0.0.0",
     category: CATEGORY_JAVASCRIPT,
