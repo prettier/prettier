@@ -5,12 +5,12 @@ exports[` 1`] = `
 - First value
 + Second value
 
-@@ -20,10 +20,12 @@
+@@ -17,10 +17,12 @@
+                             Defaults to avoid.
+    --no-bracket-spacing     Do not print spaces between brackets.
+    --end-of-line <auto|lf|crlf|cr>
                              Which end of line characters to apply.
                              Defaults to auto.
-    --experimental-fragment-variables
-                             Enable parsing GraphQL fragment variables.
-                             Defaults to false.
 +   --foo-option <bar|baz>   foo description
 +                            Defaults to bar.
     --html-whitespace-sensitivity <css|strict|ignore>

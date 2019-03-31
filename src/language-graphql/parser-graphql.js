@@ -35,10 +35,10 @@ function removeTokens(node) {
   return node;
 }
 
-function fallbackParser(parse, source, opts) {
+function fallbackParser(parse, source) {
   const parserOptions = {
     allowLegacySDLImplementsInterfaces: false,
-    experimentalFragmentVariables: opts.experimentalFragmentVariables
+    experimentalFragmentVariables: true
   };
   try {
     return parse(source, parserOptions);
@@ -48,12 +48,11 @@ function fallbackParser(parse, source, opts) {
   }
 }
 
-function parse(text, _parsers, opts) {
+function parse(text /*, parsers, opts */) {
   // Inline the require to avoid loading all the JS if we don't use it
   const parser = require("graphql/language");
-  opts = opts || {};
   try {
-    const ast = fallbackParser(parser.parse, text, opts);
+    const ast = fallbackParser(parser.parse, text);
     ast.comments = parseComments(ast);
     removeTokens(ast);
     return ast;

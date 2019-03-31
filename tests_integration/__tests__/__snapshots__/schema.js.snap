@@ -74,11 +74,6 @@ This option cannot be used with --range-start and --range-end.",
             },
           ],
         },
-        "experimentalFragmentVariables": Object {
-          "default": false,
-          "description": "Enable parsing GraphQL fragment variables.",
-          "type": "boolean",
-        },
         "filepath": Object {
           "default": undefined,
           "description": "Specify the input filepath. This will be used to do parser inference.",

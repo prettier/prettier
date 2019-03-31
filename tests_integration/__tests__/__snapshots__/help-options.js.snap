@@ -135,19 +135,6 @@ Default: auto
 
 exports[`show detailed usage with --help end-of-line (write) 1`] = `Array []`;
 
-exports[`show detailed usage with --help experimental-fragment-variables (stderr) 1`] = `""`;
-
-exports[`show detailed usage with --help experimental-fragment-variables (stdout) 1`] = `
-"--experimental-fragment-variables
-
-  Enable parsing GraphQL fragment variables.
-
-Default: false
-"
-`;
-
-exports[`show detailed usage with --help experimental-fragment-variables (write) 1`] = `Array []`;
-
 exports[`show detailed usage with --help file-info (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help file-info (stdout) 1`] = `
