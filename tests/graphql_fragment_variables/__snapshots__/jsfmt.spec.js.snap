@@ -2,7 +2,6 @@
 
 exports[`fragment_variables.graphql 1`] = `
 ====================================options=====================================
-experimentalFragmentVariables: true
 parsers: ["graphql"]
 printWidth: 80
                                                                                 | printWidth
@@ -10,8 +9,19 @@ printWidth: 80
 fragment F($var: Int) on Type {
   field
 }
+
+fragment G($first_variable: Int,   $second_variable: String =  "Very complex default argument value") on Type {
+  field
+}
 =====================================output=====================================
 fragment F($var: Int) on Type {
+  field
+}
+
+fragment G(
+  $first_variable: Int
+  $second_variable: String = "Very complex default argument value"
+) on Type {
   field
 }
 
