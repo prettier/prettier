@@ -48,7 +48,7 @@ function fallbackParser(parse, source) {
   }
 }
 
-function parse(text /*, parsers, opts */) {
+function parse(text /*, parsers, opts*/) {
   // Inline the require to avoid loading all the JS if we don't use it
   const parser = require("graphql/language");
   try {
