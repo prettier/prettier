@@ -207,7 +207,7 @@ Examples:
   <div *ngIf="isRendered | async"></div>
   ```
 
-- GraphQL: Support GraphQL fragment variables ([#PR] by [@adek05])
+- GraphQL: Support GraphQL fragment variables ([#6016] by [@adek05])
 
   ```
   // Input
@@ -216,7 +216,7 @@ Examples:
   // Output (Prettier stable)
   // Fails to parse
 
-  // Output (Prettier master) with --experimentalFragmentVariables
+  // Output (Prettier master)
   fragment F($var: Int) on Type {
      node
   }
