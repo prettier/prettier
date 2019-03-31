@@ -248,7 +248,8 @@ function genericPrint(path, options, print) {
         path.call(print, "variable"),
         ": ",
         path.call(print, "type"),
-        n.defaultValue ? concat([" = ", path.call(print, "defaultValue")]) : ""
+        n.defaultValue ? concat([" = ", path.call(print, "defaultValue")]) : "",
+        printDirectives(path, print, n)
       ]);
     }
 

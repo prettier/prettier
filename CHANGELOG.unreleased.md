@@ -206,3 +206,24 @@ Examples:
   // Output (Prettier master)
   <div *ngIf="isRendered | async"></div>
   ```
+
+- GraphQL: Support variable directives ([#6020] by [@adek05])
+
+  Upgrading to graphql-js 14.0 enables new GraphQL language feature - variable directives. Support for printing them is added along with the graphql-js version bump.
+
+  <!-- prettier-ignore -->
+  ```
+  // Input
+  query Q($variable: Int   @directive) {node}
+
+  // Output (Prettier stable)
+  query Q($variable: Int) {
+    node
+  }
+
+  // Output (Prettier master)
+  query Q($variable: Int @directive) {
+    node
+  }
+  ```
+
