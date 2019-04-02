@@ -42,9 +42,41 @@ Examples:
 
 -->
 
+- JavaScript: Fix multiline dynamic import comments ([#6025] by [@noahsug])
+
+  <!-- prettier-ignore -->
+  ```js
+  // Input
+  import(
+    /* Hello */
+    'something'
+    /* Hello */
+  )
+  import(
+    'myreallylongdynamicallyloadedmodulenamemyreallylongdynamicallyloadedmodulename'
+  )
+
+  // Output (Prettier stable)
+  import(/* Hello */
+  "something");
+  /* Hello */
+  import('myreallylongdynamicallyloadedmodulenamemyreallylongdynamicallyloadedmodulename');
+
+  // Output (Prettier master)
+  import(
+    /* Hello */
+    'something'
+    /* Hello */
+  )
+  import(
+    'myreallylongdynamicallyloadedmodulenamemyreallylongdynamicallyloadedmodulename'
+  );
+  ```
+
 - JavaScript: Add parentheses for immediately-constructed fn/class ([#5996] by [@bakkot])
 
-  ```
+  <!-- prettier-ignore -->
+  ```js
   // Input
   new class {};
   new function() {}
