@@ -1,5 +1,61 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`dynamic-import.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import(
+  'myreallylongdynamicallyloadedmodulenamemyreallylongdynamicallyloadedmodulename'
+);
+
+=====================================output=====================================
+import(
+  "myreallylongdynamicallyloadedmodulenamemyreallylongdynamicallyloadedmodulename"
+);
+
+================================================================================
+`;
+
+exports[`dynamic-import.js 2`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
+import(
+  'myreallylongdynamicallyloadedmodulenamemyreallylongdynamicallyloadedmodulename'
+);
+
+=====================================output=====================================
+import(
+  "myreallylongdynamicallyloadedmodulenamemyreallylongdynamicallyloadedmodulename"
+);
+
+================================================================================
+`;
+
+exports[`dynamic-import.js 3`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+import(
+  'myreallylongdynamicallyloadedmodulenamemyreallylongdynamicallyloadedmodulename'
+);
+
+=====================================output=====================================
+import(
+  "myreallylongdynamicallyloadedmodulenamemyreallylongdynamicallyloadedmodulename"
+);
+
+================================================================================
+`;
+
 exports[`es5.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]

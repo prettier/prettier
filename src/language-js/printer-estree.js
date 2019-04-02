@@ -1165,7 +1165,6 @@ function printPathNoParens(path, options, print, args) {
         (!isNew &&
           n.callee.type === "Identifier" &&
           (n.callee.name === "require" || n.callee.name === "define")) ||
-        n.callee.type === "Import" ||
         // Template literals as single arguments
         (n.arguments.length === 1 &&
           isTemplateOnItsOwnLine(
@@ -3953,7 +3952,12 @@ function printArgumentsList(path, options, print) {
     return concat(parts);
   }, "arguments");
 
-  const maybeTrailingComma = shouldPrintComma(options, "all") ? "," : "";
+  const maybeTrailingComma =
+    // Dynamic imports cannot have trailing commas
+    !(node.callee && node.callee.type === "Import") &&
+    shouldPrintComma(options, "all")
+      ? ","
+      : "";
 
   function allArgsBrokenOut() {
     return group(
@@ -4051,7 +4055,7 @@ function printArgumentsList(path, options, print) {
     concat([
       "(",
       indent(concat([softline, concat(printedArguments)])),
-      ifBreak(shouldPrintComma(options, "all") ? "," : ""),
+      ifBreak(maybeTrailingComma),
       softline,
       ")"
     ]),
@@ -6435,8 +6439,7 @@ function canAttachComment(node) {
     node.type !== "Block" &&
     node.type !== "EmptyStatement" &&
     node.type !== "TemplateElement" &&
-    node.type !== "Import" &&
-    !(node.callee && node.callee.type === "Import")
+    node.type !== "Import"
   );
 }
 
