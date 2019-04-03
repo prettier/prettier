@@ -238,3 +238,17 @@ Examples:
   // Output (Prettier master)
   <div *ngIf="isRendered | async"></div>
   ```
+
+- TypeScript: Support `readonly` operator ([#6027] by [@ikatyang])
+
+  <!-- prettier-ignore -->
+  ```ts
+  // Input
+  declare const array: readonly number[];
+
+  // Output (Prettier stable)
+  // SyntaxError: ',' expected.
+
+  // Output (Prettier master)
+  declare const array: readonly number[];
+  ```
