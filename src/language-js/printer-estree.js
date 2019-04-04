@@ -4006,40 +4006,37 @@ function isSimpleTemplateLiteral(node) {
   });
 }
 
-const functionCompositionFunctionNames = new Set([
-  "pipe", // RxJS, Ramda
-  "pipeP", // Ramda
-  "pipeK", // Ramda
-  "compose", // Ramda, Redux
-  "composeFlipped", // Not from any library, but common in Haskell, so supported
-  "composeP", // Ramda
-  "composeK", // Ramda
-  "flow", // Lodash
-  "flowRight", // Lodash
-  "connect", // Redux
-  "createSelector" // Reselect
-]);
-const ordinaryMethodNames = new Set([
-  "connect" // GObject, MongoDB
-]);
-
-function isFunctionCompositionFunction(node) {
-  switch (node.type) {
-    case "OptionalMemberExpression":
-    case "MemberExpression": {
-      return (
-        isFunctionCompositionFunction(node.property) &&
-        !ordinaryMethodNames.has(node.property.name)
-      );
-    }
-    case "Identifier": {
-      return functionCompositionFunctionNames.has(node.name);
-    }
-    case "StringLiteral":
-    case "Literal": {
-      return functionCompositionFunctionNames.has(node.value);
+// Logic to split up calls with multiple anonymous functions.
+// For instance, the following call should be split on multiple lines:
+// source.pipe(map((x) => x + x), filter((x) => x % 2 === 0))
+function isFunctionCompositionArgs(args) {
+  if (args.length <= 1) {
+    return false;
+  }
+  let functionCount = 0;
+  for (let i = 0; i < args.length; i++) {
+    const arg = args[i];
+    if (
+      arg.type === "FunctionExpression" ||
+      arg.type === "ArrowFunctionExpression"
+    ) {
+      functionCount++;
+      if (functionCount > 1) {
+        return true;
+      }
+    } else if (arg.type === "CallExpression") {
+      for (let j = 0; j < arg.arguments.length; j++) {
+        const childArg = arg.arguments[j];
+        if (
+          childArg.type === "FunctionExpression" ||
+          childArg.type === "ArrowFunctionExpression"
+        ) {
+          return true;
+        }
+      }
     }
   }
+  return false;
 }
 
 function printArgumentsList(path, options, print) {
@@ -4143,14 +4140,7 @@ function printArgumentsList(path, options, print) {
     );
   }
 
-  // We want to get
-  //    pipe(
-  //      x => x + 1,
-  //      x => x - 1
-  //    )
-  // here, but not
-  //    process.stdout.pipe(socket)
-  if (isFunctionCompositionFunction(node.callee) && args.length > 1) {
+  if (isFunctionCompositionArgs(args)) {
     return allArgsBrokenOut();
   }
 
