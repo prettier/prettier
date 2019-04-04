@@ -239,6 +239,40 @@ Examples:
   <div *ngIf="isRendered | async"></div>
   ```
 
+- TypeScript: Support `readonly` operator ([#6027] by [@ikatyang])
+
+  <!-- prettier-ignore -->
+  ```ts
+  // Input
+  declare const array: readonly number[];
+
+  // Output (Prettier stable)
+  // SyntaxError: ',' expected.
+
+  // Output (Prettier master)
+  declare const array: readonly number[];
+  ```
+
+- GraphQL: Support variable directives ([#6020] by [@adek05])
+
+  Upgrading to graphql-js 14.0 enables new GraphQL language feature - variable directives. Support for printing them is added along with the graphql-js version bump.
+
+  <!-- prettier-ignore -->
+  ```
+  // Input
+  query Q($variable: Int   @directive) {node}
+
+  // Output (Prettier stable)
+  query Q($variable: Int) {
+    node
+  }
+
+  // Output (Prettier master)
+  query Q($variable: Int @directive) {
+    node
+  }
+  ```
+
 - GraphQL: Support GraphQL fragment variables ([#6016] by [@adek05])
 
   ```
@@ -252,18 +286,4 @@ Examples:
   fragment F($var: Int) on Type {
      node
   }
-  ```
-
-- TypeScript: Support `readonly` operator ([#6027] by [@ikatyang])
-
-  <!-- prettier-ignore -->
-  ```ts
-  // Input
-  declare const array: readonly number[];
-
-  // Output (Prettier stable)
-  // SyntaxError: ',' expected.
-
-  // Output (Prettier master)
-  declare const array: readonly number[];
   ```
