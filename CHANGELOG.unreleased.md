@@ -239,6 +239,21 @@ Examples:
   <div *ngIf="isRendered | async"></div>
   ```
 
+- GraphQL: Support GraphQL fragment variables ([#6016] by [@adek05])
+
+  ```
+  // Input
+  fragment F($var: Int) on Type { node }
+
+  // Output (Prettier stable)
+  // Fails to parse
+
+  // Output (Prettier master)
+  fragment F($var: Int) on Type {
+     node
+  }
+  ```
+
 - TypeScript: Support `readonly` operator ([#6027] by [@ikatyang])
 
   <!-- prettier-ignore -->
