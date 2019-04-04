@@ -42,9 +42,41 @@ Examples:
 
 -->
 
+- JavaScript: Fix multiline dynamic import comments ([#6025] by [@noahsug])
+
+  <!-- prettier-ignore -->
+  ```js
+  // Input
+  import(
+    /* Hello */
+    'something'
+    /* Hello */
+  )
+  import(
+    'myreallylongdynamicallyloadedmodulenamemyreallylongdynamicallyloadedmodulename'
+  )
+
+  // Output (Prettier stable)
+  import(/* Hello */
+  "something");
+  /* Hello */
+  import('myreallylongdynamicallyloadedmodulenamemyreallylongdynamicallyloadedmodulename');
+
+  // Output (Prettier master)
+  import(
+    /* Hello */
+    'something'
+    /* Hello */
+  )
+  import(
+    'myreallylongdynamicallyloadedmodulenamemyreallylongdynamicallyloadedmodulename'
+  );
+  ```
+
 - JavaScript: Add parentheses for immediately-constructed fn/class ([#5996] by [@bakkot])
 
-  ```
+  <!-- prettier-ignore -->
+  ```js
   // Input
   new class {};
   new function() {}
@@ -207,6 +239,20 @@ Examples:
   <div *ngIf="isRendered | async"></div>
   ```
 
+- TypeScript: Support `readonly` operator ([#6027] by [@ikatyang])
+
+  <!-- prettier-ignore -->
+  ```ts
+  // Input
+  declare const array: readonly number[];
+
+  // Output (Prettier stable)
+  // SyntaxError: ',' expected.
+
+  // Output (Prettier master)
+  declare const array: readonly number[];
+  ```
+
 - GraphQL: Support variable directives ([#6020] by [@adek05])
 
   Upgrading to graphql-js 14.0 enables new GraphQL language feature - variable directives. Support for printing them is added along with the graphql-js version bump.
@@ -227,3 +273,17 @@ Examples:
   }
   ```
 
+- GraphQL: Support GraphQL fragment variables ([#6016] by [@adek05])
+
+  ```
+  // Input
+  fragment F($var: Int) on Type { node }
+
+  // Output (Prettier stable)
+  // Fails to parse
+
+  // Output (Prettier master)
+  fragment F($var: Int) on Type {
+     node
+  }
+  ```

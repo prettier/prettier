@@ -73,6 +73,24 @@ function genericPrint(path, options, print) {
       return concat([
         "fragment ",
         path.call(print, "name"),
+        n.variableDefinitions && n.variableDefinitions.length
+          ? group(
+              concat([
+                "(",
+                indent(
+                  concat([
+                    softline,
+                    join(
+                      concat([ifBreak("", ", "), softline]),
+                      path.map(print, "variableDefinitions")
+                    )
+                  ])
+                ),
+                softline,
+                ")"
+              ])
+            )
+          : "",
         " on ",
         path.call(print, "typeCondition"),
         printDirectives(path, print, n),
