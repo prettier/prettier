@@ -42,9 +42,41 @@ Examples:
 
 -->
 
+- JavaScript: Fix multiline dynamic import comments ([#6025] by [@noahsug])
+
+  <!-- prettier-ignore -->
+  ```js
+  // Input
+  import(
+    /* Hello */
+    'something'
+    /* Hello */
+  )
+  import(
+    'myreallylongdynamicallyloadedmodulenamemyreallylongdynamicallyloadedmodulename'
+  )
+
+  // Output (Prettier stable)
+  import(/* Hello */
+  "something");
+  /* Hello */
+  import('myreallylongdynamicallyloadedmodulenamemyreallylongdynamicallyloadedmodulename');
+
+  // Output (Prettier master)
+  import(
+    /* Hello */
+    'something'
+    /* Hello */
+  )
+  import(
+    'myreallylongdynamicallyloadedmodulenamemyreallylongdynamicallyloadedmodulename'
+  );
+  ```
+
 - JavaScript: Add parentheses for immediately-constructed fn/class ([#5996] by [@bakkot])
 
-  ```
+  <!-- prettier-ignore -->
+  ```js
   // Input
   new class {};
   new function() {}
@@ -220,4 +252,18 @@ Examples:
   fragment F($var: Int) on Type {
      node
   }
+  ```
+
+- TypeScript: Support `readonly` operator ([#6027] by [@ikatyang])
+
+  <!-- prettier-ignore -->
+  ```ts
+  // Input
+  declare const array: readonly number[];
+
+  // Output (Prettier stable)
+  // SyntaxError: ',' expected.
+
+  // Output (Prettier master)
+  declare const array: readonly number[];
   ```
