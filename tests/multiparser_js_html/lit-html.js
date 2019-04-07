@@ -59,3 +59,6 @@ function HelloWorld() {
     `)}
   `;
 }
+
+const trickyParens = html`<script> f((${expr}) / 2); </script>`;
+const nestedFun = /* HTML */ `${outerExpr( 1 )} <script>const tpl = html\`<div>\${innerExpr( 1 )} ${outerExpr( 2 )}</div>\`</script>`;

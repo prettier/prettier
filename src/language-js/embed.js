@@ -195,6 +195,10 @@ function getIndentation(str) {
   return firstMatchedIndent === null ? "" : firstMatchedIndent[1];
 }
 
+function uncook(cookedValue) {
+  return cookedValue.replace(/([\\`]|\$\{)/g, "\\$1");
+}
+
 function escapeTemplateCharacters(doc, raw) {
   return mapDoc(doc, currentDoc => {
     if (!currentDoc.parts) {
@@ -205,11 +209,7 @@ function escapeTemplateCharacters(doc, raw) {
 
     currentDoc.parts.forEach(part => {
       if (typeof part === "string") {
-        parts.push(
-          raw
-            ? part.replace(/(\\*)`/g, "$1$1\\`")
-            : part.replace(/([\\`]|\$\{)/g, "\\$1")
-        );
+        parts.push(raw ? part.replace(/(\\*)`/g, "$1$1\\`") : uncook(part));
       } else {
         parts.push(part);
       }
@@ -576,19 +576,21 @@ function isHtml(path) {
   );
 }
 
+// The counter is needed to distinguish nested embeds.
+let htmlTemplateLiteralCounter = 0;
+
 function printHtmlTemplateLiteral(path, print, textToDoc, parser) {
   const node = path.getValue();
 
-  const placeholderPattern = "PRETTIER_HTML_PLACEHOLDER_(\\d+)_IN_JS";
-  const placeholders = node.expressions.map(
-    (_, i) => `PRETTIER_HTML_PLACEHOLDER_${i}_IN_JS`
-  );
+  const counter = htmlTemplateLiteralCounter++;
+  const composePlaceholder = index =>
+    `PRETTIER_HTML_PLACEHOLDER_${index}_${counter}_IN_JS`;
 
   const text = node.quasis
     .map((quasi, index, quasis) =>
       index === quasis.length - 1
-        ? quasi.value.raw
-        : quasi.value.raw + placeholders[index]
+        ? quasi.value.cooked
+        : quasi.value.cooked + composePlaceholder(index)
     )
     .join("");
 
@@ -598,14 +600,12 @@ function printHtmlTemplateLiteral(path, print, textToDoc, parser) {
     return "``";
   }
 
+  const placeholderRegex = RegExp(composePlaceholder("(\\d+)"), "g");
+
   const contentDoc = mapDoc(
     stripTrailingHardline(textToDoc(text, { parser })),
     doc => {
-      const placeholderRegex = new RegExp(placeholderPattern, "g");
-      const hasPlaceholder =
-        typeof doc === "string" && placeholderRegex.test(doc);
-
-      if (!hasPlaceholder) {
+      if (typeof doc !== "string") {
         return doc;
       }
 
@@ -617,7 +617,7 @@ function printHtmlTemplateLiteral(path, print, textToDoc, parser) {
 
         if (i % 2 === 0) {
           if (component) {
-            parts.push(component);
+            parts.push(uncook(component));
           }
           continue;
         }
