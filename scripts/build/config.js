@@ -112,6 +112,13 @@ const coreBundles = [
     external: [path.resolve("src/common/third-party.js")]
   },
   {
+    input: "src/doc/index.js",
+    name: "doc",
+    type: "core",
+    output: "doc.js",
+    target: "universal"
+  },
+  {
     input: "standalone.js",
     name: "prettier",
     type: "core",

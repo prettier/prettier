@@ -30,6 +30,7 @@
   pinned: true
 - caption: Dropbox
   image: /images/users/dropbox.svg
+  greyImage: /images/users/dropbox_grey.svg
   infoLink: https://dropbox.com/
   pinned: true
 - caption: Danger
@@ -214,3 +215,9 @@
 - caption: Quip
   image: /images/users/quip.svg
   infoLink: https://quip.com/
+- caption: Salesforce
+  image: /images/users/salesforce.svg
+  infoLink: https://salesforce.com/
+- caption: Heroku
+  image: /images/users/heroku.svg
+  infoLink: https://heroku.com/

@@ -1165,7 +1165,6 @@ function printPathNoParens(path, options, print, args) {
         (!isNew &&
           n.callee.type === "Identifier" &&
           (n.callee.name === "require" || n.callee.name === "define")) ||
-        n.callee.type === "Import" ||
         // Template literals as single arguments
         (n.arguments.length === 1 &&
           isTemplateOnItsOwnLine(
@@ -3953,7 +3952,12 @@ function printArgumentsList(path, options, print) {
     return concat(parts);
   }, "arguments");
 
-  const maybeTrailingComma = shouldPrintComma(options, "all") ? "," : "";
+  const maybeTrailingComma =
+    // Dynamic imports cannot have trailing commas
+    !(node.callee && node.callee.type === "Import") &&
+    shouldPrintComma(options, "all")
+      ? ","
+      : "";
 
   function allArgsBrokenOut() {
     return group(
@@ -4051,7 +4055,7 @@ function printArgumentsList(path, options, print) {
     concat([
       "(",
       indent(concat([softline, concat(printedArguments)])),
-      ifBreak(shouldPrintComma(options, "all") ? "," : ""),
+      ifBreak(maybeTrailingComma),
       softline,
       ")"
     ]),
@@ -4100,7 +4104,12 @@ function printFunctionTypeParameters(path, options, print) {
 
 function printFunctionParams(path, print, options, expandArg, printTypeParams) {
   const fun = path.getValue();
+  const parent = path.getParentNode();
   const paramsField = fun.parameters ? "parameters" : "params";
+  const isParametersInTestCall = isTestCall(parent);
+  const shouldHugParameters = shouldHugArguments(fun);
+  const shouldExpandParameters =
+    expandArg && !(fun[paramsField] && fun[paramsField].some(n => n.comments));
 
   const typeParams = printTypeParams
     ? printFunctionTypeParameters(path, options, print)
@@ -4108,7 +4117,32 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
 
   let printed = [];
   if (fun[paramsField]) {
-    printed = path.map(print, paramsField);
+    const lastArgIndex = fun[paramsField].length - 1;
+
+    printed = path.map((childPath, index) => {
+      const parts = [];
+      const param = childPath.getValue();
+
+      parts.push(print(childPath));
+
+      if (index === lastArgIndex) {
+        if (fun.rest) {
+          parts.push(",", line);
+        }
+      } else if (
+        isParametersInTestCall ||
+        shouldHugParameters ||
+        shouldExpandParameters
+      ) {
+        parts.push(", ");
+      } else if (isNextLineEmpty(options.originalText, param, options)) {
+        parts.push(",", hardline, hardline);
+      } else {
+        parts.push(",", line);
+      }
+
+      return concat(parts);
+    }, paramsField);
   }
 
   if (fun.rest) {
@@ -4146,15 +4180,12 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
   //     }                     b,
   //   })                    ) => {
   //                         })
-  if (
-    expandArg &&
-    !(fun[paramsField] && fun[paramsField].some(n => n.comments))
-  ) {
+  if (shouldExpandParameters) {
     return group(
       concat([
         removeLines(typeParams),
         "(",
-        join(", ", printed.map(removeLines)),
+        concat(printed.map(removeLines)),
         ")"
       ])
     );
@@ -4167,15 +4198,13 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
   //   b,
   //   c
   // }) {}
-  if (shouldHugArguments(fun)) {
-    return concat([typeParams, "(", join(", ", printed), ")"]);
+  if (shouldHugParameters) {
+    return concat([typeParams, "(", concat(printed), ")"]);
   }
 
-  const parent = path.getParentNode();
-
   // don't break in specs, eg; `it("should maintain parens around done even when long", (done) => {})`
-  if (isTestCall(parent)) {
-    return concat([typeParams, "(", join(", ", printed), ")"]);
+  if (isParametersInTestCall) {
+    return concat([typeParams, "(", concat(printed), ")"]);
   }
 
   const isFlowShorthandWithOneArg =
@@ -4207,7 +4236,7 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
   return concat([
     typeParams,
     "(",
-    indent(concat([softline, join(concat([",", line]), printed)])),
+    indent(concat([softline, concat(printed)])),
     ifBreak(
       canHaveTrailingComma && shouldPrintComma(options, "all") ? "," : ""
     ),
@@ -6435,8 +6464,7 @@ function canAttachComment(node) {
     node.type !== "Block" &&
     node.type !== "EmptyStatement" &&
     node.type !== "TemplateElement" &&
-    node.type !== "Import" &&
-    !(node.callee && node.callee.type === "Import")
+    node.type !== "Import"
   );
 }
 

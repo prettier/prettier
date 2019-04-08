@@ -42,6 +42,112 @@ Examples:
 
 -->
 
+- JavaScript: Respect newlines between parameters ([#5260] by [@evilebottnawi])
+
+  <!-- prettier-ignore -->
+  ```js
+  // Input
+  function foo(
+    one,
+  
+    two,
+    three,
+    four,
+  
+  
+    five,
+    six,
+    seven,
+    eight,
+    nine,
+    ten,
+  
+    eleven
+  
+  ) {}
+    
+  // Output (Prettier stable)
+  function foo(
+    one,
+    two,
+    three,
+    four,
+    five,
+    six,
+    seven,
+    eight,
+    nine,
+    ten,
+    eleven
+  ) {}
+    
+  // Output (Prettier master)
+  function foo(
+    one,
+  
+    two,
+    three,
+    four,
+  
+    five,
+    six,
+    seven,
+    eight,
+    nine,
+    ten,
+  
+    eleven
+  ) {}
+  ```
+
+- JavaScript: Fix multiline dynamic import comments ([#6025] by [@noahsug])
+
+  <!-- prettier-ignore -->
+  ```js
+  // Input
+  import(
+    /* Hello */
+    'something'
+    /* Hello */
+  )
+  import(
+    'myreallylongdynamicallyloadedmodulenamemyreallylongdynamicallyloadedmodulename'
+  )
+
+  // Output (Prettier stable)
+  import(/* Hello */
+  "something");
+  /* Hello */
+  import('myreallylongdynamicallyloadedmodulenamemyreallylongdynamicallyloadedmodulename');
+
+  // Output (Prettier master)
+  import(
+    /* Hello */
+    'something'
+    /* Hello */
+  )
+  import(
+    'myreallylongdynamicallyloadedmodulenamemyreallylongdynamicallyloadedmodulename'
+  );
+  ```
+
+- JavaScript: Add parentheses for immediately-constructed fn/class ([#5996] by [@bakkot])
+
+  <!-- prettier-ignore -->
+  ```js
+  // Input
+  new class {};
+  new function() {}
+
+  // Output (Prettier stable)
+  new class {}();
+  new function() {}();
+
+  // Output (Prettier master)
+  new (class {})();
+  new (function() {})();
+  ```
+
 - Config: Support shared configurations ([#5963] by [@azz])
 
   Sharing a Prettier configuration is simple: just publish a module that exports a configuration object, say `@company/prettier-config`, and reference it in your `package.json`:
@@ -189,4 +295,53 @@ Examples:
 
   // Output (Prettier master)
   <div *ngIf="isRendered | async"></div>
+  ```
+
+- TypeScript: Support `readonly` operator ([#6027] by [@ikatyang])
+
+  <!-- prettier-ignore -->
+  ```ts
+  // Input
+  declare const array: readonly number[];
+
+  // Output (Prettier stable)
+  // SyntaxError: ',' expected.
+
+  // Output (Prettier master)
+  declare const array: readonly number[];
+  ```
+
+- GraphQL: Support variable directives ([#6020] by [@adek05])
+
+  Upgrading to graphql-js 14.0 enables new GraphQL language feature - variable directives. Support for printing them is added along with the graphql-js version bump.
+
+  <!-- prettier-ignore -->
+  ```
+  // Input
+  query Q($variable: Int   @directive) {node}
+
+  // Output (Prettier stable)
+  query Q($variable: Int) {
+    node
+  }
+
+  // Output (Prettier master)
+  query Q($variable: Int @directive) {
+    node
+  }
+  ```
+
+- GraphQL: Support GraphQL fragment variables ([#6016] by [@adek05])
+
+  ```
+  // Input
+  fragment F($var: Int) on Type { node }
+
+  // Output (Prettier stable)
+  // Fails to parse
+
+  // Output (Prettier master)
+  fragment F($var: Int) on Type {
+     node
+  }
   ```
