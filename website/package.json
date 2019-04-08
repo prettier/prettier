@@ -27,7 +27,7 @@
     "docusaurus": "1.6.2",
     "js-yaml": "3.10.0",
     "svgo": "1.0.4",
-    "webpack": "4.5.0",
+    "webpack": "4.29.6",
     "webpack-cli": "2.0.14"
   }
 }
