@@ -165,7 +165,7 @@ Then in `.stylelintrc`:
 yarn add --dev stylelint-config-prettier stylelint-prettier
 ```
 
-Then in `.eslintrc.json`:
+Then in `.stylelintrc`:
 
 ```json
 {
