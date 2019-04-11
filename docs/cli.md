@@ -54,12 +54,12 @@ Applying this practice will minimise the number of times the CI fails because of
 If you need to pipe the list of unformatted files to another command, you can use [`--list-different`](cli.md#list-different) flag instead of `--check`.
 
 ### Exit codes
-
-| Code | Information |
-| ---- | ----------- |
-| 0 | Everything formatted properly |
-| 1 | Something wasn't formatted properly |
-| 2 | Something's wrong with Prettier |
+                      
+| Code | Information                         |
+| ---- | ----------------------------------- |
+| 0    | Everything formatted properly       |
+| 1    | Something wasn't formatted properly |
+| 2    | Something's wrong with Prettier     |
 
 ## `--debug-check`
 
