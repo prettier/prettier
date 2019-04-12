@@ -265,7 +265,7 @@ Secondly, [the alternate formatting makes it easier to edit the JSX](https://git
 
 When it comes to the _contents_ of comments, Prettier can’t do much really. Comments can contain everything from prose to commented out code and ASCII diagrams. Since they can contain anything, Prettier can’t know how to format or wrap them. So they are left as-is. The only exception to this are JSDoc-style comments (block comments where every line starts with a `*`), which Prettier can fix the indentation of.
 
-Then there’s the question of _where_ to put the comments. Turns out this is a really difficult problem. Prettier tries it best to keep your comments roughly where they where, but it’s no easy task because comments can be placed almost anywhere.
+Then there’s the question of _where_ to put the comments. Turns out this is a really difficult problem. Prettier tries its best to keep your comments roughly where they were, but it’s no easy task because comments can be placed almost anywhere.
 
 Generally, you get the best results when placing comments **on their own lines,** instead of at the end of lines. Prefer `// eslint-disable-next-line` over `// eslint-disable-line`.
 
