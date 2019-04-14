@@ -31,12 +31,21 @@ JS:
 
 ```js
 // prettier.config.js or .prettierrc.js
-module.exports = {
-  trailingComma: "es5",
-  tabWidth: 4,
-  semi: false,
-  singleQuote: true
-};
+//module.exports = {
+ // trailingComma: "es5",
+ // tabWidth: 4,
+  //semi: false,
+ // singleQuote: true
+//};
+"javascript.implicitProjectConfig.experimentalDecorators": true,
+  "java.errors.incompleteClasspath.severity": "ignore",
+  "editor.formatOnSave": true,
+  "prettier.tabWidth": 4,
+  "prettier.useTabs": true,
+  "prettier.trailingComma": "es5",
+  "prettier.jsxBracketSameLine": false,
+  "javascript.validate.enable": true,
+  "javascript.updateImportsOnFileMove.enabled": "always"
 ```
 
 YAML:
