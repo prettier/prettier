@@ -65,6 +65,14 @@ const style = /** @type {{
   ...margins,
 });
 
+const style =/**
+ * @type {{
+ *   width: number,
+ * }}
+*/({
+  width,
+});
+
 =====================================output=====================================
 // test to make sure comments are attached correctly
 let inlineComment = /* some comment */ someReallyLongFunctionCall(
@@ -126,6 +134,14 @@ const style = /** @type {{
   width,
   height,
   ...margins
+});
+
+const style = /**
+ * @type {{
+ *   width: number,
+ * }}
+ */ ({
+  width
 });
 
 ================================================================================

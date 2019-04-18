@@ -45,13 +45,18 @@ function hasClosureCompilerTypeCastComment(text, path) {
   }
 
   function isTypeCastComment(comment) {
-    const trimmed = comment.trim();
-    if (!/^\*\s*@type\s*\{[^]+\}$/.test(trimmed)) {
+    const cleaned = comment
+      .trim()
+      .split("\n")
+      .map(line => line.replace(/^[\s*]+/, ""))
+      .join(" ")
+      .trim();
+    if (!/^@type\s+\{[^]+\}$/.test(cleaned)) {
       return false;
     }
     let isCompletelyClosed = false;
     let unpairedBracketCount = 0;
-    for (const char of trimmed) {
+    for (const char of cleaned) {
       if (char === "{") {
         if (isCompletelyClosed) {
           return false;
