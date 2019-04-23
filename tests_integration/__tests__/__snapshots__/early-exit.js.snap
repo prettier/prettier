@@ -65,6 +65,9 @@ Format options:
   --end-of-line <auto|lf|crlf|cr>
                            Which end of line characters to apply.
                            Defaults to auto.
+  --html-top-level-indent <always|never|auto>
+                           How to handle top-level indent in HTML.
+                           Defaults to auto.
   --html-whitespace-sensitivity <css|strict|ignore>
                            How to handle whitespaces in HTML.
                            Defaults to css.
@@ -217,6 +220,9 @@ Format options:
   --no-bracket-spacing     Do not print spaces between brackets.
   --end-of-line <auto|lf|crlf|cr>
                            Which end of line characters to apply.
+                           Defaults to auto.
+  --html-top-level-indent <always|never|auto>
+                           How to handle top-level indent in HTML.
                            Defaults to auto.
   --html-whitespace-sensitivity <css|strict|ignore>
                            How to handle whitespaces in HTML.

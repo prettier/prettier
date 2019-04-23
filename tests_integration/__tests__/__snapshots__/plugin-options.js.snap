@@ -13,11 +13,11 @@ exports[` 1`] = `
                              Defaults to auto.
 +   --foo-option <bar|baz>   foo description
 +                            Defaults to bar.
+    --html-top-level-indent <always|never|auto>
+                             How to handle top-level indent in HTML.
+                             Defaults to auto.
     --html-whitespace-sensitivity <css|strict|ignore>
-                             How to handle whitespaces in HTML.
-                             Defaults to css.
-    --jsx-bracket-same-line  Put > on the last line instead of at a new line.
-                             Defaults to false."
+                             How to handle whitespaces in HTML."
 `;
 
 exports[`show detailed external option with \`--help foo-option\` (stderr) 1`] = `""`;

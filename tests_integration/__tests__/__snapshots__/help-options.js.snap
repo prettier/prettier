@@ -171,6 +171,25 @@ exports[`show detailed usage with --help help (stdout) 1`] = `
 
 exports[`show detailed usage with --help help (write) 1`] = `Array []`;
 
+exports[`show detailed usage with --help html-top-level-indent (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help html-top-level-indent (stdout) 1`] = `
+"--html-top-level-indent <always|never|auto>
+
+  How to handle top-level indent in HTML.
+
+Valid options:
+
+  always   Always apply top-level indent for templates, scripts and styles.
+  never    Avoid top-level indent for templates, scripts and styles.
+  auto     Avoid top-level indent for scripts and styles inside Vue files.
+
+Default: auto
+"
+`;
+
+exports[`show detailed usage with --help html-top-level-indent (write) 1`] = `Array []`;
+
 exports[`show detailed usage with --help html-whitespace-sensitivity (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help html-whitespace-sensitivity (stdout) 1`] = `

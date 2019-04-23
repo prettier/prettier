@@ -611,7 +611,27 @@ exports[`API getSupportInfo() with version 1.16.0 -> undefined 1`] = `
       ],
       \\"Markdown\\": Array [
         \\"markdown\\",
-@@ -135,10 +138,11 @@
+@@ -95,10 +98,19 @@
+      },
+      \\"filepath\\": Object {
+        \\"default\\": undefined,
+        \\"type\\": \\"path\\",
+      },
++     \\"htmlTopLevelIndent\\": Object {
++       \\"choices\\": Array [
++         \\"always\\",
++         \\"never\\",
++         \\"auto\\",
++       ],
++       \\"default\\": \\"auto\\",
++       \\"type\\": \\"choice\\",
++     },
+      \\"htmlWhitespaceSensitivity\\": Object {
+        \\"choices\\": Array [
+          \\"css\\",
+          \\"strict\\",
+          \\"ignore\\",
+@@ -135,10 +147,11 @@
           \\"mdx\\",
           \\"vue\\",
           \\"yaml\\",
@@ -623,7 +643,7 @@ exports[`API getSupportInfo() with version 1.16.0 -> undefined 1`] = `
         \\"type\\": \\"choice\\",
       },
       \\"pluginSearchDirs\\": Object {
-@@ -165,10 +169,19 @@
+@@ -165,10 +178,19 @@
           \\"preserve\\",
         ],
         \\"default\\": \\"preserve\\",
@@ -1103,6 +1123,29 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"pluginDefaults\\": {},
       \\"since\\": \\"1.4.0\\",
       \\"type\\": \\"path\\"
+    },
+    {
+      \\"category\\": \\"HTML\\",
+      \\"choices\\": [
+        {
+          \\"description\\": \\"Always apply top-level indent for templates, scripts and styles.\\",
+          \\"value\\": \\"always\\"
+        },
+        {
+          \\"description\\": \\"Avoid top-level indent for templates, scripts and styles.\\",
+          \\"value\\": \\"never\\"
+        },
+        {
+          \\"description\\": \\"Avoid top-level indent for scripts and styles inside Vue files.\\",
+          \\"value\\": \\"auto\\"
+        }
+      ],
+      \\"default\\": \\"auto\\",
+      \\"description\\": \\"How to handle top-level indent in HTML.\\",
+      \\"name\\": \\"htmlTopLevelIndent\\",
+      \\"pluginDefaults\\": {},
+      \\"since\\": \\"1.18.0\\",
+      \\"type\\": \\"choice\\"
     },
     {
       \\"category\\": \\"HTML\\",

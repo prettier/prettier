@@ -79,6 +79,30 @@ This option cannot be used with --range-start and --range-end.",
           "description": "Specify the input filepath. This will be used to do parser inference.",
           "type": "string",
         },
+        "htmlTopLevelIndent": Object {
+          "default": "auto",
+          "description": "How to handle top-level indent in HTML.",
+          "oneOf": Array [
+            Object {
+              "description": "Always apply top-level indent for templates, scripts and styles.",
+              "enum": Array [
+                "always",
+              ],
+            },
+            Object {
+              "description": "Avoid top-level indent for templates, scripts and styles.",
+              "enum": Array [
+                "never",
+              ],
+            },
+            Object {
+              "description": "Avoid top-level indent for scripts and styles inside Vue files.",
+              "enum": Array [
+                "auto",
+              ],
+            },
+          ],
+        },
         "htmlWhitespaceSensitivity": Object {
           "default": "css",
           "description": "How to handle whitespaces in HTML.",

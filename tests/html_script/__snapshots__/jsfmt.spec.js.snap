@@ -17,3 +17,60 @@ printWidth: 80
 
 ================================================================================
 `;
+
+exports[`script.html 2`] = `
+====================================options=====================================
+htmlTopLevelIndent: "auto"
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<script type="application/ld+json">
+  {   "json":true  }
+</script>
+
+=====================================output=====================================
+<script type="application/ld+json">
+  { "json": true }
+</script>
+
+================================================================================
+`;
+
+exports[`script.html 3`] = `
+====================================options=====================================
+htmlTopLevelIndent: "always"
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<script type="application/ld+json">
+  {   "json":true  }
+</script>
+
+=====================================output=====================================
+<script type="application/ld+json">
+  { "json": true }
+</script>
+
+================================================================================
+`;
+
+exports[`script.html 4`] = `
+====================================options=====================================
+htmlTopLevelIndent: "never"
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<script type="application/ld+json">
+  {   "json":true  }
+</script>
+
+=====================================output=====================================
+<script type="application/ld+json">
+{ "json": true }
+</script>
+
+================================================================================
+`;
