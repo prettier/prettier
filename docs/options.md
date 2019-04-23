@@ -307,6 +307,22 @@ Valid options:
 | ------- | ------------------------------------------------------------------------ | ----------------------------------------------------------------------- |
 | `"css"` | <code>--html-whitespace-sensitivity <css&#124;strict&#124;ignore></code> | <code>htmlWhitespaceSensitivity: "<css&#124;strict&#124;ignore>"</code> |
 
+## HTML Top-level Indent
+
+_First available in v1.18.0_
+
+Specify whether to apply top-level indent for HTML files.
+
+Valid options:
+
+- `"always"` - Always apply top-level indent for templates, scripts and styles.
+- `"never"` - Avoid top-level indent for templates, scripts and styles.
+- `"auto"` - Avoid top-level indent for scripts and styles inside Vue files.
+
+| Default  | CLI Override                                                       | API Override                                                     |
+| -------- | ------------------------------------------------------------------ | ---------------------------------------------------------------- |
+| `"auto"` | <code>--html-top-level-indent <always&#124;never&#124;auto></code> | <code>htmlTopLevelIndent: "<always&#124;never&#124;auto>"</code> |
+
 ## End of Line
 
 _First available in 1.15.0_
