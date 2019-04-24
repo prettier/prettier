@@ -16,21 +16,6 @@ printWidth: 80
 
 exports[`empty.html 2`] = `
 ====================================options=====================================
-htmlTopLevelIndent: "auto"
-parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-<style></style>
-
-=====================================output=====================================
-<style></style>
-
-================================================================================
-`;
-
-exports[`empty.html 3`] = `
-====================================options=====================================
 htmlTopLevelIndent: "always"
 parsers: ["html"]
 printWidth: 80
@@ -44,7 +29,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`empty.html 4`] = `
+exports[`empty.html 3`] = `
 ====================================options=====================================
 htmlTopLevelIndent: "never"
 parsers: ["html"]
@@ -107,53 +92,6 @@ printWidth: 80
 
 exports[`less.html 2`] = `
 ====================================options=====================================
-htmlTopLevelIndent: "auto"
-parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-<style type="text/less">
-  @nice-blue: #5B83AD;
-  @light-blue: @nice-blue + #111;
-
-  #header {
-    color: @light-blue;
-  }
-</style>
-
-<style lang="less">
-  @nice-blue: #5B83AD;
-  @light-blue: @nice-blue + #111;
-
-  #header {
-    color: @light-blue;
-  }
-</style>
-
-=====================================output=====================================
-<style type="text/less">
-  @nice-blue: #5B83AD;
-  @light-blue: @nice-blue + #111;
-
-  #header {
-    color: @light-blue;
-  }
-</style>
-
-<style lang="less">
-  @nice-blue: #5b83ad;
-  @light-blue: @nice-blue + #111;
-
-  #header {
-    color: @light-blue;
-  }
-</style>
-
-================================================================================
-`;
-
-exports[`less.html 3`] = `
-====================================options=====================================
 htmlTopLevelIndent: "always"
 parsers: ["html"]
 printWidth: 80
@@ -199,7 +137,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`less.html 4`] = `
+exports[`less.html 3`] = `
 ====================================options=====================================
 htmlTopLevelIndent: "never"
 parsers: ["html"]
@@ -280,39 +218,6 @@ printWidth: 80
 
 exports[`postcss.html 2`] = `
 ====================================options=====================================
-htmlTopLevelIndent: "auto"
-parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-<style type="text/css">
-  body { background: navy; color: yellow; }
-</style>
-
-<style lang="postcss">
-  body { background: navy; color: yellow; }
-</style>
-
-=====================================output=====================================
-<style type="text/css">
-  body {
-    background: navy;
-    color: yellow;
-  }
-</style>
-
-<style lang="postcss">
-  body {
-    background: navy;
-    color: yellow;
-  }
-</style>
-
-================================================================================
-`;
-
-exports[`postcss.html 3`] = `
-====================================options=====================================
 htmlTopLevelIndent: "always"
 parsers: ["html"]
 printWidth: 80
@@ -344,7 +249,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`postcss.html 4`] = `
+exports[`postcss.html 3`] = `
 ====================================options=====================================
 htmlTopLevelIndent: "never"
 parsers: ["html"]
@@ -455,83 +360,6 @@ printWidth: 80
 
 exports[`scss.html 2`] = `
 ====================================options=====================================
-htmlTopLevelIndent: "auto"
-parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-<style type="text/x-scss">
-  $font-stack:    Helvetica, sans-serif;
-  $primary-color: #333;
-
-  body {
-    font: 100% $font-stack;
-    color: $primary-color;
-  }
-</style>
-
-<style lang="scss">
-  $font-stack:    Helvetica, sans-serif;
-  $primary-color: #333;
-
-  body {
-    font: 100% $font-stack;
-    color: $primary-color;
-  }
-</style>
-
-<style lang="scss">
-.someElement {
-    @include bp-medium {
-      display: flex;
-    }
-    
-    @include bp-large {
-      margin-top: 10px;
-      margin-bottom: 10px;
-    }
-}
-</style>
-
-=====================================output=====================================
-<style type="text/x-scss">
-  $font-stack: Helvetica, sans-serif;
-  $primary-color: #333;
-
-  body {
-    font: 100% $font-stack;
-    color: $primary-color;
-  }
-</style>
-
-<style lang="scss">
-  $font-stack: Helvetica, sans-serif;
-  $primary-color: #333;
-
-  body {
-    font: 100% $font-stack;
-    color: $primary-color;
-  }
-</style>
-
-<style lang="scss">
-  .someElement {
-    @include bp-medium {
-      display: flex;
-    }
-
-    @include bp-large {
-      margin-top: 10px;
-      margin-bottom: 10px;
-    }
-  }
-</style>
-
-================================================================================
-`;
-
-exports[`scss.html 3`] = `
-====================================options=====================================
 htmlTopLevelIndent: "always"
 parsers: ["html"]
 printWidth: 80
@@ -607,7 +435,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`scss.html 4`] = `
+exports[`scss.html 3`] = `
 ====================================options=====================================
 htmlTopLevelIndent: "never"
 parsers: ["html"]
@@ -733,7 +561,7 @@ printWidth: 80
 
 exports[`simple.html 2`] = `
 ====================================options=====================================
-htmlTopLevelIndent: "auto"
+htmlTopLevelIndent: "always"
 parsers: ["html"]
 printWidth: 80
                                                                                 | printWidth
@@ -781,54 +609,6 @@ printWidth: 80
 
 exports[`simple.html 3`] = `
 ====================================options=====================================
-htmlTopLevelIndent: "always"
-parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Sample styled page</title>
-    <style>a { color: red; }</style>
-    <style>
-      body { background: navy; color: yellow; }
-    </style>
-  </head>
-  <body>
-    <h1>Sample styled page</h1>
-    <p>This page is just a demo.</p>
-  </body>
-</html>
-
-=====================================output=====================================
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Sample styled page</title>
-    <style>
-      a {
-        color: red;
-      }
-    </style>
-    <style>
-      body {
-        background: navy;
-        color: yellow;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>Sample styled page</h1>
-    <p>This page is just a demo.</p>
-  </body>
-</html>
-
-================================================================================
-`;
-
-exports[`simple.html 4`] = `
-====================================options=====================================
 htmlTopLevelIndent: "never"
 parsers: ["html"]
 printWidth: 80
@@ -852,24 +632,24 @@ printWidth: 80
 =====================================output=====================================
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Sample styled page</title>
-  <style>
+  <head>
+    <title>Sample styled page</title>
+    <style>
     a {
       color: red;
     }
-  </style>
-  <style>
+    </style>
+    <style>
     body {
       background: navy;
       color: yellow;
     }
-  </style>
-</head>
-<body>
-  <h1>Sample styled page</h1>
-  <p>This page is just a demo.</p>
-</body>
+    </style>
+  </head>
+  <body>
+    <h1>Sample styled page</h1>
+    <p>This page is just a demo.</p>
+  </body>
 </html>
 
 ================================================================================
@@ -909,39 +689,6 @@ printWidth: 80
 
 exports[`single-style.html 2`] = `
 ====================================options=====================================
-htmlTopLevelIndent: "auto"
-parsers: ["html"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-<style>a { color: red; }</style>
-<style>
-  h1 {
-    font-size: 120%;
-    font-family: Verdana, Arial, Helvetica, sans-serif;
-    color: #333366;
-  }
-</style>
-
-=====================================output=====================================
-<style>
-  a {
-    color: red;
-  }
-</style>
-<style>
-  h1 {
-    font-size: 120%;
-    font-family: Verdana, Arial, Helvetica, sans-serif;
-    color: #333366;
-  }
-</style>
-
-================================================================================
-`;
-
-exports[`single-style.html 3`] = `
-====================================options=====================================
 htmlTopLevelIndent: "always"
 parsers: ["html"]
 printWidth: 80
@@ -973,7 +720,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`single-style.html 4`] = `
+exports[`single-style.html 3`] = `
 ====================================options=====================================
 htmlTopLevelIndent: "never"
 parsers: ["html"]

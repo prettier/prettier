@@ -227,11 +227,14 @@ function genericPrint(path, options, print) {
                       ? ifBreak(indent(childrenDoc), childrenDoc, {
                           groupId: attrGroupId
                         })
-                      : node.parent.type === "root" &&
-                        ((options.htmlTopLevelIndent === "auto" &&
-                          isScriptLikeTag(node) &&
-                          options.parser === "vue") ||
-                          options.htmlTopLevelIndent === "never")
+                      : (options.htmlTopLevelIndent === "auto" &&
+                          options.parser === "vue" &&
+                          node.parent.type === "root" &&
+                          isScriptLikeTag(node)) ||
+                        (options.htmlTopLevelIndent === "never" &&
+                          ((options.parser === "vue" &&
+                            node.parent.type === "root") ||
+                            isScriptLikeTag(node)))
                       ? childrenDoc
                       : indent(childrenDoc))(
                     concat([

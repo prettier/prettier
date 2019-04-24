@@ -118,7 +118,7 @@ semi: false
 
 exports[`attributes.html 4`] = `
 ====================================options=====================================
-htmlTopLevelIndent: "auto"
+htmlTopLevelIndent: "always"
 parser: "lwc"
 parsers: ["lwc"]
 printWidth: 80
@@ -157,7 +157,7 @@ printWidth: 80
 
 exports[`attributes.html 5`] = `
 ====================================options=====================================
-htmlTopLevelIndent: "always"
+htmlTopLevelIndent: "never"
 parser: "lwc"
 parsers: ["lwc"]
 printWidth: 80
@@ -188,45 +188,6 @@ printWidth: 80
 </template>
 <template if:true={value.error}>
   <c-error-panel errors={value.error}></c-error-panel>
-</template>
-<a href="#" onclick={aFunction}></a>
-
-================================================================================
-`;
-
-exports[`attributes.html 6`] = `
-====================================options=====================================
-htmlTopLevelIndent: "never"
-parser: "lwc"
-parsers: ["lwc"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-<template>
-  <div
-    data-for={value}
-    data-for={value[0]}
-    data-for={value.toString()}
-    data-for={value()}
-    class="test"
-  ></div>
-  </template>
-<template if:true={value.error}>
-    <c-error-panel errors={value.error}></c-error-panel>
-</template>
-<a href="#" onclick={aFunction}>
-=====================================output=====================================
-<template>
-<div
-  data-for={value}
-  data-for={value[0]}
-  data-for={value.toString()}
-  data-for={value()}
-  class="test"
-></div>
-</template>
-<template if:true={value.error}>
-<c-error-panel errors={value.error}></c-error-panel>
 </template>
 <a href="#" onclick={aFunction}></a>
 
