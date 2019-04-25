@@ -80,3 +80,37 @@ Examples:
     var x = (await foo.bar.blah)?.hi;
   }
   ```
+
+- Handlebars: Fix {{else}}{{#if}} into {{else if}} merging ([#6080] by [@dcyriller])
+
+  <!-- prettier-ignore -->
+  ```
+  // Input
+  {{#if a}}
+    a
+  {{else}}
+    {{#if c}}
+      c
+    {{/if}}
+    e
+  {{/if}}
+
+  // Output (Prettier stable)
+  {{#if a}}
+    a
+  {{else if c}}
+    c
+  e
+  {{/if}}
+
+  // Output (Prettier master)
+  Code Sample
+  {{#if a}}
+    a
+  {{else}}
+    {{#if c}}
+      c
+    {{/if}}
+    e
+  {{/if}}
+  ```
