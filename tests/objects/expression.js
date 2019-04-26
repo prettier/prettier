@@ -7,3 +7,18 @@ a = () => ({}).x;
 ({}(), 0);
 ({} = 0);
 (({} = 0), 1);
+
+const a = {
+  someKey:
+    (shortName, shortName)
+};
+
+const a = {
+  someKey:
+    (longLongLongLongLongLongLongLongLongLongLongLongLongLongName, shortName)
+};
+
+const a = {
+  someKey:
+    (longLongLongLongLongLongLongLongLongLongLongLongLongLongName, longLongLongLongLongLongLongLongLongLongLongLongLongLongName, longLongLongLongLongLongLongLongLongLongLongLongLongLongName)
+};

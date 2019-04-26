@@ -44,6 +44,33 @@ const link = <a href="example.com">http://example.com</a>;
 
 -->
 
+### JavaScript: Do not hug sequence expression in object properties ([#6088] by [@evilebottnawi])
+
+<!-- prettier-ignore -->
+```js
+// Input
+const a = {
+  someKey:
+    (longLongLongLongLongLongLongLongLongLongLongLongLongLongName, shortName)
+};
+
+// Output (Prettier stable)
+const a = {
+  someKey: (longLongLongLongLongLongLongLongLongLongLongLongLongLongName,
+  shortName)
+};
+
+// Output (Prettier master)
+const a = {
+  someKey:
+    (longLongLongLongLongLongLongLongLongLongLongLongLongLongName, shortName)
+};
+```
+
+- JavaScript: Fix closure compiler typecasts ([#5947] by [@jridgewell])
+
+  If a closing parenthesis follows after a typecast in an inner expression, the typecast would wrap everything to the that following parenthesis.
+
 ### JavaScript: Don't break simple template literals ([#5979] by [@jwbay])
 
 <!-- prettier-ignore -->
@@ -176,11 +203,13 @@ This changes the method of finding the required count of backticks from using 2 
 ````
 
 [#5979]: https://github.com/prettier/prettier/pull/5979
+[#6088]: https://github.com/prettier/prettier/pull/6088
 [#6115]: https://github.com/prettier/prettier/pull/6115
 [#6106]: https://github.com/prettier/prettier/pull/6106
 [#6116]: https://github.com/prettier/prettier/pull/6116
 [#6110]: https://github.com/prettier/prettier/pull/6110
 [#6119]: https://github.com/prettier/prettier/pull/6119
+[@evilebottnawi]: https://github.com/evilebottnawi
 [@jridgewell]: https://github.com/jridgewell
 [@jwbay]: https://github.com/jwbay
 [@brainkim]: https://github.com/brainkim
