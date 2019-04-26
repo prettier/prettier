@@ -42,6 +42,20 @@ Examples:
 
 -->
 
+- JavaScript: Correctly handle comments in empty arrow function expressions ([#6086] by [@evilebottnawi])
+
+   <!-- prettier-ignore -->
+  ```js
+  // Input
+  const fn = (/*event, data*/) => doSomething(anything);
+
+  // Output (Prettier stable)
+  const fn = () => /*event, data*/ doSomething(anything);
+
+  // Output (Prettier master)
+  const fn = (/*event, data*/) => doSomething(anything);
+  ```
+
 - JavaScript: Fix closure compiler typecasts ([#5947] by [@jridgewell])
 
   If a closing parenthesis follows after a typecast in an inner expression, the typecast would wrap everything to the that following parenthesis.
