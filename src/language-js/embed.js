@@ -335,22 +335,35 @@ function printGraphqlComments(lines) {
 }
 
 /**
- * Template literal in this context:
+ * Template literal in these contexts:
  * <style jsx>{`div{color:red}`}</style>
+ * css``
+ * css.global``
+ * css.resolve``
  */
 function isStyledJsx(path) {
   const node = path.getValue();
   const parent = path.getParentNode();
   const parentParent = path.getParentNode(1);
   return (
-    parentParent &&
-    node.quasis &&
-    parent.type === "JSXExpressionContainer" &&
-    parentParent.type === "JSXElement" &&
-    parentParent.openingElement.name.name === "style" &&
-    parentParent.openingElement.attributes.some(
-      attribute => attribute.name.name === "jsx"
-    )
+    (parentParent &&
+      node.quasis &&
+      parent.type === "JSXExpressionContainer" &&
+      parentParent.type === "JSXElement" &&
+      parentParent.openingElement.name.name === "style" &&
+      parentParent.openingElement.attributes.some(
+        attribute => attribute.name.name === "jsx"
+      )) ||
+    (parent &&
+      parent.type === "TaggedTemplateExpression" &&
+      parent.tag.type === "Identifier" &&
+      parent.tag.name === "css") ||
+    (parent &&
+      parent.type === "TaggedTemplateExpression" &&
+      parent.tag.type === "MemberExpression" &&
+      parent.tag.object.name === "css" &&
+      (parent.tag.property.name === "global" ||
+        parent.tag.property.name === "resolve"))
   );
 }
 
