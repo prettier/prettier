@@ -41,3 +41,22 @@ Examples:
   ```
 
 -->
+
+- JavaScript: Fix closure compiler typecasts ([#5947] by [@jridgewell])
+
+  If a closing parenthesis follows after a typecast in an inner expression, the typecast would wrap everything to the that following parenthesis.
+
+  <!-- prettier-ignore -->
+  ```js
+  // Input
+  test(/** @type {!Array} */(arrOrString).length);
+  test(/** @type {!Array} */((arrOrString)).length + 1);
+
+  // Output (Prettier stable)
+  test(/** @type {!Array} */ (arrOrString.length));
+  test(/** @type {!Array} */ (arrOrString.length + 1));
+
+  // Output (Prettier master)
+  test(/** @type {!Array} */ (arrOrString).length);
+  test(/** @type {!Array} */ (arrOrString).length + 1);
+  ```
