@@ -60,3 +60,23 @@ Examples:
   test(/** @type {!Array} */ (arrOrString).length);
   test(/** @type {!Array} */ (arrOrString).length + 1);
   ```
+
+- JavaScript: respect parenthesis around optional chaining before await ([#6087] by [@evilebottnawi])
+
+  <!-- prettier-ignore -->
+  ```js
+  // Input
+  async function myFunction() {
+    var x = (await foo.bar.blah)?.hi;
+  }
+
+  // Output (Prettier stable)
+  async function myFunction() {
+    var x = await foo.bar.blah?.hi;
+  }
+
+  // Output (Prettier master)
+  async function myFunction() {
+    var x = (await foo.bar.blah)?.hi;
+  }
+  ```

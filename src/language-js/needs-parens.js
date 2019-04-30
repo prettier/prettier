@@ -455,6 +455,7 @@ function needsParens(path, options) {
         case "TSAsExpression":
         case "TSNonNullExpression":
         case "BindExpression":
+        case "OptionalMemberExpression":
           return true;
 
         case "MemberExpression":
