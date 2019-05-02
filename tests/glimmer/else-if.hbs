@@ -67,3 +67,18 @@
     ac
   {{/if}}
 {{/if}}
+
+{{#if a}}
+  a
+  <div>b</div>
+  c
+{{else}}
+  {{#if c}}
+    a
+    b
+    <div>c</div>
+  {{/if}}
+  <div>a</div>
+  b
+  c
+{{/if}}
