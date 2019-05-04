@@ -13,6 +13,10 @@ const thirdParty = isProduction
   ? path.join(prettierRootDir, "./third-party")
   : path.join(prettierRootDir, "./src/common/third-party");
 
+// Placeholder is mocked inside "runPrettier" to keep track of atomic writes.
+const writeFileAtomicSync = jest.fn();
+jest.mock("write-file-atomic", () => ({ sync: writeFileAtomicSync }));
+
 function runPrettier(dir, args, options) {
   args = args || [];
   options = options || {};
@@ -50,36 +54,31 @@ function runPrettier(dir, args, options) {
   jest.spyOn(Date, "now").mockImplementation(() => 0);
 
   const write = [];
+
   jest.spyOn(fs, "writeFileSync").mockImplementation((filename, content) => {
+    write.push({ filename, content });
+  });
+  writeFileAtomicSync.mockImplementation((filename, content) => {
     write.push({ filename, content });
   });
 
   const origStatSync = fs.statSync;
-  jest.spyOn(fs, "statSync").mockImplementation((filename, opts) => {
-    if (path.basename(filename) === "virtualDirectory") {
+
+  jest.spyOn(fs, "statSync").mockImplementation(filename => {
+    if (path.basename(filename) === `virtualDirectory`) {
       return origStatSync(path.join(__dirname, __filename));
     }
-    return origStatSync(filename, opts);
+    return origStatSync(filename);
   });
 
-  // Mock the existence of "virtualFile" when option is defined.
-  const origExistsSync = fs.existsSync;
-  jest.spyOn(fs, "existsSync").mockImplementation(filename => {
-    if (path.basename(filename) === "virtualFile") {
-      if (typeof options.virtualFile === "string") {
-        return true;
-      }
-    }
-    return origExistsSync(filename);
-  });
-
-  // Mock contents of "virtualFile" when option is defined.
+  // Mock contents of "virtualFiles" when option is defined.
   const origReadFileSync = fs.readFileSync;
   jest.spyOn(fs, "readFileSync").mockImplementation((filename, opts) => {
-    if (path.basename(filename) === "virtualFile") {
-      if (typeof options.virtualFile === "string") {
-        return options.virtualFile;
-      }
+    if (
+      typeof options.virtualFiles === "object" &&
+      typeof options.virtualFiles[filename] === "string"
+    ) {
+      return options.virtualFiles[filename];
     }
     return origReadFileSync(filename, opts);
   });

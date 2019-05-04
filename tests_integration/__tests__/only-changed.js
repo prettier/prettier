@@ -1,7 +1,16 @@
 "use strict";
 
+jest.mock("find-cache-dir", () => () => ".prettier");
+
+const path = require("path");
+const findCacheDir = require("find-cache-dir");
+
 const runPrettier = require("../runPrettier");
 const ChangedCache = require("../../src/cli/changed-cache");
+
+// Cache name must be kept consistent with value in the implementation.
+const cacheName = "changed";
+const cachePath = path.join(findCacheDir(), cacheName);
 
 describe("create cache with --write --only-changed + unformatted file", () => {
   runPrettier("cli/only-changed", [
@@ -9,7 +18,7 @@ describe("create cache with --write --only-changed + unformatted file", () => {
     "--only-changed",
     "unformatted.js"
   ]).test({
-    write: [{ filename: "unformatted.js" }, { filename: ".prettiercache" }],
+    write: [{ filename: "unformatted.js" }, { filename: cachePath }],
     status: 0
   });
 });
@@ -20,33 +29,18 @@ describe("create cache with --write --only-changed + formatted file", () => {
     "--only-changed",
     "formatted.js"
   ]).test({
-    write: [{ filename: ".prettiercache" }],
-    status: 0
-  });
-});
-
-describe("create cache with --write --only-changed + formatted file + custom location", () => {
-  process.env.PRETTIER_CACHE_LOCATION = ".custom";
-
-  runPrettier("cli/only-changed", [
-    "--write",
-    "--only-changed",
-    "formatted.js"
-  ]).test({
-    write: [{ filename: ".custom" }],
+    write: [{ filename: cachePath }],
     status: 0
   });
 });
 
 describe("detect unchanged with --write --only-changed + formatted file", () => {
-  process.env.PRETTIER_CACHE_LOCATION = "virtualFile";
-
   const res = runPrettier("cli/only-changed", [
     "--write",
     "--only-changed",
     "formatted.js"
   ]).test({
-    write: [{ filename: "virtualFile" }],
+    write: [{ filename: cachePath }],
     status: 0
   });
 
@@ -56,23 +50,23 @@ describe("detect unchanged with --write --only-changed + formatted file", () => 
     "cli/only-changed",
     ["--write", "--only-changed", "formatted.js"],
     {
-      virtualFile: cacheContents
+      virtualFiles: {
+        [cachePath]: cacheContents
+      }
     }
   ).test({
-    write: [{ filename: "virtualFile", content: cacheContents }],
+    write: [{ filename: cachePath, content: cacheContents }],
     status: 0
   });
 });
 
 describe("detect config change with --write --only-changed + unformatted file", () => {
-  process.env.PRETTIER_CACHE_LOCATION = "virtualFile";
-
   const resBefore = runPrettier("cli/only-changed", [
     "--write",
     "--only-changed",
     "unformatted.js"
   ]).test({
-    write: [{ filename: "unformatted.js" }, { filename: "virtualFile" }],
+    write: [{ filename: "unformatted.js" }, { filename: cachePath }],
     status: 0
   });
 
@@ -82,10 +76,12 @@ describe("detect config change with --write --only-changed + unformatted file", 
     "cli/only-changed",
     ["--write", "--only-changed", "--use-tabs", "unformatted.js"],
     {
-      virtualFile: cacheContentsBefore
+      virtualFiles: {
+        [cachePath]: cacheContentsBefore
+      }
     }
   ).test({
-    write: [{ filename: "unformatted.js" }, { filename: "virtualFile" }],
+    write: [{ filename: "unformatted.js" }, { filename: cachePath }],
     status: 0
   });
 
@@ -99,17 +95,15 @@ describe("ChangedCache", () => {
     const errLogger = jest.fn();
     const msg = "open-cache-file-error";
 
-    new ChangedCache(
-      {
-        existsSync: () => true,
-        readFileSync: () => {
-          throw new Error(msg);
-        }
+    new ChangedCache({
+      location: cachePath,
+      readFile: () => {
+        throw new Error(msg);
       },
-      ".prettiercache",
-      { logger: { error: errLogger } },
-      {}
-    );
+      writeFile: () => {},
+      context: { logger: { error: errLogger } },
+      supportInfo: {}
+    });
 
     expect(errLogger).toHaveBeenCalledWith(expect.stringContaining(msg));
   });
@@ -117,15 +111,13 @@ describe("ChangedCache", () => {
   it("should log errors when parsing the cache file", () => {
     const errLogger = jest.fn();
 
-    new ChangedCache(
-      {
-        existsSync: () => true,
-        readFileSync: () => "invalid json"
-      },
-      ".prettiercache",
-      { logger: { error: errLogger } },
-      {}
-    );
+    new ChangedCache({
+      location: cachePath,
+      readFile: () => "invalid json",
+      writeFile: () => {},
+      context: { logger: { error: errLogger } },
+      supportInfo: {}
+    });
 
     expect(errLogger).toHaveBeenCalledWith(
       expect.stringContaining("cache content")
@@ -136,18 +128,15 @@ describe("ChangedCache", () => {
     const errLogger = jest.fn();
     const msg = "close-cache-file-error";
 
-    const changedCache = new ChangedCache(
-      {
-        existsSync: () => true,
-        readFileSync: () => "{}",
-        writeFileSync: () => {
-          throw new Error(msg);
-        }
+    const changedCache = new ChangedCache({
+      location: cachePath,
+      readFile: () => "{}",
+      writeFile: () => {
+        throw new Error(msg);
       },
-      ".prettiercache",
-      { logger: { error: errLogger } },
-      {}
-    );
+      context: { logger: { error: errLogger } },
+      supportInfo: {}
+    });
     changedCache.close();
 
     expect(errLogger).toHaveBeenCalledWith(expect.stringContaining(msg));
@@ -156,16 +145,13 @@ describe("ChangedCache", () => {
   it("should log errors when serializing the cache contents", () => {
     const errLogger = jest.fn();
 
-    const changedCache = new ChangedCache(
-      {
-        existsSync: () => true,
-        readFileSync: () => "{}",
-        writeFileSync: () => {}
-      },
-      ".prettiercache",
-      { logger: { error: errLogger } },
-      {}
-    );
+    const changedCache = new ChangedCache({
+      location: cachePath,
+      readFile: () => "{}",
+      writeFile: () => {},
+      context: { logger: { error: errLogger } },
+      supportInfo: {}
+    });
     const mirror = {};
     mirror.self = mirror;
     changedCache.cache = mirror;

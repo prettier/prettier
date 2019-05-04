@@ -8,6 +8,8 @@ const globby = require("globby");
 const chalk = require("chalk");
 const readline = require("readline");
 const stringify = require("json-stable-stringify");
+const findCacheDir = require("find-cache-dir");
+const writeFileAtomic = require("write-file-atomic");
 
 const minimist = require("./minimist");
 const prettier = require("../../index");
@@ -451,12 +453,14 @@ function formatFiles(context) {
 
   let changedCache = null;
   if (context.argv["only-changed"]) {
-    changedCache = new ChangedCache(
-      fs,
-      process.env.PRETTIER_CACHE_LOCATION || ".prettiercache",
-      context,
-      prettier.getSupportInfo()
-    );
+    const cacheDir = findCacheDir({ name: "prettier", create: true });
+    changedCache = new ChangedCache({
+      location: path.join(cacheDir, "changed"),
+      readFile: fs.readFileSync,
+      writeFile: writeFileAtomic.sync,
+      context: context,
+      supportInfo: prettier.getSupportInfo()
+    });
   }
 
   eachFilename(context, context.filePatterns, (filename, options) => {

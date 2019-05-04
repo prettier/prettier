@@ -155,4 +155,4 @@ Examples:
 
 - CLI: Add `--only-changed` flag ([#5853] by [@g-harel])
 
-  Flag used with `--write` to avoid re-checking files that were not changed since they were last written (with the same formatting configuration). These results are stored in the `.prettiercache` file by default, but this can be configured using the `PRETTIER_CACHE_LOCATION` environment variable.
+  Flag used with `--write` to avoid re-checking files that were not changed since they were last written (with the same formatting configuration).

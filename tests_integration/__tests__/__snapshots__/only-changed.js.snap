@@ -7,13 +7,6 @@ exports[`create cache with --write --only-changed + formatted file (stdout) 1`] 
 "
 `;
 
-exports[`create cache with --write --only-changed + formatted file + custom location (stderr) 1`] = `""`;
-
-exports[`create cache with --write --only-changed + formatted file + custom location (stdout) 1`] = `
-"formatted.js 0ms
-"
-`;
-
 exports[`create cache with --write --only-changed + unformatted file (stderr) 1`] = `""`;
 
 exports[`create cache with --write --only-changed + unformatted file (stdout) 1`] = `
