@@ -9,7 +9,6 @@ const chalk = require("chalk");
 const readline = require("readline");
 const stringify = require("json-stable-stringify");
 const findCacheDir = require("find-cache-dir");
-const writeFileAtomic = require("write-file-atomic");
 
 const minimist = require("./minimist");
 const prettier = require("../../index");
@@ -457,7 +456,7 @@ function formatFiles(context) {
     changedCache = new ChangedCache({
       location: path.join(cacheDir, "changed"),
       readFile: fs.readFileSync,
-      writeFile: writeFileAtomic.sync,
+      writeFile: thirdParty.writeFileAtomic,
       context: context,
       supportInfo: prettier.getSupportInfo()
     });

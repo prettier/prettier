@@ -13,10 +13,6 @@ const thirdParty = isProduction
   ? path.join(prettierRootDir, "./third-party")
   : path.join(prettierRootDir, "./src/common/third-party");
 
-// Placeholder is mocked inside "runPrettier" to keep track of atomic writes.
-const writeFileAtomicSync = jest.fn();
-jest.mock("write-file-atomic", () => ({ sync: writeFileAtomicSync }));
-
 function runPrettier(dir, args, options) {
   args = args || [];
   options = options || {};
@@ -56,9 +52,6 @@ function runPrettier(dir, args, options) {
   const write = [];
 
   jest.spyOn(fs, "writeFileSync").mockImplementation((filename, content) => {
-    write.push({ filename, content });
-  });
-  writeFileAtomicSync.mockImplementation((filename, content) => {
     write.push({ filename, content });
   });
 
@@ -118,6 +111,11 @@ function runPrettier(dir, args, options) {
   jest
     .spyOn(require(thirdParty), "findParentDir")
     .mockImplementation(() => process.cwd());
+  jest
+    .spyOn(require(thirdParty), "writeFileAtomic")
+    .mockImplementation((filename, content) => {
+      write.push({ filename, content });
+    });
 
   try {
     require(prettierCli);

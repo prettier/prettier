@@ -1,7 +1,5 @@
 "use strict";
 
-jest.mock("find-cache-dir", () => () => ".prettier");
-
 const path = require("path");
 const findCacheDir = require("find-cache-dir");
 
@@ -10,7 +8,7 @@ const ChangedCache = require("../../src/cli/changed-cache");
 
 // Cache name must be kept consistent with value in the implementation.
 const cacheName = "changed";
-const cachePath = path.join(findCacheDir(), cacheName);
+const cachePath = path.join(findCacheDir({ name: "prettier" }), cacheName);
 
 describe("create cache with --write --only-changed + unformatted file", () => {
   runPrettier("cli/only-changed", [
