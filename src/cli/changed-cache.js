@@ -19,12 +19,12 @@ class ChangedCache {
   // Initializes the in-memory cache data from the configured location.
   // Also calculates the static support info hash used to compute file keys.
   // A missing cache file is not treated as an error because it is expected on first run.
-  constructor({ location, readFile, writeFile, context, supportInfo }) {
-    this.location = location;
-    this.readFile = readFile;
-    this.writeFile = writeFile;
-    this.context = context;
-    this.supportInfoHash = hash(JSON.stringify(supportInfo));
+  constructor(options) {
+    this.location = options.location;
+    this.readFile = options.readFile;
+    this.writeFile = options.writeFile;
+    this.context = options.context;
+    this.supportInfoHash = hash(JSON.stringify(options.supportInfo));
 
     this.cache = {};
 
@@ -33,7 +33,7 @@ class ChangedCache {
       contents = this.readFile(this.location, "utf8");
     } catch (err) {
       if (err.code !== "ENOENT") {
-        context.logger.error(`Could not read cache file: ${err}`);
+        this.context.logger.error(`Could not read cache file: ${err}`);
       }
       return;
     }
