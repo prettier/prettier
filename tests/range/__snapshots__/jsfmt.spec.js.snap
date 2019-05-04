@@ -334,6 +334,28 @@ try {
 ================================================================================
 `;
 
+exports[`nested-print-width.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+function f() {
+  if (true) {
+    call("this line is 79 chars", "long", "it should", "stay as single line");
+  }
+}
+
+=====================================output=====================================
+function f() {
+  if (true) {
+    call("this line is 79 chars", "long", "it should", "stay as single line");
+  }
+}
+
+================================================================================
+`;
+
 exports[`nested2.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]

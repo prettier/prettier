@@ -42,6 +42,44 @@ Examples:
 
 -->
 
+- Range: Fix ranged formatting not using the correct line width ([#6050] by [@mathieulj])
+
+  <!-- prettier-ignore -->
+  ```js
+  // Input
+  function f() {
+    if (true) {
+      call("this line is 79 chars", "long", "it should", "stay as single line");
+    }
+  }
+
+  // Output (Prettier stable run with --range-start 30 --range-end 110)
+  function f() {
+    if (true) {
+      call(
+        "this line is 79 chars",
+        "long",
+        "it should",
+        "stay as single line"
+      );
+    }
+  }
+
+  // Output (Prettier stable run without range)
+  function f() {
+    if (true) {
+      call("this line is 79 chars", "long", "it should", "stay as single line");
+    }
+  }
+
+  // Output (Prettier master with and without range)
+  function f() {
+    if (true) {
+      call("this line is 79 chars", "long", "it should", "stay as single line");
+    }
+  }
+  ```
+
 - JavaScript: Fix closure compiler typecasts ([#5947] by [@jridgewell])
 
   If a closing parenthesis follows after a typecast in an inner expression, the typecast would wrap everything to the that following parenthesis.
