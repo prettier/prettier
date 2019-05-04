@@ -33,7 +33,7 @@
     "editorconfig-to-prettier": "0.1.1",
     "escape-string-regexp": "1.0.5",
     "esutils": "2.0.2",
-    "find-cache-dir": "3.0.0",
+    "find-cache-dir": "2.0.0",
     "find-parent-dir": "0.3.0",
     "find-project-root": "1.1.1",
     "flow-parser": "0.84.0",
@@ -72,7 +72,7 @@
     "unicode-regex": "2.0.0",
     "unified": "6.1.6",
     "vnopts": "1.0.2",
-    "write-file-atomic": "2.4.2",
+    "write-file-atomic": "2.3.0",
     "yaml": "1.0.2",
     "yaml-unist-parser": "1.0.0"
   },
