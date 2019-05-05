@@ -152,8 +152,7 @@ Examples:
     e
   {{/if}}
 
-
-- JavaScript: Improved multiline closure compiler typecast comment detection ([#6070] by [@yangsu])
+* JavaScript: Improved multiline closure compiler typecast comment detection ([#6070] by [@yangsu])
 
   Previously, multiline closure compiler typecast comments with lines that
   start with \* weren't flagged correctly and the subsequent parenthesis were
