@@ -151,4 +151,39 @@ Examples:
     {{/if}}
     e
   {{/if}}
+
+* JavaScript: Improved multiline closure compiler typecast comment detection ([#6070] by [@yangsu])
+
+  Previously, multiline closure compiler typecast comments with lines that
+  start with \* weren't flagged correctly and the subsequent parenthesis were
+  stripped. Prettier master fixes this issue.
+
+  <!-- prettier-ignore --\>
+  ```js
+  // Input
+  const style =/**
+   * @type {{
+   *   width: number,
+   * }}
+  */({
+    width,
+  });
+  
+  // Output (Prettier stable)
+  const style =/**
+   * @type {{
+   *   width: number,
+   * }}
+  */ {
+    width,
+  };
+  
+  // Output (Prettier master)
+  const style =/**
+   * @type {{
+   *   width: number,
+   * }}
+  */({
+    width,
+  });
   ```

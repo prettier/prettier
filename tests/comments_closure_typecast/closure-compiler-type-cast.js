@@ -56,3 +56,11 @@ const style = /** @type {{
   height,
   ...margins,
 });
+
+const style =/**
+ * @type {{
+ *   width: number,
+ * }}
+*/({
+  width,
+});
