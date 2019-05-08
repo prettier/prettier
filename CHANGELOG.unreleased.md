@@ -159,7 +159,7 @@ Examples:
   start with \* weren't flagged correctly and the subsequent parenthesis were
   stripped. Prettier master fixes this issue.
 
-  <!-- prettier-ignore --\>
+  <!-- prettier-ignore -->
   ```js
   // Input
   const style =/**
@@ -169,7 +169,7 @@ Examples:
   */({
     width,
   });
-  
+
   // Output (Prettier stable)
   const style =/**
    * @type {{
@@ -178,7 +178,7 @@ Examples:
   */ {
     width,
   };
-  
+
   // Output (Prettier master)
   const style =/**
    * @type {{
