@@ -212,3 +212,26 @@ Examples:
     )
   );
   ```
+
+- TypeScript: Don’t breakup call expressions when the last argument is an arrow function with a simple return type ([#6106] by [@brainkim])
+
+  <!-- prettier-ignore -->
+  ```js
+  Fixes [an edge-case](#6099) where we were splitting up call expressions containing arrow functions with simple return types.
+  app.get("/", (req, res): void => {
+    res.send("Hello World!");
+  });
+
+  // Output (Prettier stable)
+  app.get(
+    "/",
+    (req, res): void => {
+      res.send("Hello World!");
+    },
+  );
+
+  // Output (Prettier master)
+  app.get("/", (req, res): void => {
+    res.send("Hello World!");
+  });
+  ```
