@@ -53,6 +53,14 @@ Applying this practice will minimise the number of times the CI fails because of
 
 If you need to pipe the list of unformatted files to another command, you can use [`--list-different`](cli.md#list-different) flag instead of `--check`.
 
+### Exit codes
+
+| Code | Information                         |
+| ---- | ----------------------------------- |
+| 0    | Everything formatted properly       |
+| 1    | Something wasn't formatted properly |
+| 2    | Something's wrong with Prettier     |
+
 ## `--debug-check`
 
 If you're worried that Prettier will change the correctness of your code, add `--debug-check` to the command. This will cause Prettier to print an error message if it detects that code correctness might have changed. Note that `--write` cannot be used with `--debug-check`.

@@ -6,23 +6,21 @@ const util = require("../common/util");
 const comments = require("./comments");
 const { hasFlowShorthandAnnotationComment } = require("./utils");
 
-function hasClosureCompilerTypeCastComment(text, path, locStart, locEnd) {
+function hasClosureCompilerTypeCastComment(text, path) {
   // https://github.com/google/closure-compiler/wiki/Annotating-Types#type-casts
   // Syntax example: var x = /** @type {string} */ (fruit);
 
   const n = path.getValue();
 
   return (
-    util.getNextNonSpaceNonCommentCharacter(text, n, locEnd) === ")" &&
+    isParenthesized(n) &&
     (hasTypeCastComment(n) || hasAncestorTypeCastComment(0))
   );
 
   // for sub-item: /** @type {array} */ (numberOrString).map(x => x);
   function hasAncestorTypeCastComment(index) {
     const ancestor = path.getParentNode(index);
-    return ancestor &&
-      util.getNextNonSpaceNonCommentCharacter(text, ancestor, locEnd) !== ")" &&
-      /^[\s(]*$/.test(text.slice(locStart(ancestor), locStart(n)))
+    return ancestor && !isParenthesized(ancestor)
       ? hasTypeCastComment(ancestor) || hasAncestorTypeCastComment(index + 1)
       : false;
   }
@@ -34,20 +32,31 @@ function hasClosureCompilerTypeCastComment(text, path, locStart, locEnd) {
         comment =>
           comment.leading &&
           comments.isBlockComment(comment) &&
-          isTypeCastComment(comment.value) &&
-          util.getNextNonSpaceNonCommentCharacter(text, comment, locEnd) === "("
+          isTypeCastComment(comment.value)
       )
     );
   }
 
+  function isParenthesized(node) {
+    // Closure typecast comments only really make sense when _not_ using
+    // typescript or flow parsers, so we take advantage of the babel parser's
+    // parenthesized expressions.
+    return node.extra && node.extra.parenthesized;
+  }
+
   function isTypeCastComment(comment) {
-    const trimmed = comment.trim();
-    if (!/^\*\s*@type\s*\{[^]+\}$/.test(trimmed)) {
+    const cleaned = comment
+      .trim()
+      .split("\n")
+      .map(line => line.replace(/^[\s*]+/, ""))
+      .join(" ")
+      .trim();
+    if (!/^@type\s+\{[^]+\}$/.test(cleaned)) {
       return false;
     }
     let isCompletelyClosed = false;
     let unpairedBracketCount = 0;
-    for (const char of trimmed) {
+    for (const char of cleaned) {
       if (char === "{") {
         if (isCompletelyClosed) {
           return false;
@@ -100,14 +109,7 @@ function needsParens(path, options) {
 
   // Closure compiler requires that type casted expressions to be surrounded by
   // parentheses.
-  if (
-    hasClosureCompilerTypeCastComment(
-      options.originalText,
-      path,
-      options.locStart,
-      options.locEnd
-    )
-  ) {
+  if (hasClosureCompilerTypeCastComment(options.originalText, path)) {
     return true;
   }
 
@@ -458,6 +460,7 @@ function needsParens(path, options) {
         case "TSAsExpression":
         case "TSNonNullExpression":
         case "BindExpression":
+        case "OptionalMemberExpression":
           return true;
 
         case "MemberExpression":

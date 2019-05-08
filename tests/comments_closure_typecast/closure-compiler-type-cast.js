@@ -16,10 +16,21 @@ function returnValue() {
   return /** @type {!Array.<string>} */ (['hello', 'you']);
 }
 
+// Only numberOrString is typecast
 var newArray = /** @type {array} */ (numberOrString).map(x => x);
 var newArray = /** @type {array} */ ((numberOrString)).map(x => x);
-var newArray = /** @type {array} */ ((numberOrString).map(x => x));
+var newArray = test(/** @type {array} */ (numberOrString).map(x => x));
+var newArray = test(/** @type {array} */ ((numberOrString)).map(x => x));
 
+// The numberOrString.map CallExpression is typecast
+var newArray = /** @type {array} */ (numberOrString.map(x => x));
+var newArray = /** @type {array} */ ((numberOrString).map(x => x));
+var newArray = test(/** @type {array} */ (numberOrString.map(x => x)));
+var newArray = test(/** @type {array} */ ((numberOrString).map(x => x)));
+
+test(/** @type {number} */(num) + 1);
+test(/** @type {!Array} */(arrOrString).length + 1);
+test(/** @type {!Array} */((arrOrString)).length + 1);
 
 const data = functionCall(
   arg1,
@@ -44,4 +55,12 @@ const style = /** @type {{
   width,
   height,
   ...margins,
+});
+
+const style =/**
+ * @type {{
+ *   width: number,
+ * }}
+*/({
+  width,
 });
