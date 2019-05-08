@@ -188,7 +188,6 @@ Examples:
   });
   ```
 
-
  - JavaScript: Don't break simple template literals ([#5979] by [@jwbay])
 
    <!-- prettier-ignore -->
