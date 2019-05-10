@@ -578,6 +578,35 @@ function getMaxContinuousCount(str, target) {
   );
 }
 
+function getMinNotPresentContinuousCount(str, target) {
+  const matches = str.match(
+    new RegExp(`(${escapeStringRegexp(target)})+`, "g")
+  );
+
+  if (matches === null) {
+    return 0;
+  }
+
+  const countPresent = new Map();
+  let max = 0;
+
+  for (const match of matches) {
+    const count = match.length / target.length;
+    countPresent.set(count, true);
+    if (count > max) {
+      max = count;
+    }
+  }
+
+  for (let i = 1; i < max; i++) {
+    if (!countPresent.get(i)) {
+      return i;
+    }
+  }
+
+  return max + 1;
+}
+
 function getStringWidth(text) {
   if (!text) {
     return 0;
@@ -681,6 +710,7 @@ module.exports = {
   replaceEndOfLineWith,
   getStringWidth,
   getMaxContinuousCount,
+  getMinNotPresentContinuousCount,
   getPrecedence,
   shouldFlatten,
   isBitwiseOperator,
