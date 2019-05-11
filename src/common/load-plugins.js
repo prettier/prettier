@@ -90,7 +90,7 @@ function loadPlugins(plugins, pluginSearchDirs) {
     )
     .concat(externalPluginInstances);
 
-  return internalPlugins.concat(externalPlugins);
+  return externalPlugins.concat(internalPlugins);
 }
 
 function findPluginsInNodeModules(nodeModulesDir) {
