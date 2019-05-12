@@ -2,10 +2,10 @@
 
 const runPrettier = require("../runPrettier");
 
-describe("parser preprocess function is used to reshape input text", () => {
+describe("plugin printer should override internal ones", () => {
   runPrettier("plugins/plugin-external-precedence", [
     "package.json",
-    "--plugin=./plugin"
+    "--plugin=./printer"
   ]).test({
     stdout: "Overridden",
     stderr: "",
