@@ -43,7 +43,7 @@ Button.propTypes = {
 function Tidelift() {
   return (
     <a className="tidelift" href={siteConfig.tideliftUrl}>
-      GET PROFESSIONAL SUPPORT FOR PRETTIER
+      GET PROFESSIONALLY SUPPORTED PRETTIER
     </a>
   );
 }
