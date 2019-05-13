@@ -1,5 +1,7 @@
 <!--
 
+NOTE: Don't forget to add a link to your GitHub profile and the PR in the end of the file.
+
 Format:
 
 ### Category: Title ([#PR] by [@user])
@@ -84,3 +86,8 @@ const myFunc = <T>(arg1: G<T>) => false;
 type G<T> = any;
 const myFunc = <T,>(arg1: G<T>) => false;
 ```
+
+[#5979]: https://github.com/prettier/prettier/pull/5979
+[#6115]: https://github.com/prettier/prettier/pull/5979
+[@jwbay]: https://github.com/jwbay
+[@sosukesuzuki]: https://github.com/sosukesuzuki
