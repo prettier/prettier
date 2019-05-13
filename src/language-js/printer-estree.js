@@ -3000,6 +3000,15 @@ function printPathNoParens(path, options, print, args) {
         parts.push(" = ", path.call(print, "default"));
       }
 
+      if (
+        parent.params &&
+        parent.params.length === 1 &&
+        options.filepath.match(/\.tsx/) &&
+        !n.constraint
+      ) {
+        parts.push(",");
+      }
+
       return concat(parts);
     }
     case "TypeofTypeAnnotation":
