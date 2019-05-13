@@ -73,6 +73,9 @@ const style =/**
   width,
 });
 
+// Space isn't necessary between @type and {
+const v = /** @type{string} */(value);
+
 =====================================output=====================================
 // test to make sure comments are attached correctly
 let inlineComment = /* some comment */ someReallyLongFunctionCall(
@@ -143,6 +146,9 @@ const style = /**
  */ ({
   width
 });
+
+// Space isn't necessary between @type and {
+const v = /** @type{string} */ (value);
 
 ================================================================================
 `;

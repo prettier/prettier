@@ -64,3 +64,6 @@ const style =/**
 */({
   width,
 });
+
+// Space isn't necessary between @type and {
+const v = /** @type{string} */(value);
