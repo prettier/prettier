@@ -3003,6 +3003,7 @@ function printPathNoParens(path, options, print, args) {
       if (
         parent.params &&
         parent.params.length === 1 &&
+        options.filepath &&
         options.filepath.match(/\.tsx/) &&
         !n.constraint
       ) {
