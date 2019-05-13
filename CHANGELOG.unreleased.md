@@ -65,3 +65,22 @@ Examples:
     )
   );
   ```
+
+- TypeScript: Keep trailing comma in tsx type parameters ([#6115] by [@sosukesuzuki])
+
+  Previously, a trailing comma after single type parameter in arrow function was cleaned up. The formatted result is valid as ts, but is invalid as tsx. Prettier master fixes this issue.
+
+  <!-- prettier-ignore -->
+  ```tsx
+  // Input
+  type G<T> = any;
+  const myFunc = <T,>(arg1: G<T>) => false;
+
+  // Output (Prettier stable)
+  type G<T> = any;
+  const myFunc = <T>(arg1: G<T>) => false;
+
+  // Output (prettier master)
+  type G<T> = any;
+  const myFunc = <T,>(arg1: G<T>) => false;
+  ```
