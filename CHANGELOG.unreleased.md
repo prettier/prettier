@@ -126,6 +126,31 @@ const v = /** @type{string} */ value;
 const v = /** @type{string} */ (value);
 ```
 
+### JavaScript: Prevent adding quotes when using `--quote-props=consistent` and one of the keys were a computed "complex" expression ([] by [@duailibe])
+
+Previously, Prettier added unnecessary quotes to keys of an object, or properties and methods of classes, if there was at least one computed key with a "complex" expression (e.g. a member expression).
+
+<!-- prettier-ignore -->
+```js
+// Input
+const obj = {
+  foo: "",
+  [foo.bar]: "",
+}
+
+// Output (Prettier stable)
+const obj = {
+  "foo": "",
+  [foo.bar]: "",
+}
+
+// Output (Prettier master)
+const obj = {
+  foo: "",
+  [foo.bar]: "",
+}
+```
+
 ### Markdown: correctly determine count of backticks in inline code ([#6110] by [@belochub])
 
 By the CommonMark spec, it is required to 'choose a string of `n` backtick characters as delimiters, where the code does not contain any strings of exactly `n` backtick characters.'
@@ -160,3 +185,4 @@ This changes the method of finding the required count of backticks from using 2 
 [@brainkim]: https://github.com/brainkim
 [@sosukesuzuki]: https://github.com/sosukesuzuki
 [@belochub]: https://github.com/belochub
+[@duailibe]: https://github.com/duailibe
