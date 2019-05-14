@@ -138,7 +138,7 @@ code block, and using 1 backtick in all other cases, to finding a minimum
 length backtick string that can correctly be used as a delimiter.
 
 <!-- prettier-ignore -->
-```md
+````md
 <!-- Input -->
 ``` 3 ``22`` `1` ```
 
@@ -153,7 +153,7 @@ length backtick string that can correctly be used as a delimiter.
 ``` 3 ``22`` `1` ```
 
 `` 2 ```123``` `1` ``
-```
+````
 
 [#5979]: https://github.com/prettier/prettier/pull/5979
 [#6115]: https://github.com/prettier/prettier/pull/6115
