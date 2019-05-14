@@ -87,7 +87,25 @@ type G<T> = any;
 const myFunc = <T,>(arg1: G<T>) => false;
 ```
 
+### JavaScript: Fix closure typecasts without spaces ([#6116] by [@jridgewell])
+
+Previously, a space was required between the `@type` and opening `{` of a closure typecast, or else the enclosing parenthesis would be removed. Closure itself does not require a space.
+
+<!-- prettier-ignore -->
+```tsx
+// Input
+const v = /** @type{string} */(value);
+
+// Output (Prettier stable)
+const v = /** @type{string} */ value;
+
+// Output (prettier master)
+const v = /** @type{string} */ (value);
+```
+
 [#5979]: https://github.com/prettier/prettier/pull/5979
-[#6115]: https://github.com/prettier/prettier/pull/5979
+[#6115]: https://github.com/prettier/prettier/pull/6115
+[#6116]: https://github.com/prettier/prettier/pull/6116
+[@jridgewell]: https://github.com/jridgewell
 [@jwbay]: https://github.com/jwbay
 [@sosukesuzuki]: https://github.com/sosukesuzuki
