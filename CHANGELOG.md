@@ -13,7 +13,7 @@
     }
   }
 
-  // Output (Prettier stable run with --range-start 30 --range-end 110)
+  // Output (Prettier 1.17.0 run with --range-start 30 --range-end 110)
   function f() {
     if (true) {
       call(
@@ -25,14 +25,14 @@
     }
   }
 
-  // Output (Prettier stable run without range)
+  // Output (Prettier 1.17.0 run without range)
   function f() {
     if (true) {
       call("this line is 79 chars", "long", "it should", "stay as single line");
     }
   }
 
-  // Output (Prettier master with and without range)
+  // Output (Prettier 1.17.1 with and without range)
   function f() {
     if (true) {
       call("this line is 79 chars", "long", "it should", "stay as single line");
@@ -50,11 +50,11 @@
   test(/** @type {!Array} */(arrOrString).length);
   test(/** @type {!Array} */((arrOrString)).length + 1);
 
-  // Output (Prettier stable)
+  // Output (Prettier 1.17.0)
   test(/** @type {!Array} */ (arrOrString.length));
   test(/** @type {!Array} */ (arrOrString.length + 1));
 
-  // Output (Prettier master)
+  // Output (Prettier 1.17.1)
   test(/** @type {!Array} */ (arrOrString).length);
   test(/** @type {!Array} */ (arrOrString).length + 1);
   ```
@@ -68,12 +68,12 @@
     var x = (await foo.bar.blah)?.hi;
   }
 
-  // Output (Prettier stable)
+  // Output (Prettier 1.17.0)
   async function myFunction() {
     var x = await foo.bar.blah?.hi;
   }
 
-  // Output (Prettier master)
+  // Output (Prettier 1.17.1)
   async function myFunction() {
     var x = (await foo.bar.blah)?.hi;
   }
@@ -93,7 +93,7 @@
     e
   {{/if}}
 
-  // Output (Prettier stable)
+  // Output (Prettier 1.17.0)
   {{#if a}}
     a
   {{else if c}}
@@ -101,7 +101,7 @@
   e
   {{/if}}
 
-  // Output (Prettier master)
+  // Output (Prettier 1.17.1)
   Code Sample
   {{#if a}}
     a
@@ -117,7 +117,7 @@
 
   Previously, multiline closure compiler typecast comments with lines that
   start with \* weren't flagged correctly and the subsequent parenthesis were
-  stripped. Prettier master fixes this issue.
+  stripped. Prettier 1.17.1 fixes this issue.
 
   <!-- prettier-ignore -->
   ```js
@@ -130,7 +130,7 @@
     width,
   });
 
-  // Output (Prettier stable)
+  // Output (Prettier 1.17.0)
   const style =/**
    * @type {{
    *   width: number,
@@ -139,7 +139,7 @@
     width,
   };
 
-  // Output (Prettier master)
+  // Output (Prettier 1.17.1)
   const style =/**
    * @type {{
    *   width: number,
