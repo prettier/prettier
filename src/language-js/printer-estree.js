@@ -3610,6 +3610,7 @@ function printPropertyKey(path, options, print) {
       parent.members
     ).some(
       prop =>
+        !prop.computed &&
         prop.key &&
         prop.key.type !== "Identifier" &&
         !isStringPropSafeToCoerceToIdentifier(prop, options)
@@ -3632,6 +3633,7 @@ function printPropertyKey(path, options, print) {
   }
 
   if (
+    !node.computed &&
     isStringPropSafeToCoerceToIdentifier(node, options) &&
     (options.quoteProps === "as-needed" ||
       (options.quoteProps === "consistent" && !needsQuoteProps.get(parent)))
@@ -6399,7 +6401,6 @@ function isStringPropSafeToCoerceToIdentifier(node, options) {
   return (
     isStringLiteral(node.key) &&
     isIdentifierName(node.key.value) &&
-    !node.computed &&
     options.parser !== "json" &&
     !(options.parser === "typescript" && node.type === "ClassProperty")
   );
