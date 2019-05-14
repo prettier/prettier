@@ -87,6 +87,29 @@ type G<T> = any;
 const myFunc = <T,>(arg1: G<T>) => false;
 ```
 
+### TypeScript: Don’t breakup call expressions when the last argument is an arrow function with a simple return type ([#6106] by [@brainkim])
+
+<!-- prettier-ignore -->
+```js
+Fixes [an edge-case](#6099) where we were splitting up call expressions containing arrow functions with simple return types.
+app.get("/", (req, res): void => {
+  res.send("Hello World!");
+});
+
+// Output (Prettier stable)
+app.get(
+  "/",
+  (req, res): void => {
+    res.send("Hello World!");
+  },
+);
+
+// Output (Prettier master)
+app.get("/", (req, res): void => {
+  res.send("Hello World!");
+});
+```
+
 ### JavaScript: Fix closure typecasts without spaces ([#6116] by [@jridgewell])
 
 Previously, a space was required between the `@type` and opening `{` of a closure typecast, or else the enclosing parenthesis would be removed. Closure itself does not require a space.
@@ -105,7 +128,9 @@ const v = /** @type{string} */ (value);
 
 [#5979]: https://github.com/prettier/prettier/pull/5979
 [#6115]: https://github.com/prettier/prettier/pull/6115
+[#6106]: https://github.com/prettier/prettier/pull/6106
 [#6116]: https://github.com/prettier/prettier/pull/6116
 [@jridgewell]: https://github.com/jridgewell
 [@jwbay]: https://github.com/jwbay
+[@brainkim]: https://github.com/brainkim
 [@sosukesuzuki]: https://github.com/sosukesuzuki

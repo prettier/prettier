@@ -3716,7 +3716,20 @@ function couldGroupArg(arg) {
     arg.type === "TSAsExpression" ||
     arg.type === "FunctionExpression" ||
     (arg.type === "ArrowFunctionExpression" &&
-      !arg.returnType &&
+      // we want to avoid breaking inside composite return types but not simple keywords
+      // https://github.com/prettier/prettier/issues/4070
+      // export class Thing implements OtherThing {
+      //   do: (type: Type) => Provider<Prop> = memoize(
+      //     (type: ObjectType): Provider<Opts> => {}
+      //   );
+      // }
+      // https://github.com/prettier/prettier/issues/6099
+      // app.get("/", (req, res): void => {
+      //   res.send("Hello World!");
+      // });
+      (!arg.returnType ||
+        !arg.returnType.typeAnnotation ||
+        arg.returnType.typeAnnotation.type !== "TSTypeReference") &&
       (arg.body.type === "BlockStatement" ||
         arg.body.type === "ArrowFunctionExpression" ||
         arg.body.type === "ObjectExpression" ||
