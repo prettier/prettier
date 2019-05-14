@@ -51,7 +51,7 @@ function hasClosureCompilerTypeCastComment(text, path) {
       .map(line => line.replace(/^[\s*]+/, ""))
       .join(" ")
       .trim();
-    if (!/^@type\s+\{[^]+\}$/.test(cleaned)) {
+    if (!/^@type\s*\{[^]+\}$/.test(cleaned)) {
       return false;
     }
     let isCompletelyClosed = false;
