@@ -3633,6 +3633,7 @@ function printPropertyKey(path, options, print) {
   }
 
   if (
+    !node.computed &&
     isStringPropSafeToCoerceToIdentifier(node, options) &&
     (options.quoteProps === "as-needed" ||
       (options.quoteProps === "consistent" && !needsQuoteProps.get(parent)))
