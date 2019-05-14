@@ -126,7 +126,7 @@ const v = /** @type{string} */ value;
 const v = /** @type{string} */ (value);
 ```
 
-### JavaScript: Prevent adding quotes when using `--quote-props=consistent` and one of the keys were a computed "complex" expression ([] by [@duailibe])
+### JavaScript: Prevent adding quotes when using `--quote-props=consistent` and one of the keys were a computed "complex" expression ([#6119] by [@duailibe])
 
 Previously, Prettier added unnecessary quotes to keys of an object, or properties and methods of classes, if there was at least one computed key with a "complex" expression (e.g. a member expression).
 
@@ -180,6 +180,7 @@ This changes the method of finding the required count of backticks from using 2 
 [#6106]: https://github.com/prettier/prettier/pull/6106
 [#6116]: https://github.com/prettier/prettier/pull/6116
 [#6110]: https://github.com/prettier/prettier/pull/6110
+[#6119]: https://github.com/prettier/prettier/pull/6119
 [@jridgewell]: https://github.com/jridgewell
 [@jwbay]: https://github.com/jwbay
 [@brainkim]: https://github.com/brainkim
