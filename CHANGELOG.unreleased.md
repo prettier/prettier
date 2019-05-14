@@ -128,14 +128,9 @@ const v = /** @type{string} */ (value);
 
 ### Markdown: correctly determine count of backticks in inline code ([#6110] by [@belochub])
 
-By the markdown spec, it is required to 'choose a string of n backtick
-characters as delimiters, where the code does not contain any strings of
-exactly n backtick characters.'
+By the CommonMark spec, it is required to 'choose a string of `n` backtick characters as delimiters, where the code does not contain any strings of exactly `n` backtick characters.'
 
-This changes the method of finding the required count of backticks from using
-2 backticks, when there is a backtick string of length 1 inside the inline
-code block, and using 1 backtick in all other cases, to finding a minimum
-length backtick string that can correctly be used as a delimiter.
+This changes the method of finding the required count of backticks from using 2 backticks, when there is a backtick string of length 1 inside the inline code block, and using 1 backtick in all other cases, to finding a minimum length backtick string that can correctly be used as a delimiter.
 
 <!-- prettier-ignore -->
 ````md
