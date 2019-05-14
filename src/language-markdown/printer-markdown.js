@@ -130,8 +130,11 @@ function genericPrint(path, options, print) {
     case "delete":
       return concat(["~~", printChildren(path, options, print), "~~"]);
     case "inlineCode": {
-      const backtickCount = privateUtil.getMaxContinuousCount(node.value, "`");
-      const style = backtickCount === 1 ? "``" : "`";
+      const backtickCount = privateUtil.getMinNotPresentContinuousCount(
+        node.value,
+        "`"
+      );
+      const style = "`".repeat(backtickCount || 1);
       const gap = backtickCount ? " " : "";
       return concat([style, gap, node.value, gap, style]);
     }
