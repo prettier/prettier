@@ -5909,7 +5909,8 @@ function printAssignmentRight(leftNode, rightNode, printedRight, options) {
       (isStringLiteral(rightNode) || isMemberExpressionChain(rightNode)) &&
       // do not put values on a separate line from the key in json
       options.parser !== "json" &&
-      options.parser !== "json5");
+      options.parser !== "json5") ||
+    rightNode.type === "SequenceExpression";
 
   if (canBreak) {
     return group(indent(concat([line, printedRight])));
