@@ -15,11 +15,11 @@ exports[`multiple patterns (write) 1`] = `Array []`;
 exports[`multiple patterns by with ignore pattern, doesn't ignore node_modules with --with-node-modules flag (stderr) 1`] = `""`;
 
 exports[`multiple patterns by with ignore pattern, doesn't ignore node_modules with --with-node-modules flag (stdout) 1`] = `
-"node_modules/node-module.js
+"other-regular-modules.js
+regular-module.js
+node_modules/node-module.js
 other-directory/file.js
 other-directory/nested-directory/nested-directory-file.js
-other-regular-modules.js
-regular-module.js
 "
 `;
 
@@ -28,10 +28,10 @@ exports[`multiple patterns by with ignore pattern, doesn't ignore node_modules w
 exports[`multiple patterns by with ignore pattern, ignores node_modules by default (stderr) 1`] = `""`;
 
 exports[`multiple patterns by with ignore pattern, ignores node_modules by default (stdout) 1`] = `
-"other-directory/file.js
-other-directory/nested-directory/nested-directory-file.js
-other-regular-modules.js
+"other-regular-modules.js
 regular-module.js
+other-directory/file.js
+other-directory/nested-directory/nested-directory-file.js
 "
 `;
 
@@ -40,10 +40,10 @@ exports[`multiple patterns by with ignore pattern, ignores node_modules by defau
 exports[`multiple patterns by with ignore pattern, ignores node_modules by with ./**/*.js (stderr) 1`] = `""`;
 
 exports[`multiple patterns by with ignore pattern, ignores node_modules by with ./**/*.js (stdout) 1`] = `
-"other-directory/file.js
-other-directory/nested-directory/nested-directory-file.js
-other-regular-modules.js
+"other-regular-modules.js
 regular-module.js
+other-directory/file.js
+other-directory/nested-directory/nested-directory-file.js
 "
 `;
 
@@ -52,10 +52,10 @@ exports[`multiple patterns by with ignore pattern, ignores node_modules by with 
 exports[`multiple patterns with ignore nested directories pattern (stderr) 1`] = `""`;
 
 exports[`multiple patterns with ignore nested directories pattern (stdout) 1`] = `
-"directory/file.js
-other-directory/file.js
-other-regular-modules.js
+"other-regular-modules.js
 regular-module.js
+directory/file.js
+other-directory/file.js
 "
 `;
 

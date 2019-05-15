@@ -6,8 +6,8 @@ expect.addSnapshotSerializer(require("../path-serializer"));
 
 describe("multiple patterns", () => {
   runPrettier("cli/multiple-patterns", [
-    "directory/**/*.js",
-    "other-directory/**/*.js",
+    "directory",
+    "other-directory",
     "-l"
   ]).test({
     status: 1
@@ -26,7 +26,7 @@ describe("multiple patterns with non exists pattern", () => {
 
 describe("multiple patterns with ignore nested directories pattern", () => {
   runPrettier("cli/multiple-patterns", [
-    "**/*.js",
+    ".",
     "!**/nested-directory/**",
     "-l"
   ]).test({
