@@ -95,6 +95,20 @@ console.log(
 );
 ```
 
+### JavaScript: Correctly handle comments in empty arrow function expressions ([#6086] by [@evilebottnawi])
+
+<!-- prettier-ignore -->
+```js
+// Input
+const fn = (/*event, data*/) => doSomething(anything);
+
+// Output (Prettier stable)
+const fn = () => /*event, data*/ doSomething(anything);
+
+// Output (Prettier master)
+const fn = (/*event, data*/) => doSomething(anything);
+```
+
 ### TypeScript: Keep trailing comma in tsx type parameters ([#6115] by [@sosukesuzuki])
 
 Previously, a trailing comma after single type parameter in arrow function was cleaned up. The formatted result is valid as ts, but is invalid as tsx. Prettier master fixes this issue.
@@ -203,6 +217,7 @@ This changes the method of finding the required count of backticks from using 2 
 ````
 
 [#5979]: https://github.com/prettier/prettier/pull/5979
+[#6086]: https://github.com/prettier/prettier/pull/6086
 [#6088]: https://github.com/prettier/prettier/pull/6088
 [#6115]: https://github.com/prettier/prettier/pull/6115
 [#6106]: https://github.com/prettier/prettier/pull/6106
