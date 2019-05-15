@@ -81,12 +81,12 @@ describe("CLI overrides take precedence", () => {
 
 test("API resolveConfig with no args", () => {
   return prettier.resolveConfig().then(result => {
-    expect(result).toBeNull();
+    expect(result).toEqual({});
   });
 });
 
 test("API resolveConfig.sync with no args", () => {
-  expect(prettier.resolveConfig.sync()).toBeNull();
+  expect(prettier.resolveConfig.sync()).toEqual({});
 });
 
 test("API resolveConfig with file arg", () => {
