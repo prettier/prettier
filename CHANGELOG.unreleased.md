@@ -231,7 +231,7 @@ function Foo() {
 
 // Output (Prettier stable)
 function Foo() {
-  return </div>;
+  return <div />;
 }
 
 // Output (Prettier master)
