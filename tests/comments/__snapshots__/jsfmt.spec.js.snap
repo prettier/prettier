@@ -1310,7 +1310,7 @@ onClick={() => {}}>
    * Handles clicks.
    */
   onClick={() => {}}
-/>;
+></div>;
 
 <div
 // comment
