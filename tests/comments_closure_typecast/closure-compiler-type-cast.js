@@ -56,3 +56,16 @@ const style = /** @type {{
   height,
   ...margins,
 });
+
+const style =/**
+ * @type {{
+ *   width: number,
+ * }}
+*/({
+  width,
+});
+
+// Spaces aren't necessary
+const v = /**@type {string} */(value);
+const v = /** @type{string} */(value);
+const v = /**@type{string} */(value);

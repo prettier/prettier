@@ -106,11 +106,12 @@ function print(path, options, print) {
       const isElseIf =
         pp &&
         pp.inverse &&
+        pp.inverse.body.length === 1 &&
         pp.inverse.body[0] === n &&
         pp.inverse.body[0].path.parts[0] === "if";
       const hasElseIf =
         n.inverse &&
-        n.inverse.body[0] &&
+        n.inverse.body.length === 1 &&
         n.inverse.body[0].type === "BlockStatement" &&
         n.inverse.body[0].path.parts[0] === "if";
       const indentElse = hasElseIf ? a => a : indent;

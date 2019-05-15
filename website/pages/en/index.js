@@ -40,9 +40,18 @@ Button.propTypes = {
   children: PropTypes.any
 };
 
+function Tidelift() {
+  return (
+    <a className="tidelift" href={siteConfig.tideliftUrl}>
+      GET PROFESSIONALLY SUPPORTED PRETTIER
+    </a>
+  );
+}
+
 const HomeSplash = props => {
   return (
     <div className="homeContainer">
+      <Tidelift />
       <div className="homeSplashFade">
         <div className="wrapper homeWrapper">
           <div className="animatedLogoWrapper">

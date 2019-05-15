@@ -2364,125 +2364,27 @@ function printPathNoParens(path, options, print, args) {
     case "TemplateElement":
       return join(literalline, n.value.raw.split(/\r?\n/g));
     case "TemplateLiteral": {
-      const expressions = path.map(print, "expressions");
+      let expressions = path.map(print, "expressions");
       const parentNode = path.getParentNode();
 
-      /**
-       * describe.each`table`(name, fn)
-       * describe.only.each`table`(name, fn)
-       * describe.skip.each`table`(name, fn)
-       * test.each`table`(name, fn)
-       * test.only.each`table`(name, fn)
-       * test.skip.each`table`(name, fn)
-       *
-       * Ref: https://github.com/facebook/jest/pull/6102
-       */
-      const jestEachTriggerRegex = /^[xf]?(describe|it|test)$/;
-      if (
-        parentNode.type === "TaggedTemplateExpression" &&
-        parentNode.quasi === n &&
-        parentNode.tag.type === "MemberExpression" &&
-        parentNode.tag.property.type === "Identifier" &&
-        parentNode.tag.property.name === "each" &&
-        ((parentNode.tag.object.type === "Identifier" &&
-          jestEachTriggerRegex.test(parentNode.tag.object.name)) ||
-          (parentNode.tag.object.type === "MemberExpression" &&
-            parentNode.tag.object.property.type === "Identifier" &&
-            (parentNode.tag.object.property.name === "only" ||
-              parentNode.tag.object.property.name === "skip") &&
-            parentNode.tag.object.object.type === "Identifier" &&
-            jestEachTriggerRegex.test(parentNode.tag.object.object.name)))
-      ) {
-        /**
-         * a    | b    | expected
-         * ${1} | ${1} | ${2}
-         * ${1} | ${2} | ${3}
-         * ${2} | ${1} | ${3}
-         */
-        const headerNames = n.quasis[0].value.raw.trim().split(/\s*\|\s*/);
-        if (
-          headerNames.length > 1 ||
-          headerNames.some(headerName => headerName.length !== 0)
-        ) {
-          const stringifiedExpressions = expressions.map(
-            doc =>
-              "${" +
-              printDocToString(
-                doc,
-                Object.assign({}, options, {
-                  printWidth: Infinity,
-                  endOfLine: "lf"
-                })
-              ).formatted +
-              "}"
-          );
-
-          const tableBody = [{ hasLineBreak: false, cells: [] }];
-          for (let i = 1; i < n.quasis.length; i++) {
-            const row = tableBody[tableBody.length - 1];
-            const correspondingExpression = stringifiedExpressions[i - 1];
-
-            row.cells.push(correspondingExpression);
-            if (correspondingExpression.indexOf("\n") !== -1) {
-              row.hasLineBreak = true;
-            }
-
-            if (n.quasis[i].value.raw.indexOf("\n") !== -1) {
-              tableBody.push({ hasLineBreak: false, cells: [] });
-            }
-          }
-
-          const maxColumnCount = tableBody.reduce(
-            (maxColumnCount, row) => Math.max(maxColumnCount, row.cells.length),
-            headerNames.length
-          );
-
-          const maxColumnWidths = Array.from(
-            new Array(maxColumnCount),
-            () => 0
-          );
-          const table = [{ cells: headerNames }].concat(
-            tableBody.filter(row => row.cells.length !== 0)
-          );
-          table
-            .filter(row => !row.hasLineBreak)
-            .forEach(row => {
-              row.cells.forEach((cell, index) => {
-                maxColumnWidths[index] = Math.max(
-                  maxColumnWidths[index],
-                  getStringWidth(cell)
-                );
-              });
-            });
-
-          parts.push(
-            "`",
-            indent(
-              concat([
-                hardline,
-                join(
-                  hardline,
-                  table.map(row =>
-                    join(
-                      " | ",
-                      row.cells.map((cell, index) =>
-                        row.hasLineBreak
-                          ? cell
-                          : cell +
-                            " ".repeat(
-                              maxColumnWidths[index] - getStringWidth(cell)
-                            )
-                      )
-                    )
-                  )
-                )
-              ])
-            ),
-            hardline,
-            "`"
-          );
-          return concat(parts);
+      if (isJestEachTemplateLiteral(n, parentNode)) {
+        const printed = printJestEachTemplateLiteral(n, expressions, options);
+        if (printed) {
+          return printed;
         }
+      }
+
+      const isSimple = isSimpleTemplateLiteral(n);
+      if (isSimple) {
+        expressions = expressions.map(
+          doc =>
+            printDocToString(
+              doc,
+              Object.assign({}, options, {
+                printWidth: Infinity
+              })
+            ).formatted
+        );
       }
 
       parts.push("`");
@@ -2510,13 +2412,17 @@ function printPathNoParens(path, options, print, args) {
 
           let printed = expressions[i];
 
-          if (
-            (n.expressions[i].comments && n.expressions[i].comments.length) ||
-            n.expressions[i].type === "MemberExpression" ||
-            n.expressions[i].type === "OptionalMemberExpression" ||
-            n.expressions[i].type === "ConditionalExpression"
-          ) {
-            printed = concat([indent(concat([softline, printed])), softline]);
+          if (!isSimple) {
+            // Breaks at the template element boundaries (${ and }) are preferred to breaking
+            // in the middle of a MemberExpression
+            if (
+              (n.expressions[i].comments && n.expressions[i].comments.length) ||
+              n.expressions[i].type === "MemberExpression" ||
+              n.expressions[i].type === "OptionalMemberExpression" ||
+              n.expressions[i].type === "ConditionalExpression"
+            ) {
+              printed = concat([indent(concat([softline, printed])), softline]);
+            }
           }
 
           const aligned =
@@ -3092,6 +2998,19 @@ function printPathNoParens(path, options, print, args) {
 
       if (n["default"]) {
         parts.push(" = ", path.call(print, "default"));
+      }
+
+      // Keep comma if the file extension is .tsx and
+      // has one type parameter that isn't extend with any types.
+      // Because, otherwise formatted result will be invalid as tsx.
+      if (
+        parent.params &&
+        parent.params.length === 1 &&
+        options.filepath &&
+        options.filepath.match(/\.tsx/) &&
+        !n.constraint
+      ) {
+        parts.push(",");
       }
 
       return concat(parts);
@@ -3691,6 +3610,7 @@ function printPropertyKey(path, options, print) {
       parent.members
     ).some(
       prop =>
+        !prop.computed &&
         prop.key &&
         prop.key.type !== "Identifier" &&
         !isStringPropSafeToCoerceToIdentifier(prop, options)
@@ -3713,6 +3633,7 @@ function printPropertyKey(path, options, print) {
   }
 
   if (
+    !node.computed &&
     isStringPropSafeToCoerceToIdentifier(node, options) &&
     (options.quoteProps === "as-needed" ||
       (options.quoteProps === "consistent" && !needsQuoteProps.get(parent)))
@@ -3797,7 +3718,20 @@ function couldGroupArg(arg) {
     arg.type === "TSAsExpression" ||
     arg.type === "FunctionExpression" ||
     (arg.type === "ArrowFunctionExpression" &&
-      !arg.returnType &&
+      // we want to avoid breaking inside composite return types but not simple keywords
+      // https://github.com/prettier/prettier/issues/4070
+      // export class Thing implements OtherThing {
+      //   do: (type: Type) => Provider<Prop> = memoize(
+      //     (type: ObjectType): Provider<Opts> => {}
+      //   );
+      // }
+      // https://github.com/prettier/prettier/issues/6099
+      // app.get("/", (req, res): void => {
+      //   res.send("Hello World!");
+      // });
+      (!arg.returnType ||
+        !arg.returnType.typeAnnotation ||
+        arg.returnType.typeAnnotation.type !== "TSTypeReference") &&
       (arg.body.type === "BlockStatement" ||
         arg.body.type === "ArrowFunctionExpression" ||
         arg.body.type === "ObjectExpression" ||
@@ -3861,6 +3795,172 @@ function isSimpleFlowType(node) {
     flowTypeAnnotations.indexOf(node.type) !== -1 &&
     !(node.type === "GenericTypeAnnotation" && node.typeParameters)
   );
+}
+
+function isJestEachTemplateLiteral(node, parentNode) {
+  /**
+   * describe.each`table`(name, fn)
+   * describe.only.each`table`(name, fn)
+   * describe.skip.each`table`(name, fn)
+   * test.each`table`(name, fn)
+   * test.only.each`table`(name, fn)
+   * test.skip.each`table`(name, fn)
+   *
+   * Ref: https://github.com/facebook/jest/pull/6102
+   */
+  const jestEachTriggerRegex = /^[xf]?(describe|it|test)$/;
+  return (
+    parentNode.type === "TaggedTemplateExpression" &&
+    parentNode.quasi === node &&
+    parentNode.tag.type === "MemberExpression" &&
+    parentNode.tag.property.type === "Identifier" &&
+    parentNode.tag.property.name === "each" &&
+    ((parentNode.tag.object.type === "Identifier" &&
+      jestEachTriggerRegex.test(parentNode.tag.object.name)) ||
+      (parentNode.tag.object.type === "MemberExpression" &&
+        parentNode.tag.object.property.type === "Identifier" &&
+        (parentNode.tag.object.property.name === "only" ||
+          parentNode.tag.object.property.name === "skip") &&
+        parentNode.tag.object.object.type === "Identifier" &&
+        jestEachTriggerRegex.test(parentNode.tag.object.object.name)))
+  );
+}
+
+function printJestEachTemplateLiteral(node, expressions, options) {
+  /**
+   * a    | b    | expected
+   * ${1} | ${1} | ${2}
+   * ${1} | ${2} | ${3}
+   * ${2} | ${1} | ${3}
+   */
+  const headerNames = node.quasis[0].value.raw.trim().split(/\s*\|\s*/);
+  if (
+    headerNames.length > 1 ||
+    headerNames.some(headerName => headerName.length !== 0)
+  ) {
+    const parts = [];
+    const stringifiedExpressions = expressions.map(
+      doc =>
+        "${" +
+        printDocToString(
+          doc,
+          Object.assign({}, options, {
+            printWidth: Infinity,
+            endOfLine: "lf"
+          })
+        ).formatted +
+        "}"
+    );
+
+    const tableBody = [{ hasLineBreak: false, cells: [] }];
+    for (let i = 1; i < node.quasis.length; i++) {
+      const row = tableBody[tableBody.length - 1];
+      const correspondingExpression = stringifiedExpressions[i - 1];
+
+      row.cells.push(correspondingExpression);
+      if (correspondingExpression.indexOf("\n") !== -1) {
+        row.hasLineBreak = true;
+      }
+
+      if (node.quasis[i].value.raw.indexOf("\n") !== -1) {
+        tableBody.push({ hasLineBreak: false, cells: [] });
+      }
+    }
+
+    const maxColumnCount = tableBody.reduce(
+      (maxColumnCount, row) => Math.max(maxColumnCount, row.cells.length),
+      headerNames.length
+    );
+
+    const maxColumnWidths = Array.from(new Array(maxColumnCount), () => 0);
+    const table = [{ cells: headerNames }].concat(
+      tableBody.filter(row => row.cells.length !== 0)
+    );
+    table
+      .filter(row => !row.hasLineBreak)
+      .forEach(row => {
+        row.cells.forEach((cell, index) => {
+          maxColumnWidths[index] = Math.max(
+            maxColumnWidths[index],
+            getStringWidth(cell)
+          );
+        });
+      });
+
+    parts.push(
+      "`",
+      indent(
+        concat([
+          hardline,
+          join(
+            hardline,
+            table.map(row =>
+              join(
+                " | ",
+                row.cells.map((cell, index) =>
+                  row.hasLineBreak
+                    ? cell
+                    : cell +
+                      " ".repeat(maxColumnWidths[index] - getStringWidth(cell))
+                )
+              )
+            )
+          )
+        ])
+      ),
+      hardline,
+      "`"
+    );
+    return concat(parts);
+  }
+}
+
+/** @param node {import("estree").TemplateLiteral} */
+function isSimpleTemplateLiteral(node) {
+  if (node.expressions.length === 0) {
+    return false;
+  }
+
+  return node.expressions.every(expr => {
+    // Disallow comments since printDocToString can't print them here
+    if (expr.comments) {
+      return false;
+    }
+
+    // Allow `x` and `this`
+    if (expr.type === "Identifier" || expr.type === "ThisExpression") {
+      return true;
+    }
+
+    // Allow `a.b.c`, `a.b[c]`, and `this.x.y`
+    if (
+      (expr.type === "MemberExpression" ||
+        expr.type === "OptionalMemberExpression") &&
+      (expr.property.type === "Identifier" || expr.property.type === "Literal")
+    ) {
+      let ancestor = expr;
+      while (
+        ancestor.type === "MemberExpression" ||
+        ancestor.type === "OptionalMemberExpression"
+      ) {
+        ancestor = ancestor.object;
+        if (ancestor.comments) {
+          return false;
+        }
+      }
+
+      if (
+        ancestor.type === "Identifier" ||
+        ancestor.type === "ThisExpression"
+      ) {
+        return true;
+      }
+
+      return false;
+    }
+
+    return false;
+  });
 }
 
 const functionCompositionFunctionNames = new Set([
@@ -6301,7 +6401,6 @@ function isStringPropSafeToCoerceToIdentifier(node, options) {
   return (
     isStringLiteral(node.key) &&
     isIdentifierName(node.key.value) &&
-    !node.computed &&
     options.parser !== "json" &&
     !(options.parser === "typescript" && node.type === "ClassProperty")
   );
