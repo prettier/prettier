@@ -1,7 +1,6 @@
 "use strict";
 
 const uniqBy = require("lodash.uniqby");
-const fs = require("fs");
 const globby = require("globby");
 const path = require("path");
 const resolve = require("resolve");
