@@ -401,6 +401,14 @@ function createIgnorerFromContextOrDie(context) {
 }
 
 function eachFilename(context, patterns, callback) {
+  const extensions = prettier
+    .getSupportInfo()
+    .languages.reduce(
+      (exts, language) =>
+        exts.concat(language.extensions.map(ext => ext.substr(1))),
+      []
+    );
+
   // The '!./' globs are due to https://github.com/prettier/prettier/issues/2110
   const ignoreNodeModules = context.argv["with-node-modules"] !== true;
   if (ignoreNodeModules) {
@@ -410,7 +418,7 @@ function eachFilename(context, patterns, callback) {
 
   try {
     const filePaths = globby
-      .sync(patterns, { dot: true })
+      .sync(patterns, { dot: true, expandDirectories: { extensions } })
       .map(filePath => path.relative(process.cwd(), filePath));
 
     if (filePaths.length === 0) {
