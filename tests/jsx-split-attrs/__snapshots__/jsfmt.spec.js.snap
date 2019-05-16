@@ -109,7 +109,7 @@ long_open_long_children = (
     <div>
       <div>
         <div>
-          <div attr="long" attr2="also long" attr3="gonna break" />
+          <div attr="long" attr2="also long" attr3="gonna break"></div>
         </div>
       </div>
     </div>
@@ -138,7 +138,7 @@ long_open_long_children = (
         colour="blue"
         size="large"
         submitLabel="Sign in with Google"
-      />
+      ></BaseForm>
       d
     </BaseForm>
     <BaseForm
@@ -154,7 +154,7 @@ long_open_long_children = (
         colour="blue"
         size="large"
         submitLabel="Sign in with Google"
-      />
+      ></BaseForm>
     </BaseForm>
   </BaseForm>
 );
@@ -175,14 +175,14 @@ make_self_closing = (
       colour="blue"
       size="large"
       submitLabel="Sign in with Google"
-    />
+    ></BaseForm>
     <BaseForm
       url="/auth/google"
       method="GET"
       colour="blue"
       size="large"
       submitLabel="Sign in with Google"
-    />
+    ></BaseForm>
   </div>
 );
 

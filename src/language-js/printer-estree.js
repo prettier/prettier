@@ -5505,10 +5505,11 @@ function printJSXChildren(
 function printJSXElement(path, options, print) {
   const n = path.getValue();
 
-  // Turn <div></div> into <div />
   if (n.type === "JSXElement" && isEmptyJSXElement(n)) {
-    n.openingElement.selfClosing = true;
-    return path.call(print, "openingElement");
+    return concat([
+      path.call(print, "openingElement"),
+      path.call(print, "closingElement")
+    ]);
   }
 
   const openingLines =
