@@ -20,6 +20,7 @@ const optionsNormalizer = require("../main/options-normalizer");
 const thirdParty = require("../common/third-party");
 const arrayify = require("../utils/arrayify");
 const isTTY = require("../utils/is-tty");
+const glob_ = require("../utils/glob");
 
 const OPTION_USAGE_THRESHOLD = 25;
 const CHOICE_USAGE_MARGIN = 3;
@@ -401,26 +402,16 @@ function createIgnorerFromContextOrDie(context) {
 }
 
 function eachFilename(context, patterns, callback) {
-  const extensions = prettier
-    .getSupportInfo()
-    .languages.reduce(
-      (exts, language) =>
-        language.extensions
-          ? exts.concat(language.extensions.map(ext => ext.substr(1)))
-          : exts,
-      []
-    );
+  const globPatterns = glob_(patterns, prettier.getSupportInfo().languages);
 
-  // The '!./' globs are due to https://github.com/prettier/prettier/issues/2110
-  const ignoreNodeModules = context.argv["with-node-modules"] !== true;
-  if (ignoreNodeModules) {
-    patterns = patterns.concat(["!**/node_modules/**", "!./node_modules/**"]);
+  const ignore = ["**/.{git,svn,hg}/**"];
+  if (context.argv["with-node-modules"] !== true) {
+    ignore.push("**/node_modules/**");
   }
-  patterns = patterns.concat(["!**/.{git,svn,hg}/**", "!./.{git,svn,hg}/**"]);
 
   try {
     const filePaths = globby
-      .sync(patterns, { dot: true, expandDirectories: { extensions } })
+      .sync(globPatterns, { dot: true, expandDirectories: false, ignore })
       .map(filePath => path.relative(process.cwd(), filePath));
 
     if (filePaths.length === 0) {
