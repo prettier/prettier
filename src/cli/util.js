@@ -405,7 +405,9 @@ function eachFilename(context, patterns, callback) {
     .getSupportInfo()
     .languages.reduce(
       (exts, language) =>
-        exts.concat(language.extensions.map(ext => ext.substr(1))),
+        language.extensions
+          ? exts.concat(language.extensions.map(ext => ext.substr(1)))
+          : exts,
       []
     );
 
