@@ -1,5 +1,9 @@
 <div {...a}/>;
 
+<div {...(a || {})} />;
+
+<div {...(cond ? foo : bar)} />;
+
 <div {...a /* comment */}/>;
 
 <div {/* comment */...a}/>;
