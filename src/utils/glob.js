@@ -1,7 +1,6 @@
 "use strict";
 
 const path = require("path");
-const fs = require("fs");
 const isDirectory = require("./is-dir");
 
 module.exports = function glob(patterns, languages) {
@@ -27,7 +26,9 @@ module.exports = function glob(patterns, languages) {
 
   const result = [];
   for (const pattern of patterns) {
-    const abspath = path.isAbsolute(pattern) ? pattern : path.join(cwd, pattern);
+    const abspath = path.isAbsolute(pattern)
+      ? pattern
+      : path.join(cwd, pattern);
 
     if (isDirectory(abspath)) {
       result.push(

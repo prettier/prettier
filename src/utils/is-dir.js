@@ -8,4 +8,4 @@ module.exports = function isDirectory(dir) {
   } catch (e) {
     return false;
   }
-}
+};
