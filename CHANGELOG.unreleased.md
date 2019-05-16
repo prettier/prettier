@@ -192,6 +192,22 @@ const obj = {
 }
 ```
 
+### JavaScript: Add parenthesis in JSX spread element with logical expressions ([#6130] by [@duailibe])
+
+Previously, Prettier didn't add parenthesis in JSX spread elements because they aren't necessary, but for the sake of consistency with spread operator in objects and arrays, we'll add to JSX as well.
+
+<!-- prettier-ignore -->
+```js
+// Input
+<Component {...(props || {})} />;
+
+// Output (Prettier stable)
+<Component {...props || {}} />;
+
+// Output (Prettier master)
+<Component {...(props || {})} />;
+```
+
 ### Markdown: correctly determine count of backticks in inline code ([#6110] by [@belochub])
 
 By the CommonMark spec, it is required to 'choose a string of `n` backtick characters as delimiters, where the code does not contain any strings of exactly `n` backtick characters.'
@@ -216,6 +232,30 @@ This changes the method of finding the required count of backticks from using 2 
 `` 2 ```123``` `1` ``
 ````
 
+### JavaScript: Stop converting empty JSX elements to self-closing elemnts ([#6127] by [@duailibe])
+
+Prettier has always converted empty JSX elements (`<div></div>`) to self-closing elements (`<div />`) because those are equivalent.
+
+We have received feedback that during development, one would like to type the opening and closing tags and leave them to add the children later, but Prettier would convert it to a self-closing element, forcing the developer to manually convert them back. This has changed in this release.
+
+<!-- prettier-ignore -->
+```js
+// Input
+function Foo() {
+  return <div></div>;
+}
+
+// Output (Prettier stable)
+function Foo() {
+  return <div />;
+}
+
+// Output (Prettier master)
+function Foo() {
+  return <div></div>;
+}
+```
+
 [#5979]: https://github.com/prettier/prettier/pull/5979
 [#6086]: https://github.com/prettier/prettier/pull/6086
 [#6088]: https://github.com/prettier/prettier/pull/6088
@@ -224,6 +264,8 @@ This changes the method of finding the required count of backticks from using 2 
 [#6115]: https://github.com/prettier/prettier/pull/6115
 [#6116]: https://github.com/prettier/prettier/pull/6116
 [#6119]: https://github.com/prettier/prettier/pull/6119
+[#6127]: https://github.com/prettier/prettier/pull/6127
+[#6130]: https://github.com/prettier/prettier/pull/6130
 [@belochub]: https://github.com/belochub
 [@brainkim]: https://github.com/brainkim
 [@duailibe]: https://github.com/duailibe
