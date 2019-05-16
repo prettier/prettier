@@ -314,6 +314,7 @@ function needsParens(path, options) {
         case "TSTypeAssertion":
         case "TaggedTemplateExpression":
         case "UnaryExpression":
+        case "JSXSpreadAttribute":
         case "SpreadElement":
         case "SpreadProperty":
         case "BindExpression":

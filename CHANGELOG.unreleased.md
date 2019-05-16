@@ -192,6 +192,22 @@ const obj = {
 }
 ```
 
+### JavaScript: Add parenthesis in JSX spread element with logical expressions ([#6130] by [@duailibe])
+
+Previously, Prettier didn't add parenthesis in JSX spread elements because they aren't necessary, but for the sake of consistency with spread operator in objects and arrays, we'll add to JSX as well.
+
+<!-- prettier-ignore -->
+```js
+// Input
+<Component {...(props || {})} />;
+
+// Output (Prettier stable)
+<Component {...props || {}} />;
+
+// Output (Prettier master)
+<Component {...(props || {})} />;
+```
+
 ### Markdown: correctly determine count of backticks in inline code ([#6110] by [@belochub])
 
 By the CommonMark spec, it is required to 'choose a string of `n` backtick characters as delimiters, where the code does not contain any strings of exactly `n` backtick characters.'
@@ -224,6 +240,7 @@ This changes the method of finding the required count of backticks from using 2 
 [#6115]: https://github.com/prettier/prettier/pull/6115
 [#6116]: https://github.com/prettier/prettier/pull/6116
 [#6119]: https://github.com/prettier/prettier/pull/6119
+[#6130]: https://github.com/prettier/prettier/pull/6130
 [@belochub]: https://github.com/belochub
 [@brainkim]: https://github.com/brainkim
 [@duailibe]: https://github.com/duailibe
