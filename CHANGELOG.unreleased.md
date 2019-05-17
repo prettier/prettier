@@ -256,6 +256,33 @@ function Foo() {
 }
 ```
 
+### JavaScript: Add quotes around numeric literals for object properties key with `--quote-props=consistent` ([#6132] by [@duailibe])
+
+When using `--quote-props=consistent`, Prettier would add quotes to all object properties keys, except if the property key was a number. For consistency, Prettier will now add quotes to those keys as well.
+
+<!-- prettier-ignore -->
+```js
+// --quote-props=consistent
+
+// Input
+foo = {
+  "foo-bar": "foo",
+  1: "1"
+};
+
+// Output (Prettier stable)
+foo = {
+  "foo-bar": "foo",
+  1: "1"
+};
+
+// Output (Prettier master)
+foo = {
+  "foo-bar": "foo",
+  "1": "1"
+};
+```
+
 ### API: Prettier now works in Atom again ([#6129] by [@duailibe])
 
 Atom has a security feature where code containing `eval` is not allowed to be run. One of Prettier's dependencies uses `eval` to prevent bundlers from including debug code. We've now made sure that this `eval` does not end up in the code we ship to npm, making Prettier play nice with Atom again.
@@ -288,6 +315,7 @@ type G = (keyof T)[];
 [#6129]: https://github.com/prettier/prettier/pull/6129
 [#6130]: https://github.com/prettier/prettier/pull/6130
 [#6131]: https://github.com/prettier/prettier/pull/6131
+[#6132]: https://github.com/prettier/prettier/pull/6132
 [@belochub]: https://github.com/belochub
 [@brainkim]: https://github.com/brainkim
 [@duailibe]: https://github.com/duailibe
