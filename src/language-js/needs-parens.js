@@ -408,7 +408,10 @@ function needsParens(path, options) {
         return false;
       }
       // Delegate to inner TSParenthesizedType
-      if (node.typeAnnotation.type === "TSParenthesizedType") {
+      if (
+        node.typeAnnotation.type === "TSParenthesizedType" &&
+        parent.type !== "TSArrayType"
+      ) {
         return false;
       }
       return true;
