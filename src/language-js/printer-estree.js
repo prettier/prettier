@@ -3619,13 +3619,18 @@ function printPropertyKey(path, options, print) {
   }
 
   if (
-    key.type === "Identifier" &&
+    (key.type === "Identifier" || isNumericLiteral(key)) &&
     !node.computed &&
     (options.parser === "json" ||
       (options.quoteProps === "consistent" && needsQuoteProps.get(parent)))
   ) {
     // a -> "a"
-    const prop = printString(JSON.stringify(key.name), options);
+    const prop = printString(
+      JSON.stringify(
+        key.type === "Identifier" ? key.name : key.value.toString()
+      ),
+      options
+    );
     return path.call(
       keyPath => comments.printComments(keyPath, () => prop, options),
       "key"
