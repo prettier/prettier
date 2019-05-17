@@ -265,7 +265,7 @@ Atom has a security feature where code containing `eval` is not allowed to be ru
 Previously, Prettier removes the necessary parentheses when trying to remove unnecessary parentheses, in TypeScript.
 
 <!-- prettier-ignore -->
-```tsx
+```ts
 // Input
 type G = ((keyof T))[];
 
