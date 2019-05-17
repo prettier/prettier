@@ -260,6 +260,22 @@ function Foo() {
 
 Atom has a security feature where code containing `eval` is not allowed to be run. One of Prettier's dependencies uses `eval` to prevent bundlers from including debug code. We've now made sure that this `eval` does not end up in the code we ship to npm, making Prettier play nice with Atom again.
 
+### TypeScript: Keep a pair of parentheses when there are extra pairs. ([#6131] by [@sosukesuzuki])
+
+Previously, Prettier removes the necessary parentheses when trying to remove unnecessary parentheses, in TypeScript.
+
+<!-- prettier-ignore -->
+```ts
+// Input
+type G = ((keyof T))[];
+
+// Output (Prettier stable)
+type G = keyof T[];
+
+// Output (prettier master)
+type G = (keyof T)[];
+```
+
 [#5979]: https://github.com/prettier/prettier/pull/5979
 [#6086]: https://github.com/prettier/prettier/pull/6086
 [#6088]: https://github.com/prettier/prettier/pull/6088
@@ -271,6 +287,7 @@ Atom has a security feature where code containing `eval` is not allowed to be ru
 [#6127]: https://github.com/prettier/prettier/pull/6127
 [#6129]: https://github.com/prettier/prettier/pull/6129
 [#6130]: https://github.com/prettier/prettier/pull/6130
+[#6131]: https://github.com/prettier/prettier/pull/6131
 [@belochub]: https://github.com/belochub
 [@brainkim]: https://github.com/brainkim
 [@duailibe]: https://github.com/duailibe
