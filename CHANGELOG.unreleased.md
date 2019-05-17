@@ -256,6 +256,10 @@ function Foo() {
 }
 ```
 
+### API: Prettier now works in Atom again ([#6129] by [@duailibe])
+
+Atom has a security feature where code containing `eval` is not allowed to be run. One of Prettier's dependencies uses `eval` to prevent bundlers from including debug code. We've now made sure that this `eval` does not end up in the code we ship to npm, making Prettier play nice with Atom again.
+
 [#5979]: https://github.com/prettier/prettier/pull/5979
 [#6086]: https://github.com/prettier/prettier/pull/6086
 [#6088]: https://github.com/prettier/prettier/pull/6088
@@ -265,6 +269,7 @@ function Foo() {
 [#6116]: https://github.com/prettier/prettier/pull/6116
 [#6119]: https://github.com/prettier/prettier/pull/6119
 [#6127]: https://github.com/prettier/prettier/pull/6127
+[#6129]: https://github.com/prettier/prettier/pull/6129
 [#6130]: https://github.com/prettier/prettier/pull/6130
 [@belochub]: https://github.com/belochub
 [@brainkim]: https://github.com/brainkim
