@@ -9,3 +9,6 @@ async function f() {
 function* g() {
     return (yield * foo())!;
 }
+
+const a = (b()!)();
+const b = c!();
