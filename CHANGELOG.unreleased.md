@@ -276,6 +276,22 @@ type G = keyof T[];
 type G = (keyof T)[];
 ```
 
+### TypeScript: Keep parenthesis around `TsAsExpression` in `export default` declarations ([#6133] by [@duailibe])
+
+Prettier was removing those parenthesis, but they are required, which means Prettier was generating invalid code.
+
+<!-- prettier-ignore -->
+```ts
+// Input
+export default (function log() {} as typeof console.log);
+
+// Output (Prettier stable)
+export default function log() {} as typeof console.log; // syntax error
+
+// Output (Prettier master)
+export default (function log() {} as typeof console.log);
+```
+
 [#5979]: https://github.com/prettier/prettier/pull/5979
 [#6086]: https://github.com/prettier/prettier/pull/6086
 [#6088]: https://github.com/prettier/prettier/pull/6088
@@ -288,6 +304,7 @@ type G = (keyof T)[];
 [#6129]: https://github.com/prettier/prettier/pull/6129
 [#6130]: https://github.com/prettier/prettier/pull/6130
 [#6131]: https://github.com/prettier/prettier/pull/6131
+[#6133]: https://github.com/prettier/prettier/pull/6133
 [@belochub]: https://github.com/belochub
 [@brainkim]: https://github.com/brainkim
 [@duailibe]: https://github.com/duailibe
