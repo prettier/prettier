@@ -311,6 +311,7 @@ function needsParens(path, options) {
         case "ClassExpression":
         case "ClassDeclaration":
           return name === "superClass" && parent.superClass === node;
+
         case "TSTypeAssertion":
         case "TaggedTemplateExpression":
         case "UnaryExpression":
@@ -322,6 +323,7 @@ function needsParens(path, options) {
         case "TSAsExpression":
         case "TSNonNullExpression":
         case "UpdateExpression":
+        case "ExportDefaultDeclaration":
           return true;
 
         case "MemberExpression":
