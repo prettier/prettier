@@ -12,3 +12,4 @@ function* g() {
 
 const a = (b()!)();
 const b = c!();
+const c = new (d()!)();
