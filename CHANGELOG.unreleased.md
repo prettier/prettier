@@ -276,6 +276,22 @@ type G = keyof T[];
 type G = (keyof T)[];
 ```
 
+### TypeScript: Keep parentheses around a function called with non-null assertion. ([] by [@sosukesuzuki])
+
+Previously, Prettier removes necessary parentheses around the function called with nun-null assertion. It happens when it's return value is called as function.
+
+<!-- prettier-ignore -->
+```ts
+// Input
+const a = (b()!)();
+
+// Output (Prettier stable)
+const a = b()!();
+
+// Output (prettier master)
+const a = (b()!)();
+```
+
 [#5979]: https://github.com/prettier/prettier/pull/5979
 [#6086]: https://github.com/prettier/prettier/pull/6086
 [#6088]: https://github.com/prettier/prettier/pull/6088
