@@ -284,12 +284,15 @@ Previously, Prettier removes necessary parentheses around the function called wi
 ```ts
 // Input
 const a = (b()!)();
+const b = new (c()!)();
 
 // Output (Prettier stable)
 const a = b()!();
+const b = new c()!();
 
 // Output (prettier master)
 const a = (b()!)();
+const b = new (c()!)();
 ```
 
 [#5979]: https://github.com/prettier/prettier/pull/5979
