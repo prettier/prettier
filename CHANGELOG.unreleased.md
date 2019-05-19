@@ -286,6 +286,7 @@ const styles = css.resolve`
     background: black;
   }
 `;
+```
 
 ### TypeScript: Keep a pair of parentheses when there are extra pairs. ([#6131] by [@sosukesuzuki])
 
