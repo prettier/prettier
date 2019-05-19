@@ -262,7 +262,9 @@ Atom has a security feature where code containing `eval` is not allowed to be ru
 
 ### JavaScript: Add support for styled-jsx external styles ([#6089] by [@hongrich])
 
-Add support for all 3 external styles tags in `styled-jsx/css`: `css`, `css.global`, and `css.resolve`. https://github.com/zeit/styled-jsx/#external-css-and-styles-outside-of-the-component
+Add support for 2 external styles tags in `styled-jsx/css`: `css.global`, and `css.resolve`. https://github.com/zeit/styled-jsx/#external-css-and-styles-outside-of-the-component
+
+The `css` template tag is already supported by Prettier.
 
 Fixes https://github.com/zeit/styled-jsx/issues/548
 
