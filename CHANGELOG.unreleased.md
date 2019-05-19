@@ -260,6 +260,33 @@ function Foo() {
 
 Atom has a security feature where code containing `eval` is not allowed to be run. One of Prettier's dependencies uses `eval` to prevent bundlers from including debug code. We've now made sure that this `eval` does not end up in the code we ship to npm, making Prettier play nice with Atom again.
 
+### JavaScript: Add support for styled-jsx external styles ([#6089] by [@hongrich])
+
+Add support for 2 external styles tags in `styled-jsx/css`: `css.global`, and `css.resolve`. https://github.com/zeit/styled-jsx/#external-css-and-styles-outside-of-the-component
+
+The `css` template tag is already supported by Prettier.
+
+Fixes https://github.com/zeit/styled-jsx/issues/548
+
+<!-- prettier-ignore -->
+```js
+// Input
+const styles = css.resolve`
+.box {background:black;
+}`;
+
+// Output (Prettier stable)
+const styles = css.resolve`
+.box {background:black;
+}`;
+
+// Output (prettier master)
+const styles = css.resolve`
+  .box {
+    background: black;
+  }
+`;
+
 ### TypeScript: Keep a pair of parentheses when there are extra pairs. ([#6131] by [@sosukesuzuki])
 
 Previously, Prettier removes the necessary parentheses when trying to remove unnecessary parentheses, in TypeScript.
@@ -292,9 +319,29 @@ export default function log() {} as typeof console.log; // syntax error
 export default (function log() {} as typeof console.log);
 ```
 
+### TypeScript: Keep parentheses around a function called with non-null assertion. ([6136] by [@sosukesuzuki])
+
+Previously, Prettier removes necessary parentheses around a call expression with non-null assertion. It happens when it's return value is called as function.
+
+<!-- prettier-ignore -->
+```ts
+// Input
+const a = (b()!)();
+const b = new (c()!)();
+
+// Output (Prettier stable)
+const a = b()!();
+const b = new c()!();
+
+// Output (prettier master)
+const a = (b()!)();
+const b = new (c()!)();
+```
+
 [#5979]: https://github.com/prettier/prettier/pull/5979
 [#6086]: https://github.com/prettier/prettier/pull/6086
 [#6088]: https://github.com/prettier/prettier/pull/6088
+[#6089]: https://github.com/prettier/prettier/pull/6089
 [#6106]: https://github.com/prettier/prettier/pull/6106
 [#6110]: https://github.com/prettier/prettier/pull/6110
 [#6115]: https://github.com/prettier/prettier/pull/6115
@@ -305,10 +352,12 @@ export default (function log() {} as typeof console.log);
 [#6130]: https://github.com/prettier/prettier/pull/6130
 [#6131]: https://github.com/prettier/prettier/pull/6131
 [#6133]: https://github.com/prettier/prettier/pull/6133
+[#6136]: https://github.com/prettier/prettier/pull/6136
 [@belochub]: https://github.com/belochub
 [@brainkim]: https://github.com/brainkim
 [@duailibe]: https://github.com/duailibe
 [@evilebottnawi]: https://github.com/evilebottnawi
+[@hongrich]: https://github.com/hongrich
 [@jridgewell]: https://github.com/jridgewell
 [@jwbay]: https://github.com/jwbay
 [@sosukesuzuki]: https://github.com/sosukesuzuki
