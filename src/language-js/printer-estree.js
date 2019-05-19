@@ -3613,6 +3613,7 @@ function printPropertyKey(path, options, print) {
         !prop.computed &&
         prop.key &&
         prop.key.type !== "Identifier" &&
+        !isNumericLiteral(prop.key) &&
         !isStringPropSafeToCoerceToIdentifier(prop, options)
     );
     needsQuoteProps.set(parent, objectHasStringProp);
