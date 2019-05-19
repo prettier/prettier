@@ -79,8 +79,37 @@ function getLeftSide(node) {
   );
 }
 
+function getLeftSidePathName(path, node) {
+  if (node.expressions) {
+    return ["expressions", 0];
+  }
+  if (node.left) {
+    return ["left"];
+  }
+  if (node.test) {
+    return ["test"];
+  }
+  if (node.object) {
+    return ["object"];
+  }
+  if (node.callee) {
+    return ["callee"];
+  }
+  if (node.tag) {
+    return ["tag"];
+  }
+  if (node.argument) {
+    return ["argument"];
+  }
+  if (node.expression) {
+    return ["expression"];
+  }
+  throw new Error("Unexpected node has no left side", node);
+}
+
 module.exports = {
   getLeftSide,
+  getLeftSidePathName,
   hasNakedLeftSide,
   hasNode,
   hasFlowShorthandAnnotationComment,

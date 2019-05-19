@@ -5,7 +5,7 @@ const assert = require("assert");
 const util = require("../common/util");
 const comments = require("./comments");
 const {
-  getLeftSide,
+  getLeftSidePathName,
   hasNakedLeftSide,
   hasFlowShorthandAnnotationComment
 } = require("./utils");
@@ -163,17 +163,7 @@ function needsParens(path, options) {
   // anything after. So an expression like `export default (function(){}).toString()`
   // needs to be followed by a parentheses
   if (parent.type === "ExportDefaultDeclaration") {
-    // IIFE already include parenthesis between the expression and invocation
-    // so we don't need to handle here.
-    if (
-      node.type === "CallExpression" &&
-      node.callee &&
-      node.callee.type === "FunctionExpression"
-    ) {
-      return false;
-    }
-
-    return startsWithFunctionOrClass(node);
+    return shouldWrapFunctionForExportDefault(path, options);
   }
 
   if (parent.type === "Decorator" && parent.expression === node) {
@@ -861,17 +851,31 @@ function isFollowedByRightBracket(path) {
   return false;
 }
 
-function startsWithFunctionOrClass(node) {
+function shouldWrapFunctionForExportDefault(path, options) {
+  const node = path.getValue();
+  const parent = path.getParentNode();
+
   if (node.type === "FunctionExpression" || node.type === "ClassExpression") {
-    return true;
+    return (
+      // prevent infinite loop in the check below
+      parent.type === "ExportDefaultDeclaration" ||
+      // in some cases the function is already wrapped
+      // (e.g. `export default (function() {})();`)
+      // in this case we don't need to add extra parens
+      !needsParens(path, options)
+    );
   }
 
   if (!hasNakedLeftSide(node)) {
     return false;
   }
 
-  const leftSide = getLeftSide(node);
-  return !leftSide || startsWithFunctionOrClass(leftSide);
+  return path.call.apply(
+    path,
+    [
+      childPath => shouldWrapFunctionForExportDefault(childPath, options)
+    ].concat(getLeftSidePathName(path, node))
+  );
 }
 
 module.exports = needsParens;
