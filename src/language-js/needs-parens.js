@@ -159,7 +159,20 @@ function needsParens(path, options) {
     return true;
   }
 
+  // `export default function` or `export default class` can't be followed by
+  // anything after. So an expression like `export default (function(){}).toString()`
+  // needs to be followed by a parentheses
   if (parent.type === "ExportDefaultDeclaration") {
+    // IIFE already include parenthesis between the expression and invocation
+    // so we don't need to handle here.
+    if (
+      node.type === "CallExpression" &&
+      node.callee &&
+      node.callee.type === "FunctionExpression"
+    ) {
+      return false;
+    }
+
     return startsWithFunctionOrClass(node);
   }
 
