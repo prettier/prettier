@@ -167,7 +167,7 @@ const v = /** @type{string} */ value;
 const v = /** @type{string} */ (value);
 ```
 
-### JavaScript: Prevent adding quotes when using `--quote-props=consistent` and objects had numbers or computed expressions as keys ([#6119] and [#6137] by [@duailibe])
+### JavaScript: Prevent adding quotes when using `--quote-props=consistent` and objects had numbers or computed expressions as keys ([#6119] and [#6138] by [@duailibe])
 
 Previously, Prettier added unnecessary quotes to keys of an object, or properties and methods of classes, if there was at least one computed key with a "complex" expression (e.g. a member expression) or a numeric literal.
 
@@ -336,7 +336,7 @@ const b = new (c()!)();
 [#6130]: https://github.com/prettier/prettier/pull/6130
 [#6131]: https://github.com/prettier/prettier/pull/6131
 [#6136]: https://github.com/prettier/prettier/pull/6136
-[#6137]: https://github.com/prettier/prettier/pull/6136
+[#6138]: https://github.com/prettier/prettier/pull/6136
 [@belochub]: https://github.com/belochub
 [@brainkim]: https://github.com/brainkim
 [@duailibe]: https://github.com/duailibe
