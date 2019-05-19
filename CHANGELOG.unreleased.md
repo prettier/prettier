@@ -304,19 +304,24 @@ type G = keyof T[];
 type G = (keyof T)[];
 ```
 
-### TypeScript: Keep parenthesis around `TsAsExpression` in `export default` declarations ([#6133] by [@duailibe])
+### JavaScript: Keep parenthesis around functions and classes in `export default` declarations ([#6133] by [@duailibe])
 
-Prettier was removing those parenthesis, but they are required, which means Prettier was generating invalid code.
+Prettier was removing parenthesis from some expressions in `export default`, but if those are complex expressions that start with `function` or `class`, the parenthesis are required.
+
+See below some practical examples, including one affecting TypeScript.
 
 <!-- prettier-ignore -->
 ```ts
 // Input
+export default (function log() {}).toString();
 export default (function log() {} as typeof console.log);
 
 // Output (Prettier stable)
+export default function log() {}.toString();
 export default function log() {} as typeof console.log; // syntax error
 
 // Output (Prettier master)
+export default (function log() {}).toString();
 export default (function log() {} as typeof console.log);
 ```
 
