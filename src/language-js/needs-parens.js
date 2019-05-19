@@ -304,6 +304,13 @@ function needsParens(path, options) {
         case "ConditionalExpression":
           return node.type === "TSAsExpression";
 
+        case "ExportDefaultDeclaration":
+          return (
+            node.type === "TSAsExpression" &&
+            (node.expression.type === "FunctionExpression" ||
+              node.expression.type === "ClassExpression")
+          );
+
         case "CallExpression":
         case "NewExpression":
           return name === "callee" && parent.callee === node;
@@ -323,7 +330,6 @@ function needsParens(path, options) {
         case "TSAsExpression":
         case "TSNonNullExpression":
         case "UpdateExpression":
-        case "ExportDefaultDeclaration":
           return true;
 
         case "MemberExpression":
