@@ -284,6 +284,40 @@ const styles = css.resolve`
     background: black;
   }
 `;
+
+### TypeScript: Keep a pair of parentheses when there are extra pairs. ([#6131] by [@sosukesuzuki])
+
+Previously, Prettier removes the necessary parentheses when trying to remove unnecessary parentheses, in TypeScript.
+
+<!-- prettier-ignore -->
+```ts
+// Input
+type G = ((keyof T))[];
+
+// Output (Prettier stable)
+type G = keyof T[];
+
+// Output (prettier master)
+type G = (keyof T)[];
+```
+
+### TypeScript: Keep parentheses around a function called with non-null assertion. ([6136] by [@sosukesuzuki])
+
+Previously, Prettier removes necessary parentheses around a call expression with non-null assertion. It happens when it's return value is called as function.
+
+<!-- prettier-ignore -->
+```ts
+// Input
+const a = (b()!)();
+const b = new (c()!)();
+
+// Output (Prettier stable)
+const a = b()!();
+const b = new c()!();
+
+// Output (prettier master)
+const a = (b()!)();
+const b = new (c()!)();
 ```
 
 [#5979]: https://github.com/prettier/prettier/pull/5979
@@ -298,6 +332,8 @@ const styles = css.resolve`
 [#6127]: https://github.com/prettier/prettier/pull/6127
 [#6129]: https://github.com/prettier/prettier/pull/6129
 [#6130]: https://github.com/prettier/prettier/pull/6130
+[#6131]: https://github.com/prettier/prettier/pull/6131
+[#6136]: https://github.com/prettier/prettier/pull/6136
 [@belochub]: https://github.com/belochub
 [@brainkim]: https://github.com/brainkim
 [@duailibe]: https://github.com/duailibe

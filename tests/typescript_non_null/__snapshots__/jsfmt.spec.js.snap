@@ -56,6 +56,10 @@ function* g() {
     return (yield * foo())!;
 }
 
+const a = (b()!)();
+const b = c!();
+const c = new (d()!)();
+
 =====================================output=====================================
 (a ? b : c)![tokenKey];
 (a || b)![tokenKey];
@@ -68,6 +72,10 @@ async function f() {
 function* g() {
   return (yield* foo())!;
 }
+
+const a = (b()!)();
+const b = c!();
+const c = new (d()!)();
 
 ================================================================================
 `;
