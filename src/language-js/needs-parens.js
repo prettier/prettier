@@ -4,7 +4,11 @@ const assert = require("assert");
 
 const util = require("../common/util");
 const comments = require("./comments");
-const { hasFlowShorthandAnnotationComment } = require("./utils");
+const {
+  getLeftSide,
+  hasNakedLeftSide,
+  hasFlowShorthandAnnotationComment
+} = require("./utils");
 
 function hasClosureCompilerTypeCastComment(text, path) {
   // https://github.com/google/closure-compiler/wiki/Annotating-Types#type-casts
@@ -155,6 +159,10 @@ function needsParens(path, options) {
     return true;
   }
 
+  if (parent.type === "ExportDefaultDeclaration") {
+    return startsWithFunctionOrClass(node);
+  }
+
   if (parent.type === "Decorator" && parent.expression === node) {
     let hasCallExpression = false;
     let hasMemberExpression = false;
@@ -303,13 +311,6 @@ function needsParens(path, options) {
       switch (parent.type) {
         case "ConditionalExpression":
           return node.type === "TSAsExpression";
-
-        case "ExportDefaultDeclaration":
-          return (
-            node.type === "TSAsExpression" &&
-            (node.expression.type === "FunctionExpression" ||
-              node.expression.type === "ClassExpression")
-          );
 
         case "CallExpression":
         case "NewExpression":
@@ -845,6 +846,19 @@ function isFollowedByRightBracket(path) {
       break;
   }
   return false;
+}
+
+function startsWithFunctionOrClass(node) {
+  if (node.type === "FunctionExpression" || node.type === "ClassExpression") {
+    return true;
+  }
+
+  if (!hasNakedLeftSide(node)) {
+    return false;
+  }
+
+  const leftSide = getLeftSide(node);
+  return !leftSide || startsWithFunctionOrClass(leftSide);
 }
 
 module.exports = needsParens;

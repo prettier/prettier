@@ -44,7 +44,44 @@ function hasNode(node, fn) {
     : Object.keys(node).some(key => hasNode(node[key], fn));
 }
 
+function hasNakedLeftSide(node) {
+  return (
+    node.type === "AssignmentExpression" ||
+    node.type === "BinaryExpression" ||
+    node.type === "LogicalExpression" ||
+    node.type === "NGPipeExpression" ||
+    node.type === "ConditionalExpression" ||
+    node.type === "CallExpression" ||
+    node.type === "OptionalCallExpression" ||
+    node.type === "MemberExpression" ||
+    node.type === "OptionalMemberExpression" ||
+    node.type === "SequenceExpression" ||
+    node.type === "TaggedTemplateExpression" ||
+    node.type === "BindExpression" ||
+    (node.type === "UpdateExpression" && !node.prefix) ||
+    node.type === "TSAsExpression" ||
+    node.type === "TSNonNullExpression"
+  );
+}
+
+function getLeftSide(node) {
+  if (node.expressions) {
+    return node.expressions[0];
+  }
+  return (
+    node.left ||
+    node.test ||
+    node.callee ||
+    node.object ||
+    node.tag ||
+    node.argument ||
+    node.expression
+  );
+}
+
 module.exports = {
+  getLeftSide,
+  hasNakedLeftSide,
   hasNode,
   hasFlowShorthandAnnotationComment,
   hasFlowAnnotationComment
