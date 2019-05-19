@@ -336,7 +336,7 @@ const b = new (c()!)();
 [#6130]: https://github.com/prettier/prettier/pull/6130
 [#6131]: https://github.com/prettier/prettier/pull/6131
 [#6136]: https://github.com/prettier/prettier/pull/6136
-[#6138]: https://github.com/prettier/prettier/pull/6136
+[#6138]: https://github.com/prettier/prettier/pull/6138
 [@belochub]: https://github.com/belochub
 [@brainkim]: https://github.com/brainkim
 [@duailibe]: https://github.com/duailibe
