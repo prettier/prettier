@@ -4,7 +4,11 @@ const assert = require("assert");
 
 const util = require("../common/util");
 const comments = require("./comments");
-const { hasFlowShorthandAnnotationComment } = require("./utils");
+const {
+  getLeftSidePathName,
+  hasNakedLeftSide,
+  hasFlowShorthandAnnotationComment
+} = require("./utils");
 
 function hasClosureCompilerTypeCastComment(text, path) {
   // https://github.com/google/closure-compiler/wiki/Annotating-Types#type-casts
@@ -153,6 +157,13 @@ function needsParens(path, options) {
       node.type === "YieldExpression")
   ) {
     return true;
+  }
+
+  // `export default function` or `export default class` can't be followed by
+  // anything after. So an expression like `export default (function(){}).toString()`
+  // needs to be followed by a parentheses
+  if (parent.type === "ExportDefaultDeclaration") {
+    return shouldWrapFunctionForExportDefault(path, options);
   }
 
   if (parent.type === "Decorator" && parent.expression === node) {
@@ -311,6 +322,7 @@ function needsParens(path, options) {
         case "ClassExpression":
         case "ClassDeclaration":
           return name === "superClass" && parent.superClass === node;
+
         case "TSTypeAssertion":
         case "TaggedTemplateExpression":
         case "UnaryExpression":
@@ -622,8 +634,6 @@ function needsParens(path, options) {
           return name === "callee"; // Not strictly necessary, but it's clearer to the reader if IIFEs are wrapped in parentheses.
         case "TaggedTemplateExpression":
           return true; // This is basically a kind of IIFE.
-        case "ExportDefaultDeclaration":
-          return true;
         default:
           return false;
       }
@@ -658,8 +668,6 @@ function needsParens(path, options) {
 
     case "ClassExpression":
       switch (parent.type) {
-        case "ExportDefaultDeclaration":
-          return true;
         case "NewExpression":
           return name === "callee" && parent.callee === node;
         default:
@@ -837,6 +845,35 @@ function isFollowedByRightBracket(path) {
       break;
   }
   return false;
+}
+
+function shouldWrapFunctionForExportDefault(path, options) {
+  const node = path.getValue();
+  const parent = path.getParentNode();
+
+  if (node.type === "FunctionExpression" || node.type === "ClassExpression") {
+    return (
+      parent.type === "ExportDefaultDeclaration" ||
+      // in some cases the function is already wrapped
+      // (e.g. `export default (function() {})();`)
+      // in this case we don't need to add extra parens
+      !needsParens(path, options)
+    );
+  }
+
+  if (
+    !hasNakedLeftSide(node) ||
+    (parent.type !== "ExportDefaultDeclaration" && needsParens(path, options))
+  ) {
+    return false;
+  }
+
+  return path.call.apply(
+    path,
+    [
+      childPath => shouldWrapFunctionForExportDefault(childPath, options)
+    ].concat(getLeftSidePathName(path, node))
+  );
 }
 
 module.exports = needsParens;

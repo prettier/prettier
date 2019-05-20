@@ -41,6 +41,9 @@ const {
 } = require("./html-binding");
 const preprocess = require("./preprocess");
 const {
+  getLeftSide,
+  getLeftSidePathName,
+  hasNakedLeftSide,
   hasNode,
   hasFlowAnnotationComment,
   hasFlowShorthandAnnotationComment
@@ -6002,72 +6005,10 @@ function hasLeadingOwnLineComment(text, node, options) {
   return res;
 }
 
-function hasNakedLeftSide(node) {
-  return (
-    node.type === "AssignmentExpression" ||
-    node.type === "BinaryExpression" ||
-    node.type === "LogicalExpression" ||
-    node.type === "NGPipeExpression" ||
-    node.type === "ConditionalExpression" ||
-    node.type === "CallExpression" ||
-    node.type === "OptionalCallExpression" ||
-    node.type === "MemberExpression" ||
-    node.type === "OptionalMemberExpression" ||
-    node.type === "SequenceExpression" ||
-    node.type === "TaggedTemplateExpression" ||
-    node.type === "BindExpression" ||
-    (node.type === "UpdateExpression" && !node.prefix) ||
-    node.type === "TSNonNullExpression"
-  );
-}
-
 function isFlowAnnotationComment(text, typeAnnotation, options) {
   const start = options.locStart(typeAnnotation);
   const end = skipWhitespace(text, options.locEnd(typeAnnotation));
   return text.substr(start, 2) === "/*" && text.substr(end, 2) === "*/";
-}
-
-function getLeftSide(node) {
-  if (node.expressions) {
-    return node.expressions[0];
-  }
-  return (
-    node.left ||
-    node.test ||
-    node.callee ||
-    node.object ||
-    node.tag ||
-    node.argument ||
-    node.expression
-  );
-}
-
-function getLeftSidePathName(path, node) {
-  if (node.expressions) {
-    return ["expressions", 0];
-  }
-  if (node.left) {
-    return ["left"];
-  }
-  if (node.test) {
-    return ["test"];
-  }
-  if (node.object) {
-    return ["object"];
-  }
-  if (node.callee) {
-    return ["callee"];
-  }
-  if (node.tag) {
-    return ["tag"];
-  }
-  if (node.argument) {
-    return ["argument"];
-  }
-  if (node.expression) {
-    return ["expression"];
-  }
-  throw new Error("Unexpected node has no left side", node);
 }
 
 function exprNeedsASIProtection(path, options) {

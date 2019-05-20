@@ -304,6 +304,27 @@ type G = keyof T[];
 type G = (keyof T)[];
 ```
 
+### JavaScript: Keep parenthesis around functions and classes in `export default` declarations ([#6133] by [@duailibe])
+
+Prettier was removing parenthesis from some expressions in `export default`, but if those are complex expressions that start with `function` or `class`, the parenthesis are required.
+
+See below some practical examples, including one affecting TypeScript.
+
+<!-- prettier-ignore -->
+```ts
+// Input
+export default (function log() {}).toString();
+export default (function log() {} as typeof console.log);
+
+// Output (Prettier stable)
+export default function log() {}.toString();
+export default function log() {} as typeof console.log; // syntax error
+
+// Output (Prettier master)
+export default (function log() {}).toString();
+export default (function log() {} as typeof console.log);
+```
+
 ### TypeScript: Keep parentheses around a function called with non-null assertion. ([6136] by [@sosukesuzuki])
 
 Previously, Prettier removes necessary parentheses around a call expression with non-null assertion. It happens when it's return value is called as function.
@@ -336,6 +357,7 @@ const b = new (c()!)();
 [#6129]: https://github.com/prettier/prettier/pull/6129
 [#6130]: https://github.com/prettier/prettier/pull/6130
 [#6131]: https://github.com/prettier/prettier/pull/6131
+[#6133]: https://github.com/prettier/prettier/pull/6133
 [#6136]: https://github.com/prettier/prettier/pull/6136
 [@belochub]: https://github.com/belochub
 [@brainkim]: https://github.com/brainkim
