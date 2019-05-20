@@ -866,7 +866,10 @@ function shouldWrapFunctionForExportDefault(path, options) {
     );
   }
 
-  if (!hasNakedLeftSide(node)) {
+  if (
+    !hasNakedLeftSide(node) ||
+    (parent.type !== "ExportDefaultDeclaration" && needsParens(path, options))
+  ) {
     return false;
   }
 
