@@ -634,8 +634,6 @@ function needsParens(path, options) {
           return name === "callee"; // Not strictly necessary, but it's clearer to the reader if IIFEs are wrapped in parentheses.
         case "TaggedTemplateExpression":
           return true; // This is basically a kind of IIFE.
-        case "ExportDefaultDeclaration":
-          return true;
         default:
           return false;
       }
@@ -670,8 +668,6 @@ function needsParens(path, options) {
 
     case "ClassExpression":
       switch (parent.type) {
-        case "ExportDefaultDeclaration":
-          return true;
         case "NewExpression":
           return name === "callee" && parent.callee === node;
         default:
@@ -857,7 +853,6 @@ function shouldWrapFunctionForExportDefault(path, options) {
 
   if (node.type === "FunctionExpression" || node.type === "ClassExpression") {
     return (
-      // prevent infinite loop in the check below
       parent.type === "ExportDefaultDeclaration" ||
       // in some cases the function is already wrapped
       // (e.g. `export default (function() {})();`)
