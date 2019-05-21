@@ -325,22 +325,19 @@ export default (function log() {}).toString();
 export default (function log() {} as typeof console.log);
 ```
 
-### TypeScript: Keep parentheses around a function called with non-null assertion. ([6136] by [@sosukesuzuki])
+### TypeScript: Keep necessary parentheses around non-null assertions. ([6136] by [@sosukesuzuki])
 
-Previously, Prettier removes necessary parentheses around a call expression with non-null assertion. It happens when it's return value is called as function.
+Previously, Prettier could remove necessary parentheses around an expression with non-null assertion. It happened when the expression result was called as a constructor.
 
 <!-- prettier-ignore -->
 ```ts
 // Input
-const a = (b()!)();
 const b = new (c()!)();
 
 // Output (Prettier stable)
-const a = b()!();
 const b = new c()!();
 
 // Output (prettier master)
-const a = (b()!)();
 const b = new (c()!)();
 ```
 
