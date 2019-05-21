@@ -325,9 +325,9 @@ export default (function log() {}).toString();
 export default (function log() {} as typeof console.log);
 ```
 
-### TypeScript: Keep necessary parentheses around non-null assertions. ([6136] by [@sosukesuzuki])
+### TypeScript: Keep necessary parentheses around non-null assertions. ([#6136] by [@sosukesuzuki], [#6140] by [@thorn0])
 
-Previously, Prettier could remove necessary parentheses around an expression with non-null assertion. It happened when the expression result was called as a constructor.
+Previously, Prettier removed necessary parentheses around non-null assertions if the result of the assertion expression was called as a constructor.
 
 <!-- prettier-ignore -->
 ```ts
@@ -337,7 +337,7 @@ const b = new (c()!)();
 // Output (Prettier stable)
 const b = new c()!();
 
-// Output (prettier master)
+// Output (Prettier master)
 const b = new (c()!)();
 ```
 
@@ -356,6 +356,7 @@ const b = new (c()!)();
 [#6131]: https://github.com/prettier/prettier/pull/6131
 [#6133]: https://github.com/prettier/prettier/pull/6133
 [#6136]: https://github.com/prettier/prettier/pull/6136
+[#6140]: https://github.com/prettier/prettier/pull/6140
 [@belochub]: https://github.com/belochub
 [@brainkim]: https://github.com/brainkim
 [@duailibe]: https://github.com/duailibe
@@ -364,3 +365,4 @@ const b = new (c()!)();
 [@jridgewell]: https://github.com/jridgewell
 [@jwbay]: https://github.com/jwbay
 [@sosukesuzuki]: https://github.com/sosukesuzuki
+[@thorn0]: https://github.com/thorn0
