@@ -728,7 +728,8 @@ function needsParens(path, options) {
 
     case "TSNonNullExpression": {
       return (
-        node.expression.type !== "Identifier" && parent.type === "NewExpression"
+        node.expression.type === "CallExpression" &&
+        parent.type === "NewExpression"
       );
     }
   }
