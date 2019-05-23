@@ -3238,7 +3238,7 @@ function printPathNoParens(path, options, print, args) {
                 : "",
               ": ",
               path.call(print, "typeAnnotation"),
-              shouldBreak ? ";" : ""
+              shouldBreak && options.semi ? ";" : ""
             ])
           ),
           comments.printDanglingComments(path, options, /* sameIndent */ true),
