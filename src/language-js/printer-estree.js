@@ -3237,7 +3237,8 @@ function printPathNoParens(path, options, print, args) {
                 ? getTypeScriptMappedTypeModifier(n.optional, "?")
                 : "",
               ": ",
-              path.call(print, "typeAnnotation")
+              path.call(print, "typeAnnotation"),
+              shouldBreak ? ";" : ""
             ])
           ),
           comments.printDanglingComments(path, options, /* sameIndent */ true),
