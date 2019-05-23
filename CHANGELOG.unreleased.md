@@ -325,7 +325,7 @@ export default (function log() {}).toString();
 export default (function log() {} as typeof console.log);
 ```
 
-### TypeScript: Keep necessary parentheses around non-null assertions. ([#6136] by [@sosukesuzuki], [#6140] by [@thorn0])
+### TypeScript: Keep necessary parentheses around non-null assertions. ([#6136] by [@sosukesuzuki], [#6140] by [@thorn0], [#6148] by [@bakkot])
 
 Previously, Prettier removed necessary parentheses around non-null assertions if the result of the assertion expression was called as a constructor.
 
@@ -338,7 +338,29 @@ const b = new (c()!)();
 const b = new c()!();
 
 // Output (Prettier master)
-const b = new (c()!)();
+const b = new (c())!();
+```
+
+### Javascript: Address parentheses bugs for edge cases with call and new. ([#6148] by [@bakkot])
+
+Adding all and only the necessary parentheses when mixing `new` with function calls is tricky. This change fixes two issues where necessary parentheses were omitted and one when redundant parentheses were added.
+
+<!-- prettier-ignore -->
+```ts
+// Input
+new (x()``.y)();
+new (x()!.y)();
+new e[f().x].y()
+
+// Output (Prettier stable)
+new x()``.y();
+new x()!.y();
+new e[(f()).x].y();
+
+// Output (Prettier master)
+new (x())``.y();
+new (x())!.y();
+new e[f().x].y();
 ```
 
 [#5979]: https://github.com/prettier/prettier/pull/5979
@@ -357,6 +379,7 @@ const b = new (c()!)();
 [#6133]: https://github.com/prettier/prettier/pull/6133
 [#6136]: https://github.com/prettier/prettier/pull/6136
 [#6140]: https://github.com/prettier/prettier/pull/6140
+[#6148]: https://github.com/prettier/prettier/pull/6148
 [@belochub]: https://github.com/belochub
 [@brainkim]: https://github.com/brainkim
 [@duailibe]: https://github.com/duailibe
@@ -366,3 +389,4 @@ const b = new (c()!)();
 [@jwbay]: https://github.com/jwbay
 [@sosukesuzuki]: https://github.com/sosukesuzuki
 [@thorn0]: https://github.com/thorn0
+[@bakkot]: https://github.com/bakkot
