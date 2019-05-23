@@ -16,3 +16,4 @@ const b = c!();
 // parens are necessary if the expression result is called as a constructor
 const c = new (d()!)();
 const c = new (d()!);
+const c = new (d()!.e)();

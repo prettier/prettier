@@ -216,9 +216,14 @@ function needsParens(path, options) {
     case "CallExpression": {
       let firstParentNotMemberExpression = parent;
       let i = 0;
+      // tagged templates are basically member expressions from a grammar perspective
+      // see https://tc39.github.io/ecma262/#prod-MemberExpression
+      // so are typescript's non-null assertions, though there's no grammar to point to
       while (
         firstParentNotMemberExpression &&
-        firstParentNotMemberExpression.type === "MemberExpression"
+        (firstParentNotMemberExpression.type === "MemberExpression" ||
+          firstParentNotMemberExpression.type === "TaggedTemplateExpression" ||
+          firstParentNotMemberExpression.type === "TSNonNullExpression")
       ) {
         firstParentNotMemberExpression = path.getParentNode(++i);
       }
@@ -725,13 +730,6 @@ function needsParens(path, options) {
         return false;
       }
       return true;
-
-    case "TSNonNullExpression": {
-      return (
-        node.expression.type === "CallExpression" &&
-        parent.type === "NewExpression"
-      );
-    }
   }
 
   return false;
