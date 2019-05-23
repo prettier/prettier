@@ -221,7 +221,9 @@ function needsParens(path, options) {
       // so are typescript's non-null assertions, though there's no grammar to point to
       while (
         firstParentNotMemberExpression &&
-        (firstParentNotMemberExpression.type === "MemberExpression" ||
+        ((firstParentNotMemberExpression.type === "MemberExpression" &&
+          firstParentNotMemberExpression.object ===
+            path.getParentNode(i - 1)) ||
           firstParentNotMemberExpression.type === "TaggedTemplateExpression" ||
           firstParentNotMemberExpression.type === "TSNonNullExpression")
       ) {
