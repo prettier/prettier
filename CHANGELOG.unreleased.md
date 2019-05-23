@@ -363,6 +363,26 @@ new (x())!.y();
 new e[f().x].y();
 ```
 
+### TypeScript: Keep line breaks within mapped types.([#] by [@sosukesuzuki])
+
+Previously, Prettier has removed line breaks within mapped types.This change keeps it, similar to how it treats other object types.
+
+<!-- prettier-ignore -->
+```ts
+// Input
+type A<T> = {
+  readonly [P in keyof T]: T[P];
+};
+
+// Output (Prettier stable)
+type A<T> = { readonly [P in keyof T]: T[P] };
+
+// Output (Prettier master)
+type A<T> = {
+  readonly [P in keyof T]: T[P];
+};
+```
+
 [#5979]: https://github.com/prettier/prettier/pull/5979
 [#6086]: https://github.com/prettier/prettier/pull/6086
 [#6088]: https://github.com/prettier/prettier/pull/6088
