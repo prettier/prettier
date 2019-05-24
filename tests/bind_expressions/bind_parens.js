@@ -28,3 +28,4 @@ a::(b.c::d.e)::f.g;
 b.c::d.e;
 (b.c::d).e;
 (b::c::d).e;
+new (a::b)();

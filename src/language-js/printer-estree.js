@@ -743,7 +743,14 @@ function printPathNoParens(path, options, print, args) {
         ".",
         path.call(print, "property")
       ]);
-    case "BindExpression":
+    case "BindExpression": {
+      const isParentNewExpression =
+        path.getParentNode().type === "NewExpression";
+
+      if (isParentNewExpression) {
+        parts.push("(");
+      }
+
       if (n.object) {
         parts.push(path.call(print, "object"));
       }
@@ -756,7 +763,12 @@ function printPathNoParens(path, options, print, args) {
         )
       );
 
+      if (isParentNewExpression) {
+        parts.push(")");
+      }
+
       return concat(parts);
+    }
     case "Identifier": {
       return concat([
         n.name,
