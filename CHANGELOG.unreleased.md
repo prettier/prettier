@@ -383,6 +383,22 @@ type A<T> = {
 };
 ```
 
+### JavaScript: Keep necessary parentheses around the bind expression passed to "new" expression.([#] by [@sosukesuzuki])
+
+Previously, Prettier has removed necessary parentheses around the bind expression if the result is passed to "new" expression.
+
+<!-- prettier-ignore -->
+```js
+// Input
+new (a::b)();
+
+// Output (Prettier stable)
+new a::b();
+
+// Output (Prettier master)
+new (a::b)();
+```
+
 [#5979]: https://github.com/prettier/prettier/pull/5979
 [#6086]: https://github.com/prettier/prettier/pull/6086
 [#6088]: https://github.com/prettier/prettier/pull/6088
