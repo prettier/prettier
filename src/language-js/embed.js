@@ -16,7 +16,7 @@ const {
   utils: { mapDoc, stripTrailingHardline }
 } = require("../doc");
 
-function embed(path, print, textToDoc /*, options */) {
+function embed(path, print, textToDoc, options) {
   const node = path.getValue();
   const parent = path.getParentNode();
   const parentParent = path.getParentNode(1);
@@ -135,12 +135,20 @@ function embed(path, print, textToDoc /*, options */) {
         ]);
       }
 
-      if (isHtml(path)) {
-        return printHtmlTemplateLiteral(path, print, textToDoc, "html");
-      }
+      const htmlParser = isHtml(path)
+        ? "html"
+        : isAngularComponentTemplate(path)
+        ? "angular"
+        : undefined;
 
-      if (isAngularComponentTemplate(path)) {
-        return printHtmlTemplateLiteral(path, print, textToDoc, "angular");
+      if (htmlParser) {
+        return printHtmlTemplateLiteral(
+          path,
+          print,
+          textToDoc,
+          htmlParser,
+          options.embeddedInHtml
+        );
       }
 
       break;
@@ -579,10 +587,18 @@ function isHtml(path) {
 // The counter is needed to distinguish nested embeds.
 let htmlTemplateLiteralCounter = 0;
 
-function printHtmlTemplateLiteral(path, print, textToDoc, parser) {
+function printHtmlTemplateLiteral(
+  path,
+  print,
+  textToDoc,
+  parser,
+  escapeClosingScriptTag
+) {
   const node = path.getValue();
 
-  const counter = htmlTemplateLiteralCounter++;
+  const counter = htmlTemplateLiteralCounter;
+  htmlTemplateLiteralCounter = (htmlTemplateLiteralCounter + 1) >>> 0;
+
   const composePlaceholder = index =>
     `PRETTIER_HTML_PLACEHOLDER_${index}_${counter}_IN_JS`;
 
@@ -613,11 +629,15 @@ function printHtmlTemplateLiteral(path, print, textToDoc, parser) {
 
       const components = doc.split(placeholderRegex);
       for (let i = 0; i < components.length; i++) {
-        const component = components[i];
+        let component = components[i];
 
         if (i % 2 === 0) {
           if (component) {
-            parts.push(uncook(component));
+            component = uncook(component);
+            if (escapeClosingScriptTag) {
+              component = component.replace(/<\/(script)\b/gi, "<\\/$1");
+            }
+            parts.push(component);
           }
           continue;
         }
