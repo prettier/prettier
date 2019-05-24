@@ -5,7 +5,7 @@ const path = require("path");
 const ignoreModule = require("ignore");
 const globParent = require("glob-parent");
 const isGlobModule = require("is-glob");
-const picomatch = require("picomatch");
+const minimatch = require("minimatch");
 
 function statSync(dir) {
   try {
@@ -36,14 +36,18 @@ function makeDefaultFilter(extensions, filenames) {
     return `*.${extensions[0]}`;
   }
 
-  const extPattern = `*.{${extensions
-    .map(ext => (ext.startsWith(".") ? ext.substr(1) : ext))
-    .join(",")}}`;
+  filenames = new Set(filenames);
 
-  const patterns = filenames
-    .concat([extPattern])
-    .map(pattern => `**${path.sep}${pattern}`);
-  return picomatch(patterns);
+  const matchExt = minimatch.filter(
+    `*.{${extensions
+      .map(ext => (ext.startsWith(".") ? ext.substr(1) : ext))
+      .join(",")}}`
+  );
+
+  return filepath => {
+    const filename = path.basename(filepath);
+    return matchExt(filename) || filenames.has(filename);
+  };
 }
 
 module.exports = function* fileFinder(
@@ -79,7 +83,7 @@ module.exports = function* fileFinder(
       const recursive = /\*\*|\\|\//.test(glob);
       const depth = /\*\*/.test(glob) ? Infinity : glob.split(path.sep).length;
 
-      const filter = picomatch(pattern);
+      const filter = minimatch.filter(glob);
       return walkDir(dir, { filter, recursive, depth });
     }
 

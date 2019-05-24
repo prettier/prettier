@@ -401,9 +401,9 @@ function createIgnorerFromContextOrDie(context) {
 }
 
 function eachFilename(context, patterns, callback) {
-  const ignore = ["**/.git/**", "**/.svn/**", "**/.hg/**"];
+  const ignore = [".git", ".svn", ".hg"];
   if (context.argv["with-node-modules"] !== true) {
-    ignore.push("**/node_modules/**");
+    ignore.push("node_modules");
   }
 
   const { languages } = prettier.getSupportInfo();

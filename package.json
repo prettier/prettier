@@ -57,7 +57,6 @@
     "n-readlines": "1.0.0",
     "normalize-path": "3.0.0",
     "parse-srcset": "ikatyang/parse-srcset#54eb9c1cb21db5c62b4d0e275d7249516df6f0ee",
-    "picomatch": "2.0.7",
     "postcss-less": "1.1.5",
     "postcss-media-query-parser": "0.2.3",
     "postcss-scss": "2.0.0",
@@ -79,7 +78,7 @@
   "devDependencies": {
     "@babel/cli": "7.2.0",
     "@babel/core": "7.2.0",
-    "@babel/preset-env": "7.2.0",
+    "@babel/preset-env": "7.4.5",
     "babel-loader": "8.0.4",
     "benchmark": "2.1.4",
     "builtin-modules": "2.0.0",
