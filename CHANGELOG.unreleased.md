@@ -367,7 +367,7 @@ new e[f().x].y();
 
 Previously, if JS code embedded in HTML (via `<script>`) embedded in JS (via a template literal) contained template literals, the inner JS was not formatted.
 
-<!-- prettier-ignore --\>
+<!-- prettier-ignore -->
 ```js
 // Input
 const html = /* HTML */ `<script>var a=\`\`</script>`;
