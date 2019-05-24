@@ -341,6 +341,26 @@ const b = new c()!();
 const b = new (c()!)();
 ```
 
+### TypeScript: fix nested embeds (JS in HTML in JS) ([#6038] by [@thorn0])
+
+Previously, if JS code embedded in HTML (via `<script>`) embedded in JS (via a template literal) contained template literals, the inner JS was not formatted.
+
+<!-- prettier-ignore --\>
+```js
+// Input
+const html = /* HTML */ `<script>var a=\`\`</script>`;
+
+// Output (Prettier stable)
+// SyntaxError: Expecting Unicode escape sequence \uXXXX (1:8)
+
+// Output (Prettier master)
+const html = /* HTML */ `
+  <script>
+    var a = \`\`;
+  </script>
+`;
+```
+
 [#5979]: https://github.com/prettier/prettier/pull/5979
 [#6086]: https://github.com/prettier/prettier/pull/6086
 [#6088]: https://github.com/prettier/prettier/pull/6088
@@ -357,6 +377,7 @@ const b = new (c()!)();
 [#6133]: https://github.com/prettier/prettier/pull/6133
 [#6136]: https://github.com/prettier/prettier/pull/6136
 [#6140]: https://github.com/prettier/prettier/pull/6140
+[#6038]: https://github.com/prettier/prettier/pull/6038
 [@belochub]: https://github.com/belochub
 [@brainkim]: https://github.com/brainkim
 [@duailibe]: https://github.com/duailibe
