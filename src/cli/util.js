@@ -4,7 +4,6 @@ const path = require("path");
 const camelCase = require("camelcase");
 const dashify = require("dashify");
 const fs = require("fs");
-const globby = require("globby");
 const chalk = require("chalk");
 const readline = require("readline");
 const stringify = require("json-stable-stringify");
@@ -18,9 +17,9 @@ const coreOptions = require("../main/core-options");
 const optionsModule = require("../main/options");
 const optionsNormalizer = require("../main/options-normalizer");
 const thirdParty = require("../common/third-party");
+const findFiles = require("../utils/find-files");
 const arrayify = require("../utils/arrayify");
 const isTTY = require("../utils/is-tty");
-const glob_ = require("../utils/glob");
 
 const OPTION_USAGE_THRESHOLD = 25;
 const CHOICE_USAGE_MARGIN = 3;
@@ -402,17 +401,19 @@ function createIgnorerFromContextOrDie(context) {
 }
 
 function eachFilename(context, patterns, callback) {
-  const globPatterns = glob_(patterns, prettier.getSupportInfo().languages);
-
-  const ignore = ["**/.{git,svn,hg}/**"];
+  const ignore = ["**/.git/**", "**/.svn/**", "**/.hg/**"];
   if (context.argv["with-node-modules"] !== true) {
     ignore.push("**/node_modules/**");
   }
 
+  const { languages } = prettier.getSupportInfo();
+  const extensions = flattenArray(languages.map(lang => lang.extensions || []));
+  const filenames = flattenArray(languages.map(lang => lang.filenames || []));
+
   try {
-    const filePaths = globby
-      .sync(globPatterns, { dot: true, expandDirectories: false, ignore })
-      .map(filePath => path.relative(process.cwd(), filePath));
+    const filePaths = Array.from(
+      findFiles(patterns, { extensions, filenames, ignore })
+    ).map(filePath => path.relative(process.cwd(), filePath));
 
     if (filePaths.length === 0) {
       context.logger.error(

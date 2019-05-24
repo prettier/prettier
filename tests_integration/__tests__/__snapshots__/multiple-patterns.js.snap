@@ -17,8 +17,10 @@ exports[`multiple patterns by with ignore pattern, doesn't ignore node_modules w
 exports[`multiple patterns by with ignore pattern, doesn't ignore node_modules with --with-node-modules flag (stdout) 1`] = `
 "other-regular-modules.js
 regular-module.js
+directory/file.js
 node_modules/node-module.js
 other-directory/file.js
+directory/nested-directory/nested-directory-file.js
 other-directory/nested-directory/nested-directory-file.js
 "
 `;
@@ -30,7 +32,9 @@ exports[`multiple patterns by with ignore pattern, ignores node_modules by defau
 exports[`multiple patterns by with ignore pattern, ignores node_modules by default (stdout) 1`] = `
 "other-regular-modules.js
 regular-module.js
+directory/file.js
 other-directory/file.js
+directory/nested-directory/nested-directory-file.js
 other-directory/nested-directory/nested-directory-file.js
 "
 `;
@@ -42,7 +46,9 @@ exports[`multiple patterns by with ignore pattern, ignores node_modules by with 
 exports[`multiple patterns by with ignore pattern, ignores node_modules by with ./**/*.js (stdout) 1`] = `
 "other-regular-modules.js
 regular-module.js
+directory/file.js
 other-directory/file.js
+directory/nested-directory/nested-directory-file.js
 other-directory/nested-directory/nested-directory-file.js
 "
 `;
@@ -56,6 +62,8 @@ exports[`multiple patterns with ignore nested directories pattern (stdout) 1`] =
 regular-module.js
 directory/file.js
 other-directory/file.js
+directory/nested-directory/nested-directory-file.js
+other-directory/nested-directory/nested-directory-file.js
 "
 `;
 

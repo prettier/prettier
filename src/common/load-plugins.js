@@ -1,9 +1,9 @@
 "use strict";
 
 const uniqBy = require("lodash.uniqby");
-const globby = require("globby");
 const path = require("path");
 const resolve = require("resolve");
+const findFiles = require("../utils/find-files");
 const isDirectory = require("../utils/is-dir");
 const thirdParty = require("./third-party");
 const internalPlugins = require("./internal-plugins");
@@ -86,14 +86,16 @@ function loadPlugins(plugins, pluginSearchDirs) {
 }
 
 function findPluginsInNodeModules(nodeModulesDir) {
-  const pluginPackageJsonPaths = globby.sync(
-    [
-      "prettier-plugin-*/package.json",
-      "@*/prettier-plugin-*/package.json",
-      "@prettier/plugin-*/package.json"
-    ],
-    { cwd: nodeModulesDir }
-  );
+  const pluginPackageJsonPaths = Array.from(
+    findFiles(
+      [
+        "prettier-plugin-*/package.json",
+        "@*/prettier-plugin-*/package.json",
+        "@prettier/plugin-*/package.json"
+      ],
+      { cwd: nodeModulesDir }
+    )
+  ).map(filepath => path.relative(nodeModulesDir, filepath));
   return pluginPackageJsonPaths.map(path.dirname);
 }
 

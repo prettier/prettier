@@ -3,6 +3,8 @@
 !/tests/**/jsfmt.spec.js
 !/**/.eslintrc.js
 /test.js
+/scripts/run-external-tests.js
+/scripts/sync-flow-tests.js
 /scripts/build/shims
 /scripts/release/node_modules
 /coverage/
@@ -12,3 +14,4 @@
 /website/static/playground.js
 /website/static/lib/
 /tests_integration/cli/
+
