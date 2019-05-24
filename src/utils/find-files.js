@@ -83,7 +83,7 @@ module.exports = function* fileFinder(
       const recursive = /\*\*|\\|\//.test(glob);
       const depth = /\*\*/.test(glob) ? Infinity : glob.split(path.sep).length;
 
-      pattern = pattern.replace(/^\.\\|^\.\//g, '');
+      pattern = path.relative(cwd, abspath);
       const filter = minimatch.filter(pattern, { dot: true, matchBase: true });
       return walkDir(dir, { filter, recursive, depth });
     }

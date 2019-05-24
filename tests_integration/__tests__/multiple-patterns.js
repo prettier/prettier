@@ -24,45 +24,6 @@ describe("multiple patterns with non exists pattern", () => {
   });
 });
 
-describe("multiple patterns with ignore nested directories pattern", () => {
-  runPrettier("cli/multiple-patterns", [
-    ".",
-    "!**/nested-directory/**",
-    "-l"
-  ]).test({
-    status: 1
-  });
-});
-
-describe("multiple patterns by with ignore pattern, ignores node_modules by default", () => {
-  runPrettier("cli/multiple-patterns", ["**/*.js", "!directory/**", "-l"]).test(
-    {
-      status: 1
-    }
-  );
-});
-
-describe("multiple patterns by with ignore pattern, ignores node_modules by with ./**/*.js", () => {
-  runPrettier("cli/multiple-patterns", [
-    "./**/*.js",
-    "!./directory/**",
-    "-l"
-  ]).test({
-    status: 1
-  });
-});
-
-describe("multiple patterns by with ignore pattern, doesn't ignore node_modules with --with-node-modules flag", () => {
-  runPrettier("cli/multiple-patterns", [
-    "**/*.js",
-    "!directory/**",
-    "-l",
-    "--with-node-modules"
-  ]).test({
-    status: 1
-  });
-});
-
 describe("no errors on empty patterns", () => {
   // --parser is mandatory if no filepath is passed
   runPrettier("cli/multiple-patterns", ["--parser", "babel"]).test({
