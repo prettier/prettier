@@ -4,8 +4,8 @@ const runPrettier = require("../runPrettier");
 const EOL = "\n";
 
 describe("automatically loads 'prettier-plugin-*'", () => {
-  runPrettier("plugins/automatic", ["file.txt", "--parser=foo"]).test({
-    stdout: "foo+contents" + EOL,
+  runPrettier("plugins/automatic", ["file.txt", "--parser=bar"]).test({
+    stdout: "bar+contents" + EOL,
     stderr: "",
     status: 0,
     write: []
@@ -13,8 +13,8 @@ describe("automatically loads 'prettier-plugin-*'", () => {
 });
 
 describe("automatically loads '@prettier/plugin-*'", () => {
-  runPrettier("plugins/automatic", ["file.txt", "--parser=bar"]).test({
-    stdout: "bar+contents" + EOL,
+  runPrettier("plugins/automatic", ["file.txt", "--parser=foo"]).test({
+    stdout: "foo+contents" + EOL,
     stderr: "",
     status: 0,
     write: []
