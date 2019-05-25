@@ -29,3 +29,4 @@ b.c::d.e;
 (b.c::d).e;
 (b::c::d).e;
 new (a::b)();
+new f(a::b);
