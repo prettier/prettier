@@ -222,7 +222,7 @@ class Playground extends React.Component {
                     <Button onClick={this.clearContent}>Clear</Button>
                     <ClipboardButton
                       copy={JSON.stringify(
-                        // Remove `parser` since people usually paste the this
+                        // Remove `parser` since people usually paste this
                         // into their .prettierrc and specifying a toplevel
                         // parser there is an anti-pattern. Note:
                         // `JSON.stringify` omits keys whose values are
