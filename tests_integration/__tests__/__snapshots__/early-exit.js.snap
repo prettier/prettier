@@ -92,6 +92,9 @@ Format options:
                            Defaults to none.
   --use-tabs               Indent with tabs instead of spaces.
                            Defaults to false.
+  --vue-indent-script-and-style
+                           Option to handle .vue files script and style tag indentation.
+                           Defaults to false.
 
 Config options:
 
@@ -245,6 +248,9 @@ Format options:
                            Print trailing commas wherever possible when multi-line.
                            Defaults to none.
   --use-tabs               Indent with tabs instead of spaces.
+                           Defaults to false.
+  --vue-indent-script-and-style
+                           Option to handle .vue files script and style tag indentation.
                            Defaults to false.
 
 Config options:

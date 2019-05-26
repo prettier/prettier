@@ -597,6 +597,13 @@ function unescapeQuoteEntities(text) {
   return text.replace(/&apos;/g, "'").replace(/&quot;/g, '"');
 }
 
+function isVueIndentScriptAndStyleConfigured(node, options) {
+  if (options.vueIndentScriptAndStyle && options.parser === "vue") {
+    return node.fullName === "script" || node.fullName === "style";
+  }
+  return false;
+}
+
 module.exports = {
   HTML_ELEMENT_ATTRIBUTES,
   HTML_TAGS,
@@ -615,6 +622,7 @@ module.exports = {
   identity,
   inferScriptParser,
   isDanglingSpaceSensitiveNode,
+  isVueIndentScriptAndStyleConfigured,
   isFrontMatterNode,
   isIndentationSensitiveNode,
   isLeadingSpaceSensitiveNode,
