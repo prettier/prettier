@@ -383,7 +383,6 @@ type A<T> = {
 };
 ```
 
-### JavaScript: Keep necessary parentheses around the bind expression passed to "new" expression.([#] by [@sosukesuzuki])
 ### JavaScript: Keep necessary parentheses around the bind expression passed to "new" expression.([#6152] by [@sosukesuzuki])
 
 Previously, Prettier has removed necessary parentheses around the bind expression if the result is passed to "new" expression.
