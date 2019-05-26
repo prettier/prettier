@@ -38,7 +38,7 @@ type NonFunctionPropertyNames<T> = {
 interface DeepReadonlyArray<T> extends ReadonlyArray<DeepReadonly<T>> {}
 
 type DeepReadonlyObject<T> = {
-  readonly [P in NonFunctionPropertyNames<T>]: DeepReadonly<T[P]>
+  readonly [P in NonFunctionPropertyNames<T>]: DeepReadonly<T[P]>;
 };
 
 type TypeName<T> = T extends string

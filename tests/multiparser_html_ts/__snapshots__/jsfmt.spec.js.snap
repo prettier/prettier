@@ -32,7 +32,9 @@ printWidth: 80
 <html lang="en">
   <head>
     <script lang="ts">
-      type X = { [K in keyof Y]: Partial<K> };
+      type X = {
+        [K in keyof Y]: Partial<K>;
+      };
 
       class Foo<T> {
         constructor(private foo: keyof Apple) {}

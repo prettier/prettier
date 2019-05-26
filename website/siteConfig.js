@@ -39,6 +39,7 @@ const siteConfig = {
     { doc: "install", label: "Usage" },
     { blog: true, label: "Blog" },
     { search: true },
+    { href: "https://opencollective.com/prettier", label: "Donate" },
     { href: GITHUB_URL, label: "GitHub" }
   ],
   /* path to images for header/footer */

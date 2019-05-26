@@ -26,3 +26,15 @@ type F = {
 type G = {
   [g in G] /* commentG */: string
 }
+
+type H = { /* commentH */ [h in H]: string }
+
+type I = { [/* commentI */ i in I]: string }
+
+type J = { [j /* commentJ */ in J]: string }
+
+type K = { [k in /* commentK */ K]: string }
+
+type L = { [l in L /* commentL */]: string }
+
+type M = { [m in M] /* commentG */: string }

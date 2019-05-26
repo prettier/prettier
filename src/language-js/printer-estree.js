@@ -3213,7 +3213,12 @@ function printPathNoParens(path, options, print, args) {
     }
     case "TSTypeOperator":
       return concat([n.operator, " ", path.call(print, "typeAnnotation")]);
-    case "TSMappedType":
+    case "TSMappedType": {
+      const shouldBreak = hasNewlineInRange(
+        options.originalText,
+        options.locStart(n),
+        options.locEnd(n)
+      );
       return group(
         concat([
           "{",
@@ -3232,14 +3237,17 @@ function printPathNoParens(path, options, print, args) {
                 ? getTypeScriptMappedTypeModifier(n.optional, "?")
                 : "",
               ": ",
-              path.call(print, "typeAnnotation")
+              path.call(print, "typeAnnotation"),
+              shouldBreak && options.semi ? ";" : ""
             ])
           ),
           comments.printDanglingComments(path, options, /* sameIndent */ true),
           options.bracketSpacing ? line : softline,
           "}"
-        ])
+        ]),
+        { shouldBreak }
       );
+    }
     case "TSMethodSignature":
       parts.push(
         n.accessibility ? concat([n.accessibility, " "]) : "",
