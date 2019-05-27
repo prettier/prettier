@@ -399,6 +399,20 @@ new a::b();
 new (a::b)();
 ```
 
+### JavaScript: Prevent adding unnecessary parentheses around bind expressions in member expressions' properties ([#6159] by [@duailibe])
+
+<!-- prettier-ignore -->
+```js
+// Input
+f[a::b];
+
+// Output (Prettier stable)
+f[(a::b)];
+
+// Output (Prettier master);
+f[a::b];
+```
+
 [#5979]: https://github.com/prettier/prettier/pull/5979
 [#6086]: https://github.com/prettier/prettier/pull/6086
 [#6088]: https://github.com/prettier/prettier/pull/6088
@@ -418,6 +432,7 @@ new (a::b)();
 [#6148]: https://github.com/prettier/prettier/pull/6148
 [#6146]: https://github.com/prettier/prettier/pull/6146
 [#6152]: https://github.com/prettier/prettier/pull/6152
+[#6159]: https://github.com/prettier/prettier/pull/6159
 [@belochub]: https://github.com/belochub
 [@brainkim]: https://github.com/brainkim
 [@duailibe]: https://github.com/duailibe
