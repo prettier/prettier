@@ -711,7 +711,10 @@ function needsParens(path, options) {
         (parent.type === "BindExpression" &&
           name === "callee" &&
           parent.callee === node) ||
-        parent.type === "MemberExpression"
+        parent.type === "MemberExpression" ||
+        (parent.type === "NewExpression" &&
+          name === "callee" &&
+          parent.callee === node)
       ) {
         return true;
       }
