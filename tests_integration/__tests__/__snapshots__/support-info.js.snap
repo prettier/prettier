@@ -1374,7 +1374,7 @@ exports[`CLI --support-info (stdout) 1`] = `
     {
       \\"category\\": \\"HTML\\",
       \\"default\\": false,
-      \\"description\\": \\"Option to handle .vue files script and style tag indentation.\\",
+      \\"description\\": \\"Indent script and style tags in Vue files.\\",
       \\"name\\": \\"vueIndentScriptAndStyle\\",
       \\"pluginDefaults\\": {},
       \\"since\\": \\"1.18.0\\",

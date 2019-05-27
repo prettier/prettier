@@ -32,7 +32,6 @@ const {
   inferScriptParser,
   isScriptLikeTag,
   isTextLikeNode,
-  isVueIndentScriptAndStyleConfigured,
   normalizeParts,
   preferHardlineAsLeadingSpaces,
   shouldNotPrintClosingTag,
@@ -231,7 +230,7 @@ function genericPrint(path, options, print) {
                       : isScriptLikeTag(node) &&
                         node.parent.type === "root" &&
                         options.parser === "vue" &&
-                        !isVueIndentScriptAndStyleConfigured(node, options)
+                        !options.vueIndentScriptAndStyle
                       ? childrenDoc
                       : indent(childrenDoc))(
                     concat([

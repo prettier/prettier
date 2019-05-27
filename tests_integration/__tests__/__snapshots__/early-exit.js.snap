@@ -93,7 +93,7 @@ Format options:
   --use-tabs               Indent with tabs instead of spaces.
                            Defaults to false.
   --vue-indent-script-and-style
-                           Option to handle .vue files script and style tag indentation.
+                           Indent script and style tags in Vue files.
                            Defaults to false.
 
 Config options:
@@ -250,7 +250,7 @@ Format options:
   --use-tabs               Indent with tabs instead of spaces.
                            Defaults to false.
   --vue-indent-script-and-style
-                           Option to handle .vue files script and style tag indentation.
+                           Indent script and style tags in Vue files.
                            Defaults to false.
 
 Config options:

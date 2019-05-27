@@ -369,7 +369,7 @@ in order for it to be formatted.",
         },
         "vueIndentScriptAndStyle": Object {
           "default": false,
-          "description": "Option to handle .vue files script and style tag indentation.",
+          "description": "Indent script and style tags in Vue files.",
           "type": "boolean",
         },
       },
