@@ -363,6 +363,26 @@ new (x())!.y();
 new e[f().x].y();
 ```
 
+### JavaScript: Fix nested embeds (JS in HTML in JS) ([#6038] by [@thorn0])
+
+Previously, if JS code embedded in HTML (via `<script>`) embedded in JS (via a template literal) contained template literals, the inner JS was not formatted.
+
+<!-- prettier-ignore -->
+```js
+// Input
+const html = /* HTML */ `<script>var a=\`\`</script>`;
+
+// Output (Prettier stable)
+// SyntaxError: Expecting Unicode escape sequence \uXXXX (1:8)
+
+// Output (Prettier master)
+const html = /* HTML */ `
+  <script>
+    var a = \`\`;
+  </script>
+`;
+```
+
 ### TypeScript: Keep line breaks within mapped types.([#6146] by [@sosukesuzuki])
 
 Previously, Prettier has removed line breaks within mapped types.This change keeps it, similar to how it treats other object types.
@@ -429,6 +449,7 @@ f[a::b];
 [#6133]: https://github.com/prettier/prettier/pull/6133
 [#6136]: https://github.com/prettier/prettier/pull/6136
 [#6140]: https://github.com/prettier/prettier/pull/6140
+[#6038]: https://github.com/prettier/prettier/pull/6038
 [#6148]: https://github.com/prettier/prettier/pull/6148
 [#6146]: https://github.com/prettier/prettier/pull/6146
 [#6152]: https://github.com/prettier/prettier/pull/6152
