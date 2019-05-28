@@ -1,6 +1,6 @@
 "use strict";
 
-const diff = require("diff");
+const diff = require("diff-sequences").default;
 
 const normalizeOptions = require("./options").normalize;
 const massageAST = require("./massage-ast");
@@ -159,21 +159,38 @@ function coreFormat(text, opts, addAlignmentSize) {
 
     const newCursorNodeCharArray = newCursorNodeText.split("");
 
-    const cursorNodeDiff = diff.diffArrays(
-      oldCursorNodeCharArray,
-      newCursorNodeCharArray
-    );
-
+    let aIndex = 0;
+    let bIndex = 0;
     let cursorOffset = newCursorNodeStart;
-    for (const entry of cursorNodeDiff) {
-      if (entry.removed) {
-        if (entry.value.indexOf(CURSOR) > -1) {
-          break;
+
+    let done = false;
+
+    diff(
+      oldCursorNodeCharArray.length,
+      newCursorNodeCharArray.length,
+      (aIndex, bIndex) => {
+        return (
+          oldCursorNodeCharArray[aIndex] === newCursorNodeCharArray[bIndex]
+        );
+      },
+      (nCommon, aCommon, bCommon) => {
+        if (done) {
+          return;
         }
-      } else {
-        cursorOffset += entry.count;
+        for (; aIndex !== aCommon; aIndex += 1) {
+          if (oldCursorNodeCharArray[aIndex] === CURSOR) {
+            done = true;
+            return;
+          }
+        }
+        cursorOffset += bCommon - bIndex;
+        bIndex = bCommon;
+
+        aIndex += nCommon;
+        bIndex += nCommon;
+        cursorOffset += nCommon;
       }
-    }
+    );
 
     return { formatted: result.formatted, cursorOffset };
   }
