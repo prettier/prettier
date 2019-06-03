@@ -433,7 +433,9 @@ f[(a::b)];
 f[a::b];
 ```
 
-### TypeScript: Keep a trailing comma on tuple types when `trailing-commma` options is `all` ([#6172] by [@sosukesuzuki])
+### TypeScript: Add trailing comma on tuple types when `trailing-commma` options is `all` ([#6172] by [@sosukesuzuki])
+
+TypeScript supports a trailing comma on tuple types since version 3.3.
 
 <!-- prettier-ignore -->
 ```ts
