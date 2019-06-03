@@ -433,6 +433,29 @@ f[(a::b)];
 f[a::b];
 ```
 
+### TypeScript: Keep a trailing comma on tuple types when `trailing-commma` options is `all` ([#] by [@sosukesuzuki])
+
+<!-- prettier-ignore -->
+```ts
+// Input
+export type Foo = [
+  number,
+  number, // comment
+];
+
+// Output (Prettier stable)
+export type Foo = [
+  number,
+  number // comment
+];
+
+// Output (Prettier master);
+export type Foo = [
+  number,
+  number, // comment
+];
+```
+
 [#5979]: https://github.com/prettier/prettier/pull/5979
 [#6086]: https://github.com/prettier/prettier/pull/6086
 [#6088]: https://github.com/prettier/prettier/pull/6088
