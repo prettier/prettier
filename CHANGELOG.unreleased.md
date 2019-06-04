@@ -167,9 +167,9 @@ const v = /** @type{string} */ value;
 const v = /** @type{string} */ (value);
 ```
 
-### JavaScript: Prevent adding quotes when using `--quote-props=consistent` and one of the keys were a computed "complex" expression ([#6119] by [@duailibe])
+### JavaScript: Prevent adding quotes when using `--quote-props=consistent` and objects had numbers or computed expressions as keys ([#6119] and [#6138] by [@duailibe])
 
-Previously, Prettier added unnecessary quotes to keys of an object, or properties and methods of classes, if there was at least one computed key with a "complex" expression (e.g. a member expression).
+Previously, Prettier added unnecessary quotes to keys of an object, or properties and methods of classes, if there was at least one computed key with a "complex" expression (e.g. a member expression) or a numeric literal.
 
 <!-- prettier-ignore -->
 ```js
@@ -459,6 +459,7 @@ export type Foo = [
 ```
 
 [#5979]: https://github.com/prettier/prettier/pull/5979
+[#6038]: https://github.com/prettier/prettier/pull/6038
 [#6086]: https://github.com/prettier/prettier/pull/6086
 [#6088]: https://github.com/prettier/prettier/pull/6088
 [#6089]: https://github.com/prettier/prettier/pull/6089
@@ -473,10 +474,10 @@ export type Foo = [
 [#6131]: https://github.com/prettier/prettier/pull/6131
 [#6133]: https://github.com/prettier/prettier/pull/6133
 [#6136]: https://github.com/prettier/prettier/pull/6136
+[#6138]: https://github.com/prettier/prettier/pull/6138
 [#6140]: https://github.com/prettier/prettier/pull/6140
-[#6038]: https://github.com/prettier/prettier/pull/6038
-[#6148]: https://github.com/prettier/prettier/pull/6148
 [#6146]: https://github.com/prettier/prettier/pull/6146
+[#6148]: https://github.com/prettier/prettier/pull/6148
 [#6152]: https://github.com/prettier/prettier/pull/6152
 [#6159]: https://github.com/prettier/prettier/pull/6159
 [#6172]: https://github.com/prettier/prettier/pull/6172
