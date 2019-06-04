@@ -286,6 +286,7 @@ const styles = css.resolve`
     background: black;
   }
 `;
+```
 
 ### TypeScript: Keep a pair of parentheses when there are extra pairs. ([#6131] by [@sosukesuzuki])
 
@@ -303,26 +304,162 @@ type G = keyof T[];
 type G = (keyof T)[];
 ```
 
-### TypeScript: Keep parentheses around a function called with non-null assertion. ([6136] by [@sosukesuzuki])
+### JavaScript: Keep parenthesis around functions and classes in `export default` declarations ([#6133] by [@duailibe])
 
-Previously, Prettier removes necessary parentheses around a call expression with non-null assertion. It happens when it's return value is called as function.
+Prettier was removing parenthesis from some expressions in `export default`, but if those are complex expressions that start with `function` or `class`, the parenthesis are required.
+
+See below some practical examples, including one affecting TypeScript.
 
 <!-- prettier-ignore -->
 ```ts
 // Input
-const a = (b()!)();
+export default (function log() {}).toString();
+export default (function log() {} as typeof console.log);
+
+// Output (Prettier stable)
+export default function log() {}.toString();
+export default function log() {} as typeof console.log; // syntax error
+
+// Output (Prettier master)
+export default (function log() {}).toString();
+export default (function log() {} as typeof console.log);
+```
+
+### TypeScript: Keep necessary parentheses around non-null assertions. ([#6136] by [@sosukesuzuki], [#6140] by [@thorn0], [#6148] by [@bakkot])
+
+Previously, Prettier removed necessary parentheses around non-null assertions if the result of the assertion expression was called as a constructor.
+
+<!-- prettier-ignore -->
+```ts
+// Input
 const b = new (c()!)();
 
 // Output (Prettier stable)
-const a = b()!();
 const b = new c()!();
 
-// Output (prettier master)
-const a = (b()!)();
-const b = new (c()!)();
+// Output (Prettier master)
+const b = new (c())!();
+```
+
+### Javascript: Address parentheses bugs for edge cases with call and new. ([#6148] by [@bakkot])
+
+Adding all and only the necessary parentheses when mixing `new` with function calls is tricky. This change fixes two issues where necessary parentheses were omitted and one when redundant parentheses were added.
+
+<!-- prettier-ignore -->
+```ts
+// Input
+new (x()``.y)();
+new (x()!.y)();
+new e[f().x].y()
+
+// Output (Prettier stable)
+new x()``.y();
+new x()!.y();
+new e[(f()).x].y();
+
+// Output (Prettier master)
+new (x())``.y();
+new (x())!.y();
+new e[f().x].y();
+```
+
+### JavaScript: Fix nested embeds (JS in HTML in JS) ([#6038] by [@thorn0])
+
+Previously, if JS code embedded in HTML (via `<script>`) embedded in JS (via a template literal) contained template literals, the inner JS was not formatted.
+
+<!-- prettier-ignore -->
+```js
+// Input
+const html = /* HTML */ `<script>var a=\`\`</script>`;
+
+// Output (Prettier stable)
+// SyntaxError: Expecting Unicode escape sequence \uXXXX (1:8)
+
+// Output (Prettier master)
+const html = /* HTML */ `
+  <script>
+    var a = \`\`;
+  </script>
+`;
+```
+
+### TypeScript: Keep line breaks within mapped types.([#6146] by [@sosukesuzuki])
+
+Previously, Prettier has removed line breaks within mapped types.This change keeps it, similar to how it treats other object types.
+
+<!-- prettier-ignore -->
+```ts
+// Input
+type A<T> = {
+  readonly [P in keyof T]: T[P];
+};
+
+// Output (Prettier stable)
+type A<T> = { readonly [P in keyof T]: T[P] };
+
+// Output (Prettier master)
+type A<T> = {
+  readonly [P in keyof T]: T[P];
+};
+```
+
+### JavaScript: Keep necessary parentheses around the bind expression passed to "new" expression.([#6152] by [@sosukesuzuki])
+
+Previously, Prettier has removed necessary parentheses around the bind expression if the result is passed to "new" expression.
+
+<!-- prettier-ignore -->
+```js
+// Input
+new (a::b)();
+
+// Output (Prettier stable)
+new a::b();
+
+// Output (Prettier master)
+new (a::b)();
+```
+
+### JavaScript: Prevent adding unnecessary parentheses around bind expressions in member expressions' properties ([#6159] by [@duailibe])
+
+<!-- prettier-ignore -->
+```js
+// Input
+f[a::b];
+
+// Output (Prettier stable)
+f[(a::b)];
+
+// Output (Prettier master);
+f[a::b];
+```
+
+### TypeScript: Add trailing comma on tuple types when `trailing-commma` options is `all` ([#6172] by [@sosukesuzuki])
+
+TypeScript supports a trailing comma on tuple types since version 3.3.
+
+<!-- prettier-ignore -->
+```ts
+// Input
+export type Foo = [
+  number,
+  number, // comment
+];
+
+// Output (Prettier stable)
+export type Foo = [
+  number,
+  number // comment
+];
+
+// Output (Prettier master);
+export type Foo = [
+  number,
+  number, // comment
+];
 ```
 
 [#5979]: https://github.com/prettier/prettier/pull/5979
+[#6038]: https://github.com/prettier/prettier/pull/6038
 [#6086]: https://github.com/prettier/prettier/pull/6086
 [#6088]: https://github.com/prettier/prettier/pull/6088
 [#6089]: https://github.com/prettier/prettier/pull/6089
@@ -335,8 +472,15 @@ const b = new (c()!)();
 [#6129]: https://github.com/prettier/prettier/pull/6129
 [#6130]: https://github.com/prettier/prettier/pull/6130
 [#6131]: https://github.com/prettier/prettier/pull/6131
+[#6133]: https://github.com/prettier/prettier/pull/6133
 [#6136]: https://github.com/prettier/prettier/pull/6136
 [#6138]: https://github.com/prettier/prettier/pull/6138
+[#6140]: https://github.com/prettier/prettier/pull/6140
+[#6146]: https://github.com/prettier/prettier/pull/6146
+[#6148]: https://github.com/prettier/prettier/pull/6148
+[#6152]: https://github.com/prettier/prettier/pull/6152
+[#6159]: https://github.com/prettier/prettier/pull/6159
+[#6172]: https://github.com/prettier/prettier/pull/6172
 [@belochub]: https://github.com/belochub
 [@brainkim]: https://github.com/brainkim
 [@duailibe]: https://github.com/duailibe
@@ -345,3 +489,5 @@ const b = new (c()!)();
 [@jridgewell]: https://github.com/jridgewell
 [@jwbay]: https://github.com/jwbay
 [@sosukesuzuki]: https://github.com/sosukesuzuki
+[@thorn0]: https://github.com/thorn0
+[@bakkot]: https://github.com/bakkot

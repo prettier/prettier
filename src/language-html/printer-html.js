@@ -113,7 +113,7 @@ function embed(path, print, textToDoc, options) {
 
       // lit-html: html`<my-element obj=${obj}></my-element>`
       if (
-        /^PRETTIER_HTML_PLACEHOLDER_\d+_IN_JS$/.test(
+        /^PRETTIER_HTML_PLACEHOLDER_\d+_\d+_IN_JS$/.test(
           options.originalText.slice(
             node.valueSpan.start.offset,
             node.valueSpan.end.offset

@@ -500,10 +500,7 @@ function printString(raw, options, isDirectiveLiteral) {
       options.parser === "css" ||
       options.parser === "less" ||
       options.parser === "scss" ||
-      options.parentParser === "html" ||
-      options.parentParser === "vue" ||
-      options.parentParser === "angular" ||
-      options.parentParser === "lwc"
+      options.embeddedInHtml
     )
   );
 }

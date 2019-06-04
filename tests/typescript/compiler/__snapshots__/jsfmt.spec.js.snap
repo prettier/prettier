@@ -617,7 +617,7 @@ type Meta<T, A> = {
     value: T[P];
     also: A;
     readonly children: Meta<T[P], A>;
-  }
+  };
 };
 
 interface Input {
