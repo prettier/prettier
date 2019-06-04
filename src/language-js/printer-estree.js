@@ -6478,7 +6478,7 @@ function isTheOnlyJSXElementInMarkdown(options, path) {
   return parent.type === "Program" && parent.body.length == 1;
 }
 
-function willPrintOwnComments(path) {
+function willPrintOwnComments(path /*, options */) {
   const node = path.getValue();
   const parent = path.getParentNode();
 
