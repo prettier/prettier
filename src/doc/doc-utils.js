@@ -210,6 +210,7 @@ module.exports = {
   willBreak,
   isLineNext,
   traverseDoc,
+  findInDoc,
   mapDoc,
   propagateBreaks,
   removeLines,
