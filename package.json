@@ -108,7 +108,7 @@
     "rollup-plugin-node-globals": "1.1.0",
     "rollup-plugin-node-resolve": "2.0.0",
     "rollup-plugin-replace": "1.2.1",
-    "rollup-plugin-uglify": "3.0.0",
+    "rollup-plugin-uglify": "6.0.2",
     "shelljs": "0.8.1",
     "snapshot-diff": "0.4.0",
     "strip-ansi": "4.0.0",
