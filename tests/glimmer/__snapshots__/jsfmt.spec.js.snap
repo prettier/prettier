@@ -292,6 +292,12 @@ printWidth: 80
 <UserGreeting @name="Ricardo" @greeting="Olá" />
 {{@greeting}}, {{@name}}!
 
+<div>
+  <UserGreeting
+    @aVeryLongArgumentNameThatIsStillGoing={{@alsoAVeryLongArgument}}
+  />
+</div>
+
 <Form as |f|>
   <f.input @title="hello" />
   <f.input>hello</f.input>
@@ -315,6 +321,11 @@ printWidth: 80
 ,
 {{@name}}
 !
+<div>
+  <UserGreeting
+    @aVeryLongArgumentNameThatIsStillGoing={{@alsoAVeryLongArgument}}
+  />
+</div>
 <Form as |f|>
   <f.input @title="hello" />
   <f.input>
@@ -344,6 +355,12 @@ singleQuote: true
 <UserGreeting @name="Ricardo" @greeting="Olá" />
 {{@greeting}}, {{@name}}!
 
+<div>
+  <UserGreeting
+    @aVeryLongArgumentNameThatIsStillGoing={{@alsoAVeryLongArgument}}
+  />
+</div>
+
 <Form as |f|>
   <f.input @title="hello" />
   <f.input>hello</f.input>
@@ -367,6 +384,11 @@ singleQuote: true
 ,
 {{@name}}
 !
+<div>
+  <UserGreeting
+    @aVeryLongArgumentNameThatIsStillGoing={{@alsoAVeryLongArgument}}
+  />
+</div>
 <Form as |f|>
   <f.input @title="hello" />
   <f.input>

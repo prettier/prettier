@@ -458,6 +458,35 @@ export type Foo = [
 ];
 ```
 
+### Handlebars: Avoid adding unwanted whitespace after components ([#6178] by [@GavinJoyce])
+
+Previously, Prettier added a space before `/>` and a line break after, even when at the start of a line. Now, that extra space and line break is no longer present.
+
+<!-- prettier-ignore -->
+```hbs
+// Input
+<div>
+  <UserGreeting
+    @aVeryLongArgumentNameThatIsStillGoing={{@alsoAVeryLongArgument}}
+  />
+</div>
+
+// Output (Prettier stable)
+<div>
+  <UserGreeting
+    @aVeryLongArgumentNameThatIsStillGoing={{@alsoAVeryLongArgument}}
+   />
+
+</div>
+
+// Output (Prettier master)
+<div>
+  <UserGreeting
+    @aVeryLongArgumentNameThatIsStillGoing={{@alsoAVeryLongArgument}}
+  />
+</div>
+```
+
 [#5979]: https://github.com/prettier/prettier/pull/5979
 [#6038]: https://github.com/prettier/prettier/pull/6038
 [#6086]: https://github.com/prettier/prettier/pull/6086
@@ -481,6 +510,7 @@ export type Foo = [
 [#6152]: https://github.com/prettier/prettier/pull/6152
 [#6159]: https://github.com/prettier/prettier/pull/6159
 [#6172]: https://github.com/prettier/prettier/pull/6172
+[#6178]: https://github.com/prettier/prettier/pull/6178
 [@belochub]: https://github.com/belochub
 [@brainkim]: https://github.com/brainkim
 [@duailibe]: https://github.com/duailibe
@@ -491,3 +521,4 @@ export type Foo = [
 [@sosukesuzuki]: https://github.com/sosukesuzuki
 [@thorn0]: https://github.com/thorn0
 [@bakkot]: https://github.com/bakkot
+[@GavinJoyce]: https://github.com/GavinJoyce
