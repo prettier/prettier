@@ -458,7 +458,7 @@ export type Foo = [
 ];
 ```
 
-### Handlebars: Avoid adding unwanted whitespace after components ([#6178] by [@GavinJoyce])
+### Handlebars: Avoid adding unwanted whitespace after components ([#6178] by [@gavinjoyce])
 
 Previously, Prettier added a space before `/>` and a line break after, even when at the start of a line. Now, that extra space and line break is no longer present.
 
@@ -487,6 +487,25 @@ Previously, Prettier added a space before `/>` and a line break after, even when
 </div>
 ```
 
+### Handlebars: Don't self close void elements ([#6179] by [@gavinjoyce])
+
+Making Prettier consistent with default Ember app linting rules, void elements are no longer self closing.
+
+<!-- prettier-ignore -->
+```hbs
+// Input
+<img src=".." />
+<br />
+
+// Output (Prettier stable)
+<img src=".." />
+<br />
+
+// Output (Prettier master)
+<img src="..">
+<br>
+```
+
 [#5979]: https://github.com/prettier/prettier/pull/5979
 [#6038]: https://github.com/prettier/prettier/pull/6038
 [#6086]: https://github.com/prettier/prettier/pull/6086
@@ -511,6 +530,7 @@ Previously, Prettier added a space before `/>` and a line break after, even when
 [#6159]: https://github.com/prettier/prettier/pull/6159
 [#6172]: https://github.com/prettier/prettier/pull/6172
 [#6178]: https://github.com/prettier/prettier/pull/6178
+[#6179]: https://github.com/prettier/prettier/pull/6179
 [@belochub]: https://github.com/belochub
 [@brainkim]: https://github.com/brainkim
 [@duailibe]: https://github.com/duailibe
@@ -521,4 +541,4 @@ Previously, Prettier added a space before `/>` and a line break after, even when
 [@sosukesuzuki]: https://github.com/sosukesuzuki
 [@thorn0]: https://github.com/thorn0
 [@bakkot]: https://github.com/bakkot
-[@gavinjoyce]: https://github.com/GavinJoyce
+[@gavinjoyce]: https://github.com/gavinjoyce

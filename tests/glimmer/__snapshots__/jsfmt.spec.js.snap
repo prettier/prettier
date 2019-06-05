@@ -338,7 +338,7 @@ printWidth: 80
 </button>
 <button disabled class="disabled"></button>
 <button disabled="disabled" class="disabled"></button>
-<img alt="" />
+<img alt="">
 <div ...attributes>
   Hello
 </div>
@@ -401,7 +401,7 @@ singleQuote: true
 </button>
 <button disabled class="disabled"></button>
 <button disabled="disabled" class="disabled"></button>
-<img alt="" />
+<img alt="">
 <div ...attributes>
   Hello
 </div>
@@ -714,6 +714,7 @@ printWidth: 80
 
 <div></div>
 <img />
+<img data-this-is-really-long-to-force-a-line-break-to-happen-so-that-we-can-test-it />
 
 =====================================output=====================================
 <div class="attribute" {{modifier}} {{! comment}}>
@@ -741,7 +742,10 @@ printWidth: 80
   {{hello}}
 </div>
 <div></div>
-<img />
+<img>
+<img
+  data-this-is-really-long-to-force-a-line-break-to-happen-so-that-we-can-test-it
+>
 ================================================================================
 `;
 
@@ -788,6 +792,7 @@ singleQuote: true
 
 <div></div>
 <img />
+<img data-this-is-really-long-to-force-a-line-break-to-happen-so-that-we-can-test-it />
 
 =====================================output=====================================
 <div class="attribute" {{modifier}} {{! comment}}>
@@ -815,7 +820,10 @@ singleQuote: true
   {{hello}}
 </div>
 <div></div>
-<img />
+<img>
+<img
+  data-this-is-really-long-to-force-a-line-break-to-happen-so-that-we-can-test-it
+>
 ================================================================================
 `;
 

@@ -49,13 +49,20 @@ function print(path, options, print) {
     case "ElementNode": {
       const tagFirstChar = n.tag[0];
       const isLocal = n.tag.indexOf(".") !== -1;
-      const isGlimmerComponent =
+      const isComponent =
         tagFirstChar.toUpperCase() === tagFirstChar || isLocal;
       const hasChildren = n.children.length > 0;
-      const isVoid =
-        (isGlimmerComponent && !hasChildren) || voidTags.indexOf(n.tag) !== -1;
-      const closeTagForNoBreak = isVoid ? concat([" />", softline]) : ">";
-      const closeTagForBreak = isVoid ? "/>" : ">";
+      const isVoidTag = voidTags.indexOf(n.tag) !== -1;
+      const isVoidComponent = isComponent && !hasChildren;
+      const isVoidTagOrComponent = isVoidTag || isVoidComponent;
+      const selfClosingTagForNoBreak = isComponent ? " />" : ">";
+      const selfClosingTagForBreak = isComponent ? "/>" : ">";
+      const closeTagForNoBreak = isVoidTagOrComponent
+        ? concat([selfClosingTagForNoBreak, softline])
+        : ">";
+      const closeTagForBreak = isVoidTagOrComponent
+        ? selfClosingTagForBreak
+        : ">";
       const getParams = (path, print) =>
         indent(
           concat([
@@ -85,7 +92,7 @@ function print(path, options, print) {
           concat([
             indent(join(softline, [""].concat(path.map(print, "children")))),
             ifBreak(hasChildren ? hardline : "", ""),
-            !isVoid ? concat(["</", n.tag, ">"]) : ""
+            !isVoidTagOrComponent ? concat(["</", n.tag, ">"]) : ""
           ])
         )
       ]);
