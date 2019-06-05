@@ -521,4 +521,4 @@ Previously, Prettier added a space before `/>` and a line break after, even when
 [@sosukesuzuki]: https://github.com/sosukesuzuki
 [@thorn0]: https://github.com/thorn0
 [@bakkot]: https://github.com/bakkot
-[@GavinJoyce]: https://github.com/GavinJoyce
+[@gavinjoyce]: https://github.com/GavinJoyce
