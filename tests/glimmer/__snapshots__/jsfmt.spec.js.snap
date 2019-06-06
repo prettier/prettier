@@ -119,7 +119,11 @@ printWidth: 80
 }}
   Hello
 {{/block}}
-{{#block}}{{#block}}hello{{/block}}{{/block}}
+{{#block}}
+  {{#block}}
+    hello
+  {{/block}}
+{{/block}}
 {{#block}}
   {{#block param}}
     hello
@@ -130,13 +134,14 @@ printWidth: 80
     hello
   {{/block}}
 {{/block}}
-{{#block}}hello{{/block}}
+{{#block}}
+  hello
+{{/block}}
 <MyComponent as |firstName|>
   {{firstName}}
 </MyComponent>
 <MyComponent as |firstName lastName|>
-  {{firstName}}
-  {{lastName}}
+  {{firstName}} {{lastName}}
 </MyComponent>
 ================================================================================
 `;
@@ -261,7 +266,11 @@ singleQuote: true
 }}
   Hello
 {{/block}}
-{{#block}}{{#block}}hello{{/block}}{{/block}}
+{{#block}}
+  {{#block}}
+    hello
+  {{/block}}
+{{/block}}
 {{#block}}
   {{#block param}}
     hello
@@ -272,13 +281,14 @@ singleQuote: true
     hello
   {{/block}}
 {{/block}}
-{{#block}}hello{{/block}}
+{{#block}}
+  hello
+{{/block}}
 <MyComponent as |firstName|>
   {{firstName}}
 </MyComponent>
 <MyComponent as |firstName lastName|>
-  {{firstName}}
-  {{lastName}}
+  {{firstName}} {{lastName}}
 </MyComponent>
 ================================================================================
 `;
@@ -525,6 +535,43 @@ singleQuote: true
 ================================================================================
 `;
 
+exports[`curly.hbs 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<p>Your username is @{{name}}</p>
+<p>Hi {{firstName}} {{lastName}}</p>
+=====================================output=====================================
+<p>
+  Your username is @{{name}}
+</p>
+<p>
+  Hi {{firstName}} {{lastName}}
+</p>
+================================================================================
+`;
+
+exports[`curly.hbs 2`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
+<p>Your username is @{{name}}</p>
+<p>Hi {{firstName}} {{lastName}}</p>
+=====================================output=====================================
+<p>
+  Your username is @{{name}}
+</p>
+<p>
+  Hi {{firstName}} {{lastName}}
+</p>
+================================================================================
+`;
+
 exports[`element-modifier-statement.hbs 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
@@ -735,7 +782,9 @@ printWidth: 80
   A long enough string to trigger a line break that would prevent wrapping more and more.
 </div>
 <div>
-  {{#block}}{{hello}}{{/block}}
+  {{#block}}
+    {{hello}}
+  {{/block}}
 </div>
 <div>
   {{hello}}
@@ -809,7 +858,9 @@ singleQuote: true
   A long enough string to trigger a line break that would prevent wrapping more and more.
 </div>
 <div>
-  {{#block}}{{hello}}{{/block}}
+  {{#block}}
+    {{hello}}
+  {{/block}}
 </div>
 <div>
   {{hello}}

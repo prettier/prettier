@@ -74,5 +74,37 @@ const comp = (
 );
 ```
 
+### Handlebars: Avoid adding unwanted line breaks between text and mustaches ([#6186] by [@gavinjoyce])
+
+Previously, Prettier added line breaks between text and mustaches which resulted in unwanted whitespace in rendered output.
+
+<!-- prettier-ignore -->
+```hbs
+// Input
+<p>Your username is @{{name}}</p>
+<p>Hi {{firstName}} {{lastName}}</p>
+
+// Output (Prettier stable)
+<p>
+  Your username is @
+  {{name}}
+</p>
+<p>
+  Hi
+  {{firstName}}
+  {{lastName}}
+</p>
+
+// Output (Prettier master)
+<p>
+  Your username is @{{name}}
+</p>
+<p>
+  Hi {{firstName}} {{lastName}}
+</p>
+```
+
 [#6209]: https://github.com/prettier/prettier/pull/6209
+[#6186]: https://github.com/prettier/prettier/pull/6186
 [@duailibe]: https://github.com/duailibe
+[@gavinjoyce]: https://github.com/gavinjoyce
