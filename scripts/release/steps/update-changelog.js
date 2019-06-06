@@ -59,9 +59,7 @@ module.exports = async function({ version, previousVersion }) {
     }
     console.warn(
       dedent(chalk`
-        {yellow warning} The file {bold ${
-          blogPost.file
-        }} doesn't exist, but it will be referenced in {bold CHANGELOG.md}. Make sure to create it later.
+        {yellow warning} The file {bold ${blogPost.file}} doesn't exist, but it will be referenced in {bold CHANGELOG.md}. Make sure to create it later.
 
         Press ENTER to continue.
       `)
