@@ -109,7 +109,7 @@ const importFreshReplacement = {
   // Dynamic requires are not currently supported by rollup-plugin-commonjs.
   "require(filePath)": "eval('require')(filePath)",
   "require.cache": "eval('require').cache"
-}
+};
 
 /** @type {Bundle[]} */
 const coreBundles = [
@@ -118,11 +118,13 @@ const coreBundles = [
     type: "core",
     target: "node",
     // external: [path.resolve("src/common/third-party.js")],
-    replace: {
-      // from @iarna/toml/parse-string
-      "eval(\"require('util').inspect\")": "require('util').inspect",
-      ...importFreshReplacement,
-    }
+    replace: Object.assign(
+      {
+        // from @iarna/toml/parse-string
+        "eval(\"require('util').inspect\")": "require('util').inspect"
+      },
+      importFreshReplacement
+    )
   },
   {
     input: "src/doc/index.js",

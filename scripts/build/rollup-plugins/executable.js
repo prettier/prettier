@@ -36,10 +36,10 @@ module.exports = function() {
 
     writeBundle(bundle) {
       if (banner) {
-        const files = Object.keys(bundle)
+        const files = Object.keys(bundle);
         files.forEach(file => {
           fs.chmodSync(bundle[file].facadeModuleId, 0o755 & ~process.umask());
-        })
+        });
       }
     }
   };
