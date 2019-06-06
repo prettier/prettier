@@ -10,7 +10,8 @@ const commonjs = require("rollup-plugin-commonjs");
 const nodeGlobals = require("rollup-plugin-node-globals");
 const json = require("rollup-plugin-json");
 const replace = require("rollup-plugin-replace");
-const {uglify} = require("rollup-plugin-uglify");
+// const { uglify } = require("rollup-plugin-uglify");
+const { terser } = require("rollup-plugin-terser");
 const babel = require("rollup-plugin-babel");
 const nativeShims = require("./rollup-plugins/native-shims");
 const executable = require("./rollup-plugins/executable");
@@ -58,16 +59,8 @@ function getBabelConfig(bundle) {
 }
 
 function getRollupConfig(bundle) {
-  const relative = fp => `./${path.basename(fp).replace(/\.js$/, "")}`;
-  const paths = (bundle.external || []).reduce(
-    (paths, filepath) =>
-      Object.assign(paths, { [filepath]: relative(filepath) }),
-    { "graceful-fs": "fs" }
-  );
-
   const config = {
-    entry: bundle.input,
-    paths,
+    input: bundle.input,
 
     onwarn(warning) {
       if (
@@ -127,7 +120,7 @@ function getRollupConfig(bundle) {
     ),
     bundle.target === "universal" && nodeGlobals(),
     babelConfig && babel(babelConfig),
-    bundle.type === "plugin" && uglify()
+    bundle.type === "plugin" && terser()
   ].filter(Boolean);
 
   if (bundle.target === "node") {
@@ -138,18 +131,28 @@ function getRollupConfig(bundle) {
 }
 
 function getRollupOutputOptions(bundle) {
-  const options = {
-    dest: `dist/${bundle.output}`,
-    useStrict: typeof bundle.strict === "undefined" ? true : bundle.strict
-  };
+  const relative = fp => `./${path.basename(fp).replace(/\.js$/, "")}`;
+
+  const paths = (bundle.external || []).reduce(
+    (paths, filepath) =>
+      Object.assign(paths, { [filepath]: relative(filepath) }),
+    { "graceful-fs": "fs" }
+  );
+
+  const output = {
+    file: `dist/${bundle.output}`,
+    strict: typeof bundle.strict === "undefined" ? true : bundle.strict,
+    paths,
+  }
+
   if (bundle.target === "node") {
-    options.format = "cjs";
+    output.format = "cjs";
   } else if (bundle.target === "universal") {
-    options.format = "umd";
-    options.moduleName =
+    output.format = "umd";
+    output.name =
       bundle.type === "plugin" ? `prettierPlugins.${bundle.name}` : bundle.name;
   }
-  return options;
+  return output;
 }
 
 function getWebpackConfig(bundle) {
@@ -198,9 +201,13 @@ function runWebpack(config) {
 }
 
 module.exports = async function createBundle(bundle, cache) {
+  const inputOptions = getRollupConfig(bundle)
+  const outputOptions = getRollupOutputOptions(bundle)
+
   const useCache = await cache.checkBundle(
     bundle.output,
-    getRollupConfig(bundle)
+    inputOptions,
+    outputOptions,
   );
   if (useCache) {
     try {
@@ -217,8 +224,8 @@ module.exports = async function createBundle(bundle, cache) {
   if (bundle.bundler === "webpack") {
     await runWebpack(getWebpackConfig(bundle));
   } else {
-    const result = await rollup(getRollupConfig(bundle));
-    await result.write(getRollupOutputOptions(bundle));
+    const result = await rollup(inputOptions);
+    await result.write(outputOptions);
   }
 
   return { bundled: true };
