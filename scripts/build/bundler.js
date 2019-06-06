@@ -101,7 +101,10 @@ function getRollupConfig(bundle) {
   const babelConfig = getBabelConfig(bundle);
 
   config.plugins = [
-    replace(replaceStrings),
+    replace({
+      values: replaceStrings,
+      delimiters: ["", ""]
+    }),
     executable(),
     evaluate(),
     json(),
@@ -142,8 +145,8 @@ function getRollupOutputOptions(bundle) {
   const output = {
     file: `dist/${bundle.output}`,
     strict: typeof bundle.strict === "undefined" ? true : bundle.strict,
-    paths,
-  }
+    paths
+  };
 
   if (bundle.target === "node") {
     output.format = "cjs";
@@ -201,13 +204,13 @@ function runWebpack(config) {
 }
 
 module.exports = async function createBundle(bundle, cache) {
-  const inputOptions = getRollupConfig(bundle)
-  const outputOptions = getRollupOutputOptions(bundle)
+  const inputOptions = getRollupConfig(bundle);
+  const outputOptions = getRollupOutputOptions(bundle);
 
   const useCache = await cache.checkBundle(
     bundle.output,
     inputOptions,
-    outputOptions,
+    outputOptions
   );
   if (useCache) {
     try {
