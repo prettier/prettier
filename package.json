@@ -130,5 +130,33 @@
     "build": "node --max-old-space-size=2048 ./scripts/build/build.js",
     "build-docs": "node ./scripts/build-docs.js",
     "check-deps": "node ./scripts/check-deps.js"
-  }
+  },
+  "keywords": [
+    "prettier",
+    "prettier.io",
+    "opinionated",
+    "code",
+    "formatter",
+    "style",
+    "code review",
+    "JSX",
+    "Flow",
+    "JavaScript",
+    "ES2017",
+    "JSX",
+    "Angular",
+    "Vue",
+    "Flow",
+    "TypeScript",
+    "CSS",
+    "Less",
+    "SCSS",
+    "HTML",
+    "JSON",
+    "GraphQL",
+    "Markdown"
+    "GFM",
+    "MDX",
+    "YAML"
+  ]
 }
