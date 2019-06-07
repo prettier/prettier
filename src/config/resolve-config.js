@@ -1,6 +1,6 @@
 "use strict";
 
-const thirdParty = require("../common/third-party");
+const thirdParty = eval("require")("../common/third-party");
 const minimatch = require("minimatch");
 const resolve = require("resolve");
 const path = require("path");

@@ -109,9 +109,6 @@ const coreBundles = [
     input: "index.js",
     type: "core",
     target: "node",
-    internalReplace: {
-      [path.resolve("src/common/third-party.js")]: "./third-party"
-    },
     replace: {
       // from @iarna/toml/parse-string
       "eval(\"require('util').inspect\")": "require('util').inspect"
@@ -134,10 +131,7 @@ const coreBundles = [
     input: "bin/prettier.js",
     type: "core",
     output: "bin-prettier.js",
-    target: "node",
-    internalReplace: {
-      [path.resolve("src/common/third-party.js")]: "./third-party"
-    }
+    target: "node"
   },
   {
     input: "src/common/third-party.js",
