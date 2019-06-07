@@ -136,28 +136,20 @@ function getRollupConfig(bundle) {
 }
 
 function getRollupOutputOptions(bundle) {
-  const relative = fp => `./${path.basename(fp).replace(/\.js$/, "")}`;
-
-  const paths = (bundle.external || []).reduce(
-    (paths, filepath) =>
-      Object.assign(paths, { [filepath]: relative(filepath) }),
-    { "graceful-fs": "fs" }
-  );
-
-  const output = {
+  const options = {
     file: `dist/${bundle.output}`,
     strict: typeof bundle.strict === "undefined" ? true : bundle.strict,
-    paths
+    paths: [{ "graceful-fs": "fs" }]
   };
 
   if (bundle.target === "node") {
-    output.format = "cjs";
+    options.format = "cjs";
   } else if (bundle.target === "universal") {
-    output.format = "umd";
-    output.name =
+    options.format = "umd";
+    options.name =
       bundle.type === "plugin" ? `prettierPlugins.${bundle.name}` : bundle.name;
   }
-  return output;
+  return options;
 }
 
 function getWebpackConfig(bundle) {
