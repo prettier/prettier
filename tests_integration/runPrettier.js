@@ -9,9 +9,11 @@ const prettierRootDir = isProduction ? process.env.PRETTIER_DIR : "../";
 const prettierPkg = require(path.join(prettierRootDir, "package.json"));
 const prettierCli = path.join(prettierRootDir, prettierPkg.bin.prettier);
 
-const thirdParty = isProduction
-  ? path.join(prettierRootDir, "./third-party")
-  : path.join(prettierRootDir, "./src/common/third-party");
+function getThirdParty() {
+  return isProduction
+    ? require(path.join(prettierRootDir, "./third-party")).default
+    : require(path.join(prettierRootDir, "./src/common/third-party"));
+}
 
 function runPrettier(dir, args, options) {
   args = args || [];
@@ -82,16 +84,12 @@ function runPrettier(dir, args, options) {
   // We cannot use `jest.setMock("get-stream", impl)` here, because in the
   // production build everything is bundled into one file so there is no
   // "get-stream" module to mock.
+  jest.spyOn(getThirdParty(), "getStream").mockImplementation(() => ({
+    then: handler => handler(options.input || "")
+  }));
+  jest.spyOn(getThirdParty(), "isCI").mockImplementation(() => process.env.CI);
   jest
-    .spyOn(require(thirdParty).default, "getStream")
-    .mockImplementation(() => ({
-      then: handler => handler(options.input || "")
-    }));
-  jest
-    .spyOn(require(thirdParty).default, "isCI")
-    .mockImplementation(() => process.env.CI);
-  jest
-    .spyOn(require(thirdParty).default, "cosmiconfig")
+    .spyOn(getThirdParty(), "cosmiconfig")
     .mockImplementation((moduleName, options) =>
       require("cosmiconfig")(
         moduleName,
@@ -99,7 +97,7 @@ function runPrettier(dir, args, options) {
       )
     );
   jest
-    .spyOn(require(thirdParty).default, "findParentDir")
+    .spyOn(getThirdParty(), "findParentDir")
     .mockImplementation(() => process.cwd());
 
   try {
