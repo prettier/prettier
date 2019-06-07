@@ -3008,7 +3008,7 @@ function printPathNoParens(path, options, print, args) {
         parent.params &&
         parent.params.length === 1 &&
         options.filepath &&
-        options.filepath.match(/\.tsx/) &&
+        /\.tsx$/i.test(options.filepath) &&
         !n.constraint &&
         grandParent.type === "ArrowFunctionExpression"
       ) {
