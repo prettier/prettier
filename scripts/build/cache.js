@@ -60,16 +60,18 @@ Cache.prototype.load = async function() {
 // any (or the list itself) have changed.
 // This takes the same rollup config used for bundling to include files that are
 // resolved by specific plugins.
-Cache.prototype.checkBundle = async function(output, rollupConfig) {
-  const result = await rollup(getRollupConfig(rollupConfig));
-  const modules = result.modules
-    .filter(mod => !/\0/.test(mod.id))
-    .map(mod => [path.relative(ROOT, mod.id), mod.originalCode]);
-
-  const files = new Set(this.files[output]);
-  const newFiles = (this.updated.files[output] = []);
+Cache.prototype.checkBundle = async function(id, inputOptions, outputOptions) {
+  const files = new Set(this.files[id]);
+  const newFiles = (this.updated.files[id] = []);
 
   let dirty = false;
+
+  const bundle = await rollup(getRollupConfig(inputOptions));
+  const { output } = await bundle.generate(outputOptions);
+
+  const modules = output
+    .filter(mod => !/\0/.test(mod.facadeModuleId))
+    .map(mod => [path.relative(ROOT, mod.facadeModuleId), mod.code]);
 
   for (const [id, code] of modules) {
     newFiles.push(id);
