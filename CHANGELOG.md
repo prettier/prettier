@@ -1,3 +1,14 @@
+# 1.18.2
+
+[diff](https://github.com/prettier/prettier/compare/1.18.2...1.18.1)
+
+- TypeScript: only add trailing commas in tuples for `--trailing-comma=all` ([#6199] by [@duailibe])
+
+  In Prettier 1.18 we added trailing commas in tuples when `--trailing-comma=all`, but it was also adding for `--trailing-comma=es5`.
+
+  [#6199]: https://github.com/prettier/prettier/pull/6199
+  [@duailibe]: https://github.com/duailibe
+
 # 1.18.1
 
 [diff](https://github.com/prettier/prettier/compare/1.18.1...1.18.0)
