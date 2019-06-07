@@ -2487,10 +2487,7 @@ function printPathNoParens(path, options, print, args) {
               printArrayItems(path, options, typesField, print)
             ])
           ),
-          // TypeScript doesn't support trailing commas in tuple types
-          n.type === "TSTupleType"
-            ? ""
-            : ifBreak(shouldPrintComma(options) ? "," : ""),
+          ifBreak(shouldPrintComma(options, "all") ? "," : ""),
           comments.printDanglingComments(path, options, /* sameIndent */ true),
           softline,
           "]"
@@ -3006,12 +3003,14 @@ function printPathNoParens(path, options, print, args) {
       // Keep comma if the file extension is .tsx and
       // has one type parameter that isn't extend with any types.
       // Because, otherwise formatted result will be invalid as tsx.
+      const grandParent = path.getNode(2);
       if (
         parent.params &&
         parent.params.length === 1 &&
         options.filepath &&
-        options.filepath.match(/\.tsx/) &&
-        !n.constraint
+        /\.tsx$/i.test(options.filepath) &&
+        !n.constraint &&
+        grandParent.type === "ArrowFunctionExpression"
       ) {
         parts.push(",");
       }
@@ -3213,7 +3212,12 @@ function printPathNoParens(path, options, print, args) {
     }
     case "TSTypeOperator":
       return concat([n.operator, " ", path.call(print, "typeAnnotation")]);
-    case "TSMappedType":
+    case "TSMappedType": {
+      const shouldBreak = hasNewlineInRange(
+        options.originalText,
+        options.locStart(n),
+        options.locEnd(n)
+      );
       return group(
         concat([
           "{",
@@ -3232,14 +3236,17 @@ function printPathNoParens(path, options, print, args) {
                 ? getTypeScriptMappedTypeModifier(n.optional, "?")
                 : "",
               ": ",
-              path.call(print, "typeAnnotation")
+              path.call(print, "typeAnnotation"),
+              shouldBreak && options.semi ? ";" : ""
             ])
           ),
           comments.printDanglingComments(path, options, /* sameIndent */ true),
           options.bracketSpacing ? line : softline,
           "}"
-        ])
+        ]),
+        { shouldBreak }
       );
+    }
     case "TSMethodSignature":
       parts.push(
         n.accessibility ? concat([n.accessibility, " "]) : "",
@@ -3615,7 +3622,7 @@ function printPropertyKey(path, options, print) {
       prop =>
         !prop.computed &&
         prop.key &&
-        prop.key.type !== "Identifier" &&
+        isStringLiteral(prop.key) &&
         !isStringPropSafeToCoerceToIdentifier(prop, options)
     );
     needsQuoteProps.set(parent, objectHasStringProp);
@@ -6473,7 +6480,7 @@ function isTheOnlyJSXElementInMarkdown(options, path) {
   return parent.type === "Program" && parent.body.length == 1;
 }
 
-function willPrintOwnComments(path) {
+function willPrintOwnComments(path /*, options */) {
   const node = path.getValue();
   const parent = path.getParentNode();
 

@@ -46,9 +46,7 @@ function resolveParser(opts, parsers) {
     /* istanbul ignore next */
     if (process.env.PRETTIER_TARGET === "universal") {
       throw new ConfigError(
-        `Couldn't resolve parser "${
-          opts.parser
-        }". Parsers must be explicitly added to the standalone bundle.`
+        `Couldn't resolve parser "${opts.parser}". Parsers must be explicitly added to the standalone bundle.`
       );
     } else {
       try {

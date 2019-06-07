@@ -129,6 +129,18 @@ function needsParens(path, options) {
 
   // Identifiers never need parentheses.
   if (node.type === "Identifier") {
+    // ...unless those identifiers are embed placeholders. They might be substituted by complex
+    // expressions, so the parens around them should not be dropped. Example (JS-in-HTML-in-JS):
+    //     let tpl = html`<script> f((${expr}) / 2); </script>`;
+    // If the inner JS formatter removes the parens, the expression might change its meaning:
+    //     f((a + b) / 2)  vs  f(a + b / 2)
+    if (
+      node.extra &&
+      node.extra.parenthesized &&
+      /^PRETTIER_HTML_PLACEHOLDER_\d+_\d+_IN_JS$/.test(node.name)
+    ) {
+      return true;
+    }
     return false;
   }
 
@@ -711,7 +723,12 @@ function needsParens(path, options) {
         (parent.type === "BindExpression" &&
           name === "callee" &&
           parent.callee === node) ||
-        parent.type === "MemberExpression"
+        (parent.type === "MemberExpression" &&
+          name === "object" &&
+          parent.object === node) ||
+        (parent.type === "NewExpression" &&
+          name === "callee" &&
+          parent.callee === node)
       ) {
         return true;
       }
