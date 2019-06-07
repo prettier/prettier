@@ -80,4 +80,6 @@ function function1<T>() {
 When using [`overrides`](https://prettier.io/docs/en/configuration.html#configuration-overrides) in the config file, Prettier was not matching dotfiles (files that start with `.`). This was fixed in 1.18.1
 
 [#6190]: https://github.com/prettier/prettier/pull/6190
+[#6194]: https://github.com/prettier/prettier/pull/6194
+[@duailibe]: https://github.com/duailibe
 [@sosukesuzuki]: https://github.com/sosukesuzuki
