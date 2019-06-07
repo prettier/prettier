@@ -2487,7 +2487,7 @@ function printPathNoParens(path, options, print, args) {
               printArrayItems(path, options, typesField, print)
             ])
           ),
-          ifBreak(shouldPrintComma(options) ? "," : ""),
+          ifBreak(shouldPrintComma(options, "all") ? "," : ""),
           comments.printDanglingComments(path, options, /* sameIndent */ true),
           softline,
           "]"
