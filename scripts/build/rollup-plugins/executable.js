@@ -8,6 +8,8 @@ module.exports = function() {
   let entry;
 
   return {
+    name: "executable",
+
     options(options) {
       entry = path.resolve(options.input);
       return options;
