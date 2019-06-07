@@ -455,11 +455,11 @@ function isStyledComponents(path) {
         isStyledIdentifier(tag.callee) ||
         (tag.callee.type === "MemberExpression" &&
           ((tag.callee.object.type === "MemberExpression" &&
-            // styled.foo.attr({})``
+            // styled.foo.attrs({})``
             (isStyledIdentifier(tag.callee.object.object) ||
-              // Component.extend.attr({)``
+              // Component.extend.attrs({})``
               isStyledExtend(tag.callee.object))) ||
-            // styled(Component).attr({})``
+            // styled(Component).attrs({})``
             (tag.callee.object.type === "CallExpression" &&
               isStyledIdentifier(tag.callee.object.callee))))
       );
