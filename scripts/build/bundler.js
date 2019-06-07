@@ -4,6 +4,7 @@ const execa = require("execa");
 const path = require("path");
 const { rollup } = require("rollup");
 const webpack = require("webpack");
+const TerserWebpackPlugin = require("terser-webpack-plugin-legacy");
 const resolve = require("rollup-plugin-node-resolve");
 const alias = require("rollup-plugin-alias");
 const commonjs = require("rollup-plugin-commonjs");
@@ -165,6 +166,7 @@ function getWebpackConfig(bundle) {
   }
 
   const root = path.resolve(__dirname, "..", "..");
+
   return {
     entry: path.resolve(root, bundle.input),
     module: {
@@ -187,8 +189,9 @@ function getWebpackConfig(bundle) {
     plugins: [
       new webpack.DefinePlugin({
         "process.env.NODE_ENV": JSON.stringify("production")
-      })
-    ]
+      }),
+      bundle.type === "plugin" && new TerserWebpackPlugin()
+    ].filter(Boolean)
   };
 }
 

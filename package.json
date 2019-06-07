@@ -113,6 +113,7 @@
     "snapshot-diff": "0.4.0",
     "strip-ansi": "4.0.0",
     "tempy": "0.2.1",
+    "terser-webpack-plugin-legacy": "1.2.3",
     "webpack": "3.12.0"
   },
   "scripts": {
