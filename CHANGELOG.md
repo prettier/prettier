@@ -1,3 +1,47 @@
+# 1.18.1
+
+[diff](https://github.com/prettier/prettier/compare/1.18.1...1.18.0)
+
+- TypeScript: Add trailing comma in tsx, only for arrow function ([#6190] by [@sosukesuzuki])
+
+  Prettier inserts a trailing comma to single type parameter for arrow functions in tsx, since v 1.18. But, this feature inserts a trailing comma to type parameter for besides arrow functions too (e.g, function , interface). This change fix it.
+
+  <!-- prettier-ignore -->
+  ```tsx
+  // Input
+  interface Interface1<T> {
+    one: "one";
+  }
+  function function1<T>() {
+    return "one";
+  }
+
+  // Output (Prettier stable)
+  interface Interface1<T,> {
+    one: "one";
+  }
+  function function1<T,>() {
+    return "one";
+  }
+
+  // Output (Prettier master)
+  interface Interface1<T> {
+    one: "one";
+  }
+  function function1<T>() {
+    return "one";
+  }
+  ```
+
+- Config: Match dotfiles in config overrides ([#6194] by [@duailibe])
+
+  When using [`overrides`](https://prettier.io/docs/en/configuration.html#configuration-overrides) in the config file, Prettier was not matching dotfiles (files that start with `.`). This was fixed in 1.18.1
+
+[#6190]: https://github.com/prettier/prettier/pull/6190
+[#6194]: https://github.com/prettier/prettier/pull/6194
+[@duailibe]: https://github.com/duailibe
+[@sosukesuzuki]: https://github.com/sosukesuzuki
+
 # 1.18.0
 
 [diff](https://github.com/prettier/prettier/compare/1.17.1...1.18.0)
