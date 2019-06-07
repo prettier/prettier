@@ -43,3 +43,37 @@ const link = <a href="example.com">http://example.com</a>;
 ```
 
 -->
+
+#### TypeScript: Add trailing comma in tsx, only for arrow function ([#6190] by [@sosukesuzuki])
+
+Prettier inserts a trailing comma to single type parameter for arrow functions in tsx, since v 1.18. But, this feature inserts a trailing comma to type parameter for besides arrow functions too (e.g, function , interface). This change fix it.
+
+<!-- prettier-ignore -->
+```tsx
+// Input
+interface Interface1<T> {
+  one: "one";
+}
+function function1<T>() {
+  return "one";
+}
+
+// Output (Prettier stable)
+interface Interface1<T,> {
+  one: "one";
+}
+function function1<T,>() {
+  return "one";
+}
+
+// Output (Prettier master)
+interface Interface1<T> {
+  one: "one";
+}
+function function1<T>() {
+  return "one";
+}
+```
+
+[#6190]: https://github.com/prettier/prettier/pull/6190
+[@sosukesuzuki]: https://github.com/sosukesuzuki
