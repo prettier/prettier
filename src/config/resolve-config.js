@@ -158,7 +158,7 @@ function mergeOverrides(configResult, filePath) {
 function pathMatchesGlobs(filePath, patterns, excludedPatterns) {
   const patternList = [].concat(patterns);
   const excludedPatternList = [].concat(excludedPatterns || []);
-  const opts = { matchBase: true };
+  const opts = { matchBase: true, dot: true };
 
   return (
     patternList.some(pattern => minimatch(filePath, pattern, opts)) &&

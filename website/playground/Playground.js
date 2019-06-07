@@ -220,7 +220,18 @@ class Playground extends React.Component {
                       {editorState.showSidebar ? "Hide" : "Show"} options
                     </Button>
                     <Button onClick={this.clearContent}>Clear</Button>
-                    <ClipboardButton copy={JSON.stringify(options, null, 2)}>
+                    <ClipboardButton
+                      copy={JSON.stringify(
+                        // Remove `parser` since people usually paste this
+                        // into their .prettierrc and specifying a toplevel
+                        // parser there is an anti-pattern. Note:
+                        // `JSON.stringify` omits keys whose values are
+                        // `undefined`.
+                        Object.assign({}, options, { parser: undefined }),
+                        null,
+                        2
+                      )}
+                    >
                       Copy config JSON
                     </ClipboardButton>
                   </div>

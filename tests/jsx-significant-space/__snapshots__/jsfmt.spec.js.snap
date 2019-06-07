@@ -175,7 +175,7 @@ var x = (
 nest_plz = (
   <div>
     <div>
-      <div />
+      <div></div>
     </div>
   </div>
 );

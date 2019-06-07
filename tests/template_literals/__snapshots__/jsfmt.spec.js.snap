@@ -88,6 +88,11 @@ const description =
 
 const foo = \`such a long template string \${foo.bar.baz} that prettier will want to wrap it\`;
 
+const shouldWrapForNow = \`such a long template string \${foo().bar.baz} that prettier will want to wrap it\`;
+
+const shouldNotWrap = \`simple expressions should not break \${this} \${variable} \${a.b.c} \${this.b.c} \${a[b].c} \${a.b[c]} \${a.b['c']} \${a?.b?.c}\`;
+
+console.log(chalk.white(\`Covered Lines below threshold: \${coverageSettings.lines}%. Actual: \${coverageSummary.total.lines.pct}%\`))
 
 x = \`mdl-textfield mdl-js-textfield \${className} \${content.length > 0
   ? 'is-dirty'
@@ -125,21 +130,25 @@ const long = \`long \${
 } long longlong \${a.b.c.d.e} long longlong \${a.b.c.d.e} long longlong \${
   a.b.c.d.e
 } long long\`;
-const long = \`long \${
-  a.b.c.d.e
-} long longlong \${loooooooooooooooooong} long longlong \${loooooooooooooooooong} long longlong \${loooooooooooooooooong} long long\`;
+const long = \`long \${a.b.c.d.e} long longlong \${loooooooooooooooooong} long longlong \${loooooooooooooooooong} long longlong \${loooooooooooooooooong} long long\`;
 
-const long = \`long long long long long long long long long long long \${
-  a.b.c.d.e
-} long long long long long long long long long long long long long\`;
+const long = \`long long long long long long long long long long long \${a.b.c.d.e} long long long long long long long long long long long long long\`;
 
-const description = \`The value of the \${cssName} css of the \${
-  this._name
-} element\`;
+const description = \`The value of the \${cssName} css of the \${this._name} element\`;
 
-const foo = \`such a long template string \${
-  foo.bar.baz
+const foo = \`such a long template string \${foo.bar.baz} that prettier will want to wrap it\`;
+
+const shouldWrapForNow = \`such a long template string \${
+  foo().bar.baz
 } that prettier will want to wrap it\`;
+
+const shouldNotWrap = \`simple expressions should not break \${this} \${variable} \${a.b.c} \${this.b.c} \${a[b].c} \${a.b[c]} \${a.b["c"]} \${a?.b?.c}\`;
+
+console.log(
+  chalk.white(
+    \`Covered Lines below threshold: \${coverageSettings.lines}%. Actual: \${coverageSummary.total.lines.pct}%\`
+  )
+);
 
 x = \`mdl-textfield mdl-js-textfield \${className} \${
   content.length > 0 ? "is-dirty" : ""
@@ -160,9 +169,7 @@ function testing() {
 }
 
 console.log(
-  \`Trying update appcast for \${app.name} (\${app.cask.appcast}) -> (\${
-    app.cask.appcastGenerated
-  })\`
+  \`Trying update appcast for \${app.name} (\${app.cask.appcast}) -> (\${app.cask.appcastGenerated})\`
 );
 
 console.log(
@@ -170,9 +177,7 @@ console.log(
 );
 
 console.log(
-  \`\\nApparently jetbrains changed the release artifact for \${app.name}@\${
-    app.jetbrains.version
-  }.\\n\`
+  \`\\nApparently jetbrains changed the release artifact for \${app.name}@\${app.jetbrains.version}.\\n\`
 );
 
 descirbe("something", () => {
@@ -318,6 +323,63 @@ color: red; display: none
             Shouldn't be formatted.\`}</style>
 </div>;
 
+const header = css\`
+.top-bar {background:black;
+margin: 0;
+    position: fixed;
+	top: 0;left:0;
+	width: 100%;
+    text-align: center     ;
+	padding: 15px  0  0  1em;
+		z-index: 9999;
+}
+
+.top-bar .logo {
+  height: 30px;
+  margin: auto; 
+    position: absolute;
+	left: 0;right: 0;
+}
+\`;
+
+const headerResolve = css.resolve\`
+.top-bar {background:black;
+margin: 0;
+    position: fixed;
+	top: 0;left:0;
+	width: 100%;
+    text-align: center     ;
+	padding: 15px  0  0  1em;
+		z-index: 9999;
+}
+
+.top-bar .logo {
+  height: 30px;
+  margin: auto; 
+    position: absolute;
+	left: 0;right: 0;
+}
+\`;
+
+const headerGlobal = css.global\`
+.top-bar {background:black;
+margin: 0;
+    position: fixed;
+	top: 0;left:0;
+	width: 100%;
+    text-align: center     ;
+	padding: 15px  0  0  1em;
+		z-index: 9999;
+}
+
+.top-bar .logo {
+  height: 30px;
+  margin: auto; 
+    position: absolute;
+	left: 0;right: 0;
+}
+\`;
+
 =====================================output=====================================
 <style jsx>{\`
   /* a comment */
@@ -350,6 +412,72 @@ color: red; display: none
       Shouldn't fail.
             Shouldn't be formatted.\`}</style>
 </div>;
+
+const header = css\`
+  .top-bar {
+    background: black;
+    margin: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    padding: 15px 0 0 1em;
+    z-index: 9999;
+  }
+
+  .top-bar .logo {
+    height: 30px;
+    margin: auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+  }
+\`;
+
+const headerResolve = css.resolve\`
+  .top-bar {
+    background: black;
+    margin: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    padding: 15px 0 0 1em;
+    z-index: 9999;
+  }
+
+  .top-bar .logo {
+    height: 30px;
+    margin: auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+  }
+\`;
+
+const headerGlobal = css.global\`
+  .top-bar {
+    background: black;
+    margin: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    padding: 15px 0 0 1em;
+    z-index: 9999;
+  }
+
+  .top-bar .logo {
+    height: 30px;
+    margin: auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+  }
+\`;
 
 ================================================================================
 `;

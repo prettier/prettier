@@ -80,9 +80,7 @@ function Versions(props) {
                       </td>
                       <td>
                         <a
-                          href={`${
-                            siteConfig.baseUrl
-                          }docs/en/${pastDocsVersion}/index.html`}
+                          href={`${siteConfig.baseUrl}docs/en/${pastDocsVersion}/index.html`}
                         >
                           {pastDocsVersion}
                         </a>

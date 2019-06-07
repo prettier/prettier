@@ -109,7 +109,11 @@ const coreBundles = [
     input: "index.js",
     type: "core",
     target: "node",
-    external: [path.resolve("src/common/third-party.js")]
+    external: [path.resolve("src/common/third-party.js")],
+    replace: {
+      // from @iarna/toml/parse-string
+      "eval(\"require('util').inspect\")": "require('util').inspect"
+    }
   },
   {
     input: "src/doc/index.js",

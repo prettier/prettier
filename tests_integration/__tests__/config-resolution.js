@@ -81,12 +81,12 @@ describe("CLI overrides take precedence", () => {
 
 test("API resolveConfig with no args", () => {
   return prettier.resolveConfig().then(result => {
-    expect(result).toBeNull();
+    expect(result).toEqual({});
   });
 });
 
 test("API resolveConfig.sync with no args", () => {
-  expect(prettier.resolveConfig.sync()).toBeNull();
+  expect(prettier.resolveConfig.sync()).toEqual({});
 });
 
 test("API resolveConfig with file arg", () => {
@@ -230,6 +230,15 @@ test("API resolveConfig.sync with nested file arg and .editorconfig and indent_s
 
 test("API clearConfigCache", () => {
   expect(() => prettier.clearConfigCache()).not.toThrowError();
+});
+
+test("API resolveConfig overrides work with dotfiles", () => {
+  const folder = path.join(__dirname, "../cli/config/dot-overrides");
+  return expect(
+    prettier.resolveConfig(path.join(folder, ".foo.json"))
+  ).resolves.toMatchObject({
+    tabWidth: 4
+  });
 });
 
 test("API resolveConfig.sync overrides work with absolute paths", () => {
