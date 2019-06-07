@@ -1,13 +1,6 @@
 "use strict";
 
-const cosmiconfig = require("cosmiconfig");
-const findParentDir = require("find-parent-dir").sync;
-const getStream = require("get-stream");
-const isCIValue = require("is-ci");
-
-module.exports = {
-  cosmiconfig,
-  findParentDir,
-  getStream,
-  isCI: /* istanbul ignore next */ () => isCIValue
-};
+exports.cosmiconfig = require("cosmiconfig");
+exports.findParentDir = require("find-parent-dir").sync;
+exports.getStream = require("get-stream");
+exports.isCI = () => require("is-ci");

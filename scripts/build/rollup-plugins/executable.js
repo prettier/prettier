@@ -8,8 +8,10 @@ module.exports = function() {
   let entry;
 
   return {
+    name: "executable",
+
     options(options) {
-      entry = path.resolve(options.entry);
+      entry = path.resolve(options.input);
       return options;
     },
 
@@ -28,15 +30,18 @@ module.exports = function() {
       }
     },
 
-    transformBundle(code) {
+    renderChunk(code) {
       if (banner) {
         return { code: banner + "\n" + code };
       }
     },
 
-    onwrite(bundle) {
+    writeBundle(bundle) {
       if (banner) {
-        fs.chmodSync(bundle.dest, 0o755 & ~process.umask());
+        const files = Object.keys(bundle);
+        files.forEach(file => {
+          fs.chmodSync(bundle[file].facadeModuleId, 0o755 & ~process.umask());
+        });
       }
     }
   };

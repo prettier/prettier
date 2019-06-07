@@ -12,7 +12,6 @@ const PROJECT_ROOT = path.resolve(__dirname, "../..");
  * @property {'core' | 'plugin'} type - it's a plugin bundle or core part of prettier
  * @property {'rollup' | 'webpack'} [bundler='rollup'] - define which bundler to use
  * @property {CommonJSConfig} [commonjs={}] - options for `rollup-plugin-commonjs`
- * @property {string[]} external - array of paths that should not be included in the final bundle
  * @property {Object.<string, string>} replace - map of strings to replace when processing the bundle
  * @property {string[]} babelPlugins - babel plugins
 
@@ -109,7 +108,6 @@ const coreBundles = [
     input: "index.js",
     type: "core",
     target: "node",
-    external: [path.resolve("src/common/third-party.js")],
     replace: {
       // from @iarna/toml/parse-string
       "eval(\"require('util').inspect\")": "require('util').inspect"
@@ -132,8 +130,7 @@ const coreBundles = [
     input: "bin/prettier.js",
     type: "core",
     output: "bin-prettier.js",
-    target: "node",
-    external: [path.resolve("src/common/third-party.js")]
+    target: "node"
   },
   {
     input: "src/common/third-party.js",
