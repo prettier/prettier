@@ -103,28 +103,19 @@ const parsers = [
   return Object.assign(parser, { type: "plugin", name });
 });
 
-// TODO: remove this when `external` problem resolves
-const importFreshReplacement = {
-  // cosmiconfig@5 -> import-fresh uses `require` to resolve js config, which caused Error:
-  // Dynamic requires are not currently supported by rollup-plugin-commonjs.
-  "require(filePath)": "eval('require')(filePath)",
-  "require.cache": "eval('require').cache"
-};
-
 /** @type {Bundle[]} */
 const coreBundles = [
   {
     input: "index.js",
     type: "core",
     target: "node",
-    // external: [path.resolve("src/common/third-party.js")],
-    replace: Object.assign(
-      {
-        // from @iarna/toml/parse-string
-        "eval(\"require('util').inspect\")": "require('util').inspect"
-      },
-      importFreshReplacement
-    )
+    internalReplace: {
+      [path.resolve("src/common/third-party.js")]: "./third-party"
+    },
+    replace: {
+      // from @iarna/toml/parse-string
+      "eval(\"require('util').inspect\")": "require('util').inspect"
+    }
   },
   {
     input: "src/doc/index.js",
@@ -144,14 +135,20 @@ const coreBundles = [
     type: "core",
     output: "bin-prettier.js",
     target: "node",
-    // external: [path.resolve("src/common/third-party.js")],
-    replace: importFreshReplacement
+    internalReplace: {
+      [path.resolve("src/common/third-party.js")]: "./third-party"
+    }
   },
   {
     input: "src/common/third-party.js",
     type: "core",
     target: "node",
-    replace: importFreshReplacement
+    replace: {
+      // cosmiconfig@5 -> import-fresh uses `require` to resolve js config, which caused Error:
+      // Dynamic requires are not currently supported by rollup-plugin-commonjs.
+      "require(filePath)": "eval('require')(filePath)",
+      "require.cache": "eval('require').cache"
+    }
   }
 ];
 

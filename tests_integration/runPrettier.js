@@ -82,14 +82,16 @@ function runPrettier(dir, args, options) {
   // We cannot use `jest.setMock("get-stream", impl)` here, because in the
   // production build everything is bundled into one file so there is no
   // "get-stream" module to mock.
-  jest.spyOn(require(thirdParty), "getStream").mockImplementation(() => ({
-    then: handler => handler(options.input || "")
-  }));
   jest
-    .spyOn(require(thirdParty), "isCI")
+    .spyOn(require(thirdParty).default, "getStream")
+    .mockImplementation(() => ({
+      then: handler => handler(options.input || "")
+    }));
+  jest
+    .spyOn(require(thirdParty).default, "isCI")
     .mockImplementation(() => process.env.CI);
   jest
-    .spyOn(require(thirdParty), "cosmiconfig")
+    .spyOn(require(thirdParty).default, "cosmiconfig")
     .mockImplementation((moduleName, options) =>
       require("cosmiconfig")(
         moduleName,
@@ -97,7 +99,7 @@ function runPrettier(dir, args, options) {
       )
     );
   jest
-    .spyOn(require(thirdParty), "findParentDir")
+    .spyOn(require(thirdParty).default, "findParentDir")
     .mockImplementation(() => process.cwd());
 
   try {

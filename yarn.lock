@@ -5443,7 +5443,7 @@ rollup-pluginutils@^2.3.0, rollup-pluginutils@^2.3.1, rollup-pluginutils@^2.5.0,
 
 rollup@1.14.3:
   version "1.14.3"
-  resolved "https://registry.npm.taobao.org/rollup/download/rollup-1.14.3.tgz#f9b0bd428aa5945c712575e55b497e802ccb4ab9"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-1.14.3.tgz#f9b0bd428aa5945c712575e55b497e802ccb4ab9"
   integrity sha1-+bC9QoqllFxxJXXlW0l+gCzLSrk=
   dependencies:
     "@types/estree" "0.0.39"

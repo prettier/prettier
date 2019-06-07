@@ -16,6 +16,7 @@ const babel = require("rollup-plugin-babel");
 const nativeShims = require("./rollup-plugins/native-shims");
 const executable = require("./rollup-plugins/executable");
 const evaluate = require("./rollup-plugins/evaluate");
+const internalReplace = require("./rollup-plugins/internal-replace");
 
 const EXTERNALS = [
   "assert",
@@ -67,6 +68,8 @@ function getRollupConfig(bundle) {
         // We use `eval("require")` to enable dynamic requires in the
         // custom parser API
         warning.code === "EVAL" ||
+        // ignore `MIXED_EXPORTS` warn
+        warning.code === "MIXED_EXPORTS" ||
         (warning.code === "CIRCULAR_DEPENDENCY" &&
           warning.importer.startsWith("node_modules"))
       ) {
@@ -121,6 +124,7 @@ function getRollupConfig(bundle) {
         bundle.commonjs
       )
     ),
+    internalReplace(bundle.internalReplace),
     bundle.target === "universal" && nodeGlobals(),
     babelConfig && babel(babelConfig),
     bundle.type === "plugin" && terser()
@@ -212,17 +216,17 @@ module.exports = async function createBundle(bundle, cache) {
     inputOptions,
     outputOptions
   );
-  if (useCache) {
-    try {
-      await execa("cp", [
-        path.join(cache.cacheDir, "files", bundle.output),
-        "dist"
-      ]);
-      return { cached: true };
-    } catch (err) {
-      // Proceed to build
-    }
-  }
+  // if (useCache) {
+  //   try {
+  //     await execa("cp", [
+  //       path.join(cache.cacheDir, "files", bundle.output),
+  //       "dist"
+  //     ]);
+  //     return { cached: true };
+  //   } catch (err) {
+  //     // Proceed to build
+  //   }
+  // }
 
   if (bundle.bundler === "webpack") {
     await runWebpack(getWebpackConfig(bundle));
