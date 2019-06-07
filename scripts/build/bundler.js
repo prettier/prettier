@@ -216,17 +216,17 @@ module.exports = async function createBundle(bundle, cache) {
     inputOptions,
     outputOptions
   );
-  // if (useCache) {
-  //   try {
-  //     await execa("cp", [
-  //       path.join(cache.cacheDir, "files", bundle.output),
-  //       "dist"
-  //     ]);
-  //     return { cached: true };
-  //   } catch (err) {
-  //     // Proceed to build
-  //   }
-  // }
+  if (useCache) {
+    try {
+      await execa("cp", [
+        path.join(cache.cacheDir, "files", bundle.output),
+        "dist"
+      ]);
+      return { cached: true };
+    } catch (err) {
+      // Proceed to build
+    }
+  }
 
   if (bundle.bundler === "webpack") {
     await runWebpack(getWebpackConfig(bundle));
