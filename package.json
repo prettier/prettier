@@ -109,7 +109,6 @@
     "rollup-plugin-node-resolve": "5.0.1",
     "rollup-plugin-replace": "2.2.0",
     "rollup-plugin-terser": "5.0.0",
-    "rollup-plugin-uglify": "6.0.2",
     "shelljs": "0.8.1",
     "snapshot-diff": "0.4.0",
     "strip-ansi": "4.0.0",

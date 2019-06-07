@@ -10,7 +10,6 @@ const commonjs = require("rollup-plugin-commonjs");
 const nodeGlobals = require("rollup-plugin-node-globals");
 const json = require("rollup-plugin-json");
 const replace = require("rollup-plugin-replace");
-// const { uglify } = require("rollup-plugin-uglify");
 const { terser } = require("rollup-plugin-terser");
 const babel = require("rollup-plugin-babel");
 const nativeShims = require("./rollup-plugins/native-shims");
