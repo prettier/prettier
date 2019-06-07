@@ -15,6 +15,7 @@ const babel = require("rollup-plugin-babel");
 const nativeShims = require("./rollup-plugins/native-shims");
 const executable = require("./rollup-plugins/executable");
 const evaluate = require("./rollup-plugins/evaluate");
+const externals = require("./rollup-plugins/externals");
 
 const EXTERNALS = [
   "assert",
@@ -122,13 +123,14 @@ function getRollupConfig(bundle) {
         bundle.commonjs
       )
     ),
+    externals(bundle.externals),
     bundle.target === "universal" && nodeGlobals(),
     babelConfig && babel(babelConfig),
     bundle.type === "plugin" && terser()
   ].filter(Boolean);
 
   if (bundle.target === "node") {
-    config.external = EXTERNALS.concat(bundle.external);
+    config.external = EXTERNALS;
   }
 
   return config;

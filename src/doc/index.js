@@ -1,6 +1,8 @@
 "use strict";
 
-exports.builders = require("./doc-builders");
-exports.printer = require("./doc-printer");
-exports.utils = require("./doc-utils");
-exports.debug = require("./doc-debug");
+module.exports = {
+  builders: require("./doc-builders"),
+  printer: require("./doc-printer"),
+  utils: require("./doc-utils"),
+  debug: require("./doc-debug")
+};

@@ -17,7 +17,7 @@ const constant = require("./constant");
 const coreOptions = require("../main/core-options");
 const optionsModule = require("../main/options");
 const optionsNormalizer = require("../main/options-normalizer");
-const thirdParty = eval("require")("../common/third-party");
+const thirdParty = require("../common/third-party");
 const arrayify = require("../utils/arrayify");
 const isTTY = require("../utils/is-tty");
 

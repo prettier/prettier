@@ -1,6 +1,6 @@
 "use strict";
 
-const thirdParty = eval("require")("../common/third-party");
+const thirdParty = require("../common/third-party");
 
 // Some CI pipelines incorrectly report process.stdout.isTTY status,
 // which causes unwanted lines in the output. An additional check for isCI() helps.
