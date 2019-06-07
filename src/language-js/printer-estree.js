@@ -3003,12 +3003,14 @@ function printPathNoParens(path, options, print, args) {
       // Keep comma if the file extension is .tsx and
       // has one type parameter that isn't extend with any types.
       // Because, otherwise formatted result will be invalid as tsx.
+      const grandParent = path.getNode(2);
       if (
         parent.params &&
         parent.params.length === 1 &&
         options.filepath &&
         options.filepath.match(/\.tsx/) &&
-        !n.constraint
+        !n.constraint &&
+        grandParent.type === "ArrowFunctionExpression"
       ) {
         parts.push(",");
       }
