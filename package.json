@@ -99,7 +99,7 @@
     "prettier": "1.17.1",
     "prettylint": "1.0.0",
     "rimraf": "2.6.2",
-    "rollup": "1.14.2",
+    "rollup": "1.14.3",
     "rollup-plugin-alias": "1.5.2",
     "rollup-plugin-babel": "4.3.2",
     "rollup-plugin-commonjs": "10.0.0",
