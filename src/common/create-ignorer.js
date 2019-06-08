@@ -1,6 +1,6 @@
 "use strict";
 
-const ignore = require("ignore");
+const ignore = require("ignore-deprecated");
 const path = require("path");
 const getFileContentOrNull = require("../utils/get-file-content-or-null");
 
