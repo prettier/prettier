@@ -176,7 +176,9 @@ function getWebpackConfig(bundle) {
       path: path.resolve(root, "dist"),
       filename: bundle.output,
       library: ["prettierPlugins", bundle.name],
-      libraryTarget: "umd"
+      libraryTarget: "umd",
+      // see https://github.com/webpack/webpack/issues/6784
+      globalObject: 'new Function("return this")()'
     },
     plugins: [
       new webpack.DefinePlugin({
