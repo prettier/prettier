@@ -86,7 +86,9 @@ If you don't have a configuration file, or want to ignore it if it does exist, y
 
 ## `--ignore-path`
 
-Path to a file containing patterns that describe files to ignore. By default, prettier looks for `./.prettierignore`.
+Normally, prettier searches up directories for `.prettierignore` files, with patterns from higher directories being overridden by patterns from lower directories.
+
+When you specific `--ignore-path <file>`, this behavior is disabled. Instead, only the patterns from the given file are used for ignoring.
 
 ## `--require-pragma`
 

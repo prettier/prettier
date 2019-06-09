@@ -171,7 +171,6 @@ const options = {
   "ignore-path": {
     type: "path",
     category: coreOptions.CATEGORY_CONFIG,
-    default: ".prettierignore",
     description: "Path to a file with patterns describing files to ignore."
   },
   "list-different": {

@@ -196,8 +196,6 @@ exports[`show detailed usage with --help ignore-path (stdout) 1`] = `
 "--ignore-path <path>
 
   Path to a file with patterns describing files to ignore.
-
-Default: .prettierignore
 "
 `;
 

@@ -269,7 +269,7 @@ test("API getFileInfo.sync with resolveConfig when no config is present", () => 
 
 test("API getFileInfo with ignorePath", () => {
   const file = path.resolve(
-    path.join(__dirname, "../cli/ignore-path/regular-module.js")
+    path.join(__dirname, "../cli/ignore-nothing/regular-module.js")
   );
   const ignorePath = path.resolve(
     path.join(__dirname, "../cli/ignore-path/.prettierignore")
@@ -292,7 +292,7 @@ test("API getFileInfo with ignorePath", () => {
 
 test("API getFileInfo.sync with ignorePath", () => {
   const file = path.resolve(
-    path.join(__dirname, "../cli/ignore-path/regular-module.js")
+    path.join(__dirname, "../cli/ignore-nothing/regular-module.js")
   );
   const ignorePath = path.resolve(
     path.join(__dirname, "../cli/ignore-path/.prettierignore")
@@ -310,6 +310,44 @@ test("API getFileInfo.sync with ignorePath", () => {
   ).toMatchObject({
     ignored: true,
     inferredParser: "babel"
+  });
+});
+
+describe("API getFileInfo.sync without ignorePath", () => {
+  test("uses .prettierignore in above directories", () => {
+    const file = path.resolve(
+      path.join(__dirname, "../cli/recursive-ignore/src/regular-module.js")
+    );
+
+    expect(prettier.getFileInfo.sync(file)).toMatchObject({
+      ignored: true,
+      inferredParser: "babel"
+    });
+  });
+
+  test("un-ignores from .prettierignore in file's directory", () => {
+    const file = path.resolve(
+      path.join(
+        __dirname,
+        "../cli/recursive-ignore/src/other-regular-modules.js"
+      )
+    );
+
+    expect(prettier.getFileInfo.sync(file)).toMatchObject({
+      ignored: false,
+      inferredParser: "babel"
+    });
+  });
+
+  test("ignores whole directories", () => {
+    const file = path.resolve(
+      path.join(__dirname, "../cli/recursive-ignore/dist/regular-package.json")
+    );
+
+    expect(prettier.getFileInfo.sync(file)).toMatchObject({
+      ignored: true,
+      inferredParser: "json"
+    });
   });
 });
 
