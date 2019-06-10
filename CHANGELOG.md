@@ -27,7 +27,7 @@
     return "one";
   }
 
-  // Output (Prettier stable)
+  // Output (Prettier 1.18.0)
   interface Interface1<T,> {
     one: "one";
   }
@@ -35,7 +35,7 @@
     return "one";
   }
 
-  // Output (Prettier master)
+  // Output (Prettier 1.18.1)
   interface Interface1<T> {
     one: "one";
   }
