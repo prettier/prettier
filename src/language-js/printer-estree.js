@@ -2154,7 +2154,10 @@ function printPathNoParens(path, options, print, args) {
       const n = path.getValue();
 
       const nameHasComments =
-        n.name && n.name.comments && n.name.comments.length > 0;
+        (n.name && n.name.comments && n.name.comments.length > 0) ||
+        (n.typeParameters &&
+          n.typeParameters.comments &&
+          n.typeParameters.comments.length > 0);
 
       // Don't break self-closing elements with no attributes and no comments
       if (n.selfClosing && !n.attributes.length && !nameHasComments) {
