@@ -610,20 +610,17 @@ printWidth: 80
 <p>Hi {{firstName}} {{lastName}}</p>
 
 <div>
-  {{name}}
-  is your name
+  {{name}} is your name
 </div>
 =====================================output=====================================
 <p>
   Your username is @{{name}}
 </p>
 <p>
-  Hi {{firstName}}
-   {{lastName}}
+  Hi {{firstName}} {{lastName}}
 </p>
 <div>
-  {{name}}
-  is your name
+  {{name}} is your name
 </div>
 ================================================================================
 `;
@@ -647,12 +644,10 @@ singleQuote: true
   Your username is @{{name}}
 </p>
 <p>
-  Hi {{firstName}}
-   {{lastName}}
+  Hi {{firstName}} {{lastName}}
 </p>
 <div>
-  {{name}}
-  is your name
+  {{name}} is your name
 </div>
 ================================================================================
 `;
