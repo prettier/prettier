@@ -514,13 +514,9 @@ printWidth: 80
 <div
   class="hello
     {{if goodbye true}}
-
     {{if goodbye false}}
-
     {{if goodbye true}}
-
     {{if goodbye false}}
-
     {{if goodbye true}}"
 >
   Hello
@@ -573,13 +569,9 @@ singleQuote: true
 <div
   class="hello
     {{if goodbye true}}
-
     {{if goodbye false}}
-
     {{if goodbye true}}
-
     {{if goodbye false}}
-
     {{if goodbye true}}"
 >
   Hello

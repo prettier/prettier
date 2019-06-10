@@ -205,7 +205,7 @@ function print(path, options, print) {
               softline,
               path
                 .map(partPath => print(partPath), "parts")
-                .filter(a => a !== "")
+                .filter(a => !isWhitespaceText(a))
             )
           )
         ),
@@ -390,7 +390,11 @@ function printCloseBlock(path, print) {
 }
 
 function isWhitespaceNode(node) {
-  return node.type === "TextNode" && !/\S/.test(node.chars);
+  return node.type === "TextNode" && isWhitespaceText(node.chars);
+}
+
+function isWhitespaceText(text) {
+  return !/\S/.test(text);
 }
 
 function getPreviousNode(path) {
