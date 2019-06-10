@@ -16,9 +16,8 @@ export default function({ version }) {
   return ReactDOM.createPortal(
     <a
       href={`https://github.com/prettier/prettier/${href}`}
-      // eslint-disable-next-line react/jsx-no-target-blank
       target="_blank"
-      rel="noopener"
+      rel="noreferrer noopener"
     >
       {match ? `PR #${match[1]}` : `v${version}`}
     </a>,

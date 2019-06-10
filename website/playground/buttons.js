@@ -1,7 +1,6 @@
 import React from "react";
 import ClipboardJS from "clipboard";
 
-// eslint-disable-next-line react/display-name
 export const Button = React.forwardRef((props, ref) => (
   <button type="button" className="btn" ref={ref} {...props} />
 ));
