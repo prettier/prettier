@@ -33,14 +33,14 @@ const EXTERNALS = [
   "readline",
 
   // See comment in jest.config.js
-  "graceful-fs"
+  "graceful-fs",
 ];
 
 function getBabelConfig(bundle) {
   const config = {
     babelrc: false,
     plugins: bundle.babelPlugins || [],
-    compact: bundle.type === "plugin" ? false : "auto"
+    compact: bundle.type === "plugin" ? false : "auto",
   };
   if (bundle.type === "core") {
     config.plugins.push(
@@ -53,7 +53,7 @@ function getBabelConfig(bundle) {
     targets.browsers = [">0.25%", "not ie 11", "not op_mini all"];
   }
   config.presets = [
-    [require.resolve("@babel/preset-env"), { targets, modules: false }]
+    [require.resolve("@babel/preset-env"), { targets, modules: false }],
   ];
   return config;
 }
@@ -86,12 +86,12 @@ function getRollupConfig(bundle) {
       }
 
       console.warn(warning);
-    }
+    },
   };
 
   const replaceStrings = {
     "process.env.PRETTIER_TARGET": JSON.stringify(bundle.target),
-    "process.env.NODE_ENV": JSON.stringify("production")
+    "process.env.NODE_ENV": JSON.stringify("production"),
   };
   if (bundle.target === "universal") {
     // We can't reference `process` in UMD bundles and this is
@@ -105,7 +105,7 @@ function getRollupConfig(bundle) {
   config.plugins = [
     replace({
       values: replaceStrings,
-      delimiters: ["", ""]
+      delimiters: ["", ""],
     }),
     executable(),
     evaluate(),
@@ -115,7 +115,7 @@ function getRollupConfig(bundle) {
       nativeShims(path.resolve(__dirname, "shims")),
     resolve({
       extensions: [".js", ".json"],
-      preferBuiltins: bundle.target === "node"
+      preferBuiltins: bundle.target === "node",
     }),
     commonjs(
       Object.assign(
@@ -126,7 +126,7 @@ function getRollupConfig(bundle) {
     externals(bundle.externals),
     bundle.target === "universal" && nodeGlobals(),
     babelConfig && babel(babelConfig),
-    bundle.type === "plugin" && terser()
+    bundle.type === "plugin" && terser(),
   ].filter(Boolean);
 
   if (bundle.target === "node") {
@@ -140,7 +140,7 @@ function getRollupOutputOptions(bundle) {
   const options = {
     file: `dist/${bundle.output}`,
     strict: typeof bundle.strict === "undefined" ? true : bundle.strict,
-    paths: [{ "graceful-fs": "fs" }]
+    paths: [{ "graceful-fs": "fs" }],
   };
 
   if (bundle.target === "node") {
@@ -167,22 +167,22 @@ function getWebpackConfig(bundle) {
           test: /\.js$/,
           use: {
             loader: "babel-loader",
-            options: getBabelConfig(bundle)
-          }
-        }
-      ]
+            options: getBabelConfig(bundle),
+          },
+        },
+      ],
     },
     output: {
       path: path.resolve(root, "dist"),
       filename: bundle.output,
       library: ["prettierPlugins", bundle.name],
-      libraryTarget: "umd"
+      libraryTarget: "umd",
     },
     plugins: [
       new webpack.DefinePlugin({
-        "process.env.NODE_ENV": JSON.stringify("production")
-      })
-    ]
+        "process.env.NODE_ENV": JSON.stringify("production"),
+      }),
+    ],
   };
 }
 
@@ -211,7 +211,7 @@ module.exports = async function createBundle(bundle, cache) {
     try {
       await execa("cp", [
         path.join(cache.cacheDir, "files", bundle.output),
-        "dist"
+        "dist",
       ]);
       return { cached: true };
     } catch (err) {

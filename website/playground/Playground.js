@@ -21,7 +21,7 @@ const CATEGORIES_ORDER = [
   "JavaScript",
   "Markdown",
   "HTML",
-  "Special"
+  "Special",
 ];
 const ENABLED_OPTIONS = [
   "parser",
@@ -39,7 +39,7 @@ const ENABLED_OPTIONS = [
   "proseWrap",
   "htmlWhitespaceSensitivity",
   "insertPragma",
-  "requirePragma"
+  "requirePragma",
 ];
 
 class Playground extends React.Component {

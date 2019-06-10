@@ -13,7 +13,7 @@ const hiddenDefaults = {
   printer: {},
   originalText: undefined,
   locStart: null,
-  locEnd: null
+  locEnd: null,
 };
 
 // Copy options and fill in default values.
@@ -25,7 +25,7 @@ function normalize(options, opts) {
   const supportOptions = getSupportInfo(null, {
     plugins: options.plugins,
     showUnreleased: true,
-    showDeprecated: true
+    showDeprecated: true,
   }).options;
   const defaults = supportOptions.reduce(
     (reduced, optionInfo) =>
@@ -76,7 +76,7 @@ function normalize(options, opts) {
     .reduce(
       (reduced, optionInfo) =>
         Object.assign(reduced, {
-          [optionInfo.name]: optionInfo.pluginDefaults[plugin.name]
+          [optionInfo.name]: optionInfo.pluginDefaults[plugin.name],
         }),
       {}
     );
@@ -167,7 +167,7 @@ function inferParser(filepath, plugins) {
   // interpreter in the shebang line, if any; but since this requires FS access,
   // do it last.
   const language = getSupportInfo(null, {
-    plugins
+    plugins,
   }).languages.find(
     language =>
       language.since !== null &&

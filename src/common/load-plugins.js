@@ -41,7 +41,7 @@ function loadPlugins(plugins, pluginSearchDirs) {
     }
     return {
       name: pluginName,
-      requirePath
+      requirePath,
     };
   });
 
@@ -72,8 +72,8 @@ function loadPlugins(plugins, pluginSearchDirs) {
       return findPluginsInNodeModules(nodeModulesDir).map(pluginName => ({
         name: pluginName,
         requirePath: resolve.sync(pluginName, {
-          basedir: resolvedPluginSearchDir
-        })
+          basedir: resolvedPluginSearchDir,
+        }),
       }));
     })
     .reduce((a, b) => a.concat(b), []);
@@ -98,7 +98,7 @@ function findPluginsInNodeModules(nodeModulesDir) {
     [
       "prettier-plugin-*/package.json",
       "@*/prettier-plugin-*/package.json",
-      "@prettier/plugin-*/package.json"
+      "@prettier/plugin-*/package.json",
     ],
     { cwd: nodeModulesDir }
   );

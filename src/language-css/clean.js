@@ -10,7 +10,7 @@ function clean(ast, newObj, parent) {
     "source",
     "before",
     "after",
-    "trailingComma"
+    "trailingComma",
   ].forEach(name => {
     delete newObj[name];
   });

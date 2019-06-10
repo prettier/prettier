@@ -8,7 +8,7 @@ export default function({
   categories,
   availableOptions,
   optionValues,
-  onOptionValueChange
+  onOptionValueChange,
 }) {
   const options = groupBy(availableOptions, "category");
   return categories.map(category =>

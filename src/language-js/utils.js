@@ -113,5 +113,5 @@ module.exports = {
   hasNakedLeftSide,
   hasNode,
   hasFlowShorthandAnnotationComment,
-  hasFlowAnnotationComment
+  hasFlowAnnotationComment,
 };

@@ -20,7 +20,7 @@ class App extends React.Component {
       this.setState({
         loaded: true,
         availableOptions: supportInfo.options.map(augmentOption),
-        version: fixPrettierVersion(version)
+        version: fixPrettierVersion(version),
       });
     });
   }

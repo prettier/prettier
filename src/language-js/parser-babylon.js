@@ -37,8 +37,8 @@ function babelOptions(extraOptions, extraPlugins) {
         "bigInt",
         "throwExpressions",
         "logicalAssignment",
-        "classPrivateMethods"
-      ].concat(extraPlugins)
+        "classPrivateMethods",
+      ].concat(extraPlugins),
     },
     extraOptions
   );
@@ -65,7 +65,7 @@ function createParse(parseMethod, extraPlugins) {
       babelOptions(
         { strictMode: false },
         [["decorators", { decoratorsBeforeExport: false }]].concat(extraPlugins)
-      )
+      ),
     ];
 
     let ast;
@@ -79,8 +79,8 @@ function createParse(parseMethod, extraPlugins) {
         {
           start: {
             line: error.loc.line,
-            column: error.loc.column + 1
-          }
+            column: error.loc.column + 1,
+          },
         }
       );
     }
@@ -168,8 +168,8 @@ function assertJsonNode(node, parent) {
     return createError(`${name} is not allowed in JSON.`, {
       start: {
         line: node.loc.start.line,
-        column: node.loc.start.column + 1
-      }
+        column: node.loc.start.column + 1,
+      },
     });
   }
 }
@@ -188,13 +188,13 @@ module.exports = {
     json: Object.assign({}, babelExpression, {
       hasPragma() {
         return true;
-      }
+      },
     }),
     json5: babelExpression,
     "json-stringify": Object.assign(
       {
         parse: parseJson,
-        astFormat: "estree-json"
+        astFormat: "estree-json",
       },
       locFns
     ),
@@ -203,6 +203,6 @@ module.exports = {
     /** for vue filter */
     __vue_expression: babelExpression,
     /** for vue event binding to handle semicolon */
-    __vue_event_binding: babel
-  }
+    __vue_event_binding: babel,
+  },
 };

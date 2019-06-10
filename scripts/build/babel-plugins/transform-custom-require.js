@@ -40,8 +40,8 @@ module.exports = function(babel) {
             )
           );
         }
-      }
-    }
+      },
+    },
   };
 
   function isEvalRequire(node) {

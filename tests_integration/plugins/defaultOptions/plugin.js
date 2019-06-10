@@ -5,22 +5,24 @@ module.exports = {
     {
       name: "foo",
       parsers: ["foo-parser"],
-      extensions: [".foo"]
-    }
+      extensions: [".foo"],
+    },
   ],
   defaultOptions: {
-    tabWidth: 8
+    tabWidth: 8,
   },
   parsers: {
     "foo-parser": {
       parse: text => ({ text }),
-      astFormat: "foo-ast"
-    }
+      astFormat: "foo-ast",
+    },
   },
   printers: {
     "foo-ast": {
       print: (path, options) =>
-        options.tabWidth ? `tabWidth:${options.tabWidth}` : path.getValue().text
-    }
-  }
+        options.tabWidth
+          ? `tabWidth:${options.tabWidth}`
+          : path.getValue().text,
+    },
+  },
 };

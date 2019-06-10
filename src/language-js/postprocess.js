@@ -29,13 +29,13 @@ function postprocess(ast, options) {
     if (options.parser === "flow") {
       toBeOverriddenNode.range = [
         toBeOverriddenNode.range[0],
-        toOverrideNode.range[1]
+        toOverrideNode.range[1],
       ];
     } else {
       toBeOverriddenNode.end = toOverrideNode.end;
     }
     toBeOverriddenNode.loc = Object.assign({}, toBeOverriddenNode.loc, {
-      end: toBeOverriddenNode.loc.end
+      end: toBeOverriddenNode.loc.end,
     });
   }
 

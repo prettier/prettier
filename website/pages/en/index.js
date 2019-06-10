@@ -15,7 +15,7 @@ const ButtonGroup = props => (
 );
 
 ButtonGroup.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
 };
 
 class Button extends React.Component {
@@ -31,13 +31,13 @@ class Button extends React.Component {
 }
 
 Button.defaultProps = {
-  target: "_self"
+  target: "_self",
 };
 
 Button.propTypes = {
   href: PropTypes.string,
   target: PropTypes.string,
-  children: PropTypes.any
+  children: PropTypes.any,
 };
 
 function Tidelift() {
@@ -79,7 +79,7 @@ const HomeSplash = props => {
 };
 
 HomeSplash.propTypes = {
-  language: PropTypes.string
+  language: PropTypes.string,
 };
 
 const TldrSection = ({ language }) => (
@@ -89,7 +89,7 @@ const TldrSection = ({ language }) => (
         style={{
           display: "flex",
           flexFlow: "row wrap",
-          justifyContent: "space-evenly"
+          justifyContent: "space-evenly",
         }}
       >
         <div style={{ display: "flex", flexDirection: "column" }}>
@@ -118,7 +118,7 @@ const TldrSection = ({ language }) => (
 );
 
 TldrSection.propTypes = {
-  language: PropTypes.string
+  language: PropTypes.string,
 };
 
 const Language = ({ name, nameLink, showName, image, variants }) => (
@@ -127,7 +127,7 @@ const Language = ({ name, nameLink, showName, image, variants }) => (
     style={{
       display: "flex",
       alignItems: "flex-start",
-      paddingBottom: "1em"
+      paddingBottom: "1em",
     }}
   >
     <img src={image} style={{ width: "50px", padding: "0 20px" }} />
@@ -151,7 +151,7 @@ Language.propTypes = {
   nameLink: PropTypes.string,
   showName: PropTypes.bool,
   image: PropTypes.string,
-  variants: PropTypes.array
+  variants: PropTypes.array,
 };
 
 const LanguagesSection = () => {
@@ -185,7 +185,7 @@ const LanguagesSection = () => {
           style={{
             display: "flex",
             flexFlow: "row wrap",
-            justifyContent: "space-around"
+            justifyContent: "space-around",
           }}
         >
           {languageChunks.map((languageChunk, index) => (
@@ -214,7 +214,7 @@ const Editor = ({ content = "", image, name }) => (
 Editor.propTypes = {
   content: PropTypes.string,
   image: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired
+  name: PropTypes.string.isRequired,
 };
 
 const EditorSupportSection = () => (
@@ -225,7 +225,7 @@ const EditorSupportSection = () => (
         style={{
           display: "flex",
           flexFlow: "row wrap",
-          justifyContent: "space-around"
+          justifyContent: "space-around",
         }}
       >
         {siteConfig.editors.map(editor => (
@@ -254,7 +254,7 @@ class GetStartedSection extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      npmClient: "yarn"
+      npmClient: "yarn",
     };
   }
 
@@ -268,7 +268,7 @@ class GetStartedSection extends React.Component {
               display: "flex",
               flexFlow: "row",
               alignItems: "baseline",
-              justifyContent: "space-between"
+              justifyContent: "space-between",
             }}
           >
             <div className="getStartedSteps">
@@ -317,9 +317,9 @@ class GetStartedSection extends React.Component {
                     {json({
                       husky: {
                         hooks: {
-                          "pre-commit": "pretty-quick --staged"
-                        }
-                      }
+                          "pre-commit": "pretty-quick --staged",
+                        },
+                      },
                     })}
                   </MarkdownBlock>
                 </li>
@@ -331,7 +331,7 @@ class GetStartedSection extends React.Component {
                 flexDirection: "column",
                 alignItems: "flex-end",
                 flexGrow: 1,
-                marginLeft: "-75px"
+                marginLeft: "-75px",
               }}
             >
               <ButtonGroup>
@@ -345,7 +345,7 @@ class GetStartedSection extends React.Component {
               <img
                 className="decorativeRects"
                 style={{
-                  marginTop: "32px"
+                  marginTop: "32px",
                 }}
                 src="/images/get_started_rects.svg"
               />
@@ -379,7 +379,7 @@ const UsersSection = ({ language }) => {
           style={{
             display: "flex",
             flexFlow: "row wrap",
-            justifyContent: "space-around"
+            justifyContent: "space-around",
           }}
         >
           {showcase}
@@ -406,7 +406,7 @@ const UsersSection = ({ language }) => {
           style={{
             display: "flex",
             justifyContent: "space-around",
-            flexFlow: "row wrap"
+            flexFlow: "row wrap",
           }}
         >
           <div style={{ display: "flex", marginTop: "22px" }}>
@@ -445,7 +445,7 @@ const UsersSection = ({ language }) => {
 };
 
 UsersSection.propTypes = {
-  language: PropTypes.string
+  language: PropTypes.string,
 };
 
 class Index extends React.Component {
@@ -469,7 +469,7 @@ class Index extends React.Component {
 }
 
 Index.propTypes = {
-  language: PropTypes.string
+  language: PropTypes.string,
 };
 
 module.exports = Index;

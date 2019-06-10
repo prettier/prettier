@@ -31,7 +31,7 @@ function getOptions(argv, detailedOptions) {
     .reduce(
       (current, option) =>
         Object.assign(current, {
-          [option.forwardToApi]: argv[option.name]
+          [option.forwardToApi]: argv[option.name],
         }),
       {}
     );
@@ -49,7 +49,7 @@ function cliifyOptions(object, apiDetailedOptionMap) {
 
 function diff(a, b) {
   return require("diff").createTwoFilesPatch("", "", a, b, "", "", {
-    context: 2
+    context: 2,
   });
 }
 
@@ -112,7 +112,7 @@ function logFileInfoOrDie(context) {
     ignorePath: context.argv["ignore-path"],
     withNodeModules: context.argv["with-node-modules"],
     plugins: context.argv["plugin"],
-    pluginSearchDirs: context.argv["plugin-search-dir"]
+    pluginSearchDirs: context.argv["plugin-search-dir"],
   };
   context.logger.log(
     prettier.format(
@@ -225,7 +225,7 @@ function format(context, input, opt) {
         const results = {
           benchmark: String(event.target),
           hz: event.target.hz,
-          ms: event.target.times.cycle * 1000
+          ms: event.target.times.cycle * 1000,
         };
         context.logger.debug(
           "'--debug-benchmark' measurements for formatWithCursor: " +
@@ -252,7 +252,7 @@ function format(context, input, opt) {
     const results = {
       repeat,
       hz: 1000 / averageMs,
-      ms: averageMs
+      ms: averageMs,
     };
     context.logger.debug(
       "'--debug-repeat' measurements for formatWithCursor: " +
@@ -280,7 +280,7 @@ function getOptionsOrDie(context, filePath) {
 
     const options = prettier.resolveConfig.sync(filePath, {
       editorconfig: context.argv["editorconfig"],
-      config: context.argv["config"]
+      config: context.argv["config"],
     });
 
     context.logger.debug("loaded options `" + JSON.stringify(options) + "`");
@@ -305,7 +305,7 @@ function getOptionsForFile(context, filepath) {
       context,
       options &&
         optionsNormalizer.normalizeApiOptions(options, context.supportOptions, {
-          logger: context.logger
+          logger: context.logger,
         })
     )
   );
@@ -334,7 +334,7 @@ function parseArgsToOptions(context, overrideDefaults) {
         Object.assign({
           string: minimistOptions.string,
           boolean: minimistOptions.boolean,
-          default: cliifyOptions(overrideDefaults, apiDetailedOptionMap)
+          default: cliifyOptions(overrideDefaults, apiDetailedOptionMap),
         })
       ),
       context.detailedOptions,
@@ -424,7 +424,7 @@ function eachFilename(context, patterns, callback) {
       callback(
         filePath,
         Object.assign(getOptionsForFile(context, filePath), {
-          filepath: filePath
+          filepath: filePath,
         })
       )
     );
@@ -579,9 +579,9 @@ function getOptionsWithOpposites(options) {
       ? Object.assign({}, option, {
           name: `no-${option.name}`,
           type: "boolean",
-          description: option.oppositeDescription
+          description: option.oppositeDescription,
         })
-      : null
+      : null,
   ]);
   return flattenArray(optionsWithOpposites).filter(Boolean);
 }
@@ -772,7 +772,7 @@ function createLogger(logLevel) {
     warn: createLogFunc("warn", "yellow"),
     error: createLogFunc("error", "red"),
     debug: createLogFunc("debug", "blue"),
-    log: createLogFunc("log")
+    log: createLogFunc("log"),
   };
 
   function createLogFunc(loggerName, color) {
@@ -828,7 +828,7 @@ function normalizeDetailedOption(name, option) {
           newChoice.value = ""; // backward compability for original boolean option
         }
         return newChoice;
-      })
+      }),
   });
 }
 
@@ -838,7 +838,7 @@ function normalizeDetailedOptionMap(detailedOptionMap) {
     .reduce((normalized, name) => {
       const option = detailedOptionMap[name];
       return Object.assign(normalized, {
-        [name]: normalizeDetailedOption(name, option)
+        [name]: normalizeDetailedOption(name, option),
       });
     }, {});
 }
@@ -868,7 +868,7 @@ function createMinimistOptions(detailedOptions) {
         (current, option) =>
           Object.assign({ [option.name]: option.default }, current),
         {}
-      )
+      ),
   };
 }
 
@@ -888,7 +888,7 @@ function createDetailedOptionMap(supportOptions) {
       name: option.cliName || dashify(option.name),
       description: option.cliDescription || option.description,
       category: option.cliCategory || coreOptions.CATEGORY_FORMAT,
-      forwardToApi: option.name
+      forwardToApi: option.name,
     });
 
     if (option.deprecated) {
@@ -942,7 +942,7 @@ function updateContextOptions(context, plugins, pluginSearchDirs) {
     showUnreleased: true,
     showInternal: true,
     plugins,
-    pluginSearchDirs
+    pluginSearchDirs,
   }).options;
 
   const detailedOptionMap = normalizeDetailedOptionMap(
@@ -999,7 +999,7 @@ function normalizeContextArgv(context, keys) {
   const argv = !keys ? context.argv : pick(context.argv, keys);
 
   context.argv = optionsNormalizer.normalizeCliOptions(argv, detailedOptions, {
-    logger: context.logger
+    logger: context.logger,
   });
 }
 //------------------------------context-util-end--------------------------------
@@ -1015,5 +1015,5 @@ module.exports = {
   initContext,
   logResolvedConfigPathOrDie,
   logFileInfoOrDie,
-  normalizeDetailedOptionMap
+  normalizeDetailedOptionMap,
 };

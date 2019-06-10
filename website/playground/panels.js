@@ -69,7 +69,7 @@ class CodeMirrorPanel extends React.Component {
       }
       const [start, end] = getIndexPosition(this.props.value, [
         this.props.overlayStart,
-        this.props.overlayEnd
+        this.props.overlayEnd,
       ]);
       this._overlay = createOverlay(start, end);
       this._codeMirror.addOverlay(this._overlay);
@@ -142,7 +142,7 @@ function createOverlay(start, end) {
         stream.skipToEnd();
         return "searching";
       }
-    }
+    },
   };
 }
 

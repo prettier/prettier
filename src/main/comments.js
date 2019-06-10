@@ -8,17 +8,17 @@ const {
   indent,
   lineSuffix,
   join,
-  cursor
+  cursor,
 } = require("../doc").builders;
 const {
   hasNewline,
   skipNewline,
-  isPreviousLineEmpty
+  isPreviousLineEmpty,
 } = require("../common/util");
 const {
   addLeadingComment,
   addDanglingComment,
-  addTrailingComment
+  addTrailingComment,
 } = require("../common/util-shared");
 const childNodesCacheKey = Symbol("child-nodes");
 
@@ -71,7 +71,7 @@ function getSortedChildNodes(node, options, resultArray) {
   if (!resultArray) {
     Object.defineProperty(node, childNodesCacheKey, {
       value: (resultArray = []),
-      enumerable: false
+      enumerable: false,
     });
   }
 
@@ -385,7 +385,9 @@ function printLeadingComment(commentPath, print, options) {
   if (isBlock) {
     return concat([
       contents,
-      hasNewline(options.originalText, options.locEnd(comment)) ? hardline : " "
+      hasNewline(options.originalText, options.locEnd(comment))
+        ? hardline
+        : " ",
     ]);
   }
 
@@ -414,7 +416,7 @@ function printTrailingComment(commentPath, print, options) {
 
   if (
     hasNewline(options.originalText, options.locStart(comment), {
-      backwards: true
+      backwards: true,
     })
   ) {
     // This allows comments at the end of nested structures:
@@ -445,7 +447,7 @@ function printTrailingComment(commentPath, print, options) {
 
   return concat([
     lineSuffix(concat([" ", contents])),
-    !isBlock ? breakParent : ""
+    !isBlock ? breakParent : "",
   ]);
 }
 
@@ -529,5 +531,5 @@ module.exports = {
   attach,
   printComments,
   printDanglingComments,
-  getSortedChildNodes
+  getSortedChildNodes,
 };

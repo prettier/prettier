@@ -43,5 +43,5 @@ module.exports = {
   makeString: util.makeString,
   addLeadingComment: util.addLeadingComment,
   addDanglingComment: util.addDanglingComment,
-  addTrailingComment: util.addTrailingComment
+  addTrailingComment: util.addTrailingComment,
 };

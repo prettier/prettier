@@ -14,7 +14,7 @@ describe("API getSupportInfo()", () => {
     "1.8.0",
     "1.8.2",
     "1.16.0",
-    undefined
+    undefined,
   ];
 
   testVersions.forEach((version, index) => {
@@ -51,14 +51,14 @@ function getCoreInfo(version) {
           [option.name]: Object.assign(
             {
               type: option.type,
-              default: option.default
+              default: option.default,
             },
             option.type === "int"
               ? { range: option.range }
               : option.type === "choice"
               ? { choices: option.choices.map(choice => choice.value) }
               : null
-          )
+          ),
         },
         obj
       ),

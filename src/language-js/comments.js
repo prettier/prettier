@@ -5,7 +5,7 @@ const sharedUtil = require("../common/util-shared");
 const {
   addLeadingComment,
   addTrailingComment,
-  addDanglingComment
+  addDanglingComment,
 } = sharedUtil;
 
 function handleOwnLineComment(comment, text, options, ast, isLastComment) {
@@ -871,5 +871,5 @@ module.exports = {
   handleEndOfLineComment,
   handleRemainingComment,
   hasLeadingComment,
-  isBlockComment
+  isBlockComment,
 };

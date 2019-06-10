@@ -40,7 +40,7 @@ const siteConfig = {
     { blog: true, label: "Blog" },
     { search: true },
     { href: "https://opencollective.com/prettier", label: "Donate" },
-    { href: GITHUB_URL, label: "GitHub" }
+    { href: GITHUB_URL, label: "GitHub" },
   ],
   /* path to images for header/footer */
   headerIcon: "icon.png",
@@ -49,19 +49,19 @@ const siteConfig = {
   /* colors for website */
   colors: {
     primaryColor: "#1A2B34",
-    secondaryColor: "#808080"
+    secondaryColor: "#808080",
   },
   highlight: {
-    theme: "default"
+    theme: "default",
   },
   useEnglishUrl: true,
   scripts: ["https://buttons.github.io/buttons.js"],
   stylesheets: [
-    "//unpkg.com/@sandhose/prettier-animated-logo@1.0.3/dist/wide.css"
+    "//unpkg.com/@sandhose/prettier-animated-logo@1.0.3/dist/wide.css",
   ],
   algolia: {
     apiKey: process.env.ALGOLIA_PRETTIER_API_KEY,
-    indexName: "prettier"
+    indexName: "prettier",
   },
   markdownPlugins: [
     // ignore `<!-- prettier-ignore -->` before passing into Docusaurus to avoid mis-parsing (#3322)
@@ -79,12 +79,12 @@ const siteConfig = {
           return false;
         }
       );
-    }
+    },
   ],
   separateCss: ["static/separate-css"],
   gaTrackingId: "UA-111350464-1",
   twitter: true,
-  onPageNav: "separate"
+  onPageNav: "separate",
 };
 
 module.exports = siteConfig;

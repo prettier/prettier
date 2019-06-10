@@ -61,5 +61,5 @@ function locEnd(node) {
 
 module.exports = {
   locStart,
-  locEnd
+  locEnd,
 };

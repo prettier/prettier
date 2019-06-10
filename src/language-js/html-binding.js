@@ -1,7 +1,7 @@
 "use strict";
 
 const {
-  builders: { concat, join, line }
+  builders: { concat, join, line },
 } = require("../doc");
 
 function printHtmlBinding(path, options, print) {
@@ -25,7 +25,7 @@ function printHtmlBinding(path, options, print) {
             concat([",", line]),
             functionDeclarationPath.map(print, "params")
           ),
-          params.length > 1 ? ")" : ""
+          params.length > 1 ? ")" : "",
         ]);
       },
       "program",
@@ -65,5 +65,5 @@ function isVueEventBindingExpression(node) {
 
 module.exports = {
   isVueEventBindingExpression,
-  printHtmlBinding
+  printHtmlBinding,
 };

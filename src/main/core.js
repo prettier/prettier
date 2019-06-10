@@ -9,14 +9,14 @@ const parser = require("./parser");
 const printAstToDoc = require("./ast-to-doc");
 const {
   guessEndOfLine,
-  convertEndOfLineToChars
+  convertEndOfLineToChars,
 } = require("../common/end-of-line");
 const rangeUtil = require("./range-util");
 const privateUtil = require("../common/util");
 const {
   utils: { mapDoc },
   printer: { printDocToString },
-  debug: { printDocToDebug }
+  debug: { printDocToDebug },
 } = require("../doc");
 
 const UTF8BOM = 0xfeff;
@@ -25,7 +25,7 @@ const CURSOR = Symbol("cursor");
 const PLACEHOLDERS = {
   cursorOffset: "<<<PRETTIER_CURSOR>>>",
   rangeStart: "<<<PRETTIER_RANGE_START>>>",
-  rangeEnd: "<<<PRETTIER_RANGE_END>>>"
+  rangeEnd: "<<<PRETTIER_RANGE_END>>>",
 };
 
 function ensureAllCommentsPrinted(astComments) {
@@ -143,7 +143,7 @@ function coreFormat(text, opts, addAlignmentSize) {
     if (oldCursorNodeText === newCursorNodeText) {
       return {
         formatted: result.formatted,
-        cursorOffset: newCursorNodeStart + cursorOffsetRelativeToOldCursorNode
+        cursorOffset: newCursorNodeStart + cursorOffsetRelativeToOldCursorNode,
       };
     }
 
@@ -214,7 +214,7 @@ function formatRange(text, opts) {
       cursorOffset:
         opts.cursorOffset >= rangeStart && opts.cursorOffset < rangeEnd
           ? opts.cursorOffset - rangeStart
-          : -1
+          : -1,
     }),
     alignmentSize
   );
@@ -297,7 +297,7 @@ function format(text, opts) {
     const offsetKeys = [
       hasCursor && "cursorOffset",
       hasRangeStart && "rangeStart",
-      hasRangeEnd && "rangeEnd"
+      hasRangeEnd && "rangeEnd",
     ]
       .filter(Boolean)
       .sort((aKey, bKey) => opts[aKey] - opts[bKey]);
@@ -406,5 +406,5 @@ module.exports = {
 
   printDocToString(doc, opts) {
     return printDocToString(doc, normalizeOptions(opts));
-  }
+  },
 };

@@ -29,11 +29,11 @@ const parser = {
   parse,
   hasPragma,
   locStart: node => node.position.start.offset,
-  locEnd: node => node.position.end.offset
+  locEnd: node => node.position.end.offset,
 };
 
 module.exports = {
   parsers: {
-    yaml: parser
-  }
+    yaml: parser,
+  },
 };

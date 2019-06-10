@@ -13,16 +13,16 @@ module.exports = {
     choices: [
       {
         value: "css",
-        description: "Respect the default value of CSS display property."
+        description: "Respect the default value of CSS display property.",
       },
       {
         value: "strict",
-        description: "Whitespaces are considered sensitive."
+        description: "Whitespaces are considered sensitive.",
       },
       {
         value: "ignore",
-        description: "Whitespaces are considered insensitive."
-      }
-    ]
-  }
+        description: "Whitespaces are considered insensitive.",
+      },
+    ],
+  },
 };

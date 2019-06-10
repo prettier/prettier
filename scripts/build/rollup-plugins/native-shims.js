@@ -29,6 +29,6 @@ module.exports = function(dir) {
       if (id.startsWith(PREFIX)) {
         return EMPTY;
       }
-    }
+    },
   };
 };

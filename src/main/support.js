@@ -11,7 +11,7 @@ function getSupportInfo(version, opts) {
       plugins: [],
       showUnreleased: false,
       showDeprecated: false,
-      showInternal: false
+      showInternal: false,
     },
     opts
   );
@@ -84,12 +84,12 @@ function getSupportInfo(version, opts) {
       // Prevent breaking changes
       if (language.name === "Markdown") {
         return Object.assign({}, language, {
-          parsers: ["markdown"]
+          parsers: ["markdown"],
         });
       }
       if (language.name === "TypeScript") {
         return Object.assign({}, language, {
-          parsers: ["typescript"]
+          parsers: ["typescript"],
         });
       }
 
@@ -98,7 +98,7 @@ function getSupportInfo(version, opts) {
         return Object.assign({}, language, {
           parsers: language.parsers.map(parser =>
             parser === "babel" ? "babylon" : parser
-          )
+          ),
         });
       }
 
@@ -107,7 +107,7 @@ function getSupportInfo(version, opts) {
         (language.name === "CSS" || language.group === "CSS")
       ) {
         return Object.assign({}, language, {
-          parsers: ["postcss"]
+          parsers: ["postcss"],
         });
       }
       return language;
@@ -151,5 +151,5 @@ function getSupportInfo(version, opts) {
 }
 
 module.exports = {
-  getSupportInfo
+  getSupportInfo,
 };

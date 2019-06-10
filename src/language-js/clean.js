@@ -10,7 +10,7 @@ function clean(ast, newObj, parent) {
     "extra",
     "start",
     "end",
-    "flags"
+    "flags",
   ].forEach(name => {
     delete newObj[name];
   });
@@ -47,7 +47,7 @@ function clean(ast, newObj, parent) {
       type: "Identifier",
       name: ast.parameter.name,
       typeAnnotation: newObj.parameter.typeAnnotation,
-      decorators: newObj.decorators
+      decorators: newObj.decorators,
     };
   }
 

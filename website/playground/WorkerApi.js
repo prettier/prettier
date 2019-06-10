@@ -35,6 +35,6 @@ export default function(source) {
     format(code, options, debug) {
       return postMessage({ type: "format", code, options, debug });
     },
-    postMessage
+    postMessage,
   };
 }

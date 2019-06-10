@@ -80,8 +80,8 @@ module.exports = [
       get __ng_directive() {
         return eval("require")("../language-js/parser-angular").parsers
           .__ng_directive;
-      }
-    }
+      },
+    },
   },
 
   // CSS
@@ -97,8 +97,8 @@ module.exports = [
       },
       get scss() {
         return eval("require")("../language-css/parser-postcss").parsers.css;
-      }
-    }
+      },
+    },
   },
 
   // Handlebars
@@ -108,8 +108,8 @@ module.exports = [
       get glimmer() {
         return eval("require")("../language-handlebars/parser-glimmer").parsers
           .glimmer;
-      }
-    }
+      },
+    },
   },
 
   // GraphQL
@@ -119,8 +119,8 @@ module.exports = [
       get graphql() {
         return eval("require")("../language-graphql/parser-graphql").parsers
           .graphql;
-      }
-    }
+      },
+    },
   },
 
   // Markdown
@@ -139,8 +139,8 @@ module.exports = [
       get mdx() {
         return eval("require")("../language-markdown/parser-markdown").parsers
           .mdx;
-      }
-    }
+      },
+    },
   },
 
   require("../language-html"),
@@ -161,8 +161,8 @@ module.exports = [
       // Lightning Web Components
       get lwc() {
         return eval("require")("../language-html/parser-html").parsers.lwc;
-      }
-    }
+      },
+    },
   },
 
   // YAML
@@ -171,7 +171,7 @@ module.exports = [
     parsers: {
       get yaml() {
         return eval("require")("../language-yaml/parser-yaml").parsers.yaml;
-      }
-    }
-  }
+      },
+    },
+  },
 ];

@@ -9,13 +9,13 @@ const languages = [
     override: {
       since: "1.14.0",
       parsers: ["yaml"],
-      vscodeLanguageIds: ["yaml"]
-    }
-  })
+      vscodeLanguageIds: ["yaml"],
+    },
+  }),
 ];
 
 module.exports = {
   languages,
   printers: { yaml: printer },
-  options
+  options,
 };

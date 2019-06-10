@@ -9,11 +9,11 @@ const languages = [
     override: {
       since: "1.8.0",
       parsers: ["remark"],
-      vscodeLanguageIds: ["markdown"]
+      vscodeLanguageIds: ["markdown"],
     },
     extend: {
-      filenames: ["README"]
-    }
+      filenames: ["README"],
+    },
   }),
   createLanguage(
     { name: "MDX", extensions: [".mdx"] }, // TODO: use linguist data
@@ -21,18 +21,18 @@ const languages = [
       override: {
         since: "1.15.0",
         parsers: ["mdx"],
-        vscodeLanguageIds: ["mdx"]
-      }
+        vscodeLanguageIds: ["mdx"],
+      },
     }
-  )
+  ),
 ];
 
 const printers = {
-  mdast: printer
+  mdast: printer,
 };
 
 module.exports = {
   languages,
   options,
-  printers
+  printers,
 };

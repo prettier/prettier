@@ -4,7 +4,7 @@ const util = require("../common/util");
 const support = require("../main/support");
 const {
   builders: { hardline, literalline, concat, markAsRoot },
-  utils: { mapDoc }
+  utils: { mapDoc },
 } = require("../doc");
 const { getFencedCodeBlockValue } = require("./utils");
 
@@ -31,7 +31,7 @@ function embed(path, print, textToDoc, options) {
           node.lang,
           hardline,
           replaceNewlinesWithLiterallines(doc),
-          style
+          style,
         ])
       );
     }
@@ -47,7 +47,7 @@ function embed(path, print, textToDoc, options) {
               textToDoc(node.value, { parser: "yaml" })
             )
           : "",
-        "---"
+        "---",
       ])
     );
   }
@@ -64,7 +64,7 @@ function embed(path, print, textToDoc, options) {
 
   function getParserName(lang) {
     const supportInfo = support.getSupportInfo(null, {
-      plugins: options.plugins
+      plugins: options.plugins,
     });
     const language = supportInfo.languages.find(
       language =>

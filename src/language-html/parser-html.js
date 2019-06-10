@@ -14,7 +14,7 @@ function ngHtmlParser(
     normalizeTagName,
     normalizeAttributeName,
     allowHtmComponentClosingTags,
-    isTagNameCaseSensitive
+    isTagNameCaseSensitive,
   }
 ) {
   const parser = require("angular-html-parser");
@@ -26,19 +26,19 @@ function ngHtmlParser(
     Comment,
     DocType,
     Element,
-    Text
+    Text,
   } = require("angular-html-parser/lib/compiler/src/ml_parser/ast");
   const {
-    ParseSourceSpan
+    ParseSourceSpan,
   } = require("angular-html-parser/lib/compiler/src/parse_util");
   const {
-    getHtmlTagDefinition
+    getHtmlTagDefinition,
   } = require("angular-html-parser/lib/compiler/src/ml_parser/html_tags");
 
   const { rootNodes, errors } = parser.parse(input, {
     canSelfClose: recognizeSelfClosing,
     allowHtmComponentClosingTags,
-    isTagNameCaseSensitive
+    isTagNameCaseSensitive,
   });
 
   if (errors.length !== 0) {
@@ -187,7 +187,7 @@ function _parse(text, options, parserOptions, shouldParseFrontMatter = true) {
   const rawAst = {
     type: "root",
     sourceSpan: { start: { offset: 0 }, end: { offset: text.length } },
-    children: ngHtmlParser(content, parserOptions)
+    children: ngHtmlParser(content, parserOptions),
   };
 
   if (frontMatter) {
@@ -267,7 +267,7 @@ function createParser({
   normalizeTagName = false,
   normalizeAttributeName = false,
   allowHtmComponentClosingTags = false,
-  isTagNameCaseSensitive = false
+  isTagNameCaseSensitive = false,
 } = {}) {
   return {
     parse: (text, parsers, options) =>
@@ -276,12 +276,12 @@ function createParser({
         normalizeTagName,
         normalizeAttributeName,
         allowHtmComponentClosingTags,
-        isTagNameCaseSensitive
+        isTagNameCaseSensitive,
       }),
     hasPragma,
     astFormat: "html",
     locStart,
-    locEnd
+    locEnd,
   };
 }
 
@@ -291,13 +291,13 @@ module.exports = {
       recognizeSelfClosing: true,
       normalizeTagName: true,
       normalizeAttributeName: true,
-      allowHtmComponentClosingTags: true
+      allowHtmComponentClosingTags: true,
     }),
     angular: createParser(),
     vue: createParser({
       recognizeSelfClosing: true,
-      isTagNameCaseSensitive: true
+      isTagNameCaseSensitive: true,
     }),
-    lwc: createParser()
-  }
+    lwc: createParser(),
+  },
 };

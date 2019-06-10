@@ -16,7 +16,7 @@ const getExplorerMemoized = mem(opts => {
       if (result && result.config) {
         if (typeof result.config === "string") {
           const modulePath = resolve.sync(result.config, {
-            basedir: path.dirname(result.filepath)
+            basedir: path.dirname(result.filepath),
           });
           result.config = eval("require")(modulePath);
         }
@@ -40,11 +40,11 @@ const getExplorerMemoized = mem(opts => {
       ".prettierrc.yml",
       ".prettierrc.js",
       "prettier.config.js",
-      ".prettierrc.toml"
+      ".prettierrc.toml",
     ],
     loaders: {
-      ".toml": loadToml
-    }
+      ".toml": loadToml,
+    },
   });
 
   const load = opts.sync ? explorer.loadSync : explorer.load;
@@ -53,7 +53,7 @@ const getExplorerMemoized = mem(opts => {
   return {
     // cosmiconfig v4 interface
     load: (searchPath, configPath) =>
-      configPath ? load(configPath) : search(searchPath)
+      configPath ? load(configPath) : search(searchPath),
   };
 });
 
@@ -69,7 +69,7 @@ function _resolveConfig(filePath, opts, sync) {
   const loadOpts = {
     cache: !!opts.useCache,
     sync: !!sync,
-    editorconfig: !!opts.editorconfig
+    editorconfig: !!opts.editorconfig,
   };
   const load = getLoadFunction(loadOpts);
   const loadEditorConfig = resolveEditorConfig.getLoadFunction(loadOpts);
@@ -171,5 +171,5 @@ function pathMatchesGlobs(filePath, patterns, excludedPatterns) {
 module.exports = {
   resolveConfig,
   resolveConfigFile,
-  clearCache
+  clearCache,
 };

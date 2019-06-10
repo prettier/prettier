@@ -7,7 +7,7 @@ const {
   isIndentationSensitiveNode,
   isLeadingSpaceSensitiveNode,
   isTrailingSpaceSensitiveNode,
-  isWhitespaceSensitiveNode
+  isWhitespaceSensitiveNode,
 } = require("./utils");
 
 const PREPROCESS_PIPELINE = [
@@ -20,7 +20,7 @@ const PREPROCESS_PIPELINE = [
   addIsSelfClosing,
   addHasHtmComponentClosingTag,
   addIsSpaceSensitive,
-  mergeSimpleElementIntoText
+  mergeSimpleElementIntoText,
 ];
 
 function preprocess(ast, options) {
@@ -47,7 +47,7 @@ function removeIgnorableFirstLf(ast /*, options */) {
             : [].concat(
                 text.clone({ value: text.value.slice(1) }),
                 node.children.slice(1)
-              )
+              ),
       });
     }
     return node;
@@ -101,7 +101,7 @@ function mergeIeConditonalStartEndCommentIntoElementOpeningTag(
                 condition: ieConditionalStartComment.condition,
                 sourceSpan,
                 startSourceSpan,
-                children: child.children.slice(1)
+                children: child.children.slice(1),
               })
             );
 
@@ -153,7 +153,7 @@ function mergeNodeIntoText(ast, shouldMerge, getValue) {
               sourceSpan: new ParseSourceSpan(
                 lastChild.sourceSpan.start,
                 newChild.sourceSpan.end
-              )
+              ),
             })
           );
         }
@@ -216,7 +216,7 @@ function mergeSimpleElementIntoText(ast /*, options */) {
                   nextChild.sourceSpan.end
                 ),
                 isTrailingSpaceSensitive,
-                hasTrailingSpaces
+                hasTrailingSpaces,
               })
             );
           } else {
@@ -267,7 +267,7 @@ function extractInterpolation(ast, options) {
             newChildren.push({
               type: "text",
               value,
-              sourceSpan: new ParseSourceSpan(startSourceSpan, endSourceSpan)
+              sourceSpan: new ParseSourceSpan(startSourceSpan, endSourceSpan),
             });
           }
           continue;
@@ -287,9 +287,9 @@ function extractInterpolation(ast, options) {
                     sourceSpan: new ParseSourceSpan(
                       startSourceSpan.moveBy(2),
                       endSourceSpan.moveBy(-2)
-                    )
-                  }
-                ]
+                    ),
+                  },
+                ],
         });
       }
     }
@@ -320,7 +320,7 @@ function extractWhitespaces(ast /*, options*/) {
     ) {
       return node.clone({
         children: [],
-        hasDanglingSpaces: node.children.length !== 0
+        hasDanglingSpaces: node.children.length !== 0,
       });
     }
 
@@ -356,7 +356,7 @@ function extractWhitespaces(ast /*, options*/) {
               sourceSpan: new ParseSourceSpan(
                 child.sourceSpan.start.moveBy(leadingSpaces.length),
                 child.sourceSpan.end.moveBy(-trailingSpaces.length)
-              )
+              ),
             });
           }
 
@@ -381,10 +381,10 @@ function extractWhitespaces(ast /*, options*/) {
           return newChildren.concat(
             Object.assign({}, child, {
               hasLeadingSpaces,
-              hasTrailingSpaces
+              hasTrailingSpaces,
             })
           );
-        }, [])
+        }, []),
     });
   });
 }
@@ -397,7 +397,7 @@ function addIsSelfClosing(ast /*, options */) {
         (node.type === "element" &&
           (node.tagDefinition.isVoid ||
             // self-closing
-            node.startSourceSpan === node.endSourceSpan))
+            node.startSourceSpan === node.endSourceSpan)),
     })
   );
 }
@@ -414,7 +414,7 @@ function addHasHtmComponentClosingTag(ast, options) {
                 node.endSourceSpan.start.offset,
                 node.endSourceSpan.end.offset
               )
-            )
+            ),
         })
   );
 }
@@ -438,7 +438,7 @@ function addIsSpaceSensitive(ast /*, options */) {
 
     if (node.children.length === 0) {
       return node.clone({
-        isDanglingSpaceSensitive: isDanglingSpaceSensitiveNode(node)
+        isDanglingSpaceSensitive: isDanglingSpaceSensitiveNode(node),
       });
     }
 
@@ -447,7 +447,7 @@ function addIsSpaceSensitive(ast /*, options */) {
         .map(child => {
           return Object.assign({}, child, {
             isLeadingSpaceSensitive: isLeadingSpaceSensitiveNode(child),
-            isTrailingSpaceSensitive: isTrailingSpaceSensitiveNode(child)
+            isTrailingSpaceSensitive: isTrailingSpaceSensitiveNode(child),
           });
         })
         .map((child, index, children) =>
@@ -461,9 +461,9 @@ function addIsSpaceSensitive(ast /*, options */) {
               index === children.length - 1
                 ? child.isTrailingSpaceSensitive
                 : children[index + 1].isLeadingSpaceSensitive &&
-                  child.isTrailingSpaceSensitive
+                  child.isTrailingSpaceSensitive,
           })
-        )
+        ),
     });
   });
 }

@@ -13,20 +13,20 @@ const languages = [
       vscodeLanguageIds: ["html"],
 
       extensions: [".component.html"],
-      filenames: []
-    }
+      filenames: [],
+    },
   }),
   createLanguage(require("linguist-languages/data/html"), {
     override: {
       since: "1.15.0",
       parsers: ["html"],
-      vscodeLanguageIds: ["html"]
+      vscodeLanguageIds: ["html"],
     },
     extend: {
       extensions: [
-        ".mjml" // MJML is considered XML in Linguist but it should be formatted as HTML
-      ]
-    }
+        ".mjml", // MJML is considered XML in Linguist but it should be formatted as HTML
+      ],
+    },
   }),
   createLanguage(require("linguist-languages/data/html"), {
     override: {
@@ -36,24 +36,24 @@ const languages = [
       vscodeLanguageIds: ["html"],
 
       extensions: [],
-      filenames: []
-    }
+      filenames: [],
+    },
   }),
   createLanguage(require("linguist-languages/data/vue"), {
     override: {
       since: "1.10.0",
       parsers: ["vue"],
-      vscodeLanguageIds: ["vue"]
-    }
-  })
+      vscodeLanguageIds: ["vue"],
+    },
+  }),
 ];
 
 const printers = {
-  html: printer
+  html: printer,
 };
 
 module.exports = {
   languages,
   printers,
-  options
+  options,
 };

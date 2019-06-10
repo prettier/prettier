@@ -16,8 +16,8 @@ function removeWhiteSpace() {
       },
       ElementNode(node) {
         node.children = node.children.filter(removeEmptyNodes);
-      }
-    }
+      },
+    },
   };
 }
 
@@ -26,15 +26,15 @@ function parse(text) {
     const glimmer = require("@glimmer/syntax").preprocess;
     return glimmer(text, {
       plugins: {
-        ast: [removeWhiteSpace]
-      }
+        ast: [removeWhiteSpace],
+      },
     });
     /* istanbul ignore next */
   } catch (error) {
     const matches = error.message.match(/on line (\d+)/);
     if (matches) {
       throw createError(error.message, {
-        start: { line: Number(matches[1]), column: 0 }
+        start: { line: Number(matches[1]), column: 0 },
       });
     } else {
       throw error;
@@ -52,7 +52,7 @@ module.exports = {
       },
       locEnd(node) {
         return node.loc && node.loc.end;
-      }
-    }
-  }
+      },
+    },
+  },
 };

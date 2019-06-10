@@ -15,6 +15,6 @@ module.exports = function(modules = []) {
       if (requires[importee]) {
         return `export default eval("require")("./${requires[importee]}");`;
       }
-    }
+    },
   };
 };

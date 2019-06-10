@@ -249,7 +249,7 @@ const PRECEDENCE = {};
   [">>", "<<", ">>>"],
   ["+", "-"],
   ["*", "/", "%"],
-  ["**"]
+  ["**"],
 ].forEach((tier, i) => {
   tier.forEach(op => {
     PRECEDENCE[op] = i;
@@ -264,17 +264,17 @@ const equalityOperators = {
   "==": true,
   "!=": true,
   "===": true,
-  "!==": true
+  "!==": true,
 };
 const multiplicativeOperators = {
   "*": true,
   "/": true,
-  "%": true
+  "%": true,
 };
 const bitshiftOperators = {
   ">>": true,
   ">>>": true,
-  "<<": true
+  "<<": true,
 };
 
 function shouldFlatten(parentOp, nodeOp) {
@@ -747,5 +747,5 @@ module.exports = {
   addLeadingComment,
   addDanglingComment,
   addTrailingComment,
-  isWithinParentArrayProperty
+  isWithinParentArrayProperty,
 };

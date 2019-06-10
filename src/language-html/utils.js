@@ -4,7 +4,7 @@ const {
   CSS_DISPLAY_TAGS,
   CSS_DISPLAY_DEFAULT,
   CSS_WHITE_SPACE_TAGS,
-  CSS_WHITE_SPACE_DEFAULT
+  CSS_WHITE_SPACE_DEFAULT,
 } = require("./constants.evaluate");
 
 const htmlTagNames = require("html-tag-names");
@@ -67,7 +67,7 @@ function shouldPreserveContent(node, options) {
       "style",
       "script",
       // vue parser can be used for vue dom template as well, so we should still format top-level <html>
-      "html"
+      "html",
     ].indexOf(node.fullName) === -1
   ) {
     return true;
@@ -625,5 +625,5 @@ module.exports = {
   preferHardlineAsTrailingSpaces,
   shouldNotPrintClosingTag,
   shouldPreserveContent,
-  unescapeQuoteEntities
+  unescapeQuoteEntities,
 };

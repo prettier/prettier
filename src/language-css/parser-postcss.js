@@ -16,13 +16,13 @@ function parseValueNodes(nodes) {
     open: null,
     close: null,
     groups: [],
-    type: "paren_group"
+    type: "paren_group",
   };
   const parenGroupStack = [parenGroup];
   const rootParenGroup = parenGroup;
   let commaGroup = {
     groups: [],
-    type: "comma_group"
+    type: "comma_group",
   };
   const commaGroupStack = [commaGroup];
 
@@ -50,13 +50,13 @@ function parseValueNodes(nodes) {
         open: node,
         close: null,
         groups: [],
-        type: "paren_group"
+        type: "paren_group",
       };
       parenGroupStack.push(parenGroup);
 
       commaGroup = {
         groups: [],
-        type: "comma_group"
+        type: "comma_group",
       };
       commaGroupStack.push(commaGroup);
     } else if (node.type === "paren" && node.value === ")") {
@@ -79,7 +79,7 @@ function parseValueNodes(nodes) {
       parenGroup.groups.push(commaGroup);
       commaGroup = {
         groups: [],
-        type: "comma_group"
+        type: "comma_group",
       };
       commaGroupStack[commaGroupStack.length - 1] = commaGroup;
     } else {
@@ -190,7 +190,7 @@ function parseValue(value) {
   } catch (e) {
     return {
       type: "value-unknown",
-      value: value
+      value: value,
     };
   }
 
@@ -207,7 +207,7 @@ function parseSelector(selector) {
   if (selector.match(/\/\/|\/\*/)) {
     return {
       type: "selector-unknown",
-      value: selector.replace(/^ +/, "").replace(/ +$/, "")
+      value: selector.replace(/^ +/, "").replace(/ +$/, ""),
     };
   }
 
@@ -228,7 +228,7 @@ function parseSelector(selector) {
     // https://github.com/postcss/postcss-scss/issues/39
     return {
       type: "selector-unknown",
-      value: selector
+      value: selector,
     };
   }
 
@@ -246,7 +246,7 @@ function parseMediaQuery(params) {
     // Ignore bad media queries
     return {
       type: "selector-unknown",
-      value: params
+      value: params,
     };
   }
 
@@ -373,7 +373,7 @@ function parseNestedCSS(node) {
       if (value.startsWith("progid:")) {
         return {
           type: "value-unknown",
-          value: value
+          value: value,
         };
       }
 
@@ -387,7 +387,7 @@ function parseNestedCSS(node) {
       if (name === "warn" || name === "error") {
         node.params = {
           type: "media-unknown",
-          value: params
+          value: params,
         };
 
         return node;
@@ -431,7 +431,7 @@ function parseNestedCSS(node) {
           "function",
           "return",
           "define-mixin",
-          "add-mixin"
+          "add-mixin",
         ].indexOf(name) !== -1
       ) {
         // Remove unnecessary spaces in SCSS variable arguments
@@ -460,7 +460,7 @@ function parseNestedCSS(node) {
           // Workaround for media at rule with scss interpolation
           return {
             type: "media-unknown",
-            value: params
+            value: params,
           };
         }
 
@@ -560,7 +560,7 @@ const parser = {
       return lineColumnToIndex(node.source.end, node.source.input.css);
     }
     return null;
-  }
+  },
 };
 
 // Export as a plugin so we can reuse the same bundle for UMD loading
@@ -568,6 +568,6 @@ module.exports = {
   parsers: {
     css: parser,
     less: parser,
-    scss: parser
-  }
+    scss: parser,
+  },
 };

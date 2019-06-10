@@ -8,7 +8,7 @@ const {
   line,
   group,
   indent,
-  ifBreak
+  ifBreak,
 } = require("../doc").builders;
 
 // http://w3c.github.io/html/single-page.html#void-elements
@@ -26,7 +26,7 @@ const voidTags = [
   "param",
   "source",
   "track",
-  "wbr"
+  "wbr",
 ];
 
 // Formatter based on @glimmerjs/syntax's built-in test formatter:
@@ -66,7 +66,7 @@ function print(path, options, print) {
             join(line, path.map(print, "modifiers")),
 
             n.comments.length ? line : "",
-            join(line, path.map(print, "comments"))
+            join(line, path.map(print, "comments")),
           ])
         );
 
@@ -78,16 +78,16 @@ function print(path, options, print) {
             getParams(path, print),
             n.blockParams.length ? ` as |${n.blockParams.join(" ")}|` : "",
             ifBreak(softline, ""),
-            ifBreak(closeTagForBreak, closeTagForNoBreak)
+            ifBreak(closeTagForBreak, closeTagForNoBreak),
           ])
         ),
         group(
           concat([
             indent(join(softline, [""].concat(path.map(print, "children")))),
             ifBreak(hasChildren ? hardline : "", ""),
-            !isVoid ? concat(["</", n.tag, ">"]) : ""
+            !isVoid ? concat(["</", n.tag, ">"]) : "",
           ])
-        )
+        ),
       ]);
     }
     case "BlockStatement": {
@@ -114,12 +114,12 @@ function print(path, options, print) {
           n.inverse
             ? indentElse(concat([hardline, path.call(print, "inverse")]))
             : "",
-          isElseIf ? "" : concat([hardline, printCloseBlock(path, print)])
+          isElseIf ? "" : concat([hardline, printCloseBlock(path, print)]),
         ]);
       } else if (isElseIf) {
         return concat([
           concat(["{{else ", printPathParams(path, print), "}}"]),
-          indent(concat([hardline, path.call(print, "program")]))
+          indent(concat([hardline, path.call(print, "program")])),
         ]);
       }
       /**
@@ -134,9 +134,9 @@ function print(path, options, print) {
           concat([
             indent(concat([softline, path.call(print, "program")])),
             hasParams && hasChildren ? hardline : softline,
-            printCloseBlock(path, print)
+            printCloseBlock(path, print),
           ])
-        )
+        ),
       ]);
     }
     case "ElementModifierStatement":
@@ -148,7 +148,7 @@ function print(path, options, print) {
           n.escaped === false ? "{{{" : "{{",
           printPathParams(path, print),
           isConcat ? "" : softline,
-          n.escaped === false ? "}}}" : "}}"
+          n.escaped === false ? "}}}" : "}}",
         ])
       );
     }
@@ -183,7 +183,7 @@ function print(path, options, print) {
             )
           )
         ),
-        '"'
+        '"',
       ]);
     }
     case "Hash": {
@@ -341,7 +341,7 @@ function printOpenBlock(path, print) {
       printPathParams(path, print),
       printBlockParams(path),
       softline,
-      "}}"
+      "}}",
     ])
   );
 }
@@ -364,5 +364,5 @@ function clean(ast, newObj) {
 
 module.exports = {
   print,
-  massageAstNode: clean
+  massageAstNode: clean,
 };

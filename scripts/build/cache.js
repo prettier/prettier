@@ -21,7 +21,7 @@ function Cache(cacheDir, version) {
   this.updated = {
     version: this.version,
     checksums: {},
-    files: {}
+    files: {},
   };
 }
 
@@ -124,7 +124,7 @@ function getRollupConfig(rollupConfig) {
         plugin.name !== "node-resolve" &&
         // This is really slow, we need this "preflight" to be fast
         plugin.name !== "babel"
-    )
+    ),
   });
 }
 

@@ -7,7 +7,7 @@ const comments = require("./comments");
 const {
   getLeftSidePathName,
   hasNakedLeftSide,
-  hasFlowShorthandAnnotationComment
+  hasFlowShorthandAnnotationComment,
 } = require("./utils");
 
 function hasClosureCompilerTypeCastComment(text, path) {
@@ -886,7 +886,7 @@ function shouldWrapFunctionForExportDefault(path, options) {
   return path.call.apply(
     path,
     [
-      childPath => shouldWrapFunctionForExportDefault(childPath, options)
+      childPath => shouldWrapFunctionForExportDefault(childPath, options),
     ].concat(getLeftSidePathName(path, node))
   );
 }

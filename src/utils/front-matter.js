@@ -4,7 +4,7 @@ const escape = require("escape-string-regexp");
 
 const DELIMITER_MAP = {
   "---": "yaml",
-  "+++": "toml"
+  "+++": "toml",
 };
 
 function parse(text) {
@@ -29,7 +29,7 @@ function parse(text) {
 
   return {
     frontMatter: { type: DELIMITER_MAP[delimiter], value, raw },
-    content: match[0].replace(/[^\n]/g, " ") + text.slice(match[0].length)
+    content: match[0].replace(/[^\n]/g, " ") + text.slice(match[0].length),
   };
 }
 

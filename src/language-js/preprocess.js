@@ -10,7 +10,7 @@ function preprocess(ast, options) {
       return Object.assign({}, ast, {
         type: options.parser.startsWith("__") ? "JsExpressionRoot" : "JsonRoot",
         node: ast,
-        comments: []
+        comments: [],
       });
     default:
       return ast;

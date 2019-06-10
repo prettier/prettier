@@ -32,7 +32,7 @@ function mapNode(node, callback, parent) {
       ? Object.assign({}, node, {
           children: node.children.map(childNode =>
             mapNode(childNode, callback, node)
-          )
+          ),
         })
       : node,
     parent
@@ -42,7 +42,7 @@ function mapNode(node, callback, parent) {
 function defineShortcut(x, key, getter) {
   Object.defineProperty(x, key, {
     get: getter,
-    enumerable: false
+    enumerable: false,
   });
 }
 
@@ -336,5 +336,5 @@ module.exports = {
   hasMiddleComments,
   hasIndicatorComment,
   hasTrailingComment,
-  hasEndComments
+  hasEndComments,
 };

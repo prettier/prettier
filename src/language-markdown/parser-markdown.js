@@ -30,7 +30,7 @@ function createParse({ isMDX }) {
         Object.assign(
           {
             footnotes: true,
-            commonmark: true
+            commonmark: true,
           },
           isMDX && { blocks: [mdx.BLOCKS_REGEX] }
         )
@@ -90,7 +90,7 @@ function liquid() {
     if (match) {
       return eat(match[0])({
         type: "liquidNode",
-        value: match[0]
+        value: match[0],
       });
     }
   }
@@ -104,15 +104,15 @@ const baseParser = {
   hasPragma: pragma.hasPragma,
   locStart: node => node.position.start.offset,
   locEnd: node => node.position.end.offset,
-  preprocess: text => text.replace(/\n\s+$/, "\n") // workaround for https://github.com/remarkjs/remark/issues/350
+  preprocess: text => text.replace(/\n\s+$/, "\n"), // workaround for https://github.com/remarkjs/remark/issues/350
 };
 
 const markdownParser = Object.assign({}, baseParser, {
-  parse: createParse({ isMDX: false })
+  parse: createParse({ isMDX: false }),
 });
 
 const mdxParser = Object.assign({}, baseParser, {
-  parse: createParse({ isMDX: true })
+  parse: createParse({ isMDX: true }),
 });
 
 module.exports = {
@@ -120,6 +120,6 @@ module.exports = {
     remark: markdownParser,
     // TODO: Delete this in 2.0
     markdown: markdownParser,
-    mdx: mdxParser
-  }
+    mdx: mdxParser,
+  },
 };

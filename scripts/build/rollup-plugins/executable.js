@@ -43,6 +43,6 @@ module.exports = function() {
           fs.chmodSync(bundle[file].facadeModuleId, 0o755 & ~process.umask());
         });
       }
-    }
+    },
   };
 };

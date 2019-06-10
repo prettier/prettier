@@ -14,7 +14,7 @@ const cliDescriptor = {
       ? cliDescriptor.key(key)
       : value === ""
       ? `${cliDescriptor.key(key)} without an argument`
-      : `${cliDescriptor.key(key)}=${value}`
+      : `${cliDescriptor.key(key)}=${value}`,
 };
 
 class FlagSchema extends vnopts.ChoiceSchema {
@@ -33,7 +33,7 @@ class FlagSchema extends vnopts.ChoiceSchema {
         utils.logger.warn(
           [
             `Unknown flag ${chalk.yellow(utils.descriptor.value(value))},`,
-            `did you mean ${chalk.blue(utils.descriptor.value(suggestion))}?`
+            `did you mean ${chalk.blue(utils.descriptor.value(suggestion))}?`,
           ].join(" ")
         );
         return suggestion;
@@ -65,7 +65,7 @@ function normalizeOptions(
   const normalizer = new vnopts.Normalizer(schemas, {
     logger,
     unknown,
-    descriptor
+    descriptor,
   });
 
   const shouldSuppressDuplicateDeprecationWarnings = logger !== false;
@@ -97,7 +97,7 @@ function optionInfosToSchemas(optionInfos, { isCLI }) {
       schemas.push(
         vnopts.AliasSchema.create({
           name: optionInfo.alias,
-          sourceName: optionInfo.name
+          sourceName: optionInfo.name,
         })
       );
     }
@@ -124,8 +124,8 @@ function optionInfoToSchema(optionInfo, { isCLI, optionInfos }) {
         typeof choiceInfo === "object" && choiceInfo.redirect
           ? Object.assign({}, choiceInfo, {
               redirect: {
-                to: { key: optionInfo.name, value: choiceInfo.redirect }
-              }
+                to: { key: optionInfo.name, value: choiceInfo.redirect },
+              },
             })
           : choiceInfo
       );
@@ -169,8 +169,8 @@ function optionInfoToSchema(optionInfo, { isCLI, optionInfos }) {
         : {
             to: {
               key: optionInfo.redirect.option,
-              value: optionInfo.redirect.value
-            }
+              value: optionInfo.redirect.value,
+            },
           };
   }
 
@@ -215,5 +215,5 @@ function normalizeCliOptions(options, optionInfos, opts) {
 
 module.exports = {
   normalizeApiOptions,
-  normalizeCliOptions
+  normalizeCliOptions,
 };

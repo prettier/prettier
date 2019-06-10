@@ -81,5 +81,5 @@ module.exports = {
   processFile,
   readJson,
   writeJson,
-  waitForEnter
+  waitForEnter,
 };

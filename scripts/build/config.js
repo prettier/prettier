@@ -27,21 +27,21 @@ const parsers = [
     input: "src/language-js/parser-babylon.js",
     target: "universal",
     babelPlugins: [
-      require.resolve("./babel-plugins/replace-array-includes-with-indexof")
-    ]
+      require.resolve("./babel-plugins/replace-array-includes-with-indexof"),
+    ],
   },
   {
     input: "src/language-js/parser-flow.js",
     target: "universal",
-    strict: false
+    strict: false,
   },
   {
     input: "src/language-js/parser-typescript.js",
     target: "universal",
     replace: {
       // node v4 compatibility for @typescript-eslint/typescript-estree
-      "(!unique.includes(raw))": "(unique.indexOf(raw) === -1)"
-    }
+      "(!unique.includes(raw))": "(unique.indexOf(raw) === -1)",
+    },
   },
   {
     input: "src/language-js/parser-angular.js",
@@ -52,22 +52,22 @@ const parsers = [
       "lines-and-columns": require.resolve("lines-and-columns"),
       "@angular/compiler/src": path.resolve(
         `${PROJECT_ROOT}/node_modules/@angular/compiler/esm2015/src`
-      )
-    }
+      ),
+    },
   },
   {
     input: "src/language-css/parser-postcss.js",
     target: "universal",
     // postcss has dependency cycles that don't work with rollup
-    bundler: "webpack"
+    bundler: "webpack",
   },
   {
     input: "src/language-graphql/parser-graphql.js",
-    target: "universal"
+    target: "universal",
   },
   {
     input: "src/language-markdown/parser-markdown.js",
-    target: "universal"
+    target: "universal",
   },
   {
     input: "src/language-handlebars/parser-glimmer.js",
@@ -75,14 +75,14 @@ const parsers = [
     commonjs: {
       namedExports: {
         "node_modules/handlebars/lib/index.js": ["parse"],
-        "node_modules/@glimmer/syntax/dist/modules/es2017/index.js": "default"
+        "node_modules/@glimmer/syntax/dist/modules/es2017/index.js": "default",
       },
-      ignore: ["source-map"]
-    }
+      ignore: ["source-map"],
+    },
   },
   {
     input: "src/language-html/parser-html.js",
-    target: "universal"
+    target: "universal",
   },
   {
     input: "src/language-yaml/parser-yaml.js",
@@ -90,12 +90,12 @@ const parsers = [
     alias: {
       // Force using the CJS file, instead of ESM; i.e. get the file
       // from `"main"` instead of `"module"` (rollup default) of package.json
-      "lines-and-columns": require.resolve("lines-and-columns")
+      "lines-and-columns": require.resolve("lines-and-columns"),
     },
     babelPlugins: [
-      require.resolve("./babel-plugins/replace-array-includes-with-indexof")
-    ]
-  }
+      require.resolve("./babel-plugins/replace-array-includes-with-indexof"),
+    ],
+  },
 ].map(parser => {
   const name = getFileOutput(parser)
     .replace(/\.js$/, "")
@@ -112,28 +112,28 @@ const coreBundles = [
     externals: [path.resolve("src/common/third-party.js")],
     replace: {
       // from @iarna/toml/parse-string
-      "eval(\"require('util').inspect\")": "require('util').inspect"
-    }
+      "eval(\"require('util').inspect\")": "require('util').inspect",
+    },
   },
   {
     input: "src/doc/index.js",
     name: "doc",
     type: "core",
     output: "doc.js",
-    target: "universal"
+    target: "universal",
   },
   {
     input: "standalone.js",
     name: "prettier",
     type: "core",
-    target: "universal"
+    target: "universal",
   },
   {
     input: "bin/prettier.js",
     type: "core",
     output: "bin-prettier.js",
     target: "node",
-    externals: [path.resolve("src/common/third-party.js")]
+    externals: [path.resolve("src/common/third-party.js")],
   },
   {
     input: "src/common/third-party.js",
@@ -143,9 +143,9 @@ const coreBundles = [
       // cosmiconfig@5 -> import-fresh uses `require` to resolve js config, which caused Error:
       // Dynamic requires are not currently supported by rollup-plugin-commonjs.
       "require(filePath)": "eval('require')(filePath)",
-      "require.cache": "eval('require').cache"
-    }
-  }
+      "require.cache": "eval('require').cache",
+    },
+  },
 ];
 
 function getFileOutput(bundle) {

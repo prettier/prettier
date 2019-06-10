@@ -17,7 +17,7 @@ async function bump({ version }) {
   );
 
   await execa("yarn", ["update-stable-docs"], {
-    cwd: "./website"
+    cwd: "./website",
   });
 }
 

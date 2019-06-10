@@ -14,7 +14,7 @@ module.exports = async function({ dry, version }) {
     "Publishing to npm",
     execa("npm", ["publish"], {
       cwd: "./dist",
-      stdio: "inherit" // we need to input OTP if 2FA enabled
+      stdio: "inherit", // we need to input OTP if 2FA enabled
     })
   );
 

@@ -35,7 +35,7 @@ export function NumberInput({
   min,
   max,
   step,
-  onChange
+  onChange,
 }) {
   return (
     <label title={title}>

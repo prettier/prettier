@@ -53,7 +53,7 @@ function group(contents, opts) {
     id: opts.id,
     contents: contents,
     break: !!opts.shouldBreak,
-    expandedStates: opts.expandedStates
+    expandedStates: opts.expandedStates,
   };
 }
 
@@ -100,7 +100,7 @@ function ifBreak(breakContents, flatContents, opts) {
     type: "if-break",
     breakContents,
     flatContents,
-    groupId: opts.groupId
+    groupId: opts.groupId,
   };
 }
 
@@ -119,7 +119,7 @@ const softline = { type: "line", soft: true };
 const hardline = concat([{ type: "line", hard: true }, breakParent]);
 const literalline = concat([
   { type: "line", hard: true, literal: true },
-  breakParent
+  breakParent,
 ]);
 const cursor = { type: "cursor", placeholder: Symbol("cursor") };
 
@@ -174,5 +174,5 @@ module.exports = {
   addAlignmentToDoc,
   markAsRoot,
   dedentToRoot,
-  dedent
+  dedent,
 };

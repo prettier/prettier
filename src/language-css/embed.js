@@ -2,7 +2,7 @@
 
 const {
   builders: { hardline, literalline, concat, markAsRoot },
-  utils: { mapDoc }
+  utils: { mapDoc },
 } = require("../doc");
 
 function embed(path, print, textToDoc /*, options */) {
@@ -19,7 +19,7 @@ function embed(path, print, textToDoc /*, options */) {
             )
           : "",
         "---",
-        hardline
+        hardline,
       ])
     );
   }

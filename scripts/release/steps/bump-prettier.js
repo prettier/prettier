@@ -13,7 +13,7 @@ async function commit(version) {
   await execa("git", [
     "commit",
     "-am",
-    `Bump Prettier dependency to ${version}`
+    `Bump Prettier dependency to ${version}`,
   ]);
   await execa("git", ["push"]);
 }

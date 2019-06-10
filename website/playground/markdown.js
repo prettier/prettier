@@ -21,7 +21,7 @@ function formatMarkdown(
     codeBlock(input, syntax),
     "",
     "**Output:**",
-    codeBlock(output, syntax)
+    codeBlock(output, syntax),
   ]
     .concat(
       isIdempotent ? [] : ["", "**Second Output:**", codeBlock(output2, syntax)]

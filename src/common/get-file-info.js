@@ -48,7 +48,7 @@ function _getFileInfo(ignorer, filePath, plugins) {
 
   return {
     ignored,
-    inferredParser
+    inferredParser,
   };
 }
 

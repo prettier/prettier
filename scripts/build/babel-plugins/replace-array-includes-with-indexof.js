@@ -27,6 +27,6 @@ module.exports = ({ types: t }) => ({
         callee.property.name = "indexOf";
         path.replaceWith(t.binaryExpression("!==", node, t.numericLiteral(-1)));
       }
-    }
-  }
+    },
+  },
 });

@@ -8,16 +8,16 @@ const languages = [
     override: {
       since: null, // unreleased
       parsers: ["glimmer"],
-      vscodeLanguageIds: ["handlebars"]
-    }
-  })
+      vscodeLanguageIds: ["handlebars"],
+    },
+  }),
 ];
 
 const printers = {
-  glimmer: printer
+  glimmer: printer,
 };
 
 module.exports = {
   languages,
-  printers
+  printers,
 };

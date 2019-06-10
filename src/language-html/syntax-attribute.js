@@ -1,7 +1,7 @@
 "use strict";
 
 const {
-  builders: { concat, ifBreak, join, line }
+  builders: { concat, ifBreak, join, line },
 } = require("../doc");
 const parseSrcset = require("parse-srcset");
 
@@ -10,8 +10,8 @@ function printImgSrcset(value) {
     logger: {
       error(message) {
         throw new Error(message);
-      }
-    }
+      },
+    },
   });
 
   const hasW = srcset.some(src => src.w);
@@ -60,5 +60,5 @@ function printImgSrcset(value) {
 }
 
 module.exports = {
-  printImgSrcset
+  printImgSrcset,
 };

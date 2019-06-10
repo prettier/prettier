@@ -28,7 +28,7 @@ const CSS_DISPLAY_TAGS = Object.assign({}, getCssStyleTags("display"), {
 
   // there's no css display for these elements but they behave these ways
   video: "inline-block",
-  audio: "inline-block"
+  audio: "inline-block",
 });
 const CSS_DISPLAY_DEFAULT = "inline";
 const CSS_WHITE_SPACE_TAGS = getCssStyleTags("white-space");
@@ -38,5 +38,5 @@ module.exports = {
   CSS_DISPLAY_TAGS,
   CSS_DISPLAY_DEFAULT,
   CSS_WHITE_SPACE_TAGS,
-  CSS_WHITE_SPACE_DEFAULT
+  CSS_WHITE_SPACE_DEFAULT,
 };

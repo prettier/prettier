@@ -11,7 +11,7 @@ describe("plugin default options should work", () => {
     stdout: "tabWidth:8",
     stderr: "",
     status: 0,
-    write: []
+    write: [],
   });
 });
 
@@ -24,6 +24,6 @@ describe("overriding plugin default options should work", () => {
     stdout: "tabWidth:4",
     stderr: "",
     status: 0,
-    write: []
+    write: [],
   });
 });

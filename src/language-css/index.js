@@ -9,41 +9,41 @@ const languages = [
     override: {
       since: "1.4.0",
       parsers: ["css"],
-      vscodeLanguageIds: ["css"]
-    }
+      vscodeLanguageIds: ["css"],
+    },
   }),
   createLanguage(require("linguist-languages/data/postcss"), {
     override: {
       since: "1.4.0",
       parsers: ["css"],
-      vscodeLanguageIds: ["postcss"]
+      vscodeLanguageIds: ["postcss"],
     },
     extend: {
-      extensions: [".postcss"]
-    }
+      extensions: [".postcss"],
+    },
   }),
   createLanguage(require("linguist-languages/data/less"), {
     override: {
       since: "1.4.0",
       parsers: ["less"],
-      vscodeLanguageIds: ["less"]
-    }
+      vscodeLanguageIds: ["less"],
+    },
   }),
   createLanguage(require("linguist-languages/data/scss"), {
     override: {
       since: "1.4.0",
       parsers: ["scss"],
-      vscodeLanguageIds: ["scss"]
-    }
-  })
+      vscodeLanguageIds: ["scss"],
+    },
+  }),
 ];
 
 const printers = {
-  postcss: printer
+  postcss: printer,
 };
 
 module.exports = {
   languages,
   options,
-  printers
+  printers,
 };

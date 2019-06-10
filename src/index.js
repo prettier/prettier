@@ -18,7 +18,7 @@ function _withPlugins(fn) {
     const args = Array.from(arguments);
     const opts = args[1] || {};
     args[1] = Object.assign({}, opts, {
-      plugins: loadPlugins(opts.plugins, opts.pluginSearchDirs)
+      plugins: loadPlugins(opts.plugins, opts.pluginSearchDirs),
     });
     return fn.apply(null, args);
   };
@@ -65,6 +65,6 @@ module.exports = {
     formatAST: withPlugins(core.formatAST),
     formatDoc: withPlugins(core.formatDoc),
     printToDoc: withPlugins(core.printToDoc),
-    printDocToString: withPlugins(core.printDocToString)
-  }
+    printDocToString: withPlugins(core.printDocToString),
+  },
 };

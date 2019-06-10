@@ -42,7 +42,7 @@ toolbox.precache([
   "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.3.1/umd/react-dom.production.min.js",
 
   // Images
-  "/prettier.png"
+  "/prettier.png",
 ]);
 
 // Default to hit the cache only if there's a network error

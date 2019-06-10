@@ -39,7 +39,7 @@ const tokenizeEsSyntax = (eat, value) => {
   if (isExport(subvalue) || isImport(subvalue)) {
     return eat(subvalue)({
       type: isExport(subvalue) ? "export" : "import",
-      value: subvalue
+      value: subvalue,
     });
   }
 };
@@ -60,5 +60,5 @@ function esSyntax() {
 
 module.exports = {
   esSyntax,
-  BLOCKS_REGEX
+  BLOCKS_REGEX,
 };

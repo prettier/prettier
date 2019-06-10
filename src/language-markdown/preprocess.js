@@ -35,7 +35,7 @@ function transformInlineCode(ast) {
     }
 
     return Object.assign({}, node, {
-      value: node.value.replace(/\s+/g, " ")
+      value: node.value.replace(/\s+/g, " "),
     });
   });
 }
@@ -56,7 +56,7 @@ function restoreUnescapedCharacter(ast, options) {
                   node.position.start.offset,
                   node.position.end.offset
                 )
-              : node.value
+              : node.value,
         });
   });
 }
@@ -71,8 +71,8 @@ function mergeContinuousImportExport(ast) {
       value: prevNode.value + "\n\n" + node.value,
       position: {
         start: prevNode.position.start,
-        end: node.position.end
-      }
+        end: node.position.end,
+      },
     })
   );
 }
@@ -104,8 +104,8 @@ function mergeContinuousTexts(ast) {
       value: prevNode.value + node.value,
       position: {
         start: prevNode.position.start,
-        end: node.position.end
-      }
+        end: node.position.end,
+      },
     })
   );
 }
@@ -130,7 +130,7 @@ function splitTextIntoSentences(ast, options) {
     return {
       type: "sentence",
       position: node.position,
-      children: splitText(value, options)
+      children: splitText(value, options),
     };
   });
 }

@@ -25,7 +25,7 @@ function parse(text, parsers, opts) {
       }
 
       throw createError(e.message, {
-        start: { line: e.lineNumber, column: e.column + 1 }
+        start: { line: e.lineNumber, column: e.column + 1 },
       });
     }
   }
@@ -46,7 +46,7 @@ function tryParseTypeScript(text, jsx) {
     jsx,
     // Override logger function with noop,
     // to avoid unsupported version errors being logged
-    loggerFn: () => {}
+    loggerFn: () => {},
   });
 }
 
@@ -58,7 +58,7 @@ function isProbablyJsx(text) {
     [
       "(^[^\"'`]*</)", // Contains "</" when probably not in a string
       "|",
-      "(^[^/]{2}.*/>)" // Contains "/>" on line not starting with "//"
+      "(^[^/]{2}.*/>)", // Contains "/>" on line not starting with "//"
     ].join(""),
     "m"
   ).test(text);
@@ -69,6 +69,6 @@ const parser = Object.assign({ parse, astFormat: "estree", hasPragma }, locFns);
 // Export as a plugin so we can reuse the same bundle for UMD loading
 module.exports = {
   parsers: {
-    typescript: parser
-  }
+    typescript: parser,
+  },
 };

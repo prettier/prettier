@@ -58,10 +58,10 @@ global.run_spec = (dirname, parsers, options) => {
     const baseOptions = Object.assign({ printWidth: 80 }, options, {
       rangeStart,
       rangeEnd,
-      cursorOffset
+      cursorOffset,
     });
     const mainOptions = Object.assign({}, baseOptions, {
-      parser: parsers[0]
+      parser: parsers[0],
     });
 
     const hasEndOfLine = "endOfLine" in mainOptions;

@@ -11,9 +11,9 @@ const {
     literalline,
     concat,
     group,
-    dedentToRoot
+    dedentToRoot,
   },
-  utils: { mapDoc, stripTrailingHardline }
+  utils: { mapDoc, stripTrailingHardline },
 } = require("../doc");
 
 function embed(path, print, textToDoc, options) {
@@ -27,7 +27,7 @@ function embed(path, print, textToDoc, options) {
         isStyledJsx,
         isStyledComponents,
         isCssProp,
-        isAngularComponentStyles
+        isAngularComponentStyles,
       ].some(isIt => isIt(path));
 
       if (isCss) {
@@ -131,7 +131,7 @@ function embed(path, print, textToDoc, options) {
           "`",
           indent(concat([hardline, join(hardline, parts)])),
           hardline,
-          "`"
+          "`",
         ]);
       }
 
@@ -180,11 +180,11 @@ function embed(path, print, textToDoc, options) {
                   softline,
                   printMarkdown(
                     text.replace(new RegExp(`^${indentation}`, "gm"), "")
-                  )
+                  ),
                 ])
               )
             : concat([literalline, dedentToRoot(printMarkdown(text))]),
-          softline
+          softline,
         ]);
       }
 
@@ -248,7 +248,7 @@ function transformCssDoc(quasisDoc, path, print) {
     "`",
     indent(concat([hardline, stripTrailingHardline(newDoc)])),
     softline,
-    "`"
+    "`",
   ]);
 }
 
@@ -307,7 +307,7 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
         .concat(rest);
     }
     return Object.assign({}, doc, {
-      parts: parts
+      parts: parts,
     });
   });
 
@@ -399,7 +399,7 @@ function isAngularComponentStyles(path) {
         node.type === "Property" &&
         node.key.type === "Identifier" &&
         node.key.name === "styles" &&
-        name === "value"
+        name === "value",
     ].concat(getAngularComponentObjectExpressionPredicates())
   );
 }
@@ -412,7 +412,7 @@ function isAngularComponentTemplate(path) {
         node.type === "Property" &&
         node.key.type === "Identifier" &&
         node.key.name === "template" &&
-        name === "value"
+        name === "value",
     ].concat(getAngularComponentObjectExpressionPredicates())
   );
 }
@@ -424,7 +424,7 @@ function getAngularComponentObjectExpressionPredicates() {
       node.callee.type === "Identifier" &&
       node.callee.name === "Component" &&
       name === "arguments",
-    (node, name) => node.type === "Decorator" && name === "expression"
+    (node, name) => node.type === "Decorator" && name === "expression",
   ];
 }
 
@@ -579,7 +579,7 @@ function isHtml(path) {
         node.type === "TaggedTemplateExpression" &&
         node.tag.type === "Identifier" &&
         node.tag.name === "html" &&
-        name === "quasi"
+        name === "quasi",
     ])
   );
 }

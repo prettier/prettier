@@ -197,7 +197,7 @@ function stripTrailingHardline(doc) {
 
       return {
         type: "concat",
-        parts: doc.parts.slice(0, -1).concat(stripTrailingHardline(lastPart))
+        parts: doc.parts.slice(0, -1).concat(stripTrailingHardline(lastPart)),
       };
     }
   }
@@ -214,5 +214,5 @@ module.exports = {
   mapDoc,
   propagateBreaks,
   removeLines,
-  stripTrailingHardline
+  stripTrailingHardline,
 };

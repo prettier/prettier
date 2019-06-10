@@ -21,8 +21,8 @@ module.exports = function() {
 
       return {
         code: `var json = ${json}; export default json;`,
-        map: { mappings: "" }
+        map: { mappings: "" },
       };
-    }
+    },
   };
 };

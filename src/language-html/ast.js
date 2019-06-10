@@ -2,7 +2,7 @@
 
 const NODES_KEYS = {
   attrs: true,
-  children: true
+  children: true,
 };
 
 class Node {
@@ -25,7 +25,7 @@ class Node {
           attrMap: this[key].reduce((reduced, attr) => {
             reduced[attr.fullName] = attr.value;
             return reduced;
-          }, Object.create(null))
+          }, Object.create(null)),
         });
       }
     }
@@ -59,7 +59,7 @@ class Node {
         siblings,
         prev,
         next,
-        parent
+        parent,
       });
     }
 
@@ -113,7 +113,7 @@ function cloneAndUpdateNodes(nodes, parent) {
       siblings,
       prev,
       next,
-      parent
+      parent,
     });
     prev = current;
     current = next;
@@ -132,5 +132,5 @@ function setNonEnumerableProperties(obj, props) {
 }
 
 module.exports = {
-  Node
+  Node,
 };
