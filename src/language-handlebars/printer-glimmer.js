@@ -40,22 +40,24 @@ function printChildren(path, options, print) {
       const isLastNode =
         childIndex == path.getParentNode(0).children.length - 1;
       const isLastNodeInMultiNodeList = isLastNode && !isFirstNode;
-      const isWhitespace = isWhitespaceNode(childNode);
+      const isSingleLineWhitespace = isSingleLineWhitespaceNode(childNode);
 
-      if (isWhitespace && isLastNodeInMultiNodeList) {
-        return concat([print(childPath, options, print)]);
-      } else if (
-        isFirstNode ||
-        isPreviousNodeOfSomeType(childPath, [
+      if (isFirstNode) {
+        return concat([softline, print(childPath, options, print)]);
+      } else if (isSingleLineWhitespace && isLastNodeInMultiNodeList) {
+        return print(childPath, options, print);
+      } else if (isPreviousNodeOfSomeType(childPath, [
           "ElementNode",
           "CommentStatement",
           "MustacheCommentStatement",
-          "BlockStatement"
+          "BlockStatement",
+          "MustacheStatement"
         ])
       ) {
         return concat([softline, print(childPath, options, print)]);
       }
-      return concat([print(childPath, options, print)]);
+
+      return print(childPath, options, print);
     }, "children")
   );
 }
@@ -391,6 +393,10 @@ function printCloseBlock(path, print) {
 
 function isWhitespaceNode(node) {
   return node.type === "TextNode" && !/\S/.test(node.chars);
+}
+
+function isSingleLineWhitespaceNode(node) {
+  return node.type === "TextNode" && !/[^\S\r\n]/.test(node.chars);
 }
 
 function getPreviousNode(path) {
