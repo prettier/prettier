@@ -43,3 +43,36 @@ const link = <a href="example.com">http://example.com</a>;
 ```
 
 -->
+
+#### TypeScript: Print comment following a JSX element with generic ([#6209] by [@duailibe])
+
+Previous versions would not print this comment, this has been fixed in this version.
+
+<!-- prettier-ignore -->
+```ts
+// Input
+const comp = (
+  <Foo<number>
+    // This comment goes missing
+    value={4}
+  >
+    Test
+  </Foo>
+);
+
+// Output (Prettier stable)
+const comp = <Foo<number> value={4}>Test</Foo>;
+
+// Output (Prettier master)
+const comp = (
+  <Foo<number>
+    // This comment goes missing
+    value={4}
+  >
+    Test
+  </Foo>
+);
+```
+
+[#6209]: https://github.com/prettier/prettier/pull/6209
+[@duailibe]: https://github.com/duailibe
