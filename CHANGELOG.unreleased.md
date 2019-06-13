@@ -104,7 +104,32 @@ Previously, Prettier added line breaks between text and mustaches which resulted
 </p>
 ```
 
+#### JavaScript: Keep unary expressions parentheses with comments ([#] by [@sosukesuzuki])
+
+Previously, Prettier removes parentheses enclose unary expressions. This change modify to keep it when the expression has comments.
+
+<!-- prettier-ignore -->
+```ts
+// Input
+!(
+  /* foo */
+  foo
+);
+
+// Output (Prettier stable)
+!/* foo */
+foo;
+
+// Output (Prettier master)
+!(
+  /* foo */
+  foo
+);
+```
+
 [#6209]: https://github.com/prettier/prettier/pull/6209
 [#6186]: https://github.com/prettier/prettier/pull/6186
+[#]: https://github.com/prettier/prettier/pull/
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
+[@sosukesuzuki]: https://github.com/sosukesuzuki
