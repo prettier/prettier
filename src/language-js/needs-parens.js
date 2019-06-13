@@ -277,7 +277,8 @@ function needsParens(path, options) {
         case "UnaryExpression":
           return (
             node.operator === parent.operator &&
-            (node.operator === "+" || node.operator === "-")
+            (node.operator === "+" || node.operator === "-") &&
+            !parent.argument.comments
           );
 
         case "BindExpression":
@@ -306,6 +307,10 @@ function needsParens(path, options) {
     case "BinaryExpression": {
       if (parent.type === "UpdateExpression") {
         return true;
+      }
+
+      if (parent.type === "UnaryExpression") {
+        return !parent.argument.comments;
       }
 
       const isLeftOfAForStatement = node => {
@@ -344,7 +349,6 @@ function needsParens(path, options) {
 
         case "TSTypeAssertion":
         case "TaggedTemplateExpression":
-        case "UnaryExpression":
         case "JSXSpreadAttribute":
         case "SpreadElement":
         case "SpreadProperty":
@@ -354,6 +358,9 @@ function needsParens(path, options) {
         case "TSNonNullExpression":
         case "UpdateExpression":
           return true;
+
+        case "UnaryExpression":
+          return !parent.argument.comments;
 
         case "MemberExpression":
         case "OptionalMemberExpression":
@@ -468,6 +475,9 @@ function needsParens(path, options) {
           // specially when printing bodies of arrow functions.
           return name !== "body";
 
+        case "UnaryExpression":
+          return !parent.argument.comments;
+
         default:
           // Otherwise err on the side of overparenthesization, adding
           // explicit exceptions above if this proves overzealous.
@@ -476,18 +486,18 @@ function needsParens(path, options) {
 
     case "YieldExpression":
       if (
-        parent.type === "UnaryExpression" ||
         parent.type === "AwaitExpression" ||
         parent.type === "TSAsExpression" ||
         parent.type === "TSNonNullExpression"
       ) {
         return true;
+      } else if (parent.type === "UnaryExpression") {
+        return !parent.argument.comments;
       }
     // else fallthrough
     case "AwaitExpression":
       switch (parent.type) {
         case "TaggedTemplateExpression":
-        case "UnaryExpression":
         case "BinaryExpression":
         case "LogicalExpression":
         case "SpreadElement":
@@ -497,6 +507,9 @@ function needsParens(path, options) {
         case "BindExpression":
         case "OptionalMemberExpression":
           return true;
+
+        case "UnaryExpression":
+          return !parent.argument.comments;
 
         case "MemberExpression":
           return parent.object === node;
@@ -610,13 +623,14 @@ function needsParens(path, options) {
         return false;
       } else if (parent.type === "NGChainedExpression") {
         return false;
+      } else if (parent.type === "UnaryExpression") {
+        return !parent.argument.comments;
       }
       return true;
     }
     case "ConditionalExpression":
       switch (parent.type) {
         case "TaggedTemplateExpression":
-        case "UnaryExpression":
         case "SpreadElement":
         case "SpreadProperty":
         case "BinaryExpression":
@@ -631,6 +645,9 @@ function needsParens(path, options) {
         case "TSNonNullExpression":
         case "OptionalMemberExpression":
           return true;
+
+        case "UnaryExpression":
+          return !parent.argument.comments;
 
         case "NewExpression":
         case "CallExpression":
@@ -671,7 +688,6 @@ function needsParens(path, options) {
         case "TSAsExpression":
         case "BindExpression":
         case "TaggedTemplateExpression":
-        case "UnaryExpression":
         case "LogicalExpression":
         case "BinaryExpression":
         case "AwaitExpression":
@@ -680,6 +696,9 @@ function needsParens(path, options) {
 
         case "ConditionalExpression":
           return name === "test";
+
+        case "UnaryExpression":
+          return !parent.argument.comments;
 
         default:
           return false;
@@ -716,6 +735,13 @@ function needsParens(path, options) {
           object = object.object;
         }
       }
+
+      if (parent.type === "UnaryExpression") {
+        if (parent.argument.comments) {
+          break;
+        }
+      }
+
       return false;
 
     case "BindExpression":
