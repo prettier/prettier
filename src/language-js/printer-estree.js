@@ -1630,7 +1630,28 @@ function printPathNoParens(path, options, print, args) {
         parts.push(" ");
       }
 
-      parts.push(path.call(print, "argument"));
+      if (n.argument.comments) {
+        const shouldBreak = hasNewlineInRange(
+          options.originalText,
+          options.locStart(n),
+          options.locEnd(n)
+        );
+
+        parts.push(
+          group(
+            concat([
+              "(",
+              indent(softline),
+              indent(path.call(print, "argument")),
+              softline,
+              ")"
+            ]),
+            { shouldBreak }
+          )
+        );
+      } else {
+        parts.push(path.call(print, "argument"));
+      }
 
       return concat(parts);
     case "UpdateExpression":
