@@ -380,6 +380,10 @@ function printLeadingComment(commentPath, print, options) {
   const isBlock =
     options.printer.isBlockComment && options.printer.isBlockComment(comment);
 
+  // We don't want the line to break
+  // when the parentParentNode is a UnaryExpression
+  // And the parentParentNode.argument.comments is
+  // occupied with block comments
   const parentParentNode = commentPath.getNode(2);
   const isParentParentUnaryExpression =
     parentParentNode && parentParentNode.type === "UnaryExpression";
@@ -428,8 +432,9 @@ function printTrailingComment(commentPath, print, options) {
     parentParentNode.superClass === parentNode;
 
   // We don't want the line to break
-  // when the parentParentNode a UnaryExpression
-  // And the argument.comments is occupied with block comments
+  // when the parentParentNode is a UnaryExpression
+  // And the parentParentNode.argument.comments is
+  // occupied with block comments
   const isParentParentUnaryExpression =
     parentParentNode && parentParentNode.type === "UnaryExpression";
   const isIncludeCommentLine =
