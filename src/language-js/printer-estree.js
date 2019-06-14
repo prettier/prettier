@@ -6562,7 +6562,7 @@ function printComment(commentPath, options) {
             backwards: true
           })
         ) {
-          return concat([printed]);
+          return concat([hardline, printed]);
         }
         return printed;
       }
