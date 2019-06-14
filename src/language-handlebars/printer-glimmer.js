@@ -32,6 +32,31 @@ const voidTags = [
 // Formatter based on @glimmerjs/syntax's built-in test formatter:
 // https://github.com/glimmerjs/glimmer-vm/blob/master/packages/%40glimmer/syntax/lib/generation/print.ts
 
+function printChildren(path, options, print) {
+  return concat(
+    path.map((childPath, childIndex) => {
+      const isFirstNode = childIndex === 0;
+      const isLastNode =
+        childIndex == path.getParentNode(0).children.length - 1;
+      const isLastNodeInMultiNodeList = isLastNode && !isFirstNode;
+
+      if (isLastNodeInMultiNodeList) {
+        return concat([print(childPath, options, print)]);
+      } else if (
+        isFirstNode ||
+        isPreviousNodeOfSomeType(childPath, [
+          "ElementNode",
+          "CommentStatement",
+          "MustacheCommentStatement"
+        ])
+      ) {
+        return concat([softline, print(childPath, options, print)]);
+      }
+      return concat([print(childPath, options, print)]);
+    }, "children")
+  );
+}
+
 function print(path, options, print) {
   const n = path.getValue();
 
@@ -83,7 +108,7 @@ function print(path, options, print) {
         ),
         group(
           concat([
-            indent(join(softline, [""].concat(path.map(print, "children")))),
+            indent(printChildren(path, options, print)),
             ifBreak(hasChildren ? hardline : "", ""),
             !isVoid ? concat(["</", n.tag, ">"]) : ""
           ])
@@ -122,18 +147,16 @@ function print(path, options, print) {
           indent(concat([hardline, path.call(print, "program")]))
         ]);
       }
-      /**
-       * I want this boolean to be: if params are going to cause a break,
-       * not that it has params.
-       */
-      const hasParams = n.params.length > 0 || n.hash.pairs.length > 0;
-      const hasChildren = n.program.body.length > 0;
+
+      const hasNonWhitespaceChildren = n.program.body.some(
+        n => !isWhitespaceNode(n)
+      );
       return concat([
         printOpenBlock(path, print),
         group(
           concat([
             indent(concat([softline, path.call(print, "program")])),
-            hasParams && hasChildren ? hardline : softline,
+            hasNonWhitespaceChildren ? hardline : softline,
             printCloseBlock(path, print)
           ])
         )
@@ -193,8 +216,21 @@ function print(path, options, print) {
       return concat([n.key, "=", path.call(print, "value")]);
     }
     case "TextNode": {
+      const isWhitespaceOnly = !/\S/.test(n.chars);
+
+      if (
+        isWhitespaceOnly &&
+        isPreviousNodeOfSomeType(path, ["MustacheStatement", "TextNode"])
+      ) {
+        return " ";
+      }
+
       let leadingSpace = "";
       let trailingSpace = "";
+
+      if (isNextNodeOfType(path, "MustacheStatement")) {
+        trailingSpace = " ";
+      }
 
       // preserve a space inside of an attribute node where whitespace present, when next to mustache statement.
       const inAttrNode = path.stack.indexOf("attributes") >= 0;
@@ -348,6 +384,52 @@ function printOpenBlock(path, print) {
 
 function printCloseBlock(path, print) {
   return concat(["{{/", path.call(print, "path"), "}}"]);
+}
+
+function isWhitespaceNode(node) {
+  return node.type === "TextNode" && !/\S/.test(node.chars);
+}
+
+function getPreviousNode(path) {
+  const node = path.getValue();
+  const parentNode = path.getParentNode(0);
+
+  const children = parentNode.children;
+  if (children) {
+    const nodeIndex = children.indexOf(node);
+    if (nodeIndex > 0) {
+      const previousNode = children[nodeIndex - 1];
+      return previousNode;
+    }
+  }
+}
+
+function getNextNode(path) {
+  const node = path.getValue();
+  const parentNode = path.getParentNode(0);
+
+  const children = parentNode.children;
+  if (children) {
+    const nodeIndex = children.indexOf(node);
+    if (nodeIndex < children.length) {
+      const nextNode = children[nodeIndex + 1];
+      return nextNode;
+    }
+  }
+}
+
+function isPreviousNodeOfSomeType(path, types) {
+  const previousNode = getPreviousNode(path);
+
+  if (previousNode) {
+    return types.some(type => previousNode.type === type);
+  }
+  return false;
+}
+
+function isNextNodeOfType(path, type) {
+  const nextNode = getNextNode(path);
+  return nextNode && nextNode.type === type;
 }
 
 function clean(ast, newObj) {
