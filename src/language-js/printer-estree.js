@@ -1631,24 +1631,33 @@ function printPathNoParens(path, options, print, args) {
       }
 
       if (n.argument.comments) {
-        const shouldBreak = hasNewlineInRange(
-          options.originalText,
-          options.locStart(n),
-          options.locEnd(n)
+        const isIncludeCommentLine = n.argument.comments.some(
+          comment => comment.type === "CommentLine"
         );
 
-        parts.push(
-          group(
-            concat([
-              "(",
-              indent(softline),
-              indent(path.call(print, "argument")),
-              softline,
-              ")"
-            ]),
-            { shouldBreak }
-          )
-        );
+        // We don't want the line to break
+        // when the argument.comments is occupied with block comments
+        if (isIncludeCommentLine) {
+          const shouldBreak = hasNewlineInRange(
+            options.originalText,
+            options.locStart(n),
+            options.locEnd(n)
+          );
+          parts.push(
+            group(
+              concat([
+                "(",
+                indent(softline),
+                indent(path.call(print, "argument")),
+                softline,
+                ")"
+              ]),
+              { shouldBreak }
+            )
+          );
+        } else {
+          parts.push(group(concat(["(", path.call(print, "argument"), ")"])));
+        }
       } else {
         parts.push(path.call(print, "argument"));
       }
@@ -6553,7 +6562,7 @@ function printComment(commentPath, options) {
             backwards: true
           })
         ) {
-          return concat([hardline, printed]);
+          return concat([printed]);
         }
         return printed;
       }

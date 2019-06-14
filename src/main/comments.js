@@ -380,6 +380,17 @@ function printLeadingComment(commentPath, print, options) {
   const isBlock =
     options.printer.isBlockComment && options.printer.isBlockComment(comment);
 
+  const parentParentNode = commentPath.getNode(2);
+  const isParentParentUnaryExpression =
+    parentParentNode.type === "UnaryExpression";
+  const isIncludeCommentLine = parentParentNode.argument.comments.some(
+    comment => comment.type === "CommentLine"
+  );
+
+  if (isParentParentUnaryExpression && !isIncludeCommentLine) {
+    return concat([contents, " "]);
+  }
+
   // Leading block comments should see if they need to stay on the
   // same line or not.
   if (isBlock) {
@@ -412,10 +423,28 @@ function printTrailingComment(commentPath, print, options) {
       parentParentNode.type === "ClassExpression") &&
     parentParentNode.superClass === parentNode;
 
-  if (
-    hasNewline(options.originalText, options.locStart(comment), {
+  // We don't want the line to break
+  // when the parentParentNode a UnaryExpression
+  // And the argument.comments is occupied with block comments
+  const isParentParentUnaryExpression =
+    parentParentNode.type === "UnaryExpression";
+  const isIncludeCommentLine = parentParentNode.argument.comments.some(
+    comment => comment.type === "CommentLine"
+  );
+
+  const hasNewLineInComments = hasNewline(
+    options.originalText,
+    options.locStart(comment),
+    {
       backwards: true
-    })
+    }
+  );
+
+  if (
+    (hasNewLineInComments && !isParentParentUnaryExpression) ||
+    (hasNewLineInComments &&
+      isParentParentUnaryExpression &&
+      isIncludeCommentLine)
   ) {
     // This allows comments at the end of nested structures:
     // {
@@ -438,7 +467,11 @@ function printTrailingComment(commentPath, print, options) {
     return lineSuffix(
       concat([hardline, isLineBeforeEmpty ? hardline : "", contents])
     );
-  } else if (isBlock || isParentSuperClass) {
+  } else if (
+    isBlock ||
+    isParentSuperClass ||
+    (isParentParentUnaryExpression && !isIncludeCommentLine)
+  ) {
     // Trailing block comments never need a newline
     return concat([" ", contents]);
   }
