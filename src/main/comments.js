@@ -382,10 +382,14 @@ function printLeadingComment(commentPath, print, options) {
 
   const parentParentNode = commentPath.getNode(2);
   const isParentParentUnaryExpression =
-    parentParentNode.type === "UnaryExpression";
-  const isIncludeCommentLine = parentParentNode.argument.comments.some(
-    comment => comment.type === "CommentLine"
-  );
+    parentParentNode && parentParentNode.type === "UnaryExpression";
+  const isIncludeCommentLine =
+    parentParentNode &&
+    parentParentNode.argument &&
+    parentParentNode.argument.comments &&
+    parentParentNode.argument.comments.some(
+      comment => comment.type === "CommentLine"
+    );
 
   if (isParentParentUnaryExpression && !isIncludeCommentLine) {
     return concat([contents, " "]);
@@ -427,10 +431,14 @@ function printTrailingComment(commentPath, print, options) {
   // when the parentParentNode a UnaryExpression
   // And the argument.comments is occupied with block comments
   const isParentParentUnaryExpression =
-    parentParentNode.type === "UnaryExpression";
-  const isIncludeCommentLine = parentParentNode.argument.comments.some(
-    comment => comment.type === "CommentLine"
-  );
+    parentParentNode && parentParentNode.type === "UnaryExpression";
+  const isIncludeCommentLine =
+    parentParentNode &&
+    parentParentNode.argument &&
+    parentParentNode.argument.comments &&
+    parentParentNode.argument.comments.some(
+      comment => comment.type === "CommentLine"
+    );
 
   const hasNewLineInComments = hasNewline(
     options.originalText,
