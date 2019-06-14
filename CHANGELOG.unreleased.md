@@ -115,15 +115,19 @@ Previously, Prettier removes parentheses enclose unary expressions. This change 
   /* foo */
   foo
 );
+!(
+  foo // foo
+);
 
 // Output (Prettier stable)
 !/* foo */
 foo;
+!foo; // foo
 
 // Output (Prettier master)
+!(/* foo */ foo);
 !(
-  /* foo */
-  foo
+  foo // foo
 );
 ```
 
