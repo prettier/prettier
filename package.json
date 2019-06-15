@@ -88,7 +88,7 @@
     "eslint-plugin-import": "2.17.3",
     "eslint-plugin-prettier": "3.1.0",
     "eslint-plugin-react": "7.13.0",
-    "execa": "0.10.0",
+    "execa": "1.0.0",
     "jest": "23.3.0",
     "jest-junit": "5.0.0",
     "jest-snapshot-serializer-ansi": "1.0.0",
