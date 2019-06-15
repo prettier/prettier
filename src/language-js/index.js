@@ -39,7 +39,14 @@ const languages = [
     override: {
       since: "1.4.0",
       parsers: ["typescript"],
-      vscodeLanguageIds: ["typescript", "typescriptreact"]
+      vscodeLanguageIds: ["typescript"]
+    }
+  }),
+  createLanguage(require("linguist-languages/data/TSX"), {
+    override: {
+      since: "1.4.0",
+      parsers: ["typescript"],
+      vscodeLanguageIds: ["typescriptreact"]
     }
   }),
   createLanguage(require("linguist-languages/data/JSON"), {
