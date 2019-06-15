@@ -16,7 +16,7 @@
   "dependencies": {
     "@angular/compiler": "7.2.9",
     "@babel/code-frame": "7.0.0",
-    "@babel/parser": "7.2.0",
+    "@babel/parser": "7.4.5",
     "@glimmer/syntax": "0.38.4",
     "@iarna/toml": "2.2.3",
     "@typescript-eslint/typescript-estree": "1.10.2",
@@ -75,7 +75,7 @@
     "yaml-unist-parser": "1.0.0"
   },
   "devDependencies": {
-    "@babel/core": "7.2.0",
+    "@babel/core": "7.4.5",
     "@babel/preset-env": "7.4.5",
     "babel-loader": "8.0.6",
     "benchmark": "2.1.4",
