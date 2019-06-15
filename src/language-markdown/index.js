@@ -9,7 +9,18 @@ const languages = [
     override: {
       since: "1.8.0",
       parsers: ["remark"],
-      vscodeLanguageIds: ["markdown"]
+      vscodeLanguageIds: ["markdown"],
+      extensions: [
+        ".md",
+        ".markdown",
+        ".mdown",
+        ".mdwn",
+        ".mkd",
+        ".mkdn",
+        ".mkdown",
+        ".ronn",
+        ".workbook"
+      ]
     },
     extend: {
       filenames: ["README"]

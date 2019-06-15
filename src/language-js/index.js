@@ -10,10 +10,8 @@ const languages = [
     override: {
       since: "0.0.0",
       parsers: ["babel", "flow"],
-      vscodeLanguageIds: ["javascript"]
-    },
-    extend: {
-      interpreters: ["nodejs"]
+      vscodeLanguageIds: ["javascript"],
+      interpreters: ["node", "nodejs"]
     }
   }),
   createLanguage(require("linguist-languages/data/JavaScript"), {
@@ -25,7 +23,8 @@ const languages = [
 
       aliases: [],
       filenames: [],
-      extensions: [".js.flow"]
+      extensions: [".js.flow"],
+      interpreters: ["node"]
     }
   }),
   createLanguage(require("linguist-languages/data/JSX"), {
@@ -39,14 +38,8 @@ const languages = [
     override: {
       since: "1.4.0",
       parsers: ["typescript"],
-      vscodeLanguageIds: ["typescript"]
-    }
-  }),
-  createLanguage(require("linguist-languages/data/TSX"), {
-    override: {
-      since: "1.4.0",
-      parsers: ["typescript"],
-      vscodeLanguageIds: ["typescriptreact"]
+      vscodeLanguageIds: ["typescript", "typescriptreact"],
+      extensions: [".ts", ".tsx"]
     }
   }),
   createLanguage(require("linguist-languages/data/JSON"), {
@@ -55,7 +48,7 @@ const languages = [
       since: "1.13.0",
       parsers: ["json-stringify"],
       vscodeLanguageIds: ["json"],
-
+      group: "JavaScript",
       extensions: [], // .json file defaults to json instead of json-stringify
       filenames: ["package.json", "package-lock.json", "composer.json"]
     }
@@ -64,7 +57,8 @@ const languages = [
     override: {
       since: "1.5.0",
       parsers: ["json"],
-      vscodeLanguageIds: ["json"]
+      vscodeLanguageIds: ["json"],
+      group: "JavaScript"
     },
     extend: {
       filenames: [".prettierrc"]
