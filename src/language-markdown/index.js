@@ -5,7 +5,7 @@ const options = require("./options");
 const createLanguage = require("../utils/create-language");
 
 const languages = [
-  createLanguage(require("linguist-languages/data/markdown"), {
+  createLanguage(require("linguist-languages/data/Markdown"), {
     override: {
       since: "1.8.0",
       parsers: ["remark"],
