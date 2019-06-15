@@ -16,7 +16,7 @@
   "dependencies": {
     "@angular/compiler": "7.2.9",
     "@babel/code-frame": "7.0.0",
-    "@babel/parser": "7.4.5",
+    "@babel/parser": "7.2.0",
     "@glimmer/syntax": "0.38.4",
     "@iarna/toml": "2.2.3",
     "@typescript-eslint/typescript-estree": "1.10.2",
