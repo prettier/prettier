@@ -36,6 +36,9 @@ module.exports = {
     // If this is removed, see also scripts/build/build.js.
     "graceful-fs": "<rootDir>/tests_config/fs.js",
 
+    // `pretty-format` can't run on node 4
+    "pretty-format": "pretty-format/build-es5",
+
     "prettier/local": "<rootDir>/tests_config/require_prettier.js",
     "prettier/standalone": "<rootDir>/tests_config/require_standalone.js"
   },
