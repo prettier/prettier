@@ -4,7 +4,7 @@
 
 const path = require("path");
 const shell = require("shelljs");
-const tempy = require("tempy");
+const tmpDir = require('temp-dir')
 
 shell.config.fatal = true;
 
@@ -13,7 +13,6 @@ const distDir = path.join(rootDir, "dist");
 
 const file = shell.exec("npm pack", { cwd: distDir }).stdout.trim();
 const tarPath = path.join(distDir, file);
-const tmpDir = tempy.directory();
 
 shell.config.silent = true;
 shell.exec("npm init -y", { cwd: tmpDir });
