@@ -40,7 +40,10 @@ module.exports = {
     "prettier/standalone": "<rootDir>/tests_config/require_standalone.js"
   },
   testEnvironment: "node",
-  transform: {},
+  transform: {
+    // `pretty-format` can't run on node 4
+    'pretty-format/*.js': 'babel-jest'
+  },
   watchPlugins: [
     "jest-watch-typeahead/filename",
     "jest-watch-typeahead/testname"
