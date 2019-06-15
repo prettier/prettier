@@ -42,7 +42,7 @@ module.exports = {
   testEnvironment: "node",
   transform: {
     // `pretty-format` can't run on node 4
-    'pretty-format/*.js': 'babel-jest'
+    "pretty-format/*.js": "babel-jest"
   },
   watchPlugins: [
     "jest-watch-typeahead/filename",
