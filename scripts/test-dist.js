@@ -4,7 +4,7 @@
 
 const path = require("path");
 const shell = require("shelljs");
-const tmpDir = require('temp-dir')
+const tmpDir = require("temp-dir");
 
 shell.config.fatal = true;
 
