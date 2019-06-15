@@ -182,7 +182,11 @@ function getWebpackConfig(bundle) {
       new webpack.DefinePlugin({
         "process.env.NODE_ENV": JSON.stringify("production")
       })
-    ]
+    ],
+    optimization: {
+      // disable terser for `parser-postcss.js`
+      minimize: false
+    }
   };
 }
 
