@@ -28,6 +28,68 @@ abstract class AbstractRule {
 ================================================================================
 `;
 
+exports[`after_jsx_generic.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+let comp = (
+  <>
+    <Component<number> /* comment1 */></Component>
+    <Component<number> foo /* comment2 */></Component>
+    <Component<number> /* comment3 */ bar></Component>
+    <Component<number> foo /* comment4 */ bar></Component>
+
+    <Component<number>
+      // comment5
+    ></Component>
+    <Component<number>
+      foo
+      // comment6
+    ></Component>
+    <Component<number>
+      // comment7
+      foo
+    ></Component>
+    <Component<number>
+      foo
+      // comment8
+      bar
+    ></Component>
+  </>
+);
+
+=====================================output=====================================
+let comp = (
+  <>
+    <Component<number> /* comment1 */></Component>
+    <Component<number> foo /* comment2 */></Component>
+    <Component<number> /* comment3 */ bar></Component>
+    <Component<number> foo /* comment4 */ bar></Component>
+
+    <Component<number>
+    // comment5
+    ></Component>
+    <Component<number>
+      foo
+      // comment6
+    ></Component>
+    <Component<number>
+      // comment7
+      foo
+    ></Component>
+    <Component<number>
+      foo
+      // comment8
+      bar
+    ></Component>
+  </>
+);
+
+================================================================================
+`;
+
 exports[`jsx.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]

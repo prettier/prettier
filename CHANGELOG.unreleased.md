@@ -44,6 +44,71 @@ const link = <a href="example.com">http://example.com</a>;
 
 -->
 
-- CLI: Add `--only-changed` flag ([#5853] by [@g-harel])
+#### TypeScript: Print comment following a JSX element with generic ([#6209] by [@duailibe])
 
-  Flag used with `--write` to avoid re-checking files that were not changed since they were last written (with the same formatting configuration).
+Previous versions would not print this comment, this has been fixed in this version.
+
+<!-- prettier-ignore -->
+```ts
+// Input
+const comp = (
+  <Foo<number>
+    // This comment goes missing
+    value={4}
+  >
+    Test
+  </Foo>
+);
+
+// Output (Prettier stable)
+const comp = <Foo<number> value={4}>Test</Foo>;
+
+// Output (Prettier master)
+const comp = (
+  <Foo<number>
+    // This comment goes missing
+    value={4}
+  >
+    Test
+  </Foo>
+);
+```
+
+### Handlebars: Avoid adding unwanted line breaks between text and mustaches ([#6186] by [@gavinjoyce])
+
+Previously, Prettier added line breaks between text and mustaches which resulted in unwanted whitespace in rendered output.
+
+<!-- prettier-ignore -->
+```hbs
+// Input
+<p>Your username is @{{name}}</p>
+<p>Hi {{firstName}} {{lastName}}</p>
+
+// Output (Prettier stable)
+<p>
+  Your username is @
+  {{name}}
+</p>
+<p>
+  Hi
+  {{firstName}}
+  {{lastName}}
+</p>
+
+// Output (Prettier master)
+<p>
+  Your username is @{{name}}
+</p>
+<p>
+  Hi {{firstName}} {{lastName}}
+</p>
+```
+
+[#6209]: https://github.com/prettier/prettier/pull/6209
+[#6186]: https://github.com/prettier/prettier/pull/6186
+[@duailibe]: https://github.com/duailibe
+[@gavinjoyce]: https://github.com/gavinjoyce
+
+#### CLI: Add `--only-changed` flag ([#5853] by [@g-harel])
+
+Flag used with `--write` to avoid re-checking files that were not changed since they were last written (with the same formatting configuration).
