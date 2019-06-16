@@ -4128,20 +4128,15 @@ function printArgumentsList(path, options, print) {
 
     const somePrintedArgumentsWillBreak = printedArguments.some(willBreak);
 
+    const simpleConcat = concat(["(", concat(printedExpanded), ")"]);
+
     return concat([
       somePrintedArgumentsWillBreak ? breakParent : "",
       conditionalGroup(
         [
-          concat([
-            ifBreak(
-              indent(concat(["(", softline, concat(printedExpanded)])),
-              concat(["(", concat(printedExpanded)])
-            ),
-            somePrintedArgumentsWillBreak
-              ? concat([ifBreak(maybeTrailingComma), softline])
-              : "",
-            ")"
-          ]),
+          !somePrintedArgumentsWillBreak
+            ? simpleConcat
+            : ifBreak(allArgsBrokenOut(), simpleConcat),
           shouldGroupFirst
             ? concat([
                 "(",
