@@ -178,13 +178,8 @@ function getWebpackConfig(bundle) {
       library: ["prettierPlugins", bundle.name],
       libraryTarget: "umd",
       // https://github.com/webpack/webpack/issues/6642
-      globalObject: "new Function('return this')()"
+      globalObject: 'new Function("return this")()'
     },
-    plugins: [
-      new webpack.DefinePlugin({
-        "process.env.NODE_ENV": JSON.stringify("production")
-      })
-    ],
     optimization: {
       // disable terser for `parser-postcss.js`
       minimize: false
