@@ -1,7 +1,7 @@
 "use strict";
 
 const path = require("path");
-const tempDir = require("temp-dir");
+const tempy = require("tempy");
 const fs = require("fs");
 
 const runPrettier = require("../runPrettier");
@@ -184,6 +184,7 @@ describe("API getFileInfo.sync with ignorePath", () => {
   let options;
   beforeAll(() => {
     cwd = process.cwd();
+    const tempDir = tempy.directory();
     process.chdir(tempDir);
     const fileDir = "src";
     filePath = `${fileDir}/should-be-ignored.js`;
