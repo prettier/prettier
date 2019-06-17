@@ -111,7 +111,7 @@
     "shelljs": "0.8.3",
     "snapshot-diff": "0.4.0",
     "strip-ansi": "5.2.0",
-    "tempy": "0.3.0",
+    "tempy": "0.2.1",
     "webpack": "4.34.0"
   },
   "scripts": {
