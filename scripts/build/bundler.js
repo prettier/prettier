@@ -10,11 +10,12 @@ const commonjs = require("rollup-plugin-commonjs");
 const nodeGlobals = require("rollup-plugin-node-globals");
 const json = require("rollup-plugin-json");
 const replace = require("rollup-plugin-replace");
-const uglify = require("rollup-plugin-uglify");
+const { terser } = require("rollup-plugin-terser");
 const babel = require("rollup-plugin-babel");
 const nativeShims = require("./rollup-plugins/native-shims");
 const executable = require("./rollup-plugins/executable");
 const evaluate = require("./rollup-plugins/evaluate");
+const externals = require("./rollup-plugins/externals");
 
 const EXTERNALS = [
   "assert",
@@ -58,22 +59,16 @@ function getBabelConfig(bundle) {
 }
 
 function getRollupConfig(bundle) {
-  const relative = fp => `./${path.basename(fp).replace(/\.js$/, "")}`;
-  const paths = (bundle.external || []).reduce(
-    (paths, filepath) =>
-      Object.assign(paths, { [filepath]: relative(filepath) }),
-    { "graceful-fs": "fs" }
-  );
-
   const config = {
-    entry: bundle.input,
-    paths,
+    input: bundle.input,
 
     onwarn(warning) {
       if (
         // We use `eval("require")` to enable dynamic requires in the
         // custom parser API
         warning.code === "EVAL" ||
+        // ignore `MIXED_EXPORTS` warn
+        warning.code === "MIXED_EXPORTS" ||
         (warning.code === "CIRCULAR_DEPENDENCY" &&
           warning.importer.startsWith("node_modules"))
       ) {
@@ -108,7 +103,10 @@ function getRollupConfig(bundle) {
   const babelConfig = getBabelConfig(bundle);
 
   config.plugins = [
-    replace(replaceStrings),
+    replace({
+      values: replaceStrings,
+      delimiters: ["", ""]
+    }),
     executable(),
     evaluate(),
     json(),
@@ -119,14 +117,20 @@ function getRollupConfig(bundle) {
       extensions: [".js", ".json"],
       preferBuiltins: bundle.target === "node"
     }),
-    commonjs(bundle.commonjs || {}),
+    commonjs(
+      Object.assign(
+        bundle.target === "node" ? { ignoreGlobal: true } : {},
+        bundle.commonjs
+      )
+    ),
+    externals(bundle.externals),
     bundle.target === "universal" && nodeGlobals(),
     babelConfig && babel(babelConfig),
-    bundle.type === "plugin" && uglify()
+    bundle.type === "plugin" && terser()
   ].filter(Boolean);
 
   if (bundle.target === "node") {
-    config.external = EXTERNALS.concat(bundle.external);
+    config.external = EXTERNALS;
   }
 
   return config;
@@ -134,14 +138,16 @@ function getRollupConfig(bundle) {
 
 function getRollupOutputOptions(bundle) {
   const options = {
-    dest: `dist/${bundle.output}`,
-    useStrict: typeof bundle.strict === "undefined" ? true : bundle.strict
+    file: `dist/${bundle.output}`,
+    strict: typeof bundle.strict === "undefined" ? true : bundle.strict,
+    paths: [{ "graceful-fs": "fs" }]
   };
+
   if (bundle.target === "node") {
     options.format = "cjs";
   } else if (bundle.target === "universal") {
     options.format = "umd";
-    options.moduleName =
+    options.name =
       bundle.type === "plugin" ? `prettierPlugins.${bundle.name}` : bundle.name;
   }
   return options;
@@ -193,9 +199,13 @@ function runWebpack(config) {
 }
 
 module.exports = async function createBundle(bundle, cache) {
+  const inputOptions = getRollupConfig(bundle);
+  const outputOptions = getRollupOutputOptions(bundle);
+
   const useCache = await cache.checkBundle(
     bundle.output,
-    getRollupConfig(bundle)
+    inputOptions,
+    outputOptions
   );
   if (useCache) {
     try {
@@ -212,8 +222,8 @@ module.exports = async function createBundle(bundle, cache) {
   if (bundle.bundler === "webpack") {
     await runWebpack(getWebpackConfig(bundle));
   } else {
-    const result = await rollup(getRollupConfig(bundle));
-    await result.write(getRollupOutputOptions(bundle));
+    const result = await rollup(inputOptions);
+    await result.write(outputOptions);
   }
 
   return { bundled: true };

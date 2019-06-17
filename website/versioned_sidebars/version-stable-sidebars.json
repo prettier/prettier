@@ -15,7 +15,7 @@
       "version-stable-plugins",
       "version-stable-precommit",
       "version-stable-watching-files",
-      "version-stable-eslint",
+      "version-stable-integrating-with-linters",
       "version-stable-ignore"
     ],
     "Configuring Prettier": [

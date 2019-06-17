@@ -1,3 +1,231 @@
+# 1.18.2
+
+[diff](https://github.com/prettier/prettier/compare/1.18.2...1.18.1)
+
+- TypeScript: only add trailing commas in tuples for `--trailing-comma=all` ([#6199] by [@duailibe])
+
+  In Prettier 1.18 we added trailing commas in tuples when `--trailing-comma=all`, but it was also adding for `--trailing-comma=es5`.
+
+  [#6199]: https://github.com/prettier/prettier/pull/6199
+  [@duailibe]: https://github.com/duailibe
+
+# 1.18.1
+
+[diff](https://github.com/prettier/prettier/compare/1.18.1...1.18.0)
+
+- TypeScript: Add trailing comma in tsx, only for arrow function ([#6190] by [@sosukesuzuki])
+
+  Prettier inserts a trailing comma to single type parameter for arrow functions in tsx, since v 1.18. But, this feature inserts a trailing comma to type parameter for besides arrow functions too (e.g, function , interface). This change fix it.
+
+  <!-- prettier-ignore -->
+  ```tsx
+  // Input
+  interface Interface1<T> {
+    one: "one";
+  }
+  function function1<T>() {
+    return "one";
+  }
+
+  // Output (Prettier 1.18.0)
+  interface Interface1<T,> {
+    one: "one";
+  }
+  function function1<T,>() {
+    return "one";
+  }
+
+  // Output (Prettier 1.18.1)
+  interface Interface1<T> {
+    one: "one";
+  }
+  function function1<T>() {
+    return "one";
+  }
+  ```
+
+- Config: Match dotfiles in config overrides ([#6194] by [@duailibe])
+
+  When using [`overrides`](https://prettier.io/docs/en/configuration.html#configuration-overrides) in the config file, Prettier was not matching dotfiles (files that start with `.`). This was fixed in 1.18.1
+
+[#6190]: https://github.com/prettier/prettier/pull/6190
+[#6194]: https://github.com/prettier/prettier/pull/6194
+[@duailibe]: https://github.com/duailibe
+[@sosukesuzuki]: https://github.com/sosukesuzuki
+
+# 1.18.0
+
+[diff](https://github.com/prettier/prettier/compare/1.17.1...1.18.0)
+
+🔗 [Release Notes](https://prettier.io/blog/2019/06/06/1.18.0.html)
+
+# 1.17.1
+
+[diff](https://github.com/prettier/prettier/compare/1.17.0...1.17.1)
+
+- Range: Fix ranged formatting not using the correct line width ([#6050] by [@mathieulj])
+
+  <!-- prettier-ignore -->
+  ```js
+  // Input
+  function f() {
+    if (true) {
+      call("this line is 79 chars", "long", "it should", "stay as single line");
+    }
+  }
+
+  // Output (Prettier 1.17.0 run with --range-start 30 --range-end 110)
+  function f() {
+    if (true) {
+      call(
+        "this line is 79 chars",
+        "long",
+        "it should",
+        "stay as single line"
+      );
+    }
+  }
+
+  // Output (Prettier 1.17.0 run without range)
+  function f() {
+    if (true) {
+      call("this line is 79 chars", "long", "it should", "stay as single line");
+    }
+  }
+
+  // Output (Prettier 1.17.1 with and without range)
+  function f() {
+    if (true) {
+      call("this line is 79 chars", "long", "it should", "stay as single line");
+    }
+  }
+  ```
+
+- JavaScript: Fix closure compiler typecasts ([#5947] by [@jridgewell])
+
+  If a closing parenthesis follows after a typecast in an inner expression, the typecast would wrap everything to the that following parenthesis.
+
+  <!-- prettier-ignore -->
+  ```js
+  // Input
+  test(/** @type {!Array} */(arrOrString).length);
+  test(/** @type {!Array} */((arrOrString)).length + 1);
+
+  // Output (Prettier 1.17.0)
+  test(/** @type {!Array} */ (arrOrString.length));
+  test(/** @type {!Array} */ (arrOrString.length + 1));
+
+  // Output (Prettier 1.17.1)
+  test(/** @type {!Array} */ (arrOrString).length);
+  test(/** @type {!Array} */ (arrOrString).length + 1);
+  ```
+
+- JavaScript: respect parenthesis around optional chaining before await ([#6087] by [@evilebottnawi])
+
+  <!-- prettier-ignore -->
+  ```js
+  // Input
+  async function myFunction() {
+    var x = (await foo.bar.blah)?.hi;
+  }
+
+  // Output (Prettier 1.17.0)
+  async function myFunction() {
+    var x = await foo.bar.blah?.hi;
+  }
+
+  // Output (Prettier 1.17.1)
+  async function myFunction() {
+    var x = (await foo.bar.blah)?.hi;
+  }
+  ```
+
+- Handlebars: Fix {{else}}{{#if}} into {{else if}} merging ([#6080] by [@dcyriller])
+
+  <!-- prettier-ignore -->
+  ```
+  // Input
+  {{#if a}}
+    a
+  {{else}}
+    {{#if c}}
+      c
+    {{/if}}
+    e
+  {{/if}}
+
+  // Output (Prettier 1.17.0)
+  {{#if a}}
+    a
+  {{else if c}}
+    c
+  e
+  {{/if}}
+
+  // Output (Prettier 1.17.1)
+  Code Sample
+  {{#if a}}
+    a
+  {{else}}
+    {{#if c}}
+      c
+    {{/if}}
+    e
+  {{/if}}
+  ```
+
+- JavaScript: Improved multiline closure compiler typecast comment detection ([#6070] by [@yangsu])
+
+  Previously, multiline closure compiler typecast comments with lines that
+  start with \* weren't flagged correctly and the subsequent parenthesis were
+  stripped. Prettier 1.17.1 fixes this issue.
+
+  <!-- prettier-ignore -->
+  ```js
+  // Input
+  const style =/**
+   * @type {{
+   *   width: number,
+   * }}
+  */({
+    width,
+  });
+
+  // Output (Prettier 1.17.0)
+  const style =/**
+   * @type {{
+   *   width: number,
+   * }}
+  */ {
+    width,
+  };
+
+  // Output (Prettier 1.17.1)
+  const style =/**
+   * @type {{
+   *   width: number,
+   * }}
+  */({
+    width,
+  });
+  ```
+
+[@mathieulj]: https://github.com/mathieulj
+[@yangsu]: https://github.com/yangsu
+[@dcyriller]: https://github.com/dcyriller
+[@jridgewell]: https://github.com/jridgewell
+[@evilebottnawi]: https://github.com/evilebottnawi
+[#6050]: https://github.com/prettier/prettier/pull/6050
+[#6070]: https://github.com/prettier/prettier/pull/6070
+[#6080]: https://github.com/prettier/prettier/pull/6080
+[#6087]: https://github.com/prettier/prettier/pull/6087
+
+# 1.17.0
+
+[diff](https://github.com/prettier/prettier/compare/1.16.2...1.17.0)
+
+🔗 [Release Notes](https://prettier.io/blog/2019/04/12/1.17.0.html)
+
 # 1.16.4
 
 [diff](https://github.com/prettier/prettier/compare/1.16.3...1.16.4)

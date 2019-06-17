@@ -164,7 +164,7 @@ function ngHtmlParser(
   };
 
   visitAll(
-    new class extends RecursiveVisitor {
+    new (class extends RecursiveVisitor {
       visit(node) {
         addType(node);
         restoreNameAndValue(node);
@@ -172,7 +172,7 @@ function ngHtmlParser(
         normalizeName(node);
         fixSourceSpan(node);
       }
-    }(),
+    })(),
     rootNodes
   );
 

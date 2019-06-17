@@ -32,6 +32,31 @@ const voidTags = [
 // Formatter based on @glimmerjs/syntax's built-in test formatter:
 // https://github.com/glimmerjs/glimmer-vm/blob/master/packages/%40glimmer/syntax/lib/generation/print.ts
 
+function printChildren(path, options, print) {
+  return concat(
+    path.map((childPath, childIndex) => {
+      const isFirstNode = childIndex === 0;
+      const isLastNode =
+        childIndex == path.getParentNode(0).children.length - 1;
+      const isLastNodeInMultiNodeList = isLastNode && !isFirstNode;
+
+      if (isLastNodeInMultiNodeList) {
+        return concat([print(childPath, options, print)]);
+      } else if (
+        isFirstNode ||
+        isPreviousNodeOfSomeType(childPath, [
+          "ElementNode",
+          "CommentStatement",
+          "MustacheCommentStatement"
+        ])
+      ) {
+        return concat([softline, print(childPath, options, print)]);
+      }
+      return concat([print(childPath, options, print)]);
+    }, "children")
+  );
+}
+
 function print(path, options, print) {
   const n = path.getValue();
 
@@ -56,7 +81,8 @@ function print(path, options, print) {
       const hasChildren = n.children.length > 0;
       const isVoid =
         (isGlimmerComponent && !hasChildren) || voidTags.indexOf(n.tag) !== -1;
-      const closeTag = isVoid ? concat([" />", softline]) : ">";
+      const closeTagForNoBreak = isVoid ? concat([" />", softline]) : ">";
+      const closeTagForBreak = isVoid ? "/>" : ">";
       const getParams = (path, print) =>
         indent(
           concat([
@@ -71,18 +97,6 @@ function print(path, options, print) {
           ])
         );
 
-      // The problem here is that I want to not break at all if the children
-      // would not break but I need to force an indent, so I use a hardline.
-      /**
-       * What happens now:
-       * <div>
-       *   Hello
-       * </div>
-       * ==>
-       * <div>Hello</div>
-       * This is due to me using hasChildren to decide to put the hardline in.
-       * I would rather use a {DOES THE WHOLE THING NEED TO BREAK}
-       */
       return concat([
         group(
           concat([
@@ -91,12 +105,12 @@ function print(path, options, print) {
             getParams(path, print),
             n.blockParams.length ? ` as |${n.blockParams.join(" ")}|` : "",
             ifBreak(softline, ""),
-            closeTag
+            ifBreak(closeTagForBreak, closeTagForNoBreak)
           ])
         ),
         group(
           concat([
-            indent(join(softline, [""].concat(path.map(print, "children")))),
+            indent(printChildren(path, options, print)),
             ifBreak(hasChildren ? hardline : "", ""),
             !isVoid ? concat(["</", n.tag, ">"]) : ""
           ])
@@ -108,11 +122,12 @@ function print(path, options, print) {
       const isElseIf =
         pp &&
         pp.inverse &&
+        pp.inverse.body.length === 1 &&
         pp.inverse.body[0] === n &&
         pp.inverse.body[0].path.parts[0] === "if";
       const hasElseIf =
         n.inverse &&
-        n.inverse.body[0] &&
+        n.inverse.body.length === 1 &&
         n.inverse.body[0].type === "BlockStatement" &&
         n.inverse.body[0].path.parts[0] === "if";
       const indentElse = hasElseIf ? a => a : indent;
@@ -134,18 +149,16 @@ function print(path, options, print) {
           indent(concat([hardline, path.call(print, "program")]))
         ]);
       }
-      /**
-       * I want this boolean to be: if params are going to cause a break,
-       * not that it has params.
-       */
-      const hasParams = n.params.length > 0 || n.hash.pairs.length > 0;
-      const hasChildren = n.program.body.length > 0;
+
+      const hasNonWhitespaceChildren = n.program.body.some(
+        n => !isWhitespaceNode(n)
+      );
       return concat([
         printOpenBlock(path, print),
         group(
           concat([
             indent(concat([softline, path.call(print, "program")])),
-            hasParams && hasChildren ? hardline : softline,
+            hasNonWhitespaceChildren ? hardline : softline,
             printCloseBlock(path, print)
           ])
         )
@@ -205,8 +218,21 @@ function print(path, options, print) {
       return concat([n.key, "=", path.call(print, "value")]);
     }
     case "TextNode": {
+      const isWhitespaceOnly = !/\S/.test(n.chars);
+
+      if (
+        isWhitespaceOnly &&
+        isPreviousNodeOfSomeType(path, ["MustacheStatement", "TextNode"])
+      ) {
+        return " ";
+      }
+
       let leadingSpace = "";
       let trailingSpace = "";
+
+      if (isNextNodeOfType(path, "MustacheStatement")) {
+        trailingSpace = " ";
+      }
 
       // preserve a space inside of an attribute node where whitespace present, when next to mustache statement.
       const inAttrNode = path.stack.indexOf("attributes") >= 0;
@@ -308,9 +334,7 @@ function printStringLiteral(stringLiteral, options) {
     `\\${enclosingQuote.quote}`
   );
 
-  return `${enclosingQuote.quote}${escapedStringLiteral}${
-    enclosingQuote.quote
-  }`;
+  return `${enclosingQuote.quote}${escapedStringLiteral}${enclosingQuote.quote}`;
 }
 
 function printPath(path, print) {
@@ -362,6 +386,52 @@ function printOpenBlock(path, print) {
 
 function printCloseBlock(path, print) {
   return concat(["{{/", path.call(print, "path"), "}}"]);
+}
+
+function isWhitespaceNode(node) {
+  return node.type === "TextNode" && !/\S/.test(node.chars);
+}
+
+function getPreviousNode(path) {
+  const node = path.getValue();
+  const parentNode = path.getParentNode(0);
+
+  const children = parentNode.children;
+  if (children) {
+    const nodeIndex = children.indexOf(node);
+    if (nodeIndex > 0) {
+      const previousNode = children[nodeIndex - 1];
+      return previousNode;
+    }
+  }
+}
+
+function getNextNode(path) {
+  const node = path.getValue();
+  const parentNode = path.getParentNode(0);
+
+  const children = parentNode.children;
+  if (children) {
+    const nodeIndex = children.indexOf(node);
+    if (nodeIndex < children.length) {
+      const nextNode = children[nodeIndex + 1];
+      return nextNode;
+    }
+  }
+}
+
+function isPreviousNodeOfSomeType(path, types) {
+  const previousNode = getPreviousNode(path);
+
+  if (previousNode) {
+    return types.some(type => previousNode.type === type);
+  }
+  return false;
+}
+
+function isNextNodeOfType(path, type) {
+  const nextNode = getNextNode(path);
+  return nextNode && nextNode.type === type;
 }
 
 function clean(ast, newObj) {

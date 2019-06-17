@@ -165,8 +165,7 @@ printWidth: 80
     {{title}}
   </h1>
   <h2>
-    By
-    {{author.name}}
+    By {{author.name}}
   </h2>
   <div class="body">
     {{body}}

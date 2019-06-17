@@ -29,6 +29,8 @@ const siteConfig = {
   users,
   editors,
   supportedLanguages,
+  tideliftUrl:
+    "https://tidelift.com/subscription/pkg/npm-prettier?utm_source=npm-prettier&utm_medium=referral&utm_campaign=website",
   /* base url for editing docs, usage example: editUrl + 'en/doc1.md' */
   editUrl: `${GITHUB_URL}/edit/master/docs/`,
   headerLinks: [
@@ -37,6 +39,7 @@ const siteConfig = {
     { doc: "install", label: "Usage" },
     { blog: true, label: "Blog" },
     { search: true },
+    { href: "https://opencollective.com/prettier", label: "Donate" },
     { href: GITHUB_URL, label: "GitHub" }
   ],
   /* path to images for header/footer */

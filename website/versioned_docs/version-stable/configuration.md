@@ -92,6 +92,35 @@ overrides:
 
 `files` is required for each override, and may be a string or array of strings. `excludeFiles` may be optionally provided to exclude files for a given rule, and may also be a string or array of strings.
 
+## Sharing configurations
+
+Sharing a Prettier configuration is simple: just publish a module that exports a configuration object, say `@company/prettier-config`, and reference it in your `package.json`:
+
+```json
+{
+  "name": "my-cool-library",
+  "version": "9000.0.1",
+  "prettier": "@company/prettier-config"
+}
+```
+
+If you don't want to use `package.json`, you can use any of the supported extensions to export a string, e.g. `.prettierrc.json`:
+
+```json
+"@company/prettier-config"
+```
+
+An example configuration repository is available [here](https://github.com/azz/prettier-config).
+
+> Note: This method does **not** offer a way to _extend_ the configuration to overwrite some properties from the shared configuration. If you need to do that, import the file in a `.prettierrc.js` file and export the modifications, e.g:
+>
+> ```js
+> module.exports = {
+>   ...require("@company/prettier-config"),
+>   semi: false
+> };
+> ```
+
 ## Setting the [parser](options.md#parser) option
 
 By default, Prettier automatically infers which parser to use based on the input file extension. Combined with `overrides` you can teach Prettier how to parse files it does not recognize.

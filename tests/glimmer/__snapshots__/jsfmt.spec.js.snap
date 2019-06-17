@@ -119,7 +119,11 @@ printWidth: 80
 }}
   Hello
 {{/block}}
-{{#block}}{{#block}}hello{{/block}}{{/block}}
+{{#block}}
+  {{#block}}
+    hello
+  {{/block}}
+{{/block}}
 {{#block}}
   {{#block param}}
     hello
@@ -130,13 +134,14 @@ printWidth: 80
     hello
   {{/block}}
 {{/block}}
-{{#block}}hello{{/block}}
+{{#block}}
+  hello
+{{/block}}
 <MyComponent as |firstName|>
   {{firstName}}
 </MyComponent>
 <MyComponent as |firstName lastName|>
-  {{firstName}}
-  {{lastName}}
+  {{firstName}} {{lastName}}
 </MyComponent>
 ================================================================================
 `;
@@ -261,7 +266,11 @@ singleQuote: true
 }}
   Hello
 {{/block}}
-{{#block}}{{#block}}hello{{/block}}{{/block}}
+{{#block}}
+  {{#block}}
+    hello
+  {{/block}}
+{{/block}}
 {{#block}}
   {{#block param}}
     hello
@@ -272,13 +281,14 @@ singleQuote: true
     hello
   {{/block}}
 {{/block}}
-{{#block}}hello{{/block}}
+{{#block}}
+  hello
+{{/block}}
 <MyComponent as |firstName|>
   {{firstName}}
 </MyComponent>
 <MyComponent as |firstName lastName|>
-  {{firstName}}
-  {{lastName}}
+  {{firstName}} {{lastName}}
 </MyComponent>
 ================================================================================
 `;
@@ -291,6 +301,12 @@ printWidth: 80
 =====================================input======================================
 <UserGreeting @name="Ricardo" @greeting="Olá" />
 {{@greeting}}, {{@name}}!
+
+<div>
+  <UserGreeting
+    @aVeryLongArgumentNameThatIsStillGoing={{@alsoAVeryLongArgument}}
+  />
+</div>
 
 <Form as |f|>
   <f.input @title="hello" />
@@ -315,6 +331,11 @@ printWidth: 80
 ,
 {{@name}}
 !
+<div>
+  <UserGreeting
+    @aVeryLongArgumentNameThatIsStillGoing={{@alsoAVeryLongArgument}}
+  />
+</div>
 <Form as |f|>
   <f.input @title="hello" />
   <f.input>
@@ -344,6 +365,12 @@ singleQuote: true
 <UserGreeting @name="Ricardo" @greeting="Olá" />
 {{@greeting}}, {{@name}}!
 
+<div>
+  <UserGreeting
+    @aVeryLongArgumentNameThatIsStillGoing={{@alsoAVeryLongArgument}}
+  />
+</div>
+
 <Form as |f|>
   <f.input @title="hello" />
   <f.input>hello</f.input>
@@ -367,6 +394,11 @@ singleQuote: true
 ,
 {{@name}}
 !
+<div>
+  <UserGreeting
+    @aVeryLongArgumentNameThatIsStillGoing={{@alsoAVeryLongArgument}}
+  />
+</div>
 <Form as |f|>
   <f.input @title="hello" />
   <f.input>
@@ -500,6 +532,43 @@ singleQuote: true
 <div class="class-k {{myClass}} class-l"></div>
 <div class="class-m {{myClass}} class-n {{myClass}}class-o"></div>
 <div class="class-p  class-q"></div>
+================================================================================
+`;
+
+exports[`curly.hbs 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<p>Your username is @{{name}}</p>
+<p>Hi {{firstName}} {{lastName}}</p>
+=====================================output=====================================
+<p>
+  Your username is @{{name}}
+</p>
+<p>
+  Hi {{firstName}} {{lastName}}
+</p>
+================================================================================
+`;
+
+exports[`curly.hbs 2`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
+<p>Your username is @{{name}}</p>
+<p>Hi {{firstName}} {{lastName}}</p>
+=====================================output=====================================
+<p>
+  Your username is @{{name}}
+</p>
+<p>
+  Hi {{firstName}} {{lastName}}
+</p>
 ================================================================================
 `;
 
@@ -713,7 +782,9 @@ printWidth: 80
   A long enough string to trigger a line break that would prevent wrapping more and more.
 </div>
 <div>
-  {{#block}}{{hello}}{{/block}}
+  {{#block}}
+    {{hello}}
+  {{/block}}
 </div>
 <div>
   {{hello}}
@@ -787,7 +858,9 @@ singleQuote: true
   A long enough string to trigger a line break that would prevent wrapping more and more.
 </div>
 <div>
-  {{#block}}{{hello}}{{/block}}
+  {{#block}}
+    {{hello}}
+  {{/block}}
 </div>
 <div>
   {{hello}}
@@ -872,6 +945,22 @@ printWidth: 80
     ac
   {{/if}}
 {{/if}}
+
+{{#if a}}
+  a
+  <div>b</div>
+  c
+{{else}}
+  {{#if c}}
+    a
+    b
+    <div>c</div>
+  {{/if}}
+  <div>a</div>
+  b
+  c
+{{/if}}
+
 =====================================output=====================================
 {{#if a}}
   b
@@ -935,6 +1024,26 @@ printWidth: 80
   {{else if c}}
     ac
   {{/if}}
+{{/if}}
+{{#if a}}
+  a
+  <div>
+    b
+  </div>
+  c
+{{else}}
+  {{#if c}}
+    a
+    b
+    <div>
+      c
+    </div>
+  {{/if}}
+  <div>
+    a
+  </div>
+  b
+  c
 {{/if}}
 ================================================================================
 `;
@@ -1015,6 +1124,22 @@ singleQuote: true
     ac
   {{/if}}
 {{/if}}
+
+{{#if a}}
+  a
+  <div>b</div>
+  c
+{{else}}
+  {{#if c}}
+    a
+    b
+    <div>c</div>
+  {{/if}}
+  <div>a</div>
+  b
+  c
+{{/if}}
+
 =====================================output=====================================
 {{#if a}}
   b
@@ -1078,6 +1203,26 @@ singleQuote: true
   {{else if c}}
     ac
   {{/if}}
+{{/if}}
+{{#if a}}
+  a
+  <div>
+    b
+  </div>
+  c
+{{else}}
+  {{#if c}}
+    a
+    b
+    <div>
+      c
+    </div>
+  {{/if}}
+  <div>
+    a
+  </div>
+  b
+  c
 {{/if}}
 ================================================================================
 `;

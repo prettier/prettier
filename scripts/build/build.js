@@ -99,7 +99,7 @@ async function run(params) {
     await execa("rm", ["-rf", ".cache"]);
   }
 
-  const bundleCache = new Cache(".cache/", "v10");
+  const bundleCache = new Cache(".cache/", "v13");
   await bundleCache.load();
 
   console.log(chalk.inverse(" Building packages "));

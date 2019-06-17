@@ -133,10 +133,10 @@ newlines_mixed = (
 newlines_elems = (
   <div>
     <div>
-      <div />
+      <div></div>
     </div>
     hi
-    <div />
+    <div></div>
     <span />
     <Big />
   </div>

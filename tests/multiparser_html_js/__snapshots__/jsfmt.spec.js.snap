@@ -31,3 +31,47 @@ printWidth: 80
 
 ================================================================================
 `;
+
+exports[`script-tag-escaping.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<script>
+  document.write(/* HTML */ \`
+    <script>
+      document.write(/* HTML */ \\\`
+        <!-- foo1 -->
+        <script>
+          document.write(/* HTML */ \\\\\\\`<!-- bar1 --> bar <!-- bar2 -->\\\\\\\`);
+        <\\\\/script>
+        <!-- foo2 -->
+      \\\`);
+    <\\/script>
+  \`);
+</script>
+
+=====================================output=====================================
+<script>
+  document.write(/* HTML */ \`
+    <script>
+      document.write(/* HTML */ \\\`
+        <!-- foo1 -->
+        <script>
+          document.write(
+            /* HTML */ \\\\\\\`
+              <!-- bar1 -->
+              bar
+              <!-- bar2 -->
+            \\\\\\\`
+          );
+        <\\\\/script>
+        <!-- foo2 -->
+      \\\`);
+    <\\/script>
+  \`);
+</script>
+
+================================================================================
+`;

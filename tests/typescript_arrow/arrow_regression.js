@@ -9,3 +9,7 @@ const foo = (x:string):void => (
     () => {}
   )
 );
+
+app.get("/", (req, res): void => {
+  res.send("Hello world");
+});

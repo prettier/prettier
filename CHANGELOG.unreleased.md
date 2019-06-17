@@ -1,21 +1,23 @@
 <!--
 
+NOTE: Don't forget to add a link to your GitHub profile and the PR in the end of the file.
+
 Format:
 
-- Category: Title ([#PR] by [@user])
+#### Category: Title ([#PR] by [@user])
 
-  Description
+Description
 
-  ```
-  // Input
-  Code Sample
+```
+// Input
+Code Sample
 
-  // Output (Prettier stable)
-  Code Sample
+// Output (Prettier stable)
+Code Sample
 
-  // Output (Prettier master)
-  Code Sample
-  ```
+// Output (Prettier master)
+Code Sample
+```
 
 Details:
 
@@ -23,170 +25,86 @@ Details:
 
 Examples:
 
-- TypeScript: Correctly handle `//` in TSX ([#5728] by [@JamesHenry])
+#### TypeScript: Correctly handle `//` in TSX ([#5728] by [@JamesHenry])
 
-  Previously, putting `//` as a child of a JSX element in TypeScript led to an error
-  because it was interpreted as a comment. Prettier master fixes this issue.
+Previously, putting `//` as a child of a JSX element in TypeScript led to an error
+because it was interpreted as a comment. Prettier master fixes this issue.
 
-  <!-- prettier-ignore --\>
-  ```js
-  // Input
-  const link = <a href="example.com">http://example.com</a>
+<!-- prettier-ignore --\>
+```js
+// Input
+const link = <a href="example.com">http://example.com</a>
 
-  // Output (Prettier stable)
-  // Error: Comment location overlaps with node location
+// Output (Prettier stable)
+// Error: Comment location overlaps with node location
 
-  // Output (Prettier master)
-  const link = <a href="example.com">http://example.com</a>;
-  ```
+// Output (Prettier master)
+const link = <a href="example.com">http://example.com</a>;
+```
 
 -->
 
-- Config: Support shared configurations ([#5963] by [@azz])
+#### TypeScript: Print comment following a JSX element with generic ([#6209] by [@duailibe])
 
-  Sharing a Prettier configuration is simple: just publish a module that exports a configuration object, say `@company/prettier-config`, and reference it in your `package.json`:
+Previous versions would not print this comment, this has been fixed in this version.
 
-  ```json
-  {
-    "name": "my-cool-library",
-    "version": "9000.0.1",
-    "prettier": "@company/prettier-config"
-  }
-  ```
-
-  If you don't want to use `package.json`, you can use any of the supported extensions to export a string, e.g. `.prettierrc.json`:
-
-  ```json
-  "@company/prettier-config"
-  ```
-
-  An example configuration repository is available [here](https://github.com/azz/prettier-config).
-
-  > Note: This method does **not** offer a way to _extend_ the configuration to overwrite some properties from the shared configuration. If you need to do that, import the file in a `.prettierrc.js` file and export the modifications, e.g:
+<!-- prettier-ignore -->
+```ts
+// Input
+const comp = (
+  <Foo<number>
+    // This comment goes missing
+    value={4}
   >
-  > ```js
-  > module.exports = {
-  >   ...require("@company/prettier-config"),
-  >   semi: false
-  > };
-  > ```
+    Test
+  </Foo>
+);
 
-- JavaScript: Add an option to modify when Prettier quotes object properties ([#5934] by [@azz])
-  **`--quote-props <as-needed|preserve|consistent>`**
+// Output (Prettier stable)
+const comp = <Foo<number> value={4}>Test</Foo>;
 
-  `as-needed` **(default)** - Only add quotes around object properties where required. Current behaviour.
-  `preserve` - Respect the input. This is useful for users of Google's Closure Compiler in Advanced Mode, which treats quoted properties differently.
-  `consistent` - If _at least one_ property in an object requires quotes, quote all properties - this is like ESLint's [`consistent-as-needed`](https://eslint.org/docs/rules/quote-props) option.
+// Output (Prettier master)
+const comp = (
+  <Foo<number>
+    // This comment goes missing
+    value={4}
+  >
+    Test
+  </Foo>
+);
+```
 
-  <!-- prettier-ignore -->
-  ```js
-  // Input
-  const headers = {
-    accept: "application/json",
-    "content-type": "application/json",
-    "origin": "prettier.io"
-  };
+### Handlebars: Avoid adding unwanted line breaks between text and mustaches ([#6186] by [@gavinjoyce])
 
-  // Output --quote-props=as-needed
-  const headers = {
-    accept: "application/json",
-    "content-type": "application/json",
-    origin: "prettier.io"
-  };
+Previously, Prettier added line breaks between text and mustaches which resulted in unwanted whitespace in rendered output.
 
-  // Output --quote-props=consistent
-  const headers = {
-    "accept": "application/json",
-    "content-type": "application/json",
-    "origin": "prettier.io"
-  };
+<!-- prettier-ignore -->
+```hbs
+// Input
+<p>Your username is @{{name}}</p>
+<p>Hi {{firstName}} {{lastName}}</p>
 
-  // Output --quote-props=preserve
-  const headers = {
-    accept: "application/json",
-    "content-type": "application/json",
-    "origin": "prettier.io"
-  };
-  ```
+// Output (Prettier stable)
+<p>
+  Your username is @
+  {{name}}
+</p>
+<p>
+  Hi
+  {{firstName}}
+  {{lastName}}
+</p>
 
-- CLI: Honor stdin-filepath when outputting error messages.
+// Output (Prettier master)
+<p>
+  Your username is @{{name}}
+</p>
+<p>
+  Hi {{firstName}} {{lastName}}
+</p>
+```
 
-- Markdown: Do not align table contents if it exceeds the print width and `--prose-wrap never` is set ([#5701] by [@chenshuai2144])
-
-  The aligned table is less readable than the compact one
-  if it's particularly long and the word wrapping is not enabled in the editor
-  so we now print them as compact tables in these situations.
-
-  <!-- prettier-ignore -->
-  ```md
-  <!-- Input -->
-  | Property | Description | Type | Default |
-  | -------- | ----------- | ---- | ------- |
-  | bordered | Toggles rendering of the border around the list | boolean | false |
-  | itemLayout | The layout of list, default is `horizontal`, If a vertical list is desired, set the itemLayout property to `vertical` | string | - |
-
-  <!-- Output (Prettier stable, --prose-wrap never) -->
-  | Property   | Description                                                                                                           | Type    | Default |
-  | ---------- | --------------------------------------------------------------------------------------------------------------------- | ------- | ------- |
-  | bordered   | Toggles rendering of the border around the list                                                                       | boolean | false   |
-  | itemLayout | The layout of list, default is `horizontal`, If a vertical list is desired, set the itemLayout property to `vertical` | string  | -       |
-
-  <!-- Output (Prettier master, --prose-wrap never) -->
-  | Property | Description | Type | Default |
-  | --- | --- | --- | --- |
-  | bordered | Toggles rendering of the border around the list | boolean | false |
-  | itemLayout | The layout of list, default is `horizontal`, If a vertical list is desired, set the itemLayout property to `vertical` | string | - |
-  ```
-
-- LWC: Add support for Lightning Web Components ([#5800] by [@ntotten])
-
-  Supports [Lightning Web Components (LWC)](https://developer.salesforce.com/docs/component-library/documentation/lwc) template format for HTML attributes by adding a new parser called `lwc`.
-
-  <!-- prettier-ignore -->
-  ```html
-  // Input
-  <my-element data-for={value}></my-element>
-
-  // Output (Prettier stable)
-  <my-element data-for="{value}"></my-element>
-
-  // Output (Prettier master)
-  <my-element data-for={value}></my-element>
-  ```
-
-- JavaScript: Fix parens logic for optional chaining expressions and closure type casts ([#5843] by [@yangsu])
-
-  Logic introduced in #4542 will print parens in the wrong places and produce invalid code for optional chaining expressions (with more than 2 nodes) or closure type casts that end in function calls.
-
-  <!-- prettier-ignore -->
-  ```js
-  // Input
-  (a?.b[c]).c();
-  let value = /** @type {string} */ (this.members[0]).functionCall();
-
-  // Output (Prettier stable)
-  a(?.b[c]).c();
-  let value = /** @type {string} */ this(.members[0]).functionCall();
-
-  // Output (Prettier master)
-  (a?.b[c]).c();
-  let value = /** @type {string} */ (this.members[0]).functionCall();
-  ```
-
-- CLI: Plugins published as a scoped NPM package (e.g.: `@name/prettier-plugin-foo`) are now automatically registered ([#5945] by [@Kocal])
-
-- Angular: Don't add unnecessary parentheses to pipes ([#5929] by [@voithos])
-
-  In some cases, wrapping parentheses were being added to certain pipes inside attributes, but they are no longer added when they don't affect the result of the expression.
-
-  <!-- prettier-ignore -->
-  ```html
-  // Input
-  <div *ngIf="isRendered | async"></div>
-
-  // Output (Prettier stable)
-  <div *ngIf="(isRendered | async)"></div>
-
-  // Output (Prettier master)
-  <div *ngIf="isRendered | async"></div>
-  ```
+[#6209]: https://github.com/prettier/prettier/pull/6209
+[#6186]: https://github.com/prettier/prettier/pull/6186
+[@duailibe]: https://github.com/duailibe
+[@gavinjoyce]: https://github.com/gavinjoyce

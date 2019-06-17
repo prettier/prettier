@@ -210,7 +210,6 @@ function formatRange(text, opts) {
     Object.assign({}, opts, {
       rangeStart: 0,
       rangeEnd: Infinity,
-      printWidth: opts.printWidth - alignmentSize,
       // track the cursor offset only if it's within our range
       cursorOffset:
         opts.cursorOffset >= rangeStart && opts.cursorOffset < rangeEnd
