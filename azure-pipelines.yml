@@ -43,8 +43,6 @@ jobs:
       vmImage: "Ubuntu 16.04"
     strategy:
       matrix:
-        Node_v6:
-          node_version: 6
         Node_v8:
           node_version: 8
         Node_v10:
