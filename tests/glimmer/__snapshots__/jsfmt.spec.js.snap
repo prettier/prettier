@@ -1627,3 +1627,82 @@ singleQuote: true
 }}
 ================================================================================
 `;
+
+exports[`whitespaces.hbs 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<p>Hi  {{firstName}}  {{lastName}}   , welcome!</p>
+{{#component propA}}
+    for {{propB}}  do {{propC}} f
+{{/component}}
+{{#component propA}}
+    for {{propB}}  <span>name</span>do {{propC}} f
+{{/component}}
+
+  
+
+hey
+
+=====================================output=====================================
+<p>
+  Hi {{firstName}} {{lastName}}, welcome!
+</p>
+{{#component propA}}
+  for{{propB}}do{{propC}}f
+{{/component}}
+{{#component propA}}
+  for
+  {{propB}}
+  <span>
+    name
+  </span>
+  do
+  {{propC}}
+  f
+{{/component}}
+hey
+================================================================================
+`;
+
+exports[`whitespaces.hbs 2`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
+<p>Hi  {{firstName}}  {{lastName}}   , welcome!</p>
+{{#component propA}}
+    for {{propB}}  do {{propC}} f
+{{/component}}
+{{#component propA}}
+    for {{propB}}  <span>name</span>do {{propC}} f
+{{/component}}
+
+  
+
+hey
+
+=====================================output=====================================
+<p>
+  Hi {{firstName}} {{lastName}}, welcome!
+</p>
+{{#component propA}}
+  for{{propB}}do{{propC}}f
+{{/component}}
+{{#component propA}}
+  for
+  {{propB}}
+  <span>
+    name
+  </span>
+  do
+  {{propC}}
+  f
+{{/component}}
+hey
+================================================================================
+`;
