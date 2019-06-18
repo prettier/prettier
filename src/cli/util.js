@@ -420,14 +420,7 @@ function eachFilename(context, patterns, callback) {
       process.exitCode = 2;
       return;
     }
-    filePaths.forEach(filePath =>
-      callback(
-        filePath,
-        Object.assign(getOptionsForFile(context, filePath), {
-          filepath: filePath
-        })
-      )
-    );
+    filePaths.forEach(filePath => callback(filePath));
   } catch (error) {
     context.logger.error(
       `Unable to expand glob patterns: ${patterns.join(" ")}\n${error.message}`
@@ -448,7 +441,7 @@ function formatFiles(context) {
     context.logger.log("Checking formatting...");
   }
 
-  eachFilename(context, context.filePatterns, (filename, options) => {
+  eachFilename(context, context.filePatterns, filename => {
     const fileIgnored = ignorer.filter([filename]).length === 0;
     if (
       fileIgnored &&
@@ -459,6 +452,10 @@ function formatFiles(context) {
     ) {
       return;
     }
+
+    const options = Object.assign(getOptionsForFile(context, filename), {
+      filepath: filename
+    });
 
     if (isTTY()) {
       // Don't use `console.log` here since we need to replace this line.
