@@ -38,7 +38,7 @@ jobs:
       - template: .azure-pipelines/jobs/dev-test.yml
 
   - job: Dev_Test_Linux
-    displayName: Dev Test on Linux Node.js
+    displayName: Dev Test on Linux
     pool:
       vmImage: "Ubuntu 16.04"
     strategy:
