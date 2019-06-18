@@ -3,7 +3,3 @@ steps:
   - template: ../steps/install-dependencies.yml
     parameters:
       flags: --production=true # should *only* check Node.js engines on non-dev dependencies
-  - script: yarn test-integration
-    displayName: "Run tests"
-  - template: ../steps/publish-test-results.yml
-  - template: ../steps/publish-code-coverage.yml
