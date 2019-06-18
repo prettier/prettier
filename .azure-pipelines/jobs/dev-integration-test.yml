@@ -1,0 +1,9 @@
+steps:
+  - template: ../steps/install-nodejs.yml
+  - template: ../steps/install-dependencies.yml
+    parameters:
+      flags: --ignore-engines # needed for yarn install to succeed on Node.js 6
+  - script: yarn test-integration
+    displayName: "Run tests"
+  - template: ../steps/publish-test-results.yml
+  - template: ../steps/publish-code-coverage.yml

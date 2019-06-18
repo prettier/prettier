@@ -52,6 +52,19 @@ jobs:
     steps:
       - template: .azure-pipelines/jobs/dev-test.yml
 
+  - job: Dev_Integration_Test_Linux
+    displayName: Dev integration Test on Linux
+    pool:
+      vmImage: "Ubuntu 16.04"
+    strategy:
+      matrix:
+        Node_v6:
+          node_version: 6
+        Node_v10:
+          node_version: 10
+    steps:
+      - template: .azure-pipelines/jobs/dev-integration-test.yml
+
   - job: Prod_Build
     displayName: Prod Build on Linux Node v10
     pool:
