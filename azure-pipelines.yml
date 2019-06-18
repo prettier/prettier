@@ -17,6 +17,19 @@ jobs:
     steps:
       - template: .azure-pipelines/jobs/dev-lint.yml
 
+  - job: Install_Production
+    displayName: yarn install --production=true on Linux
+    pool:
+      vmImage: "Ubuntu 16.04"
+    strategy:
+      matrix:
+        Node_v6:
+          node_version: 6
+        Node_v10:
+          node_version: 10
+    steps:
+      - template: .azure-pipelines/jobs/install-production.yml
+
   - job: Dev_Test_Windows
     displayName: Dev Test on Windows Node v10
     pool:
