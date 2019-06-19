@@ -104,7 +104,50 @@ Previously, Prettier added line breaks between text and mustaches which resulted
 </p>
 ```
 
+### Handlebars: Improve comment formatting ([#6206] by [@gavinjoyce])
+
+Previously, Prettier would sometimes ignore whitespace when formatting comments.
+
+<!-- prettier-ignore -->
+```hbs
+// Input
+<div>
+  {{! Foo }}
+  {{#if @foo}}
+    Foo
+  {{/if}}
+
+  {{! Bar }}
+  {{#if @bar}}
+    Bar
+  {{/if}}
+</div>
+
+// Output (Prettier stable)
+<div>
+  {{! Foo }}
+  {{#if @foo}}
+    Foo
+  {{/if}}{{! Bar }}{{#if @bar}}
+    Bar
+  {{/if}}
+</div>
+
+// Output (Prettier master)
+<div>
+  {{! Foo }}
+  {{#if @foo}}
+    Foo
+  {{/if}}
+  {{! Bar }}
+  {{#if @bar}}
+    Bar
+  {{/if}}
+</div>
+```
+
 [#6209]: https://github.com/prettier/prettier/pull/6209
 [#6186]: https://github.com/prettier/prettier/pull/6186
+[#6186]: https://github.com/prettier/prettier/pull/6206
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
