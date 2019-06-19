@@ -6029,7 +6029,11 @@ function hasLeadingOwnLineComment(text, node, options) {
 function hasTrailingLineComment(node) {
   return (
     node.comments &&
-    node.comments.some(comment => comment.trailing && comment.type === "Line")
+    node.comments.some(
+      comment =>
+        comment.trailing &&
+        (comment.type === "Line" || comment.type === "CommentLine")
+    )
   );
 }
 
