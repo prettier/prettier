@@ -2393,7 +2393,23 @@ function printPathNoParens(path, options, print, args) {
         );
       }
 
-      parts.push("`");
+      if (
+        parentNode.type === "TaggedTemplateExpression" &&
+        hasTrailingLineComment(parentNode.tag) &&
+        hasNewlineInRange(
+          options.originalText,
+          options.locStart(n),
+          options.locEnd(n)
+        )
+      ) {
+        // For a tagged template expression of the following form:
+        //   foo // comment
+        //   `
+        //   `;
+        parts.push(concat([line, "`"]));
+      } else {
+        parts.push("`");
+      }
 
       path.each(childPath => {
         const i = childPath.getName();
@@ -6008,6 +6024,13 @@ function hasLeadingOwnLineComment(text, node, options) {
       comment => comment.leading && hasNewline(text, options.locEnd(comment))
     );
   return res;
+}
+
+function hasTrailingLineComment(node) {
+  return (
+    node.comments &&
+    node.comments.some(comment => comment.trailing && comment.type === "Line")
+  );
 }
 
 function isFlowAnnotationComment(text, typeAnnotation, options) {
