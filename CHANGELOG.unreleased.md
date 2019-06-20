@@ -146,7 +146,7 @@ Previously, Prettier would sometimes ignore whitespace when formatting comments.
 </div>
 ```
 
-#### JavaScript: Keep line breaks when tagged template literals has a single line comment ([#] by [@sosukesuzuki])
+#### JavaScript: Keep line breaks when tagged template literals has a single line comment ([#6236] by [@sosukesuzuki])
 
 Previously, Prettier moves a single line comment inside tagged template literal.
 
@@ -170,7 +170,7 @@ foo // comment
 [#6209]: https://github.com/prettier/prettier/pull/6209
 [#6186]: https://github.com/prettier/prettier/pull/6186
 [#6186]: https://github.com/prettier/prettier/pull/6206
-[#]: https://github.com/prettier/prettier/pull/
+[#6236]: https://github.com/prettier/prettier/pull/6236
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
 [@sosukesuzuki]: https://github.com/sosukesuzuki
