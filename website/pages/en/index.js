@@ -112,7 +112,7 @@ TldrSection.propTypes = {
   language: PropTypes.string
 };
 
-const Language = ({ name, showName, image, variants }) => (
+const Language = ({ name, nameLink, showName, image, variants }) => (
   <div
     className="languageCategory"
     style={{
@@ -122,19 +122,24 @@ const Language = ({ name, showName, image, variants }) => (
     }}
   >
     <img src={image} style={{ width: "50px", padding: "0 20px" }} />
-    <div>
-      {showName && <p className="accented">{name}</p>}
+    <ul>
+      {showName && (
+        <li className="accented">
+          {nameLink ? <a href={nameLink}>{name}</a> : name}
+        </li>
+      )}
       {variants.map(variant => (
-        <div key={variant}>
+        <li key={variant}>
           <MarkdownBlock>{variant}</MarkdownBlock>
-        </div>
+        </li>
       ))}
-    </div>
+    </ul>
   </div>
 );
 
 Language.propTypes = {
   name: PropTypes.string,
+  nameLink: PropTypes.string,
   showName: PropTypes.bool,
   image: PropTypes.string,
   variants: PropTypes.array
@@ -149,7 +154,7 @@ const LanguagesSection = () => {
         last.length < 2 &&
         last.reduce((sum, lang) => sum + lang.variants.length, 0) +
           language.variants.length <
-          5
+          9
       ) {
         last.push(language);
       } else {
@@ -403,7 +408,7 @@ const UsersSection = ({ language }) => {
               <img src="/images/npm_grey.svg" style={{ height: "100px" }} />
             </a>
             <div style={{ marginLeft: ".7em", width: "260px" }}>
-              <p>More than 1250 tools and integrations on npm</p>
+              <p>More than 2000 tools and integrations on npm</p>
               <Button href="https://www.npmjs.com/browse/depended/prettier">
                 Install Them
               </Button>
@@ -418,7 +423,7 @@ const UsersSection = ({ language }) => {
               <img src="/images/github_grey.svg" style={{ height: "100px" }} />
             </a>
             <div style={{ marginLeft: ".7em", width: "260px" }}>
-              <p>More than 250,000 dependent repositories on GitHub</p>
+              <p>More than 400,000 dependent repositories on GitHub</p>
               <Button href="https://github.com/prettier/prettier/network/dependents">
                 Check Them Out
               </Button>

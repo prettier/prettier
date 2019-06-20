@@ -36,10 +36,15 @@ function removeTokens(node) {
 }
 
 function fallbackParser(parse, source) {
+  const parserOptions = {
+    allowLegacySDLImplementsInterfaces: false,
+    experimentalFragmentVariables: true
+  };
   try {
-    return parse(source, { allowLegacySDLImplementsInterfaces: false });
+    return parse(source, parserOptions);
   } catch (_) {
-    return parse(source, { allowLegacySDLImplementsInterfaces: true });
+    parserOptions.allowLegacySDLImplementsInterfaces = true;
+    return parse(source, parserOptions);
   }
 }
 

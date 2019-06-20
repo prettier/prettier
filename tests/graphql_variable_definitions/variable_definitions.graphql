@@ -15,3 +15,11 @@ query lists($foo: [Int  ], $bar:    [Int!], $arg: [ Int! ]!) {
 query listslong($foo: [String  ], $bar:    [String!], $arg: [ Int! ]!, $veryLongName: [ Int! ]) {
   ok
 }
+
+query withvariabledirective($foo:   Int   @directive) {
+  ok
+}
+
+query withvariabledirectives($foo:   Int   @directive   @another) {
+  ok
+}

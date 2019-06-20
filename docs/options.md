@@ -82,6 +82,20 @@ See the [strings rationale](rationale.md#strings) for more information.
 | ------- | ---------------- | --------------------- |
 | `false` | `--single-quote` | `singleQuote: <bool>` |
 
+## Quote Props
+
+Change when properties in objects are quoted.
+
+Valid options:
+
+- `"as-needed"` - Only add quotes around object properties where required.
+- `"consistent"` - If at least one property in an object requires quotes, quote all properties.
+- `"preserve"` - Respect the input use of quotes in object properties.
+
+| Default       | CLI Override                                                         | API Override                                                         |
+| ------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| `"as-needed"` | <code>--quote-props <as-needed&#124;consistent&#124;preserve></code> | <code>quoteProps: "<as-needed&#124;consistent&#124;preserve>"</code> |
+
 ## JSX Quotes
 
 Use single quotes instead of double quotes in JSX.

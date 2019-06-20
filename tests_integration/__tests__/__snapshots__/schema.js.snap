@@ -310,6 +310,30 @@ Multiple values are accepted.",
             },
           ],
         },
+        "quoteProps": Object {
+          "default": "as-needed",
+          "description": "Change when properties in objects are quoted.",
+          "oneOf": Array [
+            Object {
+              "description": "Only add quotes around object properties where required.",
+              "enum": Array [
+                "as-needed",
+              ],
+            },
+            Object {
+              "description": "If at least one property in an object requires quotes, quote all properties.",
+              "enum": Array [
+                "consistent",
+              ],
+            },
+            Object {
+              "description": "Respect the input use of quotes in object properties.",
+              "enum": Array [
+                "preserve",
+              ],
+            },
+          ],
+        },
         "rangeEnd": Object {
           "default": Infinity,
           "description": "Format code ending at a given character offset (exclusive).

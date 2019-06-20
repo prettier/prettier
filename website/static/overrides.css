@@ -148,16 +148,24 @@ em {
   vertical-align: sub;
 }
 
-.languagesSection h2 {
+.languagesSection h2,
+.languagesSection .accented,
+.languagesSection .accented a {
   color: #c596c7 !important;
 }
 
-.languagesSection .accented {
-  color: #c596c7 !important;
-}
-
-.languagesSection .languageCategory p {
+.languagesSection .languageCategory ul {
+  margin: 0;
   padding: 0;
+  list-style-type: none;
+}
+.languagesSection .languageCategory p,
+.languagesSection .languageCategory a {
+  font-size: 1rem;
+  padding: 0;
+}
+.languagesSection .languageCategory code {
+  font-size: 0.8rem;
 }
 
 .editorSupportSection h2 {

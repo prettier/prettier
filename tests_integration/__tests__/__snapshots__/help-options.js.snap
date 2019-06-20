@@ -508,6 +508,25 @@ Default: preserve
 
 exports[`show detailed usage with --help prose-wrap (write) 1`] = `Array []`;
 
+exports[`show detailed usage with --help quote-props (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help quote-props (stdout) 1`] = `
+"--quote-props <as-needed|consistent|preserve>
+
+  Change when properties in objects are quoted.
+
+Valid options:
+
+  as-needed    Only add quotes around object properties where required.
+  consistent   If at least one property in an object requires quotes, quote all properties.
+  preserve     Respect the input use of quotes in object properties.
+
+Default: as-needed
+"
+`;
+
+exports[`show detailed usage with --help quote-props (write) 1`] = `Array []`;
+
 exports[`show detailed usage with --help range-end (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help range-end (stdout) 1`] = `

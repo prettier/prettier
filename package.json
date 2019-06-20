@@ -14,12 +14,12 @@
     "node": ">=8"
   },
   "dependencies": {
-    "@angular/compiler": "6.1.10",
-    "@babel/code-frame": "7.0.0-beta.46",
+    "@angular/compiler": "7.2.9",
+    "@babel/code-frame": "7.0.0",
     "@babel/parser": "7.2.0",
     "@glimmer/syntax": "0.30.3",
     "@iarna/toml": "2.0.0",
-    "@typescript-eslint/typescript-estree": "1.4.1",
+    "@typescript-eslint/typescript-estree": "1.6.0",
     "angular-estree-parser": "1.1.5",
     "angular-html-parser": "1.2.0",
     "camelcase": "4.1.0",
@@ -38,11 +38,11 @@
     "flow-parser": "0.84.0",
     "get-stream": "3.0.0",
     "globby": "6.1.0",
-    "graphql": "0.13.2",
+    "graphql": "14.2.0",
     "html-element-attributes": "2.0.0",
     "html-styles": "1.0.0",
     "html-tag-names": "1.1.2",
-    "ignore": "3.3.7",
+    "ignore": "4.0.6",
     "is-ci": "2.0.0",
     "jest-docblock": "23.2.0",
     "json-stable-stringify": "1.0.1",
@@ -67,7 +67,7 @@
     "resolve": "1.5.0",
     "semver": "5.4.1",
     "string-width": "3.0.0",
-    "typescript": "3.2.2",
+    "typescript": "3.4.1",
     "unicode-regex": "2.0.0",
     "unified": "6.1.6",
     "vnopts": "1.0.2",
@@ -114,9 +114,6 @@
     "strip-ansi": "4.0.0",
     "tempy": "0.2.1",
     "webpack": "3.12.0"
-  },
-  "resolutions": {
-    "@babel/code-frame": "7.0.0-beta.46"
   },
   "scripts": {
     "prepublishOnly": "echo \"Error: must publish from dist/\" && exit 1",

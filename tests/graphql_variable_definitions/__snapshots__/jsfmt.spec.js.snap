@@ -24,6 +24,14 @@ query listslong($foo: [String  ], $bar:    [String!], $arg: [ Int! ]!, $veryLong
   ok
 }
 
+query withvariabledirective($foo:   Int   @directive) {
+  ok
+}
+
+query withvariabledirectives($foo:   Int   @directive   @another) {
+  ok
+}
+
 =====================================output=====================================
 query short($foo: ComplexType, $site: Site = MOBILE, $nonNull: Int!) {
   hello
@@ -49,6 +57,14 @@ query listslong(
   $arg: [Int!]!
   $veryLongName: [Int!]
 ) {
+  ok
+}
+
+query withvariabledirective($foo: Int @directive) {
+  ok
+}
+
+query withvariabledirectives($foo: Int @directive @another) {
   ok
 }
 

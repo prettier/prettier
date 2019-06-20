@@ -13,6 +13,12 @@ $ git log --pretty=format:"- %s" rev1..rev2 | sed 's/#\([0-9]*\)/\[prettier\/pre
 - escape-string-regexp@2.0.0 update in dependencies
 - drop support for Node.js pre-8.0
 
+### prettier 1.17.0
+
+[diff](https://github.com/prettier/prettier/compare/1.16.2...1.17.0)
+
+🔗 [Release Notes](https://prettier.io/blog/2019/04/12/1.17.0.html)
+
 ## prettierx 0.6.0
 
 [compare prettierx-0.5.0...prettierx-0.6.0](https://github.com/brodybits/prettierx/compare/prettierx-0.5.0...prettierx-0.6.0)
