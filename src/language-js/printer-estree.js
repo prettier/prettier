@@ -4254,6 +4254,7 @@ function printFunctionTypeParameters(path, options, print) {
 function printFunctionParams(path, print, options, expandArg, printTypeParams) {
   const fun = path.getValue();
   const paramsField = fun.parameters ? "parameters" : "params";
+
   const parenSpace = options.parenSpacing ? " " : "";
   const parenLine = options.parenSpacing ? line : softline;
 
