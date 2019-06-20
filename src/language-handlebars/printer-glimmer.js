@@ -35,19 +35,22 @@ const voidTags = [
 function printChildren(path, options, print) {
   return concat(
     path.map((childPath, childIndex) => {
+      const childNode = path.getValue();
       const isFirstNode = childIndex === 0;
       const isLastNode =
         childIndex == path.getParentNode(0).children.length - 1;
       const isLastNodeInMultiNodeList = isLastNode && !isFirstNode;
+      const isWhitespace = isWhitespaceNode(childNode);
 
-      if (isLastNodeInMultiNodeList) {
+      if (isWhitespace && isLastNodeInMultiNodeList) {
         return concat([print(childPath, options, print)]);
       } else if (
         isFirstNode ||
         isPreviousNodeOfSomeType(childPath, [
           "ElementNode",
           "CommentStatement",
-          "MustacheCommentStatement"
+          "MustacheCommentStatement",
+          "BlockStatement"
         ])
       ) {
         return concat([softline, print(childPath, options, print)]);
@@ -66,7 +69,9 @@ function print(path, options, print) {
   }
 
   switch (n.type) {
-    case "Program": {
+    case "Block":
+    case "Program":
+    case "Template": {
       return group(
         join(softline, path.map(print, "body").filter(text => text !== ""))
       );
