@@ -10,6 +10,7 @@ $ git log --pretty=format:"- %s" rev1..rev2 | sed 's/#\([0-9]*\)/\[prettier\/pre
 
 ## prettierx 0.7.0-dev
 
+- escape-string-regexp@2.0.0 update in dependencies
 - drop support for Node.js pre-8.0
 
 ## prettierx 0.6.0
