@@ -233,7 +233,7 @@ function print(path, options, print) {
       let leadingSpace = "";
       let trailingSpace = "";
 
-      if (isNextNodeOfType(path, "MustacheStatement")) {
+      if (isNextNodeOfSomeType(path, ["MustacheStatement"])) {
         trailingSpace = " ";
       }
 
@@ -432,9 +432,13 @@ function isPreviousNodeOfSomeType(path, types) {
   return false;
 }
 
-function isNextNodeOfType(path, type) {
+function isNextNodeOfSomeType(path, types) {
   const nextNode = getNextNode(path);
-  return nextNode && nextNode.type === type;
+
+  if (nextNode) {
+    return types.some(type => nextNode.type === type);
+  }
+  return false;
 }
 
 function clean(ast, newObj) {
