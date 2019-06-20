@@ -229,6 +229,19 @@ Default: false
 
 exports[`show detailed usage with --help jsx-bracket-same-line (write) 1`] = `Array []`;
 
+exports[`show detailed usage with --help jsx-self-closing (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help jsx-self-closing (stdout) 1`] = `
+"--jsx-self-closing
+
+  Self-close empty JSX elements
+
+Default: false
+"
+`;
+
+exports[`show detailed usage with --help jsx-self-closing (write) 1`] = `Array []`;
+
 exports[`show detailed usage with --help jsx-single-quote (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help jsx-single-quote (stdout) 1`] = `

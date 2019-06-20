@@ -14,3 +14,8 @@ run_spec(__dirname, ["flow", "babel", "typescript"], {
   singleQuote: true,
   jsxSingleQuote: true
 });
+run_spec(__dirname, ["flow", "babel", "typescript"], {
+  singleQuote: false,
+  jsxSingleQuote: false,
+  jsxSelfClosing: true
+});

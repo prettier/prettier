@@ -48,6 +48,13 @@ module.exports = {
     default: false,
     description: "Use single quotes in JSX."
   },
+  jsxSelfClosing: {
+    since: "1.19.0",
+    category: CATEGORY_JAVASCRIPT,
+    type: "boolean",
+    default: false,
+    description: "Self-close empty JSX elements"
+  },
   quoteProps: {
     since: "1.17.0",
     category: CATEGORY_JAVASCRIPT,

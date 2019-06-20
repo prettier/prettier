@@ -5514,6 +5514,10 @@ function printJSXElement(path, options, print) {
   const n = path.getValue();
 
   if (n.type === "JSXElement" && isEmptyJSXElement(n)) {
+    if (options.jsxSelfClosing) {
+      n.openingElement.selfClosing = true;
+      return path.call(print, "openingElement");
+    }
     return concat([
       path.call(print, "openingElement"),
       path.call(print, "closingElement")
