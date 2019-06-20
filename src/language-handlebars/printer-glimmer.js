@@ -422,7 +422,8 @@ function getPreviousNode(path) {
   const node = path.getValue();
   const parentNode = path.getParentNode(0);
 
-  const children = parentNode.children;
+  // NodeElement has `children` and BlockStatement has a `body`
+  const children = parentNode.children || parentNode.body;
   if (children) {
     const nodeIndex = children.indexOf(node);
     if (nodeIndex > 0) {
@@ -436,7 +437,8 @@ function getNextNode(path) {
   const node = path.getValue();
   const parentNode = path.getParentNode(0);
 
-  const children = parentNode.children;
+  // NodeElement has `children` and BlockStatement has a `body`
+  const children = parentNode.children || parentNode.body;
   if (children) {
     const nodeIndex = children.indexOf(node);
     if (nodeIndex < children.length) {

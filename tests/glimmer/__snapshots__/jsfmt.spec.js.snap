@@ -1651,7 +1651,7 @@ hey
   Hi  {{firstName}}  {{lastName}}   , welcome!
 </p>
 {{#component propA}}
-  for{{propB}}do{{propC}}f
+  for {{propB}}  do {{propC}} f
 {{/component}}
 {{#component propA}}
   for
@@ -1661,7 +1661,7 @@ hey
   </span>
   do
   {{propC}}
-  f
+   f
 {{/component}}
 hey
 ================================================================================
@@ -1691,7 +1691,7 @@ hey
   Hi  {{firstName}}  {{lastName}}   , welcome!
 </p>
 {{#component propA}}
-  for{{propB}}do{{propC}}f
+  for {{propB}}  do {{propC}} f
 {{/component}}
 {{#component propA}}
   for
@@ -1701,7 +1701,7 @@ hey
   </span>
   do
   {{propC}}
-  f
+   f
 {{/component}}
 hey
 ================================================================================
