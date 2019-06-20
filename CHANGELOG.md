@@ -10,6 +10,8 @@ $ git log --pretty=format:"- %s" rev1..rev2 | sed 's/#\([0-9]*\)/\[prettier\/pre
 
 ## prettierx 0.7.0-dev
 
+- drop support for Node.js pre-8.0
+
 ## prettierx 0.6.0
 
 [compare prettierx-0.5.0...prettierx-0.6.0](https://github.com/brodybits/prettierx/compare/prettierx-0.5.0...prettierx-0.6.0)

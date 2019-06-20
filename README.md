@@ -8,7 +8,7 @@ Unofficial fork, intended to provide some additional options to help improve con
 
 Language parsers are supported with old language parsers deprecated as if this were `prettier` version `1.16.4` / `1.17.0-dev`, INCLUDING HTML LWC Parser to support unquoted interop attributes in [Lightning Web Components](https://developer.salesforce.com/docs/component-library/documentation/lwc) ([prettier/prettier#5800](https://github.com/prettier/prettier/pull/5800))
 
-Minimum Node.js version supported: Node.js 6 - deprecated; Node.js 10 is recommended as described in: [`brodybits/prettierx#6`](https://github.com/brodybits/prettierx/issues/6)
+Minimum Node.js version supported: Node.js 8 - deprecated; Node.js 10 is recommended as described in: [`brodybits/prettierx#6`](https://github.com/brodybits/prettierx/issues/6)
 
 FUTURE TODO: It is desired to provide the additional formatting options in a prettier plugin as discussed in: [`brodybits/prettierx#8`](https://github.com/brodybits/prettierx/issues/8)
 
