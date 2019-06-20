@@ -1648,7 +1648,7 @@ hey
 
 =====================================output=====================================
 <p>
-  Hi {{firstName}} {{lastName}}, welcome!
+  Hi  {{firstName}}  {{lastName}}   , welcome!
 </p>
 {{#component propA}}
   for{{propB}}do{{propC}}f
@@ -1688,7 +1688,7 @@ hey
 
 =====================================output=====================================
 <p>
-  Hi {{firstName}} {{lastName}}, welcome!
+  Hi  {{firstName}}  {{lastName}}   , welcome!
 </p>
 {{#component propA}}
   for{{propB}}do{{propC}}f

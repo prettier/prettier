@@ -221,26 +221,20 @@ function print(path, options, print) {
       return concat([n.key, "=", path.call(print, "value")]);
     }
     case "TextNode": {
-      const isWhitespaceOnly = !/\S/.test(n.chars);
+      // remove empty newlines (mixed with whitespaces)
+      const isWhitespaceOnly = /^\s+$/.test(n.chars);
+      const hasLineBreak = /\n+/.test(n.chars);
 
-      if (
-        isWhitespaceOnly &&
-        isPreviousNodeOfSomeType(path, ["MustacheStatement", "TextNode"])
-      ) {
-        return " ";
-      }
-
-      let leadingSpace = "";
-      let trailingSpace = "";
-
-      if (isNextNodeOfSomeType(path, ["MustacheStatement"])) {
-        trailingSpace = " ";
+      if (isWhitespaceOnly && hasLineBreak) {
+        return "";
       }
 
       // preserve a space inside of an attribute node where whitespace present, when next to mustache statement.
       const inAttrNode = path.stack.indexOf("attributes") >= 0;
-
       if (inAttrNode) {
+        let leadingSpace = "";
+        let trailingSpace = "";
+
         const parentNode = path.getParentNode(0);
         const isConcat = parentNode.type === "ConcatStatement";
         if (isConcat) {
@@ -261,10 +255,39 @@ function print(path, options, print) {
             }
           }
         }
+        return n.chars
+          .replace(/^\s+/, leadingSpace)
+          .replace(/\s+$/, trailingSpace);
       }
-      return n.chars
-        .replace(/^\s+/, leadingSpace)
-        .replace(/\s+$/, trailingSpace);
+
+      // trim leading whitespace(s)
+      // from first-among-siblings TextNode
+      if (
+        !isPreviousNodeOfSomeType(path, ["MustacheStatement", "TextNode"]) &&
+        isNextNodeOfSomeType(path, ["MustacheStatement", "TextNode"])
+      ) {
+        return n.chars.replace(/^\s+/, "");
+      }
+
+      // trim trailing whitespace(s)
+      // from last-among-siblings TextNode
+      if (
+        isPreviousNodeOfSomeType(path, ["MustacheStatement", "TextNode"]) &&
+        !isNextNodeOfSomeType(path, ["MustacheStatement", "TextNode"])
+      ) {
+        return n.chars.replace(/\s+$/, "");
+      }
+
+      // trim leading and trailing whitespace(s)
+      // from TextNode with no siblings
+      if (
+        !isPreviousNodeOfSomeType(path, ["MustacheStatement", "TextNode"]) &&
+        !isNextNodeOfSomeType(path, ["MustacheStatement", "TextNode"])
+      ) {
+        return n.chars.replace(/^\s+/, "").replace(/\s+$/, "");
+      }
+
+      return n.chars;
     }
     case "MustacheCommentStatement": {
       const dashes = n.value.indexOf("}}") > -1 ? "--" : "";
