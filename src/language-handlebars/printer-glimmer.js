@@ -11,6 +11,12 @@ const {
   ifBreak
 } = require("../doc").builders;
 
+const {
+  isPreviousNodeOfSomeType,
+  isPreviousNodeOfType,
+  isNextNodeOfType
+} = require("./utils");
+
 // http://w3c.github.io/html/single-page.html#void-elements
 const voidTags = [
   "area",
@@ -237,6 +243,10 @@ function print(path, options, print) {
         trailingSpace = " ";
       }
 
+      if (isPreviousNodeOfType(path, "MustacheStatement")) {
+        leadingSpace = " ";
+      }
+
       // preserve a space inside of an attribute node where whitespace present, when next to mustache statement.
       const inAttrNode = path.stack.indexOf("attributes") >= 0;
 
@@ -393,48 +403,6 @@ function printCloseBlock(path, print) {
 
 function isWhitespaceNode(node) {
   return node.type === "TextNode" && !/\S/.test(node.chars);
-}
-
-function getPreviousNode(path) {
-  const node = path.getValue();
-  const parentNode = path.getParentNode(0);
-
-  const children = parentNode.children;
-  if (children) {
-    const nodeIndex = children.indexOf(node);
-    if (nodeIndex > 0) {
-      const previousNode = children[nodeIndex - 1];
-      return previousNode;
-    }
-  }
-}
-
-function getNextNode(path) {
-  const node = path.getValue();
-  const parentNode = path.getParentNode(0);
-
-  const children = parentNode.children;
-  if (children) {
-    const nodeIndex = children.indexOf(node);
-    if (nodeIndex < children.length) {
-      const nextNode = children[nodeIndex + 1];
-      return nextNode;
-    }
-  }
-}
-
-function isPreviousNodeOfSomeType(path, types) {
-  const previousNode = getPreviousNode(path);
-
-  if (previousNode) {
-    return types.some(type => previousNode.type === type);
-  }
-  return false;
-}
-
-function isNextNodeOfType(path, type) {
-  const nextNode = getNextNode(path);
-  return nextNode && nextNode.type === type;
 }
 
 function clean(ast, newObj) {
