@@ -4384,9 +4384,10 @@ lines-and-columns@1.1.6, lines-and-columns@^1.1.6:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/lines-and-columns/-/lines-and-columns-1.1.6.tgz#1c00c743b433cd0a4e80758f7b64a57440d9ff00"
 
-linguist-languages@6.2.1-dev.20180706:
-  version "6.2.1-dev.20180706"
-  resolved "https://registry.yarnpkg.com/linguist-languages/-/linguist-languages-6.2.1-dev.20180706.tgz#119766ff7e753654a06a6ae64364483458fa6664"
+linguist-languages@6.3.0:
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/linguist-languages/-/linguist-languages-6.3.0.tgz#b15a847c130229cc9239ebb11f0525a0e4c7a092"
+  integrity sha512-d86fIQM00SqmBmAErxRpBEBe2Nw/WK4Se999wavaXc+lqarOLnoenGP3V/wgBclxKsRXEYWTd6mvv8373vPSKg==
 
 load-json-file@^1.0.0:
   version "1.1.0"
