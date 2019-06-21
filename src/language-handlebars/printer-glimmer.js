@@ -72,9 +72,18 @@ function print(path, options, print) {
     case "Block":
     case "Program":
     case "Template": {
-      return group(
-        join(softline, path.map(print, "body").filter(text => text !== ""))
-      );
+      const parts = [
+        group(
+          join(softline, path.map(print, "body").filter(text => text !== ""))
+        )
+      ];
+
+      // Only force a trailing newline if there were any contents.
+      if (n.body.length && !path.getParentNode(0)) {
+        parts.push(hardline);
+      }
+
+      return concat(parts);
     }
     case "ElementNode": {
       const tagFirstChar = n.tag[0];
