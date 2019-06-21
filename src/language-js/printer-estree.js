@@ -4374,10 +4374,7 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
       typeParams,
       "(",
       parenSpace,
-      // TBD quick merge fix in src:
-      join("", printed),
-      // FUTURE TBD cleaner merge fix:
-      // concat(printed),
+      concat(printed),
       parenSpace,
       ")"
     ]);
@@ -4389,10 +4386,7 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
       typeParams,
       "(",
       parenSpace,
-      // TBD quick merge fix in src:
-      join("", printed),
-      // FUTURE TBD cleaner merge fix:
-      // concat(printed),
+      concat(printed),
       parenSpace,
       ")"
     ]);
@@ -4427,10 +4421,7 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
   return concat([
     typeParams,
     "(",
-    // TBD quick merge fix in src:
-    indent(concat([parenLine, join("", printed)])),
-    // FUTURE TBD cleaner merge fix:
-    // indent(concat([parenLine, concat(printed)])),
+    indent(concat([parenLine, concat(printed)])),
     ifBreak(
       canHaveTrailingComma && shouldPrintComma(options, "all") ? "," : ""
     ),
