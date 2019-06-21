@@ -146,8 +146,26 @@ Previously, Prettier would sometimes ignore whitespace when formatting comments.
 </div>
 ```
 
+### Handlebars: Add newline at the end of files ([#6243] by [@dcyriller])
+
+Previously, Prettier would remove it from handlebars files.
+
+<!-- prettier-ignore -->
+```hbs
+// Input
+Hello
+
+// Output (Prettier stable)
+Hello
+// Output (Prettier master)
+Hello
+
+```
+
 [#6209]: https://github.com/prettier/prettier/pull/6209
 [#6186]: https://github.com/prettier/prettier/pull/6186
 [#6186]: https://github.com/prettier/prettier/pull/6206
+[#6241]: https://github.com/prettier/prettier/pull/6241
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
+[@dcyriller]: https://github.com/dcyriller
