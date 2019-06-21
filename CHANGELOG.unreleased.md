@@ -165,7 +165,7 @@ Hello
 [#6209]: https://github.com/prettier/prettier/pull/6209
 [#6186]: https://github.com/prettier/prettier/pull/6186
 [#6186]: https://github.com/prettier/prettier/pull/6206
-[#6241]: https://github.com/prettier/prettier/pull/6241
+[#6243]: https://github.com/prettier/prettier/pull/6243
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
 [@dcyriller]: https://github.com/dcyriller
