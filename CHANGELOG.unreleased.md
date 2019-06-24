@@ -30,7 +30,7 @@ Examples:
 Previously, putting `//` as a child of a JSX element in TypeScript led to an error
 because it was interpreted as a comment. Prettier master fixes this issue.
 
-<!-- prettier-ignore --\>
+<!-- prettier-ignore -->
 ```js
 // Input
 const link = <a href="example.com">http://example.com</a>
@@ -104,6 +104,48 @@ Previously, Prettier added line breaks between text and mustaches which resulted
 </p>
 ```
 
+### Handlebars: Improve comment formatting ([#6206] by [@gavinjoyce])
+
+Previously, Prettier would sometimes ignore whitespace when formatting comments.
+
+<!-- prettier-ignore -->
+```hbs
+// Input
+<div>
+  {{! Foo }}
+  {{#if @foo}}
+    Foo
+  {{/if}}
+
+  {{! Bar }}
+  {{#if @bar}}
+    Bar
+  {{/if}}
+</div>
+
+// Output (Prettier stable)
+<div>
+  {{! Foo }}
+  {{#if @foo}}
+    Foo
+  {{/if}}{{! Bar }}{{#if @bar}}
+    Bar
+  {{/if}}
+</div>
+
+// Output (Prettier master)
+<div>
+  {{! Foo }}
+  {{#if @foo}}
+    Foo
+  {{/if}}
+  {{! Bar }}
+  {{#if @bar}}
+    Bar
+  {{/if}}
+</div>
+```
+
 #### JavaScript: Keep unary expressions parentheses with comments ([#6217] by [@sosukesuzuki])
 
 Previously, Prettier removes parentheses enclose unary expressions. This change modify to keep it when the expression has comments.
@@ -131,8 +173,9 @@ foo;
 );
 ```
 
-[#6209]: https://github.com/prettier/prettier/pull/6209
 [#6186]: https://github.com/prettier/prettier/pull/6186
+[#6206]: https://github.com/prettier/prettier/pull/6206
+[#6209]: https://github.com/prettier/prettier/pull/6209
 [#6217]: https://github.com/prettier/prettier/pull/6217
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce

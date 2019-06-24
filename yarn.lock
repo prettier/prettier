@@ -718,44 +718,29 @@
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
 
-"@glimmer/interfaces@^0.38.4":
-  version "0.38.4"
-  resolved "https://registry.yarnpkg.com/@glimmer/interfaces/-/interfaces-0.38.4.tgz#437663eb07b97a22c8348a47b25191b5c5198bf3"
-  integrity sha512-Kuc2BNOZMnwmdZh3jOLUktVu9V0BASCRAslPmVfhzgPjD3j9VzqNOifD7eBz/ZvWqpS1e7CgBEc42CBlCBUfnQ==
-  dependencies:
-    "@glimmer/wire-format" "^0.38.4"
-    "@simple-dom/interface" "1.4.0"
+"@glimmer/interfaces@^0.39.3":
+  version "0.39.3"
+  resolved "https://registry.yarnpkg.com/@glimmer/interfaces/-/interfaces-0.39.3.tgz#1d46e1056c9ff3ce6174b82320893c027772e5f4"
+  integrity sha512-tmuZAUau8UbyGh4gLkpC6Vjdm0JP2dibAMMaU/yZG+SGSsQeT+bo+0XcEezscQDPihfXsBX4Z6yq98o15beYEA==
 
-"@glimmer/syntax@0.38.4":
-  version "0.38.4"
-  resolved "https://registry.yarnpkg.com/@glimmer/syntax/-/syntax-0.38.4.tgz#eac34167cfa80daabb5db25fece1982c17a063f1"
-  integrity sha512-aB5vNC4ADCFXQWORFnx1kG8DtaWqS9E2zkynnj8/GqfYjO4yBtM0HFqBHAEIfcD8Zm+zK4osghs2YGrKvIsEdg==
+"@glimmer/syntax@0.39.3":
+  version "0.39.3"
+  resolved "https://registry.yarnpkg.com/@glimmer/syntax/-/syntax-0.39.3.tgz#a5220151b00c69fbd728e120dffc7f90fa5b4f24"
+  integrity sha512-Mb/d1hyWKZYANRPKoEGQ4wTc0kkcsjtxyN+J4ps2F1LQ5UKqJxDlgA/Tf9zXNHsd+A8dn25t5NIjQl7KIdsqOg==
   dependencies:
-    "@glimmer/interfaces" "^0.38.4"
-    "@glimmer/util" "^0.38.4"
-    handlebars "^4.0.6"
-    simple-html-tokenizer "^0.5.6"
+    "@glimmer/interfaces" "^0.39.3"
+    "@glimmer/util" "^0.39.3"
+    handlebars "^4.0.13"
+    simple-html-tokenizer "^0.5.7"
 
-"@glimmer/util@^0.38.4":
-  version "0.38.4"
-  resolved "https://registry.yarnpkg.com/@glimmer/util/-/util-0.38.4.tgz#43b4fbdf98c8c244ac7d1bfd95fef9c8f7761ad5"
-  integrity sha512-qFU96hAcDjK3ZD8lVJMB+FOJjCm+qZydiUICDj/CYTx82bSOfkzpHLNQ5OivJpsVl1+jFqJolQwrjqFC1bQJHA==
-
-"@glimmer/wire-format@^0.38.4":
-  version "0.38.4"
-  resolved "https://registry.yarnpkg.com/@glimmer/wire-format/-/wire-format-0.38.4.tgz#efbfe757b05e32344855b01804cc19dcca0d0828"
-  integrity sha512-1K8N+mbUtqJ1/MR+E/kDekC53HJNecU1i0TUAz5Vh24cvBcPCWP63YtwyCOxfnn7MLFdl8/QvHuo3+8Uxw+oVg==
-  dependencies:
-    "@glimmer/util" "^0.38.4"
+"@glimmer/util@^0.39.3":
+  version "0.39.3"
+  resolved "https://registry.yarnpkg.com/@glimmer/util/-/util-0.39.3.tgz#f6b0417c4b0a30f4ea693990f466e3d1eb442d37"
+  integrity sha512-2tzpxdgaQxMu9bHFqTpGDBYDtSWJWQZkBCFfkzCmPrJuCis3YK7m9hzYIaow7CsVLnO44Xmur+Bpq6IM9gVFXw==
 
 "@iarna/toml@2.2.3":
   version "2.2.3"
   resolved "https://registry.yarnpkg.com/@iarna/toml/-/toml-2.2.3.tgz#f060bf6eaafae4d56a7dac618980838b0696e2ab"
-
-"@simple-dom/interface@1.4.0":
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/@simple-dom/interface/-/interface-1.4.0.tgz#e8feea579232017f89b0138e2726facda6fbb71f"
-  integrity sha512-l5qumKFWU0S+4ZzMaLXFU8tQZsicHEMEyAxI5kDFGhJsRqDwe0a7/iPA/GdxlGyDKseQQAgIz5kzU7eXTrlSpA==
 
 "@types/estree@0.0.39":
   version "0.0.39"
@@ -2949,7 +2934,18 @@ growly@^1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/growly/-/growly-1.3.0.tgz#f10748cbe76af964b7c96c93c6bcc28af120c081"
 
-handlebars@^4.0.3, handlebars@^4.0.6:
+handlebars@^4.0.13:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/handlebars/-/handlebars-4.1.1.tgz#6e4e41c18ebe7719ae4d38e5aca3d32fa3dd23d3"
+  integrity sha512-3Zhi6C0euYZL5sM0Zcy7lInLXKQ+YLcF/olbN010mzGQ4XVm50JeyBnMqofHh696GrciGruC7kCcApPDJvVgwA==
+  dependencies:
+    neo-async "^2.6.0"
+    optimist "^0.6.1"
+    source-map "^0.6.1"
+  optionalDependencies:
+    uglify-js "^3.1.4"
+
+handlebars@^4.0.3:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/handlebars/-/handlebars-4.1.2.tgz#b6b37c1ced0306b221e094fc7aca3ec23b131b67"
   dependencies:
@@ -4581,9 +4577,14 @@ needle@^2.2.0:
     iconv-lite "^0.4.4"
     sax "^1.2.4"
 
-neo-async@^2.5.0, neo-async@^2.6.0:
+neo-async@^2.5.0:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.1.tgz#ac27ada66167fa8849a6addd837f6b189ad2081c"
+
+neo-async@^2.6.0:
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.0.tgz#b9d15e4d71c6762908654b5183ed38b753340835"
+  integrity sha512-MFh0d/Wa7vkKO3Y3LlacqAEeHK0mckVqzDieUKTT+KGxi+zIpeVsFxymkIiRpbpDziHc290Xr9A1O4Om7otoRA==
 
 next-tick@1:
   version "1.0.0"
@@ -5860,7 +5861,7 @@ signal-exit@^3.0.0, signal-exit@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
 
-simple-html-tokenizer@^0.5.6:
+simple-html-tokenizer@^0.5.7:
   version "0.5.7"
   resolved "https://registry.yarnpkg.com/simple-html-tokenizer/-/simple-html-tokenizer-0.5.7.tgz#8eca336ecfbe2b3c6166cbb31b2682088de79f40"
   integrity sha512-APW9iYbkJ5cijjX4Ljhf3VG8SwYPUJT5gZrwci/wieMabQxWFiV5VwsrP5c6GMRvXKEQMGkAB1d9dvW66dTqpg==
