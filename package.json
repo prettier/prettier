@@ -71,7 +71,7 @@
     "unicode-regex": "2.0.0",
     "unified": "6.1.6",
     "vnopts": "1.0.2",
-    "yaml": "1.0.2",
+    "yaml": "1.1.0",
     "yaml-unist-parser": "1.0.0"
   },
   "devDependencies": {
