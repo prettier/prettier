@@ -30,7 +30,7 @@ Examples:
 Previously, putting `//` as a child of a JSX element in TypeScript led to an error
 because it was interpreted as a comment. Prettier master fixes this issue.
 
-<!-- prettier-ignore -->
+<!-- prettier-ignore --\>
 ```js
 // Input
 const link = <a href="example.com">http://example.com</a>
