@@ -1632,7 +1632,7 @@ function printPathNoParens(path, options, print, args) {
 
       if (n.argument.comments) {
         const isIncludeCommentLine = n.argument.comments.some(
-          comment => comment.type === "CommentLine"
+          comment => comment.type === "CommentLine" || comment.type === "Line"
         );
 
         // We don't want the line to break
