@@ -284,6 +284,56 @@ foo;
 );
 ```
 
+### Javascript: Use function literals in arguments to detect function composition ([#6033] by [@brainkim])
+
+Previously, we used function/method names to detect function composition, so
+that we could split the arguments onto multiple lines. We now use the presence
+of function literals in arguments.
+
+<!-- prettier-ignore -->
+```js
+const source$ = range(0, 10);
+source$.pipe(filter(x => x % 2 === 0), map(x => x + x), scan((acc, x) => acc + x, 0)).subscribe(x => console.log(x));
+const isEven = x => x % 2 === 0;
+const double = x => x + x;
+const add = (acc, x) => acc + x;
+source$.pipe(filter(isEven), map(double), scan(add, 0)).subscribe(x => console.log(x))
+// Output (Prettier stable)
+const source$ = range(0, 10);
+source$
+  .pipe(
+    filter(x => x % 2 === 0),
+    map(x => x + x),
+    scan((acc, x) => acc + x, 0)
+  )
+  .subscribe(x => console.log(x));
+const isEven = x => x % 2 === 0;
+const double = x => x + x;
+const add = (acc, x) => acc + x;
+source$
+  .pipe(
+    filter(isEven),
+    map(double),
+    scan(add, 0)
+  )
+  .subscribe(x => console.log(x));
+// Output (Prettier master)
+const source$ = range(0, 10);
+source$
+  .pipe(
+    filter(x => x % 2 === 0),
+    map(x => x + x),
+    scan((acc, x) => acc + x, 0)
+  )
+  .subscribe(x => console.log(x));
+const isEven = x => x % 2 === 0;
+const double = x => x + x;
+const add = (acc, x) => acc + x;
+source$
+  .pipe(filter(isEven), map(double), scan(add, 0))
+  .subscribe(x => console.log(x));
+```
+
 ### Handlebars: Improve comment formatting ([#6234] by [@gavinjoyce])
 
 Previously, Prettier would incorrectly decode HTML entiites.
@@ -696,6 +746,7 @@ Previously, the flag was not applied on html attributes.
 ````
 
 [#5910]: https://github.com/prettier/prettier/pull/5910
+[#6033]: https://github.com/prettier/prettier/pull/6033
 [#6186]: https://github.com/prettier/prettier/pull/6186
 [#6206]: https://github.com/prettier/prettier/pull/6206
 [#6209]: https://github.com/prettier/prettier/pull/6209
@@ -704,10 +755,10 @@ Previously, the flag was not applied on html attributes.
 [#6236]: https://github.com/prettier/prettier/pull/6236
 [#6270]: https://github.com/prettier/prettier/pull/6270
 [#6289]: https://github.com/prettier/prettier/pull/6289
-[#6332]: https://github.com/prettier/prettier/pull/6332
 [#6284]: https://github.com/prettier/prettier/pull/6284
 [#6301]: https://github.com/prettier/prettier/pull/6301
 [#6307]: https://github.com/prettier/prettier/pull/6307
+[#6332]: https://github.com/prettier/prettier/pull/6332
 [#6340]: https://github.com/prettier/prettier/pull/6340
 [#6412]: https://github.com/prettier/prettier/pull/6412
 [#6423]: https://github.com/prettier/prettier/pull/6423
@@ -720,6 +771,7 @@ Previously, the flag was not applied on html attributes.
 [#6514]: https://github.com/prettier/prettier/pull/6514
 [#6467]: https://github.com/prettier/prettier/pull/6467
 [#6377]: https://github.com/prettier/prettier/pull/6377
+[@brainkim]: https://github.com/brainkim
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
 [@sosukesuzuki]: https://github.com/sosukesuzuki
