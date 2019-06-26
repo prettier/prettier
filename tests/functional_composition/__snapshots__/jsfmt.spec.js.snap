@@ -447,9 +447,11 @@ printWidth: 80
 const ArtistInput = connect(mapStateToProps, mapDispatchToProps, mergeProps)(Component);
 
 =====================================output=====================================
-const ArtistInput = connect(mapStateToProps, mapDispatchToProps, mergeProps)(
-  Component
-);
+const ArtistInput = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+  mergeProps
+)(Component);
 
 ================================================================================
 `;

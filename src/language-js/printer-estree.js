@@ -4006,8 +4006,8 @@ function isSimpleTemplateLiteral(node) {
   });
 }
 
-// Logic to split up calls with multiple anonymous functions.
-// For instance, the following call should be split on multiple lines:
+// Logic to check for args with multiple anonymous functions. For instance,
+// the following call should be split on multiple lines for readability:
 // source.pipe(map((x) => x + x), filter((x) => x % 2 === 0))
 function isFunctionCompositionArgs(args) {
   if (args.length <= 1) {
@@ -4037,6 +4037,24 @@ function isFunctionCompositionArgs(args) {
     }
   }
   return false;
+}
+
+// Logic to determine if a call is a “long curried function call”.
+// See https://github.com/prettier/prettier/issues/1420.
+//
+// `connect(a, b, c)(d)`
+// In the above call expression, the second call is the parent node and the
+// first call is the current node whose arguments we're currently inspecting.
+function isLongCurriedCall(path) {
+  const node = path.getValue();
+  const parent = path.getParentNode();
+  return (
+    node.type === "CallExpression" &&
+    parent.type === "CallExpression" &&
+    parent.callee === node &&
+    node.arguments.length > parent.arguments.length &&
+    parent.arguments.length > 0
+  );
 }
 
 function printArgumentsList(path, options, print) {
@@ -4204,6 +4222,18 @@ function printArgumentsList(path, options, print) {
         ],
         { shouldBreak }
       )
+    ]);
+  }
+
+  if (isLongCurriedCall(path)) {
+    // By not wrapping the arguments in a group, the printer prioritizes
+    // breaking up these arguments rather than the caller's args.
+    return concat([
+      "(",
+      indent(concat([softline, concat(printedArguments)])),
+      ifBreak(maybeTrailingComma),
+      softline,
+      ")"
     ]);
   }
 
