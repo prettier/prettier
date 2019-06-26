@@ -303,13 +303,22 @@ var followersForUser = R.composeP(lookupFollowers, lookupUser);
 followersForUser("JOE").then(followers => console.log("Followers:", followers));
 // Followers: ["STEVE","SUZY"]
 
+const mapStateToProps = state => ({
+  users: R.compose( R.filter(R.propEq('status', 'active')),
+    R.values)(state.users)
+});
+
 =====================================output=====================================
 var classyGreeting = (firstName, lastName) =>
   "The name's " + lastName + ", " + firstName + " " + lastName;
 var yellGreeting = R.compose(R.toUpper, classyGreeting);
 yellGreeting("James", "Bond"); //=> "THE NAME'S BOND, JAMES BOND"
 
-R.compose(Math.abs, R.add(1), R.multiply(2))(-4); //=> 7
+R.compose(
+  Math.abs,
+  R.add(1),
+  R.multiply(2)
+)(-4); //=> 7
 
 //  get :: String -> Object -> Maybe *
 var get = R.curry((propName, obj) => Maybe(obj[propName]));
@@ -342,6 +351,13 @@ lookupUser("JOE").then(lookupFollowers);
 var followersForUser = R.composeP(lookupFollowers, lookupUser);
 followersForUser("JOE").then(followers => console.log("Followers:", followers));
 // Followers: ["STEVE","SUZY"]
+
+const mapStateToProps = state => ({
+  users: R.compose(
+    R.filter(R.propEq("status", "active")),
+    R.values
+  )(state.users)
+});
 
 ================================================================================
 `;

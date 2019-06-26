@@ -4049,8 +4049,8 @@ function isLongCurriedCall(path) {
   const node = path.getValue();
   const parent = path.getParentNode();
   return (
-    node.type === "CallExpression" &&
-    parent.type === "CallExpression" &&
+    isCallOrOptionalCallExpression(node) &&
+    isCallOrOptionalCallExpression(parent) &&
     parent.callee === node &&
     node.arguments.length > parent.arguments.length &&
     parent.arguments.length > 0
@@ -5219,6 +5219,9 @@ function printMemberChain(path, options, print) {
   // If we only have a single `.`, we shouldn't do anything fancy and just
   // render everything concatenated together.
   if (groups.length <= cutoff && !hasComment) {
+    if (isLongCurriedCall(path)) {
+      return oneLine;
+    }
     return group(oneLine);
   }
 
