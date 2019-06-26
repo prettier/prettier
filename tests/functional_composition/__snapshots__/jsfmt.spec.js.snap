@@ -314,11 +314,7 @@ var classyGreeting = (firstName, lastName) =>
 var yellGreeting = R.compose(R.toUpper, classyGreeting);
 yellGreeting("James", "Bond"); //=> "THE NAME'S BOND, JAMES BOND"
 
-R.compose(
-  Math.abs,
-  R.add(1),
-  R.multiply(2)
-)(-4); //=> 7
+R.compose(Math.abs, R.add(1), R.multiply(2))(-4); //=> 7
 
 //  get :: String -> Object -> Maybe *
 var get = R.curry((propName, obj) => Maybe(obj[propName]));

@@ -1210,7 +1210,7 @@ function printPathNoParens(path, options, print, args) {
         return printMemberChain(path, options, print);
       }
 
-      return concat([
+      const contents = concat([
         isNew ? "new " : "",
         path.call(print, "callee"),
         optional,
@@ -1220,6 +1220,14 @@ function printPathNoParens(path, options, print, args) {
         printFunctionTypeParameters(path, options, print),
         printArgumentsList(path, options, print)
       ]);
+
+      // We group here when the callee is itself a call expression.
+      // See `isLongCurriedCallExpression` for more info.
+      if (isCallOrOptionalCallExpression(n.callee)) {
+        return group(contents);
+      }
+
+      return contents;
     }
     case "TSInterfaceDeclaration":
       if (isNodeStartingWithDeclare(n, options)) {
@@ -4044,8 +4052,8 @@ function isFunctionCompositionArgs(args) {
 //
 // `connect(a, b, c)(d)`
 // In the above call expression, the second call is the parent node and the
-// first call is the current node whose arguments we're currently inspecting.
-function isLongCurriedCall(path) {
+// first call is the current node.
+function isLongCurriedCallExpression(path) {
   const node = path.getValue();
   const parent = path.getParentNode();
   return (
@@ -4225,28 +4233,22 @@ function printArgumentsList(path, options, print) {
     ]);
   }
 
-  if (isLongCurriedCall(path)) {
+  const contents = concat([
+    "(",
+    indent(concat([softline, concat(printedArguments)])),
+    ifBreak(maybeTrailingComma),
+    softline,
+    ")"
+  ]);
+  if (isLongCurriedCallExpression(path)) {
     // By not wrapping the arguments in a group, the printer prioritizes
-    // breaking up these arguments rather than the caller's args.
-    return concat([
-      "(",
-      indent(concat([softline, concat(printedArguments)])),
-      ifBreak(maybeTrailingComma),
-      softline,
-      ")"
-    ]);
+    // breaking up these arguments rather than the args of the parent call.
+    return contents;
   }
 
-  return group(
-    concat([
-      "(",
-      indent(concat([softline, concat(printedArguments)])),
-      ifBreak(maybeTrailingComma),
-      softline,
-      ")"
-    ]),
-    { shouldBreak: printedArguments.some(willBreak) || anyArgEmptyLine }
-  );
+  return group(contents, {
+    shouldBreak: printedArguments.some(willBreak) || anyArgEmptyLine
+  });
 }
 
 function printTypeAnnotation(path, options, print) {
@@ -5219,7 +5221,7 @@ function printMemberChain(path, options, print) {
   // If we only have a single `.`, we shouldn't do anything fancy and just
   // render everything concatenated together.
   if (groups.length <= cutoff && !hasComment) {
-    if (isLongCurriedCall(path)) {
+    if (isLongCurriedCallExpression(path)) {
       return oneLine;
     }
     return group(oneLine);
