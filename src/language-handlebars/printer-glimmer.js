@@ -233,6 +233,9 @@ function print(path, options, print) {
       let leadingSpace = "";
       let trailingSpace = "";
 
+      if (isPreviousNodeOfType(path, "MustacheStatement")) {
+        leadingSpace = " ";
+      }
       if (isNextNodeOfType(path, "MustacheStatement")) {
         trailingSpace = " ";
       }
@@ -399,7 +402,7 @@ function getPreviousNode(path) {
   const node = path.getValue();
   const parentNode = path.getParentNode(0);
 
-  const children = parentNode.children;
+  const children = parentNode.children || parentNode.body;
   if (children) {
     const nodeIndex = children.indexOf(node);
     if (nodeIndex > 0) {
@@ -413,7 +416,7 @@ function getNextNode(path) {
   const node = path.getValue();
   const parentNode = path.getParentNode(0);
 
-  const children = parentNode.children;
+  const children = parentNode.children || parentNode.body;
   if (children) {
     const nodeIndex = children.indexOf(node);
     if (nodeIndex < children.length) {
@@ -430,6 +433,11 @@ function isPreviousNodeOfSomeType(path, types) {
     return types.some(type => previousNode.type === type);
   }
   return false;
+}
+
+function isPreviousNodeOfType(path, type) {
+  const previousNode = getPreviousNode(path);
+  return previousNode && previousNode.type === type;
 }
 
 function isNextNodeOfType(path, type) {
