@@ -146,7 +146,7 @@ Previously, Prettier would sometimes ignore whitespace when formatting comments.
 </div>
 ```
 
-#### TypeScript, Flow: Fix breaking ordering comments in React.useEffect. ([#] by [@sosukesuzuki])
+#### TypeScript, Flow: Fix breaking ordering comments in React.useEffect. ([#6270] by [@sosukesuzuki])
 
 Previously, Prettier reorder comments in React.useEffect. This bug breaks idempotency. Please see [#6269](https://github.com/prettier/prettier/issues/6269) for detail.
 
@@ -194,7 +194,7 @@ function MyComponent(props) {
 [#6209]: https://github.com/prettier/prettier/pull/6209
 [#6186]: https://github.com/prettier/prettier/pull/6186
 [#6186]: https://github.com/prettier/prettier/pull/6206
-[#]: https://github.com/prettier/prettier/pull/
+[#6270]: https://github.com/prettier/prettier/pull/6270
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
 [@sosukesuzuki]: https://github.com/sosukesuzuki
