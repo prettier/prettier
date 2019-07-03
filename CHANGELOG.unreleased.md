@@ -146,8 +146,55 @@ Previously, Prettier would sometimes ignore whitespace when formatting comments.
 </div>
 ```
 
+### TypeScript, Flow: Fix ordering comments in React.useEffect
+
+Previously, Prettier reorders comments in React.useEffect. See [#6269].
+
+<!-- prettier-ignore -->
+```ts
+// Input
+function MyComponent(props) {
+  useEffect(
+    () => {
+      console.log("foo");
+    },
+
+    // do something
+    // do something
+    // do something
+    []
+  );
+}
+
+// Output (Prettier stable)
+function MyComponent(props) {
+  useEffect(() => {
+    console.log("foo");
+  }, // do something
+  // do something
+  // do something
+  []);
+}
+
+// Output (Prettier master)
+function MyComponent(props) {
+  useEffect(
+    () => {
+      console.log("foo");
+    },
+
+    // do something
+    // do something
+    // do something
+    []
+  );
+}
+```
+
 [#6209]: https://github.com/prettier/prettier/pull/6209
 [#6186]: https://github.com/prettier/prettier/pull/6186
 [#6186]: https://github.com/prettier/prettier/pull/6206
+[#]: https://github.com/prettier/prettier/pull/
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
+[@sosukesuzuki]: https://github.com/sosukesuzuki
