@@ -4031,7 +4031,7 @@ function printArgumentsList(path, options, print) {
     args[0].params.length === 0 &&
     args[0].body.type === "BlockStatement" &&
     args[1].type === "ArrayExpression" &&
-    !args.find(arg => arg.leadingComments || arg.trailingComments)
+    !args.find(arg => arg.comments)
   ) {
     return concat([
       "(",
