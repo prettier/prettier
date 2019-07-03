@@ -16,3 +16,16 @@ function helloWorldWithReact() {
   }, [props.value, props.value, props.value, props.value, props.value, props.value, props.value, props.value, props.value, props.value, props.value])
 }
 
+function helloWorld() {
+  useEffect(
+    () => {
+      console.log("foo");
+    },
+
+    // do something
+    // do something
+    // do something
+    []
+  )
+}
+
