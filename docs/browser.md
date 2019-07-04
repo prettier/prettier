@@ -24,7 +24,7 @@ prettier.format("query { }", { parser: "graphql", plugins: prettierPlugins });
 </script>
 ```
 
-### ES6
+### ES Modules
 
 ```js
 import prettier from "prettier/standalone";
