@@ -32,7 +32,7 @@ import parserGraphql from "prettier/parser-graphql";
 
 prettier.format("query { }", {
   parser: "graphql",
-  plugins: [parserGraphql],
+  plugins: [parserGraphql]
 });
 ```
 
