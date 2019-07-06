@@ -50,7 +50,7 @@
     "lines-and-columns": "1.1.6",
     "linguist-languages": "6.2.1-dev.20180706",
     "lodash.uniqby": "4.7.0",
-    "mem": "1.1.0",
+    "mem": "4.0.0",
     "minimatch": "3.0.4",
     "minimist": "1.2.0",
     "n-readlines": "1.0.0",
