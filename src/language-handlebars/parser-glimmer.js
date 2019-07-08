@@ -8,7 +8,8 @@ function parse(text) {
     return glimmer(text, {
       plugins: {
         ast: []
-      }
+      },
+      mode: "codemod"
     });
     /* istanbul ignore next */
   } catch (error) {
