@@ -245,7 +245,6 @@ Previously, Prettier would incorrectly decode HTML entiites.
 </p>
 ```
 
-<<<<<<< HEAD
 #### JavaScript: Stop moving comments inside tagged template literals ([#6236] by [@sosukesuzuki])
 
 Previously, Prettier would move comments after the tag inside the template literal. This version fixes this problem.
@@ -316,7 +315,7 @@ This version updates the TypeScript parser to correctly handle JSX text with dou
 
 Flag used with `--write` to avoid re-checking files that were not changed since they were last written (with the same formatting configuration).
 
-#### HTML, Vue: Don't break the template element included in a line shorter than print-width([#] by [@sosukesuzuki])
+#### HTML, Vue: Don't break the template element included in a line shorter than print-width([#6284] by [@sosukesuzuki])
 
 Previously, even if the line length is shorter than print-width is Prettier breaks the line with a template element.
 
@@ -341,7 +340,6 @@ Previously, even if the line length is shorter than print-width is Prettier brea
 ```
 
 [#5910]: https://github.com/prettier/prettier/pull/5910
-[#6209]: https://github.com/prettier/prettier/pull/6209
 [#6186]: https://github.com/prettier/prettier/pull/6186
 [#6206]: https://github.com/prettier/prettier/pull/6206
 [#6209]: https://github.com/prettier/prettier/pull/6209
@@ -351,7 +349,7 @@ Previously, even if the line length is shorter than print-width is Prettier brea
 [#6270]: https://github.com/prettier/prettier/pull/6270
 [#6289]: https://github.com/prettier/prettier/pull/6289
 [#6332]: https://github.com/prettier/prettier/pull/6332
-[#]: https://github.com/prettier/prettier/pull/
+[#6284]: https://github.com/prettier/prettier/pull/6284
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
 [@sosukesuzuki]: https://github.com/sosukesuzuki
