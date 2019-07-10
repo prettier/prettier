@@ -216,9 +216,11 @@ foo // comment
 `;
 ```
 
-#### TypeScript, Flow: Fix moving comments in function calls like `useEffect` second argument ([#6270] by [@sosukesuzuki])
+#### JavaScript: Fix moving comments in function calls like `useEffect` second argument ([#6270] by [@sosukesuzuki])
 
 This fixes a bug that was affecting function calls that have a arrow function as first argument and an array expression as second argument, such as the common React's `useEffect`. A comment in its own line before the second argument would be moved to the line above.
+
+The bug was only present when using the Flow and TypeScript parsers.
 
 <!-- prettier-ignore -->
 ```js
