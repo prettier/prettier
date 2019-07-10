@@ -146,9 +146,31 @@ Previously, Prettier would sometimes ignore whitespace when formatting comments.
 </div>
 ```
 
-#### JavaScript: Keep line breaks when tagged template literals has a single line comment ([#6236] by [@sosukesuzuki])
+### Handlebars: Improve comment formatting ([#6234] by [@gavinjoyce])
 
-Previously, Prettier moves a single line comment inside tagged template literal.
+Previously, Prettier would incorrectly decode HTML entiites.
+
+<!-- prettier-ignore -->
+```hbs
+// Input
+<p>
+  Some escaped characters: &lt; &gt; &amp;
+</p>
+
+// Output (Prettier stable)
+<p>
+  Some escaped characters: < > &
+</p>
+
+// Output (Prettier master)
+<p>
+  Some escaped characters: &lt; &gt; &amp;
+</p>
+```
+
+#### JavaScript: Stop moving comments inside tagged template literals ([#6236] by [@sosukesuzuki])
+
+Previously, Prettier would move comments after the tag inside the template literal. This version fixes this problem.
 
 <!-- prettier-ignore -->
 ```js
@@ -167,9 +189,10 @@ foo // comment
 `;
 ```
 
-[#6209]: https://github.com/prettier/prettier/pull/6209
 [#6186]: https://github.com/prettier/prettier/pull/6186
 [#6186]: https://github.com/prettier/prettier/pull/6206
+[#6209]: https://github.com/prettier/prettier/pull/6209
+[#6234]: https://github.com/prettier/prettier/pull/6234
 [#6236]: https://github.com/prettier/prettier/pull/6236
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce

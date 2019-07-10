@@ -221,3 +221,6 @@
 - caption: Heroku
   image: /images/users/heroku.svg
   infoLink: https://heroku.com/
+- caption: Openbravo
+  image: /images/users/openbravo-200x100.png
+  infoLink: https://openbravo.com
