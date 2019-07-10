@@ -146,6 +146,33 @@ Previously, Prettier would sometimes ignore whitespace when formatting comments.
 </div>
 ```
 
+#### JavaScript: Keep unary expressions parentheses with comments ([#6217] by [@sosukesuzuki])
+
+Previously, Prettier removes parentheses enclose unary expressions. This change modify to keep it when the expression has comments.
+
+<!-- prettier-ignore -->
+```ts
+// Input
+!(
+  /* foo */
+  foo
+);
+!(
+  foo // foo
+);
+
+// Output (Prettier stable)
+!/* foo */
+foo;
+!foo; // foo
+
+// Output (Prettier master)
+!(/* foo */ foo);
+!(
+  foo // foo
+);
+```
+
 ### Handlebars: Improve comment formatting ([#6234] by [@gavinjoyce])
 
 Previously, Prettier would incorrectly decode HTML entiites.
@@ -190,8 +217,9 @@ foo // comment
 ```
 
 [#6186]: https://github.com/prettier/prettier/pull/6186
-[#6186]: https://github.com/prettier/prettier/pull/6206
+[#6206]: https://github.com/prettier/prettier/pull/6206
 [#6209]: https://github.com/prettier/prettier/pull/6209
+[#6217]: https://github.com/prettier/prettier/pull/6217
 [#6234]: https://github.com/prettier/prettier/pull/6234
 [#6236]: https://github.com/prettier/prettier/pull/6236
 [@duailibe]: https://github.com/duailibe
