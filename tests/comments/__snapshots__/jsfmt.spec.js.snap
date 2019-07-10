@@ -2037,7 +2037,8 @@ foo /* comment */
 =====================================output=====================================
 foo\`\`; // comment
 
-foo\`\`; // comment
+foo // comment
+\`\`;
 
 foo // comment
 \`
