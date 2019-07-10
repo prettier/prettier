@@ -146,54 +146,121 @@ Previously, Prettier would sometimes ignore whitespace when formatting comments.
 </div>
 ```
 
-#### TypeScript, Flow: Fix breaking ordering comments in React.useEffect. ([#6270] by [@sosukesuzuki])
+#### JavaScript: Keep unary expressions parentheses with comments ([#6217] by [@sosukesuzuki])
 
-Previously, Prettier reorder comments in React.useEffect. This bug breaks idempotency. Please see [#6269](https://github.com/prettier/prettier/issues/6269) for detail.
+Previously, Prettier removes parentheses enclose unary expressions. This change modify to keep it when the expression has comments.
 
 <!-- prettier-ignore -->
 ```ts
 // Input
-function MyComponent(props) {
-  useEffect(
-    () => {
-      console.log("foo");
-    },
-
-    // do something
-    // do something
-    // do something
-    []
-  );
-}
+!(
+  /* foo */
+  foo
+);
+!(
+  foo // foo
+);
 
 // Output (Prettier stable)
-function MyComponent(props) {
-  useEffect(() => {
-    console.log("foo");
-  }, // do something
-  // do something
-  // do something
-  []);
-}
+!/* foo */
+foo;
+!foo; // foo
 
 // Output (Prettier master)
-function MyComponent(props) {
-  useEffect(
-    () => {
-      console.log("foo");
-    },
-
-    // do something
-    // do something
-    // do something
-    []
-  );
-}
+!(/* foo */ foo);
+!(
+  foo // foo
+);
 ```
 
-[#6209]: https://github.com/prettier/prettier/pull/6209
+### Handlebars: Improve comment formatting ([#6234] by [@gavinjoyce])
+
+Previously, Prettier would incorrectly decode HTML entiites.
+
+<!-- prettier-ignore -->
+```hbs
+// Input
+<p>
+  Some escaped characters: &lt; &gt; &amp;
+</p>
+
+// Output (Prettier stable)
+<p>
+  Some escaped characters: < > &
+</p>
+
+// Output (Prettier master)
+<p>
+  Some escaped characters: &lt; &gt; &amp;
+</p>
+```
+
+#### JavaScript: Stop moving comments inside tagged template literals ([#6236] by [@sosukesuzuki])
+
+Previously, Prettier would move comments after the tag inside the template literal. This version fixes this problem.
+
+<!-- prettier-ignore -->
+```js
+// Input
+foo //comment
+`
+`;
+
+// Output (Prettier stable)
+foo` // comment
+`;
+
+// Output (Prettier master)
+foo // comment
+`
+`;
+```
+
+#### TypeScript, Flow: Fix moving comments in function calls like `useEffect` second argument ([#6270] by [@sosukesuzuki])
+
+This fixes a bug that was affecting function calls that have a arrow function as first argument and an array expression as second argument, such as the common React's `useEffect`. A comment in its own line before the second argument would be moved to the line above.
+
+<!-- prettier-ignore -->
+```js
+// Input
+useEffect(
+  () => {
+    console.log("some code", props.foo);
+  },
+
+  // We need to disable the eslint warning here,
+  // because of some complicated reason.
+  // eslint-disable line react-hooks/exhaustive-deps
+  []
+);
+
+// Output (Prettier stable)
+useEffect(() => {
+  console.log("some code", props.foo);
+}, // We need to disable the eslint warning here,
+// because of some complicated reason.
+// eslint-disable line react-hooks/exhaustive-deps
+[]);
+
+// Output (Prettier master)
+useEffect(
+  () => {
+    console.log("some code", props.foo);
+  },
+
+  // We need to disable the eslint warning here,
+  // because of some complicated reason.
+  // eslint-disable line react-hooks/exhaustive-deps
+  []
+);
+```
+
 [#6186]: https://github.com/prettier/prettier/pull/6186
-[#6186]: https://github.com/prettier/prettier/pull/6206
+[#6206]: https://github.com/prettier/prettier/pull/6206
+[#6209]: https://github.com/prettier/prettier/pull/6209
+[#6217]: https://github.com/prettier/prettier/pull/6217
+[#6234]: https://github.com/prettier/prettier/pull/6234
+[#6236]: https://github.com/prettier/prettier/pull/6236
 [#6270]: https://github.com/prettier/prettier/pull/6270
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce

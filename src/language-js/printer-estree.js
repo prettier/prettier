@@ -1630,7 +1630,20 @@ function printPathNoParens(path, options, print, args) {
         parts.push(" ");
       }
 
-      parts.push(path.call(print, "argument"));
+      if (n.argument.comments && n.argument.comments.length > 0) {
+        parts.push(
+          group(
+            concat([
+              "(",
+              indent(concat([softline, path.call(print, "argument")])),
+              softline,
+              ")"
+            ])
+          )
+        );
+      } else {
+        parts.push(path.call(print, "argument"));
+      }
 
       return concat(parts);
     case "UpdateExpression":
@@ -2393,7 +2406,7 @@ function printPathNoParens(path, options, print, args) {
         );
       }
 
-      parts.push("`");
+      parts.push(lineSuffixBoundary, "`");
 
       path.each(childPath => {
         const i = childPath.getName();
@@ -3901,6 +3914,7 @@ function printJestEachTemplateLiteral(node, expressions, options) {
       });
 
     parts.push(
+      lineSuffixBoundary,
       "`",
       indent(
         concat([
