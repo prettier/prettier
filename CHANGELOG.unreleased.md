@@ -216,12 +216,54 @@ foo // comment
 `;
 ```
 
+#### JavaScript: Fix moving comments in function calls like `useEffect` second argument ([#6270] by [@sosukesuzuki])
+
+This fixes a bug that was affecting function calls that have a arrow function as first argument and an array expression as second argument, such as the common React's `useEffect`. A comment in its own line before the second argument would be moved to the line above.
+
+The bug was only present when using the Flow and TypeScript parsers.
+
+<!-- prettier-ignore -->
+```js
+// Input
+useEffect(
+  () => {
+    console.log("some code", props.foo);
+  },
+
+  // We need to disable the eslint warning here,
+  // because of some complicated reason.
+  // eslint-disable line react-hooks/exhaustive-deps
+  []
+);
+
+// Output (Prettier stable)
+useEffect(() => {
+  console.log("some code", props.foo);
+}, // We need to disable the eslint warning here,
+// because of some complicated reason.
+// eslint-disable line react-hooks/exhaustive-deps
+[]);
+
+// Output (Prettier master)
+useEffect(
+  () => {
+    console.log("some code", props.foo);
+  },
+
+  // We need to disable the eslint warning here,
+  // because of some complicated reason.
+  // eslint-disable line react-hooks/exhaustive-deps
+  []
+);
+```
+
 [#6186]: https://github.com/prettier/prettier/pull/6186
 [#6206]: https://github.com/prettier/prettier/pull/6206
 [#6209]: https://github.com/prettier/prettier/pull/6209
 [#6217]: https://github.com/prettier/prettier/pull/6217
 [#6234]: https://github.com/prettier/prettier/pull/6234
 [#6236]: https://github.com/prettier/prettier/pull/6236
+[#6270]: https://github.com/prettier/prettier/pull/6270
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
 [@sosukesuzuki]: https://github.com/sosukesuzuki
