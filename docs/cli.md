@@ -30,6 +30,12 @@ This will output a human-friendly message and a list of unformatted files, if an
 prettier --check "src/**/*.js"
 ```
 
+If you want to check all files (as selected by your `.prettierignore` file), use the `**` wildcard:
+
+```bash
+prettier --check "**"
+```
+
 Console output if all files are formatted:
 
 ```
@@ -147,6 +153,12 @@ Prettier CLI will ignore files located in `node_modules` directory. To opt-out f
 ## `--write`
 
 This rewrites all processed files in place. This is comparable to the `eslint --fix` workflow.
+
+If you want to rewrite all files (as selected by your `.prettierignore` file), use the `**` wildcard:
+
+```bash
+prettier --write "**"
+```
 
 ## `--loglevel`
 
