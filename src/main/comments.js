@@ -380,25 +380,6 @@ function printLeadingComment(commentPath, print, options) {
   const isBlock =
     options.printer.isBlockComment && options.printer.isBlockComment(comment);
 
-  // We don't want the line to break
-  // when the parentParentNode is a UnaryExpression
-  // And the parentParentNode.argument.comments is
-  // occupied with block comments
-  const parentParentNode = commentPath.getNode(2);
-  const isParentParentUnaryExpression =
-    parentParentNode && parentParentNode.type === "UnaryExpression";
-  const isIncludeCommentLine =
-    parentParentNode &&
-    parentParentNode.argument &&
-    parentParentNode.argument.comments &&
-    parentParentNode.argument.comments.some(
-      comment => comment.type === "CommentLine"
-    );
-
-  if (isParentParentUnaryExpression && !isIncludeCommentLine) {
-    return concat([contents, " "]);
-  }
-
   // Leading block comments should see if they need to stay on the
   // same line or not.
   if (isBlock) {
@@ -431,33 +412,10 @@ function printTrailingComment(commentPath, print, options) {
       parentParentNode.type === "ClassExpression") &&
     parentParentNode.superClass === parentNode;
 
-  // We don't want the line to break
-  // when the parentParentNode is a UnaryExpression
-  // And the parentParentNode.argument.comments is
-  // occupied with block comments
-  const isParentParentUnaryExpression =
-    parentParentNode && parentParentNode.type === "UnaryExpression";
-  const isIncludeCommentLine =
-    parentParentNode &&
-    parentParentNode.argument &&
-    parentParentNode.argument.comments &&
-    parentParentNode.argument.comments.some(
-      comment => comment.type === "CommentLine"
-    );
-
-  const hasNewLineInComments = hasNewline(
-    options.originalText,
-    options.locStart(comment),
-    {
-      backwards: true
-    }
-  );
-
   if (
-    (hasNewLineInComments && !isParentParentUnaryExpression) ||
-    (hasNewLineInComments &&
-      isParentParentUnaryExpression &&
-      isIncludeCommentLine)
+    hasNewline(options.originalText, options.locStart(comment), {
+      backwards: true
+    })
   ) {
     // This allows comments at the end of nested structures:
     // {
@@ -480,11 +438,7 @@ function printTrailingComment(commentPath, print, options) {
     return lineSuffix(
       concat([hardline, isLineBeforeEmpty ? hardline : "", contents])
     );
-  } else if (
-    isBlock ||
-    isParentSuperClass ||
-    (isParentParentUnaryExpression && !isIncludeCommentLine)
-  ) {
+  } else if (isBlock || isParentSuperClass) {
     // Trailing block comments never need a newline
     return concat([" ", contents]);
   }

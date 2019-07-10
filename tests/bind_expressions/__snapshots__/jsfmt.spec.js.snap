@@ -440,8 +440,14 @@ printWidth: 80
 !x::y;
 !(x::y /* foo */);
 !(/* foo */ x::y);
-!(/* foo */ x::y);
-!(x::y /* foo */);
+!(
+  /* foo */
+  x::y
+);
+!(
+  x::y
+  /* foo */
+);
 !(
   x::y // foo
 );
@@ -475,8 +481,14 @@ semi: false
 !x::y
 !(x::y /* foo */)
 !(/* foo */ x::y)
-!(/* foo */ x::y)
-!(x::y /* foo */)
+!(
+  /* foo */
+  x::y
+)
+!(
+  x::y
+  /* foo */
+)
 !(
   x::y // foo
 )
