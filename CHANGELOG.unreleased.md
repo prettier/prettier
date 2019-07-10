@@ -195,11 +195,33 @@ Previously, Prettier would incorrectly decode HTML entiites.
 </p>
 ```
 
+#### JavaScript: Stop moving comments inside tagged template literals ([#6236] by [@sosukesuzuki])
+
+Previously, Prettier would move comments after the tag inside the template literal. This version fixes this problem.
+
+<!-- prettier-ignore -->
+```js
+// Input
+foo //comment
+`
+`;
+
+// Output (Prettier stable)
+foo` // comment
+`;
+
+// Output (Prettier master)
+foo // comment
+`
+`;
+```
+
 [#6186]: https://github.com/prettier/prettier/pull/6186
 [#6206]: https://github.com/prettier/prettier/pull/6206
 [#6209]: https://github.com/prettier/prettier/pull/6209
 [#6217]: https://github.com/prettier/prettier/pull/6217
 [#6234]: https://github.com/prettier/prettier/pull/6234
+[#6236]: https://github.com/prettier/prettier/pull/6236
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
 [@sosukesuzuki]: https://github.com/sosukesuzuki

@@ -2406,7 +2406,7 @@ function printPathNoParens(path, options, print, args) {
         );
       }
 
-      parts.push("`");
+      parts.push(lineSuffixBoundary, "`");
 
       path.each(childPath => {
         const i = childPath.getName();
@@ -3914,6 +3914,7 @@ function printJestEachTemplateLiteral(node, expressions, options) {
       });
 
     parts.push(
+      lineSuffixBoundary,
       "`",
       indent(
         concat([
