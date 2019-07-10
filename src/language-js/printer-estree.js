@@ -1630,16 +1630,19 @@ function printPathNoParens(path, options, print, args) {
         parts.push(" ");
       }
 
-      const argument = path.call(print, "argument");
-
       if (n.argument.comments && n.argument.comments.length > 0) {
         parts.push(
           group(
-            concat(["(", indent(concat([softline, argument])), softline, ")"])
+            concat([
+              "(",
+              indent(concat([softline, path.call(print, "argument")])),
+              softline,
+              ")"
+            ])
           )
         );
       } else {
-        parts.push(argument);
+        parts.push(path.call(print, "argument"));
       }
 
       return concat(parts);
