@@ -4021,24 +4021,16 @@ function isFunctionCompositionArgs(args) {
   if (args.length <= 1) {
     return false;
   }
-  let functionCount = 0;
-  for (let i = 0; i < args.length; i++) {
-    const arg = args[i];
-    if (
-      arg.type === "FunctionExpression" ||
-      arg.type === "ArrowFunctionExpression"
-    ) {
-      functionCount++;
-      if (functionCount > 1) {
+  let count = 0;
+  for (const arg of args) {
+    if (isFunctionOrArrowExpression(arg)) {
+      count += 1;
+      if (count > 1) {
         return true;
       }
-    } else if (arg.type === "CallExpression") {
-      for (let j = 0; j < arg.arguments.length; j++) {
-        const childArg = arg.arguments[j];
-        if (
-          childArg.type === "FunctionExpression" ||
-          childArg.type === "ArrowFunctionExpression"
-        ) {
+    } else if (isCallOrOptionalCallExpression(arg)) {
+      for (const childArg of arg.arguments) {
+        if (isFunctionOrArrowExpression(childArg)) {
           return true;
         }
       }
