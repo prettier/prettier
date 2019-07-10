@@ -2393,23 +2393,7 @@ function printPathNoParens(path, options, print, args) {
         );
       }
 
-      if (
-        parentNode.type === "TaggedTemplateExpression" &&
-        hasTrailingLineComment(parentNode.tag) &&
-        hasNewlineInRange(
-          options.originalText,
-          options.locStart(n),
-          options.locEnd(n)
-        )
-      ) {
-        // For a tagged template expression of the following form:
-        //   foo // comment
-        //   `
-        //   `;
-        parts.push(concat([line, "`"]));
-      } else {
-        parts.push("`");
-      }
+      parts.push(lineSuffixBoundary, "`");
 
       path.each(childPath => {
         const i = childPath.getName();
@@ -3917,6 +3901,7 @@ function printJestEachTemplateLiteral(node, expressions, options) {
       });
 
     parts.push(
+      lineSuffixBoundary,
       "`",
       indent(
         concat([
@@ -6024,17 +6009,6 @@ function hasLeadingOwnLineComment(text, node, options) {
       comment => comment.leading && hasNewline(text, options.locEnd(comment))
     );
   return res;
-}
-
-function hasTrailingLineComment(node) {
-  return (
-    node.comments &&
-    node.comments.some(
-      comment =>
-        comment.trailing &&
-        (comment.type === "Line" || comment.type === "CommentLine")
-    )
-  );
 }
 
 function isFlowAnnotationComment(text, typeAnnotation, options) {
