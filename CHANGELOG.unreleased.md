@@ -257,6 +257,10 @@ useEffect(
 );
 ```
 
+#### TypeScript: Fix crashes when using `//` in JSX texts ([#6289] by [@duailibe])
+
+This version updates the TypeScript parser to correctly handle JSX text with double slashes (`//`). In previous versions, this would cause Prettier to crash.
+
 [#6186]: https://github.com/prettier/prettier/pull/6186
 [#6206]: https://github.com/prettier/prettier/pull/6206
 [#6209]: https://github.com/prettier/prettier/pull/6209
@@ -264,6 +268,7 @@ useEffect(
 [#6234]: https://github.com/prettier/prettier/pull/6234
 [#6236]: https://github.com/prettier/prettier/pull/6236
 [#6270]: https://github.com/prettier/prettier/pull/6270
+[#6289]: https://github.com/prettier/prettier/pull/6289
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
 [@sosukesuzuki]: https://github.com/sosukesuzuki
