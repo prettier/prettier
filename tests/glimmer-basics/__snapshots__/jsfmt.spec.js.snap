@@ -32,47 +32,6 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`comments.hbs 1`] = `
-====================================options=====================================
-parsers: ["glimmer"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-<div class="entry">
-  {{! This comment will not be in the output }}
-  {{!-- This comment as }} and will not be in the output --}}
-  <!-- This comment will be in the output -->
-</div>
-
-=====================================output=====================================
-<div class="entry">
-  {{! This comment will not be in the output }}
-  {{!-- This comment as }} and will not be in the output --}}
-  <!-- This comment will be in the output -->
-</div>
-================================================================================
-`;
-
-exports[`component.hbs 1`] = `
-====================================options=====================================
-parsers: ["glimmer"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-{{my-component foo="bar" bar="baz" action=(action "almostTheMaximumLengthxxxxxx")}}
-
-{{my-component foo="bar"}}
-
-=====================================output=====================================
-{{my-component
-  foo="bar"
-  bar="baz"
-  action=(action "almostTheMaximumLengthxxxxxx")
-}}
-{{my-component foo="bar"}}
-================================================================================
-`;
-
 exports[`each.hbs 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
