@@ -352,398 +352,6 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`else-if.hbs 1`] = `
-====================================options=====================================
-parsers: ["glimmer"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-{{#if a}}
-  b
-{{else if c}}
-  d
-{{else}}
-  e
-{{/if}}
-
-{{#if a}}
-  b
-{{else if c}}
-  d
-{{else}}
-  hello
-  {{#if f}}
-    g
-  {{/if}}
-  e
-{{/if}}
-
-{{#if a}}
-  b
-{{else if c}}
-  d
-{{else if e}}
-  f
-{{else if g}}
-  h
-{{else}}
-  j
-{{/if}}
-
-<div>
-  {{#if a}}
-    b
-  {{else if c}}
-    d
-  {{else}}
-    e
-  {{/if}}
-</div>
-
-<div>
-  <div>
-    {{#if a}}
-      b
-    {{else if c}}
-      d
-    {{else}}
-      e
-    {{/if}}
-  </div>
-</div>
-
-{{#if a}}
-  b
-{{else}}
-  {{#each c as |d|}}
-    e
-  {{/each}}
-{{/if}}
-
-{{#if a}}
-  {{#if b}}
-    ab
-  {{else if c}}
-    ac
-  {{/if}}
-{{/if}}
-
-{{#if a}}
-  a
-  <div>b</div>
-  c
-{{else}}
-  {{#if c}}
-    a
-    b
-    <div>c</div>
-  {{/if}}
-  <div>a</div>
-  b
-  c
-{{/if}}
-
-=====================================output=====================================
-{{#if a}}
-  b
-{{else if c}}
-  d
-{{else}}
-  e
-{{/if}}
-{{#if a}}
-  b
-{{else if c}}
-  d
-{{else}}
-  hello
-  {{#if f}}
-    g
-  {{/if}}
-  e
-{{/if}}
-{{#if a}}
-  b
-{{else if c}}
-  d
-{{else if e}}
-  f
-{{else if g}}
-  h
-{{else}}
-  j
-{{/if}}
-<div>
-  {{#if a}}
-    b
-  {{else if c}}
-    d
-  {{else}}
-    e
-  {{/if}}
-</div>
-<div>
-  <div>
-    {{#if a}}
-      b
-    {{else if c}}
-      d
-    {{else}}
-      e
-    {{/if}}
-  </div>
-</div>
-{{#if a}}
-  b
-{{else}}
-  {{#each c as |d|}}
-    e
-  {{/each}}
-{{/if}}
-{{#if a}}
-  {{#if b}}
-    ab
-  {{else if c}}
-    ac
-  {{/if}}
-{{/if}}
-{{#if a}}
-  a
-  <div>
-    b
-  </div>
-  c
-{{else}}
-  {{#if c}}
-    a
-    b
-    <div>
-      c
-    </div>
-  {{/if}}
-  <div>
-    a
-  </div>
-  b
-  c
-{{/if}}
-================================================================================
-`;
-
-exports[`else-if.hbs 2`] = `
-====================================options=====================================
-parsers: ["glimmer"]
-printWidth: 80
-singleQuote: true
-                                                                                | printWidth
-=====================================input======================================
-{{#if a}}
-  b
-{{else if c}}
-  d
-{{else}}
-  e
-{{/if}}
-
-{{#if a}}
-  b
-{{else if c}}
-  d
-{{else}}
-  hello
-  {{#if f}}
-    g
-  {{/if}}
-  e
-{{/if}}
-
-{{#if a}}
-  b
-{{else if c}}
-  d
-{{else if e}}
-  f
-{{else if g}}
-  h
-{{else}}
-  j
-{{/if}}
-
-<div>
-  {{#if a}}
-    b
-  {{else if c}}
-    d
-  {{else}}
-    e
-  {{/if}}
-</div>
-
-<div>
-  <div>
-    {{#if a}}
-      b
-    {{else if c}}
-      d
-    {{else}}
-      e
-    {{/if}}
-  </div>
-</div>
-
-{{#if a}}
-  b
-{{else}}
-  {{#each c as |d|}}
-    e
-  {{/each}}
-{{/if}}
-
-{{#if a}}
-  {{#if b}}
-    ab
-  {{else if c}}
-    ac
-  {{/if}}
-{{/if}}
-
-{{#if a}}
-  a
-  <div>b</div>
-  c
-{{else}}
-  {{#if c}}
-    a
-    b
-    <div>c</div>
-  {{/if}}
-  <div>a</div>
-  b
-  c
-{{/if}}
-
-=====================================output=====================================
-{{#if a}}
-  b
-{{else if c}}
-  d
-{{else}}
-  e
-{{/if}}
-{{#if a}}
-  b
-{{else if c}}
-  d
-{{else}}
-  hello
-  {{#if f}}
-    g
-  {{/if}}
-  e
-{{/if}}
-{{#if a}}
-  b
-{{else if c}}
-  d
-{{else if e}}
-  f
-{{else if g}}
-  h
-{{else}}
-  j
-{{/if}}
-<div>
-  {{#if a}}
-    b
-  {{else if c}}
-    d
-  {{else}}
-    e
-  {{/if}}
-</div>
-<div>
-  <div>
-    {{#if a}}
-      b
-    {{else if c}}
-      d
-    {{else}}
-      e
-    {{/if}}
-  </div>
-</div>
-{{#if a}}
-  b
-{{else}}
-  {{#each c as |d|}}
-    e
-  {{/each}}
-{{/if}}
-{{#if a}}
-  {{#if b}}
-    ab
-  {{else if c}}
-    ac
-  {{/if}}
-{{/if}}
-{{#if a}}
-  a
-  <div>
-    b
-  </div>
-  c
-{{else}}
-  {{#if c}}
-    a
-    b
-    <div>
-      c
-    </div>
-  {{/if}}
-  <div>
-    a
-  </div>
-  b
-  c
-{{/if}}
-================================================================================
-`;
-
-exports[`if.hbs 1`] = `
-====================================options=====================================
-parsers: ["glimmer"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-{{#if title}}
-  {{permalink}}
-{{/if}}
-
-=====================================output=====================================
-{{#if title}}
-  {{permalink}}
-{{/if}}
-================================================================================
-`;
-
-exports[`if.hbs 2`] = `
-====================================options=====================================
-parsers: ["glimmer"]
-printWidth: 80
-singleQuote: true
-                                                                                | printWidth
-=====================================input======================================
-{{#if title}}
-  {{permalink}}
-{{/if}}
-
-=====================================output=====================================
-{{#if title}}
-  {{permalink}}
-{{/if}}
-================================================================================
-`;
-
 exports[`if-else.hbs 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
@@ -768,6 +376,90 @@ printWidth: 80
 {{/if}}
 </h2>
 
+{{#if a}}
+  b
+{{else if c}}
+  d
+{{else}}
+  e
+{{/if}}
+
+{{#if a}}
+  b
+{{else if c}}
+  d
+{{else}}
+  hello
+  {{#if f}}
+    g
+  {{/if}}
+  e
+{{/if}}
+
+{{#if a}}
+  b
+{{else if c}}
+  d
+{{else if e}}
+  f
+{{else if g}}
+  h
+{{else}}
+  j
+{{/if}}
+
+<div>
+  {{#if a}}
+    b
+  {{else if c}}
+    d
+  {{else}}
+    e
+  {{/if}}
+</div>
+
+<div>
+  <div>
+    {{#if a}}
+      b
+    {{else if c}}
+      d
+    {{else}}
+      e
+    {{/if}}
+  </div>
+</div>
+
+{{#if a}}
+  b
+{{else}}
+  {{#each c as |d|}}
+    e
+  {{/each}}
+{{/if}}
+
+{{#if a}}
+  {{#if b}}
+    ab
+  {{else if c}}
+    ac
+  {{/if}}
+{{/if}}
+
+{{#if a}}
+  a
+  <div>b</div>
+  c
+{{else}}
+  {{#if c}}
+    a
+    b
+    <div>c</div>
+  {{/if}}
+  <div>a</div>
+  b
+  c
+{{/if}}
 
 =====================================output=====================================
 <h1>
@@ -786,6 +478,89 @@ printWidth: 80
     B
   {{/if}}
 </h2>
+{{#if a}}
+  b
+{{else if c}}
+  d
+{{else}}
+  e
+{{/if}}
+{{#if a}}
+  b
+{{else if c}}
+  d
+{{else}}
+  hello
+  {{#if f}}
+    g
+  {{/if}}
+  e
+{{/if}}
+{{#if a}}
+  b
+{{else if c}}
+  d
+{{else if e}}
+  f
+{{else if g}}
+  h
+{{else}}
+  j
+{{/if}}
+<div>
+  {{#if a}}
+    b
+  {{else if c}}
+    d
+  {{else}}
+    e
+  {{/if}}
+</div>
+<div>
+  <div>
+    {{#if a}}
+      b
+    {{else if c}}
+      d
+    {{else}}
+      e
+    {{/if}}
+  </div>
+</div>
+{{#if a}}
+  b
+{{else}}
+  {{#each c as |d|}}
+    e
+  {{/each}}
+{{/if}}
+{{#if a}}
+  {{#if b}}
+    ab
+  {{else if c}}
+    ac
+  {{/if}}
+{{/if}}
+{{#if a}}
+  a
+  <div>
+    b
+  </div>
+  c
+{{else}}
+  {{#if c}}
+    a
+    b
+    <div>
+      c
+    </div>
+  {{/if}}
+  <div>
+    a
+  </div>
+  b
+  c
+{{/if}}
 ================================================================================
 `;
 
@@ -814,6 +589,90 @@ singleQuote: true
 {{/if}}
 </h2>
 
+{{#if a}}
+  b
+{{else if c}}
+  d
+{{else}}
+  e
+{{/if}}
+
+{{#if a}}
+  b
+{{else if c}}
+  d
+{{else}}
+  hello
+  {{#if f}}
+    g
+  {{/if}}
+  e
+{{/if}}
+
+{{#if a}}
+  b
+{{else if c}}
+  d
+{{else if e}}
+  f
+{{else if g}}
+  h
+{{else}}
+  j
+{{/if}}
+
+<div>
+  {{#if a}}
+    b
+  {{else if c}}
+    d
+  {{else}}
+    e
+  {{/if}}
+</div>
+
+<div>
+  <div>
+    {{#if a}}
+      b
+    {{else if c}}
+      d
+    {{else}}
+      e
+    {{/if}}
+  </div>
+</div>
+
+{{#if a}}
+  b
+{{else}}
+  {{#each c as |d|}}
+    e
+  {{/each}}
+{{/if}}
+
+{{#if a}}
+  {{#if b}}
+    ab
+  {{else if c}}
+    ac
+  {{/if}}
+{{/if}}
+
+{{#if a}}
+  a
+  <div>b</div>
+  c
+{{else}}
+  {{#if c}}
+    a
+    b
+    <div>c</div>
+  {{/if}}
+  <div>a</div>
+  b
+  c
+{{/if}}
 
 =====================================output=====================================
 <h1>
@@ -832,6 +691,89 @@ singleQuote: true
     B
   {{/if}}
 </h2>
+{{#if a}}
+  b
+{{else if c}}
+  d
+{{else}}
+  e
+{{/if}}
+{{#if a}}
+  b
+{{else if c}}
+  d
+{{else}}
+  hello
+  {{#if f}}
+    g
+  {{/if}}
+  e
+{{/if}}
+{{#if a}}
+  b
+{{else if c}}
+  d
+{{else if e}}
+  f
+{{else if g}}
+  h
+{{else}}
+  j
+{{/if}}
+<div>
+  {{#if a}}
+    b
+  {{else if c}}
+    d
+  {{else}}
+    e
+  {{/if}}
+</div>
+<div>
+  <div>
+    {{#if a}}
+      b
+    {{else if c}}
+      d
+    {{else}}
+      e
+    {{/if}}
+  </div>
+</div>
+{{#if a}}
+  b
+{{else}}
+  {{#each c as |d|}}
+    e
+  {{/each}}
+{{/if}}
+{{#if a}}
+  {{#if b}}
+    ab
+  {{else if c}}
+    ac
+  {{/if}}
+{{/if}}
+{{#if a}}
+  a
+  <div>
+    b
+  </div>
+  c
+{{else}}
+  {{#if c}}
+    a
+    b
+    <div>
+      c
+    </div>
+  {{/if}}
+  <div>
+    a
+  </div>
+  b
+  c
+{{/if}}
 ================================================================================
 `;
 
@@ -843,7 +785,7 @@ printWidth: 80
 =====================================input======================================
 <ul>
   {{#each speakers key="@index" as |speaker|}}
-    <li>{{speaker}}</li>
+  <li>{{speaker}}</li>
   {{/each}}
 </ul>
 
@@ -867,7 +809,7 @@ singleQuote: true
 =====================================input======================================
 <ul>
   {{#each speakers key="@index" as |speaker|}}
-    <li>{{speaker}}</li>
+  <li>{{speaker}}</li>
   {{/each}}
 </ul>
 
