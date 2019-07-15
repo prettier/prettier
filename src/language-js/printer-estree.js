@@ -4061,8 +4061,8 @@ function printArgumentsList(path, options, print) {
   //     a,
 
   //     b
-  //   })
-  // ) => {}
+  //   }) => {}
+  // );
   function hasEmptyLineInObjectArgInArrowFunction(arg) {
     return (
       arg &&
