@@ -4073,8 +4073,10 @@ function printArgumentsList(path, options, print) {
           param.type &&
           param.type === "ObjectPattern" &&
           param.properties &&
-          param.properties.some(property =>
-            isNextLineEmpty(options.originalText, property, options)
+          param.properties.some(
+            (property, i, properties) =>
+              i < properties.length - 1 &&
+              isNextLineEmpty(options.originalText, property, options)
           )
       )
     );
