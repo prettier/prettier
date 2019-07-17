@@ -39,7 +39,8 @@ const ENABLED_OPTIONS = [
   "proseWrap",
   "htmlWhitespaceSensitivity",
   "insertPragma",
-  "requirePragma"
+  "requirePragma",
+  "vueIndentScriptAndStyle"
 ];
 
 class Playground extends React.Component {
