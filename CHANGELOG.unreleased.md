@@ -368,7 +368,7 @@ foo(
 );
 ```
 
-#### TypeScript: Fix specific union type breaks after opening parenthesis, but not before closing ([#] by [@sosukesuzuki])
+#### TypeScript: Fix specific union type breaks after opening parenthesis, but not before closing ([#6307] by [@sosukesuzuki])
 
 Previously, union type that put with `as` , `keyof`, `[]`, other union(`|`) and intersection(`&`) breaks after opening parenthesis, but not before closing. Please see [#6303](https://github.com/prettier/prettier/issues/6303) for detail.
 
@@ -404,7 +404,7 @@ const foo = [abc, def, ghi, jkl, mno, pqr, stu, vwx, yz] as (
 [#6332]: https://github.com/prettier/prettier/pull/6332
 [#6284]: https://github.com/prettier/prettier/pull/6284
 [#6301]: https://github.com/prettier/prettier/pull/6301
-[#]: https://github.com/prettier/prettier/pull/
+[#6307]: https://github.com/prettier/prettier/pull/6307
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
 [@sosukesuzuki]: https://github.com/sosukesuzuki
