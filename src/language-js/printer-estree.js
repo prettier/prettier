@@ -2821,6 +2821,7 @@ function printPathNoParens(path, options, print, args) {
           (parent.type === "TSParenthesizedType" &&
             (grandParent.type === "TSAsExpression" ||
               grandParent.type === "TSUnionType" ||
+              grandParent.type === "TSIntersectionType" ||
               grandParent.type === "TSTypeOperator" ||
               grandParent.type === "TSArrayType")) ||
           (greatGrandParent &&
