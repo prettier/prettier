@@ -2813,15 +2813,21 @@ function printPathNoParens(path, options, print, args) {
       let hasParens;
 
       if (n.type === "TSUnionType") {
+        const grandParent = path.getNode(2);
         const greatGrandParent = path.getParentNode(2);
         const greatGreatGrandParent = path.getParentNode(3);
 
         hasParens =
-          greatGrandParent &&
-          greatGrandParent.type === "TSParenthesizedType" &&
-          greatGreatGrandParent &&
-          (greatGreatGrandParent.type === "TSUnionType" ||
-            greatGreatGrandParent.type === "TSIntersectionType");
+          (parent.type === "TSParenthesizedType" &&
+            (grandParent.type === "TSAsExpression" ||
+              grandParent.type === "TSUnionType" ||
+              grandParent.type === "TSTypeOperator" ||
+              grandParent.type === "TSArrayType")) ||
+          (greatGrandParent &&
+            greatGrandParent.type === "TSParenthesizedType" &&
+            greatGreatGrandParent &&
+            (greatGreatGrandParent.type === "TSUnionType" ||
+              greatGreatGrandParent.type === "TSIntersectionType"));
       } else {
         hasParens = pathNeedsParens(path, options);
       }
