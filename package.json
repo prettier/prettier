@@ -80,7 +80,7 @@
     "@types/camelcase": "4.1.0",
     "@types/cosmiconfig": "5.0.3",
     "@types/find-parent-dir": "0.3.0",
-    "@types/get-stream": "3.0.2",
+    "@types/get-stream": "3.0.0",
     "@types/globby": "6.1.0",
     "@types/is-ci": "2.0.0",
     "@types/lodash.uniqby": "4.7.0",
