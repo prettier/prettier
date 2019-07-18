@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": true,
+    "noEmit": true,
+    "target": "esnext",
+    "module": "commonjs",
+    "resolveJsonModule": true,
+    "strict": false
+  },
+  "exclude": [
+    "bin/",
+    "dist/",
+    "docs/",
+    "scripts/",
+    "tests/",
+    "tests_config/",
+    "tests_integration/",
+    "website/"
+  ]
+}
