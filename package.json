@@ -82,6 +82,7 @@
     "@types/find-parent-dir": "0.3.0",
     "@types/get-stream": "3.0.2",
     "@types/globby": "6.1.0",
+    "@types/is-ci": "2.0.0",
     "@types/lodash.uniqby": "4.7.0",
     "babel-loader": "8.0.6",
     "benchmark": "2.1.4",
