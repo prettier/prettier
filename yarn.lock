@@ -819,6 +819,11 @@
   dependencies:
     "@types/ci-info" "*"
 
+"@types/leven@2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@types/leven/-/leven-2.1.0.tgz#d52619b0bc9375c1eb6194a3fca7877f0d8cbc4e"
+  integrity sha1-1SYZsLyTdcHrYZSj/KeHfw2MvE4=
+
 "@types/lodash.uniqby@4.7.0":
   version "4.7.0"
   resolved "https://registry.yarnpkg.com/@types/lodash.uniqby/-/lodash.uniqby-4.7.0.tgz#c77e2f7c3a5380da5617c83cc173009acb217848"
