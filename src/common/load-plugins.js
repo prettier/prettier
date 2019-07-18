@@ -93,6 +93,10 @@ function loadPlugins(plugins, pluginSearchDirs) {
   return internalPlugins.concat(externalPlugins);
 }
 
+/**
+ *
+ * @param {string} nodeModulesDir
+ */
 function findPluginsInNodeModules(nodeModulesDir) {
   const pluginPackageJsonPaths = globby.sync(
     [

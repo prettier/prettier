@@ -20,6 +20,10 @@ function tryFormat(file) {
   return null;
 }
 
+/**
+ *
+ * @param {string | string[]} patterns
+ */
 function runExternalTests(patterns) {
   const testFiles = globby.sync(patterns);
 
