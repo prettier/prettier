@@ -11,7 +11,7 @@
   "license": "MIT",
   "main": "./index.js",
   "engines": {
-    "node": ">=6"
+    "node": ">=6 <=11"
   },
   "dependencies": {
     "@angular/compiler": "7.2.9",
