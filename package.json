@@ -79,6 +79,7 @@
     "@babel/preset-env": "7.4.5",
     "@types/camelcase": "4.1.0",
     "@types/globby": "6.1.0",
+    "@types/lodash.uniqby": "4.7.0",
     "babel-loader": "8.0.6",
     "benchmark": "2.1.4",
     "builtin-modules": "2.0.0",
