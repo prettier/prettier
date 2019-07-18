@@ -727,6 +727,10 @@ function createDetailedUsage(context, flag) {
   return `${header}${description}${choices}${defaults}${pluginDefaults}`;
 }
 
+/**
+ *
+ * @param {string} optionName
+ */
 function getOptionDefaultValue(context, optionName) {
   // --no-option
   if (!(optionName in context.detailedOptionMap)) {
