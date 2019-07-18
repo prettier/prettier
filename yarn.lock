@@ -759,6 +759,11 @@
   dependencies:
     "@types/node" "*"
 
+"@types/diff@3.5.0":
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/@types/diff/-/diff-3.5.0.tgz#82e0c6bbb771738082d73f9ab4adc6dc63e62b1c"
+  integrity sha512-xaomMgr7qLfRtcPZqQIy0ICXPM3EEh5Pk/cZsNN0R3OxiIHLOCW5WTwkmymx6WOp1lWwDZAz68uJrdafYobQ0g==
+
 "@types/escape-string-regexp@1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@types/escape-string-regexp/-/escape-string-regexp-1.0.0.tgz#052d16d87db583b72daceae4eaabddb66954424c"
