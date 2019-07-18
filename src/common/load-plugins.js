@@ -94,7 +94,6 @@ function loadPlugins(plugins, pluginSearchDirs) {
 }
 
 /**
- *
  * @param {string} nodeModulesDir
  */
 function findPluginsInNodeModules(nodeModulesDir) {

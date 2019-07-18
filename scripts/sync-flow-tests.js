@@ -29,7 +29,6 @@ function tryParse(file, content) {
 }
 
 /**
- *
  * @param {string} syncDir
  */
 function syncTests(syncDir) {

@@ -21,7 +21,6 @@ function tryFormat(file) {
 }
 
 /**
- *
  * @param {string | string[]} patterns
  */
 function runExternalTests(patterns) {

@@ -401,7 +401,6 @@ function createIgnorerFromContextOrDie(context) {
 }
 
 /**
- *
  * @param {string[]} patterns
  */
 function eachFilename(context, patterns, callback) {
@@ -728,7 +727,6 @@ function createDetailedUsage(context, flag) {
 }
 
 /**
- *
  * @param {string} optionName
  */
 function getOptionDefaultValue(context, optionName) {
