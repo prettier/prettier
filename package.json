@@ -78,6 +78,7 @@
     "@babel/core": "7.2.0",
     "@babel/preset-env": "7.4.5",
     "@types/camelcase": "4.1.0",
+    "@types/cosmiconfig": "5.0.3",
     "@types/globby": "6.1.0",
     "@types/lodash.uniqby": "4.7.0",
     "babel-loader": "8.0.6",
