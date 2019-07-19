@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`pipeline_operator.js 1`] = `
+exports[`minimal_pipeline_operator.js 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -60,6 +60,58 @@ function createPerson(attrs) {
 
 foo |> bar ?? baz;
 (foo |> bar) ?? baz;
+
+================================================================================
+`;
+
+exports[`smart_pipeline_operator.js 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+a |> await # |> # * 3;
+
+foo
+  |> await #
+  |> # || throw new Error(\`foo \${bar1}\`)
+  |> bar2(#, ", ")
+  |> bar3
+  |> # + "!"
+  |> new Bar.Foo(#)
+  |> await bar.bar(#)
+  |> console.log;
+
+const result = "hello"
+  |> doubleSay
+  |> capitalize(#, "foo")
+  |> exclaim;
+
+function createPerson (attrs) {
+  attrs
+    |> foo
+    |> foo
+    |> Person.insertIntoDatabase;
+}
+
+=====================================output=====================================
+a |> await # |> # * 3;
+
+foo
+  |> await #
+  |> # || throw new Error(\`foo \${bar1}\`)
+  |> bar2(#, ", ")
+  |> bar3
+  |> # + "!"
+  |> new Bar.Foo(#)
+  |> await bar.bar(#)
+  |> console.log;
+
+const result = "hello" |> doubleSay |> capitalize(#, "foo") |> exclaim;
+
+function createPerson(attrs) {
+  attrs |> foo |> foo |> Person.insertIntoDatabase;
+}
 
 ================================================================================
 `;
