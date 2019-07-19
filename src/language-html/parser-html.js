@@ -237,7 +237,7 @@ function _parse(text, options, parserOptions, shouldParseFrontMatter = true) {
 
       for (const child of node.children) {
         if (isFakeElement(child)) {
-          Array.prototype.push.apply(newChildren, child.children);
+          newChildren.push(...child.children);
         } else {
           newChildren.push(child);
         }
