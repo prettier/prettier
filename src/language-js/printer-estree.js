@@ -3685,6 +3685,15 @@ function printPathNoParens(path, options, print, args) {
         path.call(print, "alias"),
       ]);
 
+    case "PipelineBareFunction":
+      return path.call(print, "callee");
+    case "PipelineTopicExpression":
+      return path.call(print, "expression");
+    case "PipelinePrimaryTopicReference": {
+      parts.push("#");
+      return concat(parts);
+    }
+
     case "ArgumentPlaceholder":
       return "?";
 
