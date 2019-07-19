@@ -1,5 +1,127 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`basics.hbs 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 40
+                                        | printWidth
+=====================================input======================================
+{{!-- after --}}
+<span>
+    foo <span>bar</span>
+</span>
+
+{{!-- before --}}
+<span>
+  <span>bar</span> foo
+</span>
+
+{{!-- before break1 --}}
+<span>
+  <span barbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbar /> foo
+</span>
+
+{{!-- before break2 --}}
+<span>
+  <span barbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbar /> foo
+</span>
+
+{{!-- after break --}}
+<span>
+  foo <span barbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbar />
+</span>
+
+{{!-- within --}}
+<span>
+  foo <span> bar </span>
+</span>
+
+{{!-- break components --}}
+<div>
+  <SiteHeader />
+  <SuperSelect>
+    <p>foo<span>bar bar bar</span></p><h1><span><em>yep</em></span></h1>
+  </SuperSelect>
+  <h2>nope</h2>
+</div>
+
+<div>
+   hello <strong>hi</strong> <foo>sdkflsdfjk</foo>
+</div>;
+
+=====================================output=====================================
+{{! after }}
+<span>
+  foo<span>
+    bar
+  </span>
+</span>
+{{! before }}
+<span>
+  <span>
+    bar
+  </span>
+  foo
+</span>
+{{! before break1 }}
+<span>
+  <span
+    barbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbar
+  ></span>
+  foo
+</span>
+{{! before break2 }}
+<span>
+  <span
+    barbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbar
+  ></span>
+  foo
+</span>
+{{! after break }}
+<span>
+  foo<span
+    barbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbar
+  ></span>
+</span>
+{{! within }}
+<span>
+  foo<span>
+    bar
+  </span>
+</span>
+{{! break components }}
+<div>
+  <SiteHeader />
+  <SuperSelect>
+    <p>
+      foo<span>
+        bar bar bar
+      </span>
+    </p>
+    <h1>
+      <span>
+        <em>
+          yep
+        </em>
+      </span>
+    </h1>
+  </SuperSelect>
+  <h2>
+    nope
+  </h2>
+</div>
+<div>
+  hello<strong>
+    hi
+  </strong>
+  <foo>
+    sdkflsdfjk
+  </foo>
+</div>
+;
+================================================================================
+`;
+
 exports[`curly.hbs 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]

@@ -1,0 +1,42 @@
+{{!-- after --}}
+<span>
+    foo <span>bar</span>
+</span>
+
+{{!-- before --}}
+<span>
+  <span>bar</span> foo
+</span>
+
+{{!-- before break1 --}}
+<span>
+  <span barbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbar /> foo
+</span>
+
+{{!-- before break2 --}}
+<span>
+  <span barbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbar /> foo
+</span>
+
+{{!-- after break --}}
+<span>
+  foo <span barbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbar />
+</span>
+
+{{!-- within --}}
+<span>
+  foo <span> bar </span>
+</span>
+
+{{!-- break components --}}
+<div>
+  <SiteHeader />
+  <SuperSelect>
+    <p>foo<span>bar bar bar</span></p><h1><span><em>yep</em></span></h1>
+  </SuperSelect>
+  <h2>nope</h2>
+</div>
+
+<div>
+   hello <strong>hi</strong> <foo>sdkflsdfjk</foo>
+</div>;
