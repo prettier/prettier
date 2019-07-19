@@ -578,7 +578,7 @@ function normalizeParts(parts) {
     }
 
     if (part.type === "concat") {
-      Array.prototype.unshift.apply(restParts, part.parts);
+      restParts.unshift(...part.parts);
       continue;
     }
 
