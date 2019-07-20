@@ -53,6 +53,26 @@ printWidth: 80
 ================================================================================
 `;
 
+exports[`component.hbs 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+{{my-component foo="bar" bar="baz" action=(action "almostTheMaximumLengthxxxxxx")}}
+
+{{my-component foo="bar"}}
+
+=====================================output=====================================
+{{my-component
+  foo="bar"
+  bar="baz"
+  action=(action "almostTheMaximumLengthxxxxxx")
+}}
+{{my-component foo="bar"}}
+================================================================================
+`;
+
 exports[`each.hbs 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
