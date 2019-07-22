@@ -44,6 +44,26 @@ const link = <a href="example.com">http://example.com</a>;
 
 -->
 
+#### Glimmer: Preserve top-level newlines in Glimmer templates ([#6323] by [@jgwhite])
+
+Previously, Prettier would remove top-level newlines between lines in a
+Glimmer template. This is typically undesirable, as the newlines indicate
+the intended overall structure.
+
+<!-- prettier-ignore -->
+```hbs
+{{! Input }}
+<MyComponent />
+{{outlet}}
+
+{{! Output (Prettier stable) }}
+<MyComponent />{{outlet}}
+
+{{! Output (Prettier master) }}
+<MyComponent />
+{{outlet}}
+```
+
 #### TypeScript: Print comment following a JSX element with generic ([#6209] by [@duailibe])
 
 Previous versions would not print this comment, this has been fixed in this version.
@@ -278,3 +298,4 @@ Flag used with `--write` to avoid re-checking files that were not changed since 
 [@gavinjoyce]: https://github.com/gavinjoyce
 [@sosukesuzuki]: https://github.com/sosukesuzuki
 [@g-harel]: https://github.com/g-harel
+[@jgwhite]: https://github.com/jgwhite

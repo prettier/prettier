@@ -73,7 +73,7 @@ function print(path, options, print) {
     case "Program":
     case "Template": {
       return group(
-        join(softline, path.map(print, "body").filter(text => text !== ""))
+        join(hardline, path.map(print, "body").filter(text => text !== ""))
       );
     }
     case "ElementNode": {
