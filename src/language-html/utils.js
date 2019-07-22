@@ -376,7 +376,10 @@ function inferScriptParser(node) {
       return "markdown";
     }
 
-    if (node.attrMap.type === "application/ld+json") {
+    if (
+      node.attrMap.type.endsWith("json") ||
+      node.attrMap.type.endsWith("importmap")
+    ) {
       return "json";
     }
   }
