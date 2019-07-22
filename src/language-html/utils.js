@@ -377,8 +377,8 @@ function inferScriptParser(node) {
     }
 
     if (
-      node.attrMap.type.substr(-4) === "json" ||
-      node.attrMap.type.substr(-9) === "importmap"
+      node.attrMap.type.endsWith("json") ||
+      node.attrMap.type.endsWith("importmap")
     ) {
       return "json";
     }
