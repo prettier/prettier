@@ -261,6 +261,11 @@ useEffect(
 
 This version updates the TypeScript parser to correctly handle JSX text with double slashes (`//`). In previous versions, this would cause Prettier to crash.
 
+#### CLI: Add `--only-changed` flag ([#5910] by [@g-harel])
+
+Flag used with `--write` to avoid re-checking files that were not changed since they were last written (with the same formatting configuration).
+
+[#5910]: https://github.com/prettier/prettier/pull/5910
 [#6186]: https://github.com/prettier/prettier/pull/6186
 [#6206]: https://github.com/prettier/prettier/pull/6206
 [#6209]: https://github.com/prettier/prettier/pull/6209
@@ -272,3 +277,4 @@ This version updates the TypeScript parser to correctly handle JSX text with dou
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
 [@sosukesuzuki]: https://github.com/sosukesuzuki
+[@g-harel]: https://github.com/g-harel

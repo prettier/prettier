@@ -68,6 +68,12 @@ describe("throw error with --write + --debug-check", () => {
   });
 });
 
+describe("throw error with --only-changed without --write", () => {
+  runPrettier("cli", ["--only-changed"]).test({
+    status: 1
+  });
+});
+
 describe("throw error with --find-config-path + multiple files", () => {
   runPrettier("cli", ["--find-config-path", "abc.js", "def.js"]).test({
     status: 1

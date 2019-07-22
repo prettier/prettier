@@ -187,6 +187,10 @@ const options = {
     default: "log",
     choices: ["silent", "error", "warn", "log", "debug"]
   },
+  "only-changed": {
+    type: "boolean",
+    description: "Only format files changed since last '--write'."
+  },
   stdin: {
     type: "boolean",
     description: "Force reading input from stdin."
