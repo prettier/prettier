@@ -446,13 +446,17 @@ function formatFiles(context) {
   let changedCache = null;
   if (context.argv["only-changed"]) {
     const cacheDir = findCacheDir({ name: "prettier", create: true });
-    changedCache = new ChangedCache({
-      location: path.join(cacheDir, "changed"),
-      readFile: fs.readFileSync,
-      writeFile: thirdParty.writeFileAtomic,
-      context: context,
-      supportInfo: prettier.getSupportInfo()
-    });
+
+    // Abort if cache directory is not found.
+    if (cacheDir !== undefined) {
+      changedCache = new ChangedCache({
+        location: path.join(cacheDir, "changed"),
+        readFile: fs.readFileSync,
+        writeFile: thirdParty.writeFileAtomic,
+        context: context,
+        supportInfo: prettier.getSupportInfo()
+      });
+    }
   }
 
   eachFilename(context, context.filePatterns, filename => {
