@@ -3,11 +3,9 @@
 const assert = require("assert");
 
 /**
- * @class
  * @constructor
- * @template {string} T
- * @property {T[]} stack
- * @param {T} value
+ * @property {string[]} stack
+ * @param {string} value
  */
 function FastPath(value) {
   assert.ok(this instanceof FastPath);
@@ -34,7 +32,7 @@ FastPath.prototype.getName = function getName() {
 // The value of the current property is always the final element of
 // this.stack.
 /**
- * @returns T
+ * @returns {string}
  */
 FastPath.prototype.getValue = function getValue() {
   const s = this.stack;
