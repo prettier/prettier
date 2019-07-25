@@ -4,7 +4,6 @@ const assert = require("assert");
 
 /**
  * @constructor
- * @property {string[]} stack
  * @param {string} value
  */
 function FastPath(value) {
