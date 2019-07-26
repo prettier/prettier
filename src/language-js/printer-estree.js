@@ -257,6 +257,10 @@ function hasJsxIgnoreComment(path) {
   );
 }
 
+const isNull = node =>
+  node.type === "NullLiteral" ||
+  (node.type === "Literal" && node.value === null);
+
 /**
  * The following is the shared logic for
  * ternary operators, namely ConditionalExpression
@@ -330,10 +334,6 @@ function printTernaryOperator(path, options, print, operatorOptions) {
     // The only things we don't wrap are:
     // * Nested conditional expressions in alternates
     // * null
-    const isNull = node =>
-      node.type === "NullLiteral" ||
-      (node.type === "Literal" && node.value === null);
-
     parts.push(
       " ? ",
       isNull(consequentNode)
@@ -4173,9 +4173,21 @@ function printArgumentsList(path, options, print) {
     ]);
   }
 
+  const groupHyperScriptTag =
+    args.length > 2 &&
+    node.callee.name === "h" &&
+    group(
+      concat([
+        "(",
+        printedArguments.splice(0, 1)[0],
+        isNull(args[1]) && !args[1].comments
+          ? printedArguments.splice(0, 1)[0]
+          : ""
+      ])
+    );
   return group(
     concat([
-      "(",
+      groupHyperScriptTag || "(",
       indent(concat([softline, concat(printedArguments)])),
       ifBreak(maybeTrailingComma),
       softline,
