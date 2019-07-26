@@ -9,6 +9,7 @@ const chalk = require("chalk");
 const readline = require("readline");
 const stringify = require("json-stable-stringify");
 const findCacheDir = require("find-cache-dir");
+const os = require("os");
 
 const minimist = require("./minimist");
 const prettier = require("../../index");
@@ -445,7 +446,9 @@ function formatFiles(context) {
 
   let changedCache = null;
   if (context.argv["only-changed"]) {
-    const cacheDir = findCacheDir({ name: "prettier", create: true });
+    const cacheDir =
+      findCacheDir({ name: "prettier", create: true }) || os.tmpdir();
+
     changedCache = new ChangedCache({
       location: path.join(cacheDir, "changed"),
       readFile: fs.readFileSync,
