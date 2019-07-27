@@ -244,6 +244,12 @@ printWidth: 80
 <Hello>
     test   <World />   test
 </Hello>
+
+---
+
+<Hello>
+    test   <World />   test
+</Hello>
 <Hello>
     test   <World />   test
 </Hello>
@@ -260,14 +266,20 @@ printWidth: 80
 ---
 
 <Hello>
-   test
+  test <World /> test
+</Hello>
+
+---
+
+<Hello>
+  test
   <World></World>
-   test
+  test
 </Hello>
 <Hello>
-   test
+  test
   <World></World>
-   test
+  test
 </Hello>
 
 ---
@@ -294,6 +306,12 @@ semi: false
 <Hello>
     test   <World />   test
 </Hello>
+
+---
+
+<Hello>
+    test   <World />   test
+</Hello>
 <Hello>
     test   <World />   test
 </Hello>
@@ -310,14 +328,20 @@ semi: false
 ---
 
 <Hello>
-   test
+  test <World /> test
+</Hello>
+
+---
+
+<Hello>
+  test
   <World></World>
-   test
+  test
 </Hello>
 <Hello>
-   test
+  test
   <World></World>
-   test
+  test
 </Hello>
 
 ---

@@ -8,6 +8,7 @@ const { mapAst, INLINE_NODE_WRAPPER_TYPES } = require("./utils");
 const mdx = require("./mdx");
 const remarkMath = require("remark-math");
 const FastPath = require("../common/fast-path");
+const { printDocToString } = require("../doc/doc-printer");
 const parseHtml = require("../language-html/parser-html").parsers.html.parse;
 const printHtml = require("../language-html/printer-html").print;
 
@@ -73,7 +74,10 @@ function htmlToJsx() {
 
       return htmlNodes.map(htmlNode => ({
         type: "jsx",
-        value: printHtml(new FastPath(htmlNode), {}, printHtml),
+        value: printDocToString(
+          printHtml(new FastPath(htmlNode), {}, printHtml),
+          {}
+        ).formatted,
         position: htmlNode.sourceSpan
       }));
     });
