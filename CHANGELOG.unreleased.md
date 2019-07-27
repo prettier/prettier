@@ -44,6 +44,36 @@ const link = <a href="example.com">http://example.com</a>;
 
 -->
 
+#### MDX: Adjacent JSX elements should be allowed in mdx ([#6332] by [@JounQin])
+
+Previous versions would not format adjacent JSX elements in mdx, this has been fixed in this version.
+
+<!-- prettier-ignore -->
+```ts
+// Input
+<Hello>
+    test   <World />   test
+</Hello>
+<Hello>
+    test   <World />   test
+</Hello>
+
+// Output (Prettier stable)
+<Hello>
+    test   <World />   test
+</Hello>
+<Hello>
+    test   <World />   test
+</Hello>
+
+// Output (Prettier master)
+<Hello>
+   test
+  <World></World>
+   test
+</Hello>
+```
+
 #### TypeScript: Print comment following a JSX element with generic ([#6209] by [@duailibe])
 
 Previous versions would not print this comment, this has been fixed in this version.
