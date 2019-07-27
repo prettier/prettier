@@ -35,7 +35,12 @@ const { replaceEndOfLineWith } = require("../common/util");
 
 const TRAILING_HARDLINE_NODES = ["importExport"];
 const SINGLE_LINE_NODE_TYPES = ["heading", "tableCell", "link"];
-const SIBLING_NODE_TYPES = ["listItem", "definition", "footnoteDefinition"];
+const SIBLING_NODE_TYPES = [
+  "listItem",
+  "definition",
+  "footnoteDefinition",
+  "jsx"
+];
 
 function genericPrint(path, options, print) {
   const node = path.getValue();

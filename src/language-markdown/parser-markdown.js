@@ -62,39 +62,20 @@ function htmlToJsx() {
         return node;
       }
 
-      const htmlNodes = parseHtml(node.value).children;
+      const htmlNodes = parseHtml(node.value).children.filter(
+        node => node.type === "element"
+      );
 
       // find out if there are adjacent JSX elements which should be allowed in mdx alike in markdown
-      if (htmlNodes.filter(node => node.type === "element").length <= 1) {
+      if (htmlNodes.length <= 1) {
         return Object.assign({}, node, { type: "jsx" });
       }
 
-      return Object.assign({}, node, {
-        type: "root",
-        children: htmlNodes.map(htmlNode => {
-          const position = htmlNode.sourceSpan;
-          switch (htmlNode.type) {
-            case "element": {
-              return {
-                type: "jsx",
-                value: printHtml(new FastPath(htmlNode), {}, printHtml),
-                position
-              };
-            }
-            case "text": {
-              return {
-                type: "text",
-                value: htmlNode.value,
-                position
-              };
-            }
-            default:
-              throw new Error(
-                `Unknown html type ${JSON.stringify(htmlNode.type)}`
-              );
-          }
-        })
-      });
+      return htmlNodes.map(htmlNode => ({
+        type: "jsx",
+        value: printHtml(new FastPath(htmlNode), {}, printHtml),
+        position: htmlNode.sourceSpan
+      }));
     });
 }
 

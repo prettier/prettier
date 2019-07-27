@@ -264,14 +264,11 @@ printWidth: 80
   <World></World>
    test
 </Hello>
-
-
 <Hello>
    test
   <World></World>
    test
 </Hello>
-
 
 ---
 
@@ -317,14 +314,11 @@ semi: false
   <World></World>
    test
 </Hello>
-
-
 <Hello>
    test
   <World></World>
    test
 </Hello>
-
 
 ---
 
