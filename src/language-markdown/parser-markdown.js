@@ -7,6 +7,9 @@ const parseFrontMatter = require("../utils/front-matter");
 const { mapAst, INLINE_NODE_WRAPPER_TYPES } = require("./utils");
 const mdx = require("./mdx");
 const remarkMath = require("remark-math");
+const FastPath = require("../common/fast-path");
+const parseHtml = require("../language-html/parser-html").parsers.html.parse;
+const printHtml = require("../language-html/printer-html").print;
 
 /**
  * based on [MDAST](https://github.com/syntax-tree/mdast) with following modifications:
@@ -59,7 +62,39 @@ function htmlToJsx() {
         return node;
       }
 
-      return Object.assign({}, node, { type: "jsx" });
+      const htmlNodes = parseHtml(node.value).children;
+
+      // find out if there are adjacent JSX elements which should be allowed in mdx alike in markdown
+      if (htmlNodes.filter(node => node.type === "element").length <= 1) {
+        return Object.assign({}, node, { type: "jsx" });
+      }
+
+      return Object.assign({}, node, {
+        type: "root",
+        children: htmlNodes.map(htmlNode => {
+          const position = htmlNode.sourceSpan;
+          switch (htmlNode.type) {
+            case "element": {
+              return {
+                type: "jsx",
+                value: printHtml(new FastPath(htmlNode), {}, printHtml),
+                position
+              };
+            }
+            case "text": {
+              return {
+                type: "text",
+                value: htmlNode.value,
+                position
+              };
+            }
+            default:
+              throw new Error(
+                `Unknown html type ${JSON.stringify(htmlNode.type)}`
+              );
+          }
+        })
+      });
     });
 }
 
