@@ -49,7 +49,7 @@ const link = <a href="example.com">http://example.com</a>;
 Previous versions would not format adjacent JSX elements in mdx, this has been fixed in this version.
 
 <!-- prettier-ignore -->
-```ts
+```jsx
 // Input
 <Hello>
     test   <World />   test

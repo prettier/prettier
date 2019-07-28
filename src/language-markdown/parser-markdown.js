@@ -60,21 +60,20 @@ function htmlToJsx() {
         return node;
       }
 
-      const originalText = node.value;
-      const els = htmlParser
-        .parse(originalText)
+      const nodes = htmlParser
+        .parse(node.value)
         .children.filter(node => node.type === "element");
 
       // find out if there are adjacent JSX elements which should be allowed in mdx alike in markdown
-      if (els.length <= 1) {
+      if (nodes.length <= 1) {
         return Object.assign({}, node, { type: "jsx" });
       }
 
-      return els.map(el => {
+      return nodes.map(el => {
         const position = el.sourceSpan;
         return {
           type: "jsx",
-          value: originalText.slice(position.start.offset, position.end.offset),
+          value: node.value.slice(position.start.offset, position.end.offset),
           position
         };
       });
