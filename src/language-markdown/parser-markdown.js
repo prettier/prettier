@@ -67,11 +67,21 @@ function htmlToJsx() {
         return Object.assign({}, node, { type: "jsx" });
       }
 
-      return nodes.map(({ sourceSpan: position, type }) => ({
-        type: type === "element" ? "jsx" : type,
-        value: node.value.slice(position.start.offset, position.end.offset),
-        position
-      }));
+      return nodes.reduce((newNodes, { sourceSpan: position, type }) => {
+        const value = node.value
+          .slice(position.start.offset, position.end.offset)
+          .trim();
+
+        if (value) {
+          newNodes.push({
+            type: type === "element" ? "jsx" : type,
+            value,
+            position
+          });
+        }
+
+        return newNodes;
+      }, []);
     });
 }
 
