@@ -7,10 +7,7 @@ const parseFrontMatter = require("../utils/front-matter");
 const { mapAst, INLINE_NODE_WRAPPER_TYPES } = require("./utils");
 const mdx = require("./mdx");
 const remarkMath = require("remark-math");
-const { printDocToString } = require("../doc/doc-printer");
-const printAstToDoc = require("../main/ast-to-doc");
 const htmlParser = require("../language-html/parser-html").parsers.html;
-const htmlPrinter = require("../language-html/printer-html");
 
 /**
  * based on [MDAST](https://github.com/syntax-tree/mdast) with following modifications:
@@ -54,10 +51,10 @@ function identity(x) {
 
 function htmlToJsx() {
   return ast =>
-    mapAst(ast, (node, index, [parent]) => {
+    mapAst(ast, (node, _index, [parent]) => {
       if (
         node.type !== "html" ||
-        /^<!--[\s\S]*-->$/.test(node.value) ||
+        node.value.match(mdx.COMMENT_REGEX) ||
         INLINE_NODE_WRAPPER_TYPES.indexOf(parent.type) !== -1
       ) {
         return node;
@@ -73,17 +70,14 @@ function htmlToJsx() {
         return Object.assign({}, node, { type: "jsx" });
       }
 
-      return els.map(el => ({
-        type: "jsx",
-        value: printDocToString(
-          printAstToDoc(el, {
-            originalText,
-            printer: htmlPrinter
-          }),
-          {}
-        ).formatted,
-        position: el.sourceSpan
-      }));
+      return els.map(el => {
+        const position = el.sourceSpan;
+        return {
+          type: "jsx",
+          value: originalText.slice(position.start.offset, position.end.offset),
+          position
+        };
+      });
     });
 }
 

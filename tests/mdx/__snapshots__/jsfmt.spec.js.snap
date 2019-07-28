@@ -272,14 +272,10 @@ printWidth: 80
 ---
 
 <Hello>
-  test
-  <World />
-  test
+  test <World /> test
 </Hello>
 <Hello>
-  test
-  <World />
-  test
+  test <World /> test
 </Hello>
 
 ---
@@ -334,14 +330,10 @@ semi: false
 ---
 
 <Hello>
-  test
-  <World />
-  test
+  test <World /> test
 </Hello>
 <Hello>
-  test
-  <World />
-  test
+  test <World /> test
 </Hello>
 
 ---
