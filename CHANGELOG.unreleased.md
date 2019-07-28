@@ -53,18 +53,37 @@ Previous versions would not format adjacent JSX elements in mdx, this has been f
 // Input
 <Hello>
     test   <World />   test
-</Hello>
-<Hello>
-    test   <World />   test
-</Hello>
+</Hello>123
 
 // Output (Prettier stable)
+SyntaxError: Unexpected token (3:9)
+  1 | <Hello>
+  2 |     test   <World />   test
+> 3 | </Hello>123
+    |         ^
+
+// Output (Prettier master)
+<Hello>
+  test <World /> test
+</Hello>123      ^
+
+
+// Input
 <Hello>
     test   <World />   test
 </Hello>
 <Hello>
     test   <World />   test
-</Hello>
+</Hello>123
+
+// Output (Prettier stable)
+SyntaxError: Adjacent JSX elements must be wrapped in an enclosing tag. Did you want a JSX fragment <>...</>? (4:1)
+  2 |     test   <World />   test
+  3 | </Hello>
+> 4 | <Hello>
+    | ^
+  5 |     test   <World />   test
+  6 | </Hello>123
 
 // Output (Prettier master)
 <Hello>
@@ -72,7 +91,7 @@ Previous versions would not format adjacent JSX elements in mdx, this has been f
 </Hello>
 <Hello>
   test <World /> test
-</Hello>
+</Hello>123
 ```
 
 #### TypeScript: Print comment following a JSX element with generic ([#6209] by [@duailibe])

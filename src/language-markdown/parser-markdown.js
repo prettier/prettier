@@ -60,23 +60,18 @@ function htmlToJsx() {
         return node;
       }
 
-      const nodes = htmlParser
-        .parse(node.value)
-        .children.filter(node => node.type === "element");
+      const nodes = htmlParser.parse(node.value).children;
 
       // find out if there are adjacent JSX elements which should be allowed in mdx alike in markdown
       if (nodes.length <= 1) {
         return Object.assign({}, node, { type: "jsx" });
       }
 
-      return nodes.map(el => {
-        const position = el.sourceSpan;
-        return {
-          type: "jsx",
-          value: node.value.slice(position.start.offset, position.end.offset),
-          position
-        };
-      });
+      return nodes.map(({ sourceSpan: position, type }) => ({
+        type: type === "element" ? "jsx" : type,
+        value: node.value.slice(position.start.offset, position.end.offset),
+        position
+      }));
     });
 }
 
