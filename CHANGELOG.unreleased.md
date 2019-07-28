@@ -265,6 +265,62 @@ This version updates the TypeScript parser to correctly handle JSX text with dou
 
 Flag used with `--write` to avoid re-checking files that were not changed since they were last written (with the same formatting configuration).
 
+#### JavaScript: Group HyperScript tag ([#6330] by [@nykula])
+
+Share the instance opening line with component name and, if no props, with null. Lowest hanging fruit to compact the plain JS reactive app formatting.
+
+```
+<!-- prettier-ignore -->
+// Input
+h("div",null,h("button",{className:"whatever",
+onClick:ev=>(ev.preventDefault(),console.log(ev.target))},"OK")
+);
+<div><button className="whatever"
+onClick={ev=>(ev.preventDefault(),console.log(ev.target))}>OK</button>
+</div>
+
+// Output (Prettier stable)
+h(
+  "div",
+  null,
+  h(
+    "button",
+    {
+      className: "whatever",
+      onClick: ev => (ev.preventDefault(), console.log(ev.target))
+    },
+    "OK"
+  )
+);
+<div>
+  <button
+    className="whatever"
+    onClick={ev => (ev.preventDefault(), console.log(ev.target))}
+  >
+    OK
+  </button>
+</div>;
+
+// Output (Prettier master)
+h("div", null,
+  h("button",
+    {
+      className: "whatever",
+      onClick: ev => (ev.preventDefault(), console.log(ev.target))
+    },
+    "OK"
+  )
+);
+<div>
+  <button
+    className="whatever"
+    onClick={ev => (ev.preventDefault(), console.log(ev.target))}
+  >
+    OK
+  </button>
+</div>;
+```
+
 [#5910]: https://github.com/prettier/prettier/pull/5910
 [#6186]: https://github.com/prettier/prettier/pull/6186
 [#6206]: https://github.com/prettier/prettier/pull/6206
@@ -274,7 +330,9 @@ Flag used with `--write` to avoid re-checking files that were not changed since 
 [#6236]: https://github.com/prettier/prettier/pull/6236
 [#6270]: https://github.com/prettier/prettier/pull/6270
 [#6289]: https://github.com/prettier/prettier/pull/6289
+[#6330]: https://github.com/prettier/prettier/pull/6330
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
 [@sosukesuzuki]: https://github.com/sosukesuzuki
 [@g-harel]: https://github.com/g-harel
+[@nykula]: https://github.com/nykula
