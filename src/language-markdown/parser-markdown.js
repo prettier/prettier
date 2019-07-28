@@ -7,10 +7,10 @@ const parseFrontMatter = require("../utils/front-matter");
 const { mapAst, INLINE_NODE_WRAPPER_TYPES } = require("./utils");
 const mdx = require("./mdx");
 const remarkMath = require("remark-math");
-const FastPath = require("../common/fast-path");
 const { printDocToString } = require("../doc/doc-printer");
-const parseHtml = require("../language-html/parser-html").parsers.html.parse;
-const printHtml = require("../language-html/printer-html").print;
+const printAstToDoc = require("../main/ast-to-doc");
+const htmlParser = require("../language-html/parser-html").parsers.html;
+const htmlPrinter = require("../language-html/printer-html");
 
 /**
  * based on [MDAST](https://github.com/syntax-tree/mdast) with following modifications:
@@ -63,22 +63,26 @@ function htmlToJsx() {
         return node;
       }
 
-      const htmlNodes = parseHtml(node.value).children.filter(
-        node => node.type === "element"
-      );
+      const originalText = node.value;
+      const els = htmlParser
+        .parse(originalText)
+        .children.filter(node => node.type === "element");
 
       // find out if there are adjacent JSX elements which should be allowed in mdx alike in markdown
-      if (htmlNodes.length <= 1) {
+      if (els.length <= 1) {
         return Object.assign({}, node, { type: "jsx" });
       }
 
-      return htmlNodes.map(htmlNode => ({
+      return els.map(el => ({
         type: "jsx",
         value: printDocToString(
-          printHtml(new FastPath(htmlNode), {}, printHtml),
+          printAstToDoc(el, {
+            originalText,
+            printer: htmlPrinter
+          }),
           {}
         ).formatted,
-        position: htmlNode.sourceSpan
+        position: el.sourceSpan
       }));
     });
 }

@@ -273,12 +273,12 @@ printWidth: 80
 
 <Hello>
   test
-  <World></World>
+  <World />
   test
 </Hello>
 <Hello>
   test
-  <World></World>
+  <World />
   test
 </Hello>
 
@@ -335,12 +335,12 @@ semi: false
 
 <Hello>
   test
-  <World></World>
+  <World />
   test
 </Hello>
 <Hello>
   test
-  <World></World>
+  <World />
   test
 </Hello>
 

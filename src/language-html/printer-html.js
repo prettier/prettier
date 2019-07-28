@@ -782,6 +782,7 @@ function needsToBorrowLastChildClosingTagEndMarker(node) {
    *     >
    */
   return (
+    node &&
     node.lastChild &&
     node.lastChild.isTrailingSpaceSensitive &&
     !node.lastChild.hasTrailingSpaces &&

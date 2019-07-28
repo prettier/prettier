@@ -288,9 +288,7 @@ function forceBreakChildren(node) {
     node.type === "element" &&
     node.children.length !== 0 &&
     (["html", "head", "ul", "ol", "select"].indexOf(node.name) !== -1 ||
-      (node.cssDisplay &&
-        node.cssDisplay.startsWith("table") &&
-        node.cssDisplay !== "table-cell"))
+      (node.cssDisplay.startsWith("table") && node.cssDisplay !== "table-cell"))
   );
 }
 

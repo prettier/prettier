@@ -69,7 +69,12 @@ Previous versions would not format adjacent JSX elements in mdx, this has been f
 // Output (Prettier master)
 <Hello>
   test
-  <World></World>
+  <World />
+  test
+</Hello>
+<Hello>
+  test
+  <World />
   test
 </Hello>
 ```
