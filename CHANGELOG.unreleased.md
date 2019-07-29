@@ -324,7 +324,9 @@ Flag used with `--write` to avoid re-checking files that were not changed since 
 [#6236]: https://github.com/prettier/prettier/pull/6236
 [#6270]: https://github.com/prettier/prettier/pull/6270
 [#6289]: https://github.com/prettier/prettier/pull/6289
+[#6332]: https://github.com/prettier/prettier/pull/6332
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
 [@sosukesuzuki]: https://github.com/sosukesuzuki
 [@g-harel]: https://github.com/g-harel
+[@JounQin]: https://github.com/JounQin
