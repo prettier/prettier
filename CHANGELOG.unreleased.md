@@ -329,4 +329,4 @@ Flag used with `--write` to avoid re-checking files that were not changed since 
 [@gavinjoyce]: https://github.com/gavinjoyce
 [@sosukesuzuki]: https://github.com/sosukesuzuki
 [@g-harel]: https://github.com/g-harel
-[@JounQin]: https://github.com/JounQin
+[@jounqin]: https://github.com/JounQin
