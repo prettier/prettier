@@ -429,7 +429,7 @@ export  const   foo    = {
 <Foo bg='red'>
       <Bar    >hi    </Bar>
        {  hello       }
-       {     /* another commment */}
+       {     /* another comment */}
 </Foo>
 
 \`\`\`
@@ -468,7 +468,7 @@ I'm an awesome paragraph.
 <Foo bg="red">
   <Bar>hi </Bar>
   {hello}
-  {/* another commment */}
+  {/* another comment */}
 </Foo>
 
 \`\`\`
@@ -520,7 +520,7 @@ export  const   foo    = {
 <Foo bg='red'>
       <Bar    >hi    </Bar>
        {  hello       }
-       {     /* another commment */}
+       {     /* another comment */}
 </Foo>
 
 \`\`\`
@@ -559,7 +559,7 @@ I'm an awesome paragraph.
 <Foo bg="red">
   <Bar>hi </Bar>
   {hello}
-  {/* another commment */}
+  {/* another comment */}
 </Foo>
 
 \`\`\`

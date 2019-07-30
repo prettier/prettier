@@ -194,7 +194,7 @@ export default function(parser) {
         "<Foo bg='red'>",
         "      <Bar    >hi    </Bar>",
         "       {  hello       }",
-        "       {     /* another commment */}",
+        "       {     /* another comment */}",
         "</Foo>",
         "",
         "```",
