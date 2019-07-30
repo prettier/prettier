@@ -44,6 +44,28 @@ const link = <a href="example.com">http://example.com</a>;
 
 -->
 
+#### MDX: JSX fragment should be allowed in mdx ([#6342] by [@JounQin])
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+<><Hello>
+    test   <World />   test
+</Hello></>
+
+// Output (Prettier stable)
+SyntaxError: Unexpected token (1:2)
+> 1 | </Hello></>
+    |  ^
+
+// Output (Prettier master)
+<>
+  <Hello>
+    test <World /> test
+  </Hello>
+</>
+```
+
 #### MDX: Adjacent JSX elements should be allowed in mdx ([#6332] by [@JounQin])
 
 Previous versions would not format adjacent JSX elements in mdx, this has been fixed in this version.
@@ -65,7 +87,7 @@ SyntaxError: Unexpected token (3:9)
 // Output (Prettier master)
 <Hello>
   test <World /> test
-</Hello>123      ^
+</Hello>123
 
 
 // Input
@@ -325,6 +347,7 @@ Flag used with `--write` to avoid re-checking files that were not changed since 
 [#6270]: https://github.com/prettier/prettier/pull/6270
 [#6289]: https://github.com/prettier/prettier/pull/6289
 [#6332]: https://github.com/prettier/prettier/pull/6332
+[#6342]: https://github.com/prettier/prettier/pull/6342
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
 [@sosukesuzuki]: https://github.com/sosukesuzuki

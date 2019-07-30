@@ -60,10 +60,18 @@ function htmlToJsx() {
         return node;
       }
 
-      const nodes = htmlParser.parse(node.value).children;
+      let nodes;
+
+      try {
+        nodes = htmlParser.parse(node.value).children;
+      } catch (e) {
+        // do nothing, it could be JSX fragment here
+        // or, it will be caught by "jsx" parser
+        // FIXME: adjacent JSX fragments could not be parsed, should we care about that?
+      }
 
       // find out if there are adjacent JSX elements which should be allowed in mdx alike in markdown
-      if (nodes.length <= 1) {
+      if (!nodes || nodes.length <= 1) {
         return Object.assign({}, node, { type: "jsx" });
       }
 
