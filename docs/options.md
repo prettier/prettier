@@ -309,7 +309,7 @@ Valid options:
 
 ## Vue files script and style tags indentation
 
-_First available in v1.18.0_
+_First available in v1.19.0_
 
 Whether or not to indent the code inside `<script>` and `<style>` tags in Vue files. Some people (like [the creator of Vue](https://github.com/prettier/prettier/issues/3888#issuecomment-459521863)) don’t indent to save an indentation level, but this might break code folding in your editor.
 
