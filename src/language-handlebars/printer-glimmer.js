@@ -47,7 +47,7 @@ function printChildren(path, options, print) {
       } else if (isFirstNode) {
         return concat([softline, print(childPath, options, print)]);
       }
-      return concat([print(childPath, options, print)]);
+      return print(childPath, options, print);
     }, "children")
   );
 }
@@ -64,9 +64,7 @@ function print(path, options, print) {
     case "Block":
     case "Program":
     case "Template": {
-      return group(
-        join("", path.map(print, "body").filter(text => text !== ""))
-      );
+      return group(concat(path.map(print, "body").filter(text => text !== "")));
     }
     case "ElementNode": {
       const tagFirstChar = n.tag[0];
@@ -226,40 +224,17 @@ function print(path, options, print) {
       return concat([n.key, "=", path.call(print, "value")]);
     }
     case "TextNode": {
-      const countNewLines = string => {
-        string = typeof string === "string" ? string : "";
-        return string.split("\n").length - 1;
-      };
-
+      const maxLineBreaksToPreserve = 2;
       const isFirstElement = !getPreviousNode(path);
       const isLastElement = !getNextNode(path);
-
       const isWhitespaceOnly = !/\S/.test(n.chars);
-      const lineBreaksCount = countNewLines(
-        (n.chars.match(/[\r\n]+/g) || [])[0]
-      );
-      const leadingLineBreaksCount = countNewLines(
-        (n.chars.match(/^[\r\n]+/g) || [])[0]
-      );
-      const trailingLineBreaksCount = countNewLines(
-        (n.chars.match(/[\r\n]+$/g) || [])[0]
-      );
-
-      const hasLeadingLineBreaks = leadingLineBreaksCount > 0;
-
-      // use count and do this at the end
-      let leadingLineBreaks = new Array(leadingLineBreaksCount).fill(hardline);
-
-      const hasTrailingLineBreaks = trailingLineBreaksCount > 0;
-
-      // use count and do this at the end
-      let trailingLineBreaks = new Array(trailingLineBreaksCount).fill(
-        hardline
-      );
-
+      const lineBreaksCount = countNewLines(n.chars);
       const hasBlockParent = path.getParentNode(0).type === "Block";
       const hasElementParent = path.getParentNode(0).type === "ElementNode";
       const hasTemplateParent = path.getParentNode(0).type === "Template";
+
+      let leadingLineBreaksCount = countLeadingNewLines(n.chars);
+      let trailingLineBreaksCount = countTrailingNewLines(n.chars);
 
       if (
         (isFirstElement || isLastElement) &&
@@ -269,39 +244,25 @@ function print(path, options, print) {
         return "";
       }
 
-      if (
+      if (isWhitespaceOnly && lineBreaksCount) {
+        leadingLineBreaksCount = Math.min(
+          lineBreaksCount,
+          maxLineBreaksToPreserve
+        );
+        trailingLineBreaksCount = 0;
+      } else if (
         isNextNodeOfType(path, "ElementNode") ||
         isNextNodeOfType(path, "BlockStatement")
       ) {
-        trailingLineBreaks.push(hardline);
-      }
-
-      // use leading and reset trailing to 0
-      if (isWhitespaceOnly && lineBreaksCount) {
-        const breaks = lineBreaksCount > 1 ? [hardline, hardline] : [hardline];
-        return concat(breaks);
+        trailingLineBreaksCount++;
       }
 
       let leadingSpace = "";
       let trailingSpace = "";
 
-      if (
-        !hasTrailingLineBreaks &&
-        isNextNodeOfType(path, "MustacheStatement")
-      ) {
-        trailingSpace = " ";
-      }
-
-      if (
-        !hasLeadingLineBreaks &&
-        isPreviousNodeOfSomeType(path, ["MustacheStatement"])
-      ) {
-        leadingSpace = " ";
-      }
-
-      // preserve a space inside of an attribute node where whitespace present, when next to mustache statement.
+      // preserve a space inside of an attribute node where whitespace present,
+      // when next to mustache statement.
       const inAttrNode = path.stack.indexOf("attributes") >= 0;
-
       if (inAttrNode) {
         const parentNode = path.getParentNode(0);
         const isConcat = parentNode.type === "ConcatStatement";
@@ -324,35 +285,38 @@ function print(path, options, print) {
           }
         }
       } else {
+        if (
+          trailingLineBreaksCount === 0 &&
+          isNextNodeOfType(path, "MustacheStatement")
+        ) {
+          trailingSpace = " ";
+        }
+
+        if (
+          leadingLineBreaksCount === 0 &&
+          isPreviousNodeOfSomeType(path, ["MustacheStatement"])
+        ) {
+          leadingSpace = " ";
+        }
+
         if (isFirstElement) {
-          leadingLineBreaks = [];
+          leadingLineBreaksCount = 0;
           leadingSpace = "";
         }
 
         if (isLastElement) {
-          trailingLineBreaks = [];
+          trailingLineBreaksCount = 0;
           trailingSpace = "";
         }
       }
 
-      // cap leading line breaks to a maximum of 2
-      leadingLineBreaks = leadingLineBreaks.slice(
-        0,
-        Math.min(leadingLineBreaks.length, 2)
-      );
-
-      trailingLineBreaks = trailingLineBreaks.slice(
-        0,
-        Math.min(trailingLineBreaks.length, 2)
-      );
-
       return concat(
         [
-          ...leadingLineBreaks,
+          ...generateHardlines(leadingLineBreaksCount, maxLineBreaksToPreserve),
           n.chars
             .replace(/^[\s ]+/g, leadingSpace)
             .replace(/[\s ]+$/, trailingSpace),
-          ...trailingLineBreaks
+          ...generateHardlines(trailingLineBreaksCount, maxLineBreaksToPreserve)
         ].filter(Boolean)
       );
     }
@@ -542,6 +506,28 @@ function clean(ast, newObj) {
     }
     newObj.chars = ast.chars.replace(/^\s+/, "").replace(/\s+$/, "");
   }
+}
+
+function countNewLines(string) {
+  string = typeof string === "string" ? string : "";
+  (string.match(/[\r\n]+/g) || [])[0];
+  return string.split("\n").length - 1;
+}
+
+function countLeadingNewLines(string) {
+  string = typeof string === "string" ? string : "";
+  const newLines = (string.match(/^[\r\n]+/g) || [])[0] || "";
+  return countNewLines(newLines);
+}
+
+function countTrailingNewLines(string) {
+  string = typeof string === "string" ? string : "";
+  const newLines = (string.match(/[\r\n]+$/g) || [])[0] || "";
+  return countNewLines(newLines);
+}
+
+function generateHardlines(number = 0, max = 0) {
+  return new Array(Math.min(number, max)).fill(hardline);
 }
 
 module.exports = {
