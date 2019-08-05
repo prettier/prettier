@@ -112,7 +112,9 @@ function print(path, options, print) {
         !isVoid
           ? group(
               concat([
-                indent(printChildren(path, options, print)),
+                hasNonWhitespaceChildren
+                  ? indent(printChildren(path, options, print))
+                  : "",
                 ifBreak(hasChildren ? hardline : "", ""),
                 concat(["</", n.tag, ">"])
               ])
