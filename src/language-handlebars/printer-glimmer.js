@@ -500,6 +500,7 @@ function isNextNodeOfType(path, type) {
 
 function clean(ast, newObj) {
   delete newObj.loc;
+  delete newObj.selfClosing;
 
   // (Glimmer/HTML) ignore TextNode whitespace
   if (ast.type === "TextNode") {
