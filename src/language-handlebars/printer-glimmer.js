@@ -512,18 +512,21 @@ function clean(ast, newObj) {
 }
 
 function countNewLines(string) {
+  /* istanbul ignore next */
   string = typeof string === "string" ? string : "";
   (string.match(/[\r\n]+/g) || [])[0];
   return string.split("\n").length - 1;
 }
 
 function countLeadingNewLines(string) {
+  /* istanbul ignore next */
   string = typeof string === "string" ? string : "";
   const newLines = (string.match(/^[\r\n]+/g) || [])[0] || "";
   return countNewLines(newLines);
 }
 
 function countTrailingNewLines(string) {
+  /* istanbul ignore next */
   string = typeof string === "string" ? string : "";
   const newLines = (string.match(/[\r\n]+$/g) || [])[0] || "";
   return countNewLines(newLines);
