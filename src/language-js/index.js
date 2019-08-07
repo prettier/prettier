@@ -6,7 +6,7 @@ const options = require("./options");
 const createLanguage = require("../utils/create-language");
 
 const languages = [
-  createLanguage(require("linguist-languages/data/javascript"), {
+  createLanguage(require("linguist-languages/data/JavaScript"), {
     override: {
       since: "0.0.0",
       parsers: ["babel", "flow"],
@@ -16,7 +16,7 @@ const languages = [
       interpreters: ["nodejs"]
     }
   }),
-  createLanguage(require("linguist-languages/data/javascript"), {
+  createLanguage(require("linguist-languages/data/JavaScript"), {
     override: {
       name: "Flow",
       since: "0.0.0",
@@ -35,14 +35,21 @@ const languages = [
       vscodeLanguageIds: ["javascriptreact"]
     }
   }),
-  createLanguage(require("linguist-languages/data/typescript"), {
+  createLanguage(require("linguist-languages/data/TypeScript"), {
     override: {
       since: "1.4.0",
       parsers: ["typescript"],
       vscodeLanguageIds: ["typescript", "typescriptreact"]
     }
   }),
-  createLanguage(require("linguist-languages/data/json"), {
+  createLanguage(require("linguist-languages/data/TSX"), {
+    override: {
+      since: "1.4.0",
+      parsers: ["typescript"],
+      vscodeLanguageIds: ["typescript", "typescriptreact"]
+    }
+  }),
+  createLanguage(require("linguist-languages/data/JSON"), {
     override: {
       name: "JSON.stringify",
       since: "1.13.0",
@@ -53,7 +60,7 @@ const languages = [
       filenames: ["package.json", "package-lock.json", "composer.json"]
     }
   }),
-  createLanguage(require("linguist-languages/data/json"), {
+  createLanguage(require("linguist-languages/data/JSON"), {
     override: {
       since: "1.5.0",
       parsers: ["json"],
@@ -63,7 +70,7 @@ const languages = [
       filenames: [".prettierrc"]
     }
   }),
-  createLanguage(require("linguist-languages/data/json-with-comments"), {
+  createLanguage(require("linguist-languages/data/JSON with Comments"), {
     override: {
       since: "1.5.0",
       parsers: ["json"],
@@ -73,7 +80,7 @@ const languages = [
       filenames: [".eslintrc"]
     }
   }),
-  createLanguage(require("linguist-languages/data/json5"), {
+  createLanguage(require("linguist-languages/data/JSON5"), {
     override: {
       since: "1.13.0",
       parsers: ["json5"],
