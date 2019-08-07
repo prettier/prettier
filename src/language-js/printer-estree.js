@@ -803,7 +803,10 @@ function printPathNoParens(path, options, print, args) {
                 /* printTypeParams */ true
               ),
               printReturnType(path, print, options)
-            ])
+            ]),
+            {
+              visibleType: "paramsAndReturnType"
+            }
           )
         );
       }
@@ -1321,6 +1324,24 @@ function printPathNoParens(path, options, print, args) {
             options.locStart(firstProperty)
           ));
 
+      // If we inline the object as first argument of the parent, we want
+      // the object to break before the return type
+      const parentParentParent = path.getParentNode(2);
+      const shouldHug =
+        (n.type === "ObjectPattern" &&
+          parent &&
+          shouldHugArguments(parent) &&
+          parent.params[0] === n) ||
+        (shouldHugType(n) &&
+          parentParentParent &&
+          shouldHugArguments(parentParentParent) &&
+          parentParentParent.params[0].typeAnnotation &&
+          parentParentParent.params[0].typeAnnotation.typeAnnotation === n);
+
+      const breakIfVisibleTypeBroke = shouldHug
+        ? { type: "paramsAndReturnType" }
+        : null;
+
       const separator = isFlowInterfaceLikeBody
         ? ";"
         : n.type === "TSInterfaceBody" || n.type === "TSTypeLiteral"
@@ -1411,25 +1432,7 @@ function printPathNoParens(path, options, print, args) {
         ]);
       }
 
-      // If we inline the object as first argument of the parent, we don't want
-      // to create another group so that the object breaks before the return
-      // type
-      const parentParentParent = path.getParentNode(2);
-      if (
-        (n.type === "ObjectPattern" &&
-          parent &&
-          shouldHugArguments(parent) &&
-          parent.params[0] === n) ||
-        (shouldHugType(n) &&
-          parentParentParent &&
-          shouldHugArguments(parentParentParent) &&
-          parentParentParent.params[0].typeAnnotation &&
-          parentParentParent.params[0].typeAnnotation.typeAnnotation === n)
-      ) {
-        return content;
-      }
-
-      return group(content, { shouldBreak });
+      return group(content, { shouldBreak, breakIfVisibleTypeBroke });
     }
     // Babel 6
     case "ObjectProperty": // Non-standard AST node type.
@@ -3717,7 +3720,10 @@ function printMethod(path, options, print) {
             concat([
               printFunctionParams(valuePath, print, options),
               printReturnType(valuePath, print, options)
-            ])
+            ]),
+            {
+              visibleType: "paramsAndReturnType"
+            }
           )
         ],
         "value"
@@ -4419,7 +4425,10 @@ function printFunctionDeclaration(path, print, options) {
       concat([
         printFunctionParams(path, print, options),
         printReturnType(path, print, options)
-      ])
+      ]),
+      {
+        visibleType: "paramsAndReturnType"
+      }
     ),
     n.body ? " " : "",
     path.call(print, "body")
@@ -4460,7 +4469,10 @@ function printObjectMethod(path, options, print) {
       concat([
         printFunctionParams(path, print, options),
         printReturnType(path, print, options)
-      ])
+      ]),
+      {
+        visibleType: "paramsAndReturnType"
+      }
     ),
     " ",
     path.call(print, "body")

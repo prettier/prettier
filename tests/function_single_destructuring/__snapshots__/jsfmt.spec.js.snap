@@ -343,7 +343,9 @@ type T = ({
   items: number
 }) => void;
 
-const X = (props: { a: boolean }) => <A />;
+const X = (props: {
+  a: boolean
+}) => <A />;
 
 ================================================================================
 `;
