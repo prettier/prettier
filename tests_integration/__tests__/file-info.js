@@ -105,6 +105,12 @@ describe("extracts file-info with inferredParser=foo when a plugin is hand-picke
   });
 });
 
+describe("respects overrides from a .prettierrc file", () => {
+  runPrettier("cli/with-overrides", ["--file-info", "file.foo"]).test({
+    status: 0
+  });
+});
+
 test("API getFileInfo with no args", () => {
   // TODO: change this to `rejects.toThrow()` when we upgrade to Jest >= 22
   // https://github.com/facebook/jest/issues/3601

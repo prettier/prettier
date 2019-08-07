@@ -119,3 +119,13 @@ exports[`extracts file-info with with ignored=true for a file in node_modules (s
 `;
 
 exports[`extracts file-info with with ignored=true for a file in node_modules (write) 1`] = `Array []`;
+
+exports[`respects overrides from a .prettierrc file (stderr) 1`] = `""`;
+
+exports[`respects overrides from a .prettierrc file (stdout) 1`] = `
+"{ \\"ignored\\": false, \\"inferredParser\\": \\"babel\\" }
+
+"
+`;
+
+exports[`respects overrides from a .prettierrc file (write) 1`] = `Array []`;

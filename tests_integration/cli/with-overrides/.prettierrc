@@ -1,0 +1,8 @@
+{
+  "overrides": [
+    {
+      "files": "**/*.foo",
+      "options": { "parser": "babel" }
+    }
+  ]
+}
