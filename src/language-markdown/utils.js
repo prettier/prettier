@@ -202,11 +202,21 @@ function mapAst(ast, handler) {
   return (function preorder(node, index, parentStack) {
     parentStack = parentStack || [];
 
-    const newNode = Object.assign({}, handler(node, index, parentStack));
+    let newNode = handler(node, index, parentStack);
+    if (Array.isArray(newNode)) {
+      return newNode;
+    }
+
+    newNode = Object.assign({}, newNode);
     if (newNode.children) {
-      newNode.children = newNode.children.map((child, index) => {
-        return preorder(child, index, [newNode].concat(parentStack));
-      });
+      newNode.children = newNode.children.reduce((nodes, child, index) => {
+        let newNodes = preorder(child, index, [newNode].concat(parentStack));
+        if (!Array.isArray(newNodes)) {
+          newNodes = [newNodes];
+        }
+        nodes.push.apply(nodes, newNodes);
+        return nodes;
+      }, []);
     }
 
     return newNode;

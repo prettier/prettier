@@ -44,6 +44,56 @@ const link = <a href="example.com">http://example.com</a>;
 
 -->
 
+#### MDX: Adjacent JSX elements should be allowed in mdx ([#6332] by [@JounQin])
+
+Previous versions would not format adjacent JSX elements in mdx, this has been fixed in this version.
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+<Hello>
+    test   <World />   test
+</Hello>123
+
+// Output (Prettier stable)
+SyntaxError: Unexpected token (3:9)
+  1 | <Hello>
+  2 |     test   <World />   test
+> 3 | </Hello>123
+    |         ^
+
+// Output (Prettier master)
+<Hello>
+  test <World /> test
+</Hello>123      ^
+
+
+// Input
+<Hello>
+    test   <World />   test
+</Hello>
+<Hello>
+    test   <World />   test
+</Hello>123
+
+// Output (Prettier stable)
+SyntaxError: Adjacent JSX elements must be wrapped in an enclosing tag. Did you want a JSX fragment <>...</>? (4:1)
+  2 |     test   <World />   test
+  3 | </Hello>
+> 4 | <Hello>
+    | ^
+  5 |     test   <World />   test
+  6 | </Hello>123
+
+// Output (Prettier master)
+<Hello>
+  test <World /> test
+</Hello>
+<Hello>
+  test <World /> test
+</Hello>123
+```
+
 #### TypeScript: Print comment following a JSX element with generic ([#6209] by [@duailibe])
 
 Previous versions would not print this comment, this has been fixed in this version.
@@ -274,7 +324,9 @@ Flag used with `--write` to avoid re-checking files that were not changed since 
 [#6236]: https://github.com/prettier/prettier/pull/6236
 [#6270]: https://github.com/prettier/prettier/pull/6270
 [#6289]: https://github.com/prettier/prettier/pull/6289
+[#6332]: https://github.com/prettier/prettier/pull/6332
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
 [@sosukesuzuki]: https://github.com/sosukesuzuki
 [@g-harel]: https://github.com/g-harel
+[@jounqin]: https://github.com/JounQin
