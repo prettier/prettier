@@ -286,6 +286,61 @@ fooooooooooooooooooooooooooooooooooooooooooooooooooo(action => next =>
     dispatch(action),
 );
 
+foo(
+  ({
+    a,
+
+    b
+  }) => {}
+);
+
+foo(
+  ({
+    a,
+    b
+
+  }) => {}
+);
+
+foo(
+  ({
+    a,
+    b
+  }) => {}
+);
+
+foo(
+  a,
+  ({
+    a,
+
+    b
+  }) => {}
+)
+
+foo(
+  ({
+    a,
+
+    b
+  }) => a
+);
+
+foo(
+  ({
+    a,
+    b
+  }) => a
+);
+
+foo(
+  ({
+    a,
+    b
+
+  }) => a
+);
+
 =====================================output=====================================
 Seq(typeDef.interface.groups).forEach(group =>
   Seq(group.members).forEach((member, memberName) =>
@@ -375,6 +430,39 @@ jest.mock(
 fooooooooooooooooooooooooooooooooooooooooooooooooooo(action => next =>
   dispatch(action)
 );
+
+foo(
+  ({
+    a,
+
+    b
+  }) => {}
+);
+
+foo(({ a, b }) => {});
+
+foo(({ a, b }) => {});
+
+foo(
+  a,
+  ({
+    a,
+
+    b
+  }) => {}
+);
+
+foo(
+  ({
+    a,
+
+    b
+  }) => a
+);
+
+foo(({ a, b }) => a);
+
+foo(({ a, b }) => a);
 
 ================================================================================
 `;
@@ -467,6 +555,61 @@ fooooooooooooooooooooooooooooooooooooooooooooooooooo(action => next =>
     dispatch(action),
 );
 
+foo(
+  ({
+    a,
+
+    b
+  }) => {}
+);
+
+foo(
+  ({
+    a,
+    b
+
+  }) => {}
+);
+
+foo(
+  ({
+    a,
+    b
+  }) => {}
+);
+
+foo(
+  a,
+  ({
+    a,
+
+    b
+  }) => {}
+)
+
+foo(
+  ({
+    a,
+
+    b
+  }) => a
+);
+
+foo(
+  ({
+    a,
+    b
+  }) => a
+);
+
+foo(
+  ({
+    a,
+    b
+
+  }) => a
+);
+
 =====================================output=====================================
 Seq(typeDef.interface.groups).forEach((group) =>
   Seq(group.members).forEach((member, memberName) =>
@@ -556,6 +699,39 @@ jest.mock(
 fooooooooooooooooooooooooooooooooooooooooooooooooooo((action) => (next) =>
   dispatch(action)
 );
+
+foo(
+  ({
+    a,
+
+    b
+  }) => {}
+);
+
+foo(({ a, b }) => {});
+
+foo(({ a, b }) => {});
+
+foo(
+  a,
+  ({
+    a,
+
+    b
+  }) => {}
+);
+
+foo(
+  ({
+    a,
+
+    b
+  }) => a
+);
+
+foo(({ a, b }) => a);
+
+foo(({ a, b }) => a);
 
 ================================================================================
 `;

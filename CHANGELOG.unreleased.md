@@ -339,6 +339,35 @@ Previously, even if the line length is shorter than print-width is Prettier brea
 </template>
 ```
 
+#### JavaScript: Fix breaks indentation and idempotency when an arrow function that args include object pattern is passed to a function as parameter. ([#6301] by [@sosukesuzuki])
+
+Previously, Prettier collapses strangely, when an arrow function that args include object pattern is passed to a function as parameter. Also, it breaks idempotency. Please see [#6294](https://github.com/prettier/prettier/issues/6294) for detail.
+
+<!-- prettier-ignore -->
+```js
+// Input
+foo(
+  ({
+    a,
+
+    b
+  }) => {}
+);
+
+// Output (Prettier stable)
+foo(({ a,
+  b }) => {});
+
+// Output (Prettier master)
+foo(
+  ({
+    a,
+
+    b
+  }) => {}
+);
+```
+
 [#5910]: https://github.com/prettier/prettier/pull/5910
 [#6186]: https://github.com/prettier/prettier/pull/6186
 [#6206]: https://github.com/prettier/prettier/pull/6206
@@ -350,6 +379,7 @@ Previously, even if the line length is shorter than print-width is Prettier brea
 [#6289]: https://github.com/prettier/prettier/pull/6289
 [#6332]: https://github.com/prettier/prettier/pull/6332
 [#6284]: https://github.com/prettier/prettier/pull/6284
+[#6301]: https://github.com/prettier/prettier/pull/6301
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
 [@sosukesuzuki]: https://github.com/sosukesuzuki
