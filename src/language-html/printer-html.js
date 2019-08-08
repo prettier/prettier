@@ -229,7 +229,8 @@ function genericPrint(path, options, print) {
                         })
                       : isScriptLikeTag(node) &&
                         node.parent.type === "root" &&
-                        options.parser === "vue"
+                        options.parser === "vue" &&
+                        !options.vueIndentScriptAndStyle
                       ? childrenDoc
                       : indent(childrenDoc))(
                     concat([

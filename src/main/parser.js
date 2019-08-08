@@ -39,7 +39,7 @@ function resolveParser(opts, parsers) {
   }
 
   if (typeof opts.parser === "string") {
-    if (parsers.hasOwnProperty(opts.parser)) {
+    if (Object.prototype.hasOwnProperty.call(parsers, opts.parser)) {
       return parsers[opts.parser];
     }
 
