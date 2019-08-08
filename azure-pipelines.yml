@@ -38,11 +38,19 @@ jobs:
       - template: .azure-pipelines/jobs/dev-test.yml
 
   - job: Dev_Test_Linux
-    displayName: Dev Test on Linux Node v10
+    displayName: Dev Test on Linux Node.js
     pool:
       vmImage: "Ubuntu 16.04"
-    variables:
-      node_version: 10
+    strategy:
+      matrix:
+        Node_v6:
+          node_version: 6
+        Node_v8:
+          node_version: 8
+        Node_v10:
+          node_version: 10
+        Node_v12:
+          node_version: 12
     steps:
       - template: .azure-pipelines/jobs/dev-test.yml
 
