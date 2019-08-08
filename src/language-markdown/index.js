@@ -9,21 +9,13 @@ const languages = [
     override: {
       since: "1.8.0",
       parsers: ["remark"],
-      vscodeLanguageIds: ["markdown"],
-      extensions: [
-        ".md",
-        ".markdown",
-        ".mdown",
-        ".mdwn",
-        ".mkd",
-        ".mkdn",
-        ".mkdown",
-        ".ronn",
-        ".workbook"
-      ]
+      vscodeLanguageIds: ["markdown"]
     },
     extend: {
       filenames: ["README"]
+    },
+    exclude: {
+      extensions: [".mdx"]
     }
   }),
   createLanguage(require("linguist-languages/data/Markdown"), {

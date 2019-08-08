@@ -10,8 +10,7 @@ const languages = [
     override: {
       since: "0.0.0",
       parsers: ["babel", "flow"],
-      vscodeLanguageIds: ["javascript"],
-      interpreters: ["node", "nodejs"]
+      vscodeLanguageIds: ["javascript"]
     }
   }),
   createLanguage(require("linguist-languages/data/JavaScript"), {
@@ -22,8 +21,7 @@ const languages = [
       vscodeLanguageIds: ["javascript"],
       aliases: [],
       filenames: [],
-      extensions: [".js.flow"],
-      interpreters: ["node"]
+      extensions: [".js.flow"]
     }
   }),
   createLanguage(require("linguist-languages/data/JSX"), {
@@ -53,7 +51,6 @@ const languages = [
       since: "1.13.0",
       parsers: ["json-stringify"],
       vscodeLanguageIds: ["json"],
-      group: "JavaScript",
       extensions: [], // .json file defaults to json instead of json-stringify
       filenames: ["package.json", "package-lock.json", "composer.json"]
     }
@@ -62,8 +59,7 @@ const languages = [
     override: {
       since: "1.5.0",
       parsers: ["json"],
-      vscodeLanguageIds: ["json"],
-      group: "JavaScript"
+      vscodeLanguageIds: ["json"]
     },
     extend: {
       filenames: [".prettierrc"]
