@@ -181,6 +181,7 @@ function getWebpackConfig(bundle) {
       globalObject: 'new Function("return this")()'
     },
     optimization: {
+      // TODO: enable this
       // disable terser for `parser-postcss.js`
       minimize: false
     }
