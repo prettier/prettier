@@ -17,7 +17,7 @@ module.exports = function(linguistData, { extend, override, exclude }) {
   if (exclude) {
     for (const key in exclude) {
       language[key] = (language[key] || []).filter(
-        value => (exclude[key] || []).indexOf(value) !== -1
+        value => (exclude[key] || []).indexOf(value) === -1
       );
     }
   }
