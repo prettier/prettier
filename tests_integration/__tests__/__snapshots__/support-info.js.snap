@@ -682,7 +682,16 @@ exports[`CLI --support-info (stdout) 1`] = `
         \\".xsjslib\\"
       ],
       \\"filenames\\": [\\"Jakefile\\"],
-      \\"interpreters\\": [\\"chakra\\", \\"d8\\", \\"js\\", \\"node\\", \\"rhino\\", \\"v8\\", \\"v8-shell\\"],
+      \\"interpreters\\": [
+        \\"chakra\\",
+        \\"d8\\",
+        \\"js\\",
+        \\"node\\",
+        \\"rhino\\",
+        \\"v8\\",
+        \\"v8-shell\\",
+        \\"nodejs\\"
+      ],
       \\"linguistLanguageId\\": 183,
       \\"name\\": \\"JavaScript\\",
       \\"parsers\\": [\\"babel\\", \\"flow\\"],
