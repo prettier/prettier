@@ -5,7 +5,7 @@ const options = require("./options");
 const createLanguage = require("../utils/create-language");
 
 const languages = [
-  createLanguage(require("linguist-languages/data/GraphQL"), {
+  createLanguage(require("linguist-languages/data/graphql"), {
     override: {
       since: "1.5.0",
       parsers: ["graphql"],

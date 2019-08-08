@@ -5,7 +5,7 @@ const createLanguage = require("../utils/create-language");
 const options = require("./options");
 
 const languages = [
-  createLanguage(require("linguist-languages/data/HTML"), {
+  createLanguage(require("linguist-languages/data/html"), {
     override: {
       name: "Angular",
       since: "1.15.0",
@@ -16,7 +16,7 @@ const languages = [
       filenames: []
     }
   }),
-  createLanguage(require("linguist-languages/data/HTML"), {
+  createLanguage(require("linguist-languages/data/html"), {
     override: {
       since: "1.15.0",
       parsers: ["html"],
@@ -28,7 +28,7 @@ const languages = [
       ]
     }
   }),
-  createLanguage(require("linguist-languages/data/HTML"), {
+  createLanguage(require("linguist-languages/data/html"), {
     override: {
       name: "Lightning Web Components",
       since: "1.17.0",
@@ -39,7 +39,7 @@ const languages = [
       filenames: []
     }
   }),
-  createLanguage(require("linguist-languages/data/Vue"), {
+  createLanguage(require("linguist-languages/data/vue"), {
     override: {
       since: "1.10.0",
       parsers: ["vue"],

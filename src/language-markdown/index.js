@@ -5,22 +5,11 @@ const options = require("./options");
 const createLanguage = require("../utils/create-language");
 
 const languages = [
-  createLanguage(require("linguist-languages/data/Markdown"), {
+  createLanguage(require("linguist-languages/data/markdown"), {
     override: {
       since: "1.8.0",
       parsers: ["remark"],
-      vscodeLanguageIds: ["markdown"],
-      extensions: [
-        ".md",
-        ".markdown",
-        ".mdown",
-        ".mdwn",
-        ".mkd",
-        ".mkdn",
-        ".mkdown",
-        ".ronn",
-        ".workbook"
-      ]
+      vscodeLanguageIds: ["markdown"]
     },
     extend: {
       filenames: ["README"]

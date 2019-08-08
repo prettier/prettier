@@ -726,7 +726,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"codemirrorMode\\": \\"javascript\\",
       \\"color\\": \\"#2b7489\\",
       \\"extensions\\": [\\".ts\\", \\".tsx\\"],
-      \\"interpreters\\": [\\"deno\\", \\"ts-node\\"],
       \\"linguistLanguageId\\": 378,
       \\"name\\": \\"TypeScript\\",
       \\"parsers\\": [\\"typescript\\"],
@@ -760,25 +759,19 @@ exports[`CLI --support-info (stdout) 1`] = `
         \\".avsc\\",
         \\".geojson\\",
         \\".gltf\\",
-        \\".har\\",
-        \\".ice\\",
         \\".JSON-tmLanguage\\",
         \\".jsonl\\",
-        \\".mcmeta\\",
         \\".tfstate\\",
         \\".tfstate.backup\\",
         \\".topojson\\",
         \\".webapp\\",
-        \\".webmanifest\\",
-        \\".yy\\",
-        \\".yyp\\"
+        \\".webmanifest\\"
       ],
       \\"filenames\\": [
         \\".arcconfig\\",
         \\".htmlhintrc\\",
         \\".tern-config\\",
         \\".tern-project\\",
-        \\".watchmanconfig\\",
         \\"composer.lock\\",
         \\"mcmod.info\\",
         \\".prettierrc\\"
@@ -819,8 +812,6 @@ exports[`CLI --support-info (stdout) 1`] = `
         \\".jscsrc\\",
         \\".jshintrc\\",
         \\".jslintrc\\",
-        \\"jsconfig.json\\",
-        \\"language-configuration.json\\",
         \\"tsconfig.json\\",
         \\".eslintrc\\"
       ],
@@ -896,13 +887,13 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"name\\": \\"SCSS\\",
       \\"parsers\\": [\\"scss\\"],
       \\"since\\": \\"1.4.0\\",
-      \\"tmScope\\": \\"source.css.scss\\",
+      \\"tmScope\\": \\"source.scss\\",
       \\"type\\": \\"markup\\",
       \\"vscodeLanguageIds\\": [\\"scss\\"]
     },
     {
       \\"aceMode\\": \\"text\\",
-      \\"extensions\\": [\\".graphql\\", \\".gql\\", \\".graphqls\\"],
+      \\"extensions\\": [\\".graphql\\", \\".gql\\"],
       \\"linguistLanguageId\\": 139,
       \\"name\\": \\"GraphQL\\",
       \\"parsers\\": [\\"graphql\\"],
@@ -927,7 +918,7 @@ exports[`CLI --support-info (stdout) 1`] = `
         \\".ronn\\",
         \\".workbook\\"
       ],
-      \\"filenames\\": [\\"contents.lr\\", \\"README\\"],
+      \\"filenames\\": [\\"README\\"],
       \\"linguistLanguageId\\": 222,
       \\"name\\": \\"Markdown\\",
       \\"parsers\\": [\\"markdown\\"],
