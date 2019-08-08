@@ -4,7 +4,7 @@ const printer = require("./printer-glimmer");
 const createLanguage = require("../utils/create-language");
 
 const languages = [
-  createLanguage(require("linguist-languages/data/handlebars"), {
+  createLanguage(require("linguist-languages/data/Handlebars"), {
     override: {
       since: null, // unreleased
       parsers: ["glimmer"],
