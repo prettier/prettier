@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`create cache with --write --only-changed + formatted file (stderr) 1`] = `""`;
+
+exports[`create cache with --write --only-changed + formatted file (stdout) 1`] = `
+"formatted.js 0ms
+"
+`;
+
+exports[`create cache with --write --only-changed + unformatted file (stderr) 1`] = `""`;
+
+exports[`create cache with --write --only-changed + unformatted file (stdout) 1`] = `
+"unformatted.js 0ms
+"
+`;
+
+exports[`detect config change with --write --only-changed + unformatted file (stderr) 1`] = `""`;
+
+exports[`detect config change with --write --only-changed + unformatted file (stderr) 2`] = `""`;
+
+exports[`detect config change with --write --only-changed + unformatted file (stdout) 1`] = `
+"unformatted.js 0ms
+"
+`;
+
+exports[`detect config change with --write --only-changed + unformatted file (stdout) 2`] = `
+"unformatted.js 0ms
+"
+`;
+
+exports[`detect unchanged with --write --only-changed + formatted file (stderr) 1`] = `""`;
+
+exports[`detect unchanged with --write --only-changed + formatted file (stderr) 2`] = `""`;
+
+exports[`detect unchanged with --write --only-changed + formatted file (stdout) 1`] = `
+"formatted.js 0ms
+"
+`;
+
+exports[`detect unchanged with --write --only-changed + formatted file (stdout) 2`] = `
+"formatted.js unchanged
+"
+`;

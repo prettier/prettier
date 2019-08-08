@@ -1630,7 +1630,20 @@ function printPathNoParens(path, options, print, args) {
         parts.push(" ");
       }
 
-      parts.push(path.call(print, "argument"));
+      if (n.argument.comments && n.argument.comments.length > 0) {
+        parts.push(
+          group(
+            concat([
+              "(",
+              indent(concat([softline, path.call(print, "argument")])),
+              softline,
+              ")"
+            ])
+          )
+        );
+      } else {
+        parts.push(path.call(print, "argument"));
+      }
 
       return concat(parts);
     case "UpdateExpression":
@@ -2393,7 +2406,7 @@ function printPathNoParens(path, options, print, args) {
         );
       }
 
-      parts.push("`");
+      parts.push(lineSuffixBoundary, "`");
 
       path.each(childPath => {
         const i = childPath.getName();
@@ -3901,6 +3914,7 @@ function printJestEachTemplateLiteral(node, expressions, options) {
       });
 
     parts.push(
+      lineSuffixBoundary,
       "`",
       indent(
         concat([
@@ -4031,7 +4045,7 @@ function printArgumentsList(path, options, print) {
     args[0].params.length === 0 &&
     args[0].body.type === "BlockStatement" &&
     args[1].type === "ArrayExpression" &&
-    !args.find(arg => arg.leadingComments || arg.trailingComments)
+    !args.find(arg => arg.comments)
   ) {
     return concat([
       "(",
@@ -4128,20 +4142,15 @@ function printArgumentsList(path, options, print) {
 
     const somePrintedArgumentsWillBreak = printedArguments.some(willBreak);
 
+    const simpleConcat = concat(["(", concat(printedExpanded), ")"]);
+
     return concat([
       somePrintedArgumentsWillBreak ? breakParent : "",
       conditionalGroup(
         [
-          concat([
-            ifBreak(
-              indent(concat(["(", softline, concat(printedExpanded)])),
-              concat(["(", concat(printedExpanded)])
-            ),
-            somePrintedArgumentsWillBreak
-              ? concat([ifBreak(maybeTrailingComma), softline])
-              : "",
-            ")"
-          ]),
+          !somePrintedArgumentsWillBreak
+            ? simpleConcat
+            : ifBreak(allArgsBrokenOut(), simpleConcat),
           shouldGroupFirst
             ? concat([
                 "(",

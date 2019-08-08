@@ -16,3 +16,17 @@ function helloWorldWithReact() {
   }, [props.value, props.value, props.value, props.value, props.value, props.value, props.value, props.value, props.value, props.value, props.value])
 }
 
+function MyComponent(props) {
+  useEffect(
+    () => {
+      console.log("some code", props.foo);
+    },
+
+    // We need to disable the eslint warning here,
+    // because of some complicated reason.
+    // eslint-disable line react-hooks/exhaustive-deps
+    []
+  );
+
+  return null;
+}

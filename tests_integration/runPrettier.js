@@ -64,6 +64,18 @@ function runPrettier(dir, args, options) {
     return origStatSync(filename);
   });
 
+  // Mock contents of "virtualFiles" when option is defined.
+  const origReadFileSync = fs.readFileSync;
+  jest.spyOn(fs, "readFileSync").mockImplementation((filename, opts) => {
+    if (
+      typeof options.virtualFiles === "object" &&
+      typeof options.virtualFiles[filename] === "string"
+    ) {
+      return options.virtualFiles[filename];
+    }
+    return origReadFileSync(filename, opts);
+  });
+
   const originalCwd = process.cwd();
   const originalArgv = process.argv;
   const originalExitCode = process.exitCode;
@@ -99,6 +111,11 @@ function runPrettier(dir, args, options) {
   jest
     .spyOn(require(thirdParty), "findParentDir")
     .mockImplementation(() => process.cwd());
+  jest
+    .spyOn(require(thirdParty), "writeFileAtomic")
+    .mockImplementation((filename, content) => {
+      write.push({ filename, content });
+    });
 
   try {
     require(prettierCli);
@@ -135,6 +152,9 @@ function runPrettier(dir, args, options) {
         if (name in testOptions) {
           if (name === "status" && testOptions[name] === "non-zero") {
             expect(value).not.toEqual(0);
+          } else if (name === "write") {
+            // Allows assertions on a subset of the "write" result. (ex. only file name)
+            expect(value).toMatchObject(testOptions[name]);
           } else {
             expect(value).toEqual(testOptions[name]);
           }

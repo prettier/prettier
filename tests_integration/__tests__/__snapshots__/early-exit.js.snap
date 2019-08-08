@@ -92,6 +92,9 @@ Format options:
                            Defaults to none.
   --use-tabs               Indent with tabs instead of spaces.
                            Defaults to false.
+  --vue-indent-script-and-style
+                           Indent script and style tags in Vue files.
+                           Defaults to false.
 
 Config options:
 
@@ -141,6 +144,7 @@ Other options:
   --loglevel <silent|error|warn|log|debug>
                            What level of logs to report.
                            Defaults to log.
+  --only-changed           Only format files changed since last '--write'.
   --require-pragma         Require either '@prettier' or '@format' to be present in the file's first docblock comment
                            in order for it to be formatted.
                            Defaults to false.
@@ -245,6 +249,9 @@ Format options:
                            Defaults to none.
   --use-tabs               Indent with tabs instead of spaces.
                            Defaults to false.
+  --vue-indent-script-and-style
+                           Indent script and style tags in Vue files.
+                           Defaults to false.
 
 Config options:
 
@@ -294,6 +301,7 @@ Other options:
   --loglevel <silent|error|warn|log|debug>
                            What level of logs to report.
                            Defaults to log.
+  --only-changed           Only format files changed since last '--write'.
   --require-pragma         Require either '@prettier' or '@format' to be present in the file's first docblock comment
                            in order for it to be formatted.
                            Defaults to false.
@@ -343,6 +351,15 @@ exports[`throw error with --help not-found (stderr) 1`] = `
 exports[`throw error with --help not-found (stdout) 1`] = `""`;
 
 exports[`throw error with --help not-found (write) 1`] = `Array []`;
+
+exports[`throw error with --only-changed without --write (stderr) 1`] = `
+"[error] Cannot use --only-changed without --write.
+"
+`;
+
+exports[`throw error with --only-changed without --write (stdout) 1`] = `""`;
+
+exports[`throw error with --only-changed without --write (write) 1`] = `Array []`;
 
 exports[`throw error with --write + --debug-check (stderr) 1`] = `
 "[error] Cannot use --write and --debug-check together.
