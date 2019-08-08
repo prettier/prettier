@@ -182,7 +182,8 @@ function getWebpackConfig(bundle) {
     },
     optimization: {
       // TODO: enable this
-      // disable terser for `parser-postcss.js`
+      // `parser-postcss.js` can't work with terser
+      // https://github.com/prettier/prettier/pull/6200#issuecomment-500018106
       minimize: false
     }
   };
