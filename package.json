@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@angular/compiler": "7.2.9",
-    "@babel/code-frame": "7.0.0",
+    "@babel/code-frame": "7.5.5",
     "@babel/parser": "7.2.0",
     "@glimmer/syntax": "0.41.0",
     "@iarna/toml": "2.2.3",
@@ -77,8 +77,8 @@
     "yaml-unist-parser": "1.0.0"
   },
   "devDependencies": {
-    "@babel/core": "7.2.0",
-    "@babel/preset-env": "7.4.5",
+    "@babel/core": "7.5.5",
+    "@babel/preset-env": "7.5.5",
     "babel-loader": "8.0.6",
     "benchmark": "2.1.4",
     "builtin-modules": "2.0.0",
