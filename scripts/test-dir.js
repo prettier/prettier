@@ -4,7 +4,7 @@ const path = require("path");
 const shell = require("shelljs");
 const tempy = require("tempy");
 
-module.exports = function({ dir, isProduction }) {
+module.exports = function({ dir, isProduction, prettierDir }) {
   shell.config.fatal = true;
 
   const rootDir = path.join(__dirname, "..");
@@ -27,7 +27,7 @@ module.exports = function({ dir, isProduction }) {
     env: Object.assign({}, process.env, {
       NODE_ENV: isProduction ? "production" : "",
       AST_COMPARE: "1",
-      PRETTIER_DIR: path.join(tmpDir, "node_modules/prettier")
+      PRETTIER_DIR: path.join(tmpDir, "node_modules/prettier", prettierDir)
     }),
     shell: true
   }).code;

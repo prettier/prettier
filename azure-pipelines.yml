@@ -93,8 +93,8 @@ jobs:
   #   steps:
   #     - template: .azure-pipelines/jobs/prod-test.yml
 
-  - job: Source_Test
-    displayName: Source Test
+  - job: Source_Install_Test
+    displayName: Source Install Test
     pool:
       vmImage: "Ubuntu 16.04"
     strategy:

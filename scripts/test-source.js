@@ -6,7 +6,8 @@ const path = require("path");
 const testDir = require("./test-dir");
 
 const code = testDir({
-  dir: path.join(__dirname, "../src"),
+  dir: path.join(__dirname, ".."),
+  prettierDir: "src",
   isProduction: false
 });
 
