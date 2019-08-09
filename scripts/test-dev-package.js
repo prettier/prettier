@@ -7,7 +7,7 @@ const testPackage = require("./package-test");
 
 const code = testPackage({
   dir: path.join(__dirname, ".."),
-  entryDir: "src",
+  entryDir: "",
   isProduction: false
 });
 
