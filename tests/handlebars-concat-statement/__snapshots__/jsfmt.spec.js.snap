@@ -113,6 +113,6 @@ singleQuote: true
 <div class="class-i {{myClass}}class-j"></div>
 <div class="class-k {{myClass}} class-l"></div>
 <div class="class-m {{myClass}} class-n {{myClass}}class-o"></div>
-<div class="class-p  class-q"></div>
+<div class='class-p  class-q'></div>
 ================================================================================
 `;
