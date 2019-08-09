@@ -52,14 +52,15 @@ jobs:
       vmImage: "Ubuntu 16.04"
     strategy:
       matrix:
+        # only test on minimum version
         Node_v6:
           node_version: 6
-        Node_v8:
-          node_version: 8
-        Node_v10:
-          node_version: 10
-        Node_v12:
-          node_version: 12
+        # Node_v8:
+        #   node_version: 8
+        # Node_v10:
+        #   node_version: 10
+        # Node_v12:
+        #   node_version: 12
     steps:
       - template: .azure-pipelines/jobs/dev-install-test.yml
 
