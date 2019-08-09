@@ -26,7 +26,7 @@ module.exports = function(options) {
 
   try {
     shell.exec(`npm install "${tarPath}" --engine-strict`, { cwd: TEMP_DIR });
-  }finally {
+  } finally {
     shell.rm(tarPath);
   }
 
