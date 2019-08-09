@@ -46,6 +46,23 @@ jobs:
     steps:
       - template: .azure-pipelines/jobs/dev-test.yml
 
+  - job: Dev_Install_Test
+    displayName: Dev Install Test
+    pool:
+      vmImage: "Ubuntu 16.04"
+    strategy:
+      matrix:
+        Node_v6:
+          node_version: 6
+        Node_v8:
+          node_version: 8
+        Node_v10:
+          node_version: 10
+        Node_v12:
+          node_version: 12
+    steps:
+      - template: .azure-pipelines/jobs/dev-install-test.yml
+
   - job: Prod_Build
     displayName: Prod Build on Linux Node v10
     pool:
@@ -92,20 +109,3 @@ jobs:
           TEST_STANDALONE: true
     steps:
       - template: .azure-pipelines/jobs/prod-test.yml
-
-  - job: Source_Install_Test
-    displayName: Source Install Test
-    pool:
-      vmImage: "Ubuntu 16.04"
-    strategy:
-      matrix:
-        Node_v6:
-          node_version: 6
-        Node_v8:
-          node_version: 8
-        Node_v10:
-          node_version: 10
-        Node_v12:
-          node_version: 12
-    steps:
-      - template: .azure-pipelines/jobs/source-test.yml

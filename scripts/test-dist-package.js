@@ -3,11 +3,11 @@
 "use strict";
 
 const path = require("path");
-const testDir = require("./test-dir");
+const testPackage = require("./package-test");
 
-const code = testDir({
+const code = testPackage({
   dir: path.join(__dirname, "../dist"),
-  prettierDir: "",
+  entryDir: "",
   isProduction: true
 });
 

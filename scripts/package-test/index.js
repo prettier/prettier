@@ -3,23 +3,28 @@
 const path = require("path");
 const shell = require("shelljs");
 const tempy = require("tempy");
-const rootDir = path.join(__dirname, "..");
+const rootDir = path.join(__dirname, "..", "..");
 
 module.exports = function(options) {
   shell.config.fatal = true;
 
+  const TEMP_DIR = tempy.directory();
+
   const dir = options.dir;
   const NODE_ENV = options.isProduction ? "production" : "";
-  const prettierDir = options.prettierDir || "";
+  const PRETTIER_DIR = path.join(
+    TEMP_DIR,
+    "node_modules/prettier",
+    options.entryDir || ""
+  );
 
   const file = shell.exec("npm pack", { cwd: dir }).stdout.trim();
   const tarPath = path.join(dir, file);
-  const tmpDir = tempy.directory();
 
   // shell.config.silent = true;
-  shell.exec("npm init -y", { cwd: tmpDir });
+  shell.exec("npm init -y", { cwd: TEMP_DIR });
   try {
-    shell.exec(`npm install "${tarPath}" --engine-strict`, { cwd: tmpDir });
+    shell.exec(`npm install "${tarPath}" --engine-strict`, { cwd: TEMP_DIR });
   } finally {
     shell.rm(tarPath);
   }
@@ -34,7 +39,7 @@ module.exports = function(options) {
     env: Object.assign({}, process.env, {
       NODE_ENV,
       AST_COMPARE: "1",
-      PRETTIER_DIR: path.join(tmpDir, "node_modules/prettier", prettierDir)
+      PRETTIER_DIR
     }),
     shell: true
   }).code;

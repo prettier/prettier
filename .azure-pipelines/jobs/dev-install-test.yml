@@ -3,7 +3,7 @@ steps:
   - template: ../steps/install-dependencies.yml
     parameters:
       flags: --ignore-engines # prettier@dev requires node v6+
-  - script: yarn test:source
-    displayName: "Run tests on source"
+  - script: yarn test:dev
+    displayName: "Run tests on installed source"
   - template: ../steps/publish-test-results.yml
   - template: ../steps/publish-code-coverage.yml
