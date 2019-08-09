@@ -19,8 +19,16 @@ module.exports = function(options) {
     options.entryDir || ""
   );
 
+  const file = shell.exec("npm pack", { cwd: dir, silent: true }).stdout.trim();
+  const tarPath = path.join(dir, file);
+
   shell.exec("npm init -y", { cwd: TEMP_DIR, silent: true });
-  shell.exec(`npm install "${dir}" --engine-strict`, { cwd: TEMP_DIR });
+
+  try {
+    shell.exec(`npm install "${tarPath}" --engine-strict`, { cwd: TEMP_DIR });
+  }finally {
+    shell.rm(tarPath);
+  }
 
   const runInBand = process.env.CI ? "--runInBand" : "";
   const testPath = process.env.TEST_STANDALONE ? "tests/" : "";
