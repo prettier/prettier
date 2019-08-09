@@ -75,8 +75,9 @@
     "yaml-unist-parser": "1.0.0"
   },
   "devDependencies": {
-    "@babel/core": "7.4.5",
-    "@babel/preset-env": "7.4.5",
+    "@babel/cli": "7.2.0",
+    "@babel/core": "7.2.0",
+    "@babel/preset-env": "7.2.0",
     "babel-loader": "8.0.6",
     "benchmark": "2.1.4",
     "builtin-modules": "3.1.0",
@@ -89,7 +90,7 @@
     "eslint-plugin-prettier": "3.1.0",
     "eslint-plugin-react": "7.13.0",
     "execa": "1.0.0",
-    "jest": "23.6.0",
+    "jest": "23.3.0",
     "jest-junit": "5.0.0",
     "jest-snapshot-serializer-ansi": "1.0.0",
     "jest-snapshot-serializer-raw": "1.1.0",
