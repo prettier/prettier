@@ -679,6 +679,22 @@ const fooooooooooooooo: SomeThing<
 const fooooooooooooooo: SomeThing<boolean> = looooooooooooooooooooooooooooooongNameFunc();
 ```
 
+#### Handlebars: Fix --single-quote option on html attributes ([#6377] by [@dcyriller])
+
+Previously, the flag was not applied on html attributes.
+
+<!-- prettier-ignore-->
+```hbs
+// Input
+<div class="a-class-name"></div>
+
+// Prettier (stable with the option --single-quote)
+<div class="a-class-name"></div>
+
+// Prettier (master with the option --single-quote)
+<div class='a-class-name'></div>
+````
+
 [#5910]: https://github.com/prettier/prettier/pull/5910
 [#6186]: https://github.com/prettier/prettier/pull/6186
 [#6206]: https://github.com/prettier/prettier/pull/6206
@@ -703,6 +719,7 @@ const fooooooooooooooo: SomeThing<boolean> = looooooooooooooooooooooooooooooongN
 [#6506]: https://github.com/prettier/prettier/pull/6506
 [#6514]: https://github.com/prettier/prettier/pull/6514
 [#6467]: https://github.com/prettier/prettier/pull/6467
+[#6377]: https://github.com/prettier/prettier/pull/6377
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
 [@sosukesuzuki]: https://github.com/sosukesuzuki
@@ -710,3 +727,4 @@ const fooooooooooooooo: SomeThing<boolean> = looooooooooooooooooooooooooooooongN
 [@jounqin]: https://github.com/JounQin
 [@bakkot]: https://gibhub.com/bakkot
 [@thorn0]: https://github.com/thorn0
+[@dcyriller]: https://github.com/dcyriller
