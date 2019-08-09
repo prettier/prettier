@@ -8,7 +8,9 @@ To get recent changes on prettier (TBD prettier/prettier) in a nice format:
 $ git log --pretty=format:"- %s" rev1..rev2 | sed 's/#\([0-9]*\)/\[prettier\/prettier#\1\]\(https:\/\/github.com\/prettier\/prettier\/pull\/\1\)/'
 -- -->
 
-## prettierx 0.7.1-dev
+## prettierx 0.7.1
+
+[compare prettierx-0.7.0...prettierx-0.7.1](https://github.com/brodybits/prettierx/compare/prettierx-0.7.0...prettierx-0.7.1)
 
 ### prettier 1.17.1
 
@@ -172,6 +174,8 @@ $ git log --pretty=format:"- %s" rev1..rev2 | sed 's/#\([0-9]*\)/\[prettier\/pre
 [#6087]: https://github.com/prettier/prettier/pull/6087
 
 ## prettierx 0.7.0
+
+[compare prettierx-0.6.0...prettierx-0.7.0](https://github.com/brodybits/prettierx/compare/prettierx-0.6.0...prettierx-0.7.0)
 
 - escape-string-regexp@2.0.0 & other updates in dependencies
 - drop support for Node.js pre-8.0
