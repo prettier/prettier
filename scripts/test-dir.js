@@ -13,11 +13,9 @@ module.exports = function({ dir, isProduction, prettierDir }) {
   const tarPath = path.join(dir, file);
   const tmpDir = tempy.directory();
 
-  shell.config.silent = true;
   shell.exec("npm init -y", { cwd: tmpDir });
   shell.exec(`npm install "${tarPath}"`, { cwd: tmpDir });
-  shell.exec(`rm "${tarPath}"`, { cwd: tmpDir });
-  shell.config.silent = false;
+  shell.rm(tarPath);
 
   const runInBand = process.env.CI ? "--runInBand" : "";
   const testPath = process.env.TEST_STANDALONE ? "tests/" : "";
