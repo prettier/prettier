@@ -21,14 +21,12 @@ module.exports = function(options) {
   const file = shell.exec("npm pack", { cwd: dir }).stdout.trim();
   const tarPath = path.join(dir, file);
 
-  // shell.config.silent = true;
-  shell.exec("npm init -y", { cwd: TEMP_DIR });
+  shell.exec("npm init -y", { cwd: TEMP_DIR, silent: true });
   try {
     shell.exec(`npm install "${tarPath}" --engine-strict`, { cwd: TEMP_DIR });
   } finally {
     shell.rm(tarPath);
   }
-  // shell.config.silent = false;
 
   const runInBand = process.env.CI ? "--runInBand" : "";
   const testPath = process.env.TEST_STANDALONE ? "tests/" : "";
