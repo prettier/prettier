@@ -24,3 +24,7 @@ a?.b[3].c?.(x).d.e?.f[3].g?.(y).h;
 
 (list || list2)?.length;
 (list || list2)?.[(list || list2)];
+
+async function HelloWorld() {
+  var x = (await foo.bar.blah)?.hi;
+}
