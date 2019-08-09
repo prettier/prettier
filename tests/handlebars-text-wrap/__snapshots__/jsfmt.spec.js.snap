@@ -23,13 +23,7 @@ printWidth: 80
 
 {{!-- Wrapping tags --}}
 <div>
-  <a /><b /><c />
   <first>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</first> <first>f</first>
-</div>
-
-{{!-- Wrapping tags --}}
-<div>
-  <sadashdkjahsdkjhaskjdhaksjdhkashdkashdkasjhdkajshdkashdkashd /> <first>f</first>
 </div>
 
 <div>
@@ -130,56 +124,6 @@ printWidth: 80
   After
 </div>
 
-{{!-- convert space expressions --}}
-<div>{" "}</div>
-
-<div>
-  <first />
-  <second />
-  <third />
-  <fourth />
-  <fifth />
-  <sixth />
-</div>
-
-{{!-- no text one tag per line --}}
-<div>
-  <first /><second />
-</div>
-
-{{!-- with text fill line --}}
-<div>
-  Text <first /><second />
-</div>
-
-{{!-- line after br --}}
-<div>
-  Text<br />
-  More text<br />
-  And more<br />
-</div>
-
-{{!-- line after br --}}
-<div>
-  Text<br />More text<br />And more<br />
-</div>
-
-{{!-- line after br --}}
-<div>
-  Text
-  <br />
-  More text
-  <br />
-  And more
-  <br />
-</div>
-
-{{!-- line after br 2 --}}
-<div>A<br />B<br />C</div>
-
-{{!-- br followed by whitespace --}}
-<div><br /> text</div>
-
 {{!-- dont preserve blank lines when contains text --}}
 <div>
 
@@ -257,20 +201,9 @@ printWidth: 80
 </div>
 {{! Wrapping tags }}
 <div>
-  <a></a>
-  <b></b>
-  <c></c>
   <first>
     aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
   </first>
-  <first>
-    f
-  </first>
-</div>
-{{! Wrapping tags }}
-<div>
-  <sadashdkjahsdkjhaskjdhaksjdhkashdkashdkasjhdkajshdkashdkashd
-  ></sadashdkjahsdkjhaskjdhaksjdhkashdkashdkasjhdkajshdkashdkashd>
   <first>
     f
   </first>
@@ -399,57 +332,6 @@ printWidth: 80
   </div>
   {" "}
   After
-</div>
-{{! convert space expressions }}
-<div>
-  {" "}
-</div>
-<div>
-  <first></first>
-  <second></second>
-  <third></third>
-  <fourth></fourth>
-  <fifth></fifth>
-  <sixth></sixth>
-</div>
-{{! no text one tag per line }}
-<div>
-  <first></first>
-  <second></second>
-</div>
-{{! with text fill line }}
-<div>
-  Text<first></first>
-  <second></second>
-</div>
-{{! line after br }}
-<div>
-  Text<br />
-  More text<br />
-  And more<br />
-</div>
-{{! line after br }}
-<div>
-  Text<br />
-  More text<br />
-  And more<br />
-</div>
-{{! line after br }}
-<div>
-  Text<br />
-  More text<br />
-  And more<br />
-</div>
-{{! line after br 2 }}
-<div>
-  A<br />
-  B<br />
-  C
-</div>
-{{! br followed by whitespace }}
-<div>
-  <br />
-  text
 </div>
 {{! dont preserve blank lines when contains text }}
 <div>

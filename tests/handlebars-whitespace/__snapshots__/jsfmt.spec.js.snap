@@ -16,21 +16,6 @@ printWidth: 40
   <span>bar</span> foo
 </span>
 
-{{!-- before break1 --}}
-<span>
-  <span barbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbar /> foo
-</span>
-
-{{!-- before break2 --}}
-<span>
-  <span barbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbar /> foo
-</span>
-
-{{!-- after break --}}
-<span>
-  foo <span barbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbar />
-</span>
-
 {{!-- within --}}
 <span>
   foo <span> bar </span>
@@ -38,7 +23,6 @@ printWidth: 40
 
 {{!-- break components --}}
 <div>
-  <SiteHeader />
   <SuperSelect>
     <p>foo<span>bar bar bar</span></p><h1><span><em>yep</em></span></h1>
   </SuperSelect>
@@ -63,26 +47,6 @@ printWidth: 40
   </span>
   foo
 </span>
-{{! before break1 }}
-<span>
-  <span
-    barbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbar
-  ></span>
-  foo
-</span>
-{{! before break2 }}
-<span>
-  <span
-    barbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbar
-  ></span>
-  foo
-</span>
-{{! after break }}
-<span>
-  foo<span
-    barbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbarbar
-  ></span>
-</span>
 {{! within }}
 <span>
   foo<span>
@@ -91,7 +55,6 @@ printWidth: 40
 </span>
 {{! break components }}
 <div>
-  <SiteHeader />
   <SuperSelect>
     <p>
       foo<span>
@@ -211,7 +174,7 @@ Click here! Click here! Click here! Click here! Click here! Click here!
 <button>Click here! Click here! Click here! Click here! Click here! Click here!</button>
 <button>Click here! Click here! Click here! Click here! Click here! Click here!</button>
 </div>
-<video src="brave.webm"><track kind=subtitles src=brave.en.vtt srclang=en label="English"><track kind=subtitles src=brave.en.vtt srclang=en label="English"></video>
+<video src="brave.webm"></video>
 
 =====================================output=====================================
 <button>
@@ -236,20 +199,7 @@ Click here! Click here! Click here! Click here! Click here! Click here!
     Click here! Click here! Click here! Click here! Click here! Click here!
   </button>
 </div>
-<video src="brave.webm">
-  <track
-    kind="subtitles"
-    src="brave.en.vtt"
-    srclang="en"
-    label="English"
-  />
-  <track
-    kind="subtitles"
-    src="brave.en.vtt"
-    srclang="en"
-    label="English"
-  />
-</video>
+<video src="brave.webm"></video>
 ================================================================================
 `;
 
