@@ -16,6 +16,7 @@ module.exports = function({ dir, isProduction, prettierDir }) {
   shell.config.silent = true;
   shell.exec("npm init -y", { cwd: tmpDir });
   shell.exec(`npm install "${tarPath}"`, { cwd: tmpDir });
+  shell.exec(`rm "${tarPath}"`, { cwd: tmpDir });
   shell.config.silent = false;
 
   const runInBand = process.env.CI ? "--runInBand" : "";
