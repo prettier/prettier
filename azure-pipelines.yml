@@ -92,3 +92,20 @@ jobs:
           TEST_STANDALONE: true
     steps:
       - template: .azure-pipelines/jobs/prod-test.yml
+
+  - job: Source_Test
+    displayName: Source Test on macOS
+    pool:
+      vmImage: macos-10.13
+    strategy:
+      matrix:
+        Node_v4:
+          node_version: 4
+          ENABLE_TEST_RESULTS: "" # jest-junit requires node v6+
+        Node_v10:
+          node_version: 10
+        Node_v10_standalone:
+          node_version: 10
+          TEST_STANDALONE: true
+    steps:
+      - template: .azure-pipelines/jobs/source-test.yml

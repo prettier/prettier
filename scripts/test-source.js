@@ -6,8 +6,8 @@ const path = require("path");
 const testDir = require("./test-dir");
 
 const code = testDir({
-  dir: path.join(__dirname, "../dist"),
-  isProduction: true
+  dir: path.join(__dirname, ".."),
+  isProduction: false
 });
 
 process.exit(code);
