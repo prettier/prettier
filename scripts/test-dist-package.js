@@ -7,7 +7,6 @@ const testPackage = require("./package-test");
 
 const code = testPackage({
   dir: path.join(__dirname, "../dist"),
-  entryDir: "",
   isProduction: true
 });
 

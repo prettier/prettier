@@ -12,23 +12,14 @@ module.exports = function(options) {
 
   const dir = options.dir;
   const NODE_ENV = options.isProduction ? "production" : "";
-  const PRETTIER_DIR = path.join(
-    TEMP_DIR,
-    "node_modules",
-    "prettier",
-    options.entryDir || ""
-  );
+  const PRETTIER_DIR = path.join(TEMP_DIR, "node_modules/prettier");
 
   const file = shell.exec("npm pack", { cwd: dir, silent: true }).stdout.trim();
-  const tarPath = path.join(dir, file);
+  shell.mv(path.join(dir, file), TEMP_DIR);
+  const tarPath = path.join(TEMP_DIR, file);
 
   shell.exec("npm init -y", { cwd: TEMP_DIR, silent: true });
-
-  try {
-    shell.exec(`npm install "${tarPath}" --engine-strict`, { cwd: TEMP_DIR });
-  } finally {
-    shell.rm(tarPath);
-  }
+  shell.exec(`npm install "${tarPath}" --engine-strict`, { cwd: TEMP_DIR });
 
   const runInBand = process.env.CI ? "--runInBand" : "";
   const testPath = process.env.TEST_STANDALONE ? "tests/" : "";
