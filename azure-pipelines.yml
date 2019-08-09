@@ -12,11 +12,17 @@ variables:
 
 jobs:
   - job: Dev_Lint
-    displayName: Dev Lint on Linux Node v10
+    displayName: Dev Lint on Linux
     pool:
       vmImage: "Ubuntu 16.04"
-    variables:
-      node_version: 10
+    strategy:
+      matrix:
+        Node_v8:
+          node_version: 8
+        Node_v10:
+          node_version: 10
+        Node_v12:
+          node_version: 12
     steps:
       - template: .azure-pipelines/jobs/dev-lint.yml
 
@@ -41,11 +47,17 @@ jobs:
       - template: .azure-pipelines/jobs/dev-test.yml
 
   - job: Dev_Test_Linux
-    displayName: Dev Test on Linux Node v10
+    displayName: Dev Test on Linux
     pool:
       vmImage: "Ubuntu 16.04"
-    variables:
-      node_version: 10
+    strategy:
+      matrix:
+        Node_v8:
+          node_version: 8
+        Node_v10:
+          node_version: 10
+        Node_v12:
+          node_version: 12
     steps:
       - template: .azure-pipelines/jobs/dev-test.yml
 
@@ -70,11 +82,17 @@ jobs:
 
   - job: Prod_Lint
     dependsOn: Prod_Build
-    displayName: Prod Lint on Linux Node v10
+    displayName: Prod Lint on Linux
     pool:
       vmImage: "Ubuntu 16.04"
-    variables:
-      node_version: 10
+    strategy:
+      matrix:
+        Node_v8:
+          node_version: 8
+        Node_v10:
+          node_version: 10
+        Node_v12:
+          node_version: 12
     steps:
       - template: .azure-pipelines/jobs/prod-lint.yml
 
@@ -91,6 +109,11 @@ jobs:
           node_version: 10
         Node_v10_standalone:
           node_version: 10
+          TEST_STANDALONE: true
+        Node_v12:
+          node_version: 12
+        Node_v12_standalone:
+          node_version: 12
           TEST_STANDALONE: true
     steps:
       - template: .azure-pipelines/jobs/prod-test.yml
