@@ -3,11 +3,14 @@
 const path = require("path");
 const shell = require("shelljs");
 const tempy = require("tempy");
+const rootDir = path.join(__dirname, "..");
 
-module.exports = function({ dir, isProduction, prettierDir }) {
+module.exports = function(options) {
   shell.config.fatal = true;
 
-  const rootDir = path.join(__dirname, "..");
+  const dir = options.dir;
+  const NODE_ENV = options.isProduction ? "production" : "";
+  const prettierDir = options.prettierDir || "";
 
   const file = shell.exec("npm pack", { cwd: dir }).stdout.trim();
   const tarPath = path.join(dir, file);
@@ -29,7 +32,7 @@ module.exports = function({ dir, isProduction, prettierDir }) {
   return shell.exec(cmd, {
     cwd: rootDir,
     env: Object.assign({}, process.env, {
-      NODE_ENV: isProduction ? "production" : "",
+      NODE_ENV,
       AST_COMPARE: "1",
       PRETTIER_DIR: path.join(tmpDir, "node_modules/prettier", prettierDir)
     }),
