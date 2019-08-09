@@ -21,6 +21,10 @@ module.exports = function(options) {
   shell.exec("npm init -y", { cwd: TEMP_DIR, silent: true });
   shell.exec(`npm install "${tarPath}" --engine-strict`, { cwd: TEMP_DIR });
 
+  if (options.skipTest) {
+    return 0;
+  }
+
   const runInBand = process.env.CI ? "--runInBand" : "";
   const testPath = process.env.TEST_STANDALONE ? "tests/" : "";
   const cmd = `yarn test --color ${runInBand} ${testPath}`;
