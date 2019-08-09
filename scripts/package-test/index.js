@@ -21,7 +21,7 @@ module.exports = function(options) {
   shell.exec("npm init -y", { cwd: TEMP_DIR, silent: true });
   shell.exec(`npm install "${tarPath}" --engine-strict`, { cwd: TEMP_DIR });
 
-  if (options.skipTest) {
+  if (!options.unitTest && !options.integrationTest) {
     return 0;
   }
 
