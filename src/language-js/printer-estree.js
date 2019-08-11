@@ -3887,15 +3887,13 @@ function printArgumentsList(path, options, print) {
 
   function hasEmptyLineInObject(node) {
     return (
+      node &&
       node.type &&
       node.type === "ObjectPattern" &&
       node.properties &&
       node.properties.some(
         (property, i, properties) =>
-          (property.value &&
-            property.value.type &&
-            property.value.type === "ObjectPattern" &&
-            hasEmptyLineInObject(property.value)) ||
+          hasEmptyLineInObject(property.value) ||
           (i < properties.length - 1 &&
             isNextLineEmpty(options.originalText, property, options))
       )
