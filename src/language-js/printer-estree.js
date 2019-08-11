@@ -2779,6 +2779,7 @@ function printPathNoParens(path, options, print, args) {
         parent.type !== "GenericTypeAnnotation" &&
         parent.type !== "TSTypeReference" &&
         parent.type !== "TSTypeAssertion" &&
+        parent.type !== "TSTupleType" &&
         !(parent.type === "FunctionTypeParam" && !parent.name) &&
         !(
           (parent.type === "TypeAlias" ||
