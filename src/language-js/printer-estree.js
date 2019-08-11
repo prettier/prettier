@@ -3894,9 +3894,8 @@ function printArgumentsList(path, options, print) {
         (property, i, properties) =>
           (property.value &&
             property.value.type &&
-            (property.value.type === "ObjectPattern"
-              ? hasEmptyLineInObject(property.value)
-              : false)) ||
+            property.value.type === "ObjectPattern" &&
+            hasEmptyLineInObject(property.value)) ||
           (i < properties.length - 1 &&
             isNextLineEmpty(options.originalText, property, options))
       )
