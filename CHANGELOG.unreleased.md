@@ -1014,6 +1014,38 @@ class A {
 }
 ```
 
+#### JavaScript: Fix breaks indentation arguments with nested object contains newline in arrow function ([#] by [@sosukesuzuki])
+
+The similar bug is fixed by [#6301](https://github.com/prettier/prettier/pull/6301). But it does not support nested object.
+
+<!-- prettier-ignore -->
+```js
+foo(
+  ({
+    a: {
+      a,
+
+      b
+    }
+  }) => {}
+);
+
+// Prettier (stable)
+foo(({ a: { a,
+    b } }) => {});
+
+// Prettier (master)
+foo(
+  ({
+    a: {
+      a,
+
+      b
+    }
+  }) => {}
+);
+```
+
 [#5910]: https://github.com/prettier/prettier/pull/5910
 [#6033]: https://github.com/prettier/prettier/pull/6033
 [#6186]: https://github.com/prettier/prettier/pull/6186
@@ -1049,6 +1081,7 @@ class A {
 [#6640]: https://github.com/prettier/prettier/pull/6640
 [#6646]: https://github.com/prettier/prettier/pull/6646
 [#6673]: https://github.com/prettier/prettier/pull/6673
+[#]: https://github.com/prettier/prettier/pull/
 [@brainkim]: https://github.com/brainkim
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
