@@ -30,6 +30,7 @@ In older IDE versions, select Custom and do the following configuration:
 - **Arguments**: `--write [other options] $FilePathRelativeToProjectRoot$`
 - **Output paths to refresh**: `$FilePathRelativeToProjectRoot$`
 - **Working directory**: `$ProjectFileDir$`
+- **Environment variables**: add `COMPILE_PARTIAL=true` if you want to run `prettier` on partials (like `_component.scss`)
 - **Auto-save edited files to trigger the watcher**: Uncheck to reformat on Save only.
 
 ![Example](/docs/assets/webstorm/file-watcher-prettier.png)
