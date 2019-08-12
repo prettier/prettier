@@ -16,7 +16,7 @@ const foo = @deco class {
   //
 };
 
-const foo =
+const bar =
   @deco
   class {
     //
@@ -38,7 +38,7 @@ const foo =
     //
   };
 
-const foo =
+const bar =
   @deco
   class {
     //
