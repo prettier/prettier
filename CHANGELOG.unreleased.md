@@ -87,6 +87,77 @@ Previous versions format text with whitespace after JSX incorrectly in mdx, this
 </Hello> 123
 ```
 
+#### TypeScript/Flow: Union types inside of tuples ([#6381] by [@squidfunk])
+
+Previous versions would not double-indent multi-line union types inside of
+tuples for TypeScipt and Flow:
+
+<!-- prettier-ignore -->
+```ts
+// Input
+type B = [
+  | AAAAAAAAAAAAAAAAAAAAAA
+  | BBBBBBBBBBBBBBBBBBBBBB
+  | CCCCCCCCCCCCCCCCCCCCCC
+  | DDDDDDDDDDDDDDDDDDDDDD
+]
+
+type C = [
+  | [AAAAAAAAAAAAAAAAAAAAAA | BBBBBBBBBBBBBBBBBBBBBB | CCCCCCCCCCCCCCCCCCCCCC | DDDDDDDDDDDDDDDDDDDDDD]
+  | [AAAAAAAAAAAAAAAAAAAAAA | BBBBBBBBBBBBBBBBBBBBBB | CCCCCCCCCCCCCCCCCCCCCC | DDDDDDDDDDDDDDDDDDDDDD]
+]
+
+// Output (Prettier stable)
+type B = [
+
+    | AAAAAAAAAAAAAAAAAAAAAA
+    | BBBBBBBBBBBBBBBBBBBBBB
+    | CCCCCCCCCCCCCCCCCCCCCC
+    | DDDDDDDDDDDDDDDDDDDDDD
+];
+
+type C = [
+
+    | [
+
+          | AAAAAAAAAAAAAAAAAAAAAA
+          | BBBBBBBBBBBBBBBBBBBBBB
+          | CCCCCCCCCCCCCCCCCCCCCC
+          | DDDDDDDDDDDDDDDDDDDDDD
+    ]
+    | [
+
+          | AAAAAAAAAAAAAAAAAAAAAA
+          | BBBBBBBBBBBBBBBBBBBBBB
+          | CCCCCCCCCCCCCCCCCCCCCC
+          | DDDDDDDDDDDDDDDDDDDDDD
+    ]
+];
+
+// Output (Prettier master)
+type B = [
+  | AAAAAAAAAAAAAAAAAAAAAA
+  | BBBBBBBBBBBBBBBBBBBBBB
+  | CCCCCCCCCCCCCCCCCCCCCC
+  | DDDDDDDDDDDDDDDDDDDDDD
+];
+
+type C = [
+  | [
+      | AAAAAAAAAAAAAAAAAAAAAA
+      | BBBBBBBBBBBBBBBBBBBBBB
+      | CCCCCCCCCCCCCCCCCCCCCC
+      | DDDDDDDDDDDDDDDDDDDDDD
+    ]
+  | [
+      | AAAAAAAAAAAAAAAAAAAAAA
+      | BBBBBBBBBBBBBBBBBBBBBB
+      | CCCCCCCCCCCCCCCCCCCCCC
+      | DDDDDDDDDDDDDDDDDDDDDD
+    ]
+];
+```
+
 #### MDX: Adjacent JSX elements should be allowed in mdx ([#6332] by [@JounQin])
 
 Previous versions would not format adjacent JSX elements in mdx, this has been fixed in this version.
