@@ -30,22 +30,22 @@ class MyContractSelectionWidget extends React.Component<void,  MyContractSelecti
   method() {}
 }
 
-class DisplayObject
+class DisplayObject1
   extends utils.EventEmitter
   implements interaction_InteractiveTarget {
 }
 
-class DisplayObject extends utils.EventEmitter
+class DisplayObject2 extends utils.EventEmitter
   implements interaction_InteractiveTarget {
 }
 
-class DisplayObject extends utils.EventEmitter
+class DisplayObject3 extends utils.EventEmitter
   implements interaction_InteractiveTarget,
     somethingElse_SomeOtherThing,
     somethingElseAgain_RunningOutOfNames {
 }
 
-class DisplayObject extends utils.EventEmitter implements interaction_InteractiveTarget {}
+class DisplayObject4 extends utils.EventEmitter implements interaction_InteractiveTarget {}
 class Readable extends events.EventEmitter implements NodeJS_ReadableStream {}
 class InMemoryAppender extends log4javascript.Appender implements ICachedLogMessageProvider {}
 
@@ -69,19 +69,19 @@ class MyContractSelectionWidget
   method() {}
 }
 
-class DisplayObject extends utils.EventEmitter
+class DisplayObject1 extends utils.EventEmitter
   implements interaction_InteractiveTarget {}
 
-class DisplayObject extends utils.EventEmitter
+class DisplayObject2 extends utils.EventEmitter
   implements interaction_InteractiveTarget {}
 
-class DisplayObject extends utils.EventEmitter
+class DisplayObject3 extends utils.EventEmitter
   implements
     interaction_InteractiveTarget,
     somethingElse_SomeOtherThing,
     somethingElseAgain_RunningOutOfNames {}
 
-class DisplayObject extends utils.EventEmitter
+class DisplayObject4 extends utils.EventEmitter
   implements interaction_InteractiveTarget {}
 class Readable extends events.EventEmitter implements NodeJS_ReadableStream {}
 class InMemoryAppender extends log4javascript.Appender
@@ -125,32 +125,32 @@ parsers: ["flow", "babel", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-class A {
+class A1 {
   // comment
 }
 
-class A { // comment
+class A2 { // comment
 }
 
-class A {
+class A3 {
 }
 
-class A {
+class A4 {
   m() {}
 }
 
 =====================================output=====================================
-class A {
+class A1 {
   // comment
 }
 
-class A {
+class A2 {
   // comment
 }
 
-class A {}
+class A3 {}
 
-class A {
+class A4 {
   m() {}
 }
 
