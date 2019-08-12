@@ -89,8 +89,8 @@ Previous versions format text with whitespace after JSX incorrectly in mdx, this
 
 #### TypeScript/Flow: Union types inside of tuples ([#6381] by [@squidfunk])
 
-Previous versions would not double-indent multi-line union types inside of
-tuples for TypeScipt and Flow:
+Previous versions would double-indent multi-line union types inside of
+tuples for TypeScipt and Flow and add a new line:
 
 <!-- prettier-ignore -->
 ```ts
