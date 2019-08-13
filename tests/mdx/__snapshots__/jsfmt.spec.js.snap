@@ -256,6 +256,15 @@ printWidth: 80
 
 ---
 
+<Hello>
+    test   <World />   test
+</Hello>       123
+<Hello>
+    test   <World />   test
+</Hello>       234
+
+---
+
 | Column 1 | Column 2 |
 |---|---|
 | Text | <Hello>Text</Hello> |
@@ -277,6 +286,16 @@ printWidth: 80
 <Hello>
   test <World /> test
 </Hello>123
+
+---
+
+<Hello>
+  test <World /> test
+</Hello> 123
+
+<Hello>
+  test <World /> test
+</Hello> 234
 
 ---
 
@@ -314,6 +333,15 @@ semi: false
 
 ---
 
+<Hello>
+    test   <World />   test
+</Hello>       123
+<Hello>
+    test   <World />   test
+</Hello>       234
+
+---
+
 | Column 1 | Column 2 |
 |---|---|
 | Text | <Hello>Text</Hello> |
@@ -335,6 +363,16 @@ semi: false
 <Hello>
   test <World /> test
 </Hello>123
+
+---
+
+<Hello>
+  test <World /> test
+</Hello> 123
+
+<Hello>
+  test <World /> test
+</Hello> 234
 
 ---
 

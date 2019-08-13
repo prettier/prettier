@@ -68,11 +68,12 @@ function htmlToJsx() {
       }
 
       return nodes.reduce((newNodes, { sourceSpan: position, type }) => {
-        const value = node.value
-          .slice(position.start.offset, position.end.offset)
-          .trim();
+        const value = node.value.slice(
+          position.start.offset,
+          position.end.offset
+        );
 
-        if (value) {
+        if (value.trim()) {
           newNodes.push({
             type: type === "element" ? "jsx" : type,
             value,
