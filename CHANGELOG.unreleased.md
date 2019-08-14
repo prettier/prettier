@@ -573,7 +573,7 @@ Previously, even if the line length was shorter than `printWidth`, Prettier woul
 </template>
 ```
 
-#### JavaScript: Empty lines in destructured arrow function parameters could break indentation and idempotence ([#6301] by [@sosukesuzuki])
+#### JavaScript: Fix breaks indentation and idempotency when an arrow function that args include object pattern is passed to a function as parameter. ([#6301] & [#6382] by [@sosukesuzuki])
 
 Previously, Prettier indented code strangely when an arrow function whose parameters included an object pattern was passed to a function call as an argument. Also, it broke idempotence. Please see [#6294](https://github.com/prettier/prettier/issues/6294) for details.
 
@@ -1012,38 +1012,6 @@ class A {
 class A {
   protected [s]?() {}
 }
-```
-
-#### JavaScript: Fix breaks indentation arguments with nested object contains newline in arrow function ([#6382] by [@sosukesuzuki])
-
-The similar bug is fixed by [#6301](https://github.com/prettier/prettier/pull/6301). But it does not support nested object.
-
-<!-- prettier-ignore -->
-```js
-foo(
-  ({
-    a: {
-      a,
-
-      b
-    }
-  }) => {}
-);
-
-// Prettier (stable)
-foo(({ a: { a,
-    b } }) => {});
-
-// Prettier (master)
-foo(
-  ({
-    a: {
-      a,
-
-      b
-    }
-  }) => {}
-);
 ```
 
 [#5910]: https://github.com/prettier/prettier/pull/5910
