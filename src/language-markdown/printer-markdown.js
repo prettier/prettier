@@ -775,7 +775,11 @@ function isInlineNode(node) {
 }
 
 function isEndsWithHardLine(node) {
-  return /\n+$/.test(node.value);
+  return node && /\n+$/.test(node.value);
+}
+
+function last(nodes) {
+  return nodes && nodes[nodes.length - 1];
 }
 
 function shouldNotPrePrintHardline(node, { parentNode, parts, prevNode }) {
@@ -788,8 +792,7 @@ function shouldNotPrePrintHardline(node, { parentNode, parts, prevNode }) {
   const isAfterHardlineNode =
     prevNode &&
     (isEndsWithHardLine(prevNode) ||
-      (prevNode.children &&
-        isEndsWithHardLine(prevNode.children[prevNode.children.length - 1])));
+      isEndsWithHardLine(last(prevNode.children)));
 
   return (
     isFirstNode || isInlineNode(node) || isInlineHTML || isAfterHardlineNode
