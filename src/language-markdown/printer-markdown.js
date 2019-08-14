@@ -774,14 +774,26 @@ function isInlineNode(node) {
   return node && INLINE_NODE_TYPES.indexOf(node.type) !== -1;
 }
 
-function shouldNotPrePrintHardline(node, data) {
-  const isFirstNode = data.parts.length === 0;
+function isEndsWithHardLine(node) {
+  return /\n+$/.test(node.value);
+}
+
+function shouldNotPrePrintHardline(node, { parentNode, parts, prevNode }) {
+  const isFirstNode = parts.length === 0;
 
   const isInlineHTML =
     node.type === "html" &&
-    INLINE_NODE_WRAPPER_TYPES.indexOf(data.parentNode.type) !== -1;
+    INLINE_NODE_WRAPPER_TYPES.indexOf(parentNode.type) !== -1;
 
-  return isFirstNode || isInlineNode(node) || isInlineHTML;
+  const isAfterHardlineNode =
+    prevNode &&
+    (isEndsWithHardLine(prevNode) ||
+      (prevNode.children &&
+        isEndsWithHardLine(prevNode.children[prevNode.children.length - 1])));
+
+  return (
+    isFirstNode || isInlineNode(node) || isInlineHTML || isAfterHardlineNode
+  );
 }
 
 function shouldPrePrintDoubleHardline(node, { parentNode, prevNode }) {

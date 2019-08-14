@@ -292,7 +292,6 @@ printWidth: 80
 <Hello>
   test <World /> test
 </Hello> 123
-
 <Hello>
   test <World /> test
 </Hello> 234
@@ -369,7 +368,6 @@ semi: false
 <Hello>
   test <World /> test
 </Hello> 123
-
 <Hello>
   test <World /> test
 </Hello> 234

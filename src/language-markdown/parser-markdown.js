@@ -73,7 +73,7 @@ function htmlToJsx() {
           position.end.offset
         );
 
-        if (value.trim()) {
+        if (value) {
           newNodes.push({
             type: type === "element" ? "jsx" : type,
             value,
