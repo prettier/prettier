@@ -3888,7 +3888,6 @@ function printArgumentsList(path, options, print) {
   function hasEmptyLineInObject(node) {
     return (
       node &&
-      node.type &&
       node.type === "ObjectPattern" &&
       node.properties &&
       node.properties.some(
