@@ -2813,15 +2813,22 @@ function printPathNoParens(path, options, print, args) {
       let hasParens;
 
       if (n.type === "TSUnionType") {
+        const grandParent = path.getNode(2);
         const greatGrandParent = path.getParentNode(2);
         const greatGreatGrandParent = path.getParentNode(3);
 
         hasParens =
-          greatGrandParent &&
-          greatGrandParent.type === "TSParenthesizedType" &&
-          greatGreatGrandParent &&
-          (greatGreatGrandParent.type === "TSUnionType" ||
-            greatGreatGrandParent.type === "TSIntersectionType");
+          (parent.type === "TSParenthesizedType" &&
+            (grandParent.type === "TSAsExpression" ||
+              grandParent.type === "TSUnionType" ||
+              grandParent.type === "TSIntersectionType" ||
+              grandParent.type === "TSTypeOperator" ||
+              grandParent.type === "TSArrayType")) ||
+          (greatGrandParent &&
+            greatGrandParent.type === "TSParenthesizedType" &&
+            greatGreatGrandParent &&
+            (greatGreatGrandParent.type === "TSUnionType" ||
+              greatGreatGrandParent.type === "TSIntersectionType"));
       } else {
         hasParens = pathNeedsParens(path, options);
       }
@@ -4056,6 +4063,32 @@ function printArgumentsList(path, options, print) {
     ]);
   }
 
+  // func(
+  //   ({
+  //     a,
+
+  //     b
+  //   }) => {}
+  // );
+  function hasEmptyLineInObjectArgInArrowFunction(arg) {
+    return (
+      arg &&
+      arg.type === "ArrowFunctionExpression" &&
+      arg.params &&
+      arg.params.some(
+        param =>
+          param.type &&
+          param.type === "ObjectPattern" &&
+          param.properties &&
+          param.properties.some(
+            (property, i, properties) =>
+              i < properties.length - 1 &&
+              isNextLineEmpty(options.originalText, property, options)
+          )
+      )
+    );
+  }
+
   let anyArgEmptyLine = false;
   let hasEmptyLineFollowingFirstArg = false;
   const lastArgIndex = args.length - 1;
@@ -4075,6 +4108,8 @@ function printArgumentsList(path, options, print) {
     } else {
       parts.push(",", line);
     }
+
+    anyArgEmptyLine = hasEmptyLineInObjectArgInArrowFunction(arg);
 
     return concat(parts);
   }, "arguments");
