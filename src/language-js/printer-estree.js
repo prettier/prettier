@@ -3893,7 +3893,10 @@ function printArgumentsList(path, options, print) {
                 (element.type === "RestElement" &&
                   element.argument &&
                   hasEmptyLineInObject(element.argument))
-            ))
+            )) ||
+          (param.type === "AssignmentPattern" &&
+            param.right &&
+            hasEmptyLineInObject(param.right))
       )
     );
   }
@@ -3901,7 +3904,7 @@ function printArgumentsList(path, options, print) {
   function hasEmptyLineInObject(node) {
     return (
       node &&
-      node.type === "ObjectPattern" &&
+      (node.type === "ObjectPattern" || node.type === "ObjectExpression") &&
       node.properties &&
       node.properties.some(
         (property, i, properties) =>
