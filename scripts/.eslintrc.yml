@@ -3,8 +3,7 @@ parserOptions:
 rules:
   no-console: off
 overrides:
-  -
-    files:
+  - files:
       - test-dist.js
     parserOptions:
       ecmaVersion: 6
