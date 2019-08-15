@@ -15,6 +15,7 @@ const PROJECT_ROOT = path.resolve(__dirname, "../..");
  * @property {string[]} externals - array of paths that should not be included in the final bundle
  * @property {Object.<string, string>} replace - map of strings to replace when processing the bundle
  * @property {string[]} babelPlugins - babel plugins
+ * @property {Object?} terserOptions - options for `terser`
 
  * @typedef {Object} CommonJSConfig
  * @property {Object} namedExports - for cases where rollup can't infer what's exported
@@ -59,7 +60,13 @@ const parsers = [
     input: "src/language-css/parser-postcss.js",
     target: "universal",
     // postcss has dependency cycles that don't work with rollup
-    bundler: "webpack"
+    bundler: "webpack",
+    // postcss need keep_fnames when minify
+    terserOptions: {
+      mangle: {
+        keep_fnames: true
+      }
+    }
   },
   {
     input: "src/language-graphql/parser-graphql.js",
