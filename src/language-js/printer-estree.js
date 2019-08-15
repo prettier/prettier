@@ -3882,28 +3882,19 @@ function printArgumentsList(path, options, print) {
       arg.type === "ArrowFunctionExpression" &&
       arg.params &&
       arg.params.some(
-        node =>
-          (node.type === "ObjectPattern" && hasEmptyLineInObject(node)) ||
-          (node.type === "ArrayPattern" && hasEmptyLineInObjectInArray(node))
+        param =>
+          (param.type === "ObjectPattern" && hasEmptyLineInObject(param)) ||
+          (param.type === "ArrayPattern" &&
+            param.elements &&
+            param.elements.some(
+              element =>
+                (element.type === "ObjectPattern" &&
+                  hasEmptyLineInObject(element)) ||
+                (element.type === "RestElement" &&
+                  element.argument &&
+                  hasEmptyLineInObject(element.argument))
+            ))
       )
-    );
-  }
-
-  // func(
-  //   ([
-  //     {
-  //       a,
-
-  //       b
-  //     }
-  //   ]) => {}
-  // );
-  function hasEmptyLineInObjectInArray(node) {
-    return (
-      node &&
-      node.type === "ArrayPattern" &&
-      node.elements &&
-      node.elements.some(hasEmptyLineInObject)
     );
   }
 
