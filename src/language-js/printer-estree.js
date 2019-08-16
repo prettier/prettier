@@ -3885,11 +3885,19 @@ function printArgumentsList(path, options, print) {
         param =>
           hasEmptyLineInObject(param) ||
           hasEmptyLineInObjectInArray(param) ||
-          (param.type === "AssignmentPattern" &&
-            param.right &&
-            hasEmptyLineInObject(param.right)) ||
+          hasEmptyLineInObjectInAssignment(param) ||
           hasEmptyLineInObjectInRest(param)
       )
+    );
+  }
+
+  function hasEmptyLineInObjectInAssignment(node) {
+    return (
+      node &&
+      node.type === "AssignmentPattern" &&
+      node.right &&
+      (hasEmptyLineInObject(node.right) ||
+        hasEmptyLineInObjectInArray(node.right))
     );
   }
 
