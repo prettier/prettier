@@ -3900,8 +3900,7 @@ function printArgumentsList(path, options, print) {
       node.elements.some(
         element =>
           hasEmptyLineInObject(element) ||
-          (element.type === "ArrayPattern" &&
-            hasEmptyLineInObjectInArray(element)) ||
+          hasEmptyLineInObjectInArray(element) ||
           (element.type === "RestElement" &&
             element.argument &&
             hasEmptyLineInObject(element.argument))
