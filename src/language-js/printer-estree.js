@@ -3887,8 +3887,19 @@ function printArgumentsList(path, options, print) {
           hasEmptyLineInObjectInArray(param) ||
           (param.type === "AssignmentPattern" &&
             param.right &&
-            hasEmptyLineInObject(param.right))
+            hasEmptyLineInObject(param.right)) ||
+          hasEmptyLineInObjectInRest(param)
       )
+    );
+  }
+
+  function hasEmptyLineInObjectInRest(node) {
+    return (
+      node &&
+      node.type === "RestElement" &&
+      node.argument &&
+      (hasEmptyLineInObject(node.argument) ||
+        hasEmptyLineInObjectInArray(node.argument))
     );
   }
 
