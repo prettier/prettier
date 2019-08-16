@@ -3883,20 +3883,26 @@ function printArgumentsList(path, options, print) {
       arg.params &&
       arg.params.some(
         param =>
-          (param.type === "ObjectPattern" && hasEmptyLineInObject(param)) ||
-          (param.type === "ArrayPattern" &&
-            param.elements &&
-            param.elements.some(
-              element =>
-                (element.type === "ObjectPattern" &&
-                  hasEmptyLineInObject(element)) ||
-                (element.type === "RestElement" &&
-                  element.argument &&
-                  hasEmptyLineInObject(element.argument))
-            )) ||
+          hasEmptyLineInObject(param) ||
+          hasEmptyLineInObjectInArray(param) ||
           (param.type === "AssignmentPattern" &&
             param.right &&
             hasEmptyLineInObject(param.right))
+      )
+    );
+  }
+
+  function hasEmptyLineInObjectInArray(node) {
+    return (
+      node &&
+      node.type === "ArrayPattern" &&
+      node.elements &&
+      node.elements.some(
+        element =>
+          hasEmptyLineInObject(element) ||
+          (element.type === "RestElement" &&
+            element.argument &&
+            hasEmptyLineInObject(element.argument))
       )
     );
   }
@@ -3909,6 +3915,7 @@ function printArgumentsList(path, options, print) {
       node.properties.some(
         (property, i, properties) =>
           hasEmptyLineInObject(property.value) ||
+          hasEmptyLineInObjectInArray(property.value) ||
           (i < properties.length - 1 &&
             isNextLineEmpty(options.originalText, property, options))
       )
