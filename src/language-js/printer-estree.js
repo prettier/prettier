@@ -3912,9 +3912,7 @@ function printArgumentsList(path, options, print) {
         element =>
           hasEmptyLineInObject(element) ||
           hasEmptyLineInObjectInArray(element) ||
-          (element.type === "RestElement" &&
-            element.argument &&
-            hasEmptyLineInObject(element.argument))
+          hasEmptyLineInObjectInRest(element)
       )
     );
   }
