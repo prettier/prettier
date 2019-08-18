@@ -3897,7 +3897,9 @@ function printArgumentsList(path, options, print) {
       node.type === "AssignmentPattern" &&
       node.right &&
       (hasEmptyLineInObject(node.right) ||
-        hasEmptyLineInObjectInArray(node.right))
+        hasEmptyLineInObjectInArray(node.right) ||
+        (node.right.type === "CallExpression" &&
+          node.right.arguments.some(hasEmptyLineInObject)))
     );
   }
 
