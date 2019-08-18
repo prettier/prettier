@@ -75,8 +75,8 @@ function getSupportInfo(version, opts) {
     .map(language => {
       let parsers;
       // Prevent breaking changes
-      if (language.name === "Markdown" || language.name === "TypeScript") {
-        parsers = [language.name.toLowerCase()];
+      if (language.name === "Markdown") {
+        parsers = ["markdown"];
         // "babylon" was renamed to "babel" in 1.16.0
       } else if (useBabylonParser && language.parsers.includes("babel")) {
         parsers = language.parsers.map(parser =>

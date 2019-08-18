@@ -75,6 +75,7 @@ function createParse(parseMethod, extraPlugins) {
 
 const parse = createParse("parse", ["flow"]);
 const parseFlow = createParse("parse", [["flow", { all: true, enums: true }]]);
+const parseTypeScript = createParse("parse", ["typescript"]);
 const parseExpression = createParse("parseExpression");
 
 function parseJson(text, parsers, opts) {
@@ -146,6 +147,7 @@ function assertJsonNode(node, parent) {
 
 const babel = { parse, astFormat: "estree", hasPragma, ...locFns };
 const babelFlow = { ...babel, parse: parseFlow };
+const babelTypeScript = { ...babel, parse: parseTypeScript };
 const babelExpression = { ...babel, parse: parseExpression };
 
 // Export as a plugin so we can reuse the same bundle for UMD loading
@@ -153,6 +155,7 @@ module.exports = {
   parsers: {
     babel,
     "babel-flow": babelFlow,
+    "babel-ts": babelTypeScript,
     // aliased to keep backwards compatibility
     babylon: babel,
     json: {
