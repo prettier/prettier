@@ -3898,8 +3898,10 @@ function printArgumentsList(path, options, print) {
       node.right &&
       (hasEmptyLineInObject(node.right) ||
         hasEmptyLineInObjectInArray(node.right) ||
+        hasEmptyLineInObjectArgInArrowFunction(node.right) ||
         (node.right.type === "CallExpression" &&
-          node.right.arguments.some(hasEmptyLineInObject)))
+          (node.right.arguments.some(hasEmptyLineInObject) ||
+            hasEmptyLineInObjectArgInArrowFunction(node.right.callee))))
     );
   }
 
