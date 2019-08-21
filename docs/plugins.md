@@ -42,7 +42,7 @@ Providing at least one path to `--plugin-search-dir`/`pluginSearchDirs` turns of
 ## Official Plugins
 
 - [`@prettier/plugin-php`](https://github.com/prettier/plugin-php)
-- [`@prettier/plugin-pug`](https://github.com/prettier/plugin-pug) by [**@Shinigami92**](https://github.com/Shinigami92) (in alpha development)
+- [`@prettier/plugin-pug`](https://github.com/prettier/plugin-pug) by [**@Shinigami92**](https://github.com/Shinigami92)
 - [`@prettier/plugin-ruby`](https://github.com/prettier/plugin-ruby)
 - [`@prettier/plugin-swift`](https://github.com/prettier/plugin-swift)
 
