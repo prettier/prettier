@@ -3876,75 +3876,29 @@ function printArgumentsList(path, options, print) {
   //     b
   //   }) => {}
   // );
-  function hasEmptyLineInObjectArgInArrowFunction(arg) {
-    return (
-      arg &&
-      arg.type === "ArrowFunctionExpression" &&
-      arg.params &&
-      arg.params.some(
-        param =>
-          hasEmptyLineInObject(param) ||
-          hasEmptyLineInObjectInArray(param) ||
-          hasEmptyLineInObjectInAssignment(param) ||
-          hasEmptyLineInObjectInRest(param)
-      )
-    );
-  }
+  function shouldBreakForArrowFunctionInArgments(arg, argPath) {
+    if (
+      !arg ||
+      arg.type !== "ArrowFunctionExpression" ||
+      !arg.body ||
+      arg.body.type !== "BlockStatement" ||
+      !arg.params ||
+      arg.params.length < 1
+    ) {
+      return false;
+    }
 
-  function hasEmptyLineInObjectInAssignment(node) {
-    return (
-      node &&
-      node.type === "AssignmentPattern" &&
-      node.right &&
-      (hasEmptyLineInObject(node.right) ||
-        hasEmptyLineInObjectInArray(node.right) ||
-        hasEmptyLineInObjectArgInArrowFunction(node.right) ||
-        (node.right.type === "CallExpression" &&
-          (node.right.arguments.some(hasEmptyLineInObject) ||
-            hasEmptyLineInObjectArgInArrowFunction(node.right.callee))))
-    );
-  }
+    let shouldBreak = false;
+    argPath.map(paramPath => {
+      const printed = concat([print(paramPath)]);
+      shouldBreak = willBreak(printed);
+    }, "params");
 
-  function hasEmptyLineInObjectInRest(node) {
-    return (
-      node &&
-      node.type === "RestElement" &&
-      node.argument &&
-      (hasEmptyLineInObject(node.argument) ||
-        hasEmptyLineInObjectInArray(node.argument))
-    );
-  }
-
-  function hasEmptyLineInObjectInArray(node) {
-    return (
-      node &&
-      node.type === "ArrayPattern" &&
-      node.elements &&
-      node.elements.some(
-        element =>
-          hasEmptyLineInObject(element) ||
-          hasEmptyLineInObjectInArray(element) ||
-          hasEmptyLineInObjectInRest(element)
-      )
-    );
-  }
-
-  function hasEmptyLineInObject(node) {
-    return (
-      node &&
-      (node.type === "ObjectPattern" || node.type === "ObjectExpression") &&
-      node.properties &&
-      node.properties.some(
-        (property, i, properties) =>
-          hasEmptyLineInObject(property.value) ||
-          hasEmptyLineInObjectInArray(property.value) ||
-          (i < properties.length - 1 &&
-            isNextLineEmpty(options.originalText, property, options))
-      )
-    );
+    return shouldBreak;
   }
 
   let anyArgEmptyLine = false;
+  let shouldBreakForArrowFunction = false;
   let hasEmptyLineFollowingFirstArg = false;
   const lastArgIndex = args.length - 1;
   const printedArguments = path.map((argPath, index) => {
@@ -3964,7 +3918,10 @@ function printArgumentsList(path, options, print) {
       parts.push(",", line);
     }
 
-    anyArgEmptyLine = hasEmptyLineInObjectArgInArrowFunction(arg);
+    shouldBreakForArrowFunction = shouldBreakForArrowFunctionInArgments(
+      arg,
+      argPath
+    );
 
     return concat(parts);
   }, "arguments");
@@ -3999,7 +3956,9 @@ function printArgumentsList(path, options, print) {
     const shouldBreak =
       (shouldGroupFirst
         ? printedArguments.slice(1).some(willBreak)
-        : printedArguments.slice(0, -1).some(willBreak)) || anyArgEmptyLine;
+        : printedArguments.slice(0, -1).some(willBreak)) ||
+      anyArgEmptyLine ||
+      shouldBreakForArrowFunction;
 
     // We want to print the last argument with a special flag
     let printedExpanded;
