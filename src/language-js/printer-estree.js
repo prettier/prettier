@@ -3889,7 +3889,7 @@ function printArgumentsList(path, options, print) {
     }
 
     let shouldBreak = false;
-    argPath.map(paramPath => {
+    argPath.each(paramPath => {
       const printed = concat([print(paramPath)]);
       shouldBreak = willBreak(printed);
     }, "params");
