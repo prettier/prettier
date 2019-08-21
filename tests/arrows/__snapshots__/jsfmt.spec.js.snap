@@ -593,6 +593,17 @@ foo(
   ) => {}
 );
 
+foo(
+  (
+    a = 1 +
+      f({
+        a,
+
+        b
+      })
+  ) => {}
+);
+
 =====================================output=====================================
 Seq(typeDef.interface.groups).forEach(group =>
   Seq(group.members).forEach((member, memberName) =>
@@ -928,8 +939,17 @@ foo(
   ]) => {}
 );
 
-foo((a = [{ a,
-    b }]) => {});
+foo(
+  (
+    a = [
+      {
+        a,
+
+        b
+      }
+    ]
+  ) => {}
+);
 
 foo(
   (
@@ -958,6 +978,17 @@ foo(
 
       b
     }) => {}
+  ) => {}
+);
+
+foo(
+  (
+    a = 1 +
+      f({
+        a,
+
+        b
+      })
   ) => {}
 );
 
@@ -1359,6 +1390,17 @@ foo(
   ) => {}
 );
 
+foo(
+  (
+    a = 1 +
+      f({
+        a,
+
+        b
+      })
+  ) => {}
+);
+
 =====================================output=====================================
 Seq(typeDef.interface.groups).forEach((group) =>
   Seq(group.members).forEach((member, memberName) =>
@@ -1694,8 +1736,17 @@ foo(
   ]) => {}
 );
 
-foo((a = [{ a,
-    b }]) => {});
+foo(
+  (
+    a = [
+      {
+        a,
+
+        b
+      }
+    ]
+  ) => {}
+);
 
 foo(
   (
@@ -1724,6 +1775,17 @@ foo(
 
       b
     }) => {}
+  ) => {}
+);
+
+foo(
+  (
+    a = 1 +
+      f({
+        a,
+
+        b
+      })
   ) => {}
 );
 
