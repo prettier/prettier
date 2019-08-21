@@ -433,12 +433,17 @@ function eachFilename(context, patterns, callback) {
   }
 }
 
+function getRunPrettierCommand(files) {
+  return `npx prettier --write ${files.join(" ")}`;
+}
+
 function formatFiles(context) {
   // The ignorer will be used to filter file paths after the glob is checked,
   // before any files are actually written
   const ignorer = createIgnorerFromContextOrDie(context);
 
   let numberOfUnformattedFilesFound = 0;
+  const unformattedFileNames = [];
 
   if (context.argv["check"]) {
     context.logger.log("Checking formatting...");
@@ -583,6 +588,7 @@ function formatFiles(context) {
     ) {
       context.logger.log(filename);
       numberOfUnformattedFilesFound += 1;
+      unformattedFileNames.push(filename);
     }
   });
 
@@ -597,7 +603,9 @@ function formatFiles(context) {
         ? "All matched files use Prettier code style!"
         : context.argv["write"]
         ? "Code style issues fixed in the above file(s)."
-        : "Code style issues found in the above file(s). Forgot to run Prettier?"
+        : "Code style issues found in the above file(s). Forgot to run Prettier? \n" +
+          "Running something like this should fix the issue: \n" +
+          getRunPrettierCommand(unformattedFileNames)
     );
   }
 

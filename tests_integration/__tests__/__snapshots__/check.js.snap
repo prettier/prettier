@@ -7,14 +7,18 @@ exports[`--checks works in CI just as in a non-TTY mode (stderr) 2`] = `""`;
 exports[`--checks works in CI just as in a non-TTY mode (stdout) 1`] = `
 "Checking formatting...
 unformatted.js
-Code style issues found in the above file(s). Forgot to run Prettier?
+Code style issues found in the above file(s). Forgot to run Prettier? 
+Running something like this should fix the issue: 
+npx prettier --write unformatted.js
 "
 `;
 
 exports[`--checks works in CI just as in a non-TTY mode (stdout) 2`] = `
 "Checking formatting...
 unformatted.js
-Code style issues found in the above file(s). Forgot to run Prettier?
+Code style issues found in the above file(s). Forgot to run Prettier? 
+Running something like this should fix the issue: 
+npx prettier --write unformatted.js
 "
 `;
 

@@ -44,6 +44,8 @@ Checking formatting...
 src/fileA.js
 src/fileB.js
 Code style issues found in the above file(s). Forgot to run Prettier?
+Running something like this should fix the issue:
+npx prettier --write src/fileA.js src/fileB.js
 ```
 
 The command will return exit code 1 in the second case, which is helpful inside the CI pipelines.
