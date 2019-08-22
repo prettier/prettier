@@ -3891,7 +3891,7 @@ function printArgumentsList(path, options, print) {
     let shouldBreak = false;
     argPath.each(paramPath => {
       const printed = concat([print(paramPath)]);
-      shouldBreak = willBreak(printed);
+      shouldBreak = shouldBreak || willBreak(printed);
     }, "params");
 
     return shouldBreak;
