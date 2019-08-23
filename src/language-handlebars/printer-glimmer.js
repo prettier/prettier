@@ -252,11 +252,20 @@ function print(path, options, print) {
           maxLineBreaksToPreserve
         );
         trailingLineBreaksCount = 0;
-      } else if (
-        isNextNodeOfType(path, "ElementNode") ||
-        isNextNodeOfType(path, "BlockStatement")
-      ) {
-        trailingLineBreaksCount++;
+      } else {
+        if (
+          isNextNodeOfType(path, "ElementNode") ||
+          isNextNodeOfType(path, "BlockStatement")
+        ) {
+          trailingLineBreaksCount = Math.max(trailingLineBreaksCount, 1);
+        }
+
+        if (
+          isPreviousNodeOfSomeType(path, ["ElementNode"]) ||
+          isPreviousNodeOfSomeType(path, ["BlockStatement"])
+        ) {
+          leadingLineBreaksCount = Math.max(leadingLineBreaksCount, 1);
+        }
       }
 
       let leadingSpace = "";
