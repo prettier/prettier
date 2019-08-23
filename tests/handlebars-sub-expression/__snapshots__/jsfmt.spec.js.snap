@@ -63,6 +63,7 @@ printWidth: 80
     )
   }}
 ></div>
+
 {{#block
   (concat
     (service)
@@ -84,6 +85,7 @@ printWidth: 80
     hashPair=(does not need a line break due to being under 80 chars long)
   )
 }}{{/block}}
+
 {{foobar-sub-component/foobar-foo
   hook="stringLiteral"
   foo=(t
@@ -160,6 +162,7 @@ singleQuote: true
     )
   }}
 ></div>
+
 {{#block
   (concat
     (service)
@@ -181,6 +184,7 @@ singleQuote: true
     hashPair=(does not need a line break due to being under 80 chars long)
   )
 }}{{/block}}
+
 {{foobar-sub-component/foobar-foo
   hook='stringLiteral'
   foo=(t

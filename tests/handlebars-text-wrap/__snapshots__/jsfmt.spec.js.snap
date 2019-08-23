@@ -157,6 +157,34 @@ printWidth: 80
 <div>
   Some text that would need to wrap on to a new line in order to display correctly and nicely
 </div>
+
+{{! Wrapping tags }}
+<div>
+  <first>
+    f
+  </first>
+
+  <first>
+    f
+  </first>
+
+  <first>
+    f
+  </first>
+
+  <first>
+    f
+  </first>
+
+  <first>
+    f
+  </first>
+
+  <first>
+    f
+  </first>
+</div>
+
 {{! Wrapping tags }}
 <div>
   <first>
@@ -178,121 +206,125 @@ printWidth: 80
     f
   </first>
 </div>
-{{! Wrapping tags }}
-<div>
-  <first>
-    f
-  </first>
-  <first>
-    f
-  </first>
-  <first>
-    f
-  </first>
-  <first>
-    f
-  </first>
-  <first>
-    f
-  </first>
-  <first>
-    f
-  </first>
-</div>
+
 {{! Wrapping tags }}
 <div>
   <first>
     aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
   </first>
+
   <first>
     f
   </first>
 </div>
+
 <div>
-  before<div>
+  before
+  <div>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur at mollis lorem.
   </div>
   after
 </div>
+
 <div>
   before{stuff}after{stuff}after{stuff}after{stuff}after{stuff}after{stuff}{stuff}{stuff}after{stuff}after
 </div>
+
 <div>
-  before {{stuff}}after {{stuff}}after {{stuff}}after {{stuff}}after {{stuff
-  }}after {{stuff}} {{stuff}} {{stuff}}after {{stuff}}after
+  before {{stuff}} after {{stuff}} after {{stuff}} after {{stuff}} after {{stuff
+  }} after {{stuff}} {{stuff}} {{stuff}} after {{stuff}} after
 </div>
+
 <div>
-  Please state your<b>
+  Please state your
+  <b>
     name
   </b>
-  and<b>
+  and
+  <b>
     occupation
   </b>
-  for the board of<b>
+  for the board of
+  <b>
     school
   </b>
   directors.
 </div>
+
 <div>
-  First second third<div
+  First second third
+  <div
     attr="a very long string attribute that will overflow because it is very long"
   >
     Something
   </div>
 </div>
+
 <div>
   <div>
     First
   </div>
-  Second<div>
+  Second
+  <div>
     Third
   </div>
 </div>
+
 <div>
-  First<div>
+  First
+  <div>
     Second
   </div>
   Third
 </div>
+
 {{! leading whitespace }}
 <div>
   First Second Third Fourth Fifth Sixth Seventh Eighth Ninth Tenth Eleventh Twelfth Thirteenth Fourteenth
 </div>
+
 {{! trailing whitespace }}
 <div>
   First Second Third Fourth Fifth Sixth Seventh Eighth Ninth Tenth Eleventh Twelfth Thirteenth Fourteenth
 </div>
+
 {{! no leading or trailing whitespace }}
 <div>
   First Second Third Fourth Fifth Sixth Seventh Eighth Ninth Tenth Eleventh Twelfth Thirteenth Fourteenth
 </div>
+
 {{! translation leave text around tag }}
 <div>
   <span>
     First
   </span>
   ,
-  (<span>
+  (
+  <span>
     Second
   </span>
   )
 </div>
+
 <div>
   <span>
     First second third fourth fifth sixth seventh
   </span>
   ,
-  (<span>
+  (
+  <span>
     Second
   </span>
   )
 </div>
+
 {{! this really should split across lines }}
 <div>
   before{{stuff}}after{{stuff}}after{{stuff}}after{{stuff}}after{{stuff
   }}after{{stuff}}after{{stuff}}after{{stuff}}after{{stuff}}after{{stuff
   }}after{{stuff}}after{{stuff}}after{{stuff}}after{{stuff}}after
 </div>
+
 {{! solitary whitespace }}
 <div
   first="first"
@@ -302,30 +334,36 @@ printWidth: 80
   fifth="fifth"
   sixth="sixth"
 >
-
 </div>
+
 {{! whitespace on newline }}
 <div>
   <div>
     First
   </div>
+
   <div>
     Second
   </div>
+
   <div>
     Third
   </div>
 </div>
+
 {{! around multiline element }}
 <div>
-  Before<div>
+  Before
+  <div>
     {"Enough text to make this element wrap on to multiple lines when formatting"}
   </div>
   After
 </div>
+
 {{! around multiline element second pass }}
 <div>
-  Before{" "}<div>
+  Before{" "}
+  <div>
     {
       "Enough text to make this element wrap on to multiple lines when formatting"
     }
@@ -333,34 +371,45 @@ printWidth: 80
   {" "}
   After
 </div>
+
 {{! dont preserve blank lines when contains text }}
 <div>
   <div>
     Zeroth
   </div>
+
   <div>
     First
   </div>
+
   Second
 </div>
+
 {{! multiple expressions }}
 <div>
-  {{header}} {{body}} {{footer}}
+  {{header}}
+  {{body}}
+  {{footer}}
 </div>
+
 {{! single expression child tags }}
 <div>
-  You currently have<strong>
+  You currently have
+  <strong>
     {{dashboardStr}}
   </strong>
-  and<strong>
+  and
+  <strong>
     {{userStr}}
   </strong>
 </div>
+
 {{! expression does not break }}
 <div>
   texty text text text text text text text text text text text {{this.props.type
   }}
 </div>
+
 // FIXME
 ================================================================================
 `;
