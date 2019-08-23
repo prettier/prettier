@@ -473,6 +473,37 @@ type FooBar<T> = {
 };
 ```
 
+#### JavaScript: Fix ugly formatting on object destructuring with parameter decorators ([#] by [@sosukesuzuki])
+
+Previously, destructured object under parameter decorators breaks.
+
+<!-- prettier-ignore -->
+```js
+// Input
+class Class {
+  method(
+    @decorator
+     { foo }
+  ) {}
+}
+
+// Prettier (stable)
+class Class {
+  method(@decorator
+  {
+    foo
+  }) {}
+}
+
+// Prettier (master)
+class Class {
+  method(
+    @decorator
+    { foo }
+  ) {}
+}
+```
+
 [#5910]: https://github.com/prettier/prettier/pull/5910
 [#6186]: https://github.com/prettier/prettier/pull/6186
 [#6206]: https://github.com/prettier/prettier/pull/6206
@@ -489,6 +520,7 @@ type FooBar<T> = {
 [#6340]: https://github.com/prettier/prettier/pull/6340
 [#6412]: https://github.com/prettier/prettier/pull/6412
 [#6420]: https://github.com/prettier/prettier/pull/6420
+[#]: https://github.com/prettier/prettier/pull/
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
 [@sosukesuzuki]: https://github.com/sosukesuzuki
