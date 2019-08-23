@@ -1419,6 +1419,7 @@ function printPathNoParens(path, options, print, args) {
         (n.type === "ObjectPattern" &&
           parent &&
           shouldHugArguments(parent) &&
+          !n.decorators &&
           parent.params[0] === n) ||
         (shouldHugType(n) &&
           parentParentParent &&
@@ -4355,7 +4356,8 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
   //   b,
   //   c
   // }) {}
-  if (shouldHugParameters) {
+  const hasNotParameterDecorator = fun.params.every(param => !param.decorators);
+  if (shouldHugParameters && hasNotParameterDecorator) {
     return concat([typeParams, "(", concat(printed), ")"]);
   }
 
