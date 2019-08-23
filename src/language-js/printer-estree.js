@@ -4356,7 +4356,9 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
   //   b,
   //   c
   // }) {}
-  const hasNotParameterDecorator = fun.params.every(param => !param.decorators);
+  const hasNotParameterDecorator = fun[paramsField].every(
+    param => !param.decorators
+  );
   if (shouldHugParameters && hasNotParameterDecorator) {
     return concat([typeParams, "(", concat(printed), ")"]);
   }
