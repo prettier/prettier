@@ -54,14 +54,14 @@ var a = new (x().y.z)();
 var a = new (x().y().z)();
 
 // Output (Prettier stable)
-var a = new (x().y)();
-var a = new (x().y.z)();
-var a = new (x().y().z)();
-
-// Output (Prettier master)
 var a = new (x()).y();
 var a = new (x()).y.z();
 var a = new (x().y()).z();
+
+// Output (Prettier master)
+var a = new (x().y)();
+var a = new (x().y.z)();
+var a = new (x().y().z)();
 ```
 
 #### MDX: fix text with whitespace after JSX trim incorrectly ([#6340] by [@JounQin])
