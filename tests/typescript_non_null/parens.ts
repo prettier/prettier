@@ -17,3 +17,7 @@ const b = c!();
 const c = new (d()!)();
 const c = new (d()!);
 const c = new (d()!.e)();
+new (x()``.y!)();
+new (x()``!.y)();
+new (x()!``.y)();
+new (x!()``.y)();
