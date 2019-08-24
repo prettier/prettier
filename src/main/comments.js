@@ -214,6 +214,11 @@ function attach(comments, ast, text, options) {
 
     const isLastComment = comments.length - 1 === i;
 
+    const isEnclosedByTernary =
+      enclosingNode &&
+      (enclosingNode.type === "ConditionalExpression" ||
+        enclosingNode.type === "TSConditionalType");
+
     if (hasNewline(text, locStart(comment), { backwards: true })) {
       // If a comment exists on its own line, prefer a leading comment.
       // We also need to check if it's the first line of the file.
@@ -222,8 +227,16 @@ function attach(comments, ast, text, options) {
       ) {
         // We're good
       } else if (followingNode) {
-        // Always a leading comment.
-        addLeadingComment(followingNode, comment);
+        // test
+        //   /* comment */
+        //   ? first
+        //   : second
+        if (isEnclosedByTernary && precedingNode) {
+          addTrailingComment(precedingNode, comment);
+        } else {
+          // Always a leading comment.
+          addLeadingComment(followingNode, comment);
+        }
       } else if (precedingNode) {
         addTrailingComment(precedingNode, comment);
       } else if (enclosingNode) {
@@ -412,6 +425,18 @@ function printTrailingComment(commentPath, print, options) {
       parentParentNode.type === "ClassExpression") &&
     parentParentNode.superClass === parentNode;
 
+  // test
+  //   /* comment */
+  //   ? first
+  //   : second
+  const isParentParentTernary =
+    parentParentNode &&
+    (parentParentNode.type === "ConditionalExpression" ||
+      parentParentNode.type === "TSConditionalType");
+  const testFileld = parentParentNode.test ? "test" : "extendsType";
+  const isParentTestForTernary =
+    isParentParentTernary && parentNode === parentParentNode[testFileld];
+
   if (
     hasNewline(options.originalText, options.locStart(comment), {
       backwards: true
@@ -435,9 +460,15 @@ function printTrailingComment(commentPath, print, options) {
       options.locStart
     );
 
-    return lineSuffix(
+    const content = lineSuffix(
       concat([hardline, isLineBeforeEmpty ? hardline : "", contents])
     );
+
+    if (isParentTestForTernary) {
+      return indent(content);
+    }
+
+    return content;
   } else if (isBlock || isParentSuperClass) {
     // Trailing block comments never need a newline
     return concat([" ", contents]);
