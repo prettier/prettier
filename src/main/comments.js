@@ -227,6 +227,9 @@ function attach(comments, ast, text, options) {
       ) {
         // We're good
       } else if (followingNode) {
+        // Always a leading comment.
+        // But only in this case, prefer a trailing comment.
+        //
         // test
         //   /* comment */
         //   ? first
@@ -234,7 +237,6 @@ function attach(comments, ast, text, options) {
         if (isEnclosedByTernary && precedingNode) {
           addTrailingComment(precedingNode, comment);
         } else {
-          // Always a leading comment.
           addLeadingComment(followingNode, comment);
         }
       } else if (precedingNode) {
