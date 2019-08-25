@@ -90,6 +90,40 @@ let comp = (
 ================================================================================
 `;
 
+exports[`conditional_types.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type Foo = Bar extends Huga
+  // ?
+  // comment
+  ? Bar
+  : Huga;
+
+type Foo = Bar extends Huga ?
+  // ?
+  // comment
+  Bar
+  : Huga;
+
+=====================================output=====================================
+type Foo = Bar extends Huga
+  // ?
+  // comment
+  ? Bar
+  : Huga;
+
+type Foo = Bar extends Huga
+  ? // ?
+    // comment
+    Bar
+  : Huga;
+
+================================================================================
+`;
+
 exports[`jsx.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]

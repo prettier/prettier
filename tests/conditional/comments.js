@@ -35,3 +35,31 @@ const extractTextPluginOptions = shouldUseRelativeAssetPaths // Making sure that
 const { configureStore } = process.env.NODE_ENV === "production"
   ? require("./configureProdStore") // a
   : require("./configureDevStore"); // b
+
+test
+  // ?
+  // comment
+  ? foo
+  : bar;
+
+test
+  /* comment
+     comment
+     comment
+     comment */
+  ? foo
+  : bar;
+
+test ?
+  // ?
+  // comment
+  foo
+  : bar;
+
+test ?
+  /* comment
+     comment
+     comment
+     comment */
+  foo
+  : bar;
