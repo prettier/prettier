@@ -218,7 +218,8 @@ function attach(comments, ast, text, options) {
       enclosingNode &&
       (enclosingNode.type === "ConditionalExpression" ||
         enclosingNode.type === "TSConditionalType");
-    const testFileld = enclosingNode.test ? "test" : "extendsType";
+    const testFileld =
+      enclosingNode && enclosingNode.test ? "test" : "extendsType";
     const isPrecedingNodeTestForTernary =
       isEnclosedByTernary &&
       precedingNode &&
