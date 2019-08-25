@@ -218,6 +218,11 @@ function attach(comments, ast, text, options) {
       enclosingNode &&
       (enclosingNode.type === "ConditionalExpression" ||
         enclosingNode.type === "TSConditionalType");
+    const testFileld = enclosingNode.test ? "test" : "extendsType";
+    const isPrecedingNodeTestForTernary =
+      isEnclosedByTernary &&
+      precedingNode &&
+      precedingNode === enclosingNode[testFileld];
 
     if (hasNewline(text, locStart(comment), { backwards: true })) {
       // If a comment exists on its own line, prefer a leading comment.
@@ -234,7 +239,7 @@ function attach(comments, ast, text, options) {
         //   /* comment */
         //   ? first
         //   : second
-        if (isEnclosedByTernary && precedingNode) {
+        if (isPrecedingNodeTestForTernary) {
           addTrailingComment(precedingNode, comment);
         } else {
           addLeadingComment(followingNode, comment);
