@@ -224,6 +224,27 @@ function attach(comments, ast, text, options) {
       precedingNode &&
       precedingNode === enclosingNode[testFileld];
 
+    function hasQuestionInRange(text, start, end) {
+      for (let i = start; i < end; ++i) {
+        if (text.charAt(i) === "?") {
+          let hasQuestion = true;
+
+          // Ignore "?" in comments
+          comments.forEach(({ range }) => {
+            const [commentStart, commentEnd] = range;
+            for (let j = commentStart; j < commentEnd; ++j) {
+              if (j === i) {
+                hasQuestion = false;
+              }
+            }
+          });
+
+          return hasQuestion;
+        }
+      }
+      return false;
+    }
+
     if (hasNewline(text, locStart(comment), { backwards: true })) {
       // If a comment exists on its own line, prefer a leading comment.
       // We also need to check if it's the first line of the file.
@@ -239,7 +260,10 @@ function attach(comments, ast, text, options) {
         //   /* comment */
         //   ? first
         //   : second
-        if (isPrecedingNodeTestForTernary) {
+        if (
+          isPrecedingNodeTestForTernary &&
+          !hasQuestionInRange(text, locEnd(precedingNode), locStart(comment))
+        ) {
           addTrailingComment(precedingNode, comment);
         } else {
           addLeadingComment(followingNode, comment);
