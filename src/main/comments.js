@@ -263,6 +263,12 @@ function attach(comments, ast, text, options) {
         //   : second
         if (
           isPrecedingNodeTestForTernary &&
+          // To avoid this case
+          //
+          // test ?
+          //   // comment
+          //   first
+          //   : second
           !hasQuestionInRange(text, locEnd(precedingNode), locStart(comment))
         ) {
           addTrailingComment(precedingNode, comment);
