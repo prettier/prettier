@@ -225,27 +225,6 @@ function attach(comments, ast, text, options) {
       precedingNode &&
       precedingNode === enclosingNode[testFileld];
 
-    function hasQuestionInRange(text, start, end) {
-      for (let i = start; i < end; ++i) {
-        if (text.charAt(i) === "?") {
-          let hasQuestion = true;
-
-          // Ignore "?" in comments
-          comments.forEach(({ range }) => {
-            const [commentStart, commentEnd] = range;
-            for (let j = commentStart; j < commentEnd; ++j) {
-              if (j === i) {
-                hasQuestion = false;
-              }
-            }
-          });
-
-          return hasQuestion;
-        }
-      }
-      return false;
-    }
-
     if (hasNewline(text, locStart(comment), { backwards: true })) {
       // If a comment exists on its own line, prefer a leading comment.
       // We also need to check if it's the first line of the file.
@@ -269,7 +248,13 @@ function attach(comments, ast, text, options) {
           //   // comment
           //   first
           //   : second
-          !hasQuestionInRange(text, locEnd(precedingNode), locStart(comment))
+          !hasQuestionInRange(
+            text,
+            locEnd(precedingNode),
+            locStart(comment),
+            comments,
+            options
+          )
         ) {
           addTrailingComment(precedingNode, comment);
         } else {
@@ -345,6 +330,28 @@ function attach(comments, ast, text, options) {
     delete comment.enclosingNode;
     delete comment.followingNode;
   });
+}
+
+function hasQuestionInRange(text, start, end, comments, options) {
+  for (let i = start; i < end; ++i) {
+    if (text.charAt(i) === "?") {
+      let hasQuestion = true;
+
+      // Ignore "?" in comments
+      comments.forEach(comment => {
+        const commentStart = options.locStart(comment);
+        const commentEnd = options.locEnd(comment);
+        for (let j = commentStart; j < commentEnd; ++j) {
+          if (j === i) {
+            hasQuestion = false;
+          }
+        }
+      });
+
+      return hasQuestion;
+    }
+  }
+  return false;
 }
 
 function breakTies(tiesToBreak, text, options) {
