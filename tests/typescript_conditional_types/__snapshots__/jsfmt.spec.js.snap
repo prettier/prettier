@@ -32,7 +32,7 @@ export type DeepReadonly<T> = T extends any[]
   : T;
 
 type NonFunctionPropertyNames<T> = {
-  [K in keyof T]: T[K] extends Function ? never : K
+  [K in keyof T]: T[K] extends Function ? never : K;
 }[keyof T];
 
 interface DeepReadonlyArray<T> extends ReadonlyArray<DeepReadonly<T>> {}
