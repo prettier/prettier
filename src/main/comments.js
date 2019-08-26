@@ -237,7 +237,7 @@ function attach(comments, ast, text, options) {
         // But only in this case, prefer a trailing comment.
         //
         // test
-        //   /* comment */
+        //   // comment
         //   ? first
         //   : second
         if (
@@ -471,7 +471,7 @@ function printTrailingComment(commentPath, print, options) {
     parentParentNode.superClass === parentNode;
 
   // test
-  //   /* comment */
+  //   // comment
   //   ? first
   //   : second
   const isParentParentTernary =
