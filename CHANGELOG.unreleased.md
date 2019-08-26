@@ -415,7 +415,7 @@ const foo = [abc, def, ghi, jkl, mno, pqr, stu, vwx, yz] as (
 )[];
 ```
 
-#### JavaScript: Prefer a trailing comment when there is comment between test and consequent on ternary (by [@sosukesuzuki])
+#### JavaScript: Prefer a trailing comment when there is comment between test and consequent on ternary ([#6418] by [@sosukesuzuki])
 
 <!-- prettier-ignore -->
 ```js
@@ -452,6 +452,7 @@ test
 [#6301]: https://github.com/prettier/prettier/pull/6301
 [#6307]: https://github.com/prettier/prettier/pull/6307
 [#6340]: https://github.com/prettier/prettier/pull/6340
+[#6418]: https://github.com/prettier/prettier/pull/6418
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
 [@sosukesuzuki]: https://github.com/sosukesuzuki
