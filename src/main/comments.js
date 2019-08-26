@@ -510,6 +510,12 @@ function printTrailingComment(commentPath, print, options) {
     );
 
     if (isParentTestForTernary) {
+      // We want to add indent to a comment in this case
+      //
+      // test
+      //   // comment
+      //   ? first
+      //   : second;
       return indent(content);
     }
 
