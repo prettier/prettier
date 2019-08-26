@@ -435,6 +435,26 @@ const foo = [abc, def, ghi, jkl, mno, pqr, stu, vwx, yz] as (
 )[];
 ```
 
+#### TypeScript: Fixed to break line and add a semicolon in one execution on one line long mapped types ([#] by [@sosukesuzuki])
+
+Previously, when Prettier formats long one line mapped types, breaks line but doesn't add semicolon. This bug also breaks idempotency because it adds a semicolon when run once and then again. This bug also breaks idempotency because it adds a semicolon when run again.
+
+<!-- prettier-ignore -->
+```ts
+// Input
+type FooBar<T> = { [P in keyof T]: T[P] extends Something ? Something<T[P]> : T[P] }
+
+// Prettier (stable)
+type FooBar<T> = {
+  [P in keyof T]: T[P] extends Something ? Something<T[P]> : T[P]
+};
+
+// Prettier (master)
+type FooBar<T> = {
+  [P in keyof T]: T[P] extends Something ? Something<T[P]> : T[P];
+};
+```
+
 [#5910]: https://github.com/prettier/prettier/pull/5910
 [#6186]: https://github.com/prettier/prettier/pull/6186
 [#6206]: https://github.com/prettier/prettier/pull/6206
@@ -450,6 +470,7 @@ const foo = [abc, def, ghi, jkl, mno, pqr, stu, vwx, yz] as (
 [#6307]: https://github.com/prettier/prettier/pull/6307
 [#6340]: https://github.com/prettier/prettier/pull/6340
 [#6412]: https://github.com/prettier/prettier/pull/6412
+[#]: https://github.com/prettier/prettier/pull/
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
 [@sosukesuzuki]: https://github.com/sosukesuzuki
