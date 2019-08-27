@@ -453,6 +453,31 @@ const foo = [abc, def, ghi, jkl, mno, pqr, stu, vwx, yz] as (
 )[];
 ```
 
+#### HTML: Script tags are now treated as blocks for the purposes of formatting
+
+<!-- prettier-ignore-->
+```html
+<!-- Input -->
+<script
+  async
+  src="/_next/static/development/pages/_app.js?ts=1565732195968"
+></script><script></script>
+
+<!-- Prettier (stable) -->
+<script
+  async
+  src="/_next/static/development/pages/_app.js?ts=1565732195968"
+></script
+><script></script>
+
+<!-- Prettier (master) -->
+<script
+  async
+  src="/_next/static/development/pages/_app.js?ts=1565732195968"
+></script>
+<script></script>
+```
+
 [#5910]: https://github.com/prettier/prettier/pull/5910
 [#6186]: https://github.com/prettier/prettier/pull/6186
 [#6206]: https://github.com/prettier/prettier/pull/6206
