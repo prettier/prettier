@@ -123,14 +123,12 @@ class Playground extends React.Component {
   }
 
   getShortReport() {
+    const MESSAGE =
+      "<!-- The full report is copied to your clipboard, paste it here. --->";
     const { options } = this.state;
     const { availableOptions, version } = this.props;
-    return prettify(
-      [
-        "<!-- The full report is copied to your clipboard, paste it here. --->",
-        "",
-        "<!-- Short report: --->"
-      ].concat(
+    const report = prettify(
+      [MESSAGE, "", "<!-- Short report: --->"].concat(
         getHeader(
           version,
           window.location.href,
@@ -138,6 +136,11 @@ class Playground extends React.Component {
         )
       )
     );
+    if (encodeURIComponent(report).length > MAX_LENGTH) {
+      // `window.location.href` is too long
+      return MESSAGE;
+    }
+    return report;
   }
 
   render() {
