@@ -453,7 +453,9 @@ const foo = [abc, def, ghi, jkl, mno, pqr, stu, vwx, yz] as (
 )[];
 ```
 
-#### HTML: Script tags are now treated as blocks for the purposes of formatting
+#### HTML: Script tags are now treated as blocks for the purposes of formatting ([#6423] by [@thorn0])
+
+Previously, in the [whitespace-sensitive mode](https://prettier.io/docs/en/options.html#html-whitespace-sensitivity), they were formatted as if they were inline.
 
 <!-- prettier-ignore-->
 ```html
@@ -493,9 +495,11 @@ const foo = [abc, def, ghi, jkl, mno, pqr, stu, vwx, yz] as (
 [#6307]: https://github.com/prettier/prettier/pull/6307
 [#6340]: https://github.com/prettier/prettier/pull/6340
 [#6412]: https://github.com/prettier/prettier/pull/6412
+[#6423]: https://github.com/prettier/prettier/pull/6423
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
 [@sosukesuzuki]: https://github.com/sosukesuzuki
 [@g-harel]: https://github.com/g-harel
 [@jounqin]: https://github.com/JounQin
 [@bakkot]: https://gibhub.com/bakkot
+[@thorn0]: https://github.com/thorn0
