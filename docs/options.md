@@ -177,6 +177,8 @@ These two options can be used to format code starting and ending at a given char
 - Backwards to the start of the first line containing the selected statement.
 - Forwards to the end of the selected statement.
 
+On Windows CRLF line endings count as two characters.
+
 These options cannot be used with `cursorOffset`.
 
 | Default    | CLI Override          | API Override        |
