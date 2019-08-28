@@ -239,6 +239,24 @@ Previously, Prettier would sometimes ignore whitespace when formatting comments.
 </div>
 ```
 
+#### JavaScript: Update ?? precedence to match stage 3 proposal ([#6404] by [@vjeux])
+
+We've updated Prettier's support for the nullish coalescing operator to match a spec update that no longer allows it to immediately contain, or be contained within an `&&` or `||` operation.
+
+<!-- prettier-ignore -->
+```js
+// Input
+(foo ?? baz) || baz;
+
+// Output (Prettier stable)
+foo ?? baz || baz;
+
+// Output (Prettier master)
+(foo ?? baz) || baz;
+```
+
+Please note, as we update our parsers with versions that support this spec update, code without the parenthesis will throw a parse error.
+
 #### JavaScript: Keep unary expressions parentheses with comments ([#6217] by [@sosukesuzuki])
 
 Previously, Prettier removes parentheses enclose unary expressions. This change modify to keep it when the expression has comments.
