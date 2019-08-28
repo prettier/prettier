@@ -437,7 +437,7 @@ const foo = [abc, def, ghi, jkl, mno, pqr, stu, vwx, yz] as (
 
 #### TypeScript: Fixed to break line and add a semicolon in one execution on one line long mapped types ([#6420] by [@sosukesuzuki])
 
-Previously, when Prettier formats long one line mapped types, breaks line but doesn't add semicolon. This bug also breaks idempotency because it adds a semicolon when run once and then again. This bug also breaks idempotency because it adds a semicolon when run again.
+Previously, when Prettier formatted long, one-line mapped types, it would break the line but didn’t add a semicolon – until you ran Prettier again (which broke Prettier’s idempotency rule). Now, Prettier adds the semicolon in the first run, fixing the issue.
 
 <!-- prettier-ignore -->
 ```ts
