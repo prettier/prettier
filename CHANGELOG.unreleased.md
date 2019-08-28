@@ -44,6 +44,26 @@ const link = <a href="example.com">http://example.com</a>;
 
 -->
 
+#### JavaScript: More readable parentheses for new-call ([#6412] by [@bakkot])
+
+<!-- prettier-ignore -->
+```js
+// Input
+var a = new (x().y)();
+var a = new (x().y.z)();
+var a = new (x().y().z)();
+
+// Output (Prettier stable)
+var a = new (x()).y();
+var a = new (x()).y.z();
+var a = new (x().y()).z();
+
+// Output (Prettier master)
+var a = new (x().y)();
+var a = new (x().y.z)();
+var a = new (x().y().z)();
+```
+
 #### MDX: fix text with whitespace after JSX trim incorrectly ([#6340] by [@JounQin])
 
 Previous versions format text with whitespace after JSX incorrectly in mdx, this has been fixed in this version.
@@ -429,8 +449,10 @@ const foo = [abc, def, ghi, jkl, mno, pqr, stu, vwx, yz] as (
 [#6301]: https://github.com/prettier/prettier/pull/6301
 [#6307]: https://github.com/prettier/prettier/pull/6307
 [#6340]: https://github.com/prettier/prettier/pull/6340
+[#6412]: https://github.com/prettier/prettier/pull/6412
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
 [@sosukesuzuki]: https://github.com/sosukesuzuki
 [@g-harel]: https://github.com/g-harel
 [@jounqin]: https://github.com/JounQin
+[@bakkot]: https://gibhub.com/bakkot
