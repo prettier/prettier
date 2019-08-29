@@ -6,7 +6,7 @@ import { DebugPanel, InputPanel, OutputPanel } from "./panels";
 import PrettierFormat from "./PrettierFormat";
 import { shallowEqual } from "./helpers";
 import * as urlHash from "./urlHash";
-import formatMarkdown, { getHeader, prettify } from "./markdown";
+import formatMarkdown from "./markdown";
 import * as util from "./util";
 import getCodeSample from "./codeSamples";
 
@@ -44,6 +44,8 @@ const ENABLED_OPTIONS = [
 ];
 const ISSUES_URL = "https://github.com/prettier/prettier/issues/new?body=";
 const MAX_LENGTH = 8000 - ISSUES_URL.length; // it seems that GitHub limit is 8195
+const COPY_MESSAGE =
+  "<!-- The issue body has been saved to the clipboard. Please paste it after this line! 👇 -->\n";
 
 class Playground extends React.Component {
   constructor(props) {
@@ -122,27 +124,6 @@ class Playground extends React.Component {
     );
   }
 
-  getShortReport() {
-    const MESSAGE =
-      "<!-- The full report is copied to your clipboard, paste it here. --->";
-    const { options } = this.state;
-    const { availableOptions, version } = this.props;
-    const report = prettify(
-      [MESSAGE, "", "<!-- Short report: --->"].concat(
-        getHeader(
-          version,
-          window.location.href,
-          util.buildCliArgs(availableOptions, options)
-        )
-      )
-    );
-    if (encodeURIComponent(report).length > MAX_LENGTH) {
-      // `window.location.href` is too long
-      return MESSAGE;
-    }
-    return report;
-  }
-
   render() {
     const { worker } = this.props;
     const { content, options } = this.state;
@@ -164,10 +145,8 @@ class Playground extends React.Component {
                 debug.reformatted,
                 true
               );
-              const showShortReport =
-                encodeURIComponent(fullReport).length > MAX_LENGTH;
-              const shortReport = this.getShortReport();
-
+              const showFullReport =
+                encodeURIComponent(fullReport).length < MAX_LENGTH;
               return (
                 <React.Fragment>
                   <div className="editors-container">
@@ -282,13 +261,13 @@ class Playground extends React.Component {
                       </ClipboardButton>
                       <a
                         href={getReportLink(
-                          showShortReport ? shortReport : fullReport
+                          showFullReport ? fullReport : COPY_MESSAGE
                         )}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
                         <ClipboardButton
-                          copy={() => (showShortReport ? fullReport : "")}
+                          copy={() => (showFullReport ? "" : fullReport)}
                         >
                           Report issue
                         </ClipboardButton>

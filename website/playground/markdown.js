@@ -1,4 +1,4 @@
-export default function formatMarkdown(
+function formatMarkdown(
   input,
   output,
   output2,
@@ -9,24 +9,28 @@ export default function formatMarkdown(
   full
 ) {
   const syntax = getMarkdownSyntax(options);
+  const optionsString = formatCLIOptions(cliOptions);
   const isIdempotent = output2 === "" || output === output2;
-  return prettify(
-    getHeader(version, url, cliOptions)
-      .concat([
-        "",
-        "**Input:**",
-        codeBlock(input, syntax),
-        "",
-        "**Output:**",
-        codeBlock(output, syntax)
-      ])
-      .concat(
-        isIdempotent
-          ? []
-          : ["", "**Second Output:**", codeBlock(output2, syntax)]
-      )
-      .concat(full ? ["", "**Expected behavior:**", ""] : [])
-  );
+
+  return [
+    `**Prettier ${version}**`,
+    `[Playground link](${url})`,
+    optionsString === "" ? null : codeBlock(optionsString, "sh"),
+    "",
+    "**Input:**",
+    codeBlock(input, syntax),
+    "",
+    "**Output:**",
+    codeBlock(output, syntax)
+  ]
+    .concat(
+      isIdempotent ? [] : ["", "**Second Output:**", codeBlock(output2, syntax)]
+    )
+    .concat(full ? ["", "**Expected behavior:**", ""] : [])
+    .filter(part => {
+      return part != null;
+    })
+    .join("\n");
 }
 
 function getMarkdownSyntax(options) {
@@ -72,15 +76,4 @@ function codeBlock(content, syntax) {
   return [fence + (syntax || ""), content, fence].join("\n");
 }
 
-export function getHeader(version, url, cliOptions) {
-  const optionsString = formatCLIOptions(cliOptions);
-  return [
-    `**Prettier ${version}**`,
-    `[Playground link](${url})`,
-    optionsString === "" ? null : codeBlock(optionsString, "sh")
-  ];
-}
-
-export function prettify(mdList) {
-  return mdList.filter(part => part != null).join("\n");
-}
+module.exports = formatMarkdown;
