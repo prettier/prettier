@@ -475,7 +475,7 @@ type FooBar<T> = {
 
 #### JavaScript: Fix ugly formatting on object destructuring with parameter decorators ([#6411] by [@sosukesuzuki])
 
-Previously, destructured object under parameter decorators breaks.
+Previously, Prettier formatted decorators for destructured parameters in a weird way. Now, parameter decorators are placed just above the parameter they belong to.
 
 <!-- prettier-ignore -->
 ```js
