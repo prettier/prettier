@@ -3260,7 +3260,7 @@ function printPathNoParens(path, options, print, args) {
                 : "",
               ": ",
               path.call(print, "typeAnnotation"),
-              shouldBreak && options.semi ? ";" : ""
+              ifBreak(semi, "")
             ])
           ),
           comments.printDanglingComments(path, options, /* sameIndent */ true),
