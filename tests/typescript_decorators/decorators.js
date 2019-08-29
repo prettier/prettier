@@ -44,3 +44,17 @@ class Class {
     doSomething();
   }
 }
+
+class Class {
+  method(
+    param1,
+    @Decorator
+    { prop1, prop2 }: Type
+  ) {}
+}
+
+class Class {
+  method(
+    @Decorator { prop1 }: Type
+  ) {}
+}
