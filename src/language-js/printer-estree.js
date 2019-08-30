@@ -1381,7 +1381,11 @@ function printPathNoParens(path, options, print, args) {
       let content;
       if (props.length === 0) {
         if (!hasDanglingComments(n)) {
-          return concat([leftBrace, rightBrace, printTypeAnnotation(path, options, print)]);
+          return concat([
+            leftBrace,
+            rightBrace,
+            printTypeAnnotation(path, options, print)
+          ]);
         }
 
         content = group(
