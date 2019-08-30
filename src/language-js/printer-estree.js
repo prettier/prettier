@@ -1379,9 +1379,9 @@ function printPathNoParens(path, options, print, args) {
       );
 
       let content;
-      if (props.length === 0 && !n.typeAnnotation) {
+      if (props.length === 0) {
         if (!hasDanglingComments(n)) {
-          return concat([leftBrace, rightBrace]);
+          return concat([leftBrace, rightBrace, printTypeAnnotation(path, options, print)]);
         }
 
         content = group(
@@ -1390,7 +1390,8 @@ function printPathNoParens(path, options, print, args) {
             comments.printDanglingComments(path, options),
             softline,
             rightBrace,
-            printOptionalToken(path)
+            printOptionalToken(path),
+            printTypeAnnotation(path, options, print)
           ])
         );
       } else {
