@@ -504,7 +504,7 @@ class Class {
 }
 ```
 
-#### JavaScript: Fix ugly formatting on destructuring assignment with binary operators ([#] by [@sosukesuzuki])
+#### JavaScript: Fix ugly formatting on destructuring assignment with binary operators ([#6439] by [@sosukesuzuki])
 
 Previously, Prettier formatted destructuring assignments with binary operators in a weird way. A pattern longer than print-width was not broken. Now, the right side of assignment is placed on the same line as `=`.
 
@@ -543,7 +543,7 @@ const {
 [#6412]: https://github.com/prettier/prettier/pull/6412
 [#6420]: https://github.com/prettier/prettier/pull/6420
 [#6411]: https://github.com/prettier/prettier/pull/6411
-[#]: https://github.com/prettier/prettier/pull/
+[#6439]: https://github.com/prettier/prettier/pull/6439
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
 [@sosukesuzuki]: https://github.com/sosukesuzuki
