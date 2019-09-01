@@ -106,6 +106,41 @@ printWidth: 80
   ee
 )();
 
+(
+  aaaaaaaaaaaaaaaaaaaaaaaaa &&
+  bbbbbbbbbbbbbbbbbbbbbbbbb &&
+  ccccccccccccccccccccccccc &&
+  ddddddddddddddddddddddddd &&
+  eeeeeeeeeeeeeeeeeeeeeeeee
+)()()();
+
+(
+  aaaaaaaaaaaaaaaaaaaaaaaaa &&
+  bbbbbbbbbbbbbbbbbbbbbbbbb &&
+  ccccccccccccccccccccccccc &&
+  ddddddddddddddddddddddddd &&
+  eeeeeeeeeeeeeeeeeeeeeeeee
+)(
+  aaaaaaaaaaaaaaaaaaaaaaaaa &&
+    bbbbbbbbbbbbbbbbbbbbbbbbb &&
+    ccccccccccccccccccccccccc &&
+    ddddddddddddddddddddddddd &&
+    eeeeeeeeeeeeeeeeeeeeeeeee
+)(
+  aaaaaaaaaaaaaaaaaaaaaaaaa &&
+    bbbbbbbbbbbbbbbbbbbbbbbbb &&
+    ccccccccccccccccccccccccc &&
+    ddddddddddddddddddddddddd &&
+    eeeeeeeeeeeeeeeeeeeeeeeee
+)(
+  aaaaaaaaaaaaaaaaaaaaaaaaa &&
+    bbbbbbbbbbbbbbbbbbbbbbbbb &&
+    ccccccccccccccccccccccccc &&
+    ddddddddddddddddddddddddd &&
+    eeeeeeeeeeeeeeeeeeeeeeeee
+);
+
+
 =====================================output=====================================
 (
   aaaaaaaaaaaaaaaaaaaaaaaaa &&
@@ -126,6 +161,40 @@ printWidth: 80
 )();
 
 (aa + bb + cc + dd + ee)();
+
+(
+  aaaaaaaaaaaaaaaaaaaaaaaaa &&
+  bbbbbbbbbbbbbbbbbbbbbbbbb &&
+  ccccccccccccccccccccccccc &&
+  ddddddddddddddddddddddddd &&
+  eeeeeeeeeeeeeeeeeeeeeeeee
+)()()();
+
+(
+  aaaaaaaaaaaaaaaaaaaaaaaaa &&
+  bbbbbbbbbbbbbbbbbbbbbbbbb &&
+  ccccccccccccccccccccccccc &&
+  ddddddddddddddddddddddddd &&
+  eeeeeeeeeeeeeeeeeeeeeeeee
+)(
+  aaaaaaaaaaaaaaaaaaaaaaaaa &&
+    bbbbbbbbbbbbbbbbbbbbbbbbb &&
+    ccccccccccccccccccccccccc &&
+    ddddddddddddddddddddddddd &&
+    eeeeeeeeeeeeeeeeeeeeeeeee
+)(
+  aaaaaaaaaaaaaaaaaaaaaaaaa &&
+    bbbbbbbbbbbbbbbbbbbbbbbbb &&
+    ccccccccccccccccccccccccc &&
+    ddddddddddddddddddddddddd &&
+    eeeeeeeeeeeeeeeeeeeeeeeee
+)(
+  aaaaaaaaaaaaaaaaaaaaaaaaa &&
+    bbbbbbbbbbbbbbbbbbbbbbbbb &&
+    ccccccccccccccccccccccccc &&
+    ddddddddddddddddddddddddd &&
+    eeeeeeeeeeeeeeeeeeeeeeeee
+);
 
 ================================================================================
 `;
