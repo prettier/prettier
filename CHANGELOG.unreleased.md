@@ -550,6 +550,37 @@ const f = ({}: MyVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongTyp
 function g({}: Foo) {}
 ```
 
+#### JavaScript: Fix ugly formatting parens wrap binary expressions within call expressions ([#] by [@sosukesuzuki])
+
+Previously, Prettier formatted parens wrap binary expressions within call expressions in a weird way. There was no line break before and after each parens.
+
+<!-- prettier-ignore -->
+```js
+(
+  aaaaaaaaaaaaaaaaaaaaaaaaa &&
+  bbbbbbbbbbbbbbbbbbbbbbbbb &&
+  ccccccccccccccccccccccccc &&
+  ddddddddddddddddddddddddd &&
+  eeeeeeeeeeeeeeeeeeeeeeeee
+)();
+
+// Prettier (stable)
+(aaaaaaaaaaaaaaaaaaaaaaaaa &&
+  bbbbbbbbbbbbbbbbbbbbbbbbb &&
+  ccccccccccccccccccccccccc &&
+  ddddddddddddddddddddddddd &&
+  eeeeeeeeeeeeeeeeeeeeeeeee)();
+
+// Prettier (master)
+(
+  aaaaaaaaaaaaaaaaaaaaaaaaa &&
+  bbbbbbbbbbbbbbbbbbbbbbbbb &&
+  ccccccccccccccccccccccccc &&
+  ddddddddddddddddddddddddd &&
+  eeeeeeeeeeeeeeeeeeeeeeeee
+)();
+```
+
 [#5910]: https://github.com/prettier/prettier/pull/5910
 [#6186]: https://github.com/prettier/prettier/pull/6186
 [#6206]: https://github.com/prettier/prettier/pull/6206
@@ -569,6 +600,7 @@ function g({}: Foo) {}
 [#6420]: https://github.com/prettier/prettier/pull/6420
 [#6411]: https://github.com/prettier/prettier/pull/6411
 [#6438]: https://github.com/prettier/prettier/pull/6411
+[#]: https://github.com/prettier/prettier/pull
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
 [@sosukesuzuki]: https://github.com/sosukesuzuki
