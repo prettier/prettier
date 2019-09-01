@@ -550,7 +550,7 @@ const f = ({}: MyVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongTyp
 function g({}: Foo) {}
 ```
 
-#### JavaScript: Fix ugly formatting parens wrap binary expressions within call expressions ([#] by [@sosukesuzuki])
+#### JavaScript: Fix ugly formatting parens wrap binary expressions within call expressions ([#6441] by [@sosukesuzuki])
 
 Previously, Prettier formatted parens wrap binary expressions within call expressions in a weird way. There was no line break before and after each parens.
 
@@ -600,7 +600,7 @@ Previously, Prettier formatted parens wrap binary expressions within call expres
 [#6420]: https://github.com/prettier/prettier/pull/6420
 [#6411]: https://github.com/prettier/prettier/pull/6411
 [#6438]: https://github.com/prettier/prettier/pull/6411
-[#]: https://github.com/prettier/prettier/pull
+[#6441]: https://github.com/prettier/prettier/pull/6441
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
 [@sosukesuzuki]: https://github.com/sosukesuzuki
