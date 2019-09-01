@@ -504,6 +504,28 @@ class Class {
 }
 ```
 
+#### JavaScript: Fix ugly formatting on destructuring assignment with binary operators ([#] by [@sosukesuzuki])
+
+Previously, Prettier formatted destructuring assignments with binary operators in a weird way. A pattern longer than print-width was not broken. Now, the right side of assignment is placed on the same line as `=`.
+
+<!-- prettier-ignore -->
+```js
+// Input
+const { expected = null, singular = null, plural = null, isArray = false } = options || {};
+
+// Prettier (stable)
+const { expected = null, singular = null, plural = null, isArray = false } =
+  options || {};
+
+// Prettier (master)
+const {
+  expected = null,
+  singular = null,
+  plural = null,
+  isArray = false
+} = options || {};
+```
+
 [#5910]: https://github.com/prettier/prettier/pull/5910
 [#6186]: https://github.com/prettier/prettier/pull/6186
 [#6206]: https://github.com/prettier/prettier/pull/6206
@@ -521,6 +543,7 @@ class Class {
 [#6412]: https://github.com/prettier/prettier/pull/6412
 [#6420]: https://github.com/prettier/prettier/pull/6420
 [#6411]: https://github.com/prettier/prettier/pull/6411
+[#]: https://github.com/prettier/prettier/pull/
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
 [@sosukesuzuki]: https://github.com/sosukesuzuki
