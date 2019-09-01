@@ -5957,7 +5957,10 @@ function printAssignmentRight(leftNode, rightNode, printedRight, options) {
   }
 
   const canBreak =
-    (isBinaryish(rightNode) && !shouldInlineLogicalExpression(rightNode)) ||
+    (isBinaryish(rightNode) &&
+      !shouldInlineLogicalExpression(rightNode) &&
+      leftNode.type !== "ArrayPattern" &&
+      leftNode.type !== "ObjectPattern") ||
     (rightNode.type === "ConditionalExpression" &&
       isBinaryish(rightNode.test) &&
       !shouldInlineLogicalExpression(rightNode.test)) ||
