@@ -4598,7 +4598,7 @@ function printExportDeclaration(path, options, print) {
         defaultSpecifiers.length !== 0 &&
         (namespaceSpecifiers.length !== 0 || specifiers.length !== 0);
 
-      let content;
+      let content = "";
       if (specifiers.length !== 0) {
         if (
           specifiers.length === 1 &&
@@ -4629,8 +4629,6 @@ function printExportDeclaration(path, options, print) {
             ])
           );
         }
-      } else {
-        content = "";
       }
 
       parts.push(
