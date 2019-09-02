@@ -4600,7 +4600,9 @@ function printExportDeclaration(path, options, print) {
 
       let content;
       if (specifiers.length !== 0) {
-        if (specifiers.length === 1 &&
+        if (
+          specifiers.length === 1 &&
+          defaultSpecifiers.length === 0 &&
           decl.specifiers &&
           !decl.specifiers.some(node => node.comments)
         ) {
@@ -4610,7 +4612,7 @@ function printExportDeclaration(path, options, print) {
             concat(specifiers),
             options.bracketSpacing ? " " : "",
             "}"
-          ])
+          ]);
         } else {
           content = group(
             concat([
@@ -4628,7 +4630,7 @@ function printExportDeclaration(path, options, print) {
           );
         }
       } else {
-        content = ""
+        content = "";
       }
 
       parts.push(
