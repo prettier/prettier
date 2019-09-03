@@ -581,7 +581,7 @@ Previously, Prettier formatted parens wrap binary expressions within call expres
 )();
 ```
 
-#### JavaScript: Fix formatting on long named exports ([#] by [@sosukesuzuki])
+#### JavaScript: Fix formatting on long named exports ([#6446] by [@sosukesuzuki])
 
 Previously, Prettier formatted long named exports differently than named imports.
 
@@ -617,7 +617,7 @@ export { fooooooooooooooooooooooooooooooooooooooooooooooooo } from "fooooooooooo
 [#6411]: https://github.com/prettier/prettier/pull/6411
 [#6438]: https://github.com/prettier/prettier/pull/6411
 [#6441]: https://github.com/prettier/prettier/pull/6441
-[#]: https://github.com/prettier/prettier/pull/
+[#6446]: https://github.com/prettier/prettier/pull/6446
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
 [@sosukesuzuki]: https://github.com/sosukesuzuki
