@@ -4601,8 +4601,7 @@ function printExportDeclaration(path, options, print) {
       const canBreak =
         specifiers.length > 1 ||
         defaultSpecifiers.length > 0 ||
-        (decl.specifiers &&
-          decl.specifiers.some(node => node.comments))
+        (decl.specifiers && decl.specifiers.some(node => node.comments));
 
       let printed = "";
       if (specifiers.length !== 0) {
