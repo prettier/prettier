@@ -4598,7 +4598,7 @@ function printExportDeclaration(path, options, print) {
         defaultSpecifiers.length !== 0 &&
         (namespaceSpecifiers.length !== 0 || specifiers.length !== 0);
 
-      let content = "";
+      let printed = "";
       if (specifiers.length !== 0) {
         if (
           specifiers.length === 1 &&
@@ -4606,7 +4606,7 @@ function printExportDeclaration(path, options, print) {
           decl.specifiers &&
           !decl.specifiers.some(node => node.comments)
         ) {
-          content = concat([
+          printed = concat([
             "{",
             options.bracketSpacing ? " " : "",
             concat(specifiers),
@@ -4614,7 +4614,7 @@ function printExportDeclaration(path, options, print) {
             "}"
           ]);
         } else {
-          content = group(
+          printed = group(
             concat([
               "{",
               indent(
@@ -4637,7 +4637,7 @@ function printExportDeclaration(path, options, print) {
         concat([isDefaultFollowed ? ", " : ""]),
         concat(namespaceSpecifiers),
         concat([isNamespaceFollowed ? ", " : ""]),
-        content
+        printed
       );
     } else {
       parts.push("{}");
