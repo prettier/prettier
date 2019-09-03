@@ -1,6 +1,6 @@
 {
   "name": "@observablehq/prettier",
-  "version": "1.18.1",
+  "version": "1.18.1-alpha.1",
   "description": "Prettier is an opinionated code formatter",
   "bin": {
     "prettier": "./bin/prettier.js"
