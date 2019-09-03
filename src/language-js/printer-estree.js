@@ -1036,8 +1036,6 @@ function printPathNoParens(path, options, print, args) {
             )
           );
         }
-
-        parts.push(" from ");
       } else if (
         (n.importKind && n.importKind === "type") ||
         // import {} from 'x'
@@ -1048,10 +1046,53 @@ function printPathNoParens(path, options, print, args) {
           )
         )
       ) {
-        parts.push("{} from ");
+        parts.push("{} ");
       }
 
-      parts.push(path.call(print, "source"), semi);
+      let groupedInjections = [];
+
+      if (n.injections && n.injections.length > 0) {
+        parts.push(" with ");
+        path.each(specifierPath => {
+          const value = specifierPath.getValue();
+          groupedInjections.push(print(specifierPath));
+        }, "injections");
+
+        if (
+          groupedInjections.length === 1 &&
+          n.injections &&
+          !n.injections.some(node => node.comments)
+        ) {
+          parts.push(
+            concat([
+              "{",
+              options.bracketSpacing ? " " : "",
+              concat(groupedInjections),
+              options.bracketSpacing ? " " : "",
+              "}"
+            ])
+          );
+        } else if (grouped.length >= 1) {
+          parts.push(
+            group(
+              concat([
+                "{",
+                indent(
+                  concat([
+                    options.bracketSpacing ? line : softline,
+                    join(concat([",", line]), groupedInjections)
+                  ])
+                ),
+                ifBreak(shouldPrintComma(options) ? "," : ""),
+                options.bracketSpacing ? line : softline,
+                "}"
+              ])
+            )
+          );
+        }
+      }
+
+      parts.push(" from ", path.call(print, "source"));
 
       return concat(parts);
     }
@@ -1601,6 +1642,9 @@ function printPathNoParens(path, options, print, args) {
     case "Literal": {
       if (n.regex) {
         return printRegex(n.regex);
+      }
+      if (typeof n.bigint) {
+        return concat([n.raw]);
       }
       if (typeof n.value === "number") {
         return printNumber(n.raw);
@@ -3538,6 +3582,33 @@ function printPathNoParens(path, options, print, args) {
         " as ",
         path.call(print, "alias")
       ]);
+    case "ViewExpression":
+      return concat(["viewof ", path.call(print, "id")]);
+    case "MutableExpression":
+      return concat(["mutable ", path.call(print, "id")]);
+    case "Cell": {
+      let shouldAddParens = n.body && startsWithNoLookaheadToken(n.body);
+
+      const bodyId =
+        n.body &&
+        n.body.id !== null &&
+        (n.body.type === "FunctionExpression" || n.body.type === "ClassExpression") &&
+        n.body.id;
+      const isNamed = n.id && n.id !== bodyId;
+
+      let id = isNamed ? [
+        path.call(print, "id"),
+        " = "
+      ] : [];
+
+      let body = [
+        shouldAddParens ? "(" : "",
+        path.call(print, "body"),
+        shouldAddParens ? ")" : ""
+      ];
+
+      return concat(id.concat(body));
+    }
     default:
       /* istanbul ignore next */
       throw new Error("unknown type: " + JSON.stringify(n.type));
