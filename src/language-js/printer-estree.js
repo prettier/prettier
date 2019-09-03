@@ -1471,6 +1471,10 @@ function printPathNoParens(path, options, print, args) {
         return content;
       }
 
+      if (!parent || parent.type === 'Program') {
+        return concat(['(', group(content, {shouldBreak}), ')']);
+      }
+
       return group(content, { shouldBreak });
     }
     // Babel 6
