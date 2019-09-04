@@ -481,7 +481,7 @@ function printPathNoParens(path, options, print, args) {
       }
 
 
-      const needsParens = startsWithNoLookaheadToken(n.body[0]);
+      const needsParens = n.body[0] && startsWithNoLookaheadToken(n.body[0]);
 
       if (needsParens) parts.push('(');
       parts.push(
