@@ -480,11 +480,16 @@ function printPathNoParens(path, options, print, args) {
         }, "directives");
       }
 
+
+      const needsParens = startsWithNoLookaheadToken(n.body[0]);
+
+      if (needsParens) parts.push('(');
       parts.push(
         path.call(bodyPath => {
           return printStatementSequence(bodyPath, options, print);
         }, "body")
       );
+      if (needsParens) parts.push(')');
 
       parts.push(
         comments.printDanglingComments(path, options, /* sameIndent */ true)
@@ -1310,6 +1315,7 @@ function printPathNoParens(path, options, print, args) {
     case "ObjectTypeAnnotation":
     case "TSInterfaceBody":
     case "TSTypeLiteral": {
+
       let propertiesField;
 
       if (n.type === "TSTypeLiteral") {
@@ -1469,10 +1475,6 @@ function printPathNoParens(path, options, print, args) {
           parentParentParent.params[0].typeAnnotation.typeAnnotation === n)
       ) {
         return content;
-      }
-
-      if (!parent || parent.type === 'Program') {
-        return concat(['(', group(content, {shouldBreak}), ')']);
       }
 
       return group(content, { shouldBreak });
