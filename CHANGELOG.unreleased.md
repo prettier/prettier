@@ -44,6 +44,21 @@ const link = <a href="example.com">http://example.com</a>;
 
 -->
 
+#### TypeScript: TypeScript: wrap TSAsExpression nodes ([#6450] by [@kaicataldo])
+
+<!-- prettier-ignore -->
+```ts
+// Input
+const value = thisIsAReallyReallyReallyReallyReallyLongIdentifier as SomeInterface;
+
+// Output (Prettier stable)
+const value = thisIsAReallyReallyReallyReallyReallyLongIdentifier as SomeInterface;
+
+// Output (Prettier master)
+const value = thisIsAReallyReallyReallyReallyReallyLongIdentifier as
+  SomeInterface;
+```
+
 #### JavaScript: More readable parentheses for new-call ([#6412] by [@bakkot])
 
 <!-- prettier-ignore -->

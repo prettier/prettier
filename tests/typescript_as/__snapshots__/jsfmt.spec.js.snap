@@ -33,6 +33,7 @@ const state = JSON.stringify({
 (foo.bar as any)++;
 
 const value1 = thisIsAReallyReallyReallyReallyReallyLongIdentifier as SomeInterface;
+const value1 = thisIsAnIdentifier as thisIsAReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyLongInterface;
 const value2 = thisIsAReallyLongIdentifier as (SomeInterface | SomeOtherInterface);
 const value3 = thisIsAReallyLongIdentifier as { prop1: string, prop2: number, prop3: number }[];
 const value4 = thisIsAReallyReallyReallyReallyReallyReallyReallyReallyReallyLongIdentifier as [string, number];
@@ -76,6 +77,8 @@ const state = JSON.stringify({
 
 const value1 = thisIsAReallyReallyReallyReallyReallyLongIdentifier as
   SomeInterface;
+const value1 = thisIsAnIdentifier as
+  thisIsAReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyLongInterface;
 const value2 = thisIsAReallyLongIdentifier as (
   | SomeInterface
   | SomeOtherInterface
