@@ -24,6 +24,10 @@ const state = JSON.stringify({
 (foo.bar as Baz) = [bar];
 (foo.bar as any)++;
 
+const value1 = thisIsAReallyReallyReallyReallyReallyLongIdentifier as SomeInterface;
+const value2 = thisIsAReallyLongIdentifier as (SomeInterface | SomeOtherInterface);
+const value3 = thisIsAReallyLongIdentifier as { prop1: string, prop2: number, prop3: number }[];
+const value4 = thisIsAReallyReallyReallyReallyReallyReallyReallyReallyReallyLongIdentifier as [string, number];
+
 (bValue as boolean) ? 0 : -1;
 <boolean>bValue ? 0 : -1;
-

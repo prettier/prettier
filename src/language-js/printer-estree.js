@@ -3099,12 +3099,29 @@ function printPathNoParens(path, options, print, args) {
       return "unknown";
     case "TSVoidKeyword":
       return "void";
-    case "TSAsExpression":
-      return concat([
-        path.call(print, "expression"),
-        " as ",
-        path.call(print, "typeAnnotation")
+    case "TSAsExpression": {
+      const typeText = options.originalText.slice(
+        options.locStart(n.typeAnnotation),
+        options.locEnd(n.typeAnnotation)
+      );
+      // Defer to expansion logic for objects, arrays, and annotations wrapped in parentheses.
+      const mightBeMultiline = /^[({[]/.test(typeText.trim());
+
+      return conditionalGroup([
+        concat([
+          path.call(print, "expression"),
+          " as ",
+          path.call(print, "typeAnnotation")
+        ]),
+        concat([
+          path.call(print, "expression"),
+          " as ",
+          mightBeMultiline
+            ? path.call(print, "typeAnnotation")
+            : indent(concat([softline, path.call(print, "typeAnnotation")]))
+        ])
       ]);
+    }
     case "TSArrayType":
       return concat([path.call(print, "elementType"), "[]"]);
     case "TSPropertySignature": {
