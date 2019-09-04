@@ -159,11 +159,6 @@ function coreFormat(text, opts, addAlignmentSize) {
 
     const newCursorNodeCharArray = newCursorNodeText.split("");
 
-    const cursorNodeDiff = diff.diffArrays(
-      oldCursorNodeCharArray,
-      newCursorNodeCharArray
-    );
-
     let aIndex = 0;
     let bIndex = 0;
     let cursorOffset = newCursorNodeStart;
