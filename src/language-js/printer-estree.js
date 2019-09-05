@@ -1056,28 +1056,16 @@ function printPathNoParens(path, options, print, args) {
 
       let groupedInjections = [];
 
-      if (n.injections && n.injections.length > 0) {
+      if (n.injections) {
         parts.push(" with ");
         path.each(specifierPath => {
           const value = specifierPath.getValue();
           groupedInjections.push(print(specifierPath));
         }, "injections");
 
-        if (
-          groupedInjections.length === 1 &&
-          n.injections &&
-          !n.injections.some(node => node.comments)
-        ) {
-          parts.push(
-            concat([
-              "{",
-              options.bracketSpacing ? " " : "",
-              concat(groupedInjections),
-              options.bracketSpacing ? " " : "",
-              "}"
-            ])
-          );
-        } else if (grouped.length >= 1) {
+        if (groupedInjections.length === 0) {
+          parts.push("{}");
+        } else {
           parts.push(
             group(
               concat([
