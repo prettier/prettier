@@ -25,6 +25,7 @@ const CSS_DISPLAY_TAGS = Object.assign({}, getCssStyleTags("display"), {
   template: "inline",
   source: "block",
   track: "block",
+  script: "block",
 
   // there's no css display for these elements but they behave these ways
   video: "inline-block",

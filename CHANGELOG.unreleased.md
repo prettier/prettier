@@ -453,6 +453,33 @@ const foo = [abc, def, ghi, jkl, mno, pqr, stu, vwx, yz] as (
 )[];
 ```
 
+#### HTML: Script tags are now treated as blocks for the purposes of formatting ([#6423] by [@thorn0])
+
+Previously, in the [whitespace-sensitive mode](https://prettier.io/docs/en/options.html#html-whitespace-sensitivity), they were formatted as if they were inline.
+
+<!-- prettier-ignore-->
+```html
+<!-- Input -->
+<script
+  async
+  src="/_next/static/development/pages/_app.js?ts=1565732195968"
+></script><script></script>
+
+<!-- Prettier (stable) -->
+<script
+  async
+  src="/_next/static/development/pages/_app.js?ts=1565732195968"
+></script
+><script></script>
+
+<!-- Prettier (master) -->
+<script
+  async
+  src="/_next/static/development/pages/_app.js?ts=1565732195968"
+></script>
+<script></script>
+```
+
 #### TypeScript: Fixed to break line and add a semicolon in one execution on one line long mapped types ([#6420] by [@sosukesuzuki])
 
 Previously, when Prettier formatted long, one-line mapped types, it would break the line but didn’t add a semicolon – until you ran Prettier again (which broke Prettier’s idempotency rule). Now, Prettier adds the semicolon in the first run, fixing the issue.
@@ -519,6 +546,7 @@ class Class {
 [#6307]: https://github.com/prettier/prettier/pull/6307
 [#6340]: https://github.com/prettier/prettier/pull/6340
 [#6412]: https://github.com/prettier/prettier/pull/6412
+[#6423]: https://github.com/prettier/prettier/pull/6423
 [#6420]: https://github.com/prettier/prettier/pull/6420
 [#6411]: https://github.com/prettier/prettier/pull/6411
 [@duailibe]: https://github.com/duailibe
@@ -527,3 +555,4 @@ class Class {
 [@g-harel]: https://github.com/g-harel
 [@jounqin]: https://github.com/JounQin
 [@bakkot]: https://gibhub.com/bakkot
+[@thorn0]: https://github.com/thorn0
