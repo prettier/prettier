@@ -531,6 +531,25 @@ class Class {
 }
 ```
 
+#### JavaScript: Handle empty object patterns with type annotations in function parameters ([#6438] by [@bakkot])
+
+<!-- prettier-ignore -->
+```js
+// Input
+const f = ({}: MyVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongType) => {};
+function g({}: Foo) {}
+
+// Output (Prettier stable)
+const f = ({
+  ,
+}: MyVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongType) => {};
+function g({  }: Foo) {}
+
+// Output (Prettier master)
+const f = ({}: MyVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongType) => {};
+function g({}: Foo) {}
+```
+
 [#5910]: https://github.com/prettier/prettier/pull/5910
 [#6186]: https://github.com/prettier/prettier/pull/6186
 [#6206]: https://github.com/prettier/prettier/pull/6206
@@ -549,6 +568,7 @@ class Class {
 [#6423]: https://github.com/prettier/prettier/pull/6423
 [#6420]: https://github.com/prettier/prettier/pull/6420
 [#6411]: https://github.com/prettier/prettier/pull/6411
+[#6438]: https://github.com/prettier/prettier/pull/6411
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
 [@sosukesuzuki]: https://github.com/sosukesuzuki
