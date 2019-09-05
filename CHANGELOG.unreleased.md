@@ -480,6 +480,57 @@ Previously, in the [whitespace-sensitive mode](https://prettier.io/docs/en/optio
 <script></script>
 ```
 
+#### TypeScript: Fixed to break line and add a semicolon in one execution on one line long mapped types ([#6420] by [@sosukesuzuki])
+
+Previously, when Prettier formatted long, one-line mapped types, it would break the line but didn’t add a semicolon – until you ran Prettier again (which broke Prettier’s idempotency rule). Now, Prettier adds the semicolon in the first run, fixing the issue.
+
+<!-- prettier-ignore -->
+```ts
+// Input
+type FooBar<T> = { [P in keyof T]: T[P] extends Something ? Something<T[P]> : T[P] }
+
+// Prettier (stable)
+type FooBar<T> = {
+  [P in keyof T]: T[P] extends Something ? Something<T[P]> : T[P]
+};
+
+// Prettier (master)
+type FooBar<T> = {
+  [P in keyof T]: T[P] extends Something ? Something<T[P]> : T[P];
+};
+```
+
+#### JavaScript: Fix ugly formatting on object destructuring with parameter decorators ([#6411] by [@sosukesuzuki])
+
+Previously, Prettier formatted decorators for destructured parameters in a weird way. Now, parameter decorators are placed just above the parameter they belong to.
+
+<!-- prettier-ignore -->
+```js
+// Input
+class Class {
+  method(
+    @decorator
+     { foo }
+  ) {}
+}
+
+// Prettier (stable)
+class Class {
+  method(@decorator
+  {
+    foo
+  }) {}
+}
+
+// Prettier (master)
+class Class {
+  method(
+    @decorator
+    { foo }
+  ) {}
+}
+```
+
 [#5910]: https://github.com/prettier/prettier/pull/5910
 [#6186]: https://github.com/prettier/prettier/pull/6186
 [#6206]: https://github.com/prettier/prettier/pull/6206
@@ -496,6 +547,8 @@ Previously, in the [whitespace-sensitive mode](https://prettier.io/docs/en/optio
 [#6340]: https://github.com/prettier/prettier/pull/6340
 [#6412]: https://github.com/prettier/prettier/pull/6412
 [#6423]: https://github.com/prettier/prettier/pull/6423
+[#6420]: https://github.com/prettier/prettier/pull/6420
+[#6411]: https://github.com/prettier/prettier/pull/6411
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
 [@sosukesuzuki]: https://github.com/sosukesuzuki

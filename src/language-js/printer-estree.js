@@ -1419,6 +1419,7 @@ function printPathNoParens(path, options, print, args) {
         (n.type === "ObjectPattern" &&
           parent &&
           shouldHugArguments(parent) &&
+          !n.decorators &&
           parent.params[0] === n) ||
         (shouldHugType(n) &&
           parentParentParent &&
@@ -3260,7 +3261,7 @@ function printPathNoParens(path, options, print, args) {
                 : "",
               ": ",
               path.call(print, "typeAnnotation"),
-              shouldBreak && options.semi ? ";" : ""
+              ifBreak(semi, "")
             ])
           ),
           comments.printDanglingComments(path, options, /* sameIndent */ true),
@@ -4355,7 +4356,10 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
   //   b,
   //   c
   // }) {}
-  if (shouldHugParameters) {
+  const hasNotParameterDecorator = fun[paramsField].every(
+    param => !param.decorators
+  );
+  if (shouldHugParameters && hasNotParameterDecorator) {
     return concat([typeParams, "(", concat(printed), ")"]);
   }
 
