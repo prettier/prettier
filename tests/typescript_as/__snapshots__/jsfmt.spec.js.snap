@@ -9,9 +9,12 @@ printWidth: 80
 const name = (description as DescriptionObject).name || (description as string);
 this.isTabActionBar((e.target || e.srcElement) as HTMLElement);
 (originalError ? wrappedError(errMsg, originalError) : Error(errMsg)) as InjectionError;
-'current' in (props.pagination as Object)
-start + (yearSelectTotal as number)
-scrollTop > (visibilityHeight as number)
+'current' in (props.pagination as Object);
+('current' in props.pagination) as Object;
+start + (yearSelectTotal as number);
+(start + yearSelectTotal) as number;
+scrollTop > (visibilityHeight as number);
+(scrollTop > visibilityHeight) as number;
 export default class Column<T> extends (RcTable.Column as React.ComponentClass<ColumnProps<T>,ColumnProps<T>,ColumnProps<T>,ColumnProps<T>>) {}
 export const MobxTypedForm = class extends (Form as { new (): any }) {}
 export abstract class MobxTypedForm extends (Form as { new (): any }) {}
@@ -33,22 +36,25 @@ const state = JSON.stringify({
 (foo.bar as any)++;
 
 const value1 = thisIsAReallyReallyReallyReallyReallyLongIdentifier as SomeInterface;
-const value1 = thisIsAnIdentifier as thisIsAReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyLongInterface;
-const value2 = thisIsAReallyLongIdentifier as (SomeInterface | SomeOtherInterface);
-const value3 = thisIsAReallyLongIdentifier as { prop1: string, prop2: number, prop3: number }[];
-const value4 = thisIsAReallyReallyReallyReallyReallyReallyReallyReallyReallyLongIdentifier as [string, number];
+const value2 = thisIsAnIdentifier as thisIsAReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyLongInterface;
+const value3 = thisIsAReallyLongIdentifier as (SomeInterface | SomeOtherInterface);
+const value4 = thisIsAReallyLongIdentifier as { prop1: string, prop2: number, prop3: number }[];
+const value5 = thisIsAReallyReallyReallyReallyReallyReallyReallyReallyReallyLongIdentifier as [string, number];
 
 (bValue as boolean) ? 0 : -1;
 <boolean>bValue ? 0 : -1;
 
 =====================================output=====================================
-const name = (description as DescriptionObject).name || (description as string);
+const name = (description as DescriptionObject).name || description as string;
 this.isTabActionBar((e.target || e.srcElement) as HTMLElement);
 (originalError ? wrappedError(errMsg, originalError) : Error(errMsg)) as
   InjectionError;
-"current" in (props.pagination as Object);
-start + (yearSelectTotal as number);
-scrollTop > (visibilityHeight as number);
+"current" in props.pagination as Object;
+("current" in props.pagination) as Object;
+start + yearSelectTotal as number;
+(start + yearSelectTotal) as number;
+scrollTop > visibilityHeight as number;
+(scrollTop > visibilityHeight) as number;
 export default class Column<T> extends (RcTable.Column as
   React.ComponentClass<
     ColumnProps<T>,
@@ -75,23 +81,19 @@ const state = JSON.stringify({
 (foo.bar as Baz) = [bar];
 (foo.bar as any)++;
 
-const value1 = thisIsAReallyReallyReallyReallyReallyLongIdentifier as
-  SomeInterface;
-const value1 = thisIsAnIdentifier as
+const value1 =
+  thisIsAReallyReallyReallyReallyReallyLongIdentifier as SomeInterface;
+const value2 =
+  thisIsAnIdentifier as
   thisIsAReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyLongInterface;
-const value2 = thisIsAReallyLongIdentifier as (
-  | SomeInterface
-  | SomeOtherInterface
-);
-const value3 = thisIsAReallyLongIdentifier as {
-  prop1: string;
-  prop2: number;
-  prop3: number;
-}[];
-const value4 = thisIsAReallyReallyReallyReallyReallyReallyReallyReallyReallyLongIdentifier as [
-  string,
-  number
-];
+const value3 =
+  thisIsAReallyLongIdentifier as (SomeInterface | SomeOtherInterface);
+const value4 =
+  thisIsAReallyLongIdentifier as
+  { prop1: string; prop2: number; prop3: number }[];
+const value5 =
+  thisIsAReallyReallyReallyReallyReallyReallyReallyReallyReallyLongIdentifier as
+  [string, number];
 
 (bValue as boolean) ? 0 : -1;
 <boolean>bValue ? 0 : -1;

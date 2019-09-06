@@ -55,8 +55,8 @@ const value = thisIsAReallyReallyReallyReallyReallyLongIdentifier as SomeInterfa
 const value = thisIsAReallyReallyReallyReallyReallyLongIdentifier as SomeInterface;
 
 // Output (Prettier master)
-const value = thisIsAReallyReallyReallyReallyReallyLongIdentifier as
-  SomeInterface;
+const value =
+  thisIsAReallyReallyReallyReallyReallyLongIdentifier as SomeInterface;
 ```
 
 #### JavaScript: More readable parentheses for new-call ([#6412] by [@bakkot])

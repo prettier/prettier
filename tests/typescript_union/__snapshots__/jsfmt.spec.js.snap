@@ -190,10 +190,8 @@ type State = {
   | { discriminant: "BAZ"; baz: any }
 );
 
-const foo = [abc, def, ghi, jkl, mno, pqr, stu, vwx, yz] as (
-  | string
-  | undefined
-)[];
+const foo =
+  [abc, def, ghi, jkl, mno, pqr, stu, vwx, yz] as (string | undefined)[];
 
 const foo: (
   | AAAAAAAAAAAAAAAAAAAAAA

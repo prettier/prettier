@@ -2,15 +2,19 @@
 
 const { getLast } = require("../common/util");
 
-// fix unexpected locEnd caused by --no-semi style
 function postprocess(ast, options) {
   visitNode(ast, node => {
     switch (node.type) {
+      // Fix unexpected locEnd caused by --no-semi style
       case "VariableDeclaration": {
         const lastDeclaration = getLast(node.declarations);
         if (lastDeclaration && lastDeclaration.init) {
           overrideLocEnd(node, lastDeclaration);
         }
+        break;
+      }
+      case "TSAsExpression": {
+        convertTSAsExpression(node);
         break;
       }
     }
@@ -42,6 +46,17 @@ function postprocess(ast, options) {
   function locEnd(node) {
     return options.parser === "flow" ? node.range[1] : node.end;
   }
+}
+
+/* Convert TSAsExpression to BinaryExpression interface
+ * https://github.com/estree/estree/blob/master/es5.md#binaryexpression
+ */
+function convertTSAsExpression(node) {
+  node.left = node.expression;
+  node.operator = "as";
+  node.right = node.typeAnnotation;
+  delete node.expression;
+  delete node.typeAnnotation;
 }
 
 function visitNode(node, fn) {
