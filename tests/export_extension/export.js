@@ -5,3 +5,4 @@ export c, { foo } from 'mod';
 export * as d, { bar } from 'mod';
 export { fooooooooooooooooooooooooooooooooooooooooooooooooo } from "fooooooooooooooooooooooooooooo";
 export Bar, { barrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr } from "barrrrrrrrrrrrrrrrrrrrrrrrrrrr";
+export { foooooooooooooooooooooooooooooooooooooooooooooo, fooooooooooooooooooooooooooooooooooooooooooooooo  } from "fooooooooooooooooooooooooooooo";

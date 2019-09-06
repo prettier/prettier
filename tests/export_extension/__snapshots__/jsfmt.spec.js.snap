@@ -13,6 +13,7 @@ export c, { foo } from 'mod';
 export * as d, { bar } from 'mod';
 export { fooooooooooooooooooooooooooooooooooooooooooooooooo } from "fooooooooooooooooooooooooooooo";
 export Bar, { barrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr } from "barrrrrrrrrrrrrrrrrrrrrrrrrrrr";
+export { foooooooooooooooooooooooooooooooooooooooooooooo, fooooooooooooooooooooooooooooooooooooooooooooooo  } from "fooooooooooooooooooooooooooooo";
 
 =====================================output=====================================
 export * as ns from "mod";
@@ -24,6 +25,10 @@ export { fooooooooooooooooooooooooooooooooooooooooooooooooo } from "fooooooooooo
 export Bar, {
   barrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
 } from "barrrrrrrrrrrrrrrrrrrrrrrrrrrr";
+export {
+  foooooooooooooooooooooooooooooooooooooooooooooo,
+  fooooooooooooooooooooooooooooooooooooooooooooooo
+} from "fooooooooooooooooooooooooooooo";
 
 ================================================================================
 `;
