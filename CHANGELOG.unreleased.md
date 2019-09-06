@@ -586,6 +586,7 @@ Previously, Prettier formatted parens wrap binary expressions within call expres
 Previously, Prettier formatted long named exports differently than named imports.
 
 ```js
+// Input
 export { fooooooooooooooooooooooooooooooooooooooooooooooooo } from "fooooooooooooooooooooooooooooo";
 
 // Prettier (stable)
