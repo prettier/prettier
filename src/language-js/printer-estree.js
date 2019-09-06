@@ -938,6 +938,9 @@ function printPathNoParens(path, options, print, args) {
         parts.push(path.call(print, "importKind"), " ");
       }
 
+      if (n.view) parts.push('viewof ');
+      if (n.mutable) parts.push('mutable ');
+
       parts.push(path.call(print, "imported"));
 
       if (n.local && n.local.name !== n.imported.name) {
