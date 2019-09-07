@@ -568,7 +568,8 @@ function printPathNoParens(path, options, print, args) {
         return concat(parts);
       }
 
-      // Break between the parens in unaries or in a member expression, i.e.
+      // Break between the parens in
+      // unaries or in a member or specific call expression, i.e.
       //
       //   (
       //     a &&
@@ -576,6 +577,7 @@ function printPathNoParens(path, options, print, args) {
       //     c
       //   ).call()
       if (
+        (parent.type === "CallExpression" && parent.callee === n) ||
         parent.type === "UnaryExpression" ||
         ((parent.type === "MemberExpression" ||
           parent.type === "OptionalMemberExpression") &&
