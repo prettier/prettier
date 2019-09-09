@@ -1037,7 +1037,50 @@ class A {
 }}
 ```
 
-[#5682]: https://github.com/prettier/prettier/pull/5682
+#### Handlebars: Fix handling of whitespace and line breaks ([#6354] by [@chadian])
+
+This fixes a variety of whitespace and line break usecases within handlebars and Glimmer templates.
+
+<!-- prettier-ignore -->
+```hbs
+// Input
+<SomeComponent />{{name}}
+
+Some sentence with  {{dynamic}}  expressions.
+
+
+
+sometimes{{nogaps}}areimportant<Hello></Hello>
+{{name}}  is your name
+
+// Output (Prettier stable)
+<SomeComponent />
+{{name}}
+Some sentence with
+{{dynamic}}
+expressions.
+
+
+
+sometimes
+{{nogaps}}
+areimportant
+<Hello />
+{{name}}
+is your name
+
+// Output (Prettier master)
+<SomeComponent />{{name}}
+
+Some sentence with {{dynamic}} expressions.
+
+
+
+sometimes{{nogaps}}areimportant
+<Hello />
+{{name}} is your name
+```
+
 [#5910]: https://github.com/prettier/prettier/pull/5910
 [#6033]: https://github.com/prettier/prettier/pull/6033
 [#6186]: https://github.com/prettier/prettier/pull/6186
@@ -1087,3 +1130,4 @@ class A {
 [@squidfunk]: https://github.com/squidfunk
 [@vjeux]: https://github.com/vjeux
 [@selvazhagan]: https://github.com/selvazhagan
+[@chadian]: https://github.com/chadian
