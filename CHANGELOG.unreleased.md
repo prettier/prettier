@@ -598,6 +598,31 @@ export {
 export { fooooooooooooooooooooooooooooooooooooooooooooooooo } from "fooooooooooooooooooooooooooooo";
 ```
 
+#### TypeScript: Don't breakup call expressions when the last argument is an `as` type expression wrapping a simple expression ([#] by [@mattleff])
+
+Previously, when Prettier formatted a call expression containing an `as` type expression or a type assertion, it would break the line. Now, Prettier uses the expression contained by the `as` type or type assertion to determine line breaks.
+
+<!-- prettier-ignore -->
+```ts
+// Input
+const bar = [1,2,3].reduce((carry, value) => {
+  return [...carry, value];
+}, ([] as unknown) as number[]);
+
+// Prettier (stable)
+const bar = [1, 2, 3].reduce(
+  (carry, value) => {
+    return [...carry, value];
+  },
+  ([] as unknown) as number[]
+);
+
+// Prettier (master)
+const bar = [1,2,3].reduce((carry, value) => {
+  return [...carry, value];
+}, ([] as unknown) as number[]);
+```
+
 [#5910]: https://github.com/prettier/prettier/pull/5910
 [#6186]: https://github.com/prettier/prettier/pull/6186
 [#6206]: https://github.com/prettier/prettier/pull/6206
@@ -619,6 +644,7 @@ export { fooooooooooooooooooooooooooooooooooooooooooooooooo } from "fooooooooooo
 [#6438]: https://github.com/prettier/prettier/pull/6411
 [#6441]: https://github.com/prettier/prettier/pull/6441
 [#6446]: https://github.com/prettier/prettier/pull/6446
+[#]: https://github.com/prettier/prettier/pull/
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
 [@sosukesuzuki]: https://github.com/sosukesuzuki
@@ -626,3 +652,4 @@ export { fooooooooooooooooooooooooooooooooooooooooooooooooo } from "fooooooooooo
 [@jounqin]: https://github.com/JounQin
 [@bakkot]: https://gibhub.com/bakkot
 [@thorn0]: https://github.com/thorn0
+[@mattleff]: https://github.com/mattleff
