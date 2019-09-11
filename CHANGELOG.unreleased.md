@@ -663,7 +663,7 @@ switch (
 }
 ```
 
-#### TypeScript: Keep type parameters inline for a type annotation of variable declaration ([#] by [@sosukesuzuki])
+#### TypeScript: Keep type parameters inline for a type annotation of variable declaration ([#6467] by [@sosukesuzuki])
 
 <!-- prettier-ignore -->
 ```ts
@@ -702,7 +702,7 @@ const fooooooooooooooo: SomeThing<boolean> = looooooooooooooooooooooooooooooongN
 [#6446]: https://github.com/prettier/prettier/pull/6446
 [#6506]: https://github.com/prettier/prettier/pull/6506
 [#6514]: https://github.com/prettier/prettier/pull/6514
-[#]: https://github.com/prettier/prettier/pull/
+[#6467]: https://github.com/prettier/prettier/pull/6467
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
 [@sosukesuzuki]: https://github.com/sosukesuzuki
