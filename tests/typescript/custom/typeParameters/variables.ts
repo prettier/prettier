@@ -1,3 +1,7 @@
+const foo: SomeThing<boolean> = func();
+const bar: SomeThing<boolean, boolean> = func();
+const fooo: SomeThing<{ [P in "x" | "y"]: number }> = func();
+const baar: SomeThing<K extends T ? G : S> = func();
 const fooooooooooooooo: SomeThing<boolean> = looooooooooooooooooooooooooooooongNameFunc();
 const baaaaaaaaaaaaaaaaaaaaar: SomeThing<boolean, boolean> = looooooooooooooooooooooooooooooongNameFunc();
 const baaaaaaaaaaaaaaar: SomeThing<{ [P in "x" | "y"]: number }> = looooooooooooooooooooooooooooooongNameFunc();
