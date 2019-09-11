@@ -581,6 +581,23 @@ Previously, Prettier formatted parens wrap binary expressions within call expres
 )();
 ```
 
+#### JavaScript: Fix formatting on long named exports ([#6446] by [@sosukesuzuki])
+
+Previously, Prettier formatted long named exports differently than named imports.
+
+```js
+// Input
+export { fooooooooooooooooooooooooooooooooooooooooooooooooo } from "fooooooooooooooooooooooooooooo";
+
+// Prettier (stable)
+export {
+  fooooooooooooooooooooooooooooooooooooooooooooooooo
+} from "fooooooooooooooooooooooooooooo";
+
+// Prettier (master)
+export { fooooooooooooooooooooooooooooooooooooooooooooooooo } from "fooooooooooooooooooooooooooooo";
+```
+
 [#5910]: https://github.com/prettier/prettier/pull/5910
 [#6186]: https://github.com/prettier/prettier/pull/6186
 [#6206]: https://github.com/prettier/prettier/pull/6206
@@ -601,6 +618,7 @@ Previously, Prettier formatted parens wrap binary expressions within call expres
 [#6411]: https://github.com/prettier/prettier/pull/6411
 [#6438]: https://github.com/prettier/prettier/pull/6411
 [#6441]: https://github.com/prettier/prettier/pull/6441
+[#6446]: https://github.com/prettier/prettier/pull/6446
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
 [@sosukesuzuki]: https://github.com/sosukesuzuki

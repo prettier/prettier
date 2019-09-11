@@ -4598,28 +4598,46 @@ function printExportDeclaration(path, options, print) {
         defaultSpecifiers.length !== 0 &&
         (namespaceSpecifiers.length !== 0 || specifiers.length !== 0);
 
+      const canBreak =
+        specifiers.length > 1 ||
+        defaultSpecifiers.length > 0 ||
+        (decl.specifiers && decl.specifiers.some(node => node.comments));
+
+      let printed = "";
+      if (specifiers.length !== 0) {
+        if (canBreak) {
+          printed = group(
+            concat([
+              "{",
+              indent(
+                concat([
+                  options.bracketSpacing ? line : softline,
+                  join(concat([",", line]), specifiers)
+                ])
+              ),
+              ifBreak(shouldPrintComma(options) ? "," : ""),
+              options.bracketSpacing ? line : softline,
+              "}"
+            ])
+          );
+        } else {
+          printed = concat([
+            "{",
+            options.bracketSpacing ? " " : "",
+            concat(specifiers),
+            options.bracketSpacing ? " " : "",
+            "}"
+          ]);
+        }
+      }
+
       parts.push(
         decl.exportKind === "type" ? "type " : "",
         concat(defaultSpecifiers),
         concat([isDefaultFollowed ? ", " : ""]),
         concat(namespaceSpecifiers),
         concat([isNamespaceFollowed ? ", " : ""]),
-        specifiers.length !== 0
-          ? group(
-              concat([
-                "{",
-                indent(
-                  concat([
-                    options.bracketSpacing ? line : softline,
-                    join(concat([",", line]), specifiers)
-                  ])
-                ),
-                ifBreak(shouldPrintComma(options) ? "," : ""),
-                options.bracketSpacing ? line : softline,
-                "}"
-              ])
-            )
-          : ""
+        printed
       );
     } else {
       parts.push("{}");
