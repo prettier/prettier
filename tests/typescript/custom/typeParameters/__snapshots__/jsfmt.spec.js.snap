@@ -108,3 +108,30 @@ type ReallyReallyReallyLongName<
 
 ================================================================================
 `;
+
+exports[`variables.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const fooooooooooooooo: SomeThing<boolean> = looooooooooooooooooooooooooooooongNameFunc();
+const baaaaaaaaaaaaaaaaaaaaar: SomeThing<boolean, boolean> = looooooooooooooooooooooooooooooongNameFunc();
+const baaaaaaaaaaaaaaar: SomeThing<{ [P in "x" | "y"]: number }> = looooooooooooooooooooooooooooooongNameFunc();
+const baaaaaaaaaaaaaaaar: SomeThing<K extends T ? G : S> = looooooooooooooooooooooooooooooongNameFunc();
+
+=====================================output=====================================
+const fooooooooooooooo: SomeThing<boolean> = looooooooooooooooooooooooooooooongNameFunc();
+const baaaaaaaaaaaaaaaaaaaaar: SomeThing<
+  boolean,
+  boolean
+> = looooooooooooooooooooooooooooooongNameFunc();
+const baaaaaaaaaaaaaaar: SomeThing<
+  { [P in "x" | "y"]: number }
+> = looooooooooooooooooooooooooooooongNameFunc();
+const baaaaaaaaaaaaaaaar: SomeThing<
+  K extends T ? G : S
+> = looooooooooooooooooooooooooooooongNameFunc();
+
+================================================================================
+`;
