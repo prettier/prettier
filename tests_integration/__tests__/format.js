@@ -49,5 +49,7 @@ test("should work with foo plugin instance", () => {
     JSON.stringify(
       prettier.format(input, { parser: "foo-parser", plugins: [fooPlugin] })
     )
-  ).toMatchInlineSnapshot(`"\\"tabWidth:8\\""`);
+  ).toMatchInlineSnapshot(
+    `"\\"{\\\\\\"tabWidth\\\\\\":8,\\\\\\"bracketSpacing\\\\\\":false}\\""`
+  );
 });
