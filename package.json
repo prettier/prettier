@@ -114,7 +114,7 @@
     "snapshot-diff": "0.4.0",
     "strip-ansi": "4.0.0",
     "tempy": "0.2.1",
-    "webpack": "3.12.0"
+    "webpack": "4.39.1"
   },
   "scripts": {
     "prepublishOnly": "echo \"Error: must publish from dist/\" && exit 1",

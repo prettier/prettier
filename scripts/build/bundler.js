@@ -176,13 +176,16 @@ function getWebpackConfig(bundle) {
       path: path.resolve(root, "dist"),
       filename: bundle.output,
       library: ["prettierPlugins", bundle.name],
-      libraryTarget: "umd"
+      libraryTarget: "umd",
+      // https://github.com/webpack/webpack/issues/6642
+      globalObject: 'new Function("return this")()'
     },
-    plugins: [
-      new webpack.DefinePlugin({
-        "process.env.NODE_ENV": JSON.stringify("production")
-      })
-    ]
+    optimization: {
+      // TODO: enable this
+      // `parser-postcss.js` can't work with terser
+      // https://github.com/prettier/prettier/pull/6200#issuecomment-500018106
+      minimize: false
+    }
   };
 }
 
