@@ -5,14 +5,14 @@ const options = require("./options");
 const createLanguage = require("../utils/create-language");
 
 const languages = [
-  createLanguage(require("linguist-languages/data/css"), {
+  createLanguage(require("linguist-languages/data/CSS"), {
     override: {
       since: "1.4.0",
       parsers: ["css"],
       vscodeLanguageIds: ["css"]
     }
   }),
-  createLanguage(require("linguist-languages/data/postcss"), {
+  createLanguage(require("linguist-languages/data/PostCSS"), {
     override: {
       since: "1.4.0",
       parsers: ["css"],
@@ -22,14 +22,14 @@ const languages = [
       extensions: [".postcss"]
     }
   }),
-  createLanguage(require("linguist-languages/data/less"), {
+  createLanguage(require("linguist-languages/data/Less"), {
     override: {
       since: "1.4.0",
       parsers: ["less"],
       vscodeLanguageIds: ["less"]
     }
   }),
-  createLanguage(require("linguist-languages/data/scss"), {
+  createLanguage(require("linguist-languages/data/SCSS"), {
     override: {
       since: "1.4.0",
       parsers: ["scss"],
