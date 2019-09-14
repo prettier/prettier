@@ -9,7 +9,7 @@ You can use Prettier with a pre-commit tool. This can re-format your files that 
 
 **Use Case:** Useful for when you want to use other code quality tools along with Prettier (e.g. ESLint, Stylelint, etc.) or if you need support for partially staged files (`git add --patch`).
 
-_Make sure Prettier is installed and is in your `package.json` section of `devDependencies` before you proceed._
+_Make sure Prettier is installed and is in your `package.json` file's section named `devDependencies` before you proceed._
 
 ```bash
 npx mrm lint-staged
