@@ -92,6 +92,7 @@ function maybeToLowerCase(value) {
     value.startsWith("%") ||
     value.startsWith("--") ||
     value.startsWith(":--") ||
+    hasUpperCase(value) ||
     (value.includes("(") && value.includes(")"))
     ? value
     : value.toLowerCase();
@@ -377,9 +378,7 @@ function isColonNode(node) {
 }
 
 function isMediaAndSupportsKeywords(node) {
-  return (
-    node.value && ["not", "and", "or"].indexOf(node.value.toLowerCase()) !== -1
-  );
+  return node.value && ["not", "and", "or"].indexOf(node.value) !== -1;
 }
 
 function isColorAdjusterFuncNode(node) {
@@ -388,6 +387,10 @@ function isColorAdjusterFuncNode(node) {
   }
 
   return colorAdjusterFunctions.indexOf(node.value.toLowerCase()) !== -1;
+}
+
+function hasUpperCase(value) {
+  return /[A-Z]/.test(value);
 }
 
 module.exports = {
@@ -436,5 +439,6 @@ module.exports = {
   isWordNode,
   isColonNode,
   isMediaAndSupportsKeywords,
-  isColorAdjusterFuncNode
+  isColorAdjusterFuncNode,
+  hasUpperCase
 };
