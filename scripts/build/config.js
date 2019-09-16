@@ -49,10 +49,18 @@ const parsers = [
     alias: {
       // Force using the CJS file, instead of ESM; i.e. get the file
       // from `"main"` instead of `"module"` (rollup default) of package.json
-      "lines-and-columns": require.resolve("lines-and-columns"),
-      "@angular/compiler/src": path.resolve(
-        `${PROJECT_ROOT}/node_modules/@angular/compiler/esm2015/src`
-      )
+      entries: [
+        {
+          find: "lines-and-columns",
+          replacement: require.resolve("lines-and-columns")
+        },
+        {
+          find: "@angular/compiler/src",
+          replacement: path.resolve(
+            `${PROJECT_ROOT}/node_modules/@angular/compiler/esm2015/src`
+          )
+        }
+      ]
     }
   },
   {
@@ -90,7 +98,12 @@ const parsers = [
     alias: {
       // Force using the CJS file, instead of ESM; i.e. get the file
       // from `"main"` instead of `"module"` (rollup default) of package.json
-      "lines-and-columns": require.resolve("lines-and-columns")
+      entries: [
+        {
+          find: "lines-and-columns",
+          replacement: require.resolve("lines-and-columns")
+        }
+      ]
     },
     babelPlugins: [
       require.resolve("./babel-plugins/replace-array-includes-with-indexof")
