@@ -225,36 +225,6 @@ function needsParens(path, options) {
   }
 
   switch (node.type) {
-    case "CallExpression": {
-      let firstParentNotMemberExpression = parent;
-      let i = 0;
-      // tagged templates are basically member expressions from a grammar perspective
-      // see https://tc39.github.io/ecma262/#prod-MemberExpression
-      // so are typescript's non-null assertions, though there's no grammar to point to
-      while (
-        firstParentNotMemberExpression &&
-        ((firstParentNotMemberExpression.type === "MemberExpression" &&
-          firstParentNotMemberExpression.object ===
-            path.getParentNode(i - 1)) ||
-          firstParentNotMemberExpression.type === "TaggedTemplateExpression" ||
-          firstParentNotMemberExpression.type === "TSNonNullExpression")
-      ) {
-        firstParentNotMemberExpression = path.getParentNode(++i);
-      }
-
-      if (
-        firstParentNotMemberExpression.type === "NewExpression" &&
-        firstParentNotMemberExpression.callee === path.getParentNode(i - 1)
-      ) {
-        return true;
-      }
-
-      if (parent.type === "BindExpression" && parent.callee === node) {
-        return true;
-      }
-      return false;
-    }
-
     case "SpreadElement":
     case "SpreadProperty":
       return (
@@ -696,24 +666,35 @@ function needsParens(path, options) {
     case "OptionalMemberExpression":
       return parent.type === "MemberExpression";
 
+    case "CallExpression":
     case "MemberExpression":
+    case "TaggedTemplateExpression":
+    case "TSNonNullExpression":
       if (
-        parent.type === "BindExpression" &&
+        (parent.type === "BindExpression" || parent.type === "NewExpression") &&
         name === "callee" &&
         parent.callee === node
       ) {
-        let object = node.object;
+        let object = node;
         while (object) {
-          if (object.type === "CallExpression") {
-            return true;
+          switch (object.type) {
+            case "CallExpression":
+              return true;
+            case "MemberExpression":
+            case "BindExpression":
+              object = object.object;
+              break;
+            // tagged templates are basically member expressions from a grammar perspective
+            // see https://tc39.github.io/ecma262/#prod-MemberExpression
+            case "TaggedTemplateExpression":
+              object = object.tag;
+              break;
+            case "TSNonNullExpression":
+              object = object.expression;
+              break;
+            default:
+              return false;
           }
-          if (
-            object.type !== "MemberExpression" &&
-            object.type !== "BindExpression"
-          ) {
-            break;
-          }
-          object = object.object;
         }
       }
       return false;

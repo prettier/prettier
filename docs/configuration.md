@@ -61,7 +61,9 @@ singleQuote = true
 
 ## Configuration Overrides
 
-Prettier borrows eslint's [override format](http://eslint.org/docs/user-guide/configuring#example-configuration). This allows you to apply configuration to specific files.
+Overrides let you have different configuration for certain file extensions, folders and specific files.
+
+Prettier borrows ESLint’s [override format](http://eslint.org/docs/user-guide/configuring#example-configuration).
 
 JSON:
 
@@ -73,6 +75,12 @@ JSON:
       "files": "*.test.js",
       "options": {
         "semi": true
+      }
+    },
+    {
+      "files": ["*.html", "legacy/**/*.js"],
+      "options": {
+        "tabWidth": 4
       }
     }
   ]
@@ -87,6 +95,11 @@ overrides:
   - files: "*.test.js"
     options:
       semi: true
+  - files:
+      - "*.html"
+      - "legacy/**/*.js"
+    options:
+      tabWidth: 4
 ```
 
 `files` is required for each override, and may be a string or array of strings. `excludeFiles` may be optionally provided to exclude files for a given rule, and may also be a string or array of strings.

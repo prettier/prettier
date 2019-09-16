@@ -5,10 +5,6 @@ export const Button = React.forwardRef((props, ref) => (
   <button type="button" className="btn" ref={ref} {...props} />
 ));
 
-export function LinkButton(props) {
-  return <a className="btn" {...props} />;
-}
-
 export class ClipboardButton extends React.Component {
   constructor() {
     super();
@@ -41,16 +37,16 @@ export class ClipboardButton extends React.Component {
   }
 
   render() {
+    const { children } = this.props;
+    const { showTooltip, tooltipText } = this.state;
     const rest = Object.assign({}, this.props);
     delete rest.children;
     delete rest.copy;
 
     return (
       <Button ref={this.ref} {...rest}>
-        {this.state.showTooltip ? (
-          <span className="tooltip">{this.state.tooltipText}</span>
-        ) : null}
-        {this.props.children}
+        {showTooltip ? <span className="tooltip">{tooltipText}</span> : null}
+        {children}
       </Button>
     );
   }
