@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`can access files with glob without --noglob (stderr) 1`] = `""`;
+
+exports[`can access files with glob without --noglob (stdout) 1`] = `
+"var x = 2;
+var x = 3;
+"
+`;
+
+exports[`can access files with glob without --noglob (write) 1`] = `Array []`;
+
+exports[`cannot access exact filename without --noglob (stderr) 1`] = `
+"[error] No matching files. Patterns tried: [code].js !**/node_modules/** !./node_modules/** !**/.{git,svn,hg}/** !./.{git,svn,hg}/**
+"
+`;
+
+exports[`cannot access exact filename without --noglob (stdout) 1`] = `""`;
+
+exports[`cannot access exact filename without --noglob (write) 1`] = `Array []`;
+
+exports[`cannot access files with glob with --noglob (stderr) 1`] = `
+"[error] Unable to read file: [AB].js
+[error] ENOENT: no such file or directory, open '[AB].js'
+"
+`;
+
+exports[`cannot access files with glob with --noglob (stdout) 1`] = `
+"
+"
+`;
+
+exports[`cannot access files with glob with --noglob (write) 1`] = `Array []`;
+
+exports[`process exact passed filename with --noglob (stderr) 1`] = `""`;
+
+exports[`process exact passed filename with --noglob (stdout) 1`] = `
+"var x = 1;
+"
+`;
+
+exports[`process exact passed filename with --noglob (write) 1`] = `Array []`;

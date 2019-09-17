@@ -404,6 +404,13 @@ function createIgnorerFromContextOrDie(context) {
 }
 
 function eachFilename(context, patterns, callback) {
+  if (context.argv["noglob"]) {
+    patterns
+      .map(filePath => path.relative(process.cwd(), filePath))
+      .forEach(callback);
+    return;
+  }
+
   // The '!./' globs are due to https://github.com/prettier/prettier/issues/2110
   const ignoreNodeModules = context.argv["with-node-modules"] !== true;
   if (ignoreNodeModules) {

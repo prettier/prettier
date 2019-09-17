@@ -187,6 +187,10 @@ const options = {
     default: "log",
     choices: ["silent", "error", "warn", "log", "debug"]
   },
+  noglob: {
+    type: "boolean",
+    description: "Use filenames exactly from parameters, without glob matching."
+  },
   "only-changed": {
     type: "boolean",
     description: "Only format files changed since last '--write'."

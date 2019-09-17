@@ -180,3 +180,7 @@ $ cat abc.css | prettier --stdin-filepath abc.css
   display: none;
 }
 ```
+
+## `--noglob`
+
+Use filenames exactly from parameters, without glob matching. For example if you have file `[name].js` (like in [sapper](https://sapper.svelte.dev)) with [lint-staged](https://github.com/okonet/lint-staged) (it passes list of changed files, and `[name]` by default is regex)
