@@ -44,6 +44,24 @@ const link = <a href="example.com">http://example.com</a>;
 
 -->
 
+#### CLI: --noglob cli option ([#6492] by [@AzazKamaz])
+
+Add --noglob cli option. It make cli process exactly what you passed.
+
+<!-- prettier-ignore -->
+```bash
+// Input
+$ echo "var x = 1;" > [code].js
+
+// Output (Prettier stable)
+$ prettier [code].js
+[error] No matching files. Patterns tried: [code].js
+
+// Output (Prettier master)
+$ prettier --noglob [code].js
+var x = 1;
+```
+
 #### JavaScript: More readable parentheses for new-call ([#6412] by [@bakkot])
 
 <!-- prettier-ignore -->
