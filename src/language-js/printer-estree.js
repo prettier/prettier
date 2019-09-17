@@ -2833,7 +2833,8 @@ function printPathNoParens(path, options, print, args) {
               grandParent.type === "TSUnionType" ||
               grandParent.type === "TSIntersectionType" ||
               grandParent.type === "TSTypeOperator" ||
-              grandParent.type === "TSArrayType")) ||
+              grandParent.type === "TSArrayType" ||
+              grandParent.type === "TSTupleType")) ||
           (greatGrandParent &&
             greatGrandParent.type === "TSParenthesizedType" &&
             greatGreatGrandParent &&
