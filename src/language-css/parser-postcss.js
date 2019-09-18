@@ -521,7 +521,7 @@ function requireParser(isSCSSParser) {
   return require("postcss-less");
 }
 
-function parse(text, parsers, opts) {
+function parse(text, _parsers, opts) {
   const hasExplicitParserChoice =
     opts.parser === "less" || opts.parser === "scss";
   const isSCSSParser = isSCSS(opts.parser, text);

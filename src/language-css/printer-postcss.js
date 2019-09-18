@@ -927,7 +927,7 @@ function quoteAttributeValue(value, options) {
 function adjustNumbers(value) {
   return value.replace(
     ADJUST_NUMBERS_REGEX,
-    (match, quote, wordPart, number, unit) =>
+    (match, _quote, wordPart, number, unit) =>
       !wordPart && number
         ? (wordPart || "") +
           printCssNumber(number) +
