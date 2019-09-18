@@ -159,7 +159,7 @@ function getWebpackConfig(bundle) {
   }
 
   const root = path.resolve(__dirname, "..", "..");
-  return {
+  const config = {
     entry: path.resolve(root, bundle.input),
     module: {
       rules: [
@@ -179,14 +179,22 @@ function getWebpackConfig(bundle) {
       libraryTarget: "umd",
       // https://github.com/webpack/webpack/issues/6642
       globalObject: 'new Function("return this")()'
-    },
-    optimization: {
-      // TODO: enable this
-      // `parser-postcss.js` can't work with terser
-      // https://github.com/prettier/prettier/pull/6200#issuecomment-500018106
-      minimize: false
     }
   };
+
+  if (bundle.terserOptions) {
+    const TerserPlugin = require("terser-webpack-plugin");
+
+    config.optimization = {
+      minimizer: [
+        new TerserPlugin({
+          terserOptions: bundle.terserOptions
+        })
+      ]
+    };
+  }
+
+  return config;
 }
 
 function runWebpack(config) {
