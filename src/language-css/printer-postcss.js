@@ -279,6 +279,10 @@ function genericPrint(path, options, print) {
       return concat(["(", concat(path.map(print, "nodes")), ")"]);
     }
     case "media-feature": {
+      // Prevents the node value from becoming lowercase
+      if ((node.before == "", node.after == "")) {
+        return adjustStrings(node.value.replace(/ +/g, " "), options);
+      }
       return maybeToLowerCase(
         adjustStrings(node.value.replace(/ +/g, " "), options)
       );

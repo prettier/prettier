@@ -92,7 +92,6 @@ function maybeToLowerCase(value) {
     value.startsWith("%") ||
     value.startsWith("--") ||
     value.startsWith(":--") ||
-    hasUpperCase(value) ||
     (value.includes("(") && value.includes(")"))
     ? value
     : value.toLowerCase();
@@ -389,10 +388,6 @@ function isColorAdjusterFuncNode(node) {
   return colorAdjusterFunctions.indexOf(node.value.toLowerCase()) !== -1;
 }
 
-function hasUpperCase(value) {
-  return /[A-Z]/.test(value);
-}
-
 module.exports = {
   getAncestorCounter,
   getAncestorNode,
@@ -439,6 +434,5 @@ module.exports = {
   isWordNode,
   isColonNode,
   isMediaAndSupportsKeywords,
-  isColorAdjusterFuncNode,
-  hasUpperCase
+  isColorAdjusterFuncNode
 };
