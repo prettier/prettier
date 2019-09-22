@@ -598,6 +598,34 @@ export {
 export { fooooooooooooooooooooooooooooooooooooooooooooooooo } from "fooooooooooooooooooooooooooooo";
 ```
 
+#### JavaScript: Fix bad formatting for multi-line optional chaining with comment ([#6506] by [@sosukesuzuki])
+
+<!-- prettier-ignore -->
+```js
+// Input
+return a
+  .b()
+  .c()
+  // Comment
+  ?.d()
+
+// Prettier (stable)
+return a
+  .b()
+  .c()
+  ?.// Comment
+  d();
+
+// Prettier (master)
+return (
+  a
+    .b()
+    .c()
+    // Comment
+    ?.d()
+);
+```
+
 [#5910]: https://github.com/prettier/prettier/pull/5910
 [#6186]: https://github.com/prettier/prettier/pull/6186
 [#6206]: https://github.com/prettier/prettier/pull/6206
@@ -619,6 +647,7 @@ export { fooooooooooooooooooooooooooooooooooooooooooooooooo } from "fooooooooooo
 [#6438]: https://github.com/prettier/prettier/pull/6411
 [#6441]: https://github.com/prettier/prettier/pull/6441
 [#6446]: https://github.com/prettier/prettier/pull/6446
+[#6506]: https://github.com/prettier/prettier/pull/6506
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
 [@sosukesuzuki]: https://github.com/sosukesuzuki
