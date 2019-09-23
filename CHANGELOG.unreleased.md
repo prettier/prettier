@@ -626,6 +626,43 @@ return (
 );
 ```
 
+#### JavaScript: Fix inconsistent indentation in switch statement ([#6514] by [@sosukesuzuki])
+
+<!-- prettier-ignore -->
+```js
+// Input
+switch ($veryLongAndVeryVerboseVariableName && $anotherVeryLongAndVeryVerboseVariableName) {
+}
+
+switch ($longButSlightlyShorterVariableName && $anotherSlightlyShorterVariableName) {
+}
+
+// Prettier (stable)
+switch (
+  $veryLongAndVeryVerboseVariableName &&
+    $anotherVeryLongAndVeryVerboseVariableName
+) {
+}
+
+switch (
+  $longButSlightlyShorterVariableName && $anotherSlightlyShorterVariableName
+) {
+}
+
+// Prettier (master)
+switch (
+  $veryLongAndVeryVerboseVariableName &&
+  $anotherVeryLongAndVeryVerboseVariableName
+) {
+}
+
+switch (
+  $longButSlightlyShorterVariableName &&
+  $anotherSlightlyShorterVariableName
+) {
+}
+```
+
 [#5910]: https://github.com/prettier/prettier/pull/5910
 [#6186]: https://github.com/prettier/prettier/pull/6186
 [#6206]: https://github.com/prettier/prettier/pull/6206
@@ -648,6 +685,7 @@ return (
 [#6441]: https://github.com/prettier/prettier/pull/6441
 [#6446]: https://github.com/prettier/prettier/pull/6446
 [#6506]: https://github.com/prettier/prettier/pull/6506
+[#6514]: https://github.com/prettier/prettier/pull/6514
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
 [@sosukesuzuki]: https://github.com/sosukesuzuki
