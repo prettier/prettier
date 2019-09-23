@@ -14,7 +14,7 @@
     "node": ">=6"
   },
   "dependencies": {
-    "@angular/compiler": "7.2.9",
+    "@angular/compiler": "8.2.7",
     "@babel/code-frame": "7.5.5",
     "@babel/parser": "7.2.0",
     "@glimmer/syntax": "0.41.0",
