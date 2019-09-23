@@ -626,7 +626,7 @@ return (
 );
 ```
 
-#### JavaScript: Fix inconsistent indentation in switch statement ([#] by [@sosukesuzuki])
+#### JavaScript: Fix inconsistent indentation in switch statement ([#6514] by [@sosukesuzuki])
 
 <!-- prettier-ignore -->
 ```js
@@ -685,7 +685,7 @@ switch (
 [#6441]: https://github.com/prettier/prettier/pull/6441
 [#6446]: https://github.com/prettier/prettier/pull/6446
 [#6506]: https://github.com/prettier/prettier/pull/6506
-[#]: https://github.com/prettier/prettier/pull/
+[#6514]: https://github.com/prettier/prettier/pull/6514
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
 [@sosukesuzuki]: https://github.com/sosukesuzuki
