@@ -44,6 +44,29 @@ const link = <a href="example.com">http://example.com</a>;
 
 -->
 
+#### MDX: fix text with whitespace after JSX trim incorrectly ([#6340] by [@JounQin])
+
+Previous versions format text with whitespace after JSX incorrectly in mdx, this has been fixed in this version.
+
+<!-- prettier-ignore -->
+```md
+<!-- Input -->
+# Heading
+<Hello>
+    test   <World />   test
+</Hello>       123
+
+<!-- Output (Prettier stable) -->
+<Hello>
+  test <World /> test
+</Hello>123
+
+<!-- Output (Prettier master) -->
+<Hello>
+  test <World /> test
+</Hello> 123
+```
+
 #### MDX: Adjacent JSX elements should be allowed in mdx ([#6332] by [@JounQin])
 
 Previous versions would not format adjacent JSX elements in mdx, this has been fixed in this version.
@@ -65,7 +88,7 @@ SyntaxError: Unexpected token (3:9)
 // Output (Prettier master)
 <Hello>
   test <World /> test
-</Hello>123      ^
+</Hello>123
 
 
 // Input
@@ -405,6 +428,7 @@ const foo = [abc, def, ghi, jkl, mno, pqr, stu, vwx, yz] as (
 [#6284]: https://github.com/prettier/prettier/pull/6284
 [#6301]: https://github.com/prettier/prettier/pull/6301
 [#6307]: https://github.com/prettier/prettier/pull/6307
+[#6340]: https://github.com/prettier/prettier/pull/6340
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
 [@sosukesuzuki]: https://github.com/sosukesuzuki
