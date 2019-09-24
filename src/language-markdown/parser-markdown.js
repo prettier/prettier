@@ -68,9 +68,10 @@ function htmlToJsx() {
       }
 
       return nodes.reduce((newNodes, { sourceSpan: position, type }) => {
-        const value = node.value
-          .slice(position.start.offset, position.end.offset)
-          .trim();
+        const value = node.value.slice(
+          position.start.offset,
+          position.end.offset
+        );
 
         if (value) {
           newNodes.push({

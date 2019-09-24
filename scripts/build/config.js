@@ -15,6 +15,7 @@ const PROJECT_ROOT = path.resolve(__dirname, "../..");
  * @property {string[]} externals - array of paths that should not be included in the final bundle
  * @property {Object.<string, string>} replace - map of strings to replace when processing the bundle
  * @property {string[]} babelPlugins - babel plugins
+ * @property {Object?} terserOptions - options for `terser`
 
  * @typedef {Object} CommonJSConfig
  * @property {Object} namedExports - for cases where rollup can't infer what's exported
@@ -49,17 +50,31 @@ const parsers = [
     alias: {
       // Force using the CJS file, instead of ESM; i.e. get the file
       // from `"main"` instead of `"module"` (rollup default) of package.json
-      "lines-and-columns": require.resolve("lines-and-columns"),
-      "@angular/compiler/src": path.resolve(
-        `${PROJECT_ROOT}/node_modules/@angular/compiler/esm2015/src`
-      )
+      entries: [
+        {
+          find: "lines-and-columns",
+          replacement: require.resolve("lines-and-columns")
+        },
+        {
+          find: "@angular/compiler/src",
+          replacement: path.resolve(
+            `${PROJECT_ROOT}/node_modules/@angular/compiler/esm2015/src`
+          )
+        }
+      ]
     }
   },
   {
     input: "src/language-css/parser-postcss.js",
     target: "universal",
     // postcss has dependency cycles that don't work with rollup
-    bundler: "webpack"
+    bundler: "webpack",
+    // postcss need keep_fnames when minify
+    terserOptions: {
+      mangle: {
+        keep_fnames: true
+      }
+    }
   },
   {
     input: "src/language-graphql/parser-graphql.js",
@@ -90,7 +105,12 @@ const parsers = [
     alias: {
       // Force using the CJS file, instead of ESM; i.e. get the file
       // from `"main"` instead of `"module"` (rollup default) of package.json
-      "lines-and-columns": require.resolve("lines-and-columns")
+      entries: [
+        {
+          find: "lines-and-columns",
+          replacement: require.resolve("lines-and-columns")
+        }
+      ]
     },
     babelPlugins: [
       require.resolve("./babel-plugins/replace-array-includes-with-indexof")

@@ -44,6 +44,49 @@ const link = <a href="example.com">http://example.com</a>;
 
 -->
 
+#### JavaScript: More readable parentheses for new-call ([#6412] by [@bakkot])
+
+<!-- prettier-ignore -->
+```js
+// Input
+var a = new (x().y)();
+var a = new (x().y.z)();
+var a = new (x().y().z)();
+
+// Output (Prettier stable)
+var a = new (x()).y();
+var a = new (x()).y.z();
+var a = new (x().y()).z();
+
+// Output (Prettier master)
+var a = new (x().y)();
+var a = new (x().y.z)();
+var a = new (x().y().z)();
+```
+
+#### MDX: fix text with whitespace after JSX trim incorrectly ([#6340] by [@JounQin])
+
+Previous versions format text with whitespace after JSX incorrectly in mdx, this has been fixed in this version.
+
+<!-- prettier-ignore -->
+```md
+<!-- Input -->
+# Heading
+<Hello>
+    test   <World />   test
+</Hello>       123
+
+<!-- Output (Prettier stable) -->
+<Hello>
+  test <World /> test
+</Hello>123
+
+<!-- Output (Prettier master) -->
+<Hello>
+  test <World /> test
+</Hello> 123
+```
+
 #### MDX: Adjacent JSX elements should be allowed in mdx ([#6332] by [@JounQin])
 
 Previous versions would not format adjacent JSX elements in mdx, this has been fixed in this version.
@@ -65,7 +108,7 @@ SyntaxError: Unexpected token (3:9)
 // Output (Prettier master)
 <Hello>
   test <World /> test
-</Hello>123      ^
+</Hello>123
 
 
 // Input
@@ -195,6 +238,24 @@ Previously, Prettier would sometimes ignore whitespace when formatting comments.
   {{/if}}
 </div>
 ```
+
+#### JavaScript: Update ?? precedence to match stage 3 proposal ([#6404] by [@vjeux])
+
+We've updated Prettier's support for the nullish coalescing operator to match a spec update that no longer allows it to immediately contain, or be contained within an `&&` or `||` operation.
+
+<!-- prettier-ignore -->
+```js
+// Input
+(foo ?? baz) || baz;
+
+// Output (Prettier stable)
+foo ?? baz || baz;
+
+// Output (Prettier master)
+(foo ?? baz) || baz;
+```
+
+Please note, as we update our parsers with versions that support this spec update, code without the parenthesis will throw a parse error.
 
 #### JavaScript: Keep unary expressions parentheses with comments ([#6217] by [@sosukesuzuki])
 
@@ -392,6 +453,216 @@ const foo = [abc, def, ghi, jkl, mno, pqr, stu, vwx, yz] as (
 )[];
 ```
 
+#### HTML: Script tags are now treated as blocks for the purposes of formatting ([#6423] by [@thorn0])
+
+Previously, in the [whitespace-sensitive mode](https://prettier.io/docs/en/options.html#html-whitespace-sensitivity), they were formatted as if they were inline.
+
+<!-- prettier-ignore-->
+```html
+<!-- Input -->
+<script
+  async
+  src="/_next/static/development/pages/_app.js?ts=1565732195968"
+></script><script></script>
+
+<!-- Prettier (stable) -->
+<script
+  async
+  src="/_next/static/development/pages/_app.js?ts=1565732195968"
+></script
+><script></script>
+
+<!-- Prettier (master) -->
+<script
+  async
+  src="/_next/static/development/pages/_app.js?ts=1565732195968"
+></script>
+<script></script>
+```
+
+#### TypeScript: Fixed to break line and add a semicolon in one execution on one line long mapped types ([#6420] by [@sosukesuzuki])
+
+Previously, when Prettier formatted long, one-line mapped types, it would break the line but didn’t add a semicolon – until you ran Prettier again (which broke Prettier’s idempotency rule). Now, Prettier adds the semicolon in the first run, fixing the issue.
+
+<!-- prettier-ignore -->
+```ts
+// Input
+type FooBar<T> = { [P in keyof T]: T[P] extends Something ? Something<T[P]> : T[P] }
+
+// Prettier (stable)
+type FooBar<T> = {
+  [P in keyof T]: T[P] extends Something ? Something<T[P]> : T[P]
+};
+
+// Prettier (master)
+type FooBar<T> = {
+  [P in keyof T]: T[P] extends Something ? Something<T[P]> : T[P];
+};
+```
+
+#### JavaScript: Fix ugly formatting on object destructuring with parameter decorators ([#6411] by [@sosukesuzuki])
+
+Previously, Prettier formatted decorators for destructured parameters in a weird way. Now, parameter decorators are placed just above the parameter they belong to.
+
+<!-- prettier-ignore -->
+```js
+// Input
+class Class {
+  method(
+    @decorator
+     { foo }
+  ) {}
+}
+
+// Prettier (stable)
+class Class {
+  method(@decorator
+  {
+    foo
+  }) {}
+}
+
+// Prettier (master)
+class Class {
+  method(
+    @decorator
+    { foo }
+  ) {}
+}
+```
+
+#### JavaScript: Handle empty object patterns with type annotations in function parameters ([#6438] by [@bakkot])
+
+<!-- prettier-ignore -->
+```js
+// Input
+const f = ({}: MyVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongType) => {};
+function g({}: Foo) {}
+
+// Output (Prettier stable)
+const f = ({
+  ,
+}: MyVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongType) => {};
+function g({  }: Foo) {}
+
+// Output (Prettier master)
+const f = ({}: MyVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongType) => {};
+function g({}: Foo) {}
+```
+
+#### JavaScript: Fix ugly formatting parens wrap binary expressions within call expressions ([#6441] by [@sosukesuzuki])
+
+Previously, Prettier formatted parens wrap binary expressions within call expressions in a weird way. There was no line break before and after each parens.
+
+<!-- prettier-ignore -->
+```js
+(
+  aaaaaaaaaaaaaaaaaaaaaaaaa &&
+  bbbbbbbbbbbbbbbbbbbbbbbbb &&
+  ccccccccccccccccccccccccc &&
+  ddddddddddddddddddddddddd &&
+  eeeeeeeeeeeeeeeeeeeeeeeee
+)();
+
+// Prettier (stable)
+(aaaaaaaaaaaaaaaaaaaaaaaaa &&
+  bbbbbbbbbbbbbbbbbbbbbbbbb &&
+  ccccccccccccccccccccccccc &&
+  ddddddddddddddddddddddddd &&
+  eeeeeeeeeeeeeeeeeeeeeeeee)();
+
+// Prettier (master)
+(
+  aaaaaaaaaaaaaaaaaaaaaaaaa &&
+  bbbbbbbbbbbbbbbbbbbbbbbbb &&
+  ccccccccccccccccccccccccc &&
+  ddddddddddddddddddddddddd &&
+  eeeeeeeeeeeeeeeeeeeeeeeee
+)();
+```
+
+#### JavaScript: Fix formatting on long named exports ([#6446] by [@sosukesuzuki])
+
+Previously, Prettier formatted long named exports differently than named imports.
+
+```js
+// Input
+export { fooooooooooooooooooooooooooooooooooooooooooooooooo } from "fooooooooooooooooooooooooooooo";
+
+// Prettier (stable)
+export {
+  fooooooooooooooooooooooooooooooooooooooooooooooooo
+} from "fooooooooooooooooooooooooooooo";
+
+// Prettier (master)
+export { fooooooooooooooooooooooooooooooooooooooooooooooooo } from "fooooooooooooooooooooooooooooo";
+```
+
+#### JavaScript: Fix bad formatting for multi-line optional chaining with comment ([#6506] by [@sosukesuzuki])
+
+<!-- prettier-ignore -->
+```js
+// Input
+return a
+  .b()
+  .c()
+  // Comment
+  ?.d()
+
+// Prettier (stable)
+return a
+  .b()
+  .c()
+  ?.// Comment
+  d();
+
+// Prettier (master)
+return (
+  a
+    .b()
+    .c()
+    // Comment
+    ?.d()
+);
+```
+
+#### JavaScript: Fix inconsistent indentation in switch statement ([#6514] by [@sosukesuzuki])
+
+<!-- prettier-ignore -->
+```js
+// Input
+switch ($veryLongAndVeryVerboseVariableName && $anotherVeryLongAndVeryVerboseVariableName) {
+}
+
+switch ($longButSlightlyShorterVariableName && $anotherSlightlyShorterVariableName) {
+}
+
+// Prettier (stable)
+switch (
+  $veryLongAndVeryVerboseVariableName &&
+    $anotherVeryLongAndVeryVerboseVariableName
+) {
+}
+
+switch (
+  $longButSlightlyShorterVariableName && $anotherSlightlyShorterVariableName
+) {
+}
+
+// Prettier (master)
+switch (
+  $veryLongAndVeryVerboseVariableName &&
+  $anotherVeryLongAndVeryVerboseVariableName
+) {
+}
+
+switch (
+  $longButSlightlyShorterVariableName &&
+  $anotherSlightlyShorterVariableName
+) {
+}
+```
+
 [#5910]: https://github.com/prettier/prettier/pull/5910
 [#6186]: https://github.com/prettier/prettier/pull/6186
 [#6206]: https://github.com/prettier/prettier/pull/6206
@@ -405,8 +676,20 @@ const foo = [abc, def, ghi, jkl, mno, pqr, stu, vwx, yz] as (
 [#6284]: https://github.com/prettier/prettier/pull/6284
 [#6301]: https://github.com/prettier/prettier/pull/6301
 [#6307]: https://github.com/prettier/prettier/pull/6307
+[#6340]: https://github.com/prettier/prettier/pull/6340
+[#6412]: https://github.com/prettier/prettier/pull/6412
+[#6423]: https://github.com/prettier/prettier/pull/6423
+[#6420]: https://github.com/prettier/prettier/pull/6420
+[#6411]: https://github.com/prettier/prettier/pull/6411
+[#6438]: https://github.com/prettier/prettier/pull/6411
+[#6441]: https://github.com/prettier/prettier/pull/6441
+[#6446]: https://github.com/prettier/prettier/pull/6446
+[#6506]: https://github.com/prettier/prettier/pull/6506
+[#6514]: https://github.com/prettier/prettier/pull/6514
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
 [@sosukesuzuki]: https://github.com/sosukesuzuki
 [@g-harel]: https://github.com/g-harel
 [@jounqin]: https://github.com/JounQin
+[@bakkot]: https://gibhub.com/bakkot
+[@thorn0]: https://github.com/thorn0

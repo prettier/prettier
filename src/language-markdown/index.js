@@ -5,7 +5,7 @@ const options = require("./options");
 const createLanguage = require("../utils/create-language");
 
 const languages = [
-  createLanguage(require("linguist-languages/data/markdown"), {
+  createLanguage(require("linguist-languages/data/Markdown"), {
     override: {
       since: "1.8.0",
       parsers: ["remark"],
@@ -13,18 +13,21 @@ const languages = [
     },
     extend: {
       filenames: ["README"]
+    },
+    exclude: {
+      extensions: [".mdx"]
     }
   }),
-  createLanguage(
-    { name: "MDX", extensions: [".mdx"] }, // TODO: use linguist data
-    {
-      override: {
-        since: "1.15.0",
-        parsers: ["mdx"],
-        vscodeLanguageIds: ["mdx"]
-      }
+  createLanguage(require("linguist-languages/data/Markdown"), {
+    override: {
+      name: "MDX",
+      since: "1.15.0",
+      parsers: ["mdx"],
+      vscodeLanguageIds: ["mdx"],
+      filenames: [],
+      extensions: [".mdx"]
     }
-  )
+  })
 ];
 
 const printers = {
