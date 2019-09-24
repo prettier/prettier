@@ -4711,6 +4711,7 @@ function printTypeParameters(path, options, print, paramsKey) {
   }
 
   const grandparent = path.getNode(2);
+  const greatGreatGrandParent = path.getNode(4);
 
   const isParameterInTestCall = grandparent != null && isTestCall(grandparent);
 
@@ -4723,7 +4724,13 @@ function printTypeParameters(path, options, print, paramsKey) {
           shouldHugType(n[paramsKey][0].id)) ||
         (n[paramsKey][0].type === "TSTypeReference" &&
           shouldHugType(n[paramsKey][0].typeName)) ||
-        n[paramsKey][0].type === "NullableTypeAnnotation"));
+        n[paramsKey][0].type === "NullableTypeAnnotation" ||
+        (greatGreatGrandParent &&
+          greatGreatGrandParent.type === "VariableDeclarator" &&
+          grandparent &&
+          grandparent.type === "TSTypeAnnotation" &&
+          n[paramsKey][0].type !== "TSConditionalType" &&
+          n[paramsKey][0].type !== "TSMappedType")));
 
   if (shouldInline) {
     return concat(["<", join(", ", path.map(print, paramsKey)), ">"]);

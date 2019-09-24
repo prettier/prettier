@@ -663,6 +663,22 @@ switch (
 }
 ```
 
+#### TypeScript: Keep type parameters inline for a type annotation of variable declaration ([#6467] by [@sosukesuzuki])
+
+<!-- prettier-ignore -->
+```ts
+// Input
+const fooooooooooooooo: SomeThing<boolean> = looooooooooooooooooooooooooooooongNameFunc();
+
+// Prettier (stable)
+const fooooooooooooooo: SomeThing<
+  boolean
+> = looooooooooooooooooooooooooooooongNameFunc();
+
+// Prettier (master)
+const fooooooooooooooo: SomeThing<boolean> = looooooooooooooooooooooooooooooongNameFunc();
+```
+
 [#5910]: https://github.com/prettier/prettier/pull/5910
 [#6186]: https://github.com/prettier/prettier/pull/6186
 [#6206]: https://github.com/prettier/prettier/pull/6206
@@ -686,6 +702,7 @@ switch (
 [#6446]: https://github.com/prettier/prettier/pull/6446
 [#6506]: https://github.com/prettier/prettier/pull/6506
 [#6514]: https://github.com/prettier/prettier/pull/6514
+[#6467]: https://github.com/prettier/prettier/pull/6467
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
 [@sosukesuzuki]: https://github.com/sosukesuzuki
