@@ -288,6 +288,12 @@ switch (veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVery
     alert( 'default' );
 }
 
+switch ($veryLongAndVeryVerboseVariableName && $anotherVeryLongAndVeryVerboseVariableName) {
+}
+
+switch ($longButSlightlyShorterVariableName && $anotherSlightlyShorterVariableName) {
+}
+
 =====================================output=====================================
 switch (a) {
   case 3:
@@ -315,13 +321,25 @@ switch (
 
 switch (
   veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong >
-    veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong
+  veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong
 ) {
   case 3:
     alert("3");
     break;
   default:
     alert("default");
+}
+
+switch (
+  $veryLongAndVeryVerboseVariableName &&
+  $anotherVeryLongAndVeryVerboseVariableName
+) {
+}
+
+switch (
+  $longButSlightlyShorterVariableName &&
+  $anotherSlightlyShorterVariableName
+) {
 }
 
 ================================================================================

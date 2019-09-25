@@ -598,29 +598,85 @@ export {
 export { fooooooooooooooooooooooooooooooooooooooooooooooooo } from "fooooooooooooooooooooooooooooo";
 ```
 
-#### TypeScript: Don't breakup call expressions when the last argument is an `as` type expression wrapping a simple expression ([#6471] by [@mattleff])
+#### JavaScript: Fix bad formatting for multi-line optional chaining with comment ([#6506] by [@sosukesuzuki])
 
-Previously, when Prettier formatted a call expression containing an `as` type expression or a type assertion, it would break the line. Now, Prettier uses the expression contained by the `as` type or type assertion to determine line breaks.
+<!-- prettier-ignore -->
+```js
+// Input
+return a
+  .b()
+  .c()
+  // Comment
+  ?.d()
+
+// Prettier (stable)
+return a
+  .b()
+  .c()
+  ?.// Comment
+  d();
+
+// Prettier (master)
+return (
+  a
+    .b()
+    .c()
+    // Comment
+    ?.d()
+);
+```
+
+#### JavaScript: Fix inconsistent indentation in switch statement ([#6514] by [@sosukesuzuki])
+
+<!-- prettier-ignore -->
+```js
+// Input
+switch ($veryLongAndVeryVerboseVariableName && $anotherVeryLongAndVeryVerboseVariableName) {
+}
+
+switch ($longButSlightlyShorterVariableName && $anotherSlightlyShorterVariableName) {
+}
+
+// Prettier (stable)
+switch (
+  $veryLongAndVeryVerboseVariableName &&
+    $anotherVeryLongAndVeryVerboseVariableName
+) {
+}
+
+switch (
+  $longButSlightlyShorterVariableName && $anotherSlightlyShorterVariableName
+) {
+}
+
+// Prettier (master)
+switch (
+  $veryLongAndVeryVerboseVariableName &&
+  $anotherVeryLongAndVeryVerboseVariableName
+) {
+}
+
+switch (
+  $longButSlightlyShorterVariableName &&
+  $anotherSlightlyShorterVariableName
+) {
+}
+```
+
+#### TypeScript: Keep type parameters inline for a type annotation of variable declaration ([#6467] by [@sosukesuzuki])
 
 <!-- prettier-ignore -->
 ```ts
 // Input
-const bar = [1,2,3].reduce((carry, value) => {
-  return [...carry, value];
-}, ([] as unknown) as number[]);
+const fooooooooooooooo: SomeThing<boolean> = looooooooooooooooooooooooooooooongNameFunc();
 
 // Prettier (stable)
-const bar = [1, 2, 3].reduce(
-  (carry, value) => {
-    return [...carry, value];
-  },
-  ([] as unknown) as number[]
-);
+const fooooooooooooooo: SomeThing<
+  boolean
+> = looooooooooooooooooooooooooooooongNameFunc();
 
 // Prettier (master)
-const bar = [1,2,3].reduce((carry, value) => {
-  return [...carry, value];
-}, ([] as unknown) as number[]);
+const fooooooooooooooo: SomeThing<boolean> = looooooooooooooooooooooooooooooongNameFunc();
 ```
 
 [#5910]: https://github.com/prettier/prettier/pull/5910
@@ -644,7 +700,9 @@ const bar = [1,2,3].reduce((carry, value) => {
 [#6438]: https://github.com/prettier/prettier/pull/6411
 [#6441]: https://github.com/prettier/prettier/pull/6441
 [#6446]: https://github.com/prettier/prettier/pull/6446
-[#6471]: https://github.com/prettier/prettier/pull/
+[#6506]: https://github.com/prettier/prettier/pull/6506
+[#6514]: https://github.com/prettier/prettier/pull/6514
+[#6467]: https://github.com/prettier/prettier/pull/6467
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
 [@sosukesuzuki]: https://github.com/sosukesuzuki
@@ -652,4 +710,3 @@ const bar = [1,2,3].reduce((carry, value) => {
 [@jounqin]: https://github.com/JounQin
 [@bakkot]: https://gibhub.com/bakkot
 [@thorn0]: https://github.com/thorn0
-[@mattleff]: https://github.com/mattleff
