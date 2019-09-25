@@ -41,12 +41,15 @@ const parsers = [
     target: "universal",
     replace: {
       // node v4 compatibility for @typescript-eslint/typescript-estree
-      "(!unique.includes(raw))": "(unique.indexOf(raw) === -1)",
-      // optional typescript etw logger
-      'require("@microsoft/typescript-etw")':
-        "eval('require')('@microsoft/typescript-etw')"
+      "(!unique.includes(raw))": "(unique.indexOf(raw) === -1)"
+    },
+    commonjs: {
+      ignore: [
+        // optional typescript etw logger
+        "@microsoft/typescript-etw"
+      ]
     }
-  },
+  }
   {
     input: "src/language-js/parser-angular.js",
     target: "universal",
