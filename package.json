@@ -1,6 +1,6 @@
 {
   "name": "prettier",
-  "version": "1.18.1",
+  "version": "1.18.2",
   "description": "Prettier is an opinionated code formatter",
   "bin": {
     "prettier": "./bin/prettier.js"
@@ -14,7 +14,7 @@
     "node": ">=6"
   },
   "dependencies": {
-    "@angular/compiler": "7.2.9",
+    "@angular/compiler": "8.2.7",
     "@babel/code-frame": "7.5.5",
     "@babel/parser": "7.2.0",
     "@glimmer/syntax": "0.41.0",
@@ -49,7 +49,7 @@
     "json-stable-stringify": "1.0.1",
     "leven": "2.1.0",
     "lines-and-columns": "1.1.6",
-    "linguist-languages": "7.5.1",
+    "linguist-languages": "7.6.0",
     "lodash.uniqby": "4.7.0",
     "mem": "4.0.0",
     "minimatch": "3.0.4",

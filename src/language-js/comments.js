@@ -363,7 +363,8 @@ function handleTryStatementComments(
 function handleMemberExpressionComments(enclosingNode, followingNode, comment) {
   if (
     enclosingNode &&
-    enclosingNode.type === "MemberExpression" &&
+    (enclosingNode.type === "MemberExpression" ||
+      enclosingNode.type === "OptionalMemberExpression") &&
     followingNode &&
     followingNode.type === "Identifier"
   ) {
