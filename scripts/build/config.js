@@ -49,7 +49,7 @@ const parsers = [
         "@microsoft/typescript-etw"
       ]
     }
-  }
+  },
   {
     input: "src/language-js/parser-angular.js",
     target: "universal",
