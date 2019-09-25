@@ -3756,8 +3756,8 @@ function couldGroupArg(arg) {
       (arg.properties.length > 0 || arg.comments)) ||
     (arg.type === "ArrayExpression" &&
       (arg.elements.length > 0 || arg.comments)) ||
-    arg.type === "TSTypeAssertion" ||
-    arg.type === "TSAsExpression" ||
+    (arg.type === "TSTypeAssertion" && couldGroupArg(arg.expression)) ||
+    (arg.type === "TSAsExpression" && couldGroupArg(arg.expression)) ||
     arg.type === "FunctionExpression" ||
     (arg.type === "ArrowFunctionExpression" &&
       // we want to avoid breaking inside composite return types but not simple keywords
