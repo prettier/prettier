@@ -112,7 +112,7 @@
     "rollup-plugin-terser": "5.1.2",
     "shelljs": "0.8.1",
     "snapshot-diff": "0.4.0",
-    "strip-ansi": "4.0.0",
+    "strip-ansi": "5.2.0",
     "tempy": "0.2.1",
     "terser-webpack-plugin": "1.4.1",
     "webpack": "4.39.1"
