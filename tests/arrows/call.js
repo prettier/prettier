@@ -78,3 +78,58 @@ jest.mock(
 fooooooooooooooooooooooooooooooooooooooooooooooooooo(action => next =>
     dispatch(action),
 );
+
+foo(
+  ({
+    a,
+
+    b
+  }) => {}
+);
+
+foo(
+  ({
+    a,
+    b
+
+  }) => {}
+);
+
+foo(
+  ({
+    a,
+    b
+  }) => {}
+);
+
+foo(
+  a,
+  ({
+    a,
+
+    b
+  }) => {}
+)
+
+foo(
+  ({
+    a,
+
+    b
+  }) => a
+);
+
+foo(
+  ({
+    a,
+    b
+  }) => a
+);
+
+foo(
+  ({
+    a,
+    b
+
+  }) => a
+);

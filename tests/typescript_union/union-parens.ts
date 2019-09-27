@@ -38,3 +38,31 @@ type State = {
   | { discriminant: "BAR"; bar: any }
   | { discriminant: "BAZ"; baz: any } 
 );
+
+const foo = [abc, def, ghi, jkl, mno, pqr, stu, vwx, yz] as (
+  | string
+  | undefined
+)[];
+
+const foo: (
+  | AAAAAAAAAAAAAAAAAAAAAA
+  | BBBBBBBBBBBBBBBBBBBBBB
+  | CCCCCCCCCCCCCCCCCCCCCC
+  | DDDDDDDDDDDDDDDDDDDDDD
+)[] = [];
+
+const foo: keyof (
+  | AAAAAAAAAAAAAAAAAAAAAA
+  | BBBBBBBBBBBBBBBBBBBBBB
+  | CCCCCCCCCCCCCCCCCCCCCC
+  | DDDDDDDDDDDDDDDDDDDDDD
+) = bar;
+
+const foo:
+  | foo
+  | (
+      | AAAAAAAAAAAAAAAAAAAAAA
+      | BBBBBBBBBBBBBBBBBBBBBB
+      | CCCCCCCCCCCCCCCCCCCCCC
+      | DDDDDDDDDDDDDDDDDDDDDD
+    ) = bar;
