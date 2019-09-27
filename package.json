@@ -37,11 +37,7 @@
     "find-parent-dir": "0.3.0",
     "find-project-root": "1.1.1",
     "flow-parser": "0.84.0",
-<<<<<<< HEAD
     "get-stream": "5.1.0",
-=======
-    "get-stream": "4.1.0",
->>>>>>> master
     "globby": "6.1.0",
     "graphql": "14.4.2",
     "html-element-attributes": "2.1.0",
