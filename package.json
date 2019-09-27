@@ -31,7 +31,7 @@
     "diff": "3.5.0",
     "editorconfig": "0.15.2",
     "editorconfig-to-prettier": "0.1.1",
-    "escape-string-regexp": "1.0.5",
+    "escape-string-regexp": "2.0.0",
     "esutils": "2.0.2",
     "find-cache-dir": "1.0.0",
     "find-parent-dir": "0.3.0",
