@@ -70,7 +70,7 @@
     "string-width": "3.0.0",
     "typescript": "3.4.1",
     "unicode-regex": "2.0.0",
-    "unified": "6.1.6",
+    "unified": "8.4.0",
     "vnopts": "1.0.2",
     "write-file-atomic": "2.3.0",
     "yaml": "1.0.2",
