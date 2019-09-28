@@ -77,8 +77,8 @@
     "yaml-unist-parser": "1.0.0"
   },
   "devDependencies": {
-    "@babel/core": "7.6.0",
-    "@babel/preset-env": "7.6.0",
+    "@babel/core": "7.6.2",
+    "@babel/preset-env": "7.6.2",
     "babel-loader": "8.0.6",
     "benchmark": "2.1.4",
     "builtin-modules": "2.0.0",
