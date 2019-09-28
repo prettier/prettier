@@ -42,7 +42,7 @@
     "graphql": "14.2.0",
     "html-element-attributes": "2.0.0",
     "html-styles": "1.0.0",
-    "html-tag-names": "1.1.2",
+    "html-tag-names": "1.1.4",
     "ignore": "4.0.6",
     "is-ci": "2.0.0",
     "jest-docblock": "23.2.0",
