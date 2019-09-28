@@ -26,7 +26,7 @@
     "chalk": "2.1.0",
     "cjk-regex": "2.0.0",
     "cosmiconfig": "5.2.1",
-    "dashify": "0.2.2",
+    "dashify": "2.0.0",
     "dedent": "0.7.0",
     "diff": "3.5.0",
     "editorconfig": "0.15.3",
