@@ -286,52 +286,26 @@ foo;
 
 ### Javascript: Use function literals in arguments to detect function composition ([#6033] by [@brainkim])
 
-Previously, we used function/method names to detect function composition, so
-that we could split the arguments onto multiple lines. We now use the presence
-of function literals in arguments.
+Previously, we used names of functions and methods to detect function
+composition, so that we could split their arguments onto multiple lines. We now
+use the presence of function literals in arguments instead.
 
 <!-- prettier-ignore -->
 ```js
-const source$ = range(0, 10);
-source$.pipe(filter(x => x % 2 === 0), map(x => x + x), scan((acc, x) => acc + x, 0)).subscribe(x => console.log(x));
-const isEven = x => x % 2 === 0;
-const double = x => x + x;
-const add = (acc, x) => acc + x;
-source$.pipe(filter(isEven), map(double), scan(add, 0)).subscribe(x => console.log(x))
+// Input
+eventStore.update(id, _.flow(updater, incrementVersion));
+
 // Output (Prettier stable)
-const source$ = range(0, 10);
-source$
-  .pipe(
-    filter(x => x % 2 === 0),
-    map(x => x + x),
-    scan((acc, x) => acc + x, 0)
+eventStore.update(
+  id,
+  _.flow(
+    updater,
+    incrementVersion
   )
-  .subscribe(x => console.log(x));
-const isEven = x => x % 2 === 0;
-const double = x => x + x;
-const add = (acc, x) => acc + x;
-source$
-  .pipe(
-    filter(isEven),
-    map(double),
-    scan(add, 0)
-  )
-  .subscribe(x => console.log(x));
+);
+
 // Output (Prettier master)
-const source$ = range(0, 10);
-source$
-  .pipe(
-    filter(x => x % 2 === 0),
-    map(x => x + x),
-    scan((acc, x) => acc + x, 0)
-  )
-  .subscribe(x => console.log(x));
-const isEven = x => x % 2 === 0;
-const double = x => x + x;
-const add = (acc, x) => acc + x;
-source$
-  .pipe(filter(isEven), map(double), scan(add, 0))
-  .subscribe(x => console.log(x));
+eventStore.update(id, _.flow(updater, incrementVersion));
 ```
 
 ### Handlebars: Improve comment formatting ([#6234] by [@gavinjoyce])
