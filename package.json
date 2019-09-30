@@ -81,7 +81,7 @@
     "@babel/preset-env": "7.6.2",
     "babel-loader": "8.0.6",
     "benchmark": "2.1.4",
-    "builtin-modules": "2.0.0",
+    "builtin-modules": "3.1.0",
     "codecov": "codecov/codecov-node#e427d900309adb50746a39a50aa7d80071a5ddd0",
     "cross-env": "5.2.1",
     "eslint": "6.4.0",
