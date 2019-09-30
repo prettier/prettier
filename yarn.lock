@@ -7640,9 +7640,10 @@ yaml-unist-parser@1.0.0:
     lines-and-columns "^1.1.6"
     tslib "^1.9.1"
 
-yaml@1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/yaml/-/yaml-1.0.2.tgz#77941a457090e17b8ca65b53322e68a050e090d4"
+yaml@1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/yaml/-/yaml-1.1.0.tgz#6168f2beb28e80ee88f82efcb6da01d8e496ba30"
+  integrity sha512-MD5Ptelnnjfj/w4UqdNguD9Ipzm3ws6bNiYkGkl4lkfGMU1V7QYyHkRh28EiHPdprSvV+xAhvLJ6ifyALYw7wA==
 
 yargs-parser@^9.0.2:
   version "9.0.2"
