@@ -6,11 +6,16 @@ parsers: ["glimmer"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
+<div title='My title'></div>
+<div title="My title"></div>
 <div title='My "title"'></div>
 <div title="My other 'title'"></div>
 
 =====================================output=====================================
-<div title='My "title"'></div><div title="My other 'title'"></div>
+<div title="My title"></div>
+<div title="My title"></div>
+<div title='My "title"'></div>
+<div title="My other 'title'"></div>
 ================================================================================
 `;
 
@@ -21,10 +26,15 @@ printWidth: 80
 singleQuote: true
                                                                                 | printWidth
 =====================================input======================================
+<div title='My title'></div>
+<div title="My title"></div>
 <div title='My "title"'></div>
 <div title="My other 'title'"></div>
 
 =====================================output=====================================
-<div title='My "title"'></div><div title="My other 'title'"></div>
+<div title='My title'></div>
+<div title='My title'></div>
+<div title='My "title"'></div>
+<div title="My other 'title'"></div>
 ================================================================================
 `;
