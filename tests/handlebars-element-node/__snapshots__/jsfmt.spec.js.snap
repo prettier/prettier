@@ -120,7 +120,7 @@ singleQuote: true
 <img />
 
 =====================================output=====================================
-<div class="attribute" {{modifier}} {{! comment}}>
+<div class='attribute' {{modifier}} {{! comment}}>
   Hello
 </div>
 <div>

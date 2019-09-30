@@ -195,8 +195,9 @@ function print(path, options, print) {
       if (isText && n.value.loc.start.column === n.value.loc.end.column) {
         return concat([n.name]);
       }
-      const quote = isText ? '"' : "";
-      return concat([n.name, "=", quote, path.call(print, "value"), quote]);
+      const value = path.call(print, "value");
+      const quotedValue = isText ? printStringLiteral(value, options) : value;
+      return concat([n.name, "=", quotedValue]);
     }
     case "ConcatStatement": {
       return concat([
