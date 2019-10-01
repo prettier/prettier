@@ -66,7 +66,10 @@ function clean(ast, newObj, parent) {
   }
 
   // (TypeScript) TSIntersectionType and TSUnionType with one element might has leading operator
-  if ((ast.type === "TSIntersectionType" || ast.type === "TSUnionType") && ast.types.length === 1) {
+  if (
+    (ast.type === "TSIntersectionType" || ast.type === "TSUnionType") &&
+    ast.types.length === 1
+  ) {
     return newObj.types[0];
   }
 

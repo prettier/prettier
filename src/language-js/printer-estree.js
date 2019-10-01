@@ -2759,7 +2759,6 @@ function printPathNoParens(path, options, print, args) {
           result.push(" & ", i > 1 ? indent(types[i]) : types[i]);
         }
       }
-      
       return group(concat(result));
     }
     case "TSUnionType":
