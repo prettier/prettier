@@ -65,6 +65,11 @@ function clean(ast, newObj, parent) {
     return newObj.typeAnnotation;
   }
 
+  // (TypeScript) TSIntersectionType and TSUnionType with one element might has leading operator
+  if ((ast.type === "TSIntersectionType" || ast.type === "TSUnionType") && ast.types.length === 1) {
+    return newObj.types[0];
+  }
+
   // We convert <div></div> to <div />
   if (ast.type === "JSXOpeningElement") {
     delete newObj.selfClosing;

@@ -2759,12 +2759,7 @@ function printPathNoParens(path, options, print, args) {
           result.push(" & ", i > 1 ? indent(types[i]) : types[i]);
         }
       }
-
-      // Intersection Type with one element should has leading operator      
-      // see https://github.com/microsoft/TypeScript/issues/30995
-      if (result.length === 1) {
-        result.unshift("& ");
-      }
+      
       return group(concat(result));
     }
     case "TSUnionType":
