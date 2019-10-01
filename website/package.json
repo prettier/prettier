@@ -21,7 +21,7 @@
   "devDependencies": {
     "@sandhose/prettier-animated-logo": "1.0.3",
     "babel-loader": "7.1.4",
-    "babel-preset-env": "1.6.1",
+    "babel-preset-env": "1.7.0",
     "babel-preset-react": "6.24.1",
     "concurrently": "4.1.2",
     "docusaurus": "1.6.2",
