@@ -65,7 +65,8 @@ function clean(ast, newObj, parent) {
     return newObj.typeAnnotation;
   }
 
-  // (TypeScript) `& foo` and `| foo` into `foo`
+  // (TypeScript) Bypass `& foo` and `| foo` into `foo`
+  // https://github.com/microsoft/TypeScript/issues/30995
   if (
     (ast.type === "TSIntersectionType" || ast.type === "TSUnionType") &&
     ast.types.length === 1
