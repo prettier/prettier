@@ -284,6 +284,57 @@ foo;
 );
 ```
 
+### Javascript: Use function literals in arguments to detect function composition ([#6033] by [@brainkim])
+
+Previously, we used a set of hard-coded names related to functional programming
+(`compose`, `flow`, `pipe`, etc.) to detect function composition and chaining
+patterns in code. This was done so that prettier would not put code like the
+following call to `pipe` on the same line even if it fit within the allotted
+column budget:
+
+<!-- prettier-ignore -->
+```js
+source$
+  .pipe(
+    filter(x => x % 2 === 0),
+    map(x => x + x),
+    scan((acc, x) => acc + x, 0),
+  )
+  .subscribe(x => console.log(x));
+```
+
+However, this heuristic caused people to complain because of false positives
+where calls to functions or methods matching the hard-coded names would always
+be split on multiple lines, even if the calls did not contain function
+arguments (https://github.com/prettier/prettier/issues/5769,
+https://github.com/prettier/prettier/issues/5969). For many, this blanket
+decision to split functions based on name was both surprising and sub-optimal.
+
+We now use a refined heuristic which uses the presence of function literals to
+detect function composition. This heuristic preserves the line-splitting
+behavior above and eliminates many if not all of the false positives caused by
+the older heuristic.
+
+We encourage prettier users to try out the new heuristic and provide feedback.
+
+<!-- prettier-ignore -->
+```js
+// Input
+eventStore.update(id, _.flow(updater, incrementVersion));
+
+// Output (Prettier stable)
+eventStore.update(
+  id,
+  _.flow(
+    updater,
+    incrementVersion
+  )
+);
+
+// Output (Prettier master)
+eventStore.update(id, _.flow(updater, incrementVersion));
+```
+
 ### Handlebars: Improve comment formatting ([#6234] by [@gavinjoyce])
 
 Previously, Prettier would incorrectly decode HTML entiites.
@@ -696,6 +747,7 @@ Previously, the flag was not applied on html attributes.
 ````
 
 [#5910]: https://github.com/prettier/prettier/pull/5910
+[#6033]: https://github.com/prettier/prettier/pull/6033
 [#6186]: https://github.com/prettier/prettier/pull/6186
 [#6206]: https://github.com/prettier/prettier/pull/6206
 [#6209]: https://github.com/prettier/prettier/pull/6209
@@ -704,10 +756,10 @@ Previously, the flag was not applied on html attributes.
 [#6236]: https://github.com/prettier/prettier/pull/6236
 [#6270]: https://github.com/prettier/prettier/pull/6270
 [#6289]: https://github.com/prettier/prettier/pull/6289
-[#6332]: https://github.com/prettier/prettier/pull/6332
 [#6284]: https://github.com/prettier/prettier/pull/6284
 [#6301]: https://github.com/prettier/prettier/pull/6301
 [#6307]: https://github.com/prettier/prettier/pull/6307
+[#6332]: https://github.com/prettier/prettier/pull/6332
 [#6340]: https://github.com/prettier/prettier/pull/6340
 [#6412]: https://github.com/prettier/prettier/pull/6412
 [#6423]: https://github.com/prettier/prettier/pull/6423
@@ -720,6 +772,7 @@ Previously, the flag was not applied on html attributes.
 [#6514]: https://github.com/prettier/prettier/pull/6514
 [#6467]: https://github.com/prettier/prettier/pull/6467
 [#6377]: https://github.com/prettier/prettier/pull/6377
+[@brainkim]: https://github.com/brainkim
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
 [@sosukesuzuki]: https://github.com/sosukesuzuki

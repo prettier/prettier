@@ -1210,7 +1210,7 @@ function printPathNoParens(path, options, print, args) {
         return printMemberChain(path, options, print);
       }
 
-      return concat([
+      const contents = concat([
         isNew ? "new " : "",
         path.call(print, "callee"),
         optional,
@@ -1220,6 +1220,14 @@ function printPathNoParens(path, options, print, args) {
         printFunctionTypeParameters(path, options, print),
         printArgumentsList(path, options, print)
       ]);
+
+      // We group here when the callee is itself a call expression.
+      // See `isLongCurriedCallExpression` for more info.
+      if (isCallOrOptionalCallExpression(n.callee)) {
+        return group(contents);
+      }
+
+      return contents;
     }
     case "TSInterfaceDeclaration":
       if (isNodeStartingWithDeclare(n, options)) {
@@ -4006,40 +4014,47 @@ function isSimpleTemplateLiteral(node) {
   });
 }
 
-const functionCompositionFunctionNames = new Set([
-  "pipe", // RxJS, Ramda
-  "pipeP", // Ramda
-  "pipeK", // Ramda
-  "compose", // Ramda, Redux
-  "composeFlipped", // Not from any library, but common in Haskell, so supported
-  "composeP", // Ramda
-  "composeK", // Ramda
-  "flow", // Lodash
-  "flowRight", // Lodash
-  "connect", // Redux
-  "createSelector" // Reselect
-]);
-const ordinaryMethodNames = new Set([
-  "connect" // GObject, MongoDB
-]);
-
-function isFunctionCompositionFunction(node) {
-  switch (node.type) {
-    case "OptionalMemberExpression":
-    case "MemberExpression": {
-      return (
-        isFunctionCompositionFunction(node.property) &&
-        !ordinaryMethodNames.has(node.property.name)
-      );
-    }
-    case "Identifier": {
-      return functionCompositionFunctionNames.has(node.name);
-    }
-    case "StringLiteral":
-    case "Literal": {
-      return functionCompositionFunctionNames.has(node.value);
+// Logic to check for args with multiple anonymous functions. For instance,
+// the following call should be split on multiple lines for readability:
+// source.pipe(map((x) => x + x), filter((x) => x % 2 === 0))
+function isFunctionCompositionArgs(args) {
+  if (args.length <= 1) {
+    return false;
+  }
+  let count = 0;
+  for (const arg of args) {
+    if (isFunctionOrArrowExpression(arg)) {
+      count += 1;
+      if (count > 1) {
+        return true;
+      }
+    } else if (isCallOrOptionalCallExpression(arg)) {
+      for (const childArg of arg.arguments) {
+        if (isFunctionOrArrowExpression(childArg)) {
+          return true;
+        }
+      }
     }
   }
+  return false;
+}
+
+// Logic to determine if a call is a “long curried function call”.
+// See https://github.com/prettier/prettier/issues/1420.
+//
+// `connect(a, b, c)(d)`
+// In the above call expression, the second call is the parent node and the
+// first call is the current node.
+function isLongCurriedCallExpression(path) {
+  const node = path.getValue();
+  const parent = path.getParentNode();
+  return (
+    isCallOrOptionalCallExpression(node) &&
+    isCallOrOptionalCallExpression(parent) &&
+    parent.callee === node &&
+    node.arguments.length > parent.arguments.length &&
+    parent.arguments.length > 0
+  );
 }
 
 function printArgumentsList(path, options, print) {
@@ -4143,14 +4158,7 @@ function printArgumentsList(path, options, print) {
     );
   }
 
-  // We want to get
-  //    pipe(
-  //      x => x + 1,
-  //      x => x - 1
-  //    )
-  // here, but not
-  //    process.stdout.pipe(socket)
-  if (isFunctionCompositionFunction(node.callee) && args.length > 1) {
+  if (isFunctionCompositionArgs(args)) {
     return allArgsBrokenOut();
   }
 
@@ -4217,16 +4225,22 @@ function printArgumentsList(path, options, print) {
     ]);
   }
 
-  return group(
-    concat([
-      "(",
-      indent(concat([softline, concat(printedArguments)])),
-      ifBreak(maybeTrailingComma),
-      softline,
-      ")"
-    ]),
-    { shouldBreak: printedArguments.some(willBreak) || anyArgEmptyLine }
-  );
+  const contents = concat([
+    "(",
+    indent(concat([softline, concat(printedArguments)])),
+    ifBreak(maybeTrailingComma),
+    softline,
+    ")"
+  ]);
+  if (isLongCurriedCallExpression(path)) {
+    // By not wrapping the arguments in a group, the printer prioritizes
+    // breaking up these arguments rather than the args of the parent call.
+    return contents;
+  }
+
+  return group(contents, {
+    shouldBreak: printedArguments.some(willBreak) || anyArgEmptyLine
+  });
 }
 
 function printTypeAnnotation(path, options, print) {
@@ -5199,6 +5213,9 @@ function printMemberChain(path, options, print) {
   // If we only have a single `.`, we shouldn't do anything fancy and just
   // render everything concatenated together.
   if (groups.length <= cutoff && !hasComment) {
+    if (isLongCurriedCallExpression(path)) {
+      return oneLine;
+    }
     return group(oneLine);
   }
 
