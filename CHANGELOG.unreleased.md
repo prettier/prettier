@@ -286,9 +286,36 @@ foo;
 
 ### Javascript: Use function literals in arguments to detect function composition ([#6033] by [@brainkim])
 
-Previously, we used names of functions and methods to detect function
-composition, so that we could split their arguments onto multiple lines. We now
-use the presence of function literals in arguments instead.
+Previously, we used a set of hard-coded names related to functional programming
+(`compose`, `flow`, `pipe`, etc.) to detect function composition and chaining
+patterns in code. This was done so that prettier would not put code like the
+following call to `pipe` on the same line even if it fit within the allotted
+column budget:
+
+<!-- prettier-ignore -->
+```js
+source$
+  .pipe(
+    filter(x => x % 2 === 0),
+    map(x => x + x),
+    scan((acc, x) => acc + x, 0),
+  )
+  .subscribe(x => console.log(x));
+```
+
+However, this heuristic caused people to complain because of false positives
+where calls to functions or methods matching the hard-coded names would always
+be split on multiple lines, even if the calls did not contain function
+arguments (https://github.com/prettier/prettier/issues/5769,
+https://github.com/prettier/prettier/issues/5969). For many, this blanket
+decision to split functions based on name was both surprising and sub-optimal.
+
+We now use a refined heuristic which uses the presence of function literals to
+detect function composition. This heuristic preserves the line-splitting
+behavior above and eliminates many if not all of the false positives caused by
+the older heuristic.
+
+We encourage prettier users to try out the new heuristic and provide feedback.
 
 <!-- prettier-ignore -->
 ```js
