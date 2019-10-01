@@ -67,7 +67,7 @@ Use `prettier.resolveConfig.sync(filePath [, options])` if you'd like to use syn
 
 The promise will be rejected if there was an error parsing the configuration file.
 
-If `filePath` is not provided, the path of the configuration file in the current directory will be returned.
+If `filePath` is provided, the path of the configuration file in the project where `filePath` exists will be returned, otherwise the path of the configuration file in the current project will be returned.
 
 ```js
 prettier.resolveConfigFile().then(filePath => {
