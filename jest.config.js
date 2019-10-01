@@ -45,5 +45,8 @@ module.exports = {
     "jest-watch-typeahead/filename",
     "jest-watch-typeahead/testname"
   ],
-  reporters: ["default"].concat(ENABLE_TEST_RESULTS ? "jest-junit" : [])
+  reporters: ["default"].concat(ENABLE_TEST_RESULTS ? "jest-junit" : []),
+  // snapshot-diff is not compatible with node 4
+  // TODO: remove this when prettier target node>4
+  transformIgnorePatterns: ["/node_modules/(?!snapshot-diff)"]
 };
