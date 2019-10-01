@@ -65,7 +65,7 @@ function clean(ast, newObj, parent) {
     return newObj.typeAnnotation;
   }
 
-  // (TypeScript) TSIntersectionType and TSUnionType with one element might has leading operator
+  // (TypeScript) `& foo` and `| foo` into `foo`
   if (
     (ast.type === "TSIntersectionType" || ast.type === "TSUnionType") &&
     ast.types.length === 1
