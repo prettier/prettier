@@ -423,10 +423,6 @@ useEffect(
 
 This version updates the TypeScript parser to correctly handle JSX text with double slashes (`//`). In previous versions, this would cause Prettier to crash.
 
-#### CLI: Add `--only-changed` flag ([#5910] by [@g-harel])
-
-Flag used with `--write` to avoid re-checking files that were not changed since they were last written (with the same formatting configuration).
-
 #### HTML, Vue: Don't break the template element included in a line shorter than print-width([#6284] by [@sosukesuzuki])
 
 Previously, even if the line length is shorter than print-width is Prettier breaks the line with a template element.
