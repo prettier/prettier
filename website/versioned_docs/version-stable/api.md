@@ -68,7 +68,7 @@ Use `prettier.resolveConfig.sync(filePath [, options])` if you'd like to use syn
 
 The promise will be rejected if there was an error parsing the configuration file.
 
-If `filePath` is provided, the path of the configuration file in the project where `filePath` exists will be returned, otherwise the path of the configuration file in the current project will be returned.
+If `filePath` is provided, the path of the configuration file in the project where `filePath` exists will be returned, otherwise the path of the configuration file in the current project will be returned. Please see [cosmiconfig docs](https://github.com/davidtheclark/cosmiconfig#explorersearch) for details on how the resolving works.
 
 ```js
 prettier.resolveConfigFile().then(filePath => {
