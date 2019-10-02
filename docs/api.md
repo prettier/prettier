@@ -60,14 +60,14 @@ Use `prettier.resolveConfig.sync(filePath [, options])` if you'd like to use syn
 
 ## `prettier.resolveConfigFile([filePath])`
 
-`resolveConfigFile` can be used to find the path of the Prettier's configuration file will be used when resolving the config (i.e. when calling `resolveConfig`). A promise is returned which will resolve to:
+`resolveConfigFile` can be used to find the path of the Prettier configuration file that will be used when resolving the config (i.e. when calling `resolveConfig`). A promise is returned which will resolve to:
 
 - The path of the configuration file.
 - `null`, if no file was found.
 
 The promise will be rejected if there was an error parsing the configuration file.
 
-If `filePath` is provided, the path of the configuration file in the project where `filePath` exists will be returned, otherwise the path of the configuration file in the current project will be returned. Please see [cosmiconfig docs](https://github.com/davidtheclark/cosmiconfig#explorersearch) for details on how the resolving works.
+The search starts at `process.cwd()`, or at `filePath` if provided. Please see the [cosmiconfig docs](https://github.com/davidtheclark/cosmiconfig#explorersearch) for details on how the resolving works.
 
 ```js
 prettier.resolveConfigFile().then(filePath => {
