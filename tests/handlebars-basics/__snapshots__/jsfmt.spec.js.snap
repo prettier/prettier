@@ -51,12 +51,12 @@ singleQuote: true
 <div class="{{hello}} {{world}}"></div>
 
 =====================================output=====================================
-<script id="entry-template" type="text/x-handlebars-template">
-  <div class="entry">
+<script id='entry-template' type='text/x-handlebars-template'>
+  <div class='entry'>
     <h1>
       {{title}}
     </h1>
-    <div class="body">
+    <div class='body'>
       {{body}}
     </div>
   </div>
@@ -161,7 +161,7 @@ singleQuote: true
 <div ...attributes>Hello</div>
 
 =====================================output=====================================
-<UserGreeting @name="Ricardo" @greeting="Olá" />
+<UserGreeting @name='Ricardo' @greeting='Olá' />
 {{@greeting}}
 ,
 {{@name}}
@@ -172,18 +172,18 @@ singleQuote: true
   />
 </div>
 <Form as |f|>
-  <f.input @title="hello" />
+  <f.input @title='hello' />
   <f.input>
     hello
   </f.input>
 </Form>
-<this.label @title="hello" />
+<this.label @title='hello' />
 <button onclick={{action next}}>
   Next
 </button>
-<button disabled class="disabled"></button>
-<button disabled="disabled" class="disabled"></button>
-<img alt="" />
+<button disabled class='disabled'></button>
+<button disabled='disabled' class='disabled'></button>
+<img alt='' />
 <div ...attributes>
   Hello
 </div>
@@ -288,14 +288,14 @@ singleQuote: true
 </div>
 
 =====================================output=====================================
-<div class="entry">
+<div class='entry'>
   <h1>
     {{title}}
   </h1>
   <h2>
     By {{author.name}}
   </h2>
-  <div class="body">
+  <div class='body'>
     {{body}}
   </div>
 </div>

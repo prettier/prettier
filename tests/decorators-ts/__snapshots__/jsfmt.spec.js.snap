@@ -321,7 +321,10 @@ export class Board {
   @Column()
   description: string;
 
-  @OneToMany(type => Topic, topic => topic.board)
+  @OneToMany(
+    type => Topic,
+    topic => topic.board
+  )
   topics: Topic[];
 }
 

@@ -9,21 +9,21 @@
     "update-stable-docs": "rm -rf ./versioned_docs ./versions.json && docusaurus-version stable"
   },
   "dependencies": {
-    "clipboard": "2.0.0",
+    "clipboard": "2.0.4",
     "codemirror": "5.36.0",
-    "codemirror-graphql": "0.6.12",
+    "codemirror-graphql": "0.9.0",
     "lodash.groupby": "4.6.0",
     "lz-string": "1.4.4",
     "prop-types": "15.6.1",
     "react": "16.3.1",
-    "react-dom": "16.3.3"
+    "react-dom": "16.10.1"
   },
   "devDependencies": {
     "@sandhose/prettier-animated-logo": "1.0.3",
     "babel-loader": "7.1.4",
-    "babel-preset-env": "1.6.1",
+    "babel-preset-env": "1.7.0",
     "babel-preset-react": "6.24.1",
-    "concurrently": "3.5.1",
+    "concurrently": "4.1.2",
     "docusaurus": "1.6.2",
     "js-yaml": "3.13.1",
     "svgo": "1.0.4",
