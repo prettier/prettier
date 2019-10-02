@@ -45,7 +45,7 @@ const parsers = [
     },
     commonjs: {
       ignore: [
-        // optional typescript etw logger
+        // Optional package for TypeScript that logs ETW events (a Windows-only technology).
         "@microsoft/typescript-etw"
       ]
     }
