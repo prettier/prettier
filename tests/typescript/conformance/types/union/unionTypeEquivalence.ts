@@ -2,6 +2,7 @@
 class C { }
 class D extends C { foo() { } }
 var x: C;
+var x: | C;
 var x : C | D;
 
 // A | B is equivalent to B | A.

@@ -19,7 +19,7 @@
     "@babel/parser": "7.2.0",
     "@glimmer/syntax": "0.41.0",
     "@iarna/toml": "2.2.3",
-    "@typescript-eslint/typescript-estree": "1.11.0",
+    "@typescript-eslint/typescript-estree": "1.13.0",
     "angular-estree-parser": "1.1.5",
     "angular-html-parser": "1.2.0",
     "camelcase": "5.3.1",
@@ -68,7 +68,7 @@
     "resolve": "1.12.0",
     "semver": "6.3.0",
     "string-width": "3.1.0",
-    "typescript": "3.4.1",
+    "typescript": "3.6.3",
     "unicode-regex": "3.0.0",
     "unified": "6.1.6",
     "vnopts": "1.0.2",
@@ -129,7 +129,7 @@
     "lint": "cross-env EFF_NO_LINK_RULES=true eslint . --format friendly",
     "lint-docs": "prettylint {.,docs,website,website/blog}/*.md",
     "lint-dist": "eslint --no-eslintrc --no-ignore --env=browser \"dist/!(bin-prettier|index|third-party).js\"",
-    "build": "node --max-old-space-size=2048 ./scripts/build/build.js",
+    "build": "node --max-old-space-size=3072 ./scripts/build/build.js",
     "build-docs": "node ./scripts/build-docs.js",
     "check-deps": "node ./scripts/check-deps.js"
   }
