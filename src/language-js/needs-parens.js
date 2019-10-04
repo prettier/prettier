@@ -411,7 +411,9 @@ function needsParens(path, options) {
       // Delegate to inner TSParenthesizedType
       if (
         node.typeAnnotation.type === "TSParenthesizedType" &&
-        parent.type !== "TSArrayType"
+        parent.type !== "TSArrayType" &&
+        parent.type !== "TSIndexedAccessType" &&
+        parent.type !== "TSConditionalType"
       ) {
         return false;
       }
