@@ -413,7 +413,9 @@ function needsParens(path, options) {
         node.typeAnnotation.type === "TSParenthesizedType" &&
         parent.type !== "TSArrayType" &&
         parent.type !== "TSIndexedAccessType" &&
-        parent.type !== "TSConditionalType"
+        parent.type !== "TSConditionalType" &&
+        parent.type !== "TSIntersectionType" &&
+        parent.type !== "TSUnionType"
       ) {
         return false;
       }
