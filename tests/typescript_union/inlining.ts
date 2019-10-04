@@ -30,3 +30,8 @@ type UploadState<E, EM, D>
 type window = Window & {
   __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: Function;
 };
+
+type T1 = (number | string)["toString"];
+type T2 = ((number | string))["toString"];
+type T3 = (((number | string)))["toString"];
+type T4 = ((((number | string))))["toString"];
