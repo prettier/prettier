@@ -13,6 +13,9 @@ function postprocess(ast, options) {
         }
         break;
       }
+      case "TSParenthesizedType": {
+        return node.typeAnnotation;
+      }
     }
   });
 
@@ -44,14 +47,14 @@ function postprocess(ast, options) {
   }
 }
 
-function visitNode(node, fn) {
+function visitNode(node, fn, parent, property) {
   if (!node || typeof node !== "object") {
     return;
   }
 
   if (Array.isArray(node)) {
-    for (const subNode of node) {
-      visitNode(subNode, fn);
+    for (let i = 0; i < node.length; i++) {
+      visitNode(node[i], fn, node, i);
     }
     return;
   }
@@ -61,10 +64,14 @@ function visitNode(node, fn) {
   }
 
   for (const key of Object.keys(node)) {
-    visitNode(node[key], fn);
+    visitNode(node[key], fn, node, key);
   }
 
-  fn(node);
+  const replacement = fn(node);
+
+  if (replacement) {
+    parent[property] = replacement;
+  }
 }
 
 module.exports = postprocess;

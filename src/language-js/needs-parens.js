@@ -380,47 +380,18 @@ function needsParens(path, options) {
           return false;
       }
 
-    case "TSParenthesizedType": {
-      const grandParent = path.getParentNode(1);
+    case "TSTypeOperator":
+      return parent.type === "TSArrayType" || parent.type === "TSOptionalType";
 
-      /**
-       * const foo = (): (() => void) => (): void => null;
-       *                 ^          ^
-       */
-      if (
-        getUnparenthesizedNode(node).type === "TSFunctionType" &&
-        parent.type === "TSTypeAnnotation" &&
-        grandParent.type === "ArrowFunctionExpression" &&
-        grandParent.returnType === parent
-      ) {
-        return true;
-      }
-
-      if (
-        (parent.type === "TSTypeParameter" ||
-          parent.type === "TypeParameter" ||
-          parent.type === "TSTypeAliasDeclaration" ||
-          parent.type === "TSTypeAnnotation" ||
-          parent.type === "TSParenthesizedType" ||
-          parent.type === "TSTypeParameterInstantiation") &&
-        (grandParent.type !== "TSTypeOperator" &&
-          grandParent.type !== "TSOptionalType")
-      ) {
-        return false;
-      }
-      // Delegate to inner TSParenthesizedType
-      if (
-        node.typeAnnotation.type === "TSParenthesizedType" &&
-        parent.type !== "TSArrayType" &&
-        parent.type !== "TSIndexedAccessType" &&
-        parent.type !== "TSConditionalType" &&
-        parent.type !== "TSIntersectionType" &&
-        parent.type !== "TSUnionType"
-      ) {
-        return false;
-      }
-      return true;
-    }
+    case "TSUnionType":
+    case "TSIntersectionType":
+      return (
+        parent.type === "TSArrayType" ||
+        parent.type === "TSOptionalType" ||
+        parent.type === "TSTypeOperator" ||
+        parent.type === "TSUnionType" ||
+        parent.type === "TSIntersectionType"
+      );
 
     case "SequenceExpression":
       switch (parent.type) {
@@ -788,12 +759,6 @@ function isStatement(node) {
     node.type === "WhileStatement" ||
     node.type === "WithStatement"
   );
-}
-
-function getUnparenthesizedNode(node) {
-  return node.type === "TSParenthesizedType"
-    ? getUnparenthesizedNode(node.typeAnnotation)
-    : node;
 }
 
 function endsWithRightBracket(node) {
