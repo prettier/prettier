@@ -389,6 +389,7 @@ function needsParens(path, options) {
       return (
         parent.type === "TSArrayType" ||
         parent.type === "TSOptionalType" ||
+        parent.type === "TSRestType" ||
         (parent.type === "TSIndexedAccessType" && node === parent.objectType) ||
         parent.type === "TSTypeOperator" ||
         (parent.type === "TSConditionalType" &&
