@@ -138,9 +138,6 @@ export type SCMRawResource = [
 	boolean /*faded*/
 ];
 
-type TupleWithOptional = [number, (1 extends 2 ? string[] : number[])?]
-type TupleWithRest = [number, ...(1 extends 2 ? string[] : number[])];
-
 =====================================output=====================================
 export type SCMRawResource = [
   number /*handle*/,
@@ -150,9 +147,6 @@ export type SCMRawResource = [
   boolean /*strike through*/,
   boolean /*faded*/
 ];
-
-type TupleWithOptional = [number, (1 extends 2 ? string[] : number[])?];
-type TupleWithRest = [number, ...(1 extends 2 ? string[] : number[])];
 
 ================================================================================
 `;
@@ -174,9 +168,6 @@ export type SCMRawResource = [
 	boolean /*faded*/
 ];
 
-type TupleWithOptional = [number, (1 extends 2 ? string[] : number[])?]
-type TupleWithRest = [number, ...(1 extends 2 ? string[] : number[])];
-
 =====================================output=====================================
 export type SCMRawResource = [
   number /*handle*/,
@@ -186,9 +177,6 @@ export type SCMRawResource = [
   boolean /*strike through*/,
   boolean /*faded*/
 ];
-
-type TupleWithOptional = [number, (1 extends 2 ? string[] : number[])?];
-type TupleWithRest = [number, ...(1 extends 2 ? string[] : number[])];
 
 ================================================================================
 `;
@@ -210,9 +198,6 @@ export type SCMRawResource = [
 	boolean /*faded*/
 ];
 
-type TupleWithOptional = [number, (1 extends 2 ? string[] : number[])?]
-type TupleWithRest = [number, ...(1 extends 2 ? string[] : number[])];
-
 =====================================output=====================================
 export type SCMRawResource = [
   number /*handle*/,
@@ -222,9 +207,6 @@ export type SCMRawResource = [
   boolean /*strike through*/,
   boolean /*faded*/,
 ];
-
-type TupleWithOptional = [number, (1 extends 2 ? string[] : number[])?];
-type TupleWithRest = [number, ...(1 extends 2 ? string[] : number[])];
 
 ================================================================================
 `;
