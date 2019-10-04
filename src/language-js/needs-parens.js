@@ -380,25 +380,32 @@ function needsParens(path, options) {
           return false;
       }
 
-    case "TSTypeOperator":
-    case "TSInferType":
+    case "TSConditionalType":
+      if (
+        parent.type === "TSConditionalType" &&
+        (node === parent.checkType || node === parent.extendsType)
+      ) {
+        return true;
+      }
+    // fallthrough
     case "TSUnionType":
     case "TSIntersectionType":
     case "TSFunctionType":
-    case "TSConditionalType":
+      if (
+        parent.type === "TSUnionType" ||
+        parent.type === "TSIntersectionType"
+      ) {
+        return true;
+      }
+    // fallthrough
+    case "TSTypeOperator":
+    case "TSInferType":
       return (
         parent.type === "TSArrayType" ||
         parent.type === "TSOptionalType" ||
         parent.type === "TSRestType" ||
         (parent.type === "TSIndexedAccessType" && node === parent.objectType) ||
-        parent.type === "TSTypeOperator" ||
-        (parent.type === "TSConditionalType" &&
-          node.type === "TSConditionalType" &&
-          (node === parent.checkType || node === parent.extendsType)) ||
-        (node.type !== "TSTypeOperator" &&
-          node.type !== "TSInferType" &&
-          (parent.type === "TSUnionType" ||
-            parent.type === "TSIntersectionType"))
+        parent.type === "TSTypeOperator"
       );
 
     case "SequenceExpression":
