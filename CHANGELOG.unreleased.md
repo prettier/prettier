@@ -742,7 +742,7 @@ Previously, the flag was not applied on html attributes.
 <div class='a-class-name'></div>
 ```
 
-#### TypeScript: Fix incorrectly removes double parentheses around types ([#] by [@sosukesuzuki])
+#### TypeScript: Fix incorrectly removes double parentheses around types ([#6604] by [@sosukesuzuki])
 
 <!-- prettier-ignore -->
 ```ts
@@ -791,7 +791,7 @@ type D = (keyof T1)["foo"];
 [#6514]: https://github.com/prettier/prettier/pull/6514
 [#6467]: https://github.com/prettier/prettier/pull/6467
 [#6377]: https://github.com/prettier/prettier/pull/6377
-[#]: https://github.com/prettier/prettier/pull/
+[#6604]: https://github.com/prettier/prettier/pull/6604
 [@brainkim]: https://github.com/brainkim
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
