@@ -16,6 +16,12 @@ function postprocess(ast, options) {
       case "TSParenthesizedType": {
         return node.typeAnnotation;
       }
+      case "TSUnionType":
+      case "TSIntersectionType":
+        if (node.types.length === 1) {
+          return node.types[0];
+        }
+        break;
     }
   });
 

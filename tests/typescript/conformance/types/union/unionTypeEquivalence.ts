@@ -4,6 +4,8 @@ class D extends C { foo() { } }
 var x: C;
 var x: | C;
 var x : C | D;
+type x1 = & a | b;
+type x2 = | a & b;
 
 // A | B is equivalent to B | A.
 var y: string | number;
