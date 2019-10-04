@@ -381,16 +381,21 @@ function needsParens(path, options) {
       }
 
     case "TSTypeOperator":
-      return parent.type === "TSArrayType" || parent.type === "TSOptionalType";
-
     case "TSUnionType":
     case "TSIntersectionType":
+    case "TSFunctionType":
+    case "TSConditionalType":
       return (
         parent.type === "TSArrayType" ||
         parent.type === "TSOptionalType" ||
+        (parent.type === "TSIndexedAccessType" && node === parent.objectType) ||
         parent.type === "TSTypeOperator" ||
-        parent.type === "TSUnionType" ||
-        parent.type === "TSIntersectionType"
+        (parent.type === "TSConditionalType" &&
+          node.type === "TSConditionalType" &&
+          (node === parent.checkType || node === parent.extendsType)) ||
+        (node.type !== "TSTypeOperator" &&
+          (parent.type === "TSUnionType" ||
+            parent.type === "TSIntersectionType"))
       );
 
     case "SequenceExpression":
