@@ -381,6 +381,7 @@ function needsParens(path, options) {
       }
 
     case "TSTypeOperator":
+    case "TSInferType":
     case "TSUnionType":
     case "TSIntersectionType":
     case "TSFunctionType":
@@ -394,6 +395,7 @@ function needsParens(path, options) {
           node.type === "TSConditionalType" &&
           (node === parent.checkType || node === parent.extendsType)) ||
         (node.type !== "TSTypeOperator" &&
+          node.type !== "TSInferType" &&
           (parent.type === "TSUnionType" ||
             parent.type === "TSIntersectionType"))
       );
