@@ -381,16 +381,17 @@ function needsParens(path, options) {
       }
 
     case "TSConditionalType":
-      if (
-        parent.type === "TSConditionalType" &&
-        (node === parent.checkType || node === parent.extendsType)
-      ) {
+      if (parent.type === "TSConditionalType" && node === parent.extendsType) {
+        return true;
+      }
+    // fallthrough
+    case "TSFunctionType":
+      if (parent.type === "TSConditionalType" && node === parent.checkType) {
         return true;
       }
     // fallthrough
     case "TSUnionType":
     case "TSIntersectionType":
-    case "TSFunctionType":
       if (
         parent.type === "TSUnionType" ||
         parent.type === "TSIntersectionType"
