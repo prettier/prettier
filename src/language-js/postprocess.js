@@ -2,10 +2,10 @@
 
 const { getLast } = require("../common/util");
 
-// fix unexpected locEnd caused by --no-semi style
 function postprocess(ast, options) {
   visitNode(ast, node => {
     switch (node.type) {
+      // fix unexpected locEnd caused by --no-semi style
       case "VariableDeclaration": {
         const lastDeclaration = getLast(node.declarations);
         if (lastDeclaration && lastDeclaration.init) {
@@ -13,13 +13,18 @@ function postprocess(ast, options) {
         }
         break;
       }
+      // remove redundant TypeScript nodes
       case "TSParenthesizedType": {
         return node.typeAnnotation;
       }
       case "TSUnionType":
       case "TSIntersectionType":
         if (node.types.length === 1) {
-          return node.types[0];
+          // override loc, so that comments are attached properly
+          return Object.assign({}, node.types[0], {
+            loc: node.loc,
+            range: node.range
+          });
         }
         break;
     }
