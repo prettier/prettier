@@ -110,7 +110,7 @@ function embed(path, print, textToDoc, options) {
           }
 
           if (doc) {
-            doc = escapeTemplateCharacters(doc, false, true);
+            doc = escapeTemplateCharacters(doc, false);
             if (!isFirst && startsWithBlankLine) {
               parts.push("");
             }
@@ -194,7 +194,7 @@ function embed(path, print, textToDoc, options) {
 
   function printMarkdown(text) {
     const doc = textToDoc(text, { parser: "markdown", __inJsTemplate: true });
-    return stripTrailingHardline(escapeTemplateCharacters(doc, true, true));
+    return stripTrailingHardline(escapeTemplateCharacters(doc, true));
   }
 }
 
@@ -207,9 +207,10 @@ function uncook(cookedValue) {
   return cookedValue.replace(/([\\`]|\$\{)/g, "\\$1");
 }
 
-function escapeTemplateCharacters(doc, raw, mapInPlace) {
-  const mapFunc = mapInPlace ? mapDocInPlace : mapDocInPlace;
-  return mapFunc(doc, currentDoc => {
+// Note that this uses mapDocInPlace, and so modifies the
+// original doc object.
+function escapeTemplateCharacters(doc, raw) {
+  return mapDocInPlace(doc, currentDoc => {
     if (!currentDoc.parts) {
       return currentDoc;
     }
