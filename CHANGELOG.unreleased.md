@@ -740,7 +740,7 @@ Previously, the flag was not applied on html attributes.
 
 // Prettier (master with the option --single-quote)
 <div class='a-class-name'></div>
-````
+```
 
 [#5910]: https://github.com/prettier/prettier/pull/5910
 [#6033]: https://github.com/prettier/prettier/pull/6033
