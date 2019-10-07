@@ -1192,6 +1192,9 @@ function printPathNoParens(path, options, print, args) {
       parts.push(semi);
 
       return concat(parts);
+    case "ImportExpression": {
+      return concat(["import", concat(["(", path.call(print, "source"), ")"])]);
+    }
     case "NewExpression":
     case "OptionalCallExpression":
     case "CallExpression": {
