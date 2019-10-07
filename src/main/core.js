@@ -14,7 +14,7 @@ const {
 const rangeUtil = require("./range-util");
 const privateUtil = require("../common/util");
 const {
-  utils: { mapDoc },
+  utils: { mapDocInPlace },
   printer: { printDocToString },
   debug: { printDocToDebug }
 } = require("../doc");
@@ -89,7 +89,7 @@ function coreFormat(text, opts, addAlignmentSize) {
   const result = printDocToString(
     opts.endOfLine === "lf"
       ? doc
-      : mapDoc(doc, currentDoc =>
+      : mapDocInPlace(doc, currentDoc =>
           typeof currentDoc === "string" && currentDoc.indexOf("\n") !== -1
             ? currentDoc.replace(/\n/g, eol)
             : currentDoc

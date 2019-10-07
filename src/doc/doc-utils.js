@@ -72,6 +72,21 @@ function mapDoc(doc, cb) {
   return cb(doc);
 }
 
+function mapDocInPlace(doc, cb) {
+  if (doc.type === "concat" || doc.type === "fill") {
+    for (let partIndex = 0; partIndex < doc.parts.length; ++partIndex) {
+      doc.parts[partIndex] = mapDocInPlace(doc.parts[partIndex], cb);
+    }
+  } else if (doc.type === "if-break") {
+    doc.breakContents =
+      doc.breakContents && mapDocInPlace(doc.breakContents, cb);
+    doc.flatContents = doc.flatContents && mapDocInPlace(doc.flatContents, cb);
+  } else if (doc.contents) {
+    doc.contents = mapDocInPlace(doc.contents, cb);
+  }
+  return cb(doc);
+}
+
 function findInDoc(doc, fn, defaultValue) {
   let result = defaultValue;
   let hasStopped = false;
@@ -212,6 +227,7 @@ module.exports = {
   traverseDoc,
   findInDoc,
   mapDoc,
+  mapDocInPlace,
   propagateBreaks,
   removeLines,
   stripTrailingHardline

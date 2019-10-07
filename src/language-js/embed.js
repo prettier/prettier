@@ -13,7 +13,7 @@ const {
     group,
     dedentToRoot
   },
-  utils: { mapDoc, stripTrailingHardline }
+  utils: { mapDoc, mapDocInPlace, stripTrailingHardline }
 } = require("../doc");
 
 function embed(path, print, textToDoc, options) {
@@ -110,7 +110,7 @@ function embed(path, print, textToDoc, options) {
           }
 
           if (doc) {
-            doc = escapeTemplateCharacters(doc, false);
+            doc = escapeTemplateCharacters(doc, false, true);
             if (!isFirst && startsWithBlankLine) {
               parts.push("");
             }
@@ -194,7 +194,7 @@ function embed(path, print, textToDoc, options) {
 
   function printMarkdown(text) {
     const doc = textToDoc(text, { parser: "markdown", __inJsTemplate: true });
-    return stripTrailingHardline(escapeTemplateCharacters(doc, true));
+    return stripTrailingHardline(escapeTemplateCharacters(doc, true, true));
   }
 }
 
@@ -207,8 +207,9 @@ function uncook(cookedValue) {
   return cookedValue.replace(/([\\`]|\$\{)/g, "\\$1");
 }
 
-function escapeTemplateCharacters(doc, raw) {
-  return mapDoc(doc, currentDoc => {
+function escapeTemplateCharacters(doc, raw, mapInPlace) {
+  const mapFunc = mapInPlace ? mapDocInPlace : mapDocInPlace;
+  return mapFunc(doc, currentDoc => {
     if (!currentDoc.parts) {
       return currentDoc;
     }
