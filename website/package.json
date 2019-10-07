@@ -11,7 +11,7 @@
   "dependencies": {
     "clipboard": "2.0.4",
     "codemirror": "5.49.0",
-    "codemirror-graphql": "0.9.0",
+    "codemirror-graphql": "0.11.1",
     "lodash.groupby": "4.6.0",
     "lz-string": "1.4.4",
     "prop-types": "15.7.2",
