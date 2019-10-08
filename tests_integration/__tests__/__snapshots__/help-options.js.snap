@@ -329,6 +329,25 @@ exports[`show detailed usage with --help no-semi (stdout) 1`] = `
 
 exports[`show detailed usage with --help no-semi (write) 1`] = `Array []`;
 
+exports[`show detailed usage with --help ordered-list-marker (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help ordered-list-marker (stdout) 1`] = `
+"--ordered-list-marker <order|one|auto>
+
+  Type of markers for oredered list.
+
+Valid options:
+
+  order   Use oredered numbers as markers for ordered list.
+  one     Use 1 as marker for ordered list.
+  auto    Auto marker depend on content.
+
+Default: auto
+"
+`;
+
+exports[`show detailed usage with --help ordered-list-marker (write) 1`] = `Array []`;
+
 exports[`show detailed usage with --help parser (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help parser (stdout) 1`] = `

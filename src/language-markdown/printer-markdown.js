@@ -269,16 +269,25 @@ function genericPrint(path, options, print) {
           ]);
 
           function getPrefix() {
-            const rawPrefix = node.ordered
-              ? (index === 0
-                  ? node.start
-                  : isGitDiffFriendlyOrderedList
-                  ? 1
-                  : node.start + index) +
-                (nthSiblingIndex % 2 === 0 ? ". " : ") ")
-              : nthSiblingIndex % 2 === 0
-              ? "- "
-              : "* ";
+            let rawPrefix;
+            if (node.ordered) {
+              if (index === 0) {
+                rawPrefix = node.start;
+              } else {
+                if (options.orderedListMarker === "order") {
+                  rawPrefix = node.start + index;
+                } else if (options.orderedListMarker === "one") {
+                  rawPrefix = 1;
+                } else if (options.orderedListMarker === "auto") {
+                  rawPrefix = isGitDiffFriendlyOrderedList
+                    ? 1
+                    : node.start + index;
+                }
+              }
+              rawPrefix += nthSiblingIndex % 2 === 0 ? ". " : ") ";
+            } else {
+              rawPrefix = nthSiblingIndex % 2 === 0 ? "- " : "* ";
+            }
 
             return node.isAligned ||
               /* workaround for https://github.com/remarkjs/remark/issues/315 */ node.hasIndentedCodeblock

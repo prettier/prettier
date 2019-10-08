@@ -37,6 +37,7 @@ const ENABLED_OPTIONS = [
   "arrowParens",
   "trailingComma",
   "proseWrap",
+  "orderedListMarker",
   "htmlWhitespaceSensitivity",
   "insertPragma",
   "requirePragma",

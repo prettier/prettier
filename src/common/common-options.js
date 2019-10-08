@@ -47,5 +47,29 @@ module.exports = {
       { value: false, deprecated: "1.9.0", redirect: "never" },
       { value: true, deprecated: "1.9.0", redirect: "always" }
     ]
+  },
+  orderedListMarker: {
+    since: "1.19.0",
+    category: CATEGORY_COMMON,
+    type: "choice",
+    default: "auto",
+    description: "Type of markers for oredered list.",
+    choices: [
+      {
+        since: "1.19.0",
+        value: "order",
+        description: "Use oredered numbers as markers for ordered list."
+      },
+      {
+        since: "1.19.0",
+        value: "one",
+        description: "Use 1 as marker for ordered list."
+      },
+      {
+        since: "1.19.0",
+        value: "auto",
+        description: "Auto marker depend on content."
+      }
+    ]
   }
 };
