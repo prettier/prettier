@@ -28,7 +28,7 @@ function embed(path, print, textToDoc, options) {
         isStyledComponents,
         isCssProp,
         isAngularComponentStyles
-      ].some(isIt => isIt(path));
+      ].some(isIt => isIt(path, options));
 
       if (isCss) {
         // Get full template literal with expressions replaced by placeholders
@@ -431,7 +431,7 @@ function getAngularComponentObjectExpressionPredicates() {
 /**
  * styled-components template literals
  */
-function isStyledComponents(path) {
+function isStyledComponents(path, options) {
   const parent = path.getParentNode();
 
   if (!parent || parent.type !== "TaggedTemplateExpression") {
@@ -440,13 +440,20 @@ function isStyledComponents(path) {
 
   const tag = parent.tag;
 
+  const customTags = options.jsCustomTags["styled-components"] || [];
+
+  function isCustomIdentifier(node) {
+    return node.type === "Identifier" && customTags.includes(node.name);
+  }
+
   switch (tag.type) {
     case "MemberExpression":
       return (
         // styled.foo``
         isStyledIdentifier(tag.object) ||
         // Component.extend``
-        isStyledExtend(tag)
+        isStyledExtend(tag) ||
+        isCustomIdentifier(tag.object)
       );
 
     case "CallExpression":
@@ -466,7 +473,7 @@ function isStyledComponents(path) {
 
     case "Identifier":
       // css``
-      return tag.name === "css";
+      return tag.name === "css" || customTags.includes(tag.name);
 
     default:
       return false;
