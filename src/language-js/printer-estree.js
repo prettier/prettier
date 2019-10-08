@@ -2824,6 +2824,19 @@ function printPathNoParens(path, options, print, args) {
         return group(concat([indent(code), softline]));
       }
 
+      if (
+        (parent.type === "TupleTypeAnnotation" && parent.types.length > 1) ||
+        (parent.type === "TSTupleType" && parent.elementTypes.length > 1)
+      ) {
+        return group(
+          concat([
+            indent(concat([ifBreak(concat(["(", softline])), code])),
+            softline,
+            ifBreak(")")
+          ])
+        );
+      }
+
       return group(shouldIndent ? indent(code) : code);
     }
     case "NullableTypeAnnotation":
