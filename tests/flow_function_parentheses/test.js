@@ -30,7 +30,7 @@ type f5 = (arg /* comment */) => void;
 
 type f6 = (?arg) => void;
 
-class X {
+class Y {
   constructor(
     ideConnectionFactory: child_process$ChildProcess => FlowIDEConnection =
         defaultIDEConnectionFactory,
