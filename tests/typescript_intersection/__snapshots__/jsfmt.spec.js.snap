@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`intersection-parens.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type A = (number | string) & boolean;
+type B = ((number | string)) & boolean;
+type C = (((number | string))) & boolean;
+type D = ((((number | string)))) & boolean;
+
+=====================================output=====================================
+type A = (number | string) & boolean;
+type B = (number | string) & boolean;
+type C = (number | string) & boolean;
+type D = (number | string) & boolean;
+
+================================================================================
+`;
+
+exports[`intersection-parens.ts 2`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+type A = (number | string) & boolean;
+type B = ((number | string)) & boolean;
+type C = (((number | string))) & boolean;
+type D = ((((number | string)))) & boolean;
+
+=====================================output=====================================
+type A = (number | string) & boolean
+type B = (number | string) & boolean
+type C = (number | string) & boolean
+type D = (number | string) & boolean
+
+================================================================================
+`;
