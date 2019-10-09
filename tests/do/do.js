@@ -11,7 +11,7 @@ let x = do {
   tmp * tmp + 1
 };
 
-let x = do {
+let y = do {
   if (foo()) { f() }
   else if (bar()) { g() }
   else { h() }

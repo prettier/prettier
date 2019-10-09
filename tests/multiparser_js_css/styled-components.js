@@ -1,6 +1,6 @@
-const ListItem = styled.li``;
+const ListItem1 = styled.li``;
 
-const ListItem = styled.li` `;
+const ListItem2 = styled.li` `;
 
 const Dropdown = styled.div`position: relative;`
 
@@ -138,7 +138,7 @@ styled.a`
   }
 `
 
-const StyledComponent = styled.div`
+const StyledComponent1 = styled.div`
   ${anInterpolation}
   /* a comment */
 
@@ -147,7 +147,7 @@ const StyledComponent = styled.div`
   }
 `;
 
-const StyledComponent = styled.div`
+const StyledComponent2 = styled.div`
   ${anInterpolation}
 
   /* a comment */

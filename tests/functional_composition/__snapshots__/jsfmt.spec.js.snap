@@ -153,13 +153,13 @@ foo(6);
 
 import * as _ from "lodash";
 
-const foo = _.flow(
+const bar = _.flow(
   x => x + 1,
   x => x * 3,
   x => x - 6,
 );
 
-foo(6);
+bar(6);
 
 =====================================output=====================================
 import { flow } from "lodash";
@@ -174,13 +174,13 @@ foo(6);
 
 import * as _ from "lodash";
 
-const foo = _.flow(
+const bar = _.flow(
   x => x + 1,
   x => x * 3,
   x => x - 6
 );
 
-foo(6);
+bar(6);
 
 ================================================================================
 `;
@@ -203,13 +203,13 @@ foo(6);
 
 import * as _ from "lodash";
 
-const foo = _.flowRight(
+const bar = _.flowRight(
   x => x + 1,
   x => x * 3,
   x => x - 6,
 );
 
-foo(6);
+bar(6);
 
 =====================================output=====================================
 import { flowRight } from "lodash";
@@ -224,13 +224,13 @@ foo(6);
 
 import * as _ from "lodash";
 
-const foo = _.flowRight(
+const bar = _.flowRight(
   x => x + 1,
   x => x * 3,
   x => x - 6
 );
 
-foo(6);
+bar(6);
 
 ================================================================================
 `;
@@ -476,13 +476,13 @@ printWidth: 80
 =====================================input======================================
 import { createSelector } from 'reselect';
 
-const resolve = createSelector(
+const foo = createSelector(
   getIds,
   getObjects,
   (ids, objects) => ids.map(id => objects[id])
 );
 
-const resolve = createSelector(
+const bar = createSelector(
   [getIds, getObjects],
   (ids, objects) => ids.map(id => objects[id])
 );
@@ -490,11 +490,11 @@ const resolve = createSelector(
 =====================================output=====================================
 import { createSelector } from "reselect";
 
-const resolve = createSelector(getIds, getObjects, (ids, objects) =>
+const foo = createSelector(getIds, getObjects, (ids, objects) =>
   ids.map(id => objects[id])
 );
 
-const resolve = createSelector([getIds, getObjects], (ids, objects) =>
+const bar = createSelector([getIds, getObjects], (ids, objects) =>
   ids.map(id => objects[id])
 );
 

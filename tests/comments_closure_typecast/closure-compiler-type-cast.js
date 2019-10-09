@@ -38,11 +38,11 @@ const data = functionCall(
   /** @type {{height: number, width: number}} */ (arg3));
 
 // Invalid type casts
-const v = /** @type {} */ (value);
-const v = /** @type {}} */ (value);
-const v = /** @type } */ (value);
-const v = /** @type { */ (value);
-const v = /** @type {{} */ (value);
+const v1 = /** @type {} */ (value);
+const v2 = /** @type {}} */ (value);
+const v3 = /** @type } */ (value);
+const v4 = /** @type { */ (value);
+const v5 = /** @type {{} */ (value);
 
 const style = /** @type {{
   width: number,
@@ -57,7 +57,7 @@ const style = /** @type {{
   ...margins,
 });
 
-const style =/**
+const style2 =/**
  * @type {{
  *   width: number,
  * }}
@@ -66,6 +66,6 @@ const style =/**
 });
 
 // Spaces aren't necessary
-const v = /**@type {string} */(value);
-const v = /** @type{string} */(value);
-const v = /**@type{string} */(value);
+const v6 = /**@type {string} */(value);
+const v7 = /** @type{string} */(value);
+const v8 = /**@type{string} */(value);
