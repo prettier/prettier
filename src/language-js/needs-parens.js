@@ -380,35 +380,6 @@ function needsParens(path, options) {
           return false;
       }
 
-    case "TSConditionalType":
-      if (parent.type === "TSConditionalType" && node === parent.extendsType) {
-        return true;
-      }
-    // fallthrough
-    case "TSFunctionType":
-      if (parent.type === "TSConditionalType" && node === parent.checkType) {
-        return true;
-      }
-    // fallthrough
-    case "TSUnionType":
-    case "TSIntersectionType":
-      if (
-        parent.type === "TSUnionType" ||
-        parent.type === "TSIntersectionType"
-      ) {
-        return true;
-      }
-    // fallthrough
-    case "TSTypeOperator":
-    case "TSInferType":
-      return (
-        parent.type === "TSArrayType" ||
-        parent.type === "TSOptionalType" ||
-        parent.type === "TSRestType" ||
-        (parent.type === "TSIndexedAccessType" && node === parent.objectType) ||
-        parent.type === "TSTypeOperator"
-      );
-
     case "SequenceExpression":
       switch (parent.type) {
         case "ReturnStatement":
@@ -472,6 +443,35 @@ function needsParens(path, options) {
         default:
           return false;
       }
+
+    case "TSConditionalType":
+      if (parent.type === "TSConditionalType" && node === parent.extendsType) {
+        return true;
+      }
+    // fallthrough
+    case "TSFunctionType":
+      if (parent.type === "TSConditionalType" && node === parent.checkType) {
+        return true;
+      }
+    // fallthrough
+    case "TSUnionType":
+    case "TSIntersectionType":
+      if (
+        parent.type === "TSUnionType" ||
+        parent.type === "TSIntersectionType"
+      ) {
+        return true;
+      }
+    // fallthrough
+    case "TSTypeOperator":
+    case "TSInferType":
+      return (
+        parent.type === "TSArrayType" ||
+        parent.type === "TSOptionalType" ||
+        parent.type === "TSRestType" ||
+        (parent.type === "TSIndexedAccessType" && node === parent.objectType) ||
+        parent.type === "TSTypeOperator"
+      );
 
     case "ArrayTypeAnnotation":
       return parent.type === "NullableTypeAnnotation";
