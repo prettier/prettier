@@ -836,6 +836,29 @@ type C = (number | string)["toString"];
 type D = (keyof T1)["foo"];
 ```
 
+#### JavaScript: Support formatting code with V8 intrinsics. ([#6496] by [@rreverser])
+
+<!-- prettier-ignore -->
+```js
+// Input
+function doSmth()     {
+            %DebugPrint
+        (
+                foo )
+  }
+
+// Prettier (stable)
+SyntaxError: Unexpected token (2:13)
+  1 | function doSmth()     {
+> 2 |             %DebugPrint
+    |             ^
+
+// Prettier (master)
+function doSmth() {
+  %DebugPrint(foo);
+}
+```
+
 [#5910]: https://github.com/prettier/prettier/pull/5910
 [#6033]: https://github.com/prettier/prettier/pull/6033
 [#6186]: https://github.com/prettier/prettier/pull/6186
@@ -863,6 +886,7 @@ type D = (keyof T1)["foo"];
 [#6467]: https://github.com/prettier/prettier/pull/6467
 [#6377]: https://github.com/prettier/prettier/pull/6377
 [#6604]: https://github.com/prettier/prettier/pull/6604
+[#6496]: https://github.com/prettier/prettier/pull/6496
 [@brainkim]: https://github.com/brainkim
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
@@ -872,3 +896,4 @@ type D = (keyof T1)["foo"];
 [@bakkot]: https://gibhub.com/bakkot
 [@thorn0]: https://github.com/thorn0
 [@dcyriller]: https://github.com/dcyriller
+[@rreverser]: https://github.com/RReverser

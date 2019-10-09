@@ -756,6 +756,8 @@ function printPathNoParens(path, options, print, args) {
         printTypeAnnotation(path, options, print)
       ]);
     }
+    case "V8IntrinsicIdentifier":
+      return concat(["%", n.name]);
     case "SpreadElement":
     case "SpreadElementPattern":
     case "RestProperty":
