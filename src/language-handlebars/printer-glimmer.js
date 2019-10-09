@@ -200,7 +200,9 @@ function print(path, options, print) {
         return concat([n.name]);
       }
       const value = path.call(print, "value");
-      const quotedValue = isText ? printStringLiteral(value, options) : value;
+      const quotedValue = isText
+        ? printStringLiteral(value.parts.join(), options)
+        : value;
       return concat([n.name, "=", quotedValue]);
     }
     case "ConcatStatement": {
