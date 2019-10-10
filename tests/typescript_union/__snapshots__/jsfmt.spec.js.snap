@@ -39,6 +39,15 @@ type window = Window & {
   __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: Function;
 };
 
+type T1 = (number | string)["toString"];
+type T2 = ((number | string))["toString"];
+type T3 = (((number | string)))["toString"];
+type T4 = ((((number | string))))["toString"];
+type T5 = number | ((arg: any) => void);
+type T6 = number | (((arg: any) => void));
+type T7 = number | ((((arg: any) => void)));
+type T8 = number | (((((arg: any) => void))));
+
 =====================================output=====================================
 interface RelayProps {
   articles: a | null;
@@ -72,6 +81,15 @@ type UploadState<E, EM, D> =
 type window = Window & {
   __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: Function;
 };
+
+type T1 = (number | string)["toString"];
+type T2 = (number | string)["toString"];
+type T3 = (number | string)["toString"];
+type T4 = (number | string)["toString"];
+type T5 = number | ((arg: any) => void);
+type T6 = number | ((arg: any) => void);
+type T7 = number | ((arg: any) => void);
+type T8 = number | ((arg: any) => void);
 
 ================================================================================
 `;
@@ -247,6 +265,108 @@ type GetChatsSagaEffects =
       | GetChatsStartedAction
     >
   | SelectEffect;
+
+================================================================================
+`;
+
+exports[`within-tuple.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type A = [AAAAAAAAAAAAAAAAAAAAAA | BBBBBBBBBBBBBBBBBBBBBB | CCCCCCCCCCCCCCCCCCCCCC | DDDDDDDDDDDDDDDDDDDDDD]
+
+type B = [
+  | AAAAAAAAAAAAAAAAAAAAAA
+  | BBBBBBBBBBBBBBBBBBBBBB
+  | CCCCCCCCCCCCCCCCCCCCCC
+  | DDDDDDDDDDDDDDDDDDDDDD
+]
+
+type C = [
+  | [AAAAAAAAAAAAAAAAAAAAAA | BBBBBBBBBBBBBBBBBBBBBB | CCCCCCCCCCCCCCCCCCCCCC | DDDDDDDDDDDDDDDDDDDDDD]
+  | [AAAAAAAAAAAAAAAAAAAAAA | BBBBBBBBBBBBBBBBBBBBBB | CCCCCCCCCCCCCCCCCCCCCC | DDDDDDDDDDDDDDDDDDDDDD]
+]
+
+type D = [
+  (AAAAAAAAAAAAAAAAAAAAAA | BBBBBBBBBBBBBBBBBBBBBB | CCCCCCCCCCCCCCCCCCCCCC | DDDDDDDDDDDDDDDDDDDDDD),
+  (AAAAAAAAAAAAAAAAAAAAAA | BBBBBBBBBBBBBBBBBBBBBB | CCCCCCCCCCCCCCCCCCCCCC | DDDDDDDDDDDDDDDDDDDDDD)
+]
+
+type E = [
+  (
+    | AAAAAAAAAAAAAAAAAAAAAA
+    | BBBBBBBBBBBBBBBBBBBBBB
+    | CCCCCCCCCCCCCCCCCCCCCC
+    | DDDDDDDDDDDDDDDDDDDDDD
+  ),
+  (
+    | AAAAAAAAAAAAAAAAAAAAAA
+    | BBBBBBBBBBBBBBBBBBBBBB
+    | CCCCCCCCCCCCCCCCCCCCCC
+    | DDDDDDDDDDDDDDDDDDDDDD
+  )
+]
+=====================================output=====================================
+type A = [
+  | AAAAAAAAAAAAAAAAAAAAAA
+  | BBBBBBBBBBBBBBBBBBBBBB
+  | CCCCCCCCCCCCCCCCCCCCCC
+  | DDDDDDDDDDDDDDDDDDDDDD
+];
+
+type B = [
+  | AAAAAAAAAAAAAAAAAAAAAA
+  | BBBBBBBBBBBBBBBBBBBBBB
+  | CCCCCCCCCCCCCCCCCCCCCC
+  | DDDDDDDDDDDDDDDDDDDDDD
+];
+
+type C = [
+  | [
+      | AAAAAAAAAAAAAAAAAAAAAA
+      | BBBBBBBBBBBBBBBBBBBBBB
+      | CCCCCCCCCCCCCCCCCCCCCC
+      | DDDDDDDDDDDDDDDDDDDDDD
+    ]
+  | [
+      | AAAAAAAAAAAAAAAAAAAAAA
+      | BBBBBBBBBBBBBBBBBBBBBB
+      | CCCCCCCCCCCCCCCCCCCCCC
+      | DDDDDDDDDDDDDDDDDDDDDD
+    ]
+];
+
+type D = [
+  (
+    | AAAAAAAAAAAAAAAAAAAAAA
+    | BBBBBBBBBBBBBBBBBBBBBB
+    | CCCCCCCCCCCCCCCCCCCCCC
+    | DDDDDDDDDDDDDDDDDDDDDD
+  ),
+  (
+    | AAAAAAAAAAAAAAAAAAAAAA
+    | BBBBBBBBBBBBBBBBBBBBBB
+    | CCCCCCCCCCCCCCCCCCCCCC
+    | DDDDDDDDDDDDDDDDDDDDDD
+  )
+];
+
+type E = [
+  (
+    | AAAAAAAAAAAAAAAAAAAAAA
+    | BBBBBBBBBBBBBBBBBBBBBB
+    | CCCCCCCCCCCCCCCCCCCCCC
+    | DDDDDDDDDDDDDDDDDDDDDD
+  ),
+  (
+    | AAAAAAAAAAAAAAAAAAAAAA
+    | BBBBBBBBBBBBBBBBBBBBBB
+    | CCCCCCCCCCCCCCCCCCCCCC
+    | DDDDDDDDDDDDDDDDDDDDDD
+  )
+];
 
 ================================================================================
 `;

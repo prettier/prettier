@@ -11,19 +11,19 @@
   "dependencies": {
     "clipboard": "2.0.4",
     "codemirror": "5.49.0",
-    "codemirror-graphql": "0.9.0",
+    "codemirror-graphql": "0.11.1",
     "lodash.groupby": "4.6.0",
     "lz-string": "1.4.4",
     "prop-types": "15.7.2",
-    "react": "16.10.1",
-    "react-dom": "16.10.1"
+    "react": "16.10.2",
+    "react-dom": "16.10.2"
   },
   "devDependencies": {
     "@babel/preset-env": "7.6.2",
     "@babel/preset-react": "7.0.0",
     "@sandhose/prettier-animated-logo": "1.0.3",
     "babel-loader": "8.0.6",
-    "concurrently": "4.1.2",
+    "concurrently": "5.0.0",
     "docusaurus": "1.13.0",
     "js-yaml": "3.13.1",
     "svgo": "1.3.0",

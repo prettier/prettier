@@ -15,3 +15,12 @@ type TypeName<T> =
   T extends undefined ? "undefined" :
   T extends Function ? "function" :
   "object";
+
+type Type01 = 0 extends (1 extends 2  ? 3 : 4) ? 5 : 6;
+type Type02 = 0 extends ((1 extends 2  ? 3 : 4)) ? 5 : 6;
+type Type03 = 0 extends (((1 extends 2  ? 3 : 4))) ? 5 : 6;
+type Type04 = 0 extends ((((1 extends 2  ? 3 : 4)))) ? 5 : 6;
+type Type05 = (0 extends 1 ? 2 : 3) extends 4 ? 5 : 6;
+type Type06 = ((0 extends 1 ? 2 : 3)) extends 4 ? 5 : 6;
+type Type07 = (((0 extends 1 ? 2 : 3))) extends 4 ? 5 : 6;
+type Type08 = ((((0 extends 1 ? 2 : 3)))) extends 4 ? 5 : 6;

@@ -87,6 +87,77 @@ Previous versions format text with whitespace after JSX incorrectly in mdx, this
 </Hello> 123
 ```
 
+#### TypeScript/Flow: Union types inside of tuples ([#6381] by [@squidfunk])
+
+Previous versions would double-indent multi-line union types inside of
+tuples for TypeScipt and Flow and add a new line:
+
+<!-- prettier-ignore -->
+```ts
+// Input
+type B = [
+  | AAAAAAAAAAAAAAAAAAAAAA
+  | BBBBBBBBBBBBBBBBBBBBBB
+  | CCCCCCCCCCCCCCCCCCCCCC
+  | DDDDDDDDDDDDDDDDDDDDDD
+]
+
+type C = [
+  | [AAAAAAAAAAAAAAAAAAAAAA | BBBBBBBBBBBBBBBBBBBBBB | CCCCCCCCCCCCCCCCCCCCCC | DDDDDDDDDDDDDDDDDDDDDD]
+  | [AAAAAAAAAAAAAAAAAAAAAA | BBBBBBBBBBBBBBBBBBBBBB | CCCCCCCCCCCCCCCCCCCCCC | DDDDDDDDDDDDDDDDDDDDDD]
+]
+
+// Output (Prettier stable)
+type B = [
+
+    | AAAAAAAAAAAAAAAAAAAAAA
+    | BBBBBBBBBBBBBBBBBBBBBB
+    | CCCCCCCCCCCCCCCCCCCCCC
+    | DDDDDDDDDDDDDDDDDDDDDD
+];
+
+type C = [
+
+    | [
+
+          | AAAAAAAAAAAAAAAAAAAAAA
+          | BBBBBBBBBBBBBBBBBBBBBB
+          | CCCCCCCCCCCCCCCCCCCCCC
+          | DDDDDDDDDDDDDDDDDDDDDD
+    ]
+    | [
+
+          | AAAAAAAAAAAAAAAAAAAAAA
+          | BBBBBBBBBBBBBBBBBBBBBB
+          | CCCCCCCCCCCCCCCCCCCCCC
+          | DDDDDDDDDDDDDDDDDDDDDD
+    ]
+];
+
+// Output (Prettier master)
+type B = [
+  | AAAAAAAAAAAAAAAAAAAAAA
+  | BBBBBBBBBBBBBBBBBBBBBB
+  | CCCCCCCCCCCCCCCCCCCCCC
+  | DDDDDDDDDDDDDDDDDDDDDD
+];
+
+type C = [
+  | [
+      | AAAAAAAAAAAAAAAAAAAAAA
+      | BBBBBBBBBBBBBBBBBBBBBB
+      | CCCCCCCCCCCCCCCCCCCCCC
+      | DDDDDDDDDDDDDDDDDDDDDD
+    ]
+  | [
+      | AAAAAAAAAAAAAAAAAAAAAA
+      | BBBBBBBBBBBBBBBBBBBBBB
+      | CCCCCCCCCCCCCCCCCCCCCC
+      | DDDDDDDDDDDDDDDDDDDDDD
+    ]
+];
+```
+
 #### MDX: Adjacent JSX elements should be allowed in mdx ([#6332] by [@JounQin])
 
 Previous versions would not format adjacent JSX elements in mdx, this has been fixed in this version.
@@ -740,7 +811,53 @@ Previously, the flag was not applied on html attributes.
 
 // Prettier (master with the option --single-quote)
 <div class='a-class-name'></div>
-````
+```
+
+#### TypeScript: Fix incorrectly removes double parentheses around types ([#6604] by [@sosukesuzuki])
+
+<!-- prettier-ignore -->
+```ts
+// Input
+type A = 0 extends ((1 extends 2  ? 3 : 4)) ? 5 : 6;
+type B = ((0 extends 1 ? 2 : 3)) extends 4 ? 5 : 6:
+type C = ((number | string))["toString"];
+type D = ((keyof T1))["foo"];
+
+// Prettier (stable)
+type A = 0 extends 1 extends 2 ? 3 : 4 ? 5 : 6;
+type B = 0 extends 1 ? 2 : 3 extends 4 ? 5 : 6;
+type C = number | string["toString"];
+type D = keyof T1["foo"];
+
+// Prettier (master)
+type A = 0 extends (1 extends 2 ? 3 : 4) ? 5 : 6;
+type B = (0 extends 1 ? 2 : 3) extends 4 ? 5 : 6;
+type C = (number | string)["toString"];
+type D = (keyof T1)["foo"];
+```
+
+#### JavaScript: Support formatting code with V8 intrinsics. ([#6496] by [@rreverser])
+
+<!-- prettier-ignore -->
+```js
+// Input
+function doSmth()     {
+            %DebugPrint
+        (
+                foo )
+  }
+
+// Prettier (stable)
+SyntaxError: Unexpected token (2:13)
+  1 | function doSmth()     {
+> 2 |             %DebugPrint
+    |             ^
+
+// Prettier (master)
+function doSmth() {
+  %DebugPrint(foo);
+}
+```
 
 [#5910]: https://github.com/prettier/prettier/pull/5910
 [#6033]: https://github.com/prettier/prettier/pull/6033
@@ -768,6 +885,8 @@ Previously, the flag was not applied on html attributes.
 [#6514]: https://github.com/prettier/prettier/pull/6514
 [#6467]: https://github.com/prettier/prettier/pull/6467
 [#6377]: https://github.com/prettier/prettier/pull/6377
+[#6604]: https://github.com/prettier/prettier/pull/6604
+[#6496]: https://github.com/prettier/prettier/pull/6496
 [@brainkim]: https://github.com/brainkim
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
@@ -777,3 +896,4 @@ Previously, the flag was not applied on html attributes.
 [@bakkot]: https://gibhub.com/bakkot
 [@thorn0]: https://github.com/thorn0
 [@dcyriller]: https://github.com/dcyriller
+[@rreverser]: https://github.com/RReverser

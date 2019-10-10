@@ -49,6 +49,6 @@ b.c``;
 (++b)``;
 
 // "YieldExpression"
-function* f() {
+function* d() {
   (yield 1)``;
 }

@@ -756,6 +756,8 @@ function printPathNoParens(path, options, print, args) {
         printTypeAnnotation(path, options, print)
       ]);
     }
+    case "V8IntrinsicIdentifier":
+      return concat(["%", n.name]);
     case "SpreadElement":
     case "SpreadElementPattern":
     case "RestProperty":
@@ -2777,6 +2779,8 @@ function printPathNoParens(path, options, print, args) {
         parent.type !== "GenericTypeAnnotation" &&
         parent.type !== "TSTypeReference" &&
         parent.type !== "TSTypeAssertion" &&
+        parent.type !== "TupleTypeAnnotation" &&
+        parent.type !== "TSTupleType" &&
         !(parent.type === "FunctionTypeParam" && !parent.name) &&
         !(
           (parent.type === "TypeAlias" ||
@@ -2829,7 +2833,8 @@ function printPathNoParens(path, options, print, args) {
               grandParent.type === "TSUnionType" ||
               grandParent.type === "TSIntersectionType" ||
               grandParent.type === "TSTypeOperator" ||
-              grandParent.type === "TSArrayType")) ||
+              grandParent.type === "TSArrayType" ||
+              grandParent.type === "TSTupleType")) ||
           (greatGrandParent &&
             greatGrandParent.type === "TSParenthesizedType" &&
             greatGreatGrandParent &&

@@ -1,67 +1,42 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comment.js 1`] = `
+exports[`intersection-parens.ts 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel"]
+parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-type Foo = {
-  method(
-    arg: number, // I belong with baz
-    qux: string
-  ) : void
-}
+type A = (number | string) & boolean;
+type B = ((number | string)) & boolean;
+type C = (((number | string))) & boolean;
+type D = ((((number | string)))) & boolean;
 
 =====================================output=====================================
-type Foo = {
-  method(
-    arg: number, // I belong with baz
-    qux: string
-  ): void
-};
+type A = (number | string) & boolean;
+type B = (number | string) & boolean;
+type C = (number | string) & boolean;
+type D = (number | string) & boolean;
 
 ================================================================================
 `;
 
-exports[`method.js 1`] = `
+exports[`intersection-parens.ts 2`] = `
 ====================================options=====================================
-parsers: ["flow", "babel"]
+parsers: ["typescript"]
 printWidth: 80
+semi: false
                                                                                 | printWidth
 =====================================input======================================
-type T = { method: () => void };
-type T2 = { method(): void };
-declare class X { method(): void }
-declare function f(): void;
-var f: () => void;
-
-declare class X {
-  static deserialize(): mixed,
-  static deserialize: () => mixed,
-}
-
-interface I {
-  static(): number;
-}
+type A = (number | string) & boolean;
+type B = ((number | string)) & boolean;
+type C = (((number | string))) & boolean;
+type D = ((((number | string)))) & boolean;
 
 =====================================output=====================================
-type T = { method: () => void };
-type T2 = { method(): void };
-declare class X {
-  method(): void;
-}
-declare function f(): void;
-var f: () => void;
-
-declare class X {
-  static deserialize(): mixed;
-  static deserialize: () => mixed;
-}
-
-interface I {
-  static(): number;
-}
+type A = (number | string) & boolean
+type B = (number | string) & boolean
+type C = (number | string) & boolean
+type D = (number | string) & boolean
 
 ================================================================================
 `;

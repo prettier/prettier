@@ -37,7 +37,8 @@ function babelOptions(extraOptions, extraPlugins) {
         "bigInt",
         "throwExpressions",
         "logicalAssignment",
-        "classPrivateMethods"
+        "classPrivateMethods",
+        "v8intrinsic"
       ].concat(extraPlugins)
     },
     extraOptions
