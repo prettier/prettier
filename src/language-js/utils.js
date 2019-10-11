@@ -281,20 +281,6 @@ function isMemberish(node) {
   );
 }
 
-function isNodeStartingWithDeclare(node, options) {
-  if (!(options.parser === "flow" || options.parser === "typescript")) {
-    return false;
-  }
-  return (
-    options.originalText
-      .slice(0, options.locStart(node))
-      .match(/declare[ \t]*$/) ||
-    options.originalText
-      .slice(node.range[0], node.range[1])
-      .startsWith("declare ")
-  );
-}
-
 function isSimpleFlowType(node) {
   const flowTypeAnnotations = [
     "AnyTypeAnnotation",
@@ -938,7 +924,6 @@ module.exports = {
   isMemberExpressionChain,
   isMemberish,
   isNgForOf,
-  isNodeStartingWithDeclare,
   isNumericLiteral,
   isObjectType,
   isObjectTypePropertyAFunction,
