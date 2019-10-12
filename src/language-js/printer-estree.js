@@ -1430,16 +1430,10 @@ function printPathNoParens(path, options, print, args) {
       if (n.shorthand) {
         parts.push(path.call(print, "value"));
       } else {
-        let printedLeft;
-        if (n.computed) {
-          printedLeft = concat(["[", path.call(print, "key"), "]"]);
-        } else {
-          printedLeft = printPropertyKey(path, options, print);
-        }
         parts.push(
           printAssignment(
             n.key,
-            printedLeft,
+            printPropertyKey(path, options, print),
             ":",
             n.value,
             path.call(print, "value"),
@@ -2339,13 +2333,11 @@ function printPathNoParens(path, options, print, args) {
       if (variance) {
         parts.push(variance);
       }
-      if (n.computed) {
-        parts.push("[", path.call(print, "key"), "]");
-      } else {
-        parts.push(printPropertyKey(path, options, print));
-      }
-      parts.push(printOptionalToken(path));
-      parts.push(printTypeAnnotation(path, options, print));
+      parts.push(
+        printPropertyKey(path, options, print),
+        printOptionalToken(path),
+        printTypeAnnotation(path, options, print)
+      );
       if (n.value) {
         parts.push(
           " =",
@@ -3108,17 +3100,11 @@ function printPathNoParens(path, options, print, args) {
       if (n.readonly) {
         parts.push("readonly ");
       }
-      if (n.computed) {
-        parts.push("[");
-      }
 
-      parts.push(printPropertyKey(path, options, print));
-
-      if (n.computed) {
-        parts.push("]");
-      }
-
-      parts.push(printOptionalToken(path));
+      parts.push(
+        printPropertyKey(path, options, print),
+        printOptionalToken(path)
+      );
 
       if (n.typeAnnotation) {
         parts.push(": ");
@@ -3603,6 +3589,11 @@ function printStatementSequence(path, options, print) {
 
 function printPropertyKey(path, options, print) {
   const node = path.getNode();
+
+  if (node.computed) {
+    return concat(["[", path.call(print, "key"), "]"]);
+  }
+
   const parent = path.getParentNode();
   const key = node.key;
 
@@ -3623,7 +3614,6 @@ function printPropertyKey(path, options, print) {
 
   if (
     key.type === "Identifier" &&
-    !node.computed &&
     (options.parser === "json" ||
       (options.quoteProps === "consistent" && needsQuoteProps.get(parent)))
   ) {
@@ -3636,7 +3626,6 @@ function printPropertyKey(path, options, print) {
   }
 
   if (
-    !node.computed &&
     isStringPropSafeToCoerceToIdentifier(node, options) &&
     (options.quoteProps === "as-needed" ||
       (options.quoteProps === "consistent" && !needsQuoteProps.get(parent)))
@@ -3647,6 +3636,7 @@ function printPropertyKey(path, options, print) {
       "key"
     );
   }
+
   return path.call(print, "key");
 }
 
@@ -3675,15 +3665,8 @@ function printMethod(path, options, print) {
     parts.push(kind, " ");
   }
 
-  const key = printPropertyKey(path, options, print);
-
-  if (node.computed) {
-    parts.push("[", key, "]");
-  } else {
-    parts.push(key);
-  }
-
   parts.push(
+    printPropertyKey(path, options, print),
     node === value
       ? printMethodInternal(path, options, print)
       : path.call(path => printMethodInternal(path, options, print), "value")
