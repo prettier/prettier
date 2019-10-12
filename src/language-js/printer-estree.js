@@ -3662,11 +3662,10 @@ function printMethod(path, options, print) {
       ? node
       : node.value;
 
-  if (value.async) {
-    parts.push("async ");
-  }
-
   if (!kind || kind === "init" || kind === "method" || kind === "constructor") {
+    if (value.async) {
+      parts.push("async ");
+    }
     if (value.generator) {
       parts.push("*");
     }
