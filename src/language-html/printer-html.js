@@ -123,7 +123,7 @@ function embed(path, print, textToDoc, options) {
         return concat([node.rawName, "=", node.value]);
       }
 
-      // lwc: html`<my-element data-for={value}></my-elememt>`
+      // lwc: html`<my-element data-for={value}></my-element>`
       if (options.parser === "lwc") {
         const interpolationRegex = /^\{[\s\S]*\}$/;
         if (

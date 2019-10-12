@@ -4179,7 +4179,7 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
   const lastParam = getLast(fun[paramsField]);
 
   // If the parent is a call with the first/last argument expansion and this is the
-  // params of the first/last argument, we dont want the arguments to break and instead
+  // params of the first/last argument, we don't want the arguments to break and instead
   // want the whole expression to be on a new line.
   //
   // Good:                 Bad:
@@ -4844,7 +4844,7 @@ function printMemberChain(path, options, print) {
   // The first group is the first node followed by
   //   - as many CallExpression as possible
   //       < fn()()() >.something()
-  //   - as many array acessors as possible
+  //   - as many array accessors as possible
   //       < fn()[0][1][2] >.something()
   //   - then, as many MemberExpression as possible but the last one
   //       < this.items >.something()
