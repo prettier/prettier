@@ -8,7 +8,7 @@ const {
   getLeftSidePathName,
   hasFlowShorthandAnnotationComment,
   hasNakedLeftSide,
-  isTsx
+  isTSXFile
 } = require("./utils");
 
 function hasClosureCompilerTypeCastComment(text, path) {
@@ -724,7 +724,7 @@ function needsParens(path, options) {
       }
       return true;
     case "JSXElement":
-      return isTsx(options) && parent.type === "MemberExpression";
+      return isTSXFile(options) && parent.type === "MemberExpression";
   }
 
   return false;

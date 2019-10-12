@@ -85,7 +85,7 @@ const {
   isTemplateOnItsOwnLine,
   isTestCall,
   isTheOnlyJSXElementInMarkdown,
-  isTsx,
+  isTSXFile,
   isTypeAnnotationAFunction,
   matchJsxWhitespaceRegex,
   needsHardlineAfterDanglingComment,
@@ -3031,7 +3031,7 @@ function printPathNoParens(path, options, print, args) {
       if (
         parent.params &&
         parent.params.length === 1 &&
-        isTsx(options) &&
+        isTSXFile(options) &&
         !n.constraint &&
         grandParent.type === "ArrowFunctionExpression"
       ) {
