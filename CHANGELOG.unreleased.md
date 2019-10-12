@@ -898,9 +898,7 @@ function doSmth() {
 }
 ```
 
-#### TypeScript: Fix incorrectly removes parentheses around inline jsx elements being accessed in tsx file ([#6640] by [@sosukesuzuki])
-
-(in `**.tsx` file)
+#### TypeScript: sometimes removing parentheses around JSX made the code unparseable ([#6640] by [@sosukesuzuki])
 
 <!-- prettier-ignore -->
 ```tsx
