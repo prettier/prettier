@@ -3343,10 +3343,10 @@ globals@^9.18.0:
   version "9.18.0"
   resolved "https://registry.yarnpkg.com/globals/-/globals-9.18.0.tgz#aa3896b3e69b487f17e31ed2143d69a8e30c2d8a"
 
-globby@7.0.0:
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/globby/-/globby-7.0.0.tgz#eceef117ab948f394e85a0729bf5b96348958a84"
-  integrity sha512-5n6UgzNezcYIi8V7Wmmf6jpVSLIhQVaz00B9Fjqq1dEFDnmFDpNSoO/0D203AgcgUQ5lgm1j8NKzbWCwk50dlg==
+globby@7.1.1:
+  version "7.1.1"
+  resolved "https://registry.yarnpkg.com/globby/-/globby-7.1.1.tgz#fb2ccff9401f8600945dfada97440cca972b8680"
+  integrity sha1-+yzP+UAfhgCUXfral0QMypcrhoA=
   dependencies:
     array-union "^1.0.1"
     dir-glob "^2.0.0"
