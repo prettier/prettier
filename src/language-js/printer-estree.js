@@ -3704,12 +3704,10 @@ function printMethodInternal(path, options, print) {
     )
   ];
 
-  const body = path.getNode().body;
-
-  if (!body || body.length === 0) {
-    parts.push(options.semi ? ";" : "");
-  } else {
+  if (path.getNode().body) {
     parts.push(" ", path.call(print, "body"));
+  } else {
+    parts.push(options.semi ? ";" : "");
   }
 
   return concat(parts);
