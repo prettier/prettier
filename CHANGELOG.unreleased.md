@@ -852,7 +852,7 @@ Previously, the flag was not applied on html attributes.
 <div class='a-class-name'></div>
 ```
 
-#### TypeScript: Fix incorrectly removed double parentheses around types ([#6604] by [@sosukesuzuki])
+#### TypeScript: sometimes double parentheses around types were removed incorrectly ([#6604] by [@sosukesuzuki])
 
 <!-- prettier-ignore -->
 ```ts
