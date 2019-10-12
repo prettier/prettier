@@ -6,8 +6,9 @@ const util = require("../common/util");
 const comments = require("./comments");
 const {
   getLeftSidePathName,
+  hasFlowShorthandAnnotationComment,
   hasNakedLeftSide,
-  hasFlowShorthandAnnotationComment
+  isTsx
 } = require("./utils");
 
 function hasClosureCompilerTypeCastComment(text, path) {
@@ -722,6 +723,8 @@ function needsParens(path, options) {
         return false;
       }
       return true;
+    case "JSXElement":
+      return isTsx(options) && parent.type === "MemberExpression";
   }
 
   return false;

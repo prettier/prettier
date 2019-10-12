@@ -902,6 +902,10 @@ function identity(x) {
   return x;
 }
 
+function isTsx(options) {
+  return options.filepath && /\.tsx$/i.test(options.filepath);
+}
+
 module.exports = {
   classChildNeedsASIProtection,
   classPropMayCauseASIProblems,
@@ -949,6 +953,7 @@ module.exports = {
   isTemplateOnItsOwnLine,
   isTestCall,
   isTheOnlyJSXElementInMarkdown,
+  isTsx,
   isTypeAnnotationAFunction,
   matchJsxWhitespaceRegex,
   needsHardlineAfterDanglingComment,

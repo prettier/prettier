@@ -85,6 +85,7 @@ const {
   isTemplateOnItsOwnLine,
   isTestCall,
   isTheOnlyJSXElementInMarkdown,
+  isTsx,
   isTypeAnnotationAFunction,
   matchJsxWhitespaceRegex,
   needsHardlineAfterDanglingComment,
@@ -2169,7 +2170,7 @@ function printPathNoParens(path, options, print, args) {
         () => printJSXElement(path, options, print),
         options
       );
-      return maybeWrapJSXElementInParens(path, elem);
+      return maybeWrapJSXElementInParens(path, elem, options);
     }
     case "JSXOpeningElement": {
       const n = path.getValue();
@@ -3030,8 +3031,7 @@ function printPathNoParens(path, options, print, args) {
       if (
         parent.params &&
         parent.params.length === 1 &&
-        options.filepath &&
-        /\.tsx$/i.test(options.filepath) &&
+        isTsx(options) &&
         !n.constraint &&
         grandParent.type === "ArrowFunctionExpression"
       ) {
