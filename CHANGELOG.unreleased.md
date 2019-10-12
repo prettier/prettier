@@ -898,7 +898,7 @@ function doSmth() {
 }
 ```
 
-#### TypeScript: Fix incorrectly removes parentheses around inline jsx elements being accessed in tsx file.
+#### TypeScript: Fix incorrectly removes parentheses around inline jsx elements being accessed in tsx file ([#6640] by [@sosukesuzuki])
 
 (in `**.tsx` file)
 <!-- prettier-ignore -->
@@ -942,6 +942,7 @@ function doSmth() {
 [#6604]: https://github.com/prettier/prettier/pull/6604
 [#6496]: https://github.com/prettier/prettier/pull/6496
 [#6605]: https://github.com/prettier/prettier/pull/6605
+[#6640]: https://github.com/prettier/prettier/pull/6640
 [@brainkim]: https://github.com/brainkim
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
