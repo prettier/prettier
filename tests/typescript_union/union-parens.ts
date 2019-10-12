@@ -107,3 +107,5 @@ type C3 = /*1*/ & a | (& b);
 type C4 = /*1*/ & (a | b);
 type C5 = /*1*/ (& a | b);
 type C6 /*0*/ = /*1*/ (& a | b);
+
+type Ctor = (new () => X) | Y;

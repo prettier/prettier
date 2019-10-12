@@ -450,6 +450,7 @@ function needsParens(path, options) {
       }
     // fallthrough
     case "TSFunctionType":
+    case "TSConstructorType":
       if (parent.type === "TSConditionalType" && node === parent.checkType) {
         return true;
       }

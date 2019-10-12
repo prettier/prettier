@@ -29,3 +29,8 @@ type T1 = () => void extends T ? U : V;
 type T1a = () => (void extends T ? U : V);
 type T1b = () => (void) extends T ? U : V;
 type T2 = (() => void) extends T ? U : V;
+
+type U1 = new () => X extends T ? U : V;
+type U1a = new () => (X extends T ? U : V);
+type U1b = new () => (X) extends T ? U : V;
+type U2 = (new () => X) extends T ? U : V;
