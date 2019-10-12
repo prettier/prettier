@@ -5459,7 +5459,7 @@ function printJSXElement(path, options, print) {
   ]);
 }
 
-function maybeWrapJSXElementInParens(path, elem) {
+function maybeWrapJSXElementInParens(path, elem, options) {
   const parent = path.getParentNode();
   if (!parent) {
     return elem;
@@ -5487,12 +5487,14 @@ function maybeWrapJSXElementInParens(path, elem) {
     "JSXExpressionContainer"
   ]);
 
+  const needsParens = pathNeedsParens(path, options);
+
   return group(
     concat([
-      ifBreak("("),
+      needsParens ? "" : ifBreak("("),
       indent(concat([softline, elem])),
       softline,
-      ifBreak(")")
+      needsParens ? "" : ifBreak(")")
     ]),
     { shouldBreak }
   );
