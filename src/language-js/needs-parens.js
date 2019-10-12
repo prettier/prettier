@@ -722,6 +722,7 @@ function needsParens(path, options) {
         return false;
       }
       return true;
+    case "JSXFragment":
     case "JSXElement":
       return (
         parent.type !== "ArrayExpression" &&
