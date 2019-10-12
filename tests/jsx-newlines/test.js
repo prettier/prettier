@@ -92,3 +92,59 @@ regression_extra_newline_2 = (
     )
   </div>
 );
+
+<MyComponent
+  prop1
+  prop2
+  
+  // Detailed description of this property.
+  prop3
+/>;
+
+<MyComponent
+  prop1
+  prop2
+  // Detailed description of this property.
+  prop3
+/>;
+
+<MyComponent
+  prop1
+  prop2
+  
+  
+  // Detailed description of this property.
+  prop3
+/>;
+
+<MyComponent
+  prop1
+  prop2
+  
+  prop3
+/>;
+
+<MyComponent
+
+
+prop1
+prop2
+
+
+prop3
+
+
+/>;
+
+<MyComponent
+
+
+// comment
+prop1
+prop2
+
+
+prop3
+
+
+/>;

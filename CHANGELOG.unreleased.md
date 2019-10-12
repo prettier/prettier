@@ -1167,6 +1167,102 @@ new Map([
 ]);
 ```
 
+#### JSX: Preserves Blank Lines Above Attributes ([#6643] by [@ericsakmar])
+
+<!-- prettier-ignore -->
+```js
+// Input
+<MyComponent
+  prop1
+  prop2
+  
+  // Detailed description of this property.
+  prop3
+/>;
+
+<MyComponent
+  prop1
+  prop2
+  
+  prop3
+/>;
+
+<MyComponent
+
+
+prop1
+prop2
+
+
+prop3
+
+
+/>;
+
+<MyComponent
+
+
+// comment
+prop1
+prop2
+
+
+prop3
+
+
+/>;
+
+// Output (Prettier stable)
+<MyComponent
+  prop1
+  prop2
+  // Detailed description of this property.
+  prop3
+/>;
+
+<MyComponent prop1 prop2 prop3 />;
+
+<MyComponent prop1 prop2 prop3 />;
+
+<MyComponent
+  // comment
+  prop1
+  prop2
+  prop3
+/>;
+
+// Output (Prettier master)
+<MyComponent
+  prop1
+  prop2
+  
+  // Detailed description of this property.
+  prop3
+/>;
+
+<MyComponent
+  prop1
+  prop2
+  
+  prop3
+/>;
+
+<MyComponent
+  prop1
+  prop2
+
+  prop3
+/>;
+
+<MyComponent
+  // comment
+  prop1
+  prop2
+
+  prop3
+/>;
+```
+
 [#5682]: https://github.com/prettier/prettier/pull/5682
 [#5910]: https://github.com/prettier/prettier/pull/5910
 [#6033]: https://github.com/prettier/prettier/pull/6033
@@ -1208,6 +1304,7 @@ new Map([
 [#6673]: https://github.com/prettier/prettier/pull/6673
 [#6695]: https://github.com/prettier/prettier/pull/6695
 [#6694]: https://github.com/prettier/prettier/pull/6694
+[#6643]: https://github.com/prettier/prettier/pull/6643
 [@brainkim]: https://github.com/brainkim
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
