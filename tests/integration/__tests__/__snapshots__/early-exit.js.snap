@@ -70,6 +70,9 @@ Format options:
   --end-of-line <lf|crlf|cr|auto>
                            Which end of line characters to apply.
                            Defaults to lf.
+  --html-single-attribute-per-line
+                           Enforce single attribute per line in HTML.
+                           Defaults to false.
   --html-whitespace-sensitivity <css|strict|ignore>
                            How to handle whitespaces in HTML.
                            Defaults to css.
@@ -235,6 +238,9 @@ Format options:
   --end-of-line <lf|crlf|cr|auto>
                            Which end of line characters to apply.
                            Defaults to lf.
+  --html-single-attribute-per-line
+                           Enforce single attribute per line in HTML.
+                           Defaults to false.
   --html-whitespace-sensitivity <css|strict|ignore>
                            How to handle whitespaces in HTML.
                            Defaults to css.

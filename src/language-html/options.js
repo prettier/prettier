@@ -28,6 +28,13 @@ module.exports = {
       },
     ],
   },
+  htmlSingleAttributePerLine: {
+    since: "1.19.0",
+    category: CATEGORY_HTML,
+    type: "boolean",
+    default: false,
+    description: "Enforce single attribute per line in HTML."
+  },
   vueIndentScriptAndStyle: {
     since: "1.19.0",
     category: CATEGORY_HTML,

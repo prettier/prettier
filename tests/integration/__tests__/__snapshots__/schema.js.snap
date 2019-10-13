@@ -94,6 +94,11 @@ This option cannot be used with --range-start and --range-end.",
           "description": "Specify the input filepath. This will be used to do parser inference.",
           "type": "string",
         },
+        "htmlSingleAttributePerLine": Object {
+          "default": false,
+          "description": "Enforce single attribute per line in HTML.",
+          "type": "boolean",
+        },
         "htmlWhitespaceSensitivity": Object {
           "default": "css",
           "description": "How to handle whitespaces in HTML.",
