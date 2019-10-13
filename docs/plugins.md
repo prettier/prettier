@@ -244,7 +244,7 @@ skipNewline(text: string, index: number, options: object): number;
 hasNewline(text: string, index: number, options: object): boolean;
 hasNewlineInRange(text: string, start: number, start: number): boolean;
 hasSpaces(text: string, index: number, options: object): number;
-makeString(rawContent: string, enclosingQuote: string, unescapeUnnecessarEscapes: boolean): string;
+makeString(rawContent: string, enclosingQuote: string, unescapeUnnecessaryEscapes: boolean): string;
 getNextNonSpaceNonCommentCharacterIndex(text: string, node: object, options: object): number;
 isNextLineEmptyAfterIndex(text: string, index: number): boolean;
 isNextLineEmpty(text: string, node: object, options: object): boolean;
