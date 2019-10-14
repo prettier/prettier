@@ -74,7 +74,6 @@ const {
   isMemberExpressionChain,
   isMemberish,
   isNgForOf,
-  isNodeStartingWithDeclare,
   isNumericLiteral,
   isObjectType,
   isObjectTypePropertyAFunction,
@@ -891,24 +890,6 @@ function printPathNoParens(path, options, print, args) {
         ])
       );
     }
-    case "MethodDefinition":
-    case "TSAbstractMethodDefinition":
-      if (n.decorators && n.decorators.length !== 0) {
-        parts.push(printDecorators(path, options, print));
-      }
-      if (n.accessibility) {
-        parts.push(n.accessibility + " ");
-      }
-      if (n.static) {
-        parts.push("static ");
-      }
-      if (n.type === "TSAbstractMethodDefinition") {
-        parts.push("abstract ");
-      }
-
-      parts.push(printMethod(path, options, print));
-
-      return concat(parts);
     case "YieldExpression":
       parts.push("yield");
 
@@ -1221,7 +1202,7 @@ function printPathNoParens(path, options, print, args) {
       return contents;
     }
     case "TSInterfaceDeclaration":
-      if (isNodeStartingWithDeclare(n, options)) {
+      if (n.declare) {
         parts.push("declare ");
       }
 
@@ -1449,16 +1430,10 @@ function printPathNoParens(path, options, print, args) {
       if (n.shorthand) {
         parts.push(path.call(print, "value"));
       } else {
-        let printedLeft;
-        if (n.computed) {
-          printedLeft = concat(["[", path.call(print, "key"), "]"]);
-        } else {
-          printedLeft = printPropertyKey(path, options, print);
-        }
         parts.push(
           printAssignment(
             n.key,
-            printedLeft,
+            printPropertyKey(path, options, print),
             ":",
             n.value,
             path.call(print, "value"),
@@ -1470,18 +1445,26 @@ function printPathNoParens(path, options, print, args) {
       return concat(parts); // Babel 6
     case "ClassMethod":
     case "ClassPrivateMethod":
+    case "MethodDefinition":
+    case "TSAbstractMethodDefinition":
       if (n.decorators && n.decorators.length !== 0) {
         parts.push(printDecorators(path, options, print));
+      }
+      if (n.accessibility) {
+        parts.push(n.accessibility + " ");
       }
       if (n.static) {
         parts.push("static ");
       }
+      if (n.type === "TSAbstractMethodDefinition") {
+        parts.push("abstract ");
+      }
 
-      parts = parts.concat(printObjectMethod(path, options, print));
+      parts.push(printMethod(path, options, print));
 
-      return concat(parts); // Babel 6
+      return concat(parts);
     case "ObjectMethod":
-      return printObjectMethod(path, options, print);
+      return printMethod(path, options, print);
     case "Decorator":
       return concat([
         "@",
@@ -1699,7 +1682,7 @@ function printPathNoParens(path, options, print, args) {
       }
 
       parts = [
-        isNodeStartingWithDeclare(n, options) ? "declare " : "",
+        n.declare ? "declare " : "",
         n.kind,
         firstVariable ? concat([" ", firstVariable]) : "",
         indent(
@@ -2350,13 +2333,11 @@ function printPathNoParens(path, options, print, args) {
       if (variance) {
         parts.push(variance);
       }
-      if (n.computed) {
-        parts.push("[", path.call(print, "key"), "]");
-      } else {
-        parts.push(printPropertyKey(path, options, print));
-      }
-      parts.push(printOptionalToken(path));
-      parts.push(printTypeAnnotation(path, options, print));
+      parts.push(
+        printPropertyKey(path, options, print),
+        printOptionalToken(path),
+        printTypeAnnotation(path, options, print)
+      );
       if (n.value) {
         parts.push(
           " =",
@@ -2375,7 +2356,7 @@ function printPathNoParens(path, options, print, args) {
     }
     case "ClassDeclaration":
     case "ClassExpression":
-      if (isNodeStartingWithDeclare(n, options)) {
+      if (n.declare) {
         parts.push("declare ");
       }
       parts.push(concat(printClass(path, options, print)));
@@ -2686,10 +2667,7 @@ function printPathNoParens(path, options, print, args) {
     case "DeclareInterface":
     case "InterfaceDeclaration":
     case "InterfaceTypeAnnotation": {
-      if (
-        n.type === "DeclareInterface" ||
-        isNodeStartingWithDeclare(n, options)
-      ) {
+      if (n.type === "DeclareInterface" || n.declare) {
         parts.push("declare ");
       }
 
@@ -2909,10 +2887,7 @@ function printPathNoParens(path, options, print, args) {
       return "string";
     case "DeclareTypeAlias":
     case "TypeAlias": {
-      if (
-        n.type === "DeclareTypeAlias" ||
-        isNodeStartingWithDeclare(n, options)
-      ) {
+      if (n.type === "DeclareTypeAlias" || n.declare) {
         parts.push("declare ");
       }
 
@@ -3114,17 +3089,11 @@ function printPathNoParens(path, options, print, args) {
       if (n.readonly) {
         parts.push("readonly ");
       }
-      if (n.computed) {
-        parts.push("[");
-      }
 
-      parts.push(printPropertyKey(path, options, print));
-
-      if (n.computed) {
-        parts.push("]");
-      }
-
-      parts.push(printOptionalToken(path));
+      parts.push(
+        printPropertyKey(path, options, print),
+        printOptionalToken(path)
+      );
 
       if (n.typeAnnotation) {
         parts.push(": ");
@@ -3299,7 +3268,7 @@ function printPathNoParens(path, options, print, args) {
 
       return group(concat(parts));
     case "TSEnumDeclaration":
-      if (isNodeStartingWithDeclare(n, options)) {
+      if (n.declare) {
         parts.push("declare ");
       }
 
@@ -3381,7 +3350,7 @@ function printPathNoParens(path, options, print, args) {
       if (parentIsDeclaration) {
         parts.push(".");
       } else {
-        if (n.declare === true) {
+        if (n.declare) {
           parts.push("declare ");
         }
         parts.push(printTypeScriptModifiers(path, options, print));
@@ -3606,6 +3575,11 @@ function printStatementSequence(path, options, print) {
 
 function printPropertyKey(path, options, print) {
   const node = path.getNode();
+
+  if (node.computed) {
+    return concat(["[", path.call(print, "key"), "]"]);
+  }
+
   const parent = path.getParentNode();
   const key = node.key;
 
@@ -3626,7 +3600,6 @@ function printPropertyKey(path, options, print) {
 
   if (
     key.type === "Identifier" &&
-    !node.computed &&
     (options.parser === "json" ||
       (options.quoteProps === "consistent" && needsQuoteProps.get(parent)))
   ) {
@@ -3639,7 +3612,6 @@ function printPropertyKey(path, options, print) {
   }
 
   if (
-    !node.computed &&
     isStringPropSafeToCoerceToIdentifier(node, options) &&
     (options.quoteProps === "as-needed" ||
       (options.quoteProps === "consistent" && !needsQuoteProps.get(parent)))
@@ -3650,29 +3622,27 @@ function printPropertyKey(path, options, print) {
       "key"
     );
   }
+
   return path.call(print, "key");
 }
 
 function printMethod(path, options, print) {
   const node = path.getNode();
-  const semi = options.semi ? ";" : "";
   const kind = node.kind;
   const parts = [];
 
-  if (
+  const value =
     node.type === "ObjectMethod" ||
     node.type === "ClassMethod" ||
     node.type === "ClassPrivateMethod"
-  ) {
-    node.value = node;
-  }
-
-  if (node.value.async) {
-    parts.push("async ");
-  }
+      ? node
+      : node.value;
 
   if (!kind || kind === "init" || kind === "method" || kind === "constructor") {
-    if (node.value.generator) {
+    if (value.async) {
+      parts.push("async ");
+    }
+    if (value.generator) {
       parts.push("*");
     }
   } else {
@@ -3681,34 +3651,31 @@ function printMethod(path, options, print) {
     parts.push(kind, " ");
   }
 
-  let key = printPropertyKey(path, options, print);
-
-  if (node.computed) {
-    key = concat(["[", key, "]"]);
-  }
-
   parts.push(
-    key,
-    concat(
-      path.call(
-        valuePath => [
-          printFunctionTypeParameters(valuePath, options, print),
-          group(
-            concat([
-              printFunctionParams(valuePath, print, options),
-              printReturnType(valuePath, print, options)
-            ])
-          )
-        ],
-        "value"
-      )
-    )
+    printPropertyKey(path, options, print),
+    node === value
+      ? printMethodInternal(path, options, print)
+      : path.call(path => printMethodInternal(path, options, print), "value")
   );
 
-  if (!node.value.body || node.value.body.length === 0) {
-    parts.push(semi);
+  return concat(parts);
+}
+
+function printMethodInternal(path, options, print) {
+  const parts = [
+    printFunctionTypeParameters(path, options, print),
+    group(
+      concat([
+        printFunctionParams(path, print, options),
+        printReturnType(path, print, options)
+      ])
+    )
+  ];
+
+  if (path.getNode().body) {
+    parts.push(" ", path.call(print, "body"));
   } else {
-    parts.push(" ", path.call(print, "value", "body"));
+    parts.push(options.semi ? ";" : "");
   }
 
   return concat(parts);
@@ -4297,47 +4264,6 @@ function printFunctionDeclaration(path, print, options) {
       ])
     ),
     n.body ? " " : "",
-    path.call(print, "body")
-  );
-
-  return concat(parts);
-}
-
-function printObjectMethod(path, options, print) {
-  const objMethod = path.getValue();
-  const parts = [];
-
-  if (objMethod.async) {
-    parts.push("async ");
-  }
-  if (objMethod.generator) {
-    parts.push("*");
-  }
-  if (
-    objMethod.method ||
-    objMethod.kind === "get" ||
-    objMethod.kind === "set"
-  ) {
-    return printMethod(path, options, print);
-  }
-
-  const key = printPropertyKey(path, options, print);
-
-  if (objMethod.computed) {
-    parts.push("[", key, "]");
-  } else {
-    parts.push(key);
-  }
-
-  parts.push(
-    printFunctionTypeParameters(path, options, print),
-    group(
-      concat([
-        printFunctionParams(path, print, options),
-        printReturnType(path, print, options)
-      ])
-    ),
-    " ",
     path.call(print, "body")
   );
 
