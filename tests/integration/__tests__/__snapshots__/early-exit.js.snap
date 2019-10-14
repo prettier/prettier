@@ -70,9 +70,6 @@ Format options:
   --end-of-line <lf|crlf|cr|auto>
                            Which end of line characters to apply.
                            Defaults to lf.
-  --html-single-attribute-per-line
-                           Enforce single attribute per line in HTML.
-                           Defaults to false.
   --html-whitespace-sensitivity <css|strict|ignore>
                            How to handle whitespaces in HTML.
                            Defaults to css.
@@ -89,6 +86,9 @@ Format options:
                            Change when properties in objects are quoted.
                            Defaults to as-needed.
   --no-semi                Do not print semicolons, except at the beginning of lines which may need them.
+  --single-attribute-per-line
+                           Enforce single attribute per line in HTML, Vue and JSX.
+                           Defaults to false.
   --single-quote           Use single quotes instead of double quotes.
                            Defaults to false.
   --tab-width <int>        Number of spaces per indentation level.
@@ -238,9 +238,6 @@ Format options:
   --end-of-line <lf|crlf|cr|auto>
                            Which end of line characters to apply.
                            Defaults to lf.
-  --html-single-attribute-per-line
-                           Enforce single attribute per line in HTML.
-                           Defaults to false.
   --html-whitespace-sensitivity <css|strict|ignore>
                            How to handle whitespaces in HTML.
                            Defaults to css.
@@ -257,6 +254,9 @@ Format options:
                            Change when properties in objects are quoted.
                            Defaults to as-needed.
   --no-semi                Do not print semicolons, except at the beginning of lines which may need them.
+  --single-attribute-per-line
+                           Enforce single attribute per line in HTML, Vue and JSX.
+                           Defaults to false.
   --single-quote           Use single quotes instead of double quotes.
                            Defaults to false.
   --tab-width <int>        Number of spaces per indentation level.

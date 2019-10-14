@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`single-attribute-per-line.html - {"htmlSingleAttributePerLine":true} format 1`] = `
+exports[`single-attribute-per-line.html - {"singleAttributePerLine":true} format 1`] = `
 ====================================options=====================================
-htmlSingleAttributePerLine: true
 parsers: ["html"]
 printWidth: 80
+singleAttributePerLine: true
                                                                                 | printWidth
 =====================================input======================================
 <div data-a="1">
@@ -24,6 +24,8 @@ printWidth: 80
 </div>
 
 <img src="/images/foo.png" />
+
+<img src="/images/foo.png" alt="bar" />
 
 <img src="/images/foo.png" alt="Lorem ipsum dolor sit amet, consectetur adipiscing elit." />
 
@@ -58,6 +60,11 @@ printWidth: 80
 
 <img
   src="/images/foo.png"
+  alt="bar"
+/>
+
+<img
+  src="/images/foo.png"
   alt="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
 />
 
@@ -88,6 +95,8 @@ printWidth: 80
 
 <img src="/images/foo.png" />
 
+<img src="/images/foo.png" alt="bar" />
+
 <img src="/images/foo.png" alt="Lorem ipsum dolor sit amet, consectetur adipiscing elit." />
 
 =====================================output=====================================
@@ -114,6 +123,8 @@ printWidth: 80
 </div>
 
 <img src="/images/foo.png" />
+
+<img src="/images/foo.png" alt="bar" />
 
 <img
   src="/images/foo.png"

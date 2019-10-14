@@ -252,7 +252,7 @@ function printAttributes(path, options, print) {
     node.children.length === 0;
 
   const attributeLine =
-    options.htmlSingleAttributePerLine && node.attrs.length > 1
+    options.singleAttributePerLine && node.attrs.length > 1
       ? hardline
       : line;
 

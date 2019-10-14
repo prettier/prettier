@@ -133,10 +133,6 @@ Object {
       "default": undefined,
       "type": "path",
     },
-    "htmlSingleAttributePerLine": Object {
-      "default": false,
-      "type": "boolean",
-    },
     "htmlWhitespaceSensitivity": Object {
       "choices": Array [
         "css",
@@ -241,6 +237,10 @@ Object {
     },
     "semi": Object {
       "default": true,
+      "type": "boolean",
+    },
+    "singleAttributePerLine": Object {
+      "default": false,
       "type": "boolean",
     },
     "singleQuote": Object {
@@ -864,15 +864,6 @@ exports[`CLI --support-info (stdout) 1`] = `
     },
     {
       \\"category\\": \\"HTML\\",
-      \\"default\\": false,
-      \\"description\\": \\"Enforce single attribute per line in HTML.\\",
-      \\"name\\": \\"htmlSingleAttributePerLine\\",
-      \\"pluginDefaults\\": {},
-      \\"since\\": \\"1.19.0\\",
-      \\"type\\": \\"boolean\\"
-    },
-    {
-      \\"category\\": \\"HTML\\",
       \\"choices\\": [
         {
           \\"description\\": \\"Respect the default value of CSS display property.\\",
@@ -1076,6 +1067,15 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"oppositeDescription\\": \\"Do not print semicolons, except at the beginning of lines which may need them.\\",
       \\"pluginDefaults\\": {},
       \\"since\\": \\"1.0.0\\",
+      \\"type\\": \\"boolean\\"
+    },
+    {
+      \\"category\\": \\"HTML\\",
+      \\"default\\": false,
+      \\"description\\": \\"Enforce single attribute per line in HTML, Vue and JSX.\\",
+      \\"name\\": \\"singleAttributePerLine\\",
+      \\"pluginDefaults\\": {},
+      \\"since\\": \\"1.19.0\\",
       \\"type\\": \\"boolean\\"
     },
     {
