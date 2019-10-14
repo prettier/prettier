@@ -380,48 +380,6 @@ function needsParens(path, options) {
           return false;
       }
 
-    case "TSParenthesizedType": {
-      const grandParent = path.getParentNode(1);
-
-      /**
-       * const foo = (): (() => void) => (): void => null;
-       *                 ^          ^
-       */
-      if (
-        getUnparenthesizedNode(node).type === "TSFunctionType" &&
-        parent.type === "TSTypeAnnotation" &&
-        grandParent.type === "ArrowFunctionExpression" &&
-        grandParent.returnType === parent
-      ) {
-        return true;
-      }
-
-      if (
-        (parent.type === "TSTypeParameter" ||
-          parent.type === "TypeParameter" ||
-          parent.type === "TSTypeAliasDeclaration" ||
-          parent.type === "TSTypeAnnotation" ||
-          parent.type === "TSParenthesizedType" ||
-          parent.type === "TSTypeParameterInstantiation") &&
-        (grandParent.type !== "TSTypeOperator" &&
-          grandParent.type !== "TSOptionalType")
-      ) {
-        return false;
-      }
-      // Delegate to inner TSParenthesizedType
-      if (
-        node.typeAnnotation.type === "TSParenthesizedType" &&
-        parent.type !== "TSArrayType" &&
-        parent.type !== "TSIndexedAccessType" &&
-        parent.type !== "TSConditionalType" &&
-        parent.type !== "TSIntersectionType" &&
-        parent.type !== "TSUnionType"
-      ) {
-        return false;
-      }
-      return true;
-    }
-
     case "SequenceExpression":
       switch (parent.type) {
         case "ReturnStatement":
@@ -485,6 +443,36 @@ function needsParens(path, options) {
         default:
           return false;
       }
+
+    case "TSConditionalType":
+      if (parent.type === "TSConditionalType" && node === parent.extendsType) {
+        return true;
+      }
+    // fallthrough
+    case "TSFunctionType":
+    case "TSConstructorType":
+      if (parent.type === "TSConditionalType" && node === parent.checkType) {
+        return true;
+      }
+    // fallthrough
+    case "TSUnionType":
+    case "TSIntersectionType":
+      if (
+        parent.type === "TSUnionType" ||
+        parent.type === "TSIntersectionType"
+      ) {
+        return true;
+      }
+    // fallthrough
+    case "TSTypeOperator":
+    case "TSInferType":
+      return (
+        parent.type === "TSArrayType" ||
+        parent.type === "TSOptionalType" ||
+        parent.type === "TSRestType" ||
+        (parent.type === "TSIndexedAccessType" && node === parent.objectType) ||
+        parent.type === "TSTypeOperator"
+      );
 
     case "ArrayTypeAnnotation":
       return parent.type === "NullableTypeAnnotation";
@@ -788,12 +776,6 @@ function isStatement(node) {
     node.type === "WhileStatement" ||
     node.type === "WithStatement"
   );
-}
-
-function getUnparenthesizedNode(node) {
-  return node.type === "TSParenthesizedType"
-    ? getUnparenthesizedNode(node.typeAnnotation)
-    : node;
 }
 
 function endsWithRightBracket(node) {

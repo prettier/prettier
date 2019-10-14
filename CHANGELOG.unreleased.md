@@ -87,15 +87,26 @@ Previous versions format text with whitespace after JSX incorrectly in mdx, this
 </Hello> 123
 ```
 
-#### TypeScript/Flow: Union types inside of tuples ([#6381] by [@squidfunk])
+#### TypeScript/Flow: Union types inside tuples ([#6381] by [@squidfunk], [#6605] by [@thorn0])
 
-Previous versions would double-indent multi-line union types inside of
-tuples for TypeScipt and Flow and add a new line:
+Previous versions would double-indent multi-line union types inside
+tuples for TypeScript and Flow and add an empty line:
 
 <!-- prettier-ignore -->
 ```ts
 // Input
+type A = [
+  | AAAAAAAAAAAAAAAAAAAAAA
+  | BBBBBBBBBBBBBBBBBBBBBB
+  | CCCCCCCCCCCCCCCCCCCCCC
+  | DDDDDDDDDDDDDDDDDDDDDD
+]
+
 type B = [
+  | AAAAAAAAAAAAAAAAAAAAAA
+  | BBBBBBBBBBBBBBBBBBBBBB
+  | CCCCCCCCCCCCCCCCCCCCCC
+  | DDDDDDDDDDDDDDDDDDDDDD,
   | AAAAAAAAAAAAAAAAAAAAAA
   | BBBBBBBBBBBBBBBBBBBBBB
   | CCCCCCCCCCCCCCCCCCCCCC
@@ -108,7 +119,20 @@ type C = [
 ]
 
 // Output (Prettier stable)
+type A = [
+
+    | AAAAAAAAAAAAAAAAAAAAAA
+    | BBBBBBBBBBBBBBBBBBBBBB
+    | CCCCCCCCCCCCCCCCCCCCCC
+    | DDDDDDDDDDDDDDDDDDDDDD
+];
+
 type B = [
+
+    | AAAAAAAAAAAAAAAAAAAAAA
+    | BBBBBBBBBBBBBBBBBBBBBB
+    | CCCCCCCCCCCCCCCCCCCCCC
+    | DDDDDDDDDDDDDDDDDDDDDD,
 
     | AAAAAAAAAAAAAAAAAAAAAA
     | BBBBBBBBBBBBBBBBBBBBBB
@@ -124,22 +148,37 @@ type C = [
           | BBBBBBBBBBBBBBBBBBBBBB
           | CCCCCCCCCCCCCCCCCCCCCC
           | DDDDDDDDDDDDDDDDDDDDDD
-    ]
+      ]
     | [
 
           | AAAAAAAAAAAAAAAAAAAAAA
           | BBBBBBBBBBBBBBBBBBBBBB
           | CCCCCCCCCCCCCCCCCCCCCC
           | DDDDDDDDDDDDDDDDDDDDDD
-    ]
+      ]
 ];
 
 // Output (Prettier master)
-type B = [
+type A = [
   | AAAAAAAAAAAAAAAAAAAAAA
   | BBBBBBBBBBBBBBBBBBBBBB
   | CCCCCCCCCCCCCCCCCCCCCC
   | DDDDDDDDDDDDDDDDDDDDDD
+];
+
+type B = [
+  (
+    | AAAAAAAAAAAAAAAAAAAAAA
+    | BBBBBBBBBBBBBBBBBBBBBB
+    | CCCCCCCCCCCCCCCCCCCCCC
+    | DDDDDDDDDDDDDDDDDDDDDD
+  ),
+  (
+    | AAAAAAAAAAAAAAAAAAAAAA
+    | BBBBBBBBBBBBBBBBBBBBBB
+    | CCCCCCCCCCCCCCCCCCCCCC
+    | DDDDDDDDDDDDDDDDDDDDDD
+  )
 ];
 
 type C = [
@@ -813,13 +852,13 @@ Previously, the flag was not applied on html attributes.
 <div class='a-class-name'></div>
 ```
 
-#### TypeScript: Fix incorrectly removes double parentheses around types ([#6604] by [@sosukesuzuki])
+#### TypeScript: sometimes double parentheses around types were removed incorrectly ([#6604] by [@sosukesuzuki])
 
 <!-- prettier-ignore -->
 ```ts
 // Input
 type A = 0 extends ((1 extends 2  ? 3 : 4)) ? 5 : 6;
-type B = ((0 extends 1 ? 2 : 3)) extends 4 ? 5 : 6:
+type B = ((0 extends 1 ? 2 : 3)) extends 4 ? 5 : 6;
 type C = ((number | string))["toString"];
 type D = ((keyof T1))["foo"];
 
@@ -887,6 +926,7 @@ function doSmth() {
 [#6377]: https://github.com/prettier/prettier/pull/6377
 [#6604]: https://github.com/prettier/prettier/pull/6604
 [#6496]: https://github.com/prettier/prettier/pull/6496
+[#6605]: https://github.com/prettier/prettier/pull/6605
 [@brainkim]: https://github.com/brainkim
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
