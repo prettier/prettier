@@ -28,13 +28,7 @@ module.exports = {
       },
     ],
   },
-  singleAttributePerLine: {
-    since: "1.19.0",
-    category: CATEGORY_HTML,
-    type: "boolean",
-    default: false,
-    description: "Enforce single attribute per line in HTML, Vue and JSX."
-  },
+  singleAttributePerLine: commonOptions.singleAttributePerLine,
   vueIndentScriptAndStyle: {
     since: "1.19.0",
     category: CATEGORY_HTML,
