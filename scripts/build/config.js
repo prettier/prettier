@@ -100,13 +100,13 @@ const parsers = [
         // https://github.com/prettier/prettier/issues/6656
         {
           find: "handlebars",
-          replacement: require.resolve("handlebars/dist/handlebars.js")
+          replacement: require.resolve("handlebars/dist/cjs/handlebars.js")
         }
       ]
     },
     commonjs: {
       namedExports: {
-        "node_modules/handlebars/dist/handlebars.js": ["parse"],
+        "node_modules/handlebars/dist/cjs/handlebars.js": ["parse"],
         "node_modules/@glimmer/syntax/dist/modules/es2017/index.js": "default"
       },
       ignore: ["source-map"]
