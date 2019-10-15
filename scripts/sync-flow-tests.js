@@ -30,9 +30,14 @@ function tryParse(file, content) {
 
 function syncTests(syncDir) {
   const specFiles = globby.sync(
-    path.join(FLOW_TESTS_DIR, "**", SPEC_FILE_NAME)
+    path.join(FLOW_TESTS_DIR, "**", SPEC_FILE_NAME),
+    {
+      expandDirectories: false
+    }
   );
-  const filesToCopy = globby.sync(path.join(syncDir, "**/*.js"));
+  const filesToCopy = globby.sync(path.join(syncDir, "**/*.js"), {
+    expandDirectories: false
+  });
 
   if (filesToCopy.length === 0) {
     throw new Error(
