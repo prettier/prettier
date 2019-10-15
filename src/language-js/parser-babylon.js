@@ -16,6 +16,7 @@ function babelOptions(extraOptions, extraPlugins) {
       allowImportExportEverywhere: true,
       allowReturnOutsideFunction: true,
       allowSuperOutsideMethod: true,
+      allowUndeclaredExports: true,
       plugins: [
         "jsx",
         "doExpressions",
