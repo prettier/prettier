@@ -3287,7 +3287,7 @@ function printPathNoParens(path, options, print, args) {
       return concat([
         !n.isTypeOf ? "" : "typeof ",
         "import(",
-        path.call(print, "parameter"),
+        path.call(print, n.parameter ? "parameter" : "argument"),
         ")",
         !n.qualifier ? "" : concat([".", path.call(print, "qualifier")]),
         printTypeParameters(path, options, print, "typeParameters")
