@@ -3146,12 +3146,23 @@ function printPathNoParens(path, options, print, args) {
         parent.type === "ClassBody" ? semi : ""
       ]);
     }
-    case "TSTypePredicate":
+    case "TSTypePredicate": {
+      if (n.asserts && !n.typeAnnotation) {
+        return concat(["asserts ", path.call(print, "parameterName")]);
+      } else if (n.asserts && n.typeAnnotation) {
+        return concat([
+          "asserts ",
+          path.call(print, "parameterName"),
+          " is ",
+          path.call(print, "typeAnnotation")
+        ]);
+      }
       return concat([
         path.call(print, "parameterName"),
         " is ",
         path.call(print, "typeAnnotation")
       ]);
+    }
     case "TSNonNullExpression":
       return concat([path.call(print, "expression"), "!"]);
     case "TSThisType":
