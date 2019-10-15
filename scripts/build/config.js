@@ -1,7 +1,9 @@
 "use strict";
 
 const path = require("path");
-const PROJECT_ROOT = path.resolve(__dirname, "../..");
+const babelReplaceArrayIncludesWithIndexof = require.resolve(
+  "./babel-plugins/replace-array-includes-with-indexof"
+);
 
 /**
  * @typedef {Object} Bundle
@@ -27,9 +29,7 @@ const parsers = [
   {
     input: "src/language-js/parser-babylon.js",
     target: "universal",
-    babelPlugins: [
-      require.resolve("./babel-plugins/replace-array-includes-with-indexof")
-    ]
+    babelPlugins: [babelReplaceArrayIncludesWithIndexof]
   },
   {
     input: "src/language-js/parser-flow.js",
@@ -39,9 +39,7 @@ const parsers = [
   {
     input: "src/language-js/parser-typescript.js",
     target: "universal",
-    babelPlugins: [
-      require.resolve("./babel-plugins/replace-array-includes-with-indexof")
-    ],
+    babelPlugins: [babelReplaceArrayIncludesWithIndexof],
     commonjs: {
       ignore: [
         // Optional package for TypeScript that logs ETW events (a Windows-only technology).
@@ -62,9 +60,7 @@ const parsers = [
         },
         {
           find: "@angular/compiler/src",
-          replacement: path.resolve(
-            `${PROJECT_ROOT}/node_modules/@angular/compiler/esm2015/src`
-          )
+          replacement: require.resolve("@angular/compiler/esm2015/src")
         }
       ]
     }
@@ -106,8 +102,10 @@ const parsers = [
     },
     commonjs: {
       namedExports: {
-        "node_modules/handlebars/dist/cjs/handlebars.js": ["parse"],
-        "node_modules/@glimmer/syntax/dist/modules/es2017/index.js": "default"
+        [require.resolve("handlebars/dist/cjs/handlebars.js")]: ["parse"],
+        [require.resolve(
+          "@glimmer/syntax/dist/modules/es2017/index.js"
+        )]: "default"
       },
       ignore: ["source-map"]
     }
@@ -129,9 +127,7 @@ const parsers = [
         }
       ]
     },
-    babelPlugins: [
-      require.resolve("./babel-plugins/replace-array-includes-with-indexof")
-    ]
+    babelPlugins: [babelReplaceArrayIncludesWithIndexof]
   }
 ].map(parser => {
   const name = getFileOutput(parser)
@@ -191,4 +187,4 @@ function getFileOutput(bundle) {
 
 module.exports = coreBundles
   .concat(parsers)
-  .map(b => Object.assign(b, { output: getFileOutput(b) }));
+  .map(bundle => Object.assign(bundle, { output: getFileOutput(bundle) }));
