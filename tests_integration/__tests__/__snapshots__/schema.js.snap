@@ -135,6 +135,12 @@ This option cannot be used with --range-start and --range-end.",
             Object {
               "description": "TypeScript",
               "enum": Array [
+                "babel-ts",
+              ],
+            },
+            Object {
+              "description": "TypeScript",
+              "enum": Array [
                 "typescript",
               ],
             },

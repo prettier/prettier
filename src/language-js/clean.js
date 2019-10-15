@@ -7,6 +7,7 @@ function clean(ast, newObj, parent) {
     "comments",
     "leadingComments",
     "trailingComments",
+    "innerComments",
     "extra",
     "start",
     "end",
