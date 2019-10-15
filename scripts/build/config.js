@@ -93,9 +93,20 @@ const parsers = [
   {
     input: "src/language-handlebars/parser-glimmer.js",
     target: "universal",
+    alias: {
+      entries: [
+        // `handlebars` causes webpack warning by using require.extensions
+        // use bundler instead
+        // https://github.com/prettier/prettier/issues/6656
+        {
+          find: "handlebars",
+          replacement: require.resolve("handlebars/dist/handlebars.js")
+        }
+      ]
+    },
     commonjs: {
       namedExports: {
-        "node_modules/handlebars/lib/index.js": ["parse"],
+        "node_modules/handlebars/dist/handlebars.js": ["parse"],
         "node_modules/@glimmer/syntax/dist/modules/es2017/index.js": "default"
       },
       ignore: ["source-map"]
