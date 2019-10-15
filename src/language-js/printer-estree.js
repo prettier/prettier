@@ -84,6 +84,7 @@ const {
   isTemplateOnItsOwnLine,
   isTestCall,
   isTheOnlyJSXElementInMarkdown,
+  isTSXFile,
   isTypeAnnotationAFunction,
   matchJsxWhitespaceRegex,
   needsHardlineAfterDanglingComment,
@@ -2152,7 +2153,7 @@ function printPathNoParens(path, options, print, args) {
         () => printJSXElement(path, options, print),
         options
       );
-      return maybeWrapJSXElementInParens(path, elem);
+      return maybeWrapJSXElementInParens(path, elem, options);
     }
     case "JSXOpeningElement": {
       const n = path.getValue();
@@ -3005,8 +3006,7 @@ function printPathNoParens(path, options, print, args) {
       if (
         parent.params &&
         parent.params.length === 1 &&
-        options.filepath &&
-        /\.tsx$/i.test(options.filepath) &&
+        isTSXFile(options) &&
         !n.constraint &&
         grandParent.type === "ArrowFunctionExpression"
       ) {
@@ -5385,7 +5385,7 @@ function printJSXElement(path, options, print) {
   ]);
 }
 
-function maybeWrapJSXElementInParens(path, elem) {
+function maybeWrapJSXElementInParens(path, elem, options) {
   const parent = path.getParentNode();
   if (!parent) {
     return elem;
@@ -5413,12 +5413,14 @@ function maybeWrapJSXElementInParens(path, elem) {
     "JSXExpressionContainer"
   ]);
 
+  const needsParens = pathNeedsParens(path, options);
+
   return group(
     concat([
-      ifBreak("("),
+      needsParens ? "" : ifBreak("("),
       indent(concat([softline, elem])),
       softline,
-      ifBreak(")")
+      needsParens ? "" : ifBreak(")")
     ]),
     { shouldBreak }
   );

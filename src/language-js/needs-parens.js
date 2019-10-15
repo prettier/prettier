@@ -6,8 +6,8 @@ const util = require("../common/util");
 const comments = require("./comments");
 const {
   getLeftSidePathName,
-  hasNakedLeftSide,
-  hasFlowShorthandAnnotationComment
+  hasFlowShorthandAnnotationComment,
+  hasNakedLeftSide
 } = require("./utils");
 
 function hasClosureCompilerTypeCastComment(text, path) {
@@ -722,6 +722,29 @@ function needsParens(path, options) {
         return false;
       }
       return true;
+    case "JSXFragment":
+    case "JSXElement":
+      return (
+        parent.type !== "ArrayExpression" &&
+        parent.type !== "ArrowFunctionExpression" &&
+        parent.type !== "AssignmentExpression" &&
+        parent.type !== "AssignmentPattern" &&
+        parent.type !== "BinaryExpression" &&
+        parent.type !== "CallExpression" &&
+        parent.type !== "ConditionalExpression" &&
+        parent.type !== "ExpressionStatement" &&
+        parent.type !== "JsExpressionRoot" &&
+        parent.type !== "JSXAttribute" &&
+        parent.type !== "JSXElement" &&
+        parent.type !== "JSXExpressionContainer" &&
+        parent.type !== "JSXFragment" &&
+        parent.type !== "LogicalExpression" &&
+        parent.type !== "ObjectProperty" &&
+        parent.type !== "Property" &&
+        parent.type !== "ReturnStatement" &&
+        parent.type !== "TypeCastExpression" &&
+        parent.type !== "VariableDeclarator"
+      );
   }
 
   return false;

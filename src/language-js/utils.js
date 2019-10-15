@@ -888,6 +888,10 @@ function identity(x) {
   return x;
 }
 
+function isTSXFile(options) {
+  return options.filepath && /\.tsx$/i.test(options.filepath);
+}
+
 module.exports = {
   classChildNeedsASIProtection,
   classPropMayCauseASIProblems,
@@ -934,6 +938,7 @@ module.exports = {
   isTemplateOnItsOwnLine,
   isTestCall,
   isTheOnlyJSXElementInMarkdown,
+  isTSXFile,
   isTypeAnnotationAFunction,
   matchJsxWhitespaceRegex,
   needsHardlineAfterDanglingComment,
