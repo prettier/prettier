@@ -39,10 +39,9 @@ const parsers = [
   {
     input: "src/language-js/parser-typescript.js",
     target: "universal",
-    replace: {
-      // node v4 compatibility for @typescript-eslint/typescript-estree
-      "(!unique.includes(raw))": "(unique.indexOf(raw) === -1)"
-    },
+    babelPlugins: [
+      require.resolve("./babel-plugins/replace-array-includes-with-indexof")
+    ],
     commonjs: {
       ignore: [
         // Optional package for TypeScript that logs ETW events (a Windows-only technology).
