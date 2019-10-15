@@ -1,6 +1,7 @@
 "use strict";
 
 const path = require("path");
+const PROJECT_ROOT = path.resolve(__dirname, "../..");
 const babelReplaceArrayIncludesWithIndexof = require.resolve(
   "./babel-plugins/replace-array-includes-with-indexof"
 );
@@ -60,7 +61,9 @@ const parsers = [
         },
         {
           find: "@angular/compiler/src",
-          replacement: require.resolve("@angular/compiler/esm2015/src")
+          replacement: path.resolve(
+            `${PROJECT_ROOT}/node_modules/@angular/compiler/esm2015/src`
+          )
         }
       ]
     }
