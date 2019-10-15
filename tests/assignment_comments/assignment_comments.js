@@ -37,18 +37,18 @@ var fnString = // Comment
 var fnString = // Comment
   'some' + 'long' + 'string';
 
-let f = (
+let f1 = (
   a =
   //comment
   b
 ) => {};
 
-let f = (
+let f2 = (
   a = //comment
   b
 ) => {};
 
-let f = (
+let f3 = (
   a =
   b //comment
 ) => {};

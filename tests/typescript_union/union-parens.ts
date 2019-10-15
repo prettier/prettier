@@ -39,26 +39,26 @@ type State = {
   | { discriminant: "BAZ"; baz: any }
 );
 
-const foo = [abc, def, ghi, jkl, mno, pqr, stu, vwx, yz] as (
+const foo1 = [abc, def, ghi, jkl, mno, pqr, stu, vwx, yz] as (
   | string
   | undefined
 )[];
 
-const foo: (
+const foo2: (
   | AAAAAAAAAAAAAAAAAAAAAA
   | BBBBBBBBBBBBBBBBBBBBBB
   | CCCCCCCCCCCCCCCCCCCCCC
   | DDDDDDDDDDDDDDDDDDDDDD
 )[] = [];
 
-const foo: keyof (
+const foo3: keyof (
   | AAAAAAAAAAAAAAAAAAAAAA
   | BBBBBBBBBBBBBBBBBBBBBB
   | CCCCCCCCCCCCCCCCCCCCCC
   | DDDDDDDDDDDDDDDDDDDDDD
 ) = bar;
 
-const foo:
+const foo4:
   | foo
   | (
       | AAAAAAAAAAAAAAAAAAAAAA

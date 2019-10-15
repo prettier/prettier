@@ -84,18 +84,18 @@ import {
   a as //comment1
   //comment2
   //comment3
-  b
+  b1
 } from "";
 
 import {
   a as //comment2 //comment1
   //comment3
-  b
+  b2
 } from "";
 
 import {
   a as //comment3 //comment2 //comment1
-  b
+  b3
 } from "";
 
 import {
@@ -133,18 +133,18 @@ import {
   //comment1
   //comment2
   //comment3
-  a as b
+  a as b1
 } from "";
 
 import {
   //comment2 //comment1
   //comment3
-  a as b
+  a as b2
 } from "";
 
 import {
   //comment3 //comment2 //comment1
-  a as b
+  a as b3
 } from "";
 
 import {
@@ -189,18 +189,18 @@ import {
   a as //comment1
   //comment2
   //comment3
-  b
+  b1
 } from "";
 
 import {
   a as //comment2 //comment1
   //comment3
-  b
+  b2
 } from "";
 
 import {
   a as //comment3 //comment2 //comment1
-  b
+  b3
 } from "";
 
 import {
@@ -238,18 +238,18 @@ import {
   //comment1
   //comment2
   //comment3
-  a as b
+  a as b1
 } from "";
 
 import {
   //comment2 //comment1
   //comment3
-  a as b
+  a as b2
 } from "";
 
 import {
   //comment3 //comment2 //comment1
-  a as b
+  a as b3
 } from "";
 
 import {
@@ -314,19 +314,19 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 import somethingSuperLongsomethingSuperLong from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
-import {somethingSuperLongsomethingSuperLong} from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
-import a, {somethingSuperLongsomethingSuperLong} from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
-import {a, somethingSuperLongsomethingSuperLong} from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
+import {somethingSuperLongsomethingSuperLong1} from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
+import a, {somethingSuperLongsomethingSuperLong2} from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
+import {a2, somethingSuperLongsomethingSuperLong3} from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
 
 =====================================output=====================================
 import somethingSuperLongsomethingSuperLong from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
-import { somethingSuperLongsomethingSuperLong } from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
+import { somethingSuperLongsomethingSuperLong1 } from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
 import a, {
-  somethingSuperLongsomethingSuperLong
+  somethingSuperLongsomethingSuperLong2
 } from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
 import {
-  a,
-  somethingSuperLongsomethingSuperLong
+  a2,
+  somethingSuperLongsomethingSuperLong3
 } from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
 
 ================================================================================
@@ -340,19 +340,19 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 import somethingSuperLongsomethingSuperLong from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
-import {somethingSuperLongsomethingSuperLong} from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
-import a, {somethingSuperLongsomethingSuperLong} from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
-import {a, somethingSuperLongsomethingSuperLong} from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
+import {somethingSuperLongsomethingSuperLong1} from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
+import a, {somethingSuperLongsomethingSuperLong2} from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
+import {a2, somethingSuperLongsomethingSuperLong3} from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
 
 =====================================output=====================================
 import somethingSuperLongsomethingSuperLong from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
-import {somethingSuperLongsomethingSuperLong} from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
+import {somethingSuperLongsomethingSuperLong1} from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
 import a, {
-  somethingSuperLongsomethingSuperLong
+  somethingSuperLongsomethingSuperLong2
 } from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
 import {
-  a,
-  somethingSuperLongsomethingSuperLong
+  a2,
+  somethingSuperLongsomethingSuperLong3
 } from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
 
 ================================================================================

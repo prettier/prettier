@@ -10,7 +10,7 @@ const promises = [
   other.fetch(),
 ];
 
-const promises = [
+const promises2 = [
   promise.resolve().veryLongFunctionCall().veryLongFunctionCall().then(console.log).catch(err => {
     console.log(err)
     return null

@@ -25,7 +25,7 @@ type UploadState<E, EM, D>
   // Uploading to aws3 and CreatePostMutation succeeded
   | {type: "Success", data: D};
 
-type UploadState<E, EM, D>
+type UploadState2<E, EM, D>
   // The upload hasnt begun yet
   = A
   // The upload timed out
@@ -68,7 +68,7 @@ type UploadState<E, EM, D> =
   // Uploading to aws3 and CreatePostMutation succeeded
   | { type: "Success"; data: D };
 
-type UploadState<E, EM, D> =
+type UploadState2<E, EM, D> =
   // The upload hasnt begun yet
   | A
   // The upload timed out
@@ -141,26 +141,26 @@ type State = {
   | { discriminant: "BAZ"; baz: any }
 );
 
-const foo = [abc, def, ghi, jkl, mno, pqr, stu, vwx, yz] as (
+const foo1 = [abc, def, ghi, jkl, mno, pqr, stu, vwx, yz] as (
   | string
   | undefined
 )[];
 
-const foo: (
+const foo2: (
   | AAAAAAAAAAAAAAAAAAAAAA
   | BBBBBBBBBBBBBBBBBBBBBB
   | CCCCCCCCCCCCCCCCCCCCCC
   | DDDDDDDDDDDDDDDDDDDDDD
 )[] = [];
 
-const foo: keyof (
+const foo3: keyof (
   | AAAAAAAAAAAAAAAAAAAAAA
   | BBBBBBBBBBBBBBBBBBBBBB
   | CCCCCCCCCCCCCCCCCCCCCC
   | DDDDDDDDDDDDDDDDDDDDDD
 ) = bar;
 
-const foo:
+const foo4:
   | foo
   | (
       | AAAAAAAAAAAAAAAAAAAAAA
@@ -251,26 +251,26 @@ type State = {
   | { discriminant: "BAZ"; baz: any }
 );
 
-const foo = [abc, def, ghi, jkl, mno, pqr, stu, vwx, yz] as (
+const foo1 = [abc, def, ghi, jkl, mno, pqr, stu, vwx, yz] as (
   | string
   | undefined
 )[];
 
-const foo: (
+const foo2: (
   | AAAAAAAAAAAAAAAAAAAAAA
   | BBBBBBBBBBBBBBBBBBBBBB
   | CCCCCCCCCCCCCCCCCCCCCC
   | DDDDDDDDDDDDDDDDDDDDDD
 )[] = [];
 
-const foo: keyof (
+const foo3: keyof (
   | AAAAAAAAAAAAAAAAAAAAAA
   | BBBBBBBBBBBBBBBBBBBBBB
   | CCCCCCCCCCCCCCCCCCCCCC
   | DDDDDDDDDDDDDDDDDDDDDD
 ) = bar;
 
-const foo:
+const foo4:
   | foo
   | (
       | AAAAAAAAAAAAAAAAAAAAAA
