@@ -6,8 +6,8 @@ parsers: ["flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-const { one, two, thee, four, five, six, seven, eight, nine, ten } = require('./my-utils');
-const { one, two, thee, four, five, six, seven, eight, nine, ten, eleven } = require('./my-utils');
+const { one, two, three, four, five, six, seven, eight, nine, ten } = require('./my-utils');
+const { one1, two1, three1, four1, five1, six1, seven1, eight1, nine1, ten1, eleven1 } = require('./my-utils');
 
 const MyReallyExtrememlyLongModuleName = require('MyReallyExtrememlyLongModuleName');
 
@@ -15,7 +15,7 @@ const MyReallyExtrememlyLongModuleName = require('MyReallyExtrememlyLongModuleNa
 const {
   one,
   two,
-  thee,
+  three,
   four,
   five,
   six,
@@ -25,17 +25,17 @@ const {
   ten
 } = require("./my-utils");
 const {
-  one,
-  two,
-  thee,
-  four,
-  five,
-  six,
-  seven,
-  eight,
-  nine,
-  ten,
-  eleven
+  one1,
+  two1,
+  three1,
+  four1,
+  five1,
+  six1,
+  seven1,
+  eight1,
+  nine1,
+  ten1,
+  eleven1
 } = require("./my-utils");
 
 const MyReallyExtrememlyLongModuleName = require("MyReallyExtrememlyLongModuleName");
