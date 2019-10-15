@@ -95,8 +95,9 @@ const parsers = [
     target: "universal",
     alias: {
       entries: [
-        // `handlebars` causes webpack warning by using require.extensions
-        // use bundler instead
+        // `handlebars` causes webpack warning by using `require.extensions`
+        // `dist/handlebars.js` also complaint on `window` variable
+        // use cjs build instead
         // https://github.com/prettier/prettier/issues/6656
         {
           find: "handlebars",
