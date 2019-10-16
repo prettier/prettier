@@ -1289,6 +1289,9 @@ function printPathNoParens(path, options, print, args) {
           parent.type !== "FunctionDeclaration" &&
           parent.type !== "FunctionExpression" &&
           parent.type !== "ArrowFunctionExpression" &&
+          parent.type !== "ObjectMethod" &&
+          parent.type !== "ClassMethod" &&
+          parent.type !== "ClassPrivateMethod" &&
           parent.type !== "AssignmentPattern" &&
           parent.type !== "CatchClause" &&
           n.properties.some(

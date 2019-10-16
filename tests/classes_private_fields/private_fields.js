@@ -41,3 +41,9 @@ class E {
   get #f() {}
   set #f(taz) {}
 }
+
+class F {
+  #func(id, { blog: { title } }) {
+    return id + title;
+  }
+}

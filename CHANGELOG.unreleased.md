@@ -910,6 +910,73 @@ function doSmth() {
 
 // Prettier (master)
 (<a />).toString();
+
+#### JavaScript: Object destructuring in method parameters always broke into multiple lines ([#6646] by [@ericsakmar])
+
+<!-- prettier-ignore -->
+```js
+// Input
+const obj = {
+  func(id, { blog: { title } }) {
+    return id + title;
+  },
+};
+
+class A {
+  func(id, { blog: { title } }) {
+    return id + title;
+  }
+  #func(id, { blog: { title } }) {
+    return id + title;
+  }
+}
+
+// Prettier (stable)
+const obj = {
+  func(
+    id,
+    {
+      blog: { title }
+    }
+  ) {
+    return id + title;
+  }
+};
+
+class A {
+  func(
+    id,
+    {
+      blog: { title }
+    }
+  ) {
+    return id + title;
+  }
+  #func(
+    id,
+    {
+      blog: { title }
+    }
+  ) {
+    return id + title;
+  }
+}
+
+// Prettier (master)
+const obj = {
+  func(id, { blog: { title } }) {
+    return id + title;
+  },
+};
+
+class A {
+  func(id, { blog: { title } }) {
+    return id + title;
+  }
+  #func(id, { blog: { title } }) {
+    return id + title;
+  }
+}
 ```
 
 [#5910]: https://github.com/prettier/prettier/pull/5910
@@ -942,6 +1009,7 @@ function doSmth() {
 [#6496]: https://github.com/prettier/prettier/pull/6496
 [#6605]: https://github.com/prettier/prettier/pull/6605
 [#6640]: https://github.com/prettier/prettier/pull/6640
+[#6646]: https://github.com/prettier/prettier/pull/6646
 [@brainkim]: https://github.com/brainkim
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
@@ -952,3 +1020,4 @@ function doSmth() {
 [@thorn0]: https://github.com/thorn0
 [@dcyriller]: https://github.com/dcyriller
 [@rreverser]: https://github.com/RReverser
+[@ericsakmar]: https://github.com/ericsakmar
