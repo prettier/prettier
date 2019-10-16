@@ -105,10 +105,11 @@ describe("extracts file-info with inferredParser=foo when a plugin is hand-picke
   });
 });
 
-test("API getFileInfo with no args", () =>
-  expect(prettier.getFileInfo()).rejects.toThrow(
+test("API getFileInfo with no args", () => {
+  return expect(prettier.getFileInfo()).rejects.toThrow(
     new TypeError("expect `filePath` to be a string, got `undefined`")
-  ));
+  );
+});
 
 test("API getFileInfo.sync with no args", () => {
   expect(() => prettier.getFileInfo.sync()).toThrow(
