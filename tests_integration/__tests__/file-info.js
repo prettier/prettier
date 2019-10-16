@@ -108,14 +108,14 @@ describe("extracts file-info with inferredParser=foo when a plugin is hand-picke
 test("API getFileInfo with no args", () => {
   expect(prettier.getFileInfo()).rejects.toThrow(
     // this error info might change depends on how getFileInfo works
-    new TypeError(`Cannot read property 'replace' of undefined`)
+    TypeError
   );
 });
 
 test("API getFileInfo.sync with no args", () => {
   expect(() => prettier.getFileInfo.sync()).toThrow(
     // this error info might change depends on how getFileInfo works
-    new TypeError(`Cannot read property 'replace' of undefined`)
+    TypeError
   );
 });
 
