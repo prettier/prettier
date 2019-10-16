@@ -19,6 +19,14 @@ const path = require("path");
  * internally by the method wrapper. See withPlugins() in index.js.
  */
 function getFileInfo(filePath, opts) {
+  if (typeof filePath !== "string") {
+    return Promise.reject(
+      new TypeError(
+        `expect \`filePath\` to be a string, got \`${typeof filePath}\``
+      )
+    );
+  }
+
   return createIgnorer(opts.ignorePath, opts.withNodeModules).then(ignorer =>
     _getFileInfo(
       ignorer,
@@ -34,6 +42,12 @@ function getFileInfo(filePath, opts) {
  * @returns {FileInfoResult}
  */
 getFileInfo.sync = function(filePath, opts) {
+  if (typeof filePath !== "string") {
+    throw new TypeError(
+      `expect \`filePath\` to be a string, got \`${typeof filePath}\``
+    );
+  }
+
   const ignorer = createIgnorer.sync(opts.ignorePath, opts.withNodeModules);
   return _getFileInfo(
     ignorer,
