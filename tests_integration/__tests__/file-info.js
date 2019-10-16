@@ -106,16 +106,17 @@ describe("extracts file-info with inferredParser=foo when a plugin is hand-picke
 });
 
 test("API getFileInfo with no args", () => {
-  // TODO: change this to `rejects.toThrow()` when we upgrade to Jest >= 22
-  // https://github.com/facebook/jest/issues/3601
-  expect.assertions(1);
-  return prettier.getFileInfo().catch(err => {
-    expect(err).toBeDefined();
-  });
+  expect(prettier.getFileInfo()).rejects.toThrow(
+    // this error info might change depends on how getFileInfo works
+    new TypeError(`Cannot read property 'replace' of undefined`)
+  );
 });
 
 test("API getFileInfo.sync with no args", () => {
-  expect(() => prettier.getFileInfo.sync()).toThrow();
+  expect(() => prettier.getFileInfo.sync()).toThrow(
+    // this error info might change depends on how getFileInfo works
+    new TypeError(`Cannot read property 'replace' of undefined`)
+  );
 });
 
 test("API getFileInfo with filepath only", () => {
