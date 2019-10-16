@@ -911,7 +911,7 @@ function doSmth() {
 // Prettier (master)
 (<a />).toString();
 
-#### JavaScript: Object destructuring in method shorthand. ([#6646] by [@ericsakmar])
+#### JavaScript: Object destructuring in method parameters always broke into multiple lines ([#6646] by [@ericsakmar])
 
 <!-- prettier-ignore -->
 ```js
@@ -926,9 +926,6 @@ class A {
   func(id, { blog: { title } }) {
     return id + title;
   }
-}
-
-class B {
   #func(id, { blog: { title } }) {
     return id + title;
   }
@@ -955,9 +952,6 @@ class A {
   ) {
     return id + title;
   }
-}
-
-class B {
   #func(
     id,
     {
@@ -979,9 +973,6 @@ class A {
   func(id, { blog: { title } }) {
     return id + title;
   }
-}
-
-class B {
   #func(id, { blog: { title } }) {
     return id + title;
   }
