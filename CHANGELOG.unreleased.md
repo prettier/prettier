@@ -64,9 +64,7 @@ var a = new (x().y.z)();
 var a = new (x().y().z)();
 ```
 
-#### MDX: fix text with whitespace after JSX trim incorrectly ([#6340] by [@JounQin])
-
-Previous versions format text with whitespace after JSX incorrectly in mdx, this has been fixed in this version.
+#### MDX: Text following JSX was trimmed incorrectly ([#6340] by [@JounQin])
 
 <!-- prettier-ignore -->
 ```md
@@ -87,10 +85,7 @@ Previous versions format text with whitespace after JSX incorrectly in mdx, this
 </Hello> 123
 ```
 
-#### TypeScript/Flow: Union types inside tuples ([#6381] by [@squidfunk], [#6605] by [@thorn0])
-
-Previous versions would double-indent multi-line union types inside
-tuples for TypeScript and Flow and add an empty line:
+#### TypeScript/Flow: Fix indentation for union types inside tuples ([#6381] by [@squidfunk], [#6605] by [@thorn0])
 
 <!-- prettier-ignore -->
 ```ts
@@ -197,9 +192,7 @@ type C = [
 ];
 ```
 
-#### MDX: Adjacent JSX elements should be allowed in mdx ([#6332] by [@JounQin])
-
-Previous versions would not format adjacent JSX elements in mdx, this has been fixed in this version.
+#### MDX: Adjacent JSX elements should be allowed ([#6332] by [@JounQin])
 
 <!-- prettier-ignore -->
 ```jsx
@@ -247,9 +240,7 @@ SyntaxError: Adjacent JSX elements must be wrapped in an enclosing tag. Did you 
 </Hello>123
 ```
 
-#### TypeScript: Print comment following a JSX element with generic ([#6209] by [@duailibe])
-
-Previous versions would not print this comment, this has been fixed in this version.
+#### TypeScript: Comments after JSX element names with type arguments were lost ([#6209] by [@duailibe])
 
 <!-- prettier-ignore -->
 ```ts
@@ -277,7 +268,7 @@ const comp = (
 );
 ```
 
-### Handlebars: Avoid adding unwanted line breaks between text and mustaches ([#6186] by [@gavinjoyce])
+#### Handlebars: Avoid adding unwanted line breaks between text and mustaches ([#6186] by [@gavinjoyce])
 
 Previously, Prettier added line breaks between text and mustaches which resulted in unwanted whitespace in rendered output.
 
@@ -307,7 +298,7 @@ Previously, Prettier added line breaks between text and mustaches which resulted
 </p>
 ```
 
-### Handlebars: Improve comment formatting ([#6206] by [@gavinjoyce])
+#### Handlebars: Improve comment formatting ([#6206] by [@gavinjoyce])
 
 Previously, Prettier would sometimes ignore whitespace when formatting comments.
 
@@ -367,9 +358,7 @@ foo ?? baz || baz;
 
 Please note, as we update our parsers with versions that support this spec update, code without the parenthesis will throw a parse error.
 
-#### JavaScript: Keep unary expressions parentheses with comments ([#6217] by [@sosukesuzuki])
-
-Previously, Prettier removes parentheses enclose unary expressions. This change modify to keep it when the expression has comments.
+#### JavaScript: Keep parentheses with comments in unary expressions ([#6217] by [@sosukesuzuki])
 
 <!-- prettier-ignore -->
 ```ts
@@ -394,11 +383,11 @@ foo;
 );
 ```
 
-### Javascript: Use function literals in arguments to detect function composition ([#6033] by [@brainkim])
+#### Javascript: Use function literals in arguments to detect function composition ([#6033] by [@brainkim])
 
 Previously, we used a set of hard-coded names related to functional programming
 (`compose`, `flow`, `pipe`, etc.) to detect function composition and chaining
-patterns in code. This was done so that prettier would not put code like the
+patterns in code. This was done so that Prettier would not put code like the
 following call to `pipe` on the same line even if it fit within the allotted
 column budget:
 
@@ -445,9 +434,7 @@ eventStore.update(
 eventStore.update(id, _.flow(updater, incrementVersion));
 ```
 
-### Handlebars: Improve comment formatting ([#6234] by [@gavinjoyce])
-
-Previously, Prettier would incorrectly decode HTML entiites.
+#### Handlebars: Preserve HTML entities ([#6234] by [@gavinjoyce])
 
 <!-- prettier-ignore -->
 ```hbs
@@ -469,8 +456,6 @@ Previously, Prettier would incorrectly decode HTML entiites.
 
 #### JavaScript: Stop moving comments inside tagged template literals ([#6236] by [@sosukesuzuki])
 
-Previously, Prettier would move comments after the tag inside the template literal. This version fixes this problem.
-
 <!-- prettier-ignore -->
 ```js
 // Input
@@ -488,9 +473,10 @@ foo // comment
 `;
 ```
 
-#### JavaScript: Fix moving comments in function calls like `useEffect` second argument ([#6270] by [@sosukesuzuki])
+#### TypeScript/Flow: Fix moving comments in function calls like `useEffect` ([#6270] by [@sosukesuzuki])
 
-This fixes a bug that was affecting function calls that have a arrow function as first argument and an array expression as second argument, such as the common React's `useEffect`. A comment in its own line before the second argument would be moved to the line above.
+This fixes a bug that was affecting function calls with an arrow function as the first argument and an array expression as the second argument, e.g. React's `useEffect`.
+If a comment was placed on the line before the second argument, Prettier would move it to the line above and corrupt the indentation.
 
 The bug was only present when using the Flow and TypeScript parsers.
 
@@ -502,18 +488,14 @@ useEffect(
     console.log("some code", props.foo);
   },
 
-  // We need to disable the eslint warning here,
-  // because of some complicated reason.
-  // eslint-disable line react-hooks/exhaustive-deps
+  // eslint-disable-line react-hooks/exhaustive-deps
   []
 );
 
 // Output (Prettier stable)
 useEffect(() => {
   console.log("some code", props.foo);
-}, // We need to disable the eslint warning here,
-// because of some complicated reason.
-// eslint-disable line react-hooks/exhaustive-deps
+}, // eslint-disable-line react-hooks/exhaustive-deps
 []);
 
 // Output (Prettier master)
@@ -522,9 +504,7 @@ useEffect(
     console.log("some code", props.foo);
   },
 
-  // We need to disable the eslint warning here,
-  // because of some complicated reason.
-  // eslint-disable line react-hooks/exhaustive-deps
+  // eslint-disable-line react-hooks/exhaustive-deps
   []
 );
 ```
@@ -533,9 +513,9 @@ useEffect(
 
 This version updates the TypeScript parser to correctly handle JSX text with double slashes (`//`). In previous versions, this would cause Prettier to crash.
 
-#### HTML, Vue: Don't break the template element included in a line shorter than print-width([#6284] by [@sosukesuzuki])
+#### HTML, Vue: Don't wrap `template` elements on lines shorter than `printWidth` ([#6284] by [@sosukesuzuki])
 
-Previously, even if the line length is shorter than print-width is Prettier breaks the line with a template element.
+Previously, even if the line length was shorter than `printWidth`, Prettier would break the line with a `template` element.
 
 <!-- prettier-ignore -->
 ```html
@@ -557,9 +537,9 @@ Previously, even if the line length is shorter than print-width is Prettier brea
 </template>
 ```
 
-#### JavaScript: Fix breaks indentation and idempotency when an arrow function that args include object pattern is passed to a function as parameter. ([#6301] by [@sosukesuzuki])
+#### JavaScript: Empty lines in destructured arrow function parameters could break indentation and idempotence ([#6301] by [@sosukesuzuki])
 
-Previously, Prettier collapses strangely, when an arrow function that args include object pattern is passed to a function as parameter. Also, it breaks idempotency. Please see [#6294](https://github.com/prettier/prettier/issues/6294) for detail.
+Previously, Prettier indented code strangely when an arrow function whose parameters included an object pattern was passed to a function call as an argument. Also, it broke idempotence. Please see [#6294](https://github.com/prettier/prettier/issues/6294) for details.
 
 <!-- prettier-ignore -->
 ```js
@@ -586,9 +566,7 @@ foo(
 );
 ```
 
-#### TypeScript: Fix specific union type breaks after opening parenthesis, but not before closing ([#6307] by [@sosukesuzuki])
-
-Previously, union type that put with `as` , `keyof`, `[]`, other union(`|`) and intersection(`&`) breaks after opening parenthesis, but not before closing. Please see [#6303](https://github.com/prettier/prettier/issues/6303) for detail.
+#### TypeScript: Put a closing parenthesis onto a new line after union types ([#6307] by [@sosukesuzuki])
 
 <!-- prettier-ignore-->
 ```ts
@@ -637,9 +615,9 @@ Previously, in the [whitespace-sensitive mode](https://prettier.io/docs/en/optio
 <script></script>
 ```
 
-#### TypeScript: Fixed to break line and add a semicolon in one execution on one line long mapped types ([#6420] by [@sosukesuzuki])
+#### TypeScript: Correctly format long one-line mapped types in one pass ([#6420] by [@sosukesuzuki])
 
-Previously, when Prettier formatted long, one-line mapped types, it would break the line but didn’t add a semicolon – until you ran Prettier again (which broke Prettier’s idempotency rule). Now, Prettier adds the semicolon in the first run, fixing the issue.
+Previously, when Prettier formatted long one-line mapped types, it would break the line but didn’t add a semicolon until you ran Prettier again, which means Prettier’s idempotence rule was broken. Now, Prettier adds the semicolon in the first run.
 
 <!-- prettier-ignore -->
 ```ts
@@ -657,7 +635,7 @@ type FooBar<T> = {
 };
 ```
 
-#### JavaScript: Fix ugly formatting on object destructuring with parameter decorators ([#6411] by [@sosukesuzuki])
+#### JavaScript: Fix formatting of object destructuring with parameter decorators ([#6411] by [@sosukesuzuki])
 
 Previously, Prettier formatted decorators for destructured parameters in a weird way. Now, parameter decorators are placed just above the parameter they belong to.
 
@@ -707,12 +685,11 @@ const f = ({}: MyVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongTyp
 function g({}: Foo) {}
 ```
 
-#### JavaScript: Fix ugly formatting parens wrap binary expressions within call expressions ([#6441] by [@sosukesuzuki])
-
-Previously, Prettier formatted parens wrap binary expressions within call expressions in a weird way. There was no line break before and after each parens.
+#### JavaScript: Put a closing parenthesis onto a new line after binary expressions within function calls ([#6441] by [@sosukesuzuki])
 
 <!-- prettier-ignore -->
 ```js
+// Input
 (
   aaaaaaaaaaaaaaaaaaaaaaaaa &&
   bbbbbbbbbbbbbbbbbbbbbbbbb &&
@@ -738,10 +715,11 @@ Previously, Prettier formatted parens wrap binary expressions within call expres
 )();
 ```
 
-#### JavaScript: Fix formatting on long named exports ([#6446] by [@sosukesuzuki])
+#### JavaScript: Fix formatting of long named exports ([#6446] by [@sosukesuzuki])
 
-Previously, Prettier formatted long named exports differently than named imports.
+Now, Prettier formats them the same way it formats named imports.
 
+<!-- prettier-ignore -->
 ```js
 // Input
 export { fooooooooooooooooooooooooooooooooooooooooooooooooo } from "fooooooooooooooooooooooooooooo";
@@ -820,7 +798,7 @@ switch (
 }
 ```
 
-#### TypeScript: Keep type parameters inline for a type annotation of variable declaration ([#6467] by [@sosukesuzuki])
+#### TypeScript: Keep type parameters inline for type annotations in variable declarations ([#6467] by [@sosukesuzuki])
 
 <!-- prettier-ignore -->
 ```ts
@@ -836,9 +814,9 @@ const fooooooooooooooo: SomeThing<
 const fooooooooooooooo: SomeThing<boolean> = looooooooooooooooooooooooooooooongNameFunc();
 ```
 
-#### Handlebars: Fix --single-quote option on html attributes ([#6377] by [@dcyriller])
+#### Handlebars: Fix `--single-quote` option on HTML attributes ([#6377] by [@dcyriller])
 
-Previously, the flag was not applied on html attributes.
+Previously, the flag was not applied on HTML attributes.
 
 <!-- prettier-ignore-->
 ```hbs
@@ -852,7 +830,7 @@ Previously, the flag was not applied on html attributes.
 <div class='a-class-name'></div>
 ```
 
-#### TypeScript: sometimes double parentheses around types were removed incorrectly ([#6604] by [@sosukesuzuki])
+#### TypeScript: Sometimes double parentheses around types were removed incorrectly ([#6604] by [@sosukesuzuki])
 
 <!-- prettier-ignore -->
 ```ts
@@ -875,7 +853,7 @@ type C = (number | string)["toString"];
 type D = (keyof T1)["foo"];
 ```
 
-#### JavaScript: Support formatting code with V8 intrinsics. ([#6496] by [@rreverser])
+#### JavaScript: Support formatting code with V8 intrinsics ([#6496] by [@rreverser])
 
 <!-- prettier-ignore -->
 ```js
@@ -898,7 +876,7 @@ function doSmth() {
 }
 ```
 
-#### TypeScript: sometimes removing parentheses around JSX made the code unparseable ([#6640] by [@sosukesuzuki])
+#### TypeScript: Sometimes removing parentheses around JSX made the code unparseable ([#6640] by [@sosukesuzuki])
 
 <!-- prettier-ignore -->
 ```tsx
@@ -910,6 +888,7 @@ function doSmth() {
 
 // Prettier (master)
 (<a />).toString();
+```
 
 #### JavaScript: Object destructuring in method parameters always broke into multiple lines ([#6646] by [@ericsakmar])
 
@@ -988,25 +967,27 @@ class A {
 [#6234]: https://github.com/prettier/prettier/pull/6234
 [#6236]: https://github.com/prettier/prettier/pull/6236
 [#6270]: https://github.com/prettier/prettier/pull/6270
-[#6289]: https://github.com/prettier/prettier/pull/6289
 [#6284]: https://github.com/prettier/prettier/pull/6284
+[#6289]: https://github.com/prettier/prettier/pull/6289
 [#6301]: https://github.com/prettier/prettier/pull/6301
 [#6307]: https://github.com/prettier/prettier/pull/6307
 [#6332]: https://github.com/prettier/prettier/pull/6332
 [#6340]: https://github.com/prettier/prettier/pull/6340
-[#6412]: https://github.com/prettier/prettier/pull/6412
-[#6423]: https://github.com/prettier/prettier/pull/6423
-[#6420]: https://github.com/prettier/prettier/pull/6420
+[#6377]: https://github.com/prettier/prettier/pull/6377
+[#6381]: https://github.com/prettier/prettier/pull/6381
+[#6404]: https://github.com/prettier/prettier/pull/6404
 [#6411]: https://github.com/prettier/prettier/pull/6411
+[#6412]: https://github.com/prettier/prettier/pull/6412
+[#6420]: https://github.com/prettier/prettier/pull/6420
+[#6423]: https://github.com/prettier/prettier/pull/6423
 [#6438]: https://github.com/prettier/prettier/pull/6411
 [#6441]: https://github.com/prettier/prettier/pull/6441
 [#6446]: https://github.com/prettier/prettier/pull/6446
+[#6467]: https://github.com/prettier/prettier/pull/6467
+[#6496]: https://github.com/prettier/prettier/pull/6496
 [#6506]: https://github.com/prettier/prettier/pull/6506
 [#6514]: https://github.com/prettier/prettier/pull/6514
-[#6467]: https://github.com/prettier/prettier/pull/6467
-[#6377]: https://github.com/prettier/prettier/pull/6377
 [#6604]: https://github.com/prettier/prettier/pull/6604
-[#6496]: https://github.com/prettier/prettier/pull/6496
 [#6605]: https://github.com/prettier/prettier/pull/6605
 [#6640]: https://github.com/prettier/prettier/pull/6640
 [#6646]: https://github.com/prettier/prettier/pull/6646
@@ -1021,3 +1002,5 @@ class A {
 [@dcyriller]: https://github.com/dcyriller
 [@rreverser]: https://github.com/RReverser
 [@ericsakmar]: https://github.com/ericsakmar
+[@squidfunk]: https://github.com/squidfunk
+[@vjeux]: https://github.com/vjeux
