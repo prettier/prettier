@@ -3632,14 +3632,8 @@ function printPropertyKey(path, options, print) {
 function printMethod(path, options, print) {
   const node = path.getNode();
   const kind = node.kind;
+  const value = node.value || node;
   const parts = [];
-
-  const value =
-    node.type === "ObjectMethod" ||
-    node.type === "ClassMethod" ||
-    node.type === "ClassPrivateMethod"
-      ? node
-      : node.value;
 
   if (!kind || kind === "init" || kind === "method" || kind === "constructor") {
     if (value.async) {
@@ -3656,6 +3650,7 @@ function printMethod(path, options, print) {
 
   parts.push(
     printPropertyKey(path, options, print),
+    node.optional || node.key.optional ? "?" : "",
     node === value
       ? printMethodInternal(path, options, print)
       : path.call(path => printMethodInternal(path, options, print), "value")
@@ -4592,7 +4587,12 @@ function printClass(path, options, print) {
 
 function printOptionalToken(path) {
   const node = path.getValue();
-  if (!node.optional) {
+  if (
+    !node.optional ||
+    // It's an optional computed method parsed by typescript-estree.
+    // "?" is printed in `printMethod`.
+    (node.type === "Identifier" && node === path.getParentNode().key)
+  ) {
     return "";
   }
   if (
