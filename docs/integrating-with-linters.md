@@ -64,6 +64,12 @@ Then in `.eslintrc.json`:
 }
 ```
 
+Please note that `eslint-plugin-prettier` does not install Prettier or ESLint for you. You must install these yourself:
+
+```bash
+npm i --save-dev prettier eslint
+```
+
 ## TSLint
 
 ### Disable formatting rules
