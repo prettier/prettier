@@ -975,9 +975,9 @@
   dependencies:
     "@types/yargs-parser" "*"
 
-"@typescript-eslint/typescript-estree@fisker/typescript-estree-for-node-6#8ff47e7f42bcf4cb41f96c7d0dfe972e77f6f3e1":
+"@typescript-eslint/typescript-estree@fisker/typescript-estree-for-node-6#9d59ec8e0a8204819d0822b6fac136fda6d3f339":
   version "2.4.0"
-  resolved "https://codeload.github.com/fisker/typescript-estree-for-node-6/tar.gz/8ff47e7f42bcf4cb41f96c7d0dfe972e77f6f3e1"
+  resolved "https://codeload.github.com/fisker/typescript-estree-for-node-6/tar.gz/9d59ec8e0a8204819d0822b6fac136fda6d3f339"
 
 "@webassemblyjs/ast@1.8.5":
   version "1.8.5"
