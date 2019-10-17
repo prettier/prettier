@@ -44,6 +44,42 @@ const link = <a href="example.com">http://example.com</a>;
 
 -->
 
+#### JavaScript: add support for PartialApplication ([#6397] by [@JounQin])
+
+Previous versions would not be able to format this syntax, this has been fixed in this version.
+
+<!-- prettier-ignore -->
+```js
+const addOne = add(1, ?); // apply from the left
+addOne(2); // 3
+
+const addTen = add(?, 10); // apply from the right
+addTen(2); // 12
+
+// with pipeline
+let newScore = player.score
+  |> add(7, ?)
+  |> clamp(0, 100, ?); // shallow stack, the pipe to `clamp` is the same frame as the pipe to `add`.
+
+// Output (Prettier stable)
+SyntaxError: Unexpected token (1:23)
+> 1 | const addOne = add(1, ?); // apply from the left
+    |                       ^
+  2 | addOne(2); // 3
+  3 |
+  4 | const addTen = add(?, 10); // apply from the right
+
+// Output (Prettier master)
+const addOne = add(1, ?); // apply from the left
+addOne(2); // 3
+
+const addTen = add(?, 10); // apply from the right
+addTen(2); // 12
+
+// with pipeline
+let newScore = player.score |> add(7, ?) |> clamp(0, 100, ?); // shallow stack, the pipe to \`clamp\` is the same frame as the pipe to \`add\`.
+```
+
 #### JavaScript: More readable parentheses for new-call ([#6412] by [@bakkot])
 
 <!-- prettier-ignore -->
@@ -995,6 +1031,7 @@ class A {
 [#6340]: https://github.com/prettier/prettier/pull/6340
 [#6377]: https://github.com/prettier/prettier/pull/6377
 [#6381]: https://github.com/prettier/prettier/pull/6381
+[#6397]: https://github.com/prettier/prettier/pull/6397
 [#6404]: https://github.com/prettier/prettier/pull/6404
 [#6411]: https://github.com/prettier/prettier/pull/6411
 [#6412]: https://github.com/prettier/prettier/pull/6412

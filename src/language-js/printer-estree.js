@@ -3506,6 +3506,9 @@ function printPathNoParens(path, options, print, args) {
         " as ",
         path.call(print, "alias")
       ]);
+
+    case "ArgumentPlaceholder":
+      return "?";
     default:
       /* istanbul ignore next */
       throw new Error("unknown type: " + JSON.stringify(n.type));
