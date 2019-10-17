@@ -958,6 +958,26 @@ class A {
 }
 ```
 
+#### TypeScript: Fix optional computed methods ([#6673] by [@thorn0])
+
+<!-- prettier-ignore -->
+```ts
+// Input
+class A {
+  protected [s]?() {}
+}
+
+// Output (Prettier stable)
+class A {
+  protected [s?]() {}
+}
+
+// Output (Prettier master)
+class A {
+  protected [s]?() {}
+}
+```
+
 [#5910]: https://github.com/prettier/prettier/pull/5910
 [#6033]: https://github.com/prettier/prettier/pull/6033
 [#6186]: https://github.com/prettier/prettier/pull/6186
@@ -991,6 +1011,7 @@ class A {
 [#6605]: https://github.com/prettier/prettier/pull/6605
 [#6640]: https://github.com/prettier/prettier/pull/6640
 [#6646]: https://github.com/prettier/prettier/pull/6646
+[#6673]: https://github.com/prettier/prettier/pull/6673
 [@brainkim]: https://github.com/brainkim
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
