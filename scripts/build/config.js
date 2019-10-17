@@ -47,7 +47,8 @@ const parsers = [
         "@microsoft/typescript-etw",
         // TODO: fix deps bellow
         // when `@typescript-eslint/typescript-estree` is not installing from 'fisker/typescript-estree-for-node-6'
-        "fsevents"
+        "fsevents",
+        "chokidar"
       ]
     }
   },

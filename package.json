@@ -19,7 +19,7 @@
     "@babel/parser": "7.6.3",
     "@glimmer/syntax": "0.41.0",
     "@iarna/toml": "2.2.3",
-    "@typescript-eslint/typescript-estree": "fisker/typescript-estree-for-node-6#9f40c3fa1659322e8681dda62f181ff9d0c74acf",
+    "@typescript-eslint/typescript-estree": "fisker/typescript-estree-for-node-6#33b924d0bc575af319180abae2b01ad4ef667ba3",
     "angular-estree-parser": "1.1.5",
     "angular-html-parser": "1.2.0",
     "camelcase": "5.3.1",
