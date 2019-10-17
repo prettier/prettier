@@ -44,7 +44,10 @@ const parsers = [
     commonjs: {
       ignore: [
         // Optional package for TypeScript that logs ETW events (a Windows-only technology).
-        "@microsoft/typescript-etw"
+        "@microsoft/typescript-etw",
+        // TODO: fix deps bellow
+        // when `@typescript-eslint/typescript-estree` is not installing from 'fisker/typescript-estree-for-node-6'
+        "fsevents"
       ]
     }
   },
