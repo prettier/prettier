@@ -156,6 +156,7 @@
         "ikatyang",
         "Ilya",
         "impltype",
+        "importee",
         "importmap",
         "indentable",
         "indexof",
@@ -302,6 +303,7 @@
         "ruleset",
         "Sapegin",
         "sbdchd",
+        "schemastore",
         "serializer",
         "setlocal",
         "shellscape",
@@ -343,6 +345,7 @@
         "TSAs",
         "tsep",
         "Typeahead",
+        "typecasted",
         "typeof",
         "udbff",
         "udfff",
@@ -387,6 +390,7 @@
     "ignoreRegExpList": [
         "<!-- prettier-ignore -->\\n(`{3,})\\w*\\n[\\s\\S]+?\\1",
         "\\[@\\w+?\\]",
+        "\\[`\\w+`\\]",
         "ve+r+y+(long\\w+)?"
     ]
 }
