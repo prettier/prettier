@@ -2045,11 +2045,9 @@ singleQuote: false
 
 <SuspendyTree>
   <div style={{ height: 200, overflow: "scroll" }}>
-    {Array(20)
-      .fill()
-      .map((_, i) => (
-        <h2 key={i}>{i + 1}</h2>
-      ))}
+    {Array(20).fill().map((_, i) => (
+      <h2 key={i}>{i + 1}</h2>
+    ))}
   </div>
 </SuspendyTree>;
 
@@ -2333,11 +2331,9 @@ singleQuote: false
 
 <SuspendyTree>
   <div style={{ height: 200, overflow: "scroll" }}>
-    {Array(20)
-      .fill()
-      .map((_, i) => (
-        <h2 key={i}>{i + 1}</h2>
-      ))}
+    {Array(20).fill().map((_, i) => (
+      <h2 key={i}>{i + 1}</h2>
+    ))}
   </div>
 </SuspendyTree>;
 
@@ -2621,11 +2617,9 @@ singleQuote: true
 
 <SuspendyTree>
   <div style={{ height: 200, overflow: 'scroll' }}>
-    {Array(20)
-      .fill()
-      .map((_, i) => (
-        <h2 key={i}>{i + 1}</h2>
-      ))}
+    {Array(20).fill().map((_, i) => (
+      <h2 key={i}>{i + 1}</h2>
+    ))}
   </div>
 </SuspendyTree>;
 
@@ -2909,11 +2903,9 @@ singleQuote: true
 
 <SuspendyTree>
   <div style={{ height: 200, overflow: 'scroll' }}>
-    {Array(20)
-      .fill()
-      .map((_, i) => (
-        <h2 key={i}>{i + 1}</h2>
-      ))}
+    {Array(20).fill().map((_, i) => (
+      <h2 key={i}>{i + 1}</h2>
+    ))}
   </div>
 </SuspendyTree>;
 

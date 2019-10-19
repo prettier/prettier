@@ -5123,14 +5123,27 @@ function printMemberChain(path, options, print) {
     .map(({ node }) => node)
     .filter(isCallOrOptionalCallExpression);
 
-  // We don't want to print in one line if there's:
+  // We don't want to print in one line if the chain has:
   //  * A comment.
-  //  * 3 or more chained calls.
+  //  * Two or more calls, with some non-trivial arguments.
   //  * Any group but the last one has a hard line.
   // If the last group is a function it's okay to inline if it fits.
   if (
     hasComment ||
-    callExpressions.length >= 3 ||
+    (callExpressions.length >= 2 &&
+      callExpressions.slice(0, -1).some(expr =>
+        expr.arguments.some(arg => {
+          if (isFunctionOrArrowExpression(arg)) {
+            return true;
+          }
+          const code = options.originalText.slice(
+            options.locStart(arg),
+            options.locEnd(arg)
+          );
+          const simple = code.match(/^[\w\.\[\]"'`, ]+$/);
+          return !simple;
+        })
+      )) ||
     printedGroups.slice(0, -1).some(willBreak) ||
     /**
      *     scopes.filter(scope => scope.value !== '').map((scope, i) => {
