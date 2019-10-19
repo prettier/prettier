@@ -3876,7 +3876,7 @@ function printArgumentsList(path, options, print) {
   //     b
   //   }) => {}
   // );
-  function shouldBreakForArrowFunctionInArgments(arg, argPath) {
+  function shouldBreakForArrowFunctionInArguments(arg, argPath) {
     if (
       !arg ||
       arg.type !== "ArrowFunctionExpression" ||
@@ -3918,7 +3918,7 @@ function printArgumentsList(path, options, print) {
       parts.push(",", line);
     }
 
-    shouldBreakForArrowFunction = shouldBreakForArrowFunctionInArgments(
+    shouldBreakForArrowFunction = shouldBreakForArrowFunctionInArguments(
       arg,
       argPath
     );
