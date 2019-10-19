@@ -122,3 +122,7 @@ it('gets triggered by mouseenter', () => {
   const wrapper = shallow(<CalendarDay />);
   wrapper.dive().find(Button).prop();
 });
+
+x.a(true).b(null).c(123)
+x.d('').e(``).f(g)
+x.h(i.j).k(l()).m([n, o]);

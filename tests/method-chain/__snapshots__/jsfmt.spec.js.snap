@@ -831,6 +831,10 @@ it('gets triggered by mouseenter', () => {
   wrapper.dive().find(Button).prop();
 });
 
+x.a(true).b(null).c(123)
+x.d('').e(\`\`).f(g)
+x.h(i.j).k(l()).m([n, o]);
+
 =====================================output=====================================
 // examples from https://github.com/prettier/prettier/issues/4125
 
@@ -968,6 +972,10 @@ it("gets triggered by mouseenter", () => {
   const wrapper = shallow(<CalendarDay />);
   wrapper.dive().find(Button).prop();
 });
+
+x.a(true).b(null).c(123);
+x.d("").e(\`\`).f(g);
+x.h(i.j).k(l()).m([n, o]);
 
 ================================================================================
 `;

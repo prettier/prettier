@@ -5176,6 +5176,9 @@ function isSimple(node) {
   ) {
     return true;
   }
+  if (node.type === "TemplateLiteral" && node.expressions.length === 0) {
+    return true;
+  }
   if (node.type === "ArrayExpression") {
     return node.elements.every(isSimple);
   }
