@@ -5140,7 +5140,7 @@ function printMemberChain(path, options, print) {
             options.locStart(arg),
             options.locEnd(arg)
           );
-          const simple = code.match(/^[\w\.\[\]"'`, ]+$/);
+          const simple = code.match(/^[\w.[\]"'`, ]+$/);
           return !simple;
         })
       )) ||
