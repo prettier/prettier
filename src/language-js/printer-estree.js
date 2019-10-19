@@ -5165,22 +5165,22 @@ function printMemberChain(path, options, print) {
  * @returns {boolean}
  */
 function isSimple(node) {
-  if (node.type === "Literal") {
-    return true;
-  }
-  if (node.type === "TemplateLiteral" && node.expressions.length === 0) {
-    return true;
-  }
-  if (node.type === "Identifier") {
+  if (
+    !node ||
+    node.type === "Literal" ||
+    node.type === "BooleanLiteral" ||
+    node.type === "NullLiteral" ||
+    node.type === "NumericLiteral" ||
+    node.type === "StringLiteral" ||
+    node.type === "Identifier"
+  ) {
     return true;
   }
   if (node.type === "ArrayExpression") {
     return node.elements.every(isSimple);
   }
   if (node.type === "CallExpression") {
-    return (
-      node.arguments.every(isSimple) && (!node.callee || isSimple(node.callee))
-    );
+    return isSimple(node.callee) && node.arguments.every(isSimple);
   }
   if (node.type === "MemberExpression") {
     return isSimple(node.object) && isSimple(node.property);
