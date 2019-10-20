@@ -11,6 +11,17 @@ exports[`format correctly if stdin content compatible with stdin-filepath (stdou
 
 exports[`format correctly if stdin content compatible with stdin-filepath (write) 1`] = `Array []`;
 
+exports[`gracefully handle stdin-filepath with nonexistent directory (stderr) 1`] = `""`;
+
+exports[`gracefully handle stdin-filepath with nonexistent directory (stdout) 1`] = `
+".name {
+  display: none;
+}
+"
+`;
+
+exports[`gracefully handle stdin-filepath with nonexistent directory (write) 1`] = `Array []`;
+
 exports[`output file as-is if stdin-filepath matched patterns in ignore-path (stderr) 1`] = `""`;
 
 exports[`output file as-is if stdin-filepath matched patterns in ignore-path (write) 1`] = `Array []`;

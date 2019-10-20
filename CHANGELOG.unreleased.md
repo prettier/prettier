@@ -1081,6 +1081,10 @@ sometimes{{nogaps}}areimportant
 {{name}} is your name
 ```
 
+#### CLI: Gracefully handle nonexistent paths passed to --stdin-filepath ([#6687] by [@voithos])
+
+Previously, if you passed a nonexistent subdirectory to --stdin-filepath, prettier would throw an error. Now, it will gracefully handle this, using the path name as information for its configuration.
+
 [#5910]: https://github.com/prettier/prettier/pull/5910
 [#6033]: https://github.com/prettier/prettier/pull/6033
 [#6186]: https://github.com/prettier/prettier/pull/6186
@@ -1117,6 +1121,7 @@ sometimes{{nogaps}}areimportant
 [#6646]: https://github.com/prettier/prettier/pull/6646
 [#6673]: https://github.com/prettier/prettier/pull/6673
 [#6382]: https://github.com/prettier/prettier/pull/6382
+[#6687]: https://github.com/prettier/prettier/pull/6687
 [@brainkim]: https://github.com/brainkim
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
@@ -1132,3 +1137,4 @@ sometimes{{nogaps}}areimportant
 [@vjeux]: https://github.com/vjeux
 [@selvazhagan]: https://github.com/selvazhagan
 [@chadian]: https://github.com/chadian
+[@voithos]: https://github.com/voithos
