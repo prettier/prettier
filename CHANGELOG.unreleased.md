@@ -1014,6 +1014,10 @@ class A {
 }
 ```
 
+#### Website: Fix tooltip being hidden behind browser scrollbars ([#6688] by [@mrseanbaines])
+
+Fixes an issue where the tooltip above the buttons in the footer of the playground would be hidden behind the browser's scrollbars.
+
 [#5910]: https://github.com/prettier/prettier/pull/5910
 [#6033]: https://github.com/prettier/prettier/pull/6033
 [#6186]: https://github.com/prettier/prettier/pull/6186
@@ -1049,6 +1053,7 @@ class A {
 [#6640]: https://github.com/prettier/prettier/pull/6640
 [#6646]: https://github.com/prettier/prettier/pull/6646
 [#6673]: https://github.com/prettier/prettier/pull/6673
+[#6688]: https://github.com/prettier/prettier/pull/6688
 [@brainkim]: https://github.com/brainkim
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
@@ -1062,3 +1067,4 @@ class A {
 [@ericsakmar]: https://github.com/ericsakmar
 [@squidfunk]: https://github.com/squidfunk
 [@vjeux]: https://github.com/vjeux
+[@mrseanbaines]: https://github.com/mrseanbaines
