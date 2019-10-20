@@ -5132,7 +5132,7 @@ function printMemberChain(path, options, print) {
     hasComment ||
     callExpressions
       .slice(0, -1)
-      .some(expr => expr.arguments.some(arg => !isSimple(arg))) ||
+      .some(expr => !expr.arguments.every(isSimple)) ||
     printedGroups.slice(0, -1).some(willBreak) ||
     /**
      *     scopes.filter(scope => scope.value !== '').map((scope, i) => {
