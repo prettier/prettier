@@ -157,10 +157,6 @@ header h1 {
   float: left;
 }
 
-.bottom-bar-buttons .btn {
-  z-index: 6;
-}
-
 .bottom-bar-buttons-right {
   float: right;
 }
