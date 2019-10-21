@@ -30,6 +30,7 @@ printWidth: 80
 <div class="hello {{if goodbye true}}">
   Hello
 </div>
+
 <div
   class="hello
     {{if goodbye true}}
@@ -44,7 +45,9 @@ printWidth: 80
 >
   Hello
 </div>
+
 <a href="/{{url}}/{{url}}"></a>
+
 <div class="class-a{{myClass}}"></div>
 <div class="class-b {{myClass}}"></div>
 <div class="{{myClass}}class-c"></div>
@@ -89,6 +92,7 @@ singleQuote: true
 <div class="hello {{if goodbye true}}">
   Hello
 </div>
+
 <div
   class="hello
     {{if goodbye true}}
@@ -103,7 +107,9 @@ singleQuote: true
 >
   Hello
 </div>
+
 <a href="/{{url}}/{{url}}"></a>
+
 <div class="class-a{{myClass}}"></div>
 <div class="class-b {{myClass}}"></div>
 <div class="{{myClass}}class-c"></div>

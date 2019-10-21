@@ -28,6 +28,7 @@ printWidth: 80
     </div>
   </div>
 </script>
+
 <div class="{{hello}} {{world}}"></div>
 ================================================================================
 `;
@@ -61,6 +62,7 @@ singleQuote: true
     </div>
   </div>
 </script>
+
 <div class="{{hello}} {{world}}"></div>
 ================================================================================
 `;
@@ -99,28 +101,33 @@ printWidth: 80
 
 =====================================output=====================================
 <UserGreeting @name="Ricardo" @greeting="Olá" />
-{{@greeting}}
-,
-{{@name}}
-!
+{{@greeting}}, {{@name}}!
+
 <div>
   <UserGreeting
     @aVeryLongArgumentNameThatIsStillGoing={{@alsoAVeryLongArgument}}
   />
 </div>
+
 <Form as |f|>
   <f.input @title="hello" />
   <f.input>
     hello
   </f.input>
 </Form>
+
 <this.label @title="hello" />
+
 <button onclick={{action next}}>
   Next
 </button>
+
 <button disabled class="disabled"></button>
+
 <button disabled="disabled" class="disabled"></button>
+
 <img alt="" />
+
 <div ...attributes>
   Hello
 </div>
@@ -162,28 +169,33 @@ singleQuote: true
 
 =====================================output=====================================
 <UserGreeting @name='Ricardo' @greeting='Olá' />
-{{@greeting}}
-,
-{{@name}}
-!
+{{@greeting}}, {{@name}}!
+
 <div>
   <UserGreeting
     @aVeryLongArgumentNameThatIsStillGoing={{@alsoAVeryLongArgument}}
   />
 </div>
+
 <Form as |f|>
   <f.input @title='hello' />
   <f.input>
     hello
   </f.input>
 </Form>
+
 <this.label @title='hello' />
+
 <button onclick={{action next}}>
   Next
 </button>
+
 <button disabled class='disabled'></button>
+
 <button disabled='disabled' class='disabled'></button>
+
 <img alt='' />
+
 <div ...attributes>
   Hello
 </div>
@@ -264,6 +276,7 @@ printWidth: 80
   <h2>
     By {{author.name}}
   </h2>
+
   <div class="body">
     {{body}}
   </div>
@@ -295,6 +308,7 @@ singleQuote: true
   <h2>
     By {{author.name}}
   </h2>
+
   <div class='body'>
     {{body}}
   </div>

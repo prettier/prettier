@@ -36,10 +36,12 @@ printWidth: 40
 =====================================output=====================================
 {{! after }}
 <span>
-  foo<span>
+  foo
+  <span>
     bar
   </span>
 </span>
+
 {{! before }}
 <span>
   <span>
@@ -47,17 +49,21 @@ printWidth: 40
   </span>
   foo
 </span>
+
 {{! within }}
 <span>
-  foo<span>
+  foo
+  <span>
     bar
   </span>
 </span>
+
 {{! break components }}
 <div>
   <SuperSelect>
     <p>
-      foo<span>
+      foo
+      <span>
         bar bar bar
       </span>
     </p>
@@ -73,10 +79,13 @@ printWidth: 40
     nope
   </h2>
 </div>
+
 <div>
-  hello<strong>
+  hello
+  <strong>
     hi
   </strong>
+
   <foo>
     sdkflsdfjk
   </foo>
@@ -110,31 +119,27 @@ hey
 =====================================output=====================================
 <p>
   Hi {{firstName}} {{lastName
-  }}, welcome!
+  }} , welcome!
 </p>
 {{#component propA}}
-  for{{propB}}do{{propC}}f
+  for {{propB}} do {{propC}} f
 {{/component}}
 {{#component propA}}
-  for
-  {{propB}}
+  for {{propB}}
   <span>
     name
   </span>
-  do
-  {{propC}}
-  f
+  do {{propC}} f
 {{/component}}
-{{propA}}
-{{propB}}
-{{propC}}
-{{propD}}
+{{propA}} {{propB}}
+{{propC}}{{propD}}
 <span>
   {{propE}} {{propF}}
 </span>
 <span>
   {{propG}}{{propH}}
 </span>
+
 hey
 ================================================================================
 `;
@@ -294,22 +299,22 @@ conubia nostra, per inceptos himenaeos. Donec in ornare velit.</p>
 vestibulum facilisis in porta turpis. Ut faucibus lectus sit amet urna consectetur dignissim.
 Sam vitae neque quis ex dapibus faucibus at sed ligula. Nulla sit amet aliquet nibh.
 Vestibulum at congue mi. Suspendisse vitae odio vitae massa hendrerit mattis sed eget dui.
-Sed eu scelerisque neque. Donec<b
-  >
+Sed eu scelerisque neque. Donec
+  <b>
     maximus
   </b>
   rhoncus pellentesque. Aenean purus turpis, vehicula 
 euismod ante vel, ultricies eleifend dui. Class aptent taciti sociosqu ad litora torquent per 
 conubia nostra, per inceptos himenaeos. Donec in ornare velit.
 </p>
+
 <p>
   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce cursus massa vel augue 
 vestibulum facilisis in porta turpis. Ut faucibus lectus sit amet urna consectetur dignissim.
 Sam vitae neque quis ex dapibus faucibus at sed ligula. Nulla sit amet aliquet nibh.
 Vestibulum at congue mi. Suspendisse vitae odio vitae massa hendrerit mattis sed eget dui.
-Sed eu scelerisque neque. Donec<a
-    href="#"
-  >
+Sed eu scelerisque neque. Donec
+  <a href="#">
     <b>
       maximus
     </b>
@@ -365,10 +370,10 @@ printWidth: 40
   This is your name: {{name}}.
 </span>
 <span>
-  This is your name: {{name}}(employee)
+  This is your name: {{name}} (employee)
 </span>
 <span>
-  This is your name: {{name}}({{role}})
+  This is your name: {{name}} ({{role}})
 </span>
 ================================================================================
 `;
@@ -410,6 +415,7 @@ printWidth: 40
 <span>
   123
 </span>
+
 <div>
   123
 </div>
@@ -468,40 +474,44 @@ printWidth: 40
     </tr>
   </thead>
 </table>
-<table>
-  <thead>
-    <tr>
-      <th>
-        A
-      </th>
-      <th>
-        B
-      </th>
-      <th>
-        C
-      </th>
-    </tr>
-  </thead>
-</table>
-<table>
-  <thead>
-    <tr>
-      <th>
-        A
-      </th>
-      <th>
-        B
-      </th>
-      <th>
-        C
-      </th>
-    </tr>
-  </thead>
-</table>
-<table>
-  <thead>
-    <tr>
 
+<table>
+  <thead>
+    <tr>
+      <th>
+        A
+      </th>
+      <th>
+        B
+      </th>
+      <th>
+        C
+      </th>
+    </tr>
+  </thead>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th>
+        A
+      </th>
+
+      <th>
+        B
+      </th>
+
+      <th>
+        C
+      </th>
+    </tr>
+  </thead>
+</table>
+
+<table>
+  <thead>
+    <tr>
     </tr>
   </thead>
 </table>
