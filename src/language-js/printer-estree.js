@@ -390,8 +390,8 @@ function printTernaryOperator(path, options, print, operatorOptions) {
     !jsxMode &&
     (parent.type === "MemberExpression" ||
       parent.type === "OptionalMemberExpression" ||
-      ((parent.type === "NGPipeExpression" ||
-        parent.type === "BinaryExpression") &&
+      (isBinaryish(parent) &&
+        parent.left === node &&
         operatorOptions.breakNested)) &&
     !parent.computed;
 
