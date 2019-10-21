@@ -64,6 +64,7 @@ const {
   isFunctionNotation,
   isFunctionOrArrowExpression,
   isGetterOrSetter,
+  isJestEachFunctionCall,
   isJestEachTemplateLiteral,
   isJSXNode,
   isJSXWhitespaceExpression,
@@ -1514,6 +1515,24 @@ function printPathNoParens(path, options, print, args) {
         const needsForcedTrailingComma =
           canHaveTrailingComma && lastElem === null;
 
+        const parent = path.getParentNode();
+        // test.only.each([
+        //   [1, 1, 2],
+        //   [1, 2, 3],
+        //   [2, 1, 3]
+        // ])(".add(%i, %i)", (a, b, expected) => {
+        //   expect(a + b).toBe(expected);
+        // });
+        const shouldBreak =
+          isJestEachFunctionCall(parent) &&
+          n.elements &&
+          n.elements.length &&
+          hasNewlineInRange(
+            options.originalText,
+            options.locStart(n.elements[0]),
+            options.locEnd(n.elements[n.elements.length - 1])
+          );
+
         parts.push(
           group(
             concat([
@@ -1539,7 +1558,8 @@ function printPathNoParens(path, options, print, args) {
               ),
               softline,
               "]"
-            ])
+            ]),
+            { shouldBreak }
           )
         );
       }
