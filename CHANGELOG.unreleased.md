@@ -1014,7 +1014,7 @@ class A {
 }
 ```
 
-#### JavaScript, Angular: Put a closing parenthesis onto a new line after ternaries in binary expressions ([#5682] by [@selvazhagan])
+#### Angular: Put a closing parenthesis onto a new line after ternaries passed to pipes ([#5682] by [@selvazhagan])
 
 <!-- prettier-ignore -->
 ```js
