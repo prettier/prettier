@@ -119,6 +119,13 @@ const {
 
 let uid = 0;
 
+// If clients have a large tab setting (usually 4 spaces), then certain
+// indentation points can detract from the reading experience. Use this
+// function to use an indent only if it is small.
+function indentIfSmallTab(options, content) {
+  return options.tabWidth <= 2 ? indent(content) : content;
+}
+
 function shouldPrintComma(options, level) {
   level = level || "es5";
 
@@ -1999,7 +2006,8 @@ function printPathNoParens(path, options, print, args) {
         ),
         " {",
         n.cases.length > 0
-          ? indent(
+          ? indentIfSmallTab(
+              options,
               concat([
                 hardline,
                 join(
@@ -4920,7 +4928,8 @@ function printMemberChain(path, options, print) {
     if (groups.length === 0) {
       return "";
     }
-    return indent(
+    return indentIfSmallTab(
+      options,
       group(concat([hardline, join(hardline, groups.map(printGroup))]))
     );
   }
