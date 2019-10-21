@@ -391,7 +391,7 @@ function printTernaryOperator(path, options, print, operatorOptions) {
     (parent.type === "MemberExpression" ||
       parent.type === "OptionalMemberExpression" ||
       ((parent.type === "NGPipeExpression" ||
-        (parent.type === "BinaryExpression" && parent.operator === "|")) &&
+        parent.type === "BinaryExpression") &&
         operatorOptions.breakNested)) &&
     !parent.computed;
 

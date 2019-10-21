@@ -1783,7 +1783,8 @@ const foo = (
         ? "-record"
         : medals[0].unique
         ? "-unique"
-        : medals[0].type)
+        : medals[0].type
+      )
     }
   >
     {medals[0].record
@@ -1987,7 +1988,8 @@ const foo = (
                 ? "-record"
                 : medals[0].unique
                 ? "-unique"
-                : medals[0].type)
+                : medals[0].type
+            )
         }
     >
         {medals[0].record
@@ -2191,7 +2193,8 @@ const foo = (
 				? "-record"
 				: medals[0].unique
 				? "-unique"
-				: medals[0].type)
+				: medals[0].type
+			)
 		}
 	>
 		{medals[0].record
@@ -2396,7 +2399,8 @@ const foo = (
 				? "-record"
 				: medals[0].unique
 				? "-unique"
-				: medals[0].type)
+				: medals[0].type
+			)
 		}
 	>
 		{medals[0].record
