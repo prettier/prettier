@@ -1918,10 +1918,10 @@ code-point-at@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/code-point-at/-/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
 
-codemirror-graphql@0.11.1:
-  version "0.11.1"
-  resolved "https://registry.yarnpkg.com/codemirror-graphql/-/codemirror-graphql-0.11.1.tgz#8a2fa91f63c6012cd2f333224b8b3cfa3a62ffe4"
-  integrity sha512-3KZRy8lssRevR7HO/yefSHLW94xJNbHYS17ocRuuu4xzQh8ttnrZuoP83WZ7seDCc1+LCuU8cqAkj7xVy9lJVg==
+codemirror-graphql@0.11.2:
+  version "0.11.2"
+  resolved "https://registry.yarnpkg.com/codemirror-graphql/-/codemirror-graphql-0.11.2.tgz#d9960a7bb9956485911172af3245fa245219f544"
+  integrity sha512-T5nvjBex1qS6wi87mbOa0x+ZHGoDvzbztlLICpLmgXzARI3kfWZ+UfTbc0rKzFVZN6LrfFD1bQxSc0bA29uL/g==
   dependencies:
     graphql-language-service-interface "^2.3.0"
     graphql-language-service-parser "^1.5.0"
