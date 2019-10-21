@@ -1017,18 +1017,18 @@ class A {
 #### Angular: Put a closing parenthesis onto a new line after ternaries passed to pipes ([#5682] by [@selvazhagan])
 
 <!-- prettier-ignore -->
-```js
-// Input
+```html
+<!-- Input -->
 {{ (isCustomDiscount ? 'DISCOUNTS__DISCOUNT_TRAINING_HEADER__CUSTOM_DISCOUNT' : 'DISCOUNTS__DISCOUNT_TRAINING_HEADER__DISCOUNT') | translate }}
 
-// Output (Prettier stable)
+<!-- Output (Prettier stable) -->
 {{
   (isCustomDiscount
     ? "DISCOUNTS__DISCOUNT_TRAINING_HEADER__CUSTOM_DISCOUNT"
     : "DISCOUNTS__DISCOUNT_TRAINING_HEADER__DISCOUNT") | translate
 }}
 
-// Output (Prettier master)
+<!-- Output (Prettier master) -->
 {{
   (isCustomDiscount
     ? "DISCOUNTS__DISCOUNT_TRAINING_HEADER__CUSTOM_DISCOUNT"
