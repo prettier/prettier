@@ -3879,26 +3879,29 @@ function printArgumentsList(path, options, print) {
   //     b
   //   }) => {}
   // );
-  function hasEmptyLineInObjectArgInArrowFunction(arg) {
-    return (
-      arg &&
-      arg.type === "ArrowFunctionExpression" &&
-      arg.params &&
-      arg.params.some(
-        param =>
-          param.type &&
-          param.type === "ObjectPattern" &&
-          param.properties &&
-          param.properties.some(
-            (property, i, properties) =>
-              i < properties.length - 1 &&
-              isNextLineEmpty(options.originalText, property, options)
-          )
-      )
-    );
+  function shouldBreakForArrowFunctionInArguments(arg, argPath) {
+    if (
+      !arg ||
+      arg.type !== "ArrowFunctionExpression" ||
+      !arg.body ||
+      arg.body.type !== "BlockStatement" ||
+      !arg.params ||
+      arg.params.length < 1
+    ) {
+      return false;
+    }
+
+    let shouldBreak = false;
+    argPath.each(paramPath => {
+      const printed = concat([print(paramPath)]);
+      shouldBreak = shouldBreak || willBreak(printed);
+    }, "params");
+
+    return shouldBreak;
   }
 
   let anyArgEmptyLine = false;
+  let shouldBreakForArrowFunction = false;
   let hasEmptyLineFollowingFirstArg = false;
   const lastArgIndex = args.length - 1;
   const printedArguments = path.map((argPath, index) => {
@@ -3918,7 +3921,10 @@ function printArgumentsList(path, options, print) {
       parts.push(",", line);
     }
 
-    anyArgEmptyLine = hasEmptyLineInObjectArgInArrowFunction(arg);
+    shouldBreakForArrowFunction = shouldBreakForArrowFunctionInArguments(
+      arg,
+      argPath
+    );
 
     return concat(parts);
   }, "arguments");
@@ -3953,7 +3959,9 @@ function printArgumentsList(path, options, print) {
     const shouldBreak =
       (shouldGroupFirst
         ? printedArguments.slice(1).some(willBreak)
-        : printedArguments.slice(0, -1).some(willBreak)) || anyArgEmptyLine;
+        : printedArguments.slice(0, -1).some(willBreak)) ||
+      anyArgEmptyLine ||
+      shouldBreakForArrowFunction;
 
     // We want to print the last argument with a special flag
     let printedExpanded;
