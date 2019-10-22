@@ -1082,6 +1082,33 @@ sometimes{{nogaps}}areimportant
 {{name}} is your name
 ```
 
+#### Angular: Add formatting for i18n attributes ([#6695] by [@voithos])
+
+<!-- prettier-ignore -->
+```html
+// Input
+<h1 i18n="This is a very long internationalization description text, exceeding the configured print width">
+  Hello!
+</h1>
+
+// Output (Prettier stable)
+<h1
+  i18n="This is a very long internationalization description text, exceeding the configured print width"
+>
+  Hello!
+</h1>
+
+// Output (Prettier master)
+<h1
+  i18n="
+    This is a very long internationalization description text, exceeding the
+    configured print width
+  "
+>
+  Hello!
+</h1>
+```
+
 [#5682]: https://github.com/prettier/prettier/pull/5682
 [#5910]: https://github.com/prettier/prettier/pull/5910
 [#6033]: https://github.com/prettier/prettier/pull/6033
@@ -1121,6 +1148,7 @@ sometimes{{nogaps}}areimportant
 [#6646]: https://github.com/prettier/prettier/pull/6646
 [#6666]: https://github.com/prettier/prettier/pull/6666
 [#6673]: https://github.com/prettier/prettier/pull/6673
+[#6695]: https://github.com/prettier/prettier/pull/6695
 [@brainkim]: https://github.com/brainkim
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
@@ -1137,3 +1165,4 @@ sometimes{{nogaps}}areimportant
 [@selvazhagan]: https://github.com/selvazhagan
 [@chadian]: https://github.com/chadian
 [@kaicataldo]: https://github.com/kaicataldo
+[@voithos]: https://github.com/voithos
