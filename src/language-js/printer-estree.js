@@ -1516,6 +1516,9 @@ function printPathNoParens(path, options, print, args) {
           canHaveTrailingComma && lastElem === null;
 
         const parent = path.getParentNode();
+        // Break array expressions in parameters of jest each function
+        // call expressions.
+        //
         // test.only.each([
         //   [1, 1, 2],
         //   [1, 2, 3],
