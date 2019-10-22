@@ -1090,11 +1090,10 @@ sometimes{{nogaps}}areimportant
 test.each([
   { a: "1", b: 1 },
   { a: "2", b: 2 },
-  { a: "3", b: 3 },
+  { a: "3", b: 3 }
 ])("test", ({ a, b }) => {
-    expect(Number(a)).toBe(b);
-  }
-);
+  expect(Number(a)).toBe(b);
+});
 
 // Output (Prettier stable)
 test.each([{ a: "1", b: 1 }, { a: "2", b: 2 }, { a: "3", b: 3 }])(
@@ -1108,11 +1107,10 @@ test.each([{ a: "1", b: 1 }, { a: "2", b: 2 }, { a: "3", b: 3 }])(
 test.each([
   { a: "1", b: 1 },
   { a: "2", b: 2 },
-  { a: "3", b: 3 },
+  { a: "3", b: 3 }
 ])("test", ({ a, b }) => {
-    expect(Number(a)).toBe(b);
-  }
-);
+  expect(Number(a)).toBe(b);
+});
 ```
 
 [#5682]: https://github.com/prettier/prettier/pull/5682
