@@ -1082,7 +1082,7 @@ sometimes{{nogaps}}areimportant
 {{name}} is your name
 ```
 
-#### JavaScript: Break array expression in jest each function parameters
+#### JavaScript: Break array expression in jest each function parameters([#6694] by [@sosukesuzuki])
 
 <!-- prettier-ignore -->
 ```js
@@ -1154,6 +1154,7 @@ test.each([
 [#6646]: https://github.com/prettier/prettier/pull/6646
 [#6666]: https://github.com/prettier/prettier/pull/6666
 [#6673]: https://github.com/prettier/prettier/pull/6673
+[#6694]: https://github.com/prettier/prettier/pull/6694
 [@brainkim]: https://github.com/brainkim
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
