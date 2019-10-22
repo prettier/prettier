@@ -33,7 +33,7 @@ function getFileInfo(filePath, opts) {
       ignorer,
       filePath: normalizeFilePath(filePath, opts.ignorePath),
       plugins: opts.plugins,
-      useConfig: opts.useConfig,
+      resolveConfig: opts.resolveConfig,
       sync: false
     })
   );
@@ -56,7 +56,7 @@ getFileInfo.sync = function(filePath, opts) {
     ignorer,
     filePath: normalizeFilePath(filePath, opts.ignorePath),
     plugins: opts.plugins,
-    useConfig: opts.useConfig,
+    resolveConfig: opts.resolveConfig,
     sync: true
   });
 };
@@ -65,7 +65,7 @@ function _getFileInfo({
   ignorer,
   filePath,
   plugins,
-  useConfig = false,
+  resolveConfig = false,
   sync = false
 }) {
   const fileInfo = {
@@ -73,7 +73,7 @@ function _getFileInfo({
     inferredParser: options.inferParser(filePath, plugins) || null
   };
 
-  if (!fileInfo.inferredParser && useConfig) {
+  if (!fileInfo.inferredParser && resolveConfig) {
     if (!sync) {
       return config.resolveConfig(filePath).then(resolvedConfig => {
         if (resolvedConfig && resolvedConfig.parser) {

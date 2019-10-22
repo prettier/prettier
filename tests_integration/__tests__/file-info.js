@@ -131,12 +131,12 @@ test("API getFileInfo.sync with filepath only", () => {
   });
 });
 
-test("API getFileInfo with useConfig", () => {
+test("API getFileInfo with resolveConfig", () => {
   const file1 = path.resolve(
-    path.join(__dirname, "../cli/with-use-config/file.foo")
+    path.join(__dirname, "../cli/with-resolve-config/file.foo")
   );
   const file2 = path.resolve(
-    path.join(__dirname, "../cli/with-use-config/file.bar")
+    path.join(__dirname, "../cli/with-resolve-config/file.bar")
   );
 
   expect(prettier.getFileInfo(file1)).resolves.toMatchObject({
@@ -149,7 +149,7 @@ test("API getFileInfo with useConfig", () => {
   });
   expect(
     prettier.getFileInfo(file1, {
-      useConfig: true
+      resolveConfig: true
     })
   ).resolves.toMatchObject({
     ignored: false,
@@ -157,7 +157,7 @@ test("API getFileInfo with useConfig", () => {
   });
   expect(
     prettier.getFileInfo(file2, {
-      useConfig: true
+      resolveConfig: true
     })
   ).resolves.toMatchObject({
     ignored: false,
@@ -165,12 +165,12 @@ test("API getFileInfo with useConfig", () => {
   });
 });
 
-test("API getFileInfo with useConfig when no config is present", () => {
+test("API getFileInfo with resolveConfig when no config is present", () => {
   const file1 = path.resolve(
-    path.join(__dirname, "../cli/with-use-config-no-config/file.foo")
+    path.join(__dirname, "../cli/with-resolve-config-no-config/file.foo")
   );
   const file2 = path.resolve(
-    path.join(__dirname, "../cli/with-use-config-no-config/file.bar")
+    path.join(__dirname, "../cli/with-resolve-config-no-config/file.bar")
   );
 
   expect(prettier.getFileInfo(file1)).resolves.toMatchObject({
@@ -183,7 +183,7 @@ test("API getFileInfo with useConfig when no config is present", () => {
   });
   expect(
     prettier.getFileInfo(file1, {
-      useConfig: true
+      resolveConfig: true
     })
   ).resolves.toMatchObject({
     ignored: false,
@@ -191,7 +191,7 @@ test("API getFileInfo with useConfig when no config is present", () => {
   });
   expect(
     prettier.getFileInfo(file2, {
-      useConfig: true
+      resolveConfig: true
     })
   ).resolves.toMatchObject({
     ignored: false,
@@ -199,12 +199,12 @@ test("API getFileInfo with useConfig when no config is present", () => {
   });
 });
 
-test("API getFileInfo.sync with useConfig", () => {
+test("API getFileInfo.sync with resolveConfig", () => {
   const file1 = path.resolve(
-    path.join(__dirname, "../cli/with-use-config/file.foo")
+    path.join(__dirname, "../cli/with-resolve-config/file.foo")
   );
   const file2 = path.resolve(
-    path.join(__dirname, "../cli/with-use-config/file.bar")
+    path.join(__dirname, "../cli/with-resolve-config/file.bar")
   );
 
   expect(prettier.getFileInfo.sync(file1)).toMatchObject({
@@ -217,7 +217,7 @@ test("API getFileInfo.sync with useConfig", () => {
   });
   expect(
     prettier.getFileInfo.sync(file1, {
-      useConfig: true
+      resolveConfig: true
     })
   ).toMatchObject({
     ignored: false,
@@ -225,7 +225,7 @@ test("API getFileInfo.sync with useConfig", () => {
   });
   expect(
     prettier.getFileInfo.sync(file2, {
-      useConfig: true
+      resolveConfig: true
     })
   ).toMatchObject({
     ignored: false,
@@ -233,12 +233,12 @@ test("API getFileInfo.sync with useConfig", () => {
   });
 });
 
-test("API getFileInfo.sync with useConfig when no config is present", () => {
+test("API getFileInfo.sync with resolveConfig when no config is present", () => {
   const file1 = path.resolve(
-    path.join(__dirname, "../cli/with-use-config-no-config/file.foo")
+    path.join(__dirname, "../cli/with-resolve-config-no-config/file.foo")
   );
   const file2 = path.resolve(
-    path.join(__dirname, "../cli/with-use-config-no-config/file.bar")
+    path.join(__dirname, "../cli/with-resolve-config-no-config/file.bar")
   );
 
   expect(prettier.getFileInfo.sync(file1)).toMatchObject({
@@ -251,7 +251,7 @@ test("API getFileInfo.sync with useConfig when no config is present", () => {
   });
   expect(
     prettier.getFileInfo.sync(file1, {
-      useConfig: true
+      resolveConfig: true
     })
   ).toMatchObject({
     ignored: false,
@@ -259,7 +259,7 @@ test("API getFileInfo.sync with useConfig when no config is present", () => {
   });
   expect(
     prettier.getFileInfo.sync(file2, {
-      useConfig: true
+      resolveConfig: true
     })
   ).toMatchObject({
     ignored: false,
