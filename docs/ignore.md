@@ -72,6 +72,24 @@ matrix(
 ></div>
 ```
 
+### Range Ignore
+
+This can be used in the HTML to block off sections that are either generated, or (for example) use a templating language that isn't natively supported by Prettier.
+
+```markdown
+<!DOCTYPE html>
+<html>
+<body>
+  <!-- prettier-ignore-start -->
+  <%
+    // - template language stuff
+    doThing('example')
+  %>
+  <!-- prettier-ignore-end -->
+</body>
+</html>
+```
+
 ## CSS
 
 ```css

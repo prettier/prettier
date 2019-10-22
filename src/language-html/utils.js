@@ -100,11 +100,16 @@ function hasPrettierIgnore(node) {
   }
 
   const prevNode = node.parent.children[node.index - 1];
-  return isPrettierIgnore(prevNode);
+  return isPrettierIgnore(prevNode) === "next";
 }
 
+/** @return {false | 'next' | 'start' | 'end'} */
 function isPrettierIgnore(node) {
-  return node.type === "comment" && node.value.trim() === "prettier-ignore";
+  if (node.type !== "comment") {
+    return false;
+  }
+  const match = node.value.match(/^\s*prettier-ignore(?:-(start|end))?\s*$/);
+  return match === null ? false : match[1] ? match[1] : "next";
 }
 
 function getPrettierIgnoreAttributeCommentData(value) {
@@ -619,6 +624,7 @@ module.exports = {
   isIndentationSensitiveNode,
   isLeadingSpaceSensitiveNode,
   isPreLikeNode,
+  isPrettierIgnore,
   isScriptLikeTag,
   isTextLikeNode,
   isTrailingSpaceSensitiveNode,

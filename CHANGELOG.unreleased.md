@@ -1081,6 +1081,35 @@ sometimes{{nogaps}}areimportant
 {{name}} is your name
 ```
 
+#### HTML: Add range ignore support ([#6673] by [@voithos])
+
+Previously, HTML languages supported a per-element `<!-- prettier-ignore -->`. Now, you can use `<!-- prettier-ignore-start -->` and `<!-- prettier-ignore-end -->` to block off sections of HTML for which you want to preserve formatting.
+
+<!-- prettier-ignore -->
+```html
+// Input
+<!-- prettier-ignore-start -->
+<span> Ignored
+  </span>
+<span> Ignored
+  </span>
+<!-- prettier-ignore-end -->
+
+// Output (Prettier stable)
+<!-- prettier-ignore-start -->
+<span> Ignored </span>
+<span> Ignored </span>
+<!-- prettier-ignore-end -->
+
+// Output (Prettier master)
+<!-- prettier-ignore-start -->
+<span> Ignored
+  </span>
+<span> Ignored
+  </span>
+<!-- prettier-ignore-end -->
+```
+
 [#5910]: https://github.com/prettier/prettier/pull/5910
 [#6033]: https://github.com/prettier/prettier/pull/6033
 [#6186]: https://github.com/prettier/prettier/pull/6186
@@ -1132,3 +1161,4 @@ sometimes{{nogaps}}areimportant
 [@vjeux]: https://github.com/vjeux
 [@selvazhagan]: https://github.com/selvazhagan
 [@chadian]: https://github.com/chadian
+[@voithos]: https://github.com/voithos

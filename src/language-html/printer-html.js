@@ -30,6 +30,7 @@ const {
   getPrettierIgnoreAttributeCommentData,
   hasPrettierIgnore,
   inferScriptParser,
+  isPrettierIgnore,
   isScriptLikeTag,
   isTextLikeNode,
   normalizeParts,
@@ -377,111 +378,205 @@ function genericPrint(path, options, print) {
   }
 }
 
+function getIgnoreRanges(children) {
+  /** @typedef {{ index: number, offset: number }} IgnorePosition */
+  /** @type {Array<{start: IgnorePosition, end: IgnorePosition}>} */
+  const ignoreRanges = [];
+
+  /** @type {IgnorePosition | null} */
+  let ignoreStart = null;
+
+  children.forEach((childNode, index) => {
+    switch (isPrettierIgnore(childNode)) {
+      case "start":
+        if (ignoreStart === null) {
+          ignoreStart = { index, offset: childNode.sourceSpan.end.offset };
+        }
+        break;
+      case "end":
+        if (ignoreStart !== null) {
+          ignoreRanges.push({
+            start: ignoreStart,
+            end: { index, offset: childNode.sourceSpan.start.offset }
+          });
+          ignoreStart = null;
+        }
+        break;
+      default:
+        // do nothing
+        break;
+    }
+  });
+
+  return ignoreRanges;
+}
+
 function printChildren(path, options, print) {
   const node = path.getValue();
+  const children = node.children;
+  const ignoreRanges = getIgnoreRanges(children);
 
   if (forceBreakChildren(node)) {
     return concat([
       breakParent,
       concat(
-        path.map(childPath => {
-          const childNode = childPath.getValue();
-          const prevBetweenLine = !childNode.prev
-            ? ""
-            : printBetweenLine(childNode.prev, childNode);
-          return concat([
-            !prevBetweenLine
+        path
+          .map((childPath, childIndex) => {
+            const ignoreResult = maybeIgnore(
+              childPath,
+              childIndex,
+              ignoreRanges
+            );
+            if (ignoreResult !== "continue") {
+              return ignoreResult;
+            }
+
+            const childNode = childPath.getValue();
+            const prevBetweenLine = !childNode.prev
               ? ""
-              : concat([
-                  prevBetweenLine,
-                  forceNextEmptyLine(childNode.prev) ? hardline : ""
-                ]),
-            printChild(childPath)
-          ]);
-        }, "children")
+              : printBetweenLine(childNode.prev, childNode);
+            return concat([
+              !prevBetweenLine
+                ? ""
+                : concat([
+                    prevBetweenLine,
+                    forceNextEmptyLine(childNode.prev) ? hardline : ""
+                  ]),
+              printChild(childPath)
+            ]);
+          }, "children")
+          .filter(res => res !== "ignore")
       )
     ]);
   }
 
-  const groupIds = node.children.map(() => Symbol(""));
+  const groupIds = children.map(() => Symbol(""));
   return concat(
-    path.map((childPath, childIndex) => {
-      const childNode = childPath.getValue();
+    path
+      .map((childPath, childIndex) => {
+        const ignoreResult = maybeIgnore(childPath, childIndex, ignoreRanges);
+        if (ignoreResult !== "continue") {
+          return ignoreResult;
+        }
 
-      if (isTextLikeNode(childNode)) {
-        if (childNode.prev && isTextLikeNode(childNode.prev)) {
-          const prevBetweenLine = printBetweenLine(childNode.prev, childNode);
-          if (prevBetweenLine) {
-            if (forceNextEmptyLine(childNode.prev)) {
-              return concat([hardline, hardline, printChild(childPath)]);
+        const childNode = childPath.getValue();
+
+        if (isTextLikeNode(childNode)) {
+          return printTextLikeChild(childPath);
+        }
+
+        const prevParts = [];
+        const leadingParts = [];
+        const trailingParts = [];
+        const nextParts = [];
+
+        const prevBetweenLine = childNode.prev
+          ? printBetweenLine(childNode.prev, childNode)
+          : "";
+
+        const nextBetweenLine = childNode.next
+          ? printBetweenLine(childNode, childNode.next)
+          : "";
+
+        if (prevBetweenLine) {
+          if (forceNextEmptyLine(childNode.prev)) {
+            prevParts.push(hardline, hardline);
+          } else if (prevBetweenLine === hardline) {
+            prevParts.push(hardline);
+          } else {
+            if (isTextLikeNode(childNode.prev)) {
+              leadingParts.push(prevBetweenLine);
+            } else {
+              leadingParts.push(
+                ifBreak("", softline, {
+                  groupId: groupIds[childIndex - 1]
+                })
+              );
             }
-            return concat([prevBetweenLine, printChild(childPath)]);
           }
         }
-        return printChild(childPath);
+
+        if (nextBetweenLine) {
+          if (forceNextEmptyLine(childNode)) {
+            if (isTextLikeNode(childNode.next)) {
+              nextParts.push(hardline, hardline);
+            }
+          } else if (nextBetweenLine === hardline) {
+            if (isTextLikeNode(childNode.next)) {
+              nextParts.push(hardline);
+            }
+          } else {
+            trailingParts.push(nextBetweenLine);
+          }
+        }
+
+        return concat(
+          [].concat(
+            prevParts,
+            group(
+              concat([
+                concat(leadingParts),
+                group(concat([printChild(childPath), concat(trailingParts)]), {
+                  id: groupIds[childIndex]
+                })
+              ])
+            ),
+            nextParts
+          )
+        );
+      }, "children")
+      .filter(res => res !== "ignore")
+  );
+
+  /**
+   * check the ignoreRanges for the given index.
+   * this will either return a Doc to be included in the output, 'ignore' if
+   * the given child should *not* be included in the output, or 'continue' if
+   * the child should process normally.
+   * @return {'ignore' | 'continue' | Doc}
+   */
+  function maybeIgnore(path, index, ignoreRanges) {
+    if (ignoreRanges.length !== 0) {
+      const ignoreRange = ignoreRanges[0];
+
+      if (index === ignoreRange.start.index) {
+        let ignoredText = options.originalText.slice(
+          ignoreRange.start.offset,
+          ignoreRange.end.offset
+        );
+        ignoredText = ignoredText.replace(/(\r?\n)[ \t]*$/, "");
+        return concat([
+          // comments are text-like
+          printTextLikeChild(path),
+          ignoredText
+        ]);
       }
 
-      const prevParts = [];
-      const leadingParts = [];
-      const trailingParts = [];
-      const nextParts = [];
+      if (ignoreRange.start.index < index && index < ignoreRange.end.index) {
+        return "ignore";
+      }
 
-      const prevBetweenLine = childNode.prev
-        ? printBetweenLine(childNode.prev, childNode)
-        : "";
+      if (index === ignoreRange.end.index) {
+        ignoreRanges.shift();
+        return fill([softline, printChild(path)]);
+      }
+    }
+    return "continue";
+  }
 
-      const nextBetweenLine = childNode.next
-        ? printBetweenLine(childNode, childNode.next)
-        : "";
-
+  function printTextLikeChild(childPath) {
+    const childNode = childPath.getValue();
+    if (childNode.prev && isTextLikeNode(childNode.prev)) {
+      const prevBetweenLine = printBetweenLine(childNode.prev, childNode);
       if (prevBetweenLine) {
         if (forceNextEmptyLine(childNode.prev)) {
-          prevParts.push(hardline, hardline);
-        } else if (prevBetweenLine === hardline) {
-          prevParts.push(hardline);
-        } else {
-          if (isTextLikeNode(childNode.prev)) {
-            leadingParts.push(prevBetweenLine);
-          } else {
-            leadingParts.push(
-              ifBreak("", softline, {
-                groupId: groupIds[childIndex - 1]
-              })
-            );
-          }
+          return concat([hardline, hardline, printChild(childPath)]);
         }
+        return concat([prevBetweenLine, printChild(childPath)]);
       }
-
-      if (nextBetweenLine) {
-        if (forceNextEmptyLine(childNode)) {
-          if (isTextLikeNode(childNode.next)) {
-            nextParts.push(hardline, hardline);
-          }
-        } else if (nextBetweenLine === hardline) {
-          if (isTextLikeNode(childNode.next)) {
-            nextParts.push(hardline);
-          }
-        } else {
-          trailingParts.push(nextBetweenLine);
-        }
-      }
-
-      return concat(
-        [].concat(
-          prevParts,
-          group(
-            concat([
-              concat(leadingParts),
-              group(concat([printChild(childPath), concat(trailingParts)]), {
-                id: groupIds[childIndex]
-              })
-            ])
-          ),
-          nextParts
-        )
-      );
-    }, "children")
-  );
+    }
+    return printChild(childPath);
+  }
 
   function printChild(childPath) {
     const child = childPath.getValue();
