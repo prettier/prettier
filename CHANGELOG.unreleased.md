@@ -1082,6 +1082,39 @@ sometimes{{nogaps}}areimportant
 {{name}} is your name
 ```
 
+#### JavaScript: Break array expression in jest each function parameters
+
+<!-- prettier-ignore -->
+```js
+// Input
+test.each([
+  { a: "1", b: 1 },
+  { a: "2", b: 2 },
+  { a: "3", b: 3 },
+])("test", ({ a, b }) => {
+    expect(Number(a)).toBe(b);
+  }
+);
+
+// Output (Prettier stable)
+test.each([{ a: "1", b: 1 }, { a: "2", b: 2 }, { a: "3", b: 3 }])(
+  "test",
+  ({ a, b }) => {
+    expect(Number(a)).toBe(b);
+  }
+);
+
+// Output (Prettier master)
+test.each([
+  { a: "1", b: 1 },
+  { a: "2", b: 2 },
+  { a: "3", b: 3 },
+])("test", ({ a, b }) => {
+    expect(Number(a)).toBe(b);
+  }
+);
+```
+
 [#5682]: https://github.com/prettier/prettier/pull/5682
 [#5910]: https://github.com/prettier/prettier/pull/5910
 [#6033]: https://github.com/prettier/prettier/pull/6033
