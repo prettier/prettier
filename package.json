@@ -67,7 +67,7 @@
     "resolve": "1.12.0",
     "semver": "6.3.0",
     "string-width": "3.1.0",
-    "typescript": "3.7.0-dev.20191018",
+    "typescript": "3.8.0-dev.20191023",
     "unicode-regex": "3.0.0",
     "unified": "6.1.6",
     "vnopts": "1.0.2",
