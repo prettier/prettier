@@ -1526,7 +1526,15 @@ function printPathNoParens(path, options, print, args) {
         // ])(".add(%i, %i)", (a, b, expected) => {
         //   expect(a + b).toBe(expected);
         // });
-        const shouldBreak = isJestEachFunctionCall(parent);
+        const shouldBreak =
+          isJestEachFunctionCall(parent) &&
+          n.elements.length > 1 &&
+          n.elements.every(
+            element =>
+              element &&
+              (element.type === "ArrayExpression" ||
+                element.type === "ObjectExpression")
+          );
 
         parts.push(
           group(
