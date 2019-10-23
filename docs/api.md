@@ -100,6 +100,8 @@ Setting `options.ignorePath` (`string`) and `options.withNodeModules` (`boolean`
 
 Providing [plugin](plugins.md) paths in `options.plugins` (`string[]`) helps extract `inferredParser` for files that are not supported by Prettier core.
 
+When setting `options.resolveConfig` (`boolean`, default `false`), Prettier will resolve the configuration for the given `filePath`. This is useful, for example, when the `inferredParser` might be overridden for a subset of files.
+
 Use `prettier.getFileInfo.sync(filePath [, options])` if you'd like to use sync version.
 
 ## `prettier.getSupportInfo([version])`

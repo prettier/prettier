@@ -44,6 +44,10 @@ const link = <a href="example.com">http://example.com</a>;
 
 -->
 
+#### API: add resolveConfig option to getFileInfo() ([#6666] by [@kaicataldo])
+
+Add a `resolveConfig: boolean` option to `prettier.getFileInfo()` that, when set to `true`, will resolve the configuration for the given file path. This allows consumers to take any overridden parsers into account.
+
 #### JavaScript: add support for PartialApplication ([#6397] by [@JounQin])
 
 Previous versions would not be able to format this syntax, this has been fixed in this version.
