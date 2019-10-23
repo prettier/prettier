@@ -1526,15 +1526,7 @@ function printPathNoParens(path, options, print, args) {
         // ])(".add(%i, %i)", (a, b, expected) => {
         //   expect(a + b).toBe(expected);
         // });
-        const shouldBreak =
-          isJestEachFunctionCall(parent) &&
-          n.elements &&
-          n.elements.length &&
-          hasNewlineInRange(
-            options.originalText,
-            options.locStart(n.elements[0]),
-            options.locEnd(n.elements[n.elements.length - 1])
-          );
+        const shouldBreak = isJestEachFunctionCall(parent);
 
         parts.push(
           group(
