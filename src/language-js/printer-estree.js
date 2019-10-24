@@ -64,7 +64,6 @@ const {
   isFunctionNotation,
   isFunctionOrArrowExpression,
   isGetterOrSetter,
-  isJestEachFunctionCall,
   isJestEachTemplateLiteral,
   isJSXNode,
   isJSXWhitespaceExpression,
@@ -1515,26 +1514,18 @@ function printPathNoParens(path, options, print, args) {
         const needsForcedTrailingComma =
           canHaveTrailingComma && lastElem === null;
 
-        const parent = path.getParentNode();
-        // Break array expressions in parameters of jest each function
-        // call expressions.
-        //
-        // test.only.each([
-        //   [1, 1, 2],
-        //   [1, 2, 3],
-        //   [2, 1, 3]
-        // ])(".add(%i, %i)", (a, b, expected) => {
-        //   expect(a + b).toBe(expected);
-        // });
         const shouldBreak =
-          isJestEachFunctionCall(parent) &&
           n.elements.length > 1 &&
-          n.elements.every(
+          n.elements.filter(
             element =>
               element &&
-              (element.type === "ArrayExpression" ||
-                element.type === "ObjectExpression")
-          );
+              ((element.type === "ArrayExpression" &&
+                element.elements &&
+                element.elements.length > 1) ||
+                (element.type === "ObjectExpression" &&
+                  element.properties &&
+                  element.properties.length > 1))
+          ).length > 1;
 
         parts.push(
           group(

@@ -716,16 +716,6 @@ function isJestEachMemberExpression(node) {
   );
 }
 
-function isJestEachFunctionCall(node) {
-  return (
-    node.type === "CallExpression" &&
-    node.arguments &&
-    node.arguments.length === 1 &&
-    node.arguments[0].type === "ArrayExpression" &&
-    isJestEachMemberExpression(node.callee)
-  );
-}
-
 function isJestEachTemplateLiteral(node, parentNode) {
   return (
     parentNode.type === "TaggedTemplateExpression" &&
@@ -935,7 +925,6 @@ module.exports = {
   isFunctionNotation,
   isFunctionOrArrowExpression,
   isGetterOrSetter,
-  isJestEachFunctionCall,
   isJestEachTemplateLiteral,
   isJSXNode,
   isJSXWhitespaceExpression,
