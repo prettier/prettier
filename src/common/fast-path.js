@@ -2,10 +2,6 @@
 
 const assert = require("assert");
 
-/**
- * @constructor
- * @param {string} value
- */
 function FastPath(value) {
   assert.ok(this instanceof FastPath);
   this.stack = [value];
@@ -13,9 +9,6 @@ function FastPath(value) {
 
 // The name of the current property is always the penultimate element of
 // this.stack, and always a String.
-/**
- * @returns {string | null}
- */
 FastPath.prototype.getName = function getName() {
   const s = this.stack;
   const len = s.length;
@@ -30,29 +23,16 @@ FastPath.prototype.getName = function getName() {
 
 // The value of the current property is always the final element of
 // this.stack.
-/**
- * @returns {string}
- */
 FastPath.prototype.getValue = function getValue() {
   const s = this.stack;
   return s[s.length - 1];
 };
 
-/**
- * @param {FastPath} path
- * @param {number} count
- * @returns {string | null}
- */
 function getNodeHelper(path, count) {
   const stackIndex = getNodeStackIndexHelper(path.stack, count);
   return stackIndex === -1 ? null : path.stack[stackIndex];
 }
 
-/**
- * @param {string[]} stack
- * @param {number} count
- * @returns {number}
- */
 function getNodeStackIndexHelper(stack, count) {
   for (let i = stack.length - 1; i >= 0; i -= 2) {
     const value = stack[i];
@@ -63,18 +43,10 @@ function getNodeStackIndexHelper(stack, count) {
   return -1;
 }
 
-/**
- * @param {number} count
- * @returns {string}
- */
 FastPath.prototype.getNode = function getNode(count) {
   return getNodeHelper(this, ~~count);
 };
 
-/**
- * @param {number} count
- * @returns {string}
- */
 FastPath.prototype.getParentNode = function getParentNode(count) {
   return getNodeHelper(this, ~~count + 1);
 };
@@ -139,9 +111,6 @@ FastPath.prototype.each = function each(callback /*, name1, name2, ... */) {
 // Similar to FastPath.prototype.each, except that the results of the
 // callback function invocations are stored in an array and returned at
 // the end of the iteration.
-/**
- * @param {(path: FastPath, index: number) => any} callback
- */
 FastPath.prototype.map = function map(callback /*, name1, name2, ... */) {
   const s = this.stack;
   const origLen = s.length;

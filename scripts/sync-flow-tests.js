@@ -28,9 +28,6 @@ function tryParse(file, content) {
   return null;
 }
 
-/**
- * @param {string} syncDir
- */
 function syncTests(syncDir) {
   const specFiles = globby.sync(
     path.join(FLOW_TESTS_DIR, "**", SPEC_FILE_NAME)

@@ -17,9 +17,6 @@ const hiddenDefaults = {
 };
 
 // Copy options and fill in default values.
-/**
- * @param {{ logger?: { warn: (message?: any) => void } }} opts
- */
 function normalize(options, opts) {
   opts = opts || {};
 
@@ -120,9 +117,6 @@ function getPlugin(options) {
   return printerPlugin;
 }
 
-/**
- * @param {import("fs").PathLike} filepath
- */
 function getInterpreter(filepath) {
   if (typeof filepath !== "string") {
     return "";
@@ -166,9 +160,6 @@ function getInterpreter(filepath) {
   }
 }
 
-/**
- * @param {string} filepath
- */
 function inferParser(filepath, plugins) {
   const filepathParts = normalizePath(filepath).split("/");
   const filename = filepathParts[filepathParts.length - 1].toLowerCase();
