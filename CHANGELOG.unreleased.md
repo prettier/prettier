@@ -44,6 +44,16 @@ const link = <a href="example.com">http://example.com</a>;
 
 -->
 
+#### TypeScript: Support TypeScript 3.7 syntax features ([#6657] by [@Cryrivers])
+
+Add following syntax support for TypeScript 3.7:
+
+- Optional Chaining
+- Null Coalescing
+- `asserts` keyword
+
+NOTE: `declare` keyword on class members has not been supported yet, which will be fixed in future versions.
+
 #### API: Add `resolveConfig` option to `getFileInfo()` ([#6666] by [@kaicataldo])
 
 Add a `resolveConfig: boolean` option to `prettier.getFileInfo()` that, when set to `true`, will resolve the configuration for the given file path. This allows consumers to take any overridden parsers into account.
@@ -1083,6 +1093,7 @@ sometimes{{nogaps}}areimportant
 ```
 
 [#5682]: https://github.com/prettier/prettier/pull/5682
+[#6657]: https://github.com/prettier/prettier/pull/6657
 [#5910]: https://github.com/prettier/prettier/pull/5910
 [#6033]: https://github.com/prettier/prettier/pull/6033
 [#6186]: https://github.com/prettier/prettier/pull/6186
@@ -1137,3 +1148,4 @@ sometimes{{nogaps}}areimportant
 [@selvazhagan]: https://github.com/selvazhagan
 [@chadian]: https://github.com/chadian
 [@kaicataldo]: https://github.com/kaicataldo
+[@cryrivers]: https://github.com/Cryrivers
