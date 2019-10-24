@@ -216,6 +216,19 @@ Default: false
 
 exports[`show detailed usage with --help insert-pragma (write) 1`] = `Array []`;
 
+exports[`show detailed usage with --help json-keep-numeric-literal (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help json-keep-numeric-literal (stdout) 1`] = `
+"--json-keep-numeric-literal
+
+  Keep numeric literal as-is in json.
+
+Default: false
+"
+`;
+
+exports[`show detailed usage with --help json-keep-numeric-literal (write) 1`] = `Array []`;
+
 exports[`show detailed usage with --help jsx-bracket-same-line (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help jsx-bracket-same-line (stdout) 1`] = `

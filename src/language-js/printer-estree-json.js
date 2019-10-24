@@ -48,8 +48,11 @@ function genericPrint(path, options, print) {
     case "BooleanLiteral":
       return node.value ? "true" : "false";
     case "StringLiteral":
-    case "NumericLiteral":
       return JSON.stringify(node.value);
+    case "NumericLiteral":
+      return options.jsonKeepNumericLiteral
+        ? node.extra.raw
+        : JSON.stringify(node.value);
     case "Identifier":
       return JSON.stringify(node.name);
     default:

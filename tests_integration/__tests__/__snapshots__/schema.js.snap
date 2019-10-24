@@ -108,6 +108,11 @@ This option cannot be used with --range-start and --range-end.",
           "description": "Insert @format pragma into file's first docblock comment.",
           "type": "boolean",
         },
+        "jsonKeepNumericLiteral": Object {
+          "default": false,
+          "description": "Keep numeric literal as-is in json.",
+          "type": "boolean",
+        },
         "jsxBracketSameLine": Object {
           "default": false,
           "description": "Put > on the last line instead of at a new line.",

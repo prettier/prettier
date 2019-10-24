@@ -94,5 +94,12 @@ module.exports = {
       { value: true, deprecated: "0.19.0", redirect: "es5" },
       { value: false, deprecated: "0.19.0", redirect: "none" }
     ]
+  },
+  jsonKeepNumericLiteral: {
+    since: "1.9.0",
+    category: CATEGORY_JAVASCRIPT,
+    type: "boolean",
+    default: false,
+    description: "Keep numeric literal as-is in json."
   }
 };

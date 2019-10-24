@@ -495,7 +495,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> 1.16.0 1`] = `
         \\"type\\": \\"boolean\\",
       },
       \\"cursorOffset\\": Object {
-@@ -55,37 +84,76 @@
+@@ -55,37 +84,80 @@
           \\"start\\": -1,
           \\"step\\": 1,
         },
@@ -528,6 +528,10 @@ exports[`API getSupportInfo() with version 1.8.2 -> 1.16.0 1`] = `
         \\"default\\": false,
         \\"type\\": \\"boolean\\",
       },
++     \\"jsonKeepNumericLiteral\\": Object {
++       \\"default\\": false,
++       \\"type\\": \\"boolean\\",
++     },
       \\"jsxBracketSameLine\\": Object {
         \\"default\\": false,
         \\"type\\": \\"boolean\\",
@@ -574,7 +578,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> 1.16.0 1`] = `
         \\"range\\": Object {
           \\"end\\": Infinity,
           \\"start\\": 0,
-@@ -93,14 +161,15 @@
+@@ -93,14 +165,15 @@
         },
         \\"type\\": \\"int\\",
       },
@@ -614,7 +618,7 @@ exports[`API getSupportInfo() with version 1.16.0 -> undefined 1`] = `
       ],
       \\"Markdown\\": Array [
         \\"markdown\\",
-@@ -138,10 +141,11 @@
+@@ -142,10 +145,11 @@
           \\"mdx\\",
           \\"vue\\",
           \\"yaml\\",
@@ -626,7 +630,7 @@ exports[`API getSupportInfo() with version 1.16.0 -> undefined 1`] = `
         \\"type\\": \\"choice\\",
       },
       \\"pluginSearchDirs\\": Object {
-@@ -168,10 +172,19 @@
+@@ -172,10 +176,19 @@
           \\"preserve\\",
         ],
         \\"default\\": \\"preserve\\",
@@ -1176,6 +1180,15 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"name\\": \\"insertPragma\\",
       \\"pluginDefaults\\": {},
       \\"since\\": \\"1.8.0\\",
+      \\"type\\": \\"boolean\\"
+    },
+    {
+      \\"category\\": \\"JavaScript\\",
+      \\"default\\": false,
+      \\"description\\": \\"Keep numeric literal as-is in json.\\",
+      \\"name\\": \\"jsonKeepNumericLiteral\\",
+      \\"pluginDefaults\\": {},
+      \\"since\\": \\"1.9.0\\",
       \\"type\\": \\"boolean\\"
     },
     {

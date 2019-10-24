@@ -16,8 +16,8 @@ exports[` 1`] = `
     --html-whitespace-sensitivity <css|strict|ignore>
                              How to handle whitespaces in HTML.
                              Defaults to css.
-    --jsx-bracket-same-line  Put > on the last line instead of at a new line.
-                             Defaults to false."
+    --json-keep-numeric-literal
+                             Keep numeric literal as-is in json."
 `;
 
 exports[`show detailed external option with \`--help foo-option\` (stderr) 1`] = `""`;
