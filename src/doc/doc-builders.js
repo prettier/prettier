@@ -1,7 +1,10 @@
 "use strict";
 
 /**
- * @typedef {string | Object} Doc
+ * @typedef {Object} DocObject
+ * @property {string} type
+ *
+ * @typedef {string | DocObject} Doc
  */
 
 function assertDoc(val) {
