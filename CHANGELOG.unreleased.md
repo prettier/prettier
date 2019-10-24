@@ -1085,6 +1085,26 @@ sometimes{{nogaps}}areimportant
 {{name}} is your name
 ```
 
+#### Json: Add support for keeping numeric literal as-is ([#6706] by [@nullmdr])
+
+<!-- prettier-ignore -->
+```json
+// Input
+{
+  "a": 1.100
+}
+
+// Output (with jsonKeepNumericLiteral: false) (default)
+{
+  "a": 1.1
+}
+
+// Output (with jsonKeepNumericLiteral: true)
+{
+  "a": 1.100
+}
+```
+
 [#5910]: https://github.com/prettier/prettier/pull/5910
 [#6033]: https://github.com/prettier/prettier/pull/6033
 [#6186]: https://github.com/prettier/prettier/pull/6186
@@ -1121,6 +1141,7 @@ sometimes{{nogaps}}areimportant
 [#6646]: https://github.com/prettier/prettier/pull/6646
 [#6673]: https://github.com/prettier/prettier/pull/6673
 [#6382]: https://github.com/prettier/prettier/pull/6382
+[#6706]: https://github.com/prettier/prettier/pull/6706
 [@brainkim]: https://github.com/brainkim
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
@@ -1136,3 +1157,4 @@ sometimes{{nogaps}}areimportant
 [@vjeux]: https://github.com/vjeux
 [@selvazhagan]: https://github.com/selvazhagan
 [@chadian]: https://github.com/chadian
+[@nullmdr]: https://github.com/nullmdr

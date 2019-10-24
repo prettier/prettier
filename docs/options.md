@@ -105,6 +105,14 @@ Valid options:
 | -------- | ------------------------------------------------------ | ------------------------------------------------------ |
 | `"none"` | <code>--trailing-comma <none&#124;es5&#124;all></code> | <code>trailingComma: "<none&#124;es5&#124;all>"</code> |
 
+## Json Keep Numeric Literal
+
+Keep numeric literal as-is in json.
+
+| Default | CLI Override                  | API Override                     |
+| ------- | ----------------------------- | -------------------------------- |
+| `false` | `--json-keep-numeric-literal` | `jsonKeepNumericLiteral: <bool>` |
+
 ## Bracket Spacing
 
 Print spaces between brackets in object literals.
