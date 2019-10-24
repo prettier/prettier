@@ -44,15 +44,88 @@ const link = <a href="example.com">http://example.com</a>;
 
 -->
 
-#### TypeScript: Support TypeScript 3.7 syntax features ([#6657] by [@Cryrivers])
+#### TypeScript: Support TypeScript 3.7 syntax features ([#6657] by [@cryrivers])
 
 Add following syntax support for TypeScript 3.7:
 
 - Optional Chaining
 - Null Coalescing
-- `asserts` keyword
+- `asserts` Keyword
 
-NOTE: `declare` keyword on class members has not been supported yet, which will be fixed in future versions.
+**NOTE:** `declare` keyword on class members has not been supported yet, which will be fixed in future versions.
+
+##### Optional Chaining
+
+Previous versions would not be able to format this syntax, this has been fixed in this version.
+
+<!-- prettier-ignore -->
+```ts
+const longChain = obj?.a?.b?.c?.d?.e?.f?.g;
+const longChainCallExpression = obj.a?.(a,b,c).b?.(a,b,c).c?.(a,b,c).d?.(a,b,c).e?.(a,b,c).f?.(a,b,c)
+
+// Output (Previous version)
+SyntaxError: Expression expected. (1:23)
+> 1 | const longChain = obj?.a?.b?.c?.d?.e?.f?.g;
+    |                       ^
+  2 | const longChainCallExpression = obj.a?.(a,b,c).b?.(a,b,c).c?.(a,b,c).d?.(a,b,c).e?.(a,b,c).f?.(a,b,c)
+
+// Output (Current version)
+const longChain = obj?.a?.b?.c?.d?.e?.f?.g;
+const longChainCallExpression = obj
+  .a?.(a, b, c)
+  .b?.(a, b, c)
+  .c?.(a, b, c)
+  .d?.(a, b, c)
+  .e?.(a, b, c)
+  .f?.(a, b, c);
+```
+
+##### Null Coalescing
+
+Previous versions would not be able to format this syntax, this has been fixed in this version.
+
+<!-- prettier-ignore -->
+```ts
+const cond = null;
+const result = cond??'a';
+const longChain = cond??cond??cond??'b';
+
+// Output (Previous version)
+SyntaxError: Expression expected. (2:21)
+  1 | const cond = null;
+> 2 | const result = cond??'a';
+    |                     ^
+  3 | const longChain = cond??cond??cond??'b';
+
+// Output (Current version)
+const cond = null;
+const result = cond ?? "a";
+const longChain = cond ?? cond ?? cond ?? "b";
+```
+
+##### `asserts` Keyword
+
+Previous versions would not be able to format this syntax, this has been fixed in this version.
+
+<!-- prettier-ignore -->
+```ts
+function assertsString(x: any): asserts x {console.assert(typeof x === 'string');}
+function assertsStringWithGuard(x: any): asserts x is string {console.assert(typeof x === 'string');}
+
+// Output (Previous version)
+SyntaxError: '{' or ';' expected. (1:41)
+> 1 | function assertsString(x: any): asserts x {console.assert(typeof x === 'string');}
+    |                                         ^
+  2 | function assertsStringWithGuard(x: any): asserts x is string {console.assert(typeof x === 'string');}
+
+// Output (Current version)
+function assertsString(x: any): asserts x {
+  console.assert(typeof x === "string");
+}
+function assertsStringWithGuard(x: any): asserts x is string {
+  console.assert(typeof x === "string");
+}
+```
 
 #### API: Add `resolveConfig` option to `getFileInfo()` ([#6666] by [@kaicataldo])
 
