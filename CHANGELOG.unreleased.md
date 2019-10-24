@@ -63,13 +63,13 @@ Previous versions would not be able to format this syntax, this has been fixed i
 const longChain = obj?.a?.b?.c?.d?.e?.f?.g;
 const longChainCallExpression = obj.a?.(a,b,c).b?.(a,b,c).c?.(a,b,c).d?.(a,b,c).e?.(a,b,c).f?.(a,b,c)
 
-// Output (Previous version)
+// Output (Prettier stable)
 SyntaxError: Expression expected. (1:23)
 > 1 | const longChain = obj?.a?.b?.c?.d?.e?.f?.g;
     |                       ^
   2 | const longChainCallExpression = obj.a?.(a,b,c).b?.(a,b,c).c?.(a,b,c).d?.(a,b,c).e?.(a,b,c).f?.(a,b,c)
 
-// Output (Current version)
+// Output (Prettier master)
 const longChain = obj?.a?.b?.c?.d?.e?.f?.g;
 const longChainCallExpression = obj
   .a?.(a, b, c)
@@ -90,14 +90,14 @@ const cond = null;
 const result = cond??'a';
 const longChain = cond??cond??cond??'b';
 
-// Output (Previous version)
+// Output (Prettier stable)
 SyntaxError: Expression expected. (2:21)
   1 | const cond = null;
 > 2 | const result = cond??'a';
     |                     ^
   3 | const longChain = cond??cond??cond??'b';
 
-// Output (Current version)
+// Output (Prettier master)
 const cond = null;
 const result = cond ?? "a";
 const longChain = cond ?? cond ?? cond ?? "b";
@@ -112,13 +112,13 @@ Previous versions would not be able to format this syntax, this has been fixed i
 function assertsString(x: any): asserts x {console.assert(typeof x === 'string');}
 function assertsStringWithGuard(x: any): asserts x is string {console.assert(typeof x === 'string');}
 
-// Output (Previous version)
+// Output (Prettier stable)
 SyntaxError: '{' or ';' expected. (1:41)
 > 1 | function assertsString(x: any): asserts x {console.assert(typeof x === 'string');}
     |                                         ^
   2 | function assertsStringWithGuard(x: any): asserts x is string {console.assert(typeof x === 'string');}
 
-// Output (Current version)
+// Output (Prettier master)
 function assertsString(x: any): asserts x {
   console.assert(typeof x === "string");
 }
