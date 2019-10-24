@@ -733,11 +733,6 @@
     "@types/istanbul-reports" "^1.1.1"
     "@types/yargs" "^13.0.0"
 
-"@types/camelcase@4.1.0":
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/@types/camelcase/-/camelcase-4.1.0.tgz#e054f7986f31658d49936261b5cd4588ef29d1ee"
-  integrity sha512-nsaprOtNLvUrLyFX5+mRpE9h2Q0d5YzQRr+Lav3fxdYtc1/E/U7G+Ld861NWBDDtWY3MnwKoUOhCrE1nrVxUQA==
-
 "@types/ci-info@*":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@types/ci-info/-/ci-info-2.0.0.tgz#51848cc0f5c30c064f4b25f7f688bf35825b3971"
@@ -755,10 +750,10 @@
   resolved "https://registry.yarnpkg.com/@types/dedent/-/dedent-0.7.0.tgz#155f339ca404e6dd90b9ce46a3f78fd69ca9b050"
   integrity sha512-EGlKlgMhnLt/cM4DbUSafFdrkeJoC9Mvnj0PUCU7tFmTjMjNRT957kXCx0wYm3JuEq4o4ZsS5vG+NlkM2DMd2A==
 
-"@types/diff@3.5.0":
-  version "3.5.0"
-  resolved "https://registry.yarnpkg.com/@types/diff/-/diff-3.5.0.tgz#82e0c6bbb771738082d73f9ab4adc6dc63e62b1c"
-  integrity sha512-xaomMgr7qLfRtcPZqQIy0ICXPM3EEh5Pk/cZsNN0R3OxiIHLOCW5WTwkmymx6WOp1lWwDZAz68uJrdafYobQ0g==
+"@types/diff@4.0.2":
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/@types/diff/-/diff-4.0.2.tgz#2e9bb89f9acc3ab0108f0f3dc4dbdcf2fff8a99c"
+  integrity sha512-mIenTfsIe586/yzsyfql69KRnA75S8SVXQbTLpDejRrjH0QSJcpu3AUOi/Vjnt9IOsXKxPhJfGpQUNMueIU1fQ==
 
 "@types/escape-string-regexp@1.0.0":
   version "1.0.0"
@@ -780,12 +775,12 @@
   resolved "https://registry.yarnpkg.com/@types/find-parent-dir/-/find-parent-dir-0.3.0.tgz#0a8e9b1eb4fa77e6761d7a078daaed92ad2868f1"
   integrity sha512-jz1cHlySrflg1Xf6fhy8xe/Bc//eO7wkg7OQePQei4vIYHm9IIQs0Ed8pakV6qVuihTnmy+Le+xUYDardq7yNg==
 
-"@types/get-stream@3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@types/get-stream/-/get-stream-3.0.0.tgz#4e818b1ac5b7af6df59f2cf98619f55173174bc9"
-  integrity sha512-BKJh07wGlhhDjC3aXsTTnCaCKAj16cVqkryjZy7RN36RbMikL+3t5Bu6PprLDcGCxMSvr3795rfV58LLNHWTEg==
+"@types/get-stream@3.0.2":
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/@types/get-stream/-/get-stream-3.0.2.tgz#dfc81de4bc7505344b04b824ce836915612bf524"
+  integrity sha512-UQNVnEQdbov8JmapA6DRzxe9/PgMxf6FJ35/QdtQXcga+sun0/VJTnto1O9NNJ3Mk/KKihaCscKZZ0zqqwv8cA==
   dependencies:
-    "@types/node" "*"
+    get-stream "*"
 
 "@types/glob@*":
   version "7.1.1"
@@ -830,15 +825,17 @@
     "@types/istanbul-lib-coverage" "*"
     "@types/istanbul-lib-report" "*"
 
-"@types/leven@2.1.0":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@types/leven/-/leven-2.1.0.tgz#d52619b0bc9375c1eb6194a3fca7877f0d8cbc4e"
-  integrity sha1-1SYZsLyTdcHrYZSj/KeHfw2MvE4=
+"@types/leven@2.1.2":
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/@types/leven/-/leven-2.1.2.tgz#7c3e9b880bc0d53c5d822cfaf9b86637f53479d8"
+  integrity sha512-/DZnNl+6YyiHG+t1EbNMBlMbrU8r1f7RWRi0kAYZYxko0hzA13IMagg9qtTL4a3SwFx4eYubZMcvYAijuKbS5A==
+  dependencies:
+    leven "*"
 
-"@types/lodash.uniqby@4.7.0":
-  version "4.7.0"
-  resolved "https://registry.yarnpkg.com/@types/lodash.uniqby/-/lodash.uniqby-4.7.0.tgz#c77e2f7c3a5380da5617c83cc173009acb217848"
-  integrity sha1-x34vfDpTgNpWF8g8wXMAmssheEg=
+"@types/lodash.uniqby@4.7.6":
+  version "4.7.6"
+  resolved "https://registry.yarnpkg.com/@types/lodash.uniqby/-/lodash.uniqby-4.7.6.tgz#672827a701403f07904fe37f0721ae92abfa80e8"
+  integrity sha512-9wBhrm1y6asW50Joj6tsySCNUgzK2tCqL7vtKIej0E9RyeBFdcte7fxUosmFuMoOU0eHqOMK76kCCrK99jxHgg==
   dependencies:
     "@types/lodash" "*"
 
@@ -1714,13 +1711,13 @@ browserify-zlib@^0.2.0:
     pako "~1.0.5"
 
 browserslist@^4.6.0, browserslist@^4.7.1:
-  version "4.7.1"
-  resolved "https://registry.yarnpkg.com/browserslist/-/browserslist-4.7.1.tgz#bd400d1aea56538580e8c4d5f1c54ac11b5ab468"
-  integrity sha512-QtULFqKIAtiyNx7NhZ/p4rB8m3xDozVo/pi5VgTlADLF2tNigz/QH+v0m5qhn7XfHT7u+607NcCNOnC0HZAlMg==
+  version "4.7.2"
+  resolved "https://registry.yarnpkg.com/browserslist/-/browserslist-4.7.2.tgz#1bb984531a476b5d389cedecb195b2cd69fb1348"
+  integrity sha512-uZavT/gZXJd2UTi9Ov7/Z340WOSQ3+m1iBVRUknf+okKxonL9P83S3ctiBDtuRmRu8PiCHjqyueqQ9HYlJhxiw==
   dependencies:
-    caniuse-lite "^1.0.30000999"
-    electron-to-chromium "^1.3.284"
-    node-releases "^1.1.36"
+    caniuse-lite "^1.0.30001004"
+    electron-to-chromium "^1.3.295"
+    node-releases "^1.1.38"
 
 bser@^2.0.0:
   version "2.1.1"
@@ -1870,7 +1867,7 @@ camelcase@^4.1.0:
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-4.1.0.tgz#d545635be1e33c542649c69173e5de6acfae34dd"
   integrity sha1-1UVjW+HjPFQmScaRc+Xeas+uNN0=
 
-caniuse-lite@^1.0.30000999:
+caniuse-lite@^1.0.30001004:
   version "1.0.30001004"
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001004.tgz#d879b73981b255488316da946c39327d8c00a586"
   integrity sha512-3nfOR4O8Wa2RWoYfJkMtwRVOsK96TQ+eq57wd0iKaEWl8dwG4hKZ/g0MVBfCvysFvMLi9fQGR/DvozMdkEPl3g==
@@ -2500,7 +2497,7 @@ editorconfig@0.15.3:
     semver "^5.6.0"
     sigmund "^1.0.1"
 
-electron-to-chromium@^1.3.284:
+electron-to-chromium@^1.3.295:
   version "1.3.295"
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.295.tgz#4727eabfa2642f9b21c43ec17d794c004724657b"
   integrity sha512-KxlGE9GcZTv7xGwYJGMEABHJq2JuTMNF7jD8NwHk6sBY226mW+Dyp9kZmA2Od9tKHMCS7ltPnqFg+zq3jTWN7Q==
@@ -3251,6 +3248,13 @@ get-stdin@^6.0.0:
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/get-stdin/-/get-stdin-6.0.0.tgz#9e09bf712b360ab9225e812048f71fde9c89657b"
   integrity sha512-jp4tHawyV7+fkkSKyvjuLZswblUtz+SQKzSWnBbii16BuZksJlU1wuBYXY75r+duh/llF1ur6oNwi+2ZzjKZ7g==
+
+get-stream@*:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/get-stream/-/get-stream-5.1.0.tgz#01203cdc92597f9b909067c3e656cc1f4d3c4dc9"
+  integrity sha512-EXr1FOzrzTfGeL0gQdeFEvOMm2mzMOglyiOXSTpPC+iAjAKftbr3jpCMWynogwYnM+eSj9sHGc6wjIcDvYiygw==
+  dependencies:
+    pump "^3.0.0"
 
 get-stream@4.1.0, get-stream@^4.0.0:
   version "4.1.0"
@@ -4722,7 +4726,7 @@ left-pad@^1.3.0:
   resolved "https://registry.yarnpkg.com/left-pad/-/left-pad-1.3.0.tgz#5b8a3a7765dfe001261dde915589e782f8c94d1e"
   integrity sha512-XI5MPzVNApjAyhQzphX8BkmKsKUxD4LdyK24iZeQGinBN9yTQT3bFlCBy/aVx2HrNcqQGsdot8ghrjyrvMCoEA==
 
-leven@3.1.0, leven@^3.1.0:
+leven@*, leven@3.1.0, leven@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/leven/-/leven-3.1.0.tgz#77891de834064cccba82ae7842bb6b14a13ed7f2"
   integrity sha512-qsda+H8jTaUaN/x5vzW2rzc+8Rw4TAQ/4KjB46IwK5VH+IlVeeeje/EoZRpiXvIqjFgK84QffqPztGI3VBLG1A==
@@ -5325,7 +5329,7 @@ node-pre-gyp@^0.12.0:
     semver "^5.3.0"
     tar "^4"
 
-node-releases@^1.1.36:
+node-releases@^1.1.38:
   version "1.1.38"
   resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-1.1.38.tgz#d81b365df2936654ba37f509ba2fbe91eff2578b"
   integrity sha512-/5NZAaOyTj134Oy5Cp/J8mso8OD/D9CSuL+6TOXXsTKO8yjc5e4up75SRPCganCjwFKMj2jbp5tR0dViVdox7g==
