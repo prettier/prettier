@@ -1,3 +1,3 @@
 class Foo {
-  constructor: () => this;
+  bar: () => this;
 }

@@ -6,8 +6,8 @@ const util = require("../common/util");
 const comments = require("./comments");
 const {
   getLeftSidePathName,
-  hasNakedLeftSide,
-  hasFlowShorthandAnnotationComment
+  hasFlowShorthandAnnotationComment,
+  hasNakedLeftSide
 } = require("./utils");
 
 function hasClosureCompilerTypeCastComment(text, path) {
@@ -225,36 +225,6 @@ function needsParens(path, options) {
   }
 
   switch (node.type) {
-    case "CallExpression": {
-      let firstParentNotMemberExpression = parent;
-      let i = 0;
-      // tagged templates are basically member expressions from a grammar perspective
-      // see https://tc39.github.io/ecma262/#prod-MemberExpression
-      // so are typescript's non-null assertions, though there's no grammar to point to
-      while (
-        firstParentNotMemberExpression &&
-        ((firstParentNotMemberExpression.type === "MemberExpression" &&
-          firstParentNotMemberExpression.object ===
-            path.getParentNode(i - 1)) ||
-          firstParentNotMemberExpression.type === "TaggedTemplateExpression" ||
-          firstParentNotMemberExpression.type === "TSNonNullExpression")
-      ) {
-        firstParentNotMemberExpression = path.getParentNode(++i);
-      }
-
-      if (
-        firstParentNotMemberExpression.type === "NewExpression" &&
-        firstParentNotMemberExpression.callee === path.getParentNode(i - 1)
-      ) {
-        return true;
-      }
-
-      if (parent.type === "BindExpression" && parent.callee === node) {
-        return true;
-      }
-      return false;
-    }
-
     case "SpreadElement":
     case "SpreadProperty":
       return (
@@ -398,7 +368,7 @@ function needsParens(path, options) {
           }
 
           // Add parenthesis when working with bitwise operators
-          // It's not stricly needed but helps with code understanding
+          // It's not strictly needed but helps with code understanding
           if (util.isBitwiseOperator(po)) {
             return true;
           }
@@ -409,44 +379,6 @@ function needsParens(path, options) {
         default:
           return false;
       }
-
-    case "TSParenthesizedType": {
-      const grandParent = path.getParentNode(1);
-
-      /**
-       * const foo = (): (() => void) => (): void => null;
-       *                 ^          ^
-       */
-      if (
-        getUnparenthesizedNode(node).type === "TSFunctionType" &&
-        parent.type === "TSTypeAnnotation" &&
-        grandParent.type === "ArrowFunctionExpression" &&
-        grandParent.returnType === parent
-      ) {
-        return true;
-      }
-
-      if (
-        (parent.type === "TSTypeParameter" ||
-          parent.type === "TypeParameter" ||
-          parent.type === "TSTypeAliasDeclaration" ||
-          parent.type === "TSTypeAnnotation" ||
-          parent.type === "TSParenthesizedType" ||
-          parent.type === "TSTypeParameterInstantiation") &&
-        (grandParent.type !== "TSTypeOperator" &&
-          grandParent.type !== "TSOptionalType")
-      ) {
-        return false;
-      }
-      // Delegate to inner TSParenthesizedType
-      if (
-        node.typeAnnotation.type === "TSParenthesizedType" &&
-        parent.type !== "TSArrayType"
-      ) {
-        return false;
-      }
-      return true;
-    }
 
     case "SequenceExpression":
       switch (parent.type) {
@@ -511,6 +443,36 @@ function needsParens(path, options) {
         default:
           return false;
       }
+
+    case "TSConditionalType":
+      if (parent.type === "TSConditionalType" && node === parent.extendsType) {
+        return true;
+      }
+    // fallthrough
+    case "TSFunctionType":
+    case "TSConstructorType":
+      if (parent.type === "TSConditionalType" && node === parent.checkType) {
+        return true;
+      }
+    // fallthrough
+    case "TSUnionType":
+    case "TSIntersectionType":
+      if (
+        parent.type === "TSUnionType" ||
+        parent.type === "TSIntersectionType"
+      ) {
+        return true;
+      }
+    // fallthrough
+    case "TSTypeOperator":
+    case "TSInferType":
+      return (
+        parent.type === "TSArrayType" ||
+        parent.type === "TSOptionalType" ||
+        parent.type === "TSRestType" ||
+        (parent.type === "TSIndexedAccessType" && node === parent.objectType) ||
+        parent.type === "TSTypeOperator"
+      );
 
     case "ArrayTypeAnnotation":
       return parent.type === "NullableTypeAnnotation";
@@ -696,24 +658,35 @@ function needsParens(path, options) {
     case "OptionalMemberExpression":
       return parent.type === "MemberExpression";
 
+    case "CallExpression":
     case "MemberExpression":
+    case "TaggedTemplateExpression":
+    case "TSNonNullExpression":
       if (
-        parent.type === "BindExpression" &&
+        (parent.type === "BindExpression" || parent.type === "NewExpression") &&
         name === "callee" &&
         parent.callee === node
       ) {
-        let object = node.object;
+        let object = node;
         while (object) {
-          if (object.type === "CallExpression") {
-            return true;
+          switch (object.type) {
+            case "CallExpression":
+              return true;
+            case "MemberExpression":
+            case "BindExpression":
+              object = object.object;
+              break;
+            // tagged templates are basically member expressions from a grammar perspective
+            // see https://tc39.github.io/ecma262/#prod-MemberExpression
+            case "TaggedTemplateExpression":
+              object = object.tag;
+              break;
+            case "TSNonNullExpression":
+              object = object.expression;
+              break;
+            default:
+              return false;
           }
-          if (
-            object.type !== "MemberExpression" &&
-            object.type !== "BindExpression"
-          ) {
-            break;
-          }
-          object = object.object;
         }
       }
       return false;
@@ -749,6 +722,29 @@ function needsParens(path, options) {
         return false;
       }
       return true;
+    case "JSXFragment":
+    case "JSXElement":
+      return (
+        parent.type !== "ArrayExpression" &&
+        parent.type !== "ArrowFunctionExpression" &&
+        parent.type !== "AssignmentExpression" &&
+        parent.type !== "AssignmentPattern" &&
+        parent.type !== "BinaryExpression" &&
+        parent.type !== "CallExpression" &&
+        parent.type !== "ConditionalExpression" &&
+        parent.type !== "ExpressionStatement" &&
+        parent.type !== "JsExpressionRoot" &&
+        parent.type !== "JSXAttribute" &&
+        parent.type !== "JSXElement" &&
+        parent.type !== "JSXExpressionContainer" &&
+        parent.type !== "JSXFragment" &&
+        parent.type !== "LogicalExpression" &&
+        parent.type !== "ObjectProperty" &&
+        parent.type !== "Property" &&
+        parent.type !== "ReturnStatement" &&
+        parent.type !== "TypeCastExpression" &&
+        parent.type !== "VariableDeclarator"
+      );
   }
 
   return false;
@@ -803,12 +799,6 @@ function isStatement(node) {
     node.type === "WhileStatement" ||
     node.type === "WithStatement"
   );
-}
-
-function getUnparenthesizedNode(node) {
-  return node.type === "TSParenthesizedType"
-    ? getUnparenthesizedNode(node.typeAnnotation)
-    : node;
 }
 
 function endsWithRightBracket(node) {

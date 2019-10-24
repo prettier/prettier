@@ -74,7 +74,8 @@ function normalize(options, opts) {
   const pluginDefaults = supportOptions
     .filter(
       optionInfo =>
-        optionInfo.pluginDefaults && optionInfo.pluginDefaults[plugin.name]
+        optionInfo.pluginDefaults &&
+        optionInfo.pluginDefaults[plugin.name] !== undefined
     )
     .reduce(
       (reduced, optionInfo) =>

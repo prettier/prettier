@@ -7,23 +7,23 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 // Error
-const beep = (data/*: Object */) => {}
+const a = (data/*: Object */) => {}
 
 // OK
-const beep = (data/*: Object */, secondData/*: Object */) => {}
+const b = (data/*: Object */, secondData/*: Object */) => {}
 
-const beep = (data/*: /* this is an object *-/ Object */) => {};
+const c = (data/*: /* this is an object *-/ Object */) => {};
 
 const run = (cmd /*: string */) /*: Promise<void> */ => {}
 
 =====================================output=====================================
 // Error
-const beep = (data /*: Object */) => {};
+const a = (data /*: Object */) => {};
 
 // OK
-const beep = (data /*: Object */, secondData /*: Object */) => {};
+const b = (data /*: Object */, secondData /*: Object */) => {};
 
-const beep = (data /*: /* this is an object *-/ Object */) => {};
+const c = (data /*: /* this is an object *-/ Object */) => {};
 
 const run = (cmd /*: string */) /*: Promise<void> */ => {};
 
@@ -107,11 +107,11 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 let foo /*: Groups<T> */;
-let foo /*: string */ = 'a';
+let bar /*: string */ = 'a';
 
 =====================================output=====================================
 let foo /*: Groups<T> */;
-let foo /*: string */ = "a";
+let bar /*: string */ = "a";
 
 ================================================================================
 `;
@@ -122,32 +122,32 @@ parsers: ["flow", "babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-type Props = // (DispatchProps & StateProps); WHY DON'T YOU WORK FLOW!!!!!!!!!
+type Props1 = // (DispatchProps & StateProps); WHY DON'T YOU WORK FLOW!!!!!!!!!
 {
   isPlaying: boolean,
 };
 
-type Props = { // (DispatchProps & StateProps); WHY DON'T YOU WORK FLOW!!!!!!!!!
+type Props2 = { // (DispatchProps & StateProps); WHY DON'T YOU WORK FLOW!!!!!!!!!
   isPlaying: boolean
 };
 
-type Props = {
+type Props3 = {
   // (DispatchProps & StateProps); WHY DON'T YOU WORK FLOW!!!!!!!!!
   isPlaying: boolean
 };
 
 =====================================output=====================================
 // (DispatchProps & StateProps); WHY DON'T YOU WORK FLOW!!!!!!!!!
-type Props = {
+type Props1 = {
   isPlaying: boolean
 };
 
-type Props = {
+type Props2 = {
   // (DispatchProps & StateProps); WHY DON'T YOU WORK FLOW!!!!!!!!!
   isPlaying: boolean
 };
 
-type Props = {
+type Props3 = {
   // (DispatchProps & StateProps); WHY DON'T YOU WORK FLOW!!!!!!!!!
   isPlaying: boolean
 };

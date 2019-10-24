@@ -5,7 +5,7 @@ const options = require("./options");
 const createLanguage = require("../utils/create-language");
 
 const languages = [
-  createLanguage(require("linguist-languages/data/yaml"), {
+  createLanguage(require("linguist-languages/data/YAML"), {
     override: {
       since: "1.14.0",
       parsers: ["yaml"],

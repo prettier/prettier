@@ -27,3 +27,9 @@ switch (veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVery
   default:
     alert( 'default' );
 }
+
+switch ($veryLongAndVeryVerboseVariableName && $anotherVeryLongAndVeryVerboseVariableName) {
+}
+
+switch ($longButSlightlyShorterVariableName && $anotherSlightlyShorterVariableName) {
+}

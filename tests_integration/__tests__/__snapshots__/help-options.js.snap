@@ -599,6 +599,19 @@ exports[`show detailed usage with --help version (stdout) 1`] = `
 
 exports[`show detailed usage with --help version (write) 1`] = `Array []`;
 
+exports[`show detailed usage with --help vue-indent-script-and-style (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help vue-indent-script-and-style (stdout) 1`] = `
+"--vue-indent-script-and-style
+
+  Indent script and style tags in Vue files.
+
+Default: false
+"
+`;
+
+exports[`show detailed usage with --help vue-indent-script-and-style (write) 1`] = `Array []`;
+
 exports[`show detailed usage with --help with-node-modules (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help with-node-modules (stdout) 1`] = `

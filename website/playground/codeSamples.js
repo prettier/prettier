@@ -26,6 +26,7 @@ export default function(parser) {
         "}"
       ].join("\n");
     case "flow":
+    case "babel-flow":
       return [
         "declare export function graphql<Props, Variables, Component: React$ComponentType<Props>>",
         "  (query: GQLDocument, config?: Config<Props, QueryConfigOptions<Variables>>):",
@@ -194,7 +195,7 @@ export default function(parser) {
         "<Foo bg='red'>",
         "      <Bar    >hi    </Bar>",
         "       {  hello       }",
-        "       {     /* another commment */}",
+        "       {     /* another comment */}",
         "</Foo>",
         "",
         "```",

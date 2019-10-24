@@ -7,13 +7,13 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 function f() {
-  const appEntitys = getAppEntitys(loadObject).filter(
+  const appEntities = getAppEntities(loadObject).filter(
     entity => entity && entity.isInstallAvailable() && !entity.isQueue() && entity.isDisabled()
   )
 }
 
 function f() {
-  const appEntitys = getAppEntitys(loadObject).map(
+  const appEntities = getAppEntities(loadObject).map(
     entity => entity && entity.isInstallAvailable() && !entity.isQueue() && entity.isDisabled() && {
       id: entity.id
     }
@@ -22,7 +22,7 @@ function f() {
 
 =====================================output=====================================
 function f() {
-  const appEntitys = getAppEntitys(loadObject).filter(
+  const appEntities = getAppEntities(loadObject).filter(
     entity =>
       entity &&
       entity.isInstallAvailable() &&
@@ -32,7 +32,7 @@ function f() {
 }
 
 function f() {
-  const appEntitys = getAppEntitys(loadObject).map(
+  const appEntities = getAppEntities(loadObject).map(
     entity =>
       entity &&
       entity.isInstallAvailable() &&
@@ -68,6 +68,136 @@ const all = FLAG_A | FLAG_B | FLAG_C;
 ================================================================================
 `;
 
+exports[`call.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+(
+  aaaaaaaaaaaaaaaaaaaaaaaaa &&
+  bbbbbbbbbbbbbbbbbbbbbbbbb &&
+  ccccccccccccccccccccccccc &&
+  ddddddddddddddddddddddddd &&
+  eeeeeeeeeeeeeeeeeeeeeeeee
+)();
+
+(
+  aa &&
+  bb &&
+  cc &&
+  dd &&
+  ee
+)();
+
+(
+  aaaaaaaaaaaaaaaaaaaaaaaaa +
+  bbbbbbbbbbbbbbbbbbbbbbbbb +
+  ccccccccccccccccccccccccc +
+  ddddddddddddddddddddddddd +
+  eeeeeeeeeeeeeeeeeeeeeeeee
+)();
+
+(
+  aa +
+  bb +
+  cc +
+  dd +
+  ee
+)();
+
+(
+  aaaaaaaaaaaaaaaaaaaaaaaaa &&
+  bbbbbbbbbbbbbbbbbbbbbbbbb &&
+  ccccccccccccccccccccccccc &&
+  ddddddddddddddddddddddddd &&
+  eeeeeeeeeeeeeeeeeeeeeeeee
+)()()();
+
+(
+  aaaaaaaaaaaaaaaaaaaaaaaaa &&
+  bbbbbbbbbbbbbbbbbbbbbbbbb &&
+  ccccccccccccccccccccccccc &&
+  ddddddddddddddddddddddddd &&
+  eeeeeeeeeeeeeeeeeeeeeeeee
+)(
+  aaaaaaaaaaaaaaaaaaaaaaaaa &&
+    bbbbbbbbbbbbbbbbbbbbbbbbb &&
+    ccccccccccccccccccccccccc &&
+    ddddddddddddddddddddddddd &&
+    eeeeeeeeeeeeeeeeeeeeeeeee
+)(
+  aaaaaaaaaaaaaaaaaaaaaaaaa &&
+    bbbbbbbbbbbbbbbbbbbbbbbbb &&
+    ccccccccccccccccccccccccc &&
+    ddddddddddddddddddddddddd &&
+    eeeeeeeeeeeeeeeeeeeeeeeee
+)(
+  aaaaaaaaaaaaaaaaaaaaaaaaa &&
+    bbbbbbbbbbbbbbbbbbbbbbbbb &&
+    ccccccccccccccccccccccccc &&
+    ddddddddddddddddddddddddd &&
+    eeeeeeeeeeeeeeeeeeeeeeeee
+);
+
+=====================================output=====================================
+(
+  aaaaaaaaaaaaaaaaaaaaaaaaa &&
+  bbbbbbbbbbbbbbbbbbbbbbbbb &&
+  ccccccccccccccccccccccccc &&
+  ddddddddddddddddddddddddd &&
+  eeeeeeeeeeeeeeeeeeeeeeeee
+)();
+
+(aa && bb && cc && dd && ee)();
+
+(
+  aaaaaaaaaaaaaaaaaaaaaaaaa +
+  bbbbbbbbbbbbbbbbbbbbbbbbb +
+  ccccccccccccccccccccccccc +
+  ddddddddddddddddddddddddd +
+  eeeeeeeeeeeeeeeeeeeeeeeee
+)();
+
+(aa + bb + cc + dd + ee)();
+
+(
+  aaaaaaaaaaaaaaaaaaaaaaaaa &&
+  bbbbbbbbbbbbbbbbbbbbbbbbb &&
+  ccccccccccccccccccccccccc &&
+  ddddddddddddddddddddddddd &&
+  eeeeeeeeeeeeeeeeeeeeeeeee
+)()()();
+
+(
+  aaaaaaaaaaaaaaaaaaaaaaaaa &&
+  bbbbbbbbbbbbbbbbbbbbbbbbb &&
+  ccccccccccccccccccccccccc &&
+  ddddddddddddddddddddddddd &&
+  eeeeeeeeeeeeeeeeeeeeeeeee
+)(
+  aaaaaaaaaaaaaaaaaaaaaaaaa &&
+    bbbbbbbbbbbbbbbbbbbbbbbbb &&
+    ccccccccccccccccccccccccc &&
+    ddddddddddddddddddddddddd &&
+    eeeeeeeeeeeeeeeeeeeeeeeee
+)(
+  aaaaaaaaaaaaaaaaaaaaaaaaa &&
+    bbbbbbbbbbbbbbbbbbbbbbbbb &&
+    ccccccccccccccccccccccccc &&
+    ddddddddddddddddddddddddd &&
+    eeeeeeeeeeeeeeeeeeeeeeeee
+)(
+  aaaaaaaaaaaaaaaaaaaaaaaaa &&
+    bbbbbbbbbbbbbbbbbbbbbbbbb &&
+    ccccccccccccccccccccccccc &&
+    ddddddddddddddddddddddddd &&
+    eeeeeeeeeeeeeeeeeeeeeeeee
+);
+
+================================================================================
+`;
+
 exports[`comment.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
@@ -75,14 +205,14 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 a = (
-  // Commment 1
+  // Comment 1
   (Math.random() * (yRange * (1 - minVerticalFraction)))
   + (minVerticalFraction * yRange)
 ) - offset;
 
 =====================================output=====================================
 a =
-  // Commment 1
+  // Comment 1
   Math.random() * (yRange * (1 - minVerticalFraction)) +
   minVerticalFraction * yRange -
   offset;
