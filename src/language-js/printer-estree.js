@@ -2327,6 +2327,9 @@ function printPathNoParens(path, options, print, args) {
       if (n.accessibility) {
         parts.push(n.accessibility + " ");
       }
+      if (n.declare) {
+        parts.push("declare ");
+      }
       if (n.static) {
         parts.push("static ");
       }

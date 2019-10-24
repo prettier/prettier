@@ -51,8 +51,7 @@ Add following syntax support for TypeScript 3.7:
 - Optional Chaining
 - Null Coalescing
 - `asserts` Keyword
-
-**NOTE:** `declare` keyword on class members has not been supported yet, which will be fixed in future versions.
+- `declare` keyword on class members
 
 ##### Optional Chaining
 
@@ -125,6 +124,33 @@ function assertsString(x: any): asserts x {
 function assertsStringWithGuard(x: any): asserts x is string {
   console.assert(typeof x === "string");
 }
+```
+
+##### `declare` keyword on class members
+
+Previous versions would miss the keyword `declare`, this has been fixed in this version.
+
+<!-- prettier-ignore -->
+```ts
+class B {p: number;}
+class C extends B {declare p: 256 | 1000;}
+
+// Output (Prettier stable)
+class B {
+  p: number;
+}
+class C extends B {
+  p: 256 | 1000;
+}
+
+// Output (Prettier master)
+class B {
+  p: number;
+}
+class C extends B {
+  declare p: 256 | 1000;
+}
+
 ```
 
 #### API: Add `resolveConfig` option to `getFileInfo()` ([#6666] by [@kaicataldo])

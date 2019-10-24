@@ -975,10 +975,10 @@
   dependencies:
     "@types/yargs-parser" "*"
 
-"@typescript-eslint/typescript-estree@2.5.0":
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/typescript-estree/-/typescript-estree-2.5.0.tgz#40ada624d6217ef092a3a79ed30d947ad4f212ce"
-  integrity sha512-AXURyF8NcA3IsnbjNX1v9qbwa0dDoY9YPcKYR2utvMHoUcu3636zrz0gRWtVAyxbPCkhyKuGg6WZIyi2Fc79CA==
+"@typescript-eslint/typescript-estree@2.5.1-alpha.3":
+  version "2.5.1-alpha.3"
+  resolved "https://registry.yarnpkg.com/@typescript-eslint/typescript-estree/-/typescript-estree-2.5.1-alpha.3.tgz#978b2a906d72c15ad5aa1ec9564522f576499497"
+  integrity sha512-lUAj7g89kT5bI36GudpJzwNR3Pn3GXynt6TynS/bmGQm0JXAK3TCovid5SoB9Lw44eisPRJeoc913MFTySHvAg==
   dependencies:
     debug "^4.1.1"
     glob "^7.1.4"
