@@ -76,6 +76,7 @@
   "devDependencies": {
     "@babel/core": "7.6.3",
     "@babel/preset-env": "7.6.3",
+    "@simple-dom/interface": "1.4.0",
     "babel-loader": "8.0.6",
     "benchmark": "2.1.4",
     "builtin-modules": "3.1.0",
