@@ -44,13 +44,11 @@ const link = <a href="example.com">http://example.com</a>;
 
 -->
 
-#### API: add resolveConfig option to getFileInfo() ([#6666] by [@kaicataldo])
+#### API: Add `resolveConfig` option to `getFileInfo()` ([#6666] by [@kaicataldo])
 
 Add a `resolveConfig: boolean` option to `prettier.getFileInfo()` that, when set to `true`, will resolve the configuration for the given file path. This allows consumers to take any overridden parsers into account.
 
-#### JavaScript: add support for PartialApplication ([#6397] by [@JounQin])
-
-Previous versions would not be able to format this syntax, this has been fixed in this version.
+#### JavaScript: Add support for [partial application syntax](https://github.com/tc39/proposal-partial-application) ([#6397] by [@JounQin])
 
 <!-- prettier-ignore -->
 ```js
@@ -84,7 +82,7 @@ addTen(2); // 12
 let newScore = player.score |> add(7, ?) |> clamp(0, 100, ?); // shallow stack, the pipe to \`clamp\` is the same frame as the pipe to \`add\`.
 ```
 
-#### JavaScript: More readable parentheses for new-call ([#6412] by [@bakkot])
+#### JavaScript: More readable parentheses for `new` call ([#6412] by [@bakkot])
 
 <!-- prettier-ignore -->
 ```js
@@ -314,11 +312,11 @@ Previously, Prettier added line breaks between text and mustaches which resulted
 
 <!-- prettier-ignore -->
 ```hbs
-// Input
+<!-- Input -->
 <p>Your username is @{{name}}</p>
 <p>Hi {{firstName}} {{lastName}}</p>
 
-// Output (Prettier stable)
+<!-- Output (Prettier stable) -->
 <p>
   Your username is @
   {{name}}
@@ -329,7 +327,7 @@ Previously, Prettier added line breaks between text and mustaches which resulted
   {{lastName}}
 </p>
 
-// Output (Prettier master)
+<!-- Output (Prettier master) -->
 <p>
   Your username is @{{name}}
 </p>
@@ -344,7 +342,7 @@ Previously, Prettier would sometimes ignore whitespace when formatting comments.
 
 <!-- prettier-ignore -->
 ```hbs
-// Input
+<!-- Input -->
 <div>
   {{! Foo }}
   {{#if @foo}}
@@ -357,7 +355,7 @@ Previously, Prettier would sometimes ignore whitespace when formatting comments.
   {{/if}}
 </div>
 
-// Output (Prettier stable)
+<!-- Output (Prettier stable) -->
 <div>
   {{! Foo }}
   {{#if @foo}}
@@ -367,7 +365,7 @@ Previously, Prettier would sometimes ignore whitespace when formatting comments.
   {{/if}}
 </div>
 
-// Output (Prettier master)
+<!-- Output (Prettier master) -->
 <div>
   {{! Foo }}
   {{#if @foo}}
@@ -380,7 +378,7 @@ Previously, Prettier would sometimes ignore whitespace when formatting comments.
 </div>
 ```
 
-#### JavaScript: Update ?? precedence to match stage 3 proposal ([#6404] by [@vjeux])
+#### JavaScript: Update `??` precedence to match stage 3 proposal ([#6404] by [@vjeux])
 
 We've updated Prettier's support for the nullish coalescing operator to match a spec update that no longer allows it to immediately contain, or be contained within an `&&` or `||` operation.
 
@@ -445,8 +443,7 @@ source$
 However, this heuristic caused people to complain because of false positives
 where calls to functions or methods matching the hard-coded names would always
 be split on multiple lines, even if the calls did not contain function
-arguments (https://github.com/prettier/prettier/issues/5769,
-https://github.com/prettier/prettier/issues/5969). For many, this blanket
+arguments ([#5769](https://github.com/prettier/prettier/issues/5769), [#5969](https://github.com/prettier/prettier/issues/5969)). For many, this blanket
 decision to split functions based on name was both surprising and sub-optimal.
 
 We now use a refined heuristic which uses the presence of function literals to
@@ -478,17 +475,17 @@ eventStore.update(id, _.flow(updater, incrementVersion));
 
 <!-- prettier-ignore -->
 ```hbs
-// Input
+<!-- Input -->
 <p>
   Some escaped characters: &lt; &gt; &amp;
 </p>
 
-// Output (Prettier stable)
+<!-- Output (Prettier stable) -->
 <p>
   Some escaped characters: < > &
 </p>
 
-// Output (Prettier master)
+<!-- Output (Prettier master) -->
 <p>
   Some escaped characters: &lt; &gt; &amp;
 </p>
@@ -559,25 +556,25 @@ Previously, even if the line length was shorter than `printWidth`, Prettier woul
 
 <!-- prettier-ignore -->
 ```html
-// Input
+<!-- Input -->
 <template>
   <template>foo</template>
 </template>
 
-// Output (Prettier stable)
+<!-- Output (Prettier stable) -->
 <template>
   <template
     >foo</template
   >
 </template>
 
-// Output (Prettier master)
+<!-- Output (Prettier master) -->
 <template>
   <template>foo</template>
 </template>
 ```
 
-#### JavaScript: Fix breaks indentation and idempotency when an arrow function that args include object pattern is passed to a function as parameter. ([#6301] & [#6382] by [@sosukesuzuki])
+#### JavaScript: Empty lines in destructured arrow function parameters could break indentation and idempotence ([#6301] & [#6382] by [@sosukesuzuki])
 
 Previously, Prettier indented code strangely when an arrow function whose parameters included an object pattern was passed to a function call as an argument. Also, it broke idempotence. Please see [#6294](https://github.com/prettier/prettier/issues/6294) for details.
 
@@ -860,13 +857,13 @@ Previously, the flag was not applied on HTML attributes.
 
 <!-- prettier-ignore-->
 ```hbs
-// Input
+<!-- Input -->
 <div class="a-class-name"></div>
 
-// Prettier (stable with the option --single-quote)
+<!-- Prettier (stable with the option --single-quote) -->
 <div class="a-class-name"></div>
 
-// Prettier (master with the option --single-quote)
+<!-- Prettier (master with the option --single-quote) -->
 <div class='a-class-name'></div>
 ```
 
@@ -1043,11 +1040,11 @@ class A {
 
 #### Handlebars: Fix handling of whitespace and line breaks ([#6354] by [@chadian])
 
-This fixes a variety of whitespace and line break usecases within handlebars and Glimmer templates.
+This fixes a variety of whitespace and line break use cases within Handlebars and Glimmer templates.
 
 <!-- prettier-ignore -->
 ```hbs
-// Input
+<!-- Input -->
 <SomeComponent />{{name}}
 
 Some sentence with  {{dynamic}}  expressions.
@@ -1057,7 +1054,7 @@ Some sentence with  {{dynamic}}  expressions.
 sometimes{{nogaps}}areimportant<Hello></Hello>
 {{name}}  is your name
 
-// Output (Prettier stable)
+<!-- Output (Prettier stable) -->
 <SomeComponent />
 {{name}}
 Some sentence with
@@ -1073,7 +1070,7 @@ areimportant
 {{name}}
 is your name
 
-// Output (Prettier master)
+<!-- Output (Prettier master) -->
 <SomeComponent />{{name}}
 
 Some sentence with {{dynamic}} expressions.
@@ -1085,6 +1082,7 @@ sometimes{{nogaps}}areimportant
 {{name}} is your name
 ```
 
+[#5682]: https://github.com/prettier/prettier/pull/5682
 [#5910]: https://github.com/prettier/prettier/pull/5910
 [#6033]: https://github.com/prettier/prettier/pull/6033
 [#6186]: https://github.com/prettier/prettier/pull/6186
@@ -1100,8 +1098,10 @@ sometimes{{nogaps}}areimportant
 [#6307]: https://github.com/prettier/prettier/pull/6307
 [#6332]: https://github.com/prettier/prettier/pull/6332
 [#6340]: https://github.com/prettier/prettier/pull/6340
+[#6354]: https://github.com/prettier/prettier/pull/6354
 [#6377]: https://github.com/prettier/prettier/pull/6377
 [#6381]: https://github.com/prettier/prettier/pull/6381
+[#6382]: https://github.com/prettier/prettier/pull/6382
 [#6397]: https://github.com/prettier/prettier/pull/6397
 [#6404]: https://github.com/prettier/prettier/pull/6404
 [#6411]: https://github.com/prettier/prettier/pull/6411
@@ -1119,8 +1119,8 @@ sometimes{{nogaps}}areimportant
 [#6605]: https://github.com/prettier/prettier/pull/6605
 [#6640]: https://github.com/prettier/prettier/pull/6640
 [#6646]: https://github.com/prettier/prettier/pull/6646
+[#6666]: https://github.com/prettier/prettier/pull/6666
 [#6673]: https://github.com/prettier/prettier/pull/6673
-[#6382]: https://github.com/prettier/prettier/pull/6382
 [@brainkim]: https://github.com/brainkim
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
@@ -1136,3 +1136,4 @@ sometimes{{nogaps}}areimportant
 [@vjeux]: https://github.com/vjeux
 [@selvazhagan]: https://github.com/selvazhagan
 [@chadian]: https://github.com/chadian
+[@kaicataldo]: https://github.com/kaicataldo
