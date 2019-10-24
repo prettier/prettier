@@ -1,5 +1,9 @@
 "use strict";
 
+/**
+ * @typedef {string | Object} Doc
+ */
+
 function assertDoc(val) {
   /* istanbul ignore if */
   if (
@@ -11,6 +15,10 @@ function assertDoc(val) {
   }
 }
 
+/**
+ * @param {Doc[]} parts
+ * @returns Doc
+ */
 function concat(parts) {
   if (process.env.NODE_ENV !== "production") {
     parts.forEach(assertDoc);
@@ -25,6 +33,10 @@ function concat(parts) {
   return { type: "concat", parts };
 }
 
+/**
+ * @param {Doc} contents
+ * @returns Doc
+ */
 function indent(contents) {
   if (process.env.NODE_ENV !== "production") {
     assertDoc(contents);
@@ -41,6 +53,11 @@ function align(n, contents) {
   return { type: "align", contents, n };
 }
 
+/**
+ * @param {Doc} contents
+ * @param {Object} [opts]
+ * @returns Doc
+ */
 function group(contents, opts) {
   opts = opts || {};
 
