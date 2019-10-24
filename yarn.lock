@@ -7161,10 +7161,10 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
-typescript@3.8.0-dev.20191023:
-  version "3.8.0-dev.20191023"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.8.0-dev.20191023.tgz#9a563770f85c93631474b2b58e742e79d534c6c5"
-  integrity sha512-wzKrmiTbjXsppJhmWev/LVrpih1TNJH1u7Co/3y7WMg3tr5etU6wyvKFGb8SUaov2HlBmuuAe0/ircfdndlS4A==
+typescript@3.8.0-dev.20191024:
+  version "3.8.0-dev.20191024"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.8.0-dev.20191024.tgz#7f267e0cef5dcf4a9d205f0f5d015427c3747280"
+  integrity sha512-pwczYhoKDbhHg/JpbCm3oMLjfEWVHmnYwOMFSRUDZfS5iveF8Fawmtke0FFUQW5v3DybLaRHtjHEPixUhMVRAQ==
 
 uglify-js@^3.1.4:
   version "3.6.0"
