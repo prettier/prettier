@@ -136,8 +136,8 @@ function fill(parts) {
 }
 
 /**
- * @param {Doc} breakContents
- * @param {Doc} flatContents
+ * @param {Doc} [breakContents]
+ * @param {Doc} [flatContents]
  * @param {Object} [opts] - TBD ???
  * @returns Doc
  */
