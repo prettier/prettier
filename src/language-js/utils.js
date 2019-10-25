@@ -688,7 +688,7 @@ function isStringPropSafeToCoerceToIdentifier(node, options) {
   );
 }
 
-function isJestEachMemberExpression(node) {
+function isJestEachTemplateLiteral(node, parentNode) {
   /**
    * describe.each`table`(name, fn)
    * describe.only.each`table`(name, fn)
@@ -700,27 +700,20 @@ function isJestEachMemberExpression(node) {
    * Ref: https://github.com/facebook/jest/pull/6102
    */
   const jestEachTriggerRegex = /^[xf]?(describe|it|test)$/;
-
-  return (
-    node.type === "MemberExpression" &&
-    node.property.type === "Identifier" &&
-    node.property.name === "each" &&
-    ((node.object.type === "Identifier" &&
-      jestEachTriggerRegex.test(node.object.name)) ||
-      (node.object.type === "MemberExpression" &&
-        node.object.property.type === "Identifier" &&
-        (node.object.property.name === "only" ||
-          node.object.property.name === "skip") &&
-        node.object.object.type === "Identifier" &&
-        jestEachTriggerRegex.test(node.object.object.name)))
-  );
-}
-
-function isJestEachTemplateLiteral(node, parentNode) {
   return (
     parentNode.type === "TaggedTemplateExpression" &&
     parentNode.quasi === node &&
-    isJestEachMemberExpression(parentNode.tag)
+    parentNode.tag.type === "MemberExpression" &&
+    parentNode.tag.property.type === "Identifier" &&
+    parentNode.tag.property.name === "each" &&
+    ((parentNode.tag.object.type === "Identifier" &&
+      jestEachTriggerRegex.test(parentNode.tag.object.name)) ||
+      (parentNode.tag.object.type === "MemberExpression" &&
+        parentNode.tag.object.property.type === "Identifier" &&
+        (parentNode.tag.object.property.name === "only" ||
+          parentNode.tag.object.property.name === "skip") &&
+        parentNode.tag.object.object.type === "Identifier" &&
+        jestEachTriggerRegex.test(parentNode.tag.object.object.name)))
   );
 }
 
