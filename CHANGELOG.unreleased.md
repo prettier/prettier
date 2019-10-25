@@ -1082,23 +1082,23 @@ sometimes{{nogaps}}areimportant
 {{name}} is your name
 ```
 
-#### Angular: Add formatting for i18n attributes ([#6695] by [@voithos])
+#### Angular: Add formatting for `i18n` attributes ([#6695] by [@voithos])
 
 <!-- prettier-ignore -->
 ```html
-// Input
+<!-- Input -->
 <h1 i18n="This is a very long internationalization description text, exceeding the configured print width">
   Hello!
 </h1>
 
-// Output (Prettier stable)
+<!-- Output (Prettier stable) -->
 <h1
   i18n="This is a very long internationalization description text, exceeding the configured print width"
 >
   Hello!
 </h1>
 
-// Output (Prettier master)
+<!-- Output (Prettier master) -->
 <h1
   i18n="
     This is a very long internationalization description text, exceeding the
