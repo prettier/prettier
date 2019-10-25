@@ -598,7 +598,8 @@ function printPathNoParens(path, options, print, args) {
         (n !== parent.body && parent.type === "ForStatement") ||
         (parent.type === "ConditionalExpression" &&
           (parentParent.type !== "ReturnStatement" &&
-            parentParent.type !== "CallExpression"));
+            parentParent.type !== "CallExpression" &&
+            parentParent.type !== "OptionalCallExpression"));
 
       const shouldIndentIfInlining =
         parent.type === "AssignmentExpression" ||
@@ -5454,11 +5455,17 @@ function maybeWrapJSXElementInParens(path, elem, options) {
     return elem;
   }
 
-  const shouldBreak = matchAncestorTypes(path, [
-    "ArrowFunctionExpression",
-    "CallExpression",
-    "JSXExpressionContainer"
-  ]);
+  const shouldBreak =
+    matchAncestorTypes(path, [
+      "ArrowFunctionExpression",
+      "CallExpression",
+      "JSXExpressionContainer"
+    ]) ||
+    matchAncestorTypes(path, [
+      "ArrowFunctionExpression",
+      "OptionalCallExpression",
+      "JSXExpressionContainer"
+    ]);
 
   const needsParens = pathNeedsParens(path, options);
 
@@ -5823,7 +5830,8 @@ function willPrintOwnComments(path /*, options */) {
       (isJSXNode(node) ||
         hasFlowShorthandAnnotationComment(node) ||
         (parent &&
-          parent.type === "CallExpression" &&
+          (parent.type === "CallExpression" ||
+            parent.type === "OptionalCallExpression") &&
           (hasFlowAnnotationComment(node.leadingComments) ||
             hasFlowAnnotationComment(node.trailingComments))))) ||
       (parent &&
