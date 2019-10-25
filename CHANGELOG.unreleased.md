@@ -44,29 +44,24 @@ const link = <a href="example.com">http://example.com</a>;
 
 -->
 
-#### TypeScript: Support TypeScript 3.7 syntax features ([#6657] by [@cryrivers])
+#### TypeScript: Support for TypeScript 3.7 ([#6657] by [@cryrivers])
 
-Add following syntax support for TypeScript 3.7:
+Prettier 1.19 adds support for the features of the upcoming TypeScript 3.7 that introduce new syntax:
 
-- Optional Chaining
-- Null Coalescing
-- `asserts` Keyword
-- `declare` keyword on class fields
+- [Optional chaining](https://devblogs.microsoft.com/typescript/announcing-typescript-3-7-rc/#optional-chaining)
+- [Nullish coalescing](https://devblogs.microsoft.com/typescript/announcing-typescript-3-7-rc/#nullish-coalescing)
+- [Assertion functions](https://devblogs.microsoft.com/typescript/announcing-typescript-3-7-rc/#assertion-functions)
+- [`declare` modifier on class fields](https://github.com/microsoft/TypeScript/pull/33509)
 
-**NOTE:**: Node.js 6.0 support for direct installation from Github is also dropped due to the dependency upgrade for TypeScript 3.7.
+**NOTE:** A dependency upgrade for TypeScript 3.7 led to dropping Node 6 support for direct installation from GitHub. Prettier installed from NPM stays compatible with Node 4.
 
 ##### Optional Chaining
 
 <!-- prettier-ignore -->
 ```ts
+// Input
 const longChain = obj?.a?.b?.c?.d?.e?.f?.g;
 const longChainCallExpression = obj.a?.(a,b,c).b?.(a,b,c).c?.(a,b,c).d?.(a,b,c).e?.(a,b,c).f?.(a,b,c)
-
-// Output (Prettier stable)
-SyntaxError: Expression expected. (1:23)
-> 1 | const longChain = obj?.a?.b?.c?.d?.e?.f?.g;
-    |                       ^
-  2 | const longChainCallExpression = obj.a?.(a,b,c).b?.(a,b,c).c?.(a,b,c).d?.(a,b,c).e?.(a,b,c).f?.(a,b,c)
 
 // Output (Prettier master)
 const longChain = obj?.a?.b?.c?.d?.e?.f?.g;
@@ -79,20 +74,14 @@ const longChainCallExpression = obj
   .f?.(a, b, c);
 ```
 
-##### Null Coalescing
+##### Nullish Coalescing
 
 <!-- prettier-ignore -->
 ```ts
+// Input
 const cond = null;
 const result = cond??'a';
 const longChain = cond??cond??cond??'b';
-
-// Output (Prettier stable)
-SyntaxError: Expression expected. (2:21)
-  1 | const cond = null;
-> 2 | const result = cond??'a';
-    |                     ^
-  3 | const longChain = cond??cond??cond??'b';
 
 // Output (Prettier master)
 const cond = null;
@@ -100,18 +89,13 @@ const result = cond ?? "a";
 const longChain = cond ?? cond ?? cond ?? "b";
 ```
 
-##### `asserts` Keyword
+##### Assertion Functions
 
 <!-- prettier-ignore -->
 ```ts
+// Input
 function assertsString(x: any): asserts x {console.assert(typeof x === 'string');}
 function assertsStringWithGuard(x: any): asserts x is string {console.assert(typeof x === 'string');}
-
-// Output (Prettier stable)
-SyntaxError: '{' or ';' expected. (1:41)
-> 1 | function assertsString(x: any): asserts x {console.assert(typeof x === 'string');}
-    |                                         ^
-  2 | function assertsStringWithGuard(x: any): asserts x is string {console.assert(typeof x === 'string');}
 
 // Output (Prettier master)
 function assertsString(x: any): asserts x {
@@ -122,22 +106,13 @@ function assertsStringWithGuard(x: any): asserts x is string {
 }
 ```
 
-##### `declare` keyword on class fields
-
-Previous versions would miss the keyword `declare`, this has been fixed in this version.
+##### `declare` Modifier on Class Fields
 
 <!-- prettier-ignore -->
 ```ts
+// Input
 class B {p: number;}
 class C extends B {declare p: 256 | 1000;}
-
-// Output (Prettier stable)
-class B {
-  p: number;
-}
-class C extends B {
-  p: 256 | 1000;
-}
 
 // Output (Prettier master)
 class B {
@@ -146,7 +121,6 @@ class B {
 class C extends B {
   declare p: 256 | 1000;
 }
-
 ```
 
 #### API: Add `resolveConfig` option to `getFileInfo()` ([#6666] by [@kaicataldo])
@@ -157,6 +131,7 @@ Add a `resolveConfig: boolean` option to `prettier.getFileInfo()` that, when set
 
 <!-- prettier-ignore -->
 ```js
+// Input
 const addOne = add(1, ?); // apply from the left
 addOne(2); // 3
 
