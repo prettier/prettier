@@ -53,6 +53,8 @@ Add following syntax support for TypeScript 3.7:
 - `asserts` Keyword
 - `declare` keyword on class fields
 
+**NOTE:**: Node.js 6.0 support for direct installation from Github is also dropped due to the dependency upgrade for TypeScript 3.7.
+
 ##### Optional Chaining
 
 <!-- prettier-ignore -->
