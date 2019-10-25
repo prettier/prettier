@@ -140,7 +140,7 @@ function genericPrint(path, options, print) {
       );
       const style = "`".repeat(backtickCount || 1);
       const gap = backtickCount ? " " : "";
-      return concat([style, gap, node.value, gap, style]);
+      return concat([style, gap, node.value.trim(), gap, style]);
     }
     case "link":
       switch (options.originalText[node.position.start.offset]) {
@@ -890,6 +890,10 @@ function printTitle(title, options, printSpace) {
   if (printSpace) {
     return " " + printTitle(title, options, false);
   }
+
+  // title is escaped after `remark-parse` v7
+  title = title.replace(/\\(['")])/g, "$1");
+
   if (title.includes('"') && title.includes("'") && !title.includes(")")) {
     return `(${title})`; // avoid escaped quotes
   }
