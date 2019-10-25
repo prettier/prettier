@@ -123,6 +123,28 @@ class C extends B {
 }
 ```
 
+#### TypeScript: Prettier removed `?` from optional computed class fields ([#6657] by [@cryrivers])
+
+Still happens if the field key is a complex expression, but has been fixed in this case:
+
+<!-- prettier-ignore -->
+```ts
+// Input
+class Foo {
+  [bar]?: number;
+}
+
+// Output (Prettier stable)
+class Foo {
+  [bar]: number;
+}
+
+// Output (Prettier master)
+class Foo {
+  [bar]?: number;
+}
+```
+
 #### API: Add `resolveConfig` option to `getFileInfo()` ([#6666] by [@kaicataldo])
 
 Add a `resolveConfig: boolean` option to `prettier.getFileInfo()` that, when set to `true`, will resolve the configuration for the given file path. This allows consumers to take any overridden parsers into account.
