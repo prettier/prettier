@@ -272,7 +272,7 @@ function forceBreakContent(node) {
     forceBreakChildren(node) ||
     (node.type === "element" &&
       node.children.length !== 0 &&
-      (["body", "template", "script", "style"].indexOf(node.name) !== -1 ||
+      (["body", "script", "style"].indexOf(node.name) !== -1 ||
         node.children.some(child => hasNonTextChild(child)))) ||
     (node.firstChild &&
       node.firstChild === node.lastChild &&
@@ -376,7 +376,10 @@ function inferScriptParser(node) {
       return "markdown";
     }
 
-    if (node.attrMap.type === "application/ld+json") {
+    if (
+      node.attrMap.type.endsWith("json") ||
+      node.attrMap.type.endsWith("importmap")
+    ) {
       return "json";
     }
   }

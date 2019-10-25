@@ -1,13 +1,13 @@
 class Class extends AbstractClass implements Interface1, Interface2, Interface3, Interface4 {}
 
-class ExtendsAbstractClassAndImplementsInterfaces extends AbstractClass
+class ExtendsAbstractClassAndImplementsInterfaces1 extends AbstractClass
   implements Interface1, Interface2, Interface3, Interface4 {}
 
-class ExtendsAbstractClassAndImplementsInterfaces
+class ExtendsAbstractClassAndImplementsInterfaces2
   extends AAAAAAAAAAAAAAbstractClass
   implements Interface1, Interface2, Interface3, Interface4 {}
 
-class ExtendsAbstractClassAndImplementsInterfaces
+class ExtendsAbstractClassAndImplementsInterfaces3
   extends AAAAAAAAAAAAAAbstractClass
   implements
     Interface1,
@@ -19,10 +19,10 @@ class ExtendsAbstractClassAndImplementsInterfaces
     Interface7,
     Interface8 {}
 
-class ExtendsAbstractClassAndImplementsInterfaces
-  extends AAAAAAAAAAAAAAbstractClass<Type1, Type2, Type3, Type4, Type5, Type6, Type7> {} 
+class ExtendsAbstractClassAndImplementsInterfaces4
+  extends AAAAAAAAAAAAAAbstractClass<Type1, Type2, Type3, Type4, Type5, Type6, Type7> {}
 
-class ExtendsAbstractClassAndImplementsInterfaces
+class ExtendsAbstractClassAndImplementsInterfaces5
   extends AAAAAAAAAAAAAAbstractClass<Type1, Type2, Type3, Type4, Type5, Type6, Type7>
   implements
     Interface1,

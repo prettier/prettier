@@ -7,7 +7,7 @@ module.exports = async function() {
 
   if (status) {
     throw Error(
-      "Uncommited local changes. " +
+      "Uncommitted local changes. " +
         "Please revert or commit all local changes before making a release."
     );
   }

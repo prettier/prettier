@@ -56,7 +56,7 @@ const paymentMessage = state == 'success'
 
   : 'There was an issue with the payment.  Please contact support.'
 
-const paymentMessage = state == 'success'
+const paymentMessage2 = state == 'success'
   ? 1 //'Payment completed successfully'
 
 : state == 'processing'

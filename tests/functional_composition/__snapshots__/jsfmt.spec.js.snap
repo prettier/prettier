@@ -87,12 +87,7 @@ this.a.b.c.compose(
   sortBy(x => x),
   flatten
 );
-someObj.someMethod(
-  this.field.compose(
-    a,
-    b
-  )
-);
+someObj.someMethod(this.field.compose(a, b));
 
 class A extends B {
   compose() {
@@ -105,10 +100,7 @@ class A extends B {
 
 this.subscriptions.add(
   this.componentUpdates
-    .pipe(
-      startWith(this.props),
-      distinctUntilChanged(isEqual)
-    )
+    .pipe(startWith(this.props), distinctUntilChanged(isEqual))
     .subscribe(props => {})
 );
 
@@ -161,13 +153,13 @@ foo(6);
 
 import * as _ from "lodash";
 
-const foo = _.flow(
+const bar = _.flow(
   x => x + 1,
   x => x * 3,
   x => x - 6,
 );
 
-foo(6);
+bar(6);
 
 =====================================output=====================================
 import { flow } from "lodash";
@@ -182,13 +174,13 @@ foo(6);
 
 import * as _ from "lodash";
 
-const foo = _.flow(
+const bar = _.flow(
   x => x + 1,
   x => x * 3,
   x => x - 6
 );
 
-foo(6);
+bar(6);
 
 ================================================================================
 `;
@@ -211,13 +203,13 @@ foo(6);
 
 import * as _ from "lodash";
 
-const foo = _.flowRight(
+const bar = _.flowRight(
   x => x + 1,
   x => x * 3,
   x => x - 6,
 );
 
-foo(6);
+bar(6);
 
 =====================================output=====================================
 import { flowRight } from "lodash";
@@ -232,13 +224,13 @@ foo(6);
 
 import * as _ from "lodash";
 
-const foo = _.flowRight(
+const bar = _.flowRight(
   x => x + 1,
   x => x * 3,
   x => x - 6
 );
 
-foo(6);
+bar(6);
 
 ================================================================================
 `;
@@ -311,30 +303,25 @@ var followersForUser = R.composeP(lookupFollowers, lookupUser);
 followersForUser("JOE").then(followers => console.log("Followers:", followers));
 // Followers: ["STEVE","SUZY"]
 
+const mapStateToProps = state => ({
+  users: R.compose( R.filter(R.propEq('status', 'active')),
+    R.values)(state.users)
+});
+
 =====================================output=====================================
 var classyGreeting = (firstName, lastName) =>
   "The name's " + lastName + ", " + firstName + " " + lastName;
-var yellGreeting = R.compose(
-  R.toUpper,
-  classyGreeting
-);
+var yellGreeting = R.compose(R.toUpper, classyGreeting);
 yellGreeting("James", "Bond"); //=> "THE NAME'S BOND, JAMES BOND"
 
-R.compose(
-  Math.abs,
-  R.add(1),
-  R.multiply(2)
-)(-4); //=> 7
+R.compose(Math.abs, R.add(1), R.multiply(2))(-4); //=> 7
 
 //  get :: String -> Object -> Maybe *
 var get = R.curry((propName, obj) => Maybe(obj[propName]));
 
 //  getStateCode :: Maybe String -> Maybe String
 var getStateCode = R.composeK(
-  R.compose(
-    Maybe.of,
-    R.toUpper
-  ),
+  R.compose(Maybe.of, R.toUpper),
   get("state"),
   get("address"),
   get("user")
@@ -357,12 +344,16 @@ var lookupFollowers = user => Promise.resolve(user.followers);
 lookupUser("JOE").then(lookupFollowers);
 
 //  followersForUser :: String -> Promise [UserId]
-var followersForUser = R.composeP(
-  lookupFollowers,
-  lookupUser
-);
+var followersForUser = R.composeP(lookupFollowers, lookupUser);
 followersForUser("JOE").then(followers => console.log("Followers:", followers));
 // Followers: ["STEVE","SUZY"]
+
+const mapStateToProps = state => ({
+  users: R.compose(
+    R.filter(R.propEq("status", "active")),
+    R.values
+  )(state.users)
+});
 
 ================================================================================
 `;
@@ -398,11 +389,7 @@ getStateCode("[Invalid JSON]");
 var followersForUser = R.pipeP(db.getUserById, db.getFollowers);
 
 =====================================output=====================================
-var f = R.pipe(
-  Math.pow,
-  R.negate,
-  R.inc
-);
+var f = R.pipe(Math.pow, R.negate, R.inc);
 
 f(3, 4); // -(3^4) + 1
 
@@ -415,10 +402,7 @@ var getStateCode = R.pipeK(
   get("user"),
   get("address"),
   get("state"),
-  R.compose(
-    Maybe.of,
-    R.toUpper
-  )
+  R.compose(Maybe.of, R.toUpper)
 );
 
 getStateCode('{"user":{"address":{"state":"ny"}}}');
@@ -427,10 +411,7 @@ getStateCode("[Invalid JSON]");
 //=> Nothing()
 
 //  followersForUser :: String -> Promise [User]
-var followersForUser = R.pipeP(
-  db.getUserById,
-  db.getFollowers
-);
+var followersForUser = R.pipeP(db.getUserById, db.getFollowers);
 
 ================================================================================
 `;
@@ -463,10 +444,7 @@ import reducer from "../reducers";
 
 const store = createStore(
   reducer,
-  compose(
-    applyMiddleware(thunk),
-    DevTools.instrument()
-  )
+  compose(applyMiddleware(thunk), DevTools.instrument())
 );
 
 ================================================================================
@@ -498,13 +476,13 @@ printWidth: 80
 =====================================input======================================
 import { createSelector } from 'reselect';
 
-const resolve = createSelector(
+const foo = createSelector(
   getIds,
   getObjects,
   (ids, objects) => ids.map(id => objects[id])
 );
 
-const resolve = createSelector(
+const bar = createSelector(
   [getIds, getObjects],
   (ids, objects) => ids.map(id => objects[id])
 );
@@ -512,15 +490,12 @@ const resolve = createSelector(
 =====================================output=====================================
 import { createSelector } from "reselect";
 
-const resolve = createSelector(
-  getIds,
-  getObjects,
-  (ids, objects) => ids.map(id => objects[id])
+const foo = createSelector(getIds, getObjects, (ids, objects) =>
+  ids.map(id => objects[id])
 );
 
-const resolve = createSelector(
-  [getIds, getObjects],
-  (ids, objects) => ids.map(id => objects[id])
+const bar = createSelector([getIds, getObjects], (ids, objects) =>
+  ids.map(id => objects[id])
 );
 
 ================================================================================

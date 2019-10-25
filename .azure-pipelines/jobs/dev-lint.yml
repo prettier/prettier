@@ -7,3 +7,5 @@ steps:
     displayName: "Lint code"
   - script: yarn lint-docs
     displayName: "Lint docs"
+  - script: yarn spellcheck
+    displayName: "Spellcheck"

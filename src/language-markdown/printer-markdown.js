@@ -35,7 +35,12 @@ const { replaceEndOfLineWith } = require("../common/util");
 
 const TRAILING_HARDLINE_NODES = ["importExport"];
 const SINGLE_LINE_NODE_TYPES = ["heading", "tableCell", "link"];
-const SIBLING_NODE_TYPES = ["listItem", "definition", "footnoteDefinition"];
+const SIBLING_NODE_TYPES = [
+  "listItem",
+  "definition",
+  "footnoteDefinition",
+  "jsx"
+];
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
@@ -110,7 +115,7 @@ function genericPrint(path, options, print) {
       const index = parentNode.children.indexOf(node);
       const prevNode = parentNode.children[index - 1];
       const nextNode = parentNode.children[index + 1];
-      const hasPrevOrNextWord = // `1*2*3` is considered emphais but `1_2_3` is not
+      const hasPrevOrNextWord = // `1*2*3` is considered emphasis but `1_2_3` is not
         (prevNode &&
           prevNode.type === "sentence" &&
           prevNode.children.length > 0 &&
@@ -765,35 +770,55 @@ function isPrettierIgnore(node) {
   return match === null ? false : match[1] ? match[1] : "next";
 }
 
-function shouldNotPrePrintHardline(node, data) {
-  const isFirstNode = data.parts.length === 0;
-  const isInlineNode = INLINE_NODE_TYPES.indexOf(node.type) !== -1;
+function isInlineNode(node) {
+  return node && INLINE_NODE_TYPES.indexOf(node.type) !== -1;
+}
+
+function isEndsWithHardLine(node) {
+  return node && /\n+$/.test(node.value);
+}
+
+function last(nodes) {
+  return nodes && nodes[nodes.length - 1];
+}
+
+function shouldNotPrePrintHardline(node, { parentNode, parts, prevNode }) {
+  const isFirstNode = parts.length === 0;
 
   const isInlineHTML =
     node.type === "html" &&
-    INLINE_NODE_WRAPPER_TYPES.indexOf(data.parentNode.type) !== -1;
+    INLINE_NODE_WRAPPER_TYPES.indexOf(parentNode.type) !== -1;
 
-  return isFirstNode || isInlineNode || isInlineHTML;
+  const isAfterHardlineNode =
+    prevNode &&
+    (isEndsWithHardLine(prevNode) ||
+      isEndsWithHardLine(last(prevNode.children)));
+
+  return (
+    isFirstNode || isInlineNode(node) || isInlineHTML || isAfterHardlineNode
+  );
 }
 
-function shouldPrePrintDoubleHardline(node, data) {
-  const isSequence = (data.prevNode && data.prevNode.type) === node.type;
+function shouldPrePrintDoubleHardline(node, { parentNode, prevNode }) {
+  const prevNodeType = prevNode && prevNode.type;
+  const nodeType = node.type;
+
+  const isSequence = prevNodeType === nodeType;
   const isSiblingNode =
-    isSequence && SIBLING_NODE_TYPES.indexOf(node.type) !== -1;
+    isSequence && SIBLING_NODE_TYPES.indexOf(nodeType) !== -1;
 
-  const isInTightListItem =
-    data.parentNode.type === "listItem" && !data.parentNode.loose;
-
-  const isPrevNodeLooseListItem =
-    data.prevNode && data.prevNode.type === "listItem" && data.prevNode.loose;
-
-  const isPrevNodePrettierIgnore = isPrettierIgnore(data.prevNode) === "next";
+  const isInTightListItem = parentNode.type === "listItem" && !parentNode.loose;
+  const isPrevNodeLooseListItem = prevNodeType === "listItem" && prevNode.loose;
+  const isPrevNodePrettierIgnore = isPrettierIgnore(prevNode) === "next";
 
   const isBlockHtmlWithoutBlankLineBetweenPrevHtml =
-    node.type === "html" &&
-    data.prevNode &&
-    data.prevNode.type === "html" &&
-    data.prevNode.position.end.line + 1 === node.position.start.line;
+    nodeType === "html" &&
+    prevNodeType === "html" &&
+    prevNode.position.end.line + 1 === node.position.start.line;
+
+  const isJsxInlineSibling =
+    (prevNodeType === "jsx" && isInlineNode(node)) ||
+    (nodeType === "jsx" && isInlineNode(prevNode));
 
   return (
     isPrevNodeLooseListItem ||
@@ -801,7 +826,8 @@ function shouldPrePrintDoubleHardline(node, data) {
       isSiblingNode ||
       isInTightListItem ||
       isPrevNodePrettierIgnore ||
-      isBlockHtmlWithoutBlankLineBetweenPrevHtml
+      isBlockHtmlWithoutBlankLineBetweenPrevHtml ||
+      isJsxInlineSibling
     )
   );
 }

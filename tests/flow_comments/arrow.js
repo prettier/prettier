@@ -1,9 +1,9 @@
 // Error
-const beep = (data/*: Object */) => {}
+const a = (data/*: Object */) => {}
 
 // OK
-const beep = (data/*: Object */, secondData/*: Object */) => {}
+const b = (data/*: Object */, secondData/*: Object */) => {}
 
-const beep = (data/*: /* this is an object *-/ Object */) => {};
+const c = (data/*: /* this is an object *-/ Object */) => {};
 
 const run = (cmd /*: string */) /*: Promise<void> */ => {}

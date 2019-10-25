@@ -332,3 +332,31 @@ printWidth: 80
 
 ================================================================================
 `;
+
+exports[`template.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<template>
+  <template>foo</template>
+</template>
+
+<template>
+  <template>foooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo</template>
+</template>
+
+=====================================output=====================================
+<template>
+  <template>foo</template>
+</template>
+
+<template>
+  <template
+    >foooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo</template
+  >
+</template>
+
+================================================================================
+`;
