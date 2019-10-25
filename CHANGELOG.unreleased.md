@@ -1109,6 +1109,62 @@ sometimes{{nogaps}}areimportant
 </h1>
 ```
 
+#### JavaScript: Break arrays of arrays/objects if each element has more than one element/property ([#6694] by [@sosukesuzuki])
+
+<!-- prettier-ignore -->
+```js
+// Input
+test.each([
+  { a: "1", b: 1 },
+  { a: "2", b: 2 },
+  { a: "3", b: 3 }
+])("test", ({ a, b }) => {
+  expect(Number(a)).toBe(b);
+});
+[[0, 1, 2], [0, 1, 2]];
+new Map([
+  [A, B],
+  [C, D],
+  [E, F],
+  [G, H],
+  [I, J],
+  [K, L],
+  [M, N]
+]);
+
+// Output (Prettier stable)
+test.each([{ a: "1", b: 1 }, { a: "2", b: 2 }, { a: "3", b: 3 }])(
+  "test",
+  ({ a, b }) => {
+    expect(Number(a)).toBe(b);
+  }
+);
+[[0, 1, 2], [0, 1, 2]]
+new Map([[A, B], [C, D], [E, F], [G, H], [I, J], [K, L], [M, N]]);
+
+// Output (Prettier master)
+test.each([
+  { a: "1", b: 1 },
+  { a: "2", b: 2 },
+  { a: "3", b: 3 }
+])("test", ({ a, b }) => {
+  expect(Number(a)).toBe(b);
+});
+[
+  [0, 1, 2],
+  [0, 1, 2]
+];
+new Map([
+  [A, B],
+  [C, D],
+  [E, F],
+  [G, H],
+  [I, J],
+  [K, L],
+  [M, N]
+]);
+```
+
 [#5682]: https://github.com/prettier/prettier/pull/5682
 [#5910]: https://github.com/prettier/prettier/pull/5910
 [#6033]: https://github.com/prettier/prettier/pull/6033
@@ -1149,6 +1205,7 @@ sometimes{{nogaps}}areimportant
 [#6666]: https://github.com/prettier/prettier/pull/6666
 [#6673]: https://github.com/prettier/prettier/pull/6673
 [#6695]: https://github.com/prettier/prettier/pull/6695
+[#6694]: https://github.com/prettier/prettier/pull/6694
 [@brainkim]: https://github.com/brainkim
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce

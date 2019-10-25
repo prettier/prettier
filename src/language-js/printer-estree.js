@@ -1514,6 +1514,28 @@ function printPathNoParens(path, options, print, args) {
         const needsForcedTrailingComma =
           canHaveTrailingComma && lastElem === null;
 
+        const shouldBreak =
+          n.elements.length > 1 &&
+          n.elements.every((element, i, elements) => {
+            const elementType = element && element.type;
+            if (
+              elementType !== "ArrayExpression" &&
+              elementType !== "ObjectExpression"
+            ) {
+              return false;
+            }
+
+            const nextElement = elements[i + 1];
+            if (nextElement && elementType !== nextElement.type) {
+              return false;
+            }
+
+            const itemsKey =
+              elementType === "ArrayExpression" ? "elements" : "properties";
+
+            return element[itemsKey] && element[itemsKey].length > 1;
+          });
+
         parts.push(
           group(
             concat([
@@ -1539,7 +1561,8 @@ function printPathNoParens(path, options, print, args) {
               ),
               softline,
               "]"
-            ])
+            ]),
+            { shouldBreak }
           )
         );
       }
