@@ -114,7 +114,7 @@ one.two?.fn();
 one.two?.three?.fn();
 
 one?.();
-one?.()();
+(one?.())();
 one?.()?.();
 
 (one?.()).two;
