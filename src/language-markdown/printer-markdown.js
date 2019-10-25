@@ -439,15 +439,21 @@ function printListItem(path, options, print, listPrefix) {
     prefix,
     printChildren(path, options, print, {
       processor: (childPath, index) => {
-        if (index === 0 && childPath.getValue().type !== "list") {
+        const childNode = childPath.getValue();
+        const isChildNodeList = childNode.type === "list";
+
+        if (index === 0 && !isChildNodeList) {
           return align(" ".repeat(prefix.length), childPath.call(print));
         }
 
         const alignment = " ".repeat(
           clamp(options.tabWidth - listPrefix.length, 0, 3) // 4+ will cause indented code block
         );
+
+        const noLineBefore = index == 0 || (index === 1 && isChildNodeList);
+
         return concat([
-          index > 0 ? hardline : "",
+          noLineBefore ? "" : hardline,
           alignment,
           align(alignment, childPath.call(print)),
         ]);
