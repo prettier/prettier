@@ -1082,7 +1082,7 @@ sometimes{{nogaps}}areimportant
 {{name}} is your name
 ```
 
-#### JavaScript: Break array expression in jest each function parameters([#6694] by [@sosukesuzuki])
+#### JavaScript: Breaks the array of complex arrays and objects ([#6694] by [@sosukesuzuki])
 
 <!-- prettier-ignore -->
 ```js
@@ -1094,6 +1094,16 @@ test.each([
 ])("test", ({ a, b }) => {
   expect(Number(a)).toBe(b);
 });
+[[0, 1, 2], [0, 1, 2]];
+new Map([
+  [A, B],
+  [C, D],
+  [E, F],
+  [G, H],
+  [I, J],
+  [K, L],
+  [M, N]
+]);
 
 // Output (Prettier stable)
 test.each([{ a: "1", b: 1 }, { a: "2", b: 2 }, { a: "3", b: 3 }])(
@@ -1102,6 +1112,8 @@ test.each([{ a: "1", b: 1 }, { a: "2", b: 2 }, { a: "3", b: 3 }])(
     expect(Number(a)).toBe(b);
   }
 );
+[[0, 1, 2], [0, 1, 2]]
+new Map([[A, B], [C, D], [E, F], [G, H], [I, J], [K, L], [M, N]]);
 
 // Output (Prettier master)
 test.each([
@@ -1111,6 +1123,19 @@ test.each([
 ])("test", ({ a, b }) => {
   expect(Number(a)).toBe(b);
 });
+[
+  [0, 1, 2],
+  [0, 1, 2]
+];
+new Map([
+  [A, B],
+  [C, D],
+  [E, F],
+  [G, H],
+  [I, J],
+  [K, L],
+  [M, N]
+]);
 ```
 
 [#5682]: https://github.com/prettier/prettier/pull/5682
