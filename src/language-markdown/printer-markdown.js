@@ -818,8 +818,10 @@ function shouldPrePrintDoubleHardline(node, { parentNode, prevNode }) {
   const isSiblingNode =
     isSequence && SIBLING_NODE_TYPES.indexOf(nodeType) !== -1;
 
-  const isInTightListItem = parentNode.type === "listItem" && !parentNode.loose;
-  const isPrevNodeLooseListItem = prevNodeType === "listItem" && prevNode.loose;
+  const isInTightListItem =
+    parentNode.type === "listItem" && !parentNode.spread;
+  const isPrevNodeSpreadListItem =
+    prevNodeType === "listItem" && prevNode.spread;
   const isPrevNodePrettierIgnore = isPrettierIgnore(prevNode) === "next";
 
   const isBlockHtmlWithoutBlankLineBetweenPrevHtml =
@@ -832,7 +834,7 @@ function shouldPrePrintDoubleHardline(node, { parentNode, prevNode }) {
     (nodeType === "jsx" && isInlineNode(prevNode));
 
   return (
-    isPrevNodeLooseListItem ||
+    isPrevNodeSpreadListItem ||
     !(
       isSiblingNode ||
       isInTightListItem ||
