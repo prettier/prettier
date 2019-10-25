@@ -86,7 +86,7 @@
     "@types/globby": "6.1.0",
     "@types/is-ci": "2.0.0",
     "@types/leven": "2.1.2",
-    "@types/lodash.uniqby": "4.7.0",
+    "@types/lodash.uniqby": "4.7.6",
     "@types/normalize-path": "3.0.0",
     "babel-loader": "8.0.6",
     "benchmark": "2.1.4",

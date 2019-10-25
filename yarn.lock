@@ -1020,10 +1020,10 @@
   dependencies:
     leven "*"
 
-"@types/lodash.uniqby@4.7.0":
-  version "4.7.0"
-  resolved "https://registry.yarnpkg.com/@types/lodash.uniqby/-/lodash.uniqby-4.7.0.tgz#c77e2f7c3a5380da5617c83cc173009acb217848"
-  integrity sha1-x34vfDpTgNpWF8g8wXMAmssheEg=
+"@types/lodash.uniqby@4.7.6":
+  version "4.7.6"
+  resolved "https://registry.yarnpkg.com/@types/lodash.uniqby/-/lodash.uniqby-4.7.6.tgz#672827a701403f07904fe37f0721ae92abfa80e8"
+  integrity sha512-9wBhrm1y6asW50Joj6tsySCNUgzK2tCqL7vtKIej0E9RyeBFdcte7fxUosmFuMoOU0eHqOMK76kCCrK99jxHgg==
   dependencies:
     "@types/lodash" "*"
 
