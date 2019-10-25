@@ -1082,6 +1082,35 @@ sometimes{{nogaps}}areimportant
 {{name}} is your name
 ```
 
+#### Angular: Add formatting for `i18n` attributes ([#6695] by [@voithos])
+
+Prettier will auto-wrap the contents of `i18n` attributes once they exceed the line length.
+
+<!-- prettier-ignore -->
+```html
+<!-- Input -->
+<h1 i18n="This is a very long internationalization description text, exceeding the configured print width">
+  Hello!
+</h1>
+
+<!-- Output (Prettier stable) -->
+<h1
+  i18n="This is a very long internationalization description text, exceeding the configured print width"
+>
+  Hello!
+</h1>
+
+<!-- Output (Prettier master) -->
+<h1
+  i18n="
+    This is a very long internationalization description text, exceeding the
+    configured print width
+  "
+>
+  Hello!
+</h1>
+```
+
 #### JavaScript: Break arrays of arrays/objects if each element has more than one element/property ([#6694] by [@sosukesuzuki])
 
 <!-- prettier-ignore -->
@@ -1177,6 +1206,7 @@ new Map([
 [#6646]: https://github.com/prettier/prettier/pull/6646
 [#6666]: https://github.com/prettier/prettier/pull/6666
 [#6673]: https://github.com/prettier/prettier/pull/6673
+[#6695]: https://github.com/prettier/prettier/pull/6695
 [#6694]: https://github.com/prettier/prettier/pull/6694
 [@brainkim]: https://github.com/brainkim
 [@duailibe]: https://github.com/duailibe
@@ -1194,3 +1224,4 @@ new Map([
 [@selvazhagan]: https://github.com/selvazhagan
 [@chadian]: https://github.com/chadian
 [@kaicataldo]: https://github.com/kaicataldo
+[@voithos]: https://github.com/voithos
