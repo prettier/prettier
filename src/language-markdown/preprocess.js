@@ -48,7 +48,7 @@ function transformDefinition(ast) {
     }
 
     return Object.assign({}, node, {
-      label: node.label.trim().toLowerCase()
+      label: node.label.replace(/\s+/g, " ").toLowerCase()
     });
   });
 }
