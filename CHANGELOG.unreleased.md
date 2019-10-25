@@ -1084,6 +1084,8 @@ sometimes{{nogaps}}areimportant
 
 #### Angular: Add formatting for `i18n` attributes ([#6695] by [@voithos])
 
+Prettier will auto-wrap the contents of `i18n` attributes once they exceed the line length.
+
 <!-- prettier-ignore -->
 ```html
 <!-- Input -->
