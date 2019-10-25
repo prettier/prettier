@@ -439,10 +439,10 @@ function printListItem(path, options, print, listPrefix) {
     prefix,
     printChildren(path, options, print, {
       processor: (childPath, index) => {
-        const childNode = childPath.getValue();
-        const isChildNodeList = childNode.type === "list";
+        const child = childPath.getValue();
+        const isChildList = child.type === "list";
 
-        if (index === 0 && !isChildNodeList) {
+        if (index === 0 && !isChildList) {
           return align(" ".repeat(prefix.length), childPath.call(print));
         }
 
@@ -450,10 +450,14 @@ function printListItem(path, options, print, listPrefix) {
           clamp(options.tabWidth - listPrefix.length, 0, 3) // 4+ will cause indented code block
         );
 
-        const lineBefore = index > 0 && (!isChildNodeList || !childNode.spread);
+        let blankLineBefore = false;
+
+        if (index === 0 && isChildList) {
+          blankLineBefore = child.spread;
+        }
 
         return concat([
-          lineBefore ? "" : hardline,
+          blankLineBefore ? hardline : "",
           alignment,
           align(alignment, childPath.call(print)),
         ]);
