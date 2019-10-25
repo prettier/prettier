@@ -494,12 +494,15 @@ function needsParens(path, options) {
       return parent.type === "ArrayTypeAnnotation";
 
     case "FunctionTypeAnnotation": {
+      const greatGreatGrandParent = path.getParentNode(3);
       const ancestor =
         parent.type === "NullableTypeAnnotation"
           ? path.getParentNode(1)
           : parent;
 
       return (
+        (ancestor.type === "ObjectTypeProperty" &&
+          greatGreatGrandParent.type === "ArrowFunctionExpression") ||
         ancestor.type === "UnionTypeAnnotation" ||
         ancestor.type === "IntersectionTypeAnnotation" ||
         ancestor.type === "ArrayTypeAnnotation" ||
