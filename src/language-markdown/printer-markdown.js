@@ -446,7 +446,11 @@ function printListItem(path, options, print, listPrefix) {
         const alignment = " ".repeat(
           clamp(options.tabWidth - listPrefix.length, 0, 3) // 4+ will cause indented code block
         );
-        return concat([alignment, align(alignment, childPath.call(print))]);
+        return concat([
+          index > 0 ? hardline : "",
+          alignment,
+          align(alignment, childPath.call(print)),
+        ]);
       },
     }),
   ]);
@@ -893,7 +897,7 @@ function printTitle(title, options, printSpace) {
   }
 
   // title is escaped after `remark-parse` v7
-  title = title.replace(/\\(['")])/g, "$1");
+  title = title.replace(/\\(["')])/g, "$1");
 
   if (title.includes('"') && title.includes("'") && !title.includes(")")) {
     return `(${title})`; // avoid escaped quotes
