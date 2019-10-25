@@ -48,7 +48,7 @@ function transformDefinition(ast) {
     }
 
     return Object.assign({}, node, {
-      label: node.label.toLoweCase()
+      label: node.label.trim().toLowerCase()
     });
   });
 }
