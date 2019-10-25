@@ -1082,7 +1082,7 @@ sometimes{{nogaps}}areimportant
 {{name}} is your name
 ```
 
-#### JavaScript: Breaks the array of complex arrays and objects ([#6694] by [@sosukesuzuki])
+#### JavaScript: Break arrays of arrays/objects if each element has more than one element/property ([#6694] by [@sosukesuzuki])
 
 <!-- prettier-ignore -->
 ```js
