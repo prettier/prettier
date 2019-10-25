@@ -51,11 +51,9 @@ Add following syntax support for TypeScript 3.7:
 - Optional Chaining
 - Null Coalescing
 - `asserts` Keyword
-- `declare` keyword on class members
+- `declare` keyword on class fields
 
 ##### Optional Chaining
-
-Previous versions would not be able to format this syntax, this has been fixed in this version.
 
 <!-- prettier-ignore -->
 ```ts
@@ -81,8 +79,6 @@ const longChainCallExpression = obj
 
 ##### Null Coalescing
 
-Previous versions would not be able to format this syntax, this has been fixed in this version.
-
 <!-- prettier-ignore -->
 ```ts
 const cond = null;
@@ -104,8 +100,6 @@ const longChain = cond ?? cond ?? cond ?? "b";
 
 ##### `asserts` Keyword
 
-Previous versions would not be able to format this syntax, this has been fixed in this version.
-
 <!-- prettier-ignore -->
 ```ts
 function assertsString(x: any): asserts x {console.assert(typeof x === 'string');}
@@ -126,7 +120,7 @@ function assertsStringWithGuard(x: any): asserts x is string {
 }
 ```
 
-##### `declare` keyword on class members
+##### `declare` keyword on class fields
 
 Previous versions would miss the keyword `declare`, this has been fixed in this version.
 
