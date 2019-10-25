@@ -938,10 +938,10 @@
   resolved "https://registry.yarnpkg.com/@types/dedent/-/dedent-0.7.0.tgz#155f339ca404e6dd90b9ce46a3f78fd69ca9b050"
   integrity sha512-EGlKlgMhnLt/cM4DbUSafFdrkeJoC9Mvnj0PUCU7tFmTjMjNRT957kXCx0wYm3JuEq4o4ZsS5vG+NlkM2DMd2A==
 
-"@types/diff@3.5.0":
-  version "3.5.0"
-  resolved "https://registry.yarnpkg.com/@types/diff/-/diff-3.5.0.tgz#82e0c6bbb771738082d73f9ab4adc6dc63e62b1c"
-  integrity sha512-xaomMgr7qLfRtcPZqQIy0ICXPM3EEh5Pk/cZsNN0R3OxiIHLOCW5WTwkmymx6WOp1lWwDZAz68uJrdafYobQ0g==
+"@types/diff@4.0.2":
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/@types/diff/-/diff-4.0.2.tgz#2e9bb89f9acc3ab0108f0f3dc4dbdcf2fff8a99c"
+  integrity sha512-mIenTfsIe586/yzsyfql69KRnA75S8SVXQbTLpDejRrjH0QSJcpu3AUOi/Vjnt9IOsXKxPhJfGpQUNMueIU1fQ==
 
 "@types/escape-string-regexp@1.0.0":
   version "1.0.0"
