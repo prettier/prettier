@@ -28,3 +28,8 @@ a?.b[3].c?.(x).d.e?.f[3].g?.(y).h;
 async function HelloWorld() {
   var x = (await foo.bar.blah)?.hi;
 }
+
+a[b?.c].d();
+a?.[b?.c].d();
+a[b?.c]?.d();
+a?.[b?.c]?.d();
