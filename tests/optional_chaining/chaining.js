@@ -28,6 +28,7 @@ a?.b[3].c?.(x).d.e?.f[3].g?.(y).h;
 async function HelloWorld() {
   var x = (await foo.bar.blah)?.hi;
   a?.[await b];
+  (await x)?.();
 }
 
 a[b?.c].d();
@@ -48,3 +49,13 @@ a?.[b?.c]?.d();
 (one?.()).two;
 
 a?.[b ? c : d];
+
+(-1)?.toFixed();
+(void fn)?.();
+(a && b)?.();
+(a ? b : c)?.();
+(function(){})?.();
+(() => f)?.();
+(()=>f)?.x;
+(a?.(x)).x;
+(a&&b&&c)?.();

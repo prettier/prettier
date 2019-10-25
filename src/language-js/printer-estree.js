@@ -570,7 +570,9 @@ function printPathNoParens(path, options, print, args) {
       //     c
       //   ).call()
       if (
-        (parent.type === "CallExpression" && parent.callee === n) ||
+        ((parent.type === "CallExpression" ||
+          parent.type === "OptionalCallExpression") &&
+          parent.callee === n) ||
         parent.type === "UnaryExpression" ||
         ((parent.type === "MemberExpression" ||
           parent.type === "OptionalMemberExpression") &&
