@@ -213,6 +213,7 @@ function genericPrint(path, options, print) {
       return concat([
         style,
         node.lang || "",
+        node.meta ? " " + node.meta : "",
         hardline,
         concat(
           replaceEndOfLineWith(
