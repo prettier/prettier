@@ -21,7 +21,7 @@ JSON:
 ```json
 {
   "trailingComma": "es5",
-  "tabWidth": 4,
+  "tabWidth": 2,
   "semi": false,
   "singleQuote": true
 }
@@ -33,7 +33,7 @@ JS:
 // prettier.config.js or .prettierrc.js
 module.exports = {
   trailingComma: "es5",
-  tabWidth: 4,
+  tabWidth: 2,
   semi: false,
   singleQuote: true
 };
@@ -44,7 +44,7 @@ YAML:
 ```yaml
 # .prettierrc or .prettierrc.yaml
 trailingComma: "es5"
-tabWidth: 4
+tabWidth: 2
 semi: false
 singleQuote: true
 ```
@@ -54,7 +54,7 @@ TOML:
 ```toml
 # .prettierrc.toml
 trailingComma = "es5"
-tabWidth = 4
+tabWidth = 2
 semi = false
 singleQuote = true
 ```
