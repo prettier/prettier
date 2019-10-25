@@ -50,7 +50,8 @@ const parsers = [
     // remove these hacks when this is fixed https://github.com/prettier/prettier/pull/6657#issuecomment-546273347
     replace: {
       "typescript_1.default.sys.useCaseSensitiveFileNames": "true",
-      "isRunningSupportedTypeScriptVersion =": "isRunningSupportedTypeScriptVersion = true; //"
+      "isRunningSupportedTypeScriptVersion =":
+        "isRunningSupportedTypeScriptVersion = true; //"
     }
   },
   {
