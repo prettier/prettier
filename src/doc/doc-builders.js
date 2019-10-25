@@ -7,8 +7,6 @@
  * @property {boolean} [literal]
  *
  * @typedef {string | DocObject} Doc
- *
- * @typedef {Object} DocOptions - TBD more specific?
  */
 
 /**
@@ -69,7 +67,7 @@ function align(n, contents) {
 
 /**
  * @param {Doc} contents
- * @param {Object} [opts]
+ * @param {Object} [opts] - TBD ???
  * @returns Doc
  */
 function group(contents, opts) {
@@ -115,7 +113,7 @@ function dedent(contents) {
 
 /**
  * @param {Doc[]} states
- * @param {DocOptions} opts
+ * @param {Object} [opts] - TBD ???
  * @returns Doc
  */
 function conditionalGroup(states, opts) {
@@ -140,7 +138,7 @@ function fill(parts) {
 /**
  * @param {Doc} breakContents
  * @param {Doc} flatContents
- * @param {DocOptions} opts
+ * @param {Object} [opts] - TBD ???
  * @returns Doc
  */
 function ifBreak(breakContents, flatContents, opts) {
