@@ -3942,9 +3942,7 @@ function printJestEachTemplateLiteral(node, expressions, options) {
   }
 }
 
-/**
- * @param {import("estree").TemplateLiteral} node
- */
+/** @param node {import("estree").TemplateLiteral} */
 function isSimpleTemplateLiteral(node) {
   if (node.expressions.length === 0) {
     return false;
