@@ -447,10 +447,7 @@ function isSimpleTemplateLiteral(node) {
         }
       }
 
-      if (
-        head.type === "Identifier" ||
-        head.type === "ThisExpression"
-      ) {
+      if (head.type === "Identifier" || head.type === "ThisExpression") {
         return true;
       }
 
