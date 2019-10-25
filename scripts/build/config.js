@@ -46,6 +46,11 @@ const parsers = [
         // Optional package for TypeScript that logs ETW events (a Windows-only technology).
         "@microsoft/typescript-etw"
       ]
+    },
+    // remove these hacks when this is fixed https://github.com/prettier/prettier/pull/6657#issuecomment-546273347
+    replace: {
+      "typescript_1.default.sys.useCaseSensitiveFileNames": "true",
+      "isRunningSupportedTypeScriptVersion =": "isRunningSupportedTypeScriptVersion = true; //"
     }
   },
   {
