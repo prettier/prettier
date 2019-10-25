@@ -1184,6 +1184,91 @@ sometimes{{nogaps}}areimportant
 {{name}} is your name
 ```
 
+#### Angular: Add formatting for `i18n` attributes ([#6695] by [@voithos])
+
+Prettier will auto-wrap the contents of `i18n` attributes once they exceed the line length.
+
+<!-- prettier-ignore -->
+```html
+<!-- Input -->
+<h1 i18n="This is a very long internationalization description text, exceeding the configured print width">
+  Hello!
+</h1>
+
+<!-- Output (Prettier stable) -->
+<h1
+  i18n="This is a very long internationalization description text, exceeding the configured print width"
+>
+  Hello!
+</h1>
+
+<!-- Output (Prettier master) -->
+<h1
+  i18n="
+    This is a very long internationalization description text, exceeding the
+    configured print width
+  "
+>
+  Hello!
+</h1>
+```
+
+#### JavaScript: Break arrays of arrays/objects if each element has more than one element/property ([#6694] by [@sosukesuzuki])
+
+<!-- prettier-ignore -->
+```js
+// Input
+test.each([
+  { a: "1", b: 1 },
+  { a: "2", b: 2 },
+  { a: "3", b: 3 }
+])("test", ({ a, b }) => {
+  expect(Number(a)).toBe(b);
+});
+[[0, 1, 2], [0, 1, 2]];
+new Map([
+  [A, B],
+  [C, D],
+  [E, F],
+  [G, H],
+  [I, J],
+  [K, L],
+  [M, N]
+]);
+
+// Output (Prettier stable)
+test.each([{ a: "1", b: 1 }, { a: "2", b: 2 }, { a: "3", b: 3 }])(
+  "test",
+  ({ a, b }) => {
+    expect(Number(a)).toBe(b);
+  }
+);
+[[0, 1, 2], [0, 1, 2]]
+new Map([[A, B], [C, D], [E, F], [G, H], [I, J], [K, L], [M, N]]);
+
+// Output (Prettier master)
+test.each([
+  { a: "1", b: 1 },
+  { a: "2", b: 2 },
+  { a: "3", b: 3 }
+])("test", ({ a, b }) => {
+  expect(Number(a)).toBe(b);
+});
+[
+  [0, 1, 2],
+  [0, 1, 2]
+];
+new Map([
+  [A, B],
+  [C, D],
+  [E, F],
+  [G, H],
+  [I, J],
+  [K, L],
+  [M, N]
+]);
+```
+
 [#5682]: https://github.com/prettier/prettier/pull/5682
 [#6657]: https://github.com/prettier/prettier/pull/6657
 [#5910]: https://github.com/prettier/prettier/pull/5910
@@ -1224,6 +1309,8 @@ sometimes{{nogaps}}areimportant
 [#6646]: https://github.com/prettier/prettier/pull/6646
 [#6666]: https://github.com/prettier/prettier/pull/6666
 [#6673]: https://github.com/prettier/prettier/pull/6673
+[#6695]: https://github.com/prettier/prettier/pull/6695
+[#6694]: https://github.com/prettier/prettier/pull/6694
 [@brainkim]: https://github.com/brainkim
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
@@ -1241,3 +1328,4 @@ sometimes{{nogaps}}areimportant
 [@chadian]: https://github.com/chadian
 [@kaicataldo]: https://github.com/kaicataldo
 [@cryrivers]: https://github.com/Cryrivers
+[@voithos]: https://github.com/voithos

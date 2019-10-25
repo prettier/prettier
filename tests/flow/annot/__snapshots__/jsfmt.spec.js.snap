@@ -88,7 +88,10 @@ var arr: Array<number> = [1, 2, "..."];
 // array sugar
 var array: number[] = [1, 2, "..."];
 
-var matrix: number[][] = [[1, 2], [3, 4]];
+var matrix: number[][] = [
+  [1, 2],
+  [3, 4]
+];
 var matrix_parens: number[][] = matrix;
 
 var nullable_array: ?(number[]) = null;
@@ -96,7 +99,10 @@ var nullable_array_parens: ?(number[]) = nullable_array;
 
 var array_of_nullable: (?number)[] = [null, 3];
 
-var array_of_tuple: [number, string][] = [[0, "foo"], [1, "bar"]];
+var array_of_tuple: [number, string][] = [
+  [0, "foo"],
+  [1, "bar"]
+];
 var array_of_tuple_parens: [number, string][] = array_of_tuple;
 
 type ObjType = { "bar-foo": string, "foo-bar": number };
