@@ -8950,7 +8950,7 @@ proseWrap: "always"
 [bar]: /url "title"
 
 =====================================output=====================================
-[foo][bar]
+[foo] [bar]
 
 [bar]: /url "title"
 
