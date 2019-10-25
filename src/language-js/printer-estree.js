@@ -153,6 +153,7 @@ function genericPrint(path, options, printPath, args) {
   }
 
   const parentExportDecl = getParentExportDeclaration(path);
+  /** @type {Doc[]} */
   const decorators = [];
   if (
     node.type === "ClassMethod" ||
