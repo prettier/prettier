@@ -1516,16 +1516,25 @@ function printPathNoParens(path, options, print, args) {
 
         const shouldBreak =
           n.elements.length > 1 &&
-          n.elements.filter(
-            element =>
-              element &&
-              ((element.type === "ArrayExpression" &&
-                element.elements &&
-                element.elements.length > 1) ||
-                (element.type === "ObjectExpression" &&
-                  element.properties &&
-                  element.properties.length > 1))
-          ).length > 1;
+          n.elements.every((element, i, elements) => {
+            const elementType = element && element.type;
+            if (
+              elementType !== "ArrayExpression" &&
+              elementType !== "ObjectExpression"
+            ) {
+              return false;
+            }
+
+            const nextElement = elements[i + 1];
+            if (nextElement && elementType !== nextElement.type) {
+              return false;
+            }
+
+            const itemsKey =
+              elementType === "ArrayExpression" ? "elements" : "properties";
+
+            return element[itemsKey] && element[itemsKey].length > 1;
+          });
 
         parts.push(
           group(
