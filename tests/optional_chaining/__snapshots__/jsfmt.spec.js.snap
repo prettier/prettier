@@ -2,7 +2,7 @@
 
 exports[`chaining.js 1`] = `
 ====================================options=====================================
-parsers: ["babel", "flow"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -74,7 +74,7 @@ async function HelloWorld() {
 
 exports[`comments.js 1`] = `
 ====================================options=====================================
-parsers: ["babel", "flow"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
