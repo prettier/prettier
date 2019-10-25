@@ -385,6 +385,8 @@ function formatStdin(context) {
     } catch (error) {
       handleError(context, relativeFilepath || "stdin", error);
     }
+  }, error => {
+    handleError(context, relativeFilepath || "stdin", error);
   });
 }
 
