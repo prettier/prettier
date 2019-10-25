@@ -35,7 +35,7 @@ function transformInlineCode(ast) {
     }
 
     return Object.assign({}, node, {
-      value: node.value.replace(/\s+/g, " ")
+      value: node.value.trim().replace(/\s+/g, " ")
     });
   });
 }
