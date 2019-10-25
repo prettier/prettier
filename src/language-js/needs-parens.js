@@ -327,7 +327,7 @@ function needsParens(path, options) {
 
         case "MemberExpression":
         case "OptionalMemberExpression":
-          return name === "object" && parent.object === node;
+          return name === "object";
 
         case "AssignmentExpression":
           return (
@@ -427,11 +427,11 @@ function needsParens(path, options) {
         case "TSAsExpression":
         case "TSNonNullExpression":
         case "BindExpression":
-        case "OptionalMemberExpression":
           return true;
 
         case "MemberExpression":
-          return parent.object === node;
+        case "OptionalMemberExpression":
+          return name === "object";
 
         case "NewExpression":
         case "CallExpression":
@@ -591,7 +591,6 @@ function needsParens(path, options) {
         case "TypeCastExpression":
         case "TSAsExpression":
         case "TSNonNullExpression":
-        case "OptionalMemberExpression":
           return true;
 
         case "NewExpression":
@@ -602,7 +601,8 @@ function needsParens(path, options) {
           return name === "test" && parent.test === node;
 
         case "MemberExpression":
-          return name === "object" && parent.object === node;
+        case "OptionalMemberExpression":
+          return name === "object";
 
         default:
           return false;
