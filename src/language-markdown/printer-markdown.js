@@ -450,10 +450,10 @@ function printListItem(path, options, print, listPrefix) {
           clamp(options.tabWidth - listPrefix.length, 0, 3) // 4+ will cause indented code block
         );
 
-        const noLineBefore = index == 0 || (index === 1 && isChildNodeList);
+        const lineBefore = index > 0 && (!isChildNodeList || !childNode.spread);
 
         return concat([
-          noLineBefore ? "" : hardline,
+          lineBefore ? "" : hardline,
           alignment,
           align(alignment, childPath.call(print)),
         ]);
