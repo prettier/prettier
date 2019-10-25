@@ -15,6 +15,7 @@ function preprocess(ast, options) {
   ast = splitTextIntoSentences(ast, options);
   ast = transformImportExport(ast);
   ast = mergeContinuousImportExport(ast);
+  ast = transformDefinition(ast);
   return ast;
 }
 
@@ -35,6 +36,18 @@ function transformInlineCode(ast) {
     }
 
     return { ...node, value: node.value.replace(/\s+/g, " ") };
+  });
+}
+
+function transformDefinition(ast) {
+  return mapAst(ast, node => {
+    if (node.type !== "definition") {
+      return node;
+    }
+
+    return Object.assign({}, node, {
+      label: node.label.toLoweCase()
+    });
   });
 }
 
