@@ -970,7 +970,14 @@ function clean(ast, newObj, parent) {
   }
 
   if (ast.type === "inlineCode") {
-    newObj.value = ast.value.replace(/[\t\n ]+/g, " ");
+    newObj.value = ast.value.trim().replace(/[\t\n ]+/g, " ");
+  }
+
+  if (ast.type === "definition") {
+    newObj.label = ast.label
+      .trim()
+      .replace(/[\t\n ]+/g, " ")
+      .toLowerCase();
   }
 
   // for insert pragma
