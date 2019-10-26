@@ -494,15 +494,14 @@ function needsParens(path, options) {
       return parent.type === "ArrayTypeAnnotation";
 
     case "FunctionTypeAnnotation": {
-      const isParentNullableType = parent.type === "NullableTypeAnnotation";
-      const ancestor = isParentNullableType ? path.getParentNode(1) : parent;
+      const ancestor =
+        parent.type === "NullableTypeAnnotation"
+          ? path.getParentNode(1)
+          : parent;
 
       return (
         (ancestor.type === "ObjectTypeProperty" &&
-          hasArrownFunctionExpressionInAncestors(
-            path,
-            isParentNullableType ? 3 : 2
-          )) ||
+          hasArrownFunctionExpressionInAncestors(path)) ||
         ancestor.type === "UnionTypeAnnotation" ||
         ancestor.type === "IntersectionTypeAnnotation" ||
         ancestor.type === "ArrayTypeAnnotation" ||
@@ -819,7 +818,7 @@ function isStatement(node) {
 
 // Find ArrowFunctionExpression from FunctionTypeAnnotation included ObjectTypeAnnotation recursively
 // const example1 = (): { p: (string => string) } => (0: any);
-function hasArrownFunctionExpressionInAncestors(path, index) {
+function hasArrownFunctionExpressionInAncestors(path, index = 3) {
   const ancestor = path.getNode(index);
   if (
     !ancestor ||
