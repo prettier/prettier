@@ -914,9 +914,6 @@ function printTitle(title, options, printSpace) {
     return " " + printTitle(title, options, false);
   }
 
-  // title is escaped after `remark-parse` v7
-  title = title.replace(/\\(['")])/g, "$1");
-
   if (title.includes('"') && title.includes("'") && !title.includes(")")) {
     return `(${title})`; // avoid escaped quotes
   }
