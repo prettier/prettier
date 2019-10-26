@@ -56,7 +56,7 @@ function transformDefinition(ast) {
 
 function unescapeLinkTitle(ast) {
   return mapAst(ast, node => {
-    if (node.type !== "link") {
+    if (node.type !== "link" || !node.title) {
       return node;
     }
 
