@@ -501,7 +501,7 @@ function needsParens(path, options) {
 
       return (
         (ancestor.type === "ObjectTypeProperty" &&
-          hasArrownFunctionExpressionInAncestors(path)) ||
+          hasArrowFunctionExpressionInAncestors(path)) ||
         ancestor.type === "UnionTypeAnnotation" ||
         ancestor.type === "IntersectionTypeAnnotation" ||
         ancestor.type === "ArrayTypeAnnotation" ||
@@ -818,7 +818,7 @@ function isStatement(node) {
 
 // Find ArrowFunctionExpression from FunctionTypeAnnotation included ObjectTypeAnnotation recursively
 // const example1 = (): { p: (string => string) } => (0: any);
-function hasArrownFunctionExpressionInAncestors(path, index = 3) {
+function hasArrowFunctionExpressionInAncestors(path, index = 3) {
   const ancestor = path.getNode(index);
   if (
     !ancestor ||
@@ -834,7 +834,7 @@ function hasArrownFunctionExpressionInAncestors(path, index = 3) {
   } else if (ancestor.type === "ArrowFunctionExpression") {
     return true;
   }
-  return hasArrownFunctionExpressionInAncestors(path, index + 1);
+  return hasArrowFunctionExpressionInAncestors(path, index + 1);
 }
 
 function endsWithRightBracket(node) {
