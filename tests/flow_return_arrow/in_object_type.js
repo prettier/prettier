@@ -1,12 +1,17 @@
 const example1 = (): { p: (string => string) } => (0: any);
 const example2 = (): { p: { p: (string => string) } } => (0: any);
 const example3 = (): { p: { p: { p: (string => string) } } } => (0: any);
-function example4(): { p: string => string } {
+const example4 = (): { p: { p: ?{ p: (string => string) } } } => (0: any);
+const example5 = (): { p: { p: { p: (string => string) } | string } } =>
+  (0: any);
+const example6 = (): { p: { p: { p: (string => string) } & string } } =>
+  (0: any);
+function example7(): { p: string => string } {
   return (0: any);
 }
-function example5(): { p: { p: string => string } } {
+function example8(): { p: { p: string => string } } {
   return (0: any);
 }
-function example5(): { p: { p: { p: string => string } } } {
+function example9(): { p: { p: { p: string => string } } } {
   return (0: any);
 }

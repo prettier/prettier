@@ -826,6 +826,9 @@ function hasArrownFunctionExpressionInAncestors(path, index) {
     (ancestor.type !== "ObjectTypeAnnotation" &&
       ancestor.type !== "ObjectTypeProperty" &&
       ancestor.type !== "TypeAnnotation" &&
+      ancestor.type !== "NullableTypeAnnotation" &&
+      ancestor.type !== "UnionTypeAnnotation" &&
+      ancestor.type !== "IntersectionTypeAnnotation" &&
       ancestor.type !== "ArrowFunctionExpression")
   ) {
     return false;
