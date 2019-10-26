@@ -494,15 +494,15 @@ function needsParens(path, options) {
       return parent.type === "ArrayTypeAnnotation";
 
     case "FunctionTypeAnnotation": {
-      const greatGreatGrandParent = path.getParentNode(3);
-      const ancestor =
-        parent.type === "NullableTypeAnnotation"
-          ? path.getParentNode(1)
-          : parent;
+      const isParentNullableType = parent.type === "NullableTypeAnnotation";
+      const ancestor = isParentNullableType ? path.getParentNode(1) : parent;
 
       return (
         (ancestor.type === "ObjectTypeProperty" &&
-          greatGreatGrandParent.type === "ArrowFunctionExpression") ||
+          hasArrownFunctionExpressionInAncestors(
+            path,
+            isParentNullableType ? 3 : 2
+          )) ||
         ancestor.type === "UnionTypeAnnotation" ||
         ancestor.type === "IntersectionTypeAnnotation" ||
         ancestor.type === "ArrayTypeAnnotation" ||
@@ -815,6 +815,24 @@ function isStatement(node) {
     node.type === "WhileStatement" ||
     node.type === "WithStatement"
   );
+}
+
+// Find ArrowFunctionExpression from FunctionTypeAnnotation included ObjectTypeAnnotation recursively
+// const example1 = (): { p: (string => string) } => (0: any);
+function hasArrownFunctionExpressionInAncestors(path, index) {
+  const ancestor = path.getNode(index);
+  if (
+    !ancestor ||
+    (ancestor.type !== "ObjectTypeAnnotation" &&
+      ancestor.type !== "ObjectTypeProperty" &&
+      ancestor.type !== "TypeAnnotation" &&
+      ancestor.type !== "ArrowFunctionExpression")
+  ) {
+    return false;
+  } else if (ancestor.type === "ArrowFunctionExpression") {
+    return true;
+  }
+  return hasArrownFunctionExpressionInAncestors(path, index + 1);
 }
 
 function endsWithRightBracket(node) {
