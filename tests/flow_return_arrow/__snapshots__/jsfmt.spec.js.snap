@@ -1,5 +1,41 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`in_object_type.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const example1 = (): { p: (string => string) } => (0: any);
+const example2 = (): { p: { p: (string => string) } } => (0: any);
+const example3 = (): { p: { p: { p: (string => string) } } } => (0: any);
+function example4(): { p: string => string } {
+  return (0: any);
+}
+function example5(): { p: { p: string => string } } {
+  return (0: any);
+}
+function example5(): { p: { p: { p: string => string } } } {
+  return (0: any);
+}
+
+=====================================output=====================================
+const example1 = (): { p: (string => string) } => (0: any);
+const example2 = (): { p: { p: (string => string) } } => (0: any);
+const example3 = (): { p: { p: { p: (string => string) } } } => (0: any);
+function example4(): { p: string => string } {
+  return (0: any);
+}
+function example5(): { p: { p: string => string } } {
+  return (0: any);
+}
+function example5(): { p: { p: { p: string => string } } } {
+  return (0: any);
+}
+
+================================================================================
+`;
+
 exports[`issue-1249.js 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
