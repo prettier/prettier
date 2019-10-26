@@ -1294,6 +1294,21 @@ export class User {
 }
 ```
 
+#### Flow: Keep parentheses wraps FunctionTypeAnnotation that is included ObjectTypeAnnotation which ancestor is ArrowFunctionExpression ([#] by [@sosukesuzuki])
+
+Attempting to format the stable ver output again results in a syntax error.
+
+```js
+// Input
+const example1 = (): { p: (string => string) } => (0: any);
+
+// Output (Prettier stable)
+const example1 = (): { p: string => string } => (0: any);
+
+// Output (Prettier master)
+const example1 = (): { p: (string => string) } => (0: any);
+```
+
 [#5682]: https://github.com/prettier/prettier/pull/5682
 [#6657]: https://github.com/prettier/prettier/pull/6657
 [#5910]: https://github.com/prettier/prettier/pull/5910
@@ -1337,6 +1352,7 @@ export class User {
 [#6695]: https://github.com/prettier/prettier/pull/6695
 [#6694]: https://github.com/prettier/prettier/pull/6694
 [#6728]: https://github.com/prettier/prettier/pull/6728
+[#]: https://github.com/prettier/prettier/pull/
 [@brainkim]: https://github.com/brainkim
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
