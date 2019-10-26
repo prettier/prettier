@@ -325,6 +325,11 @@ React.render( // Warm any cache
   container
 );
 
+render?.( // Warm any cache
+  <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
+  container
+);
+
 =====================================output=====================================
 render(
   // Warm any cache
@@ -333,6 +338,12 @@ render(
 );
 
 React.render(
+  // Warm any cache
+  <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
+  container
+);
+
+render?.(
   // Warm any cache
   <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
   container
@@ -357,6 +368,7 @@ function d() {
 }
 new Thing(/* dangling */);
 Thing(/* dangling */);
+Thing?.(/* dangling */);
 declare class Foo extends Qux<string> {/* dangling */}
 export /* dangling */{};
 
@@ -375,6 +387,7 @@ function d() {
 }
 new Thing(/* dangling */);
 Thing(/* dangling */);
+Thing?.(/* dangling */);
 declare class Foo extends Qux<string> {
   /* dangling */
 }
