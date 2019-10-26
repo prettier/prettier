@@ -2,7 +2,7 @@
 
 exports[`chaining.js 1`] = `
 ====================================options=====================================
-parsers: ["babel", "typescript"]
+parsers: ["babel-flow", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -68,17 +68,18 @@ a?.[b ? c : d];
 (a?.(x)).x;
 (aaaaaaaaaaaaaaaaaaaaaaaa&&aaaaaaaaaaaaaaaaaaaaaaaa&&aaaaaaaaaaaaaaaaaaaaaaaa)?.();
 
+// * - broken in flow-parser
 let f = () => ({}?.());
 let g = () => ({}?.b);
 a = () => ({}?.() && a);
-a = () => ({}?.()() && a);
-a = () => ({}?.().b && a);
+// a = () => ({}?.()() && a); // *
+// a = () => ({}?.().b && a); // *
 a = () => ({}?.b && a);
 a = () => ({}?.b() && a);
 (a) => ({}?.()?.b && 0);
 (a) => ({}?.b?.b && 0);
-(x) => ({}?.()());
-(x) => ({}?.().b);
+// (x) => ({}?.()()); // *
+// (x) => ({}?.().b); // *
 (x) => ({}?.b());
 (x) => ({}?.b.b);
 ({}?.a().b());
@@ -151,127 +152,22 @@ a?.[b ? c : d];
   aaaaaaaaaaaaaaaaaaaaaaaa
 )?.();
 
+// * - broken in flow-parser
 let f = () => ({}?.());
 let g = () => ({}?.b);
 a = () => ({}?.() && a);
-a = () => ({}?.()() && a);
-a = () => ({}?.().b && a);
+// a = () => ({}?.()() && a); // *
+// a = () => ({}?.().b && a); // *
 a = () => ({}?.b && a);
 a = () => ({}?.b() && a);
 a => ({}?.()?.b && 0);
 a => ({}?.b?.b && 0);
-x => ({}?.()());
-x => ({}?.().b);
+// (x) => ({}?.()()); // *
+// (x) => ({}?.().b); // *
 x => ({}?.b());
 x => ({}?.b.b);
 ({}?.a().b());
 ({ a: 1 }?.entries());
-
-================================================================================
-`;
-
-exports[`comments.js 1`] = `
-====================================options=====================================
-parsers: ["babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-function foo() {
-  return a
-    .b()
-    .c()
-    // Comment
-    ?.d()
-}
-
-fooBar
-  .doSomething("Hello World")
-  .doAnotherThing("Foo", { foo: bar })
-
-  // App configuration.
-  .doOneMoreThing(config)
-
-  ?.run(() => console.log("Bar"));
-
-bigDeal
-
-  .doSomething("Hello World")
-
-  // Hello world
-  ?.doAnotherThing("Foo", { foo: bar })
-
-  // App configuration.
-  .doOneMoreThing(config)
-
-  ?.run(() => console.log("Bar"));
-
-foo.bar.baz
-
-  ?.doSomething("Hello World")
-
-  // Hello world
-  .foo.bar.doAnotherThing("Foo", { foo: bar })
-
-  .doOneMoreThing(config)
-  ?.bar.run(() => console.log("Bar"));
-
-(somethingGood ? thisIsIt : maybeNot)
-
-// Hello world
-.doSomething("Hello World")
-
-  ?.doAnotherThing("Foo", { foo: bar }) // Run this
-  .run(() => console.log("Bar")); // Do this
-
-=====================================output=====================================
-function foo() {
-  return (
-    a
-      .b()
-      .c()
-      // Comment
-      ?.d()
-  );
-}
-
-fooBar
-  .doSomething("Hello World")
-  .doAnotherThing("Foo", { foo: bar })
-
-  // App configuration.
-  .doOneMoreThing(config)
-
-  ?.run(() => console.log("Bar"));
-
-bigDeal
-
-  .doSomething("Hello World")
-
-  // Hello world
-  ?.doAnotherThing("Foo", { foo: bar })
-
-  // App configuration.
-  .doOneMoreThing(config)
-
-  ?.run(() => console.log("Bar"));
-
-foo.bar.baz
-
-  ?.doSomething("Hello World")
-
-  // Hello world
-  .foo.bar.doAnotherThing("Foo", { foo: bar })
-
-  .doOneMoreThing(config)
-  ?.bar.run(() => console.log("Bar"));
-
-(somethingGood ? thisIsIt : maybeNot)
-
-  // Hello world
-  .doSomething("Hello World")
-
-  ?.doAnotherThing("Foo", { foo: bar }) // Run this
-  .run(() => console.log("Bar")); // Do this
 
 ================================================================================
 `;
