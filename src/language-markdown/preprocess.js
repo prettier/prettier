@@ -16,6 +16,7 @@ function preprocess(ast, options) {
   ast = transformImportExport(ast);
   ast = mergeContinuousImportExport(ast);
   ast = transformDefinition(ast);
+  ast = unescapeLinkTitle(ast);
   return ast;
 }
 
@@ -47,6 +48,18 @@ function transformDefinition(ast) {
 
     return Object.assign({}, node, {
       label: node.label.replace(/\s+/g, " ").toLowerCase()
+    });
+  });
+}
+
+function unescapeLinkTitle(ast) {
+  return mapAst(ast, node => {
+    if (node.type !== "link") {
+      return node;
+    }
+
+    return Object.assign({}, node, {
+      title: node.title.replace(/\\(['")])/g, "$1")
     });
   });
 }
