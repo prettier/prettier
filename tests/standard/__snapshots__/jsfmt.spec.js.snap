@@ -682,10 +682,7 @@ This comment has a newline<LF>
 <LF>
 // "template-curly-spacing": [ "error", "never" ],<LF>
 ;\`hello, \${people.name}!\`<LF>
-;\`hello, \${<LF>
-  people.name.some.long.property.that.cannot.fit.in[80].characters.limit.for<LF>
-    .prettier<LF>
-}!\`<LF>
+;\`hello, \${people.name.some.long.property.that.cannot.fit.in[80].characters.limit.for.prettier}!\`<LF>
 <LF>
 // "template-tag-spacing": [ "error", "never" ],<LF>
 func\`Hello world\`<LF>

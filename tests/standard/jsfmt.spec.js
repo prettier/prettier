@@ -1,6 +1,3 @@
-test.skip("skip for now", () => {});
-
-/**
 run_spec(__dirname, ["babel", "flow", "typescript"], {
   endOfLine: "lf",
   yieldStarSpacing: true,
@@ -11,4 +8,3 @@ run_spec(__dirname, ["babel", "flow", "typescript"], {
   semi: false,
   alignTernaryLines: false
 });
-// */
