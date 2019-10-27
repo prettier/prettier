@@ -1,6 +1,12 @@
 <UserGreeting @name="Ricardo" @greeting="Olá" />
 {{@greeting}}, {{@name}}!
 
+<div>
+  <UserGreeting
+    @aVeryLongArgumentNameThatIsStillGoing={{@alsoAVeryLongArgument}}
+  />
+</div>
+
 <Form as |f|>
   <f.input @title="hello" />
   <f.input>hello</f.input>

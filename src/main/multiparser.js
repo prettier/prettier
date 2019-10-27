@@ -19,6 +19,13 @@ function textToDoc(text, partialNextOptions, parentOptions, printAstToDoc) {
   const nextOptions = normalize(
     Object.assign({}, parentOptions, partialNextOptions, {
       parentParser: parentOptions.parser,
+      embeddedInHtml: !!(
+        parentOptions.embeddedInHtml ||
+        parentOptions.parser === "html" ||
+        parentOptions.parser === "vue" ||
+        parentOptions.parser === "angular" ||
+        parentOptions.parser === "lwc"
+      ),
       originalText: text
     }),
     { passThrough: true }

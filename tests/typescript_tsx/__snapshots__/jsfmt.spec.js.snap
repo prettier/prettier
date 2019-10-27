@@ -103,6 +103,24 @@ printWidth: 80
 ================================================================================
 `;
 
+exports[`type-parameters.tsx 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const functionName1 = <T,>(arg) => false;
+const functionName2 = <T extends any>(arg) => false;
+const functionName3 = <T, S>(arg) => false;
+
+=====================================output=====================================
+const functionName1 = <T,>(arg) => false;
+const functionName2 = <T extends any>(arg) => false;
+const functionName3 = <T, S>(arg) => false;
+
+================================================================================
+`;
+
 exports[`url.tsx 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]

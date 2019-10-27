@@ -16,6 +16,19 @@ em {
   text-decoration: underline;
 }
 
+.tidelift {
+  background: #f6914d url(/images/tidelift-small.png) 10px center no-repeat;
+  background-size: 24px;
+  color: #000000;
+  position: absolute;
+  margin-top: -15px;
+  right: 0;
+  font-size: 13px;
+  border-radius: 13px 0 0px 13px;
+  padding: 7px 15px 5px 45px;
+  z-index: 9999 !important;
+}
+
 /* Note: CSS on body bg-color for index page is set inside landing.js, not here */
 
 .post p a {
@@ -87,6 +100,7 @@ em {
 
 .homeContainer {
   background: #1a2b34;
+  padding-top: 30px;
 }
 
 .mainContainer.landingContainer {
@@ -136,7 +150,7 @@ em {
 .mainContainer .tldrSection ul li {
   list-style: none;
   list-style-position: inside;
-  line-height: 1.0;
+  line-height: 1;
 }
 
 .mainContainer .tldrSection ul li a {

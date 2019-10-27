@@ -28,6 +28,9 @@ class CodeMirrorPanel extends React.Component {
     this._codeMirror.on("change", this.handleChange);
     this._codeMirror.on("focus", this.handleFocus);
 
+    window.CodeMirror.keyMap.pcSublime["Ctrl-L"] = false;
+    window.CodeMirror.keyMap.sublime["Ctrl-L"] = false;
+
     this.updateValue(this.props.value || "");
     this.updateOverlay();
   }

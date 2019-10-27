@@ -41,6 +41,9 @@ const {
 } = require("./html-binding");
 const preprocess = require("./preprocess");
 const {
+  getLeftSide,
+  getLeftSidePathName,
+  hasNakedLeftSide,
   hasNode,
   hasFlowAnnotationComment,
   hasFlowShorthandAnnotationComment
@@ -2620,10 +2623,7 @@ function printPathNoParens(path, options, print, args) {
               printArrayItems(path, options, typesField, print)
             ])
           ),
-          // TypeScript doesn't support trailing commas in tuple types
-          n.type === "TSTupleType"
-            ? ""
-            : ifBreak(shouldPrintComma(options) ? "," : ""),
+          ifBreak(shouldPrintComma(options) ? "," : ""),
           comments.printDanglingComments(path, options, /* sameIndent */ true),
           softline,
           "]"
@@ -3136,6 +3136,19 @@ function printPathNoParens(path, options, print, args) {
         parts.push(" = ", path.call(print, "default"));
       }
 
+      // Keep comma if the file extension is .tsx and
+      // has one type parameter that isn't extend with any types.
+      // Because, otherwise formatted result will be invalid as tsx.
+      if (
+        parent.params &&
+        parent.params.length === 1 &&
+        options.filepath &&
+        options.filepath.match(/\.tsx/) &&
+        !n.constraint
+      ) {
+        parts.push(",");
+      }
+
       return concat(parts);
     }
     case "TypeofTypeAnnotation":
@@ -3333,7 +3346,12 @@ function printPathNoParens(path, options, print, args) {
     }
     case "TSTypeOperator":
       return concat([n.operator, " ", path.call(print, "typeAnnotation")]);
-    case "TSMappedType":
+    case "TSMappedType": {
+      const shouldBreak = hasNewlineInRange(
+        options.originalText,
+        options.locStart(n),
+        options.locEnd(n)
+      );
       return group(
         concat([
           "{",
@@ -3352,14 +3370,17 @@ function printPathNoParens(path, options, print, args) {
                 ? getTypeScriptMappedTypeModifier(n.optional, "?")
                 : "",
               ": ",
-              path.call(print, "typeAnnotation")
+              path.call(print, "typeAnnotation"),
+              shouldBreak && options.semi ? ";" : ""
             ])
           ),
           comments.printDanglingComments(path, options, /* sameIndent */ true),
           options.bracketSpacing ? line : softline,
           "}"
-        ])
+        ]),
+        { shouldBreak }
       );
+    }
     case "TSMethodSignature":
       parts.push(
         n.accessibility ? concat([n.accessibility, " "]) : "",
@@ -3733,8 +3754,9 @@ function printPropertyKey(path, options, print) {
       parent.members
     ).some(
       prop =>
+        !prop.computed &&
         prop.key &&
-        prop.key.type !== "Identifier" &&
+        isStringLiteral(prop.key) &&
         !isStringPropSafeToCoerceToIdentifier(prop, options)
     );
     needsQuoteProps.set(parent, objectHasStringProp);
@@ -3755,6 +3777,7 @@ function printPropertyKey(path, options, print) {
   }
 
   if (
+    !node.computed &&
     isStringPropSafeToCoerceToIdentifier(node, options) &&
     (options.quoteProps === "as-needed" ||
       (options.quoteProps === "consistent" && !needsQuoteProps.get(parent)))
@@ -3844,7 +3867,20 @@ function couldGroupArg(arg) {
     arg.type === "TSAsExpression" ||
     arg.type === "FunctionExpression" ||
     (arg.type === "ArrowFunctionExpression" &&
-      !arg.returnType &&
+      // we want to avoid breaking inside composite return types but not simple keywords
+      // https://github.com/prettier/prettier/issues/4070
+      // export class Thing implements OtherThing {
+      //   do: (type: Type) => Provider<Prop> = memoize(
+      //     (type: ObjectType): Provider<Opts> => {}
+      //   );
+      // }
+      // https://github.com/prettier/prettier/issues/6099
+      // app.get("/", (req, res): void => {
+      //   res.send("Hello World!");
+      // });
+      (!arg.returnType ||
+        !arg.returnType.typeAnnotation ||
+        arg.returnType.typeAnnotation.type !== "TSTypeReference") &&
       (arg.body.type === "BlockStatement" ||
         arg.body.type === "ArrowFunctionExpression" ||
         arg.body.type === "ObjectExpression" ||
@@ -5695,10 +5731,11 @@ function printJSXChildren(
 function printJSXElement(path, options, print) {
   const n = path.getValue();
 
-  // Turn <div></div> into <div />
   if (n.type === "JSXElement" && isEmptyJSXElement(n)) {
-    n.openingElement.selfClosing = true;
-    return path.call(print, "openingElement");
+    return concat([
+      path.call(print, "openingElement"),
+      path.call(print, "closingElement")
+    ]);
   }
 
   const openingLines =
@@ -6099,7 +6136,8 @@ function printAssignmentRight(leftNode, rightNode, printedRight, options) {
       (isStringLiteral(rightNode) || isMemberExpressionChain(rightNode)) &&
       // do not put values on a separate line from the key in json
       options.parser !== "json" &&
-      options.parser !== "json5");
+      options.parser !== "json5") ||
+    rightNode.type === "SequenceExpression";
 
   if (canBreak) {
     return group(indent(concat([line, printedRight])));
@@ -6190,72 +6228,10 @@ function hasLeadingOwnLineComment(text, node, options) {
   return res;
 }
 
-function hasNakedLeftSide(node) {
-  return (
-    node.type === "AssignmentExpression" ||
-    node.type === "BinaryExpression" ||
-    node.type === "LogicalExpression" ||
-    node.type === "NGPipeExpression" ||
-    node.type === "ConditionalExpression" ||
-    node.type === "CallExpression" ||
-    node.type === "OptionalCallExpression" ||
-    node.type === "MemberExpression" ||
-    node.type === "OptionalMemberExpression" ||
-    node.type === "SequenceExpression" ||
-    node.type === "TaggedTemplateExpression" ||
-    node.type === "BindExpression" ||
-    (node.type === "UpdateExpression" && !node.prefix) ||
-    node.type === "TSNonNullExpression"
-  );
-}
-
 function isFlowAnnotationComment(text, typeAnnotation, options) {
   const start = options.locStart(typeAnnotation);
   const end = skipWhitespace(text, options.locEnd(typeAnnotation));
   return text.substr(start, 2) === "/*" && text.substr(end, 2) === "*/";
-}
-
-function getLeftSide(node) {
-  if (node.expressions) {
-    return node.expressions[0];
-  }
-  return (
-    node.left ||
-    node.test ||
-    node.callee ||
-    node.object ||
-    node.tag ||
-    node.argument ||
-    node.expression
-  );
-}
-
-function getLeftSidePathName(path, node) {
-  if (node.expressions) {
-    return ["expressions", 0];
-  }
-  if (node.left) {
-    return ["left"];
-  }
-  if (node.test) {
-    return ["test"];
-  }
-  if (node.object) {
-    return ["object"];
-  }
-  if (node.callee) {
-    return ["callee"];
-  }
-  if (node.tag) {
-    return ["tag"];
-  }
-  if (node.argument) {
-    return ["argument"];
-  }
-  if (node.expression) {
-    return ["expression"];
-  }
-  throw new Error("Unexpected node has no left side", node);
 }
 
 function exprNeedsASIProtection(path, options) {
@@ -6596,7 +6572,6 @@ function isStringPropSafeToCoerceToIdentifier(node, options) {
   return (
     isStringLiteral(node.key) &&
     isIdentifierName(node.key.value) &&
-    !node.computed &&
     options.parser !== "json" &&
     !(options.parser === "typescript" && node.type === "ClassProperty")
   );
@@ -6726,7 +6701,7 @@ function isTheOnlyJSXElementInMarkdown(options, path) {
   return parent.type === "Program" && parent.body.length == 1;
 }
 
-function willPrintOwnComments(path) {
+function willPrintOwnComments(path /*, options */) {
   const node = path.getValue();
   const parent = path.getParentNode();
 

@@ -1,5 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`arrow.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const fn = (/*event, data*/) => doSomething();
+
+const fn2 = (/*event, data*/) => doSomething(anything);
+
+=====================================output=====================================
+const fn = (/*event, data*/) => doSomething();
+
+const fn2 = (/*event, data*/) => doSomething(anything);
+
+================================================================================
+`;
+
 exports[`assignment-pattern.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
@@ -1292,7 +1310,7 @@ onClick={() => {}}>
    * Handles clicks.
    */
   onClick={() => {}}
-/>;
+></div>;
 
 <div
 // comment

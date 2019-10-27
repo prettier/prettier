@@ -54,7 +54,8 @@ function print(path, options, print) {
       const hasChildren = n.children.length > 0;
       const isVoid =
         (isGlimmerComponent && !hasChildren) || voidTags.indexOf(n.tag) !== -1;
-      const closeTag = isVoid ? concat([" />", softline]) : ">";
+      const closeTagForNoBreak = isVoid ? concat([" />", softline]) : ">";
+      const closeTagForBreak = isVoid ? "/>" : ">";
       const getParams = (path, print) =>
         indent(
           concat([
@@ -69,18 +70,6 @@ function print(path, options, print) {
           ])
         );
 
-      // The problem here is that I want to not break at all if the children
-      // would not break but I need to force an indent, so I use a hardline.
-      /**
-       * What happens now:
-       * <div>
-       *   Hello
-       * </div>
-       * ==>
-       * <div>Hello</div>
-       * This is due to me using hasChildren to decide to put the hardline in.
-       * I would rather use a {DOES THE WHOLE THING NEED TO BREAK}
-       */
       return concat([
         group(
           concat([
@@ -89,7 +78,7 @@ function print(path, options, print) {
             getParams(path, print),
             n.blockParams.length ? ` as |${n.blockParams.join(" ")}|` : "",
             ifBreak(softline, ""),
-            closeTag
+            ifBreak(closeTagForBreak, closeTagForNoBreak)
           ])
         ),
         group(
