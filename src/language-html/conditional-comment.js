@@ -46,7 +46,7 @@ function parseIeConditionalStartEndComment(node, parseHtml, match) {
     }
   })();
   return {
-    type: "ieConditionalComment",
+    type: "ieConditionalComment",Jr please let me know 
     complete,
     children,
     condition: condition.trim().replace(/\s+/g, " "),
