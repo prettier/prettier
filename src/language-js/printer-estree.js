@@ -2543,7 +2543,6 @@ function printPathNoParens(path, options, print, args) {
 
           let printed = expressions[i];
 
-          /** from prettier@6cee80b5:
           if (!isSimple) {
             // Breaks at the template element boundaries (${ and }) are preferred to breaking
             // in the middle of a MemberExpression
@@ -2553,23 +2552,13 @@ function printPathNoParens(path, options, print, args) {
               n.expressions[i].type === "OptionalMemberExpression" ||
               n.expressions[i].type === "ConditionalExpression"
             ) {
-              printed = concat([indent(concat([softline, printed])), softline]);
+              printed = concat([
+                indent(concat([parenLine, printed])),
+                parenLine
+              ]);
+            } else {
+              printed = concat([parenSpace, printed, parenSpace]);
             }
-          }
-          // .. */
-
-          // QUICK WORKAROUND FOR MERGE ISSUE:
-          if (isSimple) {
-            /* do nothing */
-          } else if (
-            (n.expressions[i].comments && n.expressions[i].comments.length) ||
-            n.expressions[i].type === "MemberExpression" ||
-            n.expressions[i].type === "OptionalMemberExpression" ||
-            n.expressions[i].type === "ConditionalExpression"
-          ) {
-            printed = concat([indent(concat([parenLine, printed])), parenLine]);
-          } else {
-            printed = concat([parenSpace, printed, parenSpace]);
           }
 
           const aligned =
