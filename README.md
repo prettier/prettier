@@ -6,7 +6,7 @@
 
 Unofficial fork, intended to provide some additional options to help improve consistency with [`feross/standard`](https://github.com/standard/standard) and [`Flet/semistandard`](https://github.com/Flet/semistandard). This fork is an attempt to pick up where [`arijs/prettier-miscellaneous`](https://github.com/arijs/prettier-miscellaneous) left off.
 
-Language parsers are supported with old language parsers deprecated as if this were `prettier` version `1.16.4` / `1.17.0-dev`, INCLUDING HTML LWC Parser to support unquoted interop attributes in [Lightning Web Components](https://developer.salesforce.com/docs/component-library/documentation/lwc) ([prettier/prettier#5800](https://github.com/prettier/prettier/pull/5800))
+Language parsers are supported with old language parsers deprecated as if this were `prettier` version `1.18.0`.
 
 Minimum Node.js version supported: Node.js 8 - deprecated; Node.js 10 is recommended as described in: [`brodybits/prettierx#6`](https://github.com/brodybits/prettierx/issues/6)
 
