@@ -532,7 +532,8 @@ function classChildNeedsASIProtection(node) {
       }
       return false;
     }
-
+    case "TSIndexSignature":
+      return true;
     default:
       /* istanbul ignore next */
       return false;
