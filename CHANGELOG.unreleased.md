@@ -1167,7 +1167,7 @@ new Map([
 ]);
 ```
 
-#### TypeScript: Keep semi for a class property before index signature when no-semi is enabled ([#] by [@sosukesuzuki])
+#### TypeScript: Keep semi for a class property before index signature when no-semi is enabled ([#6728] by [@sosukesuzuki])
 
 Attempting to format the stable ver output again results in a syntax error.
 
@@ -1232,7 +1232,7 @@ export class User {
 [#6673]: https://github.com/prettier/prettier/pull/6673
 [#6695]: https://github.com/prettier/prettier/pull/6695
 [#6694]: https://github.com/prettier/prettier/pull/6694
-[#]: https://github.com/prettier/prettier/pull/
+[#6728]: https://github.com/prettier/prettier/pull/6728
 [@brainkim]: https://github.com/brainkim
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
