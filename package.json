@@ -82,7 +82,7 @@
     "codecov": "codecov/codecov-node#e427d900309adb50746a39a50aa7d80071a5ddd0",
     "cross-env": "5.2.1",
     "eslint": "6.5.1",
-    "eslint-config-prettier": "6.4.0",
+    "eslint-config-prettier": "6.5.0",
     "eslint-formatter-friendly": "7.0.0",
     "eslint-plugin-import": "2.18.2",
     "eslint-plugin-prettier": "3.1.1",
