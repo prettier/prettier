@@ -44,6 +44,107 @@ const link = <a href="example.com">http://example.com</a>;
 
 -->
 
+#### TypeScript: Support for TypeScript 3.7 ([#6657] by [@cryrivers])
+
+Prettier 1.19 adds support for the features of the upcoming TypeScript 3.7 that introduce new syntax:
+
+- [Optional chaining](https://devblogs.microsoft.com/typescript/announcing-typescript-3-7-rc/#optional-chaining)
+- [Nullish coalescing](https://devblogs.microsoft.com/typescript/announcing-typescript-3-7-rc/#nullish-coalescing)
+- [Assertion functions](https://devblogs.microsoft.com/typescript/announcing-typescript-3-7-rc/#assertion-functions)
+- [`declare` modifier on class fields](https://github.com/microsoft/TypeScript/pull/33509)
+
+**NOTE:** A dependency upgrade for TypeScript 3.7 led to dropping Node 6 support for direct installation from GitHub. Prettier installed from NPM stays compatible with Node 4.
+
+##### Optional Chaining
+
+<!-- prettier-ignore -->
+```ts
+// Input
+const longChain = obj?.a?.b?.c?.d?.e?.f?.g;
+const longChainCallExpression = obj.a?.(a,b,c).b?.(a,b,c).c?.(a,b,c).d?.(a,b,c).e?.(a,b,c).f?.(a,b,c)
+
+// Output (Prettier master)
+const longChain = obj?.a?.b?.c?.d?.e?.f?.g;
+const longChainCallExpression = obj
+  .a?.(a, b, c)
+  .b?.(a, b, c)
+  .c?.(a, b, c)
+  .d?.(a, b, c)
+  .e?.(a, b, c)
+  .f?.(a, b, c);
+```
+
+##### Nullish Coalescing
+
+<!-- prettier-ignore -->
+```ts
+// Input
+const cond = null;
+const result = cond??'a';
+const longChain = cond??cond??cond??'b';
+
+// Output (Prettier master)
+const cond = null;
+const result = cond ?? "a";
+const longChain = cond ?? cond ?? cond ?? "b";
+```
+
+##### Assertion Functions
+
+<!-- prettier-ignore -->
+```ts
+// Input
+function assertsString(x: any): asserts x {console.assert(typeof x === 'string');}
+function assertsStringWithGuard(x: any): asserts x is string {console.assert(typeof x === 'string');}
+
+// Output (Prettier master)
+function assertsString(x: any): asserts x {
+  console.assert(typeof x === "string");
+}
+function assertsStringWithGuard(x: any): asserts x is string {
+  console.assert(typeof x === "string");
+}
+```
+
+##### `declare` Modifier on Class Fields
+
+<!-- prettier-ignore -->
+```ts
+// Input
+class B {p: number;}
+class C extends B {declare p: 256 | 1000;}
+
+// Output (Prettier master)
+class B {
+  p: number;
+}
+class C extends B {
+  declare p: 256 | 1000;
+}
+```
+
+#### TypeScript: Prettier removed `?` from optional computed class fields ([#6657] by [@cryrivers])
+
+Still happens if the field key is a complex expression, but has been fixed in this case:
+
+<!-- prettier-ignore -->
+```ts
+// Input
+class Foo {
+  [bar]?: number;
+}
+
+// Output (Prettier stable)
+class Foo {
+  [bar]: number;
+}
+
+// Output (Prettier master)
+class Foo {
+  [bar]?: number;
+}
+```
+
 #### API: Add `resolveConfig` option to `getFileInfo()` ([#6666] by [@kaicataldo])
 
 Add a `resolveConfig: boolean` option to `prettier.getFileInfo()` that, when set to `true`, will resolve the configuration for the given file path. This allows consumers to take any overridden parsers into account.
@@ -52,6 +153,7 @@ Add a `resolveConfig: boolean` option to `prettier.getFileInfo()` that, when set
 
 <!-- prettier-ignore -->
 ```js
+// Input
 const addOne = add(1, ?); // apply from the left
 addOne(2); // 3
 
@@ -1168,6 +1270,7 @@ new Map([
 ```
 
 [#5682]: https://github.com/prettier/prettier/pull/5682
+[#6657]: https://github.com/prettier/prettier/pull/6657
 [#5910]: https://github.com/prettier/prettier/pull/5910
 [#6033]: https://github.com/prettier/prettier/pull/6033
 [#6186]: https://github.com/prettier/prettier/pull/6186
@@ -1224,4 +1327,5 @@ new Map([
 [@selvazhagan]: https://github.com/selvazhagan
 [@chadian]: https://github.com/chadian
 [@kaicataldo]: https://github.com/kaicataldo
+[@cryrivers]: https://github.com/Cryrivers
 [@voithos]: https://github.com/voithos

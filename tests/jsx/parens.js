@@ -10,3 +10,7 @@ a = [
 ];
 
 <div {...((foo || foo === null) ? {foo} : null)} />
+
+f?.(<div/>);
+(<div/>)();
+(<div/>)?.();
