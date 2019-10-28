@@ -1167,6 +1167,30 @@ new Map([
 ]);
 ```
 
+#### TypeScript: Keep semi for a class property before index signature when no-semi is enabled ([#] by [@sosukesuzuki])
+
+Attempting to format the stable ver output again results in a syntax error.
+
+```ts
+// Input
+export class User {
+  id = 0;
+  [key: string]: any
+}
+
+// Output (Prettier stable)
+export class User {
+  id = 0
+  [key: string]: any
+}
+
+// Output (Prettier master)
+export class User {
+  id = 0;
+  [key: string]: any
+}
+```
+
 [#5682]: https://github.com/prettier/prettier/pull/5682
 [#5910]: https://github.com/prettier/prettier/pull/5910
 [#6033]: https://github.com/prettier/prettier/pull/6033
@@ -1208,6 +1232,7 @@ new Map([
 [#6673]: https://github.com/prettier/prettier/pull/6673
 [#6695]: https://github.com/prettier/prettier/pull/6695
 [#6694]: https://github.com/prettier/prettier/pull/6694
+[#]: https://github.com/prettier/prettier/pull/
 [@brainkim]: https://github.com/brainkim
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
