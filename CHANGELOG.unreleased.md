@@ -1171,6 +1171,7 @@ new Map([
 
 Attempting to format the stable ver output again results in a syntax error.
 
+<!-- prettier-ignore -->
 ```ts
 // Input
 export class User {
