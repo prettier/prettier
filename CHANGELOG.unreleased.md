@@ -1175,19 +1175,19 @@ Attempting to format the stable ver output again results in a syntax error.
 ```ts
 // Input
 export class User {
-  id: number;
+  id: number = 2;
   [key: string]: any
 }
 
 // Output (Prettier stable)
 export class User {
-  id: number
+  id: number = 2
   [key: string]: any
 }
 
 // Output (Prettier master)
 export class User {
-  id: number;
+  id: number = 2;
   [key: string]: any
 }
 ```
