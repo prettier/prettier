@@ -8,7 +8,7 @@ const foo = @deco class {
   //
 };
 
-const foo =
+const bar =
   @deco
   class {
     //

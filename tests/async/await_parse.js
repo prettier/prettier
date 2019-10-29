@@ -1,13 +1,13 @@
-async function f() { (await f()).length }
+async function f1() { (await f()).length }
 async function g() {
   invariant(
     (await driver.navigator.getUrl()).substr(-7)
   );
 }
-function *f(){
+function *f2(){
   !(yield a);
 }
-async function f() {
+async function f3() {
   a = !await f();
 }
 async () => {
