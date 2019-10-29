@@ -1169,7 +1169,7 @@ new Map([
 
 #### TypeScript: Keep semi for a class property before index signature when no-semi is enabled ([#6728] by [@sosukesuzuki])
 
-Attempting to format the stable ver output again results in a syntax error.
+Attempting to format Prettier’s output again used to result in a syntax error.
 
 <!-- prettier-ignore -->
 ```ts
