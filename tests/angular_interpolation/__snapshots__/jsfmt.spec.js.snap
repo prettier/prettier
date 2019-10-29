@@ -80,8 +80,8 @@ printWidth: 80
     | aaa,
   (hideLinqPanel
     ? "ReportSelection.HideShowLabel_Show.String"
-    : "ReportSelection.HideShowLabel_Hide.String")
-    | localize: localizationSection
+    : "ReportSelection.HideShowLabel_Hide.String"
+  ) | localize: localizationSection
 ]
 ================================================================================
 `;

@@ -16,7 +16,7 @@ const foo = @deco class {
   //
 };
 
-const foo =
+const bar =
   @deco
   class {
     //
@@ -38,7 +38,7 @@ const foo =
     //
   };
 
-const foo =
+const bar =
   @deco
   class {
     //
@@ -344,10 +344,7 @@ export class MyApp extends React.Component {}
 export class Home extends React.Component {}
 
 =====================================output=====================================
-@connect(
-  mapStateToProps,
-  mapDispatchToProps
-)
+@connect(mapStateToProps, mapDispatchToProps)
 export class MyApp extends React.Component {}
 
 @connect(state => ({ todos: state.todos }))

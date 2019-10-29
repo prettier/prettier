@@ -4,9 +4,9 @@ type Banana = {
 
 type Hex = {n: 0x01};
 
-type T = { method: (a) => void };
+type T1 = { method: (a) => void };
 
-type T = { method(a): void };
+type T2 = { method(a): void };
 
 declare class X { method(a): void }
 
@@ -14,23 +14,23 @@ declare function f(a): void;
 
 var f: (a) => void;
 
-interface F { m(string): number }
+interface F1 { m(string): number }
 
-interface F { m: (string) => number }
+interface F2 { m: (string) => number }
 
-function f(o: { f: (string) => void }) {}
+function f1(o: { f: (string) => void }) {}
 
-function f(o: { f(string): void }) {}
+function f2(o: { f(string): void }) {}
 
-type f = (...arg) => void;
+type f3 = (...arg) => void;
 
-type f = (/* comment */ arg) => void;
+type f4 = (/* comment */ arg) => void;
 
-type f = (arg /* comment */) => void;
+type f5 = (arg /* comment */) => void;
 
-type f = (?arg) => void;
+type f6 = (?arg) => void;
 
-class X {
+class Y {
   constructor(
     ideConnectionFactory: child_process$ChildProcess => FlowIDEConnection =
         defaultIDEConnectionFactory,
@@ -44,17 +44,17 @@ interface F {
 
 type ExtractType = <A>(B<C>) => D
 
-type T = ?(() => A);
+type T3 = ?(() => A);
 
-type T = ?(() => A) | B;
+type T4 = ?(() => A) | B;
 
-type T = ?() => A | B;
+type T5 = ?() => A | B;
 
-type T = (?() => A) | B;
+type T6 = (?() => A) | B;
 
 // https://github.com/babel/babel/issues/7924
 //type T = ??() => A;
 
-type T = ?(?(() => A));
+type T7 = ?(?(() => A));
 
-type T = ?(?() => A) | B;
+type T8 = ?(?() => A) | B;

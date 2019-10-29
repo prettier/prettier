@@ -46,3 +46,27 @@ foo = (
   <Component />
 </ // close fragment
 >;
+
+[<></>, <></>];
+const fun1 = () => <></>;
+x = <></>
+function fun2(param = <></>) {}
+1 + <></>;
+1 || <></>;
+fun2(<></>);
+test ? <></> : x;
+<></>;
+<a>
+  <></>
+</a>;
+const obj = {
+  foo: <></>
+};
+const fragmentVar = <></>;
+function fun3() {
+  return <></>;
+}
+(<></>).toString();
+(<></>).props;
+(<></>)["computed"];
+(<></>)["computed"]();

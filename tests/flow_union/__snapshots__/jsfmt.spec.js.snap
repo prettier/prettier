@@ -34,7 +34,7 @@ interface RelayProps {
   } | null> | null | void | 1,
 }
 
-interface RelayProps {
+interface RelayProps2 {
   articles: Array<{
     __id: string,
   } | null> | null | void,
@@ -66,7 +66,7 @@ interface RelayProps {
     | 1;
 }
 
-interface RelayProps {
+interface RelayProps2 {
   articles: Array<{
     __id: string
   } | null> | null | void;
@@ -98,6 +98,59 @@ export function aPrettyLongFunctionE(
     __id: string
   } | null> | null | void
 ): string[] {}
+
+================================================================================
+`;
+
+exports[`within-tuple.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type A = [AAAAAAAAAAAAAAAAAAAAAA | BBBBBBBBBBBBBBBBBBBBBB | CCCCCCCCCCCCCCCCCCCCCC | DDDDDDDDDDDDDDDDDDDDDD]
+
+type B = [
+  | AAAAAAAAAAAAAAAAAAAAAA
+  | BBBBBBBBBBBBBBBBBBBBBB
+  | CCCCCCCCCCCCCCCCCCCCCC
+  | DDDDDDDDDDDDDDDDDDDDDD
+]
+
+type C = [
+  | [AAAAAAAAAAAAAAAAAAAAAA | BBBBBBBBBBBBBBBBBBBBBB | CCCCCCCCCCCCCCCCCCCCCC | DDDDDDDDDDDDDDDDDDDDDD]
+  | [AAAAAAAAAAAAAAAAAAAAAA | BBBBBBBBBBBBBBBBBBBBBB | CCCCCCCCCCCCCCCCCCCCCC | DDDDDDDDDDDDDDDDDDDDDD]
+]
+
+=====================================output=====================================
+type A = [
+  | AAAAAAAAAAAAAAAAAAAAAA
+  | BBBBBBBBBBBBBBBBBBBBBB
+  | CCCCCCCCCCCCCCCCCCCCCC
+  | DDDDDDDDDDDDDDDDDDDDDD
+];
+
+type B = [
+  | AAAAAAAAAAAAAAAAAAAAAA
+  | BBBBBBBBBBBBBBBBBBBBBB
+  | CCCCCCCCCCCCCCCCCCCCCC
+  | DDDDDDDDDDDDDDDDDDDDDD
+];
+
+type C = [
+  | [
+      | AAAAAAAAAAAAAAAAAAAAAA
+      | BBBBBBBBBBBBBBBBBBBBBB
+      | CCCCCCCCCCCCCCCCCCCCCC
+      | DDDDDDDDDDDDDDDDDDDDDD
+    ]
+  | [
+      | AAAAAAAAAAAAAAAAAAAAAA
+      | BBBBBBBBBBBBBBBBBBBBBB
+      | CCCCCCCCCCCCCCCCCCCCCC
+      | DDDDDDDDDDDDDDDDDDDDDD
+    ]
+];
 
 ================================================================================
 `;

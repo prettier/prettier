@@ -8,7 +8,7 @@ async function f() {
   );
 })()
 
-async function f() {
+async function f2() {
   await (spellcheck && spellcheck.setChecking(false));
   await spellcheck && spellcheck.setChecking(false)
 }

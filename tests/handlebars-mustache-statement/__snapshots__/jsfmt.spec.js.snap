@@ -26,6 +26,7 @@ printWidth: 80
 <div {{hello param hash=key}} {{goodbye param}}>
   Hello
 </div>
+
 <div
   {{hello
     param
@@ -44,6 +45,7 @@ printWidth: 80
 >
   Hello
 </div>
+
 <div
   {{hello
     hashPair=value
@@ -55,6 +57,7 @@ printWidth: 80
 >
   Hello
 </div>
+
 <div
   {{hello
     param
@@ -100,6 +103,7 @@ singleQuote: true
 <div {{hello param hash=key}} {{goodbye param}}>
   Hello
 </div>
+
 <div
   {{hello
     param
@@ -118,6 +122,7 @@ singleQuote: true
 >
   Hello
 </div>
+
 <div
   {{hello
     hashPair=value
@@ -129,6 +134,7 @@ singleQuote: true
 >
   Hello
 </div>
+
 <div
   {{hello
     param

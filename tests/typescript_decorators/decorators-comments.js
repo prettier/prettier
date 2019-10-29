@@ -29,13 +29,13 @@ class Something {
     readonly property: Array<string>
 }
 
-class Something {
+class Something2 {
     @foo()
     // comment
     abstract property: Array<string>
 }
 
-class Something {
+class Something3 {
     @foo()
     // comment
     abstract method(): Array<string>
