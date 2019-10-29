@@ -13,7 +13,7 @@ jobs:
     pool:
       vmImage: "Ubuntu 16.04"
     variables:
-      node_version: 10
+      node_version: 12
     steps:
       - template: .azure-pipelines/jobs/dev-lint.yml
 
@@ -22,7 +22,7 @@ jobs:
     pool:
       vmImage: vs2017-win2016
     variables:
-      node_version: 10
+      node_version: 12
       TEST_CRLF: true
     steps:
       - template: .azure-pipelines/jobs/dev-test.yml
@@ -32,7 +32,7 @@ jobs:
     pool:
       vmImage: macos-10.13
     variables:
-      node_version: 10
+      node_version: 12
       ENABLE_CODE_COVERAGE: true
     steps:
       - template: .azure-pipelines/jobs/dev-test.yml
@@ -42,7 +42,7 @@ jobs:
     pool:
       vmImage: "Ubuntu 16.04"
     variables:
-      node_version: 10
+      node_version: 12
     steps:
       - template: .azure-pipelines/jobs/dev-test.yml
 
@@ -51,7 +51,7 @@ jobs:
     pool:
       vmImage: "Ubuntu 16.04"
     variables:
-      node_version: 10
+      node_version: 12
     steps:
       - template: .azure-pipelines/jobs/prod-build.yml
 
@@ -61,7 +61,7 @@ jobs:
     pool:
       vmImage: "Ubuntu 16.04"
     variables:
-      node_version: 10
+      node_version: 12
     steps:
       - template: .azure-pipelines/jobs/prod-pack.yml
 
@@ -71,7 +71,7 @@ jobs:
     pool:
       vmImage: "Ubuntu 16.04"
     variables:
-      node_version: 10
+      node_version: 12
     steps:
       - template: .azure-pipelines/jobs/prod-lint.yml
 
@@ -85,10 +85,10 @@ jobs:
         Node_v4:
           node_version: 4
           ENABLE_TEST_RESULTS: "" # jest-junit requires node v6+
-        Node_v10:
-          node_version: 10
-        Node_v10_standalone:
-          node_version: 10
+        Node_v12:
+          node_version: 12
+        Node_v12_standalone:
+          node_version: 12
           TEST_STANDALONE: true
     steps:
       - template: .azure-pipelines/jobs/prod-test.yml
