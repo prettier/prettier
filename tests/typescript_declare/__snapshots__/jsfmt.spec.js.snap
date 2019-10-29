@@ -1,59 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`abstract-class-with-declare-properties.ts 1`] = `
-====================================options=====================================
-parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-abstract class AbstractDeclProps {
-  declare prop1: string;
-  declare abstract prop2: string;
-  declare public abstract prop3: string;
-  declare readonly abstract prop4: string;
-  declare public readonly abstract prop5: string;
-}
-=====================================output=====================================
-abstract class AbstractDeclProps {
-  declare prop1: string;
-  declare abstract prop2: string;
-  public declare abstract prop3: string;
-  declare abstract readonly prop4: string;
-  public declare abstract readonly prop5: string;
-}
-
-================================================================================
-`;
-
-exports[`class-with-declare-properties.ts 1`] = `
-====================================options=====================================
-parsers: ["typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-class DeclProps {
-  declare prop1: string;
-  declare public prop2: string;
-  declare static prop3: string;
-  declare readonly prop3: string;
-  declare public readonly prop4: string;
-  declare public static prop5: string;
-  declare public static readonly prop6: string;
-}
-=====================================output=====================================
-class DeclProps {
-  declare prop1: string;
-  public declare prop2: string;
-  declare static prop3: string;
-  declare readonly prop3: string;
-  public declare readonly prop4: string;
-  public declare static prop5: string;
-  public declare static readonly prop6: string;
-}
-
-================================================================================
-`;
-
 exports[`declare_class_fields.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
