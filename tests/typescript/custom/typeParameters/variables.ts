@@ -11,4 +11,4 @@ const isAnySuccessfulAttempt$: Observable<boolean> = this._quizService.isAnySucc
     this.isAnySuccessfulAttempt = isAnySuccessfulAttempt;
   }),
 );
-const isAnySuccessfulAttempt$: Observable<boolean> = this._someMethodWithLongName();
+const isAnySuccessfulAttempt2$: Observable<boolean> = this._someMethodWithLongName();

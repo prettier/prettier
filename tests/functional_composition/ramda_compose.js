@@ -36,3 +36,8 @@ lookupUser("JOE").then(lookupFollowers);
 var followersForUser = R.composeP(lookupFollowers, lookupUser);
 followersForUser("JOE").then(followers => console.log("Followers:", followers));
 // Followers: ["STEVE","SUZY"]
+
+const mapStateToProps = state => ({
+  users: R.compose( R.filter(R.propEq('status', 'active')),
+    R.values)(state.users)
+});

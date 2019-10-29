@@ -1,4 +1,4 @@
-async function f() {
+async function f1() {
   if (untrackedChoice === 0) /* Cancel */ {
     return null;
   } else if (untrackedChoice === 1) /* Add */ {
@@ -9,7 +9,7 @@ async function f() {
   }
 }
 
-async function f() {
+async function f2() {
   if (untrackedChoice === 0) /* Cancel */
     null;
   else if (untrackedChoice === 1) /* Add */
@@ -18,7 +18,7 @@ async function f() {
     allowUntracked = true;
 }
 
-async function f() {
+async function f3() {
   if (untrackedChoice === 0) /* Cancel */ // Cancel
     null;
   else if (untrackedChoice === 1) /* Add */ // Add
@@ -27,7 +27,7 @@ async function f() {
     allowUntracked = true;
 }
 
-async function f() {
+async function f4() {
   if (untrackedChoice === 0)
     /* Cancel */ {
       return null;
@@ -43,7 +43,7 @@ async function f() {
     }
 }
 
-async function f() {
+async function f5() {
   if (untrackedChoice === 0) {
     /* Cancel */ return null;
   } else if (untrackedChoice === 1) {

@@ -1,12 +1,13 @@
-var x = {/* dangling */};
-var x = {
+var a = {/* dangling */};
+var b = {
   // dangling
 };
-var x = [/* dangling */];
-function x() {
+var b = [/* dangling */];
+function d() {
   /* dangling */
 }
 new Thing(/* dangling */);
 Thing(/* dangling */);
+Thing?.(/* dangling */);
 declare class Foo extends Qux<string> {/* dangling */}
 export /* dangling */{};

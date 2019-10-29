@@ -12,18 +12,20 @@ const CATEGORY_SPECIAL = "Special";
 
 /**
  * @typedef {Object} OptionInfo
- * @property {string} since - available since version
+ * @property {string} [since] - available since version
  * @property {string} category
  * @property {'int' | 'boolean' | 'choice' | 'path'} type
- * @property {boolean} array - indicate it's an array of the specified type
- * @property {boolean?} deprecated - deprecated since version
- * @property {OptionRedirectInfo?} redirect - redirect deprecated option
+ * @property {boolean} [array] - indicate it's an array of the specified type
+ * @property {OptionValueInfo} [default]
+ * @property {OptionRangeInfo} [range] - for type int
  * @property {string} description
- * @property {string?} oppositeDescription - for `false` option
- * @property {OptionValueInfo} default
- * @property {OptionRangeInfo?} range - for type int
- * @property {OptionChoiceInfo?} choices - for type choice
- * @property {(value: any) => boolean} exception
+ * @property {string} [deprecated] - deprecated since version
+ * @property {OptionRedirectInfo} [redirect] - redirect deprecated option
+ * @property {(value: any) => boolean} [exception]
+ * @property {OptionChoiceInfo[]} [choices] - for type choice
+ * @property {string} [cliName]
+ * @property {string} [cliCategory]
+ * @property {string} [cliDescription]
  *
  * @typedef {number | boolean | string} OptionValue
  * @typedef {OptionValue | [{ value: OptionValue[] }] | Array<{ since: string, value: OptionValue}>} OptionValueInfo
@@ -39,16 +41,13 @@ const CATEGORY_SPECIAL = "Special";
  *
  * @typedef {Object} OptionChoiceInfo
  * @property {boolean | string} value - boolean for the option that is originally boolean type
- * @property {string?} description - undefined if redirect
- * @property {string?} since - undefined if available since the first version of the option
- * @property {string?} deprecated - deprecated since version
- * @property {OptionValueInfo?} redirect - redirect deprecated value
- *
- * @property {string?} cliName
- * @property {string?} cliCategory
- * @property {string?} cliDescription
+ * @property {string} description
+ * @property {string} [since] - undefined if available since the first version of the option
+ * @property {string} [deprecated] - deprecated since version
+ * @property {OptionValueInfo} [redirect] - redirect deprecated value
  */
-/** @type {{ [name: string]: OptionInfo } */
+
+/** @type {{ [name: string]: OptionInfo }} */
 const options = {
   cursorOffset: {
     since: "1.4.0",

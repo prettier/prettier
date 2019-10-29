@@ -2,27 +2,27 @@ class A // comment 1
   // comment 2
   extends B {}
 
-class A extends B // comment1
+class A1 extends B // comment1
 // comment2
 // comment3
 {}
 
-class A /* a */ extends B {}
-class A extends B /* a */ {}
-class A extends /* a */ B {}
+class A2 /* a */ extends B {}
+class A3 extends B /* a */ {}
+class A4 extends /* a */ B {}
 
-(class A // comment 1
+(class A5 // comment 1
   // comment 2
   extends B {});
 
-(class A extends B // comment1
+(class A6 extends B // comment1
 // comment2
 // comment3
 {});
 
-(class A /* a */ extends B {});
-(class A extends B /* a */ {});
-(class A extends /* a */ B {});
+(class A7 /* a */ extends B {});
+(class A8 extends B /* a */ {});
+(class A9 extends /* a */ B {});
 
 class x {
   focus() // do nothing
