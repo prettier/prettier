@@ -1,13 +1,13 @@
-type Props = // (DispatchProps & StateProps); WHY DON'T YOU WORK FLOW!!!!!!!!!
+type Props1 = // (DispatchProps & StateProps); WHY DON'T YOU WORK FLOW!!!!!!!!!
 {
   isPlaying: boolean,
 };
 
-type Props = { // (DispatchProps & StateProps); WHY DON'T YOU WORK FLOW!!!!!!!!!
+type Props2 = { // (DispatchProps & StateProps); WHY DON'T YOU WORK FLOW!!!!!!!!!
   isPlaying: boolean
 };
 
-type Props = {
+type Props3 = {
   // (DispatchProps & StateProps); WHY DON'T YOU WORK FLOW!!!!!!!!!
   isPlaying: boolean
 };

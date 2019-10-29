@@ -4,7 +4,7 @@ interface RelayProps {
   } | null> | null | void | 1,
 }
 
-interface RelayProps {
+interface RelayProps2 {
   articles: Array<{
     __id: string,
   } | null> | null | void,

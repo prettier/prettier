@@ -8,7 +8,7 @@ type UploadState<E, EM, D>
   // Uploading to aws3 and CreatePostMutation succeeded
   | {type: "Success", data: D};
 
-type UploadState<E, EM, D>
+type UploadState2<E, EM, D>
   // The upload hasnt begun yet
   = A
   // The upload timed out

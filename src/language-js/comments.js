@@ -564,6 +564,7 @@ function handleCommentInEmptyParens(text, enclosingNode, comment, options) {
       enclosingNode.type === "ObjectMethod") &&
       enclosingNode.params.length === 0) ||
       ((enclosingNode.type === "CallExpression" ||
+        enclosingNode.type === "OptionalCallExpression" ||
         enclosingNode.type === "NewExpression") &&
         enclosingNode.arguments.length === 0))
   ) {
@@ -686,7 +687,8 @@ function handleBreakAndContinueStatementComments(enclosingNode, comment) {
 function handleCallExpressionComments(precedingNode, enclosingNode, comment) {
   if (
     enclosingNode &&
-    enclosingNode.type === "CallExpression" &&
+    (enclosingNode.type === "CallExpression" ||
+      enclosingNode.type === "OptionalCallExpression") &&
     precedingNode &&
     enclosingNode.callee === precedingNode &&
     enclosingNode.arguments.length > 0

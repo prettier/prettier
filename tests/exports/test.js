@@ -5,3 +5,5 @@ export a,{b} from "./baz";
 export * as ns from "mod";
 
 export * as foo,{bar} from "./baz";
+
+export { undefinedExport };

@@ -29,19 +29,19 @@ class X {} [1, 2, 3].forEach(fn)
 //   x(){}
 // }
 
-class C {
+class C1 {
   get; // The semicolon *is* necessary
   x(){}
 }
-class C {
+class C2 {
   get = () => {}; // The semicolon is *not* necessary
   x(){}
 }
-class C {
+class C3 {
   set; // The semicolon *is* necessary
   x(){}
 }
-class C {
+class C4 {
   set = () => {}; // The semicolon is *not* necessary
   x(){}
 }
@@ -90,16 +90,16 @@ class A {
 }
 
 // being first/last shouldn't break things
-class G {
+class G1 {
   x = 1
 }
-class G {
+class G2 {
   x() {}
 }
-class G {
+class G3 {
   *x() {}
 }
-class G {
+class G4 {
   [x] = 1
 }
 
