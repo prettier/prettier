@@ -400,6 +400,9 @@ function createIgnorerFromContextOrDie(context) {
   }
 }
 
+/**
+ * @param {string[]} patterns
+ */
 function eachFilename(context, patterns, callback) {
   // The '!./' globs are due to https://github.com/prettier/prettier/issues/2110
   const ignoreNodeModules = context.argv["with-node-modules"] !== true;
@@ -723,6 +726,9 @@ function createDetailedUsage(context, flag) {
   return `${header}${description}${choices}${defaults}${pluginDefaults}`;
 }
 
+/**
+ * @param {string} optionName
+ */
 function getOptionDefaultValue(context, optionName) {
   // --no-option
   if (!(optionName in context.detailedOptionMap)) {
