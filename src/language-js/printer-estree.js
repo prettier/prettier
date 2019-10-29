@@ -26,6 +26,7 @@ const {
 const {
   isNextLineEmpty,
   isNextLineEmptyAfterIndex,
+  isPreviousLineEmpty,
   getNextNonSpaceNonCommentCharacterIndex
 } = require("../common/util-shared");
 const embed = require("./embed");
@@ -2075,7 +2076,21 @@ function printPathNoParens(path, options, print, args) {
     // JSX extensions below.
     case "DebuggerStatement":
       return concat(["debugger", semi]);
-    case "JSXAttribute":
+    case "JSXAttribute": {
+      const isLineBeforeEmpty = isPreviousLineEmpty(
+        options.originalText,
+        n,
+        options
+      );
+
+      const isFirst = path.getParentNode().attributes.indexOf(n) === 0;
+
+      // Preserves blank lines above attributes to be consistent with our general empty lines rules.
+      // See https://github.com/prettier/prettier/issues/6047
+      if (!isFirst && isLineBeforeEmpty) {
+        parts.push(hardline);
+      }
+
       parts.push(path.call(print, "name"));
 
       if (n.value) {
@@ -2098,6 +2113,7 @@ function printPathNoParens(path, options, print, args) {
       }
 
       return concat(parts);
+    }
     case "JSXIdentifier":
       return "" + n.name;
     case "JSXNamespacedName":
@@ -5887,14 +5903,35 @@ function printComment(commentPath, options) {
       return "/*" + comment.value + (isInsideFlowComment ? "*-/" : "*/");
     }
     case "CommentLine":
-    case "Line":
+    case "Line": {
       // Print shebangs with the proper comment characters
-      if (
-        options.originalText.slice(options.locStart(comment)).startsWith("#!")
-      ) {
-        return "#!" + comment.value.trimRight();
+      const prefix = options.originalText
+        .slice(options.locStart(comment))
+        .startsWith("#!")
+        ? "#!"
+        : "//";
+
+      const trimmed = prefix + comment.value.trimRight();
+
+      // Preserves blank lines above comments to be consistent with our general empty lines rules.
+      // See https://github.com/prettier/prettier/issues/6047
+      if (commentPath.getNode(1).type === "JSXAttribute") {
+        const jsxOpeningElement = commentPath.getNode(2);
+        const isFirst =
+          jsxOpeningElement.attributes.indexOf(commentPath.getNode(1)) === 0;
+
+        const isLineBeforeEmpty = isPreviousLineEmpty(
+          options.originalText,
+          comment,
+          options
+        );
+
+        const keepBlankLineAbove = !isFirst && isLineBeforeEmpty;
+        return concat([keepBlankLineAbove ? hardline : "", trimmed]);
       }
-      return "//" + comment.value.trimRight();
+
+      return trimmed;
+    }
     default:
       throw new Error("Not a comment: " + JSON.stringify(comment));
   }
