@@ -50,6 +50,12 @@ class E {
   set #f(taz) {}
 }
 
+class F {
+  #func(id, { blog: { title } }) {
+    return id + title;
+  }
+}
+
 =====================================output=====================================
 class A {
   #x;
@@ -113,6 +119,12 @@ class E {
   set #f(taz) {}
 }
 
+class F {
+  #func(id, { blog: { title } }) {
+    return id + title;
+  }
+}
+
 ================================================================================
 `;
 
@@ -165,6 +177,12 @@ class E {
   async *#e() {}
   get #f() {}
   set #f(taz) {}
+}
+
+class F {
+  #func(id, { blog: { title } }) {
+    return id + title;
+  }
 }
 
 =====================================output=====================================
@@ -228,6 +246,12 @@ class E {
   async *#e() {}
   get #f() {}
   set #f(taz) {}
+}
+
+class F {
+  #func(id, { blog: { title } }) {
+    return id + title
+  }
 }
 
 ================================================================================

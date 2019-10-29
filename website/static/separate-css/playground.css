@@ -272,7 +272,7 @@ input[type="number"] {
 
 .tooltip {
   position: absolute;
-  z-index: 1;
+  z-index: 6;
   bottom: 100%;
   left: 50%;
   transform: translateX(-50%);

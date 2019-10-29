@@ -1,12 +1,12 @@
 import { createSelector } from 'reselect';
 
-const resolve = createSelector(
+const foo = createSelector(
   getIds,
   getObjects,
   (ids, objects) => ids.map(id => objects[id])
 );
 
-const resolve = createSelector(
+const bar = createSelector(
   [getIds, getObjects],
   (ids, objects) => ids.map(id => objects[id])
 );

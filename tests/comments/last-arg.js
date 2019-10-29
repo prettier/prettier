@@ -1,19 +1,19 @@
-type f = (
+type f1 = (
   currentRequest: {a: number},
   // TODO this is a very very very very long comment that makes it go > 80 columns
 ) => number;
 
-f = (
+f2 = (
   currentRequest: {a: number},
   // TODO this is a very very very very long comment that makes it go > 80 columns
 ): number => {};
 
-f = (
+f3 = (
   currentRequest: {a: number},
   // TODO this is a very very very very long comment that makes it go > 80 columns
 ) => {};
 
-f = function(
+f4 = function(
   currentRequest: {a: number},
   // TODO this is a very very very very long comment that makes it go > 80 columns
 ) {};
@@ -25,7 +25,7 @@ class X {
   ) {}
 }
 
-function f(
+function f5(
   a: number
 // some comment here
 ): number {
@@ -42,7 +42,7 @@ var x = {
   }
 }
 
-class X {
+class X2 {
   getSectionMode(
     pageMetaData: PageMetaData,
     sectionMetaData: SectionMetaData = ['unknown']

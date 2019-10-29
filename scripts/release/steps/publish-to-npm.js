@@ -29,7 +29,7 @@ module.exports = async function({ dry, version }) {
       - Copy release notes from {yellow CHANGELOG.md}
       - Press {bgGreen.black  Publish release }
 
-      {bold.underline Test the new releae}
+      {bold.underline Test the new release}
       - In a new session, run {yellow npm i prettier@latest} in another directory
       - Test the API and CLI
 
