@@ -321,7 +321,7 @@ function printGraphqlComments(lines) {
   lines
     .map(textLine => textLine.trim())
     .forEach((textLine, i, array) => {
-      // Lines are either whitespace only, or a comment (with poential whitespace
+      // Lines are either whitespace only, or a comment (with potential whitespace
       // around it). Drop whitespace-only lines.
       if (textLine === "") {
         return;

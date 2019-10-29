@@ -182,6 +182,15 @@ printWidth: 80
           {{       valid       }} 
     
     baz'
+    i18n="Normal i18n text"
+    i18n="This is a very long internationalization description text, exceeding the configured print width, but could easily be formatted"
+    i18n-test="Attribute i18n text"
+    i18n-test="This is a very long internationalization description text, exceeding the configured print width, but could easily be formatted"
+    i18n="This is a very long internationalization description text, exceeding the configured print width, but could easily be formatted" i18n="This is yet another very long internationalization description text, exceeding the configured print width, but could easily be formatted"
+    i18n="@@customId"
+    i18n="Some description@@customIdWithDescription"
+    i18n="some meaning|Some description@@customIdWithDescription"
+    i18n="some meaning|Some very long internationalization description text exceeding the configured print width@@customIdWithDescription"
 ></div>
 
 =====================================output=====================================
@@ -308,6 +317,31 @@ printWidth: 80
           {{ valid }} 
     
     baz"
+  i18n="Normal i18n text"
+  i18n="
+    This is a very long internationalization description text, exceeding the
+    configured print width, but could easily be formatted
+  "
+  i18n-test="Attribute i18n text"
+  i18n-test="
+    This is a very long internationalization description text, exceeding the
+    configured print width, but could easily be formatted
+  "
+  i18n="
+    This is a very long internationalization description text, exceeding the
+    configured print width, but could easily be formatted
+  "
+  i18n="
+    This is yet another very long internationalization description text,
+    exceeding the configured print width, but could easily be formatted
+  "
+  i18n="@@customId"
+  i18n="Some description@@customIdWithDescription"
+  i18n="some meaning|Some description@@customIdWithDescription"
+  i18n="
+    some meaning|Some very long internationalization description text exceeding
+    the configured print width@@customIdWithDescription
+  "
 ></div>
 
 ================================================================================
@@ -420,6 +454,15 @@ trailingComma: "es5"
           {{       valid       }} 
     
     baz'
+    i18n="Normal i18n text"
+    i18n="This is a very long internationalization description text, exceeding the configured print width, but could easily be formatted"
+    i18n-test="Attribute i18n text"
+    i18n-test="This is a very long internationalization description text, exceeding the configured print width, but could easily be formatted"
+    i18n="This is a very long internationalization description text, exceeding the configured print width, but could easily be formatted" i18n="This is yet another very long internationalization description text, exceeding the configured print width, but could easily be formatted"
+    i18n="@@customId"
+    i18n="Some description@@customIdWithDescription"
+    i18n="some meaning|Some description@@customIdWithDescription"
+    i18n="some meaning|Some very long internationalization description text exceeding the configured print width@@customIdWithDescription"
 ></div>
 
 =====================================output=====================================
@@ -546,6 +589,31 @@ trailingComma: "es5"
           {{ valid }} 
     
     baz"
+  i18n="Normal i18n text"
+  i18n="
+    This is a very long internationalization description text, exceeding the
+    configured print width, but could easily be formatted
+  "
+  i18n-test="Attribute i18n text"
+  i18n-test="
+    This is a very long internationalization description text, exceeding the
+    configured print width, but could easily be formatted
+  "
+  i18n="
+    This is a very long internationalization description text, exceeding the
+    configured print width, but could easily be formatted
+  "
+  i18n="
+    This is yet another very long internationalization description text,
+    exceeding the configured print width, but could easily be formatted
+  "
+  i18n="@@customId"
+  i18n="Some description@@customIdWithDescription"
+  i18n="some meaning|Some description@@customIdWithDescription"
+  i18n="
+    some meaning|Some very long internationalization description text exceeding
+    the configured print width@@customIdWithDescription
+  "
 ></div>
 
 ================================================================================
@@ -657,6 +725,15 @@ printWidth: 1
           {{       valid       }} 
     
     baz'
+    i18n="Normal i18n text"
+    i18n="This is a very long internationalization description text, exceeding the configured print width, but could easily be formatted"
+    i18n-test="Attribute i18n text"
+    i18n-test="This is a very long internationalization description text, exceeding the configured print width, but could easily be formatted"
+    i18n="This is a very long internationalization description text, exceeding the configured print width, but could easily be formatted" i18n="This is yet another very long internationalization description text, exceeding the configured print width, but could easily be formatted"
+    i18n="@@customId"
+    i18n="Some description@@customIdWithDescription"
+    i18n="some meaning|Some description@@customIdWithDescription"
+    i18n="some meaning|Some very long internationalization description text exceeding the configured print width@@customIdWithDescription"
 ></div>
 
 =====================================output=====================================
@@ -1023,6 +1100,123 @@ printWidth: 1
   }} 
     
     baz"
+  i18n="
+    Normal
+    i18n
+    text
+  "
+  i18n="
+    This
+    is
+    a
+    very
+    long
+    internationalization
+    description
+    text,
+    exceeding
+    the
+    configured
+    print
+    width,
+    but
+    could
+    easily
+    be
+    formatted
+  "
+  i18n-test="
+    Attribute
+    i18n
+    text
+  "
+  i18n-test="
+    This
+    is
+    a
+    very
+    long
+    internationalization
+    description
+    text,
+    exceeding
+    the
+    configured
+    print
+    width,
+    but
+    could
+    easily
+    be
+    formatted
+  "
+  i18n="
+    This
+    is
+    a
+    very
+    long
+    internationalization
+    description
+    text,
+    exceeding
+    the
+    configured
+    print
+    width,
+    but
+    could
+    easily
+    be
+    formatted
+  "
+  i18n="
+    This
+    is
+    yet
+    another
+    very
+    long
+    internationalization
+    description
+    text,
+    exceeding
+    the
+    configured
+    print
+    width,
+    but
+    could
+    easily
+    be
+    formatted
+  "
+  i18n="
+    @@customId
+  "
+  i18n="
+    Some
+    description@@customIdWithDescription
+  "
+  i18n="
+    some
+    meaning|Some
+    description@@customIdWithDescription
+  "
+  i18n="
+    some
+    meaning|Some
+    very
+    long
+    internationalization
+    description
+    text
+    exceeding
+    the
+    configured
+    print
+    width@@customIdWithDescription
+  "
 ></div>
 
 ================================================================================
@@ -1135,6 +1329,15 @@ printWidth: 80
           {{       valid       }} 
     
     baz'
+    i18n="Normal i18n text"
+    i18n="This is a very long internationalization description text, exceeding the configured print width, but could easily be formatted"
+    i18n-test="Attribute i18n text"
+    i18n-test="This is a very long internationalization description text, exceeding the configured print width, but could easily be formatted"
+    i18n="This is a very long internationalization description text, exceeding the configured print width, but could easily be formatted" i18n="This is yet another very long internationalization description text, exceeding the configured print width, but could easily be formatted"
+    i18n="@@customId"
+    i18n="Some description@@customIdWithDescription"
+    i18n="some meaning|Some description@@customIdWithDescription"
+    i18n="some meaning|Some very long internationalization description text exceeding the configured print width@@customIdWithDescription"
 ></div>
 
 =====================================output=====================================
@@ -1261,6 +1464,31 @@ printWidth: 80
           {{ valid }} 
     
     baz"
+  i18n="Normal i18n text"
+  i18n="
+    This is a very long internationalization description text, exceeding the
+    configured print width, but could easily be formatted
+  "
+  i18n-test="Attribute i18n text"
+  i18n-test="
+    This is a very long internationalization description text, exceeding the
+    configured print width, but could easily be formatted
+  "
+  i18n="
+    This is a very long internationalization description text, exceeding the
+    configured print width, but could easily be formatted
+  "
+  i18n="
+    This is yet another very long internationalization description text,
+    exceeding the configured print width, but could easily be formatted
+  "
+  i18n="@@customId"
+  i18n="Some description@@customIdWithDescription"
+  i18n="some meaning|Some description@@customIdWithDescription"
+  i18n="
+    some meaning|Some very long internationalization description text exceeding
+    the configured print width@@customIdWithDescription
+  "
 ></div>
 
 ================================================================================
@@ -1373,6 +1601,15 @@ printWidth: 80
           {{       valid       }} 
     
     baz'
+    i18n="Normal i18n text"
+    i18n="This is a very long internationalization description text, exceeding the configured print width, but could easily be formatted"
+    i18n-test="Attribute i18n text"
+    i18n-test="This is a very long internationalization description text, exceeding the configured print width, but could easily be formatted"
+    i18n="This is a very long internationalization description text, exceeding the configured print width, but could easily be formatted" i18n="This is yet another very long internationalization description text, exceeding the configured print width, but could easily be formatted"
+    i18n="@@customId"
+    i18n="Some description@@customIdWithDescription"
+    i18n="some meaning|Some description@@customIdWithDescription"
+    i18n="some meaning|Some very long internationalization description text exceeding the configured print width@@customIdWithDescription"
 ></div>
 
 =====================================output=====================================
@@ -1499,6 +1736,31 @@ printWidth: 80
           {{ valid }} 
     
     baz"
+  i18n="Normal i18n text"
+  i18n="
+    This is a very long internationalization description text, exceeding the
+    configured print width, but could easily be formatted
+  "
+  i18n-test="Attribute i18n text"
+  i18n-test="
+    This is a very long internationalization description text, exceeding the
+    configured print width, but could easily be formatted
+  "
+  i18n="
+    This is a very long internationalization description text, exceeding the
+    configured print width, but could easily be formatted
+  "
+  i18n="
+    This is yet another very long internationalization description text,
+    exceeding the configured print width, but could easily be formatted
+  "
+  i18n="@@customId"
+  i18n="Some description@@customIdWithDescription"
+  i18n="some meaning|Some description@@customIdWithDescription"
+  i18n="
+    some meaning|Some very long internationalization description text exceeding
+    the configured print width@@customIdWithDescription
+  "
 ></div>
 
 ================================================================================

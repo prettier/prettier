@@ -22,11 +22,6 @@ function run(args) {
       process.exit(1);
     }
 
-    if (context.argv["only-changed"] && !context.argv["write"]) {
-      context.logger.error("Cannot use --only-changed without --write.");
-      process.exit(1);
-    }
-
     if (context.argv["find-config-path"] && context.filePatterns.length) {
       context.logger.error("Cannot use --find-config-path with multiple files");
       process.exit(1);

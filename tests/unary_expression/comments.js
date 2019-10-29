@@ -267,7 +267,7 @@ function* bar() {
   );
 }
 
-async function bar() {
+async function bar2() {
   !(await x);
   !(await x /* foo */);
   !(/* foo */ await x);

@@ -8,7 +8,7 @@ printWidth: 80
 =====================================input======================================
 const { somePropThatHasAReallyLongName, anotherPropThatHasALongName } = this.props.imReallySureAboutThis!;
 
-const { somePropThatHasAReallyLongName, anotherPropThatHasALongName } = this.props.imReallySureAboutThis!.anotherObject;
+const { somePropThatHasAReallyLongName2, anotherPropThatHasALongName2 } = this.props.imReallySureAboutThis!.anotherObject;
 
 this.foo.get("bar")!.doThings().more();
 
@@ -21,8 +21,8 @@ const {
 } = this.props.imReallySureAboutThis!;
 
 const {
-  somePropThatHasAReallyLongName,
-  anotherPropThatHasALongName
+  somePropThatHasAReallyLongName2,
+  anotherPropThatHasALongName2
 } = this.props.imReallySureAboutThis!.anotherObject;
 
 this.foo
@@ -60,9 +60,9 @@ const a = (b()!)(); // parens aren't necessary
 const b = c!();
 
 // parens are necessary if the expression result is called as a constructor
-const c = new (d()!)();
-const c = new (d()!);
-const c = new (d()!.e)();
+const c1 = new (d()!)();
+const c2 = new (d()!);
+const c3 = new (d()!.e)();
 new (x()\`\`.y!)();
 new (x()\`\`!.y)();
 new (x()!\`\`.y)();
@@ -85,9 +85,9 @@ const a = b()!(); // parens aren't necessary
 const b = c!();
 
 // parens are necessary if the expression result is called as a constructor
-const c = new (d()!)();
-const c = new (d()!)();
-const c = new (d()!.e)();
+const c1 = new (d()!)();
+const c2 = new (d()!)();
+const c3 = new (d()!.e)();
 new (x()\`\`.y!)();
 new (x()\`\`!.y)();
 new (x()!\`\`.y)();

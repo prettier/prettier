@@ -1,4 +1,4 @@
-function* f() {
+function* f1() {
   a = (yield) ? 1 : 1;
   a = yield 1 ? 1 : 1;
   a = (yield 1) ? 1 : 1;
@@ -6,13 +6,13 @@ function* f() {
   a = 1 ? yield 1 : yield 1;
 }
 
-function* f() {
+function* f2() {
   a = yield* 1 ? 1 : 1;
   a = (yield* 1) ? 1 : 1;
   a = 1 ? yield* 1 : yield* 1;
 }
 
-async function f() {
+async function f3() {
   a = await 1 ? 1 : 1;
   a = (await 1) ? 1 : 1;
   a = 1 ? await 1 : await 1;

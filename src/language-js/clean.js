@@ -60,11 +60,6 @@ function clean(ast, newObj, parent) {
     delete newObj.specifiers;
   }
 
-  // (TypeScript) bypass TSParenthesizedType
-  if (ast.type === "TSParenthesizedType") {
-    return newObj.typeAnnotation;
-  }
-
   // We convert <div></div> to <div />
   if (ast.type === "JSXOpeningElement") {
     delete newObj.selfClosing;

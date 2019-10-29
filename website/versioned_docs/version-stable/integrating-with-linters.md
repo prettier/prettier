@@ -10,13 +10,13 @@ This allows you to use Prettier for code formatting concerns, while letting your
 Whatever linting tool you wish to integrate with, the steps are broadly similar.
 First disable any existing formatting rules in your linter that may conflict with how Prettier wishes to format your code. Then you can either add an extension to your linting tool to format your file with Prettier - so that you only need a single command for format a file, or run your linter then Prettier as separate steps.
 
-All these instructions assume you have already installed `prettier` in your `devDependencies`.
+All these instructions assume you have already installed `prettier` in your [`devDependencies`].
 
 ## ESLint
 
 ### Disable formatting rules
 
-[`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier) is a config that disables rules that conflict with Prettier. Add it to your `devDependencies`, then extend from it within your `.eslintrc` configuration. Make sure to put it last in the `extends` array, so it gets the chance to override other configs.
+[`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier) is a config that disables rules that conflict with Prettier. Add it to your [`devDependencies`], then extend from it within your `.eslintrc` configuration. Make sure to put it last in the `extends` array, so it gets the chance to override other configs.
 
 ```bash
 yarn add --dev eslint-config-prettier
@@ -32,7 +32,7 @@ Then in `.eslintrc.json`:
 
 ### Use ESLint to run Prettier
 
-[`eslint-plugin-prettier`](https://github.com/prettier/eslint-plugin-prettier) is a plugin that adds a rule that formats content using Prettier. Add it to your `devDependencies`, then enable the plugin and rule.
+[`eslint-plugin-prettier`](https://github.com/prettier/eslint-plugin-prettier) is a plugin that adds a rule that formats content using Prettier. Add it to your [`devDependencies`], then enable the plugin and rule.
 
 ```bash
 yarn add --dev eslint-plugin-prettier
@@ -69,7 +69,7 @@ Then in `.eslintrc.json`:
 
 ### Disable formatting rules
 
-[`tslint-config-prettier`](https://github.com/alexjoverm/tslint-config-prettier) is a config that disables rules that conflict with Prettier. Add it to your `devDependencies`, then extend from it within your `tslint.json` configuration. Make sure to put it last in the `extends` array, so it gets the chance to override other configs.
+[`tslint-config-prettier`](https://github.com/alexjoverm/tslint-config-prettier) is a config that disables rules that conflict with Prettier. Add it to your [`devDependencies`], then extend from it within your `tslint.json` configuration. Make sure to put it last in the `extends` array, so it gets the chance to override other configs.
 
 ```bash
 yarn add --dev tslint-config-prettier
@@ -85,7 +85,7 @@ Then in `tslint.json`:
 
 ### Use TSLint to run Prettier
 
-[`tslint-plugin-prettier`](https://github.com/ikatyang/tslint-plugin-prettier) is a plugin that adds a rule that formats content using Prettier. Add it to your `devDependencies`, then enable the plugin and rule.
+[`tslint-plugin-prettier`](https://github.com/ikatyang/tslint-plugin-prettier) is a plugin that adds a rule that formats content using Prettier. Add it to your [`devDependencies`], then enable the plugin and rule.
 
 ```bash
 yarn add --dev tslint-plugin-prettier
@@ -125,7 +125,7 @@ Then in `tslint.json`:
 
 ### Disable formatting rules
 
-[`stylelint-config-prettier`](https://github.com/prettier/stylelint-config-prettier) is a config that disables rules that conflict with Prettier. Add it to your `devDependencies`, then extend from it within your `.stylelintrc` configuration. Make sure to put it last in the `extends` array, so it gets the chance to override other configs.
+[`stylelint-config-prettier`](https://github.com/prettier/stylelint-config-prettier) is a config that disables rules that conflict with Prettier. Add it to your [`devDependencies`], then extend from it within your `.stylelintrc` configuration. Make sure to put it last in the `extends` array, so it gets the chance to override other configs.
 
 ```bash
 yarn add --dev stylelint-config-prettier
@@ -141,7 +141,7 @@ Then in `.stylelintrc`:
 
 ### Use Stylelint to run Prettier
 
-[`stylelint-prettier`](https://github.com/prettier/stylelint-prettier) is a plugin that adds a rule that formats content using Prettier. Add it to your `devDependencies`, then enable the plugin and rule.
+[`stylelint-prettier`](https://github.com/prettier/stylelint-prettier) is a plugin that adds a rule that formats content using Prettier. Add it to your [`devDependencies`], then enable the plugin and rule.
 
 ```bash
 yarn add --dev stylelint-prettier
@@ -173,3 +173,5 @@ Then in `.stylelintrc`:
   "extends": ["stylelint-prettier/recommended"]
 }
 ```
+
+[`devdependencies`]: https://docs.npmjs.com/specifying-dependencies-and-devdependencies-in-a-package-json-file
