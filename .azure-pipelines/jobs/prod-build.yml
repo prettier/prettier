@@ -1,6 +1,6 @@
 steps:
   - template: ../steps/install-nodejs.yml
   - template: ../steps/install-dependencies.yml
-  - script: yarn build && ls -l
+  - script: yarn build && cd dist && ls -l && cd ..
     displayName: "Build dist"
   - template: ../steps/upload-dist.yml
