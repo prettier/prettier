@@ -58,8 +58,7 @@ function getBabelConfig(bundle) {
       {
         targets,
         exclude: ["transform-async-to-generator"],
-        modules: false,
-        debug: true
+        modules: false
       }
     ]
   ];
