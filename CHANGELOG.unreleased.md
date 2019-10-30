@@ -1294,9 +1294,9 @@ export class User {
 }
 ```
 
-#### Flow: Keep parentheses wraps FunctionTypeAnnotation that is included ObjectTypeAnnotation which ancestor is ArrowFunctionExpression ([#6717] by [@sosukesuzuki])
+#### Flow: Parentheses around arrow functions' return types that have `FunctionTypeAnnotation` nested in `ObjectTypeAnnotation` ([#6717] by [@sosukesuzuki])
 
-Attempting to format the stable ver output again results in a syntax error.
+This is a workaround for a [bug](https://github.com/facebook/flow/pull/8163) in the Flow parser. Without the parentheses, the parser throws an error.
 
 ```js
 // Input
