@@ -150,7 +150,7 @@ const coreBundles = [
       // from @iarna/toml/parse-string
       "eval(\"require('util').inspect\")": "require('util').inspect",
 
-      // `utils.promisify` required by `globby` is not available until node 8
+      // `util.promisify` required by `globby` is not available until node 8
       "const {promisify} = require('util')": "const promisify = require('pify')"
     },
     babelPlugins: ["babel-plugin-transform-async-to-promises"]
