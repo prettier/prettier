@@ -111,7 +111,7 @@
     "strip-ansi": "5.2.0",
     "tempy": "0.2.1",
     "terser-webpack-plugin": "2.1.3",
-    "webpack": "4.41.0"
+    "webpack": "4.41.2"
   },
   "scripts": {
     "prepublishOnly": "echo \"Error: must publish from dist/\" && exit 1",
