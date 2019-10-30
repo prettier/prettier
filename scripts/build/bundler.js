@@ -58,7 +58,8 @@ function getBabelConfig(bundle) {
       {
         targets,
         exclude: ["transform-regenerator"],
-        modules: false
+        modules: false,
+        debug: true
       }
     ]
   ];
