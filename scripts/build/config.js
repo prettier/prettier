@@ -173,7 +173,12 @@ const coreBundles = [
     type: "core",
     output: "bin-prettier.js",
     target: "node",
-    externals: [path.resolve("src/common/third-party.js")]
+    externals: [path.resolve("src/common/third-party.js")],
+    replace: {
+      // `util.promisify` required by `globby` is not available until node 8
+      "const {promisify} = require('util')": "const promisify = require('pify')"
+    },
+    babelPlugins: ["babel-plugin-transform-async-to-promises"]
   },
   {
     input: "src/common/third-party.js",
