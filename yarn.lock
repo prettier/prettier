@@ -1582,6 +1582,11 @@ babel-plugin-syntax-object-rest-spread@^6.13.0:
   version "6.13.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-syntax-object-rest-spread/-/babel-plugin-syntax-object-rest-spread-6.13.0.tgz#fd6536f2bce13836ffa3a5458c4903a597bb3bf5"
 
+babel-plugin-transform-async-to-promises@0.8.15:
+  version "0.8.15"
+  resolved "https://registry.yarnpkg.com/babel-plugin-transform-async-to-promises/-/babel-plugin-transform-async-to-promises-0.8.15.tgz#13b6d8ef13676b4e3c576d3600b85344bb1ba346"
+  integrity sha512-fDXP68ZqcinZO2WCiimCL9zhGjGXOnn3D33zvbh+yheZ/qOrNVVDDIBtAaM3Faz8TRvQzHiRKsu3hfrBAhEncQ==
+
 babel-preset-jest@^23.2.0:
   version "23.2.0"
   resolved "https://registry.yarnpkg.com/babel-preset-jest/-/babel-preset-jest-23.2.0.tgz#8ec7a03a138f001a1a8fb1e8113652bf1a55da46"

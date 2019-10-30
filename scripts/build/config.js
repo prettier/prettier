@@ -150,10 +150,7 @@ const coreBundles = [
     type: "core",
     target: "node",
     externals: [path.resolve("src/common/third-party.js")],
-    replace: {
-      // from @iarna/toml/parse-string
-      "eval(\"require('util').inspect\")": "require('util').inspect"
-    }
+    babelPlugins: ["babel-plugin-transform-async-to-promises"]
   },
   {
     input: "src/doc/index.js",
@@ -173,7 +170,8 @@ const coreBundles = [
     type: "core",
     output: "bin-prettier.js",
     target: "node",
-    externals: [path.resolve("src/common/third-party.js")]
+    externals: [path.resolve("src/common/third-party.js")],
+    babelPlugins: ["babel-plugin-transform-async-to-promises"]
   },
   {
     input: "src/common/third-party.js",
