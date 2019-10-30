@@ -8,8 +8,8 @@ const testPackage = require("./package-test");
 const code = testPackage({
   dir: path.join(__dirname, ".."),
   isProduction: false,
-  unitTest: false,
-  integrationTest: false
+  unitTest: true,
+  integrationTest: true
 });
 
 process.exit(code);
