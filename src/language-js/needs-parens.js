@@ -479,20 +479,10 @@ function needsParens(path, options) {
       );
 
     case "ArrayTypeAnnotation":
-      return (
-        parent.type === "NullableTypeAnnotation" ||
-        path.call(
-          typePath => isIncludeFunctionTypeInObjectType(typePath),
-          "elementType"
-        )
-      );
+      return parent.type === "NullableTypeAnnotation";
 
     case "IntersectionTypeAnnotation":
     case "UnionTypeAnnotation": {
-      const grandParent = path.getParentNode(1);
-      if (grandParent.type === "ArrowFunctionExpression") {
-        return isIncludeFunctionTypeInObjectType(path);
-      }
       return (
         parent.type === "ArrayTypeAnnotation" ||
         parent.type === "NullableTypeAnnotation" ||
@@ -768,14 +758,12 @@ function needsParens(path, options) {
           parent.type !== "TypeCastExpression" &&
           parent.type !== "VariableDeclarator")
       );
-    case "TupleTypeAnnotation":
-    case "ObjectTypeAnnotation": {
-      const grandParent = path.getParentNode(1);
+    case "TypeAnnotation":
       return (
-        grandParent.type === "ArrowFunctionExpression" &&
-        isIncludeFunctionTypeInObjectType(path)
+        name === "returnType" &&
+        parent.type === "ArrowFunctionExpression" &&
+        includesFunctionTypeInObjectType(path)
       );
-    }
   }
 
   return false;
@@ -832,7 +820,7 @@ function isStatement(node) {
   );
 }
 
-function isIncludeFunctionTypeInObjectType(path) {
+function includesFunctionTypeInObjectType(path) {
   const node = path.getValue();
   if (!node) {
     return false;
@@ -844,13 +832,16 @@ function isIncludeFunctionTypeInObjectType(path) {
       path.each(propertyPath => {
         isIncludeFunctionType =
           isIncludeFunctionType ||
-          isIncludeFunctionTypeInObjectType(propertyPath);
+          includesFunctionTypeInObjectType(propertyPath);
       }, "properties");
       return isIncludeFunctionType;
     }
 
     case "ObjectTypeProperty":
-      return path.call(isIncludeFunctionTypeInObjectType, "value");
+      return path.call(includesFunctionTypeInObjectType, "value");
+
+    case "TypeAnnotation":
+      return path.call(includesFunctionTypeInObjectType, "typeAnnotation");
 
     case "TupleTypeAnnotation":
     case "IntersectionTypeAnnotation":
@@ -858,13 +849,16 @@ function isIncludeFunctionTypeInObjectType(path) {
       let isIncludeFunctionType = false;
       path.each(typePath => {
         isIncludeFunctionType =
-          isIncludeFunctionType || isIncludeFunctionTypeInObjectType(typePath);
+          isIncludeFunctionType || includesFunctionTypeInObjectType(typePath);
       }, "types");
       return isIncludeFunctionType;
     }
 
+    case "ArrayTypeAnnotation":
+      return path.call(includesFunctionTypeInObjectType, "elementType");
+
     case "NullableTypeAnnotation":
-      return path.call(isIncludeFunctionTypeInObjectType, "typeAnnotation");
+      return path.call(includesFunctionTypeInObjectType, "typeAnnotation");
 
     case "FunctionTypeAnnotation": {
       const parent = path.getParentNode();
