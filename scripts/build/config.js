@@ -149,7 +149,8 @@ const coreBundles = [
     replace: {
       // from @iarna/toml/parse-string
       "eval(\"require('util').inspect\")": "require('util').inspect"
-    }
+    },
+    babelPlugins: ["babel-plugin-transform-async-to-promises"]
   },
   {
     input: "src/doc/index.js",
