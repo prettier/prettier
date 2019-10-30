@@ -1306,7 +1306,7 @@ const example1 = (): { p: (string => string) } => (0: any);
 const example1 = (): { p: string => string } => (0: any);
 
 // Output (Prettier master)
-const example1 = (): { p: (string => string) } => (0: any);
+const example1 = (): ({ p: string => string }) => (0: any);
 ```
 
 [#5682]: https://github.com/prettier/prettier/pull/5682
