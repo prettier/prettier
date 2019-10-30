@@ -150,6 +150,13 @@ const coreBundles = [
     type: "core",
     target: "node",
     externals: [path.resolve("src/common/third-party.js")],
+    replace: {
+      // from @iarna/toml/parse-string
+      "eval(\"require('util').inspect\")": "require('util').inspect",
+
+      // `util.promisify` required by `globby` is not available until node 8
+      "const {promisify} = require('util')": "const promisify = require('pify')"
+    },
     babelPlugins: ["babel-plugin-transform-async-to-promises"]
   },
   {
@@ -171,6 +178,10 @@ const coreBundles = [
     output: "bin-prettier.js",
     target: "node",
     externals: [path.resolve("src/common/third-party.js")],
+    replace: {
+      // `util.promisify` required by `globby` is not available until node 8
+      "const {promisify} = require('util')": "const promisify = require('pify')"
+    },
     babelPlugins: ["babel-plugin-transform-async-to-promises"]
   },
   {
