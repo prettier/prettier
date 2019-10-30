@@ -479,17 +479,27 @@ function needsParens(path, options) {
       );
 
     case "ArrayTypeAnnotation":
-      return parent.type === "NullableTypeAnnotation";
+      return (
+        parent.type === "NullableTypeAnnotation" ||
+        path.call(
+          typePath => isIncludeFunctionTypeInObjectType(typePath),
+          "elementType"
+        )
+      );
 
     case "IntersectionTypeAnnotation":
-    case "UnionTypeAnnotation":
+    case "UnionTypeAnnotation": {
+      const grandParent = path.getParentNode(1);
+      if (grandParent.type === "ArrowFunctionExpression") {
+        return isIncludeFunctionTypeInObjectType(path);
+      }
       return (
         parent.type === "ArrayTypeAnnotation" ||
         parent.type === "NullableTypeAnnotation" ||
         parent.type === "IntersectionTypeAnnotation" ||
         parent.type === "UnionTypeAnnotation"
       );
-
+    }
     case "NullableTypeAnnotation":
       return parent.type === "ArrayTypeAnnotation";
 
@@ -758,20 +768,13 @@ function needsParens(path, options) {
           parent.type !== "TypeCastExpression" &&
           parent.type !== "VariableDeclarator")
       );
+    case "TupleTypeAnnotation":
     case "ObjectTypeAnnotation": {
-      const ancestor =
-        parent.type === "NullableTypeAnnotation" ||
-        parent.type === "UnionTypeAnnotation" ||
-        parent.type === "IntersectionTypeAnnotation" ||
-        parent.type === "TupleTypeAnnotation"
-          ? path.getParentNode(2)
-          : path.getParentNode(1);
-
-      if (ancestor.type !== "ArrowFunctionExpression") {
-        return false;
-      }
-
-      return isIncludeFunctionTypeInObjectType(node);
+      const grandParent = path.getParentNode(1);
+      return (
+        grandParent.type === "ArrowFunctionExpression" &&
+        isIncludeFunctionTypeInObjectType(path)
+      );
     }
   }
 
@@ -829,32 +832,52 @@ function isStatement(node) {
   );
 }
 
-function isIncludeFunctionTypeInObjectType(node) {
+function isIncludeFunctionTypeInObjectType(path) {
+  const node = path.getValue();
   if (!node) {
     return false;
   }
 
   switch (node.type) {
     case "ObjectTypeAnnotation": {
-      return (
-        Array.isArray(node.properties) &&
-        node.properties.some(property =>
-          isIncludeFunctionTypeInObjectType(property.value)
-        )
-      );
+      let isIncludeFunctionType = false;
+      path.each(propertyPath => {
+        isIncludeFunctionType =
+          isIncludeFunctionType ||
+          isIncludeFunctionTypeInObjectType(propertyPath);
+      }, "properties");
+      return isIncludeFunctionType;
     }
+
+    case "ObjectTypeProperty":
+      return path.call(isIncludeFunctionTypeInObjectType, "value");
+
     case "TupleTypeAnnotation":
     case "IntersectionTypeAnnotation":
     case "UnionTypeAnnotation": {
-      return (
-        Array.isArray(node.types) &&
-        node.types.some(type => isIncludeFunctionTypeInObjectType(type))
-      );
+      let isIncludeFunctionType = false;
+      path.each(typePath => {
+        isIncludeFunctionType =
+          isIncludeFunctionType || isIncludeFunctionTypeInObjectType(typePath);
+      }, "types");
+      return isIncludeFunctionType;
     }
+
     case "NullableTypeAnnotation":
-      return isIncludeFunctionTypeInObjectType(node.typeAnnotation);
-    case "FunctionTypeAnnotation":
-      return true;
+      return path.call(isIncludeFunctionTypeInObjectType, "typeAnnotation");
+
+    case "FunctionTypeAnnotation": {
+      const parent = path.getParentNode();
+      const ancestor =
+        parent.type === "ArrayTypeAnnotation" ||
+        parent.type === "NullableTypeAnnotation" ||
+        parent.type === "IntersectionTypeAnnotation" ||
+        parent.type === "UnionTypeAnnotation" ||
+        parent.type === "TupleTypeAnnotation"
+          ? path.getParentNode(1)
+          : parent;
+      return ancestor.type === "ObjectTypeProperty";
+    }
     default:
       return false;
   }
