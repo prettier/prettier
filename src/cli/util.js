@@ -401,6 +401,10 @@ function createIgnorerFromContextOrDie(context) {
 }
 
 function eachFilename(context, patterns, callback) {
+  // workaround for fast-glob on Windows ref:
+  // https://github.com/mrmlnc/fast-glob#how-to-write-patterns-on-windows
+  patterns = patterns.map(path => path.replace(/\\/g, "/"));
+
   // The '!./' globs are due to https://github.com/prettier/prettier/issues/2110
   const ignoreNodeModules = context.argv["with-node-modules"] !== true;
   if (ignoreNodeModules) {
@@ -410,8 +414,9 @@ function eachFilename(context, patterns, callback) {
 
   try {
     const filePaths = globby
-      .sync(patterns, { dot: true, nodir: true })
-      .map(filePath => path.relative(process.cwd(), filePath));
+      .sync(patterns, { dot: true })
+      .map(filePath => path.relative(process.cwd(), filePath))
+      .sort();
 
     if (filePaths.length === 0) {
       context.logger.error(
