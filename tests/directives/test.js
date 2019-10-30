@@ -1,15 +1,15 @@
 "use strict";
 
-function fn() {
+function f1() {
   "use strict";
 }
 
-function f() {
+function f2() {
   'ngInject';
   Object.assign(this, { $log, $uibModal });
 }
 
-function f() {
+function f3() {
 
   'ngInject';
 
@@ -17,7 +17,7 @@ function f() {
 
 }
 
-function f() {
+function f4() {
   'ngInject';
 
 

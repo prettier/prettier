@@ -2,22 +2,22 @@ class MyContractSelectionWidget extends React.Component<void,  MyContractSelecti
   method() {}
 }
 
-class DisplayObject
+class DisplayObject1
   extends utils.EventEmitter
   implements interaction_InteractiveTarget {
 }
 
-class DisplayObject extends utils.EventEmitter
+class DisplayObject2 extends utils.EventEmitter
   implements interaction_InteractiveTarget {
 }
 
-class DisplayObject extends utils.EventEmitter
+class DisplayObject3 extends utils.EventEmitter
   implements interaction_InteractiveTarget,
     somethingElse_SomeOtherThing,
     somethingElseAgain_RunningOutOfNames {
 }
 
-class DisplayObject extends utils.EventEmitter implements interaction_InteractiveTarget {}
+class DisplayObject4 extends utils.EventEmitter implements interaction_InteractiveTarget {}
 class Readable extends events.EventEmitter implements NodeJS_ReadableStream {}
 class InMemoryAppender extends log4javascript.Appender implements ICachedLogMessageProvider {}
 

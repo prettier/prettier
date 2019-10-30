@@ -25,6 +25,18 @@ prettier.format("query { }", { parser: "graphql", plugins: prettierPlugins });
 </script>
 ```
 
+### ES Modules
+
+```js
+import prettier from "prettier/standalone";
+import parserGraphql from "prettier/parser-graphql";
+
+prettier.format("query { }", {
+  parser: "graphql",
+  plugins: [parserGraphql]
+});
+```
+
 ### AMD
 
 ```js

@@ -1,0 +1,12 @@
+{
+  "overrides": [
+    {
+      "files": "*.foo",
+      "options": { "parser": "json" }
+    },
+    {
+      "files": "*.bar",
+      "options": { "parser": "babel" }
+    }
+  ]
+}
