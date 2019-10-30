@@ -828,13 +828,13 @@ function includesFunctionTypeInObjectType(path) {
 
   switch (node.type) {
     case "ObjectTypeAnnotation": {
-      let isIncludeFunctionType = false;
+      let includesFunctionType = false;
       path.each(propertyPath => {
-        isIncludeFunctionType =
-          isIncludeFunctionType ||
+        includesFunctionType =
+          includesFunctionType ||
           includesFunctionTypeInObjectType(propertyPath);
       }, "properties");
-      return isIncludeFunctionType;
+      return includesFunctionType;
     }
 
     case "ObjectTypeProperty":
@@ -846,12 +846,12 @@ function includesFunctionTypeInObjectType(path) {
     case "TupleTypeAnnotation":
     case "IntersectionTypeAnnotation":
     case "UnionTypeAnnotation": {
-      let isIncludeFunctionType = false;
+      let includesFunctionType = false;
       path.each(typePath => {
-        isIncludeFunctionType =
-          isIncludeFunctionType || includesFunctionTypeInObjectType(typePath);
+        includesFunctionType =
+          includesFunctionType || includesFunctionTypeInObjectType(typePath);
       }, "types");
-      return isIncludeFunctionType;
+      return includesFunctionType;
     }
 
     case "ArrayTypeAnnotation":
