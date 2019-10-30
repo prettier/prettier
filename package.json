@@ -69,7 +69,7 @@
     "string-width": "3.1.0",
     "typescript": "3.7.1-rc",
     "unicode-regex": "3.0.0",
-    "unified": "6.1.6",
+    "unified": "8.4.1",
     "vnopts": "1.0.2",
     "yaml-unist-parser": "1.1.1"
   },
