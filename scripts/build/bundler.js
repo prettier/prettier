@@ -186,11 +186,7 @@ function getWebpackConfig(bundle) {
     const TerserPlugin = require("terser-webpack-plugin");
 
     config.optimization = {
-      minimizer: [
-        new TerserPlugin({
-          terserOptions: bundle.terserOptions
-        })
-      ]
+      minimizer: [new TerserPlugin(bundle.terserOptions)]
     };
   }
 
