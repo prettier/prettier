@@ -100,7 +100,7 @@ function findPluginsInNodeModules(nodeModulesDir) {
       "@*/prettier-plugin-*/package.json",
       "@prettier/plugin-*/package.json"
     ],
-    { cwd: nodeModulesDir }
+    { cwd: nodeModulesDir, deep: 1 }
   );
   return pluginPackageJsonPaths.map(path.dirname);
 }
