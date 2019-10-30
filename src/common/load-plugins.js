@@ -102,7 +102,7 @@ function findPluginsInNodeModules(nodeModulesDir) {
     ],
     { cwd: nodeModulesDir, absolute: true, expandDirectories: false }
   );
-  return pluginPackageJsonPaths.map(path.dirname).sort();
+  return pluginPackageJsonPaths.map(path.dirname);
 }
 
 function isDirectory(dir) {
