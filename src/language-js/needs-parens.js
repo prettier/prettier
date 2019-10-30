@@ -482,14 +482,14 @@ function needsParens(path, options) {
       return parent.type === "NullableTypeAnnotation";
 
     case "IntersectionTypeAnnotation":
-    case "UnionTypeAnnotation": {
+    case "UnionTypeAnnotation":
       return (
         parent.type === "ArrayTypeAnnotation" ||
         parent.type === "NullableTypeAnnotation" ||
         parent.type === "IntersectionTypeAnnotation" ||
         parent.type === "UnionTypeAnnotation"
       );
-    }
+
     case "NullableTypeAnnotation":
       return parent.type === "ArrayTypeAnnotation";
 
