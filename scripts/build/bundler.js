@@ -57,7 +57,7 @@ function getBabelConfig(bundle) {
       require.resolve("@babel/preset-env"),
       {
         targets,
-        exclude: ["transform-regenerator"],
+        exclude: ["transform-async-to-generator"],
         modules: false,
         debug: true
       }
