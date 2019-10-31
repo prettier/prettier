@@ -2,6 +2,6 @@ let a = {
    a /* comment */: () => 1
 };
 
-let a = {
+let b = {
    "a" /* comment */: () => 1
 };

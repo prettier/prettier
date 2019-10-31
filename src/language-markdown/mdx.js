@@ -24,9 +24,10 @@
  * THE SOFTWARE.
  */
 
-const IMPORT_REGEX = /^import/;
-const EXPORT_REGEX = /^export/;
-const BLOCKS_REGEX = "[a-z\\.]+(\\.){0,1}[a-z\\.]";
+const IMPORT_REGEX = /^import\s/;
+const EXPORT_REGEX = /^export\s/;
+const BLOCKS_REGEX = "[a-z\\.]*(\\.){0,1}[a-z][a-z0-9\\.]*";
+const COMMENT_REGEX = "<!---->|<!--(?:-?[^>-])(?:-?[^-])*-->";
 const EMPTY_NEWLINE = "\n\n";
 
 const isImport = text => IMPORT_REGEX.test(text);
@@ -60,5 +61,6 @@ function esSyntax() {
 
 module.exports = {
   esSyntax,
-  BLOCKS_REGEX
+  BLOCKS_REGEX,
+  COMMENT_REGEX
 };

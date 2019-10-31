@@ -5,11 +5,11 @@ const path = require("path");
 const { rollup } = require("rollup");
 const webpack = require("webpack");
 const resolve = require("rollup-plugin-node-resolve");
-const alias = require("rollup-plugin-alias");
+const alias = require("@rollup/plugin-alias");
 const commonjs = require("rollup-plugin-commonjs");
 const nodeGlobals = require("rollup-plugin-node-globals");
 const json = require("rollup-plugin-json");
-const replace = require("rollup-plugin-replace");
+const replace = require("@rollup/plugin-replace");
 const { terser } = require("rollup-plugin-terser");
 const babel = require("rollup-plugin-babel");
 const nativeShims = require("./rollup-plugins/native-shims");
@@ -159,7 +159,7 @@ function getWebpackConfig(bundle) {
   }
 
   const root = path.resolve(__dirname, "..", "..");
-  return {
+  const config = {
     entry: path.resolve(root, bundle.input),
     module: {
       rules: [
@@ -176,14 +176,21 @@ function getWebpackConfig(bundle) {
       path: path.resolve(root, "dist"),
       filename: bundle.output,
       library: ["prettierPlugins", bundle.name],
-      libraryTarget: "umd"
-    },
-    plugins: [
-      new webpack.DefinePlugin({
-        "process.env.NODE_ENV": JSON.stringify("production")
-      })
-    ]
+      libraryTarget: "umd",
+      // https://github.com/webpack/webpack/issues/6642
+      globalObject: 'new Function("return this")()'
+    }
   };
+
+  if (bundle.terserOptions) {
+    const TerserPlugin = require("terser-webpack-plugin");
+
+    config.optimization = {
+      minimizer: [new TerserPlugin(bundle.terserOptions)]
+    };
+  }
+
+  return config;
 }
 
 function runWebpack(config) {

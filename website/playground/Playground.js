@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Button, ClipboardButton, LinkButton } from "./buttons";
+import { Button, ClipboardButton } from "./buttons";
 import EditorState from "./EditorState";
 import { DebugPanel, InputPanel, OutputPanel } from "./panels";
 import PrettierFormat from "./PrettierFormat";
@@ -39,8 +39,13 @@ const ENABLED_OPTIONS = [
   "proseWrap",
   "htmlWhitespaceSensitivity",
   "insertPragma",
-  "requirePragma"
+  "requirePragma",
+  "vueIndentScriptAndStyle"
 ];
+const ISSUES_URL = "https://github.com/prettier/prettier/issues/new?body=";
+const MAX_LENGTH = 8000 - ISSUES_URL.length; // it seems that GitHub limit is 8195
+const COPY_MESSAGE =
+  "<!-- The issue body has been saved to the clipboard. Please paste it after this line! 👇 -->\n";
 
 class Playground extends React.Component {
   constructor(props) {
@@ -134,131 +139,144 @@ class Playground extends React.Component {
             debugDoc={editorState.showDoc}
             reformat={editorState.showSecondFormat}
           >
-            {({ formatted, debug }) => (
-              <React.Fragment>
-                <div className="editors-container">
-                  <Sidebar visible={editorState.showSidebar}>
-                    <SidebarOptions
-                      categories={CATEGORIES_ORDER}
-                      availableOptions={this.enabledOptions}
-                      optionValues={options}
-                      onOptionValueChange={this.handleOptionValueChange}
-                    />
-                    <SidebarCategory title="Range">
-                      <label>
-                        The selected range will be highlighted in yellow in the
-                        input editor
-                      </label>
-                      <Option
-                        option={this.rangeStartOption}
-                        value={options.rangeStart}
-                        onChange={this.handleOptionValueChange}
+            {({ formatted, debug }) => {
+              const fullReport = this.getMarkdown(
+                formatted,
+                debug.reformatted,
+                true
+              );
+              const showFullReport =
+                encodeURIComponent(fullReport).length < MAX_LENGTH;
+              return (
+                <React.Fragment>
+                  <div className="editors-container">
+                    <Sidebar visible={editorState.showSidebar}>
+                      <SidebarOptions
+                        categories={CATEGORIES_ORDER}
+                        availableOptions={this.enabledOptions}
+                        optionValues={options}
+                        onOptionValueChange={this.handleOptionValueChange}
                       />
-                      <Option
-                        option={this.rangeEndOption}
-                        value={options.rangeEnd}
-                        overrideMax={content.length}
-                        onChange={this.handleOptionValueChange}
+                      <SidebarCategory title="Range">
+                        <label>
+                          The selected range will be highlighted in yellow in
+                          the input editor
+                        </label>
+                        <Option
+                          option={this.rangeStartOption}
+                          value={options.rangeStart}
+                          onChange={this.handleOptionValueChange}
+                        />
+                        <Option
+                          option={this.rangeEndOption}
+                          value={options.rangeEnd}
+                          overrideMax={content.length}
+                          onChange={this.handleOptionValueChange}
+                        />
+                      </SidebarCategory>
+                      <SidebarCategory title="Debug">
+                        <Checkbox
+                          label="show AST"
+                          checked={editorState.showAst}
+                          onChange={editorState.toggleAst}
+                        />
+                        <Checkbox
+                          label="show doc"
+                          checked={editorState.showDoc}
+                          onChange={editorState.toggleDoc}
+                        />
+                        <Checkbox
+                          label="show second format"
+                          checked={editorState.showSecondFormat}
+                          onChange={editorState.toggleSecondFormat}
+                        />
+                      </SidebarCategory>
+                      <div className="sub-options">
+                        <Button onClick={this.resetOptions}>
+                          Reset to defaults
+                        </Button>
+                      </div>
+                    </Sidebar>
+                    <div className="editors">
+                      <InputPanel
+                        mode={util.getCodemirrorMode(options.parser)}
+                        ruler={options.printWidth}
+                        value={content}
+                        codeSample={getCodeSample(options.parser)}
+                        overlayStart={options.rangeStart}
+                        overlayEnd={options.rangeEnd}
+                        onChange={this.setContent}
                       />
-                    </SidebarCategory>
-                    <SidebarCategory title="Debug">
-                      <Checkbox
-                        label="show AST"
-                        checked={editorState.showAst}
-                        onChange={editorState.toggleAst}
-                      />
-                      <Checkbox
-                        label="show doc"
-                        checked={editorState.showDoc}
-                        onChange={editorState.toggleDoc}
-                      />
-                      <Checkbox
-                        label="show second format"
-                        checked={editorState.showSecondFormat}
-                        onChange={editorState.toggleSecondFormat}
-                      />
-                    </SidebarCategory>
-                    <div className="sub-options">
-                      <Button onClick={this.resetOptions}>
-                        Reset to defaults
-                      </Button>
-                    </div>
-                  </Sidebar>
-                  <div className="editors">
-                    <InputPanel
-                      mode={util.getCodemirrorMode(options.parser)}
-                      ruler={options.printWidth}
-                      value={content}
-                      codeSample={getCodeSample(options.parser)}
-                      overlayStart={options.rangeStart}
-                      overlayEnd={options.rangeEnd}
-                      onChange={this.setContent}
-                    />
-                    {editorState.showAst ? (
-                      <DebugPanel value={debug.ast || ""} />
-                    ) : null}
-                    {editorState.showDoc ? (
-                      <DebugPanel value={debug.doc || ""} />
-                    ) : null}
-                    <OutputPanel
-                      mode={util.getCodemirrorMode(options.parser)}
-                      value={formatted}
-                      ruler={options.printWidth}
-                    />
-                    {editorState.showSecondFormat ? (
+                      {editorState.showAst ? (
+                        <DebugPanel value={debug.ast || ""} />
+                      ) : null}
+                      {editorState.showDoc ? (
+                        <DebugPanel value={debug.doc || ""} />
+                      ) : null}
                       <OutputPanel
                         mode={util.getCodemirrorMode(options.parser)}
-                        value={getSecondFormat(formatted, debug.reformatted)}
+                        value={formatted}
                         ruler={options.printWidth}
                       />
-                    ) : null}
+                      {editorState.showSecondFormat ? (
+                        <OutputPanel
+                          mode={util.getCodemirrorMode(options.parser)}
+                          value={getSecondFormat(formatted, debug.reformatted)}
+                          ruler={options.printWidth}
+                        />
+                      ) : null}
+                    </div>
                   </div>
-                </div>
-                <div className="bottom-bar">
-                  <div className="bottom-bar-buttons">
-                    <Button onClick={editorState.toggleSidebar}>
-                      {editorState.showSidebar ? "Hide" : "Show"} options
-                    </Button>
-                    <Button onClick={this.clearContent}>Clear</Button>
-                    <ClipboardButton
-                      copy={JSON.stringify(
-                        // Remove `parser` since people usually paste this
-                        // into their .prettierrc and specifying a toplevel
-                        // parser there is an anti-pattern. Note:
-                        // `JSON.stringify` omits keys whose values are
-                        // `undefined`.
-                        Object.assign({}, options, { parser: undefined }),
-                        null,
-                        2
-                      )}
-                    >
-                      Copy config JSON
-                    </ClipboardButton>
+                  <div className="bottom-bar">
+                    <div className="bottom-bar-buttons">
+                      <Button onClick={editorState.toggleSidebar}>
+                        {editorState.showSidebar ? "Hide" : "Show"} options
+                      </Button>
+                      <Button onClick={this.clearContent}>Clear</Button>
+                      <ClipboardButton
+                        copy={JSON.stringify(
+                          // Remove `parser` since people usually paste this
+                          // into their .prettierrc and specifying a toplevel
+                          // parser there is an anti-pattern. Note:
+                          // `JSON.stringify` omits keys whose values are
+                          // `undefined`.
+                          Object.assign({}, options, { parser: undefined }),
+                          null,
+                          2
+                        )}
+                      >
+                        Copy config JSON
+                      </ClipboardButton>
+                    </div>
+                    <div className="bottom-bar-buttons bottom-bar-buttons-right">
+                      <ClipboardButton copy={window.location.href}>
+                        Copy link
+                      </ClipboardButton>
+                      <ClipboardButton
+                        copy={() =>
+                          this.getMarkdown(formatted, debug.reformatted)
+                        }
+                      >
+                        Copy markdown
+                      </ClipboardButton>
+                      <a
+                        href={getReportLink(
+                          showFullReport ? fullReport : COPY_MESSAGE
+                        )}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <ClipboardButton
+                          copy={() => (showFullReport ? "" : fullReport)}
+                        >
+                          Report issue
+                        </ClipboardButton>
+                      </a>
+                    </div>
                   </div>
-                  <div className="bottom-bar-buttons bottom-bar-buttons-right">
-                    <ClipboardButton copy={window.location.href}>
-                      Copy link
-                    </ClipboardButton>
-                    <ClipboardButton
-                      copy={() =>
-                        this.getMarkdown(formatted, debug.reformatted)
-                      }
-                    >
-                      Copy markdown
-                    </ClipboardButton>
-                    <LinkButton
-                      href={getReportLink(
-                        this.getMarkdown(formatted, debug.reformatted, true)
-                      )}
-                      target="_blank"
-                      rel="noopener"
-                    >
-                      Report issue
-                    </LinkButton>
-                  </div>
-                </div>
-              </React.Fragment>
-            )}
+                </React.Fragment>
+              );
+            }}
           </PrettierFormat>
         )}
       </EditorState>
@@ -276,9 +294,7 @@ function orderOptions(availableOptions, order) {
 }
 
 function getReportLink(reportBody) {
-  return `https://github.com/prettier/prettier/issues/new?body=${encodeURIComponent(
-    reportBody
-  )}`;
+  return `${ISSUES_URL}${encodeURIComponent(reportBody)}`;
 }
 
 function getSecondFormat(formatted, reformatted) {

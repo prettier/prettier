@@ -9,7 +9,8 @@ module.exports = {
     }
   ],
   defaultOptions: {
-    tabWidth: 8
+    tabWidth: 8,
+    bracketSpacing: false
   },
   parsers: {
     "foo-parser": {
@@ -20,7 +21,10 @@ module.exports = {
   printers: {
     "foo-ast": {
       print: (path, options) =>
-        options.tabWidth ? `tabWidth:${options.tabWidth}` : path.getValue().text
+        JSON.stringify({
+          tabWidth: options.tabWidth,
+          bracketSpacing: options.bracketSpacing
+        })
     }
   }
 };

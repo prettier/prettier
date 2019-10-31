@@ -7,9 +7,11 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 type T = [("a" | "b")?];
+type TupleWithOptional = [number, (1 extends 2 ? string[] : number[])?];
 
 =====================================output=====================================
 type T = [("a" | "b")?];
+type TupleWithOptional = [number, (1 extends 2 ? string[] : number[])?];
 
 ================================================================================
 `;

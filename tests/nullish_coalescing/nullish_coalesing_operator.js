@@ -6,7 +6,7 @@ foo ? bar ?? foo : baz;
 
 foo ?? (bar ?? baz);
 
-foo ?? baz || baz;
+(foo ?? baz) || baz;
 
 (foo && baz) ?? baz;
 foo && (baz ?? baz);
