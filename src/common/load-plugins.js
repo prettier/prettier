@@ -96,13 +96,30 @@ function loadPlugins(plugins, pluginSearchDirs) {
 
 function findPluginsInNodeModules(nodeModulesDir) {
   const pluginPackages = globby.sync(
-    [
-      "prettier-plugin-*",
-      "@*/prettier-plugin-*",
-      "@prettier/plugin-*"
-    ],
-    { cwd: nodeModulesDir, expandDirectories: false, deep: 2, onlyDirectories: true }
+    "prettier-plugin-*", 
+    { cwd: nodeModulesDir, expandDirectories: false, deep: 1, onlyDirectories: true }
   );
+
+  const scopedDirs = globby.sync(
+    "@*", 
+    { cwd: nodeModulesDir, expandDirectories: false, deep: 1, onlyDirectories: true }
+  );
+
+  scopedDirs.forEach(scope => {
+    const pattern = [
+      'prettier-plugin-*',
+    ]
+
+    if (scope === '@prettier') {
+      pattern.push('plugin-*')
+    }
+
+    const packages = globby.sync(
+      pattern, 
+      { cwd: path.join(nodeModulesDir, scope), expandDirectories: false, deep: 1, onlyDirectories: true }
+    ).map(dir => path.join(scope, dir))
+    Array.prototype.push.apply(pluginPackages, packages)
+  })
 
   return pluginPackages
     .sort((a, b) => a.localeCompare(b));
