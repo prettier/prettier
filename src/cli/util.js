@@ -416,7 +416,7 @@ function eachFilename(context, patterns, callback) {
     const filePaths = globby
       .sync(patterns, { dot: true })
       .map(filePath => path.relative(process.cwd(), filePath))
-      .sort();
+      .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
 
     if (filePaths.length === 0) {
       context.logger.error(

@@ -103,7 +103,11 @@ function findPluginsInNodeModules(nodeModulesDir) {
     { cwd: nodeModulesDir, expandDirectories: false }
   );
   return pluginPackageJsonPaths
-    .map(packageJsonFile => path.dirname(path.relative(nodeModulesDir, packageJsonFile))))
+    .map(packageJsonFile => {
+      const relativeDir = path.relative(nodeModulesDir, packageJsonFile);
+      const dirName = path.dirname(relativeDir);
+      return dirName
+    })
     .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
 }
 
