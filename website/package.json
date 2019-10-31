@@ -15,8 +15,8 @@
     "lodash.groupby": "4.6.0",
     "lz-string": "1.4.4",
     "prop-types": "15.7.2",
-    "react": "16.10.2",
-    "react-dom": "16.10.2"
+    "react": "16.11.0",
+    "react-dom": "16.11.0"
   },
   "devDependencies": {
     "@babel/preset-env": "7.6.3",

@@ -73,10 +73,14 @@ const parsers = [
     target: "universal",
     // postcss has dependency cycles that don't work with rollup
     bundler: "webpack",
-    // postcss need keep_fnames when minify
     terserOptions: {
-      mangle: {
-        keep_fnames: true
+      // prevent terser generate extra .LICENSE file
+      extractComments: false,
+      terserOptions: {
+        mangle: {
+          // postcss need keep_fnames when minify
+          keep_fnames: true
+        }
       }
     }
   },

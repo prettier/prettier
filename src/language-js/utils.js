@@ -438,25 +438,29 @@ function isSimpleTemplateLiteral(node) {
 
     // Allow `a.b.c`, `a.b[c]`, and `this.x.y`
     if (
-      (expr.type === "MemberExpression" ||
-        expr.type === "OptionalMemberExpression") &&
-      (expr.property.type === "Identifier" || expr.property.type === "Literal")
+      expr.type === "MemberExpression" ||
+      expr.type === "OptionalMemberExpression"
     ) {
-      let ancestor = expr;
+      let head = expr;
       while (
-        ancestor.type === "MemberExpression" ||
-        ancestor.type === "OptionalMemberExpression"
+        head.type === "MemberExpression" ||
+        head.type === "OptionalMemberExpression"
       ) {
-        ancestor = ancestor.object;
-        if (ancestor.comments) {
+        if (
+          head.property.type !== "Identifier" &&
+          head.property.type !== "Literal" &&
+          head.property.type !== "StringLiteral" &&
+          head.property.type !== "NumericLiteral"
+        ) {
+          return false;
+        }
+        head = head.object;
+        if (head.comments) {
           return false;
         }
       }
 
-      if (
-        ancestor.type === "Identifier" ||
-        ancestor.type === "ThisExpression"
-      ) {
+      if (head.type === "Identifier" || head.type === "ThisExpression") {
         return true;
       }
 
@@ -545,7 +549,8 @@ function classChildNeedsASIProtection(node) {
       }
       return false;
     }
-
+    case "TSIndexSignature":
+      return true;
     default:
       /* istanbul ignore next */
       return false;

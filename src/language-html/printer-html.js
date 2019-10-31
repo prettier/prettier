@@ -1033,6 +1033,11 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
      *     bindon-target="angularExpression"
      */
     const ngExpressionBindingPatterns = ["^\\[.+\\]$", "^bind(on)?-"];
+    /**
+     *     i18n="longDescription"
+     *     i18n-attr="longDescription"
+     */
+    const ngI18nPatterns = ["^i18n(-.+)?$"];
 
     if (isKeyMatched(ngStatementBindingPatterns)) {
       return printMaybeHug(ngTextToDoc(getValue(), { parser: "__ng_action" }));
@@ -1040,6 +1045,10 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
 
     if (isKeyMatched(ngExpressionBindingPatterns)) {
       return printMaybeHug(ngTextToDoc(getValue(), { parser: "__ng_binding" }));
+    }
+
+    if (isKeyMatched(ngI18nPatterns)) {
+      return printExpand(fill(getTextValueParts(node, getValue())));
     }
 
     if (isKeyMatched(ngDirectiveBindingPatterns)) {
