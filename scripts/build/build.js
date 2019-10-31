@@ -78,6 +78,7 @@ async function preparePackage() {
   const pkg = await util.readJson("package.json");
   pkg.bin = "./bin-prettier.js";
   pkg.engines.node = ">=4";
+  delete pkg.private;
   delete pkg.dependencies;
   delete pkg.devDependencies;
   pkg.scripts = {
