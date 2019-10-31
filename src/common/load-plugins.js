@@ -2,8 +2,8 @@
 
 const uniqBy = require("lodash.uniqby");
 const fs = require("fs");
-const path = require("path");
 const globby = require("globby");
+const path = require("path");
 const resolve = require("resolve");
 const thirdParty = require("./third-party");
 const internalPlugins = require("./internal-plugins");
