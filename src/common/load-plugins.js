@@ -94,37 +94,40 @@ function loadPlugins(plugins, pluginSearchDirs) {
 }
 
 function findPluginsInNodeModules(nodeModulesDir) {
-  const pluginPackages = globby.sync("prettier-plugin-*", {
+  // all dirs
+  const dirs = globby.sync(["*"], {
     cwd: nodeModulesDir,
     expandDirectories: false,
     deep: 1,
     onlyDirectories: true
   });
 
-  const scopedDirs = globby.sync("@*", {
-    cwd: nodeModulesDir,
-    expandDirectories: false,
-    deep: 1,
-    onlyDirectories: true
-  });
+  const scopedPackagePattern = "prettier-plugin-*";
 
-  scopedDirs.forEach(scope => {
-    const pattern = ["prettier-plugin-*"];
+  const pluginPackages = Array.prototype.concat.apply(
+    // `prettier-plugin-*` package
+    dirs.filter(dir => dir.startsWith("prettier-plugin-")),
 
-    if (scope === "@prettier") {
-      pattern.push("plugin-*");
-    }
+    // scoped plugins
+    dirs
+      .filter(dir => dir[0] === "@")
+      .map(scope => {
+        const pattern =
+          scope === "@prettier"
+            ? [scopedPackagePattern, "plugin-*"]
+            : scopedPackagePattern;
+        const dir = path.join(nodeModulesDir, scope);
 
-    const packages = globby
-      .sync(pattern, {
-        cwd: path.join(nodeModulesDir, scope),
-        expandDirectories: false,
-        deep: 1,
-        onlyDirectories: true
+        return globby
+          .sync(pattern, {
+            cwd: dir,
+            expandDirectories: false,
+            deep: 1,
+            onlyDirectories: true
+          })
+          .map(dir => scope + "/" + dir);
       })
-      .map(dir => path.join(scope, dir));
-    Array.prototype.push.apply(pluginPackages, packages);
-  });
+  );
 
   return pluginPackages.sort((a, b) => a.localeCompare(b));
 }
