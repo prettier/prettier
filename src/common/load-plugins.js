@@ -95,17 +95,16 @@ function loadPlugins(plugins, pluginSearchDirs) {
 }
 
 function findPluginsInNodeModules(nodeModulesDir) {
-  const pluginPackageJsonPaths = globby.sync(
+  const pluginPackages = globby.sync(
     [
-      "prettier-plugin-*/package.json",
-      "@*/prettier-plugin-*/package.json",
-      "@prettier/plugin-*/package.json"
+      "prettier-plugin-*",
+      "@*/prettier-plugin-*",
+      "@prettier/plugin-*"
     ],
-    { cwd: nodeModulesDir, expandDirectories: false }
+    { cwd: nodeModulesDir, expandDirectories: false, deep: 2, onlyDirectories: true }
   );
 
-  return pluginPackageJsonPaths
-    .map(packageJsonFile => path.dirname(packageJsonFile.replace(/^\.\//, "")))
+  return pluginPackages
     .sort((a, b) => a.localeCompare(b));
 }
 
