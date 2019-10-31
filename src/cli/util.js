@@ -424,8 +424,8 @@ function eachFilename(context, patterns, callback) {
     }
 
     filePaths
-      .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()))
       .map(filePath => path.relative(process.cwd(), filePath))
+      .sort((a, b) => a.localeCompare(b))
       .forEach(filePath => callback(filePath));
   } catch (error) {
     context.logger.error(
