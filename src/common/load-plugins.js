@@ -5,6 +5,7 @@ const fs = require("fs");
 const globby = require("globby");
 const path = require("path");
 const resolve = require("resolve");
+const mem = require("mem");
 const thirdParty = require("./third-party");
 const internalPlugins = require("./internal-plugins");
 const partition = require("../utils/partition");
@@ -93,12 +94,12 @@ function loadPlugins(plugins, pluginSearchDirs) {
   return internalPlugins.concat(externalPlugins);
 }
 
-function findPluginsInNodeModules(nodeModulesDir) {
+const findPluginsInNodeModules = mem(function(nodeModulesDir) {
   const pluginPackageJsonPaths = globby.sync(
     [
-      "./prettier-plugin-*/package.json",
-      "./@*/prettier-plugin-*/package.json",
-      "./@prettier/plugin-*/package.json"
+      "prettier-plugin-*/package.json",
+      "@*/prettier-plugin-*/package.json",
+      "@prettier/plugin-*/package.json"
     ],
     { cwd: nodeModulesDir, expandDirectories: false }
   );
@@ -106,7 +107,7 @@ function findPluginsInNodeModules(nodeModulesDir) {
   return pluginPackageJsonPaths
     .map(packageJsonFile => path.dirname(packageJsonFile.replace(/^\.\//, "")))
     .sort((a, b) => a.localeCompare(b));
-}
+})
 
 function isDirectory(dir) {
   try {
