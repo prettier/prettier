@@ -58,6 +58,7 @@ function indent(contents) {
 /**
  * @param {number} n
  * @param {Doc} contents
+ * @returns Doc
  */
 function align(n, contents) {
   if (process.env.NODE_ENV !== "production") {
@@ -189,6 +190,7 @@ const cursor = { type: "cursor", placeholder: Symbol("cursor") };
 /**
  * @param {Doc} sep
  * @param {Doc[]} arr
+ * @returns Doc
  */
 function join(sep, arr) {
   const res = [];
