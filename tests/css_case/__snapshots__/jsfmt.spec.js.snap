@@ -783,7 +783,7 @@ printWidth: 80
 }
 
 =====================================output=====================================
-@custom-selector :--camelCase .my-css-selector;
+@custom-selector: --camelCase .my-css-selector;
 
 :--camelCase {
   content: red;
