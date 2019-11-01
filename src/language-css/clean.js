@@ -115,7 +115,10 @@ function clean(ast, newObj, parent) {
     }
 
     if (ast.value) {
-      newObj.value = ast.value.trim().replace(/^['"]|['"]$/g, "");
+      newObj.value = ast.value
+        .trim()
+        .replace(/^['"]|['"]$/g, "")
+        .replace(/\\(['"])/g, "$1");
       delete newObj.quoted;
       delete newObj._value;
     }
