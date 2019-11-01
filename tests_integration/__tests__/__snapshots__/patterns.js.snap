@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`should expand directories (stderr) 1`] = `""`;
+exports[`multiple patterns (stderr) 1`] = `""`;
 
-exports[`should expand directories (stdout) 1`] = `
+exports[`multiple patterns (stdout) 1`] = `
 "directory/file.js
 directory/nested-directory/nested-directory-file.js
 other-directory/file.js
@@ -10,22 +10,78 @@ other-directory/nested-directory/nested-directory-file.js
 "
 `;
 
-exports[`should expand directories (write) 1`] = `Array []`;
+exports[`multiple patterns (write) 1`] = `Array []`;
 
-exports[`should support dot pattern (stderr) 1`] = `
-"[error] No parser could be inferred for file: file.will-never-support
-"
-`;
+exports[`multiple patterns by with ignore pattern, doesn't ignore node_modules with --with-node-modules flag (stderr) 1`] = `""`;
 
-exports[`should support dot pattern (stdout) 1`] = `
-"directory/file.js
-directory/nested-directory/nested-directory-file.js
+exports[`multiple patterns by with ignore pattern, doesn't ignore node_modules with --with-node-modules flag (stdout) 1`] = `
+"node_modules/node-module.js
 other-directory/file.js
 other-directory/nested-directory/nested-directory-file.js
 other-regular-modules.js
-other-supported-file.css
 regular-module.js
 "
 `;
 
-exports[`should support dot pattern (write) 1`] = `Array []`;
+exports[`multiple patterns by with ignore pattern, doesn't ignore node_modules with --with-node-modules flag (write) 1`] = `Array []`;
+
+exports[`multiple patterns by with ignore pattern, ignores node_modules by default (stderr) 1`] = `""`;
+
+exports[`multiple patterns by with ignore pattern, ignores node_modules by default (stdout) 1`] = `
+"other-directory/file.js
+other-directory/nested-directory/nested-directory-file.js
+other-regular-modules.js
+regular-module.js
+"
+`;
+
+exports[`multiple patterns by with ignore pattern, ignores node_modules by default (write) 1`] = `Array []`;
+
+exports[`multiple patterns by with ignore pattern, ignores node_modules by with ./**/*.js (stderr) 1`] = `""`;
+
+exports[`multiple patterns by with ignore pattern, ignores node_modules by with ./**/*.js (stdout) 1`] = `
+"other-directory/file.js
+other-directory/nested-directory/nested-directory-file.js
+other-regular-modules.js
+regular-module.js
+"
+`;
+
+exports[`multiple patterns by with ignore pattern, ignores node_modules by with ./**/*.js (write) 1`] = `Array []`;
+
+exports[`multiple patterns with ignore nested directories pattern (stderr) 1`] = `""`;
+
+exports[`multiple patterns with ignore nested directories pattern (stdout) 1`] = `
+"directory/file.js
+other-directory/file.js
+other-regular-modules.js
+regular-module.js
+"
+`;
+
+exports[`multiple patterns with ignore nested directories pattern (write) 1`] = `Array []`;
+
+exports[`multiple patterns with non exists pattern (stderr) 1`] = `""`;
+
+exports[`multiple patterns with non exists pattern (stdout) 1`] = `
+"directory/file.js
+directory/nested-directory/nested-directory-file.js
+"
+`;
+
+exports[`multiple patterns with non exists pattern (write) 1`] = `Array []`;
+
+exports[`multiple patterns, throw error and exit with non zero code on non existing files (stderr) 1`] = `
+"[error] No matching files. Patterns tried: non-existent.js other-non-existent.js !**/node_modules/** !./node_modules/** !**/.{git,svn,hg}/** !./.{git,svn,hg}/**
+"
+`;
+
+exports[`multiple patterns, throw error and exit with non zero code on non existing files (stdout) 1`] = `""`;
+
+exports[`multiple patterns, throw error and exit with non zero code on non existing files (write) 1`] = `Array []`;
+
+exports[`no errors on empty patterns (stderr) 1`] = `""`;
+
+exports[`no errors on empty patterns (stdout) 1`] = `""`;
+
+exports[`no errors on empty patterns (write) 1`] = `Array []`;
