@@ -2,6 +2,9 @@
 
 const path = require("path");
 const PROJECT_ROOT = path.resolve(__dirname, "../..");
+const babelReplaceArrayIncludesWithIndexof = require.resolve(
+  "./babel-plugins/replace-array-includes-with-indexof"
+);
 
 /**
  * @typedef {Object} Bundle
@@ -27,9 +30,7 @@ const parsers = [
   {
     input: "src/language-js/parser-babylon.js",
     target: "universal",
-    babelPlugins: [
-      require.resolve("./babel-plugins/replace-array-includes-with-indexof")
-    ]
+    babelPlugins: [babelReplaceArrayIncludesWithIndexof]
   },
   {
     input: "src/language-js/parser-flow.js",
@@ -39,10 +40,7 @@ const parsers = [
   {
     input: "src/language-js/parser-typescript.js",
     target: "universal",
-    replace: {
-      // node v4 compatibility for @typescript-eslint/typescript-estree
-      "(!unique.includes(raw))": "(unique.indexOf(raw) === -1)"
-    },
+    babelPlugins: [babelReplaceArrayIncludesWithIndexof],
     commonjs: {
       ignore: [
         // Optional package for TypeScript that logs ETW events (a Windows-only technology).
@@ -75,10 +73,14 @@ const parsers = [
     target: "universal",
     // postcss has dependency cycles that don't work with rollup
     bundler: "webpack",
-    // postcss need keep_fnames when minify
     terserOptions: {
-      mangle: {
-        keep_fnames: true
+      // prevent terser generate extra .LICENSE file
+      extractComments: false,
+      terserOptions: {
+        mangle: {
+          // postcss need keep_fnames when minify
+          keep_fnames: true
+        }
       }
     }
   },
@@ -93,10 +95,24 @@ const parsers = [
   {
     input: "src/language-handlebars/parser-glimmer.js",
     target: "universal",
+    alias: {
+      entries: [
+        // `handlebars` causes webpack warning by using `require.extensions`
+        // `dist/handlebars.js` also complaint on `window` variable
+        // use cjs build instead
+        // https://github.com/prettier/prettier/issues/6656
+        {
+          find: "handlebars",
+          replacement: require.resolve("handlebars/dist/cjs/handlebars.js")
+        }
+      ]
+    },
     commonjs: {
       namedExports: {
-        "node_modules/handlebars/lib/index.js": ["parse"],
-        "node_modules/@glimmer/syntax/dist/modules/es2017/index.js": "default"
+        [require.resolve("handlebars/dist/cjs/handlebars.js")]: ["parse"],
+        [require.resolve(
+          "@glimmer/syntax/dist/modules/es2017/index.js"
+        )]: "default"
       },
       ignore: ["source-map"]
     }
@@ -118,9 +134,7 @@ const parsers = [
         }
       ]
     },
-    babelPlugins: [
-      require.resolve("./babel-plugins/replace-array-includes-with-indexof")
-    ]
+    babelPlugins: [babelReplaceArrayIncludesWithIndexof]
   }
 ].map(parser => {
   const name = getFileOutput(parser)
@@ -180,4 +194,4 @@ function getFileOutput(bundle) {
 
 module.exports = coreBundles
   .concat(parsers)
-  .map(b => Object.assign(b, { output: getFileOutput(b) }));
+  .map(bundle => Object.assign(bundle, { output: getFileOutput(bundle) }));

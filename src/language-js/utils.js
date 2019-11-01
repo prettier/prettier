@@ -281,20 +281,6 @@ function isMemberish(node) {
   );
 }
 
-function isNodeStartingWithDeclare(node, options) {
-  if (!(options.parser === "flow" || options.parser === "typescript")) {
-    return false;
-  }
-  return (
-    options.originalText
-      .slice(0, options.locStart(node))
-      .match(/declare[ \t]*$/) ||
-    options.originalText
-      .slice(node.range[0], node.range[1])
-      .startsWith("declare ")
-  );
-}
-
 function isSimpleFlowType(node) {
   const flowTypeAnnotations = [
     "AnyTypeAnnotation",
@@ -439,25 +425,29 @@ function isSimpleTemplateLiteral(node) {
 
     // Allow `a.b.c`, `a.b[c]`, and `this.x.y`
     if (
-      (expr.type === "MemberExpression" ||
-        expr.type === "OptionalMemberExpression") &&
-      (expr.property.type === "Identifier" || expr.property.type === "Literal")
+      expr.type === "MemberExpression" ||
+      expr.type === "OptionalMemberExpression"
     ) {
-      let ancestor = expr;
+      let head = expr;
       while (
-        ancestor.type === "MemberExpression" ||
-        ancestor.type === "OptionalMemberExpression"
+        head.type === "MemberExpression" ||
+        head.type === "OptionalMemberExpression"
       ) {
-        ancestor = ancestor.object;
-        if (ancestor.comments) {
+        if (
+          head.property.type !== "Identifier" &&
+          head.property.type !== "Literal" &&
+          head.property.type !== "StringLiteral" &&
+          head.property.type !== "NumericLiteral"
+        ) {
+          return false;
+        }
+        head = head.object;
+        if (head.comments) {
           return false;
         }
       }
 
-      if (
-        ancestor.type === "Identifier" ||
-        ancestor.type === "ThisExpression"
-      ) {
+      if (head.type === "Identifier" || head.type === "ThisExpression") {
         return true;
       }
 
@@ -546,7 +536,8 @@ function classChildNeedsASIProtection(node) {
       }
       return false;
     }
-
+    case "TSIndexSignature":
+      return true;
     default:
       /* istanbul ignore next */
       return false;
@@ -902,6 +893,10 @@ function identity(x) {
   return x;
 }
 
+function isTSXFile(options) {
+  return options.filepath && /\.tsx$/i.test(options.filepath);
+}
+
 module.exports = {
   classChildNeedsASIProtection,
   classPropMayCauseASIProblems,
@@ -938,7 +933,6 @@ module.exports = {
   isMemberExpressionChain,
   isMemberish,
   isNgForOf,
-  isNodeStartingWithDeclare,
   isNumericLiteral,
   isObjectType,
   isObjectTypePropertyAFunction,
@@ -949,6 +943,7 @@ module.exports = {
   isTemplateOnItsOwnLine,
   isTestCall,
   isTheOnlyJSXElementInMarkdown,
+  isTSXFile,
   isTypeAnnotationAFunction,
   matchJsxWhitespaceRegex,
   needsHardlineAfterDanglingComment,

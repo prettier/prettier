@@ -94,9 +94,13 @@ As you repeatedly call `resolveConfig`, the file system structure will be cached
 }
 ```
 
+The promise will be rejected if the type of `filePath` is not `string`.
+
 Setting `options.ignorePath` (`string`) and `options.withNodeModules` (`boolean`) influence the value of `ignored` (`false` by default).
 
 Providing [plugin](plugins.md) paths in `options.plugins` (`string[]`) helps extract `inferredParser` for files that are not supported by Prettier core.
+
+When setting `options.resolveConfig` (`boolean`, default `false`), Prettier will resolve the configuration for the given `filePath`. This is useful, for example, when the `inferredParser` might be overridden for a subset of files.
 
 Use `prettier.getFileInfo.sync(filePath [, options])` if you'd like to use sync version.
 

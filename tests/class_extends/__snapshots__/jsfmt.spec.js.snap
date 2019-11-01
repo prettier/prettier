@@ -7,10 +7,10 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 // "ArrowFunctionExpression"
-class a extends (() => {}) {}
+class a1 extends (() => {}) {}
 
 // "AssignmentExpression"
-class a extends (b = c) {}
+class a2 extends (b = c) {}
 
 // "AwaitExpression"
 async function f() {
@@ -18,46 +18,46 @@ async function f() {
 }
 
 // "BinaryExpression"
-class a extends (b + c) {}
+class a3 extends (b + c) {}
 
 // "CallExpression"
-class a extends b() {}
+class a4 extends b() {}
 
 // "ClassExpression"
-class a extends class {} {}
+class a5 extends class {} {}
 
 // "ConditionalExpression"
-class a extends (b ? c : d) {}
+class a6 extends (b ? c : d) {}
 
 // "FunctionExpression"
-class a extends (function() {}) {}
+class a7 extends (function() {}) {}
 
 // "LogicalExpression"
-class a extends (b || c) {}
+class a8 extends (b || c) {}
 
 // "MemberExpression"
-class a extends b.c {}
+class a9 extends b.c {}
 
 // "NewExpression"
-class a extends (new B()) {}
+class a10 extends (new B()) {}
 
 // "ObjectExpression"
-class a extends ({}) {}
+class a11 extends ({}) {}
 
 // "SequenceExpression"
-class a extends (b, c) {}
+class a12 extends (b, c) {}
 
 // "TaggedTemplateExpression"
-class a extends \`\` {}
+class a13 extends \`\` {}
 
 // "UnaryExpression"
-class a extends (void b) {}
+class a14 extends (void b) {}
 
 // "UpdateExpression"
-class a extends (++b) {}
+class a15 extends (++b) {}
 
 // "YieldExpression"
-function* f() {
+function* f2() {
   // Flow has a bug parsing it.
   // class a extends (yield 1) {}
 }
@@ -66,10 +66,10 @@ x = class extends (++b) {}
 
 =====================================output=====================================
 // "ArrowFunctionExpression"
-class a extends (() => {}) {}
+class a1 extends (() => {}) {}
 
 // "AssignmentExpression"
-class a extends (b = c) {}
+class a2 extends (b = c) {}
 
 // "AwaitExpression"
 async function f() {
@@ -77,46 +77,46 @@ async function f() {
 }
 
 // "BinaryExpression"
-class a extends (b + c) {}
+class a3 extends (b + c) {}
 
 // "CallExpression"
-class a extends b() {}
+class a4 extends b() {}
 
 // "ClassExpression"
-class a extends class {} {}
+class a5 extends class {} {}
 
 // "ConditionalExpression"
-class a extends (b ? c : d) {}
+class a6 extends (b ? c : d) {}
 
 // "FunctionExpression"
-class a extends function() {} {}
+class a7 extends function() {} {}
 
 // "LogicalExpression"
-class a extends (b || c) {}
+class a8 extends (b || c) {}
 
 // "MemberExpression"
-class a extends b.c {}
+class a9 extends b.c {}
 
 // "NewExpression"
-class a extends (new B()) {}
+class a10 extends (new B()) {}
 
 // "ObjectExpression"
-class a extends ({}) {}
+class a11 extends ({}) {}
 
 // "SequenceExpression"
-class a extends (b, c) {}
+class a12 extends (b, c) {}
 
 // "TaggedTemplateExpression"
-class a extends \`\` {}
+class a13 extends \`\` {}
 
 // "UnaryExpression"
-class a extends (void b) {}
+class a14 extends (void b) {}
 
 // "UpdateExpression"
-class a extends (++b) {}
+class a15 extends (++b) {}
 
 // "YieldExpression"
-function* f() {
+function* f2() {
   // Flow has a bug parsing it.
   // class a extends (yield 1) {}
 }

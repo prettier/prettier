@@ -63,11 +63,13 @@ printWidth: 80
 {{#block param hashKey=hashValue as |blockParam|}}
   Hello
 {{/block}}
+
 {{#block
   almost80CharacterLongPositionalParamThatIsFirstAlmost80Chars
   helloWorldParam
   key=here
 }}{{/block}}
+
 {{#block
   param
   param
@@ -80,6 +82,7 @@ printWidth: 80
 }}
   Hello
 {{/block}}
+
 {{#block
   param
   param
@@ -93,6 +96,7 @@ printWidth: 80
 }}
   Hello
 {{/block}}
+
 {{#block
   param
   param
@@ -110,6 +114,7 @@ printWidth: 80
 }}
   Hello
 {{/block}}
+
 {{#block
   hashKey=HashValue
   hashKey=hashValue
@@ -119,27 +124,33 @@ printWidth: 80
 }}
   Hello
 {{/block}}
+
 {{#block}}
   {{#block}}
     hello
   {{/block}}
 {{/block}}
+
 {{#block}}
   {{#block param}}
     hello
   {{/block}}
 {{/block}}
+
 {{#block param}}
   {{#block param}}
     hello
   {{/block}}
 {{/block}}
+
 {{#block}}
   hello
 {{/block}}
+
 <MyComponent as |firstName|>
   {{firstName}}
 </MyComponent>
+
 <MyComponent as |firstName lastName|>
   {{firstName}} {{lastName}}
 </MyComponent>
@@ -210,11 +221,13 @@ singleQuote: true
 {{#block param hashKey=hashValue as |blockParam|}}
   Hello
 {{/block}}
+
 {{#block
   almost80CharacterLongPositionalParamThatIsFirstAlmost80Chars
   helloWorldParam
   key=here
 }}{{/block}}
+
 {{#block
   param
   param
@@ -227,6 +240,7 @@ singleQuote: true
 }}
   Hello
 {{/block}}
+
 {{#block
   param
   param
@@ -240,6 +254,7 @@ singleQuote: true
 }}
   Hello
 {{/block}}
+
 {{#block
   param
   param
@@ -257,6 +272,7 @@ singleQuote: true
 }}
   Hello
 {{/block}}
+
 {{#block
   hashKey=HashValue
   hashKey=hashValue
@@ -266,27 +282,33 @@ singleQuote: true
 }}
   Hello
 {{/block}}
+
 {{#block}}
   {{#block}}
     hello
   {{/block}}
 {{/block}}
+
 {{#block}}
   {{#block param}}
     hello
   {{/block}}
 {{/block}}
+
 {{#block param}}
   {{#block param}}
     hello
   {{/block}}
 {{/block}}
+
 {{#block}}
   hello
 {{/block}}
+
 <MyComponent as |firstName|>
   {{firstName}}
 </MyComponent>
+
 <MyComponent as |firstName lastName|>
   {{firstName}} {{lastName}}
 </MyComponent>
@@ -471,6 +493,7 @@ printWidth: 80
     Go to bed!
   {{/if}}
 </h1>
+
 <h2>
   {{#if a}}
     A
@@ -478,6 +501,7 @@ printWidth: 80
     B
   {{/if}}
 </h2>
+
 {{#if a}}
   b
 {{else if c}}
@@ -485,6 +509,7 @@ printWidth: 80
 {{else}}
   e
 {{/if}}
+
 {{#if a}}
   b
 {{else if c}}
@@ -496,6 +521,7 @@ printWidth: 80
   {{/if}}
   e
 {{/if}}
+
 {{#if a}}
   b
 {{else if c}}
@@ -507,6 +533,7 @@ printWidth: 80
 {{else}}
   j
 {{/if}}
+
 <div>
   {{#if a}}
     b
@@ -516,6 +543,7 @@ printWidth: 80
     e
   {{/if}}
 </div>
+
 <div>
   <div>
     {{#if a}}
@@ -527,6 +555,7 @@ printWidth: 80
     {{/if}}
   </div>
 </div>
+
 {{#if a}}
   b
 {{else}}
@@ -534,6 +563,7 @@ printWidth: 80
     e
   {{/each}}
 {{/if}}
+
 {{#if a}}
   {{#if b}}
     ab
@@ -541,6 +571,7 @@ printWidth: 80
     ac
   {{/if}}
 {{/if}}
+
 {{#if a}}
   a
   <div>
@@ -684,6 +715,7 @@ singleQuote: true
     Go to bed!
   {{/if}}
 </h1>
+
 <h2>
   {{#if a}}
     A
@@ -691,6 +723,7 @@ singleQuote: true
     B
   {{/if}}
 </h2>
+
 {{#if a}}
   b
 {{else if c}}
@@ -698,6 +731,7 @@ singleQuote: true
 {{else}}
   e
 {{/if}}
+
 {{#if a}}
   b
 {{else if c}}
@@ -709,6 +743,7 @@ singleQuote: true
   {{/if}}
   e
 {{/if}}
+
 {{#if a}}
   b
 {{else if c}}
@@ -720,6 +755,7 @@ singleQuote: true
 {{else}}
   j
 {{/if}}
+
 <div>
   {{#if a}}
     b
@@ -729,6 +765,7 @@ singleQuote: true
     e
   {{/if}}
 </div>
+
 <div>
   <div>
     {{#if a}}
@@ -740,6 +777,7 @@ singleQuote: true
     {{/if}}
   </div>
 </div>
+
 {{#if a}}
   b
 {{else}}
@@ -747,6 +785,7 @@ singleQuote: true
     e
   {{/each}}
 {{/if}}
+
 {{#if a}}
   {{#if b}}
     ab
@@ -754,6 +793,7 @@ singleQuote: true
     ac
   {{/if}}
 {{/if}}
+
 {{#if a}}
   a
   <div>

@@ -25,7 +25,7 @@ class Class {
   }
 }
 
-class Class {
+class Class2 {
   method(
     @Decorator1
     @Decorator2
@@ -35,7 +35,7 @@ class Class {
   }
 }
 
-class Class {
+class Class3 {
   method(
     @Decorator
     { prop1_1, prop1_2 }: Type,
@@ -45,7 +45,7 @@ class Class {
   }
 }
 
-class Class {
+class Class4 {
   method(
     param1,
     @Decorator
@@ -53,7 +53,7 @@ class Class {
   ) {}
 }
 
-class Class {
+class Class5 {
   method(
     @Decorator { prop1 }: Type
   ) {}

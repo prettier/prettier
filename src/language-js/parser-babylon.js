@@ -16,6 +16,7 @@ function babelOptions(extraOptions, extraPlugins) {
       allowImportExportEverywhere: true,
       allowReturnOutsideFunction: true,
       allowSuperOutsideMethod: true,
+      allowUndeclaredExports: true,
       plugins: [
         "jsx",
         "doExpressions",
@@ -38,7 +39,8 @@ function babelOptions(extraOptions, extraPlugins) {
         "throwExpressions",
         "logicalAssignment",
         "classPrivateMethods",
-        "v8intrinsic"
+        "v8intrinsic",
+        "partialApplication"
       ].concat(extraPlugins)
     },
     extraOptions

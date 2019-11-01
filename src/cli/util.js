@@ -822,7 +822,7 @@ function normalizeDetailedOption(name, option) {
           typeof choice === "object" ? choice : { value: choice }
         );
         if (newChoice.value === true) {
-          newChoice.value = ""; // backward compability for original boolean option
+          newChoice.value = ""; // backward compatibility for original boolean option
         }
         return newChoice;
       })

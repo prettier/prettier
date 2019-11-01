@@ -1,3 +1,3 @@
 async function *f(){ await (yield x); }
 
-async function f(){ await (() => {}); }
+async function f2(){ await (() => {}); }
