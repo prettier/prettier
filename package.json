@@ -13,6 +13,11 @@
   "engines": {
     "node": ">=8"
   },
+  "files": [
+    "src",
+    "bin",
+    "index.js"
+  ],
   "dependencies": {
     "@angular/compiler": "8.2.7",
     "@babel/code-frame": "7.5.5",
