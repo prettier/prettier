@@ -7,7 +7,8 @@ const comments = require("./comments");
 const {
   getLeftSidePathName,
   hasFlowShorthandAnnotationComment,
-  hasNakedLeftSide
+  hasNakedLeftSide,
+  hasNode
 } = require("./utils");
 
 function hasClosureCompilerTypeCastComment(text, path) {
@@ -762,7 +763,7 @@ function needsParens(path, options) {
       return (
         name === "returnType" &&
         parent.type === "ArrowFunctionExpression" &&
-        includesFunctionTypeInObjectType(path)
+        includesFunctionTypeInObjectType(node)
       );
   }
 
@@ -820,61 +821,14 @@ function isStatement(node) {
   );
 }
 
-function includesFunctionTypeInObjectType(path) {
-  const node = path.getValue();
-  if (!node) {
-    return false;
-  }
-
-  switch (node.type) {
-    case "ObjectTypeAnnotation": {
-      let includesFunctionType = false;
-      path.each(propertyPath => {
-        includesFunctionType =
-          includesFunctionType ||
-          includesFunctionTypeInObjectType(propertyPath);
-      }, "properties");
-      return includesFunctionType;
-    }
-
-    case "ObjectTypeProperty":
-      return path.call(includesFunctionTypeInObjectType, "value");
-
-    case "TypeAnnotation":
-      return path.call(includesFunctionTypeInObjectType, "typeAnnotation");
-
-    case "TupleTypeAnnotation":
-    case "IntersectionTypeAnnotation":
-    case "UnionTypeAnnotation": {
-      let includesFunctionType = false;
-      path.each(typePath => {
-        includesFunctionType =
-          includesFunctionType || includesFunctionTypeInObjectType(typePath);
-      }, "types");
-      return includesFunctionType;
-    }
-
-    case "ArrayTypeAnnotation":
-      return path.call(includesFunctionTypeInObjectType, "elementType");
-
-    case "NullableTypeAnnotation":
-      return path.call(includesFunctionTypeInObjectType, "typeAnnotation");
-
-    case "FunctionTypeAnnotation": {
-      const parent = path.getParentNode();
-      const ancestor =
-        parent.type === "ArrayTypeAnnotation" ||
-        parent.type === "NullableTypeAnnotation" ||
-        parent.type === "IntersectionTypeAnnotation" ||
-        parent.type === "UnionTypeAnnotation" ||
-        parent.type === "TupleTypeAnnotation"
-          ? path.getParentNode(1)
-          : parent;
-      return ancestor.type === "ObjectTypeProperty";
-    }
-    default:
-      return false;
-  }
+function includesFunctionTypeInObjectType(node) {
+  return hasNode(
+    node,
+    n1 =>
+      (n1.type === "ObjectTypeAnnotation" &&
+        hasNode(n1, n2 => n2.type === "FunctionTypeAnnotation" || undefined)) ||
+      undefined
+  );
 }
 
 function endsWithRightBracket(node) {
