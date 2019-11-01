@@ -102,7 +102,7 @@ function clean(ast, newObj, parent) {
   }
 
   if (ast.type === "selector-attribute") {
-    newObj.attribute = ast.stringifyProperty("attribute").trim();
+    newObj.attribute = ast.attribute.trim();
 
     if (newObj.namespace) {
       if (typeof newObj.namespace === "string") {
