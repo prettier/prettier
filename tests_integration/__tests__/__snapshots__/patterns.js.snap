@@ -3,7 +3,10 @@
 exports[`should expand directories (stderr) 1`] = `""`;
 
 exports[`should expand directories (stdout) 1`] = `
-"subdir/file.js
+"directory/file.js
+directory/nested-directory/nested-directory-file.js
+other-directory/file.js
+other-directory/nested-directory/nested-directory-file.js
 "
 `;
 
@@ -12,8 +15,12 @@ exports[`should expand directories (write) 1`] = `Array []`;
 exports[`should support dot pattern (stderr) 1`] = `""`;
 
 exports[`should support dot pattern (stdout) 1`] = `
-"file.js
-subdir/file.js
+"directory/file.js
+directory/nested-directory/nested-directory-file.js
+other-directory/file.js
+other-directory/nested-directory/nested-directory-file.js
+other-regular-modules.js
+regular-module.js
 "
 `;
 
