@@ -44,6 +44,22 @@ const link = <a href="example.com">http://example.com</a>;
 
 -->
 
+#### Less: fix less custom-selector print ([#6778] by [@fisker])
+
+Previously, prints space after property, and no space before custom-selector.
+
+<!-- prettier-ignore -->
+```less
+// Input
+@custom-selector :--camelCase .my-css-selector;
+
+// Output (Prettier stable)
+@custom-selector :--camelCase .my-css-selector;
+
+// Output (Prettier master)
+@custom-selector: --camelCase .my-css-selector;
+```
+
 #### TypeScript: Support for TypeScript 3.7 ([#6657] by [@cryrivers])
 
 Prettier 1.19 adds support for the features of the upcoming TypeScript 3.7 that introduce new syntax:
