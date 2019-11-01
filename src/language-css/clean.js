@@ -103,6 +103,7 @@ function clean(ast, newObj, parent) {
 
   if (ast.type === "selector-attribute") {
     newObj.attribute = ast.attribute.trim();
+    delete newObj.spaces;
 
     if (newObj.namespace) {
       if (typeof newObj.namespace === "string") {
