@@ -12,7 +12,10 @@ other-directory/nested-directory/nested-directory-file.js
 
 exports[`should expand directories (write) 1`] = `Array []`;
 
-exports[`should support dot pattern (stderr) 1`] = `""`;
+exports[`should support dot pattern (stderr) 1`] = `
+"[error] No parser could be inferred for file: file.will-never-support
+"
+`;
 
 exports[`should support dot pattern (stdout) 1`] = `
 "directory/file.js
@@ -20,6 +23,7 @@ directory/nested-directory/nested-directory-file.js
 other-directory/file.js
 other-directory/nested-directory/nested-directory-file.js
 other-regular-modules.js
+other-supported-file.css
 regular-module.js
 "
 `;
