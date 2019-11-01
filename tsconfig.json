@@ -6,6 +6,7 @@
     "target": "es5",
     "module": "commonjs",
     "resolveJsonModule": true,
+    // TBD it is desired to enabled strict type checking at some point:
     "strict": false
   },
   "exclude": [
