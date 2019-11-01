@@ -293,7 +293,7 @@ function parseNestedCSS(node) {
     // custom-selector in postcss-less@2.0.0
     if (
       node.type === "css-decl" &&
-      node.prop.startsWith("@") &&
+      node.prop[0] === "@" &&
       customSelectorParamsRegExp.test(":" + node.value)
     ) {
       selector = node.value;
