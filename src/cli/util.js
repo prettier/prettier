@@ -409,9 +409,7 @@ function eachFilename(context, patterns, callback) {
   patterns = patterns.concat(["!**/.{git,svn,hg}/**", "!./.{git,svn,hg}/**"]);
 
   try {
-    const filePaths = globby
-      .sync(patterns, { dot: true })
-      .map(filePath => path.relative(process.cwd(), filePath));
+    const filePaths = globby.sync(patterns, { dot: true });
 
     if (filePaths.length === 0) {
       context.logger.error(
@@ -420,7 +418,9 @@ function eachFilename(context, patterns, callback) {
       process.exitCode = 2;
       return;
     }
-    filePaths.forEach(filePath => callback(filePath));
+    filePaths.forEach(filePath => {
+      callback(path.relative(process.cwd(), filePath));
+    });
   } catch (error) {
     context.logger.error(
       `Unable to expand glob patterns: ${patterns.join(" ")}\n${error.message}`
