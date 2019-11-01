@@ -4,20 +4,20 @@ const runPrettier = require("../runPrettier");
 
 expect.addSnapshotSerializer(require("../path-serializer"));
 
-describe("ignores node_modules by default", () => {
-  runPrettier("cli/patterns", [".", "-l"]).test({
-    status: 1
-  });
-});
+// TODO: move `multiple-patterns` tests into this one
 
-describe("doesn't ignore node_modules with --with-node-modules flag", () => {
-  runPrettier("cli/patterns", [".", "-l", "--with-node-modules"]).test({
+describe("should support dot pattern", () => {
+  runPrettier("cli/multiple-patterns", [".", "-l"]).test({
     status: 1
   });
 });
 
 describe("should expand directories", () => {
-  runPrettier("cli/patterns", ["expand-dir", "-l"]).test({
+  runPrettier("cli/multiple-patterns", [
+    "directory",
+    "other-directory",
+    "-l"
+  ]).test({
     status: 1
   });
 });

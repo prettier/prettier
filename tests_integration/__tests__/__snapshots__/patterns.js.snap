@@ -1,33 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`doesn't ignore node_modules with --with-node-modules flag (stderr) 1`] = `""`;
-
-exports[`doesn't ignore node_modules with --with-node-modules flag (stdout) 1`] = `
-"expand-dir/file.js
-node_modules/node-module.js
-not_node_modules/file.js
-regular-module.js
-"
-`;
-
-exports[`doesn't ignore node_modules with --with-node-modules flag (write) 1`] = `Array []`;
-
-exports[`ignores node_modules by default (stderr) 1`] = `""`;
-
-exports[`ignores node_modules by default (stdout) 1`] = `
-"expand-dir/file.js
-not_node_modules/file.js
-regular-module.js
-"
-`;
-
-exports[`ignores node_modules by default (write) 1`] = `Array []`;
-
 exports[`should expand directories (stderr) 1`] = `""`;
 
 exports[`should expand directories (stdout) 1`] = `
-"expand-dir/file.js
+"directory/file.js
+directory/nested-directory/nested-directory-file.js
+other-directory/file.js
+other-directory/nested-directory/nested-directory-file.js
 "
 `;
 
 exports[`should expand directories (write) 1`] = `Array []`;
+
+exports[`should support dot pattern (stderr) 1`] = `""`;
+
+exports[`should support dot pattern (stdout) 1`] = `
+"directory/file.js
+directory/nested-directory/nested-directory-file.js
+other-directory/file.js
+other-directory/nested-directory/nested-directory-file.js
+other-regular-modules.js
+regular-module.js
+"
+`;
+
+exports[`should support dot pattern (write) 1`] = `Array []`;
