@@ -354,6 +354,7 @@ function parseNestedCSS(node) {
       }
 
       node.selector = parseSelector(selector);
+
       return node;
     }
 
