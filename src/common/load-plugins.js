@@ -2,7 +2,7 @@
 
 const uniqBy = require("lodash.uniqby");
 const fs = require("fs");
-const globby = require("globby");
+const glob = require("glob");
 const path = require("path");
 const resolve = require("resolve");
 const thirdParty = require("./third-party");
@@ -94,42 +94,12 @@ function loadPlugins(plugins, pluginSearchDirs) {
 }
 
 function findPluginsInNodeModules(nodeModulesDir) {
-  // all dirs
-  const dirs = globby.sync(["*"], {
-    cwd: nodeModulesDir,
-    expandDirectories: false,
-    deep: 1,
-    onlyDirectories: true
-  });
-
-  const scopedPackagePattern = "prettier-plugin-*";
-
-  const pluginPackages = Array.prototype.concat.apply(
-    // `prettier-plugin-*` package
-    dirs.filter(dir => dir.startsWith("prettier-plugin-")),
-
-    // scoped plugins
-    dirs
-      .filter(dir => dir[0] === "@")
-      .map(scope => {
-        const pattern =
-          scope === "@prettier"
-            ? [scopedPackagePattern, "plugin-*"]
-            : scopedPackagePattern;
-        const dir = path.join(nodeModulesDir, scope);
-
-        return globby
-          .sync(pattern, {
-            cwd: dir,
-            expandDirectories: false,
-            deep: 1,
-            onlyDirectories: true
-          })
-          .map(dir => scope + "/" + dir);
-      })
+  // `node-glob` is faster in this case
+  const pluginPackageJsonPaths = glob.sync(
+    "{prettier-plugin-*,@*/prettier-plugin-*,@prettier/plugin-*}/package.json",
+    { cwd: nodeModulesDir }
   );
-
-  return pluginPackages.sort((a, b) => a.localeCompare(b));
+  return pluginPackageJsonPaths.map(path.dirname);
 }
 
 function isDirectory(dir) {
