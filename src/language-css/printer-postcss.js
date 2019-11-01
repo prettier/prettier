@@ -363,10 +363,7 @@ function genericPrint(path, options, print) {
         node.attribute.trim(),
         node.operator ? node.operator : "",
         node.value
-          ? quoteAttributeValue(
-              adjustStrings(node.value.trim(), options),
-              options
-            )
+          ? quoteAttributeValue(adjustStrings(node.value, options), options)
           : "",
         node.insensitive ? " i" : "",
         "]"
