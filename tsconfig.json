@@ -9,13 +9,6 @@
     "strict": false
   },
   "exclude": [
-    // [TBD] JavaScript sources *only* affected by JSDoc issue in
-    // `src/doc/doc-printer.js`, which is resolved by PR #6709:
-    "src/common/util-shared.js",
-    "src/doc/doc-printer.js",
-    "src/doc/index.js",
-    "src/main/comments.js",
-    "src/main/range-util.js",
     // [TBD] JavaScript sources *not* affected by src/language-*:
     "src/main/ast-to-doc.js",
     "src/main/core.js",

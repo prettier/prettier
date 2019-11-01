@@ -4,7 +4,7 @@ const { getStringWidth } = require("../common/util");
 const { convertEndOfLineToChars } = require("../common/end-of-line");
 const { concat, fill, cursor } = require("./doc-builders");
 
-/** @type {{[groupId: PropertyKey]: MODE}} */
+/** @type {{[groupId: string]: number}} */
 let groupModeMap;
 
 const MODE_BREAK = 1;
