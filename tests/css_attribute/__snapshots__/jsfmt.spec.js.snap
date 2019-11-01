@@ -24,9 +24,9 @@ class
 ;
 
 =====================================output=====================================
-@custom-selector: --icon i[class^="icon-"], i[class*=" icon-"];
-@custom-selector: --icon i[class^="icon-"], i[class*=" icon-"];
-@custom-selector: --icon i[class^="icon-"], i[class*=" icon-"];
+@custom-selector :--icon i[class^="icon-"], i[class*=" icon-"];
+@custom-selector :--icon i[class^="icon-"], i[class*=" icon-"];
+@custom-selector :--icon i[class^="icon-"], i[class*=" icon-"];
 
 ================================================================================
 `;
@@ -56,9 +56,9 @@ class
 ;
 
 =====================================output=====================================
-@custom-selector: --icon i[class^='icon-'], i[class*=' icon-'];
-@custom-selector: --icon i[class^='icon-'], i[class*=' icon-'];
-@custom-selector: --icon i[class^='icon-'], i[class*=' icon-'];
+@custom-selector :--icon i[class^='icon-'], i[class*=' icon-'];
+@custom-selector :--icon i[class^='icon-'], i[class*=' icon-'];
+@custom-selector :--icon i[class^='icon-'], i[class*=' icon-'];
 
 ================================================================================
 `;

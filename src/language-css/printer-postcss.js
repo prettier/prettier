@@ -95,12 +95,6 @@ function genericPrint(path, options, print) {
     return node;
   }
 
-  // if (typeof node.value === "string" && node.value.includes("class")) {
-  console.log({
-    node
-  });
-  // }
-
   switch (node.type) {
     case "yaml":
     case "toml":

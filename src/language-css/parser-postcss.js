@@ -288,6 +288,17 @@ function parseNestedCSS(node) {
       node.raws.selector = selector;
     }
 
+    // custom-selector in postcss-less@2.0.0
+    if (
+      node.type === "css-decl" &&
+      node.prop.startsWith("@") &&
+      // from https://github.com/postcss/postcss-custom-selectors/blob/495d9f3821257b10cd080ed2d1df81bc6db128a2/lib/custom-selectors-from-root.js#L31
+      /^(--[A-z][\w-]*)\s+([\W\w]+)\s*$/.test(node.value)
+    ) {
+      selector = node.value;
+      node.raws.value = selector;
+    }
+
     let value = "";
 
     if (typeof node.value === "string") {
@@ -343,7 +354,6 @@ function parseNestedCSS(node) {
       }
 
       node.selector = parseSelector(selector);
-
       return node;
     }
 
@@ -507,6 +517,16 @@ function requireParser(isSCSSParser) {
   if (isSCSSParser) {
     return require("postcss-scss");
   }
+
+  // TODO: Remove this hack when this issue is fixed:
+  // https://github.com/shellscape/postcss-less/issues/88
+  const LessParser = require("postcss-less/dist/less-parser");
+  LessParser.prototype.atrule = function() {
+    return Object.getPrototypeOf(LessParser.prototype).atrule.apply(
+      this,
+      arguments
+    );
+  };
 
   return require("postcss-less");
 }
