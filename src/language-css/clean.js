@@ -105,9 +105,11 @@ function clean(ast, newObj, parent) {
     newObj.attribute = ast.attribute.trim();
     delete newObj.spaces;
 
-    if (newObj.namespace) {
-      if (typeof newObj.namespace === "string") {
-        newObj.namespace = newObj.namespace.trim();
+    if (ast.namespace) {
+      const { namespace } = ast;
+
+      if (typeof namespace === "string") {
+        newObj.namespace = namespace.trim();
 
         if (newObj.namespace.length === 0) {
           newObj.namespace = true;
