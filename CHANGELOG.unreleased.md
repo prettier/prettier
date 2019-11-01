@@ -1353,6 +1353,7 @@ export class User {
 [#6695]: https://github.com/prettier/prettier/pull/6695
 [#6694]: https://github.com/prettier/prettier/pull/6694
 [#6728]: https://github.com/prettier/prettier/pull/6728
+[#6778]: https://github.com/prettier/prettier/pull/6778
 [@brainkim]: https://github.com/brainkim
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
@@ -1371,3 +1372,4 @@ export class User {
 [@kaicataldo]: https://github.com/kaicataldo
 [@cryrivers]: https://github.com/Cryrivers
 [@voithos]: https://github.com/voithos
+[@fisker]: https://github.com/fisker
