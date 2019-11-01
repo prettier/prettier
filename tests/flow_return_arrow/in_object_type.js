@@ -25,3 +25,4 @@ const example15 = (): ({ p: { p: { p: (string => string) & string } } }) =>
   (0: any);
 const example16 = (): ({ p: { p: { p: (string => string) | string } } }) =>
   (0: any);
+const example17 = (): (?{ p: string => string }) => (0: any);
