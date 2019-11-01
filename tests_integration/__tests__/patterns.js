@@ -74,14 +74,20 @@ describe("multiple patterns, throw error and exit with non zero code on non exis
   });
 });
 
-describe("should support dot pattern", () => {
+describe("should not support dot pattern", () => {
   runPrettier("cli/patterns", [".", "-l"]).test({
-    status: 1
+    status: 2
   });
 });
 
-describe("should expand directories", () => {
+describe("should not expand directories", () => {
   runPrettier("cli/patterns", ["directory", "other-directory", "-l"]).test({
+    status: 2
+  });
+});
+
+describe("directories and patterns", () => {
+  runPrettier("cli/patterns", ["directory", "other-directory/**", "-l"]).test({
     status: 1
   });
 });

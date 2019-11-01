@@ -407,9 +407,13 @@ function eachFilename(context, patterns, callback) {
     patterns = patterns.concat(["!**/node_modules/**", "!./node_modules/**"]);
   }
   patterns = patterns.concat(["!**/.{git,svn,hg}/**", "!./.{git,svn,hg}/**"]);
+  patterns = patterns.filter(pattern => pattern !== ".");
 
   try {
-    const filePaths = globby.sync(patterns, { dot: true });
+    const filePaths = globby.sync(patterns, {
+      dot: true,
+      expandDirectories: false
+    });
 
     if (filePaths.length === 0) {
       context.logger.error(
