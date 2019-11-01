@@ -218,7 +218,7 @@ function parseSelector(selector) {
   try {
     selectorParser(result_ => {
       result = result_;
-    }).process(selector);
+    }).processSync(selector);
   } catch (e) {
     // Fail silently. It's better to print it as is than to try and parse it
     // Note: A common failure is for SCSS nested properties. `background:
