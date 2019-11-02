@@ -19,7 +19,7 @@
    div.${expr} {
     color: red;
    }
-  all${expr} {
+  ${expr} {
     color: red;
   }
   }

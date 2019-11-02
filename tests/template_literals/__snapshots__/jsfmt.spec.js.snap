@@ -509,7 +509,7 @@ printWidth: 80
    div.\${expr} {
     color: red;
    }
-  all\${expr} {
+  \${expr} {
     color: red;
   }
   }
@@ -552,7 +552,7 @@ printWidth: 80
     div.\${expr} {
       color: red;
     }
-    all\${expr} {
+    \${expr} {
       color: red;
     }
   }
