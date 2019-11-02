@@ -168,10 +168,17 @@ printWidth: 80
 a[id=test] {}
 a[id="test"] {}
 a[id='test'] {}
-a[id="'test\\""] {}
-a[id='\\'test"'] {}
-a[id='\\\\\\'test\\\\"'] {}
-a[id="\\\\'test\\\\\\""] {}
+a[id="test'"] {}
+[id="double-quote-in-double-quote\\""] {}
+[id='double"quote-in-single-quote"'] {}
+[id="single-quote-in-double-quote'"] {}
+[id='single-quote-in-single-quote\\''] {}
+[id="slash-and-double-quote-in-double-quote\\\\\\""] {}
+[id='slash-and-double"quote-in-single-quote\\\\"'] {}
+[id="slash-and-single-quote-in-double-quote\\\\'"] {}
+[id='slash-and-single-quote-in-single-quote\\\\\\''] {}
+[id="'should-keep-matched-quotes'"] {}
+[id="\\"should-keep-unmatched-quotes'"] {}
 a[class="(╯°□°）╯︵ ┻━┻"]{}
 input:not([type="radio"]):not([type="checkbox"]) {}
 input:not([type="radio"], [type="checkbox"]) {}
@@ -184,13 +191,27 @@ a[id="test"] {
 }
 a[id="test"] {
 }
-a[id="'test\\""] {
+a[id="test'"] {
 }
-a[id="'test\\""] {
+[id="double-quote-in-double-quote\\""] {
 }
-a[id="\\\\'test\\\\\\""] {
+[id="double\\"quote-in-single-quote\\""] {
 }
-a[id="\\\\'test\\\\\\""] {
+[id="single-quote-in-double-quote'"] {
+}
+[id="single-quote-in-single-quote'"] {
+}
+[id="slash-and-double-quote-in-double-quote\\\\\\""] {
+}
+[id="slash-and-double\\"quote-in-single-quote\\\\\\""] {
+}
+[id="slash-and-single-quote-in-double-quote\\\\'"] {
+}
+[id="slash-and-single-quote-in-single-quote\\\\'"] {
+}
+[id="'should-keep-matched-quotes'"] {
+}
+[id="\\"should-keep-unmatched-quotes'"] {
 }
 a[class="(╯°□°）╯︵ ┻━┻"] {
 }
@@ -214,10 +235,17 @@ singleQuote: true
 a[id=test] {}
 a[id="test"] {}
 a[id='test'] {}
-a[id="'test\\""] {}
-a[id='\\'test"'] {}
-a[id='\\\\\\'test\\\\"'] {}
-a[id="\\\\'test\\\\\\""] {}
+a[id="test'"] {}
+[id="double-quote-in-double-quote\\""] {}
+[id='double"quote-in-single-quote"'] {}
+[id="single-quote-in-double-quote'"] {}
+[id='single-quote-in-single-quote\\''] {}
+[id="slash-and-double-quote-in-double-quote\\\\\\""] {}
+[id='slash-and-double"quote-in-single-quote\\\\"'] {}
+[id="slash-and-single-quote-in-double-quote\\\\'"] {}
+[id='slash-and-single-quote-in-single-quote\\\\\\''] {}
+[id="'should-keep-matched-quotes'"] {}
+[id="\\"should-keep-unmatched-quotes'"] {}
 a[class="(╯°□°）╯︵ ┻━┻"]{}
 input:not([type="radio"]):not([type="checkbox"]) {}
 input:not([type="radio"], [type="checkbox"]) {}
@@ -230,13 +258,27 @@ a[id='test'] {
 }
 a[id='test'] {
 }
-a[id='\\'test"'] {
+a[id='test\\''] {
 }
-a[id='\\'test"'] {
+[id='double-quote-in-double-quote"'] {
 }
-a[id='\\\\\\'test\\\\"'] {
+[id='double"quote-in-single-quote"'] {
 }
-a[id='\\\\\\'test\\\\"'] {
+[id='single-quote-in-double-quote\\''] {
+}
+[id='single-quote-in-single-quote\\''] {
+}
+[id='slash-and-double-quote-in-double-quote\\\\"'] {
+}
+[id='slash-and-double"quote-in-single-quote\\\\"'] {
+}
+[id='slash-and-single-quote-in-double-quote\\\\\\''] {
+}
+[id='slash-and-single-quote-in-single-quote\\\\\\''] {
+}
+[id='\\'should-keep-matched-quotes\\''] {
+}
+[id='"should-keep-unmatched-quotes\\''] {
 }
 a[class='(╯°□°）╯︵ ┻━┻'] {
 }
