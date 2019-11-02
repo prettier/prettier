@@ -556,18 +556,23 @@ foo\${exp}bar {}
 .foo\${exp}bar {}
 \`}</style>;
 
-// need fix
+// FIXME:
 // expression in expression in decl prop
 <style jsx>{\`
 div {
 foo\${exp}bar: 1;
+foo\${exp}: 1;
+\${exp}bar: 1;
 }
 \`}</style>;
 
+// FIXME: only working for prefix
 // expression in expression in decl value
 <style jsx>{\`
 div {
-font-size: foo\${placehodlerInValueParen}bar;
+a: foo\${exp}bar;
+b: \${exp}bar;
+b: foo\${exp};
 }
 \`}</style>;
      
@@ -647,18 +652,23 @@ font-size: foo\${placehodlerInValueParen}bar;
   }
 \`}</style>;
 
-// need fix
+// FIXME:
 // expression in expression in decl prop
 <style jsx>{\`
 div {
 foo\${exp}bar: 1;
+foo\${exp}: 1;
+\${exp}bar: 1;
 }
 \`}</style>;
 
+// FIXME: only working for prefix
 // expression in expression in decl value
 <style jsx>{\`
   div {
-    font-size: foo \${placehodlerInValueParen}bar;
+    a: foo \${exp}bar;
+    b: \${exp}bar;
+    b: foo \${exp};
   }
 \`}</style>;
 
