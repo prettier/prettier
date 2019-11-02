@@ -1365,7 +1365,7 @@ selector {
 .mixin (@a) when (isnumber(@a)) and (@a > 0) { /* ... */ }
 
 
-.mixin (@a) when (@a > 10), (@a < -10) { /* ... */ }
+.mixin (@a) when ((@a > 10), (@a < -10)) { /* ... */ }
 
 
 .mixin (@b) when not (@b > 0) { /* ... */ }
@@ -2976,7 +2976,7 @@ selector {
   /* ... */
 }
 
-.mixin (@a) when (@a > 10), (@a < -10) {
+.mixin (@a) when ((@a > 10), (@a < -10)) {
   /* ... */
 }
 
