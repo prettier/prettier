@@ -218,7 +218,7 @@ a[id='test'] {
 }
 a[id='test'] {
 }
-a[id=func('foo')] {
+a[id=func("foo")] {
 }
 a[class='(╯°□°）╯︵ ┻━┻'] {
 }

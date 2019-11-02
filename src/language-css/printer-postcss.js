@@ -928,20 +928,17 @@ function adjustStrings(value, options) {
 }
 
 function quoteAttributeValue(node, options) {
-  const { value } = node;
+  const value = preferRowsValue(node)
+    .replace(/^['"]|['"]$/g, "")
+    .replace(/\\(['"])/g, "$1");
 
   if (typeof value === "undefined") {
     return '""';
   }
 
-  const quoteMark = options.singleQuote && !value.includes("'") ? "'" : '"';
-  const quoted = node.getQuotedValue({
-    smart: false,
-    preferCurrentQuoteMark: false,
-    quoteMark
-  });
+  const quote = options.singleQuote && !value.includes("'") ? "'" : '"';
 
-  return quoted;
+  return quote + value + quote;
 }
 
 function adjustNumbers(value) {
