@@ -355,17 +355,21 @@ function genericPrint(path, options, print) {
       return concat([".", adjustNumbers(adjustStrings(node.value, options))]);
     }
     case "selector-attribute": {
+      const operator = node.operator || "";
+      const value = quoteAttributeValue(node, options);
+      const insensitiveFlag = node.insensitive
+        ? "i"
+        : node.raws.insensitiveFlag;
+
       return concat([
         "[",
         node.namespace
           ? concat([node.namespace === true ? "" : node.namespace.trim(), "|"])
           : "",
         node.attribute.trim(),
-        node.operator ? node.operator : "",
-        node.value
-          ? quoteAttributeValue(adjustStrings(node.value, options), options)
-          : "",
-        node.insensitive ? " i" : "",
+        operator,
+        value,
+        insensitiveFlag ? ` ${insensitiveFlag}` : "",
         "]"
       ]);
     }
@@ -914,11 +918,21 @@ function adjustStrings(value, options) {
   return value.replace(STRING_REGEX, match => printString(match, options));
 }
 
-function quoteAttributeValue(value, options) {
-  const quote = options.singleQuote ? "'" : '"';
-  return value.includes('"') || value.includes("'")
-    ? value
-    : quote + value + quote;
+function quoteAttributeValue(node, options) {
+  const { value } = node;
+
+  if (typeof value === "undefined") {
+    return '""';
+  }
+
+  const quoteMark = options.singleQuote && !value.includes("'") ? "'" : '"';
+  const quoted = node.getQuotedValue({
+    smart: false,
+    preferCurrentQuoteMark: false,
+    quoteMark
+  });
+
+  return quoted;
 }
 
 function adjustNumbers(value) {

@@ -117,7 +117,7 @@ function clean(ast, newObj, parent) {
       }
     }
 
-    if (ast.value) {
+    if (typeof ast.value === "string") {
       newObj.value = ast.value
         // .trim()
         .replace(/^['"]|['"]$/g, "")
