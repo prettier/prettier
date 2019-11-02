@@ -211,7 +211,7 @@ function parseSelector(selector) {
     };
   }
 
-  //  `postcss-selector-parser@6.0.0` throws parsing `foo | bar`
+  // `postcss-selector-parser@6.0.0` throws parsing `foo | bar`
   selector = selector.replace(/\s*\|/, "|");
 
   const selectorParser = require("postcss-selector-parser");
@@ -397,6 +397,7 @@ function parseNestedCSS(node) {
       }
 
       if (name === "extend" || name === "nest") {
+        // `postcss-selector-parser@6.0.0` can't parse `@extend .a !optional`
         const [selector, bang] = params.split("!");
 
         node.selector = parseSelector(selector.trim());

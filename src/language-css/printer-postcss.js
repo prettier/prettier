@@ -936,10 +936,6 @@ function quoteAttributeValue(node, options) {
     .replace(/^['"]|['"]$/g, "")
     .replace(/\\(['"])/g, "$1");
 
-  if (typeof value === "undefined") {
-    return '""';
-  }
-
   const quote = options.singleQuote && !value.includes("'") ? "'" : '"';
 
   return quote + value + quote;
