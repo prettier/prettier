@@ -7,7 +7,8 @@ const {
   printNumber,
   printString,
   hasIgnoreComment,
-  hasNewline
+  hasNewline,
+  getPreferredQuote
 } = require("../common/util");
 const { isNextLineEmpty } = require("../common/util-shared");
 
@@ -918,12 +919,15 @@ function adjustStrings(value, options) {
 }
 
 function quoteAttributeValue(node, options) {
-  const quote = options.singleQuote ? "'" : '"';
-  const value = preferRowsValue(node)
+  let value = preferRowsValue(node)
     .replace(/^('|")(.*?)\1$/, "$2")
-    .replace(/\\([\\'"])/g, "$1")
+    .replace(/\\([\\'"])/g, "$1");
+  const quote = options.singleQuote ? "'" : getPreferredQuote(value, '"');
+
+  value = value
     .replace(/\\/g, "\\\\")
     .replace(new RegExp(quote, "g"), "\\" + quote);
+
   return quote + value + quote;
 }
 
