@@ -5,11 +5,11 @@ const path = require("path");
 const { rollup } = require("rollup");
 const webpack = require("webpack");
 const resolve = require("rollup-plugin-node-resolve");
-const alias = require("rollup-plugin-alias");
+const alias = require("@rollup/plugin-alias");
 const commonjs = require("rollup-plugin-commonjs");
 const nodeGlobals = require("rollup-plugin-node-globals");
 const json = require("rollup-plugin-json");
-const replace = require("rollup-plugin-replace");
+const replace = require("@rollup/plugin-replace");
 const { terser } = require("rollup-plugin-terser");
 const babel = require("rollup-plugin-babel");
 const nativeShims = require("./rollup-plugins/native-shims");
@@ -186,11 +186,7 @@ function getWebpackConfig(bundle) {
     const TerserPlugin = require("terser-webpack-plugin");
 
     config.optimization = {
-      minimizer: [
-        new TerserPlugin({
-          terserOptions: bundle.terserOptions
-        })
-      ]
+      minimizer: [new TerserPlugin(bundle.terserOptions)]
     };
   }
 

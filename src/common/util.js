@@ -342,6 +342,7 @@ function startsWithNoLookaheadToken(node, forbidFunctionClassAndDoExpr) {
     case "ObjectExpression":
       return true;
     case "MemberExpression":
+    case "OptionalMemberExpression":
       return startsWithNoLookaheadToken(
         node.object,
         forbidFunctionClassAndDoExpr
@@ -353,6 +354,7 @@ function startsWithNoLookaheadToken(node, forbidFunctionClassAndDoExpr) {
       }
       return startsWithNoLookaheadToken(node.tag, forbidFunctionClassAndDoExpr);
     case "CallExpression":
+    case "OptionalCallExpression":
       if (node.callee.type === "FunctionExpression") {
         // IIFEs are always already parenthesized
         return false;

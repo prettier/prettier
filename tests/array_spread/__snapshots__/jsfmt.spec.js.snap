@@ -2,7 +2,7 @@
 
 exports[`multiple.js 1`] = `
 ====================================options=====================================
-parsers: ["flow", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
