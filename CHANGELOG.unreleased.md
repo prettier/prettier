@@ -679,6 +679,26 @@ Previously, even if the line length was shorter than `printWidth`, Prettier woul
 </template>
 ```
 
+#### HTML: Add support for `&excl;` and other entities
+
+Previously, Prettier only supported the most common HTML entities, such as `&nbsp;` and `&quot;`. Now, Prettier supports every HTML entity in the HTML spec, such as `&excl;` and `&pitchfork;`.
+
+<!-- prettier-ignore -->
+```html
+<!-- Input -->
+<p>Hi&excl;</p>
+
+<!-- Output (Prettier stable)
+[error] stdin: SyntaxError: Unknown entity "excl" - use the "&#<decimal>;" or  "&#x<hex>;" syntax (1:6)
+[error] > 1 | <p>Hi&excl;</p>
+[error]     |      ^
+[error]   2 | 
+-->
+
+<!-- Output (Prettier master) -->
+<p>Hi&excl;</p>
+```
+
 #### JavaScript: Empty lines in destructured arrow function parameters could break indentation and idempotence ([#6301] & [#6382] by [@sosukesuzuki])
 
 Previously, Prettier indented code strangely when an arrow function whose parameters included an object pattern was passed to a function call as an argument. Also, it broke idempotence. Please see [#6294](https://github.com/prettier/prettier/issues/6294) for details.
