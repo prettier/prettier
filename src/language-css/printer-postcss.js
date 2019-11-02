@@ -349,10 +349,12 @@ function genericPrint(path, options, print) {
       ]);
     }
     case "selector-id": {
-      return concat(["#", node.value]);
+      const value = (node.raws && node.raws.value) || node.value;
+      return concat(["#", value]);
     }
     case "selector-class": {
-      return concat([".", adjustNumbers(adjustStrings(node.value, options))]);
+      const value = (node.raws && node.raws.value) || node.value;
+      return concat([".", adjustNumbers(adjustStrings(value, options))]);
     }
     case "selector-attribute": {
       const operator = node.operator || "";
