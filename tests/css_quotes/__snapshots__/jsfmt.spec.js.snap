@@ -303,7 +303,7 @@ one 'two' three {}
 
 @supports (content: one 'two' three 'four') {
   a[href='foo' y],
-  abbr[title^='It\\'s a trap!'],
+  abbr[title^="It's a trap!"],
   img[src=''] {
     /* Simple strings. */
     content: 'abc';
