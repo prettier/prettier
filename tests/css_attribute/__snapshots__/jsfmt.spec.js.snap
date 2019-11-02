@@ -165,23 +165,20 @@ parsers: ["css"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-a[id=test] {}
+﻿a[id=test] {}
 a[id="test"] {}
 a[id='test'] {}
-a[id=func("foo")] {}
 a[class="(╯°□°）╯︵ ┻━┻"]{}
 input:not([type="radio"]):not([type="checkbox"]) {}
 input:not([type="radio"], [type="checkbox"]) {}
 section:has(:not([type="radio"], [type="checkbox"])) {}
 
 =====================================output=====================================
-a[id="test"] {
+﻿a[id="test"] {
 }
 a[id="test"] {
 }
 a[id="test"] {
-}
-a[id=func("foo")] {
 }
 a[class="(╯°□°）╯︵ ┻━┻"] {
 }
@@ -202,23 +199,20 @@ printWidth: 80
 singleQuote: true
                                                                                 | printWidth
 =====================================input======================================
-a[id=test] {}
+﻿a[id=test] {}
 a[id="test"] {}
 a[id='test'] {}
-a[id=func("foo")] {}
 a[class="(╯°□°）╯︵ ┻━┻"]{}
 input:not([type="radio"]):not([type="checkbox"]) {}
 input:not([type="radio"], [type="checkbox"]) {}
 section:has(:not([type="radio"], [type="checkbox"])) {}
 
 =====================================output=====================================
-a[id='test'] {
+﻿a[id='test'] {
 }
 a[id='test'] {
 }
 a[id='test'] {
-}
-a[id=func("foo")] {
 }
 a[class='(╯°□°）╯︵ ┻━┻'] {
 }
