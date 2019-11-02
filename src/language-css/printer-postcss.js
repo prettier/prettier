@@ -349,12 +349,7 @@ function genericPrint(path, options, print) {
         );
       }
 
-      return concat([
-        node.namespace
-          ? concat([node.namespace === true ? "" : node.namespace.trim(), "|"])
-          : "",
-        value
-      ]);
+      return concat([printNamespace(node), value]);
     }
     case "selector-id": {
       return concat(["#", preferRowsValue(node)]);
@@ -374,10 +369,8 @@ function genericPrint(path, options, print) {
 
       return concat([
         "[",
-        node.namespace
-          ? concat([node.namespace === true ? "" : node.namespace.trim(), "|"])
-          : "",
-        node.attribute.trim(),
+        printNamespace(node),
+        node.attribute,
         operator,
         value,
         insensitiveFlag ? ` ${insensitiveFlag}` : "",
@@ -408,12 +401,7 @@ function genericPrint(path, options, print) {
       return concat([leading, value]);
     }
     case "selector-universal": {
-      return concat([
-        node.namespace
-          ? concat([node.namespace === true ? "" : node.namespace.trim(), "|"])
-          : "",
-        node.value
-      ]);
+      return concat([printNamespace(node), node.value]);
     }
     case "selector-pseudo": {
       return concat([
@@ -957,6 +945,12 @@ function printCssNumber(rawNumber) {
       // Remove trailing `.0`.
       .replace(/\.0(?=$|e)/, "")
   );
+}
+
+function printNamespace(node) {
+  return node.namespace
+    ? concat([node.namespace === true ? "" : node.namespace, "|"])
+    : "";
 }
 
 function preferRowsValue(node) {

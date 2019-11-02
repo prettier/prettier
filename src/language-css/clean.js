@@ -102,14 +102,11 @@ function clean(ast, newObj, parent) {
   }
 
   if (ast.type === "selector-attribute") {
-    newObj.attribute = ast.attribute.trim();
-    delete newObj.spaces;
-
     if (ast.namespace) {
       const { namespace } = ast;
 
       if (typeof namespace === "string") {
-        newObj.namespace = namespace.trim();
+        newObj.namespace = namespace;
 
         if (newObj.namespace.length === 0) {
           newObj.namespace = true;
@@ -117,14 +114,16 @@ function clean(ast, newObj, parent) {
       }
     }
 
+    newObj.attribute = ast.attribute;
     if (typeof ast.value === "string") {
       newObj.value = ast.value
         .replace(/^['"]|['"]$/g, "")
         .replace(/\\(['"])/g, "$1");
-      delete newObj.quoted;
-      delete newObj._value;
-      delete newObj._quoteMark;
     }
+    delete newObj.spaces;
+    delete newObj.quoted;
+    delete newObj._value;
+    delete newObj._quoteMark;
   }
 
   if (
