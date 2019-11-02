@@ -1292,6 +1292,31 @@ const example1 = (): { p: string => string } => (0: any);
 const example1 = (): ({ p: string => string }) => (0: any);
 ```
 
+#### CLI: Handle errors when reading stdin ([#6708] by [@andersk] and [@lydell])
+
+If you had an error in your `.prettierrc` Prettier used to crash when formatting stdin. Such errors are now handled properly.
+
+```
+# Prettier stable
+$ prettier --parser babel < test.js
+(node:21531) UnhandledPromiseRejectionWarning: Error: Invalid printWidth value. Expected an integer, but received "nope".
+    at _loop (/home/lydell/forks/prettier/node_modules/prettier/bin-prettier.js:7887:63)
+    at Normalizer._applyNormalization (/home/lydell/forks/prettier/node_modules/prettier/bin-prettier.js:8000:13)
+    at applyNormalization (/home/lydell/forks/prettier/node_modules/prettier/bin-prettier.js:7817:49)
+    at Normalizer.normalize (/home/lydell/forks/prettier/node_modules/prettier/bin-prettier.js:7823:9)
+    at normalizeOptions$1 (/home/lydell/forks/prettier/node_modules/prettier/bin-prettier.js:8760:31)
+    at Object.normalizeApiOptions (/home/lydell/forks/prettier/node_modules/prettier/bin-prettier.js:8918:10)
+    at getOptionsForFile (/home/lydell/forks/prettier/node_modules/prettier/bin-prettier.js:44160:69)
+    at /home/lydell/forks/prettier/node_modules/prettier/bin-prettier.js:44214:22
+    at process._tickCallback (internal/process/next_tick.js:68:7)
+(node:21531) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). (rejection id: 1)
+(node:21531) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+
+# Prettier master
+$ prettier --parser babel < test.js
+[error] Invalid printWidth value. Expected an integer, but received "nope".
+```
+
 [#5682]: https://github.com/prettier/prettier/pull/5682
 [#6657]: https://github.com/prettier/prettier/pull/6657
 [#5910]: https://github.com/prettier/prettier/pull/5910
@@ -1336,6 +1361,7 @@ const example1 = (): ({ p: string => string }) => (0: any);
 [#6694]: https://github.com/prettier/prettier/pull/6694
 [#6717]: https://github.com/prettier/prettier/pull/6717
 [#6728]: https://github.com/prettier/prettier/pull/6728
+[#6708]: https://github.com/prettier/prettier/pull/6708
 [@brainkim]: https://github.com/brainkim
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
@@ -1354,3 +1380,5 @@ const example1 = (): ({ p: string => string }) => (0: any);
 [@kaicataldo]: https://github.com/kaicataldo
 [@cryrivers]: https://github.com/Cryrivers
 [@voithos]: https://github.com/voithos
+[@andersk]: https://github.com/andersk
+[@lydell]: https://github.com/lydell
