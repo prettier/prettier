@@ -679,7 +679,7 @@ Previously, even if the line length was shorter than `printWidth`, Prettier woul
 </template>
 ```
 
-#### HTML: Add support for `&excl;` and other entities
+#### HTML: Add support for `&excl;` and other entities ([#6785] by [@lydell])
 
 Previously, Prettier only supported the most common HTML entities, such as `&nbsp;` and `&quot;`. Now, Prettier supports every HTML entity in the HTML spec, such as `&excl;` and `&pitchfork;`.
 
@@ -1349,6 +1349,7 @@ $ prettier --parser babel < test.js
 [#6236]: https://github.com/prettier/prettier/pull/6236
 [#6270]: https://github.com/prettier/prettier/pull/6270
 [#6284]: https://github.com/prettier/prettier/pull/6284
+[#6785]: https://github.com/prettier/prettier/pull/6785
 [#6289]: https://github.com/prettier/prettier/pull/6289
 [#6301]: https://github.com/prettier/prettier/pull/6301
 [#6307]: https://github.com/prettier/prettier/pull/6307
