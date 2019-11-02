@@ -509,7 +509,7 @@ printWidth: 80
    div.\${expr} {
     color: red;
    }
-  all\${expr} {
+  \${expr} {
     color: red;
   }
   }
@@ -530,6 +530,7 @@ printWidth: 80
   }
 \`}</style>;
 
+// need fix bellow
 
 // expression in tag
 <style jsx>{\`
@@ -600,7 +601,7 @@ b: foo\${exp};
     div.\${expr} {
       color: red;
     }
-    all\${expr} {
+    \${expr} {
       color: red;
     }
   }
@@ -622,34 +623,31 @@ b: foo\${exp};
   }
 \`}</style>;
 
+// need fix bellow
+
 // expression in tag
 <style jsx>{\`
-  foo\${exp}bar {
-  }
+foo\${exp}bar {}
 \`}</style>;
 
 // expression in id
 <style jsx>{\`
-  foo\${exp}bar {
-  }
+ foo\${exp}bar {}
 \`}</style>;
 
 // expression in attribute name
 <style jsx>{\`
-  [foo\${exp}bar] {
-  }
+[foo\${exp}bar] {}
 \`}</style>;
 
 // expression in attribute value
 <style jsx>{\`
-  [a^="foo\${exp}bar"] {
-  }
+[a^=foo\${exp}bar] {}
 \`}</style>;
 
 // expression in class selector
 <style jsx>{\`
-  .foo\${exp}bar {
-  }
+.foo\${exp}bar {}
 \`}</style>;
 
 // FIXME:

@@ -353,18 +353,16 @@ function genericPrint(path, options, print) {
         node.namespace
           ? concat([node.namespace === true ? "" : node.namespace.trim(), "|"])
           : "",
-        splitPlaceholder(value)
+        value
       ]);
     }
     case "selector-id": {
-      return concat(["#", splitPlaceholder(preferRowsValue(node))]);
+      return concat(["#", preferRowsValue(node)]);
     }
     case "selector-class": {
       return concat([
         ".",
-        splitPlaceholder(
-          adjustNumbers(adjustStrings(preferRowsValue(node)), options)
-        )
+        adjustNumbers(adjustStrings(preferRowsValue(node)), options)
       ]);
     }
     case "selector-attribute": {
@@ -379,9 +377,9 @@ function genericPrint(path, options, print) {
         node.namespace
           ? concat([node.namespace === true ? "" : node.namespace.trim(), "|"])
           : "",
-        splitPlaceholder(node.attribute.trim()),
+        node.attribute.trim(),
         operator,
-        splitPlaceholder(value),
+        value,
         insensitiveFlag ? ` ${insensitiveFlag}` : "",
         "]"
       ]);
@@ -810,7 +808,7 @@ function genericPrint(path, options, print) {
       ]);
     }
     case "value-paren": {
-      return splitPlaceholder(node.value);
+      return node.value;
     }
     case "value-number": {
       return concat([printCssNumber(node.value), maybeToLowerCase(node.unit)]);
@@ -823,7 +821,7 @@ function genericPrint(path, options, print) {
         return node.value.toLowerCase();
       }
 
-      return splitPlaceholder(node.value);
+      return node.value;
     }
     case "value-colon": {
       return concat([
@@ -963,18 +961,6 @@ function printCssNumber(rawNumber) {
 
 function preferRowsValue(node) {
   return (node.raws && node.raws.value) || node.value;
-}
-
-function splitPlaceholder(value) {
-  const parts = value.split("@prettier-placeholder");
-
-  if (parts.length === 0) {
-    return value;
-  }
-
-  return concat(
-    parts.map((part, index) => (index ? "@prettier-placeholder" + part : part))
-  );
 }
 
 module.exports = {
