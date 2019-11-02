@@ -1317,6 +1317,20 @@ $ prettier --parser babel < test.js
 [error] Invalid printWidth value. Expected an integer, but received "nope".
 ```
 
+#### CLI: Gracefully handle nonexistent paths passed to --stdin-filepath ([#6687] by [@voithos])
+
+Previously, if you passed a nonexistent subdirectory to --stdin-filepath, Prettier would throw an error. Now, Prettier gracefully handles this.
+
+```
+# Prettier stable
+$ prettier --stdin-filepath does/not/exist.js < test.js
+[error] Invalid configuration file: ENOENT: no such file or directory, scandir '/home/lydell/forks/prettier/does/not'
+
+# Prettier master
+$ prettier --stdin-filepath does/not/exist.js < test.js
+test;
+```
+
 [#5682]: https://github.com/prettier/prettier/pull/5682
 [#6657]: https://github.com/prettier/prettier/pull/6657
 [#5910]: https://github.com/prettier/prettier/pull/5910
@@ -1362,6 +1376,7 @@ $ prettier --parser babel < test.js
 [#6717]: https://github.com/prettier/prettier/pull/6717
 [#6728]: https://github.com/prettier/prettier/pull/6728
 [#6708]: https://github.com/prettier/prettier/pull/6708
+[#6687]: https://github.com/prettier/prettier/pull/6687
 [@brainkim]: https://github.com/brainkim
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
