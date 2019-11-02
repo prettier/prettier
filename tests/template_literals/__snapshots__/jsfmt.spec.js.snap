@@ -501,7 +501,7 @@ printWidth: 80
    div.\${expr} {
     color: red;
    }
-  all\${expr} {
+  \${expr} {
     color: red;
   }
   }
@@ -509,7 +509,7 @@ printWidth: 80
    div.\${expr} {
     color: red;
    }
-  \${expr} {
+  all\${expr} {
     color: red;
   }
   }
@@ -587,7 +587,7 @@ font-size: foo\${placehodlerInValueParen}bar;
     div.\${expr} {
       color: red;
     }
-    all\${expr} {
+    \${expr} {
       color: red;
     }
   }
@@ -595,7 +595,7 @@ font-size: foo\${placehodlerInValueParen}bar;
     div.\${expr} {
       color: red;
     }
-    \${expr} {
+    all\${expr} {
       color: red;
     }
   }

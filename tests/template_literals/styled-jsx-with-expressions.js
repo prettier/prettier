@@ -11,7 +11,7 @@
    div.${expr} {
     color: red;
    }
-  all${expr} {
+  ${expr} {
     color: red;
   }
   }
@@ -19,7 +19,7 @@
    div.${expr} {
     color: red;
    }
-  ${expr} {
+  all${expr} {
     color: red;
   }
   }
