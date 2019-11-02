@@ -218,7 +218,7 @@ function genericPrint(path, options, print) {
               concat([
                 " ",
                 path.call(print, "selector"),
-                node.bang ? ` !${node.bang}` : ""
+                node.declaration ? ` !${node.declaration}` : ""
               ])
             )
           : "",

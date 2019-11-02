@@ -102,19 +102,10 @@ function clean(ast, newObj, parent) {
   }
 
   if (ast.type === "selector-attribute") {
-    if (ast.namespace) {
-      const { namespace } = ast;
-
-      if (typeof namespace === "string") {
-        newObj.namespace = namespace;
-
-        if (newObj.namespace.length === 0) {
-          newObj.namespace = true;
-        }
-      }
+    if (ast.namespace === "") {
+      newObj.namespace = true;
     }
 
-    newObj.attribute = ast.attribute;
     if (typeof ast.value === "string") {
       newObj.value = ast.getQuotedValue({
         quoteMark: '"',

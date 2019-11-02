@@ -398,10 +398,10 @@ function parseNestedCSS(node) {
 
       if (name === "extend" || name === "nest") {
         // `postcss-selector-parser@6.0.0` can't parse `@extend .a !optional`
-        const [selector, bang] = params.split("!");
+        const [selector, declaration] = params.split("!");
 
         node.selector = parseSelector(selector.trim());
-        node.bang = (bang || "").trim();
+        node.declaration = (declaration || "").trim();
         delete node.params;
 
         return node;
