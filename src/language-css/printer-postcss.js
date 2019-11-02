@@ -339,8 +339,7 @@ function genericPrint(path, options, print) {
       const parentNode = path.getParentNode();
       const index = parentNode && parentNode.nodes.indexOf(node);
       const prevNode = index && parentNode.nodes[index - 1];
-
-      const value = getRawsValue(node);
+      const value = preferRowsValue(node);
 
       return concat([
         node.namespace
