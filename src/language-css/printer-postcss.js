@@ -339,28 +339,32 @@ function genericPrint(path, options, print) {
       const parentNode = path.getParentNode();
       const index = parentNode && parentNode.nodes.indexOf(node);
       const prevNode = index && parentNode.nodes[index - 1];
-      const value = preferRowsValue(node);
+
+      let value = preferRowsValue(node);
+      if (prevNode.type !== "selector-nesting") {
+        value = adjustNumbers(
+          isHTMLTag(value) || isKeyframeAtRuleKeywords(path, value)
+            ? value.toLowerCase()
+            : value
+        );
+      }
 
       return concat([
         node.namespace
           ? concat([node.namespace === true ? "" : node.namespace.trim(), "|"])
           : "",
-        prevNode.type === "selector-nesting"
-          ? value
-          : adjustNumbers(
-              isHTMLTag(node.value) || isKeyframeAtRuleKeywords(path, value)
-                ? value.toLowerCase()
-                : value
-            )
+        splitPlaceholder(value)
       ]);
     }
     case "selector-id": {
-      return concat(["#", preferRowsValue(node)]);
+      return concat(["#", splitPlaceholder(preferRowsValue(node))]);
     }
     case "selector-class": {
       return concat([
         ".",
-        adjustNumbers(adjustStrings(preferRowsValue(node), options))
+        splitPlaceholder(
+          adjustNumbers(adjustStrings(preferRowsValue(node)), options)
+        )
       ]);
     }
     case "selector-attribute": {
@@ -375,9 +379,9 @@ function genericPrint(path, options, print) {
         node.namespace
           ? concat([node.namespace === true ? "" : node.namespace.trim(), "|"])
           : "",
-        node.attribute.trim(),
+        splitPlaceholder(node.attribute.trim()),
         operator,
-        value,
+        splitPlaceholder(value),
         insensitiveFlag ? ` ${insensitiveFlag}` : "",
         "]"
       ]);
@@ -806,7 +810,7 @@ function genericPrint(path, options, print) {
       ]);
     }
     case "value-paren": {
-      return node.value;
+      return splitPlaceholder(node.value);
     }
     case "value-number": {
       return concat([printCssNumber(node.value), maybeToLowerCase(node.unit)]);
@@ -819,7 +823,7 @@ function genericPrint(path, options, print) {
         return node.value.toLowerCase();
       }
 
-      return node.value;
+      return splitPlaceholder(node.value);
     }
     case "value-colon": {
       return concat([
@@ -963,6 +967,18 @@ function printCssNumber(rawNumber) {
 
 function preferRowsValue(node) {
   return (node.raws && node.raws.value) || node.value;
+}
+
+function splitPlaceholder(value) {
+  const parts = value.split("@prettier-placeholder");
+
+  if (parts.length === 0) {
+    return value;
+  }
+
+  return concat(
+    parts.map((part, index) => (index ? "@prettier-placeholder" + part : part))
+  );
 }
 
 module.exports = {
