@@ -116,9 +116,11 @@ function clean(ast, newObj, parent) {
 
     newObj.attribute = ast.attribute;
     if (typeof ast.value === "string") {
-      newObj.value = ast.value
-        .replace(/^['"]|['"]$/g, "")
-        .replace(/\\(['"])/g, "$1");
+      newObj.value = ast.getQuotedValue({
+        quoteMark: '"',
+        preferCurrentQuoteMark: false,
+        smart: false
+      });
     }
     delete newObj.spaces;
     delete newObj.quoted;

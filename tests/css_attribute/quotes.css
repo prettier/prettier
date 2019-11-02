@@ -1,6 +1,10 @@
 a[id=test] {}
 a[id="test"] {}
 a[id='test'] {}
+a[id="'test\""] {}
+a[id='\'test"'] {}
+a[id='\\\'test\\"'] {}
+a[id="\\'test\\\""] {}
 a[class="(╯°□°）╯︵ ┻━┻"]{}
 input:not([type="radio"]):not([type="checkbox"]) {}
 input:not([type="radio"], [type="checkbox"]) {}

@@ -918,12 +918,11 @@ function adjustStrings(value, options) {
 }
 
 function quoteAttributeValue(node, options) {
+  const quote = options.singleQuote ? "'" : '"';
   const value = preferRowsValue(node)
-    .replace(/^['"]|['"]$/g, "")
-    .replace(/\\(['"])/g, "$1");
-
-  const quote = options.singleQuote && !value.includes("'") ? "'" : '"';
-
+    .replace(/^('|")(.*?)\1$/, "$2")
+    .replace(/\\([\\'"])/g, "$1")
+    .replace(new RegExp("\\" + quote, "g"), "\\\\" + quote);
   return quote + value + quote;
 }
 
