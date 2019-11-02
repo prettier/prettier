@@ -354,9 +354,9 @@ $KeepScssVar: val;
   $KeepScssVar: val;
   @extend %KeepScssPlaceholderSelector;
 
-  @{Keep}[@{Keep}][@{Keep}^=@{Keep-1A}]:@{Keep} {
+  @{Keep}[@{Keep}][@{Keep}^="@{Keep-1A}"]:@{Keep} {
     prop: val;
-  };
+  }
 
   &Keep & element {
     prop: val;
@@ -676,7 +676,7 @@ $KeepTopLevelVar: val;
   @KeepLessVar: val;
   @extend %KeepPlaceholderSelector;
 
-  #{$Keep}[#{$Keep}][#{Keep}^="#{Keep-1A}"]:#{$Keep} {
+  #{$Keep}[#{Keep}][#{Keep}^="#{Keep-1A}"]:#{$Keep} {
     prop: val;
   }
 

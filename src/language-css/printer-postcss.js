@@ -333,18 +333,18 @@ function genericPrint(path, options, print) {
       const parentNode = path.getParentNode();
       const index = parentNode && parentNode.nodes.indexOf(node);
       const prevNode = index && parentNode.nodes[index - 1];
+      const value = (node.raws && node.raws.value) || node.value;
 
       return concat([
         node.namespace
           ? concat([node.namespace === true ? "" : node.namespace.trim(), "|"])
           : "",
         prevNode.type === "selector-nesting"
-          ? node.value
+          ? value
           : adjustNumbers(
-              isHTMLTag(node.value) ||
-                isKeyframeAtRuleKeywords(path, node.value)
-                ? node.value.toLowerCase()
-                : node.value
+              isHTMLTag(node.value) || isKeyframeAtRuleKeywords(path, value)
+                ? value.toLowerCase()
+                : value
             )
       ]);
     }
