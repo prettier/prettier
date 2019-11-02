@@ -213,7 +213,13 @@ function genericPrint(path, options, print) {
             ])
           : "",
         node.selector
-          ? indent(concat([" ", path.call(print, "selector")]))
+          ? indent(
+              concat([
+                " ",
+                path.call(print, "selector"),
+                node.bang ? ` !${node.bang}` : ""
+              ])
+            )
           : "",
         node.value
           ? group(

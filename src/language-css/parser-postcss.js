@@ -394,7 +394,10 @@ function parseNestedCSS(node) {
       }
 
       if (name === "extend" || name === "nest") {
-        node.selector = parseSelector(params);
+        const [selector, bang] = params.split("!");
+
+        node.selector = parseSelector(selector.trim());
+        node.bang = (bang || "").trim();
         delete node.params;
 
         return node;
