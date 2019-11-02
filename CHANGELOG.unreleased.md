@@ -1294,6 +1294,21 @@ export class User {
 }
 ```
 
+#### Flow: Parentheses around arrow functions' return types that have `FunctionTypeAnnotation` nested in `ObjectTypeAnnotation` ([#6717] by [@sosukesuzuki])
+
+This is a workaround for a [bug](https://github.com/facebook/flow/pull/8163) in the Flow parser. Without the parentheses, the parser throws an error.
+
+```js
+// Input
+const example1 = (): { p: (string => string) } => (0: any);
+
+// Output (Prettier stable)
+const example1 = (): { p: string => string } => (0: any);
+
+// Output (Prettier master)
+const example1 = (): ({ p: string => string }) => (0: any);
+```
+
 [#5682]: https://github.com/prettier/prettier/pull/5682
 [#6657]: https://github.com/prettier/prettier/pull/6657
 [#5910]: https://github.com/prettier/prettier/pull/5910
@@ -1336,6 +1351,7 @@ export class User {
 [#6673]: https://github.com/prettier/prettier/pull/6673
 [#6695]: https://github.com/prettier/prettier/pull/6695
 [#6694]: https://github.com/prettier/prettier/pull/6694
+[#6717]: https://github.com/prettier/prettier/pull/6717
 [#6728]: https://github.com/prettier/prettier/pull/6728
 [@brainkim]: https://github.com/brainkim
 [@duailibe]: https://github.com/duailibe
