@@ -339,7 +339,8 @@ function genericPrint(path, options, print) {
       const parentNode = path.getParentNode();
       const index = parentNode && parentNode.nodes.indexOf(node);
       const prevNode = index && parentNode.nodes[index - 1];
-      const value = (node.raws && node.raws.value) || node.value;
+
+      const value = getRawsValue(node);
 
       return concat([
         node.namespace
@@ -355,12 +356,13 @@ function genericPrint(path, options, print) {
       ]);
     }
     case "selector-id": {
-      const value = (node.raws && node.raws.value) || node.value;
-      return concat(["#", value]);
+      return concat(["#", preferRowsValue(node)]);
     }
     case "selector-class": {
-      const value = (node.raws && node.raws.value) || node.value;
-      return concat([".", adjustNumbers(adjustStrings(value, options))]);
+      return concat([
+        ".",
+        adjustNumbers(adjustStrings(preferRowsValue(node), options))
+      ]);
     }
     case "selector-attribute": {
       const operator = node.operator || "";
@@ -961,6 +963,13 @@ function printCssNumber(rawNumber) {
       // Remove trailing `.0`.
       .replace(/\.0(?=$|e)/, "")
   );
+}
+
+function preferRowsValue(node) {
+  if (node.raws) {
+    return node.raws.value;
+  }
+  return node.value;
 }
 
 module.exports = {
