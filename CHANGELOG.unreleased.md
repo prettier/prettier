@@ -123,25 +123,28 @@ class C extends B {
 }
 ```
 
-#### TypeScript: Prettier removed `?` from optional computed class fields ([#6657] by [@cryrivers])
+#### TypeScript: Fix optional computed class fields and methods ([#6657] by [@cryrivers], [#6673] by [@thorn0])
 
-Still happens if the field key is a complex expression, but has been fixed in this case:
+Still broken if the key is a complex expression, but has been fixed in these cases:
 
 <!-- prettier-ignore -->
 ```ts
 // Input
 class Foo {
   [bar]?: number;
+  protected [s]?() {}
 }
 
 // Output (Prettier stable)
 class Foo {
   [bar]: number;
+  protected [s?]() {};
 }
 
 // Output (Prettier master)
 class Foo {
   [bar]?: number;
+  protected [s]?() {}
 }
 ```
 
@@ -1094,26 +1097,6 @@ class A {
   #func(id, { blog: { title } }) {
     return id + title;
   }
-}
-```
-
-#### TypeScript: Fix optional computed methods ([#6673] by [@thorn0])
-
-<!-- prettier-ignore -->
-```ts
-// Input
-class A {
-  protected [s]?() {}
-}
-
-// Output (Prettier stable)
-class A {
-  protected [s?]() {}
-}
-
-// Output (Prettier master)
-class A {
-  protected [s]?() {}
 }
 ```
 
