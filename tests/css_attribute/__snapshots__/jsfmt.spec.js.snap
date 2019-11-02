@@ -184,13 +184,13 @@ a[id="test"] {
 }
 a[id="test"] {
 }
-a[id="'test\\\\""] {
+a[id="'test\\""] {
 }
-a[id="'test\\\\""] {
+a[id="'test\\""] {
 }
-a[id="\\'test\\\\\\""] {
+a[id="\\\\'test\\\\\\""] {
 }
-a[id="\\'test\\\\\\""] {
+a[id="\\\\'test\\\\\\""] {
 }
 a[class="(╯°□°）╯︵ ┻━┻"] {
 }
@@ -230,13 +230,13 @@ a[id='test'] {
 }
 a[id='test'] {
 }
-a[id='\\\\'test"'] {
+a[id='\\'test"'] {
 }
-a[id='\\\\'test"'] {
+a[id='\\'test"'] {
 }
-a[id='\\\\\\'test\\"'] {
+a[id='\\\\\\'test\\\\"'] {
 }
-a[id='\\\\\\'test\\"'] {
+a[id='\\\\\\'test\\\\"'] {
 }
 a[class='(╯°□°）╯︵ ┻━┻'] {
 }

@@ -922,7 +922,8 @@ function quoteAttributeValue(node, options) {
   const value = preferRowsValue(node)
     .replace(/^('|")(.*?)\1$/, "$2")
     .replace(/\\([\\'"])/g, "$1")
-    .replace(new RegExp("\\" + quote, "g"), "\\\\" + quote);
+    .replace(/\\/g, "\\\\")
+    .replace(new RegExp(quote, "g"), "\\" + quote);
   return quote + value + quote;
 }
 
