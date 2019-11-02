@@ -170,7 +170,7 @@ a[id="test"] {}
 a[id='test'] {}
 a[id="test'"] {}
 [id="double-quote-in-double-quote\\""] {}
-[id='double"quote-in-single-quote"'] {}
+[id='double-quote-in-single-quote"'] {}
 [id="single-quote-in-double-quote'"] {}
 [id='single-quote-in-single-quote\\''] {}
 [id="slash-and-double-quote-in-double-quote\\\\\\""] {}
@@ -195,7 +195,7 @@ a[id="test'"] {
 }
 [id="double-quote-in-double-quote\\""] {
 }
-[id='double"quote-in-single-quote"'] {
+[id="double-quote-in-single-quote\\""] {
 }
 [id="single-quote-in-double-quote'"] {
 }
@@ -237,7 +237,7 @@ a[id="test"] {}
 a[id='test'] {}
 a[id="test'"] {}
 [id="double-quote-in-double-quote\\""] {}
-[id='double"quote-in-single-quote"'] {}
+[id='double-quote-in-single-quote"'] {}
 [id="single-quote-in-double-quote'"] {}
 [id='single-quote-in-single-quote\\''] {}
 [id="slash-and-double-quote-in-double-quote\\\\\\""] {}
@@ -262,7 +262,7 @@ a[id='test\\''] {
 }
 [id='double-quote-in-double-quote"'] {
 }
-[id='double"quote-in-single-quote"'] {
+[id='double-quote-in-single-quote"'] {
 }
 [id='single-quote-in-double-quote\\''] {
 }
