@@ -7,7 +7,7 @@
 - image: "/images/editors/editor_emacs.svg"
   name: Emacs
   content: |
-    [`prettier-emacs`](https://github.com/prettier/prettier-emacs)
+    [`prettier-js`](https://github.com/prettier/prettier-emacs)
 - image: /images/editors/editor_espresso.svg
   name: Espresso
   content: |

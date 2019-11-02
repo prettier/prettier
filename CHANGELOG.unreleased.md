@@ -44,6 +44,110 @@ const link = <a href="example.com">http://example.com</a>;
 
 -->
 
+#### TypeScript: Support for TypeScript 3.7 ([#6657] by [@cryrivers])
+
+Prettier 1.19 adds support for the features of the upcoming TypeScript 3.7 that introduce new syntax:
+
+- [Optional chaining](https://devblogs.microsoft.com/typescript/announcing-typescript-3-7-rc/#optional-chaining)
+- [Nullish coalescing](https://devblogs.microsoft.com/typescript/announcing-typescript-3-7-rc/#nullish-coalescing)
+- [Assertion functions](https://devblogs.microsoft.com/typescript/announcing-typescript-3-7-rc/#assertion-functions)
+- [`declare` modifier on class fields](https://github.com/microsoft/TypeScript/pull/33509)
+
+**NOTE:** A dependency upgrade for TypeScript 3.7 led to dropping Node 6 support for direct installation from GitHub. Prettier installed from NPM stays compatible with Node 4.
+
+##### Optional Chaining
+
+<!-- prettier-ignore -->
+```ts
+// Input
+const longChain = obj?.a?.b?.c?.d?.e?.f?.g;
+const longChainCallExpression = obj.a?.(a,b,c).b?.(a,b,c).c?.(a,b,c).d?.(a,b,c).e?.(a,b,c).f?.(a,b,c)
+
+// Output (Prettier master)
+const longChain = obj?.a?.b?.c?.d?.e?.f?.g;
+const longChainCallExpression = obj
+  .a?.(a, b, c)
+  .b?.(a, b, c)
+  .c?.(a, b, c)
+  .d?.(a, b, c)
+  .e?.(a, b, c)
+  .f?.(a, b, c);
+```
+
+##### Nullish Coalescing
+
+<!-- prettier-ignore -->
+```ts
+// Input
+const cond = null;
+const result = cond??'a';
+const longChain = cond??cond??cond??'b';
+
+// Output (Prettier master)
+const cond = null;
+const result = cond ?? "a";
+const longChain = cond ?? cond ?? cond ?? "b";
+```
+
+##### Assertion Functions
+
+<!-- prettier-ignore -->
+```ts
+// Input
+function assertsString(x: any): asserts x {console.assert(typeof x === 'string');}
+function assertsStringWithGuard(x: any): asserts x is string {console.assert(typeof x === 'string');}
+
+// Output (Prettier master)
+function assertsString(x: any): asserts x {
+  console.assert(typeof x === "string");
+}
+function assertsStringWithGuard(x: any): asserts x is string {
+  console.assert(typeof x === "string");
+}
+```
+
+##### `declare` Modifier on Class Fields
+
+<!-- prettier-ignore -->
+```ts
+// Input
+class B {p: number;}
+class C extends B {declare p: 256 | 1000;}
+
+// Output (Prettier master)
+class B {
+  p: number;
+}
+class C extends B {
+  declare p: 256 | 1000;
+}
+```
+
+#### TypeScript: Fix optional computed class fields and methods ([#6657] by [@cryrivers], [#6673] by [@thorn0])
+
+Still broken if the key is a complex expression, but has been fixed in these cases:
+
+<!-- prettier-ignore -->
+```ts
+// Input
+class Foo {
+  [bar]?: number;
+  protected [s]?() {}
+}
+
+// Output (Prettier stable)
+class Foo {
+  [bar]: number;
+  protected [s?]() {};
+}
+
+// Output (Prettier master)
+class Foo {
+  [bar]?: number;
+  protected [s]?() {}
+}
+```
+
 #### API: Add `resolveConfig` option to `getFileInfo()` ([#6666] by [@kaicataldo])
 
 Add a `resolveConfig: boolean` option to `prettier.getFileInfo()` that, when set to `true`, will resolve the configuration for the given file path. This allows consumers to take any overridden parsers into account.
@@ -52,6 +156,7 @@ Add a `resolveConfig: boolean` option to `prettier.getFileInfo()` that, when set
 
 <!-- prettier-ignore -->
 ```js
+// Input
 const addOne = add(1, ?); // apply from the left
 addOne(2); // 3
 
@@ -995,26 +1100,6 @@ class A {
 }
 ```
 
-#### TypeScript: Fix optional computed methods ([#6673] by [@thorn0])
-
-<!-- prettier-ignore -->
-```ts
-// Input
-class A {
-  protected [s]?() {}
-}
-
-// Output (Prettier stable)
-class A {
-  protected [s?]() {}
-}
-
-// Output (Prettier master)
-class A {
-  protected [s]?() {}
-}
-```
-
 #### Angular: Put a closing parenthesis onto a new line after ternaries passed to pipes ([#5682] by [@selvazhagan])
 
 <!-- prettier-ignore -->
@@ -1082,7 +1167,133 @@ sometimes{{nogaps}}areimportant
 {{name}} is your name
 ```
 
+#### Angular: Add formatting for `i18n` attributes ([#6695] by [@voithos])
+
+Prettier will auto-wrap the contents of `i18n` attributes once they exceed the line length.
+
+<!-- prettier-ignore -->
+```html
+<!-- Input -->
+<h1 i18n="This is a very long internationalization description text, exceeding the configured print width">
+  Hello!
+</h1>
+
+<!-- Output (Prettier stable) -->
+<h1
+  i18n="This is a very long internationalization description text, exceeding the configured print width"
+>
+  Hello!
+</h1>
+
+<!-- Output (Prettier master) -->
+<h1
+  i18n="
+    This is a very long internationalization description text, exceeding the
+    configured print width
+  "
+>
+  Hello!
+</h1>
+```
+
+#### JavaScript: Break arrays of arrays/objects if each element has more than one element/property ([#6694] by [@sosukesuzuki])
+
+<!-- prettier-ignore -->
+```js
+// Input
+test.each([
+  { a: "1", b: 1 },
+  { a: "2", b: 2 },
+  { a: "3", b: 3 }
+])("test", ({ a, b }) => {
+  expect(Number(a)).toBe(b);
+});
+[[0, 1, 2], [0, 1, 2]];
+new Map([
+  [A, B],
+  [C, D],
+  [E, F],
+  [G, H],
+  [I, J],
+  [K, L],
+  [M, N]
+]);
+
+// Output (Prettier stable)
+test.each([{ a: "1", b: 1 }, { a: "2", b: 2 }, { a: "3", b: 3 }])(
+  "test",
+  ({ a, b }) => {
+    expect(Number(a)).toBe(b);
+  }
+);
+[[0, 1, 2], [0, 1, 2]]
+new Map([[A, B], [C, D], [E, F], [G, H], [I, J], [K, L], [M, N]]);
+
+// Output (Prettier master)
+test.each([
+  { a: "1", b: 1 },
+  { a: "2", b: 2 },
+  { a: "3", b: 3 }
+])("test", ({ a, b }) => {
+  expect(Number(a)).toBe(b);
+});
+[
+  [0, 1, 2],
+  [0, 1, 2]
+];
+new Map([
+  [A, B],
+  [C, D],
+  [E, F],
+  [G, H],
+  [I, J],
+  [K, L],
+  [M, N]
+]);
+```
+
+#### TypeScript: Keep semi for a class property before index signature when no-semi is enabled ([#6728] by [@sosukesuzuki])
+
+Attempting to format Prettier’s output again used to result in a syntax error.
+
+<!-- prettier-ignore -->
+```ts
+// Input
+export class User {
+  id: number = 2;
+  [key: string]: any
+}
+
+// Output (Prettier stable)
+export class User {
+  id: number = 2
+  [key: string]: any
+}
+
+// Output (Prettier master)
+export class User {
+  id: number = 2;
+  [key: string]: any
+}
+```
+
+#### Flow: Parentheses around arrow functions' return types that have `FunctionTypeAnnotation` nested in `ObjectTypeAnnotation` ([#6717] by [@sosukesuzuki])
+
+This is a workaround for a [bug](https://github.com/facebook/flow/pull/8163) in the Flow parser. Without the parentheses, the parser throws an error.
+
+```js
+// Input
+const example1 = (): { p: (string => string) } => (0: any);
+
+// Output (Prettier stable)
+const example1 = (): { p: string => string } => (0: any);
+
+// Output (Prettier master)
+const example1 = (): ({ p: string => string }) => (0: any);
+```
+
 [#5682]: https://github.com/prettier/prettier/pull/5682
+[#6657]: https://github.com/prettier/prettier/pull/6657
 [#5910]: https://github.com/prettier/prettier/pull/5910
 [#6033]: https://github.com/prettier/prettier/pull/6033
 [#6186]: https://github.com/prettier/prettier/pull/6186
@@ -1121,6 +1332,10 @@ sometimes{{nogaps}}areimportant
 [#6646]: https://github.com/prettier/prettier/pull/6646
 [#6666]: https://github.com/prettier/prettier/pull/6666
 [#6673]: https://github.com/prettier/prettier/pull/6673
+[#6695]: https://github.com/prettier/prettier/pull/6695
+[#6694]: https://github.com/prettier/prettier/pull/6694
+[#6717]: https://github.com/prettier/prettier/pull/6717
+[#6728]: https://github.com/prettier/prettier/pull/6728
 [@brainkim]: https://github.com/brainkim
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
@@ -1137,3 +1352,5 @@ sometimes{{nogaps}}areimportant
 [@selvazhagan]: https://github.com/selvazhagan
 [@chadian]: https://github.com/chadian
 [@kaicataldo]: https://github.com/kaicataldo
+[@cryrivers]: https://github.com/Cryrivers
+[@voithos]: https://github.com/voithos

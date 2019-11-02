@@ -7,7 +7,8 @@ const comments = require("./comments");
 const {
   getLeftSidePathName,
   hasFlowShorthandAnnotationComment,
-  hasNakedLeftSide
+  hasNakedLeftSide,
+  hasNode
 } = require("./utils");
 
 function hasClosureCompilerTypeCastComment(text, path) {
@@ -254,14 +255,16 @@ function needsParens(path, options) {
           return true;
 
         case "MemberExpression":
-          return name === "object" && parent.object === node;
+        case "OptionalMemberExpression":
+          return name === "object";
 
         case "TaggedTemplateExpression":
           return true;
 
         case "NewExpression":
         case "CallExpression":
-          return name === "callee" && parent.callee === node;
+        case "OptionalCallExpression":
+          return name === "callee";
 
         case "BinaryExpression":
           return parent.operator === "**" && name === "left";
@@ -306,7 +309,8 @@ function needsParens(path, options) {
 
         case "CallExpression":
         case "NewExpression":
-          return name === "callee" && parent.callee === node;
+        case "OptionalCallExpression":
+          return name === "callee";
 
         case "ClassExpression":
         case "ClassDeclaration":
@@ -327,7 +331,7 @@ function needsParens(path, options) {
 
         case "MemberExpression":
         case "OptionalMemberExpression":
-          return name === "object" && parent.object === node;
+          return name === "object";
 
         case "AssignmentExpression":
           return (
@@ -427,15 +431,16 @@ function needsParens(path, options) {
         case "TSAsExpression":
         case "TSNonNullExpression":
         case "BindExpression":
-        case "OptionalMemberExpression":
           return true;
 
         case "MemberExpression":
-          return parent.object === node;
+        case "OptionalMemberExpression":
+          return name === "object";
 
         case "NewExpression":
         case "CallExpression":
-          return parent.callee === node;
+        case "OptionalCallExpression":
+          return name === "callee";
 
         case "ConditionalExpression":
           return parent.test === node;
@@ -591,18 +596,19 @@ function needsParens(path, options) {
         case "TypeCastExpression":
         case "TSAsExpression":
         case "TSNonNullExpression":
-        case "OptionalMemberExpression":
           return true;
 
         case "NewExpression":
         case "CallExpression":
-          return name === "callee" && parent.callee === node;
+        case "OptionalCallExpression":
+          return name === "callee";
 
         case "ConditionalExpression":
           return name === "test" && parent.test === node;
 
         case "MemberExpression":
-          return name === "object" && parent.object === node;
+        case "OptionalMemberExpression":
+          return name === "object";
 
         default:
           return false;
@@ -612,7 +618,10 @@ function needsParens(path, options) {
       switch (parent.type) {
         case "NewExpression":
         case "CallExpression":
-          return name === "callee"; // Not strictly necessary, but it's clearer to the reader if IIFEs are wrapped in parentheses.
+        case "OptionalCallExpression":
+          // Not always necessary, but it's clearer to the reader if IIFEs are wrapped in parentheses.
+          // Is necessary if it is `expression` of `ExpressionStatement`.
+          return name === "callee";
         case "TaggedTemplateExpression":
           return true; // This is basically a kind of IIFE.
         default:
@@ -621,13 +630,13 @@ function needsParens(path, options) {
 
     case "ArrowFunctionExpression":
       switch (parent.type) {
-        case "CallExpression":
-          return name === "callee";
-
         case "NewExpression":
+        case "CallExpression":
+        case "OptionalCallExpression":
           return name === "callee";
 
         case "MemberExpression":
+        case "OptionalMemberExpression":
           return name === "object";
 
         case "TSAsExpression":
@@ -656,23 +665,32 @@ function needsParens(path, options) {
       }
 
     case "OptionalMemberExpression":
-      return parent.type === "MemberExpression";
-
+    case "OptionalCallExpression":
+      if (
+        ((parent.type === "MemberExpression" && name === "object") ||
+          (parent.type === "CallExpression" && name === "callee")) &&
+        // workaround for https://github.com/facebook/flow/issues/8159
+        !(options.parser === "flow" && parent.range[0] === node.range[0])
+      ) {
+        return true;
+      }
+    // fallthrough
     case "CallExpression":
     case "MemberExpression":
     case "TaggedTemplateExpression":
     case "TSNonNullExpression":
       if (
         (parent.type === "BindExpression" || parent.type === "NewExpression") &&
-        name === "callee" &&
-        parent.callee === node
+        name === "callee"
       ) {
         let object = node;
         while (object) {
           switch (object.type) {
             case "CallExpression":
+            case "OptionalCallExpression":
               return true;
             case "MemberExpression":
+            case "OptionalMemberExpression":
             case "BindExpression":
               object = object.object;
               break;
@@ -692,20 +710,14 @@ function needsParens(path, options) {
       return false;
 
     case "BindExpression":
-      if (
-        (parent.type === "BindExpression" &&
-          name === "callee" &&
-          parent.callee === node) ||
-        (parent.type === "MemberExpression" &&
-          name === "object" &&
-          parent.object === node) ||
-        (parent.type === "NewExpression" &&
-          name === "callee" &&
-          parent.callee === node)
-      ) {
-        return true;
-      }
-      return false;
+      return (
+        ((parent.type === "BindExpression" ||
+          parent.type === "NewExpression") &&
+          name === "callee") ||
+        ((parent.type === "MemberExpression" ||
+          parent.type === "OptionalMemberExpression") &&
+          name === "object")
+      );
     case "NGPipeExpression":
       if (
         parent.type === "NGRoot" ||
@@ -725,25 +737,33 @@ function needsParens(path, options) {
     case "JSXFragment":
     case "JSXElement":
       return (
-        parent.type !== "ArrayExpression" &&
-        parent.type !== "ArrowFunctionExpression" &&
-        parent.type !== "AssignmentExpression" &&
-        parent.type !== "AssignmentPattern" &&
-        parent.type !== "BinaryExpression" &&
-        parent.type !== "CallExpression" &&
-        parent.type !== "ConditionalExpression" &&
-        parent.type !== "ExpressionStatement" &&
-        parent.type !== "JsExpressionRoot" &&
-        parent.type !== "JSXAttribute" &&
-        parent.type !== "JSXElement" &&
-        parent.type !== "JSXExpressionContainer" &&
-        parent.type !== "JSXFragment" &&
-        parent.type !== "LogicalExpression" &&
-        parent.type !== "ObjectProperty" &&
-        parent.type !== "Property" &&
-        parent.type !== "ReturnStatement" &&
-        parent.type !== "TypeCastExpression" &&
-        parent.type !== "VariableDeclarator"
+        name === "callee" ||
+        (parent.type !== "ArrayExpression" &&
+          parent.type !== "ArrowFunctionExpression" &&
+          parent.type !== "AssignmentExpression" &&
+          parent.type !== "AssignmentPattern" &&
+          parent.type !== "BinaryExpression" &&
+          parent.type !== "CallExpression" &&
+          parent.type !== "ConditionalExpression" &&
+          parent.type !== "ExpressionStatement" &&
+          parent.type !== "JsExpressionRoot" &&
+          parent.type !== "JSXAttribute" &&
+          parent.type !== "JSXElement" &&
+          parent.type !== "JSXExpressionContainer" &&
+          parent.type !== "JSXFragment" &&
+          parent.type !== "LogicalExpression" &&
+          parent.type !== "ObjectProperty" &&
+          parent.type !== "OptionalCallExpression" &&
+          parent.type !== "Property" &&
+          parent.type !== "ReturnStatement" &&
+          parent.type !== "TypeCastExpression" &&
+          parent.type !== "VariableDeclarator")
+      );
+    case "TypeAnnotation":
+      return (
+        name === "returnType" &&
+        parent.type === "ArrowFunctionExpression" &&
+        includesFunctionTypeInObjectType(node)
       );
   }
 
@@ -798,6 +818,16 @@ function isStatement(node) {
     node.type === "VariableDeclaration" ||
     node.type === "WhileStatement" ||
     node.type === "WithStatement"
+  );
+}
+
+function includesFunctionTypeInObjectType(node) {
+  return hasNode(
+    node,
+    n1 =>
+      (n1.type === "ObjectTypeAnnotation" &&
+        hasNode(n1, n2 => n2.type === "FunctionTypeAnnotation" || undefined)) ||
+      undefined
   );
 }
 
