@@ -119,7 +119,6 @@ function clean(ast, newObj, parent) {
 
     if (typeof ast.value === "string") {
       newObj.value = ast.value
-        // .trim()
         .replace(/^['"]|['"]$/g, "")
         .replace(/\\(['"])/g, "$1");
       delete newObj.quoted;
