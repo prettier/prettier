@@ -211,6 +211,9 @@ function parseSelector(selector) {
     };
   }
 
+  //  `postcss-selector-parser@6.0.0` throws parsing `foo | bar`
+  selector = selector.replace(/\s*\|/, "|");
+
   const selectorParser = require("postcss-selector-parser");
 
   let result = null;
