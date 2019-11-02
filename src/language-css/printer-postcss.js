@@ -358,7 +358,7 @@ function genericPrint(path, options, print) {
     }
     case "selector-attribute": {
       const operator = node.operator || "";
-      const value = quoteAttributeValue(node, options);
+      const value = operator ? quoteAttributeValue(node, options) : "";
       const insensitiveFlag = node.insensitive
         ? "i"
         : node.raws.insensitiveFlag;
