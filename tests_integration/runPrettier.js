@@ -3,7 +3,7 @@
 const fs = require("fs");
 const path = require("path");
 const stripAnsi = require("strip-ansi");
-const { SynchronousPromise } = require("synchronous-promise");
+const SynchronousPromise = require("synchronous-promise").SynchronousPromise;
 
 const isProduction = process.env.NODE_ENV === "production";
 const prettierRootDir = isProduction ? process.env.PRETTIER_DIR : "../";
