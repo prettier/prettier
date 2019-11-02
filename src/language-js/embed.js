@@ -16,6 +16,19 @@ const {
   utils: { mapDoc, stripTrailingHardline }
 } = require("../doc");
 
+const TEMPLATE_LITERAL_PLACEHOLDER_START = "pprreettttiieerr";
+const TEMPLATE_LITERAL_PLACEHOLDER_END = "rreeiitttteerrpp";
+
+const getTemplateLiteralPlaceholder = index => {
+  return (
+    TEMPLATE_LITERAL_PLACEHOLDER_START +
+    index +
+    TEMPLATE_LITERAL_PLACEHOLDER_END
+  );
+};
+
+const TEMPLATE_LITERAL_PLACEHOLDER_REGEXP = /pprreettttiieerr(\d+)rreeiitttteerrpp/;
+
 function embed(path, print, textToDoc, options) {
   const node = path.getValue();
   const parent = path.getParentNode();
@@ -38,9 +51,7 @@ function embed(path, print, textToDoc, options) {
           return idx == 0
             ? currVal
             : prevVal +
-                "@prettier-placeholder-" +
-                placeholderID++ +
-                "-id" +
+                getTemplateLiteralPlaceholder(placeholderID++) +
                 currVal;
         }, "");
         const doc = textToDoc(text, { parser: "css" });
@@ -268,42 +279,26 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
       return doc;
     }
     let parts = doc.parts;
-    const atIndex = parts.indexOf("@");
-    const placeholderIndex = atIndex + 1;
-    if (
-      atIndex > -1 &&
-      typeof parts[placeholderIndex] === "string" &&
-      parts[placeholderIndex].startsWith("prettier-placeholder")
-    ) {
-      // If placeholder is split, join it
-      const at = parts[atIndex];
-      const placeholder = parts[placeholderIndex];
-      const rest = parts.slice(placeholderIndex + 1);
-      parts = parts
-        .slice(0, atIndex)
-        .concat([at + placeholder])
-        .concat(rest);
-    }
     const atPlaceholderIndex = parts.findIndex(
       part =>
-        typeof part === "string" && part.startsWith("@prettier-placeholder")
+        typeof part === "string" &&
+        TEMPLATE_LITERAL_PLACEHOLDER_REGEXP.test(part)
     );
     if (atPlaceholderIndex > -1) {
       const placeholder = parts[atPlaceholderIndex];
       const rest = parts.slice(atPlaceholderIndex + 1);
       const placeholderMatch = placeholder.match(
-        /@prettier-placeholder-(.+)-id([\s\S]*)/
+        /([\s\S]*)pprreettttiieerr(\d+)rreeiitttteerrpp([\s\S]*)/
       );
-      const placeholderID = placeholderMatch[1];
-      // When the expression has a suffix appended, like:
-      // animation: linear ${time}s ease-out;
-      const suffix = placeholderMatch[2];
+      const prefix = placeholderMatch[1];
+      const placeholderID = placeholderMatch[2];
+      const suffix = placeholderMatch[3];
       const expression = expressions[placeholderID];
 
       replaceCounter++;
       parts = parts
         .slice(0, atPlaceholderIndex)
-        .concat(["${", expression, "}" + suffix])
+        .concat([prefix + "${", expression, "}" + suffix])
         .concat(rest);
     }
     return Object.assign({}, doc, {
