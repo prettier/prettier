@@ -965,10 +965,7 @@ function printCssNumber(rawNumber) {
 }
 
 function preferRowsValue(node) {
-  if (node.raws) {
-    return node.raws.value;
-  }
-  return node.value;
+  return (node.raws && node.raws.value) || node.value;
 }
 
 module.exports = {
