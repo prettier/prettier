@@ -1319,7 +1319,17 @@ $ prettier --parser babel < test.js
 
 #### CLI: Gracefully handle nonexistent paths passed to --stdin-filepath ([#6687] by [@voithos])
 
-Previously, if you passed a nonexistent subdirectory to --stdin-filepath, prettier would throw an error. Now, it will gracefully handle this, using the path name as information for its configuration.
+Previously, if you passed a nonexistent subdirectory to --stdin-filepath, Prettier would throw an error. Now, Prettier gracefully handles this.
+
+```
+# Prettier stable
+$ prettier --stdin-filepath does/not/exist.js < test.js
+[error] Invalid configuration file: ENOENT: no such file or directory, scandir '/home/lydell/forks/prettier/does/not'
+
+# Prettier master
+$ prettier --stdin-filepath does/not/exist.js < test.js
+test;
+```
 
 [#5682]: https://github.com/prettier/prettier/pull/5682
 [#6657]: https://github.com/prettier/prettier/pull/6657
