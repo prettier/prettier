@@ -269,14 +269,18 @@ function isNextLineEmpty(text, node, locEnd) {
  */
 function getNextNonSpaceNonCommentCharacterIndexWithStartIndex(text, idx) {
   let oldIdx = null;
-  while (idx !== oldIdx) {
-    oldIdx = idx;
-    idx = skipSpaces(text, idx);
-    idx = skipInlineComment(text, idx);
-    idx = skipTrailingComment(text, idx);
-    idx = skipNewline(text, idx);
+  /**
+   * @type {number | false}
+   */
+  let nextIdx = idx;
+  while (nextIdx !== oldIdx) {
+    oldIdx = nextIdx;
+    nextIdx = skipSpaces(text, nextIdx);
+    nextIdx = skipInlineComment(text, nextIdx);
+    nextIdx = skipTrailingComment(text, nextIdx);
+    nextIdx = skipNewline(text, nextIdx);
   }
-  return idx;
+  return nextIdx;
 }
 
 /**
