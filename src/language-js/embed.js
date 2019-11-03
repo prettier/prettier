@@ -47,13 +47,21 @@ function embed(path, print, textToDoc, options) {
         // Get full template literal with expressions replaced by placeholders
         const rawQuasis = node.quasis.map(q => q.value.raw);
         let placeholderID = 0;
-        const text = rawQuasis.reduce((prevVal, currVal, idx) => {
+        let text = rawQuasis.reduce((prevVal, currVal, idx) => {
           return idx == 0
             ? currVal
             : prevVal +
                 getTemplateLiteralPlaceholder(placeholderID++) +
                 currVal;
         }, "");
+        // postcss can't handle `pprreettttiieerr0rreeiitttteerrpp;`
+        text = text.replace(
+          /(\n[\s]*)(pprreettttiieerr\d+rreeiitttteerrpp)([\n\s]*;)/g,
+          (_, before, idx, after) => {
+            return before + "pprreettttiieerrrreeiitttteerrpp: " + idx + after;
+          }
+        );
+
         const doc = textToDoc(text, { parser: "css" });
         return transformCssDoc(doc, path, print);
       }
