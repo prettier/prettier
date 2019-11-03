@@ -54,7 +54,18 @@ function embed(path, print, textToDoc, options) {
                 getTemplateLiteralPlaceholder(placeholderID++) +
                 currVal;
         }, "");
-        // postcss can't handle `pprreettttiieerr0rreeiitttteerrpp;`
+        // postcss can't handle the following css
+        // ```css
+        // div {
+        //   pprreettttiieerr0rreeiitttteerrpp;
+        // }
+        // ```
+        // so we fake it into
+        // div {
+        //   pprreettttiieerrrreeiitttteerrpp: pprreettttiieerr0rreeiitttteerrpp;
+        // }
+        // ```
+        // and will restore back after parse
         text = text.replace(
           /(\n[\s]*)(pprreettttiieerr\d+rreeiitttteerrpp)([\n\s]*;)/g,
           (_, before, idx, after) => {
@@ -308,17 +319,16 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
         .slice(0, atPlaceholderIndex)
         .concat([prefix + "${", expression, "}" + suffix])
         .concat(rest);
+      parts = parts.forEach((part, index) => {
+        if (
+          part == "pprreettttiieerrrreeiitttteerrpp" &&
+          parts[index + 1] === ":"
+        ) {
+          parts[index + 1] = "";
+          parts[index] = "";
+        }
+      });
     }
-    parts = parts.map((part, index) => {
-      if (
-        part == "pprreettttiieerrrreeiitttteerrpp" &&
-        parts[index + 1] === ":"
-      ) {
-        parts[index + 1] = "";
-        return "";
-      }
-      return part;
-    });
     return Object.assign({}, doc, {
       parts: parts
     });
