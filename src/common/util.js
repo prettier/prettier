@@ -211,9 +211,10 @@ function hasNewlineInRange(text, start, end) {
 
 // Note: this function doesn't ignore leading comments unlike isNextLineEmpty
 /**
+ * @template N
  * @param {string} text
- * @param {object} node
- * @param {(node: object) => number} locStart
+ * @param {N} node
+ * @param {(node: N) => number} locStart
  */
 function isPreviousLineEmpty(text, node, locStart) {
   /**
@@ -251,9 +252,10 @@ function isNextLineEmptyAfterIndex(text, index) {
 }
 
 /**
+ * @template N
  * @param {string} text
- * @param {object} node
- * @param {(node: object) => number} locEnd
+ * @param {N} node
+ * @param {(node: N) => number} locEnd
  * @returns {boolean}
  */
 function isNextLineEmpty(text, node, locEnd) {
@@ -278,9 +280,10 @@ function getNextNonSpaceNonCommentCharacterIndexWithStartIndex(text, idx) {
 }
 
 /**
+ * @template N
  * @param {string} text
- * @param {object} node
- * @param {(node: object) => number} locEnd
+ * @param {N} node
+ * @param {(node: N) => number} locEnd
  * @returns {number}
  */
 function getNextNonSpaceNonCommentCharacterIndex(text, node, locEnd) {
@@ -291,9 +294,10 @@ function getNextNonSpaceNonCommentCharacterIndex(text, node, locEnd) {
 }
 
 /**
+ * @template N
  * @param {string} text
- * @param {object} node
- * @param {(node: object) => number} locEnd
+ * @param {N} node
+ * @param {(node: N) => number} locEnd
  * @returns {string}
  */
 function getNextNonSpaceNonCommentCharacter(text, node, locEnd) {
