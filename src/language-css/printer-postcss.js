@@ -149,9 +149,10 @@ function genericPrint(path, options, print) {
     case "css-decl": {
       const parentNode = path.getParentNode();
 
-      if (node.value === "pprreettttiieerrrreeiitttteerrpp") {
-        return concat(path.call(print, "value"), ";");
-      }
+      // ?????
+      // if (node.prop === "pprreettttiieerrrreeiitttteerrpp") {
+      //   return path.call(print, "value");
+      // }
 
       return concat([
         node.raws.before.replace(/[\s;]/g, ""),

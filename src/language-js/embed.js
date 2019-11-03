@@ -309,6 +309,16 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
         .concat([prefix + "${", expression, "}" + suffix])
         .concat(rest);
     }
+    parts = parts.map((part, index) => {
+      if (
+        part == "pprreettttiieerrrreeiitttteerrpp" &&
+        parts[index + 1] === ":"
+      ) {
+        parts[index + 1] = "";
+        return "";
+      }
+      return part;
+    });
     return Object.assign({}, doc, {
       parts: parts
     });
