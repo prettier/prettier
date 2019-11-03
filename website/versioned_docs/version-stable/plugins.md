@@ -231,27 +231,27 @@ A `util` module from Prettier core is considered a private API and is not meant 
 ```ts
 type Quote = "\"" | "'";
 type SkipOptions = { backwards?: boolean };
-getMaxContinuousCount(str: string, target: string): number;
-getStringWidth(text: string): number;
-getAlignmentSize(value: string, tabWidth: number, startIndex?: number): number;
-getIndentSize(value: string, tabWidth: number): number;
-skip(chars: string | RegExp): (text: string, index: number | false, opts?: SkipOptions) => number | false;
-skipWhitespace(text: string, index: number | false, opts?: SkipOptions): number | false;
-skipSpaces(text: string, index: number | false, opts?: SkipOptions): number | false;
-skipToLineEnd(text: string, index: number | false, opts?: SkipOptions): number | false;
-skipEverythingButNewLine(text: string, index: number | false, opts?: SkipOptions): number | false;
-skipInlineComment(text: string, index: number | false): number | false;
-skipTrailingComment(text: string, index: number | false): number | false;
-skipNewline(text: string, index: number | false, opts?: SkipOptions): number | false;
-hasNewline(text: string, index: number, opts?: SkipOptions): boolean;
-hasNewlineInRange(text: string, start: number, end: number): boolean;
-hasSpaces(text: string, index: number, opts?: SkipOptions): boolean;
-makeString(rawContent: string, enclosingQuote: Quote, unescapeUnnecessaryEscapes?: boolean): string;
-getNextNonSpaceNonCommentCharacterIndex<N>(text: string, node: N, locEnd: (node: N) => number): number | false;
-isNextLineEmptyAfterIndex(text: string, index: number): boolean;
-isNextLineEmpty<N>(text: string, node: N, locEnd: (node: N) => number): boolean;
-isPreviousLineEmpty<N>(text: string, node: N, locStart: (node: N) => number): boolean;
-mapDoc(doc: object, callback: function): void;
+function getMaxContinuousCount(str: string, target: string): number;
+function getStringWidth(text: string): number;
+function getAlignmentSize(value: string, tabWidth: number, startIndex?: number): number;
+function getIndentSize(value: string, tabWidth: number): number;
+function skip(chars: string | RegExp): (text: string, index: number | false, opts?: SkipOptions) => number | false;
+function skipWhitespace(text: string, index: number | false, opts?: SkipOptions): number | false;
+function skipSpaces(text: string, index: number | false, opts?: SkipOptions): number | false;
+function skipToLineEnd(text: string, index: number | false, opts?: SkipOptions): number | false;
+function skipEverythingButNewLine(text: string, index: number | false, opts?: SkipOptions): number | false;
+function skipInlineComment(text: string, index: number | false): number | false;
+function skipTrailingComment(text: string, index: number | false): number | false;
+function skipNewline(text: string, index: number | false, opts?: SkipOptions): number | false;
+function hasNewline(text: string, index: number, opts?: SkipOptions): boolean;
+function hasNewlineInRange(text: string, start: number, end: number): boolean;
+function hasSpaces(text: string, index: number, opts?: SkipOptions): boolean;
+function makeString(rawContent: string, enclosingQuote: Quote, unescapeUnnecessaryEscapes?: boolean): string;
+function getNextNonSpaceNonCommentCharacterIndex<N>(text: string, node: N, locEnd: (node: N) => number): number | false;
+function isNextLineEmptyAfterIndex(text: string, index: number): boolean;
+function isNextLineEmpty<N>(text: string, node: N, locEnd: (node: N) => number): boolean;
+function isPreviousLineEmpty<N>(text: string, node: N, locStart: (node: N) => number): boolean;
+function mapDoc(doc: object, callback: function): void;
 ```
 
 ### Tutorials
