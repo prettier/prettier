@@ -38,6 +38,10 @@ function getPenultimate(arr) {
   return null;
 }
 
+/**
+ * @param {string | RegExp} chars
+ * @returns {(text: string, index: number, opts?: object) => any}
+ */
 function skip(chars) {
   return (text, index, opts) => {
     const backwards = opts && opts.backwards;
@@ -74,11 +78,28 @@ function skip(chars) {
   };
 }
 
+/**
+ * @type {(text: string, index: number, opts?: object) => number}
+ */
 const skipWhitespace = skip(/\s/);
+/**
+ * @type {(text: string, index: number, opts?: object) => number}
+ */
 const skipSpaces = skip(" \t");
+/**
+ * @type {(text: string, index: number, opts?: object) => number}
+ */
 const skipToLineEnd = skip(",; \t");
+/**
+ * @type {(text: string, index: number, opts?: object) => number}
+ */
 const skipEverythingButNewLine = skip(/[^\r\n]/);
 
+/**
+ * @param {string} text
+ * @param {number} index
+ * @returns {number}
+ */
 function skipInlineComment(text, index) {
   if (index === false) {
     return false;
@@ -94,6 +115,11 @@ function skipInlineComment(text, index) {
   return index;
 }
 
+/**
+ * @param {string} text
+ * @param {number} index
+ * @returns {number}
+ */
 function skipTrailingComment(text, index) {
   if (index === false) {
     return false;
@@ -108,6 +134,12 @@ function skipTrailingComment(text, index) {
 // This one doesn't use the above helper function because it wants to
 // test \r\n in order and `skip` doesn't support ordering and we only
 // want to skip one newline. It's simple to implement.
+/**
+ * @param {string} text
+ * @param {number} index
+ * @param {object=} opts
+ * @returns {number}
+ */
 function skipNewline(text, index, opts) {
   const backwards = opts && opts.backwards;
   if (index === false) {
@@ -144,6 +176,12 @@ function skipNewline(text, index, opts) {
   return index;
 }
 
+/**
+ * @param {string} text
+ * @param {number} index
+ * @param {object=} opts
+ * @returns {boolean}
+ */
 function hasNewline(text, index, opts) {
   opts = opts || {};
   const idx = skipSpaces(text, opts.backwards ? index - 1 : index, opts);
@@ -151,6 +189,12 @@ function hasNewline(text, index, opts) {
   return idx !== idx2;
 }
 
+/**
+ * @param {string} text
+ * @param {number} start
+ * @param {number} end
+ * @returns {boolean}
+ */
 function hasNewlineInRange(text, start, end) {
   for (let i = start; i < end; ++i) {
     if (text.charAt(i) === "\n") {
@@ -161,6 +205,11 @@ function hasNewlineInRange(text, start, end) {
 }
 
 // Note: this function doesn't ignore leading comments unlike isNextLineEmpty
+/**
+ * @param {string} text
+ * @param {object} node
+ * @param {(node: object) => number} locStart
+ */
 function isPreviousLineEmpty(text, node, locStart) {
   let idx = locStart(node) - 1;
   idx = skipSpaces(text, idx, { backwards: true });
@@ -170,6 +219,11 @@ function isPreviousLineEmpty(text, node, locStart) {
   return idx !== idx2;
 }
 
+/**
+ * @param {string} text
+ * @param {number} index
+ * @returns {boolean}
+ */
 function isNextLineEmptyAfterIndex(text, index) {
   let oldIdx = null;
   let idx = index;
@@ -185,10 +239,21 @@ function isNextLineEmptyAfterIndex(text, index) {
   return hasNewline(text, idx);
 }
 
+/**
+ * @param {string} text
+ * @param {object} node
+ * @param {(node: object) => number} locEnd
+ * @returns {boolean}
+ */
 function isNextLineEmpty(text, node, locEnd) {
   return isNextLineEmptyAfterIndex(text, locEnd(node));
 }
 
+/**
+ * @param {string} text
+ * @param {number} idx
+ * @returns {number}
+ */
 function getNextNonSpaceNonCommentCharacterIndexWithStartIndex(text, idx) {
   let oldIdx = null;
   while (idx !== oldIdx) {
@@ -201,6 +266,12 @@ function getNextNonSpaceNonCommentCharacterIndexWithStartIndex(text, idx) {
   return idx;
 }
 
+/**
+ * @param {string} text
+ * @param {object} node
+ * @param {(node: object) => number} locEnd
+ * @returns {number}
+ */
 function getNextNonSpaceNonCommentCharacterIndex(text, node, locEnd) {
   return getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
     text,
@@ -208,18 +279,34 @@ function getNextNonSpaceNonCommentCharacterIndex(text, node, locEnd) {
   );
 }
 
+/**
+ * @param {string} text
+ * @param {object} node
+ * @param {(node: object) => number} locEnd
+ * @returns {string}
+ */
 function getNextNonSpaceNonCommentCharacter(text, node, locEnd) {
   return text.charAt(
     getNextNonSpaceNonCommentCharacterIndex(text, node, locEnd)
   );
 }
 
+/**
+ * @param {string} text
+ * @param {number} index
+ * @param {object=} opts
+ * @returns {boolean}
+ */
 function hasSpaces(text, index, opts) {
   opts = opts || {};
   const idx = skipSpaces(text, opts.backwards ? index - 1 : index, opts);
   return idx !== index;
 }
 
+/**
+ * @param {object} node
+ * @param {number} index
+ */
 function setLocStart(node, index) {
   if (node.range) {
     node.range[0] = index;
@@ -228,6 +315,10 @@ function setLocStart(node, index) {
   }
 }
 
+/**
+ * @param {object} node
+ * @param {number} index
+ */
 function setLocEnd(node, index) {
   if (node.range) {
     node.range[1] = index;
@@ -400,6 +491,12 @@ function getLeftMost(node) {
   return node;
 }
 
+/**
+ * @param {string} value
+ * @param {number} tabWidth
+ * @param {number=} startIndex
+ * @returns {number}
+ */
 function getAlignmentSize(value, tabWidth, startIndex) {
   startIndex = startIndex || 0;
 
@@ -419,6 +516,11 @@ function getAlignmentSize(value, tabWidth, startIndex) {
   return size;
 }
 
+/**
+ * @param {string} value
+ * @param {number} tabWidth
+ * @returns {number}
+ */
 function getIndentSize(value, tabWidth) {
   const lastNewlineIndex = value.lastIndexOf("\n");
   if (lastNewlineIndex === -1) {
@@ -432,12 +534,28 @@ function getIndentSize(value, tabWidth) {
   );
 }
 
+/**
+ * @typedef {'"' | "'"} Quote
+ */
+
+/**
+ *
+ * @param {string} raw
+ * @param {Quote} preferredQuote
+ * @returns {Quote}
+ */
 function getPreferredQuote(raw, preferredQuote) {
   // `rawContent` is the string exactly like it appeared in the input source
   // code, without its enclosing quotes.
   const rawContent = raw.slice(1, -1);
 
+  /**
+   * @type {{ quote: '"', regex: RegExp }}
+   */
   const double = { quote: '"', regex: /"/g };
+  /**
+   * @type {{ quote: "'", regex: RegExp }}
+   */
   const single = { quote: "'", regex: /'/g };
 
   const preferred = preferredQuote === "'" ? single : double;
@@ -474,6 +592,9 @@ function printString(raw, options, isDirectiveLiteral) {
   const canChangeDirectiveQuotes =
     !rawContent.includes('"') && !rawContent.includes("'");
 
+  /**
+   * @type {Quote}
+   */
   const enclosingQuote =
     options.parser === "json"
       ? '"'
@@ -508,6 +629,12 @@ function printString(raw, options, isDirectiveLiteral) {
   );
 }
 
+/**
+ * @param {string} rawContent
+ * @param {Quote} enclosingQuote
+ * @param {boolean=} unescapeUnnecessaryEscapes
+ * @returns {string}
+ */
 function makeString(rawContent, enclosingQuote, unescapeUnnecessaryEscapes) {
   const otherQuote = enclosingQuote === '"' ? "'" : '"';
 
@@ -563,6 +690,11 @@ function printNumber(rawNumber) {
   );
 }
 
+/**
+ * @param {string} str
+ * @param {string} target
+ * @returns {number}
+ */
 function getMaxContinuousCount(str, target) {
   const results = str.match(
     new RegExp(`(${escapeStringRegexp(target)})+`, "g")
@@ -607,6 +739,10 @@ function getMinNotPresentContinuousCount(str, target) {
   return max + 1;
 }
 
+/**
+ * @param {string} text
+ * @returns {number}
+ */
 function getStringWidth(text) {
   if (!text) {
     return 0;
