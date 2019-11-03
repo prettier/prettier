@@ -583,12 +583,12 @@ b: foo\${exp};
 =====================================output=====================================
 <style jsx>{\`
   div {
-  display: \${expr};
+    display: \${expr};
     color: \${expr};
-    \${expr};
-    \${expr};
+     \${expr};
+     \${expr};
     background: red;
-  animation: \${expr} 10s ease-out;
+    animation: \${expr} 10s ease-out;
   }
 \`}</style>;
 
