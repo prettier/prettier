@@ -19,6 +19,21 @@ foo ?? (bar ?? baz);
 (foo && baz) ?? baz;
 foo && (baz ?? baz);
 
+call(
+    function() {
+        return 1;
+    },
+    $var ?? $var ?? $var ?? $var ?? $var ?? $var ?? $var ?? $var ?? $var ?? 'test'
+);
+
+
+call(
+    function() {
+        return 1;
+    },
+    $var ?? $var ?? $var ?? $var ?? $var ?? $var ?? $var ?? $var ?? $var ?? $var ?? 'test'
+);
+
 =====================================output=====================================
 obj.foo ?? "default";
 
@@ -32,6 +47,30 @@ foo ?? (bar ?? baz);
 
 (foo && baz) ?? baz;
 foo && (baz ?? baz);
+
+call(
+  function() {
+    return 1;
+  },
+  $var ?? $var ?? $var ?? $var ?? $var ?? $var ?? $var ?? $var ?? $var ?? "test"
+);
+
+call(
+  function() {
+    return 1;
+  },
+  $var ??
+    $var ??
+    $var ??
+    $var ??
+    $var ??
+    $var ??
+    $var ??
+    $var ??
+    $var ??
+    $var ??
+    "test"
+);
 
 ================================================================================
 `;
