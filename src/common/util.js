@@ -319,7 +319,7 @@ function hasSpaces(text, index, opts) {
 }
 
 /**
- * @param {object} node
+ * @param {{range?: [number, number], start?: number}} node
  * @param {number} index
  */
 function setLocStart(node, index) {
@@ -331,7 +331,7 @@ function setLocStart(node, index) {
 }
 
 /**
- * @param {object} node
+ * @param {{range?: [number, number], end?: number}} node
  * @param {number} index
  */
 function setLocEnd(node, index) {
