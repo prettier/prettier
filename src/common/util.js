@@ -265,7 +265,7 @@ function isNextLineEmpty(text, node, locEnd) {
 /**
  * @param {string} text
  * @param {number} idx
- * @returns {number}
+ * @returns {number | false}
  */
 function getNextNonSpaceNonCommentCharacterIndexWithStartIndex(text, idx) {
   let oldIdx = null;
@@ -288,7 +288,7 @@ function getNextNonSpaceNonCommentCharacterIndexWithStartIndex(text, idx) {
  * @param {string} text
  * @param {N} node
  * @param {(node: N) => number} locEnd
- * @returns {number}
+ * @returns {number | false}
  */
 function getNextNonSpaceNonCommentCharacterIndex(text, node, locEnd) {
   return getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
@@ -306,6 +306,7 @@ function getNextNonSpaceNonCommentCharacterIndex(text, node, locEnd) {
  */
 function getNextNonSpaceNonCommentCharacter(text, node, locEnd) {
   return text.charAt(
+    // @ts-ignore => TBD: can return false, should we define a fallback?
     getNextNonSpaceNonCommentCharacterIndex(text, node, locEnd)
   );
 }
