@@ -40,7 +40,7 @@ function getPenultimate(arr) {
 
 /**
  * @param {string | RegExp} chars
- * @returns {(text: string, index: number, opts?: object) => any}
+ * @returns {(text: string, index: number | false, opts?: object) => number | false}
  */
 function skip(chars) {
   return (text, index, opts) => {
@@ -79,26 +79,26 @@ function skip(chars) {
 }
 
 /**
- * @type {(text: string, index: number, opts?: object) => number}
+ * @type {(text: string, index: number | false, opts?: object) => number | false}
  */
 const skipWhitespace = skip(/\s/);
 /**
- * @type {(text: string, index: number, opts?: object) => number}
+ * @type {(text: string, index: number | false, opts?: object) => number | false}
  */
 const skipSpaces = skip(" \t");
 /**
- * @type {(text: string, index: number, opts?: object) => number}
+ * @type {(text: string, index: number | false, opts?: object) => number | false}
  */
 const skipToLineEnd = skip(",; \t");
 /**
- * @type {(text: string, index: number, opts?: object) => number}
+ * @type {(text: string, index: number | false, opts?: object) => number | false}
  */
 const skipEverythingButNewLine = skip(/[^\r\n]/);
 
 /**
  * @param {string} text
- * @param {number} index
- * @returns {number}
+ * @param {number | false} index
+ * @returns {number | false}
  */
 function skipInlineComment(text, index) {
   if (index === false) {
@@ -117,8 +117,8 @@ function skipInlineComment(text, index) {
 
 /**
  * @param {string} text
- * @param {number} index
- * @returns {number}
+ * @param {number | false} index
+ * @returns {number | false}
  */
 function skipTrailingComment(text, index) {
   if (index === false) {
@@ -136,9 +136,9 @@ function skipTrailingComment(text, index) {
 // want to skip one newline. It's simple to implement.
 /**
  * @param {string} text
- * @param {number} index
+ * @param {number | false} index
  * @param {object=} opts
- * @returns {number}
+ * @returns {number | false}
  */
 function skipNewline(text, index, opts) {
   const backwards = opts && opts.backwards;
@@ -178,7 +178,7 @@ function skipNewline(text, index, opts) {
 
 /**
  * @param {string} text
- * @param {number} index
+ * @param {number | false} index
  * @param {object=} opts
  * @returns {boolean}
  */
@@ -211,6 +211,9 @@ function hasNewlineInRange(text, start, end) {
  * @param {(node: object) => number} locStart
  */
 function isPreviousLineEmpty(text, node, locStart) {
+  /**
+   * @type {number | false}
+   */
   let idx = locStart(node) - 1;
   idx = skipSpaces(text, idx, { backwards: true });
   idx = skipNewline(text, idx, { backwards: true });
@@ -226,6 +229,9 @@ function isPreviousLineEmpty(text, node, locStart) {
  */
 function isNextLineEmptyAfterIndex(text, index) {
   let oldIdx = null;
+  /**
+   * @type {number | false}
+   */
   let idx = index;
   while (idx !== oldIdx) {
     // We need to skip all the potential trailing inline comments
