@@ -229,26 +229,28 @@ defaultOptions: {
 A `util` module from Prettier core is considered a private API and is not meant to be consumed by plugins. Instead, the `util-shared` module provides the following limited set of utility functions for plugins:
 
 ```ts
+type Quote = "\"" | "'";
+type SkipOptions = { backwards?: boolean };
 getMaxContinuousCount(str: string, target: string): number;
 getStringWidth(text: string): number;
-getAlignmentSize(value: string, tabWidth: number, startIndex: number): number;
+getAlignmentSize(value: string, tabWidth: number, startIndex?: number): number;
 getIndentSize(value: string, tabWidth: number): number;
-skip(chars: string|RegExp): number;
-skipWhitespace(text: string, index: number, options: object): number;
-skipSpaces(text: string, index: number, options: object): number;
-skipToLineEnd(text: string, index: number, options: object): number;
-skipEverythingButNewLine(text: string, index: number, options: object): number;
-skipInlineComment(text: string, index: number): number;
-skipTrailingComment(text: string, index: number): number;
-skipNewline(text: string, index: number, options: object): number;
-hasNewline(text: string, index: number, options: object): boolean;
-hasNewlineInRange(text: string, start: number, start: number): boolean;
-hasSpaces(text: string, index: number, options: object): number;
-makeString(rawContent: string, enclosingQuote: string, unescapeUnnecessaryEscapes: boolean): string;
-getNextNonSpaceNonCommentCharacterIndex(text: string, node: object, options: object): number;
+skip(chars: string | RegExp): (text: string, index: number | false, opts?: SkipOptions) => number | false;
+skipWhitespace(text: string, index: number | false, opts?: SkipOptions): number | false;
+skipSpaces(text: string, index: number | false, opts?: SkipOptions): number | false;
+skipToLineEnd(text: string, index: number | false, opts?: SkipOptions): number | false;
+skipEverythingButNewLine(text: string, index: number | false, opts?: SkipOptions): number | false;
+skipInlineComment(text: string, index: number | false): number | false;
+skipTrailingComment(text: string, index: number | false): number | false;
+skipNewline(text: string, index: number | false, opts?: SkipOptions): number | false;
+hasNewline(text: string, index: number | false, opts?: SkipOptions): boolean;
+hasNewlineInRange(text: string, start: number, end: number): boolean;
+hasSpaces(text: string, index: number, opts?: SkipOptions): boolean;
+makeString(rawContent: string, enclosingQuote: Quote, unescapeUnnecessaryEscapes?: boolean): string;
+getNextNonSpaceNonCommentCharacterIndex<N>(text: string, node: N, locEnd: (node: N) => number): number | false;
 isNextLineEmptyAfterIndex(text: string, index: number): boolean;
-isNextLineEmpty(text: string, node: object, options: object): boolean;
-isPreviousLineEmpty(text: string, node: object, options: object): boolean;
+isNextLineEmpty<N>(text: string, node: N, locEnd: (node: N) => number): boolean;
+isPreviousLineEmpty<N>(text: string, node: N, locStart: (node: N) => number): boolean;
 mapDoc(doc: object, callback: function): void;
 ```
 
