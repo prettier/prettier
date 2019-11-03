@@ -39,8 +39,12 @@ function getPenultimate(arr) {
 }
 
 /**
+ * @typedef {{backwards?: boolean}} SkipOptions
+ */
+
+/**
  * @param {string | RegExp} chars
- * @returns {(text: string, index: number | false, opts?: object) => number | false}
+ * @returns {(text: string, index: number | false, opts?: SkipOptions) => number | false}
  */
 function skip(chars) {
   return (text, index, opts) => {
@@ -79,19 +83,19 @@ function skip(chars) {
 }
 
 /**
- * @type {(text: string, index: number | false, opts?: object) => number | false}
+ * @type {(text: string, index: number | false, opts?: SkipOptions) => number | false}
  */
 const skipWhitespace = skip(/\s/);
 /**
- * @type {(text: string, index: number | false, opts?: object) => number | false}
+ * @type {(text: string, index: number | false, opts?: SkipOptions) => number | false}
  */
 const skipSpaces = skip(" \t");
 /**
- * @type {(text: string, index: number | false, opts?: object) => number | false}
+ * @type {(text: string, index: number | false, opts?: SkipOptions) => number | false}
  */
 const skipToLineEnd = skip(",; \t");
 /**
- * @type {(text: string, index: number | false, opts?: object) => number | false}
+ * @type {(text: string, index: number | false, opts?: SkipOptions) => number | false}
  */
 const skipEverythingButNewLine = skip(/[^\r\n]/);
 
@@ -137,7 +141,7 @@ function skipTrailingComment(text, index) {
 /**
  * @param {string} text
  * @param {number | false} index
- * @param {object=} opts
+ * @param {SkipOptions=} opts
  * @returns {number | false}
  */
 function skipNewline(text, index, opts) {
@@ -179,7 +183,7 @@ function skipNewline(text, index, opts) {
 /**
  * @param {string} text
  * @param {number | false} index
- * @param {object=} opts
+ * @param {SkipOptions=} opts
  * @returns {boolean}
  */
 function hasNewline(text, index, opts) {
@@ -301,7 +305,7 @@ function getNextNonSpaceNonCommentCharacter(text, node, locEnd) {
 /**
  * @param {string} text
  * @param {number} index
- * @param {object=} opts
+ * @param {SkipOptions=} opts
  * @returns {boolean}
  */
 function hasSpaces(text, index, opts) {
