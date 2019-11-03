@@ -243,7 +243,7 @@ skipEverythingButNewLine(text: string, index: number | false, opts?: SkipOptions
 skipInlineComment(text: string, index: number | false): number | false;
 skipTrailingComment(text: string, index: number | false): number | false;
 skipNewline(text: string, index: number | false, opts?: SkipOptions): number | false;
-hasNewline(text: string, index: number | false, opts?: SkipOptions): boolean;
+hasNewline(text: string, index: number, opts?: SkipOptions): boolean;
 hasNewlineInRange(text: string, start: number, end: number): boolean;
 hasSpaces(text: string, index: number, opts?: SkipOptions): boolean;
 makeString(rawContent: string, enclosingQuote: Quote, unescapeUnnecessaryEscapes?: boolean): string;

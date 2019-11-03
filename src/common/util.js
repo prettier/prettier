@@ -182,7 +182,7 @@ function skipNewline(text, index, opts) {
 
 /**
  * @param {string} text
- * @param {number | false} index
+ * @param {number} index
  * @param {SkipOptions=} opts
  * @returns {boolean}
  */
@@ -248,7 +248,7 @@ function isNextLineEmptyAfterIndex(text, index) {
   }
   idx = skipTrailingComment(text, idx);
   idx = skipNewline(text, idx);
-  return hasNewline(text, idx);
+  return idx === false ? false : hasNewline(text, idx);
 }
 
 /**
