@@ -5125,14 +5125,13 @@ function printMemberChain(path, options, print) {
 
   // We don't want to print in one line if the chain has:
   //  * A comment.
-  //  * Non-trivial arguments before the last item.
+  //  * Non-trivial arguments.
   //  * Any group but the last one has a hard line.
   // If the last group is a function it's okay to inline if it fits.
   if (
     hasComment ||
-    callExpressions
-      .slice(0, -1)
-      .some(expr => !expr.arguments.every(isSimple)) ||
+    (callExpressions.length > 2 &&
+      callExpressions.some(expr => !expr.arguments.every(isSimple))) ||
     printedGroups.slice(0, -1).some(willBreak) ||
     /**
      *     scopes.filter(scope => scope.value !== '').map((scope, i) => {
@@ -5172,12 +5171,26 @@ function isSimple(node) {
     node.type === "NullLiteral" ||
     node.type === "NumericLiteral" ||
     node.type === "StringLiteral" ||
-    node.type === "Identifier"
+    node.type === "Identifier" ||
+    node.type === "OptionalCallExpression" ||
+    node.type === "OptionalMemberExpression" ||
+    node.type === "NewExpression" ||
+    node.type === "TSNonNullExpression" ||
+    node.type === "ThisExpression" ||
+    node.type === "ThisExpression" ||
+    node.type === "Super" ||
+    node.type === "BigIntLiteral" ||
+    node.type === "PrivateName" ||
+    node.type === "ArgumentPlaceholder" ||
+    node.type === "RegExpLiteral"
   ) {
     return true;
   }
   if (node.type === "TemplateLiteral" && node.expressions.length === 0) {
     return true;
+  }
+  if (node.type === "ObjectExpression") {
+    return node.properties.every(p => p.shorthand);
   }
   if (node.type === "ArrayExpression") {
     return node.elements.every(isSimple);
