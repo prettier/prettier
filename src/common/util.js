@@ -188,7 +188,6 @@ function skipNewline(text, index, opts) {
  */
 function hasNewline(text, index, opts) {
   opts = opts || {};
-  // @ts-ignore => TBD: false - 1 is not allowed
   const idx = skipSpaces(text, opts.backwards ? index - 1 : index, opts);
   const idx2 = skipNewline(text, idx, opts);
   return idx !== idx2;
