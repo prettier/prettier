@@ -303,11 +303,11 @@ function transformCssDoc(quasisDoc, path, print) {
 // and replace them with the expression docs one by one
 // returns a new doc with all the placeholders replaced,
 // or null if it couldn't replace any expression
-const hasPlaceHolder = parts =>
+const hasPlaceHolder = (parts, placeholder) =>
   parts.some(
     part =>
       typeof part === "string" &&
-      cssPlaceholder.parse(part).some(({ isPlaceholder }) => isPlaceholder)
+      placeholder.parse(part).some(({ isPlaceholder }) => isPlaceholder)
   );
 function replacePlaceholders(quasisDoc, expressionDocs) {
   if (!expressionDocs || !expressionDocs.length) {
@@ -317,7 +317,7 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
   const expressions = expressionDocs.slice();
   const replacedIndexes = [];
   const newDoc = mapDoc(quasisDoc, doc => {
-    if (!doc || !doc.parts || !hasPlaceHolder(doc.parts)) {
+    if (!doc || !doc.parts || !hasPlaceHolder(doc.parts, cssPlaceholder)) {
       return doc;
     }
     let parts = doc.parts.slice();
