@@ -20,6 +20,20 @@ const {
 const cssPlaceholder = new Placeholder({ namespace: "prettier" });
 const cssPropPlaceholder = new Placeholder({ namespace: "prettier" });
 const CSS_PROP_PLACEHOLDER = cssPropPlaceholder.get(0);
+const placeholderPiecesStringArray = pieces =>
+  pieces.map(({ isPlaceholder, string, placeholder }) =>
+    isPlaceholder ? placeholder : string
+  );
+const trimPiecesLeadingSpaces = pieces => {
+  while (pieces.length) {
+    const { isPlaceholder, string } = pieces[0];
+    if (isPlaceholder || string.trim()) {
+      break;
+    }
+    pieces.shift();
+  }
+  return pieces.length;
+};
 
 function embed(path, print, textToDoc, options) {
   const node = path.getValue();
@@ -58,35 +72,30 @@ function embed(path, print, textToDoc, options) {
         // and will restore back after parse
 
         const pieces = cssPlaceholder.parse(text);
-        const textPieces = pieces.map(
-          ({ isPlaceholder, string, placeholder }) =>
-            isPlaceholder ? placeholder : string
-        );
+        const textPieces = placeholderPiecesStringArray(pieces);
 
         pieces.forEach(({ isPlaceholder, placeholder }, index) => {
           if (!isPlaceholder) {
             return;
           }
-          let after = textPieces.slice(index + 1).join("");
-          let endsWithBlankLine = /^\s*\n/.test(after);
-          const regExp = new RegExp(
-            "^" +
-              cssPlaceholder.prefix +
-              cssPlaceholder.identity +
-              "(?:[a-z]+?)" +
-              cssPlaceholder.suffix
-          );
 
-          // follow by another placeholder
-          // eslint-disable-next-line no-constant-condition
-          while (true) {
-            const replaced = after.trim().replace(regExp, "");
-            if (replaced === after) {
+          const afterPieces = pieces.slice(index + 1);
+          let after = "";
+          let endsWithBlankLine = false;
+
+          // remove following spaces and placeholders
+          do {
+            if (afterPieces[0] && afterPieces[0].isPlaceholder) {
+              afterPieces.shift();
+            }
+            after = placeholderPiecesStringArray(afterPieces).join("");
+            endsWithBlankLine = endsWithBlankLine || /^\s*\n/.test(after);
+            if (afterPieces.length === trimPiecesLeadingSpaces(afterPieces)) {
+              after = after.trim();
               break;
             }
-            after = replaced;
-            endsWithBlankLine = endsWithBlankLine || /^\s*\n/.test(after);
-          }
+          } while (afterPieces.length);
+
           const before = textPieces
             .slice(0, index)
             .join("")
