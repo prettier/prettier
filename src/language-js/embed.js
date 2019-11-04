@@ -44,6 +44,7 @@ function embed(path, print, textToDoc, options) {
             ? currVal
             : prevVal + cssPlaceholder.get(placeholderID++) + currVal;
         }, "");
+
         // postcss can't handle the following css
         // ```css
         // div {
@@ -71,18 +72,13 @@ function embed(path, print, textToDoc, options) {
               .slice(index + 1)
               .join("")
               .trim();
-            if (
-              after.startsWith(";") ||
-              after.startsWith("{") ||
-              after.startsWith("}")
-            ) {
-              const before = textPieces
-                .slice(0, index)
-                .join("")
-                .trim();
-
+            const before = textPieces
+              .slice(0, index)
+              .join("")
+              .trim();
+            if (after.startsWith(";") || after.startsWith("}")) {
               if (
-                before.endsWith(":") ||
+                before.endsWith(";") ||
                 before.endsWith("{") ||
                 before.endsWith("}")
               ) {
@@ -307,6 +303,12 @@ function transformCssDoc(quasisDoc, path, print) {
 // and replace them with the expression docs one by one
 // returns a new doc with all the placeholders replaced,
 // or null if it couldn't replace any expression
+const hasPlaceHolder = parts =>
+  parts.some(
+    part =>
+      typeof part === "string" &&
+      cssPlaceholder.parse(part).some(({ isPlaceholder }) => isPlaceholder)
+  );
 function replacePlaceholders(quasisDoc, expressionDocs) {
   if (!expressionDocs || !expressionDocs.length) {
     return quasisDoc;
@@ -315,32 +317,46 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
   const expressions = expressionDocs.slice();
   const replacedIndexes = [];
   const newDoc = mapDoc(quasisDoc, doc => {
-    if (!doc || !doc.parts || !doc.parts.length) {
+    if (!doc || !doc.parts || !hasPlaceHolder(doc.parts)) {
       return doc;
     }
-    let parts = doc.parts;
-    const atPlaceholderIndex = parts.findIndex(
-      part =>
-        typeof part === "string" &&
-        cssPlaceholder.parse(part).some(({ isPlaceholder }) => isPlaceholder)
-    );
+    let parts = doc.parts.slice();
 
-    if (atPlaceholderIndex > -1) {
-      const placeholder = parts[atPlaceholderIndex];
-      const rest = parts.slice(atPlaceholderIndex + 1);
-
-      parts.forEach((part, index) => {
-        if (part == CSS_PROP_PLACEHOLDER && parts[index + 1] === ":") {
-          parts[index + 1] = "";
-          parts[index] = "";
+    // clean css prop placeholder
+    parts.forEach((part, index) => {
+      if (part === CSS_PROP_PLACEHOLDER) {
+        if (parts[index + 1] !== ":") {
+          throw new Error(
+            "CSS_PROP_PLACEHOLDER should always follow with a colon"
+          );
         }
-      });
+        parts[index] = "";
+        parts[index + 1] = "";
 
-      const x = cssPlaceholder
-        .parse(placeholder)
-        .map(({ isPlaceholder, string, index }) => {
+        // clean up following spaces
+        for (let i = index + 2; i < parts.length; i++) {
+          const value = parts[i].trim();
+          if (value) {
+            break;
+          }
+          parts[i] = "";
+        }
+      }
+    });
+
+    // replace placeholders
+    parts = parts.reduce((parts, part) => {
+      if (typeof part !== "string") {
+        parts.push(part);
+        return parts;
+      }
+
+      return cssPlaceholder
+        .parse(part)
+        .reduce((parts, { isPlaceholder, string, index }) => {
           if (!isPlaceholder) {
-            return [string === CSS_PROP_PLACEHOLDER ? "" : string];
+            parts.push(string);
+            return parts;
           }
 
           const placeholderID = index - 1;
@@ -348,17 +364,14 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
             replacedIndexes.push(placeholderID);
           }
 
-          return ["${", expressions[placeholderID], "}"];
-        });
-      // .reduce((acc, cur) => {
-      //   return acc.concat(cur);
-      // }, []);
+          parts.push("${");
+          parts.push(expressions[placeholderID]);
+          parts.push("}");
 
-      parts = parts
-        .slice(0, atPlaceholderIndex)
-        .concat(...x)
-        .concat(rest);
-    }
+          return parts;
+        }, parts);
+    }, []);
+
     return Object.assign({}, doc, {
       parts: parts
     });

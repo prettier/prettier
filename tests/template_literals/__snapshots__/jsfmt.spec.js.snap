@@ -585,8 +585,8 @@ b: foo\${exp};
   div {
     display: \${expr};
     color: \${expr};
-     \${expr};
-     \${expr};
+    \${expr};
+    \${expr};
     background: red;
     animation: \${expr} 10s ease-out;
   }
