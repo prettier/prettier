@@ -43,7 +43,7 @@ margin: 0;
 `;
 
 // # 6259
-const div = styled.div`
+styled.div`
   ${expr}:not(:first-child) {
     // should not add space after :not
   }
@@ -51,4 +51,9 @@ const div = styled.div`
     // should not add space before [
   }
   margin: 0;.input {}
+`
+
+// #5465
+css`
+prop: var(--global--color--${props.varient});
 `
