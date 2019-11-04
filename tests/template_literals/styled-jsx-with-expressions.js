@@ -221,8 +221,8 @@ foo${exp};
     color: red;
   }
   }
-@font-face {	
-    ${expr}	
+@font-face {
+    ${expr}
   }
 `}</style>;
 
