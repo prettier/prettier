@@ -233,6 +233,9 @@ function isPreviousLineEmpty(text, node, locStart) {
  * @returns {boolean}
  */
 function isNextLineEmptyAfterIndex(text, index) {
+  /**
+   * @type {number | false}
+   */
   let oldIdx = null;
   /**
    * @type {number | false}
@@ -267,6 +270,9 @@ function isNextLineEmpty(text, node, locEnd) {
  * @returns {number | false}
  */
 function getNextNonSpaceNonCommentCharacterIndexWithStartIndex(text, idx) {
+  /**
+   * @type {number | false}
+   */
   let oldIdx = null;
   /**
    * @type {number | false}
