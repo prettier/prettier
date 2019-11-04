@@ -303,8 +303,10 @@ function transformCssDoc(quasisDoc, path, print) {
 // and replace them with the expression docs one by one
 // returns a new doc with all the placeholders replaced,
 // or null if it couldn't replace any expression
-const hasPlaceHolder = (parts, placeholder) =>
-  parts.some(
+const hasPlaceHolder = (doc, placeholder) =>
+  doc &&
+  doc.parts &&
+  doc.parts.some(
     part =>
       typeof part === "string" &&
       placeholder.parse(part).some(({ isPlaceholder }) => isPlaceholder)
@@ -314,43 +316,43 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
     return quasisDoc;
   }
 
+  // TODO: possible remove slice ?
   const expressions = expressionDocs.slice();
-  const replacedIndexes = [];
+  const replaced = [];
   const newDoc = mapDoc(quasisDoc, doc => {
-    if (!doc || !doc.parts || !hasPlaceHolder(doc.parts, cssPlaceholder)) {
+    if (!hasPlaceHolder(doc, cssPlaceholder)) {
       return doc;
     }
-    let parts = doc.parts.slice();
 
-    // clean css prop placeholder
-    parts.forEach((part, index) => {
-      if (part === CSS_PROP_PLACEHOLDER) {
-        if (parts[index + 1] !== ":") {
-          throw new Error(
-            "CSS_PROP_PLACEHOLDER should always follow with a colon"
-          );
-        }
-        parts[index] = "";
-        parts[index + 1] = "";
-
-        // clean up following spaces
-        for (let i = index + 2; i < parts.length; i++) {
-          const value = parts[i].trim();
-          if (value) {
-            break;
-          }
-          parts[i] = "";
-        }
-      }
-    });
-
-    // replace placeholders
-    parts = parts.reduce((parts, part) => {
+    const parts = doc.parts.slice().reduce((parts, part, index, source) => {
       if (typeof part !== "string") {
         parts.push(part);
         return parts;
       }
 
+      // TODO: clean CSS_PROP_PLACEHOLDER is part of prop, like div {foo${exp}bar;}
+      // clean css prop placeholder
+      if (part === CSS_PROP_PLACEHOLDER) {
+        if (source[index + 1] !== ":") {
+          throw new Error(
+            "CSS_PROP_PLACEHOLDER should always follow with a colon"
+          );
+        }
+        source[index] = "";
+        source[index + 1] = "";
+
+        // clean up following spaces
+        for (let i = index + 2; i < source.length; i++) {
+          const value = source[i].trim();
+          if (value) {
+            break;
+          }
+          source[i] = "";
+        }
+        return parts;
+      }
+
+      // replace placeholders
       return cssPlaceholder
         .parse(part)
         .reduce((parts, { isPlaceholder, string, index }) => {
@@ -360,8 +362,8 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
           }
 
           const placeholderID = index - 1;
-          if (!replacedIndexes.includes(placeholderID)) {
-            replacedIndexes.push(placeholderID);
+          if (!replaced.includes(placeholderID)) {
+            replaced.push(placeholderID);
           }
 
           parts.push("${");
@@ -377,7 +379,7 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
     });
   });
 
-  return expressions.length === replacedIndexes.length ? newDoc : null;
+  return expressions.length === replaced.length ? newDoc : null;
 }
 
 function printGraphqlComments(lines) {
