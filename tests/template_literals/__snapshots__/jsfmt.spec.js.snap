@@ -647,14 +647,14 @@ printWidth: 80
 	   }
 \`}</style>;
 
-// expression as decl(two)
+// expression as decl(many)
 <style jsx>{\`
          a {
 \${exp};
 \${exp};
 	   }
 \`}</style>;
-// expression as decl(two no breaks)
+// expression as decl(no breaks)
 <style jsx>{\`
          a {
 \${exp}\${exp};
@@ -685,6 +685,7 @@ foo\${exp};
 \`}</style>;
 
 // real world cases
+
 <style jsx>{\`
   div {
   display: \${expr};
@@ -694,9 +695,6 @@ foo\${exp};
     background: red;
   animation: \${expr} 10s ease-out;
   }
-\`}</style>;
-
-<style jsx>{\`
   @media (\${expr}) {
    div.\${expr} {
     color: red;
@@ -705,10 +703,6 @@ foo\${exp};
     color: red;
   }
   }
-\`}</style>;
-
-
-<style jsx>{\`
   @media (min-width: \${expr}) {
    div.\${expr} {
     color: red;
@@ -716,6 +710,9 @@ foo\${exp};
   all\${expr} {
     color: red;
   }
+  }
+@font-face {	
+    \${expr}	
   }
 \`}</style>;
 
@@ -730,6 +727,7 @@ foo\${exp};
   animation: 3s ease-in 1s \${foo => foo.getIterations()} reverse both paused slidein;
   }
 \`}</style>;
+
 =====================================output=====================================
 // current logic breaks on any expression fail,
 // so test one by one
@@ -947,14 +945,14 @@ foo\${exp};
   }
 \`}</style>;
 
-// expression as decl(two)
+// expression as decl(many)
 <style jsx>{\`
   a {
     \${exp};
     \${exp};
   }
 \`}</style>;
-// expression as decl(two no breaks), FIXME
+// expression as decl(no breaks)
 <style jsx>{\`
          a {
 \${exp}\${exp};
@@ -986,6 +984,7 @@ foo\${exp};
 \`}</style>;
 
 // real world cases
+
 <style jsx>{\`
   div {
     display: \${expr};
@@ -995,9 +994,6 @@ foo\${exp};
     background: red;
     animation: \${expr} 10s ease-out;
   }
-\`}</style>;
-
-<style jsx>{\`
   @media (\${expr}) {
     div.\${expr} {
       color: red;
@@ -1006,9 +1002,6 @@ foo\${exp};
       color: red;
     }
   }
-\`}</style>;
-
-<style jsx>{\`
   @media (min-width: \${expr}) {
     div.\${expr} {
       color: red;
@@ -1016,6 +1009,9 @@ foo\${exp};
     all\${expr} {
       color: red;
     }
+  }
+  @font-face {
+    \${expr};
   }
 \`}</style>;
 

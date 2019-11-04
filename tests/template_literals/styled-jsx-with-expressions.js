@@ -195,6 +195,7 @@ foo${exp};
 `}</style>;
 
 // real world cases
+
 <style jsx>{`
   div {
   display: ${expr};
@@ -204,9 +205,6 @@ foo${exp};
     background: red;
   animation: ${expr} 10s ease-out;
   }
-`}</style>;
-
-<style jsx>{`
   @media (${expr}) {
    div.${expr} {
     color: red;
@@ -215,10 +213,6 @@ foo${exp};
     color: red;
   }
   }
-`}</style>;
-
-
-<style jsx>{`
   @media (min-width: ${expr}) {
    div.${expr} {
     color: red;
@@ -226,6 +220,9 @@ foo${exp};
   all${expr} {
     color: red;
   }
+  }
+@font-face {	
+    ${expr}	
   }
 `}</style>;
 
