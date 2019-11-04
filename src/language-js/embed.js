@@ -20,7 +20,7 @@ const {
 const cssPlaceholder = new Placeholder({ namespace: "prettier" });
 const cssPropPlaceholder = new Placeholder({ namespace: "prettier" });
 const CSS_PROP_PLACEHOLDER = cssPropPlaceholder.get(0);
-const placeholderPiecesStringArray = pieces =>
+const placeholderPiecesToStringArray = pieces =>
   pieces.map(({ isPlaceholder, string, placeholder }) =>
     isPlaceholder ? placeholder : string
   );
@@ -58,13 +58,14 @@ function embed(path, print, textToDoc, options) {
             : prevVal + cssPlaceholder.get(index - 1) + raw;
         }, "");
 
-        // postcss can't handle the following css
+        // postcss parser can't handle the following css
         // ```css
         // div {
         //   css-placeholder;
         // }
         // ```
         // so we fake it into
+        // ```css
         // div {
         //   prop-placeholder: css-placeholder;
         // }
@@ -72,7 +73,7 @@ function embed(path, print, textToDoc, options) {
         // and will restore back after parse
 
         const pieces = cssPlaceholder.parse(text);
-        const textPieces = placeholderPiecesStringArray(pieces);
+        const textPieces = placeholderPiecesToStringArray(pieces);
 
         pieces.forEach(({ isPlaceholder, placeholder }, index) => {
           if (!isPlaceholder) {
@@ -81,7 +82,7 @@ function embed(path, print, textToDoc, options) {
 
           const afterPieces = pieces.slice(index + 1);
           let after = "";
-          let endsWithBlankLine = false;
+          let endsWithLineBreak = false;
 
           // remove following spaces and placeholders
           do {
@@ -89,7 +90,7 @@ function embed(path, print, textToDoc, options) {
               afterPieces.shift();
             }
             after = placeholderPiecesStringArray(afterPieces).join("");
-            endsWithBlankLine = endsWithBlankLine || /^\s*\n/.test(after);
+            endsWithLineBreak = endsWithLineBreak || /^\s*\n/.test(after);
             if (afterPieces.length === trimPiecesLeadingSpaces(afterPieces)) {
               after = after.trim();
               break;
@@ -103,9 +104,9 @@ function embed(path, print, textToDoc, options) {
 
           if (
             (!after ||
-              endsWithBlankLine ||
-              after.slice(0, 1) === ";" ||
-              after.slice(0, 1) === "}") &&
+              endsWithLineBreak ||
+              after[0] === ";" ||
+              after[0] === "}") &&
             (!before ||
               before.slice(-1) === ";" ||
               before.slice(-1) === "{" ||
@@ -339,10 +340,8 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
     return quasisDoc;
   }
 
-  // TODO: possible remove slice ?
-  const expressions = expressionDocs.slice();
   const replaced = [];
-  const newDoc = mapDoc(quasisDoc, doc => {
+  const restoredDoc = mapDoc(quasisDoc, doc => {
     if (
       !doc ||
       !doc.parts ||
@@ -389,13 +388,12 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
             return parts;
           }
 
-          const placeholderID = index;
-          if (replaced.indexOf(placeholderID) === -1) {
-            replaced.push(placeholderID);
+          if (replaced.indexOf(index) === -1) {
+            replaced.push(index);
           }
 
           parts.push("${");
-          parts.push(expressions[placeholderID]);
+          parts.push(expressionDocs[index]);
           parts.push("}");
 
           return parts;
@@ -407,7 +405,9 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
     });
   });
 
-  return expressions.length === replaced.length ? newDoc : null;
+  if (expressionDocs.length === replaced.length) {
+    return restoredDoc;
+  }
 }
 
 function printGraphqlComments(lines) {
