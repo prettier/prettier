@@ -5163,7 +5163,11 @@ function printMemberChain(path, options, print) {
  * @param {import('estree').Node} node
  * @returns {boolean}
  */
-function isSimple(node) {
+function isSimple(node, depth = 0) {
+  if (depth >= 2) {
+    return false;
+  }
+  const isChildSimple = child => isSimple(child, depth + 1);
   if (
     !node ||
     node.type === "Literal" ||
@@ -5186,17 +5190,17 @@ function isSimple(node) {
   ) {
     return true;
   }
-  if (node.type === "TemplateLiteral" && node.expressions.length === 0) {
-    return true;
+  if (node.type === "TemplateLiteral") {
+    return node.expressions.every(isChildSimple);
   }
   if (node.type === "ObjectExpression") {
     return node.properties.every(p => p.shorthand);
   }
   if (node.type === "ArrayExpression") {
-    return node.elements.every(isSimple);
+    return node.elements.every(isChildSimple);
   }
   if (node.type === "CallExpression") {
-    return isSimple(node.callee) && node.arguments.every(isSimple);
+    return isSimple(node.callee) && node.arguments.every(isChildSimple);
   }
   if (node.type === "MemberExpression") {
     return isSimple(node.object) && isSimple(node.property);
