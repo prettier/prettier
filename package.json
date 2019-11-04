@@ -42,6 +42,7 @@
     "html-element-attributes": "2.2.0",
     "html-styles": "1.0.0",
     "html-tag-names": "1.1.4",
+    "id-placeholder": "0.0.3",
     "ignore": "4.0.6",
     "is-ci": "2.0.0",
     "jest-docblock": "24.9.0",

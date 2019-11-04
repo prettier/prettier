@@ -1,5 +1,6 @@
 "use strict";
 
+const Placeholder =  require("id-placeholder");
 const { isBlockComment, hasLeadingComment } = require("./comments");
 
 const {
@@ -16,18 +17,8 @@ const {
   utils: { mapDoc, stripTrailingHardline }
 } = require("../doc");
 
-const TEMPLATE_LITERAL_PLACEHOLDER_START = "pprreettttiieerr";
-const TEMPLATE_LITERAL_PLACEHOLDER_END = "rreeiitttteerrpp";
-
-const getTemplateLiteralPlaceholder = index => {
-  return (
-    TEMPLATE_LITERAL_PLACEHOLDER_START +
-    index +
-    TEMPLATE_LITERAL_PLACEHOLDER_END
-  );
-};
-
-const TEMPLATE_LITERAL_PLACEHOLDER_REGEXP = /pprreettttiieerr(\d+)rreeiitttteerrpp/;
+const cssPlaceholder = new Placeholder({namespace: 'prettier'})
+const CSS_PROP_PLACEHOLDER = cssPlaceholder.get(0)
 
 function embed(path, print, textToDoc, options) {
   const node = path.getValue();
@@ -46,32 +37,48 @@ function embed(path, print, textToDoc, options) {
       if (isCss) {
         // Get full template literal with expressions replaced by placeholders
         const rawQuasis = node.quasis.map(q => q.value.raw);
-        let placeholderID = 0;
+        // 0 is reserved for css propplaceholder
+        let placeholderID = 1;
         let text = rawQuasis.reduce((prevVal, currVal, idx) => {
+          placeholderID ++
           return idx == 0
             ? currVal
             : prevVal +
-                getTemplateLiteralPlaceholder(placeholderID++) +
+                cssPlaceholder.get(placeholderID++) +
                 currVal;
         }, "");
         // postcss can't handle the following css
         // ```css
         // div {
-        //   pprreettttiieerr0rreeiitttteerrpp;
+        //   placeholder-1;
         // }
         // ```
         // so we fake it into
         // div {
-        //   pprreettttiieerrrreeiitttteerrpp: pprreettttiieerr0rreeiitttteerrpp;
+        //   placeholder-0: placeholder-1;
         // }
         // ```
         // and will restore back after parse
-        text = text.replace(
-          /(\n[\s]*)(pprreettttiieerr\d+rreeiitttteerrpp)([\n\s]*;)/g,
-          (_, before, idx, after) => {
-            return before + "pprreettttiieerrrreeiitttteerrpp: " + idx + after;
+        const pieces = cssPlaceholder.parse(text)
+        text = pieces.map(({isPlaceholder, placeholder, string}, index) => {
+          if (!isPlaceholder) {
+            return string
           }
-        );
+
+          const after = pieces.slice(index + 1).join('').trim();
+          const firstNonSpaceCharAfter = after[0];
+
+          if (firstNonSpaceChar === ';') {
+            const before = pieces.slice(0, index).join('').trim();
+            const lastNonSpaceCharBefore = before.slice(-1);
+
+            if (lastNonSpaceCharBefore === ':' || lastNonSpaceCharBefore === '{' || lastNonSpaceCharBefore === '}') {
+              return `${CSS_PROP_PLACEHOLDER}: ${placeholder}`
+            }
+          }
+
+          return placeholder
+        }).join('');
 
         const doc = textToDoc(text, { parser: "css" });
         return transformCssDoc(doc, path, print);
@@ -292,7 +299,7 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
   }
 
   const expressions = expressionDocs.slice();
-  let replaceCounter = 0;
+  const replacedIndexes = []
   const newDoc = mapDoc(quasisDoc, doc => {
     if (!doc || !doc.parts || !doc.parts.length) {
       return doc;
@@ -306,35 +313,41 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
     if (atPlaceholderIndex > -1) {
       const placeholder = parts[atPlaceholderIndex];
       const rest = parts.slice(atPlaceholderIndex + 1);
-      const placeholderMatch = placeholder.match(
-        /([\s\S]*)pprreettttiieerr(\d+)rreeiitttteerrpp([\s\S]*)/
-      );
-      const prefix = placeholderMatch[1];
-      const placeholderID = placeholderMatch[2];
-      const suffix = placeholderMatch[3];
-      const expression = expressions[placeholderID];
 
-      replaceCounter++;
-      parts = parts
-        .slice(0, atPlaceholderIndex)
-        .concat([prefix + "${", expression, "}" + suffix])
-        .concat(rest);
-      parts = parts.forEach((part, index) => {
+      parts.forEach((part, index) => {
         if (
-          part == "pprreettttiieerrrreeiitttteerrpp" &&
+          part == CSS_PROP_PLACEHOLDER &&
           parts[index + 1] === ":"
         ) {
           parts[index + 1] = "";
           parts[index] = "";
         }
       });
+
+      const pieces = cssPlaceholder.parse(placeholder).map(({isPlaceholder, string, index}) => {
+        if (isPlaceholder) {
+          const placeholderID = index - 1
+          if (!replacedIndexes.includes(placeholderID)) {
+            replacedIndexes.push(placeholderID)
+          }
+          return concat["${", expressions(placeholderID) , "}"]
+        }
+        
+        return string
+      })
+
+      replaceCounter++;
+      parts = parts
+        .slice(0, atPlaceholderIndex)
+        .concat(pieces)
+        .concat(rest);
     }
     return Object.assign({}, doc, {
       parts: parts
     });
   });
 
-  return expressions.length === replaceCounter ? newDoc : null;
+  return expressions.length === replacedIndexes.length ? newDoc : null;
 }
 
 function printGraphqlComments(lines) {
