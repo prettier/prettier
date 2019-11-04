@@ -18,7 +18,8 @@ const {
 } = require("../doc");
 
 const cssPlaceholder = new Placeholder({ namespace: "prettier" });
-const CSS_PROP_PLACEHOLDER = cssPlaceholder.get(0);
+const cssPropPlaceholder = new Placeholder({ namespace: "prettier" });
+const CSS_PROP_PLACEHOLDER = cssPropPlaceholder.get(0);
 
 function embed(path, print, textToDoc, options) {
   const node = path.getValue();
@@ -37,9 +38,7 @@ function embed(path, print, textToDoc, options) {
       if (isCss) {
         // Get full template literal with expressions replaced by placeholders
         const rawQuasis = node.quasis.map(q => q.value.raw);
-        // 0 is reserved for css prop placeholder
-        // TODO: don't reserve, use another placeholder
-        let placeholderID = 1;
+        let placeholderID = 0;
         let text = rawQuasis.reduce((prevVal, currVal, idx) => {
           return idx == 0
             ? currVal
@@ -64,32 +63,50 @@ function embed(path, print, textToDoc, options) {
           ({ isPlaceholder, string, placeholder }) =>
             isPlaceholder ? placeholder : string
         );
-        text = pieces
-          .map(({ isPlaceholder, placeholder, string }, index) => {
-            if (!isPlaceholder) {
-              return string;
-            }
-            const after = textPieces
-              .slice(index + 1)
-              .join("")
-              .trim();
-            const before = textPieces
-              .slice(0, index)
-              .join("")
-              .trim();
-            if (after.startsWith(";") || after.startsWith("}")) {
-              if (
-                before.endsWith(";") ||
-                before.endsWith("{") ||
-                before.endsWith("}")
-              ) {
-                return `${CSS_PROP_PLACEHOLDER}: ${placeholder}`;
-              }
-            }
 
-            return placeholder;
-          })
-          .join("");
+        pieces.forEach(({ isPlaceholder, placeholder }, index) => {
+          if (!isPlaceholder) {
+            return;
+          }
+          let after = textPieces.slice(index + 1).join("");
+          let isLineBreakAfter = /^\s*\n/.test(after);
+          const regExp = new RegExp(
+            "^" +
+              cssPlaceholder.prefix +
+              cssPlaceholder.identity +
+              "(?:[a-z]+?)" +
+              cssPlaceholder.suffix
+          );
+
+          // follow by another placeholder
+          while (true) {
+            const replaced = after.trim().replace(regExp, "");
+            if (replaced === after) {
+              break;
+            }
+            after = replaced;
+            isLineBreakAfter = isLineBreakAfter || /^\s*\n/.test(after);
+          }
+          const before = textPieces
+            .slice(0, index)
+            .join("")
+            .trim();
+
+          if (
+            (!after ||
+              isLineBreakAfter ||
+              after.trim().startsWith(";") ||
+              after.trim().startsWith("}")) &&
+            (!before ||
+              before.endsWith(";") ||
+              before.endsWith("{") ||
+              before.endsWith("}"))
+          ) {
+            textPieces[index] = `${CSS_PROP_PLACEHOLDER}: ${placeholder};`;
+          }
+        });
+
+        text = textPieces.join("");
 
         const doc = textToDoc(text, { parser: "css" });
         return transformCssDoc(doc, path, print);
@@ -305,8 +322,6 @@ function transformCssDoc(quasisDoc, path, print) {
 // returns a new doc with all the placeholders replaced,
 // or null if it couldn't replace any expression
 const hasPlaceHolder = (doc, placeholder) =>
-  doc &&
-  doc.parts &&
   doc.parts.some(
     part =>
       typeof part === "string" &&
@@ -321,7 +336,12 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
   const expressions = expressionDocs.slice();
   const replaced = [];
   const newDoc = mapDoc(quasisDoc, doc => {
-    if (!hasPlaceHolder(doc, cssPlaceholder)) {
+    if (
+      !doc ||
+      !doc.parts ||
+      (!hasPlaceHolder(doc, cssPlaceholder) &&
+        !hasPlaceHolder(doc, cssPropPlaceholder))
+    ) {
       return doc;
     }
 
@@ -362,7 +382,7 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
             return parts;
           }
 
-          const placeholderID = index - 1;
+          const placeholderID = index;
           if (!replaced.includes(placeholderID)) {
             replaced.push(placeholderID);
           }

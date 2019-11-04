@@ -240,7 +240,8 @@ styled.div\`
 \`;
 
 styled.div\`
-  \${sanitize} \${fonts}
+  \${sanitize};
+  \${fonts};
   html {
     margin: 0;
   }
@@ -264,8 +265,8 @@ styled.div\`
 \`;
 
 styled.span\`
-  \${foo}
-  \${bar}
+  \${foo};
+  \${bar};
 \`;
 
 styled.div\`
@@ -273,8 +274,9 @@ styled.div\`
 \`;
 
 styled.span\`
-  \${foo} \${bar}
-  baz: \${foo}
+  \${foo};
+  \${bar};
+  baz: \${foo};
 \`;
 
 styled.span\`
@@ -299,7 +301,7 @@ styled.span\`
 \`;
 
 styled.a\`
-  \${feedbackCountBlockCss}
+  \${feedbackCountBlockCss};
   text-decoration: none;
 
   \${FeedbackCount} {
@@ -308,7 +310,7 @@ styled.a\`
 \`;
 
 const StyledComponent1 = styled.div\`
-  \${anInterpolation}
+  \${anInterpolation};
   /* a comment */
 
   .aRule {
@@ -317,7 +319,7 @@ const StyledComponent1 = styled.div\`
 \`;
 
 const StyledComponent2 = styled.div\`
-  \${anInterpolation}
+  \${anInterpolation};
 
   /* a comment */
 
