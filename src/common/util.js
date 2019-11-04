@@ -216,9 +216,7 @@ function hasNewlineInRange(text, start, end) {
  * @param {(node: N) => number} locStart
  */
 function isPreviousLineEmpty(text, node, locStart) {
-  /**
-   * @type {number | false}
-   */
+  /** @type {number | false} */
   let idx = locStart(node) - 1;
   idx = skipSpaces(text, idx, { backwards: true });
   idx = skipNewline(text, idx, { backwards: true });
@@ -233,13 +231,9 @@ function isPreviousLineEmpty(text, node, locStart) {
  * @returns {boolean}
  */
 function isNextLineEmptyAfterIndex(text, index) {
-  /**
-   * @type {number | false}
-   */
+  /** @type {number | false} */
   let oldIdx = null;
-  /**
-   * @type {number | false}
-   */
+  /** @type {number | false} */
   let idx = index;
   while (idx !== oldIdx) {
     // We need to skip all the potential trailing inline comments
@@ -270,13 +264,9 @@ function isNextLineEmpty(text, node, locEnd) {
  * @returns {number | false}
  */
 function getNextNonSpaceNonCommentCharacterIndexWithStartIndex(text, idx) {
-  /**
-   * @type {number | false}
-   */
+  /** @type {number | false} */
   let oldIdx = null;
-  /**
-   * @type {number | false}
-   */
+  /** @type {number | false} */
   let nextIdx = idx;
   while (nextIdx !== oldIdx) {
     oldIdx = nextIdx;
@@ -574,13 +564,9 @@ function getPreferredQuote(raw, preferredQuote) {
   // code, without its enclosing quotes.
   const rawContent = raw.slice(1, -1);
 
-  /**
-   * @type {{ quote: '"', regex: RegExp }}
-   */
+  /** @type {{ quote: '"', regex: RegExp }} */
   const double = { quote: '"', regex: /"/g };
-  /**
-   * @type {{ quote: "'", regex: RegExp }}
-   */
+  /** @type {{ quote: "'", regex: RegExp }} */
   const single = { quote: "'", regex: /'/g };
 
   const preferred = preferredQuote === "'" ? single : double;
@@ -617,9 +603,7 @@ function printString(raw, options, isDirectiveLiteral) {
   const canChangeDirectiveQuotes =
     !rawContent.includes('"') && !rawContent.includes("'");
 
-  /**
-   * @type {Quote}
-   */
+  /** @type {Quote} */
   const enclosingQuote =
     options.parser === "json"
       ? '"'
