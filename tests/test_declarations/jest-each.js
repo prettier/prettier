@@ -38,7 +38,7 @@ ${2} | ${1} | ${3}`
 
 // an example to demo multiline quasi
 describe.each`a    | b    | expected
-${11111111111} | ${a().b().c().d()} | ${2}
+${11111111111} | ${a().b(x => x).c().d()} | ${2}
 ${1} | ${2} | ${3}
 ${2} | ${1} | ${3}`
 

@@ -125,4 +125,9 @@ it('gets triggered by mouseenter', () => {
 
 x.a(true).b(null).c(123)
 x.d('').e(``).f(g)
-x.h(i.j).k(l()).m([n, o]);
+x.h(i.j).k(l()).m([n, o])
+class X {
+  y() {
+    x.a(this).b(super.cde()).f(/g/).h(new i()).j(~k).l()
+  }
+}
