@@ -248,7 +248,7 @@ function isNextLineEmptyAfterIndex(text, index) {
   }
   idx = skipTrailingComment(text, idx);
   idx = skipNewline(text, idx);
-  return idx === false ? false : hasNewline(text, idx);
+  return idx !== false && hasNewline(text, idx);
 }
 
 /**
