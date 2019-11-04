@@ -954,9 +954,10 @@ foo\${exp};
 \`}</style>;
 // expression as decl(no breaks)
 <style jsx>{\`
-         a {
-\${exp}\${exp};
-	   }
+  a {
+    \${exp};
+    \${exp};
+  }
 \`}</style>;
 <style jsx>{\`
   a {
