@@ -41,3 +41,14 @@ margin: 0;
 	left: 0;right: 0;
 }
 `;
+
+// # 6259
+const div = styled.div`
+  ${expr}:not(:first-child) {
+    // should not add space after :not
+  }
+  ${expr}[checked] {
+    // should not add space before [
+  }
+  margin: 0;.input {}
+`
