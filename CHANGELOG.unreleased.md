@@ -1351,6 +1351,20 @@ $ prettier --stdin-filepath does/not/exist.js < test.js
 test;
 ```
 
+#### JavaScript: Numeric separators were removed from BigInt literals ([#6796] by [@thorn0])
+
+<!-- prettier-ignore -->
+```js
+// Input
+const bigints = [200_000n, 0x0000_000An, 0b0111_1111n];
+
+// Output (Prettier stable)
+const bigints = [200000n, 0x0000000an, 0b01111111n];
+
+// Output (Prettier master)
+const bigints = [200_000n, 0x0000_000an, 0b0111_1111n];
+```
+
 [#5682]: https://github.com/prettier/prettier/pull/5682
 [#6657]: https://github.com/prettier/prettier/pull/6657
 [#5910]: https://github.com/prettier/prettier/pull/5910
@@ -1398,6 +1412,7 @@ test;
 [#6728]: https://github.com/prettier/prettier/pull/6728
 [#6708]: https://github.com/prettier/prettier/pull/6708
 [#6687]: https://github.com/prettier/prettier/pull/6687
+[#6796]: https://github.com/prettier/prettier/pull/6796
 [@brainkim]: https://github.com/brainkim
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
