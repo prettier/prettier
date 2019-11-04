@@ -37,7 +37,8 @@ function embed(path, print, textToDoc, options) {
       if (isCss) {
         // Get full template literal with expressions replaced by placeholders
         const rawQuasis = node.quasis.map(q => q.value.raw);
-        // 0 is reserved for css propplaceholder
+        // 0 is reserved for css prop placeholder
+        // TODO: don't reserve, use another placeholder
         let placeholderID = 1;
         let text = rawQuasis.reduce((prevVal, currVal, idx) => {
           return idx == 0
