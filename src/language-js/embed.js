@@ -1,6 +1,6 @@
 "use strict";
 
-const Placeholder =  require("id-placeholder");
+const Placeholder = require("id-placeholder");
 const { isBlockComment, hasLeadingComment } = require("./comments");
 
 const {
@@ -17,8 +17,8 @@ const {
   utils: { mapDoc, stripTrailingHardline }
 } = require("../doc");
 
-const cssPlaceholder = new Placeholder({namespace: 'prettier'})
-const CSS_PROP_PLACEHOLDER = cssPlaceholder.get(0)
+const cssPlaceholder = new Placeholder({ namespace: "prettier" });
+const CSS_PROP_PLACEHOLDER = cssPlaceholder.get(0);
 
 function embed(path, print, textToDoc, options) {
   const node = path.getValue();
@@ -40,12 +40,9 @@ function embed(path, print, textToDoc, options) {
         // 0 is reserved for css propplaceholder
         let placeholderID = 1;
         let text = rawQuasis.reduce((prevVal, currVal, idx) => {
-          placeholderID ++
           return idx == 0
             ? currVal
-            : prevVal +
-                cssPlaceholder.get(placeholderID++) +
-                currVal;
+            : prevVal + cssPlaceholder.get(placeholderID++) + currVal;
         }, "");
         // postcss can't handle the following css
         // ```css
@@ -59,26 +56,43 @@ function embed(path, print, textToDoc, options) {
         // }
         // ```
         // and will restore back after parse
-        const pieces = cssPlaceholder.parse(text)
-        text = pieces.map(({isPlaceholder, placeholder, string}, index) => {
-          if (!isPlaceholder) {
-            return string
-          }
 
-          const after = pieces.slice(index + 1).join('').trim();
-          const firstNonSpaceCharAfter = after[0];
-
-          if (firstNonSpaceChar === ';') {
-            const before = pieces.slice(0, index).join('').trim();
-            const lastNonSpaceCharBefore = before.slice(-1);
-
-            if (lastNonSpaceCharBefore === ':' || lastNonSpaceCharBefore === '{' || lastNonSpaceCharBefore === '}') {
-              return `${CSS_PROP_PLACEHOLDER}: ${placeholder}`
+        const pieces = cssPlaceholder.parse(text);
+        const textPieces = pieces.map(
+          ({ isPlaceholder, string, placeholder }) =>
+            isPlaceholder ? placeholder : string
+        );
+        text = pieces
+          .map(({ isPlaceholder, placeholder, string }, index) => {
+            if (!isPlaceholder) {
+              return string;
             }
-          }
+            const after = textPieces
+              .slice(index + 1)
+              .join("")
+              .trim();
+            if (
+              after.startsWith(";") ||
+              after.startsWith("{") ||
+              after.startsWith("}")
+            ) {
+              const before = textPieces
+                .slice(0, index)
+                .join("")
+                .trim();
 
-          return placeholder
-        }).join('');
+              if (
+                before.endsWith(":") ||
+                before.endsWith("{") ||
+                before.endsWith("}")
+              ) {
+                return `${CSS_PROP_PLACEHOLDER}: ${placeholder}`;
+              }
+            }
+
+            return placeholder;
+          })
+          .join("");
 
         const doc = textToDoc(text, { parser: "css" });
         return transformCssDoc(doc, path, print);
@@ -299,7 +313,7 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
   }
 
   const expressions = expressionDocs.slice();
-  const replacedIndexes = []
+  const replacedIndexes = [];
   const newDoc = mapDoc(quasisDoc, doc => {
     if (!doc || !doc.parts || !doc.parts.length) {
       return doc;
@@ -308,38 +322,41 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
     const atPlaceholderIndex = parts.findIndex(
       part =>
         typeof part === "string" &&
-        TEMPLATE_LITERAL_PLACEHOLDER_REGEXP.test(part)
+        cssPlaceholder.parse(part).some(({ isPlaceholder }) => isPlaceholder)
     );
+
     if (atPlaceholderIndex > -1) {
       const placeholder = parts[atPlaceholderIndex];
       const rest = parts.slice(atPlaceholderIndex + 1);
 
       parts.forEach((part, index) => {
-        if (
-          part == CSS_PROP_PLACEHOLDER &&
-          parts[index + 1] === ":"
-        ) {
+        if (part == CSS_PROP_PLACEHOLDER && parts[index + 1] === ":") {
           parts[index + 1] = "";
           parts[index] = "";
         }
       });
 
-      const pieces = cssPlaceholder.parse(placeholder).map(({isPlaceholder, string, index}) => {
-        if (isPlaceholder) {
-          const placeholderID = index - 1
-          if (!replacedIndexes.includes(placeholderID)) {
-            replacedIndexes.push(placeholderID)
+      const x = cssPlaceholder
+        .parse(placeholder)
+        .map(({ isPlaceholder, string, index }) => {
+          if (!isPlaceholder) {
+            return [string === CSS_PROP_PLACEHOLDER ? "" : string];
           }
-          return concat["${", expressions(placeholderID) , "}"]
-        }
-        
-        return string
-      })
 
-      replaceCounter++;
+          const placeholderID = index - 1;
+          if (!replacedIndexes.includes(placeholderID)) {
+            replacedIndexes.push(placeholderID);
+          }
+
+          return ["${", expressions[placeholderID], "}"];
+        });
+      // .reduce((acc, cur) => {
+      //   return acc.concat(cur);
+      // }, []);
+
       parts = parts
         .slice(0, atPlaceholderIndex)
-        .concat(pieces)
+        .concat(...x)
         .concat(rest);
     }
     return Object.assign({}, doc, {
