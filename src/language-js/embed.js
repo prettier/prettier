@@ -79,6 +79,7 @@ function embed(path, print, textToDoc, options) {
           );
 
           // follow by another placeholder
+          // eslint-disable-next-line no-constant-condition
           while (true) {
             const replaced = after.trim().replace(regExp, "");
             if (replaced === after) {
