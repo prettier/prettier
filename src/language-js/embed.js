@@ -386,7 +386,7 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
           }
 
           const placeholderID = index;
-          if (!replaced.includes(placeholderID)) {
+          if (replaced.indexOf(placeholderID) === -1) {
             replaced.push(placeholderID);
           }
 
