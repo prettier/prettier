@@ -20,6 +20,10 @@ const {
 const cssPlaceholder = new Placeholder({ namespace: "prettier" });
 const cssPropPlaceholder = new Placeholder({ namespace: "prettier" });
 const CSS_PROP_PLACEHOLDER = cssPropPlaceholder.get(0);
+// TODO: use String#{startsWith, endsWith} when bundle targets node >=6
+const startsWith = (string, searchString) => string.indexOf(searchString) === 0;
+const endsWith = (string, searchString) =>
+  string.slice(0, searchString.length) === searchString;
 
 function embed(path, print, textToDoc, options) {
   const node = path.getValue();
@@ -37,23 +41,22 @@ function embed(path, print, textToDoc, options) {
 
       if (isCss) {
         // Get full template literal with expressions replaced by placeholders
-        const rawQuasis = node.quasis.map(q => q.value.raw);
-        let placeholderID = 0;
-        let text = rawQuasis.reduce((prevVal, currVal, idx) => {
-          return idx == 0
-            ? currVal
-            : prevVal + cssPlaceholder.get(placeholderID++) + currVal;
+        const text = node.quasis.reduce((prevVal, current, index) => {
+          const raw = current.value.raw;
+          return index === 0
+            ? raw
+            : prevVal + cssPlaceholder.get(index - 1) + raw;
         }, "");
 
         // postcss can't handle the following css
         // ```css
         // div {
-        //   placeholder-1;
+        //   css-placeholder;
         // }
         // ```
         // so we fake it into
         // div {
-        //   placeholder-0: placeholder-1;
+        //   prop-placeholder: css-placeholder;
         // }
         // ```
         // and will restore back after parse
@@ -69,7 +72,7 @@ function embed(path, print, textToDoc, options) {
             return;
           }
           let after = textPieces.slice(index + 1).join("");
-          let isLineBreakAfter = /^\s*\n/.test(after);
+          let endsWithBlankLine = /^\s*\n/.test(after);
           const regExp = new RegExp(
             "^" +
               cssPlaceholder.prefix +
@@ -86,7 +89,7 @@ function embed(path, print, textToDoc, options) {
               break;
             }
             after = replaced;
-            isLineBreakAfter = isLineBreakAfter || /^\s*\n/.test(after);
+            endsWithBlankLine = endsWithBlankLine || /^\s*\n/.test(after);
           }
           const before = textPieces
             .slice(0, index)
@@ -95,21 +98,19 @@ function embed(path, print, textToDoc, options) {
 
           if (
             (!after ||
-              isLineBreakAfter ||
-              after.trim().startsWith(";") ||
-              after.trim().startsWith("}")) &&
+              endsWithBlankLine ||
+              startsWith(after, ";") ||
+              startsWith(after, "}")) &&
             (!before ||
-              before.endsWith(";") ||
-              before.endsWith("{") ||
-              before.endsWith("}"))
+              endsWith(before, ";") ||
+              endsWith(before, "{") ||
+              endsWith(before, "}"))
           ) {
             textPieces[index] = `${CSS_PROP_PLACEHOLDER}: ${placeholder};`;
           }
         });
 
-        text = textPieces.join("");
-
-        const doc = textToDoc(text, { parser: "css" });
+        const doc = textToDoc(textPieces.join(""), { parser: "css" });
         return transformCssDoc(doc, path, print);
       }
 
