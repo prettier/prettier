@@ -89,7 +89,7 @@ function embed(path, print, textToDoc, options) {
             if (afterPieces[0] && afterPieces[0].isPlaceholder) {
               afterPieces.shift();
             }
-            after = placeholderPiecesStringArray(afterPieces).join("");
+            after = placeholderPiecesToStringArray(afterPieces).join("");
             endsWithLineBreak = endsWithLineBreak || /^\s*\n/.test(after);
             if (afterPieces.length === trimPiecesLeadingSpaces(afterPieces)) {
               after = after.trim();
