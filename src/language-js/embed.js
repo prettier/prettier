@@ -20,10 +20,6 @@ const {
 const cssPlaceholder = new Placeholder({ namespace: "prettier" });
 const cssPropPlaceholder = new Placeholder({ namespace: "prettier" });
 const CSS_PROP_PLACEHOLDER = cssPropPlaceholder.get(0);
-// TODO: use String#{startsWith, endsWith} when bundle targets node >=6
-const startsWith = (string, searchString) => string.indexOf(searchString) === 0;
-const endsWith = (string, searchString) =>
-  string.slice(0, searchString.length) === searchString;
 
 function embed(path, print, textToDoc, options) {
   const node = path.getValue();
@@ -99,12 +95,12 @@ function embed(path, print, textToDoc, options) {
           if (
             (!after ||
               endsWithBlankLine ||
-              startsWith(after, ";") ||
-              startsWith(after, "}")) &&
+              after.slice(0, 1) === ";" ||
+              after.slice(0, 1) === "}") &&
             (!before ||
-              endsWith(before, ";") ||
-              endsWith(before, "{") ||
-              endsWith(before, "}"))
+              before.slice(-1) === ";" ||
+              before.slice(-1) === "{" ||
+              before.slice(-1) === "}")
           ) {
             textPieces[index] = `${CSS_PROP_PLACEHOLDER}: ${placeholder};`;
           }
