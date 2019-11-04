@@ -125,9 +125,15 @@ it('gets triggered by mouseenter', () => {
 
 x.a(true).b(null).c(123)
 x.d('').e(``).f(g)
+x.d('').e(`${123}`).f(g)
 x.h(i.j).k(l()).m([n, o])
 class X {
   y() {
-    x.a(this).b(super.cde()).f(/g/).h(new i()).j(~k).l()
+    x.a(this).b(super.cde()).f(/g/).h(new i()).j()
   }
 }
+
+// should break when call expressions get complex
+x.a().b([c, [d, [e]]]).f()
+x.a().b(c(d(e()))).f()
+x.a().b(`${c(d())}`).f()
