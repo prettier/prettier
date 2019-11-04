@@ -230,7 +230,7 @@ A `util` module from Prettier core is considered a private API and is not meant 
 
 <!-- prettier-ignore -->
 ```ts
-type Quote = "\"" | "'";
+type Quote = '"' | "'";
 type SkipOptions = { backwards?: boolean };
 function getMaxContinuousCount(str: string, target: string): number;
 function getStringWidth(text: string): number;
