@@ -57,3 +57,8 @@ styled.div`
 css`
 prop: var(--global--color--${props.varient});
 `
+
+// #5219
+css`
+  src: "${pathToFont}";
+`;

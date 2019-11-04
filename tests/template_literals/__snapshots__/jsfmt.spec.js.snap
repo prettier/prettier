@@ -256,6 +256,12 @@ styled.div\`
 css\`
 prop: var(--global--color--\${props.varient});
 \`
+
+// #5219
+css\`
+  src: "\${pathToFont}";
+\`;
+
 =====================================output=====================================
 const Button = styled.a\`
   /* Comment */
@@ -320,6 +326,11 @@ styled.div\`
 // #5465
 css\`
   prop: var(--global--color--\${props.varient});
+\`;
+
+// #5219
+css\`
+  src: "\${pathToFont}";
 \`;
 
 ================================================================================
