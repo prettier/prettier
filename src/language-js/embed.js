@@ -107,12 +107,7 @@ function embed(path, print, textToDoc, options) {
         });
 
         const doc = textToDoc(textPieces.join(""), { parser: "css" });
-        try {
-          return transformCssDoc(doc, path, print);
-        } catch (error) {
-          console.error(error);
-          throw error;
-        }
+        return transformCssDoc(doc, path, print);
       }
 
       /*
