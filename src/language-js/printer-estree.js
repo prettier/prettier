@@ -1610,15 +1610,8 @@ function printPathNoParens(path, options, print, args) {
     case "NumericLiteral": // Babel 6 Literal split
       return printNumber(n.extra.raw);
     case "BigIntLiteral":
-      return concat([
-        printNumber(
-          n.extra
-            ? n.extra.rawValue
-            : // TypeScript
-              n.value
-        ),
-        "n"
-      ]);
+      // babel: n.extra.raw, typescript: n.raw
+      return (n.extra ? n.extra.raw : n.raw).toLowerCase();
     case "BooleanLiteral": // Babel 6 Literal split
     case "StringLiteral": // Babel 6 Literal split
     case "Literal": {
@@ -4024,7 +4017,9 @@ function printArgumentsList(path, options, print) {
       somePrintedArgumentsWillBreak ? breakParent : "",
       conditionalGroup(
         [
-          !somePrintedArgumentsWillBreak
+          !somePrintedArgumentsWillBreak &&
+          !node.typeArguments &&
+          !node.typeParameters
             ? simpleConcat
             : ifBreak(allArgsBrokenOut(), simpleConcat),
           shouldGroupFirst
