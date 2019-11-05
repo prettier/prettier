@@ -62,3 +62,8 @@ prop: var(--foo--${expr});
 css`
   src: "${expr}";
 `;
+
+// #6392
+styled(_A)`
+  ${B}, ${C} {}
+`
