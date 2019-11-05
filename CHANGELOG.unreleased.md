@@ -1365,7 +1365,7 @@ const bigints = [200000n, 0x0000000an, 0b01111111n];
 const bigints = [200_000n, 0x0000_000an, 0b0111_1111n];
 ```
 
-#### Less: handle whitespace between variable and colon ([#6778] by [@fisker])
+#### Less: don't lowercase variable names, remove whitespace between variable and colon ([#6778] by [@fisker])
 
 <!-- prettier-ignore -->
 ```less
