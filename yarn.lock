@@ -1018,16 +1018,17 @@
   dependencies:
     "@types/yargs-parser" "*"
 
-"@typescript-eslint/typescript-estree@2.6.0":
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/typescript-estree/-/typescript-estree-2.6.0.tgz#d3e9d8e001492e2b9124c4d4bd4e7f03c0fd7254"
-  integrity sha512-A3lSBVIdj2Gp0lFEL6in2eSPqJ33uAc3Ko+Y4brhjkxzjbzLnwBH22CwsW2sCo+iwogfIyvb56/AJri15H0u5Q==
+"@typescript-eslint/typescript-estree@2.6.1":
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/@typescript-eslint/typescript-estree/-/typescript-estree-2.6.1.tgz#fb363dd4ca23384745c5ea4b7f4c867432b00d31"
+  integrity sha512-+sTnssW6bcbDZKE8Ce7VV6LdzkQz2Bxk7jzk1J8H1rovoTxnm6iXvYIyncvNsaB/kBCOM63j/LNJfm27bNdUoA==
   dependencies:
     debug "^4.1.1"
     glob "^7.1.4"
     is-glob "^4.0.1"
     lodash.unescape "4.0.1"
     semver "^6.3.0"
+    tsutils "^3.17.1"
 
 "@webassemblyjs/ast@1.8.5":
   version "1.8.5"
@@ -2383,16 +2384,10 @@ debug@^3.1.0:
   dependencies:
     ms "2.0.0"
 
-debug@^4.0.1, debug@^4.1.1:
+debug@^4.0.1, debug@^4.1.0, debug@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/debug/-/debug-4.1.1.tgz#3b72260255109c6b589cee050f1d516139664791"
   integrity sha512-pYAIzeRo8J6KPEaJ0VWOh5Pzkbw/RetuzehGM7QRRX5he4fPHx2rdKMB256ehJCkX+XRQm16eZLqLNS8RSZXZw==
-  dependencies:
-    ms "^2.1.1"
-
-debug@^4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/debug/-/debug-4.1.0.tgz#373687bffa678b38b1cd91f861b63850035ddc87"
   dependencies:
     ms "^2.1.1"
 
@@ -3371,18 +3366,7 @@ glob-parent@^5.0.0:
   dependencies:
     is-glob "^4.0.1"
 
-glob@^7.0.0, glob@^7.0.3, glob@^7.0.5, glob@^7.1.1, glob@^7.1.2:
-  version "7.1.2"
-  resolved "https://registry.yarnpkg.com/glob/-/glob-7.1.2.tgz#c19c9df9a028702d678612384a6552404c636d15"
-  dependencies:
-    fs.realpath "^1.0.0"
-    inflight "^1.0.4"
-    inherits "2"
-    minimatch "^3.0.4"
-    once "^1.3.0"
-    path-is-absolute "^1.0.0"
-
-glob@^7.1.3, glob@^7.1.4:
+glob@^7.0.0, glob@^7.0.3, glob@^7.0.5, glob@^7.1.1, glob@^7.1.2, glob@^7.1.3, glob@^7.1.4:
   version "7.1.4"
   resolved "https://registry.yarnpkg.com/glob/-/glob-7.1.4.tgz#aa608a2f6c577ad357e1ae5a5c26d9a8d1969255"
   integrity sha512-hkLPepehmnKk41pUGm3sYxoFs/umurYfYJCerbXEyFIWcAzvpipAgVkBqqT9RBKMGjnq6kMuyYwha6csxbiM1A==
@@ -3924,13 +3908,7 @@ is-glob@^3.1.0:
   dependencies:
     is-extglob "^2.1.0"
 
-is-glob@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/is-glob/-/is-glob-4.0.0.tgz#9521c76845cc2610a85203ddf080a958c2ffabc0"
-  dependencies:
-    is-extglob "^2.1.1"
-
-is-glob@^4.0.1:
+is-glob@^4.0.0, is-glob@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/is-glob/-/is-glob-4.0.1.tgz#7567dbe9f2f5e2467bc77ab83c4a29482407a5dc"
   integrity sha512-5G0tKtBTFImOqDnLB2hG6Bp2qcKEFduo4tZu9MT/H6NQv/ghhy30o55ufafxJ/LdH79LLs2Kfrn85TLKyA7BUg==
@@ -6525,15 +6503,10 @@ schema-utils@^2.5.0:
   version "5.6.0"
   resolved "https://registry.yarnpkg.com/semver/-/semver-5.6.0.tgz#7e74256fbaa49c75aa7c7a205cc22799cac80004"
 
-semver@6.3.0, semver@^6.0.0, semver@^6.1.2, semver@^6.3.0:
+semver@6.3.0, semver@^6.0.0, semver@^6.1.0, semver@^6.1.2, semver@^6.3.0:
   version "6.3.0"
   resolved "https://registry.yarnpkg.com/semver/-/semver-6.3.0.tgz#ee0a64c8af5e8ceea67687b133761e1becbd1d3d"
   integrity sha512-b39TBaTSfV6yBrapU89p5fKekE2m/NwnDocOVruQFS1/veMgdzuPcnOM34M6CwxW8jH/lxEa5rBoDeUwu5HHTw==
-
-semver@^6.1.0:
-  version "6.1.1"
-  resolved "https://registry.yarnpkg.com/semver/-/semver-6.1.1.tgz#53f53da9b30b2103cd4f15eab3a18ecbcb210c9b"
-  integrity sha512-rWYq2e5iYW+fFe/oPPtYJxYgjBm8sC4rmoGdUOgBB7VnwKt6HrL793l2voH1UlsyYZpJ4g0wfjnTEO1s1NP2eQ==
 
 serialize-javascript@^1.7.0:
   version "1.7.0"
@@ -7211,10 +7184,17 @@ trough@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/trough/-/trough-1.0.1.tgz#a9fd8b0394b0ae8fff82e0633a0a36ccad5b5f86"
 
-tslib@^1.10.0, tslib@^1.8.0, tslib@^1.9.0, tslib@^1.9.3:
+tslib@^1.10.0, tslib@^1.8.0, tslib@^1.8.1, tslib@^1.9.0, tslib@^1.9.3:
   version "1.10.0"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.10.0.tgz#c3c19f95973fb0a62973fb09d90d961ee43e5c8a"
   integrity sha512-qOebF53frne81cf0S9B41ByenJ3/IuH8yJKngAX35CmiZySA0khhkovshKK+jGCaMnVomla7gVlIcc3EvKPbTQ==
+
+tsutils@^3.17.1:
+  version "3.17.1"
+  resolved "https://registry.yarnpkg.com/tsutils/-/tsutils-3.17.1.tgz#ed719917f11ca0dee586272b2ac49e015a2dd759"
+  integrity sha512-kzeQ5B8H3w60nFY2g8cJIuH7JDpsALXySGtwGJ0p2LSjLgay3NdIpqq5SoOBe46bKDW2iq25irHCr8wjomUS2g==
+  dependencies:
+    tslib "^1.8.1"
 
 tty-browserify@0.0.0:
   version "0.0.0"
