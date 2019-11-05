@@ -56,7 +56,7 @@
     "n-readlines": "1.0.0",
     "normalize-path": "3.0.0",
     "parse-srcset": "ikatyang/parse-srcset#54eb9c1cb21db5c62b4d0e275d7249516df6f0ee",
-    "postcss-less": "1.1.5",
+    "postcss-less": "3.1.4",
     "postcss-media-query-parser": "0.2.3",
     "postcss-scss": "2.0.0",
     "postcss-selector-parser": "2.2.3",
