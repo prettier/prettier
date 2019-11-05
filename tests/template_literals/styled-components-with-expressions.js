@@ -42,7 +42,7 @@ margin: 0;
 }
 `;
 
-// # 6259
+// #6259 #4520
 styled.div`
          ${expr}:not(:first-child) {
     // should not add space after :not
@@ -77,3 +77,8 @@ ${Step}:nth-child(odd) {
 }
 }
 `;
+
+// #4355
+styled.div`
+         border: 1px solid ${({active}) => active ? themeColor.active : themeColor.inactive};
+`

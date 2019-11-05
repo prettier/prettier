@@ -241,7 +241,7 @@ margin: 0;
 }
 \`;
 
-// # 6259
+// #6259 #4520
 styled.div\`
          \${expr}:not(:first-child) {
     // should not add space after :not
@@ -276,6 +276,11 @@ styled.div\`
 }
 }
 \`;
+
+// #4355
+styled.div\`
+         border: 1px solid \${({active}) => active ? themeColor.active : themeColor.inactive};
+\`
 =====================================output=====================================
 const Button = styled.a\`
   /* Comment */
@@ -324,7 +329,7 @@ const header = css\`
   }
 \`;
 
-// # 6259
+// #6259 #4520
 styled.div\`
   \${expr}:not(:first-child) {
     // should not add space after :not
@@ -362,6 +367,12 @@ styled.div\`
       // should not add space after :nth-child
     }
   }
+\`;
+
+// #4355
+styled.div\`
+  border: 1px solid \${({ active }) =>
+      active ? themeColor.active : themeColor.inactive};
 \`;
 
 ================================================================================
