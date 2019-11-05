@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`outputs error message & exits with error code in case of a duplicate class name (stderr) 1`] = `
+"[error] stdin: SyntaxError: Identifier 'A' has already been declared (1:18)
+[error] > 1 | class A {} class A {}
+[error]     |                  ^
+"
+`;
+
+exports[`outputs error message & exits with error code in case of a duplicate class name (stdout) 1`] = `""`;
+
+exports[`outputs error message & exits with error code in case of a duplicate class name (write) 1`] = `Array []`;
