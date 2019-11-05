@@ -14,7 +14,6 @@
          foo${exp} {}
 `}</style>;
 
-
 // expression in id selector(middle)
 <style jsx>{`
          #foo${exp}bar {}
@@ -27,7 +26,6 @@
 <style jsx>{`
          #${exp}bar {}
 `}</style>;
-
 
 // expression in class selector(middle)
 <style jsx>{`
@@ -42,7 +40,6 @@
          .${exp}bar {}
 `}</style>;
 
-
 // expression in attribute name(middle)
 <style jsx>{`
          [foo${exp}bar] {}
@@ -55,7 +52,6 @@
 <style jsx>{`
          [foo${exp}] {}
 `}</style>;
-
 
 // expression in attribute value(middle)
 <style jsx>{`
@@ -70,7 +66,6 @@
          [a^=foo${exp}] {}
 `}</style>;
 
-
 // expression in decl prop(middle)
 <style jsx>{`
          a {foo${exp}bar: 1;}
@@ -83,7 +78,6 @@
 <style jsx>{`
          a {foo${exp}: 1;}
 `}</style>;
-
 
 // expression in decl value(middle)
 <style jsx>{`
@@ -168,8 +162,9 @@ ${exp};
 <style jsx>{`
          a {
 ${exp}${exp};
-	   }
+     }
 `}</style>;
+
 <style jsx>{`
          a {
 ${exp};${exp};
@@ -192,6 +187,30 @@ ${exp}bar;
          a {
 foo${exp};
 	   }
+`}</style>;
+
+
+// semi test
+
+// should not insert semi
+<style jsx>{`
+         a {${exp}}
+`}</style>;
+// should keep semi
+<style jsx>{`
+         a {${exp};}
+`}</style>;
+// should not insert semi
+<style jsx>{`
+         a {${exp}${exp}}
+`}</style>;
+// should keep one semi
+<style jsx>{`
+         a {${exp}${exp};}
+`}</style>;
+// should keep 2 semi
+<style jsx>{`
+         a {${exp};${exp};}
 `}</style>;
 
 // real world cases
@@ -221,9 +240,9 @@ foo${exp};
     color: red;
   }
   }
-@font-face {
-    ${expr}
-  }
+         @font-face {
+${expr}
+}
 `}</style>;
 
 <style jsx>{`

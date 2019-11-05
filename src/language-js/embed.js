@@ -18,8 +18,9 @@ const {
 } = require("../doc");
 
 const cssPlaceholder = new Placeholder("prettier");
-const cssPropPlaceholder = new Placeholder("prettier");
-const CSS_PROP_PLACEHOLDER = cssPropPlaceholder.get(0);
+const cssExtraPlaceholder = new Placeholder("prettier");
+const CSS_PROP_PLACEHOLDER = cssExtraPlaceholder.generate().placeholder;
+const CSS_SEMI_MARK = cssExtraPlaceholder.generate().placeholder;
 const placeholderPiecesToStringArray = pieces =>
   pieces.map(({ isPlaceholder, string, placeholder }) =>
     isPlaceholder ? placeholder : string
@@ -83,6 +84,8 @@ function embed(path, print, textToDoc, options) {
           const afterPieces = pieces.slice(index + 1);
           let after = "";
           let endsWithLineBreak = false;
+          const needExtraSemi =
+            placeholderPiecesToStringArray(afterPieces).join("")[0] !== ";";
 
           // remove following spaces and placeholders
           do {
@@ -112,7 +115,9 @@ function embed(path, print, textToDoc, options) {
               before.slice(-1) === "{" ||
               before.slice(-1) === "}")
           ) {
-            textPieces[index] = `${CSS_PROP_PLACEHOLDER}: ${placeholder};`;
+            textPieces[index] =
+              `${CSS_PROP_PLACEHOLDER}: ${placeholder}` +
+              (needExtraSemi ? `${CSS_SEMI_MARK};` : "");
           }
         });
 
@@ -329,6 +334,15 @@ function transformCssDoc(quasisDoc, path, print) {
 // and replace them with the expression docs one by one
 // returns a new doc with all the placeholders replaced,
 // or null if it couldn't replace any expression
+function hasPlaceholder(doc) {
+  if (!doc || !doc.parts) {
+    return false;
+  }
+  const text = doc.parts.filter(part => typeof part === "string").join();
+  return [cssPlaceholder, cssExtraPlaceholder].some(placeholder =>
+    placeholder.hasPlaceholder(text)
+  );
+}
 function replacePlaceholders(quasisDoc, expressionDocs) {
   if (!expressionDocs || !expressionDocs.length) {
     return quasisDoc;
@@ -336,15 +350,13 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
 
   const replaced = [];
   const restoredDoc = mapDoc(quasisDoc, doc => {
-    if (
-      !doc ||
-      !doc.parts ||
-      ![cssPlaceholder, cssPropPlaceholder].some(placeholder =>
-        placeholder.hasPlaceholder(doc.parts.join())
-      )
-    ) {
+    if (!hasPlaceholder(doc)) {
       return doc;
     }
+
+    const CSS_SEMI_MARK_LENGTH = CSS_SEMI_MARK.length;
+    const endsWithSemiMark = string =>
+      string.slice(-CSS_SEMI_MARK_LENGTH) === CSS_SEMI_MARK;
 
     const parts = doc.parts.slice().reduce((parts, part, index, source) => {
       if (typeof part !== "string") {
@@ -352,7 +364,26 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
         return parts;
       }
 
-      // TODO: clean CSS_PROP_PLACEHOLDER is part of prop, like div {foo${exp}bar;}
+      // clean extra semi mark
+      if (endsWithSemiMark(part)) {
+        part = part.slice(0, -CSS_SEMI_MARK_LENGTH);
+
+        // find semi
+        for (let i = index + 1; i < source.length; i++) {
+          const part = source[i].trim();
+          if (part) {
+            if (part === ";") {
+              source[i] = "";
+            } else {
+              throw new Error(
+                "CSS_SEMI_MARK should always follow with a semicolon"
+              );
+            }
+            break;
+          }
+        }
+      }
+
       // clean css prop placeholder
       if (part === CSS_PROP_PLACEHOLDER) {
         if (source[index + 1] !== ":") {

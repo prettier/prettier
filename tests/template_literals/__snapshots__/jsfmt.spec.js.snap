@@ -548,7 +548,6 @@ printWidth: 80
          foo\${exp} {}
 \`}</style>;
 
-
 // expression in id selector(middle)
 <style jsx>{\`
          #foo\${exp}bar {}
@@ -561,7 +560,6 @@ printWidth: 80
 <style jsx>{\`
          #\${exp}bar {}
 \`}</style>;
-
 
 // expression in class selector(middle)
 <style jsx>{\`
@@ -576,7 +574,6 @@ printWidth: 80
          .\${exp}bar {}
 \`}</style>;
 
-
 // expression in attribute name(middle)
 <style jsx>{\`
          [foo\${exp}bar] {}
@@ -589,7 +586,6 @@ printWidth: 80
 <style jsx>{\`
          [foo\${exp}] {}
 \`}</style>;
-
 
 // expression in attribute value(middle)
 <style jsx>{\`
@@ -604,7 +600,6 @@ printWidth: 80
          [a^=foo\${exp}] {}
 \`}</style>;
 
-
 // expression in decl prop(middle)
 <style jsx>{\`
          a {foo\${exp}bar: 1;}
@@ -617,7 +612,6 @@ printWidth: 80
 <style jsx>{\`
          a {foo\${exp}: 1;}
 \`}</style>;
-
 
 // expression in decl value(middle)
 <style jsx>{\`
@@ -702,8 +696,9 @@ printWidth: 80
 <style jsx>{\`
          a {
 \${exp}\${exp};
-	   }
+     }
 \`}</style>;
+
 <style jsx>{\`
          a {
 \${exp};\${exp};
@@ -726,6 +721,30 @@ foo\${exp}bar;
          a {
 foo\${exp};
 	   }
+\`}</style>;
+
+
+// semi test
+
+// should not insert semi
+<style jsx>{\`
+         a {\${exp}}
+\`}</style>;
+// should keep semi
+<style jsx>{\`
+         a {\${exp};}
+\`}</style>;
+// should not insert semi
+<style jsx>{\`
+         a {\${exp}\${exp}}
+\`}</style>;
+// should keep one semi
+<style jsx>{\`
+         a {\${exp}\${exp};}
+\`}</style>;
+// should keep 2 semi
+<style jsx>{\`
+         a {\${exp};\${exp};}
 \`}</style>;
 
 // real world cases
@@ -755,9 +774,9 @@ foo\${exp};
     color: red;
   }
   }
-@font-face {
-    \${expr}
-  }
+         @font-face {
+\${expr}
+}
 \`}</style>;
 
 <style jsx>{\`
@@ -999,10 +1018,11 @@ foo\${exp};
 // expression as decl(no breaks)
 <style jsx>{\`
   a {
-    \${exp};
+    \${exp}
     \${exp};
   }
 \`}</style>;
+
 <style jsx>{\`
   a {
     \${exp};
@@ -1026,6 +1046,42 @@ foo\${exp}bar;
          a {
 foo\${exp};
 	   }
+\`}</style>;
+
+// semi test
+
+// should not insert semi
+<style jsx>{\`
+  a {
+    \${exp}
+  }
+\`}</style>;
+// should keep semi
+<style jsx>{\`
+  a {
+    \${exp};
+  }
+\`}</style>;
+// should not insert semi
+<style jsx>{\`
+  a {
+    \${exp}
+    \${exp}
+  }
+\`}</style>;
+// should keep one semi
+<style jsx>{\`
+  a {
+    \${exp}
+    \${exp};
+  }
+\`}</style>;
+// should keep 2 semi
+<style jsx>{\`
+  a {
+    \${exp};
+    \${exp};
+  }
 \`}</style>;
 
 // real world cases
@@ -1056,7 +1112,7 @@ foo\${exp};
     }
   }
   @font-face {
-    \${expr};
+    \${expr}
   }
 \`}</style>;
 
