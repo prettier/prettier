@@ -342,7 +342,7 @@ export const RedBox = styled.div<{foo: string}>\`
 =====================================output=====================================
 export const RedBox = styled.div<{ foo: string }>\`
   background: red;
-  \${props => props.foo};
+  \${props => props.foo}
 \`;
 
 ================================================================================
