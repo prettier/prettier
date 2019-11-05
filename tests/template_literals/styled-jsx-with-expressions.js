@@ -214,10 +214,42 @@ ${exp}${exp}                }
 // should keep 2 semi
 <style jsx>{`
          e {${exp} 
-
-
 ;${exp};}
 `}</style>;
+
+// comment test
+
+// inline-comment
+<style jsx>{`
+         a {
+// comment
+          ${exp}
+        // comment
+}
+`}</style>;
+
+// block-comment
+<style jsx>{`
+         a {
+/*comment
+*/
+          ${exp}
+        /*comment
+*/
+}
+`}</style>;
+
+// inside-comment
+<style jsx>{`
+         a {
+/*comment${a}
+*/
+          ${exp}
+        /*comment${b}
+*/
+}
+`}</style>;
+
 
 // real world cases
 
