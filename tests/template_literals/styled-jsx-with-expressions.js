@@ -262,3 +262,10 @@ ${expr}
   animation: 3s ease-in 1s ${foo => foo.getIterations()} reverse both paused slidein;
   }
 `}</style>;
+
+// #5886
+<style jsx>{`
+         .class{
+flex-direction: column${long_cond && long_cond && long_cond ? "-reverse" : ""};
+}
+`}</style>
