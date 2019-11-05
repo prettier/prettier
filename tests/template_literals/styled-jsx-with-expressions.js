@@ -230,8 +230,7 @@ ${exp}${exp}                }
 // block-comment(before)
 <style jsx>{`
          a {
-/*comment
-*/
+/*comment*/
           ${exp}
 }
 `}</style>;

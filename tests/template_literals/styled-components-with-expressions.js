@@ -90,4 +90,10 @@ styled.div`
 `;
 
 // should not crush
-styled.div`${a}${b}${c}${d}${e}${f}${g}${h}${i}${j}${k}${l}${m}${n}${o}${p}${q}${r}${s}${t}${u}${v}${w}${x}${y}${z}`
+styled.div`${a}${b}${c}${d}${e}${f}
+// comment
+${g}//comment
+${h}/*comment*/; // <- FIXME: keep this semi
+         ${i};${j}${k}${l}${m}${n}${o}${p}${q}${r}${s}${t}${u}${v}${w}${x}${y}
+// comment
+${z}`

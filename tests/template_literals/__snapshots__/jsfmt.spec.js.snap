@@ -289,7 +289,14 @@ styled.div\`
 \`;
 
 // should not crush
-styled.div\`\${a}\${b}\${c}\${d}\${e}\${f}\${g}\${h}\${i}\${j}\${k}\${l}\${m}\${n}\${o}\${p}\${q}\${r}\${s}\${t}\${u}\${v}\${w}\${x}\${y}\${z}\`
+styled.div\`\${a}\${b}\${c}\${d}\${e}\${f}
+// comment
+\${g}//comment
+\${h}/*comment*/; // <- FIXME: keep this semi
+         \${i};\${j}\${k}\${l}\${m}\${n}\${o}\${p}\${q}\${r}\${s}\${t}\${u}\${v}\${w}\${x}\${y}
+// comment
+\${z}\`
+
 =====================================output=====================================
 const Button = styled.a\`
   /* Comment */
@@ -398,9 +405,10 @@ styled.div\`
   \${d}
   \${e}
   \${f}
-  \${g}
-  \${h}
-  \${i}
+  // comment
+  \${g} //comment
+  \${h} /*comment*/ // <- FIXME: keep this semi
+  \${i};
   \${j}
   \${k}
   \${l}
@@ -417,6 +425,7 @@ styled.div\`
   \${w}
   \${x}
   \${y}
+  // comment
   \${z}
 \`;
 
@@ -835,10 +844,93 @@ foo\${exp};
 // should keep 2 semi
 <style jsx>{\`
          e {\${exp} 
-
-
 ;\${exp};}
 \`}</style>;
+
+// comment test
+
+// inline-comment(before)
+<style jsx>{\`
+         a {
+// comment
+          \${exp}
+}
+\`}</style>;
+
+// block-comment(before)
+<style jsx>{\`
+         a {
+/*comment*/
+          \${exp}
+}
+\`}</style>;
+
+// inside-comment(before)
+<style jsx>{\`
+         a {
+/*comment\${a}
+*/
+          \${exp}
+}
+\`}</style>;
+
+// inline-comment(after)
+<style jsx>{\`
+         a {
+          \${exp}
+        // comment
+}
+\`}</style>;
+
+// block-comment(after)
+<style jsx>{\`
+         a {
+          \${exp}
+        /*comment
+*/
+}
+\`}</style>;
+
+// inside-comment(after)
+<style jsx>{\`
+         a {
+          \${exp}
+        /*comment\${b}
+*/
+}
+\`}</style>;
+
+// inline-comment(both)
+<style jsx>{\`
+         a {
+// comment
+          \${exp}
+        // comment
+}
+\`}</style>;
+
+// block-comment(both)
+<style jsx>{\`
+         a {
+/*comment
+*/
+          \${exp}
+        /*comment
+*/
+}
+\`}</style>;
+
+// inside-comment(both)
+<style jsx>{\`
+         a {
+/*comment\${a}
+*/
+          \${exp}
+        /*comment\${b}
+*/
+}
+\`}</style>;
+
 
 // real world cases
 
@@ -1181,6 +1273,90 @@ foo\${exp};
   e {
     \${exp};
     \${exp};
+  }
+\`}</style>;
+
+// comment test
+
+// inline-comment(before)
+<style jsx>{\`
+  a {
+    // comment
+    \${exp}
+  }
+\`}</style>;
+
+// block-comment(before)
+<style jsx>{\`
+  a {
+    /*comment*/
+    \${exp}
+  }
+\`}</style>;
+
+// inside-comment(before)
+<style jsx>{\`
+  a {
+    /*comment\${a}
+*/
+    \${exp}
+  }
+\`}</style>;
+
+// inline-comment(after)
+<style jsx>{\`
+  a {
+    \${exp}
+    // comment
+  }
+\`}</style>;
+
+// block-comment(after)
+<style jsx>{\`
+  a {
+    \${exp}
+    /*comment
+*/
+  }
+\`}</style>;
+
+// inside-comment(after)
+<style jsx>{\`
+  a {
+    \${exp}
+    /*comment\${b}
+*/
+  }
+\`}</style>;
+
+// inline-comment(both)
+<style jsx>{\`
+  a {
+    // comment
+    \${exp}
+    // comment
+  }
+\`}</style>;
+
+// block-comment(both)
+<style jsx>{\`
+  a {
+    /*comment
+*/
+    \${exp}
+    /*comment
+*/
+  }
+\`}</style>;
+
+// inside-comment(both)
+<style jsx>{\`
+  a {
+    /*comment\${a}
+*/
+    \${exp}
+    /*comment\${b}
+*/
   }
 \`}</style>;
 
