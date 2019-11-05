@@ -407,7 +407,7 @@ styled.div\`
   \${f}
   // comment
   \${g} //comment
-  \${h} /*comment*/ // <- FIXME: keep this semi
+  \${h} /*comment*/; // <- FIXME: keep this semi
   \${i};
   \${j}
   \${k}
@@ -829,8 +829,8 @@ foo\${exp};
 \`}</style>;
 // should keep semi
 <style jsx>{\`
-         b {\${exp} 
-;}
+         b {\${exp} ;
+}
 \`}</style>;
 // should not insert semi
 <style jsx>{\`
@@ -843,8 +843,8 @@ foo\${exp};
 \`}</style>;
 // should keep 2 semi
 <style jsx>{\`
-         e {\${exp} 
-;\${exp};}
+         e {\${exp}               ;
+\${exp};}
 \`}</style>;
 
 // comment test

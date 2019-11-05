@@ -199,8 +199,8 @@ ${exp}}
 `}</style>;
 // should keep semi
 <style jsx>{`
-         b {${exp} 
-;}
+         b {${exp} ;
+}
 `}</style>;
 // should not insert semi
 <style jsx>{`
@@ -213,8 +213,8 @@ ${exp}${exp}                }
 `}</style>;
 // should keep 2 semi
 <style jsx>{`
-         e {${exp} 
-;${exp};}
+         e {${exp}               ;
+${exp};}
 `}</style>;
 
 // comment test

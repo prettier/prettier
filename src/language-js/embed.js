@@ -19,26 +19,14 @@ const {
 
 const cssPlaceholder = new Placeholder("prettier");
 const cssExtraPlaceholder = new Placeholder("prettier");
-const CSS_PROP_PLACEHOLDER = cssExtraPlaceholder.generate().placeholder;
-const CSS_SEMI_MARK = cssExtraPlaceholder.generate().placeholder;
+const CSS_PROP_PLACEHOLDER = cssExtraPlaceholder.get(0);
+const CSS_SEMI_MARK = cssExtraPlaceholder.get(1);
 const placeholderPiecesToStringArray = pieces =>
   pieces.map(({ isPlaceholder, string, placeholder }) =>
     isPlaceholder ? placeholder : string
   );
-const trimLeadingCSSCommentsAndSpaces = string =>
-  string
-    .trim()
-    // trim leading block-comment
-    .replace(/^\/\*[\s\S]*?\*\//, "")
-    // trim leading inline-comment
-    .replace(/^\/\/.*/, "")
-    .trim();
-
 const removeCSSComments = string =>
-  string
-    .replace(/\/\*[\s\S]*?\*\//g, "")
-    .replace(/\/\/.*/g, "")
-    .trim();
+  string.replace(/\/\*[\s\S]*?\*\//g, "").replace(/\/\/.*/g, "");
 
 function embed(path, print, textToDoc, options) {
   const node = path.getValue();
@@ -85,34 +73,26 @@ function embed(path, print, textToDoc, options) {
             return;
           }
 
-          let afterTexts = texts.slice(index + 1);
-          let after = afterTexts.join("").trim();
-          let endsWithLineBreak = false;
-          const needExtraSemi = after[0] !== ";";
-
-          // remove following spaces, comments and placeholders
-          do {
-            // trim all placeholders
-            while (
-              afterTexts[0] &&
-              cssPlaceholder.isPlaceholder(afterTexts[0])
-            ) {
-              afterTexts.shift();
-            }
-            after = afterTexts.join("");
-            endsWithLineBreak = endsWithLineBreak || /^\s*\n/.test(after);
-
-            const trimed = trimLeadingCSSCommentsAndSpaces(after);
-            if (trimed === after) {
-              after = trimed;
-              break;
-            }
-            afterTexts = placeholderPiecesToStringArray(
-              cssPlaceholder.parse(trimed)
+          let after = removeCSSComments(
+            texts
+              .slice(index + 1)
+              .filter(text => !cssPlaceholder.isPlaceholder(text))
+              .join("")
+          );
+          const endsWithLineBreak = /^\s*\n/.test(after);
+          const needExtraSemi =
+            !after.trim() ||
+            endsWithLineBreak ||
+            after.trim()[0] !== ";" ||
+            cssPlaceholder.isPlaceholder(
+              texts.slice(index + 1).filter(text => text.trim())[0] || ""
             );
-          } while (afterTexts.length);
 
-          const before = removeCSSComments(texts.slice(0, index).join(""));
+          after = after.trim();
+          const before = removeCSSComments(
+            texts.slice(0, index).join("")
+          ).trim();
+
           if (
             (!after ||
               endsWithLineBreak ||
@@ -128,6 +108,7 @@ function embed(path, print, textToDoc, options) {
               (needExtraSemi ? `${CSS_SEMI_MARK};` : "");
           }
         });
+
         const doc = textToDoc(texts.join(""), { parser: "css" });
         return transformCssDoc(doc, path, print);
       }
@@ -403,8 +384,8 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
 
         // clean up following spaces
         for (let i = index + 2; i < source.length; i++) {
-          const value = source[i].trim();
-          if (value) {
+          const value = source[i];
+          if (typeof value !== "string" || value.trim()) {
             break;
           }
           source[i] = "";
