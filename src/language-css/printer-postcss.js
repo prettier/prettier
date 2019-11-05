@@ -58,8 +58,6 @@ const {
   hasEmptyRawBefore,
   isKeyValuePairNode,
   isDetachedRulesetCallNode,
-  isTemplatePlaceholderNode,
-  isTemplatePropNode,
   isPostcssSimpleVarNode,
   isSCSSMapItemNode,
   isInlineValueCommentNode,
@@ -181,16 +179,10 @@ function genericPrint(path, options, print) {
               softline,
               "}"
             ])
-          : isTemplatePropNode(node) &&
-            !parentNode.raws.semicolon &&
-            options.originalText[options.locEnd(node) - 1] !== ";"
-          ? ""
           : ";"
       ]);
     }
     case "css-atrule": {
-      const parentNode = path.getParentNode();
-
       return concat([
         "@",
         // If a Less file ends up being parsed with the SCSS parser, Less
@@ -201,14 +193,7 @@ function genericPrint(path, options, print) {
           : maybeToLowerCase(node.name),
         node.params
           ? concat([
-              isDetachedRulesetCallNode(node)
-                ? ""
-                : isTemplatePlaceholderNode(node) &&
-                  /^\s*\n/.test(node.raws.afterName)
-                ? /^\s*\n\s*\n/.test(node.raws.afterName)
-                  ? concat([hardline, hardline])
-                  : hardline
-                : " ",
+              isDetachedRulesetCallNode(node) ? "" : " ",
               path.call(print, "params")
             ])
           : "",
@@ -243,10 +228,6 @@ function genericPrint(path, options, print) {
               softline,
               "}"
             ])
-          : isTemplatePlaceholderNode(node) &&
-            !parentNode.raws.semicolon &&
-            options.originalText[options.locEnd(node) - 1] !== ";"
-          ? ""
           : ";"
       ]);
     }
