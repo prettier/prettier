@@ -3569,10 +3569,10 @@ iconv-lite@^0.4.24:
   dependencies:
     safer-buffer ">= 2.1.2 < 3"
 
-id-placeholder@0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/id-placeholder/-/id-placeholder-0.0.3.tgz#d7781200c620deb735353654d1c3292083153d20"
-  integrity sha512-Gdxe97g8JRVEyJ1dOmfyqqoWoCJIHydhZQ+mzbGDuFzz0EStbWPNASlJcugu4ANzhtEbiRQcXLvpjqkpqprPfA==
+id-placeholder@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/id-placeholder/-/id-placeholder-1.0.0.tgz#a9e97b5c6e652a8f940e0fae1e44eb46d7885e76"
+  integrity sha512-2U/yClEv7CdGdHwEjAfHgKYapVo0z1y2qZ3pmJfwxL4W7EC53bs7C+oJv+/2L67gE0mZMObXx9ZdZ0qUfrdP+Q==
 
 ieee754@^1.1.4:
   version "1.1.8"

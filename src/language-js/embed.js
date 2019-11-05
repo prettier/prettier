@@ -17,8 +17,8 @@ const {
   utils: { mapDoc, stripTrailingHardline }
 } = require("../doc");
 
-const cssPlaceholder = new Placeholder({ namespace: "prettier" });
-const cssPropPlaceholder = new Placeholder({ namespace: "prettier" });
+const cssPlaceholder = new Placeholder("prettier");
+const cssPropPlaceholder = new Placeholder("prettier");
 const CSS_PROP_PLACEHOLDER = cssPropPlaceholder.get(0);
 const placeholderPiecesToStringArray = pieces =>
   pieces.map(({ isPlaceholder, string, placeholder }) =>
@@ -329,12 +329,6 @@ function transformCssDoc(quasisDoc, path, print) {
 // and replace them with the expression docs one by one
 // returns a new doc with all the placeholders replaced,
 // or null if it couldn't replace any expression
-const hasPlaceHolder = (doc, placeholder) =>
-  doc.parts.some(
-    part =>
-      typeof part === "string" &&
-      placeholder.parse(part).some(({ isPlaceholder }) => isPlaceholder)
-  );
 function replacePlaceholders(quasisDoc, expressionDocs) {
   if (!expressionDocs || !expressionDocs.length) {
     return quasisDoc;
@@ -345,8 +339,9 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
     if (
       !doc ||
       !doc.parts ||
-      (!hasPlaceHolder(doc, cssPlaceholder) &&
-        !hasPlaceHolder(doc, cssPropPlaceholder))
+      ![cssPlaceholder, cssPropPlaceholder].some(placeholder =>
+        placeholder.hasPlaceholder(doc.parts.join())
+      )
     ) {
       return doc;
     }
