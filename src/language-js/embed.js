@@ -84,7 +84,7 @@ function embed(path, print, textToDoc, options) {
           const afterPieces = pieces.slice(index + 1);
           let after = "";
           let endsWithLineBreak = false;
-          const needExtraSemi = 
+          const needExtraSemi =
             placeholderPiecesToStringArray(afterPieces)
               .join("")
               .trim()[0] !== ";";
