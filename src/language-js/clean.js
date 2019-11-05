@@ -10,7 +10,8 @@ function clean(ast, newObj, parent) {
     "extra",
     "start",
     "end",
-    "flags"
+    "flags",
+    "errors"
   ].forEach(name => {
     delete newObj[name];
   });
