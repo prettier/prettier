@@ -82,3 +82,9 @@ ${Step}:nth-child(odd) {
 styled.div`
          border: 1px solid ${({active}) => active ? themeColor.active : themeColor.inactive};
 `
+
+// #2350
+styled.div`
+         display: block;
+  ${props => props.rounded && 'border-radius: 5px;'}
+`;
