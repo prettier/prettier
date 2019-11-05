@@ -1214,9 +1214,10 @@ angular-estree-parser@1.1.5:
     lines-and-columns "^1.1.6"
     tslib "^1.9.3"
 
-angular-html-parser@1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/angular-html-parser/-/angular-html-parser-1.2.0.tgz#9319b8a9e06389aee2449b3a35977442512eccf3"
+angular-html-parser@1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/angular-html-parser/-/angular-html-parser-1.3.0.tgz#2b87c3c1b7535a972a00e35604221df3c51e6c6e"
+  integrity sha512-FCLuM8ZUt30qwiV5KlW8uWL9cwlS2loOIGq8wUQFypkJ1QZqJk829yxTsvp2DvCMZ7uLwfjIaIrKV5N2+RLiSQ==
   dependencies:
     tslib "^1.9.3"
 
@@ -2527,6 +2528,11 @@ elliptic@^6.0.0:
 emoji-regex@^7.0.1:
   version "7.0.1"
   resolved "https://registry.yarnpkg.com/emoji-regex/-/emoji-regex-7.0.1.tgz#5a132b28ebf84a289ba692862f7d4206ebcd32d0"
+
+emoji-regex@^8.0.0:
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/emoji-regex/-/emoji-regex-8.0.0.tgz#e818fd69ce5ccfcb404594f842963bf53164cc37"
+  integrity sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==
 
 emojis-list@^2.0.0:
   version "2.1.0"
@@ -3847,6 +3853,11 @@ is-fullwidth-code-point@^1.0.0:
 is-fullwidth-code-point@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/is-fullwidth-code-point/-/is-fullwidth-code-point-2.0.0.tgz#a3b30a5c4f199183167aaab93beefae3ddfb654f"
+
+is-fullwidth-code-point@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/is-fullwidth-code-point/-/is-fullwidth-code-point-3.0.0.tgz#f116f8064fe90b3f7844a38997c0b75051269f1d"
+  integrity sha512-zymm5+u+sCsSWyD9qNaejV3DFvhCKclKdizYaJUuHA83RLjb7nSuGnddCHGv0hk+KY7BMAlsWeK4Ueg6EV6XQg==
 
 is-generator-fn@^1.0.0:
   version "1.0.0"
@@ -6815,14 +6826,14 @@ string-length@^3.1.0:
     astral-regex "^1.0.0"
     strip-ansi "^5.2.0"
 
-string-width@3.1.0, string-width@^3.0.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/string-width/-/string-width-3.1.0.tgz#22767be21b62af1081574306f69ac51b62203961"
-  integrity sha512-vafcv6KjVZKSgz06oM/H6GDBrAtz8vdhQakGjFIvNrHA6y3HCF1CInLy+QLq8dTJPQ1b+KDUqDFctkdRW44e1w==
+string-width@4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/string-width/-/string-width-4.1.0.tgz#ba846d1daa97c3c596155308063e075ed1c99aff"
+  integrity sha512-NrX+1dVVh+6Y9dnQ19pR0pP4FiEIlUvdTGn8pw6CKTNq5sgib2nIhmUNT5TAmhWmvKr3WcxBcP3E8nWezuipuQ==
   dependencies:
-    emoji-regex "^7.0.1"
-    is-fullwidth-code-point "^2.0.0"
-    strip-ansi "^5.1.0"
+    emoji-regex "^8.0.0"
+    is-fullwidth-code-point "^3.0.0"
+    strip-ansi "^5.2.0"
 
 string-width@^1.0.1, string-width@^1.0.2:
   version "1.0.2"
@@ -6839,6 +6850,15 @@ string-width@^2.0.0, string-width@^2.1.0, string-width@^2.1.1:
   dependencies:
     is-fullwidth-code-point "^2.0.0"
     strip-ansi "^4.0.0"
+
+string-width@^3.0.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/string-width/-/string-width-3.1.0.tgz#22767be21b62af1081574306f69ac51b62203961"
+  integrity sha512-vafcv6KjVZKSgz06oM/H6GDBrAtz8vdhQakGjFIvNrHA6y3HCF1CInLy+QLq8dTJPQ1b+KDUqDFctkdRW44e1w==
+  dependencies:
+    emoji-regex "^7.0.1"
+    is-fullwidth-code-point "^2.0.0"
+    strip-ansi "^5.1.0"
 
 string_decoder@^1.0.0:
   version "1.3.0"
@@ -6946,6 +6966,11 @@ supports-color@^6.1.0:
 symbol-tree@^3.2.2:
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/symbol-tree/-/symbol-tree-3.2.2.tgz#ae27db38f660a7ae2e1c3b7d1bc290819b8519e6"
+
+synchronous-promise@2.0.10:
+  version "2.0.10"
+  resolved "https://registry.yarnpkg.com/synchronous-promise/-/synchronous-promise-2.0.10.tgz#e64c6fd3afd25f423963353043f4a68ebd397fd8"
+  integrity sha512-6PC+JRGmNjiG3kJ56ZMNWDPL8hjyghF5cMXIFOKg+NiwwEZZIvxTWd0pinWKyD227odg9ygF8xVhhz7gb8Uq7A==
 
 table@^5.2.3:
   version "5.4.0"

@@ -118,6 +118,9 @@ function optionInfoToSchema(optionInfo, { isCLI, optionInfos }) {
         parameters.preprocess = value => Number(value);
       }
       break;
+    case "string":
+      SchemaConstructor = vnopts.StringSchema;
+      break;
     case "choice":
       SchemaConstructor = vnopts.ChoiceSchema;
       parameters.choices = optionInfo.choices.map(choiceInfo =>

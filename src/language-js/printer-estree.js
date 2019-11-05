@@ -4024,7 +4024,9 @@ function printArgumentsList(path, options, print) {
       somePrintedArgumentsWillBreak ? breakParent : "",
       conditionalGroup(
         [
-          !somePrintedArgumentsWillBreak
+          !somePrintedArgumentsWillBreak &&
+          !node.typeArguments &&
+          !node.typeParameters
             ? simpleConcat
             : ifBreak(allArgsBrokenOut(), simpleConcat),
           shouldGroupFirst
