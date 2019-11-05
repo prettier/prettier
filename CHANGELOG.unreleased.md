@@ -1370,13 +1370,13 @@ const bigints = [200_000n, 0x0000_000an, 0b0111_1111n];
 <!-- prettier-ignore -->
 ```less
 // Input
-@FOO : bar;
+@FoO : bar;
 
 // Output (Prettier stable)
 @foo : bar;
 
 // Output (Prettier master)
-@FOO: bar;
+@FoO: bar;
 ```
 
 [#5682]: https://github.com/prettier/prettier/pull/5682
