@@ -14,7 +14,7 @@
     "node": ">=8"
   },
   "dependencies": {
-    "@angular/compiler": "8.2.7",
+    "@angular/compiler": "8.2.13",
     "@babel/code-frame": "7.5.5",
     "@babel/parser": "7.6.4",
     "@glimmer/syntax": "0.41.0",
@@ -88,7 +88,7 @@
     "eslint-formatter-friendly": "7.0.0",
     "eslint-plugin-import": "2.18.2",
     "eslint-plugin-prettier": "3.1.1",
-    "eslint-plugin-react": "7.14.3",
+    "eslint-plugin-react": "7.16.0",
     "execa": "3.2.0",
     "jest": "23.3.0",
     "jest-junit": "9.0.0",
@@ -111,7 +111,7 @@
     "strip-ansi": "5.2.0",
     "synchronous-promise": "2.0.10",
     "tempy": "0.2.1",
-    "terser-webpack-plugin": "2.1.3",
+    "terser-webpack-plugin": "2.2.1",
     "webpack": "4.41.2"
   },
   "scripts": {
