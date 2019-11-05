@@ -20,13 +20,19 @@ const {
 const cssPlaceholder = new Placeholder("prettier");
 const cssExtraPlaceholder = new Placeholder("prettier");
 const CSS_PROP_PLACEHOLDER = cssExtraPlaceholder.get(0);
-const CSS_SEMI_MARK = cssExtraPlaceholder.get(1);
+const CSS_IGNORE_COMMENT = cssExtraPlaceholder.get(1);
+const CSS_SEMI_MARK = cssExtraPlaceholder.get(2);
 const placeholderPiecesToStringArray = pieces =>
   pieces.map(({ isPlaceholder, string, placeholder }) =>
     isPlaceholder ? placeholder : string
   );
 const removeCSSComments = string =>
-  string.replace(/\/\*[\s\S]*?\*\//g, "").replace(/\/\/.*/g, "");
+  string
+    .replace(/\/\*\s*prettier-ignore\s*\*\//g, CSS_IGNORE_COMMENT)
+    .replace(/\/\/\s*prettier-ignore/g, CSS_IGNORE_COMMENT)
+    .replace(/\/\*[\s\S]*?\*\//g, "")
+    .replace(/\/\/.*/g, "")
+    .replace(new RegExp(CSS_IGNORE_COMMENT, "g"), "/* prettier-ignore */");
 
 function embed(path, print, textToDoc, options) {
   const node = path.getValue();
@@ -80,15 +86,16 @@ function embed(path, print, textToDoc, options) {
               .join("")
           );
           const endsWithLineBreak = /^\s*\n/.test(after);
+          after = after.trim();
+
           const needExtraSemi =
-            !after.trim() ||
+            !after ||
             endsWithLineBreak ||
-            after.trim()[0] !== ";" ||
+            after[0] !== ";" ||
             cssPlaceholder.isPlaceholder(
               texts.slice(index + 1).filter(text => text.trim())[0] || ""
             );
 
-          after = after.trim();
           const before = removeCSSComments(
             texts.slice(0, index).join("")
           ).trim();
@@ -392,6 +399,8 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
         }
         return parts;
       }
+
+      part = part.replace(new RegExp(CSS_PROP_PLACEHOLDER + ":", "g"), "");
 
       // replace placeholders
       return cssPlaceholder
