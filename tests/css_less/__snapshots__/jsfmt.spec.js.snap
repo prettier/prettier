@@ -1679,6 +1679,7 @@ label {
 
 // whitespace between variable and colon
 @foo : bar;
+
 =====================================output=====================================
 @nice-blue: #5b83ad;
 @light-blue: @nice-blue + #111;
