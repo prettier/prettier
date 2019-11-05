@@ -1377,6 +1377,7 @@ const bigints = [200_000n, 0x0000_000an, 0b0111_1111n];
 
 // Output (Prettier master)
 @foo: bar;
+```
 
 [#5682]: https://github.com/prettier/prettier/pull/5682
 [#6657]: https://github.com/prettier/prettier/pull/6657
