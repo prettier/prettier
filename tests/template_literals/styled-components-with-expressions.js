@@ -55,10 +55,10 @@ styled.div`
 
 // #5465
 css`
-prop: var(--global--color--${props.varient});
+prop: var(--foo--${expr});
 `
 
 // #5219
 css`
-  src: "${pathToFont}";
+  src: "${expr}";
 `;
