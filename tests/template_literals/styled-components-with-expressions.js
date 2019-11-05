@@ -53,9 +53,10 @@ styled.div`
   margin: 0;.input {}
 `
 
-// #5465
+// #5465 #5614
 css`
          prop: var(--foo--${expr});
+background-color: var(--${props => props.color});
 `
 
 // #5219
