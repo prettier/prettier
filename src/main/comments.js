@@ -22,6 +22,13 @@ const {
 } = require("../common/util-shared");
 const childNodesCacheKey = Symbol("child-nodes");
 
+/**
+ * @template N
+ * @param {N} node
+ * @param {*} options
+ * @param {any[]=} resultArray
+ * @returns {any[]}
+ */
 function getSortedChildNodes(node, options, resultArray) {
   if (!node) {
     return;
@@ -85,6 +92,12 @@ function getSortedChildNodes(node, options, resultArray) {
 // As efficiently as possible, decorate the comment object with
 // .precedingNode, .enclosingNode, and/or .followingNode properties, at
 // least one of which is guaranteed to be defined.
+/**
+ * @template N
+ * @param {N} node
+ * @param {{enclosingNode?: any, precedingNode?: any, followingNode?: any}} comment
+ * @param {{locStart: (node: any) => number, locEnd: (node: any) => number}} options
+ */
 function decorateComment(node, comment, options) {
   const { locStart, locEnd } = options;
 
@@ -171,6 +184,23 @@ function decorateComment(node, comment, options) {
   }
 }
 
+/**
+ * @param {any[]} comments
+ * @param {*} ast
+ * @param {string} text
+ * @param {{
+ *   parser: string,
+ *   printer: {
+ *     handleComments?: {
+ *       ownLine: (comment?, text?: string, options?, ast?, isLastComment?: boolean) => boolean,
+ *       endOfLine: (comment?, text?: string, options?, ast?, isLastComment?: boolean) => boolean,
+ *       remaining: (comment?, text?: string, options?, ast?, isLastComment?: boolean) => boolean
+ *     }
+ *   },
+ *   locStart: (node: any) => number,
+ *   locEnd: (node: any) => number}
+ * } options
+ */
 function attach(comments, ast, text, options) {
   if (!Array.isArray(comments)) {
     return;
@@ -296,6 +326,17 @@ function attach(comments, ast, text, options) {
   });
 }
 
+/**
+ * @param {{
+ *   precedingNode: any,
+ *   followingNode: any,
+ *   printed?: boolean,
+ *   leading?: boolean,
+ *   trailing?: boolean
+ * }[]} tiesToBreak
+ * @param {string} text
+ * @param {{locStart: (node) => number, locEnd: (node) => number}} options
+ */
 function breakTies(tiesToBreak, text, options) {
   const tieCount = tiesToBreak.length;
   if (tieCount === 0) {
@@ -310,6 +351,7 @@ function breakTies(tiesToBreak, text, options) {
   // comment must be separated from followingNode by an unbroken series of
   // gaps (or other comments). Gaps should only contain whitespace or open
   // parentheses.
+  /** @type {number} */
   let indexOfFirstLeadingComment;
   for (
     indexOfFirstLeadingComment = tieCount;
@@ -362,6 +404,9 @@ function findExpressionIndexForComment(quasis, comment, options) {
   return 0;
 }
 
+/**
+ * @param {{start?: number, end?: number, range?: [number, number]}} expr
+ */
 function getQuasiRange(expr) {
   if (expr.start !== undefined) {
     // Babel
@@ -371,6 +416,18 @@ function getQuasiRange(expr) {
   return { start: expr.range[0], end: expr.range[1] };
 }
 
+/**
+ * @template C
+ * @param {{getValue: () => C}} commentPath
+ * @param {*} print
+ * @param {{
+ *   printer: {
+ *     isBlockComment?: (comment: C) => boolean
+ *   },
+ *   originalText: string,
+ *   locEnd: (node: C) => number
+ * }} options
+ */
 function printLeadingComment(commentPath, print, options) {
   const comment = commentPath.getValue();
   const contents = printComment(commentPath, options);
@@ -392,6 +449,21 @@ function printLeadingComment(commentPath, print, options) {
   return concat([contents, hardline]);
 }
 
+/**
+ * @template C
+ * @param {{
+ *   getValue: () => C,
+ *   getNode: (value: number) => any
+ * }} commentPath
+ * @param {*} print
+ * @param {{
+ *   printer: {
+ *     isBlockComment?: (comment: C) => boolean
+ *   },
+ *   originalText: string,
+ *   locStart: (node: C) => number
+ * }} options
+ */
 function printTrailingComment(commentPath, print, options) {
   const comment = commentPath.getValue();
   const contents = printComment(commentPath, options);
@@ -449,6 +521,15 @@ function printTrailingComment(commentPath, print, options) {
   ]);
 }
 
+/**
+ * @param {{
+ *   getValue: () => {comments?: any[]} | undefined,
+ *   each: (commentPath: any, comments: "comments") => void
+ * }} path
+ * @param {*} options
+ * @param {boolean} sameIndent
+ * @param {(comment) => any} filter
+ */
 function printDanglingComments(path, options, sameIndent, filter) {
   const parts = [];
   const node = path.getValue();
@@ -486,6 +567,12 @@ function prependCursorPlaceholder(path, options, printed) {
   return printed;
 }
 
+/**
+ * @param {*} path
+ * @param {*} print
+ * @param {*} options
+ * @param {boolean} needsSemi
+ */
 function printComments(path, print, options, needsSemi) {
   const value = path.getValue();
   const printed = print(path);
