@@ -44,26 +44,35 @@ margin: 0;
 
 // # 6259
 styled.div`
-  ${expr}:not(:first-child) {
+         ${expr}:not(:first-child) {
     // should not add space after :not
-  }
-  ${expr}[checked] {
+}
+         ${expr}[checked] {
     // should not add space before [
-  }
+}
   margin: 0;.input {}
 `
 
 // #5465
 css`
-prop: var(--foo--${expr});
+         prop: var(--foo--${expr});
 `
 
 // #5219
 css`
-  src: "${expr}";
+         src: "${expr}";
 `;
 
 // #6392
 styled(_A)`
-  ${B}, ${C} {}
+         ${B}, ${C} {}
 `
+
+// #5961
+styled.div`
+         @media (min-width: 1px) {
+${Step}:nth-child(odd) {
+// should not add space after :nth-child
+}
+}
+`;
