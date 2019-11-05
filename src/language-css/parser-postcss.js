@@ -290,10 +290,11 @@ function parseNestedCSS(node) {
       node.raws.selector = selector;
     }
 
-    // custom-selector in postcss-less@2.0.0
+    // https://github.com/postcss/postcss-custom-selectors/blob/495d9f3821257b10cd080ed2d1df81bc6db128a2/lib/custom-selectors-from-root.js#L34
+    // postcss-less@2.0.0 parse `custom-selector` as `css-decl`
     if (
       node.type === "css-decl" &&
-      node.prop[0] === "@" &&
+      node.prop === "@custom-selector" &&
       customSelectorParamsRegExp.test(":" + node.value)
     ) {
       selector = node.value;
