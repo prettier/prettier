@@ -25,16 +25,6 @@ const placeholderPiecesToStringArray = pieces =>
   pieces.map(({ isPlaceholder, string, placeholder }) =>
     isPlaceholder ? placeholder : string
   );
-const trimPiecesLeadingSpaces = pieces => {
-  while (pieces.length) {
-    const { isPlaceholder, string } = pieces[0];
-    if (isPlaceholder || string.trim()) {
-      break;
-    }
-    pieces.shift();
-  }
-  return pieces.length;
-};
 
 function embed(path, print, textToDoc, options) {
   const node = path.getValue();
@@ -74,36 +64,36 @@ function embed(path, print, textToDoc, options) {
         // and will restore back after parse
 
         const pieces = cssPlaceholder.parse(text);
-        const textPieces = placeholderPiecesToStringArray(pieces);
+        const orignalTexts = placeholderPiecesToStringArray(pieces);
+        const resultTexts = placeholderPiecesToStringArray(pieces);
 
         pieces.forEach(({ isPlaceholder, placeholder }, index) => {
           if (!isPlaceholder) {
             return;
           }
 
-          const afterPieces = pieces.slice(index + 1);
+          let afterTexts = orignalTexts.slice(index + 1);
           let after = "";
           let endsWithLineBreak = false;
-          const needExtraSemi =
-            placeholderPiecesToStringArray(afterPieces)
-              .join("")
-              .trim()[0] !== ";";
+          const needExtraSemi = afterTexts.join("").trim()[0] !== ";";
 
           // remove following spaces and placeholders
           do {
             // trim all placeholders
-            while (afterPieces[0] && afterPieces[0].isPlaceholder) {
-              afterPieces.shift();
+            while (afterTexts[0] && cssPlaceholder.isPlaceholder(afterTexts[0])) {
+              afterTexts.shift();
             }
-            after = placeholderPiecesToStringArray(afterPieces).join("");
+            after = afterTexts.join("");
             endsWithLineBreak = endsWithLineBreak || /^\s*\n/.test(after);
-            if (afterPieces.length === trimPiecesLeadingSpaces(afterPieces)) {
-              after = after.trim();
+            const trimed = after.trim();
+            if (trimed === after) {
+              after = trimed;
               break;
             }
-          } while (afterPieces.length);
+            afterTexts = placeholderPiecesToStringArray(cssPlaceholder.parse(trimed))
+          } while (afterTexts.length);
 
-          const before = textPieces
+          const before = resultTexts
             .slice(0, index)
             .join("")
             .trim();
@@ -118,14 +108,19 @@ function embed(path, print, textToDoc, options) {
               before.slice(-1) === "{" ||
               before.slice(-1) === "}")
           ) {
-            textPieces[index] =
+            resultTexts[index] =
               `${CSS_PROP_PLACEHOLDER}: ${placeholder}` +
               (needExtraSemi ? `${CSS_SEMI_MARK};` : "");
           }
-        });
 
-        const doc = textToDoc(textPieces.join(""), { parser: "css" });
+        });
+        const doc = textToDoc(resultTexts.join(""), { parser: "css" });
+        try {
         return transformCssDoc(doc, path, print);
+        } catch (err) {
+          console.log(err)
+          throw err
+        }
       }
 
       /*
