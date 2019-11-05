@@ -219,7 +219,59 @@ ${exp}${exp}                }
 
 // comment test
 
-// inline-comment
+// inline-comment(before)
+<style jsx>{`
+         a {
+// comment
+          ${exp}
+}
+`}</style>;
+
+// block-comment(before)
+<style jsx>{`
+         a {
+/*comment
+*/
+          ${exp}
+}
+`}</style>;
+
+// inside-comment(before)
+<style jsx>{`
+         a {
+/*comment${a}
+*/
+          ${exp}
+}
+`}</style>;
+
+// inline-comment(after)
+<style jsx>{`
+         a {
+          ${exp}
+        // comment
+}
+`}</style>;
+
+// block-comment(after)
+<style jsx>{`
+         a {
+          ${exp}
+        /*comment
+*/
+}
+`}</style>;
+
+// inside-comment(after)
+<style jsx>{`
+         a {
+          ${exp}
+        /*comment${b}
+*/
+}
+`}</style>;
+
+// inline-comment(both)
 <style jsx>{`
          a {
 // comment
@@ -228,7 +280,7 @@ ${exp}${exp}                }
 }
 `}</style>;
 
-// block-comment
+// block-comment(both)
 <style jsx>{`
          a {
 /*comment
@@ -239,7 +291,7 @@ ${exp}${exp}                }
 }
 `}</style>;
 
-// inside-comment
+// inside-comment(both)
 <style jsx>{`
          a {
 /*comment${a}
