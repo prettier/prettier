@@ -84,14 +84,15 @@ function embed(path, print, textToDoc, options) {
           const afterPieces = pieces.slice(index + 1);
           let after = "";
           let endsWithLineBreak = false;
-          const needExtraSemi =
+          const needExtraSemi = 
             placeholderPiecesToStringArray(afterPieces)
               .join("")
               .trim()[0] !== ";";
 
           // remove following spaces and placeholders
           do {
-            if (afterPieces[0] && afterPieces[0].isPlaceholder) {
+            // trim all placeholders
+            while (afterPieces[0] && afterPieces[0].isPlaceholder) {
               afterPieces.shift();
             }
             after = placeholderPiecesToStringArray(afterPieces).join("");
