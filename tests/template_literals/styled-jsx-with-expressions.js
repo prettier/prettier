@@ -194,23 +194,29 @@ foo${exp};
 
 // should not insert semi
 <style jsx>{`
-         a {${exp}}
+         a {
+${exp}}
 `}</style>;
 // should keep semi
 <style jsx>{`
-         a {${exp};}
+         b {${exp} 
+;}
 `}</style>;
 // should not insert semi
 <style jsx>{`
-         a {${exp}${exp}}
+         c {
+${exp}${exp}                }
 `}</style>;
 // should keep one semi
 <style jsx>{`
-         a {${exp}${exp};}
+         d {${exp} ${exp} ;}
 `}</style>;
 // should keep 2 semi
 <style jsx>{`
-         a {${exp};${exp};}
+         e {${exp} 
+
+
+;${exp};}
 `}</style>;
 
 // real world cases

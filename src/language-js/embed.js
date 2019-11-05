@@ -85,7 +85,9 @@ function embed(path, print, textToDoc, options) {
           let after = "";
           let endsWithLineBreak = false;
           const needExtraSemi =
-            placeholderPiecesToStringArray(afterPieces).join("")[0] !== ";";
+            placeholderPiecesToStringArray(afterPieces)
+              .join("")
+              .trim()[0] !== ";";
 
           // remove following spaces and placeholders
           do {
