@@ -28,6 +28,6 @@
     "js-yaml": "3.13.1",
     "svgo": "1.3.2",
     "webpack": "4.41.2",
-    "webpack-cli": "3.3.9"
+    "webpack-cli": "3.3.10"
   }
 }
