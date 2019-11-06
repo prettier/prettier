@@ -1223,21 +1223,21 @@ flex-direction: column\${long_cond && long_cond && long_cond ? "-reverse" : ""};
 \`}</style>;
 // expression as decl(middle), FIXME
 <style jsx>{\`
-         a {
-foo\${exp}bar;
-	   }
+  a {
+    foo\${exp}bar;
+  }
 \`}</style>;
 // expression as decl(beginning), FIXME
 <style jsx>{\`
-         a {
-\${exp}bar;
-	   }
+  a {
+    \${exp}bar;
+  }
 \`}</style>;
 // expression as decl(end), FIXME
 <style jsx>{\`
-         a {
-foo\${exp};
-	   }
+  a {
+    foo\${exp};
+  }
 \`}</style>;
 
 // semi test

@@ -66,28 +66,28 @@
          [a^=foo${exp}] {}
 `}</style>;
 
-// expression in decl prop(middle)
+// expression in declare prop(middle)
 <style jsx>{`
          a {foo${exp}bar: 1;}
 `}</style>;
-// expression in decl prop(beginning)
+// expression in declare prop(beginning)
 <style jsx>{`
          a {${exp}bar: 1;}
 `}</style>;
-// expression in decl prop(end)
+// expression in declare prop(end)
 <style jsx>{`
          a {foo${exp}: 1;}
 `}</style>;
 
-// expression in decl value(middle)
+// expression in declare value(middle)
 <style jsx>{`
          a {a: foo${exp}bar;}
 `}</style>;
-// expression in decl value(beginning)
+// expression in declare value(beginning)
 <style jsx>{`
          a {a: ${exp}bar;}
 `}</style>;
-// expression in decl value(end)
+// expression in declare value(end)
 <style jsx>{`
          a {a: foo${exp};}
 `}</style>;
@@ -144,21 +144,21 @@
          @media (foo${exp}) {div {}}
 `}</style>;
 
-// expression as decl
+// expression as declare
 <style jsx>{`
          a {
 ${exp};
 	   }
 `}</style>;
 
-// expression as decl(many)
+// expression as declare(many)
 <style jsx>{`
          a {
 ${exp};
 ${exp};
 	   }
 `}</style>;
-// expression as decl(no breaks)
+// expression as declare(no breaks)
 <style jsx>{`
          a {
 ${exp}${exp};
@@ -170,19 +170,19 @@ ${exp}${exp};
 ${exp};${exp};
 	   }
 `}</style>;
-// expression as decl(middle), FIXME
+// expression as declare(middle)
 <style jsx>{`
          a {
-foo${exp}bar;
+@$foo_foo-foo${exp}bar;
 	   }
 `}</style>;
-// expression as decl(beginning), FIXME
+// expression as declare(beginning)
 <style jsx>{`
          a {
 ${exp}bar;
 	   }
 `}</style>;
-// expression as decl(end), FIXME
+// expression as declare(end)
 <style jsx>{`
          a {
 foo${exp};

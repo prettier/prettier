@@ -81,7 +81,33 @@ function embed(path, print, textToDoc, options) {
             return;
           }
 
-          let after = removeCSSComments(
+          let text = placeholder;
+          let before = "";
+          let after = "";
+
+          // move identity character
+          const identitySplitRegExp = /[^$a-z\d_]/;
+          before = cssPlaceholder.parse(texts.slice(0, index).join()).pop();
+          if (before && !before.isPlaceholder) {
+            const string = before.string.split(identitySplitRegExp).pop();
+            if (string) {
+              texts[index - 1] = texts[index - 1].slice(0, -string.length);
+              text = string + text;
+            }
+          }
+
+          after = cssPlaceholder.parse(texts.slice(index + 1).join()).shift();
+          if (after && !after.isPlaceholder) {
+            const string = after.string.split(identitySplitRegExp).shift();
+
+            if (string) {
+              texts[index + 1] = texts[index + 1].slice(string.length);
+              text += string;
+            }
+          }
+
+          // check orphan placeholder
+          after = removeCSSComments(
             texts
               .slice(index + 1)
               .filter(text => !cssPlaceholder.isPlaceholder(text))
@@ -98,9 +124,7 @@ function embed(path, print, textToDoc, options) {
               texts.slice(index + 1).filter(text => text.trim())[0] || ""
             );
 
-          const before = removeCSSComments(
-            texts.slice(0, index).join("")
-          ).trim();
+          before = removeCSSComments(texts.slice(0, index).join("")).trim();
 
           if (
             (!after ||
@@ -112,12 +136,14 @@ function embed(path, print, textToDoc, options) {
               before.slice(-1) === "{" ||
               before.slice(-1) === "}")
           ) {
-            texts[index] = `${CSS_PROPERTY_PLACEHOLDER}: ${placeholder}`;
+            text = `${CSS_PROPERTY_PLACEHOLDER}: ${text}`;
 
             if (needExtraSemi) {
-              texts[index] += `${CSS_EXTRA_SEMICOLON_MARK};`;
+              text += `${CSS_EXTRA_SEMICOLON_MARK};`;
             }
           }
+
+          texts[index] = text;
         });
 
         const doc = textToDoc(texts.join(""), { parser: "css" });
