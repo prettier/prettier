@@ -18,21 +18,23 @@ const {
 } = require("../doc");
 
 const cssPlaceholder = new Placeholder("prettier");
-const cssExtraPlaceholder = new Placeholder("prettier");
-const CSS_PROP_PLACEHOLDER = cssExtraPlaceholder.get(0);
-const CSS_IGNORE_COMMENT = cssExtraPlaceholder.get(1);
-const CSS_SEMI_MARK = cssExtraPlaceholder.get(2);
+const CSS_PROPERTY_PLACEHOLDER = new Placeholder("prettier").get(0);
+const CSS_PRETTIER_IGNORE_PLACEHOLDER = new Placeholder("prettier").get(0);
+const CSS_EXTRA_SEMICOLON_MARK = new Placeholder("prettier").get(0);
 const placeholderPiecesToStringArray = pieces =>
   pieces.map(({ isPlaceholder, string, placeholder }) =>
     isPlaceholder ? placeholder : string
   );
 const removeCSSComments = string =>
   string
-    .replace(/\/\*\s*prettier-ignore\s*\*\//g, CSS_IGNORE_COMMENT)
-    .replace(/\/\/\s*prettier-ignore/g, CSS_IGNORE_COMMENT)
+    .replace(/\/\*\s*prettier-ignore\s*\*\//g, CSS_PRETTIER_IGNORE_PLACEHOLDER)
+    .replace(/\/\/\s*prettier-ignore/g, CSS_PRETTIER_IGNORE_PLACEHOLDER)
     .replace(/\/\*[\s\S]*?\*\//g, "")
     .replace(/\/\/.*/g, "")
-    .replace(new RegExp(CSS_IGNORE_COMMENT, "g"), "/* prettier-ignore */");
+    .replace(
+      new RegExp(CSS_PRETTIER_IGNORE_PLACEHOLDER, "g"),
+      "/* prettier-ignore */"
+    );
 
 function embed(path, print, textToDoc, options) {
   const node = path.getValue();
@@ -57,7 +59,7 @@ function embed(path, print, textToDoc, options) {
             : prevVal + cssPlaceholder.get(index - 1) + raw;
         }, "");
 
-        // postcss parser can't handle the following css
+        // css parser can't handle the following css
         // ```css
         // div {
         //   css-placeholder;
@@ -110,9 +112,11 @@ function embed(path, print, textToDoc, options) {
               before.slice(-1) === "{" ||
               before.slice(-1) === "}")
           ) {
-            texts[index] =
-              `${CSS_PROP_PLACEHOLDER}: ${placeholder}` +
-              (needExtraSemi ? `${CSS_SEMI_MARK};` : "");
+            texts[index] = `${CSS_PROPERTY_PLACEHOLDER}: ${placeholder}`;
+
+            if (needExtraSemi) {
+              texts[index] += `${CSS_EXTRA_SEMICOLON_MARK};`;
+            }
           }
         });
 
@@ -329,15 +333,20 @@ function transformCssDoc(quasisDoc, path, print) {
 // and replace them with the expression docs one by one
 // returns a new doc with all the placeholders replaced,
 // or null if it couldn't replace any expression
-function hasPlaceholder(doc) {
+const CSS_EXTRA_SEMICOLON_MARK_LENGTH = CSS_EXTRA_SEMICOLON_MARK.length;
+const endsWithCSSSemicolonMark = string =>
+  string.slice(-CSS_EXTRA_SEMICOLON_MARK_LENGTH) === CSS_EXTRA_SEMICOLON_MARK;
+const hasCSSPlaceholder = doc => {
   if (!doc || !doc.parts) {
     return false;
   }
   const text = doc.parts.filter(part => typeof part === "string").join();
-  return [cssPlaceholder, cssExtraPlaceholder].some(placeholder =>
-    placeholder.hasPlaceholder(text)
+  return (
+    [CSS_PROPERTY_PLACEHOLDER, CSS_EXTRA_SEMICOLON_MARK].some(
+      placeholder => text.indexOf(placeholder) !== -1
+    ) || cssPlaceholder.hasPlaceholder(text)
   );
-}
+};
 function replacePlaceholders(quasisDoc, expressionDocs) {
   if (!expressionDocs || !expressionDocs.length) {
     return quasisDoc;
@@ -345,62 +354,61 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
 
   const replaced = [];
   const restoredDoc = mapDoc(quasisDoc, doc => {
-    if (!hasPlaceholder(doc)) {
+    if (!hasCSSPlaceholder(doc)) {
       return doc;
     }
 
-    const CSS_SEMI_MARK_LENGTH = CSS_SEMI_MARK.length;
-    const endsWithSemiMark = string =>
-      string.slice(-CSS_SEMI_MARK_LENGTH) === CSS_SEMI_MARK;
-
-    const parts = doc.parts.slice().reduce((parts, part, index, source) => {
+    const parts = doc.parts.slice().reduce((parts, part, index, original) => {
       if (typeof part !== "string") {
         parts.push(part);
         return parts;
       }
 
-      // clean extra semi mark
-      if (endsWithSemiMark(part)) {
-        part = part.slice(0, -CSS_SEMI_MARK_LENGTH);
+      // clean extra semicolon mark
+      if (endsWithCSSSemicolonMark(part)) {
+        part = part.slice(0, -CSS_EXTRA_SEMICOLON_MARK_LENGTH);
+        original[index] = part;
 
-        // find semi
-        for (let i = index + 1; i < source.length; i++) {
-          const part = source[i].trim();
-          if (part) {
-            if (part === ";") {
-              source[i] = "";
-            } else {
-              throw new Error(
-                "CSS_SEMI_MARK should always follow with a semicolon"
-              );
-            }
-            break;
+        // find following semicolon
+        let semicolonIndex = -1;
+        for (let i = index + 1; i < original.length; i++) {
+          const value = original[i];
+          if (typeof value !== "string" || !value.trim()) {
+            continue;
           }
+          if (value !== ";") {
+            throw new Error(
+              "CSS_EXTRA_SEMICOLON_MARK should always follow with a semicolon"
+            );
+          }
+          semicolonIndex = i;
+          break;
         }
+        original[semicolonIndex] = "";
       }
+      part = part.replace(new RegExp(CSS_EXTRA_SEMICOLON_MARK + ";", "g"), "");
 
       // clean css prop placeholder
-      if (part === CSS_PROP_PLACEHOLDER) {
-        if (source[index + 1] !== ":") {
+      if (part === CSS_PROPERTY_PLACEHOLDER) {
+        if (original[index + 1] !== ":") {
           throw new Error(
-            "CSS_PROP_PLACEHOLDER should always follow with a colon"
+            "CSS_PROPERTY_PLACEHOLDER should always follow with a colon"
           );
         }
-        source[index] = "";
-        source[index + 1] = "";
+        original[index] = "";
+        original[index + 1] = "";
 
         // clean up following spaces
-        for (let i = index + 2; i < source.length; i++) {
-          const value = source[i];
+        for (let i = index + 2; i < original.length; i++) {
+          const value = original[i];
           if (typeof value !== "string" || value.trim()) {
             break;
           }
-          source[i] = "";
+          original[i] = "";
         }
         return parts;
       }
-
-      part = part.replace(new RegExp(CSS_PROP_PLACEHOLDER + ":", "g"), "");
+      part = part.replace(new RegExp(CSS_PROPERTY_PLACEHOLDER + ":", "g"), "");
 
       // replace placeholders
       return cssPlaceholder
