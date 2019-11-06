@@ -352,7 +352,7 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
     return quasisDoc;
   }
 
-  const replaced = [];
+  const replacedExpressions = [];
   const restoredDoc = mapDoc(quasisDoc, doc => {
     if (!hasCSSPlaceholder(doc)) {
       return doc;
@@ -419,8 +419,8 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
             return parts;
           }
 
-          if (replaced.indexOf(index) === -1) {
-            replaced.push(index);
+          if (replacedExpressions.indexOf(index) === -1) {
+            replacedExpressions.push(index);
           }
 
           parts.push("${");
@@ -436,7 +436,7 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
     });
   });
 
-  if (expressionDocs.length === replaced.length) {
+  if (expressionDocs.length === replacedExpressions.length) {
     return restoredDoc;
   }
 }
