@@ -790,6 +790,7 @@ function isStatement(node) {
     node.type === "DeclareModuleExports" ||
     node.type === "DeclareVariable" ||
     node.type === "DoWhileStatement" ||
+    node.type === "EnumDeclaration" ||
     node.type === "ExportAllDeclaration" ||
     node.type === "ExportDefaultDeclaration" ||
     node.type === "ExportNamedDeclaration" ||
