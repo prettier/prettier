@@ -1367,7 +1367,7 @@ const bigints = [200_000n, 0x0000_000an, 0b0111_1111n];
 
 #### VS Code: add support for .mongo files ([#6848] by [@aymericbouzy])
 
-When using the Azur Cosmos DB extension for VS Code, you can create .mongo files to write MongoDB queries, which use Javascript syntax. This change allows VS Code to format your file using Prettier.
+When using the Azure Cosmos DB extension for VS Code, you can create .mongo files to write MongoDB queries, which use Javascript syntax. This change allows VS Code to format your file using Prettier.
 
 ```js
 db.users.find({ someField: { $exists: true } });
