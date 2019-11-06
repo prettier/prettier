@@ -679,6 +679,26 @@ Previously, even if the line length was shorter than `printWidth`, Prettier woul
 </template>
 ```
 
+#### HTML: Add support for `&excl;` and other entities ([#6785] by [@lydell])
+
+Previously, Prettier only supported the most common HTML entities, such as `&nbsp;` and `&quot;`. Now, Prettier supports every HTML entity in the HTML spec, such as `&excl;` and `&pitchfork;`.
+
+<!-- prettier-ignore -->
+```html
+<!-- Input -->
+<p>Hi&excl;</p>
+
+<!-- Output (Prettier stable)
+[error] stdin: SyntaxError: Unknown entity "excl" - use the "&#<decimal>;" or  "&#x<hex>;" syntax (1:6)
+[error] > 1 | <p>Hi&excl;</p>
+[error]     |      ^
+[error]   2 | 
+-->
+
+<!-- Output (Prettier master) -->
+<p>Hi&excl;</p>
+```
+
 #### JavaScript: Empty lines in destructured arrow function parameters could break indentation and idempotence ([#6301] & [#6382] by [@sosukesuzuki])
 
 Previously, Prettier indented code strangely when an arrow function whose parameters included an object pattern was passed to a function call as an argument. Also, it broke idempotence. Please see [#6294](https://github.com/prettier/prettier/issues/6294) for details.
@@ -1317,6 +1337,34 @@ $ prettier --parser babel < test.js
 [error] Invalid printWidth value. Expected an integer, but received "nope".
 ```
 
+#### CLI: Gracefully handle nonexistent paths passed to --stdin-filepath ([#6687] by [@voithos])
+
+Previously, if you passed a nonexistent subdirectory to --stdin-filepath, Prettier would throw an error. Now, Prettier gracefully handles this.
+
+```
+# Prettier stable
+$ prettier --stdin-filepath does/not/exist.js < test.js
+[error] Invalid configuration file: ENOENT: no such file or directory, scandir '/home/lydell/forks/prettier/does/not'
+
+# Prettier master
+$ prettier --stdin-filepath does/not/exist.js < test.js
+test;
+```
+
+#### JavaScript: Numeric separators were removed from BigInt literals ([#6796] by [@thorn0])
+
+<!-- prettier-ignore -->
+```js
+// Input
+const bigints = [200_000n, 0x0000_000An, 0b0111_1111n];
+
+// Output (Prettier stable)
+const bigints = [200000n, 0x0000000an, 0b01111111n];
+
+// Output (Prettier master)
+const bigints = [200_000n, 0x0000_000an, 0b0111_1111n];
+```
+
 [#5682]: https://github.com/prettier/prettier/pull/5682
 [#6657]: https://github.com/prettier/prettier/pull/6657
 [#5910]: https://github.com/prettier/prettier/pull/5910
@@ -1329,6 +1377,7 @@ $ prettier --parser babel < test.js
 [#6236]: https://github.com/prettier/prettier/pull/6236
 [#6270]: https://github.com/prettier/prettier/pull/6270
 [#6284]: https://github.com/prettier/prettier/pull/6284
+[#6785]: https://github.com/prettier/prettier/pull/6785
 [#6289]: https://github.com/prettier/prettier/pull/6289
 [#6301]: https://github.com/prettier/prettier/pull/6301
 [#6307]: https://github.com/prettier/prettier/pull/6307
@@ -1362,6 +1411,8 @@ $ prettier --parser babel < test.js
 [#6717]: https://github.com/prettier/prettier/pull/6717
 [#6728]: https://github.com/prettier/prettier/pull/6728
 [#6708]: https://github.com/prettier/prettier/pull/6708
+[#6687]: https://github.com/prettier/prettier/pull/6687
+[#6796]: https://github.com/prettier/prettier/pull/6796
 [@brainkim]: https://github.com/brainkim
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
