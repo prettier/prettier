@@ -1,5 +1,74 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`enum-boolean-explicit.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel-flow"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+enum E of boolean {
+  A = true,
+  B = false,
+}
+
+=====================================output=====================================
+// @flow
+
+enum E of boolean {
+  A = true,
+  B = false,
+}
+
+================================================================================
+`;
+
+exports[`enum-boolean-implicit.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel-flow"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+enum E {
+  A = true,
+  B = false,
+}
+
+=====================================output=====================================
+// @flow
+
+enum E {
+  A = true,
+  B = false,
+}
+
+================================================================================
+`;
+
+exports[`enum-empty.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel-flow"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+enum E { }
+
+=====================================output=====================================
+// @flow
+
+enum E {}
+
+================================================================================
+`;
+
 exports[`enum-export.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel-flow"]
@@ -23,76 +92,7 @@ export default enum B {};
 ================================================================================
 `;
 
-exports[`enum-valid-boolean-explicit.js 1`] = `
-====================================options=====================================
-parsers: ["flow", "babel-flow"]
-printWidth: 80
-trailingComma: "all"
-                                                                                | printWidth
-=====================================input======================================
-// @flow
-
-enum E of boolean {
-  A = true,
-  B = false,
-}
-
-=====================================output=====================================
-// @flow
-
-enum E of boolean {
-  A = true,
-  B = false,
-}
-
-================================================================================
-`;
-
-exports[`enum-valid-boolean-implicit.js 1`] = `
-====================================options=====================================
-parsers: ["flow", "babel-flow"]
-printWidth: 80
-trailingComma: "all"
-                                                                                | printWidth
-=====================================input======================================
-// @flow
-
-enum E {
-  A = true,
-  B = false,
-}
-
-=====================================output=====================================
-// @flow
-
-enum E {
-  A = true,
-  B = false,
-}
-
-================================================================================
-`;
-
-exports[`enum-valid-empty.js 1`] = `
-====================================options=====================================
-parsers: ["flow", "babel-flow"]
-printWidth: 80
-trailingComma: "all"
-                                                                                | printWidth
-=====================================input======================================
-// @flow
-
-enum E { }
-
-=====================================output=====================================
-// @flow
-
-enum E {}
-
-================================================================================
-`;
-
-exports[`enum-valid-name.js 1`] = `
+exports[`enum-name.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel-flow"]
 printWidth: 80
@@ -112,7 +112,7 @@ enum type {}
 ================================================================================
 `;
 
-exports[`enum-valid-no-trailing-comma.js 1`] = `
+exports[`enum-no-trailing-comma.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel-flow"]
 printWidth: 80
@@ -135,7 +135,7 @@ enum E {
 ================================================================================
 `;
 
-exports[`enum-valid-number-explicit.js 1`] = `
+exports[`enum-number-explicit.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel-flow"]
 printWidth: 80
@@ -160,7 +160,7 @@ enum E of number {
 ================================================================================
 `;
 
-exports[`enum-valid-number-implicit.js 1`] = `
+exports[`enum-number-implicit.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel-flow"]
 printWidth: 80
@@ -185,7 +185,7 @@ enum E {
 ================================================================================
 `;
 
-exports[`enum-valid-string-explicit-defaulted.js 1`] = `
+exports[`enum-string-explicit-defaulted.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel-flow"]
 printWidth: 80
@@ -210,7 +210,7 @@ enum E of string {
 ================================================================================
 `;
 
-exports[`enum-valid-string-explicit-initialized.js 1`] = `
+exports[`enum-string-explicit-initialized.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel-flow"]
 printWidth: 80
@@ -235,7 +235,7 @@ enum E of string {
 ================================================================================
 `;
 
-exports[`enum-valid-string-implicit-defaulted.js 1`] = `
+exports[`enum-string-implicit-defaulted.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel-flow"]
 printWidth: 80
@@ -260,7 +260,7 @@ enum E {
 ================================================================================
 `;
 
-exports[`enum-valid-string-implicit-initialized.js 1`] = `
+exports[`enum-string-implicit-initialized.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel-flow"]
 printWidth: 80
@@ -285,7 +285,7 @@ enum E {
 ================================================================================
 `;
 
-exports[`enum-valid-symbol.js 1`] = `
+exports[`enum-symbol.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel-flow"]
 printWidth: 80
