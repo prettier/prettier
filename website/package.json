@@ -20,7 +20,7 @@
   },
   "devDependencies": {
     "@babel/preset-env": "7.6.3",
-    "@babel/preset-react": "7.6.3",
+    "@babel/preset-react": "7.7.0",
     "@sandhose/prettier-animated-logo": "1.0.3",
     "babel-loader": "8.0.6",
     "concurrently": "5.0.0",
