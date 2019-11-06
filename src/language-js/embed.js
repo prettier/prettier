@@ -35,7 +35,17 @@ const removeCSSComments = string =>
       new RegExp(CSS_PRETTIER_IGNORE_PLACEHOLDER, "g"),
       "/* prettier-ignore */"
     );
+const cssIdentityRegExp = /[^$a-z\d_]/;
+const findCSSIdentity = (string, position) => {
+  const arrayMethod = position === "before" ? "pop" : "shift";
+  const piece = cssPlaceholder.parse(string)[arrayMethod]();
 
+  if (!piece || piece.isPlaceholder) {
+    return;
+  }
+
+  return piece.string.split(cssIdentityRegExp)[arrayMethod]();
+};
 function embed(path, print, textToDoc, options) {
   const node = path.getValue();
   const parent = path.getParentNode();
@@ -82,28 +92,22 @@ function embed(path, print, textToDoc, options) {
           }
 
           let text = placeholder;
-          let before = "";
-          let after = "";
+          let before = texts.slice(0, index).join();
+          let after = texts.slice(index + 1).join();
 
           // move identity character
-          const identitySplitRegExp = /[^$a-z\d_]/;
-          before = cssPlaceholder.parse(texts.slice(0, index).join()).pop();
-          if (before && !before.isPlaceholder) {
-            const string = before.string.split(identitySplitRegExp).pop();
-            if (string) {
-              texts[index - 1] = texts[index - 1].slice(0, -string.length);
-              text = string + text;
-            }
+          const leadingIdentity = findCSSIdentity(before, "before");
+          const tailingIdentity = findCSSIdentity(after, "after");
+          if (leadingIdentity) {
+            texts[index - 1] = texts[index - 1].slice(
+              0,
+              -leadingIdentity.length
+            );
+            text = leadingIdentity + text;
           }
-
-          after = cssPlaceholder.parse(texts.slice(index + 1).join()).shift();
-          if (after && !after.isPlaceholder) {
-            const string = after.string.split(identitySplitRegExp).shift();
-
-            if (string) {
-              texts[index + 1] = texts[index + 1].slice(string.length);
-              text += string;
-            }
+          if (tailingIdentity) {
+            texts[index + 1] = texts[index + 1].slice(tailingIdentity.length);
+            text += tailingIdentity;
           }
 
           // check orphan placeholder
