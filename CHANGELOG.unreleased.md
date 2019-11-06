@@ -1373,6 +1373,36 @@ When using the Azure Cosmos DB extension for VS Code, you can create .mongo file
 db.users.find({ someField: { $exists: true } });
 ```
 
+#### JavaScript: Better formatting for inline `await` expression nested in calls ([#6856] by [@thorn0])
+
+<!-- prettier-ignore -->
+```js
+// Input
+async function f() {
+  const admins = (await(db.select('*').from('admins').leftJoin('bla').where('id', 'in', [1,2,3,4]))).map(({id, name})=>({id, name}))
+}
+
+// Output (Prettier stable)
+async function f() {
+  const admins = (await db
+    .select("*")
+    .from("admins")
+    .leftJoin("bla")
+    .where("id", "in", [1, 2, 3, 4])).map(({ id, name }) => ({ id, name }));
+}
+
+// Output (Prettier master)
+async function f() {
+  const admins = (
+    await db
+      .select("*")
+      .from("admins")
+      .leftJoin("bla")
+      .where("id", "in", [1, 2, 3, 4])
+  ).map(({ id, name }) => ({ id, name }));
+}
+```
+
 [#5682]: https://github.com/prettier/prettier/pull/5682
 [#6657]: https://github.com/prettier/prettier/pull/6657
 [#5910]: https://github.com/prettier/prettier/pull/5910
@@ -1422,6 +1452,7 @@ db.users.find({ someField: { $exists: true } });
 [#6687]: https://github.com/prettier/prettier/pull/6687
 [#6796]: https://github.com/prettier/prettier/pull/6796
 [#6848]: https://github.com/prettier/prettier/pull/6848
+[#6856]: https://github.com/prettier/prettier/pull/6856
 [@brainkim]: https://github.com/brainkim
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
