@@ -1125,6 +1125,69 @@ foo(
 ================================================================================
 `;
 
+exports[`jsdoc.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/** @type {any} */
+const x = (
+    <div>
+        <div />
+    </div>
+);
+
+/**
+ * @type {object}
+ */
+() => (
+    <div>
+        sajdfpoiasdjfpoiasdjfpoiasdjfpoiadsjfpaoisdjfapsdiofjapioisadfaskfaspiofjp
+    </div>
+);
+
+/**
+ * @type {object}
+ */
+function HelloWorld() {
+    return (
+        <div>
+           <span>Test</span>
+        </div>
+    );
+}
+=====================================output=====================================
+/** @type {any} */
+const x = (
+  <div>
+    <div />
+  </div>
+);
+
+/**
+ * @type {object}
+ */
+() => (
+  <div>
+    sajdfpoiasdjfpoiasdjfpoiasdjfpoiadsjfpaoisdjfapsdiofjapioisadfaskfaspiofjp
+  </div>
+);
+
+/**
+ * @type {object}
+ */
+function HelloWorld() {
+  return (
+    <div>
+      <span>Test</span>
+    </div>
+  );
+}
+
+================================================================================
+`;
+
 exports[`jsx.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
