@@ -48,13 +48,10 @@ const getExplorerMemoized = mem(opts => {
     }
   });
 
-  const load = explorer.load;
-  const search = explorer.search;
-
   return {
     // cosmiconfig v4 interface
     load: (searchPath, configPath) =>
-      configPath ? load(configPath) : search(searchPath)
+      configPath ? explorer.load(configPath) : explorer.search(searchPath)
   };
 });
 
