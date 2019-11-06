@@ -2606,6 +2606,82 @@ function printPathNoParens(path, options, print, args) {
       return concat(parts);
     }
 
+    case "EnumDeclaration":
+      return concat([
+        "enum ",
+        path.call(print, "id"),
+        " ",
+        path.call(print, "body")
+      ]);
+    case "EnumBooleanBody":
+    case "EnumNumberBody":
+    case "EnumStringBody":
+    case "EnumSymbolBody": {
+      if (n.type === "EnumSymbolBody" || n.explicitType) {
+        let type = null;
+        switch (n.type) {
+          case "EnumBooleanBody":
+            type = "boolean";
+            break;
+          case "EnumNumberBody":
+            type = "number";
+            break;
+          case "EnumStringBody":
+            type = "string";
+            break;
+          case "EnumSymbolBody":
+            type = "symbol";
+            break;
+        }
+        parts.push("of ", type, " ");
+      }
+      if (n.members.length === 0) {
+        parts.push(
+          group(
+            concat([
+              "{",
+              comments.printDanglingComments(path, options),
+              softline,
+              "}"
+            ])
+          )
+        );
+      } else {
+        parts.push(
+          group(
+            concat([
+              "{",
+              indent(
+                concat([
+                  hardline,
+                  printArrayItems(path, options, "members", print),
+                  shouldPrintComma(options) ? "," : ""
+                ])
+              ),
+              comments.printDanglingComments(
+                path,
+                options,
+                /* sameIndent */ true
+              ),
+              hardline,
+              "}"
+            ])
+          )
+        );
+      }
+      return concat(parts);
+    }
+    case "EnumBooleanMember":
+    case "EnumNumberMember":
+    case "EnumStringMember":
+      return concat([
+        path.call(print, "id"),
+        " = ",
+        typeof n.init === "object" ? path.call(print, "init") : String(n.init)
+      ]);
+    case "EnumDefaultedMember":
+      return path.call(print, "id");
+
     case "FunctionTypeAnnotation":
     case "TSFunctionType": {
       // FunctionTypeAnnotation is ambiguous:
