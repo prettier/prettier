@@ -10,7 +10,8 @@ const resolveEditorConfig = require("./resolve-config-editorconfig");
 const loadToml = require("../utils/load-toml");
 
 const getExplorerMemoized = mem(opts => {
-  const explorer = thirdParty.cosmiconfig("prettier", {
+  const cosmiconfig = thirdParty["cosmiconfig" + (opts.sync ? "Sync" : "")];
+  const explorer = cosmiconfig("prettier", {
     cache: opts.cache,
     transform: result => {
       if (result && result.config) {
@@ -47,8 +48,8 @@ const getExplorerMemoized = mem(opts => {
     }
   });
 
-  const load = opts.sync ? explorer.loadSync : explorer.load;
-  const search = opts.sync ? explorer.searchSync : explorer.search;
+  const load = explorer.load;
+  const search = explorer.search;
 
   return {
     // cosmiconfig v4 interface
