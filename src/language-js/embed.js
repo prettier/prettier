@@ -36,8 +36,8 @@ const removeCSSComments = string =>
       "/* prettier-ignore */"
     );
 const cssIdentityRegExp = /[^$a-zA-Z\d_-]/;
-const findCSSIdentity = (string, position) => {
-  const arrayMethod = position === "before" ? "pop" : "shift";
+const findCSSIdentity = (string, fromEnd) => {
+  const arrayMethod = fromEnd ? "pop" : "shift";
   const piece = cssPlaceholder.parse(string)[arrayMethod]();
 
   if (!piece || piece.isPlaceholder) {
@@ -96,8 +96,8 @@ function embed(path, print, textToDoc, options) {
           let after = texts.slice(index + 1).join();
 
           // move identity character
-          const leadingIdentity = findCSSIdentity(before, "before");
-          const tailingIdentity = findCSSIdentity(after, "after");
+          const leadingIdentity = findCSSIdentity(before, true);
+          const tailingIdentity = findCSSIdentity(after);
           if (leadingIdentity) {
             texts[index - 1] = texts[index - 1].slice(
               0,
