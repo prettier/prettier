@@ -165,7 +165,7 @@ css`
 `;
 
 // should not crush
-styled.div`${a}${b}${c}${d}${e}${f}
+css`${a}${b}${c}${d}${e}${f}
 // comment
 ${g}//comment
 ${h}/*comment*/;
