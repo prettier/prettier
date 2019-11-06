@@ -13,9 +13,6 @@
   "engines": {
     "node": ">=8"
   },
-  "resolutions": {
-    "handlebars": "4.4.5"
-  },
   "dependencies": {
     "@angular/compiler": "8.2.13",
     "@babel/code-frame": "7.5.5",
