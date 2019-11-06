@@ -1,5 +1,734 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`css-in-at-rule.js 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// expression in at-rule(middle)
+css\`
+         @foo\${exp}bar (min-width: 100px) {div {}}
+\`;
+// expression in at-rule(beginning)
+css\`
+         @\${exp}bar (min-width: 100px) {div {}}
+\`;
+// expression in at-rule(end)
+css\`
+         @foo\${exp} (min-width: 100px) {div {}}
+\`;
+
+// expression in at-rule prop(middle)
+css\`
+         @media (foo\${exp}bar: 100px) {div {}}
+\`;
+// expression in at-rule prop(beginning)
+css\`
+         @media (\${exp}bar: 100px) {div {}}
+\`;
+// expression in at-rule prop(end)
+css\`
+         @media (foo\${exp}: 100px) {div {}}
+\`;
+
+// expression in at-rule value(middle)
+css\`
+         @media (min-width: foo\${exp}bar) {div {}}
+\`;
+// expression in at-rule value(beginning)
+css\`
+         @media (min-width: \${exp}bar) {div {}}
+\`;
+// expression in at-rule value(end)
+css\`
+         @media (min-width: foo\${exp}) {div {}}
+\`;
+
+// expression in at-rule condition(middle)
+css\`
+         @media (foo\${exp}bar) {div {}}
+\`;
+// expression in at-rule condition(beginning)
+css\`
+         @media (\${exp}bar) {div {}}
+\`;
+// expression in at-rule condition(end)
+css\`
+         @media (foo\${exp}) {div {}}
+\`;
+=====================================output=====================================
+// expression in at-rule(middle)
+css\`
+  @foo\${exp}bar (min-width: 100px) {
+    div {
+    }
+  }
+\`;
+// expression in at-rule(beginning)
+css\`
+  @\${exp}bar (min-width: 100px) {
+    div {
+    }
+  }
+\`;
+// expression in at-rule(end)
+css\`
+  @foo\${exp} (min-width: 100px) {
+    div {
+    }
+  }
+\`;
+
+// expression in at-rule prop(middle)
+css\`
+  @media (foo\${exp}bar: 100px) {
+    div {
+    }
+  }
+\`;
+// expression in at-rule prop(beginning)
+css\`
+  @media (\${exp}bar: 100px) {
+    div {
+    }
+  }
+\`;
+// expression in at-rule prop(end)
+css\`
+  @media (foo\${exp}: 100px) {
+    div {
+    }
+  }
+\`;
+
+// expression in at-rule value(middle)
+css\`
+  @media (min-width: foo\${exp}bar) {
+    div {
+    }
+  }
+\`;
+// expression in at-rule value(beginning)
+css\`
+  @media (min-width: \${exp}bar) {
+    div {
+    }
+  }
+\`;
+// expression in at-rule value(end)
+css\`
+  @media (min-width: foo\${exp}) {
+    div {
+    }
+  }
+\`;
+
+// expression in at-rule condition(middle)
+css\`
+  @media (foo\${exp}bar) {
+    div {
+    }
+  }
+\`;
+// expression in at-rule condition(beginning)
+css\`
+  @media (\${exp}bar) {
+    div {
+    }
+  }
+\`;
+// expression in at-rule condition(end)
+css\`
+  @media (foo\${exp}) {
+    div {
+    }
+  }
+\`;
+
+================================================================================
+`;
+
+exports[`css-in-declare.js 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// expression in declare prop(middle)
+css\`
+         a {foo\${exp}bar: 1;}
+\`;
+// expression in declare prop(beginning)
+css\`
+         a {\${exp}bar: 1;}
+\`;
+// expression in declare prop(end)
+css\`
+         a {foo\${exp}: 1;}
+\`;
+
+// expression in declare value(middle)
+css\`
+         a {a: foo\${exp}bar;}
+\`;
+// expression in declare value(beginning)
+css\`
+         a {a: \${exp}bar;}
+\`;
+// expression in declare value(end)
+css\`
+         a {a: foo\${exp};}
+\`;
+
+=====================================output=====================================
+// expression in declare prop(middle)
+css\`
+  a {
+    foo\${exp}bar: 1;
+  }
+\`;
+// expression in declare prop(beginning)
+css\`
+  a {
+    \${exp}bar: 1;
+  }
+\`;
+// expression in declare prop(end)
+css\`
+  a {
+    foo\${exp}: 1;
+  }
+\`;
+
+// expression in declare value(middle)
+css\`
+  a {
+    a: foo\${exp}bar;
+  }
+\`;
+// expression in declare value(beginning)
+css\`
+  a {
+    a: \${exp}bar;
+  }
+\`;
+// expression in declare value(end)
+css\`
+  a {
+    a: foo\${exp};
+  }
+\`;
+
+================================================================================
+`;
+
+exports[`css-in-selector.js 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// expression in tag selector(middle)
+css\`
+         foo\${exp}bar {}
+\`;
+// expression in tag selector(beginning)
+css\`
+         \${exp}bar {}
+\`;
+// expression in tag selector(end)
+css\`
+         foo\${exp} {}
+\`;
+
+// expression in id selector(middle)
+css\`
+         #foo\${exp}bar {}
+\`;
+// expression in id selector(beginning)
+css\`
+         #\${exp}bar {}
+\`;
+// expression in id selector(end)
+css\`
+         #\${exp}bar {}
+\`;
+
+// expression in class selector(middle)
+css\`
+         .foo\${exp}bar {}
+\`;
+// expression in class selector(beginning)
+css\`
+         .\${exp}bar {}
+\`;
+// expression in class selector(end)
+css\`
+         .\${exp}bar {}
+\`;
+
+// expression in attribute name(middle)
+css\`
+         [foo\${exp}bar] {}
+\`;
+// expression in attribute name(beginning)
+css\`
+         [\${exp}bar] {}
+\`;
+// expression in attribute name(end)
+css\`
+         [foo\${exp}] {}
+\`;
+
+// expression in attribute value(middle)
+css\`
+         [a^=foo\${exp}bar] {}
+\`;
+// expression in attribute value(beginning)
+css\`
+         [a^=\${exp}bar] {}
+\`;
+// expression in attribute value(end)
+css\`
+         [a^=foo\${exp}] {}
+\`;
+=====================================output=====================================
+// expression in tag selector(middle)
+css\`
+  foo\${exp}bar {
+  }
+\`;
+// expression in tag selector(beginning)
+css\`
+  \${exp}bar {
+  }
+\`;
+// expression in tag selector(end)
+css\`
+  foo\${exp} {
+  }
+\`;
+
+// expression in id selector(middle)
+css\`
+  #foo\${exp}bar {
+  }
+\`;
+// expression in id selector(beginning)
+css\`
+  #\${exp}bar {
+  }
+\`;
+// expression in id selector(end)
+css\`
+  #\${exp}bar {
+  }
+\`;
+
+// expression in class selector(middle)
+css\`
+  .foo\${exp}bar {
+  }
+\`;
+// expression in class selector(beginning)
+css\`
+  .\${exp}bar {
+  }
+\`;
+// expression in class selector(end)
+css\`
+  .\${exp}bar {
+  }
+\`;
+
+// expression in attribute name(middle)
+css\`
+  [foo\${exp}bar] {
+  }
+\`;
+// expression in attribute name(beginning)
+css\`
+  [\${exp}bar] {
+  }
+\`;
+// expression in attribute name(end)
+css\`
+  [foo\${exp}] {
+  }
+\`;
+
+// expression in attribute value(middle)
+css\`
+  [a^="foo\${exp}bar"] {
+  }
+\`;
+// expression in attribute value(beginning)
+css\`
+  [a^="\${exp}bar"] {
+  }
+\`;
+// expression in attribute value(end)
+css\`
+  [a^="foo\${exp}"] {
+  }
+\`;
+
+================================================================================
+`;
+
+exports[`css-orphan.js 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// expression as declare
+css\`
+         a {
+\${exp};
+      }
+\`;
+
+// expression as declare(many)
+css\`
+         a {
+\${exp};
+\${exp};
+      }
+\`;
+// expression as declare(no breaks)
+css\`
+         a {
+\${exp}\${exp};
+     }
+\`;
+
+css\`
+         a {
+\${exp};\${exp};
+      }
+\`;
+// expression as declare part
+css\`
+         a {
+@foo\${exp}bar;
+--foo\${exp}bar;
+_foo\${exp}bar;
+FOO\${exp}bar;
+foo1\${exp}bar;
+     }
+\`;
+// expression as declare(middle)
+css\`
+         a {
+foo\${exp}bar;
+      }
+\`;
+// expression as declare(beginning)
+css\`
+         a {
+\${exp}bar;
+      }
+\`;
+// expression as declare(end)
+css\`
+         a {
+foo\${exp};
+      }
+\`;
+
+// semi test
+
+// should not insert semi
+css\`
+         a {
+\${exp}}
+\`;
+// should keep semi
+css\`
+         b {\${exp} ;
+}
+\`;
+// should not insert semi
+css\`
+         c {
+\${exp}\${exp}                }
+\`;
+// should keep one semi
+css\`
+         d {\${exp} \${exp} ;}
+\`;
+// should keep 2 semi
+css\`
+         e {\${exp}               ;
+\${exp};}
+\`;
+
+// comment test
+
+// inline-comment(before)
+css\`
+         a {
+// comment
+          \${exp}
+}
+\`;
+
+// block-comment(before)
+css\`
+         a {
+/*comment*/
+          \${exp}
+}
+\`;
+
+// inside-comment(before)
+css\`
+         a {
+/*comment\${a}
+*/
+          \${exp}
+}
+\`;
+
+// inline-comment(after)
+css\`
+         a {
+          \${exp}
+        // comment
+}
+\`;
+
+// block-comment(after)
+css\`
+         a {
+          \${exp}
+        /*comment
+*/
+}
+\`;
+
+// inside-comment(after)
+css\`
+         a {
+          \${exp}
+        /*comment\${b}
+*/
+}
+\`;
+
+// inline-comment(both)
+css\`
+         a {
+// comment
+          \${exp}
+        // comment
+}
+\`;
+
+// block-comment(both)
+css\`
+         a {
+/*comment
+*/
+          \${exp}
+        /*comment
+*/
+}
+\`;
+
+// inside-comment(both)
+css\`
+         a {
+/*comment\${a}
+*/
+          \${exp}
+        /*comment\${b}
+*/
+}
+\`;
+=====================================output=====================================
+// expression as declare
+css\`
+  a {
+    \${exp};
+  }
+\`;
+
+// expression as declare(many)
+css\`
+  a {
+    \${exp};
+    \${exp};
+  }
+\`;
+// expression as declare(no breaks)
+css\`
+  a {
+    \${exp}
+    \${exp};
+  }
+\`;
+
+css\`
+  a {
+    \${exp};
+    \${exp};
+  }
+\`;
+// expression as declare part
+css\`
+  a {
+    @foo\${exp}bar;
+    --foo\${exp}bar;
+    _foo\${exp}bar;
+    FOO\${exp}bar;
+    foo1\${exp}bar;
+  }
+\`;
+// expression as declare(middle)
+css\`
+  a {
+    foo\${exp}bar;
+  }
+\`;
+// expression as declare(beginning)
+css\`
+  a {
+    \${exp}bar;
+  }
+\`;
+// expression as declare(end)
+css\`
+  a {
+    foo\${exp};
+  }
+\`;
+
+// semi test
+
+// should not insert semi
+css\`
+  a {
+    \${exp}
+  }
+\`;
+// should keep semi
+css\`
+  b {
+    \${exp};
+  }
+\`;
+// should not insert semi
+css\`
+  c {
+    \${exp}
+    \${exp}
+  }
+\`;
+// should keep one semi
+css\`
+  d {
+    \${exp}
+    \${exp};
+  }
+\`;
+// should keep 2 semi
+css\`
+  e {
+    \${exp};
+    \${exp};
+  }
+\`;
+
+// comment test
+
+// inline-comment(before)
+css\`
+  a {
+    // comment
+    \${exp}
+  }
+\`;
+
+// block-comment(before)
+css\`
+  a {
+    /*comment*/
+    \${exp}
+  }
+\`;
+
+// inside-comment(before)
+css\`
+  a {
+    /*comment\${a}
+*/
+    \${exp}
+  }
+\`;
+
+// inline-comment(after)
+css\`
+  a {
+    \${exp}
+    // comment
+  }
+\`;
+
+// block-comment(after)
+css\`
+  a {
+    \${exp}
+    /*comment
+*/
+  }
+\`;
+
+// inside-comment(after)
+css\`
+  a {
+    \${exp}
+    /*comment\${b}
+*/
+  }
+\`;
+
+// inline-comment(both)
+css\`
+  a {
+    // comment
+    \${exp}
+    // comment
+  }
+\`;
+
+// block-comment(both)
+css\`
+  a {
+    /*comment
+*/
+    \${exp}
+    /*comment
+*/
+  }
+\`;
+
+// inside-comment(both)
+css\`
+  a {
+    /*comment\${a}
+*/
+    \${exp}
+    /*comment\${b}
+*/
+  }
+\`;
+
+================================================================================
+`;
+
 exports[`css-prop.js 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -628,312 +1357,6 @@ parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-// current logic breaks on any expression fail,
-// so test one by one
-
-// expression in tag selector(middle)
-<style jsx>{\`
-         foo\${exp}bar {}
-\`}</style>;
-// expression in tag selector(beginning)
-<style jsx>{\`
-         \${exp}bar {}
-\`}</style>;
-// expression in tag selector(end)
-<style jsx>{\`
-         foo\${exp} {}
-\`}</style>;
-
-// expression in id selector(middle)
-<style jsx>{\`
-         #foo\${exp}bar {}
-\`}</style>;
-// expression in id selector(beginning)
-<style jsx>{\`
-         #\${exp}bar {}
-\`}</style>;
-// expression in id selector(end)
-<style jsx>{\`
-         #\${exp}bar {}
-\`}</style>;
-
-// expression in class selector(middle)
-<style jsx>{\`
-         .foo\${exp}bar {}
-\`}</style>;
-// expression in class selector(beginning)
-<style jsx>{\`
-         .\${exp}bar {}
-\`}</style>;
-// expression in class selector(end)
-<style jsx>{\`
-         .\${exp}bar {}
-\`}</style>;
-
-// expression in attribute name(middle)
-<style jsx>{\`
-         [foo\${exp}bar] {}
-\`}</style>;
-// expression in attribute name(beginning)
-<style jsx>{\`
-         [\${exp}bar] {}
-\`}</style>;
-// expression in attribute name(end)
-<style jsx>{\`
-         [foo\${exp}] {}
-\`}</style>;
-
-// expression in attribute value(middle)
-<style jsx>{\`
-         [a^=foo\${exp}bar] {}
-\`}</style>;
-// expression in attribute value(beginning)
-<style jsx>{\`
-         [a^=\${exp}bar] {}
-\`}</style>;
-// expression in attribute value(end)
-<style jsx>{\`
-         [a^=foo\${exp}] {}
-\`}</style>;
-
-// expression in declare prop(middle)
-<style jsx>{\`
-         a {foo\${exp}bar: 1;}
-\`}</style>;
-// expression in declare prop(beginning)
-<style jsx>{\`
-         a {\${exp}bar: 1;}
-\`}</style>;
-// expression in declare prop(end)
-<style jsx>{\`
-         a {foo\${exp}: 1;}
-\`}</style>;
-
-// expression in declare value(middle)
-<style jsx>{\`
-         a {a: foo\${exp}bar;}
-\`}</style>;
-// expression in declare value(beginning)
-<style jsx>{\`
-         a {a: \${exp}bar;}
-\`}</style>;
-// expression in declare value(end)
-<style jsx>{\`
-         a {a: foo\${exp};}
-\`}</style>;
-
-// expression in at-rule(middle)
-<style jsx>{\`
-         @foo\${exp}bar (min-width: 100px) {div {}}
-\`}</style>;
-// expression in at-rule(beginning)
-<style jsx>{\`
-         @\${exp}bar (min-width: 100px) {div {}}
-\`}</style>;
-// expression in at-rule(end)
-<style jsx>{\`
-         @foo\${exp} (min-width: 100px) {div {}}
-\`}</style>;
-
-// expression in at-rule prop(middle)
-<style jsx>{\`
-         @media (foo\${exp}bar: 100px) {div {}}
-\`}</style>;
-// expression in at-rule prop(beginning)
-<style jsx>{\`
-         @media (\${exp}bar: 100px) {div {}}
-\`}</style>;
-// expression in at-rule prop(end)
-<style jsx>{\`
-         @media (foo\${exp}: 100px) {div {}}
-\`}</style>;
-
-// expression in at-rule value(middle)
-<style jsx>{\`
-         @media (min-width: foo\${exp}bar) {div {}}
-\`}</style>;
-// expression in at-rule value(beginning)
-<style jsx>{\`
-         @media (min-width: \${exp}bar) {div {}}
-\`}</style>;
-// expression in at-rule value(end)
-<style jsx>{\`
-         @media (min-width: foo\${exp}) {div {}}
-\`}</style>;
-
-// expression in at-rule condition(middle)
-<style jsx>{\`
-         @media (foo\${exp}bar) {div {}}
-\`}</style>;
-// expression in at-rule condition(beginning)
-<style jsx>{\`
-         @media (\${exp}bar) {div {}}
-\`}</style>;
-// expression in at-rule condition(end)
-<style jsx>{\`
-         @media (foo\${exp}) {div {}}
-\`}</style>;
-
-// expression as declare
-<style jsx>{\`
-         a {
-\${exp};
-	   }
-\`}</style>;
-
-// expression as declare(many)
-<style jsx>{\`
-         a {
-\${exp};
-\${exp};
-	   }
-\`}</style>;
-// expression as declare(no breaks)
-<style jsx>{\`
-         a {
-\${exp}\${exp};
-     }
-\`}</style>;
-
-<style jsx>{\`
-         a {
-\${exp};\${exp};
-	   }
-\`}</style>;
-// expression as declare(middle)
-<style jsx>{\`
-         a {
-@$foo_foo-foo\${exp}bar;
-	   }
-\`}</style>;
-// expression as declare(beginning)
-<style jsx>{\`
-         a {
-\${exp}bar;
-	   }
-\`}</style>;
-// expression as declare(end)
-<style jsx>{\`
-         a {
-foo\${exp};
-	   }
-\`}</style>;
-
-
-// semi test
-
-// should not insert semi
-<style jsx>{\`
-         a {
-\${exp}}
-\`}</style>;
-// should keep semi
-<style jsx>{\`
-         b {\${exp} ;
-}
-\`}</style>;
-// should not insert semi
-<style jsx>{\`
-         c {
-\${exp}\${exp}                }
-\`}</style>;
-// should keep one semi
-<style jsx>{\`
-         d {\${exp} \${exp} ;}
-\`}</style>;
-// should keep 2 semi
-<style jsx>{\`
-         e {\${exp}               ;
-\${exp};}
-\`}</style>;
-
-// comment test
-
-// inline-comment(before)
-<style jsx>{\`
-         a {
-// comment
-          \${exp}
-}
-\`}</style>;
-
-// block-comment(before)
-<style jsx>{\`
-         a {
-/*comment*/
-          \${exp}
-}
-\`}</style>;
-
-// inside-comment(before)
-<style jsx>{\`
-         a {
-/*comment\${a}
-*/
-          \${exp}
-}
-\`}</style>;
-
-// inline-comment(after)
-<style jsx>{\`
-         a {
-          \${exp}
-        // comment
-}
-\`}</style>;
-
-// block-comment(after)
-<style jsx>{\`
-         a {
-          \${exp}
-        /*comment
-*/
-}
-\`}</style>;
-
-// inside-comment(after)
-<style jsx>{\`
-         a {
-          \${exp}
-        /*comment\${b}
-*/
-}
-\`}</style>;
-
-// inline-comment(both)
-<style jsx>{\`
-         a {
-// comment
-          \${exp}
-        // comment
-}
-\`}</style>;
-
-// block-comment(both)
-<style jsx>{\`
-         a {
-/*comment
-*/
-          \${exp}
-        /*comment
-*/
-}
-\`}</style>;
-
-// inside-comment(both)
-<style jsx>{\`
-         a {
-/*comment\${a}
-*/
-          \${exp}
-        /*comment\${b}
-*/
-}
-\`}</style>;
-
-
-// real world cases
-
 <style jsx>{\`
   div {
   display: \${expr};
@@ -984,384 +1407,6 @@ flex-direction: column\${long_cond && long_cond && long_cond ? "-reverse" : ""};
 \`}</style>
 
 =====================================output=====================================
-// current logic breaks on any expression fail,
-// so test one by one
-
-// expression in tag selector(middle)
-<style jsx>{\`
-  foo\${exp}bar {
-  }
-\`}</style>;
-// expression in tag selector(beginning)
-<style jsx>{\`
-  \${exp}bar {
-  }
-\`}</style>;
-// expression in tag selector(end)
-<style jsx>{\`
-  foo\${exp} {
-  }
-\`}</style>;
-
-// expression in id selector(middle)
-<style jsx>{\`
-  #foo\${exp}bar {
-  }
-\`}</style>;
-// expression in id selector(beginning)
-<style jsx>{\`
-  #\${exp}bar {
-  }
-\`}</style>;
-// expression in id selector(end)
-<style jsx>{\`
-  #\${exp}bar {
-  }
-\`}</style>;
-
-// expression in class selector(middle)
-<style jsx>{\`
-  .foo\${exp}bar {
-  }
-\`}</style>;
-// expression in class selector(beginning)
-<style jsx>{\`
-  .\${exp}bar {
-  }
-\`}</style>;
-// expression in class selector(end)
-<style jsx>{\`
-  .\${exp}bar {
-  }
-\`}</style>;
-
-// expression in attribute name(middle)
-<style jsx>{\`
-  [foo\${exp}bar] {
-  }
-\`}</style>;
-// expression in attribute name(beginning)
-<style jsx>{\`
-  [\${exp}bar] {
-  }
-\`}</style>;
-// expression in attribute name(end)
-<style jsx>{\`
-  [foo\${exp}] {
-  }
-\`}</style>;
-
-// expression in attribute value(middle)
-<style jsx>{\`
-  [a^="foo\${exp}bar"] {
-  }
-\`}</style>;
-// expression in attribute value(beginning)
-<style jsx>{\`
-  [a^="\${exp}bar"] {
-  }
-\`}</style>;
-// expression in attribute value(end)
-<style jsx>{\`
-  [a^="foo\${exp}"] {
-  }
-\`}</style>;
-
-// expression in declare prop(middle)
-<style jsx>{\`
-  a {
-    foo\${exp}bar: 1;
-  }
-\`}</style>;
-// expression in declare prop(beginning)
-<style jsx>{\`
-  a {
-    \${exp}bar: 1;
-  }
-\`}</style>;
-// expression in declare prop(end)
-<style jsx>{\`
-  a {
-    foo\${exp}: 1;
-  }
-\`}</style>;
-
-// expression in declare value(middle)
-<style jsx>{\`
-  a {
-    a: foo\${exp}bar;
-  }
-\`}</style>;
-// expression in declare value(beginning)
-<style jsx>{\`
-  a {
-    a: \${exp}bar;
-  }
-\`}</style>;
-// expression in declare value(end)
-<style jsx>{\`
-  a {
-    a: foo\${exp};
-  }
-\`}</style>;
-
-// expression in at-rule(middle)
-<style jsx>{\`
-  @foo\${exp}bar (min-width: 100px) {
-    div {
-    }
-  }
-\`}</style>;
-// expression in at-rule(beginning)
-<style jsx>{\`
-  @\${exp}bar (min-width: 100px) {
-    div {
-    }
-  }
-\`}</style>;
-// expression in at-rule(end)
-<style jsx>{\`
-  @foo\${exp} (min-width: 100px) {
-    div {
-    }
-  }
-\`}</style>;
-
-// expression in at-rule prop(middle)
-<style jsx>{\`
-  @media (foo\${exp}bar: 100px) {
-    div {
-    }
-  }
-\`}</style>;
-// expression in at-rule prop(beginning)
-<style jsx>{\`
-  @media (\${exp}bar: 100px) {
-    div {
-    }
-  }
-\`}</style>;
-// expression in at-rule prop(end)
-<style jsx>{\`
-  @media (foo\${exp}: 100px) {
-    div {
-    }
-  }
-\`}</style>;
-
-// expression in at-rule value(middle)
-<style jsx>{\`
-  @media (min-width: foo\${exp}bar) {
-    div {
-    }
-  }
-\`}</style>;
-// expression in at-rule value(beginning)
-<style jsx>{\`
-  @media (min-width: \${exp}bar) {
-    div {
-    }
-  }
-\`}</style>;
-// expression in at-rule value(end)
-<style jsx>{\`
-  @media (min-width: foo\${exp}) {
-    div {
-    }
-  }
-\`}</style>;
-
-// expression in at-rule condition(middle)
-<style jsx>{\`
-  @media (foo\${exp}bar) {
-    div {
-    }
-  }
-\`}</style>;
-// expression in at-rule condition(beginning)
-<style jsx>{\`
-  @media (\${exp}bar) {
-    div {
-    }
-  }
-\`}</style>;
-// expression in at-rule condition(end)
-<style jsx>{\`
-  @media (foo\${exp}) {
-    div {
-    }
-  }
-\`}</style>;
-
-// expression as declare
-<style jsx>{\`
-  a {
-    \${exp};
-  }
-\`}</style>;
-
-// expression as declare(many)
-<style jsx>{\`
-  a {
-    \${exp};
-    \${exp};
-  }
-\`}</style>;
-// expression as declare(no breaks)
-<style jsx>{\`
-  a {
-    \${exp}
-    \${exp};
-  }
-\`}</style>;
-
-<style jsx>{\`
-  a {
-    \${exp};
-    \${exp};
-  }
-\`}</style>;
-// expression as declare(middle)
-<style jsx>{\`
-  a {
-    @$foo_foo-foo\${exp}bar;
-  }
-\`}</style>;
-// expression as declare(beginning)
-<style jsx>{\`
-  a {
-    \${exp}bar;
-  }
-\`}</style>;
-// expression as declare(end)
-<style jsx>{\`
-  a {
-    foo\${exp};
-  }
-\`}</style>;
-
-// semi test
-
-// should not insert semi
-<style jsx>{\`
-  a {
-    \${exp}
-  }
-\`}</style>;
-// should keep semi
-<style jsx>{\`
-  b {
-    \${exp};
-  }
-\`}</style>;
-// should not insert semi
-<style jsx>{\`
-  c {
-    \${exp}
-    \${exp}
-  }
-\`}</style>;
-// should keep one semi
-<style jsx>{\`
-  d {
-    \${exp}
-    \${exp};
-  }
-\`}</style>;
-// should keep 2 semi
-<style jsx>{\`
-  e {
-    \${exp};
-    \${exp};
-  }
-\`}</style>;
-
-// comment test
-
-// inline-comment(before)
-<style jsx>{\`
-  a {
-    // comment
-    \${exp}
-  }
-\`}</style>;
-
-// block-comment(before)
-<style jsx>{\`
-  a {
-    /*comment*/
-    \${exp}
-  }
-\`}</style>;
-
-// inside-comment(before)
-<style jsx>{\`
-  a {
-    /*comment\${a}
-*/
-    \${exp}
-  }
-\`}</style>;
-
-// inline-comment(after)
-<style jsx>{\`
-  a {
-    \${exp}
-    // comment
-  }
-\`}</style>;
-
-// block-comment(after)
-<style jsx>{\`
-  a {
-    \${exp}
-    /*comment
-*/
-  }
-\`}</style>;
-
-// inside-comment(after)
-<style jsx>{\`
-  a {
-    \${exp}
-    /*comment\${b}
-*/
-  }
-\`}</style>;
-
-// inline-comment(both)
-<style jsx>{\`
-  a {
-    // comment
-    \${exp}
-    // comment
-  }
-\`}</style>;
-
-// block-comment(both)
-<style jsx>{\`
-  a {
-    /*comment
-*/
-    \${exp}
-    /*comment
-*/
-  }
-\`}</style>;
-
-// inside-comment(both)
-<style jsx>{\`
-  a {
-    /*comment\${a}
-*/
-    \${exp}
-    /*comment\${b}
-*/
-  }
-\`}</style>;
-
-// real world cases
-
 <style jsx>{\`
   div {
     display: \${expr};
