@@ -170,10 +170,20 @@ ${exp}${exp};
 ${exp};${exp};
 	   }
 `}</style>;
+// expression as declare part
+<style jsx>{`
+         a {
+@foo${exp}bar;
+--foo${exp}bar;
+_foo${exp}bar;
+FOO${exp}bar;
+foo1${exp}bar;
+     }
+`}</style>;
 // expression as declare(middle)
 <style jsx>{`
          a {
-@$foo_foo-foo${exp}bar;
+foo${exp}bar;
 	   }
 `}</style>;
 // expression as declare(beginning)
