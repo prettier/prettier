@@ -35,7 +35,7 @@ const removeCSSComments = string =>
       new RegExp(CSS_PRETTIER_IGNORE_PLACEHOLDER, "g"),
       "/* prettier-ignore */"
     );
-const cssIdentityRegExp = /[^$a-z\d_]/;
+const cssIdentityRegExp = /[^$a-zA-Z\d_-]/;
 const findCSSIdentity = (string, position) => {
   const arrayMethod = position === "before" ? "pop" : "shift";
   const piece = cssPlaceholder.parse(string)[arrayMethod]();
