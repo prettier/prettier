@@ -6,73 +6,63 @@ parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-// expression in at-rule(middle)
+// name
 css\`
          @foo\${exp}bar (min-width: 100px) {div {}}
 \`;
-// expression in at-rule(beginning)
 css\`
          @\${exp}bar (min-width: 100px) {div {}}
 \`;
-// expression in at-rule(end)
 css\`
          @foo\${exp} (min-width: 100px) {div {}}
 \`;
 
-// expression in at-rule prop(middle)
+// prop
 css\`
          @media (foo\${exp}bar: 100px) {div {}}
 \`;
-// expression in at-rule prop(beginning)
 css\`
          @media (\${exp}bar: 100px) {div {}}
 \`;
-// expression in at-rule prop(end)
 css\`
          @media (foo\${exp}: 100px) {div {}}
 \`;
 
-// expression in at-rule value(middle)
+// value
 css\`
          @media (min-width: foo\${exp}bar) {div {}}
 \`;
-// expression in at-rule value(beginning)
 css\`
          @media (min-width: \${exp}bar) {div {}}
 \`;
-// expression in at-rule value(end)
 css\`
          @media (min-width: foo\${exp}) {div {}}
 \`;
 
-// expression in at-rule condition(middle)
+// condition
 css\`
          @media (foo\${exp}bar) {div {}}
 \`;
-// expression in at-rule condition(beginning)
 css\`
          @media (\${exp}bar) {div {}}
 \`;
-// expression in at-rule condition(end)
 css\`
          @media (foo\${exp}) {div {}}
 \`;
 =====================================output=====================================
-// expression in at-rule(middle)
+// name
 css\`
   @foo\${exp}bar (min-width: 100px) {
     div {
     }
   }
 \`;
-// expression in at-rule(beginning)
 css\`
   @\${exp}bar (min-width: 100px) {
     div {
     }
   }
 \`;
-// expression in at-rule(end)
 css\`
   @foo\${exp} (min-width: 100px) {
     div {
@@ -80,21 +70,19 @@ css\`
   }
 \`;
 
-// expression in at-rule prop(middle)
+// prop
 css\`
   @media (foo\${exp}bar: 100px) {
     div {
     }
   }
 \`;
-// expression in at-rule prop(beginning)
 css\`
   @media (\${exp}bar: 100px) {
     div {
     }
   }
 \`;
-// expression in at-rule prop(end)
 css\`
   @media (foo\${exp}: 100px) {
     div {
@@ -102,21 +90,19 @@ css\`
   }
 \`;
 
-// expression in at-rule value(middle)
+// value
 css\`
   @media (min-width: foo\${exp}bar) {
     div {
     }
   }
 \`;
-// expression in at-rule value(beginning)
 css\`
   @media (min-width: \${exp}bar) {
     div {
     }
   }
 \`;
-// expression in at-rule value(end)
 css\`
   @media (min-width: foo\${exp}) {
     div {
@@ -124,21 +110,19 @@ css\`
   }
 \`;
 
-// expression in at-rule condition(middle)
+// condition
 css\`
   @media (foo\${exp}bar) {
     div {
     }
   }
 \`;
-// expression in at-rule condition(beginning)
 css\`
   @media (\${exp}bar) {
     div {
     }
   }
 \`;
-// expression in at-rule condition(end)
 css\`
   @media (foo\${exp}) {
     div {
@@ -155,66 +139,85 @@ parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-// expression in declare prop(middle)
+// prop
 css\`
          a {foo\${exp}bar: 1;}
 \`;
-// expression in declare prop(beginning)
 css\`
          a {\${exp}bar: 1;}
 \`;
-// expression in declare prop(end)
 css\`
          a {foo\${exp}: 1;}
 \`;
 
-// expression in declare value(middle)
+// value
 css\`
          a {a: foo\${exp}bar;}
 \`;
-// expression in declare value(beginning)
 css\`
          a {a: \${exp}bar;}
 \`;
-// expression in declare value(end)
 css\`
          a {a: foo\${exp};}
 \`;
 
+// should insert semi
+css\`
+         a {a: foo\${exp}}
+\`;
+// should remove extra semi
+css\`
+         a {a: foo\${exp};;}
+         a {a: foo\${exp};
+;}
+\`;
+
 =====================================output=====================================
-// expression in declare prop(middle)
+// prop
 css\`
   a {
     foo\${exp}bar: 1;
   }
 \`;
-// expression in declare prop(beginning)
 css\`
   a {
     \${exp}bar: 1;
   }
 \`;
-// expression in declare prop(end)
 css\`
   a {
     foo\${exp}: 1;
   }
 \`;
 
-// expression in declare value(middle)
+// value
 css\`
   a {
     a: foo\${exp}bar;
   }
 \`;
-// expression in declare value(beginning)
 css\`
   a {
     a: \${exp}bar;
   }
 \`;
-// expression in declare value(end)
 css\`
+  a {
+    a: foo\${exp};
+  }
+\`;
+
+// should insert semi
+css\`
+  a {
+    a: foo\${exp};
+  }
+\`;
+// should remove extra semi
+css\`
+  a {
+    a: foo\${exp};
+  }
   a {
     a: foo\${exp};
   }
@@ -229,146 +232,126 @@ parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-// expression in tag selector(middle)
+// tag selector
 css\`
          foo\${exp}bar {}
 \`;
-// expression in tag selector(beginning)
 css\`
          \${exp}bar {}
 \`;
-// expression in tag selector(end)
 css\`
          foo\${exp} {}
 \`;
 
-// expression in id selector(middle)
+// id selector
 css\`
          #foo\${exp}bar {}
 \`;
-// expression in id selector(beginning)
 css\`
          #\${exp}bar {}
 \`;
-// expression in id selector(end)
 css\`
          #\${exp}bar {}
 \`;
 
-// expression in class selector(middle)
+// class selector
 css\`
          .foo\${exp}bar {}
 \`;
-// expression in class selector(beginning)
 css\`
          .\${exp}bar {}
 \`;
-// expression in class selector(end)
 css\`
          .\${exp}bar {}
 \`;
 
-// expression in attribute name(middle)
+// attribute name
 css\`
          [foo\${exp}bar] {}
 \`;
-// expression in attribute name(beginning)
 css\`
          [\${exp}bar] {}
 \`;
-// expression in attribute name(end)
 css\`
          [foo\${exp}] {}
 \`;
 
-// expression in attribute value(middle)
+// attribute value
 css\`
          [a^=foo\${exp}bar] {}
 \`;
-// expression in attribute value(beginning)
 css\`
          [a^=\${exp}bar] {}
 \`;
-// expression in attribute value(end)
 css\`
          [a^=foo\${exp}] {}
 \`;
 =====================================output=====================================
-// expression in tag selector(middle)
+// tag selector
 css\`
   foo\${exp}bar {
   }
 \`;
-// expression in tag selector(beginning)
 css\`
   \${exp}bar {
   }
 \`;
-// expression in tag selector(end)
 css\`
   foo\${exp} {
   }
 \`;
 
-// expression in id selector(middle)
+// id selector
 css\`
   #foo\${exp}bar {
   }
 \`;
-// expression in id selector(beginning)
 css\`
   #\${exp}bar {
   }
 \`;
-// expression in id selector(end)
 css\`
   #\${exp}bar {
   }
 \`;
 
-// expression in class selector(middle)
+// class selector
 css\`
   .foo\${exp}bar {
   }
 \`;
-// expression in class selector(beginning)
 css\`
   .\${exp}bar {
   }
 \`;
-// expression in class selector(end)
 css\`
   .\${exp}bar {
   }
 \`;
 
-// expression in attribute name(middle)
+// attribute name
 css\`
   [foo\${exp}bar] {
   }
 \`;
-// expression in attribute name(beginning)
 css\`
   [\${exp}bar] {
   }
 \`;
-// expression in attribute name(end)
 css\`
   [foo\${exp}] {
   }
 \`;
 
-// expression in attribute value(middle)
+// attribute value
 css\`
   [a^="foo\${exp}bar"] {
   }
 \`;
-// expression in attribute value(beginning)
 css\`
   [a^="\${exp}bar"] {
   }
 \`;
-// expression in attribute value(end)
 css\`
   [a^="foo\${exp}"] {
   }
@@ -383,33 +366,8 @@ parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-// expression as declare
-css\`
-         a {
-\${exp};
-      }
-\`;
 
-// expression as declare(many)
-css\`
-         a {
-\${exp};
-\${exp};
-      }
-\`;
-// expression as declare(no breaks)
-css\`
-         a {
-\${exp}\${exp};
-     }
-\`;
-
-css\`
-         a {
-\${exp};\${exp};
-      }
-\`;
-// expression as declare part
+// as part
 css\`
          a {
 @foo\${exp}bar;
@@ -419,80 +377,47 @@ FOO\${exp}bar;
 foo1\${exp}bar;
      }
 \`;
-// expression as declare(middle)
-css\`
-         a {
-foo\${exp}bar;
+
+css\`a {foo\${exp}bar;}\`;
+css\`a {\${exp}bar;}\`;
+css\`a {foo\${exp};}\`;
+
+
+// keep semicolon as it is
+css\`a {\${exp};}\`;
+css\`a {\${exp}}\`;
+
+// many
+css\`a {
+\${exp}
+\${exp};
       }
 \`;
-// expression as declare(beginning)
-css\`
-         a {
-\${exp}bar;
+css\`a {
+\${exp}
+
+\${exp};
       }
 \`;
-// expression as declare(end)
-css\`
-         a {
-foo\${exp};
-      }
+css\`a {\${exp}\${exp};
+     }
+\`;
+css\`a {\${exp} \${exp};
+     }
+\`;
+css\`a {\${exp} ;\${exp};
+     }
 \`;
 
-// semi test
+// comments
 
-// should not insert semi
-css\`
-         a {
-\${exp}}
-\`;
-// should keep semi
-css\`
-         b {\${exp} ;
-}
-\`;
-// should not insert semi
-css\`
-         c {
-\${exp}\${exp}                }
-\`;
-// should keep one semi
-css\`
-         d {\${exp} \${exp} ;}
-\`;
-// should keep 2 semi
-css\`
-         e {\${exp}               ;
-\${exp};}
-\`;
-
-// comment test
-
-// inline-comment(before)
+// inline-comment
 css\`
          a {
 // comment
           \${exp}
 }
 \`;
-
-// block-comment(before)
-css\`
-         a {
-/*comment*/
-          \${exp}
-}
-\`;
-
-// inside-comment(before)
-css\`
-         a {
-/*comment\${a}
-*/
-          \${exp}
-}
-\`;
-
-// inline-comment(after)
 css\`
          a {
           \${exp}
@@ -500,7 +425,13 @@ css\`
 }
 \`;
 
-// block-comment(after)
+// block-comment
+css\`
+         a {
+/*comment*/
+          \${exp}
+}
+\`;
 css\`
          a {
           \${exp}
@@ -508,26 +439,6 @@ css\`
 */
 }
 \`;
-
-// inside-comment(after)
-css\`
-         a {
-          \${exp}
-        /*comment\${b}
-*/
-}
-\`;
-
-// inline-comment(both)
-css\`
-         a {
-// comment
-          \${exp}
-        // comment
-}
-\`;
-
-// block-comment(both)
 css\`
          a {
 /*comment
@@ -538,7 +449,28 @@ css\`
 }
 \`;
 
-// inside-comment(both)
+// inside-comment(before)
+css\`
+         a {
+/*comment\${a}
+*/
+          \${exp}
+}
+\`;
+css\`
+         a {
+          \${exp}
+        /*comment\${b}
+*/
+}
+\`;
+css\`
+         a {
+// comment
+          \${exp}
+        // comment
+}
+\`;
 css\`
          a {
 /*comment\${a}
@@ -550,43 +482,15 @@ css\`
 \`;
 
 // should not crush
-styled.div\`\${a}\${b}\${c}\${d}\${e}\${f}
+css\`\${a}\${b}\${c}\${d}\${e}\${f}
 // comment
 \${g}//comment
 \${h}/*comment*/;
          \${i};\${j}\${k}\${l}\${m}\${n}\${o}\${p}\${q}\${r}\${s}\${t}\${u}\${v}\${w}\${x}\${y}
 // comment
-\${z}\`
+\${z}\`;
 =====================================output=====================================
-// expression as declare
-css\`
-  a {
-    \${exp};
-  }
-\`;
-
-// expression as declare(many)
-css\`
-  a {
-    \${exp};
-    \${exp};
-  }
-\`;
-// expression as declare(no breaks)
-css\`
-  a {
-    \${exp}
-    \${exp};
-  }
-\`;
-
-css\`
-  a {
-    \${exp};
-    \${exp};
-  }
-\`;
-// expression as declare part
+// as part
 css\`
   a {
     @foo\${exp}bar;
@@ -596,76 +500,105 @@ css\`
     foo1\${exp}bar;
   }
 \`;
-// expression as declare(middle)
+
 css\`
   a {
     foo\${exp}bar;
   }
 \`;
-// expression as declare(beginning)
 css\`
   a {
     \${exp}bar;
   }
 \`;
-// expression as declare(end)
 css\`
   a {
     foo\${exp};
   }
 \`;
 
-// semi test
-
-// should not insert semi
+// keep semicolon as it is
+css\`
+  a {
+    \${exp};
+  }
+\`;
 css\`
   a {
     \${exp}
   }
 \`;
-// should keep semi
+
+// many
 css\`
-  b {
-    \${exp};
-  }
-\`;
-// should not insert semi
-css\`
-  c {
-    \${exp}
-    \${exp}
-  }
-\`;
-// should keep one semi
-css\`
-  d {
+  a {
     \${exp}
     \${exp};
   }
 \`;
-// should keep 2 semi
 css\`
-  e {
+  a {
+    \${exp}
+
+    \${exp};
+  }
+\`;
+css\`
+  a {
+    \${exp}
+    \${exp};
+  }
+\`;
+css\`
+  a {
+    \${exp}
+    \${exp};
+  }
+\`;
+css\`
+  a {
     \${exp};
     \${exp};
   }
 \`;
 
-// comment test
+// comments
 
-// inline-comment(before)
+// inline-comment
 css\`
   a {
     // comment
     \${exp}
   }
 \`;
+css\`
+  a {
+    \${exp}
+    // comment
+  }
+\`;
 
-// block-comment(before)
+// block-comment
 css\`
   a {
     /*comment*/
     \${exp}
+  }
+\`;
+css\`
+  a {
+    \${exp}
+    /*comment
+*/
+  }
+\`;
+css\`
+  a {
+    /*comment
+*/
+    \${exp}
+    /*comment
+*/
   }
 \`;
 
@@ -677,25 +610,6 @@ css\`
     \${exp}
   }
 \`;
-
-// inline-comment(after)
-css\`
-  a {
-    \${exp}
-    // comment
-  }
-\`;
-
-// block-comment(after)
-css\`
-  a {
-    \${exp}
-    /*comment
-*/
-  }
-\`;
-
-// inside-comment(after)
 css\`
   a {
     \${exp}
@@ -703,8 +617,6 @@ css\`
 */
   }
 \`;
-
-// inline-comment(both)
 css\`
   a {
     // comment
@@ -712,19 +624,6 @@ css\`
     // comment
   }
 \`;
-
-// block-comment(both)
-css\`
-  a {
-    /*comment
-*/
-    \${exp}
-    /*comment
-*/
-  }
-\`;
-
-// inside-comment(both)
 css\`
   a {
     /*comment\${a}
@@ -736,7 +635,7 @@ css\`
 \`;
 
 // should not crush
-styled.div\`
+css\`
   \${a}
   \${b}
   \${c}

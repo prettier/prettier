@@ -1,30 +1,5 @@
-// expression as declare
-css`
-         a {
-${exp};
-      }
-`;
 
-// expression as declare(many)
-css`
-         a {
-${exp};
-${exp};
-      }
-`;
-// expression as declare(no breaks)
-css`
-         a {
-${exp}${exp};
-     }
-`;
-
-css`
-         a {
-${exp};${exp};
-      }
-`;
-// expression as declare part
+// as part
 css`
          a {
 @foo${exp}bar;
@@ -34,67 +9,75 @@ FOO${exp}bar;
 foo1${exp}bar;
      }
 `;
-// expression as declare(middle)
-css`
-         a {
-foo${exp}bar;
+
+css`a {foo${exp}bar;}`;
+css`a {${exp}bar;}`;
+css`a {foo${exp};}`;
+
+
+// keep semicolon as it is
+css`a {${exp};}`;
+css`a {${exp}}`;
+
+// many
+css`a {
+${exp}
+${exp};
       }
 `;
-// expression as declare(beginning)
-css`
-         a {
-${exp}bar;
+css`a {
+${exp}
+
+${exp};
       }
 `;
-// expression as declare(end)
-css`
-         a {
-foo${exp};
-      }
+css`a {${exp}${exp};
+     }
+`;
+css`a {${exp} ${exp};
+     }
+`;
+css`a {${exp} ;${exp};
+     }
 `;
 
-// semi test
+// comments
 
-// should not insert semi
-css`
-         a {
-${exp}}
-`;
-// should keep semi
-css`
-         b {${exp} ;
-}
-`;
-// should not insert semi
-css`
-         c {
-${exp}${exp}                }
-`;
-// should keep one semi
-css`
-         d {${exp} ${exp} ;}
-`;
-// should keep 2 semi
-css`
-         e {${exp}               ;
-${exp};}
-`;
-
-// comment test
-
-// inline-comment(before)
+// inline-comment
 css`
          a {
 // comment
           ${exp}
 }
 `;
+css`
+         a {
+          ${exp}
+        // comment
+}
+`;
 
-// block-comment(before)
+// block-comment
 css`
          a {
 /*comment*/
           ${exp}
+}
+`;
+css`
+         a {
+          ${exp}
+        /*comment
+*/
+}
+`;
+css`
+         a {
+/*comment
+*/
+          ${exp}
+        /*comment
+*/
 }
 `;
 
@@ -106,25 +89,6 @@ css`
           ${exp}
 }
 `;
-
-// inline-comment(after)
-css`
-         a {
-          ${exp}
-        // comment
-}
-`;
-
-// block-comment(after)
-css`
-         a {
-          ${exp}
-        /*comment
-*/
-}
-`;
-
-// inside-comment(after)
 css`
          a {
           ${exp}
@@ -132,8 +96,6 @@ css`
 */
 }
 `;
-
-// inline-comment(both)
 css`
          a {
 // comment
@@ -141,19 +103,6 @@ css`
         // comment
 }
 `;
-
-// block-comment(both)
-css`
-         a {
-/*comment
-*/
-          ${exp}
-        /*comment
-*/
-}
-`;
-
-// inside-comment(both)
 css`
          a {
 /*comment${a}
@@ -171,4 +120,4 @@ ${g}//comment
 ${h}/*comment*/;
          ${i};${j}${k}${l}${m}${n}${o}${p}${q}${r}${s}${t}${u}${v}${w}${x}${y}
 // comment
-${z}`
+${z}`;

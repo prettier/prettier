@@ -1,64 +1,54 @@
-// expression in tag selector(middle)
+// tag selector
 css`
          foo${exp}bar {}
 `;
-// expression in tag selector(beginning)
 css`
          ${exp}bar {}
 `;
-// expression in tag selector(end)
 css`
          foo${exp} {}
 `;
 
-// expression in id selector(middle)
+// id selector
 css`
          #foo${exp}bar {}
 `;
-// expression in id selector(beginning)
 css`
          #${exp}bar {}
 `;
-// expression in id selector(end)
 css`
          #${exp}bar {}
 `;
 
-// expression in class selector(middle)
+// class selector
 css`
          .foo${exp}bar {}
 `;
-// expression in class selector(beginning)
 css`
          .${exp}bar {}
 `;
-// expression in class selector(end)
 css`
          .${exp}bar {}
 `;
 
-// expression in attribute name(middle)
+// attribute name
 css`
          [foo${exp}bar] {}
 `;
-// expression in attribute name(beginning)
 css`
          [${exp}bar] {}
 `;
-// expression in attribute name(end)
 css`
          [foo${exp}] {}
 `;
 
-// expression in attribute value(middle)
+// attribute value
 css`
          [a^=foo${exp}bar] {}
 `;
-// expression in attribute value(beginning)
 css`
          [a^=${exp}bar] {}
 `;
-// expression in attribute value(end)
 css`
          [a^=foo${exp}] {}
 `;
