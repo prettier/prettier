@@ -1405,18 +1405,21 @@ async function f() {
 
 #### JavaScript: Fix nullish coalescing parenthesis with mixed logical operators ([#6863] by [@jridgewell])
 
-We've updated Prettier's support for the nullish coalescing operator to match a spec update that no longer allows it to immediately contain, or be contained within an `&&` or `||` operation.
+Ensure parenthesis are kept when the nullish coalescing operator (`??`) is mixed with the other logical operators (`&&` and `||`).
 
 <!-- prettier-ignore -->
 ```js
 // Input
 (foo ?? baz) || baz;
+(foo || baz) ?? baz;
 
 // Output (Prettier stable)
 foo ?? baz || baz;
+foo || baz ?? baz;
 
 // Output (Prettier master)
 (foo ?? baz) || baz;
+(foo || baz) ?? baz;
 ```
 
 Please note, as we update our parsers with versions that support this spec update, code without the parenthesis will throw a parse error.

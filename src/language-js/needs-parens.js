@@ -356,12 +356,12 @@ function needsParens(path, options) {
 
           if (
             (po === "??" && (no === "||" || no === "&&")) ||
-            ((po === "||" || po === "&&") && po === "??")
+            (no === "??" && (po === "||" || po === "&&"))
           ) {
             return true;
           }
 
-          if ((po === "||" || po === "??") && no === "&&") {
+          if (po === "||" && no === "&&") {
             return true;
           }
 
