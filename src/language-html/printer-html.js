@@ -1036,7 +1036,7 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
       "^\\[.+\\]$",
       "^bind(on)?-",
       // Unofficial rudimentary support for some of the most used directives of AngularJS 1.x
-      "^ng-(if|show|hide)$"
+      "^ng-(if|show|hide|class|style)$"
     ];
     /**
      *     i18n="longDescription"
