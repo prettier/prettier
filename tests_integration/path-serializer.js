@@ -1,12 +1,12 @@
 "use strict";
 
-const replaceCWD = path => {
+const replaceCWD = text => {
   const cwd = process.cwd();
-  while (path.indexOf(cwd) !== -1) {
-    path = path.replace(cwd, "<cwd>");
+  while (text.indexOf(cwd) !== -1) {
+    text = text.replace(cwd, "<cwd>");
   }
 
-  return path;
+  return text;
 };
 
 module.exports = {
