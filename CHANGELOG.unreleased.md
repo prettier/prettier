@@ -1406,6 +1406,26 @@ async function f() {
 }
 ```
 
+#### JavaScript: Don't require parens for same-operator logical expressions ([#6864] by [@jridgewell])
+
+<!-- prettier-ignore -->
+```js
+// Input
+foo && (bar && baz);
+foo || (bar || baz);
+foo ?? (bar ?? baz);
+
+// Output (Prettier stable)
+foo && (bar && baz);
+foo || (bar || baz);
+foo ?? (bar ?? baz);
+
+// Output (Prettier master)
+foo && bar && baz;
+foo || bar || baz;
+foo ?? bar ?? baz;
+```
+
 [#5682]: https://github.com/prettier/prettier/pull/5682
 [#6657]: https://github.com/prettier/prettier/pull/6657
 [#5910]: https://github.com/prettier/prettier/pull/5910
@@ -1457,6 +1477,7 @@ async function f() {
 [#6848]: https://github.com/prettier/prettier/pull/6848
 [#6856]: https://github.com/prettier/prettier/pull/6856
 [#6863]: https://github.com/prettier/prettier/pull/6863
+[#6864]: https://github.com/prettier/prettier/pull/6864
 [@brainkim]: https://github.com/brainkim
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
