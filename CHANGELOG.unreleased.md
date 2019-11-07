@@ -1403,6 +1403,24 @@ async function f() {
 }
 ```
 
+#### JavaScript: Fix nullish coalescing parenthesis with mixed logical operators ([#6863] by [@jridgewell])
+
+We've updated Prettier's support for the nullish coalescing operator to match a spec update that no longer allows it to immediately contain, or be contained within an `&&` or `||` operation.
+
+<!-- prettier-ignore -->
+```js
+// Input
+(foo ?? baz) || baz;
+
+// Output (Prettier stable)
+foo ?? baz || baz;
+
+// Output (Prettier master)
+(foo ?? baz) || baz;
+```
+
+Please note, as we update our parsers with versions that support this spec update, code without the parenthesis will throw a parse error.
+
 [#5682]: https://github.com/prettier/prettier/pull/5682
 [#6657]: https://github.com/prettier/prettier/pull/6657
 [#5910]: https://github.com/prettier/prettier/pull/5910
@@ -1453,6 +1471,7 @@ async function f() {
 [#6796]: https://github.com/prettier/prettier/pull/6796
 [#6848]: https://github.com/prettier/prettier/pull/6848
 [#6856]: https://github.com/prettier/prettier/pull/6856
+[#6863]: https://github.com/prettier/prettier/pull/6863
 [@brainkim]: https://github.com/brainkim
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
@@ -1474,3 +1493,4 @@ async function f() {
 [@andersk]: https://github.com/andersk
 [@lydell]: https://github.com/lydell
 [@aymericbouzy]: https://github.com/aymericbouzy
+[@jridgewell]: https://github.com/jridgewell
