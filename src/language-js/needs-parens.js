@@ -339,8 +339,12 @@ function needsParens(path, options) {
             (node.type === "TSTypeAssertion" || node.type === "TSAsExpression")
           );
 
-        case "BinaryExpression":
-        case "LogicalExpression": {
+        case "LogicalExpression":
+          if (parent.operator === node.operator) {
+            return false;
+          }
+        // else fallthrough
+        case "BinaryExpression": {
           if (!node.operator && node.type !== "TSTypeAssertion") {
             return true;
           }
