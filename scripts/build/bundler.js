@@ -226,7 +226,7 @@ function runWebpack(config) {
 
 module.exports = async function createBundle(bundle, cache) {
   if (bundle.corejs && bundle.type !== "core") {
-    throw new Error("Only core module can use corejs");
+    throw new Error("Only core bundles can use corejs");
   }
 
   const inputOptions = getRollupConfig(bundle);
