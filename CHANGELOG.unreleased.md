@@ -483,20 +483,23 @@ Previously, Prettier would sometimes ignore whitespace when formatting comments.
 </div>
 ```
 
-#### JavaScript: Update `??` precedence to match stage 3 proposal ([#6404] by [@vjeux])
+#### JavaScript: Update `??` precedence to match stage 3 proposal ([#6404] by [@vjeux], [#6863] by [@jridgewell])
 
-We've updated Prettier's support for the nullish coalescing operator to match a spec update that no longer allows it to immediately contain, or be contained within an `&&` or `||` operation.
+We've updated Prettier's support for the nullish coalescing operator to match a spec update that no longer allows it to immediately contain, or be contained within, an `&&` or `||` operation.
 
 <!-- prettier-ignore -->
 ```js
 // Input
-(foo ?? baz) || baz;
+(foo ?? bar) || baz;
+(foo || bar) ?? baz;
 
 // Output (Prettier stable)
-foo ?? baz || baz;
+foo ?? bar || baz;
+foo || bar ?? baz;
 
 // Output (Prettier master)
-(foo ?? baz) || baz;
+(foo ?? bar) || baz;
+(foo || bar) ?? baz;
 ```
 
 Please note, as we update our parsers with versions that support this spec update, code without the parenthesis will throw a parse error.
@@ -1402,27 +1405,6 @@ async function f() {
   ).map(({ id, name }) => ({ id, name }));
 }
 ```
-
-#### JavaScript: Fix nullish coalescing parenthesis with mixed logical operators ([#6863] by [@jridgewell])
-
-Ensure parenthesis are kept when the nullish coalescing operator (`??`) is mixed with the other logical operators (`&&` and `||`).
-
-<!-- prettier-ignore -->
-```js
-// Input
-(foo ?? baz) || baz;
-(foo || baz) ?? baz;
-
-// Output (Prettier stable)
-foo ?? baz || baz;
-foo || baz ?? baz;
-
-// Output (Prettier master)
-(foo ?? baz) || baz;
-(foo || baz) ?? baz;
-```
-
-Please note, as we update our parsers with versions that support this spec update, code without the parenthesis will throw a parse error.
 
 [#5682]: https://github.com/prettier/prettier/pull/5682
 [#6657]: https://github.com/prettier/prettier/pull/6657
