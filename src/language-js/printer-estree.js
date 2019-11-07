@@ -5176,11 +5176,6 @@ function isSimple(node, depth = 0) {
     node.type === "NumericLiteral" ||
     node.type === "StringLiteral" ||
     node.type === "Identifier" ||
-    node.type === "OptionalCallExpression" ||
-    node.type === "OptionalMemberExpression" ||
-    node.type === "NewExpression" ||
-    node.type === "TSNonNullExpression" ||
-    node.type === "ThisExpression" ||
     node.type === "ThisExpression" ||
     node.type === "Super" ||
     node.type === "BigIntLiteral" ||
@@ -5199,11 +5194,21 @@ function isSimple(node, depth = 0) {
   if (node.type === "ArrayExpression") {
     return node.elements.every(isChildSimple);
   }
-  if (node.type === "CallExpression") {
+  if (
+    node.type === "CallExpression" ||
+    node.type === "OptionalCallExpression" ||
+    node.type === "NewExpression"
+  ) {
     return isSimple(node.callee) && node.arguments.every(isChildSimple);
   }
-  if (node.type === "MemberExpression") {
+  if (
+    node.type === "MemberExpression" ||
+    node.type === "OptionalMemberExpression"
+  ) {
     return isSimple(node.object) && isSimple(node.property);
+  }
+  if (node.type === "TSNonNullExpression") {
+    return isSimple(node.expression);
   }
   return false;
 }
