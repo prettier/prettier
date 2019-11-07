@@ -82,6 +82,7 @@
     "benchmark": "2.1.4",
     "builtin-modules": "3.1.0",
     "codecov": "codecov/codecov-node#e427d900309adb50746a39a50aa7d80071a5ddd0",
+    "core-js": "3.4.0",
     "cross-env": "6.0.3",
     "eslint": "6.6.0",
     "eslint-config-prettier": "6.5.0",

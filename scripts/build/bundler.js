@@ -40,21 +40,40 @@ function getBabelConfig(bundle) {
   const config = {
     babelrc: false,
     plugins: bundle.babelPlugins || [],
+    exclude: [],
     compact: bundle.type === "plugin" ? false : "auto"
+  };
+  const presetEnvConfig = {
+    targets: {
+      node: "4"
+    },
+    modules: false
   };
   if (bundle.type === "core") {
     config.plugins.push(
       require.resolve("./babel-plugins/transform-custom-require")
     );
+
+    if (bundle.corejs) {
+      Object.assign(presetEnvConfig, {
+        useBuiltIns: "usage",
+        corejs: {
+          version: 3,
+          proposals: true
+        }
+      });
+      config.exclude.push(/\/core-js\//);
+    }
   }
-  const targets = { node: 4 };
   if (bundle.target === "universal") {
     // From https://jamie.build/last-2-versions
-    targets.browsers = [">0.25%", "not ie 11", "not op_mini all"];
+    presetEnvConfig.targets.browsers = [
+      ">0.25%",
+      "not ie 11",
+      "not op_mini all"
+    ];
   }
-  config.presets = [
-    [require.resolve("@babel/preset-env"), { targets, modules: false }]
-  ];
+  config.presets = [[require.resolve("@babel/preset-env"), presetEnvConfig]];
   return config;
 }
 
@@ -206,6 +225,10 @@ function runWebpack(config) {
 }
 
 module.exports = async function createBundle(bundle, cache) {
+  if (bundle.corejs && bundle.type !== "core") {
+    throw new Error("Only core module can use corejs");
+  }
+
   const inputOptions = getRollupConfig(bundle);
   const outputOptions = getRollupOutputOptions(bundle);
 
