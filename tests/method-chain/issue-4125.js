@@ -11,7 +11,7 @@ const x = moment().add(1, 'day').valueOf()
 obj.foo(1).foo(2).foo(3);
 
 // better on multiple lines:
-somePromise.then((val)=>doSomething(val)).catch((err)=>handleError(err))
+somePromise.then(format).then((val)=>doSomething(val)).catch((err)=>handleError(err))
 
 // you can still force multi-line chaining with a comment:
 const sha256 = (data) =>
