@@ -255,8 +255,6 @@ function parseMediaQuery(params) {
 
 const DEFAULT_SCSS_DIRECTIVE = /(\s*?)(!default).*$/;
 const GLOBAL_SCSS_DIRECTIVE = /(\s*?)(!global).*$/;
-// from https://github.com/postcss/postcss-custom-selectors/blob/495d9f3821257b10cd080ed2d1df81bc6db128a2/lib/custom-selectors-from-root.js#L31
-const customSelectorParamsRegExp = /^(:--[A-z][\w-]*)\s+([\W\w]+)\s*$/;
 
 function parseNestedCSS(node) {
   if (node && typeof node === "object") {
@@ -292,11 +290,7 @@ function parseNestedCSS(node) {
 
     // https://github.com/postcss/postcss-custom-selectors/blob/495d9f3821257b10cd080ed2d1df81bc6db128a2/lib/custom-selectors-from-root.js#L34
     // postcss-less@2.0.0 parse `custom-selector` as `css-decl`
-    if (
-      node.type === "css-decl" &&
-      node.prop === "@custom-selector" &&
-      customSelectorParamsRegExp.test(":" + node.value)
-    ) {
+    if (node.type === "css-decl" && node.prop === "@custom-selector") {
       selector = node.value;
       node.raws.value = selector;
     }
