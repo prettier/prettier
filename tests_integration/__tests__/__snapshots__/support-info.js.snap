@@ -698,7 +698,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"since\\": \\"0.0.0\\",
       \\"tmScope\\": \\"source.js\\",
       \\"type\\": \\"programming\\",
-      \\"vscodeLanguageIds\\": [\\"javascript\\"]
+      \\"vscodeLanguageIds\\": [\\"javascript\\", \\"mongo\\"]
     },
     {
       \\"aceMode\\": \\"javascript\\",

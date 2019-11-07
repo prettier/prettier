@@ -692,7 +692,7 @@ Previously, Prettier only supported the most common HTML entities, such as `&nbs
 [error] stdin: SyntaxError: Unknown entity "excl" - use the "&#<decimal>;" or  "&#x<hex>;" syntax (1:6)
 [error] > 1 | <p>Hi&excl;</p>
 [error]     |      ^
-[error]   2 | 
+[error]   2 |
 -->
 
 <!-- Output (Prettier master) -->
@@ -1365,6 +1365,43 @@ const bigints = [200000n, 0x0000000an, 0b01111111n];
 const bigints = [200_000n, 0x0000_000an, 0b0111_1111n];
 ```
 
+#### VS Code: add support for .mongo files ([#6848] by [@aymericbouzy])
+
+When using the Azure Cosmos DB extension for VS Code, you can create .mongo files to write MongoDB queries, which use Javascript syntax. This change allows VS Code to format your file using Prettier.
+
+```js
+db.users.find({ someField: { $exists: true } });
+```
+
+#### JavaScript: Better formatting for inline `await` expression nested in calls ([#6856] by [@thorn0])
+
+<!-- prettier-ignore -->
+```js
+// Input
+async function f() {
+  const admins = (await(db.select('*').from('admins').leftJoin('bla').where('id', 'in', [1,2,3,4]))).map(({id, name})=>({id, name}))
+}
+
+// Output (Prettier stable)
+async function f() {
+  const admins = (await db
+    .select("*")
+    .from("admins")
+    .leftJoin("bla")
+    .where("id", "in", [1, 2, 3, 4])).map(({ id, name }) => ({ id, name }));
+}
+
+// Output (Prettier master)
+async function f() {
+  const admins = (
+    await db
+      .select("*")
+      .from("admins")
+      .leftJoin("bla")
+      .where("id", "in", [1, 2, 3, 4])
+  ).map(({ id, name }) => ({ id, name }));
+}
+
 #### Less: handle whitespace between variable and colon ([#6778] by [@fisker])
 
 <!-- prettier-ignore -->
@@ -1428,6 +1465,8 @@ const bigints = [200_000n, 0x0000_000an, 0b0111_1111n];
 [#6687]: https://github.com/prettier/prettier/pull/6687
 [#6796]: https://github.com/prettier/prettier/pull/6796
 [#6778]: https://github.com/prettier/prettier/pull/6778
+[#6848]: https://github.com/prettier/prettier/pull/6848
+[#6856]: https://github.com/prettier/prettier/pull/6856
 [@brainkim]: https://github.com/brainkim
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
@@ -1449,3 +1488,4 @@ const bigints = [200_000n, 0x0000_000an, 0b0111_1111n];
 [@andersk]: https://github.com/andersk
 [@lydell]: https://github.com/lydell
 [@fisker]: https://github.com/fisker
+[@aymericbouzy]: https://github.com/aymericbouzy
