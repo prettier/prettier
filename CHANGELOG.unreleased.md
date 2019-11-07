@@ -1403,6 +1403,20 @@ async function f() {
 }
 ```
 
+#### CLI: Display invalid config filename in error message ([#6865] by [@fisker])
+
+<!-- prettier-ignore -->
+```bash
+# Input
+$ prettier filename.js --config .invalid-config
+
+# Output (Prettier stable)
+Invalid configuration file: ...
+
+# Output (Prettier master)
+Invalid configuration file `.invalid-config`: ...
+```
+
 [#5682]: https://github.com/prettier/prettier/pull/5682
 [#6657]: https://github.com/prettier/prettier/pull/6657
 [#5910]: https://github.com/prettier/prettier/pull/5910
@@ -1453,6 +1467,7 @@ async function f() {
 [#6796]: https://github.com/prettier/prettier/pull/6796
 [#6848]: https://github.com/prettier/prettier/pull/6848
 [#6856]: https://github.com/prettier/prettier/pull/6856
+[#6865]: https://github.com/prettier/prettier/pull/6865
 [@brainkim]: https://github.com/brainkim
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
@@ -1474,3 +1489,4 @@ async function f() {
 [@andersk]: https://github.com/andersk
 [@lydell]: https://github.com/lydell
 [@aymericbouzy]: https://github.com/aymericbouzy
+[@fisker]: https://github.com/fisker
