@@ -1401,6 +1401,7 @@ async function f() {
       .where("id", "in", [1, 2, 3, 4])
   ).map(({ id, name }) => ({ id, name }));
 }
+```
 
 #### Less: handle whitespace between variable and colon ([#6778] by [@fisker])
 
