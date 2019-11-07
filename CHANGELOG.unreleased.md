@@ -1365,6 +1365,44 @@ const bigints = [200000n, 0x0000000an, 0b01111111n];
 const bigints = [200_000n, 0x0000_000an, 0b0111_1111n];
 ```
 
+#### VS Code: add support for .mongo files ([#6848] by [@aymericbouzy])
+
+When using the Azure Cosmos DB extension for VS Code, you can create .mongo files to write MongoDB queries, which use Javascript syntax. This change allows VS Code to format your file using Prettier.
+
+```js
+db.users.find({ someField: { $exists: true } });
+```
+
+#### JavaScript: Better formatting for inline `await` expression nested in calls ([#6856] by [@thorn0])
+
+<!-- prettier-ignore -->
+```js
+// Input
+async function f() {
+  const admins = (await(db.select('*').from('admins').leftJoin('bla').where('id', 'in', [1,2,3,4]))).map(({id, name})=>({id, name}))
+}
+
+// Output (Prettier stable)
+async function f() {
+  const admins = (await db
+    .select("*")
+    .from("admins")
+    .leftJoin("bla")
+    .where("id", "in", [1, 2, 3, 4])).map(({ id, name }) => ({ id, name }));
+}
+
+// Output (Prettier master)
+async function f() {
+  const admins = (
+    await db
+      .select("*")
+      .from("admins")
+      .leftJoin("bla")
+      .where("id", "in", [1, 2, 3, 4])
+  ).map(({ id, name }) => ({ id, name }));
+}
+```
+
 #### Less: don't lowercase variable names, remove whitespace between variable and colon ([#6778] by [@fisker])
 
 <!-- prettier-ignore -->
