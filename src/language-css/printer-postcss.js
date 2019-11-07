@@ -38,7 +38,6 @@ const {
   isKeyframeAtRuleKeywords,
   isHTMLTag,
   isWideKeywords,
-  isSCSS,
   isLastNode,
   isSCSSControlDirectiveNode,
   isDetachedRulesetDeclarationNode,
@@ -103,7 +102,7 @@ function genericPrint(path, options, print) {
       const nodes = printNodeSequence(path, options, print);
 
       if (nodes.parts.length) {
-        return concat([nodes, hardline]);
+        return concat([nodes, hardline, node.parser]);
       }
 
       return nodes;
@@ -771,13 +770,7 @@ function genericPrint(path, options, print) {
               )
             ])
           ),
-          ifBreak(
-            isSCSS(options.parser, options.originalText) &&
-              isSCSSMapItem &&
-              shouldPrintComma(options)
-              ? ","
-              : ""
-          ),
+          ifBreak(isSCSSMapItem && shouldPrintComma(options) ? "," : ""),
           softline,
           node.close ? path.call(print, "close") : ""
         ]),

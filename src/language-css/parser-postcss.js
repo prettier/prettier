@@ -478,7 +478,8 @@ function parseNestedCSS(node) {
   return node;
 }
 
-function parseWithParser(parser, text) {
+function parseWithParser(isSCSSParser, text, opts) {
+  const parser = requireParser(isSCSSParser);
   const parsed = parseFrontMatter(text);
   const { frontMatter } = parsed;
   text = parsed.content;
@@ -494,6 +495,7 @@ function parseWithParser(parser, text) {
     throw createError("(postcss) " + e.name + " " + e.reason, { start: e });
   }
 
+  result.parser = isSCSSParser ? "scss" : "less";
   result = parseNestedCSS(addTypePrefix(result, "css-"));
 
   if (frontMatter) {
@@ -527,14 +529,14 @@ function parse(text, parsers, opts) {
   const isSCSSParser = isSCSS(opts.parser, text);
 
   try {
-    return parseWithParser(requireParser(isSCSSParser), text);
+    return parseWithParser(isSCSSParser, text, opts);
   } catch (originalError) {
     if (hasExplicitParserChoice) {
       throw originalError;
     }
 
     try {
-      return parseWithParser(requireParser(!isSCSSParser), text);
+      return parseWithParser(!isSCSSParser, text, opts);
     } catch (_secondError) {
       throw originalError;
     }
