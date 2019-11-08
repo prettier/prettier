@@ -340,10 +340,11 @@ function needsParens(path, options) {
           );
 
         case "LogicalExpression":
-          if (parent.operator === node.operator) {
-            return false;
+          if (node.type === "LogicalExpression") {
+            return parent.operator !== node.operator;
           }
         // else fallthrough
+
         case "BinaryExpression": {
           if (!node.operator && node.type !== "TSTypeAssertion") {
             return true;
@@ -355,17 +356,6 @@ function needsParens(path, options) {
           const np = util.getPrecedence(no);
 
           if (pp > np) {
-            return true;
-          }
-
-          if (
-            (po === "??" && (no === "||" || no === "&&")) ||
-            (no === "??" && (po === "||" || po === "&&"))
-          ) {
-            return true;
-          }
-
-          if (po === "||" && no === "&&") {
             return true;
           }
 

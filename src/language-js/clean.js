@@ -39,11 +39,23 @@ function clean(ast, newObj, parent) {
 
   // We remove unneeded parens around same-operator LogicalExpressions
   if (
-    ast.type === "LogicalExpression" &&
     newObj.type === "LogicalExpression" &&
-    ast.operator === newObj.operator
+    newObj.right.type === "LogicalExpression" &&
+    newObj.operator === newObj.right.operator
   ) {
-    return null;
+    return {
+      type: "LogicalExpression",
+      operator: newObj.operator,
+      left: {
+        type: "LogicalExpression",
+        operator: newObj.operator,
+        left: newObj.left,
+        right: newObj.right.left,
+        loc: {}
+      },
+      right: newObj.right.right,
+      loc: {}
+    };
   }
 
   // (TypeScript) Ignore `static` in `constructor(static p) {}`
