@@ -483,20 +483,23 @@ Previously, Prettier would sometimes ignore whitespace when formatting comments.
 </div>
 ```
 
-#### JavaScript: Update `??` precedence to match stage 3 proposal ([#6404] by [@vjeux])
+#### JavaScript: Update `??` precedence to match stage 3 proposal ([#6404] by [@vjeux], [#6863] by [@jridgewell])
 
-We've updated Prettier's support for the nullish coalescing operator to match a spec update that no longer allows it to immediately contain, or be contained within an `&&` or `||` operation.
+We've updated Prettier's support for the nullish coalescing operator to match a spec update that no longer allows it to immediately contain, or be contained within, an `&&` or `||` operation.
 
 <!-- prettier-ignore -->
 ```js
 // Input
-(foo ?? baz) || baz;
+(foo ?? bar) || baz;
+(foo || bar) ?? baz;
 
 // Output (Prettier stable)
-foo ?? baz || baz;
+foo ?? bar || baz;
+foo || bar ?? baz;
 
 // Output (Prettier master)
-(foo ?? baz) || baz;
+(foo ?? bar) || baz;
+(foo || bar) ?? baz;
 ```
 
 Please note, as we update our parsers with versions that support this spec update, code without the parenthesis will throw a parse error.
@@ -1403,6 +1406,20 @@ async function f() {
 }
 ```
 
+#### CLI: Display invalid config filename in error message ([#6865] by [@fisker])
+
+<!-- prettier-ignore -->
+```bash
+# Input
+$ prettier filename.js --config .invalid-config
+
+# Output (Prettier stable)
+Invalid configuration file: ...
+
+# Output (Prettier master)
+Invalid configuration file `.invalid-config`: ...
+```
+
 #### Less: don't lowercase variable names, remove whitespace between variable and colon ([#6778] by [@fisker])
 
 <!-- prettier-ignore -->
@@ -1468,6 +1485,8 @@ async function f() {
 [#6778]: https://github.com/prettier/prettier/pull/6778
 [#6848]: https://github.com/prettier/prettier/pull/6848
 [#6856]: https://github.com/prettier/prettier/pull/6856
+[#6865]: https://github.com/prettier/prettier/pull/6865
+[#6863]: https://github.com/prettier/prettier/pull/6863
 [@brainkim]: https://github.com/brainkim
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
@@ -1490,3 +1509,5 @@ async function f() {
 [@lydell]: https://github.com/lydell
 [@fisker]: https://github.com/fisker
 [@aymericbouzy]: https://github.com/aymericbouzy
+[@fisker]: https://github.com/fisker
+[@jridgewell]: https://github.com/jridgewell
