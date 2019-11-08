@@ -3,7 +3,7 @@
 const execa = require("execa");
 const { logPromise, readJson, writeJson, processFile } = require("../utils");
 
-async function bump({ version, previousVersion }) {
+async function bump({ version, previousVersionOnMaster }) {
   const pkg = await readJson("package.json");
   pkg.version = version;
   await writeJson("package.json", pkg, { spaces: 2 });
@@ -18,7 +18,7 @@ async function bump({ version, previousVersion }) {
 
   // Update unpkg link in docs
   processFile("docs/browser.md", content => {
-    const previousUnpkgLink = `https://unpkg.com/prettier@${previousVersion}/`;
+    const previousUnpkgLink = `https://unpkg.com/prettier@${previousVersionOnMaster}/`;
     const unpkgLink = `https://unpkg.com/prettier@${version}/`;
     while (content.includes(previousUnpkgLink)) {
       content = content.replace(previousUnpkgLink, unpkgLink);
