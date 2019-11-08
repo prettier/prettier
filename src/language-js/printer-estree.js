@@ -5131,7 +5131,9 @@ function printMemberChain(path, options, print) {
   if (
     hasComment ||
     (callExpressions.length > 2 &&
-      callExpressions.some(expr => !expr.arguments.every(isSimple))) ||
+      callExpressions.some(
+        expr => !expr.arguments.every(arg => isSimple(arg, 0))
+      )) ||
     printedGroups.slice(0, -1).some(willBreak) ||
     /**
      *     scopes.filter(scope => scope.value !== '').map((scope, i) => {
@@ -5161,9 +5163,10 @@ function printMemberChain(path, options, print) {
 
 /**
  * @param {import('estree').Node} node
+ * @param {number} depth
  * @returns {boolean}
  */
-function isSimple(node, depth = 0) {
+function isSimple(node, depth) {
   if (depth >= 2) {
     return false;
   }
@@ -5199,16 +5202,16 @@ function isSimple(node, depth = 0) {
     node.type === "OptionalCallExpression" ||
     node.type === "NewExpression"
   ) {
-    return isSimple(node.callee) && node.arguments.every(isChildSimple);
+    return isSimple(node.callee, depth) && node.arguments.every(isChildSimple);
   }
   if (
     node.type === "MemberExpression" ||
     node.type === "OptionalMemberExpression"
   ) {
-    return isSimple(node.object) && isSimple(node.property);
+    return isSimple(node.object, depth) && isSimple(node.property, depth);
   }
   if (node.type === "TSNonNullExpression") {
-    return isSimple(node.expression);
+    return isSimple(node.expression, depth);
   }
   return false;
 }
