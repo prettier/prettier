@@ -101,7 +101,7 @@ function tryCombinations(fn, combinations) {
   let error;
   for (let i = 0; i < combinations.length; i++) {
     try {
-      return fn(combinations[i]);
+      return rethrowSomeRecoveredErrors(fn(combinations[i]));
     } catch (_error) {
       if (!error) {
         error = _error;
@@ -109,6 +109,20 @@ function tryCombinations(fn, combinations) {
     }
   }
   throw error;
+}
+
+function rethrowSomeRecoveredErrors(ast) {
+  for (const error of ast.errors) {
+    if (
+      typeof error.message === "string" &&
+      error.message.startsWith(
+        "Adjacent JSX elements must be wrapped in an enclosing tag."
+      )
+    ) {
+      throw error;
+    }
+  }
+  return ast;
 }
 
 function parseJson(text, parsers, opts) {
