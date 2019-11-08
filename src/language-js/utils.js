@@ -895,8 +895,16 @@ function isSimpleCallArgument(node, depth) {
     return false;
   }
   const isChildSimple = child => isSimpleCallArgument(child, depth + 1);
+
+  const regexpPattern =
+    (node.type === "Literal" && node.regex && node.regex.pattern) ||
+    (node.type === "RegExpLiteral" && node.pattern);
+
+  if (regexpPattern && regexpPattern.length > 5) {
+    return false;
+  }
+
   if (
-    !node ||
     node.type === "Literal" ||
     node.type === "BooleanLiteral" ||
     node.type === "NullLiteral" ||
@@ -908,7 +916,7 @@ function isSimpleCallArgument(node, depth) {
     node.type === "BigIntLiteral" ||
     node.type === "PrivateName" ||
     node.type === "ArgumentPlaceholder" ||
-    node.type === "RegExpLiteral" || 
+    node.type === "RegExpLiteral" ||
     node.type === "Import"
   ) {
     return true;

@@ -9,7 +9,7 @@ const x = moment().add(1, 'day').valueOf()
 
 // should stay on one line:
 obj.foo(1).foo(2).foo(3);
-obj.foo(-1).foo(import('2')).foo(!x);
+obj.foo(-1).foo(import('2')).foo(!x).check(/[A-Z]/);
 
 // better on multiple lines:
 somePromise.then(format).then((val)=>doSomething(val)).catch((err)=>handleError(err))
@@ -141,3 +141,9 @@ x.a().b(c(d(e()))).f()
 x.a().b(`${c(d())}`).f()
 
 xyz.a().b().c(a(a(b(c(d().p).p).p).p))
+
+var l = base
+    .replace(/^\w*:\/\//, '')
+    .replace(/\/$/, '')
+    .split('/').length
+
