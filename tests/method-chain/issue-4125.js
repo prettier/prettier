@@ -137,3 +137,5 @@ class X {
 x.a().b([c, [d, [e]]]).f()
 x.a().b(c(d(e()))).f()
 x.a().b(`${c(d())}`).f()
+
+xyz.a().b().c(a(a(b(c(d().p).p).p).p))
