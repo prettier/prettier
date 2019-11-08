@@ -113,6 +113,30 @@ async function f2() {
 ================================================================================
 `;
 
+exports[`inline_await.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+async function f() {
+  const admins = (await(db.select('*').from('admins').leftJoin('bla').where('id', 'in', [1,2,3,4]))).map(({id, name})=>({id, name}))
+}
+
+=====================================output=====================================
+async function f() {
+  const admins = (
+    await db
+      .select("*")
+      .from("admins")
+      .leftJoin("bla")
+      .where("id", "in", [1, 2, 3, 4])
+  ).map(({ id, name }) => ({ id, name }));
+}
+
+================================================================================
+`;
+
 exports[`parens.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]

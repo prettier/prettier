@@ -354,7 +354,14 @@ function needsParens(path, options) {
             return true;
           }
 
-          if ((po === "||" || po === "??") && no === "&&") {
+          if (
+            (po === "??" && (no === "||" || no === "&&")) ||
+            (no === "??" && (po === "||" || po === "&&"))
+          ) {
+            return true;
+          }
+
+          if (po === "||" && no === "&&") {
             return true;
           }
 
@@ -790,6 +797,7 @@ function isStatement(node) {
     node.type === "DeclareModuleExports" ||
     node.type === "DeclareVariable" ||
     node.type === "DoWhileStatement" ||
+    node.type === "EnumDeclaration" ||
     node.type === "ExportAllDeclaration" ||
     node.type === "ExportDefaultDeclaration" ||
     node.type === "ExportNamedDeclaration" ||
