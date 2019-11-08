@@ -125,7 +125,7 @@ Then in `tslint.json`:
 
 ### Disable formatting rules
 
-[`stylelint-config-prettier`](https://github.com/prettier/stylelint-config-prettier) is a config that disables rules that conflict with Prettier. Add it to your `devDependencies`, then extend from it within your `.stylelintrc` configuration. Make sure to put it last in the `extends` array, so it gets the chance to override other configs.
+[`stylelint-config-prettier`](https://github.com/prettier/stylelint-config-prettier) is a config that disables rules that conflict with Prettier. Add it to your [`devDependencies`], then extend from it within your `.stylelintrc` configuration. Make sure to put it last in the `extends` array, so it gets the chance to override other configs.
 
 ```bash
 yarn add --dev stylelint-config-prettier
