@@ -1406,6 +1406,26 @@ async function f() {
 }
 ```
 
+#### JavaScript: Don't require parens for same-operator logical expressions ([#6864] by [@jridgewell])
+
+<!-- prettier-ignore -->
+```js
+// Input
+foo && (bar && baz);
+foo || (bar || baz);
+foo ?? (bar ?? baz);
+
+// Output (Prettier stable)
+foo && (bar && baz);
+foo || (bar || baz);
+foo ?? (bar ?? baz);
+
+// Output (Prettier master)
+foo && bar && baz;
+foo || bar || baz;
+foo ?? bar ?? baz;
+```
+
 #### CLI: Display invalid config filename in error message ([#6865] by [@fisker])
 
 <!-- prettier-ignore -->
@@ -1515,6 +1535,7 @@ color: #F00
 [#6865]: https://github.com/prettier/prettier/pull/6865
 [#6875]: https://github.com/prettier/prettier/pull/6875
 [#6863]: https://github.com/prettier/prettier/pull/6863
+[#6864]: https://github.com/prettier/prettier/pull/6864
 [@brainkim]: https://github.com/brainkim
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
