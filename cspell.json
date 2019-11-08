@@ -92,6 +92,7 @@
         "ekkhus",
         "elektronik",
         "Eneman",
+        "ENOENT",
         "ericsakmar",
         "Ericsburgh",
         "Esben",
@@ -303,6 +304,7 @@
         "ruleset",
         "Sapegin",
         "sbdchd",
+        "scandir",
         "schemastore",
         "serializer",
         "setlocal",
@@ -391,6 +393,7 @@
         "<!-- prettier-ignore -->\\n(`{3,})\\w*\\n[\\s\\S]+?\\1",
         "\\[@\\w+?\\]",
         "\\[`\\w+`\\]",
-        "ve+r+y+(long\\w+)?"
+        "ve{2,}r{2,}y",
+        "ve+r+y+long\\w*"
     ]
 }

@@ -123,25 +123,28 @@ class C extends B {
 }
 ```
 
-#### TypeScript: Prettier removed `?` from optional computed class fields ([#6657] by [@cryrivers])
+#### TypeScript: Fix optional computed class fields and methods ([#6657] by [@cryrivers], [#6673] by [@thorn0])
 
-Still happens if the field key is a complex expression, but has been fixed in this case:
+Still broken if the key is a complex expression, but has been fixed in these cases:
 
 <!-- prettier-ignore -->
 ```ts
 // Input
 class Foo {
   [bar]?: number;
+  protected [s]?() {}
 }
 
 // Output (Prettier stable)
 class Foo {
   [bar]: number;
+  protected [s?]() {};
 }
 
 // Output (Prettier master)
 class Foo {
   [bar]?: number;
+  protected [s]?() {}
 }
 ```
 
@@ -480,20 +483,23 @@ Previously, Prettier would sometimes ignore whitespace when formatting comments.
 </div>
 ```
 
-#### JavaScript: Update `??` precedence to match stage 3 proposal ([#6404] by [@vjeux])
+#### JavaScript: Update `??` precedence to match stage 3 proposal ([#6404] by [@vjeux], [#6863] by [@jridgewell])
 
-We've updated Prettier's support for the nullish coalescing operator to match a spec update that no longer allows it to immediately contain, or be contained within an `&&` or `||` operation.
+We've updated Prettier's support for the nullish coalescing operator to match a spec update that no longer allows it to immediately contain, or be contained within, an `&&` or `||` operation.
 
 <!-- prettier-ignore -->
 ```js
 // Input
-(foo ?? baz) || baz;
+(foo ?? bar) || baz;
+(foo || bar) ?? baz;
 
 // Output (Prettier stable)
-foo ?? baz || baz;
+foo ?? bar || baz;
+foo || bar ?? baz;
 
 // Output (Prettier master)
-(foo ?? baz) || baz;
+(foo ?? bar) || baz;
+(foo || bar) ?? baz;
 ```
 
 Please note, as we update our parsers with versions that support this spec update, code without the parenthesis will throw a parse error.
@@ -674,6 +680,26 @@ Previously, even if the line length was shorter than `printWidth`, Prettier woul
 <template>
   <template>foo</template>
 </template>
+```
+
+#### HTML: Add support for `&excl;` and other entities ([#6785] by [@lydell])
+
+Previously, Prettier only supported the most common HTML entities, such as `&nbsp;` and `&quot;`. Now, Prettier supports every HTML entity in the HTML spec, such as `&excl;` and `&pitchfork;`.
+
+<!-- prettier-ignore -->
+```html
+<!-- Input -->
+<p>Hi&excl;</p>
+
+<!-- Output (Prettier stable)
+[error] stdin: SyntaxError: Unknown entity "excl" - use the "&#<decimal>;" or  "&#x<hex>;" syntax (1:6)
+[error] > 1 | <p>Hi&excl;</p>
+[error]     |      ^
+[error]   2 |
+-->
+
+<!-- Output (Prettier master) -->
+<p>Hi&excl;</p>
 ```
 
 #### JavaScript: Empty lines in destructured arrow function parameters could break indentation and idempotence ([#6301] & [#6382] by [@sosukesuzuki])
@@ -1097,26 +1123,6 @@ class A {
 }
 ```
 
-#### TypeScript: Fix optional computed methods ([#6673] by [@thorn0])
-
-<!-- prettier-ignore -->
-```ts
-// Input
-class A {
-  protected [s]?() {}
-}
-
-// Output (Prettier stable)
-class A {
-  protected [s?]() {}
-}
-
-// Output (Prettier master)
-class A {
-  protected [s]?() {}
-}
-```
-
 #### Angular: Put a closing parenthesis onto a new line after ternaries passed to pipes ([#5682] by [@selvazhagan])
 
 <!-- prettier-ignore -->
@@ -1294,6 +1300,140 @@ export class User {
 }
 ```
 
+#### Flow: Parentheses around arrow functions' return types that have `FunctionTypeAnnotation` nested in `ObjectTypeAnnotation` ([#6717] by [@sosukesuzuki])
+
+This is a workaround for a [bug](https://github.com/facebook/flow/pull/8163) in the Flow parser. Without the parentheses, the parser throws an error.
+
+```js
+// Input
+const example1 = (): { p: (string => string) } => (0: any);
+
+// Output (Prettier stable)
+const example1 = (): { p: string => string } => (0: any);
+
+// Output (Prettier master)
+const example1 = (): ({ p: string => string }) => (0: any);
+```
+
+#### CLI: Handle errors when reading stdin ([#6708] by [@andersk] and [@lydell])
+
+If you had an error in your `.prettierrc` Prettier used to crash when formatting stdin. Such errors are now handled properly.
+
+```
+# Prettier stable
+$ prettier --parser babel < test.js
+(node:21531) UnhandledPromiseRejectionWarning: Error: Invalid printWidth value. Expected an integer, but received "nope".
+    at _loop (/home/lydell/forks/prettier/node_modules/prettier/bin-prettier.js:7887:63)
+    at Normalizer._applyNormalization (/home/lydell/forks/prettier/node_modules/prettier/bin-prettier.js:8000:13)
+    at applyNormalization (/home/lydell/forks/prettier/node_modules/prettier/bin-prettier.js:7817:49)
+    at Normalizer.normalize (/home/lydell/forks/prettier/node_modules/prettier/bin-prettier.js:7823:9)
+    at normalizeOptions$1 (/home/lydell/forks/prettier/node_modules/prettier/bin-prettier.js:8760:31)
+    at Object.normalizeApiOptions (/home/lydell/forks/prettier/node_modules/prettier/bin-prettier.js:8918:10)
+    at getOptionsForFile (/home/lydell/forks/prettier/node_modules/prettier/bin-prettier.js:44160:69)
+    at /home/lydell/forks/prettier/node_modules/prettier/bin-prettier.js:44214:22
+    at process._tickCallback (internal/process/next_tick.js:68:7)
+(node:21531) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). (rejection id: 1)
+(node:21531) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+
+# Prettier master
+$ prettier --parser babel < test.js
+[error] Invalid printWidth value. Expected an integer, but received "nope".
+```
+
+#### CLI: Gracefully handle nonexistent paths passed to --stdin-filepath ([#6687] by [@voithos])
+
+Previously, if you passed a nonexistent subdirectory to --stdin-filepath, Prettier would throw an error. Now, Prettier gracefully handles this.
+
+```
+# Prettier stable
+$ prettier --stdin-filepath does/not/exist.js < test.js
+[error] Invalid configuration file: ENOENT: no such file or directory, scandir '/home/lydell/forks/prettier/does/not'
+
+# Prettier master
+$ prettier --stdin-filepath does/not/exist.js < test.js
+test;
+```
+
+#### JavaScript: Numeric separators were removed from BigInt literals ([#6796] by [@thorn0])
+
+<!-- prettier-ignore -->
+```js
+// Input
+const bigints = [200_000n, 0x0000_000An, 0b0111_1111n];
+
+// Output (Prettier stable)
+const bigints = [200000n, 0x0000000an, 0b01111111n];
+
+// Output (Prettier master)
+const bigints = [200_000n, 0x0000_000an, 0b0111_1111n];
+```
+
+#### VS Code: add support for .mongo files ([#6848] by [@aymericbouzy])
+
+When using the Azure Cosmos DB extension for VS Code, you can create .mongo files to write MongoDB queries, which use Javascript syntax. This change allows VS Code to format your file using Prettier.
+
+```js
+db.users.find({ someField: { $exists: true } });
+```
+
+#### JavaScript: Better formatting for inline `await` expression nested in calls ([#6856] by [@thorn0])
+
+<!-- prettier-ignore -->
+```js
+// Input
+async function f() {
+  const admins = (await(db.select('*').from('admins').leftJoin('bla').where('id', 'in', [1,2,3,4]))).map(({id, name})=>({id, name}))
+}
+
+// Output (Prettier stable)
+async function f() {
+  const admins = (await db
+    .select("*")
+    .from("admins")
+    .leftJoin("bla")
+    .where("id", "in", [1, 2, 3, 4])).map(({ id, name }) => ({ id, name }));
+}
+
+// Output (Prettier master)
+async function f() {
+  const admins = (
+    await db
+      .select("*")
+      .from("admins")
+      .leftJoin("bla")
+      .where("id", "in", [1, 2, 3, 4])
+  ).map(({ id, name }) => ({ id, name }));
+}
+```
+
+#### CLI: Display invalid config filename in error message ([#6865] by [@fisker])
+
+<!-- prettier-ignore -->
+```bash
+# Input
+$ prettier filename.js --config .invalid-config
+
+# Output (Prettier stable)
+Invalid configuration file: ...
+
+# Output (Prettier master)
+Invalid configuration file `.invalid-config`: ...
+```
+
+#### Less: don't lowercase variable names, remove whitespace between variable and colon ([#6778] by [@fisker])
+
+<!-- prettier-ignore -->
+```less
+// Input
+@FoO : bar;
+
+// Output (Prettier stable)
+@foo : bar;
+
+// Output (Prettier master)
+@FoO: bar;
+```
+
 [#5682]: https://github.com/prettier/prettier/pull/5682
 [#6657]: https://github.com/prettier/prettier/pull/6657
 [#5910]: https://github.com/prettier/prettier/pull/5910
@@ -1306,6 +1446,7 @@ export class User {
 [#6236]: https://github.com/prettier/prettier/pull/6236
 [#6270]: https://github.com/prettier/prettier/pull/6270
 [#6284]: https://github.com/prettier/prettier/pull/6284
+[#6785]: https://github.com/prettier/prettier/pull/6785
 [#6289]: https://github.com/prettier/prettier/pull/6289
 [#6301]: https://github.com/prettier/prettier/pull/6301
 [#6307]: https://github.com/prettier/prettier/pull/6307
@@ -1336,7 +1477,16 @@ export class User {
 [#6673]: https://github.com/prettier/prettier/pull/6673
 [#6695]: https://github.com/prettier/prettier/pull/6695
 [#6694]: https://github.com/prettier/prettier/pull/6694
+[#6717]: https://github.com/prettier/prettier/pull/6717
 [#6728]: https://github.com/prettier/prettier/pull/6728
+[#6708]: https://github.com/prettier/prettier/pull/6708
+[#6687]: https://github.com/prettier/prettier/pull/6687
+[#6796]: https://github.com/prettier/prettier/pull/6796
+[#6778]: https://github.com/prettier/prettier/pull/6778
+[#6848]: https://github.com/prettier/prettier/pull/6848
+[#6856]: https://github.com/prettier/prettier/pull/6856
+[#6865]: https://github.com/prettier/prettier/pull/6865
+[#6863]: https://github.com/prettier/prettier/pull/6863
 [@brainkim]: https://github.com/brainkim
 [@duailibe]: https://github.com/duailibe
 [@gavinjoyce]: https://github.com/gavinjoyce
@@ -1355,3 +1505,8 @@ export class User {
 [@kaicataldo]: https://github.com/kaicataldo
 [@cryrivers]: https://github.com/Cryrivers
 [@voithos]: https://github.com/voithos
+[@andersk]: https://github.com/andersk
+[@lydell]: https://github.com/lydell
+[@aymericbouzy]: https://github.com/aymericbouzy
+[@fisker]: https://github.com/fisker
+[@jridgewell]: https://github.com/jridgewell

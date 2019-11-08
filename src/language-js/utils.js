@@ -912,6 +912,7 @@ module.exports = {
   hasNakedLeftSide,
   hasNewlineBetweenOrAfterDecorators,
   hasNgSideEffect,
+  hasNode,
   hasPrettierIgnore,
   hasTrailingComment,
   identity,

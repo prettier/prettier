@@ -7,7 +7,8 @@ const comments = require("./comments");
 const {
   getLeftSidePathName,
   hasFlowShorthandAnnotationComment,
-  hasNakedLeftSide
+  hasNakedLeftSide,
+  hasNode
 } = require("./utils");
 
 function hasClosureCompilerTypeCastComment(text, path) {
@@ -353,7 +354,14 @@ function needsParens(path, options) {
             return true;
           }
 
-          if ((po === "||" || po === "??") && no === "&&") {
+          if (
+            (po === "??" && (no === "||" || no === "&&")) ||
+            (no === "??" && (po === "||" || po === "&&"))
+          ) {
+            return true;
+          }
+
+          if (po === "||" && no === "&&") {
             return true;
           }
 
@@ -758,6 +766,12 @@ function needsParens(path, options) {
           parent.type !== "TypeCastExpression" &&
           parent.type !== "VariableDeclarator")
       );
+    case "TypeAnnotation":
+      return (
+        name === "returnType" &&
+        parent.type === "ArrowFunctionExpression" &&
+        includesFunctionTypeInObjectType(node)
+      );
   }
 
   return false;
@@ -783,6 +797,7 @@ function isStatement(node) {
     node.type === "DeclareModuleExports" ||
     node.type === "DeclareVariable" ||
     node.type === "DoWhileStatement" ||
+    node.type === "EnumDeclaration" ||
     node.type === "ExportAllDeclaration" ||
     node.type === "ExportDefaultDeclaration" ||
     node.type === "ExportNamedDeclaration" ||
@@ -811,6 +826,16 @@ function isStatement(node) {
     node.type === "VariableDeclaration" ||
     node.type === "WhileStatement" ||
     node.type === "WithStatement"
+  );
+}
+
+function includesFunctionTypeInObjectType(node) {
+  return hasNode(
+    node,
+    n1 =>
+      (n1.type === "ObjectTypeAnnotation" &&
+        hasNode(n1, n2 => n2.type === "FunctionTypeAnnotation" || undefined)) ||
+      undefined
   );
 }
 
