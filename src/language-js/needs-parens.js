@@ -354,7 +354,14 @@ function needsParens(path, options) {
             return true;
           }
 
-          if ((po === "||" || po === "??") && no === "&&") {
+          if (
+            (po === "??" && (no === "||" || no === "&&")) ||
+            (no === "??" && (po === "||" || po === "&&"))
+          ) {
+            return true;
+          }
+
+          if (po === "||" && no === "&&") {
             return true;
           }
 
