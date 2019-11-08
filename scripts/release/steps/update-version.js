@@ -17,15 +17,12 @@ async function bump({ version, previousVersionOnMaster }) {
   );
 
   // Update unpkg link in docs
-  processFile("docs/browser.md", content => {
-    const previousUnpkgLink = `https://unpkg.com/prettier@${previousVersionOnMaster}/`;
-    const unpkgLink = `https://unpkg.com/prettier@${version}/`;
-    while (content.includes(previousUnpkgLink)) {
-      content = content.replace(previousUnpkgLink, unpkgLink);
-    }
-
-    return content;
-  });
+  processFile("docs/browser.md", content =>
+    content.replace(
+      /\/\/unpkg\.com\/prettier@(.*?)\//g,
+      `//unpkg.com/prettier@${version}/`
+    )
+  );
 
   await execa("yarn", ["update-stable-docs"], {
     cwd: "./website"
