@@ -3,7 +3,7 @@ id: technical-details
 title: Technical Details
 ---
 
-This printer is a fork of [recast](https://github.com/benjamn/recast)'s printer with its algorithm replaced by the one described by Wadler in "[A prettier printer](http://homepages.inf.ed.ac.uk/wadler/papers/prettier/prettier.pdf)". There still may be leftover code from recast that needs to be cleaned up.
+This printer is a fork of [recast](https://github.com/benjamn/recast)'s printer with its algorithm replaced by the one described by Wadler in "[A prettier printer](https://homepages.inf.ed.ac.uk/wadler/papers/prettier/prettier.pdf)". There still may be leftover code from recast that needs to be cleaned up.
 
 The basic idea is that the printer takes an AST and returns an intermediate representation of the output, and the printer uses that to generate a string. The advantage is that the printer can "measure" the IR and see if the output is going to fit on a line, and break if not.
 
