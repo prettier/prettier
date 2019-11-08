@@ -1420,6 +1420,20 @@ Invalid configuration file: ...
 Invalid configuration file `.invalid-config`: ...
 ```
 
+#### Less: don't lowercase variable names, remove whitespace between variable and colon ([#6778] by [@fisker])
+
+<!-- prettier-ignore -->
+```less
+// Input
+@FoO : bar;
+
+// Output (Prettier stable)
+@foo : bar;
+
+// Output (Prettier master)
+@FoO: bar;
+```
+
 #### Vue: Format `style[lang="css"]` ([#6875] by [@fisker])
 
 Previously, `<style>` element with attribute `lang` equals to `css` is not formatted.
@@ -1495,6 +1509,7 @@ color: #F00
 [#6708]: https://github.com/prettier/prettier/pull/6708
 [#6687]: https://github.com/prettier/prettier/pull/6687
 [#6796]: https://github.com/prettier/prettier/pull/6796
+[#6778]: https://github.com/prettier/prettier/pull/6778
 [#6848]: https://github.com/prettier/prettier/pull/6848
 [#6856]: https://github.com/prettier/prettier/pull/6856
 [#6865]: https://github.com/prettier/prettier/pull/6865
