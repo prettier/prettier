@@ -77,7 +77,7 @@ jobs:
 
   - job: Prod_Test
     dependsOn: Prod_Build
-    displayName: Prod Test on macOS
+    displayName: Prod Test on Linux
     pool:
       vmImage: "ubuntu-latest"
     strategy:
