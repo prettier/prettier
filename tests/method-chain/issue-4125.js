@@ -55,6 +55,7 @@ something().then(() => doSomethingElse()).then(result => dontForgetThisAsWell(re
 
 db.branch(
   db.table('users').filter({ email }).count(),
+  db.table('users').filter({ email: 'a@b.com' }).count(),
   db.table('users').insert({ email }),
   db.table('users').filter({ email }),
 )

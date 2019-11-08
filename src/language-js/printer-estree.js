@@ -5190,7 +5190,9 @@ function isSimple(node, depth) {
     return node.expressions.every(isChildSimple);
   }
   if (node.type === "ObjectExpression") {
-    return node.properties.every(p => p.shorthand);
+    return node.properties.every(
+      p => p.shorthand || (isSimple(p.key, depth) && isChildSimple(p.value))
+    );
   }
   if (node.type === "ArrayExpression") {
     return node.elements.every(isChildSimple);

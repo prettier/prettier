@@ -763,6 +763,7 @@ something().then(() => doSomethingElse()).then(result => dontForgetThisAsWell(re
 
 db.branch(
   db.table('users').filter({ email }).count(),
+  db.table('users').filter({ email: 'a@b.com' }).count(),
   db.table('users').insert({ email }),
   db.table('users').filter({ email }),
 )
@@ -917,6 +918,7 @@ something()
 
 db.branch(
   db.table("users").filter({ email }).count(),
+  db.table("users").filter({ email: "a@b.com" }).count(),
   db.table("users").insert({ email }),
   db.table("users").filter({ email })
 );
@@ -1111,16 +1113,14 @@ if (testConfig.ENABLE_ONLINE_TESTS === "true") {
   describe("POST /users/me/pet", function() {
     it("saves pet", function() {
       function assert(pet) {
-        expect(pet)
-          .to.have.property("OwnerAddress")
-          .that.deep.equals({
-            AddressLine1: "Alexanderstrasse",
-            AddressLine2: "",
-            PostalCode: "10999",
-            Region: "Berlin",
-            City: "Berlin",
-            Country: "DE"
-          });
+        expect(pet).to.have.property("OwnerAddress").that.deep.equals({
+          AddressLine1: "Alexanderstrasse",
+          AddressLine2: "",
+          PostalCode: "10999",
+          Region: "Berlin",
+          City: "Berlin",
+          Country: "DE"
+        });
       }
     });
   });
