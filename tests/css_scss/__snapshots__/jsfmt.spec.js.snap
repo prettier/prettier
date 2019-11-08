@@ -1070,6 +1070,9 @@ label {
   @include margin-bottom-1\\/3;
 }
 
+// should not parse as custom-selector
+@custom-selector     :--icon #id;
+
 =====================================output=====================================
 @media #{$g-breakpoint-tiny} {
 }
@@ -2032,6 +2035,9 @@ $my-map: (
 label {
   @include margin-bottom-1\\/3;
 }
+
+// should not parse as custom-selector
+@custom-selector :--icon #id;
 
 ================================================================================
 `;

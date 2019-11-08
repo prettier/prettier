@@ -1680,6 +1680,9 @@ label {
 // whitespace between variable and colon, #2925 #4090
 @FoO : bar;
 
+// should not parse as custom-selector
+@custom-selector     :--icon #id;
+
 =====================================output=====================================
 @nice-blue: #5b83ad;
 @light-blue: @nice-blue + #111;
@@ -3286,6 +3289,9 @@ label {
 
 // whitespace between variable and colon, #2925 #4090
 @FoO: bar;
+
+// should not parse as custom-selector
+@custom-selector: --icon #id;
 
 ================================================================================
 `;
