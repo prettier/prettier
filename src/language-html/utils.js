@@ -385,7 +385,11 @@ function inferScriptParser(node) {
   }
 
   if (node.name === "style") {
-    if (!node.attrMap.lang || node.attrMap.lang === "postcss") {
+    if (
+      !node.attrMap.lang ||
+      node.attrMap.lang === "postcss" ||
+      node.attrMap.lang === "css"
+    ) {
       return "css";
     }
 

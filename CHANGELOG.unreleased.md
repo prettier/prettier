@@ -1434,6 +1434,33 @@ Invalid configuration file `.invalid-config`: ...
 @FoO: bar;
 ```
 
+#### Vue: Format `style[lang="css"]` ([#6875] by [@fisker])
+
+Previously, `<style>` element with attribute `lang` equals to `css` is not formatted.
+
+<!-- prettier-ignore -->
+```html
+<!-- Input -->
+<style lang="css">
+    a { 
+color: #F00
+}</style>
+
+<!-- Output (Prettier stable) -->
+<style lang="css">
+    a {
+color: #F00
+}
+</style>
+
+<!-- Output (Prettier master) -->
+<style lang="css">
+  a {
+    color: #f00;
+  }
+</style>
+```
+
 [#5682]: https://github.com/prettier/prettier/pull/5682
 [#6657]: https://github.com/prettier/prettier/pull/6657
 [#5910]: https://github.com/prettier/prettier/pull/5910
@@ -1486,6 +1513,7 @@ Invalid configuration file `.invalid-config`: ...
 [#6848]: https://github.com/prettier/prettier/pull/6848
 [#6856]: https://github.com/prettier/prettier/pull/6856
 [#6865]: https://github.com/prettier/prettier/pull/6865
+[#6875]: https://github.com/prettier/prettier/pull/6875
 [#6863]: https://github.com/prettier/prettier/pull/6863
 [@brainkim]: https://github.com/brainkim
 [@duailibe]: https://github.com/duailibe
