@@ -9,7 +9,7 @@ const x = moment().add(1, 'day').valueOf()
 
 // should stay on one line:
 obj.foo(1).foo(2).foo(3);
-obj.foo(-1).foo(2).foo(!x);
+obj.foo(-1).foo(import('2')).foo(!x);
 
 // better on multiple lines:
 somePromise.then(format).then((val)=>doSomething(val)).catch((err)=>handleError(err))
@@ -95,7 +95,7 @@ function HelloWorld() {
     },
   );
 }
-  
+
 action$.ofType(ActionTypes.SEARCHED_USERS)
   .map(action => action.payload.query)
   .filter(q => !!q)

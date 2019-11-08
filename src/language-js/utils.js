@@ -908,7 +908,8 @@ function isSimpleCallArgument(node, depth) {
     node.type === "BigIntLiteral" ||
     node.type === "PrivateName" ||
     node.type === "ArgumentPlaceholder" ||
-    node.type === "RegExpLiteral"
+    node.type === "RegExpLiteral" || 
+    node.type === "Import"
   ) {
     return true;
   }
