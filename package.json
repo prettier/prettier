@@ -81,7 +81,7 @@
     "babel-loader": "8.0.6",
     "benchmark": "2.1.4",
     "builtin-modules": "3.1.0",
-    "codecov": "codecov/codecov-node#e427d900309adb50746a39a50aa7d80071a5ddd0",
+    "codecov": "3.6.1",
     "cross-env": "6.0.3",
     "eslint": "6.6.0",
     "eslint-config-prettier": "6.5.0",
