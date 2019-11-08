@@ -16,7 +16,7 @@
 
 6. Change ```jsx to your language. For example, ```yaml.
 
-7. Change the `// Input` and `// Output` comments to the comment syntax of your language. For example, `# Input`.
+7. Change the `// Input` and `// Prettier` comments to the comment syntax of your language. For example, `# Input`.
 
 8. Choose some nice input example code. Paste it along with the output before and after your PR.
 
