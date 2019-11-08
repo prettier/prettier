@@ -20,10 +20,12 @@ printWidth: 80
 =====================================output=====================================
 <script id="entry-template" type="text/x-handlebars-template">
   <div class="entry">
-    <h1>{{title}}</h1>
+    <h1>
+      {{title}}
+    </h1>
     <div class="body">
-  {{body}}
-  </div>
+      {{body}}
+    </div>
   </div>
 </script>
 
@@ -51,11 +53,13 @@ singleQuote: true
 
 =====================================output=====================================
 <script id='entry-template' type='text/x-handlebars-template'>
-  <div class="entry">
-    <h1>{{title}}</h1>
-    <div class="body">
-  {{body}}
-  </div>
+  <div class='entry'>
+    <h1>
+      {{title}}
+    </h1>
+    <div class='body'>
+      {{body}}
+    </div>
   </div>
 </script>
 
