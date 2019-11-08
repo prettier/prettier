@@ -71,7 +71,7 @@ The search starts at `process.cwd()`, or at `filePath` if provided. Please see t
 
 ```js
 prettier.resolveConfigFile(filePath).then(configFile => {
-  // configFile
+  // you got the path of the configuration file
 });
 ```
 
