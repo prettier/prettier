@@ -32,7 +32,9 @@
 
 
 <style lang="scss">
-#foo7{ color: #f00;
+#foo8{ 
+         $color: #f00;
+  color: $color;
 }
 </style>
 <style lang="scss" scoped>

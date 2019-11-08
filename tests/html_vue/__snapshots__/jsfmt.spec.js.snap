@@ -2142,7 +2142,9 @@ printWidth: 80
 
 
 <style lang="scss">
-#foo7{ color: #f00;
+#foo8{ 
+         $color: #f00;
+  color: $color;
 }
 </style>
 <style lang="scss" scoped>
@@ -2191,8 +2193,9 @@ printWidth: 80
 </style>
 
 <style lang="scss">
-#foo7 {
-  color: #f00;
+#foo8 {
+  $color: #f00;
+  color: $color;
 }
 </style>
 <style lang="scss" scoped>
@@ -2246,7 +2249,9 @@ trailingComma: "es5"
 
 
 <style lang="scss">
-#foo7{ color: #f00;
+#foo8{ 
+         $color: #f00;
+  color: $color;
 }
 </style>
 <style lang="scss" scoped>
@@ -2295,8 +2300,9 @@ trailingComma: "es5"
 </style>
 
 <style lang="scss">
-#foo7 {
-  color: #f00;
+#foo8 {
+  $color: #f00;
+  color: $color;
 }
 </style>
 <style lang="scss" scoped>
@@ -2350,7 +2356,9 @@ semi: false
 
 
 <style lang="scss">
-#foo7{ color: #f00;
+#foo8{ 
+         $color: #f00;
+  color: $color;
 }
 </style>
 <style lang="scss" scoped>
@@ -2399,8 +2407,9 @@ semi: false
 </style>
 
 <style lang="scss">
-#foo7 {
-  color: #f00;
+#foo8 {
+  $color: #f00;
+  color: $color;
 }
 </style>
 <style lang="scss" scoped>
