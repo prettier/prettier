@@ -1426,6 +1426,61 @@ foo || bar || baz;
 foo ?? bar ?? baz;
 ```
 
+#### CLI: Display invalid config filename in error message ([#6865] by [@fisker])
+
+<!-- prettier-ignore -->
+```bash
+# Input
+$ prettier filename.js --config .invalid-config
+
+# Output (Prettier stable)
+Invalid configuration file: ...
+
+# Output (Prettier master)
+Invalid configuration file `.invalid-config`: ...
+```
+
+#### Less: don't lowercase variable names, remove whitespace between variable and colon ([#6778] by [@fisker])
+
+<!-- prettier-ignore -->
+```less
+// Input
+@FoO : bar;
+
+// Output (Prettier stable)
+@foo : bar;
+
+// Output (Prettier master)
+@FoO: bar;
+```
+
+#### Vue: Format `style[lang="css"]` ([#6875] by [@fisker])
+
+Previously, `<style>` element with attribute `lang` equals to `css` is not formatted.
+
+<!-- prettier-ignore -->
+```html
+<!-- Input -->
+<style lang="css">
+    a { 
+color: #F00
+}</style>
+
+<!-- Output (Prettier stable) -->
+<style lang="css">
+    a {
+color: #F00
+}
+</style>
+
+<!-- Output (Prettier master) -->
+<style lang="css">
+  a {
+    color: #f00;
+  }
+</style>
+```
+
 [#5682]: https://github.com/prettier/prettier/pull/5682
 [#6657]: https://github.com/prettier/prettier/pull/6657
 [#5910]: https://github.com/prettier/prettier/pull/5910
@@ -1474,8 +1529,11 @@ foo ?? bar ?? baz;
 [#6708]: https://github.com/prettier/prettier/pull/6708
 [#6687]: https://github.com/prettier/prettier/pull/6687
 [#6796]: https://github.com/prettier/prettier/pull/6796
+[#6778]: https://github.com/prettier/prettier/pull/6778
 [#6848]: https://github.com/prettier/prettier/pull/6848
 [#6856]: https://github.com/prettier/prettier/pull/6856
+[#6865]: https://github.com/prettier/prettier/pull/6865
+[#6875]: https://github.com/prettier/prettier/pull/6875
 [#6863]: https://github.com/prettier/prettier/pull/6863
 [#6864]: https://github.com/prettier/prettier/pull/6864
 [@brainkim]: https://github.com/brainkim
@@ -1499,4 +1557,5 @@ foo ?? bar ?? baz;
 [@andersk]: https://github.com/andersk
 [@lydell]: https://github.com/lydell
 [@aymericbouzy]: https://github.com/aymericbouzy
+[@fisker]: https://github.com/fisker
 [@jridgewell]: https://github.com/jridgewell
