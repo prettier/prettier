@@ -76,6 +76,7 @@ const {
   isNumericLiteral,
   isObjectType,
   isObjectTypePropertyAFunction,
+  isSimpleCallArgument,
   isSimpleFlowType,
   isSimpleTemplateLiteral,
   isStringLiteral,
@@ -5130,7 +5131,7 @@ function printMemberChain(path, options, print) {
     hasComment ||
     (callExpressions.length > 2 &&
       callExpressions.some(
-        expr => !expr.arguments.every(arg => isSimple(arg, 0))
+        expr => !expr.arguments.every(arg => isSimpleCallArgument(arg, 0))
       )) ||
     printedGroups.slice(0, -1).some(willBreak) ||
     /**
@@ -5157,63 +5158,6 @@ function printMemberChain(path, options, print) {
     willBreak(oneLine) || shouldHaveEmptyLineBeforeIndent ? breakParent : "",
     conditionalGroup([oneLine, expanded])
   ]);
-}
-
-/**
- * @param {import('estree').Node} node
- * @param {number} depth
- * @returns {boolean}
- */
-function isSimple(node, depth) {
-  if (depth >= 2) {
-    return false;
-  }
-  const isChildSimple = child => isSimple(child, depth + 1);
-  if (
-    !node ||
-    node.type === "Literal" ||
-    node.type === "BooleanLiteral" ||
-    node.type === "NullLiteral" ||
-    node.type === "NumericLiteral" ||
-    node.type === "StringLiteral" ||
-    node.type === "Identifier" ||
-    node.type === "ThisExpression" ||
-    node.type === "Super" ||
-    node.type === "BigIntLiteral" ||
-    node.type === "PrivateName" ||
-    node.type === "ArgumentPlaceholder" ||
-    node.type === "RegExpLiteral"
-  ) {
-    return true;
-  }
-  if (node.type === "TemplateLiteral") {
-    return node.expressions.every(isChildSimple);
-  }
-  if (node.type === "ObjectExpression") {
-    return node.properties.every(
-      p => p.shorthand || (isSimple(p.key, depth) && isChildSimple(p.value))
-    );
-  }
-  if (node.type === "ArrayExpression") {
-    return node.elements.every(isChildSimple);
-  }
-  if (
-    node.type === "CallExpression" ||
-    node.type === "OptionalCallExpression" ||
-    node.type === "NewExpression"
-  ) {
-    return isSimple(node.callee, depth) && node.arguments.every(isChildSimple);
-  }
-  if (
-    node.type === "MemberExpression" ||
-    node.type === "OptionalMemberExpression"
-  ) {
-    return isSimple(node.object, depth) && isSimple(node.property, depth);
-  }
-  if (node.type === "TSNonNullExpression") {
-    return isSimple(node.expression, depth);
-  }
-  return false;
 }
 
 function separatorNoWhitespace(

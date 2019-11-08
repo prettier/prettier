@@ -9,6 +9,7 @@ const x = moment().add(1, 'day').valueOf()
 
 // should stay on one line:
 obj.foo(1).foo(2).foo(3);
+obj.foo(-1).foo(2).foo(!x);
 
 // better on multiple lines:
 somePromise.then(format).then((val)=>doSomething(val)).catch((err)=>handleError(err))
