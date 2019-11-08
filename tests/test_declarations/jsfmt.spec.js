@@ -1,2 +1,2 @@
-run_spec(__dirname, ["flow", "typescript", "babel"]);
-run_spec(__dirname, ["flow", "typescript", "babel"], { arrowParens: "always" });
+run_spec(__dirname, ["babel", "flow", "typescript"]);
+run_spec(__dirname, ["babel", "flow", "typescript"], { arrowParens: "always" });
