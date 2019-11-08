@@ -1070,7 +1070,7 @@ label {
   @include margin-bottom-1\\/3;
 }
 
-// should not parse as custom-selector
+// should parse as custom-selector in scss
 @custom-selector     :--icon #id;
 
 =====================================output=====================================
@@ -2036,7 +2036,7 @@ label {
   @include margin-bottom-1\\/3;
 }
 
-// should not parse as custom-selector
+// should parse as custom-selector in scss
 @custom-selector :--icon #id;
 
 ================================================================================
