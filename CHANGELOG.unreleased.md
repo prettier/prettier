@@ -1507,7 +1507,6 @@ Invalid configuration file `.invalid-config`: ...
 [@voithos]: https://github.com/voithos
 [@andersk]: https://github.com/andersk
 [@lydell]: https://github.com/lydell
-[@fisker]: https://github.com/fisker
 [@aymericbouzy]: https://github.com/aymericbouzy
 [@fisker]: https://github.com/fisker
 [@jridgewell]: https://github.com/jridgewell
