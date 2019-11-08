@@ -1625,8 +1625,8 @@ function printPathNoParens(path, options, print, args) {
     case "NumericLiteral": // Babel 6 Literal split
       return printNumber(n.extra.raw);
     case "BigIntLiteral":
-      // babel: n.extra.raw, typescript: n.raw
-      return (n.extra ? n.extra.raw : n.raw).toLowerCase();
+      // babel: n.extra.raw, typescript: n.raw, flow: n.bigint
+      return (n.bigint || (n.extra ? n.extra.raw : n.raw)).toLowerCase();
     case "BooleanLiteral": // Babel 6 Literal split
     case "StringLiteral": // Babel 6 Literal split
     case "Literal": {
