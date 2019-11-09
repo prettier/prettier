@@ -77,9 +77,9 @@ jobs:
 
   - job: Prod_Test
     dependsOn: Prod_Build
-    displayName: Prod Test on Linux
+    displayName: Prod Test on macOS
     pool:
-      vmImage: "ubuntu-18.04"
+      vmImage: "macOS-10.14"
     strategy:
       matrix:
         Node_v4:
