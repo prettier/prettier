@@ -276,9 +276,9 @@ function forceBreakContent(node) {
         node.children.some(child => hasNonTextChild(child)))) ||
     (node.firstChild &&
       node.firstChild === node.lastChild &&
-      (hasLeadingLineBreak(node.firstChild) &&
-        (!node.lastChild.isTrailingSpaceSensitive ||
-          hasTrailingLineBreak(node.lastChild))))
+      hasLeadingLineBreak(node.firstChild) &&
+      (!node.lastChild.isTrailingSpaceSensitive ||
+        hasTrailingLineBreak(node.lastChild)))
   );
 }
 
@@ -385,7 +385,11 @@ function inferScriptParser(node) {
   }
 
   if (node.name === "style") {
-    if (!node.attrMap.lang || node.attrMap.lang === "postcss") {
+    if (
+      !node.attrMap.lang ||
+      node.attrMap.lang === "postcss" ||
+      node.attrMap.lang === "css"
+    ) {
       return "css";
     }
 

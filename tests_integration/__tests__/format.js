@@ -53,3 +53,8 @@ test("should work with foo plugin instance", () => {
     `"\\"{\\\\\\"tabWidth\\\\\\":8,\\\\\\"bracketSpacing\\\\\\":false}\\""`
   );
 });
+
+test("'Adjacent JSX' error should not be swallowed by Babel's error recovery", () => {
+  const input = "<a></a>\n<b></b>";
+  expect(() => prettier.format(input)).toThrowErrorMatchingSnapshot();
+});

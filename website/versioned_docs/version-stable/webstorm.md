@@ -40,7 +40,7 @@ In older IDE versions, select Custom and do the following configuration:
 
 ### Using Prettier with ESLint
 
-If you are using ESLint with [eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier), use the `Fix ESLint Problems` action to reformat the currect file – find it using _Find Action_ (`Cmd/Ctrl-Shift-A`) or [add a keyboard shortcut](https://www.jetbrains.com/help/webstorm/configuring-keyboard-shortcuts.html) to it in _Preferences | Keymap_ and then use it.
+If you are using ESLint with [eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier), use the `Fix ESLint Problems` action to reformat the current file – find it using _Find Action_ (`Cmd/Ctrl-Shift-A`) or [add a keyboard shortcut](https://www.jetbrains.com/help/webstorm/configuring-keyboard-shortcuts.html) to it in _Preferences | Keymap_ and then use it.
 
 Make sure that the ESLint integration is enabled in _Preferences | Languages & Frameworks | JavaScript | Code Quality Tools | ESLint_.
 

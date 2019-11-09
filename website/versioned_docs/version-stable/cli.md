@@ -18,7 +18,7 @@ In practice, this may look something like:
 prettier --single-quote --trailing-comma es5 --write "{app,__{tests,mocks}__}/**/*.js"
 ```
 
-Don't forget the quotes around the globs! The quotes make sure that Prettier expands the globs rather than your shell, for cross-platform usage. The [glob syntax from the `fast-glob` module](https://github.com/mrmlnc/fast-glob/blob/master/README.md#pattern-syntax) is used.
+Don't forget the quotes around the globs! The quotes make sure that Prettier expands the globs rather than your shell, for cross-platform usage. The [glob syntax from the glob module](https://github.com/isaacs/node-glob/blob/master/README.md#glob-primer) is used.
 
 Prettier CLI will ignore files located in `node_modules` directory. To opt-out from this behavior use `--with-node-modules` flag.
 
@@ -148,8 +148,6 @@ Prettier CLI will ignore files located in `node_modules` directory. To opt-out f
 ## `--write`
 
 This rewrites all processed files in place. This is comparable to the `eslint --fix` workflow.
-
-To avoid re-checking unchanged files, use the `--only-changed` flag.
 
 ## `--loglevel`
 
