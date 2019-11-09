@@ -85,7 +85,9 @@ function runPrettier(dir, args, options) {
   // "get-stream" module to mock.
   jest
     .spyOn(require(thirdParty), "getStream")
-    .mockImplementation(() => SynchronousPromise.resolve(options.input || ""));
+    .mockImplementation(() =>
+      SynchronousPromise.resolve(options.stdin || options.input || "")
+    );
   jest
     .spyOn(require(thirdParty), "isCI")
     .mockImplementation(() => process.env.CI);

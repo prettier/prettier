@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`format correctly if stdin content compatible with stdin-filepath (stderr) 1`] = `""`;
+
+exports[`format correctly if stdin content compatible with stdin-filepath (stdout) 1`] = `
+".name {
+  display: none;
+}
+"
+`;
+
+exports[`format correctly if stdin content compatible with stdin-filepath (write) 1`] = `Array []`;
