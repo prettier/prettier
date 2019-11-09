@@ -284,9 +284,7 @@ function getOptionsOrDie(context, filePath) {
     context.logger.debug("loaded options `" + JSON.stringify(options) + "`");
     return options;
   } catch (error) {
-    context.logger.error(
-      `Invalid configuration file \`${filePath}\`: ` + error.message
-    );
+    context.logger.error("Invalid configuration file: " + error.message);
     process.exit(2);
   }
 }

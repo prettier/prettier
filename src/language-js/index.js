@@ -10,7 +10,7 @@ const languages = [
     Object.assign(data, {
       since: "0.0.0",
       parsers: ["babel", "flow"],
-      vscodeLanguageIds: ["javascript", "mongo"],
+      vscodeLanguageIds: ["javascript"],
       interpreters: data.interpreters.concat(["nodejs"])
     })
   ),

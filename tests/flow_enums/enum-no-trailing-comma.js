@@ -1,5 +1,0 @@
-// @flow
-
-enum E {
-  A
-}

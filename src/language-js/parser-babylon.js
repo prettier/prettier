@@ -17,7 +17,6 @@ function babelOptions(extraOptions, extraPlugins) {
       allowReturnOutsideFunction: true,
       allowSuperOutsideMethod: true,
       allowUndeclaredExports: true,
-      errorRecovery: true,
       plugins: [
         "jsx",
         "doExpressions",
@@ -94,7 +93,7 @@ function createParse(parseMethod, extraPlugins) {
 }
 
 const parse = createParse("parse", ["flow"]);
-const parseFlow = createParse("parse", [["flow", { all: true, enums: true }]]);
+const parseFlow = createParse("parse", [["flow", { all: true }]]);
 const parseExpression = createParse("parseExpression");
 
 function tryCombinations(fn, combinations) {

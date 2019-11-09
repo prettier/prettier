@@ -161,10 +161,11 @@ function embed(path, print, textToDoc, options) {
        */
       if (
         parentParent &&
-        parentParent.type === "TaggedTemplateExpression" &&
-        parent.quasis.length === 1 &&
-        parentParent.tag.type === "Identifier" &&
-        (parentParent.tag.name === "md" || parentParent.tag.name === "markdown")
+        (parentParent.type === "TaggedTemplateExpression" &&
+          parent.quasis.length === 1 &&
+          (parentParent.tag.type === "Identifier" &&
+            (parentParent.tag.name === "md" ||
+              parentParent.tag.name === "markdown")))
       ) {
         const text = parent.quasis[0].value.raw.replace(
           /((?:\\\\)*)\\`/g,
