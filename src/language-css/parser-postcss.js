@@ -256,12 +256,12 @@ function parseMediaQuery(params) {
 const DEFAULT_SCSS_DIRECTIVE = /(\s*?)(!default).*$/;
 const GLOBAL_SCSS_DIRECTIVE = /(\s*?)(!global).*$/;
 
-function parseNestedCSS(node, options) {
+function parseNestedCSS(node) {
   if (node && typeof node === "object") {
     delete node.parent;
 
     for (const key in node) {
-      parseNestedCSS(node[key], options);
+      parseNestedCSS(node[key]);
     }
 
     if (!node.type) {
@@ -286,16 +286,6 @@ function parseNestedCSS(node, options) {
       }
 
       node.raws.selector = selector;
-    }
-
-    // postcss-less@2.0.0 parse `custom-selector` as `css-decl`
-    if (
-      options.parser === "css" &&
-      node.type === "css-decl" &&
-      node.prop === "@custom-selector"
-    ) {
-      selector = node.value;
-      node.raws.value = selector;
     }
 
     let value = "";
@@ -488,7 +478,7 @@ function parseNestedCSS(node, options) {
   return node;
 }
 
-function parseWithParser(parser, text, options) {
+function parseWithParser(parser, text) {
   const parsed = parseFrontMatter(text);
   const { frontMatter } = parsed;
   text = parsed.content;
@@ -504,7 +494,7 @@ function parseWithParser(parser, text, options) {
     throw createError("(postcss) " + e.name + " " + e.reason, { start: e });
   }
 
-  result = parseNestedCSS(addTypePrefix(result, "css-"), options);
+  result = parseNestedCSS(addTypePrefix(result, "css-"));
 
   if (frontMatter) {
     result.nodes.unshift(frontMatter);
@@ -531,20 +521,20 @@ function requireParser(isSCSSParser) {
   return require("postcss-less");
 }
 
-function parse(text, parsers, options) {
+function parse(text, parsers, opts) {
   const hasExplicitParserChoice =
-    options.parser === "less" || options.parser === "scss";
-  const isSCSSParser = isSCSS(options.parser, text);
+    opts.parser === "less" || opts.parser === "scss";
+  const isSCSSParser = isSCSS(opts.parser, text);
 
   try {
-    return parseWithParser(requireParser(isSCSSParser), text, options);
+    return parseWithParser(requireParser(isSCSSParser), text);
   } catch (originalError) {
     if (hasExplicitParserChoice) {
       throw originalError;
     }
 
     try {
-      return parseWithParser(requireParser(!isSCSSParser), text, options);
+      return parseWithParser(requireParser(!isSCSSParser), text);
     } catch (_secondError) {
       throw originalError;
     }

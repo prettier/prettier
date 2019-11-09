@@ -1,4 +1,0 @@
-// @flow
-
-enum type {
-}
