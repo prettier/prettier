@@ -1,36 +1,49 @@
 export const getVehicleDescriptor = async (
-  vehicleId: string,
-): Promise<
-  Descriptor | undefined
-> => {}
-
+  vehicleId: string
+): Promise<Descriptor | undefined> => {};
 
 export const getVehicleDescriptor = async (
-  vehicleId: string,
+  vehicleId: string
 ): Promise<
-  Collections.Parts.PrintedCircuitBoardAssembly['attributes'] | undefined
-> => {}
+  Collections.Parts.PrintedCircuitBoardAssembly["attributes"] | undefined
+> => {};
 
-export const fun1 = async (
-  vehicleId: string,
-): Promise<
-  Collections.Parts.PrintedCircuitBoardAssembly['attributes'] & undefined
-> => {}
+export const getVehicleDescriptor = async (
+  vehicleId: string
+): Promise<Descriptor & undefined> => {};
 
-export const fun2 = async (
-  vehicleId: string,
+export const getVehicleDescriptor = async (
+  vehicleId: string
 ): Promise<
-  Collections.Parts.PrintedCircuitBoardAssembly['attributes']
-> => {}
+  Collections.Parts.PrintedCircuitBoardAssembly["attributes"] & undefined
+> => {};
 
-export const fun3 = async (
-  vehicleId: string,
-): Promise<
-  keyof Collections.Parts.PrintedCircuitBoardAssembly['attributes']
-> => {}
+export const getVehicleDescriptor = async (
+  vehicleId: string
+): Promise<Descriptor["attributes"]> => {};
 
-export const fun4 = async (
-  vehicleId: string,
+export const getVehicleDescriptor = async (
+  vehicleId: string
 ): Promise<
-  Collections.Parts.PrintedCircuitBoardAssembly[]
-> => {}
+  Collections.Parts.PrintedCircuitBoardAssembly["attributessssssssssssssssssssssss"]
+> => {};
+
+export const getVehicleDescriptor = async (
+  vehicleId: string
+): Promise<keyof Descriptor> => {};
+
+export const getVehicleDescriptor = async (
+  vehicleId: string
+): Promise<
+  keyof Collections.Parts.PrintedCircuitBoardAssemblyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy
+> => {};
+
+export const getVehicleDescriptor = async (
+  vehicleId: string
+): Promise<Descriptor[]> => {};
+
+export const getVehicleDescriptor = async (
+  vehicleId: string
+): Promise<
+  Collections.Parts.PrintedCircuitBoardAssemblyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy[]
+> => {};
