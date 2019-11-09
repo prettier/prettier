@@ -419,7 +419,7 @@ function getQuasiRange(expr) {
 /**
  * @template C
  * @param {{getValue: () => C}} commentPath
- * @param {*} print
+ * @param {unknown} print
  * @param {{
  *   printer: {
  *     isBlockComment?: (comment: C) => boolean
@@ -455,7 +455,7 @@ function printLeadingComment(commentPath, print, options) {
  *   getValue: () => C,
  *   getNode: (value: number) => any
  * }} commentPath
- * @param {*} print
+ * @param {unknown} print
  * @param {{
  *   printer: {
  *     isBlockComment?: (comment: C) => boolean
@@ -568,8 +568,12 @@ function prependCursorPlaceholder(path, options, printed) {
 }
 
 /**
- * @param {*} path
- * @param {*} print
+ * @template {{
+ *   getValue: () => any,
+ *   each: (commentPath, comments: string) => void
+ * }} Path
+ * @param {Path} path
+ * @param {(path: Path) => any} print
  * @param {*} options
  * @param {boolean} needsSemi
  */
