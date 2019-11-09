@@ -79,6 +79,7 @@
     "@rollup/plugin-alias": "2.2.0",
     "@rollup/plugin-replace": "2.2.1",
     "babel-loader": "8.0.6",
+    "babel-plugin-transform-async-to-promises": "0.8.15",
     "benchmark": "2.1.4",
     "builtin-modules": "3.1.0",
     "codecov": "3.6.1",

@@ -53,7 +53,14 @@ function getBabelConfig(bundle) {
     targets.browsers = [">0.25%", "not ie 11", "not op_mini all"];
   }
   config.presets = [
-    [require.resolve("@babel/preset-env"), { targets, modules: false }]
+    [
+      require.resolve("@babel/preset-env"),
+      {
+        targets,
+        exclude: ["transform-async-to-generator"],
+        modules: false
+      }
+    ]
   ];
   return config;
 }

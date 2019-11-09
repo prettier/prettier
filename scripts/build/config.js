@@ -173,7 +173,8 @@ const coreBundles = [
     type: "core",
     output: "bin-prettier.js",
     target: "node",
-    externals: [path.resolve("src/common/third-party.js")]
+    externals: [path.resolve("src/common/third-party.js")],
+    babelPlugins: ["babel-plugin-transform-async-to-promises"]
   },
   {
     input: "src/common/third-party.js",
@@ -184,7 +185,8 @@ const coreBundles = [
       // Dynamic requires are not currently supported by rollup-plugin-commonjs.
       "require(filePath)": "eval('require')(filePath)",
       "require.cache": "eval('require').cache"
-    }
+    },
+    babelPlugins: ["babel-plugin-transform-async-to-promises"]
   }
 ];
 
