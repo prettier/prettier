@@ -4594,8 +4594,13 @@ function printTypeParameters(path, options, print, paramsKey) {
           grandparent.type === "TSTypeAnnotation" &&
           n[paramsKey][0].type !== "TSUnionType" &&
           n[paramsKey][0].type !== "UnionTypeAnnotation" &&
+          n[paramsKey][0].type !== "TSIntersectionType" &&
+          n[paramsKey][0].type !== "IntersectionTypeAnnotation" &&
           n[paramsKey][0].type !== "TSConditionalType" &&
-          n[paramsKey][0].type !== "TSMappedType")));
+          n[paramsKey][0].type !== "TSMappedType" &&
+          n[paramsKey][0].type !== "TSTypeOperator" &&
+          n[paramsKey][0].type !== "TSIndexedAccessType" &&
+          n[paramsKey][0].type !== "TSArrayType")));
 
   if (shouldInline) {
     return concat(["<", join(", ", path.map(print, paramsKey)), ">"]);
