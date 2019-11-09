@@ -27,6 +27,22 @@ function postprocess(ast, options) {
           });
         }
         break;
+      case "EnumDeclaration":
+        // A workaround for what looks like a bug in Flow.
+        // Flow assigns the same range to enum nodes and enum body nodes.
+        if (
+          options.parser === "flow" &&
+          node.body.range[0] === node.range[0] &&
+          node.body.range[1] === node.range[1]
+        ) {
+          node.body.range = [node.id.range[1], node.range[1] - 1];
+        }
+        // Babel does strange things as well. E.g. node.body.start > node.body.end can be true.
+        if (options.parser === "babel-flow") {
+          node.body.start = node.id.end;
+          node.body.end = node.end - 1;
+        }
+        break;
     }
   });
 

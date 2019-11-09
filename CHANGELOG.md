@@ -1,3 +1,9 @@
+# 1.19.0
+
+[diff](https://github.com/prettier/prettier/compare/1.18.2...1.19.0)
+
+🔗 [Release Notes](https://prettier.io/blog/2019/11/09/1.19.0.html)
+
 # 1.18.2
 
 [diff](https://github.com/prettier/prettier/compare/1.18.1...1.18.2)
