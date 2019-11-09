@@ -593,7 +593,8 @@ function genericPrint(path, options, print) {
           (isAdditionNode(iNode) || isSubtractionNode(iNode)) &&
           i === 0 &&
           (iNextNode.type === "value-number" || iNextNode.isHex) &&
-          (parentParentNode && isColorAdjusterFuncNode(parentParentNode)) &&
+          parentParentNode &&
+          isColorAdjusterFuncNode(parentParentNode) &&
           !hasEmptyRawBefore(iNextNode);
 
         const requireSpaceBeforeOperator =
