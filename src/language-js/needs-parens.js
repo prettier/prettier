@@ -339,8 +339,13 @@ function needsParens(path, options) {
             (node.type === "TSTypeAssertion" || node.type === "TSAsExpression")
           );
 
-        case "BinaryExpression":
-        case "LogicalExpression": {
+        case "LogicalExpression":
+          if (node.type === "LogicalExpression") {
+            return parent.operator !== node.operator;
+          }
+        // else fallthrough
+
+        case "BinaryExpression": {
           if (!node.operator && node.type !== "TSTypeAssertion") {
             return true;
           }
@@ -351,10 +356,6 @@ function needsParens(path, options) {
           const np = util.getPrecedence(no);
 
           if (pp > np) {
-            return true;
-          }
-
-          if ((po === "||" || po === "??") && no === "&&") {
             return true;
           }
 
