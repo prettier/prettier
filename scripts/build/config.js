@@ -19,6 +19,7 @@ const babelReplaceArrayIncludesWithIndexof = require.resolve(
  * @property {Object.<string, string>} replace - map of strings to replace when processing the bundle
  * @property {string[]} babelPlugins - babel plugins
  * @property {Object?} terserOptions - options for `terser`
+ * @property {boolean?} corejs - use corejs for `@babel/preset-env`
 
  * @typedef {Object} CommonJSConfig
  * @property {Object} namedExports - for cases where rollup can't infer what's exported
