@@ -173,12 +173,14 @@ const coreBundles = [
     input: "bin/prettier.js",
     type: "core",
     output: "bin-prettier.js",
+    corejs: true,
     target: "node",
     externals: [path.resolve("src/common/third-party.js")]
   },
   {
     input: "src/common/third-party.js",
     type: "core",
+    corejs: true,
     target: "node",
     replace: {
       // cosmiconfig@5 -> import-fresh uses `require` to resolve js config, which caused Error:
