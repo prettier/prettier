@@ -1419,7 +1419,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"description\\": \\"Indent script and style tags in Vue files.\\",
       \\"name\\": \\"vueIndentScriptAndStyle\\",
       \\"pluginDefaults\\": {},
-      \\"since\\": \\"1.19.0-beta.1\\",
+      \\"since\\": \\"1.19.0\\",
       \\"type\\": \\"boolean\\"
     }
   ]
