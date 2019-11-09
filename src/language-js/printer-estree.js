@@ -4587,10 +4587,13 @@ function printTypeParameters(path, options, print, paramsKey) {
         (n[paramsKey][0].type === "TSTypeReference" &&
           shouldHugType(n[paramsKey][0].typeName)) ||
         n[paramsKey][0].type === "NullableTypeAnnotation" ||
+        // See https://github.com/prettier/prettier/pull/6467 for the context.
         (greatGreatGrandParent &&
           greatGreatGrandParent.type === "VariableDeclarator" &&
           grandparent &&
           grandparent.type === "TSTypeAnnotation" &&
+          n[paramsKey][0].type !== "TSUnionType" &&
+          n[paramsKey][0].type !== "UnionTypeAnnotation" &&
           n[paramsKey][0].type !== "TSConditionalType" &&
           n[paramsKey][0].type !== "TSMappedType")));
 
