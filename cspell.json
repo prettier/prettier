@@ -92,6 +92,7 @@
         "ekkhus",
         "elektronik",
         "Eneman",
+        "ENOENT",
         "ericsakmar",
         "Ericsburgh",
         "Esben",
@@ -287,6 +288,7 @@
         "React's",
         "readline",
         "readlines",
+        "rebalance",
         "rebeccapurple",
         "recurse",
         "recurses",
@@ -303,6 +305,7 @@
         "ruleset",
         "Sapegin",
         "sbdchd",
+        "scandir",
         "schemastore",
         "serializer",
         "setlocal",
@@ -335,6 +338,7 @@
         "superset",
         "supertypes",
         "swac",
+        "systemjs",
         "tdeekens",
         "templating",
         "tempy",
@@ -360,6 +364,7 @@
         "unparenthesized",
         "unparseable",
         "unpause",
+        "unpkg",
         "unrestrict",
         "untracked",
         "valourous",
@@ -391,6 +396,7 @@
         "<!-- prettier-ignore -->\\n(`{3,})\\w*\\n[\\s\\S]+?\\1",
         "\\[@\\w+?\\]",
         "\\[`\\w+`\\]",
-        "ve+r+y+(long\\w+)?"
+        "ve{2,}r{2,}y",
+        "ve+r+y+long\\w*"
     ]
 }

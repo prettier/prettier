@@ -26,7 +26,7 @@ module.exports = {
     ]
   },
   vueIndentScriptAndStyle: {
-    since: "1.19.0",
+    since: "1.19.0-beta.1",
     category: CATEGORY_HTML,
     type: "boolean",
     default: false,

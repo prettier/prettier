@@ -597,9 +597,9 @@ function printPathNoParens(path, options, print, args) {
         (n === parent.body && parent.type === "ArrowFunctionExpression") ||
         (n !== parent.body && parent.type === "ForStatement") ||
         (parent.type === "ConditionalExpression" &&
-          (parentParent.type !== "ReturnStatement" &&
-            parentParent.type !== "CallExpression" &&
-            parentParent.type !== "OptionalCallExpression"));
+          parentParent.type !== "ReturnStatement" &&
+          parentParent.type !== "CallExpression" &&
+          parentParent.type !== "OptionalCallExpression");
 
       const shouldIndentIfInlining =
         parent.type === "AssignmentExpression" ||
@@ -908,8 +908,23 @@ function printPathNoParens(path, options, print, args) {
       }
 
       return concat(parts);
-    case "AwaitExpression":
-      return concat(["await ", path.call(print, "argument")]);
+    case "AwaitExpression": {
+      parts.push("await ", path.call(print, "argument"));
+      const parent = path.getParentNode();
+      if (
+        ((parent.type === "CallExpression" ||
+          parent.type === "OptionalCallExpression") &&
+          parent.callee === n) ||
+        ((parent.type === "MemberExpression" ||
+          parent.type === "OptionalMemberExpression") &&
+          parent.object === n)
+      ) {
+        return group(
+          concat([indent(concat([softline, concat(parts)])), softline])
+        );
+      }
+      return concat(parts);
+    }
     case "ImportSpecifier":
       if (n.importKind) {
         parts.push(path.call(print, "importKind"), " ");
@@ -1610,15 +1625,8 @@ function printPathNoParens(path, options, print, args) {
     case "NumericLiteral": // Babel 6 Literal split
       return printNumber(n.extra.raw);
     case "BigIntLiteral":
-      return concat([
-        printNumber(
-          n.extra
-            ? n.extra.rawValue
-            : // TypeScript
-              n.value
-        ),
-        "n"
-      ]);
+      // babel: n.extra.raw, typescript: n.raw, flow: n.bigint
+      return (n.bigint || (n.extra ? n.extra.raw : n.raw)).toLowerCase();
     case "BooleanLiteral": // Babel 6 Literal split
     case "StringLiteral": // Babel 6 Literal split
     case "Literal": {
@@ -2613,6 +2621,82 @@ function printPathNoParens(path, options, print, args) {
       return concat(parts);
     }
 
+    case "EnumDeclaration":
+      return concat([
+        "enum ",
+        path.call(print, "id"),
+        " ",
+        path.call(print, "body")
+      ]);
+    case "EnumBooleanBody":
+    case "EnumNumberBody":
+    case "EnumStringBody":
+    case "EnumSymbolBody": {
+      if (n.type === "EnumSymbolBody" || n.explicitType) {
+        let type = null;
+        switch (n.type) {
+          case "EnumBooleanBody":
+            type = "boolean";
+            break;
+          case "EnumNumberBody":
+            type = "number";
+            break;
+          case "EnumStringBody":
+            type = "string";
+            break;
+          case "EnumSymbolBody":
+            type = "symbol";
+            break;
+        }
+        parts.push("of ", type, " ");
+      }
+      if (n.members.length === 0) {
+        parts.push(
+          group(
+            concat([
+              "{",
+              comments.printDanglingComments(path, options),
+              softline,
+              "}"
+            ])
+          )
+        );
+      } else {
+        parts.push(
+          group(
+            concat([
+              "{",
+              indent(
+                concat([
+                  hardline,
+                  printArrayItems(path, options, "members", print),
+                  shouldPrintComma(options) ? "," : ""
+                ])
+              ),
+              comments.printDanglingComments(
+                path,
+                options,
+                /* sameIndent */ true
+              ),
+              hardline,
+              "}"
+            ])
+          )
+        );
+      }
+      return concat(parts);
+    }
+    case "EnumBooleanMember":
+    case "EnumNumberMember":
+    case "EnumStringMember":
+      return concat([
+        path.call(print, "id"),
+        " = ",
+        typeof n.init === "object" ? path.call(print, "init") : String(n.init)
+      ]);
+    case "EnumDefaultedMember":
+      return path.call(print, "id");
+
     case "FunctionTypeAnnotation":
     case "TSFunctionType": {
       // FunctionTypeAnnotation is ambiguous:
@@ -3517,10 +3601,10 @@ function printPathNoParens(path, options, print, args) {
         isNgForOf(n, index, parentNode) ||
         (((index === 1 && (n.key.name === "then" || n.key.name === "else")) ||
           (index === 2 &&
-            (n.key.name === "else" &&
-              parentNode.body[index - 1].type ===
-                "NGMicrosyntaxKeyedExpression" &&
-              parentNode.body[index - 1].key.name === "then"))) &&
+            n.key.name === "else" &&
+            parentNode.body[index - 1].type ===
+              "NGMicrosyntaxKeyedExpression" &&
+            parentNode.body[index - 1].key.name === "then")) &&
           parentNode.body[0].type === "NGMicrosyntaxExpression");
       return concat([
         path.call(print, "key"),
@@ -4024,7 +4108,9 @@ function printArgumentsList(path, options, print) {
       somePrintedArgumentsWillBreak ? breakParent : "",
       conditionalGroup(
         [
-          !somePrintedArgumentsWillBreak
+          !somePrintedArgumentsWillBreak &&
+          !node.typeArguments &&
+          !node.typeParameters
             ? simpleConcat
             : ifBreak(allArgsBrokenOut(), simpleConcat),
           shouldGroupFirst
@@ -4364,12 +4450,12 @@ function printExportDeclaration(path, options, print) {
 
     if (
       isDefault &&
-      (decl.declaration.type !== "ClassDeclaration" &&
-        decl.declaration.type !== "FunctionDeclaration" &&
-        decl.declaration.type !== "TSInterfaceDeclaration" &&
-        decl.declaration.type !== "DeclareClass" &&
-        decl.declaration.type !== "DeclareFunction" &&
-        decl.declaration.type !== "TSDeclareFunction")
+      decl.declaration.type !== "ClassDeclaration" &&
+      decl.declaration.type !== "FunctionDeclaration" &&
+      decl.declaration.type !== "TSInterfaceDeclaration" &&
+      decl.declaration.type !== "DeclareClass" &&
+      decl.declaration.type !== "DeclareFunction" &&
+      decl.declaration.type !== "TSDeclareFunction"
     ) {
       parts.push(semi);
     }
@@ -5054,7 +5140,7 @@ function separatorNoWhitespace(
 
   if (
     (childNode.type === "JSXElement" && !childNode.closingElement) ||
-    (nextNode && (nextNode.type === "JSXElement" && !nextNode.closingElement))
+    (nextNode && nextNode.type === "JSXElement" && !nextNode.closingElement)
   ) {
     return child.length === 1 ? softline : hardline;
   }

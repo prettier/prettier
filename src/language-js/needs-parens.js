@@ -7,7 +7,8 @@ const comments = require("./comments");
 const {
   getLeftSidePathName,
   hasFlowShorthandAnnotationComment,
-  hasNakedLeftSide
+  hasNakedLeftSide,
+  hasNode
 } = require("./utils");
 
 function hasClosureCompilerTypeCastComment(text, path) {
@@ -338,8 +339,13 @@ function needsParens(path, options) {
             (node.type === "TSTypeAssertion" || node.type === "TSAsExpression")
           );
 
-        case "BinaryExpression":
-        case "LogicalExpression": {
+        case "LogicalExpression":
+          if (node.type === "LogicalExpression") {
+            return parent.operator !== node.operator;
+          }
+        // else fallthrough
+
+        case "BinaryExpression": {
           if (!node.operator && node.type !== "TSTypeAssertion") {
             return true;
           }
@@ -350,10 +356,6 @@ function needsParens(path, options) {
           const np = util.getPrecedence(no);
 
           if (pp > np) {
-            return true;
-          }
-
-          if ((po === "||" || po === "??") && no === "&&") {
             return true;
           }
 
@@ -758,6 +760,12 @@ function needsParens(path, options) {
           parent.type !== "TypeCastExpression" &&
           parent.type !== "VariableDeclarator")
       );
+    case "TypeAnnotation":
+      return (
+        name === "returnType" &&
+        parent.type === "ArrowFunctionExpression" &&
+        includesFunctionTypeInObjectType(node)
+      );
   }
 
   return false;
@@ -783,6 +791,7 @@ function isStatement(node) {
     node.type === "DeclareModuleExports" ||
     node.type === "DeclareVariable" ||
     node.type === "DoWhileStatement" ||
+    node.type === "EnumDeclaration" ||
     node.type === "ExportAllDeclaration" ||
     node.type === "ExportDefaultDeclaration" ||
     node.type === "ExportNamedDeclaration" ||
@@ -811,6 +820,16 @@ function isStatement(node) {
     node.type === "VariableDeclaration" ||
     node.type === "WhileStatement" ||
     node.type === "WithStatement"
+  );
+}
+
+function includesFunctionTypeInObjectType(node) {
+  return hasNode(
+    node,
+    n1 =>
+      (n1.type === "ObjectTypeAnnotation" &&
+        hasNode(n1, n2 => n2.type === "FunctionTypeAnnotation" || undefined)) ||
+      undefined
   );
 }
 
