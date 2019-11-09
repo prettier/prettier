@@ -57,7 +57,7 @@ module.exports = async function({ version, previousVersion }) {
       dedent(chalk`
         {yellow.bold A manual step is necessary.}
 
-        You can copy the entries from {bold CHANGELOG.unreleased.md} to {bold CHANGELOG.md}
+        You can copy the entries from {bold changelog_unreleased/*/pr-*.md} to {bold CHANGELOG.md}
         and update it accordingly.
 
         You don't need to commit the file, the script will take care of that.
