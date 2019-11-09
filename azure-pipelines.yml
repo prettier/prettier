@@ -11,7 +11,7 @@ jobs:
   - job: Dev_Lint
     displayName: Dev Lint on Linux Node v12
     pool:
-      vmImage: "ubuntu-latest"
+      vmImage: "ubuntu-18.04"
     variables:
       node_version: 12
     steps:
@@ -20,7 +20,7 @@ jobs:
   - job: Dev_Test_Windows
     displayName: Dev Test on Windows Node v12
     pool:
-      vmImage: "windows-latest"
+      vmImage: "windows-2019"
     variables:
       node_version: 12
       TEST_CRLF: true
@@ -30,7 +30,7 @@ jobs:
   - job: Dev_Test_macOS
     displayName: Dev Test on macOS Node v12
     pool:
-      vmImage: "macOS-latest"
+      vmImage: "macOS-10.14"
     variables:
       node_version: 12
       ENABLE_CODE_COVERAGE: true
@@ -40,7 +40,7 @@ jobs:
   - job: Dev_Test_Linux
     displayName: Dev Test on Linux Node v12
     pool:
-      vmImage: "ubuntu-latest"
+      vmImage: "ubuntu-18.04"
     variables:
       node_version: 12
     steps:
@@ -49,7 +49,7 @@ jobs:
   - job: Prod_Build
     displayName: Prod Build on Linux Node v12
     pool:
-      vmImage: "ubuntu-latest"
+      vmImage: "ubuntu-18.04"
     variables:
       node_version: 12
     steps:
@@ -59,7 +59,7 @@ jobs:
     dependsOn: Prod_Build
     displayName: Prod Pack on Linux Node v12
     pool:
-      vmImage: "ubuntu-latest"
+      vmImage: "ubuntu-18.04"
     variables:
       node_version: 12
     steps:
@@ -69,7 +69,7 @@ jobs:
     dependsOn: Prod_Build
     displayName: Prod Lint on Linux Node v12
     pool:
-      vmImage: "ubuntu-latest"
+      vmImage: "ubuntu-18.04"
     variables:
       node_version: 12
     steps:
@@ -79,7 +79,7 @@ jobs:
     dependsOn: Prod_Build
     displayName: Prod Test on Linux
     pool:
-      vmImage: "ubuntu-latest"
+      vmImage: "ubuntu-18.04"
     strategy:
       matrix:
         Node_v4:
