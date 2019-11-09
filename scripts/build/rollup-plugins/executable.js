@@ -13,7 +13,6 @@ module.exports = function() {
 
     options(inputOptions) {
       entry = path.resolve(inputOptions.input);
-      return inputOptions;
     },
 
     generateBundle(outputOptions) {
