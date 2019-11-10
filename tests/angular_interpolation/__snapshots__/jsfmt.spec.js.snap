@@ -4,6 +4,7 @@ exports[`logical-expression.ng 1`] = `
 ====================================options=====================================
 parsers: ["__ng_interpolation"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 [
@@ -15,7 +16,7 @@ printWidth: 80
   advancedSearchService.patientInformationFieldsRow2 &&
     advancedSearchService.patientInformationFieldsRow2.indexOf(
       advancedSearchService.formElementData.customFieldList[i].customFieldType
-    ) !== -1,
+    ) !== -1
 ]
 ================================================================================
 `;
@@ -24,6 +25,7 @@ exports[`pipe-expression.ng 1`] = `
 ====================================options=====================================
 parsers: ["__ng_interpolation"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 [
@@ -71,17 +73,17 @@ printWidth: 80
     | pipeA
       : {
           keyA: reallySuperLongValue,
-          keyB: shortValue | pipeB | pipeC: valueToPipeC,
+          keyB: shortValue | pipeB | pipeC: valueToPipeC
         }
       : {
           keyA: reallySuperLongValue,
-          keyB: shortValue | pipeB | pipeC: valueToPipeC,
+          keyB: shortValue | pipeB | pipeC: valueToPipeC
         }
     | aaa,
   (hideLinqPanel
     ? "ReportSelection.HideShowLabel_Show.String"
     : "ReportSelection.HideShowLabel_Hide.String"
-  ) | localize: localizationSection,
+  ) | localize: localizationSection
 ]
 ================================================================================
 `;
