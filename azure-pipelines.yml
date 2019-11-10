@@ -1,5 +1,6 @@
 trigger:
   - master
+  - next
   - release-*
 
 variables:
