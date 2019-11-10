@@ -4573,6 +4573,7 @@ function printTypeParameters(path, options, print, paramsKey) {
   }
 
   const grandparent = path.getNode(2);
+  const greatGrandParent = path.getNode(3);
   const greatGreatGrandParent = path.getNode(4);
 
   const isParameterInTestCall = grandparent != null && isTestCall(grandparent);
@@ -4592,6 +4593,8 @@ function printTypeParameters(path, options, print, paramsKey) {
           greatGreatGrandParent.type === "VariableDeclarator" &&
           grandparent &&
           grandparent.type === "TSTypeAnnotation" &&
+          greatGrandParent &&
+          greatGrandParent.type !== "ArrowFunctionExpression" &&
           n[paramsKey][0].type !== "TSUnionType" &&
           n[paramsKey][0].type !== "UnionTypeAnnotation" &&
           n[paramsKey][0].type !== "TSIntersectionType" &&

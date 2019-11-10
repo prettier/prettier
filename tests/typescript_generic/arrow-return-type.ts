@@ -1,5 +1,15 @@
 export const getVehicleDescriptor = async (
   vehicleId: string
+): Promise<Descriptor> => {};
+
+export const getVehicleDescriptor = async (
+  vehicleId: string
+): Promise<
+  Collections.Parts.PrintedCircuitBoardAssemblyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy
+> => {};
+
+export const getVehicleDescriptor = async (
+  vehicleId: string
 ): Promise<Descriptor | undefined> => {};
 
 export const getVehicleDescriptor = async (

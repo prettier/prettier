@@ -8,6 +8,16 @@ printWidth: 80
 =====================================input======================================
 export const getVehicleDescriptor = async (
   vehicleId: string
+): Promise<Descriptor> => {};
+
+export const getVehicleDescriptor = async (
+  vehicleId: string
+): Promise<
+  Collections.Parts.PrintedCircuitBoardAssemblyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy
+> => {};
+
+export const getVehicleDescriptor = async (
+  vehicleId: string
 ): Promise<Descriptor | undefined> => {};
 
 export const getVehicleDescriptor = async (
@@ -57,6 +67,16 @@ export const getVehicleDescriptor = async (
 > => {};
 
 =====================================output=====================================
+export const getVehicleDescriptor = async (
+  vehicleId: string
+): Promise<Descriptor> => {};
+
+export const getVehicleDescriptor = async (
+  vehicleId: string
+): Promise<
+  Collections.Parts.PrintedCircuitBoardAssemblyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy
+> => {};
+
 export const getVehicleDescriptor = async (
   vehicleId: string
 ): Promise<Descriptor | undefined> => {};
