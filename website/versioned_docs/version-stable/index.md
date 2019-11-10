@@ -19,7 +19,7 @@ Prettier is an opinionated code formatter with support for:
 - [Markdown](https://commonmark.org/), including [GFM](https://github.github.com/gfm/) and [MDX](https://mdxjs.com/)
 - [YAML](https://yaml.org/)
 
-It removes all original styling[\*](#footnotes) and ensures that all outputted code conforms to a consistent style. (See this [blog post](http://jlongster.com/A-Prettier-Formatter))
+It removes all original styling[\*](#footnotes) and ensures that all outputted code conforms to a consistent style. (See this [blog post](https://jlongster.com/A-Prettier-Formatter))
 
 Prettier takes your code and reprints it from scratch by taking the line length into account.
 

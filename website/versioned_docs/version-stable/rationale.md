@@ -133,9 +133,11 @@ One final thing: TC39 has [not yet decided if decorators come before or after `e
 
 ```js
 @decorator
-export class Foo { }
+export class Foo {}
 
-export @decorator class Foo { }
+export
+@decorator
+class Foo {}
 ```
 
 ### Semicolons
