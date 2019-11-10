@@ -87,7 +87,7 @@ Format options:
                            Defaults to false.
   --tab-width <int>        Number of spaces per indentation level.
                            Defaults to 2.
-  --trailing-comma <none|es5|all>
+  --trailing-comma <es5|none|all>
                            Print trailing commas wherever possible when multi-line.
                            Defaults to es5.
   --use-tabs               Indent with tabs instead of spaces.
@@ -243,7 +243,7 @@ Format options:
                            Defaults to false.
   --tab-width <int>        Number of spaces per indentation level.
                            Defaults to 2.
-  --trailing-comma <none|es5|all>
+  --trailing-comma <es5|none|all>
                            Print trailing commas wherever possible when multi-line.
                            Defaults to es5.
   --use-tabs               Indent with tabs instead of spaces.
