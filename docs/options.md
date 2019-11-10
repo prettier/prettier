@@ -101,8 +101,8 @@ Valid options:
 - `"none"` - No trailing commas.
 - `"all"` - Trailing commas wherever possible (including function arguments). This requires node 8 or a [transform](https://babeljs.io/docs/plugins/syntax-trailing-function-commas/).
 
-| Default  | CLI Override                                           | API Override                                           |
-| -------- | ------------------------------------------------------ | ------------------------------------------------------ |
+| Default | CLI Override                                           | API Override                                           |
+| ------- | ------------------------------------------------------ | ------------------------------------------------------ |
 | `"es5"` | <code>--trailing-comma <es5&#124;none&#124;all></code> | <code>trailingComma: "<es5&#124;none&#124;all>"</code> |
 
 ## Bracket Spacing
