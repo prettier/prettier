@@ -81,12 +81,12 @@ module.exports = {
     ],
     description: "Print trailing commas wherever possible when multi-line.",
     choices: [
-      { value: "none", description: "No trailing commas." },
       {
         value: "es5",
         description:
           "Trailing commas where valid in ES5 (objects, arrays, etc.)"
       },
+      { value: "none", description: "No trailing commas." },
       {
         value: "all",
         description:
