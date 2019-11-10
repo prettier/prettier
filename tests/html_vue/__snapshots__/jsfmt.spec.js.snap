@@ -75,11 +75,11 @@ printWidth: 80
     slot-scope="{ row }"
     slot-scope="{
       destructuring: {
-        a: { b }
-      }
+        a: { b },
+      },
     }"
     :class="{
-      longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true
+      longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true,
     }"
     :class="
       (() => {
@@ -293,11 +293,11 @@ semi: false
     slot-scope="{ row }"
     slot-scope="{
       destructuring: {
-        a: { b }
-      }
+        a: { b },
+      },
     }"
     :class="{
-      longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true
+      longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true,
     }"
     :class="
       (() => {
@@ -416,7 +416,7 @@ const Store = gl.issueBoards.BoardsStore;
 export default {
   name: "BoardsIssueCard",
   components: {
-    "issue-card-inner": gl.issueBoards.IssueCardInner
+    "issue-card-inner": gl.issueBoards.IssueCardInner,
   },
   props: {
     list: Object,
@@ -424,12 +424,12 @@ export default {
     issueLinkBase: String,
     disabled: Boolean,
     index: Number,
-    rootPath: String
+    rootPath: String,
   },
   data() {
     return {
       showDetail: false,
-      detailIssue: Store.detail
+      detailIssue: Store.detail,
     };
   },
   computed: {
@@ -437,7 +437,7 @@ export default {
       return (
         this.detailIssue.issue && this.detailIssue.issue.id === this.issue.id
       );
-    }
+    },
   },
   methods: {
     mouseDown() {
@@ -459,8 +459,8 @@ export default {
           Store.detail.list = this.list;
         }
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -470,7 +470,7 @@ export default {
     :class="{
       'user-can-drag': !disabled && issue.id,
       'is-disabled': disabled || !issue.id,
-      'is-active': issueDetailVisible
+      'is-active': issueDetailVisible,
     }"
     :index="index"
     :data-issue-id="issue.id"
@@ -748,7 +748,7 @@ const Store = gl.issueBoards.BoardsStore
 export default {
   name: "BoardsIssueCard",
   components: {
-    "issue-card-inner": gl.issueBoards.IssueCardInner
+    "issue-card-inner": gl.issueBoards.IssueCardInner,
   },
   props: {
     list: Object,
@@ -756,12 +756,12 @@ export default {
     issueLinkBase: String,
     disabled: Boolean,
     index: Number,
-    rootPath: String
+    rootPath: String,
   },
   data() {
     return {
       showDetail: false,
-      detailIssue: Store.detail
+      detailIssue: Store.detail,
     }
   },
   computed: {
@@ -769,7 +769,7 @@ export default {
       return (
         this.detailIssue.issue && this.detailIssue.issue.id === this.issue.id
       )
-    }
+    },
   },
   methods: {
     mouseDown() {
@@ -791,8 +791,8 @@ export default {
           Store.detail.list = this.list
         }
       }
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -802,7 +802,7 @@ export default {
     :class="{
       'user-can-drag': !disabled && issue.id,
       'is-disabled': disabled || !issue.id,
-      'is-active': issueDetailVisible
+      'is-active': issueDetailVisible,
     }"
     :index="index"
     :data-issue-id="issue.id"

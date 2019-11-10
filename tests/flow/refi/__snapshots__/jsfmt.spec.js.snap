@@ -135,7 +135,7 @@ var tests = [
 
   function() {
     var y: string = x || ""; // ok
-  }
+  },
 ];
 
 ================================================================================
@@ -625,7 +625,7 @@ var tests = [
       var { p } = x; // TODO: annot checked against type of x
       (p: string); // ok
     }
-  }
+  },
 ];
 
 ================================================================================
@@ -890,7 +890,7 @@ var paths = [
       x = "xxx";
     }
     var y: string = x;
-  }
+  },
 ];
 
 ================================================================================
@@ -1158,7 +1158,7 @@ var null_tests = [
     } else {
       var y: string | void = x.p.q; // ok
     }
-  }
+  },
 ];
 
 // this.p op null
@@ -1586,7 +1586,7 @@ var null_tests = [
     } else {
       var y: string = x.p.q; // ok
     }
-  }
+  },
 ];
 
 // typeof this.p op typename
@@ -1754,7 +1754,7 @@ var undef_tests = [
     } else {
       var y: string = x.p.q; // ok
     }
-  }
+  },
 ];
 
 // this.p op undefined
@@ -1912,7 +1912,7 @@ var void_tests = [
     } else {
       var y: string = x.p.q; // ok
     }
-  }
+  },
 ];
 
 // this.p op void(...)

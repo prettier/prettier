@@ -76,7 +76,8 @@ module.exports = {
     type: "choice",
     default: [
       { since: "0.0.0", value: false },
-      { since: "0.19.0", value: "none" }
+      { since: "0.19.0", value: "none" },
+      { since: "2.0.0", value: "es5" }
     ],
     description: "Print trailing commas wherever possible when multi-line.",
     choices: [

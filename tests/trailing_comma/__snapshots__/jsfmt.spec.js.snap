@@ -240,7 +240,7 @@ a(
 
 a.b().c(
   {
-    d
+    d,
   },
   () => {}
 );
@@ -372,7 +372,7 @@ printWidth: 80
 <div
   onClick={() =>
     doSomething({
-      foo: bar
+      foo: bar,
     })
   }
 />;
@@ -466,23 +466,23 @@ const aLong = {
 const a = {
   b: true,
   c: {
-    c1: "hello"
+    c1: "hello",
   },
-  d: false
+  d: false,
 };
 
 const aLong = {
   bHasALongName: "a-long-value",
   cHasALongName: {
     c1: "a-really-long-value",
-    c2: "a-really-really-long-value"
+    c2: "a-really-really-long-value",
   },
-  dHasALongName: "a-long-value-too"
+  dHasALongName: "a-long-value-too",
 };
 
 const aLong = {
   dHasALongName: "a-long-value-too",
-  eHasABooleanExpression: a === a
+  eHasABooleanExpression: a === a,
 };
 
 ================================================================================
@@ -651,7 +651,7 @@ this.getAttribute(function(s) /*string*/ {
 =====================================output=====================================
 let example = [
   "FOO",
-  "BAR"
+  "BAR",
   // Comment
 ];
 
@@ -661,12 +661,12 @@ foo(
 );
 
 o = {
-  state
+  state,
   // Comment
 };
 
 o = {
-  state
+  state,
 
   // Comment
 };

@@ -85,7 +85,7 @@ let tests = [
     (hmac.digest(): Buffer);
     (hmac.digest("hex"): void); // 1 error
     (hmac.digest(): void); // 1 error
-  }
+  },
 ];
 
 ================================================================================

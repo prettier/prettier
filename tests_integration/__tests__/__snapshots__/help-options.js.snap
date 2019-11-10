@@ -569,7 +569,7 @@ Valid options:
   es5    Trailing commas where valid in ES5 (objects, arrays, etc.)
   all    Trailing commas wherever possible (including function arguments).
 
-Default: none
+Default: es5
 "
 `;
 

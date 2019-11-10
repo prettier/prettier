@@ -46,7 +46,7 @@ import { A, B, C } from "hello-world";
 import {
   AAAAAAAAAAAAAAAAAAAAAAAA,
   BBBBBBBBBBBBBBBBBBBBBB,
-  CCCCCCCCCCCCCCCCCCCCCCC
+  CCCCCCCCCCCCCCCCCCCCCCC,
 } from "xyz";
 
 ---
@@ -58,14 +58,14 @@ import { A, B, C } from "hello-world";
 import {
   AAAAAAAAAAAAAAAAAAAAAAAA,
   BBBBBBBBBBBBBBBBBBBBBB,
-  CCCCCCCCCCCCCCCCCCCCCCC
+  CCCCCCCCCCCCCCCCCCCCCCC,
 } from "xyz";
 
 ---
 
 export const meta = {
   authors: [fred, sue],
-  layout: Layout
+  layout: Layout,
 };
 
 export default () => (
@@ -73,7 +73,7 @@ export default () => (
     components={{
       h1: ui.Heading,
       p: ui.Text,
-      code: ui.Code
+      code: ui.Code,
     }}
   />
 );
@@ -133,7 +133,7 @@ import { A, B, C } from "hello-world"
 import {
   AAAAAAAAAAAAAAAAAAAAAAAA,
   BBBBBBBBBBBBBBBBBBBBBB,
-  CCCCCCCCCCCCCCCCCCCCCCC
+  CCCCCCCCCCCCCCCCCCCCCCC,
 } from "xyz"
 
 ---
@@ -145,14 +145,14 @@ import { A, B, C } from "hello-world"
 import {
   AAAAAAAAAAAAAAAAAAAAAAAA,
   BBBBBBBBBBBBBBBBBBBBBB,
-  CCCCCCCCCCCCCCCCCCCCCCC
+  CCCCCCCCCCCCCCCCCCCCCCC,
 } from "xyz"
 
 ---
 
 export const meta = {
   authors: [fred, sue],
-  layout: Layout
+  layout: Layout,
 }
 
 export default () => (
@@ -160,7 +160,7 @@ export default () => (
     components={{
       h1: ui.Heading,
       p: ui.Text,
-      code: ui.Code
+      code: ui.Code,
     }}
   />
 )
@@ -492,7 +492,7 @@ import { Buz } from "./Fixture";
 
 export const foo = {
   hi: \`Fudge \${Baz.displayName || "Baz"}\`,
-  authors: ["fred", "sally"]
+  authors: ["fred", "sally"],
 };
 
 # Hello, world!
@@ -583,7 +583,7 @@ import { Buz } from "./Fixture"
 
 export const foo = {
   hi: \`Fudge \${Baz.displayName || "Baz"}\`,
-  authors: ["fred", "sally"]
+  authors: ["fred", "sally"],
 }
 
 # Hello, world!

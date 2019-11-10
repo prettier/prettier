@@ -15,7 +15,7 @@ printWidth: 80
   advancedSearchService.patientInformationFieldsRow2 &&
     advancedSearchService.patientInformationFieldsRow2.indexOf(
       advancedSearchService.formElementData.customFieldList[i].customFieldType
-    ) !== -1
+    ) !== -1,
 ]
 ================================================================================
 `;
@@ -71,17 +71,17 @@ printWidth: 80
     | pipeA
       : {
           keyA: reallySuperLongValue,
-          keyB: shortValue | pipeB | pipeC: valueToPipeC
+          keyB: shortValue | pipeB | pipeC: valueToPipeC,
         }
       : {
           keyA: reallySuperLongValue,
-          keyB: shortValue | pipeB | pipeC: valueToPipeC
+          keyB: shortValue | pipeB | pipeC: valueToPipeC,
         }
     | aaa,
   (hideLinqPanel
     ? "ReportSelection.HideShowLabel_Show.String"
     : "ReportSelection.HideShowLabel_Hide.String"
-  ) | localize: localizationSection
+  ) | localize: localizationSection,
 ]
 ================================================================================
 `;

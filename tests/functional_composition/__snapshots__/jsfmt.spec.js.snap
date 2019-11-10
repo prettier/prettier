@@ -333,9 +333,9 @@ var db = {
   users: {
     JOE: {
       name: "Joe",
-      followers: ["STEVE", "SUZY"]
-    }
-  }
+      followers: ["STEVE", "SUZY"],
+    },
+  },
 };
 
 // We'll pretend to do a db lookup which returns a promise
@@ -352,7 +352,7 @@ const mapStateToProps = state => ({
   users: R.compose(
     R.filter(R.propEq("status", "active")),
     R.values
-  )(state.users)
+  )(state.users),
 });
 
 ================================================================================

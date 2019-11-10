@@ -55,7 +55,7 @@ declare var pnum: Promise<number>;
 Promise.all([
   pstr,
   pnum,
-  true // non-Promise values passed through
+  true, // non-Promise values passed through
 ]).then(xs => {
   // tuple information is preserved
   let [a, b, c] = xs;
