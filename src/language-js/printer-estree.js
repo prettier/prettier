@@ -4591,9 +4591,7 @@ function printTypeParameters(path, options, print, paramsKey) {
         // See https://github.com/prettier/prettier/pull/6467 for the context.
         (greatGreatGrandParent &&
           greatGreatGrandParent.type === "VariableDeclarator" &&
-          grandparent &&
           grandparent.type === "TSTypeAnnotation" &&
-          greatGrandParent &&
           greatGrandParent.type !== "ArrowFunctionExpression" &&
           n[paramsKey][0].type !== "TSUnionType" &&
           n[paramsKey][0].type !== "UnionTypeAnnotation" &&
