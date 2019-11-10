@@ -97,13 +97,13 @@ Print trailing commas wherever possible when multi-line. (A single-line array, f
 
 Valid options:
 
-- `"none"` - No trailing commas.
 - `"es5"` - Trailing commas where valid in ES5 (objects, arrays, etc.)
+- `"none"` - No trailing commas.
 - `"all"` - Trailing commas wherever possible (including function arguments). This requires node 8 or a [transform](https://babeljs.io/docs/plugins/syntax-trailing-function-commas/).
 
 | Default  | CLI Override                                           | API Override                                           |
 | -------- | ------------------------------------------------------ | ------------------------------------------------------ |
-| `"none"` | <code>--trailing-comma <none&#124;es5&#124;all></code> | <code>trailingComma: "<none&#124;es5&#124;all>"</code> |
+| `"es5"` | <code>--trailing-comma <es5&#124;none&#124;all></code> | <code>trailingComma: "<es5&#124;none&#124;all>"</code> |
 
 ## Bracket Spacing
 
