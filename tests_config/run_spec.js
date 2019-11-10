@@ -22,6 +22,10 @@ global.run_spec = (dirname, parsers, options) => {
     throw new Error(`No parsers were specified for ${dirname}`);
   }
 
+  if (parsers[0] === "js-all") {
+    parsers = ["babel", "babel-flow", "flow", "typescript"];
+  }
+
   fs.readdirSync(dirname).forEach(basename => {
     const filename = path.join(dirname, basename);
 
