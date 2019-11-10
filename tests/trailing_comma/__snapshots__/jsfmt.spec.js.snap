@@ -4,6 +4,7 @@ exports[`dynamic-import.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 import(
@@ -41,7 +42,6 @@ exports[`dynamic-import.js 3`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 import(
@@ -60,6 +60,7 @@ exports[`es5.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 function send_single_email(
@@ -153,7 +154,6 @@ exports[`es5.js 3`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 function send_single_email(
@@ -200,6 +200,7 @@ exports[`function-calls.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 const a = (param1, param2, param3) => {}
@@ -240,7 +241,7 @@ a(
 
 a.b().c(
   {
-    d,
+    d
   },
   () => {}
 );
@@ -305,7 +306,6 @@ exports[`function-calls.js 3`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 const a = (param1, param2, param3) => {}
@@ -358,6 +358,7 @@ exports[`jsx.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <div
@@ -372,7 +373,7 @@ printWidth: 80
 <div
   onClick={() =>
     doSomething({
-      foo: bar,
+      foo: bar
     })
   }
 />;
@@ -411,7 +412,6 @@ exports[`jsx.js 3`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 <div
@@ -438,6 +438,7 @@ exports[`object.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 const a = {
@@ -466,23 +467,23 @@ const aLong = {
 const a = {
   b: true,
   c: {
-    c1: "hello",
+    c1: "hello"
   },
-  d: false,
+  d: false
 };
 
 const aLong = {
   bHasALongName: "a-long-value",
   cHasALongName: {
     c1: "a-really-long-value",
-    c2: "a-really-really-long-value",
+    c2: "a-really-really-long-value"
   },
-  dHasALongName: "a-long-value-too",
+  dHasALongName: "a-long-value-too"
 };
 
 const aLong = {
   dHasALongName: "a-long-value-too",
-  eHasABooleanExpression: a === a,
+  eHasABooleanExpression: a === a
 };
 
 ================================================================================
@@ -547,7 +548,6 @@ exports[`object.js 3`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 const a = {
@@ -602,6 +602,7 @@ exports[`trailing_whitespace.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 let example = [
@@ -651,7 +652,7 @@ this.getAttribute(function(s) /*string*/ {
 =====================================output=====================================
 let example = [
   "FOO",
-  "BAR",
+  "BAR"
   // Comment
 ];
 
@@ -661,12 +662,12 @@ foo(
 );
 
 o = {
-  state,
+  state
   // Comment
 };
 
 o = {
-  state,
+  state
 
   // Comment
 };
@@ -799,7 +800,6 @@ exports[`trailing_whitespace.js 3`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 let example = [
