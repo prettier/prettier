@@ -26,6 +26,10 @@ global.run_spec = (dirname, parsers, options) => {
     parsers = ["babel", "babel-flow", "flow", "typescript"];
   }
 
+  if (parsers[0] === "babel-all") {
+    parsers = ["babel", "babel-flow"].concat(parsers.slice(1));
+  }
+
   fs.readdirSync(dirname).forEach(basename => {
     const filename = path.join(dirname, basename);
 
