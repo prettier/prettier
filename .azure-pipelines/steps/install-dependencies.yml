@@ -2,5 +2,5 @@ parameters:
   flags: ""
 
 steps:
-  - script: yarn install --frozen-lockfile ${{ parameters.flags }}
+  - script: yarn install --frozen-lockfile
     displayName: "Install dependencies"
