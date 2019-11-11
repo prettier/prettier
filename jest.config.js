@@ -45,8 +45,5 @@ module.exports = {
     "jest-watch-typeahead/filename",
     "jest-watch-typeahead/testname"
   ],
-  // reporters: ["default"].concat(ENABLE_TEST_RESULTS ? "jest-junit" : [])
-  reporters: ["jest-summarizing-reporter-plain"].concat(
-    ENABLE_TEST_RESULTS ? "jest-junit" : []
-  )
+  reporters: ["default"].concat(ENABLE_TEST_RESULTS ? "jest-junit" : [])
 };

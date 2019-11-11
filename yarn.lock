@@ -4119,10 +4119,6 @@ jest-snapshot@^23.0.1, jest-snapshot@^23.4.2:
     pretty-format "^23.2.0"
     semver "^5.5.0"
 
-"jest-summarizing-reporter-plain@github:brodybits/jest-summarizing-reporter-plain":
-  version "0.0.1-dev"
-  resolved "https://codeload.github.com/brodybits/jest-summarizing-reporter-plain/tar.gz/81855ee3afac4c407784c31fa312401a7204b4ec"
-
 jest-util@^23.4.0:
   version "23.4.0"
   resolved "https://registry.yarnpkg.com/jest-util/-/jest-util-23.4.0.tgz#4d063cb927baf0a23831ff61bec2cbbf49793561"
