@@ -2102,6 +2102,326 @@ semi: false
 ================================================================================
 `;
 
+exports[`style.vue 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<script>
+</script>
+
+<style>
+#foo1{ color: #f00;
+}
+</style>
+<style scoped>
+#foo2{ color: #f00;
+}
+</style>
+
+<style lang="css">
+#foo3{ color: #f00;
+}
+</style>
+<style lang="css" scoped>
+#foo4{ color: #f00;
+}
+</style>
+
+<style lang="less">
+#foo5{ color: #f00;
+}
+</style>
+<style lang="less" scoped>
+#foo6{ 
+         @color: #f00;
+  color: @color;
+}
+</style>
+
+
+<style lang="scss">
+#foo8{ 
+         $color: #f00;
+  color: $color;
+}
+</style>
+<style lang="scss" scoped>
+#foo8{ 
+         $color: #f00;
+  color: $color;
+}
+</style>
+
+
+=====================================output=====================================
+<script></script>
+
+<style>
+#foo1 {
+  color: #f00;
+}
+</style>
+<style scoped>
+#foo2 {
+  color: #f00;
+}
+</style>
+
+<style lang="css">
+#foo3 {
+  color: #f00;
+}
+</style>
+<style lang="css" scoped>
+#foo4 {
+  color: #f00;
+}
+</style>
+
+<style lang="less">
+#foo5 {
+  color: #f00;
+}
+</style>
+<style lang="less" scoped>
+#foo6 {
+  @color: #f00;
+  color: @color;
+}
+</style>
+
+<style lang="scss">
+#foo8 {
+  $color: #f00;
+  color: $color;
+}
+</style>
+<style lang="scss" scoped>
+#foo8 {
+  $color: #f00;
+  color: $color;
+}
+</style>
+
+================================================================================
+`;
+
+exports[`style.vue 2`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+<script>
+</script>
+
+<style>
+#foo1{ color: #f00;
+}
+</style>
+<style scoped>
+#foo2{ color: #f00;
+}
+</style>
+
+<style lang="css">
+#foo3{ color: #f00;
+}
+</style>
+<style lang="css" scoped>
+#foo4{ color: #f00;
+}
+</style>
+
+<style lang="less">
+#foo5{ color: #f00;
+}
+</style>
+<style lang="less" scoped>
+#foo6{ 
+         @color: #f00;
+  color: @color;
+}
+</style>
+
+
+<style lang="scss">
+#foo8{ 
+         $color: #f00;
+  color: $color;
+}
+</style>
+<style lang="scss" scoped>
+#foo8{ 
+         $color: #f00;
+  color: $color;
+}
+</style>
+
+
+=====================================output=====================================
+<script></script>
+
+<style>
+#foo1 {
+  color: #f00;
+}
+</style>
+<style scoped>
+#foo2 {
+  color: #f00;
+}
+</style>
+
+<style lang="css">
+#foo3 {
+  color: #f00;
+}
+</style>
+<style lang="css" scoped>
+#foo4 {
+  color: #f00;
+}
+</style>
+
+<style lang="less">
+#foo5 {
+  color: #f00;
+}
+</style>
+<style lang="less" scoped>
+#foo6 {
+  @color: #f00;
+  color: @color;
+}
+</style>
+
+<style lang="scss">
+#foo8 {
+  $color: #f00;
+  color: $color;
+}
+</style>
+<style lang="scss" scoped>
+#foo8 {
+  $color: #f00;
+  color: $color;
+}
+</style>
+
+================================================================================
+`;
+
+exports[`style.vue 3`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+<script>
+</script>
+
+<style>
+#foo1{ color: #f00;
+}
+</style>
+<style scoped>
+#foo2{ color: #f00;
+}
+</style>
+
+<style lang="css">
+#foo3{ color: #f00;
+}
+</style>
+<style lang="css" scoped>
+#foo4{ color: #f00;
+}
+</style>
+
+<style lang="less">
+#foo5{ color: #f00;
+}
+</style>
+<style lang="less" scoped>
+#foo6{ 
+         @color: #f00;
+  color: @color;
+}
+</style>
+
+
+<style lang="scss">
+#foo8{ 
+         $color: #f00;
+  color: $color;
+}
+</style>
+<style lang="scss" scoped>
+#foo8{ 
+         $color: #f00;
+  color: $color;
+}
+</style>
+
+
+=====================================output=====================================
+<script></script>
+
+<style>
+#foo1 {
+  color: #f00;
+}
+</style>
+<style scoped>
+#foo2 {
+  color: #f00;
+}
+</style>
+
+<style lang="css">
+#foo3 {
+  color: #f00;
+}
+</style>
+<style lang="css" scoped>
+#foo4 {
+  color: #f00;
+}
+</style>
+
+<style lang="less">
+#foo5 {
+  color: #f00;
+}
+</style>
+<style lang="less" scoped>
+#foo6 {
+  @color: #f00;
+  color: @color;
+}
+</style>
+
+<style lang="scss">
+#foo8 {
+  $color: #f00;
+  color: $color;
+}
+</style>
+<style lang="scss" scoped>
+#foo8 {
+  $color: #f00;
+  color: $color;
+}
+</style>
+
+================================================================================
+`;
+
 exports[`tag-name.vue 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
