@@ -46,6 +46,9 @@ const parsers = [
         // Optional package for TypeScript that logs ETW events (a Windows-only technology).
         "@microsoft/typescript-etw"
       ]
+    },
+    replace: {
+      'require("@microsoft/typescript-etw")': "undefined"
     }
   },
   {
