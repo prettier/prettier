@@ -18,7 +18,6 @@ function generateSchema(options) {
   return {
     $schema: "http://json-schema.org/draft-04/schema#",
     title: "Schema for .prettierrc",
-    type: "object",
     definitions: {
       optionsDefinition: {
         type: "object",
@@ -65,9 +64,17 @@ function generateSchema(options) {
         }
       }
     },
-    allOf: [
-      { $ref: "#/definitions/optionsDefinition" },
-      { $ref: "#/definitions/overridesDefinition" }
+    oneOf: [
+      {
+        type: "object",
+        allOf: [
+          { $ref: "#/definitions/optionsDefinition" },
+          { $ref: "#/definitions/overridesDefinition" }
+        ]
+      },
+      {
+        type: "string"
+      }
     ]
   };
 }
