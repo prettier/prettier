@@ -109,6 +109,7 @@
     "shelljs": "0.8.3",
     "snapshot-diff": "0.4.0",
     "strip-ansi": "5.2.0",
+    "svgo": "1.3.2",
     "synchronous-promise": "2.0.10",
     "tempy": "0.2.1",
     "terser-webpack-plugin": "2.2.1",
@@ -130,6 +131,8 @@
     "build": "node --max-old-space-size=3072 ./scripts/build/build.js",
     "build-docs": "node ./scripts/build-docs.js",
     "check-deps": "node ./scripts/check-deps.js",
-    "spellcheck": "npx -p cspell@4.0.31 cspell {bin,scripts,src}/**/*.js {docs,website/blog,changelog_unreleased}/**/*.md"
+    "spellcheck": "npx -p cspell@4.0.31 cspell {bin,scripts,src}/**/*.js {docs,website/blog,changelog_unreleased}/**/*.md",
+    "svgo": "svgo --pretty --indent=2 --precision=1",
+    "svgo:all": "find website | grep '\\.svg$' | xargs -Iz -n 1 yarn svgo z"
   }
 }
