@@ -360,7 +360,7 @@ function applyConfigPrecedence(context, options) {
   }
 }
 
-async function formatStdin(context) {
+function formatStdin(context) {
   const filepath = context.argv["stdin-filepath"]
     ? path.resolve(process.cwd(), context.argv["stdin-filepath"])
     : process.cwd();
@@ -368,23 +368,23 @@ async function formatStdin(context) {
   const ignorer = createIgnorerFromContextOrDie(context);
   const relativeFilepath = path.relative(process.cwd(), filepath);
 
-  try {
-    const input = await thirdParty.getStream(process.stdin);
-    if (relativeFilepath && ignorer.filter([relativeFilepath]).length === 0) {
-      writeOutput(context, { formatted: input });
-      return;
-    }
+  thirdParty
+    .getStream(process.stdin)
+    .then(input => {
+      if (relativeFilepath && ignorer.filter([relativeFilepath]).length === 0) {
+        writeOutput(context, { formatted: input });
+        return;
+      }
 
-    const options = getOptionsForFile(context, filepath);
+      const options = getOptionsForFile(context, filepath);
 
-    if (listDifferent(context, input, options, "(stdin)")) {
-      return;
-    }
+      if (listDifferent(context, input, options, "(stdin)")) {
+        return;
+      }
 
-    writeOutput(context, format(context, input, options), options);
-  } catch (error) {
-    handleError(context, relativeFilepath || "stdin", error);
-  }
+      writeOutput(context, format(context, input, options), options);
+    })
+    .catch(error => handleError(context, relativeFilepath || "stdin", error));
 }
 
 function createIgnorerFromContextOrDie(context) {
