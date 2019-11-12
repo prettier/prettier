@@ -740,6 +740,9 @@ function genericPrint(path, options, print) {
 
       const isSCSSMapItem = isSCSSMapItemNode(path);
 
+      const lastItem = node.groups[node.groups.length - 1];
+      const isLastItemComment = lastItem && lastItem.type === "value-comment";
+
       return group(
         concat([
           node.open ? path.call(print, "open") : "",
@@ -773,7 +776,8 @@ function genericPrint(path, options, print) {
             ])
           ),
           ifBreak(
-            isSCSS(options.parser, options.originalText) &&
+            !isLastItemComment &&
+              isSCSS(options.parser, options.originalText) &&
               isSCSSMapItem &&
               shouldPrintComma(options)
               ? ","
