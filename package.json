@@ -1,17 +1,7 @@
 {
-  "name": "prettier",
-  "version": "1.20.0-dev",
-  "description": "Prettier is an opinionated code formatter",
+  "author": "James Long",
   "bin": {
     "prettier": "./bin/prettier.js"
-  },
-  "repository": "prettier/prettier",
-  "homepage": "https://prettier.io",
-  "author": "James Long",
-  "license": "MIT",
-  "main": "./index.js",
-  "engines": {
-    "node": ">=8"
   },
   "dependencies": {
     "@angular/compiler": "8.2.13",
@@ -73,6 +63,7 @@
     "vnopts": "1.0.2",
     "yaml-unist-parser": "1.1.1"
   },
+  "description": "Prettier is an opinionated code formatter",
   "devDependencies": {
     "@babel/core": "7.7.2",
     "@babel/preset-env": "7.7.1",
@@ -114,22 +105,31 @@
     "terser-webpack-plugin": "2.2.1",
     "webpack": "4.41.2"
   },
+  "engines": {
+    "node": ">=8"
+  },
+  "homepage": "https://prettier.io",
+  "license": "MIT",
+  "main": "./index.js",
+  "name": "prettier",
+  "repository": "prettier/prettier",
   "scripts": {
-    "prepublishOnly": "echo \"Error: must publish from dist/\" && exit 1",
-    "prepare-release": "yarn && yarn build && yarn test:dist",
-    "test": "jest",
-    "test:dist": "node ./scripts/test-dist.js",
-    "test-integration": "jest tests_integration",
-    "perf-repeat": "yarn && yarn build && cross-env NODE_ENV=production node ./dist/bin-prettier.js --debug-repeat ${PERF_REPEAT:-1000} --loglevel debug ${PERF_FILE:-./index.js} > /dev/null",
-    "perf-repeat-inspect": "yarn && yarn build && cross-env NODE_ENV=production node --inspect-brk ./dist/bin-prettier.js --debug-repeat ${PERF_REPEAT:-1000} --loglevel debug ${PERF_FILE:-./index.js} > /dev/null",
-    "perf-benchmark": "yarn && yarn build && cross-env NODE_ENV=production node ./dist/bin-prettier.js --debug-benchmark --loglevel debug ${PERF_FILE:-./index.js} > /dev/null",
-    "check-types": "tsc",
-    "lint": "cross-env EFF_NO_LINK_RULES=true eslint . --format friendly",
-    "lint-docs": "prettylint {.,docs,website,website/blog}/*.md",
-    "lint-dist": "eslint --no-eslintrc --no-ignore --env=browser \"dist/!(bin-prettier|index|third-party).js\"",
     "build": "node --max-old-space-size=3072 ./scripts/build/build.js",
     "build-docs": "node ./scripts/build-docs.js",
     "check-deps": "node ./scripts/check-deps.js",
-    "spellcheck": "npx -p cspell@4.0.31 cspell {bin,scripts,src}/**/*.js {docs,website/blog,changelog_unreleased}/**/*.md"
-  }
+    "check-types": "tsc",
+    "lint": "cross-env EFF_NO_LINK_RULES=true eslint . --format friendly",
+    "lint-dist": "eslint --no-eslintrc --no-ignore --env=browser \"dist/!(bin-prettier|index|third-party).js\"",
+    "lint-docs": "prettylint {.,docs,website,website/blog}/*.md",
+    "perf-benchmark": "yarn && yarn build && cross-env NODE_ENV=production node ./dist/bin-prettier.js --debug-benchmark --loglevel debug ${PERF_FILE:-./index.js} > /dev/null",
+    "perf-repeat": "yarn && yarn build && cross-env NODE_ENV=production node ./dist/bin-prettier.js --debug-repeat ${PERF_REPEAT:-1000} --loglevel debug ${PERF_FILE:-./index.js} > /dev/null",
+    "perf-repeat-inspect": "yarn && yarn build && cross-env NODE_ENV=production node --inspect-brk ./dist/bin-prettier.js --debug-repeat ${PERF_REPEAT:-1000} --loglevel debug ${PERF_FILE:-./index.js} > /dev/null",
+    "prepare-release": "yarn && yarn build && yarn test:dist",
+    "prepublishOnly": "echo \"Error: must publish from dist/\" && exit 1",
+    "spellcheck": "npx -p cspell@4.0.31 cspell {bin,scripts,src}/**/*.js {docs,website/blog,changelog_unreleased}/**/*.md",
+    "test": "jest",
+    "test-integration": "jest tests_integration",
+    "test:dist": "node ./scripts/test-dist.js"
+  },
+  "version": "1.20.0-dev"
 }
