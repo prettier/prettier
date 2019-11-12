@@ -6,13 +6,17 @@ const path = require("path");
 module.exports = function() {
   let banner;
   let entry;
+  let file;
 
   return {
     name: "executable",
 
-    options(options) {
-      entry = path.resolve(options.input);
-      return options;
+    options(inputOptions) {
+      entry = path.resolve(inputOptions.input);
+    },
+
+    generateBundle(outputOptions) {
+      file = outputOptions.file;
     },
 
     load(id) {
@@ -36,12 +40,9 @@ module.exports = function() {
       }
     },
 
-    writeBundle(bundle) {
-      if (banner) {
-        const files = Object.keys(bundle);
-        files.forEach(file => {
-          fs.chmodSync(bundle[file].facadeModuleId, 0o755 & ~process.umask());
-        });
+    writeBundle() {
+      if (banner && file) {
+        fs.chmodSync(file, 0o755 & ~process.umask());
       }
     }
   };

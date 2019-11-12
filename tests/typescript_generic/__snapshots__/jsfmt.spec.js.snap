@@ -1,5 +1,38 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`arrow-return-type.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export const getVehicleDescriptor = async (
+  vehicleId: string,
+): Promise<
+  Descriptor | undefined
+> => {}
+
+
+export const getVehicleDescriptor = async (
+  vehicleId: string,
+): Promise<
+  Collections.Parts.PrintedCircuitBoardAssembly['attributes'] | undefined
+> => {}
+
+=====================================output=====================================
+export const getVehicleDescriptor = async (
+  vehicleId: string
+): Promise<Descriptor | undefined> => {};
+
+export const getVehicleDescriptor = async (
+  vehicleId: string
+): Promise<
+  Collections.Parts.PrintedCircuitBoardAssembly["attributes"] | undefined
+> => {};
+
+================================================================================
+`;
+
 exports[`object-method.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]

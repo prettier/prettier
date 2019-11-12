@@ -597,9 +597,9 @@ function printPathNoParens(path, options, print, args) {
         (n === parent.body && parent.type === "ArrowFunctionExpression") ||
         (n !== parent.body && parent.type === "ForStatement") ||
         (parent.type === "ConditionalExpression" &&
-          (parentParent.type !== "ReturnStatement" &&
-            parentParent.type !== "CallExpression" &&
-            parentParent.type !== "OptionalCallExpression"));
+          parentParent.type !== "ReturnStatement" &&
+          parentParent.type !== "CallExpression" &&
+          parentParent.type !== "OptionalCallExpression");
 
       const shouldIndentIfInlining =
         parent.type === "AssignmentExpression" ||
@@ -1625,8 +1625,8 @@ function printPathNoParens(path, options, print, args) {
     case "NumericLiteral": // Babel 6 Literal split
       return printNumber(n.extra.raw);
     case "BigIntLiteral":
-      // babel: n.extra.raw, typescript: n.raw
-      return (n.extra ? n.extra.raw : n.raw).toLowerCase();
+      // babel: n.extra.raw, typescript: n.raw, flow: n.bigint
+      return (n.bigint || (n.extra ? n.extra.raw : n.raw)).toLowerCase();
     case "BooleanLiteral": // Babel 6 Literal split
     case "StringLiteral": // Babel 6 Literal split
     case "Literal": {
@@ -3601,10 +3601,10 @@ function printPathNoParens(path, options, print, args) {
         isNgForOf(n, index, parentNode) ||
         (((index === 1 && (n.key.name === "then" || n.key.name === "else")) ||
           (index === 2 &&
-            (n.key.name === "else" &&
-              parentNode.body[index - 1].type ===
-                "NGMicrosyntaxKeyedExpression" &&
-              parentNode.body[index - 1].key.name === "then"))) &&
+            n.key.name === "else" &&
+            parentNode.body[index - 1].type ===
+              "NGMicrosyntaxKeyedExpression" &&
+            parentNode.body[index - 1].key.name === "then")) &&
           parentNode.body[0].type === "NGMicrosyntaxExpression");
       return concat([
         path.call(print, "key"),
@@ -4450,12 +4450,12 @@ function printExportDeclaration(path, options, print) {
 
     if (
       isDefault &&
-      (decl.declaration.type !== "ClassDeclaration" &&
-        decl.declaration.type !== "FunctionDeclaration" &&
-        decl.declaration.type !== "TSInterfaceDeclaration" &&
-        decl.declaration.type !== "DeclareClass" &&
-        decl.declaration.type !== "DeclareFunction" &&
-        decl.declaration.type !== "TSDeclareFunction")
+      decl.declaration.type !== "ClassDeclaration" &&
+      decl.declaration.type !== "FunctionDeclaration" &&
+      decl.declaration.type !== "TSInterfaceDeclaration" &&
+      decl.declaration.type !== "DeclareClass" &&
+      decl.declaration.type !== "DeclareFunction" &&
+      decl.declaration.type !== "TSDeclareFunction"
     ) {
       parts.push(semi);
     }
@@ -4587,10 +4587,13 @@ function printTypeParameters(path, options, print, paramsKey) {
         (n[paramsKey][0].type === "TSTypeReference" &&
           shouldHugType(n[paramsKey][0].typeName)) ||
         n[paramsKey][0].type === "NullableTypeAnnotation" ||
+        // See https://github.com/prettier/prettier/pull/6467 for the context.
         (greatGreatGrandParent &&
           greatGreatGrandParent.type === "VariableDeclarator" &&
           grandparent &&
           grandparent.type === "TSTypeAnnotation" &&
+          n[paramsKey][0].type !== "TSUnionType" &&
+          n[paramsKey][0].type !== "UnionTypeAnnotation" &&
           n[paramsKey][0].type !== "TSConditionalType" &&
           n[paramsKey][0].type !== "TSMappedType")));
 
@@ -5140,7 +5143,7 @@ function separatorNoWhitespace(
 
   if (
     (childNode.type === "JSXElement" && !childNode.closingElement) ||
-    (nextNode && (nextNode.type === "JSXElement" && !nextNode.closingElement))
+    (nextNode && nextNode.type === "JSXElement" && !nextNode.closingElement)
   ) {
     return child.length === 1 ? softline : hardline;
   }

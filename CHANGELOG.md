@@ -1,3 +1,53 @@
+# 1.19.1
+
+[diff](https://github.com/prettier/prettier/compare/1.19.0...1.19.1)
+
+### CLI
+
+#### Fix `--stdin` regression in 1.19.0 ([#6894](https://github.com/prettier/prettier/pull/6894) by [@lydell](https://github.com/lydell))
+
+<!-- prettier-ignore -->
+```
+// Prettier stable
+$ echo "test" | prettier --stdin --parser babel
+[error] regeneratorRuntime is not defined
+
+// Prettier master
+$ echo "test" | prettier --stdin --parser babel
+test;
+```
+
+### TypeScript
+
+#### Fix formatting of union type as arrow function return type ([#6896](https://github.com/prettier/prettier/pull/6896) by [@thorn0](https://github.com/thorn0))
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+export const getVehicleDescriptor = async (
+  vehicleId: string,
+): Promise<Collections.Parts.PrintedCircuitBoardAssembly['attributes'] | undefined> => {}
+
+// Prettier stable
+export const getVehicleDescriptor = async (
+  vehicleId: string
+): Promise<| Collections.Parts.PrintedCircuitBoardAssembly["attributes"]
+| undefined> => {};
+
+// Prettier master
+export const getVehicleDescriptor = async (
+  vehicleId: string
+): Promise<
+  Collections.Parts.PrintedCircuitBoardAssembly["attributes"] | undefined
+> => {};
+```
+
+# 1.19.0
+
+[diff](https://github.com/prettier/prettier/compare/1.18.2...1.19.0)
+
+🔗 [Release Notes](https://prettier.io/blog/2019/11/09/1.19.0.html)
+
 # 1.18.2
 
 [diff](https://github.com/prettier/prettier/compare/1.18.1...1.18.2)
