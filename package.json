@@ -79,6 +79,8 @@
     "@rollup/plugin-alias": "2.2.0",
     "@rollup/plugin-replace": "2.2.1",
     "@stryker-mutator/core": "2.2.1",
+    "@stryker-mutator/html-reporter": "2.2.1",
+    "@stryker-mutator/javascript-mutator": "2.2.1",
     "babel-loader": "8.0.6",
     "benchmark": "2.1.4",
     "builtin-modules": "3.1.0",

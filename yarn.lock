@@ -48,7 +48,7 @@
     semver "^5.4.1"
     source-map "^0.5.0"
 
-"@babel/generator@^7.4.0", "@babel/generator@^7.7.2":
+"@babel/generator@^7.4.0", "@babel/generator@^7.7.2", "@babel/generator@~7.7.0":
   version "7.7.2"
   resolved "https://registry.yarnpkg.com/@babel/generator/-/generator-7.7.2.tgz#2f4852d04131a5e17ea4f6645488b5da66ebf3af"
   integrity sha512-WthSArvAjYLz4TcbKOi88me+KmDJdKSlfwwN8CnUYn9jBkzhq0ZEPuBfkAWIvjJ3AdEV1Cf/+eSQTnp3IDJKlQ==
@@ -244,7 +244,7 @@
     esutils "^2.0.2"
     js-tokens "^4.0.0"
 
-"@babel/parser@7.7.3", "@babel/parser@^7.4.3", "@babel/parser@^7.7.0", "@babel/parser@^7.7.2":
+"@babel/parser@7.7.3", "@babel/parser@^7.4.3", "@babel/parser@^7.7.0", "@babel/parser@^7.7.2", "@babel/parser@~7.7.0":
   version "7.7.3"
   resolved "https://registry.yarnpkg.com/@babel/parser/-/parser-7.7.3.tgz#5fad457c2529de476a248f75b0f090b3060af043"
   integrity sha512-bqv+iCo9i+uLVbI0ILzKkvMorqxouI+GbV13ivcARXn9NNEabi2IEz912IgNpT/60BNXac5dgcfjb94NjsF33A==
@@ -643,7 +643,7 @@
     "@babel/parser" "^7.7.0"
     "@babel/types" "^7.7.0"
 
-"@babel/traverse@^7.1.0", "@babel/traverse@^7.4.3", "@babel/traverse@^7.4.4", "@babel/traverse@^7.7.0", "@babel/traverse@^7.7.2":
+"@babel/traverse@^7.1.0", "@babel/traverse@^7.4.3", "@babel/traverse@^7.4.4", "@babel/traverse@^7.7.0", "@babel/traverse@^7.7.2", "@babel/traverse@~7.7.0":
   version "7.7.2"
   resolved "https://registry.yarnpkg.com/@babel/traverse/-/traverse-7.7.2.tgz#ef0a65e07a2f3c550967366b3d9b62a2dcbeae09"
   integrity sha512-TM01cXib2+rgIZrGJOLaHV/iZUAxf4A0dt5auY6KNZ+cm6aschuJGqKJM3ROTt3raPUdIDk9siAufIFEleRwtw==
@@ -786,6 +786,30 @@
     tslib "~1.10.0"
     typed-inject "~2.1.1"
     typed-rest-client "~1.5.0"
+
+"@stryker-mutator/html-reporter@2.2.1":
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/@stryker-mutator/html-reporter/-/html-reporter-2.2.1.tgz#5506198ac52079ddebe8ff23294e9d9167f446c0"
+  integrity sha512-gTup4l2fDAeRVNXWDQFTKuHas4ZKyPwZRv4AIPebAfpW7xplXPuDNKoHMZ6X5ATf1VYf/QNprCHODTWg+3Dw1Q==
+  dependencies:
+    "@stryker-mutator/api" "^2.2.1"
+    "@stryker-mutator/util" "^2.2.1"
+    file-url "~3.0.0"
+    mkdirp "~0.5.1"
+    mutation-testing-elements "^1.0.2"
+    rimraf "~3.0.0"
+
+"@stryker-mutator/javascript-mutator@2.2.1":
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/@stryker-mutator/javascript-mutator/-/javascript-mutator-2.2.1.tgz#23559fbb51f9e4e6761f9cb44dab9c776218c172"
+  integrity sha512-8cEz+5UCdMTEsRO9xisCEJSxaYh7aya1Cm9sarsfMGHcaa8Kq3KwXJHQ0geUtiBna582A/Eqw0TaS54t4OxVzg==
+  dependencies:
+    "@babel/generator" "~7.7.0"
+    "@babel/parser" "~7.7.0"
+    "@babel/traverse" "~7.7.0"
+    "@stryker-mutator/api" "^2.2.1"
+    lodash.clonedeep "^4.5.0"
+    tslib "~1.10.0"
 
 "@stryker-mutator/util@^2.2.1":
   version "2.2.1"
@@ -2875,6 +2899,11 @@ file-entry-cache@^5.0.1:
   dependencies:
     flat-cache "^2.0.1"
 
+file-url@~3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/file-url/-/file-url-3.0.0.tgz#247a586a746ce9f7a8ed05560290968afc262a77"
+  integrity sha512-g872QGsHexznxkIAdK8UiZRe7SkE6kvylShU4Nsj8NvfvZag7S0QuQ4IgvPDkk75HxgjIVDwycFTDAgIiO4nDA==
+
 filename-regex@^2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/filename-regex/-/filename-regex-2.0.1.tgz#c1c4b9bee3e09725ddb106b75c1e301fe2f18b26"
@@ -4604,6 +4633,11 @@ locate-path@^5.0.0:
   dependencies:
     p-locate "^4.1.0"
 
+lodash.clonedeep@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/lodash.clonedeep/-/lodash.clonedeep-4.5.0.tgz#e23f3f9c4f8fbdde872529c1071857a086e5ccef"
+  integrity sha1-4j8/nE+Pvd6HJSnBBxhXoIblzO8=
+
 lodash.flatmap@^4.5.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.flatmap/-/lodash.flatmap-4.5.0.tgz#ef8cbf408f6e48268663345305c6acc0b778702e"
@@ -4974,6 +5008,11 @@ ms@2.0.0:
 ms@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.1.tgz#30a5864eb3ebb0a66f2ebe6d727af06a09d86e0a"
+
+mutation-testing-elements@^1.0.2:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/mutation-testing-elements/-/mutation-testing-elements-1.2.0.tgz#986ce17ed17385fb62d3e7cfcf6ce5d63df1a2d1"
+  integrity sha512-yE+sg3BAh3nsijMbSsej4ZJQnnJlbb8QtmtXaXx+DRgRvmDs95SGQkOYc+9poXIQkKZxrAynzk6vSFsZibT/lw==
 
 mutation-testing-metrics@^1.1.1:
   version "1.2.0"
