@@ -6,6 +6,9 @@ module.exports = function(config) {
     packageManager: "yarn",
     reporters: ["html", "clear-text", "progress"],
     testRunner: "command",
+    commandRunner: {
+      command: "npx jest --no-cache"
+    },
     transpilers: [],
     coverageAnalysis: "off"
   });
