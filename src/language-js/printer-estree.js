@@ -5518,6 +5518,13 @@ function printJSXElement(path, options, print) {
     ])
   );
 
+  if (
+    options.__maybe_mdx_adjacent &&
+    path.getParentNode().type === "JsExpressionRoot"
+  ) {
+    return concat(children);
+  }
+
   if (forcedBreak) {
     return multiLineElem;
   }

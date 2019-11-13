@@ -276,7 +276,8 @@ printWidth: 80
 
 <Hello>
   test <World /> test
-</Hello>123
+</Hello>
+123
 
 ---
 
@@ -285,16 +286,19 @@ printWidth: 80
 </Hello>
 <Hello>
   test <World /> test
-</Hello>123
+</Hello>
+123
 
 ---
 
 <Hello>
   test <World /> test
-</Hello> 123
+</Hello>{" "}
+123
 <Hello>
   test <World /> test
-</Hello> 234
+</Hello>{" "}
+234
 
 ---
 
@@ -352,7 +356,8 @@ semi: false
 
 <Hello>
   test <World /> test
-</Hello>123
+</Hello>
+123
 
 ---
 
@@ -361,16 +366,19 @@ semi: false
 </Hello>
 <Hello>
   test <World /> test
-</Hello>123
+</Hello>
+123
 
 ---
 
 <Hello>
   test <World /> test
-</Hello> 123
+</Hello>{" "}
+123
 <Hello>
   test <World /> test
-</Hello> 234
+</Hello>{" "}
+234
 
 ---
 
@@ -434,6 +442,117 @@ const a = 1;
 const a = 1
 ;<div>foo</div>
 \`\`\`
+
+================================================================================
+`;
+
+exports[`levels.mdx 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import     {     Foo,  Bar } from     './Fixture'
+
+# Hello,    world!
+
+<Foo bg='red'>
+   <div style={{   display:   'block'}   }>
+      <Bar    >hi    </Bar>
+       {  hello       }
+       {     /* another comment */}
+       </div>
+</Foo>
+
+asdfsdf <strong style={{fontWeight: 'bolder'}}>asdfasdf</strong>
+
+<Foo/>
+test
+
+<ul>
+      <li   >item    {' '} </li>
+      <li/>
+        </ul >
+
+
+=====================================output=====================================
+import { Foo, Bar } from "./Fixture";
+
+# Hello, world!
+
+<Foo bg="red">
+  <div style={{ display: "block" }}>
+    <Bar>hi </Bar>
+    {hello}
+    {/* another comment */}
+  </div>
+</Foo>
+
+asdfsdf <strong style={{fontWeight: 'bolder'}}>asdfasdf</strong>
+
+<Foo />
+test
+
+<ul>
+  <li>item </li>
+  <li />
+</ul>
+
+================================================================================
+`;
+
+exports[`levels.mdx 2`] = `
+====================================options=====================================
+parsers: ["mdx"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+import     {     Foo,  Bar } from     './Fixture'
+
+# Hello,    world!
+
+<Foo bg='red'>
+   <div style={{   display:   'block'}   }>
+      <Bar    >hi    </Bar>
+       {  hello       }
+       {     /* another comment */}
+       </div>
+</Foo>
+
+asdfsdf <strong style={{fontWeight: 'bolder'}}>asdfasdf</strong>
+
+<Foo/>
+test
+
+<ul>
+      <li   >item    {' '} </li>
+      <li/>
+        </ul >
+
+
+=====================================output=====================================
+import { Foo, Bar } from "./Fixture"
+
+# Hello, world!
+
+<Foo bg="red">
+  <div style={{ display: "block" }}>
+    <Bar>hi </Bar>
+    {hello}
+    {/* another comment */}
+  </div>
+</Foo>
+
+asdfsdf <strong style={{fontWeight: 'bolder'}}>asdfasdf</strong>
+
+<Foo />
+test
+
+<ul>
+  <li>item </li>
+  <li />
+</ul>
 
 ================================================================================
 `;
