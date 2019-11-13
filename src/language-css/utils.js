@@ -1,7 +1,5 @@
 "use strict";
 
-const htmlTagNames = require("html-tag-names");
-
 const colorAdjusterFunctions = [
   "red",
   "green",
@@ -151,10 +149,6 @@ function isLastNode(path, node) {
   }
   const nodes = parentNode.nodes;
   return nodes && nodes.indexOf(node) === nodes.length - 1;
-}
-
-function isHTMLTag(value) {
-  return htmlTagNames.indexOf(value.toLowerCase()) !== -1;
 }
 
 function isDetachedRulesetDeclarationNode(node) {
@@ -400,7 +394,6 @@ module.exports = {
   insideAtRuleNode,
   insideURLFunctionInImportAtRuleNode,
   isKeyframeAtRuleKeywords,
-  isHTMLTag,
   isWideKeywords,
   isSCSS,
   isLastNode,
