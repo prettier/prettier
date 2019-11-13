@@ -36,7 +36,6 @@ const {
   insideAtRuleNode,
   insideURLFunctionInImportAtRuleNode,
   isKeyframeAtRuleKeywords,
-  isHTMLTag,
   isWideKeywords,
   isSCSS,
   isLastNode,
@@ -341,8 +340,7 @@ function genericPrint(path, options, print) {
         prevNode.type === "selector-nesting"
           ? node.value
           : adjustNumbers(
-              isHTMLTag(node.value) ||
-                isKeyframeAtRuleKeywords(path, node.value)
+              isKeyframeAtRuleKeywords(path, node.value)
                 ? node.value.toLowerCase()
                 : node.value
             )
