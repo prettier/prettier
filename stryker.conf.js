@@ -18,8 +18,8 @@ module.exports = function(config) {
     commandRunner: {
       command: "npx jest --no-cache"
     },
-    // TBD super-high timeout for now:
-    timeoutMS: 9000000,
+    // TBD ???:
+    timeoutMS: 15*60*1000,
     transpilers: [],
     coverageAnalysis: "off"
   });
