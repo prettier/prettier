@@ -2,9 +2,6 @@
 
 const path = require("path");
 const PROJECT_ROOT = path.resolve(__dirname, "../..");
-const babelReplaceArrayIncludesWithIndexof = require.resolve(
-  "./babel-plugins/replace-array-includes-with-indexof"
-);
 
 /**
  * @typedef {Object} Bundle
@@ -29,8 +26,7 @@ const babelReplaceArrayIncludesWithIndexof = require.resolve(
 const parsers = [
   {
     input: "src/language-js/parser-babylon.js",
-    target: "universal",
-    babelPlugins: [babelReplaceArrayIncludesWithIndexof]
+    target: "universal"
   },
   {
     input: "src/language-js/parser-flow.js",
@@ -40,7 +36,6 @@ const parsers = [
   {
     input: "src/language-js/parser-typescript.js",
     target: "universal",
-    babelPlugins: [babelReplaceArrayIncludesWithIndexof],
     commonjs: {
       ignore: [
         // Optional package for TypeScript that logs ETW events (a Windows-only technology).
@@ -133,8 +128,7 @@ const parsers = [
           replacement: require.resolve("lines-and-columns")
         }
       ]
-    },
-    babelPlugins: [babelReplaceArrayIncludesWithIndexof]
+    }
   }
 ].map(parser => {
   const name = getFileOutput(parser)

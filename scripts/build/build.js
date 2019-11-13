@@ -77,7 +77,6 @@ async function cacheFiles() {
 async function preparePackage() {
   const pkg = await util.readJson("package.json");
   pkg.bin = "./bin-prettier.js";
-  pkg.engines.node = ">=4";
   delete pkg.dependencies;
   delete pkg.devDependencies;
   pkg.scripts = {
@@ -99,7 +98,7 @@ async function run(params) {
     await execa("rm", ["-rf", ".cache"]);
   }
 
-  const bundleCache = new Cache(".cache/", "v19");
+  const bundleCache = new Cache(".cache/", "v20");
   await bundleCache.load();
 
   console.log(chalk.inverse(" Building packages "));
