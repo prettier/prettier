@@ -25,7 +25,7 @@ const {
 } = require("../doc");
 const {
   getFencedCodeBlockValue,
-  getOrderedListItemInfo,
+  hasGitDiffFriendlyOrderedList,
   splitText,
   punctuationPattern,
   INLINE_NODE_TYPES,
@@ -251,11 +251,10 @@ function genericPrint(path, options, print) {
         path.getParentNode()
       );
 
-      const isGitDiffFriendlyOrderedList =
-        node.ordered &&
-        node.children.length > 1 &&
-        +getOrderedListItemInfo(node.children[1], options.originalText)
-          .numberText === 1;
+      const isGitDiffFriendlyOrderedList = hasGitDiffFriendlyOrderedList(
+        node,
+        options
+      );
 
       return printChildren(path, options, print, {
         processor: (childPath, index) => {
