@@ -5388,8 +5388,14 @@ function printJSXElement(path, options, print) {
     containsMultipleAttributes ||
     containsMultipleExpressions;
 
+  const isMdxBlock =
+    options.__maybe_mdx_adjacent &&
+    path.getParentNode().type === "JsExpressionRoot";
+
   const rawJsxWhitespace = options.singleQuote ? "{' '}" : '{" "}';
-  const jsxWhitespace = ifBreak(concat([rawJsxWhitespace, softline]), " ");
+  const jsxWhitespace = isMdxBlock
+    ? concat([" "])
+    : ifBreak(concat([rawJsxWhitespace, softline]), " ");
 
   const isFacebookTranslationTag =
     n.openingElement &&
@@ -5509,6 +5515,10 @@ function printJSXElement(path, options, print) {
     ? fill(multilineChildren)
     : group(concat(multilineChildren), { shouldBreak: true });
 
+  if (isMdxBlock) {
+    return content;
+  }
+
   const multiLineElem = group(
     concat([
       openingLines,
@@ -5517,13 +5527,6 @@ function printJSXElement(path, options, print) {
       closingLines
     ])
   );
-
-  if (
-    options.__maybe_mdx_adjacent &&
-    path.getParentNode().type === "JsExpressionRoot"
-  ) {
-    return concat(children);
-  }
 
   if (forcedBreak) {
     return multiLineElem;

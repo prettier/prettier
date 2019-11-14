@@ -286,19 +286,16 @@ printWidth: 80
 </Hello>
 <Hello>
   test <World /> test
-</Hello>
-123
+</Hello>123
 
 ---
 
 <Hello>
   test <World /> test
-</Hello>{" "}
-123
+</Hello> 123
 <Hello>
   test <World /> test
-</Hello>{" "}
-234
+</Hello> 234
 
 ---
 
@@ -366,19 +363,16 @@ semi: false
 </Hello>
 <Hello>
   test <World /> test
-</Hello>
-123
+</Hello>123
 
 ---
 
 <Hello>
   test <World /> test
-</Hello>{" "}
-123
+</Hello> 123
 <Hello>
   test <World /> test
-</Hello>{" "}
-234
+</Hello> 234
 
 ---
 
