@@ -117,11 +117,10 @@ function clearCache() {
   resolveEditorConfig.clearCache();
 }
 
-function resolveConfigFile(filePath) {
+async function resolveConfigFile(filePath) {
   const load = getLoadFunction({ sync: false });
-  return load(filePath).then(result => {
-    return result ? result.filepath : null;
-  });
+  const result = await load(filePath);
+  return result ? result.filepath : null;
 }
 
 resolveConfigFile.sync = filePath => {
