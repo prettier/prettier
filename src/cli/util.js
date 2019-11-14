@@ -384,7 +384,9 @@ function formatStdin(context) {
 
       writeOutput(context, format(context, input, options), options);
     })
-    .catch(error => handleError(context, relativeFilepath || "stdin", error));
+    .catch(error => {
+      handleError(context, relativeFilepath || "stdin", error);
+    });
 }
 
 function createIgnorerFromContextOrDie(context) {
