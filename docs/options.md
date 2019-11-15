@@ -52,7 +52,7 @@ Valid options:
 
 | Default | CLI Override | API Override   |
 | ------- | ------------ | -------------- |
-| `true`  | `--no-semi`  | `semi: <bool>` |
+| `false`  | `--no-semi`  | `semi: <bool>` |
 
 ## Quotes
 
