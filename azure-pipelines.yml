@@ -92,3 +92,37 @@ jobs:
           TEST_STANDALONE: true
     steps:
       - template: .azure-pipelines/jobs/prod-test.yml
+
+  - job: Prod_Test_Windows
+    dependsOn: Prod_Build
+    displayName: Prod Test on Windows
+    pool:
+      vmImage: vs2017-win2016
+    strategy:
+      matrix:
+        Node_v10:
+          node_version: 10
+        Node_v12:
+          node_version: 12
+        Node_v12_standalone:
+          node_version: 12
+          TEST_STANDALONE: true
+    steps:
+      - template: .azure-pipelines/jobs/prod-test.yml
+
+  - job: Prod_Test_Linux
+    dependsOn: Prod_Build
+    displayName: Prod Test on Linux
+    pool:
+      vmImage: "Ubuntu 16.04"
+    strategy:
+      matrix:
+        Node_v10:
+          node_version: 10
+        Node_v12:
+          node_version: 12
+        Node_v12_standalone:
+          node_version: 12
+          TEST_STANDALONE: true
+    steps:
+      - template: .azure-pipelines/jobs/prod-test.yml
