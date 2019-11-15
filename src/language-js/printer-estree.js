@@ -5398,8 +5398,12 @@ function printJSXElement(path, options, print) {
     containsMultipleAttributes ||
     containsMultipleExpressions;
 
+  const isMdxBlock = path.getParentNode().rootMarker === "mdx";
+
   const rawJsxWhitespace = options.singleQuote ? "{' '}" : '{" "}';
-  const jsxWhitespace = ifBreak(concat([rawJsxWhitespace, softline]), " ");
+  const jsxWhitespace = isMdxBlock
+    ? concat([" "])
+    : ifBreak(concat([rawJsxWhitespace, softline]), " ");
 
   const isFacebookTranslationTag =
     n.openingElement &&
@@ -5518,6 +5522,10 @@ function printJSXElement(path, options, print) {
   const content = containsText
     ? fill(multilineChildren)
     : group(concat(multilineChildren), { shouldBreak: true });
+
+  if (isMdxBlock) {
+    return content;
+  }
 
   const multiLineElem = group(
     concat([

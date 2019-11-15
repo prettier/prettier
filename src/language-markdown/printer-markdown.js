@@ -35,12 +35,7 @@ const { replaceEndOfLineWith } = require("../common/util");
 
 const TRAILING_HARDLINE_NODES = ["importExport"];
 const SINGLE_LINE_NODE_TYPES = ["heading", "tableCell", "link"];
-const SIBLING_NODE_TYPES = [
-  "listItem",
-  "definition",
-  "footnoteDefinition",
-  "jsx"
-];
+const SIBLING_NODE_TYPES = ["listItem", "definition", "footnoteDefinition"];
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
@@ -769,55 +764,35 @@ function isPrettierIgnore(node) {
   return match === null ? false : match[1] ? match[1] : "next";
 }
 
-function isInlineNode(node) {
-  return node && INLINE_NODE_TYPES.indexOf(node.type) !== -1;
-}
-
-function isEndsWithHardLine(node) {
-  return node && /\n+$/.test(node.value);
-}
-
-function last(nodes) {
-  return nodes && nodes[nodes.length - 1];
-}
-
-function shouldNotPrePrintHardline(node, { parentNode, parts, prevNode }) {
-  const isFirstNode = parts.length === 0;
+function shouldNotPrePrintHardline(node, data) {
+  const isFirstNode = data.parts.length === 0;
+  const isInlineNode = INLINE_NODE_TYPES.indexOf(node.type) !== -1;
 
   const isInlineHTML =
     node.type === "html" &&
-    INLINE_NODE_WRAPPER_TYPES.indexOf(parentNode.type) !== -1;
+    INLINE_NODE_WRAPPER_TYPES.indexOf(data.parentNode.type) !== -1;
 
-  const isAfterHardlineNode =
-    prevNode &&
-    (isEndsWithHardLine(prevNode) ||
-      isEndsWithHardLine(last(prevNode.children)));
-
-  return (
-    isFirstNode || isInlineNode(node) || isInlineHTML || isAfterHardlineNode
-  );
+  return isFirstNode || isInlineNode || isInlineHTML;
 }
 
-function shouldPrePrintDoubleHardline(node, { parentNode, prevNode }) {
-  const prevNodeType = prevNode && prevNode.type;
-  const nodeType = node.type;
-
-  const isSequence = prevNodeType === nodeType;
+function shouldPrePrintDoubleHardline(node, data) {
+  const isSequence = (data.prevNode && data.prevNode.type) === node.type;
   const isSiblingNode =
-    isSequence && SIBLING_NODE_TYPES.indexOf(nodeType) !== -1;
+    isSequence && SIBLING_NODE_TYPES.indexOf(node.type) !== -1;
 
-  const isInTightListItem = parentNode.type === "listItem" && !parentNode.loose;
-  const isPrevNodeLooseListItem = prevNodeType === "listItem" && prevNode.loose;
-  const isPrevNodePrettierIgnore = isPrettierIgnore(prevNode) === "next";
+  const isInTightListItem =
+    data.parentNode.type === "listItem" && !data.parentNode.loose;
+
+  const isPrevNodeLooseListItem =
+    data.prevNode && data.prevNode.type === "listItem" && data.prevNode.loose;
+
+  const isPrevNodePrettierIgnore = isPrettierIgnore(data.prevNode) === "next";
 
   const isBlockHtmlWithoutBlankLineBetweenPrevHtml =
-    nodeType === "html" &&
-    prevNodeType === "html" &&
-    prevNode.position.end.line + 1 === node.position.start.line;
-
-  const isJsxInlineSibling =
-    (prevNodeType === "jsx" && isInlineNode(node)) ||
-    (nodeType === "jsx" && isInlineNode(prevNode));
+    node.type === "html" &&
+    data.prevNode &&
+    data.prevNode.type === "html" &&
+    data.prevNode.position.end.line + 1 === node.position.start.line;
 
   return (
     isPrevNodeLooseListItem ||
@@ -825,8 +800,7 @@ function shouldPrePrintDoubleHardline(node, { parentNode, prevNode }) {
       isSiblingNode ||
       isInTightListItem ||
       isPrevNodePrettierIgnore ||
-      isBlockHtmlWithoutBlankLineBetweenPrevHtml ||
-      isJsxInlineSibling
+      isBlockHtmlWithoutBlankLineBetweenPrevHtml
     )
   );
 }
