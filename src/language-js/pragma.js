@@ -4,7 +4,7 @@ const docblock = require("jest-docblock");
 
 function hasPragma(text) {
   const pragmas = Object.keys(docblock.parse(docblock.extract(text)));
-  return pragmas.indexOf("prettier") !== -1 || pragmas.indexOf("format") !== -1;
+  return pragmas.includes("prettier") || pragmas.includes("format");
 }
 
 function insertPragma(text) {

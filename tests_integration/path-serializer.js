@@ -2,7 +2,7 @@
 
 const replaceCWD = text => {
   const cwd = process.cwd();
-  while (text.indexOf(cwd) !== -1) {
+  while (text.includes(cwd)) {
     text = text.replace(cwd, "<cwd>");
   }
 
@@ -12,7 +12,7 @@ const replaceCWD = text => {
 module.exports = {
   test: value =>
     typeof value === "string" &&
-    (value.indexOf("\\") > -1 || value.indexOf(process.cwd()) > -1),
+    (value.includes("\\") || value.includes(process.cwd())),
   print: (value, serializer) =>
     serializer(replaceCWD(value).replace(/\\/g, "/"))
 };

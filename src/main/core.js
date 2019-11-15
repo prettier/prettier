@@ -90,7 +90,7 @@ function coreFormat(text, opts, addAlignmentSize) {
     opts.endOfLine === "lf"
       ? doc
       : mapDoc(doc, currentDoc =>
-          typeof currentDoc === "string" && currentDoc.indexOf("\n") !== -1
+          typeof currentDoc === "string" && currentDoc.includes("\n")
             ? currentDoc.replace(/\n/g, eol)
             : currentDoc
         ),
@@ -167,7 +167,7 @@ function coreFormat(text, opts, addAlignmentSize) {
     let cursorOffset = newCursorNodeStart;
     for (const entry of cursorNodeDiff) {
       if (entry.removed) {
-        if (entry.value.indexOf(CURSOR) > -1) {
+        if (entry.value.includes(CURSOR)) {
           break;
         }
       } else {
@@ -293,7 +293,7 @@ function format(text, opts) {
   const hasRangeEnd = opts.rangeEnd < text.length;
 
   // get rid of CR/CRLF parsing
-  if (text.indexOf("\r") !== -1) {
+  if (text.includes("\r")) {
     const offsetKeys = [
       hasCursor && "cursorOffset",
       hasRangeStart && "rangeStart",
@@ -372,7 +372,7 @@ module.exports = {
 
   parse(text, opts, massage) {
     opts = normalizeOptions(opts);
-    if (text.indexOf("\r") !== -1) {
+    if (text.includes("\r")) {
       text = text.replace(/\r\n?/g, "\n");
     }
     const parsed = parser.parse(text, opts);
