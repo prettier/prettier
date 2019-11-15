@@ -18,7 +18,7 @@ exports[`import_comma.scss 2`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
-trailingComma: "es5"
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 @import "rounded-corners", "text-shadow";
@@ -2002,7 +2002,7 @@ $my-map: (
   "foo": 1,
   // Comment
     "bar": 2,
-  // Comment,
+  // Comment
 );
 
 [href]:hover &, // Comment
@@ -2055,7 +2055,7 @@ exports[`scss.scss 2`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
-trailingComma: "es5"
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 @media #{$g-breakpoint-tiny} {}
@@ -3145,188 +3145,188 @@ $global: "very-long-long-long-long-long-long-long-long-long-long-long-value" !gl
 
 $map: (
   key: value,
-  other-key: other-value,
+  other-key: other-value
 );
 $map: (
   key: value,
-  other-key: other-value,
+  other-key: other-value
 ) !default;
 $map: (
   key: value,
-  other-key: other-value,
+  other-key: other-value
 ) !default;
 $map: (
   key: value,
-  other-key: other-value,
+  other-key: other-value
 ) !default;
 $map: (
   key: value,
-  other-key: other-value,
+  other-key: other-value
 ) !default;
 $map: (
   key: value,
-  other-key: other-value,
+  other-key: other-value
 );
 $map: (
   key: value,
-  other-key: other-value,
+  other-key: other-value
 );
 $map: (
   key: value,
-  other-key: other-value,
+  other-key: other-value
 );
 $map: (
   key: value,
-  other-key: other-value,
+  other-key: other-value
 );
 $map: (
   key: value,
-  other-key: other-value,
+  other-key: other-value
 );
 $map: (
   key: value,
-  other-key: other-value,
+  other-key: other-value
 );
 $map: (
   very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-key:
     very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-value,
   very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-key:
-    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-value,
+    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-value
 );
 $map: (
   very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-key:
     very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-value,
   very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-key:
-    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-value,
+    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-value
 );
 $map: (
   very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-key:
     very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-value,
   very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-key:
-    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-value,
+    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-value
 );
 $map: (
   very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-key:
     very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-value,
   very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-key:
-    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-value,
+    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-value
 );
 $map: (
   very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-key:
     very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-value,
   very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-key:
-    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-value,
+    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-value
 );
 $map: (
   very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-key:
     very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-value,
   very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-key:
-    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-value,
+    very-very-very-very-very-very-very-very-very-very-very-very-very-very-very-verylong-other-value
 );
 $map: (
   key: (
     #d82d2d,
-    #666,
+    #666
   ),
   other-key: (
     #52bf4a,
-    #fff,
+    #fff
   ),
   other-other-key: (
     #c23435,
-    #fff,
-  ),
+    #fff
+  )
 );
 $map: (
   key: (
     #d82d2d,
-    #666,
+    #666
   ),
   other-key: (
     #52bf4a,
-    #fff,
+    #fff
   ),
   other-other-key: (
     #c23435,
-    #fff,
-  ),
+    #fff
+  )
 );
 $map: (
   key: (
     #d82d2d,
-    #666,
+    #666
   ),
   other-key: (
     #52bf4a,
-    #fff,
+    #fff
   ),
   other-other-key: (
     #c23435,
-    #fff,
-  ),
+    #fff
+  )
 );
 $map: (
   key: (
     #d82d2d,
-    #666,
+    #666
   ),
   other-key: (
     #52bf4a,
-    #fff,
+    #fff
   ),
   other-other-key: (
     #c23435,
-    #fff,
-  ),
+    #fff
+  )
 );
 $map: (
   key: (
     #d82d2d,
-    #666,
+    #666
   ),
   other-key: (
     #52bf4a,
-    #fff,
+    #fff
   ),
   other-other-key: (
     #c23435,
-    #fff,
-  ),
-);
-$map: map-merge(
-  $map,
-  (
-    $key: $value,
+    #fff
   )
 );
 $map: map-merge(
   $map,
   (
-    $key: $value,
+    $key: $value
   )
 );
 $map: map-merge(
   $map,
   (
-    $key: $value,
+    $key: $value
   )
 );
 $map: map-merge(
   $map,
   (
-    $key: $value,
+    $key: $value
   )
 );
 $map: map-merge(
   $map,
   (
-    $key: $value,
+    $key: $value
   )
 );
 $map: map-merge(
   $map,
   (
-    $key: $value,
+    $key: $value
+  )
+);
+$map: map-merge(
+  $map,
+  (
+    $key: $value
   )
 );
 
@@ -3836,7 +3836,7 @@ a:nth-child(#{$numPerRow}n) {
 
 $extmods: (
   eot: "?",
-  svg: "#" + str-replace($name, " ", "_"),
+  svg: "#" + str-replace($name, " ", "_")
 );
 
 @mixin keyframes {
@@ -3861,18 +3861,18 @@ $colors: (
   primary: (
     base: #00abc9,
     light: #daf1f6,
-    dark: #12799a,
+    dark: #12799a
   ),
   secondary: (
     base: #424d55,
     light: #ccc,
     lightest: #efefef,
-    dark: #404247,
+    dark: #404247
   ),
   success: (
     base: #bbd33e,
-    light: #eaf0c6,
-  ),
+    light: #eaf0c6
+  )
 );
 
 @function color($color, $tone: "base") {
@@ -3913,12 +3913,12 @@ $empty-map: ();
 $empty-nested-map: (
   nested-key: (
     empty-key: (
-      color: red,
-    ),
+      color: red
+    )
   ),
   empty-key: (),
   empty-key: (),
-  empty-key: (),
+  empty-key: ()
 );
 
 $o-grid-default-config: (
@@ -3930,12 +3930,12 @@ $o-grid-default-config: (
     S: 370px,
     M: 610px,
     L: 850px,
-    XL: 1090px,
+    XL: 1090px
   ),
   fluid: true,
   debug: false,
   fixed-layout: M,
-  enhanced-experience: true,
+  enhanced-experience: true
 );
 
 $a: ();
@@ -3946,22 +3946,22 @@ $d: (null);
 $threads-properties: map-merge(
   $threads-properties,
   (
-    $border-label: (),
+    $border-label: ()
   )
 );
 $o-grid-default-config: (
   layouts: (
-    S: 370px,
-  ),
+    S: 370px
+  )
 );
 
 $map: (
   key: (
-    value,
+    value
   ),
   other-key: (
-    key: other-other-value,
-  ),
+    key: other-other-value
+  )
 );
 
 a {
