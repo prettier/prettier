@@ -94,7 +94,7 @@ a:after {
   background-color: orange;
 }
 
-table {
+TABLE {
 }
 
 /* apply a dashed border to all unresolved elements */
@@ -298,7 +298,7 @@ TABLE {}
 
 @import Keep;
 
-html#KeepId.KeepClass,
+HTML#KeepId.KeepClass,
 a[HREF="KeepAttrValue"]:hover::first-letter,
 svg[viewBox] linearGradient,
 :not(:nth-child(2n + 1)) {
@@ -358,7 +358,7 @@ $KeepScssVar: val;
     prop: val;
   };
 
-  &Keep & element {
+  &Keep & Element {
     prop: val;
   }
 
@@ -438,7 +438,7 @@ a:after {
   background-color: orange;
 }
 
-table {
+TABLE {
 }
 
 .foo {
@@ -616,7 +616,7 @@ TABLE {}
 
 @import Keep;
 
-html#KeepId.KeepClass,
+HTML#KeepId.KeepClass,
 a[HREF="KeepAttrValue"]:hover::first-letter,
 svg[viewBox] linearGradient,
 :not(:nth-child(2n + 1)) {
@@ -680,7 +680,7 @@ $KeepTopLevelVar: val;
     prop: val;
   }
 
-  &Keep & element {
+  &Keep & Element {
     prop: val;
   }
 
@@ -755,7 +755,7 @@ a:after {
   background-color: orange;
 }
 
-table {
+TABLE {
 }
 
 .foo {
