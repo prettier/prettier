@@ -25,7 +25,6 @@ exports[`logical-expression.ng 2`] = `
 ====================================options=====================================
 parsers: ["__ng_interpolation"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 [
@@ -134,7 +133,6 @@ exports[`pipe-expression.ng 2`] = `
 ====================================options=====================================
 parsers: ["__ng_interpolation"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 [
