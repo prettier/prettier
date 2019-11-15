@@ -5388,9 +5388,7 @@ function printJSXElement(path, options, print) {
     containsMultipleAttributes ||
     containsMultipleExpressions;
 
-  const isMdxBlock =
-    options.__maybe_mdx_adjacent &&
-    path.getParentNode().type === "JsExpressionRoot";
+  const isMdxBlock = path.getParentNode().rootMarker === "mdx";
 
   const rawJsxWhitespace = options.singleQuote ? "{' '}" : '{" "}';
   const jsxWhitespace = isMdxBlock

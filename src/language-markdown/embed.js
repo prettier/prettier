@@ -59,7 +59,7 @@ function embed(path, print, textToDoc, options) {
     case "jsx":
       return textToDoc(`<$>${node.value}</$>`, {
         parser: "__js_expression",
-        __maybe_mdx_adjacent: true
+        rootMarker: "mdx"
       });
   }
 
