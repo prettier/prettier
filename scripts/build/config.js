@@ -36,11 +36,8 @@ const parsers = [
   {
     input: "src/language-js/parser-typescript.js",
     target: "universal",
-    commonjs: {
-      ignore: [
-        // Optional package for TypeScript that logs ETW events (a Windows-only technology).
-        "@microsoft/typescript-etw"
-      ]
+    replace: {
+      'require("@microsoft/typescript-etw")': "undefined"
     }
   },
   {

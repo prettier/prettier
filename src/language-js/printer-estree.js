@@ -120,6 +120,16 @@ const {
 let uid = 0;
 
 function shouldPrintComma(options, level) {
+  // angular does not allow trailing comma
+  if (
+    options.parser === "__ng_interpolation" ||
+    options.parser === "__ng_action" ||
+    options.parser === "__ng_binding" ||
+    options.parser === "__ng_directive"
+  ) {
+    return false;
+  }
+
   level = level || "es5";
 
   switch (options.trailingComma) {
@@ -4573,6 +4583,7 @@ function printTypeParameters(path, options, print, paramsKey) {
   }
 
   const grandparent = path.getNode(2);
+  const greatGrandParent = path.getNode(3);
   const greatGreatGrandParent = path.getNode(4);
 
   const isParameterInTestCall = grandparent != null && isTestCall(grandparent);
@@ -4590,12 +4601,17 @@ function printTypeParameters(path, options, print, paramsKey) {
         // See https://github.com/prettier/prettier/pull/6467 for the context.
         (greatGreatGrandParent &&
           greatGreatGrandParent.type === "VariableDeclarator" &&
-          grandparent &&
           grandparent.type === "TSTypeAnnotation" &&
+          greatGrandParent.type !== "ArrowFunctionExpression" &&
           n[paramsKey][0].type !== "TSUnionType" &&
           n[paramsKey][0].type !== "UnionTypeAnnotation" &&
+          n[paramsKey][0].type !== "TSIntersectionType" &&
+          n[paramsKey][0].type !== "IntersectionTypeAnnotation" &&
           n[paramsKey][0].type !== "TSConditionalType" &&
-          n[paramsKey][0].type !== "TSMappedType")));
+          n[paramsKey][0].type !== "TSMappedType" &&
+          n[paramsKey][0].type !== "TSTypeOperator" &&
+          n[paramsKey][0].type !== "TSIndexedAccessType" &&
+          n[paramsKey][0].type !== "TSArrayType")));
 
   if (shouldInline) {
     return concat(["<", join(", ", path.map(print, paramsKey)), ">"]);
@@ -5382,8 +5398,12 @@ function printJSXElement(path, options, print) {
     containsMultipleAttributes ||
     containsMultipleExpressions;
 
+  const isMdxBlock = path.getParentNode().rootMarker === "mdx";
+
   const rawJsxWhitespace = options.singleQuote ? "{' '}" : '{" "}';
-  const jsxWhitespace = ifBreak(concat([rawJsxWhitespace, softline]), " ");
+  const jsxWhitespace = isMdxBlock
+    ? concat([" "])
+    : ifBreak(concat([rawJsxWhitespace, softline]), " ");
 
   const isFacebookTranslationTag =
     n.openingElement &&
@@ -5502,6 +5522,10 @@ function printJSXElement(path, options, print) {
   const content = containsText
     ? fill(multilineChildren)
     : group(concat(multilineChildren), { shouldBreak: true });
+
+  if (isMdxBlock) {
+    return content;
+  }
 
   const multiLineElem = group(
     concat([
