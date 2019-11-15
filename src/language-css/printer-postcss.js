@@ -36,7 +36,6 @@ const {
   insideAtRuleNode,
   insideURLFunctionInImportAtRuleNode,
   isKeyframeAtRuleKeywords,
-  isHTMLTag,
   isWideKeywords,
   isSCSS,
   isLastNode,
@@ -341,8 +340,7 @@ function genericPrint(path, options, print) {
         prevNode.type === "selector-nesting"
           ? node.value
           : adjustNumbers(
-              isHTMLTag(node.value) ||
-                isKeyframeAtRuleKeywords(path, node.value)
+              isKeyframeAtRuleKeywords(path, node.value)
                 ? node.value.toLowerCase()
                 : node.value
             )
@@ -740,6 +738,9 @@ function genericPrint(path, options, print) {
 
       const isSCSSMapItem = isSCSSMapItemNode(path);
 
+      const lastItem = node.groups[node.groups.length - 1];
+      const isLastItemComment = lastItem && lastItem.type === "value-comment";
+
       return group(
         concat([
           node.open ? path.call(print, "open") : "",
@@ -773,7 +774,8 @@ function genericPrint(path, options, print) {
             ])
           ),
           ifBreak(
-            isSCSS(options.parser, options.originalText) &&
+            !isLastItemComment &&
+              isSCSS(options.parser, options.originalText) &&
               isSCSSMapItem &&
               shouldPrintComma(options)
               ? ","

@@ -150,6 +150,32 @@ class Yo {
 ================================================================================
 `;
 
+exports[`mixed.js 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// https://github.com/prettier/prettier/issues/6747
+
+@foo
+export default class MyComponent {
+  @task
+  *foo() {
+  }
+}
+=====================================output=====================================
+// https://github.com/prettier/prettier/issues/6747
+
+@foo
+export default class MyComponent {
+  @task
+  *foo() {}
+}
+
+================================================================================
+`;
+
 exports[`mobx.js 1`] = `
 ====================================options=====================================
 parsers: ["babel"]

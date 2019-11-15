@@ -11,7 +11,7 @@
   "license": "MIT",
   "main": "./index.js",
   "engines": {
-    "node": ">=8"
+    "node": ">=10"
   },
   "dependencies": {
     "@angular/compiler": "8.2.13",
@@ -69,7 +69,7 @@
     "string-width": "4.1.0",
     "typescript": "3.7.2",
     "unicode-regex": "3.0.0",
-    "unified": "8.4.1",
+    "unified": "8.4.2",
     "vnopts": "1.0.2",
     "yaml-unist-parser": "1.1.1"
   },
@@ -94,7 +94,7 @@
     "jest-junit": "9.0.0",
     "jest-snapshot-serializer-ansi": "1.0.0",
     "jest-snapshot-serializer-raw": "1.1.0",
-    "jest-watch-typeahead": "0.4.0",
+    "jest-watch-typeahead": "0.4.2",
     "mkdirp": "0.5.1",
     "prettier": "1.19.1",
     "prettylint": "1.0.0",
@@ -107,7 +107,7 @@
     "rollup-plugin-node-resolve": "5.2.0",
     "rollup-plugin-terser": "5.1.2",
     "shelljs": "0.8.3",
-    "snapshot-diff": "0.4.0",
+    "snapshot-diff": "0.6.1",
     "strip-ansi": "5.2.0",
     "synchronous-promise": "2.0.10",
     "tempy": "0.2.1",
