@@ -907,7 +907,7 @@ const STRING_REGEX = /(['"])(?:(?!\1)[^\\]|\\[\s\S])*\1/g;
 const NUMBER_REGEX = /(?:\d*\.\d+|\d+\.?)(?:[eE][+-]?\d+)?/g;
 const STANDARD_UNIT_REGEX = /[a-zA-Z]+/g;
 const WORD_PART_REGEX = /[$@]?[a-zA-Z_\u0080-\uFFFF][\w\-\u0080-\uFFFF]*/g;
-const ADJUST_NUMBERS_REGEX = RegExp(
+const ADJUST_NUMBERS_REGEX = new RegExp(
   STRING_REGEX.source +
     `|` +
     `(${WORD_PART_REGEX.source})?` +
