@@ -447,7 +447,7 @@ function formatFiles(context) {
     try {
       fileIgnored = ignorer.ignores(path.relative(process.cwd(), filename));
     } catch (_) {
-      // eslint-disable-line no-empty
+      // Invalid path
     }
 
     if (

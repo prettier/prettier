@@ -72,7 +72,7 @@ function _getFileInfo({
   try {
     ignored = ignorer.ignores(path.relative(process.cwd(), filePath));
   } catch (_) {
-    // eslint-disable-line no-empty
+    // Invalid path
   }
 
   const fileInfo = {
