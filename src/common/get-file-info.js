@@ -71,7 +71,9 @@ function _getFileInfo({
   let ignored = true;
   try {
     ignored = ignorer.ignores(path.relative(process.cwd(), filePath));
-  } catch (_) {}
+  } catch (_) {
+    // eslint-disable-line no-empty
+  }
 
   const fileInfo = {
     ignored,
