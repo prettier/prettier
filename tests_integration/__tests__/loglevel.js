@@ -1,6 +1,7 @@
 "use strict";
 
 const runPrettier = require("../runPrettier");
+const stripAnsi = require("strip-ansi");
 
 test("do not show logs with --loglevel silent", () => {
   runPrettierWithLogLevel("silent", null);
@@ -40,11 +41,13 @@ function runPrettierWithLogLevel(logLevel, patterns) {
 
   expect(result).not.toEqual(0);
 
+  const stderr = stripAnsi(result.stderr);
+
   if (patterns) {
     patterns.forEach(pattern => {
-      expect(result.stderr).toMatch(pattern);
+      expect(stderr).toMatch(pattern);
     });
   } else {
-    expect(result.stderr).toMatch(/^\s*$/);
+    expect(stderr).toMatch(/^\s*$/);
   }
 }
