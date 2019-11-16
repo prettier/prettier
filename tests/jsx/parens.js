@@ -16,3 +16,4 @@ f?.(<div/>);
 (<div/>)?.();
 
 new Foo(<Component/>);
+new Foo((<Component/>))
