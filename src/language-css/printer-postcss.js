@@ -189,17 +189,22 @@ function genericPrint(path, options, print) {
       ]);
     }
     case "css-atrule": {
+      const parentNode = path.getParentNode();
+
       if (node.variable) {
         return concat([
           "@",
           node.name,
           ": ",
           node.params ? path.call(print, "params") : "",
-          ";"
+          isTemplatePlaceholderNode(node) &&
+          !parentNode.raws.semicolon &&
+          options.originalText[options.locEnd(node) - 1] !== ";"
+            ? ""
+            : ";"
         ]);
       }
 
-      const parentNode = path.getParentNode();
       return concat([
         // maybe node.raws.identifier
         node.mixin ? "." : "@",
