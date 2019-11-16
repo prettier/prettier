@@ -207,11 +207,12 @@ function genericPrint(path, options, print) {
         return concat([
           "@",
           node.name,
-          ": ",
-          node.params ? path.call(print, "params") : "",
+          ":",
+          node.params ? concat([" ", path.call(print, "params")]) : "",
+          // node.raws.between.trim() ? " " + node.raws.between.trim() : "",
           node.nodes
             ? concat([
-                "{",
+                " {",
                 indent(
                   concat([
                     node.nodes.length > 0 ? softline : "",

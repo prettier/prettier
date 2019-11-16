@@ -386,9 +386,15 @@ function parseNestedCSS(node, options) {
     }
 
     // Less whitespace between variable and colon
-    if (node.type === "css-atrule" && node.params.startsWith(":")) {
+    if (
+      node.type === "css-atrule" &&
+      node.params.startsWith(":") &&
+      node.name !== "custom-selector"
+    ) {
+      // if (!(options.parser === "css" && node.name === "custom-selector")) {
       node.variable = true;
       node.params = node.params.slice(1);
+      // }
     }
 
     // Less whitespace between variable and colon
@@ -400,10 +406,7 @@ function parseNestedCSS(node, options) {
     }
 
     // Less variable
-    if (
-      node.type === "css-atrule" &&
-      (node.variable || node.params.startsWith(":"))
-    ) {
+    if (node.type === "css-atrule" && node.variable) {
       if (node.params) {
         node.params = parseValue(node.params);
       }
