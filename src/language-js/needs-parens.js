@@ -745,6 +745,7 @@ function needsParens(path, options) {
           parent.type !== "AssignmentPattern" &&
           parent.type !== "BinaryExpression" &&
           parent.type !== "CallExpression" &&
+          parent.type !== "NewExpression" &&
           parent.type !== "ConditionalExpression" &&
           parent.type !== "ExpressionStatement" &&
           parent.type !== "JsExpressionRoot" &&
