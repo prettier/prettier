@@ -443,7 +443,11 @@ function formatFiles(context) {
   }
 
   eachFilename(context, context.filePatterns, filename => {
-    const fileIgnored = ignorer.filter([filename]).length === 0;
+    let fileIgnored = false;
+    try {
+      fileIgnored = ignorer.ignores(path.relative(process.cwd(), filename));
+    } catch (_) {}
+
     if (
       fileIgnored &&
       (context.argv["debug-check"] ||

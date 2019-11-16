@@ -68,8 +68,13 @@ function _getFileInfo({
   resolveConfig = false,
   sync = false
 }) {
+  let ignored = true;
+  try {
+    ignored = ignorer.ignores(path.relative(process.cwd(), filePath));
+  } catch (_) {}
+
   const fileInfo = {
-    ignored: ignorer.ignores(filePath),
+    ignored,
     inferredParser: options.inferParser(filePath, plugins) || null
   };
 
