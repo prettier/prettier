@@ -1804,7 +1804,7 @@ label {
 
 @base: 2cm * 3mm; // result is 6cm
 
-@color: #224488 / 2; //results in #112244
+@color: #224488 / 2; // results in #112244
 background-color: #112244 + #111; // result is #223355
 
 .weird-element {
@@ -2711,7 +2711,7 @@ div {
 
 #namespace {
   .unlock(5); // unlock doSomething mixin
-  .doSomething(); //nested mixin was copied here and is usable
+  .doSomething(); // nested mixin was copied here and is usable
 }
 
 #namespace {
