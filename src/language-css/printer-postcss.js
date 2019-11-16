@@ -123,7 +123,13 @@ function genericPrint(path, options, print) {
           const needBreakAfter = !node.source.input.css
             .split("\n")
             [node.source.end.line].trim();
-          return concat(["// ", rawText, needBreakAfter ? "\n" : ""]);
+          return concat([
+            "// ",
+            // should we keep left?
+            // node.raws.left,
+            rawText,
+            needBreakAfter ? "\n" : ""
+          ]);
         }
         return concat(["/* ", rawText, " */"]);
       }
@@ -192,6 +198,10 @@ function genericPrint(path, options, print) {
     }
     case "css-atrule": {
       const parentNode = path.getParentNode();
+      const removeSemiColon =
+        isTemplatePlaceholderNode(node) &&
+        !parentNode.raws.semicolon &&
+        options.originalText[options.locEnd(node) - 1] !== ";";
 
       if (node.variable) {
         return concat([
@@ -199,17 +209,32 @@ function genericPrint(path, options, print) {
           node.name,
           ": ",
           node.params ? path.call(print, "params") : "",
-          isTemplatePlaceholderNode(node) &&
-          !parentNode.raws.semicolon &&
-          options.originalText[options.locEnd(node) - 1] !== ";"
-            ? ""
-            : ";"
+          node.nodes
+            ? concat([
+                "{",
+                indent(
+                  concat([
+                    node.nodes.length > 0 ? softline : "",
+                    printNodeSequence(path, options, print)
+                  ])
+                ),
+                softline,
+                "}"
+              ])
+            : "",
+          removeSemiColon ? "" : ";"
         ]);
       }
 
+      if (node.mixin) {
+        return concat([
+          path.call(print, "selector"),
+          node.important ? " !important" : "",
+          removeSemiColon ? "" : ";"
+        ]);
+      }
       return concat([
-        // maybe node.raws.identifier
-        node.mixin ? "." : "@",
+        "@",
         // If a Less file ends up being parsed with the SCSS parser, Less
         // variable declarations will be parsed as at-rules with names ending
         // with a colon, so keep the original case then.
@@ -247,7 +272,6 @@ function genericPrint(path, options, print) {
           : node.name === "else"
           ? " "
           : "",
-        node.important ? " !important" : "",
         node.nodes
           ? concat([
               isSCSSControlDirectiveNode(node) ? "" : " ",
@@ -261,9 +285,7 @@ function genericPrint(path, options, print) {
               softline,
               "}"
             ])
-          : isTemplatePlaceholderNode(node) &&
-            !parentNode.raws.semicolon &&
-            options.originalText[options.locEnd(node) - 1] !== ";"
+          : removeSemiColon
           ? ""
           : ";"
       ]);

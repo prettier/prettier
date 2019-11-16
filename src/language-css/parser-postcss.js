@@ -385,9 +385,40 @@ function parseNestedCSS(node, options) {
       node.value = parseValue(value);
     }
 
+    // Less whitespace between variable and colon
+    if (node.type === "css-atrule" && node.params.startsWith(":")) {
+      node.variable = true;
+      node.params = node.params.slice(1);
+    }
+
+    // Less whitespace between variable and colon
+    if (node.type === "css-atrule" && node.name.includes(":") && !node.params) {
+      node.variable = true;
+      const a = node.name.split(":");
+      node.name = a[0];
+      node.params = a[1];
+    }
+
     // Less variable
-    if (node.type === "css-atrule" && node.variable) {
-      node.params = parseValue(node.params);
+    if (
+      node.type === "css-atrule" &&
+      (node.variable || node.params.startsWith(":"))
+    ) {
+      if (node.params) {
+        node.params = parseValue(node.params);
+      }
+      return node;
+    }
+
+    // Less mixin
+    if (node.type === "css-atrule" && node.mixin) {
+      const source =
+        node.raws.identifier +
+        node.name +
+        node.raws.afterName +
+        node.raws.params;
+      node.selector = parseSelector(source);
+      delete node.params;
       return node;
     }
 
