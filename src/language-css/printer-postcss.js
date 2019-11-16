@@ -190,7 +190,13 @@ function genericPrint(path, options, print) {
     }
     case "css-atrule": {
       if (node.variable) {
-        return concat(["@", node.name, node.params, ";"]);
+        return concat([
+          "@",
+          node.name,
+          ": ",
+          node.params ? path.call(print, "params") : "",
+          ";"
+        ]);
       }
 
       const parentNode = path.getParentNode();

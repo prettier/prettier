@@ -385,6 +385,12 @@ function parseNestedCSS(node, options) {
       node.value = parseValue(value);
     }
 
+    // Less variable
+    if (node.type === "css-atrule" && node.variable) {
+      node.params = parseValue(node.params);
+      return node;
+    }
+
     if (node.type === "css-atrule" && params.length > 0) {
       const { name } = node;
       const lowercasedName = node.name.toLowerCase();
