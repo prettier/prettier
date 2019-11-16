@@ -190,9 +190,9 @@ function genericPrint(path, options, print) {
     }
     case "css-atrule": {
       const parentNode = path.getParentNode();
-
       return concat([
-        "@",
+        // maybe node.raws.identifier
+        node.mixin ? "." : "@",
         // If a Less file ends up being parsed with the SCSS parser, Less
         // variable declarations will be parsed as at-rules with names ending
         // with a colon, so keep the original case then.
@@ -230,6 +230,7 @@ function genericPrint(path, options, print) {
           : node.name === "else"
           ? " "
           : "",
+        node.important ? " !important" : "",
         node.nodes
           ? concat([
               isSCSSControlDirectiveNode(node) ? "" : " ",
