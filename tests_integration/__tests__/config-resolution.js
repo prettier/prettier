@@ -232,6 +232,15 @@ test("API clearConfigCache", () => {
   expect(() => prettier.clearConfigCache()).not.toThrowError();
 });
 
+test("API resolveConfig overrides work with dotfiles", () => {
+  const folder = path.join(__dirname, "../cli/config/dot-overrides");
+  return expect(
+    prettier.resolveConfig(path.join(folder, ".foo.json"))
+  ).resolves.toMatchObject({
+    tabWidth: 4
+  });
+});
+
 test("API resolveConfig.sync overrides work with absolute paths", () => {
   // Absolute path
   const file = path.join(__dirname, "../cli/config/filepath/subfolder/file.js");

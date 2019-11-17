@@ -296,9 +296,7 @@ function printStringLiteral(stringLiteral, options) {
     `\\${enclosingQuote.quote}`
   );
 
-  return `${enclosingQuote.quote}${escapedStringLiteral}${
-    enclosingQuote.quote
-  }`;
+  return `${enclosingQuote.quote}${escapedStringLiteral}${enclosingQuote.quote}`;
 }
 
 function printPath(path, print) {

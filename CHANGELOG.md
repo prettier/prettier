@@ -12,6 +12,61 @@ $ git log --pretty=format:"- %s" rev1..rev2 | sed 's/#\([0-9]*\)/\[prettier\/pre
 
 - no bundled TypeScript & no prod build
 
+### prettier 1.18.2
+
+[diff](https://github.com/prettier/prettier/compare/1.18.2...1.18.1)
+
+- TypeScript: only add trailing commas in tuples for `--trailing-comma=all` ([#6199] by [@duailibe])
+
+  In Prettier 1.18 we added trailing commas in tuples when `--trailing-comma=all`, but it was also adding for `--trailing-comma=es5`.
+
+  [#6199]: https://github.com/prettier/prettier/pull/6199
+  [@duailibe]: https://github.com/duailibe
+
+### prettier 1.18.1
+
+[diff](https://github.com/prettier/prettier/compare/1.18.1...1.18.0)
+
+- TypeScript: Add trailing comma in tsx, only for arrow function ([#6190] by [@sosukesuzuki])
+
+  Prettier inserts a trailing comma to single type parameter for arrow functions in tsx, since v 1.18. But, this feature inserts a trailing comma to type parameter for besides arrow functions too (e.g, function , interface). This change fix it.
+
+  <!-- prettier-ignore -->
+  ```tsx
+  // Input
+  interface Interface1<T> {
+    one: "one";
+  }
+  function function1<T>() {
+    return "one";
+  }
+
+  // Output (Prettier stable)
+  interface Interface1<T,> {
+    one: "one";
+  }
+  function function1<T,>() {
+    return "one";
+  }
+
+  // Output (Prettier master)
+  interface Interface1<T> {
+    one: "one";
+  }
+  function function1<T>() {
+    return "one";
+  }
+  ```
+
+- Config: Match dotfiles in config overrides ([#6194] by [@duailibe])
+
+  When using [`overrides`](https://prettier.io/docs/en/configuration.html#configuration-overrides) in the config file, Prettier was not matching dotfiles (files that start with `.`). This was fixed in 1.18.1
+
+[#6190]: https://github.com/prettier/prettier/pull/6190
+[#6194]: https://github.com/prettier/prettier/pull/6194
+[@duailibe]: https://github.com/duailibe
+[@sosukesuzuki]: https://github.com/sosukesuzuki
+
 ## prettierx 0.8.0
 
 [compare prettierx-0.7.0...prettierx-0.8.0](https://github.com/brodybits/prettierx/compare/prettierx-0.7.0...prettierx-0.8.0)
