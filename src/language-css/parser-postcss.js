@@ -393,6 +393,7 @@ function parseNestedCSS(node, options) {
         return node;
       }
 
+      // only css support custom-selector
       if (node.name === "custom-selector" && options.parser === "css") {
         const customSelector = node.params.match(/:--\S+?\s+/)[0].trim();
         node.customSelector = customSelector;

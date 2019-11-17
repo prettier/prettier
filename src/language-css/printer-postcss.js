@@ -123,13 +123,7 @@ function genericPrint(path, options, print) {
           const needBreakAfter = !(
             node.source.input.css.split("\n")[node.source.end.line] || ""
           ).trim();
-          return concat([
-            "// ",
-            // should we keep left?
-            // node.raws.left,
-            rawText,
-            needBreakAfter ? "\n" : ""
-          ]);
+          return concat(["// ", rawText, needBreakAfter ? "\n" : ""]);
         }
         return concat(["/* ", rawText, " */"]);
       }
@@ -203,7 +197,7 @@ function genericPrint(path, options, print) {
     }
     case "css-atrule": {
       const parentNode = path.getParentNode();
-      const removeSemiColon =
+      const isTemplatePlaceholderNodeWithoutSemiColon =
         isTemplatePlaceholderNode(node) &&
         !parentNode.raws.semicolon &&
         options.originalText[options.locEnd(node) - 1] !== ";";
@@ -228,7 +222,7 @@ function genericPrint(path, options, print) {
                 "}"
               ])
             : "",
-          removeSemiColon ? "" : ";"
+          isTemplatePlaceholderNodeWithoutSemiColon ? "" : ";"
         ]);
       }
 
@@ -236,7 +230,7 @@ function genericPrint(path, options, print) {
         return concat([
           path.call(print, "selector"),
           node.important ? " !important" : "",
-          removeSemiColon ? "" : ";"
+          isTemplatePlaceholderNodeWithoutSemiColon ? "" : ";"
         ]);
       }
       return concat([
@@ -291,7 +285,7 @@ function genericPrint(path, options, print) {
               softline,
               "}"
             ])
-          : removeSemiColon
+          : isTemplatePlaceholderNodeWithoutSemiColon
           ? ""
           : ";"
       ]);
