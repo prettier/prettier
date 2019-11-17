@@ -413,7 +413,7 @@ function parseNestedCSS(node, options) {
         node.value = parseValue(parts.slice(1).join(":"));
       }
 
-      // Whitespace between variable and colon
+      // Missing whitespace between variable and colon
       if (
         ["page", "nest"].indexOf(node.name) === -1 &&
         node.params &&
