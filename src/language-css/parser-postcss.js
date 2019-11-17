@@ -406,7 +406,7 @@ function parseNestedCSS(node, options) {
       }
 
       // Whitespace between variable and colon
-      if (node.name.includes(":") && !node.params) {
+      if (node.name.indexOf(":") !== -1 && !node.params) {
         node.variable = true;
         const parts = node.name.split(":");
         node.name = parts[0];
