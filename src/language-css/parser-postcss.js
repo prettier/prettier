@@ -380,19 +380,19 @@ function parseNestedCSS(node, options) {
       node.value = parseValue(value);
     }
 
-    // mixin
-    if (node.type === "css-atrule" && node.mixin) {
-      const source =
-        node.raws.identifier +
-        node.name +
-        node.raws.afterName +
-        node.raws.params;
-      node.selector = parseSelector(source);
-      delete node.params;
-      return node;
-    }
+    if (node.type === "css-atrule") {
+      // mixin
+      if (node.mixin) {
+        const source =
+          node.raws.identifier +
+          node.name +
+          node.raws.afterName +
+          node.raws.params;
+        node.selector = parseSelector(source);
+        delete node.params;
+        return node;
+      }
 
-    if (node.type === "css-atrule" && params.length > 0) {
       if (node.name === "custom-selector" && options.parser === "css") {
         const customSelector = node.params.match(/:--\S+?\s+/)[0].trim();
         node.customSelector = customSelector;
@@ -420,12 +420,13 @@ function parseNestedCSS(node, options) {
 
       // Less variable
       if (node.variable) {
-        if (node.params) {
-          node.params = parseValue(node.params);
-        }
+        node.value = parseValue(node.params);
+        delete node.params;
         return node;
       }
+    }
 
+    if (node.type === "css-atrule" && params.length > 0) {
       const { name } = node;
       const lowercasedName = node.name.toLowerCase();
 

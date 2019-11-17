@@ -120,9 +120,9 @@ function genericPrint(path, options, print) {
       // https://github.com/postcss/postcss-scss/issues/63
       if (!text.includes(rawText)) {
         if (node.raws.inline || node.inline) {
-          const needBreakAfter = !node.source.input.css
-            .split("\n")
-            [node.source.end.line].trim();
+          const needBreakAfter = !(
+            node.source.input.css.split("\n")[node.source.end.line] || ""
+          ).trim();
           return concat([
             "// ",
             // should we keep left?
@@ -202,7 +202,7 @@ function genericPrint(path, options, print) {
       ]);
     }
     case "css-atrule": {
-      console.log({ node });
+      // console.log({ node });
       const parentNode = path.getParentNode();
       const removeSemiColon =
         isTemplatePlaceholderNode(node) &&
@@ -210,15 +210,18 @@ function genericPrint(path, options, print) {
         options.originalText[options.locEnd(node) - 1] !== ";";
 
       if (node.variable) {
+        console.log({
+          node
+        });
         return concat([
           "@",
           node.name,
           ":",
-          node.params ? concat([" ", path.call(print, "params")]) : "",
+          node.value ? concat([" ", path.call(print, "value")]) : "",
           node.raws.between.trim() ? " " + node.raws.between.trim() : "",
           node.nodes
             ? concat([
-                " {",
+                "{",
                 indent(
                   concat([
                     node.nodes.length > 0 ? softline : "",
