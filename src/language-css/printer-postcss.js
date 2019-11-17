@@ -215,6 +215,14 @@ function genericPrint(path, options, print) {
         ]);
       }
 
+      if (node.function) {
+        return concat([
+          node.name,
+          concat([path.call(print, "params")]),
+          isTemplatePlaceholderNodeWithoutSemiColon ? "" : ";"
+        ]);
+      }
+
       if (node.variable) {
         return concat([
           "@",
