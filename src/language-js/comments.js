@@ -66,7 +66,8 @@ function handleOwnLineComment(comment, text, options, ast, isLastComment) {
       precedingNode,
       comment,
       options
-    )
+    ) ||
+    handleLabeledStatementComments(enclosingNode, comment)
   ) {
     return true;
   }
