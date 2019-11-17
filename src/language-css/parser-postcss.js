@@ -410,21 +410,22 @@ function parseNestedCSS(node, options) {
         node.variable = true;
         const parts = node.name.split(":");
         node.name = parts[0];
-        node.params = parts.slice(1).join(":");
+        node.value = parseValue(parts.slice(1).join(":"));
       }
 
       // Whitespace between variable and colon
       if (
         ["page", "nest"].indexOf(node.name) === -1 &&
-        node.params.startsWith(":")
+        node.params &&
+        node.params[0] === ":"
       ) {
         node.variable = true;
-        node.params = node.params.slice(1);
+        node.value = parseValue(node.params.slice(1));
+        delete node.params;
       }
 
       // Less variable
       if (node.variable) {
-        node.value = parseValue(node.params);
         delete node.params;
         return node;
       }

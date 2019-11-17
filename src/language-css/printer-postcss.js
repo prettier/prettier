@@ -202,6 +202,14 @@ function genericPrint(path, options, print) {
         !parentNode.raws.semicolon &&
         options.originalText[options.locEnd(node) - 1] !== ";";
 
+      if (node.mixin) {
+        return concat([
+          path.call(print, "selector"),
+          node.important ? " !important" : "",
+          isTemplatePlaceholderNodeWithoutSemiColon ? "" : ";"
+        ]);
+      }
+
       if (node.variable) {
         return concat([
           "@",
@@ -226,13 +234,6 @@ function genericPrint(path, options, print) {
         ]);
       }
 
-      if (node.mixin) {
-        return concat([
-          path.call(print, "selector"),
-          node.important ? " !important" : "",
-          isTemplatePlaceholderNodeWithoutSemiColon ? "" : ";"
-        ]);
-      }
       return concat([
         "@",
         // If a Less file ends up being parsed with the SCSS parser, Less
