@@ -434,6 +434,12 @@ function parseNestedCSS(node, options) {
       const { name } = node;
       const lowercasedName = node.name.toLowerCase();
 
+      if (lowercasedName === "import") {
+        node.import = true;
+        node.filename = node.params;
+        return node;
+      }
+
       if (name === "warn" || name === "error") {
         node.params = {
           type: "media-unknown",

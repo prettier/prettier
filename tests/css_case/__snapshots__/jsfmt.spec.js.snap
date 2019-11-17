@@ -292,7 +292,7 @@ TABLE {}
 // Convention in this test file:
 // - The case should be preserved for things prefixed with "Keep".
 // - The case should always be preserved for element names and attribute names
-//   in selectors, as well as function names and property keywords.
+// in selectors, as well as function names and property keywords.
 // - Other things should mostly be lowercase.
 // - The \`/*:*/\` comments are just to bust the \`isLikelySCSS\` check.
 
@@ -308,7 +308,7 @@ svg[viewBox] linearGradient,
   --Keep-custom-Prop: red;
   background: Var(--Keep-custom-Prop);
   animation-name: KeepAnimationName;
-  important: something !IMPORTANT;
+  important: something !important;
   font-family: initial;
   padding: unset;
   border: inherit;
@@ -364,13 +364,13 @@ $KeepScssVar: val;
 
   @KeepDetachedRuleset();
 
-  &: EXTEND(.Keep ALL);
+  &:EXTEND(.Keep ALL);
 
   .Keep;
   .Keep();
   .Keep(4px) !important;
   .Keep() when (@Keep=Keep);
-  .Keep() when (@Keep=12PX);
+  .Keep() when (@Keep=12px);
   .Keep() when (@Keep=Keep12PX);
 }
 
