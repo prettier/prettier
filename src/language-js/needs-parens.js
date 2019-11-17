@@ -298,6 +298,14 @@ function needsParens(path, options) {
       if (node.operator === "in" && isLeftOfAForStatement(node)) {
         return true;
       }
+
+      if (
+        parent.type === "UnaryExpression" &&
+        node.comments &&
+        node.comments.length > 0
+      ) {
+        return false;
+      }
     }
     // fallthrough
     case "TSTypeAssertion":
