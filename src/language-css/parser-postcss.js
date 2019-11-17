@@ -414,7 +414,10 @@ function parseNestedCSS(node, options) {
       }
 
       // Whitespace between variable and colon
-      if (["page"].indexOf(node.name) === -1 && node.params.startsWith(":")) {
+      if (
+        ["page", "nest"].indexOf(node.name) === -1 &&
+        node.params.startsWith(":")
+      ) {
         node.variable = true;
         node.params = node.params.slice(1);
       }
