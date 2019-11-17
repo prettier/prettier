@@ -202,7 +202,6 @@ function genericPrint(path, options, print) {
       ]);
     }
     case "css-atrule": {
-      // console.log({ node });
       const parentNode = path.getParentNode();
       const removeSemiColon =
         isTemplatePlaceholderNode(node) &&
@@ -210,9 +209,6 @@ function genericPrint(path, options, print) {
         options.originalText[options.locEnd(node) - 1] !== ";";
 
       if (node.variable) {
-        console.log({
-          node
-        });
         return concat([
           "@",
           node.name,

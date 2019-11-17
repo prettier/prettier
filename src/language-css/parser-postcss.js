@@ -413,7 +413,7 @@ function parseNestedCSS(node, options) {
       }
 
       // Whitespace between variable and colon
-      if (node.params.startsWith(":")) {
+      if (["page"].indexOf(node.name) === -1 && node.params.startsWith(":")) {
         node.variable = true;
         node.params = node.params.slice(1);
       }
@@ -459,7 +459,7 @@ function parseNestedCSS(node, options) {
 
       if (lowercasedName === "import") {
         node.import = true;
-        node.filename = node.params;
+        delete node.filename;
         node.params = parseValue(params);
         return node;
       }
