@@ -54,7 +54,7 @@ function htmlToJsx() {
       if (
         node.type !== "html" ||
         node.value.match(mdx.COMMENT_REGEX) ||
-        INLINE_NODE_WRAPPER_TYPES.indexOf(parent.type) !== -1
+        INLINE_NODE_WRAPPER_TYPES.includes(parent.type)
       ) {
         return node;
       }

@@ -68,7 +68,7 @@ function print(path, options, print) {
     }
     case "ElementNode": {
       const tagFirstChar = n.tag[0];
-      const isLocal = n.tag.indexOf(".") !== -1;
+      const isLocal = n.tag.includes(".");
       const isGlimmerComponent =
         tagFirstChar.toUpperCase() === tagFirstChar || isLocal;
       const hasChildren = n.children.length > 0;
@@ -79,7 +79,7 @@ function print(path, options, print) {
 
       const isVoid =
         (isGlimmerComponent && (!hasChildren || !hasNonWhitespaceChildren)) ||
-        voidTags.indexOf(n.tag) !== -1;
+        voidTags.includes(n.tag);
       const closeTagForNoBreak = isVoid ? concat([" />", softline]) : ">";
       const closeTagForBreak = isVoid ? "/>" : ">";
       const getParams = (path, print) =>
@@ -275,7 +275,7 @@ function print(path, options, print) {
 
       // preserve a space inside of an attribute node where whitespace present,
       // when next to mustache statement.
-      const inAttrNode = path.stack.indexOf("attributes") >= 0;
+      const inAttrNode = path.stack.includes("attributes");
       if (inAttrNode) {
         const parentNode = path.getParentNode(0);
         const isConcat = parentNode.type === "ConcatStatement";
@@ -334,7 +334,7 @@ function print(path, options, print) {
       );
     }
     case "MustacheCommentStatement": {
-      const dashes = n.value.indexOf("}}") > -1 ? "--" : "";
+      const dashes = n.value.includes("}}") ? "--" : "";
       return concat(["{{!", dashes, n.value, dashes, "}}"]);
     }
     case "PathExpression": {

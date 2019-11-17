@@ -22,7 +22,7 @@ function isNode(value, types) {
   return (
     value &&
     typeof value.type === "string" &&
-    (!types || types.indexOf(value.type) !== -1)
+    (!types || types.includes(value.type))
   );
 }
 
