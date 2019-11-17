@@ -199,10 +199,15 @@ function parseSelector(selector) {
   // the content of the comment as selectors which turns it into complete
   // garbage. Better to print the whole selector as-is and not try to parse
   // and reformat it.
-  if (selector.match(/\/\/|\/\*/)) {
+  if (/\/\/|\/\*/.test(selector)) {
+    let value = selector.replace(/^ +/, "").replace(/ +$/, "");
+    // last line has inline comment
+    if (/\/\//.test(selector.split("\n").pop())) {
+      value += "\n";
+    }
     return {
       type: "selector-unknown",
-      value: selector.replace(/^ +/, "").replace(/ +$/, "")
+      value
     };
   }
 
@@ -385,17 +390,17 @@ function parseNestedCSS(node, options) {
       node.value = parseValue(value);
     }
 
-    // Less whitespace between variable and colon
-    if (
-      node.type === "css-atrule" &&
-      node.params.startsWith(":") &&
-      node.name !== "custom-selector"
-    ) {
-      // if (!(options.parser === "css" && node.name === "custom-selector")) {
-      node.variable = true;
-      node.params = node.params.slice(1);
-      // }
-    }
+    // // Less whitespace between variable and colon
+    // if (
+    //   node.type === "css-atrule" &&
+    //   node.params.startsWith(":") &&
+    //   node.name !== "custom-selector"
+    // ) {
+    //   // if (!(options.parser === "css" && node.name === "custom-selector")) {
+    //   node.variable = true;
+    //   node.params = node.params.slice(1);
+    //   // }
+    // }
 
     // Less whitespace between variable and colon
     if (node.type === "css-atrule" && node.name.includes(":") && !node.params) {

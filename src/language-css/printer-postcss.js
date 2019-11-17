@@ -141,7 +141,12 @@ function genericPrint(path, options, print) {
         node.important ? " !important" : "",
         node.nodes
           ? concat([
-              " {",
+              node.selector &&
+              node.selector.type === "selector-unknown" &&
+              node.selector.value.endsWith("\n")
+                ? ""
+                : " ",
+              "{",
               node.nodes.length > 0
                 ? indent(
                     concat([hardline, printNodeSequence(path, options, print)])
