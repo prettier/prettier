@@ -13,6 +13,9 @@
   "engines": {
     "node": ">=8"
   },
+  "peerDependencies": {
+    "typescript": "^3.0.0"
+  },
   "dependencies": {
     "@angular/compiler": "7.2.9",
     "@babel/code-frame": "7.5.5",
@@ -67,7 +70,6 @@
     "resolve": "1.11.1",
     "semver": "6.1.2",
     "string-width": "4.1.0",
-    "typescript": "3.4.1",
     "unicode-regex": "2.0.0",
     "unified": "7.1.0",
     "vnopts": "1.0.2",
@@ -112,10 +114,11 @@
     "snapshot-diff": "0.5.1",
     "strip-ansi": "5.2.0",
     "tempy": "0.3.0",
+    "typescript": "3.4.1",
     "webpack": "3.12.0"
   },
   "scripts": {
-    "prepublishOnly": "echo \"Error: must publish from dist/\" && exit 1",
+    "prepublishOnly-extra": "echo \"Error: must publish from dist/\" && exit 1",
     "prepare-release": "yarn && yarn build && yarn test:dist",
     "test": "jest",
     "test:dist": "node ./scripts/test-dist.js",
@@ -126,7 +129,7 @@
     "lint": "cross-env EFF_NO_LINK_RULES=true eslint . --format node_modules/eslint-friendly-formatter",
     "lint-docs": "prettylint {.,docs,website,website/blog}/*.md",
     "lint-dist": "eslint --no-eslintrc --no-ignore --env=browser \"dist/!(bin-prettierx|index|third-party).js\"",
-    "build": "node --max-old-space-size=2048 ./scripts/build/build.js",
+    "build-dist-extra": "node --max-old-space-size=2048 ./scripts/build/build.js",
     "build-docs": "node ./scripts/build-docs.js",
     "check-deps": "node ./scripts/check-deps.js"
   }

@@ -61,59 +61,60 @@ jobs:
     steps:
       - template: .azure-pipelines/jobs/dev-test.yml
 
-  - job: Prod_Build
-    displayName: Prod Build on Linux Node v10
-    pool:
-      vmImage: "Ubuntu 16.04"
-    variables:
-      node_version: 10
-    steps:
-      - template: .azure-pipelines/jobs/prod-build.yml
+# [prettierx TBD] skip these for now:
+# - job: Prod_Build
+#   displayName: Prod Build on Linux Node v10
+#   pool:
+#     vmImage: "Ubuntu 16.04"
+#   variables:
+#     node_version: 10
+#   steps:
+#     - template: .azure-pipelines/jobs/prod-build.yml
 
-  - job: Prod_Pack
-    dependsOn: Prod_Build
-    displayName: Prod Pack on Linux Node v10
-    pool:
-      vmImage: "Ubuntu 16.04"
-    variables:
-      node_version: 10
-    steps:
-      - template: .azure-pipelines/jobs/prod-pack.yml
+# - job: Prod_Pack
+#   dependsOn: Prod_Build
+#   displayName: Prod Pack on Linux Node v10
+#   pool:
+#     vmImage: "Ubuntu 16.04"
+#   variables:
+#     node_version: 10
+#   steps:
+#     - template: .azure-pipelines/jobs/prod-pack.yml
 
-  - job: Prod_Lint
-    dependsOn: Prod_Build
-    displayName: Prod Lint on Linux
-    pool:
-      vmImage: "Ubuntu 16.04"
-    strategy:
-      matrix:
-        Node_v8:
-          node_version: 8
-        Node_v10:
-          node_version: 10
-        Node_v12:
-          node_version: 12
-    steps:
-      - template: .azure-pipelines/jobs/prod-lint.yml
+# - job: Prod_Lint
+#   dependsOn: Prod_Build
+#   displayName: Prod Lint on Linux
+#   pool:
+#     vmImage: "Ubuntu 16.04"
+#   strategy:
+#     matrix:
+#       Node_v8:
+#         node_version: 8
+#       Node_v10:
+#         node_version: 10
+#       Node_v12:
+#         node_version: 12
+#   steps:
+#     - template: .azure-pipelines/jobs/prod-lint.yml
 
-  - job: Prod_Test
-    dependsOn: Prod_Build
-    displayName: Prod Test on macOS
-    pool:
-      vmImage: macos-10.13
-    strategy:
-      matrix:
-        Node_v8:
-          node_version: 8
-        Node_v10:
-          node_version: 10
-        Node_v10_standalone:
-          node_version: 10
-          TEST_STANDALONE: true
-        Node_v12:
-          node_version: 12
-        Node_v12_standalone:
-          node_version: 12
-          TEST_STANDALONE: true
-    steps:
-      - template: .azure-pipelines/jobs/prod-test.yml
+# - job: Prod_Test
+#   dependsOn: Prod_Build
+#   displayName: Prod Test on macOS
+#   pool:
+#     vmImage: macos-10.13
+#   strategy:
+#     matrix:
+#       Node_v8:
+#         node_version: 8
+#       Node_v10:
+#         node_version: 10
+#       Node_v10_standalone:
+#         node_version: 10
+#         TEST_STANDALONE: true
+#       Node_v12:
+#         node_version: 12
+#       Node_v12_standalone:
+#         node_version: 12
+#         TEST_STANDALONE: true
+#   steps:
+#     - template: .azure-pipelines/jobs/prod-test.yml
