@@ -288,16 +288,6 @@ function parseNestedCSS(node, options) {
       node.raws.selector = selector;
     }
 
-    // postcss-less@2.0.0 parse `custom-selector` as `css-decl`
-    if (
-      options.parser === "css" &&
-      node.type === "css-decl" &&
-      node.prop === "@custom-selector"
-    ) {
-      selector = node.value;
-      node.raws.value = selector;
-    }
-
     let value = "";
 
     if (typeof node.value === "string") {
@@ -390,35 +380,7 @@ function parseNestedCSS(node, options) {
       node.value = parseValue(value);
     }
 
-    // // Less whitespace between variable and colon
-    // if (
-    //   node.type === "css-atrule" &&
-    //   node.params.startsWith(":") &&
-    //   node.name !== "custom-selector"
-    // ) {
-    //   // if (!(options.parser === "css" && node.name === "custom-selector")) {
-    //   node.variable = true;
-    //   node.params = node.params.slice(1);
-    //   // }
-    // }
-
-    // Less whitespace between variable and colon
-    if (node.type === "css-atrule" && node.name.includes(":") && !node.params) {
-      node.variable = true;
-      const a = node.name.split(":");
-      node.name = a[0];
-      node.params = a[1];
-    }
-
-    // Less variable
-    if (node.type === "css-atrule" && node.variable) {
-      if (node.params) {
-        node.params = parseValue(node.params);
-      }
-      return node;
-    }
-
-    // Less mixin
+    // mixin
     if (node.type === "css-atrule" && node.mixin) {
       const source =
         node.raws.identifier +
@@ -431,14 +393,41 @@ function parseNestedCSS(node, options) {
     }
 
     if (node.type === "css-atrule" && params.length > 0) {
-      const { name } = node;
-      const lowercasedName = node.name.toLowerCase();
+      if (node.name === "custom-selector" && options.parser === "css") {
+        const customSelector = node.params.match(/:--\S+?\s+/)[0].trim();
+        node.customSelector = customSelector;
+        node.selector = parseSelector(
+          node.params.slice(customSelector.length).trim()
+        );
+        delete node.params;
 
-      if (lowercasedName === "import") {
-        node.import = true;
-        node.filename = node.params;
         return node;
       }
+
+      // Whitespace between variable and colon
+      if (node.name.includes(":") && !node.params) {
+        node.variable = true;
+        const parts = node.name.split(":");
+        node.name = parts[0];
+        node.params = parts.slice(1).join(":");
+      }
+
+      // Whitespace between variable and colon
+      if (node.params.startsWith(":")) {
+        node.variable = true;
+        node.params = node.params.slice(1);
+      }
+
+      // Less variable
+      if (node.variable) {
+        if (node.params) {
+          node.params = parseValue(node.params);
+        }
+        return node;
+      }
+
+      const { name } = node;
+      const lowercasedName = node.name.toLowerCase();
 
       if (name === "warn" || name === "error") {
         node.params = {
@@ -468,6 +457,8 @@ function parseNestedCSS(node, options) {
       }
 
       if (lowercasedName === "import") {
+        node.import = true;
+        node.filename = node.params;
         node.params = parseValue(params);
         return node;
       }
@@ -496,16 +487,6 @@ function parseNestedCSS(node, options) {
         params = params.replace(/^(?!if)(\S+)\s+\(/, "$1(");
 
         node.value = parseValue(params);
-        delete node.params;
-
-        return node;
-      }
-
-      if (name === "custom-selector") {
-        const customSelector = params.match(/:--\S+?\s+/)[0].trim();
-
-        node.customSelector = customSelector;
-        node.selector = parseSelector(params.slice(customSelector.length));
         delete node.params;
 
         return node;
