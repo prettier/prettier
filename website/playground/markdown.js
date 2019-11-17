@@ -72,7 +72,7 @@ function codeBlock(content, syntax) {
     backtickSequences.map(backticks => backticks.length)
   );
   const fenceLength = Math.max(3, longestBacktickSequenceLength + 1);
-  const fence = Array(fenceLength + 1).join("`");
+  const fence = new Array(fenceLength + 1).join("`");
   return [fence + (syntax || ""), content, fence].join("\n");
 }
 
