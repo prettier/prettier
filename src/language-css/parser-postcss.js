@@ -401,7 +401,6 @@ function parseNestedCSS(node, options) {
           node.params.slice(customSelector.length).trim()
         );
         delete node.params;
-
         return node;
       }
 
@@ -421,7 +420,6 @@ function parseNestedCSS(node, options) {
       ) {
         node.variable = true;
         node.value = parseValue(node.params.slice(1));
-        delete node.params;
       }
 
       // Less variable
