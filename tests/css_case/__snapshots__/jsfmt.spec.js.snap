@@ -292,7 +292,7 @@ TABLE {}
 // Convention in this test file:
 // - The case should be preserved for things prefixed with "Keep".
 // - The case should always be preserved for element names and attribute names
-// in selectors, as well as function names and property keywords.
+//   in selectors, as well as function names and property keywords.
 // - Other things should mostly be lowercase.
 // - The \`/*:*/\` comments are just to bust the \`isLikelySCSS\` check.
 

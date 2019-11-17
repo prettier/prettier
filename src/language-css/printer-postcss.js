@@ -115,6 +115,7 @@ function genericPrint(path, options, print) {
         options.locStart(node),
         options.locEnd(node)
       );
+
       const rawText = node.raws.text || node.text;
       // Workaround a bug where the location is off.
       // https://github.com/postcss/postcss-scss/issues/63
@@ -123,7 +124,11 @@ function genericPrint(path, options, print) {
           const needBreakAfter = !(
             node.source.input.css.split("\n")[node.source.end.line] || ""
           ).trim();
-          return concat(["// ", rawText, needBreakAfter ? "\n" : ""]);
+          return concat([
+            "//",
+            node.raws.left + rawText,
+            needBreakAfter ? "\n" : ""
+          ]);
         }
         return concat(["/* ", rawText, " */"]);
       }
