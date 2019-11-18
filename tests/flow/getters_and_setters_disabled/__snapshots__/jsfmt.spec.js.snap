@@ -54,13 +54,13 @@ var f = {
   get ["d"]() {
     return "foo";
   },
-  set ["d"](x: number) {}
+  set ["d"](x: number) {},
 };
 
 type T = {
   get a(): number,
   set b(x: number): void,
-  c: 10
+  c: 10,
 };
 
 declare class Foo {

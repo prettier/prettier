@@ -80,14 +80,14 @@ export default store => {
       next(
         actionWith({
           response,
-          type: successType
+          type: successType,
         })
       ),
     error =>
       next(
         actionWith({
           type: failureType,
-          error: error.message || "Something bad happened"
+          error: error.message || "Something bad happened",
         })
       )
   );
@@ -100,57 +100,57 @@ it("should group messages with same created time", () => {
         message: "test",
         messageType: "SMS",
         status: "Unknown",
-        created: "11/01/2017 13:36"
+        created: "11/01/2017 13:36",
       },
       {
         message: "test",
         messageType: "Email",
         status: "Unknown",
-        created: "11/01/2017 13:36"
-      }
+        created: "11/01/2017 13:36",
+      },
     ],
     "09/01/2017 17:25": [
       {
         message: "te",
         messageType: "SMS",
         status: "Unknown",
-        created: "09/01/2017 17:25"
+        created: "09/01/2017 17:25",
       },
       {
         message: "te",
         messageType: "Email",
         status: "Unknown",
-        created: "09/01/2017 17:25"
-      }
+        created: "09/01/2017 17:25",
+      },
     ],
     "11/01/2017 13:33": [
       {
         message: "test",
         messageType: "SMS",
         status: "Unknown",
-        created: "11/01/2017 13:33"
+        created: "11/01/2017 13:33",
       },
       {
         message: "test",
         messageType: "Email",
         status: "Unknown",
-        created: "11/01/2017 13:33"
-      }
+        created: "11/01/2017 13:33",
+      },
     ],
     "11/01/2017 13:37": [
       {
         message: "test",
         messageType: "SMS",
         status: "Unknown",
-        created: "11/01/2017 13:37"
+        created: "11/01/2017 13:37",
       },
       {
         message: "test",
         messageType: "Email",
         status: "Unknown",
-        created: "11/01/2017 13:37"
-      }
-    ]
+        created: "11/01/2017 13:37",
+      },
+    ],
   });
 });
 
@@ -204,7 +204,7 @@ const {
   index,
   scheduleId,
   studentId,
-  something
+  something,
 } = a.this.props;
 
 const {
@@ -213,14 +213,14 @@ const {
   index,
   scheduleId,
   studentId,
-  something
+  something,
 } = this.props;
 
 const {
   updated,
   author: { identifier: ownerId },
   location,
-  category: categories
+  category: categories,
 } = rawAd.entry;
 
 ================================================================================
@@ -423,7 +423,7 @@ nock(/test/)
   .matchHeader("Accept", "application/json")
   [httpMethodNock(method)]("/foo")
   .reply(200, {
-    foo: "bar"
+    foo: "bar",
   });
 
 ================================================================================
@@ -639,8 +639,8 @@ export default function theFunction(action$, store) {
       evenMore: stuff({
         value1: true,
         value2: false,
-        value3: false
-      })
+        value3: false,
+      }),
     })
       .filter(data => theFilter(data))
       .map(({ theType, ...data }) => theMap(theType, data))
@@ -651,7 +651,7 @@ export default function theFunction(action$, store) {
 function f() {
   return this._getWorker(workerOptions)({
     filePath,
-    hasteImplModulePath: this._options.hasteImplModulePath
+    hasteImplModulePath: this._options.hasteImplModulePath,
   }).then(metadata => {
     // \`1\` for truthy values instead of \`true\` to save cache space.
     fileMetadata[H.VISITED] = 1;
@@ -696,7 +696,7 @@ var jqxhr = $.ajax("example.php")
 =====================================output=====================================
 Object.keys(
   availableLocales({
-    test: true
+    test: true,
   })
 ).forEach(locale => {
   // ...
@@ -821,7 +821,7 @@ if (testConfig.ENABLE_ONLINE_TESTS === "true") {
             PostalCode: "10999",
             Region: "Berlin",
             City: "Berlin",
-            Country: "DE"
+            Country: "DE",
           });
       }
     });

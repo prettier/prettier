@@ -4,6 +4,7 @@ exports[`at-rules.css 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 a {
@@ -79,7 +80,6 @@ exports[`at-rules.css 2`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 a {
@@ -155,6 +155,7 @@ exports[`declaration.css 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 a {
@@ -173,7 +174,6 @@ exports[`declaration.css 2`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 a {
@@ -192,6 +192,7 @@ exports[`list.css 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 $colors: hotpink deepskyblue firebrick,;
@@ -297,7 +298,6 @@ exports[`list.css 2`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 $colors: hotpink deepskyblue firebrick,;
@@ -403,6 +403,7 @@ exports[`map.css 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 $map: (
@@ -447,7 +448,6 @@ exports[`map.css 2`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 $map: (
@@ -492,6 +492,7 @@ exports[`selector_list.css 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkasdhkajsdhakjsdhkajsdhjkahskjdkjahsjkdjkakjsdm,
@@ -523,7 +524,6 @@ exports[`selector_list.css 2`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkasdhkajsdhakjsdhkajsdhjkahskjdkjahsjkdjkakjsdm,
@@ -555,6 +555,7 @@ exports[`variable.css 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 $test: 1,;
@@ -572,7 +573,6 @@ exports[`variable.css 2`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 $test: 1,;

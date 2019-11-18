@@ -51,7 +51,7 @@ function foo(x: ?number) {
 
 type Bar = {
   parent: ?Bar,
-  doStuff: () => void
+  doStuff: () => void,
 };
 
 function bar0(x: Bar) {
@@ -99,12 +99,12 @@ export type ASTNode = Node1 | Node2;
 =====================================output=====================================
 type Node1 = {
   kind: "Node1",
-  prop1?: string
+  prop1?: string,
 };
 
 type Node2 = {
   kind: "Node2",
-  prop2?: string
+  prop2?: string,
 };
 
 export type ASTNode = Node1 | Node2;
@@ -210,7 +210,7 @@ let tests = [
       return x.result;
     }
     return x.result; // error
-  }
+  },
 ];
 
 ================================================================================
@@ -246,7 +246,7 @@ function testLiteralProperty(a: A) {
 // @flow
 
 type A = {
-  b_c: ?string
+  b_c: ?string,
 };
 
 function stuff(str: string) {}
@@ -374,7 +374,7 @@ let tests = [
         (t.quux: string); // error, consider { foo: {}, bar: "" }
       }
     }
-  }
+  },
 ];
 
 ================================================================================
@@ -457,7 +457,7 @@ let tests = [
     } // error
     if (x.y === 123) {
     } // ok
-  }
+  },
 ];
 
 ================================================================================
@@ -535,7 +535,7 @@ let tests = [
       // incorrectly.
       x.y.indexOf(z()); // no error
     }
-  }
+  },
 ];
 
 ================================================================================
@@ -927,7 +927,7 @@ function foo8(o: { p: mixed }) {
 }
 
 type Foo9Expected = {
-  foo: string
+  foo: string,
 };
 
 function foo9() {
@@ -1319,7 +1319,7 @@ let tests = [
   },
   function(x: TestClass) {
     (!x: false); // ok, classes are always truthy
-  }
+  },
 ];
 
 ================================================================================
@@ -1605,7 +1605,7 @@ let tests = [
     } else {
       return x; // no error, inferred to be 0
     }
-  }
+  },
 ];
 
 ================================================================================
@@ -2234,7 +2234,7 @@ let tests = [
       return x;
     }
     return "foo";
-  }
+  },
 ];
 
 ================================================================================
@@ -2998,7 +2998,7 @@ let tests = [
       (x.y: string);
       x.z; // error
     }
-  }
+  },
 ];
 
 ================================================================================
@@ -3041,12 +3041,12 @@ import { SUCCESS, ERROR } from "./constants";
 
 type Success = {
   type: typeof SUCCESS,
-  message: string
+  message: string,
 };
 
 type Error = {
   type: typeof ERROR,
-  error: string
+  error: string,
 };
 
 function handleStatus(status: Success | Error) {

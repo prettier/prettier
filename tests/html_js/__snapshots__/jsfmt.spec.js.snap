@@ -356,7 +356,7 @@ printWidth: 80
         dataType: "json",
         cache: false,
         success: data => this.setState({ data: data }),
-        error: (xhr, status, err) => console.error(status, err)
+        error: (xhr, status, err) => console.error(status, err),
       });
     }
     componentDidMount() {

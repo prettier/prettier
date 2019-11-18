@@ -78,7 +78,7 @@ let tests = [
     (copyProperties(result, { foo: "a" }, { bar: 123 }): {
       foo: string,
       bar: number,
-      baz: boolean
+      baz: boolean,
     });
   },
 
@@ -100,7 +100,7 @@ let tests = [
   function(copyProperties: Object$Assign) {
     function x(cb: Function) {}
     x(copyProperties);
-  }
+  },
 ];
 
 ================================================================================
@@ -140,7 +140,7 @@ let tests = [
     let x: ?string = null;
     invariant(x);
     (x: string);
-  }
+  },
 ];
 
 ================================================================================
@@ -254,7 +254,7 @@ let tests = [
   function(mergeInto: $Facebookism$MergeInto) {
     function x(cb: Function) {}
     x(mergeInto);
-  }
+  },
 ];
 
 ================================================================================

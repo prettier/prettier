@@ -76,7 +76,7 @@ const promises = [
       return null;
     }),
   redis.fetch(),
-  other.fetch()
+  other.fetch(),
 ];
 
 const promises2 = [
@@ -90,23 +90,23 @@ const promises2 = [
       return null;
     }),
   redis.fetch(),
-  other.fetch()
+  other.fetch(),
 ];
 
 window.FooClient.setVars({
   locale: getFooLocale({ page }),
-  authorizationToken: data.token
+  authorizationToken: data.token,
 }).initVerify("foo_container");
 
 window.something.FooClient.setVars({
   locale: getFooLocale({ page }),
-  authorizationToken: data.token
+  authorizationToken: data.token,
 }).initVerify("foo_container");
 
 window.FooClient.something
   .setVars({
     locale: getFooLocale({ page }),
-    authorizationToken: data.token
+    authorizationToken: data.token,
   })
   .initVerify("foo_container");
 

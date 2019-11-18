@@ -16,7 +16,7 @@ module.exports = APIKeys;
 =====================================output=====================================
 var APIKeys = {
   AGE: "age",
-  NAME: "name"
+  NAME: "name",
 };
 
 module.exports = APIKeys;
