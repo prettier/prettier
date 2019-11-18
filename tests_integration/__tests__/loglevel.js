@@ -8,15 +8,15 @@ test("do not show logs with --loglevel silent", () => {
 });
 
 test("do not show warnings with --loglevel error", () => {
-  runPrettierWithLogLevel("error", [/\[error]/]);
+  runPrettierWithLogLevel("error", ["[error]"]);
 });
 
 test("show errors and warnings with --loglevel warn", () => {
-  runPrettierWithLogLevel("warn", [/\[error]/, /\[warn]/]);
+  runPrettierWithLogLevel("warn", ["[error]", "[warn]"]);
 });
 
 test("show all logs with --loglevel debug", () => {
-  runPrettierWithLogLevel("debug", [/\[error]/, /\[warn]/, /\[debug]/]);
+  runPrettierWithLogLevel("debug", ["[error]", "[warn]", "[debug]"]);
 });
 
 describe("--write with --loglevel=silent doesn't log filenames", () => {
