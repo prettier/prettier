@@ -118,8 +118,6 @@ const mdxParser = Object.assign({}, baseParser, {
 module.exports = {
   parsers: {
     remark: markdownParser,
-    // TODO: Delete this in 2.0
-    markdown: markdownParser,
     mdx: mdxParser
   }
 };

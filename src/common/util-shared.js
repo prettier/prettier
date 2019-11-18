@@ -1,7 +1,6 @@
 "use strict";
 
 const util = require("./util");
-const { mapDoc } = require("../doc").utils;
 
 function isNextLineEmpty(text, node, options) {
   return util.isNextLineEmpty(text, node, options.locEnd);
@@ -39,7 +38,6 @@ module.exports = {
   isNextLineEmptyAfterIndex: util.isNextLineEmptyAfterIndex,
   isPreviousLineEmpty,
   getNextNonSpaceNonCommentCharacterIndex,
-  mapDoc, // TODO: remove in 2.0, we already exposed it in docUtils
   makeString: util.makeString,
   addLeadingComment: util.addLeadingComment,
   addDanglingComment: util.addDanglingComment,
