@@ -198,8 +198,8 @@ function getFlowScalarLineContents(nodeType, content, options) {
         : index !== 0 && index !== lineContents.length - 1
         ? lineContent.trim()
         : index === 0
-        ? lineContent.trimRight()
-        : lineContent.trimLeft()
+        ? lineContent.trimEnd()
+        : lineContent.trimStart()
     );
 
   if (options.proseWrap === "preserve") {

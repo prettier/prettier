@@ -120,10 +120,10 @@ function splitTextIntoSentences(ast, options) {
 
     if (parentNode.type === "paragraph") {
       if (index === 0) {
-        value = value.trimLeft();
+        value = value.trimStart();
       }
       if (index === parentNode.children.length - 1) {
-        value = value.trimRight();
+        value = value.trimEnd();
       }
     }
 

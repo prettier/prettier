@@ -230,7 +230,7 @@ function genericPrint(path, options, print) {
       const value =
         parentNode.type === "root" &&
         privateUtil.getLast(parentNode.children) === node
-          ? node.value.trimRight()
+          ? node.value.trimEnd()
           : node.value;
       const isHtmlComment = /^<!--[\s\S]*-->$/.test(value);
       return concat(
