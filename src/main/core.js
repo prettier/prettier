@@ -60,7 +60,7 @@ function attachComments(text, ast, opts) {
     comments.attach(astComments, ast, text, opts);
   }
   ast.tokens = [];
-  opts.originalText = opts.parser === "yaml" ? text : text.trimRight();
+  opts.originalText = opts.parser === "yaml" ? text : text.trimEnd();
   return astComments;
 }
 
@@ -221,7 +221,7 @@ function formatRange(text, opts) {
 
   // Since the range contracts to avoid trailing whitespace,
   // we need to remove the newline that was inserted by the `format` call.
-  const rangeTrimmed = rangeResult.formatted.trimRight();
+  const rangeTrimmed = rangeResult.formatted.trimEnd();
   const rangeLeft = text.slice(0, rangeStart);
   const rangeRight = text.slice(rangeEnd);
 

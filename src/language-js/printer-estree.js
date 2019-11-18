@@ -241,7 +241,7 @@ function genericPrint(path, options, printPath, args) {
     const node = path.getValue();
     if (hasFlowShorthandAnnotationComment(node)) {
       parts.push(" /*");
-      parts.push(node.trailingComments[0].value.trimLeft());
+      parts.push(node.trailingComments[0].value.trimStart());
       parts.push("*/");
       node.trailingComments[0].printed = true;
     }
@@ -3560,7 +3560,7 @@ function printPathNoParens(path, options, print, args) {
           path.call(print, "node"),
           !n.node.comments || n.node.comments.length === 0
             ? []
-            : concat([" //", n.node.comments[0].value.trimRight()])
+            : concat([" //", n.node.comments[0].value.trimEnd()])
         )
       );
     case "NGChainedExpression":
@@ -6005,9 +6005,9 @@ function printComment(commentPath, options) {
       if (
         options.originalText.slice(options.locStart(comment)).startsWith("#!")
       ) {
-        return "#!" + comment.value.trimRight();
+        return "#!" + comment.value.trimEnd();
       }
-      return "//" + comment.value.trimRight();
+      return "//" + comment.value.trimEnd();
     default:
       throw new Error("Not a comment: " + JSON.stringify(comment));
   }
@@ -6031,8 +6031,8 @@ function printIndentableBlockComment(comment) {
       hardline,
       lines.map((line, index) =>
         index === 0
-          ? line.trimRight()
-          : " " + (index < lines.length - 1 ? line.trim() : line.trimLeft())
+          ? line.trimEnd()
+          : " " + (index < lines.length - 1 ? line.trim() : line.trimStart())
       )
     ),
     "*/"
