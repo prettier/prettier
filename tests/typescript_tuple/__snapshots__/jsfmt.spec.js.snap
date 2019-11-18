@@ -4,6 +4,7 @@ exports[`trailing-comma.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 export interface ShopQueryResult {
@@ -44,7 +45,6 @@ exports[`trailing-comma.ts 2`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 export interface ShopQueryResult {
@@ -126,6 +126,7 @@ exports[`tuple.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 
@@ -155,7 +156,6 @@ exports[`tuple.ts 2`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 

@@ -69,7 +69,7 @@ declare module "foo" {
   declare type Id<T> = T;
 
   declare var exports: {
-    (a: number, b: number): number
+    (a: number, b: number): number,
   };
 }
 

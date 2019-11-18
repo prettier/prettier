@@ -17,12 +17,12 @@ foo!.bar().baz().what();
 =====================================output=====================================
 const {
   somePropThatHasAReallyLongName,
-  anotherPropThatHasALongName
+  anotherPropThatHasALongName,
 } = this.props.imReallySureAboutThis!;
 
 const {
   somePropThatHasAReallyLongName2,
-  anotherPropThatHasALongName2
+  anotherPropThatHasALongName2,
 } = this.props.imReallySureAboutThis!.anotherObject;
 
 this.foo

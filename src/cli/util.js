@@ -600,8 +600,7 @@ function createUsage(context) {
   const lastCategories = constant.categoryOrder.slice(-1);
   const restCategories = Object.keys(groupedOptions).filter(
     category =>
-      firstCategories.indexOf(category) === -1 &&
-      lastCategories.indexOf(category) === -1
+      !firstCategories.includes(category) && !lastCategories.includes(category)
   );
   const allCategories = firstCategories.concat(restCategories, lastCategories);
 
@@ -990,9 +989,7 @@ function updateContextArgv(context, plugins, pluginSearchDirs) {
 function normalizeContextArgv(context, keys) {
   const detailedOptions = !keys
     ? context.detailedOptions
-    : context.detailedOptions.filter(
-        option => keys.indexOf(option.name) !== -1
-      );
+    : context.detailedOptions.filter(option => keys.includes(option.name));
   const argv = !keys ? context.argv : pick(context.argv, keys);
 
   context.argv = optionsNormalizer.normalizeCliOptions(argv, detailedOptions, {

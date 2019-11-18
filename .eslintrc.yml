@@ -10,6 +10,7 @@ parserOptions:
   ecmaVersion: 2017
 plugins:
   - import
+  - unicorn
 rules:
   curly: error
   import/no-extraneous-dependencies:
@@ -34,3 +35,5 @@ rules:
     - error
     - never
     - exceptRange: true
+  unicorn/new-for-builtins: error
+  unicorn/prefer-includes: error

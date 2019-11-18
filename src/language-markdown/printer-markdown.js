@@ -65,7 +65,7 @@ function genericPrint(path, options, print) {
       }
       return concat([
         normalizeDoc(printRoot(path, options, print)),
-        TRAILING_HARDLINE_NODES.indexOf(getLastDescendantNode(node).type) === -1
+        !TRAILING_HARDLINE_NODES.includes(getLastDescendantNode(node).type)
           ? hardline
           : ""
       ]);
@@ -482,7 +482,7 @@ function getAncestorCounter(path, typeOrTypes) {
   let ancestorNode;
 
   while ((ancestorNode = path.getParentNode(++counter))) {
-    if (types.indexOf(ancestorNode.type) !== -1) {
+    if (types.includes(ancestorNode.type)) {
       return counter;
     }
   }
@@ -717,7 +717,7 @@ function printChildren(path, options, print, events) {
 
         if (
           lastChildNode &&
-          TRAILING_HARDLINE_NODES.indexOf(lastChildNode.type) !== -1
+          TRAILING_HARDLINE_NODES.includes(lastChildNode.type)
         ) {
           if (shouldPrePrintTripleHardline(childNode, data)) {
             parts.push(hardline);
@@ -766,19 +766,18 @@ function isPrettierIgnore(node) {
 
 function shouldNotPrePrintHardline(node, data) {
   const isFirstNode = data.parts.length === 0;
-  const isInlineNode = INLINE_NODE_TYPES.indexOf(node.type) !== -1;
+  const isInlineNode = INLINE_NODE_TYPES.includes(node.type);
 
   const isInlineHTML =
     node.type === "html" &&
-    INLINE_NODE_WRAPPER_TYPES.indexOf(data.parentNode.type) !== -1;
+    INLINE_NODE_WRAPPER_TYPES.includes(data.parentNode.type);
 
   return isFirstNode || isInlineNode || isInlineHTML;
 }
 
 function shouldPrePrintDoubleHardline(node, data) {
   const isSequence = (data.prevNode && data.prevNode.type) === node.type;
-  const isSiblingNode =
-    isSequence && SIBLING_NODE_TYPES.indexOf(node.type) !== -1;
+  const isSiblingNode = isSequence && SIBLING_NODE_TYPES.includes(node.type);
 
   const isInTightListItem =
     data.parentNode.type === "listItem" && !data.parentNode.loose;

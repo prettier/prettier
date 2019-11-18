@@ -3909,11 +3909,11 @@ function printJestEachTemplateLiteral(node, expressions, options) {
       const correspondingExpression = stringifiedExpressions[i - 1];
 
       row.cells.push(correspondingExpression);
-      if (correspondingExpression.indexOf("\n") !== -1) {
+      if (correspondingExpression.includes("\n")) {
         row.hasLineBreak = true;
       }
 
-      if (node.quasis[i].value.raw.indexOf("\n") !== -1) {
+      if (node.quasis[i].value.raw.includes("\n")) {
         tableBody.push({ hasLineBreak: false, cells: [] });
       }
     }
