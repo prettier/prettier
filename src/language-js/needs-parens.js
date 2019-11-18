@@ -668,10 +668,8 @@ function needsParens(path, options) {
     case "OptionalMemberExpression":
     case "OptionalCallExpression":
       if (
-        ((parent.type === "MemberExpression" && name === "object") ||
-          (parent.type === "CallExpression" && name === "callee")) &&
-        // workaround for https://github.com/facebook/flow/issues/8159
-        !(options.parser === "flow" && parent.range[0] === node.range[0])
+        (parent.type === "MemberExpression" && name === "object") ||
+        (parent.type === "CallExpression" && name === "callee")
       ) {
         return true;
       }
