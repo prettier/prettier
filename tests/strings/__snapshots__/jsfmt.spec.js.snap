@@ -56,7 +56,7 @@ printWidth: 80
   "\\0",
   "🐶",
 
-  "\\uD801\\uDC28"
+  "\\uD801\\uDC28",
 ];
 
 ================================================================================
@@ -271,7 +271,7 @@ const env = \${JSON.stringify(
     role: "client",
     adsfafa: "sdfsdff",
     asdfasff: "wefwefw",
-    fefef: "sf sdfs fdsfdsf s dfsfds"
+    fefef: "sf sdfs fdsfdsf s dfsfds",
   },
   null,
   "\\t"
@@ -282,7 +282,7 @@ const env = \${JSON.stringify(
 f(
   \`\${{
     a: 4,
-    b: 9
+    b: 9,
   }}\`
 );
 
@@ -299,10 +299,10 @@ const makeBody = (store, assets, html) =>
           store.getState(),
           null,
           2
-        )};\`
+        )};\`,
       ]}
       content={[
-        { id: "app-container", dangerouslySetInnerHTML: { __html: html } }
+        { id: "app-container", dangerouslySetInnerHTML: { __html: html } },
       ]}
     />
   )}\`;

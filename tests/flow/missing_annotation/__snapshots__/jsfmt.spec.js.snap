@@ -121,24 +121,24 @@ var Foo = {
   b: function(arg) {
     // missing arg annotation
     return {
-      bar: arg
+      bar: arg,
     };
   },
 
   c: function(arg: string) {
     // no return annotation required
     return {
-      bar: arg
+      bar: arg,
     };
   },
 
   d: function(
     arg: string
   ): {
-    bar: string
+    bar: string,
   } {
     return {
-      bar: arg
+      bar: arg,
     };
   },
 
@@ -158,7 +158,7 @@ var Foo = {
       // no error
       return x;
     };
-  }
+  },
 };
 
 var Bar = {
@@ -170,7 +170,7 @@ var Bar = {
 
   c: Foo.c("bar"), // no annotation required
 
-  d: Foo.d("bar") // no annotation required
+  d: Foo.d("bar"), // no annotation required
 };
 
 (module.exports = Foo), Bar;

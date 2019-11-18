@@ -38,9 +38,9 @@ beep.boop().baz(
   {
     some: {
       thing: {
-        nested: true
-      }
-    }
+        nested: true,
+      },
+    },
   },
   { another: { thing: true } },
   () => {}
@@ -52,7 +52,7 @@ db.collection("indexOptionDefault").createIndex(
   {
     indexOptionDefaults: true,
     w: 2,
-    wtimeout: 1000
+    wtimeout: 1000,
   },
   function(err) {
     test.equal(null, err);

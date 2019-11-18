@@ -64,7 +64,7 @@ let tests = [
 
   function(x: { x: { -foo: string } }, y: { x: { -foo: number } }) {
     x = y; // 2 errors: string !~> number; number !~> string
-  }
+  },
 ];
 
 ================================================================================

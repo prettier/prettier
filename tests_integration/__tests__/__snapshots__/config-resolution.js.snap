@@ -45,7 +45,7 @@ function js() {
 module.exports = {
         endOfLine:
                 \\"lf\\",
-        tabWidth: 8
+        tabWidth: 8,
 };
 function noConfigJs() {
   console.log(
@@ -144,7 +144,7 @@ function js() {
 
 module.exports = {
         endOfLine: \\"lf\\",
-        tabWidth: 8
+        tabWidth: 8,
 };
 function noConfigJs() {
   console.log(\\"no-config/file.js should have no semicolons\\")

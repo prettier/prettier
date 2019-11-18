@@ -69,7 +69,7 @@ const obj = {
   f(/* ... */) {},
   f: (/* ... */) => {},
   f: function(/* ... */) {},
-  f: function f(/* ... */) {}
+  f: function f(/* ... */) {},
 };
 
 class Foo {

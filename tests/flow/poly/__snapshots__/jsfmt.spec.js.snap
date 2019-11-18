@@ -124,7 +124,7 @@ declare type Box<T> = {
   map2<U>(f: (x: T) => U): Box<U>,
   map3<U>(f: (x: T) => U): Box<U>,
   map4<U>(f: (x: T) => U): Box<U>,
-  map5<U>(f: (x: T) => U): Box<U>
+  map5<U>(f: (x: T) => U): Box<U>,
 };
 
 declare var bool: Box<boolean>;
@@ -174,11 +174,11 @@ function bar<S>(foo: Foo<S>, y: S): Foo<S> {
 }
 
 var P = {
-  bar: bar
+  bar: bar,
 };
 
 declare var Q: {
-  bar<S>(foo: Foo<S>, y: S): Foo<S>
+  bar<S>(foo: Foo<S>, y: S): Foo<S>,
 };
 
 var foo = new Foo(0);
