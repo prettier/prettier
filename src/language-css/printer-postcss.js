@@ -68,7 +68,8 @@ const {
   isWordNode,
   isColonNode,
   isMediaAndSupportsKeywords,
-  isColorAdjusterFuncNode
+  isColorAdjusterFuncNode,
+  hasSingleLineCommentAtEnd
 } = require("./utils");
 
 function shouldPrintComma(options) {
@@ -414,15 +415,20 @@ function genericPrint(path, options, print) {
     }
     case "selector-unknown": {
       const ruleAncestorNode = getAncestorNode(path, "css-rule");
+      const { value } = node;
 
       // Nested SCSS property
       if (ruleAncestorNode && ruleAncestorNode.isSCSSNesterProperty) {
-        return adjustNumbers(
-          adjustStrings(maybeToLowerCase(node.value), options)
-        );
+        return adjustNumbers(adjustStrings(maybeToLowerCase(value), options));
       }
 
-      return node.value;
+      const parentNode = path.getParentNode();
+      const needHardLine =
+        parentNode &&
+        parentNode.nodes !== undefined &&
+        hasSingleLineCommentAtEnd(value);
+
+      return needHardLine ? concat([value, hardline]) : value;
     }
     // postcss-values-parser
     case "value-value":

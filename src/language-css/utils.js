@@ -384,6 +384,13 @@ function isColorAdjusterFuncNode(node) {
   return colorAdjusterFunctions.indexOf(node.value.toLowerCase()) !== -1;
 }
 
+function hasSingleLineCommentAtEnd(value) {
+  const lines = value.split(/\r?\n/g);
+  const lastLine = lines[lines.length - 1];
+
+  return lastLine.trim().startsWith("//");
+}
+
 module.exports = {
   getAncestorCounter,
   getAncestorNode,
@@ -429,5 +436,6 @@ module.exports = {
   isWordNode,
   isColonNode,
   isMediaAndSupportsKeywords,
-  isColorAdjusterFuncNode
+  isColorAdjusterFuncNode,
+  hasSingleLineCommentAtEnd
 };
