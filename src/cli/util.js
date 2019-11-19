@@ -447,7 +447,7 @@ function formatFiles(context) {
     try {
       fileIgnored = ignorer.ignores(path.relative(process.cwd(), filename));
     } catch (_) {
-      // Invalid path
+      // Invalid path. TODO: Should we show this error to the user, rather than swallowing it?
     }
 
     if (
