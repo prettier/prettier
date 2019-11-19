@@ -10,7 +10,11 @@ $ git log --pretty=format:"- %s" rev1..rev2 | sed 's/#\([0-9]*\)/\[prettier\/pre
 
 ## prettierx 0.9.1-dev
 
+## prettierx 0.9.0
+
 - no bundled TypeScript & no prod build
+
+[compare prettierx-0.8.0...prettierx-0.9.0](https://github.com/brodybits/prettierx/compare/prettierx-0.8.0...prettierx-0.9.0)
 
 ### prettier 1.18.2
 
