@@ -25,12 +25,18 @@ const placeholderPiecesToStringArray = pieces =>
   pieces.map(({ isPlaceholder, string, placeholder }) =>
     isPlaceholder ? placeholder : string
   );
-const removeCSSComments = string =>
+
+const removeCSSCommentsAndQuotedString = string =>
   string
+    // remove quoted strings
+    .replace(/(['"]).*?\1/, "$1$1")
+    // preserve `prettier-ignore` comments
     .replace(/\/\*\s*prettier-ignore\s*\*\//g, CSS_PRETTIER_IGNORE_PLACEHOLDER)
     .replace(/\/\/\s*prettier-ignore/g, CSS_PRETTIER_IGNORE_PLACEHOLDER)
+    // remove comments
     .replace(/\/\*[\s\S]*?\*\//g, "")
     .replace(/\/\/.*/g, "")
+    // restore `prettier-ignore` comment
     .replace(
       new RegExp(CSS_PRETTIER_IGNORE_PLACEHOLDER, "g"),
       "/* prettier-ignore */"
@@ -111,7 +117,7 @@ function embed(path, print, textToDoc, options) {
           }
 
           // check orphan placeholder
-          after = removeCSSComments(
+          after = removeCSSCommentsAndQuotedString(
             texts
               .slice(index + 1)
               .filter(text => !cssPlaceholder.isPlaceholder(text))
@@ -128,7 +134,9 @@ function embed(path, print, textToDoc, options) {
               texts.slice(index + 1).filter(text => text.trim())[0] || ""
             );
 
-          before = removeCSSComments(texts.slice(0, index).join("")).trim();
+          before = removeCSSCommentsAndQuotedString(
+            texts.slice(0, index).join("")
+          ).trim();
 
           if (
             (!after ||

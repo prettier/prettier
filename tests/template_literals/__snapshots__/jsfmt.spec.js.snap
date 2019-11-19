@@ -1,5 +1,106 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`css-comment-like-stings.js 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// double quoted '//'
+css\`
+[href*="//"]{\${a}}
+\`
+
+// single quoted '//'
+css\`
+[href*='//']{\${a}}
+\`
+
+// escaped quotes
+css\`
+[href*='//\\'']{\${a}}
+\`
+
+// prettier-ignore like comment
+css\`
+a {content: "// prettier-ignore";\${a};}
+\`
+
+// prettier-ignore like comment
+css\`
+a{content: "/* prettier-ignore */";\${a}}
+\`
+
+// actual URL
+css\`
+[href="https://example.com"]{\${a}}
+\`
+
+// quoted '/**/'
+css\`
+         a{
+content: "/* ";
+content: " */";
+\${a}
+}
+\`
+=====================================output=====================================
+// double quoted '//'
+css\`
+  [href*="//"] {
+    \${a}
+  }
+\`;
+
+// single quoted '//'
+css\`
+  [href*='//'] {
+    \${a}
+  }
+\`;
+
+// escaped quotes
+css\`
+  [href*='//\\''] {
+    \${a}
+  }
+\`;
+
+// prettier-ignore like comment
+css\`
+  a {
+    content: "// prettier-ignore";
+    \${a};
+  }
+\`;
+
+// prettier-ignore like comment
+css\`
+  a {
+    content: "/* prettier-ignore */";
+    \${a}
+  }
+\`;
+
+// actual URL
+css\`
+  [href="https://example.com"] {
+    \${a}
+  }
+\`;
+
+// quoted '/**/'
+css\`
+  a {
+    content: "/* ";
+    content: " */";
+    \${a}
+  }
+\`;
+
+================================================================================
+`;
+
 exports[`css-in-at-rule.js 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
