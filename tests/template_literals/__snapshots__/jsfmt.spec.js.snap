@@ -1171,6 +1171,12 @@ styled.div\`
   \${props => props.rounded && 'border-radius: 5px;'}
 \`;
 
+// #2883
+css\`
+&.foo .\${bar}::before,&.foo[value="hello"] .\${bar}::before {
+  position: absolute;
+}
+\`;
 =====================================output=====================================
 const Button = styled.a\`
   /* Comment */
@@ -1269,6 +1275,14 @@ styled.div\`
 styled.div\`
   display: block;
   \${props => props.rounded && "border-radius: 5px;"}
+\`;
+
+// #2883
+css\`
+  &.foo .\${bar}::before,
+  &.foo[value="hello"] .\${bar}::before {
+    position: absolute;
+  }
 \`;
 
 ================================================================================

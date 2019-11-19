@@ -88,3 +88,10 @@ styled.div`
          display: block;
   ${props => props.rounded && 'border-radius: 5px;'}
 `;
+
+// #2883
+css`
+&.foo .${bar}::before,&.foo[value="hello"] .${bar}::before {
+  position: absolute;
+}
+`;
