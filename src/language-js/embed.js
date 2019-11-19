@@ -19,7 +19,6 @@ const {
 
 const cssPlaceholder = new Placeholder("prettier");
 const CSS_PROPERTY_PLACEHOLDER = new Placeholder("prettier").get(0);
-const CSS_PRETTIER_IGNORE_PLACEHOLDER = new Placeholder("prettier").get(0);
 const CSS_EXTRA_SEMICOLON_MARK = new Placeholder("prettier").get(0);
 const placeholderPiecesToStringArray = pieces =>
   pieces.map(({ isPlaceholder, string, placeholder }) =>
@@ -29,8 +28,8 @@ const placeholderPiecesToStringArray = pieces =>
 const cleanCSS = string =>
   string
     // preserve `prettier-ignore` comments
-    .replace(/\/\*\s*prettier-ignore\s*\*\//g, CSS_PRETTIER_IGNORE_PLACEHOLDER)
-    .replace(/\/\/\s*prettier-ignore/g, CSS_PRETTIER_IGNORE_PLACEHOLDER)
+    .replace(/\/\*\s*prettier-ignore\s*\*\//g, "_")
+    .replace(/\/\/\s*prettier-ignore/g, "_")
     // remove block comments
     .replace(/\/\*[\s\S]*?\*\//g, "")
     // remove quoted strings
@@ -38,12 +37,7 @@ const cleanCSS = string =>
     // remove strings in parentheses
     .replace(/\(.*?\)/g, "_")
     // remove inline comments
-    .replace(/\/\/.*/g, "")
-    // restore `prettier-ignore` comment
-    .replace(
-      new RegExp(CSS_PRETTIER_IGNORE_PLACEHOLDER, "g"),
-      "/* prettier-ignore */"
-    );
+    .replace(/\/\/.*/g, "");
 const cssIdentityRegExp = /[^$a-zA-Z\d_-]/;
 const findCSSIdentity = (string, fromEnd) => {
   const arrayMethod = fromEnd ? "pop" : "shift";
