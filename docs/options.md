@@ -243,6 +243,14 @@ Valid options:
 | ------- | -------------------------- | --------------------------- |
 | `true`  | `--no-align-ternary-lines` | `alignTernaryLines: <bool>` |
 
+## paren spacing
+
+Print spaces between parens, WordPress style.
+
+| Default | CLI Override      | API Override           |
+| ------- | ----------------- | ---------------------- |
+| `false` | `--paren-spacing` | `parenSpacing: <bool>` |
+
 ## Parser
 
 Specify which parser to use.

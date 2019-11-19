@@ -30,6 +30,7 @@ prettierx <options> <file(s)>
 | Spaces around the star (\*\) in `yield*` expressions | `false`       | `--yield-star-spacing`          | `yieldStarSpacing: <bool>`         | Add spaces around the star (\*) in yield\* expressions (before and after - from eslint).                                                                                                            |
 | Indent chains                                        | `true`        | `--no-indent-chains`            | `indentChains: <bool>`             | Print indents at the start of chained calls.                                                                                                                                                        |
 | Align ternary lines                                  | `true`        | `--no-align-ternary-lines`      | `alignTernaryLines: <bool>`        | Align ternary lines in case of multiline ternery term (default behavior, which is in conflict with ESLint/StandardJS behavior). Should be disabled for consistency with ESLint/StandardJS behavior. |
+| paren spacing                                        | `false`       | `--paren-spacing`               | `parenSpacing: <bool>`             | Print spaces between parens, WordPress style.                                                                                                                                                       |
 
 ## standard-like formatting
 
