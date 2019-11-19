@@ -30,7 +30,6 @@ function parse(text, parsers, opts) {
     }
   }
 
-  delete ast.tokens;
   includeShebang(text, ast);
   return postprocess(ast, Object.assign({}, opts, { originalText: text }));
 }
@@ -40,7 +39,6 @@ function tryParseTypeScript(text, jsx) {
   return parser.parse(text, {
     loc: true,
     range: true,
-    tokens: true,
     comment: true,
     useJSXTextNode: true,
     jsx
