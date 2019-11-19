@@ -53,7 +53,7 @@ function hasClosureCompilerTypeCastComment(text, path) {
     const cleaned = comment
       .trim()
       .split("\n")
-      .map(line => line.replace(/^[\s*]+/, ""))
+      .map(line => line.replace(/^[\s*]+/, "").replace(/[\s*]+$/, ""))
       .join(" ")
       .trim();
     if (!/^@type\s*\{[^]+\}$/.test(cleaned)) {
