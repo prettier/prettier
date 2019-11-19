@@ -101,6 +101,78 @@ css\`
 ================================================================================
 `;
 
+exports[`css-ignore.js 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+css\`
+/* prettier-ignore */
+this{line:should;be:\${ugly}}
+\`
+
+css\`
+this{line:should;be:\${pretty}}
+
+/* prettier-ignore */
+this{line:should;be:\${ugly}}
+
+this{line:should;be:\${pretty}}
+\`
+
+// css don't support inline comment of \`prettier-ignore\`
+css\`
+this{line:should;be:\${pretty}} // prettier-ignore
+\`
+css\`
+this{line:should;be:\${pretty}}
+
+this{line:should;be:\${pretty}} // prettier-ignore
+\`
+=====================================output=====================================
+css\`
+  /* prettier-ignore */
+  this{line:should;be:\${ugly}}
+\`;
+
+css\`
+  this {
+    line: should;
+    be: \${pretty};
+  }
+
+  /* prettier-ignore */
+  this{line:should;be:\${ugly}}
+
+  this {
+    line: should;
+    be: \${pretty};
+  }
+\`;
+
+// css don't support inline comment of \`prettier-ignore\`
+css\`
+  this {
+    line: should;
+    be: \${pretty};
+  } // prettier-ignore
+\`;
+css\`
+  this {
+    line: should;
+    be: \${pretty};
+  }
+
+  this {
+    line: should;
+    be: \${pretty};
+  } // prettier-ignore
+\`;
+
+================================================================================
+`;
+
 exports[`css-in-at-rule.js 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -229,6 +301,45 @@ css\`
   @media (foo\${exp}) {
     div {
     }
+  }
+\`;
+
+================================================================================
+`;
+
+exports[`css-in-comment.js 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//  block comment
+css\`
+         foo{/*\${a}*/}
+\`;
+
+// inline comment
+css\`
+         foo{
+foo:bar;
+//\${a}
+foo:bar;
+}
+\`;
+=====================================output=====================================
+//  block comment
+css\`
+  foo {
+    /*\${a}*/
+  }
+\`;
+
+// inline comment
+css\`
+  foo {
+    foo: bar;
+    // \${a}
+    foo: bar;
   }
 \`;
 
