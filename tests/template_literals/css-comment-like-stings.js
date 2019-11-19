@@ -13,6 +13,11 @@ css`
 [href*='//\'']{${a}}
 `
 
+// in url()
+css`
+a {background: url(//example.com);${a};}
+`
+
 // prettier-ignore like comment
 css`
 a {content: "// prettier-ignore";${a};}

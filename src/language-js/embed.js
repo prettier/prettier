@@ -26,15 +26,18 @@ const placeholderPiecesToStringArray = pieces =>
     isPlaceholder ? placeholder : string
   );
 
-const removeCSSCommentsAndQuotedString = string =>
+const cleanCSS = string =>
   string
-    // remove quoted strings
-    .replace(/(['"]).*?\1/, "$1$1")
     // preserve `prettier-ignore` comments
     .replace(/\/\*\s*prettier-ignore\s*\*\//g, CSS_PRETTIER_IGNORE_PLACEHOLDER)
     .replace(/\/\/\s*prettier-ignore/g, CSS_PRETTIER_IGNORE_PLACEHOLDER)
-    // remove comments
+    // remove block comments
     .replace(/\/\*[\s\S]*?\*\//g, "")
+    // remove quoted strings
+    .replace(/(['"]).*?(\1)/g, "_")
+    // remove strings in parentheses
+    .replace(/\(.*?\)/g, "_")
+    // remove inline comments
     .replace(/\/\/.*/g, "")
     // restore `prettier-ignore` comment
     .replace(
@@ -117,7 +120,7 @@ function embed(path, print, textToDoc, options) {
           }
 
           // check orphan placeholder
-          after = removeCSSCommentsAndQuotedString(
+          after = cleanCSS(
             texts
               .slice(index + 1)
               .filter(text => !cssPlaceholder.isPlaceholder(text))
@@ -126,7 +129,7 @@ function embed(path, print, textToDoc, options) {
           const endsWithLineBreak = /^\s*\n/.test(after);
           after = after.trim();
 
-          const needExtraSemi =
+          const needExtraSemicolon =
             !after ||
             endsWithLineBreak ||
             after[0] !== ";" ||
@@ -134,9 +137,7 @@ function embed(path, print, textToDoc, options) {
               texts.slice(index + 1).filter(text => text.trim())[0] || ""
             );
 
-          before = removeCSSCommentsAndQuotedString(
-            texts.slice(0, index).join("")
-          ).trim();
+          before = cleanCSS(texts.slice(0, index).join("")).trim();
 
           if (
             (!after ||
@@ -150,7 +151,7 @@ function embed(path, print, textToDoc, options) {
           ) {
             text = `${CSS_PROPERTY_PLACEHOLDER}: ${text}`;
 
-            if (needExtraSemi) {
+            if (needExtraSemicolon) {
               text += `${CSS_EXTRA_SEMICOLON_MARK};`;
             }
           }
