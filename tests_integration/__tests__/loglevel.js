@@ -39,7 +39,7 @@ function runPrettierWithLogLevel(logLevel, patterns) {
     "not-found.js"
   ]);
 
-  expect(result).not.toEqual(0);
+  expect(result.status).toEqual(2);
 
   const stderr = stripAnsi(result.stderr);
 
