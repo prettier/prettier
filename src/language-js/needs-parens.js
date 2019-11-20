@@ -353,6 +353,7 @@ function needsParens(path, options) {
         case "TSAsExpression":
         case "TSNonNullExpression":
         case "UpdateExpression":
+          // [prettierx] parenSpace option support (...)
           // Logical and Binary expressions already got their parens if parent is UnaryExpression
           if (
             parent.type === "UnaryExpression" &&
@@ -365,6 +366,7 @@ function needsParens(path, options) {
 
         case "MemberExpression":
         case "OptionalMemberExpression":
+          // [prettierx] parenSpace option support (...)
           // Logical and Binary expressions already got their parens if parent is MemberExpression
           if (
             !parent.computed &&
@@ -761,6 +763,7 @@ function needsParens(path, options) {
         (parent.type === "NGPipeExpression" && name === "right") ||
         (parent.type === "MemberExpression" && name === "property") ||
         parent.type === "AssignmentExpression" ||
+        // [prettierx] parenSpace option support (...)
         // Pipe expression already got the parens when breaking inside certain parents
         parent.type === "UnaryExpression" ||
         ((parent.type === "MemberExpression" ||
