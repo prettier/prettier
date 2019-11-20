@@ -4411,15 +4411,18 @@ function printArgumentsList(path, options, print) {
     ]);
   }
 
-  return group(
+  // [prettierx] with parenSpace option support (...)
+  const c = concat([
+    "(",
     // [prettierx] parenSpace option support (...)
-    concat([
-      "(",
-      indent(concat([parenLine, concat(printedArguments)])),
-      ifBreak(maybeTrailingComma),
-      parenLine,
-      ")"
-    ]),
+    indent(concat([parenLine, concat(printedArguments)])),
+    ifBreak(maybeTrailingComma),
+    parenLine,
+    ")"
+  ]);
+  return group(
+    // (...)
+    c,
     { shouldBreak: printedArguments.some(willBreak) || anyArgEmptyLine }
   );
 }
