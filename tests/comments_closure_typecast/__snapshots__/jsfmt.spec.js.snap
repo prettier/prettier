@@ -156,3 +156,31 @@ const v8 = /**@type{string} */ (value);
 
 ================================================================================
 `;
+
+exports[`extra-spaces-and-asterisks.js 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const foo1 = /** @type {!Foo} */(bar);
+const foo2 = /** @type {!Foo} **/(bar);
+const foo3 = /** @type {!Foo} * */(bar);
+const foo4 = /** @type {!Foo} ***/(bar);
+const foo5 = /** @type {!Foo} * * */(bar);
+const foo6 = /** @type {!Foo} *****/(bar);
+const foo7 = /** @type {!Foo} *   *   *   *   */(bar);
+const foo8 = /** @type {!Foo}    ** *   *   */(bar);
+
+=====================================output=====================================
+const foo1 = /** @type {!Foo} */ (bar);
+const foo2 = /** @type {!Foo} **/ (bar);
+const foo3 = /** @type {!Foo} * */ (bar);
+const foo4 = /** @type {!Foo} ***/ (bar);
+const foo5 = /** @type {!Foo} * * */ (bar);
+const foo6 = /** @type {!Foo} *****/ (bar);
+const foo7 = /** @type {!Foo} *   *   *   *   */ (bar);
+const foo8 = /** @type {!Foo}    ** *   *   */ (bar);
+
+================================================================================
+`;
