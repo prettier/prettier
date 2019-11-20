@@ -3637,6 +3637,24 @@ function printPathNoParens(path, options, print, args) {
 
     case "ArgumentPlaceholder":
       return "?";
+
+    // These are not valid TypeScript. Printing them just for the sake of error recovery.
+    case "TSJSDocAllType":
+      return "*";
+    case "TSJSDocUnknownType":
+      return "?";
+    case "TSJSDocNullableType":
+      return concat(["?", path.call(print, "typeAnnotation")]);
+    case "TSJSDocNonNullableType":
+      return concat(["!", path.call(print, "typeAnnotation")]);
+    case "TSJSDocFunctionType":
+      return concat([
+        "function(",
+        // The parameters could be here, but typescript-estree doesn't convert them anyway (throws an error).
+        "): ",
+        path.call(print, "typeAnnotation")
+      ]);
+
     default:
       /* istanbul ignore next */
       throw new Error("unknown type: " + JSON.stringify(n.type));

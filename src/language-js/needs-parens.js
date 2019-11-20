@@ -450,6 +450,7 @@ function needsParens(path, options) {
           return false;
       }
 
+    case "TSJSDocFunctionType":
     case "TSConditionalType":
       if (parent.type === "TSConditionalType" && node === parent.extendsType) {
         return true;
@@ -477,7 +478,9 @@ function needsParens(path, options) {
         parent.type === "TSOptionalType" ||
         parent.type === "TSRestType" ||
         (parent.type === "TSIndexedAccessType" && node === parent.objectType) ||
-        parent.type === "TSTypeOperator"
+        parent.type === "TSTypeOperator" ||
+        (parent.type === "TSTypeAnnotation" &&
+          /^TSJSDoc/.test(path.getParentNode(1).type))
       );
 
     case "ArrayTypeAnnotation":
