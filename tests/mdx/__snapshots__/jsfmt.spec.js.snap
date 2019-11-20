@@ -6,13 +6,13 @@ parsers: ["mdx"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-import A from 'a'
+import D from 'd'
 import {A,B,C}    from "hello-world"
 import {AAAAAAAAAAAAAAAAAAAAAAAA, BBBBBBBBBBBBBBBBBBBBBB, CCCCCCCCCCCCCCCCCCCCCCC}   from  'xyz';
 
 ---
 
-import A from 'a'
+import D from 'd'
 
 
 import {A,B,C}    from "hello-world"
@@ -41,7 +41,7 @@ export const a = 1;
 export const b = 1;
 
 =====================================output=====================================
-import A from "a";
+import D from "d";
 import { A, B, C } from "hello-world";
 import {
   AAAAAAAAAAAAAAAAAAAAAAAA,
@@ -51,7 +51,7 @@ import {
 
 ---
 
-import A from "a";
+import D from "d";
 
 import { A, B, C } from "hello-world";
 
@@ -93,13 +93,13 @@ printWidth: 80
 semi: false
                                                                                 | printWidth
 =====================================input======================================
-import A from 'a'
+import D from 'd'
 import {A,B,C}    from "hello-world"
 import {AAAAAAAAAAAAAAAAAAAAAAAA, BBBBBBBBBBBBBBBBBBBBBB, CCCCCCCCCCCCCCCCCCCCCCC}   from  'xyz';
 
 ---
 
-import A from 'a'
+import D from 'd'
 
 
 import {A,B,C}    from "hello-world"
@@ -128,7 +128,7 @@ export const a = 1;
 export const b = 1;
 
 =====================================output=====================================
-import A from "a"
+import D from "d"
 import { A, B, C } from "hello-world"
 import {
   AAAAAAAAAAAAAAAAAAAAAAAA,
@@ -138,7 +138,7 @@ import {
 
 ---
 
-import A from "a"
+import D from "d"
 
 import { A, B, C } from "hello-world"
 
@@ -243,7 +243,25 @@ printWidth: 80
 
 <Hello>
     test   <World />   test
+</Hello>123
+
+---
+
+<Hello>
+    test   <World />   test
 </Hello>
+<Hello>
+    test   <World />   test
+</Hello>123
+
+---
+
+<Hello>
+    test   <World />   test
+</Hello>       123
+<Hello>
+    test   <World />   test
+</Hello>       234
 
 ---
 
@@ -258,7 +276,25 @@ printWidth: 80
 
 <Hello>
   test <World /> test
+</Hello>123
+
+---
+
+<Hello>
+  test <World /> test
 </Hello>
+<Hello>
+  test <World /> test
+</Hello>123
+
+---
+
+<Hello>
+  test <World /> test
+</Hello> 123
+<Hello>
+  test <World /> test
+</Hello> 234
 
 ---
 
@@ -283,7 +319,25 @@ semi: false
 
 <Hello>
     test   <World />   test
+</Hello>123
+
+---
+
+<Hello>
+    test   <World />   test
 </Hello>
+<Hello>
+    test   <World />   test
+</Hello>123
+
+---
+
+<Hello>
+    test   <World />   test
+</Hello>       123
+<Hello>
+    test   <World />   test
+</Hello>       234
 
 ---
 
@@ -298,7 +352,25 @@ semi: false
 
 <Hello>
   test <World /> test
+</Hello>123
+
+---
+
+<Hello>
+  test <World /> test
 </Hello>
+<Hello>
+  test <World /> test
+</Hello>123
+
+---
+
+<Hello>
+  test <World /> test
+</Hello> 123
+<Hello>
+  test <World /> test
+</Hello> 234
 
 ---
 
@@ -393,7 +465,7 @@ export  const   foo    = {
 <Foo bg='red'>
       <Bar    >hi    </Bar>
        {  hello       }
-       {     /* another commment */}
+       {     /* another comment */}
 </Foo>
 
 \`\`\`
@@ -432,7 +504,7 @@ I'm an awesome paragraph.
 <Foo bg="red">
   <Bar>hi </Bar>
   {hello}
-  {/* another commment */}
+  {/* another comment */}
 </Foo>
 
 \`\`\`
@@ -484,7 +556,7 @@ export  const   foo    = {
 <Foo bg='red'>
       <Bar    >hi    </Bar>
        {  hello       }
-       {     /* another commment */}
+       {     /* another comment */}
 </Foo>
 
 \`\`\`
@@ -523,7 +595,7 @@ I'm an awesome paragraph.
 <Foo bg="red">
   <Bar>hi </Bar>
   {hello}
-  {/* another commment */}
+  {/* another comment */}
 </Foo>
 
 \`\`\`

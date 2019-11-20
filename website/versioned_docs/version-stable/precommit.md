@@ -10,7 +10,7 @@ You can use Prettier with a pre-commit tool. This can re-format your files that 
 
 **Use Case:** Useful for when you want to use other code quality tools along with Prettier (e.g. ESLint, Stylelint, etc.) or if you need support for partially staged files (`git add --patch`).
 
-_Make sure Prettier is installed and is in your `devDependencies` before you proceed._
+_Make sure Prettier is installed and is in your [`devDependencies`](https://docs.npmjs.com/specifying-dependencies-and-devdependencies-in-a-package-json-file) before you proceed._
 
 ```bash
 npx mrm lint-staged
@@ -91,7 +91,7 @@ Alternately you can save this script as `.git/hooks/pre-commit` and give it exec
 
 ```bash
 #!/bin/sh
-FILES=$(git diff --cached --name-only --diff-filter=ACM "*.js" "*.jsx" | sed 's| |\\ |g')
+FILES=$(git diff --cached --name-only --diff-filter=ACMR "*.js" "*.jsx" | sed 's| |\\ |g')
 [ -z "$FILES" ] && exit 0
 
 # Prettify all selected files

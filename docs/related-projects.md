@@ -38,3 +38,4 @@ title: Related Projects
 - [`pretty-quick`](https://github.com/azz/pretty-quick) formats your changed files with Prettier
 - [`prettier-chrome`](https://github.com/u3u/prettier-chrome) an extension that can be formatted using Prettier in Chrome
 - [`prettylint`](https://github.com/ikatyang/prettylint) run Prettier as a linter
+- [`jest-runner-prettier`](https://github.com/keplersj/jest-runner-prettier) run Prettier as a Jest runner

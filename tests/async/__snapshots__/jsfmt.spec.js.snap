@@ -37,16 +37,16 @@ parsers: ["flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-async function f() { (await f()).length }
+async function f1() { (await f()).length }
 async function g() {
   invariant(
     (await driver.navigator.getUrl()).substr(-7)
   );
 }
-function *f(){
+function *f2(){
   !(yield a);
 }
-async function f() {
+async function f3() {
   a = !await f();
 }
 async () => {
@@ -55,16 +55,16 @@ async () => {
 }
 
 =====================================output=====================================
-async function f() {
+async function f1() {
   (await f()).length;
 }
 async function g() {
   invariant((await driver.navigator.getUrl()).substr(-7));
 }
-function* f() {
+function* f2() {
   !(yield a);
 }
-async function f() {
+async function f3() {
   a = !(await f());
 }
 async () => {
@@ -91,7 +91,7 @@ async function f() {
   );
 })()
 
-async function f() {
+async function f2() {
   await (spellcheck && spellcheck.setChecking(false));
   await spellcheck && spellcheck.setChecking(false)
 }
@@ -105,9 +105,33 @@ async function f() {
   console.log(await (true ? Promise.resolve("A") : Promise.resolve("B")));
 })();
 
-async function f() {
+async function f2() {
   await (spellcheck && spellcheck.setChecking(false));
   (await spellcheck) && spellcheck.setChecking(false);
+}
+
+================================================================================
+`;
+
+exports[`inline_await.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+async function f() {
+  const admins = (await(db.select('*').from('admins').leftJoin('bla').where('id', 'in', [1,2,3,4]))).map(({id, name})=>({id, name}))
+}
+
+=====================================output=====================================
+async function f() {
+  const admins = (
+    await db
+      .select("*")
+      .from("admins")
+      .leftJoin("bla")
+      .where("id", "in", [1, 2, 3, 4])
+  ).map(({ id, name }) => ({ id, name }));
 }
 
 ================================================================================
@@ -121,14 +145,14 @@ printWidth: 80
 =====================================input======================================
 async function *f(){ await (yield x); }
 
-async function f(){ await (() => {}); }
+async function f2(){ await (() => {}); }
 
 =====================================output=====================================
 async function* f() {
   await (yield x);
 }
 
-async function f() {
+async function f2() {
   await (() => {});
 }
 

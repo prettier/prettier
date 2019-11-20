@@ -72,23 +72,21 @@ function handleError(context, filename, error) {
   }
 
   const isParseError = Boolean(error && error.loc);
-  const isValidationError = /Validation Error/.test(error && error.message);
+  const isValidationError = /^Invalid \S+ value\./.test(error && error.message);
 
-  // For parse errors and validation errors, we only want to show the error
-  // message formatted in a nice way. `String(error)` takes care of that. Other
-  // (unexpected) errors are passed as-is as a separate argument to
-  // `console.error`. That includes the stack trace (if any), and shows a nice
-  // `util.inspect` of throws things that aren't `Error` objects. (The Flow
-  // parser has mistakenly thrown arrays sometimes.)
   if (isParseError) {
+    // `invalid.js: SyntaxError: Unexpected token (1:1)`.
     context.logger.error(`${filename}: ${String(error)}`);
   } else if (isValidationError || error instanceof errors.ConfigError) {
-    context.logger.error(String(error));
+    // `Invalid printWidth value. Expected an integer, but received 0.5.`
+    context.logger.error(error.message);
     // If validation fails for one file, it will fail for all of them.
     process.exit(1);
   } else if (error instanceof errors.DebugError) {
+    // `invalid.js: Some debug error message`
     context.logger.error(`${filename}: ${error.message}`);
   } else {
+    // `invalid.js: Error: Some unexpected error\n[stack trace]`
     context.logger.error(filename + ": " + (error.stack || error));
   }
 
@@ -286,7 +284,9 @@ function getOptionsOrDie(context, filePath) {
     context.logger.debug("loaded options `" + JSON.stringify(options) + "`");
     return options;
   } catch (error) {
-    context.logger.error("Invalid configuration file: " + error.message);
+    context.logger.error(
+      `Invalid configuration file \`${filePath}\`: ` + error.message
+    );
     process.exit(2);
   }
 }
@@ -368,24 +368,25 @@ function formatStdin(context) {
   const ignorer = createIgnorerFromContextOrDie(context);
   const relativeFilepath = path.relative(process.cwd(), filepath);
 
-  thirdParty.getStream(process.stdin).then(input => {
-    if (relativeFilepath && ignorer.filter([relativeFilepath]).length === 0) {
-      writeOutput(context, { formatted: input });
-      return;
-    }
+  thirdParty
+    .getStream(process.stdin)
+    .then(input => {
+      if (relativeFilepath && ignorer.filter([relativeFilepath]).length === 0) {
+        writeOutput(context, { formatted: input });
+        return;
+      }
 
-    const options = getOptionsForFile(context, filepath);
+      const options = getOptionsForFile(context, filepath);
 
-    try {
       if (listDifferent(context, input, options, "(stdin)")) {
         return;
       }
 
       writeOutput(context, format(context, input, options), options);
-    } catch (error) {
+    })
+    .catch(error => {
       handleError(context, relativeFilepath || "stdin", error);
-    }
-  });
+    });
 }
 
 function createIgnorerFromContextOrDie(context) {
@@ -420,14 +421,7 @@ function eachFilename(context, patterns, callback) {
       process.exitCode = 2;
       return;
     }
-    filePaths.forEach(filePath =>
-      callback(
-        filePath,
-        Object.assign(getOptionsForFile(context, filePath), {
-          filepath: filePath
-        })
-      )
-    );
+    filePaths.forEach(filePath => callback(filePath));
   } catch (error) {
     context.logger.error(
       `Unable to expand glob patterns: ${patterns.join(" ")}\n${error.message}`
@@ -448,7 +442,7 @@ function formatFiles(context) {
     context.logger.log("Checking formatting...");
   }
 
-  eachFilename(context, context.filePatterns, (filename, options) => {
+  eachFilename(context, context.filePatterns, filename => {
     const fileIgnored = ignorer.filter([filename]).length === 0;
     if (
       fileIgnored &&
@@ -460,8 +454,11 @@ function formatFiles(context) {
       return;
     }
 
+    const options = Object.assign(getOptionsForFile(context, filename), {
+      filepath: filename
+    });
+
     if (isTTY()) {
-      // Don't use `console.log` here since we need to replace this line.
       context.logger.log(filename, { newline: false });
     }
 
@@ -825,7 +822,7 @@ function normalizeDetailedOption(name, option) {
           typeof choice === "object" ? choice : { value: choice }
         );
         if (newChoice.value === true) {
-          newChoice.value = ""; // backward compability for original boolean option
+          newChoice.value = ""; // backward compatibility for original boolean option
         }
         return newChoice;
       })

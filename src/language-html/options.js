@@ -24,5 +24,12 @@ module.exports = {
         description: "Whitespaces are considered insensitive."
       }
     ]
+  },
+  vueIndentScriptAndStyle: {
+    since: "1.19.0-beta.1",
+    category: CATEGORY_HTML,
+    type: "boolean",
+    default: false,
+    description: "Indent script and style tags in Vue files."
   }
 };

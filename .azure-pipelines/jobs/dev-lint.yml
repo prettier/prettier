@@ -3,7 +3,11 @@ steps:
   - template: ../steps/install-dependencies.yml
   - script: yarn check-deps
     displayName: "Check dependencies"
+  - script: yarn check-types
+    displayName: "Check JSDoc types"
   - script: yarn lint
     displayName: "Lint code"
   - script: yarn lint-docs
     displayName: "Lint docs"
+  - script: yarn spellcheck
+    displayName: "Spellcheck"

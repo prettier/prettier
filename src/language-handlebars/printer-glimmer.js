@@ -32,6 +32,26 @@ const voidTags = [
 // Formatter based on @glimmerjs/syntax's built-in test formatter:
 // https://github.com/glimmerjs/glimmer-vm/blob/master/packages/%40glimmer/syntax/lib/generation/print.ts
 
+function printChildren(path, options, print) {
+  return concat(
+    path.map((childPath, childIndex) => {
+      const childNode = path.getValue();
+      const isFirstNode = childIndex === 0;
+      const isLastNode =
+        childIndex == path.getParentNode(0).children.length - 1;
+      const isLastNodeInMultiNodeList = isLastNode && !isFirstNode;
+      const isWhitespace = isWhitespaceNode(childNode);
+
+      if (isWhitespace && isLastNodeInMultiNodeList) {
+        return print(childPath, options, print);
+      } else if (isFirstNode) {
+        return concat([softline, print(childPath, options, print)]);
+      }
+      return print(childPath, options, print);
+    }, "children")
+  );
+}
+
 function print(path, options, print) {
   const n = path.getValue();
 
@@ -41,10 +61,10 @@ function print(path, options, print) {
   }
 
   switch (n.type) {
-    case "Program": {
-      return group(
-        join(softline, path.map(print, "body").filter(text => text !== ""))
-      );
+    case "Block":
+    case "Program":
+    case "Template": {
+      return group(concat(path.map(print, "body").filter(text => text !== "")));
     }
     case "ElementNode": {
       const tagFirstChar = n.tag[0];
@@ -52,8 +72,14 @@ function print(path, options, print) {
       const isGlimmerComponent =
         tagFirstChar.toUpperCase() === tagFirstChar || isLocal;
       const hasChildren = n.children.length > 0;
+
+      const hasNonWhitespaceChildren = n.children.some(
+        n => !isWhitespaceNode(n)
+      );
+
       const isVoid =
-        (isGlimmerComponent && !hasChildren) || voidTags.indexOf(n.tag) !== -1;
+        (isGlimmerComponent && (!hasChildren || !hasNonWhitespaceChildren)) ||
+        voidTags.indexOf(n.tag) !== -1;
       const closeTagForNoBreak = isVoid ? concat([" />", softline]) : ">";
       const closeTagForBreak = isVoid ? "/>" : ">";
       const getParams = (path, print) =>
@@ -70,6 +96,8 @@ function print(path, options, print) {
           ])
         );
 
+      const nextNode = getNextNode(path);
+
       return concat([
         group(
           concat([
@@ -81,13 +109,18 @@ function print(path, options, print) {
             ifBreak(closeTagForBreak, closeTagForNoBreak)
           ])
         ),
-        group(
-          concat([
-            indent(join(softline, [""].concat(path.map(print, "children")))),
-            ifBreak(hasChildren ? hardline : "", ""),
-            !isVoid ? concat(["</", n.tag, ">"]) : ""
-          ])
-        )
+        !isVoid
+          ? group(
+              concat([
+                hasNonWhitespaceChildren
+                  ? indent(printChildren(path, options, print))
+                  : "",
+                ifBreak(hasChildren ? hardline : "", ""),
+                concat(["</", n.tag, ">"])
+              ])
+            )
+          : "",
+        nextNode && nextNode.type === "ElementNode" ? hardline : ""
       ]);
     }
     case "BlockStatement": {
@@ -122,18 +155,17 @@ function print(path, options, print) {
           indent(concat([hardline, path.call(print, "program")]))
         ]);
       }
-      /**
-       * I want this boolean to be: if params are going to cause a break,
-       * not that it has params.
-       */
-      const hasParams = n.params.length > 0 || n.hash.pairs.length > 0;
-      const hasChildren = n.program.body.length > 0;
+
+      const hasNonWhitespaceChildren = n.program.body.some(
+        n => !isWhitespaceNode(n)
+      );
+
       return concat([
         printOpenBlock(path, print),
         group(
           concat([
             indent(concat([softline, path.call(print, "program")])),
-            hasParams && hasChildren ? hardline : softline,
+            hasNonWhitespaceChildren ? hardline : softline,
             printCloseBlock(path, print)
           ])
         )
@@ -146,7 +178,7 @@ function print(path, options, print) {
       return group(
         concat([
           n.escaped === false ? "{{{" : "{{",
-          printPathParams(path, print),
+          printPathParams(path, print, { group: false }),
           isConcat ? "" : softline,
           n.escaped === false ? "}}}" : "}}"
         ])
@@ -167,8 +199,11 @@ function print(path, options, print) {
       if (isText && n.value.loc.start.column === n.value.loc.end.column) {
         return concat([n.name]);
       }
-      const quote = isText ? '"' : "";
-      return concat([n.name, "=", quote, path.call(print, "value"), quote]);
+      const value = path.call(print, "value");
+      const quotedValue = isText
+        ? printStringLiteral(value.parts.join(), options)
+        : value;
+      return concat([n.name, "=", quotedValue]);
     }
     case "ConcatStatement": {
       return concat([
@@ -193,12 +228,54 @@ function print(path, options, print) {
       return concat([n.key, "=", path.call(print, "value")]);
     }
     case "TextNode": {
+      const maxLineBreaksToPreserve = 2;
+      const isFirstElement = !getPreviousNode(path);
+      const isLastElement = !getNextNode(path);
+      const isWhitespaceOnly = !/\S/.test(n.chars);
+      const lineBreaksCount = countNewLines(n.chars);
+      const hasBlockParent = path.getParentNode(0).type === "Block";
+      const hasElementParent = path.getParentNode(0).type === "ElementNode";
+      const hasTemplateParent = path.getParentNode(0).type === "Template";
+
+      let leadingLineBreaksCount = countLeadingNewLines(n.chars);
+      let trailingLineBreaksCount = countTrailingNewLines(n.chars);
+
+      if (
+        (isFirstElement || isLastElement) &&
+        isWhitespaceOnly &&
+        (hasBlockParent || hasElementParent || hasTemplateParent)
+      ) {
+        return "";
+      }
+
+      if (isWhitespaceOnly && lineBreaksCount) {
+        leadingLineBreaksCount = Math.min(
+          lineBreaksCount,
+          maxLineBreaksToPreserve
+        );
+        trailingLineBreaksCount = 0;
+      } else {
+        if (
+          isNextNodeOfType(path, "ElementNode") ||
+          isNextNodeOfType(path, "BlockStatement")
+        ) {
+          trailingLineBreaksCount = Math.max(trailingLineBreaksCount, 1);
+        }
+
+        if (
+          isPreviousNodeOfSomeType(path, ["ElementNode"]) ||
+          isPreviousNodeOfSomeType(path, ["BlockStatement"])
+        ) {
+          leadingLineBreaksCount = Math.max(leadingLineBreaksCount, 1);
+        }
+      }
+
       let leadingSpace = "";
       let trailingSpace = "";
 
-      // preserve a space inside of an attribute node where whitespace present, when next to mustache statement.
+      // preserve a space inside of an attribute node where whitespace present,
+      // when next to mustache statement.
       const inAttrNode = path.stack.indexOf("attributes") >= 0;
-
       if (inAttrNode) {
         const parentNode = path.getParentNode(0);
         const isConcat = parentNode.type === "ConcatStatement";
@@ -220,10 +297,41 @@ function print(path, options, print) {
             }
           }
         }
+      } else {
+        if (
+          trailingLineBreaksCount === 0 &&
+          isNextNodeOfType(path, "MustacheStatement")
+        ) {
+          trailingSpace = " ";
+        }
+
+        if (
+          leadingLineBreaksCount === 0 &&
+          isPreviousNodeOfSomeType(path, ["MustacheStatement"])
+        ) {
+          leadingSpace = " ";
+        }
+
+        if (isFirstElement) {
+          leadingLineBreaksCount = 0;
+          leadingSpace = "";
+        }
+
+        if (isLastElement) {
+          trailingLineBreaksCount = 0;
+          trailingSpace = "";
+        }
       }
-      return n.chars
-        .replace(/^\s+/, leadingSpace)
-        .replace(/\s+$/, trailingSpace);
+
+      return concat(
+        [
+          ...generateHardlines(leadingLineBreaksCount, maxLineBreaksToPreserve),
+          n.chars
+            .replace(/^[\s ]+/g, leadingSpace)
+            .replace(/[\s ]+$/, trailingSpace),
+          ...generateHardlines(trailingLineBreaksCount, maxLineBreaksToPreserve)
+        ].filter(Boolean)
+      );
     }
     case "MustacheCommentStatement": {
       const dashes = n.value.indexOf("}}") > -1 ? "--" : "";
@@ -317,11 +425,16 @@ function getParams(path, print) {
   return parts;
 }
 
-function printPathParams(path, print) {
+function printPathParams(path, print, options) {
   let parts = [];
+  options = Object.assign({ group: true }, options || {});
 
   parts.push(printPath(path, print));
   parts = parts.concat(getParams(path, print));
+
+  if (!options.group) {
+    return indent(join(line, parts));
+  }
 
   return indent(group(join(line, parts)));
 }
@@ -350,8 +463,55 @@ function printCloseBlock(path, print) {
   return concat(["{{/", path.call(print, "path"), "}}"]);
 }
 
+function isWhitespaceNode(node) {
+  return node.type === "TextNode" && !/\S/.test(node.chars);
+}
+
+function getPreviousNode(path) {
+  const node = path.getValue();
+  const parentNode = path.getParentNode(0);
+
+  const children = parentNode.children || parentNode.body;
+  if (children) {
+    const nodeIndex = children.indexOf(node);
+    if (nodeIndex > 0) {
+      const previousNode = children[nodeIndex - 1];
+      return previousNode;
+    }
+  }
+}
+
+function getNextNode(path) {
+  const node = path.getValue();
+  const parentNode = path.getParentNode(0);
+
+  const children = parentNode.children || parentNode.body;
+  if (children) {
+    const nodeIndex = children.indexOf(node);
+    if (nodeIndex < children.length) {
+      const nextNode = children[nodeIndex + 1];
+      return nextNode;
+    }
+  }
+}
+
+function isPreviousNodeOfSomeType(path, types) {
+  const previousNode = getPreviousNode(path);
+
+  if (previousNode) {
+    return types.some(type => previousNode.type === type);
+  }
+  return false;
+}
+
+function isNextNodeOfType(path, type) {
+  const nextNode = getNextNode(path);
+  return nextNode && nextNode.type === type;
+}
+
 function clean(ast, newObj) {
   delete newObj.loc;
+  delete newObj.selfClosing;
 
   // (Glimmer/HTML) ignore TextNode whitespace
   if (ast.type === "TextNode") {
@@ -360,6 +520,30 @@ function clean(ast, newObj) {
     }
     newObj.chars = ast.chars.replace(/^\s+/, "").replace(/\s+$/, "");
   }
+}
+
+function countNewLines(string) {
+  /* istanbul ignore next */
+  string = typeof string === "string" ? string : "";
+  return string.split("\n").length - 1;
+}
+
+function countLeadingNewLines(string) {
+  /* istanbul ignore next */
+  string = typeof string === "string" ? string : "";
+  const newLines = (string.match(/^([^\S\r\n]*[\r\n])+/g) || [])[0] || "";
+  return countNewLines(newLines);
+}
+
+function countTrailingNewLines(string) {
+  /* istanbul ignore next */
+  string = typeof string === "string" ? string : "";
+  const newLines = (string.match(/([\r\n][^\S\r\n]*)+$/g) || [])[0] || "";
+  return countNewLines(newLines);
+}
+
+function generateHardlines(number = 0, max = 0) {
+  return new Array(Math.min(number, max)).fill(hardline);
 }
 
 module.exports = {

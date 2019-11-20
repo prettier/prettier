@@ -65,7 +65,9 @@ function getSupportInfo(version, opts) {
     })
     .map(option => {
       const filteredPlugins = plugins.filter(
-        plugin => plugin.defaultOptions && plugin.defaultOptions[option.name]
+        plugin =>
+          plugin.defaultOptions &&
+          plugin.defaultOptions[option.name] !== undefined
       );
       const pluginDefaults = filteredPlugins.reduce((reduced, plugin) => {
         reduced[plugin.name] = plugin.defaultOptions[option.name];

@@ -9,25 +9,25 @@
     "update-stable-docs": "rm -rf ./versioned_docs ./versions.json && docusaurus-version stable"
   },
   "dependencies": {
-    "clipboard": "2.0.0",
-    "codemirror": "5.36.0",
-    "codemirror-graphql": "0.6.12",
+    "clipboard": "2.0.4",
+    "codemirror": "5.49.2",
+    "codemirror-graphql": "0.11.2",
     "lodash.groupby": "4.6.0",
     "lz-string": "1.4.4",
-    "prop-types": "15.6.1",
-    "react": "16.3.1",
-    "react-dom": "16.3.3"
+    "prop-types": "15.7.2",
+    "react": "16.11.0",
+    "react-dom": "16.11.0"
   },
   "devDependencies": {
+    "@babel/preset-env": "7.7.1",
+    "@babel/preset-react": "7.7.0",
     "@sandhose/prettier-animated-logo": "1.0.3",
-    "babel-loader": "7.1.4",
-    "babel-preset-env": "1.6.1",
-    "babel-preset-react": "6.24.1",
-    "concurrently": "3.5.1",
-    "docusaurus": "1.6.2",
+    "babel-loader": "8.0.6",
+    "concurrently": "5.0.0",
+    "docusaurus": "1.14.0",
     "js-yaml": "3.13.1",
-    "svgo": "1.0.4",
-    "webpack": "4.29.6",
-    "webpack-cli": "2.0.14"
+    "svgo": "1.3.2",
+    "webpack": "4.41.2",
+    "webpack-cli": "3.3.10"
   }
 }

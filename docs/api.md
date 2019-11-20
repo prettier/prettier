@@ -49,7 +49,7 @@ prettier.resolveConfig(filePath).then(options => {
 });
 ```
 
-If `options.editorconfig` is `true` and an [`.editorconfig` file](http://editorconfig.org/) is in your project, Prettier will parse it and convert its properties to the corresponding prettier configuration. This configuration will be overridden by `.prettierrc`, etc. Currently, the following EditorConfig properties are supported:
+If `options.editorconfig` is `true` and an [`.editorconfig` file](https://editorconfig.org/) is in your project, Prettier will parse it and convert its properties to the corresponding prettier configuration. This configuration will be overridden by `.prettierrc`, etc. Currently, the following EditorConfig properties are supported:
 
 - `end_of_line`
 - `indent_style`
@@ -58,16 +58,26 @@ If `options.editorconfig` is `true` and an [`.editorconfig` file](http://editorc
 
 Use `prettier.resolveConfig.sync(filePath [, options])` if you'd like to use sync version.
 
-## `prettier.resolveConfigFile(filePath [, options])`
+## `prettier.resolveConfigFile([filePath])`
 
-`resolveConfigFile` can be used to find the path of the Prettier's configuration file will be used when resolving the config (i.e. when calling `resolveConfig`). A promise is returned which will resolve to:
+`resolveConfigFile` can be used to find the path of the Prettier configuration file that will be used when resolving the config (i.e. when calling `resolveConfig`). A promise is returned which will resolve to:
 
 - The path of the configuration file.
 - `null`, if no file was found.
 
 The promise will be rejected if there was an error parsing the configuration file.
 
-If `options.useCache` is `false`, all caching will be bypassed.
+The search starts at `process.cwd()`, or at `filePath` if provided. Please see the [cosmiconfig docs](https://github.com/davidtheclark/cosmiconfig#explorersearch) for details on how the resolving works.
+
+```js
+prettier.resolveConfigFile().then(filePath => {
+  prettier.resolveConfig(filePath).then(options => {
+    const formatted = prettier.format(text, options);
+  });
+});
+```
+
+Use `prettier.resolveConfigFile.sync([filePath])` if you'd like to use sync version.
 
 ## `prettier.clearConfigCache()`
 
@@ -84,9 +94,13 @@ As you repeatedly call `resolveConfig`, the file system structure will be cached
 }
 ```
 
+The promise will be rejected if the type of `filePath` is not `string`.
+
 Setting `options.ignorePath` (`string`) and `options.withNodeModules` (`boolean`) influence the value of `ignored` (`false` by default).
 
 Providing [plugin](plugins.md) paths in `options.plugins` (`string[]`) helps extract `inferredParser` for files that are not supported by Prettier core.
+
+When setting `options.resolveConfig` (`boolean`, default `false`), Prettier will resolve the configuration for the given `filePath`. This is useful, for example, when the `inferredParser` might be overridden for a subset of files.
 
 Use `prettier.getFileInfo.sync(filePath [, options])` if you'd like to use sync version.
 

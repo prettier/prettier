@@ -1,5 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`declare_class_fields.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class B {p: number;}
+class C extends B {declare p: 256 | 1000;}
+
+=====================================output=====================================
+class B {
+  p: number;
+}
+class C extends B {
+  declare p: 256 | 1000;
+}
+
+================================================================================
+`;
+
 exports[`declare_enum.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -70,14 +90,14 @@ printWidth: 80
 const hello = 5;
 
 // tslint:disable-next-line:no-use-before-declare
-declare const hello = 5;
+declare const hello2 = 5;
 
 =====================================output=====================================
 // tslint:disable-next-line:no-use-before-declare
 const hello = 5;
 
 // tslint:disable-next-line:no-use-before-declare
-declare const hello = 5;
+declare const hello2 = 5;
 
 ================================================================================
 `;

@@ -65,6 +65,9 @@ Object {
     "SCSS": Array [
       "scss",
     ],
+    "TSX": Array [
+      "typescript",
+    ],
     "TypeScript": Array [
       "typescript",
     ],
@@ -268,6 +271,10 @@ Object {
       "default": false,
       "type": "boolean",
     },
+    "vueIndentScriptAndStyle": Object {
+      "default": false,
+      "type": "boolean",
+    },
     "yieldStarSpacing": Object {
       "default": false,
       "type": "boolean",
@@ -345,14 +352,23 @@ exports[`CLI --support-info (stdout) 1`] = `
         \\".xsjslib\\"
       ],
       \\"filenames\\": [\\"Jakefile\\"],
-      \\"interpreters\\": [\\"node\\", \\"nodejs\\"],
+      \\"interpreters\\": [
+        \\"chakra\\",
+        \\"d8\\",
+        \\"js\\",
+        \\"node\\",
+        \\"rhino\\",
+        \\"v8\\",
+        \\"v8-shell\\",
+        \\"nodejs\\"
+      ],
       \\"linguistLanguageId\\": 183,
       \\"name\\": \\"JavaScript\\",
       \\"parsers\\": [\\"babel\\", \\"flow\\"],
       \\"since\\": \\"0.0.0\\",
       \\"tmScope\\": \\"source.js\\",
       \\"type\\": \\"programming\\",
-      \\"vscodeLanguageIds\\": [\\"javascript\\"]
+      \\"vscodeLanguageIds\\": [\\"javascript\\", \\"mongo\\"]
     },
     {
       \\"aceMode\\": \\"javascript\\",
@@ -362,7 +378,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"color\\": \\"#f1e05a\\",
       \\"extensions\\": [\\".js.flow\\"],
       \\"filenames\\": [],
-      \\"interpreters\\": [\\"node\\"],
+      \\"interpreters\\": [\\"chakra\\", \\"d8\\", \\"js\\", \\"node\\", \\"rhino\\", \\"v8\\", \\"v8-shell\\"],
       \\"linguistLanguageId\\": 183,
       \\"name\\": \\"Flow\\",
       \\"parsers\\": [\\"babel\\", \\"flow\\"],
@@ -391,14 +407,29 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"codemirrorMimeType\\": \\"application/typescript\\",
       \\"codemirrorMode\\": \\"javascript\\",
       \\"color\\": \\"#2b7489\\",
-      \\"extensions\\": [\\".ts\\", \\".tsx\\"],
+      \\"extensions\\": [\\".ts\\"],
+      \\"interpreters\\": [\\"deno\\", \\"ts-node\\"],
       \\"linguistLanguageId\\": 378,
       \\"name\\": \\"TypeScript\\",
       \\"parsers\\": [\\"typescript\\"],
       \\"since\\": \\"1.4.0\\",
       \\"tmScope\\": \\"source.ts\\",
       \\"type\\": \\"programming\\",
-      \\"vscodeLanguageIds\\": [\\"typescript\\", \\"typescriptreact\\"]
+      \\"vscodeLanguageIds\\": [\\"typescript\\"]
+    },
+    {
+      \\"aceMode\\": \\"javascript\\",
+      \\"codemirrorMimeType\\": \\"text/jsx\\",
+      \\"codemirrorMode\\": \\"jsx\\",
+      \\"extensions\\": [\\".tsx\\"],
+      \\"group\\": \\"TypeScript\\",
+      \\"linguistLanguageId\\": 94901924,
+      \\"name\\": \\"TSX\\",
+      \\"parsers\\": [\\"typescript\\"],
+      \\"since\\": \\"1.4.0\\",
+      \\"tmScope\\": \\"source.tsx\\",
+      \\"type\\": \\"programming\\",
+      \\"vscodeLanguageIds\\": [\\"typescriptreact\\"]
     },
     {
       \\"aceMode\\": \\"json\\",
@@ -406,7 +437,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"codemirrorMode\\": \\"javascript\\",
       \\"extensions\\": [],
       \\"filenames\\": [\\"package.json\\", \\"package-lock.json\\", \\"composer.json\\"],
-      \\"group\\": \\"JavaScript\\",
       \\"linguistLanguageId\\": 174,
       \\"name\\": \\"JSON.stringify\\",
       \\"parsers\\": [\\"json-stringify\\"],
@@ -425,24 +455,29 @@ exports[`CLI --support-info (stdout) 1`] = `
         \\".avsc\\",
         \\".geojson\\",
         \\".gltf\\",
+        \\".har\\",
+        \\".ice\\",
         \\".JSON-tmLanguage\\",
         \\".jsonl\\",
+        \\".mcmeta\\",
         \\".tfstate\\",
         \\".tfstate.backup\\",
         \\".topojson\\",
         \\".webapp\\",
-        \\".webmanifest\\"
+        \\".webmanifest\\",
+        \\".yy\\",
+        \\".yyp\\"
       ],
       \\"filenames\\": [
         \\".arcconfig\\",
         \\".htmlhintrc\\",
         \\".tern-config\\",
         \\".tern-project\\",
+        \\".watchmanconfig\\",
         \\"composer.lock\\",
         \\"mcmod.info\\",
         \\".prettierrc\\"
       ],
-      \\"group\\": \\"JavaScript\\",
       \\"linguistLanguageId\\": 174,
       \\"name\\": \\"JSON\\",
       \\"parsers\\": [\\"json\\"],
@@ -478,6 +513,8 @@ exports[`CLI --support-info (stdout) 1`] = `
         \\".jscsrc\\",
         \\".jshintrc\\",
         \\".jslintrc\\",
+        \\"jsconfig.json\\",
+        \\"language-configuration.json\\",
         \\"tsconfig.json\\",
         \\".eslintrc\\"
       ],
@@ -553,7 +590,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"name\\": \\"SCSS\\",
       \\"parsers\\": [\\"scss\\"],
       \\"since\\": \\"1.4.0\\",
-      \\"tmScope\\": \\"source.scss\\",
+      \\"tmScope\\": \\"source.css.scss\\",
       \\"type\\": \\"markup\\",
       \\"vscodeLanguageIds\\": [\\"scss\\"]
     },
@@ -572,7 +609,7 @@ exports[`CLI --support-info (stdout) 1`] = `
     },
     {
       \\"aceMode\\": \\"text\\",
-      \\"extensions\\": [\\".graphql\\", \\".gql\\"],
+      \\"extensions\\": [\\".graphql\\", \\".gql\\", \\".graphqls\\"],
       \\"linguistLanguageId\\": 139,
       \\"name\\": \\"GraphQL\\",
       \\"parsers\\": [\\"graphql\\"],
@@ -597,7 +634,7 @@ exports[`CLI --support-info (stdout) 1`] = `
         \\".ronn\\",
         \\".workbook\\"
       ],
-      \\"filenames\\": [\\"README\\"],
+      \\"filenames\\": [\\"contents.lr\\", \\"README\\"],
       \\"linguistLanguageId\\": 222,
       \\"name\\": \\"Markdown\\",
       \\"parsers\\": [\\"markdown\\"],
@@ -608,11 +645,20 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"wrap\\": true
     },
     {
+      \\"aceMode\\": \\"markdown\\",
+      \\"aliases\\": [\\"pandoc\\"],
+      \\"codemirrorMimeType\\": \\"text/x-gfm\\",
+      \\"codemirrorMode\\": \\"gfm\\",
       \\"extensions\\": [\\".mdx\\"],
+      \\"filenames\\": [],
+      \\"linguistLanguageId\\": 222,
       \\"name\\": \\"MDX\\",
       \\"parsers\\": [\\"mdx\\"],
       \\"since\\": \\"1.15.0\\",
-      \\"vscodeLanguageIds\\": [\\"mdx\\"]
+      \\"tmScope\\": \\"source.gfm\\",
+      \\"type\\": \\"prose\\",
+      \\"vscodeLanguageIds\\": [\\"mdx\\"],
+      \\"wrap\\": true
     },
     {
       \\"aceMode\\": \\"html\\",
@@ -1088,6 +1134,15 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"name\\": \\"useTabs\\",
       \\"pluginDefaults\\": {},
       \\"since\\": \\"1.0.0\\",
+      \\"type\\": \\"boolean\\"
+    },
+    {
+      \\"category\\": \\"HTML\\",
+      \\"default\\": false,
+      \\"description\\": \\"Indent script and style tags in Vue files.\\",
+      \\"name\\": \\"vueIndentScriptAndStyle\\",
+      \\"pluginDefaults\\": {},
+      \\"since\\": \\"1.19.0-beta.1\\",
       \\"type\\": \\"boolean\\"
     },
     {

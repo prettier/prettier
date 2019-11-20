@@ -10,6 +10,12 @@ $ git log --pretty=format:"- %s" rev1..rev2 | sed 's/#\([0-9]*\)/\[prettier\/pre
 
 ## prettierx 0.10.0-dev
 
+### prettier 1.19.0
+
+[diff](https://github.com/prettier/prettier/compare/1.18.2...1.19.0)
+
+🔗 [Release Notes](https://prettier.io/blog/2019/11/09/1.19.0.html)
+
 ## prettierx 0.9.0
 
 - no bundled TypeScript & no prod build
@@ -18,7 +24,7 @@ $ git log --pretty=format:"- %s" rev1..rev2 | sed 's/#\([0-9]*\)/\[prettier\/pre
 
 ### prettier 1.18.2
 
-[diff](https://github.com/prettier/prettier/compare/1.18.2...1.18.1)
+[diff](https://github.com/prettier/prettier/compare/1.18.1...1.18.2)
 
 - TypeScript: only add trailing commas in tuples for `--trailing-comma=all` ([#6199] by [@duailibe])
 
@@ -29,7 +35,7 @@ $ git log --pretty=format:"- %s" rev1..rev2 | sed 's/#\([0-9]*\)/\[prettier\/pre
 
 ### prettier 1.18.1
 
-[diff](https://github.com/prettier/prettier/compare/1.18.1...1.18.0)
+[diff](https://github.com/prettier/prettier/compare/1.18.0...1.18.1)
 
 - TypeScript: Add trailing comma in tsx, only for arrow function ([#6190] by [@sosukesuzuki])
 
@@ -45,7 +51,7 @@ $ git log --pretty=format:"- %s" rev1..rev2 | sed 's/#\([0-9]*\)/\[prettier\/pre
     return "one";
   }
 
-  // Output (Prettier stable)
+  // Output (Prettier 1.18.0)
   interface Interface1<T,> {
     one: "one";
   }
@@ -53,7 +59,7 @@ $ git log --pretty=format:"- %s" rev1..rev2 | sed 's/#\([0-9]*\)/\[prettier\/pre
     return "one";
   }
 
-  // Output (Prettier master)
+  // Output (Prettier 1.18.1)
   interface Interface1<T> {
     one: "one";
   }

@@ -38,6 +38,66 @@ printWidth: 80
 ================================================================================
 `;
 
+exports[`member-expression.tsx 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+(<a />).method();
+(<a />).property;
+(<a />)["computed"];
+(<a />)["computed"]();
+(
+  <div>
+    <a>foo</a>
+  </div>
+).method();
+(
+  <div>
+    <a>foo</a>
+  </div>
+).property;
+(
+  <div>
+    <a>foo</a>
+  </div>
+)["computed"];
+(
+  <div>
+    <a>foo</a>
+  </div>
+)["computed"]();
+
+=====================================output=====================================
+(<a />).method();
+(<a />).property;
+(<a />)["computed"];
+(<a />)["computed"]();
+(
+  <div>
+    <a>foo</a>
+  </div>
+).method();
+(
+  <div>
+    <a>foo</a>
+  </div>
+).property;
+(
+  <div>
+    <a>foo</a>
+  </div>
+)["computed"];
+(
+  <div>
+    <a>foo</a>
+  </div>
+)["computed"]();
+
+================================================================================
+`;
+
 exports[`not-react.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -163,9 +223,39 @@ parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-const link = <a href="example.com">http://example.com</a>
+const link = <a href="example.com">http://example.com</a>;
+
+const first = <div>http://example.com</div>;
+
+ const second = <>http://example.com</>;
+
+ const third = <div><br />http://example.com</div>;
+
+ const fourth = <div><span></span>http://example.com</div>;
+
+ const fifth = <div>{}http://example.com</div>;
+
 =====================================output=====================================
 const link = <a href="example.com">http://example.com</a>;
+
+const first = <div>http://example.com</div>;
+
+const second = <>http://example.com</>;
+
+const third = (
+  <div>
+    <br />
+    http://example.com
+  </div>
+);
+
+const fourth = (
+  <div>
+    <span></span>http://example.com
+  </div>
+);
+
+const fifth = <div>{}http://example.com</div>;
 
 ================================================================================
 `;

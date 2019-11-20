@@ -937,7 +937,7 @@ const paymentMessage = state == 'success'
 
   : 'There was an issue with the payment.  Please contact support.'
 
-const paymentMessage = state == 'success'
+const paymentMessage2 = state == 'success'
   ? 1 //'Payment completed successfully'
 
 : state == 'processing'
@@ -1029,7 +1029,7 @@ const paymentMessage =
           ? "Expiry must be sometime in the past."
           : "There was an issue with the payment.  Please contact support.";
 
-const paymentMessage =
+const paymentMessage2 =
   state == "success"
     ? 1 //'Payment completed successfully'
     : state == "processing"
@@ -1142,7 +1142,7 @@ const paymentMessage = state == 'success'
 
   : 'There was an issue with the payment.  Please contact support.'
 
-const paymentMessage = state == 'success'
+const paymentMessage2 = state == 'success'
   ? 1 //'Payment completed successfully'
 
 : state == 'processing'
@@ -1234,7 +1234,7 @@ const paymentMessage =
                     ? "Expiry must be sometime in the past."
                     : "There was an issue with the payment.  Please contact support.";
 
-const paymentMessage =
+const paymentMessage2 =
     state == "success"
         ? 1 //'Payment completed successfully'
         : state == "processing"

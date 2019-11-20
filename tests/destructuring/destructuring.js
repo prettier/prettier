@@ -31,3 +31,15 @@ try {
 } catch ({ data: { message: { errors }}}) {
   // code
 }
+
+const obj = {
+  func(id, { blog: { title } }) {
+    return id + title;
+  },
+};
+
+class A {
+  func(id, { blog: { title } }) {
+    return id + title;
+  }
+}

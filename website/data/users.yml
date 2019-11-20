@@ -221,3 +221,18 @@
 - caption: Heroku
   image: /images/users/heroku.svg
   infoLink: https://heroku.com/
+- caption: Openbravo
+  image: /images/users/openbravo-200x100.png
+  infoLink: https://openbravo.com
+- caption: Campusjäger
+  image: /images/users/campusjaeger.svg
+  infoLink: https://campusjaeger.de
+- caption: Research & Design
+  image: /images/users/researchanddesign.svg
+  infoLink: https://rd.digital
+- caption: Build
+  image: /images/users/buildcom.svg
+  infoLink: https://www.build.com
+- caption: Estalee
+  image: /images/users/estalee.svg
+  infoLink: https://estalee.com/

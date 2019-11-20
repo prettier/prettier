@@ -320,8 +320,8 @@ function breakTies(tiesToBreak, text, options) {
     assert.strictEqual(comment.precedingNode, precedingNode);
     assert.strictEqual(comment.followingNode, followingNode);
 
-    const gap = text.slice(options.locEnd(comment), gapEndPos).trim();
-    if (gap === "" || /^\(+$/.test(gap)) {
+    const gap = text.slice(options.locEnd(comment), gapEndPos);
+    if (/^[\s(]*$/.test(gap)) {
       gapEndPos = options.locStart(comment);
     } else {
       // The gap string contained something other than whitespace or open
@@ -510,7 +510,8 @@ function printComments(path, print, options, needsSemi) {
       leadingParts.push(contents);
 
       const text = options.originalText;
-      if (hasNewline(text, skipNewline(text, options.locEnd(comment)))) {
+      const index = skipNewline(text, options.locEnd(comment));
+      if (index !== false && hasNewline(text, index)) {
         leadingParts.push(hardline);
       }
     } else if (trailing) {
