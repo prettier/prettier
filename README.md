@@ -10,7 +10,21 @@ Language parsers are supported with old language parsers deprecated as if this w
 
 Minimum Node.js version supported: Node.js 8 - deprecated; Node.js 10 is recommended as described in: [`brodybits/prettierx#6`](https://github.com/brodybits/prettierx/issues/6)
 
-FUTURE TODO: It is desired to provide the additional formatting options in a prettier plugin as discussed in: [`brodybits/prettierx#8`](https://github.com/brodybits/prettierx/issues/8)
+## prettierx as a Prettier plugin
+
+Provides the additional formatting options in a prettier plugin (or two).
+
+Status: experimental
+
+- [`brodybits/prettier-plugin-prettierx-babel`](https://github.com/brodybits/prettier-plugin-prettierx-babel)
+- [`brodybits/prettier-plugin-prettierx-typescript`](https://github.com/brodybits/prettier-plugin-prettierx-typescript)
+
+Major TODO items:
+
+- support option to use Babel parser to parse TypeScript ref: [`brodybits/prettierx#54`](https://github.com/brodybits/prettierx/issues/54)
+- support the additional formatting options from the command line, somehow
+
+ref: [`brodybits/prettierx#8`](https://github.com/brodybits/prettierx/issues/8)
 
 ## CLI Usage
 
