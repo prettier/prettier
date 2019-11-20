@@ -428,7 +428,8 @@ function handleClassComments(
     enclosingNode &&
     (enclosingNode.type === "ClassDeclaration" ||
       enclosingNode.type === "ClassExpression") &&
-    (enclosingNode.decorators && enclosingNode.decorators.length > 0) &&
+    enclosingNode.decorators &&
+    enclosingNode.decorators.length > 0 &&
     !(followingNode && followingNode.type === "Decorator")
   ) {
     if (!enclosingNode.decorators || enclosingNode.decorators.length === 0) {
@@ -573,8 +574,8 @@ function handleCommentInEmptyParens(text, enclosingNode, comment, options) {
   }
   if (
     enclosingNode &&
-    (enclosingNode.type === "MethodDefinition" &&
-      enclosingNode.value.params.length === 0)
+    enclosingNode.type === "MethodDefinition" &&
+    enclosingNode.value.params.length === 0
   ) {
     addDanglingComment(enclosingNode.value, comment);
     return true;
