@@ -203,6 +203,7 @@ function genericPrint(path, options, printPath, args) {
   return concat(parts);
 }
 
+// [prettierx] for alignObjectProperties option:
 function getPropertyPadding(options, path) {
   if (!options.alignObjectProperties) {
     return "";
@@ -1535,30 +1536,39 @@ function printPathNoParens(path, options, print, args) {
       if (n.shorthand) {
         parts.push(path.call(print, "value"));
       } else {
-        let printedLeft;
+        // [prettierx] calculate property padding
+        // for alignObjectProperties option
         const propertyPadding = path.call(
           getPropertyPadding.bind(null, options),
           "key"
         );
-        if (n.computed) {
-          printedLeft = concat([
-            "[",
-            parenSpace,
-            path.call(print, "key"),
-            parenSpace,
-            "]",
-            propertyPadding.slice(2)
-          ]);
-        } else {
-          printedLeft = concat([
-            printPropertyKey(path, options, print),
-            propertyPadding
-          ]);
-        }
+
+        // [prettierx] compose left part,
+        // for alignObjectProperties option
+        const propertyLeftPart = n.computed
+          ? concat([
+              // [prettierx] computed property key,
+              // with padding as needed for alignment
+              "[",
+              parenSpace,
+              path.call(print, "key"),
+              parenSpace,
+              "]",
+              propertyPadding.slice(2)
+            ])
+          : concat([
+              // [prettierx] normal property key,
+              // for alignObjectProperties option
+              printPropertyKey(path, options, print),
+              propertyPadding
+            ]);
+
         parts.push(
           printAssignment(
             n.key,
-            printedLeft,
+            // [prettierx] with optional property alignment
+            // for alignObjectProperties option
+            propertyLeftPart,
             ":",
             n.value,
             path.call(print, "value"),
