@@ -8,7 +8,7 @@ const hasPragma = require("./pragma").hasPragma;
 const locFns = require("./loc");
 const postprocess = require("./postprocess");
 
-function babelOptions(extraOptions, extraPlugins) {
+function babelOptions(extraOptions, extraPlugins = []) {
   return Object.assign(
     {
       sourceType: "module",
@@ -41,7 +41,8 @@ function babelOptions(extraOptions, extraPlugins) {
         "logicalAssignment",
         "classPrivateMethods",
         "v8intrinsic",
-        "partialApplication"
+        "partialApplication",
+        ["decorators", { decoratorsBeforeExport: false }]
       ].concat(extraPlugins)
     },
     extraOptions
@@ -53,28 +54,9 @@ function createParse(parseMethod, extraPlugins) {
     // Inline the require to avoid loading all the JS if we don't use it
     const babel = require("@babel/parser");
 
-    const combinations = [
-      babelOptions(
-        { strictMode: true },
-        ["decorators-legacy"].concat(extraPlugins)
-      ),
-      babelOptions(
-        { strictMode: false },
-        ["decorators-legacy"].concat(extraPlugins)
-      ),
-      babelOptions(
-        { strictMode: true },
-        [["decorators", { decoratorsBeforeExport: false }]].concat(extraPlugins)
-      ),
-      babelOptions(
-        { strictMode: false },
-        [["decorators", { decoratorsBeforeExport: false }]].concat(extraPlugins)
-      )
-    ];
-
     let ast;
     try {
-      ast = tryCombinations(babel[parseMethod].bind(null, text), combinations);
+      ast = babel[parseMethod](text, babelOptions({}, extraPlugins));
     } catch (error) {
       throw createError(
         // babel error prints (l:c) with cols that are zero indexed
@@ -96,20 +78,6 @@ function createParse(parseMethod, extraPlugins) {
 const parse = createParse("parse", ["flow"]);
 const parseFlow = createParse("parse", [["flow", { all: true, enums: true }]]);
 const parseExpression = createParse("parseExpression");
-
-function tryCombinations(fn, combinations) {
-  let error;
-  for (let i = 0; i < combinations.length; i++) {
-    try {
-      return fn(combinations[i]);
-    } catch (_error) {
-      if (!error) {
-        error = _error;
-      }
-    }
-  }
-  throw error;
-}
 
 function parseJson(text, parsers, opts) {
   const ast = parseExpression(text, parsers, opts);

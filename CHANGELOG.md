@@ -14,10 +14,12 @@ $ git log --pretty=format:"- %s" rev1..rev2 | sed 's/#\([0-9]*\)/\[prettier\/pre
 
 [diff](https://github.com/prettier/prettier/compare/1.19.0...1.19.1)
 
+### CLI
+
 #### Fix `--stdin` regression in 1.19.0 ([#6894](https://github.com/prettier/prettier/pull/6894) by [@lydell](https://github.com/lydell))
 
 <!-- prettier-ignore -->
-```jsx
+```
 // Prettier stable
 $ echo "test" | prettier --stdin --parser babel
 [error] regeneratorRuntime is not defined
@@ -26,6 +28,8 @@ $ echo "test" | prettier --stdin --parser babel
 $ echo "test" | prettier --stdin --parser babel
 test;
 ```
+
+### TypeScript
 
 #### Fix formatting of union type as arrow function return type ([#6896](https://github.com/prettier/prettier/pull/6896) by [@thorn0](https://github.com/thorn0))
 
