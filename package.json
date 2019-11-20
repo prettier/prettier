@@ -114,7 +114,7 @@
     "snapshot-diff": "0.5.1",
     "strip-ansi": "5.2.0",
     "tempy": "0.3.0",
-    "typescript": "3.4.1",
+    "typescript": "3.7.2",
     "webpack": "3.12.0"
   },
   "scripts": {
