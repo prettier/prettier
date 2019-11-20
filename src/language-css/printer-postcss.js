@@ -110,31 +110,13 @@ function genericPrint(path, options, print) {
       return nodes;
     }
     case "css-comment": {
-      if (node.raws.content) {
-        return node.raws.content;
-      }
+      const isInlineComment = node.inline || node.raws.inline;
       const text = options.originalText.slice(
         options.locStart(node),
         options.locEnd(node)
       );
 
-      const rawText = node.raws.text || node.text;
-      // Workaround a bug where the location is off.
-      // https://github.com/postcss/postcss-scss/issues/63
-      if (!text.includes(rawText)) {
-        if (node.raws.inline || node.inline) {
-          const needBreakAfter = !(
-            node.source.input.css.split(/[\r\n]/)[node.source.end.line] || ""
-          ).trim();
-          return concat([
-            "//",
-            node.raws.left + rawText,
-            needBreakAfter ? line : ""
-          ]);
-        }
-        return concat(["/* ", rawText, " */"]);
-      }
-      return text;
+      return isInlineComment ? text.trimEnd() : text;
     }
     case "css-rule": {
       return concat([
