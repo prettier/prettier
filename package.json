@@ -14,7 +14,7 @@
     "node": ">=8"
   },
   "peerDependencies": {
-    "typescript": "^3.0.0"
+    "typescript": "^3.7.2"
   },
   "dependencies": {
     "@angular/compiler": "7.2.9",
