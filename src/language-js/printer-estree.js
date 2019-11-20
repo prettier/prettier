@@ -3814,6 +3814,7 @@ function printMethod(path, options, print) {
   if (!kind || kind === "init" || kind === "method" || kind === "constructor") {
     if (node.value.generator) {
       parts.push("*");
+      // [prettierx] parenSpace generatorStarSpacing option support (...)
       if (options.generatorStarSpacing) {
         parts.push(" ");
       }
@@ -3839,6 +3840,7 @@ function printMethod(path, options, print) {
           printFunctionTypeParameters(valuePath, options, print),
           group(
             concat([
+              // [prettierx] spaceBeforeFunctionParen option support (...)
               options.spaceBeforeFunctionParen ? " " : "",
               printFunctionParams(valuePath, print, options),
               printReturnType(valuePath, print, options)
@@ -4583,6 +4585,7 @@ function printFunctionDeclaration(path, print, options) {
   parts.push("function");
 
   if (n.generator) {
+    // [prettierx] parenSpace generatorStarSpacing option support (...)
     if (options.generatorStarSpacing) {
       parts.push(" ");
     }
@@ -4596,7 +4599,9 @@ function printFunctionDeclaration(path, print, options) {
     printFunctionTypeParameters(path, options, print),
     group(
       concat([
+        // [prettierx] spaceBeforeFunctionParen option support (...)
         options.spaceBeforeFunctionParen ||
+        // [prettierx] parenSpace generatorStarSpacing option support (...)
         (options.generatorStarSpacing && !n.id)
           ? " "
           : "",
@@ -4620,6 +4625,7 @@ function printObjectMethod(path, options, print) {
   }
   if (objMethod.generator) {
     parts.push("*");
+    // [prettierx] parenSpace generatorStarSpacing option support (...)
     if (options.generatorStarSpacing) {
       parts.push(" ");
     }
@@ -4638,6 +4644,7 @@ function printObjectMethod(path, options, print) {
     parts.push("[", key, "]");
   } else {
     parts.push(key);
+    // [prettierx] spaceBeforeFunctionParen option support (...)
     if (options.spaceBeforeFunctionParen) {
       parts.push(" ");
     }
