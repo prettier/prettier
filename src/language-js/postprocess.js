@@ -1,10 +1,18 @@
 "use strict";
 
 const { getLast } = require("../common/util");
+const { composeLoc } = require("./loc");
 
 function postprocess(ast, options) {
   visitNode(ast, node => {
     switch (node.type) {
+      case "LogicalExpression": {
+        // We remove unneeded parens around same-operator LogicalExpressions
+        if (isUnbalancedLogicalTree(node)) {
+          return rebalanceLogicalTree(node);
+        }
+        break;
+      }
       // fix unexpected locEnd caused by --no-semi style
       case "VariableDeclaration": {
         const lastDeclaration = getLast(node.declarations);
@@ -99,6 +107,42 @@ function visitNode(node, fn, parent, property) {
   if (replacement) {
     parent[property] = replacement;
   }
+}
+
+function isUnbalancedLogicalTree(node) {
+  return (
+    node.type === "LogicalExpression" &&
+    node.right.type === "LogicalExpression" &&
+    node.operator === node.right.operator
+  );
+}
+
+function rebalanceLogicalTree(node) {
+  if (!isUnbalancedLogicalTree(node)) {
+    return node;
+  }
+
+  return rebalanceLogicalTree(
+    Object.assign(
+      {
+        type: "LogicalExpression",
+        operator: node.operator,
+        left: rebalanceLogicalTree(
+          Object.assign(
+            {
+              type: "LogicalExpression",
+              operator: node.operator,
+              left: node.left,
+              right: node.right.left
+            },
+            composeLoc(node.left, node.right.left)
+          )
+        ),
+        right: node.right.right
+      },
+      composeLoc(node)
+    )
+  );
 }
 
 module.exports = postprocess;
