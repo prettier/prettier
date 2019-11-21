@@ -60,7 +60,7 @@ function locEnd(node) {
 }
 
 function composeLoc(startNode, endNode = startNode) {
-  let loc = {};
+  const loc = {};
   if (typeof startNode.start === "number") {
     loc.start = startNode.start;
     loc.end = endNode.end;
