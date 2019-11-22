@@ -2624,10 +2624,10 @@ dir-glob@2.0.0:
     arrify "^1.0.1"
     path-type "^3.0.0"
 
-docusaurus@1.14.1:
-  version "1.14.1"
-  resolved "https://registry.yarnpkg.com/docusaurus/-/docusaurus-1.14.1.tgz#970d3905bfff46f9772b1587bd012a9124bd1dde"
-  integrity sha512-+3tZ8MkJucaKuBmlgCCVRqundk1RJP3Ym71oiuLf7NLYIIQbK5gOqycmnOE0aD+vsL0/XsxH67yNJkd+tCTqVg==
+docusaurus@1.14.2:
+  version "1.14.2"
+  resolved "https://registry.yarnpkg.com/docusaurus/-/docusaurus-1.14.2.tgz#6631a1cb34f82345147ed12af8233a3b2b43428e"
+  integrity sha512-hPn2v8UDsxZ+rAB+HdrNg4iK0VccubB2y9fJle4kag5MKlk1jele07hyXKhGgOvW2KSroRMHQVFF9EIeS0yYRg==
   dependencies:
     "@babel/core" "^7.7.2"
     "@babel/plugin-proposal-class-properties" "^7.7.0"
