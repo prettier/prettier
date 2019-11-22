@@ -609,7 +609,8 @@ function printPathNoParens(path, options, print, args) {
         (parent.type === "ConditionalExpression" &&
           parentParent.type !== "ReturnStatement" &&
           parentParent.type !== "CallExpression" &&
-          parentParent.type !== "OptionalCallExpression");
+          parentParent.type !== "OptionalCallExpression") ||
+        parent.type === "TemplateLiteral";
 
       const shouldIndentIfInlining =
         parent.type === "AssignmentExpression" ||
@@ -2481,7 +2482,11 @@ function printPathNoParens(path, options, print, args) {
               (n.expressions[i].comments && n.expressions[i].comments.length) ||
               n.expressions[i].type === "MemberExpression" ||
               n.expressions[i].type === "OptionalMemberExpression" ||
-              n.expressions[i].type === "ConditionalExpression"
+              n.expressions[i].type === "ConditionalExpression" ||
+              n.expressions[i].type === "LogicalExpression" ||
+              n.expressions[i].type === "BinaryExpression" ||
+              n.expressions[i].type === "SequenceExpression" ||
+              n.expressions[i].type === "TSAsExpression"
             ) {
               printed = concat([indent(concat([softline, printed])), softline]);
             }
