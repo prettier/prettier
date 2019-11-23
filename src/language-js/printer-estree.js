@@ -4649,7 +4649,9 @@ function printTypeParameters(path, options, print, paramsKey) {
         ])
       ),
       ifBreak(
-        options.parser !== "typescript" && shouldPrintComma(options, "all")
+        options.parser !== "typescript" &&
+          options.parser !== "babel-ts" &&
+          shouldPrintComma(options, "all")
           ? ","
           : ""
       ),
