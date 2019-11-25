@@ -10,7 +10,7 @@ $ git log --pretty=format:"- %s" rev1..rev2 | sed 's/#\([0-9]*\)/\[prettier\/pre
 
 ## prettierx 0.10.1-dev
 
-[compare prettierx-0.9.0...prettierx-0.10.0](https://github.com/brodybits/prettierx/compare/prettierx-0.10.0...dev)
+[compare prettierx-0.10.0...dev](https://github.com/brodybits/prettierx/compare/prettierx-0.10.0...dev)
 
 ## prettierx 0.10.0
 
