@@ -386,6 +386,7 @@ function needsParens(path, options) {
       }
 
     case "SequenceExpression":
+      // Add parentheses to draw attention to the unusual operator
       return true;
     case "YieldExpression":
       if (
