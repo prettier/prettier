@@ -13,9 +13,6 @@
   "engines": {
     "node": ">=8"
   },
-  "peerDependencies": {
-    "typescript": "^3.7.2"
-  },
   "dependencies": {
     "@angular/compiler": "8.2.13",
     "@babel/code-frame": "7.5.5",
@@ -116,6 +113,11 @@
     "terser-webpack-plugin": "2.2.1",
     "typescript": "3.7.2",
     "webpack": "4.41.2"
+  },
+  "peerDependenciesMeta": {
+    "typescript": {
+      "optional": true
+    }
   },
   "scripts": {
     "prepublishOnly-extra": "echo \"Error: must publish from dist/\" && exit 1",
