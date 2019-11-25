@@ -122,3 +122,58 @@ singleQuote: true
 <div class='class-p  class-q'></div>
 ================================================================================
 `;
+
+exports[`in-attr-node.hbs 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<div class="a very long list of classes that exceeds {{eighty}} chars with emtpy spaces">hey</div>
+<a href="a-very-long-href-from-a-third-party-marketing-platform{{id}}longer-than-eighty-chars">Link</a>
+
+=====================================output=====================================
+<div
+  class="a very long list of classes that exceeds
+    {{eighty}}
+     chars with emtpy spaces"
+>
+  hey
+</div>
+<a
+  href="a-very-long-href-from-a-third-party-marketing-platform
+    {{id}}
+    longer-than-eighty-chars"
+>
+  Link
+</a>
+================================================================================
+`;
+
+exports[`in-attr-node.hbs 2`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
+<div class="a very long list of classes that exceeds {{eighty}} chars with emtpy spaces">hey</div>
+<a href="a-very-long-href-from-a-third-party-marketing-platform{{id}}longer-than-eighty-chars">Link</a>
+
+=====================================output=====================================
+<div
+  class="a very long list of classes that exceeds
+    {{eighty}}
+     chars with emtpy spaces"
+>
+  hey
+</div>
+<a
+  href="a-very-long-href-from-a-third-party-marketing-platform
+    {{id}}
+    longer-than-eighty-chars"
+>
+  Link
+</a>
+================================================================================
+`;
