@@ -1,5 +1,40 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`basics.hbs 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<GlimmerComponent @progress={{aPropertyEngdingAfterEightiethColumnToHighlightAWeirdClosingParenIssue}}
+/>
+
+=====================================output=====================================
+<GlimmerComponent
+  @progress={{aPropertyEngdingAfterEightiethColumnToHighlightAWeirdClosingParenIssue
+  }}
+/>
+================================================================================
+`;
+
+exports[`basics.hbs 2`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
+<GlimmerComponent @progress={{aPropertyEngdingAfterEightiethColumnToHighlightAWeirdClosingParenIssue}}
+/>
+
+=====================================output=====================================
+<GlimmerComponent
+  @progress={{aPropertyEngdingAfterEightiethColumnToHighlightAWeirdClosingParenIssue
+  }}
+/>
+================================================================================
+`;
+
 exports[`element-modifier-statement.hbs 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
