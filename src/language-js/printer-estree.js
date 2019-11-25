@@ -4734,7 +4734,11 @@ function printFunctionDeclaration(path, print, options) {
         // [prettierx] spaceBeforeFunctionParen option support (...)
         options.spaceBeforeFunctionParen ||
         // [prettierx] parenSpace generatorStarSpacing option support (...)
-        (options.generatorStarSpacing && !n.id)
+        (options.generatorStarSpacing &&
+          !n.id &&
+          (n.typeParameters
+            ? n.typeParameters.type !== "TSTypeParameterDeclaration"
+            : true))
           ? " "
           : "",
         printFunctionParams(path, print, options),
