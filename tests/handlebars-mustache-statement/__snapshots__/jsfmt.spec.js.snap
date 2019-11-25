@@ -11,8 +11,7 @@ printWidth: 80
 
 =====================================output=====================================
 <GlimmerComponent
-  @progress={{aPropertyEngdingAfterEightiethColumnToHighlightAWeirdClosingParenIssue
-  }}
+  @progress={{aPropertyEngdingAfterEightiethColumnToHighlightAWeirdClosingParenIssue}}
 />
 ================================================================================
 `;
@@ -29,8 +28,7 @@ singleQuote: true
 
 =====================================output=====================================
 <GlimmerComponent
-  @progress={{aPropertyEngdingAfterEightiethColumnToHighlightAWeirdClosingParenIssue
-  }}
+  @progress={{aPropertyEngdingAfterEightiethColumnToHighlightAWeirdClosingParenIssue}}
 />
 ================================================================================
 `;

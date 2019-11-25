@@ -173,13 +173,14 @@ function print(path, options, print) {
     }
     case "ElementModifierStatement":
     case "MustacheStatement": {
-      const pp = path.getParentNode(1);
-      const isConcat = pp && pp.type === "ConcatStatement";
+      const p = path.getParentNode(0);
+      const isParentConcat = p && p.type === "ConcatStatement";
+      const isParentAttr = p && p.type === "AttrNode";
       return group(
         concat([
           n.escaped === false ? "{{{" : "{{",
           printPathParams(path, print, { group: false }),
-          isConcat ? "" : softline,
+          isParentConcat || isParentAttr ? "" : softline,
           n.escaped === false ? "}}}" : "}}"
         ])
       );
@@ -404,9 +405,11 @@ function printStringLiteral(stringLiteral, options) {
     `\\${enclosingQuote.quote}`
   );
 
-  return group(
-    concat([enclosingQuote.quote, escapedStringLiteral, enclosingQuote.quote])
-  );
+  return concat([
+    enclosingQuote.quote,
+    escapedStringLiteral,
+    enclosingQuote.quote
+  ]);
 }
 
 function printPath(path, print) {
