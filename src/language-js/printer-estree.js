@@ -89,7 +89,8 @@ const {
   matchJsxWhitespaceRegex,
   needsHardlineAfterDanglingComment,
   rawText,
-  returnArgumentHasLeadingComment
+  returnArgumentHasLeadingComment,
+  hasBlankLinesInBlock
 } = require("./utils");
 
 const needsQuoteProps = new WeakMap();
@@ -1099,6 +1100,14 @@ function printPathNoParens(path, options, print, args) {
 
       parts.push("{");
 
+      let hasBlankLines = false;
+      if (
+        options.smartPaddedBlocks &&
+        (hasBlankLines = hasBlankLinesInBlock(n, options))
+      ) {
+        parts.push(hardline);
+      }
+
       // Babel 6
       if (hasDirectives) {
         path.each(childPath => {
@@ -1116,6 +1125,11 @@ function printPathNoParens(path, options, print, args) {
       }
 
       parts.push(comments.printDanglingComments(path, options));
+
+      if (hasBlankLines) {
+        parts.push(hardline);
+      }
+
       parts.push(hardline, "}");
 
       return concat(parts);

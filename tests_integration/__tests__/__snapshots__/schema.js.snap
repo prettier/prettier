@@ -325,6 +325,11 @@ in order for it to be formatted.",
           "description": "Use single quotes instead of double quotes.",
           "type": "boolean",
         },
+        "smartPaddedBlocks": Object {
+          "default": false,
+          "description": "If block contains any blank lines at its top level the block is automatically padded.",
+          "type": "boolean",
+        },
         "tabWidth": Object {
           "default": 2,
           "description": "Number of spaces per indentation level.",

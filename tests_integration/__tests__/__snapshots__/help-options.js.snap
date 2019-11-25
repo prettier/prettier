@@ -510,6 +510,19 @@ Default: false
 
 exports[`show detailed usage with --help single-quote (write) 1`] = `Array []`;
 
+exports[`show detailed usage with --help smart-padded-blocks (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help smart-padded-blocks (stdout) 1`] = `
+"--smart-padded-blocks
+
+  If block contains any blank lines at its top level the block is automatically padded.
+
+Default: false
+"
+`;
+
+exports[`show detailed usage with --help smart-padded-blocks (write) 1`] = `Array []`;
+
 exports[`show detailed usage with --help stdin (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help stdin (stdout) 1`] = `

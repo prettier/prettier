@@ -646,7 +646,22 @@ exports[`API getSupportInfo() with version 1.16.0 -> undefined 1`] = `
         \\"range\\": Object {
           \\"end\\": Infinity,
           \\"start\\": 0,
-@@ -220,7 +233,11 @@
+@@ -198,10 +211,14 @@
+      },
+      \\"singleQuote\\": Object {
+        \\"default\\": false,
+        \\"type\\": \\"boolean\\",
+      },
++     \\"smartPaddedBlocks\\": Object {
++       \\"default\\": false,
++       \\"type\\": \\"boolean\\",
++     },
+      \\"tabWidth\\": Object {
+        \\"default\\": 2,
+        \\"range\\": Object {
+          \\"end\\": Infinity,
+          \\"start\\": 0,
+@@ -220,7 +237,11 @@
       },
       \\"useTabs\\": Object {
         \\"default\\": false,
@@ -1373,6 +1388,15 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"name\\": \\"singleQuote\\",
       \\"pluginDefaults\\": {},
       \\"since\\": \\"0.0.0\\",
+      \\"type\\": \\"boolean\\"
+    },
+    {
+      \\"category\\": \\"JavaScript\\",
+      \\"default\\": false,
+      \\"description\\": \\"If block contains any blank lines at its top level the block is automatically padded.\\",
+      \\"name\\": \\"smartPaddedBlocks\\",
+      \\"pluginDefaults\\": {},
+      \\"since\\": \\"1.20.0\\",
       \\"type\\": \\"boolean\\"
     },
     {

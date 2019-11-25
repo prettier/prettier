@@ -897,6 +897,74 @@ function isTSXFile(options) {
   return options.filepath && /\.tsx$/i.test(options.filepath);
 }
 
+// Given a node and access to its original source, determine if there's a blank
+// line anywhere at the top level
+function hasBlankLinesInBlock(node, options) {
+  const originalBlockText = options.originalText.slice(
+    options.locStart(node),
+    options.locEnd(node)
+  );
+  return hasTopLevelBlankLines(originalBlockText);
+
+  // Given raw source, determine if a blank line exists at, and *only* at, the
+  // top level of a block.
+  //
+  // Example A: true
+  // {
+  //
+  //   if (true) {
+  //    x = y
+  //   }
+  // }
+  //
+  // Example B: false ( no blank lines )
+  //
+  // {
+  //   if (true) {
+  //    x = y
+  //   }
+  // }
+  //
+  // Example C: false ( blank line only in second level block )
+  //
+  // {
+  //   if (true) {
+  //
+  //    x = y
+  //   }
+  // }
+  //
+  function hasTopLevelBlankLines(source) {
+    let curlyState = 0;
+    let newlineFound = false;
+    const targetLevel = 1; // 1 because we're passed a naked block with contents
+
+    for (let i = 0, len = source.length, char = ""; i < len; i++) {
+      char = source[i];
+      if (char === "{") {
+        curlyState++;
+      } else if (char === "}") {
+        curlyState--;
+      } else {
+        // only level we care about
+        if (curlyState === targetLevel) {
+          if (char === "\n" && newlineFound) {
+            // found a second newline, therefore blank line
+            return true;
+          } else if (char === "\n") {
+            newlineFound = true;
+            // only spaces don't reset newlineFound
+          } else if (char !== " ") {
+            newlineFound = false;
+          }
+        }
+      }
+    }
+
+    return false;
+  }
+}
+
 module.exports = {
   classChildNeedsASIProtection,
   classPropMayCauseASIProblems,
@@ -949,5 +1017,6 @@ module.exports = {
   matchJsxWhitespaceRegex,
   needsHardlineAfterDanglingComment,
   rawText,
-  returnArgumentHasLeadingComment
+  returnArgumentHasLeadingComment,
+  hasBlankLinesInBlock
 };

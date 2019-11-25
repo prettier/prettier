@@ -6,6 +6,14 @@ const CATEGORY_JAVASCRIPT = "JavaScript";
 
 // format based on https://github.com/prettier/prettier/blob/master/src/main/core-options.js
 module.exports = {
+  smartPaddedBlocks: {
+    since: "1.20.0",
+    category: CATEGORY_JAVASCRIPT,
+    type: "boolean",
+    default: false,
+    description:
+      "If block contains any blank lines at its top level the block is automatically padded."
+  },
   arrowParens: {
     since: "1.9.0",
     category: CATEGORY_JAVASCRIPT,
