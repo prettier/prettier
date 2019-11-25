@@ -387,13 +387,10 @@ function needsParens(path, options) {
 
     case "SequenceExpression":
       switch (parent.type) {
-        case "IfStatement":
-        case "WhileStatement":
-        case "SwitchStatement":
         case "ThrowStatement":
-        case "WithStatement":
-        case "TemplateLiteral":
         case "ReturnStatement":
+          return false;
+
         case "ForStatement":
           // Although parentheses wouldn't hurt around sequence
           // expressions in the head of for loops, traditional style
