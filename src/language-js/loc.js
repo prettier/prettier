@@ -59,7 +59,24 @@ function locEnd(node) {
   return loc;
 }
 
+function composeLoc(startNode, endNode = startNode) {
+  const loc = {};
+  if (typeof startNode.start === "number") {
+    loc.start = startNode.start;
+    loc.end = endNode.end;
+  }
+  if (Array.isArray(startNode.range)) {
+    loc.range = [startNode.range[0], endNode.range[1]];
+  }
+  loc.loc = {
+    start: startNode.loc.start,
+    end: endNode.loc.end
+  };
+  return loc;
+}
+
 module.exports = {
   locStart,
-  locEnd
+  locEnd,
+  composeLoc
 };

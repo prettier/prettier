@@ -120,6 +120,16 @@ const {
 let uid = 0;
 
 function shouldPrintComma(options, level) {
+  // angular does not allow trailing comma
+  if (
+    options.parser === "__ng_interpolation" ||
+    options.parser === "__ng_action" ||
+    options.parser === "__ng_binding" ||
+    options.parser === "__ng_directive"
+  ) {
+    return false;
+  }
+
   level = level || "es5";
 
   switch (options.trailingComma) {
@@ -599,7 +609,8 @@ function printPathNoParens(path, options, print, args) {
         (parent.type === "ConditionalExpression" &&
           parentParent.type !== "ReturnStatement" &&
           parentParent.type !== "CallExpression" &&
-          parentParent.type !== "OptionalCallExpression");
+          parentParent.type !== "OptionalCallExpression") ||
+        parent.type === "TemplateLiteral";
 
       const shouldIndentIfInlining =
         parent.type === "AssignmentExpression" ||
@@ -2471,7 +2482,11 @@ function printPathNoParens(path, options, print, args) {
               (n.expressions[i].comments && n.expressions[i].comments.length) ||
               n.expressions[i].type === "MemberExpression" ||
               n.expressions[i].type === "OptionalMemberExpression" ||
-              n.expressions[i].type === "ConditionalExpression"
+              n.expressions[i].type === "ConditionalExpression" ||
+              n.expressions[i].type === "LogicalExpression" ||
+              n.expressions[i].type === "BinaryExpression" ||
+              n.expressions[i].type === "SequenceExpression" ||
+              n.expressions[i].type === "TSAsExpression"
             ) {
               printed = concat([indent(concat([softline, printed])), softline]);
             }
@@ -3627,6 +3642,24 @@ function printPathNoParens(path, options, print, args) {
 
     case "ArgumentPlaceholder":
       return "?";
+
+    // These are not valid TypeScript. Printing them just for the sake of error recovery.
+    case "TSJSDocAllType":
+      return "*";
+    case "TSJSDocUnknownType":
+      return "?";
+    case "TSJSDocNullableType":
+      return concat(["?", path.call(print, "typeAnnotation")]);
+    case "TSJSDocNonNullableType":
+      return concat(["!", path.call(print, "typeAnnotation")]);
+    case "TSJSDocFunctionType":
+      return concat([
+        "function(",
+        // The parameters could be here, but typescript-estree doesn't convert them anyway (throws an error).
+        "): ",
+        path.call(print, "typeAnnotation")
+      ]);
+
     default:
       /* istanbul ignore next */
       throw new Error("unknown type: " + JSON.stringify(n.type));
@@ -4573,6 +4606,7 @@ function printTypeParameters(path, options, print, paramsKey) {
   }
 
   const grandparent = path.getNode(2);
+  const greatGrandParent = path.getNode(3);
   const greatGreatGrandParent = path.getNode(4);
 
   const isParameterInTestCall = grandparent != null && isTestCall(grandparent);
@@ -4590,12 +4624,17 @@ function printTypeParameters(path, options, print, paramsKey) {
         // See https://github.com/prettier/prettier/pull/6467 for the context.
         (greatGreatGrandParent &&
           greatGreatGrandParent.type === "VariableDeclarator" &&
-          grandparent &&
           grandparent.type === "TSTypeAnnotation" &&
+          greatGrandParent.type !== "ArrowFunctionExpression" &&
           n[paramsKey][0].type !== "TSUnionType" &&
           n[paramsKey][0].type !== "UnionTypeAnnotation" &&
+          n[paramsKey][0].type !== "TSIntersectionType" &&
+          n[paramsKey][0].type !== "IntersectionTypeAnnotation" &&
           n[paramsKey][0].type !== "TSConditionalType" &&
-          n[paramsKey][0].type !== "TSMappedType")));
+          n[paramsKey][0].type !== "TSMappedType" &&
+          n[paramsKey][0].type !== "TSTypeOperator" &&
+          n[paramsKey][0].type !== "TSIndexedAccessType" &&
+          n[paramsKey][0].type !== "TSArrayType")));
 
   if (shouldInline) {
     return concat(["<", join(", ", path.map(print, paramsKey)), ">"]);
@@ -5382,8 +5421,12 @@ function printJSXElement(path, options, print) {
     containsMultipleAttributes ||
     containsMultipleExpressions;
 
+  const isMdxBlock = path.getParentNode().rootMarker === "mdx";
+
   const rawJsxWhitespace = options.singleQuote ? "{' '}" : '{" "}';
-  const jsxWhitespace = ifBreak(concat([rawJsxWhitespace, softline]), " ");
+  const jsxWhitespace = isMdxBlock
+    ? concat([" "])
+    : ifBreak(concat([rawJsxWhitespace, softline]), " ");
 
   const isFacebookTranslationTag =
     n.openingElement &&
@@ -5502,6 +5545,10 @@ function printJSXElement(path, options, print) {
   const content = containsText
     ? fill(multilineChildren)
     : group(concat(multilineChildren), { shouldBreak: true });
+
+  if (isMdxBlock) {
+    return content;
+  }
 
   const multiLineElem = group(
     concat([

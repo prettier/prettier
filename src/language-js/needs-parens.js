@@ -53,7 +53,7 @@ function hasClosureCompilerTypeCastComment(text, path) {
     const cleaned = comment
       .trim()
       .split("\n")
-      .map(line => line.replace(/^[\s*]+/, ""))
+      .map(line => line.replace(/^[\s*]+/, "").replace(/[\s*]+$/, ""))
       .join(" ")
       .trim();
     if (!/^@type\s*\{[^]+\}$/.test(cleaned)) {
@@ -450,6 +450,7 @@ function needsParens(path, options) {
           return false;
       }
 
+    case "TSJSDocFunctionType":
     case "TSConditionalType":
       if (parent.type === "TSConditionalType" && node === parent.extendsType) {
         return true;
@@ -477,7 +478,9 @@ function needsParens(path, options) {
         parent.type === "TSOptionalType" ||
         parent.type === "TSRestType" ||
         (parent.type === "TSIndexedAccessType" && node === parent.objectType) ||
-        parent.type === "TSTypeOperator"
+        parent.type === "TSTypeOperator" ||
+        (parent.type === "TSTypeAnnotation" &&
+          /^TSJSDoc/.test(path.getParentNode(1).type))
       );
 
     case "ArrayTypeAnnotation":
@@ -668,10 +671,8 @@ function needsParens(path, options) {
     case "OptionalMemberExpression":
     case "OptionalCallExpression":
       if (
-        ((parent.type === "MemberExpression" && name === "object") ||
-          (parent.type === "CallExpression" && name === "callee")) &&
-        // workaround for https://github.com/facebook/flow/issues/8159
-        !(options.parser === "flow" && parent.range[0] === node.range[0])
+        (parent.type === "MemberExpression" && name === "object") ||
+        (parent.type === "CallExpression" && name === "callee")
       ) {
         return true;
       }
@@ -745,6 +746,7 @@ function needsParens(path, options) {
           parent.type !== "AssignmentPattern" &&
           parent.type !== "BinaryExpression" &&
           parent.type !== "CallExpression" &&
+          parent.type !== "NewExpression" &&
           parent.type !== "ConditionalExpression" &&
           parent.type !== "ExpressionStatement" &&
           parent.type !== "JsExpressionRoot" &&
