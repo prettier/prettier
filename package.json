@@ -131,6 +131,6 @@
     "build-docs": "node ./scripts/build-docs.js",
     "check-deps": "node ./scripts/check-deps.js",
     "spellcheck": "npx -p cspell@4.0.31 cspell {bin,scripts,src}/**/*.js {docs,website/blog,changelog_unreleased}/**/*.md",
-    "svgo": "svgo --pretty --indent=2 --precision=1"
+    "svgo": "svgo --precision=1",
   }
 }
