@@ -1,5 +1,86 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`basics.hbs 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<input name=address maxlength=200>
+<input name='address' maxlength='200'>
+<input name="address" maxlength="200">
+<div class="foo"></div>
+<div   class="foo"   ></div>
+<div class="foo bar"></div>
+<div class="foo bar" id="header"></div>
+<div   class="foo bar"   id="header"   ></div>
+<div data-prettier></div>
+<div data-prettier="true"></div>
+<meta property="og:description" content="The Mozilla Developer Network (MDN) provides
+information about Open Web technologies including HTML, CSS, and APIs for both Web sites
+and HTML5 Apps. It also documents Mozilla products, like Firefox OS.">
+
+=====================================output=====================================
+<input name="address" maxlength="200" />
+<input name="address" maxlength="200" />
+<input name="address" maxlength="200" />
+<div class="foo"></div>
+<div class="foo"></div>
+<div class="foo bar"></div>
+<div class="foo bar" id="header"></div>
+<div class="foo bar" id="header"></div>
+<div data-prettier></div>
+<div data-prettier="true"></div>
+<meta
+  property="og:description"
+  content="The Mozilla Developer Network (MDN) provides
+information about Open Web technologies including HTML, CSS, and APIs for both Web sites
+and HTML5 Apps. It also documents Mozilla products, like Firefox OS."
+/>
+================================================================================
+`;
+
+exports[`basics.hbs 2`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
+<input name=address maxlength=200>
+<input name='address' maxlength='200'>
+<input name="address" maxlength="200">
+<div class="foo"></div>
+<div   class="foo"   ></div>
+<div class="foo bar"></div>
+<div class="foo bar" id="header"></div>
+<div   class="foo bar"   id="header"   ></div>
+<div data-prettier></div>
+<div data-prettier="true"></div>
+<meta property="og:description" content="The Mozilla Developer Network (MDN) provides
+information about Open Web technologies including HTML, CSS, and APIs for both Web sites
+and HTML5 Apps. It also documents Mozilla products, like Firefox OS.">
+
+=====================================output=====================================
+<input name='address' maxlength='200' />
+<input name='address' maxlength='200' />
+<input name='address' maxlength='200' />
+<div class='foo'></div>
+<div class='foo'></div>
+<div class='foo bar'></div>
+<div class='foo bar' id='header'></div>
+<div class='foo bar' id='header'></div>
+<div data-prettier></div>
+<div data-prettier='true'></div>
+<meta
+  property='og:description'
+  content='The Mozilla Developer Network (MDN) provides
+information about Open Web technologies including HTML, CSS, and APIs for both Web sites
+and HTML5 Apps. It also documents Mozilla products, like Firefox OS.'
+/>
+================================================================================
+`;
+
 exports[`brackets.hbs 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
