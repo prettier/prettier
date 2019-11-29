@@ -62,7 +62,7 @@ function print(path, options, print) {
         voidTags.indexOf(n.tag) !== -1;
       const closeTagForNoBreak = isVoid ? concat([" />", softline]) : ">";
       const closeTagForBreak = isVoid ? "/>" : ">";
-      const getParams = (path, print) =>
+      const printParams = (path, print) =>
         indent(
           concat([
             n.attributes.length ? line : "",
@@ -83,7 +83,7 @@ function print(path, options, print) {
           concat([
             "<",
             n.tag,
-            getParams(path, print),
+            printParams(path, print),
             n.blockParams.length ? ` as |${n.blockParams.join(" ")}|` : "",
             ifBreak(softline, ""),
             ifBreak(closeTagForBreak, closeTagForNoBreak)
@@ -169,7 +169,7 @@ function print(path, options, print) {
       return group(concat([opening, ...inner, closing]));
     }
     case "SubExpression": {
-      const params = getParams(path, print);
+      const params = printParams(path, print);
       const printedParams =
         params.length > 0
           ? indent(concat([line, group(join(line, params))]))
@@ -419,7 +419,7 @@ function printPath(path, print) {
   return path.call(print, "path");
 }
 
-function getParams(path, print) {
+function printParams(path, print) {
   const node = path.getValue();
   let parts = [];
 
@@ -435,7 +435,7 @@ function getParams(path, print) {
 
 function printPathParams(path, print) {
   const printedPath = printPath(path, print);
-  const printedParams = getParams(path, print);
+  const printedParams = printParams(path, print);
 
   const parts = [printedPath, ...printedParams];
 
