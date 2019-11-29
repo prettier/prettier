@@ -597,6 +597,7 @@ function printPathNoParens(path, options, print, args) {
       // indented accordingly. We should indent sub-expressions where the first case isn't indented.
       const shouldNotIndent =
         parent.type === "ReturnStatement" ||
+        parent.type === "ThrowStatement" ||
         (parent.type === "JSXExpressionContainer" &&
           parentParent.type === "JSXAttribute") ||
         (n.type !== "NGPipeExpression" &&
@@ -608,6 +609,7 @@ function printPathNoParens(path, options, print, args) {
         (n !== parent.body && parent.type === "ForStatement") ||
         (parent.type === "ConditionalExpression" &&
           parentParent.type !== "ReturnStatement" &&
+          parentParent.type !== "ThrowStatement" &&
           parentParent.type !== "CallExpression" &&
           parentParent.type !== "OptionalCallExpression") ||
         parent.type === "TemplateLiteral";
@@ -1121,48 +1123,10 @@ function printPathNoParens(path, options, print, args) {
       return concat(parts);
     }
     case "ReturnStatement":
-      parts.push("return");
-
-      if (n.argument) {
-        if (returnArgumentHasLeadingComment(options, n.argument)) {
-          parts.push(
-            concat([
-              " (",
-              indent(concat([hardline, path.call(print, "argument")])),
-              hardline,
-              ")"
-            ])
-          );
-        } else if (
-          n.argument.type === "LogicalExpression" ||
-          n.argument.type === "BinaryExpression" ||
-          n.argument.type === "SequenceExpression"
-        ) {
-          parts.push(
-            group(
-              concat([
-                ifBreak(" (", " "),
-                indent(concat([softline, path.call(print, "argument")])),
-                softline,
-                ifBreak(")")
-              ])
-            )
-          );
-        } else {
-          parts.push(" ", path.call(print, "argument"));
-        }
-      }
-
-      if (hasDanglingComments(n)) {
-        parts.push(
-          " ",
-          comments.printDanglingComments(path, options, /* sameIndent */ true)
-        );
-      }
-
-      parts.push(semi);
-
-      return concat(parts);
+      return concat([
+        "return",
+        printReturnAndThrowArgument(path, options, print)
+      ]);
     case "NewExpression":
     case "OptionalCallExpression":
     case "CallExpression": {
@@ -2030,7 +1994,10 @@ function printPathNoParens(path, options, print, args) {
 
       return concat(["catch ", path.call(print, "body")]);
     case "ThrowStatement":
-      return concat(["throw ", path.call(print, "argument"), semi]);
+      return concat([
+        "throw",
+        printReturnAndThrowArgument(path, options, print)
+      ]);
     // Note: ignoring n.lexical because it has no printing consequences.
     case "SwitchStatement":
       return concat([
@@ -5955,6 +5922,53 @@ function printArrayItems(path, options, printPath, print) {
   }, printPath);
 
   return concat(printedElements);
+}
+
+function printReturnAndThrowArgument(path, options, print) {
+  const node = path.getValue();
+  const semi = options.semi ? ";" : "";
+  const parts = [];
+
+  if (node.argument) {
+    if (returnArgumentHasLeadingComment(options, node.argument)) {
+      parts.push(
+        concat([
+          " (",
+          indent(concat([hardline, path.call(print, "argument")])),
+          hardline,
+          ")"
+        ])
+      );
+    } else if (
+      node.argument.type === "LogicalExpression" ||
+      node.argument.type === "BinaryExpression" ||
+      node.argument.type === "SequenceExpression"
+    ) {
+      parts.push(
+        group(
+          concat([
+            ifBreak(" (", " "),
+            indent(concat([softline, path.call(print, "argument")])),
+            softline,
+            ifBreak(")")
+          ])
+        )
+      );
+    } else {
+      parts.push(" ", path.call(print, "argument"));
+    }
+  }
+
+  if (hasDanglingComments(node)) {
+    parts.push(
+      " ",
+      comments.printDanglingComments(path, options, /* sameIndent */ true)
+    );
+  }
+
+  parts.push(semi);
+
+  return concat(parts);
 }
 
 function willPrintOwnComments(path /*, options */) {
