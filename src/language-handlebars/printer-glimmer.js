@@ -156,14 +156,17 @@ function print(path, options, print) {
       const p = path.getParentNode(0);
       const isParentConcat = p && p.type === "ConcatStatement";
       const isParentAttr = p && p.type === "AttrNode";
-      return group(
-        concat([
-          n.escaped === false ? "{{{" : "{{",
-          printPathParams(path, print, { group: false }),
-          isParentConcat || isParentAttr ? "" : softline,
-          n.escaped === false ? "}}}" : "}}"
-        ])
-      );
+      const isEscaped = n.escaped === false;
+
+      const opening = isEscaped ? "{{{" : "{{";
+      const closing = isEscaped ? "}}}" : "}}";
+
+      const inner = [printPathParams(path, print)];
+      if (!isParentConcat && !isParentAttr) {
+        inner.push(softline);
+      }
+
+      return group(concat([opening, ...inner, closing]));
     }
     case "SubExpression": {
       const params = getParams(path, print);
