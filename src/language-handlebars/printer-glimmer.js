@@ -433,16 +433,11 @@ function getParams(path, print) {
   return parts;
 }
 
-function printPathParams(path, print, options) {
-  let parts = [];
-  options = Object.assign({ group: true }, options || {});
+function printPathParams(path, print) {
+  const printedPath = printPath(path, print);
+  const printedParams = getParams(path, print);
 
-  parts.push(printPath(path, print));
-  parts = parts.concat(getParams(path, print));
-
-  if (!options.group) {
-    return indent(join(line, parts));
-  }
+  const parts = [printedPath, ...printedParams];
 
   return indent(group(join(line, parts)));
 }
