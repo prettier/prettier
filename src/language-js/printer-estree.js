@@ -2509,6 +2509,9 @@ function printPathNoParens(path, options, print, args) {
     case "TSTupleType":
     case "TupleTypeAnnotation": {
       const typesField = n.type === "TSTupleType" ? "elementTypes" : "types";
+      const hasRest =
+        n[typesField].length > 0 &&
+        getLast(n[typesField]).type === "TSRestType";
       return group(
         concat([
           "[",
@@ -2518,7 +2521,7 @@ function printPathNoParens(path, options, print, args) {
               printArrayItems(path, options, typesField, print)
             ])
           ),
-          ifBreak(shouldPrintComma(options, "all") ? "," : ""),
+          ifBreak(shouldPrintComma(options, "all") && !hasRest ? "," : ""),
           comments.printDanglingComments(path, options, /* sameIndent */ true),
           softline,
           "]"
