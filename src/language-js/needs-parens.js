@@ -759,6 +759,7 @@ function needsParens(path, options) {
           parent.type !== "OptionalCallExpression" &&
           parent.type !== "Property" &&
           parent.type !== "ReturnStatement" &&
+          parent.type !== "ThrowStatement" &&
           parent.type !== "TypeCastExpression" &&
           parent.type !== "VariableDeclarator")
       );
