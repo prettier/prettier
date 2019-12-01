@@ -86,7 +86,7 @@ Read more about this tool [here](https://github.com/JamesHenry/precise-commits#2
 
 ## Option 5. [git-format-staged](https://github.com/hallettj/git-format-staged)
 
-**Use Case:** Great for when you want to format partially-staged files, and you have run into issues with other options.
+**Use Case:** Great for when you want to format partially-staged files, and other options do not provide a good fit for your project.
 
 Git-format-staged is used to run any formatter that can accept file content via stdin. It operates differently than other tools that format partially-staged files: it applies the formatter directly to objects in the git object database, and merges changes back to the working tree. This procedure provides several guarantees:
 
