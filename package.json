@@ -74,7 +74,7 @@
     "yaml-unist-parser": "1.1.1"
   },
   "devDependencies": {
-    "@babel/core": "7.7.2",
+    "@babel/core": "7.7.4",
     "@babel/preset-env": "7.7.4",
     "@rollup/plugin-alias": "2.2.0",
     "@rollup/plugin-json": "4.0.0",
