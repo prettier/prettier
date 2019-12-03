@@ -427,7 +427,7 @@ function printTernaryOperator(path, options, print, operatorOptions) {
   );
 
   return parent.type === operatorOptions.conditionalNodeType &&
-    parent.test === node
+    parent[operatorOptions.testNodePropertyName] === node
     ? group(concat([indent(concat([softline, result])), softline]))
     : result;
 }
