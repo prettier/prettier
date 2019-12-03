@@ -2424,6 +2424,350 @@ a
 ================================================================================
 `;
 
+exports[`nested-in-condition.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+$var = ($number % 10 >= 2 && ($number % 100 < 10 || $number % 100 >= 20)
+? kochabCooieGameOnOboleUnweave
+: annularCooeedSplicesWalksWayWay)
+  ? anodyneCondosMalateOverateRetinol
+  : averredBathersBoxroomBuggyNurl;
+
+const value = (bifornCringerMoshedPerplexSawder
+? askTrovenaBeenaDependsRowans
+: glimseGlyphsHazardNoopsTieTie)
+  ? true
+    ? true
+    : false
+  : true
+  ? true
+  : false;
+
+(bifornCringerMoshedPerplexSawder ? (
+  askTrovenaBeenaDependsRowans
+) : (
+  glimseGlyphsHazardNoopsTieTie
+)) ? (
+  <Element>
+    <Sub />
+    <Sub />
+    <Sub />
+    <Sub />
+    <Sub />
+    <Sub />
+  </Element>
+) : (
+  <Element2>
+    <Sub />
+    <Sub />
+    <Sub />
+  </Element2>
+);
+
+=====================================output=====================================
+$var = ($number % 10 >= 2 && ($number % 100 < 10 || $number % 100 >= 20)
+  ? kochabCooieGameOnOboleUnweave
+  : annularCooeedSplicesWalksWayWay
+)
+  ? anodyneCondosMalateOverateRetinol
+  : averredBathersBoxroomBuggyNurl;
+
+const value = (bifornCringerMoshedPerplexSawder
+  ? askTrovenaBeenaDependsRowans
+  : glimseGlyphsHazardNoopsTieTie
+)
+  ? true
+    ? true
+    : false
+  : true
+  ? true
+  : false;
+
+(bifornCringerMoshedPerplexSawder
+  ? askTrovenaBeenaDependsRowans
+  : glimseGlyphsHazardNoopsTieTie
+) ? (
+  <Element>
+    <Sub />
+    <Sub />
+    <Sub />
+    <Sub />
+    <Sub />
+    <Sub />
+  </Element>
+) : (
+  <Element2>
+    <Sub />
+    <Sub />
+    <Sub />
+  </Element2>
+);
+
+================================================================================
+`;
+
+exports[`nested-in-condition.js 2`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+tabWidth: 4
+                                                                                | printWidth
+=====================================input======================================
+$var = ($number % 10 >= 2 && ($number % 100 < 10 || $number % 100 >= 20)
+? kochabCooieGameOnOboleUnweave
+: annularCooeedSplicesWalksWayWay)
+  ? anodyneCondosMalateOverateRetinol
+  : averredBathersBoxroomBuggyNurl;
+
+const value = (bifornCringerMoshedPerplexSawder
+? askTrovenaBeenaDependsRowans
+: glimseGlyphsHazardNoopsTieTie)
+  ? true
+    ? true
+    : false
+  : true
+  ? true
+  : false;
+
+(bifornCringerMoshedPerplexSawder ? (
+  askTrovenaBeenaDependsRowans
+) : (
+  glimseGlyphsHazardNoopsTieTie
+)) ? (
+  <Element>
+    <Sub />
+    <Sub />
+    <Sub />
+    <Sub />
+    <Sub />
+    <Sub />
+  </Element>
+) : (
+  <Element2>
+    <Sub />
+    <Sub />
+    <Sub />
+  </Element2>
+);
+
+=====================================output=====================================
+$var = ($number % 10 >= 2 && ($number % 100 < 10 || $number % 100 >= 20)
+      ? kochabCooieGameOnOboleUnweave
+      : annularCooeedSplicesWalksWayWay
+)
+    ? anodyneCondosMalateOverateRetinol
+    : averredBathersBoxroomBuggyNurl;
+
+const value = (bifornCringerMoshedPerplexSawder
+      ? askTrovenaBeenaDependsRowans
+      : glimseGlyphsHazardNoopsTieTie
+)
+    ? true
+        ? true
+        : false
+    : true
+    ? true
+    : false;
+
+(bifornCringerMoshedPerplexSawder
+      ? askTrovenaBeenaDependsRowans
+      : glimseGlyphsHazardNoopsTieTie
+) ? (
+    <Element>
+        <Sub />
+        <Sub />
+        <Sub />
+        <Sub />
+        <Sub />
+        <Sub />
+    </Element>
+) : (
+    <Element2>
+        <Sub />
+        <Sub />
+        <Sub />
+    </Element2>
+);
+
+================================================================================
+`;
+
+exports[`nested-in-condition.js 3`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+useTabs: true
+                                                                                | printWidth
+=====================================input======================================
+$var = ($number % 10 >= 2 && ($number % 100 < 10 || $number % 100 >= 20)
+? kochabCooieGameOnOboleUnweave
+: annularCooeedSplicesWalksWayWay)
+  ? anodyneCondosMalateOverateRetinol
+  : averredBathersBoxroomBuggyNurl;
+
+const value = (bifornCringerMoshedPerplexSawder
+? askTrovenaBeenaDependsRowans
+: glimseGlyphsHazardNoopsTieTie)
+  ? true
+    ? true
+    : false
+  : true
+  ? true
+  : false;
+
+(bifornCringerMoshedPerplexSawder ? (
+  askTrovenaBeenaDependsRowans
+) : (
+  glimseGlyphsHazardNoopsTieTie
+)) ? (
+  <Element>
+    <Sub />
+    <Sub />
+    <Sub />
+    <Sub />
+    <Sub />
+    <Sub />
+  </Element>
+) : (
+  <Element2>
+    <Sub />
+    <Sub />
+    <Sub />
+  </Element2>
+);
+
+=====================================output=====================================
+$var = ($number % 10 >= 2 && ($number % 100 < 10 || $number % 100 >= 20)
+	? kochabCooieGameOnOboleUnweave
+	: annularCooeedSplicesWalksWayWay
+)
+	? anodyneCondosMalateOverateRetinol
+	: averredBathersBoxroomBuggyNurl;
+
+const value = (bifornCringerMoshedPerplexSawder
+	? askTrovenaBeenaDependsRowans
+	: glimseGlyphsHazardNoopsTieTie
+)
+	? true
+		? true
+		: false
+	: true
+	? true
+	: false;
+
+(bifornCringerMoshedPerplexSawder
+	? askTrovenaBeenaDependsRowans
+	: glimseGlyphsHazardNoopsTieTie
+) ? (
+	<Element>
+		<Sub />
+		<Sub />
+		<Sub />
+		<Sub />
+		<Sub />
+		<Sub />
+	</Element>
+) : (
+	<Element2>
+		<Sub />
+		<Sub />
+		<Sub />
+	</Element2>
+);
+
+================================================================================
+`;
+
+exports[`nested-in-condition.js 4`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+tabWidth: 4
+useTabs: true
+                                                                                | printWidth
+=====================================input======================================
+$var = ($number % 10 >= 2 && ($number % 100 < 10 || $number % 100 >= 20)
+? kochabCooieGameOnOboleUnweave
+: annularCooeedSplicesWalksWayWay)
+  ? anodyneCondosMalateOverateRetinol
+  : averredBathersBoxroomBuggyNurl;
+
+const value = (bifornCringerMoshedPerplexSawder
+? askTrovenaBeenaDependsRowans
+: glimseGlyphsHazardNoopsTieTie)
+  ? true
+    ? true
+    : false
+  : true
+  ? true
+  : false;
+
+(bifornCringerMoshedPerplexSawder ? (
+  askTrovenaBeenaDependsRowans
+) : (
+  glimseGlyphsHazardNoopsTieTie
+)) ? (
+  <Element>
+    <Sub />
+    <Sub />
+    <Sub />
+    <Sub />
+    <Sub />
+    <Sub />
+  </Element>
+) : (
+  <Element2>
+    <Sub />
+    <Sub />
+    <Sub />
+  </Element2>
+);
+
+=====================================output=====================================
+$var = ($number % 10 >= 2 && ($number % 100 < 10 || $number % 100 >= 20)
+	? kochabCooieGameOnOboleUnweave
+	: annularCooeedSplicesWalksWayWay
+)
+	? anodyneCondosMalateOverateRetinol
+	: averredBathersBoxroomBuggyNurl;
+
+const value = (bifornCringerMoshedPerplexSawder
+	? askTrovenaBeenaDependsRowans
+	: glimseGlyphsHazardNoopsTieTie
+)
+	? true
+		? true
+		: false
+	: true
+	? true
+	: false;
+
+(bifornCringerMoshedPerplexSawder
+	? askTrovenaBeenaDependsRowans
+	: glimseGlyphsHazardNoopsTieTie
+) ? (
+	<Element>
+		<Sub />
+		<Sub />
+		<Sub />
+		<Sub />
+		<Sub />
+		<Sub />
+	</Element>
+) : (
+	<Element2>
+		<Sub />
+		<Sub />
+		<Sub />
+	</Element2>
+);
+
+================================================================================
+`;
+
 exports[`parenthesis.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]

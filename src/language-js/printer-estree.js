@@ -295,7 +295,9 @@ function printTernaryOperator(path, options, print, operatorOptions) {
   // See tests/jsx/conditional-expression.js for more info.
   let jsxMode = false;
   const parent = path.getParentNode();
-  let forceNoIndent = parent.type === operatorOptions.conditionalNodeType;
+  let forceNoIndent =
+    parent.type === operatorOptions.conditionalNodeType &&
+    parent[operatorOptions.testNodePropertyName] !== node;
 
   // Find the outermost non-ConditionalExpression parent, and the outermost
   // ConditionalExpression parent. We'll use these to determine if we should
@@ -309,7 +311,8 @@ function printTernaryOperator(path, options, print, operatorOptions) {
     i++;
   } while (
     currentParent &&
-    currentParent.type === operatorOptions.conditionalNodeType
+    currentParent.type === operatorOptions.conditionalNodeType &&
+    currentParent[operatorOptions.testNodePropertyName] !== previousParent
   );
   const firstNonConditionalParent = currentParent || parent;
   const lastConditionalParent = previousParent;
@@ -400,6 +403,8 @@ function printTernaryOperator(path, options, print, operatorOptions) {
     !jsxMode &&
     (parent.type === "MemberExpression" ||
       parent.type === "OptionalMemberExpression" ||
+      (parent.type === operatorOptions.conditionalNodeType &&
+        parent[operatorOptions.testNodePropertyName] === node) ||
       (parent.type === "NGPipeExpression" &&
         parent.left === node &&
         operatorOptions.breakNested)) &&
