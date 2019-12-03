@@ -277,7 +277,6 @@ function printDecorators(path, options, print) {
  * @property {string} consequentNodePropertyName - The property at which the consequent node can be found on the main node, eg "consequent".
  * @property {string} alternateNodePropertyName - The property at which the alternate node can be found on the main node, eg "alternate".
  * @property {string} testNodePropertyName - The property at which the test node can be found on the main node, eg "test".
- * @property {boolean} breakNested - Whether to break all nested ternaries when one breaks.
  * @param {FastPath} path - The path to the ConditionalExpression/TSConditionalType node.
  * @param {Options} options - Prettier options
  * @param {Function} print - Print function to call recursively
@@ -389,11 +388,7 @@ function printTernaryOperator(path, options, print, operatorOptions) {
   // break if any of them break. That means we should only group around the
   // outer-most ConditionalExpression.
   const maybeGroup = doc =>
-    operatorOptions.breakNested
-      ? parent === firstNonConditionalParent
-        ? group(doc)
-        : doc
-      : group(doc);
+    parent === firstNonConditionalParent ? group(doc) : doc;
 
   // Break the closing paren to keep the chain right after it:
   // (a
@@ -406,9 +401,7 @@ function printTernaryOperator(path, options, print, operatorOptions) {
       parent.type === "OptionalMemberExpression" ||
       (parent.type === operatorOptions.conditionalNodeType &&
         parent[operatorOptions.testNodePropertyName] === node) ||
-      (parent.type === "NGPipeExpression" &&
-        parent.left === node &&
-        operatorOptions.breakNested)) &&
+      (parent.type === "NGPipeExpression" && parent.left === node)) &&
     !parent.computed;
 
   return maybeGroup(
@@ -1675,8 +1668,7 @@ function printPathNoParens(path, options, print, args) {
         conditionalNodeType: "ConditionalExpression",
         consequentNodePropertyName: "consequent",
         alternateNodePropertyName: "alternate",
-        testNodePropertyName: "test",
-        breakNested: true
+        testNodePropertyName: "test"
       });
     case "VariableDeclaration": {
       const printed = path.map(childPath => {
@@ -3519,8 +3511,7 @@ function printPathNoParens(path, options, print, args) {
         conditionalNodeType: "TSConditionalType",
         consequentNodePropertyName: "trueType",
         alternateNodePropertyName: "falseType",
-        testNodePropertyName: "checkType",
-        breakNested: true
+        testNodePropertyName: "checkType"
       });
 
     case "TSInferType":
