@@ -276,7 +276,7 @@ function printDecorators(path, options, print) {
  * @property {string} conditionalNodeType - The type of the conditional expression node, ie "ConditionalExpression" or "TSConditionalType".
  * @property {string} consequentNodePropertyName - The property at which the consequent node can be found on the main node, eg "consequent".
  * @property {string} alternateNodePropertyName - The property at which the alternate node can be found on the main node, eg "alternate".
- * @property {string} testNodePropertyName - The property at which the test node can be found on the main node, eg "test".
+ * @property {string[]} testNodePropertyNames - The properties at which the test nodes can be found on the main node, eg "test".
  * @param {FastPath} path - The path to the ConditionalExpression/TSConditionalType node.
  * @param {Options} options - Prettier options
  * @param {Function} print - Print function to call recursively
@@ -285,7 +285,6 @@ function printDecorators(path, options, print) {
  */
 function printTernaryOperator(path, options, print, operatorOptions) {
   const node = path.getValue();
-  const testNode = node[operatorOptions.testNodePropertyName];
   const consequentNode = node[operatorOptions.consequentNodePropertyName];
   const alternateNode = node[operatorOptions.alternateNodePropertyName];
   const parts = [];
@@ -294,9 +293,11 @@ function printTernaryOperator(path, options, print, operatorOptions) {
   // See tests/jsx/conditional-expression.js for more info.
   let jsxMode = false;
   const parent = path.getParentNode();
-  let forceNoIndent =
+  const isParentTest =
     parent.type === operatorOptions.conditionalNodeType &&
-    parent[operatorOptions.testNodePropertyName] !== node;
+    operatorOptions.testNodePropertyNames.some(prop => parent[prop] === node);
+  let forceNoIndent =
+    parent.type === operatorOptions.conditionalNodeType && !isParentTest;
 
   // Find the outermost non-ConditionalExpression parent, and the outermost
   // ConditionalExpression parent. We'll use these to determine if we should
@@ -311,14 +312,16 @@ function printTernaryOperator(path, options, print, operatorOptions) {
   } while (
     currentParent &&
     currentParent.type === operatorOptions.conditionalNodeType &&
-    currentParent[operatorOptions.testNodePropertyName] !== previousParent
+    operatorOptions.testNodePropertyNames.every(
+      prop => currentParent[prop] !== previousParent
+    )
   );
   const firstNonConditionalParent = currentParent || parent;
   const lastConditionalParent = previousParent;
 
   if (
     operatorOptions.shouldCheckJsx &&
-    (isJSXNode(testNode) ||
+    (isJSXNode(node[operatorOptions.testNodePropertyNames[0]]) ||
       isJSXNode(consequentNode) ||
       isJSXNode(alternateNode) ||
       conditionalExpressionChainContainsJSX(lastConditionalParent))
@@ -376,7 +379,7 @@ function printTernaryOperator(path, options, print, operatorOptions) {
     parts.push(
       parent.type !== operatorOptions.conditionalNodeType ||
         parent[operatorOptions.alternateNodePropertyName] === node ||
-        parent[operatorOptions.testNodePropertyName] === node
+        isParentTest
         ? part
         : options.useTabs
         ? dedent(indent(part))
@@ -426,8 +429,7 @@ function printTernaryOperator(path, options, print, operatorOptions) {
     )
   );
 
-  return parent.type === operatorOptions.conditionalNodeType &&
-    parent[operatorOptions.testNodePropertyName] === node
+  return isParentTest
     ? group(concat([indent(concat([softline, result])), softline]))
     : result;
 }
@@ -1671,7 +1673,7 @@ function printPathNoParens(path, options, print, args) {
         conditionalNodeType: "ConditionalExpression",
         consequentNodePropertyName: "consequent",
         alternateNodePropertyName: "alternate",
-        testNodePropertyName: "test"
+        testNodePropertyNames: ["test"]
       });
     case "VariableDeclaration": {
       const printed = path.map(childPath => {
@@ -3514,7 +3516,7 @@ function printPathNoParens(path, options, print, args) {
         conditionalNodeType: "TSConditionalType",
         consequentNodePropertyName: "trueType",
         alternateNodePropertyName: "falseType",
-        testNodePropertyName: "checkType"
+        testNodePropertyNames: ["checkType", "extendsType"]
       });
 
     case "TSInferType":
