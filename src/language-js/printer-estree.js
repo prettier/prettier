@@ -376,7 +376,8 @@ function printTernaryOperator(path, options, print, operatorOptions) {
     ]);
     parts.push(
       parent.type !== operatorOptions.conditionalNodeType ||
-        parent[operatorOptions.alternateNodePropertyName] === node
+        parent[operatorOptions.alternateNodePropertyName] === node ||
+        parent[operatorOptions.testNodePropertyName] === node
         ? part
         : options.useTabs
         ? dedent(indent(part))

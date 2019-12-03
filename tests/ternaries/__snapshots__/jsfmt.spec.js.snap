@@ -2555,15 +2555,15 @@ const value = (bifornCringerMoshedPerplexSawder
 
 =====================================output=====================================
 $var = ($number % 10 >= 2 && ($number % 100 < 10 || $number % 100 >= 20)
-      ? kochabCooieGameOnOboleUnweave
-      : annularCooeedSplicesWalksWayWay
+    ? kochabCooieGameOnOboleUnweave
+    : annularCooeedSplicesWalksWayWay
 )
     ? anodyneCondosMalateOverateRetinol
     : averredBathersBoxroomBuggyNurl;
 
 const value = (bifornCringerMoshedPerplexSawder
-      ? askTrovenaBeenaDependsRowans
-      : glimseGlyphsHazardNoopsTieTie
+    ? askTrovenaBeenaDependsRowans
+    : glimseGlyphsHazardNoopsTieTie
 )
     ? true
         ? true
@@ -2573,8 +2573,8 @@ const value = (bifornCringerMoshedPerplexSawder
     : false;
 
 (bifornCringerMoshedPerplexSawder
-      ? askTrovenaBeenaDependsRowans
-      : glimseGlyphsHazardNoopsTieTie
+    ? askTrovenaBeenaDependsRowans
+    : glimseGlyphsHazardNoopsTieTie
 ) ? (
     <Element>
         <Sub />
