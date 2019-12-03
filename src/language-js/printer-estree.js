@@ -399,12 +399,10 @@ function printTernaryOperator(path, options, print, operatorOptions) {
     !jsxMode &&
     (parent.type === "MemberExpression" ||
       parent.type === "OptionalMemberExpression" ||
-      (parent.type === operatorOptions.conditionalNodeType &&
-        parent[operatorOptions.testNodePropertyName] === node) ||
       (parent.type === "NGPipeExpression" && parent.left === node)) &&
     !parent.computed;
 
-  return maybeGroup(
+  const result = maybeGroup(
     concat(
       [].concat(
         (testDoc =>
@@ -427,6 +425,11 @@ function printTernaryOperator(path, options, print, operatorOptions) {
       )
     )
   );
+
+  return parent.type === operatorOptions.conditionalNodeType &&
+    parent.test === node
+    ? group(concat([indent(concat([softline, result])), softline]))
+    : result;
 }
 
 function printPathNoParens(path, options, print, args) {
