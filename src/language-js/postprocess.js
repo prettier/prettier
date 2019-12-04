@@ -64,7 +64,7 @@ function postprocess(ast, options) {
     if (options.originalText[locEnd(toOverrideNode)] === ";") {
       return;
     }
-    if (options.parser === "flow") {
+    if (Array.isArray(toBeOverriddenNode.range)) {
       toBeOverriddenNode.range = [
         toBeOverriddenNode.range[0],
         toOverrideNode.range[1]
@@ -78,7 +78,7 @@ function postprocess(ast, options) {
   }
 
   function locEnd(node) {
-    return options.parser === "flow" ? node.range[1] : node.end;
+    return Array.isArray(node.range) ? node.range[1] : node.end;
   }
 }
 
