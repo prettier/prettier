@@ -95,7 +95,7 @@ Git-format-staged is used to run any formatter that can accept file content via 
 3. If there are conflicts between formatted, staged changes and unstaged changes then your working tree files are left untouched - your work won't be overwritten, and there are no stashes to clean up.
 4. Unstaged changes are not formatted.
 
-Use it with [husky](https://github.com/typicode/husky):
+Git-format-staged requires Python v3 or v2.7. Python is usually pre-installed on Linux and macOS, but not on Windows. Use git-format-staged with [husky](https://github.com/typicode/husky):
 
 ```bash
 yarn add --dev husky prettier git-format-staged
