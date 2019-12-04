@@ -1,7 +1,7 @@
 "use strict";
 
 const { getLast } = require("../common/util");
-const { composeLoc } = require("./loc");
+const { composeLoc, locEnd } = require("./loc");
 
 function postprocess(ast, options) {
   visitNode(ast, node => {
@@ -75,10 +75,6 @@ function postprocess(ast, options) {
     toBeOverriddenNode.loc = Object.assign({}, toBeOverriddenNode.loc, {
       end: toBeOverriddenNode.loc.end
     });
-  }
-
-  function locEnd(node) {
-    return Array.isArray(node.range) ? node.range[1] : node.end;
   }
 }
 
