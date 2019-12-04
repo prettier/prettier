@@ -1726,7 +1726,7 @@ function printPathNoParens(path, options, print, args) {
       const hasValue = n.declarations.some(decl => decl.init);
 
       let firstVariable;
-      if (printed.length === 1 && !hasLeadingComment(n.declarations[0])) {
+      if (printed.length === 1 && !n.declarations[0].comments) {
         firstVariable = printed[0];
       } else if (printed.length > 0) {
         // Indent first var to comply with eslint one-var rule
