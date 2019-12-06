@@ -1417,14 +1417,18 @@ function printPathNoParens(path, options, print, args) {
         path.match(
           node => node.type === "ObjectPattern" && !node.decorators,
           (node, name, number) =>
-            shouldHugArguments(node) && name === "params" && number === 0
+            shouldHugArguments(node) &&
+            (name === "params" || name === "parameters") &&
+            number === 0
         ) ||
         path.match(
           shouldHugType,
           (node, name) => name === "typeAnnotation",
           (node, name) => name === "typeAnnotation",
           (node, name, number) =>
-            shouldHugArguments(node) && name === "params" && number === 0
+            shouldHugArguments(node) &&
+            (name === "params" || name === "parameters") &&
+            number === 0
         )
       ) {
         return content;
@@ -5905,29 +5909,33 @@ function shouldHugType(node) {
 }
 
 function shouldHugArguments(fun) {
+  if (!fun || fun.rest) {
+    return false;
+  }
+  const params = fun.params || fun.parameters;
+  if (!params || params.length !== 1) {
+    return false;
+  }
+  const param = params[0];
   return (
-    fun &&
-    fun.params &&
-    fun.params.length === 1 &&
-    !fun.params[0].comments &&
-    (fun.params[0].type === "ObjectPattern" ||
-      fun.params[0].type === "ArrayPattern" ||
-      (fun.params[0].type === "Identifier" &&
-        fun.params[0].typeAnnotation &&
-        (fun.params[0].typeAnnotation.type === "TypeAnnotation" ||
-          fun.params[0].typeAnnotation.type === "TSTypeAnnotation") &&
-        isObjectType(fun.params[0].typeAnnotation.typeAnnotation)) ||
-      (fun.params[0].type === "FunctionTypeParam" &&
-        isObjectType(fun.params[0].typeAnnotation)) ||
-      (fun.params[0].type === "AssignmentPattern" &&
-        (fun.params[0].left.type === "ObjectPattern" ||
-          fun.params[0].left.type === "ArrayPattern") &&
-        (fun.params[0].right.type === "Identifier" ||
-          (fun.params[0].right.type === "ObjectExpression" &&
-            fun.params[0].right.properties.length === 0) ||
-          (fun.params[0].right.type === "ArrayExpression" &&
-            fun.params[0].right.elements.length === 0)))) &&
-    !fun.rest
+    !param.comments &&
+    (param.type === "ObjectPattern" ||
+      param.type === "ArrayPattern" ||
+      (param.type === "Identifier" &&
+        param.typeAnnotation &&
+        (param.typeAnnotation.type === "TypeAnnotation" ||
+          param.typeAnnotation.type === "TSTypeAnnotation") &&
+        isObjectType(param.typeAnnotation.typeAnnotation)) ||
+      (param.type === "FunctionTypeParam" &&
+        isObjectType(param.typeAnnotation)) ||
+      (param.type === "AssignmentPattern" &&
+        (param.left.type === "ObjectPattern" ||
+          param.left.type === "ArrayPattern") &&
+        (param.right.type === "Identifier" ||
+          (param.right.type === "ObjectExpression" &&
+            param.right.properties.length === 0) ||
+          (param.right.type === "ArrayExpression" &&
+            param.right.elements.length === 0))))
   );
 }
 
