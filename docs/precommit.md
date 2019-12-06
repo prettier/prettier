@@ -35,7 +35,7 @@ and add this config to your `package.json`:
 {
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged"
+      "precommit": "pretty-quick --staged"
     }
   }
 }
