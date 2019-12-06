@@ -592,7 +592,7 @@ function handleLastFunctionArgComments(
   comment,
   options
 ) {
-  // Type definitions functions
+  // Flow function type definitions
   if (
     precedingNode &&
     precedingNode.type === "FunctionTypeParam" &&
@@ -605,7 +605,7 @@ function handleLastFunctionArgComments(
     return true;
   }
 
-  // Real functions
+  // Real functions and TypeScript function type definitions
   if (
     precedingNode &&
     (precedingNode.type === "Identifier" ||
@@ -615,7 +615,13 @@ function handleLastFunctionArgComments(
       enclosingNode.type === "FunctionExpression" ||
       enclosingNode.type === "FunctionDeclaration" ||
       enclosingNode.type === "ObjectMethod" ||
-      enclosingNode.type === "ClassMethod") &&
+      enclosingNode.type === "ClassMethod" ||
+      enclosingNode.type === "TSDeclareFunction" ||
+      enclosingNode.type === "TSCallSignatureDeclaration" ||
+      enclosingNode.type === "TSConstructSignatureDeclaration" ||
+      enclosingNode.type === "TSMethodSignature" ||
+      enclosingNode.type === "TSConstructorType" ||
+      enclosingNode.type === "TSFunctionType") &&
     privateUtil.getNextNonSpaceNonCommentCharacter(
       text,
       comment,
