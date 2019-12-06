@@ -1,7 +1,7 @@
 "use strict";
 
 const { getLast } = require("../common/util");
-const { composeLoc } = require("./loc");
+const { composeLoc, locEnd } = require("./loc");
 
 function postprocess(ast, options) {
   visitNode(ast, node => {
@@ -48,7 +48,7 @@ function postprocess(ast, options) {
     if (options.originalText[locEnd(toOverrideNode)] === ";") {
       return;
     }
-    if (options.parser === "flow") {
+    if (Array.isArray(toBeOverriddenNode.range)) {
       toBeOverriddenNode.range = [
         toBeOverriddenNode.range[0],
         toOverrideNode.range[1]
@@ -59,10 +59,6 @@ function postprocess(ast, options) {
     toBeOverriddenNode.loc = Object.assign({}, toBeOverriddenNode.loc, {
       end: toBeOverriddenNode.loc.end
     });
-  }
-
-  function locEnd(node) {
-    return options.parser === "flow" ? node.range[1] : node.end;
   }
 }
 
