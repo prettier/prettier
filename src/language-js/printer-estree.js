@@ -20,7 +20,6 @@ const {
   getPenultimate,
   startsWithNoLookaheadToken,
   getIndentSize,
-  matchAncestorTypes,
   getPreferredQuote
 } = require("../common/util");
 const {
@@ -1406,18 +1405,19 @@ function printPathNoParens(path, options, print, args) {
       // If we inline the object as first argument of the parent, we don't want
       // to create another group so that the object breaks before the return
       // type
-      const parentParentParent = path.getParentNode(2);
       if (
-        (n.type === "ObjectPattern" &&
-          parent &&
-          shouldHugArguments(parent) &&
-          !n.decorators &&
-          parent.params[0] === n) ||
-        (shouldHugType(n) &&
-          parentParentParent &&
-          shouldHugArguments(parentParentParent) &&
-          parentParentParent.params[0].typeAnnotation &&
-          parentParentParent.params[0].typeAnnotation.typeAnnotation === n)
+        path.match(
+          node => node.type === "ObjectPattern" && !node.decorators,
+          (node, name, number) =>
+            shouldHugArguments(node) && name === "params" && number === 0
+        ) ||
+        path.match(
+          shouldHugType,
+          (node, name) => name === "typeAnnotation",
+          (node, name) => name === "typeAnnotation",
+          (node, name, number) =>
+            shouldHugArguments(node) && name === "params" && number === 0
+        )
       ) {
         return content;
       }
@@ -5563,17 +5563,12 @@ function maybeWrapJSXElementInParens(path, elem, options) {
     return elem;
   }
 
-  const shouldBreak =
-    matchAncestorTypes(path, [
-      "ArrowFunctionExpression",
-      "CallExpression",
-      "JSXExpressionContainer"
-    ]) ||
-    matchAncestorTypes(path, [
-      "ArrowFunctionExpression",
-      "OptionalCallExpression",
-      "JSXExpressionContainer"
-    ]);
+  const shouldBreak = path.match(
+    undefined,
+    node => node.type === "ArrowFunctionExpression",
+    isCallOrOptionalCallExpression,
+    node => node.type === "JSXExpressionContainer"
+  );
 
   const needsParens = pathNeedsParens(path, options);
 
