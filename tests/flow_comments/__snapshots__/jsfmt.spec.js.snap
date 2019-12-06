@@ -100,6 +100,30 @@ foo/*:: <bar> */();
 ================================================================================
 `;
 
+exports[`interface.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+interface Foo {
+  bar(
+    currentRequest: {a: number},
+    // TODO this is a very very very very long comment that makes it go > 80 columns
+  ): number;
+}
+
+=====================================output=====================================
+interface Foo {
+  bar(
+    currentRequest: { a: number }
+    // TODO this is a very very very very long comment that makes it go > 80 columns
+  ): number;
+}
+
+================================================================================
+`;
+
 exports[`issues.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
