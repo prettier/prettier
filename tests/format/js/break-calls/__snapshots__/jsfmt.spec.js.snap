@@ -298,11 +298,11 @@ function Comp3() {
 function Comp4() {
   const { firstName, lastName } = useMemo(
     () =>
-      (foo && bar && baz) ||
-      baz ||
-      (foo && baz(foo) + bar(foo) + foo && bar && baz) ||
-      baz ||
-      (foo && baz(foo) + bar(foo)),
+      (foo && bar && baz)
+      || baz
+      || (foo && baz(foo) + bar(foo) + foo && bar && baz)
+      || baz
+      || (foo && baz(foo) + bar(foo)),
     [foo, bar, baz]
   );
 }
