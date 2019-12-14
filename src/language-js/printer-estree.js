@@ -4069,7 +4069,10 @@ function printArgumentsList(path, options, print) {
     );
   }
 
-  if (isFunctionCompositionArgs(args)) {
+  if (
+    path.getParentNode().type !== "Decorator" &&
+    isFunctionCompositionArgs(args)
+  ) {
     return allArgsBrokenOut();
   }
 
