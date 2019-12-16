@@ -5962,7 +5962,8 @@ function printReturnAndThrowArgument(path, options, print) {
   const lastComment =
     Array.isArray(node.comments) && node.comments[node.comments.length - 1];
   const isLastCommentLine =
-    lastComment.type === "CommentLine" || lastComment.type === "Line";
+    lastComment &&
+    (lastComment.type === "CommentLine" || lastComment.type === "Line");
 
   if (isLastCommentLine) {
     parts.push(semi);
