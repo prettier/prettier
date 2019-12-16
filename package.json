@@ -84,7 +84,7 @@
     "builtin-modules": "3.1.0",
     "codecov": "3.6.1",
     "cross-env": "6.0.3",
-    "eslint": "6.6.0",
+    "eslint": "6.7.2",
     "eslint-config-prettier": "6.7.0",
     "eslint-formatter-friendly": "7.0.0",
     "eslint-plugin-import": "2.19.1",
