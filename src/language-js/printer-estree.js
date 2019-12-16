@@ -5962,6 +5962,16 @@ function printReturnAndThrowArgument(path, options, print) {
     }
   }
 
+  const lastComment =
+    Array.isArray(node.comments) && node.comments[node.comments.length - 1];
+  const isLastCommentLine =
+    lastComment &&
+    (lastComment.type === "CommentLine" || lastComment.type === "Line");
+
+  if (isLastCommentLine) {
+    parts.push(semi);
+  }
+
   if (hasDanglingComments(node)) {
     parts.push(
       " ",
@@ -5969,7 +5979,9 @@ function printReturnAndThrowArgument(path, options, print) {
     );
   }
 
-  parts.push(semi);
+  if (!isLastCommentLine) {
+    parts.push(semi);
+  }
 
   return concat(parts);
 }
