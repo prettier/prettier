@@ -563,7 +563,13 @@ function handleCommentInEmptyParens(text, enclosingNode, comment, options) {
       enclosingNode.type === "FunctionExpression" ||
       enclosingNode.type === "ArrowFunctionExpression" ||
       enclosingNode.type === "ClassMethod" ||
-      enclosingNode.type === "ObjectMethod") &&
+      enclosingNode.type === "ObjectMethod" ||
+      enclosingNode.type === "TSDeclareFunction" ||
+      enclosingNode.type === "TSCallSignatureDeclaration" ||
+      enclosingNode.type === "TSConstructSignatureDeclaration" ||
+      enclosingNode.type === "TSMethodSignature" ||
+      enclosingNode.type === "TSConstructorType" ||
+      enclosingNode.type === "TSFunctionType") &&
       enclosingNode.params.length === 0) ||
       ((enclosingNode.type === "CallExpression" ||
         enclosingNode.type === "OptionalCallExpression" ||

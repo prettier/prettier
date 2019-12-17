@@ -500,7 +500,7 @@ let foo10: new /* foo */ (a: /* bar */ string) /* baz */ => string;
 
 =====================================output=====================================
 interface foo1 {
-  bar /* foo */ /* bar */ /* baz */ /* bat */?();
+  bar /* foo */ /* bar */ /* bat */?(/* baz */);
 }
 
 interface foo2 {
@@ -508,7 +508,7 @@ interface foo2 {
 }
 
 interface foo3 {
-  /* foo */ (): /* bar */ /* baz */ string;
+  /* foo */ (/* bar */): /* baz */ string;
 }
 
 interface foo4 {
@@ -520,14 +520,14 @@ interface foo5 {
 }
 
 interface foo6 {
-  /* foo */ new (): /* bar */ /* baz */ /* bat */ string;
+  /* foo */ new (/* baz */): /* bar */ /* bat */ string;
 }
 
-type foo7 = /* foo */ () => /* bar */ /* baz */ void;
+type foo7 = /* foo */ (/* bar */) => /* baz */ void;
 
 type foo8 = /* foo */ (a: /* bar */ string) => /* baz */ void;
 
-let foo9: new () => /* foo */ /* bar */ /* baz */ string;
+let foo9: new (/* bar */) => /* foo */ /* baz */ string;
 
 let foo10: new (/* foo */ a: /* bar */ string) => /* baz */ string;
 
