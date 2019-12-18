@@ -162,13 +162,10 @@ function print(path, options, print) {
       const opening = isEscaped ? "{{{" : "{{";
       const closing = isEscaped ? "}}}" : "}}";
 
-      const p = path.getParentNode(0);
-      const isParentAttr = p && p.type === "AttrNode";
-      const isParentConcat = p && p.type === "ConcatStatement";
-      const isParentElement = p && p.type === "ElementNode";
-
       const leading =
-        isParentAttr || isParentConcat || isParentElement
+        isParentOfType(path, "AttrNode") ||
+        isParentOfType(path, "ConcatStatement") ||
+        isParentOfType(path, "ElementNode")
           ? [opening, indent(softline)]
           : [opening];
 
@@ -477,6 +474,10 @@ function printCloseBlock(path, print) {
 
 function isWhitespaceNode(node) {
   return node.type === "TextNode" && !/\S/.test(node.chars);
+}
+
+function isParentOfType(path, nodeType) {
+  return path && path.getParentNode(0) === nodeType;
 }
 
 function getPreviousNode(path) {
