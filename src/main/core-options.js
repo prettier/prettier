@@ -262,7 +262,7 @@ const options = {
     default: false,
     description: "Indent with tabs instead of spaces."
   },
-  useNestedTernaryIndent : {
+  useNestedTernaryIndent: {
     since: "1.20.0",
     category: CATEGORY_GLOBAL,
     type: "boolean",

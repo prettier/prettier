@@ -377,8 +377,7 @@ function printTernaryOperator(path, options, print, operatorOptions) {
     ]);
 
     parts.push(
-      parent.type !== operatorOptions.conditionalNodeType ||
-        isParentTest
+      parent.type !== operatorOptions.conditionalNodeType || isParentTest
         ? part
         : options.useNestedTernaryIndent
         ? indent(part)
