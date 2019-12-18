@@ -261,6 +261,13 @@ const options = {
     type: "boolean",
     default: false,
     description: "Indent with tabs instead of spaces."
+  },
+  useNestedTernaryIndent : {
+    since: "1.20.0",
+    category: CATEGORY_GLOBAL,
+    type: "boolean",
+    default: false,
+    description: "Nested ternary formatting with indent."
   }
 };
 

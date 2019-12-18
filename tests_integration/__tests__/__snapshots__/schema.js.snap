@@ -354,6 +354,11 @@ in order for it to be formatted.",
             },
           ],
         },
+        "useNestedTernaryIndent": Object {
+          "default": false,
+          "description": "Nested ternary formatting with indent.",
+          "type": "boolean",
+        },
         "useTabs": Object {
           "default": false,
           "description": "Indent with tabs instead of spaces.",

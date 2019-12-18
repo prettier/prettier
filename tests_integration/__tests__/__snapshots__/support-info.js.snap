@@ -646,8 +646,16 @@ exports[`API getSupportInfo() with version 1.16.0 -> undefined 1`] = `
         \\"range\\": Object {
           \\"end\\": Infinity,
           \\"start\\": 0,
-@@ -220,7 +233,11 @@
+@@ -216,11 +229,19 @@
+          \\"all\\",
+        ],
+        \\"default\\": \\"none\\",
+        \\"type\\": \\"choice\\",
       },
++     \\"useNestedTernaryIndent\\": Object {
++       \\"default\\": false,
++       \\"type\\": \\"boolean\\",
++     },
       \\"useTabs\\": Object {
         \\"default\\": false,
         \\"type\\": \\"boolean\\",
@@ -1403,6 +1411,15 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"pluginDefaults\\": {},
       \\"since\\": \\"0.0.0\\",
       \\"type\\": \\"choice\\"
+    },
+    {
+      \\"category\\": \\"Global\\",
+      \\"default\\": false,
+      \\"description\\": \\"Nested ternary formatting with indent.\\",
+      \\"name\\": \\"useNestedTernaryIndent\\",
+      \\"pluginDefaults\\": {},
+      \\"since\\": \\"1.20.0\\",
+      \\"type\\": \\"boolean\\"
     },
     {
       \\"category\\": \\"Global\\",

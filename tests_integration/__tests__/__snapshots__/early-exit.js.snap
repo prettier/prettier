@@ -90,6 +90,9 @@ Format options:
   --trailing-comma <none|es5|all>
                            Print trailing commas wherever possible when multi-line.
                            Defaults to none.
+  --use-nested-ternary-indent
+                           Nested ternary formatting with indent.
+                           Defaults to false.
   --use-tabs               Indent with tabs instead of spaces.
                            Defaults to false.
   --vue-indent-script-and-style
@@ -246,6 +249,9 @@ Format options:
   --trailing-comma <none|es5|all>
                            Print trailing commas wherever possible when multi-line.
                            Defaults to none.
+  --use-nested-ternary-indent
+                           Nested ternary formatting with indent.
+                           Defaults to false.
   --use-tabs               Indent with tabs instead of spaces.
                            Defaults to false.
   --vue-indent-script-and-style

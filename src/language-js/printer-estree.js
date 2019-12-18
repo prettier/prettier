@@ -375,10 +375,14 @@ function printTernaryOperator(path, options, print, operatorOptions) {
         ? path.call(print, operatorOptions.alternateNodePropertyName)
         : align(2, path.call(print, operatorOptions.alternateNodePropertyName))
     ]);
+
     parts.push(
       parent.type !== operatorOptions.conditionalNodeType ||
-        parent[operatorOptions.alternateNodePropertyName] === node ||
         isParentTest
+        ? part
+        : options.useNestedTernaryIndent
+        ? indent(part)
+        : parent[operatorOptions.alternateNodePropertyName] === node
         ? part
         : options.useTabs
         ? dedent(indent(part))

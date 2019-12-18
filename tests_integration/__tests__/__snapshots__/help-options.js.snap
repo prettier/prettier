@@ -575,6 +575,19 @@ Default: none
 
 exports[`show detailed usage with --help trailing-comma (write) 1`] = `Array []`;
 
+exports[`show detailed usage with --help use-nested-ternary-indent (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help use-nested-ternary-indent (stdout) 1`] = `
+"--use-nested-ternary-indent
+
+  Nested ternary formatting with indent.
+
+Default: false
+"
+`;
+
+exports[`show detailed usage with --help use-nested-ternary-indent (write) 1`] = `Array []`;
+
 exports[`show detailed usage with --help use-tabs (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help use-tabs (stdout) 1`] = `
