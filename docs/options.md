@@ -41,6 +41,14 @@ Indent lines with tabs instead of spaces.
 
 (Tabs will be used for _indentation_ but Prettier uses spaces to _align_ things, such as in ternaries.)
 
+## Nested Ternary Indent
+
+Nested ternary formatting with indent.
+
+| Default | CLI Override                  | API Override                     |
+| ------- | ----------------------------- | -------------------------------- |
+| `false` | `--use-nested-ternary-indent` | `useNestedTernaryIndent: <bool>` |
+
 ## Semicolons
 
 Print semicolons at the ends of statements.
