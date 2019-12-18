@@ -1,5 +1,7 @@
 interface foo1 {
+  bar3/* foo */ (/* baz */) // bat
   bar/* foo */ ? /* bar */ (/* baz */) /* bat */;
+  bar2/* foo */ (/* baz */) /* bat */
 }
 
 interface foo2 {

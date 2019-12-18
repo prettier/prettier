@@ -467,7 +467,9 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 interface foo1 {
+  bar3/* foo */ (/* baz */) // bat
   bar/* foo */ ? /* bar */ (/* baz */) /* bat */;
+  bar2/* foo */ (/* baz */) /* bat */
 }
 
 interface foo2 {
@@ -500,7 +502,9 @@ let foo10: new /* foo */ (a: /* bar */ string) /* baz */ => string;
 
 =====================================output=====================================
 interface foo1 {
-  bar /* foo */ /* bar */ /* bat */?(/* baz */);
+  bar3 /* foo */(/* baz */); // bat
+  bar /* foo */ /* bar */?(/* baz */) /* bat */;
+  bar2 /* foo */(/* baz */) /* bat */;
 }
 
 interface foo2 {

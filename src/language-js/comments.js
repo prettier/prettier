@@ -174,7 +174,14 @@ function handleRemainingComment(comment, text, options, ast, isLastComment) {
       followingNode,
       comment
     ) ||
-    handleBreakAndContinueStatementComments(enclosingNode, comment)
+    handleBreakAndContinueStatementComments(enclosingNode, comment) ||
+    handleTSFunctionTrailingComments(
+      text,
+      enclosingNode,
+      followingNode,
+      comment,
+      options
+    )
   ) {
     return true;
   }
@@ -835,6 +842,29 @@ function handleVariableDeclaratorComments(
     return true;
   }
   return false;
+}
+
+function handleTSFunctionTrailingComments(
+  text,
+  enclosingNode,
+  followingNode,
+  comment,
+  options
+) {
+  if (
+    followingNode ||
+    !enclosingNode ||
+    enclosingNode.type !== "TSMethodSignature" ||
+    privateUtil.getNextNonSpaceNonCommentCharacter(
+      text,
+      comment,
+      options.locEnd
+    ) !== ";"
+  ) {
+    return false;
+  }
+  addTrailingComment(enclosingNode, comment);
+  return true;
 }
 
 function handleTSMappedTypeComments(
