@@ -477,7 +477,8 @@ function isWhitespaceNode(node) {
 }
 
 function isParentOfType(path, nodeType) {
-  return path && path.getParentNode(0) === nodeType;
+  const p = path.getParentNode(0);
+  return p && p.type === nodeType;
 }
 
 function getPreviousNode(path) {
