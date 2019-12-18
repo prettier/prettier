@@ -157,21 +157,26 @@ function print(path, options, print) {
       );
     }
     case "MustacheStatement": {
-      const p = path.getParentNode(0);
-      const isParentConcat = p && p.type === "ConcatStatement";
-      const isParentAttr = p && p.type === "AttrNode";
       const isEscaped = n.escaped === false;
 
       const opening = isEscaped ? "{{{" : "{{";
       const closing = isEscaped ? "}}}" : "}}";
 
-      const inner = [printPathParams(path, print)];
-      if (!isParentConcat && !isParentAttr) {
-        inner.push(softline);
-      }
+      const p = path.getParentNode(0);
+      const isParentAttr = p && p.type === "AttrNode";
+      const isParentConcat = p && p.type === "ConcatStatement";
+      const isParentElement = p && p.type === "ElementNode";
 
-      return group(concat([opening, ...inner, closing]));
+      const leading =
+        isParentAttr || isParentConcat || isParentElement
+          ? [opening, indent(softline)]
+          : [opening];
+
+      return group(
+        concat([...leading, printPathParams(path, print), softline, closing])
+      );
     }
+
     case "SubExpression": {
       const params = printParams(path, print);
       const printedParams =
