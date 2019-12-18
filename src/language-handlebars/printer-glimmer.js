@@ -198,10 +198,8 @@ function print(path, options, print) {
     case "ConcatStatement": {
       return concat([
         '"',
-        indent(
-          concat(
-            path.map(partPath => print(partPath), "parts").filter(a => a !== "")
-          )
+        concat(
+          path.map(partPath => print(partPath), "parts").filter(a => a !== "")
         ),
         '"'
       ]);

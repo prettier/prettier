@@ -33,8 +33,8 @@ printWidth: 80
 
 <div
   class="hello {{if goodbye true}} {{if goodbye false}} {{if goodbye true}} {{
-      if goodbye false
-    }} {{if goodbye true}}"
+    if goodbye false
+  }} {{if goodbye true}}"
 >
   Hello
 </div>
@@ -88,8 +88,8 @@ singleQuote: true
 
 <div
   class="hello {{if goodbye true}} {{if goodbye false}} {{if goodbye true}} {{
-      if goodbye false
-    }} {{if goodbye true}}"
+    if goodbye false
+  }} {{if goodbye true}}"
 >
   Hello
 </div>
@@ -121,15 +121,15 @@ printWidth: 80
 =====================================output=====================================
 <div
   class="a very long list of classes that exceeds {{
-      eighty
-    }} chars with emtpy spaces"
+    eighty
+  }} chars with emtpy spaces"
 >
   hey
 </div>
 <a
   href="a-very-long-href-from-a-third-party-marketing-platform{{
-      id
-    }}longer-than-eighty-chars"
+    id
+  }}longer-than-eighty-chars"
 >
   Link
 </a>
@@ -149,15 +149,15 @@ singleQuote: true
 =====================================output=====================================
 <div
   class="a very long list of classes that exceeds {{
-      eighty
-    }} chars with emtpy spaces"
+    eighty
+  }} chars with emtpy spaces"
 >
   hey
 </div>
 <a
   href="a-very-long-href-from-a-third-party-marketing-platform{{
-      id
-    }}longer-than-eighty-chars"
+    id
+  }}longer-than-eighty-chars"
 >
   Link
 </a>
