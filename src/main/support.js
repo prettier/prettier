@@ -36,8 +36,7 @@ function getSupportInfo(version, opts) {
     "name"
   )
     .sort((a, b) => (a.name === b.name ? 0 : a.name < b.name ? -1 : 1))
-    .filter(filterSince)
-    .filter(filterDeprecated)
+    .filter(option => filterSince(option) && filterDeprecated(option))
     .map(mapDeprecated)
     .map(mapInternal)
     .map(option => {
@@ -56,8 +55,7 @@ function getSupportInfo(version, opts) {
 
       if (Array.isArray(newOption.choices)) {
         newOption.choices = newOption.choices
-          .filter(filterSince)
-          .filter(filterDeprecated)
+          .filter(option => filterSince(option) && filterDeprecated(option))
           .map(mapDeprecated);
       }
 

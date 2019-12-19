@@ -5418,8 +5418,7 @@ function printJSXElement(path, options, print) {
     isFacebookTranslationTag
   );
 
-  const containsText =
-    n.children.filter(child => isMeaningfulJSXText(child)).length > 0;
+  const containsText = n.children.some(child => isMeaningfulJSXText(child));
 
   // We can end up we multiple whitespace elements with empty string
   // content between them.
@@ -5870,16 +5869,16 @@ function shouldHugType(node) {
         n.type === "TSNullKeyword"
     ).length;
 
-    const objectCount = node.types.filter(
+    const hasObject = node.types.some(
       n =>
         n.type === "ObjectTypeAnnotation" ||
         n.type === "TSTypeLiteral" ||
         // This is a bit aggressive but captures Array<{x}>
         n.type === "GenericTypeAnnotation" ||
         n.type === "TSTypeReference"
-    ).length;
+    );
 
-    if (node.types.length - 1 === voidCount && objectCount > 0) {
+    if (node.types.length - 1 === voidCount && hasObject) {
       return true;
     }
   }

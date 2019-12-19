@@ -658,8 +658,7 @@ function createOptionUsageType(option) {
       return null;
     case "choice":
       return `<${option.choices
-        .filter(choice => choice.since !== null)
-        .filter(choice => !choice.deprecated)
+        .filter(choice => !choice.deprecated && choice.since !== null)
         .map(choice => choice.value)
         .join("|")}>`;
     default:
@@ -852,14 +851,14 @@ function createMinimistOptions(detailedOptions) {
       .map(option => [option.name].concat(option.alias || []))
       .reduce((a, b) => a.concat(b)),
     default: detailedOptions
-      .filter(option => !option.deprecated)
       .filter(
         option =>
-          !option.forwardToApi ||
-          option.name === "plugin" ||
-          option.name === "plugin-search-dir"
+          !option.deprecated &&
+          (!option.forwardToApi ||
+            option.name === "plugin" ||
+            option.name === "plugin-search-dir") &&
+          option.default !== undefined
       )
-      .filter(option => option.default !== undefined)
       .reduce(
         (current, option) =>
           Object.assign({ [option.name]: option.default }, current),
