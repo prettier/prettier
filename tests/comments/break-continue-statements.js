@@ -11,9 +11,27 @@ for (;;) {
 }
 
 for (;;) {
+  break
+  // comment
+  ;
+  continue
+  // comment
+  ;
+}
+
+for (;;) {
   break /* comment */
   ;
   continue /* comment */
+  ;
+}
+
+for (;;) {
+  break
+  /* comment */
+  ;
+  continue
+  /* comment */
   ;
 }
 

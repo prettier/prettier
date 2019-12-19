@@ -574,9 +574,27 @@ for (;;) {
 }
 
 for (;;) {
+  break
+  // comment
+  ;
+  continue
+  // comment
+  ;
+}
+
+for (;;) {
   break /* comment */
   ;
   continue /* comment */
+  ;
+}
+
+for (;;) {
+  break
+  /* comment */
+  ;
+  continue
+  /* comment */
   ;
 }
 
@@ -596,6 +614,16 @@ for (;;) {
 for (;;) {
   break; // comment
   continue; // comment
+}
+
+for (;;) {
+  break; // comment
+  continue; // comment
+}
+
+for (;;) {
+  break /* comment */;
+  continue /* comment */;
 }
 
 for (;;) {
@@ -633,9 +661,27 @@ for (;;) {
 }
 
 for (;;) {
+  break
+  // comment
+  ;
+  continue
+  // comment
+  ;
+}
+
+for (;;) {
   break /* comment */
   ;
   continue /* comment */
+  ;
+}
+
+for (;;) {
+  break
+  /* comment */
+  ;
+  continue
+  /* comment */
   ;
 }
 
@@ -655,6 +701,16 @@ for (;;) {
 for (;;) {
   break // comment
   continue // comment
+}
+
+for (;;) {
+  break // comment
+  continue // comment
+}
+
+for (;;) {
+  break /* comment */
+  continue /* comment */
 }
 
 for (;;) {
