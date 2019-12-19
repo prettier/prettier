@@ -10,6 +10,7 @@ function clean(ast, newObj, parent) {
     "extra",
     "start",
     "end",
+    "loc",
     "flags",
     "errors"
   ].forEach(name => {
