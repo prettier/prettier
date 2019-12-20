@@ -467,7 +467,8 @@ function handleMethodNameComments(
     enclosingNode &&
     precedingNode &&
     (enclosingNode.type === "Property" ||
-      enclosingNode.type === "MethodDefinition") &&
+      enclosingNode.type === "MethodDefinition" ||
+      enclosingNode.type === "TSAbstractMethodDefinition") &&
     precedingNode.type === "Identifier" &&
     enclosingNode.key === precedingNode &&
     // special Property case: { key: /*comment*/(value) };
@@ -854,7 +855,9 @@ function handleTSFunctionTrailingComments(
   if (
     followingNode ||
     !enclosingNode ||
-    enclosingNode.type !== "TSMethodSignature" ||
+    (enclosingNode.type !== "TSMethodSignature" &&
+      enclosingNode.type !== "TSDeclareFunction" &&
+      enclosingNode.type !== "TSAbstractMethodDefinition") ||
     privateUtil.getNextNonSpaceNonCommentCharacter(
       text,
       comment,
