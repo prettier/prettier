@@ -55,7 +55,7 @@ ALE requires either Vim 8 or Neovim as ALE makes use of the asynchronous abiliti
 The best way to install ALE is with your favorite plugin manager for Vim, such as [vim-plug](https://github.com/junegunn/vim-plug):
 
 ```
-Plug 'w0rp/ale'
+Plug 'dense-analysis/ale'
 ```
 
 You can find further instructions on the [ALE repository](https://github.com/w0rp/ale#3-installation).
