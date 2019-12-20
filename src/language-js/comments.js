@@ -8,23 +8,6 @@ const {
   addDanglingComment
 } = sharedUtil;
 
-function isRealFunctionLikeNode(node) {
-  return (
-    node.type === "ArrowFunctionExpression" ||
-    node.type === "FunctionExpression" ||
-    node.type === "FunctionDeclaration" ||
-    node.type === "ObjectMethod" ||
-    node.type === "ClassMethod" ||
-    node.type === "TSDeclareFunction" ||
-    node.type === "TSCallSignatureDeclaration" ||
-    node.type === "TSConstructSignatureDeclaration" ||
-    node.type === "TSConstructSignatureDeclaration" ||
-    node.type === "TSMethodSignature" ||
-    node.type === "TSConstructorType" ||
-    node.type === "TSFunctionType"
-  );
-}
-
 function handleOwnLineComment(comment, text, options, ast, isLastComment) {
   const { precedingNode, enclosingNode, followingNode } = comment;
   if (
@@ -911,6 +894,23 @@ function hasLeadingComment(node, fn = () => true) {
     return node.comments.some(comment => comment.leading && fn(comment));
   }
   return false;
+}
+
+function isRealFunctionLikeNode(node) {
+  return (
+    node.type === "ArrowFunctionExpression" ||
+    node.type === "FunctionExpression" ||
+    node.type === "FunctionDeclaration" ||
+    node.type === "ObjectMethod" ||
+    node.type === "ClassMethod" ||
+    node.type === "TSDeclareFunction" ||
+    node.type === "TSCallSignatureDeclaration" ||
+    node.type === "TSConstructSignatureDeclaration" ||
+    node.type === "TSConstructSignatureDeclaration" ||
+    node.type === "TSMethodSignature" ||
+    node.type === "TSConstructorType" ||
+    node.type === "TSFunctionType"
+  );
 }
 
 module.exports = {
