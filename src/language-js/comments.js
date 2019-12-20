@@ -8,6 +8,23 @@ const {
   addDanglingComment
 } = sharedUtil;
 
+function isRealFunctionLikeNode(node) {
+  return (
+    node.type === "ArrowFunctionExpression" ||
+    node.type === "FunctionExpression" ||
+    node.type === "FunctionDeclaration" ||
+    node.type === "ObjectMethod" ||
+    node.type === "ClassMethod" ||
+    node.type === "TSDeclareFunction" ||
+    node.type === "TSCallSignatureDeclaration" ||
+    node.type === "TSConstructSignatureDeclaration" ||
+    node.type === "TSConstructSignatureDeclaration" ||
+    node.type === "TSMethodSignature" ||
+    node.type === "TSConstructorType" ||
+    node.type === "TSFunctionType"
+  );
+}
+
 function handleOwnLineComment(comment, text, options, ast, isLastComment) {
   const { precedingNode, enclosingNode, followingNode } = comment;
   if (
@@ -567,17 +584,7 @@ function handleCommentInEmptyParens(text, enclosingNode, comment, options) {
   // i.e. a function without any argument.
   if (
     enclosingNode &&
-    (((enclosingNode.type === "FunctionDeclaration" ||
-      enclosingNode.type === "FunctionExpression" ||
-      enclosingNode.type === "ArrowFunctionExpression" ||
-      enclosingNode.type === "ClassMethod" ||
-      enclosingNode.type === "ObjectMethod" ||
-      enclosingNode.type === "TSDeclareFunction" ||
-      enclosingNode.type === "TSCallSignatureDeclaration" ||
-      enclosingNode.type === "TSConstructSignatureDeclaration" ||
-      enclosingNode.type === "TSMethodSignature" ||
-      enclosingNode.type === "TSConstructorType" ||
-      enclosingNode.type === "TSFunctionType") &&
+    ((isRealFunctionLikeNode(enclosingNode) &&
       enclosingNode.params.length === 0) ||
       ((enclosingNode.type === "CallExpression" ||
         enclosingNode.type === "OptionalCallExpression" ||
@@ -625,17 +632,7 @@ function handleLastFunctionArgComments(
     (precedingNode.type === "Identifier" ||
       precedingNode.type === "AssignmentPattern") &&
     enclosingNode &&
-    (enclosingNode.type === "ArrowFunctionExpression" ||
-      enclosingNode.type === "FunctionExpression" ||
-      enclosingNode.type === "FunctionDeclaration" ||
-      enclosingNode.type === "ObjectMethod" ||
-      enclosingNode.type === "ClassMethod" ||
-      enclosingNode.type === "TSDeclareFunction" ||
-      enclosingNode.type === "TSCallSignatureDeclaration" ||
-      enclosingNode.type === "TSConstructSignatureDeclaration" ||
-      enclosingNode.type === "TSMethodSignature" ||
-      enclosingNode.type === "TSConstructorType" ||
-      enclosingNode.type === "TSFunctionType") &&
+    isRealFunctionLikeNode(enclosingNode) &&
     privateUtil.getNextNonSpaceNonCommentCharacter(
       text,
       comment,
