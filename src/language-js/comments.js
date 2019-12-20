@@ -850,21 +850,21 @@ function handleTSFunctionTrailingComments(
   options
 ) {
   if (
-    followingNode ||
-    !enclosingNode ||
-    (enclosingNode.type !== "TSMethodSignature" &&
-      enclosingNode.type !== "TSDeclareFunction" &&
-      enclosingNode.type !== "TSAbstractMethodDefinition") ||
+    !followingNode &&
+    enclosingNode &&
+    (enclosingNode.type === "TSMethodSignature" ||
+      enclosingNode.type === "TSDeclareFunction" ||
+      enclosingNode.type === "TSAbstractMethodDefinition") &&
     privateUtil.getNextNonSpaceNonCommentCharacter(
       text,
       comment,
       options.locEnd
-    ) !== ";"
+    ) === ";"
   ) {
-    return false;
+    addTrailingComment(enclosingNode, comment);
+    return true;
   }
-  addTrailingComment(enclosingNode, comment);
-  return true;
+  return false;
 }
 
 function handleTSMappedTypeComments(
