@@ -32,26 +32,6 @@ const voidTags = [
 // Formatter based on @glimmerjs/syntax's built-in test formatter:
 // https://github.com/glimmerjs/glimmer-vm/blob/master/packages/%40glimmer/syntax/lib/generation/print.ts
 
-function printChildren(path, options, print) {
-  return concat(
-    path.map((childPath, childIndex) => {
-      const childNode = path.getValue();
-      const isFirstNode = childIndex === 0;
-      const isLastNode =
-        childIndex == path.getParentNode(0).children.length - 1;
-      const isLastNodeInMultiNodeList = isLastNode && !isFirstNode;
-      const isWhitespace = isWhitespaceNode(childNode);
-
-      if (isWhitespace && isLastNodeInMultiNodeList) {
-        return print(childPath, options, print);
-      } else if (isFirstNode) {
-        return concat([softline, print(childPath, options, print)]);
-      }
-      return print(childPath, options, print);
-    }, "children")
-  );
-}
-
 function print(path, options, print) {
   const n = path.getValue();
 
@@ -82,7 +62,7 @@ function print(path, options, print) {
         voidTags.indexOf(n.tag) !== -1;
       const closeTagForNoBreak = isVoid ? concat([" />", softline]) : ">";
       const closeTagForBreak = isVoid ? "/>" : ">";
-      const getParams = (path, print) =>
+      const printParams = (path, print) =>
         indent(
           concat([
             n.attributes.length ? line : "",
@@ -103,7 +83,7 @@ function print(path, options, print) {
           concat([
             "<",
             n.tag,
-            getParams(path, print),
+            printParams(path, print),
             n.blockParams.length ? ` as |${n.blockParams.join(" ")}|` : "",
             ifBreak(softline, ""),
             ifBreak(closeTagForBreak, closeTagForNoBreak)
@@ -176,17 +156,20 @@ function print(path, options, print) {
       const p = path.getParentNode(0);
       const isParentConcat = p && p.type === "ConcatStatement";
       const isParentAttr = p && p.type === "AttrNode";
-      return group(
-        concat([
-          n.escaped === false ? "{{{" : "{{",
-          printPathParams(path, print, { group: false }),
-          isParentConcat || isParentAttr ? "" : softline,
-          n.escaped === false ? "}}}" : "}}"
-        ])
-      );
+      const isEscaped = n.escaped === false;
+
+      const opening = isEscaped ? "{{{" : "{{";
+      const closing = isEscaped ? "}}}" : "}}";
+
+      const inner = [printPathParams(path, print)];
+      if (!isParentConcat && !isParentAttr) {
+        inner.push(softline);
+      }
+
+      return group(concat([opening, ...inner, closing]));
     }
     case "SubExpression": {
-      const params = getParams(path, print);
+      const params = printParams(path, print);
       const printedParams =
         params.length > 0
           ? indent(concat([line, group(join(line, params))]))
@@ -366,6 +349,26 @@ function print(path, options, print) {
   }
 }
 
+function printChildren(path, options, print) {
+  return concat(
+    path.map((childPath, childIndex) => {
+      const childNode = path.getValue();
+      const isFirstNode = childIndex === 0;
+      const isLastNode =
+        childIndex == path.getParentNode(0).children.length - 1;
+      const isLastNodeInMultiNodeList = isLastNode && !isFirstNode;
+      const isWhitespace = isWhitespaceNode(childNode);
+
+      if (isWhitespace && isLastNodeInMultiNodeList) {
+        return print(childPath, options, print);
+      } else if (isFirstNode) {
+        return concat([softline, print(childPath, options, print)]);
+      }
+      return print(childPath, options, print);
+    }, "children")
+  );
+}
+
 /**
  * Prints a string literal with the correct surrounding quotes based on
  * `options.singleQuote` and the number of escaped quotes contained in
@@ -416,7 +419,7 @@ function printPath(path, print) {
   return path.call(print, "path");
 }
 
-function getParams(path, print) {
+function printParams(path, print) {
   const node = path.getValue();
   let parts = [];
 
@@ -430,16 +433,11 @@ function getParams(path, print) {
   return parts;
 }
 
-function printPathParams(path, print, options) {
-  let parts = [];
-  options = Object.assign({ group: true }, options || {});
+function printPathParams(path, print) {
+  const printedPath = printPath(path, print);
+  const printedParams = printParams(path, print);
 
-  parts.push(printPath(path, print));
-  parts = parts.concat(getParams(path, print));
-
-  if (!options.group) {
-    return indent(join(line, parts));
-  }
+  const parts = [printedPath, ...printedParams];
 
   return indent(group(join(line, parts)));
 }
