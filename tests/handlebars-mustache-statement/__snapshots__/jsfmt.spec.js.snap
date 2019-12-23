@@ -35,18 +35,19 @@ printWidth: 80
 
 <div
   class="a-first-class
-    {{if this.optionOne "optionOne"}}
-    
-    {{if this.optionTwo "optionTwo"}}
-    
-    {{if this.optionThree "optionThree"}}
-    
-    {{if this.optionFour "optionFour"}}
-    
-    {{if this.optionFive "optionFive"}}
-    
-    {{this.class}}"
-  ...attributes >
+  {{if this.optionOne 'optionOne'}}
+
+   {{if this.optionTwo 'optionTwo'}}
+
+   {{if this.optionThree 'optionThree'}}
+
+   {{if this.optionFour 'optionFour'}}
+
+   {{if this.optionFive 'optionFive'}}
+
+   {{this.class}}"
+  ...attributes
+>
 </div>
 
 =====================================output=====================================
@@ -154,18 +155,19 @@ singleQuote: true
 
 <div
   class="a-first-class
-    {{if this.optionOne "optionOne"}}
-    
-    {{if this.optionTwo "optionTwo"}}
-    
-    {{if this.optionThree "optionThree"}}
-    
-    {{if this.optionFour "optionFour"}}
-    
-    {{if this.optionFive "optionFive"}}
-    
-    {{this.class}}"
-  ...attributes >
+  {{if this.optionOne 'optionOne'}}
+
+   {{if this.optionTwo 'optionTwo'}}
+
+   {{if this.optionThree 'optionThree'}}
+
+   {{if this.optionFour 'optionFour'}}
+
+   {{if this.optionFive 'optionFive'}}
+
+   {{this.class}}"
+  ...attributes
+>
 </div>
 
 =====================================output=====================================
