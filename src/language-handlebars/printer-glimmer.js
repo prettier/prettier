@@ -260,6 +260,12 @@ function print(path, options, print) {
       // when next to mustache statement.
       const inAttrNode = path.stack.indexOf("attributes") >= 0;
       if (inAttrNode) {
+        // trim  leading and trailing newlines inside AttrNode
+        // these line breaks would be interpreted
+        // as a single whitespace by browsers
+        leadingLineBreaksCount = 0;
+        trailingLineBreaksCount = 0;
+
         const parentNode = path.getParentNode(0);
         const isConcat = parentNode.type === "ConcatStatement";
         if (isConcat) {
