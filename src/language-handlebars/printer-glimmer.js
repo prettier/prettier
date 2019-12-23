@@ -151,7 +151,11 @@ function print(path, options, print) {
         )
       ]);
     }
-    case "ElementModifierStatement":
+    case "ElementModifierStatement": {
+      return group(
+        concat(["{{", printPathParams(path, print), softline, "}}"])
+      );
+    }
     case "MustacheStatement": {
       const p = path.getParentNode(0);
       const isParentConcat = p && p.type === "ConcatStatement";
