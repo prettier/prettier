@@ -254,12 +254,27 @@ function genericPrint(path, options, print) {
       return printChildren(path, options, print, {
         processor: (childPath, index) => {
           const prefix = getPrefix();
+          const childNode = childPath.getValue();
+
+          if (
+            childNode.children.length === 1 ||
+            childNode.children.every(
+              child =>
+                child.type !== "html" ||
+                child.position.indent.every(indent => indent !== 1)
+            )
+          ) {
+            return concat([
+              prefix,
+              align(
+                " ".repeat(prefix.length),
+                printListItem(childPath, options, print, prefix)
+              )
+            ]);
+          }
           return concat([
             prefix,
-            align(
-              " ".repeat(prefix.length),
-              printListItem(childPath, options, print, prefix)
-            )
+            printListItem(childPath, options, print, prefix)
           ]);
 
           function getPrefix() {
