@@ -809,13 +809,21 @@ function shouldPrePrintDoubleHardline(node, data) {
     data.prevNode.type === "html" &&
     data.prevNode.position.end.line + 1 === node.position.start.line;
 
+  const isHtmlDirectAfterListItem =
+    node.type === "html" &&
+    data.parentNode.type === "listItem" &&
+    data.prevNode &&
+    data.prevNode.type === "paragraph" &&
+    data.prevNode.position.end.line + 1 === node.position.start.line;
+
   return (
     isPrevNodeLooseListItem ||
     !(
       isSiblingNode ||
       isInTightListItem ||
       isPrevNodePrettierIgnore ||
-      isBlockHtmlWithoutBlankLineBetweenPrevHtml
+      isBlockHtmlWithoutBlankLineBetweenPrevHtml ||
+      isHtmlDirectAfterListItem
     )
   );
 }

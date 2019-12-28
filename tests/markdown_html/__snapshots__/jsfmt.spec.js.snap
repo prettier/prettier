@@ -18,7 +18,6 @@ proseWrap: "always"
 
 =====================================output=====================================
 - A list item.
-
 <details><summary>Summary</summary>
 <p>
 
