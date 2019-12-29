@@ -5740,7 +5740,8 @@ function printAssignmentRight(leftNode, rightNode, printedRight, options) {
       // do not put values on a separate line from the key in json
       options.parser !== "json" &&
       options.parser !== "json5") ||
-    rightNode.type === "SequenceExpression";
+    rightNode.type === "SequenceExpression" ||
+    (leftNode.type === "Identifier" && rightNode.type === "TemplateLiteral");
 
   if (canBreak) {
     return group(indent(concat([line, printedRight])));
