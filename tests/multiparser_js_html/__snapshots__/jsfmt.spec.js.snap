@@ -59,6 +59,10 @@ html\`  <\${Footer}  >footer      content<//     >  \`
 
 html\`  <div />  \`
 
+html\`
+  <div />
+\`
+
 function HelloWorld() {
   return html\`
     <h3>Bar List</h3>
@@ -109,22 +113,16 @@ class MyElement extends LitElement {
 
 customElements.define("my-element", MyElement);
 
-const someHtml1 = html\`
-  <div>hello \${world}</div>
-\`;
-const someHtml2 = /* HTML */ \`
-  <div>hello \${world}</div>
-\`;
+const someHtml1 = html\`<div>hello \${world}</div>\`;
+const someHtml2 = /* HTML */ \`<div>hello \${world}</div>\`;
 
 html\`\`;
 
-html\`
-  <my-element obj=\${obj}></my-element>
-\`;
+html\`<my-element obj=\${obj}></my-element>\`;
 
-html\`
-  <\${Footer}>footer content<//>
-\`;
+html\`<\${Footer}>footer content<//>\`;
+
+html\`<div />\`;
 
 html\`
   <div />
@@ -149,17 +147,13 @@ const trickyParens = html\`
 const nestedFun = /* HTML */ \`
   \${outerExpr(1)}
   <script>
-    const tpl = html\\\`
-      <div>\\\${innerExpr(1)} \${outerExpr(2)}</div>
-    \\\`;
+    const tpl = html\\\`<div>\\\${innerExpr(1)} \${outerExpr(2)}</div>\\\`;
   </script>
 \`;
 
 const closingScriptTagShouldBeEscapedProperly = /* HTML */ \`
   <script>
-    const html = /* HTML */ \\\`
-      <script><\\\\/script>
-    \\\`;
+    const html = /* HTML */ \\\`<script><\\\\/script>\\\`;
   </script>
 \`;
 

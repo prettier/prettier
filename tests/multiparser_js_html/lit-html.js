@@ -51,6 +51,10 @@ html`  <${Footer}  >footer      content<//     >  `
 
 html`  <div />  `
 
+html`
+  <div />
+`
+
 function HelloWorld() {
   return html`
     <h3>Bar List</h3>

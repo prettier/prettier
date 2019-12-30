@@ -16,6 +16,8 @@ const {
   utils: { mapDoc, stripTrailingHardline }
 } = require("../doc");
 
+const { hasNewlineInRange } = require("../common/util");
+
 function embed(path, print, textToDoc, options) {
   const node = path.getValue();
   const parent = path.getParentNode();
@@ -147,7 +149,7 @@ function embed(path, print, textToDoc, options) {
           print,
           textToDoc,
           htmlParser,
-          options.embeddedInHtml
+          options
         );
       }
 
@@ -551,13 +553,7 @@ function isHtml(path) {
 // The counter is needed to distinguish nested embeds.
 let htmlTemplateLiteralCounter = 0;
 
-function printHtmlTemplateLiteral(
-  path,
-  print,
-  textToDoc,
-  parser,
-  escapeClosingScriptTag
-) {
+function printHtmlTemplateLiteral(path, print, textToDoc, parser, options) {
   const node = path.getValue();
 
   const counter = htmlTemplateLiteralCounter;
@@ -598,7 +594,7 @@ function printHtmlTemplateLiteral(
         if (i % 2 === 0) {
           if (component) {
             component = uncook(component);
-            if (escapeClosingScriptTag) {
+            if (options.embeddedInHtml) {
               component = component.replace(/<\/(script)\b/gi, "<\\/$1");
             }
             parts.push(component);
@@ -616,8 +612,16 @@ function printHtmlTemplateLiteral(
     }
   );
 
+  const shouldBreak = hasNewlineInRange(
+    options.originalText,
+    options.locStart(node),
+    options.locEnd(node.quasis[0])
+  );
+
+  const linebreak = shouldBreak ? hardline : softline;
+
   return group(
-    concat(["`", indent(concat([hardline, group(contentDoc)])), softline, "`"])
+    concat(["`", indent(concat([linebreak, group(contentDoc)])), softline, "`"])
   );
 }
 
