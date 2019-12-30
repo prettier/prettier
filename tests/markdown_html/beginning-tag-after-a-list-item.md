@@ -6,3 +6,10 @@
 
 </p>
 </details>
+
+- A list item.
+<blockquote>
+
+<p>quoted sentence1<br>
+quoted sentence2</p>
+</blockquote>
