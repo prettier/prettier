@@ -675,6 +675,7 @@ exports[`CLI --support-info (stdout) 1`] = `
         \\".js\\",
         \\"._js\\",
         \\".bones\\",
+        \\".cjs\\",
         \\".es\\",
         \\".es6\\",
         \\".frag\\",
@@ -1071,6 +1072,7 @@ exports[`CLI --support-info (stdout) 1`] = `
         \\".syntax\\",
         \\".yaml\\",
         \\".yaml-tmlanguage\\",
+        \\".yaml.sed\\",
         \\".yml.mysql\\"
       ],
       \\"filenames\\": [\\".clang-format\\", \\".clang-tidy\\", \\".gemrc\\", \\"glide.lock\\"],
