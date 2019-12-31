@@ -458,7 +458,10 @@ function printChildren(path, options, print) {
             nextParts.push(hardline, hardline);
           }
         } else if (nextBetweenLine === hardline) {
-          if (isTextLikeNode(childNode.next)) {
+          if (
+            isTextLikeNode(childNode.next) &&
+            (childNode.type !== "interpolation" || childNode.prev)
+          ) {
             nextParts.push(hardline);
           }
         } else {
