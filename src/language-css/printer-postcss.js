@@ -458,15 +458,22 @@ function genericPrint(path, options, print) {
       for (let i = 0; i < node.groups.length; ++i) {
         parts.push(printed[i]);
 
-        // Ignore value inside `url()`
-        if (insideURLFunction) {
-          continue;
-        }
-
         const iPrevNode = node.groups[i - 1];
         const iNode = node.groups[i];
         const iNextNode = node.groups[i + 1];
         const iNextNextNode = node.groups[i + 2];
+
+        if (insideURLFunction) {
+          if (
+            (iNextNode &&
+              iNextNode.type === "value-operator" &&
+              iNextNode.value === "+") ||
+            (iNode.type === "value-operator" && iNode.value === "+")
+          ) {
+            parts.push(" ");
+          }
+          continue;
+        }
 
         // Ignore after latest node (i.e. before semicolon)
         if (!iNextNode) {
