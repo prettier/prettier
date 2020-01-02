@@ -254,6 +254,19 @@ function genericPrint(path, options, print) {
       return printChildren(path, options, print, {
         processor: (childPath, index) => {
           const prefix = getPrefix();
+          const childNode = childPath.getValue();
+
+          if (
+            childNode.children.length === 2 &&
+            childNode.children[1].type === "html" &&
+            childNode.children[1].position.indent.every(indent => indent === 1)
+          ) {
+            return concat([
+              prefix,
+              printListItem(childPath, options, print, prefix)
+            ]);
+          }
+
           return concat([
             prefix,
             align(
@@ -794,13 +807,21 @@ function shouldPrePrintDoubleHardline(node, data) {
     data.prevNode.type === "html" &&
     data.prevNode.position.end.line + 1 === node.position.start.line;
 
+  const isHtmlDirectAfterListItem =
+    node.type === "html" &&
+    data.parentNode.type === "listItem" &&
+    data.prevNode &&
+    data.prevNode.type === "paragraph" &&
+    data.prevNode.position.end.line + 1 === node.position.start.line;
+
   return (
     isPrevNodeLooseListItem ||
     !(
       isSiblingNode ||
       isInTightListItem ||
       isPrevNodePrettierIgnore ||
-      isBlockHtmlWithoutBlankLineBetweenPrevHtml
+      isBlockHtmlWithoutBlankLineBetweenPrevHtml ||
+      isHtmlDirectAfterListItem
     )
   );
 }
