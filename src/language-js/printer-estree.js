@@ -4342,7 +4342,7 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
   ) {
     return indent(
       concat([
-        hardline,
+        softline,
         typeParams,
         "(",
         concat(printed),
