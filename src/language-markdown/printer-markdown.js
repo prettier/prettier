@@ -259,7 +259,8 @@ function genericPrint(path, options, print) {
           if (
             childNode.children.length === 2 &&
             childNode.children[1].type === "html" &&
-            childNode.children[1].position.indent.every(indent => indent === 1)
+            childNode.children[0].position.start.column !==
+              childNode.children[1].position.start.column
           ) {
             return concat([
               prefix,
