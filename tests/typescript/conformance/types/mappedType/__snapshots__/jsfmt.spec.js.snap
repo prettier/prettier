@@ -9,6 +9,7 @@ printWidth: 80
 type Keys = 'option1' | 'option2';
 type Flags = { [K in Keys]: boolean };
 
+
 =====================================output=====================================
 type Keys = "option1" | "option2";
 type Flags = { [K in Keys]: boolean };
