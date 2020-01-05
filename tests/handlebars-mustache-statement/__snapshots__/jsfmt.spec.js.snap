@@ -9,9 +9,45 @@ printWidth: 80
 <GlimmerComponent @progress={{aPropertyEngdingAfterEightiethColumnToHighlightAWeirdClosingParenIssue}}
 />
 
+<GlimmerComponent
+  class="medium"
+  @autocomplete="off"
+  @errors={{or this.aLongProperty (and this.aProperty (v-get bike "number" "message"))}}
+  data-test-beneficiary-account-number
+/>
+
+<GlimmerComponent
+  class="medium"
+  @autocomplete="off"
+  @errors={{or this.aVeryLongProperty (and this.aProperty (v-get bike "number" "message"))}}
+  data-test-beneficiary-account-number
+/>
+
 =====================================output=====================================
 <GlimmerComponent
-  @progress={{aPropertyEngdingAfterEightiethColumnToHighlightAWeirdClosingParenIssue}}
+  @progress={{
+    aPropertyEngdingAfterEightiethColumnToHighlightAWeirdClosingParenIssue
+  }}
+/>
+
+<GlimmerComponent
+  class="medium"
+  @autocomplete="off"
+  @errors={{
+    or this.aLongProperty (and this.aProperty (v-get bike "number" "message"))
+  }}
+  data-test-beneficiary-account-number
+/>
+
+<GlimmerComponent
+  class="medium"
+  @autocomplete="off"
+  @errors={{
+    or
+    this.aVeryLongProperty
+    (and this.aProperty (v-get bike "number" "message"))
+  }}
+  data-test-beneficiary-account-number
 />
 ================================================================================
 `;
@@ -26,9 +62,45 @@ singleQuote: true
 <GlimmerComponent @progress={{aPropertyEngdingAfterEightiethColumnToHighlightAWeirdClosingParenIssue}}
 />
 
+<GlimmerComponent
+  class="medium"
+  @autocomplete="off"
+  @errors={{or this.aLongProperty (and this.aProperty (v-get bike "number" "message"))}}
+  data-test-beneficiary-account-number
+/>
+
+<GlimmerComponent
+  class="medium"
+  @autocomplete="off"
+  @errors={{or this.aVeryLongProperty (and this.aProperty (v-get bike "number" "message"))}}
+  data-test-beneficiary-account-number
+/>
+
 =====================================output=====================================
 <GlimmerComponent
-  @progress={{aPropertyEngdingAfterEightiethColumnToHighlightAWeirdClosingParenIssue}}
+  @progress={{
+    aPropertyEngdingAfterEightiethColumnToHighlightAWeirdClosingParenIssue
+  }}
+/>
+
+<GlimmerComponent
+  class='medium'
+  @autocomplete='off'
+  @errors={{
+    or this.aLongProperty (and this.aProperty (v-get bike 'number' 'message'))
+  }}
+  data-test-beneficiary-account-number
+/>
+
+<GlimmerComponent
+  class='medium'
+  @autocomplete='off'
+  @errors={{
+    or
+    this.aVeryLongProperty
+    (and this.aProperty (v-get bike 'number' 'message'))
+  }}
+  data-test-beneficiary-account-number
 />
 ================================================================================
 `;

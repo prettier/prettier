@@ -118,7 +118,8 @@ hey
 
 =====================================output=====================================
 <p>
-  Hi {{firstName}} {{lastName
+  Hi {{firstName}} {{
+    lastName
   }} , welcome!
 </p>
 {{#component propA}}

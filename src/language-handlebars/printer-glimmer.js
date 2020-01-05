@@ -157,21 +157,23 @@ function print(path, options, print) {
       );
     }
     case "MustacheStatement": {
-      const p = path.getParentNode(0);
-      const isParentConcat = p && p.type === "ConcatStatement";
-      const isParentAttr = p && p.type === "AttrNode";
       const isEscaped = n.escaped === false;
 
       const opening = isEscaped ? "{{{" : "{{";
       const closing = isEscaped ? "}}}" : "}}";
 
-      const inner = [printPathParams(path, print)];
-      if (!isParentConcat && !isParentAttr) {
-        inner.push(softline);
-      }
+      const leading =
+        isParentOfType(path, "AttrNode") ||
+        isParentOfType(path, "ConcatStatement") ||
+        isParentOfType(path, "ElementNode")
+          ? [opening, indent(softline)]
+          : [opening];
 
-      return group(concat([opening, ...inner, closing]));
+      return group(
+        concat([...leading, printPathParams(path, print), softline, closing])
+      );
     }
+
     case "SubExpression": {
       const params = printParams(path, print);
       const printedParams =
@@ -472,6 +474,11 @@ function printCloseBlock(path, print) {
 
 function isWhitespaceNode(node) {
   return node.type === "TextNode" && !/\S/.test(node.chars);
+}
+
+function isParentOfType(path, nodeType) {
+  const p = path.getParentNode(0);
+  return p && p.type === nodeType;
 }
 
 function getPreviousNode(path) {
