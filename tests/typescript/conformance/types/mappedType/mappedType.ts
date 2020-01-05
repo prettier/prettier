@@ -1,3 +1,3 @@
 type Keys = 'option1' | 'option2';
 type Flags = { [K in Keys]: boolean };
-
+type Anys = { [K in Keys] };
