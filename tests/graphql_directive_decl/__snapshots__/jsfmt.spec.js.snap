@@ -21,7 +21,7 @@ directive @a(as: String) on QUERY
 
 
 
-directive @a(as: String = 1) on QUERY
+directive @a(as: String = 1) repeatable on QUERY
 
 =====================================output=====================================
 directive @a on QUERY
@@ -35,7 +35,7 @@ directive @a on QUERY
 
 directive @a(as: String) on QUERY
 
-directive @a(as: String = 1) on QUERY
+directive @a(as: String = 1) repeatable on QUERY
 
 ================================================================================
 `;
