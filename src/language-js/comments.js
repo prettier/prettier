@@ -174,7 +174,14 @@ function handleRemainingComment(comment, text, options, ast, isLastComment) {
       followingNode,
       comment
     ) ||
-    handleBreakAndContinueStatementComments(enclosingNode, comment)
+    handleBreakAndContinueStatementComments(enclosingNode, comment) ||
+    handleTSFunctionTrailingComments(
+      text,
+      enclosingNode,
+      followingNode,
+      comment,
+      options
+    )
   ) {
     return true;
   }
@@ -460,7 +467,8 @@ function handleMethodNameComments(
     enclosingNode &&
     precedingNode &&
     (enclosingNode.type === "Property" ||
-      enclosingNode.type === "MethodDefinition") &&
+      enclosingNode.type === "MethodDefinition" ||
+      enclosingNode.type === "TSAbstractMethodDefinition") &&
     precedingNode.type === "Identifier" &&
     enclosingNode.key === precedingNode &&
     // special Property case: { key: /*comment*/(value) };
@@ -559,11 +567,7 @@ function handleCommentInEmptyParens(text, enclosingNode, comment, options) {
   // i.e. a function without any argument.
   if (
     enclosingNode &&
-    (((enclosingNode.type === "FunctionDeclaration" ||
-      enclosingNode.type === "FunctionExpression" ||
-      enclosingNode.type === "ArrowFunctionExpression" ||
-      enclosingNode.type === "ClassMethod" ||
-      enclosingNode.type === "ObjectMethod") &&
+    ((isRealFunctionLikeNode(enclosingNode) &&
       enclosingNode.params.length === 0) ||
       ((enclosingNode.type === "CallExpression" ||
         enclosingNode.type === "OptionalCallExpression" ||
@@ -611,17 +615,7 @@ function handleLastFunctionArgComments(
     (precedingNode.type === "Identifier" ||
       precedingNode.type === "AssignmentPattern") &&
     enclosingNode &&
-    (enclosingNode.type === "ArrowFunctionExpression" ||
-      enclosingNode.type === "FunctionExpression" ||
-      enclosingNode.type === "FunctionDeclaration" ||
-      enclosingNode.type === "ObjectMethod" ||
-      enclosingNode.type === "ClassMethod" ||
-      enclosingNode.type === "TSDeclareFunction" ||
-      enclosingNode.type === "TSCallSignatureDeclaration" ||
-      enclosingNode.type === "TSConstructSignatureDeclaration" ||
-      enclosingNode.type === "TSMethodSignature" ||
-      enclosingNode.type === "TSConstructorType" ||
-      enclosingNode.type === "TSFunctionType") &&
+    isRealFunctionLikeNode(enclosingNode) &&
     privateUtil.getNextNonSpaceNonCommentCharacter(
       text,
       comment,
@@ -831,6 +825,31 @@ function handleVariableDeclaratorComments(
   return false;
 }
 
+function handleTSFunctionTrailingComments(
+  text,
+  enclosingNode,
+  followingNode,
+  comment,
+  options
+) {
+  if (
+    !followingNode &&
+    enclosingNode &&
+    (enclosingNode.type === "TSMethodSignature" ||
+      enclosingNode.type === "TSDeclareFunction" ||
+      enclosingNode.type === "TSAbstractMethodDefinition") &&
+    privateUtil.getNextNonSpaceNonCommentCharacter(
+      text,
+      comment,
+      options.locEnd
+    ) === ";"
+  ) {
+    addTrailingComment(enclosingNode, comment);
+    return true;
+  }
+  return false;
+}
+
 function handleTSMappedTypeComments(
   text,
   enclosingNode,
@@ -875,6 +894,23 @@ function hasLeadingComment(node, fn = () => true) {
     return node.comments.some(comment => comment.leading && fn(comment));
   }
   return false;
+}
+
+function isRealFunctionLikeNode(node) {
+  return (
+    node.type === "ArrowFunctionExpression" ||
+    node.type === "FunctionExpression" ||
+    node.type === "FunctionDeclaration" ||
+    node.type === "ObjectMethod" ||
+    node.type === "ClassMethod" ||
+    node.type === "TSDeclareFunction" ||
+    node.type === "TSCallSignatureDeclaration" ||
+    node.type === "TSConstructSignatureDeclaration" ||
+    node.type === "TSConstructSignatureDeclaration" ||
+    node.type === "TSMethodSignature" ||
+    node.type === "TSConstructorType" ||
+    node.type === "TSFunctionType"
+  );
 }
 
 module.exports = {
