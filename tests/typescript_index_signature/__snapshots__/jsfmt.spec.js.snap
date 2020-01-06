@@ -11,14 +11,11 @@ class LocalStorage implements Storage {
   [key: string]: any;
 }
 
-type A = { [key: string] };
 =====================================output=====================================
 class LocalStorage implements Storage {
   [index: number]: string;
   [key: string]: any;
 }
-
-type A = { [key: string] };
 
 ================================================================================
 `;
