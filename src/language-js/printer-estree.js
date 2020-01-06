@@ -3333,7 +3333,7 @@ function printPathNoParens(path, options, print, args) {
               n.optional
                 ? getTypeScriptMappedTypeModifier(n.optional, "?")
                 : "",
-              ": ",
+              n.typeAnnotation ? ": " : "",
               path.call(print, "typeAnnotation"),
               ifBreak(semi, "")
             ])
