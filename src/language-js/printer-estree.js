@@ -3247,7 +3247,7 @@ function printPathNoParens(path, options, print, args) {
         n.static ? "static " : "",
         n.readonly ? "readonly " : "",
         "[",
-        n.parameters ? concat(path.map(print, "parameters")) : "",
+        n.parameters ? join(", ", path.map(print, "parameters")) : "",
         n.typeAnnotation ? "]: " : "]",
         n.typeAnnotation ? path.call(print, "typeAnnotation") : "",
         parent.type === "ClassBody" ? semi : ""
