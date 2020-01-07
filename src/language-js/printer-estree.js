@@ -3249,6 +3249,7 @@ function printPathNoParens(path, options, print, args) {
               join(concat([", ", softline]), path.map(print, "parameters"))
             ])
           ),
+          ifBreak(shouldPrintComma(options) ? "," : ""),
           softline
         ])
       );
