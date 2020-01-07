@@ -58,15 +58,43 @@ printWidth: 80
 =====================================input======================================
 type A = { [key: string] };
 
-type B = {
+type TwoParams = {
   [a: string, b: string]: string;
 };
+type ThreeParams = {
+  [a: string, b: string, c: string]: string;
+};
+
+type TooLong = {
+  [loooooooooooooooooooooooooong: string, looooooooooooooooooooooooooooooooooooooong: string]: string;
+}
+type TooLong81 = { [loooooooooooooooooooooooooong: string, loooooooooooooooooong: string]: string; }
+type TooLong80 = { [loooooooooooooooooooooooooong: string, looooooooooooooooong: string]: string; }
 
 =====================================output=====================================
 type A = { [key: string] };
 
-type B = {
+type TwoParams = {
   [a: string, b: string]: string;
+};
+type ThreeParams = {
+  [a: string, b: string, c: string]: string;
+};
+
+type TooLong = {
+  [
+    loooooooooooooooooooooooooong: string,
+    looooooooooooooooooooooooooooooooooooooong: string
+  ]: string;
+};
+type TooLong81 = {
+  [
+    loooooooooooooooooooooooooong: string,
+    loooooooooooooooooong: string
+  ]: string;
+};
+type TooLong80 = {
+  [loooooooooooooooooooooooooong: string, looooooooooooooooong: string]: string;
 };
 
 ================================================================================
