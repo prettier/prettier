@@ -465,10 +465,8 @@ function genericPrint(path, options, print) {
 
         if (insideURLFunction) {
           if (
-            (iNextNode &&
-              iNextNode.type === "value-operator" &&
-              iNextNode.value === "+") ||
-            (iNode.type === "value-operator" && iNode.value === "+")
+            (iNextNode && isAdditionNode(iNextNode)) ||
+            isAdditionNode(iNode)
           ) {
             parts.push(" ");
           }
