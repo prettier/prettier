@@ -6395,10 +6395,10 @@ snapdragon@^0.8.1:
     source-map-resolve "^0.5.0"
     use "^3.1.0"
 
-snapshot-diff@0.5.1:
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/snapshot-diff/-/snapshot-diff-0.5.1.tgz#8a74d11a4f89662d3f934dcbeccc4f773a817010"
-  integrity sha512-XBj1NE3oJiqdH/EcNzLSqSeCEnU458T57ZnbptrQ2/mKw+Z2Txu06vPMWG+morlbQp7nY6kkY7zPnHi1dgy6qg==
+snapshot-diff@0.6.1:
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/snapshot-diff/-/snapshot-diff-0.6.1.tgz#26a84b04dd4bce7ae9f457a5c5e9af0b5f5202f1"
+  integrity sha512-wWt3x4fb7FJIcV05Ng9NceVSTvQYE493sIqebzUoQbQlRG6rIR03KaRt8o/7W7znaYjUbP0eOq1iK+DfpZXaeQ==
   dependencies:
     jest-diff "^24.0.0"
     jest-snapshot "^24.0.0"
