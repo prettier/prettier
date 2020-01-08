@@ -233,13 +233,6 @@ function isTrailingSpaceSensitiveNode(node) {
   }
 
   if (
-    node.type === "interpolation" &&
-    node.parent.children.some(child => child.type === "comment")
-  ) {
-    return false;
-  }
-
-  if (
     !node.next &&
     (node.parent.type === "root" ||
       isScriptLikeTag(node.parent) ||
