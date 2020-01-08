@@ -631,7 +631,7 @@ function printOpeningTag(path, options, print) {
                     typeof ignoreAttributeData === "boolean"
                       ? () => ignoreAttributeData
                       : Array.isArray(ignoreAttributeData)
-                      ? attr => ignoreAttributeData.indexOf(attr.rawName) !== -1
+                      ? attr => ignoreAttributeData.includes(attr.rawName)
                       : () => false;
                   return path.map(attrPath => {
                     const attr = attrPath.getValue();

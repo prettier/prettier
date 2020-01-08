@@ -118,7 +118,7 @@ function genericPrint(path, options, print) {
       const rawText = node.raws.text || node.text;
       // Workaround a bug where the location is off.
       // https://github.com/postcss/postcss-scss/issues/63
-      if (text.indexOf(rawText) === -1) {
+      if (!text.includes(rawText)) {
         if (node.raws.inline) {
           return concat(["// ", rawText]);
         }
@@ -512,7 +512,7 @@ function genericPrint(path, options, print) {
         // Ignore escape `\`
         if (
           iNode.value &&
-          iNode.value.indexOf("\\") !== -1 &&
+          iNode.value.includes("\\") &&
           iNextNode &&
           iNextNode.type !== "value-comment"
         ) {
@@ -907,7 +907,7 @@ const STRING_REGEX = /(['"])(?:(?!\1)[^\\]|\\[\s\S])*\1/g;
 const NUMBER_REGEX = /(?:\d*\.\d+|\d+\.?)(?:[eE][+-]?\d+)?/g;
 const STANDARD_UNIT_REGEX = /[a-zA-Z]+/g;
 const WORD_PART_REGEX = /[$@]?[a-zA-Z_\u0080-\uFFFF][\w\-\u0080-\uFFFF]*/g;
-const ADJUST_NUMBERS_REGEX = RegExp(
+const ADJUST_NUMBERS_REGEX = new RegExp(
   STRING_REGEX.source +
     `|` +
     `(${WORD_PART_REGEX.source})?` +

@@ -58,14 +58,14 @@ class X {
 function onDidInsertSuggestion({
   editor,
   triggerPosition,
-  re
+  re,
 }): Promise<void> {}
 
 class X {
   async onDidInsertSuggestion({
     editor,
     triggerPosition,
-    suggestion
+    suggestion,
   }): Promise<void> {}
 }
 

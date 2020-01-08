@@ -46,7 +46,7 @@ import { A, B, C } from "hello-world";
 import {
   AAAAAAAAAAAAAAAAAAAAAAAA,
   BBBBBBBBBBBBBBBBBBBBBB,
-  CCCCCCCCCCCCCCCCCCCCCCC
+  CCCCCCCCCCCCCCCCCCCCCCC,
 } from "xyz";
 
 ---
@@ -58,14 +58,14 @@ import { A, B, C } from "hello-world";
 import {
   AAAAAAAAAAAAAAAAAAAAAAAA,
   BBBBBBBBBBBBBBBBBBBBBB,
-  CCCCCCCCCCCCCCCCCCCCCCC
+  CCCCCCCCCCCCCCCCCCCCCCC,
 } from "xyz";
 
 ---
 
 export const meta = {
   authors: [fred, sue],
-  layout: Layout
+  layout: Layout,
 };
 
 export default () => (
@@ -73,7 +73,7 @@ export default () => (
     components={{
       h1: ui.Heading,
       p: ui.Text,
-      code: ui.Code
+      code: ui.Code,
     }}
   />
 );
@@ -133,7 +133,7 @@ import { A, B, C } from "hello-world"
 import {
   AAAAAAAAAAAAAAAAAAAAAAAA,
   BBBBBBBBBBBBBBBBBBBBBB,
-  CCCCCCCCCCCCCCCCCCCCCCC
+  CCCCCCCCCCCCCCCCCCCCCCC,
 } from "xyz"
 
 ---
@@ -145,14 +145,14 @@ import { A, B, C } from "hello-world"
 import {
   AAAAAAAAAAAAAAAAAAAAAAAA,
   BBBBBBBBBBBBBBBBBBBBBB,
-  CCCCCCCCCCCCCCCCCCCCCCC
+  CCCCCCCCCCCCCCCCCCCCCCC,
 } from "xyz"
 
 ---
 
 export const meta = {
   authors: [fred, sue],
-  layout: Layout
+  layout: Layout,
 }
 
 export default () => (
@@ -160,7 +160,7 @@ export default () => (
     components={{
       h1: ui.Heading,
       p: ui.Text,
-      code: ui.Code
+      code: ui.Code,
     }}
   />
 )
@@ -276,7 +276,8 @@ printWidth: 80
 
 <Hello>
   test <World /> test
-</Hello>123
+</Hello>
+123
 
 ---
 
@@ -352,7 +353,8 @@ semi: false
 
 <Hello>
   test <World /> test
-</Hello>123
+</Hello>
+123
 
 ---
 
@@ -438,6 +440,117 @@ const a = 1
 ================================================================================
 `;
 
+exports[`levels.mdx 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import     {     Foo,  Bar } from     './Fixture'
+
+# Hello,    world!
+
+<Foo bg='red'>
+   <div style={{   display:   'block'}   }>
+      <Bar    >hi    </Bar>
+       {  hello       }
+       {     /* another comment */}
+       </div>
+</Foo>
+
+asdfsdf <strong style={{fontWeight: 'bolder'}}>asdfasdf</strong>
+
+<Foo/>
+test
+
+<ul>
+      <li   >item    {' '} </li>
+      <li/>
+        </ul >
+
+
+=====================================output=====================================
+import { Foo, Bar } from "./Fixture";
+
+# Hello, world!
+
+<Foo bg="red">
+  <div style={{ display: "block" }}>
+    <Bar>hi </Bar>
+    {hello}
+    {/* another comment */}
+  </div>
+</Foo>
+
+asdfsdf <strong style={{fontWeight: 'bolder'}}>asdfasdf</strong>
+
+<Foo />
+test
+
+<ul>
+  <li>item </li>
+  <li />
+</ul>
+
+================================================================================
+`;
+
+exports[`levels.mdx 2`] = `
+====================================options=====================================
+parsers: ["mdx"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+import     {     Foo,  Bar } from     './Fixture'
+
+# Hello,    world!
+
+<Foo bg='red'>
+   <div style={{   display:   'block'}   }>
+      <Bar    >hi    </Bar>
+       {  hello       }
+       {     /* another comment */}
+       </div>
+</Foo>
+
+asdfsdf <strong style={{fontWeight: 'bolder'}}>asdfasdf</strong>
+
+<Foo/>
+test
+
+<ul>
+      <li   >item    {' '} </li>
+      <li/>
+        </ul >
+
+
+=====================================output=====================================
+import { Foo, Bar } from "./Fixture"
+
+# Hello, world!
+
+<Foo bg="red">
+  <div style={{ display: "block" }}>
+    <Bar>hi </Bar>
+    {hello}
+    {/* another comment */}
+  </div>
+</Foo>
+
+asdfsdf <strong style={{fontWeight: 'bolder'}}>asdfasdf</strong>
+
+<Foo />
+test
+
+<ul>
+  <li>item </li>
+  <li />
+</ul>
+
+================================================================================
+`;
+
 exports[`mixed.mdx 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
@@ -492,7 +605,7 @@ import { Buz } from "./Fixture";
 
 export const foo = {
   hi: \`Fudge \${Baz.displayName || "Baz"}\`,
-  authors: ["fred", "sally"]
+  authors: ["fred", "sally"],
 };
 
 # Hello, world!
@@ -583,7 +696,7 @@ import { Buz } from "./Fixture"
 
 export const foo = {
   hi: \`Fudge \${Baz.displayName || "Baz"}\`,
-  authors: ["fred", "sally"]
+  authors: ["fred", "sally"],
 }
 
 # Hello, world!

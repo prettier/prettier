@@ -138,11 +138,11 @@ function isSourceElement(opts, node) {
     case "flow":
     case "babel":
     case "typescript":
-      return jsSourceElements.indexOf(node.type) > -1;
+      return jsSourceElements.includes(node.type);
     case "json":
-      return jsonSourceElements.indexOf(node.type) > -1;
+      return jsonSourceElements.includes(node.type);
     case "graphql":
-      return graphqlSourceElements.indexOf(node.kind) > -1;
+      return graphqlSourceElements.includes(node.kind);
     case "vue":
       return node.tag !== "root";
   }

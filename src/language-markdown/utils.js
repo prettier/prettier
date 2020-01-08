@@ -162,6 +162,34 @@ function getOrderedListItemInfo(orderListItem, originalText) {
   return { numberText, marker, leadingSpaces };
 }
 
+function hasGitDiffFriendlyOrderedList(node, options) {
+  if (!node.ordered) {
+    return false;
+  }
+
+  if (node.children.length < 2) {
+    return false;
+  }
+
+  const firstNumber = Number(
+    getOrderedListItemInfo(node.children[0], options.originalText).numberText
+  );
+
+  const secondNumber = Number(
+    getOrderedListItemInfo(node.children[1], options.originalText).numberText
+  );
+
+  if (firstNumber === 0 && node.children.length > 2) {
+    const thirdNumber = Number(
+      getOrderedListItemInfo(node.children[2], options.originalText).numberText
+    );
+
+    return secondNumber === 1 && thirdNumber === 1;
+  }
+
+  return secondNumber === 1;
+}
+
 // workaround for https://github.com/remarkjs/remark/issues/351
 // leading and trailing newlines are stripped by remark
 function getFencedCodeBlockValue(node, originalText) {
@@ -202,21 +230,11 @@ function mapAst(ast, handler) {
   return (function preorder(node, index, parentStack) {
     parentStack = parentStack || [];
 
-    let newNode = handler(node, index, parentStack);
-    if (Array.isArray(newNode)) {
-      return newNode;
-    }
-
-    newNode = Object.assign({}, newNode);
+    const newNode = Object.assign({}, handler(node, index, parentStack));
     if (newNode.children) {
-      newNode.children = newNode.children.reduce((nodes, child, index) => {
-        let newNodes = preorder(child, index, [newNode].concat(parentStack));
-        if (!Array.isArray(newNodes)) {
-          newNodes = [newNodes];
-        }
-        nodes.push.apply(nodes, newNodes);
-        return nodes;
-      }, []);
+      newNode.children = newNode.children.map((child, index) => {
+        return preorder(child, index, [newNode].concat(parentStack));
+      });
     }
 
     return newNode;
@@ -229,6 +247,7 @@ module.exports = {
   punctuationPattern,
   getFencedCodeBlockValue,
   getOrderedListItemInfo,
+  hasGitDiffFriendlyOrderedList,
   INLINE_NODE_TYPES,
   INLINE_NODE_WRAPPER_TYPES
 };

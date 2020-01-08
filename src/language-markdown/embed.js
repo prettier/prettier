@@ -57,7 +57,10 @@ function embed(path, print, textToDoc, options) {
     case "importExport":
       return textToDoc(node.value, { parser: "babel" });
     case "jsx":
-      return textToDoc(node.value, { parser: "__js_expression" });
+      return textToDoc(`<$>${node.value}</$>`, {
+        parser: "__js_expression",
+        rootMarker: "mdx"
+      });
   }
 
   return null;
@@ -69,7 +72,7 @@ function embed(path, print, textToDoc, options) {
     const language = supportInfo.languages.find(
       language =>
         language.name.toLowerCase() === lang ||
-        (language.aliases && language.aliases.indexOf(lang) !== -1) ||
+        (language.aliases && language.aliases.includes(lang)) ||
         (language.extensions &&
           language.extensions.find(ext => ext.substring(1) === lang))
     );

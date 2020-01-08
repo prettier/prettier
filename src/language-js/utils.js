@@ -298,7 +298,7 @@ function isSimpleFlowType(node) {
 
   return (
     node &&
-    flowTypeAnnotations.indexOf(node.type) !== -1 &&
+    flowTypeAnnotations.includes(node.type) &&
     !(node.type === "GenericTypeAnnotation" && node.typeParameters)
   );
 }

@@ -60,7 +60,7 @@ function attachComments(text, ast, opts) {
     comments.attach(astComments, ast, text, opts);
   }
   ast.tokens = [];
-  opts.originalText = opts.parser === "yaml" ? text : text.trimRight();
+  opts.originalText = opts.parser === "yaml" ? text : text.trimEnd();
   return astComments;
 }
 
@@ -90,7 +90,7 @@ function coreFormat(text, opts, addAlignmentSize) {
     opts.endOfLine === "lf"
       ? doc
       : mapDoc(doc, currentDoc =>
-          typeof currentDoc === "string" && currentDoc.indexOf("\n") !== -1
+          typeof currentDoc === "string" && currentDoc.includes("\n")
             ? currentDoc.replace(/\n/g, eol)
             : currentDoc
         ),
@@ -167,7 +167,7 @@ function coreFormat(text, opts, addAlignmentSize) {
     let cursorOffset = newCursorNodeStart;
     for (const entry of cursorNodeDiff) {
       if (entry.removed) {
-        if (entry.value.indexOf(CURSOR) > -1) {
+        if (entry.value.includes(CURSOR)) {
           break;
         }
       } else {
@@ -221,7 +221,7 @@ function formatRange(text, opts) {
 
   // Since the range contracts to avoid trailing whitespace,
   // we need to remove the newline that was inserted by the `format` call.
-  const rangeTrimmed = rangeResult.formatted.trimRight();
+  const rangeTrimmed = rangeResult.formatted.trimEnd();
   const rangeLeft = text.slice(0, rangeStart);
   const rangeRight = text.slice(rangeEnd);
 
@@ -293,7 +293,7 @@ function format(text, opts) {
   const hasRangeEnd = opts.rangeEnd < text.length;
 
   // get rid of CR/CRLF parsing
-  if (text.indexOf("\r") !== -1) {
+  if (text.includes("\r")) {
     const offsetKeys = [
       hasCursor && "cursorOffset",
       hasRangeStart && "rangeStart",
@@ -372,7 +372,7 @@ module.exports = {
 
   parse(text, opts, massage) {
     opts = normalizeOptions(opts);
-    if (text.indexOf("\r") !== -1) {
+    if (text.includes("\r")) {
       text = text.replace(/\r\n?/g, "\n");
     }
     const parsed = parser.parse(text, opts);

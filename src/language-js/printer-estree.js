@@ -120,6 +120,16 @@ const {
 let uid = 0;
 
 function shouldPrintComma(options, level) {
+  // angular does not allow trailing comma
+  if (
+    options.parser === "__ng_interpolation" ||
+    options.parser === "__ng_action" ||
+    options.parser === "__ng_binding" ||
+    options.parser === "__ng_directive"
+  ) {
+    return false;
+  }
+
   level = level || "es5";
 
   switch (options.trailingComma) {
@@ -231,7 +241,7 @@ function genericPrint(path, options, printPath, args) {
     const node = path.getValue();
     if (hasFlowShorthandAnnotationComment(node)) {
       parts.push(" /*");
-      parts.push(node.trailingComments[0].value.trimLeft());
+      parts.push(node.trailingComments[0].value.trimStart());
       parts.push("*/");
       node.trailingComments[0].printed = true;
     }
@@ -3550,7 +3560,7 @@ function printPathNoParens(path, options, print, args) {
           path.call(print, "node"),
           !n.node.comments || n.node.comments.length === 0
             ? []
-            : concat([" //", n.node.comments[0].value.trimRight()])
+            : concat([" //", n.node.comments[0].value.trimEnd()])
         )
       );
     case "NGChainedExpression":
@@ -3899,11 +3909,11 @@ function printJestEachTemplateLiteral(node, expressions, options) {
       const correspondingExpression = stringifiedExpressions[i - 1];
 
       row.cells.push(correspondingExpression);
-      if (correspondingExpression.indexOf("\n") !== -1) {
+      if (correspondingExpression.includes("\n")) {
         row.hasLineBreak = true;
       }
 
-      if (node.quasis[i].value.raw.indexOf("\n") !== -1) {
+      if (node.quasis[i].value.raw.includes("\n")) {
         tableBody.push({ hasLineBreak: false, cells: [] });
       }
     }
@@ -5388,8 +5398,12 @@ function printJSXElement(path, options, print) {
     containsMultipleAttributes ||
     containsMultipleExpressions;
 
+  const isMdxBlock = path.getParentNode().rootMarker === "mdx";
+
   const rawJsxWhitespace = options.singleQuote ? "{' '}" : '{" "}';
-  const jsxWhitespace = ifBreak(concat([rawJsxWhitespace, softline]), " ");
+  const jsxWhitespace = isMdxBlock
+    ? concat([" "])
+    : ifBreak(concat([rawJsxWhitespace, softline]), " ");
 
   const isFacebookTranslationTag =
     n.openingElement &&
@@ -5404,8 +5418,7 @@ function printJSXElement(path, options, print) {
     isFacebookTranslationTag
   );
 
-  const containsText =
-    n.children.filter(child => isMeaningfulJSXText(child)).length > 0;
+  const containsText = n.children.some(child => isMeaningfulJSXText(child));
 
   // We can end up we multiple whitespace elements with empty string
   // content between them.
@@ -5508,6 +5521,10 @@ function printJSXElement(path, options, print) {
   const content = containsText
     ? fill(multilineChildren)
     : group(concat(multilineChildren), { shouldBreak: true });
+
+  if (isMdxBlock) {
+    return content;
+  }
 
   const multiLineElem = group(
     concat([
@@ -5852,16 +5869,16 @@ function shouldHugType(node) {
         n.type === "TSNullKeyword"
     ).length;
 
-    const objectCount = node.types.filter(
+    const hasObject = node.types.some(
       n =>
         n.type === "ObjectTypeAnnotation" ||
         n.type === "TSTypeLiteral" ||
         // This is a bit aggressive but captures Array<{x}>
         n.type === "GenericTypeAnnotation" ||
         n.type === "TSTypeReference"
-    ).length;
+    );
 
-    if (node.types.length - 1 === voidCount && objectCount > 0) {
+    if (node.types.length - 1 === voidCount && hasObject) {
       return true;
     }
   }
@@ -5987,9 +6004,9 @@ function printComment(commentPath, options) {
       if (
         options.originalText.slice(options.locStart(comment)).startsWith("#!")
       ) {
-        return "#!" + comment.value.trimRight();
+        return "#!" + comment.value.trimEnd();
       }
-      return "//" + comment.value.trimRight();
+      return "//" + comment.value.trimEnd();
     default:
       throw new Error("Not a comment: " + JSON.stringify(comment));
   }
@@ -6013,8 +6030,8 @@ function printIndentableBlockComment(comment) {
       hardline,
       lines.map((line, index) =>
         index === 0
-          ? line.trimRight()
-          : " " + (index < lines.length - 1 ? line.trim() : line.trimLeft())
+          ? line.trimEnd()
+          : " " + (index < lines.length - 1 ? line.trim() : line.trimStart())
       )
     ),
     "*/"

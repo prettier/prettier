@@ -26,7 +26,7 @@ class FlagSchema extends vnopts.ChoiceSchema {
     if (
       typeof value === "string" &&
       value.length !== 0 &&
-      this._flags.indexOf(value) === -1
+      !this._flags.includes(value)
     ) {
       const suggestion = this._flags.find(flag => leven(flag, value) < 3);
       if (suggestion) {
@@ -57,7 +57,7 @@ function normalizeOptions(
     ? vnopts.levenUnknownHandler
     : Array.isArray(passThrough)
     ? (key, value) =>
-        passThrough.indexOf(key) === -1 ? undefined : { [key]: value }
+        !passThrough.includes(key) ? undefined : { [key]: value }
     : (key, value) => ({ [key]: value });
 
   const descriptor = isCLI ? cliDescriptor : vnopts.apiDescriptor;

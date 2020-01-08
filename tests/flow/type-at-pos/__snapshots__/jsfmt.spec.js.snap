@@ -44,7 +44,7 @@ export const X = {
 
   test: function() {
     let [a, b] = this.returnsATuple();
-  }
+  },
 };
 
 ================================================================================
@@ -88,23 +88,23 @@ const d = {
 // }
 
 const a = {
-  bar(): void {}
+  bar(): void {},
 };
 
 const b = {
-  bar: function(): void {}
+  bar: function(): void {},
 };
 
 const c = {
   m<T>(x: T): T {
     return x;
-  }
+  },
 };
 
 const d = {
   m: function<T>(x: T): T {
     return x;
-  }
+  },
 };
 
 ================================================================================
@@ -220,7 +220,7 @@ let tests = [
   function() {
     let x = {};
     Object.defineProperty(x, "foo", { value: "" });
-  }
+  },
 ];
 
 ================================================================================

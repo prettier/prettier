@@ -132,7 +132,7 @@ let tests = [
 
     const bar = [undefined, "bar"];
     (bar[x]: boolean); // error, string only
-  }
+  },
 ];
 
 ================================================================================

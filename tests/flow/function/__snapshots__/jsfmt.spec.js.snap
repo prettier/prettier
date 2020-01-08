@@ -173,7 +173,7 @@ let tests = [
   function(x: { (a: string, b: string): void, bind(a: string): void }) {
     (x.bind("foo"): void); // ok
     (x.bind(123): void); // error, number !~> string
-  }
+  },
 ];
 
 ================================================================================
@@ -411,7 +411,7 @@ let tests = [
     // Non-(Function.prototype) properties on a \`Function\` type should be \`any\`
     (z.foo: number);
     (z.foo: string);
-  }
+  },
 ];
 
 // \`Function\` types can be bound (resulting in a \`Function\` type)

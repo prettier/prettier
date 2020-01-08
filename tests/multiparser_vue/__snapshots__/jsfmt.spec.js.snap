@@ -27,8 +27,8 @@ export default {
   computed: {
     foo(): string {
       return "foo";
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -56,11 +56,11 @@ export default {
   computed: {
     foo(): string {
       return "foo";
-    }
+    },
   },
   render(h): VNode {
     return <div>{this.foo}</div>;
-  }
+  },
 };
 </script>
 
@@ -120,7 +120,7 @@ printWidth: 80
     class="title"
     :class="{
       'issue-realtime-pre-pulse': preAnimation,
-      'issue-realtime-trigger-pulse': pulseAnimation
+      'issue-realtime-trigger-pulse': pulseAnimation,
     }"
     v-html="titleHtml"
   ></h2>
@@ -170,9 +170,9 @@ p { font-size : 2em ; text-align : center ; }
 module.exports = {
   data: function() {
     return {
-      greeting: "Hello"
+      greeting: "Hello",
     };
-  }
+  },
 };
 </script>
 

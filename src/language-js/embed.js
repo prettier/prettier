@@ -615,7 +615,7 @@ function printHtmlTemplateLiteral(
     return "``";
   }
 
-  const placeholderRegex = RegExp(composePlaceholder("(\\d+)"), "g");
+  const placeholderRegex = new RegExp(composePlaceholder("(\\d+)"), "g");
 
   const contentDoc = mapDoc(
     stripTrailingHardline(textToDoc(text, { parser })),

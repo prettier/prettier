@@ -157,7 +157,7 @@ export type WrappedFormUtils = {
 =====================================output=====================================
 function x({
   x,
-  y
+  y,
 }: {
   // Hello world.
   x: string;
