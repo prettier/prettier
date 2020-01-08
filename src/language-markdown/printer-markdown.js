@@ -103,9 +103,7 @@ function genericPrint(path, options, print) {
           ? "never"
           : options.proseWrap;
 
-      return printLine(path, node.value, {
-        proseWrap
-      });
+      return printLine(path, node.value, { proseWrap });
     }
     case "emphasis": {
       const parentNode = path.getParentNode();
@@ -498,19 +496,17 @@ function getAncestorNode(path, typeOrTypes) {
 }
 
 function printLine(path, value, options) {
-  const parentNode = path.getParentNode();
-  const grandParentNode = path.getParentNode(1);
-  const index = grandParentNode.children.indexOf(parentNode);
-  const prevGrandParentNode = grandParentNode.children[index - 1];
   const greatGrandParentNode = path.getParentNode(2);
-  if (
-    prevGrandParentNode &&
-    prevGrandParentNode.type === "break" &&
-    greatGrandParentNode &&
-    greatGrandParentNode.type === "listItem"
-  ) {
-    return "";
+  if (greatGrandParentNode && greatGrandParentNode.type === "listItem") {
+    const parentNode = path.getParentNode();
+    const grandParentNode = path.getParentNode(1);
+    const index = grandParentNode.children.indexOf(parentNode);
+    const prevGrandParentNode = grandParentNode.children[index - 1];
+    if (prevGrandParentNode && prevGrandParentNode.type === "break") {
+      return "";
+    }
   }
+
   if (options.proseWrap === "preserve" && value === "\n") {
     return hardline;
   }

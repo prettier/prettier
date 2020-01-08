@@ -2257,7 +2257,7 @@ tabWidth: 0
 ================================================================================
 `;
 
-exports[`rebundant-leading-spaces.md 1`] = `
+exports[`redundant-leading-spaces.md 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -2316,7 +2316,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`rebundant-leading-spaces.md 2`] = `
+exports[`redundant-leading-spaces.md 2`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -2376,7 +2376,7 @@ tabWidth: 4
 ================================================================================
 `;
 
-exports[`rebundant-leading-spaces.md 3`] = `
+exports[`redundant-leading-spaces.md 3`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -2436,7 +2436,7 @@ tabWidth: 999
 ================================================================================
 `;
 
-exports[`rebundant-leading-spaces.md 4`] = `
+exports[`redundant-leading-spaces.md 4`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
