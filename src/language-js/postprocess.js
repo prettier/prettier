@@ -1,10 +1,18 @@
 "use strict";
 
 const { getLast } = require("../common/util");
+const { composeLoc, locEnd } = require("./loc");
 
 function postprocess(ast, options) {
   visitNode(ast, node => {
     switch (node.type) {
+      case "LogicalExpression": {
+        // We remove unneeded parens around same-operator LogicalExpressions
+        if (isUnbalancedLogicalTree(node)) {
+          return rebalanceLogicalTree(node);
+        }
+        break;
+      }
       // fix unexpected locEnd caused by --no-semi style
       case "VariableDeclaration": {
         const lastDeclaration = getLast(node.declarations);
@@ -27,22 +35,6 @@ function postprocess(ast, options) {
           });
         }
         break;
-      case "EnumDeclaration":
-        // A workaround for what looks like a bug in Flow.
-        // Flow assigns the same range to enum nodes and enum body nodes.
-        if (
-          options.parser === "flow" &&
-          node.body.range[0] === node.range[0] &&
-          node.body.range[1] === node.range[1]
-        ) {
-          node.body.range = [node.id.range[1], node.range[1] - 1];
-        }
-        // Babel does strange things as well. E.g. node.body.start > node.body.end can be true.
-        if (options.parser === "babel-flow") {
-          node.body.start = node.id.end;
-          node.body.end = node.end - 1;
-        }
-        break;
     }
   });
 
@@ -56,7 +48,7 @@ function postprocess(ast, options) {
     if (options.originalText[locEnd(toOverrideNode)] === ";") {
       return;
     }
-    if (options.parser === "flow") {
+    if (Array.isArray(toBeOverriddenNode.range)) {
       toBeOverriddenNode.range = [
         toBeOverriddenNode.range[0],
         toOverrideNode.range[1]
@@ -67,10 +59,6 @@ function postprocess(ast, options) {
     toBeOverriddenNode.loc = Object.assign({}, toBeOverriddenNode.loc, {
       end: toBeOverriddenNode.loc.end
     });
-  }
-
-  function locEnd(node) {
-    return options.parser === "flow" ? node.range[1] : node.end;
   }
 }
 
@@ -99,6 +87,42 @@ function visitNode(node, fn, parent, property) {
   if (replacement) {
     parent[property] = replacement;
   }
+}
+
+function isUnbalancedLogicalTree(node) {
+  return (
+    node.type === "LogicalExpression" &&
+    node.right.type === "LogicalExpression" &&
+    node.operator === node.right.operator
+  );
+}
+
+function rebalanceLogicalTree(node) {
+  if (!isUnbalancedLogicalTree(node)) {
+    return node;
+  }
+
+  return rebalanceLogicalTree(
+    Object.assign(
+      {
+        type: "LogicalExpression",
+        operator: node.operator,
+        left: rebalanceLogicalTree(
+          Object.assign(
+            {
+              type: "LogicalExpression",
+              operator: node.operator,
+              left: node.left,
+              right: node.right.left
+            },
+            composeLoc(node.left, node.right.left)
+          )
+        ),
+        right: node.right.right
+      },
+      composeLoc(node)
+    )
+  );
 }
 
 module.exports = postprocess;

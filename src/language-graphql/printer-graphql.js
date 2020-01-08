@@ -380,6 +380,7 @@ function genericPrint(path, options, print) {
               ])
             )
           : "",
+        n.repeatable ? " repeatable" : "",
         concat([" on ", join(" | ", path.map(print, "locations"))])
       ]);
     }

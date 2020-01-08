@@ -231,7 +231,8 @@ printWidth: 80
 </div>
 
 <div>
-  before {{stuff}} after {{stuff}} after {{stuff}} after {{stuff}} after {{stuff
+  before {{stuff}} after {{stuff}} after {{stuff}} after {{stuff}} after {{
+    stuff
   }} after {{stuff}} {{stuff}} {{stuff}} after {{stuff}} after
 </div>
 
@@ -320,9 +321,11 @@ printWidth: 80
 
 {{! this really should split across lines }}
 <div>
-  before{{stuff}}after{{stuff}}after{{stuff}}after{{stuff}}after{{stuff
-  }}after{{stuff}}after{{stuff}}after{{stuff}}after{{stuff}}after{{stuff
-  }}after{{stuff}}after{{stuff}}after{{stuff}}after{{stuff}}after
+  before{{stuff}}after{{stuff}}after{{stuff}}after{{stuff}}after{{stuff}}after{{
+    stuff
+  }}after{{stuff}}after{{stuff}}after{{stuff}}after{{stuff}}after{{
+    stuff
+  }}after{{stuff}}after{{stuff}}after{{stuff}}after
 </div>
 
 {{! solitary whitespace }}
@@ -406,7 +409,8 @@ printWidth: 80
 
 {{! expression does not break }}
 <div>
-  texty text text text text text text text text text text text {{this.props.type
+  texty text text text text text text text text text text text {{
+    this.props.type
   }}
 </div>
 

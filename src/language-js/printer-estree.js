@@ -20,7 +20,6 @@ const {
   getPenultimate,
   startsWithNoLookaheadToken,
   getIndentSize,
-  matchAncestorTypes,
   getPreferredQuote
 } = require("../common/util");
 const {
@@ -276,8 +275,7 @@ function printDecorators(path, options, print) {
  * @property {string} conditionalNodeType - The type of the conditional expression node, ie "ConditionalExpression" or "TSConditionalType".
  * @property {string} consequentNodePropertyName - The property at which the consequent node can be found on the main node, eg "consequent".
  * @property {string} alternateNodePropertyName - The property at which the alternate node can be found on the main node, eg "alternate".
- * @property {string} testNodePropertyName - The property at which the test node can be found on the main node, eg "test".
- * @property {boolean} breakNested - Whether to break all nested ternaries when one breaks.
+ * @property {string[]} testNodePropertyNames - The properties at which the test nodes can be found on the main node, eg "test".
  * @param {FastPath} path - The path to the ConditionalExpression/TSConditionalType node.
  * @param {Options} options - Prettier options
  * @param {Function} print - Print function to call recursively
@@ -286,7 +284,6 @@ function printDecorators(path, options, print) {
  */
 function printTernaryOperator(path, options, print, operatorOptions) {
   const node = path.getValue();
-  const testNode = node[operatorOptions.testNodePropertyName];
   const consequentNode = node[operatorOptions.consequentNodePropertyName];
   const alternateNode = node[operatorOptions.alternateNodePropertyName];
   const parts = [];
@@ -295,7 +292,11 @@ function printTernaryOperator(path, options, print, operatorOptions) {
   // See tests/jsx/conditional-expression.js for more info.
   let jsxMode = false;
   const parent = path.getParentNode();
-  let forceNoIndent = parent.type === operatorOptions.conditionalNodeType;
+  const isParentTest =
+    parent.type === operatorOptions.conditionalNodeType &&
+    operatorOptions.testNodePropertyNames.some(prop => parent[prop] === node);
+  let forceNoIndent =
+    parent.type === operatorOptions.conditionalNodeType && !isParentTest;
 
   // Find the outermost non-ConditionalExpression parent, and the outermost
   // ConditionalExpression parent. We'll use these to determine if we should
@@ -309,14 +310,17 @@ function printTernaryOperator(path, options, print, operatorOptions) {
     i++;
   } while (
     currentParent &&
-    currentParent.type === operatorOptions.conditionalNodeType
+    currentParent.type === operatorOptions.conditionalNodeType &&
+    operatorOptions.testNodePropertyNames.every(
+      prop => currentParent[prop] !== previousParent
+    )
   );
   const firstNonConditionalParent = currentParent || parent;
   const lastConditionalParent = previousParent;
 
   if (
     operatorOptions.shouldCheckJsx &&
-    (isJSXNode(testNode) ||
+    (isJSXNode(node[operatorOptions.testNodePropertyNames[0]]) ||
       isJSXNode(consequentNode) ||
       isJSXNode(alternateNode) ||
       conditionalExpressionChainContainsJSX(lastConditionalParent))
@@ -373,7 +377,8 @@ function printTernaryOperator(path, options, print, operatorOptions) {
     ]);
     parts.push(
       parent.type !== operatorOptions.conditionalNodeType ||
-        parent[operatorOptions.alternateNodePropertyName] === node
+        parent[operatorOptions.alternateNodePropertyName] === node ||
+        isParentTest
         ? part
         : options.useTabs
         ? dedent(indent(part))
@@ -385,11 +390,7 @@ function printTernaryOperator(path, options, print, operatorOptions) {
   // break if any of them break. That means we should only group around the
   // outer-most ConditionalExpression.
   const maybeGroup = doc =>
-    operatorOptions.breakNested
-      ? parent === firstNonConditionalParent
-        ? group(doc)
-        : doc
-      : group(doc);
+    parent === firstNonConditionalParent ? group(doc) : doc;
 
   // Break the closing paren to keep the chain right after it:
   // (a
@@ -400,12 +401,10 @@ function printTernaryOperator(path, options, print, operatorOptions) {
     !jsxMode &&
     (parent.type === "MemberExpression" ||
       parent.type === "OptionalMemberExpression" ||
-      (parent.type === "NGPipeExpression" &&
-        parent.left === node &&
-        operatorOptions.breakNested)) &&
+      (parent.type === "NGPipeExpression" && parent.left === node)) &&
     !parent.computed;
 
-  return maybeGroup(
+  const result = maybeGroup(
     concat(
       [].concat(
         (testDoc =>
@@ -428,6 +427,10 @@ function printTernaryOperator(path, options, print, operatorOptions) {
       )
     )
   );
+
+  return isParentTest
+    ? group(concat([indent(concat([softline, result])), softline]))
+    : result;
 }
 
 function printPathNoParens(path, options, print, args) {
@@ -597,6 +600,7 @@ function printPathNoParens(path, options, print, args) {
       // indented accordingly. We should indent sub-expressions where the first case isn't indented.
       const shouldNotIndent =
         parent.type === "ReturnStatement" ||
+        parent.type === "ThrowStatement" ||
         (parent.type === "JSXExpressionContainer" &&
           parentParent.type === "JSXAttribute") ||
         (n.type !== "NGPipeExpression" &&
@@ -608,8 +612,10 @@ function printPathNoParens(path, options, print, args) {
         (n !== parent.body && parent.type === "ForStatement") ||
         (parent.type === "ConditionalExpression" &&
           parentParent.type !== "ReturnStatement" &&
+          parentParent.type !== "ThrowStatement" &&
           parentParent.type !== "CallExpression" &&
-          parentParent.type !== "OptionalCallExpression");
+          parentParent.type !== "OptionalCallExpression") ||
+        parent.type === "TemplateLiteral";
 
       const shouldIndentIfInlining =
         parent.type === "AssignmentExpression" ||
@@ -1120,48 +1126,10 @@ function printPathNoParens(path, options, print, args) {
       return concat(parts);
     }
     case "ReturnStatement":
-      parts.push("return");
-
-      if (n.argument) {
-        if (returnArgumentHasLeadingComment(options, n.argument)) {
-          parts.push(
-            concat([
-              " (",
-              indent(concat([hardline, path.call(print, "argument")])),
-              hardline,
-              ")"
-            ])
-          );
-        } else if (
-          n.argument.type === "LogicalExpression" ||
-          n.argument.type === "BinaryExpression" ||
-          n.argument.type === "SequenceExpression"
-        ) {
-          parts.push(
-            group(
-              concat([
-                ifBreak(" (", " "),
-                indent(concat([softline, path.call(print, "argument")])),
-                softline,
-                ifBreak(")")
-              ])
-            )
-          );
-        } else {
-          parts.push(" ", path.call(print, "argument"));
-        }
-      }
-
-      if (hasDanglingComments(n)) {
-        parts.push(
-          " ",
-          comments.printDanglingComments(path, options, /* sameIndent */ true)
-        );
-      }
-
-      parts.push(semi);
-
-      return concat(parts);
+      return concat([
+        "return",
+        printReturnAndThrowArgument(path, options, print)
+      ]);
     case "NewExpression":
     case "OptionalCallExpression":
     case "CallExpression": {
@@ -1437,18 +1405,19 @@ function printPathNoParens(path, options, print, args) {
       // If we inline the object as first argument of the parent, we don't want
       // to create another group so that the object breaks before the return
       // type
-      const parentParentParent = path.getParentNode(2);
       if (
-        (n.type === "ObjectPattern" &&
-          parent &&
-          shouldHugArguments(parent) &&
-          !n.decorators &&
-          parent.params[0] === n) ||
-        (shouldHugType(n) &&
-          parentParentParent &&
-          shouldHugArguments(parentParentParent) &&
-          parentParentParent.params[0].typeAnnotation &&
-          parentParentParent.params[0].typeAnnotation.typeAnnotation === n)
+        path.match(
+          node => node.type === "ObjectPattern" && !node.decorators,
+          (node, name, number) =>
+            shouldHugArguments(node) && name === "params" && number === 0
+        ) ||
+        path.match(
+          shouldHugType,
+          (node, name) => name === "typeAnnotation",
+          (node, name) => name === "typeAnnotation",
+          (node, name, number) =>
+            shouldHugArguments(node) && name === "params" && number === 0
+        )
       ) {
         return content;
       }
@@ -1704,8 +1673,7 @@ function printPathNoParens(path, options, print, args) {
         conditionalNodeType: "ConditionalExpression",
         consequentNodePropertyName: "consequent",
         alternateNodePropertyName: "alternate",
-        testNodePropertyName: "test",
-        breakNested: true
+        testNodePropertyNames: ["test"]
       });
     case "VariableDeclaration": {
       const printed = path.map(childPath => {
@@ -2029,7 +1997,10 @@ function printPathNoParens(path, options, print, args) {
 
       return concat(["catch ", path.call(print, "body")]);
     case "ThrowStatement":
-      return concat(["throw ", path.call(print, "argument"), semi]);
+      return concat([
+        "throw",
+        printReturnAndThrowArgument(path, options, print)
+      ]);
     // Note: ignoring n.lexical because it has no printing consequences.
     case "SwitchStatement":
       return concat([
@@ -2481,7 +2452,11 @@ function printPathNoParens(path, options, print, args) {
               (n.expressions[i].comments && n.expressions[i].comments.length) ||
               n.expressions[i].type === "MemberExpression" ||
               n.expressions[i].type === "OptionalMemberExpression" ||
-              n.expressions[i].type === "ConditionalExpression"
+              n.expressions[i].type === "ConditionalExpression" ||
+              n.expressions[i].type === "LogicalExpression" ||
+              n.expressions[i].type === "BinaryExpression" ||
+              n.expressions[i].type === "SequenceExpression" ||
+              n.expressions[i].type === "TSAsExpression"
             ) {
               printed = concat([indent(concat([softline, printed])), softline]);
             }
@@ -2537,6 +2512,9 @@ function printPathNoParens(path, options, print, args) {
     case "TSTupleType":
     case "TupleTypeAnnotation": {
       const typesField = n.type === "TSTupleType" ? "elementTypes" : "types";
+      const hasRest =
+        n[typesField].length > 0 &&
+        getLast(n[typesField]).type === "TSRestType";
       return group(
         concat([
           "[",
@@ -2546,7 +2524,7 @@ function printPathNoParens(path, options, print, args) {
               printArrayItems(path, options, typesField, print)
             ])
           ),
-          ifBreak(shouldPrintComma(options, "all") ? "," : ""),
+          ifBreak(shouldPrintComma(options, "all") && !hasRest ? "," : ""),
           comments.printDanglingComments(path, options, /* sameIndent */ true),
           softline,
           "]"
@@ -3355,7 +3333,7 @@ function printPathNoParens(path, options, print, args) {
               n.optional
                 ? getTypeScriptMappedTypeModifier(n.optional, "?")
                 : "",
-              ": ",
+              n.typeAnnotation ? ": " : "",
               path.call(print, "typeAnnotation"),
               ifBreak(semi, "")
             ])
@@ -3538,8 +3516,7 @@ function printPathNoParens(path, options, print, args) {
         conditionalNodeType: "TSConditionalType",
         consequentNodePropertyName: "trueType",
         alternateNodePropertyName: "falseType",
-        testNodePropertyName: "checkType",
-        breakNested: true
+        testNodePropertyNames: ["checkType", "extendsType"]
       });
 
     case "TSInferType":
@@ -3637,6 +3614,24 @@ function printPathNoParens(path, options, print, args) {
 
     case "ArgumentPlaceholder":
       return "?";
+
+    // These are not valid TypeScript. Printing them just for the sake of error recovery.
+    case "TSJSDocAllType":
+      return "*";
+    case "TSJSDocUnknownType":
+      return "?";
+    case "TSJSDocNullableType":
+      return concat(["?", path.call(print, "typeAnnotation")]);
+    case "TSJSDocNonNullableType":
+      return concat(["!", path.call(print, "typeAnnotation")]);
+    case "TSJSDocFunctionType":
+      return concat([
+        "function(",
+        // The parameters could be here, but typescript-estree doesn't convert them anyway (throws an error).
+        "): ",
+        path.call(print, "typeAnnotation")
+      ]);
+
     default:
       /* istanbul ignore next */
       throw new Error("unknown type: " + JSON.stringify(n.type));
@@ -4074,7 +4069,10 @@ function printArgumentsList(path, options, print) {
     );
   }
 
-  if (isFunctionCompositionArgs(args)) {
+  if (
+    path.getParentNode().type !== "Decorator" &&
+    isFunctionCompositionArgs(args)
+  ) {
     return allArgsBrokenOut();
   }
 
@@ -5567,17 +5565,12 @@ function maybeWrapJSXElementInParens(path, elem, options) {
     return elem;
   }
 
-  const shouldBreak =
-    matchAncestorTypes(path, [
-      "ArrowFunctionExpression",
-      "CallExpression",
-      "JSXExpressionContainer"
-    ]) ||
-    matchAncestorTypes(path, [
-      "ArrowFunctionExpression",
-      "OptionalCallExpression",
-      "JSXExpressionContainer"
-    ]);
+  const shouldBreak = path.match(
+    undefined,
+    node => node.type === "ArrowFunctionExpression",
+    isCallOrOptionalCallExpression,
+    node => node.type === "JSXExpressionContainer"
+  );
 
   const needsParens = pathNeedsParens(path, options);
 
@@ -5931,6 +5924,65 @@ function printArrayItems(path, options, printPath, print) {
   }, printPath);
 
   return concat(printedElements);
+}
+
+function printReturnAndThrowArgument(path, options, print) {
+  const node = path.getValue();
+  const semi = options.semi ? ";" : "";
+  const parts = [];
+
+  if (node.argument) {
+    if (returnArgumentHasLeadingComment(options, node.argument)) {
+      parts.push(
+        concat([
+          " (",
+          indent(concat([hardline, path.call(print, "argument")])),
+          hardline,
+          ")"
+        ])
+      );
+    } else if (
+      node.argument.type === "LogicalExpression" ||
+      node.argument.type === "BinaryExpression" ||
+      node.argument.type === "SequenceExpression"
+    ) {
+      parts.push(
+        group(
+          concat([
+            ifBreak(" (", " "),
+            indent(concat([softline, path.call(print, "argument")])),
+            softline,
+            ifBreak(")")
+          ])
+        )
+      );
+    } else {
+      parts.push(" ", path.call(print, "argument"));
+    }
+  }
+
+  const lastComment =
+    Array.isArray(node.comments) && node.comments[node.comments.length - 1];
+  const isLastCommentLine =
+    lastComment &&
+    (lastComment.type === "CommentLine" || lastComment.type === "Line");
+
+  if (isLastCommentLine) {
+    parts.push(semi);
+  }
+
+  if (hasDanglingComments(node)) {
+    parts.push(
+      " ",
+      comments.printDanglingComments(path, options, /* sameIndent */ true)
+    );
+  }
+
+  if (!isLastCommentLine) {
+    parts.push(semi);
+  }
+
+  return concat(parts);
 }
 
 function willPrintOwnComments(path /*, options */) {

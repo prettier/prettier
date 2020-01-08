@@ -46,6 +46,7 @@ Providing at least one path to `--plugin-search-dir`/`pluginSearchDirs` turns of
 - [`@prettier/plugin-pug`](https://github.com/prettier/plugin-pug) by [**@Shinigami92**](https://github.com/Shinigami92)
 - [`@prettier/plugin-ruby`](https://github.com/prettier/plugin-ruby)
 - [`@prettier/plugin-swift`](https://github.com/prettier/plugin-swift)
+- [`@prettier/plugin-xml`](https://github.com/prettier/plugin-xml)
 
 ## Community Plugins
 
