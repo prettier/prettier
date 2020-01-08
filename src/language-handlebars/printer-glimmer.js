@@ -198,15 +198,8 @@ function print(path, options, print) {
     case "ConcatStatement": {
       return concat([
         '"',
-        group(
-          indent(
-            join(
-              softline,
-              path
-                .map(partPath => print(partPath), "parts")
-                .filter(a => a !== "")
-            )
-          )
+        concat(
+          path.map(partPath => print(partPath), "parts").filter(a => a !== "")
         ),
         '"'
       ]);
