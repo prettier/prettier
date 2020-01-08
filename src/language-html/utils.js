@@ -361,7 +361,8 @@ function inferScriptParser(node) {
       node.attrMap.type === "module" ||
       node.attrMap.type === "text/javascript" ||
       node.attrMap.type === "text/babel" ||
-      node.attrMap.type === "application/javascript"
+      node.attrMap.type === "application/javascript" ||
+      node.attrMap.lang === "jsx"
     ) {
       return "babel";
     }
