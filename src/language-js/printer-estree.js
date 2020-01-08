@@ -3241,15 +3241,28 @@ function printPathNoParens(path, options, print, args) {
     case "TSIndexSignature": {
       const parent = path.getParentNode();
 
+      const parametersGroup = group(
+        concat([
+          indent(
+            concat([
+              softline,
+              join(concat([", ", softline]), path.map(print, "parameters"))
+            ])
+          ),
+          ifBreak(shouldPrintComma(options) ? "," : ""),
+          softline
+        ])
+      );
+
       return concat([
         n.export ? "export " : "",
         n.accessibility ? concat([n.accessibility, " "]) : "",
         n.static ? "static " : "",
         n.readonly ? "readonly " : "",
         "[",
-        n.parameters ? concat(path.map(print, "parameters")) : "",
-        "]: ",
-        path.call(print, "typeAnnotation"),
+        n.parameters ? parametersGroup : "",
+        n.typeAnnotation ? "]: " : "]",
+        n.typeAnnotation ? path.call(print, "typeAnnotation") : "",
         parent.type === "ClassBody" ? semi : ""
       ]);
     }
