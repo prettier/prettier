@@ -903,10 +903,23 @@ function isRealFunctionLikeNode(node) {
   );
 }
 
+function getGapRegex(enclosingNode) {
+  if (
+    enclosingNode &&
+    enclosingNode.type !== "BinaryExpression" &&
+    enclosingNode.type !== "LogicalExpression"
+  ) {
+    // Support degenerate single-element unions and intersections.
+    // E.g.: `type A = /* 1 */ & B`
+    return /^[\s(&|]*$/;
+  }
+}
+
 module.exports = {
   handleOwnLineComment,
   handleEndOfLineComment,
   handleRemainingComment,
   hasLeadingComment,
-  isBlockComment
+  isBlockComment,
+  getGapRegex
 };

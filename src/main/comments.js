@@ -301,7 +301,12 @@ function breakTies(tiesToBreak, text, options) {
   if (tieCount === 0) {
     return;
   }
-  const { precedingNode, followingNode } = tiesToBreak[0];
+  const { precedingNode, followingNode, enclosingNode } = tiesToBreak[0];
+
+  const gapRegExp =
+    (options.printer.getGapRegex &&
+      options.printer.getGapRegex(enclosingNode)) ||
+    /^[\s(]*$/;
 
   let gapEndPos = options.locStart(followingNode);
 
@@ -321,7 +326,8 @@ function breakTies(tiesToBreak, text, options) {
     assert.strictEqual(comment.followingNode, followingNode);
 
     const gap = text.slice(options.locEnd(comment), gapEndPos);
-    if (/^[\s(]*$/.test(gap)) {
+
+    if (gapRegExp.test(gap)) {
       gapEndPos = options.locStart(comment);
     } else {
       // The gap string contained something other than whitespace or open
