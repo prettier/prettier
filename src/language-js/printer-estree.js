@@ -6140,5 +6140,6 @@ module.exports = {
     endOfLine: handleComments.handleEndOfLineComment,
     remaining: handleComments.handleRemainingComment
   },
-  getGapRegex: handleComments.getGapRegex
+  getGapRegex: handleComments.getGapRegex,
+  getCommentChildNodes: handleComments.getCommentChildNodes
 };

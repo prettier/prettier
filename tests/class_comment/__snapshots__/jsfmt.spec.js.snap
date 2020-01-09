@@ -87,8 +87,7 @@ class A4 /* a */ extends B {}
 (class A9 /* a */ extends B {});
 
 class x {
-  focus() // do nothing
-  {
+  focus() { // do nothing
     // do nothing
   }
 }

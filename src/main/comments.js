@@ -29,7 +29,7 @@ function getSortedChildNodes(node, options, resultArray) {
   const { printer, locStart, locEnd } = options;
 
   if (resultArray) {
-    if (node && printer.canAttachComment && printer.canAttachComment(node)) {
+    if (printer.canAttachComment && printer.canAttachComment(node)) {
       // This reverse insertion sort almost always takes constant
       // time because we almost always (maybe always?) append the
       // nodes in order anyway.
@@ -49,20 +49,18 @@ function getSortedChildNodes(node, options, resultArray) {
     return node[childNodesCacheKey];
   }
 
-  let childNodes;
-
-  if (printer.getCommentChildNodes) {
-    childNodes = printer.getCommentChildNodes(node);
-  } else if (node && typeof node === "object") {
-    childNodes = Object.keys(node)
-      .filter(
-        n =>
-          n !== "enclosingNode" &&
-          n !== "precedingNode" &&
-          n !== "followingNode"
-      )
-      .map(n => node[n]);
-  }
+  const childNodes =
+    (printer.getCommentChildNodes &&
+      printer.getCommentChildNodes(node, options)) ||
+    (typeof node === "object" &&
+      Object.keys(node)
+        .filter(
+          n =>
+            n !== "enclosingNode" &&
+            n !== "precedingNode" &&
+            n !== "followingNode"
+        )
+        .map(n => node[n]));
 
   if (!childNodes) {
     return;
