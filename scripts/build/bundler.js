@@ -42,9 +42,6 @@ function getBabelConfig(bundle) {
     plugins: bundle.babelPlugins || [],
     compact: bundle.type === "plugin" ? false : "auto"
   };
-  config.plugins.push(
-    require.resolve("./babel-plugins/replace-array-includes-with-indexof")
-  );
   if (bundle.type === "core") {
     config.plugins.push(
       require.resolve("./babel-plugins/transform-custom-require")
