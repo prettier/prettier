@@ -641,9 +641,14 @@ exports[`API getSupportInfo() with version 1.16.0 -> undefined 1`] = `
         \\"range\\": Object {
           \\"end\\": Infinity,
           \\"start\\": 0,
-@@ -217,10 +230,14 @@
+@@ -213,14 +226,18 @@
+        \\"choices\\": Array [
+          \\"es5\\",
+          \\"none\\",
+          \\"all\\",
         ],
-        \\"default\\": \\"none\\",
+-       \\"default\\": \\"none\\",
++       \\"default\\": \\"es5\\",
         \\"type\\": \\"choice\\",
       },
       \\"useTabs\\": Object {
@@ -1395,7 +1400,7 @@ exports[`CLI --support-info (stdout) 1`] = `
           \\"value\\": \\"all\\"
         }
       ],
-      \\"default\\": \\"none\\",
+      \\"default\\": \\"es5\\",
       \\"description\\": \\"Print trailing commas wherever possible when multi-line.\\",
       \\"name\\": \\"trailingComma\\",
       \\"pluginDefaults\\": {},
