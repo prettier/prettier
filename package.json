@@ -131,5 +131,8 @@
     "build-docs": "node ./scripts/build-docs.js",
     "check-deps": "node ./scripts/check-deps.js",
     "spellcheck": "npx -p cspell@4.0.31 cspell {bin,scripts,src}/**/*.js {docs,website/blog,changelog_unreleased}/**/*.md"
+  },
+  "resolutions": {
+    "simple-html-tokenizer": "0.5.7"
   }
 }
