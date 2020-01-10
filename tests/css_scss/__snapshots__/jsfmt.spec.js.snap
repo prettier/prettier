@@ -4078,6 +4078,7 @@ exports[`string-concatanation.scss 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 a {
@@ -4102,7 +4103,6 @@ exports[`string-concatanation.scss 2`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 a {
