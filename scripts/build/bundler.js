@@ -55,6 +55,10 @@ function getBabelConfig(bundle) {
   config.presets = [
     [require.resolve("@babel/preset-env"), { targets, modules: false }]
   ];
+  config.plugins.push([
+    require.resolve("@babel/plugin-proposal-object-rest-spread"),
+    { loose: true, useBuiltIns: true }
+  ]);
   return config;
 }
 
