@@ -76,6 +76,7 @@ const {
   isNumericLiteral,
   isObjectType,
   isObjectTypePropertyAFunction,
+  isSimpleCallArgument,
   isSimpleFlowType,
   isSimpleTemplateLiteral,
   isStringLiteral,
@@ -5084,9 +5085,7 @@ function printMemberChain(path, options, print) {
   const oneLine = concat(printedGroups);
 
   const cutoff = shouldMerge ? 3 : 2;
-  const flatGroups = groups
-    .slice(0, cutoff)
-    .reduce((res, group) => res.concat(group), []);
+  const flatGroups = groups.reduce((res, group) => res.concat(group), []);
 
   const hasComment =
     flatGroups.slice(1, -1).some(node => hasLeadingComment(node.node)) ||
@@ -5123,14 +5122,17 @@ function printMemberChain(path, options, print) {
     .map(({ node }) => node)
     .filter(isCallOrOptionalCallExpression);
 
-  // We don't want to print in one line if there's:
+  // We don't want to print in one line if the chain has:
   //  * A comment.
-  //  * 3 or more chained calls.
+  //  * Non-trivial arguments.
   //  * Any group but the last one has a hard line.
   // If the last group is a function it's okay to inline if it fits.
   if (
     hasComment ||
-    callExpressions.length >= 3 ||
+    (callExpressions.length > 2 &&
+      callExpressions.some(
+        expr => !expr.arguments.every(arg => isSimpleCallArgument(arg, 0))
+      )) ||
     printedGroups.slice(0, -1).some(willBreak) ||
     /**
      *     scopes.filter(scope => scope.value !== '').map((scope, i) => {
