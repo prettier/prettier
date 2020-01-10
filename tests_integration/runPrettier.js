@@ -92,7 +92,15 @@ function runPrettier(dir, args, options) {
   jest
     .spyOn(require(thirdParty), "cosmiconfig")
     .mockImplementation((moduleName, options) =>
-      require("cosmiconfig")(
+      require("cosmiconfig").cosmiconfig(
+        moduleName,
+        Object.assign({}, options, { stopDir: __dirname })
+      )
+    );
+  jest
+    .spyOn(require(thirdParty), "cosmiconfigSync")
+    .mockImplementation((moduleName, options) =>
+      require("cosmiconfig").cosmiconfigSync(
         moduleName,
         Object.assign({}, options, { stopDir: __dirname })
       )
