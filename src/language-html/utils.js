@@ -494,21 +494,12 @@ function getNodeCssStyleDisplay(node, options) {
     case "ignore":
       return "block";
     default:
-      if (
-        node.type === "element" &&
-        !node.hasExplicitNamespace &&
-        node.namespace &&
-        !["html", "svg"].includes(node.namespace)
-      ) {
-        const display = CSS_DISPLAY_TAGS[node.name];
-        if (display) {
-          return display;
-        }
-      }
-
       return (
         (node.type === "element" &&
-          (!node.namespace || isInSvgForeignObject) &&
+          (!node.namespace ||
+            isInSvgForeignObject ||
+            (!node.hasExplicitNamespace &&
+              !["html", "svg"].includes(node.namespace))) &&
           CSS_DISPLAY_TAGS[node.name]) ||
         CSS_DISPLAY_DEFAULT
       );
