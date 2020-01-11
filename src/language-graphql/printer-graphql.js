@@ -288,7 +288,7 @@ function genericPrint(path, options, print) {
               " implements ",
               join(
                 determineInterfaceSeparator(
-                  options.originalText.substr(
+                  options.originalText.slice(
                     options.locStart(n),
                     options.locEnd(n)
                   )
@@ -669,7 +669,7 @@ function determineInterfaceSeparator(originalSource) {
   if (end === -1) {
     end = originalSource.length;
   }
-  return originalSource.substr(start, end).includes("&") ? " & " : ", ";
+  return originalSource.slice(start, end).includes("&") ? " & " : ", ";
 }
 
 function clean(node, newNode /*, parent*/) {

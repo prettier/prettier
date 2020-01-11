@@ -321,7 +321,7 @@ function format(text, opts) {
 
   const hasUnicodeBOM = text.charCodeAt(0) === UTF8BOM;
   if (hasUnicodeBOM) {
-    text = text.substring(1);
+    text = text.slice(1);
     if (hasCursor) {
       opts.cursorOffset++;
     }

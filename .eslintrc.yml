@@ -37,3 +37,4 @@ rules:
     - exceptRange: true
   unicorn/new-for-builtins: error
   unicorn/prefer-includes: error
+  unicorn/prefer-string-slice: error

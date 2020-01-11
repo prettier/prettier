@@ -544,7 +544,7 @@ function handleCommentAfterArrowParams(text, enclosingNode, comment, options) {
     comment,
     options
   );
-  if (text.substr(index, 2) === "=>") {
+  if (text.slice(index, index + 2) === "=>") {
     addDanglingComment(enclosingNode, comment);
     return true;
   }

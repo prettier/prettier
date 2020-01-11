@@ -74,7 +74,7 @@ function embed(path, print, textToDoc, options) {
         language.name.toLowerCase() === lang ||
         (language.aliases && language.aliases.includes(lang)) ||
         (language.extensions &&
-          language.extensions.find(ext => ext.substring(1) === lang))
+          language.extensions.find(ext => ext === `.${lang}`))
     );
     if (language) {
       return language.parsers[0];
