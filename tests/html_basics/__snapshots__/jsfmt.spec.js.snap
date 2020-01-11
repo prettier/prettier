@@ -490,6 +490,7 @@ printWidth: 80
   const func = function() { console.log('Hello, there');}
   </script>
   </with:colon>
+
 =====================================output=====================================
 <foo:bar>
   <div>block block block</div>
@@ -497,24 +498,24 @@ printWidth: 80
   <div>block block block</div>
   <span> inline inline </span><span> inline inline </span
   ><span> inline inline </span><span> inline inline </span
-  ><html:button> known inline</html:button>
-</foo:bar>
+  ><html:button> known inline</html:button></foo:bar
+>
 <foo:div>
   <div>block block block</div>
   <div>block block block</div>
   <div>block block block</div>
   <span> inline inline </span><span> inline inline </span
   ><span> inline inline </span><span> inline inline </span
-  ><html:button> known inline</html:button>
-</foo:div>
+  ><html:button> known inline</html:button></foo:div
+>
 <foo:span>
   <div>block block block</div>
   <div>block block block</div>
   <div>block block block</div>
   <span> inline inline </span><span> inline inline </span
   ><span> inline inline </span><span> inline inline </span
-  ><html:button> known inline</html:button>
-</foo:span>
+  ><html:button> known inline</html:button></foo:span
+>
 
 <!-- #7236 -->
 <with:colon>

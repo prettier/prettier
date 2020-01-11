@@ -499,11 +499,7 @@ function getNodeCssStyleDisplay(node, options) {
     case "ignore":
       return "block";
     default:
-      if (isUnknownNamespace) {
-        if (node.hasExplicitNamespace) {
-          return "block";
-        }
-
+      if (isUnknownNamespace && !node.hasExplicitNamespace) {
         const display = CSS_DISPLAY_TAGS[node.name];
         if (display) {
           return display;
