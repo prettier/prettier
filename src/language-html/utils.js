@@ -488,18 +488,18 @@ function getNodeCssStyleDisplay(node, options) {
     }
   }
 
-  const isUnknownNamespace =
-    node.type === "element" &&
-    node.namespace &&
-    !["html", "svg"].includes(node.namespace);
-
   switch (options.htmlWhitespaceSensitivity) {
     case "strict":
       return "inline";
     case "ignore":
       return "block";
     default:
-      if (isUnknownNamespace && !node.hasExplicitNamespace) {
+      if (
+        node.type === "element" &&
+        node.namespace &&
+        !["html", "svg"].includes(node.namespace) &&
+        !node.hasExplicitNamespace
+      ) {
         const display = CSS_DISPLAY_TAGS[node.name];
         if (display) {
           return display;
