@@ -488,7 +488,7 @@ function getNodeCssStyleDisplay(node, options) {
     }
   }
 
-  const isUnknownNamespaceElement =
+  const isUnknownNamespace =
     node.type === "element" &&
     node.namespace &&
     !["html", "svg"].includes(node.namespace);
@@ -499,17 +499,14 @@ function getNodeCssStyleDisplay(node, options) {
     case "ignore":
       return "block";
     default:
-      if (node.type === "element" && isUnknownNamespaceElement) {
+      if (isUnknownNamespace) {
+		if (node.hasExplicitNamespace) {
+        return "block";}
+
         const display = CSS_DISPLAY_TAGS[node.name];
         if (display) {
           return display;
         }
-
-        if (node.hasExplicitNamespace) {
-          return "block";
-        }
-
-        return CSS_DISPLAY_DEFAULT;
       }
 
       return (

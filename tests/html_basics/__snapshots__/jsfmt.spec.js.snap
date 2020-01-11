@@ -478,7 +478,11 @@ printWidth: 80
 =====================================input======================================
 <foo:bar>
   <div> block block block </div><div> block block block </div><div> block block block </div><span> inline inline  </span><span> inline inline  </span><span> inline inline  </span><span> inline inline  </span><html:button> known inline</html:button></foo:bar>
-
+<foo:div>
+  <div> block block block </div><div> block block block </div><div> block block block </div><span> inline inline  </span><span> inline inline  </span><span> inline inline  </span><span> inline inline  </span><html:button> known inline</html:button></foo:div>
+<foo:span>
+    <div> block block block </div><div> block block block </div><div> block block block </div><span> inline inline  </span><span> inline inline  </span><span> inline inline  </span><span> inline inline  </span><html:button> known inline</html:button></foo:span>
+  
 <!-- #7236 -->
 <with:colon>
   <div><h1> text  text  text  text  text  text  text  text  text  text  text  text  text  text </h1></div>
@@ -495,6 +499,22 @@ printWidth: 80
   ><span> inline inline </span><span> inline inline </span
   ><html:button> known inline</html:button>
 </foo:bar>
+<foo:div>
+  <div>block block block</div>
+  <div>block block block</div>
+  <div>block block block</div>
+  <span> inline inline </span><span> inline inline </span
+  ><span> inline inline </span><span> inline inline </span
+  ><html:button> known inline</html:button>
+</foo:div>
+<foo:span>
+  <div>block block block</div>
+  <div>block block block</div>
+  <div>block block block</div>
+  <span> inline inline </span><span> inline inline </span
+  ><span> inline inline </span><span> inline inline </span
+  ><html:button> known inline</html:button>
+</foo:span>
 
 <!-- #7236 -->
 <with:colon>
