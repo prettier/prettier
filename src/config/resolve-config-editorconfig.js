@@ -25,7 +25,7 @@ const maybeParse = (filePath, config, parse) => {
 };
 
 const editorconfigAsyncNoCache = async (filePath, config) => {
-  const editorConfig = maybeParse(filePath, config, editorconfig.parse);
+  const editorConfig = await maybeParse(filePath, config, editorconfig.parse);
   return editorConfigToPrettier(editorConfig);
 };
 const editorconfigAsyncWithCache = jsonStringifyMem(editorconfigAsyncNoCache);
