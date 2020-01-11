@@ -477,11 +477,11 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 <foo:bar>
-  <div> block block block </div><div> block block block </div><div> block block block </div><span> inline inline  </span><span> inline inline  </span><span> inline inline  </span><span> inline inline  </span><html:button> known inline</html:button></foo:bar>
+  <div> block block block </div><div> block block block </div><div> block block block </div><pre> pre  pre  pre </pre><span> inline inline  </span><span> inline inline  </span><span> inline inline  </span><span> inline inline  </span><html:button> known inline</html:button></foo:bar>
 <foo:div>
-  <div> block block block </div><div> block block block </div><div> block block block </div><span> inline inline  </span><span> inline inline  </span><span> inline inline  </span><span> inline inline  </span><html:button> known inline</html:button></foo:div>
+  <div> block block block </div><div> block block block </div><div> block block block </div><pre> pre  pre  pre </pre><span> inline inline  </span><span> inline inline  </span><span> inline inline  </span><span> inline inline  </span><html:button> known inline</html:button></foo:div>
 <foo:span>
-    <div> block block block </div><div> block block block </div><div> block block block </div><span> inline inline  </span><span> inline inline  </span><span> inline inline  </span><span> inline inline  </span><html:button> known inline</html:button></foo:span>
+    <div> block block block </div><div> block block block </div><div> block block block </div><pre> pre  pre  pre </pre><span> inline inline  </span><span> inline inline  </span><span> inline inline  </span><span> inline inline  </span><html:button> known inline</html:button></foo:span>
   
 <!-- #7236 -->
 <with:colon>
@@ -496,6 +496,7 @@ printWidth: 80
   <div>block block block</div>
   <div>block block block</div>
   <div>block block block</div>
+  <pre> pre  pre  pre </pre>
   <span> inline inline </span><span> inline inline </span
   ><span> inline inline </span><span> inline inline </span
   ><html:button> known inline</html:button></foo:bar
@@ -504,6 +505,7 @@ printWidth: 80
   <div>block block block</div>
   <div>block block block</div>
   <div>block block block</div>
+  <pre> pre  pre  pre </pre>
   <span> inline inline </span><span> inline inline </span
   ><span> inline inline </span><span> inline inline </span
   ><html:button> known inline</html:button></foo:div
@@ -512,6 +514,7 @@ printWidth: 80
   <div>block block block</div>
   <div>block block block</div>
   <div>block block block</div>
+  <pre> pre  pre  pre </pre>
   <span> inline inline </span><span> inline inline </span
   ><span> inline inline </span><span> inline inline </span
   ><html:button> known inline</html:button></foo:span
