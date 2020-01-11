@@ -6,15 +6,13 @@ const currentVersion = require("../../package.json").version;
 const coreOptions = require("./core-options").options;
 
 function getSupportInfo(version, opts) {
-  opts = Object.assign(
-    {
-      plugins: [],
-      showUnreleased: false,
-      showDeprecated: false,
-      showInternal: false
-    },
-    opts
-  );
+  opts = {
+    plugins: [],
+    showUnreleased: false,
+    showDeprecated: false,
+    showInternal: false,
+    ...opts
+  };
 
   if (!version) {
     // pre-release version is smaller than the normal version in semver,
@@ -25,43 +23,33 @@ function getSupportInfo(version, opts) {
   const plugins = opts.plugins;
 
   const options = arrayify(
-    Object.assign(
-      plugins.reduce(
-        (currentOptions, plugin) =>
-          Object.assign(currentOptions, plugin.options),
-        {}
-      ),
-      coreOptions
-    ),
+    Object.assign({}, ...plugins.map(({ options }) => options), coreOptions),
     "name"
   )
-    .sort((a, b) => (a.name === b.name ? 0 : a.name < b.name ? -1 : 1))
     .filter(option => filterSince(option) && filterDeprecated(option))
-    .map(mapDeprecated)
-    .map(mapInternal)
+    .sort((a, b) => (a.name === b.name ? 0 : a.name < b.name ? -1 : 1))
     .map(option => {
-      const newOption = Object.assign({}, option);
+      option = {
+        ...mapInternal(mapDeprecated(option))
+      };
 
-      if (Array.isArray(newOption.default)) {
-        newOption.default =
-          newOption.default.length === 1
-            ? newOption.default[0].value
-            : newOption.default
+      if (Array.isArray(option.default)) {
+        option.default =
+          option.default.length === 1
+            ? option.default[0].value
+            : option.default
                 .filter(filterSince)
                 .sort((info1, info2) =>
                   semver.compare(info2.since, info1.since)
                 )[0].value;
       }
 
-      if (Array.isArray(newOption.choices)) {
-        newOption.choices = newOption.choices
+      if (Array.isArray(option.choices)) {
+        option.choices = option.choices
           .filter(option => filterSince(option) && filterDeprecated(option))
           .map(mapDeprecated);
       }
 
-      return newOption;
-    })
-    .map(option => {
       const filteredPlugins = plugins.filter(
         plugin =>
           plugin.defaultOptions &&
@@ -71,7 +59,7 @@ function getSupportInfo(version, opts) {
         reduced[plugin.name] = plugin.defaultOptions[option.name];
         return reduced;
       }, {});
-      return Object.assign(option, { pluginDefaults });
+      return { ...option, pluginDefaults };
     });
 
   const usePostCssParser = semver.lt(version, "1.7.1");
@@ -81,36 +69,22 @@ function getSupportInfo(version, opts) {
     .reduce((all, plugin) => all.concat(plugin.languages || []), [])
     .filter(filterSince)
     .map(language => {
+      let parsers;
       // Prevent breaking changes
-      if (language.name === "Markdown") {
-        return Object.assign({}, language, {
-          parsers: ["markdown"]
-        });
-      }
-      if (language.name === "TypeScript") {
-        return Object.assign({}, language, {
-          parsers: ["typescript"]
-        });
-      }
-
-      // "babylon" was renamed to "babel" in 1.16.0
-      if (useBabylonParser && language.parsers.includes("babel")) {
-        return Object.assign({}, language, {
-          parsers: language.parsers.map(parser =>
-            parser === "babel" ? "babylon" : parser
-          )
-        });
-      }
-
-      if (
+      if (language.name === "Markdown" || language.name === "TypeScript") {
+        parsers = [language.name.toLowerCase()];
+        // "babylon" was renamed to "babel" in 1.16.0
+      } else if (useBabylonParser && language.parsers.includes("babel")) {
+        parsers = language.parsers.map(parser =>
+          parser === "babel" ? "babylon" : parser
+        );
+      } else if (
         usePostCssParser &&
         (language.name === "CSS" || language.group === "CSS")
       ) {
-        return Object.assign({}, language, {
-          parsers: ["postcss"]
-        });
+        parsers = ["postcss"];
       }
-      return language;
+      return parsers ? { ...language, parsers } : language;
     });
 
   return { languages, options };
@@ -133,19 +107,16 @@ function getSupportInfo(version, opts) {
     if (!object.deprecated || opts.showDeprecated) {
       return object;
     }
-    const newObject = Object.assign({}, object);
-    delete newObject.deprecated;
-    delete newObject.redirect;
+    // eslint-disable-next-line no-unused-vars
+    const { deprecated, redirect, ...newObject } = Object.assign({}, object);
     return newObject;
   }
   function mapInternal(object) {
     if (opts.showInternal) {
       return object;
     }
-    const newObject = Object.assign({}, object);
-    delete newObject.cliName;
-    delete newObject.cliCategory;
-    delete newObject.cliDescription;
+    // eslint-disable-next-line no-unused-vars
+    const { cliName, cliCategory, cliDescription, ...newObject } = object;
     return newObject;
   }
 }
