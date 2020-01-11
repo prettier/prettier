@@ -107,15 +107,14 @@ function getSupportInfo(version, opts) {
     if (!object.deprecated || opts.showDeprecated) {
       return object;
     }
-    // eslint-disable-next-line no-unused-vars
-    const { deprecated, redirect, ...newObject } = Object.assign({}, object);
+
+    const { deprecated, redirect, ...newObject } = object;
     return newObject;
   }
   function mapInternal(object) {
     if (opts.showInternal) {
       return object;
     }
-    // eslint-disable-next-line no-unused-vars
     const { cliName, cliCategory, cliDescription, ...newObject } = object;
     return newObject;
   }
