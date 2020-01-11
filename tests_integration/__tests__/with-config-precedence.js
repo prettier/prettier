@@ -50,7 +50,8 @@ describe("CLI overrides are still applied when no config is found with --config-
     "6",
     "--config-precedence",
     "file-override",
-    "**/*.js"
+    "**/*.js",
+    "--no-editorconfig"
   ]).test({
     status: 0
   });
