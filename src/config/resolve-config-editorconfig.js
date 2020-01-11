@@ -22,10 +22,9 @@ const maybeParse = (filePath, config, parse) => {
   return filePath && parse(filePath, { root });
 };
 
-const editorconfigAsyncNoCache = (filePath, config) => {
-  return Promise.resolve(maybeParse(filePath, config, editorconfig.parse)).then(
-    editorConfigToPrettier
-  );
+const editorconfigAsyncNoCache = async (filePath, config) => {
+  const editorConfig = maybeParse(filePath, config, editorconfig.parse);
+  return editorConfigToPrettier(editorConfig);
 };
 const editorconfigAsyncWithCache = mem(editorconfigAsyncNoCache);
 
