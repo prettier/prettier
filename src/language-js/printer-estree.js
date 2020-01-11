@@ -114,7 +114,7 @@ const {
   },
   utils: { willBreak, isLineNext, isEmpty, removeLines },
   printer: { printDocToString }
-} = require("../doc");
+} = require("../document");
 
 let uid = 0;
 

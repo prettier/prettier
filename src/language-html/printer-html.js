@@ -4,7 +4,7 @@ const clean = require("./clean");
 const {
   builders,
   utils: { stripTrailingHardline, mapDoc }
-} = require("../doc");
+} = require("../document");
 const {
   breakParent,
   dedentToRoot,

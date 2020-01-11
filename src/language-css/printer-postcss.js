@@ -25,7 +25,7 @@ const {
     ifBreak
   },
   utils: { removeLines }
-} = require("../doc");
+} = require("../document");
 
 const {
   getAncestorNode,
