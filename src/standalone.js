@@ -18,24 +18,20 @@ const internalPlugins = [
   require("./language-yaml")
 ];
 
-const isArray =
-  Array.isArray ||
-  function(arr) {
-    return Object.prototype.toString.call(arr) === "[object Array]";
-  };
-
 // Luckily `opts` is always the 2nd argument
 function withPlugins(fn) {
-  return function() {
-    const args = Array.from(arguments);
-    let plugins = (args[1] && args[1].plugins) || [];
-    if (!isArray(plugins)) {
-      plugins = Object.values(plugins);
-    }
-    args[1] = Object.assign({}, args[1], {
-      plugins: internalPlugins.concat(plugins)
-    });
-    return fn.apply(null, args);
+  return function(first, opts, ...rest) {
+    const { plugins = [] } = opts || {};
+
+    opts = {
+      ...opts,
+      plugins: [
+        ...internalPlugins,
+        ...(Array.isArray(plugins) ? plugins : Object.values(plugins))
+      ]
+    };
+
+    return fn(first, opts, ...rest);
   };
 }
 

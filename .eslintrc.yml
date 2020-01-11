@@ -7,7 +7,7 @@ extends:
   - plugin:react/recommended
   - plugin:prettier/recommended
 parserOptions:
-  ecmaVersion: 2017
+  ecmaVersion: 2018
 plugins:
   - import
   - unicorn
@@ -26,6 +26,7 @@ rules:
     - never
   prefer-arrow-callback: error
   prefer-const: error
+  prefer-spread: error
   react/display-name: off
   react/no-deprecated: off
   react/prop-types: off
