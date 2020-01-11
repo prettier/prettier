@@ -488,12 +488,28 @@ function getNodeCssStyleDisplay(node, options) {
     }
   }
 
+  const isUnknownNamespaceElement =
+    node.type === "element" &&
+    node.namespace &&
+    !["html", "svg"].includes(node.namespace);
+
   switch (options.htmlWhitespaceSensitivity) {
     case "strict":
       return "inline";
     case "ignore":
       return "block";
     default:
+      if (node.type === "element" && isUnknownNamespaceElement) {
+        const display = CSS_DISPLAY_TAGS[node.name];
+        if (display) {
+          return display;
+        }
+
+        if (!HTML_TAGS[node.name]) {
+          return "block";
+        }
+      }
+
       return (
         (node.type === "element" &&
           (!node.namespace || isInSvgForeignObject) &&

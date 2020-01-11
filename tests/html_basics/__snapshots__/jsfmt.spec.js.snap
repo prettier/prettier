@@ -444,6 +444,47 @@ printWidth: 80
 ================================================================================
 `;
 
+exports[`unknow-namespace.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<unknow:namespace>
+  <div> block block block </div><div> block block block </div><div> block block block </div><span> inline inline  </span><span> inline inline  </span><span> inline inline  </span><span> inline inline  </span><html:button> known inline</html:button></unknow:namespace>
+
+<!-- #7236 -->
+<with:colon>
+  <div><h1> text  text  text  text  text  text  text  text  text  text  text  text  text  text </h1></div>
+  <script>
+  const func = function() { console.log('Hello, there');}
+  </script>
+  </with:colon>
+=====================================output=====================================
+<unknow:namespace>
+  <div>block block block</div>
+  <div>block block block</div>
+  <div>block block block</div>
+  <span> inline inline </span><span> inline inline </span
+  ><span> inline inline </span><span> inline inline </span
+  ><html:button> known inline</html:button>
+</unknow:namespace>
+
+<!-- #7236 -->
+<with:colon>
+  <div>
+    <h1>
+      text text text text text text text text text text text text text text
+    </h1>
+  </div>
+  <script>
+    const func = function() { console.log('Hello, there');}
+  </script>
+</with:colon>
+
+================================================================================
+`;
+
 exports[`void-elements.html 1`] = `
 ====================================options=====================================
 parsers: ["html"]
