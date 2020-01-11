@@ -496,9 +496,9 @@ function getNodeCssStyleDisplay(node, options) {
     default:
       if (
         node.type === "element" &&
+        !node.hasExplicitNamespace &&
         node.namespace &&
-        !["html", "svg"].includes(node.namespace) &&
-        !node.hasExplicitNamespace
+        !["html", "svg"].includes(node.namespace)
       ) {
         const display = CSS_DISPLAY_TAGS[node.name];
         if (display) {
