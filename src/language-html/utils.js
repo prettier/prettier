@@ -505,9 +505,11 @@ function getNodeCssStyleDisplay(node, options) {
           return display;
         }
 
-        if (!HTML_TAGS[node.name]) {
+        if (node.hasExplicitNamespace) {
           return "block";
         }
+
+        return CSS_DISPLAY_DEFAULT;
       }
 
       return (
