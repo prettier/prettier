@@ -500,8 +500,9 @@ function getNodeCssStyleDisplay(node, options) {
       return "block";
     default:
       if (isUnknownNamespace) {
-		if (node.hasExplicitNamespace) {
-        return "block";}
+        if (node.hasExplicitNamespace) {
+          return "block";
+        }
 
         const display = CSS_DISPLAY_TAGS[node.name];
         if (display) {
