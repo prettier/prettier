@@ -77,7 +77,7 @@
     "@babel/core": "7.7.2",
     "@babel/preset-env": "7.7.4",
     "@rollup/plugin-alias": "2.2.0",
-    "@rollup/plugin-json": "4.0.0",
+    "@rollup/plugin-json": "4.0.1",
     "@rollup/plugin-replace": "2.2.1",
     "babel-loader": "8.0.6",
     "benchmark": "2.1.4",
