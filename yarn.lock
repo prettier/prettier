@@ -279,10 +279,10 @@
     esutils "^2.0.2"
     js-tokens "^4.0.0"
 
-"@babel/parser@7.7.5", "@babel/parser@^7.7.0", "@babel/parser@^7.7.2", "@babel/parser@^7.7.4":
-  version "7.7.5"
-  resolved "https://registry.yarnpkg.com/@babel/parser/-/parser-7.7.5.tgz#cbf45321619ac12d83363fcf9c94bb67fa646d71"
-  integrity sha512-KNlOe9+/nk4i29g0VXgl8PEXIRms5xKLJeuZ6UptN0fHv+jDiriG+y94X6qAgWTR0h3KaoM1wK5G5h7MHFRSig==
+"@babel/parser@7.8.0", "@babel/parser@^7.7.0", "@babel/parser@^7.7.2", "@babel/parser@^7.7.4":
+  version "7.8.0"
+  resolved "https://registry.yarnpkg.com/@babel/parser/-/parser-7.8.0.tgz#54682775f1fb25dd29a93a02315aab29a6a292bb"
+  integrity sha512-VVtsnUYbd1+2A2vOVhm4P2qNXQE8L/W859GpUHfUcdhX8d3pEKThZuIr6fztocWx9HbK+00/CR0tXnhAggJ4CA==
 
 "@babel/plugin-proposal-async-generator-functions@^7.7.4":
   version "7.7.4"
