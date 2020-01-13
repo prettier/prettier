@@ -578,6 +578,9 @@ function hasPrettierIgnore(path) {
   return isIgnoreNode || isCoveredByIgnoreNode;
 }
 
+/* istanbul ignore next
+   https://github.com/glimmerjs/glimmer-vm/blob/master/packages/%40glimmer/compiler/lib/location.ts#L5-L29
+*/
 function locationToOffset(source, line, column) {
   let seenLines = 0;
   let seenChars = 0;
