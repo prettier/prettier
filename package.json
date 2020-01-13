@@ -84,19 +84,20 @@
     "builtin-modules": "3.1.0",
     "codecov": "3.6.1",
     "cross-env": "6.0.3",
+    "cspell": "4.0.44",
+    "eslint": "6.6.0",
     "eslint-config-prettier": "6.7.0",
     "eslint-formatter-friendly": "7.0.0",
     "eslint-plugin-import": "2.19.1",
     "eslint-plugin-prettier": "3.1.2",
     "eslint-plugin-react": "7.17.0",
     "eslint-plugin-unicorn": "13.0.0",
-    "eslint": "6.6.0",
     "execa": "3.4.0",
+    "jest": "24.9.0",
     "jest-junit": "10.0.0",
     "jest-snapshot-serializer-ansi": "1.0.0",
     "jest-snapshot-serializer-raw": "1.1.0",
     "jest-watch-typeahead": "0.4.2",
-    "jest": "24.9.0",
     "mkdirp": "0.5.1",
     "prettier": "1.19.1",
     "rimraf": "3.0.0",
@@ -130,7 +131,7 @@
     "build": "node --max-old-space-size=3072 ./scripts/build/build.js",
     "build-docs": "node ./scripts/build-docs.js",
     "check-deps": "node ./scripts/check-deps.js",
-    "spellcheck": "npx -p cspell@4.0.31 cspell {bin,scripts,src}/**/*.js {docs,website/blog,changelog_unreleased}/**/*.md"
+    "spellcheck": "cspell {bin,scripts,src}/**/*.js {docs,website/blog,changelog_unreleased}/**/*.md"
   },
   "resolutions": {
     "simple-html-tokenizer": "0.5.7"
