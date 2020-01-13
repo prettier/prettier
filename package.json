@@ -66,7 +66,7 @@
     "remark-parse": "5.0.0",
     "resolve": "1.13.1",
     "semver": "7.1.1",
-    "string-width": "4.1.0",
+    "string-width": "4.2.0",
     "typescript": "3.7.3",
     "unicode-regex": "3.0.0",
     "unified": "8.4.2",
