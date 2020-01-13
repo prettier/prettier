@@ -184,3 +184,23 @@ type OldArtist implements Node, Entity {
 
 ================================================================================
 `;
+
+exports[`test-substr.graphql 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+# SOME COMMENT BEFORE, this effects string slice
+type AA implements C, D
+# { &
+# Should separat by \`,\` not \`&\`
+
+=====================================output=====================================
+# SOME COMMENT BEFORE, this effects string slice
+type AA implements C & D
+# { &
+# Should separat by \`,\` not \`&\`
+
+================================================================================
+`;
