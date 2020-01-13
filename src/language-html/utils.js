@@ -507,7 +507,9 @@ function getNodeCssStyleDisplay(node, options) {
 
 function isUnknownNamespace(node) {
   return (
-    !node.hasExplicitNamespace && !["html", "svg"].includes(node.namespace)
+    node.type === "element" &&
+    !node.hasExplicitNamespace &&
+    !["html", "svg"].includes(node.namespace)
   );
 }
 
