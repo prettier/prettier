@@ -334,22 +334,16 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 <script id="entry-template" type="text/x-handlebars-template">
-  <div class="entry">
-    <h1>{{title}}</h1>
-    <div class="body">
-      {{body}}
-    </div>
-  </div>
+<div class="entry">
+<h1>{{title}}</h1>
+<div class="body">{{body}}</div></div>
 </script>
 
 =====================================output=====================================
 <script id="entry-template" type="text/x-handlebars-template">
   <div class="entry">
-    <h1>{{title}}</h1>
-    <div class="body">
-  {{body}}
-  </div>
-  </div>
+<h1>{{title}}</h1>
+<div class="body">{{body}}</div></div>
 </script>
 ================================================================================
 `;
@@ -362,22 +356,16 @@ singleQuote: true
                                                                                 | printWidth
 =====================================input======================================
 <script id="entry-template" type="text/x-handlebars-template">
-  <div class="entry">
-    <h1>{{title}}</h1>
-    <div class="body">
-      {{body}}
-    </div>
-  </div>
+<div class="entry">
+<h1>{{title}}</h1>
+<div class="body">{{body}}</div></div>
 </script>
 
 =====================================output=====================================
 <script id='entry-template' type='text/x-handlebars-template'>
   <div class="entry">
-    <h1>{{title}}</h1>
-    <div class="body">
-  {{body}}
-  </div>
-  </div>
+<h1>{{title}}</h1>
+<div class="body">{{body}}</div></div>
 </script>
 ================================================================================
 `;
