@@ -1,7 +1,11 @@
 "use strict";
 
 const parseFrontMatter = require("../utils/front-matter");
-const { HTML_ELEMENT_ATTRIBUTES, HTML_TAGS } = require("./utils");
+const {
+  HTML_ELEMENT_ATTRIBUTES,
+  HTML_TAGS,
+  isUnknownNamespace
+} = require("./utils");
 const { hasPragma } = require("./pragma");
 const createError = require("../common/parser-create-error");
 const { Node } = require("./ast");
@@ -154,7 +158,8 @@ function ngHtmlParser(
       );
       if (
         !node.namespace ||
-        node.namespace === tagDefinition.implicitNamespacePrefix
+        node.namespace === tagDefinition.implicitNamespacePrefix ||
+        isUnknownNamespace(node)
       ) {
         node.tagDefinition = tagDefinition;
       } else {

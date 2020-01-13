@@ -638,6 +638,7 @@ module.exports = {
   isTextLikeNode,
   isTrailingSpaceSensitiveNode,
   isWhitespaceSensitiveNode,
+  isUnknownNamespace,
   normalizeParts,
   preferHardlineAsLeadingSpaces,
   preferHardlineAsTrailingSpaces,

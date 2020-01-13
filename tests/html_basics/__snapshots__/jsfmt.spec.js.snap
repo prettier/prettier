@@ -476,22 +476,110 @@ parsers: ["html"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
+<!-- unknown tag with colon -->
+<div>
 <foo:bar>
-  <div> block block block </div><div> block block block </div><div> block block block </div><pre> pre  pre  pr
-  e 
-        </pre><span> inline inline  </span><span> inline inline  </span><span> inline inline  </span><span> inline inline  </span><html:button> known inline</html:button></foo:bar>
+<div> looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog block </div>
+<div> block </div><div> block </div> <div> block </div><div> block </div><div> block </div>
+<pre> pre pr
+e</pre>
+<textarea> pre-wrap pr
+e-wrap </textarea>
+<span> looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog inline </span>
+<span> inline </span><span> inline </span> <span> inline </span><span> inline </span>
+<html:div> looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog block </html:div>
+<html:div> block </html:div><html:div> block </html:div> <html:div> block </html:div><html:div> block </html:div><html:div> block </html:div>
+<html:pre> pre pr
+e</html:pre>
+<html:textarea> pre-wrap pr
+e-wrap </html:textarea>
+<html:span> looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog inline </html:span>
+<html:span> inline </html:span><html:span> inline </html:span> <html:span> inline </html:span><html:span> inline </html:span></foo:bar>
+</div>
+
+<!-- block tag with colon -->
+<div>
 <foo:div>
-  <div> block block block </div><div> block block block </div><div> block block block </div><pre> pre  pre  pr
-  e 
-        </pre><span> inline inline  </span><span> inline inline  </span><span> inline inline  </span><span> inline inline  </span><html:button> known inline</html:button></foo:div>
+<div> looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog block </div>
+<div> block </div><div> block </div> <div> block </div><div> block </div><div> block </div>
+<pre> pre pr
+e</pre>
+<textarea> pre-wrap pr
+e-wrap </textarea>
+<span> looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog inline </span>
+<span> inline </span><span> inline </span> <span> inline </span><span> inline </span>
+<html:div> looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog block </html:div>
+<html:div> block </html:div><html:div> block </html:div> <html:div> block </html:div><html:div> block </html:div><html:div> block </html:div>
+<html:pre> pre pr
+e</html:pre>
+<html:textarea> pre-wrap pr
+e-wrap </html:textarea>
+<html:span> looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog inline </html:span>
+<html:span> inline </html:span><html:span> inline </html:span> <html:span> inline </html:span><html:span> inline </html:span></foo:div>
+</div>
+
+<!-- inline tag with colon -->
+<div>
 <foo:span>
-  <div> block block block </div><div> block block block </div><div> block block block </div><pre> pre  pre  pr
-  e 
-        </pre><span> inline inline  </span><span> inline inline  </span><span> inline inline  </span><span> inline inline  </span><html:button> known inline</html:button></foo:span>
-<foo-span>
-  <div> block block block </div><div> block block block </div><div> block block block </div><pre> pre  pre  pr
-  e 
-        </pre><span> inline inline  </span><span> inline inline  </span><span> inline inline  </span><span> inline inline  </span><html:button> known inline</html:button></foo-span>
+<div> looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog block </div>
+<div> block </div><div> block </div> <div> block </div><div> block </div><div> block </div>
+<pre> pre pr
+e</pre>
+<textarea> pre-wrap pr
+e-wrap </textarea>
+<span> looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog inline </span>
+<span> inline </span><span> inline </span> <span> inline </span><span> inline </span>
+<html:div> looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog block </html:div>
+<html:div> block </html:div><html:div> block </html:div> <html:div> block </html:div><html:div> block </html:div><html:div> block </html:div>
+<html:pre> pre pr
+e</html:pre>
+<html:textarea> pre-wrap pr
+e-wrap </html:textarea>
+<html:span> looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog inline </html:span>
+<html:span> inline </html:span><html:span> inline </html:span> <html:span> inline </html:span><html:span> inline </html:span></foo:span>
+</div>
+
+<!-- unknown -->
+<div>
+<foo-bar>
+<div> looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog block </div>
+<div> block </div><div> block </div> <div> block </div><div> block </div><div> block </div>
+<pre> pre pr
+e</pre>
+<textarea> pre-wrap pr
+e-wrap </textarea>
+<span> looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog inline </span>
+<span> inline </span><span> inline </span> <span> inline </span><span> inline </span>
+<html:div> looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog block </html:div>
+<html:div> block </html:div><html:div> block </html:div> <html:div> block </html:div><html:div> block </html:div><html:div> block </html:div>
+<html:pre> pre pr
+e</html:pre>
+<html:textarea> pre-wrap pr
+e-wrap </html:textarea>
+<html:span> looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog inline </html:span>
+<html:span> inline </html:span><html:span> inline </html:span> <html:span> inline </html:span><html:span> inline </html:span></foo-bar>
+</div>
+
+<!-- without colon -->
+<div>
+<div>
+<div> looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog block </div>
+<div> block </div><div> block </div> <div> block </div><div> block </div><div> block </div>
+<pre> pre pr
+e</pre>
+<textarea> pre-wrap pr
+e-wrap </textarea>
+<span> looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog inline </span>
+<span> inline </span><span> inline </span> <span> inline </span><span> inline </span>
+<html:div> looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog block </html:div>
+<html:div> block </html:div><html:div> block </html:div> <html:div> block </html:div><html:div> block </html:div><html:div> block </html:div>
+<html:pre> pre pr
+e</html:pre>
+<html:textarea> pre-wrap pr
+e-wrap </html:textarea>
+<html:span> looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog inline </html:span>
+<html:span> inline </html:span><html:span> inline </html:span> <html:span> inline </html:span><html:span> inline </html:span></div>
+</div>
 
 <!-- #7236 -->
 <with:colon>
@@ -502,58 +590,205 @@ printWidth: 80
   </with:colon>
 
 =====================================output=====================================
-<foo:bar>
-  <div>block block block</div>
-  <div>block block block</div>
-  <div>block block block</div>
-  <pre
-> pre  pre  pr
-  e 
-        </pre
+<!-- unknown tag with colon -->
+<div>
+  <foo:bar>
+    <div>
+      looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog block
+    </div>
+    <div>block</div>
+    <div>block</div>
+    <div>block</div>
+    <div>block</div>
+    <div>block</div>
+    <pre>
+ pre pr
+e</pre
+    >
+    <textarea>
+ pre-wrap pr
+e-wrap </textarea
+    >
+    <span>
+      looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog inline
+    </span>
+    <span> inline </span><span> inline </span> <span> inline </span
+    ><span> inline </span>
+    <html:div>
+      looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog block
+    </html:div>
+    <html:div> block </html:div><html:div> block </html:div>
+    <html:div> block </html:div><html:div> block </html:div
+    ><html:div> block </html:div>
+    <html:pre> pre pr e</html:pre>
+    <html:textarea> pre-wrap pr e-wrap </html:textarea>
+    <html:span>
+      looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog inline
+    </html:span>
+    <html:span> inline </html:span><html:span> inline </html:span>
+    <html:span> inline </html:span><html:span> inline </html:span></foo:bar
   >
-  <span> inline inline </span><span> inline inline </span
-  ><span> inline inline </span><span> inline inline </span
-  ><html:button> known inline</html:button></foo:bar
->
-<foo:div>
-  <div>block block block</div>
-  <div>block block block</div>
-  <div>block block block</div>
-  <pre
-> pre  pre  pr
-  e 
-        </pre
+</div>
+
+<!-- block tag with colon -->
+<div>
+  <foo:div>
+    <div>
+      looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog block
+    </div>
+    <div>block</div>
+    <div>block</div>
+    <div>block</div>
+    <div>block</div>
+    <div>block</div>
+    <pre>
+ pre pr
+e</pre
+    >
+    <textarea>
+ pre-wrap pr
+e-wrap </textarea
+    >
+    <span>
+      looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog inline
+    </span>
+    <span> inline </span><span> inline </span> <span> inline </span
+    ><span> inline </span>
+    <html:div>
+      looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog block
+    </html:div>
+    <html:div> block </html:div><html:div> block </html:div>
+    <html:div> block </html:div><html:div> block </html:div
+    ><html:div> block </html:div>
+    <html:pre> pre pr e</html:pre>
+    <html:textarea> pre-wrap pr e-wrap </html:textarea>
+    <html:span>
+      looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog inline
+    </html:span>
+    <html:span> inline </html:span><html:span> inline </html:span>
+    <html:span> inline </html:span><html:span> inline </html:span></foo:div
   >
-  <span> inline inline </span><span> inline inline </span
-  ><span> inline inline </span><span> inline inline </span
-  ><html:button> known inline</html:button></foo:div
->
-<foo:span>
-  <div>block block block</div>
-  <div>block block block</div>
-  <div>block block block</div>
-  <pre
-> pre  pre  pr
-  e 
-        </pre
+</div>
+
+<!-- inline tag with colon -->
+<div>
+  <foo:span>
+    <div>
+      looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog block
+    </div>
+    <div>block</div>
+    <div>block</div>
+    <div>block</div>
+    <div>block</div>
+    <div>block</div>
+    <pre>
+ pre pr
+e</pre
+    >
+    <textarea>
+ pre-wrap pr
+e-wrap </textarea
+    >
+    <span>
+      looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog inline
+    </span>
+    <span> inline </span><span> inline </span> <span> inline </span
+    ><span> inline </span>
+    <html:div>
+      looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog block
+    </html:div>
+    <html:div> block </html:div><html:div> block </html:div>
+    <html:div> block </html:div><html:div> block </html:div
+    ><html:div> block </html:div>
+    <html:pre> pre pr e</html:pre>
+    <html:textarea> pre-wrap pr e-wrap </html:textarea>
+    <html:span>
+      looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog inline
+    </html:span>
+    <html:span> inline </html:span><html:span> inline </html:span>
+    <html:span> inline </html:span><html:span> inline </html:span></foo:span
   >
-  <span> inline inline </span><span> inline inline </span
-  ><span> inline inline </span><span> inline inline </span
-  ><html:button> known inline</html:button></foo:span
->
-<foo-span>
-  <div>block block block</div>
-  <div>block block block</div>
-  <div>block block block</div>
-  <pre
-> pre  pre  pr
-  e 
-        </pre
+</div>
+
+<!-- unknown -->
+<div>
+  <foo-bar>
+    <div>
+      looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog block
+    </div>
+    <div>block</div>
+    <div>block</div>
+    <div>block</div>
+    <div>block</div>
+    <div>block</div>
+    <pre>
+ pre pr
+e</pre
+    >
+    <textarea>
+ pre-wrap pr
+e-wrap </textarea
+    >
+    <span>
+      looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog inline
+    </span>
+    <span> inline </span><span> inline </span> <span> inline </span
+    ><span> inline </span>
+    <html:div>
+      looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog block
+    </html:div>
+    <html:div> block </html:div><html:div> block </html:div>
+    <html:div> block </html:div><html:div> block </html:div
+    ><html:div> block </html:div>
+    <html:pre> pre pr e</html:pre>
+    <html:textarea> pre-wrap pr e-wrap </html:textarea>
+    <html:span>
+      looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog inline
+    </html:span>
+    <html:span> inline </html:span><html:span> inline </html:span>
+    <html:span> inline </html:span><html:span> inline </html:span></foo-bar
   >
-  <span> inline inline </span><span> inline inline </span
-  ><span> inline inline </span><span> inline inline </span
-  ><html:button> known inline</html:button></foo-span
->
+</div>
+
+<!-- without colon -->
+<div>
+  <div>
+    <div>
+      looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog block
+    </div>
+    <div>block</div>
+    <div>block</div>
+    <div>block</div>
+    <div>block</div>
+    <div>block</div>
+    <pre>
+ pre pr
+e</pre
+    >
+    <textarea>
+ pre-wrap pr
+e-wrap </textarea
+    >
+    <span>
+      looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog inline
+    </span>
+    <span> inline </span><span> inline </span> <span> inline </span
+    ><span> inline </span>
+    <html:div>
+      looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog block
+    </html:div>
+    <html:div> block </html:div><html:div> block </html:div>
+    <html:div> block </html:div><html:div> block </html:div
+    ><html:div> block </html:div>
+    <html:pre> pre pr e</html:pre>
+    <html:textarea> pre-wrap pr e-wrap </html:textarea>
+    <html:span>
+      looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog inline
+    </html:span>
+    <html:span> inline </html:span><html:span> inline </html:span>
+    <html:span> inline </html:span><html:span> inline </html:span>
+  </div>
+</div>
 
 <!-- #7236 -->
 <with:colon>
