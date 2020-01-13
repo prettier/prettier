@@ -5,7 +5,14 @@ const locFns = require("./loc");
 function createParser(_parse) {
   const parse = (text, parsers, options) => {
     const ngEstreeParser = require("angular-estree-parser");
-    const node = _parse(text, ngEstreeParser);
+    let node;
+    try {
+      node = _parse(text, ngEstreeParser);
+    } catch (error) {
+      // TODO: handle error
+      node = text;
+    }
+
     return {
       type: "NGRoot",
       node:

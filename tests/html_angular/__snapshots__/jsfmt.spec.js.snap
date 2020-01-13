@@ -306,11 +306,11 @@ printWidth: 80
   }"
   [stickout]="+toolAssembly.stickoutMm"
   test="{{ 'test' | translate }}"
-  test="foo {{       invalid invalid       }} bar {{ valid }} baz"
+  test="foo {{        invalid invalid        }} bar {{ valid }} baz"
   test="foo
     
-    {{       invalid
-             invalid       }} 
+    {{        invalid
+             invalid        }} 
     
     bar 
     
@@ -578,11 +578,11 @@ trailingComma: "es5"
   }"
   [stickout]="+toolAssembly.stickoutMm"
   test="{{ 'test' | translate }}"
-  test="foo {{       invalid invalid       }} bar {{ valid }} baz"
+  test="foo {{        invalid invalid        }} bar {{ valid }} baz"
   test="foo
     
-    {{       invalid
-             invalid       }} 
+    {{        invalid
+             invalid        }} 
     
     bar 
     
@@ -1085,13 +1085,17 @@ printWidth: 1
     'test'
       | translate
   }}"
-  test="foo {{       invalid invalid       }} bar {{
+  test="foo {{
+           invalid invalid
+  }} bar {{
     valid
   }} baz"
   test="foo
     
-    {{       invalid
-             invalid       }} 
+    {{
+           invalid
+             invalid
+  }} 
     
     bar 
     
@@ -1453,11 +1457,11 @@ printWidth: 80
   }"
   [stickout]="+toolAssembly.stickoutMm"
   test="{{ 'test' | translate }}"
-  test="foo {{       invalid invalid       }} bar {{ valid }} baz"
+  test="foo {{        invalid invalid        }} bar {{ valid }} baz"
   test="foo
     
-    {{       invalid
-             invalid       }} 
+    {{        invalid
+             invalid        }} 
     
     bar 
     
@@ -1725,11 +1729,11 @@ printWidth: 80
   }"
   [stickout]="+toolAssembly.stickoutMm"
   test="{{ 'test' | translate }}"
-  test="foo {{       invalid invalid       }} bar {{ valid }} baz"
+  test="foo {{        invalid invalid        }} bar {{ valid }} baz"
   test="foo
     
-    {{       invalid
-             invalid       }} 
+    {{        invalid
+             invalid        }} 
     
     bar 
     
@@ -5143,7 +5147,7 @@ See console log:
 
 <div>
   <!-- Accessing an undeclared member -->
-  <div>Undeclared members is {{$any(this).member}}</div>
+  <div>Undeclared members is {{ $any(this).member }}</div>
 </div>
 
 <a class="to-toc" href="#toc">top</a>
@@ -6672,7 +6676,7 @@ See console log:
 
 <div>
   <!-- Accessing an undeclared member -->
-  <div>Undeclared members is {{$any(this).member}}</div>
+  <div>Undeclared members is {{ $any(this).member }}</div>
 </div>
 
 <a class="to-toc" href="#toc">top</a>
@@ -9992,7 +9996,9 @@ See console log:
     Undeclared
     members
     is
-    {{$any(this).member}}
+    {{
+      $any(this).member
+    }}
   </div>
 </div>
 
@@ -11740,7 +11746,7 @@ See console log:
 
 <div>
   <!-- Accessing an undeclared member -->
-  <div>Undeclared members is {{$any(this).member}}</div>
+  <div>Undeclared members is {{ $any(this).member }}</div>
 </div>
 
 <a class="to-toc" href="#toc">top</a>
@@ -13271,7 +13277,7 @@ See console log:
 
 <div>
   <!-- Accessing an undeclared member -->
-  <div>Undeclared members is {{$any(this).member}}</div>
+  <div>Undeclared members is {{ $any(this).member }}</div>
 </div>
 
 <a class="to-toc" href="#toc">top</a>
