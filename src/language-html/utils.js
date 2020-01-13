@@ -386,6 +386,10 @@ function inferScriptParser(node) {
     ) {
       return "json";
     }
+
+    if (node.attrMap.type === "text/x-handlebars-template") {
+      return "glimmer";
+    }
   }
 
   if (node.name === "style") {
