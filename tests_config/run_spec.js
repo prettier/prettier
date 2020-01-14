@@ -20,7 +20,8 @@ global.run_spec = (dirname, parsers, options) => {
     throw new Error(`No parsers were specified for ${dirname}`);
   }
 
-  fs.readdirSync(dirname, { withFileTypes: true }).forEach(dirent => {
+  const dir = fs.readdirSync(dirname, { withFileTypes: true });
+  for (const dirent of dir) {
     const basename = dirent.name;
     const filename = path.join(dirname, basename);
 
@@ -30,7 +31,7 @@ global.run_spec = (dirname, parsers, options) => {
       basename[0] === "." ||
       basename === "jsfmt.spec.js"
     ) {
-      return;
+      continue;
     }
 
     let rangeStart;
@@ -114,7 +115,7 @@ global.run_spec = (dirname, parsers, options) => {
         expect(originalAst).toEqual(formattedAst);
       });
     }
-  });
+  }
 };
 
 function parse(source, options) {
