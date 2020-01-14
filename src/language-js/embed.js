@@ -306,7 +306,7 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
         .concat(rest);
     }
     return Object.assign({}, doc, {
-      parts: parts
+      parts
     });
   });
 

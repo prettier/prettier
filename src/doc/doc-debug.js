@@ -124,7 +124,7 @@ function printDoc(doc) {
 }
 
 module.exports = {
-  printDocToDebug: function(doc) {
+  printDocToDebug(doc) {
     return printDoc(flattenDoc(doc));
   }
 };

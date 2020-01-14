@@ -41,7 +41,7 @@ module.exports = {
     return formatWithCursor(text, opts).formatted;
   },
 
-  check: function(text, opts) {
+  check(text, opts) {
     const formatted = formatWithCursor(text, opts).formatted;
     return formatted === text;
   },

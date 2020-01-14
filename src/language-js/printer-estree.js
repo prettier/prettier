@@ -1324,7 +1324,7 @@ function printPathNoParens(path, options, print, args) {
         path.each(childPath => {
           const node = childPath.getValue();
           propsAndLoc.push({
-            node: node,
+            node,
             printed: print(childPath),
             loc: options.locStart(node)
           });
@@ -4843,7 +4843,7 @@ function printMemberChain(path, options, print) {
         node.callee.type === "OptionalCallExpression")
     ) {
       printedNodes.unshift({
-        node: node,
+        node,
         printed: concat([
           comments.printComments(
             path,
@@ -4861,7 +4861,7 @@ function printMemberChain(path, options, print) {
       path.call(callee => rec(callee), "callee");
     } else if (isMemberish(node)) {
       printedNodes.unshift({
-        node: node,
+        node,
         needsParens: pathNeedsParens(path, options),
         printed: comments.printComments(
           path,
@@ -4876,13 +4876,13 @@ function printMemberChain(path, options, print) {
       path.call(object => rec(object), "object");
     } else if (node.type === "TSNonNullExpression") {
       printedNodes.unshift({
-        node: node,
+        node,
         printed: comments.printComments(path, () => "!", options)
       });
       path.call(expression => rec(expression), "expression");
     } else {
       printedNodes.unshift({
-        node: node,
+        node,
         printed: path.call(print)
       });
     }
