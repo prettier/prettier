@@ -28,6 +28,7 @@ rules:
     - never
   prefer-arrow-callback: error
   prefer-const: error
+  prefer-spread: error
   react/display-name: off
   react/no-deprecated: off
   react/prop-types: off

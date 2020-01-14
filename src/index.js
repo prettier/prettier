@@ -14,13 +14,14 @@ const doc = require("./doc");
 
 // Luckily `opts` is always the 2nd argument
 function _withPlugins(fn) {
-  return function() {
-    const args = Array.from(arguments);
-    const opts = args[1] || {};
-    args[1] = Object.assign({}, opts, {
+  return function(first, opts, ...rest) {
+    opts = opts || {};
+    opts = {
+      ...opts,
       plugins: loadPlugins(opts.plugins, opts.pluginSearchDirs)
-    });
-    return fn.apply(null, args);
+    };
+
+    return fn(first, opts, ...rest);
   };
 }
 
