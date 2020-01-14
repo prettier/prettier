@@ -19,9 +19,9 @@ function tryParse(file, content) {
   });
 
   if (ast.errors.length > 0) {
-    const line = ast.errors[0].loc.start.line;
-    const column = ast.errors[0].loc.start.column;
-    const message = ast.errors[0].message;
+    const { line } = ast.errors[0].loc.start;
+    const { column } = ast.errors[0].loc.start;
+    const { message } = ast.errors[0];
     return `${file}:${line}:${column}: ${message}`;
   }
 

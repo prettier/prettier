@@ -1,9 +1,9 @@
 "use strict";
 
-const version = require("../package.json").version;
+const { version } = require("../package.json");
 
 const core = require("./main/core");
-const getSupportInfo = require("./main/support").getSupportInfo;
+const { getSupportInfo } = require("./main/support");
 const sharedUtil = require("./common/util-shared");
 
 const doc = require("./doc");
@@ -49,7 +49,7 @@ module.exports = {
   },
 
   check(text, opts) {
-    const formatted = formatWithCursor(text, opts).formatted;
+    const { formatted } = formatWithCursor(text, opts);
     return formatted === text;
   },
 

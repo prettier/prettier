@@ -26,7 +26,7 @@ function getSupportInfo(version, opts) {
     version = currentVersion.split("-", 1)[0];
   }
 
-  const plugins = opts.plugins;
+  const { plugins } = opts;
 
   const options = arrayify(
     Object.assign(

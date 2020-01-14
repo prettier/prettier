@@ -9,7 +9,7 @@
 
 const React = require("react");
 const CompLibrary = require("../../core/CompLibrary");
-const Container = CompLibrary.Container;
+const { Container } = CompLibrary;
 
 const CWD = process.cwd();
 

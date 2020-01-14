@@ -26,6 +26,15 @@ rules:
     - never
   prefer-arrow-callback: error
   prefer-const: error
+  prefer-destructuring:
+    - error
+    - VariableDeclarator:
+        array: false
+        object: true
+      AssignmentExpression:
+        array: false
+        object: false
+    - enforceForRenamedProperties: false
   react/display-name: off
   react/no-deprecated: off
   react/prop-types: off

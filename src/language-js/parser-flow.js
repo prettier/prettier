@@ -2,7 +2,7 @@
 
 const createError = require("../common/parser-create-error");
 const includeShebang = require("../common/parser-include-shebang");
-const hasPragma = require("./pragma").hasPragma;
+const { hasPragma } = require("./pragma");
 const locFns = require("./loc");
 const postprocess = require("./postprocess");
 
@@ -22,7 +22,7 @@ function parse(text, parsers, opts) {
   });
 
   if (ast.errors.length > 0) {
-    const loc = ast.errors[0].loc;
+    const { loc } = ast.errors[0];
     throw createError(ast.errors[0].message, {
       start: { line: loc.start.line, column: loc.start.column + 1 },
       end: { line: loc.end.line, column: loc.end.column + 1 }

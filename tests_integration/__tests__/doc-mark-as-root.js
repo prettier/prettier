@@ -4,13 +4,8 @@ const prettier = require("prettier/local");
 const docPrinter = prettier.doc.printer;
 const docBuilders = prettier.doc.builders;
 
-const printDocToString = docPrinter.printDocToString;
-const concat = docBuilders.concat;
-const hardline = docBuilders.hardline;
-const literalline = docBuilders.literalline;
-const trim = docBuilders.trim;
-const indent = docBuilders.indent;
-const markAsRoot = docBuilders.markAsRoot;
+const { printDocToString } = docPrinter;
+const { concat, hardline, literalline, trim, indent, markAsRoot } = docBuilders;
 
 describe("markAsRoot", () => {
   test.each([
