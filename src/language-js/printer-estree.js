@@ -2790,7 +2790,7 @@ function printPathNoParens(path, options, print, args) {
         );
       }
 
-      if (n["extends"].length > 0) {
+      if (n.extends.length > 0) {
         parts.push(
           group(
             indent(
@@ -3103,7 +3103,7 @@ function printPathNoParens(path, options, print, args) {
         parts.push(" extends ", path.call(print, "constraint"));
       }
 
-      if (n["default"]) {
+      if (n.default) {
         parts.push(" = ", path.call(print, "default"));
       }
 
@@ -4453,7 +4453,7 @@ function printExportDeclaration(path, options, print) {
   const semi = options.semi ? ";" : "";
   const parts = ["export "];
 
-  const isDefault = decl["default"] || decl.type === "ExportDefaultDeclaration";
+  const isDefault = decl.default || decl.type === "ExportDefaultDeclaration";
 
   if (isDefault) {
     parts.push("default ");
@@ -4706,7 +4706,7 @@ function printClass(path, options, print) {
     parts.push(" extends ", join(", ", path.map(print, "extends")));
   }
 
-  if (n["mixins"] && n["mixins"].length > 0) {
+  if (n.mixins && n.mixins.length > 0) {
     partsGroup.push(
       line,
       "mixins ",
@@ -4714,7 +4714,7 @@ function printClass(path, options, print) {
     );
   }
 
-  if (n["implements"] && n["implements"].length > 0) {
+  if (n.implements && n.implements.length > 0) {
     partsGroup.push(
       line,
       "implements",
