@@ -13,6 +13,7 @@ plugins:
   - unicorn
 rules:
   curly: error
+  dot-notation: error
   import/no-extraneous-dependencies:
     - error
     - devDependencies: ["tests*/**", "scripts/**"]
