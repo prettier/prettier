@@ -1,28 +1,28 @@
-# some comment before some comment before some comment before
 type Type1 implements A, B, C, D
 # {&&&&&&&&
-# Should separat by `,` not `&`
+# Should separate by `,` not `&`
+{a: a}
 
-# some comment before some comment before some comment before
 type Type2 implements A, B, C, D
 # &&&&{}&&&&
-# Should separat by `,` not `&`
-{
-a: a
-}
+# Should separate by `,` not `&`
+{a: a}
 
-# some comment before some comment before some comment before
 type Type3 implements A, 
-# &&&&{}&&&& Should separat by `,` not `&`
-B, C, D
-{
-a: a
-}
+# &&&&&&&& comment line 1
+   # &&&&&&&& comment line 2
+B& C, D
+{a: a}
 
-# some comment before some comment before some comment before
-type Type3 implements A, 
-# &&&&{}&&&& Should keep separator as it is
-B, C& D
-{
-a: a
-}
+type Type4 implements A
+# &&&&&&&& comment line 1
+, 
+   # &&&&&&&& comment line 2
+B& C, D
+{a: a}
+
+type Type5 implements A 
+# &&&&&&&& comment line 1
+   # &&&&&&&& comment line 2
+,B& C, D
+{a: a}
