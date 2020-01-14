@@ -11,6 +11,8 @@ const {
   ifBreak
 } = require("../document").builders;
 
+const { isGlimmerComponent } = require("./utils");
+
 // http://w3c.github.io/html/single-page.html#void-elements
 const voidTags = [
   "area",
@@ -63,10 +65,6 @@ function print(path, options, print) {
       return group(concat(path.map(print, "body").filter(text => text !== "")));
     }
     case "ElementNode": {
-      const tagFirstChar = n.tag[0];
-      const isLocal = n.tag.indexOf(".") !== -1;
-      const isGlimmerComponent =
-        tagFirstChar.toUpperCase() === tagFirstChar || isLocal;
       const hasChildren = n.children.length > 0;
 
       const hasNonWhitespaceChildren = n.children.some(
@@ -74,7 +72,8 @@ function print(path, options, print) {
       );
 
       const isVoid =
-        (isGlimmerComponent && (!hasChildren || !hasNonWhitespaceChildren)) ||
+        (isGlimmerComponent(n) &&
+          (!hasChildren || !hasNonWhitespaceChildren)) ||
         voidTags.indexOf(n.tag) !== -1;
       const closeTagForNoBreak = isVoid ? concat([" />", softline]) : ">";
       const closeTagForBreak = isVoid ? "/>" : ">";
