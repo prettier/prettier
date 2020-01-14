@@ -17,7 +17,7 @@ const {
   utils: { mapDoc },
   printer: { printDocToString },
   debug: { printDocToDebug }
-} = require("../doc");
+} = require("../document");
 
 const UTF8BOM = 0xfeff;
 

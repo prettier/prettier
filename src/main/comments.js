@@ -9,7 +9,7 @@ const {
   lineSuffix,
   join,
   cursor
-} = require("../doc").builders;
+} = require("../document").builders;
 const {
   hasNewline,
   skipNewline,
