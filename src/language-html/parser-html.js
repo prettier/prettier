@@ -116,7 +116,8 @@ function ngHtmlParser(
       if (
         normalizeTagName &&
         (!node.namespace ||
-          node.namespace === node.tagDefinition.implicitNamespacePrefix)
+          node.namespace === node.tagDefinition.implicitNamespacePrefix ||
+          isUnknownNamespace(node))
       ) {
         node.name = lowerCaseIfFn(
           node.name,
