@@ -22,6 +22,7 @@ rules:
   no-unneeded-ternary: error
   no-useless-return: error
   no-var: error
+  object-shorthand: error
   one-var:
     - error
     - never

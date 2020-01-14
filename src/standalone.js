@@ -42,7 +42,7 @@ function withPlugins(fn) {
 const formatWithCursor = withPlugins(core.formatWithCursor);
 
 module.exports = {
-  formatWithCursor: formatWithCursor,
+  formatWithCursor,
 
   format(text, opts) {
     return formatWithCursor(text, opts).formatted;
