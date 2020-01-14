@@ -660,7 +660,7 @@ function printRoot(path, options, print) {
   /** @type {IgnorePosition | null} */
   let ignoreStart = null;
 
-  const children = path.getValue().children;
+  const { children } = path.getValue();
   children.forEach((childNode, index) => {
     switch (isPrettierIgnore(childNode)) {
       case "start":

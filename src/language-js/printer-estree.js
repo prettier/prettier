@@ -29,7 +29,7 @@ const {
 } = require("../common/util-shared");
 const embed = require("./embed");
 const clean = require("./clean");
-const insertPragma = require("./pragma").insertPragma;
+const { insertPragma } = require("./pragma");
 const handleComments = require("./comments");
 const pathNeedsParens = require("./needs-parens");
 const {
@@ -2440,7 +2440,7 @@ function printPathNoParens(path, options, print, args) {
           // quasi literal), therefore we want to indent the JavaScript
           // expression inside at the beginning of ${ instead of the beginning
           // of the `.
-          const tabWidth = options.tabWidth;
+          const { tabWidth } = options;
           const quasi = childPath.getValue();
           const indentSize = getIndentSize(quasi.value.raw, tabWidth);
 
@@ -3724,7 +3724,7 @@ function printPropertyKey(path, options, print) {
   }
 
   const parent = path.getParentNode();
-  const key = node.key;
+  const { key } = node;
 
   if (options.quoteProps === "consistent" && !needsQuoteProps.has(parent)) {
     const objectHasStringProp = (
@@ -3771,7 +3771,7 @@ function printPropertyKey(path, options, print) {
 
 function printMethod(path, options, print) {
   const node = path.getNode();
-  const kind = node.kind;
+  const { kind } = node;
   const value = node.value || node;
   const parts = [];
 
@@ -4812,7 +4812,7 @@ function printMemberChain(path, options, print) {
   // Here we try to retain one typed empty line after each call expression or
   // the first group whether it is in parentheses or not
   function shouldInsertEmptyLineAfter(node) {
-    const originalText = options.originalText;
+    const { originalText } = options;
     const nextCharIndex = getNextNonSpaceNonCommentCharacterIndex(
       originalText,
       node,

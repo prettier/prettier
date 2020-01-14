@@ -4,12 +4,7 @@ const createError = require("../common/parser-create-error");
 const parseFrontMatter = require("../utils/front-matter");
 const lineColumnToIndex = require("../utils/line-column-to-index");
 const { hasPragma } = require("./pragma");
-
-// utils
-const utils = require("./utils");
-
-const isSCSS = utils.isSCSS;
-const isSCSSNestedPropertyNode = utils.isSCSSNestedPropertyNode;
+const { isSCSS, isSCSSNestedPropertyNode } = require("./utils");
 
 function parseValueNodes(nodes) {
   let parenGroup = {
@@ -391,7 +386,7 @@ function parseNestedCSS(node, options) {
     }
 
     if (node.type === "css-atrule" && params.length > 0) {
-      const name = node.name;
+      const { name } = node;
       const lowercasedName = node.name.toLowerCase();
 
       if (name === "warn" || name === "error") {

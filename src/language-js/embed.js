@@ -266,7 +266,7 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
     if (!doc || !doc.parts || !doc.parts.length) {
       return doc;
     }
-    let parts = doc.parts;
+    let { parts } = doc;
     const atIndex = parts.indexOf("@");
     const placeholderIndex = atIndex + 1;
     if (
@@ -431,7 +431,7 @@ function isStyledComponents(path) {
     return false;
   }
 
-  const tag = parent.tag;
+  const { tag } = parent;
 
   switch (tag.type) {
     case "MemberExpression":
