@@ -1,4 +1,0 @@
-# SOME COMMENT BEFORE, this effects string slice
-type AA implements C, D
-# { &
-# Should separat by `,` not `&`

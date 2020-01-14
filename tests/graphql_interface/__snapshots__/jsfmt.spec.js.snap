@@ -185,22 +185,63 @@ type OldArtist implements Node, Entity {
 ================================================================================
 `;
 
-exports[`test-substr.graphql 1`] = `
+exports[`separator-detection.graphql 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-# SOME COMMENT BEFORE, this effects string slice
-type AA implements C, D
-# { &
+# some comment before some comment before some comment before
+type Type1 implements A, B, C, D
+# {&&&&&&&&
 # Should separat by \`,\` not \`&\`
 
-=====================================output=====================================
-# SOME COMMENT BEFORE, this effects string slice
-type AA implements C & D
-# { &
+# some comment before some comment before some comment before
+type Type2 implements A, B, C, D
+# &&&&{}&&&&
 # Should separat by \`,\` not \`&\`
+{
+a: a
+}
+
+# some comment before some comment before some comment before
+type Type3 implements A, 
+# &&&&{}&&&& Should separat by \`,\` not \`&\`
+B, C, D
+{
+a: a
+}
+
+# some comment before some comment before some comment before
+type Type3 implements A, 
+# &&&&{}&&&& Should keep separator as it is
+B, C& D
+{
+a: a
+}
+=====================================output=====================================
+# some comment before some comment before some comment before
+type Type1 implements A & B & C & D & # {&&&&&&&&
+# Should separat by \`,\` not \`&\`
+
+# some comment before some comment before some comment before
+type & Type2 & implements & A & B & C & D {
+  # &&&&{}&&&&
+  # Should separat by \`,\` not \`&\`
+  a: a
+}
+
+# some comment before some comment before some comment before
+type Type3 implements A & # &&&&{}&&&& Should separat by \`,\` not \`&\`
+B & C & D {
+  a: a
+}
+
+# some comment before some comment before some comment before
+type Type3 implements A & # &&&&{}&&&& Should keep separator as it is
+B & C & D {
+  a: a
+}
 
 ================================================================================
 `;

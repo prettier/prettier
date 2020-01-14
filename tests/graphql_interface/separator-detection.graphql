@@ -1,0 +1,28 @@
+# some comment before some comment before some comment before
+type Type1 implements A, B, C, D
+# {&&&&&&&&
+# Should separat by `,` not `&`
+
+# some comment before some comment before some comment before
+type Type2 implements A, B, C, D
+# &&&&{}&&&&
+# Should separat by `,` not `&`
+{
+a: a
+}
+
+# some comment before some comment before some comment before
+type Type3 implements A, 
+# &&&&{}&&&& Should separat by `,` not `&`
+B, C, D
+{
+a: a
+}
+
+# some comment before some comment before some comment before
+type Type3 implements A, 
+# &&&&{}&&&& Should keep separator as it is
+B, C& D
+{
+a: a
+}
