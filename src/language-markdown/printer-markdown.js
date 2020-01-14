@@ -867,19 +867,19 @@ function normalizeDoc(doc) {
       return currentDoc.parts[0];
     }
 
-    const parts = [];
-
-    currentDoc.parts.forEach(part => {
+    const parts = currentDoc.parts.reduce((parts, part) => {
       if (part.type === "concat") {
-        parts.push.apply(parts, part.parts);
+        parts.push(...part.parts);
       } else if (part !== "") {
         parts.push(part);
       }
-    });
+      return parts;
+    }, []);
 
-    return Object.assign({}, currentDoc, {
+    return {
+      ...currentDoc,
       parts: normalizeParts(parts)
-    });
+    };
   });
 }
 
