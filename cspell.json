@@ -122,6 +122,7 @@
         "gitattributes",
         "githook",
         "gitignore",
+		"gitkeep",
         "Gitter",
         "glimmerjs",
         "globbing",
