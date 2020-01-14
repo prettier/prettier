@@ -14,6 +14,10 @@ plugins:
 rules:
   curly: error
   dot-notation: error
+  eqeqeq: 
+    - error
+    - always
+    - null: ignore
   import/no-extraneous-dependencies:
     - error
     - devDependencies: ["tests*/**", "scripts/**"]

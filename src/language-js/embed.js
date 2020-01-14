@@ -35,7 +35,7 @@ function embed(path, print, textToDoc, options) {
         const rawQuasis = node.quasis.map(q => q.value.raw);
         let placeholderID = 0;
         const text = rawQuasis.reduce((prevVal, currVal, idx) => {
-          return idx == 0
+          return idx === 0
             ? currVal
             : prevVal +
                 "@prettier-placeholder-" +
