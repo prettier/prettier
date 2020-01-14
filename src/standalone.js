@@ -6,7 +6,7 @@ const core = require("./main/core");
 const { getSupportInfo } = require("./main/support");
 const sharedUtil = require("./common/util-shared");
 
-const doc = require("./doc");
+const doc = require("./document");
 
 const internalPlugins = [
   require("./language-css"),

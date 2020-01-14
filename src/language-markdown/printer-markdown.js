@@ -22,7 +22,7 @@ const {
   },
   utils: { mapDoc },
   printer: { printDocToString }
-} = require("../doc");
+} = require("../document");
 const {
   getFencedCodeBlockValue,
   hasGitDiffFriendlyOrderedList,

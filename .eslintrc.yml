@@ -42,6 +42,10 @@ rules:
         object: false
     - enforceForRenamedProperties: false
   prefer-spread: error
+  quotes:
+    - error
+    - double
+    - avoidEscape: true
   react/display-name: off
   react/no-deprecated: off
   react/prop-types: off
