@@ -62,6 +62,10 @@ function getBabelConfig(bundle) {
       }
     ]
   ];
+  config.plugins.push([
+    require.resolve("@babel/plugin-proposal-object-rest-spread"),
+    { loose: true, useBuiltIns: true }
+  ]);
   return config;
 }
 
