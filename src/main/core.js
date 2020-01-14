@@ -187,8 +187,7 @@ function formatRange(text, opts) {
   text = parsed.text;
 
   const range = rangeUtil.calculateRange(text, opts, ast);
-  const { rangeStart } = range;
-  const { rangeEnd } = range;
+  const { rangeStart, rangeEnd } = range;
   const rangeString = text.slice(rangeStart, rangeEnd);
 
   // Try to extend the range backwards to the beginning of the line.
