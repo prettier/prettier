@@ -185,7 +185,7 @@ function parseValue(value) {
   } catch (e) {
     return {
       type: "value-unknown",
-      value: value
+      value
     };
   }
 
@@ -378,7 +378,7 @@ function parseNestedCSS(node, options) {
       if (value.startsWith("progid:")) {
         return {
           type: "value-unknown",
-          value: value
+          value
         };
       }
 

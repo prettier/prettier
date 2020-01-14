@@ -25,7 +25,7 @@ function printImgSrcset(value) {
   const key = hasW ? "w" : hasH ? "h" : "d";
   const unit = hasW ? "w" : hasH ? "h" : "x";
 
-  const getMax = values => Math.max.apply(Math, values);
+  const getMax = values => Math.max(...values);
 
   const urls = srcset.map(src => src.url);
   const maxUrlLength = getMax(urls.map(url => url.length));

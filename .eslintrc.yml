@@ -7,12 +7,13 @@ extends:
   - plugin:react/recommended
   - plugin:prettier/recommended
 parserOptions:
-  ecmaVersion: 2017
+  ecmaVersion: 2018
 plugins:
   - import
   - unicorn
 rules:
   curly: error
+  dot-notation: error
   import/no-extraneous-dependencies:
     - error
     - devDependencies: ["tests*/**", "scripts/**"]
@@ -21,6 +22,7 @@ rules:
   no-unneeded-ternary: error
   no-useless-return: error
   no-var: error
+  object-shorthand: error
   one-var:
     - error
     - never
@@ -35,6 +37,7 @@ rules:
         array: false
         object: false
     - enforceForRenamedProperties: false
+  prefer-spread: error
   react/display-name: off
   react/no-deprecated: off
   react/prop-types: off

@@ -1324,7 +1324,7 @@ function printPathNoParens(path, options, print, args) {
         path.each(childPath => {
           const node = childPath.getValue();
           propsAndLoc.push({
-            node: node,
+            node,
             printed: print(childPath),
             loc: options.locStart(node)
           });
@@ -2790,7 +2790,7 @@ function printPathNoParens(path, options, print, args) {
         );
       }
 
-      if (n["extends"].length > 0) {
+      if (n.extends.length > 0) {
         parts.push(
           group(
             indent(
@@ -3103,7 +3103,7 @@ function printPathNoParens(path, options, print, args) {
         parts.push(" extends ", path.call(print, "constraint"));
       }
 
-      if (n["default"]) {
+      if (n.default) {
         parts.push(" = ", path.call(print, "default"));
       }
 
@@ -4453,7 +4453,7 @@ function printExportDeclaration(path, options, print) {
   const semi = options.semi ? ";" : "";
   const parts = ["export "];
 
-  const isDefault = decl["default"] || decl.type === "ExportDefaultDeclaration";
+  const isDefault = decl.default || decl.type === "ExportDefaultDeclaration";
 
   if (isDefault) {
     parts.push("default ");
@@ -4706,7 +4706,7 @@ function printClass(path, options, print) {
     parts.push(" extends ", join(", ", path.map(print, "extends")));
   }
 
-  if (n["mixins"] && n["mixins"].length > 0) {
+  if (n.mixins && n.mixins.length > 0) {
     partsGroup.push(
       line,
       "mixins ",
@@ -4714,7 +4714,7 @@ function printClass(path, options, print) {
     );
   }
 
-  if (n["implements"] && n["implements"].length > 0) {
+  if (n.implements && n.implements.length > 0) {
     partsGroup.push(
       line,
       "implements",
@@ -4843,7 +4843,7 @@ function printMemberChain(path, options, print) {
         node.callee.type === "OptionalCallExpression")
     ) {
       printedNodes.unshift({
-        node: node,
+        node,
         printed: concat([
           comments.printComments(
             path,
@@ -4861,7 +4861,7 @@ function printMemberChain(path, options, print) {
       path.call(callee => rec(callee), "callee");
     } else if (isMemberish(node)) {
       printedNodes.unshift({
-        node: node,
+        node,
         needsParens: pathNeedsParens(path, options),
         printed: comments.printComments(
           path,
@@ -4876,13 +4876,13 @@ function printMemberChain(path, options, print) {
       path.call(object => rec(object), "object");
     } else if (node.type === "TSNonNullExpression") {
       printedNodes.unshift({
-        node: node,
+        node,
         printed: comments.printComments(path, () => "!", options)
       });
       path.call(expression => rec(expression), "expression");
     } else {
       printedNodes.unshift({
-        node: node,
+        node,
         printed: path.call(print)
       });
     }
@@ -5842,11 +5842,9 @@ function exprNeedsASIProtection(path, options) {
     return false;
   }
 
-  return path.call.apply(
-    path,
-    [childPath => exprNeedsASIProtection(childPath, options)].concat(
-      getLeftSidePathName(path, node)
-    )
+  return path.call(
+    childPath => exprNeedsASIProtection(childPath, options),
+    ...getLeftSidePathName(path, node)
   );
 }
 
