@@ -200,7 +200,7 @@ function isTheOnlyJSXElementInMarkdown(options, path) {
 
   const parent = path.getParentNode();
 
-  return parent.type === "Program" && parent.body.length == 1;
+  return parent.type === "Program" && parent.body.length === 1;
 }
 
 // Detect an expression node representing `{" "}`

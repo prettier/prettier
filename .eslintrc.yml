@@ -13,6 +13,10 @@ plugins:
   - unicorn
 rules:
   curly: error
+  eqeqeq: 
+    - error
+    - always
+    - null: ignore
   import/no-extraneous-dependencies:
     - error
     - devDependencies: ["tests*/**", "scripts/**"]
