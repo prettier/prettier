@@ -368,7 +368,7 @@ singleQuote: false
     // comment
     arg =>
       fn({
-        makeItBreak
+        makeItBreak,
       })
   }
   propArray={
@@ -444,7 +444,7 @@ singleQuote: false
     // comment
     arg =>
       fn({
-        makeItBreak
+        makeItBreak,
       })
   }
   propArray={
@@ -520,7 +520,7 @@ singleQuote: true
     // comment
     arg =>
       fn({
-        makeItBreak
+        makeItBreak,
       })
   }
   propArray={
@@ -596,7 +596,7 @@ singleQuote: true
     // comment
     arg =>
       fn({
-        makeItBreak
+        makeItBreak,
       })
   }
   propArray={
@@ -1914,7 +1914,7 @@ singleQuote: false
     someVeryLongStyle1: "true",
     someVeryLongStyle2: "true",
     someVeryLongStyle3: "true",
-    someVeryLongStyle4: "true"
+    someVeryLongStyle4: "true",
   }}
 />;
 
@@ -1924,8 +1924,8 @@ singleQuote: false
       someVeryLongStyle1: "true",
       someVeryLongStyle2: "true",
       someVeryLongStyle3: "true",
-      someVeryLongStyle4: "true"
-    }
+      someVeryLongStyle4: "true",
+    },
   ]}
 />;
 
@@ -2003,7 +2003,7 @@ singleQuote: false
     value: string | Immutable.List<string>
   ) => {
     this.setState({
-      updatedTask: this.state.updatedTask.set(key, value)
+      updatedTask: this.state.updatedTask.set(key, value),
     });
   }}
 />;
@@ -2038,7 +2038,7 @@ singleQuote: false
     value: string | Immutable.List<string>
   ) => {
     this.setState({
-      updatedTask: this.state.updatedTask.set(key, value)
+      updatedTask: this.state.updatedTask.set(key, value),
     });
   }}
 </Component>;
@@ -2202,7 +2202,7 @@ singleQuote: false
     someVeryLongStyle1: "true",
     someVeryLongStyle2: "true",
     someVeryLongStyle3: "true",
-    someVeryLongStyle4: "true"
+    someVeryLongStyle4: "true",
   }}
 />;
 
@@ -2212,8 +2212,8 @@ singleQuote: false
       someVeryLongStyle1: "true",
       someVeryLongStyle2: "true",
       someVeryLongStyle3: "true",
-      someVeryLongStyle4: "true"
-    }
+      someVeryLongStyle4: "true",
+    },
   ]}
 />;
 
@@ -2291,7 +2291,7 @@ singleQuote: false
     value: string | Immutable.List<string>
   ) => {
     this.setState({
-      updatedTask: this.state.updatedTask.set(key, value)
+      updatedTask: this.state.updatedTask.set(key, value),
     });
   }}
 />;
@@ -2326,7 +2326,7 @@ singleQuote: false
     value: string | Immutable.List<string>
   ) => {
     this.setState({
-      updatedTask: this.state.updatedTask.set(key, value)
+      updatedTask: this.state.updatedTask.set(key, value),
     });
   }}
 </Component>;
@@ -2490,7 +2490,7 @@ singleQuote: true
     someVeryLongStyle1: 'true',
     someVeryLongStyle2: 'true',
     someVeryLongStyle3: 'true',
-    someVeryLongStyle4: 'true'
+    someVeryLongStyle4: 'true',
   }}
 />;
 
@@ -2500,8 +2500,8 @@ singleQuote: true
       someVeryLongStyle1: 'true',
       someVeryLongStyle2: 'true',
       someVeryLongStyle3: 'true',
-      someVeryLongStyle4: 'true'
-    }
+      someVeryLongStyle4: 'true',
+    },
   ]}
 />;
 
@@ -2579,7 +2579,7 @@ singleQuote: true
     value: string | Immutable.List<string>
   ) => {
     this.setState({
-      updatedTask: this.state.updatedTask.set(key, value)
+      updatedTask: this.state.updatedTask.set(key, value),
     });
   }}
 />;
@@ -2614,7 +2614,7 @@ singleQuote: true
     value: string | Immutable.List<string>
   ) => {
     this.setState({
-      updatedTask: this.state.updatedTask.set(key, value)
+      updatedTask: this.state.updatedTask.set(key, value),
     });
   }}
 </Component>;
@@ -2778,7 +2778,7 @@ singleQuote: true
     someVeryLongStyle1: 'true',
     someVeryLongStyle2: 'true',
     someVeryLongStyle3: 'true',
-    someVeryLongStyle4: 'true'
+    someVeryLongStyle4: 'true',
   }}
 />;
 
@@ -2788,8 +2788,8 @@ singleQuote: true
       someVeryLongStyle1: 'true',
       someVeryLongStyle2: 'true',
       someVeryLongStyle3: 'true',
-      someVeryLongStyle4: 'true'
-    }
+      someVeryLongStyle4: 'true',
+    },
   ]}
 />;
 
@@ -2867,7 +2867,7 @@ singleQuote: true
     value: string | Immutable.List<string>
   ) => {
     this.setState({
-      updatedTask: this.state.updatedTask.set(key, value)
+      updatedTask: this.state.updatedTask.set(key, value),
     });
   }}
 />;
@@ -2902,7 +2902,7 @@ singleQuote: true
     value: string | Immutable.List<string>
   ) => {
     this.setState({
-      updatedTask: this.state.updatedTask.set(key, value)
+      updatedTask: this.state.updatedTask.set(key, value),
     });
   }}
 </Component>;
@@ -3769,8 +3769,8 @@ const tabs = [
         onCancel={onCancel}
         countries={countries}
       />
-    )
-  }
+    ),
+  },
 ];
 
 ================================================================================
@@ -3809,8 +3809,8 @@ const tabs = [
         onCancel={onCancel}
         countries={countries}
       />
-    )
-  }
+    ),
+  },
 ];
 
 ================================================================================
@@ -3849,8 +3849,8 @@ const tabs = [
         onCancel={onCancel}
         countries={countries}
       />
-    )
-  }
+    ),
+  },
 ];
 
 ================================================================================
@@ -3889,8 +3889,8 @@ const tabs = [
         onCancel={onCancel}
         countries={countries}
       />
-    )
-  }
+    ),
+  },
 ];
 
 ================================================================================
@@ -4097,6 +4097,9 @@ f?.(<div/>);
 (<div/>)();
 (<div/>)?.();
 
+new Foo(<Component/>);
+new Foo((<Component/>))
+
 =====================================output=====================================
 a = [
   <path
@@ -4106,7 +4109,7 @@ a = [
   <path
     key="1"
     d="M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,"
-  />
+  />,
 ];
 
 <div {...(foo || foo === null ? { foo } : null)} />;
@@ -4114,6 +4117,9 @@ a = [
 f?.(<div />);
 (<div />)();
 (<div />)?.();
+
+new Foo(<Component />);
+new Foo(<Component />);
 
 ================================================================================
 `;
@@ -4143,6 +4149,9 @@ f?.(<div/>);
 (<div/>)();
 (<div/>)?.();
 
+new Foo(<Component/>);
+new Foo((<Component/>))
+
 =====================================output=====================================
 a = [
   <path
@@ -4152,7 +4161,7 @@ a = [
   <path
     key='1'
     d='M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,'
-  />
+  />,
 ];
 
 <div {...(foo || foo === null ? { foo } : null)} />;
@@ -4160,6 +4169,9 @@ a = [
 f?.(<div />);
 (<div />)();
 (<div />)?.();
+
+new Foo(<Component />);
+new Foo(<Component />);
 
 ================================================================================
 `;
@@ -4189,6 +4201,9 @@ f?.(<div/>);
 (<div/>)();
 (<div/>)?.();
 
+new Foo(<Component/>);
+new Foo((<Component/>))
+
 =====================================output=====================================
 a = [
   <path
@@ -4198,7 +4213,7 @@ a = [
   <path
     key="1"
     d="M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,"
-  />
+  />,
 ];
 
 <div {...(foo || foo === null ? { foo } : null)} />;
@@ -4206,6 +4221,9 @@ a = [
 f?.(<div />);
 (<div />)();
 (<div />)?.();
+
+new Foo(<Component />);
+new Foo(<Component />);
 
 ================================================================================
 `;
@@ -4235,6 +4253,9 @@ f?.(<div/>);
 (<div/>)();
 (<div/>)?.();
 
+new Foo(<Component/>);
+new Foo((<Component/>))
+
 =====================================output=====================================
 a = [
   <path
@@ -4244,7 +4265,7 @@ a = [
   <path
     key='1'
     d='M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,'
-  />
+  />,
 ];
 
 <div {...(foo || foo === null ? { foo } : null)} />;
@@ -4252,6 +4273,9 @@ a = [
 f?.(<div />);
 (<div />)();
 (<div />)?.();
+
+new Foo(<Component />);
+new Foo(<Component />);
 
 ================================================================================
 `;
@@ -5178,7 +5202,7 @@ const Labels = {
 
   label2: <fbt>Label 2</fbt>,
 
-  label3: <fbt>Label 3</fbt>
+  label3: <fbt>Label 3</fbt>,
 };
 
 ================================================================================
@@ -5218,7 +5242,7 @@ const Labels = {
 
   label2: <fbt>Label 2</fbt>,
 
-  label3: <fbt>Label 3</fbt>
+  label3: <fbt>Label 3</fbt>,
 };
 
 ================================================================================
@@ -5258,7 +5282,7 @@ const Labels = {
 
   label2: <fbt>Label 2</fbt>,
 
-  label3: <fbt>Label 3</fbt>
+  label3: <fbt>Label 3</fbt>,
 };
 
 ================================================================================
@@ -5298,7 +5322,7 @@ const Labels = {
 
   label2: <fbt>Label 2</fbt>,
 
-  label3: <fbt>Label 3</fbt>
+  label3: <fbt>Label 3</fbt>,
 };
 
 ================================================================================

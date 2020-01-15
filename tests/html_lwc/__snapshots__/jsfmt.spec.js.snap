@@ -5,6 +5,7 @@ exports[`attributes.html 1`] = `
 parser: "lwc"
 parsers: ["lwc"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <template>
@@ -43,7 +44,6 @@ exports[`attributes.html 2`] = `
 parser: "lwc"
 parsers: ["lwc"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 <template>

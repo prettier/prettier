@@ -4,9 +4,7 @@ const fs = require("fs");
 const path = require("path");
 const raw = require("jest-snapshot-serializer-raw").wrap;
 
-const AST_COMPARE = process.env["AST_COMPARE"];
-const TEST_STANDALONE = process.env["TEST_STANDALONE"];
-const TEST_CRLF = process.env["TEST_CRLF"];
+const { AST_COMPARE, TEST_STANDALONE, TEST_CRLF } = process.env;
 
 const CURSOR_PLACEHOLDER = "<|>";
 const RANGE_START_PLACEHOLDER = "<<<PRETTIER_RANGE_START>>>";
@@ -94,7 +92,7 @@ global.run_spec = (dirname, parsers, options) => {
       const verifyOptions = Object.assign({}, baseOptions, { parser });
       test(`${basename} - ${parser}-verify`, () => {
         const verifyOutput = format(input, filename, verifyOptions);
-        expect(visualizedOutput).toEqual(visualizeEndOfLine(verifyOutput));
+        expect(visualizeEndOfLine(verifyOutput)).toEqual(visualizedOutput);
       });
     }
 

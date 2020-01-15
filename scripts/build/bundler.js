@@ -6,9 +6,9 @@ const { rollup } = require("rollup");
 const webpack = require("webpack");
 const resolve = require("rollup-plugin-node-resolve");
 const alias = require("@rollup/plugin-alias");
-const commonjs = require("rollup-plugin-commonjs");
+const commonjs = require("@rollup/plugin-commonjs");
 const nodeGlobals = require("rollup-plugin-node-globals");
-const json = require("rollup-plugin-json");
+const json = require("@rollup/plugin-json");
 const replace = require("@rollup/plugin-replace");
 const { terser } = require("rollup-plugin-terser");
 const babel = require("rollup-plugin-babel");
@@ -53,8 +53,19 @@ function getBabelConfig(bundle) {
     targets.browsers = [">0.25%", "not ie 11", "not op_mini all"];
   }
   config.presets = [
-    [require.resolve("@babel/preset-env"), { targets, modules: false }]
+    [
+      require.resolve("@babel/preset-env"),
+      {
+        targets,
+        exclude: ["transform-async-to-generator"],
+        modules: false
+      }
+    ]
   ];
+  config.plugins.push([
+    require.resolve("@babel/plugin-proposal-object-rest-spread"),
+    { loose: true, useBuiltIns: true }
+  ]);
   return config;
 }
 

@@ -72,7 +72,7 @@ import type {
   inlinedType1,
   standaloneType1,
   talias1,
-  talias3
+  talias3,
 } from "./types_only";
 
 var a: inlinedType1 = 42;

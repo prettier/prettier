@@ -44,8 +44,8 @@ exports[`API getSupportInfo() with version 0.0.0 -> 1.0.0 1`] = `
 @@ -43,17 +59,15 @@
       \\"trailingComma\\": Object {
         \\"choices\\": Array [
-          \\"none\\",
           \\"es5\\",
+          \\"none\\",
           \\"all\\",
 -         true,
 -         false,
@@ -108,8 +108,8 @@ Object {
     },
     "trailingComma": Object {
       "choices": Array [
-        "none",
         "es5",
+        "none",
         "all",
         true,
         false,
@@ -641,9 +641,14 @@ exports[`API getSupportInfo() with version 1.16.0 -> undefined 1`] = `
         \\"range\\": Object {
           \\"end\\": Infinity,
           \\"start\\": 0,
-@@ -217,10 +230,14 @@
+@@ -213,14 +226,18 @@
+        \\"choices\\": Array [
+          \\"es5\\",
+          \\"none\\",
+          \\"all\\",
         ],
-        \\"default\\": \\"none\\",
+-       \\"default\\": \\"none\\",
++       \\"default\\": \\"es5\\",
         \\"type\\": \\"choice\\",
       },
       \\"useTabs\\": Object {
@@ -673,6 +678,7 @@ exports[`CLI --support-info (stdout) 1`] = `
         \\".js\\",
         \\"._js\\",
         \\".bones\\",
+        \\".cjs\\",
         \\".es\\",
         \\".es6\\",
         \\".frag\\",
@@ -1069,6 +1075,7 @@ exports[`CLI --support-info (stdout) 1`] = `
         \\".syntax\\",
         \\".yaml\\",
         \\".yaml-tmlanguage\\",
+        \\".yaml.sed\\",
         \\".yml.mysql\\"
       ],
       \\"filenames\\": [\\".clang-format\\", \\".clang-tidy\\", \\".gemrc\\", \\"glide.lock\\"],
@@ -1385,17 +1392,17 @@ exports[`CLI --support-info (stdout) 1`] = `
     {
       \\"category\\": \\"JavaScript\\",
       \\"choices\\": [
-        { \\"description\\": \\"No trailing commas.\\", \\"value\\": \\"none\\" },
         {
           \\"description\\": \\"Trailing commas where valid in ES5 (objects, arrays, etc.)\\",
           \\"value\\": \\"es5\\"
         },
+        { \\"description\\": \\"No trailing commas.\\", \\"value\\": \\"none\\" },
         {
           \\"description\\": \\"Trailing commas wherever possible (including function arguments).\\",
           \\"value\\": \\"all\\"
         }
       ],
-      \\"default\\": \\"none\\",
+      \\"default\\": \\"es5\\",
       \\"description\\": \\"Print trailing commas wherever possible when multi-line.\\",
       \\"name\\": \\"trailingComma\\",
       \\"pluginDefaults\\": {},

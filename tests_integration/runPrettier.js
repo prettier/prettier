@@ -3,12 +3,15 @@
 const fs = require("fs");
 const path = require("path");
 const stripAnsi = require("strip-ansi");
-const SynchronousPromise = require("synchronous-promise").SynchronousPromise;
+const { SynchronousPromise } = require("synchronous-promise");
 
 const isProduction = process.env.NODE_ENV === "production";
 const prettierRootDir = isProduction ? process.env.PRETTIER_DIR : "../";
-const prettierPkg = require(path.join(prettierRootDir, "package.json"));
-const prettierCli = path.join(prettierRootDir, prettierPkg.bin.prettier);
+const { bin } = require(path.join(prettierRootDir, "package.json"));
+const prettierCli = path.join(
+  prettierRootDir,
+  typeof bin === "object" ? bin.prettier : bin
+);
 
 const thirdParty = isProduction
   ? path.join(prettierRootDir, "./third-party")
@@ -59,7 +62,7 @@ function runPrettier(dir, args, options) {
   const origStatSync = fs.statSync;
 
   jest.spyOn(fs, "statSync").mockImplementation(filename => {
-    if (path.basename(filename) === `virtualDirectory`) {
+    if (path.basename(filename) === "virtualDirectory") {
       return origStatSync(path.join(__dirname, __filename));
     }
     return origStatSync(filename);
@@ -92,7 +95,15 @@ function runPrettier(dir, args, options) {
   jest
     .spyOn(require(thirdParty), "cosmiconfig")
     .mockImplementation((moduleName, options) =>
-      require("cosmiconfig")(
+      require("cosmiconfig").cosmiconfig(
+        moduleName,
+        Object.assign({}, options, { stopDir: __dirname })
+      )
+    );
+  jest
+    .spyOn(require(thirdParty), "cosmiconfigSync")
+    .mockImplementation((moduleName, options) =>
+      require("cosmiconfig").cosmiconfigSync(
         moduleName,
         Object.assign({}, options, { stopDir: __dirname })
       )

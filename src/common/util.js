@@ -56,7 +56,7 @@ function skip(chars) {
       return false;
     }
 
-    const length = text.length;
+    const { length } = text;
     let cursor = index;
     while (cursor >= 0 && cursor < length) {
       const c = text.charAt(cursor);
@@ -779,20 +779,6 @@ function hasNodeIgnoreComment(node) {
   );
 }
 
-function matchAncestorTypes(path, types, index) {
-  index = index || 0;
-  types = types.slice();
-  while (types.length) {
-    const parent = path.getParentNode(index);
-    const type = types.shift();
-    if (!parent || parent.type !== type) {
-      return false;
-    }
-    index++;
-  }
-  return true;
-}
-
 function addCommentHelper(node, comment) {
   const comments = node.comments || (node.comments = []);
   comments.push(comment);
@@ -891,7 +877,6 @@ module.exports = {
   hasIgnoreComment,
   hasNodeIgnoreComment,
   makeString,
-  matchAncestorTypes,
   addLeadingComment,
   addDanglingComment,
   addTrailingComment,

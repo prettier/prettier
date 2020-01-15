@@ -609,7 +609,7 @@ Seq(typeDef.interface.groups).forEach(group =>
   Seq(group.members).forEach((member, memberName) =>
     markdownDoc(member.doc, {
       typePath: typePath.concat(memberName.slice(1)),
-      signatures: member.signatures
+      signatures: member.signatures,
     })
   )
 );
@@ -640,7 +640,7 @@ function render() {
           this.setState({
             progress: Math.round(
               (100 * e.nativeEvent.loaded) / e.nativeEvent.total
-            )
+            ),
           })
         }
       />
@@ -656,7 +656,7 @@ function render() {
           this.setState({
             progress: Math.round(
               (100 * e.nativeEvent.loaded) / e.nativeEvent.total
-            )
+            ),
           })
         }
       />
@@ -672,7 +672,7 @@ function render() {
           this.setState({
             progress: Math.round(
               (100 * e.nativeEvent.loaded) / e.nativeEvent.total
-            )
+            ),
           })
         }
       />
@@ -698,7 +698,7 @@ foo(
   ({
     a,
 
-    b
+    b,
   }) => {}
 );
 
@@ -711,7 +711,7 @@ foo(
   ({
     a,
 
-    b
+    b,
   }) => {}
 );
 
@@ -719,7 +719,7 @@ foo(
   ({
     a,
 
-    b
+    b,
   }) => a
 );
 
@@ -732,8 +732,8 @@ foo(
     a: {
       a,
 
-      b
-    }
+      b,
+    },
   }) => {}
 );
 
@@ -743,9 +743,9 @@ foo(
       b: {
         c,
 
-        d
-      }
-    }
+        d,
+      },
+    },
   }) => {}
 );
 
@@ -756,10 +756,10 @@ foo(
         c: {
           d,
 
-          e
-        }
-      }
-    }
+          e,
+        },
+      },
+    },
   }) => {}
 );
 
@@ -768,8 +768,8 @@ foo(
     a: {
       a,
 
-      b
-    }
+      b,
+    },
   }) => a
 );
 
@@ -779,9 +779,9 @@ foo(
       b: {
         c,
 
-        d
-      }
-    }
+        d,
+      },
+    },
   }) => a
 );
 
@@ -792,10 +792,10 @@ foo(
         c: {
           d,
 
-          e
-        }
-      }
-    }
+          e,
+        },
+      },
+    },
   }) => a
 );
 
@@ -807,11 +807,11 @@ foo(
           c: {
             d,
 
-            e
-          }
-        }
-      }
-    }
+            e,
+          },
+        },
+      },
+    },
   ]) => {}
 );
 
@@ -823,10 +823,10 @@ foo(
           c: {
             d,
 
-            e
-          }
-        }
-      }
+            e,
+          },
+        },
+      },
     }
   ]) => {}
 );
@@ -839,10 +839,10 @@ foo(
           c: {
             d,
 
-            e
-          }
-        }
-      }
+            e,
+          },
+        },
+      },
     }
   ) => {}
 );
@@ -853,9 +853,9 @@ foo(
       {
         a,
 
-        b
-      }
-    ]
+        b,
+      },
+    ],
   }) => {}
 );
 
@@ -865,8 +865,8 @@ foo(
       {
         a,
 
-        b
-      }
+        b,
+      },
     ]
   ) => a
 );
@@ -877,9 +877,9 @@ foo(
       {
         a,
 
-        b
-      }
-    ]
+        b,
+      },
+    ],
   ]) => {}
 );
 
@@ -895,13 +895,13 @@ foo(
               d: {
                 e,
 
-                f
-              }
-            }
-          }
-        ]
-      ]
-    ]
+                f,
+              },
+            },
+          },
+        ],
+      ],
+    ],
   ]) => {}
 );
 
@@ -910,7 +910,7 @@ foo(
     ...{
       a,
 
-      b
+      b,
     }
   ) => {}
 );
@@ -921,8 +921,8 @@ foo(
       {
         a,
 
-        b
-      }
+        b,
+      },
     ]
   ) => {}
 );
@@ -933,8 +933,8 @@ foo(
       {
         a,
 
-        b
-      }
+        b,
+      },
     ]
   ]) => {}
 );
@@ -945,8 +945,8 @@ foo(
       {
         a,
 
-        b
-      }
+        b,
+      },
     ]
   ) => {}
 );
@@ -956,7 +956,7 @@ foo(
     a = (({
       a,
 
-      b
+      b,
     }) => {})()
   ) => {}
 );
@@ -966,7 +966,7 @@ foo(
     a = f({
       a,
 
-      b
+      b,
     })
   ) => {}
 );
@@ -976,7 +976,7 @@ foo(
     a = ({
       a,
 
-      b
+      b,
     }) => {}
   ) => {}
 );
@@ -987,7 +987,7 @@ foo(
       f({
         a,
 
-        b
+        b,
       })
   ) => {}
 );
@@ -1406,7 +1406,7 @@ Seq(typeDef.interface.groups).forEach((group) =>
   Seq(group.members).forEach((member, memberName) =>
     markdownDoc(member.doc, {
       typePath: typePath.concat(memberName.slice(1)),
-      signatures: member.signatures
+      signatures: member.signatures,
     })
   )
 );
@@ -1437,7 +1437,7 @@ function render() {
           this.setState({
             progress: Math.round(
               (100 * e.nativeEvent.loaded) / e.nativeEvent.total
-            )
+            ),
           })
         }
       />
@@ -1453,7 +1453,7 @@ function render() {
           this.setState({
             progress: Math.round(
               (100 * e.nativeEvent.loaded) / e.nativeEvent.total
-            )
+            ),
           })
         }
       />
@@ -1469,7 +1469,7 @@ function render() {
           this.setState({
             progress: Math.round(
               (100 * e.nativeEvent.loaded) / e.nativeEvent.total
-            )
+            ),
           })
         }
       />
@@ -1495,7 +1495,7 @@ foo(
   ({
     a,
 
-    b
+    b,
   }) => {}
 );
 
@@ -1508,7 +1508,7 @@ foo(
   ({
     a,
 
-    b
+    b,
   }) => {}
 );
 
@@ -1516,7 +1516,7 @@ foo(
   ({
     a,
 
-    b
+    b,
   }) => a
 );
 
@@ -1529,8 +1529,8 @@ foo(
     a: {
       a,
 
-      b
-    }
+      b,
+    },
   }) => {}
 );
 
@@ -1540,9 +1540,9 @@ foo(
       b: {
         c,
 
-        d
-      }
-    }
+        d,
+      },
+    },
   }) => {}
 );
 
@@ -1553,10 +1553,10 @@ foo(
         c: {
           d,
 
-          e
-        }
-      }
-    }
+          e,
+        },
+      },
+    },
   }) => {}
 );
 
@@ -1565,8 +1565,8 @@ foo(
     a: {
       a,
 
-      b
-    }
+      b,
+    },
   }) => a
 );
 
@@ -1576,9 +1576,9 @@ foo(
       b: {
         c,
 
-        d
-      }
-    }
+        d,
+      },
+    },
   }) => a
 );
 
@@ -1589,10 +1589,10 @@ foo(
         c: {
           d,
 
-          e
-        }
-      }
-    }
+          e,
+        },
+      },
+    },
   }) => a
 );
 
@@ -1604,11 +1604,11 @@ foo(
           c: {
             d,
 
-            e
-          }
-        }
-      }
-    }
+            e,
+          },
+        },
+      },
+    },
   ]) => {}
 );
 
@@ -1620,10 +1620,10 @@ foo(
           c: {
             d,
 
-            e
-          }
-        }
-      }
+            e,
+          },
+        },
+      },
     }
   ]) => {}
 );
@@ -1636,10 +1636,10 @@ foo(
           c: {
             d,
 
-            e
-          }
-        }
-      }
+            e,
+          },
+        },
+      },
     }
   ) => {}
 );
@@ -1650,9 +1650,9 @@ foo(
       {
         a,
 
-        b
-      }
-    ]
+        b,
+      },
+    ],
   }) => {}
 );
 
@@ -1662,8 +1662,8 @@ foo(
       {
         a,
 
-        b
-      }
+        b,
+      },
     ]
   ) => a
 );
@@ -1674,9 +1674,9 @@ foo(
       {
         a,
 
-        b
-      }
-    ]
+        b,
+      },
+    ],
   ]) => {}
 );
 
@@ -1692,13 +1692,13 @@ foo(
               d: {
                 e,
 
-                f
-              }
-            }
-          }
-        ]
-      ]
-    ]
+                f,
+              },
+            },
+          },
+        ],
+      ],
+    ],
   ]) => {}
 );
 
@@ -1707,7 +1707,7 @@ foo(
     ...{
       a,
 
-      b
+      b,
     }
   ) => {}
 );
@@ -1718,8 +1718,8 @@ foo(
       {
         a,
 
-        b
-      }
+        b,
+      },
     ]
   ) => {}
 );
@@ -1730,8 +1730,8 @@ foo(
       {
         a,
 
-        b
-      }
+        b,
+      },
     ]
   ]) => {}
 );
@@ -1742,8 +1742,8 @@ foo(
       {
         a,
 
-        b
-      }
+        b,
+      },
     ]
   ) => {}
 );
@@ -1753,7 +1753,7 @@ foo(
     a = (({
       a,
 
-      b
+      b,
     }) => {})()
   ) => {}
 );
@@ -1763,7 +1763,7 @@ foo(
     a = f({
       a,
 
-      b
+      b,
     })
   ) => {}
 );
@@ -1773,7 +1773,7 @@ foo(
     a = ({
       a,
 
-      b
+      b,
     }) => {}
   ) => {}
 );
@@ -1784,7 +1784,7 @@ foo(
       f({
         a,
 
-        b
+        b,
       })
   ) => {}
 );
@@ -1852,7 +1852,7 @@ export const bem = block =>
         ".",
         css(block),
         element ? \`__\${css(element)}\` : "",
-        modifier ? \`--\${css(modifier)}\` : ""
+        modifier ? \`--\${css(modifier)}\` : "",
       ].join("");
 
 <FlatList
@@ -1925,7 +1925,7 @@ export const bem = (block) =>
         ".",
         css(block),
         element ? \`__\${css(element)}\` : "",
-        modifier ? \`--\${css(modifier)}\` : ""
+        modifier ? \`--\${css(modifier)}\` : "",
       ].join("");
 
 <FlatList
@@ -2085,7 +2085,7 @@ const foo = () => {
     message: "test",
     messageType: "SMS",
     status: "Unknown",
-    created: "11/01/2017 13:36"
+    created: "11/01/2017 13:36",
   });
 };
 
@@ -2109,7 +2109,7 @@ const foo = () => {
     message: "test",
     messageType: "SMS",
     status: "Unknown",
-    created: "11/01/2017 13:36"
+    created: "11/01/2017 13:36",
   });
 };
 

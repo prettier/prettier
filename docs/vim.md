@@ -3,7 +3,7 @@ id: vim
 title: Vim Setup
 ---
 
-Vim users can install either [vim-prettier](https://github.com/prettier/vim-prettier), which is Prettier specific, or [Neoformat](https://github.com/sbdchd/neoformat) or [ALE](https://github.com/w0rp/ale) which are generalized lint/format engines with support for Prettier.
+Vim users can install either [vim-prettier](https://github.com/prettier/vim-prettier), which is Prettier specific, or [Neoformat](https://github.com/sbdchd/neoformat) or [ALE](https://github.com/dense-analysis/ale) which are generalized lint/format engines with support for Prettier.
 
 ## [vim-prettier](https://github.com/prettier/vim-prettier)
 
@@ -48,17 +48,17 @@ let g:neoformat_try_formatprg = 1
 
 Each space in prettier options should be escaped with `\`.
 
-## [ALE](https://github.com/w0rp/ale)
+## [ALE](https://github.com/dense-analysis/ale)
 
 ALE requires either Vim 8 or Neovim as ALE makes use of the asynchronous abilities that both Vim 8 and Neovim provide.
 
 The best way to install ALE is with your favorite plugin manager for Vim, such as [vim-plug](https://github.com/junegunn/vim-plug):
 
 ```
-Plug 'w0rp/ale'
+Plug 'dense-analysis/ale'
 ```
 
-You can find further instructions on the [ALE repository](https://github.com/w0rp/ale#3-installation).
+You can find further instructions on the [ALE repository](https://github.com/dense-analysis/ale#3-installation).
 
 ALE will try to use Prettier installed locally before looking for a global installation.
 
@@ -71,7 +71,7 @@ let g:ale_fixers = {
 \}
 ```
 
-ALE supports both _linters_ and _fixers_. If you don't specify which _linters_ to run, **all available tools for all supported languages will be run**, and you might get a correctly formatted file with a bunch of lint errors. To disable this behavior you can tell ALE to run only linters you've explicitly configured (more info in the [FAQ](https://github.com/w0rp/ale/blob/ed8104b6ab10f63c78e49b60d2468ae2656250e9/README.md#faq-disable-linters)):
+ALE supports both _linters_ and _fixers_. If you don't specify which _linters_ to run, **all available tools for all supported languages will be run**, and you might get a correctly formatted file with a bunch of lint errors. To disable this behavior you can tell ALE to run only linters you've explicitly configured (more info in the [FAQ](https://github.com/dense-analysis/ale/blob/ed8104b6ab10f63c78e49b60d2468ae2656250e9/README.md#faq-disable-linters)):
 
 ```
 let g:ale_linters_explicit = 1

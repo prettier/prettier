@@ -55,18 +55,18 @@ function diff(a, b) {
 
 function handleError(context, filename, error) {
   if (error instanceof errors.UndefinedParserError) {
-    if (context.argv["write"] && isTTY()) {
+    if (context.argv.write && isTTY()) {
       readline.clearLine(process.stdout, 0);
       readline.cursorTo(process.stdout, 0, null);
     }
-    if (!context.argv["check"] && !context.argv["list-different"]) {
+    if (!context.argv.check && !context.argv["list-different"]) {
       process.exitCode = 2;
     }
     context.logger.error(error.message);
     return;
   }
 
-  if (context.argv["write"]) {
+  if (context.argv.write) {
     // Add newline to split errors from filename line.
     process.stdout.write("\n");
   }
@@ -109,7 +109,7 @@ function logFileInfoOrDie(context) {
   const options = {
     ignorePath: context.argv["ignore-path"],
     withNodeModules: context.argv["with-node-modules"],
-    plugins: context.argv["plugin"],
+    plugins: context.argv.plugin,
     pluginSearchDirs: context.argv["plugin-search-dir"]
   };
   context.logger.log(
@@ -132,7 +132,7 @@ function writeOutput(context, result, options) {
 }
 
 function listDifferent(context, input, options, filename) {
-  if (!context.argv["check"] && !context.argv["list-different"]) {
+  if (!context.argv.check && !context.argv["list-different"]) {
     return;
   }
 
@@ -143,7 +143,7 @@ function listDifferent(context, input, options, filename) {
       );
     }
     if (!prettier.check(input, options)) {
-      if (!context.argv["write"]) {
+      if (!context.argv.write) {
         context.logger.log(filename);
         process.exitCode = 1;
       }
@@ -263,7 +263,7 @@ function format(context, input, opt) {
 
 function getOptionsOrDie(context, filePath) {
   try {
-    if (context.argv["config"] === false) {
+    if (context.argv.config === false) {
       context.logger.debug(
         "'--no-config' option found, skip loading config file."
       );
@@ -271,14 +271,14 @@ function getOptionsOrDie(context, filePath) {
     }
 
     context.logger.debug(
-      context.argv["config"]
-        ? `load config file from '${context.argv["config"]}'`
+      context.argv.config
+        ? `load config file from '${context.argv.config}'`
         : `resolve config from '${filePath}'`
     );
 
     const options = prettier.resolveConfig.sync(filePath, {
-      editorconfig: context.argv["editorconfig"],
-      config: context.argv["config"]
+      editorconfig: context.argv.editorconfig,
+      config: context.argv.config
     });
 
     context.logger.debug("loaded options `" + JSON.stringify(options) + "`");
@@ -438,7 +438,7 @@ function formatFiles(context) {
 
   let numberOfUnformattedFilesFound = 0;
 
-  if (context.argv["check"]) {
+  if (context.argv.check) {
     context.logger.log("Checking formatting...");
   }
 
@@ -447,8 +447,8 @@ function formatFiles(context) {
     if (
       fileIgnored &&
       (context.argv["debug-check"] ||
-        context.argv["write"] ||
-        context.argv["check"] ||
+        context.argv.write ||
+        context.argv.check ||
         context.argv["list-different"])
     ) {
       return;
@@ -507,11 +507,11 @@ function formatFiles(context) {
       readline.cursorTo(process.stdout, 0, null);
     }
 
-    if (context.argv["write"]) {
+    if (context.argv.write) {
       // Don't write the file if it won't change in order not to invalidate
       // mtime based caches.
       if (isDifferent) {
-        if (!context.argv["check"] && !context.argv["list-different"]) {
+        if (!context.argv.check && !context.argv["list-different"]) {
           context.logger.log(`${filename} ${Date.now() - start}ms`);
         }
 
@@ -524,7 +524,7 @@ function formatFiles(context) {
           // Don't exit the process if one file failed
           process.exitCode = 2;
         }
-      } else if (!context.argv["check"] && !context.argv["list-different"]) {
+      } else if (!context.argv.check && !context.argv["list-different"]) {
         context.logger.log(`${chalk.grey(filename)} ${Date.now() - start}ms`);
       }
     } else if (context.argv["debug-check"]) {
@@ -533,25 +533,22 @@ function formatFiles(context) {
       } else {
         process.exitCode = 2;
       }
-    } else if (!context.argv["check"] && !context.argv["list-different"]) {
+    } else if (!context.argv.check && !context.argv["list-different"]) {
       writeOutput(context, result, options);
     }
 
-    if (
-      (context.argv["check"] || context.argv["list-different"]) &&
-      isDifferent
-    ) {
+    if ((context.argv.check || context.argv["list-different"]) && isDifferent) {
       context.logger.log(filename);
       numberOfUnformattedFilesFound += 1;
     }
   });
 
   // Print check summary based on expected exit code
-  if (context.argv["check"]) {
+  if (context.argv.check) {
     context.logger.log(
       numberOfUnformattedFilesFound === 0
         ? "All matched files use Prettier code style!"
-        : context.argv["write"]
+        : context.argv.write
         ? "Code style issues fixed in the above file(s)."
         : "Code style issues found in the above file(s). Forgot to run Prettier?"
     );
@@ -559,10 +556,10 @@ function formatFiles(context) {
 
   // Ensure non-zero exitCode when using --check/list-different is not combined with --write
   if (
-    (context.argv["check"] || context.argv["list-different"]) &&
+    (context.argv.check || context.argv["list-different"]) &&
     numberOfUnformattedFilesFound > 0 &&
     !process.exitCode &&
-    !context.argv["write"]
+    !context.argv.write
   ) {
     process.exitCode = 1;
   }
@@ -658,8 +655,7 @@ function createOptionUsageType(option) {
       return null;
     case "choice":
       return `<${option.choices
-        .filter(choice => choice.since !== null)
-        .filter(choice => !choice.deprecated)
+        .filter(choice => !choice.deprecated && choice.since !== null)
         .map(choice => choice.value)
         .join("|")}>`;
     default:
@@ -668,7 +664,7 @@ function createOptionUsageType(option) {
 }
 
 function flattenArray(array) {
-  return [].concat.apply([], array);
+  return [].concat(...array);
 }
 
 function createChoiceUsages(choices, margin, indentation) {
@@ -852,14 +848,14 @@ function createMinimistOptions(detailedOptions) {
       .map(option => [option.name].concat(option.alias || []))
       .reduce((a, b) => a.concat(b)),
     default: detailedOptions
-      .filter(option => !option.deprecated)
       .filter(
         option =>
-          !option.forwardToApi ||
-          option.name === "plugin" ||
-          option.name === "plugin-search-dir"
+          !option.deprecated &&
+          (!option.forwardToApi ||
+            option.name === "plugin" ||
+            option.name === "plugin-search-dir") &&
+          option.default !== undefined
       )
-      .filter(option => option.default !== undefined)
       .reduce(
         (current, option) =>
           Object.assign({ [option.name]: option.default }, current),
@@ -916,11 +912,11 @@ function createContext(args) {
   updateContextArgv(context);
   normalizeContextArgv(context, ["loglevel", "plugin", "plugin-search-dir"]);
 
-  context.logger = createLogger(context.argv["loglevel"]);
+  context.logger = createLogger(context.argv.loglevel);
 
   updateContextArgv(
     context,
-    context.argv["plugin"],
+    context.argv.plugin,
     context.argv["plugin-search-dir"]
   );
 
@@ -983,7 +979,7 @@ function updateContextArgv(context, plugins, pluginSearchDirs) {
   const argv = minimist(context.args, minimistOptions);
 
   context.argv = argv;
-  context.filePatterns = argv["_"];
+  context.filePatterns = argv._;
 }
 
 function normalizeContextArgv(context, keys) {

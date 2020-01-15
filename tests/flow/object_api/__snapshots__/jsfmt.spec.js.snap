@@ -89,7 +89,7 @@ var export_ = Object.assign(
   {
     foo: function(param) {
       return param;
-    }
+    },
   }
 );
 
@@ -179,7 +179,7 @@ let tests = [
   function() {
     const x = new Bar();
     (Object.getPrototypeOf(x): Foo);
-  }
+  },
 ];
 
 ================================================================================
@@ -281,7 +281,7 @@ let tests = [
 let tests = [
   function() {
     Object.doesNotExist();
-  }
+  },
 ];
 
 ================================================================================
@@ -474,7 +474,7 @@ var c = {
   foo: "bar",
   toString: function(): number {
     return 123;
-  }
+  },
 };
 var d: { [key: string]: string } = { foo: "bar" };
 var x = new Date();

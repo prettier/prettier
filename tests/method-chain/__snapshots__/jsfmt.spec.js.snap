@@ -80,14 +80,14 @@ export default store => {
       next(
         actionWith({
           response,
-          type: successType
+          type: successType,
         })
       ),
     error =>
       next(
         actionWith({
           type: failureType,
-          error: error.message || "Something bad happened"
+          error: error.message || "Something bad happened",
         })
       )
   );
@@ -100,57 +100,57 @@ it("should group messages with same created time", () => {
         message: "test",
         messageType: "SMS",
         status: "Unknown",
-        created: "11/01/2017 13:36"
+        created: "11/01/2017 13:36",
       },
       {
         message: "test",
         messageType: "Email",
         status: "Unknown",
-        created: "11/01/2017 13:36"
-      }
+        created: "11/01/2017 13:36",
+      },
     ],
     "09/01/2017 17:25": [
       {
         message: "te",
         messageType: "SMS",
         status: "Unknown",
-        created: "09/01/2017 17:25"
+        created: "09/01/2017 17:25",
       },
       {
         message: "te",
         messageType: "Email",
         status: "Unknown",
-        created: "09/01/2017 17:25"
-      }
+        created: "09/01/2017 17:25",
+      },
     ],
     "11/01/2017 13:33": [
       {
         message: "test",
         messageType: "SMS",
         status: "Unknown",
-        created: "11/01/2017 13:33"
+        created: "11/01/2017 13:33",
       },
       {
         message: "test",
         messageType: "Email",
         status: "Unknown",
-        created: "11/01/2017 13:33"
-      }
+        created: "11/01/2017 13:33",
+      },
     ],
     "11/01/2017 13:37": [
       {
         message: "test",
         messageType: "SMS",
         status: "Unknown",
-        created: "11/01/2017 13:37"
+        created: "11/01/2017 13:37",
       },
       {
         message: "test",
         messageType: "Email",
         status: "Unknown",
-        created: "11/01/2017 13:37"
-      }
-    ]
+        created: "11/01/2017 13:37",
+      },
+    ],
   });
 });
 
@@ -204,7 +204,7 @@ const {
   index,
   scheduleId,
   studentId,
-  something
+  something,
 } = a.this.props;
 
 const {
@@ -213,14 +213,14 @@ const {
   index,
   scheduleId,
   studentId,
-  something
+  something,
 } = this.props;
 
 const {
   updated,
   author: { identifier: ownerId },
   location,
-  category: categories
+  category: categories,
 } = rawAd.entry;
 
 ================================================================================
@@ -239,14 +239,9 @@ foo().bar().baz();
 foo().bar.baz();
 
 =====================================output=====================================
-object
-  .foo()
-  .bar()
-  .baz();
+object.foo().bar().baz();
 
-foo()
-  .bar()
-  .baz();
+foo().bar().baz();
 
 foo().bar.baz();
 
@@ -423,7 +418,7 @@ nock(/test/)
   .matchHeader("Accept", "application/json")
   [httpMethodNock(method)]("/foo")
   .reply(200, {
-    foo: "bar"
+    foo: "bar",
   });
 
 ================================================================================
@@ -510,10 +505,7 @@ object[valid
 
 (a ? b : c).d().e();
 
-(a ? b : c)
-  .d()
-  .e()
-  .f();
+(a ? b : c).d().e().f();
 
 (valid
   ? helper.responseBody(this.currentUser)
@@ -571,9 +563,7 @@ d3.select("body")
   .at({ width: 30, fill: "#f0f" })
   .st({ fontWeight: 600 });
 
-d3.scaleLinear()
-  .domain([1950, 1980])
-  .range([0, width]);
+d3.scaleLinear().domain([1950, 1980]).range([0, width]);
 
 not.d3
   .select("body")
@@ -581,10 +571,7 @@ not.d3
   .at({ width: 30, fill: "#f0f" })
   .st({ fontWeight: 600 });
 
-not.d3
-  .scaleLinear()
-  .domain([1950, 1980])
-  .range([0, width]);
+not.d3.scaleLinear().domain([1950, 1980]).range([0, width]);
 
 ================================================================================
 `;
@@ -639,8 +626,8 @@ export default function theFunction(action$, store) {
       evenMore: stuff({
         value1: true,
         value2: false,
-        value3: false
-      })
+        value3: false,
+      }),
     })
       .filter(data => theFilter(data))
       .map(({ theType, ...data }) => theMap(theType, data))
@@ -651,7 +638,7 @@ export default function theFunction(action$, store) {
 function f() {
   return this._getWorker(workerOptions)({
     filePath,
-    hasteImplModulePath: this._options.hasteImplModulePath
+    hasteImplModulePath: this._options.hasteImplModulePath,
   }).then(metadata => {
     // \`1\` for truthy values instead of \`true\` to save cache space.
     fileMetadata[H.VISITED] = 1;
@@ -696,7 +683,7 @@ var jqxhr = $.ajax("example.php")
 =====================================output=====================================
 Object.keys(
   availableLocales({
-    test: true
+    test: true,
   })
 ).forEach(locale => {
   // ...
@@ -708,9 +695,335 @@ this.layoutPartsToHide = this.utils.hashset(
     .filter(Boolean)
 );
 
-var jqxhr = $.ajax("example.php")
-  .done(doneFn)
-  .fail(failFn);
+var jqxhr = $.ajax("example.php").done(doneFn).fail(failFn);
+
+================================================================================
+`;
+
+exports[`issue-4125.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// examples from https://github.com/prettier/prettier/issues/4125
+
+const sha256 = (data) => crypto.createHash("sha256").update(data).digest("hex");
+
+req.checkBody('id').isInt().optional();
+req.checkBody('name').notEmpty().optional();
+
+const x = moment().add(1, 'day').valueOf()
+
+// should stay on one line:
+obj.foo(1).foo(2).foo(3);
+obj.foo(-1).foo(import('2')).foo(!x).check(/[A-Z]/);
+
+// better on multiple lines:
+somePromise.then(format).then((val)=>doSomething(val)).catch((err)=>handleError(err))
+
+// you can still force multi-line chaining with a comment:
+const sha256 = (data) =>
+  crypto // breakme
+    .createHash("sha256")
+    .update(data)
+    .digest("hex");
+
+// examples from https://github.com/prettier/prettier/pull/4765
+
+if ($(el).attr("href").includes("/wiki/")) {
+}
+
+if ($(el).attr("href").includes("/wiki/")) {
+  if ($(el).attr("xyz").includes("/whatever/")) {
+    if ($(el).attr("hello").includes("/world/")) {
+    }
+  }
+}
+
+const parseNumbers = s => s.split('').map(Number).sort()
+
+function palindrome(a, b) {
+  return a.slice().reverse().join(',') === b.slice().sort().join(',');
+}
+
+// examples from https://github.com/prettier/prettier/issues/1565
+
+d3.select("body").selectAll("p").data([1, 2, 3]).enter().style("color", "white");
+
+Object.keys(props).filter(key => key in own === false).reduce((a, key) => {
+  a[key] = props[key];
+  return a;
+}, {})
+
+point().x(4).y(3).z(6).plot();
+
+assert.equal(this.$().text().trim(), '1000');
+
+something().then(() => doSomethingElse()).then(result => dontForgetThisAsWell(result))
+
+db.branch(
+  db.table('users').filter({ email }).count(),
+  db.table('users').filter({ email: 'a@b.com' }).count(),
+  db.table('users').insert({ email }),
+  db.table('users').filter({ email }),
+)
+
+sandbox.stub(config, 'get').withArgs('env').returns('dev')
+
+moment.utc(userInput).hour(0).minute(0).second(0)
+
+fetchUser(id)
+  .then(fetchAccountForUser)
+  .catch(handleFetchError)
+
+fetchUser(id) //
+  .then(fetchAccountForUser)
+  .catch(handleFetchError)
+
+// examples from https://github.com/prettier/prettier/issues/3107
+
+function HelloWorld() {
+  window.FooClient.setVars({
+    locale: getFooLocale({ page }),
+    authorizationToken: data.token,
+  }).initVerify('foo_container');
+
+  fejax.ajax({
+    url: '/verification/',
+    dataType: 'json',
+  }).then(
+    (data) => {
+      this.setState({ isLoading: false });
+      this.initWidget(data);
+    },
+    (data) => {
+      this.logImpression('foo_fetch_error', data);
+      Flash.error(I18n.t('offline_identity.foo_issue'));
+    },
+  );
+}
+
+action$.ofType(ActionTypes.SEARCHED_USERS)
+  .map(action => action.payload.query)
+  .filter(q => !!q)
+  .switchMap(q =>
+    Observable.timer(800) // debounce
+      .takeUntil(action$.ofType(ActionTypes.CLEARED_SEARCH_RESULTS))
+      .mergeMap(() =>
+        Observable.merge(
+          Observable.of(replace(\`?q=\${q}\`)),
+          ajax
+            .getJSON(\`https://api.github.com/search/users?q=\${q}\`)
+            .map(res => res.items)
+            .map(receiveUsers)
+        )
+      )
+  );
+
+window.FooClient
+  .setVars({
+    locale: getFooLocale({ page }),
+    authorizationToken: data.token,
+  })
+  .initVerify('foo_container');
+
+it('gets triggered by mouseenter', () => {
+  const wrapper = shallow(<CalendarDay />);
+  wrapper.dive().find(Button).prop();
+});
+
+x.a(true).b(null).c(123)
+x.d('').e(\`\`).f(g)
+x.d('').e(\`\${123}\`).f(g)
+x.h(i.j).k(l()).m([n, o])
+class X {
+  y() {
+    x.a(this).b(super.cde()).f(/g/).h(new i()).j()
+  }
+}
+
+// should break when call expressions get complex
+x.a().b([c, [d, [e]]]).f()
+x.a().b(c(d(e()))).f()
+x.a().b(\`\${c(d())}\`).f()
+
+xyz.a().b().c(a(a(b(c(d().p).p).p).p))
+
+var l = base
+    .replace(/^\\w*:\\/\\//, '')
+    .replace(/\\/$/, '')
+    .split('/').length
+
+
+=====================================output=====================================
+// examples from https://github.com/prettier/prettier/issues/4125
+
+const sha256 = data => crypto.createHash("sha256").update(data).digest("hex");
+
+req.checkBody("id").isInt().optional();
+req.checkBody("name").notEmpty().optional();
+
+const x = moment().add(1, "day").valueOf();
+
+// should stay on one line:
+obj.foo(1).foo(2).foo(3);
+obj.foo(-1).foo(import("2")).foo(!x).check(/[A-Z]/);
+
+// better on multiple lines:
+somePromise
+  .then(format)
+  .then(val => doSomething(val))
+  .catch(err => handleError(err));
+
+// you can still force multi-line chaining with a comment:
+const sha256 = data =>
+  crypto // breakme
+    .createHash("sha256")
+    .update(data)
+    .digest("hex");
+
+// examples from https://github.com/prettier/prettier/pull/4765
+
+if ($(el).attr("href").includes("/wiki/")) {
+}
+
+if ($(el).attr("href").includes("/wiki/")) {
+  if ($(el).attr("xyz").includes("/whatever/")) {
+    if ($(el).attr("hello").includes("/world/")) {
+    }
+  }
+}
+
+const parseNumbers = s => s.split("").map(Number).sort();
+
+function palindrome(a, b) {
+  return a.slice().reverse().join(",") === b.slice().sort().join(",");
+}
+
+// examples from https://github.com/prettier/prettier/issues/1565
+
+d3.select("body")
+  .selectAll("p")
+  .data([1, 2, 3])
+  .enter()
+  .style("color", "white");
+
+Object.keys(props)
+  .filter(key => key in own === false)
+  .reduce((a, key) => {
+    a[key] = props[key];
+    return a;
+  }, {});
+
+point().x(4).y(3).z(6).plot();
+
+assert.equal(this.$().text().trim(), "1000");
+
+something()
+  .then(() => doSomethingElse())
+  .then(result => dontForgetThisAsWell(result));
+
+db.branch(
+  db.table("users").filter({ email }).count(),
+  db.table("users").filter({ email: "a@b.com" }).count(),
+  db.table("users").insert({ email }),
+  db.table("users").filter({ email })
+);
+
+sandbox.stub(config, "get").withArgs("env").returns("dev");
+
+moment.utc(userInput).hour(0).minute(0).second(0);
+
+fetchUser(id).then(fetchAccountForUser).catch(handleFetchError);
+
+fetchUser(id) //
+  .then(fetchAccountForUser)
+  .catch(handleFetchError);
+
+// examples from https://github.com/prettier/prettier/issues/3107
+
+function HelloWorld() {
+  window.FooClient.setVars({
+    locale: getFooLocale({ page }),
+    authorizationToken: data.token,
+  }).initVerify("foo_container");
+
+  fejax
+    .ajax({
+      url: "/verification/",
+      dataType: "json",
+    })
+    .then(
+      data => {
+        this.setState({ isLoading: false });
+        this.initWidget(data);
+      },
+      data => {
+        this.logImpression("foo_fetch_error", data);
+        Flash.error(I18n.t("offline_identity.foo_issue"));
+      }
+    );
+}
+
+action$
+  .ofType(ActionTypes.SEARCHED_USERS)
+  .map(action => action.payload.query)
+  .filter(q => !!q)
+  .switchMap(q =>
+    Observable.timer(800) // debounce
+      .takeUntil(action$.ofType(ActionTypes.CLEARED_SEARCH_RESULTS))
+      .mergeMap(() =>
+        Observable.merge(
+          Observable.of(replace(\`?q=\${q}\`)),
+          ajax
+            .getJSON(\`https://api.github.com/search/users?q=\${q}\`)
+            .map(res => res.items)
+            .map(receiveUsers)
+        )
+      )
+  );
+
+window.FooClient.setVars({
+  locale: getFooLocale({ page }),
+  authorizationToken: data.token,
+}).initVerify("foo_container");
+
+it("gets triggered by mouseenter", () => {
+  const wrapper = shallow(<CalendarDay />);
+  wrapper.dive().find(Button).prop();
+});
+
+x.a(true).b(null).c(123);
+x.d("").e(\`\`).f(g);
+x.d("").e(\`\${123}\`).f(g);
+x.h(i.j).k(l()).m([n, o]);
+class X {
+  y() {
+    x.a(this).b(super.cde()).f(/g/).h(new i()).j();
+  }
+}
+
+// should break when call expressions get complex
+x.a()
+  .b([c, [d, [e]]])
+  .f();
+x.a()
+  .b(c(d(e())))
+  .f();
+x.a()
+  .b(\`\${c(d())}\`)
+  .f();
+
+xyz
+  .a()
+  .b()
+  .c(a(a(b(c(d().p).p).p).p));
+
+var l = base
+  .replace(/^\\w*:\\/\\//, "")
+  .replace(/\\/$/, "")
+  .split("/").length;
 
 ================================================================================
 `;
@@ -813,16 +1126,14 @@ if (testConfig.ENABLE_ONLINE_TESTS === "true") {
   describe("POST /users/me/pet", function() {
     it("saves pet", function() {
       function assert(pet) {
-        expect(pet)
-          .to.have.property("OwnerAddress")
-          .that.deep.equals({
-            AddressLine1: "Alexanderstrasse",
-            AddressLine2: "",
-            PostalCode: "10999",
-            Region: "Berlin",
-            City: "Berlin",
-            Country: "DE"
-          });
+        expect(pet).to.have.property("OwnerAddress").that.deep.equals({
+          AddressLine1: "Alexanderstrasse",
+          AddressLine2: "",
+          PostalCode: "10999",
+          Region: "Berlin",
+          City: "Berlin",
+          Country: "DE",
+        });
       }
     });
   });

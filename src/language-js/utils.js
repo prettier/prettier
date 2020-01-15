@@ -200,7 +200,7 @@ function isTheOnlyJSXElementInMarkdown(options, path) {
 
   const parent = path.getParentNode();
 
-  return parent.type === "Program" && parent.body.length == 1;
+  return parent.type === "Program" && parent.body.length === 1;
 }
 
 // Detect an expression node representing `{" "}`
@@ -885,6 +885,86 @@ function isLongCurriedCallExpression(path) {
   );
 }
 
+/**
+ * @param {import('estree').Node} node
+ * @param {number} depth
+ * @returns {boolean}
+ */
+function isSimpleCallArgument(node, depth) {
+  if (depth >= 2) {
+    return false;
+  }
+  const isChildSimple = child => isSimpleCallArgument(child, depth + 1);
+
+  const regexpPattern =
+    (node.type === "Literal" && node.regex && node.regex.pattern) ||
+    (node.type === "RegExpLiteral" && node.pattern);
+
+  if (regexpPattern && regexpPattern.length > 5) {
+    return false;
+  }
+
+  if (
+    node.type === "Literal" ||
+    node.type === "BooleanLiteral" ||
+    node.type === "NullLiteral" ||
+    node.type === "NumericLiteral" ||
+    node.type === "StringLiteral" ||
+    node.type === "Identifier" ||
+    node.type === "ThisExpression" ||
+    node.type === "Super" ||
+    node.type === "BigIntLiteral" ||
+    node.type === "PrivateName" ||
+    node.type === "ArgumentPlaceholder" ||
+    node.type === "RegExpLiteral" ||
+    node.type === "Import"
+  ) {
+    return true;
+  }
+  if (node.type === "TemplateLiteral") {
+    return node.expressions.every(isChildSimple);
+  }
+  if (node.type === "ObjectExpression") {
+    return node.properties.every(
+      p =>
+        p.shorthand ||
+        (isSimpleCallArgument(p.key, depth) && isChildSimple(p.value))
+    );
+  }
+  if (node.type === "ArrayExpression") {
+    return node.elements.every(isChildSimple);
+  }
+  if (
+    node.type === "CallExpression" ||
+    node.type === "OptionalCallExpression" ||
+    node.type === "NewExpression"
+  ) {
+    return (
+      isSimpleCallArgument(node.callee, depth) &&
+      node.arguments.every(isChildSimple)
+    );
+  }
+  if (
+    node.type === "MemberExpression" ||
+    node.type === "OptionalMemberExpression"
+  ) {
+    return (
+      isSimpleCallArgument(node.object, depth) &&
+      isSimpleCallArgument(node.property, depth)
+    );
+  }
+  if (
+    node.type === "UnaryExpression" &&
+    (node.operator === "!" || node.operator === "-")
+  ) {
+    return isSimpleCallArgument(node.argument, depth);
+  }
+  if (node.type === "TSNonNullExpression") {
+    return isSimpleCallArgument(node.expression, depth);
+  }
+  return false;
+}
+
 function rawText(node) {
   return node.extra ? node.extra.raw : node.raw;
 }
@@ -930,6 +1010,7 @@ module.exports = {
   isLastStatement,
   isLiteral,
   isLongCurriedCallExpression,
+  isSimpleCallArgument,
   isMeaningfulJSXText,
   isMemberExpressionChain,
   isMemberish,

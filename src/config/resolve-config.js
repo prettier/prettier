@@ -10,7 +10,8 @@ const resolveEditorConfig = require("./resolve-config-editorconfig");
 const loadToml = require("../utils/load-toml");
 
 const getExplorerMemoized = mem(opts => {
-  const explorer = thirdParty.cosmiconfig("prettier", {
+  const cosmiconfig = thirdParty["cosmiconfig" + (opts.sync ? "Sync" : "")];
+  const explorer = cosmiconfig("prettier", {
     cache: opts.cache,
     transform: result => {
       if (result && result.config) {
@@ -23,7 +24,7 @@ const getExplorerMemoized = mem(opts => {
 
         if (typeof result.config !== "object") {
           throw new Error(
-            `Config is only allowed to be an object, ` +
+            "Config is only allowed to be an object, " +
               `but received ${typeof result.config} in "${result.filepath}"`
           );
         }
@@ -47,13 +48,10 @@ const getExplorerMemoized = mem(opts => {
     }
   });
 
-  const load = opts.sync ? explorer.loadSync : explorer.load;
-  const search = opts.sync ? explorer.searchSync : explorer.search;
-
   return {
     // cosmiconfig v4 interface
     load: (searchPath, configPath) =>
-      configPath ? load(configPath) : search(searchPath)
+      configPath ? explorer.load(configPath) : explorer.search(searchPath)
   };
 });
 

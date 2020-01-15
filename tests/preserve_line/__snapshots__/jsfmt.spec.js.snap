@@ -267,7 +267,7 @@ moreArgTypes(
 
   {
     name: "Hello World",
-    age: 29
+    age: 29,
   },
 
   doSomething(
@@ -333,7 +333,7 @@ doAnotherThing(
 
   {
     solution_type,
-    time_frame
+    time_frame,
   }
 );
 
@@ -342,7 +342,7 @@ stuff.doThing(
 
   -1,
   {
-    accept: node => doSomething(node)
+    accept: node => doSomething(node),
   }
 );
 
@@ -352,7 +352,7 @@ doThing(
   // This is important
   true,
   {
-    decline: creditCard => takeMoney(creditCard)
+    decline: creditCard => takeMoney(creditCard),
   }
 );
 
@@ -808,7 +808,7 @@ function test({
   nine,
   ten,
 
-  eleven
+  eleven,
 }) {}
 
 function test({ one, two, three, four }) {}
@@ -818,7 +818,7 @@ function test({
 
   two,
   three,
-  four
+  four,
 }) {}
 
 function test({ one, two, three, four }, $a) {}

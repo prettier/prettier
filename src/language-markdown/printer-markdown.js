@@ -22,7 +22,7 @@ const {
   },
   utils: { mapDoc },
   printer: { printDocToString }
-} = require("../doc");
+} = require("../document");
 const {
   getFencedCodeBlockValue,
   hasGitDiffFriendlyOrderedList,
@@ -230,7 +230,7 @@ function genericPrint(path, options, print) {
       const value =
         parentNode.type === "root" &&
         privateUtil.getLast(parentNode.children) === node
-          ? node.value.trimRight()
+          ? node.value.trimEnd()
           : node.value;
       const isHtmlComment = /^<!--[\s\S]*-->$/.test(value);
       return concat(
@@ -254,6 +254,20 @@ function genericPrint(path, options, print) {
       return printChildren(path, options, print, {
         processor: (childPath, index) => {
           const prefix = getPrefix();
+          const childNode = childPath.getValue();
+
+          if (
+            childNode.children.length === 2 &&
+            childNode.children[1].type === "html" &&
+            childNode.children[0].position.start.column !==
+              childNode.children[1].position.start.column
+          ) {
+            return concat([
+              prefix,
+              printListItem(childPath, options, print, prefix)
+            ]);
+          }
+
           return concat([
             prefix,
             align(
@@ -496,6 +510,17 @@ function getAncestorNode(path, typeOrTypes) {
 }
 
 function printLine(path, value, options) {
+  const greatGrandParentNode = path.getParentNode(2);
+  if (greatGrandParentNode && greatGrandParentNode.type === "listItem") {
+    const parentNode = path.getParentNode();
+    const grandParentNode = path.getParentNode(1);
+    const index = grandParentNode.children.indexOf(parentNode);
+    const prevGrandParentNode = grandParentNode.children[index - 1];
+    if (prevGrandParentNode && prevGrandParentNode.type === "break") {
+      return "";
+    }
+  }
+
   if (options.proseWrap === "preserve" && value === "\n") {
     return hardline;
   }
@@ -635,7 +660,7 @@ function printRoot(path, options, print) {
   /** @type {IgnorePosition | null} */
   let ignoreStart = null;
 
-  const children = path.getValue().children;
+  const { children } = path.getValue();
   children.forEach((childNode, index) => {
     switch (isPrettierIgnore(childNode)) {
       case "start":
@@ -793,13 +818,21 @@ function shouldPrePrintDoubleHardline(node, data) {
     data.prevNode.type === "html" &&
     data.prevNode.position.end.line + 1 === node.position.start.line;
 
+  const isHtmlDirectAfterListItem =
+    node.type === "html" &&
+    data.parentNode.type === "listItem" &&
+    data.prevNode &&
+    data.prevNode.type === "paragraph" &&
+    data.prevNode.position.end.line + 1 === node.position.start.line;
+
   return (
     isPrevNodeLooseListItem ||
     !(
       isSiblingNode ||
       isInTightListItem ||
       isPrevNodePrettierIgnore ||
-      isBlockHtmlWithoutBlankLineBetweenPrevHtml
+      isBlockHtmlWithoutBlankLineBetweenPrevHtml ||
+      isHtmlDirectAfterListItem
     )
   );
 }
@@ -834,19 +867,19 @@ function normalizeDoc(doc) {
       return currentDoc.parts[0];
     }
 
-    const parts = [];
-
-    currentDoc.parts.forEach(part => {
+    const parts = currentDoc.parts.reduce((parts, part) => {
       if (part.type === "concat") {
-        parts.push.apply(parts, part.parts);
+        parts.push(...part.parts);
       } else if (part !== "") {
         parts.push(part);
       }
-    });
+      return parts;
+    }, []);
 
-    return Object.assign({}, currentDoc, {
+    return {
+      ...currentDoc,
       parts: normalizeParts(parts)
-    });
+    };
   });
 }
 

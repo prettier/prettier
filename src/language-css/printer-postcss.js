@@ -25,7 +25,7 @@ const {
     ifBreak
   },
   utils: { removeLines }
-} = require("../doc");
+} = require("../document");
 
 const {
   getAncestorNode,
@@ -458,15 +458,20 @@ function genericPrint(path, options, print) {
       for (let i = 0; i < node.groups.length; ++i) {
         parts.push(printed[i]);
 
-        // Ignore value inside `url()`
-        if (insideURLFunction) {
-          continue;
-        }
-
         const iPrevNode = node.groups[i - 1];
         const iNode = node.groups[i];
         const iNextNode = node.groups[i + 1];
         const iNextNextNode = node.groups[i + 2];
+
+        if (insideURLFunction) {
+          if (
+            (iNextNode && isAdditionNode(iNextNode)) ||
+            isAdditionNode(iNode)
+          ) {
+            parts.push(" ");
+          }
+          continue;
+        }
 
         // Ignore after latest node (i.e. before semicolon)
         if (!iNextNode) {
@@ -909,7 +914,7 @@ const STANDARD_UNIT_REGEX = /[a-zA-Z]+/g;
 const WORD_PART_REGEX = /[$@]?[a-zA-Z_\u0080-\uFFFF][\w\-\u0080-\uFFFF]*/g;
 const ADJUST_NUMBERS_REGEX = new RegExp(
   STRING_REGEX.source +
-    `|` +
+    "|" +
     `(${WORD_PART_REGEX.source})?` +
     `(${NUMBER_REGEX.source})` +
     `(${STANDARD_UNIT_REGEX.source})?`,
