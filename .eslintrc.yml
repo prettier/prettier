@@ -4,7 +4,6 @@ env:
   node: true
 extends:
   - eslint:recommended
-  - plugin:react/recommended
   - plugin:prettier/recommended
 parserOptions:
   ecmaVersion: 2018
@@ -14,7 +13,7 @@ plugins:
 rules:
   curly: error
   dot-notation: error
-  eqeqeq: 
+  eqeqeq:
     - error
     - always
     - null: ignore
@@ -46,9 +45,6 @@ rules:
     - error
     - double
     - avoidEscape: true
-  react/display-name: off
-  react/no-deprecated: off
-  react/prop-types: off
   strict: error
   symbol-description: error
   yoda:
