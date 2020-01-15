@@ -389,8 +389,7 @@ em {
 }
 
 .usersSection .user {
-  height: 100px;
-  width: 200px;
+  height: 80px;
   flex-grow: 1;
   padding: 1em;
 }
@@ -402,7 +401,6 @@ em {
 @media only screen and (max-width: 736px) {
   .usersSection .user {
     height: 50px !important;
-    width: 100px !important;
   }
 }
 
