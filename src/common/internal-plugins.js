@@ -124,6 +124,10 @@ module.exports = [
         return eval("require")("../language-markdown/parser-markdown").parsers
           .remark;
       },
+      get markdown() {
+        return eval("require")("../language-markdown/parser-markdown").parsers
+          .remark;
+      },
       get mdx() {
         return eval("require")("../language-markdown/parser-markdown").parsers
           .mdx;
