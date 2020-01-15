@@ -5,7 +5,7 @@ const semver = require("semver");
 
 module.exports = async function({ version, previousVersion }) {
   if (!semver.valid(version)) {
-    throw new Error(`Invalid version specified`);
+    throw new Error("Invalid version specified");
   }
 
   if (!semver.gt(version, previousVersion)) {

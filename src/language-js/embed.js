@@ -14,7 +14,7 @@ const {
     dedentToRoot
   },
   utils: { mapDoc, stripTrailingHardline }
-} = require("../doc");
+} = require("../document");
 
 function embed(path, print, textToDoc, options) {
   const node = path.getValue();
@@ -35,7 +35,7 @@ function embed(path, print, textToDoc, options) {
         const rawQuasis = node.quasis.map(q => q.value.raw);
         let placeholderID = 0;
         const text = rawQuasis.reduce((prevVal, currVal, idx) => {
-          return idx == 0
+          return idx === 0
             ? currVal
             : prevVal +
                 "@prettier-placeholder-" +
@@ -266,7 +266,7 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
     if (!doc || !doc.parts || !doc.parts.length) {
       return doc;
     }
-    let parts = doc.parts;
+    let { parts } = doc;
     const atIndex = parts.indexOf("@");
     const placeholderIndex = atIndex + 1;
     if (
@@ -306,7 +306,7 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
         .concat(rest);
     }
     return Object.assign({}, doc, {
-      parts: parts
+      parts
     });
   });
 
@@ -431,7 +431,7 @@ function isStyledComponents(path) {
     return false;
   }
 
-  const tag = parent.tag;
+  const { tag } = parent;
 
   switch (tag.type) {
     case "MemberExpression":

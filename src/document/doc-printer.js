@@ -378,7 +378,7 @@ function printDocToString(doc, options) {
         case "fill": {
           const rem = width - pos;
 
-          const parts = doc.parts;
+          const { parts } = doc;
           if (parts.length === 0) {
             break;
           }

@@ -22,7 +22,7 @@ const {
   },
   utils: { mapDoc },
   printer: { printDocToString }
-} = require("../doc");
+} = require("../document");
 const {
   getFencedCodeBlockValue,
   hasGitDiffFriendlyOrderedList,
@@ -660,7 +660,7 @@ function printRoot(path, options, print) {
   /** @type {IgnorePosition | null} */
   let ignoreStart = null;
 
-  const children = path.getValue().children;
+  const { children } = path.getValue();
   children.forEach((childNode, index) => {
     switch (isPrettierIgnore(childNode)) {
       case "start":
@@ -867,19 +867,19 @@ function normalizeDoc(doc) {
       return currentDoc.parts[0];
     }
 
-    const parts = [];
-
-    currentDoc.parts.forEach(part => {
+    const parts = currentDoc.parts.reduce((parts, part) => {
       if (part.type === "concat") {
-        parts.push.apply(parts, part.parts);
+        parts.push(...part.parts);
       } else if (part !== "") {
         parts.push(part);
       }
-    });
+      return parts;
+    }, []);
 
-    return Object.assign({}, currentDoc, {
+    return {
+      ...currentDoc,
       parts: normalizeParts(parts)
-    });
+    };
   });
 }
 

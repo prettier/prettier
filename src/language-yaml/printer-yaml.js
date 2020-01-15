@@ -20,7 +20,7 @@ const {
   defineShortcut,
   mapNode
 } = require("./utils");
-const docBuilders = require("../doc").builders;
+const docBuilders = require("../document").builders;
 const {
   conditionalGroup,
   breakParent,

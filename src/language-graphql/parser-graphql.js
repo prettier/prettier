@@ -5,8 +5,8 @@ const { hasPragma } = require("./pragma");
 
 function parseComments(ast) {
   const comments = [];
-  const startToken = ast.loc.startToken;
-  let next = startToken.next;
+  const { startToken } = ast.loc;
+  let { next } = startToken;
   while (next.kind !== "<EOF>") {
     if (next.kind === "Comment") {
       Object.assign(next, {
@@ -57,7 +57,7 @@ function parse(text /*, parsers, opts*/) {
     removeTokens(ast);
     return ast;
   } catch (error) {
-    const GraphQLError = require("graphql/error").GraphQLError;
+    const { GraphQLError } = require("graphql/error");
     if (error instanceof GraphQLError) {
       throw createError(error.message, {
         start: {

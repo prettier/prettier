@@ -9,7 +9,7 @@ const {
   group,
   indent,
   ifBreak
-} = require("../doc").builders;
+} = require("../document").builders;
 
 // http://w3c.github.io/html/single-page.html#void-elements
 const voidTags = [
@@ -263,7 +263,7 @@ function print(path, options, print) {
         const parentNode = path.getParentNode(0);
         const isConcat = parentNode.type === "ConcatStatement";
         if (isConcat) {
-          const parts = parentNode.parts;
+          const { parts } = parentNode;
           const partIndex = parts.indexOf(n);
           if (partIndex > 0) {
             const partType = parts[partIndex - 1].type;
@@ -354,7 +354,7 @@ function printChildren(path, options, print) {
       const childNode = path.getValue();
       const isFirstNode = childIndex === 0;
       const isLastNode =
-        childIndex == path.getParentNode(0).children.length - 1;
+        childIndex === path.getParentNode(0).children.length - 1;
       const isLastNodeInMultiNodeList = isLastNode && !isFirstNode;
       const isWhitespace = isWhitespaceNode(childNode);
 

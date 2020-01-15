@@ -147,7 +147,7 @@ const coreBundles = [
     }
   },
   {
-    input: "src/doc/index.js",
+    input: "src/document/index.js",
     name: "doc",
     type: "core",
     output: "doc.js",

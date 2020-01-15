@@ -2,7 +2,7 @@
 
 const {
   builders: { concat, join, line }
-} = require("../doc");
+} = require("../document");
 
 function printHtmlBinding(path, options, print) {
   const node = path.getValue();
