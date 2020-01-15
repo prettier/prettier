@@ -211,7 +211,7 @@ function _parse(text, options, parserOptions, shouldParseFrontMatter = true) {
       startSpan,
       subAst.children[subAst.children.length - 1].sourceSpan.end
     );
-    const firstText = subAst.children[0];
+    const [firstText] = subAst.children;
     if (firstText.length === offset) {
       subAst.children.shift();
     } else {

@@ -622,7 +622,7 @@ function isEmptyJSXElement(node) {
 
   // if there is one text child and does not contain any meaningful text
   // we can treat the element as empty.
-  const child = node.children[0];
+  const [child] = node.children;
   return isLiteral(child) && !isMeaningfulJSXText(child);
 }
 

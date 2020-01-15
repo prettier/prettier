@@ -104,7 +104,7 @@ function cloneAndUpdateNodes(nodes, parent) {
   );
 
   let prev = null;
-  let current = siblings[0];
+  let [current] = siblings;
   let next = siblings[1] || null;
 
   for (let index = 0; index < siblings.length; index++) {

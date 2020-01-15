@@ -685,7 +685,7 @@ function needsSpaceInFrontOfMappingValue(node) {
 
 function printNextEmptyLine(path, originalText) {
   const node = path.getValue();
-  const root = path.stack[0];
+  const [root] = path.stack;
 
   root.isNextEmptyLinePrintedChecklist =
     root.isNextEmptyLinePrintedChecklist || [];

@@ -20,7 +20,7 @@ module.exports = function(babel) {
       CallExpression(path) {
         const { node } = path;
         if (isEvalRequire(node.callee) && node.arguments.length === 1) {
-          let arg = node.arguments[0];
+          let [arg] = node.arguments;
           if (t.isLiteral(arg) && arg.value.startsWith(".")) {
             const value = "." + arg.value.substring(arg.value.lastIndexOf("/"));
             arg = t.stringLiteral(value);
