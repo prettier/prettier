@@ -49,8 +49,8 @@ const template = fs.readFileSync(
   path.join(CHANGELOG_ROOT, TEMPLATE_FILE),
   "utf8"
 );
-const templateComment = template.match(/<!--[\s\S]*?-->/)[0];
-const templateAuthorLink = template.match(authorRegex)[0];
+const [templateComment] = template.match(/<!--[\s\S]*?-->/);
+const [templateAuthorLink] = template.match(authorRegex);
 
 for (const category of CHANGELOG_CATEGORIES) {
   const files = fs.readdirSync(path.join(CHANGELOG_ROOT, category));
@@ -74,7 +74,7 @@ for (const category of CHANGELOG_CATEGORIES) {
       );
       continue;
     }
-    const prNumber = match[1];
+    const [, prNumber] = match;
     const content = fs.readFileSync(
       path.join(CHANGELOG_DIR, category, prFile),
       "utf8"
