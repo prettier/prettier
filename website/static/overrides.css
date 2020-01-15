@@ -372,14 +372,15 @@ em {
   color: #6f7b81 !important;
 }
 .usersSection a {
-  display: flex;
-  align-items: center;
   color: #f9f9f9 !important;
 }
 .usersSection a:hover {
   color: white !important;
 }
-
+.usersSection .alignCenter{
+  display: flex;
+  align-items: center;
+}
 .usersSection p {
   font-size: 1em;
   margin: 4px;
