@@ -11,3 +11,5 @@ steps:
     displayName: "Lint docs"
   - script: yarn spellcheck
     displayName: "Spellcheck"
+  - script: yarn lint-changelog
+    displayName: "Lint changelog"
