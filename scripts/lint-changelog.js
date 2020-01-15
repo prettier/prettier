@@ -96,5 +96,8 @@ for (const category of CHANGELOG_CATEGORIES) {
         `[${displayPath}]: Please change author link to your github account.`
       );
     }
+    if (!content.startsWith("#### ")) {
+      showErrorMessage(`[${displayPath}]: Please use h4("####") for title.`);
+    }
   }
 }
