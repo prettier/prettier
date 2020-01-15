@@ -3,3 +3,7 @@ export function extname(path) {
   if (dotIndex === -1) return "";
   return path.slice(dotIndex);
 }
+
+export function isAbsolute() {
+  return true;
+}
