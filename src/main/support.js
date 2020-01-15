@@ -28,10 +28,10 @@ function getSupportInfo(version, opts) {
   )
     .filter(option => filterSince(option) && filterDeprecated(option))
     .sort((a, b) => (a.name === b.name ? 0 : a.name < b.name ? -1 : 1))
+    .map(mapDeprecated)
+    .map(mapInternal)
     .map(option => {
-      option = {
-        ...mapInternal(mapDeprecated(option))
-      };
+      option = { ...option };
 
       if (Array.isArray(option.default)) {
         option.default =
