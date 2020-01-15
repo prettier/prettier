@@ -9,7 +9,7 @@ const {
   group,
   indent,
   ifBreak
-} = require("../doc").builders;
+} = require("../document").builders;
 
 // http://w3c.github.io/html/single-page.html#void-elements
 const voidTags = [

@@ -10,7 +10,7 @@ const loadPlugins = require("./common/load-plugins");
 
 const config = require("./config/resolve-config");
 
-const doc = require("./doc");
+const doc = require("./document");
 
 // Luckily `opts` is always the 2nd argument
 function _withPlugins(fn) {
