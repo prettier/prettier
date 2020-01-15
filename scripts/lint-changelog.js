@@ -100,7 +100,12 @@ for (const category of CHANGELOG_CATEGORIES) {
     if (!content.startsWith("#### ")) {
       showErrorMessage(`[${displayPath}]: Please use h4("####") for title.`);
     }
-    const [, title] = content.match(titleRegex);
+    const titleMatch = content.match(titleRegex);
+    if (!titleMatch) {
+      showErrorMessage(`[${displayPath}]: Something wrong in title.`);
+      continue;
+    }
+    const [, title] = titleMatch;
     const categoryInTitle = title
       .split(":")
       .shift()
@@ -108,6 +113,18 @@ for (const category of CHANGELOG_CATEGORIES) {
     if (CHANGELOG_CATEGORIES.includes(categoryInTitle.toLowerCase())) {
       showErrorMessage(
         `[${displayPath}]: Please remove "${categoryInTitle}:" in title.`
+      );
+    }
+
+    if (title.startsWith(" ")) {
+      showErrorMessage(
+        `[${displayPath}]: Don't add extra space(s) at beginning of title.`
+      );
+    }
+
+    if (!title.endsWith(" ") || title.length - title.trimEnd().length !== 1) {
+      showErrorMessage(
+        `[${displayPath}]: Please put one space between title and PR link.`
       );
     }
   }
