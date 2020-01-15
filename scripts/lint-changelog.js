@@ -48,7 +48,7 @@ const template = fs.readFileSync(
   path.join(CHANGELOG_ROOT, TEMPLATE_FILE),
   "utf8"
 );
-const templateComment = template.match(/<!--[\s\S]*?-->/);
+const templateComment = template.match(/<!--[\s\S]*?-->/)[0];
 const templateAuthorLink = template.match(authorRegex)[0];
 
 for (const category of CHANGELOG_CATEGORIES) {
