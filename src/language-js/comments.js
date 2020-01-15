@@ -1,16 +1,16 @@
 "use strict";
 
 const privateUtil = require("../common/util");
-const sharedUtil = require("../common/util-shared");
 const {
   addLeadingComment,
   addTrailingComment,
-  addDanglingComment
-} = sharedUtil;
+  addDanglingComment,
+  getNextNonSpaceNonCommentCharacterIndex
+} = require("../common/util-shared");
 
 function handleOwnLineComment(comment, text, options, ast, isLastComment) {
   const { precedingNode, enclosingNode, followingNode } = comment;
-  if (
+  return (
     handleLastFunctionArgComments(
       text,
       precedingNode,
@@ -68,15 +68,12 @@ function handleOwnLineComment(comment, text, options, ast, isLastComment) {
       options
     ) ||
     handleLabeledStatementComments(enclosingNode, comment)
-  ) {
-    return true;
-  }
-  return false;
+  );
 }
 
 function handleEndOfLineComment(comment, text, options, ast, isLastComment) {
   const { precedingNode, enclosingNode, followingNode } = comment;
-  if (
+  return (
     handleLastFunctionArgComments(
       text,
       precedingNode,
@@ -123,10 +120,7 @@ function handleEndOfLineComment(comment, text, options, ast, isLastComment) {
     handleOnlyComments(enclosingNode, ast, comment, isLastComment) ||
     handleTypeAliasComments(enclosingNode, followingNode, comment) ||
     handleVariableDeclaratorComments(enclosingNode, followingNode, comment)
-  ) {
-    return true;
-  }
-  return false;
+  );
 }
 
 function handleRemainingComment(comment, text, options, ast, isLastComment) {
@@ -539,11 +533,7 @@ function handleCommentAfterArrowParams(text, enclosingNode, comment, options) {
     return false;
   }
 
-  const index = sharedUtil.getNextNonSpaceNonCommentCharacterIndex(
-    text,
-    comment,
-    options
-  );
+  const index = getNextNonSpaceNonCommentCharacterIndex(text, comment, options);
   if (text.substr(index, 2) === "=>") {
     addDanglingComment(enclosingNode, comment);
     return true;
