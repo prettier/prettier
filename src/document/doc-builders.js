@@ -83,7 +83,7 @@ function group(contents, opts) {
   return {
     type: "group",
     id: opts.id,
-    contents: contents,
+    contents,
     break: !!opts.shouldBreak,
     expandedStates: opts.expandedStates
   };

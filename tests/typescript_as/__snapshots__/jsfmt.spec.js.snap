@@ -64,7 +64,7 @@ async function g1() {
 () => ({} as X);
 const state = JSON.stringify({
   next: window.location.href,
-  nonce
+  nonce,
 } as State);
 
 (foo.bar as Baz) = [bar];

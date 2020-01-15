@@ -34,7 +34,7 @@ var y: $Shape<Foo> = x;
 
 =====================================output=====================================
 type Foo = {
-  field: number
+  field: number,
 };
 
 var x: { field?: number } = {};

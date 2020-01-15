@@ -4,7 +4,7 @@ const clean = require("./clean");
 const {
   builders,
   utils: { stripTrailingHardline, mapDoc }
-} = require("../doc");
+} = require("../document");
 const {
   breakParent,
   dedentToRoot,
@@ -631,7 +631,7 @@ function printOpeningTag(path, options, print) {
                     typeof ignoreAttributeData === "boolean"
                       ? () => ignoreAttributeData
                       : Array.isArray(ignoreAttributeData)
-                      ? attr => ignoreAttributeData.indexOf(attr.rawName) !== -1
+                      ? attr => ignoreAttributeData.includes(attr.rawName)
                       : () => false;
                   return path.map(attrPath => {
                     const attr = attrPath.getValue();
@@ -838,7 +838,7 @@ function printOpeningTagStartMarker(node) {
     case "ieConditionalStartComment":
       return `<!--[if ${node.condition}`;
     case "ieConditionalEndComment":
-      return `<!--<!`;
+      return "<!--<!";
     case "interpolation":
       return "{{";
     case "docType":
@@ -860,11 +860,11 @@ function printOpeningTagEndMarker(node) {
       return "]>";
     case "element":
       if (node.condition) {
-        return `><!--<![endif]-->`;
+        return "><!--<![endif]-->";
       }
     // fall through
     default:
-      return `>`;
+      return ">";
   }
 }
 
@@ -893,9 +893,9 @@ function printClosingTagEndMarker(node, options) {
   switch (node.type) {
     case "ieConditionalComment":
     case "ieConditionalEndComment":
-      return `[endif]-->`;
+      return "[endif]-->";
     case "ieConditionalStartComment":
-      return `]><!-->`;
+      return "]><!-->";
     case "interpolation":
       return "}}";
     case "element":

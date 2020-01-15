@@ -29,7 +29,7 @@ const {
 } = require("../common/util-shared");
 const embed = require("./embed");
 const clean = require("./clean");
-const insertPragma = require("./pragma").insertPragma;
+const { insertPragma } = require("./pragma");
 const handleComments = require("./comments");
 const pathNeedsParens = require("./needs-parens");
 const {
@@ -76,6 +76,7 @@ const {
   isNumericLiteral,
   isObjectType,
   isObjectTypePropertyAFunction,
+  isSimpleCallArgument,
   isSimpleFlowType,
   isSimpleTemplateLiteral,
   isStringLiteral,
@@ -114,7 +115,7 @@ const {
   },
   utils: { willBreak, isLineNext, isEmpty, removeLines },
   printer: { printDocToString }
-} = require("../doc");
+} = require("../document");
 
 let uid = 0;
 
@@ -240,7 +241,7 @@ function genericPrint(path, options, printPath, args) {
     const node = path.getValue();
     if (hasFlowShorthandAnnotationComment(node)) {
       parts.push(" /*");
-      parts.push(node.trailingComments[0].value.trimLeft());
+      parts.push(node.trailingComments[0].value.trimStart());
       parts.push("*/");
       node.trailingComments[0].printed = true;
     }
@@ -1323,7 +1324,7 @@ function printPathNoParens(path, options, print, args) {
         path.each(childPath => {
           const node = childPath.getValue();
           propsAndLoc.push({
-            node: node,
+            node,
             printed: print(childPath),
             loc: options.locStart(node)
           });
@@ -2439,7 +2440,7 @@ function printPathNoParens(path, options, print, args) {
           // quasi literal), therefore we want to indent the JavaScript
           // expression inside at the beginning of ${ instead of the beginning
           // of the `.
-          const tabWidth = options.tabWidth;
+          const { tabWidth } = options;
           const quasi = childPath.getValue();
           const indentSize = getIndentSize(quasi.value.raw, tabWidth);
 
@@ -2789,7 +2790,7 @@ function printPathNoParens(path, options, print, args) {
         );
       }
 
-      if (n["extends"].length > 0) {
+      if (n.extends.length > 0) {
         parts.push(
           group(
             indent(
@@ -3102,7 +3103,7 @@ function printPathNoParens(path, options, print, args) {
         parts.push(" extends ", path.call(print, "constraint"));
       }
 
-      if (n["default"]) {
+      if (n.default) {
         parts.push(" = ", path.call(print, "default"));
       }
 
@@ -3550,7 +3551,7 @@ function printPathNoParens(path, options, print, args) {
           path.call(print, "node"),
           !n.node.comments || n.node.comments.length === 0
             ? []
-            : concat([" //", n.node.comments[0].value.trimRight()])
+            : concat([" //", n.node.comments[0].value.trimEnd()])
         )
       );
     case "NGChainedExpression":
@@ -3723,7 +3724,7 @@ function printPropertyKey(path, options, print) {
   }
 
   const parent = path.getParentNode();
-  const key = node.key;
+  const { key } = node;
 
   if (options.quoteProps === "consistent" && !needsQuoteProps.has(parent)) {
     const objectHasStringProp = (
@@ -3770,7 +3771,7 @@ function printPropertyKey(path, options, print) {
 
 function printMethod(path, options, print) {
   const node = path.getNode();
-  const kind = node.kind;
+  const { kind } = node;
   const value = node.value || node;
   const parts = [];
 
@@ -3917,11 +3918,11 @@ function printJestEachTemplateLiteral(node, expressions, options) {
       const correspondingExpression = stringifiedExpressions[i - 1];
 
       row.cells.push(correspondingExpression);
-      if (correspondingExpression.indexOf("\n") !== -1) {
+      if (correspondingExpression.includes("\n")) {
         row.hasLineBreak = true;
       }
 
-      if (node.quasis[i].value.raw.indexOf("\n") !== -1) {
+      if (node.quasis[i].value.raw.includes("\n")) {
         tableBody.push({ hasLineBreak: false, cells: [] });
       }
     }
@@ -4452,7 +4453,7 @@ function printExportDeclaration(path, options, print) {
   const semi = options.semi ? ";" : "";
   const parts = ["export "];
 
-  const isDefault = decl["default"] || decl.type === "ExportDefaultDeclaration";
+  const isDefault = decl.default || decl.type === "ExportDefaultDeclaration";
 
   if (isDefault) {
     parts.push("default ");
@@ -4705,7 +4706,7 @@ function printClass(path, options, print) {
     parts.push(" extends ", join(", ", path.map(print, "extends")));
   }
 
-  if (n["mixins"] && n["mixins"].length > 0) {
+  if (n.mixins && n.mixins.length > 0) {
     partsGroup.push(
       line,
       "mixins ",
@@ -4713,7 +4714,7 @@ function printClass(path, options, print) {
     );
   }
 
-  if (n["implements"] && n["implements"].length > 0) {
+  if (n.implements && n.implements.length > 0) {
     partsGroup.push(
       line,
       "implements",
@@ -4811,7 +4812,7 @@ function printMemberChain(path, options, print) {
   // Here we try to retain one typed empty line after each call expression or
   // the first group whether it is in parentheses or not
   function shouldInsertEmptyLineAfter(node) {
-    const originalText = options.originalText;
+    const { originalText } = options;
     const nextCharIndex = getNextNonSpaceNonCommentCharacterIndex(
       originalText,
       node,
@@ -4821,7 +4822,7 @@ function printMemberChain(path, options, print) {
 
     // if it is cut off by a parenthesis, we only account for one typed empty
     // line after that parenthesis
-    if (nextChar == ")") {
+    if (nextChar === ")") {
       return isNextLineEmptyAfterIndex(
         originalText,
         nextCharIndex + 1,
@@ -4842,7 +4843,7 @@ function printMemberChain(path, options, print) {
         node.callee.type === "OptionalCallExpression")
     ) {
       printedNodes.unshift({
-        node: node,
+        node,
         printed: concat([
           comments.printComments(
             path,
@@ -4860,7 +4861,7 @@ function printMemberChain(path, options, print) {
       path.call(callee => rec(callee), "callee");
     } else if (isMemberish(node)) {
       printedNodes.unshift({
-        node: node,
+        node,
         needsParens: pathNeedsParens(path, options),
         printed: comments.printComments(
           path,
@@ -4875,13 +4876,13 @@ function printMemberChain(path, options, print) {
       path.call(object => rec(object), "object");
     } else if (node.type === "TSNonNullExpression") {
       printedNodes.unshift({
-        node: node,
+        node,
         printed: comments.printComments(path, () => "!", options)
       });
       path.call(expression => rec(expression), "expression");
     } else {
       printedNodes.unshift({
-        node: node,
+        node,
         printed: path.call(print)
       });
     }
@@ -5084,9 +5085,7 @@ function printMemberChain(path, options, print) {
   const oneLine = concat(printedGroups);
 
   const cutoff = shouldMerge ? 3 : 2;
-  const flatGroups = groups
-    .slice(0, cutoff)
-    .reduce((res, group) => res.concat(group), []);
+  const flatGroups = groups.reduce((res, group) => res.concat(group), []);
 
   const hasComment =
     flatGroups.slice(1, -1).some(node => hasLeadingComment(node.node)) ||
@@ -5123,14 +5122,17 @@ function printMemberChain(path, options, print) {
     .map(({ node }) => node)
     .filter(isCallOrOptionalCallExpression);
 
-  // We don't want to print in one line if there's:
+  // We don't want to print in one line if the chain has:
   //  * A comment.
-  //  * 3 or more chained calls.
+  //  * Non-trivial arguments.
   //  * Any group but the last one has a hard line.
   // If the last group is a function it's okay to inline if it fits.
   if (
     hasComment ||
-    callExpressions.length >= 3 ||
+    (callExpressions.length > 2 &&
+      callExpressions.some(
+        expr => !expr.arguments.every(arg => isSimpleCallArgument(arg, 0))
+      )) ||
     printedGroups.slice(0, -1).some(willBreak) ||
     /**
      *     scopes.filter(scope => scope.value !== '').map((scope, i) => {
@@ -5429,8 +5431,7 @@ function printJSXElement(path, options, print) {
     isFacebookTranslationTag
   );
 
-  const containsText =
-    n.children.filter(child => isMeaningfulJSXText(child)).length > 0;
+  const containsText = n.children.some(child => isMeaningfulJSXText(child));
 
   // We can end up we multiple whitespace elements with empty string
   // content between them.
@@ -5841,11 +5842,9 @@ function exprNeedsASIProtection(path, options) {
     return false;
   }
 
-  return path.call.apply(
-    path,
-    [childPath => exprNeedsASIProtection(childPath, options)].concat(
-      getLeftSidePathName(path, node)
-    )
+  return path.call(
+    childPath => exprNeedsASIProtection(childPath, options),
+    ...getLeftSidePathName(path, node)
   );
 }
 
@@ -5876,16 +5875,16 @@ function shouldHugType(node) {
         n.type === "TSNullKeyword"
     ).length;
 
-    const objectCount = node.types.filter(
+    const hasObject = node.types.some(
       n =>
         n.type === "ObjectTypeAnnotation" ||
         n.type === "TSTypeLiteral" ||
         // This is a bit aggressive but captures Array<{x}>
         n.type === "GenericTypeAnnotation" ||
         n.type === "TSTypeReference"
-    ).length;
+    );
 
-    if (node.types.length - 1 === voidCount && objectCount > 0) {
+    if (node.types.length - 1 === voidCount && hasObject) {
       return true;
     }
   }
@@ -6070,9 +6069,9 @@ function printComment(commentPath, options) {
       if (
         options.originalText.slice(options.locStart(comment)).startsWith("#!")
       ) {
-        return "#!" + comment.value.trimRight();
+        return "#!" + comment.value.trimEnd();
       }
-      return "//" + comment.value.trimRight();
+      return "//" + comment.value.trimEnd();
     default:
       throw new Error("Not a comment: " + JSON.stringify(comment));
   }
@@ -6096,8 +6095,8 @@ function printIndentableBlockComment(comment) {
       hardline,
       lines.map((line, index) =>
         index === 0
-          ? line.trimRight()
-          : " " + (index < lines.length - 1 ? line.trim() : line.trimLeft())
+          ? line.trimEnd()
+          : " " + (index < lines.length - 1 ? line.trim() : line.trimStart())
       )
     ),
     "*/"

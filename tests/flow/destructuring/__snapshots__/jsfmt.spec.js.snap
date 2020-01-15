@@ -201,22 +201,22 @@ obj_rest({ p: { q: 0, r: null } });
 
 function obj_prop_annot(
   {
-    p = true // error: boolean ~> string
+    p = true, // error: boolean ~> string
   }: {
-    p: string
+    p: string,
   } = {
-    p: 0 // error: number ~> string
+    p: 0, // error: number ~> string
   }
 ) {
   (p: void); // error: string ~> void
 }
 
 var {
-  p = true // error: boolean ~> string
+  p = true, // error: boolean ~> string
 }: {
-  p: string
+  p: string,
 } = {
-  p: 0 // error: number ~> string
+  p: 0, // error: number ~> string
 };
 (p: void); // error: string ~> void
 
@@ -620,7 +620,7 @@ function bar() {
 // @flow
 
 var { x } = {
-  x: { foo: "foo" }
+  x: { foo: "foo" },
 };
 
 function bar() {

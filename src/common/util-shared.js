@@ -1,7 +1,7 @@
 "use strict";
 
 const util = require("./util");
-const { mapDoc } = require("../doc").utils;
+const { mapDoc } = require("../document").utils;
 
 function isNextLineEmpty(text, node, options) {
   return util.isNextLineEmpty(text, node, options.locEnd);

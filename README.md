@@ -1,3 +1,9 @@
+## Prettier 2.0
+
+This is the branch containing code for Prettier’s 2.0 release. See [the `master` branch](https://github.com/prettier/prettier) for the 1.x code/docs.
+
+---
+
 ![Prettier Banner](https://raw.githubusercontent.com/prettier/prettier-logo/master/images/prettier-banner-light.png)
 
 <h2 align="center">Opinionated Code Formatter</h2>

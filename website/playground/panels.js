@@ -126,7 +126,7 @@ function getIndexPosition(text, indexes) {
 function createOverlay(start, end) {
   return {
     token(stream) {
-      const line = stream.lineOracle.line;
+      const { line } = stream.lineOracle;
 
       if (line < start.line || line > end.line) {
         stream.skipToEnd();

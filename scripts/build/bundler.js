@@ -42,22 +42,30 @@ function getBabelConfig(bundle) {
     plugins: bundle.babelPlugins || [],
     compact: bundle.type === "plugin" ? false : "auto"
   };
-  config.plugins.push(
-    require.resolve("./babel-plugins/replace-array-includes-with-indexof")
-  );
   if (bundle.type === "core") {
     config.plugins.push(
       require.resolve("./babel-plugins/transform-custom-require")
     );
   }
-  const targets = { node: 4 };
+  const targets = { node: "10" };
   if (bundle.target === "universal") {
     // From https://jamie.build/last-2-versions
     targets.browsers = [">0.25%", "not ie 11", "not op_mini all"];
   }
   config.presets = [
-    [require.resolve("@babel/preset-env"), { targets, modules: false }]
+    [
+      require.resolve("@babel/preset-env"),
+      {
+        targets,
+        exclude: ["transform-async-to-generator"],
+        modules: false
+      }
+    ]
   ];
+  config.plugins.push([
+    require.resolve("@babel/plugin-proposal-object-rest-spread"),
+    { loose: true, useBuiltIns: true }
+  ]);
   return config;
 }
 

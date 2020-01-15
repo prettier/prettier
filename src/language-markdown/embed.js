@@ -5,7 +5,7 @@ const support = require("../main/support");
 const {
   builders: { hardline, literalline, concat, markAsRoot },
   utils: { mapDoc }
-} = require("../doc");
+} = require("../document");
 const { getFencedCodeBlockValue } = require("./utils");
 
 function embed(path, print, textToDoc, options) {
@@ -72,7 +72,7 @@ function embed(path, print, textToDoc, options) {
     const language = supportInfo.languages.find(
       language =>
         language.name.toLowerCase() === lang ||
-        (language.aliases && language.aliases.indexOf(lang) !== -1) ||
+        (language.aliases && language.aliases.includes(lang)) ||
         (language.extensions &&
           language.extensions.find(ext => ext.substring(1) === lang))
     );

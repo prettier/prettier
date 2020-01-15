@@ -9,7 +9,7 @@ const {
   group,
   indent,
   ifBreak
-} = require("../doc").builders;
+} = require("../document").builders;
 const { hasIgnoreComment } = require("../common/util");
 const { isNextLineEmpty } = require("../common/util-shared");
 const { insertPragma } = require("./pragma");
@@ -654,7 +654,7 @@ function canAttachComment(node) {
 function printComment(commentPath) {
   const comment = commentPath.getValue();
   if (comment.kind === "Comment") {
-    return "#" + comment.value.trimRight();
+    return "#" + comment.value.trimEnd();
   }
 
   throw new Error("Not a comment: " + JSON.stringify(comment));

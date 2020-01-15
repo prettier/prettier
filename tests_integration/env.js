@@ -5,8 +5,7 @@ const isProduction = process.env.NODE_ENV === "production";
 const prettierRootDir = isProduction
   ? process.env.PRETTIER_DIR
   : path.join(__dirname, "..");
-const prettierPkg = require(path.join(prettierRootDir, "package.json"));
-const bin = prettierPkg.bin;
+const { bin } = require(path.join(prettierRootDir, "package.json"));
 const prettierCli = path.join(
   prettierRootDir,
   typeof bin === "object" ? bin.prettier : bin

@@ -1,6 +1,10 @@
 "use strict";
 
-const semver = require("semver");
+const semver = {
+  compare: require("semver/functions/compare"),
+  lt: require("semver/functions/lt"),
+  gte: require("semver/functions/gte")
+};
 const arrayify = require("../utils/arrayify");
 const currentVersion = require("../../package.json").version;
 const coreOptions = require("./core-options").options;
@@ -22,7 +26,7 @@ function getSupportInfo(version, opts) {
     version = currentVersion.split("-", 1)[0];
   }
 
-  const plugins = opts.plugins;
+  const { plugins } = opts;
 
   const options = arrayify(
     Object.assign(
@@ -36,8 +40,7 @@ function getSupportInfo(version, opts) {
     "name"
   )
     .sort((a, b) => (a.name === b.name ? 0 : a.name < b.name ? -1 : 1))
-    .filter(filterSince)
-    .filter(filterDeprecated)
+    .filter(option => filterSince(option) && filterDeprecated(option))
     .map(mapDeprecated)
     .map(mapInternal)
     .map(option => {
@@ -56,8 +59,7 @@ function getSupportInfo(version, opts) {
 
       if (Array.isArray(newOption.choices)) {
         newOption.choices = newOption.choices
-          .filter(filterSince)
-          .filter(filterDeprecated)
+          .filter(option => filterSince(option) && filterDeprecated(option))
           .map(mapDeprecated);
       }
 
@@ -96,7 +98,7 @@ function getSupportInfo(version, opts) {
       }
 
       // "babylon" was renamed to "babel" in 1.16.0
-      if (useBabylonParser && language.parsers.indexOf("babel") !== -1) {
+      if (useBabylonParser && language.parsers.includes("babel")) {
         return Object.assign({}, language, {
           parsers: language.parsers.map(parser =>
             parser === "babel" ? "babylon" : parser

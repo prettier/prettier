@@ -70,7 +70,7 @@ o.x = "...";
 Foo.prototype = {
   m: function() {
     return false;
-  }
+  },
 };
 
 var export_o: { x: any } = o; // awkward type cast

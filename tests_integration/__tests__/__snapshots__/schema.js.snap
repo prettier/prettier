@@ -331,19 +331,19 @@ in order for it to be formatted.",
           "type": "integer",
         },
         "trailingComma": Object {
-          "default": "none",
+          "default": "es5",
           "description": "Print trailing commas wherever possible when multi-line.",
           "oneOf": Array [
-            Object {
-              "description": "No trailing commas.",
-              "enum": Array [
-                "none",
-              ],
-            },
             Object {
               "description": "Trailing commas where valid in ES5 (objects, arrays, etc.)",
               "enum": Array [
                 "es5",
+              ],
+            },
+            Object {
+              "description": "No trailing commas.",
+              "enum": Array [
+                "none",
               ],
             },
             Object {

@@ -11,7 +11,7 @@
   "dependencies": {
     "clipboard": "2.0.4",
     "codemirror": "5.50.2",
-    "codemirror-graphql": "0.11.2",
+    "codemirror-graphql": "0.11.6",
     "lodash": "4.17.15",
     "lz-string": "1.4.4",
     "prop-types": "15.7.2",
@@ -19,8 +19,8 @@
     "react-dom": "16.12.0"
   },
   "devDependencies": {
-    "@babel/preset-env": "7.8.2",
-    "@babel/preset-react": "7.8.0",
+    "@babel/preset-env": "7.8.3",
+    "@babel/preset-react": "7.8.3",
     "@sandhose/prettier-animated-logo": "1.0.3",
     "babel-loader": "8.0.6",
     "concurrently": "5.0.2",

@@ -18,7 +18,7 @@ module.exports = function(babel) {
   return {
     visitor: {
       CallExpression(path) {
-        const node = path.node;
+        const { node } = path;
         if (isEvalRequire(node.callee) && node.arguments.length === 1) {
           let arg = node.arguments[0];
           if (t.isLiteral(arg) && arg.value.startsWith(".")) {
@@ -29,7 +29,7 @@ module.exports = function(babel) {
         }
       },
       MemberExpression(path) {
-        const node = path.node;
+        const { node } = path;
         if (isEvalRequire(node.object)) {
           path.replaceWith(
             t.memberExpression(
