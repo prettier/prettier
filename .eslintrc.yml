@@ -14,7 +14,7 @@ plugins:
 rules:
   curly: error
   dot-notation: error
-  eqeqeq: 
+  eqeqeq:
     - error
     - always
     - null: ignore
@@ -57,3 +57,8 @@ rules:
     - exceptRange: true
   unicorn/new-for-builtins: error
   unicorn/prefer-includes: error
+overrides:
+  - files:
+      - scripts/**/*.js
+    rules:
+      no-console: off
