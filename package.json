@@ -62,7 +62,7 @@
     "regexp-util": "1.2.2",
     "remark-math": "1.0.6",
     "remark-parse": "5.0.0",
-    "resolve": "1.13.1",
+    "resolve": "1.14.2",
     "semver": "6.3.0",
     "string-width": "4.1.0",
     "typescript": "3.7.4",
