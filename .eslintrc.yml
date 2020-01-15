@@ -14,7 +14,7 @@ plugins:
 rules:
   curly: error
   dot-notation: error
-  eqeqeq: 
+  eqeqeq:
     - error
     - always
     - null: ignore
@@ -25,6 +25,9 @@ rules:
   no-inner-declarations: error
   no-unneeded-ternary: error
   no-useless-return: error
+  no-unused-vars:
+    - error
+    - ignoreRestSiblings: true
   no-var: error
   object-shorthand: error
   one-var:
