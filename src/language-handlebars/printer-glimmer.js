@@ -624,5 +624,4 @@ function isPrettierIgnoreNode(node) {
 module.exports = {
   print,
   massageAstNode: clean
-  // hasPrettierIgnore
 };
