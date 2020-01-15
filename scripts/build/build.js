@@ -29,7 +29,7 @@ function fitTerminal(input) {
   const columns = Math.min(process.stdout.columns || 40, 80);
   const WIDTH = columns - stringWidth(OK) + 1;
   if (input.length < WIDTH) {
-    input += new Array(WIDTH - input.length).join(chalk.dim("."));
+    input += chalk.dim(".").repeat(WIDTH - input.length - 1);
   }
   return input;
 }
