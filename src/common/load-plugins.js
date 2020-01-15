@@ -82,12 +82,10 @@ function loadPlugins(plugins, pluginSearchDirs) {
     externalManualLoadPluginInfos.concat(externalAutoLoadPluginInfos),
     "requirePath"
   )
-    .map(externalPluginInfo =>
-      Object.assign(
-        { name: externalPluginInfo.name },
-        eval("require")(externalPluginInfo.requirePath)
-      )
-    )
+    .map(externalPluginInfo => ({
+      name: externalPluginInfo.name,
+      ...eval("require")(externalPluginInfo.requirePath)
+    }))
     .concat(externalPluginInstances);
 
   return internalPlugins.concat(externalPlugins);

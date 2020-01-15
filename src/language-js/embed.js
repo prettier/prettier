@@ -222,7 +222,7 @@ function escapeTemplateCharacters(doc, raw) {
       }
     });
 
-    return Object.assign({}, currentDoc, { parts });
+    return { ...currentDoc, parts };
   });
 }
 
@@ -305,9 +305,7 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
         .concat(["${", expression, "}" + suffix])
         .concat(rest);
     }
-    return Object.assign({}, doc, {
-      parts
-    });
+    return { ...doc, parts };
   });
 
   return expressions.length === replaceCounter ? newDoc : null;

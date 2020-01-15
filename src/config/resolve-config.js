@@ -58,12 +58,12 @@ const getExplorerMemoized = mem(opts => {
 /** @param {{ cache: boolean, sync: boolean }} opts */
 function getLoadFunction(opts) {
   // Normalize opts before passing to a memoized function
-  opts = Object.assign({ sync: false, cache: false }, opts);
+  opts = { sync: false, cache: false, ...opts };
   return getExplorerMemoized(opts).load;
 }
 
 function _resolveConfig(filePath, opts, sync) {
-  opts = Object.assign({ useCache: true }, opts);
+  opts = { useCache: true, ...opts };
   const loadOpts = {
     cache: !!opts.useCache,
     sync: !!sync,
@@ -76,11 +76,10 @@ function _resolveConfig(filePath, opts, sync) {
   const unwrapAndMerge = arr => {
     const result = arr[0];
     const editorConfigured = arr[1];
-    const merged = Object.assign(
-      {},
-      editorConfigured,
-      mergeOverrides(Object.assign({}, result), filePath)
-    );
+    const merged = {
+      ...editorConfigured,
+      ...mergeOverrides({ ...result }, filePath)
+    };
 
     ["plugins", "pluginSearchDirs"].forEach(optionName => {
       if (Array.isArray(merged[optionName])) {
@@ -128,7 +127,7 @@ resolveConfigFile.sync = filePath => {
 };
 
 function mergeOverrides(configResult, filePath) {
-  const options = Object.assign({}, configResult.config);
+  const options = { ...configResult.config };
   if (filePath && options.overrides) {
     const relativeFilePath = path.relative(
       path.dirname(configResult.filepath),

@@ -125,11 +125,12 @@ function optionInfoToSchema(optionInfo, { isCLI, optionInfos }) {
       SchemaConstructor = vnopts.ChoiceSchema;
       parameters.choices = optionInfo.choices.map(choiceInfo =>
         typeof choiceInfo === "object" && choiceInfo.redirect
-          ? Object.assign({}, choiceInfo, {
+          ? {
+              ...choiceInfo,
               redirect: {
                 to: { key: optionInfo.name, value: choiceInfo.redirect }
               }
-            })
+            }
           : choiceInfo
       );
       break;
@@ -201,7 +202,7 @@ function optionInfoToSchema(optionInfo, { isCLI, optionInfos }) {
           { valueSchema: SchemaConstructor.create(parameters) }
         )
       )
-    : SchemaConstructor.create(Object.assign({}, parameters, handlers));
+    : SchemaConstructor.create({ ...parameters, ...handlers });
 }
 
 function normalizeApiOptions(options, optionInfos, opts) {
@@ -209,11 +210,7 @@ function normalizeApiOptions(options, optionInfos, opts) {
 }
 
 function normalizeCliOptions(options, optionInfos, opts) {
-  return normalizeOptions(
-    options,
-    optionInfos,
-    Object.assign({ isCLI: true }, opts)
-  );
+  return normalizeOptions(options, optionInfos, { isCLI: true, ...opts });
 }
 
 module.exports = {

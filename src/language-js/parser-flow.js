@@ -30,12 +30,12 @@ function parse(text, parsers, opts) {
   }
 
   includeShebang(text, ast);
-  return postprocess(ast, Object.assign({}, opts, { originalText: text }));
+  return postprocess(ast, { ...opts, originalText: text });
 }
 
 // Export as a plugin so we can reuse the same bundle for UMD loading
 module.exports = {
   parsers: {
-    flow: Object.assign({ parse, astFormat: "estree", hasPragma }, locFns)
+    flow: { parse, astFormat: "estree", hasPragma, ...locFns }
   }
 };

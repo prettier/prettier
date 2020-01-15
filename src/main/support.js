@@ -10,15 +10,13 @@ const currentVersion = require("../../package.json").version;
 const coreOptions = require("./core-options").options;
 
 function getSupportInfo(version, opts) {
-  opts = Object.assign(
-    {
-      plugins: [],
-      showUnreleased: false,
-      showDeprecated: false,
-      showInternal: false
-    },
-    opts
-  );
+  opts = {
+    plugins: [],
+    showUnreleased: false,
+    showDeprecated: false,
+    showInternal: false,
+    ...opts
+  };
 
   if (!version) {
     // pre-release version is smaller than the normal version in semver,
@@ -44,7 +42,7 @@ function getSupportInfo(version, opts) {
     .map(mapDeprecated)
     .map(mapInternal)
     .map(option => {
-      const newOption = Object.assign({}, option);
+      const newOption = { ...option };
 
       if (Array.isArray(newOption.default)) {
         newOption.default =
@@ -87,32 +85,27 @@ function getSupportInfo(version, opts) {
     .map(language => {
       // Prevent breaking changes
       if (language.name === "Markdown") {
-        return Object.assign({}, language, {
-          parsers: ["markdown"]
-        });
+        return { ...language, parsers: ["markdown"] };
       }
       if (language.name === "TypeScript") {
-        return Object.assign({}, language, {
-          parsers: ["typescript"]
-        });
+        return { ...language, parsers: ["typescript"] };
       }
 
       // "babylon" was renamed to "babel" in 1.16.0
       if (useBabylonParser && language.parsers.includes("babel")) {
-        return Object.assign({}, language, {
+        return {
+          ...language,
           parsers: language.parsers.map(parser =>
             parser === "babel" ? "babylon" : parser
           )
-        });
+        };
       }
 
       if (
         usePostCssParser &&
         (language.name === "CSS" || language.group === "CSS")
       ) {
-        return Object.assign({}, language, {
-          parsers: ["postcss"]
-        });
+        return { ...language, parsers: ["postcss"] };
       }
       return language;
     });
@@ -137,7 +130,7 @@ function getSupportInfo(version, opts) {
     if (!object.deprecated || opts.showDeprecated) {
       return object;
     }
-    const newObject = Object.assign({}, object);
+    const newObject = { ...object };
     delete newObject.deprecated;
     delete newObject.redirect;
     return newObject;
@@ -146,7 +139,7 @@ function getSupportInfo(version, opts) {
     if (opts.showInternal) {
       return object;
     }
-    const newObject = Object.assign({}, object);
+    const newObject = { ...object };
     delete newObject.cliName;
     delete newObject.cliCategory;
     delete newObject.cliDescription;

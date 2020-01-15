@@ -20,19 +20,21 @@ const hiddenDefaults = {
 function normalize(options, opts) {
   opts = opts || {};
 
-  const rawOptions = Object.assign({}, options);
+  const rawOptions = { ...options };
 
   const supportOptions = getSupportInfo(null, {
     plugins: options.plugins,
     showUnreleased: true,
     showDeprecated: true
   }).options;
-  const defaults = supportOptions.reduce(
-    (reduced, optionInfo) =>
+  const defaults = Object.assign(
+    {},
+    ...supportOptions.map(optionInfo =>
       optionInfo.default !== undefined
-        ? Object.assign(reduced, { [optionInfo.name]: optionInfo.default })
-        : reduced,
-    Object.assign({}, hiddenDefaults)
+        ? { [optionInfo.name]: optionInfo.default }
+        : undefined
+    ),
+    hiddenDefaults
   );
 
   if (!rawOptions.parser) {
@@ -82,7 +84,7 @@ function normalize(options, opts) {
       {}
     );
 
-  const mixedDefaults = Object.assign({}, defaults, pluginDefaults);
+  const mixedDefaults = { ...defaults, ...pluginDefaults };
 
   Object.keys(mixedDefaults).forEach(k => {
     if (rawOptions[k] == null) {
@@ -94,11 +96,10 @@ function normalize(options, opts) {
     rawOptions.trailingComma = "none";
   }
 
-  return normalizer.normalizeApiOptions(
-    rawOptions,
-    supportOptions,
-    Object.assign({ passThrough: Object.keys(hiddenDefaults) }, opts)
-  );
+  return normalizer.normalizeApiOptions(rawOptions, supportOptions, {
+    passThrough: Object.keys(hiddenDefaults),
+    ...opts
+  });
 }
 
 function getPlugin(options) {
