@@ -23,7 +23,7 @@ const getExplorerMemoized = mem(opts => {
 
         if (typeof result.config !== "object") {
           throw new Error(
-            `Config is only allowed to be an object, ` +
+            "Config is only allowed to be an object, " +
               `but received ${typeof result.config} in "${result.filepath}"`
           );
         }

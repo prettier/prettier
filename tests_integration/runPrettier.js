@@ -8,7 +8,11 @@ const SynchronousPromise = require("synchronous-promise").SynchronousPromise;
 const isProduction = process.env.NODE_ENV === "production";
 const prettierRootDir = isProduction ? process.env.PRETTIER_DIR : "../";
 const prettierPkg = require(path.join(prettierRootDir, "package.json"));
-const prettierCli = path.join(prettierRootDir, prettierPkg.bin.prettier);
+const bin = prettierPkg.bin;
+const prettierCli = path.join(
+  prettierRootDir,
+  typeof bin === "object" ? bin.prettier : bin
+);
 
 const thirdParty = isProduction
   ? path.join(prettierRootDir, "./third-party")
@@ -59,7 +63,7 @@ function runPrettier(dir, args, options) {
   const origStatSync = fs.statSync;
 
   jest.spyOn(fs, "statSync").mockImplementation(filename => {
-    if (path.basename(filename) === `virtualDirectory`) {
+    if (path.basename(filename) === "virtualDirectory") {
       return origStatSync(path.join(__dirname, __filename));
     }
     return origStatSync(filename);

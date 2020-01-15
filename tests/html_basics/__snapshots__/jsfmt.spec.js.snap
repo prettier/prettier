@@ -1,5 +1,39 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`broken-html.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<!-- 
+#7241, 
+reproduction:
+two different element,
+linebreak
+\`<\`
+extra space(s)
+-->
+<div><span>
+
+
+
+<                                           
+
+=====================================output=====================================
+<!-- 
+#7241, 
+reproduction:
+two different element,
+linebreak
+\`<\`
+extra space(s)
+-->
+<div><span> < </span></div>
+
+================================================================================
+`;
+
 exports[`comment.html 1`] = `
 ====================================options=====================================
 parsers: ["html"]
