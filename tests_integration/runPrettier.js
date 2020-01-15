@@ -4,8 +4,7 @@ const fs = require("fs");
 const path = require("path");
 const stripAnsi = require("strip-ansi");
 const SynchronousPromise = require("synchronous-promise").SynchronousPromise;
-const thirdParty = require("./env").thirdParty;
-const prettierCli = require("./env").prettierCli;
+const { thirdParty, prettierCli } = require("./env");
 
 function runPrettier(dir, args, options) {
   args = args || [];
