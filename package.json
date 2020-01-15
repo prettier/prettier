@@ -91,7 +91,7 @@
     "eslint-plugin-prettier": "3.1.2",
     "eslint-plugin-react": "7.17.0",
     "eslint-plugin-unicorn": "15.0.1",
-    "execa": "3.4.0",
+    "execa": "4.0.0",
     "jest": "24.9.0",
     "jest-junit": "10.0.0",
     "jest-snapshot-serializer-ansi": "1.0.0",
