@@ -43,6 +43,7 @@ for (const file of [TEMPLATE_FILE, ...CHANGELOG_CATEGORIES]) {
 }
 
 const authorRegex = /by \[@(.*?)\]\(https:\/\/github\.com\/\1\)/;
+const titleRegex = /^#{4} (.*?)\(\[#\d{4,}]/;
 
 const template = fs.readFileSync(
   path.join(CHANGELOG_ROOT, TEMPLATE_FILE),
@@ -98,6 +99,16 @@ for (const category of CHANGELOG_CATEGORIES) {
     }
     if (!content.startsWith("#### ")) {
       showErrorMessage(`[${displayPath}]: Please use h4("####") for title.`);
+    }
+    const [, title] = content.match(titleRegex);
+    const categoryInTitle = title
+      .split(":")
+      .shift()
+      .trim();
+    if (CHANGELOG_CATEGORIES.includes(categoryInTitle.toLowerCase())) {
+      showErrorMessage(
+        `[${displayPath}]: Please remove "${categoryInTitle}:" in title.`
+      );
     }
   }
 }
