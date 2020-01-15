@@ -153,8 +153,7 @@ function fits(next, restCommands, width, options, mustBeFlat) {
       continue;
     }
 
-    const x = cmds.pop();
-    const [ind, mode, doc] = x;
+    const [ind, mode, doc] = cmds.pop();
 
     if (typeof doc === "string") {
       out.push(doc);
@@ -251,8 +250,7 @@ function printDocToString(doc, options) {
   let lineSuffix = [];
 
   while (cmds.length !== 0) {
-    const x = cmds.pop();
-    const [ind, mode, doc] = x;
+    const [ind, mode, doc] = cmds.pop();
 
     if (typeof doc === "string") {
       out.push(doc);
@@ -379,7 +377,7 @@ function printDocToString(doc, options) {
             break;
           }
 
-          const [content] = parts;
+          const [content, whitespace] = parts;
           const contentFlatCmd = [ind, MODE_FLAT, content];
           const contentBreakCmd = [ind, MODE_BREAK, content];
           const contentFits = fits(contentFlatCmd, [], rem, options, true);
@@ -393,7 +391,6 @@ function printDocToString(doc, options) {
             break;
           }
 
-          const [, whitespace] = parts;
           const whitespaceFlatCmd = [ind, MODE_FLAT, whitespace];
           const whitespaceBreakCmd = [ind, MODE_BREAK, whitespace];
 
@@ -416,7 +413,7 @@ function printDocToString(doc, options) {
           parts.splice(0, 2);
           const remainingCmd = [ind, mode, fill(parts)];
 
-          const [secondContent] = parts;
+          const secondContent = parts[0];
 
           const firstAndSecondContentFlatCmd = [
             ind,

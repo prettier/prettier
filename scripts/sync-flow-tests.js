@@ -84,7 +84,7 @@ function run(argv) {
     return 1;
   }
 
-  const [syncDir] = argv;
+  const syncDir = argv[0];
   let skipped = [];
 
   try {

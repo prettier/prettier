@@ -47,7 +47,7 @@ function print(path, options, print) {
       return group(concat(path.map(print, "body").filter(text => text !== "")));
     }
     case "ElementNode": {
-      const [tagFirstChar] = n.tag;
+      const tagFirstChar = n.tag[0];
       const isLocal = n.tag.includes(".");
       const isGlimmerComponent =
         tagFirstChar.toUpperCase() === tagFirstChar || isLocal;
