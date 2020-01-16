@@ -11,3 +11,5 @@ steps:
     displayName: "Lint docs"
   - script: yarn spellcheck
     displayName: "Spellcheck"
+  - script: yarn && echo "Listing changed files:" && git diff --name-only --exit-code && echo "No files changed during lint."
+    displayName: "Check file changes"
