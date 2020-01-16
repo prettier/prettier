@@ -340,8 +340,7 @@ printWidth: 80
   i18n="some meaning|Some description@@customIdWithDescription"
   i18n="
     some meaning|Some very long internationalization description text exceeding
-    the configured print width@@customIdWithDescription
-  "
+    the configured print width@@customIdWithDescription"
 ></div>
 
 ================================================================================
@@ -612,8 +611,7 @@ trailingComma: "es5"
   i18n="some meaning|Some description@@customIdWithDescription"
   i18n="
     some meaning|Some very long internationalization description text exceeding
-    the configured print width@@customIdWithDescription
-  "
+    the configured print width@@customIdWithDescription"
 ></div>
 
 ================================================================================
@@ -1192,17 +1190,14 @@ printWidth: 1
     formatted
   "
   i18n="
-    @@customId
-  "
+    @@customId"
   i18n="
     Some
-    description@@customIdWithDescription
-  "
+    description@@customIdWithDescription"
   i18n="
     some
     meaning|Some
-    description@@customIdWithDescription
-  "
+    description@@customIdWithDescription"
   i18n="
     some
     meaning|Some
@@ -1215,8 +1210,7 @@ printWidth: 1
     the
     configured
     print
-    width@@customIdWithDescription
-  "
+    width@@customIdWithDescription"
 ></div>
 
 ================================================================================
@@ -1487,8 +1481,7 @@ printWidth: 80
   i18n="some meaning|Some description@@customIdWithDescription"
   i18n="
     some meaning|Some very long internationalization description text exceeding
-    the configured print width@@customIdWithDescription
-  "
+    the configured print width@@customIdWithDescription"
 ></div>
 
 ================================================================================
@@ -1759,8 +1752,7 @@ printWidth: 80
   i18n="some meaning|Some description@@customIdWithDescription"
   i18n="
     some meaning|Some very long internationalization description text exceeding
-    the configured print width@@customIdWithDescription
-  "
+    the configured print width@@customIdWithDescription"
 ></div>
 
 ================================================================================
