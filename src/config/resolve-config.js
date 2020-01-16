@@ -73,9 +73,7 @@ function _resolveConfig(filePath, opts, sync) {
   const loadEditorConfig = resolveEditorConfig.getLoadFunction(loadOpts);
   const arr = [load, loadEditorConfig].map(l => l(filePath, opts.config));
 
-  const unwrapAndMerge = arr => {
-    const result = arr[0];
-    const editorConfigured = arr[1];
+  const unwrapAndMerge = ([result, editorConfigured]) => {
     const merged = Object.assign(
       {},
       editorConfigured,

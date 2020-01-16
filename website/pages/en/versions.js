@@ -21,9 +21,7 @@ const devVersion = isMasterDevVersion ? masterVersion : null;
 const latestVersion = isMasterDevVersion
   ? rootPackageJson.devDependencies.prettier
   : masterVersion;
-
-const latestDocsVersion = versions[0];
-const pastDocsVersions = versions.slice(1);
+const [latestDocsVersion, ...pastDocsVersions] = versions;
 
 function Versions(props) {
   const { config: siteConfig } = props;

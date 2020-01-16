@@ -4,18 +4,7 @@ const fs = require("fs");
 const path = require("path");
 const stripAnsi = require("strip-ansi");
 const { SynchronousPromise } = require("synchronous-promise");
-
-const isProduction = process.env.NODE_ENV === "production";
-const prettierRootDir = isProduction ? process.env.PRETTIER_DIR : "../";
-const { bin } = require(path.join(prettierRootDir, "package.json"));
-const prettierCli = path.join(
-  prettierRootDir,
-  typeof bin === "object" ? bin.prettier : bin
-);
-
-const thirdParty = isProduction
-  ? path.join(prettierRootDir, "./third-party")
-  : path.join(prettierRootDir, "./src/common/third-party");
+const { prettierCli, thirdParty } = require("./env");
 
 function runPrettier(dir, args, options) {
   args = args || [];
