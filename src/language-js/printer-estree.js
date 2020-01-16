@@ -3868,8 +3868,7 @@ function shouldGroupFirstArg(args) {
     return false;
   }
 
-  const firstArg = args[0];
-  const secondArg = args[1];
+  const [firstArg, secondArg] = args;
   return (
     (!firstArg.comments || !firstArg.comments.length) &&
     (firstArg.type === "FunctionExpression" ||

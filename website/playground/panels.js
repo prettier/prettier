@@ -13,7 +13,7 @@ class CodeMirrorPanel extends React.Component {
   }
 
   componentDidMount() {
-    const options = Object.assign({}, this.props);
+    const options = { ...this.props };
     delete options.ruler;
     delete options.rulerColor;
     delete options.value;

@@ -7,8 +7,6 @@ const locFns = require("./loc");
 const postprocess = require("./postprocess");
 
 function parse(text, parsers, opts) {
-  // Fixes Node 4 issue (#1986)
-  "use strict"; // eslint-disable-line
   // Inline the require to avoid loading all the JS if we don't use it
   const flowParser = require("flow-parser");
 

@@ -39,15 +39,12 @@ function removeIgnorableFirstLf(ast /*, options */) {
       node.children[0].type === "text" &&
       node.children[0].value[0] === "\n"
     ) {
-      const text = node.children[0];
+      const [text, ...rest] = node.children;
       return node.clone({
         children:
           text.value.length === 1
-            ? node.children.slice(1)
-            : [].concat(
-                text.clone({ value: text.value.slice(1) }),
-                node.children.slice(1)
-              )
+            ? rest
+            : [text.clone({ value: text.value.slice(1) }), ...rest]
       });
     }
     return node;
