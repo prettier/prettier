@@ -146,7 +146,7 @@ function isLastNode(path, node) {
   if (!parentNode) {
     return false;
   }
-  const nodes = parentNode.nodes;
+  const { nodes } = parentNode;
   return nodes && nodes.indexOf(node) === nodes.length - 1;
 }
 

@@ -4,12 +4,8 @@ const prettier = require("prettier/local");
 const docPrinter = prettier.doc.printer;
 const docBuilders = prettier.doc.builders;
 
-const printDocToString = docPrinter.printDocToString;
-const concat = docBuilders.concat;
-const line = docBuilders.line;
-const trim = docBuilders.trim;
-const group = docBuilders.group;
-const indent = docBuilders.indent;
+const { printDocToString } = docPrinter;
+const { concat, line, trim, group, indent } = docBuilders;
 
 // These tests don't use `runPrettier` because `trim` is not used by any
 // bundled parser (only third-party plugins).

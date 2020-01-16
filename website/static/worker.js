@@ -178,7 +178,7 @@ function handleMessage(message) {
     delete options.doc;
     delete options.output2;
 
-    var plugins = [{ parsers: parsers }];
+    var plugins = [{ parsers }];
     options.plugins = plugins;
 
     var response = {
@@ -202,7 +202,7 @@ function handleMessage(message) {
 
       if (!errored) {
         try {
-          ast = formatCode(ast, { parser: "json", plugins: plugins });
+          ast = formatCode(ast, { parser: "json", plugins });
         } catch (e) {
           ast = JSON.stringify(ast, null, 2);
         }
@@ -214,7 +214,7 @@ function handleMessage(message) {
       try {
         response.debug.doc = prettier.__debug.formatDoc(
           prettier.__debug.printToDoc(message.code, options),
-          { parser: "babel", plugins: plugins }
+          { parser: "babel", plugins }
         );
       } catch (e) {
         response.debug.doc = String(e);

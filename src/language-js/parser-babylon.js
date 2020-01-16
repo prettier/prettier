@@ -4,7 +4,7 @@
 // However, it should be named parser-babel.js in the next major release.
 
 const createError = require("../common/parser-create-error");
-const hasPragma = require("./pragma").hasPragma;
+const { hasPragma } = require("./pragma");
 const locFns = require("./loc");
 const postprocess = require("./postprocess");
 

@@ -1,6 +1,10 @@
 "use strict";
 
-const semver = require("semver");
+const semver = {
+  compare: require("semver/functions/compare"),
+  lt: require("semver/functions/lt"),
+  gte: require("semver/functions/gte")
+};
 const arrayify = require("../utils/arrayify");
 const currentVersion = require("../../package.json").version;
 const coreOptions = require("./core-options").options;
@@ -22,7 +26,7 @@ function getSupportInfo(version, opts) {
     version = currentVersion.split("-", 1)[0];
   }
 
-  const plugins = opts.plugins;
+  const { plugins } = opts;
 
   const options = arrayify(
     Object.assign(
