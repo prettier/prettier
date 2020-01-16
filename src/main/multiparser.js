@@ -17,7 +17,9 @@ function printSubtree(path, print, options, printAstToDoc) {
 
 function textToDoc(text, partialNextOptions, parentOptions, printAstToDoc) {
   const nextOptions = normalize(
-    Object.assign({}, parentOptions, partialNextOptions, {
+    {
+      ...parentOptions,
+      ...partialNextOptions,
       parentParser: parentOptions.parser,
       embeddedInHtml: !!(
         parentOptions.embeddedInHtml ||
@@ -27,7 +29,7 @@ function textToDoc(text, partialNextOptions, parentOptions, printAstToDoc) {
         parentOptions.parser === "lwc"
       ),
       originalText: text
-    }),
+    },
     { passThrough: true }
   );
 

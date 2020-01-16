@@ -206,7 +206,8 @@ function formatRange(text, opts) {
 
   const rangeResult = coreFormat(
     rangeString,
-    Object.assign({}, opts, {
+    {
+      ...opts,
       rangeStart: 0,
       rangeEnd: Infinity,
       // track the cursor offset only if it's within our range
@@ -214,7 +215,7 @@ function formatRange(text, opts) {
         opts.cursorOffset >= rangeStart && opts.cursorOffset < rangeEnd
           ? opts.cursorOffset - rangeStart
           : -1
-    }),
+    },
     alignmentSize
   );
 
@@ -390,7 +391,7 @@ module.exports = {
   // Doesn't handle shebang for now
   formatDoc(doc, opts) {
     const debug = printDocToDebug(doc);
-    opts = normalizeOptions(Object.assign({}, opts, { parser: "babel" }));
+    opts = normalizeOptions({ ...opts, parser: "babel" });
     return format(debug, opts).formatted;
   },
 
