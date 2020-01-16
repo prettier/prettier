@@ -16,8 +16,6 @@ const {
   utils: { mapDoc, stripTrailingHardline }
 } = require("../doc");
 
-const { hasNewlineInRange } = require("../common/util");
-
 function embed(path, print, textToDoc, options) {
   const node = path.getValue();
   const parent = path.getParentNode();
@@ -612,16 +610,15 @@ function printHtmlTemplateLiteral(path, print, textToDoc, parser, options) {
     }
   );
 
-  const shouldBreak = hasNewlineInRange(
-    options.originalText,
-    options.locStart(node),
-    options.locEnd(node.quasis[0])
-  );
-
-  const linebreak = shouldBreak ? hardline : softline;
+  const firstWhitespace = node.quasis[0].value.raw.match(/^\s/) ? " " : "";
+  const lastWhitespace = node.quasis[node.quasis.length - 1].value.raw.match(
+    /\s$/
+  )
+    ? " "
+    : "";
 
   return group(
-    concat(["`", indent(concat([linebreak, group(contentDoc)])), softline, "`"])
+    concat(["`", firstWhitespace, group(contentDoc), lastWhitespace, "`"])
   );
 }
 
