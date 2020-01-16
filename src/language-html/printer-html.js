@@ -83,19 +83,14 @@ function embed(path, print, textToDoc, options) {
           indent(
             concat([
               line,
-              textToDoc(
-                node.value,
-                Object.assign(
-                  {
-                    __isInHtmlInterpolation: true // to avoid unexpected `}}`
-                  },
-                  options.parser === "angular"
-                    ? { parser: "__ng_interpolation", trailingComma: "none" }
-                    : options.parser === "vue"
-                    ? { parser: "__vue_expression" }
-                    : { parser: "__js_expression" }
-                )
-              )
+              textToDoc(node.value, {
+                __isInHtmlInterpolation: true, // to avoid unexpected `}}`
+                ...(options.parser === "angular"
+                  ? { parser: "__ng_interpolation", trailingComma: "none" }
+                  : options.parser === "vue"
+                  ? { parser: "__vue_expression" }
+                  : { parser: "__js_expression" })
+              })
             ])
           ),
           node.parent.next &&
@@ -142,7 +137,7 @@ function embed(path, print, textToDoc, options) {
         node,
         (code, opts) =>
           // strictly prefer single quote to avoid unnecessary html entity escape
-          textToDoc(code, Object.assign({ __isInHtmlAttribute: true }, opts)),
+          textToDoc(code, { __isInHtmlAttribute: true, ...opts }),
         options
       );
       if (embeddedAttributeValueDoc) {
@@ -953,7 +948,7 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
   const printMaybeHug = doc => (shouldHug ? printHug(doc) : printExpand(doc));
 
   const textToDoc = (code, opts) =>
-    originalTextToDoc(code, Object.assign({ __onHtmlBindingRoot }, opts));
+    originalTextToDoc(code, { __onHtmlBindingRoot, ...opts });
 
   if (
     node.fullName === "srcset" &&
@@ -1015,7 +1010,7 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
   if (options.parser === "angular") {
     const ngTextToDoc = (code, opts) =>
       // angular does not allow trailing comma
-      textToDoc(code, Object.assign({ trailingComma: "none" }, opts));
+      textToDoc(code, { trailingComma: "none", ...opts });
 
     /**
      *     *directive="angularDirective"
