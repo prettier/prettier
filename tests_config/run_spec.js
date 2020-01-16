@@ -20,14 +20,14 @@ global.run_spec = (dirname, parsers, options) => {
     throw new Error(`No parsers were specified for ${dirname}`);
   }
 
-  const dir = fs.readdirSync(dirname, { withFileTypes: true });
-  for (const dirent of dir) {
-    const basename = dirent.name;
+  const files = fs.readdirSync(dirname, { withFileTypes: true });
+  for (const file of files) {
+    const basename = file.name;
     const filename = path.join(dirname, basename);
 
     if (
       path.extname(basename) === ".snap" ||
-      !dirent.isFile() ||
+      !file.isFile() ||
       basename[0] === "." ||
       basename === "jsfmt.spec.js"
     ) {
