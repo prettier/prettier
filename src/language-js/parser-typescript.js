@@ -2,7 +2,7 @@
 
 const createError = require("../common/parser-create-error");
 const includeShebang = require("../common/parser-include-shebang");
-const hasPragma = require("./pragma").hasPragma;
+const { hasPragma } = require("./pragma");
 const locFns = require("./loc");
 const postprocess = require("./postprocess");
 

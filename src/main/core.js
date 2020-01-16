@@ -17,7 +17,7 @@ const {
   utils: { mapDoc },
   printer: { printDocToString },
   debug: { printDocToDebug }
-} = require("../doc");
+} = require("../document");
 
 const UTF8BOM = 0xfeff;
 
@@ -72,7 +72,7 @@ function coreFormat(text, opts, addAlignmentSize) {
   addAlignmentSize = addAlignmentSize || 0;
 
   const parsed = parser.parse(text, opts);
-  const ast = parsed.ast;
+  const { ast } = parsed;
   text = parsed.text;
 
   if (opts.cursorOffset >= 0) {
@@ -183,12 +183,11 @@ function coreFormat(text, opts, addAlignmentSize) {
 
 function formatRange(text, opts) {
   const parsed = parser.parse(text, opts);
-  const ast = parsed.ast;
+  const { ast } = parsed;
   text = parsed.text;
 
   const range = rangeUtil.calculateRange(text, opts, ast);
-  const rangeStart = range.rangeStart;
-  const rangeEnd = range.rangeEnd;
+  const { rangeStart, rangeEnd } = range;
   const rangeString = text.slice(rangeStart, rangeEnd);
 
   // Try to extend the range backwards to the beginning of the line.
@@ -225,7 +224,7 @@ function formatRange(text, opts) {
   const rangeLeft = text.slice(0, rangeStart);
   const rangeRight = text.slice(rangeEnd);
 
-  let cursorOffset = opts.cursorOffset;
+  let { cursorOffset } = opts;
   if (opts.cursorOffset >= rangeEnd) {
     // handle the case where the cursor was past the end of the range
     cursorOffset =
@@ -398,7 +397,7 @@ module.exports = {
   printToDoc(text, opts) {
     opts = normalizeOptions(opts);
     const parsed = parser.parse(text, opts);
-    const ast = parsed.ast;
+    const { ast } = parsed;
     text = parsed.text;
     attachComments(text, ast, opts);
     return printAstToDoc(ast, opts);

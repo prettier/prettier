@@ -3,10 +3,10 @@
 const fs = require("fs");
 const normalizePath = require("normalize-path");
 const readlines = require("n-readlines");
-const UndefinedParserError = require("../common/errors").UndefinedParserError;
-const getSupportInfo = require("../main/support").getSupportInfo;
+const { UndefinedParserError } = require("../common/errors");
+const { getSupportInfo } = require("../main/support");
 const normalizer = require("./options-normalizer");
-const resolveParser = require("./parser").resolveParser;
+const { resolveParser } = require("./parser");
 
 const hiddenDefaults = {
   astFormat: "estree",

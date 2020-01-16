@@ -5,13 +5,12 @@ const options = require("./options");
 const createLanguage = require("../utils/create-language");
 
 const languages = [
-  createLanguage(require("linguist-languages/data/GraphQL"), data =>
-    Object.assign(data, {
-      since: "1.5.0",
-      parsers: ["graphql"],
-      vscodeLanguageIds: ["graphql"]
-    })
-  )
+  createLanguage(require("linguist-languages/data/GraphQL"), data => ({
+    ...data,
+    since: "1.5.0",
+    parsers: ["graphql"],
+    vscodeLanguageIds: ["graphql"]
+  }))
 ];
 
 const printers = {

@@ -9,7 +9,7 @@ const {
   group,
   indent,
   ifBreak
-} = require("../doc").builders;
+} = require("../document").builders;
 const { hasIgnoreComment } = require("../common/util");
 const { isNextLineEmpty } = require("../common/util-shared");
 const { insertPragma } = require("./pragma");

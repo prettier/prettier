@@ -9,7 +9,7 @@ const {
   lineSuffix,
   join,
   cursor
-} = require("../doc").builders;
+} = require("../document").builders;
 const {
   hasNewline,
   skipNewline,
@@ -139,7 +139,7 @@ function decorateComment(node, comment, options) {
     comment.enclosingNode &&
     comment.enclosingNode.type === "TemplateLiteral"
   ) {
-    const quasis = comment.enclosingNode.quasis;
+    const { quasis } = comment.enclosingNode;
     const commentIndex = findExpressionIndexForComment(
       quasis,
       comment,

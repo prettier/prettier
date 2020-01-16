@@ -25,7 +25,7 @@ const {
     ifBreak
   },
   utils: { removeLines }
-} = require("../doc");
+} = require("../document");
 
 const {
   getAncestorNode,
@@ -914,7 +914,7 @@ const STANDARD_UNIT_REGEX = /[a-zA-Z]+/g;
 const WORD_PART_REGEX = /[$@]?[a-zA-Z_\u0080-\uFFFF][\w\-\u0080-\uFFFF]*/g;
 const ADJUST_NUMBERS_REGEX = new RegExp(
   STRING_REGEX.source +
-    `|` +
+    "|" +
     `(${WORD_PART_REGEX.source})?` +
     `(${NUMBER_REGEX.source})` +
     `(${STANDARD_UNIT_REGEX.source})?`,

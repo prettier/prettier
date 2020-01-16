@@ -56,7 +56,7 @@ function skip(chars) {
       return false;
     }
 
-    const length = text.length;
+    const { length } = text;
     let cursor = index;
     while (cursor >= 0 && cursor < length) {
       const c = text.charAt(cursor);
