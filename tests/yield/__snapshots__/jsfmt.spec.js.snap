@@ -80,11 +80,25 @@ printWidth: 80
 =====================================input======================================
 function* f() {
   yield <div>generator</div>
+  yield (<div>generator</div>)
+  yield <div><p>generator</p></div>
+  yield (<div><p>generator</p></div>)
 }
 
 =====================================output=====================================
 function* f() {
   yield <div>generator</div>;
+  yield <div>generator</div>;
+  yield (
+    <div>
+      <p>generator</p>
+    </div>
+  );
+  yield (
+    <div>
+      <p>generator</p>
+    </div>
+  );
 }
 
 ================================================================================
