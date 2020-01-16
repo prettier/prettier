@@ -701,10 +701,12 @@ function printOpeningTagEnd(node) {
 }
 
 function printClosingTag(node, options) {
-  return concat([
-    node.isSelfClosing ? "" : printClosingTagStart(node, options),
-    printClosingTagEnd(node, options)
-  ]);
+  return node.endSourceSpan || node.isSelfClosing
+    ? concat([
+        node.isSelfClosing ? "" : printClosingTagStart(node, options),
+        printClosingTagEnd(node, options)
+      ])
+    : "";
 }
 
 function printClosingTagStart(node, options) {
