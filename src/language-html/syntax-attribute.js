@@ -3,7 +3,7 @@
 const {
   builders: { concat, ifBreak, join, line }
 } = require("../document");
-const parseSrcset = require("parse-srcset");
+const parseSrcset = require("srcset").parse;
 
 function printImgSrcset(value) {
   const srcset = parseSrcset(value, {
@@ -14,15 +14,15 @@ function printImgSrcset(value) {
     }
   });
 
-  const hasW = srcset.some(src => src.w);
-  const hasH = srcset.some(src => src.h);
-  const hasX = srcset.some(src => src.d);
+  const hasW = srcset.some(src => src.width);
+  const hasH = srcset.some(src => src.height);
+  const hasX = srcset.some(src => src.density);
 
   if (hasW + hasH + hasX !== 1) {
     throw new Error("Mixed descriptor in srcset is not supported");
   }
 
-  const key = hasW ? "w" : hasH ? "h" : "d";
+  const key = hasW ? "width" : hasH ? "height" : "density";
   const unit = hasW ? "w" : hasH ? "h" : "x";
 
   const getMax = values => Math.max(...values);
