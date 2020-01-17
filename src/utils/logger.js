@@ -2,6 +2,13 @@
 
 const chalk = require("chalk");
 
+/**
+ * @typedef {'silent' | 'debug' | 'log' | 'warn' | 'error'} LogLevel
+ */
+
+/**
+ * @param {LogLevel} logLevel
+ */
 function createLogger(logLevel) {
   return {
     warn: createLogFunc("warn", "yellow"),
@@ -10,6 +17,11 @@ function createLogger(logLevel) {
     log: createLogFunc("log")
   };
 
+  /**
+   * @param {string} loggerName
+   * @param {string=} color
+   * @returns {(message: string, opts?: { newline?: boolean }) => void}
+   */
   function createLogFunc(loggerName, color) {
     if (!shouldLog(loggerName)) {
       return () => {};
@@ -23,6 +35,9 @@ function createLogger(logLevel) {
     };
   }
 
+  /**
+   * @param {string} loggerName
+   */
   function shouldLog(loggerName) {
     switch (logLevel) {
       case "silent":
