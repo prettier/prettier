@@ -221,8 +221,14 @@ function print(path, options, print) {
     case "ConcatStatement": {
       return concat([
         '"',
-        concat(
-          path.map(partPath => print(partPath), "parts").filter(a => a !== "")
+        group(
+          indent(
+            concat(
+              path
+                .map(partPath => print(partPath), "parts")
+                .filter(a => a !== "")
+            )
+          )
         ),
         '"'
       ]);
@@ -239,9 +245,13 @@ function print(path, options, print) {
       const isLastElement = !getNextNode(path);
       const isWhitespaceOnly = !/\S/.test(n.chars);
       const lineBreaksCount = countNewLines(n.chars);
-      const hasBlockParent = path.getParentNode(0).type === "Block";
-      const hasElementParent = path.getParentNode(0).type === "ElementNode";
-      const hasTemplateParent = path.getParentNode(0).type === "Template";
+      const parentNode = path.getParentNode(0);
+      const hasBlockParent = parentNode.type === "Block";
+      const hasElementParent = parentNode.type === "ElementNode";
+      const hasTemplateParent = parentNode.type === "Template";
+      const hasConcatStatementParent = parentNode.type === "ConcatStatement";
+      const pp = path.getParentNode(1);
+      const isInAttrNode = pp && pp.type === "AttrNode";
 
       let leadingLineBreaksCount = countLeadingNewLines(n.chars);
       let trailingLineBreaksCount = countTrailingNewLines(n.chars);
@@ -249,7 +259,10 @@ function print(path, options, print) {
       if (
         (isFirstElement || isLastElement) &&
         isWhitespaceOnly &&
-        (hasBlockParent || hasElementParent || hasTemplateParent)
+        (hasBlockParent ||
+          hasElementParent ||
+          hasTemplateParent ||
+          hasConcatStatementParent)
       ) {
         return "";
       }
@@ -278,29 +291,28 @@ function print(path, options, print) {
 
       let leadingSpace = "";
       let trailingSpace = "";
+      let leadingLine = null;
+      let trailingLine = null;
 
-      // preserve a space inside of an attribute node where whitespace present,
-      // when next to mustache statement.
-      const inAttrNode = path.stack.indexOf("attributes") >= 0;
-      if (inAttrNode) {
-        const parentNode = path.getParentNode(0);
-        const isConcat = parentNode.type === "ConcatStatement";
-        if (isConcat) {
-          const parts = parentNode.parts;
-          const partIndex = parts.indexOf(n);
-          if (partIndex > 0) {
-            const partType = parts[partIndex - 1].type;
-            const isMustache = partType === "MustacheStatement";
-            if (isMustache) {
-              leadingSpace = " ";
-            }
+      // In attribute node, preserve space/line break before and after mustache statements.
+      if (isInAttrNode) {
+        if (hasConcatStatementParent) {
+          if (isWhitespaceOnly) {
+            return line;
           }
-          if (partIndex < parts.length - 1) {
-            const partType = parts[partIndex + 1].type;
-            const isMustache = partType === "MustacheStatement";
-            if (isMustache) {
-              trailingSpace = " ";
-            }
+          const previousNode = getPreviousNode(path);
+          const isAfterMustache =
+            previousNode && previousNode.type === "MustacheStatement";
+          const startsWithWhitespace = /^\s/.test(n.chars);
+          if (isAfterMustache && startsWithWhitespace) {
+            leadingLine = line;
+          }
+          const nextNode = getNextNode(path);
+          const isBeforeMustache =
+            nextNode && nextNode.type === "MustacheStatement";
+          const endsWithWhitespace = /\s$/.test(n.chars);
+          if (isBeforeMustache && endsWithWhitespace) {
+            trailingLine = line;
           }
         }
       } else {
@@ -332,9 +344,11 @@ function print(path, options, print) {
       return concat(
         [
           ...generateHardlines(leadingLineBreaksCount, maxLineBreaksToPreserve),
+          leadingLine,
           n.chars
             .replace(/^[\s ]+/g, leadingSpace)
             .replace(/[\s ]+$/, trailingSpace),
+          trailingLine,
           ...generateHardlines(trailingLineBreaksCount, maxLineBreaksToPreserve)
         ].filter(Boolean)
       );
@@ -501,7 +515,8 @@ function getPreviousNode(path, lookBack = 1) {
   const node = path.getValue();
   const parentNode = path.getParentNode(0);
 
-  const children = parentNode && (parentNode.children || parentNode.body);
+  const children =
+    parentNode && (parentNode.children || parentNode.body || parentNode.parts);
   if (children) {
     const nodeIndex = children.indexOf(node);
     if (nodeIndex > 0) {
@@ -515,7 +530,7 @@ function getNextNode(path) {
   const node = path.getValue();
   const parentNode = path.getParentNode(0);
 
-  const children = parentNode.children || parentNode.body;
+  const children = parentNode.children || parentNode.body || parentNode.parts;
   if (children) {
     const nodeIndex = children.indexOf(node);
     if (nodeIndex < children.length) {
