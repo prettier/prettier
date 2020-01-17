@@ -27,43 +27,33 @@ function getSupportInfo(version, opts) {
   const { plugins } = opts;
 
   const options = arrayify(
-    Object.assign(
-      plugins.reduce(
-        (currentOptions, plugin) =>
-          Object.assign(currentOptions, plugin.options),
-        {}
-      ),
-      coreOptions
-    ),
+    Object.assign({}, ...plugins.map(({ options }) => options), coreOptions),
     "name"
   )
-    .sort((a, b) => (a.name === b.name ? 0 : a.name < b.name ? -1 : 1))
     .filter(option => filterSince(option) && filterDeprecated(option))
+    .sort((a, b) => (a.name === b.name ? 0 : a.name < b.name ? -1 : 1))
     .map(mapDeprecated)
     .map(mapInternal)
     .map(option => {
-      const newOption = { ...option };
+      option = { ...option };
 
-      if (Array.isArray(newOption.default)) {
-        newOption.default =
-          newOption.default.length === 1
-            ? newOption.default[0].value
-            : newOption.default
+      if (Array.isArray(option.default)) {
+        option.default =
+          option.default.length === 1
+            ? option.default[0].value
+            : option.default
                 .filter(filterSince)
                 .sort((info1, info2) =>
                   semver.compare(info2.since, info1.since)
                 )[0].value;
       }
 
-      if (Array.isArray(newOption.choices)) {
-        newOption.choices = newOption.choices
+      if (Array.isArray(option.choices)) {
+        option.choices = option.choices
           .filter(option => filterSince(option) && filterDeprecated(option))
           .map(mapDeprecated);
       }
 
-      return newOption;
-    })
-    .map(option => {
       const filteredPlugins = plugins.filter(
         plugin =>
           plugin.defaultOptions &&
@@ -73,7 +63,7 @@ function getSupportInfo(version, opts) {
         reduced[plugin.name] = plugin.defaultOptions[option.name];
         return reduced;
       }, {});
-      return Object.assign(option, { pluginDefaults });
+      return { ...option, pluginDefaults };
     });
 
   const usePostCssParser = semver.lt(version, "1.7.1");
@@ -83,31 +73,22 @@ function getSupportInfo(version, opts) {
     .reduce((all, plugin) => all.concat(plugin.languages || []), [])
     .filter(filterSince)
     .map(language => {
+      let parsers;
       // Prevent breaking changes
-      if (language.name === "Markdown") {
-        return { ...language, parsers: ["markdown"] };
-      }
-      if (language.name === "TypeScript") {
-        return { ...language, parsers: ["typescript"] };
-      }
-
-      // "babylon" was renamed to "babel" in 1.16.0
-      if (useBabylonParser && language.parsers.includes("babel")) {
-        return {
-          ...language,
-          parsers: language.parsers.map(parser =>
-            parser === "babel" ? "babylon" : parser
-          )
-        };
-      }
-
-      if (
+      if (language.name === "Markdown" || language.name === "TypeScript") {
+        parsers = [language.name.toLowerCase()];
+        // "babylon" was renamed to "babel" in 1.16.0
+      } else if (useBabylonParser && language.parsers.includes("babel")) {
+        parsers = language.parsers.map(parser =>
+          parser === "babel" ? "babylon" : parser
+        );
+      } else if (
         usePostCssParser &&
         (language.name === "CSS" || language.group === "CSS")
       ) {
-        return { ...language, parsers: ["postcss"] };
+        parsers = ["postcss"];
       }
-      return language;
+      return parsers ? { ...language, parsers } : language;
     });
 
   return { languages, options };
@@ -130,19 +111,15 @@ function getSupportInfo(version, opts) {
     if (!object.deprecated || opts.showDeprecated) {
       return object;
     }
-    const newObject = { ...object };
-    delete newObject.deprecated;
-    delete newObject.redirect;
+
+    const { deprecated, redirect, ...newObject } = object;
     return newObject;
   }
   function mapInternal(object) {
     if (opts.showInternal) {
       return object;
     }
-    const newObject = { ...object };
-    delete newObject.cliName;
-    delete newObject.cliCategory;
-    delete newObject.cliDescription;
+    const { cliName, cliCategory, cliDescription, ...newObject } = object;
     return newObject;
   }
 }

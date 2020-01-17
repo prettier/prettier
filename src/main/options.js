@@ -29,12 +29,12 @@ function normalize(options, opts) {
   }).options;
   const defaults = Object.assign(
     {},
+    hiddenDefaults,
     ...supportOptions.map(optionInfo =>
       optionInfo.default !== undefined
         ? { [optionInfo.name]: optionInfo.default }
         : undefined
-    ),
-    hiddenDefaults
+    )
   );
 
   if (!rawOptions.parser) {
