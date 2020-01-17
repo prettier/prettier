@@ -57,6 +57,6 @@ Users.defaultProps = {
   language: "en"
 };
 
-Users.title = "Users";
+Users.title = "Who's using Prettier?";
 
 module.exports = Users;
