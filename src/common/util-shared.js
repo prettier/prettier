@@ -20,6 +20,7 @@ function getNextNonSpaceNonCommentCharacterIndex(text, node, options) {
 }
 
 module.exports = {
+  createLogger: util.createLogger,
   getMaxContinuousCount: util.getMaxContinuousCount,
   getStringWidth: util.getStringWidth,
   getAlignmentSize: util.getAlignmentSize,

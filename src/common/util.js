@@ -3,6 +3,7 @@
 const stringWidth = require("string-width");
 const escapeStringRegexp = require("escape-string-regexp");
 const getLast = require("../utils/get-last");
+const logger = require("../utils/logger");
 
 // eslint-disable-next-line no-control-regex
 const notAsciiRegex = /[^\x20-\x7F]/;
@@ -880,5 +881,6 @@ module.exports = {
   addLeadingComment,
   addDanglingComment,
   addTrailingComment,
-  isWithinParentArrayProperty
+  isWithinParentArrayProperty,
+  createLogger: logger.createLogger
 };
