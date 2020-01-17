@@ -339,11 +339,9 @@ function genericPrint(path, options, print) {
           : "",
         prevNode.type === "selector-nesting"
           ? node.value
-          : adjustNumbers(
-              isKeyframeAtRuleKeywords(path, node.value)
-                ? node.value.toLowerCase()
-                : node.value
-            )
+          : isKeyframeAtRuleKeywords(path, node.value)
+          ? node.value.toLowerCase()
+          : node.value
       ]);
     }
     case "selector-id": {

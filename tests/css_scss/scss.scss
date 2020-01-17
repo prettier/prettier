@@ -1047,3 +1047,7 @@ $my-map: (
 label {
   @include margin-bottom-1\/3;
 }
+
+// Don't lower case `BaR` #4666
+#{$FoO}-1111111111111111BaR {}
+//      ^ <- at least one number is required to reproduction
