@@ -57,4 +57,6 @@ Users.defaultProps = {
   language: "en"
 };
 
+Users.title = "Users";
+
 module.exports = Users;
