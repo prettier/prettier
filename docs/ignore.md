@@ -120,6 +120,7 @@ This type of ignore is only allowed to be used in top-level and aimed to disable
 
 ## Handlebars
 
+<!-- prettier-ignore -->
 ```hbs
 {{! prettier-ignore }}
 <div>
