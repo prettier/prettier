@@ -25,16 +25,11 @@ const remarkMath = require("remark-math");
 function createParse({ isMDX }) {
   return text => {
     const processor = unified()
-      .use(
-        remarkParse,
-        Object.assign(
-          {
-            footnotes: true,
-            commonmark: true
-          },
-          isMDX && { blocks: [mdx.BLOCKS_REGEX] }
-        )
-      )
+      .use(remarkParse, {
+        footnotes: true,
+        commonmark: true,
+        ...(isMDX && { blocks: [mdx.BLOCKS_REGEX] })
+      })
       .use(frontMatter)
       .use(remarkMath)
       .use(isMDX ? mdx.esSyntax : identity)
@@ -59,7 +54,7 @@ function htmlToJsx() {
         return node;
       }
 
-      return Object.assign({}, node, { type: "jsx" });
+      return { ...node, type: "jsx" };
     });
 }
 
@@ -107,13 +102,9 @@ const baseParser = {
   preprocess: text => text.replace(/\n\s+$/, "\n") // workaround for https://github.com/remarkjs/remark/issues/350
 };
 
-const markdownParser = Object.assign({}, baseParser, {
-  parse: createParse({ isMDX: false })
-});
+const markdownParser = { ...baseParser, parse: createParse({ isMDX: false }) };
 
-const mdxParser = Object.assign({}, baseParser, {
-  parse: createParse({ isMDX: true })
-});
+const mdxParser = { ...baseParser, parse: createParse({ isMDX: true }) };
 
 module.exports = {
   parsers: {
