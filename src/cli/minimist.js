@@ -15,16 +15,10 @@ module.exports = function(args, options) {
   const newDefaults = Object.assign(
     {},
     defaults,
-    booleanWithoutDefault.reduce(
-      (reduced, key) => Object.assign(reduced, { [key]: PLACEHOLDER }),
-      {}
-    )
+    ...booleanWithoutDefault.map(key => ({ [key]: PLACEHOLDER }))
   );
 
-  const parsed = minimist(
-    args,
-    Object.assign({}, options, { default: newDefaults })
-  );
+  const parsed = minimist(args, { ...options, default: newDefaults });
 
   return Object.keys(parsed).reduce((reduced, key) => {
     if (parsed[key] !== PLACEHOLDER) {
