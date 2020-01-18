@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`html4.01_frameset.html format 1`] = `
+exports[`html4.01_frameset.html 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -33,7 +33,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`html4.01_strict.html format 1`] = `
+exports[`html4.01_strict.html 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -66,7 +66,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`html4.01_transitional.html format 1`] = `
+exports[`html4.01_transitional.html 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -99,7 +99,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`html5.html format 1`] = `
+exports[`html5.html 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -117,7 +117,7 @@ printWidth: 80
 </html>
 
 =====================================output=====================================
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
     <title>An HTML standard template</title>
@@ -131,13 +131,88 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`xhtml1.1.html format 1`] = `
+exports[`ibm_system.html 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.ibm.com/data/dtd/v11/ibmxhtml1-transitional.dtd">
+
+=====================================output=====================================
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.ibm.com/data/dtd/v11/ibmxhtml1-transitional.dtd">
+
+================================================================================
+`;
+
+exports[`legacy_string.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+
+=====================================output=====================================
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+
+================================================================================
+`;
+
+exports[`xhtml1.0_frameset.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+
+=====================================output=====================================
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+
+================================================================================
+`;
+
+exports[`xhtml1.0_strict.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+=====================================output=====================================
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+================================================================================
+`;
+
+exports[`xhtml1.0_transitional.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+=====================================output=====================================
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+================================================================================
+`;
+
+exports[`xhtml1.1.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
@@ -161,13 +236,13 @@ printWidth: 80
 </html>
 
 =====================================output=====================================
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
     <title>XHTML markup</title>
   </head>
-  <body style="background-color: #ffffcc; color: #008800">
+  <body style="background-color:#ffffcc; color:#008800">
     <br />
     <h2 align="center">Sample XHTML page</h2>
     <br />
@@ -180,7 +255,7 @@ printWidth: 80
         vspace="20"
       />
     </div>
-    <p align="center" style="font-size: 17px">
+    <p align="center" style="font-size:17px">
       Bar Foo,<br />
       Foo,<br />
       Bar<br />
