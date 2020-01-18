@@ -6,13 +6,7 @@ const {
 const parseSrcset = require("srcset").parse;
 
 function printImgSrcset(value) {
-  const srcset = parseSrcset(value, {
-    logger: {
-      error(message) {
-        throw new Error(message);
-      }
-    }
-  });
+  const srcset = parseSrcset(value);
 
   const hasW = srcset.some(src => src.width);
   const hasH = srcset.some(src => src.height);
