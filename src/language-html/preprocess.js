@@ -375,12 +375,11 @@ function extractWhitespaces(ast /*, options*/) {
             i !== children.length - 1 &&
             children[i + 1].type === TYPE_WHITESPACE;
 
-          return newChildren.concat(
-            Object.assign({}, child, {
-              hasLeadingSpaces,
-              hasTrailingSpaces
-            })
-          );
+          return newChildren.concat({
+            ...child,
+            hasLeadingSpaces,
+            hasTrailingSpaces
+          });
         }, [])
     });
   });
@@ -442,25 +441,25 @@ function addIsSpaceSensitive(ast /*, options */) {
     return node.clone({
       children: node.children
         .map(child => {
-          return Object.assign({}, child, {
+          return {
+            ...child,
             isLeadingSpaceSensitive: isLeadingSpaceSensitiveNode(child),
             isTrailingSpaceSensitive: isTrailingSpaceSensitiveNode(child)
-          });
+          };
         })
-        .map((child, index, children) =>
-          Object.assign({}, child, {
-            isLeadingSpaceSensitive:
-              index === 0
-                ? child.isLeadingSpaceSensitive
-                : children[index - 1].isTrailingSpaceSensitive &&
-                  child.isLeadingSpaceSensitive,
-            isTrailingSpaceSensitive:
-              index === children.length - 1
-                ? child.isTrailingSpaceSensitive
-                : children[index + 1].isLeadingSpaceSensitive &&
-                  child.isTrailingSpaceSensitive
-          })
-        )
+        .map((child, index, children) => ({
+          ...child,
+          isLeadingSpaceSensitive:
+            index === 0
+              ? child.isLeadingSpaceSensitive
+              : children[index - 1].isTrailingSpaceSensitive &&
+                child.isLeadingSpaceSensitive,
+          isTrailingSpaceSensitive:
+            index === children.length - 1
+              ? child.isTrailingSpaceSensitive
+              : children[index + 1].isLeadingSpaceSensitive &&
+                child.isTrailingSpaceSensitive
+        }))
     });
   });
 }
