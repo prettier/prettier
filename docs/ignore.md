@@ -117,3 +117,17 @@ This type of ignore is only allowed to be used in top-level and aimed to disable
   }
 }
 ```
+
+## Handlebars
+
+```hbs
+{{! prettier-ignore }}
+<div>
+  "hello! my parent was ignored"
+  {{#my-crazy-component     "shall"     be="preserved"}}
+    <This
+      is  =  "also preserved as is"
+    />
+  {{/my-crazy-component}}
+</div>
+```
