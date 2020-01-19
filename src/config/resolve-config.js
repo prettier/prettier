@@ -73,12 +73,10 @@ function _resolveConfig(filePath, opts, sync) {
   const loadEditorConfig = resolveEditorConfig.getLoadFunction(loadOpts);
   const arr = [load, loadEditorConfig].map(l => l(filePath, opts.config));
 
-  const unwrapAndMerge = arr => {
-    const result = arr[0];
-    const editorConfigured = arr[1];
+  const unwrapAndMerge = ([result, editorConfigured]) => {
     const merged = {
       ...editorConfigured,
-      ...mergeOverrides({ ...result }, filePath)
+      ...mergeOverrides(result, filePath)
     };
 
     ["plugins", "pluginSearchDirs"].forEach(optionName => {
@@ -127,13 +125,11 @@ resolveConfigFile.sync = filePath => {
 };
 
 function mergeOverrides(configResult, filePath) {
-  const options = { ...configResult.config };
-  if (filePath && options.overrides) {
-    const relativeFilePath = path.relative(
-      path.dirname(configResult.filepath),
-      filePath
-    );
-    for (const override of options.overrides) {
+  const { config, filepath: configPath } = configResult || {};
+  const { overrides, ...options } = config || {};
+  if (filePath && overrides) {
+    const relativeFilePath = path.relative(path.dirname(configPath), filePath);
+    for (const override of overrides) {
       if (
         pathMatchesGlobs(
           relativeFilePath,
@@ -146,7 +142,6 @@ function mergeOverrides(configResult, filePath) {
     }
   }
 
-  delete options.overrides;
   return options;
 }
 
