@@ -1,6 +1,6 @@
 "use strict";
 
-const { concat, hardline, indent, join } = require("../doc").builders;
+const { concat, hardline, indent, join } = require("../document").builders;
 const preprocess = require("./preprocess");
 
 function genericPrint(path, options, print) {

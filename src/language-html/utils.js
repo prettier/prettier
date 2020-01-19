@@ -330,7 +330,8 @@ function hasTrailingLineBreak(node) {
     (node.next
       ? node.next.sourceSpan.start.line > node.sourceSpan.end.line
       : node.parent.type === "root" ||
-        node.parent.endSourceSpan.start.line > node.sourceSpan.end.line)
+        (node.parent.endSourceSpan &&
+          node.parent.endSourceSpan.start.line > node.sourceSpan.end.line))
   );
 }
 

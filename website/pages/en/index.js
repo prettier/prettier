@@ -364,7 +364,7 @@ const UsersSection = ({ language }) => {
     })
     .map((user, i) => {
       return (
-        <a key={i} className="growOnHover" href={user.infoLink}>
+        <a key={i} className="growOnHover alignCenter" href={user.infoLink}>
           <img className="user" src={user.greyImage} title={user.caption} />
         </a>
       );

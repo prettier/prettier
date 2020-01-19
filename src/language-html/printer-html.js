@@ -4,7 +4,7 @@ const clean = require("./clean");
 const {
   builders,
   utils: { stripTrailingHardline, mapDoc }
-} = require("../doc");
+} = require("../document");
 const {
   breakParent,
   dedentToRoot,
@@ -838,7 +838,7 @@ function printOpeningTagStartMarker(node) {
     case "ieConditionalStartComment":
       return `<!--[if ${node.condition}`;
     case "ieConditionalEndComment":
-      return `<!--<!`;
+      return "<!--<!";
     case "interpolation":
       return "{{";
     case "docType":
@@ -860,11 +860,11 @@ function printOpeningTagEndMarker(node) {
       return "]>";
     case "element":
       if (node.condition) {
-        return `><!--<![endif]-->`;
+        return "><!--<![endif]-->";
       }
     // fall through
     default:
-      return `>`;
+      return ">";
   }
 }
 
@@ -893,9 +893,9 @@ function printClosingTagEndMarker(node, options) {
   switch (node.type) {
     case "ieConditionalComment":
     case "ieConditionalEndComment":
-      return `[endif]-->`;
+      return "[endif]-->";
     case "ieConditionalStartComment":
-      return `]><!-->`;
+      return "]><!-->";
     case "interpolation":
       return "}}";
     case "element":
@@ -948,8 +948,13 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
   };
 
   const printHug = doc => group(doc);
-  const printExpand = doc =>
-    group(concat([indent(concat([softline, doc])), softline]));
+  const printExpand = (doc, canHaveTrailingWhitespace = true) =>
+    group(
+      concat([
+        indent(concat([softline, doc])),
+        canHaveTrailingWhitespace ? softline : ""
+      ])
+    );
   const printMaybeHug = doc => (shouldHug ? printHug(doc) : printExpand(doc));
 
   const textToDoc = (code, opts) =>
@@ -1048,7 +1053,11 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
     }
 
     if (isKeyMatched(ngI18nPatterns)) {
-      return printExpand(fill(getTextValueParts(node, getValue())));
+      const value = getValue().trim();
+      return printExpand(
+        fill(getTextValueParts(node, value)),
+        !value.includes("@@")
+      );
     }
 
     if (isKeyMatched(ngDirectiveBindingPatterns)) {
