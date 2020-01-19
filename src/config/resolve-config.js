@@ -76,7 +76,7 @@ function _resolveConfig(filePath, opts, sync) {
   const unwrapAndMerge = ([result, editorConfigured]) => {
     const merged = {
       ...editorConfigured,
-      ...mergeOverrides({ ...result }, filePath)
+      ...mergeOverrides(result, filePath)
     };
 
     ["plugins", "pluginSearchDirs"].forEach(optionName => {
