@@ -60,3 +60,14 @@ rules:
     - exceptRange: true
   unicorn/new-for-builtins: error
   unicorn/prefer-includes: error
+overrides:
+  - files:
+      - "{tests,tests_config,tests_integration}/**/*.js"
+    env:
+      jest: true
+  - files:
+      - tests/**/*.js
+    rules:
+      strict: off
+    globals:
+      run_spec: false

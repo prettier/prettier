@@ -943,8 +943,13 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
   };
 
   const printHug = doc => group(doc);
-  const printExpand = doc =>
-    group(concat([indent(concat([softline, doc])), softline]));
+  const printExpand = (doc, canHaveTrailingWhitespace = true) =>
+    group(
+      concat([
+        indent(concat([softline, doc])),
+        canHaveTrailingWhitespace ? softline : ""
+      ])
+    );
   const printMaybeHug = doc => (shouldHug ? printHug(doc) : printExpand(doc));
 
   const textToDoc = (code, opts) =>
@@ -1043,7 +1048,11 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
     }
 
     if (isKeyMatched(ngI18nPatterns)) {
-      return printExpand(fill(getTextValueParts(node, getValue())));
+      const value = getValue().trim();
+      return printExpand(
+        fill(getTextValueParts(node, value)),
+        !value.includes("@@")
+      );
     }
 
     if (isKeyMatched(ngDirectiveBindingPatterns)) {

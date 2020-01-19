@@ -19,7 +19,9 @@ const getCssStyleTags = property =>
 
 const CSS_DISPLAY_TAGS = {
   ...getCssStyleTags("display"),
+
   // TODO: send PR to upstream
+
   button: "inline-block",
 
   // special cases for some css display=none elements

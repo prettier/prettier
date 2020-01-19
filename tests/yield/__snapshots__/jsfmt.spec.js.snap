@@ -71,3 +71,35 @@ async function f3() {
 
 ================================================================================
 `;
+
+exports[`jsx.js 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+function* f() {
+  yield <div>generator</div>
+  yield (<div>generator</div>)
+  yield <div><p>generator</p></div>
+  yield (<div><p>generator</p></div>)
+}
+
+=====================================output=====================================
+function* f() {
+  yield <div>generator</div>;
+  yield <div>generator</div>;
+  yield (
+    <div>
+      <p>generator</p>
+    </div>
+  );
+  yield (
+    <div>
+      <p>generator</p>
+    </div>
+  );
+}
+
+================================================================================
+`;
