@@ -11,7 +11,8 @@ const {
     literalline,
     concat,
     group,
-    dedentToRoot
+    dedentToRoot,
+    ifBreak
   },
   utils: { mapDoc, stripTrailingHardline }
 } = require("../doc");
@@ -616,6 +617,18 @@ function printHtmlTemplateLiteral(path, print, textToDoc, parser, options) {
   )
     ? " "
     : "";
+
+  if (firstWhitespace && lastWhitespace) {
+    return group(
+      concat([
+        "`",
+        indent(concat([ifBreak("", " "), softline, group(contentDoc)])),
+        ifBreak("", " "),
+        softline,
+        "`"
+      ])
+    );
+  }
 
   return group(
     concat(["`", firstWhitespace, group(contentDoc), lastWhitespace, "`"])

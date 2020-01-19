@@ -99,13 +99,15 @@ class MyElement extends LitElement {
   }
 
   render() {
-    return html\` <style>
-      .mood {
-        color: green;
-      }
-    </style>
+    return html\`
+      <style>
+        .mood {
+          color: green;
+        }
+      </style>
 
-    Web Components are <span class="mood">\${this.mood}</span>! \`;
+      Web Components are <span class="mood">\${this.mood}</span>!
+    \`;
   }
 }
 
@@ -125,8 +127,10 @@ html\` <div /> \`;
 html\` <div /> \`;
 
 function HelloWorld() {
-  return html\` <h3>Bar List</h3>
-  \${bars.map(bar => html\` <p>\${bar}</p> \`)} \`;
+  return html\`
+    <h3>Bar List</h3>
+    \${bars.map(bar => html\` <p>\${bar}</p> \`)}
+  \`;
 }
 
 const trickyParens = html\`<script>
@@ -137,9 +141,11 @@ const nestedFun = /* HTML */ \`\${outerExpr(1)}
   const tpl = html\\\`<div>\\\${innerExpr(1)} \${outerExpr(2)}</div>\\\`;
 </script>\`;
 
-const closingScriptTagShouldBeEscapedProperly = /* HTML */ \` <script>
-  const html = /* HTML */ \\\`<script><\\\\/script>\\\`;
-</script> \`;
+const closingScriptTagShouldBeEscapedProperly = /* HTML */ \`
+  <script>
+    const html = /* HTML */ \\\`<script><\\\\/script>\\\`;
+  </script>
+\`;
 
 const closingScriptTag2 = /* HTML */ \`<script>
   const scriptTag = "<\\\\/script>";
