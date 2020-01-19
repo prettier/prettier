@@ -2412,12 +2412,8 @@ function printPathNoParens(path, options, print, args) {
       if (isSimple) {
         expressions = expressions.map(
           doc =>
-            printDocToString(
-              doc,
-              Object.assign({}, options, {
-                printWidth: Infinity
-              })
-            ).formatted
+            printDocToString(doc, { ...options, printWidth: Infinity })
+              .formatted
         );
       }
 
@@ -3872,8 +3868,7 @@ function shouldGroupFirstArg(args) {
     return false;
   }
 
-  const firstArg = args[0];
-  const secondArg = args[1];
+  const [firstArg, secondArg] = args;
   return (
     (!firstArg.comments || !firstArg.comments.length) &&
     (firstArg.type === "FunctionExpression" ||
@@ -3902,13 +3897,11 @@ function printJestEachTemplateLiteral(node, expressions, options) {
     const stringifiedExpressions = expressions.map(
       doc =>
         "${" +
-        printDocToString(
-          doc,
-          Object.assign({}, options, {
-            printWidth: Infinity,
-            endOfLine: "lf"
-          })
-        ).formatted +
+        printDocToString(doc, {
+          ...options,
+          printWidth: Infinity,
+          endOfLine: "lf"
+        }).formatted +
         "}"
     );
 
