@@ -3036,7 +3036,7 @@ printWidth: 80
 />123
 <div>123<meta attr />456</div>
 <p>x<span a="b"></span></p>
-<p>x<meta a/></p>
+<p>x<meta a /></p>
 <p>x<meta /></p>
 <span></span>
 
