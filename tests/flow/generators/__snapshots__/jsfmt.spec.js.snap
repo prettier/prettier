@@ -187,7 +187,7 @@ class GeneratorExamples {
     function *inner() {
       var x: number = yield; // error: string ~> number
     }
-    yield* inner();
+    yield *inner();
   }
 
   *delegate_yield_generator() {
@@ -195,7 +195,7 @@ class GeneratorExamples {
       yield "";
     }
 
-    yield* inner();
+    yield *inner();
   }
 
   *delegate_return_generator() {
@@ -203,20 +203,20 @@ class GeneratorExamples {
       return "";
     }
 
-    var x: number = yield* inner(); // error: string ~> number
+    var x: number = yield *inner(); // error: string ~> number
   }
 
   // only generators can make use of a value passed to next
   *delegate_next_iterable(xs: Array<number>) {
-    yield* xs;
+    yield *xs;
   }
 
   *delegate_yield_iterable(xs: Array<number>) {
-    yield* xs;
+    yield *xs;
   }
 
   *delegate_return_iterable(xs: Array<number>) {
-    var x: void = yield* xs; // ok: Iterator has no yield value
+    var x: void = yield *xs; // ok: Iterator has no yield value
   }
 
   *generic_yield<Y>(y: Y): Generator<Y, void, void> {
@@ -531,7 +531,7 @@ function *delegate_next_generator() {
   function *inner() {
     var x: number = yield; // error: string ~> number
   }
-  yield* inner();
+  yield *inner();
 }
 delegate_next_generator().next("");
 
@@ -540,7 +540,7 @@ function *delegate_yield_generator() {
     yield "";
   }
 
-  yield* inner();
+  yield *inner();
 }
 for (var x of delegate_yield_generator()) {
   (x: number); // error: string ~> number
@@ -551,24 +551,24 @@ function *delegate_return_generator() {
     return "";
   }
 
-  var x: number = yield* inner(); // error: string ~> number
+  var x: number = yield *inner(); // error: string ~> number
 }
 
 // only generators can make use of a value passed to next
 function *delegate_next_iterable(xs: Array<number>) {
-  yield* xs;
+  yield *xs;
 }
 delegate_next_iterable([]).next(""); // error: Iterator has no next value
 
 function *delegate_yield_iterable(xs: Array<number>) {
-  yield* xs;
+  yield *xs;
 }
 for (var x of delegate_yield_iterable([])) {
   (x: string); // error: number ~> string
 }
 
 function *delegate_return_iterable(xs: Array<number>) {
-  var x: void = yield* xs; // ok: Iterator has no yield value
+  var x: void = yield *xs; // ok: Iterator has no yield value
 }
 
 function *generic_yield<Y>(y: Y): Generator<Y, void, void> {
@@ -657,7 +657,7 @@ function *c(x: { a: void | string }): Generator<void, void, void> {
   const gen = fn();
   if (!x.a) return;
   (x.a: string); // ok
-  yield* gen;
+  yield *gen;
   (x.a: string); // error
 }
 
@@ -665,7 +665,7 @@ function *d(x: void | string): Generator<void, void, void> {
   const gen = fn();
   if (!x) return;
   (x: string); // ok
-  yield* gen;
+  yield *gen;
   (x: string); // ok
 }
 

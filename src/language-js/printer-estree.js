@@ -917,11 +917,14 @@ function printPathNoParens(path, options, print, args) {
     case "YieldExpression":
       parts.push("yield");
 
+      if (n.delegate || n.argument) {
+        parts.push(" ");
+      }
       if (n.delegate) {
         parts.push("*");
       }
       if (n.argument) {
-        parts.push(" ", path.call(print, "argument"));
+        parts.push(path.call(print, "argument"));
       }
 
       return concat(parts);

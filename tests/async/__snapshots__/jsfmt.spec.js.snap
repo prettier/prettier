@@ -19,12 +19,12 @@ class X {
 
 =====================================output=====================================
 async function *a() {
-  yield* b();
+  yield *b();
 }
 
 class X {
   async *b() {
-    yield* a();
+    yield *a();
   }
 }
 
