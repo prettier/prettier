@@ -4,7 +4,6 @@ env:
   node: true
 extends:
   - eslint:recommended
-  - plugin:react/recommended
   - plugin:prettier/recommended
 parserOptions:
   ecmaVersion: 2018
@@ -49,9 +48,6 @@ rules:
     - error
     - double
     - avoidEscape: true
-  react/display-name: off
-  react/no-deprecated: off
-  react/prop-types: off
   strict: error
   symbol-description: error
   yoda:
