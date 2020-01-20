@@ -3920,25 +3920,24 @@ function printJestEachTemplateLiteral(node, expressions, options) {
       }
     }
 
-    const maxColumnCount = tableBody.reduce(
-      (maxColumnCount, row) => Math.max(maxColumnCount, row.cells.length),
-      headerNames.length
+    const maxColumnCount = Math.max(
+      headerNames.length,
+      ...tableBody.map(row => row.cells.length)
     );
 
-    const maxColumnWidths = Array.from(new Array(maxColumnCount), () => 0);
-    const table = [{ cells: headerNames }].concat(
-      tableBody.filter(row => row.cells.length !== 0)
-    );
-    table
-      .filter(row => !row.hasLineBreak)
-      .forEach(row => {
-        row.cells.forEach((cell, index) => {
-          maxColumnWidths[index] = Math.max(
-            maxColumnWidths[index],
-            getStringWidth(cell)
-          );
-        });
+    const maxColumnWidths = Array.from({ length: maxColumnCount }).fill(0);
+    const table = [
+      { cells: headerNames },
+      ...tableBody.filter(row => row.cells.length !== 0)
+    ];
+    for (const { cells } of table.filter(row => !row.hasLineBreak)) {
+      cells.forEach((cell, index) => {
+        maxColumnWidths[index] = Math.max(
+          maxColumnWidths[index],
+          getStringWidth(cell)
+        );
       });
+    }
 
     parts.push(
       lineSuffixBoundary,
