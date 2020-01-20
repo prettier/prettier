@@ -138,7 +138,7 @@ let tests = [
 =====================================output=====================================
 // @flow
 
-function* generator(): Iterable<[string, number]> {
+function *generator(): Iterable<[string, number]> {
   while (true) {
     yield ["foo", 123];
   }
@@ -306,7 +306,7 @@ let ws2 = new WeakSet([obj, dict]);
 
 let ws3 = new WeakSet([1, 2, 3]); // error, must be objects
 
-function* generator(): Iterable<{ foo: string }> {
+function *generator(): Iterable<{ foo: string }> {
   while (true) {
     yield { foo: "bar" };
   }
@@ -314,7 +314,7 @@ function* generator(): Iterable<{ foo: string }> {
 
 let ws4 = new WeakSet(generator());
 
-function* numbers(): Iterable<number> {
+function *numbers(): Iterable<number> {
   let i = 0;
   while (true) {
     yield i++;
