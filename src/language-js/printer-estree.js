@@ -920,11 +920,14 @@ function printPathNoParens(path, options, print, args) {
     case "YieldExpression":
       parts.push("yield");
 
+      if (n.delegate || n.argument) {
+        parts.push(" ");
+      }
       if (n.delegate) {
         parts.push("*");
       }
       if (n.argument) {
-        parts.push(" ", path.call(print, "argument"));
+        parts.push(path.call(print, "argument"));
       }
 
       return concat(parts);
@@ -2415,12 +2418,8 @@ function printPathNoParens(path, options, print, args) {
       if (isSimple) {
         expressions = expressions.map(
           doc =>
-            printDocToString(
-              doc,
-              Object.assign({}, options, {
-                printWidth: Infinity
-              })
-            ).formatted
+            printDocToString(doc, { ...options, printWidth: Infinity })
+              .formatted
         );
       }
 
@@ -3904,13 +3903,11 @@ function printJestEachTemplateLiteral(node, expressions, options) {
     const stringifiedExpressions = expressions.map(
       doc =>
         "${" +
-        printDocToString(
-          doc,
-          Object.assign({}, options, {
-            printWidth: Infinity,
-            endOfLine: "lf"
-          })
-        ).formatted +
+        printDocToString(doc, {
+          ...options,
+          printWidth: Infinity,
+          endOfLine: "lf"
+        }).formatted +
         "}"
     );
 
@@ -3929,25 +3926,24 @@ function printJestEachTemplateLiteral(node, expressions, options) {
       }
     }
 
-    const maxColumnCount = tableBody.reduce(
-      (maxColumnCount, row) => Math.max(maxColumnCount, row.cells.length),
-      headerNames.length
+    const maxColumnCount = Math.max(
+      headerNames.length,
+      ...tableBody.map(row => row.cells.length)
     );
 
-    const maxColumnWidths = Array.from(new Array(maxColumnCount), () => 0);
-    const table = [{ cells: headerNames }].concat(
-      tableBody.filter(row => row.cells.length !== 0)
-    );
-    table
-      .filter(row => !row.hasLineBreak)
-      .forEach(row => {
-        row.cells.forEach((cell, index) => {
-          maxColumnWidths[index] = Math.max(
-            maxColumnWidths[index],
-            getStringWidth(cell)
-          );
-        });
+    const maxColumnWidths = Array.from({ length: maxColumnCount }).fill(0);
+    const table = [
+      { cells: headerNames },
+      ...tableBody.filter(row => row.cells.length !== 0)
+    ];
+    for (const { cells } of table.filter(row => !row.hasLineBreak)) {
+      cells.forEach((cell, index) => {
+        maxColumnWidths[index] = Math.max(
+          maxColumnWidths[index],
+          getStringWidth(cell)
+        );
       });
+    }
 
     parts.push(
       lineSuffixBoundary,
@@ -4399,13 +4395,14 @@ function printFunctionDeclaration(path, print, options) {
     parts.push("async ");
   }
 
-  parts.push("function");
+  parts.push("function ");
 
   if (n.generator) {
     parts.push("*");
   }
+
   if (n.id) {
-    parts.push(" ", path.call(print, "id"));
+    parts.push(path.call(print, "id"));
   }
 
   parts.push(

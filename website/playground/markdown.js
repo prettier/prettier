@@ -63,12 +63,11 @@ function formatCLIOptions(cliOptions) {
 
 function codeBlock(content, syntax) {
   const backtickSequences = content.match(/`+/g) || [];
-  const longestBacktickSequenceLength = Math.max.apply(
-    null,
-    backtickSequences.map(backticks => backticks.length)
+  const longestBacktickSequenceLength = Math.max(
+    ...backtickSequences.map(({ length }) => length)
   );
   const fenceLength = Math.max(3, longestBacktickSequenceLength + 1);
-  const fence = new Array(fenceLength + 1).join("`");
+  const fence = "`".repeat(fenceLength);
   return [fence + (syntax || ""), content, fence].join("\n");
 }
 

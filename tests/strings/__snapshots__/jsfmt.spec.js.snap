@@ -209,7 +209,7 @@ const x = \`a long string \${
   2 +
   3 +
   2 +
-  (function() {
+  (function () {
     return 3;
   })() +
   3 +
@@ -233,7 +233,7 @@ foo(
     2 +
     3 +
     2 +
-    (function() {
+    (function () {
       const x = 5;
 
       return x;
@@ -393,7 +393,7 @@ const x = \`a long string \${
   2 +
   3 +
   2 +
-  (function() {
+  (function () {
     return 3;
   })() +
   3 +
@@ -417,7 +417,7 @@ foo(
     2 +
     3 +
     2 +
-    (function() {
+    (function () {
       const x = 5;
 
       return x;

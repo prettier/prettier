@@ -26,7 +26,7 @@ function makeAlign(ind, n, options) {
     : !n
     ? ind
     : n.type === "root"
-    ? Object.assign({}, ind, { root: ind })
+    ? { ...ind, root: ind }
     : typeof n === "string"
     ? generateInd(ind, { type: "stringAlign", n }, options)
     : generateInd(ind, { type: "numberAlign", n }, options);
@@ -70,7 +70,7 @@ function generateInd(ind, newPart, options) {
 
   flushSpaces();
 
-  return Object.assign({}, ind, { value, length, queue });
+  return { ...ind, value, length, queue };
 
   function addTabs(count) {
     value += "\t".repeat(count);
