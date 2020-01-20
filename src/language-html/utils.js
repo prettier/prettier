@@ -501,17 +501,27 @@ function getNodeCssStyleDisplay(node, options) {
     default:
       return (
         (node.type === "element" &&
-          (!node.namespace || isInSvgForeignObject) &&
+          (!node.namespace ||
+            isInSvgForeignObject ||
+            isUnknownNamespace(node)) &&
           CSS_DISPLAY_TAGS[node.name]) ||
         CSS_DISPLAY_DEFAULT
       );
   }
 }
 
+function isUnknownNamespace(node) {
+  return (
+    node.type === "element" &&
+    !node.hasExplicitNamespace &&
+    !["html", "svg"].includes(node.namespace)
+  );
+}
+
 function getNodeCssStyleWhiteSpace(node) {
   return (
     (node.type === "element" &&
-      !node.namespace &&
+      (!node.namespace || isUnknownNamespace(node)) &&
       CSS_WHITE_SPACE_TAGS[node.name]) ||
     CSS_WHITE_SPACE_DEFAULT
   );
@@ -635,6 +645,7 @@ module.exports = {
   isTextLikeNode,
   isTrailingSpaceSensitiveNode,
   isWhitespaceSensitiveNode,
+  isUnknownNamespace,
   normalizeParts,
   preferHardlineAsLeadingSpaces,
   preferHardlineAsTrailingSpaces,
