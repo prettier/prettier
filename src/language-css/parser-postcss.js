@@ -516,11 +516,8 @@ function requireParser(isSCSSParser) {
   // TODO: Remove this hack when this issue is fixed:
   // https://github.com/shellscape/postcss-less/issues/88
   const LessParser = require("postcss-less/dist/less-parser");
-  LessParser.prototype.atrule = function() {
-    return Object.getPrototypeOf(LessParser.prototype).atrule.apply(
-      this,
-      arguments
-    );
+  LessParser.prototype.atrule = function(...args) {
+    return Object.getPrototypeOf(LessParser.prototype).atrule.apply(this, args);
   };
 
   return require("postcss-less");
