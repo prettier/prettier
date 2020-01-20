@@ -30,6 +30,10 @@ function mapObject(object, fn) {
 }
 
 function shouldPreserveContent(node, options) {
+  if (!node.endSourceSpan) {
+    return false;
+  }
+
   if (
     node.type === "element" &&
     node.fullName === "template" &&
