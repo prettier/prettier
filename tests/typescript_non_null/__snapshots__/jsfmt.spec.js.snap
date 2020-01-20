@@ -73,8 +73,8 @@ async function f() {
   return (await foo())!;
 }
 
-function* g() {
-  return (yield* foo())!;
+function *g() {
+  return (yield *foo())!;
 }
 
 const a = b()!(); // parens aren't necessary

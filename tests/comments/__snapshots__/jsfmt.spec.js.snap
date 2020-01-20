@@ -2802,7 +2802,7 @@ f3 = (
   // TODO this is a very very very very long comment that makes it go > 80 columns
 ) => {};
 
-f4 = function(
+f4 = function (
   currentRequest: { a: number }
   // TODO this is a very very very very long comment that makes it go > 80 columns
 ) {};
@@ -2995,7 +2995,7 @@ f3 = (
   // TODO this is a very very very very long comment that makes it go > 80 columns
 ) => {}
 
-f4 = function(
+f4 = function (
   currentRequest: { a: number }
   // TODO this is a very very very very long comment that makes it go > 80 columns
 ) {}

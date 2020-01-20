@@ -188,7 +188,7 @@ var obj = {
 var x: string = obj["m"](); // error, number ~> string
 
 var arr = [
-  function() {
+  function () {
     return this.length;
   },
 ];

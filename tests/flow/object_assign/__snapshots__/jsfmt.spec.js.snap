@@ -42,7 +42,7 @@ var EventEmitter = require("events").EventEmitter;
 
 // This pattern seems to cause the trouble.
 var Bad = Object.assign({}, EventEmitter.prototype, {
-  foo: function(): string {
+  foo: function (): string {
     return "hi";
   },
 });
@@ -53,7 +53,7 @@ var bad: number = Bad.foo();
 // Doesn't repro if I extend the class myself
 class MyEventEmitter extends events$EventEmitter {}
 var Good = Object.assign({}, MyEventEmitter.prototype, {
-  foo: function(): string {
+  foo: function (): string {
     return "hi";
   },
 });

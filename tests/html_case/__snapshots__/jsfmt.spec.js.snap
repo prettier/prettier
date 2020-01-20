@@ -37,7 +37,7 @@ printWidth: 80
       This is HTML5 Boilerplate.
     </p>
     <script>
-      window.ga = function() {
+      window.ga = function () {
         ga.q.push(arguments);
       };
       ga.q = [];

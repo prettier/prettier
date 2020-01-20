@@ -1,27 +1,53 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`keyvalue.js 1`] = `
+exports[`anonymous.js 1`] = `
 ====================================options=====================================
-parsers: ["flow"]
+parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-// @flow
+const f1 = function* () {
+  yield 0;
+};
+  
+const f2 = function * () {
+  yield 0;
+};
 
-let tests = [
-  function(x: { [key: number]: string }) {
-    (x[""]: number);
-  }
-];
+const f3 = function* () {
+};
+  
+(function* () {
+  yield 0;
+});
+  
+(function * () {
+  yield 0;
+});
 
+(function* () {
+});
+  
 =====================================output=====================================
-// @flow
+const f1 = function *() {
+  yield 0;
+};
 
-let tests = [
-  function (x: { [key: number]: string }) {
-    (x[""]: number);
-  },
-];
+const f2 = function *() {
+  yield 0;
+};
+
+const f3 = function *() {};
+
+(function *() {
+  yield 0;
+});
+
+(function *() {
+  yield 0;
+});
+
+(function *() {});
 
 ================================================================================
 `;
