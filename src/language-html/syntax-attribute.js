@@ -18,7 +18,7 @@ function printImgSrcset(value) {
   const hasH = srcset.some(src => src.h);
   const hasX = srcset.some(src => src.d);
 
-  if (hasW + hasH + hasX !== 1) {
+  if (hasW + hasH + hasX > 1) {
     throw new Error("Mixed descriptor in srcset is not supported");
   }
 
