@@ -62,6 +62,10 @@ rules:
   unicorn/prefer-includes: error
 overrides:
   - files:
+      - scripts/**/*.js
+    rules:
+      no-console: off
+  - files:
       - "{tests,tests_config,tests_integration}/**/*.js"
     env:
       jest: true
