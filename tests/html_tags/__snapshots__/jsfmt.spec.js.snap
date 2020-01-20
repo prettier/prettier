@@ -1858,6 +1858,11 @@ printWidth: 80
   <i class="fa fa-refresh fa-spin" />
 </span>
 
+<!-- self-closing -->
+<span><input type="checkbox"/> </span>
+<span><span><input type="checkbox"/></span></span>
+<span><input type="checkbox"/></span>
+
 =====================================output=====================================
 <br />
 <br />
@@ -2042,6 +2047,13 @@ printWidth: 80
   <i class="fa fa-refresh fa-spin" />
 </span>
 
+<!-- self-closing -->
+<span><input type="checkbox" /> </span>
+<span
+  ><span><input type="checkbox" /></span
+></span>
+<span><input type="checkbox" /></span>
+
 ================================================================================
 `;
 
@@ -2166,6 +2178,11 @@ printWidth: 1
   <i class="fa fa-refresh fa-spin" />
   <i class="fa fa-refresh fa-spin" />
 </span>
+
+<!-- self-closing -->
+<span><input type="checkbox"/> </span>
+<span><span><input type="checkbox"/></span></span>
+<span><input type="checkbox"/></span>
 
 =====================================output=====================================
 <br />
@@ -2552,6 +2569,22 @@ printWidth: 1
   />
 </span>
 
+<!-- self-closing -->
+<span
+  ><input
+    type="checkbox"
+  />
+</span>
+<span
+  ><span
+    ><input
+      type="checkbox" /></span
+></span>
+<span
+  ><input
+    type="checkbox"
+/></span>
+
 ================================================================================
 `;
 
@@ -2676,6 +2709,11 @@ printWidth: Infinity
   <i class="fa fa-refresh fa-spin" />
 </span>
 
+<!-- self-closing -->
+<span><input type="checkbox"/> </span>
+<span><span><input type="checkbox"/></span></span>
+<span><input type="checkbox"/></span>
+
 =====================================output=====================================
 <br />
 <br />
@@ -2795,6 +2833,13 @@ printWidth: Infinity
   <i class="fa fa-refresh fa-spin" />
   <i class="fa fa-refresh fa-spin" />
 </span>
+
+<!-- self-closing -->
+<span><input type="checkbox" /> </span>
+<span
+  ><span><input type="checkbox" /></span
+></span>
+<span><input type="checkbox" /></span>
 
 ================================================================================
 `;
@@ -2921,6 +2966,11 @@ printWidth: 80
   <i class="fa fa-refresh fa-spin" />
   <i class="fa fa-refresh fa-spin" />
 </span>
+
+<!-- self-closing -->
+<span><input type="checkbox"/> </span>
+<span><span><input type="checkbox"/></span></span>
+<span><input type="checkbox"/></span>
 
 =====================================output=====================================
 <br />
@@ -3092,6 +3142,13 @@ printWidth: 80
   <i class="fa fa-refresh fa-spin" />
 </span>
 
+<!-- self-closing -->
+<span><input type="checkbox" /> </span>
+<span
+  ><span><input type="checkbox" /></span
+></span>
+<span><input type="checkbox" /></span>
+
 ================================================================================
 `;
 
@@ -3217,6 +3274,11 @@ printWidth: 80
   <i class="fa fa-refresh fa-spin" />
   <i class="fa fa-refresh fa-spin" />
 </span>
+
+<!-- self-closing -->
+<span><input type="checkbox"/> </span>
+<span><span><input type="checkbox"/></span></span>
+<span><input type="checkbox"/></span>
 
 =====================================output=====================================
 <br />
@@ -3430,6 +3492,13 @@ printWidth: 80
   <i class="fa fa-refresh fa-spin" />
   <i class="fa fa-refresh fa-spin" />
 </span>
+
+<!-- self-closing -->
+<span><input type="checkbox" /></span>
+<span>
+  <span><input type="checkbox" /></span>
+</span>
+<span><input type="checkbox" /></span>
 
 ================================================================================
 `;
