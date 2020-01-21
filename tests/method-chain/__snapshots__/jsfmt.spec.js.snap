@@ -1176,6 +1176,48 @@ wrapper
 ================================================================================
 `;
 
+exports[`object-literal.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+of("test")
+  .pipe(throwIfEmpty())
+  .subscribe({
+    error(err) {
+      thrown = err;
+    }
+  });
+
+of("test")
+  .pipe(throwIfEmpty())
+  .subscribe({
+    get foo() {
+      bar();
+    }
+  });
+
+=====================================output=====================================
+of("test")
+  .pipe(throwIfEmpty())
+  .subscribe({
+    error(err) {
+      thrown = err;
+    },
+  });
+
+of("test")
+  .pipe(throwIfEmpty())
+  .subscribe({
+    get foo() {
+      bar();
+    },
+  });
+
+================================================================================
+`;
+
 exports[`short-names.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
