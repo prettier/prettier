@@ -8,10 +8,10 @@ const getFileContentOrNull = require("./get-file-content-or-null");
 
 /**
  * A `RecursiveIgnorer` checks if a file should be ignored,
- * by searching `.prettierignore` in the file's directory and parent directoies.
+ * by searching `.prettierignore` in the file's directory and parent directories.
  *
  * A drop-in replacement for an `ignore()` object,
- * which must be fed rules manually instead of reading them from the filesytem.
+ * which must be fed rules manually instead of reading them from the filesystem.
  */
 class RecursiveIgnorer {
   /**
@@ -115,12 +115,13 @@ class RecursiveIgnorer {
       // If the parent directory is excluded, we are done.
       // "It is not possible to re-include a file if a parent directory of that file is excluded. Git doesn’t list excluded directories for performance reasons, so any patterns on contained files have no effect, no matter where they are defined."
       // source: https://git-scm.com/docs/gitignore
-      const parentdir = path.dirname(filepath);
-      if (parentdir !== "." && ign.ignores(parentdir)) {
+      const parentDir = path.dirname(filepath);
+      if (parentDir !== "." && ign.ignores(parentDir)) {
         return true;
       }
-      // If the file is currently ignored, test for UNignoring.
+      // If the file is currently ignored, test for un-ignoring.
       if (ignoredStatus) {
+        // cspell: disable-next
         ignoredStatus = !ign.test(filepath).unignored;
       } else {
         ignoredStatus = ign.test(filepath).ignored;
