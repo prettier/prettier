@@ -31,6 +31,7 @@ const EXTERNALS = [
   "url",
   "util",
   "readline",
+  "tty",
 
   // See comment in jest.config.js
   "graceful-fs"
