@@ -29,6 +29,10 @@ module.exports = {
     glimmer: {
       parse,
       astFormat: "glimmer",
+      // TODO: `locStart` and `locEnd` should return a number offset
+      // https://prettier.io/docs/en/plugins.html#parsers
+      // but we need access to the original text to use
+      // `loc.start` and `loc.end` objects to calculate the offset
       locStart(node) {
         return node.loc && node.loc.start;
       },
