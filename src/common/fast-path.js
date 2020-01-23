@@ -56,10 +56,7 @@ FastPath.prototype.getParentNode = function getParentNode(count) {
 // reference to this (modified) FastPath object. Note that the stack will
 // be restored to its original state after the callback is finished, so it
 // is probably a mistake to retain a reference to the path.
-FastPath.prototype.call = function call(
-  callback,
-  /* name1, name2, ... */ ...names
-) {
+FastPath.prototype.call = function call(callback, ...names) {
   const s = this.stack;
   const origLen = s.length;
   let value = s[origLen - 1];
@@ -86,10 +83,7 @@ FastPath.prototype.callParent = function callParent(callback, count) {
 // accessing this.getValue()[name1][name2]... should be array-like. The
 // callback will be called with a reference to this path object for each
 // element of the array.
-FastPath.prototype.each = function each(
-  callback,
-  /* name1, name2, ... */ ...names
-) {
+FastPath.prototype.each = function each(callback, ...names) {
   const s = this.stack;
   const origLen = s.length;
   let value = s[origLen - 1];
@@ -117,10 +111,7 @@ FastPath.prototype.each = function each(
 // Similar to FastPath.prototype.each, except that the results of the
 // callback function invocations are stored in an array and returned at
 // the end of the iteration.
-FastPath.prototype.map = function map(
-  callback,
-  /* name1, name2, ... */ ...names
-) {
+FastPath.prototype.map = function map(callback, ...names) {
   const s = this.stack;
   const origLen = s.length;
   let value = s[origLen - 1];
@@ -153,7 +144,7 @@ FastPath.prototype.map = function map(
  *   | undefined
  * )} predicates
  */
-FastPath.prototype.match = function match(/* predicates */ ...predicates) {
+FastPath.prototype.match = function match(...predicates) {
   let stackPointer = this.stack.length - 1;
 
   let name = null;
