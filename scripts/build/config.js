@@ -127,12 +127,13 @@ const parsers = [
       ]
     }
   }
-].map(parser => {
-  const name = getFileOutput(parser)
+].map(parser => ({
+  ...parser,
+  type: "plugin",
+  name: getFileOutput(parser)
     .replace(/\.js$/, "")
-    .split("-")[1];
-  return Object.assign(parser, { type: "plugin", name });
-});
+    .split("-")[1]
+}));
 
 /** @type {Bundle[]} */
 const coreBundles = [
@@ -147,7 +148,7 @@ const coreBundles = [
     }
   },
   {
-    input: "src/doc/index.js",
+    input: "src/document/index.js",
     name: "doc",
     type: "core",
     output: "doc.js",
@@ -185,6 +186,7 @@ function getFileOutput(bundle) {
   return bundle.output || path.basename(bundle.input);
 }
 
-module.exports = coreBundles
-  .concat(parsers)
-  .map(bundle => Object.assign(bundle, { output: getFileOutput(bundle) }));
+module.exports = coreBundles.concat(parsers).map(bundle => ({
+  ...bundle,
+  output: getFileOutput(bundle)
+}));

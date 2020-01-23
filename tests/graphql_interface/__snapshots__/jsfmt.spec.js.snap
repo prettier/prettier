@@ -105,7 +105,7 @@ type MixedArtist implements Node, Entity & Releasable {
 }
 
 =====================================output=====================================
-type MixedArtist implements Node & Entity & Releasable {
+type MixedArtist implements Node, Entity & Releasable {
   # The ID of an object
   id: ID!
 
@@ -180,6 +180,75 @@ type OldArtist implements Node, Entity {
     after: String
     first: Int
   ): ReleaseConnection
+}
+
+================================================================================
+`;
+
+exports[`separator-detection.graphql 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type Type1 implements A, B, C, D
+# {&&&&&&&&
+# Should separate by \`,\` not \`&\`
+{a: a}
+
+type Type2 implements A, B, C, D
+# &&&&{}&&&&
+# Should separate by \`,\` not \`&\`
+{a: a}
+
+type Type3 implements A, 
+# &&&&&&&& comment line 1
+   # &&&&&&&& comment line 2
+B& C, D
+{a: a}
+
+type Type4 implements A
+# &&&&&&&& comment line 1
+, 
+   # &&&&&&&& comment line 2
+B& C, D
+{a: a}
+
+type Type5 implements A 
+# &&&&&&&& comment line 1
+   # &&&&&&&& comment line 2
+,B& C, D
+{a: a}
+
+=====================================output=====================================
+type Type1 implements A, B, C, D {
+  # {&&&&&&&&
+  # Should separate by \`,\` not \`&\`
+  a: a
+}
+
+type Type2 implements A, B, C, D {
+  # &&&&{}&&&&
+  # Should separate by \`,\` not \`&\`
+  a: a
+}
+
+type Type3 implements A, # &&&&&&&& comment line 1
+# &&&&&&&& comment line 2
+B & C, D {
+  a: a
+}
+
+type Type4 implements A, # &&&&&&&& comment line 1
+# &&&&&&&& comment line 2
+B & C, D {
+  a: a
+}
+
+type Type5 implements A, # &&&&&&&& comment line 1
+# &&&&&&&& comment line 2
+B & C, D {
+  a: a
 }
 
 ================================================================================

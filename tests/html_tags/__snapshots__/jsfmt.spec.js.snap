@@ -815,6 +815,10 @@ ___________________________
 </pre>
 </details>
 
+<!-- #6028 -->
+<pre><br></pre>
+<pre><hr></pre>
+
 =====================================output=====================================
 <pre>
 --------------------------------------------------------------------------------
@@ -916,6 +920,10 @@ ___________________________
 </pre>
 </details>
 
+<!-- #6028 -->
+<pre><br /></pre>
+<pre><hr /></pre>
+
 ================================================================================
 `;
 
@@ -1014,6 +1022,10 @@ ___________________________
   <!--Comments-->
 </pre>
 </details>
+
+<!-- #6028 -->
+<pre><br></pre>
+<pre><hr></pre>
 
 =====================================output=====================================
 <pre>
@@ -1140,6 +1152,14 @@ ___________________________
 </pre>
 </details>
 
+<!-- #6028 -->
+<pre>
+  <br
+/></pre>
+<pre>
+  <hr
+/></pre>
+
 ================================================================================
 `;
 
@@ -1238,6 +1258,10 @@ ___________________________
 </pre>
 </details>
 
+<!-- #6028 -->
+<pre><br></pre>
+<pre><hr></pre>
+
 =====================================output=====================================
 <pre>
 --------------------------------------------------------------------------------
@@ -1330,6 +1354,10 @@ ___________________________
   <!--Comments-->
 </pre>
 </details>
+
+<!-- #6028 -->
+<pre><br /></pre>
+<pre><hr /></pre>
 
 ================================================================================
 `;
@@ -1431,6 +1459,10 @@ ___________________________
 </pre>
 </details>
 
+<!-- #6028 -->
+<pre><br></pre>
+<pre><hr></pre>
+
 =====================================output=====================================
 <pre>
 --------------------------------------------------------------------------------
@@ -1531,6 +1563,10 @@ ___________________________
   <!--Comments-->
 </pre>
 </details>
+
+<!-- #6028 -->
+<pre><br /></pre>
+<pre><hr /></pre>
 
 ================================================================================
 `;
@@ -1632,6 +1668,10 @@ ___________________________
 </pre>
 </details>
 
+<!-- #6028 -->
+<pre><br></pre>
+<pre><hr></pre>
+
 =====================================output=====================================
 <pre>
 --------------------------------------------------------------------------------
@@ -1732,6 +1772,10 @@ ___________________________
   <!--Comments-->
 </pre>
 </details>
+
+<!-- #6028 -->
+<pre><br /></pre>
+<pre><hr /></pre>
 
 ================================================================================
 `;
@@ -1843,7 +1887,7 @@ printWidth: 80
 <router-outlet></router-outlet>
 <app-footer [input]="something"></app-footer>
 </div>
-<x:root><SPAN>foreign tag name should not be lower cased</SPAN></x:root>
+<x:root><SPAN>tag name in other namespace should also lower cased</SPAN></x:root>
 <div>
   Lorem ipsum dolor sit amet, consectetur adipiscing elit,
   "<strong>seddoeiusmod</strong>".
@@ -2027,7 +2071,9 @@ printWidth: 80
   <router-outlet></router-outlet>
   <app-footer [input]="something"></app-footer>
 </div>
-<x:root><SPAN>foreign tag name should not be lower cased</SPAN></x:root>
+<x:root
+  ><span>tag name in other namespace should also lower cased</span></x:root
+>
 <div>
   Lorem ipsum dolor sit amet, consectetur adipiscing elit,
   "<strong>seddoeiusmod</strong>".
@@ -2152,7 +2198,7 @@ printWidth: 1
 <router-outlet></router-outlet>
 <app-footer [input]="something"></app-footer>
 </div>
-<x:root><SPAN>foreign tag name should not be lower cased</SPAN></x:root>
+<x:root><SPAN>tag name in other namespace should also lower cased</SPAN></x:root>
 <div>
   Lorem ipsum dolor sit amet, consectetur adipiscing elit,
   "<strong>seddoeiusmod</strong>".
@@ -2505,15 +2551,16 @@ printWidth: 1
   ></app-footer>
 </div>
 <x:root
-  ><SPAN
-    >foreign
-    tag
+  ><span
+    >tag
     name
+    in
+    other
+    namespace
     should
-    not
-    be
+    also
     lower
-    cased</SPAN
+    cased</span
   ></x:root
 >
 <div>
@@ -2661,7 +2708,7 @@ printWidth: Infinity
 <router-outlet></router-outlet>
 <app-footer [input]="something"></app-footer>
 </div>
-<x:root><SPAN>foreign tag name should not be lower cased</SPAN></x:root>
+<x:root><SPAN>tag name in other namespace should also lower cased</SPAN></x:root>
 <div>
   Lorem ipsum dolor sit amet, consectetur adipiscing elit,
   "<strong>seddoeiusmod</strong>".
@@ -2782,7 +2829,7 @@ printWidth: Infinity
   <router-outlet></router-outlet>
   <app-footer [input]="something"></app-footer>
 </div>
-<x:root><SPAN>foreign tag name should not be lower cased</SPAN></x:root>
+<x:root><span>tag name in other namespace should also lower cased</span></x:root>
 <div>
   Lorem ipsum dolor sit amet, consectetur adipiscing elit, "<strong>seddoeiusmod</strong>".
 </div>
@@ -2907,7 +2954,7 @@ printWidth: 80
 <router-outlet></router-outlet>
 <app-footer [input]="something"></app-footer>
 </div>
-<x:root><SPAN>foreign tag name should not be lower cased</SPAN></x:root>
+<x:root><SPAN>tag name in other namespace should also lower cased</SPAN></x:root>
 <div>
   Lorem ipsum dolor sit amet, consectetur adipiscing elit,
   "<strong>seddoeiusmod</strong>".
@@ -3077,7 +3124,9 @@ printWidth: 80
   <router-outlet></router-outlet>
   <app-footer [input]="something"></app-footer>
 </div>
-<x:root><SPAN>foreign tag name should not be lower cased</SPAN></x:root>
+<x:root
+  ><span>tag name in other namespace should also lower cased</span></x:root
+>
 <div>
   Lorem ipsum dolor sit amet, consectetur adipiscing elit,
   "<strong>seddoeiusmod</strong>".
@@ -3203,7 +3252,7 @@ printWidth: 80
 <router-outlet></router-outlet>
 <app-footer [input]="something"></app-footer>
 </div>
-<x:root><SPAN>foreign tag name should not be lower cased</SPAN></x:root>
+<x:root><SPAN>tag name in other namespace should also lower cased</SPAN></x:root>
 <div>
   Lorem ipsum dolor sit amet, consectetur adipiscing elit,
   "<strong>seddoeiusmod</strong>".
@@ -3414,7 +3463,9 @@ printWidth: 80
   <router-outlet></router-outlet>
   <app-footer [input]="something"></app-footer>
 </div>
-<x:root><SPAN>foreign tag name should not be lower cased</SPAN></x:root>
+<x:root>
+  <span>tag name in other namespace should also lower cased</span>
+</x:root>
 <div>
   Lorem ipsum dolor sit amet, consectetur adipiscing elit, "
   <strong>seddoeiusmod</strong>

@@ -9,7 +9,7 @@ const {
   group,
   indent,
   ifBreak
-} = require("../doc").builders;
+} = require("../document").builders;
 const { hasIgnoreComment } = require("../common/util");
 const { isNextLineEmpty } = require("../common/util-shared");
 const { insertPragma } = require("./pragma");
@@ -286,15 +286,7 @@ function genericPrint(path, options, print) {
         n.interfaces.length > 0
           ? concat([
               " implements ",
-              join(
-                determineInterfaceSeparator(
-                  options.originalText.substr(
-                    options.locStart(n),
-                    options.locEnd(n)
-                  )
-                ),
-                path.map(print, "interfaces")
-              )
+              concat(printInterfaces(path, options, print))
             ])
           : "",
         printDirectives(path, print, n),
@@ -660,16 +652,35 @@ function printComment(commentPath) {
   throw new Error("Not a comment: " + JSON.stringify(comment));
 }
 
-function determineInterfaceSeparator(originalSource) {
-  const start = originalSource.indexOf("implements");
-  if (start === -1) {
-    throw new Error("Must implement interfaces: " + originalSource);
+function determineInterfaceSeparatorBetween(first, second, options) {
+  const textBetween = options.originalText
+    .slice(first.loc.end, second.loc.start)
+    .replace(/#.*/g, "")
+    .trim();
+
+  return textBetween === "," ? ", " : " & ";
+}
+function printInterfaces(path, options, print) {
+  const node = path.getNode();
+  const parts = [];
+  const { interfaces } = node;
+  const printed = path.map(node => print(node), "interfaces");
+
+  for (let index = 0; index < interfaces.length; index++) {
+    const interfaceNode = interfaces[index];
+    if (index > 0) {
+      parts.push(
+        determineInterfaceSeparatorBetween(
+          interfaces[index - 1],
+          interfaceNode,
+          options
+        )
+      );
+    }
+
+    parts.push(printed[index]);
   }
-  let end = originalSource.indexOf("{");
-  if (end === -1) {
-    end = originalSource.length;
-  }
-  return originalSource.substr(start, end).includes("&") ? " & " : ", ";
+  return parts;
 }
 
 function clean(node, newNode /*, parent*/) {

@@ -4,49 +4,47 @@
 // However, it should be named parser-babel.js in the next major release.
 
 const createError = require("../common/parser-create-error");
-const hasPragma = require("./pragma").hasPragma;
+const { hasPragma } = require("./pragma");
 const locFns = require("./loc");
 const postprocess = require("./postprocess");
 
 function babelOptions(extraOptions, extraPlugins = []) {
-  return Object.assign(
-    {
-      sourceType: "module",
-      allowAwaitOutsideFunction: true,
-      allowImportExportEverywhere: true,
-      allowReturnOutsideFunction: true,
-      allowSuperOutsideMethod: true,
-      allowUndeclaredExports: true,
-      errorRecovery: true,
-      plugins: [
-        "jsx",
-        "doExpressions",
-        "objectRestSpread",
-        "classProperties",
-        "exportDefaultFrom",
-        "exportNamespaceFrom",
-        "asyncGenerators",
-        "functionBind",
-        "functionSent",
-        "dynamicImport",
-        "numericSeparator",
-        "importMeta",
-        "optionalCatchBinding",
-        "optionalChaining",
-        "classPrivateProperties",
-        ["pipelineOperator", { proposal: "minimal" }],
-        "nullishCoalescingOperator",
-        "bigInt",
-        "throwExpressions",
-        "logicalAssignment",
-        "classPrivateMethods",
-        "v8intrinsic",
-        "partialApplication",
-        ["decorators", { decoratorsBeforeExport: false }]
-      ].concat(extraPlugins)
-    },
-    extraOptions
-  );
+  return {
+    sourceType: "module",
+    allowAwaitOutsideFunction: true,
+    allowImportExportEverywhere: true,
+    allowReturnOutsideFunction: true,
+    allowSuperOutsideMethod: true,
+    allowUndeclaredExports: true,
+    errorRecovery: true,
+    plugins: [
+      "jsx",
+      "doExpressions",
+      "objectRestSpread",
+      "classProperties",
+      "exportDefaultFrom",
+      "exportNamespaceFrom",
+      "asyncGenerators",
+      "functionBind",
+      "functionSent",
+      "dynamicImport",
+      "numericSeparator",
+      "importMeta",
+      "optionalCatchBinding",
+      "optionalChaining",
+      "classPrivateProperties",
+      ["pipelineOperator", { proposal: "minimal" }],
+      "nullishCoalescingOperator",
+      "bigInt",
+      "throwExpressions",
+      "logicalAssignment",
+      "classPrivateMethods",
+      "v8intrinsic",
+      "partialApplication",
+      ["decorators", { decoratorsBeforeExport: false }]
+    ].concat(extraPlugins),
+    ...extraOptions
+  };
 }
 
 function createParse(parseMethod, extraPlugins) {
@@ -71,7 +69,7 @@ function createParse(parseMethod, extraPlugins) {
       );
     }
     delete ast.tokens;
-    return postprocess(ast, Object.assign({}, opts, { originalText: text }));
+    return postprocess(ast, { ...opts, originalText: text });
   };
 }
 
@@ -146,9 +144,9 @@ function assertJsonNode(node, parent) {
   }
 }
 
-const babel = Object.assign({ parse, astFormat: "estree", hasPragma }, locFns);
-const babelFlow = Object.assign({}, babel, { parse: parseFlow });
-const babelExpression = Object.assign({}, babel, { parse: parseExpression });
+const babel = { parse, astFormat: "estree", hasPragma, ...locFns };
+const babelFlow = { ...babel, parse: parseFlow };
+const babelExpression = { ...babel, parse: parseExpression };
 
 // Export as a plugin so we can reuse the same bundle for UMD loading
 module.exports = {
@@ -157,19 +155,18 @@ module.exports = {
     "babel-flow": babelFlow,
     // aliased to keep backwards compatibility
     babylon: babel,
-    json: Object.assign({}, babelExpression, {
+    json: {
+      ...babelExpression,
       hasPragma() {
         return true;
       }
-    }),
+    },
     json5: babelExpression,
-    "json-stringify": Object.assign(
-      {
-        parse: parseJson,
-        astFormat: "estree-json"
-      },
-      locFns
-    ),
+    "json-stringify": {
+      parse: parseJson,
+      astFormat: "estree-json",
+      ...locFns
+    },
     /** @internal */
     __js_expression: babelExpression,
     /** for vue filter */

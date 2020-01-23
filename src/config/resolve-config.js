@@ -24,7 +24,7 @@ const getExplorerMemoized = mem(opts => {
 
         if (typeof result.config !== "object") {
           throw new Error(
-            `Config is only allowed to be an object, ` +
+            "Config is only allowed to be an object, " +
               `but received ${typeof result.config} in "${result.filepath}"`
           );
         }
@@ -58,12 +58,12 @@ const getExplorerMemoized = mem(opts => {
 /** @param {{ cache: boolean, sync: boolean }} opts */
 function getLoadFunction(opts) {
   // Normalize opts before passing to a memoized function
-  opts = Object.assign({ sync: false, cache: false }, opts);
+  opts = { sync: false, cache: false, ...opts };
   return getExplorerMemoized(opts).load;
 }
 
 function _resolveConfig(filePath, opts, sync) {
-  opts = Object.assign({ useCache: true }, opts);
+  opts = { useCache: true, ...opts };
   const loadOpts = {
     cache: !!opts.useCache,
     sync: !!sync,
@@ -73,14 +73,11 @@ function _resolveConfig(filePath, opts, sync) {
   const loadEditorConfig = resolveEditorConfig.getLoadFunction(loadOpts);
   const arr = [load, loadEditorConfig].map(l => l(filePath, opts.config));
 
-  const unwrapAndMerge = arr => {
-    const result = arr[0];
-    const editorConfigured = arr[1];
-    const merged = Object.assign(
-      {},
-      editorConfigured,
-      mergeOverrides(Object.assign({}, result), filePath)
-    );
+  const unwrapAndMerge = ([result, editorConfigured]) => {
+    const merged = {
+      ...editorConfigured,
+      ...mergeOverrides(result, filePath)
+    };
 
     ["plugins", "pluginSearchDirs"].forEach(optionName => {
       if (Array.isArray(merged[optionName])) {
@@ -128,13 +125,11 @@ resolveConfigFile.sync = filePath => {
 };
 
 function mergeOverrides(configResult, filePath) {
-  const options = Object.assign({}, configResult.config);
-  if (filePath && options.overrides) {
-    const relativeFilePath = path.relative(
-      path.dirname(configResult.filepath),
-      filePath
-    );
-    for (const override of options.overrides) {
+  const { config, filepath: configPath } = configResult || {};
+  const { overrides, ...options } = config || {};
+  if (filePath && overrides) {
+    const relativeFilePath = path.relative(path.dirname(configPath), filePath);
+    for (const override of overrides) {
       if (
         pathMatchesGlobs(
           relativeFilePath,
@@ -147,7 +142,6 @@ function mergeOverrides(configResult, filePath) {
     }
   }
 
-  delete options.overrides;
   return options;
 }
 

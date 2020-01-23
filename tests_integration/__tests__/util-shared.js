@@ -27,3 +27,23 @@ test("shared util has correct structure", () => {
   expect(typeof sharedUtil.mapDoc).toEqual("function");
   expect(typeof sharedUtil.makeString).toEqual("function");
 });
+
+test("sharedUtil.getMaxContinuousCount", () => {
+  const { getMaxContinuousCount } = sharedUtil;
+
+  expect(getMaxContinuousCount("|---|--|-|--|---|", "-")).toEqual(3);
+  expect(getMaxContinuousCount("|...|", ".")).toEqual(3);
+
+  const fixture = [
+    "([a-f])([a-f])",
+    "[a-f][a-f][a-f]",
+    "a-fa-fa-fa-f",
+    "bbbbbbbbbbbbbbbbbb" // neither `a-f` `[a-f]` `([a-f])` should matches `b`
+  ].join("");
+  expect(getMaxContinuousCount(fixture, "([a-f])")).toEqual(2);
+  expect(getMaxContinuousCount(fixture, "[a-f]")).toEqual(3);
+  expect(getMaxContinuousCount(fixture, "a-f")).toEqual(4);
+  expect(getMaxContinuousCount(fixture, "([a\\-f])")).toEqual(0);
+  expect(getMaxContinuousCount(fixture, "[a\\-f]")).toEqual(0);
+  expect(getMaxContinuousCount(fixture, "a\\-f")).toEqual(0);
+});

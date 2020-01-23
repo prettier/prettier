@@ -29,11 +29,12 @@ function isNode(value, types) {
 function mapNode(node, callback, parent) {
   return callback(
     "children" in node
-      ? Object.assign({}, node, {
+      ? {
+          ...node,
           children: node.children.map(childNode =>
             mapNode(childNode, callback, node)
           )
-        })
+        }
       : node,
     parent
   );

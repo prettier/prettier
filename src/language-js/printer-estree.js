@@ -29,7 +29,7 @@ const {
 } = require("../common/util-shared");
 const embed = require("./embed");
 const clean = require("./clean");
-const insertPragma = require("./pragma").insertPragma;
+const { insertPragma } = require("./pragma");
 const handleComments = require("./comments");
 const pathNeedsParens = require("./needs-parens");
 const {
@@ -115,7 +115,7 @@ const {
   },
   utils: { willBreak, isLineNext, isEmpty, removeLines },
   printer: { printDocToString }
-} = require("../doc");
+} = require("../document");
 
 let uid = 0;
 
@@ -917,11 +917,14 @@ function printPathNoParens(path, options, print, args) {
     case "YieldExpression":
       parts.push("yield");
 
+      if (n.delegate || n.argument) {
+        parts.push(" ");
+      }
       if (n.delegate) {
         parts.push("*");
       }
       if (n.argument) {
-        parts.push(" ", path.call(print, "argument"));
+        parts.push(path.call(print, "argument"));
       }
 
       return concat(parts);
@@ -1324,7 +1327,7 @@ function printPathNoParens(path, options, print, args) {
         path.each(childPath => {
           const node = childPath.getValue();
           propsAndLoc.push({
-            node: node,
+            node,
             printed: print(childPath),
             loc: options.locStart(node)
           });
@@ -2412,12 +2415,8 @@ function printPathNoParens(path, options, print, args) {
       if (isSimple) {
         expressions = expressions.map(
           doc =>
-            printDocToString(
-              doc,
-              Object.assign({}, options, {
-                printWidth: Infinity
-              })
-            ).formatted
+            printDocToString(doc, { ...options, printWidth: Infinity })
+              .formatted
         );
       }
 
@@ -2440,7 +2439,7 @@ function printPathNoParens(path, options, print, args) {
           // quasi literal), therefore we want to indent the JavaScript
           // expression inside at the beginning of ${ instead of the beginning
           // of the `.
-          const tabWidth = options.tabWidth;
+          const { tabWidth } = options;
           const quasi = childPath.getValue();
           const indentSize = getIndentSize(quasi.value.raw, tabWidth);
 
@@ -2790,7 +2789,7 @@ function printPathNoParens(path, options, print, args) {
         );
       }
 
-      if (n["extends"].length > 0) {
+      if (n.extends.length > 0) {
         parts.push(
           group(
             indent(
@@ -3103,7 +3102,7 @@ function printPathNoParens(path, options, print, args) {
         parts.push(" extends ", path.call(print, "constraint"));
       }
 
-      if (n["default"]) {
+      if (n.default) {
         parts.push(" = ", path.call(print, "default"));
       }
 
@@ -3724,7 +3723,7 @@ function printPropertyKey(path, options, print) {
   }
 
   const parent = path.getParentNode();
-  const key = node.key;
+  const { key } = node;
 
   if (options.quoteProps === "consistent" && !needsQuoteProps.has(parent)) {
     const objectHasStringProp = (
@@ -3771,7 +3770,7 @@ function printPropertyKey(path, options, print) {
 
 function printMethod(path, options, print) {
   const node = path.getNode();
-  const kind = node.kind;
+  const { kind } = node;
   const value = node.value || node;
   const parts = [];
 
@@ -3872,8 +3871,7 @@ function shouldGroupFirstArg(args) {
     return false;
   }
 
-  const firstArg = args[0];
-  const secondArg = args[1];
+  const [firstArg, secondArg] = args;
   return (
     (!firstArg.comments || !firstArg.comments.length) &&
     (firstArg.type === "FunctionExpression" ||
@@ -3902,13 +3900,11 @@ function printJestEachTemplateLiteral(node, expressions, options) {
     const stringifiedExpressions = expressions.map(
       doc =>
         "${" +
-        printDocToString(
-          doc,
-          Object.assign({}, options, {
-            printWidth: Infinity,
-            endOfLine: "lf"
-          })
-        ).formatted +
+        printDocToString(doc, {
+          ...options,
+          printWidth: Infinity,
+          endOfLine: "lf"
+        }).formatted +
         "}"
     );
 
@@ -3927,25 +3923,24 @@ function printJestEachTemplateLiteral(node, expressions, options) {
       }
     }
 
-    const maxColumnCount = tableBody.reduce(
-      (maxColumnCount, row) => Math.max(maxColumnCount, row.cells.length),
-      headerNames.length
+    const maxColumnCount = Math.max(
+      headerNames.length,
+      ...tableBody.map(row => row.cells.length)
     );
 
-    const maxColumnWidths = Array.from(new Array(maxColumnCount), () => 0);
-    const table = [{ cells: headerNames }].concat(
-      tableBody.filter(row => row.cells.length !== 0)
-    );
-    table
-      .filter(row => !row.hasLineBreak)
-      .forEach(row => {
-        row.cells.forEach((cell, index) => {
-          maxColumnWidths[index] = Math.max(
-            maxColumnWidths[index],
-            getStringWidth(cell)
-          );
-        });
+    const maxColumnWidths = Array.from({ length: maxColumnCount }).fill(0);
+    const table = [
+      { cells: headerNames },
+      ...tableBody.filter(row => row.cells.length !== 0)
+    ];
+    for (const { cells } of table.filter(row => !row.hasLineBreak)) {
+      cells.forEach((cell, index) => {
+        maxColumnWidths[index] = Math.max(
+          maxColumnWidths[index],
+          getStringWidth(cell)
+        );
       });
+    }
 
     parts.push(
       lineSuffixBoundary,
@@ -4397,13 +4392,14 @@ function printFunctionDeclaration(path, print, options) {
     parts.push("async ");
   }
 
-  parts.push("function");
+  parts.push("function ");
 
   if (n.generator) {
     parts.push("*");
   }
+
   if (n.id) {
-    parts.push(" ", path.call(print, "id"));
+    parts.push(path.call(print, "id"));
   }
 
   parts.push(
@@ -4453,7 +4449,7 @@ function printExportDeclaration(path, options, print) {
   const semi = options.semi ? ";" : "";
   const parts = ["export "];
 
-  const isDefault = decl["default"] || decl.type === "ExportDefaultDeclaration";
+  const isDefault = decl.default || decl.type === "ExportDefaultDeclaration";
 
   if (isDefault) {
     parts.push("default ");
@@ -4706,7 +4702,7 @@ function printClass(path, options, print) {
     parts.push(" extends ", join(", ", path.map(print, "extends")));
   }
 
-  if (n["mixins"] && n["mixins"].length > 0) {
+  if (n.mixins && n.mixins.length > 0) {
     partsGroup.push(
       line,
       "mixins ",
@@ -4714,7 +4710,7 @@ function printClass(path, options, print) {
     );
   }
 
-  if (n["implements"] && n["implements"].length > 0) {
+  if (n.implements && n.implements.length > 0) {
     partsGroup.push(
       line,
       "implements",
@@ -4812,7 +4808,7 @@ function printMemberChain(path, options, print) {
   // Here we try to retain one typed empty line after each call expression or
   // the first group whether it is in parentheses or not
   function shouldInsertEmptyLineAfter(node) {
-    const originalText = options.originalText;
+    const { originalText } = options;
     const nextCharIndex = getNextNonSpaceNonCommentCharacterIndex(
       originalText,
       node,
@@ -4822,7 +4818,7 @@ function printMemberChain(path, options, print) {
 
     // if it is cut off by a parenthesis, we only account for one typed empty
     // line after that parenthesis
-    if (nextChar == ")") {
+    if (nextChar === ")") {
       return isNextLineEmptyAfterIndex(
         originalText,
         nextCharIndex + 1,
@@ -4843,7 +4839,7 @@ function printMemberChain(path, options, print) {
         node.callee.type === "OptionalCallExpression")
     ) {
       printedNodes.unshift({
-        node: node,
+        node,
         printed: concat([
           comments.printComments(
             path,
@@ -4861,7 +4857,7 @@ function printMemberChain(path, options, print) {
       path.call(callee => rec(callee), "callee");
     } else if (isMemberish(node)) {
       printedNodes.unshift({
-        node: node,
+        node,
         needsParens: pathNeedsParens(path, options),
         printed: comments.printComments(
           path,
@@ -4876,13 +4872,13 @@ function printMemberChain(path, options, print) {
       path.call(object => rec(object), "object");
     } else if (node.type === "TSNonNullExpression") {
       printedNodes.unshift({
-        node: node,
+        node,
         printed: comments.printComments(path, () => "!", options)
       });
       path.call(expression => rec(expression), "expression");
     } else {
       printedNodes.unshift({
-        node: node,
+        node,
         printed: path.call(print)
       });
     }
@@ -5842,11 +5838,9 @@ function exprNeedsASIProtection(path, options) {
     return false;
   }
 
-  return path.call.apply(
-    path,
-    [childPath => exprNeedsASIProtection(childPath, options)].concat(
-      getLeftSidePathName(path, node)
-    )
+  return path.call(
+    childPath => exprNeedsASIProtection(childPath, options),
+    ...getLeftSidePathName(path, node)
   );
 }
 

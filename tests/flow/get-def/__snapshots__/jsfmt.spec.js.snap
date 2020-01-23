@@ -100,11 +100,11 @@ module.exports = {
 /* @flow */
 
 module.exports = {
-  iTakeAString: function(name: string): number {
+  iTakeAString: function (name: string): number {
     return 42;
   },
 
-  bar: function(): number {
+  bar: function (): number {
     return 42;
   },
 };

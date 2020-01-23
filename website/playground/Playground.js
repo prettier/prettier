@@ -90,7 +90,7 @@ class Playground extends React.Component {
 
   handleOptionValueChange(option, value) {
     this.setState(state => {
-      const options = Object.assign({}, state.options);
+      const options = { ...state.options };
 
       if (option.type === "int" && isNaN(value)) {
         delete options[option.name];
@@ -240,7 +240,7 @@ class Playground extends React.Component {
                           // parser there is an anti-pattern. Note:
                           // `JSON.stringify` omits keys whose values are
                           // `undefined`.
-                          Object.assign({}, options, { parser: undefined }),
+                          { ...options, parser: undefined },
                           null,
                           2
                         )}

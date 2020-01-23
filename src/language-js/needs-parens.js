@@ -761,7 +761,8 @@ function needsParens(path, options) {
           parent.type !== "ReturnStatement" &&
           parent.type !== "ThrowStatement" &&
           parent.type !== "TypeCastExpression" &&
-          parent.type !== "VariableDeclarator")
+          parent.type !== "VariableDeclarator" &&
+          parent.type !== "YieldExpression")
       );
     case "TypeAnnotation":
       return (
@@ -908,11 +909,9 @@ function shouldWrapFunctionForExportDefault(path, options) {
     return false;
   }
 
-  return path.call.apply(
-    path,
-    [
-      childPath => shouldWrapFunctionForExportDefault(childPath, options)
-    ].concat(getLeftSidePathName(path, node))
+  return path.call(
+    childPath => shouldWrapFunctionForExportDefault(childPath, options),
+    ...getLeftSidePathName(path, node)
   );
 }
 

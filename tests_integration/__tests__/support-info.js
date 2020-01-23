@@ -40,28 +40,22 @@ describe("CLI --support-info", () => {
 function getCoreInfo(version) {
   const supportInfo = prettier.getSupportInfo(version);
   const languages = supportInfo.languages.reduce(
-    (obj, language) =>
-      Object.assign({ [language.name]: language.parsers }, obj),
+    (obj, language) => ({ [language.name]: language.parsers, ...obj }),
     {}
   );
   const options = supportInfo.options.reduce(
-    (obj, option) =>
-      Object.assign(
-        {
-          [option.name]: Object.assign(
-            {
-              type: option.type,
-              default: option.default
-            },
-            option.type === "int"
-              ? { range: option.range }
-              : option.type === "choice"
-              ? { choices: option.choices.map(choice => choice.value) }
-              : null
-          )
-        },
-        obj
-      ),
+    (obj, option) => ({
+      [option.name]: {
+        type: option.type,
+        default: option.default,
+        ...(option.type === "int"
+          ? { range: option.range }
+          : option.type === "choice"
+          ? { choices: option.choices.map(choice => choice.value) }
+          : null)
+      },
+      ...obj
+    }),
     {}
   );
   return { languages, options };

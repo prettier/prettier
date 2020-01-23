@@ -2,10 +2,7 @@
 
 const React = require("react");
 const PropTypes = require("prop-types");
-
-const CompLibrary = require("../../core/CompLibrary.js");
-const MarkdownBlock = CompLibrary.MarkdownBlock;
-const Container = CompLibrary.Container;
+const { MarkdownBlock, Container } = require("../../core/CompLibrary.js");
 const AnimatedLogo = require("@sandhose/prettier-animated-logo");
 
 const siteConfig = require(process.cwd() + "/siteConfig.js");
@@ -364,7 +361,7 @@ const UsersSection = ({ language }) => {
     })
     .map((user, i) => {
       return (
-        <a key={i} className="growOnHover" href={user.infoLink}>
+        <a key={i} className="growOnHover alignCenter" href={user.infoLink}>
           <img className="user" src={user.greyImage} title={user.caption} />
         </a>
       );

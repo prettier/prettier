@@ -844,7 +844,7 @@ f(
   ...args
 );
 
-it("does something really long and complicated so I have to write a very long name for the test", function(done, foo) {
+it("does something really long and complicated so I have to write a very long name for the test", function (done, foo) {
   console.log("hello!");
 });
 

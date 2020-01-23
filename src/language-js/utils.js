@@ -200,7 +200,7 @@ function isTheOnlyJSXElementInMarkdown(options, path) {
 
   const parent = path.getParentNode();
 
-  return parent.type === "Program" && parent.body.length == 1;
+  return parent.type === "Program" && parent.body.length === 1;
 }
 
 // Detect an expression node representing `{" "}`
@@ -926,9 +926,7 @@ function isSimpleCallArgument(node, depth) {
   }
   if (node.type === "ObjectExpression") {
     return node.properties.every(
-      p =>
-        p.shorthand ||
-        (isSimpleCallArgument(p.key, depth) && isChildSimple(p.value))
+      p => !p.computed && (p.shorthand || (p.value && isChildSimple(p.value)))
     );
   }
   if (node.type === "ArrayExpression") {

@@ -30,6 +30,10 @@ function mapObject(object, fn) {
 }
 
 function shouldPreserveContent(node, options) {
+  if (!node.endSourceSpan) {
+    return false;
+  }
+
   if (
     node.type === "element" &&
     node.fullName === "template" &&
@@ -330,7 +334,8 @@ function hasTrailingLineBreak(node) {
     (node.next
       ? node.next.sourceSpan.start.line > node.sourceSpan.end.line
       : node.parent.type === "root" ||
-        node.parent.endSourceSpan.start.line > node.sourceSpan.end.line)
+        (node.parent.endSourceSpan &&
+          node.parent.endSourceSpan.start.line > node.sourceSpan.end.line))
   );
 }
 
@@ -384,6 +389,10 @@ function inferScriptParser(node) {
       node.attrMap.type.endsWith("importmap")
     ) {
       return "json";
+    }
+
+    if (node.attrMap.type === "text/x-handlebars-template") {
+      return "glimmer";
     }
   }
 
@@ -496,17 +505,27 @@ function getNodeCssStyleDisplay(node, options) {
     default:
       return (
         (node.type === "element" &&
-          (!node.namespace || isInSvgForeignObject) &&
+          (!node.namespace ||
+            isInSvgForeignObject ||
+            isUnknownNamespace(node)) &&
           CSS_DISPLAY_TAGS[node.name]) ||
         CSS_DISPLAY_DEFAULT
       );
   }
 }
 
+function isUnknownNamespace(node) {
+  return (
+    node.type === "element" &&
+    !node.hasExplicitNamespace &&
+    !["html", "svg"].includes(node.namespace)
+  );
+}
+
 function getNodeCssStyleWhiteSpace(node) {
   return (
     (node.type === "element" &&
-      !node.namespace &&
+      (!node.namespace || isUnknownNamespace(node)) &&
       CSS_WHITE_SPACE_TAGS[node.name]) ||
     CSS_WHITE_SPACE_DEFAULT
   );
@@ -630,6 +649,7 @@ module.exports = {
   isTextLikeNode,
   isTrailingSpaceSensitiveNode,
   isWhitespaceSensitiveNode,
+  isUnknownNamespace,
   normalizeParts,
   preferHardlineAsLeadingSpaces,
   preferHardlineAsTrailingSpaces,

@@ -4,7 +4,7 @@ const clean = require("./clean");
 const {
   builders,
   utils: { stripTrailingHardline, mapDoc }
-} = require("../doc");
+} = require("../document");
 const {
   breakParent,
   dedentToRoot,
@@ -83,19 +83,14 @@ function embed(path, print, textToDoc, options) {
           indent(
             concat([
               line,
-              textToDoc(
-                node.value,
-                Object.assign(
-                  {
-                    __isInHtmlInterpolation: true // to avoid unexpected `}}`
-                  },
-                  options.parser === "angular"
-                    ? { parser: "__ng_interpolation", trailingComma: "none" }
-                    : options.parser === "vue"
-                    ? { parser: "__vue_expression" }
-                    : { parser: "__js_expression" }
-                )
-              )
+              textToDoc(node.value, {
+                __isInHtmlInterpolation: true, // to avoid unexpected `}}`
+                ...(options.parser === "angular"
+                  ? { parser: "__ng_interpolation", trailingComma: "none" }
+                  : options.parser === "vue"
+                  ? { parser: "__vue_expression" }
+                  : { parser: "__js_expression" })
+              })
             ])
           ),
           node.parent.next &&
@@ -142,7 +137,7 @@ function embed(path, print, textToDoc, options) {
         node,
         (code, opts) =>
           // strictly prefer single quote to avoid unnecessary html entity escape
-          textToDoc(code, Object.assign({ __isInHtmlAttribute: true }, opts)),
+          textToDoc(code, { __isInHtmlAttribute: true, ...opts }),
         options
       );
       if (embeddedAttributeValueDoc) {
@@ -838,7 +833,7 @@ function printOpeningTagStartMarker(node) {
     case "ieConditionalStartComment":
       return `<!--[if ${node.condition}`;
     case "ieConditionalEndComment":
-      return `<!--<!`;
+      return "<!--<!";
     case "interpolation":
       return "{{";
     case "docType":
@@ -860,11 +855,11 @@ function printOpeningTagEndMarker(node) {
       return "]>";
     case "element":
       if (node.condition) {
-        return `><!--<![endif]-->`;
+        return "><!--<![endif]-->";
       }
     // fall through
     default:
-      return `>`;
+      return ">";
   }
 }
 
@@ -893,9 +888,9 @@ function printClosingTagEndMarker(node, options) {
   switch (node.type) {
     case "ieConditionalComment":
     case "ieConditionalEndComment":
-      return `[endif]-->`;
+      return "[endif]-->";
     case "ieConditionalStartComment":
-      return `]><!-->`;
+      return "]><!-->";
     case "interpolation":
       return "}}";
     case "element":
@@ -948,12 +943,17 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
   };
 
   const printHug = doc => group(doc);
-  const printExpand = doc =>
-    group(concat([indent(concat([softline, doc])), softline]));
+  const printExpand = (doc, canHaveTrailingWhitespace = true) =>
+    group(
+      concat([
+        indent(concat([softline, doc])),
+        canHaveTrailingWhitespace ? softline : ""
+      ])
+    );
   const printMaybeHug = doc => (shouldHug ? printHug(doc) : printExpand(doc));
 
   const textToDoc = (code, opts) =>
-    originalTextToDoc(code, Object.assign({ __onHtmlBindingRoot }, opts));
+    originalTextToDoc(code, { __onHtmlBindingRoot, ...opts });
 
   if (
     node.fullName === "srcset" &&
@@ -1015,7 +1015,7 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
   if (options.parser === "angular") {
     const ngTextToDoc = (code, opts) =>
       // angular does not allow trailing comma
-      textToDoc(code, Object.assign({ trailingComma: "none" }, opts));
+      textToDoc(code, { trailingComma: "none", ...opts });
 
     /**
      *     *directive="angularDirective"
@@ -1048,7 +1048,11 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
     }
 
     if (isKeyMatched(ngI18nPatterns)) {
-      return printExpand(fill(getTextValueParts(node, getValue())));
+      const value = getValue().trim();
+      return printExpand(
+        fill(getTextValueParts(node, value)),
+        !value.includes("@@")
+      );
     }
 
     if (isKeyMatched(ngDirectiveBindingPatterns)) {
