@@ -44,6 +44,7 @@ rules:
         object: false
     - enforceForRenamedProperties: false
   prefer-object-spread: error
+  prefer-rest-params: error
   prefer-spread: error
   quotes:
     - error
