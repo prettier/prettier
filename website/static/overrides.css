@@ -377,7 +377,10 @@ em {
 .usersSection a:hover {
   color: white !important;
 }
-
+.usersSection .alignCenter{
+  display: flex;
+  align-items: center;
+}
 .usersSection p {
   font-size: 1em;
   margin: 4px;
@@ -389,7 +392,7 @@ em {
 }
 
 .usersSection .user {
-  height: 100px;
+  max-height: 100px;
   width: 200px;
   flex-grow: 1;
   padding: 1em;
@@ -401,7 +404,7 @@ em {
 
 @media only screen and (max-width: 736px) {
   .usersSection .user {
-    height: 50px !important;
+    max-height: 50px !important;
     width: 100px !important;
   }
 }

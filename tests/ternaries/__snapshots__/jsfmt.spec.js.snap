@@ -501,7 +501,7 @@ a
 
 a
   ? {
-      a: function() {
+      a: function () {
         return a
           ? {
               a: [
@@ -518,7 +518,7 @@ a
                         },
                         a ? 0 : 1,
                       ],
-                      function() {
+                      function () {
                         return a
                           ? {
                               a: 0,
@@ -535,7 +535,7 @@ a
             }
           : [
               a
-                ? function() {
+                ? function () {
                     a
                       ? a(
                           a
@@ -571,7 +571,7 @@ a
                             ? {
                                 a: 0,
                               }
-                            : (function(a) {
+                            : (function (a) {
                                 return a()
                                   ? [
                                       {
@@ -591,20 +591,20 @@ a
                                     ]);
                               })(
                                 a
-                                  ? function(a) {
-                                      return function() {
+                                  ? function (a) {
+                                      return function () {
                                         return 0;
                                       };
                                     }
-                                  : function(a) {
-                                      return function() {
+                                  : function (a) {
+                                      return function () {
                                         return 1;
                                       };
                                     }
                               )
                         );
                   }
-                : function() {},
+                : function () {},
             ];
       },
     }
@@ -831,7 +831,7 @@ a
 
 a
     ? {
-          a: function() {
+          a: function () {
               return a
                   ? {
                         a: [
@@ -848,7 +848,7 @@ a
                                           },
                                           a ? 0 : 1,
                                       ],
-                                      function() {
+                                      function () {
                                           return a
                                               ? {
                                                     a: 0,
@@ -865,7 +865,7 @@ a
                     }
                   : [
                         a
-                            ? function() {
+                            ? function () {
                                   a
                                       ? a(
                                             a
@@ -901,7 +901,7 @@ a
                                                 ? {
                                                       a: 0,
                                                   }
-                                                : (function(a) {
+                                                : (function (a) {
                                                       return a()
                                                           ? [
                                                                 {
@@ -921,20 +921,20 @@ a
                                                             ]);
                                                   })(
                                                       a
-                                                          ? function(a) {
-                                                                return function() {
+                                                          ? function (a) {
+                                                                return function () {
                                                                     return 0;
                                                                 };
                                                             }
-                                                          : function(a) {
-                                                                return function() {
+                                                          : function (a) {
+                                                                return function () {
                                                                     return 1;
                                                                 };
                                                             }
                                                   )
                                         );
                               }
-                            : function() {},
+                            : function () {},
                     ];
           },
       }
@@ -1161,7 +1161,7 @@ a
 
 a
 	? {
-			a: function() {
+			a: function () {
 				return a
 					? {
 							a: [
@@ -1178,7 +1178,7 @@ a
 												},
 												a ? 0 : 1,
 											],
-											function() {
+											function () {
 												return a
 													? {
 															a: 0,
@@ -1195,7 +1195,7 @@ a
 					  }
 					: [
 							a
-								? function() {
+								? function () {
 										a
 											? a(
 													a
@@ -1231,7 +1231,7 @@ a
 														? {
 																a: 0,
 														  }
-														: (function(a) {
+														: (function (a) {
 																return a()
 																	? [
 																			{
@@ -1251,20 +1251,20 @@ a
 																	  ]);
 														  })(
 																a
-																	? function(a) {
-																			return function() {
+																	? function (a) {
+																			return function () {
 																				return 0;
 																			};
 																	  }
-																	: function(a) {
-																			return function() {
+																	: function (a) {
+																			return function () {
 																				return 1;
 																			};
 																	  }
 														  )
 											  );
 								  }
-								: function() {},
+								: function () {},
 					  ];
 			},
 	  }
@@ -1492,7 +1492,7 @@ a
 
 a
 	? {
-			a: function() {
+			a: function () {
 				return a
 					? {
 							a: [
@@ -1509,7 +1509,7 @@ a
 												},
 												a ? 0 : 1,
 											],
-											function() {
+											function () {
 												return a
 													? {
 															a: 0,
@@ -1526,7 +1526,7 @@ a
 					  }
 					: [
 							a
-								? function() {
+								? function () {
 										a
 											? a(
 													a
@@ -1562,7 +1562,7 @@ a
 														? {
 																a: 0,
 														  }
-														: (function(a) {
+														: (function (a) {
 																return a()
 																	? [
 																			{
@@ -1582,24 +1582,24 @@ a
 																	  ]);
 														  })(
 																a
-																	? function(
+																	? function (
 																			a
 																	  ) {
-																			return function() {
+																			return function () {
 																				return 0;
 																			};
 																	  }
-																	: function(
+																	: function (
 																			a
 																	  ) {
-																			return function() {
+																			return function () {
 																				return 1;
 																			};
 																	  }
 														  )
 											  );
 								  }
-								: function() {},
+								: function () {},
 					  ];
 			},
 	  }

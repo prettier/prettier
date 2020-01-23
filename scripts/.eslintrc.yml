@@ -1,9 +1,0 @@
-parserOptions:
-  ecmaVersion: 2017
-rules:
-  no-console: off
-overrides:
-  - files:
-      - test-dist.js
-    parserOptions:
-      ecmaVersion: 6

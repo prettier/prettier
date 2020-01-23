@@ -26,7 +26,7 @@ function makeAlign(ind, n, options) {
     : !n
     ? ind
     : n.type === "root"
-    ? Object.assign({}, ind, { root: ind })
+    ? { ...ind, root: ind }
     : typeof n === "string"
     ? generateInd(ind, { type: "stringAlign", n }, options)
     : generateInd(ind, { type: "numberAlign", n }, options);
@@ -70,7 +70,7 @@ function generateInd(ind, newPart, options) {
 
   flushSpaces();
 
-  return Object.assign({}, ind, { value, length, queue });
+  return { ...ind, value, length, queue };
 
   function addTabs(count) {
     value += "\t".repeat(count);
@@ -407,7 +407,7 @@ function printDocToString(doc, options) {
 
           // At this point we've handled the first pair (context, separator)
           // and will create a new fill doc for the rest of the content.
-          // Ideally we wouldn't mutate the array here but coping all the
+          // Ideally we wouldn't mutate the array here but copying all the
           // elements to a new array would make this algorithm quadratic,
           // which is unusable for large arrays (e.g. large texts in JSX).
           parts.splice(0, 2);
