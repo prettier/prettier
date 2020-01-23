@@ -2,7 +2,7 @@
 
 /* eslint-env browser */
 
-if (location.hash.substring(1).startsWith(encodeURIComponent("{"))) {
+if (location.hash.slice(1).startsWith(encodeURIComponent("{"))) {
   location.pathname = "/playground/";
 }
 

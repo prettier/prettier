@@ -645,7 +645,9 @@ function isLastStatement(path) {
 function isFlowAnnotationComment(text, typeAnnotation, options) {
   const start = options.locStart(typeAnnotation);
   const end = skipWhitespace(text, options.locEnd(typeAnnotation));
-  return text.substr(start, 2) === "/*" && text.substr(end, 2) === "*/";
+  return (
+    text.slice(start, start + 2) === "/*" && text.slice(end, end + 2) === "*/"
+  );
 }
 
 function hasLeadingOwnLineComment(text, node, options) {

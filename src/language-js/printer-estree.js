@@ -835,7 +835,10 @@ function printPathNoParens(path, options, print, args) {
             comment,
             options
           );
-          return options.originalText.substr(nextCharacter, 2) === "=>";
+          return (
+            options.originalText.slice(nextCharacter, nextCharacter + 2) ===
+            "=>"
+          );
         }
       );
       if (dangling) {
@@ -1191,7 +1194,7 @@ function printPathNoParens(path, options, print, args) {
         path.call(print, "callee"),
         optional,
         isIdentifierWithFlowAnnotation
-          ? `/*:: ${n.callee.trailingComments[0].value.substring(2).trim()} */`
+          ? `/*:: ${n.callee.trailingComments[0].value.slice(2).trim()} */`
           : "",
         printFunctionTypeParameters(path, options, print),
         printArgumentsList(path, options, print)
@@ -3034,7 +3037,7 @@ function printPathNoParens(path, options, print, args) {
         value.typeAnnotation &&
         value.typeAnnotation.range &&
         options.originalText
-          .substring(value.typeAnnotation.range[0])
+          .slice(value.typeAnnotation.range[0])
           .match(/^\/\*\s*:/);
       return concat([
         "(",
@@ -3051,13 +3054,13 @@ function printPathNoParens(path, options, print, args) {
     case "TypeParameterInstantiation": {
       const value = path.getValue();
       const commentStart = value.range
-        ? options.originalText.substring(0, value.range[0]).lastIndexOf("/*")
+        ? options.originalText.slice(0, value.range[0]).lastIndexOf("/*")
         : -1;
       // As noted in the TypeCastExpression comments above, we're able to use a normal whitespace regex here
       // because we know for sure that this is a type definition.
       const commentSyntax =
         commentStart >= 0 &&
-        options.originalText.substring(commentStart).match(/^\/\*\s*::/);
+        options.originalText.slice(commentStart).match(/^\/\*\s*::/);
       if (commentSyntax) {
         return concat([
           "/*:: ",
@@ -6054,8 +6057,9 @@ function printComment(commentPath, options) {
         return printed;
       }
 
+      const commentEnd = options.locEnd(comment);
       const isInsideFlowComment =
-        options.originalText.substr(options.locEnd(comment) - 3, 3) === "*-/";
+        options.originalText.slice(commentEnd - 3, commentEnd) === "*-/";
 
       return "/*" + comment.value + (isInsideFlowComment ? "*-/" : "*/");
     }

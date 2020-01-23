@@ -356,7 +356,7 @@ function parseNestedCSS(node, options) {
       const defaultSCSSDirectiveIndex = value.match(DEFAULT_SCSS_DIRECTIVE);
 
       if (defaultSCSSDirectiveIndex) {
-        value = value.substring(0, defaultSCSSDirectiveIndex.index);
+        value = value.slice(0, defaultSCSSDirectiveIndex.index);
         node.scssDefault = true;
 
         if (defaultSCSSDirectiveIndex[0].trim() !== "!default") {
@@ -367,7 +367,7 @@ function parseNestedCSS(node, options) {
       const globalSCSSDirectiveIndex = value.match(GLOBAL_SCSS_DIRECTIVE);
 
       if (globalSCSSDirectiveIndex) {
-        value = value.substring(0, globalSCSSDirectiveIndex.index);
+        value = value.slice(0, globalSCSSDirectiveIndex.index);
         node.scssGlobal = true;
 
         if (globalSCSSDirectiveIndex[0].trim() !== "!global") {
@@ -454,7 +454,7 @@ function parseNestedCSS(node, options) {
         const customSelector = params.match(/:--\S+?\s+/)[0].trim();
 
         node.customSelector = customSelector;
-        node.selector = parseSelector(params.substring(customSelector.length));
+        node.selector = parseSelector(params.slice(customSelector.length));
         delete node.params;
 
         return node;
