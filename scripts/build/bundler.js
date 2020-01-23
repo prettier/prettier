@@ -4,7 +4,7 @@ const execa = require("execa");
 const path = require("path");
 const { rollup } = require("rollup");
 const webpack = require("webpack");
-const resolve = require("rollup-plugin-node-resolve");
+const resolve = require("@rollup/plugin-node-resolve");
 const alias = require("@rollup/plugin-alias");
 const commonjs = require("@rollup/plugin-commonjs");
 const nodeGlobals = require("rollup-plugin-node-globals");
@@ -31,6 +31,7 @@ const EXTERNALS = [
   "url",
   "util",
   "readline",
+  "tty",
 
   // See comment in jest.config.js
   "graceful-fs"

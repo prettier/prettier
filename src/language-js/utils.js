@@ -928,9 +928,7 @@ function isSimpleCallArgument(node, depth) {
   }
   if (node.type === "ObjectExpression") {
     return node.properties.every(
-      p =>
-        p.shorthand ||
-        (isSimpleCallArgument(p.key, depth) && isChildSimple(p.value))
+      p => !p.computed && (p.shorthand || (p.value && isChildSimple(p.value)))
     );
   }
   if (node.type === "ArrayExpression") {
