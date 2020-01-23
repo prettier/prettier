@@ -71,7 +71,9 @@ const parsers = [
       terserOptions: {
         mangle: {
           // postcss need keep_fnames when minify
-          keep_fnames: true
+          keep_fnames: true,
+          // we don't transform class anymore, so we need keep_classnames too
+          keep_classnames: true
         }
       }
     }
