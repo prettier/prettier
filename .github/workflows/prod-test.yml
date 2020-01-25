@@ -1,6 +1,6 @@
 name: Prod_Test
 
-on: [pull_request]
+on: [push, pull_request]
 
 jobs:
   build:
@@ -96,10 +96,3 @@ jobs:
 
       - name: Run Tests
         run: yarn test:dist
-
-      - name: Upload Coverage To Codecov
-        uses: codecov/codecov-action@v1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          file: ./coverage/cobertura-coverage.xml
-          fail_ci_if_error: true
