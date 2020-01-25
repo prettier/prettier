@@ -483,7 +483,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> 1.16.0 1`] = `
 +         \\"always\\",
 +         \\"avoid\\",
 +       ],
-+       \\"default\\": \\"always\\",
++       \\"default\\": \\"avoid\\",
 +       \\"type\\": \\"choice\\",
 +     },
       \\"bracketSpacing\\": Object {
@@ -609,6 +609,19 @@ exports[`API getSupportInfo() with version 1.16.0 -> undefined 1`] = `
       ],
       \\"Markdown\\": Array [
         \\"markdown\\",
+@@ -68,11 +71,11 @@
+      \\"arrowParens\\": Object {
+        \\"choices\\": Array [
+          \\"always\\",
+          \\"avoid\\",
+        ],
+-       \\"default\\": \\"avoid\\",
++       \\"default\\": \\"always\\",
+        \\"type\\": \\"choice\\",
+      },
+      \\"bracketSpacing\\": Object {
+        \\"default\\": true,
+        \\"type\\": \\"boolean\\",
 @@ -138,10 +141,11 @@
           \\"mdx\\",
           \\"vue\\",

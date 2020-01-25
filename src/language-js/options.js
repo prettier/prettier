@@ -10,7 +10,10 @@ module.exports = {
     since: "1.9.0",
     category: CATEGORY_JAVASCRIPT,
     type: "choice",
-    default: "always",
+    default: [
+      { since: "1.9.0", value: "avoid" },
+      { since: "2.0.0", value: "always" }
+    ],
     description: "Include parentheses around a sole arrow function parameter.",
     choices: [
       {
