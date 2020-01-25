@@ -3,16 +3,16 @@
 exports[`show detailed usage with --help arrow-parens (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help arrow-parens (stdout) 1`] = `
-"--arrow-parens <avoid|always>
+"--arrow-parens <always|avoid>
 
   Include parentheses around a sole arrow function parameter.
 
 Valid options:
 
-  avoid    Omit parens when possible. Example: \`x => x\`
   always   Always include parens. Example: \`(x) => x\`
+  avoid    Omit parens when possible. Example: \`x => x\`
 
-Default: avoid
+Default: always
 "
 `;
 

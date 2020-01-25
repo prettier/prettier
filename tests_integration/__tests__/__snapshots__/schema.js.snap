@@ -7,19 +7,19 @@ Object {
     "optionsDefinition": Object {
       "properties": Object {
         "arrowParens": Object {
-          "default": "avoid",
+          "default": "always",
           "description": "Include parentheses around a sole arrow function parameter.",
           "oneOf": Array [
-            Object {
-              "description": "Omit parens when possible. Example: \`x => x\`",
-              "enum": Array [
-                "avoid",
-              ],
-            },
             Object {
               "description": "Always include parens. Example: \`(x) => x\`",
               "enum": Array [
                 "always",
+              ],
+            },
+            Object {
+              "description": "Omit parens when possible. Example: \`x => x\`",
+              "enum": Array [
+                "avoid",
               ],
             },
           ],

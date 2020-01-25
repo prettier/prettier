@@ -58,9 +58,9 @@ Output options:
 
 Format options:
 
-  --arrow-parens <avoid|always>
+  --arrow-parens <always|avoid>
                            Include parentheses around a sole arrow function parameter.
-                           Defaults to avoid.
+                           Defaults to always.
   --no-bracket-spacing     Do not print spaces between brackets.
   --end-of-line <auto|lf|crlf|cr>
                            Which end of line characters to apply.
@@ -214,9 +214,9 @@ Output options:
 
 Format options:
 
-  --arrow-parens <avoid|always>
+  --arrow-parens <always|avoid>
                            Include parentheses around a sole arrow function parameter.
-                           Defaults to avoid.
+                           Defaults to always.
   --no-bracket-spacing     Do not print spaces between brackets.
   --end-of-line <auto|lf|crlf|cr>
                            Which end of line characters to apply.
