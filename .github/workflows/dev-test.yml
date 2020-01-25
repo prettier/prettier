@@ -34,3 +34,10 @@ jobs:
 
       - name: Run Test
         run: yarn test
+
+      - name: Upload Coverage To Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./coverage/cobertura-coverage.xml
+          fail_ci_if_error: true
