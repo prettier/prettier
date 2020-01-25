@@ -16,7 +16,7 @@ jobs:
           - "12"
           - "10"
 
-    name: Dev test on node ${{ matrix.node }} and ${{ matrix.os }}
+    name: Node.js ${{ matrix.node }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
@@ -27,7 +27,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.NODE }}
+          node-version: ${{ matrix.node }}
 
       - name: Install Dependencies
         run: yarn install --frozen-lockfile

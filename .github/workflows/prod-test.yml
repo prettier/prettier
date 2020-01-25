@@ -23,6 +23,9 @@ jobs:
       - name: Build Package
         run: yarn build
 
+      - name: Lint Code
+        run: yarn test:dist
+
       - name: Upload Artifact
         uses: actions/upload-artifact@v1
         with:
@@ -42,7 +45,7 @@ jobs:
           - "12"
           - "10"
 
-    name: Prod test on node ${{ matrix.node }} and ${{ matrix.os }}
+    name: Node.js ${{ matrix.node }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     needs: [build]
     steps:
