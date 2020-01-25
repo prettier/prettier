@@ -3,7 +3,7 @@ name: Dev_Test
 on: [push, pull_request]
 
 jobs:
-  dev_test:
+  test:
     strategy:
       fail-fast: false
       matrix:
@@ -15,8 +15,13 @@ jobs:
           - "13"
           - "12"
           - "10"
+        include:
+          # only enable coverage on the fastest job
+          - os: "ubuntu-latest"
+            node: "12"
+            ENABLE_CODE_COVERAGE: "true"
     env:
-      ENABLE_CODE_COVERAGE: true
+      ENABLE_CODE_COVERAGE: ${{ matrix.ENABLE_CODE_COVERAGE }}
     name: Node.js ${{ matrix.node }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     steps:
@@ -38,6 +43,7 @@ jobs:
 
       - name: Upload Coverage To Codecov
         uses: codecov/codecov-action@v1
+        if: matrix.ENABLE_CODE_COVERAGE
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           file: ./coverage/cobertura-coverage.xml
