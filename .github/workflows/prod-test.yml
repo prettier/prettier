@@ -47,9 +47,6 @@ jobs:
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Build Package
-        run: yarn build
-
       - name: Download Artifact
         uses: actions/download-artifact@v1
         with:
