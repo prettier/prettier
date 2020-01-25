@@ -71,7 +71,9 @@ jobs:
           - "13"
           - "12"
           - "10"
-
+    env:
+      AST_COMPARE: true
+      ENABLE_TEST_RESULTS: true
     name: Node.js ${{ matrix.node }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     needs: [build]
@@ -95,7 +97,7 @@ jobs:
           name: dist
           path: dist
 
-      - name: Run Test
+      - name: Run Tests
         run: yarn test:dist
 
       - name: Upload Coverage To Codecov

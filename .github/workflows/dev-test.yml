@@ -15,7 +15,10 @@ jobs:
           - "13"
           - "12"
           - "10"
-
+    env:
+      AST_COMPARE: true
+      ENABLE_TEST_RESULTS: true
+      ENABLE_CODE_COVERAGE: true
     name: Node.js ${{ matrix.node }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     steps:
@@ -32,7 +35,7 @@ jobs:
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Run Test
+      - name: Run Tests
         run: yarn test
 
       - name: Upload Coverage To Codecov
