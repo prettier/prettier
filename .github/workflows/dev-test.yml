@@ -1,4 +1,4 @@
-name: Dev_Test
+name: Dev
 
 on: [push, pull_request]
 
@@ -15,10 +15,19 @@ jobs:
           - "13"
           - "12"
           - "10"
+        exclude:
+          - os: "macos-latest"
+            node: "13"
+          - os: "macos-latest"
+            node: "12"
+          - os: "windows-latest"
+            node: "13"
+          - os: "windows-latest"
+            node: "12"
         include:
           # only enable coverage on the fastest job
-          - os: "ubuntu-latest"
-            node: "12"
+          - os: "macos-latest"
+            node: "10"
             ENABLE_CODE_COVERAGE: "true"
     env:
       ENABLE_CODE_COVERAGE: ${{ matrix.ENABLE_CODE_COVERAGE }}

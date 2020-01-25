@@ -1,4 +1,4 @@
-name: Prod_Test
+name: Prod
 
 on: [push, pull_request]
 
@@ -71,6 +71,31 @@ jobs:
         standalone:
           - "standalone"
           - ""
+        exclude:
+          - os: "macos-latest"
+            node: "13"
+            standalone: "standalone"
+          - os: "macos-latest"
+            node: "12"
+            standalone: "standalone"
+          - os: "windows-latest"
+            node: "13"
+            standalone: "standalone"
+          - os: "windows-latest"
+            node: "12"
+            standalone: "standalone"
+          - os: "macos-latest"
+            node: "13"
+            standalone: ""
+          - os: "macos-latest"
+            node: "12"
+            standalone: ""
+          - os: "windows-latest"
+            node: "13"
+            standalone: ""
+          - os: "windows-latest"
+            node: "12"
+            standalone: ""
     env:
       STANDALONE: ${{ matrix.standalone }}
     name: Node.js ${{ matrix.node }} on ${{ matrix.os }} ${{ matrix.standalone }}
