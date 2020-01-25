@@ -155,18 +155,18 @@ Valid options:
 
 ## Arrow Function Parentheses
 
-_First available in v1.9.0_
+_First available in v1.9.0, default value changed from `avoid` to `always` in v2.0.0_
 
 Include parentheses around a sole arrow function parameter.
 
 Valid options:
 
-- `"avoid"` - Omit parens when possible. Example: `x => x`
 - `"always"` - Always include parens. Example: `(x) => x`
+- `"avoid"` - Omit parens when possible. Example: `x => x`
 
 | Default   | CLI Override                                    | API Override                                    |
 | --------- | ----------------------------------------------- | ----------------------------------------------- |
-| `"avoid"` | <code>--arrow-parens <avoid&#124;always></code> | <code>arrowParens: "<avoid&#124;always>"</code> |
+| `"avoid"` | <code>--arrow-parens <always&#124;avoid></code> | <code>arrowParens: "<always&#124;avoid>"</code> |
 
 ## Range
 
