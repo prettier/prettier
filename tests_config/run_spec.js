@@ -3,8 +3,10 @@
 const fs = require("fs");
 const path = require("path");
 const raw = require("jest-snapshot-serializer-raw").wrap;
+const { isCI } = require("ci-info");
 
-const { AST_COMPARE, TEST_STANDALONE, TEST_CRLF } = process.env;
+const { TEST_STANDALONE, TEST_CRLF } = process.env;
+const AST_COMPARE = isCI || process.env.AST_COMPARE;
 
 const CURSOR_PLACEHOLDER = "<|>";
 const RANGE_START_PLACEHOLDER = "<<<PRETTIER_RANGE_START>>>";
