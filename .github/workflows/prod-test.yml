@@ -68,10 +68,12 @@ jobs:
           - "13"
           - "12"
           - "10"
+        standalone:
+          - "standalone"
+          - ""
     env:
-      AST_COMPARE: true
-      ENABLE_TEST_RESULTS: true
-    name: Node.js ${{ matrix.node }} on ${{ matrix.os }}
+      STANDALONE: ${{ matrix.standalone }}
+    name: Node.js ${{ matrix.node }} on ${{ matrix.os }} ${{ matrix.standalone }}
     runs-on: ${{ matrix.os }}
     needs: [build]
     steps:
@@ -96,3 +98,4 @@ jobs:
 
       - name: Run Tests
         run: yarn test:dist
+

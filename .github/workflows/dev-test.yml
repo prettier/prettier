@@ -16,8 +16,6 @@ jobs:
           - "12"
           - "10"
     env:
-      AST_COMPARE: true
-      ENABLE_TEST_RESULTS: true
       ENABLE_CODE_COVERAGE: true
     name: Node.js ${{ matrix.node }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
