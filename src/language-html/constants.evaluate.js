@@ -1,21 +1,23 @@
 "use strict";
 
 const htmlStyles = require("html-styles");
+const fromPairs = require("lodash/fromPairs");
+const flat = require("lodash/flatten");
 
 const getCssStyleTags = property =>
-  htmlStyles
-    .filter(htmlStyle => htmlStyle.style[property])
-    .map(htmlStyle =>
-      htmlStyle.selectorText
-        .split(",")
-        .map(selector => selector.trim())
-        .filter(selector => /^[a-zA-Z0-9]+$/.test(selector))
-        .reduce((reduced, tagName) => {
-          reduced[tagName] = htmlStyle.style[property];
-          return reduced;
-        }, {})
+  fromPairs(
+    flat(
+      htmlStyles
+        .filter(htmlStyle => htmlStyle.style[property])
+        .map(htmlStyle =>
+          htmlStyle.selectorText
+            .split(",")
+            .map(selector => selector.trim())
+            .filter(selector => /^[a-zA-Z0-9]+$/.test(selector))
+            .map(tagName => [tagName, htmlStyle.style[property]])
+        )
     )
-    .reduce((reduced, value) => Object.assign(reduced, value), {});
+  );
 
 const CSS_DISPLAY_TAGS = {
   ...getCssStyleTags("display"),

@@ -129,12 +129,10 @@ function getRollupConfig(bundle) {
       extensions: [".js", ".json"],
       preferBuiltins: bundle.target === "node"
     }),
-    commonjs(
-      Object.assign(
-        bundle.target === "node" ? { ignoreGlobal: true } : {},
-        bundle.commonjs
-      )
-    ),
+    commonjs({
+      ignoreGlobal: bundle.target === "node",
+      ...bundle.commonjs
+    }),
     externals(bundle.externals),
     bundle.target === "universal" && nodeGlobals(),
     babelConfig && babel(babelConfig),

@@ -8,6 +8,8 @@ const globby = require("globby");
 const chalk = require("chalk");
 const readline = require("readline");
 const stringify = require("json-stable-stringify");
+const fromPairs = require("lodash/fromPairs");
+const pick = require("lodash/pick");
 
 const minimist = require("./minimist");
 const prettier = require("../../index");
@@ -26,15 +28,11 @@ const CHOICE_USAGE_MARGIN = 3;
 const CHOICE_USAGE_INDENTATION = 2;
 
 function getOptions(argv, detailedOptions) {
-  return detailedOptions
-    .filter(option => option.forwardToApi)
-    .reduce(
-      (current, option) =>
-        Object.assign(current, {
-          [option.forwardToApi]: argv[option.name]
-        }),
-      {}
-    );
+  return fromPairs(
+    detailedOptions
+      .filter(({ forwardToApi }) => forwardToApi)
+      .map(({ forwardToApi, name }) => [forwardToApi, argv[name]])
+  );
 }
 
 function cliifyOptions(object, apiDetailedOptionMap) {
@@ -451,9 +449,10 @@ function formatFiles(context) {
       return;
     }
 
-    const options = Object.assign(getOptionsForFile(context, filename), {
+    const options = {
+      ...getOptionsForFile(context, filename),
       filepath: filename
-    });
+    };
 
     if (isTTY()) {
       context.logger.log(filename, { newline: false });
@@ -744,15 +743,6 @@ function groupBy(array, getKey) {
   }, Object.create(null));
 }
 
-function pick(object, keys) {
-  return !keys
-    ? object
-    : keys.reduce(
-        (reduced, key) => Object.assign(reduced, { [key]: object[key] }),
-        {}
-      );
-}
-
 function createLogger(logLevel) {
   return {
     warn: createLogFunc("warn", "yellow"),
@@ -822,14 +812,11 @@ function normalizeDetailedOption(name, option) {
 }
 
 function normalizeDetailedOptionMap(detailedOptionMap) {
-  return Object.keys(detailedOptionMap)
-    .sort()
-    .reduce((normalized, name) => {
-      const option = detailedOptionMap[name];
-      return Object.assign(normalized, {
-        [name]: normalizeDetailedOption(name, option)
-      });
-    }, {});
+  return fromPairs(
+    Object.entries(detailedOptionMap)
+      .sort(([leftName], [rightName]) => leftName.localeCompare(rightName))
+      .map(([name, option]) => [name, normalizeDetailedOption(name, option)])
+  );
 }
 
 function createMinimistOptions(detailedOptions) {
@@ -861,34 +848,36 @@ function createMinimistOptions(detailedOptions) {
 }
 
 function createApiDetailedOptionMap(detailedOptions) {
-  return detailedOptions.reduce(
-    (current, option) =>
-      option.forwardToApi && option.forwardToApi !== option.name
-        ? Object.assign(current, { [option.forwardToApi]: option })
-        : current,
-    {}
+  return fromPairs(
+    detailedOptions
+      .filter(
+        option => option.forwardToApi && option.forwardToApi !== option.name
+      )
+      .map(option => [option.forwardToApi, option])
   );
 }
 
 function createDetailedOptionMap(supportOptions) {
-  return supportOptions.reduce((reduced, option) => {
-    const newOption = {
-      ...option,
-      name: option.cliName || dashify(option.name),
-      description: option.cliDescription || option.description,
-      category: option.cliCategory || coreOptions.CATEGORY_FORMAT,
-      forwardToApi: option.name
-    };
+  return fromPairs(
+    supportOptions.map(option => {
+      const newOption = {
+        ...option,
+        name: option.cliName || dashify(option.name),
+        description: option.cliDescription || option.description,
+        category: option.cliCategory || coreOptions.CATEGORY_FORMAT,
+        forwardToApi: option.name
+      };
 
-    if (option.deprecated) {
-      delete newOption.forwardToApi;
-      delete newOption.description;
-      delete newOption.oppositeDescription;
-      newOption.deprecated = true;
-    }
+      if (option.deprecated) {
+        delete newOption.forwardToApi;
+        delete newOption.description;
+        delete newOption.oppositeDescription;
+        newOption.deprecated = true;
+      }
 
-    return Object.assign(reduced, { [newOption.name]: newOption });
-  }, {});
+      return [newOption.name, newOption];
+    })
+  );
 }
 
 //-----------------------------context-util-start-------------------------------
@@ -941,13 +930,14 @@ function updateContextOptions(context, plugins, pluginSearchDirs) {
 
   const detailedOptions = arrayify(detailedOptionMap, "name");
 
-  const apiDefaultOptions = supportOptions
-    .filter(optionInfo => !optionInfo.deprecated)
-    .reduce(
-      (reduced, optionInfo) =>
-        Object.assign(reduced, { [optionInfo.name]: optionInfo.default }),
-      { ...optionsModule.hiddenDefaults }
-    );
+  const apiDefaultOptions = {
+    ...optionsModule.hiddenDefaults,
+    ...fromPairs(
+      supportOptions
+        .filter(({ deprecated }) => !deprecated)
+        .map(option => [option.name, option.default])
+    )
+  };
 
   context.supportOptions = supportOptions;
   context.detailedOptions = detailedOptions;
