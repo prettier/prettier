@@ -8,6 +8,7 @@ const globby = require("globby");
 const chalk = require("chalk");
 const readline = require("readline");
 const stringify = require("json-stable-stringify");
+const groupBy = require("lodash/groupBy");
 
 const minimist = require("./minimist");
 const prettier = require("../../index");
@@ -734,14 +735,6 @@ function getOptionDefaultValue(context, optionName) {
 
 function indent(str, spaces) {
   return str.replace(/^/gm, " ".repeat(spaces));
-}
-
-function groupBy(array, getKey) {
-  return array.reduce((obj, item) => {
-    const key = getKey(item);
-    const previousItems = key in obj ? obj[key] : [];
-    return { ...obj, [key]: previousItems.concat(item) };
-  }, Object.create(null));
 }
 
 function pick(object, keys) {
