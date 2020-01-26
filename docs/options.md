@@ -164,9 +164,9 @@ Valid options:
 - `"always"` - Always include parens. Example: `(x) => x`
 - `"avoid"` - Omit parens when possible. Example: `x => x`
 
-| Default   | CLI Override                                    | API Override                                    |
-| --------- | ----------------------------------------------- | ----------------------------------------------- |
-| `"avoid"` | <code>--arrow-parens <always&#124;avoid></code> | <code>arrowParens: "<always&#124;avoid>"</code> |
+| Default    | CLI Override                                    | API Override                                    |
+| ---------- | ----------------------------------------------- | ----------------------------------------------- |
+| `"always"` | <code>--arrow-parens <always&#124;avoid></code> | <code>arrowParens: "<always&#124;avoid>"</code> |
 
 ## Range
 
