@@ -7,20 +7,15 @@ const getLast = require("../utils/get-last");
 // eslint-disable-next-line no-control-regex
 const notAsciiRegex = /[^\x20-\x7F]/;
 
-function isExportDeclaration(node) {
-  if (node) {
-    switch (node.type) {
-      case "ExportDefaultDeclaration":
-      case "ExportDefaultSpecifier":
-      case "DeclareExportDeclaration":
-      case "ExportNamedDeclaration":
-      case "ExportAllDeclaration":
-        return true;
-    }
-  }
-
-  return false;
-}
+const exportDeclarationTypes = new Set([
+  "ExportDefaultDeclaration",
+  "ExportDefaultSpecifier",
+  "DeclareExportDeclaration",
+  "ExportNamedDeclaration",
+  "ExportAllDeclaration"
+]);
+const isExportDeclaration = node =>
+  node && exportDeclarationTypes.has(node.type);
 
 function getParentExportDeclaration(path) {
   const parentNode = path.getParentNode();
