@@ -168,6 +168,10 @@ Valid options:
 | ---------- | ----------------------------------------------- | ----------------------------------------------- |
 | `"always"` | <code>--arrow-parens <always&#124;avoid></code> | <code>arrowParens: "<always&#124;avoid>"</code> |
 
+At first glance, avoiding parentheses may look like a better choice because of less visual noise.
+However, when Prettier removes parentheses, it becomes harder to add type annotations, extra arguments or default values as well as making other changes.
+Consistent use of parentheses provides a better developer experience when editing real codebases, which justifies the default value for the option.
+
 ## Range
 
 Format only a segment of a file.
