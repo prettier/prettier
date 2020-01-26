@@ -332,8 +332,8 @@ The former is common on Linux and macOS, while the latter is prevalent on Window
 Some details explaining why it is so [can be found on Wikipedia](https://en.wikipedia.org/wiki/Newline).
 
 When people collaborate on a project from different operating systems, it becomes easy to end up with mixed line endings in a shared git repository.
-It is also possible for Windows users to accidentally change line endings in an already committed file from `LF` to `CRLF`.
-Doing so produces a large `git diff`, and if it goes unnoticed during code review, the line-by-line history for the file (`git blame`) becomes harder to explore.
+It is also possible for Windows users to accidentally change line endings in a previously committed file from `LF` to `CRLF`.
+Doing so produces a large `git diff` and thus makes the line-by-line history for a file (`git blame`) harder to explore.
 
 If you want to make sure that your entire git repository only contains Linux-style line endings in files covered by Prettier:
 
