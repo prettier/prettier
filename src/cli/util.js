@@ -586,14 +586,13 @@ function createUsage(context) {
   );
 
   const groupedOptions = groupBy(options, option => option.category);
-
-  const firstCategories = constant.categoryOrder.slice(0, -1);
-  const lastCategories = constant.categoryOrder.slice(-1);
-  const restCategories = Object.keys(groupedOptions).filter(
-    category =>
-      !firstCategories.includes(category) && !lastCategories.includes(category)
-  );
-  const allCategories = firstCategories.concat(restCategories, lastCategories);
+  const allCategories = [
+    ...constant.categoryOrder.slice(0, -1),
+    ...Object.keys(groupedOptions).filter(
+      category => !constant.categoryOrder.includes(category)
+    ),
+    ...constant.categoryOrder.slice(-1)
+  ];
 
   const optionsUsage = allCategories.map(category => {
     const categoryOptions = groupedOptions[category]
