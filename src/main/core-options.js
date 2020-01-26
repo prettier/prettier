@@ -65,16 +65,12 @@ const options = {
     since: "1.15.0",
     category: CATEGORY_GLOBAL,
     type: "choice",
-    default: "auto",
+    default: [
+      { since: "1.15.0", value: "auto" },
+      { since: "2.0.0", value: "lf" }
+    ],
     description: "Which end of line characters to apply.",
     choices: [
-      {
-        value: "auto",
-        description: dedent`
-          Maintain existing
-          (mixed values within one file are normalised by looking at what's used after the first line)
-        `
-      },
       {
         value: "lf",
         description:
@@ -88,6 +84,13 @@ const options = {
       {
         value: "cr",
         description: "Carriage Return character only (\\r), used very rarely"
+      },
+      {
+        value: "auto",
+        description: dedent`
+          Maintain existing
+          (mixed values within one file are normalised by looking at what's used after the first line)
+        `
       }
     ]
   },
