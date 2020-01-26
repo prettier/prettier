@@ -101,7 +101,10 @@ const parsers = [
     },
     commonjs: {
       namedExports: {
-        [require.resolve("handlebars/dist/cjs/handlebars.js")]: ["parse"],
+        [require.resolve("handlebars/dist/cjs/handlebars.js")]: [
+          "parse",
+          "parseWithoutProcessing"
+        ],
         [require.resolve(
           "@glimmer/syntax/dist/modules/es2017/index.js"
         )]: "default"
