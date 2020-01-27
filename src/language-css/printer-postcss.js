@@ -122,12 +122,12 @@ function genericPrint(path, options, print) {
       if (!text.includes(rawText)) {
         if (node.raws.inline || node.inline) {
           const needBreakAfter = !(
-            node.source.input.css.split("\n")[node.source.end.line] || ""
+            node.source.input.css.split(/[\r\n]/)[node.source.end.line] || ""
           ).trim();
           return concat([
             "//",
             node.raws.left + rawText,
-            needBreakAfter ? "\n" : ""
+            needBreakAfter ? line : ""
           ]);
         }
         return concat(["/* ", rawText, " */"]);
@@ -142,8 +142,8 @@ function genericPrint(path, options, print) {
           ? concat([
               node.selector &&
               node.selector.type === "selector-unknown" &&
-              node.selector.value.endsWith("\n")
-                ? ""
+              lastLineHasInlineComment(node.selector.value)
+                ? line
                 : " ",
               "{",
               node.nodes.length > 0
@@ -978,6 +978,10 @@ const ADJUST_NUMBERS_REGEX = new RegExp(
 
 function adjustStrings(value, options) {
   return value.replace(STRING_REGEX, match => printString(match, options));
+}
+
+function lastLineHasInlineComment(value) {
+  return /\/\//.test(value.split(/[\r\n]/).pop());
 }
 
 function quoteAttributeValue(value, options) {

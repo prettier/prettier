@@ -200,14 +200,9 @@ function parseSelector(selector) {
   // garbage. Better to print the whole selector as-is and not try to parse
   // and reformat it.
   if (/\/\/|\/\*/.test(selector)) {
-    let value = selector.replace(/^ +/, "").replace(/ +$/, "");
-    // last line has inline comment
-    if (/\/\//.test(selector.split("\n").pop())) {
-      value += "\n";
-    }
     return {
       type: "selector-unknown",
-      value
+      value: selector.trim()
     };
   }
 
