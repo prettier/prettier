@@ -7,25 +7,6 @@ const getLast = require("../utils/get-last");
 // eslint-disable-next-line no-control-regex
 const notAsciiRegex = /[^\x20-\x7F]/;
 
-const exportDeclarationTypes = new Set([
-  "ExportDefaultDeclaration",
-  "ExportDefaultSpecifier",
-  "DeclareExportDeclaration",
-  "ExportNamedDeclaration",
-  "ExportAllDeclaration"
-]);
-const isExportDeclaration = node =>
-  node && exportDeclarationTypes.has(node.type);
-
-function getParentExportDeclaration(path) {
-  const parentNode = path.getParentNode();
-  if (path.getName() === "declaration" && isExportDeclaration(parentNode)) {
-    return parentNode;
-  }
-
-  return null;
-}
-
 function getPenultimate(arr) {
   if (arr.length > 1) {
     return arr[arr.length - 2];
@@ -840,8 +821,6 @@ module.exports = {
   getPrecedence,
   shouldFlatten,
   isBitwiseOperator,
-  isExportDeclaration,
-  getParentExportDeclaration,
   getPenultimate,
   getLast,
   getNextNonSpaceNonCommentCharacterIndexWithStartIndex,
