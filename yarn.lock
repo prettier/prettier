@@ -2602,10 +2602,10 @@ cspell-dict-typescript@^1.0.3:
   dependencies:
     configstore "^5.0.0"
 
-cspell-glob@^0.1.14:
-  version "0.1.14"
-  resolved "https://registry.yarnpkg.com/cspell-glob/-/cspell-glob-0.1.14.tgz#8526bdad921aed90630fea5d8cb61dcac4ce5a29"
-  integrity sha512-mbGKM/O95U/1V14aDiHS32T36JC1dk7ndvOdJOc2dv7er+Z2PX0Qg6uoklsESTpWAO8zZjJiLiWDx8fgKz9+KA==
+cspell-glob@^0.1.17:
+  version "0.1.17"
+  resolved "https://registry.yarnpkg.com/cspell-glob/-/cspell-glob-0.1.17.tgz#e8dad6eedc23bc3e98175f2077df25e7e3212a8a"
+  integrity sha512-gAiKakWJbHay6cobcJnX1+XhNCFYqR7CJM5GPiEpRZ5RFXYR46fYbkVwTdg3sqbFLErJtghQj/0s5Xa0q9NJpQ==
   dependencies:
     micromatch "^4.0.2"
 
@@ -2667,15 +2667,15 @@ cspell-util-bundle@^4.0.9:
   resolved "https://registry.yarnpkg.com/cspell-util-bundle/-/cspell-util-bundle-4.0.9.tgz#9e6a7f3dcd4aef1b9c6743d33d09379cf94ecd08"
   integrity sha512-+xhIGJAkPxD7aKl97S0E34B5dF+HSTSoEL6M2f6Y46tusFGc9VdhA/iIZQooZZx2RQy4WaHw/ABfsRfxtnFVLw==
 
-cspell@4.0.44:
-  version "4.0.44"
-  resolved "https://registry.yarnpkg.com/cspell/-/cspell-4.0.44.tgz#53a10f7a2cd9aa89fb53c284c4a90260957b433b"
-  integrity sha512-xrjsRbAPyx0s4QOdZ7gDiEPlqKQV+ua47FOvFiZqtq16H082P2O/M9vnDdwiEK4j6ypJQT+GkmR5QVdXXp+1qw==
+cspell@4.0.46:
+  version "4.0.46"
+  resolved "https://registry.yarnpkg.com/cspell/-/cspell-4.0.46.tgz#e138d4c930e2191479eec06401b8c6fca4592a8f"
+  integrity sha512-1OzY2LGMQmuoe4odLhabDAxQoPMMwYPCGFKSiJXPJIg+w50iSBpUy2fWu4ExLeMjIUt6jOZ9hTQsq6WRMyXq3g==
   dependencies:
     chalk "^2.4.2"
     commander "^2.20.3"
     comment-json "^1.1.3"
-    cspell-glob "^0.1.14"
+    cspell-glob "^0.1.17"
     cspell-lib "^4.1.14"
     fs-extra "^8.1.0"
     gensequence "^3.0.3"
