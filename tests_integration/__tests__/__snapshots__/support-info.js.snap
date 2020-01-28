@@ -499,10 +499,10 @@ exports[`API getSupportInfo() with version 1.8.2 -> 1.16.0 1`] = `
       },
 +     \\"endOfLine\\": Object {
 +       \\"choices\\": Array [
-+         \\"auto\\",
 +         \\"lf\\",
 +         \\"crlf\\",
 +         \\"cr\\",
++         \\"auto\\",
 +       ],
 +       \\"default\\": \\"auto\\",
 +       \\"type\\": \\"choice\\",
@@ -609,6 +609,19 @@ exports[`API getSupportInfo() with version 1.16.0 -> undefined 1`] = `
       ],
       \\"Markdown\\": Array [
         \\"markdown\\",
+@@ -91,11 +94,11 @@
+          \\"lf\\",
+          \\"crlf\\",
+          \\"cr\\",
+          \\"auto\\",
+        ],
+-       \\"default\\": \\"auto\\",
++       \\"default\\": \\"lf\\",
+        \\"type\\": \\"choice\\",
+      },
+      \\"filepath\\": Object {
+        \\"default\\": undefined,
+        \\"type\\": \\"path\\",
 @@ -138,10 +141,11 @@
           \\"mdx\\",
           \\"vue\\",
@@ -1132,10 +1145,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"category\\": \\"Global\\",
       \\"choices\\": [
         {
-          \\"description\\": \\"Maintain existing\\\\n(mixed values within one file are normalised by looking at what's used after the first line)\\",
-          \\"value\\": \\"auto\\"
-        },
-        {
           \\"description\\": \\"Line Feed only (\\\\\\\\n), common on Linux and macOS as well as inside git repos\\",
           \\"value\\": \\"lf\\"
         },
@@ -1146,9 +1155,13 @@ exports[`CLI --support-info (stdout) 1`] = `
         {
           \\"description\\": \\"Carriage Return character only (\\\\\\\\r), used very rarely\\",
           \\"value\\": \\"cr\\"
+        },
+        {
+          \\"description\\": \\"Maintain existing\\\\n(mixed values within one file are normalised by looking at what's used after the first line)\\",
+          \\"value\\": \\"auto\\"
         }
       ],
-      \\"default\\": \\"auto\\",
+      \\"default\\": \\"lf\\",
       \\"description\\": \\"Which end of line characters to apply.\\",
       \\"name\\": \\"endOfLine\\",
       \\"pluginDefaults\\": {},
