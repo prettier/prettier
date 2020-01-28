@@ -206,8 +206,10 @@ function genericPrint(path, options, print) {
         isTemplatePlaceholderNode(node) &&
         !parentNode.raws.semicolon &&
         options.originalText[options.locEnd(node) - 1] !== ";";
+      const isLessParser =
+        options.parser === "css" || options.parser === "less";
 
-      if (node.mixin) {
+      if (isLessParser && node.mixin) {
         return concat([
           path.call(print, "selector"),
           node.important ? " !important" : "",
@@ -215,7 +217,7 @@ function genericPrint(path, options, print) {
         ]);
       }
 
-      if (node.function) {
+      if (isLessParser && node.function) {
         return concat([
           node.name,
           concat([path.call(print, "params")]),
@@ -223,7 +225,7 @@ function genericPrint(path, options, print) {
         ]);
       }
 
-      if (node.variable) {
+      if (isLessParser && node.variable) {
         return concat([
           "@",
           node.name,
