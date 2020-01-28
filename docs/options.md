@@ -93,6 +93,8 @@ Use single quotes instead of double quotes in JSX.
 
 ## Trailing Commas
 
+_Default value changed from `none` to `es5` in v2.0.0_
+
 Print trailing commas wherever possible when multi-line. (A single-line array, for example, never gets trailing commas.)
 
 Valid options:
