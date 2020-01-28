@@ -10,7 +10,7 @@ const findProjectRoot = require("find-project-root");
 
 const jsonStringifyMem = fn => mem(fn, { cacheKey: JSON.stringify });
 
-const maybeParse = (filePath, config, parse) => {
+const maybeParse = (filePath, parse) => {
   // findProjectRoot will throw an error if we pass a nonexistent directory to
   // it, which is possible, for example, when the path is given via
   // --stdin-filepath. So, first, traverse up until we find an existing
@@ -24,16 +24,14 @@ const maybeParse = (filePath, config, parse) => {
   return filePath && parse(filePath, { root });
 };
 
-const editorconfigAsyncNoCache = async (filePath, config) => {
-  const editorConfig = await maybeParse(filePath, config, editorconfig.parse);
+const editorconfigAsyncNoCache = async filePath => {
+  const editorConfig = await maybeParse(filePath, editorconfig.parse);
   return editorConfigToPrettier(editorConfig);
 };
 const editorconfigAsyncWithCache = jsonStringifyMem(editorconfigAsyncNoCache);
 
-const editorconfigSyncNoCache = (filePath, config) => {
-  return editorConfigToPrettier(
-    maybeParse(filePath, config, editorconfig.parseSync)
-  );
+const editorconfigSyncNoCache = filePath => {
+  return editorConfigToPrettier(maybeParse(filePath, editorconfig.parseSync));
 };
 const editorconfigSyncWithCache = jsonStringifyMem(editorconfigSyncNoCache);
 
