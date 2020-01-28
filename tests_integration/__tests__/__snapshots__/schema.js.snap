@@ -3,14 +3,6 @@
 exports[`schema 1`] = `
 Object {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "allOf": Array [
-    Object {
-      "$ref": "#/definitions/optionsDefinition",
-    },
-    Object {
-      "$ref": "#/definitions/overridesDefinition",
-    },
-  ],
   "definitions": Object {
     "optionsDefinition": Object {
       "properties": Object {
@@ -367,6 +359,11 @@ in order for it to be formatted.",
           "description": "Indent with tabs instead of spaces.",
           "type": "boolean",
         },
+        "vueIndentScriptAndStyle": Object {
+          "default": false,
+          "description": "Indent script and style tags in Vue files.",
+          "type": "boolean",
+        },
       },
       "type": "object",
     },
@@ -422,7 +419,22 @@ in order for it to be formatted.",
       "type": "object",
     },
   },
+  "oneOf": Array [
+    Object {
+      "allOf": Array [
+        Object {
+          "$ref": "#/definitions/optionsDefinition",
+        },
+        Object {
+          "$ref": "#/definitions/overridesDefinition",
+        },
+      ],
+      "type": "object",
+    },
+    Object {
+      "type": "string",
+    },
+  ],
   "title": "Schema for .prettierrc",
-  "type": "object",
 }
 `;

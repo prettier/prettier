@@ -3,11 +3,16 @@
 const fs = require("fs");
 const path = require("path");
 const stripAnsi = require("strip-ansi");
+const SynchronousPromise = require("synchronous-promise").SynchronousPromise;
 
 const isProduction = process.env.NODE_ENV === "production";
 const prettierRootDir = isProduction ? process.env.PRETTIER_DIR : "../";
 const prettierPkg = require(path.join(prettierRootDir, "package.json"));
-const prettierCli = path.join(prettierRootDir, prettierPkg.bin.prettier);
+const bin = prettierPkg.bin;
+const prettierCli = path.join(
+  prettierRootDir,
+  typeof bin === "object" ? bin.prettier : bin
+);
 
 const thirdParty = isProduction
   ? path.join(prettierRootDir, "./third-party")
@@ -58,7 +63,7 @@ function runPrettier(dir, args, options) {
   const origStatSync = fs.statSync;
 
   jest.spyOn(fs, "statSync").mockImplementation(filename => {
-    if (path.basename(filename) === `virtualDirectory`) {
+    if (path.basename(filename) === "virtualDirectory") {
       return origStatSync(path.join(__dirname, __filename));
     }
     return origStatSync(filename);
@@ -82,9 +87,9 @@ function runPrettier(dir, args, options) {
   // We cannot use `jest.setMock("get-stream", impl)` here, because in the
   // production build everything is bundled into one file so there is no
   // "get-stream" module to mock.
-  jest.spyOn(require(thirdParty), "getStream").mockImplementation(() => ({
-    then: handler => handler(options.input || "")
-  }));
+  jest
+    .spyOn(require(thirdParty), "getStream")
+    .mockImplementation(() => SynchronousPromise.resolve(options.input || ""));
   jest
     .spyOn(require(thirdParty), "isCI")
     .mockImplementation(() => process.env.CI);

@@ -7,7 +7,6 @@ const parseFrontMatter = require("../utils/front-matter");
 const { mapAst, INLINE_NODE_WRAPPER_TYPES } = require("./utils");
 const mdx = require("./mdx");
 const remarkMath = require("remark-math");
-const htmlParser = require("../language-html/parser-html").parsers.html;
 
 /**
  * based on [MDAST](https://github.com/syntax-tree/mdast) with following modifications:
@@ -60,29 +59,7 @@ function htmlToJsx() {
         return node;
       }
 
-      const nodes = htmlParser.parse(node.value).children;
-
-      // find out if there are adjacent JSX elements which should be allowed in mdx alike in markdown
-      if (nodes.length <= 1) {
-        return Object.assign({}, node, { type: "jsx" });
-      }
-
-      return nodes.reduce((newNodes, { sourceSpan: position, type }) => {
-        const value = node.value.slice(
-          position.start.offset,
-          position.end.offset
-        );
-
-        if (value) {
-          newNodes.push({
-            type: type === "element" ? "jsx" : type,
-            value,
-            position
-          });
-        }
-
-        return newNodes;
-      }, []);
+      return Object.assign({}, node, { type: "jsx" });
     });
 }
 

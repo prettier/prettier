@@ -138,4 +138,40 @@ FastPath.prototype.map = function map(callback /*, name1, name2, ... */) {
   return result;
 };
 
+/**
+ * @param {...(
+ *   | ((node: any, name: string | null, number: number | null) => boolean)
+ *   | undefined
+ * )} predicates
+ */
+FastPath.prototype.match = function match(/* predicates */) {
+  let stackPointer = this.stack.length - 1;
+
+  let name = null;
+  let node = this.stack[stackPointer--];
+
+  for (let i = 0; i < arguments.length; ++i) {
+    if (node === undefined) {
+      return false;
+    }
+
+    // skip index/array
+    let number = null;
+    if (typeof name === "number") {
+      number = name;
+      name = this.stack[stackPointer--];
+      node = this.stack[stackPointer--];
+    }
+
+    if (arguments[i] && !arguments[i](node, name, number)) {
+      return false;
+    }
+
+    name = this.stack[stackPointer--];
+    node = this.stack[stackPointer--];
+  }
+
+  return true;
+};
+
 module.exports = FastPath;

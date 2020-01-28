@@ -4,11 +4,11 @@ const execa = require("execa");
 const path = require("path");
 const { rollup } = require("rollup");
 const webpack = require("webpack");
-const resolve = require("rollup-plugin-node-resolve");
+const resolve = require("@rollup/plugin-node-resolve");
 const alias = require("@rollup/plugin-alias");
-const commonjs = require("rollup-plugin-commonjs");
+const commonjs = require("@rollup/plugin-commonjs");
 const nodeGlobals = require("rollup-plugin-node-globals");
-const json = require("rollup-plugin-json");
+const json = require("@rollup/plugin-json");
 const replace = require("@rollup/plugin-replace");
 const { terser } = require("rollup-plugin-terser");
 const babel = require("rollup-plugin-babel");
@@ -42,6 +42,9 @@ function getBabelConfig(bundle) {
     plugins: bundle.babelPlugins || [],
     compact: bundle.type === "plugin" ? false : "auto"
   };
+  config.plugins.push(
+    require.resolve("./babel-plugins/replace-array-includes-with-indexof")
+  );
   if (bundle.type === "core") {
     config.plugins.push(
       require.resolve("./babel-plugins/transform-custom-require")

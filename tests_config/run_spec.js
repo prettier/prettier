@@ -94,7 +94,7 @@ global.run_spec = (dirname, parsers, options) => {
       const verifyOptions = Object.assign({}, baseOptions, { parser });
       test(`${basename} - ${parser}-verify`, () => {
         const verifyOutput = format(input, filename, verifyOptions);
-        expect(visualizedOutput).toEqual(visualizeEndOfLine(verifyOutput));
+        expect(visualizeEndOfLine(verifyOutput)).toEqual(visualizedOutput);
       });
     }
 

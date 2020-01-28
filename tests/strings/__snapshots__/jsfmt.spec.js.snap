@@ -55,6 +55,7 @@ printWidth: 80
 
   "\\0",
   "🐶",
+
   "\\uD801\\uDC28"
 ];
 
@@ -117,6 +118,7 @@ trailingComma: "all"
 
   "\\0",
   "🐶",
+
   "\\uD801\\uDC28",
 ];
 
@@ -189,26 +191,13 @@ const Bar = styled.div\`
 
 =====================================output=====================================
 foo(
-  \`a long string \${1 +
-    2 +
-    3 +
-    2 +
-    3 +
-    2 +
-    3 +
-    2 +
-    3 +
-    2 +
-    3 +
-    2 +
-    3 +
-    2 +
-    3 +
-    2 +
-    3} with expr\`
+  \`a long string \${
+    1 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3
+  } with expr\`
 );
 
-const x = \`a long string \${1 +
+const x = \`a long string \${
+  1 +
   2 +
   3 +
   2 +
@@ -227,10 +216,12 @@ const x = \`a long string \${1 +
   2 +
   3 +
   2 +
-  3} with expr\`;
+  3
+} with expr\`;
 
 foo(
-  \`a long string \${1 +
+  \`a long string \${
+    1 +
     2 +
     3 +
     2 +
@@ -251,7 +242,8 @@ foo(
     2 +
     3 +
     2 +
-    3} with expr\`
+    3
+  } with expr\`
 );
 
 pipe.write(
@@ -383,26 +375,13 @@ const Bar = styled.div\`
 
 =====================================output=====================================
 foo(
-  \`a long string \${1 +
-    2 +
-    3 +
-    2 +
-    3 +
-    2 +
-    3 +
-    2 +
-    3 +
-    2 +
-    3 +
-    2 +
-    3 +
-    2 +
-    3 +
-    2 +
-    3} with expr\`,
+  \`a long string \${
+    1 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3 + 2 + 3
+  } with expr\`,
 );
 
-const x = \`a long string \${1 +
+const x = \`a long string \${
+  1 +
   2 +
   3 +
   2 +
@@ -421,10 +400,12 @@ const x = \`a long string \${1 +
   2 +
   3 +
   2 +
-  3} with expr\`;
+  3
+} with expr\`;
 
 foo(
-  \`a long string \${1 +
+  \`a long string \${
+    1 +
     2 +
     3 +
     2 +
@@ -445,7 +426,8 @@ foo(
     2 +
     3 +
     2 +
-    3} with expr\`,
+    3
+  } with expr\`,
 );
 
 pipe.write(

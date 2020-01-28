@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[` 1`] = `
+"Snapshot Diff:
+- First value
++ Second value
+
+@@ -17,10 +17,12 @@
+                             Defaults to avoid.
+    --no-bracket-spacing     Do not print spaces between brackets.
+    --end-of-line <auto|lf|crlf|cr>
+                             Which end of line characters to apply.
+                             Defaults to auto.
++   --foo-string <string>    foo description
++                            Defaults to bar.
+    --html-whitespace-sensitivity <css|strict|ignore>
+                             How to handle whitespaces in HTML.
+                             Defaults to css.
+    --jsx-bracket-same-line  Put > on the last line instead of at a new line.
+                             Defaults to false."
+`;
+
+exports[`show detailed external option with \`--help foo-string\` (stderr) 1`] = `""`;
+
+exports[`show detailed external option with \`--help foo-string\` (stdout) 1`] = `
+"--foo-string <string>
+
+  foo description
+
+Default: bar
+"
+`;
+
+exports[`show detailed external option with \`--help foo-string\` (write) 1`] = `Array []`;

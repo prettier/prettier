@@ -5,7 +5,7 @@ const support = require("../main/support");
 const {
   builders: { hardline, literalline, concat, markAsRoot },
   utils: { mapDoc }
-} = require("../doc");
+} = require("../document");
 const { getFencedCodeBlockValue } = require("./utils");
 
 function embed(path, print, textToDoc, options) {
@@ -57,7 +57,10 @@ function embed(path, print, textToDoc, options) {
     case "importExport":
       return textToDoc(node.value, { parser: "babel" });
     case "jsx":
-      return textToDoc(node.value, { parser: "__js_expression" });
+      return textToDoc(`<$>${node.value}</$>`, {
+        parser: "__js_expression",
+        rootMarker: "mdx"
+      });
   }
 
   return null;

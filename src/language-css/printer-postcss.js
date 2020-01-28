@@ -26,7 +26,7 @@ const {
     ifBreak
   },
   utils: { removeLines }
-} = require("../doc");
+} = require("../document");
 
 const {
   getAncestorNode,
@@ -37,7 +37,6 @@ const {
   insideAtRuleNode,
   insideURLFunctionInImportAtRuleNode,
   isKeyframeAtRuleKeywords,
-  isHTMLTag,
   isWideKeywords,
   isSCSS,
   isLastNode,
@@ -344,9 +343,7 @@ function genericPrint(path, options, print) {
       let value = preferRowsValue(node);
       if (prevNode.type !== "selector-nesting") {
         value = adjustNumbers(
-          isHTMLTag(value) || isKeyframeAtRuleKeywords(path, value)
-            ? value.toLowerCase()
-            : value
+          isKeyframeAtRuleKeywords(path, value) ? value.toLowerCase() : value
         );
       }
 
@@ -461,15 +458,20 @@ function genericPrint(path, options, print) {
       for (let i = 0; i < node.groups.length; ++i) {
         parts.push(printed[i]);
 
-        // Ignore value inside `url()`
-        if (insideURLFunction) {
-          continue;
-        }
-
         const iPrevNode = node.groups[i - 1];
         const iNode = node.groups[i];
         const iNextNode = node.groups[i + 1];
         const iNextNextNode = node.groups[i + 2];
+
+        if (insideURLFunction) {
+          if (
+            (iNextNode && isAdditionNode(iNextNode)) ||
+            isAdditionNode(iNode)
+          ) {
+            parts.push(" ");
+          }
+          continue;
+        }
 
         // Ignore after latest node (i.e. before semicolon)
         if (!iNextNode) {
@@ -594,7 +596,8 @@ function genericPrint(path, options, print) {
           (isAdditionNode(iNode) || isSubtractionNode(iNode)) &&
           i === 0 &&
           (iNextNode.type === "value-number" || iNextNode.isHex) &&
-          (parentParentNode && isColorAdjusterFuncNode(parentParentNode)) &&
+          parentParentNode &&
+          isColorAdjusterFuncNode(parentParentNode) &&
           !hasEmptyRawBefore(iNextNode);
 
         const requireSpaceBeforeOperator =
@@ -740,6 +743,9 @@ function genericPrint(path, options, print) {
 
       const isSCSSMapItem = isSCSSMapItemNode(path);
 
+      const lastItem = node.groups[node.groups.length - 1];
+      const isLastItemComment = lastItem && lastItem.type === "value-comment";
+
       return group(
         concat([
           node.open ? path.call(print, "open") : "",
@@ -773,7 +779,8 @@ function genericPrint(path, options, print) {
             ])
           ),
           ifBreak(
-            isSCSS(options.parser, options.originalText) &&
+            !isLastItemComment &&
+              isSCSS(options.parser, options.originalText) &&
               isSCSSMapItem &&
               shouldPrintComma(options)
               ? ","
@@ -907,7 +914,7 @@ const STANDARD_UNIT_REGEX = /[a-zA-Z]+/g;
 const WORD_PART_REGEX = /[$@]?[a-zA-Z_\u0080-\uFFFF][\w\-\u0080-\uFFFF]*/g;
 const ADJUST_NUMBERS_REGEX = RegExp(
   STRING_REGEX.source +
-    `|` +
+    "|" +
     `(${WORD_PART_REGEX.source})?` +
     `(${NUMBER_REGEX.source})` +
     `(${STANDARD_UNIT_REGEX.source})?`,

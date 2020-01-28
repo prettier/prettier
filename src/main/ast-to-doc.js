@@ -5,7 +5,7 @@ const comments = require("./comments");
 const FastPath = require("../common/fast-path");
 const multiparser = require("./multiparser");
 
-const doc = require("../doc");
+const doc = require("../document");
 const docBuilders = doc.builders;
 const concat = docBuilders.concat;
 const hardline = docBuilders.hardline;

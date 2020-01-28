@@ -1,5 +1,40 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`lang-jsx.vue 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<script lang="jsx">
+export default {
+  data: () => ({
+    message: 'hello with jsx'
+  }),
+  render(h) {
+
+
+
+    return <div>{this.message}</div>
+  }
+}
+</script>
+
+=====================================output=====================================
+<script lang="jsx">
+export default {
+  data: () => ({
+    message: "hello with jsx"
+  }),
+  render(h) {
+    return <div>{this.message}</div>;
+  }
+};
+</script>
+
+================================================================================
+`;
+
 exports[`lang-ts.vue 1`] = `
 ====================================options=====================================
 parsers: ["vue"]

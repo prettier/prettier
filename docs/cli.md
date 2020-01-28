@@ -17,7 +17,7 @@ In practice, this may look something like:
 prettier --single-quote --trailing-comma es5 --write "{app,__{tests,mocks}__}/**/*.js"
 ```
 
-Don't forget the quotes around the globs! The quotes make sure that Prettier expands the globs rather than your shell, for cross-platform usage. The [glob syntax from the `fast-glob` module](https://github.com/mrmlnc/fast-glob/blob/master/README.md#pattern-syntax) is used.
+Don't forget the quotes around the globs! The quotes make sure that Prettier expands the globs rather than your shell, for cross-platform usage. The [glob syntax from the glob module](https://github.com/isaacs/node-glob/blob/master/README.md#glob-primer) is used.
 
 Prettier CLI will ignore files located in `node_modules` directory. To opt-out from this behavior use `--with-node-modules` flag.
 
@@ -51,7 +51,7 @@ Human-friendly status messages help project contributors react on possible probl
 To minimise the number of times `prettier --check` finds unformatted files, you may be interested in configuring a [pre-commit hook](precommit.md) in your repo.
 Applying this practice will minimise the number of times the CI fails because of code formatting problems.
 
-If you need to pipe the list of unformatted files to another command, you can use [`--list-different`](cli.md#list-different) flag instead of `--check`.
+If you need to pipe the list of unformatted files to another command, you can use [`--list-different`](cli.md#--list-different) flag instead of `--check`.
 
 ### Exit codes
 
@@ -112,7 +112,7 @@ Another useful flag is `--list-different` (or `-l`) which prints the filenames o
 prettier --single-quote --list-different "src/**/*.js"
 ```
 
-You can also use [`--check`](cli.md#check) flag, which works the same way as `--list-different`, but also prints a human-friendly summary message to stdout.
+You can also use [`--check`](cli.md#--check) flag, which works the same way as `--list-different`, but also prints a human-friendly summary message to stdout.
 
 ## `--no-config`
 

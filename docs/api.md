@@ -9,7 +9,7 @@ const prettier = require("prettier");
 
 ## `prettier.format(source [, options])`
 
-`format` is used to format text using Prettier. [Options](options.md) may be provided to override the defaults.
+`format` is used to format text using Prettier. [Options](options.md) may be provided to override the defaults. Set `options.parser` according to the language you are formatting (see the [list of available parsers](options.md#parser)).
 
 ```js
 prettier.format("foo ( );", { semi: false, parser: "babel" });
@@ -49,7 +49,7 @@ prettier.resolveConfig(filePath).then(options => {
 });
 ```
 
-If `options.editorconfig` is `true` and an [`.editorconfig` file](http://editorconfig.org/) is in your project, Prettier will parse it and convert its properties to the corresponding prettier configuration. This configuration will be overridden by `.prettierrc`, etc. Currently, the following EditorConfig properties are supported:
+If `options.editorconfig` is `true` and an [`.editorconfig` file](https://editorconfig.org/) is in your project, Prettier will parse it and convert its properties to the corresponding prettier configuration. This configuration will be overridden by `.prettierrc`, etc. Currently, the following EditorConfig properties are supported:
 
 - `end_of_line`
 - `indent_style`

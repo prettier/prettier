@@ -231,3 +231,23 @@ function MyComponent(props) {
 
 ================================================================================
 `;
+
+exports[`type_args.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const response = something.$http.get<ThingamabobService.DetailsData>(
+  \`api/foo.ashx/foo-details/\${myId}\`,
+  { cache: quux.httpCache, timeout }
+);
+
+=====================================output=====================================
+const response = something.$http.get<ThingamabobService.DetailsData>(
+  \`api/foo.ashx/foo-details/\${myId}\`,
+  { cache: quux.httpCache, timeout }
+);
+
+================================================================================
+`;

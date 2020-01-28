@@ -17,9 +17,9 @@ const {
   utils: { mapDoc },
   printer: { printDocToString },
   debug: { printDocToDebug }
-} = require("../doc");
+} = require("../document");
 
-const UTF8BOM = 0xfeff;
+const BOM = "\uFEFF";
 
 const CURSOR = Symbol("cursor");
 const PLACEHOLDERS = {
@@ -319,7 +319,7 @@ function format(text, opts) {
     }
   }
 
-  const hasUnicodeBOM = text.charCodeAt(0) === UTF8BOM;
+  const hasUnicodeBOM = text.charAt(0) === BOM;
   if (hasUnicodeBOM) {
     text = text.substring(1);
     if (hasCursor) {
@@ -354,7 +354,7 @@ function format(text, opts) {
         );
 
   if (hasUnicodeBOM) {
-    result.formatted = String.fromCharCode(UTF8BOM) + result.formatted;
+    result.formatted = BOM + result.formatted;
 
     if (hasCursor) {
       result.cursorOffset++;

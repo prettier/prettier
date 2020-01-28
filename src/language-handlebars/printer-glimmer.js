@@ -9,7 +9,7 @@ const {
   group,
   indent,
   ifBreak
-} = require("../doc").builders;
+} = require("../document").builders;
 
 // http://w3c.github.io/html/single-page.html#void-elements
 const voidTags = [
@@ -32,32 +32,28 @@ const voidTags = [
 // Formatter based on @glimmerjs/syntax's built-in test formatter:
 // https://github.com/glimmerjs/glimmer-vm/blob/master/packages/%40glimmer/syntax/lib/generation/print.ts
 
-function printChildren(path, options, print) {
-  return concat(
-    path.map((childPath, childIndex) => {
-      const childNode = path.getValue();
-      const isFirstNode = childIndex === 0;
-      const isLastNode =
-        childIndex == path.getParentNode(0).children.length - 1;
-      const isLastNodeInMultiNodeList = isLastNode && !isFirstNode;
-      const isWhitespace = isWhitespaceNode(childNode);
-
-      if (isWhitespace && isLastNodeInMultiNodeList) {
-        return print(childPath, options, print);
-      } else if (isFirstNode) {
-        return concat([softline, print(childPath, options, print)]);
-      }
-      return print(childPath, options, print);
-    }, "children")
-  );
-}
-
 function print(path, options, print) {
   const n = path.getValue();
 
   /* istanbul ignore if*/
   if (!n) {
     return "";
+  }
+
+  if (hasPrettierIgnore(path)) {
+    const startOffset = locationToOffset(
+      options.originalText,
+      n.loc.start.line - 1,
+      n.loc.start.column
+    );
+    const endOffset = locationToOffset(
+      options.originalText,
+      n.loc.end.line - 1,
+      n.loc.end.column
+    );
+
+    const ignoredText = options.originalText.slice(startOffset, endOffset);
+    return ignoredText;
   }
 
   switch (n.type) {
@@ -82,7 +78,7 @@ function print(path, options, print) {
         voidTags.indexOf(n.tag) !== -1;
       const closeTagForNoBreak = isVoid ? concat([" />", softline]) : ">";
       const closeTagForBreak = isVoid ? "/>" : ">";
-      const getParams = (path, print) =>
+      const printParams = (path, print) =>
         indent(
           concat([
             n.attributes.length ? line : "",
@@ -103,7 +99,7 @@ function print(path, options, print) {
           concat([
             "<",
             n.tag,
-            getParams(path, print),
+            printParams(path, print),
             n.blockParams.length ? ` as |${n.blockParams.join(" ")}|` : "",
             ifBreak(softline, ""),
             ifBreak(closeTagForBreak, closeTagForNoBreak)
@@ -171,21 +167,31 @@ function print(path, options, print) {
         )
       ]);
     }
-    case "ElementModifierStatement":
-    case "MustacheStatement": {
-      const pp = path.getParentNode(1);
-      const isConcat = pp && pp.type === "ConcatStatement";
+    case "ElementModifierStatement": {
       return group(
-        concat([
-          n.escaped === false ? "{{{" : "{{",
-          printPathParams(path, print, { group: false }),
-          isConcat ? "" : softline,
-          n.escaped === false ? "}}}" : "}}"
-        ])
+        concat(["{{", printPathParams(path, print), softline, "}}"])
       );
     }
+    case "MustacheStatement": {
+      const isEscaped = n.escaped === false;
+
+      const opening = isEscaped ? "{{{" : "{{";
+      const closing = isEscaped ? "}}}" : "}}";
+
+      const leading =
+        isParentOfType(path, "AttrNode") ||
+        isParentOfType(path, "ConcatStatement") ||
+        isParentOfType(path, "ElementNode")
+          ? [opening, indent(softline)]
+          : [opening];
+
+      return group(
+        concat([...leading, printPathParams(path, print), softline, closing])
+      );
+    }
+
     case "SubExpression": {
-      const params = getParams(path, print);
+      const params = printParams(path, print);
       const printedParams =
         params.length > 0
           ? indent(concat([line, group(join(line, params))]))
@@ -208,15 +214,8 @@ function print(path, options, print) {
     case "ConcatStatement": {
       return concat([
         '"',
-        group(
-          indent(
-            join(
-              softline,
-              path
-                .map(partPath => print(partPath), "parts")
-                .filter(a => a !== "")
-            )
-          )
+        concat(
+          path.map(partPath => print(partPath), "parts").filter(a => a !== "")
         ),
         '"'
       ]);
@@ -365,6 +364,26 @@ function print(path, options, print) {
   }
 }
 
+function printChildren(path, options, print) {
+  return concat(
+    path.map((childPath, childIndex) => {
+      const childNode = path.getValue();
+      const isFirstNode = childIndex === 0;
+      const isLastNode =
+        childIndex == path.getParentNode(0).children.length - 1;
+      const isLastNodeInMultiNodeList = isLastNode && !isFirstNode;
+      const isWhitespace = isWhitespaceNode(childNode);
+
+      if (isWhitespace && isLastNodeInMultiNodeList) {
+        return print(childPath, options, print);
+      } else if (isFirstNode) {
+        return concat([softline, print(childPath, options, print)]);
+      }
+      return print(childPath, options, print);
+    }, "children")
+  );
+}
+
 /**
  * Prints a string literal with the correct surrounding quotes based on
  * `options.singleQuote` and the number of escaped quotes contained in
@@ -404,14 +423,18 @@ function printStringLiteral(stringLiteral, options) {
     `\\${enclosingQuote.quote}`
   );
 
-  return `${enclosingQuote.quote}${escapedStringLiteral}${enclosingQuote.quote}`;
+  return concat([
+    enclosingQuote.quote,
+    escapedStringLiteral,
+    enclosingQuote.quote
+  ]);
 }
 
 function printPath(path, print) {
   return path.call(print, "path");
 }
 
-function getParams(path, print) {
+function printParams(path, print) {
   const node = path.getValue();
   let parts = [];
 
@@ -425,16 +448,11 @@ function getParams(path, print) {
   return parts;
 }
 
-function printPathParams(path, print, options) {
-  let parts = [];
-  options = Object.assign({ group: true }, options || {});
+function printPathParams(path, print) {
+  const printedPath = printPath(path, print);
+  const printedParams = printParams(path, print);
 
-  parts.push(printPath(path, print));
-  parts = parts.concat(getParams(path, print));
-
-  if (!options.group) {
-    return indent(join(line, parts));
-  }
+  const parts = [printedPath, ...printedParams];
 
   return indent(group(join(line, parts)));
 }
@@ -467,15 +485,20 @@ function isWhitespaceNode(node) {
   return node.type === "TextNode" && !/\S/.test(node.chars);
 }
 
-function getPreviousNode(path) {
+function isParentOfType(path, nodeType) {
+  const p = path.getParentNode(0);
+  return p && p.type === nodeType;
+}
+
+function getPreviousNode(path, lookBack = 1) {
   const node = path.getValue();
   const parentNode = path.getParentNode(0);
 
-  const children = parentNode.children || parentNode.body;
+  const children = parentNode && (parentNode.children || parentNode.body);
   if (children) {
     const nodeIndex = children.indexOf(node);
     if (nodeIndex > 0) {
-      const previousNode = children[nodeIndex - 1];
+      const previousNode = children[nodeIndex - lookBack];
       return previousNode;
     }
   }
@@ -544,6 +567,58 @@ function countTrailingNewLines(string) {
 
 function generateHardlines(number = 0, max = 0) {
   return new Array(Math.min(number, max)).fill(hardline);
+}
+
+function hasPrettierIgnore(path) {
+  const n = path.getValue();
+  const previousPreviousNode = getPreviousNode(path, 2);
+  const isIgnoreNode = isPrettierIgnoreNode(n);
+  const isCoveredByIgnoreNode = isPrettierIgnoreNode(previousPreviousNode);
+
+  return isIgnoreNode || isCoveredByIgnoreNode;
+}
+
+/* istanbul ignore next
+   https://github.com/glimmerjs/glimmer-vm/blob/master/packages/%40glimmer/compiler/lib/location.ts#L5-L29
+*/
+function locationToOffset(source, line, column) {
+  let seenLines = 0;
+  let seenChars = 0;
+
+  // eslint-disable-next-line no-constant-condition
+  while (true) {
+    if (seenChars === source.length) {
+      return null;
+    }
+
+    let nextLine = source.indexOf("\n", seenChars);
+    if (nextLine === -1) {
+      nextLine = source.length;
+    }
+
+    if (seenLines === line) {
+      if (seenChars + column > nextLine) {
+        return null;
+      }
+      return seenChars + column;
+    } else if (nextLine === -1) {
+      return null;
+    }
+    seenLines += 1;
+    seenChars = nextLine + 1;
+  }
+}
+
+function isPrettierIgnoreNode(node) {
+  if (!node) {
+    return false;
+  }
+
+  const isMustacheComment = node.type === "MustacheCommentStatement";
+  const containsPrettierIgnore =
+    typeof node.value === "string" && node.value.trim() === "prettier-ignore";
+
+  return isMustacheComment && containsPrettierIgnore;
 }
 
 module.exports = {

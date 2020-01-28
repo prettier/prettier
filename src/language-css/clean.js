@@ -1,7 +1,5 @@
 "use strict";
 
-const htmlTagNames = require("html-tag-names");
-
 function clean(ast, newObj, parent) {
   [
     "raw", // front-matter
@@ -140,10 +138,6 @@ function clean(ast, newObj, parent) {
 
   if (ast.type === "selector-tag") {
     const lowercasedValue = ast.value.toLowerCase();
-
-    if (htmlTagNames.indexOf(lowercasedValue) !== -1) {
-      newObj.value = lowercasedValue;
-    }
 
     if (["from", "to"].indexOf(lowercasedValue) !== -1) {
       newObj.value = lowercasedValue;

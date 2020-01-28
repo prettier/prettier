@@ -14,7 +14,7 @@ const {
     dedentToRoot
   },
   utils: { mapDoc, stripTrailingHardline }
-} = require("../doc");
+} = require("../document");
 
 function embed(path, print, textToDoc, options) {
   const node = path.getValue();
@@ -161,11 +161,10 @@ function embed(path, print, textToDoc, options) {
        */
       if (
         parentParent &&
-        (parentParent.type === "TaggedTemplateExpression" &&
-          parent.quasis.length === 1 &&
-          (parentParent.tag.type === "Identifier" &&
-            (parentParent.tag.name === "md" ||
-              parentParent.tag.name === "markdown")))
+        parentParent.type === "TaggedTemplateExpression" &&
+        parent.quasis.length === 1 &&
+        parentParent.tag.type === "Identifier" &&
+        (parentParent.tag.name === "md" || parentParent.tag.name === "markdown")
       ) {
         const text = parent.quasis[0].value.raw.replace(
           /((?:\\\\)*)\\`/g,
@@ -390,43 +389,37 @@ function isStyledJsx(path) {
  * })
  */
 function isAngularComponentStyles(path) {
-  return isPathMatch(
-    path,
-    [
-      node => node.type === "TemplateLiteral",
-      (node, name) => node.type === "ArrayExpression" && name === "elements",
-      (node, name) =>
-        node.type === "Property" &&
-        node.key.type === "Identifier" &&
-        node.key.name === "styles" &&
-        name === "value"
-    ].concat(getAngularComponentObjectExpressionPredicates())
+  return path.match(
+    node => node.type === "TemplateLiteral",
+    (node, name) => node.type === "ArrayExpression" && name === "elements",
+    (node, name) =>
+      node.type === "Property" &&
+      node.key.type === "Identifier" &&
+      node.key.name === "styles" &&
+      name === "value",
+    ...angularComponentObjectExpressionPredicates
   );
 }
 function isAngularComponentTemplate(path) {
-  return isPathMatch(
-    path,
-    [
-      node => node.type === "TemplateLiteral",
-      (node, name) =>
-        node.type === "Property" &&
-        node.key.type === "Identifier" &&
-        node.key.name === "template" &&
-        name === "value"
-    ].concat(getAngularComponentObjectExpressionPredicates())
+  return path.match(
+    node => node.type === "TemplateLiteral",
+    (node, name) =>
+      node.type === "Property" &&
+      node.key.type === "Identifier" &&
+      node.key.name === "template" &&
+      name === "value",
+    ...angularComponentObjectExpressionPredicates
   );
 }
-function getAngularComponentObjectExpressionPredicates() {
-  return [
-    (node, name) => node.type === "ObjectExpression" && name === "properties",
-    (node, name) =>
-      node.type === "CallExpression" &&
-      node.callee.type === "Identifier" &&
-      node.callee.name === "Component" &&
-      name === "arguments",
-    (node, name) => node.type === "Decorator" && name === "expression"
-  ];
-}
+const angularComponentObjectExpressionPredicates = [
+  (node, name) => node.type === "ObjectExpression" && name === "properties",
+  (node, name) =>
+    node.type === "CallExpression" &&
+    node.callee.type === "Identifier" &&
+    node.callee.name === "Component" &&
+    name === "arguments",
+  (node, name) => node.type === "Decorator" && name === "expression"
+];
 
 /**
  * styled-components template literals
@@ -537,50 +530,21 @@ function hasLanguageComment(node, languageName) {
   );
 }
 
-function isPathMatch(path, predicateStack) {
-  const stack = path.stack.slice();
-
-  let name = null;
-  let node = stack.pop();
-
-  for (const predicate of predicateStack) {
-    if (node === undefined) {
-      return false;
-    }
-
-    // skip index/array
-    if (typeof name === "number") {
-      name = stack.pop();
-      node = stack.pop();
-    }
-
-    if (!predicate(node, name)) {
-      return false;
-    }
-
-    name = stack.pop();
-    node = stack.pop();
-  }
-
-  return true;
-}
-
 /**
  *     - html`...`
  *     - HTML comment block
  */
 function isHtml(path) {
-  const node = path.getValue();
   return (
-    hasLanguageComment(node, "HTML") ||
-    isPathMatch(path, [
+    hasLanguageComment(path.getValue(), "HTML") ||
+    path.match(
       node => node.type === "TemplateLiteral",
       (node, name) =>
         node.type === "TaggedTemplateExpression" &&
         node.tag.type === "Identifier" &&
         node.tag.name === "html" &&
         name === "quasi"
-    ])
+    )
   );
 }
 
