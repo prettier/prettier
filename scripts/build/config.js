@@ -118,12 +118,12 @@ const parsers = [
     }
   }
 ].map(parser => ({
-  ...parser,
   type: "plugin",
   target: "universal",
   name: getFileOutput(parser)
     .replace(/\.js$/, "")
-    .split("-")[1]
+    .split("-")[1],
+  ...parser
 }));
 
 /** @type {Bundle[]} */
