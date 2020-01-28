@@ -377,7 +377,7 @@ em {
 .usersSection a:hover {
   color: white !important;
 }
-.usersSection .alignCenter{
+.usersSection .alignCenter {
   display: flex;
   align-items: center;
 }

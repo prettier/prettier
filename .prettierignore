@@ -1,2 +1,9 @@
 dist/
+.cache/
+coverage/
+/tests/
+!/tests/**/jsfmt.spec.js
+/tests_integration/cli/
+/tests_integration/plugins/
+/website/build/
 cspell.json
