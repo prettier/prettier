@@ -25,24 +25,20 @@ const PROJECT_ROOT = path.resolve(__dirname, "../..");
 /** @type {Bundle[]} */
 const parsers = [
   {
-    input: "src/language-js/parser-babylon.js",
-    target: "universal"
+    input: "src/language-js/parser-babylon.js"
   },
   {
     input: "src/language-js/parser-flow.js",
-    target: "universal",
     strict: false
   },
   {
     input: "src/language-js/parser-typescript.js",
-    target: "universal",
     replace: {
       'require("@microsoft/typescript-etw")': "undefined"
     }
   },
   {
     input: "src/language-js/parser-angular.js",
-    target: "universal",
     alias: {
       // Force using the CJS file, instead of ESM; i.e. get the file
       // from `"main"` instead of `"module"` (rollup default) of package.json
@@ -62,7 +58,6 @@ const parsers = [
   },
   {
     input: "src/language-css/parser-postcss.js",
-    target: "universal",
     // postcss has dependency cycles that don't work with rollup
     bundler: "webpack",
     terserOptions: {
@@ -77,16 +72,13 @@ const parsers = [
     }
   },
   {
-    input: "src/language-graphql/parser-graphql.js",
-    target: "universal"
+    input: "src/language-graphql/parser-graphql.js"
   },
   {
-    input: "src/language-markdown/parser-markdown.js",
-    target: "universal"
+    input: "src/language-markdown/parser-markdown.js"
   },
   {
     input: "src/language-handlebars/parser-glimmer.js",
-    target: "universal",
     alias: {
       entries: [
         // `handlebars` causes webpack warning by using `require.extensions`
@@ -110,12 +102,10 @@ const parsers = [
     }
   },
   {
-    input: "src/language-html/parser-html.js",
-    target: "universal"
+    input: "src/language-html/parser-html.js"
   },
   {
     input: "src/language-yaml/parser-yaml.js",
-    target: "universal",
     alias: {
       // Force using the CJS file, instead of ESM; i.e. get the file
       // from `"main"` instead of `"module"` (rollup default) of package.json
@@ -130,6 +120,7 @@ const parsers = [
 ].map(parser => ({
   ...parser,
   type: "plugin",
+  target: "universal",
   name: getFileOutput(parser)
     .replace(/\.js$/, "")
     .split("-")[1]
