@@ -8,6 +8,8 @@ const mem = require("mem");
 const editorConfigToPrettier = require("editorconfig-to-prettier");
 const findProjectRoot = require("find-project-root");
 
+const jsonStringifyMem = fn => mem(fn, { cacheKey: JSON.stringify });
+
 const maybeParse = (filePath, config, parse) => {
   // findProjectRoot will throw an error if we pass a nonexistent directory to
   // it, which is possible, for example, when the path is given via
@@ -22,19 +24,18 @@ const maybeParse = (filePath, config, parse) => {
   return filePath && parse(filePath, { root });
 };
 
-const editorconfigAsyncNoCache = (filePath, config) => {
-  return Promise.resolve(maybeParse(filePath, config, editorconfig.parse)).then(
-    editorConfigToPrettier
-  );
+const editorconfigAsyncNoCache = async (filePath, config) => {
+  const editorConfig = await maybeParse(filePath, config, editorconfig.parse);
+  return editorConfigToPrettier(editorConfig);
 };
-const editorconfigAsyncWithCache = mem(editorconfigAsyncNoCache);
+const editorconfigAsyncWithCache = jsonStringifyMem(editorconfigAsyncNoCache);
 
 const editorconfigSyncNoCache = (filePath, config) => {
   return editorConfigToPrettier(
     maybeParse(filePath, config, editorconfig.parseSync)
   );
 };
-const editorconfigSyncWithCache = mem(editorconfigSyncNoCache);
+const editorconfigSyncWithCache = jsonStringifyMem(editorconfigSyncNoCache);
 
 function getLoadFunction(opts) {
   if (!opts.editorconfig) {

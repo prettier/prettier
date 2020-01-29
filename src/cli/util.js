@@ -590,10 +590,13 @@ function createUsage(context) {
   const firstCategories = constant.categoryOrder.slice(0, -1);
   const lastCategories = constant.categoryOrder.slice(-1);
   const restCategories = Object.keys(groupedOptions).filter(
-    category =>
-      !firstCategories.includes(category) && !lastCategories.includes(category)
+    category => !constant.categoryOrder.includes(category)
   );
-  const allCategories = firstCategories.concat(restCategories, lastCategories);
+  const allCategories = [
+    ...firstCategories,
+    ...restCategories,
+    ...lastCategories
+  ];
 
   const optionsUsage = allCategories.map(category => {
     const categoryOptions = groupedOptions[category]

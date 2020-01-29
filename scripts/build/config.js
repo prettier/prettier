@@ -71,7 +71,9 @@ const parsers = [
       terserOptions: {
         mangle: {
           // postcss need keep_fnames when minify
-          keep_fnames: true
+          keep_fnames: true,
+          // we don't transform class anymore, so we need keep_classnames too
+          keep_classnames: true
         }
       }
     }
@@ -101,7 +103,10 @@ const parsers = [
     },
     commonjs: {
       namedExports: {
-        [require.resolve("handlebars/dist/cjs/handlebars.js")]: ["parse"],
+        [require.resolve("handlebars/dist/cjs/handlebars.js")]: [
+          "parse",
+          "parseWithoutProcessing"
+        ],
         [require.resolve(
           "@glimmer/syntax/dist/modules/es2017/index.js"
         )]: "default"
