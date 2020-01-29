@@ -170,10 +170,10 @@ declare class Point {
 var p_cast = <Point>{
   x: 0,
   y: 0,
-  add: function(dx, dy) {
+  add: function (dx, dy) {
     return new Point(this.x + dx, this.y + dy);
   },
-  mult: function(p) {
+  mult: function (p) {
     return p;
   },
 };

@@ -36,16 +36,9 @@ This option cannot be used with --range-start and --range-end.",
           "type": "integer",
         },
         "endOfLine": Object {
-          "default": "auto",
+          "default": "lf",
           "description": "Which end of line characters to apply.",
           "oneOf": Array [
-            Object {
-              "description": "Maintain existing
-(mixed values within one file are normalised by looking at what's used after the first line)",
-              "enum": Array [
-                "auto",
-              ],
-            },
             Object {
               "description": "Line Feed only (\\\\n), common on Linux and macOS as well as inside git repos",
               "enum": Array [
@@ -62,6 +55,13 @@ This option cannot be used with --range-start and --range-end.",
               "description": "Carriage Return character only (\\\\r), used very rarely",
               "enum": Array [
                 "cr",
+              ],
+            },
+            Object {
+              "description": "Maintain existing
+(mixed values within one file are normalised by looking at what's used after the first line)",
+              "enum": Array [
+                "auto",
               ],
             },
           ],

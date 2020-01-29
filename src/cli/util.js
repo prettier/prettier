@@ -299,16 +299,16 @@ function getOptionsForFile(context, filepath) {
     pushContextPlugins(context, options.plugins);
   }
 
-  const appliedOptions = Object.assign(
-    { filepath },
-    applyConfigPrecedence(
+  const appliedOptions = {
+    filepath,
+    ...applyConfigPrecedence(
       context,
       options &&
         optionsNormalizer.normalizeApiOptions(options, context.supportOptions, {
           logger: context.logger
         })
     )
-  );
+  };
 
   context.logger.debug(
     `applied config-precedence (${context.argv["config-precedence"]}): ` +
@@ -329,14 +329,11 @@ function parseArgsToOptions(context, overrideDefaults) {
   );
   return getOptions(
     optionsNormalizer.normalizeCliOptions(
-      minimist(
-        context.args,
-        Object.assign({
-          string: minimistOptions.string,
-          boolean: minimistOptions.boolean,
-          default: cliifyOptions(overrideDefaults, apiDetailedOptionMap)
-        })
-      ),
+      minimist(context.args, {
+        string: minimistOptions.string,
+        boolean: minimistOptions.boolean,
+        default: cliifyOptions(overrideDefaults, apiDetailedOptionMap)
+      }),
       context.detailedOptions,
       { logger: false }
     ),
@@ -350,7 +347,7 @@ function applyConfigPrecedence(context, options) {
       case "cli-override":
         return parseArgsToOptions(context, options);
       case "file-override":
-        return Object.assign({}, parseArgsToOptions(context), options);
+        return { ...parseArgsToOptions(context), ...options };
       case "prefer-file":
         return options || parseArgsToOptions(context);
     }
@@ -488,11 +485,7 @@ function formatFiles(context) {
     let output;
 
     try {
-      result = format(
-        context,
-        input,
-        Object.assign({}, options, { filepath: filename })
-      );
+      result = format(context, input, { ...options, filepath: filename });
       output = result.formatted;
     } catch (error) {
       handleError(context, filename, error);
@@ -570,11 +563,12 @@ function getOptionsWithOpposites(options) {
   const optionsWithOpposites = options.map(option => [
     option.description ? option : null,
     option.oppositeDescription
-      ? Object.assign({}, option, {
+      ? {
+          ...option,
           name: `no-${option.name}`,
           type: "boolean",
           description: option.oppositeDescription
-        })
+        }
       : null
   ]);
   return flattenArray(optionsWithOpposites).filter(Boolean);
@@ -596,10 +590,13 @@ function createUsage(context) {
   const firstCategories = constant.categoryOrder.slice(0, -1);
   const lastCategories = constant.categoryOrder.slice(-1);
   const restCategories = Object.keys(groupedOptions).filter(
-    category =>
-      !firstCategories.includes(category) && !lastCategories.includes(category)
+    category => !constant.categoryOrder.includes(category)
   );
-  const allCategories = firstCategories.concat(restCategories, lastCategories);
+  const allCategories = [
+    ...firstCategories,
+    ...restCategories,
+    ...lastCategories
+  ];
 
   const optionsUsage = allCategories.map(category => {
     const categoryOptions = groupedOptions[category]
@@ -746,7 +743,7 @@ function groupBy(array, getKey) {
   return array.reduce((obj, item) => {
     const key = getKey(item);
     const previousItems = key in obj ? obj[key] : [];
-    return Object.assign({}, obj, { [key]: previousItems.concat(item) });
+    return { ...obj, [key]: previousItems.concat(item) };
   }, Object.create(null));
 }
 
@@ -774,7 +771,7 @@ function createLogger(logLevel) {
 
     const prefix = color ? `[${chalk[color](loggerName)}] ` : "";
     return function(message, opts) {
-      opts = Object.assign({ newline: true }, opts);
+      opts = { newline: true, ...opts };
       const stream = process[loggerName === "log" ? "stdout" : "stderr"];
       stream.write(message.replace(/^/gm, prefix) + (opts.newline ? "\n" : ""));
     };
@@ -808,20 +805,23 @@ function createLogger(logLevel) {
 }
 
 function normalizeDetailedOption(name, option) {
-  return Object.assign({ category: coreOptions.CATEGORY_OTHER }, option, {
+  return {
+    category: coreOptions.CATEGORY_OTHER,
+    ...option,
     choices:
       option.choices &&
       option.choices.map(choice => {
-        const newChoice = Object.assign(
-          { description: "", deprecated: false },
-          typeof choice === "object" ? choice : { value: choice }
-        );
+        const newChoice = {
+          description: "",
+          deprecated: false,
+          ...(typeof choice === "object" ? choice : { value: choice })
+        };
         if (newChoice.value === true) {
           newChoice.value = ""; // backward compatibility for original boolean option
         }
         return newChoice;
       })
-  });
+  };
 }
 
 function normalizeDetailedOptionMap(detailedOptionMap) {
@@ -857,8 +857,7 @@ function createMinimistOptions(detailedOptions) {
           option.default !== undefined
       )
       .reduce(
-        (current, option) =>
-          Object.assign({ [option.name]: option.default }, current),
+        (current, option) => ({ [option.name]: option.default, ...current }),
         {}
       )
   };
@@ -876,12 +875,13 @@ function createApiDetailedOptionMap(detailedOptions) {
 
 function createDetailedOptionMap(supportOptions) {
   return supportOptions.reduce((reduced, option) => {
-    const newOption = Object.assign({}, option, {
+    const newOption = {
+      ...option,
       name: option.cliName || dashify(option.name),
       description: option.cliDescription || option.description,
       category: option.cliCategory || coreOptions.CATEGORY_FORMAT,
       forwardToApi: option.name
-    });
+    };
 
     if (option.deprecated) {
       delete newOption.forwardToApi;
@@ -937,9 +937,10 @@ function updateContextOptions(context, plugins, pluginSearchDirs) {
     pluginSearchDirs
   }).options;
 
-  const detailedOptionMap = normalizeDetailedOptionMap(
-    Object.assign({}, createDetailedOptionMap(supportOptions), constant.options)
-  );
+  const detailedOptionMap = normalizeDetailedOptionMap({
+    ...createDetailedOptionMap(supportOptions),
+    ...constant.options
+  });
 
   const detailedOptions = arrayify(detailedOptionMap, "name");
 
@@ -948,7 +949,7 @@ function updateContextOptions(context, plugins, pluginSearchDirs) {
     .reduce(
       (reduced, optionInfo) =>
         Object.assign(reduced, { [optionInfo.name]: optionInfo.default }),
-      Object.assign({}, optionsModule.hiddenDefaults)
+      { ...optionsModule.hiddenDefaults }
     );
 
   context.supportOptions = supportOptions;

@@ -19,7 +19,7 @@ var X = {
 
 =====================================output=====================================
 var X = {
-  perform: function<
+  perform: function <
     A,
     B,
     C,
@@ -54,7 +54,7 @@ var X = {
 
 =====================================output=====================================
 var X = {
-  perform: function<
+  perform: function <
     A,
     B,
     C,

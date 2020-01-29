@@ -4,7 +4,7 @@ const execa = require("execa");
 const path = require("path");
 const { rollup } = require("rollup");
 const webpack = require("webpack");
-const resolve = require("rollup-plugin-node-resolve");
+const resolve = require("@rollup/plugin-node-resolve");
 const alias = require("@rollup/plugin-alias");
 const commonjs = require("@rollup/plugin-commonjs");
 const nodeGlobals = require("rollup-plugin-node-globals");
@@ -31,6 +31,7 @@ const EXTERNALS = [
   "url",
   "util",
   "readline",
+  "tty",
 
   // See comment in jest.config.js
   "graceful-fs"
@@ -49,8 +50,12 @@ function getBabelConfig(bundle) {
   }
   const targets = { node: "10" };
   if (bundle.target === "universal") {
-    // From https://jamie.build/last-2-versions
-    targets.browsers = [">0.25%", "not ie 11", "not op_mini all"];
+    targets.browsers = [
+      ">0.5%",
+      "not ie 11",
+      "not safari 5.1",
+      "not op_mini all"
+    ];
   }
   config.presets = [
     [

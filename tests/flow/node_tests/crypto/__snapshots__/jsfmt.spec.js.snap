@@ -52,7 +52,7 @@ const crypto = require("crypto");
 
 let tests = [
   // Hmac is a duplex stream
-  function() {
+  function () {
     const hmac = crypto.createHmac("sha256", "a secret");
 
     hmac.on("readable", () => {
@@ -66,7 +66,7 @@ let tests = [
   },
 
   // Hmac supports update and digest functions too
-  function(buf: Buffer) {
+  function (buf: Buffer) {
     const hmac = crypto.createHmac("sha256", "a secret");
 
     hmac.update("some data to hash");

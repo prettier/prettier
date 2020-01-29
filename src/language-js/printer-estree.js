@@ -5,8 +5,6 @@ const assert = require("assert");
 // TODO(azz): anything that imports from main shouldn't be in a `language-*` dir.
 const comments = require("../main/comments");
 const {
-  getParentExportDeclaration,
-  isExportDeclaration,
   shouldFlatten,
   getNextNonSpaceNonCommentCharacter,
   hasNewline,
@@ -43,6 +41,7 @@ const {
   conditionalExpressionChainContainsJSX,
   getFlowVariance,
   getLeftSidePathName,
+  getParentExportDeclaration,
   getTypeScriptMappedTypeModifier,
   hasDanglingComments,
   hasFlowAnnotationComment,
@@ -58,6 +57,7 @@ const {
   isBinaryish,
   isCallOrOptionalCallExpression,
   isEmptyJSXElement,
+  isExportDeclaration,
   isFlowAnnotationComment,
   isFunctionCompositionArgs,
   isFunctionNotation,
@@ -835,7 +835,10 @@ function printPathNoParens(path, options, print, args) {
             comment,
             options
           );
-          return options.originalText.substr(nextCharacter, 2) === "=>";
+          return (
+            options.originalText.slice(nextCharacter, nextCharacter + 2) ===
+            "=>"
+          );
         }
       );
       if (dangling) {
@@ -917,11 +920,14 @@ function printPathNoParens(path, options, print, args) {
     case "YieldExpression":
       parts.push("yield");
 
+      if (n.delegate || n.argument) {
+        parts.push(" ");
+      }
       if (n.delegate) {
         parts.push("*");
       }
       if (n.argument) {
-        parts.push(" ", path.call(print, "argument"));
+        parts.push(path.call(print, "argument"));
       }
 
       return concat(parts);
@@ -1188,7 +1194,7 @@ function printPathNoParens(path, options, print, args) {
         path.call(print, "callee"),
         optional,
         isIdentifierWithFlowAnnotation
-          ? `/*:: ${n.callee.trailingComments[0].value.substring(2).trim()} */`
+          ? `/*:: ${n.callee.trailingComments[0].value.slice(2).trim()} */`
           : "",
         printFunctionTypeParameters(path, options, print),
         printArgumentsList(path, options, print)
@@ -2412,12 +2418,8 @@ function printPathNoParens(path, options, print, args) {
       if (isSimple) {
         expressions = expressions.map(
           doc =>
-            printDocToString(
-              doc,
-              Object.assign({}, options, {
-                printWidth: Infinity
-              })
-            ).formatted
+            printDocToString(doc, { ...options, printWidth: Infinity })
+              .formatted
         );
       }
 
@@ -3035,7 +3037,7 @@ function printPathNoParens(path, options, print, args) {
         value.typeAnnotation &&
         value.typeAnnotation.range &&
         options.originalText
-          .substring(value.typeAnnotation.range[0])
+          .slice(value.typeAnnotation.range[0])
           .match(/^\/\*\s*:/);
       return concat([
         "(",
@@ -3052,13 +3054,13 @@ function printPathNoParens(path, options, print, args) {
     case "TypeParameterInstantiation": {
       const value = path.getValue();
       const commentStart = value.range
-        ? options.originalText.substring(0, value.range[0]).lastIndexOf("/*")
+        ? options.originalText.slice(0, value.range[0]).lastIndexOf("/*")
         : -1;
       // As noted in the TypeCastExpression comments above, we're able to use a normal whitespace regex here
       // because we know for sure that this is a type definition.
       const commentSyntax =
         commentStart >= 0 &&
-        options.originalText.substring(commentStart).match(/^\/\*\s*::/);
+        options.originalText.slice(commentStart).match(/^\/\*\s*::/);
       if (commentSyntax) {
         return concat([
           "/*:: ",
@@ -3872,8 +3874,7 @@ function shouldGroupFirstArg(args) {
     return false;
   }
 
-  const firstArg = args[0];
-  const secondArg = args[1];
+  const [firstArg, secondArg] = args;
   return (
     (!firstArg.comments || !firstArg.comments.length) &&
     (firstArg.type === "FunctionExpression" ||
@@ -3902,13 +3903,11 @@ function printJestEachTemplateLiteral(node, expressions, options) {
     const stringifiedExpressions = expressions.map(
       doc =>
         "${" +
-        printDocToString(
-          doc,
-          Object.assign({}, options, {
-            printWidth: Infinity,
-            endOfLine: "lf"
-          })
-        ).formatted +
+        printDocToString(doc, {
+          ...options,
+          printWidth: Infinity,
+          endOfLine: "lf"
+        }).formatted +
         "}"
     );
 
@@ -3927,25 +3926,24 @@ function printJestEachTemplateLiteral(node, expressions, options) {
       }
     }
 
-    const maxColumnCount = tableBody.reduce(
-      (maxColumnCount, row) => Math.max(maxColumnCount, row.cells.length),
-      headerNames.length
+    const maxColumnCount = Math.max(
+      headerNames.length,
+      ...tableBody.map(row => row.cells.length)
     );
 
-    const maxColumnWidths = Array.from(new Array(maxColumnCount), () => 0);
-    const table = [{ cells: headerNames }].concat(
-      tableBody.filter(row => row.cells.length !== 0)
-    );
-    table
-      .filter(row => !row.hasLineBreak)
-      .forEach(row => {
-        row.cells.forEach((cell, index) => {
-          maxColumnWidths[index] = Math.max(
-            maxColumnWidths[index],
-            getStringWidth(cell)
-          );
-        });
+    const maxColumnWidths = Array.from({ length: maxColumnCount }).fill(0);
+    const table = [
+      { cells: headerNames },
+      ...tableBody.filter(row => row.cells.length !== 0)
+    ];
+    for (const { cells } of table.filter(row => !row.hasLineBreak)) {
+      cells.forEach((cell, index) => {
+        maxColumnWidths[index] = Math.max(
+          maxColumnWidths[index],
+          getStringWidth(cell)
+        );
       });
+    }
 
     parts.push(
       lineSuffixBoundary,
@@ -4397,13 +4395,14 @@ function printFunctionDeclaration(path, print, options) {
     parts.push("async ");
   }
 
-  parts.push("function");
+  parts.push("function ");
 
   if (n.generator) {
     parts.push("*");
   }
+
   if (n.id) {
-    parts.push(" ", path.call(print, "id"));
+    parts.push(path.call(print, "id"));
   }
 
   parts.push(
@@ -6058,8 +6057,9 @@ function printComment(commentPath, options) {
         return printed;
       }
 
+      const commentEnd = options.locEnd(comment);
       const isInsideFlowComment =
-        options.originalText.substr(options.locEnd(comment) - 3, 3) === "*-/";
+        options.originalText.slice(commentEnd - 3, commentEnd) === "*-/";
 
       return "/*" + comment.value + (isInsideFlowComment ? "*-/" : "*/");
     }

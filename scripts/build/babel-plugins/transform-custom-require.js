@@ -22,7 +22,7 @@ module.exports = function(babel) {
         if (isEvalRequire(node.callee) && node.arguments.length === 1) {
           let arg = node.arguments[0];
           if (t.isLiteral(arg) && arg.value.startsWith(".")) {
-            const value = "." + arg.value.substring(arg.value.lastIndexOf("/"));
+            const value = "." + arg.value.slice(arg.value.lastIndexOf("/"));
             arg = t.stringLiteral(value);
           }
           path.replaceWith(t.callExpression(t.identifier("require"), [arg]));

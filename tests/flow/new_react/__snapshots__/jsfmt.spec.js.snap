@@ -63,7 +63,7 @@ var UFILikeCount = require("UFILikeCount.react");
 var React = require("react");
 
 var FeedUFI = React.createClass({
-  _renderLikeCount: function(feedback: any) {
+  _renderLikeCount: function (feedback: any) {
     var props = {
       className: "",
       key: "",
@@ -76,7 +76,7 @@ var FeedUFI = React.createClass({
     );
   },
 
-  render: function(): ?React.Element<any> {
+  render: function (): ?React.Element<any> {
     return <div />;
   },
 });
@@ -100,7 +100,7 @@ module.exports = {
 =====================================output=====================================
 /* @providesModule Mixin */
 module.exports = {
-  success: function() {},
+  success: function () {},
 };
 
 ================================================================================
@@ -154,7 +154,7 @@ var UFILikeCount = React.createClass({
     feedback: React.PropTypes.object.isRequired,
   },
 
-  render: function(): ?React.Element<any> {
+  render: function (): ?React.Element<any> {
     return <div />;
   },
 });
@@ -637,11 +637,11 @@ var TestProps = React.createClass({
     z: React.PropTypes.number,
   },
 
-  getDefaultProps: function() {
+  getDefaultProps: function () {
     return { x: "", y: 0 };
   },
 
-  test: function() {
+  test: function () {
     var a: number = this.props.x; // error
     var b: string = this.props.y; // error
     var c: string = this.props.z; // error
@@ -693,10 +693,10 @@ var C = React.createClass({
   },
 });
 var D = React.createClass({
-  getInitialState: function(): { bar: number } {
+  getInitialState: function (): { bar: number } {
     return { bar: 0 };
   },
-  render: function() {
+  render: function () {
     var obj = { bar: 0 };
     var s: string = this.state.bar;
     return <C {...this.state} foo={0} />;
@@ -905,7 +905,7 @@ module.exports = C;
 var React = require("React");
 
 var C = React.createClass({
-  getDefaultProps: function() {
+  getDefaultProps: function () {
     return { x: 0 };
   },
 });
@@ -955,11 +955,11 @@ type State = {
 };
 
 var ReactClass = React.createClass({
-  getInitialState: function(): State {
+  getInitialState: function (): State {
     return { bar: null };
   },
 
-  render: function(): any {
+  render: function (): any {
     // Any state access here seems to make state any
     this.state;
     return <div>{this.state.bar.qux}</div>;
@@ -1003,7 +1003,7 @@ type FooState = {
 };
 
 var Comp = React.createClass({
-  getInitialState: function(): FooState {
+  getInitialState: function (): FooState {
     return {
       key: null, // this used to cause a missing annotation error
     };
@@ -1043,13 +1043,13 @@ var TestState = React.createClass({
 =====================================output=====================================
 var React = require("react");
 var TestState = React.createClass({
-  getInitialState: function(): { x: string } {
+  getInitialState: function (): { x: string } {
     return {
       x: "",
     };
   },
 
-  test: function() {
+  test: function () {
     var a: number = this.state.x; // error
 
     this.setState({
@@ -1085,7 +1085,7 @@ var C = React.createClass({
 var React = require("React");
 
 var C = React.createClass({
-  getInitialState: function(): { x: number } {
+  getInitialState: function (): { x: number } {
     return { x: 0 };
   },
 

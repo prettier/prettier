@@ -3,7 +3,6 @@
 const fs = require("fs");
 const flowParser = require("flow-parser");
 const globby = require("globby");
-const mkdirp = require("mkdirp");
 const path = require("path");
 const rimraf = require("rimraf");
 
@@ -65,7 +64,7 @@ function syncTests(syncDir) {
     const specFile = path.join(dirname, SPEC_FILE_NAME);
     const specContent = specContents[specFile] || DEFAULT_SPEC_CONTENT;
 
-    mkdirp.sync(dirname);
+    fs.mkdirSync(dirname, { recursive: true });
     fs.writeFileSync(newFile, content);
     fs.writeFileSync(specFile, specContent);
   });

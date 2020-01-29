@@ -525,7 +525,7 @@ function needsParens(path, options) {
         // See corresponding workaround in printer.js case: "Literal"
         ((options.parser !== "typescript" && !parent.directive) ||
           (options.parser === "typescript" &&
-            options.originalText.substr(options.locStart(node) - 1, 1) === "("))
+            options.originalText.charAt(options.locStart(node) - 1) === "("))
       ) {
         // To avoid becoming a directive
         const grandParent = path.getParentNode(1);
@@ -761,7 +761,8 @@ function needsParens(path, options) {
           parent.type !== "ReturnStatement" &&
           parent.type !== "ThrowStatement" &&
           parent.type !== "TypeCastExpression" &&
-          parent.type !== "VariableDeclarator")
+          parent.type !== "VariableDeclarator" &&
+          parent.type !== "YieldExpression")
       );
     case "TypeAnnotation":
       return (

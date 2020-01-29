@@ -227,13 +227,13 @@ var p = new Promise(function(resolve, reject) {
     });
 
 =====================================output=====================================
-var p = new Promise(function(resolve, reject) {
+var p = new Promise(function (resolve, reject) {
   resolve(5);
 })
-  .then(function(num) {
+  .then(function (num) {
     return num.toFixed();
   })
-  .then(function(str) {
+  .then(function (str) {
     // This should fail because str is string, not number
     return str.toFixed();
   });
@@ -261,8 +261,8 @@ declare class Myclass {
 }
 declare var myclass: Myclass;
 
-myclass.myfun(["1", "2", "3", "4", "5", "6", function(ar) {}]);
-myclass.myfun(["1", "2", "3", "4", "5", "6", "7", function(ar) {}]);
+myclass.myfun(["1", "2", "3", "4", "5", "6", function (ar) {}]);
+myclass.myfun(["1", "2", "3", "4", "5", "6", "7", function (ar) {}]);
 
 ================================================================================
 `;

@@ -7,8 +7,6 @@ const locFns = require("./loc");
 const postprocess = require("./postprocess");
 
 function parse(text, parsers, opts) {
-  // Fixes Node 4 issue (#1986)
-  "use strict"; // eslint-disable-line
   // Inline the require to avoid loading all the JS if we don't use it
   const flowParser = require("flow-parser");
 
@@ -30,12 +28,12 @@ function parse(text, parsers, opts) {
   }
 
   includeShebang(text, ast);
-  return postprocess(ast, Object.assign({}, opts, { originalText: text }));
+  return postprocess(ast, { ...opts, originalText: text });
 }
 
 // Export as a plugin so we can reuse the same bundle for UMD loading
 module.exports = {
   parsers: {
-    flow: Object.assign({ parse, astFormat: "estree", hasPragma }, locFns)
+    flow: { parse, astFormat: "estree", hasPragma, ...locFns }
   }
 };

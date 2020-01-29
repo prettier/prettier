@@ -118,6 +118,26 @@ function getLeftSidePathName(path, node) {
   throw new Error("Unexpected node has no left side", node);
 }
 
+const exportDeclarationTypes = new Set([
+  "ExportDefaultDeclaration",
+  "ExportDefaultSpecifier",
+  "DeclareExportDeclaration",
+  "ExportNamedDeclaration",
+  "ExportAllDeclaration"
+]);
+function isExportDeclaration(node) {
+  return node && exportDeclarationTypes.has(node.type);
+}
+
+function getParentExportDeclaration(path) {
+  const parentNode = path.getParentNode();
+  if (path.getName() === "declaration" && isExportDeclaration(parentNode)) {
+    return parentNode;
+  }
+
+  return null;
+}
+
 function isLiteral(node) {
   return (
     node.type === "BooleanLiteral" ||
@@ -645,7 +665,9 @@ function isLastStatement(path) {
 function isFlowAnnotationComment(text, typeAnnotation, options) {
   const start = options.locStart(typeAnnotation);
   const end = skipWhitespace(text, options.locEnd(typeAnnotation));
-  return text.substr(start, 2) === "/*" && text.substr(end, 2) === "*/";
+  return (
+    text.slice(start, start + 2) === "/*" && text.slice(end, end + 2) === "*/"
+  );
 }
 
 function hasLeadingOwnLineComment(text, node, options) {
@@ -926,9 +948,7 @@ function isSimpleCallArgument(node, depth) {
   }
   if (node.type === "ObjectExpression") {
     return node.properties.every(
-      p =>
-        p.shorthand ||
-        (isSimpleCallArgument(p.key, depth) && isChildSimple(p.value))
+      p => !p.computed && (p.shorthand || (p.value && isChildSimple(p.value)))
     );
   }
   if (node.type === "ArrayExpression") {
@@ -983,6 +1003,7 @@ module.exports = {
   conditionalExpressionChainContainsJSX,
   getFlowVariance,
   getLeftSidePathName,
+  getParentExportDeclaration,
   getTypeScriptMappedTypeModifier,
   hasDanglingComments,
   hasFlowAnnotationComment,
@@ -999,6 +1020,7 @@ module.exports = {
   isBinaryish,
   isCallOrOptionalCallExpression,
   isEmptyJSXElement,
+  isExportDeclaration,
   isFlowAnnotationComment,
   isFunctionCompositionArgs,
   isFunctionNotation,

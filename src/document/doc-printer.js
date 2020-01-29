@@ -26,7 +26,7 @@ function makeAlign(ind, n, options) {
     : !n
     ? ind
     : n.type === "root"
-    ? Object.assign({}, ind, { root: ind })
+    ? { ...ind, root: ind }
     : typeof n === "string"
     ? generateInd(ind, { type: "stringAlign", n }, options)
     : generateInd(ind, { type: "numberAlign", n }, options);
@@ -70,7 +70,7 @@ function generateInd(ind, newPart, options) {
 
   flushSpaces();
 
-  return Object.assign({}, ind, { value, length, queue });
+  return { ...ind, value, length, queue };
 
   function addTabs(count) {
     value += "\t".repeat(count);
@@ -153,10 +153,7 @@ function fits(next, restCommands, width, options, mustBeFlat) {
       continue;
     }
 
-    const x = cmds.pop();
-    const ind = x[0];
-    const mode = x[1];
-    const doc = x[2];
+    const [ind, mode, doc] = cmds.pop();
 
     if (typeof doc === "string") {
       out.push(doc);
@@ -253,10 +250,7 @@ function printDocToString(doc, options) {
   let lineSuffix = [];
 
   while (cmds.length !== 0) {
-    const x = cmds.pop();
-    const ind = x[0];
-    const mode = x[1];
-    const doc = x[2];
+    const [ind, mode, doc] = cmds.pop();
 
     if (typeof doc === "string") {
       out.push(doc);
@@ -383,7 +377,7 @@ function printDocToString(doc, options) {
             break;
           }
 
-          const content = parts[0];
+          const [content, whitespace] = parts;
           const contentFlatCmd = [ind, MODE_FLAT, content];
           const contentBreakCmd = [ind, MODE_BREAK, content];
           const contentFits = fits(contentFlatCmd, [], rem, options, true);
@@ -397,7 +391,6 @@ function printDocToString(doc, options) {
             break;
           }
 
-          const whitespace = parts[1];
           const whitespaceFlatCmd = [ind, MODE_FLAT, whitespace];
           const whitespaceBreakCmd = [ind, MODE_BREAK, whitespace];
 
@@ -414,7 +407,7 @@ function printDocToString(doc, options) {
 
           // At this point we've handled the first pair (context, separator)
           // and will create a new fill doc for the rest of the content.
-          // Ideally we wouldn't mutate the array here but coping all the
+          // Ideally we wouldn't mutate the array here but copying all the
           // elements to a new array would make this algorithm quadratic,
           // which is unusable for large arrays (e.g. large texts in JSX).
           parts.splice(0, 2);

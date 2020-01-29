@@ -4,18 +4,7 @@ const fs = require("fs");
 const path = require("path");
 const stripAnsi = require("strip-ansi");
 const { SynchronousPromise } = require("synchronous-promise");
-
-const isProduction = process.env.NODE_ENV === "production";
-const prettierRootDir = isProduction ? process.env.PRETTIER_DIR : "../";
-const { bin } = require(path.join(prettierRootDir, "package.json"));
-const prettierCli = path.join(
-  prettierRootDir,
-  typeof bin === "object" ? bin.prettier : bin
-);
-
-const thirdParty = isProduction
-  ? path.join(prettierRootDir, "./third-party")
-  : path.join(prettierRootDir, "./src/common/third-party");
+const { prettierCli, thirdParty } = require("./env");
 
 function runPrettier(dir, args, options) {
   args = args || [];
@@ -79,7 +68,7 @@ function runPrettier(dir, args, options) {
   process.stdin.isTTY = !!options.isTTY;
   process.stdout.isTTY = !!options.stdoutIsTTY;
   process.argv = ["path/to/node", "path/to/prettier/bin"].concat(args);
-  process.env = Object.assign({}, process.env, options.env);
+  process.env = { ...process.env, ...options.env };
 
   jest.resetModules();
 
@@ -95,18 +84,18 @@ function runPrettier(dir, args, options) {
   jest
     .spyOn(require(thirdParty), "cosmiconfig")
     .mockImplementation((moduleName, options) =>
-      require("cosmiconfig").cosmiconfig(
-        moduleName,
-        Object.assign({}, options, { stopDir: __dirname })
-      )
+      require("cosmiconfig").cosmiconfig(moduleName, {
+        ...options,
+        stopDir: __dirname
+      })
     );
   jest
     .spyOn(require(thirdParty), "cosmiconfigSync")
     .mockImplementation((moduleName, options) =>
-      require("cosmiconfig").cosmiconfigSync(
-        moduleName,
-        Object.assign({}, options, { stopDir: __dirname })
-      )
+      require("cosmiconfig").cosmiconfigSync(moduleName, {
+        ...options,
+        stopDir: __dirname
+      })
     );
   jest
     .spyOn(require(thirdParty), "findParentDir")
@@ -159,7 +148,7 @@ function runPrettier(dir, args, options) {
     return result;
   };
 
-  return Object.assign({ test: testResult }, result);
+  return { test: testResult, ...result };
 
   function appendStdout(text) {
     if (status === undefined) {

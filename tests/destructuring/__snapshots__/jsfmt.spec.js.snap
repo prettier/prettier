@@ -70,7 +70,7 @@ const {
 
 function f({ data: { name } }) {}
 
-const UserComponent = function({
+const UserComponent = function ({
   name: { first, last },
   organisation: {
     address: { street: orgStreetAddress, postcode: orgPostcode },

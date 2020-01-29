@@ -18,13 +18,13 @@ class X {
 }
 
 =====================================output=====================================
-async function* a() {
-  yield* b();
+async function *a() {
+  yield *b();
 }
 
 class X {
   async *b() {
-    yield* a();
+    yield *a();
   }
 }
 
@@ -61,7 +61,7 @@ async function f1() {
 async function g() {
   invariant((await driver.navigator.getUrl()).substr(-7));
 }
-function* f2() {
+function *f2() {
   !(yield a);
 }
 async function f3() {
@@ -101,7 +101,7 @@ async function f() {
   const result = typeof fn === "function" ? await fn() : null;
 }
 
-(async function() {
+(async function () {
   console.log(await (true ? Promise.resolve("A") : Promise.resolve("B")));
 })();
 
@@ -148,7 +148,7 @@ async function *f(){ await (yield x); }
 async function f2(){ await (() => {}); }
 
 =====================================output=====================================
-async function* f() {
+async function *f() {
   await (yield x);
 }
 

@@ -20,16 +20,18 @@ global.run_spec = (dirname, parsers, options) => {
     throw new Error(`No parsers were specified for ${dirname}`);
   }
 
-  fs.readdirSync(dirname).forEach(basename => {
+  const files = fs.readdirSync(dirname, { withFileTypes: true });
+  for (const file of files) {
+    const basename = file.name;
     const filename = path.join(dirname, basename);
 
     if (
       path.extname(basename) === ".snap" ||
-      !fs.lstatSync(filename).isFile() ||
+      !file.isFile() ||
       basename[0] === "." ||
       basename === "jsfmt.spec.js"
     ) {
-      return;
+      continue;
     }
 
     let rangeStart;
@@ -53,14 +55,14 @@ global.run_spec = (dirname, parsers, options) => {
       return "";
     });
 
-    const baseOptions = Object.assign({ printWidth: 80 }, options, {
+    const baseOptions = {
+      printWidth: 80,
+      ...options,
       rangeStart,
       rangeEnd,
       cursorOffset
-    });
-    const mainOptions = Object.assign({}, baseOptions, {
-      parser: parsers[0]
-    });
+    };
+    const mainOptions = { ...baseOptions, parser: parsers[0] };
 
     const hasEndOfLine = "endOfLine" in mainOptions;
 
@@ -82,14 +84,14 @@ global.run_spec = (dirname, parsers, options) => {
                 )
               : source,
             hasEndOfLine ? visualizedOutput : output,
-            Object.assign({}, baseOptions, { parsers })
+            { ...baseOptions, parsers }
           )
         )
       ).toMatchSnapshot();
     });
 
     for (const parser of parsers.slice(1)) {
-      const verifyOptions = Object.assign({}, baseOptions, { parser });
+      const verifyOptions = { ...baseOptions, parser };
       test(`${basename} - ${parser}-verify`, () => {
         const verifyOutput = format(input, filename, verifyOptions);
         expect(visualizeEndOfLine(verifyOutput)).toEqual(visualizedOutput);
@@ -98,7 +100,7 @@ global.run_spec = (dirname, parsers, options) => {
 
     if (AST_COMPARE) {
       test(`${filename} parse`, () => {
-        const parseOptions = Object.assign({}, mainOptions);
+        const parseOptions = { ...mainOptions };
         delete parseOptions.cursorOffset;
 
         const originalAst = parse(input, parseOptions);
@@ -113,7 +115,7 @@ global.run_spec = (dirname, parsers, options) => {
         expect(originalAst).toEqual(formattedAst);
       });
     }
-  });
+  }
 };
 
 function parse(source, options) {
@@ -121,10 +123,10 @@ function parse(source, options) {
 }
 
 function format(source, filename, options) {
-  const result = prettier.formatWithCursor(
-    source,
-    Object.assign({ filepath: filename }, options)
-  );
+  const result = prettier.formatWithCursor(source, {
+    filepath: filename,
+    ...options
+  });
 
   return options.cursorOffset >= 0
     ? result.formatted.slice(0, result.cursorOffset) +

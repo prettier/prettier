@@ -9,7 +9,7 @@ function hasPragma(text) {
 
 function insertPragma(text) {
   const parsedDocblock = docblock.parseWithComments(docblock.extract(text));
-  const pragmas = Object.assign({ format: "" }, parsedDocblock.pragmas);
+  const pragmas = { format: "", ...parsedDocblock.pragmas };
   const newDocblock = docblock
     .print({
       pragmas,
