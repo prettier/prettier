@@ -131,16 +131,16 @@ const L = React.createClass({
   },
   componentWillMount() {
     (this.props.foo: empty); // string ~> empty
-    return 0; // number ~> void
+    return 0; // number ~> mixed
   },
   componentDidMount() {
     (this.props.foo: empty); // string ~> empty
-    return 0; // number ~> void
+    return 0; // number ~> mixed
   },
   componentWillReceiveProps(nextProps) {
     (this.props.foo: empty); // string ~> empty
     (nextProps.foo: empty); // string ~> empty
-    return 0; // number ~> void
+    return 0; // number ~> mixed
   },
   shouldComponentUpdate(nextProps, nextState) {
     (this.props.foo: empty); // string ~> empty
@@ -172,3 +172,10 @@ const L = React.createClass({
 
 React.createClass({}); // error: spec must be [x] exact and [ ] sealed
 React.createClass(({}: {})); // error: spec must be [ ] exact and [x] sealed
+
+const M = React.createClass({
+  propTypes: {
+    foo: React.PropTypes.string,
+  },
+});
+M.defaultProps.bar = 1; // error cannot update void property

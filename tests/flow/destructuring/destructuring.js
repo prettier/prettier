@@ -43,7 +43,7 @@ function test() {
   var x = {foo: 'abc', bar: 123};
   var {foo, ...rest} = x;
   (x.baz: string); // error, baz doesn't exist
-  (rest.baz: string); // no error, rest is unsealed
+  (rest.baz: string); // error, rest is sealed
 }
 
 module.exports = corge;

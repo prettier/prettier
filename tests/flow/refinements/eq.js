@@ -17,6 +17,6 @@ let tests = [
 
   function(x: { y: 'foo' } | { y: 'bar' }) {
     if (x.y == 123) {} // error
-    if (x.y === 123) {} // ok
+    if (x.y === 123) {} // error
   },
 ]

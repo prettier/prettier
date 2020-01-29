@@ -1,8 +1,6 @@
 var x:string = 0;
 var x:number = 1;
 
-//declare var T: $Type<number | Array<T>>;
-
 function foo(p: bool) {}
 
 function sorry(really: bool) {

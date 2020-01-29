@@ -4,14 +4,14 @@ function foo() {
   this.m();
 }
 
-function bar(f: () => void) {
+function bar(f) {
   f(); // passing global object as `this`
   ({ f }).f(); // passing container object as `this`
 }
 
 bar(foo); // error, since `this` is used non-trivially in `foo`
 
-function qux(o: { f: () => void }) {
+function qux(o) {
   o.f(); // passing o as `this`
 }
 

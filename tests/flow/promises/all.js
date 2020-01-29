@@ -31,9 +31,13 @@ Promise.all(0); // Error: expected array instead of number
 
 // Promise.all supports iterables
 function test(val: Iterable<Promise<number>>) {
-  const r: Promise<Array<number>> = Promise.all(val);
+  const r: Promise<$ReadOnlyArray<number>> = Promise.all(val);
 }
 
-function tes2(val: Map<string, Promise<number>>) {
-  const r: Promise<Array<number>> = Promise.all(val.values());
+function test2(val: Map<string, Promise<number>>) {
+  const r: Promise<$ReadOnlyArray<number>> = Promise.all(val.values());
+}
+
+function test3(val: Array<Promise<number>>) {
+  const r: Promise<Array<number>> = Promise.all(val);
 }

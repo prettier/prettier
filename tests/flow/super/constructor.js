@@ -27,8 +27,8 @@ class E extends A {
 }
 
 function leak(f) {
-  f.y; // error
-  f.x; // error
+  f.y; // OK (errors at leaked site)
+  f.x; // OK (errors at leaked site)
 }
 class F extends A {
   y: number;
@@ -60,7 +60,7 @@ class H extends A {
 
 class I_ {
   constructor(leaked_this) {
-    leaked_this.foo()
+    leaked_this.foo() // OK (errors at leaked site)
   }
   foo() { }
 }

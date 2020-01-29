@@ -55,3 +55,61 @@ function from_test() {
     return String(val);
   });
 }
+
+function of_test() {
+  var emptyArrayOkay: Array<empty> = Array.of();
+  var exactMatchOkay: Array<string> = Array.of("hello", "world");
+  var upcastOkay: Array<string | number> = Array.of("hello", "world");
+  var incompatibleTypeNotOkay: Array<string> = Array.of(1, 2);
+}
+
+function flatMap_test() {
+  /* Adapted from the following source:
+   * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flatMap
+   */
+  function case1() {
+    let arr1 = [1, 2, 3, 4];
+
+    let arr2 = arr1.map(x => [x * 2]); // [[2], [4], [6], [8]]
+
+    let arr3: Array<number> = arr1.flatMap(x => [x * 2]); // [2, 4, 6, 8]
+
+    // only one level is flattened
+    let arr4: Array<Array<number>> = arr1.flatMap(x => [[x * 2]]); // [[2], [4], [6], [8]]
+  }
+  function case2() {
+    let arr1 = ["it's Sunny in", "", "California"];
+
+    let arr2 = arr1.map(x => x.split(" "));
+    // [["it's","Sunny","in"],[""],["California"]]
+
+    let arr3: Array<string> = arr1.flatMap(x => x.split(" "));
+    // ["it's","Sunny","in", "", "California"]
+  }
+  function case3() {
+    // Let's say we want to remove all the negative numbers and split the odd numbers into an even number and a 1
+    let arr1 = [5, 4, -3, 20, 17, -33, -4, 18];
+    //       |\  \  x   |  | \   x   x   |
+    //      [4,1, 4,   20, 16, 1,       18]
+
+    let arr2: Array<number> = arr1.flatMap(n =>
+      n < 0 ? [] : n % 2 == 0 ? [n] : [n - 1, 1]
+    );
+
+    // expected output: [4, 1, 4, 20, 16, 1, 18]
+  }
+  function case4() {
+    let arr1 = [5, 2, 3, 4];
+    let arr2: Array<number | string> = arr1.flatMap(n => (n < 0 ? [1, 2, 3] : "ok"));
+
+    let arr3: $ReadOnlyArray<number> = [5, 2, 3, 4];
+    let arr4: Array<number | string> = arr3.flatMap(n => (n < 0 ? [1, 2, 3] : "ok"));
+  }
+  function case5() {
+    let arr1: $ReadOnlyArray<number> = [5, 2, 3, 4];
+    let arr2: Array<number> = arr1.flatMap(n => {
+      const r: $ReadOnlyArray<number> = [1, 2, 3];
+      return r;
+    });
+  }
+}

@@ -24,8 +24,8 @@ class PropVariance<+Out,-In> {
 
   inv_dict1: {[k:string]: Out}; // error
   inv_dict2: {[k:string]: In}; // error
-  co_dict1: {+[k:string]: Out}; // ok
-  co_dict2: {+[k:string]: In}; // error
-  con_dict1: {-[k:string]: Out}; // error
-  con_dict2: {-[k:string]: In}; // ok
+  +co_dict1: {+[k:string]: Out}; // ok
+  +co_dict2: {+[k:string]: In}; // error
+  +con_dict1: {-[k:string]: Out}; // error
+  +con_dict2: {-[k:string]: In}; // ok
 }

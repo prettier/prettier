@@ -35,7 +35,7 @@ declare function ExpectsProps(props: { name: string }, children: any): string;
 (<ExpectsProps name="hi">Text</ExpectsProps>: number); // Error string ~> number
 
 declare function ExpectsChildrenTuple(props: any, children: [string]): string;
-(<ExpectsChildrenTuple />); // Error - mising child
+(<ExpectsChildrenTuple />); // Error - missing child
 (<ExpectsChildrenTuple>Hi</ExpectsChildrenTuple>); // No error
 (<ExpectsChildrenTuple>{123}</ExpectsChildrenTuple>); // Error: number ~> string
 (<ExpectsChildrenTuple>Hi {"there"}</ExpectsChildrenTuple>); // Error: too many children

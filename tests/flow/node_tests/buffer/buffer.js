@@ -55,3 +55,7 @@ buffer = Buffer.from("foo", "utf8");
 // flow didn't used to support a subclass hiding a superclass member, so this
 // used to check out as ok, even though it is not correct.
 buffer = Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72], (a:number) => a + 1, {}); // error
+
+// Explicitly importing Buffer is rarely needed, but correct.
+let ImportedBuffer = require("buffer").Buffer;
+buffer = new ImportedBuffer(0);

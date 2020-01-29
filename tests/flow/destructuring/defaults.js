@@ -76,7 +76,7 @@ function obj_prop_opt({p}:{p?:string}={p:0}) {}
 function obj_prop_maybe({p}:{p:?string}={p:0}) {}
 function obj_prop_union({p}:{p:number|string}={p:true}) {}
 
-// TODO: union-of-objects upper bounds preserved through destructuring
+// union-of-objects upper bounds preserved through destructuring
 function obj_prop_union2({p}:{p:number}|{p:string}={p:true}) {}
 
 function default_expr_scope({a, b = a}) {}

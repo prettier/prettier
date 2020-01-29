@@ -27,3 +27,17 @@ function durable_refi(x: ?number) {
     return () => { var y:number = x; };
   }
 }
+
+function const_rest_reassign(...x) {
+  x = 0; // error, const param cannot be reeassigned
+}
+
+function const_obj_patt_reassign({x, ...o}) {
+  x = 0; // error, const param cannot be reeassigned
+  o = 0; // error, const param cannot be reeassigned
+}
+
+function const_arr_patt_reassign([x, ...a]) {
+  x = 0; // error, const param cannot be reeassigned
+  a = 0; // error, const param cannot be reeassigned
+}

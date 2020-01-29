@@ -8,17 +8,17 @@ class C {
   x: number;
   x: string; // last wins
   bar(): number { return 0; }
-  bar: string; // field wins over method
-  qux: number;
-  qux(): string { return "hello" } // method loses to field!
+  bar: string; // error: can't shadow proto with incompatible own
+  qux: number; // error: can't shadow proto with incompatible own
+  qux(): string { return "hello" }
 }
 
 // check
 
 ((new C).foo(): boolean); // last wins
 ((new C).x: boolean); // last wins
-((new C).bar: boolean); // last wins
-((new C).qux: boolean); // weird outlier where last doesn't win in classes
+((new C).bar: empty); // error: string ~> empty (own prop wins)
+((new C).qux: empty); // error: number ~> empty (own prop wins)
 
 // Objects
 

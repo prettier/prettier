@@ -3,7 +3,7 @@
  */
 var React = require('react');
 var AudienceInsightsContainer = React.createClass({
-  renderComponent(AudienceInsights: ReactClass<*>) {
+  renderComponent(AudienceInsights: Class<React.Component<*, *>>) {
     return <AudienceInsights />;
   },
 });

@@ -11,7 +11,7 @@ declare module 'foo' {
     declare type Bar = A;
     declare type Id<T> = T;
 
-    declare var exports : {
+    declare module.exports : {
         (a : number, b : number) : number
     };
 }

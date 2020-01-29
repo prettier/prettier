@@ -88,4 +88,9 @@ let tests = [
     (x + z: empty); // error, string ~> empty
     (z + x: empty); // error, string ~> empty
   },
+
+  function(x: number, y: number) {
+    (x + y).length; // error
+    (1 + 2).length; // error
+  },
 ];

@@ -1,7 +1,7 @@
 // A function to typecheck values against their types. Covariance of Class<.>
 // makes it useless in such a function (when limited to classes and instances),
 // since everything can be trivially satisfied by going to `mixed`.
-declare function check<X>(cls: $Type<X>, inst: X): void;
+declare function check<C>(cls: C, inst: $Call<<I>(Class<I>) => I, C>): void;
 
 class A { }
 class B extends A { }

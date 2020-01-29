@@ -25,7 +25,8 @@ let tests = [
     hmac.update('foo', 'utf8');
     hmac.update('foo', 'bogus'); // 1 error
     hmac.update(buf);
-    hmac.update(buf, 'utf8'); // 1 error: no encoding when passing a buffer
+    hmac.update(buf, 'utf8');
+    hmac.update(buf, 'bogus'); // 1 error
 
     // it's also chainable
     (hmac.update('some data to hash').update(buf).digest(): Buffer);

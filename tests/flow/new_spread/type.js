@@ -34,7 +34,7 @@ type O4 = {...{|p:T|}};
 declare var o4: O4;
 (o4: {p:T}); // ok
 (o4: {|p:T|}); // error: not exact
-({}: O4); // error: property `p` not found
+(({}:{}): O4); // error: property `p` not found
 ({p:x}: O4); // ok
 ({p:y}: O4); // error: y ~> T
 ({p:x,q:y}: O4); // ok
@@ -53,7 +53,7 @@ declare var o5: O5;
 type O6 = {...{p:T},...{|p:U|}};
 declare var o6: O6;
 (o6: {p:U}); // ok
-({}: O6); // error: property `p` not found
+(({}:{}): O6); // error: property `p` not found
 ({p:x}: O6); // error: x ~> U
 ({p:y}: O6); // ok
 ({p:y,q:x}: O6); // ok
@@ -64,9 +64,9 @@ type O7 = {|...{p:T},...{|p:U|}|}; ({p:y}: O7);// error: spread result is not ex
 // exact p + inexact p
 type O8 = {...{|p:T|},...{p:U}};
 declare var o8: O8;
-(o8: {p:T|U}); // ok
+(o8: {p:U}); // ok
 (o8.p: T); // error: U ~> T
-(o8.p: U); // error: T ~> U
+
 
 // inexact p + exact q
 type O9 = {...{p:T},...{|q:U|}};
@@ -76,14 +76,14 @@ declare var o9: O9;
 (o9.q: U); // ok
 
 // exact p + inexact q
-type O10 = {...{|p:T|},...{q:U}};
+type O10 = {...{|p:T|},...{q:U}}; // Error, p may exist in second object
 declare var o10: O10;
-(o10: {p:mixed, q?: U}); // ok
+(o10: {p:any, q: any});
 
 // inexact p + inexact q
-type O11 = {...{p:T},...{q:U}};
+type O11 = {...{p:T},...{q:U}}; // Error, p may exist in second object
 declare var o11: O11;
-(o11: {p:mixed, q: mixed}); // ok
+(o11: {p:any, q: any}); // Error
 
 // exact + exact
 type O12 = {...{|p:T|},...{|q:U|}};
@@ -94,3 +94,13 @@ declare var o12: O12;
 type O13 = {...{p:T},p:U};
 declare var o13: O13;
 (o13: {p:U});
+
+// exact types spread in an inexact type is inexact when spread again
+type O14 = {...{...{|p:T|}}};
+declare var o14: O14;
+(o14: {p:T}); // error: `p` is optional
+(o14: {p?:T}); // ok
+(o14: {}); // ok
+({p:x}: O14); // ok
+({p:y}: O14); // error: U ~> T
+({}: O14); // ok

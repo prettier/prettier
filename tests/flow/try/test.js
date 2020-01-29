@@ -40,3 +40,34 @@ function qux() {
     }
     x(); // unreachable
 }
+
+function moz() {
+  let x: number[] = [];
+  try {
+    throw new Error(`just capturing a stack trace`);
+  } catch (e) {
+    var a: string = x[0];
+  } finally {
+    var b: string = x[0];
+  }
+  var c: string = x[0]; // reachable
+}
+
+function maz() {
+  let x: number[] = [];
+  try {
+    throw new Error(`just capturing a stack trace`);
+  } catch (e) {
+    var a: string = x[0];
+  }
+  var c: string = x[0]; // reachable
+}
+
+function maz() {
+  let x: number[] = [];
+  try {
+    throw new Error(`just capturing a stack trace`);
+  } catch (e) {
+  }
+  var c: string = x[0]; // reachable
+}

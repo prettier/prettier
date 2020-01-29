@@ -55,4 +55,4 @@ var Bar = {
   d: Foo.d('bar'),            // no annotation required
 };
 
-module.exports = Foo, Bar;
+module.exports = {Foo, Bar};

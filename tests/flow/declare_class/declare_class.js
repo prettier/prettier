@@ -1,3 +1,5 @@
+// @flow
+
 declare class C {
     static x: number;
     static foo(x: number): void;
@@ -13,3 +15,8 @@ C.foo("");
 
 declare class D extends C { }
 new D(123); // error, number ~> string
+
+declare class E {
+    +[key: string]: number;
+}
+;(new E()['a']: number) // no error

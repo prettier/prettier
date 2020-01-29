@@ -1,5 +1,5 @@
-declare class Set<T> {
-    add(x: any): Set<T>;
+declare class RowSet<T> {
+    add(x: any): RowSet<T>;
 }
 
 declare class Row {

@@ -44,6 +44,42 @@ import {ClassFoo4} from "./ExportCJSNamed_Class";
 var d1: ClassFoo4T = ClassFoo4;
 var d2: ClassFoo4T = new ClassFoo4(); // Error: ClassFoo4 (inst) ~> ClassFoo4 (class)
 
+//////////////////////////////////////////////////////
+// == Importing Function Typeof (Default Export) == //
+//////////////////////////////////////////////////////
+
+import typeof functionFoo1T from "./ExportDefault_Function";
+import functionFoo1 from "./ExportDefault_Function";
+(functionFoo1: functionFoo1T);
+(() => {}: functionFoo1T); // Error: return types are not compatible
+
+////////////////////////////////////////////////////
+// == Importing Function Typeof (Named Export) == //
+////////////////////////////////////////////////////
+
+import typeof {functionFoo2 as functionFoo2T} from "./ExportNamed_Function";
+import {functionFoo2} from "./ExportNamed_Function";
+(functionFoo2: functionFoo2T);
+(() => {}: functionFoo2T); // Error: return types are not compatible
+
+//////////////////////////////////////////////////////////
+// == Importing Function Typeof (CJS Default Export) == //
+//////////////////////////////////////////////////////////
+
+import typeof functionFoo3T from "./ExportCJSDefault_Function";
+import functionFoo3 from "./ExportCJSDefault_Function";
+(functionFoo3: functionFoo3T);
+(() => {}: functionFoo3T); // Error: return types are not compatible
+
+////////////////////////////////////////////////////////
+// == Importing Function Typeof (CJS Named Export) == //
+////////////////////////////////////////////////////////
+
+import typeof {functionFoo4 as functionFoo4T} from "./ExportCJSNamed_Function";
+import {functionFoo4} from "./ExportCJSNamed_Function";
+(functionFoo4: functionFoo4T);
+(() => {}: functionFoo4T); // Error: return types are not compatible
+
 //////////////////////////////////////////////
 // == Import Typeof Alias (Named Export) == //
 //////////////////////////////////////////////

@@ -92,7 +92,7 @@ function false_(x: mixed) {
 
 function obj2(x: mixed) {
   if (typeof x === "object") {
-    (x: { [key: string]: mixed } | null);
+    (x: { +[key: string]: mixed } | null);
     if (x !== null) {
       (x['foo']: string); // error, mixed
     }

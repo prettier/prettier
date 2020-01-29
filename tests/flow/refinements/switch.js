@@ -2,22 +2,22 @@
 
 function foo(text: string | number): string {
   switch (typeof text) {
-　　case 'string':
-　　　return text;
+    case 'string':
+      return text;
     case 'number':
       return text; // error, should return string
-　　default:
-　　　return 'wat';
-　}
+    default:
+      return 'wat';
+  }
 }
 
 function bar(text: string | number): string {
   switch (typeof text) {
     case 'string':
       return text[0];
-  　default:
+    default:
       return (text++) + '';
-　}
+  }
 }
 
 function baz1(text: string | number): string {
@@ -25,9 +25,9 @@ function baz1(text: string | number): string {
     case 'number':
     case 'string':
       return text[0]; // error, [0] on number
-  　default:
+    default:
       return 'wat';
-　}
+  }
 }
 
 function baz2(text: string | number): string {
@@ -35,9 +35,9 @@ function baz2(text: string | number): string {
     case 'string':
     case 'number':
       return text[0]; // error, [0] on number
-  　default:
+    default:
       return 'wat';
-　}
+  }
 }
 
 function corge(text: string | number | Array<string>): string {
@@ -49,7 +49,7 @@ function corge(text: string | number | Array<string>): string {
       // using ++ since it isn't valid on arrays or strings.
       // should only error for string since Array was filtered out.
       return (text++) + '';
-  　default:
+    default:
       return 'wat';
-　}
+  }
 }

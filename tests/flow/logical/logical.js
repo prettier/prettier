@@ -512,3 +512,13 @@ function logical19a(x: { y: string, z: boolean }): boolean {
 function logical19b(x: { y: string, z: boolean }): boolean {
   return (x.y || x.z); // error: x.y is a string
 }
+
+/**
+ * Intersection on the LHS
+ */
+function logical20(x: {y: string} & {}): void {
+  ((x && x.y): string); // ok
+}
+function logical21(x: {y: string} & {}): void {
+  ((x && x.y): number); // error, x.y is a string (no error about x)
+}

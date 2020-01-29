@@ -5,13 +5,13 @@ var o = {
   ...p,
   ...q,
 };
-var y: number = o.y;
-var z: number = o.z;
+var y: number = o.y; // Error string ~> number
+var z: number = o.z; // Error string ~> number
 
-// test conflicting keys (they get unioned)
+// test conflicting keys (they get overwritten)
 var r = { y: 123 };
 var s = {
   ...p,
   ...r,
 };
-var t: boolean = s.y; // error, string or number
+var t: number = s.y;

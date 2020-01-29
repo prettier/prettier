@@ -9,5 +9,8 @@ let tests = [
     (document.createElement('select'): HTMLSelectElement);
     (document.querySelector('select'): HTMLSelectElement | null);
     (document.createElement('hr'): HTMLElement); // GH #3752
+  },
+  function (document: Document) {
+    (document.head: HTMLHeadElement | null);
   }
 ];

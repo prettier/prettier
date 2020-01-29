@@ -2,7 +2,7 @@
 
 // termination test (see also lib/test25_lib.js)
 
-function foo(rows: Rows, set: Set<number>) {
+function foo(rows: Rows, set: RowSet<number>) {
   return rows.reduce_rows(
     (set, row) => row.reduce_row(
       (set, i) => set.add(i),

@@ -2,6 +2,9 @@ function test(a: string, b: number): number {
   return this.length; // expect []/"" this
 }
 
+// arity is strictly two arguments
+test.apply("", ["", 0], 'error')
+
 // tuples flow correctly into params
 test.apply("", ["", 0]);
 
@@ -21,8 +24,8 @@ f(["", 0]); // OK
 f(["", ""]); // error: string ~> number (2nd arg)
 f([0, 0]); // error: number ~> string (1st arg)
 
-// expect array
-test.apply("", "not array"); // error: expect array of args
+// expect array-like
+test.apply("", "not array"); // error: string ~> object
 
 // expect 4 errors:
 // - lookup length on Number (because 0 is used as `this`)
