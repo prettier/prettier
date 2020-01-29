@@ -2,7 +2,11 @@
 
 exports[`multiple patterns (stderr) 1`] = `""`;
 
-exports[`multiple patterns (stdout) 1`] = `""`;
+exports[`multiple patterns (stdout) 1`] = `
+"directory/file.js
+directory/nested-directory/nested-directory-file.js
+"
+`;
 
 exports[`multiple patterns (write) 1`] = `Array []`;
 
@@ -26,13 +30,20 @@ exports[`multiple patterns by with ignore pattern, ignores node_modules by with 
 
 exports[`multiple patterns with ignore nested directories pattern (stderr) 1`] = `""`;
 
-exports[`multiple patterns with ignore nested directories pattern (stdout) 1`] = `""`;
+exports[`multiple patterns with ignore nested directories pattern (stdout) 1`] = `
+"directory/file.js
+"
+`;
 
 exports[`multiple patterns with ignore nested directories pattern (write) 1`] = `Array []`;
 
 exports[`multiple patterns with non exists pattern (stderr) 1`] = `""`;
 
-exports[`multiple patterns with non exists pattern (stdout) 1`] = `""`;
+exports[`multiple patterns with non exists pattern (stdout) 1`] = `
+"directory/file.js
+directory/nested-directory/nested-directory-file.js
+"
+`;
 
 exports[`multiple patterns with non exists pattern (write) 1`] = `Array []`;
 
