@@ -73,7 +73,7 @@ function ngHtmlParser(
     const namespace = node.name.startsWith(":")
       ? node.name.slice(1).split(":")[0]
       : null;
-    const rawName = node.nameSpan ? node.nameSpan.toString() : node.name;
+    const rawName = node.nameSpan.toString();
     const hasExplicitNamespace = rawName.startsWith(`${namespace}:`);
     const name = hasExplicitNamespace
       ? rawName.slice(namespace.length + 1)
