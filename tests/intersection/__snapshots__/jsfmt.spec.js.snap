@@ -59,13 +59,13 @@ export type ReallyBigSocketServer = ReallyBigSocketServerInterface &
   ReallyBigSocketServerStatics;
 
 type Props = {
-  propA: X
+  propA: X,
 } & {
-  propB: X
+  propB: X,
 } & {
-  propC: X
+  propC: X,
 } & {
-  propD: X
+  propD: X,
 };
 
 type Props = {
@@ -73,35 +73,35 @@ type Props = {
   onClick: () => void,
   overlayChildren?: React.Children,
   style?: Object,
-  thumbnail: ImageSource
+  thumbnail: ImageSource,
 } & FooterProps;
 
 type DuplexStreamOptions = ReadableStreamOptions & {
   allowHalfOpen?: boolean,
-  readableObjectMode?: boolean
+  readableObjectMode?: boolean,
 };
 
 type DuplexStreamOptions = {
   allowHalfOpen?: boolean,
-  readableObjectMode?: boolean
+  readableObjectMode?: boolean,
 } & {
   allowHalfOpen?: boolean,
-  readableObjectMode?: boolean
+  readableObjectMode?: boolean,
 };
 
 type DuplexStreamOptions = ReadableStreamOptions &
   WritableStreamOptions & {
     allowHalfOpen?: boolean,
-    readableObjectMode?: boolean
+    readableObjectMode?: boolean,
   };
 
 type DuplexStreamOptions = ReadableStreamOptions &
   WritableStreamOptions & {
     allowHalfOpen?: boolean,
-    readableObjectMode?: boolean
+    readableObjectMode?: boolean,
   } & {
     allowHalfOpen?: boolean,
-    readableObjectMode?: boolean
+    readableObjectMode?: boolean,
   };
 
 ================================================================================

@@ -56,13 +56,13 @@ FastPath.prototype.getParentNode = function getParentNode(count) {
 // reference to this (modified) FastPath object. Note that the stack will
 // be restored to its original state after the callback is finished, so it
 // is probably a mistake to retain a reference to the path.
-FastPath.prototype.call = function call(callback /*, name1, name2, ... */) {
+FastPath.prototype.call = function call(callback, ...names) {
   const s = this.stack;
   const origLen = s.length;
   let value = s[origLen - 1];
-  const argc = arguments.length;
-  for (let i = 1; i < argc; ++i) {
-    const name = arguments[i];
+  const argc = names.length;
+  for (let i = 0; i < argc; ++i) {
+    const name = names[i];
     value = value[name];
     s.push(name, value);
   }
@@ -83,14 +83,14 @@ FastPath.prototype.callParent = function callParent(callback, count) {
 // accessing this.getValue()[name1][name2]... should be array-like. The
 // callback will be called with a reference to this path object for each
 // element of the array.
-FastPath.prototype.each = function each(callback /*, name1, name2, ... */) {
+FastPath.prototype.each = function each(callback, ...names) {
   const s = this.stack;
   const origLen = s.length;
   let value = s[origLen - 1];
-  const argc = arguments.length;
+  const argc = names.length;
 
-  for (let i = 1; i < argc; ++i) {
-    const name = arguments[i];
+  for (let i = 0; i < argc; ++i) {
+    const name = names[i];
     value = value[name];
     s.push(name, value);
   }
@@ -111,14 +111,14 @@ FastPath.prototype.each = function each(callback /*, name1, name2, ... */) {
 // Similar to FastPath.prototype.each, except that the results of the
 // callback function invocations are stored in an array and returned at
 // the end of the iteration.
-FastPath.prototype.map = function map(callback /*, name1, name2, ... */) {
+FastPath.prototype.map = function map(callback, ...names) {
   const s = this.stack;
   const origLen = s.length;
   let value = s[origLen - 1];
-  const argc = arguments.length;
+  const argc = names.length;
 
-  for (let i = 1; i < argc; ++i) {
-    const name = arguments[i];
+  for (let i = 0; i < argc; ++i) {
+    const name = names[i];
     value = value[name];
     s.push(name, value);
   }
@@ -136,6 +136,42 @@ FastPath.prototype.map = function map(callback /*, name1, name2, ... */) {
   s.length = origLen;
 
   return result;
+};
+
+/**
+ * @param {...(
+ *   | ((node: any, name: string | null, number: number | null) => boolean)
+ *   | undefined
+ * )} predicates
+ */
+FastPath.prototype.match = function match(...predicates) {
+  let stackPointer = this.stack.length - 1;
+
+  let name = null;
+  let node = this.stack[stackPointer--];
+
+  for (let i = 0; i < predicates.length; ++i) {
+    if (node === undefined) {
+      return false;
+    }
+
+    // skip index/array
+    let number = null;
+    if (typeof name === "number") {
+      number = name;
+      name = this.stack[stackPointer--];
+      node = this.stack[stackPointer--];
+    }
+
+    if (predicates[i] && !predicates[i](node, name, number)) {
+      return false;
+    }
+
+    name = this.stack[stackPointer--];
+    node = this.stack[stackPointer--];
+  }
+
+  return true;
 };
 
 module.exports = FastPath;

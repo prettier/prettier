@@ -3,7 +3,7 @@
 const {
   builders: { hardline, literalline, concat, markAsRoot },
   utils: { mapDoc }
-} = require("../doc");
+} = require("../document");
 
 function embed(path, print, textToDoc /*, options */) {
   const node = path.getValue();

@@ -3,9 +3,7 @@
 /scripts/release/node_modules
 *.log
 /errors
-/test.js
-/test.ts
-/test.css
+/test.*
 /.vscode
 /dist
 /website/node_modules

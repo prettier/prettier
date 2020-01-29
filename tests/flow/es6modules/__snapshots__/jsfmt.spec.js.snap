@@ -118,7 +118,7 @@ module.exports = Object.freeze({
  */
 
 module.exports = Object.freeze({
-  numberValue1: 1
+  numberValue1: 1,
 });
 
 ================================================================================
@@ -154,7 +154,7 @@ module.exports = {
   numberValue2: 2,
   numberValue3: 3,
   numberValue4: 4,
-  numberValue5: 5
+  numberValue5: 5,
 };
 
 ================================================================================
@@ -267,7 +267,7 @@ export default function():number { return 42; }
  * @flow
  */
 
-export default function(): number {
+export default function (): number {
   return 42;
 }
 
@@ -293,7 +293,7 @@ export default function():number { return 42; }
  * @flow
  */
 
-export default function(): number {
+export default function (): number {
   return 42;
 }
 
@@ -578,7 +578,7 @@ export {
 
 export {
   numberValue1,
-  numberValue2 as numberValue2_renamed
+  numberValue2 as numberValue2_renamed,
 } from "ES6_ExportFrom_Source1";
 
 ================================================================================
@@ -608,7 +608,7 @@ export {
 
 export {
   numberValue1,
-  numberValue2 as numberValue2_renamed2
+  numberValue2 as numberValue2_renamed2,
 } from "ES6_ExportFrom_Source2";
 
 ================================================================================
@@ -858,7 +858,7 @@ module.exports = {
  */
 
 module.exports = {
-  numberValue: 42
+  numberValue: 42,
 };
 
 ================================================================================
@@ -1518,7 +1518,7 @@ import { specifierNumber } from "ES6_Named1"; // Error: Did you mean \`specifier
 ///////////////////////////////////////////////////
 import {
   numberValue1 as numberValue8,
-  numberValue2 as numberValue9
+  numberValue2 as numberValue9,
 } from "./ES6_ExportAllFromMulti";
 
 var at1: number = numberValue8;

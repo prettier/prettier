@@ -4,12 +4,7 @@ const createError = require("../common/parser-create-error");
 const parseFrontMatter = require("../utils/front-matter");
 const lineColumnToIndex = require("../utils/line-column-to-index");
 const { hasPragma } = require("./pragma");
-
-// utils
-const utils = require("./utils");
-
-const isSCSS = utils.isSCSS;
-const isSCSSNestedPropertyNode = utils.isSCSSNestedPropertyNode;
+const { isSCSS, isSCSSNestedPropertyNode } = require("./utils");
 
 function parseValueNodes(nodes) {
   let parenGroup = {
@@ -132,7 +127,7 @@ function flattenGroups(node) {
   }
 
   if (node.type === "paren_group" || node.type === "comma_group") {
-    return Object.assign({}, node, { groups: node.groups.map(flattenGroups) });
+    return { ...node, groups: node.groups.map(flattenGroups) };
   }
 
   return node;
@@ -190,7 +185,7 @@ function parseValue(value) {
   } catch (e) {
     return {
       type: "value-unknown",
-      value: value
+      value
     };
   }
 
@@ -256,12 +251,12 @@ function parseMediaQuery(params) {
 const DEFAULT_SCSS_DIRECTIVE = /(\s*?)(!default).*$/;
 const GLOBAL_SCSS_DIRECTIVE = /(\s*?)(!global).*$/;
 
-function parseNestedCSS(node) {
+function parseNestedCSS(node, options) {
   if (node && typeof node === "object") {
     delete node.parent;
 
     for (const key in node) {
-      parseNestedCSS(node[key]);
+      parseNestedCSS(node[key], options);
     }
 
     if (!node.type) {
@@ -286,6 +281,16 @@ function parseNestedCSS(node) {
       }
 
       node.raws.selector = selector;
+    }
+
+    // postcss-less@2.0.0 parse `custom-selector` as `css-decl`
+    if (
+      options.parser === "css" &&
+      node.type === "css-decl" &&
+      node.prop === "@custom-selector"
+    ) {
+      selector = node.value;
+      node.raws.value = selector;
     }
 
     let value = "";
@@ -351,7 +356,7 @@ function parseNestedCSS(node) {
       const defaultSCSSDirectiveIndex = value.match(DEFAULT_SCSS_DIRECTIVE);
 
       if (defaultSCSSDirectiveIndex) {
-        value = value.substring(0, defaultSCSSDirectiveIndex.index);
+        value = value.slice(0, defaultSCSSDirectiveIndex.index);
         node.scssDefault = true;
 
         if (defaultSCSSDirectiveIndex[0].trim() !== "!default") {
@@ -362,7 +367,7 @@ function parseNestedCSS(node) {
       const globalSCSSDirectiveIndex = value.match(GLOBAL_SCSS_DIRECTIVE);
 
       if (globalSCSSDirectiveIndex) {
-        value = value.substring(0, globalSCSSDirectiveIndex.index);
+        value = value.slice(0, globalSCSSDirectiveIndex.index);
         node.scssGlobal = true;
 
         if (globalSCSSDirectiveIndex[0].trim() !== "!global") {
@@ -373,7 +378,7 @@ function parseNestedCSS(node) {
       if (value.startsWith("progid:")) {
         return {
           type: "value-unknown",
-          value: value
+          value
         };
       }
 
@@ -381,7 +386,7 @@ function parseNestedCSS(node) {
     }
 
     if (node.type === "css-atrule" && params.length > 0) {
-      const name = node.name;
+      const { name } = node;
       const lowercasedName = node.name.toLowerCase();
 
       if (name === "warn" || name === "error") {
@@ -432,7 +437,7 @@ function parseNestedCSS(node) {
           "return",
           "define-mixin",
           "add-mixin"
-        ].indexOf(name) !== -1
+        ].includes(name)
       ) {
         // Remove unnecessary spaces in SCSS variable arguments
         params = params.replace(/(\$\S+?)\s+?\.\.\./, "$1...");
@@ -449,13 +454,13 @@ function parseNestedCSS(node) {
         const customSelector = params.match(/:--\S+?\s+/)[0].trim();
 
         node.customSelector = customSelector;
-        node.selector = parseSelector(params.substring(customSelector.length));
+        node.selector = parseSelector(params.slice(customSelector.length));
         delete node.params;
 
         return node;
       }
 
-      if (["media", "custom-media"].indexOf(lowercasedName) !== -1) {
+      if (["media", "custom-media"].includes(lowercasedName)) {
         if (params.includes("#{")) {
           // Workaround for media at rule with scss interpolation
           return {
@@ -478,7 +483,7 @@ function parseNestedCSS(node) {
   return node;
 }
 
-function parseWithParser(parser, text) {
+function parseWithParser(parser, text, options) {
   const parsed = parseFrontMatter(text);
   const { frontMatter } = parsed;
   text = parsed.content;
@@ -494,7 +499,7 @@ function parseWithParser(parser, text) {
     throw createError("(postcss) " + e.name + " " + e.reason, { start: e });
   }
 
-  result = parseNestedCSS(addTypePrefix(result, "css-"));
+  result = parseNestedCSS(addTypePrefix(result, "css-"), options);
 
   if (frontMatter) {
     result.nodes.unshift(frontMatter);
@@ -511,30 +516,27 @@ function requireParser(isSCSSParser) {
   // TODO: Remove this hack when this issue is fixed:
   // https://github.com/shellscape/postcss-less/issues/88
   const LessParser = require("postcss-less/dist/less-parser");
-  LessParser.prototype.atrule = function() {
-    return Object.getPrototypeOf(LessParser.prototype).atrule.apply(
-      this,
-      arguments
-    );
+  LessParser.prototype.atrule = function(...args) {
+    return Object.getPrototypeOf(LessParser.prototype).atrule.apply(this, args);
   };
 
   return require("postcss-less");
 }
 
-function parse(text, parsers, opts) {
+function parse(text, parsers, options) {
   const hasExplicitParserChoice =
-    opts.parser === "less" || opts.parser === "scss";
-  const isSCSSParser = isSCSS(opts.parser, text);
+    options.parser === "less" || options.parser === "scss";
+  const isSCSSParser = isSCSS(options.parser, text);
 
   try {
-    return parseWithParser(requireParser(isSCSSParser), text);
+    return parseWithParser(requireParser(isSCSSParser), text, options);
   } catch (originalError) {
     if (hasExplicitParserChoice) {
       throw originalError;
     }
 
     try {
-      return parseWithParser(requireParser(!isSCSSParser), text);
+      return parseWithParser(requireParser(!isSCSSParser), text, options);
     } catch (_secondError) {
       throw originalError;
     }

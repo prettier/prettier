@@ -24,14 +24,15 @@ const runInBand = process.env.CI ? "--runInBand" : "";
 const testPath = process.env.TEST_STANDALONE ? "tests/" : "";
 const cmd = `yarn test --color ${runInBand} ${testPath}`;
 
-const code = shell.exec(cmd, {
+const { code } = shell.exec(cmd, {
   cwd: rootDir,
-  env: Object.assign({}, process.env, {
+  env: {
+    ...process.env,
     NODE_ENV: "production",
     AST_COMPARE: "1",
     PRETTIER_DIR: path.join(tmpDir, "node_modules/prettier")
-  }),
+  },
   shell: true
-}).code;
+});
 
 process.exit(code);

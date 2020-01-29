@@ -1668,3 +1668,9 @@ li + li {
 label {
   .margin-bottom-1\/3;
 }
+
+// whitespace between variable and colon, #2925 #4090
+@FoO : bar;
+
+// should not parse as custom-selector
+@custom-selector     :--icon #id;

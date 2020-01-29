@@ -1479,7 +1479,7 @@ If \`options.useCache\` is \`false\`, all caching will be bypassed.
 
 \`\`\`js
 const text = fs.readFileSync(filePath, "utf8");
-prettier.resolveConfig(filePath).then(options => {
+prettier.resolveConfig(filePath).then((options) => {
   const formatted = prettier.format(text, options);
 });
 \`\`\`
@@ -1512,7 +1512,7 @@ prettier.format("lodash ( )", {
     const ast = babylon(text);
     ast.program.body[0].expression.callee.name = "_";
     return ast;
-  }
+  },
 });
 // -> "_();\\n"
 \`\`\`
@@ -3459,7 +3459,7 @@ If \`options.useCache\` is \`false\`, all caching will be bypassed.
 
 \`\`\`js
 const text = fs.readFileSync(filePath, 'utf8');
-prettier.resolveConfig(filePath).then(options => {
+prettier.resolveConfig(filePath).then((options) => {
   const formatted = prettier.format(text, options);
 });
 \`\`\`
@@ -3492,7 +3492,7 @@ prettier.format('lodash ( )', {
     const ast = babylon(text);
     ast.program.body[0].expression.callee.name = '_';
     return ast;
-  }
+  },
 });
 // -> "_();\\n"
 \`\`\`

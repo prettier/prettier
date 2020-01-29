@@ -19,6 +19,11 @@ module.exports = [
           "babel-flow"
         ];
       },
+      get "babel-ts"() {
+        return eval("require")("../language-js/parser-babylon").parsers[
+          "babel-ts"
+        ];
+      },
       get babylon() {
         return eval("require")("../language-js/parser-babylon").parsers.babel;
       },

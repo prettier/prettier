@@ -7,7 +7,8 @@ const comments = require("./comments");
 const {
   getLeftSidePathName,
   hasFlowShorthandAnnotationComment,
-  hasNakedLeftSide
+  hasNakedLeftSide,
+  hasNode
 } = require("./utils");
 
 function hasClosureCompilerTypeCastComment(text, path) {
@@ -52,7 +53,7 @@ function hasClosureCompilerTypeCastComment(text, path) {
     const cleaned = comment
       .trim()
       .split("\n")
-      .map(line => line.replace(/^[\s*]+/, ""))
+      .map(line => line.replace(/^[\s*]+/, "").replace(/[\s*]+$/, ""))
       .join(" ")
       .trim();
     if (!/^@type\s*\{[^]+\}$/.test(cleaned)) {
@@ -338,8 +339,13 @@ function needsParens(path, options) {
             (node.type === "TSTypeAssertion" || node.type === "TSAsExpression")
           );
 
-        case "BinaryExpression":
-        case "LogicalExpression": {
+        case "LogicalExpression":
+          if (node.type === "LogicalExpression") {
+            return parent.operator !== node.operator;
+          }
+        // else fallthrough
+
+        case "BinaryExpression": {
           if (!node.operator && node.type !== "TSTypeAssertion") {
             return true;
           }
@@ -350,10 +356,6 @@ function needsParens(path, options) {
           const np = util.getPrecedence(no);
 
           if (pp > np) {
-            return true;
-          }
-
-          if ((po === "||" || po === "??") && no === "&&") {
             return true;
           }
 
@@ -448,6 +450,7 @@ function needsParens(path, options) {
           return false;
       }
 
+    case "TSJSDocFunctionType":
     case "TSConditionalType":
       if (parent.type === "TSConditionalType" && node === parent.extendsType) {
         return true;
@@ -475,7 +478,9 @@ function needsParens(path, options) {
         parent.type === "TSOptionalType" ||
         parent.type === "TSRestType" ||
         (parent.type === "TSIndexedAccessType" && node === parent.objectType) ||
-        parent.type === "TSTypeOperator"
+        parent.type === "TSTypeOperator" ||
+        (parent.type === "TSTypeAnnotation" &&
+          /^TSJSDoc/.test(path.getParentNode(1).type))
       );
 
     case "ArrayTypeAnnotation":
@@ -520,7 +525,7 @@ function needsParens(path, options) {
         // See corresponding workaround in printer.js case: "Literal"
         ((options.parser !== "typescript" && !parent.directive) ||
           (options.parser === "typescript" &&
-            options.originalText.substr(options.locStart(node) - 1, 1) === "("))
+            options.originalText.charAt(options.locStart(node) - 1) === "("))
       ) {
         // To avoid becoming a directive
         const grandParent = path.getParentNode(1);
@@ -666,10 +671,8 @@ function needsParens(path, options) {
     case "OptionalMemberExpression":
     case "OptionalCallExpression":
       if (
-        ((parent.type === "MemberExpression" && name === "object") ||
-          (parent.type === "CallExpression" && name === "callee")) &&
-        // workaround for https://github.com/facebook/flow/issues/8159
-        !(options.parser === "flow" && parent.range[0] === node.range[0])
+        (parent.type === "MemberExpression" && name === "object") ||
+        (parent.type === "CallExpression" && name === "callee")
       ) {
         return true;
       }
@@ -743,6 +746,7 @@ function needsParens(path, options) {
           parent.type !== "AssignmentPattern" &&
           parent.type !== "BinaryExpression" &&
           parent.type !== "CallExpression" &&
+          parent.type !== "NewExpression" &&
           parent.type !== "ConditionalExpression" &&
           parent.type !== "ExpressionStatement" &&
           parent.type !== "JsExpressionRoot" &&
@@ -755,8 +759,16 @@ function needsParens(path, options) {
           parent.type !== "OptionalCallExpression" &&
           parent.type !== "Property" &&
           parent.type !== "ReturnStatement" &&
+          parent.type !== "ThrowStatement" &&
           parent.type !== "TypeCastExpression" &&
-          parent.type !== "VariableDeclarator")
+          parent.type !== "VariableDeclarator" &&
+          parent.type !== "YieldExpression")
+      );
+    case "TypeAnnotation":
+      return (
+        name === "returnType" &&
+        parent.type === "ArrowFunctionExpression" &&
+        includesFunctionTypeInObjectType(node)
       );
   }
 
@@ -783,6 +795,7 @@ function isStatement(node) {
     node.type === "DeclareModuleExports" ||
     node.type === "DeclareVariable" ||
     node.type === "DoWhileStatement" ||
+    node.type === "EnumDeclaration" ||
     node.type === "ExportAllDeclaration" ||
     node.type === "ExportDefaultDeclaration" ||
     node.type === "ExportNamedDeclaration" ||
@@ -811,6 +824,16 @@ function isStatement(node) {
     node.type === "VariableDeclaration" ||
     node.type === "WhileStatement" ||
     node.type === "WithStatement"
+  );
+}
+
+function includesFunctionTypeInObjectType(node) {
+  return hasNode(
+    node,
+    n1 =>
+      (n1.type === "ObjectTypeAnnotation" &&
+        hasNode(n1, n2 => n2.type === "FunctionTypeAnnotation" || undefined)) ||
+      undefined
   );
 }
 
@@ -886,11 +909,9 @@ function shouldWrapFunctionForExportDefault(path, options) {
     return false;
   }
 
-  return path.call.apply(
-    path,
-    [
-      childPath => shouldWrapFunctionForExportDefault(childPath, options)
-    ].concat(getLeftSidePathName(path, node))
+  return path.call(
+    childPath => shouldWrapFunctionForExportDefault(childPath, options),
+    ...getLeftSidePathName(path, node)
   );
 }
 

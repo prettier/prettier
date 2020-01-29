@@ -4,7 +4,7 @@ title: Browser
 original_id: browser
 ---
 
-Run Prettier in the browser with the `standalone.js` UMD bundle shipped in the NPM package (starting in version 1.13). The new UMD bundle only formats the code and has no support for config files, ignore files, CLI usage, or automatic loading of plugins.
+Run Prettier in the browser with the `standalone.js` UMD bundle shipped in the NPM package (starting in version 1.13). The UMD bundle only formats the code and has no support for config files, ignore files, CLI usage, or automatic loading of plugins.
 
 ### `prettier.format(code, options)`
 
@@ -16,12 +16,14 @@ See [Usage](#usage) below for examples.
 
 ### Global
 
-<!-- prettier-ignore -->
 ```html
-<script src="https://unpkg.com/prettier@1.13.0/standalone.js"></script>
-<script src="https://unpkg.com/prettier@1.13.0/parser-graphql.js"></script>
-<script type="text/javascript">
-prettier.format("query { }", { parser: "graphql", plugins: prettierPlugins });
+<script src="https://unpkg.com/prettier@1.19.1/standalone.js"></script>
+<script src="https://unpkg.com/prettier@1.19.1/parser-graphql.js"></script>
+<script>
+  prettier.format("query { }", {
+    parser: "graphql",
+    plugins: prettierPlugins
+  });
 </script>
 ```
 
@@ -41,8 +43,8 @@ prettier.format("query { }", {
 
 ```js
 define([
-  "https://unpkg.com/prettier@1.13.0/standalone.js",
-  "https://unpkg.com/prettier@1.13.0/parser-graphql.js"
+  "https://unpkg.com/prettier@1.19.1/standalone.js",
+  "https://unpkg.com/prettier@1.19.1/parser-graphql.js"
 ], (prettier, ...plugins) => {
   prettier.format("query { }", { parser: "graphql", plugins });
 });
@@ -61,7 +63,7 @@ This syntax doesn't necessarily work in the browser, but it can be used when bun
 ### Worker
 
 ```js
-importScripts("https://unpkg.com/prettier@1.13.0/standalone.js");
-importScripts("https://unpkg.com/prettier@1.13.0/parser-graphql.js");
+importScripts("https://unpkg.com/prettier@1.19.1/standalone.js");
+importScripts("https://unpkg.com/prettier@1.19.1/parser-graphql.js");
 prettier.format("query { }", { parser: "graphql", plugins: prettierPlugins });
 ```

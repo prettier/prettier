@@ -14,7 +14,7 @@ function fitTerminal(input) {
   const columns = Math.min(process.stdout.columns, 80);
   const WIDTH = columns - stringWidth(OK) + 1;
   if (input.length < WIDTH) {
-    input += Array(WIDTH - input.length).join(chalk.dim("."));
+    input += chalk.dim(".").repeat(WIDTH - input.length - 1);
   }
   return input;
 }
@@ -38,7 +38,7 @@ function runYarn(script) {
     script = [script];
   }
   return execa("yarn", ["--silent"].concat(script)).catch(error => {
-    throw Error(`\`yarn ${script}\` failed\n${error.stdout}`);
+    throw new Error(`\`yarn ${script}\` failed\n${error.stdout}`);
   });
 }
 
@@ -56,7 +56,7 @@ function waitForEnter() {
         process.stdin.pause();
         resolve();
       } else if (key.ctrl && key.name === "c") {
-        reject(Error("Process terminated by the user"));
+        reject(new Error("Process terminated by the user"));
       }
     }
   });

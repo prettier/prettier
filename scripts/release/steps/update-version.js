@@ -16,6 +16,11 @@ async function bump({ version }) {
     content.replace(/^(- Prettier Version: ).*?$/m, `$1${version}`)
   );
 
+  // Update unpkg link in docs
+  processFile("docs/browser.md", content =>
+    content.replace(/(\/\/unpkg\.com\/prettier@)(?:.*?)\//g, `$1${version}/`)
+  );
+
   await execa("yarn", ["update-stable-docs"], {
     cwd: "./website"
   });

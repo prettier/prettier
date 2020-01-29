@@ -5,11 +5,9 @@ const comments = require("./comments");
 const FastPath = require("../common/fast-path");
 const multiparser = require("./multiparser");
 
-const doc = require("../doc");
+const doc = require("../document");
 const docBuilders = doc.builders;
-const concat = docBuilders.concat;
-const hardline = docBuilders.hardline;
-const addAlignmentToDoc = docBuilders.addAlignmentToDoc;
+const { concat, hardline, addAlignmentToDoc } = docBuilders;
 const docUtils = doc.utils;
 
 /**
@@ -34,7 +32,7 @@ const docUtils = doc.utils;
  * the path to the current node through the Abstract Syntax Tree.
  */
 function printAstToDoc(ast, options, alignmentSize = 0) {
-  const printer = options.printer;
+  const { printer } = options;
 
   if (printer.preprocess) {
     ast = printer.preprocess(ast, options);
@@ -95,7 +93,7 @@ function callPluginPrintFunction(path, options, printPath, args) {
   assert.ok(path instanceof FastPath);
 
   const node = path.getValue();
-  const printer = options.printer;
+  const { printer } = options;
 
   // Escape hatch
   if (printer.hasPrettierIgnore && printer.hasPrettierIgnore(path)) {
