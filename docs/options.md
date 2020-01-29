@@ -159,18 +159,22 @@ Valid options:
 
 ## Arrow Function Parentheses
 
-_First available in v1.9.0_
+_First available in v1.9.0, default value changed from `avoid` to `always` in v2.0.0_
 
 Include parentheses around a sole arrow function parameter.
 
 Valid options:
 
-- `"avoid"` - Omit parens when possible. Example: `x => x`
 - `"always"` - Always include parens. Example: `(x) => x`
+- `"avoid"` - Omit parens when possible. Example: `x => x`
 
-| Default   | CLI Override                                    | API Override                                    |
-| --------- | ----------------------------------------------- | ----------------------------------------------- |
-| `"avoid"` | <code>--arrow-parens <avoid&#124;always></code> | <code>arrowParens: "<avoid&#124;always>"</code> |
+| Default    | CLI Override                                    | API Override                                    |
+| ---------- | ----------------------------------------------- | ----------------------------------------------- |
+| `"always"` | <code>--arrow-parens <always&#124;avoid></code> | <code>arrowParens: "<always&#124;avoid>"</code> |
+
+At first glance, avoiding parentheses may look like a better choice because of less visual noise.
+However, when Prettier removes parentheses, it becomes harder to add type annotations, extra arguments or default values as well as making other changes.
+Consistent use of parentheses provides a better developer experience when editing real codebases, which justifies the default value for the option.
 
 ## Range
 
@@ -194,12 +198,13 @@ Specify which parser to use.
 
 Prettier automatically infers the parser from the input file path, so you shouldn't have to change this setting.
 
-Both the `babel` and `flow` parsers support the same set of JavaScript features (including Flow type annotations). They might differ in some edge cases, so if you run into one of those you can try `flow` instead of `babel`.
+Both the `babel` and `flow` parsers support the same set of JavaScript features (including Flow type annotations). They might differ in some edge cases, so if you run into one of those you can try `flow` instead of `babel`. Almost the same applies to `typescript` and `babel-ts`. `babel-ts` might support JavaScript features (proposals) not yet supported by TypeScript, but it's less permissive when it comes to invalid code and less battle-tested than the `typescript` parser.
 
 Valid options:
 
 - `"babel"` (via [@babel/parser](https://github.com/babel/babel/tree/master/packages/babel-parser)) _Named `"babylon"` until v1.16.0_
-- `"babel-flow"` (Same as `"babel"` but enables Flow parsing explicitly to avoid ambiguity) _First available in v1.16.0_
+- `"babel-flow"` (same as `"babel"` but enables Flow parsing explicitly to avoid ambiguity) _First available in v1.16.0_
+- `"babel-ts"` (similar to `"typescript"` but uses Babel and its TypeScript plugin) _First available in v2.0.0_
 - `"flow"` (via [flow-parser](https://github.com/facebook/flow/tree/master/src/parser))
 - `"typescript"` (via [@typescript-eslint/typescript-estree](https://github.com/typescript-eslint/typescript-eslint)) _First available in v1.4.0_
 - `"css"` (via [postcss-scss](https://github.com/postcss/postcss-scss) and [postcss-less](https://github.com/shellscape/postcss-less), autodetects which to use) _First available in v1.7.1_

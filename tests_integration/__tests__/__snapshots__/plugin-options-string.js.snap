@@ -6,7 +6,7 @@ exports[` 1`] = `
 + Second value
 
 @@ -17,10 +17,12 @@
-                             Defaults to avoid.
+                             Defaults to always.
     --no-bracket-spacing     Do not print spaces between brackets.
     --end-of-line <lf|crlf|cr|auto>
                              Which end of line characters to apply.

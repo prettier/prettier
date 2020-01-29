@@ -58,9 +58,9 @@ Output options:
 
 Format options:
 
-  --arrow-parens <avoid|always>
+  --arrow-parens <always|avoid>
                            Include parentheses around a sole arrow function parameter.
-                           Defaults to avoid.
+                           Defaults to always.
   --no-bracket-spacing     Do not print spaces between brackets.
   --end-of-line <lf|crlf|cr|auto>
                            Which end of line characters to apply.
@@ -72,7 +72,7 @@ Format options:
                            Defaults to false.
   --jsx-single-quote       Use single quotes in JSX.
                            Defaults to false.
-  --parser <flow|babel|babel-flow|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|html|angular|lwc>
+  --parser <flow|babel|babel-flow|babel-ts|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|html|angular|lwc>
                            Which parser to use.
   --print-width <int>      The line length where Prettier will try wrap.
                            Defaults to 80.
@@ -168,7 +168,7 @@ exports[`show warning with --help not-found (typo) (stderr) 1`] = `
 `;
 
 exports[`show warning with --help not-found (typo) (stdout) 1`] = `
-"--parser <flow|babel|babel-flow|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|html|angular|lwc>
+"--parser <flow|babel|babel-flow|babel-ts|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|html|angular|lwc>
 
   Which parser to use.
 
@@ -177,6 +177,7 @@ Valid options:
   flow             Flow
   babel            JavaScript
   babel-flow       Flow
+  babel-ts         TypeScript
   typescript       TypeScript
   css              CSS
   less             Less
@@ -214,9 +215,9 @@ Output options:
 
 Format options:
 
-  --arrow-parens <avoid|always>
+  --arrow-parens <always|avoid>
                            Include parentheses around a sole arrow function parameter.
-                           Defaults to avoid.
+                           Defaults to always.
   --no-bracket-spacing     Do not print spaces between brackets.
   --end-of-line <lf|crlf|cr|auto>
                            Which end of line characters to apply.
@@ -228,7 +229,7 @@ Format options:
                            Defaults to false.
   --jsx-single-quote       Use single quotes in JSX.
                            Defaults to false.
-  --parser <flow|babel|babel-flow|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|html|angular|lwc>
+  --parser <flow|babel|babel-flow|babel-ts|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|html|angular|lwc>
                            Which parser to use.
   --print-width <int>      The line length where Prettier will try wrap.
                            Defaults to 80.

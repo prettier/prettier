@@ -10,16 +10,19 @@ module.exports = {
     since: "1.9.0",
     category: CATEGORY_JAVASCRIPT,
     type: "choice",
-    default: "avoid",
+    default: [
+      { since: "1.9.0", value: "avoid" },
+      { since: "2.0.0", value: "always" }
+    ],
     description: "Include parentheses around a sole arrow function parameter.",
     choices: [
       {
-        value: "avoid",
-        description: "Omit parens when possible. Example: `x => x`"
-      },
-      {
         value: "always",
         description: "Always include parens. Example: `(x) => x`"
+      },
+      {
+        value: "avoid",
+        description: "Omit parens when possible. Example: `x => x`"
       }
     ]
   },
