@@ -637,7 +637,13 @@ function printHtmlTemplateLiteral(path, print, textToDoc, parser, options) {
   }
 
   return group(
-    concat(["`", leadingWhitespace, group(contentDoc), trailingWhitespace, "`"])
+    concat([
+      "`",
+      leadingWhitespace,
+      indent(group(contentDoc)),
+      trailingWhitespace,
+      "`"
+    ])
   );
 }
 
