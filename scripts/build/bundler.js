@@ -50,8 +50,12 @@ function getBabelConfig(bundle) {
   }
   const targets = { node: "10" };
   if (bundle.target === "universal") {
-    // From https://jamie.build/last-2-versions
-    targets.browsers = [">0.25%", "not ie 11", "not op_mini all"];
+    targets.browsers = [
+      ">0.5%",
+      "not ie 11",
+      "not safari 5.1",
+      "not op_mini all"
+    ];
   }
   config.presets = [
     [
