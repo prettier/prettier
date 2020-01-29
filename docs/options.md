@@ -157,18 +157,22 @@ Valid options:
 
 ## Arrow Function Parentheses
 
-_First available in v1.9.0_
+_First available in v1.9.0, default value changed from `avoid` to `always` in v2.0.0_
 
 Include parentheses around a sole arrow function parameter.
 
 Valid options:
 
-- `"avoid"` - Omit parens when possible. Example: `x => x`
 - `"always"` - Always include parens. Example: `(x) => x`
+- `"avoid"` - Omit parens when possible. Example: `x => x`
 
-| Default   | CLI Override                                    | API Override                                    |
-| --------- | ----------------------------------------------- | ----------------------------------------------- |
-| `"avoid"` | <code>--arrow-parens <avoid&#124;always></code> | <code>arrowParens: "<avoid&#124;always>"</code> |
+| Default    | CLI Override                                    | API Override                                    |
+| ---------- | ----------------------------------------------- | ----------------------------------------------- |
+| `"always"` | <code>--arrow-parens <always&#124;avoid></code> | <code>arrowParens: "<always&#124;avoid>"</code> |
+
+At first glance, avoiding parentheses may look like a better choice because of less visual noise.
+However, when Prettier removes parentheses, it becomes harder to add type annotations, extra arguments or default values as well as making other changes.
+Consistent use of parentheses provides a better developer experience when editing real codebases, which justifies the default value for the option.
 
 ## Range
 

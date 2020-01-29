@@ -480,8 +480,8 @@ exports[`API getSupportInfo() with version 1.8.2 -> 1.16.0 1`] = `
     \\"options\\": Object {
 +     \\"arrowParens\\": Object {
 +       \\"choices\\": Array [
-+         \\"avoid\\",
 +         \\"always\\",
++         \\"avoid\\",
 +       ],
 +       \\"default\\": \\"avoid\\",
 +       \\"type\\": \\"choice\\",
@@ -609,6 +609,19 @@ exports[`API getSupportInfo() with version 1.16.0 -> undefined 1`] = `
       ],
       \\"Markdown\\": Array [
         \\"markdown\\",
+@@ -68,11 +71,11 @@
+      \\"arrowParens\\": Object {
+        \\"choices\\": Array [
+          \\"always\\",
+          \\"avoid\\",
+        ],
+-       \\"default\\": \\"avoid\\",
++       \\"default\\": \\"always\\",
+        \\"type\\": \\"choice\\",
+      },
+      \\"bracketSpacing\\": Object {
+        \\"default\\": true,
+        \\"type\\": \\"boolean\\",
 @@ -91,11 +94,11 @@
           \\"lf\\",
           \\"crlf\\",
@@ -1106,15 +1119,15 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"category\\": \\"JavaScript\\",
       \\"choices\\": [
         {
-          \\"description\\": \\"Omit parens when possible. Example: \`x => x\`\\",
-          \\"value\\": \\"avoid\\"
-        },
-        {
           \\"description\\": \\"Always include parens. Example: \`(x) => x\`\\",
           \\"value\\": \\"always\\"
+        },
+        {
+          \\"description\\": \\"Omit parens when possible. Example: \`x => x\`\\",
+          \\"value\\": \\"avoid\\"
         }
       ],
-      \\"default\\": \\"avoid\\",
+      \\"default\\": \\"always\\",
       \\"description\\": \\"Include parentheses around a sole arrow function parameter.\\",
       \\"name\\": \\"arrowParens\\",
       \\"pluginDefaults\\": {},
