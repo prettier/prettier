@@ -32,6 +32,22 @@ function postprocess(ast, options) {
           return { ...node.types[0], loc: node.loc, range: node.range };
         }
         break;
+      case "TSTypeParameter":
+        // babel-ts
+        if (typeof node.name === "string") {
+          node.name = {
+            type: "Identifier",
+            name: node.name,
+            ...composeLoc(node, node.name.length)
+          };
+        }
+        break;
+      case "SequenceExpression":
+        // Babel (unlike other parsers) includes spaces and comments in the range. Let's unify this.
+        if (node.end && node.end > getLast(node.expressions).end) {
+          node.end = getLast(node.expressions).end;
+        }
+        break;
     }
   });
 

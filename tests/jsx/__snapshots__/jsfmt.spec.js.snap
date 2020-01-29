@@ -44,7 +44,7 @@ const UsersList = ({ users }) => (
   <section>
     <h2>Users list</h2>
     <ul>
-      {users.map(user => (
+      {users.map((user) => (
         <li key={user.id}>{user.name}</li>
       ))}
     </ul>
@@ -63,7 +63,7 @@ const TodoList = ({ todos }) => (
 
 <div className="search-filter-chips">
   {scopes
-    .filter(scope => scope.value !== "")
+    .filter((scope) => scope.value !== "")
     .map((scope, i) => (
       <FilterChip
         query={this.props.query}
@@ -122,7 +122,7 @@ const UsersList = ({ users }) => (
   <section>
     <h2>Users list</h2>
     <ul>
-      {users.map(user => (
+      {users.map((user) => (
         <li key={user.id}>{user.name}</li>
       ))}
     </ul>
@@ -141,7 +141,7 @@ const TodoList = ({ todos }) => (
 
 <div className='search-filter-chips'>
   {scopes
-    .filter(scope => scope.value !== "")
+    .filter((scope) => scope.value !== "")
     .map((scope, i) => (
       <FilterChip
         query={this.props.query}
@@ -200,7 +200,7 @@ const UsersList = ({ users }) => (
   <section>
     <h2>Users list</h2>
     <ul>
-      {users.map(user => (
+      {users.map((user) => (
         <li key={user.id}>{user.name}</li>
       ))}
     </ul>
@@ -219,7 +219,7 @@ const TodoList = ({ todos }) => (
 
 <div className="search-filter-chips">
   {scopes
-    .filter(scope => scope.value !== '')
+    .filter((scope) => scope.value !== '')
     .map((scope, i) => (
       <FilterChip
         query={this.props.query}
@@ -278,7 +278,7 @@ const UsersList = ({ users }) => (
   <section>
     <h2>Users list</h2>
     <ul>
-      {users.map(user => (
+      {users.map((user) => (
         <li key={user.id}>{user.name}</li>
       ))}
     </ul>
@@ -297,7 +297,7 @@ const TodoList = ({ todos }) => (
 
 <div className='search-filter-chips'>
   {scopes
-    .filter(scope => scope.value !== '')
+    .filter((scope) => scope.value !== '')
     .map((scope, i) => (
       <FilterChip
         query={this.props.query}
@@ -362,11 +362,11 @@ singleQuote: false
   }
   propArrowFn={
     // comment
-    arg => fn(arg)
+    (arg) => fn(arg)
   }
   propArrowWithBreak={
     // comment
-    arg =>
+    (arg) =>
       fn({
         makeItBreak,
       })
@@ -438,11 +438,11 @@ singleQuote: false
   }
   propArrowFn={
     // comment
-    arg => fn(arg)
+    (arg) => fn(arg)
   }
   propArrowWithBreak={
     // comment
-    arg =>
+    (arg) =>
       fn({
         makeItBreak,
       })
@@ -514,11 +514,11 @@ singleQuote: true
   }
   propArrowFn={
     // comment
-    arg => fn(arg)
+    (arg) => fn(arg)
   }
   propArrowWithBreak={
     // comment
-    arg =>
+    (arg) =>
       fn({
         makeItBreak,
       })
@@ -590,11 +590,11 @@ singleQuote: true
   }
   propArrowFn={
     // comment
-    arg => fn(arg)
+    (arg) => fn(arg)
   }
   propArrowWithBreak={
     // comment
-    arg =>
+    (arg) =>
       fn({
         makeItBreak,
       })
@@ -1938,7 +1938,7 @@ singleQuote: false
 </Something>;
 
 <Something>
-  {items.map(item => (
+  {items.map((item) => (
     <SomethingElse>
       <span />
     </SomethingElse>
@@ -1974,11 +1974,11 @@ singleQuote: false
 
 <BookingIntroPanel
   prop="long_string_make_to_force_break"
-  logClick={data => doLogClick("short", "short", data)}
+  logClick={(data) => doLogClick("short", "short", data)}
 />;
 
 <BookingIntroPanel
-  logClick={data =>
+  logClick={(data) =>
     doLogClick(
       "long_name_long_name_long_name",
       "long_name_long_name_long_name",
@@ -1988,7 +1988,7 @@ singleQuote: false
 />;
 
 <BookingIntroPanel
-  logClick={data => {
+  logClick={(data) => {
     doLogClick(
       "long_name_long_name_long_name",
       "long_name_long_name_long_name",
@@ -2009,11 +2009,11 @@ singleQuote: false
 />;
 
 <BookingIntroPanel>
-  {data => doLogClick("short", "short", data)}
+  {(data) => doLogClick("short", "short", data)}
 </BookingIntroPanel>;
 
 <BookingIntroPanel>
-  {data =>
+  {(data) =>
     doLogClick(
       "long_name_long_name_long_name",
       "long_name_long_name_long_name",
@@ -2023,7 +2023,7 @@ singleQuote: false
 </BookingIntroPanel>;
 
 <BookingIntroPanel>
-  {data => {
+  {(data) => {
     doLogClick(
       "long_name_long_name_long_name",
       "long_name_long_name_long_name",
@@ -2226,7 +2226,7 @@ singleQuote: false
 </Something>;
 
 <Something>
-  {items.map(item => (
+  {items.map((item) => (
     <SomethingElse>
       <span />
     </SomethingElse>
@@ -2262,11 +2262,11 @@ singleQuote: false
 
 <BookingIntroPanel
   prop='long_string_make_to_force_break'
-  logClick={data => doLogClick("short", "short", data)}
+  logClick={(data) => doLogClick("short", "short", data)}
 />;
 
 <BookingIntroPanel
-  logClick={data =>
+  logClick={(data) =>
     doLogClick(
       "long_name_long_name_long_name",
       "long_name_long_name_long_name",
@@ -2276,7 +2276,7 @@ singleQuote: false
 />;
 
 <BookingIntroPanel
-  logClick={data => {
+  logClick={(data) => {
     doLogClick(
       "long_name_long_name_long_name",
       "long_name_long_name_long_name",
@@ -2297,11 +2297,11 @@ singleQuote: false
 />;
 
 <BookingIntroPanel>
-  {data => doLogClick("short", "short", data)}
+  {(data) => doLogClick("short", "short", data)}
 </BookingIntroPanel>;
 
 <BookingIntroPanel>
-  {data =>
+  {(data) =>
     doLogClick(
       "long_name_long_name_long_name",
       "long_name_long_name_long_name",
@@ -2311,7 +2311,7 @@ singleQuote: false
 </BookingIntroPanel>;
 
 <BookingIntroPanel>
-  {data => {
+  {(data) => {
     doLogClick(
       "long_name_long_name_long_name",
       "long_name_long_name_long_name",
@@ -2514,7 +2514,7 @@ singleQuote: true
 </Something>;
 
 <Something>
-  {items.map(item => (
+  {items.map((item) => (
     <SomethingElse>
       <span />
     </SomethingElse>
@@ -2550,11 +2550,11 @@ singleQuote: true
 
 <BookingIntroPanel
   prop="long_string_make_to_force_break"
-  logClick={data => doLogClick('short', 'short', data)}
+  logClick={(data) => doLogClick('short', 'short', data)}
 />;
 
 <BookingIntroPanel
-  logClick={data =>
+  logClick={(data) =>
     doLogClick(
       'long_name_long_name_long_name',
       'long_name_long_name_long_name',
@@ -2564,7 +2564,7 @@ singleQuote: true
 />;
 
 <BookingIntroPanel
-  logClick={data => {
+  logClick={(data) => {
     doLogClick(
       'long_name_long_name_long_name',
       'long_name_long_name_long_name',
@@ -2585,11 +2585,11 @@ singleQuote: true
 />;
 
 <BookingIntroPanel>
-  {data => doLogClick('short', 'short', data)}
+  {(data) => doLogClick('short', 'short', data)}
 </BookingIntroPanel>;
 
 <BookingIntroPanel>
-  {data =>
+  {(data) =>
     doLogClick(
       'long_name_long_name_long_name',
       'long_name_long_name_long_name',
@@ -2599,7 +2599,7 @@ singleQuote: true
 </BookingIntroPanel>;
 
 <BookingIntroPanel>
-  {data => {
+  {(data) => {
     doLogClick(
       'long_name_long_name_long_name',
       'long_name_long_name_long_name',
@@ -2802,7 +2802,7 @@ singleQuote: true
 </Something>;
 
 <Something>
-  {items.map(item => (
+  {items.map((item) => (
     <SomethingElse>
       <span />
     </SomethingElse>
@@ -2838,11 +2838,11 @@ singleQuote: true
 
 <BookingIntroPanel
   prop='long_string_make_to_force_break'
-  logClick={data => doLogClick('short', 'short', data)}
+  logClick={(data) => doLogClick('short', 'short', data)}
 />;
 
 <BookingIntroPanel
-  logClick={data =>
+  logClick={(data) =>
     doLogClick(
       'long_name_long_name_long_name',
       'long_name_long_name_long_name',
@@ -2852,7 +2852,7 @@ singleQuote: true
 />;
 
 <BookingIntroPanel
-  logClick={data => {
+  logClick={(data) => {
     doLogClick(
       'long_name_long_name_long_name',
       'long_name_long_name_long_name',
@@ -2873,11 +2873,11 @@ singleQuote: true
 />;
 
 <BookingIntroPanel>
-  {data => doLogClick('short', 'short', data)}
+  {(data) => doLogClick('short', 'short', data)}
 </BookingIntroPanel>;
 
 <BookingIntroPanel>
-  {data =>
+  {(data) =>
     doLogClick(
       'long_name_long_name_long_name',
       'long_name_long_name_long_name',
@@ -2887,7 +2887,7 @@ singleQuote: true
 </BookingIntroPanel>;
 
 <BookingIntroPanel>
-  {data => {
+  {(data) => {
     doLogClick(
       'long_name_long_name_long_name',
       'long_name_long_name_long_name',
@@ -3143,7 +3143,7 @@ singleQuote: false
     this.renderDevApp()
   ) : (
     <div>
-      {routes.map(route => (
+      {routes.map((route) => (
         <MatchAsync
           key={\`\${route.to}-async\`}
           pattern={route.to}
@@ -3158,7 +3158,7 @@ singleQuote: false
 <div>
   {__DEV__ && (
     <div>
-      {routes.map(route => (
+      {routes.map((route) => (
         <MatchAsync
           key={\`\${route.to}-async\`}
           pattern={route.to}
@@ -3225,7 +3225,7 @@ singleQuote: false
     this.renderDevApp()
   ) : (
     <div>
-      {routes.map(route => (
+      {routes.map((route) => (
         <MatchAsync
           key={\`\${route.to}-async\`}
           pattern={route.to}
@@ -3240,7 +3240,7 @@ singleQuote: false
 <div>
   {__DEV__ && (
     <div>
-      {routes.map(route => (
+      {routes.map((route) => (
         <MatchAsync
           key={\`\${route.to}-async\`}
           pattern={route.to}
@@ -3307,7 +3307,7 @@ singleQuote: true
     this.renderDevApp()
   ) : (
     <div>
-      {routes.map(route => (
+      {routes.map((route) => (
         <MatchAsync
           key={\`\${route.to}-async\`}
           pattern={route.to}
@@ -3322,7 +3322,7 @@ singleQuote: true
 <div>
   {__DEV__ && (
     <div>
-      {routes.map(route => (
+      {routes.map((route) => (
         <MatchAsync
           key={\`\${route.to}-async\`}
           pattern={route.to}
@@ -3389,7 +3389,7 @@ singleQuote: true
     this.renderDevApp()
   ) : (
     <div>
-      {routes.map(route => (
+      {routes.map((route) => (
         <MatchAsync
           key={\`\${route.to}-async\`}
           pattern={route.to}
@@ -3404,7 +3404,7 @@ singleQuote: true
 <div>
   {__DEV__ && (
     <div>
-      {routes.map(route => (
+      {routes.map((route) => (
         <MatchAsync
           key={\`\${route.to}-async\`}
           pattern={route.to}

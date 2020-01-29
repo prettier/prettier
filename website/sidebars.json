@@ -20,6 +20,6 @@
     ],
     "Configuring Prettier": ["options", "configuration"],
     "Editors": ["editors", "webstorm", "vim"],
-    "Misc": ["technical-details", "related-projects"]
+    "Misc": ["technical-details", "related-projects", "for-enterprise"]
   }
 }

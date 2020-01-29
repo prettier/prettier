@@ -460,8 +460,9 @@ function handleMethodNameComments(
   if (
     enclosingNode &&
     precedingNode &&
+    // "MethodDefinition" is handled in getCommentChildNodes
     (enclosingNode.type === "Property" ||
-      enclosingNode.type === "MethodDefinition" ||
+      enclosingNode.type === "TSDeclareMethod" ||
       enclosingNode.type === "TSAbstractMethodDefinition") &&
     precedingNode.type === "Identifier" &&
     enclosingNode.key === precedingNode &&
@@ -487,6 +488,7 @@ function handleMethodNameComments(
       enclosingNode.type === "ClassProperty" ||
       enclosingNode.type === "TSAbstractClassProperty" ||
       enclosingNode.type === "TSAbstractMethodDefinition" ||
+      enclosingNode.type === "TSDeclareMethod" ||
       enclosingNode.type === "MethodDefinition")
   ) {
     addTrailingComment(precedingNode, comment);
@@ -558,7 +560,8 @@ function handleCommentInEmptyParens(text, enclosingNode, comment, options) {
   if (
     enclosingNode &&
     ((isRealFunctionLikeNode(enclosingNode) &&
-      enclosingNode.params.length === 0) ||
+      // `params` vs `parameters` - see https://github.com/babel/babel/issues/9231
+      (enclosingNode.params || enclosingNode.parameters).length === 0) ||
       ((enclosingNode.type === "CallExpression" ||
         enclosingNode.type === "OptionalCallExpression" ||
         enclosingNode.type === "NewExpression") &&
@@ -623,10 +626,14 @@ function handleLastFunctionArgComments(
     followingNode.type === "BlockStatement"
   ) {
     const functionParamRightParenIndex = (() => {
-      if (enclosingNode.params.length !== 0) {
+      if ((enclosingNode.params || enclosingNode.parameters).length !== 0) {
         return privateUtil.getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
           text,
-          options.locEnd(privateUtil.getLast(enclosingNode.params))
+          options.locEnd(
+            privateUtil.getLast(
+              enclosingNode.params || enclosingNode.parameters
+            )
+          )
         );
       }
       const functionParamLeftParenIndex = privateUtil.getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
@@ -899,8 +906,43 @@ function isRealFunctionLikeNode(node) {
     node.type === "TSConstructSignatureDeclaration" ||
     node.type === "TSMethodSignature" ||
     node.type === "TSConstructorType" ||
-    node.type === "TSFunctionType"
+    node.type === "TSFunctionType" ||
+    node.type === "TSDeclareMethod"
   );
+}
+
+function getGapRegex(enclosingNode) {
+  if (
+    enclosingNode &&
+    enclosingNode.type !== "BinaryExpression" &&
+    enclosingNode.type !== "LogicalExpression"
+  ) {
+    // Support degenerate single-element unions and intersections.
+    // E.g.: `type A = /* 1 */ & B`
+    return /^[\s(&|]*$/;
+  }
+}
+
+function getCommentChildNodes(node, options) {
+  // Prevent attaching comments to FunctionExpression in this case:
+  //     class Foo {
+  //       bar() // comment
+  //       {
+  //         baz();
+  //       }
+  //     }
+  if (
+    (options.parser === "typescript" || options.parser === "flow") &&
+    node.type === "MethodDefinition" &&
+    node.value &&
+    node.value.type === "FunctionExpression" &&
+    node.value.params.length === 0 &&
+    !node.value.returnType &&
+    (!node.value.typeParameters || node.value.typeParameters.length === 0) &&
+    node.value.body
+  ) {
+    return [...(node.decorators || []), node.key, node.value.body];
+  }
 }
 
 module.exports = {
@@ -908,5 +950,7 @@ module.exports = {
   handleEndOfLineComment,
   handleRemainingComment,
   hasLeadingComment,
-  isBlockComment
+  isBlockComment,
+  getGapRegex,
+  getCommentChildNodes
 };

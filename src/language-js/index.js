@@ -32,13 +32,13 @@ const languages = [
   createLanguage(require("linguist-languages/data/TypeScript"), data => ({
     ...data,
     since: "1.4.0",
-    parsers: ["typescript"],
+    parsers: ["typescript", "babel-ts"],
     vscodeLanguageIds: ["typescript"]
   })),
   createLanguage(require("linguist-languages/data/TSX"), data => ({
     ...data,
     since: "1.4.0",
-    parsers: ["typescript"],
+    parsers: ["typescript", "babel-ts"],
     vscodeLanguageIds: ["typescriptreact"]
   })),
   createLanguage(require("linguist-languages/data/JSON"), data => ({

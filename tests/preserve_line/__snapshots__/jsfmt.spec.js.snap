@@ -342,7 +342,7 @@ stuff.doThing(
 
   -1,
   {
-    accept: node => doSomething(node),
+    accept: (node) => doSomething(node),
   }
 );
 
@@ -352,7 +352,7 @@ doThing(
   // This is important
   true,
   {
-    decline: creditCard => takeMoney(creditCard),
+    decline: (creditCard) => takeMoney(creditCard),
   }
 );
 
@@ -573,7 +573,7 @@ helloWorld
 
   .text()
 
-  .then(t => t);
+  .then((t) => t);
 
 (
   veryLongVeryLongVeryLong ||
@@ -581,14 +581,14 @@ helloWorld
   veryVeryVeryLongError
 )
 
-  .map(tickets => TicketRecord.createFromSomeLongString())
+  .map((tickets) => TicketRecord.createFromSomeLongString())
 
-  .filter(obj => !!obj);
+  .filter((obj) => !!obj);
 
 const sel = this.connections
 
   .concat(this.activities.concat(this.operators))
-  .filter(x => x.selected);
+  .filter((x) => x.selected);
 
 ================================================================================
 `;

@@ -118,6 +118,26 @@ function getLeftSidePathName(path, node) {
   throw new Error("Unexpected node has no left side", node);
 }
 
+const exportDeclarationTypes = new Set([
+  "ExportDefaultDeclaration",
+  "ExportDefaultSpecifier",
+  "DeclareExportDeclaration",
+  "ExportNamedDeclaration",
+  "ExportAllDeclaration"
+]);
+function isExportDeclaration(node) {
+  return node && exportDeclarationTypes.has(node.type);
+}
+
+function getParentExportDeclaration(path) {
+  const parentNode = path.getParentNode();
+  if (path.getName() === "declaration" && isExportDeclaration(parentNode)) {
+    return parentNode;
+  }
+
+  return null;
+}
+
 function isLiteral(node) {
   return (
     node.type === "BooleanLiteral" ||
@@ -691,7 +711,12 @@ function isStringPropSafeToCoerceToIdentifier(node, options) {
     isStringLiteral(node.key) &&
     isIdentifierName(node.key.value) &&
     options.parser !== "json" &&
-    !(options.parser === "typescript" && node.type === "ClassProperty")
+    // With `--strictPropertyInitialization`, TS treats properties with quoted names differently than unquoted ones.
+    // See https://github.com/microsoft/TypeScript/pull/20075
+    !(
+      (options.parser === "typescript" || options.parser === "babel-ts") &&
+      node.type === "ClassProperty"
+    )
   );
 }
 
@@ -983,6 +1008,7 @@ module.exports = {
   conditionalExpressionChainContainsJSX,
   getFlowVariance,
   getLeftSidePathName,
+  getParentExportDeclaration,
   getTypeScriptMappedTypeModifier,
   hasDanglingComments,
   hasFlowAnnotationComment,
@@ -999,6 +1025,7 @@ module.exports = {
   isBinaryish,
   isCallOrOptionalCallExpression,
   isEmptyJSXElement,
+  isExportDeclaration,
   isFlowAnnotationComment,
   isFunctionCompositionArgs,
   isFunctionNotation,

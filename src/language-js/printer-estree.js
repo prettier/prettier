@@ -5,8 +5,6 @@ const assert = require("assert");
 // TODO(azz): anything that imports from main shouldn't be in a `language-*` dir.
 const comments = require("../main/comments");
 const {
-  getParentExportDeclaration,
-  isExportDeclaration,
   shouldFlatten,
   getNextNonSpaceNonCommentCharacter,
   hasNewline,
@@ -43,6 +41,7 @@ const {
   conditionalExpressionChainContainsJSX,
   getFlowVariance,
   getLeftSidePathName,
+  getParentExportDeclaration,
   getTypeScriptMappedTypeModifier,
   hasDanglingComments,
   hasFlowAnnotationComment,
@@ -58,6 +57,7 @@ const {
   isBinaryish,
   isCallOrOptionalCallExpression,
   isEmptyJSXElement,
+  isExportDeclaration,
   isFlowAnnotationComment,
   isFunctionCompositionArgs,
   isFunctionNotation,
@@ -167,7 +167,8 @@ function genericPrint(path, options, printPath, args) {
     node.type === "TSAbstractClassProperty" ||
     node.type === "ClassPrivateProperty" ||
     node.type === "MethodDefinition" ||
-    node.type === "TSAbstractMethodDefinition"
+    node.type === "TSAbstractMethodDefinition" ||
+    node.type === "TSDeclareMethod"
   ) {
     // their decorators are handled themselves
   } else if (
@@ -1416,14 +1417,18 @@ function printPathNoParens(path, options, print, args) {
         path.match(
           node => node.type === "ObjectPattern" && !node.decorators,
           (node, name, number) =>
-            shouldHugArguments(node) && name === "params" && number === 0
+            shouldHugArguments(node) &&
+            (name === "params" || name === "parameters") &&
+            number === 0
         ) ||
         path.match(
           shouldHugType,
           (node, name) => name === "typeAnnotation",
           (node, name) => name === "typeAnnotation",
           (node, name, number) =>
-            shouldHugArguments(node) && name === "params" && number === 0
+            shouldHugArguments(node) &&
+            (name === "params" || name === "parameters") &&
+            number === 0
         )
       ) {
         return content;
@@ -1458,6 +1463,7 @@ function printPathNoParens(path, options, print, args) {
     case "ClassPrivateMethod":
     case "MethodDefinition":
     case "TSAbstractMethodDefinition":
+    case "TSDeclareMethod":
       if (n.decorators && n.decorators.length !== 0) {
         parts.push(printDecorators(path, options, print));
       }
@@ -1467,7 +1473,7 @@ function printPathNoParens(path, options, print, args) {
       if (n.static) {
         parts.push("static ");
       }
-      if (n.type === "TSAbstractMethodDefinition") {
+      if (n.type === "TSAbstractMethodDefinition" || n.abstract) {
         parts.push("abstract ");
       }
 
@@ -2355,7 +2361,7 @@ function printPathNoParens(path, options, print, args) {
       if (n.static) {
         parts.push("static ");
       }
-      if (n.type === "TSAbstractClassProperty") {
+      if (n.type === "TSAbstractClassProperty" || n.abstract) {
         parts.push("abstract ");
       }
       if (n.readonly) {
@@ -2394,6 +2400,7 @@ function printPathNoParens(path, options, print, args) {
       parts.push(concat(printClass(path, options, print)));
       return concat(parts);
     case "TSInterfaceHeritage":
+    case "TSExpressionWithTypeArguments": // Babel AST
       parts.push(path.call(print, "expression"));
 
       if (n.typeParameters) {
@@ -3285,7 +3292,7 @@ function printPathNoParens(path, options, print, args) {
       return concat([
         !n.isTypeOf ? "" : "typeof ",
         "import(",
-        path.call(print, "parameter"),
+        path.call(print, n.parameter ? "parameter" : "argument"),
         ")",
         !n.qualifier ? "" : concat([".", path.call(print, "qualifier")]),
         printTypeParameters(path, options, print, "typeParameters")
@@ -3318,9 +3325,13 @@ function printPathNoParens(path, options, print, args) {
         )
       );
 
-      if (n.returnType) {
+      if (n.returnType || n.typeAnnotation) {
         const isType = n.type === "TSConstructorType";
-        parts.push(isType ? " => " : ": ", path.call(print, "returnType"));
+        parts.push(
+          isType ? " => " : ": ",
+          path.call(print, "returnType"),
+          path.call(print, "typeAnnotation")
+        );
       }
       return concat(parts);
     }
@@ -3380,8 +3391,12 @@ function printPathNoParens(path, options, print, args) {
         )
       );
 
-      if (n.returnType) {
-        parts.push(": ", path.call(print, "returnType"));
+      if (n.returnType || n.typeAnnotation) {
+        parts.push(
+          ": ",
+          path.call(print, "returnType"),
+          path.call(print, "typeAnnotation")
+        );
       }
       return group(concat(parts));
     case "TSNamespaceExportDeclaration":
@@ -4638,7 +4653,9 @@ function printTypeParameters(path, options, print, paramsKey) {
         ])
       ),
       ifBreak(
-        options.parser !== "typescript" && shouldPrintComma(options, "all")
+        options.parser !== "typescript" &&
+          options.parser !== "babel-ts" &&
+          shouldPrintComma(options, "all")
           ? ","
           : ""
       ),
@@ -5892,29 +5909,33 @@ function shouldHugType(node) {
 }
 
 function shouldHugArguments(fun) {
+  if (!fun || fun.rest) {
+    return false;
+  }
+  const params = fun.params || fun.parameters;
+  if (!params || params.length !== 1) {
+    return false;
+  }
+  const param = params[0];
   return (
-    fun &&
-    fun.params &&
-    fun.params.length === 1 &&
-    !fun.params[0].comments &&
-    (fun.params[0].type === "ObjectPattern" ||
-      fun.params[0].type === "ArrayPattern" ||
-      (fun.params[0].type === "Identifier" &&
-        fun.params[0].typeAnnotation &&
-        (fun.params[0].typeAnnotation.type === "TypeAnnotation" ||
-          fun.params[0].typeAnnotation.type === "TSTypeAnnotation") &&
-        isObjectType(fun.params[0].typeAnnotation.typeAnnotation)) ||
-      (fun.params[0].type === "FunctionTypeParam" &&
-        isObjectType(fun.params[0].typeAnnotation)) ||
-      (fun.params[0].type === "AssignmentPattern" &&
-        (fun.params[0].left.type === "ObjectPattern" ||
-          fun.params[0].left.type === "ArrayPattern") &&
-        (fun.params[0].right.type === "Identifier" ||
-          (fun.params[0].right.type === "ObjectExpression" &&
-            fun.params[0].right.properties.length === 0) ||
-          (fun.params[0].right.type === "ArrayExpression" &&
-            fun.params[0].right.elements.length === 0)))) &&
-    !fun.rest
+    !param.comments &&
+    (param.type === "ObjectPattern" ||
+      param.type === "ArrayPattern" ||
+      (param.type === "Identifier" &&
+        param.typeAnnotation &&
+        (param.typeAnnotation.type === "TypeAnnotation" ||
+          param.typeAnnotation.type === "TSTypeAnnotation") &&
+        isObjectType(param.typeAnnotation.typeAnnotation)) ||
+      (param.type === "FunctionTypeParam" &&
+        isObjectType(param.typeAnnotation)) ||
+      (param.type === "AssignmentPattern" &&
+        (param.left.type === "ObjectPattern" ||
+          param.left.type === "ArrayPattern") &&
+        (param.right.type === "Identifier" ||
+          (param.right.type === "ObjectExpression" &&
+            param.right.properties.length === 0) ||
+          (param.right.type === "ArrayExpression" &&
+            param.right.elements.length === 0))))
   );
 }
 
@@ -6118,5 +6139,7 @@ module.exports = {
     ownLine: handleComments.handleOwnLineComment,
     endOfLine: handleComments.handleEndOfLineComment,
     remaining: handleComments.handleRemainingComment
-  }
+  },
+  getGapRegex: handleComments.getGapRegex,
+  getCommentChildNodes: handleComments.getCommentChildNodes
 };

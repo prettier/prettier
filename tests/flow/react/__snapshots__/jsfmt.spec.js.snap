@@ -1088,7 +1088,7 @@ var Example = React.createClass({
 });
 
 var ok_void = <Example func={() => {}} />;
-var ok_args = <Example func={x => {}} />;
+var ok_args = <Example func={(x) => {}} />;
 var ok_retval = <Example func={() => 1} />;
 
 var fail_mistyped = <Example func={2} />;
@@ -1960,7 +1960,7 @@ type NoFun = mixed => empty;
 =====================================output=====================================
 import React from "react";
 
-type NoFun = mixed => empty;
+type NoFun = (mixed) => empty;
 
 // error: mixed ~> ReactPropsCheckType
 // error: ReactPropsChainableTypeChecker ~> empty
