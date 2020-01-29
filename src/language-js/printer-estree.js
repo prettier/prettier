@@ -480,7 +480,11 @@ function printPathNoParens(path, options, print, args) {
         path.each(childPath => {
           parts.push(print(childPath), semi, hardline);
           if (
-            isNextLineEmpty(options.originalText, childPath.getValue(), options)
+            isNextLineEmpty(
+              options.originalText,
+              childPath.getValue(),
+              options.locEnd
+            )
           ) {
             parts.push(hardline);
           }
@@ -834,7 +838,7 @@ function printPathNoParens(path, options, print, args) {
           const nextCharacter = getNextNonSpaceNonCommentCharacterIndex(
             options.originalText,
             comment,
-            options
+            options.locEnd
           );
           return (
             options.originalText.slice(nextCharacter, nextCharacter + 2) ===
@@ -1117,7 +1121,11 @@ function printPathNoParens(path, options, print, args) {
         path.each(childPath => {
           parts.push(indent(concat([hardline, print(childPath), semi])));
           if (
-            isNextLineEmpty(options.originalText, childPath.getValue(), options)
+            isNextLineEmpty(
+              options.originalText,
+              childPath.getValue(),
+              options.locEnd
+            )
           ) {
             parts.push(hardline);
           }
@@ -1352,7 +1360,9 @@ function printPathNoParens(path, options, print, args) {
           ) {
             separatorParts.shift();
           }
-          if (isNextLineEmpty(options.originalText, prop.node, options)) {
+          if (
+            isNextLineEmpty(options.originalText, prop.node, options.locEnd)
+          ) {
             separatorParts.push(hardline);
           }
           return result;
@@ -2037,7 +2047,11 @@ function printPathNoParens(path, options, print, args) {
                     return concat([
                       casePath.call(print),
                       n.cases.indexOf(caseNode) !== n.cases.length - 1 &&
-                      isNextLineEmpty(options.originalText, caseNode, options)
+                      isNextLineEmpty(
+                        options.originalText,
+                        caseNode,
+                        options.locEnd
+                      )
                         ? hardline
                         : ""
                     ]);
@@ -3556,7 +3570,7 @@ function printPathNoParens(path, options, print, args) {
     case "InterpreterDirective":
       parts.push("#!", n.value, hardline);
 
-      if (isNextLineEmpty(options.originalText, n, options)) {
+      if (isNextLineEmpty(options.originalText, n, options.locEnd)) {
         parts.push(hardline);
       }
 
@@ -3723,7 +3737,10 @@ function printStatementSequence(path, options, print) {
       }
     }
 
-    if (isNextLineEmpty(text, stmt, options) && !isLastStatement(stmtPath)) {
+    if (
+      isNextLineEmpty(text, stmt, options.locEnd) &&
+      !isLastStatement(stmtPath)
+    ) {
       parts.push(hardline);
     }
 
@@ -4057,7 +4074,7 @@ function printArgumentsList(path, options, print) {
 
     if (index === lastArgIndex) {
       // do nothing
-    } else if (isNextLineEmpty(options.originalText, arg, options)) {
+    } else if (isNextLineEmpty(options.originalText, arg, options.locEnd)) {
       if (index === 0) {
         hasEmptyLineFollowingFirstArg = true;
       }
@@ -4260,7 +4277,7 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
         shouldExpandParameters
       ) {
         parts.push(", ");
-      } else if (isNextLineEmpty(options.originalText, param, options)) {
+      } else if (isNextLineEmpty(options.originalText, param, options.locEnd)) {
         parts.push(",", hardline, hardline);
       } else {
         parts.push(",", line);
@@ -4832,7 +4849,7 @@ function printMemberChain(path, options, print) {
     const nextCharIndex = getNextNonSpaceNonCommentCharacterIndex(
       originalText,
       node,
-      options
+      options.locEnd
     );
     const nextChar = originalText.charAt(nextCharIndex);
 
@@ -4842,11 +4859,11 @@ function printMemberChain(path, options, print) {
       return isNextLineEmptyAfterIndex(
         originalText,
         nextCharIndex + 1,
-        options
+        options.locEnd
       );
     }
 
-    return isNextLineEmpty(originalText, node, options);
+    return isNextLineEmpty(originalText, node, options.locEnd);
   }
 
   function rec(path) {
@@ -5950,7 +5967,11 @@ function printArrayItems(path, options, printPath, print) {
     separatorParts = [",", line];
     if (
       childPath.getValue() &&
-      isNextLineEmpty(options.originalText, childPath.getValue(), options)
+      isNextLineEmpty(
+        options.originalText,
+        childPath.getValue(),
+        options.locEnd
+      )
     ) {
       separatorParts.push(softline);
     }
