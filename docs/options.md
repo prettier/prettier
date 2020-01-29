@@ -56,6 +56,8 @@ Valid options:
 
 ## Quotes
 
+_The default value changed from `false` to `true` in v2.0.0_
+
 Use single quotes instead of double quotes.
 
 Notes:
@@ -67,7 +69,7 @@ See the [strings rationale](rationale.md#strings) for more information.
 
 | Default | CLI Override     | API Override          |
 | ------- | ---------------- | --------------------- |
-| `false` | `--single-quote` | `singleQuote: <bool>` |
+| `true`  | `--single-quote` | `singleQuote: <bool>` |
 
 ## Quote Props
 

@@ -40,7 +40,16 @@ module.exports = {
     oppositeDescription:
       "Do not print semicolons, except at the beginning of lines which may need them."
   },
-  singleQuote: commonOptions.singleQuote,
+  singleQuote: {
+    since: "0.0.0",
+    category: CATEGORY_JAVASCRIPT,
+    type: "boolean",
+    default: [
+      { since: "0.0.0", value: false },
+      { since: "2.0.0", value: true }
+    ],
+    description: "Use single quotes instead of double quotes."
+  },
   jsxSingleQuote: {
     since: "1.15.0",
     category: CATEGORY_JAVASCRIPT,
