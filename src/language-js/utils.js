@@ -711,7 +711,12 @@ function isStringPropSafeToCoerceToIdentifier(node, options) {
     isStringLiteral(node.key) &&
     isIdentifierName(node.key.value) &&
     options.parser !== "json" &&
-    !(options.parser === "typescript" && node.type === "ClassProperty")
+    // With `--strictPropertyInitialization`, TS treats properties with quoted names differently than unquoted ones.
+    // See https://github.com/microsoft/TypeScript/pull/20075
+    !(
+      (options.parser === "typescript" || options.parser === "babel-ts") &&
+      node.type === "ClassProperty"
+    )
   );
 }
 

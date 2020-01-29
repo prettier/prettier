@@ -40,6 +40,7 @@ function getMarkdownSyntax(options) {
     case "babel-flow":
     case "flow":
       return "jsx";
+    case "babel-ts":
     case "typescript":
       return "tsx";
     case "json":

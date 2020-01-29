@@ -38,6 +38,7 @@ export default function(parser) {
         'declare type FetchPolicy = "cache-first" | "cache-and-network" | "network-only" | "cache-only"'
       ].join("\n");
     case "typescript":
+    case "babel-ts":
       return [
         "interface MyInterface {",
         "  foo(): string,",
