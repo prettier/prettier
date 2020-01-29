@@ -25,8 +25,6 @@ test("shared util has correct structure", () => {
     "function"
   );
   expect(typeof sharedUtil.makeString).toEqual("function");
-  // Removed in v2.0.0
-  expect(typeof sharedUtil.mapDoc).toEqual("undefined");
 });
 
 test("sharedUtil.getMaxContinuousCount", () => {
