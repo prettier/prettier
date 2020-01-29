@@ -52,7 +52,6 @@
     "minimatch": "3.0.4",
     "minimist": "1.2.0",
     "n-readlines": "1.0.0",
-    "normalize-path": "3.0.0",
     "postcss-less": "2.0.0",
     "postcss-media-query-parser": "0.2.3",
     "postcss-scss": "2.0.0",

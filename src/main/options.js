@@ -1,7 +1,7 @@
 "use strict";
 
 const fs = require("fs");
-const normalizePath = require("normalize-path");
+const path = require("path");
 const readlines = require("n-readlines");
 const { UndefinedParserError } = require("../common/errors");
 const { getSupportInfo } = require("../main/support");
@@ -162,8 +162,7 @@ function getInterpreter(filepath) {
 }
 
 function inferParser(filepath, plugins) {
-  const filepathParts = normalizePath(filepath).split("/");
-  const filename = filepathParts[filepathParts.length - 1].toLowerCase();
+  const filename = path.basename(filepath).toLowerCase();
 
   // If the file has no extension, we can try to infer the language from the
   // interpreter in the shebang line, if any; but since this requires FS access,
