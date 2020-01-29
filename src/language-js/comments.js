@@ -533,7 +533,11 @@ function handleCommentAfterArrowParams(text, enclosingNode, comment, options) {
     return false;
   }
 
-  const index = getNextNonSpaceNonCommentCharacterIndex(text, comment, options);
+  const index = getNextNonSpaceNonCommentCharacterIndex(
+    text,
+    comment,
+    options.locEnd
+  );
   if (text.slice(index, index + 2) === "=>") {
     addDanglingComment(enclosingNode, comment);
     return true;
