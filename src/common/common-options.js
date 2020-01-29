@@ -16,7 +16,10 @@ module.exports = {
     since: "0.0.0",
     category: CATEGORY_COMMON,
     type: "boolean",
-    default: false,
+    default: [
+      { since: "0.0.0", value: false },
+      { since: "2.0.0", value: true }
+    ],
     description: "Use single quotes instead of double quotes."
   },
   proseWrap: {
