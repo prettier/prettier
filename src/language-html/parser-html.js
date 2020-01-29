@@ -230,22 +230,7 @@ function _parse(text, options, parserOptions, shouldParseFrontMatter = true) {
     return subAst;
   };
 
-  const isFakeElement = node => node.type === "element" && !node.nameSpan;
   return ast.map(node => {
-    if (node.children && node.children.some(isFakeElement)) {
-      const newChildren = [];
-
-      for (const child of node.children) {
-        if (isFakeElement(child)) {
-          Array.prototype.push.apply(newChildren, child.children);
-        } else {
-          newChildren.push(child);
-        }
-      }
-
-      return node.clone({ children: newChildren });
-    }
-
     if (node.type === "comment") {
       const ieConditionalComment = parseIeConditionalComment(
         node,
