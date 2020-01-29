@@ -6,13 +6,13 @@ const {
   builders: {
     indent,
     join,
+    line,
     hardline,
     softline,
     literalline,
     concat,
     group,
-    dedentToRoot,
-    ifBreak
+    dedentToRoot
   },
   utils: { mapDoc, stripTrailingHardline }
 } = require("../doc");
@@ -611,27 +611,21 @@ function printHtmlTemplateLiteral(path, print, textToDoc, parser, options) {
     }
   );
 
-  const firstWhitespace = node.quasis[0].value.raw.match(/^\s/) ? " " : "";
-  const lastWhitespace = node.quasis[node.quasis.length - 1].value.raw.match(
-    /\s$/
-  )
+  const leadingWhitespace = node.quasis[0].value.raw.match(/^\s/) ? " " : "";
+  const trailingWhitespace = node.quasis[
+    node.quasis.length - 1
+  ].value.raw.match(/\s$/)
     ? " "
     : "";
 
-  if (firstWhitespace && lastWhitespace) {
+  if (leadingWhitespace && trailingWhitespace) {
     return group(
-      concat([
-        "`",
-        indent(concat([ifBreak("", " "), softline, group(contentDoc)])),
-        ifBreak("", " "),
-        softline,
-        "`"
-      ])
+      concat(["`", indent(concat([line, group(contentDoc)])), line, "`"])
     );
   }
 
   return group(
-    concat(["`", firstWhitespace, group(contentDoc), lastWhitespace, "`"])
+    concat(["`", leadingWhitespace, group(contentDoc), trailingWhitespace, "`"])
   );
 }
 
