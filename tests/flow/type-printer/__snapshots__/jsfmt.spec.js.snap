@@ -10,7 +10,7 @@ printWidth: 80
 /* @flow */
 
 /*
- * Copyright (c) 2015-present, Facebook, Inc.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  * All rights reserved.
  *
  * This source code is licensed under the license found in the LICENSE file in
@@ -32,7 +32,7 @@ module.exports = printBinaryExpression;
 /* @flow */
 
 /*
- * Copyright (c) 2015-present, Facebook, Inc.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  * All rights reserved.
  *
  * This source code is licensed under the license found in the LICENSE file in
@@ -63,7 +63,7 @@ printWidth: 80
 'use strict';
 
 /*
- * Flow types for the Babel AST.
+ * Flow types for the Babylon AST.
  */
 
 // Abstract types. Something must extend these.
@@ -5110,7 +5110,7 @@ export type JSXSpreadAttribute = {
 "use strict";
 
 /*
- * Flow types for the Babel AST.
+ * Flow types for the Babylon AST.
  */
 
 // Abstract types. Something must extend these.
