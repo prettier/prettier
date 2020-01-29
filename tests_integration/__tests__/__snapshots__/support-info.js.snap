@@ -141,7 +141,7 @@ exports[`API getSupportInfo() with version 1.0.0 -> 1.4.0 1`] = `
         \\"flow\\",
       ],
       \\"JSX\\": Array [
-@@ -9,31 +12,79 @@
+@@ -9,31 +12,81 @@
         \\"flow\\",
       ],
       \\"JavaScript\\": Array [
@@ -156,26 +156,28 @@ exports[`API getSupportInfo() with version 1.0.0 -> 1.4.0 1`] = `
 +     ],
 +     \\"SCSS\\": Array [
 +       \\"postcss\\",
-      ],
++     ],
 +     \\"TSX\\": Array [
 +       \\"typescript\\",
++       \\"babel-ts\\",
 +     ],
 +     \\"TypeScript\\": Array [
 +       \\"typescript\\",
-+     ],
++       \\"babel-ts\\",
+      ],
     },
     \\"options\\": Object {
       \\"bracketSpacing\\": Object {
         \\"default\\": true,
         \\"type\\": \\"boolean\\",
-+     },
+      },
 +     \\"cursorOffset\\": Object {
 +       \\"default\\": -1,
 +       \\"range\\": Object {
 +         \\"end\\": Infinity,
 +         \\"start\\": -1,
 +         \\"step\\": 1,
-        },
++       },
 +       \\"type\\": \\"int\\",
 +     },
 +     \\"filepath\\": Object {
@@ -248,7 +250,7 @@ exports[`API getSupportInfo() with version 1.4.0 -> 1.5.0 1`] = `
         \\"flow\\",
       ],
       \\"JavaScript\\": Array [
-@@ -57,10 +66,12 @@
+@@ -59,10 +68,12 @@
         \\"choices\\": Array [
           \\"flow\\",
           \\"babylon\\",
@@ -298,9 +300,9 @@ exports[`API getSupportInfo() with version 1.5.0 -> 1.7.1 1`] = `
       ],
       \\"TSX\\": Array [
         \\"typescript\\",
+        \\"babel-ts\\",
       ],
-      \\"TypeScript\\": Array [
-@@ -65,11 +65,13 @@
+@@ -67,11 +67,13 @@
       \\"parser\\": Object {
         \\"choices\\": Array [
           \\"flow\\",
@@ -315,7 +317,7 @@ exports[`API getSupportInfo() with version 1.5.0 -> 1.7.1 1`] = `
         ],
         \\"default\\": \\"babylon\\",
         \\"type\\": \\"choice\\",
-@@ -98,10 +100,14 @@
+@@ -100,10 +102,14 @@
           \\"end\\": Infinity,
           \\"start\\": 0,
           \\"step\\": 1,
@@ -351,7 +353,7 @@ exports[`API getSupportInfo() with version 1.7.1 -> 1.8.0 1`] = `
       ],
       \\"SCSS\\": Array [
         \\"scss\\",
-@@ -55,10 +58,14 @@
+@@ -57,10 +60,14 @@
         \\"type\\": \\"int\\",
       },
       \\"filepath\\": Object {
@@ -366,7 +368,7 @@ exports[`API getSupportInfo() with version 1.7.1 -> 1.8.0 1`] = `
         \\"default\\": false,
         \\"type\\": \\"boolean\\",
       },
-@@ -70,10 +77,11 @@
+@@ -72,10 +79,11 @@
           \\"css\\",
           \\"less\\",
           \\"scss\\",
@@ -385,7 +387,7 @@ exports[`API getSupportInfo() with version 1.8.0 -> 1.8.2 1`] = `
 - First value
 + Second value
 
-@@ -91,10 +91,18 @@
+@@ -93,10 +93,18 @@
           \\"start\\": 0,
           \\"step\\": 1,
         },
@@ -463,12 +465,12 @@ exports[`API getSupportInfo() with version 1.8.2 -> 1.16.0 1`] = `
         \\"markdown\\",
       ],
       \\"PostCSS\\": Array [
-@@ -39,13 +54,27 @@
-      \\"TSX\\": Array [
-        \\"typescript\\",
+@@ -41,13 +56,27 @@
+        \\"babel-ts\\",
       ],
       \\"TypeScript\\": Array [
         \\"typescript\\",
+        \\"babel-ts\\",
 +     ],
 +     \\"Vue\\": Array [
 +       \\"vue\\",
@@ -480,8 +482,8 @@ exports[`API getSupportInfo() with version 1.8.2 -> 1.16.0 1`] = `
     \\"options\\": Object {
 +     \\"arrowParens\\": Object {
 +       \\"choices\\": Array [
-+         \\"avoid\\",
 +         \\"always\\",
++         \\"avoid\\",
 +       ],
 +       \\"default\\": \\"avoid\\",
 +       \\"type\\": \\"choice\\",
@@ -491,7 +493,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> 1.16.0 1`] = `
         \\"type\\": \\"boolean\\",
       },
       \\"cursorOffset\\": Object {
-@@ -55,36 +84,75 @@
+@@ -57,36 +86,75 @@
           \\"start\\": -1,
           \\"step\\": 1,
         },
@@ -499,10 +501,10 @@ exports[`API getSupportInfo() with version 1.8.2 -> 1.16.0 1`] = `
       },
 +     \\"endOfLine\\": Object {
 +       \\"choices\\": Array [
-+         \\"auto\\",
 +         \\"lf\\",
 +         \\"crlf\\",
 +         \\"cr\\",
++         \\"auto\\",
 +       ],
 +       \\"default\\": \\"auto\\",
 +       \\"type\\": \\"choice\\",
@@ -569,7 +571,7 @@ exports[`API getSupportInfo() with version 1.8.2 -> 1.16.0 1`] = `
         \\"default\\": 80,
         \\"range\\": Object {
           \\"end\\": Infinity,
-@@ -93,14 +161,15 @@
+@@ -95,14 +163,15 @@
         },
         \\"type\\": \\"int\\",
       },
@@ -609,7 +611,45 @@ exports[`API getSupportInfo() with version 1.16.0 -> undefined 1`] = `
       ],
       \\"Markdown\\": Array [
         \\"markdown\\",
-@@ -138,10 +141,11 @@
+@@ -70,11 +73,11 @@
+      \\"arrowParens\\": Object {
+        \\"choices\\": Array [
+          \\"always\\",
+          \\"avoid\\",
+        ],
+-       \\"default\\": \\"avoid\\",
++       \\"default\\": \\"always\\",
+        \\"type\\": \\"choice\\",
+      },
+      \\"bracketSpacing\\": Object {
+        \\"default\\": true,
+        \\"type\\": \\"boolean\\",
+@@ -93,11 +96,11 @@
+          \\"lf\\",
+          \\"crlf\\",
+          \\"cr\\",
+          \\"auto\\",
+        ],
+-       \\"default\\": \\"auto\\",
++       \\"default\\": \\"lf\\",
+        \\"type\\": \\"choice\\",
+      },
+      \\"filepath\\": Object {
+        \\"default\\": undefined,
+        \\"type\\": \\"path\\",
+@@ -126,10 +129,11 @@
+      \\"parser\\": Object {
+        \\"choices\\": Array [
+          \\"flow\\",
+          \\"babel\\",
+          \\"babel-flow\\",
++         \\"babel-ts\\",
+          \\"typescript\\",
+          \\"css\\",
+          \\"less\\",
+          \\"scss\\",
+          \\"json\\",
+@@ -140,10 +144,11 @@
           \\"mdx\\",
           \\"vue\\",
           \\"yaml\\",
@@ -621,12 +661,14 @@ exports[`API getSupportInfo() with version 1.16.0 -> undefined 1`] = `
         \\"type\\": \\"choice\\",
       },
       \\"pluginSearchDirs\\": Object {
-@@ -168,10 +172,19 @@
+@@ -168,10 +173,19 @@
+          \\"always\\",
+          \\"never\\",
           \\"preserve\\",
         ],
         \\"default\\": \\"preserve\\",
-        \\"type\\": \\"choice\\",
-      },
++       \\"type\\": \\"choice\\",
++     },
 +     \\"quoteProps\\": Object {
 +       \\"choices\\": Array [
 +         \\"as-needed\\",
@@ -634,14 +676,12 @@ exports[`API getSupportInfo() with version 1.16.0 -> undefined 1`] = `
 +         \\"preserve\\",
 +       ],
 +       \\"default\\": \\"as-needed\\",
-+       \\"type\\": \\"choice\\",
-+     },
+        \\"type\\": \\"choice\\",
+      },
       \\"rangeEnd\\": Object {
         \\"default\\": Infinity,
         \\"range\\": Object {
-          \\"end\\": Infinity,
-          \\"start\\": 0,
-@@ -213,14 +226,18 @@
+@@ -215,14 +229,18 @@
         \\"choices\\": Array [
           \\"es5\\",
           \\"none\\",
@@ -757,7 +797,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"interpreters\\": [\\"deno\\", \\"ts-node\\"],
       \\"linguistLanguageId\\": 378,
       \\"name\\": \\"TypeScript\\",
-      \\"parsers\\": [\\"typescript\\"],
+      \\"parsers\\": [\\"typescript\\", \\"babel-ts\\"],
       \\"since\\": \\"1.4.0\\",
       \\"tmScope\\": \\"source.ts\\",
       \\"type\\": \\"programming\\",
@@ -771,7 +811,7 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"group\\": \\"TypeScript\\",
       \\"linguistLanguageId\\": 94901924,
       \\"name\\": \\"TSX\\",
-      \\"parsers\\": [\\"typescript\\"],
+      \\"parsers\\": [\\"typescript\\", \\"babel-ts\\"],
       \\"since\\": \\"1.4.0\\",
       \\"tmScope\\": \\"source.tsx\\",
       \\"type\\": \\"programming\\",
@@ -1093,15 +1133,15 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"category\\": \\"JavaScript\\",
       \\"choices\\": [
         {
-          \\"description\\": \\"Omit parens when possible. Example: \`x => x\`\\",
-          \\"value\\": \\"avoid\\"
-        },
-        {
           \\"description\\": \\"Always include parens. Example: \`(x) => x\`\\",
           \\"value\\": \\"always\\"
+        },
+        {
+          \\"description\\": \\"Omit parens when possible. Example: \`x => x\`\\",
+          \\"value\\": \\"avoid\\"
         }
       ],
-      \\"default\\": \\"avoid\\",
+      \\"default\\": \\"always\\",
       \\"description\\": \\"Include parentheses around a sole arrow function parameter.\\",
       \\"name\\": \\"arrowParens\\",
       \\"pluginDefaults\\": {},
@@ -1132,10 +1172,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"category\\": \\"Global\\",
       \\"choices\\": [
         {
-          \\"description\\": \\"Maintain existing\\\\n(mixed values within one file are normalised by looking at what's used after the first line)\\",
-          \\"value\\": \\"auto\\"
-        },
-        {
           \\"description\\": \\"Line Feed only (\\\\\\\\n), common on Linux and macOS as well as inside git repos\\",
           \\"value\\": \\"lf\\"
         },
@@ -1146,9 +1182,13 @@ exports[`CLI --support-info (stdout) 1`] = `
         {
           \\"description\\": \\"Carriage Return character only (\\\\\\\\r), used very rarely\\",
           \\"value\\": \\"cr\\"
+        },
+        {
+          \\"description\\": \\"Maintain existing\\\\n(mixed values within one file are normalised by looking at what's used after the first line)\\",
+          \\"value\\": \\"auto\\"
         }
       ],
-      \\"default\\": \\"auto\\",
+      \\"default\\": \\"lf\\",
       \\"description\\": \\"Which end of line characters to apply.\\",
       \\"name\\": \\"endOfLine\\",
       \\"pluginDefaults\\": {},
@@ -1219,6 +1259,7 @@ exports[`CLI --support-info (stdout) 1`] = `
         { \\"description\\": \\"Flow\\", \\"value\\": \\"flow\\" },
         { \\"description\\": \\"JavaScript\\", \\"since\\": \\"1.16.0\\", \\"value\\": \\"babel\\" },
         { \\"description\\": \\"Flow\\", \\"since\\": \\"1.16.0\\", \\"value\\": \\"babel-flow\\" },
+        { \\"description\\": \\"TypeScript\\", \\"since\\": \\"2.0.0\\", \\"value\\": \\"babel-ts\\" },
         {
           \\"description\\": \\"TypeScript\\",
           \\"since\\": \\"1.4.0\\",

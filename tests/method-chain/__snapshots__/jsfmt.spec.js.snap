@@ -74,16 +74,16 @@ it('should group messages with same created time', () => {
 });
 
 =====================================output=====================================
-export default store => {
+export default (store) => {
   return callApi(endpoint, schema).then(
-    response =>
+    (response) =>
       next(
         actionWith({
           response,
           type: successType,
         })
       ),
-    error =>
+    (error) =>
       next(
         actionWith({
           type: failureType,
@@ -364,7 +364,7 @@ const configModel = this.baseConfigurationService
 this.doWriteConfiguration(target, value, options) // queue up writes to prevent race conditions
   .then(
     () => null,
-    error => {
+    (error) => {
       return options.donotNotifyError
         ? TPromise.wrapError(error)
         : this.onError(error, target, value);
@@ -448,13 +448,13 @@ window.Data[key]("foo")
   .catch(() => b);
 
 =====================================output=====================================
-[].forEach(key => {
+[].forEach((key) => {
   data[key]("foo")
     .then(() => console.log("bar"))
     .catch(() => console.log("baz"));
 });
 
-[].forEach(key => {
+[].forEach((key) => {
   data("foo")
     [key]("bar")
     .then(() => console.log("bar"))
@@ -619,7 +619,7 @@ function f() {
 
 =====================================output=====================================
 export default function theFunction(action$, store) {
-  return action$.ofType(THE_ACTION).switchMap(action =>
+  return action$.ofType(THE_ACTION).switchMap((action) =>
     Observable.webSocket({
       url: THE_URL,
       more: stuff(),
@@ -629,9 +629,9 @@ export default function theFunction(action$, store) {
         value3: false,
       }),
     })
-      .filter(data => theFilter(data))
+      .filter((data) => theFilter(data))
       .map(({ theType, ...data }) => theMap(theType, data))
-      .retryWhen(errors => errors)
+      .retryWhen((errors) => errors)
   );
 }
 
@@ -639,7 +639,7 @@ function f() {
   return this._getWorker(workerOptions)({
     filePath,
     hasteImplModulePath: this._options.hasteImplModulePath,
-  }).then(metadata => {
+  }).then((metadata) => {
     // \`1\` for truthy values instead of \`true\` to save cache space.
     fileMetadata[H.VISITED] = 1;
     const metadataId = metadata.id;
@@ -685,12 +685,12 @@ Object.keys(
   availableLocales({
     test: true,
   })
-).forEach(locale => {
+).forEach((locale) => {
   // ...
 });
 
 this.layoutPartsToHide = this.utils.hashset(
-  _.flatMap(this.visibilityHandlers, fn => fn())
+  _.flatMap(this.visibilityHandlers, (fn) => fn())
     .concat(this.record.resolved_legacy_visrules)
     .filter(Boolean)
 );
@@ -859,7 +859,7 @@ var l = base
 =====================================output=====================================
 // examples from https://github.com/prettier/prettier/issues/4125
 
-const sha256 = data => crypto.createHash("sha256").update(data).digest("hex");
+const sha256 = (data) => crypto.createHash("sha256").update(data).digest("hex");
 
 req.checkBody("id").isInt().optional();
 req.checkBody("name").notEmpty().optional();
@@ -873,11 +873,11 @@ obj.foo(-1).foo(import("2")).foo(!x).check(/[A-Z]/);
 // better on multiple lines:
 somePromise
   .then(format)
-  .then(val => doSomething(val))
-  .catch(err => handleError(err));
+  .then((val) => doSomething(val))
+  .catch((err) => handleError(err));
 
 // you can still force multi-line chaining with a comment:
-const sha256 = data =>
+const sha256 = (data) =>
   crypto // breakme
     .createHash("sha256")
     .update(data)
@@ -895,7 +895,7 @@ if ($(el).attr("href").includes("/wiki/")) {
   }
 }
 
-const parseNumbers = s => s.split("").map(Number).sort();
+const parseNumbers = (s) => s.split("").map(Number).sort();
 
 function palindrome(a, b) {
   return a.slice().reverse().join(",") === b.slice().sort().join(",");
@@ -910,7 +910,7 @@ d3.select("body")
   .style("color", "white");
 
 Object.keys(props)
-  .filter(key => key in own === false)
+  .filter((key) => key in own === false)
   .reduce((a, key) => {
     a[key] = props[key];
     return a;
@@ -922,7 +922,7 @@ assert.equal(this.$().text().trim(), "1000");
 
 something()
   .then(() => doSomethingElse())
-  .then(result => dontForgetThisAsWell(result));
+  .then((result) => dontForgetThisAsWell(result));
 
 db.branch(
   db.table("users").filter({ email }).count(),
@@ -955,11 +955,11 @@ function HelloWorld() {
       dataType: "json",
     })
     .then(
-      data => {
+      (data) => {
         this.setState({ isLoading: false });
         this.initWidget(data);
       },
-      data => {
+      (data) => {
         this.logImpression("foo_fetch_error", data);
         Flash.error(I18n.t("offline_identity.foo_issue"));
       }
@@ -968,9 +968,9 @@ function HelloWorld() {
 
 action$
   .ofType(ActionTypes.SEARCHED_USERS)
-  .map(action => action.payload.query)
-  .filter(q => !!q)
-  .switchMap(q =>
+  .map((action) => action.payload.query)
+  .filter((q) => !!q)
+  .switchMap((q) =>
     Observable.timer(800) // debounce
       .takeUntil(action$.ofType(ActionTypes.CLEARED_SEARCH_RESULTS))
       .mergeMap(() =>
@@ -978,7 +978,7 @@ action$
           Observable.of(replace(\`?q=\${q}\`)),
           ajax
             .getJSON(\`https://api.github.com/search/users?q=\${q}\`)
-            .map(res => res.items)
+            .map((res) => res.items)
             .map(receiveUsers)
         )
       )
@@ -1054,30 +1054,30 @@ const someLongVariableName = (idx(
 
 =====================================output=====================================
 const someLongVariableName = (
-  idx(this.props, props => props.someLongPropertyName) || []
-).map(edge => edge.node);
+  idx(this.props, (props) => props.someLongPropertyName) || []
+).map((edge) => edge.node);
 
-(veryLongVeryLongVeryLong || e).map(tickets =>
+(veryLongVeryLongVeryLong || e).map((tickets) =>
   TicketRecord.createFromSomeLongString()
 );
 
 (veryLongVeryLongVeryLong || e)
-  .map(tickets => TicketRecord.createFromSomeLongString())
-  .filter(obj => !!obj);
+  .map((tickets) => TicketRecord.createFromSomeLongString())
+  .filter((obj) => !!obj);
 
 (
   veryLongVeryLongVeryLong ||
   anotherVeryLongVeryLongVeryLong ||
   veryVeryVeryLongError
-).map(tickets => TicketRecord.createFromSomeLongString());
+).map((tickets) => TicketRecord.createFromSomeLongString());
 
 (
   veryLongVeryLongVeryLong ||
   anotherVeryLongVeryLongVeryLong ||
   veryVeryVeryLongError
 )
-  .map(tickets => TicketRecord.createFromSomeLongString())
-  .filter(obj => !!obj);
+  .map((tickets) => TicketRecord.createFromSomeLongString())
+  .filter((obj) => !!obj);
 
 ================================================================================
 `;
@@ -1232,8 +1232,8 @@ const svgJsFiles = fs
 =====================================output=====================================
 const svgJsFiles = fs
   .readdirSync(svgDir)
-  .filter(f => svgJsFileExtRegex.test(f))
-  .map(f => path.join(svgDir, f));
+  .filter((f) => svgJsFileExtRegex.test(f))
+  .map((f) => path.join(svgDir, f));
 
 ================================================================================
 `;
@@ -1283,9 +1283,9 @@ method().then(x => x)
 
 =====================================output=====================================
 method()
-  .then(x => x)
-  ["abc"](x => x)
-  [abc](x => x);
+  .then((x) => x)
+  ["abc"]((x) => x)
+  [abc]((x) => x);
 
 ({}.a().b());
 ({}.a().b());
@@ -1306,7 +1306,7 @@ const sel = this.connections
 =====================================output=====================================
 const sel = this.connections
   .concat(this.activities.concat(this.operators))
-  .filter(x => x.selected);
+  .filter((x) => x.selected);
 
 ================================================================================
 `;
