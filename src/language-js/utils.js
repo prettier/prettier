@@ -118,6 +118,26 @@ function getLeftSidePathName(path, node) {
   throw new Error("Unexpected node has no left side", node);
 }
 
+const exportDeclarationTypes = new Set([
+  "ExportDefaultDeclaration",
+  "ExportDefaultSpecifier",
+  "DeclareExportDeclaration",
+  "ExportNamedDeclaration",
+  "ExportAllDeclaration"
+]);
+function isExportDeclaration(node) {
+  return node && exportDeclarationTypes.has(node.type);
+}
+
+function getParentExportDeclaration(path) {
+  const parentNode = path.getParentNode();
+  if (path.getName() === "declaration" && isExportDeclaration(parentNode)) {
+    return parentNode;
+  }
+
+  return null;
+}
+
 function isLiteral(node) {
   return (
     node.type === "BooleanLiteral" ||
@@ -983,6 +1003,7 @@ module.exports = {
   conditionalExpressionChainContainsJSX,
   getFlowVariance,
   getLeftSidePathName,
+  getParentExportDeclaration,
   getTypeScriptMappedTypeModifier,
   hasDanglingComments,
   hasFlowAnnotationComment,
@@ -999,6 +1020,7 @@ module.exports = {
   isBinaryish,
   isCallOrOptionalCallExpression,
   isEmptyJSXElement,
+  isExportDeclaration,
   isFlowAnnotationComment,
   isFunctionCompositionArgs,
   isFunctionNotation,

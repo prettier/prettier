@@ -8,9 +8,9 @@ exports[` 1`] = `
 @@ -17,10 +17,12 @@
                              Defaults to always.
     --no-bracket-spacing     Do not print spaces between brackets.
-    --end-of-line <auto|lf|crlf|cr>
+    --end-of-line <lf|crlf|cr|auto>
                              Which end of line characters to apply.
-                             Defaults to auto.
+                             Defaults to lf.
 +   --foo-string <string>    foo description
 +                            Defaults to bar.
     --html-whitespace-sensitivity <css|strict|ignore>
