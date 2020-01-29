@@ -391,7 +391,7 @@ function isAngularComponentStyles(path) {
     node => node.type === "TemplateLiteral",
     (node, name) => node.type === "ArrayExpression" && name === "elements",
     (node, name) =>
-      node.type === "Property" &&
+      (node.type === "Property" || node.type === "ObjectProperty") &&
       node.key.type === "Identifier" &&
       node.key.name === "styles" &&
       name === "value",
@@ -402,7 +402,7 @@ function isAngularComponentTemplate(path) {
   return path.match(
     node => node.type === "TemplateLiteral",
     (node, name) =>
-      node.type === "Property" &&
+      (node.type === "Property" || node.type === "ObjectProperty") &&
       node.key.type === "Identifier" &&
       node.key.name === "template" &&
       name === "value",
