@@ -1,0 +1,2 @@
+// @flow strict
+require('./foo');
