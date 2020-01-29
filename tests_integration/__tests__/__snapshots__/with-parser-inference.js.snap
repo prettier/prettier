@@ -18,8 +18,7 @@ exports[`infers postcss parser with --check (stderr) 1`] = `""`;
 
 exports[`infers postcss parser with --check (stdout) 1`] = `
 "Checking formatting...
-javascript.js
-Code style issues found in the above file(s). Forgot to run Prettier?
+All matched files use Prettier code style!
 "
 `;
 
@@ -27,9 +26,6 @@ exports[`infers postcss parser with --check (write) 1`] = `Array []`;
 
 exports[`infers postcss parser with --list-different (stderr) 1`] = `""`;
 
-exports[`infers postcss parser with --list-different (stdout) 1`] = `
-"javascript.js
-"
-`;
+exports[`infers postcss parser with --list-different (stdout) 1`] = `""`;
 
 exports[`infers postcss parser with --list-different (write) 1`] = `Array []`;

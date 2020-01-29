@@ -1,2 +1,2 @@
 /* JavaScript */
-"use strict";
+'use strict';
