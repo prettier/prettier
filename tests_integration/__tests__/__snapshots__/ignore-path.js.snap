@@ -11,10 +11,7 @@ exports[`ignore file when using --debug-check (write) 1`] = `Array []`;
 
 exports[`ignore path (stderr) 1`] = `""`;
 
-exports[`ignore path (stdout) 1`] = `
-"regular-module.js
-"
-`;
+exports[`ignore path (stdout) 1`] = `""`;
 
 exports[`ignore path (write) 1`] = `Array []`;
 
@@ -29,9 +26,6 @@ exports[`outputs files as-is if no --write (write) 1`] = `Array []`;
 
 exports[`support .prettierignore (stderr) 1`] = `""`;
 
-exports[`support .prettierignore (stdout) 1`] = `
-"other-regular-modules.js
-"
-`;
+exports[`support .prettierignore (stdout) 1`] = `""`;
 
 exports[`support .prettierignore (write) 1`] = `Array []`;

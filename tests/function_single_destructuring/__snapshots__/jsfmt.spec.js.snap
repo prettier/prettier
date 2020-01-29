@@ -259,7 +259,7 @@ function StatelessFunctionalComponent({
   onSubmitAndDeselect = () => null,
   onCancel = () => null,
   searchFilters = null,
-  title = "",
+  title = '',
   items = [],
 } = {}) {
   return <div />;
@@ -273,7 +273,7 @@ function StatelessFunctionalComponent(
     onSubmitAndDeselect = () => null,
     onCancel = () => null,
     searchFilters = null,
-    title = "",
+    title = '',
     items = [],
   } = {
     isActive: true,

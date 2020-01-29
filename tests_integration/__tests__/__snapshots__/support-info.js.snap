@@ -681,6 +681,19 @@ exports[`API getSupportInfo() with version 1.16.0 -> undefined 1`] = `
       \\"rangeEnd\\": Object {
         \\"default\\": Infinity,
         \\"range\\": Object {
+@@ -197,11 +211,11 @@
+      \\"semi\\": Object {
+        \\"default\\": true,
+        \\"type\\": \\"boolean\\",
+      },
+      \\"singleQuote\\": Object {
+-       \\"default\\": false,
++       \\"default\\": true,
+        \\"type\\": \\"boolean\\",
+      },
+      \\"tabWidth\\": Object {
+        \\"default\\": 2,
+        \\"range\\": Object {
 @@ -215,14 +229,18 @@
         \\"choices\\": Array [
           \\"es5\\",
@@ -1414,7 +1427,7 @@ exports[`CLI --support-info (stdout) 1`] = `
     },
     {
       \\"category\\": \\"Common\\",
-      \\"default\\": false,
+      \\"default\\": true,
       \\"description\\": \\"Use single quotes instead of double quotes.\\",
       \\"name\\": \\"singleQuote\\",
       \\"pluginDefaults\\": {},

@@ -14,7 +14,7 @@ module.exports = {ParentFoo};
 =====================================output=====================================
 // @flow
 
-var ParentFoo = { foo: "bar" };
+var ParentFoo = { foo: 'bar' };
 module.exports = { ParentFoo };
 
 ================================================================================
@@ -54,7 +54,7 @@ function takesFoo(foo: Foo) { }
 =====================================output=====================================
 // @flow
 
-var Parent = require("./Parent");
+var Parent = require('./Parent');
 
 // Hops through destructuring
 let ParentFoo;
@@ -71,10 +71,10 @@ let ParentFoo3 = Parent;
 ParentFoo3; // Points to LHS of line above this
 
 // Follows non-destructured property access of \`require('Parent')\`
-let foo = require("./Parent").ParentFoo.foo;
+let foo = require('./Parent').ParentFoo.foo;
 foo;
 
-import type { Foo } from "./types";
+import type { Foo } from './types';
 function takesFoo(foo: Foo) {}
 
 ================================================================================
@@ -137,13 +137,13 @@ let msg = "hello";
 (<div id={msg}/>);
 
 =====================================output=====================================
-var React = require("react");
+var React = require('react');
 
 class C extends React.Component {
   props: { x: string };
 }
 
-let msg = "hello";
+let msg = 'hello';
 
 <C x={msg} />;
 

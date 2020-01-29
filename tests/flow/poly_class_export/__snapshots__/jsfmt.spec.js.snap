@@ -47,7 +47,7 @@ module.exports = new B();
 =====================================output=====================================
 // @flow
 
-let A = require("./A");
+let A = require('./A');
 
 class B extends A<string> {
   constructor() {

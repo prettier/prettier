@@ -64,7 +64,7 @@ function parseGroup(
 }
 
 function parseTimeframe(line: string): { begin: number, end: number } {
-  var timestamps = line.split("-->");
+  var timestamps = line.split('-->');
   return {
     begin: parseTimestamp(timestamps[0].trim()),
     end: parseTimestamp(timestamps[1].trim()),
@@ -129,8 +129,8 @@ var s = {
 var t: boolean = s.y; // error, string or number
 
 =====================================output=====================================
-var p = { y: "" };
-var q = { z: "" };
+var p = { y: '' };
+var q = { z: '' };
 var o = {
   x: 5,
   ...p,
@@ -261,20 +261,20 @@ for (var i = 0; i < 10; i++) {
 
 =====================================output=====================================
 var o = {
-  foo: "bar",
+  foo: 'bar',
 };
 o = { ...o };
 (o: { foo: string });
 
 var p = {
-  foo: "bar",
+  foo: 'bar',
 };
 (p: { foo: string, abc: string }); // error, p doesn't have \`abc\` yet
-p = { ...p, abc: "def" };
+p = { ...p, abc: 'def' };
 (p: { foo: string, abc: string });
 
 var q = {
-  foo: "bar",
+  foo: 'bar',
 };
 for (var i = 0; i < 10; i++) {
   q = { ...q };

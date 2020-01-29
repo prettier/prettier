@@ -25,7 +25,7 @@ lib.bar();
 =====================================output=====================================
 /* @flow */
 
-var lib = require("./library");
+var lib = require('./library');
 
 function add(a: number, b: number): number {
   return a + b;
@@ -63,14 +63,14 @@ things;
 =====================================output=====================================
 // @flow
 
-import thing from "./helpers/exports_default.js";
+import thing from './helpers/exports_default.js';
 thing;
 
-import { foo, bar as baz } from "./helpers/exports_named.js";
+import { foo, bar as baz } from './helpers/exports_named.js';
 foo;
 baz;
 
-import * as things from "./helpers/exports_named.js";
+import * as things from './helpers/exports_named.js';
 things;
 
 ================================================================================

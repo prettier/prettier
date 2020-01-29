@@ -34,8 +34,8 @@ printWidth: 80
 
 =====================================output=====================================
 [
-  "abc",
-  "abc",
+  'abc',
+  'abc',
 
   "'",
 
@@ -47,16 +47,16 @@ printWidth: 80
   "'",
   "\\\\'",
 
-  "'\\"",
-  "'\\"",
+  '\\'"',
+  '\\'"',
 
-  "\\\\",
-  "\\\\",
+  '\\\\',
+  '\\\\',
 
-  "\\0",
-  "🐶",
+  '\\0',
+  '🐶',
 
-  "\\uD801\\uDC28",
+  '\\uD801\\uDC28',
 ];
 
 ================================================================================
@@ -97,8 +97,8 @@ trailingComma: "all"
 
 =====================================output=====================================
 [
-  "abc",
-  "abc",
+  'abc',
+  'abc',
 
   "'",
 
@@ -110,16 +110,16 @@ trailingComma: "all"
   "'",
   "\\\\'",
 
-  "'\\"",
-  "'\\"",
+  '\\'"',
+  '\\'"',
 
-  "\\\\",
-  "\\\\",
+  '\\\\',
+  '\\\\',
 
-  "\\0",
-  "🐶",
+  '\\0',
+  '🐶',
 
-  "\\uD801\\uDC28",
+  '\\uD801\\uDC28',
 ];
 
 ================================================================================
@@ -258,13 +258,13 @@ const env = \${JSON.stringify(
   {
     assetsRootUrl: env.assetsRootUrl,
     env: env.env,
-    role: "client",
-    adsfafa: "sdfsdff",
-    asdfasff: "wefwefw",
-    fefef: "sf sdfs fdsfdsf s dfsfds",
+    role: 'client',
+    adsfafa: 'sdfsdff',
+    asdfasff: 'wefwefw',
+    fefef: 'sf sdfs fdsfdsf s dfsfds',
   },
   null,
-  "\\t"
+  '\\t'
 )});
 \`;
 
@@ -292,7 +292,7 @@ const makeBody = (store, assets, html) =>
         )};\`,
       ]}
       content={[
-        { id: "app-container", dangerouslySetInnerHTML: { __html: html } },
+        { id: 'app-container', dangerouslySetInnerHTML: { __html: html } },
       ]}
     />
   )}\`;
@@ -301,8 +301,8 @@ const makeBody = (store, assets, html) =>
 const Bar = styled.div\`
   color: \${(props) =>
     props.highlight.length > 0
-      ? palette(["text", "dark", "tertiary"])(props)
-      : palette(["text", "dark", "primary"])(props)} !important;
+      ? palette(['text', 'dark', 'tertiary'])(props)
+      : palette(['text', 'dark', 'primary'])(props)} !important;
 \`;
 
 ================================================================================
@@ -442,13 +442,13 @@ const env = \${JSON.stringify(
   {
     assetsRootUrl: env.assetsRootUrl,
     env: env.env,
-    role: "client",
-    adsfafa: "sdfsdff",
-    asdfasff: "wefwefw",
-    fefef: "sf sdfs fdsfdsf s dfsfds",
+    role: 'client',
+    adsfafa: 'sdfsdff',
+    asdfasff: 'wefwefw',
+    fefef: 'sf sdfs fdsfdsf s dfsfds',
   },
   null,
-  "\\t",
+  '\\t',
 )});
 \`;
 
@@ -476,7 +476,7 @@ const makeBody = (store, assets, html) =>
         )};\`,
       ]}
       content={[
-        { id: "app-container", dangerouslySetInnerHTML: { __html: html } },
+        { id: 'app-container', dangerouslySetInnerHTML: { __html: html } },
       ]}
     />,
   )}\`;
@@ -485,8 +485,8 @@ const makeBody = (store, assets, html) =>
 const Bar = styled.div\`
   color: \${(props) =>
     props.highlight.length > 0
-      ? palette(["text", "dark", "tertiary"])(props)
-      : palette(["text", "dark", "primary"])(props)} !important;
+      ? palette(['text', 'dark', 'tertiary'])(props)
+      : palette(['text', 'dark', 'primary'])(props)} !important;
 \`;
 
 ================================================================================

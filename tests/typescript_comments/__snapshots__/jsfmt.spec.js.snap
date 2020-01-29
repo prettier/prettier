@@ -223,30 +223,30 @@ export type AsyncExecuteOptions = child_process$execFileOpts & {
 export type BuckWebSocketMessage =
   | {
       // Not actually from Buck - this is to let the receiver know that the socket is connected.
-      type: "SocketConnected";
+      type: 'SocketConnected';
     }
   | {
-      type: "BuildProgressUpdated";
+      type: 'BuildProgressUpdated';
       progressValue: number;
     }
   | {
-      type: "BuildFinished";
+      type: 'BuildFinished';
       exitCode: number;
     }
   | {
-      type: "BuildStarted";
+      type: 'BuildStarted';
     }
   | {
-      type: "ParseStarted";
+      type: 'ParseStarted';
     }
   | {
-      type: "ParseFinished";
+      type: 'ParseFinished';
     }
   | {
-      type: "RunStarted";
+      type: 'RunStarted';
     }
   | {
-      type: "RunComplete";
+      type: 'RunComplete';
     };
 
 // Two extra levels of indentation because of the comment
@@ -717,13 +717,13 @@ type UploadState2<E, EM, D>
 =====================================output=====================================
 type UploadState<E, EM, D> =
   // The upload hasnt begun yet
-  | { type: "Not_begun" }
+  | { type: 'Not_begun' }
   // The upload timed out
-  | { type: "Timed_out" }
+  | { type: 'Timed_out' }
   // Failed somewhere on the line
-  | { type: "Failed"; error: E; errorMsg: EM }
+  | { type: 'Failed'; error: E; errorMsg: EM }
   // Uploading to aws3 and CreatePostMutation succeeded
-  | { type: "Success"; data: D };
+  | { type: 'Success'; data: D };
 
 type UploadState2<E, EM, D> =
   // The upload hasnt begun yet

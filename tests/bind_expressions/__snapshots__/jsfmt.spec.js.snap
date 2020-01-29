@@ -288,12 +288,12 @@ function test(observable) {
 }
 
 =====================================output=====================================
-import { interval } from "rxjs/observable/interval";
-import { filter } from "rxjs/operator/filter";
-import { take } from "rxjs/operator/take";
-import { map } from "rxjs/operator/map";
-import { throttle } from "rxjs/operator/throttle";
-import { takeUntil } from "rxjs/operator/takeUntil";
+import { interval } from 'rxjs/observable/interval';
+import { filter } from 'rxjs/operator/filter';
+import { take } from 'rxjs/operator/take';
+import { map } from 'rxjs/operator/map';
+import { throttle } from 'rxjs/operator/throttle';
+import { takeUntil } from 'rxjs/operator/takeUntil';
 
 function test(observable) {
   return observable
@@ -335,12 +335,12 @@ function test(observable) {
 }
 
 =====================================output=====================================
-import { interval } from "rxjs/observable/interval"
-import { filter } from "rxjs/operator/filter"
-import { take } from "rxjs/operator/take"
-import { map } from "rxjs/operator/map"
-import { throttle } from "rxjs/operator/throttle"
-import { takeUntil } from "rxjs/operator/takeUntil"
+import { interval } from 'rxjs/observable/interval'
+import { filter } from 'rxjs/operator/filter'
+import { take } from 'rxjs/operator/take'
+import { map } from 'rxjs/operator/map'
+import { throttle } from 'rxjs/operator/throttle'
+import { takeUntil } from 'rxjs/operator/takeUntil'
 
 function test(observable) {
   return observable

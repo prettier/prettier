@@ -16,7 +16,7 @@ printWidth: 80
 // @flow
 
 // unwrapping nested maybes should work
-(("foo": ??string): ?string); // ok
+(('foo': ??string): ?string); // ok
 ((123: ??number): ?string); // error (only num ~> string)
 
 ================================================================================
@@ -94,11 +94,11 @@ fn({some: 'literal'});
 =====================================output=====================================
 function foo(x: ?string) {}
 function bar(x: ?number) {}
-foo("hmm");
-bar("hmm");
+foo('hmm');
+bar('hmm');
 
 function fn(data: ?{}) {}
-fn({ some: "literal" });
+fn({ some: 'literal' });
 
 ================================================================================
 `;

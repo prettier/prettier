@@ -96,7 +96,7 @@ let value = /** @type {string} */ (this.members[0]).functionCall();
 functionCall(1 + /** @type {string} */ (value), /** @type {!Foo} */ ({}));
 
 function returnValue() {
-  return /** @type {!Array.<string>} */ (["hello", "you"]);
+  return /** @type {!Array.<string>} */ (['hello', 'you']);
 }
 
 // Only numberOrString is typecast

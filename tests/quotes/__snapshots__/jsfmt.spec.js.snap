@@ -13,10 +13,10 @@ function b(object, key) {
 }
 
 =====================================output=====================================
-const a = () => "Foo bar";
+const a = () => 'Foo bar';
 
 function b(object, key) {
-  return object["key"];
+  return object['key'];
 }
 
 ================================================================================
@@ -61,7 +61,7 @@ const obj = {
 const obj = {
   a: true,
   b: true,
-  "𐊧": true,
+  '𐊧': true,
 };
 
 ================================================================================
@@ -211,18 +211,18 @@ printWidth: 80
 // for consistency.
 
 // Simple strings.
-("abc");
-("abc");
+('abc');
+('abc');
 
 // Escape.
-("\\0");
+('\\0');
 
 // Emoji.
-("🐶");
+('🐶');
 
 // Empty string.
-("");
-("");
+('');
+('');
 
 // Single double quote.
 ('"');
@@ -235,41 +235,41 @@ printWidth: 80
 // Unnecessary escapes.
 ("'");
 ('"');
-("a");
-("a");
-("hola");
-("hola");
-("hol\\\\a (the a is not escaped)");
-("hol\\\\a (the a is not escaped)");
-("multiple a unnecessary a escapes");
-("multiple a unnecessary a escapes");
-("unnecessarily escaped character preceded by escaped backslash \\\\a");
-("unnecessarily escaped character preceded by escaped backslash \\\\a");
-("unescaped character preceded by two escaped backslashes       \\\\\\\\a");
-("unescaped character preceded by two escaped backslashes       \\\\\\\\a");
-("aa"); // consecutive unnecessarily escaped characters
-("aa"); // consecutive unnecessarily escaped characters
-("escaped \\u2030 ‰ (should not stay escaped)");
+('a');
+('a');
+('hola');
+('hola');
+('hol\\\\a (the a is not escaped)');
+('hol\\\\a (the a is not escaped)');
+('multiple a unnecessary a escapes');
+('multiple a unnecessary a escapes');
+('unnecessarily escaped character preceded by escaped backslash \\\\a');
+('unnecessarily escaped character preceded by escaped backslash \\\\a');
+('unescaped character preceded by two escaped backslashes       \\\\\\\\a');
+('unescaped character preceded by two escaped backslashes       \\\\\\\\a');
+('aa'); // consecutive unnecessarily escaped characters
+('aa'); // consecutive unnecessarily escaped characters
+('escaped \\u2030 ‰ (should not stay escaped)');
 
 // Meaningful escapes
-("octal escapes \\0 \\1 \\2 \\3 \\4 \\5 \\6 \\7");
-("octal escapes \\0 \\1 \\2 \\3 \\4 \\5 \\6 \\7");
-("meaningfully escaped alphabetical characters \\n \\r \\v \\t \\b \\f \\u2713 \\x61");
-("meaningfully escaped alphabetical characters \\n \\r \\v \\t \\b \\f \\u2713 \\x61");
-("escaped newline \\
-");
-("escaped carriage return \\
-");
-("escaped \\u2028 \\ ");
-("escaped \\u2029 \\ ");
+('octal escapes \\0 \\1 \\2 \\3 \\4 \\5 \\6 \\7');
+('octal escapes \\0 \\1 \\2 \\3 \\4 \\5 \\6 \\7');
+('meaningfully escaped alphabetical characters \\n \\r \\v \\t \\b \\f \\u2713 \\x61');
+('meaningfully escaped alphabetical characters \\n \\r \\v \\t \\b \\f \\u2713 \\x61');
+('escaped newline \\
+');
+('escaped carriage return \\
+');
+('escaped \\u2028 \\ ');
+('escaped \\u2029 \\ ');
 
 // One of each.
-("\\"'");
-("\\"'");
+('"\\'');
+('"\\'');
 
 // One of each with unnecessary escapes.
-("\\"'");
-("\\"'");
+('"\\'');
+('"\\'');
 
 // More double quotes than single quotes.
 ('"\\'"');
@@ -280,12 +280,12 @@ printWidth: 80
 ("\\"''");
 
 // Two of each.
-("\\"\\"''");
-("\\"\\"''");
+('""\\'\\'');
+('""\\'\\'');
 
 // Single backslash.
-("\\\\");
-("\\\\");
+('\\\\');
+('\\\\');
 
 // Backslases.
 ("\\"\\\\\\"\\\\\\\\\\" ''\\\\'\\\\'\\\\\\\\'");

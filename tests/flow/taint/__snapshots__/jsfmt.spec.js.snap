@@ -119,7 +119,7 @@ let tests = [
 
   // getting a property
   function () {
-    let obj: Object = { foo: "foo" };
+    let obj: Object = { foo: 'foo' };
     (obj.foo: $Tainted<string>); // ok
   },
 
@@ -484,7 +484,7 @@ function f(x : $Tainted<any>) {
  * @flow
  */
 
-var safe: string = "safe";
+var safe: string = 'safe';
 // This should be allowed.
 var tainted: $Tainted<string> = safe;
 

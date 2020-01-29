@@ -25,17 +25,17 @@ function area(shape: Shape): number {
 /* @flow */
 
 type Shape =
-  | { type: "rectangle", width: number, height: number }
-  | { type: "circle", radius: number };
+  | { type: 'rectangle', width: number, height: number }
+  | { type: 'circle', radius: number };
 
 function area(shape: Shape): number {
-  if (shape.type === "square") {
+  if (shape.type === 'square') {
     // TODO: this should be an error
     return shape.width * shape.height;
-  } else if (shape.type === "circle") {
+  } else if (shape.type === 'circle') {
     return Math.PI * Math.pow(shape.radius, 2);
   }
-  throw "unreachable"; // TODO: this shouldn't be needed
+  throw 'unreachable'; // TODO: this shouldn't be needed
 }
 
 ================================================================================
@@ -67,12 +67,12 @@ type Binary = 0 | 1;
 
 function stringifyBinary(binary: Binary): string {
   if (binary === 0) {
-    return "zero";
+    return 'zero';
   } else if (binary === 2) {
     // oops
-    return "one";
+    return 'one';
   }
-  throw "unreachable"; // TODO: this shouldn't be needed
+  throw 'unreachable'; // TODO: this shouldn't be needed
 }
 
 ================================================================================

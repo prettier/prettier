@@ -103,10 +103,10 @@ const foo = {
 
 =====================================output=====================================
 const foo = {
-  a: "a" /* comment for this line */,
+  a: 'a' /* comment for this line */,
 
   /* Section B */
-  b: "b",
+  b: 'b',
 };
 
 ================================================================================
@@ -128,10 +128,10 @@ const foo = {
 
 =====================================output=====================================
 const foo = {
-  a: "a" /* comment for this line */,
+  a: 'a' /* comment for this line */,
 
   /* Section B */
-  b: "b",
+  b: 'b',
 }
 
 ================================================================================
@@ -915,24 +915,24 @@ wrap(
 )
 
 =====================================output=====================================
-import(/* Hello */ "something");
+import(/* Hello */ 'something');
 
-import("something" /* Hello */);
+import('something' /* Hello */);
 
-import(/* Hello */ "something" /* Hello */);
+import(/* Hello */ 'something' /* Hello */);
 
-import("something" /* Hello */ + "else");
+import('something' /* Hello */ + 'else');
 
 import(
   /* Hello */
-  "something"
+  'something'
   /* Hello */
 );
 
 wrap(
   import(
     /* Hello */
-    "something"
+    'something'
   )
 );
 
@@ -967,24 +967,24 @@ wrap(
 )
 
 =====================================output=====================================
-import(/* Hello */ "something")
+import(/* Hello */ 'something')
 
-import("something" /* Hello */)
+import('something' /* Hello */)
 
-import(/* Hello */ "something" /* Hello */)
+import(/* Hello */ 'something' /* Hello */)
 
-import("something" /* Hello */ + "else")
+import('something' /* Hello */ + 'else')
 
 import(
   /* Hello */
-  "something"
+  'something'
   /* Hello */
 )
 
 wrap(
   import(
     /* Hello */
-    "something"
+    'something'
   )
 )
 
@@ -1006,7 +1006,7 @@ const test = '💖'
 =====================================output=====================================
 /* #2091 */
 
-const test = "💖";
+const test = '💖';
 // This comment
 // should not get collapsed
 
@@ -1029,7 +1029,7 @@ const test = '💖'
 =====================================output=====================================
 /* #2091 */
 
-const test = "💖"
+const test = '💖'
 // This comment
 // should not get collapsed
 
@@ -1071,19 +1071,19 @@ export //comment
 
 export /* comment */{};
 
-const foo = "";
+const foo = '';
 export {
   foo, // comment
 };
 
-const bar = "";
+const bar = '';
 export {
   // comment
   bar,
 };
 
-const fooo = "";
-const barr = "";
+const fooo = '';
+const barr = '';
 export {
   fooo, // comment
   barr, // comment
@@ -1128,19 +1128,19 @@ export //comment
 
 export /* comment */{}
 
-const foo = ""
+const foo = ''
 export {
   foo, // comment
 }
 
-const bar = ""
+const bar = ''
 export {
   // comment
   bar,
 }
 
-const fooo = ""
-const barr = ""
+const fooo = ''
+const barr = ''
 export {
   fooo, // comment
   barr, // comment
@@ -1860,16 +1860,16 @@ const rootEpic = (actions, store) =>
 
 // optional trailing comma gets moved all the way to the beginning
 const regex = new RegExp(
-  "^\\\\s*" + // beginning of the line
-  "name\\\\s*=\\\\s*" + // name =
-  "['\\"]" + // opening quotation mark
+  '^\\\\s*' + // beginning of the line
+  'name\\\\s*=\\\\s*' + // name =
+  '[\\'"]' + // opening quotation mark
   escapeStringRegExp(target.name) + // target name
-  "['\\"]" + // closing quotation mark
-    ",?$" // optional trailing comma
+  '[\\'"]' + // closing quotation mark
+    ',?$' // optional trailing comma
 );
 
 // The comment is moved and doesn't trigger the eslint rule anymore
-import path from "path"; // eslint-disable-line nuclide-internal/prefer-nuclide-uri
+import path from 'path'; // eslint-disable-line nuclide-internal/prefer-nuclide-uri
 
 // Comments disappear in-between MemberExpressions
 Observable.of(process)
@@ -1900,7 +1900,7 @@ else {
 }
 
 // The comment makes the line break in a weird way
-const result = asyncExecute("non_existing_command", /* args */ []);
+const result = asyncExecute('non_existing_command', /* args */ []);
 
 // The closing paren is printed on the same line as the comment
 foo(
@@ -2024,16 +2024,16 @@ const rootEpic = (actions, store) =>
 
 // optional trailing comma gets moved all the way to the beginning
 const regex = new RegExp(
-  "^\\\\s*" + // beginning of the line
-  "name\\\\s*=\\\\s*" + // name =
-  "['\\"]" + // opening quotation mark
+  '^\\\\s*' + // beginning of the line
+  'name\\\\s*=\\\\s*' + // name =
+  '[\\'"]' + // opening quotation mark
   escapeStringRegExp(target.name) + // target name
-  "['\\"]" + // closing quotation mark
-    ",?$" // optional trailing comma
+  '[\\'"]' + // closing quotation mark
+    ',?$' // optional trailing comma
 )
 
 // The comment is moved and doesn't trigger the eslint rule anymore
-import path from "path" // eslint-disable-line nuclide-internal/prefer-nuclide-uri
+import path from 'path' // eslint-disable-line nuclide-internal/prefer-nuclide-uri
 
 // Comments disappear in-between MemberExpressions
 Observable.of(process)
@@ -2064,7 +2064,7 @@ else {
 }
 
 // The comment makes the line break in a weird way
-const result = asyncExecute("non_existing_command", /* args */ [])
+const result = asyncExecute('non_existing_command', /* args */ [])
 
 // The closing paren is printed on the same line as the comment
 foo(
@@ -2833,7 +2833,7 @@ var x = {
 class X2 {
   getSectionMode(
     pageMetaData: PageMetaData,
-    sectionMetaData: SectionMetaData = ["unknown"]
+    sectionMetaData: SectionMetaData = ['unknown']
     /* $FlowFixMe This error was exposed while converting keyMirror
      * to keyMirrorRecursive */
   ): $Enum<SectionMode> {}
@@ -3026,7 +3026,7 @@ var x = {
 class X2 {
   getSectionMode(
     pageMetaData: PageMetaData,
-    sectionMetaData: SectionMetaData = ["unknown"]
+    sectionMetaData: SectionMetaData = ['unknown']
     /* $FlowFixMe This error was exposed while converting keyMirror
      * to keyMirrorRecursive */
   ): $Enum<SectionMode> {}
@@ -3896,12 +3896,12 @@ switch (foo) {
 
 =====================================output=====================================
 switch (node && node.type) {
-  case "Property":
-  case "MethodDefinition":
+  case 'Property':
+  case 'MethodDefinition':
     prop = node.key;
     break;
 
-  case "MemberExpression":
+  case 'MemberExpression':
     prop = node.property;
     break;
 
@@ -3909,26 +3909,26 @@ switch (node && node.type) {
 }
 
 switch (foo) {
-  case "bar":
+  case 'bar':
     doThing();
 
   // no default
 }
 
 switch (foo) {
-  case "bar": //comment
+  case 'bar': //comment
     doThing(); //comment
 
-  case "baz":
+  case 'baz':
     doOtherThing(); //comment
 }
 
 switch (foo) {
-  case "bar": {
+  case 'bar': {
     doThing();
   } //comment
 
-  case "baz": {
+  case 'baz': {
     doThing();
   } //comment
 }
@@ -3984,12 +3984,12 @@ switch (foo) {
 
 =====================================output=====================================
 switch (node && node.type) {
-  case "Property":
-  case "MethodDefinition":
+  case 'Property':
+  case 'MethodDefinition':
     prop = node.key
     break
 
-  case "MemberExpression":
+  case 'MemberExpression':
     prop = node.property
     break
 
@@ -3997,26 +3997,26 @@ switch (node && node.type) {
 }
 
 switch (foo) {
-  case "bar":
+  case 'bar':
     doThing()
 
   // no default
 }
 
 switch (foo) {
-  case "bar": //comment
+  case 'bar': //comment
     doThing() //comment
 
-  case "baz":
+  case 'baz':
     doOtherThing() //comment
 }
 
 switch (foo) {
-  case "bar": {
+  case 'bar': {
     doThing()
   } //comment
 
-  case "baz": {
+  case 'baz': {
     doThing()
   } //comment
 }
@@ -4260,10 +4260,10 @@ const CONNECTION_STATUS = exports.CONNECTION_STATUS = {
 
 =====================================output=====================================
 const CONNECTION_STATUS = (exports.CONNECTION_STATUS = {
-  CLOSED: Object.freeze({ kind: "CLOSED" }),
-  CONNECTED: Object.freeze({ kind: "CONNECTED" }),
-  CONNECTING: Object.freeze({ kind: "CONNECTING" }),
-  NOT_CONNECTED: Object.freeze({ kind: "NOT_CONNECTED" }),
+  CLOSED: Object.freeze({ kind: 'CLOSED' }),
+  CONNECTED: Object.freeze({ kind: 'CONNECTED' }),
+  CONNECTING: Object.freeze({ kind: 'CONNECTING' }),
+  NOT_CONNECTED: Object.freeze({ kind: 'NOT_CONNECTED' }),
 });
 
 /* A comment */
@@ -4322,10 +4322,10 @@ const CONNECTION_STATUS = exports.CONNECTION_STATUS = {
 
 =====================================output=====================================
 const CONNECTION_STATUS = (exports.CONNECTION_STATUS = {
-  CLOSED: Object.freeze({ kind: "CLOSED" }),
-  CONNECTED: Object.freeze({ kind: "CONNECTED" }),
-  CONNECTING: Object.freeze({ kind: "CONNECTING" }),
-  NOT_CONNECTED: Object.freeze({ kind: "NOT_CONNECTED" }),
+  CLOSED: Object.freeze({ kind: 'CLOSED' }),
+  CONNECTED: Object.freeze({ kind: 'CONNECTED' }),
+  CONNECTING: Object.freeze({ kind: 'CONNECTING' }),
+  NOT_CONNECTED: Object.freeze({ kind: 'NOT_CONNECTED' }),
 })
 
 /* A comment */
@@ -4508,41 +4508,41 @@ const foo3 = 123
 let obj1 =
   // Comment
   {
-    key: "val",
+    key: 'val',
   };
 
 let obj2 =
   // Comment
   {
-    key: "val",
+    key: 'val',
   };
 
 let obj3 = {
   // Comment
-  key: "val",
+  key: 'val',
 };
 
 let obj4 = {
   // Comment
-  key: "val",
+  key: 'val',
 };
 
 let obj5 =
   // Comment
-  ["val"];
+  ['val'];
 
 let obj6 =
   // Comment
-  ["val"];
+  ['val'];
 
 let obj7 = [
   // Comment
-  "val",
+  'val',
 ];
 
 let obj8 = [
   // Comment
-  "val",
+  'val',
 ];
 
 let obj9 =
@@ -4568,15 +4568,15 @@ val
 \`;
 
 let // Comment
-  foo1 = "val";
+  foo1 = 'val';
 
 let // Comment
-  foo2 = "val",
-  bar = "val";
+  foo2 = 'val',
+  bar = 'val';
 
 const foo3 = 123;
 // Nothing to see here.
-["2", "3"].forEach((x) => console.log(x));
+['2', '3'].forEach((x) => console.log(x));
 
 ================================================================================
 `;
@@ -4659,41 +4659,41 @@ const foo3 = 123
 let obj1 =
   // Comment
   {
-    key: "val",
+    key: 'val',
   }
 
 let obj2 =
   // Comment
   {
-    key: "val",
+    key: 'val',
   }
 
 let obj3 = {
   // Comment
-  key: "val",
+  key: 'val',
 }
 
 let obj4 = {
   // Comment
-  key: "val",
+  key: 'val',
 }
 
 let obj5 =
   // Comment
-  ["val"]
+  ['val']
 
 let obj6 =
   // Comment
-  ["val"]
+  ['val']
 
 let obj7 = [
   // Comment
-  "val",
+  'val',
 ]
 
 let obj8 = [
   // Comment
-  "val",
+  'val',
 ]
 
 let obj9 =
@@ -4719,15 +4719,15 @@ val
 \`
 
 let // Comment
-  foo1 = "val"
+  foo1 = 'val'
 
 let // Comment
-  foo2 = "val",
-  bar = "val"
+  foo2 = 'val',
+  bar = 'val'
 
 const foo3 = 123
 // Nothing to see here.
-;["2", "3"].forEach((x) => console.log(x))
+;['2', '3'].forEach((x) => console.log(x))
 
 ================================================================================
 `;

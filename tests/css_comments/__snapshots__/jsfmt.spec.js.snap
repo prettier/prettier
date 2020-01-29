@@ -283,21 +283,21 @@ printWidth: 80
 =====================================output=====================================
 @charset "utf-8"; /* comment 1 */
 
-@import /* comment 2 */ url("fineprint.css") /* comment 3 */ print
+@import /* comment 2 */ url('fineprint.css') /* comment 3 */ print
   /* comment 4 */; /* comment 5 */
-@import /* comment 6 */ url("bluish.css") /* comment 7 */ projection
+@import /* comment 6 */ url('bluish.css') /* comment 7 */ projection
     /* comment 8 */,
   /* comment 9 */ tv /* comment 10 */;
 /* comment 11 */
-@import /* comment 12 */ /* comment 13 */ url("bluish.css") /* comment 14 */
+@import /* comment 12 */ /* comment 13 */ url('bluish.css') /* comment 14 */
     /* comment 15 */ projection /* comment 16 */,
   /* comment 17 */ tv /* comment 18 */; /* comment 19 */
 /* comment 20 */
-@import /* comment 21 */ url("bluish.css") /* comment 22 */ projection
+@import /* comment 21 */ url('bluish.css') /* comment 22 */ projection
     /* comment 23 */,
   /* comment 24 */ tv /* comment 25 */;
-@import /* comment 26 */ "custom.css" /* comment 27 */; /* comment 28 */
-@import /* comment 29 */ url("landscape.css") /* comment 30 */ screen
+@import /* comment 26 */ 'custom.css' /* comment 27 */; /* comment 28 */
+@import /* comment 29 */ url('landscape.css') /* comment 30 */ screen
   /* comment 31 */ and /* comment 32 */
   (
     /* comment 33 */ orientation /* comment 34 */: /* comment 35 */ landscape
@@ -467,8 +467,8 @@ printWidth: 80
 @font-face {
   src: url(if(
     $bootstrap-sass-asset-helper,
-    twbs-font-path("#{$icon-font-path}#{$icon-font-name}.eot"),
-    "#{$icon-font-path}#{$icon-font-name}.eot"
+    twbs-font-path('#{$icon-font-path}#{$icon-font-name}.eot'),
+    '#{$icon-font-path}#{$icon-font-name}.eot'
   ));
 }
 
@@ -572,9 +572,9 @@ a {
 }
 
 @font-face {
-  font-family: "Prettier";
-  src: /* comment 16 */ local(/* comment 17 */ "Prettier" /* comment 18 */),
-    /* comment 19 */ /* comment 20 */ url("http://prettier.com/font.woff")
+  font-family: 'Prettier';
+  src: /* comment 16 */ local(/* comment 17 */ 'Prettier' /* comment 18 */),
+    /* comment 19 */ /* comment 20 */ url('http://prettier.com/font.woff')
       /* comment 21 */; /* comment 22 */
 }
 
@@ -705,9 +705,9 @@ $my-list2:
   c;
 
 =====================================output=====================================
-$my-list: "foo",
+$my-list: 'foo',
   // Foo
-    "bar"; // Bar
+    'bar'; // Bar
 
 $my-list2: a // a
   b c;
@@ -728,9 +728,9 @@ $my-map: (
 
 =====================================output=====================================
 $my-map: (
-  "foo": 1,
+  'foo': 1,
   // Foo
-    "bar": 2,
+    'bar': 2,
   // Bar
 );
 

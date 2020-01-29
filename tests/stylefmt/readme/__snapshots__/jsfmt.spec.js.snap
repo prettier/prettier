@@ -38,7 +38,7 @@ padding: 12px
 @mixin clearfix() {
   &:before,
   &:after {
-    content: " ";
+    content: ' ';
     display: table;
   }
 

@@ -30,7 +30,7 @@ foo || (baz ?? baz);
 foo && (baz ?? baz);
 
 =====================================output=====================================
-obj.foo ?? "default";
+obj.foo ?? 'default';
 
 const x = (foo, bar = foo ?? bar) => {};
 

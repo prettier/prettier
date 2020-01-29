@@ -52,7 +52,7 @@ const idxResult = idx(obj, obj => obj.a.b.c.d);
 
 =====================================output=====================================
 // @flow
-var num = require("./import");
+var num = require('./import');
 function foo(x) {}
 foo(0);
 var a: string = num;

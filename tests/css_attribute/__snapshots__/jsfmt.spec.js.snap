@@ -24,9 +24,9 @@ class
 ;
 
 =====================================output=====================================
-@custom-selector :--icon i[class^="icon-"], i[class*=" icon-"];
-@custom-selector :--icon i[class^="icon-"], i[class*=" icon-"];
-@custom-selector :--icon i[class^="icon-"], i[class*=" icon-"];
+@custom-selector :--icon i[class^='icon-'], i[class*=' icon-'];
+@custom-selector :--icon i[class^='icon-'], i[class*=' icon-'];
+@custom-selector :--icon i[class^='icon-'], i[class*=' icon-'];
 
 ================================================================================
 `;
@@ -74,11 +74,11 @@ img[alt~="person" i][src*="lorem" i] {}
 section:has(:not([type="radio" i], [type="checkbox" i])) {}
 
 =====================================output=====================================
-input[type="radio" i] {
+input[type='radio' i] {
 }
-img[alt~="person" i][src*="lorem" i] {
+img[alt~='person' i][src*='lorem' i] {
 }
-section:has(:not([type="radio" i], [type="checkbox" i])) {
+section:has(:not([type='radio' i], [type='checkbox' i])) {
 }
 
 ================================================================================
@@ -119,8 +119,8 @@ printWidth: 80
 [att] {}
 
 =====================================output=====================================
-@namespace foo "http://www.example.com";
-[foo|att="val"] {
+@namespace foo 'http://www.example.com';
+[foo|att='val'] {
 }
 [*|att] {
 }
@@ -175,21 +175,21 @@ input:not([type="radio"], [type="checkbox"]) {}
 section:has(:not([type="radio"], [type="checkbox"])) {}
 
 =====================================output=====================================
-a[id="test"] {
+a[id='test'] {
 }
-a[id="test"] {
+a[id='test'] {
 }
-a[id="test"] {
+a[id='test'] {
 }
-a[id=func("foo")] {
+a[id=func('foo')] {
 }
-a[class="(╯°□°）╯︵ ┻━┻"] {
+a[class='(╯°□°）╯︵ ┻━┻'] {
 }
-input:not([type="radio"]):not([type="checkbox"]) {
+input:not([type='radio']):not([type='checkbox']) {
 }
-input:not([type="radio"], [type="checkbox"]) {
+input:not([type='radio'], [type='checkbox']) {
 }
-section:has(:not([type="radio"], [type="checkbox"])) {
+section:has(:not([type='radio'], [type='checkbox'])) {
 }
 
 ================================================================================
@@ -377,81 +377,81 @@ span[lang] {
 }
 span[lang] {
 }
-span[lang="pt"] {
+span[lang='pt'] {
 }
-span[lang="pt"] {
+span[lang='pt'] {
 }
-span[lang="pt"] {
+span[lang='pt'] {
 }
-span[lang="pt"] {
+span[lang='pt'] {
 }
-span[lang="pt"] {
+span[lang='pt'] {
 }
-span[lang="pt"] {
+span[lang='pt'] {
 }
-span[lang="pt"] {
+span[lang='pt'] {
 }
-span[lang="pt"] {
+span[lang='pt'] {
 }
-span[lang~="en-us"] {
+span[lang~='en-us'] {
 }
-span[lang~="en-us"] {
+span[lang~='en-us'] {
 }
-span[lang|="zh"] {
+span[lang|='zh'] {
 }
-span[lang~="en-us"] {
+span[lang~='en-us'] {
 }
-a[href^="#"] {
+a[href^='#'] {
 }
-a[href$=".cn"] {
+a[href$='.cn'] {
 }
-a[href*="example"] {
+a[href*='example'] {
 }
-a[href*="example"] {
+a[href*='example'] {
 }
-input[type="radio" i] {
+input[type='radio' i] {
 }
-input[type="radio" i] {
+input[type='radio' i] {
 }
-input[type~="radio" i] {
+input[type~='radio' i] {
 }
-input[type~="radio" i] {
+input[type~='radio' i] {
 }
-input[type~="radio" i] {
+input[type~='radio' i] {
 }
-img[alt="person"][src="lorem"] {
+img[alt='person'][src='lorem'] {
 }
-img[alt="person"][src="lorem"] {
+img[alt='person'][src='lorem'] {
 }
-img[alt~="person"][src*="lorem"] {
+img[alt~='person'][src*='lorem'] {
 }
-img[alt~="person"][src*="lorem"] {
+img[alt~='person'][src*='lorem'] {
 }
-img[alt~="person"][src*="lorem"] {
+img[alt~='person'][src*='lorem'] {
 }
-section:has(:not([type="radio"], [type="checkbox"])) {
+section:has(:not([type='radio'], [type='checkbox'])) {
 }
-section:has(:not([type="radio" i], [type="checkbox" i])) {
+section:has(:not([type='radio' i], [type='checkbox' i])) {
 }
-section:has(:not([type="radio"], [type="checkbox"])) {
+section:has(:not([type='radio'], [type='checkbox'])) {
 }
-section:has(:not([type="radio" i], [type="checkbox" i])) {
+section:has(:not([type='radio' i], [type='checkbox' i])) {
 }
-section:has(:not([type="radio"], [type="checkbox"])) {
+section:has(:not([type='radio'], [type='checkbox'])) {
 }
-section:has(:not([type="radio" i], [type="checkbox" i])) {
+section:has(:not([type='radio' i], [type='checkbox' i])) {
 }
-section:has(:not([type="radio"], [type="checkbox"])) {
+section:has(:not([type='radio'], [type='checkbox'])) {
 }
-section:has(:not([type="radio" i], [type="checkbox" i])) {
+section:has(:not([type='radio' i], [type='checkbox' i])) {
 }
-[foo|att="val"] {
+[foo|att='val'] {
 }
-[foo|att="val"] {
+[foo|att='val'] {
 }
-[foo|att="val"] {
+[foo|att='val'] {
 }
-[foo|att="val"] {
+[foo|att='val'] {
 }
 [*|att] {
 }

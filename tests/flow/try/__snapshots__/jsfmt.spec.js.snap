@@ -438,59 +438,59 @@ function corge(): string {
 function foo(x: ?number): string {
   try {
   } catch (e) {
-    return "bar";
+    return 'bar';
   }
   console.log();
-  return "foo";
+  return 'foo';
 }
 
 function bar(): string {
   try {
-    return "foo";
+    return 'foo';
   } catch (e) {
-    return "bar";
+    return 'bar';
   }
 }
 
 function baz(): string {
   try {
-    throw new Error("foo");
+    throw new Error('foo');
   } catch (e) {
-    return "foo";
+    return 'foo';
   }
-  return "bar"; // unreachable
+  return 'bar'; // unreachable
 }
 
 function qux(): string {
   try {
-    throw new Error("foo");
+    throw new Error('foo');
   } catch (e) {}
   console.log();
-  return "bar";
+  return 'bar';
 }
 
 function quux(): string {
   try {
     return qux();
   } catch (e) {}
-  return "bar";
+  return 'bar';
 }
 
 function bliffl(): string {
   try {
-    throw new Error("foo");
+    throw new Error('foo');
   } catch (e) {
-    return "foo";
+    return 'foo';
   } finally {
-    return "bar";
+    return 'bar';
   }
 }
 
 function corge(): string {
   try {
-    return "foo";
+    return 'foo';
   } catch (e) {
-    throw new Error("bar");
+    throw new Error('bar');
   }
   bar(); // unreachable
 }
@@ -557,7 +557,7 @@ function foo() {
   var x = 0;
   var y;
   try {
-    x = "";
+    x = '';
   } catch (e) {
     x = false;
     throw -1;
@@ -574,7 +574,7 @@ function bar(response) {
   try {
     payload = JSON.parse(response);
   } catch (e) {
-    throw new Error("...");
+    throw new Error('...');
   }
   // here via [try] only.
   if (payload.error) {

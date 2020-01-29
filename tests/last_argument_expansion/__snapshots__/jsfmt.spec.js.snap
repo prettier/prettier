@@ -65,9 +65,9 @@ export default class AddAssetHtmlPlugin {
 =====================================output=====================================
 export default class AddAssetHtmlPlugin {
   apply(compiler: WebpackCompilerType) {
-    compiler.plugin("compilation", (compilation: WebpackCompilationType) => {
+    compiler.plugin('compilation', (compilation: WebpackCompilationType) => {
       compilation.plugin(
-        "html-webpack-plugin-before-html",
+        'html-webpack-plugin-before-html',
         (callback: Callback<any>) => {
           addAllAssetsToCompilation(
             this.assets,
@@ -119,12 +119,12 @@ true
 =====================================output=====================================
 ({
   processors: [
-    require("autoprefixer", {
-      browsers: ["> 1%", "last 2 versions", "ie >= 11", "Firefox ESR"],
+    require('autoprefixer', {
+      browsers: ['> 1%', 'last 2 versions', 'ie >= 11', 'Firefox ESR'],
     }),
-    require("postcss-url")({
+    require('postcss-url')({
       url: (url) =>
-        url.startsWith("/") || /^[a-z]+:/.test(url) ? url : \`/static/\${url}\`,
+        url.startsWith('/') || /^[a-z]+:/.test(url) ? url : \`/static/\${url}\`,
     }),
   ],
 });
@@ -224,7 +224,7 @@ return /******/ (function(modules) { // webpackBootstrap
 =====================================output=====================================
 var listener = DOM.listen(
   introCard,
-  "click",
+  'click',
   sigil,
   (event: JavelinEvent): void =>
     BanzaiLogger.log(config, {
@@ -244,7 +244,7 @@ a(
 
 exports.examples = [
   {
-    render: withGraphQLQuery("node(1234567890){image{uri}}", function (
+    render: withGraphQLQuery('node(1234567890){image{uri}}', function (
       container,
       data
     ) {
@@ -254,10 +254,10 @@ exports.examples = [
             <img
               src={data[1234567890].image.uri}
               style={{
-                position: "absolute",
-                top: "0",
-                left: "0",
-                zIndex: "-1",
+                position: 'absolute',
+                top: '0',
+                left: '0',
+                zIndex: '-1',
               }}
             />
           </InlineBlock>
@@ -422,18 +422,18 @@ const formatData = pipe(
     nodeId: ref.nodeId.toString(),
     ...attributeFromDataValue(ref.attributeId, data),
   })),
-  groupBy(prop("nodeId")),
+  groupBy(prop('nodeId')),
   map(mergeAll),
   values
 );
 
 export const setProp = (y) => ({
   ...y,
-  a: "very, very, very long very, very long text",
+  a: 'very, very, very long very, very long text',
 });
 
 export const log = (y) => {
-  console.log("very, very, very long very, very long text");
+  console.log('very, very, very long very, very long text');
 };
 
 ================================================================================
@@ -571,7 +571,7 @@ foo(
 const contentTypes = function (tile, singleSelection) {
   return compute(function contentTypesContentTypes(
     tile,
-    searchString = "",
+    searchString = '',
     filteredContentTypes = [],
     contentTypesArray = [],
     selectedGroup,

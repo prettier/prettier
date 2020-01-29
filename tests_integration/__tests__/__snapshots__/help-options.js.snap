@@ -505,7 +505,7 @@ exports[`show detailed usage with --help single-quote (stdout) 1`] = `
 
   Use single quotes instead of double quotes.
 
-Default: false
+Default: true
 "
 `;
 

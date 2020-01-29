@@ -65,7 +65,7 @@ function bar() {
   if (x) x.bar();
 }
 
-function qux(x?: number, y: string = "", z) {}
+function qux(x?: number, y: string = '', z) {}
 
 ================================================================================
 `;
@@ -114,15 +114,15 @@ let tests = [
 let tests = [
   function (x: number) {
     var id;
-    var name = id ? "John" : undefined;
+    var name = id ? 'John' : undefined;
     (name: boolean); // error, string or void
 
-    const bar = [undefined, "bar"];
+    const bar = [undefined, 'bar'];
     (bar[x]: boolean); // error, string or void
   },
 
   function (x: number) {
-    var undefined = "foo";
+    var undefined = 'foo';
     (undefined: string); // ok
 
     var x;
@@ -130,7 +130,7 @@ let tests = [
       x[0]; // should error, could be void
     }
 
-    const bar = [undefined, "bar"];
+    const bar = [undefined, 'bar'];
     (bar[x]: boolean); // error, string only
   },
 ];

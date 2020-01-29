@@ -9,7 +9,7 @@ printWidth: 80
 module.exports.fun = (): string => "hello there";
 
 =====================================output=====================================
-module.exports.fun = (): string => "hello there";
+module.exports.fun = (): string => 'hello there';
 
 ================================================================================
 `;

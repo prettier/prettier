@@ -46,8 +46,8 @@ module.exports = B;
 
 =====================================output=====================================
 // @flow
-var A = require("./A");
-import type C from "./C";
+var A = require('./A');
+import type C from './C';
 
 class B extends A {
   c: C;
@@ -76,8 +76,8 @@ module.exports = C;
 
 =====================================output=====================================
 // @flow
-var A = require("./A");
-import type B from "./B";
+var A = require('./A');
+import type B from './B';
 
 class C extends A {
   b: B;

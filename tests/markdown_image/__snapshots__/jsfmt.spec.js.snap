@@ -25,7 +25,7 @@ proseWrap: "always"
 ![hello](http://example.com/image.png "title")
 
 =====================================output=====================================
-![hello](http://example.com/image.png "title")
+![hello](http://example.com/image.png 'title')
 
 ================================================================================
 `;

@@ -41,25 +41,25 @@ export const a = 1;
 export const b = 1;
 
 =====================================output=====================================
-import D from "d";
-import { A, B, C } from "hello-world";
+import D from 'd';
+import { A, B, C } from 'hello-world';
 import {
   AAAAAAAAAAAAAAAAAAAAAAAA,
   BBBBBBBBBBBBBBBBBBBBBB,
   CCCCCCCCCCCCCCCCCCCCCCC,
-} from "xyz";
+} from 'xyz';
 
 ---
 
-import D from "d";
+import D from 'd';
 
-import { A, B, C } from "hello-world";
+import { A, B, C } from 'hello-world';
 
 import {
   AAAAAAAAAAAAAAAAAAAAAAAA,
   BBBBBBBBBBBBBBBBBBBBBB,
   CCCCCCCCCCCCCCCCCCCCCCC,
-} from "xyz";
+} from 'xyz';
 
 ---
 
@@ -128,25 +128,25 @@ export const a = 1;
 export const b = 1;
 
 =====================================output=====================================
-import D from "d"
-import { A, B, C } from "hello-world"
+import D from 'd'
+import { A, B, C } from 'hello-world'
 import {
   AAAAAAAAAAAAAAAAAAAAAAAA,
   BBBBBBBBBBBBBBBBBBBBBB,
   CCCCCCCCCCCCCCCCCCCCCCC,
-} from "xyz"
+} from 'xyz'
 
 ---
 
-import D from "d"
+import D from 'd'
 
-import { A, B, C } from "hello-world"
+import { A, B, C } from 'hello-world'
 
 import {
   AAAAAAAAAAAAAAAAAAAAAAAA,
   BBBBBBBBBBBBBBBBBBBBBB,
   CCCCCCCCCCCCCCCCCCCCCCC,
-} from "xyz"
+} from 'xyz'
 
 ---
 
@@ -494,12 +494,12 @@ test
 
 
 =====================================output=====================================
-import { Foo, Bar } from "./Fixture";
+import { Foo, Bar } from './Fixture';
 
 # Hello, world!
 
 <Foo bg="red">
-  <div style={{ display: "block" }}>
+  <div style={{ display: 'block' }}>
     <Bar>hi </Bar>
     {hello}
     {/* another comment */}
@@ -550,12 +550,12 @@ test
 
 
 =====================================output=====================================
-import { Foo, Bar } from "./Fixture"
+import { Foo, Bar } from './Fixture'
 
 # Hello, world!
 
 <Foo bg="red">
-  <div style={{ display: "block" }}>
+  <div style={{ display: 'block' }}>
     <Bar>hi </Bar>
     {hello}
     {/* another comment */}
@@ -624,12 +624,12 @@ npm i -g foo
 export   default     ({children   }) => < div>{    children}</div>
 
 =====================================output=====================================
-import { Baz } from "./Fixture";
-import { Buz } from "./Fixture";
+import { Baz } from './Fixture';
+import { Buz } from './Fixture';
 
 export const foo = {
-  hi: \`Fudge \${Baz.displayName || "Baz"}\`,
-  authors: ["fred", "sally"],
+  hi: \`Fudge \${Baz.displayName || 'Baz'}\`,
+  authors: ['fred', 'sally'],
 };
 
 # Hello, world!
@@ -649,7 +649,7 @@ test codeblock
 \`\`\`
 
 \`\`\`js
-module.exports = "test";
+module.exports = 'test';
 \`\`\`
 
 \`\`\`sh
@@ -715,12 +715,12 @@ npm i -g foo
 export   default     ({children   }) => < div>{    children}</div>
 
 =====================================output=====================================
-import { Baz } from "./Fixture"
-import { Buz } from "./Fixture"
+import { Baz } from './Fixture'
+import { Buz } from './Fixture'
 
 export const foo = {
-  hi: \`Fudge \${Baz.displayName || "Baz"}\`,
-  authors: ["fred", "sally"],
+  hi: \`Fudge \${Baz.displayName || 'Baz'}\`,
+  authors: ['fred', 'sally'],
 }
 
 # Hello, world!
@@ -740,7 +740,7 @@ test codeblock
 \`\`\`
 
 \`\`\`js
-module.exports = "test"
+module.exports = 'test'
 \`\`\`
 
 \`\`\`sh

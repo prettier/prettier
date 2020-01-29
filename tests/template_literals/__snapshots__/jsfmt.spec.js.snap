@@ -182,7 +182,7 @@ const shouldWrapForNow = \`such a long template string \${
   foo().bar.baz
 } that prettier will want to wrap it\`;
 
-const shouldNotWrap = \`simple expressions should not break \${this} \${variable} \${a.b.c} \${this.b.c} \${a[b].c} \${a.b[c]} \${a.b["c"]} \${a?.b?.c}\`;
+const shouldNotWrap = \`simple expressions should not break \${this} \${variable} \${a.b.c} \${this.b.c} \${a[b].c} \${a.b[c]} \${a.b['c']} \${a?.b?.c}\`;
 
 console.log(
   chalk.white(
@@ -191,7 +191,7 @@ console.log(
 );
 
 x = \`mdl-textfield mdl-js-textfield \${className} \${
-  content.length > 0 ? "is-dirty" : ""
+  content.length > 0 ? 'is-dirty' : ''
 } combo-box__input\`;
 
 function testing() {
@@ -203,7 +203,7 @@ function testing() {
         process.env.OPENID_URL
       }/something/something/something?\${Object.keys(p)
         .map((k) => \`\${encodeURIComponent(k)}=\${encodeURIComponent(p[k])}\`)
-        .join("&")}\`;
+        .join('&')}\`;
     }
   }
 }
@@ -213,14 +213,14 @@ console.log(
 );
 
 console.log(
-  \`brew cask audit --download \${_.map(definitions, "caskName").join(" ")}\`
+  \`brew cask audit --download \${_.map(definitions, 'caskName').join(' ')}\`
 );
 
 console.log(
   \`\\nApparently jetbrains changed the release artifact for \${app.name}@\${app.jetbrains.version}.\\n\`
 );
 
-descirbe("something", () => {
+descirbe('something', () => {
   test(\`{pass: false} expect(\${small}).toBeGreaterThanOrEqual(\${big})\`, () => {});
 });
 
@@ -345,7 +345,7 @@ const EqualDivider = styled.div\`
     flex: 1;
 
     &:not(:first-child) {
-      \${(props) => (props.vertical ? "margin-top" : "margin-left")}: 1rem;
+      \${(props) => (props.vertical ? 'margin-top' : 'margin-left')}: 1rem;
     }
   }
 \`;

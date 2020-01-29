@@ -126,7 +126,7 @@ var p: M.D.Point;
 // expect no errors here
 
 module A {
-  export var x = "hello world";
+  export var x = 'hello world';
   export class Point {
     constructor(public x: number, public y: number) {}
   }
@@ -185,7 +185,7 @@ module M {
 }
 
 var o: { name: string };
-var o = new M.D("Hello");
+var o = new M.D('Hello');
 
 var p: { x: number; y: number };
 var p: M.D.Point;

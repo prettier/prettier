@@ -28,8 +28,8 @@ import {
   multiLine,
   andMore,
   soWeCanGetItTo80Columns,
-} from ".";
-import { fitsIn, oneLine } from ".";
+} from '.';
+import { fitsIn, oneLine } from '.';
 
 ================================================================================
 `;
@@ -63,8 +63,8 @@ import {
   multiLine,
   andMore,
   soWeCanGetItTo80Columns,
-} from ".";
-import {fitsIn, oneLine} from ".";
+} from '.';
+import {fitsIn, oneLine} from '.';
 
 ================================================================================
 `;
@@ -127,25 +127,25 @@ import {
   //comment2
   //comment3
   a as b,
-} from "";
+} from '';
 
 import {
   //comment1
   //comment2
   //comment3
   a as b1,
-} from "";
+} from '';
 
 import {
   //comment2 //comment1
   //comment3
   a as b2,
-} from "";
+} from '';
 
 import {
   //comment3 //comment2 //comment1
   a as b3,
-} from "";
+} from '';
 
 import {
   // comment 1
@@ -155,7 +155,7 @@ import {
   FN4 /* comment 4 */,
   // FN4,
   // FN5
-} from "./module";
+} from './module';
 
 import {
   ExecutionResult,
@@ -163,12 +163,12 @@ import {
   /* tslint:disable */
   SelectionSetNode,
   /* tslint:enable */
-} from "graphql";
+} from 'graphql';
 
 import x, {
   // comment
   y,
-} from "z";
+} from 'z';
 
 ================================================================================
 `;
@@ -232,25 +232,25 @@ import {
   //comment2
   //comment3
   a as b,
-} from "";
+} from '';
 
 import {
   //comment1
   //comment2
   //comment3
   a as b1,
-} from "";
+} from '';
 
 import {
   //comment2 //comment1
   //comment3
   a as b2,
-} from "";
+} from '';
 
 import {
   //comment3 //comment2 //comment1
   a as b3,
-} from "";
+} from '';
 
 import {
   // comment 1
@@ -260,7 +260,7 @@ import {
   FN4 /* comment 4 */,
   // FN4,
   // FN5
-} from "./module";
+} from './module';
 
 import {
   ExecutionResult,
@@ -268,12 +268,12 @@ import {
   /* tslint:disable */
   SelectionSetNode,
   /* tslint:enable */
-} from "graphql";
+} from 'graphql';
 
 import x, {
   // comment
   y,
-} from "z";
+} from 'z';
 
 ================================================================================
 `;
@@ -287,7 +287,7 @@ printWidth: 80
 import { } from '@types/googlemaps';
 
 =====================================output=====================================
-import {} from "@types/googlemaps";
+import {} from '@types/googlemaps';
 
 ================================================================================
 `;
@@ -302,7 +302,7 @@ printWidth: 80
 import { } from '@types/googlemaps';
 
 =====================================output=====================================
-import {} from "@types/googlemaps";
+import {} from '@types/googlemaps';
 
 ================================================================================
 `;
@@ -319,15 +319,15 @@ import a, {somethingSuperLongsomethingSuperLong2} from 'somethingSuperLongsometh
 import {a2, somethingSuperLongsomethingSuperLong3} from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
 
 =====================================output=====================================
-import somethingSuperLongsomethingSuperLong from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
-import { somethingSuperLongsomethingSuperLong1 } from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
+import somethingSuperLongsomethingSuperLong from 'somethingSuperLongsomethingSuperLongsomethingSuperLong';
+import { somethingSuperLongsomethingSuperLong1 } from 'somethingSuperLongsomethingSuperLongsomethingSuperLong';
 import a, {
   somethingSuperLongsomethingSuperLong2,
-} from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
+} from 'somethingSuperLongsomethingSuperLongsomethingSuperLong';
 import {
   a2,
   somethingSuperLongsomethingSuperLong3,
-} from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
+} from 'somethingSuperLongsomethingSuperLongsomethingSuperLong';
 
 ================================================================================
 `;
@@ -345,15 +345,15 @@ import a, {somethingSuperLongsomethingSuperLong2} from 'somethingSuperLongsometh
 import {a2, somethingSuperLongsomethingSuperLong3} from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
 
 =====================================output=====================================
-import somethingSuperLongsomethingSuperLong from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
-import {somethingSuperLongsomethingSuperLong1} from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
+import somethingSuperLongsomethingSuperLong from 'somethingSuperLongsomethingSuperLongsomethingSuperLong';
+import {somethingSuperLongsomethingSuperLong1} from 'somethingSuperLongsomethingSuperLongsomethingSuperLong';
 import a, {
   somethingSuperLongsomethingSuperLong2,
-} from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
+} from 'somethingSuperLongsomethingSuperLongsomethingSuperLong';
 import {
   a2,
   somethingSuperLongsomethingSuperLong3,
-} from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
+} from 'somethingSuperLongsomethingSuperLongsomethingSuperLong';
 
 ================================================================================
 `;
@@ -367,7 +367,7 @@ printWidth: 80
 import someCoolUtilWithARatherLongName from '../../../../utils/someCoolUtilWithARatherLongName';
 
 =====================================output=====================================
-import someCoolUtilWithARatherLongName from "../../../../utils/someCoolUtilWithARatherLongName";
+import someCoolUtilWithARatherLongName from '../../../../utils/someCoolUtilWithARatherLongName';
 
 ================================================================================
 `;
@@ -382,7 +382,7 @@ printWidth: 80
 import someCoolUtilWithARatherLongName from '../../../../utils/someCoolUtilWithARatherLongName';
 
 =====================================output=====================================
-import someCoolUtilWithARatherLongName from "../../../../utils/someCoolUtilWithARatherLongName";
+import someCoolUtilWithARatherLongName from '../../../../utils/someCoolUtilWithARatherLongName';
 
 ================================================================================
 `;
@@ -396,7 +396,7 @@ printWidth: 80
 import a, * as b from 'a';
 
 =====================================output=====================================
-import a, * as b from "a";
+import a, * as b from 'a';
 
 ================================================================================
 `;
@@ -411,7 +411,7 @@ printWidth: 80
 import a, * as b from 'a';
 
 =====================================output=====================================
-import a, * as b from "a";
+import a, * as b from 'a';
 
 ================================================================================
 `;

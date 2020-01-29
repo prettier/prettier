@@ -93,13 +93,13 @@ export type TypedNode =
  */
 
 export type InferredType =
-  | "unknown"
-  | "gender"
-  | "enum"
-  | "number-or-string"
-  | "number"
-  | "string"
-  | "error";
+  | 'unknown'
+  | 'gender'
+  | 'enum'
+  | 'number-or-string'
+  | 'number'
+  | 'string'
+  | 'error';
 
 export type Pos = {
   firstLine: number,
@@ -109,8 +109,8 @@ export type Pos = {
 };
 
 export type TypedBinaryOpNode = {
-  exprNodeType: "binary_op",
-  binaryOp: "plus" | "multiply" | "divide" | "minus",
+  exprNodeType: 'binary_op',
+  binaryOp: 'plus' | 'multiply' | 'divide' | 'minus',
   lhs: TypedNode,
   rhs: TypedNode,
   pos: Pos,
@@ -119,7 +119,7 @@ export type TypedBinaryOpNode = {
 };
 
 export type TypedUnaryMinusNode = {
-  exprNodeType: "unary_minus",
+  exprNodeType: 'unary_minus',
   op: TypedNode,
   pos: Pos,
   exprType: InferredType,
@@ -127,23 +127,23 @@ export type TypedUnaryMinusNode = {
 };
 
 export type TypedNumberNode = {
-  exprNodeType: "number",
+  exprNodeType: 'number',
   value: number,
   pos: Pos,
-  exprType: "number",
+  exprType: 'number',
   typed: true,
 };
 
 export type TypedStringLiteralNode = {
-  exprNodeType: "string_literal",
+  exprNodeType: 'string_literal',
   value: string,
   pos: Pos,
-  exprType: "string",
+  exprType: 'string',
   typed: true,
 };
 
 export type TypedVariableNode = {
-  exprNodeType: "variable",
+  exprNodeType: 'variable',
   name: string,
   pos: Pos,
   exprType: InferredType,
@@ -151,11 +151,11 @@ export type TypedVariableNode = {
 };
 
 export type TypedFunctionInvocationNode = {
-  exprNodeType: "function_invocation",
+  exprNodeType: 'function_invocation',
   name: string,
   parameters: TypedNode[],
   pos: Pos,
-  exprType: "error" | "string",
+  exprType: 'error' | 'string',
   typed: true,
 };
 
@@ -246,54 +246,54 @@ export function emitExpression(node: TypedNode) : t.Expression {
 /**
  * @flow
  */
-import * as t from "./jsAst";
+import * as t from './jsAst';
 
 const b = t.builders;
 
-import type { TypedNode } from "./ast";
+import type { TypedNode } from './ast';
 
 function getBinaryOp(
-  op: "plus" | "minus" | "divide" | "multiply"
-): "+" | "-" | "*" | "/" {
+  op: 'plus' | 'minus' | 'divide' | 'multiply'
+): '+' | '-' | '*' | '/' {
   switch (op) {
-    case "plus":
-      return "+";
-    case "minus":
-      return "-";
-    case "divide":
-      return "/";
-    case "multiply":
-      return "*";
+    case 'plus':
+      return '+';
+    case 'minus':
+      return '-';
+    case 'divide':
+      return '/';
+    case 'multiply':
+      return '*';
     default:
-      throw new Error("Invalid binary operator: " + op);
+      throw new Error('Invalid binary operator: ' + op);
   }
 }
 
 export function emitExpression(node: TypedNode): t.Expression {
   switch (node.exprNodeType) {
-    case "string_literal": // FALLTHROUGH
-    case "number":
+    case 'string_literal': // FALLTHROUGH
+    case 'number':
       return b.literal(node.value);
-    case "variable":
+    case 'variable':
       return b.memberExpression(
-        b.identifier("vars"),
+        b.identifier('vars'),
         b.identifier(node.name),
         false
       );
-    case "binary_op": {
+    case 'binary_op': {
       const lhs = emitExpression(node.lhs);
       const rhs = emitExpression(node.rhs);
 
       const op = getBinaryOp(node.binaryOp);
       return b.binaryExpression(op, lhs, rhs);
     }
-    case "unary_minus": {
+    case 'unary_minus': {
       const operand = emitExpression(node.op);
-      return b.unaryExpression("-", operand, true);
+      return b.unaryExpression('-', operand, true);
     }
-    case "function_invocation": {
+    case 'function_invocation': {
       const callee = b.memberExpression(
-        b.identifier("fns"),
+        b.identifier('fns'),
         b.identifier(node.name),
         false
       );
@@ -303,7 +303,7 @@ export function emitExpression(node: TypedNode): t.Expression {
       return b.callExpression(callee, args);
     }
     default:
-      throw new Error("Unknown expression type: " + node.type);
+      throw new Error('Unknown expression type: ' + node.type);
   }
 }
 
@@ -980,7 +980,7 @@ export type File = {
   start: SourcePosition,
   end: SourcePosition,
   comments: ?Array<Comment>,
-  type: "File",
+  type: 'File',
   program: Program,
 };
 
@@ -989,60 +989,60 @@ export type Program = {
   start: SourcePosition,
   end: SourcePosition,
   comments: ?Array<Comment>,
-  type: "Program",
+  type: 'Program',
   body: Statement[],
 };
 
 export type BinaryOperator =
-  | "=="
-  | "!="
-  | "==="
-  | "!=="
-  | "<"
-  | "<="
-  | ">"
-  | ">="
-  | "<<"
-  | ">>"
-  | ">>>"
-  | "+"
-  | "-"
-  | "*"
-  | "/"
-  | "%"
-  | "&" // TODO Missing from the Parser API.
-  | "|"
-  | "^"
-  | "in"
-  | "instanceof"
-  | "..";
+  | '=='
+  | '!='
+  | '==='
+  | '!=='
+  | '<'
+  | '<='
+  | '>'
+  | '>='
+  | '<<'
+  | '>>'
+  | '>>>'
+  | '+'
+  | '-'
+  | '*'
+  | '/'
+  | '%'
+  | '&' // TODO Missing from the Parser API.
+  | '|'
+  | '^'
+  | 'in'
+  | 'instanceof'
+  | '..';
 
 export type UnaryOperator =
-  | "-"
-  | "+"
-  | "!"
-  | "~"
-  | "typeof"
-  | "void"
-  | "delete";
+  | '-'
+  | '+'
+  | '!'
+  | '~'
+  | 'typeof'
+  | 'void'
+  | 'delete';
 
 export type AssignmentOperator =
-  | "="
-  | "+="
-  | "-="
-  | "*="
-  | "/="
-  | "%="
-  | "<<="
-  | ">>="
-  | ">>>="
-  | "|="
-  | "^="
-  | "&=";
+  | '='
+  | '+='
+  | '-='
+  | '*='
+  | '/='
+  | '%='
+  | '<<='
+  | '>>='
+  | '>>>='
+  | '|='
+  | '^='
+  | '&=';
 
-export type UpdateOperator = "++" | "--";
+export type UpdateOperator = '++' | '--';
 
-export type LogicalOperator = "&&" | "||";
+export type LogicalOperator = '&&' | '||';
 
 export type Node =
   | EmptyStatement
@@ -1098,7 +1098,7 @@ export type EmptyStatement = {
   start: SourcePosition,
   end: SourcePosition,
   comments: ?Array<Comment>,
-  type: "EmptyStatement",
+  type: 'EmptyStatement',
 };
 
 export type BlockStatement = {
@@ -1106,7 +1106,7 @@ export type BlockStatement = {
   start: SourcePosition,
   end: SourcePosition,
   comments: ?Array<Comment>,
-  type: "BlockStatement",
+  type: 'BlockStatement',
   body: Statement[],
 };
 
@@ -1115,7 +1115,7 @@ export type ExpressionStatement = {
   start: SourcePosition,
   end: SourcePosition,
   comments: ?Array<Comment>,
-  type: "ExpressionStatement",
+  type: 'ExpressionStatement',
   expression: Expression,
 };
 
@@ -1124,7 +1124,7 @@ export type IfStatement = {
   start: SourcePosition,
   end: SourcePosition,
   comments: ?Array<Comment>,
-  type: "IfStatement",
+  type: 'IfStatement',
   test: Expression,
   consequent: Statement,
   alternate: ?Statement,
@@ -1135,7 +1135,7 @@ export type BreakStatement = {
   start: SourcePosition,
   end: SourcePosition,
   comments: ?Array<Comment>,
-  type: "BreakStatement",
+  type: 'BreakStatement',
   label: ?Identifier,
 };
 
@@ -1144,7 +1144,7 @@ export type ContinueStatement = {
   start: SourcePosition,
   end: SourcePosition,
   comments: ?Array<Comment>,
-  type: "ContinueStatement",
+  type: 'ContinueStatement',
   label: ?Identifier,
 };
 
@@ -1153,7 +1153,7 @@ export type ReturnStatement = {
   start: SourcePosition,
   end: SourcePosition,
   comments: ?Array<Comment>,
-  type: "ReturnStatement",
+  type: 'ReturnStatement',
   argument: ?Expression,
 };
 
@@ -1162,7 +1162,7 @@ export type ThrowStatement = {
   start: SourcePosition,
   end: SourcePosition,
   comments: ?Array<Comment>,
-  type: "ThrowStatement",
+  type: 'ThrowStatement',
   argument: ?Expression,
 };
 
@@ -1171,7 +1171,7 @@ export type WhileStatement = {
   start: SourcePosition,
   end: SourcePosition,
   comments: ?Array<Comment>,
-  type: "WhileStatement",
+  type: 'WhileStatement',
   test: Expression,
   body: Statement,
 };
@@ -1181,7 +1181,7 @@ export type ForStatement = {
   start: SourcePosition,
   end: SourcePosition,
   comments: ?Array<Comment>,
-  type: "ForStatement",
+  type: 'ForStatement',
   init: ?(VariableDeclaration | Expression),
   test: ?Expression,
   update: ?Expression,
@@ -1193,7 +1193,7 @@ export type ForInStatement = {
   start: SourcePosition,
   end: SourcePosition,
   comments: ?Array<Comment>,
-  type: "ForInStatement",
+  type: 'ForInStatement',
   left: VariableDeclaration | Expression,
   right: Expression,
   body: Statement,
@@ -1204,7 +1204,7 @@ export type TryStatement = {
   start: SourcePosition,
   end: SourcePosition,
   comments: ?Array<Comment>,
-  type: "TryStatement",
+  type: 'TryStatement',
   block: BlockStatement,
   handler: ?CatchClause,
   handlers: CatchClause[],
@@ -1216,7 +1216,7 @@ export type CatchClause = {
   start: SourcePosition,
   end: SourcePosition,
   comments: ?Array<Comment>,
-  type: "CatchClause",
+  type: 'CatchClause',
   param: Pattern,
   guard: ?Expression,
   body: BlockStatement,
@@ -1244,7 +1244,7 @@ export type Identifier = {
   start: SourcePosition,
   end: SourcePosition,
   comments: ?Array<Comment>,
-  type: "Identifier",
+  type: 'Identifier',
   name: string,
 };
 
@@ -1253,7 +1253,7 @@ export type Literal = {
   start: SourcePosition,
   end: SourcePosition,
   comments: ?Array<Comment>,
-  type: "Literal",
+  type: 'Literal',
   value: ?(string | boolean | number | RegExp),
   regex: ?{ pattern: string, flags: string },
 };
@@ -1263,7 +1263,7 @@ export type ThisExpression = {
   start: SourcePosition,
   end: SourcePosition,
   comments: ?Array<Comment>,
-  type: "ThisExpression",
+  type: 'ThisExpression',
 };
 
 export type ArrayExpression = {
@@ -1271,7 +1271,7 @@ export type ArrayExpression = {
   start: SourcePosition,
   end: SourcePosition,
   comments: ?Array<Comment>,
-  type: "ArrayExpression",
+  type: 'ArrayExpression',
   elements: Expression[],
 };
 
@@ -1280,7 +1280,7 @@ export type ObjectExpreession = {
   start: SourcePosition,
   end: SourcePosition,
   comments: ?Array<Comment>,
-  type: "ObjectExpression",
+  type: 'ObjectExpression',
   properties: Property[],
 };
 
@@ -1289,8 +1289,8 @@ export type Property = {
   start: SourcePosition,
   end: SourcePosition,
   comments: ?Array<Comment>,
-  type: "Property",
-  kind: "init" | "get" | "set",
+  type: 'Property',
+  kind: 'init' | 'get' | 'set',
   key: Literal | Identifier,
   value: Expression,
 };
@@ -1300,7 +1300,7 @@ export type FunctionExpression = {
   start: SourcePosition,
   end: SourcePosition,
   comments: ?Array<Comment>,
-  type: "FunctionExpression",
+  type: 'FunctionExpression',
   id: ?Identifier,
   params: Pattern[],
   body: BlockStatement,
@@ -1311,7 +1311,7 @@ export type BinaryExpression = {
   start: SourcePosition,
   end: SourcePosition,
   comments: ?Array<Comment>,
-  type: "BinaryExpression",
+  type: 'BinaryExpression',
   operator: BinaryOperator,
   left: Expression,
   right: Expression,
@@ -1322,7 +1322,7 @@ export type UnaryExpression = {
   start: SourcePosition,
   end: SourcePosition,
   comments: ?Array<Comment>,
-  type: "UnaryExpression",
+  type: 'UnaryExpression',
   operator: UnaryOperator,
   argument: Expression,
   prefix: boolean,
@@ -1333,7 +1333,7 @@ export type AssignmentExpression = {
   start: SourcePosition,
   end: SourcePosition,
   comments: ?Array<Comment>,
-  type: "AssignmentExpression",
+  type: 'AssignmentExpression',
   operator: AssignmentOperator,
   left: Pattern,
   right: Expression,
@@ -1344,7 +1344,7 @@ export type UpdateExpression = {
   start: SourcePosition,
   end: SourcePosition,
   comments: ?Array<Comment>,
-  type: "UpdateExpression",
+  type: 'UpdateExpression',
   operator: UpdateOperator,
   argument: Expression,
   prefix: boolean,
@@ -1355,7 +1355,7 @@ export type LogicalExpression = {
   start: SourcePosition,
   end: SourcePosition,
   comments: ?Array<Comment>,
-  type: "LogicalExpression",
+  type: 'LogicalExpression',
   operator: LogicalOperator,
   left: Expression,
   right: Expression,
@@ -1366,7 +1366,7 @@ export type ConditionalExpression = {
   start: SourcePosition,
   end: SourcePosition,
   comments: ?Array<Comment>,
-  type: "ConditionalExpression",
+  type: 'ConditionalExpression',
   test: Expression,
   consequent: Expression,
   alternate: Expression,
@@ -1377,7 +1377,7 @@ export type NewExpression = {
   start: SourcePosition,
   end: SourcePosition,
   comments: ?Array<Comment>,
-  type: "NewExpression",
+  type: 'NewExpression',
   callee: Expression,
   arguments: Expression[],
 };
@@ -1387,7 +1387,7 @@ export type CallExpression = {
   start: SourcePosition,
   end: SourcePosition,
   comments: ?Array<Comment>,
-  type: "CallExpression",
+  type: 'CallExpression',
   callee: Expression,
   arguments: Expression[],
 };
@@ -1397,7 +1397,7 @@ export type MemberExpression = {
   start: SourcePosition,
   end: SourcePosition,
   comments: ?Array<Comment>,
-  type: "MemberExpression",
+  type: 'MemberExpression',
   object: Expression,
   property: Identifier | Expression,
   computed: boolean,
@@ -1413,8 +1413,8 @@ export type VariableDeclaration = {
   start: SourcePosition,
   end: SourcePosition,
   comments: ?Array<Comment>,
-  type: "VariableDeclaration",
-  kind: "var" | "let" | "const",
+  type: 'VariableDeclaration',
+  kind: 'var' | 'let' | 'const',
   declarations: VariableDeclarator[],
 };
 
@@ -1423,7 +1423,7 @@ export type FunctionDeclaration = {
   start: SourcePosition,
   end: SourcePosition,
   comments: ?Array<Comment>,
-  type: "FunctionDeclaration",
+  type: 'FunctionDeclaration',
   id: Identifier,
   body: BlockStatement,
   params: Pattern[],
@@ -1434,7 +1434,7 @@ export type VariableDeclarator = {
   start: SourcePosition,
   end: SourcePosition,
   comments: ?Array<Comment>,
-  type: "VariableDeclarator",
+  type: 'VariableDeclarator',
   id: Pattern,
   init: ?Expression,
 };
@@ -1486,7 +1486,7 @@ export const builders: {
   arrayExpression(elements: Expression[]): ArrayExpression,
   objectExpreession(properties: Property[]): ObjectExpreession,
   property(
-    kind: "init" | "get" | "set",
+    kind: 'init' | 'get' | 'set',
     key: Literal | Identifier,
     value: Expression
   ): Property,
@@ -1533,7 +1533,7 @@ export const builders: {
     computed: boolean
   ): MemberExpression,
   variableDeclaration(
-    kind: "var" | "let" | "const",
+    kind: 'var' | 'let' | 'const',
     declarations: VariableDeclarator[]
   ): VariableDeclaration,
   functionDeclaration(

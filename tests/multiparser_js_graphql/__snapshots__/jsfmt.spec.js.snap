@@ -400,7 +400,7 @@ fragment another on User { name
 }\${ fragment }\`
 
 =====================================output=====================================
-import gql from "graphql-tag";
+import gql from 'graphql-tag';
 
 const query = gql\`
   {
@@ -552,7 +552,7 @@ gql\`
 
   \${FRIENDS_FRAGMENT}
   \${generateFragment({
-    totally: "a good idea",
+    totally: 'a good idea',
   })}
 
   \${fragment}
@@ -648,7 +648,7 @@ graphql.experimental\`
 \`;
 
 =====================================output=====================================
-const { graphql } = require("react-relay");
+const { graphql } = require('react-relay');
 
 graphql\`
   mutation MarkReadNotificationMutation($input: MarkReadNotificationData!) {

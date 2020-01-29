@@ -72,8 +72,8 @@ printWidth: 80
 =====================================output=====================================
 (<a />).method();
 (<a />).property;
-(<a />)["computed"];
-(<a />)["computed"]();
+(<a />)['computed'];
+(<a />)['computed']();
 (
   <div>
     <a>foo</a>
@@ -88,12 +88,12 @@ printWidth: 80
   <div>
     <a>foo</a>
   </div>
-)["computed"];
+)['computed'];
 (
   <div>
     <a>foo</a>
   </div>
-)["computed"]();
+)['computed']();
 
 ================================================================================
 `;
@@ -119,9 +119,9 @@ const footer = '<footer></footer>';
 type ul = any;
 const somethingElse = 1;
 const thing = <ul>somethingElse;
-const div = "<div></div>";
+const div = '<div></div>';
 const h1 = \`<h1>Hi</h1>\`;
-const footer = "<footer></footer>";
+const footer = '<footer></footer>';
 
 ================================================================================
 `;
@@ -203,14 +203,14 @@ function functionName4<T>() {
 functionName5<T>();
 
 interface Interface1<T> {
-  one: "one";
+  one: 'one';
 }
 
 interface Interface2 {
   two: Two<T>;
 }
 
-type Type1<T> = "type1";
+type Type1<T> = 'type1';
 
 type Type2 = Two<T>;
 

@@ -10,7 +10,7 @@ trailingComma: "none"
 @import "rounded-corners", "text-shadow";
 
 =====================================output=====================================
-@import "rounded-corners", "text-shadow";
+@import 'rounded-corners', 'text-shadow';
 
 ================================================================================
 `;
@@ -24,7 +24,7 @@ printWidth: 80
 @import "rounded-corners", "text-shadow";
 
 =====================================output=====================================
-@import "rounded-corners", "text-shadow";
+@import 'rounded-corners', 'text-shadow';
 
 ================================================================================
 `;
@@ -1110,16 +1110,16 @@ a {
 $default: #111111 !default;
 $default: #111111 !default;
 $default: #111111 !default;
-$default: "very-long-long-long-long-long-long-long-long-long-long-long-value" !default;
-$default: "very-long-long-long-long-long-long-long-long-long-long-long-value" !default;
-$default: "very-long-long-long-long-long-long-long-long-long-long-long-value" !default;
+$default: 'very-long-long-long-long-long-long-long-long-long-long-long-value' !default;
+$default: 'very-long-long-long-long-long-long-long-long-long-long-long-value' !default;
+$default: 'very-long-long-long-long-long-long-long-long-long-long-long-value' !default;
 
 $global: #111111 !global;
 $global: #111111 !global;
 $global: #111111 !global;
-$global: "very-long-long-long-long-long-long-long-long-long-long-long-value" !global;
-$global: "very-long-long-long-long-long-long-long-long-long-long-long-value" !global;
-$global: "very-long-long-long-long-long-long-long-long-long-long-long-value" !global;
+$global: 'very-long-long-long-long-long-long-long-long-long-long-long-value' !global;
+$global: 'very-long-long-long-long-long-long-long-long-long-long-long-value' !global;
+$global: 'very-long-long-long-long-long-long-long-long-long-long-long-value' !global;
 
 $map: (
   key: value,
@@ -1312,67 +1312,67 @@ $longVariable: (
   (mobile $mobile) (tablet $tablet) (desktop $desktop) (wide $wide)
 );
 
-$list-space: "item-1" "item-2" "item-3";
-$list-space: "item-1" "item-2" "item-3";
-$list-space: "item-1" "item-2" "item-3";
-$list-space: "item-1" "item-2" "item-3";
-$list-space: "item-1" "item-2" "item-3";
-$list-space: "item-1" "item-2" "item-3";
-$list-comma: "item-1", "item-2", "item-3";
-$list-comma: "item-1", "item-2", "item-3";
-$list-comma: "item-1", "item-2", "item-3";
-$list-comma: "item-1", "item-2", "item-3";
-$list-comma: "item-1", "item-2", "item-3";
-$list-comma: "item-1", "item-2", "item-3";
-$list: "item-1.1" "item-1.2" "item-1.3", "item-2.1" "item-2.2" "item-2.3",
-  "item-3.1" "item-3.2" "item-3.3";
-$list: "item-1.1" "item-1.2" "item-1.3", "item-2.1" "item-2.2" "item-2.3",
-  "item-3.1" "item-3.2" "item-3.3";
-$list: "item-1.1" "item-1.2" "item-1.3", "item-2.1" "item-2.2" "item-2.3",
-  "item-3.1" "item-3.2" "item-3.3";
-$list: "item-1.1" "item-1.2" "item-1.3", "item-2.1" "item-2.2" "item-2.3",
-  "item-3.1" "item-3.2" "item-3.3";
-$list: "item-1.1" "item-1.2" "item-1.3", "item-2.1" "item-2.2" "item-2.3",
-  "item-3.1" "item-3.2" "item-3.3";
-$list: "item-1.1" "item-1.2" "item-1.3", "item-2.1" "item-2.2" "item-2.3",
-  "item-3.1" "item-3.2" "item-3.3";
+$list-space: 'item-1' 'item-2' 'item-3';
+$list-space: 'item-1' 'item-2' 'item-3';
+$list-space: 'item-1' 'item-2' 'item-3';
+$list-space: 'item-1' 'item-2' 'item-3';
+$list-space: 'item-1' 'item-2' 'item-3';
+$list-space: 'item-1' 'item-2' 'item-3';
+$list-comma: 'item-1', 'item-2', 'item-3';
+$list-comma: 'item-1', 'item-2', 'item-3';
+$list-comma: 'item-1', 'item-2', 'item-3';
+$list-comma: 'item-1', 'item-2', 'item-3';
+$list-comma: 'item-1', 'item-2', 'item-3';
+$list-comma: 'item-1', 'item-2', 'item-3';
+$list: 'item-1.1' 'item-1.2' 'item-1.3', 'item-2.1' 'item-2.2' 'item-2.3',
+  'item-3.1' 'item-3.2' 'item-3.3';
+$list: 'item-1.1' 'item-1.2' 'item-1.3', 'item-2.1' 'item-2.2' 'item-2.3',
+  'item-3.1' 'item-3.2' 'item-3.3';
+$list: 'item-1.1' 'item-1.2' 'item-1.3', 'item-2.1' 'item-2.2' 'item-2.3',
+  'item-3.1' 'item-3.2' 'item-3.3';
+$list: 'item-1.1' 'item-1.2' 'item-1.3', 'item-2.1' 'item-2.2' 'item-2.3',
+  'item-3.1' 'item-3.2' 'item-3.3';
+$list: 'item-1.1' 'item-1.2' 'item-1.3', 'item-2.1' 'item-2.2' 'item-2.3',
+  'item-3.1' 'item-3.2' 'item-3.3';
+$list: 'item-1.1' 'item-1.2' 'item-1.3', 'item-2.1' 'item-2.2' 'item-2.3',
+  'item-3.1' 'item-3.2' 'item-3.3';
 $list: (
-  ("item-1.1", "item-1.2", "item-1.3"),
-  ("item-2.1", "item-2.2", "item-2.3"),
-  ("item-3.1", "item-3.2", "item-3.3")
+  ('item-1.1', 'item-1.2', 'item-1.3'),
+  ('item-2.1', 'item-2.2', 'item-2.3'),
+  ('item-3.1', 'item-3.2', 'item-3.3')
 );
 $list: (
-  ("item-1.1", "item-1.2", "item-1.3"),
-  ("item-2.1", "item-2.2", "item-2.3"),
-  ("item-3.1", "item-3.2", "item-3.3")
+  ('item-1.1', 'item-1.2', 'item-1.3'),
+  ('item-2.1', 'item-2.2', 'item-2.3'),
+  ('item-3.1', 'item-3.2', 'item-3.3')
 );
 $list: (
-  ("item-1.1", "item-1.2", "item-1.3"),
-  ("item-2.1", "item-2.2", "item-2.3"),
-  ("item-3.1", "item-3.2", "item-3.3")
+  ('item-1.1', 'item-1.2', 'item-1.3'),
+  ('item-2.1', 'item-2.2', 'item-2.3'),
+  ('item-3.1', 'item-3.2', 'item-3.3')
 );
 $list: (
-  ("item-1.1", "item-1.2", "item-1.3"),
-  ("item-2.1", "item-2.2", "item-2.3"),
-  ("item-3.1", "item-3.2", "item-3.3")
+  ('item-1.1', 'item-1.2', 'item-1.3'),
+  ('item-2.1', 'item-2.2', 'item-2.3'),
+  ('item-3.1', 'item-3.2', 'item-3.3')
 );
 $list: (
-  ("item-1.1", "item-1.2", "item-1.3"),
-  ("item-2.1", "item-2.2", "item-2.3"),
-  ("item-3.1", "item-3.2", "item-3.3")
+  ('item-1.1', 'item-1.2', 'item-1.3'),
+  ('item-2.1', 'item-2.2', 'item-2.3'),
+  ('item-3.1', 'item-3.2', 'item-3.3')
 );
 $list: (
-  ("item-1.1", "item-1.2", "item-1.3"),
-  ("item-2.1", "item-2.2", "item-2.3"),
-  ("item-3.1", "item-3.2", "item-3.3")
+  ('item-1.1', 'item-1.2', 'item-1.3'),
+  ('item-2.1', 'item-2.2', 'item-2.3'),
+  ('item-3.1', 'item-3.2', 'item-3.3')
 );
 
 $var: (0 0) (0 0) (0 0) (0 0) (0 0) (0 0) (0 0) (0 0) (0 0) (0 0) (0 0) (0 0)
   (0 0) (0 0);
-$space-scale: (0, "0") (0.25, "0-25") (0.5, "0-5") (0.75, "0-75") (1, "1")
-  (1.25, "1-25") (1.5, "1-5") (1.75, "1-75") (2, "2") (2.25, "2-25")
-  (2.5, "2-5") (2.75, "2-75") (3, "3") (3.25, "3-25") (3.5, "3-5")
-  (3.75, "3-75") (4, "4");
+$space-scale: (0, '0') (0.25, '0-25') (0.5, '0-5') (0.75, '0-75') (1, '1')
+  (1.25, '1-25') (1.5, '1-5') (1.75, '1-75') (2, '2') (2.25, '2-25')
+  (2.5, '2-5') (2.75, '2-75') (3, '3') (3.25, '3-25') (3.5, '3-5')
+  (3.75, '3-75') (4, '4');
 
 .card-column-simple {
   @include breakpoint(getBp(md)) {
@@ -1408,13 +1408,13 @@ $space-scale: (0, "0") (0.25, "0-25") (0.5, "0-5") (0.75, "0-75") (1, "1")
 @error "Very long long long long long long long long long long long long long line Error (#{$message}).";
 @error "Very long long long long long long long long long long long long long line Error (#{$message}).";
 
-$buttonConfig: "save" 50px, "cancel" 50px, "help" 100px;
+$buttonConfig: 'save' 50px, 'cancel' 50px, 'help' 100px;
 
-$locale: "en_us";
-html[lang="#{$locale}"] {
+$locale: 'en_us';
+html[lang='#{$locale}'] {
   font-size: 10px;
 }
-$alertClass: "error";
+$alertClass: 'error';
 p.message-#{$alertClass} {
   color: red;
 }
@@ -1539,11 +1539,11 @@ p {
   }
 }
 
-@each $animal in puma, sea-slug, cheerfulDog, BigSalamander, "string",
-  "another-string", "camelCaseString", "PascalCaseString"
+@each $animal in puma, sea-slug, cheerfulDog, BigSalamander, 'string',
+  'another-string', 'camelCaseString', 'PascalCaseString'
 {
   .#{$animal}-icon {
-    background-image: url("/images/#{$animal}.png");
+    background-image: url('/images/#{$animal}.png');
   }
 }
 
@@ -1555,15 +1555,15 @@ $i: 6;
   $i: $i - 2;
 }
 
-@mixin cool-border($width: 10px, $coolStyle: "solid", $AwesomeColor: "black") {
+@mixin cool-border($width: 10px, $coolStyle: 'solid', $AwesomeColor: 'black') {
   border: $width $coolStyle $AwesomeColor;
 }
 
 p {
-  @include cool-border(1px, "solid", $fff);
+  @include cool-border(1px, 'solid', $fff);
 }
 p {
-  @include cool-border($width: 1px, $coolStyle: "solid", $AwesomeColor: #fff);
+  @include cool-border($width: 1px, $coolStyle: 'solid', $AwesomeColor: #fff);
 }
 p {
   @include coolBorder();
@@ -1573,14 +1573,14 @@ p {
   border: 10px solid #fff;
 }
 p {
-  @include coolBorder(1px, "solid", $fff);
+  @include coolBorder(1px, 'solid', $fff);
 }
 
 @mixin CoolBorder() {
   border: 10px solid #fff;
 }
 p {
-  @include CoolBorder(1px, "solid", $fff);
+  @include CoolBorder(1px, 'solid', $fff);
 }
 
 @mixin box-shadow($shadows...) {
@@ -1633,11 +1633,11 @@ p {
   }
 }
 @include config-icon-colors(
-  "icon-",
-  "save" green,
-  "cancel" gray,
-  "delete" red,
-  "wait" blue
+  'icon-',
+  'save' green,
+  'cancel' gray,
+  'delete' red,
+  'wait' blue
 );
 
 @function my-calculation-function($some-number, $anotherNumber, $BigNumber) {
@@ -1667,8 +1667,8 @@ p {
   border: border(25px, 35px);
 }
 
-$sm-only: "(min-width: 768px) and (max-width: 991px)";
-$lg-and-up: "(min-width: 1200px)";
+$sm-only: '(min-width: 768px) and (max-width: 991px)';
+$lg-and-up: '(min-width: 1200px)';
 
 @media screen and #{$sm-only, $lg-and-up} {
   color: #000;
@@ -1685,7 +1685,7 @@ $lg-and-up: "(min-width: 1200px)";
   width: calc(100% - #{$sidebar-width});
   max-width: calc(#{$m * 100}vw #{$sign} #{$b});
   font: #{$font-size}/#{$line-height};
-  content: "I have #{8 + 2} books on SASS!";
+  content: 'I have #{8 + 2} books on SASS!';
   border: #{$var} #{$var} #{$var};
   filter: #{$var}#{$var}#{$var};
   prop: #{$var + $var} #{$var + $var} #{$var + $var};
@@ -1732,12 +1732,12 @@ $lg-and-up: "(min-width: 1200px)";
   }
 }
 
-$icons: wifi "\\600", wifi-hotspot "\\601", weather "\\602";
+$icons: wifi '\\600', wifi-hotspot '\\601', weather '\\602';
 
 @each $icon in $icons {
   .icon-#{nth($icon, 1)},
   %icon-#{nth($icon, 1)} {
-    content: "#{nth($icon, 2)}";
+    content: '#{nth($icon, 2)}';
   }
 }
 
@@ -1757,7 +1757,7 @@ $icons: wifi "\\600", wifi-hotspot "\\601", weather "\\602";
   prop12: rgba(255, 0, 0, 0.75) + rgba(0, 255, 0, 0.75);
   prop13: progid:DXImageTransform.Microsoft.gradient(enabled='false', startColorstr='#{ie-hex-str($green)}', endColorstr='#{ie-hex-str($translucent-red)}');
   prop14: e + -resize;
-  prop15: sans- + "serif";
+  prop15: sans- + 'serif';
   prop16: 1em + (2em * 3);
   prop17: rotate(-2deg);
   prop18: rotate(-2deg);
@@ -1786,7 +1786,7 @@ $new-entry: ();
 $new-entry: ();
 
 body:before {
-  content: quote(to-string(fibonacci(100), " \\A "));
+  content: quote(to-string(fibonacci(100), ' \\A '));
   white-space: pre-wrap;
 }
 
@@ -1809,12 +1809,12 @@ a:nth-child(#{$numPerRow}n) {
 }
 
 .icon-#{$icon-name} {
-  background-image: "/images/#{$icon-name}.svg";
+  background-image: '/images/#{$icon-name}.svg';
 }
 
 $extmods: (
-  eot: "?",
-  svg: "#" + str-replace($name, " ", "_")
+  eot: '?',
+  svg: '#' + str-replace($name, ' ', '_')
 );
 
 @mixin keyframes {
@@ -1853,7 +1853,7 @@ $colors: (
   )
 );
 
-@function color($color, $tone: "base") {
+@function color($color, $tone: 'base') {
   @return map-get(map-get($colors, $color), $tone);
 }
 
@@ -1867,22 +1867,22 @@ a {
   transition-timing-function: func1(
     func2(
       func3(
-        "veryVeryVeryVeryVeryLongValue",
-        "veryVeryVeryVeryVeryLongValue",
-        "veryVeryVeryVeryVeryLongValue",
-        "veryVeryVeryVeryVeryLongValue"
+        'veryVeryVeryVeryVeryLongValue',
+        'veryVeryVeryVeryVeryLongValue',
+        'veryVeryVeryVeryVeryLongValue',
+        'veryVeryVeryVeryVeryLongValue'
       ),
-      "veryVeryVeryVeryVeryLongValue",
-      "veryVeryVeryVeryVeryLongValue",
-      "veryVeryVeryVeryVeryLongValue"
+      'veryVeryVeryVeryVeryLongValue',
+      'veryVeryVeryVeryVeryLongValue',
+      'veryVeryVeryVeryVeryLongValue'
     ),
-    "veryVeryVeryVeryVeryLongValue",
-    "veryVeryVeryVeryVeryLongValue",
+    'veryVeryVeryVeryVeryLongValue',
+    'veryVeryVeryVeryVeryLongValue',
     func3(
-      "veryVeryVeryVeryVeryLongValue",
-      "veryVeryVeryVeryVeryLongValue",
-      "veryVeryVeryVeryVeryLongValue",
-      "veryVeryVeryVeryVeryLongValue"
+      'veryVeryVeryVeryVeryLongValue',
+      'veryVeryVeryVeryVeryLongValue',
+      'veryVeryVeryVeryVeryLongValue',
+      'veryVeryVeryVeryVeryLongValue'
     )
   );
 }
@@ -1917,7 +1917,7 @@ $o-grid-default-config: (
 );
 
 $a: ();
-$b: unquote("");
+$b: unquote('');
 $c: null;
 $d: (null);
 
@@ -1943,29 +1943,29 @@ $map: (
 );
 
 a {
-  content: "#{"0.5"}";
-  content: my-fn("_");
-  content: "#{my-fn("_")}";
-  content: my-fn("-");
-  content: "#{my-fn("-")}";
-  content: my-fn("-a");
-  content: "#{my-fn("-a")}";
-  content: my-fn("a-");
-  content: "#{my-fn("a-")}";
-  content: my-fn("foo");
-  content: "#{my-fn("foo")}";
-  content: 1 "#{my-fn("foo")}" 2;
-  content: foo "#{my-fn("foo")}" bar;
-  content: "foo #{$description} bar";
+  content: '#{'0.5'}';
+  content: my-fn('_');
+  content: '#{my-fn('_')}';
+  content: my-fn('-');
+  content: '#{my-fn('-')}';
+  content: my-fn('-a');
+  content: '#{my-fn('-a')}';
+  content: my-fn('a-');
+  content: '#{my-fn('a-')}';
+  content: my-fn('foo');
+  content: '#{my-fn('foo')}';
+  content: 1 '#{my-fn('foo')}' 2;
+  content: foo '#{my-fn('foo')}' bar;
+  content: 'foo #{$description} bar';
 
-  content: "#{my-fn("foo","bar")}";
-  content: "#{my-fn( "foo" , "bar" )}";
-  content: "#{my-fn(  "foo"  ,  "bar"  )}";
+  content: '#{my-fn('foo','bar')}';
+  content: '#{my-fn( 'foo' , 'bar' )}';
+  content: '#{my-fn(  'foo'  ,  'bar'  )}';
 
   content: '#{my-fn("foo")}';
-  content: "#{my-fn("foo")}";
+  content: '#{my-fn('foo')}';
   content: "#{my-fn('foo')}";
-  content: "#{my-fn("foo")}";
+  content: '#{my-fn('foo')}';
 }
 
 mixin theme($css-property, $css-value, $theme-classes: t) {
@@ -1975,9 +1975,9 @@ mixin theme($css-property, $css-value, $theme-classes: t) {
         $value: $css-value;
 
         @each $theme-name, $theme-value in $theme-properties {
-          $rgba-value: "rgba(#{red($theme-value)}, #{green($theme-value)}, #{blue($theme-value)}";
-          $value: str-replace($value, "rgba(\${#{$theme-name}}", $rgba-value);
-          $value: str-replace($value, "\${#{$theme-name}}", $theme-value);
+          $rgba-value: 'rgba(#{red($theme-value)}, #{green($theme-value)}, #{blue($theme-value)}';
+          $value: str-replace($value, 'rgba(\${#{$theme-name}}', $rgba-value);
+          $value: str-replace($value, '\${#{$theme-name}}', $theme-value);
         }
 
         @at-root .#{$class}-#{join($theme, $selector)} {
@@ -1995,14 +1995,14 @@ mixin theme($css-property, $css-value, $theme-classes: t) {
   color: red; // Comment
 }
 
-$my-list: "foo",
+$my-list: 'foo',
   // Comment
-    "bar"; // Comment
+    'bar'; // Comment
 
 $my-map: (
-  "foo": 1,
+  'foo': 1,
   // Comment
-    "bar": 2,
+    'bar': 2,
   // Comment
 );
 
@@ -2015,14 +2015,14 @@ $my-map: (
 }
 
 @import // Comment
-    "mixins",
-  "variables",
+    'mixins',
+  'variables',
   // Comment
-    "reset",
-  "scaffolding", "type",
+    'reset',
+  'scaffolding', 'type',
   // Comment
-    "bar",
-  "tabs";
+    'bar',
+  'tabs';
 
 @mixin placeholder {
   &::placeholder {
@@ -3132,16 +3132,16 @@ a {
 $default: #111111 !default;
 $default: #111111 !default;
 $default: #111111 !default;
-$default: "very-long-long-long-long-long-long-long-long-long-long-long-value" !default;
-$default: "very-long-long-long-long-long-long-long-long-long-long-long-value" !default;
-$default: "very-long-long-long-long-long-long-long-long-long-long-long-value" !default;
+$default: 'very-long-long-long-long-long-long-long-long-long-long-long-value' !default;
+$default: 'very-long-long-long-long-long-long-long-long-long-long-long-value' !default;
+$default: 'very-long-long-long-long-long-long-long-long-long-long-long-value' !default;
 
 $global: #111111 !global;
 $global: #111111 !global;
 $global: #111111 !global;
-$global: "very-long-long-long-long-long-long-long-long-long-long-long-value" !global;
-$global: "very-long-long-long-long-long-long-long-long-long-long-long-value" !global;
-$global: "very-long-long-long-long-long-long-long-long-long-long-long-value" !global;
+$global: 'very-long-long-long-long-long-long-long-long-long-long-long-value' !global;
+$global: 'very-long-long-long-long-long-long-long-long-long-long-long-value' !global;
+$global: 'very-long-long-long-long-long-long-long-long-long-long-long-value' !global;
 
 $map: (
   key: value,
@@ -3334,67 +3334,67 @@ $longVariable: (
   (mobile $mobile) (tablet $tablet) (desktop $desktop) (wide $wide)
 );
 
-$list-space: "item-1" "item-2" "item-3";
-$list-space: "item-1" "item-2" "item-3";
-$list-space: "item-1" "item-2" "item-3";
-$list-space: "item-1" "item-2" "item-3";
-$list-space: "item-1" "item-2" "item-3";
-$list-space: "item-1" "item-2" "item-3";
-$list-comma: "item-1", "item-2", "item-3";
-$list-comma: "item-1", "item-2", "item-3";
-$list-comma: "item-1", "item-2", "item-3";
-$list-comma: "item-1", "item-2", "item-3";
-$list-comma: "item-1", "item-2", "item-3";
-$list-comma: "item-1", "item-2", "item-3";
-$list: "item-1.1" "item-1.2" "item-1.3", "item-2.1" "item-2.2" "item-2.3",
-  "item-3.1" "item-3.2" "item-3.3";
-$list: "item-1.1" "item-1.2" "item-1.3", "item-2.1" "item-2.2" "item-2.3",
-  "item-3.1" "item-3.2" "item-3.3";
-$list: "item-1.1" "item-1.2" "item-1.3", "item-2.1" "item-2.2" "item-2.3",
-  "item-3.1" "item-3.2" "item-3.3";
-$list: "item-1.1" "item-1.2" "item-1.3", "item-2.1" "item-2.2" "item-2.3",
-  "item-3.1" "item-3.2" "item-3.3";
-$list: "item-1.1" "item-1.2" "item-1.3", "item-2.1" "item-2.2" "item-2.3",
-  "item-3.1" "item-3.2" "item-3.3";
-$list: "item-1.1" "item-1.2" "item-1.3", "item-2.1" "item-2.2" "item-2.3",
-  "item-3.1" "item-3.2" "item-3.3";
+$list-space: 'item-1' 'item-2' 'item-3';
+$list-space: 'item-1' 'item-2' 'item-3';
+$list-space: 'item-1' 'item-2' 'item-3';
+$list-space: 'item-1' 'item-2' 'item-3';
+$list-space: 'item-1' 'item-2' 'item-3';
+$list-space: 'item-1' 'item-2' 'item-3';
+$list-comma: 'item-1', 'item-2', 'item-3';
+$list-comma: 'item-1', 'item-2', 'item-3';
+$list-comma: 'item-1', 'item-2', 'item-3';
+$list-comma: 'item-1', 'item-2', 'item-3';
+$list-comma: 'item-1', 'item-2', 'item-3';
+$list-comma: 'item-1', 'item-2', 'item-3';
+$list: 'item-1.1' 'item-1.2' 'item-1.3', 'item-2.1' 'item-2.2' 'item-2.3',
+  'item-3.1' 'item-3.2' 'item-3.3';
+$list: 'item-1.1' 'item-1.2' 'item-1.3', 'item-2.1' 'item-2.2' 'item-2.3',
+  'item-3.1' 'item-3.2' 'item-3.3';
+$list: 'item-1.1' 'item-1.2' 'item-1.3', 'item-2.1' 'item-2.2' 'item-2.3',
+  'item-3.1' 'item-3.2' 'item-3.3';
+$list: 'item-1.1' 'item-1.2' 'item-1.3', 'item-2.1' 'item-2.2' 'item-2.3',
+  'item-3.1' 'item-3.2' 'item-3.3';
+$list: 'item-1.1' 'item-1.2' 'item-1.3', 'item-2.1' 'item-2.2' 'item-2.3',
+  'item-3.1' 'item-3.2' 'item-3.3';
+$list: 'item-1.1' 'item-1.2' 'item-1.3', 'item-2.1' 'item-2.2' 'item-2.3',
+  'item-3.1' 'item-3.2' 'item-3.3';
 $list: (
-  ("item-1.1", "item-1.2", "item-1.3"),
-  ("item-2.1", "item-2.2", "item-2.3"),
-  ("item-3.1", "item-3.2", "item-3.3")
+  ('item-1.1', 'item-1.2', 'item-1.3'),
+  ('item-2.1', 'item-2.2', 'item-2.3'),
+  ('item-3.1', 'item-3.2', 'item-3.3')
 );
 $list: (
-  ("item-1.1", "item-1.2", "item-1.3"),
-  ("item-2.1", "item-2.2", "item-2.3"),
-  ("item-3.1", "item-3.2", "item-3.3")
+  ('item-1.1', 'item-1.2', 'item-1.3'),
+  ('item-2.1', 'item-2.2', 'item-2.3'),
+  ('item-3.1', 'item-3.2', 'item-3.3')
 );
 $list: (
-  ("item-1.1", "item-1.2", "item-1.3"),
-  ("item-2.1", "item-2.2", "item-2.3"),
-  ("item-3.1", "item-3.2", "item-3.3")
+  ('item-1.1', 'item-1.2', 'item-1.3'),
+  ('item-2.1', 'item-2.2', 'item-2.3'),
+  ('item-3.1', 'item-3.2', 'item-3.3')
 );
 $list: (
-  ("item-1.1", "item-1.2", "item-1.3"),
-  ("item-2.1", "item-2.2", "item-2.3"),
-  ("item-3.1", "item-3.2", "item-3.3")
+  ('item-1.1', 'item-1.2', 'item-1.3'),
+  ('item-2.1', 'item-2.2', 'item-2.3'),
+  ('item-3.1', 'item-3.2', 'item-3.3')
 );
 $list: (
-  ("item-1.1", "item-1.2", "item-1.3"),
-  ("item-2.1", "item-2.2", "item-2.3"),
-  ("item-3.1", "item-3.2", "item-3.3")
+  ('item-1.1', 'item-1.2', 'item-1.3'),
+  ('item-2.1', 'item-2.2', 'item-2.3'),
+  ('item-3.1', 'item-3.2', 'item-3.3')
 );
 $list: (
-  ("item-1.1", "item-1.2", "item-1.3"),
-  ("item-2.1", "item-2.2", "item-2.3"),
-  ("item-3.1", "item-3.2", "item-3.3")
+  ('item-1.1', 'item-1.2', 'item-1.3'),
+  ('item-2.1', 'item-2.2', 'item-2.3'),
+  ('item-3.1', 'item-3.2', 'item-3.3')
 );
 
 $var: (0 0) (0 0) (0 0) (0 0) (0 0) (0 0) (0 0) (0 0) (0 0) (0 0) (0 0) (0 0)
   (0 0) (0 0);
-$space-scale: (0, "0") (0.25, "0-25") (0.5, "0-5") (0.75, "0-75") (1, "1")
-  (1.25, "1-25") (1.5, "1-5") (1.75, "1-75") (2, "2") (2.25, "2-25")
-  (2.5, "2-5") (2.75, "2-75") (3, "3") (3.25, "3-25") (3.5, "3-5")
-  (3.75, "3-75") (4, "4");
+$space-scale: (0, '0') (0.25, '0-25') (0.5, '0-5') (0.75, '0-75') (1, '1')
+  (1.25, '1-25') (1.5, '1-5') (1.75, '1-75') (2, '2') (2.25, '2-25')
+  (2.5, '2-5') (2.75, '2-75') (3, '3') (3.25, '3-25') (3.5, '3-5')
+  (3.75, '3-75') (4, '4');
 
 .card-column-simple {
   @include breakpoint(getBp(md)) {
@@ -3430,13 +3430,13 @@ $space-scale: (0, "0") (0.25, "0-25") (0.5, "0-5") (0.75, "0-75") (1, "1")
 @error "Very long long long long long long long long long long long long long line Error (#{$message}).";
 @error "Very long long long long long long long long long long long long long line Error (#{$message}).";
 
-$buttonConfig: "save" 50px, "cancel" 50px, "help" 100px;
+$buttonConfig: 'save' 50px, 'cancel' 50px, 'help' 100px;
 
-$locale: "en_us";
-html[lang="#{$locale}"] {
+$locale: 'en_us';
+html[lang='#{$locale}'] {
   font-size: 10px;
 }
-$alertClass: "error";
+$alertClass: 'error';
 p.message-#{$alertClass} {
   color: red;
 }
@@ -3561,11 +3561,11 @@ p {
   }
 }
 
-@each $animal in puma, sea-slug, cheerfulDog, BigSalamander, "string",
-  "another-string", "camelCaseString", "PascalCaseString"
+@each $animal in puma, sea-slug, cheerfulDog, BigSalamander, 'string',
+  'another-string', 'camelCaseString', 'PascalCaseString'
 {
   .#{$animal}-icon {
-    background-image: url("/images/#{$animal}.png");
+    background-image: url('/images/#{$animal}.png');
   }
 }
 
@@ -3577,15 +3577,15 @@ $i: 6;
   $i: $i - 2;
 }
 
-@mixin cool-border($width: 10px, $coolStyle: "solid", $AwesomeColor: "black") {
+@mixin cool-border($width: 10px, $coolStyle: 'solid', $AwesomeColor: 'black') {
   border: $width $coolStyle $AwesomeColor;
 }
 
 p {
-  @include cool-border(1px, "solid", $fff);
+  @include cool-border(1px, 'solid', $fff);
 }
 p {
-  @include cool-border($width: 1px, $coolStyle: "solid", $AwesomeColor: #fff);
+  @include cool-border($width: 1px, $coolStyle: 'solid', $AwesomeColor: #fff);
 }
 p {
   @include coolBorder();
@@ -3595,14 +3595,14 @@ p {
   border: 10px solid #fff;
 }
 p {
-  @include coolBorder(1px, "solid", $fff);
+  @include coolBorder(1px, 'solid', $fff);
 }
 
 @mixin CoolBorder() {
   border: 10px solid #fff;
 }
 p {
-  @include CoolBorder(1px, "solid", $fff);
+  @include CoolBorder(1px, 'solid', $fff);
 }
 
 @mixin box-shadow($shadows...) {
@@ -3655,11 +3655,11 @@ p {
   }
 }
 @include config-icon-colors(
-  "icon-",
-  "save" green,
-  "cancel" gray,
-  "delete" red,
-  "wait" blue
+  'icon-',
+  'save' green,
+  'cancel' gray,
+  'delete' red,
+  'wait' blue
 );
 
 @function my-calculation-function($some-number, $anotherNumber, $BigNumber) {
@@ -3689,8 +3689,8 @@ p {
   border: border(25px, 35px);
 }
 
-$sm-only: "(min-width: 768px) and (max-width: 991px)";
-$lg-and-up: "(min-width: 1200px)";
+$sm-only: '(min-width: 768px) and (max-width: 991px)';
+$lg-and-up: '(min-width: 1200px)';
 
 @media screen and #{$sm-only, $lg-and-up} {
   color: #000;
@@ -3707,7 +3707,7 @@ $lg-and-up: "(min-width: 1200px)";
   width: calc(100% - #{$sidebar-width});
   max-width: calc(#{$m * 100}vw #{$sign} #{$b});
   font: #{$font-size}/#{$line-height};
-  content: "I have #{8 + 2} books on SASS!";
+  content: 'I have #{8 + 2} books on SASS!';
   border: #{$var} #{$var} #{$var};
   filter: #{$var}#{$var}#{$var};
   prop: #{$var + $var} #{$var + $var} #{$var + $var};
@@ -3754,12 +3754,12 @@ $lg-and-up: "(min-width: 1200px)";
   }
 }
 
-$icons: wifi "\\600", wifi-hotspot "\\601", weather "\\602";
+$icons: wifi '\\600', wifi-hotspot '\\601', weather '\\602';
 
 @each $icon in $icons {
   .icon-#{nth($icon, 1)},
   %icon-#{nth($icon, 1)} {
-    content: "#{nth($icon, 2)}";
+    content: '#{nth($icon, 2)}';
   }
 }
 
@@ -3779,7 +3779,7 @@ $icons: wifi "\\600", wifi-hotspot "\\601", weather "\\602";
   prop12: rgba(255, 0, 0, 0.75) + rgba(0, 255, 0, 0.75);
   prop13: progid:DXImageTransform.Microsoft.gradient(enabled='false', startColorstr='#{ie-hex-str($green)}', endColorstr='#{ie-hex-str($translucent-red)}');
   prop14: e + -resize;
-  prop15: sans- + "serif";
+  prop15: sans- + 'serif';
   prop16: 1em + (2em * 3);
   prop17: rotate(-2deg);
   prop18: rotate(-2deg);
@@ -3808,7 +3808,7 @@ $new-entry: ();
 $new-entry: ();
 
 body:before {
-  content: quote(to-string(fibonacci(100), " \\A "));
+  content: quote(to-string(fibonacci(100), ' \\A '));
   white-space: pre-wrap;
 }
 
@@ -3831,12 +3831,12 @@ a:nth-child(#{$numPerRow}n) {
 }
 
 .icon-#{$icon-name} {
-  background-image: "/images/#{$icon-name}.svg";
+  background-image: '/images/#{$icon-name}.svg';
 }
 
 $extmods: (
-  eot: "?",
-  svg: "#" + str-replace($name, " ", "_"),
+  eot: '?',
+  svg: '#' + str-replace($name, ' ', '_'),
 );
 
 @mixin keyframes {
@@ -3875,7 +3875,7 @@ $colors: (
   ),
 );
 
-@function color($color, $tone: "base") {
+@function color($color, $tone: 'base') {
   @return map-get(map-get($colors, $color), $tone);
 }
 
@@ -3889,22 +3889,22 @@ a {
   transition-timing-function: func1(
     func2(
       func3(
-        "veryVeryVeryVeryVeryLongValue",
-        "veryVeryVeryVeryVeryLongValue",
-        "veryVeryVeryVeryVeryLongValue",
-        "veryVeryVeryVeryVeryLongValue"
+        'veryVeryVeryVeryVeryLongValue',
+        'veryVeryVeryVeryVeryLongValue',
+        'veryVeryVeryVeryVeryLongValue',
+        'veryVeryVeryVeryVeryLongValue'
       ),
-      "veryVeryVeryVeryVeryLongValue",
-      "veryVeryVeryVeryVeryLongValue",
-      "veryVeryVeryVeryVeryLongValue"
+      'veryVeryVeryVeryVeryLongValue',
+      'veryVeryVeryVeryVeryLongValue',
+      'veryVeryVeryVeryVeryLongValue'
     ),
-    "veryVeryVeryVeryVeryLongValue",
-    "veryVeryVeryVeryVeryLongValue",
+    'veryVeryVeryVeryVeryLongValue',
+    'veryVeryVeryVeryVeryLongValue',
     func3(
-      "veryVeryVeryVeryVeryLongValue",
-      "veryVeryVeryVeryVeryLongValue",
-      "veryVeryVeryVeryVeryLongValue",
-      "veryVeryVeryVeryVeryLongValue"
+      'veryVeryVeryVeryVeryLongValue',
+      'veryVeryVeryVeryVeryLongValue',
+      'veryVeryVeryVeryVeryLongValue',
+      'veryVeryVeryVeryVeryLongValue'
     )
   );
 }
@@ -3939,7 +3939,7 @@ $o-grid-default-config: (
 );
 
 $a: ();
-$b: unquote("");
+$b: unquote('');
 $c: null;
 $d: (null);
 
@@ -3965,29 +3965,29 @@ $map: (
 );
 
 a {
-  content: "#{"0.5"}";
-  content: my-fn("_");
-  content: "#{my-fn("_")}";
-  content: my-fn("-");
-  content: "#{my-fn("-")}";
-  content: my-fn("-a");
-  content: "#{my-fn("-a")}";
-  content: my-fn("a-");
-  content: "#{my-fn("a-")}";
-  content: my-fn("foo");
-  content: "#{my-fn("foo")}";
-  content: 1 "#{my-fn("foo")}" 2;
-  content: foo "#{my-fn("foo")}" bar;
-  content: "foo #{$description} bar";
+  content: '#{'0.5'}';
+  content: my-fn('_');
+  content: '#{my-fn('_')}';
+  content: my-fn('-');
+  content: '#{my-fn('-')}';
+  content: my-fn('-a');
+  content: '#{my-fn('-a')}';
+  content: my-fn('a-');
+  content: '#{my-fn('a-')}';
+  content: my-fn('foo');
+  content: '#{my-fn('foo')}';
+  content: 1 '#{my-fn('foo')}' 2;
+  content: foo '#{my-fn('foo')}' bar;
+  content: 'foo #{$description} bar';
 
-  content: "#{my-fn("foo","bar")}";
-  content: "#{my-fn( "foo" , "bar" )}";
-  content: "#{my-fn(  "foo"  ,  "bar"  )}";
+  content: '#{my-fn('foo','bar')}';
+  content: '#{my-fn( 'foo' , 'bar' )}';
+  content: '#{my-fn(  'foo'  ,  'bar'  )}';
 
   content: '#{my-fn("foo")}';
-  content: "#{my-fn("foo")}";
+  content: '#{my-fn('foo')}';
   content: "#{my-fn('foo')}";
-  content: "#{my-fn("foo")}";
+  content: '#{my-fn('foo')}';
 }
 
 mixin theme($css-property, $css-value, $theme-classes: t) {
@@ -3997,9 +3997,9 @@ mixin theme($css-property, $css-value, $theme-classes: t) {
         $value: $css-value;
 
         @each $theme-name, $theme-value in $theme-properties {
-          $rgba-value: "rgba(#{red($theme-value)}, #{green($theme-value)}, #{blue($theme-value)}";
-          $value: str-replace($value, "rgba(\${#{$theme-name}}", $rgba-value);
-          $value: str-replace($value, "\${#{$theme-name}}", $theme-value);
+          $rgba-value: 'rgba(#{red($theme-value)}, #{green($theme-value)}, #{blue($theme-value)}';
+          $value: str-replace($value, 'rgba(\${#{$theme-name}}', $rgba-value);
+          $value: str-replace($value, '\${#{$theme-name}}', $theme-value);
         }
 
         @at-root .#{$class}-#{join($theme, $selector)} {
@@ -4017,14 +4017,14 @@ mixin theme($css-property, $css-value, $theme-classes: t) {
   color: red; // Comment
 }
 
-$my-list: "foo",
+$my-list: 'foo',
   // Comment
-    "bar"; // Comment
+    'bar'; // Comment
 
 $my-map: (
-  "foo": 1,
+  'foo': 1,
   // Comment
-    "bar": 2,
+    'bar': 2,
   // Comment
 );
 
@@ -4037,14 +4037,14 @@ $my-map: (
 }
 
 @import // Comment
-    "mixins",
-  "variables",
+    'mixins',
+  'variables',
   // Comment
-    "reset",
-  "scaffolding", "type",
+    'reset',
+  'scaffolding', 'type',
   // Comment
-    "bar",
-  "tabs";
+    'bar',
+  'tabs';
 
 @mixin placeholder {
   &::placeholder {
@@ -4091,9 +4091,9 @@ a {
 =====================================output=====================================
 a {
   background-image: url($test-path + $test-path);
-  background-image: url($test-path + "static/test.jpg");
-  background-image: url("../test/" + $test-path);
-  background-image: url("../test/" + "static/test.jpg");
+  background-image: url($test-path + 'static/test.jpg');
+  background-image: url('../test/' + $test-path);
+  background-image: url('../test/' + 'static/test.jpg');
 }
 
 ================================================================================
@@ -4115,9 +4115,9 @@ a {
 =====================================output=====================================
 a {
   background-image: url($test-path + $test-path);
-  background-image: url($test-path + "static/test.jpg");
-  background-image: url("../test/" + $test-path);
-  background-image: url("../test/" + "static/test.jpg");
+  background-image: url($test-path + 'static/test.jpg');
+  background-image: url('../test/' + $test-path);
+  background-image: url('../test/' + 'static/test.jpg');
 }
 
 ================================================================================

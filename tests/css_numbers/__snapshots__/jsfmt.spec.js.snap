@@ -81,7 +81,7 @@ printWidth: 80
 @include single-transition(transform, .5s ease);
 
 =====================================output=====================================
-@supports (margin: 0.5px ".30px" 1e2px) {
+@supports (margin: 0.5px '.30px' 1e2px) {
   a {
     a: 0;
     a: 1;

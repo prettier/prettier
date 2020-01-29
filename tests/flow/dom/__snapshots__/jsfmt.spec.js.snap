@@ -31,7 +31,7 @@ let tests = [
 
   // moveTo
   function (ctx: CanvasRenderingContext2D) {
-    ctx.moveTo("0", "1"); // error: should be numbers
+    ctx.moveTo('0', '1'); // error: should be numbers
   },
 ];
 
@@ -60,8 +60,8 @@ let tests = [
 let tests = [
   // CustomEvent
   function (document: Document) {
-    const event = document.createEvent("CustomEvent");
-    event.initCustomEvent("butts", true, false, { nice: 42 });
+    const event = document.createEvent('CustomEvent');
+    event.initCustomEvent('butts', true, false, { nice: 42 });
   },
 ];
 
@@ -94,12 +94,12 @@ let tests = [
 let tests = [
   // createElement
   function (document: Document) {
-    (document.createElement("canvas"): HTMLCanvasElement);
-    (document.createElement("link"): HTMLLinkElement);
-    (document.createElement("option"): HTMLOptionElement);
-    (document.createElement("select"): HTMLSelectElement);
-    (document.querySelector("select"): HTMLSelectElement | null);
-    (document.createElement("hr"): HTMLElement); // GH #3752
+    (document.createElement('canvas'): HTMLCanvasElement);
+    (document.createElement('link'): HTMLLinkElement);
+    (document.createElement('option'): HTMLOptionElement);
+    (document.createElement('select'): HTMLSelectElement);
+    (document.querySelector('select'): HTMLSelectElement | null);
+    (document.createElement('hr'): HTMLElement); // GH #3752
   },
 ];
 
@@ -140,13 +140,13 @@ let tests = [
     element.scrollIntoView();
     element.scrollIntoView(false);
     element.scrollIntoView({});
-    element.scrollIntoView({ behavior: "smooth", block: "end" });
-    element.scrollIntoView({ block: "end" });
-    element.scrollIntoView({ behavior: "smooth" });
+    element.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    element.scrollIntoView({ block: 'end' });
+    element.scrollIntoView({ behavior: 'smooth' });
 
     // fails
-    element.scrollIntoView({ behavior: "invalid" });
-    element.scrollIntoView({ block: "invalid" });
+    element.scrollIntoView({ behavior: 'invalid' });
+    element.scrollIntoView({ block: 'invalid' });
     element.scrollIntoView(1);
   },
 ];
@@ -175,7 +175,7 @@ let tests = [
 let tests = [
   // getContext
   function (el: HTMLCanvasElement) {
-    (el.getContext("2d"): ?CanvasRenderingContext2D);
+    (el.getContext('2d'): ?CanvasRenderingContext2D);
   },
 ];
 
@@ -216,13 +216,13 @@ let tests = [
     element.scrollIntoView();
     element.scrollIntoView(false);
     element.scrollIntoView({});
-    element.scrollIntoView({ behavior: "smooth", block: "end" });
-    element.scrollIntoView({ block: "end" });
-    element.scrollIntoView({ behavior: "smooth" });
+    element.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    element.scrollIntoView({ block: 'end' });
+    element.scrollIntoView({ behavior: 'smooth' });
 
     // fails
-    element.scrollIntoView({ behavior: "invalid" });
-    element.scrollIntoView({ block: "invalid" });
+    element.scrollIntoView({ behavior: 'invalid' });
+    element.scrollIntoView({ block: 'invalid' });
     element.scrollIntoView(1);
   },
 ];
@@ -255,11 +255,11 @@ let tests = [
 let tests = [
   // setRangeText
   function (el: HTMLInputElement) {
-    el.setRangeText("foo");
-    el.setRangeText("foo", 123); // end is required
-    el.setRangeText("foo", 123, 234);
-    el.setRangeText("foo", 123, 234, "select");
-    el.setRangeText("foo", 123, 234, "bogus"); // invalid value
+    el.setRangeText('foo');
+    el.setRangeText('foo', 123); // end is required
+    el.setRangeText('foo', 123, 234);
+    el.setRangeText('foo', 123, 234, 'select');
+    el.setRangeText('foo', 123, 234, 'bogus'); // invalid value
   },
 ];
 
@@ -296,9 +296,9 @@ const r: string = c.username; // correct
 =====================================output=====================================
 /* @flow */
 
-const a = new URL("http://flowtype.org/"); // correct
-const b = new URL("/docs", a); // correct
-const c = new URL("/docs", "http://flowtype.org/"); // correct
+const a = new URL('http://flowtype.org/'); // correct
+const b = new URL('/docs', a); // correct
+const c = new URL('/docs', 'http://flowtype.org/'); // correct
 
 const d: URLSearchParams = c.searchParams; // correct
 const e: string = c.path; // not correct
@@ -359,15 +359,15 @@ let tests = [
   // attachEvent
   function () {
     let target = new EventTarget();
-    (target.attachEvent("foo", listener): void); // invalid, may be undefined
-    (target.attachEvent && target.attachEvent("foo", listener): void); // valid
+    (target.attachEvent('foo', listener): void); // invalid, may be undefined
+    (target.attachEvent && target.attachEvent('foo', listener): void); // valid
   },
 
   // detachEvent
   function () {
     let target = new EventTarget();
-    (target.detachEvent("foo", listener): void); // invalid, may be undefined
-    (target.detachEvent && target.detachEvent("foo", listener): void); // valid
+    (target.detachEvent('foo', listener): void); // invalid, may be undefined
+    (target.detachEvent && target.detachEvent('foo', listener): void); // valid
   },
 
   function () {
@@ -407,7 +407,7 @@ let tests = [
     let path = new Path2D();
     (path.arcTo(0, 0, 0, 0, 10): void); // valid
     (path.arcTo(0, 0, 0, 0, 10, 20, 5): void); // valid
-    (path.arcTo(0, 0, 0, 0, 10, "20", 5): void); // invalid
+    (path.arcTo(0, 0, 0, 0, 10, '20', 5): void); // invalid
   },
 ];
 
@@ -485,7 +485,7 @@ let tests = [
 let tests = [
   // should work with Object.create()
   function () {
-    document.registerElement("custom-element", {
+    document.registerElement('custom-element', {
       prototype: Object.create(HTMLElement.prototype, {
         createdCallback: { value: function createdCallback() {} },
         attachedCallback: { value: function attachedCallback() {} },
@@ -503,7 +503,7 @@ let tests = [
   },
   // or with Object.assign()
   function () {
-    document.registerElement("custom-element", {
+    document.registerElement('custom-element', {
       prototype: Object.assign(Object.create(HTMLElement.prototype), {
         createdCallback() {},
         attachedCallback() {},
@@ -519,7 +519,7 @@ let tests = [
   },
   // should complain about invalid callback parameters
   function () {
-    document.registerElement("custom-element", {
+    document.registerElement('custom-element', {
       prototype: {
         attributeChangedCallback(
           localName: string,
@@ -928,12 +928,12 @@ let tests = [
       -1,
       (node) => NodeFilter.FILTER_ACCEPT
     ); // valid
-    document.createNodeIterator(document.body, -1, (node) => "accept"); // invalid
+    document.createNodeIterator(document.body, -1, (node) => 'accept'); // invalid
     document.createNodeIterator(document.body, -1, {
       acceptNode: (node) => NodeFilter.FILTER_ACCEPT,
     }); // valid
     document.createNodeIterator(document.body, -1, {
-      acceptNode: (node) => "accept",
+      acceptNode: (node) => 'accept',
     }); // invalid
     document.createNodeIterator(document.body, -1, {}); // invalid
   },
@@ -943,12 +943,12 @@ let tests = [
       -1,
       (node) => NodeFilter.FILTER_ACCEPT
     ); // valid
-    document.createTreeWalker(document.body, -1, (node) => "accept"); // invalid
+    document.createTreeWalker(document.body, -1, (node) => 'accept'); // invalid
     document.createTreeWalker(document.body, -1, {
       acceptNode: (node) => NodeFilter.FILTER_ACCEPT,
     }); // valid
     document.createTreeWalker(document.body, -1, {
-      acceptNode: (node) => "accept",
+      acceptNode: (node) => 'accept',
     }); // invalid
     document.createTreeWalker(document.body, -1, {}); // invalid
   },

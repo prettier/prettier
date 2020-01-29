@@ -46,28 +46,28 @@ printWidth: 80
 
 =====================================output=====================================
 <script type="text/javascript">
-  var message = "Alert!";
+  var message = 'Alert!';
 
   alert(message);
 </script>
 <script type="application/javascript">
-  var message = "Alert!";
+  var message = 'Alert!';
 
   alert(message);
 </script>
 <script>
-  var message = "Alert!";
+  var message = 'Alert!';
 
   alert(message);
 </script>
 <script type="text/babel">
-  const someJS = "this should be formatted";
+  const someJS = 'this should be formatted';
 </script>
 <script type="module">
-  import lib from "./lib.js";
+  import lib from './lib.js';
 
   function myFunction() {
-    return "foo";
+    return 'foo';
   }
 </script>
 
@@ -103,10 +103,10 @@ printWidth: 80
   <head>
     <title>Sample styled page</title>
     <script>
-      alert("test");
+      alert('test');
     </script>
     <script>
-      var message = "Alert!";
+      var message = 'Alert!';
 
       alert(message);
     </script>
@@ -133,10 +133,10 @@ printWidth: 80
 
 =====================================output=====================================
 <script>
-  alert("test");
+  alert('test');
 </script>
 <script>
-  document.getElementById("demo").innerHTML = "Hello JavaScript!";
+  document.getElementById('demo').innerHTML = 'Hello JavaScript!';
 </script>
 
 ================================================================================
@@ -299,7 +299,7 @@ printWidth: 80
       public middleInitial: string,
       public lastName: string
     ) {
-      this.fullName = firstName + " " + middleInitial + " " + lastName;
+      this.fullName = firstName + ' ' + middleInitial + ' ' + lastName;
     }
   }
 
@@ -309,10 +309,10 @@ printWidth: 80
   }
 
   function greeter(person: Person) {
-    return "Hello, " + person.firstName + " " + person.lastName;
+    return 'Hello, ' + person.firstName + ' ' + person.lastName;
   }
 
-  let user = new Student("Jane", "M.", "User");
+  let user = new Student('Jane', 'M.', 'User');
 
   document.body.innerHTML = greeter(user);
 </script>
@@ -324,7 +324,7 @@ printWidth: 80
       public middleInitial: string,
       public lastName: string
     ) {
-      this.fullName = firstName + " " + middleInitial + " " + lastName;
+      this.fullName = firstName + ' ' + middleInitial + ' ' + lastName;
     }
   }
 
@@ -334,10 +334,10 @@ printWidth: 80
   }
 
   function greeter(person: Person) {
-    return "Hello, " + person.firstName + " " + person.lastName;
+    return 'Hello, ' + person.firstName + ' ' + person.lastName;
   }
 
-  let user = new Student("Jane", "M.", "User");
+  let user = new Student('Jane', 'M.', 'User');
 
   document.body.innerHTML = greeter(user);
 </script>
@@ -353,7 +353,7 @@ printWidth: 80
     fetchComments() {
       $.ajax({
         url: this.props.url,
-        dataType: "json",
+        dataType: 'json',
         cache: false,
         success: (data) => this.setState({ data: data }),
         error: (xhr, status, err) => console.error(status, err),
@@ -365,7 +365,7 @@ printWidth: 80
     }
     render() {
       let handleCommentSubmit = (comment: { author: string; text: string }) => {
-        console.warn("comment submitted!", comment);
+        console.warn('comment submitted!', comment);
         const updated = this.state.data.slice(0);
         updated.push(comment);
         this.setState({ data: updated });

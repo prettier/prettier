@@ -23,7 +23,7 @@ declare module "y" {
 }
 
 =====================================output=====================================
-declare module "classnames" {
+declare module 'classnames' {
   export default function classnames(
     ...inputs: (string | number | false | object | undefined)[]
   ): string;
@@ -32,11 +32,11 @@ declare module "classnames" {
   export type z = y;
 }
 
-declare module "x" {
+declare module 'x' {
   export default class x {}
 }
 
-declare module "y" {
+declare module 'y' {
   const y = 5;
   export default y;
 }

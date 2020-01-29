@@ -89,9 +89,9 @@ export class Bar{}
 var x = 100;
 
 @Hello({
-  a: "a", // Comment is in the wrong place
+  a: 'a', // Comment is in the wrong place
   // test
-  b: "2",
+  b: '2',
 })
 class X {}
 
@@ -137,13 +137,13 @@ class Yo {
 
 =====================================output=====================================
 class Yo {
-  @foo("hello")
+  @foo('hello')
   async plop() {}
 
-  @anotherDecoratorWithALongName("and a very long string as a first argument")
+  @anotherDecoratorWithALongName('and a very long string as a first argument')
   async plip() {}
 
-  @anotherDecoratorWithALongName("another very long string, but now inline")
+  @anotherDecoratorWithALongName('another very long string, but now inline')
   async plip() {}
 }
 
@@ -220,7 +220,7 @@ import {observable} from "mobx";
 }
 
 =====================================output=====================================
-import { observable } from "mobx";
+import { observable } from 'mobx';
 
 @observer
 class OrderLine {
@@ -331,7 +331,7 @@ const foo = {
   @multipleDecorators
   @inline
   @theyWontAllFitInOneline
-  aVeryLongPropName: "A very long string as value",
+  aVeryLongPropName: 'A very long string as value',
 };
 
 ================================================================================

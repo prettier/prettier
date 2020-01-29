@@ -96,7 +96,7 @@ foo(1, 2);
 /* @flow */
 
 function foo(x, y) {
-  "use strict";
+  'use strict';
   return bar(x) + baz(y);
 
   // function declaration is hoisted, should not generate warning

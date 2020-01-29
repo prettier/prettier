@@ -9,7 +9,7 @@ printWidth: 80
 if (typeof define === 'function' && define.amd) { }
 
 =====================================output=====================================
-if (typeof define === "function" && define.amd) {
+if (typeof define === 'function' && define.amd) {
 }
 
 ================================================================================

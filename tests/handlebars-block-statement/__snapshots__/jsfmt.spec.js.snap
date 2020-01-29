@@ -329,7 +329,7 @@ printWidth: 80
 </div>
 
 =====================================output=====================================
-<div id="comments">
+<div id='comments'>
   {{#each comments}}
     <h2>
       <a href="/posts/{{permalink}}#{{id}}">
@@ -831,7 +831,7 @@ printWidth: 80
 
 =====================================output=====================================
 <ul>
-  {{#each speakers key="@index" as |speaker|}}
+  {{#each speakers key='@index' as |speaker|}}
     <li>
       {{speaker}}
     </li>

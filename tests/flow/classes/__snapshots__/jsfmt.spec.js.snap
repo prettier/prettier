@@ -38,7 +38,7 @@ let b = new B();
 module.exports = B;
 
 =====================================output=====================================
-var A = require("./A");
+var A = require('./A');
 
 class B extends A {}
 
@@ -68,7 +68,7 @@ let c = new C();
 module.exports = C;
 
 =====================================output=====================================
-var B = require("./B");
+var B = require('./B');
 
 class C extends B {
   foo(x: string): void {}
@@ -325,7 +325,7 @@ declare var o: {p:number};
 class C {
   static p: string;
 }
-C.p = "hi";
+C.p = 'hi';
 
 // Class static fields are compatible with object types
 (C: { p: string }); // ok

@@ -14,10 +14,10 @@ printWidth: 80
 }
 
 =====================================output=====================================
-@import "./settings";
+@import './settings';
 
-@import "./components";
-@import "./themes";
+@import './components';
+@import './themes';
 .class {
   float: left;
 }

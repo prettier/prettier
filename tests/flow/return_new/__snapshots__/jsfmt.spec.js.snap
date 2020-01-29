@@ -55,11 +55,11 @@ type C<T> = { x: T };
 function makeC<T>(x: T): C<T> {
   return { x };
 }
-(new makeC("x"): C<string>); // normally you wouldn't use \`new\`, but you can
+(new makeC('x'): C<string>); // normally you wouldn't use \`new\`, but you can
 
 // unions should be split before deciding if object-like
 function makeUnion(): number | { x: string } {
-  return { x: "x" };
+  return { x: 'x' };
 }
 (new makeUnion(): { x: string }); // error: \`number\` returns {}, missing prop x
 
@@ -91,7 +91,7 @@ declare class D {
 }
 
 var d = new D();
-d.x = ""; // error, string ~/~ number (but property x is found)
+d.x = ''; // error, string ~/~ number (but property x is found)
 
 (new D(): D); // error, new D is an object, D not in proto chain
 

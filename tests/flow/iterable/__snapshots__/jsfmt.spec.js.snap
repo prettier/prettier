@@ -19,11 +19,11 @@ printWidth: 80
 /* @flow */
 
 (([1, 2]: Array<number>): Iterable<number>);
-([1, 2, "hi"]: Iterable<number | string>);
+([1, 2, 'hi']: Iterable<number | string>);
 ([1, 2, 3]: Iterable<*>);
 
-(["hi"]: Iterable<number>); // Error string ~> number
-(["hi", 1]: Iterable<string>); // Error number ~> string
+(['hi']: Iterable<number>); // Error string ~> number
+(['hi', 1]: Iterable<string>); // Error number ~> string
 
 ================================================================================
 `;
@@ -161,13 +161,13 @@ function makeIterator(coin_flip: () => boolean ): Iterator<string> {
 
 function makeIterator(coin_flip: () => boolean): Iterator<string> {
   return {
-    "@@iterator"() {
+    '@@iterator'() {
       return makeIterator(coin_flip);
     },
     next(): IteratorResult<string, void> {
       var done = coin_flip();
       if (!done) {
-        return { done, value: "still going..." };
+        return { done, value: 'still going...' };
       } else {
         return { done };
       }
@@ -177,14 +177,14 @@ function makeIterator(coin_flip: () => boolean): Iterator<string> {
 
 function makeIterator(coin_flip: () => boolean): Iterator<string> {
   return {
-    "@@iterator"() {
+    '@@iterator'() {
       return makeIterator(coin_flip);
     },
     next(): IteratorResult<string, void> {
       var done = coin_flip();
       if (done) {
         // Whoops, made a mistake and forgot to negate done
-        return { done, value: "still going..." }; // Error string ~> void
+        return { done, value: 'still going...' }; // Error string ~> void
       } else {
         return { done }; // Error void ~> string
       }
@@ -294,9 +294,9 @@ printWidth: 80
 =====================================output=====================================
 /* @flow */
 
-("hi": Iterable<string>);
-("hi": Iterable<*>);
-("hi": Iterable<number>); // Error - string is a Iterable<string>
+('hi': Iterable<string>);
+('hi': Iterable<*>);
+('hi': Iterable<number>); // Error - string is a Iterable<string>
 
 ================================================================================
 `;

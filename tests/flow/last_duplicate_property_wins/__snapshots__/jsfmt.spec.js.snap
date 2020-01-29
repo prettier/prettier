@@ -58,7 +58,7 @@ class C {
     return 0;
   }
   foo(): string {
-    return "hello";
+    return 'hello';
   } // last wins
   x: number;
   x: string; // last wins
@@ -68,7 +68,7 @@ class C {
   bar: string; // field wins over method
   qux: number;
   qux(): string {
-    return "hello";
+    return 'hello';
   } // method loses to field!
 }
 
@@ -86,17 +86,17 @@ const o = {
     return 0;
   },
   foo(): string {
-    return "hello";
+    return 'hello';
   }, // last wins
   x: 42,
-  x: "hello", // last wins
+  x: 'hello', // last wins
   bar(): number {
     return 0;
   },
-  bar: "hello", // last wins
+  bar: 'hello', // last wins
   qux: 42,
   qux(): string {
-    return "hello";
+    return 'hello';
   }, // last wins
 };
 

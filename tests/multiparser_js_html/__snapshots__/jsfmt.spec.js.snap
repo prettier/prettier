@@ -80,7 +80,7 @@ const closingScriptTagShouldBeEscapedProperly = /* HTML */ \`
 const closingScriptTag2 = /* HTML */ \`<script>const  scriptTag='<\\\\/script>'; <\\/script>\`;
 
 =====================================output=====================================
-import { LitElement, html } from "@polymer/lit-element";
+import { LitElement, html } from '@polymer/lit-element';
 
 class MyElement extends LitElement {
   static get properties() {
@@ -91,7 +91,7 @@ class MyElement extends LitElement {
 
   constructor() {
     super();
-    this.mood = "happy";
+    this.mood = 'happy';
   }
 
   render() {
@@ -107,7 +107,7 @@ class MyElement extends LitElement {
   }
 }
 
-customElements.define("my-element", MyElement);
+customElements.define('my-element', MyElement);
 
 const someHtml1 = html\`
   <div>hello \${world}</div>
@@ -165,7 +165,7 @@ const closingScriptTagShouldBeEscapedProperly = /* HTML */ \`
 
 const closingScriptTag2 = /* HTML */ \`
   <script>
-    const scriptTag = "<\\\\/script>";
+    const scriptTag = '<\\\\/script>';
   </script>
 \`;
 

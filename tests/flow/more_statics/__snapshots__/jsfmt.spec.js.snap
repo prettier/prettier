@@ -20,13 +20,13 @@ var y: number = C.foo();
 =====================================output=====================================
 class B {
   static foo(): string {
-    return "";
+    return '';
   }
 }
 
 class C extends B {
   static bar(): string {
-    return "";
+    return '';
   }
 }
 

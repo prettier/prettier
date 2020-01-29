@@ -109,7 +109,7 @@ trailingComma: "none"
   a[b | c],
   ($students | async).items,
   ($students | async)(),
-  myData | myPipe: "arg1":"arg2":"arg3",
+  myData | myPipe: 'arg1':'arg2':'arg3',
   value
     | pipeA
       : {
@@ -122,8 +122,8 @@ trailingComma: "none"
         }
     | aaa,
   (hideLinqPanel
-    ? "ReportSelection.HideShowLabel_Show.String"
-    : "ReportSelection.HideShowLabel_Hide.String"
+    ? 'ReportSelection.HideShowLabel_Show.String'
+    : 'ReportSelection.HideShowLabel_Hide.String'
   ) | localize: localizationSection
 ]
 ================================================================================
@@ -175,7 +175,7 @@ printWidth: 80
   a[b | c],
   ($students | async).items,
   ($students | async)(),
-  myData | myPipe: "arg1":"arg2":"arg3",
+  myData | myPipe: 'arg1':'arg2':'arg3',
   value
     | pipeA
       : {
@@ -188,8 +188,8 @@ printWidth: 80
         }
     | aaa,
   (hideLinqPanel
-    ? "ReportSelection.HideShowLabel_Show.String"
-    : "ReportSelection.HideShowLabel_Hide.String"
+    ? 'ReportSelection.HideShowLabel_Show.String'
+    : 'ReportSelection.HideShowLabel_Hide.String'
   ) | localize: localizationSection
 ]
 ================================================================================
@@ -242,7 +242,7 @@ trailingComma: "all"
   a[b | c],
   ($students | async).items,
   ($students | async)(),
-  myData | myPipe: "arg1":"arg2":"arg3",
+  myData | myPipe: 'arg1':'arg2':'arg3',
   value
     | pipeA
       : {
@@ -255,8 +255,8 @@ trailingComma: "all"
         }
     | aaa,
   (hideLinqPanel
-    ? "ReportSelection.HideShowLabel_Show.String"
-    : "ReportSelection.HideShowLabel_Hide.String"
+    ? 'ReportSelection.HideShowLabel_Show.String'
+    : 'ReportSelection.HideShowLabel_Hide.String'
   ) | localize: localizationSection
 ]
 ================================================================================

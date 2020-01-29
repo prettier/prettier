@@ -57,7 +57,7 @@ declare module 'foo' {
 =====================================output=====================================
 /* @flow */
 
-declare module "foo" {
+declare module 'foo' {
   declare class A {
     toz: number;
   }

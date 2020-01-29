@@ -376,7 +376,7 @@ function test1() {
 
 function test2() {
   async function voidoid1() {
-    console.log("HEY");
+    console.log('HEY');
   }
 
   var voidoid2: () => Promise<void> = voidoid1; // ok
@@ -390,7 +390,7 @@ function test2() {
 function test3() {
   async function voidoid4(): Promise<void> {
     // ok
-    console.log("HEY");
+    console.log('HEY');
   }
 }
 
@@ -402,14 +402,14 @@ function test3() {
 function test4() {
   async function voidoid5(): void {
     // error, void != Promise<void>
-    console.log("HEY");
+    console.log('HEY');
   }
 }
 
 function test5() {
   async function voidoid6(): Promise<number> {
     // error, number != void
-    console.log("HEY");
+    console.log('HEY');
   }
 }
 

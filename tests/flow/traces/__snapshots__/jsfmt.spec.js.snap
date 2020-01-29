@@ -40,7 +40,7 @@ function g1(a: string, b: string) {}
 function f1(x, y) {
   g1(x, y);
 }
-f1("hey", 0);
+f1('hey', 0);
 
 // h/o call with function expr
 function g2(ylam: (s: string) => number) {}
@@ -93,7 +93,7 @@ function f(b): React.Element<*> {
 =====================================output=====================================
 // @flow
 
-var React = require("react");
+var React = require('react');
 
 var A = React.createClass({
   propTypes: { foo: React.PropTypes.string.isRequired },

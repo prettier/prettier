@@ -127,7 +127,7 @@ interface I_ {
 interface J extends I, I_ {}
 interface K extends J {}
 
-var k: K = { x: "", y: "" }; // error: x should be number
+var k: K = { x: '', y: '' }; // error: x should be number
 (k.x: string); // error: x is number
 (k.y: string);
 
@@ -146,7 +146,7 @@ interface B<Z> extends A<string>, A_<Z> {
 }
 interface E<Z> extends B<Z> {}
 
-var e: E<number> = { x: "", y: "", z: "" }; // error: x and z should be numbers
+var e: E<number> = { x: '', y: '', z: '' }; // error: x and z should be numbers
 (e.x: string); // error: x is number
 (e.y: string);
 (e.z: string); // error: z is number
@@ -172,7 +172,7 @@ type M = { y: string } & J & { z: boolean }
 function bar(m: M) { m.x; m.y; m.z; } // OK
 
 =====================================output=====================================
-import type { J } from "./import";
+import type { J } from './import';
 interface K {}
 interface L extends J, K {
   y: string;

@@ -13,7 +13,7 @@ var x: number = "string"; // Error string ~> number
 =====================================output=====================================
 /* @flow */
 
-var x: number = "string"; // Error string ~> number
+var x: number = 'string'; // Error string ~> number
 
 ================================================================================
 `;

@@ -87,10 +87,10 @@ printWidth: 80
 }}{{/block}}
 
 {{foobar-sub-component/foobar-foo
-  hook="stringLiteral"
+  hook='stringLiteral'
   foo=(t
     (concat
-      "stringLiteral" (get blockParam "stringLiteral") hash=hash hash=hash
+      'stringLiteral' (get blockParam 'stringLiteral') hash=hash hash=hash
     )
     foo=(simple-helper (hash hashKey=blockParam.foo assignParam=blockParam.bar))
   )

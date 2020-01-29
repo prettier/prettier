@@ -463,10 +463,10 @@ a {
   prop66: 2 + @width 2 + @width 2 + @width 2 + @width;
   prop67: (@width+2) (@width + 2) (@width+ 2) (@width + 2);
   prop68: (2 + @width) (2 + @width) (2 + @width) (2 + @width);
-  prop69: "test"+1 "test" +1 "test"+ 1 "test" + 1;
-  prop70: 1+"test" 1 +"test" 1+ "test" 1 + "test";
-  prop71: "test"-1 "test" -1 "test"- 1 "test" - 1;
-  prop72: 1-"test" 1 -"test" 1- "test" 1 - "test";
+  prop69: 'test'+1 'test' +1 'test'+ 1 'test' + 1;
+  prop70: 1+'test' 1 +'test' 1+ 'test' 1 + 'test';
+  prop71: 'test'-1 'test' -1 'test'- 1 'test' - 1;
+  prop72: 1-'test' 1 -'test' 1- 'test' 1 - 'test';
   prop73: calc(100% * 2px) calc(100% * 2px) calc(100% * 2px) calc(100% * 2px);
   prop74: calc(100% / 2px) calc(100% / 2px) calc(100% / 2px) calc(100% / 2px);
   prop75: calc(100%+2px) calc(100% +2px) calc(100%+ 2px) calc(100% + 2px);
@@ -488,13 +488,13 @@ a {
   prop6: attr(data-foo);
   prop7: attr(data-foo);
   prop8: attr(data-foo);
-  prop9: "(" attr(title) ")";
-  prop10: "(" attr(title) ")";
-  prop11: "(" attr(title) ")";
-  prop12: "(" attr(title) ")";
-  prop13: "(" attr(title) ")";
-  prop14: "(" attr(title) ")";
-  prop15: "(" attr(title) ")";
+  prop9: '(' attr(title) ')';
+  prop10: '(' attr(title) ')';
+  prop11: '(' attr(title) ')';
+  prop12: '(' attr(title) ')';
+  prop13: '(' attr(title) ')';
+  prop14: '(' attr(title) ')';
+  prop15: '(' attr(title) ')';
   prop16: attr(length em);
   prop17: attr(length em);
   prop18: attr(length em);
@@ -510,7 +510,7 @@ a {
 .bar {
   filter: progid:DXImageTransform.Microsoft.gradient(enabled='false',startColorstr='#fff',endColorstr='#000');
   filter: progid:DXImageTransform.Microsoft.Shadow(color='#042b47', Direction=45, Strength=6) progid:DXImageTransform.Microsoft.Shadow(color='#042b47', Direction=135, Strength=6);
-  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#fad59f, endColorstr=#fa9907)";
+  -ms-filter: 'progid:DXImageTransform.Microsoft.gradient(startColorstr=#fad59f, endColorstr=#fa9907)';
 }
 
 .unicode-ranges {

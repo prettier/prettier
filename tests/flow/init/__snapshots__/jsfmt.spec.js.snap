@@ -947,7 +947,7 @@ function switch_post_init2(i): number {
       bar = 3;
       break;
     default:
-      throw new Error("Invalid state");
+      throw new Error('Invalid state');
   }
   return bar; // ok, definitely initialized
 }
@@ -960,7 +960,7 @@ function switch_post_init2(i): number {
       bar = 3;
       break;
     default:
-      throw new Error("Invalid state");
+      throw new Error('Invalid state');
   }
   return bar; // ok, definitely initialized
 }

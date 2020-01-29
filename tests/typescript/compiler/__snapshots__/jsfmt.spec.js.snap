@@ -153,7 +153,7 @@ var y = x + z;
 
 var a = <any>0;
 var b = <boolean>true;
-var s = <string>"";
+var s = <string>'';
 
 var ar = <any[]>null;
 
@@ -467,7 +467,7 @@ declare module "foo" {
 // @module: commonjs
 // @declaration: true
 
-declare module "foo" {
+declare module 'foo' {
   export var before: C;
 
   export default class C {
@@ -551,7 +551,7 @@ namespace global {}
 function foo(global: number) {}
 
 let obj = {
-  global: "123",
+  global: '123',
 };
 
 ================================================================================
@@ -574,7 +574,7 @@ class C {
 =====================================output=====================================
 // These used to be indexers, now they are computed properties
 interface I {
-  [x = ""]: string;
+  [x = '']: string;
 }
 
 class C {
@@ -900,14 +900,14 @@ module glo_M1_public {
   export var v2: c1;
 }
 
-declare module "glo_M2_public" {
+declare module 'glo_M2_public' {
   export function f1();
   export class c1 {}
   export var v1: { new (): c1 };
   export var v2: c1;
 }
 
-declare module "use_glo_M1_public" {
+declare module 'use_glo_M1_public' {
   import use_glo_M1_public = glo_M1_public;
   export var use_glo_M1_public_v1_public: { new (): use_glo_M1_public.c1 };
   export var use_glo_M1_public_v2_public: typeof use_glo_M1_public;
@@ -916,7 +916,7 @@ declare module "use_glo_M1_public" {
   var use_glo_M1_public_v2_private: typeof use_glo_M1_public;
   var use_glo_M1_public_v3_private: () => use_glo_M1_public.c1;
 
-  import use_glo_M2_public = require("glo_M2_public");
+  import use_glo_M2_public = require('glo_M2_public');
   export var use_glo_M2_public_v1_public: { new (): use_glo_M2_public.c1 };
   export var use_glo_M2_public_v2_public: typeof use_glo_M2_public;
   export var use_glo_M2_public_v3_public: () => use_glo_M2_public.c1;
@@ -935,7 +935,7 @@ declare module "use_glo_M1_public" {
   }
 }
 
-declare module "anotherParseError" {
+declare module 'anotherParseError' {
   module m2 {
     //declare module "abc" {
     //}

@@ -61,35 +61,35 @@ function test(a: string, b: number): number {
 }
 
 // tuples flow correctly into params
-test.apply("", ["", 0]);
+test.apply('', ['', 0]);
 
 // wrong this is an error
-test.apply(0, ["", 0]); // error: lookup \`length\` on Number
+test.apply(0, ['', 0]); // error: lookup \`length\` on Number
 
 // not enough arguments is an error
-test.apply("", [""]); // error: void ~> number
+test.apply('', ['']); // error: void ~> number
 
 // mistyped arguments is an error
-test.apply("", ["", ""]); // error: string ~> number (2nd arg)
-test.apply("", [0, 0]); // error: number ~> string (1st arg)
+test.apply('', ['', '']); // error: string ~> number (2nd arg)
+test.apply('', [0, 0]); // error: number ~> string (1st arg)
 
 // resolve args array from tvar
 function f(args) {
-  test.apply("", args);
+  test.apply('', args);
 }
-f(["", 0]); // OK
-f(["", ""]); // error: string ~> number (2nd arg)
+f(['', 0]); // OK
+f(['', '']); // error: string ~> number (2nd arg)
 f([0, 0]); // error: number ~> string (1st arg)
 
 // expect array
-test.apply("", "not array"); // error: expect array of args
+test.apply('', 'not array'); // error: expect array of args
 
 // expect 4 errors:
 // - lookup length on Number (because 0 is used as \`this\`)
 // - 123 is not a string
 // - 'foo' is not a number
 // - return type (number) is not void
-(test.call.apply(test, [0, 123, "foo"]): void);
+(test.call.apply(test, [0, 123, 'foo']): void);
 
 // expect 2 errors:
 // - lookup length on number (0 is used as \`this\`)
@@ -101,12 +101,12 @@ function test2(): number {
   return 0;
 }
 (test2.apply(): number);
-(test2.apply(""): number);
+(test2.apply(''): number);
 
 // callable objects
 function test3(x: { (a: string, b: string): void }) {
-  x.apply(x, ["foo", "bar"]); // ok
-  x.apply(x, ["foo", 123]); // error, number !~> string
+  x.apply(x, ['foo', 'bar']); // ok
+  x.apply(x, ['foo', 123]); // error, number !~> string
 }
 
 ================================================================================
@@ -152,26 +152,26 @@ let tests = [
 
 let tests = [
   function (x: (a: string, b: string) => void) {
-    let y = x.bind(x, "foo");
-    y("bar"); // ok
+    let y = x.bind(x, 'foo');
+    y('bar'); // ok
     y(123); // error, number !~> string
   },
 
   // callable objects
   function (x: { (a: string, b: string): void }) {
-    let y = x.bind(x, "foo");
-    y("bar"); // ok
+    let y = x.bind(x, 'foo');
+    y('bar'); // ok
     y(123); // error, number !~> string
   },
 
   // non-callable objects
   function (x: { a: string }) {
-    x.bind(x, "foo"); // error
+    x.bind(x, 'foo'); // error
   },
 
   // callable objects with overridden \`bind\` method
   function (x: { (a: string, b: string): void, bind(a: string): void }) {
-    (x.bind("foo"): void); // ok
+    (x.bind('foo'): void); // ok
     (x.bind(123): void); // error, number !~> string
   },
 ];
@@ -235,43 +235,43 @@ function test(a: string, b: number): number {
 }
 
 // args flow correctly into params
-test.call("", "", 0);
+test.call('', '', 0);
 
 // wrong this is an error
-test.call(0, "", 0); // error: lookup \`length\` on Number
+test.call(0, '', 0); // error: lookup \`length\` on Number
 
 // not enough arguments is an error
-test.call("", ""); // error: void ~> number
+test.call('', ''); // error: void ~> number
 
 // mistyped arguments is an error
-test.call("", "", ""); // error: string ~> number (2nd arg)
-test.call("", 0, 0); // error: number ~> string (1st arg)
+test.call('', '', ''); // error: string ~> number (2nd arg)
+test.call('', 0, 0); // error: number ~> string (1st arg)
 
 // resolve args array from tvar
 function f(args) {
-  test.call("", args[0], args[1]);
+  test.call('', args[0], args[1]);
 }
-f(["", 0]); // OK
-f(["", ""]); // error: string ~> number (2nd arg)
+f(['', 0]); // OK
+f(['', '']); // error: string ~> number (2nd arg)
 f([0, 0]); // error: number ~> string (1st arg)
 
 // expect 3 errors:
 // - lookup length on Number (0 used as \`this\`)
 // - number !~> string (param a)
 // - string !~> number (param b)
-(test.apply.call(test, 0, [0, "foo"]): number);
+(test.apply.call(test, 0, [0, 'foo']): number);
 
 // args are optional
 function test2(): number {
   return 0;
 }
 (test2.call(): number);
-(test2.call(""): number);
+(test2.call(''): number);
 
 // callable objects
 function test3(x: { (a: string, b: string): void }) {
-  x.call(x, "foo", "bar"); // ok
-  x.call(x, "foo", 123); // error, number !~> string
+  x.call(x, 'foo', 'bar'); // ok
+  x.call(x, 'foo', 123); // error, number !~> string
 }
 
 ================================================================================
@@ -371,13 +371,13 @@ var c: Function = C;
 function good(x: Function, MyThing: Function): number {
   var o: Object = x; // Function is an Object
   x.foo = 123;
-  x["foo"] = 456;
+  x['foo'] = 456;
   x();
   <MyThing />;
   var { ...something } = x;
-  Object.assign(x, { hi: "there" });
+  Object.assign(x, { hi: 'there' });
   Object.keys(x);
-  return x.bar + x["bar"] + x.lala();
+  return x.bar + x['bar'] + x.lala();
 }
 
 function bad(x: Function, y: Object): void {
@@ -400,9 +400,9 @@ let tests = [
 
   function (y: () => void, z: Function) {
     function x() {}
-    x.length = "foo"; // error, it's a number
-    y.length = "foo"; // error, it's a number
-    z.length = "foo"; // error, it's a number
+    x.length = 'foo'; // error, it's a number
+    y.length = 'foo'; // error, it's a number
+    z.length = 'foo'; // error, it's a number
 
     x.name = 123; // error, it's a string
     y.name = 123; // error, it's a string
@@ -630,7 +630,7 @@ function test_unbound_rest(f: <T>(x: T, ...xs: T) => void) {
 
 type string_rest_t = (...xs: string) => void; // Should be error but no way to check yet :(
 function test_string_rest(f: string_rest_t) {
-  f("hello"); // Error - string ~> array - luckily this errors
+  f('hello'); // Error - string ~> array - luckily this errors
 }
 
 type Rest = Array<string>;

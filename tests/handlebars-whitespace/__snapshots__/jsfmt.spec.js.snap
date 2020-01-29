@@ -205,7 +205,7 @@ Click here! Click here! Click here! Click here! Click here! Click here!
     Click here! Click here! Click here! Click here! Click here! Click here!
   </button>
 </div>
-<video src="brave.webm"></video>
+<video src='brave.webm'></video>
 ================================================================================
 `;
 
@@ -221,13 +221,13 @@ printWidth: 40
 =====================================output=====================================
 {{! TO FIX }}
 <HEAD>
-  <META CHARSET="utf-8" />
+  <META CHARSET='utf-8' />
   <TITLE>
     My tITlE
   </TITLE>
   <META
-    NAME="description"
-    content="My CoNtEnT"
+    NAME='description'
+    content='My CoNtEnT'
   />
 </HEAD>
 ================================================================================
@@ -254,9 +254,9 @@ printWidth: 40
 =====================================output=====================================
 <p>
   <img
-    src="/images/pansies.jpg"
-    alt="about fedco bottom image"
-    style="float: left;"
+    src='/images/pansies.jpg'
+    alt='about fedco bottom image'
+    style='float: left;'
   />
   <strong>
     We are a cooperative
@@ -315,7 +315,7 @@ vestibulum facilisis in porta turpis. Ut faucibus lectus sit amet urna consectet
 Sam vitae neque quis ex dapibus faucibus at sed ligula. Nulla sit amet aliquet nibh.
 Vestibulum at congue mi. Suspendisse vitae odio vitae massa hendrerit mattis sed eget dui.
 Sed eu scelerisque neque. Donec
-  <a href="#">
+  <a href='#'>
     <b>
       maximus
     </b>
@@ -440,10 +440,10 @@ sometimes{{nogaps
   some {{text}}
 </HelloWorld>
 
-<div class="a list of classes">
+<div class='a list of classes'>
 </div>
 
-<div class="a list of classes">
+<div class='a list of classes'>
 </div>
 ================================================================================
 `;

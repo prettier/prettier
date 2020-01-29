@@ -327,7 +327,7 @@ in order for it to be formatted.",
           "type": "boolean",
         },
         "singleQuote": Object {
-          "default": false,
+          "default": true,
           "description": "Use single quotes instead of double quotes.",
           "type": "boolean",
         },

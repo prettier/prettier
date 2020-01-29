@@ -255,7 +255,7 @@ printWidth: 80
 <div>
   First second third
   <div
-    attr="a very long string attribute that will overflow because it is very long"
+    attr='a very long string attribute that will overflow because it is very long'
   >
     Something
   </div>
@@ -330,12 +330,12 @@ printWidth: 80
 
 {{! solitary whitespace }}
 <div
-  first="first"
-  second="second"
-  third="third"
-  fourth="fourth"
-  fifth="fifth"
-  sixth="sixth"
+  first='first'
+  second='second'
+  third='third'
+  fourth='fourth'
+  fifth='fifth'
+  sixth='sixth'
 >
 </div>
 

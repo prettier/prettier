@@ -1400,7 +1400,7 @@ Copy the following config into your \`.pre-commit-config.yaml\` file:
 
 \`\`\`yaml
 - repo: https://github.com/prettier/prettier
-  sha: "" # Use the sha or tag you want to point at
+  sha: '' # Use the sha or tag you want to point at
   hooks:
     - id: prettier
 \`\`\`
@@ -1429,7 +1429,7 @@ exit 0
 ### API
 
 \`\`\`js
-const prettier = require("prettier");
+const prettier = require('prettier');
 \`\`\`
 
 #### \`prettier.format(source [, options])\`
@@ -1438,7 +1438,7 @@ const prettier = require("prettier");
 provided to override the defaults.
 
 \`\`\`js
-prettier.format("foo ( );", { semi: false });
+prettier.format('foo ( );', { semi: false });
 // -> "foo()"
 \`\`\`
 
@@ -1458,7 +1458,7 @@ The \`cursorOffset\` option should be provided, to specify where the cursor is.
 This option cannot be used with \`rangeStart\` and \`rangeEnd\`.
 
 \`\`\`js
-prettier.formatWithCursor(" 1", { cursorOffset: 2 });
+prettier.formatWithCursor(' 1', { cursorOffset: 2 });
 // -> { formatted: '1;\\n', cursorOffset: 1 }
 \`\`\`
 
@@ -1478,7 +1478,7 @@ file.
 If \`options.useCache\` is \`false\`, all caching will be bypassed.
 
 \`\`\`js
-const text = fs.readFileSync(filePath, "utf8");
+const text = fs.readFileSync(filePath, 'utf8');
 prettier.resolveConfig(filePath).then((options) => {
   const formatted = prettier.format(text, options);
 });
@@ -1507,10 +1507,10 @@ function. The function signature of the parser function is:
 Prettier's built-in parsers are exposed as properties on the \`parsers\` argument.
 
 \`\`\`js
-prettier.format("lodash ( )", {
+prettier.format('lodash ( )', {
   parser(text, { babylon }) {
     const ast = babylon(text);
-    ast.program.body[0].expression.callee.name = "_";
+    ast.program.body[0].expression.callee.name = '_';
     return ast;
   },
 });
@@ -1808,7 +1808,7 @@ YAML:
 \`\`\`yaml
 semi: false
 overrides:
-  - files: "*.test.js"
+  - files: '*.test.js'
     options:
       semi: true
 \`\`\`
@@ -4312,13 +4312,13 @@ Paragraph:
 
     ---------------------------------------
 
-This is [an example](http://example.com "Example") link.
+This is [an example](http://example.com 'Example') link.
 
 [This link](http://example.com) has no title attr.
 
 This is [an example][id] reference-style link.
 
-[id]: http://example.com "Optional Title"
+[id]: http://example.com 'Optional Title'
 
     This is [an example](http://example.com "Example") link.
 
@@ -4348,7 +4348,7 @@ This paragraph has some \`code\` in it.
 
     This paragraph has some \`code\` in it.
 
-![Alt Text](http://placehold.it/200x50 "Image Title")
+![Alt Text](http://placehold.it/200x50 'Image Title')
 
     ![Alt Text](http://placehold.it/200x50 "Image Title")
 

@@ -92,7 +92,7 @@ expect(
   new LongLongLongLongLongRange([0, 0], [0, 0])
 ).toEqualAtomLongLongLongLongRange(new LongLongLongRange([0, 0], [0, 0]));
 
-["red", "white", "blue", "black", "hotpink", "rebeccapurple"].reduce(
+['red', 'white', 'blue', 'black', 'hotpink', 'rebeccapurple'].reduce(
   (allColors, color) => {
     return allColors.concat(color);
   },
@@ -217,7 +217,7 @@ function helloWorldWithReact() {
 function MyComponent(props) {
   useEffect(
     () => {
-      console.log("some code", props.foo);
+      console.log('some code', props.foo);
     },
 
     // We need to disable the eslint warning here,

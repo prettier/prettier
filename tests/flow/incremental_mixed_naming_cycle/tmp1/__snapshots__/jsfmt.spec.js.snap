@@ -21,7 +21,7 @@ module.exports = 'Root';
  */
 
 // trivial edit (adding this comment)
-module.exports = "Root";
+module.exports = 'Root';
 
 ================================================================================
 `;

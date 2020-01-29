@@ -40,16 +40,16 @@ var tests = [
 var tests = [
   () => {
     // erroneous typcasts raise errors...
-    var n = ("hey": number);
+    var n = ('hey': number);
     // ...but 'any' does dynamic downcasts, if you must
-    var x: number = ("hey": any);
-    var y = (("hey": any): number);
+    var x: number = ('hey': any);
+    var y = (('hey': any): number);
   },
 
   () => {
     // typecasts in sequences
     // (parens always required around typecasts)
-    var s: string = ((0: number), ("hey": string));
+    var s: string = ((0: number), ('hey': string));
   },
 
   () => {

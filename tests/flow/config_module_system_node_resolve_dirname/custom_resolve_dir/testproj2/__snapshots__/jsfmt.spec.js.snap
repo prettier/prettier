@@ -13,7 +13,7 @@ export var name: "otherdir/testproj2" = "otherdir/testproj2";
 =====================================output=====================================
 // @flow
 
-export var name: "otherdir/testproj2" = "otherdir/testproj2";
+export var name: 'otherdir/testproj2' = 'otherdir/testproj2';
 
 ================================================================================
 `;

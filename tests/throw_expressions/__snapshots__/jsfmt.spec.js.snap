@@ -25,7 +25,7 @@ class Product {
 }
 
 =====================================output=====================================
-function save(filename = throw new TypeError("Argument required")) {}
+function save(filename = throw new TypeError('Argument required')) {}
 
 lint(ast, {
   with: () => throw new Error("avoid using 'with' statements."),
@@ -33,13 +33,13 @@ lint(ast, {
 
 function getEncoder(encoding) {
   const encoder =
-    encoding === "utf8"
+    encoding === 'utf8'
       ? new UTF8Encoder()
-      : encoding === "utf16le"
+      : encoding === 'utf16le'
       ? new UTF16Encoder(false)
-      : encoding === "utf16be"
+      : encoding === 'utf16be'
       ? new UTF16Encoder(true)
-      : throw new Error("Unsupported encoding");
+      : throw new Error('Unsupported encoding');
 }
 
 class Product {
@@ -47,7 +47,7 @@ class Product {
     return this._id;
   }
   set id(value) {
-    this._id = value || throw new Error("Invalid value");
+    this._id = value || throw new Error('Invalid value');
   }
 }
 

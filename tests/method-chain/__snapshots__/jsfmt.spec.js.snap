@@ -22,7 +22,7 @@ function a() {
     queryThenMutateDOM(() => {
       title = SomeThing.call(
         root,
-        "someLongStringThatPushesThisTextReallyFar"
+        'someLongStringThatPushesThisTextReallyFar'
       )[0];
     });
   }
@@ -87,68 +87,68 @@ export default (store) => {
       next(
         actionWith({
           type: failureType,
-          error: error.message || "Something bad happened",
+          error: error.message || 'Something bad happened',
         })
       )
   );
 };
 
-it("should group messages with same created time", () => {
+it('should group messages with same created time', () => {
   expect(groupMessages(messages).toJS()).toEqual({
-    "11/01/2017 13:36": [
+    '11/01/2017 13:36': [
       {
-        message: "test",
-        messageType: "SMS",
-        status: "Unknown",
-        created: "11/01/2017 13:36",
+        message: 'test',
+        messageType: 'SMS',
+        status: 'Unknown',
+        created: '11/01/2017 13:36',
       },
       {
-        message: "test",
-        messageType: "Email",
-        status: "Unknown",
-        created: "11/01/2017 13:36",
-      },
-    ],
-    "09/01/2017 17:25": [
-      {
-        message: "te",
-        messageType: "SMS",
-        status: "Unknown",
-        created: "09/01/2017 17:25",
-      },
-      {
-        message: "te",
-        messageType: "Email",
-        status: "Unknown",
-        created: "09/01/2017 17:25",
+        message: 'test',
+        messageType: 'Email',
+        status: 'Unknown',
+        created: '11/01/2017 13:36',
       },
     ],
-    "11/01/2017 13:33": [
+    '09/01/2017 17:25': [
       {
-        message: "test",
-        messageType: "SMS",
-        status: "Unknown",
-        created: "11/01/2017 13:33",
+        message: 'te',
+        messageType: 'SMS',
+        status: 'Unknown',
+        created: '09/01/2017 17:25',
       },
       {
-        message: "test",
-        messageType: "Email",
-        status: "Unknown",
-        created: "11/01/2017 13:33",
+        message: 'te',
+        messageType: 'Email',
+        status: 'Unknown',
+        created: '09/01/2017 17:25',
       },
     ],
-    "11/01/2017 13:37": [
+    '11/01/2017 13:33': [
       {
-        message: "test",
-        messageType: "SMS",
-        status: "Unknown",
-        created: "11/01/2017 13:37",
+        message: 'test',
+        messageType: 'SMS',
+        status: 'Unknown',
+        created: '11/01/2017 13:33',
       },
       {
-        message: "test",
-        messageType: "Email",
-        status: "Unknown",
-        created: "11/01/2017 13:37",
+        message: 'test',
+        messageType: 'Email',
+        status: 'Unknown',
+        created: '11/01/2017 13:33',
+      },
+    ],
+    '11/01/2017 13:37': [
+      {
+        message: 'test',
+        messageType: 'SMS',
+        status: 'Unknown',
+        created: '11/01/2017 13:37',
+      },
+      {
+        message: 'test',
+        messageType: 'Email',
+        status: 'Unknown',
+        created: '11/01/2017 13:37',
       },
     ],
   });
@@ -196,7 +196,7 @@ superSupersuperSupersuperSupersuperSupersuperSuperLong
 expect(
   findDOMNode(component.instance()).getElementsByClassName(styles.inner)[0]
     .style.paddingRight
-).toBe("1000px");
+).toBe('1000px');
 
 const {
   course,
@@ -393,9 +393,9 @@ this.firebase
   );
 
 angular
-  .module("AngularAppModule")
+  .module('AngularAppModule')
   // Hello, I am comment.
-  .constant("API_URL", "http://localhost:8080/api");
+  .constant('API_URL', 'http://localhost:8080/api');
 
 ================================================================================
 `;
@@ -415,10 +415,10 @@ nock(/test/)
 
 =====================================output=====================================
 nock(/test/)
-  .matchHeader("Accept", "application/json")
-  [httpMethodNock(method)]("/foo")
+  .matchHeader('Accept', 'application/json')
+  [httpMethodNock(method)]('/foo')
   .reply(200, {
-    foo: "bar",
+    foo: 'bar',
   });
 
 ================================================================================
@@ -449,19 +449,19 @@ window.Data[key]("foo")
 
 =====================================output=====================================
 [].forEach((key) => {
-  data[key]("foo")
-    .then(() => console.log("bar"))
-    .catch(() => console.log("baz"));
+  data[key]('foo')
+    .then(() => console.log('bar'))
+    .catch(() => console.log('baz'));
 });
 
 [].forEach((key) => {
-  data("foo")
-    [key]("bar")
-    .then(() => console.log("bar"))
-    .catch(() => console.log("baz"));
+  data('foo')
+    [key]('bar')
+    .then(() => console.log('bar'))
+    .catch(() => console.log('baz'));
 });
 
-window.Data[key]("foo")
+window.Data[key]('foo')
   .then(() => a)
   .catch(() => b);
 
@@ -558,17 +558,17 @@ not.d3.scaleLinear()
   .range([0, width])
 
 =====================================output=====================================
-d3.select("body")
-  .append("circle")
-  .at({ width: 30, fill: "#f0f" })
+d3.select('body')
+  .append('circle')
+  .at({ width: 30, fill: '#f0f' })
   .st({ fontWeight: 600 });
 
 d3.scaleLinear().domain([1950, 1980]).range([0, width]);
 
 not.d3
-  .select("body")
-  .append("circle")
-  .at({ width: 30, fill: "#f0f" })
+  .select('body')
+  .append('circle')
+  .at({ width: 30, fill: '#f0f' })
   .st({ fontWeight: 600 });
 
 not.d3.scaleLinear().domain([1950, 1980]).range([0, width]);
@@ -695,7 +695,7 @@ this.layoutPartsToHide = this.utils.hashset(
     .filter(Boolean)
 );
 
-var jqxhr = $.ajax("example.php").done(doneFn).fail(failFn);
+var jqxhr = $.ajax('example.php').done(doneFn).fail(failFn);
 
 ================================================================================
 `;
@@ -859,16 +859,16 @@ var l = base
 =====================================output=====================================
 // examples from https://github.com/prettier/prettier/issues/4125
 
-const sha256 = (data) => crypto.createHash("sha256").update(data).digest("hex");
+const sha256 = (data) => crypto.createHash('sha256').update(data).digest('hex');
 
-req.checkBody("id").isInt().optional();
-req.checkBody("name").notEmpty().optional();
+req.checkBody('id').isInt().optional();
+req.checkBody('name').notEmpty().optional();
 
-const x = moment().add(1, "day").valueOf();
+const x = moment().add(1, 'day').valueOf();
 
 // should stay on one line:
 obj.foo(1).foo(2).foo(3);
-obj.foo(-1).foo(import("2")).foo(!x).check(/[A-Z]/);
+obj.foo(-1).foo(import('2')).foo(!x).check(/[A-Z]/);
 
 // better on multiple lines:
 somePromise
@@ -879,35 +879,35 @@ somePromise
 // you can still force multi-line chaining with a comment:
 const sha256 = (data) =>
   crypto // breakme
-    .createHash("sha256")
+    .createHash('sha256')
     .update(data)
-    .digest("hex");
+    .digest('hex');
 
 // examples from https://github.com/prettier/prettier/pull/4765
 
-if ($(el).attr("href").includes("/wiki/")) {
+if ($(el).attr('href').includes('/wiki/')) {
 }
 
-if ($(el).attr("href").includes("/wiki/")) {
-  if ($(el).attr("xyz").includes("/whatever/")) {
-    if ($(el).attr("hello").includes("/world/")) {
+if ($(el).attr('href').includes('/wiki/')) {
+  if ($(el).attr('xyz').includes('/whatever/')) {
+    if ($(el).attr('hello').includes('/world/')) {
     }
   }
 }
 
-const parseNumbers = (s) => s.split("").map(Number).sort();
+const parseNumbers = (s) => s.split('').map(Number).sort();
 
 function palindrome(a, b) {
-  return a.slice().reverse().join(",") === b.slice().sort().join(",");
+  return a.slice().reverse().join(',') === b.slice().sort().join(',');
 }
 
 // examples from https://github.com/prettier/prettier/issues/1565
 
-d3.select("body")
-  .selectAll("p")
+d3.select('body')
+  .selectAll('p')
   .data([1, 2, 3])
   .enter()
-  .style("color", "white");
+  .style('color', 'white');
 
 Object.keys(props)
   .filter((key) => key in own === false)
@@ -918,20 +918,20 @@ Object.keys(props)
 
 point().x(4).y(3).z(6).plot();
 
-assert.equal(this.$().text().trim(), "1000");
+assert.equal(this.$().text().trim(), '1000');
 
 something()
   .then(() => doSomethingElse())
   .then((result) => dontForgetThisAsWell(result));
 
 db.branch(
-  db.table("users").filter({ email }).count(),
-  db.table("users").filter({ email: "a@b.com" }).count(),
-  db.table("users").insert({ email }),
-  db.table("users").filter({ email })
+  db.table('users').filter({ email }).count(),
+  db.table('users').filter({ email: 'a@b.com' }).count(),
+  db.table('users').insert({ email }),
+  db.table('users').filter({ email })
 );
 
-sandbox.stub(config, "get").withArgs("env").returns("dev");
+sandbox.stub(config, 'get').withArgs('env').returns('dev');
 
 moment.utc(userInput).hour(0).minute(0).second(0);
 
@@ -947,12 +947,12 @@ function HelloWorld() {
   window.FooClient.setVars({
     locale: getFooLocale({ page }),
     authorizationToken: data.token,
-  }).initVerify("foo_container");
+  }).initVerify('foo_container');
 
   fejax
     .ajax({
-      url: "/verification/",
-      dataType: "json",
+      url: '/verification/',
+      dataType: 'json',
     })
     .then(
       (data) => {
@@ -960,8 +960,8 @@ function HelloWorld() {
         this.initWidget(data);
       },
       (data) => {
-        this.logImpression("foo_fetch_error", data);
-        Flash.error(I18n.t("offline_identity.foo_issue"));
+        this.logImpression('foo_fetch_error', data);
+        Flash.error(I18n.t('offline_identity.foo_issue'));
       }
     );
 }
@@ -987,16 +987,16 @@ action$
 window.FooClient.setVars({
   locale: getFooLocale({ page }),
   authorizationToken: data.token,
-}).initVerify("foo_container");
+}).initVerify('foo_container');
 
-it("gets triggered by mouseenter", () => {
+it('gets triggered by mouseenter', () => {
   const wrapper = shallow(<CalendarDay />);
   wrapper.dive().find(Button).prop();
 });
 
 x.a(true).b(null).c(123);
-x.d("").e(\`\`).f(g);
-x.d("").e(\`\${123}\`).f(g);
+x.d('').e(\`\`).f(g);
+x.d('').e(\`\${123}\`).f(g);
 x.h(i.j).k(l()).m([n, o]);
 class X {
   y() {
@@ -1021,9 +1021,9 @@ xyz
   .c(a(a(b(c(d().p).p).p).p));
 
 var l = base
-  .replace(/^\\w*:\\/\\//, "")
-  .replace(/\\/$/, "")
-  .split("/").length;
+  .replace(/^\\w*:\\/\\//, '')
+  .replace(/\\/$/, '')
+  .split('/').length;
 
 ================================================================================
 `;
@@ -1122,17 +1122,17 @@ wrapper.find('SomewhatLongNodeName').prop('longPropFunctionName')('argument', 's
 });
 
 =====================================output=====================================
-if (testConfig.ENABLE_ONLINE_TESTS === "true") {
-  describe("POST /users/me/pet", function () {
-    it("saves pet", function () {
+if (testConfig.ENABLE_ONLINE_TESTS === 'true') {
+  describe('POST /users/me/pet', function () {
+    it('saves pet', function () {
       function assert(pet) {
-        expect(pet).to.have.property("OwnerAddress").that.deep.equals({
-          AddressLine1: "Alexanderstrasse",
-          AddressLine2: "",
-          PostalCode: "10999",
-          Region: "Berlin",
-          City: "Berlin",
-          Country: "DE",
+        expect(pet).to.have.property('OwnerAddress').that.deep.equals({
+          AddressLine1: 'Alexanderstrasse',
+          AddressLine2: '',
+          PostalCode: '10999',
+          Region: 'Berlin',
+          City: 'Berlin',
+          Country: 'DE',
         });
       }
     });
@@ -1140,34 +1140,34 @@ if (testConfig.ENABLE_ONLINE_TESTS === "true") {
 }
 
 wrapper
-  .find("SomewhatLongNodeName")
-  .prop("longPropFunctionName")()
+  .find('SomewhatLongNodeName')
+  .prop('longPropFunctionName')()
   .then(function () {
     doSomething();
   });
 
 wrapper
-  .find("SomewhatLongNodeName")
-  .prop("longPropFunctionName")("argument")
+  .find('SomewhatLongNodeName')
+  .prop('longPropFunctionName')('argument')
   .then(function () {
     doSomething();
   });
 
 wrapper
-  .find("SomewhatLongNodeName")
+  .find('SomewhatLongNodeName')
   .prop(
-    "longPropFunctionName",
-    "second argument that pushes this group past 80 characters"
-  )("argument")
+    'longPropFunctionName',
+    'second argument that pushes this group past 80 characters'
+  )('argument')
   .then(function () {
     doSomething();
   });
 
 wrapper
-  .find("SomewhatLongNodeName")
-  .prop("longPropFunctionName")(
-    "argument",
-    "second argument that pushes this group past 80 characters"
+  .find('SomewhatLongNodeName')
+  .prop('longPropFunctionName')(
+    'argument',
+    'second argument that pushes this group past 80 characters'
   )
   .then(function () {
     doSomething();
@@ -1199,7 +1199,7 @@ of("test")
   });
 
 =====================================output=====================================
-of("test")
+of('test')
   .pipe(throwIfEmpty())
   .subscribe({
     error(err) {
@@ -1207,7 +1207,7 @@ of("test")
     },
   });
 
-of("test")
+of('test')
   .pipe(throwIfEmpty())
   .subscribe({
     get foo() {
@@ -1256,13 +1256,13 @@ const component = find('.org-lclp-edit-copy-url-banner__link')[0]
 
 =====================================output=====================================
 const version = someLongString
-  .split("jest version =")
+  .split('jest version =')
   .pop()
   .split(EOL)[0]
   .trim();
 
-const component = find(".org-lclp-edit-copy-url-banner__link")[0]
-  .getAttribute("href")
+const component = find('.org-lclp-edit-copy-url-banner__link')[0]
+  .getAttribute('href')
   .indexOf(this.landingPageLink);
 
 ================================================================================
@@ -1284,7 +1284,7 @@ method().then(x => x)
 =====================================output=====================================
 method()
   .then((x) => x)
-  ["abc"]((x) => x)
+  ['abc']((x) => x)
   [abc]((x) => x);
 
 ({}.a().b());

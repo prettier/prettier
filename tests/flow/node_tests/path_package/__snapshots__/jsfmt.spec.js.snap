@@ -10,7 +10,7 @@ var x = require('bar_lib/src/lib');
 console.log(x);
 
 =====================================output=====================================
-var x = require("bar_lib/src/lib");
+var x = require('bar_lib/src/lib');
 console.log(x);
 
 ================================================================================

@@ -31,7 +31,7 @@ module.exports = b;
 
 =====================================output=====================================
 // @flow
-var a = require("./a");
+var a = require('./a');
 var b: number = a;
 module.exports = b;
 
@@ -51,7 +51,7 @@ module.exports = c;
 
 =====================================output=====================================
 // @flow
-var b = require("./b");
+var b = require('./b');
 var c: string = b;
 module.exports = c;
 
@@ -77,7 +77,7 @@ module.exports = "dupe1";
  * @providesModule Dupe
  * @flow
  */
-module.exports = "dupe1";
+module.exports = 'dupe1';
 
 ================================================================================
 `;
@@ -101,7 +101,7 @@ module.exports = "dupe2";
  * @providesModule Dupe
  * @flow
  */
-module.exports = "dupe2";
+module.exports = 'dupe2';
 
 ================================================================================
 `;
@@ -123,7 +123,7 @@ var dupe = require('Dupe');
  * depends on doubly-provided module
  * @flow
  */
-var dupe = require("Dupe");
+var dupe = require('Dupe');
 
 ================================================================================
 `;
@@ -145,7 +145,7 @@ var unchecked = require('Unchecked');
  * depends on an unchecked module, which will be deleted
  * @flow
  */
-var unchecked = require("Unchecked");
+var unchecked = require('Unchecked');
 
 ================================================================================
 `;
@@ -167,7 +167,7 @@ module.exports = "unchecked";
  * Not a flow module.
  * @providesModule Unchecked
  */
-module.exports = "unchecked";
+module.exports = 'unchecked';
 
 ================================================================================
 `;

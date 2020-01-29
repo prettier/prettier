@@ -9,7 +9,7 @@ printWidth: 80
 var x: number = "not a number"; // No error
 
 =====================================output=====================================
-var x: number = "not a number"; // No error
+var x: number = 'not a number'; // No error
 
 ================================================================================
 `;

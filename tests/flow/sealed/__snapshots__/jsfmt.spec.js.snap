@@ -65,7 +65,7 @@ Foo.prototype.m = function () {
 };
 
 var y: number = o.m();
-o.x = "...";
+o.x = '...';
 
 Foo.prototype = {
   m: function () {
@@ -99,15 +99,15 @@ a.y = 'abc'; // error, needs to be declared in Bar's constructor
 (a.getY(): string);
 
 =====================================output=====================================
-var o = require("./proto");
+var o = require('./proto');
 
 o.z = 0;
 var x: string = o.x;
 
-var Bar = require("./function");
+var Bar = require('./function');
 var a = new Bar(234);
 a.x = 123;
-a.y = "abc"; // error, needs to be declared in Bar's constructor
+a.y = 'abc'; // error, needs to be declared in Bar's constructor
 (a.getX(): number);
 (a.getY(): string);
 

@@ -57,21 +57,21 @@ printWidth: 80
 />
 
 <GlimmerComponent
-  class="medium"
-  @autocomplete="off"
+  class='medium'
+  @autocomplete='off'
   @errors={{
-    or this.aLongProperty (and this.aProperty (v-get bike "number" "message"))
+    or this.aLongProperty (and this.aProperty (v-get bike 'number' 'message'))
   }}
   data-test-beneficiary-account-number
 />
 
 <GlimmerComponent
-  class="medium"
-  @autocomplete="off"
+  class='medium'
+  @autocomplete='off'
   @errors={{
     or
     this.aVeryLongProperty
-    (and this.aProperty (v-get bike "number" "message"))
+    (and this.aProperty (v-get bike 'number' 'message'))
   }}
   data-test-beneficiary-account-number
 />
@@ -90,26 +90,26 @@ printWidth: 80
 </div>
 
 <div
-  class="a-first-class {{if this.optionOne "optionOne"}} {{
-    if this.optionTwo "optionTwo"
-  }} {{if this.optionThree "optionThree"}} {{
-    if this.optionFour "optionFour"
-  }} {{if this.optionFive "optionFive"}} {{this.class}}"
+  class="a-first-class {{if this.optionOne 'optionOne'}} {{
+    if this.optionTwo 'optionTwo'
+  }} {{if this.optionThree 'optionThree'}} {{
+    if this.optionFour 'optionFour'
+  }} {{if this.optionFive 'optionFive'}} {{this.class}}"
   ...attributes
 >
 </div>
 
 <div
   class="a-first-class
-  {{if this.optionOne "optionOne"}}
+  {{if this.optionOne 'optionOne'}}
 
-   {{if this.optionTwo "optionTwo"}}
+   {{if this.optionTwo 'optionTwo'}}
 
-   {{if this.optionThree "optionThree"}}
+   {{if this.optionThree 'optionThree'}}
 
-   {{if this.optionFour "optionFour"}}
+   {{if this.optionFour 'optionFour'}}
 
-   {{if this.optionFive "optionFive"}}
+   {{if this.optionFive 'optionFive'}}
 
    {{this.class}}"
   ...attributes

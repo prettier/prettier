@@ -37,7 +37,7 @@ printWidth: 80
   {{/if}}
 </div>
 
-<div class="entry">
+<div class='entry'>
   {{! This comment will not be in the output }}
   {{!-- This comment as }} and will not be in the output --}}
   <!-- This comment will be in the output -->

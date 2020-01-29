@@ -27,7 +27,7 @@ module.exports = { foo: "" }
 
 =====================================output=====================================
 /* @flow */
-module.exports = { foo: "" };
+module.exports = { foo: '' };
 
 ================================================================================
 `;
@@ -48,8 +48,8 @@ module.exports = o;
 =====================================output=====================================
 /* @flow */
 var o = {
-  A: require("./A"),
-  ...require("./B"),
+  A: require('./A'),
+  ...require('./B'),
 };
 module.exports = o;
 
@@ -70,7 +70,7 @@ C.A = false;
 
 =====================================output=====================================
 /* @flow */
-var C = require("./C");
+var C = require('./C');
 var x: number = C.foo;
 var y: string = C.A;
 C.A = false;

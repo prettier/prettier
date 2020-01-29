@@ -19,8 +19,8 @@ class Foo {
 
 class Foo {
   annotationOnly: string;
-  initOnly = "asdf";
-  initWithAnnotation: string = "asdf";
+  initOnly = 'asdf';
+  initWithAnnotation: string = 'asdf';
 }
 
 ================================================================================

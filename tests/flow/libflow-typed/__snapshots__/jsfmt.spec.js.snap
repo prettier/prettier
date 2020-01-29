@@ -11,7 +11,7 @@ const dino : Dinosaur = "Stegosaurus"
 
 =====================================output=====================================
 /* @flow */
-const dino: Dinosaur = "Stegosaurus";
+const dino: Dinosaur = 'Stegosaurus';
 
 ================================================================================
 `;

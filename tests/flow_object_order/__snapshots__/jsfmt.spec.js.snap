@@ -22,7 +22,7 @@ type Foo = {
 =====================================output=====================================
 type Foo = {
   // a
-  alpha: "hello",
+  alpha: 'hello',
 
   // b
   [key: string]: void,
@@ -59,7 +59,7 @@ type Foo = {
 =====================================output=====================================
 type Foo = {
   // a
-  alpha: "hello",
+  alpha: 'hello',
 
   // b
   [key: string]: void,

@@ -106,8 +106,8 @@ function ugly() {
 =====================================output=====================================
 function ugly() {
   const dictWithSeveralEntries = {
-    key: "value",
-    anotherKey: "another value",
+    key: 'value',
+    anotherKey: 'another value',
     firstNumber: 1,
     secondNumber: 2,
   };
@@ -135,7 +135,7 @@ export   default    42
 =====================================output=====================================
 import  def , {named}  from    'x'
 
-export * from "d";
+export * from 'd';
 
 export    const  x
   =  42
@@ -222,7 +222,7 @@ export   default    42
 
 
 =====================================output=====================================
-import def, { named } from "x";
+import def, { named } from 'x';
 
 export *  from   'd'
 
@@ -349,7 +349,7 @@ function f() {
 =====================================output=====================================
 function f() {
   if (true) {
-    call("this line is 79 chars", "long", "it should", "stay as single line");
+    call('this line is 79 chars', 'long', 'it should', 'stay as single line');
   }
 }
 

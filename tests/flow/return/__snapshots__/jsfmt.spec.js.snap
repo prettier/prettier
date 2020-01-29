@@ -115,7 +115,7 @@ function f(b) {
   if (b) {
     return undefined;
   } else {
-    return "nope";
+    return 'nope';
   }
 }
 

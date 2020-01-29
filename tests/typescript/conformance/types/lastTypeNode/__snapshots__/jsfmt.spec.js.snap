@@ -9,7 +9,7 @@ printWidth: 80
 function x3(callback: (x?: 'hi') => number) {};
 
 =====================================output=====================================
-function x3(callback: (x?: "hi") => number) {}
+function x3(callback: (x?: 'hi') => number) {}
 
 ================================================================================
 `;

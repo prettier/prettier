@@ -2709,7 +2709,7 @@ trailingComma: "none"
 <div>{{ null }}</div>
 <div>{{ 1 }}</div>
 <div>{{ 1 }}</div>
-<div>{{ "hello" }}</div>
+<div>{{ 'hello' }}</div>
 <div>{{ a(1, 2) }}</div>
 <div>{{ a.b(1, 2) }}</div>
 <div>{{ x! }}</div>
@@ -2722,31 +2722,31 @@ trailingComma: "none"
 <div>{{ a?.b }}</div>
 <div>{{ a // hello }}</div>
 <label for="transmissionLayoutRadioButton">{{
-  "SearchSelection.transmissionLayoutRadioButton"
+  'SearchSelection.transmissionLayoutRadioButton'
     | localize: localizationSection
 }}</label>
 <label
   for="transmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButton"
   >{{
-    "SearchSelection.transmissionLayoutRadioButton"
+    'SearchSelection.transmissionLayoutRadioButton'
       | localize: localizationSection
   }}</label
 >
 <label for="transmissionLayoutRadioButton"
   >{{
-    "SearchSelection.transmissionLayoutRadioButton"
+    'SearchSelection.transmissionLayoutRadioButton'
       | localize: localizationSection
   }}
 </label>
 <label for="transmissionLayoutRadioButton">
   {{
-    "SearchSelection.transmissionLayoutRadioButton"
+    'SearchSelection.transmissionLayoutRadioButton'
       | localize: localizationSection
   }}</label
 >
 <label for="transmissionLayoutRadioButton">
   {{
-    "SearchSelection.transmissionLayoutRadioButton"
+    'SearchSelection.transmissionLayoutRadioButton'
       | localize: localizationSection
   }}
 </label>
@@ -2773,8 +2773,8 @@ trailingComma: "none"
 </span>
 <p>
   {{
-    "delete"
-      | translate: { what: "entities" | translate: { count: array.length } }
+    'delete'
+      | translate: { what: 'entities' | translate: { count: array.length } }
   }}
 </p>
 <p>{{ { a: 1 + {} } }}</p>
@@ -2875,7 +2875,7 @@ printWidth: 80
 <div>{{ null }}</div>
 <div>{{ 1 }}</div>
 <div>{{ 1 }}</div>
-<div>{{ "hello" }}</div>
+<div>{{ 'hello' }}</div>
 <div>{{ a(1, 2) }}</div>
 <div>{{ a.b(1, 2) }}</div>
 <div>{{ x! }}</div>
@@ -2888,31 +2888,31 @@ printWidth: 80
 <div>{{ a?.b }}</div>
 <div>{{ a // hello }}</div>
 <label for="transmissionLayoutRadioButton">{{
-  "SearchSelection.transmissionLayoutRadioButton"
+  'SearchSelection.transmissionLayoutRadioButton'
     | localize: localizationSection
 }}</label>
 <label
   for="transmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButton"
   >{{
-    "SearchSelection.transmissionLayoutRadioButton"
+    'SearchSelection.transmissionLayoutRadioButton'
       | localize: localizationSection
   }}</label
 >
 <label for="transmissionLayoutRadioButton"
   >{{
-    "SearchSelection.transmissionLayoutRadioButton"
+    'SearchSelection.transmissionLayoutRadioButton'
       | localize: localizationSection
   }}
 </label>
 <label for="transmissionLayoutRadioButton">
   {{
-    "SearchSelection.transmissionLayoutRadioButton"
+    'SearchSelection.transmissionLayoutRadioButton'
       | localize: localizationSection
   }}</label
 >
 <label for="transmissionLayoutRadioButton">
   {{
-    "SearchSelection.transmissionLayoutRadioButton"
+    'SearchSelection.transmissionLayoutRadioButton'
       | localize: localizationSection
   }}
 </label>
@@ -2939,8 +2939,8 @@ printWidth: 80
 </span>
 <p>
   {{
-    "delete"
-      | translate: { what: "entities" | translate: { count: array.length } }
+    'delete'
+      | translate: { what: 'entities' | translate: { count: array.length } }
   }}
 </p>
 <p>{{ { a: 1 + {} } }}</p>
@@ -3121,7 +3121,7 @@ printWidth: 1
 </div>
 <div>
   {{
-    "hello"
+    'hello'
   }}
 </div>
 <div>
@@ -3188,7 +3188,7 @@ printWidth: 1
 <label
   for="transmissionLayoutRadioButton"
   >{{
-    "SearchSelection.transmissionLayoutRadioButton"
+    'SearchSelection.transmissionLayoutRadioButton'
       | localize
         : localizationSection
   }}</label
@@ -3196,7 +3196,7 @@ printWidth: 1
 <label
   for="transmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButton"
   >{{
-    "SearchSelection.transmissionLayoutRadioButton"
+    'SearchSelection.transmissionLayoutRadioButton'
       | localize
         : localizationSection
   }}</label
@@ -3204,7 +3204,7 @@ printWidth: 1
 <label
   for="transmissionLayoutRadioButton"
   >{{
-    "SearchSelection.transmissionLayoutRadioButton"
+    'SearchSelection.transmissionLayoutRadioButton'
       | localize
         : localizationSection
   }}
@@ -3213,7 +3213,7 @@ printWidth: 1
   for="transmissionLayoutRadioButton"
 >
   {{
-    "SearchSelection.transmissionLayoutRadioButton"
+    'SearchSelection.transmissionLayoutRadioButton'
       | localize
         : localizationSection
   }}</label
@@ -3222,7 +3222,7 @@ printWidth: 1
   for="transmissionLayoutRadioButton"
 >
   {{
-    "SearchSelection.transmissionLayoutRadioButton"
+    'SearchSelection.transmissionLayoutRadioButton'
       | localize
         : localizationSection
   }}
@@ -3272,11 +3272,11 @@ printWidth: 1
 </span>
 <p>
   {{
-    "delete"
+    'delete'
       | translate
         : {
             what:
-              "entities"
+              'entities'
               | translate
                 : {
                     count:
@@ -3414,7 +3414,7 @@ printWidth: 80
 <div>{{ null }}</div>
 <div>{{ 1 }}</div>
 <div>{{ 1 }}</div>
-<div>{{ "hello" }}</div>
+<div>{{ 'hello' }}</div>
 <div>{{ a(1, 2) }}</div>
 <div>{{ a.b(1, 2) }}</div>
 <div>{{ x! }}</div>
@@ -3428,7 +3428,7 @@ printWidth: 80
 <div>{{ a // hello }}</div>
 <label for="transmissionLayoutRadioButton">
   {{
-    "SearchSelection.transmissionLayoutRadioButton"
+    'SearchSelection.transmissionLayoutRadioButton'
       | localize: localizationSection
   }}
 </label>
@@ -3436,25 +3436,25 @@ printWidth: 80
   for="transmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButton"
 >
   {{
-    "SearchSelection.transmissionLayoutRadioButton"
+    'SearchSelection.transmissionLayoutRadioButton'
       | localize: localizationSection
   }}
 </label>
 <label for="transmissionLayoutRadioButton">
   {{
-    "SearchSelection.transmissionLayoutRadioButton"
+    'SearchSelection.transmissionLayoutRadioButton'
       | localize: localizationSection
   }}
 </label>
 <label for="transmissionLayoutRadioButton">
   {{
-    "SearchSelection.transmissionLayoutRadioButton"
+    'SearchSelection.transmissionLayoutRadioButton'
       | localize: localizationSection
   }}
 </label>
 <label for="transmissionLayoutRadioButton">
   {{
-    "SearchSelection.transmissionLayoutRadioButton"
+    'SearchSelection.transmissionLayoutRadioButton'
       | localize: localizationSection
   }}
 </label>
@@ -3483,8 +3483,8 @@ printWidth: 80
 </span>
 <p>
   {{
-    "delete"
-      | translate: { what: "entities" | translate: { count: array.length } }
+    'delete'
+      | translate: { what: 'entities' | translate: { count: array.length } }
   }}
 </p>
 <p>{{ { a: 1 + {} } }}</p>
@@ -3586,7 +3586,7 @@ printWidth: 80
 <div>{{ null }}</div>
 <div>{{ 1 }}</div>
 <div>{{ 1 }}</div>
-<div>{{ "hello" }}</div>
+<div>{{ 'hello' }}</div>
 <div>{{ a(1, 2) }}</div>
 <div>{{ a.b(1, 2) }}</div>
 <div>{{ x! }}</div>
@@ -3599,31 +3599,31 @@ printWidth: 80
 <div>{{ a?.b }}</div>
 <div>{{ a // hello }}</div>
 <label for="transmissionLayoutRadioButton">{{
-  "SearchSelection.transmissionLayoutRadioButton"
+  'SearchSelection.transmissionLayoutRadioButton'
     | localize: localizationSection
 }}</label>
 <label
   for="transmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButton"
   >{{
-    "SearchSelection.transmissionLayoutRadioButton"
+    'SearchSelection.transmissionLayoutRadioButton'
       | localize: localizationSection
   }}</label
 >
 <label for="transmissionLayoutRadioButton"
   >{{
-    "SearchSelection.transmissionLayoutRadioButton"
+    'SearchSelection.transmissionLayoutRadioButton'
       | localize: localizationSection
   }}
 </label>
 <label for="transmissionLayoutRadioButton">
   {{
-    "SearchSelection.transmissionLayoutRadioButton"
+    'SearchSelection.transmissionLayoutRadioButton'
       | localize: localizationSection
   }}</label
 >
 <label for="transmissionLayoutRadioButton">
   {{
-    "SearchSelection.transmissionLayoutRadioButton"
+    'SearchSelection.transmissionLayoutRadioButton'
       | localize: localizationSection
   }}
 </label>
@@ -3650,8 +3650,8 @@ printWidth: 80
 </span>
 <p>
   {{
-    "delete"
-      | translate: {what: "entities" | translate: ({count: array.length})}
+    'delete'
+      | translate: {what: 'entities' | translate: ({count: array.length})}
   }}
 </p>
 <p>{{ {a: 1 + ({})} }}</p>
@@ -4820,9 +4820,9 @@ bindon-ngModel
 <button (click)="setCurrentClasses()">Refresh currentClasses</button>
 <br /><br />
 <div [ngClass]="currentClasses">
-  This div should be {{ canSave ? "" : "not" }} saveable,
-  {{ isUnchanged ? "unchanged" : "modified" }} and,
-  {{ isSpecial ? "" : "not" }} special after clicking "Refresh".
+  This div should be {{ canSave ? '' : 'not' }} saveable,
+  {{ isUnchanged ? 'unchanged' : 'modified' }} and,
+  {{ isSpecial ? '' : 'not' }} special after clicking "Refresh".
 </div>
 <br /><br />
 
@@ -4855,9 +4855,9 @@ bindon-ngModel
 <button (click)="setCurrentStyles()">Refresh currentStyles</button>
 <br /><br />
 <div [ngStyle]="currentStyles">
-  This div should be {{ canSave ? "italic" : "plain" }},
-  {{ isUnchanged ? "normal weight" : "bold" }} and,
-  {{ isSpecial ? "extra large" : "normal size" }} after clicking "Refresh".
+  This div should be {{ canSave ? 'italic' : 'plain' }},
+  {{ isUnchanged ? 'normal weight' : 'bold' }} and,
+  {{ isSpecial ? 'extra large' : 'normal size' }} after clicking "Refresh".
 </div>
 
 <a class="to-toc" href="#toc">top</a>
@@ -5070,17 +5070,17 @@ bindon-ngModel
 </div>
 
 <!-- pipe with configuration argument => "February 25, 1970" -->
-<div>Birthdate: {{ currentHero?.birthdate | date: "longDate" }}</div>
+<div>Birthdate: {{ currentHero?.birthdate | date: 'longDate' }}</div>
 
 <div>{{ currentHero | json }}</div>
 
 <div>
-  Birthdate: {{ currentHero?.birthdate | date: "longDate" | uppercase }}
+  Birthdate: {{ currentHero?.birthdate | date: 'longDate' | uppercase }}
 </div>
 
 <div>
   <!-- pipe price to USD and display the $ symbol -->
-  <label>Price: </label>{{ product.price | currency: "USD":true }}
+  <label>Price: </label>{{ product.price | currency: 'USD':true }}
 </div>
 
 <a class="to-toc" href="#toc">top</a>
@@ -6348,9 +6348,9 @@ bindon-ngModel
 <button (click)="setCurrentClasses()">Refresh currentClasses</button>
 <br /><br />
 <div [ngClass]="currentClasses">
-  This div should be {{ canSave ? "" : "not" }} saveable,
-  {{ isUnchanged ? "unchanged" : "modified" }} and,
-  {{ isSpecial ? "" : "not" }} special after clicking "Refresh".
+  This div should be {{ canSave ? '' : 'not' }} saveable,
+  {{ isUnchanged ? 'unchanged' : 'modified' }} and,
+  {{ isSpecial ? '' : 'not' }} special after clicking "Refresh".
 </div>
 <br /><br />
 
@@ -6383,9 +6383,9 @@ bindon-ngModel
 <button (click)="setCurrentStyles()">Refresh currentStyles</button>
 <br /><br />
 <div [ngStyle]="currentStyles">
-  This div should be {{ canSave ? "italic" : "plain" }},
-  {{ isUnchanged ? "normal weight" : "bold" }} and,
-  {{ isSpecial ? "extra large" : "normal size" }} after clicking "Refresh".
+  This div should be {{ canSave ? 'italic' : 'plain' }},
+  {{ isUnchanged ? 'normal weight' : 'bold' }} and,
+  {{ isSpecial ? 'extra large' : 'normal size' }} after clicking "Refresh".
 </div>
 
 <a class="to-toc" href="#toc">top</a>
@@ -6598,17 +6598,17 @@ bindon-ngModel
 </div>
 
 <!-- pipe with configuration argument => "February 25, 1970" -->
-<div>Birthdate: {{ currentHero?.birthdate | date: "longDate" }}</div>
+<div>Birthdate: {{ currentHero?.birthdate | date: 'longDate' }}</div>
 
 <div>{{ currentHero | json }}</div>
 
 <div>
-  Birthdate: {{ currentHero?.birthdate | date: "longDate" | uppercase }}
+  Birthdate: {{ currentHero?.birthdate | date: 'longDate' | uppercase }}
 </div>
 
 <div>
   <!-- pipe price to USD and display the $ symbol -->
-  <label>Price: </label>{{ product.price | currency: "USD":true }}
+  <label>Price: </label>{{ product.price | currency: 'USD':true }}
 </div>
 
 <a class="to-toc" href="#toc">top</a>
@@ -8862,20 +8862,20 @@ bindon-ngModel
   be
   {{
     canSave
-      ? ""
-      : "not"
+      ? ''
+      : 'not'
   }}
   saveable,
   {{
     isUnchanged
-      ? "unchanged"
-      : "modified"
+      ? 'unchanged'
+      : 'modified'
   }}
   and,
   {{
     isSpecial
-      ? ""
-      : "not"
+      ? ''
+      : 'not'
   }}
   special
   after
@@ -9029,19 +9029,19 @@ bindon-ngModel
   be
   {{
     canSave
-      ? "italic"
-      : "plain"
+      ? 'italic'
+      : 'plain'
   }},
   {{
     isUnchanged
-      ? "normal weight"
-      : "bold"
+      ? 'normal weight'
+      : 'bold'
   }}
   and,
   {{
     isSpecial
-      ? "extra large"
-      : "normal size"
+      ? 'extra large'
+      : 'normal size'
   }}
   after
   clicking
@@ -9774,7 +9774,7 @@ bindon-ngModel
   {{
     currentHero?.birthdate
       | date
-        : "longDate"
+        : 'longDate'
   }}
 </div>
 
@@ -9790,7 +9790,7 @@ bindon-ngModel
   {{
     currentHero?.birthdate
       | date
-        : "longDate"
+        : 'longDate'
       | uppercase
   }}
 </div>
@@ -9802,7 +9802,7 @@ bindon-ngModel
   >{{
     product.price
       | currency
-        : "USD"
+        : 'USD'
         : true
   }}
 </div>
@@ -11362,9 +11362,9 @@ bindon-ngModel
 <br />
 <br />
 <div [ngClass]="currentClasses">
-  This div should be {{ canSave ? "" : "not" }} saveable,
-  {{ isUnchanged ? "unchanged" : "modified" }} and,
-  {{ isSpecial ? "" : "not" }} special after clicking "Refresh".
+  This div should be {{ canSave ? '' : 'not' }} saveable,
+  {{ isUnchanged ? 'unchanged' : 'modified' }} and,
+  {{ isSpecial ? '' : 'not' }} special after clicking "Refresh".
 </div>
 <br />
 <br />
@@ -11410,9 +11410,9 @@ bindon-ngModel
 <br />
 <br />
 <div [ngStyle]="currentStyles">
-  This div should be {{ canSave ? "italic" : "plain" }},
-  {{ isUnchanged ? "normal weight" : "bold" }} and,
-  {{ isSpecial ? "extra large" : "normal size" }} after clicking "Refresh".
+  This div should be {{ canSave ? 'italic' : 'plain' }},
+  {{ isUnchanged ? 'normal weight' : 'bold' }} and,
+  {{ isSpecial ? 'extra large' : 'normal size' }} after clicking "Refresh".
 </div>
 
 <a class="to-toc" href="#toc">top</a>
@@ -11655,18 +11655,18 @@ bindon-ngModel
 </div>
 
 <!-- pipe with configuration argument => "February 25, 1970" -->
-<div>Birthdate: {{ currentHero?.birthdate | date: "longDate" }}</div>
+<div>Birthdate: {{ currentHero?.birthdate | date: 'longDate' }}</div>
 
 <div>{{ currentHero | json }}</div>
 
 <div>
-  Birthdate: {{ currentHero?.birthdate | date: "longDate" | uppercase }}
+  Birthdate: {{ currentHero?.birthdate | date: 'longDate' | uppercase }}
 </div>
 
 <div>
   <!-- pipe price to USD and display the $ symbol -->
   <label>Price:</label>
-  {{ product.price | currency: "USD":true }}
+  {{ product.price | currency: 'USD':true }}
 </div>
 
 <a class="to-toc" href="#toc">top</a>
@@ -12947,9 +12947,9 @@ bindon-ngModel
 <button (click)="setCurrentClasses()">Refresh currentClasses</button>
 <br /><br />
 <div [ngClass]="currentClasses">
-  This div should be {{ canSave ? "" : "not" }} saveable,
-  {{ isUnchanged ? "unchanged" : "modified" }} and,
-  {{ isSpecial ? "" : "not" }} special after clicking "Refresh".
+  This div should be {{ canSave ? '' : 'not' }} saveable,
+  {{ isUnchanged ? 'unchanged' : 'modified' }} and,
+  {{ isSpecial ? '' : 'not' }} special after clicking "Refresh".
 </div>
 <br /><br />
 
@@ -12982,9 +12982,9 @@ bindon-ngModel
 <button (click)="setCurrentStyles()">Refresh currentStyles</button>
 <br /><br />
 <div [ngStyle]="currentStyles">
-  This div should be {{ canSave ? "italic" : "plain" }},
-  {{ isUnchanged ? "normal weight" : "bold" }} and,
-  {{ isSpecial ? "extra large" : "normal size" }} after clicking "Refresh".
+  This div should be {{ canSave ? 'italic' : 'plain' }},
+  {{ isUnchanged ? 'normal weight' : 'bold' }} and,
+  {{ isSpecial ? 'extra large' : 'normal size' }} after clicking "Refresh".
 </div>
 
 <a class="to-toc" href="#toc">top</a>
@@ -13197,17 +13197,17 @@ bindon-ngModel
 </div>
 
 <!-- pipe with configuration argument => "February 25, 1970" -->
-<div>Birthdate: {{ currentHero?.birthdate | date: "longDate" }}</div>
+<div>Birthdate: {{ currentHero?.birthdate | date: 'longDate' }}</div>
 
 <div>{{ currentHero | json }}</div>
 
 <div>
-  Birthdate: {{ currentHero?.birthdate | date: "longDate" | uppercase }}
+  Birthdate: {{ currentHero?.birthdate | date: 'longDate' | uppercase }}
 </div>
 
 <div>
   <!-- pipe price to USD and display the $ symbol -->
-  <label>Price: </label>{{ product.price | currency: "USD":true }}
+  <label>Price: </label>{{ product.price | currency: 'USD':true }}
 </div>
 
 <a class="to-toc" href="#toc">top</a>

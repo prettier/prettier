@@ -25,7 +25,7 @@ proseWrap: "always"
 [alpha]: <http://example.com 123> "title"
 
 =====================================output=====================================
-[alpha]: <http://example.com 123> "title"
+[alpha]: <http://example.com 123> 'title'
 
 ================================================================================
 `;
@@ -40,7 +40,7 @@ proseWrap: "always"
 [alpha]: http://example.com "title"
 
 =====================================output=====================================
-[alpha]: http://example.com "title"
+[alpha]: http://example.com 'title'
 
 ================================================================================
 `;

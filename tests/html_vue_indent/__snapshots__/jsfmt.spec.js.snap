@@ -43,8 +43,8 @@ vueIndentScriptAndStyle: true
   </style>
 
   <script>
-    console.log("hello");
-    console.log("hello");
+    console.log('hello');
+    console.log('hello');
   </script>
 
   <br />
@@ -100,8 +100,8 @@ vueIndentScriptAndStyle: false
   </style>
 
   <script>
-    console.log("hello");
-    console.log("hello");
+    console.log('hello');
+    console.log('hello');
   </script>
 
   <br />
@@ -146,8 +146,8 @@ footer {
 
 =====================================output=====================================
 <script>
-  console.log("hello");
-  console.log("hello");
+  console.log('hello');
+  console.log('hello');
 </script>
 
 <style lang="scss">
@@ -203,8 +203,8 @@ footer {
 
 =====================================output=====================================
 <script>
-console.log("hello");
-console.log("hello");
+console.log('hello');
+console.log('hello');
 </script>
 
 <style lang="scss">

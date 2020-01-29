@@ -427,10 +427,10 @@ new Promise(function (resolve, reject) {
   if (Math.random()) {
     resolve(42);
   } else {
-    resolve("str");
+    resolve('str');
   }
 }).then(function (numOrStr) {
-  if (typeof numOrStr === "string") {
+  if (typeof numOrStr === 'string') {
     var a: string = numOrStr;
   } else {
     var b: number = numOrStr;
@@ -471,10 +471,10 @@ new Promise(function (resolve, reject) {
   if (Math.random()) {
     reject(42);
   } else {
-    reject("str");
+    reject('str');
   }
 }).catch(function (numOrStr) {
-  if (typeof numOrStr === "string") {
+  if (typeof numOrStr === 'string') {
     var a: string = numOrStr;
   } else {
     var b: number = numOrStr;
@@ -533,7 +533,7 @@ Promise.reject(Promise.resolve(0)).then(function (num) {
 // resolvedPromise.then():T -> then(T)
 Promise.resolve(0)
   .then(function (num) {
-    return "asdf";
+    return 'asdf';
   })
   .then(function (str) {
     var a: string = str;
@@ -543,7 +543,7 @@ Promise.resolve(0)
 // resolvedPromise.then():Promise<T> -> then(T)
 Promise.resolve(0)
   .then(function (num) {
-    return Promise.resolve("asdf");
+    return Promise.resolve('asdf');
   })
   .then(function (str) {
     var a: string = str;
@@ -553,7 +553,7 @@ Promise.resolve(0)
 // resolvedPromise.then():Promise<Promise<T>> -> then(T)
 Promise.resolve(0)
   .then(function (num) {
-    return Promise.resolve(Promise.resolve("asdf"));
+    return Promise.resolve(Promise.resolve('asdf'));
   })
   .then(function (str) {
     var a: string = str;
@@ -563,7 +563,7 @@ Promise.resolve(0)
 // TODO: resolvedPromise.then(<throw(T)>) -> catch(T)
 Promise.resolve(0)
   .then(function (num) {
-    throw "str";
+    throw 'str';
   })
   .catch(function (str) {
     var a: string = str;
@@ -579,7 +579,7 @@ Promise.resolve(0)
 // rejectedPromise.catch():U -> then(U)
 Promise.reject(0)
   .catch(function (num) {
-    return "asdf";
+    return 'asdf';
   })
   .then(function (str) {
     var a: string = str;
@@ -589,7 +589,7 @@ Promise.reject(0)
 // rejectedPromise.catch():Promise<U> -> then(U)
 Promise.reject(0)
   .catch(function (num) {
-    return Promise.resolve("asdf");
+    return Promise.resolve('asdf');
   })
   .then(function (str) {
     var a: string = str;
@@ -599,7 +599,7 @@ Promise.reject(0)
 // rejectedPromise.catch():Promise<Promise<U>> -> then(U)
 Promise.reject(0)
   .catch(function (num) {
-    return Promise.resolve(Promise.resolve("asdf"));
+    return Promise.resolve(Promise.resolve('asdf'));
   })
   .then(function (str) {
     var a: string = str;
@@ -681,7 +681,7 @@ class Promise {}
  */
 async function foo(x: boolean) {
   if (x) {
-    return { bar: "baz" };
+    return { bar: 'baz' };
   } else {
     return null;
   }

@@ -107,7 +107,7 @@ function str(x: string) {}
 
 function foo() {
   var x = 0;
-  var y = "...";
+  var y = '...';
   var z = {};
   num(x + x);
   num(x + y); // error
@@ -153,20 +153,20 @@ num(true + null); // === 1
 num(undefined + true); // === NaN
 num(true + undefined); // === NaN
 
-str("foo" + true); // error
-str(true + "foo"); // error
-str("foo" + null); // error
-str(null + "foo"); // error
-str("foo" + undefined); // error
-str(undefined + "foo"); // error
+str('foo' + true); // error
+str(true + 'foo'); // error
+str('foo' + null); // error
+str(null + 'foo'); // error
+str('foo' + undefined); // error
+str(undefined + 'foo'); // error
 
 let tests = [
   function (x: mixed, y: mixed) {
     x + y; // error
     x + 0; // error
     0 + x; // error
-    x + ""; // error
-    "" + x; // error
+    x + ''; // error
+    '' + x; // error
     x + {}; // error
     ({} + x); // error
   },
@@ -177,8 +177,8 @@ let tests = [
   function () {
     (1 + {}: number); // error: object !~> number
     ({} + 1: number); // error: object !~> number
-    ("1" + {}: string); // error: object !~> string
-    ({} + "1": string); // error: object !~> string
+    ('1' + {}: string); // error: object !~> string
+    ({} + '1': string); // error: object !~> string
   },
 
   function (x: any, y: number, z: string) {
@@ -217,7 +217,7 @@ y **= 2; // error
 let x: number = 2 ** 3;
 x **= 4;
 
-let y: string = "123";
+let y: string = '123';
 y **= 2; // error
 
 1 + 2 ** 3 + 4;
@@ -293,7 +293,7 @@ num(1 * null);
 let x: number = 2 * 3;
 x *= 4;
 
-let y: string = "123";
+let y: string = '123';
 y *= 2; // error
 
 ================================================================================
@@ -340,14 +340,14 @@ let tests = [
 /* @flow */
 
 1 < 2;
-1 < "foo"; // error
-"foo" < 1; // error
-"foo" < "bar";
+1 < 'foo'; // error
+'foo' < 1; // error
+'foo' < 'bar';
 1 < { foo: 1 }; // error
 ({ foo: 1 } < 1); // error
 ({ foo: 1 } < { foo: 1 }); // error
-"foo" < { foo: 1 }; // error
-({ foo: 1 } < "foo"); // error
+'foo' < { foo: 1 }; // error
+({ foo: 1 } < 'foo'); // error
 
 var x = (null: ?number);
 1 < x; // 2 errors: null !~> number; undefined !~> number

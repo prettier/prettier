@@ -125,9 +125,9 @@ div {
 /* quotes */
 div {
   grid-template-areas:
-    "header header"
-    "main sidebar"
-    "footer footer";
+    'header header'
+    'main sidebar'
+    'footer footer';
 }
 
 /* numbers */
@@ -147,8 +147,8 @@ div {
     bottom;
 
   grid-template:
-    "a a a" 200px
-    "b b b" 200px
+    'a a a' 200px
+    'b b b' 200px
     / 200px 200px auto;
 }
 
@@ -156,8 +156,8 @@ div {
 div {
   grid-template-columns: 1fr 100px 3em;
   grid:
-    [wide-start] "header header header" 200px [wide-end]
-    "footer footer footer" 25px
+    [wide-start] 'header header header' 200px [wide-end]
+    'footer footer footer' 25px
     / auto 50px auto;
 }
 
@@ -190,22 +190,22 @@ div {
     [full-end];
 
   grid-template-areas:
-    "header header header"
-    "main   main   sidebar"
-    "main   main   sidebar2"
-    "footer footer footer";
+    'header header header'
+    'main   main   sidebar'
+    'main   main   sidebar2'
+    'footer footer footer';
 
   /* Shorthand for grid-template-rows, grid-template-columns, and grid-template
      areas. In one. This can get really crazy. */
   grid-template:
-    [row1-start] "header header header" 25px [row1-end]
-    [row2-start] "footer footer footer" 25px [row2-end]
+    [row1-start] 'header header header' 25px [row1-end]
+    [row2-start] 'footer footer footer' 25px [row2-end]
     / auto 50px auto;
 
   /* The. Worst. This one is shorthand for like everything here smashed into one. But rarely will you actually specify EVERYTHING. */
   grid:
-    [row1-start] "header header header" 25px [row1-end]
-    [row2-start] "footer footer footer" 25px [row2-end]
+    [row1-start] 'header header header' 25px [row1-end]
+    [row2-start] 'footer footer footer' 25px [row2-end]
     / auto 50px auto;
   /* simpler use case: */
   grid: 200px auto / 1fr auto 1fr;

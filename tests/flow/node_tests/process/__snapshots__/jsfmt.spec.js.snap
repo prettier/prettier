@@ -40,7 +40,7 @@ process.nextTick(
 
 process.nextTick(() => {});
 
-process.nextTick((a: string, b: number, c: boolean) => {}, "z", 1, true);
+process.nextTick((a: string, b: number, c: boolean) => {}, 'z', 1, true);
 
 process.nextTick(
   (a: string, b: number, c: boolean) => {},
@@ -51,8 +51,8 @@ process.nextTick(
 
 process.nextTick(
   (a: string, b: number, c: boolean) => {},
-  "z",
-  "y", // Error: string ~> number
+  'z',
+  'y', // Error: string ~> number
   true
 );
 

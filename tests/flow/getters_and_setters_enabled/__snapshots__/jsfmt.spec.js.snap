@@ -111,7 +111,7 @@ class Foo {
 
   propOverriddenWithGetter: number;
   get propOverriddenWithGetter() {
-    return "hello";
+    return 'hello';
   }
 
   propOverriddenWithSetter: number;
@@ -137,8 +137,8 @@ foo.goodSetterNoAnnotation = 123;
 foo.goodSetterWithAnnotation = 123;
 
 // TODO: Why does no annotation mean no error?
-foo.goodSetterNoAnnotation = "hello"; // Error string ~> number
-foo.goodSetterWithAnnotation = "hello"; // Error string ~> number
+foo.goodSetterNoAnnotation = 'hello'; // Error string ~> number
+foo.goodSetterWithAnnotation = 'hello'; // Error string ~> number
 
 var testSubtypingGetterAndSetter: number = foo.propWithSubtypingGetterAndSetter; // Error ?number ~> number
 
@@ -244,7 +244,7 @@ var testGetterWithError2: string = foo.goodGetterWithAnnotation; // Error number
 // Test setting properties with getters
 foo.goodSetterWithAnnotation = 123;
 
-foo.goodSetterWithAnnotation = "hello"; // Error string ~> number
+foo.goodSetterWithAnnotation = 'hello'; // Error string ~> number
 
 var testSubtypingGetterAndSetter: number = foo.propWithSubtypingGetterAndSetter; // Error ?number ~> number
 
@@ -393,8 +393,8 @@ var testGetterWithError2: string = obj.goodGetterWithAnnotation; // Error number
 obj.goodSetterNoAnnotation = 123;
 obj.goodSetterWithAnnotation = 123;
 
-obj.goodSetterNoAnnotation = "hello"; // Error string ~> number
-obj.goodSetterWithAnnotation = "hello"; // Error string ~> number
+obj.goodSetterNoAnnotation = 'hello'; // Error string ~> number
+obj.goodSetterWithAnnotation = 'hello'; // Error string ~> number
 
 var testSubtypingGetterAndSetter: number = obj.propWithSubtypingGetterAndSetter; // Error ?number ~> number
 
@@ -511,7 +511,7 @@ function test(obj: T) {
   // Test setting properties with getters
   obj.goodSetterWithAnnotation = 123;
 
-  obj.goodSetterWithAnnotation = "hello"; // Error string ~> number
+  obj.goodSetterWithAnnotation = 'hello'; // Error string ~> number
 
   var testSubtypingGetterAndSetter: number =
     obj.propWithSubtypingGetterAndSetter; // Error ?number ~> number
@@ -559,7 +559,7 @@ const Example = React.createClass({
  * @flow
  */
 
-import React from "react";
+import React from 'react';
 
 const Example = React.createClass({
   propTypes: {

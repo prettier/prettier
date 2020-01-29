@@ -42,8 +42,8 @@ printWidth: 80
       };
       ga.q = [];
       ga.l = +new Date();
-      ga("create", "UA-XXXXX-Y", "auto");
-      ga("send", "pageview");
+      ga('create', 'UA-XXXXX-Y', 'auto');
+      ga('send', 'pageview');
     </script>
     <script
       src="https://www.google-analytics.com/analytics.js"

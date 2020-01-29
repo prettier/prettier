@@ -27,7 +27,7 @@ class     TestComponent {}
 
 =====================================output=====================================
 @Component({
-  selector: "app-test",
+  selector: 'app-test',
   template: \`
     <ul>
       <li>test</li>
@@ -75,7 +75,7 @@ class     TestComponent {}
 
 =====================================output=====================================
 @Component({
-  selector: "app-test",
+  selector: 'app-test',
   template: \`
     <ul>
       <li>test</li>

@@ -33,7 +33,7 @@ declare module "f" {}
 namespace f {}
 
 =====================================output=====================================
-declare module "f" {}
+declare module 'f' {}
 
 namespace f {}
 

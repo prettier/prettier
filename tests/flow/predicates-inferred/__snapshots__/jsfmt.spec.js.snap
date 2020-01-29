@@ -39,8 +39,8 @@ function bak(z: string | number): number {
 
 // Sanity check: shouldn't be allowed to declare a predicate AND use \`chekcs\`
 
-function check(y): %checks(typeof y === "string") {
-  return typeof y === "number";
+function check(y): %checks(typeof y === 'string') {
+  return typeof y === 'number';
 }
 
 declare var y: number | boolean;
@@ -52,7 +52,7 @@ if (check(y)) {
 // Sanity: disallowed body
 function indirect_is_number(y): %checks {
   var y = 1;
-  return typeof y === "number";
+  return typeof y === 'number';
 }
 
 function bak(z: string | number): number {
@@ -92,11 +92,11 @@ function foo(x: string | Array<string>): string {
 
 // Feature: multi params
 function multi_param(w, x, y, z): %checks {
-  return typeof z === "string";
+  return typeof z === 'string';
 }
 
 function foo(x: string | Array<string>): string {
-  if (multi_param("1", "2", x, "3")) {
+  if (multi_param('1', '2', x, '3')) {
     return x;
   } else {
     return x.join();
@@ -142,8 +142,8 @@ if (dotAccess(obj)) {
 }
 
 function dotAccess(head, create) {
-  const path = "path.location";
-  const stack = path.split(".");
+  const path = 'path.location';
+  const stack = path.split('.');
   do {
     const key = stack.shift();
     head = head[key] || (create && (head[key] = {}));
@@ -186,7 +186,7 @@ declare var y: mixed;
 // Sanity check: this should fail, because the preficate function
 // checks \`y\` instead of \`x\`.
 function err(x): %checks {
-  return typeof y === "string";
+  return typeof y === 'string';
 }
 
 function foo(x: string | Array<string>): string {
@@ -284,15 +284,15 @@ declare function from_two_strings(x: string, y: string): void;
 // @flow
 
 function is_string(y): %checks {
-  return typeof y === "string";
+  return typeof y === 'string';
 }
 
 function is_bool(y): %checks {
-  return typeof y === "boolean";
+  return typeof y === 'boolean';
 }
 
 function is_number(y): %checks {
-  return typeof y === "number";
+  return typeof y === 'number';
 }
 
 // Feature check:
@@ -332,11 +332,11 @@ function baz(z: string | number): number {
 
 // Feature: multi params
 function multi_param(w, x, y, z): %checks {
-  return typeof z === "string";
+  return typeof z === 'string';
 }
 
 function foo(x: string | Array<string>): string {
-  if (multi_param("1", "2", "3", x)) {
+  if (multi_param('1', '2', '3', x)) {
     return x;
   } else {
     return x.join();
@@ -406,7 +406,7 @@ function foo(x: string | Array<string>): string {
 }
 
 function is_string(x): %checks {
-  return typeof x === "string";
+  return typeof x === 'string';
 }
 
 ================================================================================

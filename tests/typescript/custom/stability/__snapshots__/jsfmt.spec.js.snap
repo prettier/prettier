@@ -38,7 +38,7 @@ module m2 {
     return 1;
   }
   export function require() {
-    return "require";
+    return 'require';
   }
 }
 
@@ -48,7 +48,7 @@ module m2 {
   }
 
   export function require() {
-    return "require";
+    return 'require';
   }
 }
 

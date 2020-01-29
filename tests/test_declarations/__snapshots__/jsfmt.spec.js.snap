@@ -49,16 +49,16 @@ beforeEach(async(() => {
 beforeEach((done) => foo().bar().bar());
 
 afterAll(async(() => {
-  console.log("Hello");
+  console.log('Hello');
 }));
 
 afterAll((done) => foo().bar().bar());
 
-it("should create the app", async(() => {
+it('should create the app', async(() => {
   //code
 }));
 
-it("does something really long and complicated so I have to write a very long name for the test", async(() => {
+it('does something really long and complicated so I have to write a very long name for the test', async(() => {
   // code
 }));
 
@@ -124,16 +124,16 @@ beforeEach(async(() => {
 beforeEach(done => foo().bar().bar());
 
 afterAll(async(() => {
-  console.log("Hello");
+  console.log('Hello');
 }));
 
 afterAll(done => foo().bar().bar());
 
-it("should create the app", async(() => {
+it('should create the app', async(() => {
   //code
 }));
 
-it("does something really long and complicated so I have to write a very long name for the test", async(() => {
+it('does something really long and complicated so I have to write a very long name for the test', async(() => {
   // code
 }));
 
@@ -186,18 +186,18 @@ beforeEach(fakeAsync(() => {
 }));
 
 afterAll(fakeAsync(() => {
-  console.log("Hello");
+  console.log('Hello');
 }));
 
-it("should create the app", fakeAsync(() => {
+it('should create the app', fakeAsync(() => {
   //code
 }));
 
-it("does something really long and complicated so I have to write a very long name for the test", fakeAsync(() => {
+it('does something really long and complicated so I have to write a very long name for the test', fakeAsync(() => {
   // code
 }));
 
-it("does something really long and complicated so I have to write a very long name for the test", fakeAsync(() =>
+it('does something really long and complicated so I have to write a very long name for the test', fakeAsync(() =>
   new SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS()));
 
 /*
@@ -250,18 +250,18 @@ beforeEach(fakeAsync(() => {
 }));
 
 afterAll(fakeAsync(() => {
-  console.log("Hello");
+  console.log('Hello');
 }));
 
-it("should create the app", fakeAsync(() => {
+it('should create the app', fakeAsync(() => {
   //code
 }));
 
-it("does something really long and complicated so I have to write a very long name for the test", fakeAsync(() => {
+it('does something really long and complicated so I have to write a very long name for the test', fakeAsync(() => {
   // code
 }));
 
-it("does something really long and complicated so I have to write a very long name for the test", fakeAsync(() =>
+it('does something really long and complicated so I have to write a very long name for the test', fakeAsync(() =>
   new SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS()));
 
 /*
@@ -315,18 +315,18 @@ beforeEach(inject(($fooService, $barService) => {
 }));
 
 afterAll(inject(($fooService, $barService) => {
-  console.log("Hello");
+  console.log('Hello');
 }));
 
-it("should create the app", inject(($fooService, $barService) => {
+it('should create the app', inject(($fooService, $barService) => {
   //code
 }));
 
-it("does something really long and complicated so I have to write a very long name for the test", inject(() => {
+it('does something really long and complicated so I have to write a very long name for the test', inject(() => {
   // code
 }));
 
-it("does something really long and complicated so I have to write a very long name for the test", inject((
+it('does something really long and complicated so I have to write a very long name for the test', inject((
   $fooServiceLongName,
   $barServiceLongName
 ) => {
@@ -385,18 +385,18 @@ beforeEach(inject(($fooService, $barService) => {
 }));
 
 afterAll(inject(($fooService, $barService) => {
-  console.log("Hello");
+  console.log('Hello');
 }));
 
-it("should create the app", inject(($fooService, $barService) => {
+it('should create the app', inject(($fooService, $barService) => {
   //code
 }));
 
-it("does something really long and complicated so I have to write a very long name for the test", inject(() => {
+it('does something really long and complicated so I have to write a very long name for the test', inject(() => {
   // code
 }));
 
-it("does something really long and complicated so I have to write a very long name for the test", inject((
+it('does something really long and complicated so I have to write a very long name for the test', inject((
   $fooServiceLongName,
   $barServiceLongName
 ) => {
@@ -490,7 +490,7 @@ describe.each\`
   \${11}        | \${1}     | \${222}
   \${1 - 1}     | \${2 + 2} | \${3333}
   \${2 + 1 + 2} | \${1111}  | \${3}
-\`("$a + $b", ({ a, b, expected }) => {
+\`('$a + $b', ({ a, b, expected }) => {
   test(\`returns \${expected}\`, () => {
     expect(a + b).toBe(expected);
   });
@@ -506,16 +506,16 @@ describe.each\`
 
 describe.only.each\`
   a            | b        | expected
-  \${11}        | \${1}     | \${222}   | \${"unknown column 1"}   | \${"unknown column 2"}
+  \${11}        | \${1}     | \${222}   | \${'unknown column 1'}   | \${'unknown column 2'}
   \${1 - 1}     | \${2 + 2} | \${3333}
-  \${2 + 1 + 2} | \${1111}  | \${3}     | \${"unknown column xyz"}
+  \${2 + 1 + 2} | \${1111}  | \${3}     | \${'unknown column xyz'}
 \`;
 
 describe.only.each\`
                |          |
-  \${11}        | \${1}     | \${222}  | \${"unknown column 1"}   | \${"unknown column 2"}
+  \${11}        | \${1}     | \${222}  | \${'unknown column 1'}   | \${'unknown column 2'}
   \${1 - 1}     | \${2 + 2} | \${3333}
-  \${2 + 1 + 2} | \${1111}  | \${3}    | \${"unknown column xyz"}
+  \${2 + 1 + 2} | \${1111}  | \${3}    | \${'unknown column xyz'}
 \`;
 
 describe.each\`
@@ -536,7 +536,7 @@ describe.each\`
   \${2} | \${1} | \${3}
 \`;
 
-describe.each([1, 2, 3])("test", (a) => {
+describe.each([1, 2, 3])('test', (a) => {
   expect(a).toBe(a);
 });
 
@@ -544,15 +544,15 @@ test.only.each([
   [1, 1, 2],
   [1, 2, 3],
   [2, 1, 3],
-])(".add(%i, %i)", (a, b, expected) => {
+])('.add(%i, %i)', (a, b, expected) => {
   expect(a + b).toBe(expected);
 });
 
 test.each([
-  { a: "1", b: 1 },
-  { a: "2", b: 2 },
-  { a: "3", b: 3 },
-])("test", ({ a, b }) => {
+  { a: '1', b: 1 },
+  { a: '2', b: 2 },
+  { a: '3', b: 3 },
+])('test', ({ a, b }) => {
   expect(Number(a)).toBe(b);
 });
 
@@ -635,7 +635,7 @@ describe.each\`
   \${11}        | \${1}     | \${222}
   \${1 - 1}     | \${2 + 2} | \${3333}
   \${2 + 1 + 2} | \${1111}  | \${3}
-\`("$a + $b", ({ a, b, expected }) => {
+\`('$a + $b', ({ a, b, expected }) => {
   test(\`returns \${expected}\`, () => {
     expect(a + b).toBe(expected);
   });
@@ -651,16 +651,16 @@ describe.each\`
 
 describe.only.each\`
   a            | b        | expected
-  \${11}        | \${1}     | \${222}   | \${"unknown column 1"}   | \${"unknown column 2"}
+  \${11}        | \${1}     | \${222}   | \${'unknown column 1'}   | \${'unknown column 2'}
   \${1 - 1}     | \${2 + 2} | \${3333}
-  \${2 + 1 + 2} | \${1111}  | \${3}     | \${"unknown column xyz"}
+  \${2 + 1 + 2} | \${1111}  | \${3}     | \${'unknown column xyz'}
 \`;
 
 describe.only.each\`
                |          |
-  \${11}        | \${1}     | \${222}  | \${"unknown column 1"}   | \${"unknown column 2"}
+  \${11}        | \${1}     | \${222}  | \${'unknown column 1'}   | \${'unknown column 2'}
   \${1 - 1}     | \${2 + 2} | \${3333}
-  \${2 + 1 + 2} | \${1111}  | \${3}    | \${"unknown column xyz"}
+  \${2 + 1 + 2} | \${1111}  | \${3}    | \${'unknown column xyz'}
 \`;
 
 describe.each\`
@@ -681,7 +681,7 @@ describe.each\`
   \${2} | \${1} | \${3}
 \`;
 
-describe.each([1, 2, 3])("test", a => {
+describe.each([1, 2, 3])('test', a => {
   expect(a).toBe(a);
 });
 
@@ -689,15 +689,15 @@ test.only.each([
   [1, 1, 2],
   [1, 2, 3],
   [2, 1, 3],
-])(".add(%i, %i)", (a, b, expected) => {
+])('.add(%i, %i)', (a, b, expected) => {
   expect(a + b).toBe(expected);
 });
 
 test.each([
-  { a: "1", b: 1 },
-  { a: "2", b: 2 },
-  { a: "3", b: 3 },
-])("test", ({ a, b }) => {
+  { a: '1', b: 1 },
+  { a: '2', b: 2 },
+  { a: '3', b: 3 },
+])('test', ({ a, b }) => {
   expect(Number(a)).toBe(b);
 });
 
@@ -844,79 +844,79 @@ it(
 =====================================output=====================================
 // Shouldn't break
 
-it("does something really long and complicated so I have to write a very long name for the test", () => {
-  console.log("hello!");
+it('does something really long and complicated so I have to write a very long name for the test', () => {
+  console.log('hello!');
 });
 
-it("does something really long and complicated so I have to write a very long name for the test", function () {
-  console.log("hello!");
+it('does something really long and complicated so I have to write a very long name for the test', function () {
+  console.log('hello!');
 });
 
-it("does something really long and complicated so I have to write a very long name for the test", function (done) {
-  console.log("hello!");
+it('does something really long and complicated so I have to write a very long name for the test', function (done) {
+  console.log('hello!');
 });
 
-it("does something really long and complicated so I have to write a very long name for the test", function myAssertions(done) {
-  console.log("hello!");
+it('does something really long and complicated so I have to write a very long name for the test', function myAssertions(done) {
+  console.log('hello!');
 });
 
 it(\`does something really long and complicated so I have to write a very long name for the test\`, function () {
-  console.log("hello!");
+  console.log('hello!');
 });
 
 it(\`{foo + bar} does something really long and complicated so I have to write a very long name for the test\`, function () {
-  console.log("hello!");
+  console.log('hello!');
 });
 
 it(\`handles
   some
     newlines
   does something really long and complicated so I have to write a very long name for the test\`, () => {
-  console.log("hello!");
+  console.log('hello!');
 });
 
-test("does something really long and complicated so I have to write a very long name for the test", (done) => {
-  console.log("hello!");
+test('does something really long and complicated so I have to write a very long name for the test', (done) => {
+  console.log('hello!');
 });
 
 test(\`does something really long and complicated so I have to write a very long name for the test\`, (done) => {
-  console.log("hello!");
+  console.log('hello!');
 });
 
-test("does something really long and complicated so I have to write a very long name for the test", <T>(done) => {
-  console.log("hello!");
+test('does something really long and complicated so I have to write a very long name for the test', <T>(done) => {
+  console.log('hello!');
 });
 
-describe("does something really long and complicated so I have to write a very long name for the describe block", () => {
-  it("an example test", (done) => {
-    console.log("hello!");
+describe('does something really long and complicated so I have to write a very long name for the describe block', () => {
+  it('an example test', (done) => {
+    console.log('hello!');
   });
 });
 
 describe(\`does something really long and complicated so I have to write a very long name for the describe block\`, () => {
   it(\`an example test\`, (done) => {
-    console.log("hello!");
+    console.log('hello!');
   });
 });
 
-xdescribe("does something really long and complicated so I have to write a very long name for the describe block", () => {});
+xdescribe('does something really long and complicated so I have to write a very long name for the describe block', () => {});
 
-fdescribe("does something really long and complicated so I have to write a very long name for the describe block", () => {});
+fdescribe('does something really long and complicated so I have to write a very long name for the describe block', () => {});
 
 describe.only(\`does something really long and complicated so I have to write a very long name for the test\`, () => {});
 
 describe.skip(\`does something really long and complicated so I have to write a very long name for the test\`, () => {});
 
-fit("does something really long and complicated so I have to write a very long name for the describe block", () => {});
+fit('does something really long and complicated so I have to write a very long name for the describe block', () => {});
 
-xit("does something really long and complicated so I have to write a very long name for the describe block", () => {});
+xit('does something really long and complicated so I have to write a very long name for the describe block', () => {});
 
-it.only("does something really long and complicated so I have to write a very long name for the test", () => {
-  console.log("hello!");
+it.only('does something really long and complicated so I have to write a very long name for the test', () => {
+  console.log('hello!');
 });
 
 it.only(\`does something really long and complicated so I have to write a very long name for the test\`, () => {
-  console.log("hello!");
+  console.log('hello!');
 });
 
 it.skip(\`does something really long and complicated so I have to write a very long name for the test\`, () => {});
@@ -925,40 +925,40 @@ test.only(\`does something really long and complicated so I have to write a very
 
 test.skip(\`does something really long and complicated so I have to write a very long name for the test\`, () => {});
 
-ftest("does something really long and complicated so I have to write a very long name for the describe block", () => {});
+ftest('does something really long and complicated so I have to write a very long name for the describe block', () => {});
 
-xtest("does something really long and complicated so I have to write a very long name for the describe block", () => {});
+xtest('does something really long and complicated so I have to write a very long name for the describe block', () => {});
 
 skip(\`does something really long and complicated so I have to write a very long name for the test\`, () => {});
 
-skip("does something really long and complicated so I have to write a very long name for the test", () => {});
+skip('does something really long and complicated so I have to write a very long name for the test', () => {});
 
 // Should break
 
 it.only(
-  "does something really long and complicated so I have to write a very long name for the test",
+  'does something really long and complicated so I have to write a very long name for the test',
   10,
   () => {
-    console.log("hello!");
+    console.log('hello!');
   }
 );
 
 it.only.only(
-  "does something really long and complicated so I have to write a very long name for the test",
+  'does something really long and complicated so I have to write a very long name for the test',
   () => {
-    console.log("hello!");
+    console.log('hello!');
   }
 );
 
 it.only.only(
-  "does something really long and complicated so I have to write a very long name for the test",
+  'does something really long and complicated so I have to write a very long name for the test',
   (a, b, c) => {
-    console.log("hello!");
+    console.log('hello!');
   }
 );
 
 xskip(
-  "does something really long and complicated so I have to write a very long name for the test",
+  'does something really long and complicated so I have to write a very long name for the test',
   () => {}
 );
 
@@ -968,18 +968,18 @@ it(\`handles
   some
     newlines
   does something really long and complicated so I have to write a very long name for the test\`, () => {
-  console.log("hello!");
+  console.log('hello!');
 }, 2500);
 
-it("does something quick", () => {
-  console.log("hello!");
+it('does something quick', () => {
+  console.log('hello!');
 }, 1000000000);
 
-it("succeeds if the test finishes in time", () =>
+it('succeeds if the test finishes in time', () =>
   new Promise((resolve) => setTimeout(resolve, 10)));
 
 it(
-  "succeeds if the test finishes in time",
+  'succeeds if the test finishes in time',
   () => new Promise((resolve) => setTimeout(resolve, 10)),
   250
 );
@@ -1128,79 +1128,79 @@ it(
 =====================================output=====================================
 // Shouldn't break
 
-it("does something really long and complicated so I have to write a very long name for the test", () => {
-  console.log("hello!");
+it('does something really long and complicated so I have to write a very long name for the test', () => {
+  console.log('hello!');
 });
 
-it("does something really long and complicated so I have to write a very long name for the test", function () {
-  console.log("hello!");
+it('does something really long and complicated so I have to write a very long name for the test', function () {
+  console.log('hello!');
 });
 
-it("does something really long and complicated so I have to write a very long name for the test", function (done) {
-  console.log("hello!");
+it('does something really long and complicated so I have to write a very long name for the test', function (done) {
+  console.log('hello!');
 });
 
-it("does something really long and complicated so I have to write a very long name for the test", function myAssertions(done) {
-  console.log("hello!");
+it('does something really long and complicated so I have to write a very long name for the test', function myAssertions(done) {
+  console.log('hello!');
 });
 
 it(\`does something really long and complicated so I have to write a very long name for the test\`, function () {
-  console.log("hello!");
+  console.log('hello!');
 });
 
 it(\`{foo + bar} does something really long and complicated so I have to write a very long name for the test\`, function () {
-  console.log("hello!");
+  console.log('hello!');
 });
 
 it(\`handles
   some
     newlines
   does something really long and complicated so I have to write a very long name for the test\`, () => {
-  console.log("hello!");
+  console.log('hello!');
 });
 
-test("does something really long and complicated so I have to write a very long name for the test", done => {
-  console.log("hello!");
+test('does something really long and complicated so I have to write a very long name for the test', done => {
+  console.log('hello!');
 });
 
 test(\`does something really long and complicated so I have to write a very long name for the test\`, done => {
-  console.log("hello!");
+  console.log('hello!');
 });
 
-test("does something really long and complicated so I have to write a very long name for the test", <T>(done) => {
-  console.log("hello!");
+test('does something really long and complicated so I have to write a very long name for the test', <T>(done) => {
+  console.log('hello!');
 });
 
-describe("does something really long and complicated so I have to write a very long name for the describe block", () => {
-  it("an example test", done => {
-    console.log("hello!");
+describe('does something really long and complicated so I have to write a very long name for the describe block', () => {
+  it('an example test', done => {
+    console.log('hello!');
   });
 });
 
 describe(\`does something really long and complicated so I have to write a very long name for the describe block\`, () => {
   it(\`an example test\`, done => {
-    console.log("hello!");
+    console.log('hello!');
   });
 });
 
-xdescribe("does something really long and complicated so I have to write a very long name for the describe block", () => {});
+xdescribe('does something really long and complicated so I have to write a very long name for the describe block', () => {});
 
-fdescribe("does something really long and complicated so I have to write a very long name for the describe block", () => {});
+fdescribe('does something really long and complicated so I have to write a very long name for the describe block', () => {});
 
 describe.only(\`does something really long and complicated so I have to write a very long name for the test\`, () => {});
 
 describe.skip(\`does something really long and complicated so I have to write a very long name for the test\`, () => {});
 
-fit("does something really long and complicated so I have to write a very long name for the describe block", () => {});
+fit('does something really long and complicated so I have to write a very long name for the describe block', () => {});
 
-xit("does something really long and complicated so I have to write a very long name for the describe block", () => {});
+xit('does something really long and complicated so I have to write a very long name for the describe block', () => {});
 
-it.only("does something really long and complicated so I have to write a very long name for the test", () => {
-  console.log("hello!");
+it.only('does something really long and complicated so I have to write a very long name for the test', () => {
+  console.log('hello!');
 });
 
 it.only(\`does something really long and complicated so I have to write a very long name for the test\`, () => {
-  console.log("hello!");
+  console.log('hello!');
 });
 
 it.skip(\`does something really long and complicated so I have to write a very long name for the test\`, () => {});
@@ -1209,40 +1209,40 @@ test.only(\`does something really long and complicated so I have to write a very
 
 test.skip(\`does something really long and complicated so I have to write a very long name for the test\`, () => {});
 
-ftest("does something really long and complicated so I have to write a very long name for the describe block", () => {});
+ftest('does something really long and complicated so I have to write a very long name for the describe block', () => {});
 
-xtest("does something really long and complicated so I have to write a very long name for the describe block", () => {});
+xtest('does something really long and complicated so I have to write a very long name for the describe block', () => {});
 
 skip(\`does something really long and complicated so I have to write a very long name for the test\`, () => {});
 
-skip("does something really long and complicated so I have to write a very long name for the test", () => {});
+skip('does something really long and complicated so I have to write a very long name for the test', () => {});
 
 // Should break
 
 it.only(
-  "does something really long and complicated so I have to write a very long name for the test",
+  'does something really long and complicated so I have to write a very long name for the test',
   10,
   () => {
-    console.log("hello!");
+    console.log('hello!');
   }
 );
 
 it.only.only(
-  "does something really long and complicated so I have to write a very long name for the test",
+  'does something really long and complicated so I have to write a very long name for the test',
   () => {
-    console.log("hello!");
+    console.log('hello!');
   }
 );
 
 it.only.only(
-  "does something really long and complicated so I have to write a very long name for the test",
+  'does something really long and complicated so I have to write a very long name for the test',
   (a, b, c) => {
-    console.log("hello!");
+    console.log('hello!');
   }
 );
 
 xskip(
-  "does something really long and complicated so I have to write a very long name for the test",
+  'does something really long and complicated so I have to write a very long name for the test',
   () => {}
 );
 
@@ -1252,18 +1252,18 @@ it(\`handles
   some
     newlines
   does something really long and complicated so I have to write a very long name for the test\`, () => {
-  console.log("hello!");
+  console.log('hello!');
 }, 2500);
 
-it("does something quick", () => {
-  console.log("hello!");
+it('does something quick', () => {
+  console.log('hello!');
 }, 1000000000);
 
-it("succeeds if the test finishes in time", () =>
+it('succeeds if the test finishes in time', () =>
   new Promise(resolve => setTimeout(resolve, 10)));
 
 it(
-  "succeeds if the test finishes in time",
+  'succeeds if the test finishes in time',
   () => new Promise(resolve => setTimeout(resolve, 10)),
   250
 );

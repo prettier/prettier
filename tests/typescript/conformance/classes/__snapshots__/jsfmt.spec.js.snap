@@ -361,9 +361,9 @@ const Printable = <T extends Constructor<Base>>(
   superClass: T
 ): Constructor<Printable> & { message: string } & T =>
   class extends superClass {
-    static message = "hello";
+    static message = 'hello';
     print() {
-      const output = this.x + "," + this.y;
+      const output = this.x + ',' + this.y;
     }
   };
 
@@ -374,7 +374,7 @@ function Tagged<T extends Constructor<{}>>(
     _tag: string;
     constructor(...args: any[]) {
       super(...args);
-      this._tag = "hello";
+      this._tag = 'hello';
     }
   }
   return C;
@@ -496,9 +496,9 @@ class Derived extends Base {
 
 const Printable = <T extends Constructor<Base>>(superClass: T) =>
   class extends superClass {
-    static message = "hello";
+    static message = 'hello';
     print() {
-      const output = this.x + "," + this.y;
+      const output = this.x + ',' + this.y;
     }
   };
 
@@ -507,7 +507,7 @@ function Tagged<T extends Constructor<{}>>(superClass: T) {
     _tag: string;
     constructor(...args: any[]) {
       super(...args);
-      this._tag = "hello";
+      this._tag = 'hello';
     }
   }
   return C;
@@ -687,33 +687,33 @@ declare const Mixed4: typeof C1 & typeof M1 & typeof M2;
 declare const Mixed5: typeof M1 & typeof M2;
 
 function f1() {
-  let x1 = new Mixed1("hello");
+  let x1 = new Mixed1('hello');
   let x2 = new Mixed1(42);
-  let x3 = new Mixed2("hello");
+  let x3 = new Mixed2('hello');
   let x4 = new Mixed2(42);
-  let x5 = new Mixed3("hello");
+  let x5 = new Mixed3('hello');
   let x6 = new Mixed3(42);
-  let x7 = new Mixed4("hello");
+  let x7 = new Mixed4('hello');
   let x8 = new Mixed4(42);
   let x9 = new Mixed5();
 }
 
 function f2() {
-  let x = new Mixed1("hello");
+  let x = new Mixed1('hello');
   x.a;
   x.p;
   Mixed1.p;
 }
 
 function f3() {
-  let x = new Mixed2("hello");
+  let x = new Mixed2('hello');
   x.a;
   x.p;
   Mixed2.p;
 }
 
 function f4() {
-  let x = new Mixed3("hello");
+  let x = new Mixed3('hello');
   x.a;
   x.p;
   x.f();
@@ -722,7 +722,7 @@ function f4() {
 }
 
 function f5() {
-  let x = new Mixed4("hello");
+  let x = new Mixed4('hello');
   x.a;
   x.p;
   x.f();
@@ -740,7 +740,7 @@ function f6() {
 
 class C2 extends Mixed1 {
   constructor() {
-    super("hello");
+    super('hello');
     this.a;
     this.b;
     this.p;

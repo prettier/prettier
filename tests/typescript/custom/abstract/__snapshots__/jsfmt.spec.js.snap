@@ -68,9 +68,9 @@ abstract class Foo {
   private abstract e = 5;
   static abstract f = 6;
 
-  private abstract ["g"] = 4;
-  private abstract ["h"] = 5;
-  static abstract ["i"] = 6;
+  private abstract ['g'] = 4;
+  private abstract ['h'] = 5;
+  static abstract ['i'] = 6;
 }
 
 ================================================================================

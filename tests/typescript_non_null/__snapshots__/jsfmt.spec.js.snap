@@ -25,7 +25,7 @@ const {
   anotherPropThatHasALongName2,
 } = this.props.imReallySureAboutThis!.anotherObject;
 
-this.foo.get("bar")!.doThings().more();
+this.foo.get('bar')!.doThings().more();
 
 foo!.bar().baz().what();
 

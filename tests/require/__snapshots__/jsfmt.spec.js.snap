@@ -23,7 +23,7 @@ const {
   eight,
   nine,
   ten,
-} = require("./my-utils");
+} = require('./my-utils');
 const {
   one1,
   two1,
@@ -36,9 +36,9 @@ const {
   nine1,
   ten1,
   eleven1,
-} = require("./my-utils");
+} = require('./my-utils');
 
-const MyReallyExtrememlyLongModuleName = require("MyReallyExtrememlyLongModuleName");
+const MyReallyExtrememlyLongModuleName = require('MyReallyExtrememlyLongModuleName');
 
 ================================================================================
 `;

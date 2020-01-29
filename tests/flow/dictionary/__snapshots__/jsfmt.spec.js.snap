@@ -16,7 +16,7 @@ const val: string = dict[k] // error: number incompatible with string
 /* @flow */
 
 const dict: { [key: string]: number } = {};
-const k: any = "foo";
+const k: any = 'foo';
 const val: string = dict[k]; // error: number incompatible with string
 
 ================================================================================
@@ -52,7 +52,7 @@ function foo0(
 ): Array<{ [key: string]: mixed }> {
   // this adds a fooBar property to the param type, which should NOT cause
   // an error in the return type because it is a dictionary.
-  x[0].fooBar = "foobar";
+  x[0].fooBar = 'foobar';
   return x;
 }
 
@@ -421,7 +421,7 @@ class Y {}
 
 // Any property can be set on a dict with string keys.
 function set_prop_to_string_key(o: { [k: string]: any }) {
-  o.prop = "ok";
+  o.prop = 'ok';
 }
 
 // **UNSOUND**
@@ -429,7 +429,7 @@ function set_prop_to_string_key(o: { [k: string]: any }) {
 // return type in a maybe.
 function unsound_dict_has_every_key(o: { [k: string]: X }) {
   (o.p: X); // ok
-  (o["p"]: X); // ok
+  (o['p']: X); // ok
 }
 
 // As with any object type, we can assign subtypes to properties.
@@ -449,14 +449,14 @@ function get_prop_contravariant(o: { [k: string]: B }) {
 // Dot-notation can not be used to add properties to dictionaries with
 // non-string keys, because keys are strings.
 function add_prop_to_nonstring_key_dot(o: { [k: number]: any }) {
-  o.prop = "err"; // error: string ~> number
+  o.prop = 'err'; // error: string ~> number
 }
 
 // Bracket notation can be used to add properties to dictionaries with
 // non-string keys, even though all keys are strings. This is a convenient
 // affordance.
 function add_prop_to_nonstring_key_bracket(o: { [k: number]: any }) {
-  o[0] = "ok";
+  o[0] = 'ok';
 }
 
 // Objects can be part dict, part not by mixing an indexer with declared props.
@@ -480,9 +480,9 @@ function object_prototype(o: {
 // write into a declared prop unsoundly.
 function unsound_string_conversion_alias_declared_prop(o: {
   [k: number]: any,
-  "0": X,
+  '0': X,
 }) {
-  o[0] = "not-x"; // a["0"] no longer X
+  o[0] = 'not-x'; // a["0"] no longer X
 }
 
 function unification_dict_values_invariant(x: Array<{ [k: string]: B }>) {
@@ -911,7 +911,7 @@ o.foo = function (params) {
 }
 
 =====================================output=====================================
-var o = require("./test");
+var o = require('./test');
 
 o.foo = function (params) {
   return params.count; // error, number ~/~ string

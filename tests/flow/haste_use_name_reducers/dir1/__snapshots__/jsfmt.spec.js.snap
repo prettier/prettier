@@ -17,7 +17,7 @@ module.exports = new Impl();
 =====================================output=====================================
 /* @flow */
 
-require("test");
+require('test');
 
 class Impl {}
 

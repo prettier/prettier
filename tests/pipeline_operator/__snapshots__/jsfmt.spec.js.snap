@@ -42,7 +42,7 @@ a |> (b |> c);
 (a |> b) || c;
 a |> b || c;
 
-let result = "hello" |> doubleSay |> capitalize |> exclaim;
+let result = 'hello' |> doubleSay |> capitalize |> exclaim;
 
 let newScore =
   person.score
@@ -53,8 +53,8 @@ let newScore =
 
 function createPerson(attrs) {
   attrs
-    |> bounded("age", 1, 100)
-    |> format("name", /^[a-z]$/i)
+    |> bounded('age', 1, 100)
+    |> format('name', /^[a-z]$/i)
     |> Person.insertIntoDatabase;
 }
 

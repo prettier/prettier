@@ -66,7 +66,7 @@ a {
 
 a {
   @include item-spotlight-properties-transition(
-    "-title",
+    '-title',
     (
       box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15)
     )
@@ -141,7 +141,7 @@ a {
 
 a {
   @include item-spotlight-properties-transition(
-    "-title",
+    '-title',
     (
       box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15),
     )
@@ -247,8 +247,8 @@ $breakpoint-map: (
 =====================================output=====================================
 $colors: hotpink deepskyblue firebrick;
 $list: (a);
-$list: ("Helvetica", "Arial", sans-serif);
-$colors: ("red", "blue");
+$list: ('Helvetica', 'Arial', sans-serif);
+$colors: ('red', 'blue');
 $config: (
   themes: (
     mist: (
@@ -352,8 +352,8 @@ $breakpoint-map: (
 =====================================output=====================================
 $colors: hotpink deepskyblue firebrick;
 $list: (a);
-$list: ("Helvetica", "Arial", sans-serif);
-$colors: ("red", "blue");
+$list: ('Helvetica', 'Arial', sans-serif);
+$colors: ('red', 'blue');
 $config: (
   themes: (
     mist: (
@@ -425,13 +425,13 @@ $map: (
   large: 1200px
 );
 $map: (
-  "medium": (
+  'medium': (
     min-width: 800px
   ),
-  "large": (
+  'large': (
     min-width: 1000px
   ),
-  "huge": (
+  'huge': (
     min-width: 1200px
   )
 );
@@ -469,13 +469,13 @@ $map: (
   large: 1200px,
 );
 $map: (
-  "medium": (
+  'medium': (
     min-width: 800px,
   ),
-  "large": (
+  'large': (
     min-width: 1000px,
   ),
-  "huge": (
+  'huge': (
     min-width: 1200px,
   ),
 );

@@ -183,7 +183,7 @@ declare var Q: {
 
 var foo = new Foo(0);
 var x: string = foo.x;
-var z: Foo<number> = Q.bar(foo, "");
+var z: Foo<number> = Q.bar(foo, '');
 
 ================================================================================
 `;

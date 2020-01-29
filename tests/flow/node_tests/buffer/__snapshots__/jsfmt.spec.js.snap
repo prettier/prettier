@@ -90,10 +90,10 @@ bool = buffer.every((element: number) => false, buffer);
 
 buffer = buffer.fill(1);
 buffer = buffer.fill(1, 0, 0);
-buffer = buffer.fill("a");
-buffer = buffer.fill("a", 0, 0);
-buffer = buffer.fill("a", 0, 0, "utf8");
-buffer = buffer.fill("a", "utf8");
+buffer = buffer.fill('a');
+buffer = buffer.fill('a', 0, 0);
+buffer = buffer.fill('a', 0, 0, 'utf8');
+buffer = buffer.fill('a', 'utf8');
 
 maybeNum = buffer.find(
   (element: number, index: number, array: Uint8Array) => false
@@ -132,7 +132,7 @@ buffer = Buffer.from(
   typedArray.byteLength
 );
 buffer = Buffer.from(new Buffer(0));
-buffer = Buffer.from("foo", "utf8");
+buffer = Buffer.from('foo', 'utf8');
 
 // This call to from() used to type check ok, but should not. Buffer
 // extends Uint8Array but gets rid of this signature to .from(). Understandably,

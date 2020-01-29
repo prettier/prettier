@@ -11,7 +11,7 @@ var o = require('./object');
 var a:number = o.w.z.y;
 
 =====================================output=====================================
-var o = require("./object");
+var o = require('./object');
 
 var a: number = o.w.z.y;
 
@@ -35,7 +35,7 @@ o3.w = o2;
 module.exports = o3;
 
 =====================================output=====================================
-var o1 = { x: 0, y: "" };
+var o1 = { x: 0, y: '' };
 var o2 = { z: o1 };
 
 var o3 = {};

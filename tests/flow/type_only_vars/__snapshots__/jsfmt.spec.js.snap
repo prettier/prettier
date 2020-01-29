@@ -68,20 +68,20 @@ var duck: string = "quack";
  * @flow
  */
 
-import typeof A from "./A.js";
-import type { Foo, Bar as Baz } from "./A.js";
+import typeof A from './A.js';
+import type { Foo, Bar as Baz } from './A.js';
 
 type duck = {
   quack: () => string,
 };
 
 // These string types should confict with the imported types
-var A: string = "Hello";
-var Foo: string = "Goodbye";
-var Baz: string = "Go away please";
+var A: string = 'Hello';
+var Foo: string = 'Goodbye';
+var Baz: string = 'Go away please';
 
 // This string type should conflict with the typedef
-var duck: string = "quack";
+var duck: string = 'quack';
 
 ================================================================================
 `;
@@ -118,10 +118,10 @@ var b: Foo = new A.Foo();
  * @flow
  */
 
-import typeof A from "./A.js";
-import type { Foo, Bar as Baz } from "./A.js";
+import typeof A from './A.js';
+import type { Foo, Bar as Baz } from './A.js';
 
-var A = require("./A.js");
+var A = require('./A.js');
 var Foo = A.Foo;
 var Baz = A.Bar;
 
@@ -167,10 +167,10 @@ var a: Foo = new actualA.Foo();
  * @flow
  */
 
-import typeof A from "./A.js";
-import type { Foo, Bar as Baz } from "./A.js";
+import typeof A from './A.js';
+import type { Foo, Bar as Baz } from './A.js';
 
-var actualA = require("./A.js");
+var actualA = require('./A.js');
 
 // You can't use it as an identifier
 var m = A;

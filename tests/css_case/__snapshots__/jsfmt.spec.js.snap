@@ -83,11 +83,11 @@ p:first-child {
 }
 
 a::after {
-  content: "→";
+  content: '→';
 }
 
 a:after {
-  content: "→";
+  content: '→';
 }
 
 ::-webkit-progress-bar {
@@ -299,11 +299,11 @@ TABLE {}
 @import Keep;
 
 HTML#KeepId.KeepClass,
-a[HREF="KeepAttrValue"]:hover::first-letter,
+a[HREF='KeepAttrValue']:hover::first-letter,
 svg[viewBox] linearGradient,
 :not(:nth-child(2n + 1)) {
   color: #aabbcc;
-  background-image: URL("KeepString");
+  background-image: URL('KeepString');
   margin: 5px 0.2e10em;
   --Keep-custom-Prop: red;
   background: Var(--Keep-custom-Prop);
@@ -376,7 +376,7 @@ $KeepScssVar: val;
 
 .Keep (@Keep) when (lightness(@Keep) >= 12px) and (@Keep > 0) {
 }
-.Keep (@Keep) when (lightness(@Keep) != "12PX") and (@Keep != "12PX") {
+.Keep (@Keep) when (lightness(@Keep) != '12PX') and (@Keep != '12PX') {
 }
 .Keep (@Keep) when (lightness(@Keep) >= Keep12PX) and (@Keep > @Keep12E5) {
 }
@@ -427,11 +427,11 @@ p:first-child {
 }
 
 a::after {
-  content: "→";
+  content: '→';
 }
 
 a:after {
-  content: "→";
+  content: '→';
 }
 
 ::-webkit-progress-bar {
@@ -617,11 +617,11 @@ TABLE {}
 @import Keep;
 
 HTML#KeepId.KeepClass,
-a[HREF="KeepAttrValue"]:hover::first-letter,
+a[HREF='KeepAttrValue']:hover::first-letter,
 svg[viewBox] linearGradient,
 :not(:nth-child(2n + 1)) {
   color: #aabbcc;
-  background-image: URL("KeepString");
+  background-image: URL('KeepString');
   margin: 5px 0.2e10em;
   --Keep-custom-Prop: red;
   background: Var(--Keep-custom-Prop);
@@ -643,7 +643,7 @@ svg[viewBox] linearGradient,
   }
 
   #{$KeepInterpolationVar},
-  #{$Keep + 15px + Keep15PX + "15PX" + "15PX"},
+  #{$Keep + 15px + Keep15PX + '15PX' + '15PX'},
   #{$Keep + $Keep15PX} {
     prop: val;
   }
@@ -676,7 +676,7 @@ $KeepTopLevelVar: val;
   @KeepLessVar: val;
   @extend %KeepPlaceholderSelector;
 
-  #{$Keep}[#{$Keep}][#{Keep}^="#{Keep-1A}"]:#{$Keep} {
+  #{$Keep}[#{$Keep}][#{Keep}^='#{Keep-1A}']:#{$Keep} {
     prop: val;
   }
 
@@ -692,7 +692,7 @@ $KeepTopLevelVar: val;
     color: RED;
   }
 
-  #{$Keep + 15px + Keep15PX + "15PX" + "15PX"}: {
+  #{$Keep + 15px + Keep15PX + '15PX' + '15PX'}: {
     color: RED;
   }
 }
@@ -744,11 +744,11 @@ p:first-child {
 }
 
 a::after {
-  content: "→";
+  content: '→';
 }
 
 a:after {
-  content: "→";
+  content: '→';
 }
 
 ::-webkit-progress-bar {

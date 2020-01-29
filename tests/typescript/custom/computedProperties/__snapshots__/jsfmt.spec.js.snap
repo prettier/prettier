@@ -24,19 +24,19 @@ type B = {
 
 =====================================output=====================================
 interface I {
-  string: "I";
+  string: 'I';
 }
 
 type T = {
-  string: "T";
+  string: 'T';
 };
 
 interface A {
-  string: "A";
+  string: 'A';
 }
 
 type B = {
-  string: "B";
+  string: 'B';
 };
 
 ================================================================================
@@ -58,11 +58,11 @@ type T = {
 
 =====================================output=====================================
 interface I {
-  [Symbol.toStringTag]: "I";
+  [Symbol.toStringTag]: 'I';
 }
 
 type T = {
-  [Symbol.toStringTag]: "T";
+  [Symbol.toStringTag]: 'T';
 };
 
 ================================================================================

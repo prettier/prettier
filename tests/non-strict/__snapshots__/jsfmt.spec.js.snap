@@ -32,13 +32,13 @@ function myFunction() {
 }
 
 =====================================output=====================================
-var package = require("../package");
+var package = require('../package');
 
 /**
  * My amazing comment
  */
 function myFunction() {
-  return "StringGainz";
+  return 'StringGainz';
 }
 
 ================================================================================

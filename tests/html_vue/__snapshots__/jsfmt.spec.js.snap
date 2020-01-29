@@ -409,15 +409,15 @@ export default {
 
 =====================================output=====================================
 <script>
-import "./issue_card_inner";
-import eventHub from "../eventhub";
+import './issue_card_inner';
+import eventHub from '../eventhub';
 
 const Store = gl.issueBoards.BoardsStore;
 
 export default {
-  name: "BoardsIssueCard",
+  name: 'BoardsIssueCard',
   components: {
-    "issue-card-inner": gl.issueBoards.IssueCardInner
+    'issue-card-inner': gl.issueBoards.IssueCardInner
   },
   props: {
     list: Object,
@@ -448,15 +448,15 @@ export default {
       this.showDetail = false;
     },
     showIssue(e) {
-      if (e.target.classList.contains("js-no-trigger")) return;
+      if (e.target.classList.contains('js-no-trigger')) return;
 
       if (this.showDetail) {
         this.showDetail = false;
 
         if (Store.detail.issue && Store.detail.issue.id === this.issue.id) {
-          eventHub.$emit("clearDetailIssue");
+          eventHub.$emit('clearDetailIssue');
         } else {
-          eventHub.$emit("newDetailIssue", this.issue);
+          eventHub.$emit('newDetailIssue', this.issue);
           Store.detail.list = this.list;
         }
       }
@@ -574,15 +574,15 @@ export default {
 
 =====================================output=====================================
 <script>
-import "./issue_card_inner";
-import eventHub from "../eventhub";
+import './issue_card_inner';
+import eventHub from '../eventhub';
 
 const Store = gl.issueBoards.BoardsStore;
 
 export default {
-  name: "BoardsIssueCard",
+  name: 'BoardsIssueCard',
   components: {
-    "issue-card-inner": gl.issueBoards.IssueCardInner,
+    'issue-card-inner': gl.issueBoards.IssueCardInner,
   },
   props: {
     list: Object,
@@ -613,15 +613,15 @@ export default {
       this.showDetail = false;
     },
     showIssue(e) {
-      if (e.target.classList.contains("js-no-trigger")) return;
+      if (e.target.classList.contains('js-no-trigger')) return;
 
       if (this.showDetail) {
         this.showDetail = false;
 
         if (Store.detail.issue && Store.detail.issue.id === this.issue.id) {
-          eventHub.$emit("clearDetailIssue");
+          eventHub.$emit('clearDetailIssue');
         } else {
-          eventHub.$emit("newDetailIssue", this.issue);
+          eventHub.$emit('newDetailIssue', this.issue);
           Store.detail.list = this.list;
         }
       }
@@ -740,15 +740,15 @@ export default {
 
 =====================================output=====================================
 <script>
-import "./issue_card_inner"
-import eventHub from "../eventhub"
+import './issue_card_inner'
+import eventHub from '../eventhub'
 
 const Store = gl.issueBoards.BoardsStore
 
 export default {
-  name: "BoardsIssueCard",
+  name: 'BoardsIssueCard',
   components: {
-    "issue-card-inner": gl.issueBoards.IssueCardInner,
+    'issue-card-inner': gl.issueBoards.IssueCardInner,
   },
   props: {
     list: Object,
@@ -779,15 +779,15 @@ export default {
       this.showDetail = false
     },
     showIssue(e) {
-      if (e.target.classList.contains("js-no-trigger")) return
+      if (e.target.classList.contains('js-no-trigger')) return
 
       if (this.showDetail) {
         this.showDetail = false
 
         if (Store.detail.issue && Store.detail.issue.id === this.issue.id) {
-          eventHub.$emit("clearDetailIssue")
+          eventHub.$emit('clearDetailIssue')
         } else {
-          eventHub.$emit("newDetailIssue", this.issue)
+          eventHub.$emit('newDetailIssue', this.issue)
           Store.detail.list = this.list
         }
       }
@@ -989,7 +989,7 @@ trailingComma: "none"
   <div class="allowed">
     {{
       value
-        | thisIsARealSuperLongFilterPipe("arg1", arg2)
+        | thisIsARealSuperLongFilterPipe('arg1', arg2)
         | anotherPipeLongJustForFun
         | pipeTheThird
     }}
@@ -1046,7 +1046,7 @@ printWidth: 80
   <div class="allowed">
     {{
       value
-        | thisIsARealSuperLongFilterPipe("arg1", arg2)
+        | thisIsARealSuperLongFilterPipe('arg1', arg2)
         | anotherPipeLongJustForFun
         | pipeTheThird
     }}
@@ -1104,7 +1104,7 @@ semi: false
   <div class="allowed">
     {{
       value
-        | thisIsARealSuperLongFilterPipe("arg1", arg2)
+        | thisIsARealSuperLongFilterPipe('arg1', arg2)
         | anotherPipeLongJustForFun
         | pipeTheThird
     }}
@@ -1212,7 +1212,7 @@ x => {
   <div>
     Fuga magnam facilis. Voluptatem quaerat porro.{{
       (x) => {
-        const hello = "world";
+        const hello = 'world';
         return hello;
       }
     }}
@@ -1342,7 +1342,7 @@ x => {
   <div>
     Fuga magnam facilis. Voluptatem quaerat porro.{{
       (x) => {
-        const hello = "world";
+        const hello = 'world';
         return hello;
       }
     }}
@@ -1473,7 +1473,7 @@ x => {
   <div>
     Fuga magnam facilis. Voluptatem quaerat porro.{{
       (x) => {
-        const hello = "world"
+        const hello = 'world'
         return hello
       }
     }}

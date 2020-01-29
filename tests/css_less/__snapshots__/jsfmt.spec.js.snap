@@ -1735,7 +1735,7 @@ label {
   zoom: 1;
 
   &:after {
-    content: " ";
+    content: ' ';
     display: block;
     font-size: 0;
     height: 0;
@@ -1808,7 +1808,7 @@ label {
 background-color: #112244 + #111; // result is #223355
 
 .weird-element {
-  content: ~"^//* some horrible but needed css hack";
+  content: ~'^//* some horrible but needed css hack';
 }
 
 @base: #f04615;
@@ -1867,8 +1867,8 @@ style comment! */
 // Get in line!
 @var: white;
 
-@import "library"; // library.less
-@import "typo.css";
+@import 'library'; // library.less
+@import 'typo.css';
 
 a,
 .link {
@@ -1913,19 +1913,19 @@ a:hover {
 }
 
 // Variables
-@images: "../img";
+@images: '../img';
 
 // Usage
 body {
   color: #444;
-  background: url("@{images}/white-sand.png");
+  background: url('@{images}/white-sand.png');
 }
 
 // Variables
-@themes: "../../src/themes";
+@themes: '../../src/themes';
 
 // Usage
-@import "@{themes}/tidal-wave.less";
+@import '@{themes}/tidal-wave.less';
 
 @property: color;
 
@@ -1939,11 +1939,11 @@ body {
   background-color: #999;
 }
 
-@fnord: "I am fnord.";
-@var: "fnord";
+@fnord: 'I am fnord.';
+@var: 'fnord';
 content: @@var;
 
-content: "I am fnord.";
+content: 'I am fnord.';
 
 .lazy-eval {
   width: @var;
@@ -1987,7 +1987,7 @@ content: "I am fnord.";
 @dark-color: darken(@base-color, 10%);
 
 // use of library
-@import "library.less";
+@import 'library.less';
 @base-color: red;
 
 nav ul {
@@ -2116,38 +2116,38 @@ link:hover:visited {
   color: blue;
 }
 
-[title="identifier"] {
+[title='identifier'] {
   color: blue;
 }
-[title="identifier"] {
+[title='identifier'] {
   color: blue;
 }
-[title="identifier"] {
+[title='identifier'] {
   color: blue;
 }
 
-.noQuote:extend([title="identifier"]) {
+.noQuote:extend([title='identifier']) {
 }
-.singleQuote:extend([title="identifier"]) {
+.singleQuote:extend([title='identifier']) {
 }
-.doubleQuote:extend([title="identifier"]) {
+.doubleQuote:extend([title='identifier']) {
 }
 
-[title="identifier"],
+[title='identifier'],
 .noQuote,
 .singleQuote,
 .doubleQuote {
   color: blue;
 }
 
-[title="identifier"],
+[title='identifier'],
 .noQuote,
 .singleQuote,
 .doubleQuote {
   color: blue;
 }
 
-[title="identifier"],
+[title='identifier'],
 .noQuote,
 .singleQuote,
 .doubleQuote {
@@ -2891,32 +2891,32 @@ selector {
 .foo {
   background: #900;
 }
-@import "this-is-valid.less";
+@import 'this-is-valid.less';
 
-@import "foo"; // foo.less is imported
-@import "foo.less"; // foo.less is imported
-@import "foo.php"; // foo.php imported as a less file
-@import "foo.css"; // statement left in place, as-is
+@import 'foo'; // foo.less is imported
+@import 'foo.less'; // foo.less is imported
+@import 'foo.php'; // foo.php imported as a less file
+@import 'foo.css'; // statement left in place, as-is
 
 .navbar:extend(.navbar all) {
 }
 
-@import (less) "foo.css";
+@import (less) 'foo.css';
 
-@import (css) "foo.less";
+@import (css) 'foo.less';
 
-@import "foo.less";
+@import 'foo.less';
 
-@import (once) "foo.less";
-@import (once) "foo.less"; // this statement will be ignored
+@import (once) 'foo.less';
+@import (once) 'foo.less'; // this statement will be ignored
 
 // file: foo.less
 .a {
   color: green;
 }
 // file: main.less
-@import (multiple) "foo.less";
-@import (multiple) "foo.less";
+@import (multiple) 'foo.less';
+@import (multiple) 'foo.less';
 
 .a {
   color: green;
@@ -3104,25 +3104,25 @@ a:hover {
 
 .button {
   &-ok {
-    background-image: url("ok.png");
+    background-image: url('ok.png');
   }
   &-cancel {
-    background-image: url("cancel.png");
+    background-image: url('cancel.png');
   }
 
   &-custom {
-    background-image: url("custom.png");
+    background-image: url('custom.png');
   }
 }
 
 .button-ok {
-  background-image: url("ok.png");
+  background-image: url('ok.png');
 }
 .button-cancel {
-  background-image: url("cancel.png");
+  background-image: url('cancel.png');
 }
 .button-custom {
-  background-image: url("custom.png");
+  background-image: url('custom.png');
 }
 
 .link {
@@ -3197,7 +3197,7 @@ a:hover {
   .menu {
     border-radius: 5px;
     .no-borderradius & {
-      background-image: url("images/button-background.png");
+      background-image: url('images/button-background.png');
     }
   }
 }
@@ -3206,7 +3206,7 @@ a:hover {
   border-radius: 5px;
 }
 .no-borderradius .header .menu {
-  background-image: url("images/button-background.png");
+  background-image: url('images/button-background.png');
 }
 
 p,
@@ -3276,7 +3276,7 @@ li + li {
 
 // Usage
 @import // Comment
-  "@{themes}/tidal-wave.less";
+  '@{themes}/tidal-wave.less';
 
 // Mixin with escaped /
 .margin-bottom-1\\/3() {

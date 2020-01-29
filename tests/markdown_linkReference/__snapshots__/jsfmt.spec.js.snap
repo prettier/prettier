@@ -78,7 +78,7 @@ proseWrap: "always"
 
 =====================================output=====================================
 [just-url]: https://example.com
-[url-with-short-title]: https://example.com "title"
+[url-with-short-title]: https://example.com 'title'
 [url-with-long-title]:
   https://example.com
   "a long, long title. It's really really long. Here have words."
@@ -87,7 +87,7 @@ proseWrap: "always"
   https://example.com/a-long-url/another-segment/yet-another-segment/a-really-long-file-name.php.aspx
 [long-with-title]:
   https://example.com/a-long-url/another-segment/yet-another-segment/a-really-long-file-name.php.aspx
-  "look a title!"
+  'look a title!'
 [long-with-empty-title]:
   https://example.com/a-long-url/another-segment/yet-another-segment/a-really-long-file-name.php.aspx
 
@@ -112,11 +112,11 @@ proseWrap: "never"
 
 =====================================output=====================================
 [just-url]: https://example.com
-[url-with-short-title]: https://example.com "title"
+[url-with-short-title]: https://example.com 'title'
 [url-with-long-title]: https://example.com "a long, long title. It's really really long. Here have words."
 [empty-title]: https://example.com
 [long]: https://example.com/a-long-url/another-segment/yet-another-segment/a-really-long-file-name.php.aspx
-[long-with-title]: https://example.com/a-long-url/another-segment/yet-another-segment/a-really-long-file-name.php.aspx "look a title!"
+[long-with-title]: https://example.com/a-long-url/another-segment/yet-another-segment/a-really-long-file-name.php.aspx 'look a title!'
 [long-with-empty-title]: https://example.com/a-long-url/another-segment/yet-another-segment/a-really-long-file-name.php.aspx
 
 ================================================================================
@@ -216,7 +216,7 @@ proseWrap: "always"
 
 
 =====================================output=====================================
-[ref]: https://example.com "bar"
+[ref]: https://example.com 'bar'
 [other-ref]:
   https://example.com
   (Shakespeare's "Romeo and Juliet" is a famous play)
@@ -229,7 +229,7 @@ https://example.com (\\")
 [a]: https://example.com '\\'' [a]: https://example.com (\\')
 
 [a]: https://example.com "'"
-[a]: https://example.com ")"
+[a]: https://example.com ')'
 
 [a]: https://example.com (\\))
 
@@ -279,7 +279,7 @@ proseWrap: "never"
 
 
 =====================================output=====================================
-[ref]: https://example.com "bar"
+[ref]: https://example.com 'bar'
 [other-ref]: https://example.com (Shakespeare's "Romeo and Juliet" is a famous play)
 
 [a]: https://example.com "\\"" [a]: https://example.com '\\"' [a]: https://example.com (\\")
@@ -289,7 +289,7 @@ proseWrap: "never"
 [a]: https://example.com '\\'' [a]: https://example.com (\\')
 
 [a]: https://example.com "'"
-[a]: https://example.com ")"
+[a]: https://example.com ')'
 
 [a]: https://example.com (\\))
 

@@ -76,7 +76,7 @@ export default class A {
 }
 
 =====================================output=====================================
-import { B, C } from "./issue-824-helper";
+import { B, C } from './issue-824-helper';
 
 type K = B | C;
 
@@ -116,7 +116,7 @@ export class C extends A {
 }
 
 =====================================output=====================================
-import A from "./issue-824";
+import A from './issue-824';
 
 export class B extends A {
   which(): number {
@@ -173,9 +173,9 @@ function create(a: any): { type: 'B', data: number } | { type: 'A', data: string
 =====================================output=====================================
 function create(
   a: any
-): { type: "B", data: number } | { type: "A", data: string } {
+): { type: 'B', data: number } | { type: 'A', data: string } {
   return {
-    type: "A",
+    type: 'A',
     data: a,
   };
 }
@@ -201,7 +201,7 @@ function node(content: ?Foobar | String | Array<String>) {
 
 =====================================output=====================================
 /* @flow */
-import type { Foobar } from "./issue-1455-helper";
+import type { Foobar } from './issue-1455-helper';
 
 function create(content: ?Foobar | String | Array<String>) {}
 
@@ -263,12 +263,12 @@ function printAll(val: MyType) {
 type Common = {};
 
 type A = Common & {
-  type: "A",
+  type: 'A',
   foo: number,
 };
 
 type B = Common & {
-  type: "B",
+  type: 'B',
   foo: Array<number>,
 };
 
@@ -323,12 +323,12 @@ function printAll(val: MyType) {
 type Common = {};
 
 type A = {
-  type: "A",
+  type: 'A',
   foo: number,
 } & Common;
 
 type B = {
-  type: "B",
+  type: 'B',
   foo: Array<number>,
 } & Common;
 
@@ -339,7 +339,7 @@ function print(x: number) {
 }
 
 function printAll(val: MyType) {
-  if (val.type === "A") {
+  if (val.type === 'A') {
     print(val.foo);
   } else {
     val.foo.forEach(print);
@@ -391,22 +391,22 @@ type DataBase = {
 };
 
 type UserData = DataBase & {
-  kind: "user",
+  kind: 'user',
 };
 
 type SystemData = DataBase & {
-  kind: "system",
+  kind: 'system',
 };
 
 type Data = UserData | SystemData;
 
 const data: Data = {
-  id: "",
-  name: "",
-  kind: "system",
+  id: '',
+  name: '',
+  kind: 'system',
 };
 
-if (data.kind === "system") {
+if (data.kind === 'system') {
   (data: SystemData);
 }
 
@@ -583,7 +583,7 @@ function obj(a: A1 | A2) {
   return a.x;
 }
 
-const obj_result = obj({ x: "" }); // currently an error! (expect it to be OK)
+const obj_result = obj({ x: '' }); // currently an error! (expect it to be OK)
 
 // Type definitions used above are defined below, but in an order that
 // deliberately makes their full resolution as lazy as possible. The call above
@@ -607,7 +607,7 @@ function fun(a: A3 | A4) {
   return a();
 }
 
-const fun_result = fun(() => "");
+const fun_result = fun(() => '');
 
 type A3 = () => B3;
 type A4 = () => B4;
@@ -730,7 +730,7 @@ type B6 = string;
 
 function obj(a: { x: number } | { x: string }) {}
 
-obj(({ x: "" }: A1));
+obj(({ x: '' }: A1));
 
 type A1 = { x: B1 };
 
@@ -742,7 +742,7 @@ type B1 = string;
 
 function fun(a: (() => number) | (() => string)) {}
 
-fun((() => "": A2));
+fun((() => '': A2));
 
 type A2 = () => B2;
 
@@ -791,7 +791,7 @@ type B5 = string;
 
 function tup(a: [number, boolean] | [string, boolean]) {}
 
-tup((["", false]: A6));
+tup((['', false]: A6));
 
 type A6 = [B6, boolean];
 type B6 = string;
@@ -1360,10 +1360,10 @@ function id<X>(x: X): X {
 function check_prim(_: number | string) {}
 
 // ok
-check_prim("");
+check_prim('');
 
 // ...even when they "flow" in
-check_prim(id(""));
+check_prim(id(''));
 
 //////////////////////////////
 // class instance annotations
@@ -1395,10 +1395,10 @@ check_fun((x) => x);
 function check_obj(_: { x: number } | { x: string }) {}
 
 // ok
-check_obj({ x: "" });
+check_obj({ x: '' });
 
 // help!
-check_obj({ x: id("") });
+check_obj({ x: id('') });
 
 /////////////////////
 // array annotations
@@ -1407,10 +1407,10 @@ check_obj({ x: id("") });
 function check_arr(_: number[] | string[]) {}
 
 // help! (unlike objects, array literals' element types are always open)
-check_arr([""]);
+check_arr(['']);
 
 // help!
-check_arr([id("")]);
+check_arr([id('')]);
 
 //////////////////////////////////////
 // generic class instance annotations
@@ -1456,18 +1456,18 @@ type Cons = { kind: "cons", next: List };
 // disjoint unions
 
 function length(list: List) {
-  if (list.kind === "cons") return length(list.next) + 1;
+  if (list.kind === 'cons') return length(list.next) + 1;
   else return 0;
 }
 
-length({ kind: "nil" });
-length({ kind: "cons" }); // missing \`next\`
-length({ kind: "cons", next: { kind: "nil" } });
-length({ kind: "empty" }); // \`kind\` not found
+length({ kind: 'nil' });
+length({ kind: 'cons' }); // missing \`next\`
+length({ kind: 'cons', next: { kind: 'nil' } });
+length({ kind: 'empty' }); // \`kind\` not found
 
 type List = Nil | Cons;
-type Nil = { kind: "nil" };
-type Cons = { kind: "cons", next: List };
+type Nil = { kind: 'nil' };
+type Cons = { kind: 'cons', next: List };
 
 ================================================================================
 `;
@@ -1527,13 +1527,13 @@ printWidth: 80
 
 /* ensure there are no unintended side effects when trying branches */
 
-({ type: "B", id: "hi" }:
+({ type: 'B', id: 'hi' }:
   | {
-      type: "A",
+      type: 'A',
       id: ?string,
     }
   | {
-      type: "B",
+      type: 'B',
       id: string,
     });
 
@@ -1615,11 +1615,11 @@ bar(() => { });
 // functions as objects
 
 function foo<X>(target: EventTarget) {
-  target.addEventListener("click", (e) => {});
+  target.addEventListener('click', (e) => {});
 }
 
 declare class EventTarget {
-  addEventListener(type: "foo", listener: KeyboardEventHandler): void;
+  addEventListener(type: 'foo', listener: KeyboardEventHandler): void;
   addEventListener(type: string, listener: EventHandler): void;
 }
 
@@ -1683,7 +1683,7 @@ var x = false;
 function qux() {
   return x;
 }
-x = "";
+x = '';
 
 ================================================================================
 `;
@@ -1816,11 +1816,11 @@ printWidth: 80
 
 [0, 1].reduce((x, y, i) => y);
 
-["a", "b"].reduce((regex, representation, index) => {
-  return regex + (index ? "|" : "") + "(" + representation + ")";
-}, "");
+['a', 'b'].reduce((regex, representation, index) => {
+  return regex + (index ? '|' : '') + '(' + representation + ')';
+}, '');
 
-[""].reduce((acc, str) => acc * str.length);
+[''].reduce((acc, str) => acc * str.length);
 
 ================================================================================
 `;
@@ -1858,20 +1858,20 @@ function str() {
 
 // annotations for disjoint unions
 
-type T = { type: "FOO", x: number } | { type: "BAR", x: string };
+type T = { type: 'FOO', x: number } | { type: 'BAR', x: string };
 
-({ type: (bar(): "BAR"), x: str() }: T);
+({ type: (bar(): 'BAR'), x: str() }: T);
 
 ({ type: bar(), x: str() }: T);
 
 ({ type: bar(), x: (str(): string) }: T);
 
 function bar() {
-  return "BAR";
+  return 'BAR';
 }
 
 function str() {
-  return "hello";
+  return 'hello';
 }
 
 ================================================================================
@@ -1913,18 +1913,18 @@ function foo(x: T) {
 type Empty = {};
 
 type Success = {
-  type: "SUCCESS",
+  type: 'SUCCESS',
   result: string,
 };
 
 type Error = {
-  type: "ERROR",
+  type: 'ERROR',
 } & Empty;
 
 export type T = Success | Error;
 
 function foo(x: T) {
-  if (x.type === "SUCCESS") return x.result;
+  if (x.type === 'SUCCESS') return x.result;
   else return x.result;
 }
 
@@ -2122,11 +2122,11 @@ declare var y: T;
 (foo(y): T);
 
 declare class Record {
-  set(x: "foo", y: number): void;
-  set(x: "bar", y: string): void;
+  set(x: 'foo', y: number): void;
+  set(x: 'bar', y: string): void;
 }
 
-new Record().set("foo", "42");
+new Record().set('foo', '42');
 
 ================================================================================
 `;
@@ -2280,9 +2280,9 @@ type ActionType =
 =====================================output=====================================
 // @noflow
 
-const Constants = require("./test30-helper");
+const Constants = require('./test30-helper');
 
-type ActionType = { type: "foo", x: number } | { type: "bar", x: number };
+type ActionType = { type: 'foo', x: number } | { type: 'bar', x: number };
 
 ({ type: Constants.BAR, x: 0 }: ActionType);
 
@@ -2306,8 +2306,8 @@ module.exports = {
 // @noflow
 
 module.exports = {
-  FOO: "foo",
-  BAR: "bar",
+  FOO: 'foo',
+  BAR: 'bar',
 };
 
 ================================================================================
@@ -2368,7 +2368,7 @@ declare function convert<K, V>(iter: SomeIterable<[K, V]>): ImmutableMap<K, V>;
 
 function foo(): ImmutableMap<string, boolean> {
   const countersGlobalMap = new SomeMap();
-  countersGlobalMap.set("", false);
+  countersGlobalMap.set('', false);
   return convert(countersGlobalMap);
 }
 
@@ -2398,7 +2398,7 @@ function foo(value: Indirect<string> | number): Indirect<string> | number {
 // when they have failed earlier
 
 function foo(value: Indirect<string> | number): Indirect<string> | number {
-  const castedValue: number = typeof value === "number" ? value : 0;
+  const castedValue: number = typeof value === 'number' ? value : 0;
   return castedValue;
 }
 

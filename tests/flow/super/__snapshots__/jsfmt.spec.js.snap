@@ -292,7 +292,7 @@ class L extends L_ {
 // object, then the child does too.
 class M_ {
   constructor() {
-    return { foo: "foo" };
+    return { foo: 'foo' };
   }
 }
 class M extends M_ {
@@ -388,7 +388,7 @@ class B extends A {
   }
 
   static anotherStatic() {
-    (super.staticMethod("foo"): number); // error, string !~> number
+    (super.staticMethod('foo'): number); // error, string !~> number
     super.doesntExist(); // error, A doesn't have a doesntExist method
   }
 
@@ -415,7 +415,7 @@ class C extends D {
 module.exports = C;
 
 =====================================output=====================================
-var D = require("./import");
+var D = require('./import');
 class C extends D {
   constructor() {
     return super();

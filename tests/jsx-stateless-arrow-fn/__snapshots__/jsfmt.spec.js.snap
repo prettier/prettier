@@ -138,7 +138,7 @@ const render6 = ({ styles }) => (
         attr4
       >
         ddd d dd d d dddd dddd <strong>hello</strong>
-      </div>{" "}
+      </div>{' '}
       <strong>hello</strong>
     </div>
   </div>
@@ -163,7 +163,7 @@ const render7A = () => (
 const render7B = () => (
   <div>
     <span>
-      {" "}
+      {' '}
       <span /> Dont break plz
     </span>
     <span>
@@ -201,7 +201,7 @@ React.render(
     size="large"
     submitLabel="Sign in with Google"
   />,
-  document.querySelector("#react-root")
+  document.querySelector('#react-root')
 );
 
 const renderTernary = (props) => (
@@ -223,7 +223,7 @@ const renderTernary = (props) => (
         Hello world
       </BaseForm>
     ) : (
-      "hello " + "howdy! "
+      'hello ' + 'howdy! '
     )}
     {props.showTheThing ? (
       <BaseForm

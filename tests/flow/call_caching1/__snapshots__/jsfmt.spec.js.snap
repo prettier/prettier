@@ -20,7 +20,7 @@ for (let [taskStatus, tasksMap] of tasksPerStatusMap) {
 =====================================output=====================================
 // @flow
 
-const Immutable = require("immutable");
+const Immutable = require('immutable');
 
 const tasksPerStatusMap = new Map(
   [].map((taskStatus) => [taskStatus, new Map()])

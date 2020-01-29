@@ -9,7 +9,7 @@ printWidth: 80
 declare module 'autoprefixer';
 
 =====================================output=====================================
-declare module "autoprefixer";
+declare module 'autoprefixer';
 
 ================================================================================
 `;

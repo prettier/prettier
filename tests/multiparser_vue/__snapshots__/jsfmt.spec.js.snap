@@ -24,7 +24,7 @@ export default {
 <script lang="jsx">
 export default {
   data: () => ({
-    message: "hello with jsx",
+    message: 'hello with jsx',
   }),
   render(h) {
     return <div>{this.message}</div>;
@@ -61,7 +61,7 @@ export default {
 export default {
   computed: {
     foo(): string {
-      return "foo";
+      return 'foo';
     },
   },
 };
@@ -86,11 +86,11 @@ export default {
 
 =====================================output=====================================
 <script lang="tsx">
-import { VNode } from "vue";
+import { VNode } from 'vue';
 export default {
   computed: {
     foo(): string {
-      return "foo";
+      return 'foo';
     },
   },
   render(h): VNode {
@@ -205,7 +205,7 @@ p { font-size : 2em ; text-align : center ; }
 module.exports = {
   data: function () {
     return {
-      greeting: "Hello",
+      greeting: 'Hello',
     };
   },
 };

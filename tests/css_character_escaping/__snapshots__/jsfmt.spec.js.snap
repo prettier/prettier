@@ -147,13 +147,13 @@ printWidth: 80
 
 .foo {
   animation-name: \\@mymove;
-  content: "\\21D3";
+  content: '\\21D3';
 }
 
 /* Ignore escape "\\" in CSS classes */
 .bar\\/baz {
   animation-name: \\@mymove;
-  content: "\\21D3";
+  content: '\\21D3';
 }
 
 ================================================================================

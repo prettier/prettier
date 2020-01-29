@@ -34,7 +34,7 @@ db.collection('indexOptionDefault').createIndex({ a: 1 }, {
 =====================================output=====================================
 //https://github.com/prettier/prettier/issues/3002
 beep.boop().baz(
-  "foo",
+  'foo',
   {
     some: {
       thing: {
@@ -47,7 +47,7 @@ beep.boop().baz(
 );
 
 //https://github.com/prettier/prettier/issues/2984
-db.collection("indexOptionDefault").createIndex(
+db.collection('indexOptionDefault').createIndex(
   { a: 1 },
   {
     indexOptionDefaults: true,

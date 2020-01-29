@@ -84,7 +84,7 @@ export const getVehicleDescriptor = async (
 export const getVehicleDescriptor = async (
   vehicleId: string
 ): Promise<
-  Collections.Parts.PrintedCircuitBoardAssembly["attributes"] | undefined
+  Collections.Parts.PrintedCircuitBoardAssembly['attributes'] | undefined
 > => {};
 
 export const getVehicleDescriptor = async (
@@ -94,17 +94,17 @@ export const getVehicleDescriptor = async (
 export const getVehicleDescriptor = async (
   vehicleId: string
 ): Promise<
-  Collections.Parts.PrintedCircuitBoardAssembly["attributes"] & undefined
+  Collections.Parts.PrintedCircuitBoardAssembly['attributes'] & undefined
 > => {};
 
 export const getVehicleDescriptor = async (
   vehicleId: string
-): Promise<Descriptor["attributes"]> => {};
+): Promise<Descriptor['attributes']> => {};
 
 export const getVehicleDescriptor = async (
   vehicleId: string
 ): Promise<
-  Collections.Parts.PrintedCircuitBoardAssembly["attributessssssssssssssssssssssss"]
+  Collections.Parts.PrintedCircuitBoardAssembly['attributessssssssssssssssssssssss']
 > => {};
 
 export const getVehicleDescriptor = async (

@@ -31,7 +31,7 @@ class foo {
 }
 
 class A {
-  "constructor": typeof A;
+  'constructor': typeof A;
   static Foo() {
     return new A();
   }
@@ -202,7 +202,7 @@ interface Iterable<T> {
 }
 
 export class Check {
-  private static property = "test";
+  private static property = 'test';
 }
 
 ================================================================================
@@ -226,7 +226,7 @@ class A {
 =====================================output=====================================
 class X {
   private foo? = undefined;
-  "a-prop"?: boolean;
+  'a-prop'?: boolean;
 }
 
 class A {
@@ -248,7 +248,7 @@ class User {
 
 =====================================output=====================================
 class User {
-  "username": string;
+  'username': string;
 }
 
 ================================================================================

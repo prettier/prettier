@@ -112,7 +112,7 @@ class MyClass2<T, U = string> {
   }
 }
 
-var c2: MyClass2 = new MyClass2(0, ""); // error, missing argument list (1-2)
+var c2: MyClass2 = new MyClass2(0, ''); // error, missing argument list (1-2)
 
 // arity error in type annotation using polymorphic type alias
 

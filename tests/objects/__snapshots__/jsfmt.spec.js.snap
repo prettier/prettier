@@ -61,7 +61,7 @@ const a3 = {
 a = () => ({}.x);
 ({} && a, b);
 ({}::b, 0);
-({}::b()\`\`[""].c++ && 0 ? 0 : 0, 0);
+({}::b()\`\`[''].c++ && 0 ? 0 : 0, 0);
 ({}(), 0);
 ({} = 0);
 ({} = 0), 1;
@@ -122,14 +122,14 @@ group(
 =====================================output=====================================
 group(
   concat([
-    "(",
+    '(',
     indent(
       options.tabWidth,
-      concat([line, join(concat([",", line]), printed)])
+      concat([line, join(concat([',', line]), printed)])
     ),
-    options.trailingComma ? "," : "",
+    options.trailingComma ? ',' : '',
     line,
-    ")",
+    ')',
   ]),
   { shouldBreak: true }
 );
@@ -164,15 +164,15 @@ const o = {
 
 =====================================output=====================================
 const blablah =
-  "aldkfkladfskladklsfkladklfkaldfadfkdaf" +
-  "adlfasdklfkldsklfakldsfkladsfkadsfladsfa" +
-  "dflkadfkladsfklkadlfkladlfkadklfjadlfdfdaf";
+  'aldkfkladfskladklsfkladklfkaldfadfkdaf' +
+  'adlfasdklfkldsklfakldsfkladsfkadsfladsfa' +
+  'dflkadfkladsfklkadlfkladlfkadklfjadlfdfdaf';
 
 const k = {
   blablah:
-    "aldkfkladfskladklsfkladklfkaldfadfkdaf" +
-    "adlfasdklfkldsklfakldsfkladsfkadsfladsfa" +
-    "dflkadfkladsfklkadlfkladlfkadklfjadlfdfdaf",
+    'aldkfkladfskladklsfkladklfkaldfadfkdaf' +
+    'adlfasdklfkldsklfakldsfkladsfkadsfladsfa' +
+    'dflkadfkladsfklkadlfkladlfkadklfjadlfdfdaf',
 };
 
 somethingThatsAReallyLongPropName =

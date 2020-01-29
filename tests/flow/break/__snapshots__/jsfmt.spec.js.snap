@@ -81,7 +81,7 @@ function foo(b) {
   var z;
   while (b) {
     if (x == null) {
-      z = "";
+      z = '';
       break;
     }
     var y: number = x; // error: boolean !~> number
@@ -92,10 +92,10 @@ function foo(b) {
 function bar(b) {
   var x = b ? null : false;
   if (x == null) return;
-  switch ("") {
+  switch ('') {
     case 0:
       var y: number = x; // error: boolean !~> number
-      x = "";
+      x = '';
     case 1:
       var z: number = x; // 2 errors: (boolean | string) !~> number
       break;
@@ -107,10 +107,10 @@ function bar(b) {
 function bar2(b) {
   var x = b ? null : false;
   if (x == null) return;
-  switch ("") {
+  switch ('') {
     case 0: {
       let y: number = x; // error: boolean !~> number
-      x = "";
+      x = '';
     }
     case 1: {
       let z: number = x; // 2 errors: (boolean | string) !~> number
@@ -126,7 +126,7 @@ function qux(b) {
   while (b) {
     var y: number = z;
     if (b) {
-      z = "";
+      z = '';
       continue;
     } // error: string !~> number
     z = 0;
@@ -137,10 +137,10 @@ function qux(b) {
 // same basic test as foo(), but with const. probes the
 // logic that still uses havoc to do env resets.
 function test_const() {
-  let st: string = "abc";
+  let st: string = 'abc';
 
   for (let i = 1; i < 100; i++) {
-    const fooRes: ?string = "HEY";
+    const fooRes: ?string = 'HEY';
     if (!fooRes) {
       break;
     }

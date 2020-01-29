@@ -88,14 +88,14 @@ class Base {
   initializedField = 42;
   initializedFieldWithThis = this.initializedField;
   annotatedInitializedFieldValid: ?number = 42;
-  annotatedInitializedFieldInvalid: number = "asdf"; // Error: string ~> number
+  annotatedInitializedFieldInvalid: number = 'asdf'; // Error: string ~> number
 
   static unannotatedField;
   static annotatedField: number;
-  static initializedField = "asdf";
+  static initializedField = 'asdf';
   static initializedFieldWithThis = this.initializedField;
   static annotatedInitializedFieldValid: ?number = 42;
-  static annotatedInitializedFieldInvalid: number = "asdf"; // Error: string ~> number
+  static annotatedInitializedFieldInvalid: number = 'asdf'; // Error: string ~> number
 }
 
 var o = new Base();
@@ -306,14 +306,14 @@ class Base {
   base_initializedField = 42;
   base_initializedFieldWithThis = this.base_initializedField;
   base_annotatedInitializedFieldValid: ?number = 42;
-  base_annotatedInitializedFieldInvalid: number = "asdf"; // Error: string ~> number
+  base_annotatedInitializedFieldInvalid: number = 'asdf'; // Error: string ~> number
 
   static base_unannotatedField;
   static base_annotatedField: number;
-  static base_initializedField = "asdf";
+  static base_initializedField = 'asdf';
   static base_initializedFieldWithThis = this.base_initializedField;
   static base_annotatedInitializedFieldValid: ?number = 42;
-  static base_annotatedInitializedFieldInvalid: number = "asdf"; // Error: string ~> number
+  static base_annotatedInitializedFieldInvalid: number = 'asdf'; // Error: string ~> number
 
   inherited_initializer = 42;
   static inherited_initializer = 42;
@@ -325,14 +325,14 @@ class Child extends Base {
   child_initializedField = 42;
   child_initializedFieldWithThis = this.child_initializedField;
   child_annotatedInitializedFieldValid: ?number = 42;
-  child_annotatedInitializedFieldInvalid: number = "asdf"; // Error: string ~> number
+  child_annotatedInitializedFieldInvalid: number = 'asdf'; // Error: string ~> number
 
   static child_unannotatedField;
   static child_annotatedField: number;
-  static child_initializedField = "asdf";
+  static child_initializedField = 'asdf';
   static child_initializedFieldWithThis = this.child_initializedField;
   static child_annotatedInitializedFieldValid: ?number = 42;
-  static child_annotatedInitializedFieldInvalid: number = "asdf"; // Error: string ~> number
+  static child_annotatedInitializedFieldInvalid: number = 'asdf'; // Error: string ~> number
 
   inherited_initializer;
   static inherited_initializer;
@@ -570,7 +570,7 @@ class Foo {
   static selfTypedInit = new Foo();
 
   constructor() {
-    var someVar = "asdf";
+    var someVar = 'asdf';
   }
 }
 

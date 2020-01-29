@@ -118,7 +118,7 @@ async function *readLines(path) {
 }
 
 async function f() {
-  for await (const line of readLines("/path/to/file")) {
+  for await (const line of readLines('/path/to/file')) {
     (line: void); // error: string ~> void
   }
 }
@@ -174,7 +174,7 @@ async function *refuse_return() {
   }
 }
 refuse_return()
-  .return("string")
+  .return('string')
   .then((result) => {
     if (result.done) {
       (result.value: string); // error: number | void ~> string
@@ -234,7 +234,7 @@ async function *catch_return() {
 
 async () => {
   catch_return()
-    .throw("")
+    .throw('')
     .then(({ value }) => {
       if (value !== undefined) {
         (value: void); // error: number ~> void
@@ -253,7 +253,7 @@ async function *yield_return() {
 
 async () => {
   yield_return()
-    .throw("")
+    .throw('')
     .then(({ value }) => {
       if (value !== undefined) {
         (value: void); // error: number ~> void

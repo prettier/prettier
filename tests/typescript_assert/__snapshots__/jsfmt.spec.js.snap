@@ -36,19 +36,19 @@ class AssertsFoo {
 }
 =====================================output=====================================
 const assertString = (x: any): asserts x => {
-  console.assert(typeof x === "string");
+  console.assert(typeof x === 'string');
 };
 
 function assertsString(x: any): asserts x {
-  console.assert(typeof x === "string");
+  console.assert(typeof x === 'string');
 }
 
 const assertStringWithGuard = (x: any): asserts x is string => {
-  console.assert(typeof x === "string");
+  console.assert(typeof x === 'string');
 };
 
 function assertsStringWithGuard(x: any): asserts x is string {
-  console.assert(typeof x === "string");
+  console.assert(typeof x === 'string');
 }
 
 interface AssertFoo {

@@ -28,7 +28,7 @@ declare module N {
   declare var z: number;
 }
 declare module Q {
-  declare var exports: $Exports<"M">;
+  declare var exports: $Exports<'M'>;
 }
 
 ================================================================================

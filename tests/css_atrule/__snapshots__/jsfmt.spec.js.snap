@@ -391,7 +391,7 @@ red
   }
 }
 .parent {
-  @at-root input[type="radio"] {
+  @at-root input[type='radio'] {
     color: red;
   }
 }
@@ -582,36 +582,36 @@ suffix
 =====================================output=====================================
 @counter-style identifier {
   system: cyclic;
-  symbols: "\\1F44D";
-  suffix: " ";
+  symbols: '\\1F44D';
+  suffix: ' ';
 }
 @counter-style identifier {
   system: cyclic;
-  symbols: "\\1F44D";
-  suffix: " ";
+  symbols: '\\1F44D';
+  suffix: ' ';
 }
 @counter-style identifier {
   system: cyclic;
-  symbols: "\\1F44D";
-  suffix: " ";
+  symbols: '\\1F44D';
+  suffix: ' ';
 }
 @counter-style identifier {
   system: cyclic;
-  symbols: "\\1F44D";
-  suffix: " ";
+  symbols: '\\1F44D';
+  suffix: ' ';
 }
 @counter-style identifier {
   system: cyclic;
-  symbols: "\\1F44D";
-  suffix: " ";
+  symbols: '\\1F44D';
+  suffix: ' ';
 }
 
 @counter-style identifier {
   system: cyclic;
 
-  symbols: "\\1F44D";
+  symbols: '\\1F44D';
 
-  suffix: " ";
+  suffix: ' ';
 }
 
 ================================================================================
@@ -866,7 +866,7 @@ h6
   .very-very-very-very-very-very-very-very-very-very-long-class-name-other;
 @custom-selector :--enter :hover, :focus;
 @custom-selector :--visible :global.visible;
-@custom-selector :--icon i[class^="icon-"], i[class*=" icon-"];
+@custom-selector :--icon i[class^='icon-'], i[class*=' icon-'];
 @custom-selector :--placeholder
   :placehoder-shown,
   ::-webkit-input-placeholder,
@@ -1570,35 +1570,35 @@ format(
 
 =====================================output=====================================
 @font-face {
-  font-family: "Open Sans";
-  src: url("/fonts/OpenSans-Regular-webfont.woff2") format("woff2"),
-    url("/fonts/OpenSans-Regular-webfont.woff") format("woff");
+  font-family: 'Open Sans';
+  src: url('/fonts/OpenSans-Regular-webfont.woff2') format('woff2'),
+    url('/fonts/OpenSans-Regular-webfont.woff') format('woff');
 }
 @font-face {
-  font-family: "Open Sans";
-  src: url("/fonts/OpenSans-Regular-webfont.woff2") format("woff2"),
-    url("/fonts/OpenSans-Regular-webfont.woff") format("woff");
+  font-family: 'Open Sans';
+  src: url('/fonts/OpenSans-Regular-webfont.woff2') format('woff2'),
+    url('/fonts/OpenSans-Regular-webfont.woff') format('woff');
 }
 @font-face {
-  font-family: "Open Sans";
-  src: url("/fonts/OpenSans-Regular-webfont.woff2") format("woff2"),
-    url("/fonts/OpenSans-Regular-webfont.woff") format("woff");
+  font-family: 'Open Sans';
+  src: url('/fonts/OpenSans-Regular-webfont.woff2') format('woff2'),
+    url('/fonts/OpenSans-Regular-webfont.woff') format('woff');
 }
 @font-face {
-  font-family: "Open Sans";
-  src: url("/fonts/OpenSans-Regular-webfont.woff2") format("woff2"),
-    url("/fonts/OpenSans-Regular-webfont.woff") format("woff");
+  font-family: 'Open Sans';
+  src: url('/fonts/OpenSans-Regular-webfont.woff2') format('woff2'),
+    url('/fonts/OpenSans-Regular-webfont.woff') format('woff');
 }
 @font-face {
-  font-family: "Open Sans";
-  src: url("/fonts/OpenSans-Regular-webfont.woff2") format("woff2"),
-    url("/fonts/OpenSans-Regular-webfont.woff") format("woff");
+  font-family: 'Open Sans';
+  src: url('/fonts/OpenSans-Regular-webfont.woff2') format('woff2'),
+    url('/fonts/OpenSans-Regular-webfont.woff') format('woff');
 }
 @font-face {
-  font-family: "Open Sans";
+  font-family: 'Open Sans';
 
-  src: url("/fonts/OpenSans-Regular-webfont.woff2") format("woff2"),
-    url("/fonts/OpenSans-Regular-webfont.woff") format("woff");
+  src: url('/fonts/OpenSans-Regular-webfont.woff2') format('woff2'),
+    url('/fonts/OpenSans-Regular-webfont.woff') format('woff');
 }
 
 ================================================================================
@@ -1906,28 +1906,28 @@ $args
 
 =====================================output=====================================
 @function func($arg, $arg1, $arg2: 10, $args...) {
-  @return "Func";
+  @return 'Func';
 }
 @function func($arg, $arg1, $arg2: 10, $args...) {
-  @return "Func";
+  @return 'Func';
 }
 @function func($arg, $arg1, $arg2: 10, $args...) {
-  @return "Func";
+  @return 'Func';
 }
 @function func($arg, $arg1, $arg2: 10, $args...) {
-  @return "Func";
+  @return 'Func';
 }
 @function func($arg, $arg1, $arg2: 10, $args...) {
-  @return "Func";
+  @return 'Func';
 }
 @function func($arg, $arg1, $arg2: 10, $args...) {
-  @return "Func";
+  @return 'Func';
 }
 @function func($arg, $arg1, $arg2: 10, $args...) {
-  @return "Func";
+  @return 'Func';
 }
 @function func($arg, $arg1, $arg2: 10, $args...) {
-  @return "Func";
+  @return 'Func';
 }
 @function func(
   $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-arg,
@@ -1936,7 +1936,7 @@ $args
     10,
   $very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-args...
 ) {
-  @return "Func";
+  @return 'Func';
 }
 
 ================================================================================
@@ -2193,7 +2193,7 @@ p {
     $base-line-height !=
     24px or
     $base-unit !=
-    "em" or
+    'em' or
     $h1-font-size !=
     2 *
     $base-font-size or
@@ -2216,9 +2216,9 @@ p {
     40px
   {
   }
-  @if (str-slice($item, 0, 1) == ":") {
+  @if (str-slice($item, 0, 1) == ':') {
   }
-  @if (str-slice($item, 0, 3) == " : ") {
+  @if (str-slice($item, 0, 3) == ' : ') {
   }
   @if ($type == ocean) {
   } @else if ($type == matador) {
@@ -2329,86 +2329,86 @@ $family: unquote("Droid+Sans");
 );
 
 =====================================output=====================================
-@import url("fineprint.css") print;
-@import url("bluish.css") projection, tv;
-@import "custom.css";
-@import url("chrome://communicator/skin/");
-@import "common.css" screen, projection;
-@import "common.css" screen projection;
-@import url("landscape.css") screen and (orientation: landscape);
+@import url('fineprint.css') print;
+@import url('bluish.css') projection, tv;
+@import 'custom.css';
+@import url('chrome://communicator/skin/');
+@import 'common.css' screen, projection;
+@import 'common.css' screen projection;
+@import url('landscape.css') screen and (orientation: landscape);
 
-@import (multiple) "foo.less";
+@import (multiple) 'foo.less';
 
 /* This isn't valid CSS, SCSS or Less, but we should be lenient and make sure
 /* that nothing is lost when printing. */
-@import "one" two "three";
+@import 'one' two 'three';
 
 #main {
-  @import "example";
+  @import 'example';
 }
 #main {
-  @import "example";
+  @import 'example';
 }
 #main {
-  @import "example";
+  @import 'example';
 }
 #main {
-  @import "example";
+  @import 'example';
 }
 #main {
-  @import "example";
+  @import 'example';
 }
 #main {
-  @import "example";
+  @import 'example';
 }
 #main {
-  @import "example";
+  @import 'example';
 }
 
-@import "test.less" {
+@import 'test.less' {
 }
-@import "test.less" {
+@import 'test.less' {
   a: b;
   c: d;
 }
 
-@import url("foo");
-$dir: "fonts";
+@import url('foo');
+$dir: 'fonts';
 
-@import url("foo.css");
-@import url("foo.css");
-@import url("foo.css");
-@import url("foo.css");
-@import url("fineprint.css") print;
-@import url("fineprint.css") print;
-@import url("fineprint.css") print;
-@import url("fineprint.css") print;
-@import url("bluish.css") projection, tv;
-@import url("bluish.css") projection, tv;
-@import url("bluish.css") projection, tv;
-@import url("bluish.css") projection, tv;
-@import url("bluish.css") projection, tv;
-@import url("bluish.css") projection, tv;
-@import url("very-very-very-very-very-very-very-very-very-very-long-name.css")
+@import url('foo.css');
+@import url('foo.css');
+@import url('foo.css');
+@import url('foo.css');
+@import url('fineprint.css') print;
+@import url('fineprint.css') print;
+@import url('fineprint.css') print;
+@import url('fineprint.css') print;
+@import url('bluish.css') projection, tv;
+@import url('bluish.css') projection, tv;
+@import url('bluish.css') projection, tv;
+@import url('bluish.css') projection, tv;
+@import url('bluish.css') projection, tv;
+@import url('bluish.css') projection, tv;
+@import url('very-very-very-very-very-very-very-very-very-very-long-name.css')
   projection,
   tv;
-@import url("very-very-very-very-very-very-very-very-very-very-long-name.css")
+@import url('very-very-very-very-very-very-very-very-very-very-long-name.css')
   projection tv;
-@import url("landscape.css") screen and (orientation: landscape);
-@import "rounded-corners", "text-shadow";
-@import "rounded-corners", "text-shadow";
-$family: unquote("Droid+Sans");
-@import url("http://fonts.googleapis.com/css?family=#{$family}");
-@import url("foo.css");
-@import url("foo.css");
-@import url("foo.css");
-@import url("foo.css");
-@import url("foo bar baz.css");
-@import url("foo bar baz.css");
-@import url("foo  bar  baz.css");
-@import url("foo.css");
-@import "https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600";
-@import url("foo.css,800");
+@import url('landscape.css') screen and (orientation: landscape);
+@import 'rounded-corners', 'text-shadow';
+@import 'rounded-corners', 'text-shadow';
+$family: unquote('Droid+Sans');
+@import url('http://fonts.googleapis.com/css?family=#{$family}');
+@import url('foo.css');
+@import url('foo.css');
+@import url('foo.css');
+@import url('foo.css');
+@import url('foo bar baz.css');
+@import url('foo bar baz.css');
+@import url('foo  bar  baz.css');
+@import url('foo.css');
+@import 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600';
+@import url('foo.css,800');
 
 ================================================================================
 `;
@@ -2604,7 +2604,7 @@ a {
 
 a {
   @include item-spotlight-properties-transition(
-    "-title",
+    '-title',
     (
       box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15),
     )
@@ -2613,7 +2613,7 @@ a {
 
 a {
   @include item-spotlight-properties-transition(
-    "-title",
+    '-title',
     (
       box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15),
       border-color: $brand-primary,
@@ -2623,7 +2623,7 @@ a {
 
 a {
   @include item-spotlight-properties-transition(
-    "-title",
+    '-title',
     (
       box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15),
       border-color:
@@ -3515,11 +3515,11 @@ $background
 }
 @mixin button-variant($hover-background: darken($background, 7.5%)) {
 }
-@mixin button-variant($foo: "...") {
+@mixin button-variant($foo: '...') {
 }
-@mixin button-variant($foo: " ... ") {
+@mixin button-variant($foo: ' ... ') {
 }
-@mixin button-variant($foo: "  ...  ") {
+@mixin button-variant($foo: '  ...  ') {
 }
 @mixin sexy-border($color, $width, $foo: (color: red)) {
 }
@@ -3577,24 +3577,24 @@ url("http://example.com/foo/very/very/very/very/very/very/very/very/very/very/ve
 url("http://example.com/foo/very/very/very/very/very/very/very/very/very/very/very/very/very/very/very");
 
 =====================================output=====================================
-@namespace toto "http://toto.example.org";
-@namespace toto url("http://toto.example.org");
-@namespace toto "http://toto.example.org";
-@namespace toto "http://toto.example.org";
-@namespace toto "http://toto.example.org";
-@namespace toto "http://toto.example.org";
-@namespace very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-namespace "http://toto.example.org";
-@namespace very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-namespace "http://toto.example.org";
-@namespace very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-namespace "http://toto.example.org";
-@namespace "http://example.com/foo";
-@namespace url("http://example.com/foo");
-@namespace url("http://example.com/foo");
-@namespace url("http://example.com/foo");
-@namespace url("http://example.com/foo");
-@namespace url("http://example.com/foo");
-@namespace url("http://example.com/foo/very/very/very/very/very/very/very/very/very/very/very/very/very/very");
-@namespace url("http://example.com/foo/very/very/very/very/very/very/very/very/very/very/very/very/very/very/very");
-@namespace url("http://example.com/foo/very/very/very/very/very/very/very/very/very/very/very/very/very/very/very");
+@namespace toto 'http://toto.example.org';
+@namespace toto url('http://toto.example.org');
+@namespace toto 'http://toto.example.org';
+@namespace toto 'http://toto.example.org';
+@namespace toto 'http://toto.example.org';
+@namespace toto 'http://toto.example.org';
+@namespace very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-namespace 'http://toto.example.org';
+@namespace very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-namespace 'http://toto.example.org';
+@namespace very-very-very-very-very-very-very-very-very-very-very-very-very-very-long-namespace 'http://toto.example.org';
+@namespace 'http://example.com/foo';
+@namespace url('http://example.com/foo');
+@namespace url('http://example.com/foo');
+@namespace url('http://example.com/foo');
+@namespace url('http://example.com/foo');
+@namespace url('http://example.com/foo');
+@namespace url('http://example.com/foo/very/very/very/very/very/very/very/very/very/very/very/very/very/very');
+@namespace url('http://example.com/foo/very/very/very/very/very/very/very/very/very/very/very/very/very/very/very');
+@namespace url('http://example.com/foo/very/very/very/very/very/very/very/very/very/very/very/very/very/very/very');
 
 ================================================================================
 `;

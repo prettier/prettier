@@ -296,17 +296,17 @@ if (VeryVeryVeryVeryVeryVeryVeryVeryLong === VeryVeryVeryVeryVeryVeryVeryVeryLon
 }
 
 =====================================output=====================================
-if (this.hasPlugin("dynamicImports") && this.lookahead().type) {
+if (this.hasPlugin('dynamicImports') && this.lookahead().type) {
 }
 
 if (
-  this.hasPlugin("dynamicImports") &&
+  this.hasPlugin('dynamicImports') &&
   this.lookahead().type === tt.parenLeft
 ) {
 }
 
 if (
-  this.hasPlugin("dynamicImports") &&
+  this.hasPlugin('dynamicImports') &&
   this.lookahead().type === tt.parenLeft.right
 ) {
 }
@@ -458,7 +458,7 @@ prevState = prevState || {
   catalogs: [],
   loadState: LOADED,
   opened: false,
-  searchQuery: "",
+  searchQuery: '',
   selectedCatalog: null,
 };
 
@@ -467,7 +467,7 @@ prevState = prevState ||
     catalogs: [],
     loadState: LOADED,
     opened: false,
-    searchQuery: "",
+    searchQuery: '',
     selectedCatalog: null,
   };
 
@@ -477,7 +477,7 @@ prevState =
     catalogs: [],
     loadState: LOADED,
     opened: false,
-    searchQuery: "",
+    searchQuery: '',
     selectedCatalog: null,
   });
 
@@ -486,14 +486,14 @@ prevState = prevState ||
     catalogs: [],
     loadState: LOADED,
     opened: false,
-    searchQuery: "",
+    searchQuery: '',
     selectedCatalog: null,
   };
 
 this.steps = steps || [
   {
-    name: "mock-module",
-    path: "/nux/mock-module",
+    name: 'mock-module',
+    path: '/nux/mock-module',
   },
 ];
 
@@ -501,15 +501,15 @@ this.steps =
   steps ||
   (checkStep && [
     {
-      name: "mock-module",
-      path: "/nux/mock-module",
+      name: 'mock-module',
+      path: '/nux/mock-module',
     },
   ]);
 
 this.steps = (steps && checkStep) || [
   {
-    name: "mock-module",
-    path: "/nux/mock-module",
+    name: 'mock-module',
+    path: '/nux/mock-module',
   },
 ];
 
@@ -518,7 +518,7 @@ const create = () => {
   return (
     shouldReturn &&
     result.ok && {
-      status: "ok",
+      status: 'ok',
       createdAt: result.createdAt,
       updatedAt: result.updatedAt,
     }
@@ -529,7 +529,7 @@ const create = () => {
   const result = doSomething();
   return (
     (shouldReturn && result.ok && result) || {
-      status: "ok",
+      status: 'ok',
       createdAt: result.createdAt,
       updatedAt: result.updatedAt,
     }
@@ -611,7 +611,7 @@ printWidth: 80
     !isJellyfishEnabled &&
     diffUpdateMessageInput && {
       fontSize: 14,
-      color: "#fff",
+      color: '#fff',
     }
   }
 />;
@@ -716,13 +716,13 @@ function foo() {
 =====================================output=====================================
 function foo() {
   return (
-    this.hasPlugin("dynamicImports") &&
+    this.hasPlugin('dynamicImports') &&
     this.lookahead().type === tt.parenLeft.right
   );
 }
 
 function foo() {
-  return this.hasPlugin("dynamicImports") &&
+  return this.hasPlugin('dynamicImports') &&
     this.lookahead().type === tt.parenLeft.right
     ? true
     : false;
@@ -776,7 +776,7 @@ foooooooooooooooooooooooooooooooooooooooooooooooooooooooooo(
 ) + a;
 
 const isPartOfPackageJSON =
-  dependenciesArray.indexOf(dependencyWithOutRelativePath.split("/")[0]) !== -1;
+  dependenciesArray.indexOf(dependencyWithOutRelativePath.split('/')[0]) !== -1;
 
 defaultContent.filter((defaultLocale) => {
   // ...

@@ -11,7 +11,7 @@ var qux = require('./optional');
 qux(0);
 
 =====================================output=====================================
-var qux = require("./optional");
+var qux = require('./optional');
 
 qux(0);
 
@@ -239,14 +239,14 @@ bar(0);
 var foo: (x?: number) => void = bar;
 foo();
 
-function qux(x = "hello", ...y): string {
+function qux(x = 'hello', ...y): string {
   foo(x);
   return y[0];
 }
 
 qux(0, 0); // Error, number ~> string
-qux(0, ...[42, ""]); // Error, number ~> string
-qux(0, ...["", 42]); // No error
+qux(0, ...[42, '']); // Error, number ~> string
+qux(0, ...['', 42]); // No error
 
 module.exports = qux;
 
@@ -299,14 +299,14 @@ function testOptionalNullableFlowingToNullable(x?: ?string): ?string {
 /* @flow */
 function foo(x?: string): string {
   if (x == null) {
-    return "foo";
+    return 'foo';
   }
   return x;
 }
 
 function bar(obj: { x?: string }): string {
   if (obj.x == null) {
-    return "foo";
+    return 'foo';
   }
   return obj.x;
 }
@@ -320,21 +320,21 @@ function baz(bar?) {
 
 function testOptionalNullable(x?: ?string): string {
   if (x == null) {
-    return "foo";
+    return 'foo';
   }
   return x;
 }
 
-function testOptionalNullableDefault(x?: ?string = "hi"): string {
+function testOptionalNullableDefault(x?: ?string = 'hi'): string {
   if (x == null) {
-    return "foo";
+    return 'foo';
   }
   return x;
 }
 
 function testOptionalNullableProperty(obj: { x?: ?string }): string {
   if (obj.x == null) {
-    return "foo";
+    return 'foo';
   }
   return obj.x;
 }
@@ -389,7 +389,7 @@ bar(undefined); // ok
 function foo(x?: number) {}
 foo(undefined); // ok
 
-function bar(x = "bar"): string {
+function bar(x = 'bar'): string {
   return x;
 }
 bar(undefined); // ok
@@ -426,7 +426,7 @@ function foo(x?: number, ...y: Array<string>): [?number, Array<string>] {
 
 foo(); // OK
 foo(123), // OK
-  foo(123, "hello"); // OK
+  foo(123, 'hello'); // OK
 
 foo(true); // ERROR boolean ~> number
 foo(123, true); // ERROR boolean ~> string

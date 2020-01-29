@@ -30,8 +30,8 @@ declare class C {
   constructor(x: string): void;
 }
 
-C.x = "";
-C.foo("");
+C.x = '';
+C.foo('');
 
 (C.name: string);
 (C.name: number); // error, it's a string

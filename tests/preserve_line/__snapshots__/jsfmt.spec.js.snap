@@ -266,7 +266,7 @@ moreArgTypes(
   [1, 2, 3],
 
   {
-    name: "Hello World",
+    name: 'Hello World',
     age: 29,
   },
 
@@ -274,7 +274,7 @@ moreArgTypes(
     // Hello world
 
     // Hello world again
-    { name: "Hello World", age: 34 },
+    { name: 'Hello World', age: 34 },
 
     oneThing + anotherThing
 
@@ -284,7 +284,7 @@ moreArgTypes(
 
 evenMoreArgTypes(
   doSomething(
-    { name: "Hello World", age: 34 },
+    { name: 'Hello World', age: 34 },
 
     true
   ),
@@ -304,7 +304,7 @@ foo.apply(
 );
 
 bar.on(
-  "readable",
+  'readable',
 
   () => {
     doStuff();
@@ -312,7 +312,7 @@ bar.on(
 );
 
 foo(
-  ["A, B"],
+  ['A, B'],
 
   /* function here */
   function doSomething() {
@@ -325,11 +325,11 @@ doSomething.apply(
 
   // Comment
 
-  ["Hello world 1", "Hello world 2", "Hello world 3"]
+  ['Hello world 1', 'Hello world 2', 'Hello world 3']
 );
 
 doAnotherThing(
-  "node",
+  'node',
 
   {
     solution_type,
@@ -531,43 +531,43 @@ const sel = this.connections
 
 =====================================output=====================================
 fooBar
-  .doSomething("Hello World")
-  .doAnotherThing("Foo", { foo: bar })
+  .doSomething('Hello World')
+  .doAnotherThing('Foo', { foo: bar })
 
   // App configuration.
   .doOneMoreThing(config)
 
-  .run(() => console.log("Bar"));
+  .run(() => console.log('Bar'));
 
 bigDeal
 
-  .doSomething("Hello World")
+  .doSomething('Hello World')
 
   // Hello world
-  .doAnotherThing("Foo", { foo: bar })
+  .doAnotherThing('Foo', { foo: bar })
 
   // App configuration.
   .doOneMoreThing(config)
 
-  .run(() => console.log("Bar"));
+  .run(() => console.log('Bar'));
 
 foo.bar.baz
 
-  .doSomething("Hello World")
+  .doSomething('Hello World')
 
   // Hello world
-  .foo.bar.doAnotherThing("Foo", { foo: bar })
+  .foo.bar.doAnotherThing('Foo', { foo: bar })
 
   .doOneMoreThing(config)
-  .bar.run(() => console.log("Bar"));
+  .bar.run(() => console.log('Bar'));
 
 (somethingGood ? thisIsIt : maybeNot)
 
   // Hello world
-  .doSomething("Hello World")
+  .doSomething('Hello World')
 
-  .doAnotherThing("Foo", { foo: bar }) // Run this
-  .run(() => console.log("Bar")); // Do this
+  .doAnotherThing('Foo', { foo: bar }) // Run this
+  .run(() => console.log('Bar')); // Do this
 
 helloWorld
 
@@ -844,8 +844,8 @@ f(
   ...args
 );
 
-it("does something really long and complicated so I have to write a very long name for the test", function (done, foo) {
-  console.log("hello!");
+it('does something really long and complicated so I have to write a very long name for the test', function (done, foo) {
+  console.log('hello!');
 });
 
 ================================================================================

@@ -104,23 +104,23 @@ one 'two' three {}
 /* Also, it has to be the very first thing in the file, but here are some more tests anyway: */
 @charset 'UTF-8'; /* Single quotes are invalid here. Keep them since we don't know what the user is doing. */
 
-@supports (content: one "two" three "four") {
-  a[href="foo" y],
+@supports (content: one 'two' three 'four') {
+  a[href='foo' y],
   abbr[title^="It's a trap!"],
-  img[src=""] {
+  img[src=''] {
     /* Simple strings. */
-    content: "abc";
-    content: "abc";
+    content: 'abc';
+    content: 'abc';
 
     /* Escape. */
-    content: "\\A";
+    content: '\\A';
 
     /* Emoji. */
-    content: "🐶";
+    content: '🐶';
 
     /* Empty string. */
-    content: "";
-    content: "";
+    content: '';
+    content: '';
 
     /* Single double quote. */
     content: '"';
@@ -131,12 +131,12 @@ one 'two' three {}
     content: "'";
 
     /* One of each. */
-    content: "\\"'";
-    content: "\\"'";
+    content: '"\\'';
+    content: '"\\'';
 
     /* One of each with unnecessary escapes. */
-    content: "\\"'";
-    content: "\\"'";
+    content: '"\\'';
+    content: '"\\'';
 
     /* More double quotes than single quotes. */
     content: '"\\'"';
@@ -147,12 +147,12 @@ one 'two' three {}
     content: "\\"''";
 
     /* Two of each. */
-    content: "\\"\\"''";
-    content: "\\"\\"''";
+    content: '""\\'\\'';
+    content: '""\\'\\'';
 
     /* Single backslash. */
-    content: "\\\\";
-    content: "\\\\";
+    content: '\\\\';
+    content: '\\\\';
 
     /* Backslases. */
     content: "\\"\\\\\\"\\\\\\\\\\" ''\\\\'\\\\'\\\\\\\\'";
@@ -167,19 +167,19 @@ one 'two' three {}
     content: 'var backslash = "\\\\", doubleQuote = \\'"\\';';
 
     /* Leave all "escapes" alone. */
-    content: "\\Abc4 foo \\n" /* "comment" */ "\\end";
-    content: "\\Abc4 foo \\n" /* 'comment' */ "\\end";
+    content: '\\Abc4 foo \\n' /* "comment" */ '\\end';
+    content: '\\Abc4 foo \\n' /* 'comment' */ '\\end';
   }
 }
 
-@import "file.css";
-@import "file.css";
+@import 'file.css';
+@import 'file.css';
 
-@import url("foo.css");
-@import url("foo.css");
+@import url('foo.css');
+@import url('foo.css');
 
-@import "foo.css" screen and (orientation: landscape);
-@import "foo.css" screen and (orientation: landscape);
+@import 'foo.css' screen and (orientation: landscape);
+@import 'foo.css' screen and (orientation: landscape);
 
 @foo "one";
 @foo 'one';
@@ -188,9 +188,9 @@ one 'two' three {}
 @foo ('one');
 @foo ("one" two 'three');
 
-one "two" three {
+one 'two' three {
 }
-one "two" three {
+one 'two' three {
 }
 
 ================================================================================

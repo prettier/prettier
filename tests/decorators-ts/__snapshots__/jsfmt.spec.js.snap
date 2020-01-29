@@ -65,7 +65,7 @@ export class HeroButtonComponent {
 
 =====================================output=====================================
 @Component({
-  selector: "toh-hero-button",
+  selector: 'toh-hero-button',
   template: \`
     <button>{{ label }}</button>
   \`,
@@ -103,7 +103,7 @@ class Greeter {
     this.greeting = message;
   }
   greet() {
-    return "Hello, " + this.greeting;
+    return 'Hello, ' + this.greeting;
   }
 }
 
@@ -137,7 +137,7 @@ class Greeter {
 
   @enumerable(false)
   greet() {
-    return "Hello, " + this.greeting;
+    return 'Hello, ' + this.greeting;
   }
 }
 
@@ -228,7 +228,7 @@ class Greeter {
 
   @validate
   greet(@required name: string) {
-    return "Hello " + name + ", " + this.greeting;
+    return 'Hello ' + name + ', ' + this.greeting;
   }
 
   @validate
@@ -260,14 +260,14 @@ class Greeter {
 
 =====================================output=====================================
 class Greeter {
-  @format("Hello, %s") greeting: string;
+  @format('Hello, %s') greeting: string;
 
   constructor(message: string) {
     this.greeting = message;
   }
   greet() {
-    let formatString = getFormat(this, "greeting");
-    return formatString.replace("%s", this.greeting);
+    let formatString = getFormat(this, 'greeting');
+    return formatString.replace('%s', this.greeting);
   }
 }
 

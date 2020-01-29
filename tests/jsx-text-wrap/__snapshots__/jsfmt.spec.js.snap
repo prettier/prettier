@@ -477,7 +477,7 @@ x = (
 // Wrapping tags
 x = (
   <div>
-    <first>f</first> <first>f</first> <first>f</first> <first>f</first>{" "}
+    <first>f</first> <first>f</first> <first>f</first> <first>f</first>{' '}
     <first>f</first> <first>f</first>
   </div>
 );
@@ -500,7 +500,7 @@ x = (
     <a />
     <b />
     <c />
-    <first>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</first>{" "}
+    <first>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</first>{' '}
     <first>f</first>
   </div>
 );
@@ -508,7 +508,7 @@ x = (
 // Wrapping tags
 x = (
   <div>
-    <sadashdkjahsdkjhaskjdhaksjdhkashdkashdkasjhdkajshdkashdkashd />{" "}
+    <sadashdkjahsdkjhaskjdhaksjdhkashdkashdkasjhdkajshdkashdkashd />{' '}
     <first>f</first>
   </div>
 );
@@ -534,14 +534,14 @@ x = (
 
 x = (
   <div>
-    before {stuff} after {stuff} after {stuff} after {stuff} after {stuff} after{" "}
+    before {stuff} after {stuff} after {stuff} after {stuff} after {stuff} after{' '}
     {stuff} {stuff} {stuff} after {stuff} after
   </div>
 );
 
 x = (
   <div>
-    Please state your <b>name</b> and <b>occupation</b> for the board of{" "}
+    Please state your <b>name</b> and <b>occupation</b> for the board of{' '}
     <b>school</b> directors.
   </div>
 );
@@ -569,8 +569,8 @@ function DiffOverview(props) {
 x = (
   <font size={-3}>
     <i>
-      Starting at minute {graphActivity.startTime}, running for{" "}
-      {graphActivity.length} to minute{" "}
+      Starting at minute {graphActivity.startTime}, running for{' '}
+      {graphActivity.length} to minute{' '}
       {graphActivity.startTime + graphActivity.length}
     </i>
   </font>
@@ -601,7 +601,7 @@ x = (
 
 leading_whitespace = (
   <div>
-    {" "}
+    {' '}
     First Second Third Fourth Fifth Sixth Seventh Eighth Ninth Tenth Eleventh
     Twelfth Thirteenth Fourteenth
   </div>
@@ -610,7 +610,7 @@ leading_whitespace = (
 trailing_whitespace = (
   <div>
     First Second Third Fourth Fifth Sixth Seventh Eighth Ninth Tenth Eleventh
-    Twelfth Thirteenth Fourteenth{" "}
+    Twelfth Thirteenth Fourteenth{' '}
   </div>
 );
 
@@ -644,7 +644,7 @@ this_really_should_split_across_lines = (
 
 unstable_before = (
   <div className="yourScore">
-    Your score:{" "}
+    Your score:{' '}
     <span className="score">{\`\${mini.crosstable.users[sessionUserId]} - \${
       mini.crosstable.users[user.id]
     }\`}</span>
@@ -653,7 +653,7 @@ unstable_before = (
 
 unstable_after_first_run = (
   <div className="yourScore">
-    Your score:{" "}
+    Your score:{' '}
     <span className="score">{\`\${mini.crosstable.users[sessionUserId]} - \${
       mini.crosstable.users[user.id]
     }\`}</span>
@@ -669,7 +669,7 @@ solitary_whitespace = (
     fifth="fifth"
     sixth="sixth"
   >
-    {" "}
+    {' '}
   </div>
 );
 
@@ -681,24 +681,24 @@ jsx_whitespace_on_newline = (
 
 jsx_around_multiline_element = (
   <div>
-    Before{" "}
+    Before{' '}
     <div>
       {
-        "Enough text to make this element wrap on to multiple lines when formatting"
+        'Enough text to make this element wrap on to multiple lines when formatting'
       }
-    </div>{" "}
+    </div>{' '}
     After
   </div>
 );
 
 jsx_around_multiline_element_second_pass = (
   <div>
-    Before{" "}
+    Before{' '}
     <div>
       {
-        "Enough text to make this element wrap on to multiple lines when formatting"
+        'Enough text to make this element wrap on to multiple lines when formatting'
       }
-    </div>{" "}
+    </div>{' '}
     After
   </div>
 );
@@ -814,15 +814,15 @@ multiple_expressions = (
 
 single_expression_child_tags = (
   <div>
-    You currently have <strong>{dashboardStr}</strong> and{" "}
+    You currently have <strong>{dashboardStr}</strong> and{' '}
     <strong>{userStr}</strong>
   </div>
 );
 
 expression_does_not_break = (
   <div>
-    texty text text text text text text text text text text text{" "}
-    {this.props.type}{" "}
+    texty text text text text text text text text text text text{' '}
+    {this.props.type}{' '}
   </div>
 );
 
@@ -832,7 +832,7 @@ br_triggers_expression_break = (
     <br />
     text text text text text text text text text text text {
       this.props.type
-    }{" "}
+    }{' '}
   </div>
 );
 
@@ -840,14 +840,14 @@ jsx_whitespace_after_tag = (
   <div>
     <span a="a" b="b">
       {variable}
-    </span>{" "}
+    </span>{' '}
     ({variable})
   </div>
 );
 
 x = (
   <div>
-    ENDS IN <div>text text text text text text text text text text text</div>{" "}
+    ENDS IN <div>text text text text text text text text text text text</div>{' '}
     HRS
   </div>
 );
@@ -872,7 +872,7 @@ x = (
       <div>
         <div>
           <div>
-            Line {startRange.row + 1}:{startRange.column + 1} -{" "}
+            Line {startRange.row + 1}:{startRange.column + 1} -{' '}
             {endRange.row + 1}:{endRange.column + 1}
             {caller}
           </div>
@@ -884,7 +884,7 @@ x = (
 
 x = (
   <div>
-    {" "}
+    {' '}
     <div>text</div>
   </div>
 );
@@ -994,7 +994,7 @@ x = (
 x = (
   <div>
     <span>
-      <strong>{name}</strong>’s{" "}
+      <strong>{name}</strong>’s{' '}
     </span>
     Hello <strong>world</strong>.<br />
     <Text>You {type}ed this shipment to</Text>

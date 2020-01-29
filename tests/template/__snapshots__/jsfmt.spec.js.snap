@@ -88,7 +88,7 @@ g
   // Intentionally not passing \`basicFlags\` to \`XRegExp.union\` since any syntax
   // transformation resulting from those flags was already applied to \`left\` and
   // \`right\` when they were passed through the XRegExp constructor above.
-  XRegExp.union([left, right], "", { conjunction: "or" }).source
+  XRegExp.union([left, right], '', { conjunction: 'or' }).source
 })[^\${escapeChar}])+)+
 \`;
 
@@ -174,7 +174,7 @@ module.exports = Relay.createContainer(
       nodes: ({ solution_type, time_frame }) => Relay.QL\`
         fragment on RelatedNode @relay(plural: true) {
           __typename
-          \${OptimalSolutionsSection.getFragment("node", {
+          \${OptimalSolutionsSection.getFragment('node', {
             solution_type,
             time_frame,
           })}
@@ -359,7 +359,7 @@ this._pipe.write(\`
   \`;
 
 // https://github.com/prettier/prettier/issues/5529
-editTitle += \`\${iconHTML({ class: "reply-to-glyph" })}\`;
+editTitle += \`\${iconHTML({ class: 'reply-to-glyph' })}\`;
 
 ================================================================================
 `;

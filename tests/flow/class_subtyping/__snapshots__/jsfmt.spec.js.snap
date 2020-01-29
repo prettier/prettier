@@ -38,7 +38,7 @@ var y: I.B = new C();
 
 =====================================output=====================================
 /* @flow */
-var I = require("./test.js");
+var I = require('./test.js');
 
 class C extends I.A {}
 

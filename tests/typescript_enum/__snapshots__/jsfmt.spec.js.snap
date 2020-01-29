@@ -46,7 +46,7 @@ enum FileAccess {
   Write = 1 << 2,
   ReadWrite = Read | Write,
   // computed member
-  G = "123".length,
+  G = '123'.length,
 }
 
 enum Empty {}

@@ -69,11 +69,11 @@ module.exports = true;
 
 function f(x: number) {}
 function g() {
-  return 42 || "hello";
+  return 42 || 'hello';
 }
 
 var x = g();
-if (typeof x === "string") {
+if (typeof x === 'string') {
   x = 0;
 }
 f(x);
@@ -98,7 +98,7 @@ class C {
 }
 
 function foo() {
-  var c = "...";
+  var c = '...';
   c = new C();
   if (bar()) {
     c.qux();
@@ -107,7 +107,7 @@ function foo() {
 
 function goofy() {
   var x = g();
-  if (typeof x == "function") {
+  if (typeof x == 'function') {
     x();
   } else {
     // if (typeof x == 'number') {
@@ -117,11 +117,11 @@ function goofy() {
 
 function goofy2() {
   var o = { x: 0 };
-  if (typeof o.x == "function") {
+  if (typeof o.x == 'function') {
     o.x();
   }
   var y = o.x;
-  if (typeof y == "function") {
+  if (typeof y == 'function') {
     y();
   } else {
     //f(y);
@@ -159,7 +159,7 @@ function check(x: string) {}
 
 function FlowSA() {
   var x = 0;
-  x = "...";
+  x = '...';
   check(x);
 }
 
@@ -261,7 +261,7 @@ function baz(x: D) {
   }
 }
 
-module.exports = "sigma";
+module.exports = 'sigma';
 
 ================================================================================
 `;

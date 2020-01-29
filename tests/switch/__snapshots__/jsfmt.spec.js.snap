@@ -137,34 +137,34 @@ switch (a) {
 
 =====================================output=====================================
 switch (foo) {
-  case "bar":
+  case 'bar':
     doSomething();
 
-  case "baz":
+  case 'baz':
     doOtherThing();
 }
 
 switch (foo) {
-  case "bar":
+  case 'bar':
     doSomething();
 
-  case "baz":
+  case 'baz':
     doOtherThing();
 }
 
 switch (foo) {
-  case "bar":
+  case 'bar':
     doSomething();
 
-  case "baz":
+  case 'baz':
     doOtherThing();
 }
 
 switch (foo) {
-  case "bar":
+  case 'bar':
     doSomething();
 
-  case "baz":
+  case 'baz':
     doOtherThing();
 }
 
@@ -224,8 +224,8 @@ switch (error.code) {
 switch (error.code) {
   case ConfigurationEditingErrorCode.ERROR_INVALID_CONFIGURATION: {
     nls.localize(
-      "errorInvalidConfiguration",
-      "Unable to write into settings. Correct errors/warnings in the file and try again."
+      'errorInvalidConfiguration',
+      'Unable to write into settings. Correct errors/warnings in the file and try again.'
     );
   }
 }
@@ -297,26 +297,26 @@ switch ($longButSlightlyShorterVariableName && $anotherSlightlyShorterVariableNa
 =====================================output=====================================
 switch (a) {
   case 3:
-    alert("3");
+    alert('3');
     break;
   case 4:
-    alert("4");
+    alert('4');
     break;
   case 5:
-    alert("5");
+    alert('5');
     break;
   default:
-    alert("default");
+    alert('default');
 }
 
 switch (
   veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong
 ) {
   case 3:
-    alert("3");
+    alert('3');
     break;
   default:
-    alert("default");
+    alert('default');
 }
 
 switch (
@@ -324,10 +324,10 @@ switch (
   veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong
 ) {
   case 3:
-    alert("3");
+    alert('3');
     break;
   default:
-    alert("default");
+    alert('default');
 }
 
 switch (

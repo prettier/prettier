@@ -64,7 +64,7 @@ export class Query {
   select(expr: ArithmeticExpression): this {
     this._select.push({
       expression: expr,
-      alias: "",
+      alias: '',
     });
     return this;
   }
@@ -193,17 +193,17 @@ var l: Array<T> = [
 =====================================output=====================================
 /* @flow */
 
-type T = { type: "a", a: number } | { type: "b", b: string };
+type T = { type: 'a', a: number } | { type: 'b', b: string };
 
 var l: Array<T> = [
-  { type: "a", a: 1 },
-  { type: "a", a: 2 },
-  { type: "a", a: 3 },
-  { type: "a", a: 4 },
-  { type: "b", b: "monkey" },
-  { type: "b", b: "gorilla" },
-  { type: "b", b: "giraffe" },
-  { type: "b", b: "penguin" },
+  { type: 'a', a: 1 },
+  { type: 'a', a: 2 },
+  { type: 'a', a: 3 },
+  { type: 'a', a: 4 },
+  { type: 'b', b: 'monkey' },
+  { type: 'b', b: 'gorilla' },
+  { type: 'b', b: 'giraffe' },
+  { type: 'b', b: 'penguin' },
 ];
 
 ================================================================================
@@ -261,8 +261,8 @@ declare class Myclass {
 }
 declare var myclass: Myclass;
 
-myclass.myfun(["1", "2", "3", "4", "5", "6", function (ar) {}]);
-myclass.myfun(["1", "2", "3", "4", "5", "6", "7", function (ar) {}]);
+myclass.myfun(['1', '2', '3', '4', '5', '6', function (ar) {}]);
+myclass.myfun(['1', '2', '3', '4', '5', '6', '7', function (ar) {}]);
 
 ================================================================================
 `;
@@ -278,7 +278,7 @@ var foo = new Foo();
 var foostr: Foo | string = foo;
 
 =====================================output=====================================
-var Foo = require("./issue-323-lib");
+var Foo = require('./issue-323-lib');
 var foo = new Foo();
 var foostr: Foo | string = foo;
 
@@ -384,7 +384,7 @@ var result = numberAndStringArr.concat(stringArr);  // no error
 
 =====================================output=====================================
 var numberAndStringArr: Array<number | string> = [1, 2];
-var stringArr: Array<string> = ["a", "b"];
+var stringArr: Array<string> = ['a', 'b'];
 
 var result = numberAndStringArr.concat(stringArr); // no error
 
@@ -419,14 +419,14 @@ var nested2: FooBarBaz = 'baz';
  */
 
 // inline
-var nested1: ("foo" | "bar") | "baz" = "baz";
+var nested1: ('foo' | 'bar') | 'baz' = 'baz';
 
 // through tvars
-type FooBar = "foo" | "bar";
-type Baz = "baz";
+type FooBar = 'foo' | 'bar';
+type Baz = 'baz';
 type FooBarBaz = FooBar | Baz;
 
-var nested2: FooBarBaz = "baz";
+var nested2: FooBarBaz = 'baz';
 
 ================================================================================
 `;
@@ -537,7 +537,7 @@ function bar(x:Bar) { }
 bar(f);
 
 =====================================output=====================================
-var C = require("test-lib");
+var C = require('test-lib');
 
 // TODO: spurious error! (replacing C with number makes the error go away)
 // type Foo<X> = Array<C> | Array<?C>;
@@ -553,7 +553,7 @@ foo(y);
 type Bar = () => C | string; // workaround
 
 function f() {
-  return "";
+  return '';
 }
 function bar(x: Bar) {}
 bar(f);
@@ -668,7 +668,7 @@ declare class F {
   foo(x: string): void;
 }
 function corge(b) {
-  var x = b ? "" : 0;
+  var x = b ? '' : 0;
   new F().foo(x);
 }
 
@@ -5720,13 +5720,13 @@ type Data = {
  * This is a band-aid, though: see second case.
  * @flow
  */
-"use strict";
+'use strict';
 
 class SecurityCheckupTypedLogger {
   _data: Data;
 
   setError(value: ErrorCode) {
-    this._data["error"] = value;
+    this._data['error'] = value;
   }
 
   // Bug: right now, any incompatible type coming into a huge
@@ -5736,7 +5736,7 @@ class SecurityCheckupTypedLogger {
   // something quick to get the union size off the Ocaml call stack,
   // but not sure it's worth doing that before the real solution.
   ohThatsNotSoGood() {
-    ("": ErrorCode); // also, error pos omits this line completely
+    ('': ErrorCode); // also, error pos omits this line completely
   }
 }
 

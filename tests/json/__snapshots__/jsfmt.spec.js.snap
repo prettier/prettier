@@ -131,9 +131,9 @@ printWidth: 80
 
 =====================================output=====================================
 {
-  string: "stringstringstringstringstringstringstringstringstringstringstringstringstringstringstring",
-  stringstringstringstringstringstringstringstring: "stringstringstringstringstringstringstringstring",
-  stringstringstringstringstringstringstringstringstringstringstringstringstringstringstring: "string",
+  string: 'stringstringstringstringstringstringstringstringstringstringstringstringstringstringstring',
+  stringstringstringstringstringstringstringstring: 'stringstringstringstringstringstringstringstring',
+  stringstringstringstringstringstringstringstringstringstringstringstringstringstringstring: 'string',
 }
 
 ================================================================================
@@ -154,9 +154,9 @@ trailingComma: "all"
 
 =====================================output=====================================
 {
-  string: "stringstringstringstringstringstringstringstringstringstringstringstringstringstringstring",
-  stringstringstringstringstringstringstringstring: "stringstringstringstringstringstringstringstring",
-  stringstringstringstringstringstringstringstringstringstringstringstringstringstringstring: "string",
+  string: 'stringstringstringstringstringstringstringstringstringstringstringstringstringstringstring',
+  stringstringstringstringstringstringstringstring: 'stringstringstringstringstringstringstringstring',
+  stringstringstringstringstringstringstringstringstringstringstringstringstringstringstring: 'string',
 }
 
 ================================================================================
@@ -225,7 +225,7 @@ printWidth: 80
 1e10,1e-3]}}
 
 =====================================output=====================================
-{ key1: [true, false, null], key2: { key3: [1, 2, "3", 1e10, 1e-3] } }
+{ key1: [true, false, null], key2: { key3: [1, 2, '3', 1e10, 1e-3] } }
 
 ================================================================================
 `;
@@ -241,7 +241,7 @@ trailingComma: "all"
 1e10,1e-3]}}
 
 =====================================output=====================================
-{ key1: [true, false, null], key2: { key3: [1, 2, "3", 1e10, 1e-3] } }
+{ key1: [true, false, null], key2: { key3: [1, 2, '3', 1e10, 1e-3] } }
 
 ================================================================================
 `;
@@ -738,8 +738,8 @@ printWidth: 80
 
 =====================================output=====================================
 [
-  "JSON Test Pattern pass1",
-  { "object with 1 member": ["array with 1 element"] },
+  'JSON Test Pattern pass1',
+  { 'object with 1 member': ['array with 1 element'] },
   {},
   [],
   -42,
@@ -751,34 +751,34 @@ printWidth: 80
     real: -9876.54321,
     e: 0.123456789e-12,
     E: 1.23456789e34,
-    "": 23456789012e66,
+    '': 23456789012e66,
     zero: 0,
     one: 1,
-    space: " ",
+    space: ' ',
     quote: '"',
-    backslash: "\\\\",
-    controls: "\\b\\f\\n\\r\\t",
-    slash: "/ & /",
-    alpha: "abcdefghijklmnopqrstuvwyz",
-    ALPHA: "ABCDEFGHIJKLMNOPQRSTUVWYZ",
-    digit: "0123456789",
-    "0123456789": "digit",
+    backslash: '\\\\',
+    controls: '\\b\\f\\n\\r\\t',
+    slash: '/ & /',
+    alpha: 'abcdefghijklmnopqrstuvwyz',
+    ALPHA: 'ABCDEFGHIJKLMNOPQRSTUVWYZ',
+    digit: '0123456789',
+    '0123456789': 'digit',
     special: "\`1~!@#$%^&*()_+-={':[,]}|;.</>?",
-    hex: "\\u0123\\u4567\\u89AB\\uCDEF\\uabcd\\uef4A",
+    hex: '\\u0123\\u4567\\u89AB\\uCDEF\\uabcd\\uef4A',
     true: true,
     false: false,
     null: null,
     array: [],
     object: {},
-    address: "50 St. James Street",
-    url: "http://www.JSON.org/",
-    comment: "// /* <!-- --",
-    "# -- --> */": " ",
-    " s p a c e d ": [1, 2, 3, 4, 5, 6, 7],
+    address: '50 St. James Street',
+    url: 'http://www.JSON.org/',
+    comment: '// /* <!-- --',
+    '# -- --> */': ' ',
+    ' s p a c e d ': [1, 2, 3, 4, 5, 6, 7],
     compact: [1, 2, 3, 4, 5, 6, 7],
     jsontext: '{"object with 1 member":["array with 1 element"]}',
-    quotes: "&#34; \\u0022 %22 0x22 034 &#x22;",
-    "/\\\\\\"\\uCAFE\\uBABE\\uAB98\\uFCDE\\ubcda\\uef4A\\b\\f\\n\\r\\t\`1~!@#$%^&*()_+-=[]{}|;:',./<>?": "A key can be any string",
+    quotes: '&#34; \\u0022 %22 0x22 034 &#x22;',
+    '/\\\\"\\uCAFE\\uBABE\\uAB98\\uFCDE\\ubcda\\uef4A\\b\\f\\n\\r\\t\`1~!@#$%^&*()_+-=[]{}|;:\\',./<>?': 'A key can be any string',
   },
   0.5,
   98.6,
@@ -790,7 +790,7 @@ printWidth: 80
   1,
   2,
   2,
-  "rosebud",
+  'rosebud',
 ]
 
 ================================================================================
@@ -864,8 +864,8 @@ trailingComma: "all"
 
 =====================================output=====================================
 [
-  "JSON Test Pattern pass1",
-  { "object with 1 member": ["array with 1 element"] },
+  'JSON Test Pattern pass1',
+  { 'object with 1 member': ['array with 1 element'] },
   {},
   [],
   -42,
@@ -877,34 +877,34 @@ trailingComma: "all"
     real: -9876.54321,
     e: 0.123456789e-12,
     E: 1.23456789e34,
-    "": 23456789012e66,
+    '': 23456789012e66,
     zero: 0,
     one: 1,
-    space: " ",
+    space: ' ',
     quote: '"',
-    backslash: "\\\\",
-    controls: "\\b\\f\\n\\r\\t",
-    slash: "/ & /",
-    alpha: "abcdefghijklmnopqrstuvwyz",
-    ALPHA: "ABCDEFGHIJKLMNOPQRSTUVWYZ",
-    digit: "0123456789",
-    "0123456789": "digit",
+    backslash: '\\\\',
+    controls: '\\b\\f\\n\\r\\t',
+    slash: '/ & /',
+    alpha: 'abcdefghijklmnopqrstuvwyz',
+    ALPHA: 'ABCDEFGHIJKLMNOPQRSTUVWYZ',
+    digit: '0123456789',
+    '0123456789': 'digit',
     special: "\`1~!@#$%^&*()_+-={':[,]}|;.</>?",
-    hex: "\\u0123\\u4567\\u89AB\\uCDEF\\uabcd\\uef4A",
+    hex: '\\u0123\\u4567\\u89AB\\uCDEF\\uabcd\\uef4A',
     true: true,
     false: false,
     null: null,
     array: [],
     object: {},
-    address: "50 St. James Street",
-    url: "http://www.JSON.org/",
-    comment: "// /* <!-- --",
-    "# -- --> */": " ",
-    " s p a c e d ": [1, 2, 3, 4, 5, 6, 7],
+    address: '50 St. James Street',
+    url: 'http://www.JSON.org/',
+    comment: '// /* <!-- --',
+    '# -- --> */': ' ',
+    ' s p a c e d ': [1, 2, 3, 4, 5, 6, 7],
     compact: [1, 2, 3, 4, 5, 6, 7],
     jsontext: '{"object with 1 member":["array with 1 element"]}',
-    quotes: "&#34; \\u0022 %22 0x22 034 &#x22;",
-    "/\\\\\\"\\uCAFE\\uBABE\\uAB98\\uFCDE\\ubcda\\uef4A\\b\\f\\n\\r\\t\`1~!@#$%^&*()_+-=[]{}|;:',./<>?": "A key can be any string",
+    quotes: '&#34; \\u0022 %22 0x22 034 &#x22;',
+    '/\\\\"\\uCAFE\\uBABE\\uAB98\\uFCDE\\ubcda\\uef4A\\b\\f\\n\\r\\t\`1~!@#$%^&*()_+-=[]{}|;:\\',./<>?': 'A key can be any string',
   },
   0.5,
   98.6,
@@ -916,7 +916,7 @@ trailingComma: "all"
   1,
   2,
   2,
-  "rosebud",
+  'rosebud',
 ]
 
 ================================================================================
@@ -1269,7 +1269,7 @@ printWidth: 80
 {"key1":[true,false,null],"key2":{"key3":[1,2,"3",1e10,1e-3]}}
 
 =====================================output=====================================
-{ key1: [true, false, null], key2: { key3: [1, 2, "3", 1e10, 1e-3] } }
+{ key1: [true, false, null], key2: { key3: [1, 2, '3', 1e10, 1e-3] } }
 
 ================================================================================
 `;
@@ -1284,7 +1284,7 @@ trailingComma: "all"
 {"key1":[true,false,null],"key2":{"key3":[1,2,"3",1e10,1e-3]}}
 
 =====================================output=====================================
-{ key1: [true, false, null], key2: { key3: [1, 2, "3", 1e10, 1e-3] } }
+{ key1: [true, false, null], key2: { key3: [1, 2, '3', 1e10, 1e-3] } }
 
 ================================================================================
 `;
@@ -1356,7 +1356,7 @@ printWidth: 80
 'hello'
 
 =====================================output=====================================
-"hello"
+'hello'
 
 ================================================================================
 `;
@@ -1371,7 +1371,7 @@ trailingComma: "all"
 'hello'
 
 =====================================output=====================================
-"hello"
+'hello'
 
 ================================================================================
 `;
@@ -1428,7 +1428,7 @@ printWidth: 80
 "string"
 
 =====================================output=====================================
-"string"
+'string'
 
 ================================================================================
 `;
@@ -1443,7 +1443,7 @@ trailingComma: "all"
 "string"
 
 =====================================output=====================================
-"string"
+'string'
 
 ================================================================================
 `;
@@ -1521,9 +1521,9 @@ printWidth: 80
 
 =====================================output=====================================
 {
-  k1: "v1",
-  k2: "v2",
-  k3: "v3",
+  k1: 'v1',
+  k2: 'v2',
+  k3: 'v3',
 }
 
 ================================================================================
@@ -1544,9 +1544,9 @@ trailingComma: "all"
 
 =====================================output=====================================
 {
-  k1: "v1",
-  k2: "v2",
-  k3: "v3",
+  k1: 'v1',
+  k2: 'v2',
+  k3: 'v3',
 }
 
 ================================================================================

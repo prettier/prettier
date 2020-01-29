@@ -34,8 +34,8 @@ const foo = (x: string): void =>
     () => {}
   );
 
-app.get("/", (req, res): void => {
-  res.send("Hello world");
+app.get('/', (req, res): void => {
+  res.send('Hello world');
 });
 
 ================================================================================
@@ -76,8 +76,8 @@ const foo = (x: string): void =>
     () => {}
   )
 
-app.get("/", (req, res): void => {
-  res.send("Hello world")
+app.get('/', (req, res): void => {
+  res.send('Hello world')
 })
 
 ================================================================================

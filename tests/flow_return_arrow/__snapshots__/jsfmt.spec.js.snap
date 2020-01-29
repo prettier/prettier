@@ -102,7 +102,7 @@ type X = (?(number, number) => number) => void;
 type X = ?((number, number) => number) => void;
 type X = ?(number, number) => (number) => void;
 type X = (1234) => void;
-type X = ("abc") => void;
+type X = ('abc') => void;
 type X = (true) => void;
 type X = (false) => void;
 type X = (boolean) => void;

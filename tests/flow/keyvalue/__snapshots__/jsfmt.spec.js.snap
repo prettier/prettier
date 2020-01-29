@@ -19,7 +19,7 @@ let tests = [
 
 let tests = [
   function (x: { [key: number]: string }) {
-    (x[""]: number);
+    (x['']: number);
   },
 ];
 

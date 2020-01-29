@@ -16,7 +16,7 @@ function bar(x:number) { }
 bar(app.props.children); // No error, App doesn't specify propTypes so anything goes
 
 =====================================output=====================================
-var app = require("JSX");
+var app = require('JSX');
 
 app.setProps({ y: 42 }); // error, y:number but foo expects string in App.react
 app.setState({ z: 42 }); // error, z:number but foo expects string in App.react
@@ -83,7 +83,7 @@ module.exports = App;
  * @jsx React.DOM
  */
 
-var React = require("react");
+var React = require('react');
 
 // expect args to be strings
 function foo(p: string, q: string): string {
@@ -92,7 +92,7 @@ function foo(p: string, q: string): string {
 
 var App = React.createClass({
   getDefaultProps: function (): { y: string } {
-    return { y: "" }; // infer props.y: string
+    return { y: '' }; // infer props.y: string
   },
 
   getInitialState: function () {
@@ -150,7 +150,7 @@ module.exports = App;
  * @providesModule InitializedFields.react
  */
 
-var React = require("react");
+var React = require('react');
 
 /** This is a regression test for a bug where we forgot to mark the fields of
  * react classes as initialized, when the class was created with createClass().
@@ -186,12 +186,12 @@ module.exports = app;
 =====================================output=====================================
 /* @providesModule JSX */
 
-var React = require("react");
-var App = require("App.react");
+var React = require('react');
+var App = require('App.react');
 
 var app = (
   <App y={42}>
-    {" "}
+    {' '}
     // error, y: number but foo expects string in App.react Some text.
   </App>
 );
@@ -225,44 +225,44 @@ checkPropTypes({ foo: PropTypes.string }, { foo: 'foo' }, 'value', 'TestComponen
 =====================================output=====================================
 /* @flow */
 
-import { PropTypes, checkPropTypes } from "react";
+import { PropTypes, checkPropTypes } from 'react';
 
 checkPropTypes(
   { foo: PropTypes.string },
-  { foo: "foo" },
-  "value",
-  "TestComponent"
+  { foo: 'foo' },
+  'value',
+  'TestComponent'
 ); // OK
 
-checkPropTypes({ foo: PropTypes.string }, { foo: "foo" }); // error: missing arguments
-checkPropTypes({ foo: PropTypes.string }, { foo: "foo" }, "value"); // error: missing argument
+checkPropTypes({ foo: PropTypes.string }, { foo: 'foo' }); // error: missing arguments
+checkPropTypes({ foo: PropTypes.string }, { foo: 'foo' }, 'value'); // error: missing argument
 
 checkPropTypes(
   { bar: PropTypes.string },
-  { foo: "foo" },
-  "value",
-  "TestComponent"
+  { foo: 'foo' },
+  'value',
+  'TestComponent'
 ); // error: property not found
 
 checkPropTypes(
   { foo: PropTypes.string },
-  { foo: "foo" },
-  "value",
-  "TestComponent",
+  { foo: 'foo' },
+  'value',
+  'TestComponent',
   () => 123
 ); // error: number ~> string
 checkPropTypes(
   { foo: PropTypes.string },
-  { foo: "foo" },
-  "value",
-  "TestComponent",
+  { foo: 'foo' },
+  'value',
+  'TestComponent',
   () => null
 ); // OK
 checkPropTypes(
   { foo: PropTypes.string },
-  { foo: "foo" },
-  "value",
-  "TestComponent",
+  { foo: 'foo' },
+  'value',
+  'TestComponent',
   () => undefined
 ); // OK
 
@@ -292,7 +292,7 @@ var D = React.createClass({
 <D />; // errors: properties \`name\` and \`title\` not found
 
 =====================================output=====================================
-var React = require("React");
+var React = require('React');
 
 var C = React.createClass({
   propTypes: {

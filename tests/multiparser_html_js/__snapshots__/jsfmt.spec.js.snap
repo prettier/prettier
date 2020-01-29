@@ -23,7 +23,7 @@ printWidth: 80
 <html lang="en">
   <head>
     <script type="text/javascript">
-      hello("world");
+      hello('world');
     </script>
   </head>
   <body></body>

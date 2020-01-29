@@ -29,7 +29,7 @@ class Bar extends Foo {
 
 class Foo {
   _method(): string {
-    return "this is private";
+    return 'this is private';
   }
 }
 
@@ -73,7 +73,7 @@ class Bar extends Foo {
 
 class Foo {
   _method(): string {
-    return "this is not private";
+    return 'this is not private';
   }
 }
 

@@ -154,7 +154,7 @@ var c: typeof MyClass2 = new MyClass2();
 
 var numValue: number = 42;
 var d: typeof numValue = 100;
-var e: typeof numValue = "asdf"; // Error: string ~> number
+var e: typeof numValue = 'asdf'; // Error: string ~> number
 
 /////////////////////////////////
 // == typeof <<type-alias>> == //
@@ -174,8 +174,8 @@ var f: typeof numberAlias = 42; // Error: 'typeof <<type-alias>>' makes no sense
  * "type is incompatible"
  */
 
-var Map = { A: "this is A", B: "this is B", C: "this is C" };
-var keys: $Keys<Map> = "A"; // Error: ineligible value used in type anno
+var Map = { A: 'this is A', B: 'this is B', C: 'this is C' };
+var keys: $Keys<Map> = 'A'; // Error: ineligible value used in type anno
 
 ================================================================================
 `;
