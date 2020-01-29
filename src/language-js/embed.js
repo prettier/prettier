@@ -618,9 +618,21 @@ function printHtmlTemplateLiteral(path, print, textToDoc, parser, options) {
     ? " "
     : "";
 
-  if (leadingWhitespace && trailingWhitespace) {
+  const linebreak =
+    options.htmlWhitespaceSensitivity === "ignore"
+      ? hardline
+      : leadingWhitespace && trailingWhitespace
+      ? line
+      : null;
+
+  if (linebreak) {
     return group(
-      concat(["`", indent(concat([line, group(contentDoc)])), line, "`"])
+      concat([
+        "`",
+        indent(concat([linebreak, group(contentDoc)])),
+        linebreak,
+        "`"
+      ])
     );
   }
 
