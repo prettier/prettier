@@ -40,7 +40,7 @@ foo('bar', cb => {
     prettier.formatWithCursor(code, { parser: "babel", cursorOffset: 24 })
   ).toEqual({
     formatted: `foo('bar', (cb) => {
-  console.log("stuff");
+  console.log('stuff');
 });
 `,
     cursorOffset: 25
