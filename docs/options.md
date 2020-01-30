@@ -37,7 +37,7 @@ Indent lines with tabs instead of spaces.
 
 | Default | CLI Override | API Override      |
 | ------- | ------------ | ----------------- |
-| `false` | `--use-tabs` | `useTabs: <bool>` |
+| `true`  | `--use-tabs` | `useTabs: <bool>` |
 
 (Tabs will be used for _indentation_ but Prettier uses spaces to _align_ things, such as in ternaries.)
 
