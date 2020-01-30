@@ -263,7 +263,10 @@ const options = {
     since: "1.0.0",
     category: CATEGORY_GLOBAL,
     type: "boolean",
-    default: false,
+    default: [
+      { since: "1.0.0", value: false },
+      { since: "2.0.0", value: true }
+    ],
     description: "Indent with tabs instead of spaces."
   }
 };
