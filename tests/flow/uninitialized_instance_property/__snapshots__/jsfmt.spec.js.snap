@@ -1307,7 +1307,7 @@ class E2 {
 }
 
 class E3 {
-  priv: boolean; // PropertyNotDefinitelyInitialized
+  #priv: boolean; // PropertyNotDefinitelyInitialized
 }
 
 class E4 {
@@ -1569,7 +1569,7 @@ class E32 {
 
 class E33 {
   p;
-  p: "a"; // PropertyNotDefinitelyInitialized
+  #p: "a"; // PropertyNotDefinitelyInitialized
   constructor() {
     this.p = 0;
   }
@@ -1845,7 +1845,7 @@ class E62 {
 }
 
 class E63 {
-  p; // PropertyNotDefinitelyInitialized
+  #p; // PropertyNotDefinitelyInitialized
   constructor() {
     (this.#p: string); // ReadFromUninitializedProperty
   }
@@ -1863,7 +1863,7 @@ class E64 {
 }
 
 class E65 {
-  p;
+  #p;
   constructor() {
     incr(this.#p); // ReadFromUninitializedProperty
     this.#p = 0;
@@ -1879,7 +1879,7 @@ class E66 {
 }
 
 class E67 {
-  p;
+  #p;
   constructor() {
     const x: number = this.#p; // ReadFromUninitializedProperty
     this.#p = 0;
@@ -1887,7 +1887,7 @@ class E67 {
 }
 
 class E68 {
-  p1; // PropertyNotDefinitelyInitialized
+  #p1; // PropertyNotDefinitelyInitialized
   p2: boolean;
   constructor() {
     this.p2 = true;
@@ -1991,7 +1991,7 @@ class E77 {
 
 class E78 {
   p1: number;
-  p2: number = this.p1; // ReadFromUninitializedProperty
+  #p2: number = this.p1; // ReadFromUninitializedProperty
   constructor() {
     this.p1 = 0;
   }
@@ -2111,7 +2111,7 @@ class P2 {
 }
 
 class P3 {
-  priv: number = 0;
+  #priv: number = 0;
 }
 
 class P4 {
@@ -2152,7 +2152,7 @@ class P9 {
 }
 
 class P10 {
-  priv: number;
+  #priv: number;
   constructor() {
     this.#priv = 0;
   }
@@ -2425,28 +2425,28 @@ class P42 {
 }
 
 class P43 {
-  p: void;
+  #p: void;
 }
 
 class P44 {
-  p: void;
+  #p: void;
   constructor() {}
 }
 
 class P45 {
-  p: ?number;
+  #p: ?number;
 }
 
 class P46 {
-  p: ?number;
+  #p: ?number;
 }
 
 class P47 {
-  p;
+  #p;
 }
 
 class P48 {
-  p;
+  #p;
   constructor() {}
 }
 
@@ -2472,7 +2472,7 @@ class P51 {
 }
 
 class P52 {
-  p; // TODO spurious error
+  #p; // TODO spurious error
   constructor() {
     this.#p; // TODO spurious error
   }
@@ -2487,7 +2487,7 @@ class P53 {
 
 class P54 {
   p1;
-  p2: boolean;
+  #p2: boolean;
   constructor() {
     this.#p2 = true;
     this;
@@ -2495,7 +2495,7 @@ class P54 {
 }
 
 class P55 {
-  p1; // TODO spurious error
+  #p1; // TODO spurious error
   p2: boolean;
   constructor() {
     this.p2 = true;

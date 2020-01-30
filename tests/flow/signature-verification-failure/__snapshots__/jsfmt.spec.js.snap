@@ -53,7 +53,7 @@ export class A {
   b = 5;
 
   // Ast.Expression.Object.Property.PrivateName
-  m = 2;
+  #m = 2;
 
   // Ast.Expression.Object.Property.Computed
   ["a"] = 3;

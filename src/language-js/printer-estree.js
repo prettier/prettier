@@ -3762,6 +3762,14 @@ function printPropertyKey(path, options, print) {
   const parent = path.getParentNode();
   const { key } = node;
 
+  if (
+    node.type === "ClassPrivateProperty" &&
+    // flow has `Identifier` key, and babel has `PrivateName` key
+    key.type === "Identifier"
+  ) {
+    return concat(["#", path.call(print, "key")]);
+  }
+
   if (options.quoteProps === "consistent" && !needsQuoteProps.has(parent)) {
     const objectHasStringProp = (
       parent.properties ||

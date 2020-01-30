@@ -39,7 +39,7 @@ function f(x: Foo | null | void): void {
 
 class Foo {
   prop: ?string;
-  privateProp: number;
+  #privateProp: number;
   fun(): void {
     this.#privateProp;
     this.#privateProp = 4;
