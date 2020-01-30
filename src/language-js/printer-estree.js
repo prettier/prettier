@@ -1612,8 +1612,13 @@ function printPathNoParens(path, options, print, args) {
         }, "expressions");
         return group(concat(parts));
       }
+      const needParentheses = parent.type === "ExportDefaultDeclaration";
       return group(
-        concat([join(concat([",", line]), path.map(print, "expressions"))])
+        concat([
+          needParentheses ? "(" : "",
+          join(concat([",", line]), path.map(print, "expressions")),
+          needParentheses ? ")" : ""
+        ])
       );
     }
     case "ThisExpression":
