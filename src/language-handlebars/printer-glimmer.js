@@ -11,7 +11,15 @@ const {
   ifBreak
 } = require("../document").builders;
 
-const { isGlimmerComponent, isWhitespaceNode } = require("./utils");
+const {
+  getPreviousNode,
+  getNextNode,
+  isParentOfSomeType,
+  isPreviousNodeOfSomeType,
+  isNextNodeOfSomeType,
+  isWhitespaceNode,
+  isGlimmerComponent
+} = require("./utils");
 
 // http://w3c.github.io/html/single-page.html#void-elements
 const voidTags = [
@@ -476,56 +484,6 @@ function printOpenBlock(path, print) {
 
 function printCloseBlock(path, print) {
   return concat(["{{/", path.call(print, "path"), "}}"]);
-}
-
-function getPreviousNode(path, lookBack = 1) {
-  const node = path.getValue();
-  const parentNode = path.getParentNode(0);
-
-  const children = parentNode && (parentNode.children || parentNode.body);
-  if (children) {
-    const nodeIndex = children.indexOf(node);
-    if (nodeIndex > 0) {
-      const previousNode = children[nodeIndex - lookBack];
-      return previousNode;
-    }
-  }
-}
-
-function getNextNode(path) {
-  const node = path.getValue();
-  const parentNode = path.getParentNode(0);
-
-  const children = parentNode.children || parentNode.body;
-  if (children) {
-    const nodeIndex = children.indexOf(node);
-    if (nodeIndex < children.length) {
-      const nextNode = children[nodeIndex + 1];
-      return nextNode;
-    }
-  }
-}
-
-function isNodeOfSomeType(node, types) {
-  if (node) {
-    return types.some(type => node.type === type);
-  }
-  return false;
-}
-
-function isParentOfSomeType(path, types) {
-  const parentNode = path.getParentNode(0);
-  return isNodeOfSomeType(parentNode, types);
-}
-
-function isPreviousNodeOfSomeType(path, types) {
-  const previousNode = getPreviousNode(path);
-  return isNodeOfSomeType(previousNode, types);
-}
-
-function isNextNodeOfSomeType(path, types) {
-  const nextNode = getNextNode(path);
-  return isNodeOfSomeType(nextNode, types);
 }
 
 function clean(ast, newObj) {
