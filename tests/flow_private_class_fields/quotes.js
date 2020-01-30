@@ -1,4 +1,5 @@
-class Foo {
+class Foo
+{
+a:a;
   'q-w': ee;
-  #privateProp: number;
-}
+#privateProp: number;}

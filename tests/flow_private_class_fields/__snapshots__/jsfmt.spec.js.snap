@@ -7,13 +7,15 @@ printWidth: 80
 quoteProps: "consistent"
                                                                                 | printWidth
 =====================================input======================================
-class Foo {
+class Foo
+{
+a:a;
   'q-w': ee;
-  #privateProp: number;
-}
+#privateProp: number;}
 
 =====================================output=====================================
 class Foo {
+  "a": a;
   "q-w": ee;
   #privateProp: number;
 }
