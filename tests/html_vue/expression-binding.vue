@@ -1,13 +1,13 @@
 <!-- #7396 -->
 <template>
-	<Element :src="`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong${foo} template literal value`"/>
+	<MyComponent :attr="`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong${foo} template literal value`"/>
 </template>
 <template>
-	<Element :src="`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong${foo +               bar} template literal value`"/>
+	<MyComponent :attr="`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong${foo +               bar} template literal value`"/>
 </template>
 <template>
-	<img :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong literal string value'"/>
+	<MyComponent :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong literal string value'"/>
 </template>
 <template>
-	<img :src="100000000000000000000000000000000000000000000000000000000000000000000000000000"/>
+	<MyComponent :src="100000000000000000000000000000000000000000000000000000000000000000000000000000"/>
 </template>
