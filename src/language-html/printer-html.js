@@ -922,7 +922,7 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
 
   let shouldHug = false;
 
-  const __onHtmlBindingRoot = root => {
+  const __onHtmlBindingRoot = (root, options) => {
     const rootNode =
       root.type === "NGRoot"
         ? root.node.type === "NGMicrosyntax" &&
@@ -934,9 +934,12 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
         ? root.node
         : root;
     if (
-      rootNode &&
-      (rootNode.type === "ObjectExpression" ||
-        rootNode.type === "ArrayExpression")
+      (rootNode &&
+        (rootNode.type === "ObjectExpression" ||
+          rootNode.type === "ArrayExpression")) ||
+      (options.parser === "__vue_expression" &&
+        (rootNode.type === "TemplateLiteral" ||
+          rootNode.type === "StringLiteral"))
     ) {
       shouldHug = true;
     }
