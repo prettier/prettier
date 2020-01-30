@@ -8,6 +8,7 @@ const path = require("path");
 const resolve = require("resolve");
 const thirdParty = require("./third-party");
 const internalPlugins = require("./internal-plugins");
+const mem = require("mem");
 
 function loadPlugins(plugins, pluginSearchDirs) {
   if (!plugins) {
@@ -110,4 +111,13 @@ function isDirectory(dir) {
     return false;
   }
 }
-module.exports = loadPlugins;
+
+const memorized = mem(loadPlugins, { cacheKey: JSON.stringify });
+function clearCache() {
+  mem.clear(memorized);
+}
+
+module.exports = {
+  loadPlugins: memorized,
+  clearCache
+};

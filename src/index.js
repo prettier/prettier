@@ -6,7 +6,7 @@ const core = require("./main/core");
 const { getSupportInfo } = require("./main/support");
 const getFileInfo = require("./common/get-file-info");
 const sharedUtil = require("./common/util-shared");
-const loadPlugins = require("./common/load-plugins");
+const { loadPlugins } = require("./common/load-plugins");
 
 const config = require("./config/resolve-config");
 
