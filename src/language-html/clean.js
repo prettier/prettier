@@ -3,7 +3,7 @@
 module.exports = function(ast, newNode) {
   delete newNode.sourceSpan;
   delete newNode.startSourceSpan;
-  delete newNode.endSourceSpan;
+  // delete newNode.endSourceSpan;
   delete newNode.nameSpan;
   delete newNode.valueSpan;
 

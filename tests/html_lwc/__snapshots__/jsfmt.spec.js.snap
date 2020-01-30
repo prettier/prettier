@@ -33,7 +33,7 @@ printWidth: 80
 <template if:true={value.error}>
   <c-error-panel errors={value.error}></c-error-panel>
 </template>
-<a href="#" onclick={aFunction}></a>
+<a href="#" onclick={aFunction}>
 
 ================================================================================
 `;
@@ -72,7 +72,7 @@ trailingComma: "es5"
 <template if:true={value.error}>
   <c-error-panel errors={value.error}></c-error-panel>
 </template>
-<a href="#" onclick={aFunction}></a>
+<a href="#" onclick={aFunction}>
 
 ================================================================================
 `;
@@ -111,7 +111,7 @@ semi: false
 <template if:true={value.error}>
   <c-error-panel errors={value.error}></c-error-panel>
 </template>
-<a href="#" onclick={aFunction}></a>
+<a href="#" onclick={aFunction}>
 
 ================================================================================
 `;
