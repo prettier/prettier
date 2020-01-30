@@ -3802,10 +3802,15 @@ function printPropertyKey(path, options, print) {
     );
   }
 
-  return concat([
-    node.type === "ClassPrivateProperty" ? "#" : "",
-    path.call(print, "key")
-  ]);
+  if (
+    node.type === "ClassPrivateProperty" &&
+    // flow has `Identifier` key, and babel has `PrivateName` key
+    key.type === "Identifier"
+  ) {
+    return concat(["#", path.call(print, "key")]);
+  }
+
+  return path.call(print, "key");
 }
 
 function printMethod(path, options, print) {
