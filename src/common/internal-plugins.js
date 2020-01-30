@@ -59,13 +59,6 @@ module.exports = [
         return eval("require")("../language-js/parser-typescript").parsers
           .typescript;
       },
-      /**
-       * TODO: Remove this old alias in a major version
-       */
-      get "typescript-eslint"() {
-        return eval("require")("../language-js/parser-typescript").parsers
-          .typescript;
-      },
       // JS - Angular Action
       get __ng_action() {
         return eval("require")("../language-js/parser-angular").parsers
@@ -136,7 +129,6 @@ module.exports = [
         return eval("require")("../language-markdown/parser-markdown").parsers
           .remark;
       },
-      // TODO: Delete this in 2.0
       get markdown() {
         return eval("require")("../language-markdown/parser-markdown").parsers
           .remark;
