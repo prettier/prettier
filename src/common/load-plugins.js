@@ -10,6 +10,7 @@ const thirdParty = require("./third-party");
 const internalPlugins = require("./internal-plugins");
 
 function loadPlugins(plugins, pluginSearchDirs) {
+  console.log("loadPlugins called");
   if (!plugins) {
     plugins = [];
   }

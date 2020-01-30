@@ -62,7 +62,11 @@ global.run_spec = (dirname, parsers, options) => {
       rangeEnd,
       cursorOffset
     };
-    const mainOptions = { ...baseOptions, parser: parsers[0] };
+    const mainOptions = {
+      ...baseOptions,
+      parser: parsers[0],
+      __skipPluginSearch: true
+    };
 
     const hasEndOfLine = "endOfLine" in mainOptions;
 

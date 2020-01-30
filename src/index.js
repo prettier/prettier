@@ -7,6 +7,7 @@ const { getSupportInfo } = require("./main/support");
 const getFileInfo = require("./common/get-file-info");
 const sharedUtil = require("./common/util-shared");
 const loadPlugins = require("./common/load-plugins");
+const internalPlugins = require("./common/internal-plugins");
 
 const config = require("./config/resolve-config");
 
@@ -16,9 +17,12 @@ const doc = require("./document");
 function _withPlugins(fn) {
   return function(first, opts, ...rest) {
     opts = opts || {};
+    const plugins = opts.__skipPluginSearch
+      ? internalPlugins
+      : loadPlugins(opts.plugins, opts.pluginSearchDirs);
     opts = {
       ...opts,
-      plugins: loadPlugins(opts.plugins, opts.pluginSearchDirs)
+      plugins
     };
 
     return fn(first, opts, ...rest);
