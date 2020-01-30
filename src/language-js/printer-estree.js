@@ -3802,7 +3802,10 @@ function printPropertyKey(path, options, print) {
     );
   }
 
-  return path.call(print, "key");
+  return concat([
+    node.type === 'ClassPrivateProperty' ? '#' : '',
+    path.call(print, "key")
+  ]);
 }
 
 function printMethod(path, options, print) {
