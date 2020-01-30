@@ -11,6 +11,11 @@ function isGlimmerComponent(node) {
   return tagFirstChar.toUpperCase() === tagFirstChar || isLocal;
 }
 
+function isWhitespaceNode(node) {
+  return node.type === "TextNode" && !/\S/.test(node.chars);
+}
+
 module.exports = {
+  isWhitespaceNode,
   isGlimmerComponent
 };

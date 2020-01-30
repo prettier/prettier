@@ -11,7 +11,7 @@ const {
   ifBreak
 } = require("../document").builders;
 
-const { isGlimmerComponent } = require("./utils");
+const { isGlimmerComponent, isWhitespaceNode } = require("./utils");
 
 // http://w3c.github.io/html/single-page.html#void-elements
 const voidTags = [
@@ -478,10 +478,6 @@ function printOpenBlock(path, print) {
 
 function printCloseBlock(path, print) {
   return concat(["{{/", path.call(print, "path"), "}}"]);
-}
-
-function isWhitespaceNode(node) {
-  return node.type === "TextNode" && !/\S/.test(node.chars);
 }
 
 function isParentOfType(path, nodeType) {
