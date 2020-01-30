@@ -177,12 +177,13 @@ function print(path, options, print) {
       const opening = isEscaped ? "{{{" : "{{";
       const closing = isEscaped ? "}}}" : "}}";
 
-      const leading =
-        isParentOfType(path, "AttrNode") ||
-        isParentOfType(path, "ConcatStatement") ||
-        isParentOfType(path, "ElementNode")
-          ? [opening, indent(softline)]
-          : [opening];
+      const leading = isParentOfSomeType(path, [
+        "AttrNode",
+        "ConcatStatement",
+        "ElementNode"
+      ])
+        ? [opening, indent(softline)]
+        : [opening];
 
       return group(
         concat([...leading, printPathParams(path, print), softline, closing])
@@ -480,11 +481,6 @@ function printCloseBlock(path, print) {
   return concat(["{{/", path.call(print, "path"), "}}"]);
 }
 
-function isParentOfType(path, nodeType) {
-  const p = path.getParentNode(0);
-  return p && p.type === nodeType;
-}
-
 function getPreviousNode(path, lookBack = 1) {
   const node = path.getValue();
   const parentNode = path.getParentNode(0);
@@ -511,6 +507,15 @@ function getNextNode(path) {
       return nextNode;
     }
   }
+}
+
+function isParentOfSomeType(path, types) {
+  const parentNode = path.getParentNode(0);
+
+  if (parentNode) {
+    return types.some(type => parentNode.type === type);
+  }
+  return false;
 }
 
 function isPreviousNodeOfSomeType(path, types) {
