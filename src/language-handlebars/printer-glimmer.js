@@ -254,10 +254,7 @@ function print(path, options, print) {
         );
         trailingLineBreaksCount = 0;
       } else {
-        if (
-          isNextNodeOfType(path, "ElementNode") ||
-          isNextNodeOfType(path, "BlockStatement")
-        ) {
+        if (isNextNodeOfSomeType(path, ["BlockStatement", "ElementNode"])) {
           trailingLineBreaksCount = Math.max(trailingLineBreaksCount, 1);
         }
 
@@ -299,7 +296,7 @@ function print(path, options, print) {
       } else {
         if (
           trailingLineBreaksCount === 0 &&
-          isNextNodeOfType(path, "MustacheStatement")
+          isNextNodeOfSomeType(path, ["MustacheStatement"])
         ) {
           trailingSpace = " ";
         }
@@ -526,9 +523,9 @@ function isPreviousNodeOfSomeType(path, types) {
   return isNodeOfSomeType(previousNode, types);
 }
 
-function isNextNodeOfType(path, type) {
+function isNextNodeOfSomeType(path, types) {
   const nextNode = getNextNode(path);
-  return nextNode && nextNode.type === type;
+  return isNodeOfSomeType(nextNode, types);
 }
 
 function clean(ast, newObj) {
