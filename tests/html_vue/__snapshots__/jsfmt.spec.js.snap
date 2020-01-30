@@ -968,6 +968,158 @@ semi: false
 ================================================================================
 `;
 
+exports[`expression-binding.vue 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+<!-- #7396 -->
+<template>
+	<Element :src="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong\${foo} template literal value\`"/>
+</template>
+<template>
+	<Element :src="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong\${foo +               bar} template literal value\`"/>
+</template>
+<template>
+	<img :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong literal string value'"/>
+</template>
+<template>
+	<img :src="100000000000000000000000000000000000000000000000000000000000000000000000000000"/>
+</template>
+
+=====================================output=====================================
+<!-- #7396 -->
+<template>
+  <Element
+    :src="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong\${foo} template literal value\`"
+  />
+</template>
+<template>
+  <Element
+    :src="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong\${
+      foo + bar
+    } template literal value\`"
+  />
+</template>
+<template>
+  <img
+    :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong literal string value'"
+  />
+</template>
+<template>
+  <img
+    :src="
+      100000000000000000000000000000000000000000000000000000000000000000000000000000
+    "
+  />
+</template>
+
+================================================================================
+`;
+
+exports[`expression-binding.vue 2`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<!-- #7396 -->
+<template>
+	<Element :src="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong\${foo} template literal value\`"/>
+</template>
+<template>
+	<Element :src="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong\${foo +               bar} template literal value\`"/>
+</template>
+<template>
+	<img :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong literal string value'"/>
+</template>
+<template>
+	<img :src="100000000000000000000000000000000000000000000000000000000000000000000000000000"/>
+</template>
+
+=====================================output=====================================
+<!-- #7396 -->
+<template>
+  <Element
+    :src="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong\${foo} template literal value\`"
+  />
+</template>
+<template>
+  <Element
+    :src="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong\${
+      foo + bar
+    } template literal value\`"
+  />
+</template>
+<template>
+  <img
+    :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong literal string value'"
+  />
+</template>
+<template>
+  <img
+    :src="
+      100000000000000000000000000000000000000000000000000000000000000000000000000000
+    "
+  />
+</template>
+
+================================================================================
+`;
+
+exports[`expression-binding.vue 3`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+<!-- #7396 -->
+<template>
+	<Element :src="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong\${foo} template literal value\`"/>
+</template>
+<template>
+	<Element :src="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong\${foo +               bar} template literal value\`"/>
+</template>
+<template>
+	<img :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong literal string value'"/>
+</template>
+<template>
+	<img :src="100000000000000000000000000000000000000000000000000000000000000000000000000000"/>
+</template>
+
+=====================================output=====================================
+<!-- #7396 -->
+<template>
+  <Element
+    :src="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong\${foo} template literal value\`"
+  />
+</template>
+<template>
+  <Element
+    :src="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong\${
+      foo + bar
+    } template literal value\`"
+  />
+</template>
+<template>
+  <img
+    :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong literal string value'"
+  />
+</template>
+<template>
+  <img
+    :src="
+      100000000000000000000000000000000000000000000000000000000000000000000000000000
+    "
+  />
+</template>
+
+================================================================================
+`;
+
 exports[`filter.vue 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
