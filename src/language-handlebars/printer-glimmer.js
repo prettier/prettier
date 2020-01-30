@@ -509,22 +509,21 @@ function getNextNode(path) {
   }
 }
 
-function isParentOfSomeType(path, types) {
-  const parentNode = path.getParentNode(0);
-
-  if (parentNode) {
-    return types.some(type => parentNode.type === type);
+function isNodeOfSomeType(node, types) {
+  if (node) {
+    return types.some(type => node.type === type);
   }
   return false;
 }
 
+function isParentOfSomeType(path, types) {
+  const parentNode = path.getParentNode(0);
+  return isNodeOfSomeType(parentNode, types);
+}
+
 function isPreviousNodeOfSomeType(path, types) {
   const previousNode = getPreviousNode(path);
-
-  if (previousNode) {
-    return types.some(type => previousNode.type === type);
-  }
-  return false;
+  return isNodeOfSomeType(previousNode, types);
 }
 
 function isNextNodeOfType(path, type) {
