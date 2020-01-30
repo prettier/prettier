@@ -2958,6 +2958,8 @@ function printPathNoParens(path, options, print, args) {
       return "this";
     case "NumberTypeAnnotation":
       return "number";
+    case "SymbolTypeAnnotation":
+      return "symbol";
     case "ObjectTypeCallProperty":
       if (n.static) {
         parts.push("static ");
