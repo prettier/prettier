@@ -11,8 +11,8 @@ const SPEC_FILE_NAME = "jsfmt.spec.js";
 const FLOW_TESTS_DIR = path.join(__dirname, "..", "tests", "flow");
 
 function tryParse(file, content) {
+  // options should same as `src/language-js/parser-flow.js`
   const ast = flowParser.parse(content, {
-    // from src/language-js/parser-flow.js
     enums: true,
     esproposal_class_instance_fields: true,
     esproposal_class_static_fields: true,
