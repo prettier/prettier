@@ -16,11 +16,11 @@ let b = {
 
 =====================================output=====================================
 let a = {
-  a /* comment */: () => 1,
+	a /* comment */: () => 1,
 };
 
 let b = {
-  a /* comment */: () => 1,
+	a /* comment */: () => 1,
 };
 
 ================================================================================
@@ -52,22 +52,22 @@ o = {
 
 =====================================output=====================================
 o = {
-  name:
-    // Comment A
-    // Comment B
-    (({ id: type }: any): CreativeConcept),
+	name:
+		// Comment A
+		// Comment B
+		(({ id: type }: any): CreativeConcept),
 };
 
 o = {
-  // Comment A
-  name:
-    // Comment B
-    (({ id: type }: any): CreativeConcept),
+	// Comment A
+	name:
+		// Comment B
+		(({ id: type }: any): CreativeConcept),
 };
 
 o = {
-  // Comment B // Comment A
-  name: (({ id: type }: any): CreativeConcept),
+	// Comment B // Comment A
+	name: (({ id: type }: any): CreativeConcept),
 };
 
 ================================================================================

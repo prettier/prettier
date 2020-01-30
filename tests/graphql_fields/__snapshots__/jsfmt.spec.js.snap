@@ -13,18 +13,18 @@ printWidth: 80
 
 =====================================output=====================================
 {
-  posts {
-    title
-    votes
-    author {
-      firstName
-      posts {
-        author {
-          firstName
-        }
-      }
-    }
-  }
+	posts {
+		title
+		votes
+		author {
+			firstName
+			posts {
+				author {
+					firstName
+				}
+			}
+		}
+	}
 }
 
 ================================================================================

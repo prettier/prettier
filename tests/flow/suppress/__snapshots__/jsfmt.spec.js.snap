@@ -39,7 +39,7 @@ var test1: string = 123; // This error should be suppressed
 var test2: string = 123; // This error should be suppressed
 
 function getNum() {
-  return 123;
+	return 123;
 }
 
 // $FlowFixMe This was the second loc in the error
@@ -95,10 +95,10 @@ function runTest(y: number): void {
 function takesAString(x: string): void {}
 
 function runTest(y: number): void {
-  takesAString(
-    /* $FlowFixMe - suppressing the error op location should also work */
-    y
-  );
+	takesAString(
+		/* $FlowFixMe - suppressing the error op location should also work */
+		y
+	);
 }
 
 ================================================================================
@@ -121,11 +121,11 @@ x = y;
 
 =====================================output=====================================
 declare var x: {
-  x: { foo: string },
+	x: { foo: string },
 };
 declare var y: {
-  // $FlowFixMe - this location is only mentioned in the extra section
-  x: { bar: number },
+	// $FlowFixMe - this location is only mentioned in the extra section
+	x: { bar: number },
 };
 x = y;
 

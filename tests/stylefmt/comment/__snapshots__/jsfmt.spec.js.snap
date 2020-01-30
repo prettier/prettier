@@ -45,12 +45,12 @@ printWidth: 80
  */
 
 .class {
-  padding: 10px;
+	padding: 10px;
 }
 /*comment*/
 
 .foo {
-  color: red;
+	color: red;
 }
 
 /*
@@ -58,19 +58,19 @@ printWidth: 80
  */
 
 @media only screen {
-  /* inner at rule comment */
-  .foo {
-    display: none;
-  }
+	/* inner at rule comment */
+	.foo {
+		display: none;
+	}
 
-  /*
+	/*
    * another comment
    */
-  /* in a row */
+	/* in a row */
 
-  .bar {
-    color: yellow;
-  }
+	.bar {
+		color: yellow;
+	}
 }
 
 ================================================================================

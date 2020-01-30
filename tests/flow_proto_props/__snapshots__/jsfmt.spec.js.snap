@@ -12,13 +12,13 @@ declare class C { proto +x: T; }
 
 =====================================output=====================================
 declare class A {
-  proto: T;
+	proto: T;
 }
 declare class B {
-  proto x: T;
+	proto x: T;
 }
 declare class C {
-  proto +x: T;
+	proto +x: T;
 }
 
 ================================================================================

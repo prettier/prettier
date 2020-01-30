@@ -22,15 +22,15 @@ printWidth: 80
 =====================================output=====================================
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <script type="text/markdown">
-      # hello
+	<head>
+		<script type="text/markdown">
+			# hello
 
-      - **foo**
-      - **bar**
-    </script>
-  </head>
-  <body></body>
+			- **foo**
+			- **bar**
+		</script>
+	</head>
+	<body></body>
 </html>
 
 ================================================================================

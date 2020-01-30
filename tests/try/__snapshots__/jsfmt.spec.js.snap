@@ -35,13 +35,13 @@ catch(
 =====================================output=====================================
 try {
 } catch (
-  // comment
-  foo
+	// comment
+	foo
 ) {}
 
 try {
 } catch (
-  foo //comment
+	foo //comment
 ) {}
 
 try {
@@ -52,8 +52,8 @@ try {
 
 try {
 } catch (
-  foo
-  /* comment */
+	foo
+	/* comment */
 ) {}
 
 ================================================================================
@@ -100,7 +100,7 @@ finally {}
 
 =====================================output=====================================
 try {
-  /* missing comment */
+	/* missing comment */
 } finally {
 }
 

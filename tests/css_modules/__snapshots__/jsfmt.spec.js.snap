@@ -58,47 +58,47 @@ printWidth: 80
 @value first, second, third from colors;
 
 .title {
-  @nest :global(h1)& {
-    background: red;
-  }
+	@nest :global(h1)& {
+		background: red;
+	}
 }
 
 .className {
-  color: green;
-  background: red;
+	color: green;
+	background: red;
 }
 
 .otherClassName {
-  composes: className;
-  color: yellow;
+	composes: className;
+	color: yellow;
 }
 
 .otherClassName {
-  composes: className from "./style.css";
+	composes: className from "./style.css";
 }
 
 .otherClassName {
-  composes: globalClassName from global;
+	composes: globalClassName from global;
 }
 
 :global {
-  .global-class-name {
-    color: green;
-  }
+	.global-class-name {
+		color: green;
+	}
 }
 
 .root :global .text {
-  color: brown;
-  font-size: 24px;
-  font-family: helvetica, arial, sans-serif;
-  font-weight: 600;
+	color: brown;
+	font-size: 24px;
+	font-family: helvetica, arial, sans-serif;
+	font-weight: 600;
 }
 
 :import("path/to/dep.css") {
-  localAlias: keyFromDep;
+	localAlias: keyFromDep;
 }
 :export {
-  exportedKey: exportedValue;
+	exportedKey: exportedValue;
 }
 
 ================================================================================

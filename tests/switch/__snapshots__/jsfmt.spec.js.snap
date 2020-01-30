@@ -32,27 +32,27 @@ switch(x) {
 
 =====================================output=====================================
 switch (true) {
-  case true:
-  // Good luck getting here
+	case true:
+	// Good luck getting here
 
-  case false:
+	case false:
 }
 
 switch (true) {
-  case true:
+	case true:
 
-  // Good luck getting here
-  case false:
+	// Good luck getting here
+	case false:
 }
 
 switch (x) {
-  case x: {
-  }
+	case x: {
+	}
 
-  // other
+	// other
 
-  case y: {
-  }
+	case y: {
+	}
 }
 
 ================================================================================
@@ -137,72 +137,72 @@ switch (a) {
 
 =====================================output=====================================
 switch (foo) {
-  case "bar":
-    doSomething();
+	case "bar":
+		doSomething();
 
-  case "baz":
-    doOtherThing();
+	case "baz":
+		doOtherThing();
 }
 
 switch (foo) {
-  case "bar":
-    doSomething();
+	case "bar":
+		doSomething();
 
-  case "baz":
-    doOtherThing();
+	case "baz":
+		doOtherThing();
 }
 
 switch (foo) {
-  case "bar":
-    doSomething();
+	case "bar":
+		doSomething();
 
-  case "baz":
-    doOtherThing();
+	case "baz":
+		doOtherThing();
 }
 
 switch (foo) {
-  case "bar":
-    doSomething();
+	case "bar":
+		doSomething();
 
-  case "baz":
-    doOtherThing();
+	case "baz":
+		doOtherThing();
 }
 
 switch (x) {
-  case y:
-    call();
+	case y:
+		call();
 
-    break;
+		break;
 
-  case z:
-    call();
+	case z:
+		call();
 
-    break;
+		break;
 }
 
 switch (a) {
-  case b:
-    if (1) {
-    }
-    c;
+	case b:
+		if (1) {
+		}
+		c;
 }
 
 switch (a) {
-  case x:
-  case y:
-    call();
+	case x:
+	case y:
+		call();
 
-  case z:
-    call();
+	case z:
+		call();
 }
 
 switch (a) {
-  case x:
-  case y:
-    call();
+	case x:
+	case y:
+		call();
 
-  case z:
-    call();
+	case z:
+		call();
 }
 
 ================================================================================
@@ -222,12 +222,12 @@ switch (error.code) {
 
 =====================================output=====================================
 switch (error.code) {
-  case ConfigurationEditingErrorCode.ERROR_INVALID_CONFIGURATION: {
-    nls.localize(
-      "errorInvalidConfiguration",
-      "Unable to write into settings. Correct errors/warnings in the file and try again."
-    );
-  }
+	case ConfigurationEditingErrorCode.ERROR_INVALID_CONFIGURATION: {
+		nls.localize(
+			"errorInvalidConfiguration",
+			"Unable to write into settings. Correct errors/warnings in the file and try again."
+		);
+	}
 }
 
 ================================================================================
@@ -244,7 +244,7 @@ switch (1) {}
 
 =====================================output=====================================
 switch (1) {
-  default:
+	default:
 }
 switch (1) {
 }
@@ -296,49 +296,49 @@ switch ($longButSlightlyShorterVariableName && $anotherSlightlyShorterVariableNa
 
 =====================================output=====================================
 switch (a) {
-  case 3:
-    alert("3");
-    break;
-  case 4:
-    alert("4");
-    break;
-  case 5:
-    alert("5");
-    break;
-  default:
-    alert("default");
+	case 3:
+		alert("3");
+		break;
+	case 4:
+		alert("4");
+		break;
+	case 5:
+		alert("5");
+		break;
+	default:
+		alert("default");
 }
 
 switch (
-  veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong
+	veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong
 ) {
-  case 3:
-    alert("3");
-    break;
-  default:
-    alert("default");
+	case 3:
+		alert("3");
+		break;
+	default:
+		alert("default");
 }
 
 switch (
-  veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong >
-  veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong
+	veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong >
+	veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong
 ) {
-  case 3:
-    alert("3");
-    break;
-  default:
-    alert("default");
+	case 3:
+		alert("3");
+		break;
+	default:
+		alert("default");
 }
 
 switch (
-  $veryLongAndVeryVerboseVariableName &&
-  $anotherVeryLongAndVeryVerboseVariableName
+	$veryLongAndVeryVerboseVariableName &&
+	$anotherVeryLongAndVeryVerboseVariableName
 ) {
 }
 
 switch (
-  $longButSlightlyShorterVariableName &&
-  $anotherSlightlyShorterVariableName
+	$longButSlightlyShorterVariableName &&
+	$anotherSlightlyShorterVariableName
 ) {
 }
 

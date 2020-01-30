@@ -75,24 +75,24 @@ printWidth: 80
 (<a />)["computed"];
 (<a />)["computed"]();
 (
-  <div>
-    <a>foo</a>
-  </div>
+	<div>
+		<a>foo</a>
+	</div>
 ).method();
 (
-  <div>
-    <a>foo</a>
-  </div>
+	<div>
+		<a>foo</a>
+	</div>
 ).property;
 (
-  <div>
-    <a>foo</a>
-  </div>
+	<div>
+		<a>foo</a>
+	</div>
 )["computed"];
 (
-  <div>
-    <a>foo</a>
-  </div>
+	<div>
+		<a>foo</a>
+	</div>
 )["computed"]();
 
 ================================================================================
@@ -197,17 +197,17 @@ const functionName2 = <T extends any>(arg) => false;
 const functionName3 = <T, S>(arg) => false;
 
 function functionName4<T>() {
-  return false;
+	return false;
 }
 
 functionName5<T>();
 
 interface Interface1<T> {
-  one: "one";
+	one: "one";
 }
 
 interface Interface2 {
-  two: Two<T>;
+	two: Two<T>;
 }
 
 type Type1<T> = "type1";
@@ -243,16 +243,16 @@ const first = <div>http://example.com</div>;
 const second = <>http://example.com</>;
 
 const third = (
-  <div>
-    <br />
-    http://example.com
-  </div>
+	<div>
+		<br />
+		http://example.com
+	</div>
 );
 
 const fourth = (
-  <div>
-    <span></span>http://example.com
-  </div>
+	<div>
+		<span></span>http://example.com
+	</div>
 );
 
 const fifth = <div>{}http://example.com</div>;

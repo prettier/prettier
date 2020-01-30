@@ -22,7 +22,7 @@ var z = o.z;
 var export_o: { x: number } = o;
 
 function f(u, v?): number {
-  return u;
+	return u;
 }
 var export_f: (u: number) => number = f;
 

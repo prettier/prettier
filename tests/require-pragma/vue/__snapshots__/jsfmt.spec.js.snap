@@ -19,7 +19,7 @@ const    x      = 1;
 =====================================output=====================================
 <!-- @prettier -->
 <template>
-  <div>This will be pre-compiled</div>
+	<div>This will be pre-compiled</div>
 </template>
 <script>
 const x = 1;

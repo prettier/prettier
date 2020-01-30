@@ -13,8 +13,8 @@ class C {
 
 =====================================output=====================================
 class C {
-  foo();
-  bar() {}
+	foo();
+	bar() {}
 }
 
 ================================================================================
@@ -36,12 +36,12 @@ interface Q extends P { // Check assignability here. Any is assignable to {}
 
 =====================================output=====================================
 interface P {
-  p: {};
+	p: {};
 }
 
 interface Q extends P {
-  // Check assignability here. Any is assignable to {}
-  p: any;
+	// Check assignability here. Any is assignable to {}
+	p: any;
 }
 
 ================================================================================
@@ -65,11 +65,11 @@ async function f() {
 =====================================output=====================================
 // @target: es6
 async function f() {
-  <number>await 0;
-  typeof (await 0);
-  void (await 0);
-  await void (<string>typeof (<number>void (await 0)));
-  await await 0;
+	<number>await 0;
+	typeof (await 0);
+	void (await 0);
+	await void (<string>typeof (<number>void (await 0)));
+	await await 0;
 }
 
 ================================================================================
@@ -95,7 +95,7 @@ var b = (<any>new a).b
 
 =====================================output=====================================
 ﻿class a {
-  static b: any;
+	static b: any;
 }
 
 var b = <any>a;
@@ -160,22 +160,22 @@ var ar = <any[]>null;
 var f = <(res: number) => void>null;
 
 declare class Point {
-  x: number;
-  y: number;
-  add(dx: number, dy: number): Point;
-  mult(p: Point): Point;
-  constructor(x: number, y: number);
+	x: number;
+	y: number;
+	add(dx: number, dy: number): Point;
+	mult(p: Point): Point;
+	constructor(x: number, y: number);
 }
 
 var p_cast = <Point>{
-  x: 0,
-  y: 0,
-  add: function (dx, dy) {
-    return new Point(this.x + dx, this.y + dy);
-  },
-  mult: function (p) {
-    return p;
-  },
+	x: 0,
+	y: 0,
+	add: function (dx, dy) {
+		return new Point(this.x + dx, this.y + dy);
+	},
+	mult: function (p) {
+		return p;
+	},
 };
 
 ================================================================================
@@ -209,17 +209,17 @@ values = values2;
 // Before fix this code would cause infinite loop
 
 interface IObservable<T> {
-  n: IObservable<T[]>; // Needed, must be T[]
+	n: IObservable<T[]>; // Needed, must be T[]
 }
 
 // Needed
 interface ISubject<T> extends IObservable<T> {}
 
 interface Foo {
-  x;
+	x;
 }
 interface Bar {
-  y;
+	y;
 }
 
 var values: IObservable<Foo>;
@@ -242,7 +242,7 @@ printWidth: 80
 
 =====================================output=====================================
 ﻿namespace hello.hi.world {
-  function foo() {}
+	function foo() {}
 }
 
 ================================================================================
@@ -260,7 +260,7 @@ interface i2 {
 
 =====================================output=====================================
 interface i2 {
-  foo: (/**param help*/ b: number) => string;
+	foo: (/**param help*/ b: number) => string;
 }
 
 ================================================================================
@@ -281,7 +281,7 @@ var r23 = dot(id)(id);
 // dot f g x = f(g(x))
 var dot: <T, S>(f: (_: T) => S) => <U>(g: (_: U) => T) => (_: U) => S;
 dot = <T, S>(f: (_: T) => S) => <U>(g: (_: U) => T): ((r: U) => S) => (x) =>
-  f(g(x));
+	f(g(x));
 var id: <T>(x: T) => T;
 var r23 = dot(id)(id);
 
@@ -308,15 +308,15 @@ module T.U { // This needs to be emitted
 =====================================output=====================================
 // @declaration: true
 module M {
-  module P.Q {} // This shouldnt be emitted
+	module P.Q {} // This shouldnt be emitted
 }
 
 module M {
-  export module R.S {} //This should be emitted
+	export module R.S {} //This should be emitted
 }
 
 module T.U {
-  // This needs to be emitted
+	// This needs to be emitted
 }
 
 ================================================================================
@@ -433,7 +433,7 @@ interface Foo {
 
 =====================================output=====================================
 interface Foo {
-  bar: number = 5;
+	bar: number = 5;
 }
 
 ================================================================================
@@ -468,15 +468,15 @@ declare module "foo" {
 // @declaration: true
 
 declare module "foo" {
-  export var before: C;
+	export var before: C;
 
-  export default class C {
-    method(): C;
-  }
+	export default class C {
+		method(): C;
+	}
 
-  export var after: C;
+	export var after: C;
 
-  export var t: typeof C;
+	export var t: typeof C;
 }
 
 ================================================================================
@@ -503,14 +503,14 @@ interface C {
 =====================================output=====================================
 // overloading on arity not allowed
 interface C {
-  f<T>(): string;
-  f<T, U>(): string;
+	f<T>(): string;
+	f<T, U>(): string;
 
-  <T>(): string;
-  <T, U>(): string;
+	<T>(): string;
+	<T, U>(): string;
 
-  new <T>(): string;
-  new <T, U>(): string;
+	new <T>(): string;
+	new <T, U>(): string;
 }
 
 ================================================================================
@@ -540,10 +540,10 @@ let obj = {
 }
 =====================================output=====================================
 function a() {
-  let global = 1;
+	let global = 1;
 }
 function b() {
-  class global {}
+	class global {}
 }
 
 namespace global {}
@@ -551,7 +551,7 @@ namespace global {}
 function foo(global: number) {}
 
 let obj = {
-  global: "123",
+	global: "123",
 };
 
 ================================================================================
@@ -574,11 +574,11 @@ class C {
 =====================================output=====================================
 // These used to be indexers, now they are computed properties
 interface I {
-  [x = ""]: string;
+	[x = ""]: string;
 }
 
 class C {
-  [x = 0]: string;
+	[x = 0]: string;
 }
 
 ================================================================================
@@ -613,16 +613,16 @@ const shouldFail: { important: boolean } = output.x.children;
 // Repro from #13351
 
 type Meta<T, A> = {
-  [P in keyof T]: {
-    value: T[P];
-    also: A;
-    readonly children: Meta<T[P], A>;
-  };
+	[P in keyof T]: {
+		value: T[P];
+		also: A;
+		readonly children: Meta<T[P], A>;
+	};
 };
 
 interface Input {
-  x: string;
-  y: number;
+	x: string;
+	y: number;
 }
 
 declare const output: Meta<Input, boolean>;
@@ -643,7 +643,7 @@ interface I {
 }
 =====================================output=====================================
 interface I {
-  public [a: string]: number;
+	public [a: string]: number;
 }
 
 ================================================================================
@@ -811,150 +811,150 @@ module m2 {
 =====================================output=====================================
 //@declaration: true
 module m1 {
-  export module m1_M1_public {
-    export class c1 {}
-    export function f1() {
-      return new c1();
-    }
-    export var v1 = c1;
-    export var v2: c1;
-  }
+	export module m1_M1_public {
+		export class c1 {}
+		export function f1() {
+			return new c1();
+		}
+		export var v1 = c1;
+		export var v2: c1;
+	}
 
-  module m1_M2_private {
-    export class c1 {}
-    export function f1() {
-      return new c1();
-    }
-    export var v1 = c1;
-    export var v2: c1;
-  }
+	module m1_M2_private {
+		export class c1 {}
+		export function f1() {
+			return new c1();
+		}
+		export var v1 = c1;
+		export var v2: c1;
+	}
 
-  //export declare module "m1_M3_public" {
-  //    export function f1();
-  //    export class c1 {
-  //    }
-  //    export var v1: { new (): c1; };
-  //    export var v2: c1;
-  //}
+	//export declare module "m1_M3_public" {
+	//    export function f1();
+	//    export class c1 {
+	//    }
+	//    export var v1: { new (): c1; };
+	//    export var v2: c1;
+	//}
 
-  //declare module "m1_M4_private" {
-  //    export function f1();
-  //    export class c1 {
-  //    }
-  //    export var v1: { new (): c1; };
-  //    export var v2: c1;
-  //}
+	//declare module "m1_M4_private" {
+	//    export function f1();
+	//    export class c1 {
+	//    }
+	//    export var v1: { new (): c1; };
+	//    export var v2: c1;
+	//}
 
-  import m1_im1_private = m1_M1_public;
-  export var m1_im1_private_v1_public = m1_im1_private.c1;
-  export var m1_im1_private_v2_public = new m1_im1_private.c1();
-  export var m1_im1_private_v3_public = m1_im1_private.f1;
-  export var m1_im1_private_v4_public = m1_im1_private.f1();
-  var m1_im1_private_v1_private = m1_im1_private.c1;
-  var m1_im1_private_v2_private = new m1_im1_private.c1();
-  var m1_im1_private_v3_private = m1_im1_private.f1;
-  var m1_im1_private_v4_private = m1_im1_private.f1();
+	import m1_im1_private = m1_M1_public;
+	export var m1_im1_private_v1_public = m1_im1_private.c1;
+	export var m1_im1_private_v2_public = new m1_im1_private.c1();
+	export var m1_im1_private_v3_public = m1_im1_private.f1;
+	export var m1_im1_private_v4_public = m1_im1_private.f1();
+	var m1_im1_private_v1_private = m1_im1_private.c1;
+	var m1_im1_private_v2_private = new m1_im1_private.c1();
+	var m1_im1_private_v3_private = m1_im1_private.f1;
+	var m1_im1_private_v4_private = m1_im1_private.f1();
 
-  import m1_im2_private = m1_M2_private;
-  export var m1_im2_private_v1_public = m1_im2_private.c1;
-  export var m1_im2_private_v2_public = new m1_im2_private.c1();
-  export var m1_im2_private_v3_public = m1_im2_private.f1;
-  export var m1_im2_private_v4_public = m1_im2_private.f1();
-  var m1_im2_private_v1_private = m1_im2_private.c1;
-  var m1_im2_private_v2_private = new m1_im2_private.c1();
-  var m1_im2_private_v3_private = m1_im2_private.f1;
-  var m1_im2_private_v4_private = m1_im2_private.f1();
+	import m1_im2_private = m1_M2_private;
+	export var m1_im2_private_v1_public = m1_im2_private.c1;
+	export var m1_im2_private_v2_public = new m1_im2_private.c1();
+	export var m1_im2_private_v3_public = m1_im2_private.f1;
+	export var m1_im2_private_v4_public = m1_im2_private.f1();
+	var m1_im2_private_v1_private = m1_im2_private.c1;
+	var m1_im2_private_v2_private = new m1_im2_private.c1();
+	var m1_im2_private_v3_private = m1_im2_private.f1;
+	var m1_im2_private_v4_private = m1_im2_private.f1();
 
-  //import m1_im3_private = require("m1_M3_public");
-  //export var m1_im3_private_v1_public = m1_im3_private.c1;
-  //export var m1_im3_private_v2_public = new m1_im3_private.c1();
-  //export var m1_im3_private_v3_public = m1_im3_private.f1;
-  //export var m1_im3_private_v4_public = m1_im3_private.f1();
-  //var m1_im3_private_v1_private = m1_im3_private.c1;
-  //var m1_im3_private_v2_private = new m1_im3_private.c1();
-  //var m1_im3_private_v3_private = m1_im3_private.f1;
-  //var m1_im3_private_v4_private = m1_im3_private.f1();
+	//import m1_im3_private = require("m1_M3_public");
+	//export var m1_im3_private_v1_public = m1_im3_private.c1;
+	//export var m1_im3_private_v2_public = new m1_im3_private.c1();
+	//export var m1_im3_private_v3_public = m1_im3_private.f1;
+	//export var m1_im3_private_v4_public = m1_im3_private.f1();
+	//var m1_im3_private_v1_private = m1_im3_private.c1;
+	//var m1_im3_private_v2_private = new m1_im3_private.c1();
+	//var m1_im3_private_v3_private = m1_im3_private.f1;
+	//var m1_im3_private_v4_private = m1_im3_private.f1();
 
-  //import m1_im4_private = require("m1_M4_private");
-  //export var m1_im4_private_v1_public = m1_im4_private.c1;
-  //export var m1_im4_private_v2_public = new m1_im4_private.c1();
-  //export var m1_im4_private_v3_public = m1_im4_private.f1;
-  //export var m1_im4_private_v4_public = m1_im4_private.f1();
-  //var m1_im4_private_v1_private = m1_im4_private.c1;
-  //var m1_im4_private_v2_private = new m1_im4_private.c1();
-  //var m1_im4_private_v3_private = m1_im4_private.f1;
-  //var m1_im4_private_v4_private = m1_im4_private.f1();
+	//import m1_im4_private = require("m1_M4_private");
+	//export var m1_im4_private_v1_public = m1_im4_private.c1;
+	//export var m1_im4_private_v2_public = new m1_im4_private.c1();
+	//export var m1_im4_private_v3_public = m1_im4_private.f1;
+	//export var m1_im4_private_v4_public = m1_im4_private.f1();
+	//var m1_im4_private_v1_private = m1_im4_private.c1;
+	//var m1_im4_private_v2_private = new m1_im4_private.c1();
+	//var m1_im4_private_v3_private = m1_im4_private.f1;
+	//var m1_im4_private_v4_private = m1_im4_private.f1();
 
-  export import m1_im1_public = m1_M1_public;
-  export import m1_im2_public = m1_M2_private;
-  //export import m1_im3_public = require("m1_M3_public");
-  //export import m1_im4_public = require("m1_M4_private");
+	export import m1_im1_public = m1_M1_public;
+	export import m1_im2_public = m1_M2_private;
+	//export import m1_im3_public = require("m1_M3_public");
+	//export import m1_im4_public = require("m1_M4_private");
 }
 
 module glo_M1_public {
-  export class c1 {}
-  export function f1() {
-    return new c1();
-  }
-  export var v1 = c1;
-  export var v2: c1;
+	export class c1 {}
+	export function f1() {
+		return new c1();
+	}
+	export var v1 = c1;
+	export var v2: c1;
 }
 
 declare module "glo_M2_public" {
-  export function f1();
-  export class c1 {}
-  export var v1: { new (): c1 };
-  export var v2: c1;
+	export function f1();
+	export class c1 {}
+	export var v1: { new (): c1 };
+	export var v2: c1;
 }
 
 declare module "use_glo_M1_public" {
-  import use_glo_M1_public = glo_M1_public;
-  export var use_glo_M1_public_v1_public: { new (): use_glo_M1_public.c1 };
-  export var use_glo_M1_public_v2_public: typeof use_glo_M1_public;
-  export var use_glo_M1_public_v3_public: () => use_glo_M1_public.c1;
-  var use_glo_M1_public_v1_private: { new (): use_glo_M1_public.c1 };
-  var use_glo_M1_public_v2_private: typeof use_glo_M1_public;
-  var use_glo_M1_public_v3_private: () => use_glo_M1_public.c1;
+	import use_glo_M1_public = glo_M1_public;
+	export var use_glo_M1_public_v1_public: { new (): use_glo_M1_public.c1 };
+	export var use_glo_M1_public_v2_public: typeof use_glo_M1_public;
+	export var use_glo_M1_public_v3_public: () => use_glo_M1_public.c1;
+	var use_glo_M1_public_v1_private: { new (): use_glo_M1_public.c1 };
+	var use_glo_M1_public_v2_private: typeof use_glo_M1_public;
+	var use_glo_M1_public_v3_private: () => use_glo_M1_public.c1;
 
-  import use_glo_M2_public = require("glo_M2_public");
-  export var use_glo_M2_public_v1_public: { new (): use_glo_M2_public.c1 };
-  export var use_glo_M2_public_v2_public: typeof use_glo_M2_public;
-  export var use_glo_M2_public_v3_public: () => use_glo_M2_public.c1;
-  var use_glo_M2_public_v1_private: { new (): use_glo_M2_public.c1 };
-  var use_glo_M2_public_v2_private: typeof use_glo_M2_public;
-  var use_glo_M2_public_v3_private: () => use_glo_M2_public.c1;
+	import use_glo_M2_public = require("glo_M2_public");
+	export var use_glo_M2_public_v1_public: { new (): use_glo_M2_public.c1 };
+	export var use_glo_M2_public_v2_public: typeof use_glo_M2_public;
+	export var use_glo_M2_public_v3_public: () => use_glo_M2_public.c1;
+	var use_glo_M2_public_v1_private: { new (): use_glo_M2_public.c1 };
+	var use_glo_M2_public_v2_private: typeof use_glo_M2_public;
+	var use_glo_M2_public_v3_private: () => use_glo_M2_public.c1;
 
-  module m2 {
-    //import errorImport = require("glo_M2_public");
-    import nonerrorImport = glo_M1_public;
+	module m2 {
+		//import errorImport = require("glo_M2_public");
+		import nonerrorImport = glo_M1_public;
 
-    module m5 {
-      //import m5_errorImport = require("glo_M2_public");
-      import m5_nonerrorImport = glo_M1_public;
-    }
-  }
+		module m5 {
+			//import m5_errorImport = require("glo_M2_public");
+			import m5_nonerrorImport = glo_M1_public;
+		}
+	}
 }
 
 declare module "anotherParseError" {
-  module m2 {
-    //declare module "abc" {
-    //}
-  }
+	module m2 {
+		//declare module "abc" {
+		//}
+	}
 
-  module m2 {
-    //module "abc2" {
-    //}
-  }
-  //module "abc3" {
-  //}
+	module m2 {
+		//module "abc2" {
+		//}
+	}
+	//module "abc3" {
+	//}
 }
 
 module m2 {
-  //import m3 = require("use_glo_M1_public");
-  module m4 {
-    var a = 10;
-    //import m2 = require("use_glo_M1_public");
-  }
+	//import m3 = require("use_glo_M1_public");
+	module m4 {
+		var a = 10;
+		//import m2 = require("use_glo_M1_public");
+	}
 }
 
 ================================================================================

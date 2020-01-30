@@ -4,6 +4,7 @@ exports[`binary.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
+useTabs: false
                                                                                 | printWidth
 =====================================input======================================
 const funnelSnapshotCard = (report === MY_OVERVIEW &&
@@ -46,6 +47,7 @@ exports[`binary.js 2`] = `
 parsers: ["flow", "typescript"]
 printWidth: 80
 tabWidth: 4
+useTabs: false
                                                                                 | printWidth
 =====================================input======================================
 const funnelSnapshotCard = (report === MY_OVERVIEW &&
@@ -87,7 +89,6 @@ exports[`binary.js 3`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
-useTabs: true
                                                                                 | printWidth
 =====================================input======================================
 const funnelSnapshotCard = (report === MY_OVERVIEW &&
@@ -130,7 +131,6 @@ exports[`binary.js 4`] = `
 parsers: ["flow", "typescript"]
 printWidth: 80
 tabWidth: 4
-useTabs: true
                                                                                 | printWidth
 =====================================input======================================
 const funnelSnapshotCard = (report === MY_OVERVIEW &&
@@ -172,6 +172,7 @@ exports[`func-call.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
+useTabs: false
                                                                                 | printWidth
 =====================================input======================================
 fn(
@@ -201,6 +202,7 @@ exports[`func-call.js 2`] = `
 parsers: ["flow", "typescript"]
 printWidth: 80
 tabWidth: 4
+useTabs: false
                                                                                 | printWidth
 =====================================input======================================
 fn(
@@ -229,7 +231,6 @@ exports[`func-call.js 3`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
-useTabs: true
                                                                                 | printWidth
 =====================================input======================================
 fn(
@@ -259,7 +260,6 @@ exports[`func-call.js 4`] = `
 parsers: ["flow", "typescript"]
 printWidth: 80
 tabWidth: 4
-useTabs: true
                                                                                 | printWidth
 =====================================input======================================
 fn(
@@ -288,6 +288,7 @@ exports[`indent.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
+useTabs: false
                                                                                 | printWidth
 =====================================input======================================
 aaaaaaaaaaaaaaa ? bbbbbbbbbbbbbbbbbb : ccccccccccccccc ? ddddddddddddddd : eeeeeeeeeeeeeee ? fffffffffffffff : gggggggggggggggg
@@ -618,6 +619,7 @@ exports[`indent.js 2`] = `
 parsers: ["flow", "typescript"]
 printWidth: 80
 tabWidth: 4
+useTabs: false
                                                                                 | printWidth
 =====================================input======================================
 aaaaaaaaaaaaaaa ? bbbbbbbbbbbbbbbbbb : ccccccccccccccc ? ddddddddddddddd : eeeeeeeeeeeeeee ? fffffffffffffff : gggggggggggggggg
@@ -947,7 +949,6 @@ exports[`indent.js 3`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
-useTabs: true
                                                                                 | printWidth
 =====================================input======================================
 aaaaaaaaaaaaaaa ? bbbbbbbbbbbbbbbbbb : ccccccccccccccc ? ddddddddddddddd : eeeeeeeeeeeeeee ? fffffffffffffff : gggggggggggggggg
@@ -1278,7 +1279,6 @@ exports[`indent.js 4`] = `
 parsers: ["flow", "typescript"]
 printWidth: 80
 tabWidth: 4
-useTabs: true
                                                                                 | printWidth
 =====================================input======================================
 aaaaaaaaaaaaaaa ? bbbbbbbbbbbbbbbbbb : ccccccccccccccc ? ddddddddddddddd : eeeeeeeeeeeeeee ? fffffffffffffff : gggggggggggggggg
@@ -1612,6 +1612,7 @@ exports[`nested.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
+useTabs: false
                                                                                 | printWidth
 =====================================input======================================
 let icecream = what == "cone"
@@ -1816,6 +1817,7 @@ exports[`nested.js 2`] = `
 parsers: ["flow", "typescript"]
 printWidth: 80
 tabWidth: 4
+useTabs: false
                                                                                 | printWidth
 =====================================input======================================
 let icecream = what == "cone"
@@ -2019,7 +2021,6 @@ exports[`nested.js 3`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
-useTabs: true
                                                                                 | printWidth
 =====================================input======================================
 let icecream = what == "cone"
@@ -2224,7 +2225,6 @@ exports[`nested.js 4`] = `
 parsers: ["flow", "typescript"]
 printWidth: 80
 tabWidth: 4
-useTabs: true
                                                                                 | printWidth
 =====================================input======================================
 let icecream = what == "cone"
@@ -2428,6 +2428,7 @@ exports[`nested-in-condition.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
+useTabs: false
                                                                                 | printWidth
 =====================================input======================================
 $var = ($number % 10 >= 2 && ($number % 100 < 10 || $number % 100 >= 20)
@@ -2517,6 +2518,7 @@ exports[`nested-in-condition.js 2`] = `
 parsers: ["flow", "typescript"]
 printWidth: 80
 tabWidth: 4
+useTabs: false
                                                                                 | printWidth
 =====================================input======================================
 $var = ($number % 10 >= 2 && ($number % 100 < 10 || $number % 100 >= 20)
@@ -2605,7 +2607,6 @@ exports[`nested-in-condition.js 3`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
-useTabs: true
                                                                                 | printWidth
 =====================================input======================================
 $var = ($number % 10 >= 2 && ($number % 100 < 10 || $number % 100 >= 20)
@@ -2695,7 +2696,6 @@ exports[`nested-in-condition.js 4`] = `
 parsers: ["flow", "typescript"]
 printWidth: 80
 tabWidth: 4
-useTabs: true
                                                                                 | printWidth
 =====================================input======================================
 $var = ($number % 10 >= 2 && ($number % 100 < 10 || $number % 100 >= 20)
@@ -2784,6 +2784,7 @@ exports[`parenthesis.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
+useTabs: false
                                                                                 | printWidth
 =====================================input======================================
 debug ? this.state.isVisible ? "partially visible" : "hidden" : null;
@@ -2821,6 +2822,7 @@ exports[`parenthesis.js 2`] = `
 parsers: ["flow", "typescript"]
 printWidth: 80
 tabWidth: 4
+useTabs: false
                                                                                 | printWidth
 =====================================input======================================
 debug ? this.state.isVisible ? "partially visible" : "hidden" : null;
@@ -2857,7 +2859,6 @@ exports[`parenthesis.js 3`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
-useTabs: true
                                                                                 | printWidth
 =====================================input======================================
 debug ? this.state.isVisible ? "partially visible" : "hidden" : null;
@@ -2895,7 +2896,6 @@ exports[`parenthesis.js 4`] = `
 parsers: ["flow", "typescript"]
 printWidth: 80
 tabWidth: 4
-useTabs: true
                                                                                 | printWidth
 =====================================input======================================
 debug ? this.state.isVisible ? "partially visible" : "hidden" : null;
@@ -2932,6 +2932,7 @@ exports[`test.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
+useTabs: false
                                                                                 | printWidth
 =====================================input======================================
 const obj0 = conditionIsTruthy ? shortThing : otherShortThing
@@ -2992,6 +2993,7 @@ exports[`test.js 2`] = `
 parsers: ["flow", "typescript"]
 printWidth: 80
 tabWidth: 4
+useTabs: false
                                                                                 | printWidth
 =====================================input======================================
 const obj0 = conditionIsTruthy ? shortThing : otherShortThing
@@ -3051,7 +3053,6 @@ exports[`test.js 3`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
-useTabs: true
                                                                                 | printWidth
 =====================================input======================================
 const obj0 = conditionIsTruthy ? shortThing : otherShortThing
@@ -3112,7 +3113,6 @@ exports[`test.js 4`] = `
 parsers: ["flow", "typescript"]
 printWidth: 80
 tabWidth: 4
-useTabs: true
                                                                                 | printWidth
 =====================================input======================================
 const obj0 = conditionIsTruthy ? shortThing : otherShortThing

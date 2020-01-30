@@ -361,7 +361,7 @@ in order for it to be formatted.",
           ],
         },
         "useTabs": Object {
-          "default": false,
+          "default": true,
           "description": "Indent with tabs instead of spaces.",
           "type": "boolean",
         },

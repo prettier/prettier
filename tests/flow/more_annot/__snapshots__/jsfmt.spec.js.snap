@@ -63,7 +63,7 @@ var o2: Foo = new Foo();
 
 =====================================output=====================================
 function Foo() {
-  this.x = 0;
+	this.x = 0;
 }
 Foo.prototype.m = function () {};
 
@@ -87,7 +87,7 @@ var d: { +m: () => void } = new D();
 
 =====================================output=====================================
 class C {
-  m() {}
+	m() {}
 }
 class D extends C {}
 

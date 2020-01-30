@@ -30,11 +30,11 @@ export default class {
 import type T from "T";
 
 export default class {
-  p: T;
+	p: T;
 
-  constructor() {
-    this.p = 0;
-  }
+	constructor() {
+		this.p = 0;
+	}
 }
 
 ================================================================================
@@ -64,7 +64,7 @@ class B extends A {
 import A from "A";
 
 class B extends A {
-  p: string; // OK, string ~> any
+	p: string; // OK, string ~> any
 }
 
 ================================================================================

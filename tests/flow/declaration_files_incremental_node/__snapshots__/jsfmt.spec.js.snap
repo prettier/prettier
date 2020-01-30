@@ -12,7 +12,7 @@ export function foo(): Implementation { return new Implementation; }
 =====================================output=====================================
 class Implementation {}
 export function foo(): Implementation {
-  return new Implementation();
+	return new Implementation();
 }
 
 ================================================================================

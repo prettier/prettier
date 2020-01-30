@@ -16,7 +16,7 @@ export function foo(): AImplementation { return new AImplementation(); }
 
 class AImplementation {}
 export function foo(): AImplementation {
-  return new AImplementation();
+	return new AImplementation();
 }
 
 ================================================================================

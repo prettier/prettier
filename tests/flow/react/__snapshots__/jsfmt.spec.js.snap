@@ -24,9 +24,9 @@ module.exports = AudienceInsightsContainer;
  */
 var React = require("react");
 var AudienceInsightsContainer = React.createClass({
-  renderComponent(AudienceInsights: ReactClass<*>) {
-    return <AudienceInsights />;
-  },
+	renderComponent(AudienceInsights: ReactClass<*>) {
+		return <AudienceInsights />;
+	},
 });
 
 module.exports = AudienceInsightsContainer;
@@ -219,177 +219,177 @@ React.createClass(({}: {})); // error: spec must be [ ] exact and [x] sealed
 import React from "react";
 
 const A = React.createClass({
-  mixins: [{ propTypes: { foo: React.PropTypes.string.isRequired } }],
-  propTypes: { bar: React.PropTypes.number.isRequired },
-  m() {
-    (this.props.foo: empty); // error: string ~> empty
-    (this.props.bar: empty); // error: number ~> empty
-  },
+	mixins: [{ propTypes: { foo: React.PropTypes.string.isRequired } }],
+	propTypes: { bar: React.PropTypes.number.isRequired },
+	m() {
+		(this.props.foo: empty); // error: string ~> empty
+		(this.props.bar: empty); // error: number ~> empty
+	},
 });
 
 const B = React.createClass({
-  p: "",
-  m() {
-    this.p = 0; // error: number ~> string
-  },
-  mm() {
-    this.m.apply(null); // OK: this.m is autobound, so \`this.p\` will always be found
-  },
+	p: "",
+	m() {
+		this.p = 0; // error: number ~> string
+	},
+	mm() {
+		this.m.apply(null); // OK: this.m is autobound, so \`this.p\` will always be found
+	},
 });
 
 const C = React.createClass({
-  getInitialState(): Object {
-    return { foo: 0 };
-  },
-  m() {
-    this.state.foo; // OK: state is unknown
-  },
+	getInitialState(): Object {
+		return { foo: 0 };
+	},
+	m() {
+		this.state.foo; // OK: state is unknown
+	},
 });
 
 const D = React.createClass({
-  mixins: [
-    {
-      getInitialState(): Object {
-        return { foo: 0 };
-      },
-    },
-  ],
-  getInitialState() {
-    return { bar: 0 };
-  },
-  m() {
-    this.state.foo; // OK: state is unknown (due to unknown mixin)
-  },
+	mixins: [
+		{
+			getInitialState(): Object {
+				return { foo: 0 };
+			},
+		},
+	],
+	getInitialState() {
+		return { bar: 0 };
+	},
+	m() {
+		this.state.foo; // OK: state is unknown (due to unknown mixin)
+	},
 });
 
 const E = React.createClass({
-  foo: 0,
-  m() {
-    (this.foo: string); // error: number ~> string
-  },
-  mm() {
-    var props: { m(): void } = { m: this.m };
-    props.m(); // OK: this.m is autobound, so \`this.foo\` will always be found
-  },
+	foo: 0,
+	m() {
+		(this.foo: string); // error: number ~> string
+	},
+	mm() {
+		var props: { m(): void } = { m: this.m };
+		props.m(); // OK: this.m is autobound, so \`this.foo\` will always be found
+	},
 });
 
 const F = React.createClass({
-  getInitialState(): { [string]: mixed } {
-    return { foo: 0 };
-  },
-  m() {
-    this.state.foo;
-    this.state.bar;
-  },
+	getInitialState(): { [string]: mixed } {
+		return { foo: 0 };
+	},
+	m() {
+		this.state.foo;
+		this.state.bar;
+	},
 });
 
 const G = React.createClass({
-  mixins: [],
-  autobind: true,
-  statics: {},
-  m() {
-    (this.mixins: mixed); // error: property \`mixins\` not found
-    (this.autobind: mixed); // error: property \`autobind\` not found
-    (this.statics: mixed); // error: property \`statics\` not found
-  },
+	mixins: [],
+	autobind: true,
+	statics: {},
+	m() {
+		(this.mixins: mixed); // error: property \`mixins\` not found
+		(this.autobind: mixed); // error: property \`autobind\` not found
+		(this.statics: mixed); // error: property \`statics\` not found
+	},
 });
 
 const H = React.createClass({
-  statics: { q: 0 },
-  getDefaultProps() {
-    (this.q: empty); // error: number ~> empty
-    return {};
-  },
+	statics: { q: 0 },
+	getDefaultProps() {
+		(this.q: empty); // error: number ~> empty
+		return {};
+	},
 });
 
 const I = React.createClass({
-  propTypes: ({}: { [string]: any }),
-  m() {
-    (this.props.foo: empty); // OK
-  },
+	propTypes: ({}: { [string]: any }),
+	m() {
+		(this.props.foo: empty); // OK
+	},
 });
 
 const J = React.createClass({
-  mixins: [
-    {
-      getInitialState() {
-        return this.constructor.calculateState();
-      },
-    },
-  ],
-  statics: {
-    calculateState() {
-      return { foo: 0 };
-    },
-  },
-  m() {
-    (this.state.foo: empty); // number ~> empty
-  },
+	mixins: [
+		{
+			getInitialState() {
+				return this.constructor.calculateState();
+			},
+		},
+	],
+	statics: {
+		calculateState() {
+			return { foo: 0 };
+		},
+	},
+	m() {
+		(this.state.foo: empty); // number ~> empty
+	},
 });
 
 const K = React.createClass({
-  propTypes: {
-    foo: React.PropTypes.string.isRequired,
-  },
-  getInitialState() {
-    this.mm(); // cause error in mm below
-    return this.props;
-  },
-  m() {
-    (this.props.foo: empty); // string ~> empty
-    (this.state.foo: empty); // string ~> empty
-  },
-  mm() {
-    this.state.foo; // error: property fo not found (called by getInitialState)
-  },
+	propTypes: {
+		foo: React.PropTypes.string.isRequired,
+	},
+	getInitialState() {
+		this.mm(); // cause error in mm below
+		return this.props;
+	},
+	m() {
+		(this.props.foo: empty); // string ~> empty
+		(this.state.foo: empty); // string ~> empty
+	},
+	mm() {
+		this.state.foo; // error: property fo not found (called by getInitialState)
+	},
 });
 
 const L = React.createClass({
-  propTypes: {
-    foo: React.PropTypes.string.isRequired,
-  },
-  getInitialState() {
-    return { bar: 0 };
-  },
-  componentWillMount() {
-    (this.props.foo: empty); // string ~> empty
-    return 0; // number ~> void
-  },
-  componentDidMount() {
-    (this.props.foo: empty); // string ~> empty
-    return 0; // number ~> void
-  },
-  componentWillReceiveProps(nextProps) {
-    (this.props.foo: empty); // string ~> empty
-    (nextProps.foo: empty); // string ~> empty
-    return 0; // number ~> void
-  },
-  shouldComponentUpdate(nextProps, nextState) {
-    (this.props.foo: empty); // string ~> empty
-    (this.state.bar: empty); // number ~> empty
-    (nextProps.foo: empty); // string ~> empty
-    (nextState.bar: empty); // number ~> empty
-    return 0; // number ~> bool
-  },
-  componentWillUpdate(nextProps, nextState) {
-    (this.props.foo: empty); // string ~> empty
-    (this.state.bar: empty); // number ~> empty
-    (nextProps.foo: empty); // string ~> empty
-    (nextState.bar: empty); // number ~> empty
-    return 0; // number ~> void
-  },
-  componentDidUpdate(nextProps, nextState) {
-    (this.props.foo: empty); // string ~> empty
-    (this.state.bar: empty); // number ~> empty
-    (nextProps.foo: empty); // string ~> empty
-    (nextState.bar: empty); // number ~> empty
-    return 0; // number ~> void
-  },
-  componentWillUnmount() {
-    (this.props.foo: empty); // string ~> empty
-    (this.state.bar: empty); // number ~> empty
-    return 0; // number ~> void
-  },
+	propTypes: {
+		foo: React.PropTypes.string.isRequired,
+	},
+	getInitialState() {
+		return { bar: 0 };
+	},
+	componentWillMount() {
+		(this.props.foo: empty); // string ~> empty
+		return 0; // number ~> void
+	},
+	componentDidMount() {
+		(this.props.foo: empty); // string ~> empty
+		return 0; // number ~> void
+	},
+	componentWillReceiveProps(nextProps) {
+		(this.props.foo: empty); // string ~> empty
+		(nextProps.foo: empty); // string ~> empty
+		return 0; // number ~> void
+	},
+	shouldComponentUpdate(nextProps, nextState) {
+		(this.props.foo: empty); // string ~> empty
+		(this.state.bar: empty); // number ~> empty
+		(nextProps.foo: empty); // string ~> empty
+		(nextState.bar: empty); // number ~> empty
+		return 0; // number ~> bool
+	},
+	componentWillUpdate(nextProps, nextState) {
+		(this.props.foo: empty); // string ~> empty
+		(this.state.bar: empty); // number ~> empty
+		(nextProps.foo: empty); // string ~> empty
+		(nextState.bar: empty); // number ~> empty
+		return 0; // number ~> void
+	},
+	componentDidUpdate(nextProps, nextState) {
+		(this.props.foo: empty); // string ~> empty
+		(this.state.bar: empty); // number ~> empty
+		(nextProps.foo: empty); // string ~> empty
+		(nextState.bar: empty); // number ~> empty
+		return 0; // number ~> void
+	},
+	componentWillUnmount() {
+		(this.props.foo: empty); // string ~> empty
+		(this.state.bar: empty); // number ~> empty
+		return 0; // number ~> void
+	},
 });
 
 React.createClass({}); // error: spec must be [x] exact and [ ] sealed
@@ -496,91 +496,91 @@ import React from "react";
 
 // initial state = None
 React.createClass({
-  f() {
-    this.setState({ q: 0 });
-  },
-  g() {
-    (this.state.q: empty); // number ~> empty
-  },
+	f() {
+		this.setState({ q: 0 });
+	},
+	g() {
+		(this.state.q: empty); // number ~> empty
+	},
 });
 
 // initial state = Some (exact & sealed) [lit]
 React.createClass({
-  getInitialState() {
-    return { p: 0 };
-  },
-  f() {
-    this.setState({ q: 0 });
-  },
-  g() {
-    (this.state.q: empty); // number ~> empty
-  },
+	getInitialState() {
+		return { p: 0 };
+	},
+	f() {
+		this.setState({ q: 0 });
+	},
+	g() {
+		(this.state.q: empty); // number ~> empty
+	},
 });
 
 // initial state = Some (exact & sealed) [annot]
 React.createClass({
-  getInitialState(): {| p: number |} {
-    return { p: 0 };
-  },
-  f() {
-    this.setState({ q: 0 });
-  },
-  g() {
-    (this.state.q: empty); // number ~> empty
-  },
+	getInitialState(): {| p: number |} {
+		return { p: 0 };
+	},
+	f() {
+		this.setState({ q: 0 });
+	},
+	g() {
+		(this.state.q: empty); // number ~> empty
+	},
 });
 
 // initial state = Some (inexact & sealed) [annot]
 React.createClass({
-  getInitialState(): { p: number } {
-    return { p: 0 };
-  },
-  f() {
-    this.setState({ q: 0 }); // property \`q\` not found
-  },
-  g() {
-    (this.state.q: empty); // property \`q\` not found
-  },
+	getInitialState(): { p: number } {
+		return { p: 0 };
+	},
+	f() {
+		this.setState({ q: 0 }); // property \`q\` not found
+	},
+	g() {
+		(this.state.q: empty); // property \`q\` not found
+	},
 });
 
 // mixins = (exact & sealed) + (exact & sealed)
 React.createClass({
-  mixins: [
-    {
-      getInitialState() {
-        return { foo: 0 };
-      },
-    },
-  ],
-  getInitialState() {
-    return { bar: 0 };
-  },
-  f() {
-    this.setState({ baz: 0 });
-  },
-  g() {
-    (this.state.baz: empty); // number ~> empty
-  },
+	mixins: [
+		{
+			getInitialState() {
+				return { foo: 0 };
+			},
+		},
+	],
+	getInitialState() {
+		return { bar: 0 };
+	},
+	f() {
+		this.setState({ baz: 0 });
+	},
+	g() {
+		(this.state.baz: empty); // number ~> empty
+	},
 });
 
 // mixins = (exact & sealed) + (inexact & sealed)
 React.createClass({
-  mixins: [
-    {
-      getInitialState(): { foo: number } {
-        return { foo: 0 };
-      },
-    },
-  ],
-  getInitialState() {
-    return { bar: 0 };
-  },
-  f() {
-    this.setState({ baz: 0 }); // property \`baz\`  not found
-  },
-  g() {
-    (this.state.baz: empty); // property \`baz\` not found
-  },
+	mixins: [
+		{
+			getInitialState(): { foo: number } {
+				return { foo: 0 };
+			},
+		},
+	],
+	getInitialState() {
+		return { bar: 0 };
+	},
+	f() {
+		this.setState({ baz: 0 }); // property \`baz\`  not found
+	},
+	g() {
+		(this.state.baz: empty); // property \`baz\` not found
+	},
 });
 
 ================================================================================
@@ -657,7 +657,7 @@ A.bar = 0;
 
 // statics = Some (exact & sealed) [lit]
 const B = React.createClass({
-  statics: { foo: 0 },
+	statics: { foo: 0 },
 });
 (B.foo: empty); // number ~> empty
 (B.bar: empty); // number ~> empty (inflow below)
@@ -665,7 +665,7 @@ B.bar = 0;
 
 // statics = Some (exact & sealed) [annot]
 const C = React.createClass({
-  statics: ({ foo: 0 }: {| foo: number |}),
+	statics: ({ foo: 0 }: {| foo: number |}),
 });
 (C.foo: empty); // number ~> empty
 (C.bar: empty); // number ~> empty (inflow below)
@@ -673,7 +673,7 @@ C.bar = 0;
 
 // statics = Some (inexact & sealed) [annot]
 const D = React.createClass({
-  statics: ({ foo: 0 }: { foo: number }),
+	statics: ({ foo: 0 }: { foo: number }),
 });
 (D.foo: empty); // number ~> empty
 (D.bar: empty); // property \`bar\` not found
@@ -681,12 +681,12 @@ D.bar = 0; // property \`bar\` not found
 
 // mixins: (exact & sealed) + (exact & sealed)
 const E = React.createClass({
-  mixins: [
-    {
-      statics: { foo: 0 },
-    },
-  ],
-  statics: { bar: 0 },
+	mixins: [
+		{
+			statics: { foo: 0 },
+		},
+	],
+	statics: { bar: 0 },
 });
 (E.foo: empty); // number ~> empty
 (E.bar: empty); // number ~> empty
@@ -695,12 +695,12 @@ E.baz = 0;
 
 // mixins: (exact & sealed) + (inexact & sealed)
 const F = React.createClass({
-  mixins: [
-    {
-      statics: ({ foo: 0 }: { foo: number }),
-    },
-  ],
-  statics: { bar: 0 },
+	mixins: [
+		{
+			statics: ({ foo: 0 }: { foo: number }),
+		},
+	],
+	statics: { bar: 0 },
 });
 (F.foo: empty); // number ~> empty
 (F.bar: empty); // number ~> empty
@@ -735,10 +735,10 @@ import React from "react";
 class Bar extends React.Component {}
 
 class Foo extends React.Component {
-  render() {
-    const Cmp = Math.random() < 0.5 ? "div" : Bar;
-    return <Cmp />;
-  }
+	render() {
+		const Cmp = Math.random() < 0.5 ? "div" : Bar;
+		return <Cmp />;
+	}
 }
 
 ================================================================================
@@ -778,19 +778,19 @@ class Foo extends React.Component {
 import React from "react";
 
 class Bar extends React.Component {
-  props: {
-    test: number,
-  };
-  render() {
-    return <div>{this.props.test}</div>;
-  }
+	props: {
+		test: number,
+	};
+	render() {
+		return <div>{this.props.test}</div>;
+	}
 }
 
 class Foo extends React.Component {
-  render() {
-    const Cmp = Math.random() < 0.5 ? "div" : Bar;
-    return <Cmp />;
-  }
+	render() {
+		const Cmp = Math.random() < 0.5 ? "div" : Bar;
+		return <Cmp />;
+	}
 }
 
 ================================================================================
@@ -845,9 +845,9 @@ var blah = <Foo {...props} />; // error bar, number given string expected
 
 var React = require("react");
 var Foo = React.createClass({
-  propTypes: {
-    bar: React.PropTypes.string.isRequired,
-  },
+	propTypes: {
+		bar: React.PropTypes.string.isRequired,
+	},
 });
 
 var props = { bar: 42 };
@@ -886,18 +886,18 @@ var AnyFunExample = React.createClass({
 const React = require("react");
 
 var AnyExample = React.createClass({
-  propTypes: {
-    foo: (0: any), // OK
-  },
+	propTypes: {
+		foo: (0: any), // OK
+	},
 });
 
 <AnyExample />; // OK
 <AnyExample foo={(0: mixed)} />; // OK
 
 var AnyFunExample = React.createClass({
-  propTypes: {
-    foo: (() => {}: Function), // OK
-  },
+	propTypes: {
+		foo: (() => {}: Function), // OK
+	},
 });
 
 <AnyFunExample />; // OK
@@ -963,9 +963,9 @@ var InvalidExample = React.createClass({
 
 var React = require("react");
 var Example = React.createClass({
-  propTypes: {
-    arr: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
-  },
+	propTypes: {
+		arr: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
+	},
 });
 
 var ok_empty = <Example arr={[]} />;
@@ -981,9 +981,9 @@ var fail_mistyped_elems = <Example arr={[1, "foo"]} />;
 var todo_required = <Example arr={[null]} />;
 
 var OptionalExample = React.createClass({
-  propTypes: {
-    arr: React.PropTypes.arrayOf(React.PropTypes.number),
-  },
+	propTypes: {
+		arr: React.PropTypes.arrayOf(React.PropTypes.number),
+	},
 });
 
 <OptionalExample />; // OK
@@ -991,18 +991,18 @@ var OptionalExample = React.createClass({
 <OptionalExample arr={[""]} />; // error: string ~> number
 
 var AnyExample = React.createClass({
-  propTypes: {
-    arr: React.PropTypes.arrayOf((0: any)), // OK
-  },
+	propTypes: {
+		arr: React.PropTypes.arrayOf((0: any)), // OK
+	},
 });
 
 <AnyExample arr={0} />; // error: still needs to be an array
 <AnyExample arr={[0]} />; // OK
 
 var InvalidExample = React.createClass({
-  propTypes: {
-    arr: React.PropTypes.arrayOf(0), // error: number not a prop type
-  },
+	propTypes: {
+		arr: React.PropTypes.arrayOf(0), // error: number not a prop type
+	},
 });
 
 ================================================================================
@@ -1038,15 +1038,15 @@ const React = require("react");
 
 // Custom validator must match \`ReactPropsCheckType\`
 var Example = React.createClass({
-  propTypes: {
-    foo(props, propName, componentName, href) {
-      (props: empty); // ok: props is \`any\`
-      (propName: empty); // error: propName is a string
-      (componentName: empty); // error: componentName is a string
-      (href: empty); // error: href is an optional string
-      return (0: mixed); // error: should return ?Error
-    },
-  },
+	propTypes: {
+		foo(props, propName, componentName, href) {
+			(props: empty); // ok: props is \`any\`
+			(propName: empty); // error: propName is a string
+			(componentName: empty); // error: componentName is a string
+			(href: empty); // error: href is an optional string
+			return (0: mixed); // error: should return ?Error
+		},
+	},
 });
 
 // Inferred prop type is optional \`any\`
@@ -1082,9 +1082,9 @@ var fail_mistyped = <Example func={2} />
 
 var React = require("react");
 var Example = React.createClass({
-  propTypes: {
-    func: React.PropTypes.func.isRequired,
-  },
+	propTypes: {
+		func: React.PropTypes.func.isRequired,
+	},
 });
 
 var ok_void = <Example func={() => {}} />;
@@ -1117,9 +1117,9 @@ var Example = React.createClass({
 const React = require("react");
 
 var Example = React.createClass({
-  propTypes: {
-    foo: 0, // error: \`0\` is not a prop type
-  },
+	propTypes: {
+		foo: 0, // error: \`0\` is not a prop type
+	},
 });
 
 <Example />; // OK: don't cascade errors
@@ -1185,9 +1185,9 @@ class C extends B {}
 
 var React = require("react");
 var Example = React.createClass({
-  propTypes: {
-    x: React.PropTypes.instanceOf(B),
-  },
+	propTypes: {
+		x: React.PropTypes.instanceOf(B),
+	},
 });
 
 <Example x={new A()} />; // error: A ~> B
@@ -1196,15 +1196,15 @@ var Example = React.createClass({
 <Example x="wrong" />; // error: string ~> B
 
 class Poly<T> {
-  x: T;
+	x: T;
 }
 var PolyExample = React.createClass({
-  propTypes: {
-    x: React.PropTypes.instanceOf(Poly).isRequired,
-  },
-  m() {
-    (this.props.x.x: empty); // OK, T instantiated to \`any\`
-  },
+	propTypes: {
+		x: React.PropTypes.instanceOf(Poly).isRequired,
+	},
+	m() {
+		(this.props.x.x: empty); // OK, T instantiated to \`any\`
+	},
 });
 
 // Different instantiations don't interact
@@ -1212,15 +1212,15 @@ var PolyExample = React.createClass({
 <PolyExample x={(new Poly(): Poly<number>)} />; // OK
 
 class PolyDefault<T = string> {
-  x: T;
+	x: T;
 }
 var PolyDefaultExample = React.createClass({
-  propTypes: {
-    x: React.PropTypes.instanceOf(PolyDefault).isRequired,
-  },
-  m() {
-    (this.props.x.x: empty); // OK, T instantiated to \`any\`
-  },
+	propTypes: {
+		x: React.PropTypes.instanceOf(PolyDefault).isRequired,
+	},
+	m() {
+		(this.props.x.x: empty); // OK, T instantiated to \`any\`
+	},
 });
 
 ================================================================================
@@ -1282,21 +1282,21 @@ var Foo = React.createClass({
  */
 var React = require("react");
 var Foo = React.createClass({
-  getID(): string {
-    // So this would have been an error in 0.21.0 if we didn't make this.props
-    // Object
-    switch (this.props.name) {
-      case "a":
-        return "Bob";
-      default:
-        return "Alice";
-    }
-  },
+	getID(): string {
+		// So this would have been an error in 0.21.0 if we didn't make this.props
+		// Object
+		switch (this.props.name) {
+			case "a":
+				return "Bob";
+			default:
+				return "Alice";
+		}
+	},
 
-  render() {
-    // But this never errored
-    return <div id={this.props.name} />;
-  },
+	render() {
+		// But this never errored
+		return <div id={this.props.name} />;
+	},
 });
 
 ================================================================================
@@ -1327,9 +1327,9 @@ var fail_mistyped = <Example object={2} />
 
 var React = require("react");
 var Example = React.createClass({
-  propTypes: {
-    object: React.PropTypes.object.isRequired,
-  },
+	propTypes: {
+		object: React.PropTypes.object.isRequired,
+	},
 });
 
 var ok_empty = <Example object={{}} />;
@@ -1397,9 +1397,9 @@ var InvalidExample = React.createClass({
 
 var React = require("react");
 var Example = React.createClass({
-  propTypes: {
-    obj: React.PropTypes.objectOf(React.PropTypes.number).isRequired,
-  },
+	propTypes: {
+		obj: React.PropTypes.objectOf(React.PropTypes.number).isRequired,
+	},
 });
 
 var ok_empty = <Example obj={{}} />;
@@ -1415,9 +1415,9 @@ var fail_mistyped_props = <Example obj={{ foo: "foo" }} />;
 var todo_required = <Example obj={{ p: null }} />;
 
 var OptionalExample = React.createClass({
-  propTypes: {
-    obj: React.PropTypes.objectOf(React.PropTypes.number),
-  },
+	propTypes: {
+		obj: React.PropTypes.objectOf(React.PropTypes.number),
+	},
 });
 
 <OptionalExample />; // OK
@@ -1425,18 +1425,18 @@ var OptionalExample = React.createClass({
 <OptionalExample obj={{ p: "" }} />; // error: string ~> number
 
 var AnyExample = React.createClass({
-  propTypes: {
-    obj: React.PropTypes.objectOf((0: any)), // OK
-  },
+	propTypes: {
+		obj: React.PropTypes.objectOf((0: any)), // OK
+	},
 });
 
 <AnyExample obj={0} />; // error: still needs to be an object
 <AnyExample obj={{ p: 0 }} />; // OK
 
 var InvalidExample = React.createClass({
-  propTypes: {
-    obj: React.PropTypes.objectOf(0), // error: number not a prop type
-  },
+	propTypes: {
+		obj: React.PropTypes.objectOf(0), // error: number not a prop type
+	},
 });
 
 ================================================================================
@@ -1541,12 +1541,12 @@ var NonLiteralElemExample = React.createClass({
 
 var React = require("react");
 var Example = React.createClass({
-  propTypes: {
-    str: React.PropTypes.oneOf(["foo", "bar"]),
-    num: React.PropTypes.oneOf([0, 1, 2]),
-    bool: React.PropTypes.oneOf([true]),
-    mixed: React.PropTypes.oneOf(["foo", 0, true]),
-  },
+	propTypes: {
+		str: React.PropTypes.oneOf(["foo", "bar"]),
+		num: React.PropTypes.oneOf([0, 1, 2]),
+		bool: React.PropTypes.oneOf([true]),
+		mixed: React.PropTypes.oneOf(["foo", 0, true]),
+	},
 });
 
 <Example str="foo" />; // OK
@@ -1563,65 +1563,65 @@ var Example = React.createClass({
 <Example mixed={"baz"} />; // error: 'baz' not in enum
 
 var RequiredExample = React.createClass({
-  propTypes: {
-    p: React.PropTypes.oneOf([]).isRequired,
-  },
+	propTypes: {
+		p: React.PropTypes.oneOf([]).isRequired,
+	},
 });
 
 <RequiredExample />; // error: \`p\` not found
 
 var EmptyExample = React.createClass({
-  propTypes: {
-    nil: React.PropTypes.oneOf([]), // i.e., \`empty\`
-  },
+	propTypes: {
+		nil: React.PropTypes.oneOf([]), // i.e., \`empty\`
+	},
 });
 
 <EmptyExample nil={0} />; // number ~> empty
 
 var AnyArrayExample = React.createClass({
-  propTypes: {
-    any: React.PropTypes.oneOf((0: any)),
-  },
+	propTypes: {
+		any: React.PropTypes.oneOf((0: any)),
+	},
 });
 
 <AnyArrayExample any={0} />; // OK
 
 var AnyElemExample = React.createClass({
-  propTypes: {
-    any: React.PropTypes.oneOf(["foo", (0: any)]),
-  },
+	propTypes: {
+		any: React.PropTypes.oneOf(["foo", (0: any)]),
+	},
 });
 
 <AnyElemExample any={0} />; // OK
 
 var DynamicArrayExample = React.createClass({
-  propTypes: {
-    dyn: React.PropTypes.oneOf(([]: Array<string>)),
-  },
+	propTypes: {
+		dyn: React.PropTypes.oneOf(([]: Array<string>)),
+	},
 });
 
 <DynamicArrayExample dyn={0} />; // OK
 
 var DynamicElemExample = React.createClass({
-  propTypes: {
-    dyn: React.PropTypes.oneOf(["foo", ("": string)]),
-  },
+	propTypes: {
+		dyn: React.PropTypes.oneOf(["foo", ("": string)]),
+	},
 });
 
 <DynamicElemExample dyn={0} />; // OK
 
 var InvalidArrayExample = React.createClass({
-  propTypes: {
-    p: React.PropTypes.oneOf(0), // error: expected array, got 0
-  },
+	propTypes: {
+		p: React.PropTypes.oneOf(0), // error: expected array, got 0
+	},
 });
 
 <InvalidArrayExample p={0} />; // OK, don't cascade errors
 
 var NonLiteralElemExample = React.createClass({
-  propTypes: {
-    p: React.PropTypes.oneOf([{}]), // OK: allow non-literals
-  },
+	propTypes: {
+		p: React.PropTypes.oneOf([{}]), // OK: allow non-literals
+	},
 });
 <NonLiteralElemExample p={0} />; // OK, result is unknown/any
 
@@ -1743,19 +1743,19 @@ var InvalidElemExample = React.createClass({
 
 var React = require("react");
 var Example = React.createClass({
-  propTypes: {
-    prop: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.number,
-    ]).isRequired,
-  },
-  render() {
-    if (typeof this.props.prop === "string") {
-      return <div>{this.props.prop}</div>;
-    } else {
-      return <div>{this.props.prop.toFixed(2)}</div>;
-    }
-  },
+	propTypes: {
+		prop: React.PropTypes.oneOfType([
+			React.PropTypes.string,
+			React.PropTypes.number,
+		]).isRequired,
+	},
+	render() {
+		if (typeof this.props.prop === "string") {
+			return <div>{this.props.prop}</div>;
+		} else {
+			return <div>{this.props.prop.toFixed(2)}</div>;
+		}
+	},
 });
 
 var ok_number = <Example prop={42} />;
@@ -1770,9 +1770,9 @@ var fail_bool = <Example prop={true} />;
 var todo_required = <Example prop={null} />;
 
 var OptionalExample = React.createClass({
-  propTypes: {
-    p: React.PropTypes.oneOfType([React.PropTypes.string]),
-  },
+	propTypes: {
+		p: React.PropTypes.oneOfType([React.PropTypes.string]),
+	},
 });
 
 <OptionalExample />; // OK
@@ -1780,60 +1780,60 @@ var OptionalExample = React.createClass({
 <OptionalExample p={0} />; // error: number ~> string
 
 var EmptyExample = React.createClass({
-  propTypes: {
-    nil: React.PropTypes.oneOfType([]), // i.e., \`empty\`
-  },
+	propTypes: {
+		nil: React.PropTypes.oneOfType([]), // i.e., \`empty\`
+	},
 });
 
 <EmptyExample nil={0} />; // number ~> empty
 
 var AnyArrayExample = React.createClass({
-  propTypes: {
-    any: React.PropTypes.oneOfType((0: any)),
-  },
+	propTypes: {
+		any: React.PropTypes.oneOfType((0: any)),
+	},
 });
 
 <AnyArrayExample any={0} />; // OK
 
 var AnyElemExample = React.createClass({
-  propTypes: {
-    any: React.PropTypes.oneOfType([React.PropTypes.string, (0: any)]),
-  },
+	propTypes: {
+		any: React.PropTypes.oneOfType([React.PropTypes.string, (0: any)]),
+	},
 });
 
 <AnyElemExample any={0} />; // OK
 
 var DynamicArrayExample = React.createClass({
-  propTypes: {
-    dyn: React.PropTypes.oneOfType(([]: Array<Function>)),
-  },
+	propTypes: {
+		dyn: React.PropTypes.oneOfType(([]: Array<Function>)),
+	},
 });
 
 <DynamicArrayExample dyn={0} />; // OK
 
 var DynamicElemExample = React.createClass({
-  propTypes: {
-    dyn: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      (() => {}: Function),
-    ]),
-  },
+	propTypes: {
+		dyn: React.PropTypes.oneOfType([
+			React.PropTypes.string,
+			(() => {}: Function),
+		]),
+	},
 });
 
 <DynamicElemExample dyn={0} />; // OK
 
 var InvalidArrayExample = React.createClass({
-  propTypes: {
-    p: React.PropTypes.oneOfType(0), // error: expected array, got 0
-  },
+	propTypes: {
+		p: React.PropTypes.oneOfType(0), // error: expected array, got 0
+	},
 });
 
 <InvalidArrayExample p={0} />; // OK, don't cascade errors
 
 var InvalidElemExample = React.createClass({
-  propTypes: {
-    p: React.PropTypes.oneOfType([{}]), // error: expected prop type, got {}
-  },
+	propTypes: {
+		p: React.PropTypes.oneOfType([{}]), // error: expected prop type, got {}
+	},
 });
 
 <InvalidElemExample p={0} />; // OK, don't cascade errors
@@ -1896,28 +1896,28 @@ React.createClass({
 import React from "react";
 
 React.createClass({
-  propTypes: {
-    foo: React.PropTypes.shape({
-      bar: React.PropTypes.string.isRequired,
-    }).isRequired,
-  },
+	propTypes: {
+		foo: React.PropTypes.shape({
+			bar: React.PropTypes.string.isRequired,
+		}).isRequired,
+	},
 
-  f() {
-    (this.props.foo.baz: string);
-  },
+	f() {
+		(this.props.foo.baz: string);
+	},
 
-  g() {
-    this.props.foo.baz = 0;
-  },
+	g() {
+		this.props.foo.baz = 0;
+	},
 });
 
 React.createClass({
-  propTypes: {
-    foo: React.PropTypes.shape(({}: { [string]: any })).isRequired,
-  },
-  f() {
-    (this.props.foo.bar: empty); // OK
-  },
+	propTypes: {
+		foo: React.PropTypes.shape(({}: { [string]: any })).isRequired,
+	},
+	f() {
+		(this.props.foo.bar: empty); // OK
+	},
 });
 
 ================================================================================
@@ -2033,17 +2033,17 @@ React.createClass({
 import React from "react";
 
 React.createClass({
-  propTypes: {
-    foo: React.PropTypes.string.isRequired,
-  },
+	propTypes: {
+		foo: React.PropTypes.string.isRequired,
+	},
 
-  f() {
-    (this.props.baz: string);
-  },
+	f() {
+		(this.props.baz: string);
+	},
 
-  g() {
-    this.props.baz = 0;
-  },
+	g() {
+		this.props.baz = 0;
+	},
 });
 
 ================================================================================

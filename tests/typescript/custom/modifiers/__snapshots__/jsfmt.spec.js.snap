@@ -16,11 +16,11 @@ type ReadonlyPartial<T> = {
 
 =====================================output=====================================
 type MutableRequired<T> = {
-  -readonly [P in keyof T]-?: T[P];
+	-readonly [P in keyof T]-?: T[P];
 }; // Remove readonly and ?
 
 type ReadonlyPartial<T> = {
-  +readonly [P in keyof T]+?: T[P];
+	+readonly [P in keyof T]+?: T[P];
 }; // Add readonly and ?
 
 ================================================================================
@@ -38,7 +38,7 @@ var x: {
 
 =====================================output=====================================
 var x: {
-  [A in keyof B]?: any;
+	[A in keyof B]?: any;
 };
 
 ================================================================================
@@ -56,7 +56,7 @@ var x: {
 
 =====================================output=====================================
 var x: {
-  readonly [A in keyof B]: any;
+	readonly [A in keyof B]: any;
 };
 
 ================================================================================

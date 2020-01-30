@@ -67,28 +67,28 @@ module.exports = Test;
  */
 
 class Base {
-  static baseProp: number;
+	static baseProp: number;
 }
 
 class Test extends Base {
-  static childProp: number;
+	static childProp: number;
 
-  static staticNumber1(): number {
-    return 1;
-  }
-  static staticNumber2(): number {
-    return 2;
-  }
-  static staticNumber3(): number {
-    return 3;
-  }
+	static staticNumber1(): number {
+		return 1;
+	}
+	static staticNumber2(): number {
+		return 2;
+	}
+	static staticNumber3(): number {
+		return 3;
+	}
 
-  instNumber1(): number {
-    return 1;
-  }
-  instNumber2(): number {
-    return 2;
-  }
+	instNumber1(): number {
+		return 1;
+	}
+	instNumber2(): number {
+		return 2;
+	}
 }
 
 module.exports = Test;
@@ -118,7 +118,7 @@ module.exports = Object.freeze({
  */
 
 module.exports = Object.freeze({
-  numberValue1: 1,
+	numberValue1: 1,
 });
 
 ================================================================================
@@ -150,11 +150,11 @@ module.exports = {
  */
 
 module.exports = {
-  numberValue1: 1,
-  numberValue2: 2,
-  numberValue3: 3,
-  numberValue4: 4,
-  numberValue5: 5,
+	numberValue1: 1,
+	numberValue2: 2,
+	numberValue3: 3,
+	numberValue4: 4,
+	numberValue5: 5,
 };
 
 ================================================================================
@@ -212,9 +212,9 @@ export default class { givesANum(): number { return 42; }};
  */
 
 export default class {
-  givesANum(): number {
-    return 42;
-  }
+	givesANum(): number {
+		return 42;
+	}
 }
 
 ================================================================================
@@ -240,9 +240,9 @@ export default class { givesANum(): number { return 42; }};
  */
 
 export default class {
-  givesANum(): number {
-    return 42;
-  }
+	givesANum(): number {
+		return 42;
+	}
 }
 
 ================================================================================
@@ -268,7 +268,7 @@ export default function():number { return 42; }
  */
 
 export default function (): number {
-  return 42;
+	return 42;
 }
 
 ================================================================================
@@ -294,7 +294,7 @@ export default function():number { return 42; }
  */
 
 export default function (): number {
-  return 42;
+	return 42;
 }
 
 ================================================================================
@@ -325,9 +325,9 @@ new Foo();
  */
 
 export default class Foo {
-  givesANum(): number {
-    return 42;
-  }
+	givesANum(): number {
+		return 42;
+	}
 }
 
 // Regression test for https://github.com/facebook/flow/issues/511
@@ -358,9 +358,9 @@ export default class Foo { givesANum(): number { return 42; }};
  */
 
 export default class Foo {
-  givesANum(): number {
-    return 42;
-  }
+	givesANum(): number {
+		return 42;
+	}
 }
 
 ================================================================================
@@ -386,7 +386,7 @@ export default function foo():number { return 42; }
  */
 
 export default function foo(): number {
-  return 42;
+	return 42;
 }
 
 ================================================================================
@@ -412,7 +412,7 @@ export default function foo():number { return 42; }
  */
 
 export default function foo(): number {
-  return 42;
+	return 42;
 }
 
 ================================================================================
@@ -577,8 +577,8 @@ export {
  */
 
 export {
-  numberValue1,
-  numberValue2 as numberValue2_renamed,
+	numberValue1,
+	numberValue2 as numberValue2_renamed,
 } from "ES6_ExportFrom_Source1";
 
 ================================================================================
@@ -607,8 +607,8 @@ export {
  */
 
 export {
-  numberValue1,
-  numberValue2 as numberValue2_renamed2,
+	numberValue1,
+	numberValue2 as numberValue2_renamed2,
 } from "ES6_ExportFrom_Source2";
 
 ================================================================================
@@ -634,7 +634,7 @@ export var numberValue1 = 1, numberValue2 = 2;
  */
 
 export var numberValue1 = 1,
-  numberValue2 = 2;
+	numberValue2 = 2;
 
 ================================================================================
 `;
@@ -659,7 +659,7 @@ export var numberValue1 = 1, numberValue2 = 2;
  */
 
 export var numberValue1 = 1,
-  numberValue2 = 2;
+	numberValue2 = 2;
 
 ================================================================================
 `;
@@ -711,16 +711,16 @@ export { specifierNumber3 };
 export { groupedSpecifierNumber1, groupedSpecifierNumber2 };
 
 export function givesANumber(): number {
-  return 42;
+	return 42;
 }
 export class NumberGenerator {
-  givesANumber(): number {
-    return 42;
-  }
+	givesANumber(): number {
+		return 42;
+	}
 }
 
 export var varDeclNumber1 = 1,
-  varDeclNumber2 = 2;
+	varDeclNumber2 = 2;
 export var { destructuredObjNumber } = { destructuredObjNumber: 1 };
 export var [destructuredArrNumber] = [1];
 
@@ -770,16 +770,16 @@ export { specifierNumber5 as specifierNumber5Renamed };
 export { groupedSpecifierNumber3, groupedSpecifierNumber4 };
 
 export function givesANumber2(): number {
-  return 42;
+	return 42;
 }
 export class NumberGenerator2 {
-  givesANumber(): number {
-    return 42;
-  }
+	givesANumber(): number {
+		return 42;
+	}
 }
 
 export var varDeclNumber3 = 1,
-  varDeclNumber4 = 2;
+	varDeclNumber4 = 2;
 export var { destructuredObjNumber2 } = { destructuredObjNumber2: 1 };
 export var [destructuredArrNumber2] = [1];
 
@@ -858,7 +858,7 @@ module.exports = {
  */
 
 module.exports = {
-  numberValue: 42,
+	numberValue: 42,
 };
 
 ================================================================================
@@ -1481,7 +1481,7 @@ var ap1: number = numberValue6;
 var ap2: string = numberValue6; // Error: number ~> string
 
 var numberValue2_renamed2 = require("ES6_ExportFrom_Intermediary2")
-  .numberValue2_renamed2;
+	.numberValue2_renamed2;
 var aq1: number = numberValue2_renamed2;
 var aq2: string = numberValue2_renamed2; // Error: number ~> string
 
@@ -1517,8 +1517,8 @@ import { specifierNumber } from "ES6_Named1"; // Error: Did you mean \`specifier
 // == Multi \`export *\` should combine exports == //
 ///////////////////////////////////////////////////
 import {
-  numberValue1 as numberValue8,
-  numberValue2 as numberValue9,
+	numberValue1 as numberValue8,
+	numberValue2 as numberValue9,
 } from "./ES6_ExportAllFromMulti";
 
 var at1: number = numberValue8;
@@ -1630,21 +1630,21 @@ CommonJS_Clobbering_Frozen.numberValue1 = 123; // Error: exports are frozen
 //
 
 function testRequires() {
-  // CommonJS module
-  var DefaultA = require("A");
-  DefaultA.numberValue1 = 123; // ok, not frozen by default
+	// CommonJS module
+	var DefaultA = require("A");
+	DefaultA.numberValue1 = 123; // ok, not frozen by default
 
-  // ES6 module
-  var ES6_Named1 = require("ES6_Named1");
-  ES6_Named1.numberValue = 123; // error, es6 exports are frozen
+	// ES6 module
+	var ES6_Named1 = require("ES6_Named1");
+	ES6_Named1.numberValue = 123; // error, es6 exports are frozen
 
-  // CommonJS module that clobbers module.exports
-  var CommonJS_Star = require("CommonJS_Clobbering_Lit");
-  CommonJS_Star.numberValue1 = 123; // ok, not frozen by default
+	// CommonJS module that clobbers module.exports
+	var CommonJS_Star = require("CommonJS_Clobbering_Lit");
+	CommonJS_Star.numberValue1 = 123; // ok, not frozen by default
 
-  // CommonJS module that clobbers module.exports with a frozen object
-  var CommonJS_Frozen_Star = require("CommonJS_Clobbering_Frozen");
-  CommonJS_Frozen_Star.numberValue1 = 123; // Error: frozen
+	// CommonJS module that clobbers module.exports with a frozen object
+	var CommonJS_Frozen_Star = require("CommonJS_Clobbering_Frozen");
+	CommonJS_Frozen_Star.numberValue1 = 123; // Error: frozen
 }
 
 ================================================================================

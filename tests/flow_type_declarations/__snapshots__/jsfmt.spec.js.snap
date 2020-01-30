@@ -104,7 +104,7 @@ type SomeOtherLongLongLongLongLongLongLongLongLongLongLongLongLongLongKey2 = Som
 
 =====================================output=====================================
 export type AdamPlacementValidationSingleErrorKey =
-  "SOME_FANCY_TARGETS.GLOBAL_TARGET";
+	"SOME_FANCY_TARGETS.GLOBAL_TARGET";
 
 export type SomeReallyLongLongLongLongLongLongLongLongLongLongLongLongLongLongKey = true;
 
@@ -133,7 +133,7 @@ type SomeOtherLongLongLongLongLongLongLongLongLongLongLongLongLongLongKey2 = Som
 
 =====================================output=====================================
 export type AdamPlacementValidationSingleErrorKey =
-  "SOME_FANCY_TARGETS.GLOBAL_TARGET"
+	"SOME_FANCY_TARGETS.GLOBAL_TARGET"
 
 export type SomeReallyLongLongLongLongLongLongLongLongLongLongLongLongLongLongKey = true
 

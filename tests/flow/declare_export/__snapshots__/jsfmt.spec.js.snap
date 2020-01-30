@@ -67,28 +67,28 @@ module.exports = Test;
  */
 
 class Base {
-  static baseProp: number;
+	static baseProp: number;
 }
 
 class Test extends Base {
-  static childProp: number;
+	static childProp: number;
 
-  static staticNumber1(): number {
-    return 1;
-  }
-  static staticNumber2(): number {
-    return 2;
-  }
-  static staticNumber3(): number {
-    return 3;
-  }
+	static staticNumber1(): number {
+		return 1;
+	}
+	static staticNumber2(): number {
+		return 2;
+	}
+	static staticNumber3(): number {
+		return 3;
+	}
 
-  instNumber1(): number {
-    return 1;
-  }
-  instNumber2(): number {
-    return 2;
-  }
+	instNumber1(): number {
+		return 1;
+	}
+	instNumber2(): number {
+		return 2;
+	}
 }
 
 module.exports = Test;
@@ -122,11 +122,11 @@ module.exports = {
  */
 
 module.exports = {
-  numberValue1: 1,
-  numberValue2: 2,
-  numberValue3: 3,
-  numberValue4: 4,
-  numberValue5: 5,
+	numberValue1: 1,
+	numberValue2: 2,
+	numberValue3: 3,
+	numberValue4: 4,
+	numberValue5: 5,
 };
 
 ================================================================================
@@ -238,7 +238,7 @@ declare export function getAFoo(): FooImpl;
  */
 
 declare export default class FooImpl {
-  givesANum(): number;
+	givesANum(): number;
 }
 
 // Regression test for https://github.com/facebook/flow/issues/511
@@ -270,7 +270,7 @@ declare export default class Foo { givesANum(): number; };
  */
 
 declare export default class Foo {
-  givesANum(): number;
+	givesANum(): number;
 }
 
 ================================================================================
@@ -483,8 +483,8 @@ declare export {
  */
 
 declare export {
-  numberValue1,
-  numberValue2 as numberValue2_renamed,
+	numberValue1,
+	numberValue2 as numberValue2_renamed,
 } from "ES6_ExportFrom_Source1";
 
 ================================================================================
@@ -513,8 +513,8 @@ declare export {
  */
 
 declare export {
-  numberValue1,
-  numberValue2 as numberValue2_renamed2,
+	numberValue1,
+	numberValue2 as numberValue2_renamed2,
 } from "ES6_ExportFrom_Source2";
 
 ================================================================================
@@ -619,7 +619,7 @@ declare export { groupedSpecifierNumber1, groupedSpecifierNumber2 };
 
 declare export function givesANumber(): number;
 declare export class NumberGenerator {
-  givesANumber(): number;
+	givesANumber(): number;
 }
 
 declare export var varDeclNumber1: number;
@@ -671,7 +671,7 @@ declare export { groupedSpecifierNumber3, groupedSpecifierNumber4 };
 
 declare export function givesANumber2(): number;
 declare export class NumberGenerator2 {
-  givesANumber(): number;
+	givesANumber(): number;
 }
 
 declare export var varDeclNumber3: number;
@@ -734,7 +734,7 @@ module.exports = {
  */
 
 module.exports = {
-  numberValue: 42,
+	numberValue: 42,
 };
 
 ================================================================================
@@ -1328,7 +1328,7 @@ var ap1: number = numberValue6;
 var ap2: string = numberValue6; // Error: number ~> string
 
 var numberValue2_renamed2 = require("ES6_ExportFrom_Intermediary2")
-  .numberValue2_renamed2;
+	.numberValue2_renamed2;
 var aq1: number = numberValue2_renamed2;
 var aq2: string = numberValue2_renamed2; // Error: number ~> string
 
@@ -1364,8 +1364,8 @@ import { specifierNumber } from "ES6_Named1"; // Error: Did you mean \`specifier
 // == Multi \`export *\` should combine exports == //
 ///////////////////////////////////////////////////
 import {
-  numberValue1 as numberValue8,
-  numberValue2 as numberValue9,
+	numberValue1 as numberValue8,
+	numberValue2 as numberValue9,
 } from "./ES6_ExportAllFromMulti";
 
 var at1: number = numberValue8;

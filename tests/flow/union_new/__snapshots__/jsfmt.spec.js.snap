@@ -43,10 +43,10 @@ type Children = Array<Child>;
 
 class Thunk {}
 class VirtualNode {
-  children: Child | Children;
-  constructor(type, children /*: Children */) {
-    this.children = children.length === 1 ? children[0] : children;
-  }
+	children: Child | Children;
+	constructor(type, children /*: Children */) {
+		this.children = children.length === 1 ? children[0] : children;
+	}
 }
 
 ================================================================================
@@ -81,16 +81,16 @@ import { B, C } from "./issue-824-helper";
 type K = B | C;
 
 type I = {
-  which(): number,
+	which(): number,
 };
 
 export default class A {
-  static foo(p: K): boolean {
-    return false;
-  }
-  static bar(p: I & K): boolean {
-    return this.foo(p);
-  }
+	static foo(p: K): boolean {
+		return false;
+	}
+	static bar(p: I & K): boolean {
+		return this.foo(p);
+	}
 }
 
 ================================================================================
@@ -119,14 +119,14 @@ export class C extends A {
 import A from "./issue-824";
 
 export class B extends A {
-  which(): number {
-    return 1;
-  }
+	which(): number {
+		return 1;
+	}
 }
 export class C extends A {
-  which(): number {
-    return 2;
-  }
+	which(): number {
+		return 2;
+	}
 }
 
 ================================================================================
@@ -149,8 +149,8 @@ var bar: Array<{b: ?boolean, c: number} | {b: boolean}> = [
 /* @flow */
 
 var bar: Array<{ b: ?boolean, c: number } | { b: boolean }> = [
-  { b: true, c: 123 },
-  { b: true },
+	{ b: true, c: 123 },
+	{ b: true },
 ];
 
 ================================================================================
@@ -172,12 +172,12 @@ function create(a: any): { type: 'B', data: number } | { type: 'A', data: string
 
 =====================================output=====================================
 function create(
-  a: any
+	a: any
 ): { type: "B", data: number } | { type: "A", data: string } {
-  return {
-    type: "A",
-    data: a,
-  };
+	return {
+		type: "A",
+		data: a,
+	};
 }
 
 ================================================================================
@@ -206,7 +206,7 @@ import type { Foobar } from "./issue-1455-helper";
 function create(content: ?Foobar | String | Array<String>) {}
 
 function node(content: ?Foobar | String | Array<String>) {
-  create(content);
+	create(content);
 }
 
 ================================================================================
@@ -263,23 +263,23 @@ function printAll(val: MyType) {
 type Common = {};
 
 type A = Common & {
-  type: "A",
-  foo: number,
+	type: "A",
+	foo: number,
 };
 
 type B = Common & {
-  type: "B",
-  foo: Array<number>,
+	type: "B",
+	foo: Array<number>,
 };
 
 type MyType = A | B;
 
 function print(x: number) {
-  console.log(x);
+	console.log(x);
 }
 
 function printAll(val: MyType) {
-  print(val.foo); // <--- foo could be an array
+	print(val.foo); // <--- foo could be an array
 }
 
 ================================================================================
@@ -323,27 +323,27 @@ function printAll(val: MyType) {
 type Common = {};
 
 type A = {
-  type: "A",
-  foo: number,
+	type: "A",
+	foo: number,
 } & Common;
 
 type B = {
-  type: "B",
-  foo: Array<number>,
+	type: "B",
+	foo: Array<number>,
 } & Common;
 
 type MyType = A | B;
 
 function print(x: number) {
-  console.log(x);
+	console.log(x);
 }
 
 function printAll(val: MyType) {
-  if (val.type === "A") {
-    print(val.foo);
-  } else {
-    val.foo.forEach(print);
-  }
+	if (val.type === "A") {
+		print(val.foo);
+	} else {
+		val.foo.forEach(print);
+	}
 }
 
 ================================================================================
@@ -386,28 +386,28 @@ if (data.kind === "system") {
 /* @flow */
 
 type DataBase = {
-  id: string,
-  name: string,
+	id: string,
+	name: string,
 };
 
 type UserData = DataBase & {
-  kind: "user",
+	kind: "user",
 };
 
 type SystemData = DataBase & {
-  kind: "system",
+	kind: "system",
 };
 
 type Data = UserData | SystemData;
 
 const data: Data = {
-  id: "",
-  name: "",
-  kind: "system",
+	id: "",
+	name: "",
+	kind: "system",
 };
 
 if (data.kind === "system") {
-  (data: SystemData);
+	(data: SystemData);
 }
 
 ================================================================================
@@ -435,8 +435,8 @@ type X = ({ a: true } & { b: string }) | ({ a: false } & { c: string });
 //type X = {a:true, b:string} | {a:false, c:string}; // this works.
 
 function hello(x: X): string {
-  if (x.a === true) return x.b;
-  else return x.c;
+	if (x.a === true) return x.b;
+	else return x.c;
 }
 
 ================================================================================
@@ -477,25 +477,25 @@ function test(f: Foo| EmptyFoo) {
 /* @flow */
 
 declare type Entity<T> = {
-  id: T,
-  name: string,
+	id: T,
+	name: string,
 };
 
 declare type StringEntity = Entity<string>;
 
 declare type Foo = StringEntity & {
-  bars: Object,
-  kind: 1,
+	bars: Object,
+	kind: 1,
 };
 declare type EmptyFoo = StringEntity & {
-  bars: null,
-  kind: 2,
+	bars: null,
+	kind: 2,
 };
 
 function test(f: Foo | EmptyFoo) {
-  if (f.kind === 1) {
-    (f: Foo);
-  }
+	if (f.kind === 1) {
+		(f: Foo);
+	}
 }
 
 ================================================================================
@@ -580,7 +580,7 @@ type A6 = B6[];
 //////////////////////////////
 
 function obj(a: A1 | A2) {
-  return a.x;
+	return a.x;
 }
 
 const obj_result = obj({ x: "" }); // currently an error! (expect it to be OK)
@@ -604,7 +604,7 @@ type B2 = string;
 ///////////////////////////////////////
 
 function fun(a: A3 | A4) {
-  return a();
+	return a();
 }
 
 const fun_result = fun(() => "");
@@ -780,7 +780,7 @@ type B4 = string;
 function stat(a: { x: number } | { x: string }) {}
 
 class D {
-  static x: B5;
+	static x: B5;
 }
 
 stat(D);
@@ -929,7 +929,7 @@ const a1 = ((x) => {}: A1);
 fun(a1);
 
 function fun_call(x: string) {
-  a1(x);
+	a1(x);
 }
 
 type A1 = (x: B1) => void;
@@ -946,10 +946,10 @@ const a2 = ([]: A2);
 arr(a2);
 
 function arr_set(x: string, i: number) {
-  a2[i] = x;
+	a2[i] = x;
 }
 function arr_get(i: number): string {
-  return a2[i];
+	return a2[i];
 }
 
 type A2 = B2[];
@@ -1007,12 +1007,12 @@ function arr_set(x: string, i: number) { a2[i] = x; }
 function fun(a: ((x: number) => number) | ((x: string) => string)) {}
 
 function a1(x) {
-  return x;
+	return x;
 }
 fun(a1);
 
 function fun_call(x: string): string {
-  return a1(x);
+	return a1(x);
 }
 
 /////////////////////////////
@@ -1025,7 +1025,7 @@ var a2 = [];
 arr(a2);
 
 function arr_set(x: string, i: number) {
-  a2[i] = x;
+	a2[i] = x;
 }
 
 ================================================================================
@@ -1075,7 +1075,7 @@ class C<X> { }
 //////////////////////////////////////////
 
 function inst(a: E<B4>): C<number> | C<string> {
-  return a;
+	return a;
 }
 
 const mk_C = () => C;
@@ -1258,7 +1258,7 @@ foo((x): number => square(x))
 ////////////////
 
 function square(x? = 0) {
-  return x * x;
+	return x * x;
 }
 
 function foo(f: ((_: ?number) => ?number) | (() => void)) {}
@@ -1350,7 +1350,7 @@ check_poly_inst(new P);
 // @noflow
 
 function id<X>(x: X): X {
-  return x;
+	return x;
 }
 
 /////////////////////////
@@ -1456,8 +1456,8 @@ type Cons = { kind: "cons", next: List };
 // disjoint unions
 
 function length(list: List) {
-  if (list.kind === "cons") return length(list.next) + 1;
-  else return 0;
+	if (list.kind === "cons") return length(list.next) + 1;
+	else return 0;
 }
 
 length({ kind: "nil" });
@@ -1498,7 +1498,7 @@ type G = { x: number };
 type H = { x: string };
 
 function rec(x: F<string>): G | H {
-  return x;
+	return x;
 }
 
 ================================================================================
@@ -1528,14 +1528,14 @@ printWidth: 80
 /* ensure there are no unintended side effects when trying branches */
 
 ({ type: "B", id: "hi" }:
-  | {
-      type: "A",
-      id: ?string,
-    }
-  | {
-      type: "B",
-      id: string,
-    });
+	| {
+			type: "A",
+			id: ?string,
+	  }
+	| {
+			type: "B",
+			id: string,
+	  });
 
 ================================================================================
 `;
@@ -1566,13 +1566,13 @@ function foo(c: C<number>) {
 // annotations
 
 declare class C<X> {
-  get(): X;
+	get(): X;
 }
 
 function union(o: { x: string } | { x: number }) {}
 
 function foo(c: C<number>) {
-  union({ x: c.get() });
+	union({ x: c.get() });
 }
 
 ================================================================================
@@ -1615,12 +1615,12 @@ bar(() => { });
 // functions as objects
 
 function foo<X>(target: EventTarget) {
-  target.addEventListener("click", (e) => {});
+	target.addEventListener("click", (e) => {});
 }
 
 declare class EventTarget {
-  addEventListener(type: "foo", listener: KeyboardEventHandler): void;
-  addEventListener(type: string, listener: EventHandler): void;
+	addEventListener(type: "foo", listener: KeyboardEventHandler): void;
+	addEventListener(type: string, listener: EventHandler): void;
 }
 
 declare class Event {}
@@ -1681,7 +1681,7 @@ bar(() => qux());
 
 var x = false;
 function qux() {
-  return x;
+	return x;
 }
 x = "";
 
@@ -1739,12 +1739,12 @@ new C().m(f());
 // method overloads
 
 declare class C {
-  m(x: number): void;
-  m(x: string): void;
+	m(x: number): void;
+	m(x: string): void;
 }
 
 function f() {
-  return 0;
+	return 0;
 }
 
 new C().m(f());
@@ -1777,12 +1777,12 @@ declare class D {
 // constructor overloads
 
 function m<X>() {
-  return new D();
+	return new D();
 }
 
 declare class D {
-  constructor(_: void): void;
-  constructor(_: null): void;
+	constructor(_: void): void;
+	constructor(_: null): void;
 }
 
 ================================================================================
@@ -1817,7 +1817,7 @@ printWidth: 80
 [0, 1].reduce((x, y, i) => y);
 
 ["a", "b"].reduce((regex, representation, index) => {
-  return regex + (index ? "|" : "") + "(" + representation + ")";
+	return regex + (index ? "|" : "") + "(" + representation + ")";
 }, "");
 
 [""].reduce((acc, str) => acc * str.length);
@@ -1867,11 +1867,11 @@ type T = { type: "FOO", x: number } | { type: "BAR", x: string };
 ({ type: bar(), x: (str(): string) }: T);
 
 function bar() {
-  return "BAR";
+	return "BAR";
 }
 
 function str() {
-  return "hello";
+	return "hello";
 }
 
 ================================================================================
@@ -1913,19 +1913,19 @@ function foo(x: T) {
 type Empty = {};
 
 type Success = {
-  type: "SUCCESS",
-  result: string,
+	type: "SUCCESS",
+	result: string,
 };
 
 type Error = {
-  type: "ERROR",
+	type: "ERROR",
 } & Empty;
 
 export type T = Success | Error;
 
 function foo(x: T) {
-  if (x.type === "SUCCESS") return x.result;
-  else return x.result;
+	if (x.type === "SUCCESS") return x.result;
+	else return x.result;
 }
 
 ================================================================================
@@ -1960,8 +1960,8 @@ type NestedObj = {} & { dummy: SomeLibClass };
 type Obj = NestedObj & { x: string };
 
 function foo(obj: Obj) {
-  obj.x; // should be OK
-  obj.x; // should also be OK (the check above shouldn't affect anything)
+	obj.x; // should be OK
+	obj.x; // should also be OK (the check above shouldn't affect anything)
 }
 
 ================================================================================
@@ -2010,33 +2010,33 @@ declare class D extends C {
 // scaling test for full type resolution
 
 declare class C {
-  addListener(event: string, listener: Function): C;
-  emit(event: string, ...args: Array<any>): boolean;
-  listeners(event: string): Array<Function>;
-  listenerCount(event: string): number;
-  on(event: string, listener: Function): C;
-  once(event: string, listener: Function): C;
-  removeAllListeners(event?: string): C;
-  removeListener(event: string, listener: Function): C;
-  setMaxListeners(n: number): void;
+	addListener(event: string, listener: Function): C;
+	emit(event: string, ...args: Array<any>): boolean;
+	listeners(event: string): Array<Function>;
+	listenerCount(event: string): number;
+	on(event: string, listener: Function): C;
+	once(event: string, listener: Function): C;
+	removeAllListeners(event?: string): C;
+	removeListener(event: string, listener: Function): C;
+	setMaxListeners(n: number): void;
 }
 
 declare class D extends C {
-  listen(
-    port: number,
-    hostname?: string,
-    backlog?: number,
-    callback?: Function
-  ): D;
-  listen(path: string, callback?: Function): D;
-  listen(handle: Object, callback?: Function): D;
-  close(callback?: Function): D;
-  address(): number;
-  connections: number;
-  maxConnections: number;
-  getConnections(callback: Function): void;
-  ref(): D;
-  unref(): D;
+	listen(
+		port: number,
+		hostname?: string,
+		backlog?: number,
+		callback?: Function
+	): D;
+	listen(path: string, callback?: Function): D;
+	listen(handle: Object, callback?: Function): D;
+	close(callback?: Function): D;
+	address(): number;
+	connections: number;
+	maxConnections: number;
+	getConnections(callback: Function): void;
+	ref(): D;
+	unref(): D;
 }
 
 (0: D | number);
@@ -2070,10 +2070,10 @@ function foo(rows: Rows, set: Set<number>) {
 // termination test (see also lib/test25_lib.js)
 
 function foo(rows: Rows, set: Set<number>) {
-  return rows.reduce_rows(
-    (set, row) => row.reduce_row((set, i) => set.add(i), set),
-    set
-  );
+	return rows.reduce_rows(
+		(set, row) => row.reduce_row((set, i) => set.add(i), set),
+		set
+	);
 }
 
 ================================================================================
@@ -2122,8 +2122,8 @@ declare var y: T;
 (foo(y): T);
 
 declare class Record {
-  set(x: "foo", y: number): void;
-  set(x: "bar", y: string): void;
+	set(x: "foo", y: number): void;
+	set(x: "bar", y: string): void;
 }
 
 new Record().set("foo", "42");
@@ -2165,29 +2165,29 @@ type X = ({ a: true } & { b: string }) | ({ a: false } & { c: string });
 //type X = {a:true, b:string} | {a:false, c:string}; // this works.
 
 function hello1(x: X): string {
-  if (x.a === true) return x.b;
-  else return x.c;
+	if (x.a === true) return x.b;
+	else return x.c;
 }
 
 function hello2(x: X): string {
-  if (x.a === false) return x.c;
-  else return x.b;
+	if (x.a === false) return x.c;
+	else return x.b;
 }
 
 function hello3(x: X): string {
-  if (x.a) {
-    return x.b;
-  } else {
-    return x.c;
-  }
+	if (x.a) {
+		return x.b;
+	} else {
+		return x.c;
+	}
 }
 
 function hello4(x: X): string {
-  if (!x.a) {
-    return x.c;
-  } else {
-    return x.b;
-  }
+	if (!x.a) {
+		return x.c;
+	} else {
+		return x.b;
+	}
 }
 
 ================================================================================
@@ -2242,20 +2242,20 @@ class C {
 type Row = { x: string };
 
 declare class D<T> {
-  reduce(
-    callbackfn: (previousValue: T, currentValue: T) => T,
-    initialValue: void
-  ): T;
-  reduce<U>(
-    callbackfn: (previousValue: U, currentValue: T) => U,
-    initialValue: U
-  ): U;
+	reduce(
+		callbackfn: (previousValue: T, currentValue: T) => T,
+		initialValue: void
+	): T;
+	reduce<U>(
+		callbackfn: (previousValue: U, currentValue: T) => U,
+		initialValue: U
+	): U;
 }
 
 class C {
-  foo(rows: D<Row>, minWidth: number): number {
-    return rows.reduce((length, row) => 0, minWidth);
-  }
+	foo(rows: D<Row>, minWidth: number): number {
+		return rows.reduce((length, row) => 0, minWidth);
+	}
 }
 
 ================================================================================
@@ -2306,8 +2306,8 @@ module.exports = {
 // @noflow
 
 module.exports = {
-  FOO: "foo",
-  BAR: "bar",
+	FOO: "foo",
+	BAR: "bar",
 };
 
 ================================================================================
@@ -2354,12 +2354,12 @@ function foo(): ImmutableMap<string, boolean> {
 interface SomeIterator<T> {}
 
 interface SomeIterable<T> {
-  it(): SomeIterator<T>;
+	it(): SomeIterator<T>;
 }
 
 declare class SomeMap<K, V> {
-  it(): SomeIterator<[K, V]>;
-  set(k: K, v: V): void;
+	it(): SomeIterator<[K, V]>;
+	set(k: K, v: V): void;
 }
 
 declare class ImmutableMap<K, V> {}
@@ -2367,9 +2367,9 @@ declare class ImmutableMap<K, V> {}
 declare function convert<K, V>(iter: SomeIterable<[K, V]>): ImmutableMap<K, V>;
 
 function foo(): ImmutableMap<string, boolean> {
-  const countersGlobalMap = new SomeMap();
-  countersGlobalMap.set("", false);
-  return convert(countersGlobalMap);
+	const countersGlobalMap = new SomeMap();
+	countersGlobalMap.set("", false);
+	return convert(countersGlobalMap);
 }
 
 ================================================================================
@@ -2398,8 +2398,8 @@ function foo(value: Indirect<string> | number): Indirect<string> | number {
 // when they have failed earlier
 
 function foo(value: Indirect<string> | number): Indirect<string> | number {
-  const castedValue: number = typeof value === "number" ? value : 0;
-  return castedValue;
+	const castedValue: number = typeof value === "number" ? value : 0;
+	return castedValue;
 }
 
 ================================================================================

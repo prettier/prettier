@@ -13,8 +13,8 @@ interface Actor {
 
 =====================================output=====================================
 interface Actor {
-  id: ID
-  name: String
+	id: ID
+	name: String
 }
 
 ================================================================================
@@ -51,25 +51,25 @@ type Artist implements Node & Entity {
 
 =====================================output=====================================
 type Artist implements Node & Entity {
-  # The ID of an object
-  id: ID!
+	# The ID of an object
+	id: ID!
 
-  # The MBID of the entity.
-  mbid: MBID!
+	# The MBID of the entity.
+	mbid: MBID!
 
-  # A list of recordings linked to this entity.
-  recordings(after: String, first: Int): RecordingConnection
+	# A list of recordings linked to this entity.
+	recordings(after: String, first: Int): RecordingConnection
 
-  # A list of releases linked to this entity.
-  releases(
-    # Filter by one or more release group types.
-    type: [ReleaseGroupType]
+	# A list of releases linked to this entity.
+	releases(
+		# Filter by one or more release group types.
+		type: [ReleaseGroupType]
 
-    # Filter by one or more release statuses.
-    status: [ReleaseStatus]
-    after: String
-    first: Int
-  ): ReleaseConnection
+		# Filter by one or more release statuses.
+		status: [ReleaseStatus]
+		after: String
+		first: Int
+	): ReleaseConnection
 }
 
 ================================================================================
@@ -106,25 +106,25 @@ type MixedArtist implements Node, Entity & Releasable {
 
 =====================================output=====================================
 type MixedArtist implements Node, Entity & Releasable {
-  # The ID of an object
-  id: ID!
+	# The ID of an object
+	id: ID!
 
-  # The MBID of the entity.
-  mbid: MBID!
+	# The MBID of the entity.
+	mbid: MBID!
 
-  # A list of recordings linked to this entity.
-  recordings(after: String, first: Int): RecordingConnection
+	# A list of recordings linked to this entity.
+	recordings(after: String, first: Int): RecordingConnection
 
-  # A list of releases linked to this entity.
-  releases(
-    # Filter by one or more release group types.
-    type: [ReleaseGroupType]
+	# A list of releases linked to this entity.
+	releases(
+		# Filter by one or more release group types.
+		type: [ReleaseGroupType]
 
-    # Filter by one or more release statuses.
-    status: [ReleaseStatus]
-    after: String
-    first: Int
-  ): ReleaseConnection
+		# Filter by one or more release statuses.
+		status: [ReleaseStatus]
+		after: String
+		first: Int
+	): ReleaseConnection
 }
 
 ================================================================================
@@ -161,25 +161,25 @@ type OldArtist implements Node, Entity {
 
 =====================================output=====================================
 type OldArtist implements Node, Entity {
-  # The ID of an object
-  id: ID!
+	# The ID of an object
+	id: ID!
 
-  # The MBID of the entity.
-  mbid: MBID!
+	# The MBID of the entity.
+	mbid: MBID!
 
-  # A list of recordings linked to this entity.
-  recordings(after: String, first: Int): RecordingConnection
+	# A list of recordings linked to this entity.
+	recordings(after: String, first: Int): RecordingConnection
 
-  # A list of releases linked to this entity.
-  releases(
-    # Filter by one or more release group types.
-    type: [ReleaseGroupType]
+	# A list of releases linked to this entity.
+	releases(
+		# Filter by one or more release group types.
+		type: [ReleaseGroupType]
 
-    # Filter by one or more release statuses.
-    status: [ReleaseStatus]
-    after: String
-    first: Int
-  ): ReleaseConnection
+		# Filter by one or more release statuses.
+		status: [ReleaseStatus]
+		after: String
+		first: Int
+	): ReleaseConnection
 }
 
 ================================================================================
@@ -222,33 +222,33 @@ type Type5 implements A
 
 =====================================output=====================================
 type Type1 implements A, B, C, D {
-  # {&&&&&&&&
-  # Should separate by \`,\` not \`&\`
-  a: a
+	# {&&&&&&&&
+	# Should separate by \`,\` not \`&\`
+	a: a
 }
 
 type Type2 implements A, B, C, D {
-  # &&&&{}&&&&
-  # Should separate by \`,\` not \`&\`
-  a: a
+	# &&&&{}&&&&
+	# Should separate by \`,\` not \`&\`
+	a: a
 }
 
 type Type3 implements A, # &&&&&&&& comment line 1
 # &&&&&&&& comment line 2
 B & C, D {
-  a: a
+	a: a
 }
 
 type Type4 implements A, # &&&&&&&& comment line 1
 # &&&&&&&& comment line 2
 B & C, D {
-  a: a
+	a: a
 }
 
 type Type5 implements A, # &&&&&&&& comment line 1
 # &&&&&&&& comment line 2
 B & C, D {
-  a: a
+	a: a
 }
 
 ================================================================================

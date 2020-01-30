@@ -46,29 +46,29 @@ printWidth: 80
 
 =====================================output=====================================
 <script type="text/javascript">
-  var message = "Alert!";
+	var message = "Alert!";
 
-  alert(message);
+	alert(message);
 </script>
 <script type="application/javascript">
-  var message = "Alert!";
+	var message = "Alert!";
 
-  alert(message);
+	alert(message);
 </script>
 <script>
-  var message = "Alert!";
+	var message = "Alert!";
 
-  alert(message);
+	alert(message);
 </script>
 <script type="text/babel">
-  const someJS = "this should be formatted";
+	const someJS = "this should be formatted";
 </script>
 <script type="module">
-  import lib from "./lib.js";
+	import lib from "./lib.js";
 
-  function myFunction() {
-    return "foo";
-  }
+	function myFunction() {
+		return "foo";
+	}
 </script>
 
 ================================================================================
@@ -100,21 +100,21 @@ printWidth: 80
 =====================================output=====================================
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Sample styled page</title>
-    <script>
-      alert("test");
-    </script>
-    <script>
-      var message = "Alert!";
+	<head>
+		<title>Sample styled page</title>
+		<script>
+			alert("test");
+		</script>
+		<script>
+			var message = "Alert!";
 
-      alert(message);
-    </script>
-  </head>
-  <body>
-    <h1>Sample styled page</h1>
-    <p>This page is just a demo.</p>
-  </body>
+			alert(message);
+		</script>
+	</head>
+	<body>
+		<h1>Sample styled page</h1>
+		<p>This page is just a demo.</p>
+	</body>
 </html>
 
 ================================================================================
@@ -133,10 +133,10 @@ printWidth: 80
 
 =====================================output=====================================
 <script>
-  alert("test");
+	alert("test");
 </script>
 <script>
-  document.getElementById("demo").innerHTML = "Hello JavaScript!";
+	document.getElementById("demo").innerHTML = "Hello JavaScript!";
 </script>
 
 ================================================================================
@@ -155,8 +155,8 @@ printWidth: 80
 
 =====================================output=====================================
 <script type="text/template">
-  <div>
-     </div>
+	<div>
+	   </div>
 </script>
 
 ================================================================================
@@ -188,18 +188,18 @@ printWidth: 80
 =====================================output=====================================
 <!DOCTYPE html>
 <html lang="en">
-  <head> </head>
-  <body>
-    <script>
-      function foo() {
-        return \`
+	<head> </head>
+	<body>
+		<script>
+			function foo() {
+				return \`
                     <div>
                         <p>Text</p>
                     </div>
                 \`;
-      }
-    </script>
-  </body>
+			}
+		</script>
+	</body>
 </html>
 
 ================================================================================
@@ -292,93 +292,93 @@ printWidth: 80
 
 =====================================output=====================================
 <script type="application/x-typescript">
-  class Student {
-    fullName: string;
-    constructor(
-      public firstName: string,
-      public middleInitial: string,
-      public lastName: string
-    ) {
-      this.fullName = firstName + " " + middleInitial + " " + lastName;
-    }
-  }
+	class Student {
+		fullName: string;
+		constructor(
+			public firstName: string,
+			public middleInitial: string,
+			public lastName: string
+		) {
+			this.fullName = firstName + " " + middleInitial + " " + lastName;
+		}
+	}
 
-  interface Person {
-    firstName: string;
-    lastName: string;
-  }
+	interface Person {
+		firstName: string;
+		lastName: string;
+	}
 
-  function greeter(person: Person) {
-    return "Hello, " + person.firstName + " " + person.lastName;
-  }
+	function greeter(person: Person) {
+		return "Hello, " + person.firstName + " " + person.lastName;
+	}
 
-  let user = new Student("Jane", "M.", "User");
+	let user = new Student("Jane", "M.", "User");
 
-  document.body.innerHTML = greeter(user);
+	document.body.innerHTML = greeter(user);
 </script>
 <script lang="ts">
-  class Student {
-    fullName: string;
-    constructor(
-      public firstName: string,
-      public middleInitial: string,
-      public lastName: string
-    ) {
-      this.fullName = firstName + " " + middleInitial + " " + lastName;
-    }
-  }
+	class Student {
+		fullName: string;
+		constructor(
+			public firstName: string,
+			public middleInitial: string,
+			public lastName: string
+		) {
+			this.fullName = firstName + " " + middleInitial + " " + lastName;
+		}
+	}
 
-  interface Person {
-    firstName: string;
-    lastName: string;
-  }
+	interface Person {
+		firstName: string;
+		lastName: string;
+	}
 
-  function greeter(person: Person) {
-    return "Hello, " + person.firstName + " " + person.lastName;
-  }
+	function greeter(person: Person) {
+		return "Hello, " + person.firstName + " " + person.lastName;
+	}
 
-  let user = new Student("Jane", "M.", "User");
+	let user = new Student("Jane", "M.", "User");
 
-  document.body.innerHTML = greeter(user);
+	document.body.innerHTML = greeter(user);
 </script>
 <script lang="tsx">
-  class CommentBox extends React.Component<
-    { url: string; pollInterval: number },
-    CommentData
-  > {
-    constructor() {
-      super();
-      this.state = { data: [] };
-    }
-    fetchComments() {
-      $.ajax({
-        url: this.props.url,
-        dataType: "json",
-        cache: false,
-        success: (data) => this.setState({ data: data }),
-        error: (xhr, status, err) => console.error(status, err),
-      });
-    }
-    componentDidMount() {
-      this.fetchComments();
-      setInterval(this.fetchComments.bind(this), this.props.pollInterval);
-    }
-    render() {
-      let handleCommentSubmit = (comment: { author: string; text: string }) => {
-        console.warn("comment submitted!", comment);
-        const updated = this.state.data.slice(0);
-        updated.push(comment);
-        this.setState({ data: updated });
-      };
-      return (
-        <div className="commentBox">
-          <h1>Comments</h1>
-          <CommentList data={this.state.data} />
-          <CommentForm onCommentSubmit={handleCommentSubmit} />
-        </div>
-      );
-    }
-  }
+	class CommentBox extends React.Component<
+		{ url: string; pollInterval: number },
+		CommentData
+	> {
+		constructor() {
+			super();
+			this.state = { data: [] };
+		}
+		fetchComments() {
+			$.ajax({
+				url: this.props.url,
+				dataType: "json",
+				cache: false,
+				success: (data) => this.setState({ data: data }),
+				error: (xhr, status, err) => console.error(status, err),
+			});
+		}
+		componentDidMount() {
+			this.fetchComments();
+			setInterval(this.fetchComments.bind(this), this.props.pollInterval);
+		}
+		render() {
+			let handleCommentSubmit = (comment: { author: string; text: string }) => {
+				console.warn("comment submitted!", comment);
+				const updated = this.state.data.slice(0);
+				updated.push(comment);
+				this.setState({ data: updated });
+			};
+			return (
+				<div className="commentBox">
+					<h1>Comments</h1>
+					<CommentList data={this.state.data} />
+					<CommentForm onCommentSubmit={handleCommentSubmit} />
+				</div>
+			);
+		}
+	}
 </script>
 
 ================================================================================

@@ -29,35 +29,35 @@ var {veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLon
 
 =====================================output=====================================
 declare class C {
-  f(
-    superSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLong,
-    ...args
-  ): void;
+	f(
+		superSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLong,
+		...args
+	): void;
 }
 
 function f(
-  superSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLong,
-  ...args
+	superSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLong,
+	...args
 ) {}
 
 declare class C {
-  f(
-    ...superSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLong
-  ): void;
+	f(
+		...superSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLong
+	): void;
 }
 
 [
-  superSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLong,
-  ,
+	superSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLong,
+	,
 ];
 
 [
-  veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong,
-  ...a
+	veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong,
+	...a
 ] = [];
 var {
-  veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong,
-  ...a
+	veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLong,
+	...a
 } = {};
 
 ================================================================================

@@ -51,68 +51,68 @@ printWidth: 80
 
 =====================================output=====================================
 <GlimmerComponent
-  @progress={{
-    aPropertyEngdingAfterEightiethColumnToHighlightAWeirdClosingParenIssue
-  }}
+	@progress={{
+		aPropertyEngdingAfterEightiethColumnToHighlightAWeirdClosingParenIssue
+	}}
 />
 
 <GlimmerComponent
-  class="medium"
-  @autocomplete="off"
-  @errors={{
-    or this.aLongProperty (and this.aProperty (v-get bike "number" "message"))
-  }}
-  data-test-beneficiary-account-number
+	class="medium"
+	@autocomplete="off"
+	@errors={{
+		or this.aLongProperty (and this.aProperty (v-get bike "number" "message"))
+	}}
+	data-test-beneficiary-account-number
 />
 
 <GlimmerComponent
-  class="medium"
-  @autocomplete="off"
-  @errors={{
-    or
-    this.aVeryLongProperty
-    (and this.aProperty (v-get bike "number" "message"))
-  }}
-  data-test-beneficiary-account-number
+	class="medium"
+	@autocomplete="off"
+	@errors={{
+		or
+		this.aVeryLongProperty
+		(and this.aProperty (v-get bike "number" "message"))
+	}}
+	data-test-beneficiary-account-number
 />
 
 <div
-  class="a long list of classes more than 80 chars with a complex mustache statement {{
-    if (or this.a this.b) this.c this.d
-  }}"
+	class="a long list of classes more than 80 chars with a complex mustache statement {{
+		if (or this.a this.b) this.c this.d
+	}}"
 >
 </div>
 
 <div
-  class="a multi line list of classes with a complex mustache statement
-  {{if (or this.a this.b) this.c this.d}}"
+	class="a multi line list of classes with a complex mustache statement
+	{{if (or this.a this.b) this.c this.d}}"
 >
 </div>
 
 <div
-  class="a-first-class {{if this.optionOne "optionOne"}} {{
-    if this.optionTwo "optionTwo"
-  }} {{if this.optionThree "optionThree"}} {{
-    if this.optionFour "optionFour"
-  }} {{if this.optionFive "optionFive"}} {{this.class}}"
-  ...attributes
+	class="a-first-class {{if this.optionOne "optionOne"}} {{
+		if this.optionTwo "optionTwo"
+	}} {{if this.optionThree "optionThree"}} {{
+		if this.optionFour "optionFour"
+	}} {{if this.optionFive "optionFive"}} {{this.class}}"
+	...attributes
 >
 </div>
 
 <div
-  class="a-first-class
-  {{if this.optionOne "optionOne"}}
+	class="a-first-class
+	{{if this.optionOne "optionOne"}}
 
-   {{if this.optionTwo "optionTwo"}}
+	 {{if this.optionTwo "optionTwo"}}
 
-   {{if this.optionThree "optionThree"}}
+	 {{if this.optionThree "optionThree"}}
 
-   {{if this.optionFour "optionFour"}}
+	 {{if this.optionFour "optionFour"}}
 
-   {{if this.optionFive "optionFive"}}
+	 {{if this.optionFive "optionFive"}}
 
-   {{this.class}}"
-  ...attributes
+	 {{this.class}}"
+	...attributes
 >
 </div>
 ================================================================================
@@ -170,68 +170,68 @@ singleQuote: true
 
 =====================================output=====================================
 <GlimmerComponent
-  @progress={{
-    aPropertyEngdingAfterEightiethColumnToHighlightAWeirdClosingParenIssue
-  }}
+	@progress={{
+		aPropertyEngdingAfterEightiethColumnToHighlightAWeirdClosingParenIssue
+	}}
 />
 
 <GlimmerComponent
-  class='medium'
-  @autocomplete='off'
-  @errors={{
-    or this.aLongProperty (and this.aProperty (v-get bike 'number' 'message'))
-  }}
-  data-test-beneficiary-account-number
+	class='medium'
+	@autocomplete='off'
+	@errors={{
+		or this.aLongProperty (and this.aProperty (v-get bike 'number' 'message'))
+	}}
+	data-test-beneficiary-account-number
 />
 
 <GlimmerComponent
-  class='medium'
-  @autocomplete='off'
-  @errors={{
-    or
-    this.aVeryLongProperty
-    (and this.aProperty (v-get bike 'number' 'message'))
-  }}
-  data-test-beneficiary-account-number
+	class='medium'
+	@autocomplete='off'
+	@errors={{
+		or
+		this.aVeryLongProperty
+		(and this.aProperty (v-get bike 'number' 'message'))
+	}}
+	data-test-beneficiary-account-number
 />
 
 <div
-  class="a long list of classes more than 80 chars with a complex mustache statement {{
-    if (or this.a this.b) this.c this.d
-  }}"
+	class="a long list of classes more than 80 chars with a complex mustache statement {{
+		if (or this.a this.b) this.c this.d
+	}}"
 >
 </div>
 
 <div
-  class="a multi line list of classes with a complex mustache statement
-  {{if (or this.a this.b) this.c this.d}}"
+	class="a multi line list of classes with a complex mustache statement
+	{{if (or this.a this.b) this.c this.d}}"
 >
 </div>
 
 <div
-  class="a-first-class {{if this.optionOne 'optionOne'}} {{
-    if this.optionTwo 'optionTwo'
-  }} {{if this.optionThree 'optionThree'}} {{
-    if this.optionFour 'optionFour'
-  }} {{if this.optionFive 'optionFive'}} {{this.class}}"
-  ...attributes
+	class="a-first-class {{if this.optionOne 'optionOne'}} {{
+		if this.optionTwo 'optionTwo'
+	}} {{if this.optionThree 'optionThree'}} {{
+		if this.optionFour 'optionFour'
+	}} {{if this.optionFive 'optionFive'}} {{this.class}}"
+	...attributes
 >
 </div>
 
 <div
-  class="a-first-class
-  {{if this.optionOne 'optionOne'}}
+	class="a-first-class
+	{{if this.optionOne 'optionOne'}}
 
-   {{if this.optionTwo 'optionTwo'}}
+	 {{if this.optionTwo 'optionTwo'}}
 
-   {{if this.optionThree 'optionThree'}}
+	 {{if this.optionThree 'optionThree'}}
 
-   {{if this.optionFour 'optionFour'}}
+	 {{if this.optionFour 'optionFour'}}
 
-   {{if this.optionFive 'optionFive'}}
+	 {{if this.optionFive 'optionFive'}}
 
-   {{this.class}}"
-  ...attributes
+	 {{this.class}}"
+	...attributes
 >
 </div>
 ================================================================================
@@ -261,54 +261,54 @@ printWidth: 80
 
 =====================================output=====================================
 <div {{hello param hash=key}} {{goodbye param}}>
-  Hello
+	Hello
 </div>
 
 <div
-  {{hello
-    param
-    param
-    param
-    param
-    param
-    param
-    param
-    param
-    param
-    param
-    param
-    param
-  }}
+	{{hello
+		param
+		param
+		param
+		param
+		param
+		param
+		param
+		param
+		param
+		param
+		param
+		param
+	}}
 >
-  Hello
+	Hello
 </div>
 
 <div
-  {{hello
-    hashPair=value
-    hashPair=value
-    hashPair=value
-    hashPair=value
-    hashPair=value
-  }}
+	{{hello
+		hashPair=value
+		hashPair=value
+		hashPair=value
+		hashPair=value
+		hashPair=value
+	}}
 >
-  Hello
+	Hello
 </div>
 
 <div
-  {{hello
-    param
-    param
-    param
-    param
-    hashPair=value
-    hashPair=value
-    hashPair=value
-    hashPair=value
-    hashPair=value
-  }}
+	{{hello
+		param
+		param
+		param
+		param
+		hashPair=value
+		hashPair=value
+		hashPair=value
+		hashPair=value
+		hashPair=value
+	}}
 >
-  Hello
+	Hello
 </div>
 ================================================================================
 `;
@@ -338,54 +338,54 @@ singleQuote: true
 
 =====================================output=====================================
 <div {{hello param hash=key}} {{goodbye param}}>
-  Hello
+	Hello
 </div>
 
 <div
-  {{hello
-    param
-    param
-    param
-    param
-    param
-    param
-    param
-    param
-    param
-    param
-    param
-    param
-  }}
+	{{hello
+		param
+		param
+		param
+		param
+		param
+		param
+		param
+		param
+		param
+		param
+		param
+		param
+	}}
 >
-  Hello
+	Hello
 </div>
 
 <div
-  {{hello
-    hashPair=value
-    hashPair=value
-    hashPair=value
-    hashPair=value
-    hashPair=value
-  }}
+	{{hello
+		hashPair=value
+		hashPair=value
+		hashPair=value
+		hashPair=value
+		hashPair=value
+	}}
 >
-  Hello
+	Hello
 </div>
 
 <div
-  {{hello
-    param
-    param
-    param
-    param
-    hashPair=value
-    hashPair=value
-    hashPair=value
-    hashPair=value
-    hashPair=value
-  }}
+	{{hello
+		param
+		param
+		param
+		param
+		hashPair=value
+		hashPair=value
+		hashPair=value
+		hashPair=value
+		hashPair=value
+	}}
 >
-  Hello
+	Hello
 </div>
 ================================================================================
 `;

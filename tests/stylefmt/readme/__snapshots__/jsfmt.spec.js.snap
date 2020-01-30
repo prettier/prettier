@@ -36,34 +36,34 @@ padding: 12px
 =====================================output=====================================
 // mixin for clearfix
 @mixin clearfix() {
-  &:before,
-  &:after {
-    content: " ";
-    display: table;
-  }
+	&:before,
+	&:after {
+		content: " ";
+		display: table;
+	}
 
-  &:after {
-    clear: both;
-  }
+	&:after {
+		clear: both;
+	}
 }
 .class {
-  padding: 10px;
-  @include clearfix();
+	padding: 10px;
+	@include clearfix();
 }
 .base {
-  color: red;
+	color: red;
 } // placeholder
 
 %base {
-  padding: 12px;
+	padding: 12px;
 }
 
 .foo {
-  @extend .base;
+	@extend .base;
 }
 
 .bar {
-  @extend %base;
+	@extend %base;
 }
 
 ================================================================================

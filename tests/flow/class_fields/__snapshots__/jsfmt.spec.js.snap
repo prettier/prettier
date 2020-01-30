@@ -83,19 +83,19 @@ var o = new Base();
 // @flow
 
 class Base {
-  unannotatedField;
-  annotatedField: number;
-  initializedField = 42;
-  initializedFieldWithThis = this.initializedField;
-  annotatedInitializedFieldValid: ?number = 42;
-  annotatedInitializedFieldInvalid: number = "asdf"; // Error: string ~> number
+	unannotatedField;
+	annotatedField: number;
+	initializedField = 42;
+	initializedFieldWithThis = this.initializedField;
+	annotatedInitializedFieldValid: ?number = 42;
+	annotatedInitializedFieldInvalid: number = "asdf"; // Error: string ~> number
 
-  static unannotatedField;
-  static annotatedField: number;
-  static initializedField = "asdf";
-  static initializedFieldWithThis = this.initializedField;
-  static annotatedInitializedFieldValid: ?number = 42;
-  static annotatedInitializedFieldInvalid: number = "asdf"; // Error: string ~> number
+	static unannotatedField;
+	static annotatedField: number;
+	static initializedField = "asdf";
+	static initializedFieldWithThis = this.initializedField;
+	static annotatedInitializedFieldValid: ?number = 42;
+	static annotatedInitializedFieldInvalid: number = "asdf"; // Error: string ~> number
 }
 
 var o = new Base();
@@ -301,41 +301,41 @@ var o = new Child();
 // @flow
 
 class Base {
-  base_unannotatedField;
-  base_annotatedField: number;
-  base_initializedField = 42;
-  base_initializedFieldWithThis = this.base_initializedField;
-  base_annotatedInitializedFieldValid: ?number = 42;
-  base_annotatedInitializedFieldInvalid: number = "asdf"; // Error: string ~> number
+	base_unannotatedField;
+	base_annotatedField: number;
+	base_initializedField = 42;
+	base_initializedFieldWithThis = this.base_initializedField;
+	base_annotatedInitializedFieldValid: ?number = 42;
+	base_annotatedInitializedFieldInvalid: number = "asdf"; // Error: string ~> number
 
-  static base_unannotatedField;
-  static base_annotatedField: number;
-  static base_initializedField = "asdf";
-  static base_initializedFieldWithThis = this.base_initializedField;
-  static base_annotatedInitializedFieldValid: ?number = 42;
-  static base_annotatedInitializedFieldInvalid: number = "asdf"; // Error: string ~> number
+	static base_unannotatedField;
+	static base_annotatedField: number;
+	static base_initializedField = "asdf";
+	static base_initializedFieldWithThis = this.base_initializedField;
+	static base_annotatedInitializedFieldValid: ?number = 42;
+	static base_annotatedInitializedFieldInvalid: number = "asdf"; // Error: string ~> number
 
-  inherited_initializer = 42;
-  static inherited_initializer = 42;
+	inherited_initializer = 42;
+	static inherited_initializer = 42;
 }
 
 class Child extends Base {
-  child_unannotatedField;
-  child_annotatedField: number;
-  child_initializedField = 42;
-  child_initializedFieldWithThis = this.child_initializedField;
-  child_annotatedInitializedFieldValid: ?number = 42;
-  child_annotatedInitializedFieldInvalid: number = "asdf"; // Error: string ~> number
+	child_unannotatedField;
+	child_annotatedField: number;
+	child_initializedField = 42;
+	child_initializedFieldWithThis = this.child_initializedField;
+	child_annotatedInitializedFieldValid: ?number = 42;
+	child_annotatedInitializedFieldInvalid: number = "asdf"; // Error: string ~> number
 
-  static child_unannotatedField;
-  static child_annotatedField: number;
-  static child_initializedField = "asdf";
-  static child_initializedFieldWithThis = this.child_initializedField;
-  static child_annotatedInitializedFieldValid: ?number = 42;
-  static child_annotatedInitializedFieldInvalid: number = "asdf"; // Error: string ~> number
+	static child_unannotatedField;
+	static child_annotatedField: number;
+	static child_initializedField = "asdf";
+	static child_initializedFieldWithThis = this.child_initializedField;
+	static child_annotatedInitializedFieldValid: ?number = 42;
+	static child_annotatedInitializedFieldInvalid: number = "asdf"; // Error: string ~> number
 
-  inherited_initializer;
-  static inherited_initializer;
+	inherited_initializer;
+	static inherited_initializer;
 }
 
 var o = new Child();
@@ -481,8 +481,8 @@ class ClassGenericInitialized<T, U> {
  * is instantiated.
  */
 class ClassAnnotated<T> {
-  p: T;
-  static p: T;
+	p: T;
+	static p: T;
 }
 
 var o1 = new ClassAnnotated();
@@ -498,11 +498,11 @@ ClassAnnotated.p = 42;
  * expression of any type other than the generic itself.
  */
 class ClassGenericInitialized<T, U> {
-  invalid: T = 42; // Error: number ~> Generic<T>
-  valid: T = ((42: any): T);
+	invalid: T = 42; // Error: number ~> Generic<T>
+	valid: T = ((42: any): T);
 
-  static invalid: T = 42; // Error: number ~> Generic<T>
-  static valid: T = ((42: any): T);
+	static invalid: T = 42; // Error: number ~> Generic<T>
+	static valid: T = ((42: any): T);
 }
 
 ================================================================================
@@ -561,17 +561,17 @@ class Foo {
 var someVar = 42;
 
 class Foo {
-  outer = someVar;
-  selfTyped: Foo;
-  selfTypedInit = new Foo();
+	outer = someVar;
+	selfTyped: Foo;
+	selfTypedInit = new Foo();
 
-  static outer = someVar;
-  static selfTyped: Foo;
-  static selfTypedInit = new Foo();
+	static outer = someVar;
+	static selfTyped: Foo;
+	static selfTypedInit = new Foo();
 
-  constructor() {
-    var someVar = "asdf";
-  }
+	constructor() {
+		var someVar = "asdf";
+	}
 }
 
 /**

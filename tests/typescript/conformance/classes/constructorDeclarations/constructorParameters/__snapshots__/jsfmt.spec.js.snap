@@ -19,15 +19,15 @@ class E<T> {
 }
 =====================================output=====================================
 class C {
-  constructor(x = this) {}
+	constructor(x = this) {}
 }
 
 class D<T> {
-  constructor(x = this) {}
+	constructor(x = this) {}
 }
 
 class E<T> {
-  constructor(public x = this) {}
+	constructor(public x = this) {}
 }
 
 ================================================================================
@@ -61,24 +61,24 @@ class E<T extends Date> {
 }
 =====================================output=====================================
 class C {
-  constructor(x);
-  constructor(x = 1) {
-    var y = x;
-  }
+	constructor(x);
+	constructor(x = 1) {
+		var y = x;
+	}
 }
 
 class D<T> {
-  constructor(x);
-  constructor(x: T = null) {
-    var y = x;
-  }
+	constructor(x);
+	constructor(x: T = null) {
+		var y = x;
+	}
 }
 
 class E<T extends Date> {
-  constructor(x);
-  constructor(x: T = null) {
-    var y = x;
-  }
+	constructor(x);
+	constructor(x: T = null) {
+		var y = x;
+	}
 }
 
 ================================================================================
@@ -112,24 +112,24 @@ class E<T extends Date> {
 }
 =====================================output=====================================
 class C {
-  constructor(x);
-  constructor(public x: string = 1) {
-    var y = x;
-  }
+	constructor(x);
+	constructor(public x: string = 1) {
+		var y = x;
+	}
 }
 
 class D<T, U> {
-  constructor(x: T, y: U);
-  constructor(x: T = 1, public y: U = x) {
-    var z = x;
-  }
+	constructor(x: T, y: U);
+	constructor(x: T = 1, public y: U = x) {
+		var z = x;
+	}
 }
 
 class E<T extends Date> {
-  constructor(x);
-  constructor(x: T = new Date()) {
-    var y = x;
-  }
+	constructor(x);
+	constructor(x: T = new Date()) {
+		var y = x;
+	}
 }
 
 ================================================================================
@@ -156,15 +156,15 @@ class D<T> {
 }
 =====================================output=====================================
 class C {
-  foo: string;
-  constructor(x = 1);
-  constructor() {}
+	foo: string;
+	constructor(x = 1);
+	constructor() {}
 }
 
 class D<T> {
-  foo: string;
-  constructor(x = 1);
-  constructor() {}
+	foo: string;
+	constructor(x = 1);
+	constructor() {}
 }
 
 ================================================================================
@@ -191,15 +191,15 @@ class D<T> {
 }
 =====================================output=====================================
 class C {
-  foo: string;
-  constructor(x?, y?: any[]);
-  constructor() {}
+	foo: string;
+	constructor(x?, y?: any[]);
+	constructor() {}
 }
 
 class D<T> {
-  foo: string;
-  constructor(x?, y?: any[]);
-  constructor() {}
+	foo: string;
+	constructor(x?, y?: any[]);
+	constructor() {}
 }
 
 ================================================================================
@@ -234,8 +234,8 @@ var r4 = d.z; // error
 
 =====================================output=====================================
 class C {
-  y: string;
-  constructor(private x: string, protected z: string) {}
+	y: string;
+	constructor(private x: string, protected z: string) {}
 }
 
 var c: C;
@@ -244,8 +244,8 @@ var r2 = c.x; // error
 var r3 = c.z; // error
 
 class D<T> {
-  y: T;
-  constructor(a: T, private x: T, protected z: T) {}
+	y: T;
+	constructor(a: T, private x: T, protected z: T) {}
 }
 
 var d: D<string>;
@@ -297,32 +297,32 @@ var r4 = f.y; // error
 
 =====================================output=====================================
 class C {
-  y: number;
-  constructor(y: number) {} // ok
+	y: number;
+	constructor(y: number) {} // ok
 }
 
 var c: C;
 var r = c.y;
 
 class D {
-  y: number;
-  constructor(public y: number) {}
+	y: number;
+	constructor(public y: number) {}
 }
 
 var d: D;
 var r2 = d.y;
 
 class E {
-  y: number;
-  constructor(private y: number) {}
+	y: number;
+	constructor(private y: number) {}
 }
 
 var e: E;
 var r3 = e.y; // error
 
 class F {
-  y: number;
-  constructor(protected y: number) {}
+	y: number;
+	constructor(protected y: number) {}
 }
 
 var f: F;
@@ -346,7 +346,7 @@ class C {
 // @declaration: true
 
 class C {
-  constructor(readonly x: number) {}
+	constructor(readonly x: number) {}
 }
 
 ================================================================================
@@ -401,40 +401,40 @@ class E extends D {
 // Tests that readonly parameter properties behave like regular readonly properties
 
 class A {
-  constructor(readonly x: number) {
-    this.x = 0;
-  }
+	constructor(readonly x: number) {
+		this.x = 0;
+	}
 }
 
 class B extends A {
-  constructor(x: number) {
-    super(x);
-    // Fails, x is readonly
-    this.x = 1;
-  }
+	constructor(x: number) {
+		super(x);
+		// Fails, x is readonly
+		this.x = 1;
+	}
 }
 
 class C extends A {
-  // This is the usual behavior of readonly properties:
-  // if one is redeclared in a base class, then it can be assigned to.
-  constructor(readonly x: number) {
-    super(x);
-    this.x = 1;
-  }
+	// This is the usual behavior of readonly properties:
+	// if one is redeclared in a base class, then it can be assigned to.
+	constructor(readonly x: number) {
+		super(x);
+		this.x = 1;
+	}
 }
 
 class D {
-  constructor(private readonly x: number) {
-    this.x = 0;
-  }
+	constructor(private readonly x: number) {
+		this.x = 0;
+	}
 }
 
 // Fails, can't redeclare readonly property
 class E extends D {
-  constructor(readonly x: number) {
-    super(x);
-    this.x = 1;
-  }
+	constructor(readonly x: number) {
+		super(x);
+		this.x = 1;
+	}
 }
 
 ================================================================================
@@ -461,16 +461,16 @@ class F {
 new F(1).x;
 =====================================output=====================================
 class C {
-  constructor(readonly x: number) {}
+	constructor(readonly x: number) {}
 }
 new C(1).x = 2;
 
 class E {
-  constructor(public readonly x: number) {}
+	constructor(public readonly x: number) {}
 }
 
 class F {
-  constructor(private readonly x: number) {}
+	constructor(private readonly x: number) {}
 }
 new F(1).x;
 
@@ -489,8 +489,8 @@ class C {
 }
 =====================================output=====================================
 class C {
-  readonly x: number;
-  constructor(readonly y: number) {}
+	readonly x: number;
+	constructor(readonly y: number) {}
 }
 
 ================================================================================

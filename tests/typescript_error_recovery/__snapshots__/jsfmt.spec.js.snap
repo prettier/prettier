@@ -34,17 +34,17 @@ new f2<>();
 function f3<>() {}
 
 class f4 {
-  constructor<>() {}
+	constructor<>() {}
 }
 
 const f5 = function <>() {};
 
 interface f6<> {
-  test<>();
+	test<>();
 }
 
 class f7<> {
-  test<>() {}
+	test<>() {}
 }
 
 ================================================================================
@@ -85,17 +85,17 @@ new f2<>();
 function f3<>() {}
 
 class f4 {
-  constructor<>() {}
+	constructor<>() {}
 }
 
 const f5 = function <>() {};
 
 interface f6<> {
-  test<>();
+	test<>();
 }
 
 class f7<> {
-  test<>() {}
+	test<>() {}
 }
 
 ================================================================================
@@ -136,17 +136,17 @@ new f2<>();
 function f3<>() {}
 
 class f4 {
-  constructor<>() {}
+	constructor<>() {}
 }
 
 const f5 = function <>() {};
 
 interface f6<> {
-  test<>();
+	test<>();
 }
 
 class f7<> {
-  test<>() {}
+	test<>() {}
 }
 
 ================================================================================
@@ -177,26 +177,26 @@ type TooLong80 = { [loooooooooooooooooooooooooong: string, looooooooooooooooong:
 type A = { [key: string] };
 
 type TwoParams = {
-  [a: string, b: string]: string;
+	[a: string, b: string]: string;
 };
 type ThreeParams = {
-  [a: string, b: string, c: string]: string;
+	[a: string, b: string, c: string]: string;
 };
 
 type TooLong = {
-  [
-    loooooooooooooooooooooooooong: string,
-    looooooooooooooooooooooooooooooooooooooong: string,
-  ]: string;
+	[
+		loooooooooooooooooooooooooong: string,
+		looooooooooooooooooooooooooooooooooooooong: string,
+	]: string;
 };
 type TooLong81 = {
-  [
-    loooooooooooooooooooooooooong: string,
-    loooooooooooooooooong: string,
-  ]: string;
+	[
+		loooooooooooooooooooooooooong: string,
+		loooooooooooooooooong: string,
+	]: string;
 };
 type TooLong80 = {
-  [loooooooooooooooooooooooooong: string, looooooooooooooooong: string]: string;
+	[loooooooooooooooooooooooooong: string, looooooooooooooooong: string]: string;
 };
 
 ================================================================================
@@ -228,26 +228,26 @@ type TooLong80 = { [loooooooooooooooooooooooooong: string, looooooooooooooooong:
 type A = { [key: string] };
 
 type TwoParams = {
-  [a: string, b: string]: string;
+	[a: string, b: string]: string;
 };
 type ThreeParams = {
-  [a: string, b: string, c: string]: string;
+	[a: string, b: string, c: string]: string;
 };
 
 type TooLong = {
-  [
-    loooooooooooooooooooooooooong: string,
-    looooooooooooooooooooooooooooooooooooooong: string,
-  ]: string;
+	[
+		loooooooooooooooooooooooooong: string,
+		looooooooooooooooooooooooooooooooooooooong: string,
+	]: string;
 };
 type TooLong81 = {
-  [
-    loooooooooooooooooooooooooong: string,
-    loooooooooooooooooong: string,
-  ]: string;
+	[
+		loooooooooooooooooooooooooong: string,
+		loooooooooooooooooong: string,
+	]: string;
 };
 type TooLong80 = {
-  [loooooooooooooooooooooooooong: string, looooooooooooooooong: string]: string;
+	[loooooooooooooooooooooooooong: string, looooooooooooooooong: string]: string;
 };
 
 ================================================================================
@@ -279,26 +279,26 @@ type TooLong80 = { [loooooooooooooooooooooooooong: string, looooooooooooooooong:
 type A = { [key: string] };
 
 type TwoParams = {
-  [a: string, b: string]: string;
+	[a: string, b: string]: string;
 };
 type ThreeParams = {
-  [a: string, b: string, c: string]: string;
+	[a: string, b: string, c: string]: string;
 };
 
 type TooLong = {
-  [
-    loooooooooooooooooooooooooong: string,
-    looooooooooooooooooooooooooooooooooooooong: string,
-  ]: string;
+	[
+		loooooooooooooooooooooooooong: string,
+		looooooooooooooooooooooooooooooooooooooong: string,
+	]: string;
 };
 type TooLong81 = {
-  [
-    loooooooooooooooooooooooooong: string,
-    loooooooooooooooooong: string,
-  ]: string;
+	[
+		loooooooooooooooooooooooooong: string,
+		loooooooooooooooooong: string,
+	]: string;
 };
 type TooLong80 = {
-  [loooooooooooooooooooooooooong: string, looooooooooooooooong: string]: string;
+	[loooooooooooooooooooooooooong: string, looooooooooooooooong: string]: string;
 };
 
 ================================================================================

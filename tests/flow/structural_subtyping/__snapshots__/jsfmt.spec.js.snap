@@ -25,7 +25,7 @@ var lengthTest4: IHasLength = true; // bool doesn't have length
  */
 
 interface IHasLength {
-  length: number;
+	length: number;
 }
 
 var lengthTest1: IHasLength = [];
@@ -72,19 +72,19 @@ var testInstance3: IHasYString = new ClassWithXString(); // Error missing prop
  */
 
 class ClassWithXString {
-  x: string;
+	x: string;
 }
 
 interface IHasXString {
-  x: string;
+	x: string;
 }
 
 interface IHasXNumber {
-  x: number;
+	x: number;
 }
 
 interface IHasYString {
-  y: string;
+	y: string;
 }
 
 var testInstance1: IHasXString = new ClassWithXString();
@@ -127,7 +127,7 @@ function propTest6(y: {[key: string]: number}) {
  */
 
 interface IHasXString {
-  x: string;
+	x: string;
 }
 
 var propTest1: IHasXString = { x: "hello" };
@@ -136,11 +136,11 @@ var propTest3: IHasXString = {}; // Property not found
 var propTest4: IHasXString = ({}: Object);
 
 function propTest5(y: { [key: string]: string }) {
-  (y: IHasXString); // OK
+	(y: IHasXString); // OK
 }
 
 function propTest6(y: { [key: string]: number }) {
-  (y: IHasXString); // error: string != number
+	(y: IHasXString); // error: string != number
 }
 
 ================================================================================
@@ -169,8 +169,8 @@ var test3: HasOptional = { a: "hello", b: true }; // Error: boolean ~> number
 /* @flow */
 
 interface HasOptional {
-  a: string;
-  b?: number;
+	a: string;
+	b?: number;
 }
 
 var test1: HasOptional = { a: "hello" };

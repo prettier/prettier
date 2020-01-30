@@ -44,30 +44,30 @@ printWidth: 80
 <div {/* comment */ ...a} />;
 
 <div
-  {
-    ...a //comment
-  }
+	{
+		...a //comment
+	}
 />;
 
 <div
-  {
-    ...a
-    //comment
-  }
+	{
+		...a
+		//comment
+	}
 />;
 
 <div
-  {
-    //comment
-    ...a
-  }
+	{
+		//comment
+		...a
+	}
 />;
 
 <div
-  {
-    //comment
-    ...a // comment
-  }
+	{
+		//comment
+		...a // comment
+	}
 />;
 
 ================================================================================
@@ -109,30 +109,30 @@ printWidth: 80
 <div>{/* comment */ ...a}</div>;
 
 <div>
-  {
-    ...a //comment
-  }
+	{
+		...a //comment
+	}
 </div>;
 
 <div>
-  {
-    ...a
-    //comment
-  }
+	{
+		...a
+		//comment
+	}
 </div>;
 
 <div>
-  {
-    //comment
-    ...a
-  }
+	{
+		//comment
+		...a
+	}
 </div>;
 
 <div>
-  {
-    //comment
-    ...a // comment
-  }
+	{
+		//comment
+		...a // comment
+	}
 </div>;
 
 ================================================================================

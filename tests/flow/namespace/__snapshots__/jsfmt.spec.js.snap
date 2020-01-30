@@ -50,7 +50,7 @@ var f: T = function (x: string): void {};
 type Map<X, Y> = (x: X) => Y;
 
 function bar<U, V>(x: U, f: Map<U, V>): V {
-  return f(x);
+	return f(x);
 }
 
 var y: number = bar(0, (x) => "");

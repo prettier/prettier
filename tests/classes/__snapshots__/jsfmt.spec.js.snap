@@ -64,43 +64,43 @@ export class VisTimelineComponent2
 
 =====================================output=====================================
 class MyContractSelectionWidget
-  extends React.Component<void, MyContractSelectionWidgetPropsType, void>
-  implements SomethingLarge {
-  method() {}
+	extends React.Component<void, MyContractSelectionWidgetPropsType, void>
+	implements SomethingLarge {
+	method() {}
 }
 
 class DisplayObject1 extends utils.EventEmitter
-  implements interaction_InteractiveTarget {}
+	implements interaction_InteractiveTarget {}
 
 class DisplayObject2 extends utils.EventEmitter
-  implements interaction_InteractiveTarget {}
+	implements interaction_InteractiveTarget {}
 
 class DisplayObject3 extends utils.EventEmitter
-  implements
-    interaction_InteractiveTarget,
-    somethingElse_SomeOtherThing,
-    somethingElseAgain_RunningOutOfNames {}
+	implements
+		interaction_InteractiveTarget,
+		somethingElse_SomeOtherThing,
+		somethingElseAgain_RunningOutOfNames {}
 
 class DisplayObject4 extends utils.EventEmitter
-  implements interaction_InteractiveTarget {}
+	implements interaction_InteractiveTarget {}
 class Readable extends events.EventEmitter implements NodeJS_ReadableStream {}
 class InMemoryAppender extends log4javascript.Appender
-  implements ICachedLogMessageProvider {}
+	implements ICachedLogMessageProvider {}
 
 class Foo extends Immutable.Record({
-  ipaddress: "",
+	ipaddress: "",
 }) {
-  ipaddress: string;
+	ipaddress: string;
 }
 
 export class VisTimelineComponent
-  implements AfterViewInit, OnChanges, OnDestroy {}
+	implements AfterViewInit, OnChanges, OnDestroy {}
 export class VisTimelineComponent2
-  implements
-    AfterViewInit,
-    OnChanges,
-    OnDestroy,
-    AndSomethingReallyReallyLong {}
+	implements
+		AfterViewInit,
+		OnChanges,
+		OnDestroy,
+		AndSomethingReallyReallyLong {}
 
 ================================================================================
 `;
@@ -141,17 +141,17 @@ class A4 {
 
 =====================================output=====================================
 class A1 {
-  // comment
+	// comment
 }
 
 class A2 {
-  // comment
+	// comment
 }
 
 class A3 {}
 
 class A4 {
-  m() {}
+	m() {}
 }
 
 ================================================================================
@@ -193,11 +193,11 @@ class C {
 
 =====================================output=====================================
 class C {
-  name /*comment*/() {}
+	name /*comment*/() {}
 }
 
 ({
-  name /*comment*/() {},
+	name /*comment*/() {},
 });
 
 ================================================================================
@@ -246,22 +246,22 @@ class B {
 
 =====================================output=====================================
 class A {
-  foobar =
-    // comment to break
-    1 +
-    // comment to break again
-    2;
+	foobar =
+		// comment to break
+		1 +
+		// comment to break again
+		2;
 }
 
 class B {
-  someInstanceProperty =
-    this.props.foofoofoofoofoofoo && this.props.barbarbarbar;
+	someInstanceProperty =
+		this.props.foofoofoofoofoofoo && this.props.barbarbarbar;
 
-  someInstanceProperty2 = {
-    foo: this.props.foofoofoofoofoofoo && this.props.barbarbarbar,
-  };
+	someInstanceProperty2 = {
+		foo: this.props.foofoofoofoofoofoo && this.props.barbarbarbar,
+	};
 
-  someInstanceProperty3 = "foo";
+	someInstanceProperty3 = "foo";
 }
 
 ================================================================================

@@ -53,15 +53,15 @@ type ObjAssignT = { foo: string } & { bar: string };
 // used in pred.js
 //
 type ReadableStreamOptions = {
-  highWaterMark?: number,
-  encoding?: ?string,
-  objectMode?: boolean,
+	highWaterMark?: number,
+	encoding?: ?string,
+	objectMode?: boolean,
 };
 
 type WritableStreamOptions = {
-  highWaterMark?: number,
-  decodeString?: boolean,
-  objectMode?: boolean,
+	highWaterMark?: number,
+	decodeString?: boolean,
+	objectMode?: boolean,
 };
 
 // used in test_fun.js

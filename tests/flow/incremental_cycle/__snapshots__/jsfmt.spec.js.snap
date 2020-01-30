@@ -19,8 +19,8 @@ module.exports = A;
 // @flow
 
 class A {
-  b: number;
-  c: string;
+	b: number;
+	c: string;
 }
 
 module.exports = A;
@@ -50,7 +50,7 @@ var A = require("./A");
 import type C from "./C";
 
 class B extends A {
-  c: C;
+	c: C;
 }
 
 module.exports = B;
@@ -80,7 +80,7 @@ var A = require("./A");
 import type B from "./B";
 
 class C extends A {
-  b: B;
+	b: B;
 }
 
 module.exports = C;

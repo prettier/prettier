@@ -12,7 +12,7 @@ class X {
 
 =====================================output=====================================
 class X {
-  a: B<> = SuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLong;
+	a: B<> = SuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLong;
 }
 
 ================================================================================

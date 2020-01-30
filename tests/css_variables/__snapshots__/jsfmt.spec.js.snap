@@ -21,16 +21,16 @@ printWidth: 80
 
 =====================================output=====================================
 .foo {
-  --prop: 10px;
-  prop1: var(--prop);
-  prop2: var(--my-var, --my-background, pink);
-  prop3: calc(var(--prop) * 1px);
+	--prop: 10px;
+	prop1: var(--prop);
+	prop2: var(--my-var, --my-background, pink);
+	prop3: calc(var(--prop) * 1px);
 }
 
 @supports (--foo: green) {
-  body {
-    color: var(--varName);
-  }
+	body {
+		color: var(--varName);
+	}
 }
 
 ================================================================================
@@ -58,17 +58,17 @@ printWidth: 80
 
 =====================================output=====================================
 .foo {
-  --#{$prop}: 10px;
-  #{$prop}: 10px;
-  prop1: var(--#{$var});
-  prop2: var(#{$var}, --my-#{$var}, pink);
-  prop3: calc(var(--#{$var}) * 1px);
+	--#{$prop}: 10px;
+	#{$prop}: 10px;
+	prop1: var(--#{$var});
+	prop2: var(#{$var}, --my-#{$var}, pink);
+	prop3: calc(var(--#{$var}) * 1px);
 }
 
 @supports (--#{$prop}: green) {
-  body {
-    color: var(--#{$var});
-  }
+	body {
+		color: var(--#{$var});
+	}
 }
 
 ================================================================================

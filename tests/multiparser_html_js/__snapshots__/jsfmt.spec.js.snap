@@ -21,12 +21,12 @@ printWidth: 80
 =====================================output=====================================
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <script type="text/javascript">
-      hello("world");
-    </script>
-  </head>
-  <body></body>
+	<head>
+		<script type="text/javascript">
+			hello("world");
+		</script>
+	</head>
+	<body></body>
 </html>
 
 ================================================================================
@@ -54,23 +54,23 @@ printWidth: 80
 
 =====================================output=====================================
 <script>
-  document.write(/* HTML */ \`
-    <script>
-      document.write(/* HTML */ \\\`
-        <!-- foo1 -->
-        <script>
-          document.write(
-            /* HTML */ \\\\\\\`
-              <!-- bar1 -->
-              bar
-              <!-- bar2 -->
-            \\\\\\\`
-          );
-        <\\\\/script>
-        <!-- foo2 -->
-      \\\`);
-    <\\/script>
-  \`);
+	document.write(/* HTML */ \`
+		<script>
+			document.write(/* HTML */ \\\`
+				<!-- foo1 -->
+				<script>
+					document.write(
+						/* HTML */ \\\\\\\`
+							<!-- bar1 -->
+							bar
+							<!-- bar2 -->
+						\\\\\\\`
+					);
+				<\\\\/script>
+				<!-- foo2 -->
+			\\\`);
+		<\\/script>
+	\`);
 </script>
 
 ================================================================================

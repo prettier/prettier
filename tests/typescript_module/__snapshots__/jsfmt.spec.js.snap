@@ -76,33 +76,33 @@ namespace X {
 module X {}
 
 module X {
-  const x = 1;
+	const x = 1;
 }
 
 module X {
-  module X {}
+	module X {}
 }
 
 module X {
-  module X {
-    const x = 1;
-  }
+	module X {
+		const x = 1;
+	}
 }
 
 namespace X {}
 
 namespace X {
-  const x = 1;
+	const x = 1;
 }
 
 namespace X {
-  namespace X {}
+	namespace X {}
 }
 
 namespace X {
-  namespace X {
-    const x = 1;
-  }
+	namespace X {
+		const x = 1;
+	}
 }
 
 ================================================================================
@@ -120,7 +120,7 @@ namespace X {
 
 =====================================output=====================================
 namespace X {
-  declare function f();
+	declare function f();
 }
 
 ================================================================================

@@ -1012,10 +1012,10 @@ that for you:
 
 \`\`\`js
 foo(
-  reallyLongArg(),
-  omgSoManyParameters(),
-  IShouldRefactorThis(),
-  isThereSeriouslyAnotherOne()
+	reallyLongArg(),
+	omgSoManyParameters(),
+	IShouldRefactorThis(),
+	isThereSeriouslyAnotherOne()
 );
 \`\`\`
 
@@ -1357,7 +1357,7 @@ $ yarn add --dev eslint-config-prettier
 
 \`\`\`json
 {
-  "extends": ["prettier"]
+	"extends": ["prettier"]
 }
 \`\`\`
 
@@ -1378,12 +1378,12 @@ and add this config to your \`package.json\`:
 
 \`\`\`json
 {
-  "scripts": {
-    "precommit": "lint-staged"
-  },
-  "lint-staged": {
-    "*.{js,json,css}": ["prettier --write", "git add"]
-  }
+	"scripts": {
+		"precommit": "lint-staged"
+	},
+	"lint-staged": {
+		"*.{js,json,css}": ["prettier --write", "git add"]
+	}
 }
 \`\`\`
 
@@ -1480,7 +1480,7 @@ If \`options.useCache\` is \`false\`, all caching will be bypassed.
 \`\`\`js
 const text = fs.readFileSync(filePath, "utf8");
 prettier.resolveConfig(filePath).then((options) => {
-  const formatted = prettier.format(text, options);
+	const formatted = prettier.format(text, options);
 });
 \`\`\`
 
@@ -1508,11 +1508,11 @@ Prettier's built-in parsers are exposed as properties on the \`parsers\` argumen
 
 \`\`\`js
 prettier.format("lodash ( )", {
-  parser(text, { babylon }) {
-    const ast = babylon(text);
-    ast.program.body[0].expression.callee.name = "_";
-    return ast;
-  },
+	parser(text, { babylon }) {
+		const ast = babylon(text);
+		ast.program.body[0].expression.callee.name = "_";
+		return ast;
+	},
 });
 // -> "_();\\n"
 \`\`\`
@@ -1768,8 +1768,8 @@ JSON:
 \`\`\`json
 // .prettierrc
 {
-  "printWidth": 100,
-  "parser": "flow"
+	"printWidth": 100,
+	"parser": "flow"
 }
 \`\`\`
 
@@ -1791,15 +1791,15 @@ JSON:
 
 \`\`\`json
 {
-  "semi": false,
-  "overrides": [
-    {
-      "files": "*.test.js",
-      "options": {
-        "semi": true
-      }
-    }
-  ]
+	"semi": false,
+	"overrides": [
+		{
+			"files": "*.test.js",
+			"options": {
+				"semi": true
+			}
+		}
+	]
 }
 \`\`\`
 
@@ -1821,12 +1821,12 @@ To get prettier to format its own \`.prettierrc\` file, you can do:
 
 \`\`\`json
 {
-  "overrides": [
-    {
-      "files": ".prettierrc",
-      "options": { "parser": "json" }
-    }
-  ]
+	"overrides": [
+		{
+			"files": ".prettierrc",
+			"options": { "parser": "json" }
+		}
+	]
 }
 \`\`\`
 
@@ -2992,10 +2992,10 @@ that for you:
 
 \`\`\`js
 foo(
-  reallyLongArg(),
-  omgSoManyParameters(),
-  IShouldRefactorThis(),
-  isThereSeriouslyAnotherOne()
+	reallyLongArg(),
+	omgSoManyParameters(),
+	IShouldRefactorThis(),
+	isThereSeriouslyAnotherOne()
 );
 \`\`\`
 
@@ -3337,7 +3337,7 @@ $ yarn add --dev eslint-config-prettier
 
 \`\`\`json
 {
-  "extends": ["prettier"]
+	"extends": ["prettier"]
 }
 \`\`\`
 
@@ -3358,12 +3358,12 @@ and add this config to your \`package.json\`:
 
 \`\`\`json
 {
-  "scripts": {
-    "precommit": "lint-staged"
-  },
-  "lint-staged": {
-    "*.{js,json,css}": ["prettier --write", "git add"]
-  }
+	"scripts": {
+		"precommit": "lint-staged"
+	},
+	"lint-staged": {
+		"*.{js,json,css}": ["prettier --write", "git add"]
+	}
 }
 \`\`\`
 
@@ -3460,7 +3460,7 @@ If \`options.useCache\` is \`false\`, all caching will be bypassed.
 \`\`\`js
 const text = fs.readFileSync(filePath, 'utf8');
 prettier.resolveConfig(filePath).then((options) => {
-  const formatted = prettier.format(text, options);
+	const formatted = prettier.format(text, options);
 });
 \`\`\`
 
@@ -3488,11 +3488,11 @@ Prettier's built-in parsers are exposed as properties on the \`parsers\` argumen
 
 \`\`\`js
 prettier.format('lodash ( )', {
-  parser(text, { babylon }) {
-    const ast = babylon(text);
-    ast.program.body[0].expression.callee.name = '_';
-    return ast;
-  },
+	parser(text, { babylon }) {
+		const ast = babylon(text);
+		ast.program.body[0].expression.callee.name = '_';
+		return ast;
+	},
 });
 // -> "_();\\n"
 \`\`\`
@@ -3748,8 +3748,8 @@ JSON:
 \`\`\`json
 // .prettierrc
 {
-  "printWidth": 100,
-  "parser": "flow"
+	"printWidth": 100,
+	"parser": "flow"
 }
 \`\`\`
 
@@ -3771,15 +3771,15 @@ JSON:
 
 \`\`\`json
 {
-  "semi": false,
-  "overrides": [
-    {
-      "files": "*.test.js",
-      "options": {
-        "semi": true
-      }
-    }
-  ]
+	"semi": false,
+	"overrides": [
+		{
+			"files": "*.test.js",
+			"options": {
+				"semi": true
+			}
+		}
+	]
 }
 \`\`\`
 
@@ -3801,12 +3801,12 @@ To get prettier to format its own \`.prettierrc\` file, you can do:
 
 \`\`\`json
 {
-  "overrides": [
-    {
-      "files": ".prettierrc",
-      "options": { "parser": "json" }
-    }
-  ]
+	"overrides": [
+		{
+			"files": ".prettierrc",
+			"options": { "parser": "json" }
+		}
+	]
 }
 \`\`\`
 

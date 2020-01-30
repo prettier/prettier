@@ -22,9 +22,9 @@ declare module ModuleAliasFoo {
  */
 
 declare module ModuleAliasFoo {
-  declare type baz = number;
-  declare type toz = string;
-  declare function foo(bar: baz): toz;
+	declare type baz = number;
+	declare type toz = string;
+	declare function foo(bar: baz): toz;
 }
 
 ================================================================================
@@ -58,19 +58,19 @@ declare module 'foo' {
 /* @flow */
 
 declare module "foo" {
-  declare class A {
-    toz: number;
-  }
+	declare class A {
+		toz: number;
+	}
 
-  declare var n: string;
+	declare var n: string;
 
-  declare type Foo = typeof n;
-  declare type Bar = A;
-  declare type Id<T> = T;
+	declare type Foo = typeof n;
+	declare type Bar = A;
+	declare type Id<T> = T;
 
-  declare var exports: {
-    (a: number, b: number): number,
-  };
+	declare var exports: {
+		(a: number, b: number): number,
+	};
 }
 
 ================================================================================

@@ -19,14 +19,14 @@ class A {
 
 =====================================output=====================================
 class A {
-  method() {
-    var x = 1;
-    while (typeof x == "number" || typeof x == "string") {
-      x = x + 1;
-      if (true) x = "";
-    }
-    var z: number = x;
-  }
+	method() {
+		var x = 1;
+		while (typeof x == "number" || typeof x == "string") {
+			x = x + 1;
+			if (true) x = "";
+		}
+		var z: number = x;
+	}
 }
 
 ================================================================================
@@ -52,14 +52,14 @@ class A {
 
 =====================================output=====================================
 class A {
-    method() {
-        var x = 1;
-        while (typeof x == "number" || typeof x == "string") {
-            x = x + 1;
-            if (true) x = "";
-        }
-        var z: number = x;
-    }
+	method() {
+		var x = 1;
+		while (typeof x == "number" || typeof x == "string") {
+			x = x + 1;
+			if (true) x = "";
+		}
+		var z: number = x;
+	}
 }
 
 ================================================================================
@@ -87,13 +87,13 @@ function a() {
 const c = () => {};
 
 function a() {
-  return function b() {
-    return () => {
-      return function () {
-        return c;
-      };
-    };
-  };
+	return function b() {
+		return () => {
+			return function () {
+				return c;
+			};
+		};
+	};
 }
 
 ================================================================================
@@ -122,13 +122,13 @@ function a() {
 const c = () => {};
 
 function a() {
-    return function b() {
-        return () => {
-            return function () {
-                return c;
-            };
-        };
-    };
+	return function b() {
+		return () => {
+			return function () {
+				return c;
+			};
+		};
+	};
 }
 
 ================================================================================

@@ -18,12 +18,12 @@ var x:number = C.x;
 C.x = 0;
 =====================================output=====================================
 class C {
-  static f(x: number) {}
-  static x: string;
+	static f(x: number) {}
+	static x: string;
 }
 
 C.g = function (x: string) {
-  C.f(x);
+	C.f(x);
 };
 C.g(0);
 
@@ -48,10 +48,10 @@ var x:string = new C().f();
 =====================================output=====================================
 function C() {}
 C.prototype.f = function () {
-  return C.g(0);
+	return C.g(0);
 };
 C.g = function (x) {
-  return x;
+	return x;
 };
 
 var x: string = new C().f();

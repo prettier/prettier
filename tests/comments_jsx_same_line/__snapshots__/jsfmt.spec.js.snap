@@ -40,26 +40,26 @@ printWidth: 80
 <div
 // comment
 >
-  {foo}
+	{foo}
 </div>;
 
 <div
-  // comment
-  attr="foo">
-  {foo}
+	// comment
+	attr="foo">
+	{foo}
 </div>;
 
 <div
-  attr="foo" // comment
+	attr="foo" // comment
 >
-  {foo}
+	{foo}
 </div>;
 
 <div
-  attr="foo"
-  // comment
+	attr="foo"
+	// comment
 >
-  {foo}
+	{foo}
 </div>;
 
 <br // comment

@@ -31,22 +31,22 @@ function bar(x: boolean) {
 /* @flow */
 
 function foo(x: boolean) {
-  var ii = 10;
-  while (ii-- >= 0) {
-    if (x) {
-      continue;
-    }
-    return;
-  }
-  //console.log('this is still reachable');
+	var ii = 10;
+	while (ii-- >= 0) {
+		if (x) {
+			continue;
+		}
+		return;
+	}
+	//console.log('this is still reachable');
 }
 
 function bar(x: boolean) {
-  var ii = 0;
-  while (ii > 0) {
-    return;
-  }
-  //console.log('this is still reachable');
+	var ii = 0;
+	while (ii > 0) {
+		return;
+	}
+	//console.log('this is still reachable');
 }
 
 ================================================================================
@@ -72,17 +72,17 @@ while (node) {
 
 =====================================output=====================================
 class C {
-  m() {
-    return new C();
-  }
+	m() {
+		return new C();
+	}
 }
 function blah() {}
 var node: ?C = new C();
 while (node) {
-  var parent = node.m();
-  var cloneable: C = node;
-  blah();
-  node = parent.m();
+	var parent = node.m();
+	var cloneable: C = node;
+	blah();
+	node = parent.m();
 }
 
 ================================================================================

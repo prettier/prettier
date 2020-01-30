@@ -16,12 +16,12 @@ abstract class A {
 
 =====================================output=====================================
 abstract class A {
-  abstract get a();
-  abstract get aa() {
-    return 1;
-  }
-  abstract set b(x: string);
-  abstract set bb(x: string) {}
+	abstract get a();
+	abstract get aa() {
+		return 1;
+	}
+	abstract set b(x: string);
+	abstract set bb(x: string) {}
 }
 
 ================================================================================
@@ -40,9 +40,9 @@ class abstract {
 new abstract;
 =====================================output=====================================
 class abstract {
-  foo() {
-    return 1;
-  }
+	foo() {
+		return 1;
+	}
 }
 
 new abstract();
@@ -96,8 +96,8 @@ AAA = A;
 var I: IConstructor;
 
 abstract class A {
-  x: number;
-  static y: number;
+	x: number;
+	static y: number;
 }
 
 var AA: typeof A;
@@ -164,11 +164,11 @@ class bar extends foo {
 var x = new bar();
 =====================================output=====================================
 abstract class foo {
-  protected abstract test();
+	protected abstract test();
 }
 
 class bar extends foo {
-  test() {}
+	test() {}
 }
 var x = new bar();
 
@@ -199,11 +199,11 @@ class E extends B {
 }
 =====================================output=====================================
 class A {
-  foo() {}
+	foo() {}
 }
 
 abstract class B extends A {
-  abstract bar();
+	abstract bar();
 }
 
 class C extends B {}
@@ -211,7 +211,7 @@ class C extends B {}
 abstract class D extends B {}
 
 class E extends B {
-  bar() {}
+	bar() {}
 }
 
 ================================================================================
@@ -245,11 +245,11 @@ class A {}
 abstract class B extends A {}
 
 function NewA(Factory: typeof A) {
-  return new A();
+	return new A();
 }
 
 function NewB(Factory: typeof B) {
-  return new B();
+	return new B();
 }
 
 NewA(A);
@@ -294,10 +294,10 @@ class G<T> extends A {
 }
 =====================================output=====================================
 abstract class A<T> {
-  t: T;
+	t: T;
 
-  abstract foo(): T;
-  abstract bar(t: T);
+	abstract foo(): T;
+	abstract bar(t: T);
 }
 
 abstract class B<T> extends A {}
@@ -307,20 +307,20 @@ class C<T> extends A {}
 class D extends A {}
 
 class E<T> extends A {
-  foo() {
-    return this.t;
-  }
+	foo() {
+		return this.t;
+	}
 }
 
 class F<T> extends A {
-  bar(t: T) {}
+	bar(t: T) {}
 }
 
 class G<T> extends A {
-  foo() {
-    return this.t;
-  }
-  bar(t: T) {}
+	foo() {
+		return this.t;
+	}
+	bar(t: T) {}
 }
 
 ================================================================================
@@ -408,7 +408,7 @@ abstract class B extends A {}
 class C extends A {}
 
 abstract class AA {
-  abstract foo();
+	abstract foo();
 }
 
 abstract class BB extends AA {}
@@ -535,10 +535,10 @@ class H {
 class A {}
 
 abstract class B {
-  foo(): number {
-    return this.bar();
-  }
-  abstract bar(): number;
+	foo(): number {
+		return this.bar();
+	}
+	abstract bar(): number;
 }
 
 new B();
@@ -548,7 +548,7 @@ var AA: typeof A = BB;
 new AA();
 
 function constructB(Factory: typeof B) {
-  new Factory();
+	new Factory();
 }
 
 var BB = B;
@@ -562,30 +562,30 @@ class C extends B {}
 abstract class D extends B {}
 
 class E extends B {
-  bar() {
-    return 1;
-  }
+	bar() {
+		return 1;
+	}
 }
 
 abstract class F extends B {
-  abstract foo(): number;
-  bar() {
-    return 2;
-  }
+	abstract foo(): number;
+	bar() {
+		return 2;
+	}
 }
 
 abstract class G {
-  abstract qux(x: number): string;
-  abstract qux(): number;
-  y: number;
-  abstract quz(x: number, y: string): boolean;
+	abstract qux(x: number): string;
+	abstract qux(): number;
+	y: number;
+	abstract quz(x: number, y: string): boolean;
 
-  abstract nom(): boolean;
-  nom(x: number): boolean;
+	abstract nom(): boolean;
+	nom(x: number): boolean;
 }
 
 class H {
-  abstract baz(): number;
+	abstract baz(): number;
 }
 
 ================================================================================
@@ -606,11 +606,11 @@ class B {
 }
 =====================================output=====================================
 class A {
-  abstract foo();
+	abstract foo();
 }
 
 class B {
-  abstract foo() {}
+	abstract foo() {}
 }
 
 ================================================================================
@@ -627,7 +627,7 @@ abstract class A {
 }
 =====================================output=====================================
 abstract class A {
-  abstract foo() {}
+	abstract foo() {}
 }
 
 ================================================================================
@@ -656,19 +656,19 @@ abstract class A {
 }
 =====================================output=====================================
 abstract class A {
-  abstract foo_a();
+	abstract foo_a();
 
-  public abstract foo_b();
-  protected abstract foo_c();
-  private abstract foo_d();
+	public abstract foo_b();
+	protected abstract foo_c();
+	private abstract foo_d();
 
-  public abstract foo_bb();
-  protected abstract foo_cc();
-  private abstract foo_dd();
+	public abstract foo_bb();
+	protected abstract foo_cc();
+	private abstract foo_dd();
 
-  static abstract foo_d();
+	static abstract foo_d();
 
-  static abstract foo_e();
+	static abstract foo_e();
 }
 
 ================================================================================
@@ -706,28 +706,28 @@ abstract class B {
 }
 =====================================output=====================================
 abstract class A {
-  abstract foo();
-  abstract foo(): number;
-  abstract foo();
+	abstract foo();
+	abstract foo(): number;
+	abstract foo();
 
-  abstract bar();
-  bar();
-  abstract bar();
+	abstract bar();
+	bar();
+	abstract bar();
 
-  abstract baz();
-  baz();
-  abstract baz();
-  baz() {}
+	abstract baz();
+	baz();
+	abstract baz();
+	baz() {}
 
-  qux();
+	qux();
 }
 
 abstract class B {
-  abstract foo(): number;
-  abstract foo();
-  x: number;
-  abstract foo();
-  abstract foo();
+	abstract foo(): number;
+	abstract foo();
+	x: number;
+	abstract foo();
+	abstract foo();
 }
 
 ================================================================================
@@ -764,27 +764,27 @@ class DD extends BB {
 }
 =====================================output=====================================
 class A {
-  foo() {}
+	foo() {}
 }
 
 abstract class B extends A {
-  abstract foo();
+	abstract foo();
 }
 
 abstract class AA {
-  foo() {}
-  abstract bar();
+	foo() {}
+	abstract bar();
 }
 
 abstract class BB extends AA {
-  abstract foo();
-  bar() {}
+	abstract foo();
+	bar() {}
 }
 
 class CC extends BB {}
 
 class DD extends BB {
-  foo() {}
+	foo() {}
 }
 
 ================================================================================
@@ -811,17 +811,17 @@ abstract class A {
 }
 =====================================output=====================================
 abstract class A {
-  abstract x: number;
-  public abstract y: number;
-  protected abstract z: number;
-  private abstract w: number;
+	abstract x: number;
+	public abstract y: number;
+	protected abstract z: number;
+	private abstract w: number;
 
-  abstract m: () => void;
+	abstract m: () => void;
 
-  abstract foo_x(): number;
-  public abstract foo_y(): number;
-  protected abstract foo_z(): number;
-  private abstract foo_w(): number;
+	abstract foo_x(): number;
+	public abstract foo_y(): number;
+	protected abstract foo_z(): number;
+	private abstract foo_w(): number;
 }
 
 ================================================================================
@@ -896,44 +896,44 @@ abstract class BB extends AA {
 
 =====================================output=====================================
 class A {
-  foo() {
-    return 1;
-  }
+	foo() {
+		return 1;
+	}
 }
 
 abstract class B extends A {
-  abstract foo();
-  bar() {
-    super.foo();
-  }
-  baz() {
-    return this.foo;
-  }
+	abstract foo();
+	bar() {
+		super.foo();
+	}
+	baz() {
+		return this.foo;
+	}
 }
 
 class C extends B {
-  foo() {
-    return 2;
-  }
-  qux() {
-    return super.foo() || super.foo;
-  }
-  norf() {
-    return super.bar();
-  }
+	foo() {
+		return 2;
+	}
+	qux() {
+		return super.foo() || super.foo;
+	}
+	norf() {
+		return super.bar();
+	}
 }
 
 class AA {
-  foo() {
-    return 1;
-  }
-  bar() {
-    return this.foo();
-  }
+	foo() {
+		return 1;
+	}
+	bar() {
+		return this.foo();
+	}
 }
 
 abstract class BB extends AA {
-  abstract foo();
+	abstract foo();
 }
 
 ================================================================================
@@ -964,17 +964,17 @@ a = new C;
 a.foo();
 =====================================output=====================================
 abstract class A {
-  abstract foo(): number;
+	abstract foo(): number;
 }
 
 class B extends A {
-  foo() {
-    return 1;
-  }
+	foo() {
+		return 1;
+	}
 }
 
 abstract class C extends A {
-  abstract foo(): number;
+	abstract foo(): number;
 }
 
 var a = new B();
@@ -1021,7 +1021,7 @@ class DD extends AA {
 }
 =====================================output=====================================
 class A {
-  abstract foo();
+	abstract foo();
 }
 
 class B extends A {}
@@ -1029,15 +1029,15 @@ class B extends A {}
 abstract class C extends A {}
 
 class D extends A {
-  foo() {}
+	foo() {}
 }
 
 abstract class E extends A {
-  foo() {}
+	foo() {}
 }
 
 abstract class AA {
-  abstract foo();
+	abstract foo();
 }
 
 class BB extends AA {}
@@ -1045,7 +1045,7 @@ class BB extends AA {}
 abstract class CC extends AA {}
 
 class DD extends AA {
-  foo() {}
+	foo() {}
 }
 
 ================================================================================

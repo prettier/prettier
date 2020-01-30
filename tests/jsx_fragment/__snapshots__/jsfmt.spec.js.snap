@@ -85,48 +85,48 @@ function fun3() {
 <>text</>;
 
 <>
-  <Component />
-  <Component />
+	<Component />
+	<Component />
 </>;
 
 <>
-  text
-  <h2>heading</h2>
-  text
-  <h2>heading</h2>
-  text
+	text
+	<h2>heading</h2>
+	text
+	<h2>heading</h2>
+	text
 </>;
 
 <div>
-  <>
-    <>
-      <span>Hello</span>
-      <span>world</span>
-    </>
-    <>
-      <span>Goodbye</span>
-      <span>world</span>
-    </>
-  </>
+	<>
+		<>
+			<span>Hello</span>
+			<span>world</span>
+		</>
+		<>
+			<span>Goodbye</span>
+			<span>world</span>
+		</>
+	</>
 </div>;
 
 foo = (
-  // comment
-  <></>
+	// comment
+	<></>
 );
 
 </* open fragment */>
-  <Component />
-  <Component />
+	<Component />
+	<Component />
 </ /* close fragment */>;
 
 <
-  // open fragment
+	// open fragment
 >
-  <Component />
-  <Component />
+	<Component />
+	<Component />
 </
-  // close fragment
+	// close fragment
 >;
 
 [<></>, <></>];
@@ -139,14 +139,14 @@ fun2(<></>);
 test ? <></> : x;
 <></>;
 <a>
-  <></>
+	<></>
 </a>;
 const obj = {
-  foo: <></>,
+	foo: <></>,
 };
 const fragmentVar = <></>;
 function fun3() {
-  return <></>;
+	return <></>;
 }
 (<></>).toString();
 (<></>).props;

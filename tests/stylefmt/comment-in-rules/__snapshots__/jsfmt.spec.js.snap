@@ -22,18 +22,18 @@ float: left;}
 
 =====================================output=====================================
 .class {
-  display: inline-block;
-  /* comment */
-  float: left;
+	display: inline-block;
+	/* comment */
+	float: left;
 }
 
 #id {
-  font-size: 12px;
+	font-size: 12px;
 
-  /* colors */
+	/* colors */
 
-  color: pink;
-  background: #fff;
+	color: pink;
+	background: #fff;
 }
 
 ================================================================================

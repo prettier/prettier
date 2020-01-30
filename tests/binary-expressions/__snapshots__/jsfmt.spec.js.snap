@@ -22,25 +22,25 @@ function f() {
 
 =====================================output=====================================
 function f() {
-  const appEntities = getAppEntities(loadObject).filter(
-    (entity) =>
-      entity &&
-      entity.isInstallAvailable() &&
-      !entity.isQueue() &&
-      entity.isDisabled()
-  );
+	const appEntities = getAppEntities(loadObject).filter(
+		(entity) =>
+			entity &&
+			entity.isInstallAvailable() &&
+			!entity.isQueue() &&
+			entity.isDisabled()
+	);
 }
 
 function f() {
-  const appEntities = getAppEntities(loadObject).map(
-    (entity) =>
-      entity &&
-      entity.isInstallAvailable() &&
-      !entity.isQueue() &&
-      entity.isDisabled() && {
-        id: entity.id,
-      }
-  );
+	const appEntities = getAppEntities(loadObject).map(
+		(entity) =>
+			entity &&
+			entity.isInstallAvailable() &&
+			!entity.isQueue() &&
+			entity.isDisabled() && {
+				id: entity.id,
+			}
+	);
 }
 
 ================================================================================
@@ -142,57 +142,57 @@ printWidth: 80
 
 =====================================output=====================================
 (
-  aaaaaaaaaaaaaaaaaaaaaaaaa &&
-  bbbbbbbbbbbbbbbbbbbbbbbbb &&
-  ccccccccccccccccccccccccc &&
-  ddddddddddddddddddddddddd &&
-  eeeeeeeeeeeeeeeeeeeeeeeee
+	aaaaaaaaaaaaaaaaaaaaaaaaa &&
+	bbbbbbbbbbbbbbbbbbbbbbbbb &&
+	ccccccccccccccccccccccccc &&
+	ddddddddddddddddddddddddd &&
+	eeeeeeeeeeeeeeeeeeeeeeeee
 )();
 
 (aa && bb && cc && dd && ee)();
 
 (
-  aaaaaaaaaaaaaaaaaaaaaaaaa +
-  bbbbbbbbbbbbbbbbbbbbbbbbb +
-  ccccccccccccccccccccccccc +
-  ddddddddddddddddddddddddd +
-  eeeeeeeeeeeeeeeeeeeeeeeee
+	aaaaaaaaaaaaaaaaaaaaaaaaa +
+	bbbbbbbbbbbbbbbbbbbbbbbbb +
+	ccccccccccccccccccccccccc +
+	ddddddddddddddddddddddddd +
+	eeeeeeeeeeeeeeeeeeeeeeeee
 )();
 
 (aa + bb + cc + dd + ee)();
 
 (
-  aaaaaaaaaaaaaaaaaaaaaaaaa &&
-  bbbbbbbbbbbbbbbbbbbbbbbbb &&
-  ccccccccccccccccccccccccc &&
-  ddddddddddddddddddddddddd &&
-  eeeeeeeeeeeeeeeeeeeeeeeee
+	aaaaaaaaaaaaaaaaaaaaaaaaa &&
+	bbbbbbbbbbbbbbbbbbbbbbbbb &&
+	ccccccccccccccccccccccccc &&
+	ddddddddddddddddddddddddd &&
+	eeeeeeeeeeeeeeeeeeeeeeeee
 )()()();
 
 (
-  aaaaaaaaaaaaaaaaaaaaaaaaa &&
-  bbbbbbbbbbbbbbbbbbbbbbbbb &&
-  ccccccccccccccccccccccccc &&
-  ddddddddddddddddddddddddd &&
-  eeeeeeeeeeeeeeeeeeeeeeeee
+	aaaaaaaaaaaaaaaaaaaaaaaaa &&
+	bbbbbbbbbbbbbbbbbbbbbbbbb &&
+	ccccccccccccccccccccccccc &&
+	ddddddddddddddddddddddddd &&
+	eeeeeeeeeeeeeeeeeeeeeeeee
 )(
-  aaaaaaaaaaaaaaaaaaaaaaaaa &&
-    bbbbbbbbbbbbbbbbbbbbbbbbb &&
-    ccccccccccccccccccccccccc &&
-    ddddddddddddddddddddddddd &&
-    eeeeeeeeeeeeeeeeeeeeeeeee
+	aaaaaaaaaaaaaaaaaaaaaaaaa &&
+		bbbbbbbbbbbbbbbbbbbbbbbbb &&
+		ccccccccccccccccccccccccc &&
+		ddddddddddddddddddddddddd &&
+		eeeeeeeeeeeeeeeeeeeeeeeee
 )(
-  aaaaaaaaaaaaaaaaaaaaaaaaa &&
-    bbbbbbbbbbbbbbbbbbbbbbbbb &&
-    ccccccccccccccccccccccccc &&
-    ddddddddddddddddddddddddd &&
-    eeeeeeeeeeeeeeeeeeeeeeeee
+	aaaaaaaaaaaaaaaaaaaaaaaaa &&
+		bbbbbbbbbbbbbbbbbbbbbbbbb &&
+		ccccccccccccccccccccccccc &&
+		ddddddddddddddddddddddddd &&
+		eeeeeeeeeeeeeeeeeeeeeeeee
 )(
-  aaaaaaaaaaaaaaaaaaaaaaaaa &&
-    bbbbbbbbbbbbbbbbbbbbbbbbb &&
-    ccccccccccccccccccccccccc &&
-    ddddddddddddddddddddddddd &&
-    eeeeeeeeeeeeeeeeeeeeeeeee
+	aaaaaaaaaaaaaaaaaaaaaaaaa &&
+		bbbbbbbbbbbbbbbbbbbbbbbbb &&
+		ccccccccccccccccccccccccc &&
+		ddddddddddddddddddddddddd &&
+		eeeeeeeeeeeeeeeeeeeeeeeee
 );
 
 ================================================================================
@@ -212,10 +212,10 @@ a = (
 
 =====================================output=====================================
 a =
-  // Comment 1
-  Math.random() * (yRange * (1 - minVerticalFraction)) +
-  minVerticalFraction * yRange -
-  offset;
+	// Comment 1
+	Math.random() * (yRange * (1 - minVerticalFraction)) +
+	minVerticalFraction * yRange -
+	offset;
 
 ================================================================================
 `;
@@ -300,19 +300,19 @@ if (this.hasPlugin("dynamicImports") && this.lookahead().type) {
 }
 
 if (
-  this.hasPlugin("dynamicImports") &&
-  this.lookahead().type === tt.parenLeft
+	this.hasPlugin("dynamicImports") &&
+	this.lookahead().type === tt.parenLeft
 ) {
 }
 
 if (
-  this.hasPlugin("dynamicImports") &&
-  this.lookahead().type === tt.parenLeft.right
+	this.hasPlugin("dynamicImports") &&
+	this.lookahead().type === tt.parenLeft.right
 ) {
 }
 
 if (
-  VeryVeryVeryVeryVeryVeryVeryVeryLong === VeryVeryVeryVeryVeryVeryVeryVeryLong
+	VeryVeryVeryVeryVeryVeryVeryVeryLong === VeryVeryVeryVeryVeryVeryVeryVeryLong
 ) {
 }
 
@@ -335,23 +335,23 @@ const avatar = (hasAvatar || showPlaceholder) && <Gravatar user={author} size={s
 
 =====================================output=====================================
 const user = renderedUser || (
-  <div>
-    <User name={this.state.user.name} age={this.state.user.age} />
-  </div>
+	<div>
+		<User name={this.state.user.name} age={this.state.user.age} />
+	</div>
 );
 
 const user =
-  renderedUser ||
-  (shouldRenderUser && (
-    <div>
-      <User name={this.state.user.name} age={this.state.user.age} />
-    </div>
-  ));
+	renderedUser ||
+	(shouldRenderUser && (
+		<div>
+			<User name={this.state.user.name} age={this.state.user.age} />
+		</div>
+	));
 
 const avatar = hasAvatar && <Gravatar user={author} size={size} />;
 
 const avatar = (hasAvatar || showPlaceholder) && (
-  <Gravatar user={author} size={size} />
+	<Gravatar user={author} size={size} />
 );
 
 ================================================================================
@@ -455,97 +455,97 @@ const obj = {
 
 =====================================output=====================================
 prevState = prevState || {
-  catalogs: [],
-  loadState: LOADED,
-  opened: false,
-  searchQuery: "",
-  selectedCatalog: null,
+	catalogs: [],
+	loadState: LOADED,
+	opened: false,
+	searchQuery: "",
+	selectedCatalog: null,
 };
 
 prevState = prevState ||
-  defaultState || {
-    catalogs: [],
-    loadState: LOADED,
-    opened: false,
-    searchQuery: "",
-    selectedCatalog: null,
-  };
+	defaultState || {
+		catalogs: [],
+		loadState: LOADED,
+		opened: false,
+		searchQuery: "",
+		selectedCatalog: null,
+	};
 
 prevState =
-  prevState ||
-  (defaultState && {
-    catalogs: [],
-    loadState: LOADED,
-    opened: false,
-    searchQuery: "",
-    selectedCatalog: null,
-  });
+	prevState ||
+	(defaultState && {
+		catalogs: [],
+		loadState: LOADED,
+		opened: false,
+		searchQuery: "",
+		selectedCatalog: null,
+	});
 
 prevState = prevState ||
-  (useDefault && defaultState) || {
-    catalogs: [],
-    loadState: LOADED,
-    opened: false,
-    searchQuery: "",
-    selectedCatalog: null,
-  };
+	(useDefault && defaultState) || {
+		catalogs: [],
+		loadState: LOADED,
+		opened: false,
+		searchQuery: "",
+		selectedCatalog: null,
+	};
 
 this.steps = steps || [
-  {
-    name: "mock-module",
-    path: "/nux/mock-module",
-  },
+	{
+		name: "mock-module",
+		path: "/nux/mock-module",
+	},
 ];
 
 this.steps =
-  steps ||
-  (checkStep && [
-    {
-      name: "mock-module",
-      path: "/nux/mock-module",
-    },
-  ]);
+	steps ||
+	(checkStep && [
+		{
+			name: "mock-module",
+			path: "/nux/mock-module",
+		},
+	]);
 
 this.steps = (steps && checkStep) || [
-  {
-    name: "mock-module",
-    path: "/nux/mock-module",
-  },
+	{
+		name: "mock-module",
+		path: "/nux/mock-module",
+	},
 ];
 
 const create = () => {
-  const result = doSomething();
-  return (
-    shouldReturn &&
-    result.ok && {
-      status: "ok",
-      createdAt: result.createdAt,
-      updatedAt: result.updatedAt,
-    }
-  );
+	const result = doSomething();
+	return (
+		shouldReturn &&
+		result.ok && {
+			status: "ok",
+			createdAt: result.createdAt,
+			updatedAt: result.updatedAt,
+		}
+	);
 };
 
 const create = () => {
-  const result = doSomething();
-  return (
-    (shouldReturn && result.ok && result) || {
-      status: "ok",
-      createdAt: result.createdAt,
-      updatedAt: result.updatedAt,
-    }
-  );
+	const result = doSomething();
+	return (
+		(shouldReturn && result.ok && result) || {
+			status: "ok",
+			createdAt: result.createdAt,
+			updatedAt: result.updatedAt,
+		}
+	);
 };
 
 const obj = {
-  state: shouldHaveState &&
-    stateIsOK && {
-      loadState: LOADED,
-      opened: false,
-    },
-  loadNext: (stateIsOK && hasNext) || {
-    skipNext: true,
-  },
-  loaded: true,
+	state: shouldHaveState &&
+		stateIsOK && {
+			loadState: LOADED,
+			opened: false,
+		},
+	loadNext: (stateIsOK && hasNext) || {
+		skipNext: true,
+	},
+	loaded: true,
 };
 
 ================================================================================
@@ -593,43 +593,43 @@ printWidth: 80
 
 =====================================output=====================================
 <div
-  src={
-    !isJellyfishEnabled &&
-    diffUpdateMessageInput != null &&
-    this.state.isUpdateMessageEmpty
-  }
+	src={
+		!isJellyfishEnabled &&
+		diffUpdateMessageInput != null &&
+		this.state.isUpdateMessageEmpty
+	}
 />;
 
 <div>
-  {!isJellyfishEnabled &&
-    diffUpdateMessageInput != null &&
-    this.state.isUpdateMessageEmpty}
+	{!isJellyfishEnabled &&
+		diffUpdateMessageInput != null &&
+		this.state.isUpdateMessageEmpty}
 </div>;
 
 <div
-  style={
-    !isJellyfishEnabled &&
-    diffUpdateMessageInput && {
-      fontSize: 14,
-      color: "#fff",
-    }
-  }
+	style={
+		!isJellyfishEnabled &&
+		diffUpdateMessageInput && {
+			fontSize: 14,
+			color: "#fff",
+		}
+	}
 />;
 
 <div>
-  {!isJellyfishEnabled && diffUpdateMessageInput != null && (
-    <div>
-      <span>Text</span>
-    </div>
-  )}
+	{!isJellyfishEnabled && diffUpdateMessageInput != null && (
+		<div>
+			<span>Text</span>
+		</div>
+	)}
 </div>;
 
 <div>
-  {(!isJellyfishEnabled && diffUpdateMessageInput != null && child) || (
-    <div>
-      <span>Text</span>
-    </div>
-  )}
+	{(!isJellyfishEnabled && diffUpdateMessageInput != null && child) || (
+		<div>
+			<span>Text</span>
+		</div>
+	)}
 </div>;
 
 ================================================================================
@@ -715,24 +715,24 @@ function foo() {
 
 =====================================output=====================================
 function foo() {
-  return (
-    this.hasPlugin("dynamicImports") &&
-    this.lookahead().type === tt.parenLeft.right
-  );
+	return (
+		this.hasPlugin("dynamicImports") &&
+		this.lookahead().type === tt.parenLeft.right
+	);
 }
 
 function foo() {
-  return this.hasPlugin("dynamicImports") &&
-    this.lookahead().type === tt.parenLeft.right
-    ? true
-    : false;
+	return this.hasPlugin("dynamicImports") &&
+		this.lookahead().type === tt.parenLeft.right
+		? true
+		: false;
 }
 
 function foo() {
-  return this.calculate().compute().first.numberOfThings >
-    this.calculate().compute().last.numberOfThings
-    ? true
-    : false;
+	return this.calculate().compute().first.numberOfThings >
+		this.calculate().compute().last.numberOfThings
+		? true
+		: false;
 }
 
 ================================================================================
@@ -766,20 +766,20 @@ defaultContent.filter(defaultLocale => {
 
 =====================================output=====================================
 this._cumulativeHeights &&
-  Math.abs(
-    this._cachedItemHeight(this._firstVisibleIndex + i) -
-      this._provider.fastHeight(i + this._firstVisibleIndex)
-  ) > 1;
+	Math.abs(
+		this._cachedItemHeight(this._firstVisibleIndex + i) -
+			this._provider.fastHeight(i + this._firstVisibleIndex)
+	) > 1;
 
 foooooooooooooooooooooooooooooooooooooooooooooooooooooooooo(
-  aaaaaaaaaaaaaaaaaaa
+	aaaaaaaaaaaaaaaaaaa
 ) + a;
 
 const isPartOfPackageJSON =
-  dependenciesArray.indexOf(dependencyWithOutRelativePath.split("/")[0]) !== -1;
+	dependenciesArray.indexOf(dependencyWithOutRelativePath.split("/")[0]) !== -1;
 
 defaultContent.filter((defaultLocale) => {
-  // ...
+	// ...
 })[0] || null;
 
 ================================================================================
@@ -817,58 +817,58 @@ foo(obj.property * new Class() && obj instanceof Class && longVariable ? number 
 
 const x = longVariable + longVariable + longVariable;
 const x =
-  longVariable +
-  longVariable +
-  longVariable +
-  longVariable -
-  longVariable +
-  longVariable;
+	longVariable +
+	longVariable +
+	longVariable +
+	longVariable -
+	longVariable +
+	longVariable;
 const x =
-  longVariable +
-  longVariable * longVariable +
-  longVariable -
-  longVariable +
-  longVariable;
+	longVariable +
+	longVariable * longVariable +
+	longVariable -
+	longVariable +
+	longVariable;
 const x =
-  longVariable +
-  (longVariable * longVariable * longVariable) / longVariable +
-  longVariable;
+	longVariable +
+	(longVariable * longVariable * longVariable) / longVariable +
+	longVariable;
 
 const x =
-  longVariable &&
-  longVariable &&
-  longVariable &&
-  longVariable &&
-  longVariable &&
-  longVariable;
+	longVariable &&
+	longVariable &&
+	longVariable &&
+	longVariable &&
+	longVariable &&
+	longVariable;
 const x =
-  (longVariable && longVariable) ||
-  (longVariable && longVariable) ||
-  (longVariable && longVariable);
+	(longVariable && longVariable) ||
+	(longVariable && longVariable) ||
+	(longVariable && longVariable);
 const x =
-  firstItemWithAVeryLongNameThatKeepsGoing ||
-  firstItemWithAVeryLongNameThatKeepsGoing ||
-  {};
+	firstItemWithAVeryLongNameThatKeepsGoing ||
+	firstItemWithAVeryLongNameThatKeepsGoing ||
+	{};
 const x =
-  firstItemWithAVeryLongNameThatKeepsGoing ||
-  firstItemWithAVeryLongNameThatKeepsGoing ||
-  [];
+	firstItemWithAVeryLongNameThatKeepsGoing ||
+	firstItemWithAVeryLongNameThatKeepsGoing ||
+	[];
 const x =
-  call(
-    firstItemWithAVeryLongNameThatKeepsGoing,
-    firstItemWithAVeryLongNameThatKeepsGoing
-  ) || [];
+	call(
+		firstItemWithAVeryLongNameThatKeepsGoing,
+		firstItemWithAVeryLongNameThatKeepsGoing
+	) || [];
 
 const x =
-  longVariable * longint && longVariable >> 0 && longVariable + longVariable;
+	longVariable * longint && longVariable >> 0 && longVariable + longVariable;
 
 const x =
-  longVariable > longint && longVariable === 0 + longVariable * longVariable;
+	longVariable > longint && longVariable === 0 + longVariable * longVariable;
 
 foo(
-  obj.property * new Class() && obj instanceof Class && longVariable
-    ? number + 5
-    : false
+	obj.property * new Class() && obj instanceof Class && longVariable
+		? number + 5
+		: false
 );
 
 ================================================================================
@@ -887,8 +887,8 @@ const anyTestFailures = !(
 
 =====================================output=====================================
 const anyTestFailures = !(
-  aggregatedResults.numFailedTests === 0 &&
-  aggregatedResults.numRuntimeErrorTestSuites === 0
+	aggregatedResults.numFailedTests === 0 &&
+	aggregatedResults.numRuntimeErrorTestSuites === 0
 );
 
 ================================================================================

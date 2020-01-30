@@ -137,23 +137,23 @@ printWidth: 80
 }
 
 @keyframes \\@mymove {
-  from {
-    top: 0px;
-  }
-  to {
-    top: 200px;
-  }
+	from {
+		top: 0px;
+	}
+	to {
+		top: 200px;
+	}
 }
 
 .foo {
-  animation-name: \\@mymove;
-  content: "\\21D3";
+	animation-name: \\@mymove;
+	content: "\\21D3";
 }
 
 /* Ignore escape "\\" in CSS classes */
 .bar\\/baz {
-  animation-name: \\@mymove;
-  content: "\\21D3";
+	animation-name: \\@mymove;
+	content: "\\21D3";
 }
 
 ================================================================================

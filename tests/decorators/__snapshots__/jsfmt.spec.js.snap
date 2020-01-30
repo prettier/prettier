@@ -33,16 +33,16 @@ export class Bar {}
 export default class Baz {}
 
 const foo =
-  @deco
-  class {
-    //
-  };
+	@deco
+	class {
+		//
+	};
 
 const bar =
-  @deco
-  class {
-    //
-  };
+	@deco
+	class {
+		//
+	};
 
 ================================================================================
 `;
@@ -89,22 +89,22 @@ export class Bar{}
 var x = 100;
 
 @Hello({
-  a: "a", // Comment is in the wrong place
-  // test
-  b: "2",
+	a: "a", // Comment is in the wrong place
+	// test
+	b: "2",
 })
 class X {}
 
 @NgModule({
-  // Imports.
-  imports: [
-    // Angular modules.
-    BrowserModule,
+	// Imports.
+	imports: [
+		// Angular modules.
+		BrowserModule,
 
-    // App modules.
-    CoreModule,
-    SharedModule,
-  ],
+		// App modules.
+		CoreModule,
+		SharedModule,
+	],
 })
 export class AppModule {}
 
@@ -137,14 +137,14 @@ class Yo {
 
 =====================================output=====================================
 class Yo {
-  @foo("hello")
-  async plop() {}
+	@foo("hello")
+	async plop() {}
 
-  @anotherDecoratorWithALongName("and a very long string as a first argument")
-  async plip() {}
+	@anotherDecoratorWithALongName("and a very long string as a first argument")
+	async plip() {}
 
-  @anotherDecoratorWithALongName("another very long string, but now inline")
-  async plip() {}
+	@anotherDecoratorWithALongName("another very long string, but now inline")
+	async plip() {}
 }
 
 ================================================================================
@@ -169,8 +169,8 @@ export default class MyComponent {
 
 @foo
 export default class MyComponent {
-  @task
-  *foo() {}
+	@task
+	*foo() {}
 }
 
 ================================================================================
@@ -224,47 +224,47 @@ import { observable } from "mobx";
 
 @observer
 class OrderLine {
-  @observable price: number = 0;
-  @observable amount: number = 1;
+	@observable price: number = 0;
+	@observable amount: number = 1;
 
-  constructor(price) {
-    this.price = price;
-  }
+	constructor(price) {
+		this.price = price;
+	}
 
-  @computed get total() {
-    return this.price * this.amount;
-  }
+	@computed get total() {
+		return this.price * this.amount;
+	}
 
-  @action.bound setPrice(price) {
-    this.price = price;
-  }
+	@action.bound setPrice(price) {
+		this.price = price;
+	}
 
-  @computed
-  get total() {
-    return this.price * this.amount;
-  }
+	@computed
+	get total() {
+		return this.price * this.amount;
+	}
 
-  @action.bound
-  setPrice(price) {
-    this.price = price;
-  }
+	@action.bound
+	setPrice(price) {
+		this.price = price;
+	}
 
-  @computed
-  @computed
-  @computed
-  @computed
-  @computed
-  @computed
-  @computed
-  get total() {
-    return this.price * this.amount;
-  }
+	@computed
+	@computed
+	@computed
+	@computed
+	@computed
+	@computed
+	@computed
+	get total() {
+		return this.price * this.amount;
+	}
 
-  @action handleDecrease = (event: React.ChangeEvent<HTMLInputElement>) =>
-    this.count--;
+	@action handleDecrease = (event: React.ChangeEvent<HTMLInputElement>) =>
+		this.count--;
 
-  @action handleSomething = (event: React.ChangeEvent<HTMLInputElement>) =>
-    doSomething();
+	@action handleSomething = (event: React.ChangeEvent<HTMLInputElement>) =>
+		doSomething();
 }
 
 ================================================================================
@@ -285,8 +285,8 @@ class Foo {
 
 =====================================output=====================================
 class Foo {
-  @deco([foo, bar])
-  prop = value;
+	@deco([foo, bar])
+	prop = value;
 }
 
 ================================================================================
@@ -316,22 +316,22 @@ const foo = {
 
 =====================================output=====================================
 const dog = {
-  @readonly
-  @nonenumerable
-  @doubledValue
-  legs: 4,
+	@readonly
+	@nonenumerable
+	@doubledValue
+	legs: 4,
 
-  @readonly
-  @nonenumerable
-  @doubledValue
-  eyes: 2,
+	@readonly
+	@nonenumerable
+	@doubledValue
+	eyes: 2,
 };
 
 const foo = {
-  @multipleDecorators
-  @inline
-  @theyWontAllFitInOneline
-  aVeryLongPropName: "A very long string as value",
+	@multipleDecorators
+	@inline
+	@theyWontAllFitInOneline
+	aVeryLongPropName: "A very long string as value",
 };
 
 ================================================================================
@@ -350,8 +350,8 @@ class X {
 
 =====================================output=====================================
 class X {
-  @(computed().volatile())
-  x;
+	@(computed().volatile())
+	x;
 }
 
 ================================================================================

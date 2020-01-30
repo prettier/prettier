@@ -14,8 +14,8 @@ class LocalStorage implements Storage {
 
 =====================================output=====================================
 class LocalStorage implements Storage {
-  [index: number]: string
-  [key: string]: any
+	[index: number]: string
+	[key: string]: any
 }
 
 ================================================================================
@@ -39,17 +39,17 @@ interface InlineMultiple { x: string; y: string }
 
 =====================================output=====================================
 interface Inline {
-  x: string
+	x: string
 }
 
 interface MultiLine {
-  x: string
-  y: string
+	x: string
+	y: string
 }
 
 interface InlineMultiple {
-  x: string
-  y: string
+	x: string
+	y: string
 }
 
 ================================================================================
@@ -70,11 +70,11 @@ const foo: {aasdf?: string; asdf?: number; foob?: string; zzz?: string; yyy: str
 type A = { disabled?: boolean; error?: string }
 
 const foo: {
-  aasdf?: string
-  asdf?: number
-  foob?: string
-  zzz?: string
-  yyy: string
+	aasdf?: string
+	asdf?: number
+	foob?: string
+	zzz?: string
+	yyy: string
 } = {}
 
 ================================================================================

@@ -12,7 +12,7 @@ declare module A {
 
 =====================================output=====================================
 declare module A {
-  declare function foo(): string;
+	declare function foo(): string;
 }
 
 ================================================================================

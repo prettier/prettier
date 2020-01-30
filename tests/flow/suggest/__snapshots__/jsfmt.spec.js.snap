@@ -16,7 +16,7 @@ module.exports = bar;
 /* @flow */
 
 function bar(w: number): number {
-  return w;
+	return w;
 }
 
 module.exports = bar;
@@ -47,7 +47,7 @@ module.exports = {foo:foo};
 var bar = require("./lib");
 
 function foo(z: number) {
-  return bar(z);
+	return bar(z);
 }
 
 var array = ["foo", "bar"];

@@ -31,20 +31,20 @@ printWidth: 80
  * Comment 1
  */
 #header {
-  /*
+	/*
      * Comment 2
      */
-  color: red;
+	color: red;
 }
 
 @media only screen and (max-width: 600px) {
-  /*
+	/*
      * Comment 3
      */
-  body {
-    background-color: lightblue; /* Comment 4 */
-    color: red; /* Comment 5 */
-  }
+	body {
+		background-color: lightblue; /* Comment 4 */
+		color: red; /* Comment 5 */
+	}
 }
 
 ================================================================================
@@ -91,22 +91,22 @@ printWidth: 80
  * Comment 2
  */
 #header {
-  // Comment 3
-  /*
+	// Comment 3
+	/*
    * Comment 4
    */
-  color: @light-blue;
+	color: @light-blue;
 }
 
 @media only screen and (max-width: 600px) {
-  // Comment 1
-  /*
+	// Comment 1
+	/*
    * Comment 5
    */
-  body {
-    background-color: lightblue; // Comment 6
-    color: red; /* Comment 7 */
-  }
+	body {
+		background-color: lightblue; // Comment 6
+		color: red; /* Comment 7 */
+	}
 }
 
 ================================================================================
@@ -168,37 +168,37 @@ $light-blue: $nice-blue + #111;
  * Comment 2
  */
 #header {
-  // Comment 3
-  /*
+	// Comment 3
+	/*
      * Comment 4
      */
-  color: @light-blue;
+	color: @light-blue;
 }
 
 @media only screen and (max-width: 600px) {
-  // Comment 1
-  /*
+	// Comment 1
+	/*
      * Comment 5
      */
-  body {
-    background-color: lightblue; // Comment 6
-    color: red; /* Comment 7 */
-  }
+	body {
+		background-color: lightblue; // Comment 6
+		color: red; /* Comment 7 */
+	}
 }
 
 @mixin create-rules($padding) {
-  //
-  // Comment 8
-  //
-  .abc {
-    padding: $padding;
-  }
-  /**
+	//
+	// Comment 8
+	//
+	.abc {
+		padding: $padding;
+	}
+	/**
      * Comment 9
      */
-  .def {
-    padding: $padding;
-  }
+	.def {
+		padding: $padding;
+	}
 }
 
 ================================================================================
@@ -284,26 +284,26 @@ printWidth: 80
 @charset "utf-8"; /* comment 1 */
 
 @import /* comment 2 */ url("fineprint.css") /* comment 3 */ print
-  /* comment 4 */; /* comment 5 */
+	/* comment 4 */; /* comment 5 */
 @import /* comment 6 */ url("bluish.css") /* comment 7 */ projection
-    /* comment 8 */,
-  /* comment 9 */ tv /* comment 10 */;
+		/* comment 8 */,
+	/* comment 9 */ tv /* comment 10 */;
 /* comment 11 */
 @import /* comment 12 */ /* comment 13 */ url("bluish.css") /* comment 14 */
-    /* comment 15 */ projection /* comment 16 */,
-  /* comment 17 */ tv /* comment 18 */; /* comment 19 */
+		/* comment 15 */ projection /* comment 16 */,
+	/* comment 17 */ tv /* comment 18 */; /* comment 19 */
 /* comment 20 */
 @import /* comment 21 */ url("bluish.css") /* comment 22 */ projection
-    /* comment 23 */,
-  /* comment 24 */ tv /* comment 25 */;
+		/* comment 23 */,
+	/* comment 24 */ tv /* comment 25 */;
 @import /* comment 26 */ "custom.css" /* comment 27 */; /* comment 28 */
 @import /* comment 29 */ url("landscape.css") /* comment 30 */ screen
-  /* comment 31 */ and /* comment 32 */
-  (
-    /* comment 33 */ orientation /* comment 34 */: /* comment 35 */ landscape
-      /* comment 36 */
-  )
-  /* comment 37 */;
+	/* comment 31 */ and /* comment 32 */
+	(
+		/* comment 33 */ orientation /* comment 34 */: /* comment 35 */ landscape
+			/* comment 36 */
+	)
+	/* comment 37 */;
 
 @namespace /* comment 38 */ url(http://www.w3.org/1999/xhtml) /* comment 39 */;
 @namespace /* comment 40 */ svg /* comment 41 */ url(http://www.w3.org/2000/svg) /* comment 42 */;
@@ -313,14 +313,14 @@ printWidth: 80
 
 /* comment 45 */
 @font-feature-values /* comment 46 */ Font Two /* comment 47 */ {
-  /* comment 48 */
-  /* comment 49 */
-  @styleset /* comment 50 */ {
-    /* comment 51 */
-    nice-style: 4;
-    /* comment 52 */
-  } /* comment 53 */
-  /* comment 54 */
+	/* comment 48 */
+	/* comment 49 */
+	@styleset /* comment 50 */ {
+		/* comment 51 */
+		nice-style: 4;
+		/* comment 52 */
+	} /* comment 53 */
+	/* comment 54 */
 } /* comment 55 */
 
 /* comment 56 */
@@ -342,7 +342,7 @@ printWidth: 80
 @media /* comment 67 */ print /* comment 68 */ {
 }
 @media /* comment 69 */ screen /* comment 70 */,
-  /* comment 71 */ print /* comment 72 */ {
+	/* comment 71 */ print /* comment 72 */ {
 } /* comment 73 */
 @media /* comment 74 */ only /* comment 75 */ screen /* comment 76 */ and /* comment 77 */ (/* comment 78 */ min-width /* comment 79 */: /* comment 80 */ 320px /* comment 81 */) /* comment 82 */ and /* comment 83 */ (/* comment 84 */ max-width /* comment 85 */: /* comment 86 */ 480px /* comment 87 */) /* comment 88 */ and /* comment 89 */ (/* comment 90 */ resolution /* comment 91 */: /* comment 92 */ 150dpi /* comment 93 */) /* comment 94 */ {
 }
@@ -365,56 +365,56 @@ printWidth: 80
 } /* comment 159 */
 
 @supports /* comment 160 */
-  (
-    /* comment 161 */ display /* comment 162 */: /* comment 163 */ flex
-      /* comment 164 */
-  )
-  /* comment 165 */ {
+	(
+		/* comment 161 */ display /* comment 162 */: /* comment 163 */ flex
+			/* comment 164 */
+	)
+	/* comment 165 */ {
 }
 @supports /* comment 166 */ not /* comment 167 */
-  (
-    /* comment 168 */ display /* comment 169 */: /* comment 170 */ flex
-      /* comment 171 */
-  )
-  /* comment 172 */ {
+	(
+		/* comment 168 */ display /* comment 169 */: /* comment 170 */ flex
+			/* comment 171 */
+	)
+	/* comment 172 */ {
 }
 @supports /* comment 173 */
-  (
-    /* comment 174 */ display /* comment 175 */: /* comment 176 */ table-cell
-      /* comment 177 */
-  )
-  /* comment 178 */ and /* comment 179 */
-  (
-    /* comment 180 */ display /* comment 181 */: /* comment 182 */ list-item
-      /* comment 183 */
-  )
-  /* comment 184 */ and /* comment 185 */
-  (
-    /* comment 186 */ display /* comment 187 */: /* comment 188 */ run-in
-      /* comment 189 */
-  )
-  /* comment 190 */ {
+	(
+		/* comment 174 */ display /* comment 175 */: /* comment 176 */ table-cell
+			/* comment 177 */
+	)
+	/* comment 178 */ and /* comment 179 */
+	(
+		/* comment 180 */ display /* comment 181 */: /* comment 182 */ list-item
+			/* comment 183 */
+	)
+	/* comment 184 */ and /* comment 185 */
+	(
+		/* comment 186 */ display /* comment 187 */: /* comment 188 */ run-in
+			/* comment 189 */
+	)
+	/* comment 190 */ {
 }
 @supports /* comment 191 */
-  (
-    /* comment 192 */ --foo /* comment 193 */: /* comment 194 */ green
-      /* comment 195 */
-  )
-  /* comment 196 */ {
+	(
+		/* comment 192 */ --foo /* comment 193 */: /* comment 194 */ green
+			/* comment 195 */
+	)
+	/* comment 196 */ {
 }
 
 /* comment 197 */
 @supports /* comment 198 */
-  (
-    /* comment 199 */ display /* comment 200 */: /* comment 201 */ flex
-      /* comment 202 */
-  )
-  /* comment 203 */ {
-  /* comment 204 */
-  @media /* comment 205 */ screen /* comment 206 */ and /* comment 207 */ (/* comment 208 */ min-width /* comment 209 */: /* comment 210 */ 900px /* comment 211 */) /* comment 212 */ {
-    /* comment 213 */
-  } /* comment 214 */
-  /* comment 215 */
+	(
+		/* comment 199 */ display /* comment 200 */: /* comment 201 */ flex
+			/* comment 202 */
+	)
+	/* comment 203 */ {
+	/* comment 204 */
+	@media /* comment 205 */ screen /* comment 206 */ and /* comment 207 */ (/* comment 208 */ min-width /* comment 209 */: /* comment 210 */ 900px /* comment 211 */) /* comment 212 */ {
+		/* comment 213 */
+	} /* comment 214 */
+	/* comment 215 */
 } /* comment 216 */
 
 ================================================================================
@@ -465,11 +465,11 @@ printWidth: 80
 
 =====================================output=====================================
 @font-face {
-  src: url(if(
-    $bootstrap-sass-asset-helper,
-    twbs-font-path("#{$icon-font-path}#{$icon-font-name}.eot"),
-    "#{$icon-font-path}#{$icon-font-name}.eot"
-  ));
+	src: url(if(
+		$bootstrap-sass-asset-helper,
+		twbs-font-path("#{$icon-font-path}#{$icon-font-name}.eot"),
+		"#{$icon-font-path}#{$icon-font-name}.eot"
+	));
 }
 
 // Catchall baseclass
@@ -561,92 +561,92 @@ body
 
 =====================================output=====================================
 a {
-  /* comment 1 */
-  /* comment 2 */
-  padding/* comment 3 */ : /* comment 4 */ 10px /* comment 5 */ 10px
-    /* comment 6 */; /* comment 7 */
-  /* comment 8 */
-  transform: translate(/* comment 9 */ 10px /* comment 10 */);
-  color: /* comment 11 */ red /* comment 12 */ !important /* comment 13 */ ; /* comment 14 */
-  /* comment 15 */
+	/* comment 1 */
+	/* comment 2 */
+	padding/* comment 3 */ : /* comment 4 */ 10px /* comment 5 */ 10px
+		/* comment 6 */; /* comment 7 */
+	/* comment 8 */
+	transform: translate(/* comment 9 */ 10px /* comment 10 */);
+	color: /* comment 11 */ red /* comment 12 */ !important /* comment 13 */ ; /* comment 14 */
+	/* comment 15 */
 }
 
 @font-face {
-  font-family: "Prettier";
-  src: /* comment 16 */ local(/* comment 17 */ "Prettier" /* comment 18 */),
-    /* comment 19 */ /* comment 20 */ url("http://prettier.com/font.woff")
-      /* comment 21 */; /* comment 22 */
+	font-family: "Prettier";
+	src: /* comment 16 */ local(/* comment 17 */ "Prettier" /* comment 18 */),
+		/* comment 19 */ /* comment 20 */ url("http://prettier.com/font.woff")
+			/* comment 21 */; /* comment 22 */
 }
 
 .foo {
-  /* comment 23 */
-  color/* comment 24 */:/* comment 25 */ blue /* comment 26 */; /* comment 27 */
-  transform/* comment 28 */:/* comment 29 */ translate(
-      /* comment 30 */ 10px /* comment 31 */
-    )
-    /* comment 32 */; /* comment 33 */
+	/* comment 23 */
+	color/* comment 24 */:/* comment 25 */ blue /* comment 26 */; /* comment 27 */
+	transform/* comment 28 */:/* comment 29 */ translate(
+			/* comment 30 */ 10px /* comment 31 */
+		)
+		/* comment 32 */; /* comment 33 */
 }
 .foo {
-  /* comment 34 */
-  color/* comment 35 */ : /* comment 36 */ blue /* comment 37 */; /* comment 38 */
-  transform/* comment 39 */ : /* comment 40 */ translate(
-      /* comment 41 */ 10px /* comment 42 */
-    )
-    /* comment 43 */; /* comment 44 */
+	/* comment 34 */
+	color/* comment 35 */ : /* comment 36 */ blue /* comment 37 */; /* comment 38 */
+	transform/* comment 39 */ : /* comment 40 */ translate(
+			/* comment 41 */ 10px /* comment 42 */
+		)
+		/* comment 43 */; /* comment 44 */
 }
 .foo {
-  /* comment 45 */
-  /* comment 46 */
-  color/* comment 47 */
+	/* comment 45 */
+	/* comment 46 */
+	color/* comment 47 */
     /* comment 48 */
     /* comment 49 */ :  /* comment 50 */
     /* comment 51 */
     /* comment 52 */ blue
-    /* comment 53 */ /* comment 54 */ /* comment 55 */; /* comment 56 */
-  /* comment 57 */
-  /* comment 58 */
-  transform/* comment 59 */
+		/* comment 53 */ /* comment 54 */ /* comment 55 */; /* comment 56 */
+	/* comment 57 */
+	/* comment 58 */
+	transform/* comment 59 */
     /* comment 60 */
     /* comment 61 */ : /* comment 62 */
     /* comment 63 */
     /* comment 64 */ translate(
-      /* comment 65 */ /* comment 66 */ /* comment 67 */ 10px /* comment 68 */
-        /* comment 69 */ /* comment 70 */
-    )
-    /* comment 71 */ /* comment 72 */ /* comment 73 */; /* comment 74 */
-  /* comment 75 */
+			/* comment 65 */ /* comment 66 */ /* comment 67 */ 10px /* comment 68 */
+				/* comment 69 */ /* comment 70 */
+		)
+		/* comment 71 */ /* comment 72 */ /* comment 73 */; /* comment 74 */
+	/* comment 75 */
 }
 
 body {
-  /* comment 76 */
+	/* comment 76 */
 }
 body {
-  /* comment 77 */
+	/* comment 77 */
 }
 body {
-  /* comment 78 */
+	/* comment 78 */
 }
 body {
-  /* comment 79 */
+	/* comment 79 */
 }
 body {
-  /* comment 80 */
+	/* comment 80 */
 }
 
 .tab-bar {
-  .tab {
-  } /* comment 81 */
+	.tab {
+	} /* comment 81 */
 }
 
 .selector {
-  /* comment 82 */
-  position: absolute;
+	/* comment 82 */
+	position: absolute;
 
-  /* comment 83 */
-  display: inline-block;
+	/* comment 83 */
+	display: inline-block;
 
-  /* comment 84 */
-  background: #000;
+	/* comment 84 */
+	background: #000;
 }
 
 ================================================================================
@@ -672,18 +672,18 @@ printWidth: 80
 
 =====================================output=====================================
 @function _normalize-include($section) {
-  // Check if $section is in the $include list.
-  @if index($_normalize-include, $section) {
-    @return true;
-  }
-  // If $include is set to (all), make sure $section is not in $exclude.
-  @else if not
-    index($_normalize-exclude, $section) and
-    index($_normalize-include, all)
-  {
-    @return true;
-  }
-  @return false;
+	// Check if $section is in the $include list.
+	@if index($_normalize-include, $section) {
+		@return true;
+	}
+	// If $include is set to (all), make sure $section is not in $exclude.
+	@else if not
+		index($_normalize-exclude, $section) and
+		index($_normalize-include, all)
+	{
+		@return true;
+	}
+	@return false;
 }
 
 ================================================================================
@@ -706,11 +706,11 @@ $my-list2:
 
 =====================================output=====================================
 $my-list: "foo",
-  // Foo
-    "bar"; // Bar
+	// Foo
+		"bar"; // Bar
 
 $my-list2: a // a
-  b c;
+	b c;
 
 ================================================================================
 `;
@@ -728,10 +728,10 @@ $my-map: (
 
 =====================================output=====================================
 $my-map: (
-  "foo": 1,
-  // Foo
-    "bar": 2,
-  // Bar
+	"foo": 1,
+	// Foo
+		"bar": 2,
+	// Bar
 );
 
 ================================================================================
@@ -754,9 +754,9 @@ div {}
 
 =====================================output=====================================
 div {
-  // a
+	// a
 
-  margin-left: -@leftMargin; // b
+	margin-left: -@leftMargin; // b
 } // c
 
 // d
@@ -788,9 +788,9 @@ foo {
 @black: darkgray;
 
 foo {
-  /* prettier-ignore */
-  thing:     foo;
-  -ms-thing: foo;
+	/* prettier-ignore */
+	thing:     foo;
+	-ms-thing: foo;
 }
 
 ================================================================================
@@ -975,7 +975,7 @@ input:not(/* comment 125 */[/* comment 126 */disabled/* comment 127 */]/* commen
 .foo,
 /* comment 3 */
 .bar {
-  display: block;
+	display: block;
 }
 
 /* comment 4 */
@@ -983,11 +983,11 @@ input:not(/* comment 125 */[/* comment 126 */disabled/* comment 127 */]/* commen
 .field /* comment 6 */
 /* comment 7 */
 /* comment 8 */ {
-  /* comment 9 */
-  /* comment 10 */
-  background: green;
-  /* comment 11 */
-  /* comment 12 */
+	/* comment 9 */
+	/* comment 10 */
+	background: green;
+	/* comment 11 */
+	/* comment 12 */
 } /* comment 13 */
 /* comment 14 */
 
@@ -1134,40 +1134,40 @@ h1/* comment 130 */, /* comment 131 */h2/* comment 132 */,/* comment 133 */ h3/*
 
 /* comment 135 */
 .phone/* comment 136 */ {
-  /* comment 137 */
-  /* comment 138 */
-  &_title/* comment 139 */ {
-    /* comment 140 */
-    width: 500px;
-    /* comment 141 */
-    body.is_dark/* comment 142 */ & /* comment 143 */ {
-      /* comment 144 */
-      color: white;
-      /* comment 145 */
-    } /* comment 146 */
-    /* comment 147 */
-  } /* comment 148 */
+	/* comment 137 */
+	/* comment 138 */
+	&_title/* comment 139 */ {
+		/* comment 140 */
+		width: 500px;
+		/* comment 141 */
+		body.is_dark/* comment 142 */ & /* comment 143 */ {
+			/* comment 144 */
+			color: white;
+			/* comment 145 */
+		} /* comment 146 */
+		/* comment 147 */
+	} /* comment 148 */
 
-  /* comment 149 */
-  img/* comment 150 */ {
-    /* comment 151 */
-    display: block;
-    /* comment 152 */
-  } /* comment 153 */
-  /* comment 154 */
+	/* comment 149 */
+	img/* comment 150 */ {
+		/* comment 151 */
+		display: block;
+		/* comment 152 */
+	} /* comment 153 */
+	/* comment 154 */
 } /* comment 155 */
 
 @media (max-width: 500px) {
-  /* comment 156 */
-  a /* comment 157 */ {
-    /* comment 158 */
-    /* comment 159 */
-    b/* comment 160 */ {
-      /* comment 161 */
-    } /* comment 162 */
-    /* comment 163 */
-  } /* comment 164 */
-  /* comment 165 */
+	/* comment 156 */
+	a /* comment 157 */ {
+		/* comment 158 */
+		/* comment 159 */
+		b/* comment 160 */ {
+			/* comment 161 */
+		} /* comment 162 */
+		/* comment 163 */
+	} /* comment 164 */
+	/* comment 165 */
 } /* comment 166 */
 
 /* comment 167 */
@@ -1190,12 +1190,12 @@ article /* comment 168 */ :--heading /* comment 169 */ + /* comment 170 */ p /* 
 
 /* custom properties set & @apply rule */
 :root {
-  /* comments 192 */
-  --centered /* comments 193 */ : /* comments 194 */ {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+	/* comments 192 */
+	--centered /* comments 193 */ : /* comments 194 */ {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
 }
 
 ================================================================================
@@ -1285,25 +1285,25 @@ printWidth: 80
 .foo,
 // comment 3
 .bar {
-  display: block;
+	display: block;
 }
 
 .field {
-  &[data-field-id="1"], // comment 4
+	&[data-field-id="1"], // comment 4
   &[data-field-id="2"], // comment 5
   &[data-field-id="3"], // comment 6
  {
-    background: green;
-  }
+		background: green;
+	}
 }
 
 // comment 7
 .field
 // comment 8
  {
-  // comment 9
-  // comment 10
-  &[data-field-id="1"], // comment 11
+	// comment 9
+	// comment 10
+	&[data-field-id="1"], // comment 11
   // comment 12
   &[data-field-id="2"] // comment 13
   // comment 14
@@ -1312,12 +1312,12 @@ printWidth: 80
   &[data-field-id="3"], // comment 17
   // comment 18
  {
-    // comment 19
-    // comment 20
-    background: green;
-    // comment 21
-  } // comment 22
-  // comment 23
+		// comment 19
+		// comment 20
+		background: green;
+		// comment 21
+	} // comment 22
+	// comment 23
 }
 // comment 24
 
@@ -1354,7 +1354,7 @@ printWidth: 80
 
 =====================================output=====================================
 .foo {
-  color: red;
+	color: red;
 }
 
 /*# sourceMappingURL=file.css.map */
@@ -1377,7 +1377,7 @@ a {
 @media (max-width: 1) {
 }
 a {
-  // element.style */
+	// element.style */
 }
 
 ================================================================================
@@ -1510,18 +1510,18 @@ $var: /* comment 1 */ all /* comment 2 */ !default /* comment 3 */ ; /* comment 
 $var: /* comment 1 */ all /* comment 2 */ !default /* comment 3 */; /* comment 4 */
 
 @mixin text-color {
-  /* comment 5 */
-  /* comment 6 */
-  $text-color/* comment 7 */ : /* comment 8 */ red /* comment 9 */ !default /* comment 10 */; /* comment 11 */
-  /* comment 12 */
-  color: $text-color;
+	/* comment 5 */
+	/* comment 6 */
+	$text-color/* comment 7 */ : /* comment 8 */ red /* comment 9 */ !default /* comment 10 */; /* comment 11 */
+	/* comment 12 */
+	color: $text-color;
 }
 
 .error {
-  /* comment 13 */
-  /* comment 14 */
-  $text-color/* comment 15 */ : /* comment 16 */ green /* comment 17 */ !global /* comment 18 */; /* comment 19 */
-  /* comment 20 */
+	/* comment 13 */
+	/* comment 14 */
+	$text-color/* comment 15 */ : /* comment 16 */ green /* comment 17 */ !global /* comment 18 */; /* comment 19 */
+	/* comment 20 */
 }
 
 ================================================================================

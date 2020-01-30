@@ -51,14 +51,14 @@ applyType(withRest, ['hi', 123, false]); // Error - too many args
 // @flow
 
 function apply<Args: $ReadOnlyArray<mixed>, Ret>(
-  fn: (...Args) => Ret,
-  args: Args
+	fn: (...Args) => Ret,
+	args: Args
 ): Ret {
-  return fn(...args);
+	return fn(...args);
 }
 
 function noRest(x: "hi", y: 123): true {
-  return true;
+	return true;
 }
 apply(noRest, ["hi", 123]); // No error
 apply(noRest, ["hi", 456]); // Error - 456 ~> 123
@@ -67,7 +67,7 @@ apply(noRest, ["hi", 123, false]); // No error - too many args is fine
 
 // withRest behaves the same as noRest except you can't pass too many args in
 function withRest(...rest: ["hi", 123]): true {
-  return true;
+	return true;
 }
 apply(withRest, ["hi", 123]); // No error
 apply(withRest, ["hi", 456]); // Error - 456 ~> 123
@@ -76,12 +76,12 @@ apply(withRest, ["hi", 123, false]); // Error - too many args
 
 // Same thing, but with types instead of functions
 declare var applyType: <Args: $ReadOnlyArray<mixed>, Ret>(
-  fn: (...Args) => Ret,
-  args: Args
+	fn: (...Args) => Ret,
+	args: Args
 ) => Ret;
 
 function noRest(x: "hi", y: 123): true {
-  return true;
+	return true;
 }
 applyType(noRest, ["hi", 123]); // No error
 applyType(noRest, ["hi", 456]); // Error - 456 ~> 123
@@ -90,7 +90,7 @@ applyType(noRest, ["hi", 123, false]); // No error - too many args is fine
 
 // withRest behaves the same as noRest except you can't pass too many args in
 function withRest(...rest: ["hi", 123]): true {
-  return true;
+	return true;
 }
 applyType(withRest, ["hi", 123]); // No error
 applyType(withRest, ["hi", 456]); // Error - 456 ~> 123
@@ -131,17 +131,17 @@ foo(123);
 // Adapted from https://github.com/facebook/flow/issues/3443
 
 class A {
-  f(...args: any[]) {}
+	f(...args: any[]) {}
 }
 
 class B extends A {
-  f(...args) {
-    this.f(...args);
-  }
+	f(...args) {
+		this.f(...args);
+	}
 }
 
 function foo(...args) {
-  foo(1, ...args);
+	foo(1, ...args);
 }
 foo(123);
 
@@ -210,25 +210,25 @@ declare function ExpectsChildrenArray(props: any, children: Array<string>): stri
 
 // This one for when there are no JSX attributes
 declare function JSX<
-  Children: $ReadOnlyArray<mixed>,
-  Elem,
-  C: (props: {}, children: Children) => Elem
+	Children: $ReadOnlyArray<mixed>,
+	Elem,
+	C: (props: {}, children: Children) => Elem
 >(
-  component: C,
-  props: null,
-  ...children: Children
+	component: C,
+	props: null,
+	...children: Children
 ): Elem;
 
 // This one for when there are JSX attributes.
 declare function JSX<
-  Children: $ReadOnlyArray<mixed>,
-  Elem,
-  Props: Object,
-  C: (props: Props, children: Children) => Elem
+	Children: $ReadOnlyArray<mixed>,
+	Elem,
+	Props: Object,
+	C: (props: Props, children: Children) => Elem
 >(
-  component: C,
-  props: Props,
-  ...children: Children
+	component: C,
+	props: Props,
+	...children: Children
 ): Elem;
 
 declare function AcceptsWhatever(props: {} | null, children: any): string;
@@ -246,8 +246,8 @@ declare function ExpectsChildrenTuple(props: any, children: [string]): string;
 <ExpectsChildrenTuple>Hi {"there"}</ExpectsChildrenTuple>; // Error: too many children
 
 declare function ExpectsChildrenArray(
-  props: any,
-  children: Array<string>
+	props: any,
+	children: Array<string>
 ): string;
 <ExpectsChildrenArray />; // No error - 0 children is fine
 <ExpectsChildrenArray>Hi</ExpectsChildrenArray>; // No error - 1 child is fine

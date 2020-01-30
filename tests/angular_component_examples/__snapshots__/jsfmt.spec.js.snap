@@ -27,22 +27,22 @@ class     TestComponent {}
 
 =====================================output=====================================
 @Component({
-  selector: "app-test",
-  template: \`
-    <ul>
-      <li>test</li>
-    </ul>
-  \`,
-  styles: [
-    \`
-      :host {
-        color: red;
-      }
-      div {
-        background: blue;
-      }
-    \`
-  ]
+	selector: "app-test",
+	template: \`
+		<ul>
+			<li>test</li>
+		</ul>
+	\`,
+	styles: [
+		\`
+			:host {
+				color: red;
+			}
+			div {
+				background: blue;
+			}
+		\`
+	]
 })
 class TestComponent {}
 
@@ -75,22 +75,22 @@ class     TestComponent {}
 
 =====================================output=====================================
 @Component({
-  selector: "app-test",
-  template: \`
-    <ul>
-      <li>test</li>
-    </ul>
-  \`,
-  styles: [
-    \`
-      :host {
-        color: red;
-      }
-      div {
-        background: blue;
-      }
-    \`,
-  ],
+	selector: "app-test",
+	template: \`
+		<ul>
+			<li>test</li>
+		</ul>
+	\`,
+	styles: [
+		\`
+			:host {
+				color: red;
+			}
+			div {
+				background: blue;
+			}
+		\`,
+	],
 })
 class TestComponent {}
 

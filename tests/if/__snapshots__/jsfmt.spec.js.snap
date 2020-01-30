@@ -22,13 +22,13 @@ else stuff;
 
 =====================================output=====================================
 if (cond) {
-  stuff;
+	stuff;
 } /* comment */ else if (cond) {
-  stuff;
+	stuff;
 }
 // comment
 else {
-  stuff;
+	stuff;
 }
 
 if (cond) stuff;
@@ -67,21 +67,21 @@ function f() {
 // Both functions below should be formatted exactly the same
 
 function f() {
-  if (position) return { name: pair };
-  else
-    return {
-      name: pair.substring(0, position),
-      value: pair.substring(position + 1),
-    };
+	if (position) return { name: pair };
+	else
+		return {
+			name: pair.substring(0, position),
+			value: pair.substring(position + 1),
+		};
 }
 
 function f() {
-  if (position) return { name: pair };
-  else
-    return {
-      name: pair.substring(0, position),
-      value: pair.substring(position + 1),
-    };
+	if (position) return { name: pair };
+	else
+		return {
+			name: pair.substring(0, position),
+			value: pair.substring(position + 1),
+		};
 }
 
 ================================================================================
@@ -151,60 +151,60 @@ async function f5() {
 
 =====================================output=====================================
 async function f1() {
-  if (untrackedChoice === 0) {
-    /* Cancel */ return null;
-  } else if (untrackedChoice === 1) {
-    /* Add */ await repository.addAll(Array.from(untrackedChanges.keys()));
-    shouldAmend = true;
-  } else if (untrackedChoice === 2) {
-    /* Allow Untracked */ allowUntracked = true;
-  }
+	if (untrackedChoice === 0) {
+		/* Cancel */ return null;
+	} else if (untrackedChoice === 1) {
+		/* Add */ await repository.addAll(Array.from(untrackedChanges.keys()));
+		shouldAmend = true;
+	} else if (untrackedChoice === 2) {
+		/* Allow Untracked */ allowUntracked = true;
+	}
 }
 
 async function f2() {
-  if (untrackedChoice === 0)
-    /* Cancel */
-    null;
-  else if (untrackedChoice === 1)
-    /* Add */
-    shouldAmend = true;
-  else if (untrackedChoice === 2)
-    /* Allow Untracked */
-    allowUntracked = true;
+	if (untrackedChoice === 0)
+		/* Cancel */
+		null;
+	else if (untrackedChoice === 1)
+		/* Add */
+		shouldAmend = true;
+	else if (untrackedChoice === 2)
+		/* Allow Untracked */
+		allowUntracked = true;
 }
 
 async function f3() {
-  if (untrackedChoice === 0)
-    /* Cancel */ // Cancel
-    null;
-  else if (untrackedChoice === 1)
-    /* Add */ // Add
-    shouldAmend = true;
-  else if (untrackedChoice === 2)
-    /* Allow Untracked */ // Allow Untracked
-    allowUntracked = true;
+	if (untrackedChoice === 0)
+		/* Cancel */ // Cancel
+		null;
+	else if (untrackedChoice === 1)
+		/* Add */ // Add
+		shouldAmend = true;
+	else if (untrackedChoice === 2)
+		/* Allow Untracked */ // Allow Untracked
+		allowUntracked = true;
 }
 
 async function f4() {
-  if (untrackedChoice === 0) {
-    /* Cancel */ return null;
-  } else if (untrackedChoice === 1) {
-    /* Add */ await repository.addAll(Array.from(untrackedChanges.keys()));
-    shouldAmend = true;
-  } else if (untrackedChoice === 2) {
-    /* Allow Untracked */ allowUntracked = true;
-  }
+	if (untrackedChoice === 0) {
+		/* Cancel */ return null;
+	} else if (untrackedChoice === 1) {
+		/* Add */ await repository.addAll(Array.from(untrackedChanges.keys()));
+		shouldAmend = true;
+	} else if (untrackedChoice === 2) {
+		/* Allow Untracked */ allowUntracked = true;
+	}
 }
 
 async function f5() {
-  if (untrackedChoice === 0) {
-    /* Cancel */ return null;
-  } else if (untrackedChoice === 1) {
-    /* Add */ await repository.addAll(Array.from(untrackedChanges.keys()));
-    shouldAmend = true;
-  } else if (untrackedChoice === 2) {
-    /* Allow Untracked */ allowUntracked = true;
-  }
+	if (untrackedChoice === 0) {
+		/* Cancel */ return null;
+	} else if (untrackedChoice === 1) {
+		/* Add */ await repository.addAll(Array.from(untrackedChanges.keys()));
+		shouldAmend = true;
+	} else if (untrackedChoice === 2) {
+		/* Allow Untracked */ allowUntracked = true;
+	}
 }
 
 ================================================================================
@@ -236,17 +236,17 @@ if (code === 92 /* '\\' */ /* '\\' */) {
 }
 
 if (code === 92) {
-  /* '\\' */
+	/* '\\' */
 }
 if (code === 92) {
-  /* '\\' */
+	/* '\\' */
 }
 
 if (
-  1
-  // Comment
+	1
+	// Comment
 ) {
-  a;
+	a;
 }
 
 ================================================================================

@@ -15,17 +15,17 @@ const b = \`\${(veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongFoo + veryVe
 =====================================output=====================================
 const a = \`\${(foo + bar) as baz}\`;
 const b = \`\${
-  (veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongFoo + bar) as baz
+	(veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongFoo + bar) as baz
 }\`;
 const b = \`\${
-  (foo + veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBar) as baz
+	(foo + veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBar) as baz
 }\`;
 const b = \`\${
-  (foo + bar) as veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBaz
+	(foo + bar) as veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBaz
 }\`;
 const b = \`\${
-  (veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongFoo +
-    veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBar) as veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBaz
+	(veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongFoo +
+		veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBar) as veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBaz
 }\`;
 
 ================================================================================

@@ -10,12 +10,12 @@ type X = (options:{ a: string; b: AbstractCompositeThingamabobberFactoryProvider
 type Y = new (options:{ a: string; b: AbstractCompositeThingamabobberFactoryProvider}) => {};
 =====================================output=====================================
 type X = (options: {
-  a: string;
-  b: AbstractCompositeThingamabobberFactoryProvider;
+	a: string;
+	b: AbstractCompositeThingamabobberFactoryProvider;
 }) => {};
 type Y = new (options: {
-  a: string;
-  b: AbstractCompositeThingamabobberFactoryProvider;
+	a: string;
+	b: AbstractCompositeThingamabobberFactoryProvider;
 }) => {};
 
 ================================================================================

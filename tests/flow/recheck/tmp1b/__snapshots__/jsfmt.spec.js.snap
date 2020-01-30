@@ -21,10 +21,10 @@ module.exports = { C, D };
 
 import { C, E } from "./b0";
 function foo() {
-  return C;
+	return C;
 }
 function bar() {
-  return E;
+	return E;
 }
 let X = bar();
 class F extends X {}

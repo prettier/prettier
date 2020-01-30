@@ -22,11 +22,11 @@ function expects_an_int() {
 // This should fail without weak mode, because of the glaring type error.
 
 function returns_a_string() {
-  return "Hello";
+	return "Hello";
 }
 
 function expects_an_int() {
-  return returns_a_string() * 10;
+	return returns_a_string() * 10;
 }
 
 ================================================================================
@@ -54,11 +54,11 @@ function expects_an_int() {
 // This should fail without weak mode, because of the glaring type error.
 
 function returns_a_string() {
-  return "Hello";
+	return "Hello";
 }
 
 function expects_an_int() {
-  return returns_a_string() * 10;
+	return returns_a_string() * 10;
 }
 
 ================================================================================

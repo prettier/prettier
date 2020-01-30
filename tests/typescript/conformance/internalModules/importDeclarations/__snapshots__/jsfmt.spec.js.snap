@@ -29,17 +29,17 @@ var c = new B.a.C();
 // expected no error
 
 module B {
-  export import a = A;
-  export class D extends a.C {
-    id: number;
-  }
+	export import a = A;
+	export class D extends a.C {
+		id: number;
+	}
 }
 
 module A {
-  export class C {
-    name: string;
-  }
-  export import b = B;
+	export class C {
+		name: string;
+	}
+	export import b = B;
 }
 
 var c: { name: string };
@@ -126,19 +126,19 @@ var p: M.D.Point;
 // expect no errors here
 
 module A {
-  export var x = "hello world";
-  export class Point {
-    constructor(public x: number, public y: number) {}
-  }
-  export module B {
-    export interface Id {
-      name: string;
-    }
-  }
+	export var x = "hello world";
+	export class Point {
+		constructor(public x: number, public y: number) {}
+	}
+	export module B {
+		export interface Id {
+			name: string;
+		}
+	}
 }
 
 module C {
-  export import a = A;
+	export import a = A;
 }
 
 var a: string = C.a.x;
@@ -147,41 +147,41 @@ var c: { name: string };
 var c: C.a.B.Id;
 
 module X {
-  export function Y() {
-    return 42;
-  }
+	export function Y() {
+		return 42;
+	}
 
-  export module Y {
-    export class Point {
-      constructor(public x: number, public y: number) {}
-    }
-  }
+	export module Y {
+		export class Point {
+			constructor(public x: number, public y: number) {}
+		}
+	}
 }
 
 module Z {
-  // 'y' should be a fundule here
-  export import y = X.Y;
+	// 'y' should be a fundule here
+	export import y = X.Y;
 }
 
 var m: number = Z.y();
 var n: { x: number; y: number } = new Z.y.Point(0, 0);
 
 module K {
-  export class L {
-    constructor(public name: string) {}
-  }
+	export class L {
+		constructor(public name: string) {}
+	}
 
-  export module L {
-    export var y = 12;
-    export interface Point {
-      x: number;
-      y: number;
-    }
-  }
+	export module L {
+		export var y = 12;
+		export interface Point {
+			x: number;
+			y: number;
+		}
+	}
 }
 
 module M {
-  export import D = K.L;
+	export import D = K.L;
 }
 
 var o: { name: string };
@@ -260,9 +260,9 @@ var p: fundule.Point;
 var p: { x: number; y: number; };
 =====================================output=====================================
 module moduleA {
-  export class Point {
-    constructor(public x: number, public y: number) {}
-  }
+	export class Point {
+		constructor(public x: number, public y: number) {}
+	}
 }
 
 import alias = moduleA;
@@ -272,15 +272,15 @@ var p: moduleA.Point;
 var p: { x: number; y: number };
 
 class clodule {
-  name: string;
+	name: string;
 }
 
 module clodule {
-  export interface Point {
-    x: number;
-    y: number;
-  }
-  var Point: Point = { x: 0, y: 0 };
+	export interface Point {
+		x: number;
+		y: number;
+	}
+	var Point: Point = { x: 0, y: 0 };
 }
 
 import clolias = clodule;
@@ -290,15 +290,15 @@ var p: clodule.Point;
 var p: { x: number; y: number };
 
 function fundule() {
-  return { x: 0, y: 0 };
+	return { x: 0, y: 0 };
 }
 
 module fundule {
-  export interface Point {
-    x: number;
-    y: number;
-  }
-  var Point: Point = { x: 0, y: 0 };
+	export interface Point {
+		x: number;
+		y: number;
+	}
+	var Point: Point = { x: 0, y: 0 };
 }
 
 import funlias = fundule;
@@ -348,20 +348,20 @@ var V = 12;
 import v = V;
 
 class C {
-  name: string;
+	name: string;
 }
 
 import c = C;
 
 enum E {
-  Red,
-  Blue,
+	Red,
+	Blue,
 }
 
 import e = E;
 
 interface I {
-  id: number;
+	id: number;
 }
 
 import i = I;
@@ -412,35 +412,35 @@ module Z {
 // all errors imported modules conflict with local variables
 
 module A {
-  export var Point = { x: 0, y: 0 };
-  export interface Point {
-    x: number;
-    y: number;
-  }
+	export var Point = { x: 0, y: 0 };
+	export interface Point {
+		x: number;
+		y: number;
+	}
 }
 
 module B {
-  var A = { x: 0, y: 0 };
-  import Point = A;
+	var A = { x: 0, y: 0 };
+	import Point = A;
 }
 
 module X {
-  export module Y {
-    export interface Point {
-      x: number;
-      y: number;
-    }
-  }
+	export module Y {
+		export interface Point {
+			x: number;
+			y: number;
+		}
+	}
 
-  export class Y {
-    name: string;
-  }
+	export class Y {
+		name: string;
+	}
 }
 
 module Z {
-  import Y = X.Y;
+	import Y = X.Y;
 
-  var Y = 12;
+	var Y = 12;
 }
 
 ================================================================================

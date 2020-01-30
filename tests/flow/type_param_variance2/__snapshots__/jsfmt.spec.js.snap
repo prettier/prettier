@@ -43,16 +43,16 @@ run()
  */
 
 async function foo(x: boolean): Promise<?{ bar: string }> {
-  if (x) {
-    return { bar: "baz" }; // OK, because of covariant type param
-  } else {
-    return null;
-  }
+	if (x) {
+		return { bar: "baz" }; // OK, because of covariant type param
+	} else {
+		return null;
+	}
 }
 
 async function run() {
-  console.log(await foo(true));
-  console.log(await foo(false));
+	console.log(await foo(true));
+	console.log(await foo(false));
 }
 
 run();

@@ -78,7 +78,7 @@ f((a) => ({})) + 1;
 ((a) => ({})) || 0;
 a = (b) => c;
 a = (b) => {
-  return c;
+	return c;
 };
 
 ================================================================================
@@ -162,7 +162,7 @@ f(a => ({})) + 1;
 (a => ({})) || 0;
 a = b => c;
 a = b => {
-  return c;
+	return c;
 };
 
 ================================================================================
@@ -606,100 +606,100 @@ foo(
 
 =====================================output=====================================
 Seq(typeDef.interface.groups).forEach((group) =>
-  Seq(group.members).forEach((member, memberName) =>
-    markdownDoc(member.doc, {
-      typePath: typePath.concat(memberName.slice(1)),
-      signatures: member.signatures,
-    })
-  )
+	Seq(group.members).forEach((member, memberName) =>
+		markdownDoc(member.doc, {
+			typePath: typePath.concat(memberName.slice(1)),
+			signatures: member.signatures,
+		})
+	)
 );
 
 const promiseFromCallback = (fn) =>
-  new Promise((resolve, reject) =>
-    fn((err, result) => {
-      if (err) return reject(err);
-      return resolve(result);
-    })
-  );
+	new Promise((resolve, reject) =>
+		fn((err, result) => {
+			if (err) return reject(err);
+			return resolve(result);
+		})
+	);
 
 runtimeAgent.getProperties(
-  objectId,
-  false, // ownProperties
-  false, // accessorPropertiesOnly
-  false, // generatePreview
-  (error, properties, internalProperties) => {
-    return 1;
-  }
+	objectId,
+	false, // ownProperties
+	false, // accessorPropertiesOnly
+	false, // generatePreview
+	(error, properties, internalProperties) => {
+		return 1;
+	}
 );
 
 function render() {
-  return (
-    <View>
-      <Image
-        onProgress={(e) =>
-          this.setState({
-            progress: Math.round(
-              (100 * e.nativeEvent.loaded) / e.nativeEvent.total
-            ),
-          })
-        }
-      />
-    </View>
-  );
+	return (
+		<View>
+			<Image
+				onProgress={(e) =>
+					this.setState({
+						progress: Math.round(
+							(100 * e.nativeEvent.loaded) / e.nativeEvent.total
+						),
+					})
+				}
+			/>
+		</View>
+	);
 }
 
 function render() {
-  return (
-    <View>
-      <Image
-        onProgress={(e) =>
-          this.setState({
-            progress: Math.round(
-              (100 * e.nativeEvent.loaded) / e.nativeEvent.total
-            ),
-          })
-        }
-      />
-    </View>
-  );
+	return (
+		<View>
+			<Image
+				onProgress={(e) =>
+					this.setState({
+						progress: Math.round(
+							(100 * e.nativeEvent.loaded) / e.nativeEvent.total
+						),
+					})
+				}
+			/>
+		</View>
+	);
 }
 
 function render() {
-  return (
-    <View>
-      <Image
-        onProgress={(e) =>
-          this.setState({
-            progress: Math.round(
-              (100 * e.nativeEvent.loaded) / e.nativeEvent.total
-            ),
-          })
-        }
-      />
-    </View>
-  );
+	return (
+		<View>
+			<Image
+				onProgress={(e) =>
+					this.setState({
+						progress: Math.round(
+							(100 * e.nativeEvent.loaded) / e.nativeEvent.total
+						),
+					})
+				}
+			/>
+		</View>
+	);
 }
 
 jest.mock(
-  "../SearchSource",
-  () =>
-    class {
-      findMatchingTests(pattern) {
-        return { paths: [] };
-      }
-    }
+	"../SearchSource",
+	() =>
+		class {
+			findMatchingTests(pattern) {
+				return { paths: [] };
+			}
+		}
 );
 
 fooooooooooooooooooooooooooooooooooooooooooooooooooo((action) => (next) =>
-  dispatch(action)
+	dispatch(action)
 );
 
 foo(
-  ({
-    a,
+	({
+		a,
 
-    b,
-  }) => {}
+		b,
+	}) => {}
 );
 
 foo(({ a, b }) => {});
@@ -707,20 +707,20 @@ foo(({ a, b }) => {});
 foo(({ a, b }) => {});
 
 foo(
-  a,
-  ({
-    a,
+	a,
+	({
+		a,
 
-    b,
-  }) => {}
+		b,
+	}) => {}
 );
 
 foo(
-  ({
-    a,
+	({
+		a,
 
-    b,
-  }) => a
+		b,
+	}) => a
 );
 
 foo(({ a, b }) => a);
@@ -728,268 +728,268 @@ foo(({ a, b }) => a);
 foo(({ a, b }) => a);
 
 foo(
-  ({
-    a: {
-      a,
+	({
+		a: {
+			a,
 
-      b,
-    },
-  }) => {}
+			b,
+		},
+	}) => {}
 );
 
 foo(
-  ({
-    a: {
-      b: {
-        c,
+	({
+		a: {
+			b: {
+				c,
 
-        d,
-      },
-    },
-  }) => {}
+				d,
+			},
+		},
+	}) => {}
 );
 
 foo(
-  ({
-    a: {
-      b: {
-        c: {
-          d,
+	({
+		a: {
+			b: {
+				c: {
+					d,
 
-          e,
-        },
-      },
-    },
-  }) => {}
+					e,
+				},
+			},
+		},
+	}) => {}
 );
 
 foo(
-  ({
-    a: {
-      a,
+	({
+		a: {
+			a,
 
-      b,
-    },
-  }) => a
+			b,
+		},
+	}) => a
 );
 
 foo(
-  ({
-    a: {
-      b: {
-        c,
+	({
+		a: {
+			b: {
+				c,
 
-        d,
-      },
-    },
-  }) => a
+				d,
+			},
+		},
+	}) => a
 );
 
 foo(
-  ({
-    a: {
-      b: {
-        c: {
-          d,
+	({
+		a: {
+			b: {
+				c: {
+					d,
 
-          e,
-        },
-      },
-    },
-  }) => a
+					e,
+				},
+			},
+		},
+	}) => a
 );
 
 foo(
-  ([
-    {
-      a: {
-        b: {
-          c: {
-            d,
+	([
+		{
+			a: {
+				b: {
+					c: {
+						d,
 
-            e,
-          },
-        },
-      },
-    },
-  ]) => {}
+						e,
+					},
+				},
+			},
+		},
+	]) => {}
 );
 
 foo(
-  ([
-    ...{
-      a: {
-        b: {
-          c: {
-            d,
+	([
+		...{
+			a: {
+				b: {
+					c: {
+						d,
 
-            e,
-          },
-        },
-      },
-    }
-  ]) => {}
+						e,
+					},
+				},
+			},
+		}
+	]) => {}
 );
 
 foo(
-  (
-    n = {
-      a: {
-        b: {
-          c: {
-            d,
+	(
+		n = {
+			a: {
+				b: {
+					c: {
+						d,
 
-            e,
-          },
-        },
-      },
-    }
-  ) => {}
+						e,
+					},
+				},
+			},
+		}
+	) => {}
 );
 
 foo(
-  ({
-    x: [
-      {
-        a,
+	({
+		x: [
+			{
+				a,
 
-        b,
-      },
-    ],
-  }) => {}
+				b,
+			},
+		],
+	}) => {}
 );
 
 foo(
-  (
-    a = [
-      {
-        a,
+	(
+		a = [
+			{
+				a,
 
-        b,
-      },
-    ]
-  ) => a
+				b,
+			},
+		]
+	) => a
 );
 
 foo(
-  ([
-    [
-      {
-        a,
+	([
+		[
+			{
+				a,
 
-        b,
-      },
-    ],
-  ]) => {}
+				b,
+			},
+		],
+	]) => {}
 );
 
 foo(
-  ([
-    [
-      [
-        [
-          {
-            a,
-            b: {
-              c,
-              d: {
-                e,
+	([
+		[
+			[
+				[
+					{
+						a,
+						b: {
+							c,
+							d: {
+								e,
 
-                f,
-              },
-            },
-          },
-        ],
-      ],
-    ],
-  ]) => {}
+								f,
+							},
+						},
+					},
+				],
+			],
+		],
+	]) => {}
 );
 
 foo(
-  (
-    ...{
-      a,
+	(
+		...{
+			a,
 
-      b,
-    }
-  ) => {}
+			b,
+		}
+	) => {}
 );
 
 foo(
-  (
-    ...[
-      {
-        a,
+	(
+		...[
+			{
+				a,
 
-        b,
-      },
-    ]
-  ) => {}
+				b,
+			},
+		]
+	) => {}
 );
 
 foo(
-  ([
-    ...[
-      {
-        a,
+	([
+		...[
+			{
+				a,
 
-        b,
-      },
-    ]
-  ]) => {}
+				b,
+			},
+		]
+	]) => {}
 );
 
 foo(
-  (
-    a = [
-      {
-        a,
+	(
+		a = [
+			{
+				a,
 
-        b,
-      },
-    ]
-  ) => {}
+				b,
+			},
+		]
+	) => {}
 );
 
 foo(
-  (
-    a = (({
-      a,
+	(
+		a = (({
+			a,
 
-      b,
-    }) => {})()
-  ) => {}
+			b,
+		}) => {})()
+	) => {}
 );
 
 foo(
-  (
-    a = f({
-      a,
+	(
+		a = f({
+			a,
 
-      b,
-    })
-  ) => {}
+			b,
+		})
+	) => {}
 );
 
 foo(
-  (
-    a = ({
-      a,
+	(
+		a = ({
+			a,
 
-      b,
-    }) => {}
-  ) => {}
+			b,
+		}) => {}
+	) => {}
 );
 
 foo(
-  (
-    a = 1 +
-      f({
-        a,
+	(
+		a = 1 +
+			f({
+				a,
 
-        b,
-      })
-  ) => {}
+				b,
+			})
+	) => {}
 );
 
 ================================================================================
@@ -1403,100 +1403,100 @@ foo(
 
 =====================================output=====================================
 Seq(typeDef.interface.groups).forEach(group =>
-  Seq(group.members).forEach((member, memberName) =>
-    markdownDoc(member.doc, {
-      typePath: typePath.concat(memberName.slice(1)),
-      signatures: member.signatures,
-    })
-  )
+	Seq(group.members).forEach((member, memberName) =>
+		markdownDoc(member.doc, {
+			typePath: typePath.concat(memberName.slice(1)),
+			signatures: member.signatures,
+		})
+	)
 );
 
 const promiseFromCallback = fn =>
-  new Promise((resolve, reject) =>
-    fn((err, result) => {
-      if (err) return reject(err);
-      return resolve(result);
-    })
-  );
+	new Promise((resolve, reject) =>
+		fn((err, result) => {
+			if (err) return reject(err);
+			return resolve(result);
+		})
+	);
 
 runtimeAgent.getProperties(
-  objectId,
-  false, // ownProperties
-  false, // accessorPropertiesOnly
-  false, // generatePreview
-  (error, properties, internalProperties) => {
-    return 1;
-  }
+	objectId,
+	false, // ownProperties
+	false, // accessorPropertiesOnly
+	false, // generatePreview
+	(error, properties, internalProperties) => {
+		return 1;
+	}
 );
 
 function render() {
-  return (
-    <View>
-      <Image
-        onProgress={e =>
-          this.setState({
-            progress: Math.round(
-              (100 * e.nativeEvent.loaded) / e.nativeEvent.total
-            ),
-          })
-        }
-      />
-    </View>
-  );
+	return (
+		<View>
+			<Image
+				onProgress={e =>
+					this.setState({
+						progress: Math.round(
+							(100 * e.nativeEvent.loaded) / e.nativeEvent.total
+						),
+					})
+				}
+			/>
+		</View>
+	);
 }
 
 function render() {
-  return (
-    <View>
-      <Image
-        onProgress={e =>
-          this.setState({
-            progress: Math.round(
-              (100 * e.nativeEvent.loaded) / e.nativeEvent.total
-            ),
-          })
-        }
-      />
-    </View>
-  );
+	return (
+		<View>
+			<Image
+				onProgress={e =>
+					this.setState({
+						progress: Math.round(
+							(100 * e.nativeEvent.loaded) / e.nativeEvent.total
+						),
+					})
+				}
+			/>
+		</View>
+	);
 }
 
 function render() {
-  return (
-    <View>
-      <Image
-        onProgress={e =>
-          this.setState({
-            progress: Math.round(
-              (100 * e.nativeEvent.loaded) / e.nativeEvent.total
-            ),
-          })
-        }
-      />
-    </View>
-  );
+	return (
+		<View>
+			<Image
+				onProgress={e =>
+					this.setState({
+						progress: Math.round(
+							(100 * e.nativeEvent.loaded) / e.nativeEvent.total
+						),
+					})
+				}
+			/>
+		</View>
+	);
 }
 
 jest.mock(
-  "../SearchSource",
-  () =>
-    class {
-      findMatchingTests(pattern) {
-        return { paths: [] };
-      }
-    }
+	"../SearchSource",
+	() =>
+		class {
+			findMatchingTests(pattern) {
+				return { paths: [] };
+			}
+		}
 );
 
 fooooooooooooooooooooooooooooooooooooooooooooooooooo(action => next =>
-  dispatch(action)
+	dispatch(action)
 );
 
 foo(
-  ({
-    a,
+	({
+		a,
 
-    b,
-  }) => {}
+		b,
+	}) => {}
 );
 
 foo(({ a, b }) => {});
@@ -1504,20 +1504,20 @@ foo(({ a, b }) => {});
 foo(({ a, b }) => {});
 
 foo(
-  a,
-  ({
-    a,
+	a,
+	({
+		a,
 
-    b,
-  }) => {}
+		b,
+	}) => {}
 );
 
 foo(
-  ({
-    a,
+	({
+		a,
 
-    b,
-  }) => a
+		b,
+	}) => a
 );
 
 foo(({ a, b }) => a);
@@ -1525,268 +1525,268 @@ foo(({ a, b }) => a);
 foo(({ a, b }) => a);
 
 foo(
-  ({
-    a: {
-      a,
+	({
+		a: {
+			a,
 
-      b,
-    },
-  }) => {}
+			b,
+		},
+	}) => {}
 );
 
 foo(
-  ({
-    a: {
-      b: {
-        c,
+	({
+		a: {
+			b: {
+				c,
 
-        d,
-      },
-    },
-  }) => {}
+				d,
+			},
+		},
+	}) => {}
 );
 
 foo(
-  ({
-    a: {
-      b: {
-        c: {
-          d,
+	({
+		a: {
+			b: {
+				c: {
+					d,
 
-          e,
-        },
-      },
-    },
-  }) => {}
+					e,
+				},
+			},
+		},
+	}) => {}
 );
 
 foo(
-  ({
-    a: {
-      a,
+	({
+		a: {
+			a,
 
-      b,
-    },
-  }) => a
+			b,
+		},
+	}) => a
 );
 
 foo(
-  ({
-    a: {
-      b: {
-        c,
+	({
+		a: {
+			b: {
+				c,
 
-        d,
-      },
-    },
-  }) => a
+				d,
+			},
+		},
+	}) => a
 );
 
 foo(
-  ({
-    a: {
-      b: {
-        c: {
-          d,
+	({
+		a: {
+			b: {
+				c: {
+					d,
 
-          e,
-        },
-      },
-    },
-  }) => a
+					e,
+				},
+			},
+		},
+	}) => a
 );
 
 foo(
-  ([
-    {
-      a: {
-        b: {
-          c: {
-            d,
+	([
+		{
+			a: {
+				b: {
+					c: {
+						d,
 
-            e,
-          },
-        },
-      },
-    },
-  ]) => {}
+						e,
+					},
+				},
+			},
+		},
+	]) => {}
 );
 
 foo(
-  ([
-    ...{
-      a: {
-        b: {
-          c: {
-            d,
+	([
+		...{
+			a: {
+				b: {
+					c: {
+						d,
 
-            e,
-          },
-        },
-      },
-    }
-  ]) => {}
+						e,
+					},
+				},
+			},
+		}
+	]) => {}
 );
 
 foo(
-  (
-    n = {
-      a: {
-        b: {
-          c: {
-            d,
+	(
+		n = {
+			a: {
+				b: {
+					c: {
+						d,
 
-            e,
-          },
-        },
-      },
-    }
-  ) => {}
+						e,
+					},
+				},
+			},
+		}
+	) => {}
 );
 
 foo(
-  ({
-    x: [
-      {
-        a,
+	({
+		x: [
+			{
+				a,
 
-        b,
-      },
-    ],
-  }) => {}
+				b,
+			},
+		],
+	}) => {}
 );
 
 foo(
-  (
-    a = [
-      {
-        a,
+	(
+		a = [
+			{
+				a,
 
-        b,
-      },
-    ]
-  ) => a
+				b,
+			},
+		]
+	) => a
 );
 
 foo(
-  ([
-    [
-      {
-        a,
+	([
+		[
+			{
+				a,
 
-        b,
-      },
-    ],
-  ]) => {}
+				b,
+			},
+		],
+	]) => {}
 );
 
 foo(
-  ([
-    [
-      [
-        [
-          {
-            a,
-            b: {
-              c,
-              d: {
-                e,
+	([
+		[
+			[
+				[
+					{
+						a,
+						b: {
+							c,
+							d: {
+								e,
 
-                f,
-              },
-            },
-          },
-        ],
-      ],
-    ],
-  ]) => {}
+								f,
+							},
+						},
+					},
+				],
+			],
+		],
+	]) => {}
 );
 
 foo(
-  (
-    ...{
-      a,
+	(
+		...{
+			a,
 
-      b,
-    }
-  ) => {}
+			b,
+		}
+	) => {}
 );
 
 foo(
-  (
-    ...[
-      {
-        a,
+	(
+		...[
+			{
+				a,
 
-        b,
-      },
-    ]
-  ) => {}
+				b,
+			},
+		]
+	) => {}
 );
 
 foo(
-  ([
-    ...[
-      {
-        a,
+	([
+		...[
+			{
+				a,
 
-        b,
-      },
-    ]
-  ]) => {}
+				b,
+			},
+		]
+	]) => {}
 );
 
 foo(
-  (
-    a = [
-      {
-        a,
+	(
+		a = [
+			{
+				a,
 
-        b,
-      },
-    ]
-  ) => {}
+				b,
+			},
+		]
+	) => {}
 );
 
 foo(
-  (
-    a = (({
-      a,
+	(
+		a = (({
+			a,
 
-      b,
-    }) => {})()
-  ) => {}
+			b,
+		}) => {})()
+	) => {}
 );
 
 foo(
-  (
-    a = f({
-      a,
+	(
+		a = f({
+			a,
 
-      b,
-    })
-  ) => {}
+			b,
+		})
+	) => {}
 );
 
 foo(
-  (
-    a = ({
-      a,
+	(
+		a = ({
+			a,
 
-      b,
-    }) => {}
-  ) => {}
+			b,
+		}) => {}
+	) => {}
 );
 
 foo(
-  (
-    a = 1 +
-      f({
-        a,
+	(
+		a = 1 +
+			f({
+				a,
 
-        b,
-      })
-  ) => {}
+				b,
+			})
+	) => {}
 );
 
 ================================================================================
@@ -1838,28 +1838,28 @@ export const bem = block =>
  * @returns {Function}
  */
 export const bem = (block) =>
-  /**
-   * @param {String} [element] - the BEM Element within that block; if undefined, selects the block itself.
-   * @returns {Function}
-   */
-  (element) =>
-    /**
-     * @param {?String} [modifier] - the BEM Modifier for the Block or Element; if undefined, selects the Block or Element unmodified.
-     * @returns {String}
-     */
-    (modifier) =>
-      [
-        ".",
-        css(block),
-        element ? \`__\${css(element)}\` : "",
-        modifier ? \`--\${css(modifier)}\` : "",
-      ].join("");
+	/**
+	 * @param {String} [element] - the BEM Element within that block; if undefined, selects the block itself.
+	 * @returns {Function}
+	 */
+	(element) =>
+		/**
+		 * @param {?String} [modifier] - the BEM Modifier for the Block or Element; if undefined, selects the Block or Element unmodified.
+		 * @returns {String}
+		 */
+		(modifier) =>
+			[
+				".",
+				css(block),
+				element ? \`__\${css(element)}\` : "",
+				modifier ? \`--\${css(modifier)}\` : "",
+			].join("");
 
 <FlatList
-  renderItem={(
-    info // $FlowExpectedError - bad widgetCount type 6, should be Object
-  ) => <span>{info.item.widget.missingProp}</span>}
-  data={data}
+	renderItem={(
+		info // $FlowExpectedError - bad widgetCount type 6, should be Object
+	) => <span>{info.item.widget.missingProp}</span>}
+	data={data}
 />;
 
 ================================================================================
@@ -1911,28 +1911,28 @@ export const bem = block =>
  * @returns {Function}
  */
 export const bem = block =>
-  /**
-   * @param {String} [element] - the BEM Element within that block; if undefined, selects the block itself.
-   * @returns {Function}
-   */
-  element =>
-    /**
-     * @param {?String} [modifier] - the BEM Modifier for the Block or Element; if undefined, selects the Block or Element unmodified.
-     * @returns {String}
-     */
-    modifier =>
-      [
-        ".",
-        css(block),
-        element ? \`__\${css(element)}\` : "",
-        modifier ? \`--\${css(modifier)}\` : "",
-      ].join("");
+	/**
+	 * @param {String} [element] - the BEM Element within that block; if undefined, selects the block itself.
+	 * @returns {Function}
+	 */
+	element =>
+		/**
+		 * @param {?String} [modifier] - the BEM Modifier for the Block or Element; if undefined, selects the Block or Element unmodified.
+		 * @returns {String}
+		 */
+		modifier =>
+			[
+				".",
+				css(block),
+				element ? \`__\${css(element)}\` : "",
+				modifier ? \`--\${css(modifier)}\` : "",
+			].join("");
 
 <FlatList
-  renderItem={(
-    info // $FlowExpectedError - bad widgetCount type 6, should be Object
-  ) => <span>{info.item.widget.missingProp}</span>}
-  data={data}
+	renderItem={(
+		info // $FlowExpectedError - bad widgetCount type 6, should be Object
+	) => <span>{info.item.widget.missingProp}</span>}
+	data={data}
 />;
 
 ================================================================================
@@ -1965,21 +1965,21 @@ const middleware = options => (req, res, next) => {
 
 =====================================output=====================================
 const fn = (b) => (c) => (d) => {
-  return 3;
+	return 3;
 };
 
 const foo = (a, b) => (c) => (d) => {
-  return 3;
+	return 3;
 };
 
 const bar = (a) => (b) => (c) => a + b + c;
 
 const mw = (store) => (next) => (action) => {
-  return next(action);
+	return next(action);
 };
 
 const middleware = (options) => (req, res, next) => {
-  // ...
+	// ...
 };
 
 ================================================================================
@@ -2012,21 +2012,21 @@ const middleware = options => (req, res, next) => {
 
 =====================================output=====================================
 const fn = b => c => d => {
-  return 3;
+	return 3;
 };
 
 const foo = (a, b) => c => d => {
-  return 3;
+	return 3;
 };
 
 const bar = a => b => c => a + b + c;
 
 const mw = store => next => action => {
-  return next(action);
+	return next(action);
 };
 
 const middleware = options => (req, res, next) => {
-  // ...
+	// ...
 };
 
 ================================================================================
@@ -2043,8 +2043,8 @@ veryLongCall(VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_LONG_CONSTANT, ()
 
 =====================================output=====================================
 veryLongCall(
-  VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_LONG_CONSTANT,
-  () => {}
+	VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_LONG_CONSTANT,
+	() => {}
 );
 
 ================================================================================
@@ -2061,8 +2061,8 @@ veryLongCall(VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_LONG_CONSTANT, ()
 
 =====================================output=====================================
 veryLongCall(
-  VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_LONG_CONSTANT,
-  () => {}
+	VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_VERY_LONG_CONSTANT,
+	() => {}
 );
 
 ================================================================================
@@ -2081,12 +2081,12 @@ const foo = () => {
 
 =====================================output=====================================
 const foo = () => {
-  expect(arg1, arg2, arg3).toEqual({
-    message: "test",
-    messageType: "SMS",
-    status: "Unknown",
-    created: "11/01/2017 13:36",
-  });
+	expect(arg1, arg2, arg3).toEqual({
+		message: "test",
+		messageType: "SMS",
+		status: "Unknown",
+		created: "11/01/2017 13:36",
+	});
 };
 
 ================================================================================
@@ -2105,12 +2105,12 @@ const foo = () => {
 
 =====================================output=====================================
 const foo = () => {
-  expect(arg1, arg2, arg3).toEqual({
-    message: "test",
-    messageType: "SMS",
-    status: "Unknown",
-    created: "11/01/2017 13:36",
-  });
+	expect(arg1, arg2, arg3).toEqual({
+		message: "test",
+		messageType: "SMS",
+		status: "Unknown",
+		created: "11/01/2017 13:36",
+	});
 };
 
 ================================================================================
@@ -2141,24 +2141,24 @@ foo(a => b, d)
 
 =====================================output=====================================
 promise.then(
-  (result) => result,
-  (err) => err
+	(result) => result,
+	(err) => err
 );
 
 promise.then(
-  (result) => {
-    f();
-    return result;
-  },
-  (err) => {
-    f();
-    return err;
-  }
+	(result) => {
+		f();
+		return result;
+	},
+	(err) => {
+		f();
+		return err;
+	}
 );
 
 foo((a) => b);
 foo((a) => {
-  return b;
+	return b;
 });
 foo(c, (a) => b);
 foo(c, (a) => b, d);
@@ -2192,24 +2192,24 @@ foo(a => b, d)
 
 =====================================output=====================================
 promise.then(
-  result => result,
-  err => err
+	result => result,
+	err => err
 );
 
 promise.then(
-  result => {
-    f();
-    return result;
-  },
-  err => {
-    f();
-    return err;
-  }
+	result => {
+		f();
+		return result;
+	},
+	err => {
+		f();
+		return err;
+	}
 );
 
 foo(a => b);
 foo(a => {
-  return b;
+	return b;
 });
 foo(c, a => b);
 foo(c, a => b, d);
@@ -2234,10 +2234,10 @@ const initializeSnapshotState = (
 
 =====================================output=====================================
 const initializeSnapshotState = (
-  testFile: Path,
-  update: boolean,
-  testPath: string,
-  expand: boolean
+	testFile: Path,
+	update: boolean,
+	testPath: string,
+	expand: boolean
 ) => new SnapshotState(testFile, update, testPath, expand);
 
 ================================================================================
@@ -2259,10 +2259,10 @@ const initializeSnapshotState = (
 
 =====================================output=====================================
 const initializeSnapshotState = (
-  testFile: Path,
-  update: boolean,
-  testPath: string,
-  expand: boolean
+	testFile: Path,
+	update: boolean,
+	testPath: string,
+	expand: boolean
 ) => new SnapshotState(testFile, update, testPath, expand);
 
 ================================================================================

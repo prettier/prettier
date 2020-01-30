@@ -38,33 +38,33 @@ let tests = [
 
 =====================================output=====================================
 let tests = [
-  function (x: { x: { foo: string } }, y: { x: { bar: number } }) {
-    x = y; // 2 errors: \`foo\` not found in y.x; \`bar\` not found in x.x
-  },
+	function (x: { x: { foo: string } }, y: { x: { bar: number } }) {
+		x = y; // 2 errors: \`foo\` not found in y.x; \`bar\` not found in x.x
+	},
 
-  function (x: { foo: string }, y: { foo: number }) {
-    x = y; // 2 errors: string !~> number; number !~> string
-  },
+	function (x: { foo: string }, y: { foo: number }) {
+		x = y; // 2 errors: string !~> number; number !~> string
+	},
 
-  function (x: { x: { foo: string } }, y: { x: { foo: number } }) {
-    x = y; // 2 errors: string !~> number; number !~> string
-  },
+	function (x: { x: { foo: string } }, y: { x: { foo: number } }) {
+		x = y; // 2 errors: string !~> number; number !~> string
+	},
 
-  function (x: { +foo: string }, y: { +foo: number }) {
-    x = y; // 1 error: number !~> string
-  },
+	function (x: { +foo: string }, y: { +foo: number }) {
+		x = y; // 1 error: number !~> string
+	},
 
-  function (x: { x: { +foo: string } }, y: { x: { +foo: number } }) {
-    x = y; // 2 errors: string !~> number; number !~> string
-  },
+	function (x: { x: { +foo: string } }, y: { x: { +foo: number } }) {
+		x = y; // 2 errors: string !~> number; number !~> string
+	},
 
-  function (x: { -foo: string }, y: { -foo: number }) {
-    x = y; // 1 error: string !~> number
-  },
+	function (x: { -foo: string }, y: { -foo: number }) {
+		x = y; // 1 error: string !~> number
+	},
 
-  function (x: { x: { -foo: string } }, y: { x: { -foo: number } }) {
-    x = y; // 2 errors: string !~> number; number !~> string
-  },
+	function (x: { x: { -foo: string } }, y: { x: { -foo: number } }) {
+		x = y; // 2 errors: string !~> number; number !~> string
+	},
 ];
 
 ================================================================================
@@ -220,15 +220,15 @@ function assign_then_widen() {
 var glob: { x: string } = { x: "hey" };
 
 function assign_then_alias() {
-  var obj: { x: string | number };
-  obj = { x: "hey" };
-  glob = obj; // error: subsequent assignment might make glob.x a number
+	var obj: { x: string | number };
+	obj = { x: "hey" };
+	glob = obj; // error: subsequent assignment might make glob.x a number
 }
 
 function assign_then_widen() {
-  var obj: { x: string | number };
-  obj = { x: "hey" };
-  obj.x = 10; // ok, by lvalue's given type
+	var obj: { x: string | number };
+	obj = { x: "hey" };
+	obj.x = 10; // ok, by lvalue's given type
 }
 
 ================================================================================

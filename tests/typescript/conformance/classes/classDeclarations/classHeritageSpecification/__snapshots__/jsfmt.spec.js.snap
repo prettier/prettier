@@ -16,7 +16,7 @@ var o2: {} = c;
 
 =====================================output=====================================
 class C {
-  foo: string;
+	foo: string;
 }
 
 var c: C;
@@ -67,13 +67,13 @@ var r7 = d2.thing('');
 var r8 = D2.other(1);
 =====================================output=====================================
 class C {
-  foo: string;
-  thing() {}
-  static other() {}
+	foo: string;
+	thing() {}
+	static other() {}
 }
 
 class D extends C {
-  bar: string;
+	bar: string;
 }
 
 var d: D;
@@ -83,13 +83,13 @@ var r3 = d.thing();
 var r4 = D.other();
 
 class C2<T> {
-  foo: T;
-  thing(x: T) {}
-  static other<T>(x: T) {}
+	foo: T;
+	thing(x: T) {}
+	static other<T>(x: T) {}
 }
 
 class D2<T> extends C2<T> {
-  bar: string;
+	bar: string;
 }
 
 var d2: D2<string>;
@@ -120,27 +120,27 @@ class D2<T> extends C2<T> { bar: T; }
 class E2<T> extends D2<T> { baz: T; }
 =====================================output=====================================
 class C extends E {
-  foo: string;
+	foo: string;
 } // error
 
 class D extends C {
-  bar: string;
+	bar: string;
 }
 
 class E extends D {
-  baz: number;
+	baz: number;
 }
 
 class C2<T> extends E2<T> {
-  foo: T;
+	foo: T;
 } // error
 
 class D2<T> extends C2<T> {
-  bar: T;
+	bar: T;
 }
 
 class E2<T> extends D2<T> {
-  baz: T;
+	baz: T;
 }
 
 ================================================================================
@@ -162,11 +162,11 @@ class Derived extends Base<string> {
 
 =====================================output=====================================
 class Base<T> {
-  foo: T;
+	foo: T;
 }
 
 class Derived extends Base<string> {
-  foo: any;
+	foo: any;
 }
 
 ================================================================================

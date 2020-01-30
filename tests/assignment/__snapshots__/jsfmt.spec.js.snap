@@ -18,12 +18,12 @@ computedDescriptionLines = (focused &&
 
 =====================================output=====================================
 const computedDescriptionLines =
-  (showConfirm && descriptionLinesConfirming) ||
-  (focused && !loading && descriptionLinesFocused) ||
-  descriptionLines;
+	(showConfirm && descriptionLinesConfirming) ||
+	(focused && !loading && descriptionLinesFocused) ||
+	descriptionLines;
 
 computedDescriptionLines =
-  (focused && !loading && descriptionLinesFocused) || descriptionLines;
+	(focused && !loading && descriptionLinesFocused) || descriptionLines;
 
 ================================================================================
 `;
@@ -48,17 +48,17 @@ const { accessibilityModule: FooAccessibilityModule, accessibilityModule: FooAcc
 
 =====================================output=====================================
 let {
-  bottom: offsetBottom,
-  left: offsetLeft,
-  right: offsetRight,
-  top: offsetTop,
+	bottom: offsetBottom,
+	left: offsetLeft,
+	right: offsetRight,
+	top: offsetTop,
 } = getPressRectOffset == null ? DEFAULT_PRESS_RECT : getPressRectOffset();
 
 const {
-  accessibilityModule: FooAccessibilityModule,
-  accessibilityModule: FooAccessibilityModule2,
-  accessibilityModule: FooAccessibilityModule3,
-  accessibilityModule: FooAccessibilityModule4,
+	accessibilityModule: FooAccessibilityModule,
+	accessibilityModule: FooAccessibilityModule2,
+	accessibilityModule: FooAccessibilityModule3,
+	accessibilityModule: FooAccessibilityModule4,
 } = foo || {};
 
 ({ prop: toAssign = "default" } = { prop: "propval" });
@@ -82,11 +82,11 @@ for (i = 0, len = arr.length; i < len; i++) {
 
 =====================================output=====================================
 for (i = 0, len = arr.length; i < len; i++) {
-  console.log(arr[i]);
+	console.log(arr[i]);
 }
 
 for (i = 0, len = arr.length; i < len; i++) {
-  console.log(arr[i]);
+	console.log(arr[i]);
 }
 
 ================================================================================

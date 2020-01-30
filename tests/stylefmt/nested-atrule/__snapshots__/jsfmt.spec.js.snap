@@ -15,11 +15,11 @@ printWidth: 80
 
 =====================================output=====================================
 @media (min-width: 992px) {
-  @media (max-width: 1200px) {
-    .container {
-      position: absolute;
-    }
-  }
+	@media (max-width: 1200px) {
+		.container {
+			position: absolute;
+		}
+	}
 }
 
 ================================================================================

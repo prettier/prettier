@@ -11,9 +11,9 @@ const b = someVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeLong.Expression || {
 
 =====================================output=====================================
 const a =
-  someVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeLong.Expression || [];
+	someVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeLong.Expression || [];
 const b =
-  someVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeLong.Expression || {};
+	someVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeLong.Expression || {};
 
 ================================================================================
 `;
@@ -108,19 +108,19 @@ printWidth: 80
 [[0, 1], [0], [0]];
 [[0, 1], [0, 1], [0]];
 [
-  [0, 1],
-  [0, 1],
-  [0, 1],
+	[0, 1],
+	[0, 1],
+	[0, 1],
 ];
 [[], [1, 2, 3]];
 [[1], [1]];
 [
-  [1, 2],
-  [1, 2, 3],
+	[1, 2],
+	[1, 2, 3],
 ];
 [
-  [1, 0],
-  [1, 0],
+	[1, 0],
+	[1, 0],
 ];
 [{}];
 [{}, {}];
@@ -137,12 +137,12 @@ printWidth: 80
 [{ a, b }, { a }];
 [{ a, b }, { a }, { a }];
 [
-  { a, b },
-  { a, b },
+	{ a, b },
+	{ a, b },
 ];
 [
-  { a, b },
-  { a, b, c },
+	{ a, b },
+	{ a, b, c },
 ];
 
 ================================================================================

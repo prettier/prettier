@@ -33,27 +33,27 @@ query {
 
 =====================================output=====================================
 query MyFirstQuery {
-  hello
+	hello
 }
 
 mutation MyFirstMutation {
-  world
+	world
 }
 
 subscription ThisIsASub {
-  excellent
+	excellent
 }
 
 query ThisIsASub {
-  excellent
+	excellent
 }
 
 query {
-  noName
+	noName
 }
 
 {
-  noOperationType
+	noOperationType
 }
 
 ================================================================================

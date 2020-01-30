@@ -21,12 +21,12 @@ foo();
 
 =====================================output=====================================
 function doSomethingAsync(): Promise<void> {
-  return new Promise((resolve, reject) => {
-    resolve(); // OK to leave out arg, same as resolve(undefined)
+	return new Promise((resolve, reject) => {
+		resolve(); // OK to leave out arg, same as resolve(undefined)
 
-    var anotherVoidPromise: Promise<void> = Promise.resolve();
-    resolve(anotherVoidPromise);
-  });
+		var anotherVoidPromise: Promise<void> = Promise.resolve();
+		resolve(anotherVoidPromise);
+	});
 }
 
 // simpler repro to show that too few args are fine when expecting void
@@ -56,13 +56,13 @@ function qux(x?: number, y:string = "", z) { }
 
 =====================================output=====================================
 function foo() {
-  var x;
-  x.foo();
+	var x;
+	x.foo();
 }
 
 function bar() {
-  var x: ?{ bar(): void };
-  if (x) x.bar();
+	var x: ?{ bar(): void };
+	if (x) x.bar();
 }
 
 function qux(x?: number, y: string = "", z) {}
@@ -112,27 +112,27 @@ let tests = [
 // @flow
 
 let tests = [
-  function (x: number) {
-    var id;
-    var name = id ? "John" : undefined;
-    (name: boolean); // error, string or void
+	function (x: number) {
+		var id;
+		var name = id ? "John" : undefined;
+		(name: boolean); // error, string or void
 
-    const bar = [undefined, "bar"];
-    (bar[x]: boolean); // error, string or void
-  },
+		const bar = [undefined, "bar"];
+		(bar[x]: boolean); // error, string or void
+	},
 
-  function (x: number) {
-    var undefined = "foo";
-    (undefined: string); // ok
+	function (x: number) {
+		var undefined = "foo";
+		(undefined: string); // ok
 
-    var x;
-    if (x !== undefined) {
-      x[0]; // should error, could be void
-    }
+		var x;
+		if (x !== undefined) {
+			x[0]; // should error, could be void
+		}
 
-    const bar = [undefined, "bar"];
-    (bar[x]: boolean); // error, string only
-  },
+		const bar = [undefined, "bar"];
+		(bar[x]: boolean); // error, string only
+	},
 ];
 
 ================================================================================

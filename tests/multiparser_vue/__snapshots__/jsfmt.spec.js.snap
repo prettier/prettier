@@ -23,12 +23,12 @@ export default {
 =====================================output=====================================
 <script lang="jsx">
 export default {
-  data: () => ({
-    message: "hello with jsx",
-  }),
-  render(h) {
-    return <div>{this.message}</div>;
-  },
+	data: () => ({
+		message: "hello with jsx",
+	}),
+	render(h) {
+		return <div>{this.message}</div>;
+	},
 };
 </script>
 
@@ -54,16 +54,16 @@ export default {
 
 =====================================output=====================================
 <template>
-  <div>{{ foo }}</div>
+	<div>{{ foo }}</div>
 </template>
 
 <script lang="ts">
 export default {
-  computed: {
-    foo(): string {
-      return "foo";
-    },
-  },
+	computed: {
+		foo(): string {
+			return "foo";
+		},
+	},
 };
 </script>
 
@@ -88,14 +88,14 @@ export default {
 <script lang="tsx">
 import { VNode } from "vue";
 export default {
-  computed: {
-    foo(): string {
-      return "foo";
-    },
-  },
-  render(h): VNode {
-    return <div>{this.foo}</div>;
-  },
+	computed: {
+		foo(): string {
+			return "foo";
+		},
+	},
+	render(h): VNode {
+		return <div>{this.foo}</div>;
+	},
 };
 </script>
 
@@ -121,13 +121,13 @@ printWidth: 80
 
 =====================================output=====================================
 <template>
-  <div v-bind:id="'list-' + id"></div>
-  <div v-bind:id="'list-' + id"></div>
-  <div v-bind:id="'list-' + id"></div>
-  <div v-bind:id="'&quot;' + id"></div>
-  <div v-bind:id="rawId | formatId"></div>
-  <div v-bind:id="ok ? 'YES' : 'NO'"></div>
-  <button @click="foo(arg, 'string')"></button>
+	<div v-bind:id="'list-' + id"></div>
+	<div v-bind:id="'list-' + id"></div>
+	<div v-bind:id="'list-' + id"></div>
+	<div v-bind:id="'&quot;' + id"></div>
+	<div v-bind:id="rawId | formatId"></div>
+	<div v-bind:id="ok ? 'YES' : 'NO'"></div>
+	<button @click="foo(arg, 'string')"></button>
 </template>
 
 ================================================================================
@@ -151,14 +151,14 @@ printWidth: 80
 
 =====================================output=====================================
 <template>
-  <h2
-    class="title"
-    :class="{
-      'issue-realtime-pre-pulse': preAnimation,
-      'issue-realtime-trigger-pulse': pulseAnimation,
-    }"
-    v-html="titleHtml"
-  ></h2>
+	<h2
+		class="title"
+		:class="{
+			'issue-realtime-pre-pulse': preAnimation,
+			'issue-realtime-trigger-pulse': pulseAnimation,
+		}"
+		v-html="titleHtml"
+	></h2>
 </template>
 
 ================================================================================
@@ -195,33 +195,33 @@ p { font-size : 2em ; text-align : center ; }
 
 =====================================output=====================================
 <template>
-  <h1>{{ greeting }} world</h1>
-  <script>
-    kikoo();
-  </script>
+	<h1>{{ greeting }} world</h1>
+	<script>
+		kikoo();
+	</script>
 </template>
 
 <script>
 module.exports = {
-  data: function () {
-    return {
-      greeting: "Hello",
-    };
-  },
+	data: function () {
+		return {
+			greeting: "Hello",
+		};
+	},
 };
 </script>
 
 <style scoped>
 p {
-  font-size: 2em;
-  text-align: center;
+	font-size: 2em;
+	text-align: center;
 }
 </style>
 
 <style lang="postcss">
 p {
-  font-size: 2em;
-  text-align: center;
+	font-size: 2em;
+	text-align: center;
 }
 </style>
 

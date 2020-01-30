@@ -14,7 +14,7 @@ printWidth: 80
 =====================================output=====================================
 .clusterPlannerDialog input[type="text"],
 .clusterPlannerDialog .uiTypeahead {
-  width: 220px;
+	width: 220px;
 }
 
 ================================================================================

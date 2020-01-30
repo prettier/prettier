@@ -16,13 +16,13 @@ foo!.bar().baz().what();
 
 =====================================output=====================================
 const {
-  somePropThatHasAReallyLongName,
-  anotherPropThatHasALongName,
+	somePropThatHasAReallyLongName,
+	anotherPropThatHasALongName,
 } = this.props.imReallySureAboutThis!;
 
 const {
-  somePropThatHasAReallyLongName2,
-  anotherPropThatHasALongName2,
+	somePropThatHasAReallyLongName2,
+	anotherPropThatHasALongName2,
 } = this.props.imReallySureAboutThis!.anotherObject;
 
 this.foo.get("bar")!.doThings().more();
@@ -70,11 +70,11 @@ xyz.a(b!).a(b!).a(b!)
 (void 0)!;
 
 async function f() {
-  return (await foo())!;
+	return (await foo())!;
 }
 
 function *g() {
-  return (yield *foo())!;
+	return (yield *foo())!;
 }
 
 const a = b()!(); // parens aren't necessary

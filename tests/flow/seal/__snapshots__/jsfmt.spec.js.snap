@@ -40,7 +40,7 @@ module.exports = foo;
 /* @flow */
 
 function foo(param: { name: string }): number {
-  return param.id;
+	return param.id;
 }
 
 foo({ name: "test" });

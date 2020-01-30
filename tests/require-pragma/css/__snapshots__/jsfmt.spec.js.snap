@@ -21,7 +21,7 @@ requirePragma: true
 /** @prettier */
 
 .class {
-  display: none;
+	display: none;
 }
 
 ================================================================================
@@ -71,7 +71,7 @@ something
 /** @prettier */
 
 .class {
-  display: none;
+	display: none;
 }
 
 ================================================================================
@@ -115,7 +115,7 @@ requirePragma: true
 /** @prettier */
 
 .class {
-  display: none;
+	display: none;
 }
 
 ================================================================================
@@ -148,7 +148,7 @@ requirePragma: true
  */
 
 .class {
-  display: none;
+	display: none;
 }
 
 ================================================================================

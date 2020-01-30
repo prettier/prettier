@@ -41,38 +41,38 @@ const TodoList = ({ todos }) => (
 
 =====================================output=====================================
 const UsersList = ({ users }) => (
-  <section>
-    <h2>Users list</h2>
-    <ul>
-      {users.map((user) => (
-        <li key={user.id}>{user.name}</li>
-      ))}
-    </ul>
-  </section>
+	<section>
+		<h2>Users list</h2>
+		<ul>
+			{users.map((user) => (
+				<li key={user.id}>{user.name}</li>
+			))}
+		</ul>
+	</section>
 );
 
 const TodoList = ({ todos }) => (
-  <div className="TodoList">
-    <ul>
-      {_.map(todos, (todo, i) => (
-        <TodoItem key={i} {...todo} />
-      ))}
-    </ul>
-  </div>
+	<div className="TodoList">
+		<ul>
+			{_.map(todos, (todo, i) => (
+				<TodoItem key={i} {...todo} />
+			))}
+		</ul>
+	</div>
 );
 
 <div className="search-filter-chips">
-  {scopes
-    .filter((scope) => scope.value !== "")
-    .map((scope, i) => (
-      <FilterChip
-        query={this.props.query}
-        onFilterChosen={this.onSearchScopeClicked}
-        key={i}
-        value={scope.value}
-        name={scope.name}
-      />
-    ))}
+	{scopes
+		.filter((scope) => scope.value !== "")
+		.map((scope, i) => (
+			<FilterChip
+				query={this.props.query}
+				onFilterChosen={this.onSearchScopeClicked}
+				key={i}
+				value={scope.value}
+				name={scope.name}
+			/>
+		))}
 </div>;
 
 ================================================================================
@@ -119,38 +119,38 @@ const TodoList = ({ todos }) => (
 
 =====================================output=====================================
 const UsersList = ({ users }) => (
-  <section>
-    <h2>Users list</h2>
-    <ul>
-      {users.map((user) => (
-        <li key={user.id}>{user.name}</li>
-      ))}
-    </ul>
-  </section>
+	<section>
+		<h2>Users list</h2>
+		<ul>
+			{users.map((user) => (
+				<li key={user.id}>{user.name}</li>
+			))}
+		</ul>
+	</section>
 );
 
 const TodoList = ({ todos }) => (
-  <div className='TodoList'>
-    <ul>
-      {_.map(todos, (todo, i) => (
-        <TodoItem key={i} {...todo} />
-      ))}
-    </ul>
-  </div>
+	<div className='TodoList'>
+		<ul>
+			{_.map(todos, (todo, i) => (
+				<TodoItem key={i} {...todo} />
+			))}
+		</ul>
+	</div>
 );
 
 <div className='search-filter-chips'>
-  {scopes
-    .filter((scope) => scope.value !== "")
-    .map((scope, i) => (
-      <FilterChip
-        query={this.props.query}
-        onFilterChosen={this.onSearchScopeClicked}
-        key={i}
-        value={scope.value}
-        name={scope.name}
-      />
-    ))}
+	{scopes
+		.filter((scope) => scope.value !== "")
+		.map((scope, i) => (
+			<FilterChip
+				query={this.props.query}
+				onFilterChosen={this.onSearchScopeClicked}
+				key={i}
+				value={scope.value}
+				name={scope.name}
+			/>
+		))}
 </div>;
 
 ================================================================================
@@ -197,38 +197,38 @@ const TodoList = ({ todos }) => (
 
 =====================================output=====================================
 const UsersList = ({ users }) => (
-  <section>
-    <h2>Users list</h2>
-    <ul>
-      {users.map((user) => (
-        <li key={user.id}>{user.name}</li>
-      ))}
-    </ul>
-  </section>
+	<section>
+		<h2>Users list</h2>
+		<ul>
+			{users.map((user) => (
+				<li key={user.id}>{user.name}</li>
+			))}
+		</ul>
+	</section>
 );
 
 const TodoList = ({ todos }) => (
-  <div className="TodoList">
-    <ul>
-      {_.map(todos, (todo, i) => (
-        <TodoItem key={i} {...todo} />
-      ))}
-    </ul>
-  </div>
+	<div className="TodoList">
+		<ul>
+			{_.map(todos, (todo, i) => (
+				<TodoItem key={i} {...todo} />
+			))}
+		</ul>
+	</div>
 );
 
 <div className="search-filter-chips">
-  {scopes
-    .filter((scope) => scope.value !== '')
-    .map((scope, i) => (
-      <FilterChip
-        query={this.props.query}
-        onFilterChosen={this.onSearchScopeClicked}
-        key={i}
-        value={scope.value}
-        name={scope.name}
-      />
-    ))}
+	{scopes
+		.filter((scope) => scope.value !== '')
+		.map((scope, i) => (
+			<FilterChip
+				query={this.props.query}
+				onFilterChosen={this.onSearchScopeClicked}
+				key={i}
+				value={scope.value}
+				name={scope.name}
+			/>
+		))}
 </div>;
 
 ================================================================================
@@ -275,38 +275,38 @@ const TodoList = ({ todos }) => (
 
 =====================================output=====================================
 const UsersList = ({ users }) => (
-  <section>
-    <h2>Users list</h2>
-    <ul>
-      {users.map((user) => (
-        <li key={user.id}>{user.name}</li>
-      ))}
-    </ul>
-  </section>
+	<section>
+		<h2>Users list</h2>
+		<ul>
+			{users.map((user) => (
+				<li key={user.id}>{user.name}</li>
+			))}
+		</ul>
+	</section>
 );
 
 const TodoList = ({ todos }) => (
-  <div className='TodoList'>
-    <ul>
-      {_.map(todos, (todo, i) => (
-        <TodoItem key={i} {...todo} />
-      ))}
-    </ul>
-  </div>
+	<div className='TodoList'>
+		<ul>
+			{_.map(todos, (todo, i) => (
+				<TodoItem key={i} {...todo} />
+			))}
+		</ul>
+	</div>
 );
 
 <div className='search-filter-chips'>
-  {scopes
-    .filter((scope) => scope.value !== '')
-    .map((scope, i) => (
-      <FilterChip
-        query={this.props.query}
-        onFilterChosen={this.onSearchScopeClicked}
-        key={i}
-        value={scope.value}
-        name={scope.name}
-      />
-    ))}
+	{scopes
+		.filter((scope) => scope.value !== '')
+		.map((scope, i) => (
+			<FilterChip
+				query={this.props.query}
+				onFilterChosen={this.onSearchScopeClicked}
+				key={i}
+				value={scope.value}
+				name={scope.name}
+			/>
+		))}
 </div>;
 
 ================================================================================
@@ -354,35 +354,35 @@ singleQuote: false
 
 =====================================output=====================================
 <Component
-  propFn={
-    // comment
-    function (arg) {
-      fn(arg);
-    }
-  }
-  propArrowFn={
-    // comment
-    (arg) => fn(arg)
-  }
-  propArrowWithBreak={
-    // comment
-    (arg) =>
-      fn({
-        makeItBreak,
-      })
-  }
-  propArray={
-    // comment
-    [el1, el2]
-  }
-  propObj={
-    // comment
-    { key: val }
-  }
-  propTemplate={
-    // comment
-    \`text\`
-  }
+	propFn={
+		// comment
+		function (arg) {
+			fn(arg);
+		}
+	}
+	propArrowFn={
+		// comment
+		(arg) => fn(arg)
+	}
+	propArrowWithBreak={
+		// comment
+		(arg) =>
+			fn({
+				makeItBreak,
+			})
+	}
+	propArray={
+		// comment
+		[el1, el2]
+	}
+	propObj={
+		// comment
+		{ key: val }
+	}
+	propTemplate={
+		// comment
+		\`text\`
+	}
 />;
 
 ================================================================================
@@ -430,35 +430,35 @@ singleQuote: false
 
 =====================================output=====================================
 <Component
-  propFn={
-    // comment
-    function (arg) {
-      fn(arg);
-    }
-  }
-  propArrowFn={
-    // comment
-    (arg) => fn(arg)
-  }
-  propArrowWithBreak={
-    // comment
-    (arg) =>
-      fn({
-        makeItBreak,
-      })
-  }
-  propArray={
-    // comment
-    [el1, el2]
-  }
-  propObj={
-    // comment
-    { key: val }
-  }
-  propTemplate={
-    // comment
-    \`text\`
-  }
+	propFn={
+		// comment
+		function (arg) {
+			fn(arg);
+		}
+	}
+	propArrowFn={
+		// comment
+		(arg) => fn(arg)
+	}
+	propArrowWithBreak={
+		// comment
+		(arg) =>
+			fn({
+				makeItBreak,
+			})
+	}
+	propArray={
+		// comment
+		[el1, el2]
+	}
+	propObj={
+		// comment
+		{ key: val }
+	}
+	propTemplate={
+		// comment
+		\`text\`
+	}
 />;
 
 ================================================================================
@@ -506,35 +506,35 @@ singleQuote: true
 
 =====================================output=====================================
 <Component
-  propFn={
-    // comment
-    function (arg) {
-      fn(arg);
-    }
-  }
-  propArrowFn={
-    // comment
-    (arg) => fn(arg)
-  }
-  propArrowWithBreak={
-    // comment
-    (arg) =>
-      fn({
-        makeItBreak,
-      })
-  }
-  propArray={
-    // comment
-    [el1, el2]
-  }
-  propObj={
-    // comment
-    { key: val }
-  }
-  propTemplate={
-    // comment
-    \`text\`
-  }
+	propFn={
+		// comment
+		function (arg) {
+			fn(arg);
+		}
+	}
+	propArrowFn={
+		// comment
+		(arg) => fn(arg)
+	}
+	propArrowWithBreak={
+		// comment
+		(arg) =>
+			fn({
+				makeItBreak,
+			})
+	}
+	propArray={
+		// comment
+		[el1, el2]
+	}
+	propObj={
+		// comment
+		{ key: val }
+	}
+	propTemplate={
+		// comment
+		\`text\`
+	}
 />;
 
 ================================================================================
@@ -582,35 +582,35 @@ singleQuote: true
 
 =====================================output=====================================
 <Component
-  propFn={
-    // comment
-    function (arg) {
-      fn(arg);
-    }
-  }
-  propArrowFn={
-    // comment
-    (arg) => fn(arg)
-  }
-  propArrowWithBreak={
-    // comment
-    (arg) =>
-      fn({
-        makeItBreak,
-      })
-  }
-  propArray={
-    // comment
-    [el1, el2]
-  }
-  propObj={
-    // comment
-    { key: val }
-  }
-  propTemplate={
-    // comment
-    \`text\`
-  }
+	propFn={
+		// comment
+		function (arg) {
+			fn(arg);
+		}
+	}
+	propArrowFn={
+		// comment
+		(arg) => fn(arg)
+	}
+	propArrowWithBreak={
+		// comment
+		(arg) =>
+			fn({
+				makeItBreak,
+			})
+	}
+	propArray={
+		// comment
+		[el1, el2]
+	}
+	propObj={
+		// comment
+		{ key: val }
+	}
+	propTemplate={
+		// comment
+		\`text\`
+	}
 />;
 
 ================================================================================
@@ -787,8 +787,8 @@ normalModeNonBreaking ? "a" : "b";
 // This ConditionalExpression has no JSXElements so it prints in normal mode.
 // Its consequent is very long, so it breaks out to multiple lines.
 normalModeBreaking
-  ? johnJacobJingleHeimerSchmidtHisNameIsMyNameTooWheneverWeGoOutThePeopleAlwaysShoutThereGoesJohnJacobJingleHeimerSchmidtYaDaDaDaDaDaDa
-  : "c";
+	? johnJacobJingleHeimerSchmidtHisNameIsMyNameTooWheneverWeGoOutThePeopleAlwaysShoutThereGoesJohnJacobJingleHeimerSchmidtYaDaDaDaDaDaDa
+	: "c";
 
 // This ConditionalExpression prints in JSX mode because its test is a
 // JSXElement. It is non-breaking.
@@ -809,37 +809,37 @@ jsxModeFromElementNonBreaking ? "a" : <div />;
 // Note: I have never, ever seen someone use a JSXElement as the test in a
 // ConditionalExpression. But this test is included for completeness.
 <div>
-  <span>
-    thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
-  </span>
+	<span>
+		thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
+	</span>
 </div> ? (
-  "jsx mode from element breaking"
+	"jsx mode from element breaking"
 ) : (
-  "a"
+	"a"
 );
 
 // This ConditionalExpression prints in JSX mode because its consequent is a
 // JSXElement. It is breaking.
 jsxModeFromElementBreaking ? (
-  <div>
-    <span>
-      thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
-    </span>
-  </div>
+	<div>
+		<span>
+			thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
+		</span>
+	</div>
 ) : (
-  "a"
+	"a"
 );
 
 // This ConditionalExpression prints in JSX mode because its alternate is a
 // JSXElement. It is breaking.
 jsxModeFromElementBreaking ? (
-  "a"
+	"a"
 ) : (
-  <div>
-    <span>
-      thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
-    </span>
-  </div>
+	<div>
+		<span>
+			thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
+		</span>
+	</div>
 );
 
 // This chain of ConditionalExpressions prints in JSX mode because the parent of
@@ -856,17 +856,17 @@ cable ? "satellite" : public ? "affairs" : network ? <span id="c" /> : "dunno";
 // breaking; notice the consequents and alternates in the entire chain get
 // wrapped in parens.
 cable ? (
-  "satellite"
+	"satellite"
 ) : public ? (
-  "affairs"
+	"affairs"
 ) : network ? (
-  <div>
-    <span>
-      thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
-    </span>
-  </div>
+	<div>
+		<span>
+			thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
+		</span>
+	</div>
 ) : (
-  "dunno"
+	"dunno"
 );
 
 // This chain of ConditionalExpressions prints in JSX mode because there is a
@@ -874,31 +874,31 @@ cable ? (
 // breaking; notice the consequents and alternates in the entire chain get
 // wrapped in parens.
 cable ? (
-  <div>
-    <span>
-      thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
-    </span>
-  </div>
+	<div>
+		<span>
+			thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
+		</span>
+	</div>
 ) : sateline ? (
-  "public"
+	"public"
 ) : affairs ? (
-  "network"
+	"network"
 ) : (
-  "dunno"
+	"dunno"
 );
 
 // This chain of ConditionalExpressions prints in JSX mode because there is a
 // JSX element somewhere in the chain. It is breaking; notice the consequents
 // and alternates in the entire chain get wrapped in parens.
 <div>
-  {properties.length > 1 ||
-  (properties.length === 1 && properties[0].apps.size > 1) ? (
-    draggingApp == null || newPropertyName == null ? (
-      <MigrationPropertyListItem />
-    ) : (
-      <MigrationPropertyListItem apps={Immutable.List()} />
-    )
-  ) : null}
+	{properties.length > 1 ||
+	(properties.length === 1 && properties[0].apps.size > 1) ? (
+		draggingApp == null || newPropertyName == null ? (
+			<MigrationPropertyListItem />
+		) : (
+			<MigrationPropertyListItem apps={Immutable.List()} />
+		)
+	) : null}
 </div>;
 
 ================================================================================
@@ -1075,8 +1075,8 @@ normalModeNonBreaking ? "a" : "b";
 // This ConditionalExpression has no JSXElements so it prints in normal mode.
 // Its consequent is very long, so it breaks out to multiple lines.
 normalModeBreaking
-  ? johnJacobJingleHeimerSchmidtHisNameIsMyNameTooWheneverWeGoOutThePeopleAlwaysShoutThereGoesJohnJacobJingleHeimerSchmidtYaDaDaDaDaDaDa
-  : "c";
+	? johnJacobJingleHeimerSchmidtHisNameIsMyNameTooWheneverWeGoOutThePeopleAlwaysShoutThereGoesJohnJacobJingleHeimerSchmidtYaDaDaDaDaDaDa
+	: "c";
 
 // This ConditionalExpression prints in JSX mode because its test is a
 // JSXElement. It is non-breaking.
@@ -1097,37 +1097,37 @@ jsxModeFromElementNonBreaking ? "a" : <div />;
 // Note: I have never, ever seen someone use a JSXElement as the test in a
 // ConditionalExpression. But this test is included for completeness.
 <div>
-  <span>
-    thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
-  </span>
+	<span>
+		thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
+	</span>
 </div> ? (
-  "jsx mode from element breaking"
+	"jsx mode from element breaking"
 ) : (
-  "a"
+	"a"
 );
 
 // This ConditionalExpression prints in JSX mode because its consequent is a
 // JSXElement. It is breaking.
 jsxModeFromElementBreaking ? (
-  <div>
-    <span>
-      thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
-    </span>
-  </div>
+	<div>
+		<span>
+			thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
+		</span>
+	</div>
 ) : (
-  "a"
+	"a"
 );
 
 // This ConditionalExpression prints in JSX mode because its alternate is a
 // JSXElement. It is breaking.
 jsxModeFromElementBreaking ? (
-  "a"
+	"a"
 ) : (
-  <div>
-    <span>
-      thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
-    </span>
-  </div>
+	<div>
+		<span>
+			thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
+		</span>
+	</div>
 );
 
 // This chain of ConditionalExpressions prints in JSX mode because the parent of
@@ -1144,17 +1144,17 @@ cable ? "satellite" : public ? "affairs" : network ? <span id='c' /> : "dunno";
 // breaking; notice the consequents and alternates in the entire chain get
 // wrapped in parens.
 cable ? (
-  "satellite"
+	"satellite"
 ) : public ? (
-  "affairs"
+	"affairs"
 ) : network ? (
-  <div>
-    <span>
-      thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
-    </span>
-  </div>
+	<div>
+		<span>
+			thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
+		</span>
+	</div>
 ) : (
-  "dunno"
+	"dunno"
 );
 
 // This chain of ConditionalExpressions prints in JSX mode because there is a
@@ -1162,31 +1162,31 @@ cable ? (
 // breaking; notice the consequents and alternates in the entire chain get
 // wrapped in parens.
 cable ? (
-  <div>
-    <span>
-      thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
-    </span>
-  </div>
+	<div>
+		<span>
+			thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
+		</span>
+	</div>
 ) : sateline ? (
-  "public"
+	"public"
 ) : affairs ? (
-  "network"
+	"network"
 ) : (
-  "dunno"
+	"dunno"
 );
 
 // This chain of ConditionalExpressions prints in JSX mode because there is a
 // JSX element somewhere in the chain. It is breaking; notice the consequents
 // and alternates in the entire chain get wrapped in parens.
 <div>
-  {properties.length > 1 ||
-  (properties.length === 1 && properties[0].apps.size > 1) ? (
-    draggingApp == null || newPropertyName == null ? (
-      <MigrationPropertyListItem />
-    ) : (
-      <MigrationPropertyListItem apps={Immutable.List()} />
-    )
-  ) : null}
+	{properties.length > 1 ||
+	(properties.length === 1 && properties[0].apps.size > 1) ? (
+		draggingApp == null || newPropertyName == null ? (
+			<MigrationPropertyListItem />
+		) : (
+			<MigrationPropertyListItem apps={Immutable.List()} />
+		)
+	) : null}
 </div>;
 
 ================================================================================
@@ -1363,8 +1363,8 @@ normalModeNonBreaking ? 'a' : 'b';
 // This ConditionalExpression has no JSXElements so it prints in normal mode.
 // Its consequent is very long, so it breaks out to multiple lines.
 normalModeBreaking
-  ? johnJacobJingleHeimerSchmidtHisNameIsMyNameTooWheneverWeGoOutThePeopleAlwaysShoutThereGoesJohnJacobJingleHeimerSchmidtYaDaDaDaDaDaDa
-  : 'c';
+	? johnJacobJingleHeimerSchmidtHisNameIsMyNameTooWheneverWeGoOutThePeopleAlwaysShoutThereGoesJohnJacobJingleHeimerSchmidtYaDaDaDaDaDaDa
+	: 'c';
 
 // This ConditionalExpression prints in JSX mode because its test is a
 // JSXElement. It is non-breaking.
@@ -1385,37 +1385,37 @@ jsxModeFromElementNonBreaking ? 'a' : <div />;
 // Note: I have never, ever seen someone use a JSXElement as the test in a
 // ConditionalExpression. But this test is included for completeness.
 <div>
-  <span>
-    thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
-  </span>
+	<span>
+		thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
+	</span>
 </div> ? (
-  'jsx mode from element breaking'
+	'jsx mode from element breaking'
 ) : (
-  'a'
+	'a'
 );
 
 // This ConditionalExpression prints in JSX mode because its consequent is a
 // JSXElement. It is breaking.
 jsxModeFromElementBreaking ? (
-  <div>
-    <span>
-      thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
-    </span>
-  </div>
+	<div>
+		<span>
+			thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
+		</span>
+	</div>
 ) : (
-  'a'
+	'a'
 );
 
 // This ConditionalExpression prints in JSX mode because its alternate is a
 // JSXElement. It is breaking.
 jsxModeFromElementBreaking ? (
-  'a'
+	'a'
 ) : (
-  <div>
-    <span>
-      thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
-    </span>
-  </div>
+	<div>
+		<span>
+			thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
+		</span>
+	</div>
 );
 
 // This chain of ConditionalExpressions prints in JSX mode because the parent of
@@ -1432,17 +1432,17 @@ cable ? 'satellite' : public ? 'affairs' : network ? <span id="c" /> : 'dunno';
 // breaking; notice the consequents and alternates in the entire chain get
 // wrapped in parens.
 cable ? (
-  'satellite'
+	'satellite'
 ) : public ? (
-  'affairs'
+	'affairs'
 ) : network ? (
-  <div>
-    <span>
-      thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
-    </span>
-  </div>
+	<div>
+		<span>
+			thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
+		</span>
+	</div>
 ) : (
-  'dunno'
+	'dunno'
 );
 
 // This chain of ConditionalExpressions prints in JSX mode because there is a
@@ -1450,31 +1450,31 @@ cable ? (
 // breaking; notice the consequents and alternates in the entire chain get
 // wrapped in parens.
 cable ? (
-  <div>
-    <span>
-      thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
-    </span>
-  </div>
+	<div>
+		<span>
+			thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
+		</span>
+	</div>
 ) : sateline ? (
-  'public'
+	'public'
 ) : affairs ? (
-  'network'
+	'network'
 ) : (
-  'dunno'
+	'dunno'
 );
 
 // This chain of ConditionalExpressions prints in JSX mode because there is a
 // JSX element somewhere in the chain. It is breaking; notice the consequents
 // and alternates in the entire chain get wrapped in parens.
 <div>
-  {properties.length > 1 ||
-  (properties.length === 1 && properties[0].apps.size > 1) ? (
-    draggingApp == null || newPropertyName == null ? (
-      <MigrationPropertyListItem />
-    ) : (
-      <MigrationPropertyListItem apps={Immutable.List()} />
-    )
-  ) : null}
+	{properties.length > 1 ||
+	(properties.length === 1 && properties[0].apps.size > 1) ? (
+		draggingApp == null || newPropertyName == null ? (
+			<MigrationPropertyListItem />
+		) : (
+			<MigrationPropertyListItem apps={Immutable.List()} />
+		)
+	) : null}
 </div>;
 
 ================================================================================
@@ -1651,8 +1651,8 @@ normalModeNonBreaking ? 'a' : 'b';
 // This ConditionalExpression has no JSXElements so it prints in normal mode.
 // Its consequent is very long, so it breaks out to multiple lines.
 normalModeBreaking
-  ? johnJacobJingleHeimerSchmidtHisNameIsMyNameTooWheneverWeGoOutThePeopleAlwaysShoutThereGoesJohnJacobJingleHeimerSchmidtYaDaDaDaDaDaDa
-  : 'c';
+	? johnJacobJingleHeimerSchmidtHisNameIsMyNameTooWheneverWeGoOutThePeopleAlwaysShoutThereGoesJohnJacobJingleHeimerSchmidtYaDaDaDaDaDaDa
+	: 'c';
 
 // This ConditionalExpression prints in JSX mode because its test is a
 // JSXElement. It is non-breaking.
@@ -1673,37 +1673,37 @@ jsxModeFromElementNonBreaking ? 'a' : <div />;
 // Note: I have never, ever seen someone use a JSXElement as the test in a
 // ConditionalExpression. But this test is included for completeness.
 <div>
-  <span>
-    thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
-  </span>
+	<span>
+		thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
+	</span>
 </div> ? (
-  'jsx mode from element breaking'
+	'jsx mode from element breaking'
 ) : (
-  'a'
+	'a'
 );
 
 // This ConditionalExpression prints in JSX mode because its consequent is a
 // JSXElement. It is breaking.
 jsxModeFromElementBreaking ? (
-  <div>
-    <span>
-      thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
-    </span>
-  </div>
+	<div>
+		<span>
+			thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
+		</span>
+	</div>
 ) : (
-  'a'
+	'a'
 );
 
 // This ConditionalExpression prints in JSX mode because its alternate is a
 // JSXElement. It is breaking.
 jsxModeFromElementBreaking ? (
-  'a'
+	'a'
 ) : (
-  <div>
-    <span>
-      thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
-    </span>
-  </div>
+	<div>
+		<span>
+			thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
+		</span>
+	</div>
 );
 
 // This chain of ConditionalExpressions prints in JSX mode because the parent of
@@ -1720,17 +1720,17 @@ cable ? 'satellite' : public ? 'affairs' : network ? <span id='c' /> : 'dunno';
 // breaking; notice the consequents and alternates in the entire chain get
 // wrapped in parens.
 cable ? (
-  'satellite'
+	'satellite'
 ) : public ? (
-  'affairs'
+	'affairs'
 ) : network ? (
-  <div>
-    <span>
-      thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
-    </span>
-  </div>
+	<div>
+		<span>
+			thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
+		</span>
+	</div>
 ) : (
-  'dunno'
+	'dunno'
 );
 
 // This chain of ConditionalExpressions prints in JSX mode because there is a
@@ -1738,31 +1738,31 @@ cable ? (
 // breaking; notice the consequents and alternates in the entire chain get
 // wrapped in parens.
 cable ? (
-  <div>
-    <span>
-      thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
-    </span>
-  </div>
+	<div>
+		<span>
+			thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
+		</span>
+	</div>
 ) : sateline ? (
-  'public'
+	'public'
 ) : affairs ? (
-  'network'
+	'network'
 ) : (
-  'dunno'
+	'dunno'
 );
 
 // This chain of ConditionalExpressions prints in JSX mode because there is a
 // JSX element somewhere in the chain. It is breaking; notice the consequents
 // and alternates in the entire chain get wrapped in parens.
 <div>
-  {properties.length > 1 ||
-  (properties.length === 1 && properties[0].apps.size > 1) ? (
-    draggingApp == null || newPropertyName == null ? (
-      <MigrationPropertyListItem />
-    ) : (
-      <MigrationPropertyListItem apps={Immutable.List()} />
-    )
-  ) : null}
+	{properties.length > 1 ||
+	(properties.length === 1 && properties[0].apps.size > 1) ? (
+		draggingApp == null || newPropertyName == null ? (
+			<MigrationPropertyListItem />
+		) : (
+			<MigrationPropertyListItem apps={Immutable.List()} />
+		)
+	) : null}
 </div>;
 
 ================================================================================
@@ -1910,147 +1910,147 @@ singleQuote: false
 
 =====================================output=====================================
 <View
-  style={{
-    someVeryLongStyle1: "true",
-    someVeryLongStyle2: "true",
-    someVeryLongStyle3: "true",
-    someVeryLongStyle4: "true",
-  }}
+	style={{
+		someVeryLongStyle1: "true",
+		someVeryLongStyle2: "true",
+		someVeryLongStyle3: "true",
+		someVeryLongStyle4: "true",
+	}}
 />;
 
 <View
-  style={[
-    {
-      someVeryLongStyle1: "true",
-      someVeryLongStyle2: "true",
-      someVeryLongStyle3: "true",
-      someVeryLongStyle4: "true",
-    },
-  ]}
+	style={[
+		{
+			someVeryLongStyle1: "true",
+			someVeryLongStyle2: "true",
+			someVeryLongStyle3: "true",
+			someVeryLongStyle4: "true",
+		},
+	]}
 />;
 
 <Something>
-  {() => (
-    <SomethingElse>
-      <span />
-    </SomethingElse>
-  )}
+	{() => (
+		<SomethingElse>
+			<span />
+		</SomethingElse>
+	)}
 </Something>;
 
 <Something>
-  {items.map((item) => (
-    <SomethingElse>
-      <span />
-    </SomethingElse>
-  ))}
+	{items.map((item) => (
+		<SomethingElse>
+			<span />
+		</SomethingElse>
+	))}
 </Something>;
 
 <Something>
-  {function () {
-    return (
-      <SomethingElse>
-        <span />
-      </SomethingElse>
-    );
-  }}
+	{function () {
+		return (
+			<SomethingElse>
+				<span />
+			</SomethingElse>
+		);
+	}}
 </Something>;
 
 <RadioListItem
-  key={option}
-  imageSource={
-    this.props.veryBigItemImageSourceFunc &&
-    this.props.veryBigItemImageSourceFunc(option)
-  }
-  imageSize={this.props.veryBigItemImageSize}
-  imageView={
-    this.props.veryBigItemImageViewFunc &&
-    this.props.veryBigItemImageViewFunc(option)
-  }
-  heading={this.props.displayTextFunc(option)}
-  value={option}
+	key={option}
+	imageSource={
+		this.props.veryBigItemImageSourceFunc &&
+		this.props.veryBigItemImageSourceFunc(option)
+	}
+	imageSize={this.props.veryBigItemImageSize}
+	imageView={
+		this.props.veryBigItemImageViewFunc &&
+		this.props.veryBigItemImageViewFunc(option)
+	}
+	heading={this.props.displayTextFunc(option)}
+	value={option}
 />;
 
 <ParentComponent prop={<Child>test</Child>} />;
 
 <BookingIntroPanel
-  prop="long_string_make_to_force_break"
-  logClick={(data) => doLogClick("short", "short", data)}
+	prop="long_string_make_to_force_break"
+	logClick={(data) => doLogClick("short", "short", data)}
 />;
 
 <BookingIntroPanel
-  logClick={(data) =>
-    doLogClick(
-      "long_name_long_name_long_name",
-      "long_name_long_name_long_name",
-      data
-    )
-  }
+	logClick={(data) =>
+		doLogClick(
+			"long_name_long_name_long_name",
+			"long_name_long_name_long_name",
+			data
+		)
+	}
 />;
 
 <BookingIntroPanel
-  logClick={(data) => {
-    doLogClick(
-      "long_name_long_name_long_name",
-      "long_name_long_name_long_name",
-      data
-    );
-  }}
+	logClick={(data) => {
+		doLogClick(
+			"long_name_long_name_long_name",
+			"long_name_long_name_long_name",
+			data
+		);
+	}}
 />;
 
 <Component
-  onChange={(
-    key: "possible_key_1" | "possible_key_2" | "possible_key_3",
-    value: string | Immutable.List<string>
-  ) => {
-    this.setState({
-      updatedTask: this.state.updatedTask.set(key, value),
-    });
-  }}
+	onChange={(
+		key: "possible_key_1" | "possible_key_2" | "possible_key_3",
+		value: string | Immutable.List<string>
+	) => {
+		this.setState({
+			updatedTask: this.state.updatedTask.set(key, value),
+		});
+	}}
 />;
 
 <BookingIntroPanel>
-  {(data) => doLogClick("short", "short", data)}
+	{(data) => doLogClick("short", "short", data)}
 </BookingIntroPanel>;
 
 <BookingIntroPanel>
-  {(data) =>
-    doLogClick(
-      "long_name_long_name_long_name",
-      "long_name_long_name_long_name",
-      data
-    )
-  }
+	{(data) =>
+		doLogClick(
+			"long_name_long_name_long_name",
+			"long_name_long_name_long_name",
+			data
+		)
+	}
 </BookingIntroPanel>;
 
 <BookingIntroPanel>
-  {(data) => {
-    doLogClick(
-      "long_name_long_name_long_name",
-      "long_name_long_name_long_name",
-      data
-    );
-  }}
+	{(data) => {
+		doLogClick(
+			"long_name_long_name_long_name",
+			"long_name_long_name_long_name",
+			data
+		);
+	}}
 </BookingIntroPanel>;
 
 <Component>
-  {(
-    key: "possible_key_1" | "possible_key_2" | "possible_key_3",
-    value: string | Immutable.List<string>
-  ) => {
-    this.setState({
-      updatedTask: this.state.updatedTask.set(key, value),
-    });
-  }}
+	{(
+		key: "possible_key_1" | "possible_key_2" | "possible_key_3",
+		value: string | Immutable.List<string>
+	) => {
+		this.setState({
+			updatedTask: this.state.updatedTask.set(key, value),
+		});
+	}}
 </Component>;
 
 <SuspendyTree>
-  <div style={{ height: 200, overflow: "scroll" }}>
-    {Array(20)
-      .fill()
-      .map((_, i) => (
-        <h2 key={i}>{i + 1}</h2>
-      ))}
-  </div>
+	<div style={{ height: 200, overflow: "scroll" }}>
+		{Array(20)
+			.fill()
+			.map((_, i) => (
+				<h2 key={i}>{i + 1}</h2>
+			))}
+	</div>
 </SuspendyTree>;
 
 ================================================================================
@@ -2198,147 +2198,147 @@ singleQuote: false
 
 =====================================output=====================================
 <View
-  style={{
-    someVeryLongStyle1: "true",
-    someVeryLongStyle2: "true",
-    someVeryLongStyle3: "true",
-    someVeryLongStyle4: "true",
-  }}
+	style={{
+		someVeryLongStyle1: "true",
+		someVeryLongStyle2: "true",
+		someVeryLongStyle3: "true",
+		someVeryLongStyle4: "true",
+	}}
 />;
 
 <View
-  style={[
-    {
-      someVeryLongStyle1: "true",
-      someVeryLongStyle2: "true",
-      someVeryLongStyle3: "true",
-      someVeryLongStyle4: "true",
-    },
-  ]}
+	style={[
+		{
+			someVeryLongStyle1: "true",
+			someVeryLongStyle2: "true",
+			someVeryLongStyle3: "true",
+			someVeryLongStyle4: "true",
+		},
+	]}
 />;
 
 <Something>
-  {() => (
-    <SomethingElse>
-      <span />
-    </SomethingElse>
-  )}
+	{() => (
+		<SomethingElse>
+			<span />
+		</SomethingElse>
+	)}
 </Something>;
 
 <Something>
-  {items.map((item) => (
-    <SomethingElse>
-      <span />
-    </SomethingElse>
-  ))}
+	{items.map((item) => (
+		<SomethingElse>
+			<span />
+		</SomethingElse>
+	))}
 </Something>;
 
 <Something>
-  {function () {
-    return (
-      <SomethingElse>
-        <span />
-      </SomethingElse>
-    );
-  }}
+	{function () {
+		return (
+			<SomethingElse>
+				<span />
+			</SomethingElse>
+		);
+	}}
 </Something>;
 
 <RadioListItem
-  key={option}
-  imageSource={
-    this.props.veryBigItemImageSourceFunc &&
-    this.props.veryBigItemImageSourceFunc(option)
-  }
-  imageSize={this.props.veryBigItemImageSize}
-  imageView={
-    this.props.veryBigItemImageViewFunc &&
-    this.props.veryBigItemImageViewFunc(option)
-  }
-  heading={this.props.displayTextFunc(option)}
-  value={option}
+	key={option}
+	imageSource={
+		this.props.veryBigItemImageSourceFunc &&
+		this.props.veryBigItemImageSourceFunc(option)
+	}
+	imageSize={this.props.veryBigItemImageSize}
+	imageView={
+		this.props.veryBigItemImageViewFunc &&
+		this.props.veryBigItemImageViewFunc(option)
+	}
+	heading={this.props.displayTextFunc(option)}
+	value={option}
 />;
 
 <ParentComponent prop={<Child>test</Child>} />;
 
 <BookingIntroPanel
-  prop='long_string_make_to_force_break'
-  logClick={(data) => doLogClick("short", "short", data)}
+	prop='long_string_make_to_force_break'
+	logClick={(data) => doLogClick("short", "short", data)}
 />;
 
 <BookingIntroPanel
-  logClick={(data) =>
-    doLogClick(
-      "long_name_long_name_long_name",
-      "long_name_long_name_long_name",
-      data
-    )
-  }
+	logClick={(data) =>
+		doLogClick(
+			"long_name_long_name_long_name",
+			"long_name_long_name_long_name",
+			data
+		)
+	}
 />;
 
 <BookingIntroPanel
-  logClick={(data) => {
-    doLogClick(
-      "long_name_long_name_long_name",
-      "long_name_long_name_long_name",
-      data
-    );
-  }}
+	logClick={(data) => {
+		doLogClick(
+			"long_name_long_name_long_name",
+			"long_name_long_name_long_name",
+			data
+		);
+	}}
 />;
 
 <Component
-  onChange={(
-    key: "possible_key_1" | "possible_key_2" | "possible_key_3",
-    value: string | Immutable.List<string>
-  ) => {
-    this.setState({
-      updatedTask: this.state.updatedTask.set(key, value),
-    });
-  }}
+	onChange={(
+		key: "possible_key_1" | "possible_key_2" | "possible_key_3",
+		value: string | Immutable.List<string>
+	) => {
+		this.setState({
+			updatedTask: this.state.updatedTask.set(key, value),
+		});
+	}}
 />;
 
 <BookingIntroPanel>
-  {(data) => doLogClick("short", "short", data)}
+	{(data) => doLogClick("short", "short", data)}
 </BookingIntroPanel>;
 
 <BookingIntroPanel>
-  {(data) =>
-    doLogClick(
-      "long_name_long_name_long_name",
-      "long_name_long_name_long_name",
-      data
-    )
-  }
+	{(data) =>
+		doLogClick(
+			"long_name_long_name_long_name",
+			"long_name_long_name_long_name",
+			data
+		)
+	}
 </BookingIntroPanel>;
 
 <BookingIntroPanel>
-  {(data) => {
-    doLogClick(
-      "long_name_long_name_long_name",
-      "long_name_long_name_long_name",
-      data
-    );
-  }}
+	{(data) => {
+		doLogClick(
+			"long_name_long_name_long_name",
+			"long_name_long_name_long_name",
+			data
+		);
+	}}
 </BookingIntroPanel>;
 
 <Component>
-  {(
-    key: "possible_key_1" | "possible_key_2" | "possible_key_3",
-    value: string | Immutable.List<string>
-  ) => {
-    this.setState({
-      updatedTask: this.state.updatedTask.set(key, value),
-    });
-  }}
+	{(
+		key: "possible_key_1" | "possible_key_2" | "possible_key_3",
+		value: string | Immutable.List<string>
+	) => {
+		this.setState({
+			updatedTask: this.state.updatedTask.set(key, value),
+		});
+	}}
 </Component>;
 
 <SuspendyTree>
-  <div style={{ height: 200, overflow: "scroll" }}>
-    {Array(20)
-      .fill()
-      .map((_, i) => (
-        <h2 key={i}>{i + 1}</h2>
-      ))}
-  </div>
+	<div style={{ height: 200, overflow: "scroll" }}>
+		{Array(20)
+			.fill()
+			.map((_, i) => (
+				<h2 key={i}>{i + 1}</h2>
+			))}
+	</div>
 </SuspendyTree>;
 
 ================================================================================
@@ -2486,147 +2486,147 @@ singleQuote: true
 
 =====================================output=====================================
 <View
-  style={{
-    someVeryLongStyle1: 'true',
-    someVeryLongStyle2: 'true',
-    someVeryLongStyle3: 'true',
-    someVeryLongStyle4: 'true',
-  }}
+	style={{
+		someVeryLongStyle1: 'true',
+		someVeryLongStyle2: 'true',
+		someVeryLongStyle3: 'true',
+		someVeryLongStyle4: 'true',
+	}}
 />;
 
 <View
-  style={[
-    {
-      someVeryLongStyle1: 'true',
-      someVeryLongStyle2: 'true',
-      someVeryLongStyle3: 'true',
-      someVeryLongStyle4: 'true',
-    },
-  ]}
+	style={[
+		{
+			someVeryLongStyle1: 'true',
+			someVeryLongStyle2: 'true',
+			someVeryLongStyle3: 'true',
+			someVeryLongStyle4: 'true',
+		},
+	]}
 />;
 
 <Something>
-  {() => (
-    <SomethingElse>
-      <span />
-    </SomethingElse>
-  )}
+	{() => (
+		<SomethingElse>
+			<span />
+		</SomethingElse>
+	)}
 </Something>;
 
 <Something>
-  {items.map((item) => (
-    <SomethingElse>
-      <span />
-    </SomethingElse>
-  ))}
+	{items.map((item) => (
+		<SomethingElse>
+			<span />
+		</SomethingElse>
+	))}
 </Something>;
 
 <Something>
-  {function () {
-    return (
-      <SomethingElse>
-        <span />
-      </SomethingElse>
-    );
-  }}
+	{function () {
+		return (
+			<SomethingElse>
+				<span />
+			</SomethingElse>
+		);
+	}}
 </Something>;
 
 <RadioListItem
-  key={option}
-  imageSource={
-    this.props.veryBigItemImageSourceFunc &&
-    this.props.veryBigItemImageSourceFunc(option)
-  }
-  imageSize={this.props.veryBigItemImageSize}
-  imageView={
-    this.props.veryBigItemImageViewFunc &&
-    this.props.veryBigItemImageViewFunc(option)
-  }
-  heading={this.props.displayTextFunc(option)}
-  value={option}
+	key={option}
+	imageSource={
+		this.props.veryBigItemImageSourceFunc &&
+		this.props.veryBigItemImageSourceFunc(option)
+	}
+	imageSize={this.props.veryBigItemImageSize}
+	imageView={
+		this.props.veryBigItemImageViewFunc &&
+		this.props.veryBigItemImageViewFunc(option)
+	}
+	heading={this.props.displayTextFunc(option)}
+	value={option}
 />;
 
 <ParentComponent prop={<Child>test</Child>} />;
 
 <BookingIntroPanel
-  prop="long_string_make_to_force_break"
-  logClick={(data) => doLogClick('short', 'short', data)}
+	prop="long_string_make_to_force_break"
+	logClick={(data) => doLogClick('short', 'short', data)}
 />;
 
 <BookingIntroPanel
-  logClick={(data) =>
-    doLogClick(
-      'long_name_long_name_long_name',
-      'long_name_long_name_long_name',
-      data
-    )
-  }
+	logClick={(data) =>
+		doLogClick(
+			'long_name_long_name_long_name',
+			'long_name_long_name_long_name',
+			data
+		)
+	}
 />;
 
 <BookingIntroPanel
-  logClick={(data) => {
-    doLogClick(
-      'long_name_long_name_long_name',
-      'long_name_long_name_long_name',
-      data
-    );
-  }}
+	logClick={(data) => {
+		doLogClick(
+			'long_name_long_name_long_name',
+			'long_name_long_name_long_name',
+			data
+		);
+	}}
 />;
 
 <Component
-  onChange={(
-    key: 'possible_key_1' | 'possible_key_2' | 'possible_key_3',
-    value: string | Immutable.List<string>
-  ) => {
-    this.setState({
-      updatedTask: this.state.updatedTask.set(key, value),
-    });
-  }}
+	onChange={(
+		key: 'possible_key_1' | 'possible_key_2' | 'possible_key_3',
+		value: string | Immutable.List<string>
+	) => {
+		this.setState({
+			updatedTask: this.state.updatedTask.set(key, value),
+		});
+	}}
 />;
 
 <BookingIntroPanel>
-  {(data) => doLogClick('short', 'short', data)}
+	{(data) => doLogClick('short', 'short', data)}
 </BookingIntroPanel>;
 
 <BookingIntroPanel>
-  {(data) =>
-    doLogClick(
-      'long_name_long_name_long_name',
-      'long_name_long_name_long_name',
-      data
-    )
-  }
+	{(data) =>
+		doLogClick(
+			'long_name_long_name_long_name',
+			'long_name_long_name_long_name',
+			data
+		)
+	}
 </BookingIntroPanel>;
 
 <BookingIntroPanel>
-  {(data) => {
-    doLogClick(
-      'long_name_long_name_long_name',
-      'long_name_long_name_long_name',
-      data
-    );
-  }}
+	{(data) => {
+		doLogClick(
+			'long_name_long_name_long_name',
+			'long_name_long_name_long_name',
+			data
+		);
+	}}
 </BookingIntroPanel>;
 
 <Component>
-  {(
-    key: 'possible_key_1' | 'possible_key_2' | 'possible_key_3',
-    value: string | Immutable.List<string>
-  ) => {
-    this.setState({
-      updatedTask: this.state.updatedTask.set(key, value),
-    });
-  }}
+	{(
+		key: 'possible_key_1' | 'possible_key_2' | 'possible_key_3',
+		value: string | Immutable.List<string>
+	) => {
+		this.setState({
+			updatedTask: this.state.updatedTask.set(key, value),
+		});
+	}}
 </Component>;
 
 <SuspendyTree>
-  <div style={{ height: 200, overflow: 'scroll' }}>
-    {Array(20)
-      .fill()
-      .map((_, i) => (
-        <h2 key={i}>{i + 1}</h2>
-      ))}
-  </div>
+	<div style={{ height: 200, overflow: 'scroll' }}>
+		{Array(20)
+			.fill()
+			.map((_, i) => (
+				<h2 key={i}>{i + 1}</h2>
+			))}
+	</div>
 </SuspendyTree>;
 
 ================================================================================
@@ -2774,147 +2774,147 @@ singleQuote: true
 
 =====================================output=====================================
 <View
-  style={{
-    someVeryLongStyle1: 'true',
-    someVeryLongStyle2: 'true',
-    someVeryLongStyle3: 'true',
-    someVeryLongStyle4: 'true',
-  }}
+	style={{
+		someVeryLongStyle1: 'true',
+		someVeryLongStyle2: 'true',
+		someVeryLongStyle3: 'true',
+		someVeryLongStyle4: 'true',
+	}}
 />;
 
 <View
-  style={[
-    {
-      someVeryLongStyle1: 'true',
-      someVeryLongStyle2: 'true',
-      someVeryLongStyle3: 'true',
-      someVeryLongStyle4: 'true',
-    },
-  ]}
+	style={[
+		{
+			someVeryLongStyle1: 'true',
+			someVeryLongStyle2: 'true',
+			someVeryLongStyle3: 'true',
+			someVeryLongStyle4: 'true',
+		},
+	]}
 />;
 
 <Something>
-  {() => (
-    <SomethingElse>
-      <span />
-    </SomethingElse>
-  )}
+	{() => (
+		<SomethingElse>
+			<span />
+		</SomethingElse>
+	)}
 </Something>;
 
 <Something>
-  {items.map((item) => (
-    <SomethingElse>
-      <span />
-    </SomethingElse>
-  ))}
+	{items.map((item) => (
+		<SomethingElse>
+			<span />
+		</SomethingElse>
+	))}
 </Something>;
 
 <Something>
-  {function () {
-    return (
-      <SomethingElse>
-        <span />
-      </SomethingElse>
-    );
-  }}
+	{function () {
+		return (
+			<SomethingElse>
+				<span />
+			</SomethingElse>
+		);
+	}}
 </Something>;
 
 <RadioListItem
-  key={option}
-  imageSource={
-    this.props.veryBigItemImageSourceFunc &&
-    this.props.veryBigItemImageSourceFunc(option)
-  }
-  imageSize={this.props.veryBigItemImageSize}
-  imageView={
-    this.props.veryBigItemImageViewFunc &&
-    this.props.veryBigItemImageViewFunc(option)
-  }
-  heading={this.props.displayTextFunc(option)}
-  value={option}
+	key={option}
+	imageSource={
+		this.props.veryBigItemImageSourceFunc &&
+		this.props.veryBigItemImageSourceFunc(option)
+	}
+	imageSize={this.props.veryBigItemImageSize}
+	imageView={
+		this.props.veryBigItemImageViewFunc &&
+		this.props.veryBigItemImageViewFunc(option)
+	}
+	heading={this.props.displayTextFunc(option)}
+	value={option}
 />;
 
 <ParentComponent prop={<Child>test</Child>} />;
 
 <BookingIntroPanel
-  prop='long_string_make_to_force_break'
-  logClick={(data) => doLogClick('short', 'short', data)}
+	prop='long_string_make_to_force_break'
+	logClick={(data) => doLogClick('short', 'short', data)}
 />;
 
 <BookingIntroPanel
-  logClick={(data) =>
-    doLogClick(
-      'long_name_long_name_long_name',
-      'long_name_long_name_long_name',
-      data
-    )
-  }
+	logClick={(data) =>
+		doLogClick(
+			'long_name_long_name_long_name',
+			'long_name_long_name_long_name',
+			data
+		)
+	}
 />;
 
 <BookingIntroPanel
-  logClick={(data) => {
-    doLogClick(
-      'long_name_long_name_long_name',
-      'long_name_long_name_long_name',
-      data
-    );
-  }}
+	logClick={(data) => {
+		doLogClick(
+			'long_name_long_name_long_name',
+			'long_name_long_name_long_name',
+			data
+		);
+	}}
 />;
 
 <Component
-  onChange={(
-    key: 'possible_key_1' | 'possible_key_2' | 'possible_key_3',
-    value: string | Immutable.List<string>
-  ) => {
-    this.setState({
-      updatedTask: this.state.updatedTask.set(key, value),
-    });
-  }}
+	onChange={(
+		key: 'possible_key_1' | 'possible_key_2' | 'possible_key_3',
+		value: string | Immutable.List<string>
+	) => {
+		this.setState({
+			updatedTask: this.state.updatedTask.set(key, value),
+		});
+	}}
 />;
 
 <BookingIntroPanel>
-  {(data) => doLogClick('short', 'short', data)}
+	{(data) => doLogClick('short', 'short', data)}
 </BookingIntroPanel>;
 
 <BookingIntroPanel>
-  {(data) =>
-    doLogClick(
-      'long_name_long_name_long_name',
-      'long_name_long_name_long_name',
-      data
-    )
-  }
+	{(data) =>
+		doLogClick(
+			'long_name_long_name_long_name',
+			'long_name_long_name_long_name',
+			data
+		)
+	}
 </BookingIntroPanel>;
 
 <BookingIntroPanel>
-  {(data) => {
-    doLogClick(
-      'long_name_long_name_long_name',
-      'long_name_long_name_long_name',
-      data
-    );
-  }}
+	{(data) => {
+		doLogClick(
+			'long_name_long_name_long_name',
+			'long_name_long_name_long_name',
+			data
+		);
+	}}
 </BookingIntroPanel>;
 
 <Component>
-  {(
-    key: 'possible_key_1' | 'possible_key_2' | 'possible_key_3',
-    value: string | Immutable.List<string>
-  ) => {
-    this.setState({
-      updatedTask: this.state.updatedTask.set(key, value),
-    });
-  }}
+	{(
+		key: 'possible_key_1' | 'possible_key_2' | 'possible_key_3',
+		value: string | Immutable.List<string>
+	) => {
+		this.setState({
+			updatedTask: this.state.updatedTask.set(key, value),
+		});
+	}}
 </Component>;
 
 <SuspendyTree>
-  <div style={{ height: 200, overflow: 'scroll' }}>
-    {Array(20)
-      .fill()
-      .map((_, i) => (
-        <h2 key={i}>{i + 1}</h2>
-      ))}
-  </div>
+	<div style={{ height: 200, overflow: 'scroll' }}>
+		{Array(20)
+			.fill()
+			.map((_, i) => (
+				<h2 key={i}>{i + 1}</h2>
+			))}
+	</div>
 </SuspendyTree>;
 
 ================================================================================
@@ -2937,8 +2937,8 @@ const aDiv = (
 
 =====================================output=====================================
 const aDiv = (
-  /* $FlowFixMe */
-  <div className="foo">Foo bar</div>
+	/* $FlowFixMe */
+	<div className="foo">Foo bar</div>
 );
 
 ================================================================================
@@ -2961,8 +2961,8 @@ const aDiv = (
 
 =====================================output=====================================
 const aDiv = (
-  /* $FlowFixMe */
-  <div className='foo'>Foo bar</div>
+	/* $FlowFixMe */
+	<div className='foo'>Foo bar</div>
 );
 
 ================================================================================
@@ -2985,8 +2985,8 @@ const aDiv = (
 
 =====================================output=====================================
 const aDiv = (
-  /* $FlowFixMe */
-  <div className="foo">Foo bar</div>
+	/* $FlowFixMe */
+	<div className="foo">Foo bar</div>
 );
 
 ================================================================================
@@ -3009,8 +3009,8 @@ const aDiv = (
 
 =====================================output=====================================
 const aDiv = (
-  /* $FlowFixMe */
-  <div className='foo'>Foo bar</div>
+	/* $FlowFixMe */
+	<div className='foo'>Foo bar</div>
 );
 
 ================================================================================
@@ -3139,40 +3139,40 @@ singleQuote: false
 
 =====================================output=====================================
 <div>
-  {__DEV__ ? (
-    this.renderDevApp()
-  ) : (
-    <div>
-      {routes.map((route) => (
-        <MatchAsync
-          key={\`\${route.to}-async\`}
-          pattern={route.to}
-          exactly={route.to === "/"}
-          getComponent={routeES6Modules[route.value]}
-        />
-      ))}
-    </div>
-  )}
+	{__DEV__ ? (
+		this.renderDevApp()
+	) : (
+		<div>
+			{routes.map((route) => (
+				<MatchAsync
+					key={\`\${route.to}-async\`}
+					pattern={route.to}
+					exactly={route.to === "/"}
+					getComponent={routeES6Modules[route.value]}
+				/>
+			))}
+		</div>
+	)}
 </div>;
 
 <div>
-  {__DEV__ && (
-    <div>
-      {routes.map((route) => (
-        <MatchAsync
-          key={\`\${route.to}-async\`}
-          pattern={route.to}
-          exactly={route.to === "/"}
-          getComponent={routeES6Modules[route.value]}
-        />
-      ))}
-    </div>
-  )}
+	{__DEV__ && (
+		<div>
+			{routes.map((route) => (
+				<MatchAsync
+					key={\`\${route.to}-async\`}
+					pattern={route.to}
+					exactly={route.to === "/"}
+					getComponent={routeES6Modules[route.value]}
+				/>
+			))}
+		</div>
+	)}
 </div>;
 
 <div>
-  {member.memberName.memberSomething +
-    (member.memberDef.memberSomething.signatures ? "()" : "")}
+	{member.memberName.memberSomething +
+		(member.memberDef.memberSomething.signatures ? "()" : "")}
 </div>;
 
 ================================================================================
@@ -3221,40 +3221,40 @@ singleQuote: false
 
 =====================================output=====================================
 <div>
-  {__DEV__ ? (
-    this.renderDevApp()
-  ) : (
-    <div>
-      {routes.map((route) => (
-        <MatchAsync
-          key={\`\${route.to}-async\`}
-          pattern={route.to}
-          exactly={route.to === "/"}
-          getComponent={routeES6Modules[route.value]}
-        />
-      ))}
-    </div>
-  )}
+	{__DEV__ ? (
+		this.renderDevApp()
+	) : (
+		<div>
+			{routes.map((route) => (
+				<MatchAsync
+					key={\`\${route.to}-async\`}
+					pattern={route.to}
+					exactly={route.to === "/"}
+					getComponent={routeES6Modules[route.value]}
+				/>
+			))}
+		</div>
+	)}
 </div>;
 
 <div>
-  {__DEV__ && (
-    <div>
-      {routes.map((route) => (
-        <MatchAsync
-          key={\`\${route.to}-async\`}
-          pattern={route.to}
-          exactly={route.to === "/"}
-          getComponent={routeES6Modules[route.value]}
-        />
-      ))}
-    </div>
-  )}
+	{__DEV__ && (
+		<div>
+			{routes.map((route) => (
+				<MatchAsync
+					key={\`\${route.to}-async\`}
+					pattern={route.to}
+					exactly={route.to === "/"}
+					getComponent={routeES6Modules[route.value]}
+				/>
+			))}
+		</div>
+	)}
 </div>;
 
 <div>
-  {member.memberName.memberSomething +
-    (member.memberDef.memberSomething.signatures ? "()" : "")}
+	{member.memberName.memberSomething +
+		(member.memberDef.memberSomething.signatures ? "()" : "")}
 </div>;
 
 ================================================================================
@@ -3303,40 +3303,40 @@ singleQuote: true
 
 =====================================output=====================================
 <div>
-  {__DEV__ ? (
-    this.renderDevApp()
-  ) : (
-    <div>
-      {routes.map((route) => (
-        <MatchAsync
-          key={\`\${route.to}-async\`}
-          pattern={route.to}
-          exactly={route.to === '/'}
-          getComponent={routeES6Modules[route.value]}
-        />
-      ))}
-    </div>
-  )}
+	{__DEV__ ? (
+		this.renderDevApp()
+	) : (
+		<div>
+			{routes.map((route) => (
+				<MatchAsync
+					key={\`\${route.to}-async\`}
+					pattern={route.to}
+					exactly={route.to === '/'}
+					getComponent={routeES6Modules[route.value]}
+				/>
+			))}
+		</div>
+	)}
 </div>;
 
 <div>
-  {__DEV__ && (
-    <div>
-      {routes.map((route) => (
-        <MatchAsync
-          key={\`\${route.to}-async\`}
-          pattern={route.to}
-          exactly={route.to === '/'}
-          getComponent={routeES6Modules[route.value]}
-        />
-      ))}
-    </div>
-  )}
+	{__DEV__ && (
+		<div>
+			{routes.map((route) => (
+				<MatchAsync
+					key={\`\${route.to}-async\`}
+					pattern={route.to}
+					exactly={route.to === '/'}
+					getComponent={routeES6Modules[route.value]}
+				/>
+			))}
+		</div>
+	)}
 </div>;
 
 <div>
-  {member.memberName.memberSomething +
-    (member.memberDef.memberSomething.signatures ? '()' : '')}
+	{member.memberName.memberSomething +
+		(member.memberDef.memberSomething.signatures ? '()' : '')}
 </div>;
 
 ================================================================================
@@ -3385,40 +3385,40 @@ singleQuote: true
 
 =====================================output=====================================
 <div>
-  {__DEV__ ? (
-    this.renderDevApp()
-  ) : (
-    <div>
-      {routes.map((route) => (
-        <MatchAsync
-          key={\`\${route.to}-async\`}
-          pattern={route.to}
-          exactly={route.to === '/'}
-          getComponent={routeES6Modules[route.value]}
-        />
-      ))}
-    </div>
-  )}
+	{__DEV__ ? (
+		this.renderDevApp()
+	) : (
+		<div>
+			{routes.map((route) => (
+				<MatchAsync
+					key={\`\${route.to}-async\`}
+					pattern={route.to}
+					exactly={route.to === '/'}
+					getComponent={routeES6Modules[route.value]}
+				/>
+			))}
+		</div>
+	)}
 </div>;
 
 <div>
-  {__DEV__ && (
-    <div>
-      {routes.map((route) => (
-        <MatchAsync
-          key={\`\${route.to}-async\`}
-          pattern={route.to}
-          exactly={route.to === '/'}
-          getComponent={routeES6Modules[route.value]}
-        />
-      ))}
-    </div>
-  )}
+	{__DEV__ && (
+		<div>
+			{routes.map((route) => (
+				<MatchAsync
+					key={\`\${route.to}-async\`}
+					pattern={route.to}
+					exactly={route.to === '/'}
+					getComponent={routeES6Modules[route.value]}
+				/>
+			))}
+		</div>
+	)}
 </div>;
 
 <div>
-  {member.memberName.memberSomething +
-    (member.memberDef.memberSomething.signatures ? '()' : '')}
+	{member.memberName.memberSomething +
+		(member.memberDef.memberSomething.signatures ? '()' : '')}
 </div>;
 
 ================================================================================
@@ -3474,29 +3474,29 @@ singleQuote: false
 <div>{a && <span></span>}</div>;
 
 <div>
-  {a && (
-    <span>
-      make this text just so long enough to break this to the next line
-    </span>
-  )}
+	{a && (
+		<span>
+			make this text just so long enough to break this to the next line
+		</span>
+	)}
 </div>;
 
 <div>
-  {a && b && (
-    <span>
-      make this text just so long enough to break this to the next line
-    </span>
-  )}
+	{a && b && (
+		<span>
+			make this text just so long enough to break this to the next line
+		</span>
+	)}
 </div>;
 
 <div>
-  {a && (
-    <span>
-      <div>
-        <div></div>
-      </div>
-    </span>
-  )}
+	{a && (
+		<span>
+			<div>
+				<div></div>
+			</div>
+		</span>
+	)}
 </div>;
 
 ================================================================================
@@ -3552,29 +3552,29 @@ singleQuote: false
 <div>{a && <span></span>}</div>;
 
 <div>
-  {a && (
-    <span>
-      make this text just so long enough to break this to the next line
-    </span>
-  )}
+	{a && (
+		<span>
+			make this text just so long enough to break this to the next line
+		</span>
+	)}
 </div>;
 
 <div>
-  {a && b && (
-    <span>
-      make this text just so long enough to break this to the next line
-    </span>
-  )}
+	{a && b && (
+		<span>
+			make this text just so long enough to break this to the next line
+		</span>
+	)}
 </div>;
 
 <div>
-  {a && (
-    <span>
-      <div>
-        <div></div>
-      </div>
-    </span>
-  )}
+	{a && (
+		<span>
+			<div>
+				<div></div>
+			</div>
+		</span>
+	)}
 </div>;
 
 ================================================================================
@@ -3630,29 +3630,29 @@ singleQuote: true
 <div>{a && <span></span>}</div>;
 
 <div>
-  {a && (
-    <span>
-      make this text just so long enough to break this to the next line
-    </span>
-  )}
+	{a && (
+		<span>
+			make this text just so long enough to break this to the next line
+		</span>
+	)}
 </div>;
 
 <div>
-  {a && b && (
-    <span>
-      make this text just so long enough to break this to the next line
-    </span>
-  )}
+	{a && b && (
+		<span>
+			make this text just so long enough to break this to the next line
+		</span>
+	)}
 </div>;
 
 <div>
-  {a && (
-    <span>
-      <div>
-        <div></div>
-      </div>
-    </span>
-  )}
+	{a && (
+		<span>
+			<div>
+				<div></div>
+			</div>
+		</span>
+	)}
 </div>;
 
 ================================================================================
@@ -3708,29 +3708,29 @@ singleQuote: true
 <div>{a && <span></span>}</div>;
 
 <div>
-  {a && (
-    <span>
-      make this text just so long enough to break this to the next line
-    </span>
-  )}
+	{a && (
+		<span>
+			make this text just so long enough to break this to the next line
+		</span>
+	)}
 </div>;
 
 <div>
-  {a && b && (
-    <span>
-      make this text just so long enough to break this to the next line
-    </span>
-  )}
+	{a && b && (
+		<span>
+			make this text just so long enough to break this to the next line
+		</span>
+	)}
 </div>;
 
 <div>
-  {a && (
-    <span>
-      <div>
-        <div></div>
-      </div>
-    </span>
-  )}
+	{a && (
+		<span>
+			<div>
+				<div></div>
+			</div>
+		</span>
+	)}
 </div>;
 
 ================================================================================
@@ -3760,17 +3760,17 @@ const tabs = [
 
 =====================================output=====================================
 const tabs = [
-  {
-    title: "General Info",
-    content: (
-      <GeneralForm
-        long-attribute="i-need-long-value-here"
-        onSave={onSave}
-        onCancel={onCancel}
-        countries={countries}
-      />
-    ),
-  },
+	{
+		title: "General Info",
+		content: (
+			<GeneralForm
+				long-attribute="i-need-long-value-here"
+				onSave={onSave}
+				onCancel={onCancel}
+				countries={countries}
+			/>
+		),
+	},
 ];
 
 ================================================================================
@@ -3800,17 +3800,17 @@ const tabs = [
 
 =====================================output=====================================
 const tabs = [
-  {
-    title: "General Info",
-    content: (
-      <GeneralForm
-        long-attribute='i-need-long-value-here'
-        onSave={onSave}
-        onCancel={onCancel}
-        countries={countries}
-      />
-    ),
-  },
+	{
+		title: "General Info",
+		content: (
+			<GeneralForm
+				long-attribute='i-need-long-value-here'
+				onSave={onSave}
+				onCancel={onCancel}
+				countries={countries}
+			/>
+		),
+	},
 ];
 
 ================================================================================
@@ -3840,17 +3840,17 @@ const tabs = [
 
 =====================================output=====================================
 const tabs = [
-  {
-    title: 'General Info',
-    content: (
-      <GeneralForm
-        long-attribute="i-need-long-value-here"
-        onSave={onSave}
-        onCancel={onCancel}
-        countries={countries}
-      />
-    ),
-  },
+	{
+		title: 'General Info',
+		content: (
+			<GeneralForm
+				long-attribute="i-need-long-value-here"
+				onSave={onSave}
+				onCancel={onCancel}
+				countries={countries}
+			/>
+		),
+	},
 ];
 
 ================================================================================
@@ -3880,17 +3880,17 @@ const tabs = [
 
 =====================================output=====================================
 const tabs = [
-  {
-    title: 'General Info',
-    content: (
-      <GeneralForm
-        long-attribute='i-need-long-value-here'
-        onSave={onSave}
-        onCancel={onCancel}
-        countries={countries}
-      />
-    ),
-  },
+	{
+		title: 'General Info',
+		content: (
+			<GeneralForm
+				long-attribute='i-need-long-value-here'
+				onSave={onSave}
+				onCancel={onCancel}
+				countries={countries}
+			/>
+		),
+	},
 ];
 
 ================================================================================
@@ -3918,21 +3918,21 @@ onClick={() => {
 
 =====================================output=====================================
 <td
-  onClick={() => {
-    a;
-  }}
+	onClick={() => {
+		a;
+	}}
 >
-  {header}
-  {showSort}
+	{header}
+	{showSort}
 </td>;
 
 <td
-  onClick={() => {
-    a;
-  }}
+	onClick={() => {
+		a;
+	}}
 >
-  {header}
-  <showSort attr="long long long long long long long long long long long" />
+	{header}
+	<showSort attr="long long long long long long long long long long long" />
 </td>;
 
 <Foo>{\`    a    very    long    text    that    does    not    break    \`}</Foo>;
@@ -3962,21 +3962,21 @@ onClick={() => {
 
 =====================================output=====================================
 <td
-  onClick={() => {
-    a;
-  }}
+	onClick={() => {
+		a;
+	}}
 >
-  {header}
-  {showSort}
+	{header}
+	{showSort}
 </td>;
 
 <td
-  onClick={() => {
-    a;
-  }}
+	onClick={() => {
+		a;
+	}}
 >
-  {header}
-  <showSort attr='long long long long long long long long long long long' />
+	{header}
+	<showSort attr='long long long long long long long long long long long' />
 </td>;
 
 <Foo>{\`    a    very    long    text    that    does    not    break    \`}</Foo>;
@@ -4006,21 +4006,21 @@ onClick={() => {
 
 =====================================output=====================================
 <td
-  onClick={() => {
-    a;
-  }}
+	onClick={() => {
+		a;
+	}}
 >
-  {header}
-  {showSort}
+	{header}
+	{showSort}
 </td>;
 
 <td
-  onClick={() => {
-    a;
-  }}
+	onClick={() => {
+		a;
+	}}
 >
-  {header}
-  <showSort attr="long long long long long long long long long long long" />
+	{header}
+	<showSort attr="long long long long long long long long long long long" />
 </td>;
 
 <Foo>{\`    a    very    long    text    that    does    not    break    \`}</Foo>;
@@ -4050,21 +4050,21 @@ onClick={() => {
 
 =====================================output=====================================
 <td
-  onClick={() => {
-    a;
-  }}
+	onClick={() => {
+		a;
+	}}
 >
-  {header}
-  {showSort}
+	{header}
+	{showSort}
 </td>;
 
 <td
-  onClick={() => {
-    a;
-  }}
+	onClick={() => {
+		a;
+	}}
 >
-  {header}
-  <showSort attr='long long long long long long long long long long long' />
+	{header}
+	<showSort attr='long long long long long long long long long long long' />
 </td>;
 
 <Foo>{\`    a    very    long    text    that    does    not    break    \`}</Foo>;
@@ -4102,14 +4102,14 @@ new Foo((<Component/>))
 
 =====================================output=====================================
 a = [
-  <path
-    key="0"
-    d="M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,"
-  />,
-  <path
-    key="1"
-    d="M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,"
-  />,
+	<path
+		key="0"
+		d="M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,"
+	/>,
+	<path
+		key="1"
+		d="M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,"
+	/>,
 ];
 
 <div {...(foo || foo === null ? { foo } : null)} />;
@@ -4154,14 +4154,14 @@ new Foo((<Component/>))
 
 =====================================output=====================================
 a = [
-  <path
-    key='0'
-    d='M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,'
-  />,
-  <path
-    key='1'
-    d='M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,'
-  />,
+	<path
+		key='0'
+		d='M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,'
+	/>,
+	<path
+		key='1'
+		d='M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,'
+	/>,
 ];
 
 <div {...(foo || foo === null ? { foo } : null)} />;
@@ -4206,14 +4206,14 @@ new Foo((<Component/>))
 
 =====================================output=====================================
 a = [
-  <path
-    key="0"
-    d="M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,"
-  />,
-  <path
-    key="1"
-    d="M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,"
-  />,
+	<path
+		key="0"
+		d="M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,"
+	/>,
+	<path
+		key="1"
+		d="M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,"
+	/>,
 ];
 
 <div {...(foo || foo === null ? { foo } : null)} />;
@@ -4258,14 +4258,14 @@ new Foo((<Component/>))
 
 =====================================output=====================================
 a = [
-  <path
-    key='0'
-    d='M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,'
-  />,
-  <path
-    key='1'
-    d='M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,'
-  />,
+	<path
+		key='0'
+		d='M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,'
+	/>,
+	<path
+		key='1'
+		d='M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,'
+	/>,
 ];
 
 <div {...(foo || foo === null ? { foo } : null)} />;
@@ -4339,32 +4339,32 @@ singleQuote: false
 <div id='&#39;"' />;
 <div id={"'\\"\\\\'"} />;
 <div
-  single="foo"
-  single2={"foo"}
-  double="bar"
-  double2={"bar"}
-  singleDouble='"'
-  singleDouble2={'"'}
-  doubleSingle="'"
-  doubleSingle2={"'"}
-  singleEscaped={"'"}
-  singleEscaped2="'"
-  doubleEscaped={'"'}
-  doubleEscaped2='"'
-  singleBothEscaped={"'\\""}
-  singleBothEscaped2="'&quot;"
-  singleBoth="' &quot;"
-  singleBoth2={"' \\""}
-  singleBoth3="' ' &quot;"
-  doubleBoth="&quot; '"
-  doubleBoth2={"\\" '"}
-  doubleBoth3="&quot; ' '"
+	single="foo"
+	single2={"foo"}
+	double="bar"
+	double2={"bar"}
+	singleDouble='"'
+	singleDouble2={'"'}
+	doubleSingle="'"
+	doubleSingle2={"'"}
+	singleEscaped={"'"}
+	singleEscaped2="'"
+	doubleEscaped={'"'}
+	doubleEscaped2='"'
+	singleBothEscaped={"'\\""}
+	singleBothEscaped2="'&quot;"
+	singleBoth="' &quot;"
+	singleBoth2={"' \\""}
+	singleBoth3="' ' &quot;"
+	doubleBoth="&quot; '"
+	doubleBoth2={"\\" '"}
+	doubleBoth3="&quot; ' '"
 />;
 
 <p>
-  GitHub Desktop has encountered an unrecoverable error and will need to 1231231
-  restart. This has been reported to the team, but if youencounter this121312331
-  repeatedly please report this issue to the GitHub 12312312312312313{"  "}{" "}
+	GitHub Desktop has encountered an unrecoverable error and will need to 1231231
+	restart. This has been reported to the team, but if youencounter this121312331
+	repeatedly please report this issue to the GitHub 12312312312312313{"  "}{" "}
 </p>;
 
 ================================================================================
@@ -4429,32 +4429,32 @@ singleQuote: false
 <div id='&#39;"' />;
 <div id={"'\\"\\\\'"} />;
 <div
-  single='foo'
-  single2={"foo"}
-  double='bar'
-  double2={"bar"}
-  singleDouble='"'
-  singleDouble2={'"'}
-  doubleSingle="'"
-  doubleSingle2={"'"}
-  singleEscaped={"'"}
-  singleEscaped2="'"
-  doubleEscaped={'"'}
-  doubleEscaped2='"'
-  singleBothEscaped={"'\\""}
-  singleBothEscaped2='&apos;"'
-  singleBoth='&apos; "'
-  singleBoth2={"' \\""}
-  singleBoth3="' ' &quot;"
-  doubleBoth='" &apos;'
-  doubleBoth2={"\\" '"}
-  doubleBoth3="&quot; ' '"
+	single='foo'
+	single2={"foo"}
+	double='bar'
+	double2={"bar"}
+	singleDouble='"'
+	singleDouble2={'"'}
+	doubleSingle="'"
+	doubleSingle2={"'"}
+	singleEscaped={"'"}
+	singleEscaped2="'"
+	doubleEscaped={'"'}
+	doubleEscaped2='"'
+	singleBothEscaped={"'\\""}
+	singleBothEscaped2='&apos;"'
+	singleBoth='&apos; "'
+	singleBoth2={"' \\""}
+	singleBoth3="' ' &quot;"
+	doubleBoth='" &apos;'
+	doubleBoth2={"\\" '"}
+	doubleBoth3="&quot; ' '"
 />;
 
 <p>
-  GitHub Desktop has encountered an unrecoverable error and will need to 1231231
-  restart. This has been reported to the team, but if youencounter this121312331
-  repeatedly please report this issue to the GitHub 12312312312312313{"  "}{" "}
+	GitHub Desktop has encountered an unrecoverable error and will need to 1231231
+	restart. This has been reported to the team, but if youencounter this121312331
+	repeatedly please report this issue to the GitHub 12312312312312313{"  "}{" "}
 </p>;
 
 ================================================================================
@@ -4519,32 +4519,32 @@ singleQuote: true
 <div id='&#39;"' />;
 <div id={"'\\"\\\\'"} />;
 <div
-  single="foo"
-  single2={'foo'}
-  double="bar"
-  double2={'bar'}
-  singleDouble='"'
-  singleDouble2={'"'}
-  doubleSingle="'"
-  doubleSingle2={"'"}
-  singleEscaped={"'"}
-  singleEscaped2="'"
-  doubleEscaped={'"'}
-  doubleEscaped2='"'
-  singleBothEscaped={'\\'"'}
-  singleBothEscaped2="'&quot;"
-  singleBoth="' &quot;"
-  singleBoth2={'\\' "'}
-  singleBoth3="' ' &quot;"
-  doubleBoth="&quot; '"
-  doubleBoth2={'" \\''}
-  doubleBoth3="&quot; ' '"
+	single="foo"
+	single2={'foo'}
+	double="bar"
+	double2={'bar'}
+	singleDouble='"'
+	singleDouble2={'"'}
+	doubleSingle="'"
+	doubleSingle2={"'"}
+	singleEscaped={"'"}
+	singleEscaped2="'"
+	doubleEscaped={'"'}
+	doubleEscaped2='"'
+	singleBothEscaped={'\\'"'}
+	singleBothEscaped2="'&quot;"
+	singleBoth="' &quot;"
+	singleBoth2={'\\' "'}
+	singleBoth3="' ' &quot;"
+	doubleBoth="&quot; '"
+	doubleBoth2={'" \\''}
+	doubleBoth3="&quot; ' '"
 />;
 
 <p>
-  GitHub Desktop has encountered an unrecoverable error and will need to 1231231
-  restart. This has been reported to the team, but if youencounter this121312331
-  repeatedly please report this issue to the GitHub 12312312312312313{'  '}{' '}
+	GitHub Desktop has encountered an unrecoverable error and will need to 1231231
+	restart. This has been reported to the team, but if youencounter this121312331
+	repeatedly please report this issue to the GitHub 12312312312312313{'  '}{' '}
 </p>;
 
 ================================================================================
@@ -4609,32 +4609,32 @@ singleQuote: true
 <div id='&#39;"' />;
 <div id={"'\\"\\\\'"} />;
 <div
-  single='foo'
-  single2={'foo'}
-  double='bar'
-  double2={'bar'}
-  singleDouble='"'
-  singleDouble2={'"'}
-  doubleSingle="'"
-  doubleSingle2={"'"}
-  singleEscaped={"'"}
-  singleEscaped2="'"
-  doubleEscaped={'"'}
-  doubleEscaped2='"'
-  singleBothEscaped={'\\'"'}
-  singleBothEscaped2='&apos;"'
-  singleBoth='&apos; "'
-  singleBoth2={'\\' "'}
-  singleBoth3="' ' &quot;"
-  doubleBoth='" &apos;'
-  doubleBoth2={'" \\''}
-  doubleBoth3="&quot; ' '"
+	single='foo'
+	single2={'foo'}
+	double='bar'
+	double2={'bar'}
+	singleDouble='"'
+	singleDouble2={'"'}
+	doubleSingle="'"
+	doubleSingle2={"'"}
+	singleEscaped={"'"}
+	singleEscaped2="'"
+	doubleEscaped={'"'}
+	doubleEscaped2='"'
+	singleBothEscaped={'\\'"'}
+	singleBothEscaped2='&apos;"'
+	singleBoth='&apos; "'
+	singleBoth2={'\\' "'}
+	singleBoth3="' ' &quot;"
+	doubleBoth='" &apos;'
+	doubleBoth2={'" \\''}
+	doubleBoth3="&quot; ' '"
 />;
 
 <p>
-  GitHub Desktop has encountered an unrecoverable error and will need to 1231231
-  restart. This has been reported to the team, but if youencounter this121312331
-  repeatedly please report this issue to the GitHub 12312312312312313{'  '}{' '}
+	GitHub Desktop has encountered an unrecoverable error and will need to 1231231
+	restart. This has been reported to the team, but if youencounter this121312331
+	repeatedly please report this issue to the GitHub 12312312312312313{'  '}{' '}
 </p>;
 
 ================================================================================
@@ -4706,49 +4706,49 @@ class BreakingClass extends React.component {
 const NonBreakingArrowExpression = () => <div />;
 
 const BreakingArrowExpression = () => (
-  <div>
-    <div>bla bla bla</div>
-  </div>
+	<div>
+		<div>bla bla bla</div>
+	</div>
 );
 
 const NonBreakingArrowExpressionWBody = () => {
-  return <div />;
+	return <div />;
 };
 
 const BreakingArrowExpressionWBody = () => {
-  return (
-    <div>
-      <div>bla bla bla</div>
-    </div>
-  );
+	return (
+		<div>
+			<div>bla bla bla</div>
+		</div>
+	);
 };
 
 const NonBreakingFunction = function () {
-  return <div />;
+	return <div />;
 };
 
 const BreakingFunction = function () {
-  return (
-    <div>
-      <div>bla bla bla</div>
-    </div>
-  );
+	return (
+		<div>
+			<div>bla bla bla</div>
+		</div>
+	);
 };
 
 class NonBreakingClass extends React.component {
-  render() {
-    return <div />;
-  }
+	render() {
+		return <div />;
+	}
 }
 
 class BreakingClass extends React.component {
-  render() {
-    return (
-      <div>
-        <div>bla bla bla</div>
-      </div>
-    );
-  }
+	render() {
+		return (
+			<div>
+				<div>bla bla bla</div>
+			</div>
+		);
+	}
 }
 
 ================================================================================
@@ -4820,49 +4820,49 @@ class BreakingClass extends React.component {
 const NonBreakingArrowExpression = () => <div />;
 
 const BreakingArrowExpression = () => (
-  <div>
-    <div>bla bla bla</div>
-  </div>
+	<div>
+		<div>bla bla bla</div>
+	</div>
 );
 
 const NonBreakingArrowExpressionWBody = () => {
-  return <div />;
+	return <div />;
 };
 
 const BreakingArrowExpressionWBody = () => {
-  return (
-    <div>
-      <div>bla bla bla</div>
-    </div>
-  );
+	return (
+		<div>
+			<div>bla bla bla</div>
+		</div>
+	);
 };
 
 const NonBreakingFunction = function () {
-  return <div />;
+	return <div />;
 };
 
 const BreakingFunction = function () {
-  return (
-    <div>
-      <div>bla bla bla</div>
-    </div>
-  );
+	return (
+		<div>
+			<div>bla bla bla</div>
+		</div>
+	);
 };
 
 class NonBreakingClass extends React.component {
-  render() {
-    return <div />;
-  }
+	render() {
+		return <div />;
+	}
 }
 
 class BreakingClass extends React.component {
-  render() {
-    return (
-      <div>
-        <div>bla bla bla</div>
-      </div>
-    );
-  }
+	render() {
+		return (
+			<div>
+				<div>bla bla bla</div>
+			</div>
+		);
+	}
 }
 
 ================================================================================
@@ -4934,49 +4934,49 @@ class BreakingClass extends React.component {
 const NonBreakingArrowExpression = () => <div />;
 
 const BreakingArrowExpression = () => (
-  <div>
-    <div>bla bla bla</div>
-  </div>
+	<div>
+		<div>bla bla bla</div>
+	</div>
 );
 
 const NonBreakingArrowExpressionWBody = () => {
-  return <div />;
+	return <div />;
 };
 
 const BreakingArrowExpressionWBody = () => {
-  return (
-    <div>
-      <div>bla bla bla</div>
-    </div>
-  );
+	return (
+		<div>
+			<div>bla bla bla</div>
+		</div>
+	);
 };
 
 const NonBreakingFunction = function () {
-  return <div />;
+	return <div />;
 };
 
 const BreakingFunction = function () {
-  return (
-    <div>
-      <div>bla bla bla</div>
-    </div>
-  );
+	return (
+		<div>
+			<div>bla bla bla</div>
+		</div>
+	);
 };
 
 class NonBreakingClass extends React.component {
-  render() {
-    return <div />;
-  }
+	render() {
+		return <div />;
+	}
 }
 
 class BreakingClass extends React.component {
-  render() {
-    return (
-      <div>
-        <div>bla bla bla</div>
-      </div>
-    );
-  }
+	render() {
+		return (
+			<div>
+				<div>bla bla bla</div>
+			</div>
+		);
+	}
 }
 
 ================================================================================
@@ -5048,49 +5048,49 @@ class BreakingClass extends React.component {
 const NonBreakingArrowExpression = () => <div />;
 
 const BreakingArrowExpression = () => (
-  <div>
-    <div>bla bla bla</div>
-  </div>
+	<div>
+		<div>bla bla bla</div>
+	</div>
 );
 
 const NonBreakingArrowExpressionWBody = () => {
-  return <div />;
+	return <div />;
 };
 
 const BreakingArrowExpressionWBody = () => {
-  return (
-    <div>
-      <div>bla bla bla</div>
-    </div>
-  );
+	return (
+		<div>
+			<div>bla bla bla</div>
+		</div>
+	);
 };
 
 const NonBreakingFunction = function () {
-  return <div />;
+	return <div />;
 };
 
 const BreakingFunction = function () {
-  return (
-    <div>
-      <div>bla bla bla</div>
-    </div>
-  );
+	return (
+		<div>
+			<div>bla bla bla</div>
+		</div>
+	);
 };
 
 class NonBreakingClass extends React.component {
-  render() {
-    return <div />;
-  }
+	render() {
+		return <div />;
+	}
 }
 
 class BreakingClass extends React.component {
-  render() {
-    return (
-      <div>
-        <div>bla bla bla</div>
-      </div>
-    );
-  }
+	render() {
+		return (
+			<div>
+				<div>bla bla bla</div>
+			</div>
+		);
+	}
 }
 
 ================================================================================
@@ -5198,11 +5198,11 @@ const Labels = {
 
 =====================================output=====================================
 const Labels = {
-  label1: <fbt>Label 1</fbt>,
+	label1: <fbt>Label 1</fbt>,
 
-  label2: <fbt>Label 2</fbt>,
+	label2: <fbt>Label 2</fbt>,
 
-  label3: <fbt>Label 3</fbt>,
+	label3: <fbt>Label 3</fbt>,
 };
 
 ================================================================================
@@ -5238,11 +5238,11 @@ const Labels = {
 
 =====================================output=====================================
 const Labels = {
-  label1: <fbt>Label 1</fbt>,
+	label1: <fbt>Label 1</fbt>,
 
-  label2: <fbt>Label 2</fbt>,
+	label2: <fbt>Label 2</fbt>,
 
-  label3: <fbt>Label 3</fbt>,
+	label3: <fbt>Label 3</fbt>,
 };
 
 ================================================================================
@@ -5278,11 +5278,11 @@ const Labels = {
 
 =====================================output=====================================
 const Labels = {
-  label1: <fbt>Label 1</fbt>,
+	label1: <fbt>Label 1</fbt>,
 
-  label2: <fbt>Label 2</fbt>,
+	label2: <fbt>Label 2</fbt>,
 
-  label3: <fbt>Label 3</fbt>,
+	label3: <fbt>Label 3</fbt>,
 };
 
 ================================================================================
@@ -5318,11 +5318,11 @@ const Labels = {
 
 =====================================output=====================================
 const Labels = {
-  label1: <fbt>Label 1</fbt>,
+	label1: <fbt>Label 1</fbt>,
 
-  label2: <fbt>Label 2</fbt>,
+	label2: <fbt>Label 2</fbt>,
 
-  label3: <fbt>Label 3</fbt>,
+	label3: <fbt>Label 3</fbt>,
 };
 
 ================================================================================

@@ -20,13 +20,13 @@ var z:string = qux(0);
 // @flow
 
 function foo(x: any): any {
-  return x;
+	return x;
 }
 function bar(x: any): mixed {
-  return x;
+	return x;
 }
 function qux(x: mixed): any {
-  return x;
+	return x;
 }
 
 var x: string = foo(0);
@@ -90,18 +90,18 @@ var w:string = baz(0);
 
 // no param
 function foo(x: $FlowFixMe): $FlowFixMe {
-  return x;
+	return x;
 }
 function bar(x: $FlowFixMe): mixed {
-  return x;
+	return x;
 }
 // param (info only)
 function qux(x: $FlowFixMe<number>): $FlowFixMe<number> {
-  return x;
+	return x;
 }
 // ...params are still checked. unknown type
 function baz(x: $FlowFixMe<nnumber>): $FlowFixMe<number> {
-  return x;
+	return x;
 }
 
 var x: string = foo(0);
@@ -148,18 +148,18 @@ var w:string = baz(0);
 
 // no param
 function foo(x: $FlowIssue): $FlowIssue {
-  return x;
+	return x;
 }
 function bar(x: $FlowIssue): mixed {
-  return x;
+	return x;
 }
 // param (info only)
 function qux(x: $FlowIssue<number>): $FlowIssue<number> {
-  return x;
+	return x;
 }
 // ...params are still checked. unknown type
 function baz(x: $FlowIssue<nnumber>): $FlowIssue<number> {
-  return x;
+	return x;
 }
 
 var x: string = foo(0);
@@ -224,27 +224,27 @@ function bar2(x: mixed) {
 // @flow
 
 declare class C {
-  bar(n1: number, n2: number): number;
-  bar(s1: string, s2: string): string;
+	bar(n1: number, n2: number): number;
+	bar(s1: string, s2: string): string;
 }
 
 function foo(c: C, x: any): string {
-  let y = x.y;
-  return c.bar(0, y); // should be able to select first case and error
+	let y = x.y;
+	return c.bar(0, y); // should be able to select first case and error
 }
 
 var any_fun1 = require("./nonflowfile");
 function bar1(x: mixed) {
-  if (any_fun1(x)) {
-    (x: boolean);
-  }
+	if (any_fun1(x)) {
+		(x: boolean);
+	}
 }
 
 var any_fun2 = require("./anyexportflowfile");
 function bar2(x: mixed) {
-  if (any_fun2(x)) {
-    (x: boolean);
-  }
+	if (any_fun2(x)) {
+		(x: boolean);
+	}
 }
 
 ================================================================================
@@ -280,9 +280,9 @@ function foo(o: ?AsyncRequest) {
 type AsyncRequest = any;
 
 function foo(o: ?AsyncRequest) {
-  if (o) {
-    var n: number = o;
-  }
+	if (o) {
+		var n: number = o;
+	}
 }
 
 ================================================================================

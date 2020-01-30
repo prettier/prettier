@@ -28,15 +28,15 @@ proseWrap: "always"
 >
 > \`\`\`json
 > {
->   "extends": [
->     "unobtrusive",
->     "unobtrusive/import",
->     "unobtrusive/react",
->     "unobtrusive/flowtype"
->   ],
->   "env": {
->     "browser": true
->   }
+> 	"extends": [
+> 		"unobtrusive",
+> 		"unobtrusive/import",
+> 		"unobtrusive/react",
+> 		"unobtrusive/flowtype"
+> 	],
+> 	"env": {
+> 		"browser": true
+> 	}
 > }
 > \`\`\`
 

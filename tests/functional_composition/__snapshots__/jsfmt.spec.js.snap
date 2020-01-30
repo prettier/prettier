@@ -53,55 +53,55 @@ this.subscriptions.add(
 
 =====================================output=====================================
 compose(
-  sortBy((x) => x),
-  flatten,
-  map((x) => [x, x * 2])
+	sortBy((x) => x),
+	flatten,
+	map((x) => [x, x * 2])
 );
 
 somelib.compose(
-  sortBy((x) => x),
-  flatten,
-  map((x) => [x, x * 2])
+	sortBy((x) => x),
+	flatten,
+	map((x) => [x, x * 2])
 );
 
 composeFlipped(
-  sortBy((x) => x),
-  flatten,
-  map((x) => [x, x * 2])
+	sortBy((x) => x),
+	flatten,
+	map((x) => [x, x * 2])
 );
 
 somelib.composeFlipped(
-  sortBy((x) => x),
-  flatten,
-  map((x) => [x, x * 2])
+	sortBy((x) => x),
+	flatten,
+	map((x) => [x, x * 2])
 );
 
 // no regression (#4602)
 const hasValue = hasOwnProperty(a, b);
 
 this.compose(
-  sortBy((x) => x),
-  flatten
+	sortBy((x) => x),
+	flatten
 );
 this.a.b.c.compose(
-  sortBy((x) => x),
-  flatten
+	sortBy((x) => x),
+	flatten
 );
 someObj.someMethod(this.field.compose(a, b));
 
 class A extends B {
-  compose() {
-    super.compose(
-      sortBy((x) => x),
-      flatten
-    );
-  }
+	compose() {
+		super.compose(
+			sortBy((x) => x),
+			flatten
+		);
+	}
 }
 
 this.subscriptions.add(
-  this.componentUpdates
-    .pipe(startWith(this.props), distinctUntilChanged(isEqual))
-    .subscribe((props) => {})
+	this.componentUpdates
+		.pipe(startWith(this.props), distinctUntilChanged(isEqual))
+		.subscribe((props) => {})
 );
 
 ================================================================================
@@ -128,8 +128,8 @@ app.connect(
 =====================================output=====================================
 button.connect("clicked", () => doSomething());
 app.connect("activate", async () => {
-  await data.load();
-  win.show_all();
+	await data.load();
+	win.show_all();
 });
 
 ================================================================================
@@ -165,9 +165,9 @@ bar(6);
 import { flow } from "lodash";
 
 const foo = flow(
-  (x) => x + 1,
-  (x) => x * 3,
-  (x) => x - 6
+	(x) => x + 1,
+	(x) => x * 3,
+	(x) => x - 6
 );
 
 foo(6);
@@ -175,9 +175,9 @@ foo(6);
 import * as _ from "lodash";
 
 const bar = _.flow(
-  (x) => x + 1,
-  (x) => x * 3,
-  (x) => x - 6
+	(x) => x + 1,
+	(x) => x * 3,
+	(x) => x - 6
 );
 
 bar(6);
@@ -215,9 +215,9 @@ bar(6);
 import { flowRight } from "lodash";
 
 const foo = flowRight(
-  (x) => x + 1,
-  (x) => x * 3,
-  (x) => x - 6
+	(x) => x + 1,
+	(x) => x * 3,
+	(x) => x - 6
 );
 
 foo(6);
@@ -225,9 +225,9 @@ foo(6);
 import * as _ from "lodash";
 
 const bar = _.flowRight(
-  (x) => x + 1,
-  (x) => x * 3,
-  (x) => x - 6
+	(x) => x + 1,
+	(x) => x * 3,
+	(x) => x - 6
 );
 
 bar(6);
@@ -251,8 +251,8 @@ MongoClient.connect(
 
 =====================================output=====================================
 MongoClient.connect("mongodb://localhost:27017/posts", (err, db) => {
-  assert.equal(null, err);
-  db.close();
+	assert.equal(null, err);
+	db.close();
 });
 
 ================================================================================
@@ -310,7 +310,7 @@ const mapStateToProps = state => ({
 
 =====================================output=====================================
 var classyGreeting = (firstName, lastName) =>
-  "The name's " + lastName + ", " + firstName + " " + lastName;
+	"The name's " + lastName + ", " + firstName + " " + lastName;
 var yellGreeting = R.compose(R.toUpper, classyGreeting);
 yellGreeting("James", "Bond"); //=> "THE NAME'S BOND, JAMES BOND"
 
@@ -321,21 +321,21 @@ var get = R.curry((propName, obj) => Maybe(obj[propName]));
 
 //  getStateCode :: Maybe String -> Maybe String
 var getStateCode = R.composeK(
-  R.compose(Maybe.of, R.toUpper),
-  get("state"),
-  get("address"),
-  get("user")
+	R.compose(Maybe.of, R.toUpper),
+	get("state"),
+	get("address"),
+	get("user")
 );
 getStateCode({ user: { address: { state: "ny" } } }); //=> Maybe.Just("NY")
 getStateCode({}); //=> Maybe.Nothing()
 
 var db = {
-  users: {
-    JOE: {
-      name: "Joe",
-      followers: ["STEVE", "SUZY"],
-    },
-  },
+	users: {
+		JOE: {
+			name: "Joe",
+			followers: ["STEVE", "SUZY"],
+		},
+	},
 };
 
 // We'll pretend to do a db lookup which returns a promise
@@ -346,15 +346,15 @@ lookupUser("JOE").then(lookupFollowers);
 //  followersForUser :: String -> Promise [UserId]
 var followersForUser = R.composeP(lookupFollowers, lookupUser);
 followersForUser("JOE").then((followers) =>
-  console.log("Followers:", followers)
+	console.log("Followers:", followers)
 );
 // Followers: ["STEVE","SUZY"]
 
 const mapStateToProps = (state) => ({
-  users: R.compose(
-    R.filter(R.propEq("status", "active")),
-    R.values
-  )(state.users),
+	users: R.compose(
+		R.filter(R.propEq("status", "active")),
+		R.values
+	)(state.users),
 });
 
 ================================================================================
@@ -400,11 +400,11 @@ f(3, 4); // -(3^4) + 1
 
 //  getStateCode :: Maybe String -> Maybe String
 var getStateCode = R.pipeK(
-  parseJson,
-  get("user"),
-  get("address"),
-  get("state"),
-  R.compose(Maybe.of, R.toUpper)
+	parseJson,
+	get("user"),
+	get("address"),
+	get("state"),
+	R.compose(Maybe.of, R.toUpper)
 );
 
 getStateCode('{"user":{"address":{"state":"ny"}}}');
@@ -445,8 +445,8 @@ import DevTools from "./containers/DevTools";
 import reducer from "../reducers";
 
 const store = createStore(
-  reducer,
-  compose(applyMiddleware(thunk), DevTools.instrument())
+	reducer,
+	compose(applyMiddleware(thunk), DevTools.instrument())
 );
 
 ================================================================================
@@ -462,9 +462,9 @@ const ArtistInput = connect(mapStateToProps, mapDispatchToProps, mergeProps)(Com
 
 =====================================output=====================================
 const ArtistInput = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-  mergeProps
+	mapStateToProps,
+	mapDispatchToProps,
+	mergeProps
 )(Component);
 
 ================================================================================
@@ -493,11 +493,11 @@ const bar = createSelector(
 import { createSelector } from "reselect";
 
 const foo = createSelector(getIds, getObjects, (ids, objects) =>
-  ids.map((id) => objects[id])
+	ids.map((id) => objects[id])
 );
 
 const bar = createSelector([getIds, getObjects], (ids, objects) =>
-  ids.map((id) => objects[id])
+	ids.map((id) => objects[id])
 );
 
 ================================================================================
@@ -528,12 +528,12 @@ import { map, filter, scan } from "rxjs/operators";
 const source$ = range(0, 10);
 
 source$
-  .pipe(
-    filter((x) => x % 2 === 0),
-    map((x) => x + x),
-    scan((acc, x) => acc + x, 0)
-  )
-  .subscribe((x) => console.log(x));
+	.pipe(
+		filter((x) => x % 2 === 0),
+		map((x) => x + x),
+		scan((acc, x) => acc + x, 0)
+	)
+	.subscribe((x) => console.log(x));
 
 ================================================================================
 `;

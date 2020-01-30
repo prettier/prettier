@@ -408,10 +408,10 @@ declare var o2: O2;
 
 =====================================output=====================================
 class A {
-  +p: string | number;
+	+p: string | number;
 }
 class B extends A {
-  p: number;
+	p: number;
 }
 
 type O1 = { ...B };
@@ -419,7 +419,7 @@ declare var o1: O1;
 (o1: { p?: number }); // ok
 
 declare class C {
-  [string]: number;
+	[string]: number;
 }
 type O2 = { ...C };
 declare var o2: O2;

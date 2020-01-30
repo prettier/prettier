@@ -13,8 +13,8 @@ class LocalStorage implements Storage {
 
 =====================================output=====================================
 class LocalStorage implements Storage {
-  [index: number]: string;
-  [key: string]: any;
+	[index: number]: string;
+	[key: string]: any;
 }
 
 ================================================================================

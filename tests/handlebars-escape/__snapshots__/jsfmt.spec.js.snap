@@ -9,7 +9,7 @@ printWidth: 80
 <p>Some escaped characters: &lt; &gt; &amp;</p>
 =====================================output=====================================
 <p>
-  Some escaped characters: &lt; &gt; &amp;
+	Some escaped characters: &lt; &gt; &amp;
 </p>
 ================================================================================
 `;
@@ -24,7 +24,7 @@ singleQuote: true
 <p>Some escaped characters: &lt; &gt; &amp;</p>
 =====================================output=====================================
 <p>
-  Some escaped characters: &lt; &gt; &amp;
+	Some escaped characters: &lt; &gt; &amp;
 </p>
 ================================================================================
 `;

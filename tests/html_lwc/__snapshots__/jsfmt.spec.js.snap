@@ -23,16 +23,16 @@ trailingComma: "none"
 <a href="#" onclick={aFunction}>
 =====================================output=====================================
 <template>
-  <div
-    data-for={value}
-    data-for={value[0]}
-    data-for={value.toString()}
-    data-for={value()}
-    class="test"
-  ></div>
+	<div
+		data-for={value}
+		data-for={value[0]}
+		data-for={value.toString()}
+		data-for={value()}
+		class="test"
+	></div>
 </template>
 <template if:true={value.error}>
-  <c-error-panel errors={value.error}></c-error-panel>
+	<c-error-panel errors={value.error}></c-error-panel>
 </template>
 <a href="#" onclick={aFunction}></a>
 
@@ -61,16 +61,16 @@ printWidth: 80
 <a href="#" onclick={aFunction}>
 =====================================output=====================================
 <template>
-  <div
-    data-for={value}
-    data-for={value[0]}
-    data-for={value.toString()}
-    data-for={value()}
-    class="test"
-  ></div>
+	<div
+		data-for={value}
+		data-for={value[0]}
+		data-for={value.toString()}
+		data-for={value()}
+		class="test"
+	></div>
 </template>
 <template if:true={value.error}>
-  <c-error-panel errors={value.error}></c-error-panel>
+	<c-error-panel errors={value.error}></c-error-panel>
 </template>
 <a href="#" onclick={aFunction}></a>
 
@@ -100,16 +100,16 @@ semi: false
 <a href="#" onclick={aFunction}>
 =====================================output=====================================
 <template>
-  <div
-    data-for={value}
-    data-for={value[0]}
-    data-for={value.toString()}
-    data-for={value()}
-    class="test"
-  ></div>
+	<div
+		data-for={value}
+		data-for={value[0]}
+		data-for={value.toString()}
+		data-for={value()}
+		class="test"
+	></div>
 </template>
 <template if:true={value.error}>
-  <c-error-panel errors={value.error}></c-error-panel>
+	<c-error-panel errors={value.error}></c-error-panel>
 </template>
 <a href="#" onclick={aFunction}></a>
 

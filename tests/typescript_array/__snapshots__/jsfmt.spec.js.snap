@@ -17,12 +17,12 @@ export class ViewTokensChangedEvent {
 
 =====================================output=====================================
 export class ViewTokensChangedEvent {
-  public readonly ranges: {
-    /**
-     * Start line number of range
-     */
-    readonly fromLineNumber: number;
-  }[];
+	public readonly ranges: {
+		/**
+		 * Start line number of range
+		 */
+		readonly fromLineNumber: number;
+	}[];
 }
 
 ================================================================================
@@ -41,8 +41,8 @@ const subtractDuration = moment.duration(
 
 =====================================output=====================================
 const subtractDuration = moment.duration(
-  subtractMap[interval][0],
-  subtractMap[interval][1] as unitOfTime.DurationConstructor
+	subtractMap[interval][0],
+	subtractMap[interval][1] as unitOfTime.DurationConstructor
 );
 
 ================================================================================

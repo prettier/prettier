@@ -42,33 +42,33 @@ function f7(x : $Tainted<string>, y : $Tainted<number>) {
 // @flow
 
 function f(x: $Tainted<number>, y: $Tainted<number>) {
-  var z: $Tainted<number> = x + y;
+	var z: $Tainted<number> = x + y;
 }
 function f1(x: $Tainted<number>, y: number) {
-  var z: $Tainted<number> = x + y;
+	var z: $Tainted<number> = x + y;
 }
 function f2(x: number, y: $Tainted<number>) {
-  var z: $Tainted<number> = x + y;
+	var z: $Tainted<number> = x + y;
 }
 // This should cause an error.
 function f3(x: $Tainted<number>, y: number) {
-  var z: number = x + y;
+	var z: number = x + y;
 }
 // This should cause an error.
 function f4(x: number, y: $Tainted<number>) {
-  var z: number = x + y;
+	var z: number = x + y;
 }
 // This should cause an error.
 function f5(x: number, y: $Tainted<number>) {
-  var z: string = x + y;
+	var z: string = x + y;
 }
 // This should cause an error.
 function f6(x: string, y: $Tainted<number>) {
-  var z: string = x + y;
+	var z: string = x + y;
 }
 // This should cause an error.
 function f7(x: $Tainted<string>, y: $Tainted<number>) {
-  var z: string = x + y;
+	var z: string = x + y;
 }
 
 ================================================================================
@@ -110,27 +110,27 @@ let tests = [
 // @flow
 
 let tests = [
-  // setting a property
-  function (x: $Tainted<string>, y: string) {
-    let obj: Object = {};
-    obj.foo = x; // error, taint ~> any
-    obj[y] = x; // error, taint ~> any
-  },
+	// setting a property
+	function (x: $Tainted<string>, y: string) {
+		let obj: Object = {};
+		obj.foo = x; // error, taint ~> any
+		obj[y] = x; // error, taint ~> any
+	},
 
-  // getting a property
-  function () {
-    let obj: Object = { foo: "foo" };
-    (obj.foo: $Tainted<string>); // ok
-  },
+	// getting a property
+	function () {
+		let obj: Object = { foo: "foo" };
+		(obj.foo: $Tainted<string>); // ok
+	},
 
-  // calling a method
-  function (x: $Tainted<string>) {
-    let obj: Object = {};
-    obj.foo(x); // error, taint ~> any
+	// calling a method
+	function (x: $Tainted<string>) {
+		let obj: Object = {};
+		obj.foo(x); // error, taint ~> any
 
-    let foo = obj.foo;
-    foo(x); // error, taint ~> any
-  },
+		let foo = obj.foo;
+		foo(x); // error, taint ~> any
+	},
 ];
 
 ================================================================================
@@ -172,27 +172,27 @@ function f_foo3(f1 : Function, o1 : Object, o2 : {t : $Tainted<string>}) {
 // @flow
 
 function foo(x: $Tainted<string>, o: Object) {
-  // Error
-  o.f(x);
+	// Error
+	o.f(x);
 }
 function foo1(x: $Tainted<string>, o: { f: (y: $Tainted<string>) => void }) {
-  o.f(x);
+	o.f(x);
 }
 function foo2(o1: Object, o2: { t: $Tainted<string> }) {
-  o1.f(o2.t);
+	o1.f(o2.t);
 }
 function foo3<T>(x: $Tainted<T>, o: { f: (y: $Tainted<T>) => void }) {
-  o.f(x);
+	o.f(x);
 }
 function f_foo1(x: $Tainted<string>, f: Function) {
-  // Error
-  f(x);
+	// Error
+	f(x);
 }
 function f_foo2(f1: Function, o: { t: $Tainted<string> }) {
-  f1(o.t);
+	f1(o.t);
 }
 function f_foo3(f1: Function, o1: Object, o2: { t: $Tainted<string> }) {
-  f1(o1)(o2.t);
+	f1(o1)(o2.t);
 }
 
 ================================================================================
@@ -227,20 +227,20 @@ function f3(x : $Tainted<string>, y : string) {
 // @flow
 // Should cause an error.
 function f(x: $Tainted<string>, y: $Tainted<number>) {
-  var z: $Tainted<boolean> = x < y;
+	var z: $Tainted<boolean> = x < y;
 }
 // Should cause an error.
 function f1(x: string, y: $Tainted<number>) {
-  var z: $Tainted<boolean> = x < y;
+	var z: $Tainted<boolean> = x < y;
 }
 // Should cause an error.
 function f2(x: $Tainted<string>, y: number) {
-  var z: $Tainted<boolean> = x < y;
+	var z: $Tainted<boolean> = x < y;
 }
 // Note: We allow removing Taint when two tainted
 // values are compared.
 function f3(x: $Tainted<string>, y: string) {
-  var z: boolean = x < y;
+	var z: boolean = x < y;
 }
 
 ================================================================================
@@ -271,16 +271,16 @@ let tests = [
 // @flow
 
 let tests = [
-  // flows any to each param
-  function (x: any, y: $Tainted<string>) {
-    x(y); // error, taint ~> any
-  },
+	// flows any to each param
+	function (x: any, y: $Tainted<string>) {
+		x(y); // error, taint ~> any
+	},
 
-  // calling \`any\` returns \`any\`
-  function (x: any, y: $Tainted<string>) {
-    let z = x();
-    z(y);
-  },
+	// calling \`any\` returns \`any\`
+	function (x: any, y: $Tainted<string>) {
+		let z = x();
+		z(y);
+	},
 ];
 
 ================================================================================
@@ -309,14 +309,14 @@ class A {
 // @flow
 
 class A {
-  f(x: $Tainted<FakeLocation>) {
-    fakeDocument.location = x; // error
-    doStuff(x); // ok
-  }
-  f1(x: $Tainted<FakeLocation>) {
-    // TODO(rcastano): should cause an error.
-    window.fakeLocation = x;
-  }
+	f(x: $Tainted<FakeLocation>) {
+		fakeDocument.location = x; // error
+		doStuff(x); // ok
+	}
+	f1(x: $Tainted<FakeLocation>) {
+		// TODO(rcastano): should cause an error.
+		window.fakeLocation = x;
+	}
 }
 
 ================================================================================
@@ -343,11 +343,11 @@ declare var fakeLocation: FakeLocation;
 
 =====================================output=====================================
 declare class FakeLocation {
-  assign(url: string): void;
+	assign(url: string): void;
 }
 
 declare class FakeDocument {
-  location: FakeLocation;
+	location: FakeLocation;
 }
 
 declare function doStuff(x: $Tainted<any>): void;
@@ -381,10 +381,10 @@ class A {
  * @flow
  */
 class A {
-  f(tainted: $Tainted<string>) {
-    // This shouldn't give a warning (both are tainted)
-    var also_tainted: $Tainted<string> = tainted;
-  }
+	f(tainted: $Tainted<string>) {
+		// This shouldn't give a warning (both are tainted)
+		var also_tainted: $Tainted<string> = tainted;
+	}
 }
 
 ================================================================================
@@ -413,10 +413,10 @@ class A {
  * @flow
  */
 class A {
-  f(tainted: $Tainted<string>) {
-    // This *should* give a warning.
-    fakeDocument.location.assign(tainted);
-  }
+	f(tainted: $Tainted<string>) {
+		// This *should* give a warning.
+		fakeDocument.location.assign(tainted);
+	}
 }
 
 ================================================================================
@@ -447,12 +447,12 @@ class A {
  * @flow
  */
 class A {
-  f(tainted: $Tainted<string>) {
-    // The Tainted annotation should still flow.
-    var safe = tainted;
-    // This should give a warning.
-    var loc: string = safe;
-  }
+	f(tainted: $Tainted<string>) {
+		// The Tainted annotation should still flow.
+		var safe = tainted;
+		// This should give a warning.
+		var loc: string = safe;
+	}
 }
 
 ================================================================================
@@ -489,8 +489,8 @@ var safe: string = "safe";
 var tainted: $Tainted<string> = safe;
 
 function f(x: $Tainted<any>) {
-  // Should cause error.
-  var y: any = x;
+	// Should cause error.
+	var y: any = x;
 }
 
 ================================================================================
@@ -542,31 +542,31 @@ function foo6 (a : $Tainted<Array<string>>) {
 
 // Should cause an error.
 function foo(x: $Tainted<number>) {
-  var should_fail: number = x * 42;
+	var should_fail: number = x * 42;
 }
 // Should cause an error.
 function foo1(x: $Tainted<{ f: number }>) {
-  var ok: number = x.f;
+	var ok: number = x.f;
 }
 // Should cause an error.
 function foo2(o: { f(y: number): number }, t: $Tainted<number>) {
-  return o.f(t);
+	return o.f(t);
 }
 
 function foo3(x: $Tainted<{ f: number }>) {
-  var also_tainted: $Tainted<number> = x.f;
+	var also_tainted: $Tainted<number> = x.f;
 }
 // Should cause an error.
 function foo4(a: $Tainted<Array<string>>) {
-  var trusted: string = a[0];
+	var trusted: string = a[0];
 }
 // Type error.
 function foo5(a: $Tainted<Array<string>>) {
-  var trusted_number: number = a[0];
+	var trusted_number: number = a[0];
 }
 
 function foo6(a: $Tainted<Array<string>>) {
-  var trusted: $Tainted<string> = a[0];
+	var trusted: $Tainted<string> = a[0];
 }
 
 ================================================================================

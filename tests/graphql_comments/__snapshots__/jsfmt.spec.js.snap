@@ -16,10 +16,10 @@ query (
 
 =====================================output=====================================
 query(
-  $string: String # Some variable comment
-  $bool: Boolean # Some comment
+	$string: String # Some variable comment
+	$bool: Boolean # Some comment
 ) {
-  someField
+	someField
 }
 
 ================================================================================
@@ -39,7 +39,7 @@ query {
 
 =====================================output=====================================
 query {
-  someField # Trailing comment
+	someField # Trailing comment
 }
 
 ================================================================================
@@ -63,15 +63,15 @@ query claimsByBookingReferenceAndLastName($bookingReference: String!, $lastName:
 # import "./claimsFragment.gql"
 
 query claimsByBookingReferenceAndLastName(
-  $bookingReference: String!
-  $lastName: String!
+	$bookingReference: String!
+	$lastName: String!
 ) {
-  claimsByBookingReferenceAndLastName(
-    bookingReference: $bookingReference
-    lastName: $lastName
-  ) {
-    ...claim
-  }
+	claimsByBookingReferenceAndLastName(
+		bookingReference: $bookingReference
+		lastName: $lastName
+	) {
+		...claim
+	}
 }
 
 ================================================================================

@@ -45,39 +45,39 @@ module.exports = C;
 
 =====================================output=====================================
 class C {
-  foo() {}
-  bar() {
-    return;
-  }
-  fn(x: number) {
-    return x;
-  }
+	foo() {}
+	bar() {
+		return;
+	}
+	fn(x: number) {
+		return x;
+	}
 }
 
 function f(x): number {
-  if (x > 1) {
-    return 42;
-  }
+	if (x > 1) {
+		return 42;
+	}
 }
 
 function g(x): ?number {
-  if (x > 1) {
-    return 42;
-  }
+	if (x > 1) {
+		return 42;
+	}
 }
 
 function h(x): number {
-  if (x > 1) {
-    return 42;
-  }
-  return;
+	if (x > 1) {
+		return 42;
+	}
+	return;
 }
 
 function i(x): ?number {
-  if (x > 1) {
-    return 42;
-  }
-  return;
+	if (x > 1) {
+		return 42;
+	}
+	return;
 }
 
 module.exports = C;
@@ -112,11 +112,11 @@ function f(b) {
    type of functions that have an explicit \`undefined\` to be only \`undefined\` --
    ignoring other possible exits. */
 function f(b) {
-  if (b) {
-    return undefined;
-  } else {
-    return "nope";
-  }
+	if (b) {
+		return undefined;
+	} else {
+		return "nope";
+	}
 }
 
 (f(true): void); // error: string ~> void

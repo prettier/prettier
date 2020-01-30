@@ -18,7 +18,7 @@ module.exports = {}
 
 export type talias4 = number;
 export interface IFoo {
-  prop: number;
+	prop: number;
 }
 
 module.exports = {};
@@ -69,10 +69,10 @@ var n: IFoo2 = {prop: 42}; // Error: {prop:number} ~> {prop:string}
 /* @flow */
 
 import type {
-  inlinedType1,
-  standaloneType1,
-  talias1,
-  talias3,
+	inlinedType1,
+	standaloneType1,
+	talias1,
+	talias3,
 } from "./types_only";
 
 var a: inlinedType1 = 42;
@@ -140,7 +140,7 @@ export { standaloneType2 }; // Error: Missing \`type\` keyword
 export type { talias1, talias2 as talias3, IFoo2 } from "./types_only2";
 
 export interface IFoo {
-  prop: number;
+	prop: number;
 }
 
 ================================================================================
@@ -164,7 +164,7 @@ export interface IFoo2 { prop: string };
 export type talias1 = number;
 export type talias2 = number;
 export interface IFoo2 {
-  prop: string;
+	prop: string;
 }
 
 ================================================================================

@@ -20,13 +20,13 @@ printWidth: 80
 
 =====================================output=====================================
 <SomeHighlyConfiguredComponent
-  onEnter={this.onEnter}
-  onLeave={this.onLeave}
-  onChange={this.onChange}
-  initialValue={this.state.initialValue}
-  ignoreStuff={true}>
-  <div>and the children go here</div>
-  <div>and here too</div>
+	onEnter={this.onEnter}
+	onLeave={this.onLeave}
+	onChange={this.onChange}
+	initialValue={this.state.initialValue}
+	ignoreStuff={true}>
+	<div>and the children go here</div>
+	<div>and here too</div>
 </SomeHighlyConfiguredComponent>;
 
 ================================================================================
@@ -52,14 +52,14 @@ printWidth: 80
 
 =====================================output=====================================
 <SomeHighlyConfiguredComponent
-  onEnter={this.onEnter}
-  onLeave={this.onLeave}
-  onChange={this.onChange}
-  initialValue={this.state.initialValue}
-  ignoreStuff={true}
+	onEnter={this.onEnter}
+	onLeave={this.onLeave}
+	onChange={this.onChange}
+	initialValue={this.state.initialValue}
+	ignoreStuff={true}
 >
-  <div>and the children go here</div>
-  <div>and here too</div>
+	<div>and the children go here</div>
+	<div>and here too</div>
 </SomeHighlyConfiguredComponent>;
 
 ================================================================================
@@ -81,15 +81,15 @@ printWidth: 80
 
 =====================================output=====================================
 <path
-  d="M4.765 16.829l3.069-2.946 5.813 5.748
+	d="M4.765 16.829l3.069-2.946 5.813 5.748
   11.33-11.232 3.006 3.18-14.36 14.080z"
 />;
 
 <Component
-  text="Text
+	text="Text
   with
   newlines">
-  Content
+	Content
 </Component>;
 
 ================================================================================
@@ -111,16 +111,16 @@ printWidth: 80
 
 =====================================output=====================================
 <path
-  d="M4.765 16.829l3.069-2.946 5.813 5.748
+	d="M4.765 16.829l3.069-2.946 5.813 5.748
   11.33-11.232 3.006 3.18-14.36 14.080z"
 />;
 
 <Component
-  text="Text
+	text="Text
   with
   newlines"
 >
-  Content
+	Content
 </Component>;
 
 ================================================================================

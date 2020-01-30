@@ -12,7 +12,7 @@ div {
 
 =====================================output=====================================
 div {
-  background-image: url(data:image/png;base64,iVBORw0KGg);
+	background-image: url(data:image/png;base64,iVBORw0KGg);
 }
 
 ================================================================================

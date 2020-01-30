@@ -25,7 +25,7 @@ exports[`CLI overrides are still applied when no config is found with --config-p
 
 exports[`CLI overrides are still applied when no config is found with --config-precedence file-override (stdout) 1`] = `
 "function noConfigJs() {
-      console.log(\\"no-config/file.js should have no semicolons\\")
+	console.log(\\"no-config/file.js should have no semicolons\\")
 }
 "
 `;
@@ -36,9 +36,9 @@ exports[`CLI overrides gets applied when no config exists with --config-preceden
 
 exports[`CLI overrides gets applied when no config exists with --config-precedence prefer-file (stdout) 1`] = `
 "function noConfigJs() {
-       console.log(
-              \\"no-config/file.js should have no semicolons\\"
-       );
+	console.log(
+		\\"no-config/file.js should have no semicolons\\"
+	);
 }
 "
 `;
@@ -49,13 +49,13 @@ exports[`CLI overrides gets ignored when config exists with --config-precedence 
 
 exports[`CLI overrides gets ignored when config exists with --config-precedence prefer-file (stdout) 1`] = `
 "function js() {
-        console.log(\\"js/file.js should have tab width 8 (1 if CLI)\\");
+	console.log(\\"js/file.js should have tab width 8 (1 if CLI)\\");
 }
 \\"use strict\\";
 
 module.exports = {
-        endOfLine: \\"auto\\",
-        tabWidth: 8,
+	endOfLine: \\"auto\\",
+	tabWidth: 8,
 };
 "
 `;
@@ -66,13 +66,13 @@ exports[`CLI overrides take lower precedence with --config-precedence file-overr
 
 exports[`CLI overrides take lower precedence with --config-precedence file-override (stdout) 1`] = `
 "function js() {
-        console.log(\\"js/file.js should have tab width 8 (1 if CLI)\\");
+	console.log(\\"js/file.js should have tab width 8 (1 if CLI)\\");
 }
 \\"use strict\\";
 
 module.exports = {
-        endOfLine: \\"auto\\",
-        tabWidth: 8,
+	endOfLine: \\"auto\\",
+	tabWidth: 8,
 };
 "
 `;
@@ -98,9 +98,9 @@ function f() {
         )
 }
 function f() {
-  console.log(
-    \\"should have space width 2 despite ../.editorconfig specifying 8, because ./.hg is present\\"
-  )
+	console.log(
+		\\"should have space width 2 despite ../.editorconfig specifying 8, because ./.hg is present\\"
+	)
 }
 console.log(
   \\"should have no semi\\"
@@ -115,16 +115,16 @@ console.log(
   \\"jest/Component.test.js should have semi\\"
 );
 function js() {
-        console.log(
-                \\"js/file.js should have tab width 8 (1 if CLI)\\"
-        );
+	console.log(
+		\\"js/file.js should have tab width 8 (1 if CLI)\\"
+	);
 }
 \\"use strict\\";
 
 module.exports = {
-        endOfLine:
-                \\"auto\\",
-        tabWidth: 8,
+	endOfLine:
+		\\"auto\\",
+	tabWidth: 8,
 };
 function noConfigJs() {
   console.log(
@@ -190,9 +190,9 @@ function f() {
         )
 }
 function f() {
-  console.log(
-    \\"should have space width 2 despite ../.editorconfig specifying 8, because ./.hg is present\\"
-  )
+	console.log(
+		\\"should have space width 2 despite ../.editorconfig specifying 8, because ./.hg is present\\"
+	)
 }
 console.log(
   \\"should have no semi\\"
@@ -207,16 +207,16 @@ console.log(
   \\"jest/Component.test.js should have semi\\"
 );
 function js() {
-        console.log(
-                \\"js/file.js should have tab width 8 (1 if CLI)\\"
-        );
+	console.log(
+		\\"js/file.js should have tab width 8 (1 if CLI)\\"
+	);
 }
 \\"use strict\\";
 
 module.exports = {
-        endOfLine:
-                \\"auto\\",
-        tabWidth: 8,
+	endOfLine:
+		\\"auto\\",
+	tabWidth: 8,
 };
 function noConfigJs() {
   console.log(

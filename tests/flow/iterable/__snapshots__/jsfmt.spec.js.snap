@@ -75,12 +75,12 @@ function miss_the_cache(x: Array<string | number>): Iterable<string> { return x;
  */
 
 function fill_the_cache(x: Array<any | any>): Iterable<string> {
-  return x;
+	return x;
 }
 
 // Error: number ~> string
 function miss_the_cache(x: Array<string | number>): Iterable<string> {
-  return x;
+	return x;
 }
 
 ================================================================================
@@ -108,9 +108,9 @@ foo(m.keys());
 /* @flow */
 
 function foo(strs: Iterable<string>): void {
-  for (var s: string of strs) {
-    console.log(s);
-  }
+	for (var s: string of strs) {
+		console.log(s);
+	}
 }
 
 var m: Map<string, number> = new Map();
@@ -160,36 +160,36 @@ function makeIterator(coin_flip: () => boolean ): Iterator<string> {
 /* @flow */
 
 function makeIterator(coin_flip: () => boolean): Iterator<string> {
-  return {
-    "@@iterator"() {
-      return makeIterator(coin_flip);
-    },
-    next(): IteratorResult<string, void> {
-      var done = coin_flip();
-      if (!done) {
-        return { done, value: "still going..." };
-      } else {
-        return { done };
-      }
-    },
-  };
+	return {
+		"@@iterator"() {
+			return makeIterator(coin_flip);
+		},
+		next(): IteratorResult<string, void> {
+			var done = coin_flip();
+			if (!done) {
+				return { done, value: "still going..." };
+			} else {
+				return { done };
+			}
+		},
+	};
 }
 
 function makeIterator(coin_flip: () => boolean): Iterator<string> {
-  return {
-    "@@iterator"() {
-      return makeIterator(coin_flip);
-    },
-    next(): IteratorResult<string, void> {
-      var done = coin_flip();
-      if (done) {
-        // Whoops, made a mistake and forgot to negate done
-        return { done, value: "still going..." }; // Error string ~> void
-      } else {
-        return { done }; // Error void ~> string
-      }
-    },
-  };
+	return {
+		"@@iterator"() {
+			return makeIterator(coin_flip);
+		},
+		next(): IteratorResult<string, void> {
+			var done = coin_flip();
+			if (done) {
+				// Whoops, made a mistake and forgot to negate done
+				return { done, value: "still going..." }; // Error string ~> void
+			} else {
+				return { done }; // Error void ~> string
+			}
+		},
+	};
 }
 
 ================================================================================
@@ -221,17 +221,17 @@ function mapTest4(map: Map<number, string>): Iterable<string> {
 /* @flow */
 
 function mapTest1(map: Map<string, number>): Iterable<[string, number]> {
-  return map;
+	return map;
 }
 function mapTest2<K, V>(map: Map<K, V>): Iterable<[K, V]> {
-  return map;
+	return map;
 }
 function mapTest3(map: Map<string, number>): Iterable<*> {
-  return map;
+	return map;
 }
 // Error - Map is an Iterable<[K, V]>
 function mapTest4(map: Map<number, string>): Iterable<string> {
-  return map;
+	return map;
 }
 
 ================================================================================
@@ -263,17 +263,17 @@ function setTest4(set: Set<string>): Iterable<number> {
 /* @flow */
 
 function setTest1(set: Set<string>): Iterable<string> {
-  return set;
+	return set;
 }
 function setTest2<T>(set: Set<T>): Iterable<T> {
-  return set;
+	return set;
 }
 function setTest3(set: Set<string>): Iterable<*> {
-  return set;
+	return set;
 }
 // Error string ~> number
 function setTest4(set: Set<string>): Iterable<number> {
-  return set;
+	return set;
 }
 
 ================================================================================

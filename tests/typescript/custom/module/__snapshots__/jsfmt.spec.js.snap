@@ -14,9 +14,9 @@ declare global {
 
 =====================================output=====================================
 declare global {
-  interface Event {
-    persist: Function;
-  }
+	interface Event {
+		persist: Function;
+	}
 }
 
 ================================================================================
@@ -58,7 +58,7 @@ namespace X.Y {
 
 =====================================output=====================================
 namespace X {
-  export namespace Y {}
+	export namespace Y {}
 }
 
 namespace X.Y {}

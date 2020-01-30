@@ -28,15 +28,15 @@ class Bar extends Foo {
  */
 
 class Foo {
-  _method(): string {
-    return "this is private";
-  }
+	_method(): string {
+		return "this is private";
+	}
 }
 
 class Bar extends Foo {
-  test() {
-    (this._method(): string); // error
-  }
+	test() {
+		(this._method(): string); // error
+	}
 }
 
 ================================================================================
@@ -72,15 +72,15 @@ class Bar extends Foo {
  */
 
 class Foo {
-  _method(): string {
-    return "this is not private";
-  }
+	_method(): string {
+		return "this is not private";
+	}
 }
 
 class Bar extends Foo {
-  test() {
-    (this._method(): string); // ok
-  }
+	test() {
+		(this._method(): string); // ok
+	}
 }
 
 ================================================================================

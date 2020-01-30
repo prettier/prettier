@@ -13,7 +13,7 @@ function f() {<LF>
 
 =====================================output=====================================
 function f() {<LF>
-  console.log("testing line endings");<LF>
+	console.log("testing line endings");<LF>
 }<LF>
 
 ================================================================================
@@ -32,7 +32,7 @@ function f() {<LF>
 
 =====================================output=====================================
 function f() {<CR>
-  console.log("testing line endings");<CR>
+	console.log("testing line endings");<CR>
 }<CR>
 
 ================================================================================
@@ -51,7 +51,7 @@ function f() {<LF>
 
 =====================================output=====================================
 function f() {<CRLF>
-  console.log("testing line endings");<CRLF>
+	console.log("testing line endings");<CRLF>
 }<CRLF>
 
 ================================================================================

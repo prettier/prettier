@@ -76,10 +76,10 @@ var i_star: I<*> = new I('hello');
 /* @flow */
 
 class A<T> {
-  p: T;
-  constructor(p: T) {
-    this.p = p;
-  }
+	p: T;
+	constructor(p: T) {
+		this.p = p;
+	}
 }
 
 // Test out simple defaults

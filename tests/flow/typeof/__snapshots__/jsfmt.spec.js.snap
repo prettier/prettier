@@ -101,9 +101,9 @@ var f: typeof numberAlias = 42; // Error: 'typeof <<type-alias>>' makes no sense
 // MyClass1 is a runtime value, a constructor function
 //
 class MyClass1 {
-  getNumber(): number {
-    return 42;
-  }
+	getNumber(): number {
+		return 42;
+	}
 }
 
 // a is an instance of MyClass1 - in runtime terms,
@@ -137,9 +137,9 @@ var a: MyClass1 = new MyClass1();
 var b: MyClass1 = MyClass1;
 
 class MyClass2 {
-  getNumber1(): number {
-    return 42;
-  }
+	getNumber1(): number {
+		return 42;
+	}
 }
 
 // The opposite error: assign an *instance* of MyClass2

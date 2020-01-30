@@ -23,10 +23,10 @@ for (let [taskStatus, tasksMap] of tasksPerStatusMap) {
 const Immutable = require("immutable");
 
 const tasksPerStatusMap = new Map(
-  [].map((taskStatus) => [taskStatus, new Map()])
+	[].map((taskStatus) => [taskStatus, new Map()])
 );
 for (let [taskStatus, tasksMap] of tasksPerStatusMap) {
-  tasksPerStatusMap.set(taskStatus, Immutable.Map(tasksMap));
+	tasksPerStatusMap.set(taskStatus, Immutable.Map(tasksMap));
 }
 
 ================================================================================
@@ -61,12 +61,12 @@ foo(
 /* @flow */
 
 declare class Bar<K> {
-  update<K_>(updater: (value: this) => Bar<K_>): Bar<K_>;
+	update<K_>(updater: (value: this) => Bar<K_>): Bar<K_>;
 }
 
 declare function foo<U>(
-  initialValue: U,
-  callbackfn: (previousValue: U) => U
+	initialValue: U,
+	callbackfn: (previousValue: U) => U
 ): U;
 
 declare var items: Bar<string>;
@@ -104,14 +104,14 @@ outer.set(ImmBox(inner));
 // @flow
 
 declare class ImmBox<T> {
-  static <U>(x: any): ImmBox<U>;
-  static (x: any): any;
+	static <U>(x: any): ImmBox<U>;
+	static (x: any): any;
 }
 
 declare class Box<T> {
-  constructor(x: T): void;
-  set(value: T): void;
-  get(): T;
+	constructor(x: T): void;
+	set(value: T): void;
+	get(): T;
 }
 
 const outer = new Box();

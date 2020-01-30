@@ -58,60 +58,60 @@ a = ([s = 1]) => 1;
 const { children, ...props } = this.props;
 
 const {
-  user: { firstName, lastName },
+	user: { firstName, lastName },
 } = this.props;
 
 const {
-  name: { first, last },
-  organisation: {
-    address: { street: orgStreetAddress, postcode: orgPostcode },
-  },
+	name: { first, last },
+	organisation: {
+		address: { street: orgStreetAddress, postcode: orgPostcode },
+	},
 } = user;
 
 function f({ data: { name } }) {}
 
 const UserComponent = function ({
-  name: { first, last },
-  organisation: {
-    address: { street: orgStreetAddress, postcode: orgPostcode },
-  },
+	name: { first, last },
+	organisation: {
+		address: { street: orgStreetAddress, postcode: orgPostcode },
+	},
 }) {
-  return;
+	return;
 };
 
 const {
-  a,
-  b,
-  c,
-  d: { e },
+	a,
+	b,
+	c,
+	d: { e },
 } = someObject;
 
 try {
-  // code
+	// code
 } catch ({ data: { message } }) {
-  // code
+	// code
 }
 
 try {
-  // code
+	// code
 } catch ({
-  data: {
-    message: { errors },
-  },
+	data: {
+		message: { errors },
+	},
 }) {
-  // code
+	// code
 }
 
 const obj = {
-  func(id, { blog: { title } }) {
-    return id + title;
-  },
+	func(id, { blog: { title } }) {
+		return id + title;
+	},
 };
 
 class A {
-  func(id, { blog: { title } }) {
-    return id + title;
-  }
+	func(id, { blog: { title } }) {
+		return id + title;
+	}
 }
 
 ================================================================================

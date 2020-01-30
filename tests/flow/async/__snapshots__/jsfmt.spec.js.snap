@@ -67,30 +67,30 @@ var objf : () => Promise<number> = obj.f;
 //
 
 async function f0(): Promise<number> {
-  return 1;
+	return 1;
 }
 
 async function f1(): Promise<boolean> {
-  return 1; // error, number != bool
+	return 1; // error, number != bool
 }
 
 // await: (p: Promise<T> | T) => T
 //
 
 async function f2(p: Promise<number>): Promise<number> {
-  var x: number = await p;
-  var y: number = await 1;
-  return x + y;
+	var x: number = await p;
+	var y: number = await 1;
+	return x + y;
 }
 
 async function f3(p: Promise<number>): Promise<number> {
-  return await p;
+	return await p;
 }
 
 // TODO: this is one of those bad generic errors, currently:
 // "inconsistent use of library definitions" with two core.js locs
 async function f4(p: Promise<number>): Promise<boolean> {
-  return await p; // error, number != bool
+	return await p; // error, number != bool
 }
 
 // async arrow functions
@@ -102,18 +102,18 @@ var f5: () => Promise<number> = async () => await 1;
 //
 
 class C {
-  async m() {
-    return 1;
-  }
-  async mt<T>(a: T): Promise<T> {
-    return a;
-  }
-  static async m(a): void {
-    await a;
-  } // error, void != Promise<void>
-  static async mt<T>(a: T): Promise<T> {
-    return a;
-  }
+	async m() {
+		return 1;
+	}
+	async mt<T>(a: T): Promise<T> {
+		return a;
+	}
+	static async m(a): void {
+		await a;
+	} // error, void != Promise<void>
+	static async mt<T>(a: T): Promise<T> {
+		return a;
+	}
 }
 
 // async function props
@@ -153,12 +153,12 @@ async function foo() {
 class C {}
 
 var P: Promise<Class<C>> = new Promise(function (resolve, reject) {
-  resolve(C);
+	resolve(C);
 });
 
 async function foo() {
-  class Bar extends (await P) {}
-  return Bar;
+	class Bar extends (await P) {}
+	return Bar;
 }
 
 ================================================================================
@@ -200,10 +200,10 @@ async function f() {}
 async function ft<T>(a: T) {}
 
 class C {
-  async m() {}
-  async mt<T>(a: T) {}
-  static async m(a) {}
-  static async mt<T>(a: T) {}
+	async m() {}
+	async mt<T>(a: T) {}
+	static async m(a) {}
+	static async mt<T>(a: T) {}
 }
 
 var e = async function () {};
@@ -236,7 +236,7 @@ async function f(): Promise<number> {
 
 =====================================output=====================================
 async function f(): Promise<number> {
-  return Promise.resolve(1);
+	return Promise.resolve(1);
 }
 
 ================================================================================
@@ -267,16 +267,16 @@ async function foo3(): Promise<string> {
 // @flow
 
 async function foo1(): Promise<string> {
-  return;
+	return;
 }
 
 async function foo2(): Promise<string> {
-  return undefined;
+	return undefined;
 }
 
 async function foo3(): Promise<string> {
-  function bar() {}
-  return bar();
+	function bar() {}
+	return bar();
 }
 
 ================================================================================
@@ -355,15 +355,15 @@ function test5() {
 // misc basic
 
 function test1() {
-  async function foo() {
-    return 42;
-  }
+	async function foo() {
+		return 42;
+	}
 
-  async function bar() {
-    var a = await foo();
-    var b: number = a; // valid
-    var c: string = a; // Error: number ~> string
-  }
+	async function bar() {
+		var a = await foo();
+		var b: number = a; // valid
+		var c: string = a; // Error: number ~> string
+	}
 }
 
 //
@@ -375,23 +375,23 @@ function test1() {
 //
 
 function test2() {
-  async function voidoid1() {
-    console.log("HEY");
-  }
+	async function voidoid1() {
+		console.log("HEY");
+	}
 
-  var voidoid2: () => Promise<void> = voidoid1; // ok
+	var voidoid2: () => Promise<void> = voidoid1; // ok
 
-  var voidoid3: () => void = voidoid1; // error, void != Promise<void>
+	var voidoid3: () => void = voidoid1; // error, void != Promise<void>
 }
 
 // annotated return type of Promise<void> should work
 //
 
 function test3() {
-  async function voidoid4(): Promise<void> {
-    // ok
-    console.log("HEY");
-  }
+	async function voidoid4(): Promise<void> {
+		// ok
+		console.log("HEY");
+	}
 }
 
 // other annotated return types should fail
@@ -400,17 +400,17 @@ function test3() {
 //
 
 function test4() {
-  async function voidoid5(): void {
-    // error, void != Promise<void>
-    console.log("HEY");
-  }
+	async function voidoid5(): void {
+		// error, void != Promise<void>
+		console.log("HEY");
+	}
 }
 
 function test5() {
-  async function voidoid6(): Promise<number> {
-    // error, number != void
-    console.log("HEY");
-  }
+	async function voidoid6(): Promise<number> {
+		// error, number != void
+		console.log("HEY");
+	}
 }
 
 ================================================================================
@@ -467,25 +467,25 @@ async function baz() {
  */
 
 async function foo() {
-  return 42;
+	return 42;
 }
 
 async function bar() {
-  return foo();
+	return foo();
 }
 
 async function baz() {
-  // a should now be typed as number, but is in fact
-  // Promise<number> until nested-promise unwrap is fixed
-  var a = await bar();
+	// a should now be typed as number, but is in fact
+	// Promise<number> until nested-promise unwrap is fixed
+	var a = await bar();
 
-  // TODO this is valid code, but currently gives Promise ~> number error
-  // due to lack of transitive Promise unwrap.
-  var b: number = a;
+	// TODO this is valid code, but currently gives Promise ~> number error
+	// due to lack of transitive Promise unwrap.
+	var b: number = a;
 
-  // should be number ~> string error, but currently gives
-  // Promise ~> string error for the same reason
-  var c: string = a;
+	// should be number ~> string error, but currently gives
+	// Promise ~> string error for the same reason
+	var c: string = a;
 }
 
 ================================================================================
@@ -524,52 +524,52 @@ var y = { await };
 
 =====================================output=====================================
 async function f() {
-  await 1;
+	await 1;
 }
 async function ft<T>(a: T) {
-  await 1;
+	await 1;
 }
 
 class C {
-  async m() {
-    await 1;
-  }
-  async mt<T>(a: T) {
-    await 1;
-  }
-  static async m(a) {
-    await 1;
-  }
-  static async mt<T>(a: T) {
-    await 1;
-  }
+	async m() {
+		await 1;
+	}
+	async mt<T>(a: T) {
+		await 1;
+	}
+	static async m(a) {
+		await 1;
+	}
+	static async mt<T>(a: T) {
+		await 1;
+	}
 }
 
 var e = async function () {
-  await 1;
+	await 1;
 };
 var et = async function <T>(a: T) {
-  await 1;
+	await 1;
 };
 
 var n = new (async function () {
-  await 1;
+	await 1;
 })();
 
 var o = {
-  async m() {
-    await 1;
-  },
+	async m() {
+		await 1;
+	},
 };
 var ot = {
-  async m<T>(a: T) {
-    await 1;
-  },
+	async m<T>(a: T) {
+		await 1;
+	},
 };
 var oz = {
-  async async(async) {
-    await async;
-  },
+	async async(async) {
+		await async;
+	},
 };
 
 var x = { await: 5 };

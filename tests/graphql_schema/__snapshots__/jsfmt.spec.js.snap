@@ -14,9 +14,9 @@ schema {
 
 =====================================output=====================================
 schema {
-  query: Root
-  mutation: Mutation
-  subscription: Subscription
+	query: Root
+	mutation: Mutation
+	subscription: Subscription
 }
 
 ================================================================================

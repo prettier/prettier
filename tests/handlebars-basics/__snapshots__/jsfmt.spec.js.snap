@@ -37,22 +37,22 @@ printWidth: 80
 {{@greeting}}, {{@name}}!
 
 <div>
-  <UserGreeting
-    @aVeryLongArgumentNameThatIsStillGoing={{@alsoAVeryLongArgument}}
-  />
+	<UserGreeting
+		@aVeryLongArgumentNameThatIsStillGoing={{@alsoAVeryLongArgument}}
+	/>
 </div>
 
 <Form as |f|>
-  <f.input @title="hello" />
-  <f.input>
-    hello
-  </f.input>
+	<f.input @title="hello" />
+	<f.input>
+		hello
+	</f.input>
 </Form>
 
 <this.label @title="hello" />
 
 <button onclick={{action next}}>
-  Next
+	Next
 </button>
 
 <button disabled class="disabled"></button>
@@ -62,7 +62,7 @@ printWidth: 80
 <img alt="" />
 
 <div ...attributes>
-  Hello
+	Hello
 </div>
 ================================================================================
 `;
@@ -105,22 +105,22 @@ singleQuote: true
 {{@greeting}}, {{@name}}!
 
 <div>
-  <UserGreeting
-    @aVeryLongArgumentNameThatIsStillGoing={{@alsoAVeryLongArgument}}
-  />
+	<UserGreeting
+		@aVeryLongArgumentNameThatIsStillGoing={{@alsoAVeryLongArgument}}
+	/>
 </div>
 
 <Form as |f|>
-  <f.input @title='hello' />
-  <f.input>
-    hello
-  </f.input>
+	<f.input @title='hello' />
+	<f.input>
+		hello
+	</f.input>
 </Form>
 
 <this.label @title='hello' />
 
 <button onclick={{action next}}>
-  Next
+	Next
 </button>
 
 <button disabled class='disabled'></button>
@@ -130,7 +130,7 @@ singleQuote: true
 <img alt='' />
 
 <div ...attributes>
-  Hello
+	Hello
 </div>
 ================================================================================
 `;
@@ -203,16 +203,16 @@ printWidth: 80
 
 =====================================output=====================================
 <div class="entry">
-  <h1>
-    {{title}}
-  </h1>
-  <h2>
-    By {{author.name}}
-  </h2>
+	<h1>
+		{{title}}
+	</h1>
+	<h2>
+		By {{author.name}}
+	</h2>
 
-  <div class="body">
-    {{body}}
-  </div>
+	<div class="body">
+		{{body}}
+	</div>
 </div>
 ================================================================================
 `;
@@ -235,16 +235,16 @@ singleQuote: true
 
 =====================================output=====================================
 <div class='entry'>
-  <h1>
-    {{title}}
-  </h1>
-  <h2>
-    By {{author.name}}
-  </h2>
+	<h1>
+		{{title}}
+	</h1>
+	<h2>
+		By {{author.name}}
+	</h2>
 
-  <div class='body'>
-    {{body}}
-  </div>
+	<div class='body'>
+		{{body}}
+	</div>
 </div>
 ================================================================================
 `;
@@ -259,7 +259,7 @@ printWidth: 80
 
 =====================================output=====================================
 <p>
-  {{{raw}}}
+	{{{raw}}}
 </p>
 ================================================================================
 `;
@@ -275,7 +275,7 @@ singleQuote: true
 
 =====================================output=====================================
 <p>
-  {{{raw}}}
+	{{{raw}}}
 </p>
 ================================================================================
 `;

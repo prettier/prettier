@@ -53,7 +53,7 @@ function durable_refi(x: ?number) {
  */
 
 function cannot_reassign(x: string) {
-  x = "hey"; // error, const param cannot be reassigned
+	x = "hey"; // error, const param cannot be reassigned
 }
 
 // Note: const params use the same machinery as explicit
@@ -61,12 +61,12 @@ function cannot_reassign(x: string) {
 // Here we're just making sure the machinery is hooked up.
 //
 function durable_refi(x: ?number) {
-  if (x) {
-    // ok: if x is truthy here, it's truthy everywhere
-    return () => {
-      var y: number = x;
-    };
-  }
+	if (x) {
+		// ok: if x is truthy here, it's truthy everywhere
+		return () => {
+			var y: number = x;
+		};
+	}
 }
 
 ================================================================================

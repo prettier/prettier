@@ -24,10 +24,10 @@ new D(123); // error, number ~> string
 
 =====================================output=====================================
 declare class C {
-  static x: number;
-  static foo(x: number): void;
+	static x: number;
+	static foo(x: number): void;
 
-  constructor(x: string): void;
+	constructor(x: string): void;
 }
 
 C.x = "";

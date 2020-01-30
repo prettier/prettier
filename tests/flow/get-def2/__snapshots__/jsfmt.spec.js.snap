@@ -102,17 +102,17 @@ class D extends C {
 // @flow
 
 class C {
-  override() {}
+	override() {}
 }
 
 class D extends C {
-  foo() {
-    this.override();
-  }
-  bar() {
-    this.override;
-  }
-  override() {}
+	foo() {
+		this.override();
+	}
+	bar() {
+		this.override;
+	}
+	override() {}
 }
 
 ================================================================================
@@ -140,7 +140,7 @@ let msg = "hello";
 var React = require("react");
 
 class C extends React.Component {
-  props: { x: string };
+	props: { x: string };
 }
 
 let msg = "hello";

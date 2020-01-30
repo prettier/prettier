@@ -18,12 +18,12 @@ type ValidateArgs = [
 
 =====================================output=====================================
 type ValidateArgs = [
-  {
-    [key: string]: any;
-  },
-  string,
-  string,
-  ...string[]
+	{
+		[key: string]: any;
+	},
+	string,
+	string,
+	...string[]
 ];
 
 ================================================================================
@@ -46,12 +46,12 @@ type ValidateArgs = [
 
 =====================================output=====================================
 type ValidateArgs = [
-  {
-    [key: string]: any;
-  },
-  string,
-  string,
-  ...string[]
+	{
+		[key: string]: any;
+	},
+	string,
+	string,
+	...string[]
 ];
 
 ================================================================================
@@ -75,12 +75,12 @@ type ValidateArgs = [
 
 =====================================output=====================================
 type ValidateArgs = [
-  {
-    [key: string]: any;
-  },
-  string,
-  string,
-  ...string[]
+	{
+		[key: string]: any;
+	},
+	string,
+	string,
+	...string[]
 ];
 
 ================================================================================
@@ -110,18 +110,18 @@ export interface ShopQueryResult {
 
 =====================================output=====================================
 export interface ShopQueryResult {
-  chic: boolean;
-  location: number[];
-  menus: Menu[];
-  openingDays: number[];
-  closingDays: [
-    {
-      from: string;
-      to: string;
-    } // <== this one
-  ];
-  shop: string;
-  distance: number;
+	chic: boolean;
+	location: number[];
+	menus: Menu[];
+	openingDays: number[];
+	closingDays: [
+		{
+			from: string;
+			to: string;
+		} // <== this one
+	];
+	shop: string;
+	distance: number;
 }
 
 ================================================================================
@@ -150,18 +150,18 @@ export interface ShopQueryResult {
 
 =====================================output=====================================
 export interface ShopQueryResult {
-  chic: boolean;
-  location: number[];
-  menus: Menu[];
-  openingDays: number[];
-  closingDays: [
-    {
-      from: string;
-      to: string;
-    } // <== this one
-  ];
-  shop: string;
-  distance: number;
+	chic: boolean;
+	location: number[];
+	menus: Menu[];
+	openingDays: number[];
+	closingDays: [
+		{
+			from: string;
+			to: string;
+		} // <== this one
+	];
+	shop: string;
+	distance: number;
 }
 
 ================================================================================
@@ -191,18 +191,18 @@ export interface ShopQueryResult {
 
 =====================================output=====================================
 export interface ShopQueryResult {
-  chic: boolean;
-  location: number[];
-  menus: Menu[];
-  openingDays: number[];
-  closingDays: [
-    {
-      from: string;
-      to: string;
-    }, // <== this one
-  ];
-  shop: string;
-  distance: number;
+	chic: boolean;
+	location: number[];
+	menus: Menu[];
+	openingDays: number[];
+	closingDays: [
+		{
+			from: string;
+			to: string;
+		}, // <== this one
+	];
+	shop: string;
+	distance: number;
 }
 
 ================================================================================
@@ -227,12 +227,12 @@ export type SCMRawResource = [
 
 =====================================output=====================================
 export type SCMRawResource = [
-  number /*handle*/,
-  string /*resourceUri*/,
-  modes.Command /*command*/,
-  string[] /*icons: light, dark*/,
-  boolean /*strike through*/,
-  boolean /*faded*/
+	number /*handle*/,
+	string /*resourceUri*/,
+	modes.Command /*command*/,
+	string[] /*icons: light, dark*/,
+	boolean /*strike through*/,
+	boolean /*faded*/
 ];
 
 ================================================================================
@@ -256,12 +256,12 @@ export type SCMRawResource = [
 
 =====================================output=====================================
 export type SCMRawResource = [
-  number /*handle*/,
-  string /*resourceUri*/,
-  modes.Command /*command*/,
-  string[] /*icons: light, dark*/,
-  boolean /*strike through*/,
-  boolean /*faded*/
+	number /*handle*/,
+	string /*resourceUri*/,
+	modes.Command /*command*/,
+	string[] /*icons: light, dark*/,
+	boolean /*strike through*/,
+	boolean /*faded*/
 ];
 
 ================================================================================
@@ -286,12 +286,12 @@ export type SCMRawResource = [
 
 =====================================output=====================================
 export type SCMRawResource = [
-  number /*handle*/,
-  string /*resourceUri*/,
-  modes.Command /*command*/,
-  string[] /*icons: light, dark*/,
-  boolean /*strike through*/,
-  boolean /*faded*/,
+	number /*handle*/,
+	string /*resourceUri*/,
+	modes.Command /*command*/,
+	string[] /*icons: light, dark*/,
+	boolean /*strike through*/,
+	boolean /*faded*/,
 ];
 
 ================================================================================

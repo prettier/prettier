@@ -63,10 +63,10 @@ var y: CovArrayVerbose<mixed, *> = b;
 y[0] = ""; // error
 
 class NVerbose<E, I: E> {
-  x: CovArrayVerbose<E, I>;
-  foo(): CovArrayVerbose<mixed, I> {
-    return this.x;
-  }
+	x: CovArrayVerbose<E, I>;
+	foo(): CovArrayVerbose<mixed, I> {
+		return this.x;
+	}
 }
 
 var nv: NVerbose<number, *> = new NVerbose();

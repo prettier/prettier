@@ -33,17 +33,17 @@ module.exports = Bar;
 var Qux = require("Qux");
 
 class Bar {
-  y: number;
-  self: Bar;
-  constructor(y: number) {
-    this.y = y;
-    this.self = this;
-  }
+	y: number;
+	self: Bar;
+	constructor(y: number) {
+		this.y = y;
+		this.self = this;
+	}
 
-  bar(z: string, u: string): string {
-    new Qux().w = "?";
-    return z;
-  }
+	bar(z: string, u: string): string {
+		new Qux().w = "?";
+		return z;
+	}
 }
 
 module.exports = Bar;
@@ -91,22 +91,22 @@ var Bar = require("Bar");
 var Qux = require("Qux");
 
 class Foo extends Qux {
-  x: string;
-  constructor(x: string) {
-    this.x = x;
-  }
+	x: string;
+	constructor(x: string) {
+		this.x = x;
+	}
 
-  foo(y: string, z): number {
-    this.x = y;
-    var u = new Foo("...").qux();
-    var v = new Bar(y);
-    v.self = v;
-    return v.bar(z, u);
-  }
+	foo(y: string, z): number {
+		this.x = y;
+		var u = new Foo("...").qux();
+		var v = new Bar(y);
+		v.self = v;
+		return v.bar(z, u);
+	}
 
-  fooqux(x: string) {
-    this.x;
-  }
+	fooqux(x: string) {
+		this.x;
+	}
 }
 
 module.exports = Foo;
@@ -137,13 +137,13 @@ module.exports = Qux;
 /* @providesModule Qux */
 
 class Qux {
-  w: number;
+	w: number;
 
-  qux() {
-    return this.w;
-  }
+	qux() {
+		return this.w;
+	}
 
-  fooqux(x: number) {}
+	fooqux(x: number) {}
 }
 
 module.exports = Qux;

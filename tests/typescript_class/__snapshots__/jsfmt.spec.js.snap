@@ -23,18 +23,18 @@ class A {
 
 =====================================output=====================================
 class foo {
-  constructor(static a: number) {}
+	constructor(static a: number) {}
 }
 
 class foo {
-  constructor(export a: number) {}
+	constructor(export a: number) {}
 }
 
 class A {
-  "constructor": typeof A;
-  static Foo() {
-    return new A();
-  }
+	"constructor": typeof A;
+	static Foo() {
+		return new A();
+	}
 }
 
 ================================================================================
@@ -98,56 +98,56 @@ class ExtendsAbstractClassAndImplementsInterfaces5
 
 =====================================output=====================================
 class Class extends AbstractClass
-  implements Interface1, Interface2, Interface3, Interface4 {}
+	implements Interface1, Interface2, Interface3, Interface4 {}
 
 class ExtendsAbstractClassAndImplementsInterfaces1 extends AbstractClass
-  implements Interface1, Interface2, Interface3, Interface4 {}
+	implements Interface1, Interface2, Interface3, Interface4 {}
 
 class ExtendsAbstractClassAndImplementsInterfaces2
-  extends AAAAAAAAAAAAAAbstractClass
-  implements Interface1, Interface2, Interface3, Interface4 {}
+	extends AAAAAAAAAAAAAAbstractClass
+	implements Interface1, Interface2, Interface3, Interface4 {}
 
 class ExtendsAbstractClassAndImplementsInterfaces3
-  extends AAAAAAAAAAAAAAbstractClass
-  implements
-    Interface1,
-    Interface2,
-    Interface3,
-    Interface4,
-    Interface5,
-    Interface6,
-    Interface7,
-    Interface8 {}
+	extends AAAAAAAAAAAAAAbstractClass
+	implements
+		Interface1,
+		Interface2,
+		Interface3,
+		Interface4,
+		Interface5,
+		Interface6,
+		Interface7,
+		Interface8 {}
 
 class ExtendsAbstractClassAndImplementsInterfaces4 extends AAAAAAAAAAAAAAbstractClass<
-  Type1,
-  Type2,
-  Type3,
-  Type4,
-  Type5,
-  Type6,
-  Type7
+	Type1,
+	Type2,
+	Type3,
+	Type4,
+	Type5,
+	Type6,
+	Type7
 > {}
 
 class ExtendsAbstractClassAndImplementsInterfaces5
-  extends AAAAAAAAAAAAAAbstractClass<
-    Type1,
-    Type2,
-    Type3,
-    Type4,
-    Type5,
-    Type6,
-    Type7
-  >
-  implements
-    Interface1,
-    Interface2,
-    Interface3,
-    Interface4,
-    Interface5,
-    Interface6,
-    Interface7,
-    Interface8 {}
+	extends AAAAAAAAAAAAAAbstractClass<
+		Type1,
+		Type2,
+		Type3,
+		Type4,
+		Type5,
+		Type6,
+		Type7
+	>
+	implements
+		Interface1,
+		Interface2,
+		Interface3,
+		Interface4,
+		Interface5,
+		Interface6,
+		Interface7,
+		Interface8 {}
 
 ================================================================================
 `;
@@ -168,7 +168,7 @@ interface AudioBufferList {
 class<T> implements Map<T> {}
 
 interface AudioBufferList {
-  mBuffers: interop.Reference<any /*AudioBuffer*/>;
+	mBuffers: interop.Reference<any /*AudioBuffer*/>;
 }
 
 ================================================================================
@@ -194,15 +194,15 @@ export class Check {
 
 =====================================output=====================================
 class X {
-  optionalMethod?() {}
+	optionalMethod?() {}
 }
 
 interface Iterable<T> {
-  export [Symbol.iterator](): Iterator<T>;
+	export [Symbol.iterator](): Iterator<T>;
 }
 
 export class Check {
-  private static property = "test";
+	private static property = "test";
 }
 
 ================================================================================
@@ -225,12 +225,12 @@ class A {
 
 =====================================output=====================================
 class X {
-  private foo? = undefined;
-  "a-prop"?: boolean;
+	private foo? = undefined;
+	"a-prop"?: boolean;
 }
 
 class A {
-  protected [s]?() {}
+	protected [s]?() {}
 }
 
 ================================================================================
@@ -248,7 +248,7 @@ class User {
 
 =====================================output=====================================
 class User {
-  "username": string;
+	"username": string;
 }
 
 ================================================================================

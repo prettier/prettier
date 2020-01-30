@@ -45,37 +45,37 @@ printWidth: 80
 
 =====================================output=====================================
 <div class="attribute" {{modifier}} {{! comment}}>
-  Hello
+	Hello
 </div>
 
 <div>
-  Hello
+	Hello
 </div>
 
 <div>
-  hi
+	hi
 </div>
 
 <div>
-  A long enough string to trigger a line break that would prevent wrapping.
+	A long enough string to trigger a line break that would prevent wrapping.
 </div>
 
 <div>
-  A long enough string to trigger a line break that would prevent wrapping more.
+	A long enough string to trigger a line break that would prevent wrapping more.
 </div>
 
 <div>
-  A long enough string to trigger a line break that would prevent wrapping more and more.
+	A long enough string to trigger a line break that would prevent wrapping more and more.
 </div>
 
 <div>
-  {{#block}}
-    {{hello}}
-  {{/block}}
+	{{#block}}
+		{{hello}}
+	{{/block}}
 </div>
 
 <div>
-  {{hello}}
+	{{hello}}
 </div>
 
 <div></div>
@@ -129,37 +129,37 @@ singleQuote: true
 
 =====================================output=====================================
 <div class='attribute' {{modifier}} {{! comment}}>
-  Hello
+	Hello
 </div>
 
 <div>
-  Hello
+	Hello
 </div>
 
 <div>
-  hi
+	hi
 </div>
 
 <div>
-  A long enough string to trigger a line break that would prevent wrapping.
+	A long enough string to trigger a line break that would prevent wrapping.
 </div>
 
 <div>
-  A long enough string to trigger a line break that would prevent wrapping more.
+	A long enough string to trigger a line break that would prevent wrapping more.
 </div>
 
 <div>
-  A long enough string to trigger a line break that would prevent wrapping more and more.
+	A long enough string to trigger a line break that would prevent wrapping more and more.
 </div>
 
 <div>
-  {{#block}}
-    {{hello}}
-  {{/block}}
+	{{#block}}
+		{{hello}}
+	{{/block}}
 </div>
 
 <div>
-  {{hello}}
+	{{hello}}
 </div>
 
 <div></div>

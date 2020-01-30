@@ -37,10 +37,10 @@ foo('bar', cb => {
   console.log('stuff')
 })`;
   expect(
-    prettier.formatWithCursor(code, { parser: "babel", cursorOffset: 24 })
+    prettier.formatWithCursor(code, { parser: "babel", cursorOffset: 25 })
   ).toEqual({
     formatted: `foo("bar", (cb) => {
-  console.log("stuff");
+	console.log("stuff");
 });
 `,
     cursorOffset: 25

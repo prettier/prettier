@@ -15,10 +15,10 @@ function foo() {
 
 =====================================output=====================================
 function foo() {
-  return {
-    // this comment causes the problem
-    bar: baz() + 1,
-  };
+	return {
+		// this comment causes the problem
+		bar: baz() + 1,
+	};
 }
 
 ================================================================================
@@ -36,8 +36,8 @@ const x = {
 
 =====================================output=====================================
 const x = {
-  ABC:
-    "12345678901234567890123456789012345678901234567890123456789012345678901234567890",
+	ABC:
+		"12345678901234567890123456789012345678901234567890123456789012345678901234567890",
 };
 
 ================================================================================
@@ -82,38 +82,38 @@ ipsum\` }
 
 =====================================output=====================================
 const a = classnames({
-  "some-prop": this.state.longLongLongLongLongLongLongLongLongTooLongProp,
+	"some-prop": this.state.longLongLongLongLongLongLongLongLongTooLongProp,
 });
 
 const b = classnames({
-  "some-prop":
-    this.state.longLongLongLongLongLongLongLongLongTooLongProp === true,
+	"some-prop":
+		this.state.longLongLongLongLongLongLongLongLongTooLongProp === true,
 });
 
 const c = classnames({
-  "some-prop": ["foo", "bar", "foo", "bar", "foo", "bar", "foo", "bar", "foo"],
+	"some-prop": ["foo", "bar", "foo", "bar", "foo", "bar", "foo", "bar", "foo"],
 });
 
 const d = classnames({
-  "some-prop": () => {},
+	"some-prop": () => {},
 });
 
 const e = classnames({
-  "some-prop": function bar() {},
+	"some-prop": function bar() {},
 });
 
 const f = classnames({
-  "some-prop": { foo: "bar", bar: "foo", foo: "bar", bar: "foo", foo: "bar" },
+	"some-prop": { foo: "bar", bar: "foo", foo: "bar", bar: "foo", foo: "bar" },
 });
 
 const g = classnames({
-  "some-prop":
-    longLongLongLongLongLongLongLongLongLongLongLongLongTooLongVar || 1337,
+	"some-prop":
+		longLongLongLongLongLongLongLongLongLongLongLongLongTooLongVar || 1337,
 });
 
 const h = {
-  foo: "bar",
-  baz: \`Lorem
+	foo: "bar",
+	baz: \`Lorem
 ipsum\`,
 };
 

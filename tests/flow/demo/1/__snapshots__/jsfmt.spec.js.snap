@@ -19,7 +19,7 @@ f(x);
 /* demo */
 
 function f(x) {
-  return 42 / x;
+	return 42 / x;
 }
 
 var x = null;

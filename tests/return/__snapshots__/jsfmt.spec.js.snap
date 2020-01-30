@@ -32,27 +32,27 @@ function f() {
 
 =====================================output=====================================
 function f() {
-  return (
-    property.isIdentifier() &&
-    FUNCTIONS[property.node.name] &&
-    (object.isIdentifier(JEST_GLOBAL) ||
-      (callee.isMemberExpression() && shouldHoistExpression(object))) &&
-    FUNCTIONS[property.node.name](expr.get("arguments"))
-  );
+	return (
+		property.isIdentifier() &&
+		FUNCTIONS[property.node.name] &&
+		(object.isIdentifier(JEST_GLOBAL) ||
+			(callee.isMemberExpression() && shouldHoistExpression(object))) &&
+		FUNCTIONS[property.node.name](expr.get("arguments"))
+	);
 
-  return (
-    chalk.bold("No tests found related to files changed since last commit.\\n") +
-    chalk.dim(
-      patternInfo.watch
-        ? "Press \`a\` to run all tests, or run Jest with \`--watchAll\`."
-        : "Run Jest without \`-o\` to run all tests."
-    )
-  );
+	return (
+		chalk.bold("No tests found related to files changed since last commit.\\n") +
+		chalk.dim(
+			patternInfo.watch
+				? "Press \`a\` to run all tests, or run Jest with \`--watchAll\`."
+				: "Run Jest without \`-o\` to run all tests."
+		)
+	);
 
-  return (
-    !filePath.includes(coverageDirectory) &&
-    !filePath.endsWith(\`.\${SNAPSHOT_EXTENSION}\`)
-  );
+	return (
+		!filePath.includes(coverageDirectory) &&
+		!filePath.endsWith(\`.\${SNAPSHOT_EXTENSION}\`)
+	);
 }
 
 ================================================================================
@@ -108,45 +108,45 @@ fn(function f() {
 
 =====================================output=====================================
 function f() {
-  return /* a */;
+	return /* a */;
 }
 
 function f() {
-  return; // a
+	return; // a
 }
 
 function f() {
-  return // a
-  /* b */;
+	return // a
+	/* b */;
 }
 
 function f() {
-  return; /* a */
-  // b
+	return; /* a */
+	// b
 }
 
 function x() {
-  return (
-    func2
-      //comment
-      .bar()
-  );
+	return (
+		func2
+			//comment
+			.bar()
+	);
 }
 
 function f() {
-  return (
-    foo
-      // comment
-      .bar()
-  );
+	return (
+		foo
+			// comment
+			.bar()
+	);
 }
 
 fn(function f() {
-  return (
-    foo
-      // comment
-      .bar()
-  );
+	return (
+		foo
+			// comment
+			.bar()
+	);
 });
 
 ================================================================================

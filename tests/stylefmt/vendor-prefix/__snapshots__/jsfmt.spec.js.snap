@@ -14,8 +14,8 @@ printWidth: 80
 
 =====================================output=====================================
 .class {
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 ================================================================================

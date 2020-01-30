@@ -583,7 +583,7 @@ exports[`show detailed usage with --help use-tabs (stdout) 1`] = `
 
   Indent with tabs instead of spaces.
 
-Default: false
+Default: true
 "
 `;
 

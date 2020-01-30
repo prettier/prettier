@@ -71,63 +71,63 @@ fragment frag on Friend {
 # LICENSE file in the root directory of this source tree.
 
 query queryName($foo: ComplexType, $site: Site = MOBILE) {
-  whoever123is: node(id: [123, 456]) {
-    id
-    ... on User @defer {
-      field2 {
-        id
-        alias: field1(first: 10, after: $foo) @include(if: $foo) {
-          id
-          ...frag
-        }
-      }
-    }
-    ... @skip(unless: $foo) {
-      id
-    }
-    ... {
-      id
-    }
-  }
+	whoever123is: node(id: [123, 456]) {
+		id
+		... on User @defer {
+			field2 {
+				id
+				alias: field1(first: 10, after: $foo) @include(if: $foo) {
+					id
+					...frag
+				}
+			}
+		}
+		... @skip(unless: $foo) {
+			id
+		}
+		... {
+			id
+		}
+	}
 }
 
 mutation likeStory {
-  like(story: 123) @defer {
-    story {
-      id
-    }
-  }
+	like(story: 123) @defer {
+		story {
+			id
+		}
+	}
 }
 
 subscription StoryLikeSubscription($input: StoryLikeSubscribeInput) {
-  storyLikeSubscribe(input: $input) {
-    story {
-      likers {
-        count
-      }
-      likeSentence {
-        text
-      }
-    }
-  }
+	storyLikeSubscribe(input: $input) {
+		story {
+			likers {
+				count
+			}
+			likeSentence {
+				text
+			}
+		}
+	}
 }
 
 fragment frag on Friend {
-  foo(
-    size: $size
-    bar: $b
-    obj: {
-      key: "value"
-      block: """
-      block string uses \\"""
-      """
-    }
-  )
+	foo(
+		size: $size
+		bar: $b
+		obj: {
+			key: "value"
+			block: """
+			block string uses \\"""
+			"""
+		}
+	)
 }
 
 {
-  unnamed(truthy: true, falsey: false, nullish: null)
-  query
+	unnamed(truthy: true, falsey: false, nullish: null)
+	query
 }
 
 ================================================================================
@@ -267,8 +267,8 @@ directive @include2(if: Boolean!) on
 # LICENSE file in the root directory of this source tree.
 
 schema {
-  query: QueryType
-  mutation: MutationType
+	query: QueryType
+	mutation: MutationType
 }
 
 """
@@ -276,23 +276,23 @@ This is a description
 of the \`Foo\` type.
 """
 type Foo implements Bar {
-  one: Type
-  two(argument: InputType!): Type
-  three(argument: InputType, other: String): Int
-  four(argument: String = "string"): String
-  five(argument: [String] = ["string", "string"]): String
-  six(argument: InputType = { key: "value" }): Type
-  seven(argument: Int = null): Type
+	one: Type
+	two(argument: InputType!): Type
+	three(argument: InputType, other: String): Int
+	four(argument: String = "string"): String
+	five(argument: [String] = ["string", "string"]): String
+	six(argument: InputType = { key: "value" }): Type
+	seven(argument: Int = null): Type
 }
 
 type AnnotatedObject @onObject(arg: "value") {
-  annotatedField(arg: Type = "default" @onArg): Type @onField
+	annotatedField(arg: Type = "default" @onArg): Type @onField
 }
 
 type UndefinedType
 
 extend type Foo {
-  seven(argument: [String]): Type
+	seven(argument: [String]): Type
 }
 
 extend type Foo @onType
@@ -301,18 +301,18 @@ extend type Foo @onType
 This is a description
 """
 interface Bar {
-  one: Type
-  four(argument: String = "string"): String
+	one: Type
+	four(argument: String = "string"): String
 }
 
 interface AnnotatedInterface @onInterface {
-  annotatedField(arg: Type @onArg): Type @onField
+	annotatedField(arg: Type @onArg): Type @onField
 }
 
 interface UndefinedInterface
 
 extend interface Bar {
-  two(argument: InputType!): Type
+	two(argument: InputType!): Type
 }
 
 extend interface Bar @onInterface
@@ -336,36 +336,36 @@ scalar AnnotatedScalar @onScalar
 extend scalar CustomScalar @onScalar
 
 enum Site {
-  DESKTOP
-  MOBILE
+	DESKTOP
+	MOBILE
 }
 
 enum AnnotatedEnum @onEnum {
-  ANNOTATED_VALUE @onEnumValue
-  OTHER_VALUE
+	ANNOTATED_VALUE @onEnumValue
+	OTHER_VALUE
 }
 
 enum UndefinedEnum
 
 extend enum Site {
-  VR
+	VR
 }
 
 extend enum Site @onEnum
 
 input InputType {
-  key: String!
-  answer: Int = 42
+	key: String!
+	answer: Int = 42
 }
 
 input AnnotatedInput @onInputObject {
-  annotatedField: Type @onField
+	annotatedField: Type @onField
 }
 
 input UndefinedInput
 
 extend input InputType {
-  other: Float = 1.23e4
+	other: Float = 1.23e4
 }
 
 extend input InputType @onInputObject

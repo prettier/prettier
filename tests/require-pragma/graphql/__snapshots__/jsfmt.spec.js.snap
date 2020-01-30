@@ -15,7 +15,7 @@ query Browse($offset:Int){browse(offset:$offset)}
 # @prettier
 
 query Browse($offset: Int) {
-  browse(offset: $offset)
+	browse(offset: $offset)
 }
 
 ================================================================================

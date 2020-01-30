@@ -39,36 +39,36 @@ function parseTimeframe(line: string): { begin: number; end: number } {
 
 =====================================output=====================================
 function parseTimestamp(timestamp: string): number {
-  return 0;
+	return 0;
 }
 
 function parseCounter(line: string): number {
-  return 0;
+	return 0;
 }
 
 function parseGroup(
-  lines: Array<string>
+	lines: Array<string>
 ): {
-  counter: number,
-  begin: number,
-  end: number,
-  text: string,
+	counter: number,
+	begin: number,
+	end: number,
+	text: string,
 } {
-  var counter = parseCounter(lines[0]);
-  var timeframe = parseTimeframe(lines[1]);
-  return {
-    counter,
-    ...timeframe,
-    text: lines[2],
-  };
+	var counter = parseCounter(lines[0]);
+	var timeframe = parseTimeframe(lines[1]);
+	return {
+		counter,
+		...timeframe,
+		text: lines[2],
+	};
 }
 
 function parseTimeframe(line: string): { begin: number, end: number } {
-  var timestamps = line.split("-->");
-  return {
-    begin: parseTimestamp(timestamps[0].trim()),
-    end: parseTimestamp(timestamps[1].trim()),
-  };
+	var timestamps = line.split("-->");
+	return {
+		begin: parseTimestamp(timestamps[0].trim()),
+		end: parseTimestamp(timestamps[1].trim()),
+	};
 }
 
 ================================================================================
@@ -96,7 +96,7 @@ foo({foo: 42});
  */
 
 function foo(o) {
-  bar({ ...o });
+	bar({ ...o });
 }
 function bar(_: { foo: number }) {}
 foo({ foo: 42 });
@@ -132,9 +132,9 @@ var t: boolean = s.y; // error, string or number
 var p = { y: "" };
 var q = { z: "" };
 var o = {
-  x: 5,
-  ...p,
-  ...q,
+	x: 5,
+	...p,
+	...q,
 };
 var y: number = o.y;
 var z: number = o.z;
@@ -142,8 +142,8 @@ var z: number = o.z;
 // test conflicting keys (they get unioned)
 var r = { y: 123 };
 var s = {
-  ...p,
-  ...r,
+	...p,
+	...r,
 };
 var t: boolean = s.y; // error, string or number
 
@@ -206,8 +206,8 @@ function test(
 /* @flow */
 
 declare function map<Tv, TNext>(
-  obj: { [key: string]: Tv },
-  iterator: (obj: Tv) => TNext
+	obj: { [key: string]: Tv },
+	iterator: (obj: Tv) => TNext
 ): Array<TNext>;
 
 /**
@@ -217,16 +217,16 @@ declare function map<Tv, TNext>(
  * result is a new object.
  */
 function test(
-  x: { kind: ?string },
-  kinds: { [key: string]: string }
+	x: { kind: ?string },
+	kinds: { [key: string]: string }
 ): Array<{ kind: ?string }> {
-  return map(kinds, (value) => {
-    (value: string); // OK
-    return {
-      ...x,
-      kind: value,
-    };
-  });
+	return map(kinds, (value) => {
+		(value: string); // OK
+		return {
+			...x,
+			kind: value,
+		};
+	});
 }
 
 ================================================================================
@@ -261,23 +261,23 @@ for (var i = 0; i < 10; i++) {
 
 =====================================output=====================================
 var o = {
-  foo: "bar",
+	foo: "bar",
 };
 o = { ...o };
 (o: { foo: string });
 
 var p = {
-  foo: "bar",
+	foo: "bar",
 };
 (p: { foo: string, abc: string }); // error, p doesn't have \`abc\` yet
 p = { ...p, abc: "def" };
 (p: { foo: string, abc: string });
 
 var q = {
-  foo: "bar",
+	foo: "bar",
 };
 for (var i = 0; i < 10; i++) {
-  q = { ...q };
+	q = { ...q };
 }
 (q: { foo: string });
 
@@ -303,10 +303,10 @@ let tests = [
 // @flow
 
 let tests = [
-  function (x: Object) {
-    ({ ...x }: Object);
-    ({ ...x }: void); // error, Object
-  },
+	function (x: Object) {
+		({ ...x }: Object);
+		({ ...x }: void); // error, Object
+	},
 ];
 
 ================================================================================

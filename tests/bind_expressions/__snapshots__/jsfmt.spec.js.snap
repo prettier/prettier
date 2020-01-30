@@ -13,8 +13,8 @@ const doBothThings = async () => {
 
 =====================================output=====================================
 const doBothThings = async () => {
-  const request = doAsyncThing();
-  return (await request)::doSyncThing();
+	const request = doAsyncThing();
+	return (await request)::doSyncThing();
 };
 
 ================================================================================
@@ -34,8 +34,8 @@ const doBothThings = async () => {
 
 =====================================output=====================================
 const doBothThings = async () => {
-  const request = doAsyncThing()
-  return (await request)::doSyncThing()
+	const request = doAsyncThing()
+	return (await request)::doSyncThing()
 }
 
 ================================================================================
@@ -219,14 +219,14 @@ class X {
 }
 =====================================output=====================================
 class X {
-  constructor() {
-    this.testLongNameMethodAndSomethingElseLallala =
-      ::this.testLongNameMethodAndSomethingElseLallala;
-  }
+	constructor() {
+		this.testLongNameMethodAndSomethingElseLallala =
+			::this.testLongNameMethodAndSomethingElseLallala;
+	}
 
-  testLongNameMethodAndSomethingElseLallala() {
-    return true;
-  }
+	testLongNameMethodAndSomethingElseLallala() {
+		return true;
+	}
 }
 
 ================================================================================
@@ -250,14 +250,14 @@ class X {
 }
 =====================================output=====================================
 class X {
-  constructor() {
-    this.testLongNameMethodAndSomethingElseLallala =
-      ::this.testLongNameMethodAndSomethingElseLallala
-  }
+	constructor() {
+		this.testLongNameMethodAndSomethingElseLallala =
+			::this.testLongNameMethodAndSomethingElseLallala
+	}
 
-  testLongNameMethodAndSomethingElseLallala() {
-    return true
-  }
+	testLongNameMethodAndSomethingElseLallala() {
+		return true
+	}
 }
 
 ================================================================================
@@ -296,14 +296,14 @@ import { throttle } from "rxjs/operator/throttle";
 import { takeUntil } from "rxjs/operator/takeUntil";
 
 function test(observable) {
-  return observable
-    ::filter((data) => data.someTest)
-    ::throttle(() =>
-      interval(10)
-        ::take(1)
-        ::takeUntil(observable::filter((data) => someOtherTest))
-    )
-    ::map(someFunction);
+	return observable
+		::filter((data) => data.someTest)
+		::throttle(() =>
+			interval(10)
+				::take(1)
+				::takeUntil(observable::filter((data) => someOtherTest))
+		)
+		::map(someFunction);
 }
 
 ================================================================================
@@ -343,14 +343,14 @@ import { throttle } from "rxjs/operator/throttle"
 import { takeUntil } from "rxjs/operator/takeUntil"
 
 function test(observable) {
-  return observable
-    ::filter((data) => data.someTest)
-    ::throttle(() =>
-      interval(10)
-        ::take(1)
-        ::takeUntil(observable::filter((data) => someOtherTest))
-    )
-    ::map(someFunction)
+	return observable
+		::filter((data) => data.someTest)
+		::throttle(() =>
+			interval(10)
+				::take(1)
+				::takeUntil(observable::filter((data) => someOtherTest))
+		)
+		::map(someFunction)
 }
 
 ================================================================================
@@ -373,13 +373,13 @@ class X {
 }
 =====================================output=====================================
 class X {
-  constructor() {
-    this.shortMethod = ::this.shortMethod;
-  }
+	constructor() {
+		this.shortMethod = ::this.shortMethod;
+	}
 
-  shortMethod() {
-    return true;
-  }
+	shortMethod() {
+		return true;
+	}
 }
 
 ================================================================================
@@ -403,13 +403,13 @@ class X {
 }
 =====================================output=====================================
 class X {
-  constructor() {
-    this.shortMethod = ::this.shortMethod
-  }
+	constructor() {
+		this.shortMethod = ::this.shortMethod
+	}
 
-  shortMethod() {
-    return true
-  }
+	shortMethod() {
+		return true
+	}
 }
 
 ================================================================================
@@ -441,15 +441,15 @@ printWidth: 80
 !(x::y /* foo */);
 !(/* foo */ x::y);
 !(
-  /* foo */
-  x::y
+	/* foo */
+	x::y
 );
 !(
-  x::y
-  /* foo */
+	x::y
+	/* foo */
 );
 !(
-  x::y // foo
+	x::y // foo
 );
 
 ================================================================================
@@ -482,15 +482,15 @@ semi: false
 !(x::y /* foo */)
 !(/* foo */ x::y)
 !(
-  /* foo */
-  x::y
+	/* foo */
+	x::y
 )
 !(
-  x::y
-  /* foo */
+	x::y
+	/* foo */
 )
 !(
-  x::y // foo
+	x::y // foo
 )
 
 ================================================================================

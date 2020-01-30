@@ -73,7 +73,7 @@ class a2 extends (b = c) {}
 
 // "AwaitExpression"
 async function f() {
-  class a extends (await b) {}
+	class a extends (await b) {}
 }
 
 // "BinaryExpression"
@@ -117,8 +117,8 @@ class a15 extends (++b) {}
 
 // "YieldExpression"
 function *f2() {
-  // Flow has a bug parsing it.
-  // class a extends (yield 1) {}
+	// Flow has a bug parsing it.
+	// class a extends (yield 1) {}
 }
 
 x = class extends (++b) {};

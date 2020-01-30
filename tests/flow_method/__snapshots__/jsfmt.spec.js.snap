@@ -15,10 +15,10 @@ type Foo = {
 
 =====================================output=====================================
 type Foo = {
-  method(
-    arg: number, // I belong with baz
-    qux: string
-  ): void,
+	method(
+		arg: number, // I belong with baz
+		qux: string
+	): void,
 };
 
 ================================================================================
@@ -49,18 +49,18 @@ interface I {
 type T = { method: () => void };
 type T2 = { method(): void };
 declare class X {
-  method(): void;
+	method(): void;
 }
 declare function f(): void;
 var f: () => void;
 
 declare class X {
-  static deserialize(): mixed;
-  static deserialize: () => mixed;
+	static deserialize(): mixed;
+	static deserialize: () => mixed;
 }
 
 interface I {
-  static(): number;
+	static(): number;
 }
 
 ================================================================================

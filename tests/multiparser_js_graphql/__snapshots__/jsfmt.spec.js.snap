@@ -18,13 +18,13 @@ const query = /* GraphQL */\`
 
 =====================================output=====================================
 const query = /* GraphQL */ \`
-  {
-    user(id: 5) {
-      firstName
+	{
+		user(id: 5) {
+			firstName
 
-      lastName
-    }
-  }
+			lastName
+		}
+	}
 \`;
 
 ================================================================================
@@ -48,13 +48,13 @@ graphql\`
 
 =====================================output=====================================
 graphql\`
-  fragment x on y {
-    z
-  }
+	fragment x on y {
+		z
+	}
 
-  fragment a on b {
-    c
-  }
+	fragment a on b {
+		c
+	}
 \`;
 
 ================================================================================
@@ -110,28 +110,28 @@ gql\`
 
 =====================================output=====================================
 gql\`
-  "\\\`foo\\\` mutation payload."
-  type FooPayload {
-    bar: String
-  }
+	"\\\`foo\\\` mutation payload."
+	type FooPayload {
+		bar: String
+	}
 \`;
 
 gql\`
-  type Project {
-    "Pattern: \\\`\\\${project}\\\`"
-    pattern: String
-    """
-    Pattern: \\\`\\\${project}\\\`
-    """
-    pattern: String
+	type Project {
+		"Pattern: \\\`\\\${project}\\\`"
+		pattern: String
+		"""
+		Pattern: \\\`\\\${project}\\\`
+		"""
+		pattern: String
 
-    # Also: Escaping the first parentheses...
-    "Pattern: \\\`\\\${project}\\\`"
-    pattern: String
-    # Or escaping the first and second parentheses...
-    "Pattern: \\\`\\\${project}\\\`"
-    pattern: String
-  }
+		# Also: Escaping the first parentheses...
+		"Pattern: \\\`\\\${project}\\\`"
+		pattern: String
+		# Or escaping the first and second parentheses...
+		"Pattern: \\\`\\\${project}\\\`"
+		pattern: String
+	}
 \`;
 
 gql\`
@@ -178,27 +178,27 @@ query allPartsByManufacturerName($name: String!) {
 
 =====================================output=====================================
 graphql(
-  schema,
-  \`
-    query allPartsByManufacturerName($name: String!) {
-      allParts(filter: { manufacturer: { name: $name } }) {
-        ...PartAll
-      }
-    }
-    \${fragments.all}
-  \`
+	schema,
+	\`
+		query allPartsByManufacturerName($name: String!) {
+			allParts(filter: { manufacturer: { name: $name } }) {
+				...PartAll
+			}
+		}
+		\${fragments.all}
+	\`
 );
 
 const veryLongVariableNameToMakeTheLineBreak = graphql(
-  schema,
-  \`
-    query allPartsByManufacturerName($name: String!) {
-      allParts(filter: { manufacturer: { name: $name } }) {
-        ...PartAll
-      }
-    }
-    \${fragments.all}
-  \`
+	schema,
+	\`
+		query allPartsByManufacturerName($name: String!) {
+			allParts(filter: { manufacturer: { name: $name } }) {
+				...PartAll
+			}
+		}
+		\${fragments.all}
+	\`
 );
 
 ================================================================================
@@ -219,16 +219,16 @@ mutation     MarkReadNotificationMutation(
 
 =====================================output=====================================
 graphql(
-  schema,
-  \`
-    mutation MarkReadNotificationMutation($input: MarkReadNotificationData!) {
-      markReadNotification(data: $input) {
-        notification {
-          seenState
-        }
-      }
-    }
-  \`
+	schema,
+	\`
+		mutation MarkReadNotificationMutation($input: MarkReadNotificationData!) {
+			markReadNotification(data: $input) {
+				notification {
+					seenState
+				}
+			}
+		}
+	\`
 );
 
 ================================================================================
@@ -403,27 +403,27 @@ fragment another on User { name
 import gql from "graphql-tag";
 
 const query = gql\`
-  {
-    user(id: 5) {
-      firstName
+	{
+		user(id: 5) {
+			firstName
 
-      lastName
-    }
-  }
+			lastName
+		}
+	}
 \`;
 
 // With interpolations:
 
 gql\`
-  query User {
-    user(id: 5) {
-      ...UserDetails
-      ...Friends
-    }
-  }
+	query User {
+		user(id: 5) {
+			...UserDetails
+			...Friends
+		}
+	}
 
-  \${USER_DETAILS_FRAGMENT}
-  \${FRIENDS_FRAGMENT}
+	\${USER_DETAILS_FRAGMENT}
+	\${FRIENDS_FRAGMENT}
 \`;
 
 // Skip if non-toplevel interpolation:
@@ -446,12 +446,12 @@ query User {
 // Comment on last line:
 
 gql\`
-  query User {
-    user(id: 5) {
-      name
-    }
-  }
-  # comment
+	query User {
+		user(id: 5) {
+			name
+		}
+	}
+	# comment
 \`;
 // \` <-- editor syntax highlighting workaround
 
@@ -459,47 +459,47 @@ gql\`
 // interpolations:
 
 gql\`
-  # comment
-  \${one}
-  \${two}
-  \${three}
-  \${four}
+	# comment
+	\${one}
+	\${two}
+	\${three}
+	\${four}
 
-  \${five}
-  # comment
-  \${six}
+	\${five}
+	# comment
+	\${six}
 
-  # comment
-  \${seven}
-  # comment
+	# comment
+	\${seven}
+	# comment
 
-  \${eight}
+	\${eight}
 
-  # comment with trailing whitespace
+	# comment with trailing whitespace
 
-  # blank line above this comment
+	# blank line above this comment
 \`;
 
 // Interpolation directly before and after query:
 
 gql\`
-  \${one}
-  query Test {
-    test
-  }
-  \${two}
+	\${one}
+	query Test {
+		test
+	}
+	\${two}
 \`;
 
 // Only interpolation:
 
 gql\`
-  \${test}
+	\${test}
 \`;
 
 // Only comment:
 
 gql\`
-  # comment
+	# comment
 \`;
 // \` <-- editor syntax highlighting workaround
 
@@ -516,52 +516,52 @@ gql\`\`;
 // We might want to keep them on the next line in the future.
 
 gql\`
-  \${test}
-  # comment
+	\${test}
+	# comment
 
-  query Test {
-    # comment
-    test # comment
-  } # comment
-  \${test}
-  # comment
-  \${test}
-  # comment
+	query Test {
+		# comment
+		test # comment
+	} # comment
+	\${test}
+	# comment
+	\${test}
+	# comment
 
-  \${test}
-  # comment
+	\${test}
+	# comment
 
-  # comment
-  \${test}
-  # comment
+	# comment
+	\${test}
+	# comment
 \`;
 
 // Larger mixed test:
 
 gql\`
-  query User {
-    test
-  }
+	query User {
+		test
+	}
 
-  \${USER_DETAILS_FRAGMENT}
+	\${USER_DETAILS_FRAGMENT}
 
-  # Comment
-  # that continues on a new line
+	# Comment
+	# that continues on a new line
 
-  # and has a blank line in the middle
+	# and has a blank line in the middle
 
-  \${FRIENDS_FRAGMENT}
-  \${generateFragment({
-    totally: "a good idea",
-  })}
+	\${FRIENDS_FRAGMENT}
+	\${generateFragment({
+		totally: "a good idea",
+	})}
 
-  \${fragment}
-  #comment
+	\${fragment}
+	#comment
 
-  fragment another on User {
-    name
-  }
-  \${fragment}
+	fragment another on User {
+		name
+	}
+	\${fragment}
 \`;
 
 ================================================================================
@@ -651,23 +651,23 @@ graphql.experimental\`
 const { graphql } = require("react-relay");
 
 graphql\`
-  mutation MarkReadNotificationMutation($input: MarkReadNotificationData!) {
-    markReadNotification(data: $input) {
-      notification {
-        seenState
-      }
-    }
-  }
+	mutation MarkReadNotificationMutation($input: MarkReadNotificationData!) {
+		markReadNotification(data: $input) {
+			notification {
+				seenState
+			}
+		}
+	}
 \`;
 
 graphql.experimental\`
-  mutation MarkReadNotificationMutation($input: MarkReadNotificationData!) {
-    markReadNotification(data: $input) {
-      notification {
-        seenState
-      }
-    }
-  }
+	mutation MarkReadNotificationMutation($input: MarkReadNotificationData!) {
+		markReadNotification(data: $input) {
+			notification {
+				seenState
+			}
+		}
+	}
 \`;
 
 ================================================================================

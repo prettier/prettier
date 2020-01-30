@@ -18,12 +18,12 @@ printWidth: 80
 
 =====================================output=====================================
 {
-  // goto emulation
-  inf_leave: for (;;) {}
+	// goto emulation
+	inf_leave: for (;;) {}
 }
 {
-  // goto emulation
-  inf_leave: for (;;) {}
+	// goto emulation
+	inf_leave: for (;;) {}
 }
 
 ================================================================================

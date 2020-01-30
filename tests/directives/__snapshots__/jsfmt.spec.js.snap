@@ -202,24 +202,24 @@ function f4() {
 "use strict";
 
 function f1() {
-  "use strict";
+	"use strict";
 }
 
 function f2() {
-  "ngInject";
-  Object.assign(this, { $log, $uibModal });
+	"ngInject";
+	Object.assign(this, { $log, $uibModal });
 }
 
 function f3() {
-  "ngInject";
+	"ngInject";
 
-  Object.assign(this, { $log, $uibModal });
+	Object.assign(this, { $log, $uibModal });
 }
 
 function f4() {
-  "ngInject";
+	"ngInject";
 
-  Object.assign(this, { $log, $uibModal });
+	Object.assign(this, { $log, $uibModal });
 }
 
 ================================================================================

@@ -4,6 +4,7 @@ exports[`indent.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
+useTabs: false
                                                                                 | printWidth
 =====================================input======================================
 \`
@@ -71,7 +72,6 @@ exports[`indent.js 2`] = `
 parsers: ["flow", "typescript"]
 printWidth: 80
 tabWidth: 8
-useTabs: true
                                                                                 | printWidth
 =====================================input======================================
 \`

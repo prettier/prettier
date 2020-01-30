@@ -16,11 +16,11 @@ graphql.experimental\`
 
 =====================================output=====================================
 graphql.experimental\`
-  # required by createPaginationContainer
-  fragment MobileHomeDiffsSearchList_search on DifferentialRevisionSearch {
-    # required by createPaginationContainer
-    name
-  }
+	# required by createPaginationContainer
+	fragment MobileHomeDiffsSearchList_search on DifferentialRevisionSearch {
+		# required by createPaginationContainer
+		name
+	}
 \`;
 
 ================================================================================

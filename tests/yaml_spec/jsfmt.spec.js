@@ -1,2 +1,2 @@
-run_spec(__dirname, ["yaml"], { useTabs: true });
-run_spec(__dirname, ["yaml"], { proseWrap: "always" });
+run_spec(__dirname, ["yaml"]);
+run_spec(__dirname, ["yaml"], { useTabs: false, proseWrap: "always" });

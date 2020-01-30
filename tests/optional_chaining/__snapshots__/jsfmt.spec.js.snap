@@ -113,9 +113,9 @@ a?.b?.c.d?.e;
 (list || list2)?.[list || list2];
 
 async function HelloWorld() {
-  var x = (await foo.bar.blah)?.hi;
-  a?.[await b];
-  (await x)?.();
+	var x = (await foo.bar.blah)?.hi;
+	a?.[await b];
+	(await x)?.();
 }
 
 a[b?.c].d();
@@ -146,9 +146,9 @@ a?.[b ? c : d];
 (() => f)?.x;
 (a?.(x)).x;
 (
-  aaaaaaaaaaaaaaaaaaaaaaaa &&
-  aaaaaaaaaaaaaaaaaaaaaaaa &&
-  aaaaaaaaaaaaaaaaaaaaaaaa
+	aaaaaaaaaaaaaaaaaaaaaaaa &&
+	aaaaaaaaaaaaaaaaaaaaaaaa &&
+	aaaaaaaaaaaaaaaaaaaaaaaa
 )?.();
 
 let f = () => ({}?.());
@@ -225,53 +225,53 @@ foo.bar.baz
 
 =====================================output=====================================
 function foo() {
-  return (
-    a
-      .b()
-      .c()
-      // Comment
-      ?.d()
-  );
+	return (
+		a
+			.b()
+			.c()
+			// Comment
+			?.d()
+	);
 }
 
 fooBar
-  .doSomething("Hello World")
-  .doAnotherThing("Foo", { foo: bar })
+	.doSomething("Hello World")
+	.doAnotherThing("Foo", { foo: bar })
 
-  // App configuration.
-  .doOneMoreThing(config)
+	// App configuration.
+	.doOneMoreThing(config)
 
-  ?.run(() => console.log("Bar"));
+	?.run(() => console.log("Bar"));
 
 bigDeal
 
-  .doSomething("Hello World")
+	.doSomething("Hello World")
 
-  // Hello world
-  ?.doAnotherThing("Foo", { foo: bar })
+	// Hello world
+	?.doAnotherThing("Foo", { foo: bar })
 
-  // App configuration.
-  .doOneMoreThing(config)
+	// App configuration.
+	.doOneMoreThing(config)
 
-  ?.run(() => console.log("Bar"));
+	?.run(() => console.log("Bar"));
 
 foo.bar.baz
 
-  ?.doSomething("Hello World")
+	?.doSomething("Hello World")
 
-  // Hello world
-  .foo.bar.doAnotherThing("Foo", { foo: bar })
+	// Hello world
+	.foo.bar.doAnotherThing("Foo", { foo: bar })
 
-  .doOneMoreThing(config)
-  ?.bar.run(() => console.log("Bar"));
+	.doOneMoreThing(config)
+	?.bar.run(() => console.log("Bar"));
 
 (somethingGood ? thisIsIt : maybeNot)
 
-  // Hello world
-  .doSomething("Hello World")
+	// Hello world
+	.doSomething("Hello World")
 
-  ?.doAnotherThing("Foo", { foo: bar }) // Run this
-  .run(() => console.log("Bar")); // Do this
+	?.doAnotherThing("Foo", { foo: bar }) // Run this
+	.run(() => console.log("Bar")); // Do this
 
 ================================================================================
 `;

@@ -40,21 +40,21 @@ printWidth: 80
 
 =====================================output=====================================
 <style type="text/less">
-  @nice-blue: #5B83AD;
-  @light-blue: @nice-blue + #111;
+	@nice-blue: #5B83AD;
+	@light-blue: @nice-blue + #111;
 
-  #header {
-    color: @light-blue;
-  }
+	#header {
+		color: @light-blue;
+	}
 </style>
 
 <style lang="less">
-  @nice-blue: #5b83ad;
-  @light-blue: @nice-blue + #111;
+	@nice-blue: #5b83ad;
+	@light-blue: @nice-blue + #111;
 
-  #header {
-    color: @light-blue;
-  }
+	#header {
+		color: @light-blue;
+	}
 </style>
 
 ================================================================================
@@ -76,17 +76,17 @@ printWidth: 80
 
 =====================================output=====================================
 <style type="text/css">
-  body {
-    background: navy;
-    color: yellow;
-  }
+	body {
+		background: navy;
+		color: yellow;
+	}
 </style>
 
 <style lang="postcss">
-  body {
-    background: navy;
-    color: yellow;
-  }
+	body {
+		background: navy;
+		color: yellow;
+	}
 </style>
 
 ================================================================================
@@ -133,36 +133,36 @@ printWidth: 80
 
 =====================================output=====================================
 <style type="text/x-scss">
-  $font-stack: Helvetica, sans-serif;
-  $primary-color: #333;
+	$font-stack: Helvetica, sans-serif;
+	$primary-color: #333;
 
-  body {
-    font: 100% $font-stack;
-    color: $primary-color;
-  }
+	body {
+		font: 100% $font-stack;
+		color: $primary-color;
+	}
 </style>
 
 <style lang="scss">
-  $font-stack: Helvetica, sans-serif;
-  $primary-color: #333;
+	$font-stack: Helvetica, sans-serif;
+	$primary-color: #333;
 
-  body {
-    font: 100% $font-stack;
-    color: $primary-color;
-  }
+	body {
+		font: 100% $font-stack;
+		color: $primary-color;
+	}
 </style>
 
 <style lang="scss">
-  .someElement {
-    @include bp-medium {
-      display: flex;
-    }
+	.someElement {
+		@include bp-medium {
+			display: flex;
+		}
 
-    @include bp-large {
-      margin-top: 10px;
-      margin-bottom: 10px;
-    }
-  }
+		@include bp-large {
+			margin-top: 10px;
+			margin-bottom: 10px;
+		}
+	}
 </style>
 
 ================================================================================
@@ -192,24 +192,24 @@ printWidth: 80
 =====================================output=====================================
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Sample styled page</title>
-    <style>
-      a {
-        color: red;
-      }
-    </style>
-    <style>
-      body {
-        background: navy;
-        color: yellow;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>Sample styled page</h1>
-    <p>This page is just a demo.</p>
-  </body>
+	<head>
+		<title>Sample styled page</title>
+		<style>
+			a {
+				color: red;
+			}
+		</style>
+		<style>
+			body {
+				background: navy;
+				color: yellow;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Sample styled page</h1>
+		<p>This page is just a demo.</p>
+	</body>
 </html>
 
 ================================================================================
@@ -232,16 +232,16 @@ printWidth: 80
 
 =====================================output=====================================
 <style>
-  a {
-    color: red;
-  }
+	a {
+		color: red;
+	}
 </style>
 <style>
-  h1 {
-    font-size: 120%;
-    font-family: Verdana, Arial, Helvetica, sans-serif;
-    color: #333366;
-  }
+	h1 {
+		font-size: 120%;
+		font-family: Verdana, Arial, Helvetica, sans-serif;
+		color: #333366;
+	}
 </style>
 
 ================================================================================

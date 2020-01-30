@@ -19,12 +19,12 @@ directive @dir(
 
 =====================================output=====================================
 directive @dir(
-  # comment
-  arg1: String
+	# comment
+	arg1: String
 
-  # comment
-  arg2: String
-  arg3: String
+	# comment
+	arg2: String
+	arg3: String
 ) on QUERY
 
 ================================================================================
@@ -56,23 +56,23 @@ query MyQuery @directive(
 
 =====================================output=====================================
 query MyQuery
-  @directive(
-    arg: 5
+	@directive(
+		arg: 5
 
-    # comment
-    arg2: 10
-  ) {
-  field
-    @skip(
-      if: true
+		# comment
+		arg2: 10
+	) {
+	field
+		@skip(
+			if: true
 
-      # comment
-      cursor: 10
-    )
-    @nope
-  otherField
-  ...fragmentSpread
-    @include(if: ["this isn't even a boolean", "wow, that's really odd"])
+			# comment
+			cursor: 10
+		)
+		@nope
+	otherField
+	...fragmentSpread
+		@include(if: ["this isn't even a boolean", "wow, that's really odd"])
 }
 
 ================================================================================
@@ -98,15 +98,15 @@ enum State {
 
 =====================================output=====================================
 enum State {
-  # pending state
-  PENDING
+	# pending state
+	PENDING
 
-  # visible states
-  VISIBLE
-  INVISIBLE
+	# visible states
+	VISIBLE
+	INVISIBLE
 
-  # archive state
-  ARCHIVED
+	# archive state
+	ARCHIVED
 }
 
 ================================================================================
@@ -156,32 +156,32 @@ subscription MySubscription {
 
 =====================================output=====================================
 query MyFirstQuery {
-  # comment
-  field {
-    subfield
+	# comment
+	field {
+		subfield
 
-    # comment
-    subfield
-  }
+		# comment
+		subfield
+	}
 
-  field
-  #comment
-  field
+	field
+	#comment
+	field
 }
 
 mutation MyFirstMutation {
-  # comment
-  name
+	# comment
+	name
 
-  comment # comment
-  kind
+	comment # comment
+	kind
 }
 
 subscription MySubscription {
-  name
+	name
 
-  comment
-  kind
+	comment
+	kind
 }
 
 ================================================================================
@@ -204,11 +204,11 @@ input Params {
 
 =====================================output=====================================
 input Params {
-  # Id
-  id: ID
+	# Id
+	id: ID
 
-  # Name
-  name: String
+	# Name
+	name: String
 }
 
 ================================================================================
@@ -232,12 +232,12 @@ interface Actor {
 
 =====================================output=====================================
 interface Actor {
-  # Id
-  id: ID
+	# Id
+	id: ID
 
-  # Actor fields
-  name: String
-  kind: String
+	# Actor fields
+	name: String
+	kind: String
 }
 
 ================================================================================
@@ -274,25 +274,25 @@ type Artist implements Node, Entity {
 
 =====================================output=====================================
 type Artist implements Node, Entity {
-  # The ID of an object
-  id: ID!
+	# The ID of an object
+	id: ID!
 
-  # The MBID of the entity.
-  mbid: MBID!
+	# The MBID of the entity.
+	mbid: MBID!
 
-  # A list of recordings linked to this entity.
-  recordings(after: String, first: Int): RecordingConnection
+	# A list of recordings linked to this entity.
+	recordings(after: String, first: Int): RecordingConnection
 
-  # A list of releases linked to this entity.
-  releases(
-    # Filter by one or more release group types.
-    type: [ReleaseGroupType]
+	# A list of releases linked to this entity.
+	releases(
+		# Filter by one or more release group types.
+		type: [ReleaseGroupType]
 
-    # Filter by one or more release statuses.
-    status: [ReleaseStatus]
-    after: String
-    first: Int
-  ): ReleaseConnection
+		# Filter by one or more release statuses.
+		status: [ReleaseStatus]
+		after: String
+		first: Int
+	): ReleaseConnection
 }
 
 ================================================================================
@@ -318,12 +318,12 @@ schema {
 =====================================output=====================================
 # Schema
 schema {
-  # Query and Mutation
-  query: Root
-  mutation: Mutation
+	# Query and Mutation
+	query: Root
+	mutation: Mutation
 
-  # Subscription
-  subscription: Subscription
+	# Subscription
+	subscription: Subscription
 }
 
 ================================================================================

@@ -16,11 +16,11 @@ div {
 
 =====================================output=====================================
 div {
-  max-height: none !important;
+	max-height: none !important;
 }
 
 .important {
-  .foo() !important;
+	.foo() !important;
 }
 
 ================================================================================

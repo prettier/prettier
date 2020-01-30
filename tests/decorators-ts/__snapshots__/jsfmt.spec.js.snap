@@ -27,22 +27,22 @@ class Point {
 
 =====================================output=====================================
 class Point {
-  private _x: number;
-  private _y: number;
-  constructor(x: number, y: number) {
-    this._x = x;
-    this._y = y;
-  }
+	private _x: number;
+	private _y: number;
+	constructor(x: number, y: number) {
+		this._x = x;
+		this._y = y;
+	}
 
-  @configurable(false)
-  get x() {
-    return this._x;
-  }
+	@configurable(false)
+	get x() {
+		return this._x;
+	}
 
-  @configurable(false)
-  get y() {
-    return this._y;
-  }
+	@configurable(false)
+	get y() {
+		return this._y;
+	}
 }
 
 ================================================================================
@@ -65,14 +65,14 @@ export class HeroButtonComponent {
 
 =====================================output=====================================
 @Component({
-  selector: "toh-hero-button",
-  template: \`
-    <button>{{ label }}</button>
-  \`,
+	selector: "toh-hero-button",
+	template: \`
+		<button>{{ label }}</button>
+	\`,
 })
 export class HeroButtonComponent {
-  @Output() change = new EventEmitter<any>();
-  @Input() label: string;
+	@Output() change = new EventEmitter<any>();
+	@Input() label: string;
 }
 
 ================================================================================
@@ -98,13 +98,13 @@ class Greeter {
 =====================================output=====================================
 @sealed
 class Greeter {
-  greeting: string;
-  constructor(message: string) {
-    this.greeting = message;
-  }
-  greet() {
-    return "Hello, " + this.greeting;
-  }
+	greeting: string;
+	constructor(message: string) {
+		this.greeting = message;
+	}
+	greet() {
+		return "Hello, " + this.greeting;
+	}
 }
 
 ================================================================================
@@ -130,15 +130,15 @@ class Greeter {
 
 =====================================output=====================================
 class Greeter {
-  greeting: string;
-  constructor(message: string) {
-    this.greeting = message;
-  }
+	greeting: string;
+	constructor(message: string) {
+		this.greeting = message;
+	}
 
-  @enumerable(false)
-  greet() {
-    return "Hello, " + this.greeting;
-  }
+	@enumerable(false)
+	greet() {
+		return "Hello, " + this.greeting;
+	}
 }
 
 ================================================================================
@@ -161,12 +161,12 @@ class X {
 
 =====================================output=====================================
 class X {
-  @deco x() {
-    return this.count * 2;
-  }
-  @deco get x() {
-    return this.count * 2;
-  }
+	@deco x() {
+		return this.count * 2;
+	}
+	@deco get x() {
+		return this.count * 2;
+	}
 }
 
 ================================================================================
@@ -186,9 +186,9 @@ class C {
 
 =====================================output=====================================
 class C {
-  @f()
-  @g()
-  method() {}
+	@f()
+	@g()
+	method() {}
 }
 
 ================================================================================
@@ -220,21 +220,21 @@ class Greeter {
 
 =====================================output=====================================
 class Greeter {
-  greeting: string;
+	greeting: string;
 
-  constructor(message: string) {
-    this.greeting = message;
-  }
+	constructor(message: string) {
+		this.greeting = message;
+	}
 
-  @validate
-  greet(@required name: string) {
-    return "Hello " + name + ", " + this.greeting;
-  }
+	@validate
+	greet(@required name: string) {
+		return "Hello " + name + ", " + this.greeting;
+	}
 
-  @validate
-  destructured(@required { toString }: Object) {
-    return Function.prototype.toString.apply(toString);
-  }
+	@validate
+	destructured(@required { toString }: Object) {
+		return Function.prototype.toString.apply(toString);
+	}
 }
 
 ================================================================================
@@ -260,15 +260,15 @@ class Greeter {
 
 =====================================output=====================================
 class Greeter {
-  @format("Hello, %s") greeting: string;
+	@format("Hello, %s") greeting: string;
 
-  constructor(message: string) {
-    this.greeting = message;
-  }
-  greet() {
-    let formatString = getFormat(this, "greeting");
-    return formatString.replace("%s", this.greeting);
-  }
+	constructor(message: string) {
+		this.greeting = message;
+	}
+	greet() {
+		let formatString = getFormat(this, "greeting");
+		return formatString.replace("%s", this.greeting);
+	}
 }
 
 ================================================================================
@@ -306,23 +306,23 @@ export class Board {
 =====================================output=====================================
 @Entity()
 export class Board {
-  @PrimaryGeneratedColumn()
-  id: number;
+	@PrimaryGeneratedColumn()
+	id: number;
 
-  @Column()
-  slug: string;
+	@Column()
+	slug: string;
 
-  @Column()
-  name: string;
+	@Column()
+	name: string;
 
-  @Column()
-  theme: string;
+	@Column()
+	theme: string;
 
-  @Column()
-  description: string;
+	@Column()
+	description: string;
 
-  @OneToMany((type) => Topic, (topic) => topic.board)
-  topics: Topic[];
+	@OneToMany((type) => Topic, (topic) => topic.board)
+	topics: Topic[];
 }
 
 ================================================================================

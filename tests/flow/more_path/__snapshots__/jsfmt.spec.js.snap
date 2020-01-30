@@ -69,63 +69,63 @@ module.exports = true;
 
 function f(x: number) {}
 function g() {
-  return 42 || "hello";
+	return 42 || "hello";
 }
 
 var x = g();
 if (typeof x === "string") {
-  x = 0;
+	x = 0;
 }
 f(x);
 
 class A {}
 function h() {
-  return 42 || new A();
+	return 42 || new A();
 }
 
 var y = h();
 if (y instanceof A) {
-  y = 0;
+	y = 0;
 }
 //f(y);
 
 function bar() {
-  return true;
+	return true;
 }
 
 class C {
-  qux() {}
+	qux() {}
 }
 
 function foo() {
-  var c = "...";
-  c = new C();
-  if (bar()) {
-    c.qux();
-  }
+	var c = "...";
+	c = new C();
+	if (bar()) {
+		c.qux();
+	}
 }
 
 function goofy() {
-  var x = g();
-  if (typeof x == "function") {
-    x();
-  } else {
-    // if (typeof x == 'number') {
-    //f(x);
-  }
+	var x = g();
+	if (typeof x == "function") {
+		x();
+	} else {
+		// if (typeof x == 'number') {
+		//f(x);
+	}
 }
 
 function goofy2() {
-  var o = { x: 0 };
-  if (typeof o.x == "function") {
-    o.x();
-  }
-  var y = o.x;
-  if (typeof y == "function") {
-    y();
-  } else {
-    //f(y);
-  }
+	var o = { x: 0 };
+	if (typeof o.x == "function") {
+		o.x();
+	}
+	var y = o.x;
+	if (typeof y == "function") {
+		y();
+	} else {
+		//f(y);
+	}
 }
 
 module.exports = true;
@@ -158,9 +158,9 @@ module.exports = FlowSA;
 function check(x: string) {}
 
 function FlowSA() {
-  var x = 0;
-  x = "...";
-  check(x);
+	var x = 0;
+	x = "...";
+	check(x);
 }
 
 module.exports = FlowSA;
@@ -219,46 +219,46 @@ module.exports = "sigma";
 /* @providesModule Sigma */
 
 class A {
-  a() {}
+	a() {}
 }
 
 class B extends A {
-  b() {}
+	b() {}
 }
 
 class C extends B {
-  c() {}
+	c() {}
 }
 
 function bar(x: B) {
-  if (x instanceof A) {
-    x.a();
-    x.c(); // error
-  } else {
-    x++; // TODO no error? since unreachable (x: B implies x: A)
-  }
+	if (x instanceof A) {
+		x.a();
+		x.c(); // error
+	} else {
+		x++; // TODO no error? since unreachable (x: B implies x: A)
+	}
 }
 
 function foo(x: A) {
-  if (x instanceof C) {
-    x.a();
-    x.b();
-    x.c();
-    x.d(); // error
-  } else {
-    x.a();
-    x.c(); // error
-  }
+	if (x instanceof C) {
+		x.a();
+		x.b();
+		x.c();
+		x.d(); // error
+	} else {
+		x.a();
+		x.c(); // error
+	}
 }
 
 class D {
-  d() {}
+	d() {}
 }
 
 function baz(x: D) {
-  if (x instanceof A) {
-    // unreachable, TODO: this shouldn't throw
-  }
+	if (x instanceof A) {
+		// unreachable, TODO: this shouldn't throw
+	}
 }
 
 module.exports = "sigma";
@@ -289,18 +289,18 @@ function test(obj: BaseClass): string {
 
 =====================================output=====================================
 class BaseClass {
-  baseProp: string;
+	baseProp: string;
 }
 
 class ChildClass extends BaseClass {
-  childProp: string;
+	childProp: string;
 }
 
 function test(obj: BaseClass): string {
-  if (obj instanceof ChildClass) {
-    return obj.childProp_TYPO; // error (obj: ChildClass)
-  }
-  return obj.baseProp;
+	if (obj instanceof ChildClass) {
+		return obj.childProp_TYPO; // error (obj: ChildClass)
+	}
+	return obj.baseProp;
 }
 
 ================================================================================

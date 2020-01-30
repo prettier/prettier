@@ -26,8 +26,8 @@ function is_string(x): %checks {
 // Filter the contents of an array
 
 declare function my_filter<T, P: $Pred<1>>(
-  v: Array<T>,
-  cb: P
+	v: Array<T>,
+	cb: P
 ): Array<$Refine<T, P, 1>>;
 
 declare var arr: Array<mixed>;
@@ -35,7 +35,7 @@ const barr = my_filter(arr, is_string);
 (barr: Array<string>);
 
 function is_string(x): %checks {
-  return typeof x === "string";
+	return typeof x === "string";
 }
 
 ================================================================================
@@ -71,8 +71,8 @@ declare var ab: Array<A|B|C>;
 // Filter the contents of an array
 
 declare function my_filter<T, P: $Pred<1>>(
-  v: Array<T>,
-  cb: P
+	v: Array<T>,
+	cb: P
 ): Array<$Refine<T, P, 1>>;
 
 type A = { kind: "A", u: number };
@@ -167,9 +167,9 @@ var b = refine(a, is_string);
 (b: string);
 
 declare function refine_fst<T, P: $Pred<2>>(
-  v: T,
-  w: T,
-  cb: P
+	v: T,
+	w: T,
+	cb: P
 ): $Refine<T, P, 1>;
 // function refine_fst(v, w, cb)
 // { if (cb(v, w)) { return v; } else { throw new Error(); } }
@@ -186,11 +186,11 @@ declare function refine2<T, P: $Pred<2>>(v: T, w: T, cb: P): $Refine<T, P, 1>;
 // { if (cb(v, w)) { return w; } else { throw new Error(); } }
 
 function is_string(x): boolean %checks {
-  return typeof x === "string";
+	return typeof x === "string";
 }
 
 function is_string_and_number(x, y): %checks {
-  return typeof x === "string" && typeof y === "number";
+	return typeof x === "string" && typeof y === "number";
 }
 
 ================================================================================
@@ -229,8 +229,8 @@ function is_string_regular(x): boolean {
 // @flow
 
 declare function my_filter<T, P: $Pred<1>>(
-  v: Array<T>,
-  cb: P
+	v: Array<T>,
+	cb: P
 ): Array<$Refine<T, P, 1>>;
 
 // Sanity check A: filtering the wrong type
@@ -244,11 +244,11 @@ const d = my_filter(c, is_string_regular);
 (d: Array<string>);
 
 function is_string(x): boolean %checks {
-  return typeof x === "string";
+	return typeof x === "string";
 }
 
 function is_string_regular(x): boolean {
-  return typeof x === "string";
+	return typeof x === "string";
 }
 
 ================================================================================
@@ -284,8 +284,8 @@ declare var ab: Array<A|B|C>;
 // Filter the contents of an array
 
 declare function my_filter<T, P: $Pred<1>>(
-  v: Array<T>,
-  cb: P
+	v: Array<T>,
+	cb: P
 ): Array<$Refine<T, P, 1>>;
 
 type A = { kind: "A", u: number };
@@ -370,17 +370,17 @@ declare var d: mixed;
 declare var e: mixed;
 
 declare function refine3<T, P: $Pred<3>>(
-  u: T,
-  v: T,
-  w: T,
-  cb: P
+	u: T,
+	v: T,
+	w: T,
+	cb: P
 ): $Refine<T, P, 1>;
 
 var e = refine3(c, d, e, is_string_and_number);
 (e: string);
 
 function is_string_and_number(x, y): %checks {
-  return typeof x === "string" && typeof y === "number";
+	return typeof x === "string" && typeof y === "number";
 }
 
 // Sanity check C: expecting a predicate function but passed a non-predicate one
@@ -391,15 +391,15 @@ var e = refine(a, is_string_regular); // ERROR: is_string_regular is not a
 ////////////////////////////////////////////////////////////////////////////////
 
 function is_string(x): %checks {
-  return typeof x === "string";
+	return typeof x === "string";
 }
 
 function is_string_regular(x) {
-  return typeof x === "string";
+	return typeof x === "string";
 }
 
 function is_string_and_number(x, y): %checks {
-  return typeof x === "string" && typeof y === "number";
+	return typeof x === "string" && typeof y === "number";
 }
 
 ================================================================================

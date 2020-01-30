@@ -11,7 +11,7 @@ class Foo {
 }
 =====================================output=====================================
 class Foo {
-  bar: () => boolean;
+	bar: () => boolean;
 }
 
 ================================================================================
@@ -103,25 +103,25 @@ var f13 = () => {
 
 // FunctionExpression with no return type annotation with multiple return statements with unrelated types
 var f1 = function () {
-  return "";
-  return 3;
+	return "";
+	return 3;
 };
 var f2 = function x() {
-  return "";
-  return 3;
+	return "";
+	return 3;
 };
 var f3 = () => {
-  return "";
-  return 3;
+	return "";
+	return 3;
 };
 
 // FunctionExpression with no return type annotation with return branch of number[] and other of string[]
 var f4 = function () {
-  if (true) {
-    return [""];
-  } else {
-    return [1];
-  }
+	if (true) {
+		return [""];
+	} else {
+		return [1];
+	}
 };
 
 // Function implementation with non -void return type annotation with no return
@@ -130,7 +130,7 @@ function f5(): number {}
 var m;
 // Function signature with parameter initializer referencing in scope local variable
 function f6(n = m) {
-  var m = 4;
+	var m = 4;
 }
 
 // Function signature with initializer referencing other parameter to the right
@@ -139,46 +139,46 @@ function f7(n = m, m?) {}
 // FunctionExpression with non -void return type annotation with a throw, no return, and other code
 // Should be error but isn't
 undefined ===
-  function (): number {
-    throw undefined;
-    var x = 4;
-  };
+	function (): number {
+		throw undefined;
+		var x = 4;
+	};
 
 class Base {
-  private x;
+	private x;
 }
 class AnotherClass {
-  private y;
+	private y;
 }
 class Derived1 extends Base {
-  private m;
+	private m;
 }
 class Derived2 extends Base {
-  private n;
+	private n;
 }
 function f8() {
-  return new Derived1();
-  return new Derived2();
+	return new Derived1();
+	return new Derived2();
 }
 var f9 = function () {
-  return new Derived1();
-  return new Derived2();
+	return new Derived1();
+	return new Derived2();
 };
 var f10 = () => {
-  return new Derived1();
-  return new Derived2();
+	return new Derived1();
+	return new Derived2();
 };
 function f11() {
-  return new Base();
-  return new AnotherClass();
+	return new Base();
+	return new AnotherClass();
 }
 var f12 = function () {
-  return new Base();
-  return new AnotherClass();
+	return new Base();
+	return new AnotherClass();
 };
 var f13 = () => {
-  return new Base();
-  return new AnotherClass();
+	return new Base();
+	return new AnotherClass();
 };
 
 ================================================================================
@@ -357,34 +357,34 @@ var v: void = (function () {})();
 
 // FunctionExpression f with no return type annotation and directly references f in its body returns any
 var a: any = function f() {
-  return f;
+	return f;
 };
 var a: any = function f() {
-  return f();
+	return f();
 };
 
 // FunctionExpression f with no return type annotation and indirectly references f in its body returns any
 var a: any = function f() {
-  var x = f;
-  return x;
+	var x = f;
+	return x;
 };
 
 // Two mutually recursive function implementations with no return type annotations
 function rec1() {
-  return rec2();
+	return rec2();
 }
 function rec2() {
-  return rec1();
+	return rec1();
 }
 var a = rec1();
 var a = rec2();
 
 // Two mutually recursive function implementations with return type annotation in one
 function rec3(): number {
-  return rec4();
+	return rec4();
 }
 function rec4() {
-  return rec3();
+	return rec3();
 }
 var n: number;
 var n = rec3();
@@ -392,35 +392,35 @@ var n = rec4();
 
 // FunctionExpression with no return type annotation and returns a number
 var n = (function () {
-  return 3;
+	return 3;
 })();
 
 // FunctionExpression with no return type annotation and returns null
 var nu = null;
 var nu = (function () {
-  return null;
+	return null;
 })();
 
 // FunctionExpression with no return type annotation and returns undefined
 var un = undefined;
 var un = (function () {
-  return undefined;
+	return undefined;
 })();
 
 // FunctionExpression with no return type annotation and returns a type parameter type
 var n = (function <T>(x: T) {
-  return x;
+	return x;
 })(4);
 
 // FunctionExpression with no return type annotation and returns a constrained type parameter type
 var n = (function <T extends {}>(x: T) {
-  return x;
+	return x;
 })(4);
 
 // FunctionExpression with no return type annotation with multiple return statements with identical types
 var n = (function () {
-  return 3;
-  return 5;
+	return 3;
+	return 5;
 })();
 
 // Otherwise, the inferred return type is the first of the types of the return statement expressions
@@ -429,52 +429,52 @@ var n = (function () {
 // A compile - time error occurs if no return statement expression has a type that is a supertype of each of the others.
 // FunctionExpression with no return type annotation with multiple return statements with subtype relation between returns
 class Base {
-  private m;
+	private m;
 }
 class Derived extends Base {
-  private q;
+	private q;
 }
 var b: Base;
 var b = (function () {
-  return new Base();
-  return new Derived();
+	return new Base();
+	return new Derived();
 })();
 
 // FunctionExpression with no return type annotation with multiple return statements with one a recursive call
 var a = (function f() {
-  return new Base();
-  return new Derived();
-  return f(); // ?
+	return new Base();
+	return new Derived();
+	return f(); // ?
 })();
 
 // FunctionExpression with non -void return type annotation with a single throw statement
 undefined ===
-  function (): number {
-    throw undefined;
-  };
+	function (): number {
+		throw undefined;
+	};
 
 // Type of 'this' in function implementation is 'any'
 function thisFunc() {
-  var x = this;
-  var x: any;
+	var x = this;
+	var x: any;
 }
 
 // Function signature with optional parameter, no type annotation and initializer has initializer's type
 function opt1(n = 4) {
-  var m = n;
-  var m: number;
+	var m = n;
+	var m: number;
 }
 
 // Function signature with optional parameter, no type annotation and initializer has initializer's widened type
 function opt2(n = { x: null, y: undefined }) {
-  var m = n;
-  var m: { x: any; y: any };
+	var m = n;
+	var m: { x: any; y: any };
 }
 
 // Function signature with initializer referencing other parameter to the left
 function opt3(n: number, m = n) {
-  var y = m;
-  var y: number;
+	var y = m;
+	var y: number;
 }
 
 // Function signature with optional parameter has correct codegen
@@ -482,51 +482,51 @@ function opt3(n: number, m = n) {
 
 // FunctionExpression with non -void return type annotation return with no expression
 function f6(): number {
-  return;
+	return;
 }
 
 class Derived2 extends Base {
-  private r: string;
+	private r: string;
 }
 class AnotherClass {
-  private x;
+	private x;
 }
 // if f is a contextually typed function expression, the inferred return type is the union type
 // of the types of the return statement expressions in the function body,
 // ignoring return statements with no expressions.
 var f7: (x: number) => string | number = (x) => {
-  // should be (x: number) => number | string
-  if (x < 0) {
-    return x;
-  }
-  return x.toString();
+	// should be (x: number) => number | string
+	if (x < 0) {
+		return x;
+	}
+	return x.toString();
 };
 var f8: (x: number) => any = (x) => {
-  // should be (x: number) => Base
-  return new Base();
-  return new Derived2();
+	// should be (x: number) => Base
+	return new Base();
+	return new Derived2();
 };
 var f9: (x: number) => any = (x) => {
-  // should be (x: number) => Base
-  return new Base();
-  return new Derived();
-  return new Derived2();
+	// should be (x: number) => Base
+	return new Base();
+	return new Derived();
+	return new Derived2();
 };
 var f10: (x: number) => any = (x) => {
-  // should be (x: number) => Derived | Derived1
-  return new Derived();
-  return new Derived2();
+	// should be (x: number) => Derived | Derived1
+	return new Derived();
+	return new Derived2();
 };
 var f11: (x: number) => any = (x) => {
-  // should be (x: number) => Base | AnotherClass
-  return new Base();
-  return new AnotherClass();
+	// should be (x: number) => Base | AnotherClass
+	return new Base();
+	return new AnotherClass();
 };
 var f12: (x: number) => any = (x) => {
-  // should be (x: number) => Base | AnotherClass
-  return new Base();
-  return; // should be ignored
-  return new AnotherClass();
+	// should be (x: number) => Base | AnotherClass
+	return new Base();
+	return; // should be ignored
+	return new AnotherClass();
 };
 
 ================================================================================
@@ -546,7 +546,7 @@ function f(x: string): void {
 =====================================output=====================================
 function f(x: string): number;
 function f(x: string): void {
-  return;
+	return;
 }
 
 ================================================================================
@@ -566,7 +566,7 @@ function f(x: string): number {
 =====================================output=====================================
 function f(x: string): void;
 function f(x: string): number {
-  return 0;
+	return 0;
 }
 
 ================================================================================
@@ -586,7 +586,7 @@ function f(x: string): void {
 =====================================output=====================================
 function f(x: string): void;
 function f(x: string): void {
-  return;
+	return;
 }
 
 ================================================================================
@@ -688,58 +688,58 @@ function f(a, b = function () { return c; }, c = b()) {
 
 =====================================output=====================================
 function left(a, b = a, c = b) {
-  a;
-  b;
+	a;
+	b;
 }
 
 function right(a = b, b = a) {
-  a;
-  b;
+	a;
+	b;
 }
 
 function right2(a = b, b = c, c = a) {
-  a;
-  b;
-  c;
+	a;
+	b;
+	c;
 }
 
 function inside(a = b) {
-  var b;
+	var b;
 }
 
 function outside() {
-  var b;
-  function inside(a = b) {
-    // Still an error because b is declared inside the function
-    var b;
-  }
+	var b;
+	function inside(a = b) {
+		// Still an error because b is declared inside the function
+		var b;
+	}
 }
 
 function defaultArgFunction(
-  a = function () {
-    return b;
-  },
-  b = 1
+	a = function () {
+		return b;
+	},
+	b = 1
 ) {}
 function defaultArgArrow(a = () => () => b, b = 3) {}
 
 class C {
-  constructor(a = b, b = 1) {}
-  method(a = b, b = 1) {}
+	constructor(a = b, b = 1) {}
+	method(a = b, b = 1) {}
 }
 
 // Function expressions
 var x = (a = b, b = c, c = d) => {
-  var d;
+	var d;
 };
 
 // Should not produce errors - can reference later parameters if they occur within a function expression initializer.
 function f(
-  a,
-  b = function () {
-    return c;
-  },
-  c = b()
+	a,
+	b = function () {
+		return c;
+	},
+	c = b()
 ) {}
 
 ================================================================================

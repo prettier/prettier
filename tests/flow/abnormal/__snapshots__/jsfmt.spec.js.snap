@@ -16,15 +16,15 @@ function bar() {
 
 =====================================output=====================================
 function foo() {
-  while (true) {
-    break;
-  }
+	while (true) {
+		break;
+	}
 }
 
 function bar() {
-  L: do {
-    continue L;
-  } while (false);
+	L: do {
+		continue L;
+	} while (false);
 }
 
 ================================================================================
@@ -46,9 +46,9 @@ function foo() {
 =====================================output=====================================
 function bar(x: number) {}
 function foo() {
-  var x = null;
-  if (x == null) return;
-  bar(x);
+	var x = null;
+	if (x == null) return;
+	bar(x);
 }
 
 ================================================================================

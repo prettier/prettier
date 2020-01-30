@@ -28,7 +28,7 @@ lib.bar();
 var lib = require("./library");
 
 function add(a: number, b: number): number {
-  return a + b;
+	return a + b;
 }
 
 var re = /^keynote (talk){2} (lightning){3,5} (talk){2} closing partytime!!!/;
@@ -100,13 +100,13 @@ module.exports = {
 /* @flow */
 
 module.exports = {
-  iTakeAString: function (name: string): number {
-    return 42;
-  },
+	iTakeAString: function (name: string): number {
+		return 42;
+	},
 
-  bar: function (): number {
-    return 42;
-  },
+	bar: function (): number {
+		return 42;
+	},
 };
 
 ================================================================================

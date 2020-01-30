@@ -20,13 +20,13 @@ module.exports = Bar;
 /* @flow */
 
 function Bar(x: number) {
-  this.x = x;
+	this.x = x;
 }
 Bar.prototype.getX = function () {
-  return this.x;
+	return this.x;
 };
 Bar.prototype.getY = function (): string {
-  return this.y;
+	return this.y;
 };
 
 module.exports = Bar;
@@ -61,16 +61,16 @@ var o = new Foo();
 var x: number = o.x;
 
 Foo.prototype.m = function () {
-  return this.x;
+	return this.x;
 };
 
 var y: number = o.m();
 o.x = "...";
 
 Foo.prototype = {
-  m: function () {
-    return false;
-  },
+	m: function () {
+		return false;
+	},
 };
 
 var export_o: { x: any } = o; // awkward type cast

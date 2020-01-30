@@ -71,11 +71,11 @@ var x3: string = "".replace(/pattern/, "...");
 var x4: number = "".split(/pattern/)[0];
 
 declare class C {
-  foo(x: number): number;
-  foo(x: string): string;
+	foo(x: number): number;
+	foo(x: string): string;
 
-  bar(x: { a: number }): number;
-  bar(x: { a: string }): string;
+	bar(x: { a: number }): number;
+	bar(x: { a: string }): string;
 }
 
 var a = new C();
@@ -127,8 +127,8 @@ function foo() {
 
 =====================================output=====================================
 function foo() {
-  var output = new FakeUint8Array();
-  output.set(new FakeUint8Array(), 0); // matches one of the overloads of set
+	var output = new FakeUint8Array();
+	output.set(new FakeUint8Array(), 0); // matches one of the overloads of set
 }
 
 ================================================================================
@@ -150,8 +150,8 @@ var foo = new Foo;
 
 =====================================output=====================================
 declare class Foo {
-  bar(x: "hmm"): number;
-  bar(x: string): string;
+	bar(x: "hmm"): number;
+	bar(x: string): string;
 }
 var foo = new Foo();
 (foo.bar("hmm"): number); // OK
@@ -227,7 +227,7 @@ var x2:string = foo([""])[0];
 
 =====================================output=====================================
 function foo<U>(x: $Either<Array<U>, U>): Array<U> {
-  return [];
+	return [];
 }
 
 var x1: number = foo(0)[0];

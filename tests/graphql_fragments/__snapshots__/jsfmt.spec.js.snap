@@ -24,19 +24,19 @@ fragment XYZ on ABC {
 
 =====================================output=====================================
 {
-  field
-  ...XYZ
-  ... on TheType {
-    ...AFragment
-    ... {
-      noTypeCondition
-    }
-  }
+	field
+	...XYZ
+	... on TheType {
+		...AFragment
+		... {
+			noTypeCondition
+		}
+	}
 }
 
 fragment XYZ on ABC {
-  field
-  ...AFragment
+	field
+	...AFragment
 }
 
 ================================================================================

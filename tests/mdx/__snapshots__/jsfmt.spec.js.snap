@@ -44,9 +44,9 @@ export const b = 1;
 import D from "d";
 import { A, B, C } from "hello-world";
 import {
-  AAAAAAAAAAAAAAAAAAAAAAAA,
-  BBBBBBBBBBBBBBBBBBBBBB,
-  CCCCCCCCCCCCCCCCCCCCCCC,
+	AAAAAAAAAAAAAAAAAAAAAAAA,
+	BBBBBBBBBBBBBBBBBBBBBB,
+	CCCCCCCCCCCCCCCCCCCCCCC,
 } from "xyz";
 
 ---
@@ -56,26 +56,26 @@ import D from "d";
 import { A, B, C } from "hello-world";
 
 import {
-  AAAAAAAAAAAAAAAAAAAAAAAA,
-  BBBBBBBBBBBBBBBBBBBBBB,
-  CCCCCCCCCCCCCCCCCCCCCCC,
+	AAAAAAAAAAAAAAAAAAAAAAAA,
+	BBBBBBBBBBBBBBBBBBBBBB,
+	CCCCCCCCCCCCCCCCCCCCCCC,
 } from "xyz";
 
 ---
 
 export const meta = {
-  authors: [fred, sue],
-  layout: Layout,
+	authors: [fred, sue],
+	layout: Layout,
 };
 
 export default () => (
-  <Doc
-    components={{
-      h1: ui.Heading,
-      p: ui.Text,
-      code: ui.Code,
-    }}
-  />
+	<Doc
+		components={{
+			h1: ui.Heading,
+			p: ui.Text,
+			code: ui.Code,
+		}}
+	/>
 );
 
 ---
@@ -131,9 +131,9 @@ export const b = 1;
 import D from "d"
 import { A, B, C } from "hello-world"
 import {
-  AAAAAAAAAAAAAAAAAAAAAAAA,
-  BBBBBBBBBBBBBBBBBBBBBB,
-  CCCCCCCCCCCCCCCCCCCCCCC,
+	AAAAAAAAAAAAAAAAAAAAAAAA,
+	BBBBBBBBBBBBBBBBBBBBBB,
+	CCCCCCCCCCCCCCCCCCCCCCC,
 } from "xyz"
 
 ---
@@ -143,26 +143,26 @@ import D from "d"
 import { A, B, C } from "hello-world"
 
 import {
-  AAAAAAAAAAAAAAAAAAAAAAAA,
-  BBBBBBBBBBBBBBBBBBBBBB,
-  CCCCCCCCCCCCCCCCCCCCCCC,
+	AAAAAAAAAAAAAAAAAAAAAAAA,
+	BBBBBBBBBBBBBBBBBBBBBB,
+	CCCCCCCCCCCCCCCCCCCCCCC,
 } from "xyz"
 
 ---
 
 export const meta = {
-  authors: [fred, sue],
-  layout: Layout,
+	authors: [fred, sue],
+	layout: Layout,
 }
 
 export default () => (
-  <Doc
-    components={{
-      h1: ui.Heading,
-      p: ui.Text,
-      code: ui.Code,
-    }}
-  />
+	<Doc
+		components={{
+			h1: ui.Heading,
+			p: ui.Text,
+			code: ui.Code,
+		}}
+	/>
 )
 
 ---
@@ -281,32 +281,32 @@ printWidth: 80
 ---
 
 <Hello>
-  test <World /> test
+	test <World /> test
 </Hello>
 123
 
 ---
 
 <Hello>
-  test <World /> test
+	test <World /> test
 </Hello>
 <Hello>
-  test <World /> test
+	test <World /> test
 </Hello>123
 
 ---
 
 <Hello>
-  test <World /> test
+	test <World /> test
 </Hello> 123
 <Hello>
-  test <World /> test
+	test <World /> test
 </Hello> 234
 
 ---
 
 <>
-  test <World /> test
+	test <World /> test
 </> 123
 
 ---
@@ -370,32 +370,32 @@ semi: false
 ---
 
 <Hello>
-  test <World /> test
+	test <World /> test
 </Hello>
 123
 
 ---
 
 <Hello>
-  test <World /> test
+	test <World /> test
 </Hello>
 <Hello>
-  test <World /> test
+	test <World /> test
 </Hello>123
 
 ---
 
 <Hello>
-  test <World /> test
+	test <World /> test
 </Hello> 123
 <Hello>
-  test <World /> test
+	test <World /> test
 </Hello> 234
 
 ---
 
 <>
-  test <World /> test
+	test <World /> test
 </> 123
 
 ---
@@ -499,11 +499,11 @@ import { Foo, Bar } from "./Fixture";
 # Hello, world!
 
 <Foo bg="red">
-  <div style={{ display: "block" }}>
-    <Bar>hi </Bar>
-    {hello}
-    {/* another comment */}
-  </div>
+	<div style={{ display: "block" }}>
+		<Bar>hi </Bar>
+		{hello}
+		{/* another comment */}
+	</div>
 </Foo>
 
 asdfsdf <strong style={{fontWeight: 'bolder'}}>asdfasdf</strong>
@@ -512,8 +512,8 @@ asdfsdf <strong style={{fontWeight: 'bolder'}}>asdfasdf</strong>
 test
 
 <ul>
-  <li>item </li>
-  <li />
+	<li>item </li>
+	<li />
 </ul>
 
 ================================================================================
@@ -555,11 +555,11 @@ import { Foo, Bar } from "./Fixture"
 # Hello, world!
 
 <Foo bg="red">
-  <div style={{ display: "block" }}>
-    <Bar>hi </Bar>
-    {hello}
-    {/* another comment */}
-  </div>
+	<div style={{ display: "block" }}>
+		<Bar>hi </Bar>
+		{hello}
+		{/* another comment */}
+	</div>
 </Foo>
 
 asdfsdf <strong style={{fontWeight: 'bolder'}}>asdfasdf</strong>
@@ -568,8 +568,8 @@ asdfsdf <strong style={{fontWeight: 'bolder'}}>asdfasdf</strong>
 test
 
 <ul>
-  <li>item </li>
-  <li />
+	<li>item </li>
+	<li />
 </ul>
 
 ================================================================================
@@ -628,8 +628,8 @@ import { Baz } from "./Fixture";
 import { Buz } from "./Fixture";
 
 export const foo = {
-  hi: \`Fudge \${Baz.displayName || "Baz"}\`,
-  authors: ["fred", "sally"],
+	hi: \`Fudge \${Baz.displayName || "Baz"}\`,
+	authors: ["fred", "sally"],
 };
 
 # Hello, world!
@@ -639,9 +639,9 @@ I'm an awesome paragraph.
 <!-- I'm a comment -->
 
 <Foo bg="red">
-  <Bar>hi </Bar>
-  {hello}
-  {/* another comment */}
+	<Bar>hi </Bar>
+	{hello}
+	{/* another comment */}
 </Foo>
 
 \`\`\`
@@ -719,8 +719,8 @@ import { Baz } from "./Fixture"
 import { Buz } from "./Fixture"
 
 export const foo = {
-  hi: \`Fudge \${Baz.displayName || "Baz"}\`,
-  authors: ["fred", "sally"],
+	hi: \`Fudge \${Baz.displayName || "Baz"}\`,
+	authors: ["fred", "sally"],
 }
 
 # Hello, world!
@@ -730,9 +730,9 @@ I'm an awesome paragraph.
 <!-- I'm a comment -->
 
 <Foo bg="red">
-  <Bar>hi </Bar>
-  {hello}
-  {/* another comment */}
+	<Bar>hi </Bar>
+	{hello}
+	{/* another comment */}
 </Foo>
 
 \`\`\`

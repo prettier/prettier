@@ -324,33 +324,33 @@ ns|* {}
 .c {
 }
 .r {
-  &,
-  &:hover {
-  }
+	&,
+	&:hover {
+	}
 }
 
 @media (min-width: 0px) {
-  .a,
-  .b,
-  :not(asdasldaskdhjkashdahsdkjahskdjhakj, asdasldaskdhjkashdahsdkjahskdjhakj) {
-    color: red;
-  }
+	.a,
+	.b,
+	:not(asdasldaskdhjkashdahsdkjahskdjhakj, asdasldaskdhjkashdahsdkjahskdjhakj) {
+		color: red;
+	}
 }
 
 .asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas
-  .asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas,
+	.asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas,
 .asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas
-  .asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas {
+	.asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas {
 }
 .asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas
-  .asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas,
+	.asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas,
 .asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas
-  .asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas {
+	.asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas {
 }
 .asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas
-  .asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas,
+	.asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas,
 .asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas
-  .asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas {
+	.asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas {
 }
 
 .parent,
@@ -379,40 +379,40 @@ ns|* {}
 .parent .child {
 }
 .parent {
-  .child-one {
-  }
-  .child-two {
-  }
+	.child-one {
+	}
+	.child-two {
+	}
 }
 .parent {
-  .child-one {
-  }
-  .child-two {
-  }
+	.child-one {
+	}
+	.child-two {
+	}
 }
 .parent {
-  .child-one {
-  }
-  .child-two {
-  }
+	.child-one {
+	}
+	.child-two {
+	}
 }
 .parent {
-  .child-one {
-  }
-  .child-two {
-  }
+	.child-one {
+	}
+	.child-two {
+	}
 }
 .parent {
-  .child-one {
-  }
-  .child-two {
-  }
+	.child-one {
+	}
+	.child-two {
+	}
 }
 .parent {
-  .child-one {
-  }
-  .child-two {
-  }
+	.child-one {
+	}
+	.child-two {
+	}
 }
 
 .parent > .child {
@@ -422,64 +422,64 @@ ns|* {}
 .parent > .child {
 }
 .parent > {
-  .child-one {
-  }
-  .child-two {
-  }
+	.child-one {
+	}
+	.child-two {
+	}
 }
 .parent > {
-  .child-one {
-  }
-  .child-two {
-  }
+	.child-one {
+	}
+	.child-two {
+	}
 }
 .parent > {
-  .child-one {
-  }
-  .child-two {
-  }
+	.child-one {
+	}
+	.child-two {
+	}
 }
 .parent > {
-  .child-one {
-  }
-  .child-two {
-  }
+	.child-one {
+	}
+	.child-two {
+	}
 }
 .parent > {
-  .child-one {
-  }
-  .child-two {
-  }
+	.child-one {
+	}
+	.child-two {
+	}
 }
 .parent {
-  > .child-one {
-  }
-  > .child-two {
-  }
+	> .child-one {
+	}
+	> .child-two {
+	}
 }
 .parent {
-  > .child-one {
-  }
-  > .child-two {
-  }
+	> .child-one {
+	}
+	> .child-two {
+	}
 }
 .parent {
-  > .child-one {
-  }
-  > .child-two {
-  }
+	> .child-one {
+	}
+	> .child-two {
+	}
 }
 .parent {
-  > .child-one {
-  }
-  > .child-two {
-  }
+	> .child-one {
+	}
+	> .child-two {
+	}
 }
 .parent {
-  > .child-one {
-  }
-  > .child-two {
-  }
+	> .child-one {
+	}
+	> .child-two {
+	}
 }
 
 .parent + .child {
@@ -489,64 +489,64 @@ ns|* {}
 .parent + .child {
 }
 .parent + {
-  .child-one {
-  }
-  .child-two {
-  }
+	.child-one {
+	}
+	.child-two {
+	}
 }
 .parent + {
-  .child-one {
-  }
-  .child-two {
-  }
+	.child-one {
+	}
+	.child-two {
+	}
 }
 .parent + {
-  .child-one {
-  }
-  .child-two {
-  }
+	.child-one {
+	}
+	.child-two {
+	}
 }
 .parent + {
-  .child-one {
-  }
-  .child-two {
-  }
+	.child-one {
+	}
+	.child-two {
+	}
 }
 .parent + {
-  .child-one {
-  }
-  .child-two {
-  }
+	.child-one {
+	}
+	.child-two {
+	}
 }
 .parent {
-  + .child-one {
-  }
-  + .child-two {
-  }
+	+ .child-one {
+	}
+	+ .child-two {
+	}
 }
 .parent {
-  + .child-one {
-  }
-  + .child-two {
-  }
+	+ .child-one {
+	}
+	+ .child-two {
+	}
 }
 .parent {
-  + .child-one {
-  }
-  + .child-two {
-  }
+	+ .child-one {
+	}
+	+ .child-two {
+	}
 }
 .parent {
-  + .child-one {
-  }
-  + .child-two {
-  }
+	+ .child-one {
+	}
+	+ .child-two {
+	}
 }
 .parent {
-  + .child-one {
-  }
-  + .child-two {
-  }
+	+ .child-one {
+	}
+	+ .child-two {
+	}
 }
 
 .parent ~ .child {
@@ -556,64 +556,64 @@ ns|* {}
 .parent ~ .child {
 }
 .parent ~ {
-  .child-one {
-  }
-  .child-two {
-  }
+	.child-one {
+	}
+	.child-two {
+	}
 }
 .parent ~ {
-  .child-one {
-  }
-  .child-two {
-  }
+	.child-one {
+	}
+	.child-two {
+	}
 }
 .parent ~ {
-  .child-one {
-  }
-  .child-two {
-  }
+	.child-one {
+	}
+	.child-two {
+	}
 }
 .parent ~ {
-  .child-one {
-  }
-  .child-two {
-  }
+	.child-one {
+	}
+	.child-two {
+	}
 }
 .parent ~ {
-  .child-one {
-  }
-  .child-two {
-  }
+	.child-one {
+	}
+	.child-two {
+	}
 }
 .parent {
-  ~ .child-one {
-  }
-  ~ .child-two {
-  }
+	~ .child-one {
+	}
+	~ .child-two {
+	}
 }
 .parent {
-  ~ .child-one {
-  }
-  ~ .child-two {
-  }
+	~ .child-one {
+	}
+	~ .child-two {
+	}
 }
 .parent {
-  ~ .child-one {
-  }
-  ~ .child-two {
-  }
+	~ .child-one {
+	}
+	~ .child-two {
+	}
 }
 .parent {
-  ~ .child-one {
-  }
-  ~ .child-two {
-  }
+	~ .child-one {
+	}
+	~ .child-two {
+	}
 }
 .parent {
-  ~ .child-one {
-  }
-  ~ .child-two {
-  }
+	~ .child-one {
+	}
+	~ .child-two {
+	}
 }
 
 .parent >>> .child {
@@ -623,64 +623,64 @@ ns|* {}
 .parent >>> .child {
 }
 .parent >>> {
-  .child-one {
-  }
-  .child-two {
-  }
+	.child-one {
+	}
+	.child-two {
+	}
 }
 .parent >>> {
-  .child-one {
-  }
-  .child-two {
-  }
+	.child-one {
+	}
+	.child-two {
+	}
 }
 .parent >>> {
-  .child-one {
-  }
-  .child-two {
-  }
+	.child-one {
+	}
+	.child-two {
+	}
 }
 .parent >>> {
-  .child-one {
-  }
-  .child-two {
-  }
+	.child-one {
+	}
+	.child-two {
+	}
 }
 .parent >>> {
-  .child-one {
-  }
-  .child-two {
-  }
+	.child-one {
+	}
+	.child-two {
+	}
 }
 .parent {
-  >>> .child-one {
-  }
-  >>> .child-two {
-  }
+	>>> .child-one {
+	}
+	>>> .child-two {
+	}
 }
 .parent {
-  >>> .child-one {
-  }
-  >>> .child-two {
-  }
+	>>> .child-one {
+	}
+	>>> .child-two {
+	}
 }
 .parent {
-  >>> .child-one {
-  }
-  >>> .child-two {
-  }
+	>>> .child-one {
+	}
+	>>> .child-two {
+	}
 }
 .parent {
-  >>> .child-one {
-  }
-  >>> .child-two {
-  }
+	>>> .child-one {
+	}
+	>>> .child-two {
+	}
 }
 .parent {
-  >>> .child-one {
-  }
-  >>> .child-two {
-  }
+	>>> .child-one {
+	}
+	>>> .child-two {
+	}
 }
 
 /* This matches all XHTML <a> elements, as XHTML is the default unprefixed namespace */

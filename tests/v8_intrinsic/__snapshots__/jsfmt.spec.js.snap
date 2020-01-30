@@ -33,14 +33,14 @@ function doSmth()     {
 
 =====================================output=====================================
 function doSmth() {
-  %DebugPrint(foo);
+	%DebugPrint(foo);
 }
 
 function printFunc(f) {
-  if (%IsAsmWasmCode(f)) console.log("asm.js");
-  if (%IsWasmCode(f)) console.log("wasm");
+	if (%IsAsmWasmCode(f)) console.log("asm.js");
+	if (%IsWasmCode(f)) console.log("wasm");
 
-  console.log(%GetFunctioName(f));
+	console.log(%GetFunctioName(f));
 }
 
 ================================================================================

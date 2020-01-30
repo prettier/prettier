@@ -46,64 +46,64 @@ trailingComma: "none"
 
 =====================================output=====================================
 <template>
-  <div
-    v-for="item in items"
-    v-for="item of items"
-    v-for="(item, index) in items"
-    v-for="value in object"
-    v-for="(value, key) in object"
-    v-for="(value, key) of object"
-    v-for="(value, key, index) in object"
-    v-for="n in evenNumbers"
-    v-for="n in even(numbers)"
-    v-for="n in 10"
-    v-for="{ a } in [0].map(() => ({ a: 1 }))"
-    v-for="({ a }, [c]) in [0].map(() => 1)"
-    v-for="n in items.map((x) => {
-      return x;
-    })"
-    @click="/* hello */"
-    @click="/* 1 */ $emit(/* 2 */ 'click' /* 3 */) /* 4 */ /* 5 */"
-    @click="$emit('click')"
-    @click="$emit('click')"
-    @click="
-      $emit('click');
-      if (something) {
-        for (let i = j; i < 100; i++) {}
-      } else {
-      }
-    "
-    slot-scope="{ row }"
-    slot-scope="{
-      destructuring: {
-        a: { b }
-      }
-    }"
-    :class="{
-      longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true
-    }"
-    :class="
-      (() => {
-        return 'hello';
-      })()
-    "
-    :key="index /* hello */"
-    :key="
-      index // hello
-    "
-    @click="
-      () => {
-        console.log(test);
-      }
-    "
-    @click="
-      () => {
-        console.log(test);
-      }
-    "
-    @click="doSomething()"
-    @click="doSomething;"
-  ></div>
+	<div
+		v-for="item in items"
+		v-for="item of items"
+		v-for="(item, index) in items"
+		v-for="value in object"
+		v-for="(value, key) in object"
+		v-for="(value, key) of object"
+		v-for="(value, key, index) in object"
+		v-for="n in evenNumbers"
+		v-for="n in even(numbers)"
+		v-for="n in 10"
+		v-for="{ a } in [0].map(() => ({ a: 1 }))"
+		v-for="({ a }, [c]) in [0].map(() => 1)"
+		v-for="n in items.map((x) => {
+			return x;
+		})"
+		@click="/* hello */"
+		@click="/* 1 */ $emit(/* 2 */ 'click' /* 3 */) /* 4 */ /* 5 */"
+		@click="$emit('click')"
+		@click="$emit('click')"
+		@click="
+			$emit('click');
+			if (something) {
+				for (let i = j; i < 100; i++) {}
+			} else {
+			}
+		"
+		slot-scope="{ row }"
+		slot-scope="{
+			destructuring: {
+				a: { b }
+			}
+		}"
+		:class="{
+			longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true
+		}"
+		:class="
+			(() => {
+				return 'hello';
+			})()
+		"
+		:key="index /* hello */"
+		:key="
+			index // hello
+		"
+		@click="
+			() => {
+				console.log(test);
+			}
+		"
+		@click="
+			() => {
+				console.log(test);
+			}
+		"
+		@click="doSomething()"
+		@click="doSomething;"
+	></div>
 </template>
 
 ================================================================================
@@ -154,64 +154,64 @@ printWidth: 80
 
 =====================================output=====================================
 <template>
-  <div
-    v-for="item in items"
-    v-for="item of items"
-    v-for="(item, index) in items"
-    v-for="value in object"
-    v-for="(value, key) in object"
-    v-for="(value, key) of object"
-    v-for="(value, key, index) in object"
-    v-for="n in evenNumbers"
-    v-for="n in even(numbers)"
-    v-for="n in 10"
-    v-for="{ a } in [0].map(() => ({ a: 1 }))"
-    v-for="({ a }, [c]) in [0].map(() => 1)"
-    v-for="n in items.map((x) => {
-      return x;
-    })"
-    @click="/* hello */"
-    @click="/* 1 */ $emit(/* 2 */ 'click' /* 3 */) /* 4 */ /* 5 */"
-    @click="$emit('click')"
-    @click="$emit('click')"
-    @click="
-      $emit('click');
-      if (something) {
-        for (let i = j; i < 100; i++) {}
-      } else {
-      }
-    "
-    slot-scope="{ row }"
-    slot-scope="{
-      destructuring: {
-        a: { b },
-      },
-    }"
-    :class="{
-      longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true,
-    }"
-    :class="
-      (() => {
-        return 'hello';
-      })()
-    "
-    :key="index /* hello */"
-    :key="
-      index // hello
-    "
-    @click="
-      () => {
-        console.log(test);
-      }
-    "
-    @click="
-      () => {
-        console.log(test);
-      }
-    "
-    @click="doSomething()"
-    @click="doSomething;"
-  ></div>
+	<div
+		v-for="item in items"
+		v-for="item of items"
+		v-for="(item, index) in items"
+		v-for="value in object"
+		v-for="(value, key) in object"
+		v-for="(value, key) of object"
+		v-for="(value, key, index) in object"
+		v-for="n in evenNumbers"
+		v-for="n in even(numbers)"
+		v-for="n in 10"
+		v-for="{ a } in [0].map(() => ({ a: 1 }))"
+		v-for="({ a }, [c]) in [0].map(() => 1)"
+		v-for="n in items.map((x) => {
+			return x;
+		})"
+		@click="/* hello */"
+		@click="/* 1 */ $emit(/* 2 */ 'click' /* 3 */) /* 4 */ /* 5 */"
+		@click="$emit('click')"
+		@click="$emit('click')"
+		@click="
+			$emit('click');
+			if (something) {
+				for (let i = j; i < 100; i++) {}
+			} else {
+			}
+		"
+		slot-scope="{ row }"
+		slot-scope="{
+			destructuring: {
+				a: { b },
+			},
+		}"
+		:class="{
+			longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true,
+		}"
+		:class="
+			(() => {
+				return 'hello';
+			})()
+		"
+		:key="index /* hello */"
+		:key="
+			index // hello
+		"
+		@click="
+			() => {
+				console.log(test);
+			}
+		"
+		@click="
+			() => {
+				console.log(test);
+			}
+		"
+		@click="doSomething()"
+		@click="doSomething;"
+	></div>
 </template>
 
 ================================================================================
@@ -263,64 +263,64 @@ semi: false
 
 =====================================output=====================================
 <template>
-  <div
-    v-for="item in items"
-    v-for="item of items"
-    v-for="(item, index) in items"
-    v-for="value in object"
-    v-for="(value, key) in object"
-    v-for="(value, key) of object"
-    v-for="(value, key, index) in object"
-    v-for="n in evenNumbers"
-    v-for="n in even(numbers)"
-    v-for="n in 10"
-    v-for="{ a } in [0].map(() => ({ a: 1 }))"
-    v-for="({ a }, [c]) in [0].map(() => 1)"
-    v-for="n in items.map((x) => {
-      return x
-    })"
-    @click="/* hello */"
-    @click="/* 1 */ $emit(/* 2 */ 'click' /* 3 */) /* 4 */ /* 5 */"
-    @click="$emit('click')"
-    @click="$emit('click')"
-    @click="
-      $emit('click')
-      if (something) {
-        for (let i = j; i < 100; i++) {}
-      } else {
-      }
-    "
-    slot-scope="{ row }"
-    slot-scope="{
-      destructuring: {
-        a: { b },
-      },
-    }"
-    :class="{
-      longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true,
-    }"
-    :class="
-      (() => {
-        return 'hello'
-      })()
-    "
-    :key="index /* hello */"
-    :key="
-      index // hello
-    "
-    @click="
-      () => {
-        console.log(test)
-      }
-    "
-    @click="
-      () => {
-        console.log(test)
-      }
-    "
-    @click="doSomething()"
-    @click="doSomething;"
-  ></div>
+	<div
+		v-for="item in items"
+		v-for="item of items"
+		v-for="(item, index) in items"
+		v-for="value in object"
+		v-for="(value, key) in object"
+		v-for="(value, key) of object"
+		v-for="(value, key, index) in object"
+		v-for="n in evenNumbers"
+		v-for="n in even(numbers)"
+		v-for="n in 10"
+		v-for="{ a } in [0].map(() => ({ a: 1 }))"
+		v-for="({ a }, [c]) in [0].map(() => 1)"
+		v-for="n in items.map((x) => {
+			return x
+		})"
+		@click="/* hello */"
+		@click="/* 1 */ $emit(/* 2 */ 'click' /* 3 */) /* 4 */ /* 5 */"
+		@click="$emit('click')"
+		@click="$emit('click')"
+		@click="
+			$emit('click')
+			if (something) {
+				for (let i = j; i < 100; i++) {}
+			} else {
+			}
+		"
+		slot-scope="{ row }"
+		slot-scope="{
+			destructuring: {
+				a: { b },
+			},
+		}"
+		:class="{
+			longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true,
+		}"
+		:class="
+			(() => {
+				return 'hello'
+			})()
+		"
+		:key="index /* hello */"
+		:key="
+			index // hello
+		"
+		@click="
+			() => {
+				console.log(test)
+			}
+		"
+		@click="
+			() => {
+				console.log(test)
+			}
+		"
+		@click="doSomething()"
+		@click="doSomething;"
+	></div>
 </template>
 
 ================================================================================
@@ -415,78 +415,78 @@ import eventHub from "../eventhub";
 const Store = gl.issueBoards.BoardsStore;
 
 export default {
-  name: "BoardsIssueCard",
-  components: {
-    "issue-card-inner": gl.issueBoards.IssueCardInner
-  },
-  props: {
-    list: Object,
-    issue: Object,
-    issueLinkBase: String,
-    disabled: Boolean,
-    index: Number,
-    rootPath: String
-  },
-  data() {
-    return {
-      showDetail: false,
-      detailIssue: Store.detail
-    };
-  },
-  computed: {
-    issueDetailVisible() {
-      return (
-        this.detailIssue.issue && this.detailIssue.issue.id === this.issue.id
-      );
-    }
-  },
-  methods: {
-    mouseDown() {
-      this.showDetail = true;
-    },
-    mouseMove() {
-      this.showDetail = false;
-    },
-    showIssue(e) {
-      if (e.target.classList.contains("js-no-trigger")) return;
+	name: "BoardsIssueCard",
+	components: {
+		"issue-card-inner": gl.issueBoards.IssueCardInner
+	},
+	props: {
+		list: Object,
+		issue: Object,
+		issueLinkBase: String,
+		disabled: Boolean,
+		index: Number,
+		rootPath: String
+	},
+	data() {
+		return {
+			showDetail: false,
+			detailIssue: Store.detail
+		};
+	},
+	computed: {
+		issueDetailVisible() {
+			return (
+				this.detailIssue.issue && this.detailIssue.issue.id === this.issue.id
+			);
+		}
+	},
+	methods: {
+		mouseDown() {
+			this.showDetail = true;
+		},
+		mouseMove() {
+			this.showDetail = false;
+		},
+		showIssue(e) {
+			if (e.target.classList.contains("js-no-trigger")) return;
 
-      if (this.showDetail) {
-        this.showDetail = false;
+			if (this.showDetail) {
+				this.showDetail = false;
 
-        if (Store.detail.issue && Store.detail.issue.id === this.issue.id) {
-          eventHub.$emit("clearDetailIssue");
-        } else {
-          eventHub.$emit("newDetailIssue", this.issue);
-          Store.detail.list = this.list;
-        }
-      }
-    }
-  }
+				if (Store.detail.issue && Store.detail.issue.id === this.issue.id) {
+					eventHub.$emit("clearDetailIssue");
+				} else {
+					eventHub.$emit("newDetailIssue", this.issue);
+					Store.detail.list = this.list;
+				}
+			}
+		}
+	}
 };
 </script>
 
 <template>
-  <li
-    class="card"
-    :class="{
-      'user-can-drag': !disabled && issue.id,
-      'is-disabled': disabled || !issue.id,
-      'is-active': issueDetailVisible
-    }"
-    :index="index"
-    :data-issue-id="issue.id"
-    @mousedown="mouseDown"
-    @mousemove="mouseMove"
-    @mouseup="showIssue($event)"
-  >
-    <issue-card-inner
-      :list="list"
-      :issue="issue"
-      :issue-link-base="issueLinkBase"
-      :root-path="rootPath"
-      :update-filters="true"
-    />
-  </li>
+	<li
+		class="card"
+		:class="{
+			'user-can-drag': !disabled && issue.id,
+			'is-disabled': disabled || !issue.id,
+			'is-active': issueDetailVisible
+		}"
+		:index="index"
+		:data-issue-id="issue.id"
+		@mousedown="mouseDown"
+		@mousemove="mouseMove"
+		@mouseup="showIssue($event)"
+	>
+		<issue-card-inner
+			:list="list"
+			:issue="issue"
+			:issue-link-base="issueLinkBase"
+			:root-path="rootPath"
+			:update-filters="true"
+		/>
+	</li>
 </template>
 
 ================================================================================
@@ -580,78 +580,78 @@ import eventHub from "../eventhub";
 const Store = gl.issueBoards.BoardsStore;
 
 export default {
-  name: "BoardsIssueCard",
-  components: {
-    "issue-card-inner": gl.issueBoards.IssueCardInner,
-  },
-  props: {
-    list: Object,
-    issue: Object,
-    issueLinkBase: String,
-    disabled: Boolean,
-    index: Number,
-    rootPath: String,
-  },
-  data() {
-    return {
-      showDetail: false,
-      detailIssue: Store.detail,
-    };
-  },
-  computed: {
-    issueDetailVisible() {
-      return (
-        this.detailIssue.issue && this.detailIssue.issue.id === this.issue.id
-      );
-    },
-  },
-  methods: {
-    mouseDown() {
-      this.showDetail = true;
-    },
-    mouseMove() {
-      this.showDetail = false;
-    },
-    showIssue(e) {
-      if (e.target.classList.contains("js-no-trigger")) return;
+	name: "BoardsIssueCard",
+	components: {
+		"issue-card-inner": gl.issueBoards.IssueCardInner,
+	},
+	props: {
+		list: Object,
+		issue: Object,
+		issueLinkBase: String,
+		disabled: Boolean,
+		index: Number,
+		rootPath: String,
+	},
+	data() {
+		return {
+			showDetail: false,
+			detailIssue: Store.detail,
+		};
+	},
+	computed: {
+		issueDetailVisible() {
+			return (
+				this.detailIssue.issue && this.detailIssue.issue.id === this.issue.id
+			);
+		},
+	},
+	methods: {
+		mouseDown() {
+			this.showDetail = true;
+		},
+		mouseMove() {
+			this.showDetail = false;
+		},
+		showIssue(e) {
+			if (e.target.classList.contains("js-no-trigger")) return;
 
-      if (this.showDetail) {
-        this.showDetail = false;
+			if (this.showDetail) {
+				this.showDetail = false;
 
-        if (Store.detail.issue && Store.detail.issue.id === this.issue.id) {
-          eventHub.$emit("clearDetailIssue");
-        } else {
-          eventHub.$emit("newDetailIssue", this.issue);
-          Store.detail.list = this.list;
-        }
-      }
-    },
-  },
+				if (Store.detail.issue && Store.detail.issue.id === this.issue.id) {
+					eventHub.$emit("clearDetailIssue");
+				} else {
+					eventHub.$emit("newDetailIssue", this.issue);
+					Store.detail.list = this.list;
+				}
+			}
+		},
+	},
 };
 </script>
 
 <template>
-  <li
-    class="card"
-    :class="{
-      'user-can-drag': !disabled && issue.id,
-      'is-disabled': disabled || !issue.id,
-      'is-active': issueDetailVisible,
-    }"
-    :index="index"
-    :data-issue-id="issue.id"
-    @mousedown="mouseDown"
-    @mousemove="mouseMove"
-    @mouseup="showIssue($event)"
-  >
-    <issue-card-inner
-      :list="list"
-      :issue="issue"
-      :issue-link-base="issueLinkBase"
-      :root-path="rootPath"
-      :update-filters="true"
-    />
-  </li>
+	<li
+		class="card"
+		:class="{
+			'user-can-drag': !disabled && issue.id,
+			'is-disabled': disabled || !issue.id,
+			'is-active': issueDetailVisible,
+		}"
+		:index="index"
+		:data-issue-id="issue.id"
+		@mousedown="mouseDown"
+		@mousemove="mouseMove"
+		@mouseup="showIssue($event)"
+	>
+		<issue-card-inner
+			:list="list"
+			:issue="issue"
+			:issue-link-base="issueLinkBase"
+			:root-path="rootPath"
+			:update-filters="true"
+		/>
+	</li>
 </template>
 
 ================================================================================
@@ -746,78 +746,78 @@ import eventHub from "../eventhub"
 const Store = gl.issueBoards.BoardsStore
 
 export default {
-  name: "BoardsIssueCard",
-  components: {
-    "issue-card-inner": gl.issueBoards.IssueCardInner,
-  },
-  props: {
-    list: Object,
-    issue: Object,
-    issueLinkBase: String,
-    disabled: Boolean,
-    index: Number,
-    rootPath: String,
-  },
-  data() {
-    return {
-      showDetail: false,
-      detailIssue: Store.detail,
-    }
-  },
-  computed: {
-    issueDetailVisible() {
-      return (
-        this.detailIssue.issue && this.detailIssue.issue.id === this.issue.id
-      )
-    },
-  },
-  methods: {
-    mouseDown() {
-      this.showDetail = true
-    },
-    mouseMove() {
-      this.showDetail = false
-    },
-    showIssue(e) {
-      if (e.target.classList.contains("js-no-trigger")) return
+	name: "BoardsIssueCard",
+	components: {
+		"issue-card-inner": gl.issueBoards.IssueCardInner,
+	},
+	props: {
+		list: Object,
+		issue: Object,
+		issueLinkBase: String,
+		disabled: Boolean,
+		index: Number,
+		rootPath: String,
+	},
+	data() {
+		return {
+			showDetail: false,
+			detailIssue: Store.detail,
+		}
+	},
+	computed: {
+		issueDetailVisible() {
+			return (
+				this.detailIssue.issue && this.detailIssue.issue.id === this.issue.id
+			)
+		},
+	},
+	methods: {
+		mouseDown() {
+			this.showDetail = true
+		},
+		mouseMove() {
+			this.showDetail = false
+		},
+		showIssue(e) {
+			if (e.target.classList.contains("js-no-trigger")) return
 
-      if (this.showDetail) {
-        this.showDetail = false
+			if (this.showDetail) {
+				this.showDetail = false
 
-        if (Store.detail.issue && Store.detail.issue.id === this.issue.id) {
-          eventHub.$emit("clearDetailIssue")
-        } else {
-          eventHub.$emit("newDetailIssue", this.issue)
-          Store.detail.list = this.list
-        }
-      }
-    },
-  },
+				if (Store.detail.issue && Store.detail.issue.id === this.issue.id) {
+					eventHub.$emit("clearDetailIssue")
+				} else {
+					eventHub.$emit("newDetailIssue", this.issue)
+					Store.detail.list = this.list
+				}
+			}
+		},
+	},
 }
 </script>
 
 <template>
-  <li
-    class="card"
-    :class="{
-      'user-can-drag': !disabled && issue.id,
-      'is-disabled': disabled || !issue.id,
-      'is-active': issueDetailVisible,
-    }"
-    :index="index"
-    :data-issue-id="issue.id"
-    @mousedown="mouseDown"
-    @mousemove="mouseMove"
-    @mouseup="showIssue($event)"
-  >
-    <issue-card-inner
-      :list="list"
-      :issue="issue"
-      :issue-link-base="issueLinkBase"
-      :root-path="rootPath"
-      :update-filters="true"
-    />
-  </li>
+	<li
+		class="card"
+		:class="{
+			'user-can-drag': !disabled && issue.id,
+			'is-disabled': disabled || !issue.id,
+			'is-active': issueDetailVisible,
+		}"
+		:index="index"
+		:data-issue-id="issue.id"
+		@mousedown="mouseDown"
+		@mousemove="mouseMove"
+		@mouseup="showIssue($event)"
+	>
+		<issue-card-inner
+			:list="list"
+			:issue="issue"
+			:issue-link-base="issueLinkBase"
+			:root-path="rootPath"
+			:update-filters="true"
+		/>
+	</li>
 </template>
 
 ================================================================================
@@ -836,7 +836,7 @@ trailingComma: "none"
 
 =====================================output=====================================
 <template>
-  <Input></Input>
+	<Input></Input>
 </template>
 
 ================================================================================
@@ -854,7 +854,7 @@ printWidth: 80
 
 =====================================output=====================================
 <template>
-  <Input></Input>
+	<Input></Input>
 </template>
 
 ================================================================================
@@ -873,7 +873,7 @@ semi: false
 
 =====================================output=====================================
 <template>
-  <Input></Input>
+	<Input></Input>
 </template>
 
 ================================================================================
@@ -902,8 +902,8 @@ trailingComma: "none"
 </i18n>
 
 <html>
-  <head></head>
-  <body></body>
+	<head></head>
+	<body></body>
 </html>
 
 ================================================================================
@@ -931,8 +931,8 @@ printWidth: 80
 </i18n>
 
 <html>
-  <head></head>
-  <body></body>
+	<head></head>
+	<body></body>
 </html>
 
 ================================================================================
@@ -961,8 +961,8 @@ semi: false
 </i18n>
 
 <html>
-  <head></head>
-  <body></body>
+	<head></head>
+	<body></body>
 </html>
 
 ================================================================================
@@ -986,41 +986,41 @@ trailingComma: "none"
 =====================================output=====================================
 <!-- vue filters are only allowed in v-bind and interpolation -->
 <template>
-  <div class="allowed">
-    {{
-      value
-        | thisIsARealSuperLongFilterPipe("arg1", arg2)
-        | anotherPipeLongJustForFun
-        | pipeTheThird
-    }}
-  </div>
-  <div
-    class="allowed"
-    v-bind:something="
-      value
-        | thisIsARealSuperLongFilterPipe('arg1', arg2)
-        | anotherPipeLongJustForFun
-        | pipeTheThird
-    "
-  ></div>
-  <div
-    class="allowed"
-    :class="
-      value
-        | thisIsARealSuperLongFilterPipe('arg1', arg2)
-        | anotherPipeLongJustForFun
-        | pipeTheThird
-    "
-  ></div>
-  <div
-    class="not-allowed"
-    v-if="
-      value |
-        thisIsARealSuperLongFilterPipe('arg1', arg2) |
-        anotherPipeLongJustForFun |
-        pipeTheThird
-    "
-  ></div>
+	<div class="allowed">
+		{{
+			value
+				| thisIsARealSuperLongFilterPipe("arg1", arg2)
+				| anotherPipeLongJustForFun
+				| pipeTheThird
+		}}
+	</div>
+	<div
+		class="allowed"
+		v-bind:something="
+			value
+				| thisIsARealSuperLongFilterPipe('arg1', arg2)
+				| anotherPipeLongJustForFun
+				| pipeTheThird
+		"
+	></div>
+	<div
+		class="allowed"
+		:class="
+			value
+				| thisIsARealSuperLongFilterPipe('arg1', arg2)
+				| anotherPipeLongJustForFun
+				| pipeTheThird
+		"
+	></div>
+	<div
+		class="not-allowed"
+		v-if="
+			value |
+				thisIsARealSuperLongFilterPipe('arg1', arg2) |
+				anotherPipeLongJustForFun |
+				pipeTheThird
+		"
+	></div>
 </template>
 
 ================================================================================
@@ -1043,41 +1043,41 @@ printWidth: 80
 =====================================output=====================================
 <!-- vue filters are only allowed in v-bind and interpolation -->
 <template>
-  <div class="allowed">
-    {{
-      value
-        | thisIsARealSuperLongFilterPipe("arg1", arg2)
-        | anotherPipeLongJustForFun
-        | pipeTheThird
-    }}
-  </div>
-  <div
-    class="allowed"
-    v-bind:something="
-      value
-        | thisIsARealSuperLongFilterPipe('arg1', arg2)
-        | anotherPipeLongJustForFun
-        | pipeTheThird
-    "
-  ></div>
-  <div
-    class="allowed"
-    :class="
-      value
-        | thisIsARealSuperLongFilterPipe('arg1', arg2)
-        | anotherPipeLongJustForFun
-        | pipeTheThird
-    "
-  ></div>
-  <div
-    class="not-allowed"
-    v-if="
-      value |
-        thisIsARealSuperLongFilterPipe('arg1', arg2) |
-        anotherPipeLongJustForFun |
-        pipeTheThird
-    "
-  ></div>
+	<div class="allowed">
+		{{
+			value
+				| thisIsARealSuperLongFilterPipe("arg1", arg2)
+				| anotherPipeLongJustForFun
+				| pipeTheThird
+		}}
+	</div>
+	<div
+		class="allowed"
+		v-bind:something="
+			value
+				| thisIsARealSuperLongFilterPipe('arg1', arg2)
+				| anotherPipeLongJustForFun
+				| pipeTheThird
+		"
+	></div>
+	<div
+		class="allowed"
+		:class="
+			value
+				| thisIsARealSuperLongFilterPipe('arg1', arg2)
+				| anotherPipeLongJustForFun
+				| pipeTheThird
+		"
+	></div>
+	<div
+		class="not-allowed"
+		v-if="
+			value |
+				thisIsARealSuperLongFilterPipe('arg1', arg2) |
+				anotherPipeLongJustForFun |
+				pipeTheThird
+		"
+	></div>
 </template>
 
 ================================================================================
@@ -1101,41 +1101,41 @@ semi: false
 =====================================output=====================================
 <!-- vue filters are only allowed in v-bind and interpolation -->
 <template>
-  <div class="allowed">
-    {{
-      value
-        | thisIsARealSuperLongFilterPipe("arg1", arg2)
-        | anotherPipeLongJustForFun
-        | pipeTheThird
-    }}
-  </div>
-  <div
-    class="allowed"
-    v-bind:something="
-      value
-        | thisIsARealSuperLongFilterPipe('arg1', arg2)
-        | anotherPipeLongJustForFun
-        | pipeTheThird
-    "
-  ></div>
-  <div
-    class="allowed"
-    :class="
-      value
-        | thisIsARealSuperLongFilterPipe('arg1', arg2)
-        | anotherPipeLongJustForFun
-        | pipeTheThird
-    "
-  ></div>
-  <div
-    class="not-allowed"
-    v-if="
-      value |
-        thisIsARealSuperLongFilterPipe('arg1', arg2) |
-        anotherPipeLongJustForFun |
-        pipeTheThird
-    "
-  ></div>
+	<div class="allowed">
+		{{
+			value
+				| thisIsARealSuperLongFilterPipe("arg1", arg2)
+				| anotherPipeLongJustForFun
+				| pipeTheThird
+		}}
+	</div>
+	<div
+		class="allowed"
+		v-bind:something="
+			value
+				| thisIsARealSuperLongFilterPipe('arg1', arg2)
+				| anotherPipeLongJustForFun
+				| pipeTheThird
+		"
+	></div>
+	<div
+		class="allowed"
+		:class="
+			value
+				| thisIsARealSuperLongFilterPipe('arg1', arg2)
+				| anotherPipeLongJustForFun
+				| pipeTheThird
+		"
+	></div>
+	<div
+		class="not-allowed"
+		v-if="
+			value |
+				thisIsARealSuperLongFilterPipe('arg1', arg2) |
+				anotherPipeLongJustForFun |
+				pipeTheThird
+		"
+	></div>
 </template>
 
 ================================================================================
@@ -1209,17 +1209,17 @@ x => {
 
 =====================================output=====================================
 <template>
-  <div>
-    Fuga magnam facilis. Voluptatem quaerat porro.{{
-      (x) => {
-        const hello = "world";
-        return hello;
-      }
-    }}
-    Magni consectetur in et molestias neque esse voluptatibus voluptas.
-    {{ some_variable }} Eum quia nihil nulla esse. Dolorem asperiores vero est
-    error
-    {{
+	<div>
+		Fuga magnam facilis. Voluptatem quaerat porro.{{
+			(x) => {
+				const hello = "world";
+				return hello;
+			}
+		}}
+		Magni consectetur in et molestias neque esse voluptatibus voluptas.
+		{{ some_variable }} Eum quia nihil nulla esse. Dolorem asperiores vero est
+		error
+		{{
 
                     preserve
 
@@ -1227,46 +1227,46 @@ x => {
                     
                     interpolation
 
-    }}
-    reprehenderit voluptates minus {{ console.log(short_interpolation) }} nemo.
-  </div>
+		}}
+		reprehenderit voluptates minus {{ console.log(short_interpolation) }} nemo.
+	</div>
 
-  <script type="text/jsx">
-    export default {
-      render (h) {
-        return (
-          <ul
-            class={{
-              'a': b,
-              'c': d,
-              "e": f
-            }}
-          >
-            { this.xyz }
-          </ul>
-      )
-    };
-  </script>
+	<script type="text/jsx">
+		export default {
+		  render (h) {
+		    return (
+		      <ul
+		        class={{
+		          'a': b,
+		          'c': d,
+		          "e": f
+		        }}
+		      >
+		        { this.xyz }
+		      </ul>
+		  )
+		};
+	</script>
 
-  <div>
-    1234567890123456789012345678901234567890123456789012345678901234567890{{
-      something
-    }}1234567890
-  </div>
-  <div>
-    1234567890123456789012345678901234567890123456789012345678901234567890
-    {{ something }}1234567890
-  </div>
-  <div>
-    1234567890123456789012345678901234567890123456789012345678901234567890{{
-      something
-    }}
-    1234567890
-  </div>
-  <div>
-    1234567890123456789012345678901234567890123456789012345678901234567890
-    {{ something }} 1234567890
-  </div>
+	<div>
+		1234567890123456789012345678901234567890123456789012345678901234567890{{
+			something
+		}}1234567890
+	</div>
+	<div>
+		1234567890123456789012345678901234567890123456789012345678901234567890
+		{{ something }}1234567890
+	</div>
+	<div>
+		1234567890123456789012345678901234567890123456789012345678901234567890{{
+			something
+		}}
+		1234567890
+	</div>
+	<div>
+		1234567890123456789012345678901234567890123456789012345678901234567890
+		{{ something }} 1234567890
+	</div>
 </template>
 
 ================================================================================
@@ -1339,17 +1339,17 @@ x => {
 
 =====================================output=====================================
 <template>
-  <div>
-    Fuga magnam facilis. Voluptatem quaerat porro.{{
-      (x) => {
-        const hello = "world";
-        return hello;
-      }
-    }}
-    Magni consectetur in et molestias neque esse voluptatibus voluptas.
-    {{ some_variable }} Eum quia nihil nulla esse. Dolorem asperiores vero est
-    error
-    {{
+	<div>
+		Fuga magnam facilis. Voluptatem quaerat porro.{{
+			(x) => {
+				const hello = "world";
+				return hello;
+			}
+		}}
+		Magni consectetur in et molestias neque esse voluptatibus voluptas.
+		{{ some_variable }} Eum quia nihil nulla esse. Dolorem asperiores vero est
+		error
+		{{
 
                     preserve
 
@@ -1357,46 +1357,46 @@ x => {
                     
                     interpolation
 
-    }}
-    reprehenderit voluptates minus {{ console.log(short_interpolation) }} nemo.
-  </div>
+		}}
+		reprehenderit voluptates minus {{ console.log(short_interpolation) }} nemo.
+	</div>
 
-  <script type="text/jsx">
-    export default {
-      render (h) {
-        return (
-          <ul
-            class={{
-              'a': b,
-              'c': d,
-              "e": f
-            }}
-          >
-            { this.xyz }
-          </ul>
-      )
-    };
-  </script>
+	<script type="text/jsx">
+		export default {
+		  render (h) {
+		    return (
+		      <ul
+		        class={{
+		          'a': b,
+		          'c': d,
+		          "e": f
+		        }}
+		      >
+		        { this.xyz }
+		      </ul>
+		  )
+		};
+	</script>
 
-  <div>
-    1234567890123456789012345678901234567890123456789012345678901234567890{{
-      something
-    }}1234567890
-  </div>
-  <div>
-    1234567890123456789012345678901234567890123456789012345678901234567890
-    {{ something }}1234567890
-  </div>
-  <div>
-    1234567890123456789012345678901234567890123456789012345678901234567890{{
-      something
-    }}
-    1234567890
-  </div>
-  <div>
-    1234567890123456789012345678901234567890123456789012345678901234567890
-    {{ something }} 1234567890
-  </div>
+	<div>
+		1234567890123456789012345678901234567890123456789012345678901234567890{{
+			something
+		}}1234567890
+	</div>
+	<div>
+		1234567890123456789012345678901234567890123456789012345678901234567890
+		{{ something }}1234567890
+	</div>
+	<div>
+		1234567890123456789012345678901234567890123456789012345678901234567890{{
+			something
+		}}
+		1234567890
+	</div>
+	<div>
+		1234567890123456789012345678901234567890123456789012345678901234567890
+		{{ something }} 1234567890
+	</div>
 </template>
 
 ================================================================================
@@ -1470,17 +1470,17 @@ x => {
 
 =====================================output=====================================
 <template>
-  <div>
-    Fuga magnam facilis. Voluptatem quaerat porro.{{
-      (x) => {
-        const hello = "world"
-        return hello
-      }
-    }}
-    Magni consectetur in et molestias neque esse voluptatibus voluptas.
-    {{ some_variable }} Eum quia nihil nulla esse. Dolorem asperiores vero est
-    error
-    {{
+	<div>
+		Fuga magnam facilis. Voluptatem quaerat porro.{{
+			(x) => {
+				const hello = "world"
+				return hello
+			}
+		}}
+		Magni consectetur in et molestias neque esse voluptatibus voluptas.
+		{{ some_variable }} Eum quia nihil nulla esse. Dolorem asperiores vero est
+		error
+		{{
 
                     preserve
 
@@ -1488,46 +1488,46 @@ x => {
                     
                     interpolation
 
-    }}
-    reprehenderit voluptates minus {{ console.log(short_interpolation) }} nemo.
-  </div>
+		}}
+		reprehenderit voluptates minus {{ console.log(short_interpolation) }} nemo.
+	</div>
 
-  <script type="text/jsx">
-    export default {
-      render (h) {
-        return (
-          <ul
-            class={{
-              'a': b,
-              'c': d,
-              "e": f
-            }}
-          >
-            { this.xyz }
-          </ul>
-      )
-    };
-  </script>
+	<script type="text/jsx">
+		export default {
+		  render (h) {
+		    return (
+		      <ul
+		        class={{
+		          'a': b,
+		          'c': d,
+		          "e": f
+		        }}
+		      >
+		        { this.xyz }
+		      </ul>
+		  )
+		};
+	</script>
 
-  <div>
-    1234567890123456789012345678901234567890123456789012345678901234567890{{
-      something
-    }}1234567890
-  </div>
-  <div>
-    1234567890123456789012345678901234567890123456789012345678901234567890
-    {{ something }}1234567890
-  </div>
-  <div>
-    1234567890123456789012345678901234567890123456789012345678901234567890{{
-      something
-    }}
-    1234567890
-  </div>
-  <div>
-    1234567890123456789012345678901234567890123456789012345678901234567890
-    {{ something }} 1234567890
-  </div>
+	<div>
+		1234567890123456789012345678901234567890123456789012345678901234567890{{
+			something
+		}}1234567890
+	</div>
+	<div>
+		1234567890123456789012345678901234567890123456789012345678901234567890
+		{{ something }}1234567890
+	</div>
+	<div>
+		1234567890123456789012345678901234567890123456789012345678901234567890{{
+			something
+		}}
+		1234567890
+	</div>
+	<div>
+		1234567890123456789012345678901234567890123456789012345678901234567890
+		{{ something }} 1234567890
+	</div>
 </template>
 
 ================================================================================
@@ -1586,8 +1586,8 @@ trailingComma: "none"
 
 =====================================output=====================================
 <template>
-  <!-- copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/ide/components/jobs/detail.vue -->
-  <pre ref="buildTrace" class="build-trace mb-0 h-100" @scroll="scrollBuildLog">
+	<!-- copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/ide/components/jobs/detail.vue -->
+	<pre ref="buildTrace" class="build-trace mb-0 h-100" @scroll="scrollBuildLog">
   <code
     v-show="!detailJob.isLoading"
     class="bash"
@@ -1607,33 +1607,33 @@ trailingComma: "none"
 
 <!-- copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/vue_shared/components/code_block.vue -->
 <template>
-  <pre class="code-block rounded">
+	<pre class="code-block rounded">
     <code class="d-block">{{ code }}</code>
   </pre>
 </template>
 
 <template>
-  <pre class="woot">
+	<pre class="woot">
   {{ stuff }}
   </pre>
 </template>
 
 <template>
-  <pre class="woot">
+	<pre class="woot">
   123{{
-      wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq
-    }}123
+			wqeqwwqwqweqweqwewwq ||
+				wqeqwwqwqweqweqwewwq ||
+				wqeqwwqwqweqweqwewwq ||
+				wqeqwwqwqweqweqwewwq
+		}}123
   123{{
-      wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq
-    }}123
+			wqeqwwqwqweqweqwewwq ||
+				wqeqwwqwqweqweqwewwq ||
+				wqeqwwqwqweqweqwewwq ||
+				wqeqwwqwqweqweqwewwq
+		}}123
     </pre
-  >
+	>
 </template>
 
 ================================================================================
@@ -1691,8 +1691,8 @@ printWidth: 80
 
 =====================================output=====================================
 <template>
-  <!-- copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/ide/components/jobs/detail.vue -->
-  <pre ref="buildTrace" class="build-trace mb-0 h-100" @scroll="scrollBuildLog">
+	<!-- copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/ide/components/jobs/detail.vue -->
+	<pre ref="buildTrace" class="build-trace mb-0 h-100" @scroll="scrollBuildLog">
   <code
     v-show="!detailJob.isLoading"
     class="bash"
@@ -1712,33 +1712,33 @@ printWidth: 80
 
 <!-- copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/vue_shared/components/code_block.vue -->
 <template>
-  <pre class="code-block rounded">
+	<pre class="code-block rounded">
     <code class="d-block">{{ code }}</code>
   </pre>
 </template>
 
 <template>
-  <pre class="woot">
+	<pre class="woot">
   {{ stuff }}
   </pre>
 </template>
 
 <template>
-  <pre class="woot">
+	<pre class="woot">
   123{{
-      wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq
-    }}123
+			wqeqwwqwqweqweqwewwq ||
+				wqeqwwqwqweqweqwewwq ||
+				wqeqwwqwqweqweqwewwq ||
+				wqeqwwqwqweqweqwewwq
+		}}123
   123{{
-      wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq
-    }}123
+			wqeqwwqwqweqweqwewwq ||
+				wqeqwwqwqweqweqwewwq ||
+				wqeqwwqwqweqweqwewwq ||
+				wqeqwwqwqweqweqwewwq
+		}}123
     </pre
-  >
+	>
 </template>
 
 ================================================================================
@@ -1797,8 +1797,8 @@ semi: false
 
 =====================================output=====================================
 <template>
-  <!-- copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/ide/components/jobs/detail.vue -->
-  <pre ref="buildTrace" class="build-trace mb-0 h-100" @scroll="scrollBuildLog">
+	<!-- copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/ide/components/jobs/detail.vue -->
+	<pre ref="buildTrace" class="build-trace mb-0 h-100" @scroll="scrollBuildLog">
   <code
     v-show="!detailJob.isLoading"
     class="bash"
@@ -1818,33 +1818,33 @@ semi: false
 
 <!-- copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/vue_shared/components/code_block.vue -->
 <template>
-  <pre class="code-block rounded">
+	<pre class="code-block rounded">
     <code class="d-block">{{ code }}</code>
   </pre>
 </template>
 
 <template>
-  <pre class="woot">
+	<pre class="woot">
   {{ stuff }}
   </pre>
 </template>
 
 <template>
-  <pre class="woot">
+	<pre class="woot">
   123{{
-      wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq
-    }}123
+			wqeqwwqwqweqweqwewwq ||
+				wqeqwwqwqweqweqwewwq ||
+				wqeqwwqwqweqweqwewwq ||
+				wqeqwwqwqweqweqwewwq
+		}}123
   123{{
-      wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq
-    }}123
+			wqeqwwqwqweqweqwewwq ||
+				wqeqwwqwqweqweqwewwq ||
+				wqeqwwqwqweqweqwewwq ||
+				wqeqwwqwqweqweqwewwq
+		}}123
     </pre
-  >
+	>
 </template>
 
 ================================================================================
@@ -1926,7 +1926,7 @@ foo( )
 
 =====================================output=====================================
 <template>
-  <div />
+	<div />
 </template>
 
 <script>
@@ -1934,12 +1934,12 @@ foo();
 </script>
 
 <template>
-  <div class="container">
-    <HomeH />
-    <HomeA />
-    <HomeX />
-    <HomeY />
-  </div>
+	<div class="container">
+		<HomeH />
+		<HomeA />
+		<HomeX />
+		<HomeY />
+	</div>
 </template>
 
 ================================================================================
@@ -1970,7 +1970,7 @@ foo( )
 
 =====================================output=====================================
 <template>
-  <div />
+	<div />
 </template>
 
 <script>
@@ -1978,12 +1978,12 @@ foo();
 </script>
 
 <template>
-  <div class="container">
-    <HomeH />
-    <HomeA />
-    <HomeX />
-    <HomeY />
-  </div>
+	<div class="container">
+		<HomeH />
+		<HomeA />
+		<HomeX />
+		<HomeY />
+	</div>
 </template>
 
 ================================================================================
@@ -2015,7 +2015,7 @@ foo( )
 
 =====================================output=====================================
 <template>
-  <div />
+	<div />
 </template>
 
 <script>
@@ -2023,12 +2023,12 @@ foo()
 </script>
 
 <template>
-  <div class="container">
-    <HomeH />
-    <HomeA />
-    <HomeX />
-    <HomeY />
-  </div>
+	<div class="container">
+		<HomeH />
+		<HomeA />
+		<HomeX />
+		<HomeY />
+	</div>
 </template>
 
 ================================================================================
@@ -2049,7 +2049,7 @@ trailingComma: "none"
 
 =====================================output=====================================
 <template>
-  <span :class="$style.root"><slot /></span>
+	<span :class="$style.root"><slot /></span>
 </template>
 
 <style src="./style.css" module />
@@ -2071,7 +2071,7 @@ printWidth: 80
 
 =====================================output=====================================
 <template>
-  <span :class="$style.root"><slot /></span>
+	<span :class="$style.root"><slot /></span>
 </template>
 
 <style src="./style.css" module />
@@ -2094,7 +2094,7 @@ semi: false
 
 =====================================output=====================================
 <template>
-  <span :class="$style.root"><slot /></span>
+	<span :class="$style.root"><slot /></span>
 </template>
 
 <style src="./style.css" module />
@@ -2161,48 +2161,48 @@ trailingComma: "none"
 
 <style>
 #foo1 {
-  color: #f00;
+	color: #f00;
 }
 </style>
 <style scoped>
 #foo2 {
-  color: #f00;
+	color: #f00;
 }
 </style>
 
 <style lang="css">
 #foo3 {
-  color: #f00;
+	color: #f00;
 }
 </style>
 <style lang="css" scoped>
 #foo4 {
-  color: #f00;
+	color: #f00;
 }
 </style>
 
 <style lang="less">
 #foo5 {
-  color: #f00;
+	color: #f00;
 }
 </style>
 <style lang="less" scoped>
 #foo6 {
-  @color: #f00;
-  color: @color;
+	@color: #f00;
+	color: @color;
 }
 </style>
 
 <style lang="scss">
 #foo8 {
-  $color: #f00;
-  color: $color;
+	$color: #f00;
+	color: $color;
 }
 </style>
 <style lang="scss" scoped>
 #foo8 {
-  $color: #f00;
-  color: $color;
+	$color: #f00;
+	color: $color;
 }
 </style>
 
@@ -2267,48 +2267,48 @@ printWidth: 80
 
 <style>
 #foo1 {
-  color: #f00;
+	color: #f00;
 }
 </style>
 <style scoped>
 #foo2 {
-  color: #f00;
+	color: #f00;
 }
 </style>
 
 <style lang="css">
 #foo3 {
-  color: #f00;
+	color: #f00;
 }
 </style>
 <style lang="css" scoped>
 #foo4 {
-  color: #f00;
+	color: #f00;
 }
 </style>
 
 <style lang="less">
 #foo5 {
-  color: #f00;
+	color: #f00;
 }
 </style>
 <style lang="less" scoped>
 #foo6 {
-  @color: #f00;
-  color: @color;
+	@color: #f00;
+	color: @color;
 }
 </style>
 
 <style lang="scss">
 #foo8 {
-  $color: #f00;
-  color: $color;
+	$color: #f00;
+	color: $color;
 }
 </style>
 <style lang="scss" scoped>
 #foo8 {
-  $color: #f00;
-  color: $color;
+	$color: #f00;
+	color: $color;
 }
 </style>
 
@@ -2374,48 +2374,48 @@ semi: false
 
 <style>
 #foo1 {
-  color: #f00;
+	color: #f00;
 }
 </style>
 <style scoped>
 #foo2 {
-  color: #f00;
+	color: #f00;
 }
 </style>
 
 <style lang="css">
 #foo3 {
-  color: #f00;
+	color: #f00;
 }
 </style>
 <style lang="css" scoped>
 #foo4 {
-  color: #f00;
+	color: #f00;
 }
 </style>
 
 <style lang="less">
 #foo5 {
-  color: #f00;
+	color: #f00;
 }
 </style>
 <style lang="less" scoped>
 #foo6 {
-  @color: #f00;
-  color: @color;
+	@color: #f00;
+	color: @color;
 }
 </style>
 
 <style lang="scss">
 #foo8 {
-  $color: #f00;
-  color: $color;
+	$color: #f00;
+	color: $color;
 }
 </style>
 <style lang="scss" scoped>
 #foo8 {
-  $color: #f00;
-  color: $color;
+	$color: #f00;
+	color: $color;
 }
 </style>
 
@@ -2435,7 +2435,7 @@ trailingComma: "none"
 
 =====================================output=====================================
 <template>
-  <Table></Table>
+	<Table></Table>
 </template>
 
 ================================================================================
@@ -2453,7 +2453,7 @@ printWidth: 80
 
 =====================================output=====================================
 <template>
-  <Table></Table>
+	<Table></Table>
 </template>
 
 ================================================================================
@@ -2472,7 +2472,7 @@ semi: false
 
 =====================================output=====================================
 <template>
-  <Table></Table>
+	<Table></Table>
 </template>
 
 ================================================================================
@@ -2516,29 +2516,29 @@ trailingComma: "none"
 =====================================output=====================================
 <!--copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/vue_shared/components/content_viewer/viewers/image_viewer.vue-->
 <template>
-  <div class="file-container">
-    <div class="file-content image_file">
-      <img
-        ref="contentImg"
-        :class="{ 'is-zoomable': isZoomable, 'is-zoomed': isZoomed }"
-        :src="path"
-        :alt="path"
-        @load="onImgLoad"
-        @click="onImgClick"
-      />
-      <p v-if="renderInfo" class="file-info prepend-top-10">
-        <template v-if="fileSize > 0">
-          {{ fileSizeReadable }}
-        </template>
-        <template v-if="fileSize > 0 && width && height">
-          |
-        </template>
-        <template v-if="width && height">
-          W: {{ width }} | H: {{ height }}
-        </template>
-      </p>
-    </div>
-  </div>
+	<div class="file-container">
+		<div class="file-content image_file">
+			<img
+				ref="contentImg"
+				:class="{ 'is-zoomable': isZoomable, 'is-zoomed': isZoomed }"
+				:src="path"
+				:alt="path"
+				@load="onImgLoad"
+				@click="onImgClick"
+			/>
+			<p v-if="renderInfo" class="file-info prepend-top-10">
+				<template v-if="fileSize > 0">
+					{{ fileSizeReadable }}
+				</template>
+				<template v-if="fileSize > 0 && width && height">
+					|
+				</template>
+				<template v-if="width && height">
+					W: {{ width }} | H: {{ height }}
+				</template>
+			</p>
+		</div>
+	</div>
 </template>
 
 ================================================================================
@@ -2581,29 +2581,29 @@ printWidth: 80
 =====================================output=====================================
 <!--copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/vue_shared/components/content_viewer/viewers/image_viewer.vue-->
 <template>
-  <div class="file-container">
-    <div class="file-content image_file">
-      <img
-        ref="contentImg"
-        :class="{ 'is-zoomable': isZoomable, 'is-zoomed': isZoomed }"
-        :src="path"
-        :alt="path"
-        @load="onImgLoad"
-        @click="onImgClick"
-      />
-      <p v-if="renderInfo" class="file-info prepend-top-10">
-        <template v-if="fileSize > 0">
-          {{ fileSizeReadable }}
-        </template>
-        <template v-if="fileSize > 0 && width && height">
-          |
-        </template>
-        <template v-if="width && height">
-          W: {{ width }} | H: {{ height }}
-        </template>
-      </p>
-    </div>
-  </div>
+	<div class="file-container">
+		<div class="file-content image_file">
+			<img
+				ref="contentImg"
+				:class="{ 'is-zoomable': isZoomable, 'is-zoomed': isZoomed }"
+				:src="path"
+				:alt="path"
+				@load="onImgLoad"
+				@click="onImgClick"
+			/>
+			<p v-if="renderInfo" class="file-info prepend-top-10">
+				<template v-if="fileSize > 0">
+					{{ fileSizeReadable }}
+				</template>
+				<template v-if="fileSize > 0 && width && height">
+					|
+				</template>
+				<template v-if="width && height">
+					W: {{ width }} | H: {{ height }}
+				</template>
+			</p>
+		</div>
+	</div>
 </template>
 
 ================================================================================
@@ -2647,29 +2647,29 @@ semi: false
 =====================================output=====================================
 <!--copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/vue_shared/components/content_viewer/viewers/image_viewer.vue-->
 <template>
-  <div class="file-container">
-    <div class="file-content image_file">
-      <img
-        ref="contentImg"
-        :class="{ 'is-zoomable': isZoomable, 'is-zoomed': isZoomed }"
-        :src="path"
-        :alt="path"
-        @load="onImgLoad"
-        @click="onImgClick"
-      />
-      <p v-if="renderInfo" class="file-info prepend-top-10">
-        <template v-if="fileSize > 0">
-          {{ fileSizeReadable }}
-        </template>
-        <template v-if="fileSize > 0 && width && height">
-          |
-        </template>
-        <template v-if="width && height">
-          W: {{ width }} | H: {{ height }}
-        </template>
-      </p>
-    </div>
-  </div>
+	<div class="file-container">
+		<div class="file-content image_file">
+			<img
+				ref="contentImg"
+				:class="{ 'is-zoomable': isZoomable, 'is-zoomed': isZoomed }"
+				:src="path"
+				:alt="path"
+				@load="onImgLoad"
+				@click="onImgClick"
+			/>
+			<p v-if="renderInfo" class="file-info prepend-top-10">
+				<template v-if="fileSize > 0">
+					{{ fileSizeReadable }}
+				</template>
+				<template v-if="fileSize > 0 && width && height">
+					|
+				</template>
+				<template v-if="width && height">
+					W: {{ width }} | H: {{ height }}
+				</template>
+			</p>
+		</div>
+	</div>
 </template>
 
 ================================================================================
@@ -2813,11 +2813,11 @@ trailingComma: "none"
 <script></script>
 
 <template>
-  <br />
-  <footer>
-    foo
-    <br />
-  </footer>
+	<br />
+	<footer>
+		foo
+		<br />
+	</footer>
 </template>
 
 ================================================================================
@@ -2844,11 +2844,11 @@ printWidth: 80
 <script></script>
 
 <template>
-  <br />
-  <footer>
-    foo
-    <br />
-  </footer>
+	<br />
+	<footer>
+		foo
+		<br />
+	</footer>
 </template>
 
 ================================================================================
@@ -2876,11 +2876,11 @@ semi: false
 <script></script>
 
 <template>
-  <br />
-  <footer>
-    foo
-    <br />
-  </footer>
+	<br />
+	<footer>
+		foo
+		<br />
+	</footer>
 </template>
 
 ================================================================================

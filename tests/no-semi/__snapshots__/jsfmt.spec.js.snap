@@ -116,8 +116,8 @@ interface E {
 
 =====================================output=====================================
 declare class A {
-  one: boolean;
-  two: { three: string } | number;
+	one: boolean;
+	two: { three: string } | number;
 }
 
 // NOTE: Flow and Babel both fail to apply ASI here
@@ -128,8 +128,8 @@ declare class A {
 // }
 
 declare interface C {
-  one: boolean;
-  two: { three: string } | number;
+	one: boolean;
+	two: { three: string } | number;
 }
 
 // NOTE: Flow and Babel both fail to apply ASI here
@@ -140,8 +140,8 @@ declare interface C {
 // }
 
 interface E {
-  one: boolean;
-  two: { three: string } | number;
+	one: boolean;
+	two: { three: string } | number;
 }
 
 // NOTE: Flow and Babel both fail to apply ASI here
@@ -202,8 +202,8 @@ interface E {
 
 =====================================output=====================================
 declare class A {
-  one: boolean;
-  two: { three: string } | number;
+	one: boolean;
+	two: { three: string } | number;
 }
 
 // NOTE: Flow and Babel both fail to apply ASI here
@@ -214,8 +214,8 @@ declare class A {
 // }
 
 declare interface C {
-  one: boolean;
-  two: { three: string } | number;
+	one: boolean;
+	two: { three: string } | number;
 }
 
 // NOTE: Flow and Babel both fail to apply ASI here
@@ -226,8 +226,8 @@ declare interface C {
 // }
 
 interface E {
-  one: boolean;
-  two: { three: string } | number;
+	one: boolean;
+	two: { three: string } | number;
 }
 
 // NOTE: Flow and Babel both fail to apply ASI here
@@ -257,9 +257,9 @@ var c = a.e;
 
 =====================================output=====================================
 switch (n) {
-  case 11:
-    var c = a.e;
-    (i.a += Ga(c.e)), F(i, c.i, 0);
+	case 11:
+		var c = a.e;
+		(i.a += Ga(c.e)), F(i, c.i, 0);
 }
 
 var c = a.e;
@@ -286,9 +286,9 @@ var c = a.e;
 
 =====================================output=====================================
 switch (n) {
-  case 11:
-    var c = a.e
-    ;(i.a += Ga(c.e)), F(i, c.i, 0)
+	case 11:
+		var c = a.e
+		;(i.a += Ga(c.e)), F(i, c.i, 0)
 }
 
 var c = a.e
@@ -513,20 +513,20 @@ class X {}
 // }
 
 class C1 {
-  get; // The semicolon *is* necessary
-  x() {}
+	get; // The semicolon *is* necessary
+	x() {}
 }
 class C2 {
-  get = () => {}; // The semicolon is *not* necessary
-  x() {}
+	get = () => {}; // The semicolon is *not* necessary
+	x() {}
 }
 class C3 {
-  set; // The semicolon *is* necessary
-  x() {}
+	set; // The semicolon *is* necessary
+	x() {}
 }
 class C4 {
-  set = () => {}; // The semicolon is *not* necessary
-  x() {}
+	set = () => {}; // The semicolon is *not* necessary
+	x() {}
 }
 
 // don't semicolon if it doesn't start statement
@@ -534,62 +534,62 @@ class C4 {
 if (true) (() => {})();
 
 class A {
-  a = 0;
-  [b]() {}
+	a = 0;
+	[b]() {}
 
-  c = 0;
-  *d() {}
+	c = 0;
+	*d() {}
 
-  e = 0;
-  [f] = 0;
+	e = 0;
+	[f] = 0;
 
-  // none of the semicolons above this comment can be omitted.
-  // none of the semicolons below this comment are necessary.
+	// none of the semicolons above this comment can be omitted.
+	// none of the semicolons below this comment are necessary.
 
-  q() {}
-  [h]() {}
+	q() {}
+	[h]() {}
 
-  p() {}
-  *i() {}
+	p() {}
+	*i() {}
 
-  a = 1;
-  get ["y"]() {}
+	a = 1;
+	get ["y"]() {}
 
-  a = 1;
-  static ["y"]() {}
+	a = 1;
+	static ["y"]() {}
 
-  a = 1;
-  set ["z"](z) {}
+	a = 1;
+	set ["z"](z) {}
 
-  a = 1;
-  async ["a"]() {}
+	a = 1;
+	async ["a"]() {}
 
-  a = 1;
-  async *g() {}
+	a = 1;
+	async *g() {}
 
-  a = 0;
-  b = 1;
+	a = 0;
+	b = 1;
 }
 
 // being first/last shouldn't break things
 class G1 {
-  x = 1;
+	x = 1;
 }
 class G2 {
-  x() {}
+	x() {}
 }
 class G3 {
-  *x() {}
+	*x() {}
 }
 class G4 {
-  [x] = 1;
+	[x] = 1;
 }
 
 // check indentation
 
 if (true) {
-  x;
-  (() => {})();
+	x;
+	(() => {})();
 }
 
 // flow
@@ -602,8 +602,8 @@ if (true) {
 do break;
 while (false);
 if (true)
-  do break;
-  while (false);
+	do break;
+	while (false);
 
 if (true) 1;
 else 2;
@@ -642,7 +642,7 @@ x;
 while (false) (function () {})();
 
 aReallyLongLine012345678901234567890123456789012345678901234567890123456789 *
-  (b + c);
+	(b + c);
 
 ================================================================================
 `;
@@ -864,20 +864,20 @@ class X {}
 // }
 
 class C1 {
-  get; // The semicolon *is* necessary
-  x() {}
+	get; // The semicolon *is* necessary
+	x() {}
 }
 class C2 {
-  get = () => {} // The semicolon is *not* necessary
-  x() {}
+	get = () => {} // The semicolon is *not* necessary
+	x() {}
 }
 class C3 {
-  set; // The semicolon *is* necessary
-  x() {}
+	set; // The semicolon *is* necessary
+	x() {}
 }
 class C4 {
-  set = () => {} // The semicolon is *not* necessary
-  x() {}
+	set = () => {} // The semicolon is *not* necessary
+	x() {}
 }
 
 // don't semicolon if it doesn't start statement
@@ -885,62 +885,62 @@ class C4 {
 if (true) (() => {})()
 
 class A {
-  a = 0;
-  [b]() {}
+	a = 0;
+	[b]() {}
 
-  c = 0;
-  *d() {}
+	c = 0;
+	*d() {}
 
-  e = 0;
-  [f] = 0
+	e = 0;
+	[f] = 0
 
-  // none of the semicolons above this comment can be omitted.
-  // none of the semicolons below this comment are necessary.
+	// none of the semicolons above this comment can be omitted.
+	// none of the semicolons below this comment are necessary.
 
-  q() {}
-  [h]() {}
+	q() {}
+	[h]() {}
 
-  p() {}
-  *i() {}
+	p() {}
+	*i() {}
 
-  a = 1
-  get ["y"]() {}
+	a = 1
+	get ["y"]() {}
 
-  a = 1
-  static ["y"]() {}
+	a = 1
+	static ["y"]() {}
 
-  a = 1
-  set ["z"](z) {}
+	a = 1
+	set ["z"](z) {}
 
-  a = 1
-  async ["a"]() {}
+	a = 1
+	async ["a"]() {}
 
-  a = 1
-  async *g() {}
+	a = 1
+	async *g() {}
 
-  a = 0
-  b = 1
+	a = 0
+	b = 1
 }
 
 // being first/last shouldn't break things
 class G1 {
-  x = 1
+	x = 1
 }
 class G2 {
-  x() {}
+	x() {}
 }
 class G3 {
-  *x() {}
+	*x() {}
 }
 class G4 {
-  [x] = 1
+	[x] = 1
 }
 
 // check indentation
 
 if (true) {
-  x
-  ;(() => {})()
+	x
+	;(() => {})()
 }
 
 // flow
@@ -953,8 +953,8 @@ if (true) {
 do break
 while (false)
 if (true)
-  do break
-  while (false)
+	do break
+	while (false)
 
 if (true) 1
 else 2
@@ -993,7 +993,7 @@ x
 while (false) (function () {})()
 
 aReallyLongLine012345678901234567890123456789012345678901234567890123456789 *
-  (b + c)
+	(b + c)
 
 ================================================================================
 `;

@@ -22,16 +22,16 @@ class Foo {
 
 =====================================output=====================================
 class Foo {
-  constructor(
-    @inject(Bar)
-    private readonly bar: IBar,
+	constructor(
+		@inject(Bar)
+		private readonly bar: IBar,
 
-    @inject(MyProcessor)
-    private readonly myProcessor: IMyProcessor,
+		@inject(MyProcessor)
+		private readonly myProcessor: IMyProcessor,
 
-    @inject(InjectionTypes.AnotherThing)
-    private readonly anotherThing: IAnotherThing | undefined
-  ) {}
+		@inject(InjectionTypes.AnotherThing)
+		private readonly anotherThing: IAnotherThing | undefined
+	) {}
 }
 
 ================================================================================
@@ -132,58 +132,58 @@ class Class5 {
 
 =====================================output=====================================
 export class TestTextFileService {
-  constructor(@ILifecycleService lifecycleService) {}
+	constructor(@ILifecycleService lifecycleService) {}
 }
 
 @commonEditorContribution
 export class TabCompletionController {}
 
 @Component({
-  selector: "angular-component",
+	selector: "angular-component",
 })
 class AngularComponent {
-  @Input() myInput: string;
+	@Input() myInput: string;
 }
 
 class Class {
-  method(
-    @Decorator
-    { prop1, prop2 }: Type
-  ) {
-    doSomething();
-  }
+	method(
+		@Decorator
+		{ prop1, prop2 }: Type
+	) {
+		doSomething();
+	}
 }
 
 class Class2 {
-  method(
-    @Decorator1
-    @Decorator2
-    { prop1, prop2 }: Type
-  ) {
-    doSomething();
-  }
+	method(
+		@Decorator1
+		@Decorator2
+		{ prop1, prop2 }: Type
+	) {
+		doSomething();
+	}
 }
 
 class Class3 {
-  method(
-    @Decorator
-    { prop1_1, prop1_2 }: Type,
-    { prop2_1, prop2_2 }: Type
-  ) {
-    doSomething();
-  }
+	method(
+		@Decorator
+		{ prop1_1, prop1_2 }: Type,
+		{ prop2_1, prop2_2 }: Type
+	) {
+		doSomething();
+	}
 }
 
 class Class4 {
-  method(
-    param1,
-    @Decorator
-    { prop1, prop2 }: Type
-  ) {}
+	method(
+		param1,
+		@Decorator
+		{ prop1, prop2 }: Type
+	) {}
 }
 
 class Class5 {
-  method(@Decorator { prop1 }: Type) {}
+	method(@Decorator { prop1 }: Type) {}
 }
 
 ================================================================================
@@ -240,45 +240,45 @@ class Something3 {
 
 =====================================output=====================================
 class Foo1 {
-  @foo
-  // comment
-  async method() {}
+	@foo
+	// comment
+	async method() {}
 }
 
 class Foo2 {
-  @foo
-  // comment
-  private method() {}
+	@foo
+	// comment
+	private method() {}
 }
 
 class Foo3 {
-  @foo
-  // comment
-  *method() {}
+	@foo
+	// comment
+	*method() {}
 }
 
 class Foo4 {
-  @foo
-  // comment
-  async *method() {}
+	@foo
+	// comment
+	async *method() {}
 }
 
 class Something {
-  @foo()
-  // comment
-  readonly property: Array<string>;
+	@foo()
+	// comment
+	readonly property: Array<string>;
 }
 
 class Something2 {
-  @foo()
-  // comment
-  abstract property: Array<string>;
+	@foo()
+	// comment
+	abstract property: Array<string>;
 }
 
 class Something3 {
-  @foo()
-  // comment
-  abstract method(): Array<string>;
+	@foo()
+	// comment
+	abstract method(): Array<string>;
 }
 
 ================================================================================
@@ -348,50 +348,50 @@ class MyContainerComponent {
 class Class1 {}
 
 class Class2 {
-  @d1
-  @d2(foo)
-  @d3.bar
-  @d4.baz()
-  method1() {}
+	@d1
+	@d2(foo)
+	@d3.bar
+	@d4.baz()
+	method1() {}
 
-  @d1
-  method2() {}
+	@d1
+	method2() {}
 
-  @d2(foo)
-  method3() {}
+	@d2(foo)
+	method3() {}
 
-  @d3.bar
-  method4() {}
+	@d3.bar
+	method4() {}
 }
 
 class Class3 {
-  @d1 fieldA;
-  @d2(foo) fieldB;
-  @d3.bar fieldC;
-  @d4.baz() fieldD;
+	@d1 fieldA;
+	@d2(foo) fieldB;
+	@d3.bar fieldC;
+	@d4.baz() fieldD;
 
-  constructor(
-    @d1 private x: number,
-    @d2(foo) private y: number,
-    @d3("foo") private z: number,
-    @d4({
-      x: string,
-    })
-    private a: string
-  ) {}
+	constructor(
+		@d1 private x: number,
+		@d2(foo) private y: number,
+		@d3("foo") private z: number,
+		@d4({
+			x: string,
+		})
+		private a: string
+	) {}
 }
 
 @decorated
 class Foo {}
 
 class Bar {
-  @decorated method() {}
+	@decorated method() {}
 }
 
 class MyContainerComponent {
-  @ContentChildren(MyComponent) components: QueryListSomeBigName<
-    MyComponentThat
-  >;
+	@ContentChildren(MyComponent) components: QueryListSomeBigName<
+		MyComponentThat
+	>;
 }
 
 ================================================================================
@@ -415,7 +415,7 @@ interface MyInterface {
 
 @hello()
 interface MyInterface {
-  id: string;
+	id: string;
 }
 
 ================================================================================

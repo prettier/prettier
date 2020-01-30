@@ -24,18 +24,18 @@ app.get("/", (req, res): void => {
 
 =====================================output=====================================
 const bar = (...varargs: any[]) => {
-  console.log(varargs);
+	console.log(varargs);
 };
 
 const foo = (x: string): void =>
-  bar(
-    x,
-    () => {},
-    () => {}
-  );
+	bar(
+		x,
+		() => {},
+		() => {}
+	);
 
 app.get("/", (req, res): void => {
-  res.send("Hello world");
+	res.send("Hello world");
 });
 
 ================================================================================
@@ -66,18 +66,18 @@ app.get("/", (req, res): void => {
 
 =====================================output=====================================
 const bar = (...varargs: any[]) => {
-  console.log(varargs)
+	console.log(varargs)
 }
 
 const foo = (x: string): void =>
-  bar(
-    x,
-    () => {},
-    () => {}
-  )
+	bar(
+		x,
+		() => {},
+		() => {}
+	)
 
 app.get("/", (req, res): void => {
-  res.send("Hello world")
+	res.send("Hello world")
 })
 
 ================================================================================
@@ -102,11 +102,11 @@ const fn2 = () => {
 
 =====================================output=====================================
 const fn1 = () => {
-  return;
+	return;
 }; /* foo */
 
 const fn2 = () => {
-  return;
+	return;
 };
 
 // foo
@@ -134,11 +134,11 @@ const fn2 = () => {
 
 =====================================output=====================================
 const fn1 = () => {
-  return
+	return
 } /* foo */
 
 const fn2 = () => {
-  return
+	return
 }
 
 // foo

@@ -13,11 +13,11 @@ printWidth: 80
 
 =====================================output=====================================
 <div>
-  <!-- display: inline -->
-  <p
-    >Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long
-    Long Long Long</p
-  >
+	<!-- display: inline -->
+	<p
+		>Long Long Long Long Long Long Long Long Long Long Long Long Long Long Long
+		Long Long Long</p
+	>
 </div>
 
 ================================================================================

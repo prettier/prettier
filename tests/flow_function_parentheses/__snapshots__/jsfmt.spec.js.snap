@@ -16,9 +16,9 @@ const selectorByPath:
 
 =====================================output=====================================
 const selectorByPath: (Path) => SomethingSelector<
-  SomethingUEditorContextType,
-  SomethingUEditorContextType,
-  SomethingBulkValue<string>
+	SomethingUEditorContextType,
+	SomethingUEditorContextType,
+	SomethingBulkValue<string>
 > = memoizeWithArgs(/* ... */);
 
 ================================================================================
@@ -41,9 +41,9 @@ const selectorByPath:
 
 =====================================output=====================================
 const selectorByPath: (Path) => SomethingSelector<
-  SomethingUEditorContextType,
-  SomethingUEditorContextType,
-  SomethingBulkValue<string>,
+	SomethingUEditorContextType,
+	SomethingUEditorContextType,
+	SomethingBulkValue<string>,
 > = memoizeWithArgs(/* ... */);
 
 ================================================================================
@@ -66,9 +66,9 @@ const selectorByPath:
 
 =====================================output=====================================
 const selectorByPath: Path => SomethingSelector<
-  SomethingUEditorContextType,
-  SomethingUEditorContextType,
-  SomethingBulkValue<string>
+	SomethingUEditorContextType,
+	SomethingUEditorContextType,
+	SomethingBulkValue<string>
 > = memoizeWithArgs(/* ... */);
 
 ================================================================================
@@ -143,7 +143,7 @@ type T8 = ?(?() => A) | B;
 
 =====================================output=====================================
 type Banana = {
-  eat: (string) => boolean,
+	eat: (string) => boolean,
 };
 
 type Hex = { n: 0x01 };
@@ -153,7 +153,7 @@ type T1 = { method: (a) => void };
 type T2 = { method(a): void };
 
 declare class X {
-  method(a): void;
+	method(a): void;
 }
 
 declare function f(a): void;
@@ -161,11 +161,11 @@ declare function f(a): void;
 var f: (a) => void;
 
 interface F1 {
-  m(string): number;
+	m(string): number;
 }
 
 interface F2 {
-  m: (string) => number;
+	m: (string) => number;
 }
 
 function f1(o: { f: (string) => void }) {}
@@ -181,13 +181,13 @@ type f5 = (arg /* comment */) => void;
 type f6 = (?arg) => void;
 
 class Y {
-  constructor(
-    ideConnectionFactory: (child_process$ChildProcess) => FlowIDEConnection = defaultIDEConnectionFactory
-  ) {}
+	constructor(
+		ideConnectionFactory: (child_process$ChildProcess) => FlowIDEConnection = defaultIDEConnectionFactory
+	) {}
 }
 
 interface F {
-  ideConnectionFactoryLongLongLong: (child_process$ChildProcess) => FlowIDEConnection;
+	ideConnectionFactoryLongLongLong: (child_process$ChildProcess) => FlowIDEConnection;
 }
 
 type ExtractType = <A>(B<C>) => D;
@@ -280,7 +280,7 @@ type T8 = ?(?() => A) | B;
 
 =====================================output=====================================
 type Banana = {
-  eat: (string) => boolean,
+	eat: (string) => boolean,
 };
 
 type Hex = { n: 0x01 };
@@ -290,7 +290,7 @@ type T1 = { method: (a) => void };
 type T2 = { method(a): void };
 
 declare class X {
-  method(a): void;
+	method(a): void;
 }
 
 declare function f(a): void;
@@ -298,11 +298,11 @@ declare function f(a): void;
 var f: (a) => void;
 
 interface F1 {
-  m(string): number;
+	m(string): number;
 }
 
 interface F2 {
-  m: (string) => number;
+	m: (string) => number;
 }
 
 function f1(o: { f: (string) => void }) {}
@@ -318,13 +318,13 @@ type f5 = (arg /* comment */) => void;
 type f6 = (?arg) => void;
 
 class Y {
-  constructor(
-    ideConnectionFactory: (child_process$ChildProcess) => FlowIDEConnection = defaultIDEConnectionFactory,
-  ) {}
+	constructor(
+		ideConnectionFactory: (child_process$ChildProcess) => FlowIDEConnection = defaultIDEConnectionFactory,
+	) {}
 }
 
 interface F {
-  ideConnectionFactoryLongLongLong: (child_process$ChildProcess) => FlowIDEConnection;
+	ideConnectionFactoryLongLongLong: (child_process$ChildProcess) => FlowIDEConnection;
 }
 
 type ExtractType = <A>(B<C>) => D;
@@ -417,7 +417,7 @@ type T8 = ?(?() => A) | B;
 
 =====================================output=====================================
 type Banana = {
-  eat: string => boolean,
+	eat: string => boolean,
 };
 
 type Hex = { n: 0x01 };
@@ -427,7 +427,7 @@ type T1 = { method: a => void };
 type T2 = { method(a): void };
 
 declare class X {
-  method(a): void;
+	method(a): void;
 }
 
 declare function f(a): void;
@@ -435,11 +435,11 @@ declare function f(a): void;
 var f: a => void;
 
 interface F1 {
-  m(string): number;
+	m(string): number;
 }
 
 interface F2 {
-  m: string => number;
+	m: string => number;
 }
 
 function f1(o: { f: string => void }) {}
@@ -455,13 +455,13 @@ type f5 = arg /* comment */ => void;
 type f6 = (?arg) => void;
 
 class Y {
-  constructor(
-    ideConnectionFactory: child_process$ChildProcess => FlowIDEConnection = defaultIDEConnectionFactory
-  ) {}
+	constructor(
+		ideConnectionFactory: child_process$ChildProcess => FlowIDEConnection = defaultIDEConnectionFactory
+	) {}
 }
 
 interface F {
-  ideConnectionFactoryLongLongLong: child_process$ChildProcess => FlowIDEConnection;
+	ideConnectionFactoryLongLongLong: child_process$ChildProcess => FlowIDEConnection;
 }
 
 type ExtractType = <A>(B<C>) => D;

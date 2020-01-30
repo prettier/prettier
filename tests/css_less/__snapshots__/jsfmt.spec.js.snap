@@ -1688,106 +1688,106 @@ label {
 @light-blue: @nice-blue + #111;
 
 #header {
-  color: @light-blue;
+	color: @light-blue;
 }
 
 #header {
-  color: #6c94be;
+	color: #6c94be;
 }
 
 .bordered {
-  border-top: dotted 1px black;
-  border-bottom: solid 2px black;
+	border-top: dotted 1px black;
+	border-bottom: solid 2px black;
 }
 
 #menu a {
-  color: #111;
-  .bordered;
+	color: #111;
+	.bordered;
 }
 
 .post a {
-  color: red;
-  .bordered;
+	color: red;
+	.bordered;
 }
 
 #header {
-  color: black;
+	color: black;
 }
 #header .navigation {
-  font-size: 12px;
+	font-size: 12px;
 }
 #header .logo {
-  width: 300px;
+	width: 300px;
 }
 
 #header {
-  color: black;
-  .navigation {
-    font-size: 12px;
-  }
-  .logo {
-    width: 300px;
-  }
+	color: black;
+	.navigation {
+		font-size: 12px;
+	}
+	.logo {
+		width: 300px;
+	}
 }
 
 .clearfix {
-  display: block;
-  zoom: 1;
+	display: block;
+	zoom: 1;
 
-  &:after {
-    content: " ";
-    display: block;
-    font-size: 0;
-    height: 0;
-    clear: both;
-    visibility: hidden;
-  }
+	&:after {
+		content: " ";
+		display: block;
+		font-size: 0;
+		height: 0;
+		clear: both;
+		visibility: hidden;
+	}
 }
 
 .screen-color {
-  @media screen {
-    color: green;
-    @media (min-width: 768px) {
-      color: red;
-    }
-  }
-  @media tv {
-    color: black;
-  }
+	@media screen {
+		color: green;
+		@media (min-width: 768px) {
+			color: red;
+		}
+	}
+	@media tv {
+		color: black;
+	}
 }
 
 @media screen {
-  .screen-color {
-    color: green;
-  }
+	.screen-color {
+		color: green;
+	}
 }
 @media screen and (min-width: 768px) {
-  .screen-color {
-    color: red;
-  }
+	.screen-color {
+		color: red;
+	}
 }
 @media tv {
-  .screen-color {
-    color: black;
-  }
+	.screen-color {
+		color: black;
+	}
 }
 
 #a {
-  color: blue;
-  @font-face {
-    src: made-up-url;
-  }
-  padding: 2 2 2 2;
+	color: blue;
+	@font-face {
+		src: made-up-url;
+	}
+	padding: 2 2 2 2;
 }
 
 #a {
-  color: blue;
+	color: blue;
 }
 @font-face {
-  src: made-up-url;
+	src: made-up-url;
 }
 #a {
-  padding: 2 2 2 2;
+	padding: 2 2 2 2;
 }
 
 // numbers are converted into the same units
@@ -1808,56 +1808,56 @@ label {
 background-color: #112244 + #111; // result is #223355
 
 .weird-element {
-  content: ~"^//* some horrible but needed css hack";
+	content: ~"^//* some horrible but needed css hack";
 }
 
 @base: #f04615;
 @width: 0.5;
 
 .class {
-  width: percentage(@width); // returns \`50%\`
-  color: saturate(@base, 5%);
-  background-color: spin(lighten(@base, 25%), 8);
+	width: percentage(@width); // returns \`50%\`
+	color: saturate(@base, 5%);
+	background-color: spin(lighten(@base, 25%), 8);
 }
 
 #bundle {
-  .button {
-    display: block;
-    border: 1px solid black;
-    background-color: grey;
-    &:hover {
-      background-color: white;
-    }
-  }
-  .tab {
-    /* ... */
-  }
-  .citation {
-    /* ... */
-  }
+	.button {
+		display: block;
+		border: 1px solid black;
+		background-color: grey;
+		&:hover {
+			background-color: white;
+		}
+	}
+	.tab {
+		/* ... */
+	}
+	.citation {
+		/* ... */
+	}
 }
 
 #header a {
-  color: orange;
-  #bundle > .button;
+	color: orange;
+	#bundle > .button;
 }
 
 @var: red;
 
 #page {
-  @var: white;
-  #header {
-    color: @var; // white
-  }
+	@var: white;
+	#header {
+		color: @var; // white
+	}
 }
 
 @var: red;
 
 #page {
-  #header {
-    color: @var; // white
-  }
-  @var: white;
+	#header {
+		color: @var; // white
+	}
+	@var: white;
 }
 
 /* One hell of a block
@@ -1872,11 +1872,11 @@ style comment! */
 
 a,
 .link {
-  color: #428bca;
+	color: #428bca;
 }
 .widget {
-  color: #fff;
-  background: #428bca;
+	color: #fff;
+	background: #428bca;
 }
 
 // Variables
@@ -1886,14 +1886,14 @@ a,
 // Usage
 a,
 .link {
-  color: @link-color;
+	color: @link-color;
 }
 a:hover {
-  color: @link-color-hover;
+	color: @link-color-hover;
 }
 .widget {
-  color: #fff;
-  background: @link-color;
+	color: #fff;
+	background: @link-color;
 }
 
 // Variables
@@ -1901,15 +1901,15 @@ a:hover {
 
 // Usage
 .@{my-selector} {
-  font-weight: bold;
-  line-height: 40px;
-  margin: 0 auto;
+	font-weight: bold;
+	line-height: 40px;
+	margin: 0 auto;
 }
 
 .banner {
-  font-weight: bold;
-  line-height: 40px;
-  margin: 0 auto;
+	font-weight: bold;
+	line-height: 40px;
+	margin: 0 auto;
 }
 
 // Variables
@@ -1917,8 +1917,8 @@ a:hover {
 
 // Usage
 body {
-  color: #444;
-  background: url("@{images}/white-sand.png");
+	color: #444;
+	background: url("@{images}/white-sand.png");
 }
 
 // Variables
@@ -1930,13 +1930,13 @@ body {
 @property: color;
 
 .widget {
-  @{property}: #0ee;
-  background-@{property}: #999;
+	@{property}: #0ee;
+	background-@{property}: #999;
 }
 
 .widget {
-  color: #0ee;
-  background-color: #999;
+	color: #0ee;
+	background-color: #999;
 }
 
 @fnord: "I am fnord.";
@@ -1946,40 +1946,40 @@ content: @@var;
 content: "I am fnord.";
 
 .lazy-eval {
-  width: @var;
+	width: @var;
 }
 
 @var: @a;
 @a: 9%;
 
 .lazy-eval-scope {
-  width: @var;
-  @a: 9%;
+	width: @var;
+	@a: 9%;
 }
 
 @var: @a;
 @a: 100%;
 
 .lazy-eval-scope {
-  width: 9%;
+	width: 9%;
 }
 
 @var: 0;
 .class {
-  @var: 1;
-  .brass {
-    @var: 2;
-    three: @var;
-    @var: 3;
-  }
-  one: @var;
+	@var: 1;
+	.brass {
+		@var: 2;
+		three: @var;
+		@var: 3;
+	}
+	one: @var;
 }
 
 .class {
-  one: 1;
+	one: 1;
 }
 .class .brass {
-  three: 3;
+	three: 3;
 }
 
 // library
@@ -1991,24 +1991,24 @@ content: "I am fnord.";
 @base-color: red;
 
 nav ul {
-  &:extend(.inline);
-  background: blue;
+	&:extend(.inline);
+	background: blue;
 }
 
 nav ul {
-  &:extend(.inline);
-  background: blue;
+	&:extend(.inline);
+	background: blue;
 }
 .inline {
-  color: red;
+	color: red;
 }
 
 nav ul {
-  background: blue;
+	background: blue;
 }
 .inline,
 nav ul {
-  color: red;
+	color: red;
 }
 
 .a:extend(.b) {
@@ -2016,14 +2016,14 @@ nav ul {
 
 // the above block does the same thing as the below block
 .a {
-  &:extend(.b);
+	&:extend(.b);
 }
 
 .c:extend(.d all) {
-  // extends all instances of ".d" e.g. ".x.d" or ".d.x"
+	// extends all instances of ".d" e.g. ".x.d" or ".d.x"
 }
 .c:extend(.d) {
-  // extends only instances where the selector will be output as just ".d"
+	// extends only instances where the selector will be output as just ".d"
 }
 
 .e:extend(.f) {
@@ -2038,12 +2038,12 @@ nav ul {
 .big-division,
 .big-bag:extend(.bag),
 .big-bucket:extend(.bucket) {
-  // body
+	// body
 }
 
 pre:hover,
 .some-class {
-  &:extend(div pre);
+	&:extend(div pre);
 }
 
 pre:hover:extend(div pre),
@@ -2051,79 +2051,79 @@ pre:hover:extend(div pre),
 }
 
 .bucket {
-  tr {
-    // nested ruleset with target selector
-    color: blue;
-  }
+	tr {
+		// nested ruleset with target selector
+		color: blue;
+	}
 }
 .some-class:extend(.bucket tr) {
 } // nested ruleset is recognized
 
 .bucket tr,
 .some-class {
-  color: blue;
+	color: blue;
 }
 
 .bucket {
-  tr & {
-    // nested ruleset with target selector
-    color: blue;
-  }
+	tr & {
+		// nested ruleset with target selector
+		color: blue;
+	}
 }
 .some-class:extend(tr .bucket) {
 } // nested ruleset is recognized
 
 tr .bucket,
 .some-class {
-  color: blue;
+	color: blue;
 }
 
 .a.class,
 .class.a,
 .class > .a {
-  color: blue;
+	color: blue;
 }
 .test:extend(.class) {
 } // this will NOT match the any selectors above
 
 *.class {
-  color: blue;
+	color: blue;
 }
 .noStar:extend(.class) {
 } // this will NOT match the *.class selector
 
 *.class {
-  color: blue;
+	color: blue;
 }
 
 link:hover:visited {
-  color: blue;
+	color: blue;
 }
 .selector:extend(link:visited:hover) {
 }
 
 link:hover:visited {
-  color: blue;
+	color: blue;
 }
 
 :nth-child(1n + 3) {
-  color: blue;
+	color: blue;
 }
 .child:extend(:nth-child(n + 3)) {
 }
 
 :nth-child(1n + 3) {
-  color: blue;
+	color: blue;
 }
 
 [title="identifier"] {
-  color: blue;
+	color: blue;
 }
 [title="identifier"] {
-  color: blue;
+	color: blue;
 }
 [title="identifier"] {
-  color: blue;
+	color: blue;
 }
 
 .noQuote:extend([title="identifier"]) {
@@ -2137,31 +2137,31 @@ link:hover:visited {
 .noQuote,
 .singleQuote,
 .doubleQuote {
-  color: blue;
+	color: blue;
 }
 
 [title="identifier"],
 .noQuote,
 .singleQuote,
 .doubleQuote {
-  color: blue;
+	color: blue;
 }
 
 [title="identifier"],
 .noQuote,
 .singleQuote,
 .doubleQuote {
-  color: blue;
+	color: blue;
 }
 
 .a.b.test,
 .test.c {
-  color: orange;
+	color: orange;
 }
 .test {
-  &:hover {
-    color: green;
-  }
+	&:hover {
+		color: green;
+	}
 }
 
 .replacement:extend(.test all) {
@@ -2171,34 +2171,34 @@ link:hover:visited {
 .test.c,
 .a.b.replacement,
 .replacement.c {
-  color: orange;
+	color: orange;
 }
 .test:hover,
 .replacement:hover {
-  color: green;
+	color: green;
 }
 
 @variable: .bucket;
 @{variable} {
-  // interpolated selector
-  color: blue;
+	// interpolated selector
+	color: blue;
 }
 .some-class:extend(.bucket) {
 } // does nothing, no match is found
 
 .bucket {
-  color: blue;
+	color: blue;
 }
 .some-class:extend(@{variable}) {
 } // interpolated selector matches nothing
 @variable: .bucket;
 
 .bucket {
-  color: blue;
+	color: blue;
 }
 
 .bucket {
-  color: blue;
+	color: blue;
 }
 @{variable}:extend(.bucket) {
 }
@@ -2206,98 +2206,98 @@ link:hover:visited {
 
 .bucket,
 .selector {
-  color: blue;
+	color: blue;
 }
 
 @media print {
-  .screenClass:extend(.selector) {
-  } // extend inside media
-  .selector {
-    // this will be matched - it is in the same media
-    color: black;
-  }
+	.screenClass:extend(.selector) {
+	} // extend inside media
+	.selector {
+		// this will be matched - it is in the same media
+		color: black;
+	}
 }
 .selector {
-  // ruleset on top of style sheet - extend ignores it
-  color: red;
+	// ruleset on top of style sheet - extend ignores it
+	color: red;
 }
 @media screen {
-  .selector {
-    // ruleset inside another media - extend ignores it
-    color: blue;
-  }
+	.selector {
+		// ruleset inside another media - extend ignores it
+		color: blue;
+	}
 }
 
 @media print {
-  .selector,
-  .screenClass {
-    /*  ruleset inside the same media was extended */
-    color: black;
-  }
+	.selector,
+	.screenClass {
+		/*  ruleset inside the same media was extended */
+		color: black;
+	}
 }
 .selector {
-  /* ruleset on top of style sheet was ignored */
-  color: red;
+	/* ruleset on top of style sheet was ignored */
+	color: red;
 }
 @media screen {
-  .selector {
-    /* ruleset inside another media was ignored */
-    color: blue;
-  }
+	.selector {
+		/* ruleset inside another media was ignored */
+		color: blue;
+	}
 }
 
 @media screen {
-  .screenClass:extend(.selector) {
-  } // extend inside media
-  @media (min-width: 1023px) {
-    .selector {
-      // ruleset inside nested media - extend ignores it
-      color: blue;
-    }
-  }
+	.screenClass:extend(.selector) {
+	} // extend inside media
+	@media (min-width: 1023px) {
+		.selector {
+			// ruleset inside nested media - extend ignores it
+			color: blue;
+		}
+	}
 }
 
 @media screen and (min-width: 1023px) {
-  .selector {
-    /* ruleset inside another nested media was ignored */
-    color: blue;
-  }
+	.selector {
+		/* ruleset inside another nested media was ignored */
+		color: blue;
+	}
 }
 
 @media screen {
-  .selector {
-    /* ruleset inside nested media - top level extend works */
-    color: blue;
-  }
-  @media (min-width: 1023px) {
-    .selector {
-      /* ruleset inside nested media - top level extend works */
-      color: blue;
-    }
-  }
+	.selector {
+		/* ruleset inside nested media - top level extend works */
+		color: blue;
+	}
+	@media (min-width: 1023px) {
+		.selector {
+			/* ruleset inside nested media - top level extend works */
+			color: blue;
+		}
+	}
 }
 
 .topLevel:extend(.selector) {
 } /* top level extend matches everything */
 
 @media screen {
-  .selector,
-  .topLevel {
-    /* ruleset inside media was extended */
-    color: blue;
-  }
+	.selector,
+	.topLevel {
+		/* ruleset inside media was extended */
+		color: blue;
+	}
 }
 @media screen and (min-width: 1023px) {
-  .selector,
-  .topLevel {
-    /* ruleset inside nested media was extended */
-    color: blue;
-  }
+	.selector,
+	.topLevel {
+		/* ruleset inside nested media was extended */
+		color: blue;
+	}
 }
 
 .alert-info,
 .widget {
-  /* declarations */
+	/* declarations */
 }
 
 .alert:extend(.alert-info, .widget) {
@@ -2307,96 +2307,96 @@ link:hover:visited {
 .widget,
 .alert,
 .alert {
-  /* declarations */
+	/* declarations */
 }
 
 .animal {
-  background-color: black;
-  color: white;
+	background-color: black;
+	color: white;
 }
 
 .animal {
-  background-color: black;
-  color: white;
+	background-color: black;
+	color: white;
 }
 .bear {
-  background-color: brown;
+	background-color: brown;
 }
 
 .animal {
-  background-color: black;
-  color: white;
+	background-color: black;
+	color: white;
 }
 .bear {
-  &:extend(.animal);
-  background-color: brown;
+	&:extend(.animal);
+	background-color: brown;
 }
 
 .my-inline-block() {
-  display: inline-block;
-  font-size: 0;
+	display: inline-block;
+	font-size: 0;
 }
 .thing1 {
-  .my-inline-block;
+	.my-inline-block;
 }
 .thing2 {
-  .my-inline-block;
+	.my-inline-block;
 }
 
 .thing1 {
-  display: inline-block;
-  font-size: 0;
+	display: inline-block;
+	font-size: 0;
 }
 .thing2 {
-  display: inline-block;
-  font-size: 0;
+	display: inline-block;
+	font-size: 0;
 }
 
 .my-inline-block {
-  display: inline-block;
-  font-size: 0;
+	display: inline-block;
+	font-size: 0;
 }
 .thing1 {
-  &:extend(.my-inline-block);
+	&:extend(.my-inline-block);
 }
 .thing2 {
-  &:extend(.my-inline-block);
+	&:extend(.my-inline-block);
 }
 
 .my-inline-block,
 .thing1,
 .thing2 {
-  display: inline-block;
-  font-size: 0;
+	display: inline-block;
+	font-size: 0;
 }
 
 li.list > a {
-  // list styles
+	// list styles
 }
 button.list-style {
-  &:extend(li.list > a); // use the same list styles
+	&:extend(li.list > a); // use the same list styles
 }
 
 .a,
 #b {
-  color: red;
+	color: red;
 }
 .mixin-class {
-  .a();
+	.a();
 }
 .mixin-id {
-  #b();
+	#b();
 }
 
 .a,
 #b {
-  color: red;
+	color: red;
 }
 .mixin-class {
-  color: red;
+	color: red;
 }
 .mixin-id {
-  color: red;
+	color: red;
 }
 
 // these two statements do the same thing:
@@ -2404,45 +2404,45 @@ button.list-style {
 .a;
 
 .my-mixin {
-  color: black;
+	color: black;
 }
 .my-other-mixin() {
-  background: white;
+	background: white;
 }
 .class {
-  .my-mixin;
-  .my-other-mixin;
+	.my-mixin;
+	.my-other-mixin;
 }
 
 .my-mixin {
-  color: black;
+	color: black;
 }
 .class {
-  color: black;
-  background: white;
+	color: black;
+	background: white;
 }
 
 .my-hover-mixin() {
-  &:hover {
-    border: 1px solid red;
-  }
+	&:hover {
+		border: 1px solid red;
+	}
 }
 button {
-  .my-hover-mixin();
+	.my-hover-mixin();
 }
 
 button:hover {
-  border: 1px solid red;
+	border: 1px solid red;
 }
 
 #outer {
-  .inner {
-    color: red;
-  }
+	.inner {
+		color: red;
+	}
 }
 
 .c {
-  #outer > .inner;
+	#outer > .inner;
 }
 
 // all do the same thing
@@ -2454,154 +2454,154 @@ button:hover {
 #outer.inner();
 
 #my-library {
-  .my-mixin() {
-    color: black;
-  }
+	.my-mixin() {
+		color: black;
+	}
 }
 // which can be used like this
 .class {
-  #my-library > .my-mixin();
+	#my-library > .my-mixin();
 }
 
 #namespace when (@mode=huge) {
-  .mixin() {
-    /* */
-  }
+	.mixin() {
+		/* */
+	}
 }
 
 #namespace {
-  .mixin() when (@mode=huge) {
-    /* */
-  }
+	.mixin() when (@mode=huge) {
+		/* */
+	}
 }
 
 #sp_1 when (default()) {
-  #sp_2 when (default()) {
-    .mixin() when not(default()) {
-      /* */
-    }
-  }
+	#sp_2 when (default()) {
+		.mixin() when not(default()) {
+			/* */
+		}
+	}
 }
 
 .foo (@bg: #f5f5f5, @color: #900) {
-  background: @bg;
-  color: @color;
+	background: @bg;
+	color: @color;
 }
 .unimportant {
-  .foo();
+	.foo();
 }
 .important {
-  .foo() !important;
+	.foo() !important;
 }
 
 .unimportant {
-  background: #f5f5f5;
-  color: #900;
+	background: #f5f5f5;
+	color: #900;
 }
 .important {
-  background: #f5f5f5 !important;
-  color: #900 !important;
+	background: #f5f5f5 !important;
+	color: #900 !important;
 }
 
 .border-radius(@radius) {
-  -webkit-border-radius: @radius;
-  -moz-border-radius: @radius;
-  border-radius: @radius;
+	-webkit-border-radius: @radius;
+	-moz-border-radius: @radius;
+	border-radius: @radius;
 }
 
 #header {
-  .border-radius(4px);
+	.border-radius(4px);
 }
 .button {
-  .border-radius(6px);
+	.border-radius(6px);
 }
 
 .border-radius(@radius: 5px) {
-  -webkit-border-radius: @radius;
-  -moz-border-radius: @radius;
-  border-radius: @radius;
+	-webkit-border-radius: @radius;
+	-moz-border-radius: @radius;
+	border-radius: @radius;
 }
 
 #header {
-  .border-radius;
+	.border-radius;
 }
 
 .wrap() {
-  text-wrap: wrap;
-  white-space: -moz-pre-wrap;
-  white-space: pre-wrap;
-  word-wrap: break-word;
+	text-wrap: wrap;
+	white-space: -moz-pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
 }
 
 pre {
-  .wrap;
+	.wrap;
 }
 
 pre {
-  text-wrap: wrap;
-  white-space: -moz-pre-wrap;
-  white-space: pre-wrap;
-  word-wrap: break-word;
+	text-wrap: wrap;
+	white-space: -moz-pre-wrap;
+	white-space: pre-wrap;
+	word-wrap: break-word;
 }
 
 .mixin(@color) {
-  color-1: @color;
+	color-1: @color;
 }
 .mixin(@color; @padding: 2) {
-  color-2: @color;
-  padding-2: @padding;
+	color-2: @color;
+	padding-2: @padding;
 }
 .mixin(@color; @padding; @margin: 2) {
-  color-3: @color;
-  padding-3: @padding;
-  margin: @margin @margin @margin @margin;
+	color-3: @color;
+	padding-3: @padding;
+	margin: @margin @margin @margin @margin;
 }
 .some .selector div {
-  .mixin(#008000);
+	.mixin(#008000);
 }
 
 .some .selector div {
-  color-1: #008000;
-  color-2: #008000;
-  padding-2: 2;
+	color-1: #008000;
+	color-2: #008000;
+	padding-2: 2;
 }
 
 .mixin(@color: black; @margin: 10px; @padding: 20px) {
-  color: @color;
-  margin: @margin;
-  padding: @padding;
+	color: @color;
+	margin: @margin;
+	padding: @padding;
 }
 .class1 {
-  .mixin(@margin: 20px; @color: #33acfe);
+	.mixin(@margin: 20px; @color: #33acfe);
 }
 .class2 {
-  .mixin(#efca44; @padding: 40px);
+	.mixin(#efca44; @padding: 40px);
 }
 
 .class1 {
-  color: #33acfe;
-  margin: 20px;
-  padding: 20px;
+	color: #33acfe;
+	margin: 20px;
+	padding: 20px;
 }
 .class2 {
-  color: #efca44;
-  margin: 10px;
-  padding: 40px;
+	color: #efca44;
+	margin: 10px;
+	padding: 40px;
 }
 
 .box-shadow(@x: 0; @y: 0; @blur: 1px; @color: #000) {
-  -webkit-box-shadow: @arguments;
-  -moz-box-shadow: @arguments;
-  box-shadow: @arguments;
+	-webkit-box-shadow: @arguments;
+	-moz-box-shadow: @arguments;
+	box-shadow: @arguments;
 }
 .big-block {
-  .box-shadow(2px; 5px);
+	.box-shadow(2px; 5px);
 }
 
 .big-block {
-  -webkit-box-shadow: 2px 5px 1px #000;
-  -moz-box-shadow: 2px 5px 1px #000;
-  box-shadow: 2px 5px 1px #000;
+	-webkit-box-shadow: 2px 5px 1px #000;
+	-moz-box-shadow: 2px 5px 1px #000;
+	box-shadow: 2px 5px 1px #000;
 }
 
 .mixin(/* ... */) {
@@ -2616,280 +2616,280 @@ pre {
 } // matches 1-N arguments
 
 .mixin(@a; @rest...) {
-  // @rest is bound to arguments after @a
-  // @arguments is bound to all arguments
+	// @rest is bound to arguments after @a
+	// @arguments is bound to all arguments
 }
 
 .mixin(@s; @color) {
-  /* ... */
+	/* ... */
 }
 
 .class {
-  .mixin(@switch; #888);
+	.mixin(@switch; #888);
 }
 
 .mixin(dark; @color) {
-  color: darken(@color, 10%);
+	color: darken(@color, 10%);
 }
 .mixin(light; @color) {
-  color: lighten(@color, 10%);
+	color: lighten(@color, 10%);
 }
 .mixin(@_; @color) {
-  display: block;
+	display: block;
 }
 
 @switch: light;
 
 .class {
-  .mixin(@switch; #888);
+	.mixin(@switch; #888);
 }
 
 .class {
-  color: #a2a2a2;
-  display: block;
+	color: #a2a2a2;
+	display: block;
 }
 
 .mixin(@a) {
-  color: @a;
+	color: @a;
 }
 .mixin(@a; @b) {
-  color: fade(@a; @b);
+	color: fade(@a; @b);
 }
 
 .mixin() {
-  @width: 100%;
-  @height: 200px;
+	@width: 100%;
+	@height: 200px;
 }
 
 .caller {
-  .mixin();
-  width: @width;
-  height: @height;
+	.mixin();
+	width: @width;
+	height: @height;
 }
 
 .caller {
-  width: 100%;
-  height: 200px;
+	width: 100%;
+	height: 200px;
 }
 
 .average(@x, @y) {
-  @average: ((@x + @y) / 2);
+	@average: ((@x + @y) / 2);
 }
 
 div {
-  .average(16px, 50px); // "call" the mixin
-  padding: @average; // use its "return" value
+	.average(16px, 50px); // "call" the mixin
+	padding: @average; // use its "return" value
 }
 
 div {
-  padding: 33px;
+	padding: 33px;
 }
 
 .mixin() {
-  @size: in-mixin;
-  @definedOnlyInMixin: in-mixin;
+	@size: in-mixin;
+	@definedOnlyInMixin: in-mixin;
 }
 
 .class {
-  margin: @size @definedOnlyInMixin;
-  .mixin();
+	margin: @size @definedOnlyInMixin;
+	.mixin();
 }
 
 @size: globally-defined-value; // callers parent scope - no protection
 
 .class {
-  margin: in-mixin in-mixin;
+	margin: in-mixin in-mixin;
 }
 
 .unlock(@value) {
-  // outer mixin
-  .doSomething() {
-    // nested mixin
-    declaration: @value;
-  }
+	// outer mixin
+	.doSomething() {
+		// nested mixin
+		declaration: @value;
+	}
 }
 
 #namespace {
-  .unlock(5); // unlock doSomething mixin
-  .doSomething(); //nested mixin was copied here and is usable
+	.unlock(5); // unlock doSomething mixin
+	.doSomething(); //nested mixin was copied here and is usable
 }
 
 #namespace {
-  declaration: 5;
+	declaration: 5;
 }
 
 // declare detached ruleset
 @detached-ruleset: {
-  background: red;
+	background: red;
 };
 
 // use detached ruleset
 .top {
-  @detached-ruleset();
+	@detached-ruleset();
 }
 
 .top {
-  background: red;
+	background: red;
 }
 
 .desktop-and-old-ie(@rules) {
-  @media screen and (min-width: 1200px) {
-    @rules();
-  }
-  html.lt-ie9 & {
-    @rules();
-  }
+	@media screen and (min-width: 1200px) {
+		@rules();
+	}
+	html.lt-ie9 & {
+		@rules();
+	}
 }
 
 header {
-  background-color: blue;
+	background-color: blue;
 
-  .desktop-and-old-ie({background-color: red;});
+	.desktop-and-old-ie({background-color: red;});
 }
 
 header {
-  background-color: blue;
+	background-color: blue;
 }
 @media screen and (min-width: 1200px) {
-  header {
-    background-color: red;
-  }
+	header {
+		background-color: red;
+	}
 }
 html.lt-ie9 header {
-  background-color: red;
+	background-color: red;
 }
 
 @my-ruleset: {
-  .my-selector {
-    background-color: black;
-  }
+	.my-selector {
+		background-color: black;
+	}
 };
 
 @my-ruleset: {
-  .my-selector {
-    @media tv {
-      background-color: black;
-    }
-  }
+	.my-selector {
+		@media tv {
+			background-color: black;
+		}
+	}
 };
 @media (orientation: portrait) {
-  @my-ruleset();
+	@my-ruleset();
 }
 
 @media (orientation: portrait) and tv {
-  .my-selector {
-    background-color: black;
-  }
+	.my-selector {
+		background-color: black;
+	}
 }
 
 // detached ruleset with a mixin
 @detached-ruleset: {
-  .mixin() {
-    color: blue;
-  }
+	.mixin() {
+		color: blue;
+	}
 };
 // call detached ruleset
 .caller {
-  @detached-ruleset();
-  .mixin();
+	@detached-ruleset();
+	.mixin();
 }
 
 .caller {
-  color: blue;
+	color: blue;
 }
 
 @detached-ruleset: {
-  @color: blue; // this variable is private
+	@color: blue; // this variable is private
 };
 .caller {
-  color: @color; // syntax error
+	color: @color; // syntax error
 }
 
 @detached-ruleset: {
-  caller-variable: @caller-variable; // variable is undefined here
-  .caller-mixin(); // mixin is undefined here
+	caller-variable: @caller-variable; // variable is undefined here
+	.caller-mixin(); // mixin is undefined here
 };
 
 selector {
-  // use detached ruleset
-  @detached-ruleset();
+	// use detached ruleset
+	@detached-ruleset();
 
-  // define variable and mixin needed inside the detached ruleset
-  @caller-variable: value;
-  .caller-mixin() {
-    variable: declaration;
-  }
+	// define variable and mixin needed inside the detached ruleset
+	@caller-variable: value;
+	.caller-mixin() {
+		variable: declaration;
+	}
 }
 
 selector {
-  caller-variable: value;
-  variable: declaration;
+	caller-variable: value;
+	variable: declaration;
 }
 
 @variable: global;
 @detached-ruleset: {
-  // will use global variable, because it is accessible
-  // from detached-ruleset definition
-  variable: @variable;
+	// will use global variable, because it is accessible
+	// from detached-ruleset definition
+	variable: @variable;
 };
 
 selector {
-  @detached-ruleset();
-  @variable: value; // variable defined in caller - will be ignored
+	@detached-ruleset();
+	@variable: value; // variable defined in caller - will be ignored
 }
 
 selector {
-  variable: global;
+	variable: global;
 }
 
 @detached-1: {
-  scope-detached: @one @two;
+	scope-detached: @one @two;
 };
 .one {
-  @one: visible;
-  .two {
-    @detached-2: @detached-1; // copying/renaming ruleset
-    @two: visible; // ruleset can not see this variable
-  }
+	@one: visible;
+	.two {
+		@detached-2: @detached-1; // copying/renaming ruleset
+		@two: visible; // ruleset can not see this variable
+	}
 }
 
 .use-place {
-  .one > .two();
-  @detached-2();
+	.one > .two();
+	@detached-2();
 }
 
 #space {
-  .importer-1() {
-    @detached: {
-      scope-detached: @variable;
-    }; // define detached ruleset
-  }
+	.importer-1() {
+		@detached: {
+			scope-detached: @variable;
+		}; // define detached ruleset
+	}
 }
 
 .importer-2() {
-  @variable: value; // unlocked detached ruleset CAN see this variable
-  #space > .importer-1(); // unlock/import detached ruleset
+	@variable: value; // unlocked detached ruleset CAN see this variable
+	#space > .importer-1(); // unlock/import detached ruleset
 }
 
 .use-place {
-  .importer-2(); // unlock/import detached ruleset second time
-  @detached();
+	.importer-2(); // unlock/import detached ruleset second time
+	@detached();
 }
 
 .use-place {
-  scope-detached: value;
+	scope-detached: value;
 }
 
 @my-ruleset: {
-  .my-selector {
-    @media tv {
-      background-color: black;
-    }
-  }
+	.my-selector {
+		@media tv {
+			background-color: black;
+		}
+	}
 };
 
 .foo {
-  background: #900;
+	background: #900;
 }
 @import "this-is-valid.less";
 
@@ -2912,318 +2912,318 @@ selector {
 
 // file: foo.less
 .a {
-  color: green;
+	color: green;
 }
 // file: main.less
 @import (multiple) "foo.less";
 @import (multiple) "foo.less";
 
 .a {
-  color: green;
+	color: green;
 }
 .a {
-  color: green;
+	color: green;
 }
 
 .mixin (@a) when (lightness(@a) >= 50%) {
-  background-color: black;
+	background-color: black;
 }
 .mixin (@a) when (lightness(@a) < 50%) {
-  background-color: white;
+	background-color: white;
 }
 .mixin (@a) {
-  color: @a;
+	color: @a;
 }
 
 .class1 {
-  .mixin(#ddd);
+	.mixin(#ddd);
 }
 .class2 {
-  .mixin(#555);
+	.mixin(#555);
 }
 
 .class1 {
-  background-color: black;
-  color: #ddd;
+	background-color: black;
+	color: #ddd;
 }
 .class2 {
-  background-color: white;
-  color: #555;
+	background-color: white;
+	color: #555;
 }
 
 .truth (@a) when (@a) {
-  /* ... */
+	/* ... */
 }
 .truth (@a) when (@a = true) {
-  /* ... */
+	/* ... */
 }
 
 .class {
-  .truth(40); // Will not match any of the above definitions.
+	.truth(40); // Will not match any of the above definitions.
 }
 
 @media: mobile;
 
 .mixin (@a) when (@media = mobile) {
-  /* ... */
+	/* ... */
 }
 .mixin (@a) when (@media = desktop) {
-  /* ... */
+	/* ... */
 }
 
 .max (@a; @b) when (@a > @b) {
-  width: @a;
+	width: @a;
 }
 .max (@a; @b) when (@a < @b) {
-  width: @b;
+	width: @b;
 }
 
 .mixin (@a) when (isnumber(@a)) and (@a > 0) {
-  /* ... */
+	/* ... */
 }
 
 .mixin (@a) when (@a > 10), (@a < -10) {
-  /* ... */
+	/* ... */
 }
 
 .mixin (@b) when not (@b > 0) {
-  /* ... */
+	/* ... */
 }
 
 .mixin (@a; @b: 0) when (isnumber(@b)) {
-  /* ... */
+	/* ... */
 }
 .mixin (@a; @b: black) when (iscolor(@b)) {
-  /* ... */
+	/* ... */
 }
 
 .mixin (@a) when (@a > 0) {
-  /* ... */
+	/* ... */
 }
 .mixin (@a) when (default()) {
-  /* ... */
+	/* ... */
 } // matches only if first mixin does not, i.e. when @a <= 0
 
 .my-optional-style() when (@my-option = true) {
-  button {
-    color: white;
-  }
+	button {
+		color: white;
+	}
 }
 .my-optional-style();
 
 button when (@my-option = true) {
-  color: white;
+	color: white;
 }
 
 & when (@my-option = true) {
-  button {
-    color: white;
-  }
-  a {
-    color: blue;
-  }
+	button {
+		color: white;
+	}
+	a {
+		color: blue;
+	}
 }
 
 .loop(@counter) when (@counter > 0) {
-  .loop((@counter - 1)); // next iteration
-  width: (10px * @counter); // code for each iteration
+	.loop((@counter - 1)); // next iteration
+	width: (10px * @counter); // code for each iteration
 }
 
 div {
-  .loop(5); // launch the loop
+	.loop(5); // launch the loop
 }
 
 div {
-  width: 10px;
-  width: 20px;
-  width: 30px;
-  width: 40px;
-  width: 50px;
+	width: 10px;
+	width: 20px;
+	width: 30px;
+	width: 40px;
+	width: 50px;
 }
 
 .generate-columns(4);
 
 .generate-columns(@n, @i: 1) when (@i =< @n) {
-  .column-@{i} {
-    width: (@i * 100% / @n);
-  }
-  .generate-columns(@n, (@i + 1));
+	.column-@{i} {
+		width: (@i * 100% / @n);
+	}
+	.generate-columns(@n, (@i + 1));
 }
 
 .column-1 {
-  width: 25%;
+	width: 25%;
 }
 .column-2 {
-  width: 50%;
+	width: 50%;
 }
 .column-3 {
-  width: 75%;
+	width: 75%;
 }
 .column-4 {
-  width: 100%;
+	width: 100%;
 }
 
 .mixin() {
-  box-shadow+: inset 0 0 10px #555;
+	box-shadow+: inset 0 0 10px #555;
 }
 .myclass {
-  .mixin();
-  box-shadow+: 0 0 20px black;
+	.mixin();
+	box-shadow+: 0 0 20px black;
 }
 
 .myclass {
-  box-shadow: inset 0 0 10px #555, 0 0 20px black;
+	box-shadow: inset 0 0 10px #555, 0 0 20px black;
 }
 
 .mixin() {
-  transform+_: scale(2);
+	transform+_: scale(2);
 }
 .myclass {
-  .mixin();
-  transform+_: rotate(15deg);
+	.mixin();
+	transform+_: rotate(15deg);
 }
 
 .myclass {
-  transform: scale(2) rotate(15deg);
+	transform: scale(2) rotate(15deg);
 }
 
 a {
-  color: blue;
-  &:hover {
-    color: green;
-  }
+	color: blue;
+	&:hover {
+		color: green;
+	}
 }
 
 a {
-  color: blue;
+	color: blue;
 }
 
 a:hover {
-  color: green;
+	color: green;
 }
 
 .button {
-  &-ok {
-    background-image: url("ok.png");
-  }
-  &-cancel {
-    background-image: url("cancel.png");
-  }
+	&-ok {
+		background-image: url("ok.png");
+	}
+	&-cancel {
+		background-image: url("cancel.png");
+	}
 
-  &-custom {
-    background-image: url("custom.png");
-  }
+	&-custom {
+		background-image: url("custom.png");
+	}
 }
 
 .button-ok {
-  background-image: url("ok.png");
+	background-image: url("ok.png");
 }
 .button-cancel {
-  background-image: url("cancel.png");
+	background-image: url("cancel.png");
 }
 .button-custom {
-  background-image: url("custom.png");
+	background-image: url("custom.png");
 }
 
 .link {
-  & + & {
-    color: red;
-  }
+	& + & {
+		color: red;
+	}
 
-  & & {
-    color: green;
-  }
+	& & {
+		color: green;
+	}
 
-  && {
-    color: blue;
-  }
+	&& {
+		color: blue;
+	}
 
-  &,
-  &ish {
-    color: cyan;
-  }
+	&,
+	&ish {
+		color: cyan;
+	}
 }
 
 .link + .link {
-  color: red;
+	color: red;
 }
 .link .link {
-  color: green;
+	color: green;
 }
 .link.link {
-  color: blue;
+	color: blue;
 }
 .link,
 .linkish {
-  color: cyan;
+	color: cyan;
 }
 
 .grand {
-  .parent {
-    & > & {
-      color: red;
-    }
+	.parent {
+		& > & {
+			color: red;
+		}
 
-    & & {
-      color: green;
-    }
+		& & {
+			color: green;
+		}
 
-    && {
-      color: blue;
-    }
+		&& {
+			color: blue;
+		}
 
-    &,
-    &ish {
-      color: cyan;
-    }
-  }
+		&,
+		&ish {
+			color: cyan;
+		}
+	}
 }
 
 .grand .parent > .grand .parent {
-  color: red;
+	color: red;
 }
 .grand .parent .grand .parent {
-  color: green;
+	color: green;
 }
 .grand .parent.grand .parent {
-  color: blue;
+	color: blue;
 }
 .grand .parent,
 .grand .parentish {
-  color: cyan;
+	color: cyan;
 }
 
 .header {
-  .menu {
-    border-radius: 5px;
-    .no-borderradius & {
-      background-image: url("images/button-background.png");
-    }
-  }
+	.menu {
+		border-radius: 5px;
+		.no-borderradius & {
+			background-image: url("images/button-background.png");
+		}
+	}
 }
 
 .header .menu {
-  border-radius: 5px;
+	border-radius: 5px;
 }
 .no-borderradius .header .menu {
-  background-image: url("images/button-background.png");
+	background-image: url("images/button-background.png");
 }
 
 p,
 a,
 ul,
 li {
-  border-top: 2px dotted #366;
-  & + & {
-    border-top: 0;
-  }
+	border-top: 2px dotted #366;
+	& + & {
+		border-top: 0;
+	}
 }
 
 p,
 a,
 ul,
 li {
-  border-top: 2px dotted #366;
+	border-top: 2px dotted #366;
 }
 p + p,
 p + a,
@@ -3241,26 +3241,26 @@ li + p,
 li + a,
 li + ul,
 li + li {
-  border-top: 0;
+	border-top: 0;
 }
 
 .foobar {
-  &:extend(.foo);
+	&:extend(.foo);
 }
 
 .thing {
-  &:hover {
-    background-color: blue;
-    .thing-child {
-    }
-  }
+	&:hover {
+		background-color: blue;
+		.thing-child {
+		}
+	}
 }
 
 .foo,
   // Comment
 .bar {
-  // Comment
-  color: red; // Comment
+	// Comment
+	color: red; // Comment
 }
 
 // Variables
@@ -3269,22 +3269,22 @@ li + li {
 [href]:hover &, // Comment
 [href]:focus &, // Comment
 [href]:active & {
-  .tooltip {
-    opacity: 1;
-  }
+	.tooltip {
+		opacity: 1;
+	}
 }
 
 // Usage
 @import // Comment
-  "@{themes}/tidal-wave.less";
+	"@{themes}/tidal-wave.less";
 
 // Mixin with escaped /
 .margin-bottom-1\\/3() {
-  margin-bottom: 0.8rem;
+	margin-bottom: 0.8rem;
 }
 
 label {
-  .margin-bottom-1\\/3;
+	.margin-bottom-1\\/3;
 }
 
 // whitespace between variable and colon, #2925 #4090

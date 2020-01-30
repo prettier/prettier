@@ -19,16 +19,16 @@ var X = {
 
 =====================================output=====================================
 var X = {
-  perform: function <
-    A,
-    B,
-    C,
-    D,
-    E,
-    F,
-    G,
-    T: (a: A, b: B, c: C, d: D, e: E, f: F) => G // eslint-disable-line space-before-function-paren
-  >(method: T, scope: any, a: A, b: B, c: C, d: D, e: E, f: F): G {},
+	perform: function <
+		A,
+		B,
+		C,
+		D,
+		E,
+		F,
+		G,
+		T: (a: A, b: B, c: C, d: D, e: E, f: F) => G // eslint-disable-line space-before-function-paren
+	>(method: T, scope: any, a: A, b: B, c: C, d: D, e: E, f: F): G {},
 };
 
 ================================================================================
@@ -54,16 +54,16 @@ var X = {
 
 =====================================output=====================================
 var X = {
-  perform: function <
-    A,
-    B,
-    C,
-    D,
-    E,
-    F,
-    G,
-    T: (a: A, b: B, c: C, d: D, e: E, f: F) => G, // eslint-disable-line space-before-function-paren
-  >(method: T, scope: any, a: A, b: B, c: C, d: D, e: E, f: F): G {},
+	perform: function <
+		A,
+		B,
+		C,
+		D,
+		E,
+		F,
+		G,
+		T: (a: A, b: B, c: C, d: D, e: E, f: F) => G, // eslint-disable-line space-before-function-paren
+	>(method: T, scope: any, a: A, b: B, c: C, d: D, e: E, f: F): G {},
 };
 
 ================================================================================
@@ -113,10 +113,10 @@ interface B { "D": boolean; }
 
 =====================================output=====================================
 interface A {
-  C: string;
+	C: string;
 }
 interface B {
-  D: boolean;
+	D: boolean;
 }
 
 ================================================================================
@@ -134,10 +134,10 @@ interface B { "D": boolean; }
 
 =====================================output=====================================
 interface A {
-  C: string;
+	C: string;
 }
 interface B {
-  D: boolean;
+	D: boolean;
 }
 
 ================================================================================
@@ -161,11 +161,11 @@ function foo(): Promise<?boolean> {}
 
 =====================================output=====================================
 function formatEntireFile(
-  fileVersion: FileVersion,
-  range: atom$Range
+	fileVersion: FileVersion,
+	range: atom$Range
 ): Promise<?{
-  newCursor?: number,
-  formatted: string,
+	newCursor?: number,
+	formatted: string,
 }> {}
 
 function foo(): Promise<?boolean> {}
@@ -192,11 +192,11 @@ function foo(): Promise<?boolean> {}
 
 =====================================output=====================================
 function formatEntireFile(
-  fileVersion: FileVersion,
-  range: atom$Range,
+	fileVersion: FileVersion,
+	range: atom$Range,
 ): Promise<?{
-  newCursor?: number,
-  formatted: string,
+	newCursor?: number,
+	formatted: string,
 }> {}
 
 function foo(): Promise<?boolean> {}
@@ -249,11 +249,11 @@ type State = {
 
 =====================================output=====================================
 type State = {
-  errors: Immutable.Map<
-    Ahohohhohohohohohohohohohohooh,
-    Fbt | Immutable.Map<ErrorIndex, Fbt>
-  >,
-  shouldValidate: boolean,
+	errors: Immutable.Map<
+		Ahohohhohohohohohohohohohohooh,
+		Fbt | Immutable.Map<ErrorIndex, Fbt>
+	>,
+	shouldValidate: boolean,
 };
 
 ================================================================================
@@ -276,11 +276,11 @@ type State = {
 
 =====================================output=====================================
 type State = {
-  errors: Immutable.Map<
-    Ahohohhohohohohohohohohohohooh,
-    Fbt | Immutable.Map<ErrorIndex, Fbt>,
-  >,
-  shouldValidate: boolean,
+	errors: Immutable.Map<
+		Ahohohhohohohohohohohohohohooh,
+		Fbt | Immutable.Map<ErrorIndex, Fbt>,
+	>,
+	shouldValidate: boolean,
 };
 
 ================================================================================
@@ -336,8 +336,8 @@ type Foo = Promise<
 
 =====================================output=====================================
 type Foo = Promise<
-  | { ok: true, bar: string, baz: SomeOtherLongType }
-  | { ok: false, bar: SomeOtherLongType }
+	| { ok: true, bar: string, baz: SomeOtherLongType }
+	| { ok: false, bar: SomeOtherLongType }
 >;
 
 ================================================================================
@@ -357,8 +357,8 @@ type Foo = Promise<
 
 =====================================output=====================================
 type Foo = Promise<
-  | { ok: true, bar: string, baz: SomeOtherLongType }
-  | { ok: false, bar: SomeOtherLongType },
+	| { ok: true, bar: string, baz: SomeOtherLongType }
+	| { ok: false, bar: SomeOtherLongType },
 >;
 
 ================================================================================

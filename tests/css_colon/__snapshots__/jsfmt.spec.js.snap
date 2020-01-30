@@ -12,7 +12,7 @@ div {
 
 =====================================output=====================================
 div {
-  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
 }
 
 ================================================================================
