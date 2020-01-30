@@ -10,6 +10,13 @@ const thirdParty = require("./third-party");
 const internalPlugins = require("./internal-plugins");
 const mem = require("mem");
 
+const memoizedLoad = mem(loadPlugins, { cacheKey: JSON.stringify });
+const memoizedSearch = mem(findPluginsInNodeModules);
+const clear = () => {
+  mem.clear(memoizedLoad);
+  mem.clear(memoizedSearch);
+};
+
 function loadPlugins(plugins, pluginSearchDirs) {
   if (!plugins) {
     plugins = [];
@@ -70,7 +77,7 @@ function loadPlugins(plugins, pluginSearchDirs) {
         );
       }
 
-      return findPluginsInNodeModules(nodeModulesDir).map(pluginName => ({
+      return memoizedSearch(nodeModulesDir).map(pluginName => ({
         name: pluginName,
         requirePath: resolve.sync(pluginName, {
           basedir: resolvedPluginSearchDir
@@ -112,12 +119,7 @@ function isDirectory(dir) {
   }
 }
 
-const memorized = mem(loadPlugins, { cacheKey: JSON.stringify });
-function clearCache() {
-  mem.clear(memorized);
-}
-
 module.exports = {
-  loadPlugins: memorized,
-  clearCache
+  loadPlugins: memoizedLoad,
+  clear
 };
