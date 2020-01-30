@@ -934,12 +934,12 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
         ? root.node
         : root;
     if (
-      (rootNode &&
-        (rootNode.type === "ObjectExpression" ||
-          rootNode.type === "ArrayExpression")) ||
-      (options.parser === "__vue_expression" &&
-        (rootNode.type === "TemplateLiteral" ||
-          rootNode.type === "StringLiteral"))
+      rootNode &&
+      (rootNode.type === "ObjectExpression" ||
+        rootNode.type === "ArrayExpression" ||
+        (options.parser === "__vue_expression" &&
+          (rootNode.type === "TemplateLiteral" ||
+            rootNode.type === "StringLiteral")))
     ) {
       shouldHug = true;
     }
