@@ -892,6 +892,10 @@ function shouldWrapFunctionForExportDefault(path, options) {
   const node = path.getValue();
   const parent = path.getParentNode();
 
+  if (node.type === "SequenceExpression") {
+    return true;
+  }
+
   if (node.type === "FunctionExpression" || node.type === "ClassExpression") {
     return (
       parent.type === "ExportDefaultDeclaration" ||
