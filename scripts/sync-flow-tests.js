@@ -14,6 +14,7 @@ function tryParse(file, content) {
   // options should same as `src/language-js/parser-flow.js`
   const ast = flowParser.parse(content, {
     enums: true,
+    esproposal_decorators: true,
     esproposal_class_instance_fields: true,
     esproposal_class_static_fields: true,
     esproposal_export_star_as: true,
