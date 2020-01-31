@@ -341,20 +341,23 @@ function printTernaryOperator(path, options, print, operatorOptions) {
         ifBreak(")", "")
       ]);
 
-    // we don't wrap are:
+    // The only things we don't wrap are:
     // * Nested conditional expressions in alternates
-    // * Literal
-    // * Identifier
-    const noParens = node => isLiteral(node) || node.type === "Identifier";
+    // * null
+    // * undefined
+    const isNil = node =>
+      node.type === "NullLiteral" ||
+      (node.type === "Literal" && node.value === null) ||
+      (node.type === "Identifier" && node.name === "undefined");
 
     parts.push(
       " ? ",
-      noParens(consequentNode)
+      isNil(consequentNode)
         ? path.call(print, operatorOptions.consequentNodePropertyName)
         : wrap(path.call(print, operatorOptions.consequentNodePropertyName)),
       " : ",
       alternateNode.type === operatorOptions.conditionalNodeType ||
-        noParens(alternateNode)
+        isNil(alternateNode)
         ? path.call(print, operatorOptions.alternateNodePropertyName)
         : wrap(path.call(print, operatorOptions.alternateNodePropertyName))
     );

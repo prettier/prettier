@@ -756,6 +756,10 @@ cable ? (
   ) : null}
 </div>;
 
+// #3552
+foo ? <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span> :
+undefined
+
 =====================================output=====================================
 // There are two ways to print ConditionalExpressions: "normal mode" and
 // "JSX mode". This is normal mode (when breaking):
@@ -812,7 +816,11 @@ jsxModeFromElementNonBreaking ? "a" : <div />;
   <span>
     thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
   </span>
-</div> ? "jsx mode from element breaking" : "a";
+</div> ? (
+  "jsx mode from element breaking"
+) : (
+  "a"
+);
 
 // This ConditionalExpression prints in JSX mode because its consequent is a
 // JSXElement. It is breaking.
@@ -822,11 +830,15 @@ jsxModeFromElementBreaking ? (
       thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
     </span>
   </div>
-) : "a";
+) : (
+  "a"
+);
 
 // This ConditionalExpression prints in JSX mode because its alternate is a
 // JSXElement. It is breaking.
-jsxModeFromElementBreaking ? "a" : (
+jsxModeFromElementBreaking ? (
+  "a"
+) : (
   <div>
     <span>
       thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
@@ -847,13 +859,19 @@ cable ? "satellite" : public ? "affairs" : network ? <span id="c" /> : "dunno";
 // JSX element somewhere in the chain (in this case, at the end). It is
 // breaking; notice the consequents and alternates in the entire chain get
 // wrapped in parens.
-cable ? "satellite" : public ? "affairs" : network ? (
+cable ? (
+  "satellite"
+) : public ? (
+  "affairs"
+) : network ? (
   <div>
     <span>
       thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
     </span>
   </div>
-) : "dunno";
+) : (
+  "dunno"
+);
 
 // This chain of ConditionalExpressions prints in JSX mode because there is a
 // JSX element somewhere in the chain (in this case, at the beginning). It is
@@ -865,7 +883,13 @@ cable ? (
       thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
     </span>
   </div>
-) : sateline ? "public" : affairs ? "network" : "dunno";
+) : sateline ? (
+  "public"
+) : affairs ? (
+  "network"
+) : (
+  "dunno"
+);
 
 // This chain of ConditionalExpressions prints in JSX mode because there is a
 // JSX element somewhere in the chain. It is breaking; notice the consequents
@@ -880,6 +904,13 @@ cable ? (
     )
   ) : null}
 </div>;
+
+// #3552
+foo ? (
+  <span>
+    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
+  </span>
+) : undefined;
 
 ================================================================================
 `;
@@ -1024,6 +1055,10 @@ cable ? (
   ) : null}
 </div>;
 
+// #3552
+foo ? <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span> :
+undefined
+
 =====================================output=====================================
 // There are two ways to print ConditionalExpressions: "normal mode" and
 // "JSX mode". This is normal mode (when breaking):
@@ -1080,7 +1115,11 @@ jsxModeFromElementNonBreaking ? "a" : <div />;
   <span>
     thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
   </span>
-</div> ? "jsx mode from element breaking" : "a";
+</div> ? (
+  "jsx mode from element breaking"
+) : (
+  "a"
+);
 
 // This ConditionalExpression prints in JSX mode because its consequent is a
 // JSXElement. It is breaking.
@@ -1090,11 +1129,15 @@ jsxModeFromElementBreaking ? (
       thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
     </span>
   </div>
-) : "a";
+) : (
+  "a"
+);
 
 // This ConditionalExpression prints in JSX mode because its alternate is a
 // JSXElement. It is breaking.
-jsxModeFromElementBreaking ? "a" : (
+jsxModeFromElementBreaking ? (
+  "a"
+) : (
   <div>
     <span>
       thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
@@ -1115,13 +1158,19 @@ cable ? "satellite" : public ? "affairs" : network ? <span id='c' /> : "dunno";
 // JSX element somewhere in the chain (in this case, at the end). It is
 // breaking; notice the consequents and alternates in the entire chain get
 // wrapped in parens.
-cable ? "satellite" : public ? "affairs" : network ? (
+cable ? (
+  "satellite"
+) : public ? (
+  "affairs"
+) : network ? (
   <div>
     <span>
       thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
     </span>
   </div>
-) : "dunno";
+) : (
+  "dunno"
+);
 
 // This chain of ConditionalExpressions prints in JSX mode because there is a
 // JSX element somewhere in the chain (in this case, at the beginning). It is
@@ -1133,7 +1182,13 @@ cable ? (
       thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
     </span>
   </div>
-) : sateline ? "public" : affairs ? "network" : "dunno";
+) : sateline ? (
+  "public"
+) : affairs ? (
+  "network"
+) : (
+  "dunno"
+);
 
 // This chain of ConditionalExpressions prints in JSX mode because there is a
 // JSX element somewhere in the chain. It is breaking; notice the consequents
@@ -1148,6 +1203,13 @@ cable ? (
     )
   ) : null}
 </div>;
+
+// #3552
+foo ? (
+  <span>
+    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
+  </span>
+) : undefined;
 
 ================================================================================
 `;
@@ -1292,6 +1354,10 @@ cable ? (
   ) : null}
 </div>;
 
+// #3552
+foo ? <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span> :
+undefined
+
 =====================================output=====================================
 // There are two ways to print ConditionalExpressions: "normal mode" and
 // "JSX mode". This is normal mode (when breaking):
@@ -1348,7 +1414,11 @@ jsxModeFromElementNonBreaking ? 'a' : <div />;
   <span>
     thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
   </span>
-</div> ? 'jsx mode from element breaking' : 'a';
+</div> ? (
+  'jsx mode from element breaking'
+) : (
+  'a'
+);
 
 // This ConditionalExpression prints in JSX mode because its consequent is a
 // JSXElement. It is breaking.
@@ -1358,11 +1428,15 @@ jsxModeFromElementBreaking ? (
       thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
     </span>
   </div>
-) : 'a';
+) : (
+  'a'
+);
 
 // This ConditionalExpression prints in JSX mode because its alternate is a
 // JSXElement. It is breaking.
-jsxModeFromElementBreaking ? 'a' : (
+jsxModeFromElementBreaking ? (
+  'a'
+) : (
   <div>
     <span>
       thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
@@ -1383,13 +1457,19 @@ cable ? 'satellite' : public ? 'affairs' : network ? <span id="c" /> : 'dunno';
 // JSX element somewhere in the chain (in this case, at the end). It is
 // breaking; notice the consequents and alternates in the entire chain get
 // wrapped in parens.
-cable ? 'satellite' : public ? 'affairs' : network ? (
+cable ? (
+  'satellite'
+) : public ? (
+  'affairs'
+) : network ? (
   <div>
     <span>
       thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
     </span>
   </div>
-) : 'dunno';
+) : (
+  'dunno'
+);
 
 // This chain of ConditionalExpressions prints in JSX mode because there is a
 // JSX element somewhere in the chain (in this case, at the beginning). It is
@@ -1401,7 +1481,13 @@ cable ? (
       thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
     </span>
   </div>
-) : sateline ? 'public' : affairs ? 'network' : 'dunno';
+) : sateline ? (
+  'public'
+) : affairs ? (
+  'network'
+) : (
+  'dunno'
+);
 
 // This chain of ConditionalExpressions prints in JSX mode because there is a
 // JSX element somewhere in the chain. It is breaking; notice the consequents
@@ -1416,6 +1502,13 @@ cable ? (
     )
   ) : null}
 </div>;
+
+// #3552
+foo ? (
+  <span>
+    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
+  </span>
+) : undefined;
 
 ================================================================================
 `;
@@ -1560,6 +1653,10 @@ cable ? (
   ) : null}
 </div>;
 
+// #3552
+foo ? <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span> :
+undefined
+
 =====================================output=====================================
 // There are two ways to print ConditionalExpressions: "normal mode" and
 // "JSX mode". This is normal mode (when breaking):
@@ -1616,7 +1713,11 @@ jsxModeFromElementNonBreaking ? 'a' : <div />;
   <span>
     thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
   </span>
-</div> ? 'jsx mode from element breaking' : 'a';
+</div> ? (
+  'jsx mode from element breaking'
+) : (
+  'a'
+);
 
 // This ConditionalExpression prints in JSX mode because its consequent is a
 // JSXElement. It is breaking.
@@ -1626,11 +1727,15 @@ jsxModeFromElementBreaking ? (
       thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
     </span>
   </div>
-) : 'a';
+) : (
+  'a'
+);
 
 // This ConditionalExpression prints in JSX mode because its alternate is a
 // JSXElement. It is breaking.
-jsxModeFromElementBreaking ? 'a' : (
+jsxModeFromElementBreaking ? (
+  'a'
+) : (
   <div>
     <span>
       thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
@@ -1651,13 +1756,19 @@ cable ? 'satellite' : public ? 'affairs' : network ? <span id='c' /> : 'dunno';
 // JSX element somewhere in the chain (in this case, at the end). It is
 // breaking; notice the consequents and alternates in the entire chain get
 // wrapped in parens.
-cable ? 'satellite' : public ? 'affairs' : network ? (
+cable ? (
+  'satellite'
+) : public ? (
+  'affairs'
+) : network ? (
   <div>
     <span>
       thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
     </span>
   </div>
-) : 'dunno';
+) : (
+  'dunno'
+);
 
 // This chain of ConditionalExpressions prints in JSX mode because there is a
 // JSX element somewhere in the chain (in this case, at the beginning). It is
@@ -1669,7 +1780,13 @@ cable ? (
       thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
     </span>
   </div>
-) : sateline ? 'public' : affairs ? 'network' : 'dunno';
+) : sateline ? (
+  'public'
+) : affairs ? (
+  'network'
+) : (
+  'dunno'
+);
 
 // This chain of ConditionalExpressions prints in JSX mode because there is a
 // JSX element somewhere in the chain. It is breaking; notice the consequents
@@ -1685,881 +1802,12 @@ cable ? (
   ) : null}
 </div>;
 
-================================================================================
-`;
-
-exports[`conditional-expression-2.js 1`] = `
-====================================options=====================================
-jsxSingleQuote: false
-parsers: ["flow", "babel", "typescript"]
-printWidth: 80
-singleQuote: false
-                                                                                | printWidth
-=====================================input======================================
-foo ? <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span> :
-null
-
-foo ? <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span> :
-undefined
-
-foo ? <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span> :
-0
-
-foo ? <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span> :
-function() {}
-
-foo ? <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span> :
-() => {}
-
-foo ? <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span> :
-''
-
-foo ? <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span> :
-bar
-
-foo ? <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span> :
-/./g
-
-foo ? <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span> :
-<span>a short jsx</span>
-
-foo ? <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span>:
-<span>another loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span>
-
-// -- swap
-
-foo ? null
-:<span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span>
-
-foo ? undefined
-:<span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span>
-
-foo ? 0
-:<span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span>
-
-foo ? function() {}
-:<span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span>
-
-foo ? () => {}
-:<span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span>
-
-foo ? ''
-: <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span>
-
-foo ? bar
-:<span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span>
-
-foo ? /./g
-:<span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span>
-
-foo ? <span>a short jsx</span>
-:<span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span>
-
-foo ? <span>another loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span>
-:<span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span>
-
-
-=====================================output=====================================
-foo ? (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-) : null;
-
+// #3552
 foo ? (
   <span>
     loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
   </span>
 ) : undefined;
-
-foo ? (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-) : 0;
-
-foo ? (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-) : (
-  function () {}
-);
-
-foo ? (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-) : (
-  () => {}
-);
-
-foo ? (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-) : "";
-
-foo ? (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-) : bar;
-
-foo ? (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-) : /./g;
-
-foo ? (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-) : (
-  <span>a short jsx</span>
-);
-
-foo ? (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-) : (
-  <span>
-    another loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong
-    jsx
-  </span>
-);
-
-// -- swap
-
-foo ? null : (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-);
-
-foo ? undefined : (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-);
-
-foo ? 0 : (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-);
-
-foo ? (
-  function () {}
-) : (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-);
-
-foo ? (
-  () => {}
-) : (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-);
-
-foo ? "" : (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-);
-
-foo ? bar : (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-);
-
-foo ? /./g : (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-);
-
-foo ? (
-  <span>a short jsx</span>
-) : (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-);
-
-foo ? (
-  <span>
-    another loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong
-    jsx
-  </span>
-) : (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-);
-
-================================================================================
-`;
-
-exports[`conditional-expression-2.js 2`] = `
-====================================options=====================================
-jsxSingleQuote: true
-parsers: ["flow", "babel", "typescript"]
-printWidth: 80
-singleQuote: false
-                                                                                | printWidth
-=====================================input======================================
-foo ? <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span> :
-null
-
-foo ? <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span> :
-undefined
-
-foo ? <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span> :
-0
-
-foo ? <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span> :
-function() {}
-
-foo ? <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span> :
-() => {}
-
-foo ? <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span> :
-''
-
-foo ? <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span> :
-bar
-
-foo ? <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span> :
-/./g
-
-foo ? <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span> :
-<span>a short jsx</span>
-
-foo ? <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span>:
-<span>another loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span>
-
-// -- swap
-
-foo ? null
-:<span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span>
-
-foo ? undefined
-:<span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span>
-
-foo ? 0
-:<span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span>
-
-foo ? function() {}
-:<span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span>
-
-foo ? () => {}
-:<span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span>
-
-foo ? ''
-: <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span>
-
-foo ? bar
-:<span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span>
-
-foo ? /./g
-:<span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span>
-
-foo ? <span>a short jsx</span>
-:<span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span>
-
-foo ? <span>another loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span>
-:<span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span>
-
-
-=====================================output=====================================
-foo ? (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-) : null;
-
-foo ? (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-) : undefined;
-
-foo ? (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-) : 0;
-
-foo ? (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-) : (
-  function () {}
-);
-
-foo ? (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-) : (
-  () => {}
-);
-
-foo ? (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-) : "";
-
-foo ? (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-) : bar;
-
-foo ? (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-) : /./g;
-
-foo ? (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-) : (
-  <span>a short jsx</span>
-);
-
-foo ? (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-) : (
-  <span>
-    another loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong
-    jsx
-  </span>
-);
-
-// -- swap
-
-foo ? null : (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-);
-
-foo ? undefined : (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-);
-
-foo ? 0 : (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-);
-
-foo ? (
-  function () {}
-) : (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-);
-
-foo ? (
-  () => {}
-) : (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-);
-
-foo ? "" : (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-);
-
-foo ? bar : (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-);
-
-foo ? /./g : (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-);
-
-foo ? (
-  <span>a short jsx</span>
-) : (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-);
-
-foo ? (
-  <span>
-    another loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong
-    jsx
-  </span>
-) : (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-);
-
-================================================================================
-`;
-
-exports[`conditional-expression-2.js 3`] = `
-====================================options=====================================
-jsxSingleQuote: false
-parsers: ["flow", "babel", "typescript"]
-printWidth: 80
-singleQuote: true
-                                                                                | printWidth
-=====================================input======================================
-foo ? <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span> :
-null
-
-foo ? <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span> :
-undefined
-
-foo ? <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span> :
-0
-
-foo ? <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span> :
-function() {}
-
-foo ? <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span> :
-() => {}
-
-foo ? <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span> :
-''
-
-foo ? <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span> :
-bar
-
-foo ? <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span> :
-/./g
-
-foo ? <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span> :
-<span>a short jsx</span>
-
-foo ? <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span>:
-<span>another loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span>
-
-// -- swap
-
-foo ? null
-:<span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span>
-
-foo ? undefined
-:<span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span>
-
-foo ? 0
-:<span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span>
-
-foo ? function() {}
-:<span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span>
-
-foo ? () => {}
-:<span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span>
-
-foo ? ''
-: <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span>
-
-foo ? bar
-:<span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span>
-
-foo ? /./g
-:<span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span>
-
-foo ? <span>a short jsx</span>
-:<span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span>
-
-foo ? <span>another loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span>
-:<span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span>
-
-
-=====================================output=====================================
-foo ? (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-) : null;
-
-foo ? (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-) : undefined;
-
-foo ? (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-) : 0;
-
-foo ? (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-) : (
-  function () {}
-);
-
-foo ? (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-) : (
-  () => {}
-);
-
-foo ? (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-) : '';
-
-foo ? (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-) : bar;
-
-foo ? (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-) : /./g;
-
-foo ? (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-) : (
-  <span>a short jsx</span>
-);
-
-foo ? (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-) : (
-  <span>
-    another loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong
-    jsx
-  </span>
-);
-
-// -- swap
-
-foo ? null : (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-);
-
-foo ? undefined : (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-);
-
-foo ? 0 : (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-);
-
-foo ? (
-  function () {}
-) : (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-);
-
-foo ? (
-  () => {}
-) : (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-);
-
-foo ? '' : (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-);
-
-foo ? bar : (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-);
-
-foo ? /./g : (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-);
-
-foo ? (
-  <span>a short jsx</span>
-) : (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-);
-
-foo ? (
-  <span>
-    another loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong
-    jsx
-  </span>
-) : (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-);
-
-================================================================================
-`;
-
-exports[`conditional-expression-2.js 4`] = `
-====================================options=====================================
-jsxSingleQuote: true
-parsers: ["flow", "babel", "typescript"]
-printWidth: 80
-singleQuote: true
-                                                                                | printWidth
-=====================================input======================================
-foo ? <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span> :
-null
-
-foo ? <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span> :
-undefined
-
-foo ? <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span> :
-0
-
-foo ? <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span> :
-function() {}
-
-foo ? <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span> :
-() => {}
-
-foo ? <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span> :
-''
-
-foo ? <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span> :
-bar
-
-foo ? <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span> :
-/./g
-
-foo ? <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span> :
-<span>a short jsx</span>
-
-foo ? <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span>:
-<span>another loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span>
-
-// -- swap
-
-foo ? null
-:<span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span>
-
-foo ? undefined
-:<span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span>
-
-foo ? 0
-:<span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span>
-
-foo ? function() {}
-:<span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span>
-
-foo ? () => {}
-:<span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span>
-
-foo ? ''
-: <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span>
-
-foo ? bar
-:<span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span>
-
-foo ? /./g
-:<span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span>
-
-foo ? <span>a short jsx</span>
-:<span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span>
-
-foo ? <span>another loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span>
-:<span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span>
-
-
-=====================================output=====================================
-foo ? (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-) : null;
-
-foo ? (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-) : undefined;
-
-foo ? (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-) : 0;
-
-foo ? (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-) : (
-  function () {}
-);
-
-foo ? (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-) : (
-  () => {}
-);
-
-foo ? (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-) : '';
-
-foo ? (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-) : bar;
-
-foo ? (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-) : /./g;
-
-foo ? (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-) : (
-  <span>a short jsx</span>
-);
-
-foo ? (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-) : (
-  <span>
-    another loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong
-    jsx
-  </span>
-);
-
-// -- swap
-
-foo ? null : (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-);
-
-foo ? undefined : (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-);
-
-foo ? 0 : (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-);
-
-foo ? (
-  function () {}
-) : (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-);
-
-foo ? (
-  () => {}
-) : (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-);
-
-foo ? '' : (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-);
-
-foo ? bar : (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-);
-
-foo ? /./g : (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-);
-
-foo ? (
-  <span>a short jsx</span>
-) : (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-);
-
-foo ? (
-  <span>
-    another loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong
-    jsx
-  </span>
-) : (
-  <span>
-    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
-  </span>
-);
 
 ================================================================================
 `;
