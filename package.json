@@ -124,7 +124,7 @@
     "check-types": "tsc",
     "lint": "cross-env EFF_NO_LINK_RULES=true eslint . --format friendly",
     "lint-changelog": "node ./scripts/lint-changelog.js",
-    "lint-docs": "prettier {.,docs,website,website/blog,changelog_unreleased,changelog_unreleased/*}/*.md --check",
+    "lint-prettier": "prettier \"**/*.{md,json,yml,html,css}\" --check",
     "lint-dist": "eslint --no-eslintrc --no-ignore --env=es6,browser \"dist/!(bin-prettier|index|third-party).js\"",
     "build": "node --max-old-space-size=3072 ./scripts/build/build.js",
     "build-docs": "node ./scripts/build-docs.js",
