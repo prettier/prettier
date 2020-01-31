@@ -29,12 +29,11 @@ jobs:
       - name: Lint code
         run: yarn lint
 
-      - name: Lint docs
-        run: yarn lint-docs
+      - name: Lint prettier
+        run: yarn lint-prettier
 
       - name: Spellcheck
         run: yarn spellcheck
 
       - name: Check file changes
         run: yarn && echo "Listing changed files:" && git diff --name-only --exit-code && echo "No files changed during lint."
-
