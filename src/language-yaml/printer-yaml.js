@@ -67,7 +67,7 @@ function defineShortcuts(node) {
 }
 
 function genericPrint(path, options, print) {
-  const node = path.getValue();
+  const node = path.value;
   const parentNode = path.getParentNode();
 
   const tag = !node.tag ? "" : path.call(print, "tag");
@@ -171,7 +171,7 @@ function _print(node, parentNode, path, options, print) {
           : hardline
       ]);
     case "document": {
-      const nextDocument = parentNode.children[path.getName() + 1];
+      const nextDocument = parentNode.children[path.name + 1];
       return join(
         hardline,
         [
@@ -684,7 +684,7 @@ function needsSpaceInFrontOfMappingValue(node) {
 }
 
 function printNextEmptyLine(path, originalText) {
-  const node = path.getValue();
+  const node = path.value;
   const root = path.stack[0];
 
   root.isNextEmptyLinePrintedChecklist =

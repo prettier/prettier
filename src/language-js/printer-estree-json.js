@@ -4,7 +4,7 @@ const { concat, hardline, indent, join } = require("../document").builders;
 const preprocess = require("./preprocess");
 
 function genericPrint(path, options, print) {
-  const node = path.getValue();
+  const node = path.value;
   switch (node.type) {
     case "JsonRoot":
       return concat([path.call(print, "node"), hardline]);

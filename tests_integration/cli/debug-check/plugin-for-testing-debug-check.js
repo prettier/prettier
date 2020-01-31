@@ -16,7 +16,7 @@ module.exports = {
   },
   printers: {
     "debug-check-ast": {
-      print: path => path.getValue().text + path.getValue().text
+      print: path => path.value.text + path.value.text
     }
   }
 };

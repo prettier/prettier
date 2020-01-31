@@ -15,7 +15,7 @@ const { isNextLineEmpty } = require("../common/util-shared");
 const { insertPragma } = require("./pragma");
 
 function genericPrint(path, options, print) {
-  const n = path.getValue();
+  const n = path.value;
   if (!n) {
     return "";
   }
@@ -34,7 +34,7 @@ function genericPrint(path, options, print) {
           if (
             isNextLineEmpty(
               options.originalText,
-              pathChild.getValue(),
+              pathChild.value,
               options.locEnd
             )
           ) {
@@ -627,13 +627,13 @@ function printDirectives(path, print, n) {
 }
 
 function printSequence(sequencePath, options, print) {
-  const count = sequencePath.getValue().length;
+  const count = sequencePath.value.length;
 
   return sequencePath.map((path, i) => {
     const printed = print(path);
 
     if (
-      isNextLineEmpty(options.originalText, path.getValue(), options.locEnd) &&
+      isNextLineEmpty(options.originalText, path.value, options.locEnd) &&
       i < count - 1
     ) {
       return concat([printed, hardline]);
@@ -648,7 +648,7 @@ function canAttachComment(node) {
 }
 
 function printComment(commentPath) {
-  const comment = commentPath.getValue();
+  const comment = commentPath.value;
   if (comment.kind === "Comment") {
     return "#" + comment.value.trimEnd();
   }

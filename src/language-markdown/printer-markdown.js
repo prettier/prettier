@@ -38,7 +38,7 @@ const SINGLE_LINE_NODE_TYPES = ["heading", "tableCell", "link"];
 const SIBLING_NODE_TYPES = ["listItem", "definition", "footnoteDefinition"];
 
 function genericPrint(path, options, print) {
-  const node = path.getValue();
+  const node = path.value;
 
   if (shouldRemainTheSameContent(path)) {
     return concat(
@@ -254,7 +254,7 @@ function genericPrint(path, options, print) {
       return printChildren(path, options, print, {
         processor: (childPath, index) => {
           const prefix = getPrefix();
-          const childNode = childPath.getValue();
+          const childNode = childPath.value;
 
           if (
             childNode.children.length === 2 &&
@@ -352,7 +352,7 @@ function genericPrint(path, options, print) {
     case "footnoteReference":
       return concat(["[^", node.identifier, "]"]);
     case "footnoteDefinition": {
-      const nextNode = path.getParentNode().children[path.getName() + 1];
+      const nextNode = path.getParentNode().children[path.name + 1];
       const shouldInlineFootnote =
         node.children.length === 1 &&
         node.children[0].type === "paragraph" &&
@@ -429,13 +429,13 @@ function genericPrint(path, options, print) {
 }
 
 function printListItem(path, options, print, listPrefix) {
-  const node = path.getValue();
+  const node = path.value;
   const prefix = node.checked === null ? "" : node.checked ? "[x] " : "[ ] ";
   return concat([
     prefix,
     printChildren(path, options, print, {
       processor: (childPath, index) => {
-        if (index === 0 && childPath.getValue().type !== "list") {
+        if (index === 0 && childPath.value.type !== "list") {
           return align(" ".repeat(prefix.length), childPath.call(print));
         }
 
@@ -539,7 +539,7 @@ function printLine(path, value, options) {
 
 function printTable(path, options, print) {
   const hardlineWithoutBreakParent = hardline.parts[0];
-  const node = path.getValue();
+  const node = path.value;
   const contents = []; // { [rowIndex: number]: { [columnIndex: number]: string } }
 
   path.map(rowPath => {
@@ -660,7 +660,7 @@ function printRoot(path, options, print) {
   /** @type {IgnorePosition | null} */
   let ignoreStart = null;
 
-  const { children } = path.getValue();
+  const { children } = path.value;
   children.forEach((childNode, index) => {
     switch (isPrettierIgnore(childNode)) {
       case "start":
@@ -720,13 +720,13 @@ function printChildren(path, options, print, events) {
   const postprocessor = events.postprocessor || concat;
   const processor = events.processor || (childPath => childPath.call(print));
 
-  const node = path.getValue();
+  const node = path.value;
   const parts = [];
 
   let lastChildNode;
 
   path.map((childPath, index) => {
-    const childNode = childPath.getValue();
+    const childNode = childPath.value;
 
     const result = processor(childPath, index);
     if (result !== false) {
@@ -982,7 +982,7 @@ function clean(ast, newObj, parent) {
 }
 
 function hasPrettierIgnore(path) {
-  const index = +path.getName();
+  const index = +path.name;
 
   if (index === 0) {
     return false;

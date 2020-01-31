@@ -742,7 +742,7 @@ function getStringWidth(text) {
 }
 
 function hasIgnoreComment(path) {
-  const node = path.getValue();
+  const node = path.value;
   return hasNodeIgnoreComment(node);
 }
 
@@ -787,7 +787,7 @@ function addTrailingComment(node, comment) {
 }
 
 function isWithinParentArrayProperty(path, propertyName) {
-  const node = path.getValue();
+  const node = path.value;
   const parent = path.getParentNode();
 
   if (parent == null) {
@@ -798,7 +798,7 @@ function isWithinParentArrayProperty(path, propertyName) {
     return false;
   }
 
-  const key = path.getName();
+  const key = path.name;
   return parent[propertyName][key] === node;
 }
 

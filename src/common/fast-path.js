@@ -23,7 +23,7 @@ class FastPath {
 
   // The name of the current property is always the penultimate element of
   // this.stack, and always a String.
-  getName() {
+  get name() {
     const { stack } = this;
     const { length } = stack;
     if (length > 1) {
@@ -37,7 +37,7 @@ class FastPath {
 
   // The value of the current property is always the final element of
   // this.stack.
-  getValue() {
+  get value() {
     return getLast(this.stack);
   }
 
@@ -77,7 +77,7 @@ class FastPath {
   }
 
   // Similar to FastPath.prototype.call, except that the value obtained by
-  // accessing this.getValue()[name1][name2]... should be array-like. The
+  // accessing this.value[name1][name2]... should be array-like. The
   // callback will be called with a reference to this path object for each
   // element of the array.
   each(callback, ...names) {
@@ -94,7 +94,7 @@ class FastPath {
       if (i in value) {
         stack.push(i, value[i]);
         // If the callback needs to know the value of i, call
-        // path.getName(), assuming path is the parameter name.
+        // path.name, assuming path is the parameter name.
         callback(this);
         stack.length -= 2;
       }

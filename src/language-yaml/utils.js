@@ -70,7 +70,7 @@ function isNextLineEmpty(node, text) {
 }
 
 function isLastDescendantNode(path) {
-  const node = path.getValue();
+  const node = path.value;
 
   switch (node.type) {
     case "tag":
@@ -108,7 +108,7 @@ function isPrettierIgnore(comment) {
 }
 
 function hasPrettierIgnore(path) {
-  const node = path.getValue();
+  const node = path.value;
 
   if (node.type === "documentBody") {
     const document = path.getParentNode();

@@ -131,7 +131,7 @@ function isExportDeclaration(node) {
 
 function getParentExportDeclaration(path) {
   const parentNode = path.getParentNode();
-  if (path.getName() === "declaration" && isExportDeclaration(parentNode)) {
+  if (path.name === "declaration" && isExportDeclaration(parentNode)) {
     return parentNode;
   }
 
@@ -404,7 +404,7 @@ function hasDanglingComments(node) {
 
 /** identify if an angular expression seems to have side effects */
 function hasNgSideEffect(path) {
-  return hasNode(path.getValue(), node => {
+  return hasNode(path.value, node => {
     switch (node.type) {
       case undefined:
         return false;
@@ -603,7 +603,7 @@ function isMeaningfulJSXText(node) {
 }
 
 function hasJsxIgnoreComment(path) {
-  const node = path.getValue();
+  const node = path.value;
   const parent = path.getParentNode();
   if (!parent || !node || !isJSXNode(node) || !isJSXNode(parent)) {
     return false;
@@ -655,7 +655,7 @@ function isLastStatement(path) {
   if (!parent) {
     return true;
   }
-  const node = path.getValue();
+  const node = path.value;
   const body = (parent.body || parent.consequent).filter(
     stmt => stmt.type !== "EmptyStatement"
   );
@@ -901,7 +901,7 @@ function isFunctionCompositionArgs(args) {
 // In the above call expression, the second call is the parent node and the
 // first call is the current node.
 function isLongCurriedCallExpression(path) {
-  const node = path.getValue();
+  const node = path.value;
   const parent = path.getParentNode();
   return (
     isCallOrOptionalCallExpression(node) &&

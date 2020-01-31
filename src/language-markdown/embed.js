@@ -9,7 +9,7 @@ const {
 const { getFencedCodeBlockValue } = require("./utils");
 
 function embed(path, print, textToDoc, options) {
-  const node = path.getValue();
+  const node = path.value;
 
   if (node.type === "code" && node.lang !== null) {
     // only look for the first string so as to support [markdown-preview-enhanced](https://shd101wyy.github.io/markdown-preview-enhanced/#/code-chunk)

@@ -346,7 +346,7 @@ function breakTies(tiesToBreak, text, options) {
 }
 
 function printComment(commentPath, options) {
-  const comment = commentPath.getValue();
+  const comment = commentPath.value;
   comment.printed = true;
   return options.printer.printComment(commentPath, options);
 }
@@ -376,7 +376,7 @@ function getQuasiRange(expr) {
 }
 
 function printLeadingComment(commentPath, print, options) {
-  const comment = commentPath.getValue();
+  const comment = commentPath.value;
   const contents = printComment(commentPath, options);
   if (!contents) {
     return "";
@@ -397,7 +397,7 @@ function printLeadingComment(commentPath, print, options) {
 }
 
 function printTrailingComment(commentPath, print, options) {
-  const comment = commentPath.getValue();
+  const comment = commentPath.value;
   const contents = printComment(commentPath, options);
   if (!contents) {
     return "";
@@ -455,14 +455,14 @@ function printTrailingComment(commentPath, print, options) {
 
 function printDanglingComments(path, options, sameIndent, filter) {
   const parts = [];
-  const node = path.getValue();
+  const node = path.value;
 
   if (!node || !node.comments) {
     return "";
   }
 
   path.each(commentPath => {
-    const comment = commentPath.getValue();
+    const comment = commentPath.value;
     if (
       comment &&
       !comment.leading &&
@@ -484,14 +484,14 @@ function printDanglingComments(path, options, sameIndent, filter) {
 }
 
 function prependCursorPlaceholder(path, options, printed) {
-  if (path.getNode() === options.cursorNode && path.getValue()) {
+  if (path.getNode() === options.cursorNode && path.value) {
     return concat([cursor, printed, cursor]);
   }
   return printed;
 }
 
 function printComments(path, print, options, needsSemi) {
-  const value = path.getValue();
+  const { value } = path;
   const printed = print(path);
   const comments = value && value.comments;
 
@@ -503,7 +503,7 @@ function printComments(path, print, options, needsSemi) {
   const trailingParts = [needsSemi ? ";" : "", printed];
 
   path.each(commentPath => {
-    const comment = commentPath.getValue();
+    const comment = commentPath.value;
     const { leading, trailing } = comment;
 
     if (leading) {

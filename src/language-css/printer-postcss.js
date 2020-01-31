@@ -83,7 +83,7 @@ function shouldPrintComma(options) {
 }
 
 function genericPrint(path, options, print) {
-  const node = path.getValue();
+  const node = path.value;
 
   /* istanbul ignore if */
   if (!node) {
@@ -253,7 +253,7 @@ function genericPrint(path, options, print) {
     case "media-query-list": {
       const parts = [];
       path.each(childPath => {
-        const node = childPath.getValue();
+        const node = childPath.value;
         if (node.type === "media-query" && node.value === "") {
           return;
         }
@@ -755,7 +755,7 @@ function genericPrint(path, options, print) {
               join(
                 concat([",", line]),
                 path.map(childPath => {
-                  const node = childPath.getValue();
+                  const node = childPath.value;
                   const printed = print(childPath);
 
                   // Key/Value pair in open paren already indented
@@ -851,7 +851,7 @@ function genericPrint(path, options, print) {
 }
 
 function printNodeSequence(path, options, print) {
-  const node = path.getValue();
+  const node = path.value;
   const parts = [];
   let i = 0;
   path.map(pathChild => {
@@ -861,7 +861,7 @@ function printNodeSequence(path, options, print) {
       prevNode.type === "css-comment" &&
       prevNode.text.trim() === "prettier-ignore"
     ) {
-      const childNode = pathChild.getValue();
+      const childNode = pathChild.value;
       parts.push(
         options.originalText.slice(
           options.locStart(childNode),
@@ -892,7 +892,7 @@ function printNodeSequence(path, options, print) {
         if (
           isNextLineEmpty(
             options.originalText,
-            pathChild.getValue(),
+            pathChild.value,
             options.locEnd
           ) &&
           node.nodes[i].type !== "yaml" &&

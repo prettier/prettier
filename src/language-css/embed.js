@@ -6,7 +6,7 @@ const {
 } = require("../document");
 
 function embed(path, print, textToDoc /*, options */) {
-  const node = path.getValue();
+  const node = path.value;
 
   if (node.type === "yaml") {
     return markAsRoot(

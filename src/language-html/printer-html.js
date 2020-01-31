@@ -59,7 +59,7 @@ function concat(parts) {
 }
 
 function embed(path, print, textToDoc, options) {
-  const node = path.getValue();
+  const node = path.value;
   switch (node.type) {
     case "text": {
       if (isScriptLikeTag(node.parent)) {
@@ -169,7 +169,7 @@ function embed(path, print, textToDoc, options) {
 }
 
 function genericPrint(path, options, print) {
-  const node = path.getValue();
+  const node = path.value;
   switch (node.type) {
     case "root":
       // use original concat to not break stripTrailingHardline
@@ -373,14 +373,14 @@ function genericPrint(path, options, print) {
 }
 
 function printChildren(path, options, print) {
-  const node = path.getValue();
+  const node = path.value;
 
   if (forceBreakChildren(node)) {
     return concat([
       breakParent,
       concat(
         path.map(childPath => {
-          const childNode = childPath.getValue();
+          const childNode = childPath.value;
           const prevBetweenLine = !childNode.prev
             ? ""
             : printBetweenLine(childNode.prev, childNode);
@@ -401,7 +401,7 @@ function printChildren(path, options, print) {
   const groupIds = node.children.map(() => Symbol(""));
   return concat(
     path.map((childPath, childIndex) => {
-      const childNode = childPath.getValue();
+      const childNode = childPath.value;
 
       if (isTextLikeNode(childNode)) {
         if (childNode.prev && isTextLikeNode(childNode.prev)) {
@@ -479,7 +479,7 @@ function printChildren(path, options, print) {
   );
 
   function printChild(childPath) {
-    const child = childPath.getValue();
+    const child = childPath.value;
 
     if (hasPrettierIgnore(child)) {
       return concat(
@@ -598,7 +598,7 @@ function printChildren(path, options, print) {
 }
 
 function printOpeningTag(path, options, print) {
-  const node = path.getValue();
+  const node = path.value;
   const forceNotToBreakAttrContent =
     node.type === "element" &&
     node.fullName === "script" &&
@@ -629,7 +629,7 @@ function printOpeningTag(path, options, print) {
                       ? attr => ignoreAttributeData.includes(attr.rawName)
                       : () => false;
                   return path.map(attrPath => {
-                    const attr = attrPath.getValue();
+                    const attr = attrPath.value;
                     return hasPrettierIgnoreAttribute(attr)
                       ? concat(
                           replaceEndOfLineWith(

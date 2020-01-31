@@ -25,7 +25,7 @@ module.exports = {
   printers: {
     "foo-ast": {
       print: (path, options) =>
-        options.fooString ? `foo:${options.fooString}` : path.getValue().text
+        options.fooString ? `foo:${options.fooString}` : path.value.text
     }
   }
 };

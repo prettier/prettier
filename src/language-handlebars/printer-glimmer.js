@@ -33,7 +33,7 @@ const voidTags = [
 // https://github.com/glimmerjs/glimmer-vm/blob/master/packages/%40glimmer/syntax/lib/generation/print.ts
 
 function print(path, options, print) {
-  const n = path.getValue();
+  const n = path.value;
 
   /* istanbul ignore if*/
   if (!n) {
@@ -367,7 +367,7 @@ function print(path, options, print) {
 function printChildren(path, options, print) {
   return concat(
     path.map((childPath, childIndex) => {
-      const childNode = path.getValue();
+      const childNode = path.value;
       const isFirstNode = childIndex === 0;
       const isLastNode =
         childIndex === path.getParentNode(0).children.length - 1;
@@ -435,7 +435,7 @@ function printPath(path, print) {
 }
 
 function printParams(path, print) {
-  const node = path.getValue();
+  const node = path.value;
   let parts = [];
 
   if (node.params.length > 0) {
@@ -458,7 +458,7 @@ function printPathParams(path, print) {
 }
 
 function printBlockParams(path) {
-  const block = path.getValue();
+  const block = path.value;
   if (!block.program || !block.program.blockParams.length) {
     return "";
   }
@@ -491,7 +491,7 @@ function isParentOfType(path, nodeType) {
 }
 
 function getPreviousNode(path, lookBack = 1) {
-  const node = path.getValue();
+  const node = path.value;
   const parentNode = path.getParentNode(0);
 
   const children = parentNode && (parentNode.children || parentNode.body);
@@ -505,7 +505,7 @@ function getPreviousNode(path, lookBack = 1) {
 }
 
 function getNextNode(path) {
-  const node = path.getValue();
+  const node = path.value;
   const parentNode = path.getParentNode(0);
 
   const children = parentNode.children || parentNode.body;
@@ -570,7 +570,7 @@ function generateHardlines(number = 0, max = 0) {
 }
 
 function hasPrettierIgnore(path) {
-  const n = path.getValue();
+  const n = path.value;
   const previousPreviousNode = getPreviousNode(path, 2);
   const isIgnoreNode = isPrettierIgnoreNode(n);
   const isCoveredByIgnoreNode = isPrettierIgnoreNode(previousPreviousNode);

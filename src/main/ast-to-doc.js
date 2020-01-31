@@ -41,7 +41,7 @@ function printAstToDoc(ast, options, alignmentSize = 0) {
   const cache = new Map();
 
   function printGenerically(path, args) {
-    const node = path.getValue();
+    const node = path.value;
 
     const shouldCache = node && typeof node === "object" && args === undefined;
     if (shouldCache && cache.has(node)) {
@@ -92,7 +92,7 @@ function printAstToDoc(ast, options, alignmentSize = 0) {
 function callPluginPrintFunction(path, options, printPath, args) {
   assert.ok(path instanceof FastPath);
 
-  const node = path.getValue();
+  const node = path.value;
   const { printer } = options;
 
   // Escape hatch

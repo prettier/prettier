@@ -15,7 +15,7 @@ function hasClosureCompilerTypeCastComment(text, path) {
   // https://github.com/google/closure-compiler/wiki/Annotating-Types#type-casts
   // Syntax example: var x = /** @type {string} */ (fruit);
 
-  const n = path.getValue();
+  const n = path.value;
 
   return (
     isParenthesized(n) &&
@@ -87,13 +87,13 @@ function needsParens(path, options) {
     return false;
   }
 
-  const name = path.getName();
+  const { name } = path;
   const node = path.getNode();
 
   // If the value of this path is some child of a Node and not a Node
   // itself, then it doesn't need parentheses. Only Node objects (in
   // fact, only Expression nodes) need parentheses.
-  if (path.getValue() !== node) {
+  if (path.value !== node) {
     return false;
   }
 
@@ -123,7 +123,7 @@ function needsParens(path, options) {
     // parser. The Flow parser turns Flow comments into type annotation nodes in its
     // AST, which we handle separately.
     options.parser !== "flow" &&
-    hasFlowShorthandAnnotationComment(path.getValue())
+    hasFlowShorthandAnnotationComment(path.value)
   ) {
     return true;
   }
@@ -853,9 +853,9 @@ function endsWithRightBracket(node) {
 }
 
 function isFollowedByRightBracket(path) {
-  const node = path.getValue();
+  const node = path.value;
   const parent = path.getParentNode();
-  const name = path.getName();
+  const { name } = path;
   switch (parent.type) {
     case "NGPipeExpression":
       if (
@@ -895,7 +895,7 @@ function isFollowedByRightBracket(path) {
 }
 
 function shouldWrapFunctionForExportDefault(path, options) {
-  const node = path.getValue();
+  const node = path.value;
   const parent = path.getParentNode();
 
   if (node.type === "FunctionExpression" || node.type === "ClassExpression") {

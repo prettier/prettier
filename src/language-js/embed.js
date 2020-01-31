@@ -17,7 +17,7 @@ const {
 } = require("../document");
 
 function embed(path, print, textToDoc, options) {
-  const node = path.getValue();
+  const node = path.value;
   const parent = path.getParentNode();
   const parentParent = path.getParentNode(1);
 
@@ -227,7 +227,7 @@ function escapeTemplateCharacters(doc, raw) {
 }
 
 function transformCssDoc(quasisDoc, path, print) {
-  const parentNode = path.getValue();
+  const parentNode = path.value;
 
   const isEmpty =
     parentNode.quasis.length === 1 && !parentNode.quasis[0].value.raw.trim();
@@ -347,7 +347,7 @@ function printGraphqlComments(lines) {
  * css.resolve``
  */
 function isStyledJsx(path) {
-  const node = path.getValue();
+  const node = path.value;
   const parent = path.getParentNode();
   const parentParent = path.getParentNode(1);
   return (
@@ -498,7 +498,7 @@ function isStyledExtend(node) {
  * support Relay Classic formatting.
  */
 function isGraphQL(path) {
-  const node = path.getValue();
+  const node = path.value;
   const parent = path.getParentNode();
 
   return (
@@ -534,7 +534,7 @@ function hasLanguageComment(node, languageName) {
  */
 function isHtml(path) {
   return (
-    hasLanguageComment(path.getValue(), "HTML") ||
+    hasLanguageComment(path.value, "HTML") ||
     path.match(
       node => node.type === "TemplateLiteral",
       (node, name) =>
@@ -556,7 +556,7 @@ function printHtmlTemplateLiteral(
   parser,
   escapeClosingScriptTag
 ) {
-  const node = path.getValue();
+  const node = path.value;
 
   const counter = htmlTemplateLiteralCounter;
   htmlTemplateLiteralCounter = (htmlTemplateLiteralCounter + 1) >>> 0;

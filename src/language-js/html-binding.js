@@ -5,9 +5,9 @@ const {
 } = require("../document");
 
 function printHtmlBinding(path, options, print) {
-  const node = path.getValue();
+  const node = path.value;
 
-  if (options.__onHtmlBindingRoot && path.getName() === null) {
+  if (options.__onHtmlBindingRoot && path.name === null) {
     options.__onHtmlBindingRoot(node);
   }
 
@@ -18,7 +18,7 @@ function printHtmlBinding(path, options, print) {
   if (options.__isVueForBindingLeft) {
     return path.call(
       functionDeclarationPath => {
-        const { params } = functionDeclarationPath.getValue();
+        const { params } = functionDeclarationPath.value;
         return concat([
           params.length > 1 ? "(" : "",
           join(
