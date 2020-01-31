@@ -1015,7 +1015,7 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
   if (options.parser === "angular") {
     const ngTextToDoc = (code, opts) =>
       // angular does not allow trailing comma
-      textToDoc(code, { trailingComma: "none", ...opts });
+      textToDoc(code, { ...opts, trailingComma: "none" });
 
     /**
      *     *directive="angularDirective"
