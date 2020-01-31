@@ -1009,7 +1009,7 @@ function printPathNoParens(path, options, print, args) {
       const grouped = [];
       if (n.specifiers && n.specifiers.length > 0) {
         path.each(specifierPath => {
-          const value = specifierPath.value;
+          const { value } = specifierPath;
           if (
             value.type === "ImportDefaultSpecifier" ||
             value.type === "ImportNamespaceSpecifier"
@@ -3048,7 +3048,7 @@ function printPathNoParens(path, options, print, args) {
       return group(concat(parts));
     }
     case "TypeCastExpression": {
-      const value = path.value;
+      const { value } = path;
       // Flow supports a comment syntax for specifying type annotations: https://flow.org/en/docs/types/comments/.
       // Unfortunately, its parser doesn't differentiate between comment annotations and regular
       // annotations when producing an AST. So to preserve parentheses around type casts that use
@@ -3079,7 +3079,7 @@ function printPathNoParens(path, options, print, args) {
 
     case "TypeParameterDeclaration":
     case "TypeParameterInstantiation": {
-      const value = path.value;
+      const { value } = path;
       const commentStart = value.range
         ? options.originalText.slice(0, value.range[0]).lastIndexOf("/*")
         : -1;
@@ -5981,11 +5981,7 @@ function printArrayItems(path, options, printPath, print) {
     separatorParts = [",", line];
     if (
       childPath.value &&
-      isNextLineEmpty(
-        options.originalText,
-        childPath.value,
-        options.locEnd
-      )
+      isNextLineEmpty(options.originalText, childPath.value, options.locEnd)
     ) {
       separatorParts.push(softline);
     }
