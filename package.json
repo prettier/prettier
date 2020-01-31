@@ -109,7 +109,7 @@
     "strip-ansi": "6.0.0",
     "synchronous-promise": "2.0.10",
     "tempy": "0.3.0",
-    "terser-webpack-plugin": "2.3.3",
+    "terser-webpack-plugin": "2.3.4",
     "webpack": "4.41.5"
   },
   "scripts": {
