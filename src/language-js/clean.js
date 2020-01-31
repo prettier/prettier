@@ -17,6 +17,10 @@ function clean(ast, newObj, parent) {
     delete newObj[name];
   });
 
+  if (ast.loc && ast.loc.source === null) {
+    delete newObj.loc.source;
+  }
+
   if (ast.type === "BigIntLiteral") {
     newObj.value = newObj.value.toLowerCase();
   }
