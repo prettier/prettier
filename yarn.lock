@@ -776,27 +776,27 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@glimmer/interfaces@^0.47.3":
-  version "0.47.3"
-  resolved "https://registry.yarnpkg.com/@glimmer/interfaces/-/interfaces-0.47.3.tgz#cbe70af51fe9779e273f5fc5c4df82fb44220cc4"
-  integrity sha512-5woCzbLqzes9ZMu0Kw16Ukt8ZiMPTqfkNuQPQSZHD/sCS6xg3TRNghrBz8GSv525p5g5x4TjdOl6JoTUzf/qlw==
+"@glimmer/interfaces@^0.47.4":
+  version "0.47.4"
+  resolved "https://registry.yarnpkg.com/@glimmer/interfaces/-/interfaces-0.47.4.tgz#17772fae66571b606f9fa26d733d7211960a2560"
+  integrity sha512-Wbv6954fIOy1aWHh2IdneBmIGrGysyu+ZWrmAiuMQC92uf57a9AXFJW0DFY+X6gd8Biaw/Nx8EHE0bNeMYCp9Q==
   dependencies:
     "@simple-dom/interface" "^1.4.0"
 
-"@glimmer/syntax@0.47.3":
-  version "0.47.3"
-  resolved "https://registry.yarnpkg.com/@glimmer/syntax/-/syntax-0.47.3.tgz#8082b5e354f27defd3307e78538db41a8df45294"
-  integrity sha512-cR9F8aiEBRJptA1/rzuDQ3HSBfHidCcT3zZJ1n3NF1TwTwxtV1xzAMhXaU3laRMm1LMHsPG5jnNOjsII/NR4xw==
+"@glimmer/syntax@0.47.4":
+  version "0.47.4"
+  resolved "https://registry.yarnpkg.com/@glimmer/syntax/-/syntax-0.47.4.tgz#827f63a9c5f14a8329ff26c1e1f6ad211683690d"
+  integrity sha512-GCqoKyU11+cD9jL1J6AlSgKn1/rFUt/Wc3pgf/AE7uxza00OOYDEbqfpzOdv9sF727aqKdy9qp3a9O54IcevuA==
   dependencies:
-    "@glimmer/interfaces" "^0.47.3"
-    "@glimmer/util" "^0.47.3"
+    "@glimmer/interfaces" "^0.47.4"
+    "@glimmer/util" "^0.47.4"
     handlebars "^4.5.1"
-    simple-html-tokenizer "^0.5.8"
+    simple-html-tokenizer "^0.5.9"
 
-"@glimmer/util@^0.47.3":
-  version "0.47.3"
-  resolved "https://registry.yarnpkg.com/@glimmer/util/-/util-0.47.3.tgz#9d104e54d301e03707ea2228431e373529284d55"
-  integrity sha512-2zFJIoqE4OxsEZkRi0tlHgjkL65AKcXNMTnBDsFSf7tLA0+Z58G18tM7mqijbZLZkwxA6/+uVpE/uGj0NbT24Q==
+"@glimmer/util@^0.47.4":
+  version "0.47.4"
+  resolved "https://registry.yarnpkg.com/@glimmer/util/-/util-0.47.4.tgz#de6061d30f03ca09950208f6de7b529efc8fb539"
+  integrity sha512-uGcUjDtcy/CTSKMYuIpmvZfv4busDcPbx6X+AnWkaTIonvp0z8HKpZ5QYrulR9Gcbbtb+noCTmMr2qa7AEyA4Q==
   dependencies:
     "@simple-dom/interface" "^1.4.0"
 
@@ -6953,7 +6953,7 @@ signal-exit@^3.0.0, signal-exit@^3.0.2:
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
   integrity sha1-tf3AjxKH6hF4Yo5BXiUTK3NkbG0=
 
-simple-html-tokenizer@0.5.7, simple-html-tokenizer@^0.5.8:
+simple-html-tokenizer@0.5.7, simple-html-tokenizer@^0.5.9:
   version "0.5.7"
   resolved "https://registry.yarnpkg.com/simple-html-tokenizer/-/simple-html-tokenizer-0.5.7.tgz#8eca336ecfbe2b3c6166cbb31b2682088de79f40"
   integrity sha512-APW9iYbkJ5cijjX4Ljhf3VG8SwYPUJT5gZrwci/wieMabQxWFiV5VwsrP5c6GMRvXKEQMGkAB1d9dvW66dTqpg==
