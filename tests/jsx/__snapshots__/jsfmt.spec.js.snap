@@ -812,11 +812,7 @@ jsxModeFromElementNonBreaking ? "a" : <div />;
   <span>
     thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
   </span>
-</div> ? (
-  "jsx mode from element breaking"
-) : (
-  "a"
-);
+</div> ? "jsx mode from element breaking" : "a";
 
 // This ConditionalExpression prints in JSX mode because its consequent is a
 // JSXElement. It is breaking.
@@ -826,15 +822,11 @@ jsxModeFromElementBreaking ? (
       thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
     </span>
   </div>
-) : (
-  "a"
-);
+) : "a";
 
 // This ConditionalExpression prints in JSX mode because its alternate is a
 // JSXElement. It is breaking.
-jsxModeFromElementBreaking ? (
-  "a"
-) : (
+jsxModeFromElementBreaking ? "a" : (
   <div>
     <span>
       thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
@@ -855,19 +847,13 @@ cable ? "satellite" : public ? "affairs" : network ? <span id="c" /> : "dunno";
 // JSX element somewhere in the chain (in this case, at the end). It is
 // breaking; notice the consequents and alternates in the entire chain get
 // wrapped in parens.
-cable ? (
-  "satellite"
-) : public ? (
-  "affairs"
-) : network ? (
+cable ? "satellite" : public ? "affairs" : network ? (
   <div>
     <span>
       thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
     </span>
   </div>
-) : (
-  "dunno"
-);
+) : "dunno";
 
 // This chain of ConditionalExpressions prints in JSX mode because there is a
 // JSX element somewhere in the chain (in this case, at the beginning). It is
@@ -879,13 +865,7 @@ cable ? (
       thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
     </span>
   </div>
-) : sateline ? (
-  "public"
-) : affairs ? (
-  "network"
-) : (
-  "dunno"
-);
+) : sateline ? "public" : affairs ? "network" : "dunno";
 
 // This chain of ConditionalExpressions prints in JSX mode because there is a
 // JSX element somewhere in the chain. It is breaking; notice the consequents
@@ -1100,11 +1080,7 @@ jsxModeFromElementNonBreaking ? "a" : <div />;
   <span>
     thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
   </span>
-</div> ? (
-  "jsx mode from element breaking"
-) : (
-  "a"
-);
+</div> ? "jsx mode from element breaking" : "a";
 
 // This ConditionalExpression prints in JSX mode because its consequent is a
 // JSXElement. It is breaking.
@@ -1114,15 +1090,11 @@ jsxModeFromElementBreaking ? (
       thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
     </span>
   </div>
-) : (
-  "a"
-);
+) : "a";
 
 // This ConditionalExpression prints in JSX mode because its alternate is a
 // JSXElement. It is breaking.
-jsxModeFromElementBreaking ? (
-  "a"
-) : (
+jsxModeFromElementBreaking ? "a" : (
   <div>
     <span>
       thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
@@ -1143,19 +1115,13 @@ cable ? "satellite" : public ? "affairs" : network ? <span id='c' /> : "dunno";
 // JSX element somewhere in the chain (in this case, at the end). It is
 // breaking; notice the consequents and alternates in the entire chain get
 // wrapped in parens.
-cable ? (
-  "satellite"
-) : public ? (
-  "affairs"
-) : network ? (
+cable ? "satellite" : public ? "affairs" : network ? (
   <div>
     <span>
       thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
     </span>
   </div>
-) : (
-  "dunno"
-);
+) : "dunno";
 
 // This chain of ConditionalExpressions prints in JSX mode because there is a
 // JSX element somewhere in the chain (in this case, at the beginning). It is
@@ -1167,13 +1133,7 @@ cable ? (
       thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
     </span>
   </div>
-) : sateline ? (
-  "public"
-) : affairs ? (
-  "network"
-) : (
-  "dunno"
-);
+) : sateline ? "public" : affairs ? "network" : "dunno";
 
 // This chain of ConditionalExpressions prints in JSX mode because there is a
 // JSX element somewhere in the chain. It is breaking; notice the consequents
@@ -1388,11 +1348,7 @@ jsxModeFromElementNonBreaking ? 'a' : <div />;
   <span>
     thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
   </span>
-</div> ? (
-  'jsx mode from element breaking'
-) : (
-  'a'
-);
+</div> ? 'jsx mode from element breaking' : 'a';
 
 // This ConditionalExpression prints in JSX mode because its consequent is a
 // JSXElement. It is breaking.
@@ -1402,15 +1358,11 @@ jsxModeFromElementBreaking ? (
       thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
     </span>
   </div>
-) : (
-  'a'
-);
+) : 'a';
 
 // This ConditionalExpression prints in JSX mode because its alternate is a
 // JSXElement. It is breaking.
-jsxModeFromElementBreaking ? (
-  'a'
-) : (
+jsxModeFromElementBreaking ? 'a' : (
   <div>
     <span>
       thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
@@ -1431,19 +1383,13 @@ cable ? 'satellite' : public ? 'affairs' : network ? <span id="c" /> : 'dunno';
 // JSX element somewhere in the chain (in this case, at the end). It is
 // breaking; notice the consequents and alternates in the entire chain get
 // wrapped in parens.
-cable ? (
-  'satellite'
-) : public ? (
-  'affairs'
-) : network ? (
+cable ? 'satellite' : public ? 'affairs' : network ? (
   <div>
     <span>
       thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
     </span>
   </div>
-) : (
-  'dunno'
-);
+) : 'dunno';
 
 // This chain of ConditionalExpressions prints in JSX mode because there is a
 // JSX element somewhere in the chain (in this case, at the beginning). It is
@@ -1455,13 +1401,7 @@ cable ? (
       thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
     </span>
   </div>
-) : sateline ? (
-  'public'
-) : affairs ? (
-  'network'
-) : (
-  'dunno'
-);
+) : sateline ? 'public' : affairs ? 'network' : 'dunno';
 
 // This chain of ConditionalExpressions prints in JSX mode because there is a
 // JSX element somewhere in the chain. It is breaking; notice the consequents
@@ -1676,11 +1616,7 @@ jsxModeFromElementNonBreaking ? 'a' : <div />;
   <span>
     thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
   </span>
-</div> ? (
-  'jsx mode from element breaking'
-) : (
-  'a'
-);
+</div> ? 'jsx mode from element breaking' : 'a';
 
 // This ConditionalExpression prints in JSX mode because its consequent is a
 // JSXElement. It is breaking.
@@ -1690,15 +1626,11 @@ jsxModeFromElementBreaking ? (
       thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
     </span>
   </div>
-) : (
-  'a'
-);
+) : 'a';
 
 // This ConditionalExpression prints in JSX mode because its alternate is a
 // JSXElement. It is breaking.
-jsxModeFromElementBreaking ? (
-  'a'
-) : (
+jsxModeFromElementBreaking ? 'a' : (
   <div>
     <span>
       thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
@@ -1719,19 +1651,13 @@ cable ? 'satellite' : public ? 'affairs' : network ? <span id='c' /> : 'dunno';
 // JSX element somewhere in the chain (in this case, at the end). It is
 // breaking; notice the consequents and alternates in the entire chain get
 // wrapped in parens.
-cable ? (
-  'satellite'
-) : public ? (
-  'affairs'
-) : network ? (
+cable ? 'satellite' : public ? 'affairs' : network ? (
   <div>
     <span>
       thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
     </span>
   </div>
-) : (
-  'dunno'
-);
+) : 'dunno';
 
 // This chain of ConditionalExpressions prints in JSX mode because there is a
 // JSX element somewhere in the chain (in this case, at the beginning). It is
@@ -1743,13 +1669,7 @@ cable ? (
       thisIsASongAboutYourPoorSickPenguinHeHasAFeverAndHisToesAreBlueButIfISingToYourPoorSickPenguinHeWillFeelBetterInADayOrTwo
     </span>
   </div>
-) : sateline ? (
-  'public'
-) : affairs ? (
-  'network'
-) : (
-  'dunno'
-);
+) : sateline ? 'public' : affairs ? 'network' : 'dunno';
 
 // This chain of ConditionalExpressions prints in JSX mode because there is a
 // JSX element somewhere in the chain. It is breaking; notice the consequents
