@@ -1902,6 +1902,11 @@ printWidth: 80
   <i class="fa fa-refresh fa-spin" />
 </span>
 
+<!-- #5810 -->
+<table><tr>
+</tr>
+</table><div>Should not insert empty line before this div</div>
+
 =====================================output=====================================
 <br />
 <br />
@@ -2088,6 +2093,12 @@ printWidth: 80
   <i class="fa fa-refresh fa-spin" />
 </span>
 
+<!-- #5810 -->
+<table>
+  <tr></tr>
+</table>
+<div>Should not insert empty line before this div</div>
+
 ================================================================================
 `;
 
@@ -2212,6 +2223,11 @@ printWidth: 1
   <i class="fa fa-refresh fa-spin" />
   <i class="fa fa-refresh fa-spin" />
 </span>
+
+<!-- #5810 -->
+<table><tr>
+</tr>
+</table><div>Should not insert empty line before this div</div>
 
 =====================================output=====================================
 <br />
@@ -2599,6 +2615,21 @@ printWidth: 1
   />
 </span>
 
+<!-- #5810 -->
+<table>
+  <tr></tr>
+</table>
+<div>
+  Should
+  not
+  insert
+  empty
+  line
+  before
+  this
+  div
+</div>
+
 ================================================================================
 `;
 
@@ -2723,6 +2754,11 @@ printWidth: Infinity
   <i class="fa fa-refresh fa-spin" />
 </span>
 
+<!-- #5810 -->
+<table><tr>
+</tr>
+</table><div>Should not insert empty line before this div</div>
+
 =====================================output=====================================
 <br />
 <br />
@@ -2842,6 +2878,12 @@ printWidth: Infinity
   <i class="fa fa-refresh fa-spin" />
   <i class="fa fa-refresh fa-spin" />
 </span>
+
+<!-- #5810 -->
+<table>
+  <tr></tr>
+</table>
+<div>Should not insert empty line before this div</div>
 
 ================================================================================
 `;
@@ -2968,6 +3010,11 @@ printWidth: 80
   <i class="fa fa-refresh fa-spin" />
   <i class="fa fa-refresh fa-spin" />
 </span>
+
+<!-- #5810 -->
+<table><tr>
+</tr>
+</table><div>Should not insert empty line before this div</div>
 
 =====================================output=====================================
 <br />
@@ -3141,6 +3188,10 @@ printWidth: 80
   <i class="fa fa-refresh fa-spin" />
 </span>
 
+<!-- #5810 -->
+<table><tr> </tr> </table
+><div>Should not insert empty line before this div</div>
+
 ================================================================================
 `;
 
@@ -3266,6 +3317,11 @@ printWidth: 80
   <i class="fa fa-refresh fa-spin" />
   <i class="fa fa-refresh fa-spin" />
 </span>
+
+<!-- #5810 -->
+<table><tr>
+</tr>
+</table><div>Should not insert empty line before this div</div>
 
 =====================================output=====================================
 <br />
@@ -3481,6 +3537,10 @@ printWidth: 80
   <i class="fa fa-refresh fa-spin" />
   <i class="fa fa-refresh fa-spin" />
 </span>
+
+<!-- #5810 -->
+<table><tr></tr></table>
+<div>Should not insert empty line before this div</div>
 
 ================================================================================
 `;
