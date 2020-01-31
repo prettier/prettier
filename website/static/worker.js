@@ -21,6 +21,10 @@ var parsers = {
     importScriptOnce("lib/parser-babylon.js");
     return prettierPlugins.babylon.parsers["babel-flow"];
   },
+  get "babel-ts"() {
+    importScriptOnce("lib/parser-babylon.js");
+    return prettierPlugins.babylon.parsers["babel-ts"];
+  },
   // backward compatibility
   get babylon() {
     importScriptOnce("lib/parser-babylon.js");

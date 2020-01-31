@@ -9,51 +9,54 @@ const mem = require("mem");
 const resolveEditorConfig = require("./resolve-config-editorconfig");
 const loadToml = require("../utils/load-toml");
 
-const getExplorerMemoized = mem(opts => {
-  const cosmiconfig = thirdParty["cosmiconfig" + (opts.sync ? "Sync" : "")];
-  const explorer = cosmiconfig("prettier", {
-    cache: opts.cache,
-    transform: result => {
-      if (result && result.config) {
-        if (typeof result.config === "string") {
-          const modulePath = resolve.sync(result.config, {
-            basedir: path.dirname(result.filepath)
-          });
-          result.config = eval("require")(modulePath);
-        }
+const getExplorerMemoized = mem(
+  opts => {
+    const cosmiconfig = thirdParty["cosmiconfig" + (opts.sync ? "Sync" : "")];
+    const explorer = cosmiconfig("prettier", {
+      cache: opts.cache,
+      transform: result => {
+        if (result && result.config) {
+          if (typeof result.config === "string") {
+            const modulePath = resolve.sync(result.config, {
+              basedir: path.dirname(result.filepath)
+            });
+            result.config = eval("require")(modulePath);
+          }
 
-        if (typeof result.config !== "object") {
-          throw new Error(
-            "Config is only allowed to be an object, " +
-              `but received ${typeof result.config} in "${result.filepath}"`
-          );
-        }
+          if (typeof result.config !== "object") {
+            throw new Error(
+              "Config is only allowed to be an object, " +
+                `but received ${typeof result.config} in "${result.filepath}"`
+            );
+          }
 
-        delete result.config.$schema;
+          delete result.config.$schema;
+        }
+        return result;
+      },
+      searchPlaces: [
+        "package.json",
+        ".prettierrc",
+        ".prettierrc.json",
+        ".prettierrc.yaml",
+        ".prettierrc.yml",
+        ".prettierrc.js",
+        "prettier.config.js",
+        ".prettierrc.toml"
+      ],
+      loaders: {
+        ".toml": loadToml
       }
-      return result;
-    },
-    searchPlaces: [
-      "package.json",
-      ".prettierrc",
-      ".prettierrc.json",
-      ".prettierrc.yaml",
-      ".prettierrc.yml",
-      ".prettierrc.js",
-      "prettier.config.js",
-      ".prettierrc.toml"
-    ],
-    loaders: {
-      ".toml": loadToml
-    }
-  });
+    });
 
-  return {
-    // cosmiconfig v4 interface
-    load: (searchPath, configPath) =>
-      configPath ? explorer.load(configPath) : explorer.search(searchPath)
-  };
-});
+    return {
+      // cosmiconfig v4 interface
+      load: (searchPath, configPath) =>
+        configPath ? explorer.load(configPath) : explorer.search(searchPath)
+    };
+  },
+  { cacheKey: JSON.stringify }
+);
 
 /** @param {{ cache: boolean, sync: boolean }} opts */
 function getLoadFunction(opts) {

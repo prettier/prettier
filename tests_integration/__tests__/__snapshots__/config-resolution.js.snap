@@ -44,7 +44,7 @@ function js() {
 
 module.exports = {
         endOfLine:
-                \\"lf\\",
+                \\"auto\\",
         tabWidth: 8,
 };
 function noConfigJs() {
@@ -143,7 +143,7 @@ function js() {
 \\"use strict\\";
 
 module.exports = {
-        endOfLine: \\"lf\\",
+        endOfLine: \\"auto\\",
         tabWidth: 8,
 };
 function noConfigJs() {

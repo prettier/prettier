@@ -202,7 +202,7 @@ function testing() {
       return \`\${
         process.env.OPENID_URL
       }/something/something/something?\${Object.keys(p)
-        .map(k => \`\${encodeURIComponent(k)}=\${encodeURIComponent(p[k])}\`)
+        .map((k) => \`\${encodeURIComponent(k)}=\${encodeURIComponent(p[k])}\`)
         .join("&")}\`;
     }
   }
@@ -327,13 +327,13 @@ margin: 0;
 =====================================output=====================================
 const Button = styled.a\`
   /* Comment */
-  display: \${props => props.display};
+  display: \${(props) => props.display};
 \`;
 
 styled.div\`
-  display: \${props => props.display};
-  border: \${props => props.border}px;
-  margin: 10px \${props => props.border}px;
+  display: \${(props) => props.display};
+  border: \${(props) => props.border}px;
+  margin: 10px \${(props) => props.border}px;
 \`;
 
 const EqualDivider = styled.div\`
@@ -345,7 +345,7 @@ const EqualDivider = styled.div\`
     flex: 1;
 
     &:not(:first-child) {
-      \${props => (props.vertical ? "margin-top" : "margin-left")}: 1rem;
+      \${(props) => (props.vertical ? "margin-top" : "margin-left")}: 1rem;
     }
   }
 \`;
@@ -652,7 +652,7 @@ printWidth: 80
 
 <style jsx>{\`
   div {
-    animation: 3s ease-in 1s \${foo => foo.getIterations()} reverse both paused
+    animation: 3s ease-in 1s \${(foo) => foo.getIterations()} reverse both paused
       slidein;
   }
 \`}</style>;

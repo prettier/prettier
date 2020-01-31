@@ -15,8 +15,7 @@ const languages = [
     ...data,
     since: "1.4.0",
     parsers: ["css"],
-    vscodeLanguageIds: ["postcss"],
-    extensions: data.extensions.concat(".postcss")
+    vscodeLanguageIds: ["postcss"]
   })),
   createLanguage(require("linguist-languages/data/Less"), data => ({
     ...data,

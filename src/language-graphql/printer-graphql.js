@@ -32,7 +32,11 @@ function genericPrint(path, options, print) {
         if (index !== n.definitions.length - 1) {
           parts.push(hardline);
           if (
-            isNextLineEmpty(options.originalText, pathChild.getValue(), options)
+            isNextLineEmpty(
+              options.originalText,
+              pathChild.getValue(),
+              options.locEnd
+            )
           ) {
             parts.push(hardline);
           }
@@ -629,7 +633,7 @@ function printSequence(sequencePath, options, print) {
     const printed = print(path);
 
     if (
-      isNextLineEmpty(options.originalText, path.getValue(), options) &&
+      isNextLineEmpty(options.originalText, path.getValue(), options.locEnd) &&
       i < count - 1
     ) {
       return concat([printed, hardline]);

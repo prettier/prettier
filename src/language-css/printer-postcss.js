@@ -893,7 +893,7 @@ function printNodeSequence(path, options, print) {
           isNextLineEmpty(
             options.originalText,
             pathChild.getValue(),
-            options
+            options.locEnd
           ) &&
           node.nodes[i].type !== "yaml" &&
           node.nodes[i].type !== "toml"
