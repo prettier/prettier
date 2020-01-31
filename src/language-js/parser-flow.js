@@ -14,6 +14,7 @@ function parse(text, parsers, opts) {
   // Please also update options in `scripts/sync-flow-tests.js`
   const ast = flowParser.parse(text, {
     enums: true,
+    esproposal_decorators: true,
     esproposal_class_instance_fields: true,
     esproposal_class_static_fields: true,
     esproposal_export_star_as: true,

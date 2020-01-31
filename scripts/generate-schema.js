@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 "use strict";
+const fromPairs = require("lodash/fromPairs");
 
 if (require.main !== module) {
   module.exports = generateSchema;
@@ -21,8 +22,8 @@ function generateSchema(options) {
     definitions: {
       optionsDefinition: {
         type: "object",
-        properties: Object.assign(
-          ...options.map(option => ({ [option.name]: optionToSchema(option) }))
+        properties: fromPairs(
+          options.map(option => [option.name, optionToSchema(option)])
         )
       },
       overridesDefinition: {

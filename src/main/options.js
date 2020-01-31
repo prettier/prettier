@@ -3,6 +3,7 @@
 const fs = require("fs");
 const normalizePath = require("normalize-path");
 const readlines = require("n-readlines");
+const fromPairs = require("lodash/fromPairs");
 const { UndefinedParserError } = require("../common/errors");
 const { getSupportInfo } = require("../main/support");
 const normalizer = require("./options-normalizer");
@@ -27,16 +28,14 @@ function normalize(options, opts) {
     showUnreleased: true,
     showDeprecated: true
   }).options;
-  const defaults = Object.assign(
-    {},
-    hiddenDefaults,
-    ...supportOptions.map(optionInfo =>
-      optionInfo.default !== undefined
-        ? { [optionInfo.name]: optionInfo.default }
-        : undefined
+  const defaults = {
+    ...hiddenDefaults,
+    ...fromPairs(
+      supportOptions
+        .filter(optionInfo => optionInfo.default !== undefined)
+        .map(option => [option.name, option.default])
     )
-  );
-
+  };
   if (!rawOptions.parser) {
     if (!rawOptions.filepath) {
       const logger = opts.logger || console;
