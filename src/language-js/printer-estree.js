@@ -1194,7 +1194,11 @@ function printPathNoParens(path, options, print, args) {
 
       // We detect calls on member lookups and possibly print them in a
       // special chain format. See `printMemberChain` for more info.
-      if (!isNew && isMemberish(n.callee)) {
+      if (
+        !isNew &&
+        isMemberish(n.callee) &&
+        !path.call(path => pathNeedsParens(path, options), "callee")
+      ) {
         return printMemberChain(path, options, print);
       }
 

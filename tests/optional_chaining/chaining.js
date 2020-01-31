@@ -38,6 +38,8 @@ a?.[b?.c]?.d();
 
 (one?.fn());
 (one?.two).fn();
+(one?.two)();
+(one?.two())();
 (one.two?.fn());
 (one.two?.three).fn();
 (one.two?.three?.fn());
