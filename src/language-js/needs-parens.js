@@ -676,7 +676,9 @@ function needsParens(path, options) {
     case "OptionalCallExpression":
       if (
         (parent.type === "MemberExpression" && name === "object") ||
-        (parent.type === "CallExpression" && name === "callee")
+        ((parent.type === "CallExpression" ||
+          parent.type === "NewExpression") &&
+          name === "callee")
       ) {
         return true;
       }
