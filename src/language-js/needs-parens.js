@@ -172,11 +172,15 @@ function needsParens(path, options) {
     return true;
   }
 
-  // `export default function` or `export default class` can't be followed by
-  // anything after. So an expression like `export default (function(){}).toString()`
-  // needs to be followed by a parentheses
   if (parent.type === "ExportDefaultDeclaration") {
-    return shouldWrapFunctionForExportDefault(path, options);
+    return (
+      // `export default function` or `export default class` can't be followed by
+      // anything after. So an expression like `export default (function(){}).toString()`
+      // needs to be followed by a parentheses
+      shouldWrapFunctionForExportDefault(path, options) ||
+      // `export default (foo, bar)` also needs parentheses
+      node.type === "SequenceExpression"
+    );
   }
 
   if (parent.type === "Decorator" && parent.expression === node) {
