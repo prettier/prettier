@@ -345,7 +345,7 @@ declare var foo: ?X;
 (foo?.bar?.(): empty);
 (foo.bar?.(): empty);
 (foo?.bar(): empty);
-(foo?.bar(): empty);
+((foo?.bar)(): empty);
 
 declare var a: {
   b: ?() => ?{ c: ?{ d: number } },
