@@ -14,7 +14,7 @@
   "dependencies": {
     "@angular/compiler": "8.2.14",
     "@babel/code-frame": "7.8.0",
-    "@babel/parser": "7.8.3",
+    "@babel/parser": "7.8.4",
     "@glimmer/syntax": "0.47.3",
     "@iarna/toml": "2.2.3",
     "@typescript-eslint/typescript-estree": "2.17.0",
@@ -46,7 +46,7 @@
     "json-stable-stringify": "1.0.1",
     "leven": "3.1.0",
     "lines-and-columns": "1.1.6",
-    "linguist-languages": "7.7.0",
+    "linguist-languages": "7.8.0",
     "lodash": "4.17.15",
     "mem": "6.0.1",
     "minimatch": "3.0.4",
@@ -72,8 +72,8 @@
     "yaml-unist-parser": "1.1.1"
   },
   "devDependencies": {
-    "@babel/core": "7.7.7",
-    "@babel/preset-env": "7.8.3",
+    "@babel/core": "7.8.4",
+    "@babel/preset-env": "7.8.4",
     "@rollup/plugin-alias": "3.0.0",
     "@rollup/plugin-commonjs": "11.0.1",
     "@rollup/plugin-json": "4.0.1",
@@ -100,7 +100,7 @@
     "jest-watch-typeahead": "0.4.2",
     "prettier": "1.19.1",
     "rimraf": "3.0.1",
-    "rollup": "1.30.1",
+    "rollup": "1.31.0",
     "rollup-plugin-babel": "4.3.3",
     "rollup-plugin-node-globals": "1.4.0",
     "rollup-plugin-terser": "5.2.0",
@@ -109,7 +109,7 @@
     "strip-ansi": "6.0.0",
     "synchronous-promise": "2.0.10",
     "tempy": "0.3.0",
-    "terser-webpack-plugin": "2.3.3",
+    "terser-webpack-plugin": "2.3.4",
     "webpack": "4.41.5"
   },
   "scripts": {
@@ -124,7 +124,7 @@
     "check-types": "tsc",
     "lint": "cross-env EFF_NO_LINK_RULES=true eslint . --format friendly",
     "lint-changelog": "node ./scripts/lint-changelog.js",
-    "lint-docs": "prettier {.,docs,website,website/blog,changelog_unreleased,changelog_unreleased/*}/*.md --check",
+    "lint-prettier": "prettier \"**/*.{md,json,yml,html,css}\" --check",
     "lint-dist": "eslint --no-eslintrc --no-ignore --env=es6,browser \"dist/!(bin-prettier|index|third-party).js\"",
     "build": "node --max-old-space-size=3072 ./scripts/build/build.js",
     "build-docs": "node ./scripts/build-docs.js",

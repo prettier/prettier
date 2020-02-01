@@ -195,13 +195,11 @@ function optionInfoToSchema(optionInfo, { isCLI, optionInfos }) {
   }
 
   return optionInfo.array
-    ? vnopts.ArraySchema.create(
-        Object.assign(
-          isCLI ? { preprocess: v => [].concat(v) } : {},
-          handlers,
-          { valueSchema: SchemaConstructor.create(parameters) }
-        )
-      )
+    ? vnopts.ArraySchema.create({
+        ...(isCLI ? { preprocess: v => [].concat(v) } : {}),
+        ...handlers,
+        valueSchema: SchemaConstructor.create(parameters)
+      })
     : SchemaConstructor.create({ ...parameters, ...handlers });
 }
 

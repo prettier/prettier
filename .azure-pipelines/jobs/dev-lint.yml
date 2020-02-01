@@ -7,8 +7,8 @@ steps:
     displayName: "Check JSDoc types"
   - script: yarn lint
     displayName: "Lint code"
-  - script: yarn lint-docs
-    displayName: "Lint docs"
+  - script: yarn lint-prettier
+    displayName: "Lint prettier"
   - script: yarn spellcheck
     displayName: "Spellcheck"
   - script: yarn && echo "Listing changed files:" && git diff --name-only --exit-code && echo "No files changed during lint."
