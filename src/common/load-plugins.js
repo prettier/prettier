@@ -31,7 +31,7 @@ function loadPlugins(plugins, pluginSearchDirs) {
 
   const externalManualLoadPluginInfos = externalPluginNames.map(pluginName => ({
     name: pluginName,
-    requirePath: require.resolve(pluginName, { paths: [process.cwd()] })
+    requirePath: eval("require").resolve(pluginName, { paths: [process.cwd()] })
   }));
 
   const externalAutoLoadPluginInfos = pluginSearchDirs
@@ -60,7 +60,7 @@ function loadPlugins(plugins, pluginSearchDirs) {
 
       return findPluginsInNodeModules(nodeModulesDir).map(pluginName => ({
         name: pluginName,
-        requirePath: require.resolve(pluginName, {
+        requirePath: eval("require").resolve(pluginName, {
           paths: [resolvedPluginSearchDir]
         })
       }));
