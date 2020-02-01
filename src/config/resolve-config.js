@@ -17,7 +17,7 @@ const getExplorerMemoized = mem(
         if (result && result.config) {
           if (typeof result.config === "string") {
             const modulePath = require.resolve(result.config, {
-              dirs: [path.dirname(result.filepath)]
+              paths: [path.dirname(result.filepath)]
             });
             result.config = eval("require")(modulePath);
           }
