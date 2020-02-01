@@ -6,7 +6,7 @@ const core = require("./main/core");
 const { getSupportInfo } = require("./main/support");
 const getFileInfo = require("./common/get-file-info");
 const sharedUtil = require("./common/util-shared");
-const { loadPlugins } = require("./common/load-plugins");
+const plugins = require("./common/load-plugins");
 
 const config = require("./config/resolve-config");
 
@@ -18,7 +18,7 @@ function _withPlugins(fn) {
     opts = opts || {};
     opts = {
       ...opts,
-      plugins: loadPlugins(opts.plugins, opts.pluginSearchDirs)
+      plugins: plugins.load(opts.plugins, opts.pluginSearchDirs)
     };
 
     return fn(first, opts, ...rest);
@@ -52,6 +52,7 @@ module.exports = {
   resolveConfig: config.resolveConfig,
   resolveConfigFile: config.resolveConfigFile,
   clearConfigCache: config.clearCache,
+  clearPluginsCache: plugins.clearCache,
 
   getFileInfo: withPlugins(getFileInfo),
   getSupportInfo: withPlugins(getSupportInfo),

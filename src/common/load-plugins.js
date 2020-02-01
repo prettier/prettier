@@ -10,14 +10,14 @@ const thirdParty = require("./third-party");
 const internalPlugins = require("./internal-plugins");
 const mem = require("mem");
 
-const memoizedLoad = mem(loadPlugins, { cacheKey: JSON.stringify });
+const memoizedLoad = mem(load, { cacheKey: JSON.stringify });
 const memoizedSearch = mem(findPluginsInNodeModules);
 const clear = () => {
   mem.clear(memoizedLoad);
   mem.clear(memoizedSearch);
 };
 
-function loadPlugins(plugins, pluginSearchDirs) {
+function load(plugins, pluginSearchDirs) {
   if (!plugins) {
     plugins = [];
   }
@@ -120,6 +120,6 @@ function isDirectory(dir) {
 }
 
 module.exports = {
-  loadPlugins: memoizedLoad,
+  load: memoizedLoad,
   clear
 };

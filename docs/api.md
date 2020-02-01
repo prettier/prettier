@@ -83,6 +83,10 @@ Use `prettier.resolveConfigFile.sync([filePath])` if you'd like to use sync vers
 
 As you repeatedly call `resolveConfig`, the file system structure will be cached for performance. This function will clear the cache. Generally this is only needed for editor integrations that know that the file system has changed since the last format took place.
 
+## `prettier.clearPluginsCache()`
+
+The plugins search result will be cached for performance. This function will clear the cache. Generally this is only needed for editor integrations that know that the file system has changed since the last format took place.
+
 ## `prettier.getFileInfo(filePath [, options])`
 
 `getFileInfo` can be used by editor extensions to decide if a particular file needs to be formatted. This method returns a promise, which resolves to an object with the following properties:

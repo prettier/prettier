@@ -1,6 +1,7 @@
 "use strict";
 
 const runPrettier = require("../runPrettier");
+const prettier = require("prettier/local");
 const EOL = "\n";
 
 describe("automatically loads 'prettier-plugin-*'", () => {
@@ -191,4 +192,8 @@ describe("loads --plugin by bespoke plugin name (assuming it is installed in cwd
     status: 0,
     write: []
   });
+});
+
+test("API clearPluginsCache", () => {
+  expect(() => prettier.clearPluginsCache()).not.toThrowError();
 });
