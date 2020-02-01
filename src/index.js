@@ -7,9 +7,7 @@ const { getSupportInfo } = require("./main/support");
 const getFileInfo = require("./common/get-file-info");
 const sharedUtil = require("./common/util-shared");
 const plugins = require("./common/load-plugins");
-
 const config = require("./config/resolve-config");
-
 const doc = require("./document");
 
 // Luckily `opts` is always the 2nd argument
@@ -52,7 +50,7 @@ module.exports = {
   resolveConfig: config.resolveConfig,
   resolveConfigFile: config.resolveConfigFile,
   clearConfigCache: config.clearCache,
-  clearPluginsCache: plugins.clearCache,
+  clearPluginsCache: plugins.clear,
 
   getFileInfo: withPlugins(getFileInfo),
   getSupportInfo: withPlugins(getSupportInfo),
