@@ -16,7 +16,7 @@ function _withPlugins(fn) {
     opts = opts || {};
     opts = {
       ...opts,
-      plugins: plugins.load(opts.plugins, opts.pluginSearchDirs)
+      plugins: plugins.loadPlugins(opts.plugins, opts.pluginSearchDirs)
     };
 
     return fn(first, opts, ...rest);
@@ -49,8 +49,10 @@ module.exports = {
 
   resolveConfig: config.resolveConfig,
   resolveConfigFile: config.resolveConfigFile,
-  clearConfigCache: config.clearCache,
-  clearPluginsCache: plugins.clear,
+  clearConfigCache() {
+    config.clearCache();
+    plugins.clearCache();
+  },
 
   getFileInfo: withPlugins(getFileInfo),
   getSupportInfo: withPlugins(getSupportInfo),

@@ -12,7 +12,7 @@ const mem = require("mem");
 
 const memoizedLoad = mem(load, { cacheKey: JSON.stringify });
 const memoizedSearch = mem(findPluginsInNodeModules);
-const clear = () => {
+const clearCache = () => {
   mem.clear(memoizedLoad);
   mem.clear(memoizedSearch);
 };
@@ -120,6 +120,6 @@ function isDirectory(dir) {
 }
 
 module.exports = {
-  load: memoizedLoad,
-  clear
+  loadPlugins: memoizedLoad,
+  clearCache
 };
