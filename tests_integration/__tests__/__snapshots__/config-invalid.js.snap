@@ -28,7 +28,7 @@ exports[`throw error for unsupported extension (stdout) 1`] = `""`;
 exports[`throw error for unsupported extension (write) 1`] = `Array []`;
 
 exports[`throw error with invalid config format (stderr) 1`] = `
-"[error] Invalid configuration file \`<cwd>/tests_integration/cli/config/invalid\`: Cannot resolve module '--invalid--' from paths ['<cwd>/tests_integration/cli/config/invalid/file'] from <cwd>/src/config/resolve-config.js
+"[error] Invalid configuration file \`<cwd>/tests_integration/cli/config/invalid\`: Cannot find module '--invalid--' from '<cwd>/tests_integration/cli/config/invalid/file'
 "
 `;
 
