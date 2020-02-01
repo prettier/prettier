@@ -2,7 +2,6 @@
 
 const thirdParty = require("../common/third-party");
 const minimatch = require("minimatch");
-const resolve = require("resolve");
 const path = require("path");
 const mem = require("mem");
 
@@ -17,8 +16,8 @@ const getExplorerMemoized = mem(
       transform: result => {
         if (result && result.config) {
           if (typeof result.config === "string") {
-            const modulePath = resolve.sync(result.config, {
-              basedir: path.dirname(result.filepath)
+            const modulePath = require.resolve(result.config, {
+              dirs: [path.dirname(result.filepath)]
             });
             result.config = eval("require")(modulePath);
           }
