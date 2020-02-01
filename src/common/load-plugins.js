@@ -5,7 +5,6 @@ const partition = require("lodash/partition");
 const fs = require("fs");
 const globby = require("globby");
 const path = require("path");
-const resolve = require("resolve");
 const thirdParty = require("./third-party");
 const internalPlugins = require("./internal-plugins");
 
@@ -30,20 +29,10 @@ function loadPlugins(plugins, pluginSearchDirs) {
     plugin => typeof plugin === "string"
   );
 
-  const externalManualLoadPluginInfos = externalPluginNames.map(pluginName => {
-    let requirePath;
-    try {
-      // try local files
-      requirePath = resolve.sync(path.resolve(process.cwd(), pluginName));
-    } catch (e) {
-      // try node modules
-      requirePath = resolve.sync(pluginName, { basedir: process.cwd() });
-    }
-    return {
-      name: pluginName,
-      requirePath
-    };
-  });
+  const externalManualLoadPluginInfos = externalPluginNames.map(pluginName => ({
+    name: pluginName,
+    requirePath: require.resolve(pluginName, { paths: [process.cwd()] })
+  }));
 
   const externalAutoLoadPluginInfos = pluginSearchDirs
     .map(pluginSearchDir => {
@@ -71,8 +60,8 @@ function loadPlugins(plugins, pluginSearchDirs) {
 
       return findPluginsInNodeModules(nodeModulesDir).map(pluginName => ({
         name: pluginName,
-        requirePath: resolve.sync(pluginName, {
-          basedir: resolvedPluginSearchDir
+        requirePath: require.resolve(pluginName, {
+          paths: [resolvedPluginSearchDir]
         })
       }));
     })
