@@ -10,6 +10,7 @@ const readline = require("readline");
 const stringify = require("json-stable-stringify");
 const fromPairs = require("lodash/fromPairs");
 const pick = require("lodash/pick");
+const groupBy = require("lodash/groupBy");
 
 const minimist = require("./minimist");
 const prettier = require("../../index");
@@ -736,14 +737,6 @@ function getOptionDefaultValue(context, optionName) {
 
 function indent(str, spaces) {
   return str.replace(/^/gm, " ".repeat(spaces));
-}
-
-function groupBy(array, getKey) {
-  return array.reduce((obj, item) => {
-    const key = getKey(item);
-    const previousItems = key in obj ? obj[key] : [];
-    return { ...obj, [key]: previousItems.concat(item) };
-  }, Object.create(null));
 }
 
 function createLogger(logLevel) {
