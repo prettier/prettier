@@ -29,10 +29,25 @@ function loadPlugins(plugins, pluginSearchDirs) {
     plugin => typeof plugin === "string"
   );
 
-  const externalManualLoadPluginInfos = externalPluginNames.map(pluginName => ({
-    name: pluginName,
-    requirePath: eval("require").resolve(pluginName, { paths: [process.cwd()] })
-  }));
+  const externalManualLoadPluginInfos = externalPluginNames.map(pluginName => {
+    let requirePath;
+    try {
+      // try local files
+      requirePath = eval("require").resolve(
+        path.resolve(process.cwd(), pluginName)
+      );
+    } catch (_) {
+      // try node modules
+      requirePath = eval("require").resolve(pluginName, {
+        paths: [process.cwd()]
+      });
+    }
+
+    return {
+      name: pluginName,
+      requirePath
+    };
+  });
 
   const externalAutoLoadPluginInfos = pluginSearchDirs
     .map(pluginSearchDir => {
