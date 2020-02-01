@@ -1,10 +1,10 @@
 const sep = /[\\/]/;
 
 export function extname(path) {
-  path = path.split(sep).pop();
-  const dotIndex = path.lastIndexOf(".");
+  const filename = basename(path);
+  const dotIndex = filename.lastIndexOf(".");
   if (dotIndex === -1) return "";
-  return path.slice(dotIndex);
+  return filename.slice(dotIndex);
 }
 
 export function basename(path) {
