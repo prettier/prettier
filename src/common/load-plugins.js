@@ -9,6 +9,8 @@ const resolve = require("resolve");
 const thirdParty = require("./third-party");
 const internalPlugins = require("./internal-plugins");
 
+const requireModule = require("./require-module");
+
 function loadPlugins(plugins, pluginSearchDirs) {
   if (!plugins) {
     plugins = [];
@@ -84,7 +86,7 @@ function loadPlugins(plugins, pluginSearchDirs) {
   )
     .map(externalPluginInfo => ({
       name: externalPluginInfo.name,
-      ...eval("require")(externalPluginInfo.requirePath)
+      ...requireModule(externalPluginInfo.requirePath)
     }))
     .concat(externalPluginInstances);
 

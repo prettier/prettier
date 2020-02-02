@@ -4,6 +4,8 @@ const path = require("path");
 const { ConfigError } = require("../common/errors");
 const jsLoc = require("../language-js/loc");
 
+const requireModule = require("../common/require-module");
+
 const { locStart, locEnd } = jsLoc;
 
 // Use defineProperties()/getOwnPropertyDescriptor() to prevent
@@ -51,7 +53,7 @@ function resolveParser(opts, parsers) {
     } else {
       try {
         return {
-          parse: eval("require")(path.resolve(process.cwd(), opts.parser)),
+          parse: requireModule(path.resolve(process.cwd(), opts.parser)),
           astFormat: "estree",
           locStart,
           locEnd
