@@ -15,9 +15,9 @@ const prettier = !TEST_STANDALONE
   : require("prettier/standalone");
 
 global.run_spec = (dirname, parsers, options) => {
-  // `isNoParserTests` mean to test `inferParser` on `standalone`
-  const isNoParserTests = dirname.includes("no-parser-tests");
-  if (isNoParserTests) {
+  // `IS_PARSER_INFERENCE_TESTS` mean to test `inferParser` on `standalone`
+  const IS_PARSER_INFERENCE_TESTS = dirname.includes("parser-inference");
+  if (IS_PARSER_INFERENCE_TESTS) {
     parsers = [];
   } else if (!parsers || !parsers.length) {
     throw new Error(`No parsers were specified for ${dirname}`);
@@ -67,7 +67,9 @@ global.run_spec = (dirname, parsers, options) => {
     };
     const mainOptions = {
       ...baseOptions,
-      ...(isNoParserTests ? { filepath: filename } : { parser: parsers[0] })
+      ...(IS_PARSER_INFERENCE_TESTS
+        ? { filepath: filename }
+        : { parser: parsers[0] })
     };
 
     const hasEndOfLine = "endOfLine" in mainOptions;
