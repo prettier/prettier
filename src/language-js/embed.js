@@ -576,9 +576,17 @@ function printHtmlTemplateLiteral(path, print, textToDoc, parser, options) {
   }
 
   const placeholderRegex = RegExp(composePlaceholder("(\\d+)"), "g");
+  let topLevelCount = 0;
 
   const contentDoc = mapDoc(
-    stripTrailingHardline(textToDoc(text, { parser })),
+    stripTrailingHardline(
+      textToDoc(text, {
+        parser,
+        __onHtmlRoot(root) {
+          topLevelCount = root.children.length;
+        }
+      })
+    ),
     doc => {
       if (typeof doc !== "string") {
         return doc;
@@ -640,7 +648,7 @@ function printHtmlTemplateLiteral(path, print, textToDoc, parser, options) {
     concat([
       "`",
       leadingWhitespace,
-      indent(group(contentDoc)),
+      topLevelCount > 1 ? indent(group(contentDoc)) : group(contentDoc),
       trailingWhitespace,
       "`"
     ])
