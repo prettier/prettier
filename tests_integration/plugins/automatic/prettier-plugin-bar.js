@@ -20,7 +20,7 @@ module.exports = {
     bar: {
       print: path =>
         concat([
-          "content from `prettier-plugin-bar` package + ",
+          "content from `prettier-plugin-bar.js` file + ",
           path.getValue().text
         ])
     }
