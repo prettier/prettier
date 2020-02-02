@@ -16,7 +16,7 @@ const prettier = !TEST_STANDALONE
 
 global.run_spec = (dirname, parsers, options) => {
   // `IS_PARSER_INFERENCE_TESTS` mean to test `inferParser` on `standalone`
-  const IS_PARSER_INFERENCE_TESTS = dirname.includes("parser-inference");
+  const IS_PARSER_INFERENCE_TESTS = dirname.endsWith("parser-inference");
   if (IS_PARSER_INFERENCE_TESTS) {
     parsers = [];
   } else if (!parsers || !parsers.length) {
