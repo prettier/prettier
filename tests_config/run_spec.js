@@ -15,8 +15,11 @@ const prettier = !TEST_STANDALONE
   : require("prettier/standalone");
 
 global.run_spec = (dirname, parsers, options) => {
-  // istanbul ignore next
-  if (!parsers || !parsers.length) {
+  // `IS_PARSER_INFERENCE_TESTS` mean to test `inferParser` on `standalone`
+  const IS_PARSER_INFERENCE_TESTS = dirname.endsWith("parser-inference");
+  if (IS_PARSER_INFERENCE_TESTS) {
+    parsers = [];
+  } else if (!parsers || !parsers.length) {
     throw new Error(`No parsers were specified for ${dirname}`);
   }
 
@@ -62,7 +65,12 @@ global.run_spec = (dirname, parsers, options) => {
       rangeEnd,
       cursorOffset
     };
-    const mainOptions = { ...baseOptions, parser: parsers[0] };
+    const mainOptions = {
+      ...baseOptions,
+      ...(IS_PARSER_INFERENCE_TESTS
+        ? { filepath: filename }
+        : { parser: parsers[0] })
+    };
 
     const hasEndOfLine = "endOfLine" in mainOptions;
 
