@@ -4,6 +4,7 @@ exports[`import_comma.scss 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 @import "rounded-corners", "text-shadow";
@@ -18,7 +19,6 @@ exports[`import_comma.scss 2`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 @import "rounded-corners", "text-shadow";
@@ -33,6 +33,7 @@ exports[`scss.scss 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 @media #{$g-breakpoint-tiny} {}
@@ -2055,7 +2056,6 @@ exports[`scss.scss 2`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 @media #{$g-breakpoint-tiny} {}
@@ -4078,6 +4078,7 @@ exports[`string-concatanation.scss 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 a {
@@ -4102,7 +4103,6 @@ exports[`string-concatanation.scss 2`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 a {

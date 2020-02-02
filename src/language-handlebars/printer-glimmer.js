@@ -74,7 +74,7 @@ function print(path, options, print) {
       const isVoid =
         (isGlimmerComponent(n) &&
           (!hasChildren || !hasNonWhitespaceChildren)) ||
-        voidTags.indexOf(n.tag) !== -1;
+        voidTags.includes(n.tag);
       const closeTagForNoBreak = isVoid ? concat([" />", softline]) : ">";
       const closeTagForBreak = isVoid ? "/>" : ">";
       const printParams = (path, print) =>
@@ -273,12 +273,12 @@ function print(path, options, print) {
 
       // preserve a space inside of an attribute node where whitespace present,
       // when next to mustache statement.
-      const inAttrNode = path.stack.indexOf("attributes") >= 0;
+      const inAttrNode = path.stack.includes("attributes");
       if (inAttrNode) {
         const parentNode = path.getParentNode(0);
         const isConcat = parentNode.type === "ConcatStatement";
         if (isConcat) {
-          const parts = parentNode.parts;
+          const { parts } = parentNode;
           const partIndex = parts.indexOf(n);
           if (partIndex > 0) {
             const partType = parts[partIndex - 1].type;
@@ -332,7 +332,7 @@ function print(path, options, print) {
       );
     }
     case "MustacheCommentStatement": {
-      const dashes = n.value.indexOf("}}") > -1 ? "--" : "";
+      const dashes = n.value.includes("}}") ? "--" : "";
       return concat(["{{!", dashes, n.value, dashes, "}}"]);
     }
     case "PathExpression": {
@@ -369,7 +369,7 @@ function printChildren(path, options, print) {
       const childNode = path.getValue();
       const isFirstNode = childIndex === 0;
       const isLastNode =
-        childIndex == path.getParentNode(0).children.length - 1;
+        childIndex === path.getParentNode(0).children.length - 1;
       const isLastNodeInMultiNodeList = isLastNode && !isFirstNode;
       const isWhitespace = isWhitespaceNode(childNode);
 

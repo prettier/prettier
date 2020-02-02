@@ -249,7 +249,6 @@ function getNextNonSpaceNonCommentCharacterIndex<N>(text: string, node: N, locEn
 function isNextLineEmptyAfterIndex(text: string, index: number): boolean;
 function isNextLineEmpty<N>(text: string, node: N, locEnd: (node: N) => number): boolean;
 function isPreviousLineEmpty<N>(text: string, node: N, locStart: (node: N) => number): boolean;
-function mapDoc(doc: object, callback: function): void;
 ```
 
 ### Tutorials

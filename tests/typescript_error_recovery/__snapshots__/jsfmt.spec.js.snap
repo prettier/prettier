@@ -37,7 +37,7 @@ class f4 {
   constructor<>() {}
 }
 
-const f5 = function<>() {};
+const f5 = function <>() {};
 
 interface f6<> {
   test<>();
@@ -88,7 +88,7 @@ class f4 {
   constructor<>() {}
 }
 
-const f5 = function<>() {};
+const f5 = function <>() {};
 
 interface f6<> {
   test<>();
@@ -139,7 +139,7 @@ class f4 {
   constructor<>() {}
 }
 
-const f5 = function<>() {};
+const f5 = function <>() {};
 
 interface f6<> {
   test<>();
@@ -186,13 +186,13 @@ type ThreeParams = {
 type TooLong = {
   [
     loooooooooooooooooooooooooong: string,
-    looooooooooooooooooooooooooooooooooooooong: string
+    looooooooooooooooooooooooooooooooooooooong: string,
   ]: string;
 };
 type TooLong81 = {
   [
     loooooooooooooooooooooooooong: string,
-    loooooooooooooooooong: string
+    loooooooooooooooooong: string,
   ]: string;
 };
 type TooLong80 = {

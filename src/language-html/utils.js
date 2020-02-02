@@ -66,13 +66,13 @@ function shouldPreserveContent(node, options) {
     options.parser === "vue" &&
     node.type === "element" &&
     node.parent.type === "root" &&
-    [
+    ![
       "template",
       "style",
       "script",
       // vue parser can be used for vue dom template as well, so we should still format top-level <html>
       "html"
-    ].indexOf(node.fullName) === -1
+    ].includes(node.fullName)
   ) {
     return true;
   }
@@ -278,7 +278,7 @@ function forceBreakContent(node) {
     forceBreakChildren(node) ||
     (node.type === "element" &&
       node.children.length !== 0 &&
-      (["body", "script", "style"].indexOf(node.name) !== -1 ||
+      (["body", "script", "style"].includes(node.name) ||
         node.children.some(child => hasNonTextChild(child)))) ||
     (node.firstChild &&
       node.firstChild === node.lastChild &&
@@ -293,7 +293,7 @@ function forceBreakChildren(node) {
   return (
     node.type === "element" &&
     node.children.length !== 0 &&
-    (["html", "head", "ul", "ol", "select"].indexOf(node.name) !== -1 ||
+    (["html", "head", "ul", "ol", "select"].includes(node.name) ||
       (node.cssDisplay.startsWith("table") && node.cssDisplay !== "table-cell"))
   );
 }
@@ -346,7 +346,7 @@ function preferHardlineAsSurroundingSpaces(node) {
     case "directive":
       return true;
     case "element":
-      return ["script", "select"].indexOf(node.name) !== -1;
+      return ["script", "select"].includes(node.name);
   }
   return false;
 }

@@ -20,7 +20,7 @@ type $JSXIntrinsic<T> = Class<$React.Component<void, T, mixed>>;
 
 type $JSXIntrinsics = {
   div: $JSXIntrinsic<{ id: string }>,
-  span: $JSXIntrinsic<{ id: string, class: string }>
+  span: $JSXIntrinsic<{ id: string, class: string }>,
 };
 
 ================================================================================

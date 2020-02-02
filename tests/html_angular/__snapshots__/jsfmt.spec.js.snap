@@ -4,6 +4,7 @@ exports[`attr-name.component.html 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <div someDirective itemType="x"></div>
@@ -18,7 +19,6 @@ exports[`attr-name.component.html 2`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 <div someDirective itemType="x"></div>
@@ -80,6 +80,7 @@ exports[`attributes.component.html 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <div
@@ -350,7 +351,6 @@ exports[`attributes.component.html 2`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 <div
@@ -1762,6 +1762,7 @@ exports[`first-lf.component.html 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <textarea>{{ generatedDiscountCodes }}</textarea>
@@ -1854,7 +1855,6 @@ exports[`first-lf.component.html 2`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 <textarea>{{ generatedDiscountCodes }}</textarea>
@@ -2305,6 +2305,7 @@ exports[`ignore-attribute.component.html 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <div
@@ -2363,7 +2364,6 @@ exports[`ignore-attribute.component.html 2`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 <div
@@ -2622,6 +2622,7 @@ exports[`interpolation.component.html 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <div>{{ a | b : c }}</div>
@@ -2788,7 +2789,6 @@ exports[`interpolation.component.html 2`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 <div>{{ a | b : c }}</div>
@@ -3666,6 +3666,7 @@ exports[`real-world.component.html 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <!-- copied from: https://stackblitz.com/angular/ymdjlgmlavo -->
@@ -5194,7 +5195,6 @@ exports[`real-world.component.html 2`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 <!-- copied from: https://stackblitz.com/angular/ymdjlgmlavo -->
@@ -13322,6 +13322,7 @@ exports[`tag-name.component.html 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <Table></Table>
@@ -13336,7 +13337,6 @@ exports[`tag-name.component.html 2`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 <Table></Table>

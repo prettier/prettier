@@ -83,7 +83,7 @@ function group(contents, opts) {
   return {
     type: "group",
     id: opts.id,
-    contents: contents,
+    contents,
     break: !!opts.shouldBreak,
     expandedStates: opts.expandedStates
   };
@@ -120,10 +120,7 @@ function dedent(contents) {
  * @returns Doc
  */
 function conditionalGroup(states, opts) {
-  return group(
-    states[0],
-    Object.assign(opts || {}, { expandedStates: states })
-  );
+  return group(states[0], { ...opts, expandedStates: states });
 }
 
 /**

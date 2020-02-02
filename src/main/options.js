@@ -3,10 +3,11 @@
 const fs = require("fs");
 const normalizePath = require("normalize-path");
 const readlines = require("n-readlines");
-const UndefinedParserError = require("../common/errors").UndefinedParserError;
-const getSupportInfo = require("../main/support").getSupportInfo;
+const fromPairs = require("lodash/fromPairs");
+const { UndefinedParserError } = require("../common/errors");
+const { getSupportInfo } = require("../main/support");
 const normalizer = require("./options-normalizer");
-const resolveParser = require("./parser").resolveParser;
+const { resolveParser } = require("./parser");
 
 const hiddenDefaults = {
   astFormat: "estree",
@@ -20,21 +21,21 @@ const hiddenDefaults = {
 function normalize(options, opts) {
   opts = opts || {};
 
-  const rawOptions = Object.assign({}, options);
+  const rawOptions = { ...options };
 
   const supportOptions = getSupportInfo(null, {
     plugins: options.plugins,
     showUnreleased: true,
     showDeprecated: true
   }).options;
-  const defaults = supportOptions.reduce(
-    (reduced, optionInfo) =>
-      optionInfo.default !== undefined
-        ? Object.assign(reduced, { [optionInfo.name]: optionInfo.default })
-        : reduced,
-    Object.assign({}, hiddenDefaults)
-  );
-
+  const defaults = {
+    ...hiddenDefaults,
+    ...fromPairs(
+      supportOptions
+        .filter(optionInfo => optionInfo.default !== undefined)
+        .map(option => [option.name, option.default])
+    )
+  };
   if (!rawOptions.parser) {
     if (!rawOptions.filepath) {
       const logger = opts.logger || console;
@@ -82,7 +83,7 @@ function normalize(options, opts) {
       {}
     );
 
-  const mixedDefaults = Object.assign({}, defaults, pluginDefaults);
+  const mixedDefaults = { ...defaults, ...pluginDefaults };
 
   Object.keys(mixedDefaults).forEach(k => {
     if (rawOptions[k] == null) {
@@ -94,11 +95,10 @@ function normalize(options, opts) {
     rawOptions.trailingComma = "none";
   }
 
-  return normalizer.normalizeApiOptions(
-    rawOptions,
-    supportOptions,
-    Object.assign({ passThrough: Object.keys(hiddenDefaults) }, opts)
-  );
+  return normalizer.normalizeApiOptions(rawOptions, supportOptions, {
+    passThrough: Object.keys(hiddenDefaults),
+    ...opts
+  });
 }
 
 function getPlugin(options) {
@@ -176,9 +176,9 @@ function inferParser(filepath, plugins) {
         language.extensions.some(extension => filename.endsWith(extension))) ||
         (language.filenames &&
           language.filenames.find(name => name.toLowerCase() === filename)) ||
-        (filename.indexOf(".") === -1 &&
+        (!filename.includes(".") &&
           language.interpreters &&
-          language.interpreters.indexOf(getInterpreter(filepath)) !== -1))
+          language.interpreters.includes(getInterpreter(filepath))))
   );
 
   return language && language.parsers[0];

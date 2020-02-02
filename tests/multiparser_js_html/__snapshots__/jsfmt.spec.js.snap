@@ -85,7 +85,7 @@ import { LitElement, html } from "@polymer/lit-element";
 class MyElement extends LitElement {
   static get properties() {
     return {
-      mood: { type: String }
+      mood: { type: String },
     };
   }
 
@@ -134,7 +134,7 @@ function HelloWorld() {
   return html\`
     <h3>Bar List</h3>
     \${bars.map(
-      bar => html\`
+      (bar) => html\`
         <p>\${bar}</p>
       \`
     )}

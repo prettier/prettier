@@ -1,0 +1,36 @@
+name: Dev_Test
+
+on: [pull_request]
+
+jobs:
+  dev_test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - "ubuntu-latest"
+          - "macos-latest"
+          - "windows-latest"
+        node:
+          - "13"
+          - "12"
+          - "10"
+
+    name: Dev test on node ${{ matrix.node }} and ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.NODE }}
+
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Run Test
+        run: yarn test

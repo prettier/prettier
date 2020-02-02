@@ -19,6 +19,11 @@ module.exports = [
           "babel-flow"
         ];
       },
+      get "babel-ts"() {
+        return eval("require")("../language-js/parser-babylon").parsers[
+          "babel-ts"
+        ];
+      },
       get babylon() {
         return eval("require")("../language-js/parser-babylon").parsers.babel;
       },
@@ -51,13 +56,6 @@ module.exports = [
       },
       // JS - TypeScript
       get typescript() {
-        return eval("require")("../language-js/parser-typescript").parsers
-          .typescript;
-      },
-      /**
-       * TODO: Remove this old alias in a major version
-       */
-      get "typescript-eslint"() {
         return eval("require")("../language-js/parser-typescript").parsers
           .typescript;
       },
@@ -131,7 +129,6 @@ module.exports = [
         return eval("require")("../language-markdown/parser-markdown").parsers
           .remark;
       },
-      // TODO: Delete this in 2.0
       get markdown() {
         return eval("require")("../language-markdown/parser-markdown").parsers
           .remark;

@@ -6,7 +6,7 @@ function isGlimmerComponent(node) {
   }
 
   const tagFirstChar = node.tag && node.tag[0];
-  const isLocal = node.tag.indexOf(".") !== -1;
+  const isLocal = node.tag.includes(".");
 
   return tagFirstChar.toUpperCase() === tagFirstChar || isLocal;
 }

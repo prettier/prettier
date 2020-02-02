@@ -26,7 +26,7 @@ class FlagSchema extends vnopts.ChoiceSchema {
     if (
       typeof value === "string" &&
       value.length !== 0 &&
-      this._flags.indexOf(value) === -1
+      !this._flags.includes(value)
     ) {
       const suggestion = this._flags.find(flag => leven(flag, value) < 3);
       if (suggestion) {
@@ -57,7 +57,7 @@ function normalizeOptions(
     ? vnopts.levenUnknownHandler
     : Array.isArray(passThrough)
     ? (key, value) =>
-        passThrough.indexOf(key) === -1 ? undefined : { [key]: value }
+        !passThrough.includes(key) ? undefined : { [key]: value }
     : (key, value) => ({ [key]: value });
 
   const descriptor = isCLI ? cliDescriptor : vnopts.apiDescriptor;
@@ -125,11 +125,12 @@ function optionInfoToSchema(optionInfo, { isCLI, optionInfos }) {
       SchemaConstructor = vnopts.ChoiceSchema;
       parameters.choices = optionInfo.choices.map(choiceInfo =>
         typeof choiceInfo === "object" && choiceInfo.redirect
-          ? Object.assign({}, choiceInfo, {
+          ? {
+              ...choiceInfo,
               redirect: {
                 to: { key: optionInfo.name, value: choiceInfo.redirect }
               }
-            })
+            }
           : choiceInfo
       );
       break;
@@ -194,14 +195,12 @@ function optionInfoToSchema(optionInfo, { isCLI, optionInfos }) {
   }
 
   return optionInfo.array
-    ? vnopts.ArraySchema.create(
-        Object.assign(
-          isCLI ? { preprocess: v => [].concat(v) } : {},
-          handlers,
-          { valueSchema: SchemaConstructor.create(parameters) }
-        )
-      )
-    : SchemaConstructor.create(Object.assign({}, parameters, handlers));
+    ? vnopts.ArraySchema.create({
+        ...(isCLI ? { preprocess: v => [].concat(v) } : {}),
+        ...handlers,
+        valueSchema: SchemaConstructor.create(parameters)
+      })
+    : SchemaConstructor.create({ ...parameters, ...handlers });
 }
 
 function normalizeApiOptions(options, optionInfos, opts) {
@@ -209,11 +208,7 @@ function normalizeApiOptions(options, optionInfos, opts) {
 }
 
 function normalizeCliOptions(options, optionInfos, opts) {
-  return normalizeOptions(
-    options,
-    optionInfos,
-    Object.assign({ isCLI: true }, opts)
-  );
+  return normalizeOptions(options, optionInfos, { isCLI: true, ...opts });
 }
 
 module.exports = {

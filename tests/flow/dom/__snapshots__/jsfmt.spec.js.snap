@@ -25,14 +25,14 @@ let tests = [
 
 let tests = [
   // fillRect
-  function(ctx: CanvasRenderingContext2D) {
+  function (ctx: CanvasRenderingContext2D) {
     ctx.fillRect(0, 0, 200, 100);
   },
 
   // moveTo
-  function(ctx: CanvasRenderingContext2D) {
+  function (ctx: CanvasRenderingContext2D) {
     ctx.moveTo("0", "1"); // error: should be numbers
-  }
+  },
 ];
 
 ================================================================================
@@ -59,10 +59,10 @@ let tests = [
 
 let tests = [
   // CustomEvent
-  function(document: Document) {
+  function (document: Document) {
     const event = document.createEvent("CustomEvent");
     event.initCustomEvent("butts", true, false, { nice: 42 });
-  }
+  },
 ];
 
 ================================================================================
@@ -93,14 +93,14 @@ let tests = [
 
 let tests = [
   // createElement
-  function(document: Document) {
+  function (document: Document) {
     (document.createElement("canvas"): HTMLCanvasElement);
     (document.createElement("link"): HTMLLinkElement);
     (document.createElement("option"): HTMLOptionElement);
     (document.createElement("select"): HTMLSelectElement);
     (document.querySelector("select"): HTMLSelectElement | null);
     (document.createElement("hr"): HTMLElement); // GH #3752
-  }
+  },
 ];
 
 ================================================================================
@@ -136,7 +136,7 @@ let tests = [
 
 let tests = [
   // scrollIntoView
-  function(element: Element) {
+  function (element: Element) {
     element.scrollIntoView();
     element.scrollIntoView(false);
     element.scrollIntoView({});
@@ -148,7 +148,7 @@ let tests = [
     element.scrollIntoView({ behavior: "invalid" });
     element.scrollIntoView({ block: "invalid" });
     element.scrollIntoView(1);
-  }
+  },
 ];
 
 ================================================================================
@@ -174,9 +174,9 @@ let tests = [
 
 let tests = [
   // getContext
-  function(el: HTMLCanvasElement) {
+  function (el: HTMLCanvasElement) {
     (el.getContext("2d"): ?CanvasRenderingContext2D);
-  }
+  },
 ];
 
 ================================================================================
@@ -212,7 +212,7 @@ let tests = [
 
 let tests = [
   // scrollIntoView
-  function(element: HTMLElement) {
+  function (element: HTMLElement) {
     element.scrollIntoView();
     element.scrollIntoView(false);
     element.scrollIntoView({});
@@ -224,7 +224,7 @@ let tests = [
     element.scrollIntoView({ behavior: "invalid" });
     element.scrollIntoView({ block: "invalid" });
     element.scrollIntoView(1);
-  }
+  },
 ];
 
 ================================================================================
@@ -254,13 +254,13 @@ let tests = [
 
 let tests = [
   // setRangeText
-  function(el: HTMLInputElement) {
+  function (el: HTMLInputElement) {
     el.setRangeText("foo");
     el.setRangeText("foo", 123); // end is required
     el.setRangeText("foo", 123, 234);
     el.setRangeText("foo", 123, 234, "select");
     el.setRangeText("foo", 123, 234, "bogus"); // invalid value
-  }
+  },
 ];
 
 ================================================================================
@@ -353,28 +353,28 @@ let tests = [
 =====================================output=====================================
 // @flow
 
-let listener: EventListener = function(event: Event): void {};
+let listener: EventListener = function (event: Event): void {};
 
 let tests = [
   // attachEvent
-  function() {
+  function () {
     let target = new EventTarget();
     (target.attachEvent("foo", listener): void); // invalid, may be undefined
     (target.attachEvent && target.attachEvent("foo", listener): void); // valid
   },
 
   // detachEvent
-  function() {
+  function () {
     let target = new EventTarget();
     (target.detachEvent("foo", listener): void); // invalid, may be undefined
     (target.detachEvent && target.detachEvent("foo", listener): void); // valid
   },
 
-  function() {
+  function () {
     window.onmessage = (event: MessageEvent) => {
       (event.target: window);
     };
-  }
+  },
 ];
 
 ================================================================================
@@ -403,12 +403,12 @@ let tests = [
 
 let tests = [
   // arcTo
-  function() {
+  function () {
     let path = new Path2D();
     (path.arcTo(0, 0, 0, 0, 10): void); // valid
     (path.arcTo(0, 0, 0, 0, 10, 20, 5): void); // valid
     (path.arcTo(0, 0, 0, 0, 10, "20", 5): void); // invalid
-  }
+  },
 ];
 
 ================================================================================
@@ -484,7 +484,7 @@ let tests = [
 
 let tests = [
   // should work with Object.create()
-  function() {
+  function () {
     document.registerElement("custom-element", {
       prototype: Object.create(HTMLElement.prototype, {
         createdCallback: { value: function createdCallback() {} },
@@ -496,13 +496,13 @@ let tests = [
             oldAttributeValue,
             newAttributeValue,
             attributeNamespace
-          ) {}
-        }
-      })
+          ) {},
+        },
+      }),
     });
   },
   // or with Object.assign()
-  function() {
+  function () {
     document.registerElement("custom-element", {
       prototype: Object.assign(Object.create(HTMLElement.prototype), {
         createdCallback() {},
@@ -513,12 +513,12 @@ let tests = [
           oldAttributeValue,
           newAttributeValue,
           attributeNamespace
-        ) {}
-      })
+        ) {},
+      }),
     });
   },
   // should complain about invalid callback parameters
-  function() {
+  function () {
     document.registerElement("custom-element", {
       prototype: {
         attributeChangedCallback(
@@ -526,10 +526,10 @@ let tests = [
           oldVal: string, // Error: This might be null
           newVal: string, // Error: This might be null
           namespace: string
-        ) {}
-      }
+        ) {},
+      },
     });
-  }
+  },
 ];
 
 ================================================================================
@@ -742,7 +742,7 @@ let tests = [
 
 let tests = [
   // basic functionality
-  function() {
+  function () {
     const i: NodeIterator<*, *> = document.createNodeIterator(document.body);
     const filter: NodeFilter = i.filter;
     const response:
@@ -750,7 +750,7 @@ let tests = [
       | typeof NodeFilter.FILTER_REJECT
       | typeof NodeFilter.FILTER_SKIP = filter.acceptNode(document.body);
   },
-  function() {
+  function () {
     const w: TreeWalker<*, *> = document.createTreeWalker(document.body);
     const filter: NodeFilter = w.filter;
     const response:
@@ -759,16 +759,16 @@ let tests = [
       | typeof NodeFilter.FILTER_SKIP = filter.acceptNode(document.body);
   },
   // rootNode must be a Node
-  function() {
+  function () {
     document.createNodeIterator(document.body); // valid
     document.createNodeIterator({}); // invalid
   },
-  function() {
+  function () {
     document.createTreeWalker(document.body);
     document.createTreeWalker({}); // invalid
   },
   // Type Parameters
-  function() {
+  function () {
     const _root = document.body;
     const i = document.createNodeIterator(_root, NodeFilter.SHOW_ELEMENT);
     const root: typeof _root = i.root;
@@ -776,7 +776,7 @@ let tests = [
     const previousNode: Element | null = i.previousNode();
     const nextNode: Element | null = i.nextNode();
   },
-  function() {
+  function () {
     const _root = document.body.attributes[0];
     const i = document.createNodeIterator(_root, NodeFilter.SHOW_ATTRIBUTE);
     const root: typeof _root = i.root;
@@ -784,7 +784,7 @@ let tests = [
     const previousNode: Attr | null = i.previousNode();
     const nextNode: Attr | null = i.nextNode();
   },
-  function() {
+  function () {
     const _root = document.body;
     const i = document.createNodeIterator(_root, NodeFilter.SHOW_TEXT);
     const root: typeof _root = i.root;
@@ -792,7 +792,7 @@ let tests = [
     const previousNode: Text | null = i.previousNode();
     const nextNode: Text | null = i.nextNode();
   },
-  function() {
+  function () {
     const _root = document;
     const i = document.createNodeIterator(_root, NodeFilter.SHOW_DOCUMENT);
     const root: typeof _root = i.root;
@@ -800,7 +800,7 @@ let tests = [
     const previousNode: Document | null = i.previousNode();
     const nextNode: Document | null = i.nextNode();
   },
-  function() {
+  function () {
     const _root = document;
     const i = document.createNodeIterator(_root, NodeFilter.SHOW_DOCUMENT_TYPE);
     const root: typeof _root = i.root;
@@ -808,7 +808,7 @@ let tests = [
     const previousNode: DocumentType | null = i.previousNode();
     const nextNode: DocumentType | null = i.nextNode();
   },
-  function() {
+  function () {
     const _root = document.createDocumentFragment();
     const i = document.createNodeIterator(
       _root,
@@ -819,7 +819,7 @@ let tests = [
     const previousNode: DocumentFragment | null = i.previousNode();
     const nextNode: DocumentFragment | null = i.nextNode();
   },
-  function() {
+  function () {
     const _root = document.body;
     const i = document.createNodeIterator(_root, NodeFilter.SHOW_ALL);
     const root: typeof _root = i.root;
@@ -827,7 +827,7 @@ let tests = [
     const previousNode: Node | null = i.previousNode();
     const nextNode: Node | null = i.nextNode();
   },
-  function() {
+  function () {
     const _root = document.body;
     const w = document.createTreeWalker(_root, NodeFilter.SHOW_ELEMENT);
     const root: typeof _root = w.root;
@@ -840,7 +840,7 @@ let tests = [
     const previousNode: Element | null = w.previousNode();
     const nextNode: Element | null = w.nextNode();
   },
-  function() {
+  function () {
     const _root = document.body.attributes[0];
     const w = document.createTreeWalker(_root, NodeFilter.SHOW_ATTRIBUTE);
     const root: typeof _root = w.root;
@@ -853,7 +853,7 @@ let tests = [
     const previousNode: Attr | null = w.previousNode();
     const nextNode: Attr | null = w.nextNode();
   },
-  function() {
+  function () {
     const _root = document.body;
     const w = document.createTreeWalker(_root, NodeFilter.SHOW_TEXT);
     const root: typeof _root = w.root;
@@ -866,7 +866,7 @@ let tests = [
     const previousNode: Text | null = w.previousNode();
     const nextNode: Text | null = w.nextNode();
   },
-  function() {
+  function () {
     const _root = document;
     const w = document.createTreeWalker(_root, NodeFilter.SHOW_DOCUMENT);
     const root: typeof _root = w.root;
@@ -879,7 +879,7 @@ let tests = [
     const previousNode: Document | null = w.previousNode();
     const nextNode: Document | null = w.nextNode();
   },
-  function() {
+  function () {
     const _root = document;
     const w = document.createTreeWalker(_root, NodeFilter.SHOW_DOCUMENT_TYPE);
     const root: typeof _root = w.root;
@@ -892,7 +892,7 @@ let tests = [
     const previousNode: DocumentType | null = w.previousNode();
     const nextNode: DocumentType | null = w.nextNode();
   },
-  function() {
+  function () {
     const _root = document.createDocumentFragment();
     const w = document.createTreeWalker(
       _root,
@@ -908,7 +908,7 @@ let tests = [
     const previousNode: DocumentFragment | null = w.previousNode();
     const nextNode: DocumentFragment | null = w.nextNode();
   },
-  function() {
+  function () {
     const _root = document.body;
     const w = document.createTreeWalker(_root, NodeFilter.SHOW_ALL);
     const root: typeof _root = w.root;
@@ -922,36 +922,36 @@ let tests = [
     const nextNode: Node | null = w.nextNode();
   },
   // NodeFilterInterface
-  function() {
+  function () {
     document.createNodeIterator(
       document.body,
       -1,
-      node => NodeFilter.FILTER_ACCEPT
+      (node) => NodeFilter.FILTER_ACCEPT
     ); // valid
-    document.createNodeIterator(document.body, -1, node => "accept"); // invalid
+    document.createNodeIterator(document.body, -1, (node) => "accept"); // invalid
     document.createNodeIterator(document.body, -1, {
-      acceptNode: node => NodeFilter.FILTER_ACCEPT
+      acceptNode: (node) => NodeFilter.FILTER_ACCEPT,
     }); // valid
     document.createNodeIterator(document.body, -1, {
-      acceptNode: node => "accept"
+      acceptNode: (node) => "accept",
     }); // invalid
     document.createNodeIterator(document.body, -1, {}); // invalid
   },
-  function() {
+  function () {
     document.createTreeWalker(
       document.body,
       -1,
-      node => NodeFilter.FILTER_ACCEPT
+      (node) => NodeFilter.FILTER_ACCEPT
     ); // valid
-    document.createTreeWalker(document.body, -1, node => "accept"); // invalid
+    document.createTreeWalker(document.body, -1, (node) => "accept"); // invalid
     document.createTreeWalker(document.body, -1, {
-      acceptNode: node => NodeFilter.FILTER_ACCEPT
+      acceptNode: (node) => NodeFilter.FILTER_ACCEPT,
     }); // valid
     document.createTreeWalker(document.body, -1, {
-      acceptNode: node => "accept"
+      acceptNode: (node) => "accept",
     }); // invalid
     document.createTreeWalker(document.body, -1, {}); // invalid
-  }
+  },
 ];
 
 ================================================================================

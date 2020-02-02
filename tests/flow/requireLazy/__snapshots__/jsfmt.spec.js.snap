@@ -24,7 +24,7 @@ module.exports = {
 
 module.exports = {
   numberValueA: 1,
-  stringValueA: "someString"
+  stringValueA: "someString",
 };
 
 ================================================================================
@@ -54,7 +54,7 @@ module.exports = {
 
 module.exports = {
   numberValueB: 1,
-  stringValueB: "someString"
+  stringValueB: "someString",
 };
 
 ================================================================================
@@ -94,7 +94,7 @@ requireLazy(['A']); // Error: No callback expression
  * @flow
  */
 
-requireLazy(["A", "B"], function(A, B) {
+requireLazy(["A", "B"], function (A, B) {
   var num1: number = A.numberValueA;
   var str1: string = A.stringValueA;
   var num2: number = A.stringValueA; // Error: string ~> number
@@ -110,7 +110,7 @@ var notA: Object = A;
 var notB: Object = B;
 
 requireLazy(); // Error: No args
-requireLazy([nope], function() {}); // Error: Non-stringliteral args
+requireLazy([nope], function () {}); // Error: Non-stringliteral args
 requireLazy(["A"]); // Error: No callback expression
 
 ================================================================================
