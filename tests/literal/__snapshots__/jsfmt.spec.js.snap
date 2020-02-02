@@ -117,9 +117,9 @@ function test5(): string {
 0x1;
 0x1;
 
-0x123abcdef456abcdef;
-0x123abcdef456abcdef;
-0xdeadbeef;
+0x123ABCDEF456ABCDEF;
+0x123ABCDEF456ABCDEF;
+0xDEADBEEF;
 
 0b111000;
 0b000111;
