@@ -20,7 +20,7 @@ const {
   defineShortcut,
   mapNode
 } = require("./utils");
-const docBuilders = require("../doc").builders;
+const docBuilders = require("../document").builders;
 const {
   conditionalGroup,
   breakParent,
@@ -670,7 +670,7 @@ function isAbsolutelyPrintedAsSingleLineNode(node, options) {
 
   switch (options.proseWrap) {
     case "never":
-      return node.value.indexOf("\n") === -1;
+      return !node.value.includes("\n");
     case "always":
       return !/[\n ]/.test(node.value);
     // istanbul ignore next

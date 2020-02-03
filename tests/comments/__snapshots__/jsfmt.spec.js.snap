@@ -56,7 +56,7 @@ const { a /* comment */ = 1 } = b;
 const { c = 1 /* comment */ } = d;
 
 let {
-  d = b //comment
+  d = b, //comment
 } = c;
 
 ================================================================================
@@ -82,7 +82,7 @@ const { a /* comment */ = 1 } = b
 const { c = 1 /* comment */ } = d
 
 let {
-  d = b //comment
+  d = b, //comment
 } = c
 
 ================================================================================
@@ -106,7 +106,7 @@ const foo = {
   a: "a" /* comment for this line */,
 
   /* Section B */
-  b: "b"
+  b: "b",
 };
 
 ================================================================================
@@ -131,7 +131,7 @@ const foo = {
   a: "a" /* comment for this line */,
 
   /* Section B */
-  b: "b"
+  b: "b",
 }
 
 ================================================================================
@@ -991,6 +991,51 @@ wrap(
 ================================================================================
 `;
 
+exports[`emoji.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/* #2091 */
+
+const test = '💖'
+// This comment
+// should not get collapsed
+
+=====================================output=====================================
+/* #2091 */
+
+const test = "💖";
+// This comment
+// should not get collapsed
+
+================================================================================
+`;
+
+exports[`emoji.js 2`] = `
+====================================options=====================================
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+/* #2091 */
+
+const test = '💖'
+// This comment
+// should not get collapsed
+
+=====================================output=====================================
+/* #2091 */
+
+const test = "💖"
+// This comment
+// should not get collapsed
+
+================================================================================
+`;
+
 exports[`export.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
@@ -1028,20 +1073,20 @@ export /* comment */{};
 
 const foo = "";
 export {
-  foo // comment
+  foo, // comment
 };
 
 const bar = "";
 export {
   // comment
-  bar
+  bar,
 };
 
 const fooo = "";
 const barr = "";
 export {
   fooo, // comment
-  barr // comment
+  barr, // comment
 };
 
 ================================================================================
@@ -1085,20 +1130,20 @@ export /* comment */{}
 
 const foo = ""
 export {
-  foo // comment
+  foo, // comment
 }
 
 const bar = ""
 export {
   // comment
-  bar
+  bar,
 }
 
 const fooo = ""
 const barr = ""
 export {
   fooo, // comment
-  barr // comment
+  barr, // comment
 }
 
 ================================================================================
@@ -1227,7 +1272,7 @@ const obj = {
   f1 /* f */() {},
   f2(/* args */) {},
   f3() /* returns */ {},
-  f4 /* f */(/* args */) /* returns */ {}
+  f4 /* f */(/* args */) /* returns */ {},
 };
 
 (function f /* f */() {})();
@@ -1362,7 +1407,7 @@ const obj = {
   f1 /* f */() {},
   f2(/* args */) {},
   f3() /* returns */ {},
-  f4 /* f */(/* args */) /* returns */ {}
+  f4 /* f */(/* args */) /* returns */ {},
 }
 
 ;(function f /* f */() {})()
@@ -1801,7 +1846,7 @@ function f(
 // not one before and one after.
 throw new ProcessSystemError({
   code: acc.error.code, // Alias of errno
-  originalError: acc.error // Just in case.
+  originalError: acc.error, // Just in case.
 });
 
 // Missing one level of indentation because of the comment
@@ -1965,7 +2010,7 @@ function f(
 // not one before and one after.
 throw new ProcessSystemError({
   code: acc.error.code, // Alias of errno
-  originalError: acc.error // Just in case.
+  originalError: acc.error, // Just in case.
 })
 
 // Missing one level of indentation because of the comment
@@ -2757,7 +2802,7 @@ f3 = (
   // TODO this is a very very very very long comment that makes it go > 80 columns
 ) => {};
 
-f4 = function(
+f4 = function (
   currentRequest: { a: number }
   // TODO this is a very very very very long comment that makes it go > 80 columns
 ) {};
@@ -2782,7 +2827,7 @@ var x = {
     sectionMetaData: SectionMetaData
     /* $FlowFixMe This error was exposed while converting keyMirror
      * to keyMirrorRecursive */
-  ): $Enum<SectionMode> {}
+  ): $Enum<SectionMode> {},
 };
 
 class X2 {
@@ -2950,7 +2995,7 @@ f3 = (
   // TODO this is a very very very very long comment that makes it go > 80 columns
 ) => {}
 
-f4 = function(
+f4 = function (
   currentRequest: { a: number }
   // TODO this is a very very very very long comment that makes it go > 80 columns
 ) {}
@@ -2975,7 +3020,7 @@ var x = {
     sectionMetaData: SectionMetaData
     /* $FlowFixMe This error was exposed while converting keyMirror
      * to keyMirrorRecursive */
-  ): $Enum<SectionMode> {}
+  ): $Enum<SectionMode> {},
 }
 
 class X2 {
@@ -4218,7 +4263,7 @@ const CONNECTION_STATUS = (exports.CONNECTION_STATUS = {
   CLOSED: Object.freeze({ kind: "CLOSED" }),
   CONNECTED: Object.freeze({ kind: "CONNECTED" }),
   CONNECTING: Object.freeze({ kind: "CONNECTING" }),
-  NOT_CONNECTED: Object.freeze({ kind: "NOT_CONNECTED" })
+  NOT_CONNECTED: Object.freeze({ kind: "NOT_CONNECTED" }),
 });
 
 /* A comment */
@@ -4280,7 +4325,7 @@ const CONNECTION_STATUS = (exports.CONNECTION_STATUS = {
   CLOSED: Object.freeze({ kind: "CLOSED" }),
   CONNECTED: Object.freeze({ kind: "CONNECTED" }),
   CONNECTING: Object.freeze({ kind: "CONNECTING" }),
-  NOT_CONNECTED: Object.freeze({ kind: "NOT_CONNECTED" })
+  NOT_CONNECTED: Object.freeze({ kind: "NOT_CONNECTED" }),
 })
 
 /* A comment */
@@ -4463,23 +4508,23 @@ const foo3 = 123
 let obj1 =
   // Comment
   {
-    key: "val"
+    key: "val",
   };
 
 let obj2 =
   // Comment
   {
-    key: "val"
+    key: "val",
   };
 
 let obj3 = {
   // Comment
-  key: "val"
+  key: "val",
 };
 
 let obj4 = {
   // Comment
-  key: "val"
+  key: "val",
 };
 
 let obj5 =
@@ -4492,12 +4537,12 @@ let obj6 =
 
 let obj7 = [
   // Comment
-  "val"
+  "val",
 ];
 
 let obj8 = [
   // Comment
-  "val"
+  "val",
 ];
 
 let obj9 =
@@ -4531,7 +4576,7 @@ let // Comment
 
 const foo3 = 123;
 // Nothing to see here.
-["2", "3"].forEach(x => console.log(x));
+["2", "3"].forEach((x) => console.log(x));
 
 ================================================================================
 `;
@@ -4614,23 +4659,23 @@ const foo3 = 123
 let obj1 =
   // Comment
   {
-    key: "val"
+    key: "val",
   }
 
 let obj2 =
   // Comment
   {
-    key: "val"
+    key: "val",
   }
 
 let obj3 = {
   // Comment
-  key: "val"
+  key: "val",
 }
 
 let obj4 = {
   // Comment
-  key: "val"
+  key: "val",
 }
 
 let obj5 =
@@ -4643,12 +4688,12 @@ let obj6 =
 
 let obj7 = [
   // Comment
-  "val"
+  "val",
 ]
 
 let obj8 = [
   // Comment
-  "val"
+  "val",
 ]
 
 let obj9 =
@@ -4682,7 +4727,7 @@ let // Comment
 
 const foo3 = 123
 // Nothing to see here.
-;["2", "3"].forEach(x => console.log(x))
+;["2", "3"].forEach((x) => console.log(x))
 
 ================================================================================
 `;

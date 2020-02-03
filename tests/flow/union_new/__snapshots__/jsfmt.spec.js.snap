@@ -81,7 +81,7 @@ import { B, C } from "./issue-824-helper";
 type K = B | C;
 
 type I = {
-  which(): number
+  which(): number,
 };
 
 export default class A {
@@ -150,7 +150,7 @@ var bar: Array<{b: ?boolean, c: number} | {b: boolean}> = [
 
 var bar: Array<{ b: ?boolean, c: number } | { b: boolean }> = [
   { b: true, c: 123 },
-  { b: true }
+  { b: true },
 ];
 
 ================================================================================
@@ -176,7 +176,7 @@ function create(
 ): { type: "B", data: number } | { type: "A", data: string } {
   return {
     type: "A",
-    data: a
+    data: a,
   };
 }
 
@@ -264,12 +264,12 @@ type Common = {};
 
 type A = Common & {
   type: "A",
-  foo: number
+  foo: number,
 };
 
 type B = Common & {
   type: "B",
-  foo: Array<number>
+  foo: Array<number>,
 };
 
 type MyType = A | B;
@@ -324,12 +324,12 @@ type Common = {};
 
 type A = {
   type: "A",
-  foo: number
+  foo: number,
 } & Common;
 
 type B = {
   type: "B",
-  foo: Array<number>
+  foo: Array<number>,
 } & Common;
 
 type MyType = A | B;
@@ -387,15 +387,15 @@ if (data.kind === "system") {
 
 type DataBase = {
   id: string,
-  name: string
+  name: string,
 };
 
 type UserData = DataBase & {
-  kind: "user"
+  kind: "user",
 };
 
 type SystemData = DataBase & {
-  kind: "system"
+  kind: "system",
 };
 
 type Data = UserData | SystemData;
@@ -403,7 +403,7 @@ type Data = UserData | SystemData;
 const data: Data = {
   id: "",
   name: "",
-  kind: "system"
+  kind: "system",
 };
 
 if (data.kind === "system") {
@@ -478,18 +478,18 @@ function test(f: Foo| EmptyFoo) {
 
 declare type Entity<T> = {
   id: T,
-  name: string
+  name: string,
 };
 
 declare type StringEntity = Entity<string>;
 
 declare type Foo = StringEntity & {
   bars: Object,
-  kind: 1
+  kind: 1,
 };
 declare type EmptyFoo = StringEntity & {
   bars: null,
-  kind: 2
+  kind: 2,
 };
 
 function test(f: Foo | EmptyFoo) {
@@ -848,7 +848,7 @@ type B2 = string;
 
 function fun(a: ((x: number) => void) | ((x: string) => void)) {}
 
-fun((x => {}: A1));
+fun(((x) => {}: A1));
 
 type A1 = (x: B1) => void;
 
@@ -925,7 +925,7 @@ type B2 = string;
 
 function fun(a: ((x: number) => void) | ((x: string) => void)) {}
 
-const a1 = (x => {}: A1);
+const a1 = ((x) => {}: A1);
 fun(a1);
 
 function fun_call(x: string) {
@@ -1386,7 +1386,7 @@ check_inst(id(new C()));
 function check_fun(_: ((_: number) => number) | ((_: string) => string)) {}
 
 // help!
-check_fun(x => x);
+check_fun((x) => x);
 
 //////////////////////
 // object annotations
@@ -1530,11 +1530,11 @@ printWidth: 80
 ({ type: "B", id: "hi" }:
   | {
       type: "A",
-      id: ?string
+      id: ?string,
     }
   | {
       type: "B",
-      id: string
+      id: string,
     });
 
 ================================================================================
@@ -1615,7 +1615,7 @@ bar(() => { });
 // functions as objects
 
 function foo<X>(target: EventTarget) {
-  target.addEventListener("click", e => {});
+  target.addEventListener("click", (e) => {});
 }
 
 declare class EventTarget {
@@ -1914,11 +1914,11 @@ type Empty = {};
 
 type Success = {
   type: "SUCCESS",
-  result: string
+  result: string,
 };
 
 type Error = {
-  type: "ERROR"
+  type: "ERROR",
 } & Empty;
 
 export type T = Success | Error;
@@ -2307,7 +2307,7 @@ module.exports = {
 
 module.exports = {
   FOO: "foo",
-  BAR: "bar"
+  BAR: "bar",
 };
 
 ================================================================================

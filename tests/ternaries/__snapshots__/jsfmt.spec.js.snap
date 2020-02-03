@@ -477,72 +477,72 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
 a
   ? {
-      a: 0
+      a: 0,
     }
   : {
       a: {
-        a: 0
+        a: 0,
       }
         ? {
-            a: 0
+            a: 0,
           }
         : {
             y: {
-              a: 0
+              a: 0,
             }
               ? {
-                  a: 0
+                  a: 0,
                 }
               : {
-                  a: 0
-                }
-          }
+                  a: 0,
+                },
+          },
     };
 
 a
   ? {
-      a: function() {
+      a: function () {
         return a
           ? {
               a: [
                 a
                   ? {
                       a: 0,
-                      b: [a ? [0, 1] : []]
+                      b: [a ? [0, 1] : []],
                     }
                   : [
                       [
                         0,
                         {
-                          a: 0
+                          a: 0,
                         },
-                        a ? 0 : 1
+                        a ? 0 : 1,
                       ],
-                      function() {
+                      function () {
                         return a
                           ? {
-                              a: 0
+                              a: 0,
                             }
                           : [
                               {
-                                a: 0
+                                a: 0,
                               },
-                              {}
+                              {},
                             ];
-                      }
-                    ]
-              ]
+                      },
+                    ],
+              ],
             }
           : [
               a
-                ? function() {
+                ? function () {
                     a
                       ? a(
                           a
                             ? {
                                 a: a({
-                                  a: 0
-                                })
+                                  a: 0,
+                                }),
                               }
                             : [
                                 0,
@@ -550,63 +550,63 @@ a
                                 a(
                                   a(),
                                   {
-                                    a: 0
+                                    a: 0,
                                   },
                                   a
                                     ? a()
                                     : a({
-                                        a: 0
+                                        a: 0,
                                       })
                                 ),
                                 a()
                                   ? {
                                       a: a(),
-                                      b: []
+                                      b: [],
                                     }
-                                  : {}
+                                  : {},
                               ]
                         )
                       : a(
                           a()
                             ? {
-                                a: 0
+                                a: 0,
                               }
-                            : (function(a) {
+                            : (function (a) {
                                 return a()
                                   ? [
                                       {
                                         a: 0,
-                                        b: a()
-                                      }
+                                        b: a(),
+                                      },
                                     ]
                                   : a([
                                       a
                                         ? {
-                                            a: 0
+                                            a: 0,
                                           }
                                         : {},
                                       {
-                                        a: 0
-                                      }
+                                        a: 0,
+                                      },
                                     ]);
                               })(
                                 a
-                                  ? function(a) {
-                                      return function() {
+                                  ? function (a) {
+                                      return function () {
                                         return 0;
                                       };
                                     }
-                                  : function(a) {
-                                      return function() {
+                                  : function (a) {
+                                      return function () {
                                         return 1;
                                       };
                                     }
                               )
                         );
                   }
-                : function() {}
+                : function () {},
             ];
-      }
+      },
     }
   : a;
 
@@ -807,72 +807,72 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
 a
     ? {
-          a: 0
+          a: 0,
       }
     : {
           a: {
-              a: 0
+              a: 0,
           }
               ? {
-                    a: 0
+                    a: 0,
                 }
               : {
                     y: {
-                        a: 0
+                        a: 0,
                     }
                         ? {
-                              a: 0
+                              a: 0,
                           }
                         : {
-                              a: 0
-                          }
-                }
+                              a: 0,
+                          },
+                },
       };
 
 a
     ? {
-          a: function() {
+          a: function () {
               return a
                   ? {
                         a: [
                             a
                                 ? {
                                       a: 0,
-                                      b: [a ? [0, 1] : []]
+                                      b: [a ? [0, 1] : []],
                                   }
                                 : [
                                       [
                                           0,
                                           {
-                                              a: 0
+                                              a: 0,
                                           },
-                                          a ? 0 : 1
+                                          a ? 0 : 1,
                                       ],
-                                      function() {
+                                      function () {
                                           return a
                                               ? {
-                                                    a: 0
+                                                    a: 0,
                                                 }
                                               : [
                                                     {
-                                                        a: 0
+                                                        a: 0,
                                                     },
-                                                    {}
+                                                    {},
                                                 ];
-                                      }
-                                  ]
-                        ]
+                                      },
+                                  ],
+                        ],
                     }
                   : [
                         a
-                            ? function() {
+                            ? function () {
                                   a
                                       ? a(
                                             a
                                                 ? {
                                                       a: a({
-                                                          a: 0
-                                                      })
+                                                          a: 0,
+                                                      }),
                                                   }
                                                 : [
                                                       0,
@@ -880,63 +880,63 @@ a
                                                       a(
                                                           a(),
                                                           {
-                                                              a: 0
+                                                              a: 0,
                                                           },
                                                           a
                                                               ? a()
                                                               : a({
-                                                                    a: 0
+                                                                    a: 0,
                                                                 })
                                                       ),
                                                       a()
                                                           ? {
                                                                 a: a(),
-                                                                b: []
+                                                                b: [],
                                                             }
-                                                          : {}
+                                                          : {},
                                                   ]
                                         )
                                       : a(
                                             a()
                                                 ? {
-                                                      a: 0
+                                                      a: 0,
                                                   }
-                                                : (function(a) {
+                                                : (function (a) {
                                                       return a()
                                                           ? [
                                                                 {
                                                                     a: 0,
-                                                                    b: a()
-                                                                }
+                                                                    b: a(),
+                                                                },
                                                             ]
                                                           : a([
                                                                 a
                                                                     ? {
-                                                                          a: 0
+                                                                          a: 0,
                                                                       }
                                                                     : {},
                                                                 {
-                                                                    a: 0
-                                                                }
+                                                                    a: 0,
+                                                                },
                                                             ]);
                                                   })(
                                                       a
-                                                          ? function(a) {
-                                                                return function() {
+                                                          ? function (a) {
+                                                                return function () {
                                                                     return 0;
                                                                 };
                                                             }
-                                                          : function(a) {
-                                                                return function() {
+                                                          : function (a) {
+                                                                return function () {
                                                                     return 1;
                                                                 };
                                                             }
                                                   )
                                         );
                               }
-                            : function() {}
+                            : function () {},
                     ];
-          }
+          },
       }
     : a;
 
@@ -1137,72 +1137,72 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
 a
 	? {
-			a: 0
+			a: 0,
 	  }
 	: {
 			a: {
-				a: 0
+				a: 0,
 			}
 				? {
-						a: 0
+						a: 0,
 				  }
 				: {
 						y: {
-							a: 0
+							a: 0,
 						}
 							? {
-									a: 0
+									a: 0,
 							  }
 							: {
-									a: 0
-							  }
-				  }
+									a: 0,
+							  },
+				  },
 	  };
 
 a
 	? {
-			a: function() {
+			a: function () {
 				return a
 					? {
 							a: [
 								a
 									? {
 											a: 0,
-											b: [a ? [0, 1] : []]
+											b: [a ? [0, 1] : []],
 									  }
 									: [
 											[
 												0,
 												{
-													a: 0
+													a: 0,
 												},
-												a ? 0 : 1
+												a ? 0 : 1,
 											],
-											function() {
+											function () {
 												return a
 													? {
-															a: 0
+															a: 0,
 													  }
 													: [
 															{
-																a: 0
+																a: 0,
 															},
-															{}
+															{},
 													  ];
-											}
-									  ]
-							]
+											},
+									  ],
+							],
 					  }
 					: [
 							a
-								? function() {
+								? function () {
 										a
 											? a(
 													a
 														? {
 																a: a({
-																	a: 0
-																})
+																	a: 0,
+																}),
 														  }
 														: [
 																0,
@@ -1210,63 +1210,63 @@ a
 																a(
 																	a(),
 																	{
-																		a: 0
+																		a: 0,
 																	},
 																	a
 																		? a()
 																		: a({
-																				a: 0
+																				a: 0,
 																		  })
 																),
 																a()
 																	? {
 																			a: a(),
-																			b: []
+																			b: [],
 																	  }
-																	: {}
+																	: {},
 														  ]
 											  )
 											: a(
 													a()
 														? {
-																a: 0
+																a: 0,
 														  }
-														: (function(a) {
+														: (function (a) {
 																return a()
 																	? [
 																			{
 																				a: 0,
-																				b: a()
-																			}
+																				b: a(),
+																			},
 																	  ]
 																	: a([
 																			a
 																				? {
-																						a: 0
+																						a: 0,
 																				  }
 																				: {},
 																			{
-																				a: 0
-																			}
+																				a: 0,
+																			},
 																	  ]);
 														  })(
 																a
-																	? function(a) {
-																			return function() {
+																	? function (a) {
+																			return function () {
 																				return 0;
 																			};
 																	  }
-																	: function(a) {
-																			return function() {
+																	: function (a) {
+																			return function () {
 																				return 1;
 																			};
 																	  }
 														  )
 											  );
 								  }
-								: function() {}
+								: function () {},
 					  ];
-			}
+			},
 	  }
 	: a;
 
@@ -1468,72 +1468,72 @@ aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
 a
 	? {
-			a: 0
+			a: 0,
 	  }
 	: {
 			a: {
-				a: 0
+				a: 0,
 			}
 				? {
-						a: 0
+						a: 0,
 				  }
 				: {
 						y: {
-							a: 0
+							a: 0,
 						}
 							? {
-									a: 0
+									a: 0,
 							  }
 							: {
-									a: 0
-							  }
-				  }
+									a: 0,
+							  },
+				  },
 	  };
 
 a
 	? {
-			a: function() {
+			a: function () {
 				return a
 					? {
 							a: [
 								a
 									? {
 											a: 0,
-											b: [a ? [0, 1] : []]
+											b: [a ? [0, 1] : []],
 									  }
 									: [
 											[
 												0,
 												{
-													a: 0
+													a: 0,
 												},
-												a ? 0 : 1
+												a ? 0 : 1,
 											],
-											function() {
+											function () {
 												return a
 													? {
-															a: 0
+															a: 0,
 													  }
 													: [
 															{
-																a: 0
+																a: 0,
 															},
-															{}
+															{},
 													  ];
-											}
-									  ]
-							]
+											},
+									  ],
+							],
 					  }
 					: [
 							a
-								? function() {
+								? function () {
 										a
 											? a(
 													a
 														? {
 																a: a({
-																	a: 0
-																})
+																	a: 0,
+																}),
 														  }
 														: [
 																0,
@@ -1541,67 +1541,67 @@ a
 																a(
 																	a(),
 																	{
-																		a: 0
+																		a: 0,
 																	},
 																	a
 																		? a()
 																		: a({
-																				a: 0
+																				a: 0,
 																		  })
 																),
 																a()
 																	? {
 																			a: a(),
-																			b: []
+																			b: [],
 																	  }
-																	: {}
+																	: {},
 														  ]
 											  )
 											: a(
 													a()
 														? {
-																a: 0
+																a: 0,
 														  }
-														: (function(a) {
+														: (function (a) {
 																return a()
 																	? [
 																			{
 																				a: 0,
-																				b: a()
-																			}
+																				b: a(),
+																			},
 																	  ]
 																	: a([
 																			a
 																				? {
-																						a: 0
+																						a: 0,
 																				  }
 																				: {},
 																			{
-																				a: 0
-																			}
+																				a: 0,
+																			},
 																	  ]);
 														  })(
 																a
-																	? function(
+																	? function (
 																			a
 																	  ) {
-																			return function() {
+																			return function () {
 																				return 0;
 																			};
 																	  }
-																	: function(
+																	: function (
 																			a
 																	  ) {
-																			return function() {
+																			return function () {
 																				return 1;
 																			};
 																	  }
 														  )
 											  );
 								  }
-								: function() {}
+								: function () {},
 					  ];
-			}
+			},
 	  }
 	: a;
 
@@ -1713,8 +1713,8 @@ a
 =====================================output=====================================
 let icecream =
   what == "cone"
-    ? p => (!!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`)
-    : p => \`here's your \${p} \${what}\`;
+    ? (p) => (!!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`)
+    : (p) => \`here's your \${p} \${what}\`;
 
 const value = condition1
   ? value1
@@ -1803,7 +1803,7 @@ const foo = (
 a
   ? literalline
   : {
-      123: 12
+      123: 12,
     }
   ? line
   : softline;
@@ -1917,8 +1917,8 @@ a
 =====================================output=====================================
 let icecream =
     what == "cone"
-        ? p => (!!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`)
-        : p => \`here's your \${p} \${what}\`;
+        ? (p) => (!!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`)
+        : (p) => \`here's your \${p} \${what}\`;
 
 const value = condition1
     ? value1
@@ -2007,7 +2007,7 @@ const foo = (
 a
     ? literalline
     : {
-          123: 12
+          123: 12,
       }
     ? line
     : softline;
@@ -2121,8 +2121,8 @@ a
 =====================================output=====================================
 let icecream =
 	what == "cone"
-		? p => (!!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`)
-		: p => \`here's your \${p} \${what}\`;
+		? (p) => (!!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`)
+		: (p) => \`here's your \${p} \${what}\`;
 
 const value = condition1
 	? value1
@@ -2211,7 +2211,7 @@ const foo = (
 a
 	? literalline
 	: {
-			123: 12
+			123: 12,
 	  }
 	? line
 	: softline;
@@ -2326,8 +2326,8 @@ a
 =====================================output=====================================
 let icecream =
 	what == "cone"
-		? p => (!!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`)
-		: p => \`here's your \${p} \${what}\`;
+		? (p) => (!!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`)
+		: (p) => \`here's your \${p} \${what}\`;
 
 const value = condition1
 	? value1
@@ -2416,7 +2416,7 @@ const foo = (
 a
 	? literalline
 	: {
-			123: 12
+			123: 12,
 	  }
 	? line
 	: softline;
@@ -2801,7 +2801,7 @@ debug
     : "hidden"
   : null;
 
-a =>
+(a) =>
   a
     ? () => {
         a;
@@ -2809,8 +2809,8 @@ a =>
     : () => {
         a;
       };
-a => (a ? a : a);
-a =>
+(a) => (a ? a : a);
+(a) =>
   a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a;
 
 ================================================================================
@@ -2838,7 +2838,7 @@ debug
         : "hidden"
     : null;
 
-a =>
+(a) =>
     a
         ? () => {
               a;
@@ -2846,8 +2846,8 @@ a =>
         : () => {
               a;
           };
-a => (a ? a : a);
-a =>
+(a) => (a ? a : a);
+(a) =>
     a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a;
 
 ================================================================================
@@ -2875,7 +2875,7 @@ debug
 		: "hidden"
 	: null;
 
-a =>
+(a) =>
 	a
 		? () => {
 				a;
@@ -2883,8 +2883,8 @@ a =>
 		: () => {
 				a;
 		  };
-a => (a ? a : a);
-a =>
+(a) => (a ? a : a);
+(a) =>
 	a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a;
 
 ================================================================================
@@ -2913,7 +2913,7 @@ debug
 		: "hidden"
 	: null;
 
-a =>
+(a) =>
 	a
 		? () => {
 				a;
@@ -2921,8 +2921,8 @@ a =>
 		: () => {
 				a;
 		  };
-a => (a ? a : a);
-a =>
+(a) => (a ? a : a);
+(a) =>
 	a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a;
 
 ================================================================================
@@ -2962,7 +2962,7 @@ const obj3 = conditionIsTruthy
       some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
       object: "with",
       lots: "of",
-      stuff
+      stuff,
     }
   : shortThing;
 
@@ -2972,7 +2972,7 @@ const obj4 = conditionIsTruthy
       some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
       object: "with",
       lots: "of",
-      stuff
+      stuff,
     };
 
 const obj5 = conditionIsTruthy
@@ -2981,7 +2981,7 @@ const obj5 = conditionIsTruthy
       some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
       object: "with",
       lots: "of",
-      stuff
+      stuff,
     };
 
 ================================================================================
@@ -3022,7 +3022,7 @@ const obj3 = conditionIsTruthy
           some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
           object: "with",
           lots: "of",
-          stuff
+          stuff,
       }
     : shortThing;
 
@@ -3032,7 +3032,7 @@ const obj4 = conditionIsTruthy
           some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
           object: "with",
           lots: "of",
-          stuff
+          stuff,
       };
 
 const obj5 = conditionIsTruthy
@@ -3041,7 +3041,7 @@ const obj5 = conditionIsTruthy
           some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
           object: "with",
           lots: "of",
-          stuff
+          stuff,
       };
 
 ================================================================================
@@ -3082,7 +3082,7 @@ const obj3 = conditionIsTruthy
 			some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
 			object: "with",
 			lots: "of",
-			stuff
+			stuff,
 	  }
 	: shortThing;
 
@@ -3092,7 +3092,7 @@ const obj4 = conditionIsTruthy
 			some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
 			object: "with",
 			lots: "of",
-			stuff
+			stuff,
 	  };
 
 const obj5 = conditionIsTruthy
@@ -3101,7 +3101,7 @@ const obj5 = conditionIsTruthy
 			some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
 			object: "with",
 			lots: "of",
-			stuff
+			stuff,
 	  };
 
 ================================================================================
@@ -3143,7 +3143,7 @@ const obj3 = conditionIsTruthy
 			some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
 			object: "with",
 			lots: "of",
-			stuff
+			stuff,
 	  }
 	: shortThing;
 
@@ -3153,7 +3153,7 @@ const obj4 = conditionIsTruthy
 			some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
 			object: "with",
 			lots: "of",
-			stuff
+			stuff,
 	  };
 
 const obj5 = conditionIsTruthy
@@ -3162,7 +3162,7 @@ const obj5 = conditionIsTruthy
 			some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
 			object: "with",
 			lots: "of",
-			stuff
+			stuff,
 	  };
 
 ================================================================================

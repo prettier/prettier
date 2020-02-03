@@ -51,8 +51,8 @@ function mul(x: number, y: number) {
 }
 
 function fix(fold) {
-  var delta = function(delta) {
-    return fold(function(x) {
+  var delta = function (delta) {
+    return fold(function (x) {
       var eta = delta(delta);
       return eta(x);
     });
@@ -61,8 +61,8 @@ function fix(fold) {
 }
 
 function mk_factorial() {
-  return fix(function(factorial) {
-    return function(n) {
+  return fix(function (factorial) {
+    return function (n) {
       if (eq(n, 1)) {
         return 1;
       }

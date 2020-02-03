@@ -4,6 +4,7 @@ exports[`test.component.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 @Component({
@@ -50,7 +51,6 @@ exports[`test.component.ts 2`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 @Component({

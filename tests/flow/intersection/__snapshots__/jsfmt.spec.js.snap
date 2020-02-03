@@ -103,7 +103,7 @@ type DuplexStreamOptions = ReadableStreamOptions &
   WritableStreamOptions & {
     allowHalfOpen?: boolean,
     readableObjectMode?: boolean,
-    writableObjectMode?: boolean
+    writableObjectMode?: boolean,
   };
 
 function hasObjectMode_bad(options: DuplexStreamOptions): boolean {

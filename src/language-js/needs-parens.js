@@ -172,11 +172,15 @@ function needsParens(path, options) {
     return true;
   }
 
-  // `export default function` or `export default class` can't be followed by
-  // anything after. So an expression like `export default (function(){}).toString()`
-  // needs to be followed by a parentheses
   if (parent.type === "ExportDefaultDeclaration") {
-    return shouldWrapFunctionForExportDefault(path, options);
+    return (
+      // `export default function` or `export default class` can't be followed by
+      // anything after. So an expression like `export default (function(){}).toString()`
+      // needs to be followed by a parentheses
+      shouldWrapFunctionForExportDefault(path, options) ||
+      // `export default (foo, bar)` also needs parentheses
+      node.type === "SequenceExpression"
+    );
   }
 
   if (parent.type === "Decorator" && parent.expression === node) {
@@ -525,7 +529,7 @@ function needsParens(path, options) {
         // See corresponding workaround in printer.js case: "Literal"
         ((options.parser !== "typescript" && !parent.directive) ||
           (options.parser === "typescript" &&
-            options.originalText.substr(options.locStart(node) - 1, 1) === "("))
+            options.originalText.charAt(options.locStart(node) - 1) === "("))
       ) {
         // To avoid becoming a directive
         const grandParent = path.getParentNode(1);
@@ -672,7 +676,9 @@ function needsParens(path, options) {
     case "OptionalCallExpression":
       if (
         (parent.type === "MemberExpression" && name === "object") ||
-        (parent.type === "CallExpression" && name === "callee")
+        ((parent.type === "CallExpression" ||
+          parent.type === "NewExpression") &&
+          name === "callee")
       ) {
         return true;
       }
@@ -761,7 +767,8 @@ function needsParens(path, options) {
           parent.type !== "ReturnStatement" &&
           parent.type !== "ThrowStatement" &&
           parent.type !== "TypeCastExpression" &&
-          parent.type !== "VariableDeclarator")
+          parent.type !== "VariableDeclarator" &&
+          parent.type !== "YieldExpression")
       );
     case "TypeAnnotation":
       return (
@@ -908,11 +915,9 @@ function shouldWrapFunctionForExportDefault(path, options) {
     return false;
   }
 
-  return path.call.apply(
-    path,
-    [
-      childPath => shouldWrapFunctionForExportDefault(childPath, options)
-    ].concat(getLeftSidePathName(path, node))
+  return path.call(
+    childPath => shouldWrapFunctionForExportDefault(childPath, options),
+    ...getLeftSidePathName(path, node)
   );
 }
 

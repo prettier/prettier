@@ -105,9 +105,9 @@ type Comment =
       end: number,
       loc: {
         end: { column: number, line: number },
-        start: { column: number, line: number }
+        start: { column: number, line: number },
       },
-      start: number
+      start: number,
     }
   | {
       type: "CommentBlock",
@@ -116,23 +116,23 @@ type Comment =
       end: number,
       loc: {
         end: { column: number, line: number },
-        start: { column: number, line: number }
+        start: { column: number, line: number },
       },
-      start: number
+      start: number,
     };
 
 type Props = {
   onChange: (
     | {
-        name: string
+        name: string,
       }
     | {
-        title: string
+        title: string,
       }
     | {
-        year: year
+        year: year,
       }
-  ) => void
+  ) => void,
 };
 
 declare class FormData {
@@ -141,7 +141,7 @@ declare class FormData {
       | string
       | {
           filepath?: string,
-          filename?: string
+          filename?: string,
         }
   ): void;
 }

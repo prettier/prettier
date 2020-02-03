@@ -40,6 +40,7 @@ function getMarkdownSyntax(options) {
     case "babel-flow":
     case "flow":
       return "jsx";
+    case "babel-ts":
     case "typescript":
       return "tsx";
     case "json":
@@ -57,22 +58,17 @@ function getMarkdownSyntax(options) {
 
 function formatCLIOptions(cliOptions) {
   return cliOptions
-    .map(option => {
-      const name = option[0];
-      const value = option[1];
-      return value === true ? name : `${name} ${value}`;
-    })
+    .map(([name, value]) => (value === true ? name : `${name} ${value}`))
     .join("\n");
 }
 
 function codeBlock(content, syntax) {
   const backtickSequences = content.match(/`+/g) || [];
-  const longestBacktickSequenceLength = Math.max.apply(
-    null,
-    backtickSequences.map(backticks => backticks.length)
+  const longestBacktickSequenceLength = Math.max(
+    ...backtickSequences.map(({ length }) => length)
   );
   const fenceLength = Math.max(3, longestBacktickSequenceLength + 1);
-  const fence = Array(fenceLength + 1).join("`");
+  const fence = "`".repeat(fenceLength);
   return [fence + (syntax || ""), content, fence].join("\n");
 }
 

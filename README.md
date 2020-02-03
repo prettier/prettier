@@ -1,3 +1,9 @@
+## Prettier 2.0
+
+This is the branch containing code for Prettier’s 2.0 release. See [the `master` branch](https://github.com/prettier/prettier) for the 1.x code/docs.
+
+---
+
 ![Prettier Banner](https://raw.githubusercontent.com/prettier/prettier-logo/master/images/prettier-banner-light.png)
 
 <h2 align="center">Opinionated Code Formatter</h2>
@@ -39,6 +45,8 @@
 <p align="center">
   <a href="https://dev.azure.com/prettier/prettier/_build/latest?definitionId=5">
     <img alt="Azure Pipelines Build Status" src="https://img.shields.io/azure-devops/build/prettier/79013671-677c-4846-a6d8-3050d40e21c0/5.svg?style=flat-square&label=build&branchName=master"></a>
+  <a href="https://github.com/prettier/prettier/actions">
+    <img alt="Github Actions Build Status" src="https://img.shields.io/github/workflow/status/prettier/prettier/Prod_Test?style=flat-square"></a>
   <a href="https://codecov.io/gh/prettier/prettier">
     <img alt="Codecov Coverage Status" src="https://img.shields.io/codecov/c/github/prettier/prettier.svg?style=flat-square"></a>
   <a href="https://twitter.com/acdlite/status/974390255393505280">

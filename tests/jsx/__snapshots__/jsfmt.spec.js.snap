@@ -44,7 +44,7 @@ const UsersList = ({ users }) => (
   <section>
     <h2>Users list</h2>
     <ul>
-      {users.map(user => (
+      {users.map((user) => (
         <li key={user.id}>{user.name}</li>
       ))}
     </ul>
@@ -63,7 +63,7 @@ const TodoList = ({ todos }) => (
 
 <div className="search-filter-chips">
   {scopes
-    .filter(scope => scope.value !== "")
+    .filter((scope) => scope.value !== "")
     .map((scope, i) => (
       <FilterChip
         query={this.props.query}
@@ -122,7 +122,7 @@ const UsersList = ({ users }) => (
   <section>
     <h2>Users list</h2>
     <ul>
-      {users.map(user => (
+      {users.map((user) => (
         <li key={user.id}>{user.name}</li>
       ))}
     </ul>
@@ -141,7 +141,7 @@ const TodoList = ({ todos }) => (
 
 <div className='search-filter-chips'>
   {scopes
-    .filter(scope => scope.value !== "")
+    .filter((scope) => scope.value !== "")
     .map((scope, i) => (
       <FilterChip
         query={this.props.query}
@@ -200,7 +200,7 @@ const UsersList = ({ users }) => (
   <section>
     <h2>Users list</h2>
     <ul>
-      {users.map(user => (
+      {users.map((user) => (
         <li key={user.id}>{user.name}</li>
       ))}
     </ul>
@@ -219,7 +219,7 @@ const TodoList = ({ todos }) => (
 
 <div className="search-filter-chips">
   {scopes
-    .filter(scope => scope.value !== '')
+    .filter((scope) => scope.value !== '')
     .map((scope, i) => (
       <FilterChip
         query={this.props.query}
@@ -278,7 +278,7 @@ const UsersList = ({ users }) => (
   <section>
     <h2>Users list</h2>
     <ul>
-      {users.map(user => (
+      {users.map((user) => (
         <li key={user.id}>{user.name}</li>
       ))}
     </ul>
@@ -297,7 +297,7 @@ const TodoList = ({ todos }) => (
 
 <div className='search-filter-chips'>
   {scopes
-    .filter(scope => scope.value !== '')
+    .filter((scope) => scope.value !== '')
     .map((scope, i) => (
       <FilterChip
         query={this.props.query}
@@ -356,19 +356,19 @@ singleQuote: false
 <Component
   propFn={
     // comment
-    function(arg) {
+    function (arg) {
       fn(arg);
     }
   }
   propArrowFn={
     // comment
-    arg => fn(arg)
+    (arg) => fn(arg)
   }
   propArrowWithBreak={
     // comment
-    arg =>
+    (arg) =>
       fn({
-        makeItBreak
+        makeItBreak,
       })
   }
   propArray={
@@ -432,19 +432,19 @@ singleQuote: false
 <Component
   propFn={
     // comment
-    function(arg) {
+    function (arg) {
       fn(arg);
     }
   }
   propArrowFn={
     // comment
-    arg => fn(arg)
+    (arg) => fn(arg)
   }
   propArrowWithBreak={
     // comment
-    arg =>
+    (arg) =>
       fn({
-        makeItBreak
+        makeItBreak,
       })
   }
   propArray={
@@ -508,19 +508,19 @@ singleQuote: true
 <Component
   propFn={
     // comment
-    function(arg) {
+    function (arg) {
       fn(arg);
     }
   }
   propArrowFn={
     // comment
-    arg => fn(arg)
+    (arg) => fn(arg)
   }
   propArrowWithBreak={
     // comment
-    arg =>
+    (arg) =>
       fn({
-        makeItBreak
+        makeItBreak,
       })
   }
   propArray={
@@ -584,19 +584,19 @@ singleQuote: true
 <Component
   propFn={
     // comment
-    function(arg) {
+    function (arg) {
       fn(arg);
     }
   }
   propArrowFn={
     // comment
-    arg => fn(arg)
+    (arg) => fn(arg)
   }
   propArrowWithBreak={
     // comment
-    arg =>
+    (arg) =>
       fn({
-        makeItBreak
+        makeItBreak,
       })
   }
   propArray={
@@ -1914,7 +1914,7 @@ singleQuote: false
     someVeryLongStyle1: "true",
     someVeryLongStyle2: "true",
     someVeryLongStyle3: "true",
-    someVeryLongStyle4: "true"
+    someVeryLongStyle4: "true",
   }}
 />;
 
@@ -1924,8 +1924,8 @@ singleQuote: false
       someVeryLongStyle1: "true",
       someVeryLongStyle2: "true",
       someVeryLongStyle3: "true",
-      someVeryLongStyle4: "true"
-    }
+      someVeryLongStyle4: "true",
+    },
   ]}
 />;
 
@@ -1938,7 +1938,7 @@ singleQuote: false
 </Something>;
 
 <Something>
-  {items.map(item => (
+  {items.map((item) => (
     <SomethingElse>
       <span />
     </SomethingElse>
@@ -1946,7 +1946,7 @@ singleQuote: false
 </Something>;
 
 <Something>
-  {function() {
+  {function () {
     return (
       <SomethingElse>
         <span />
@@ -1974,11 +1974,11 @@ singleQuote: false
 
 <BookingIntroPanel
   prop="long_string_make_to_force_break"
-  logClick={data => doLogClick("short", "short", data)}
+  logClick={(data) => doLogClick("short", "short", data)}
 />;
 
 <BookingIntroPanel
-  logClick={data =>
+  logClick={(data) =>
     doLogClick(
       "long_name_long_name_long_name",
       "long_name_long_name_long_name",
@@ -1988,7 +1988,7 @@ singleQuote: false
 />;
 
 <BookingIntroPanel
-  logClick={data => {
+  logClick={(data) => {
     doLogClick(
       "long_name_long_name_long_name",
       "long_name_long_name_long_name",
@@ -2003,17 +2003,17 @@ singleQuote: false
     value: string | Immutable.List<string>
   ) => {
     this.setState({
-      updatedTask: this.state.updatedTask.set(key, value)
+      updatedTask: this.state.updatedTask.set(key, value),
     });
   }}
 />;
 
 <BookingIntroPanel>
-  {data => doLogClick("short", "short", data)}
+  {(data) => doLogClick("short", "short", data)}
 </BookingIntroPanel>;
 
 <BookingIntroPanel>
-  {data =>
+  {(data) =>
     doLogClick(
       "long_name_long_name_long_name",
       "long_name_long_name_long_name",
@@ -2023,7 +2023,7 @@ singleQuote: false
 </BookingIntroPanel>;
 
 <BookingIntroPanel>
-  {data => {
+  {(data) => {
     doLogClick(
       "long_name_long_name_long_name",
       "long_name_long_name_long_name",
@@ -2038,7 +2038,7 @@ singleQuote: false
     value: string | Immutable.List<string>
   ) => {
     this.setState({
-      updatedTask: this.state.updatedTask.set(key, value)
+      updatedTask: this.state.updatedTask.set(key, value),
     });
   }}
 </Component>;
@@ -2202,7 +2202,7 @@ singleQuote: false
     someVeryLongStyle1: "true",
     someVeryLongStyle2: "true",
     someVeryLongStyle3: "true",
-    someVeryLongStyle4: "true"
+    someVeryLongStyle4: "true",
   }}
 />;
 
@@ -2212,8 +2212,8 @@ singleQuote: false
       someVeryLongStyle1: "true",
       someVeryLongStyle2: "true",
       someVeryLongStyle3: "true",
-      someVeryLongStyle4: "true"
-    }
+      someVeryLongStyle4: "true",
+    },
   ]}
 />;
 
@@ -2226,7 +2226,7 @@ singleQuote: false
 </Something>;
 
 <Something>
-  {items.map(item => (
+  {items.map((item) => (
     <SomethingElse>
       <span />
     </SomethingElse>
@@ -2234,7 +2234,7 @@ singleQuote: false
 </Something>;
 
 <Something>
-  {function() {
+  {function () {
     return (
       <SomethingElse>
         <span />
@@ -2262,11 +2262,11 @@ singleQuote: false
 
 <BookingIntroPanel
   prop='long_string_make_to_force_break'
-  logClick={data => doLogClick("short", "short", data)}
+  logClick={(data) => doLogClick("short", "short", data)}
 />;
 
 <BookingIntroPanel
-  logClick={data =>
+  logClick={(data) =>
     doLogClick(
       "long_name_long_name_long_name",
       "long_name_long_name_long_name",
@@ -2276,7 +2276,7 @@ singleQuote: false
 />;
 
 <BookingIntroPanel
-  logClick={data => {
+  logClick={(data) => {
     doLogClick(
       "long_name_long_name_long_name",
       "long_name_long_name_long_name",
@@ -2291,17 +2291,17 @@ singleQuote: false
     value: string | Immutable.List<string>
   ) => {
     this.setState({
-      updatedTask: this.state.updatedTask.set(key, value)
+      updatedTask: this.state.updatedTask.set(key, value),
     });
   }}
 />;
 
 <BookingIntroPanel>
-  {data => doLogClick("short", "short", data)}
+  {(data) => doLogClick("short", "short", data)}
 </BookingIntroPanel>;
 
 <BookingIntroPanel>
-  {data =>
+  {(data) =>
     doLogClick(
       "long_name_long_name_long_name",
       "long_name_long_name_long_name",
@@ -2311,7 +2311,7 @@ singleQuote: false
 </BookingIntroPanel>;
 
 <BookingIntroPanel>
-  {data => {
+  {(data) => {
     doLogClick(
       "long_name_long_name_long_name",
       "long_name_long_name_long_name",
@@ -2326,7 +2326,7 @@ singleQuote: false
     value: string | Immutable.List<string>
   ) => {
     this.setState({
-      updatedTask: this.state.updatedTask.set(key, value)
+      updatedTask: this.state.updatedTask.set(key, value),
     });
   }}
 </Component>;
@@ -2490,7 +2490,7 @@ singleQuote: true
     someVeryLongStyle1: 'true',
     someVeryLongStyle2: 'true',
     someVeryLongStyle3: 'true',
-    someVeryLongStyle4: 'true'
+    someVeryLongStyle4: 'true',
   }}
 />;
 
@@ -2500,8 +2500,8 @@ singleQuote: true
       someVeryLongStyle1: 'true',
       someVeryLongStyle2: 'true',
       someVeryLongStyle3: 'true',
-      someVeryLongStyle4: 'true'
-    }
+      someVeryLongStyle4: 'true',
+    },
   ]}
 />;
 
@@ -2514,7 +2514,7 @@ singleQuote: true
 </Something>;
 
 <Something>
-  {items.map(item => (
+  {items.map((item) => (
     <SomethingElse>
       <span />
     </SomethingElse>
@@ -2522,7 +2522,7 @@ singleQuote: true
 </Something>;
 
 <Something>
-  {function() {
+  {function () {
     return (
       <SomethingElse>
         <span />
@@ -2550,11 +2550,11 @@ singleQuote: true
 
 <BookingIntroPanel
   prop="long_string_make_to_force_break"
-  logClick={data => doLogClick('short', 'short', data)}
+  logClick={(data) => doLogClick('short', 'short', data)}
 />;
 
 <BookingIntroPanel
-  logClick={data =>
+  logClick={(data) =>
     doLogClick(
       'long_name_long_name_long_name',
       'long_name_long_name_long_name',
@@ -2564,7 +2564,7 @@ singleQuote: true
 />;
 
 <BookingIntroPanel
-  logClick={data => {
+  logClick={(data) => {
     doLogClick(
       'long_name_long_name_long_name',
       'long_name_long_name_long_name',
@@ -2579,17 +2579,17 @@ singleQuote: true
     value: string | Immutable.List<string>
   ) => {
     this.setState({
-      updatedTask: this.state.updatedTask.set(key, value)
+      updatedTask: this.state.updatedTask.set(key, value),
     });
   }}
 />;
 
 <BookingIntroPanel>
-  {data => doLogClick('short', 'short', data)}
+  {(data) => doLogClick('short', 'short', data)}
 </BookingIntroPanel>;
 
 <BookingIntroPanel>
-  {data =>
+  {(data) =>
     doLogClick(
       'long_name_long_name_long_name',
       'long_name_long_name_long_name',
@@ -2599,7 +2599,7 @@ singleQuote: true
 </BookingIntroPanel>;
 
 <BookingIntroPanel>
-  {data => {
+  {(data) => {
     doLogClick(
       'long_name_long_name_long_name',
       'long_name_long_name_long_name',
@@ -2614,7 +2614,7 @@ singleQuote: true
     value: string | Immutable.List<string>
   ) => {
     this.setState({
-      updatedTask: this.state.updatedTask.set(key, value)
+      updatedTask: this.state.updatedTask.set(key, value),
     });
   }}
 </Component>;
@@ -2778,7 +2778,7 @@ singleQuote: true
     someVeryLongStyle1: 'true',
     someVeryLongStyle2: 'true',
     someVeryLongStyle3: 'true',
-    someVeryLongStyle4: 'true'
+    someVeryLongStyle4: 'true',
   }}
 />;
 
@@ -2788,8 +2788,8 @@ singleQuote: true
       someVeryLongStyle1: 'true',
       someVeryLongStyle2: 'true',
       someVeryLongStyle3: 'true',
-      someVeryLongStyle4: 'true'
-    }
+      someVeryLongStyle4: 'true',
+    },
   ]}
 />;
 
@@ -2802,7 +2802,7 @@ singleQuote: true
 </Something>;
 
 <Something>
-  {items.map(item => (
+  {items.map((item) => (
     <SomethingElse>
       <span />
     </SomethingElse>
@@ -2810,7 +2810,7 @@ singleQuote: true
 </Something>;
 
 <Something>
-  {function() {
+  {function () {
     return (
       <SomethingElse>
         <span />
@@ -2838,11 +2838,11 @@ singleQuote: true
 
 <BookingIntroPanel
   prop='long_string_make_to_force_break'
-  logClick={data => doLogClick('short', 'short', data)}
+  logClick={(data) => doLogClick('short', 'short', data)}
 />;
 
 <BookingIntroPanel
-  logClick={data =>
+  logClick={(data) =>
     doLogClick(
       'long_name_long_name_long_name',
       'long_name_long_name_long_name',
@@ -2852,7 +2852,7 @@ singleQuote: true
 />;
 
 <BookingIntroPanel
-  logClick={data => {
+  logClick={(data) => {
     doLogClick(
       'long_name_long_name_long_name',
       'long_name_long_name_long_name',
@@ -2867,17 +2867,17 @@ singleQuote: true
     value: string | Immutable.List<string>
   ) => {
     this.setState({
-      updatedTask: this.state.updatedTask.set(key, value)
+      updatedTask: this.state.updatedTask.set(key, value),
     });
   }}
 />;
 
 <BookingIntroPanel>
-  {data => doLogClick('short', 'short', data)}
+  {(data) => doLogClick('short', 'short', data)}
 </BookingIntroPanel>;
 
 <BookingIntroPanel>
-  {data =>
+  {(data) =>
     doLogClick(
       'long_name_long_name_long_name',
       'long_name_long_name_long_name',
@@ -2887,7 +2887,7 @@ singleQuote: true
 </BookingIntroPanel>;
 
 <BookingIntroPanel>
-  {data => {
+  {(data) => {
     doLogClick(
       'long_name_long_name_long_name',
       'long_name_long_name_long_name',
@@ -2902,7 +2902,7 @@ singleQuote: true
     value: string | Immutable.List<string>
   ) => {
     this.setState({
-      updatedTask: this.state.updatedTask.set(key, value)
+      updatedTask: this.state.updatedTask.set(key, value),
     });
   }}
 </Component>;
@@ -3143,7 +3143,7 @@ singleQuote: false
     this.renderDevApp()
   ) : (
     <div>
-      {routes.map(route => (
+      {routes.map((route) => (
         <MatchAsync
           key={\`\${route.to}-async\`}
           pattern={route.to}
@@ -3158,7 +3158,7 @@ singleQuote: false
 <div>
   {__DEV__ && (
     <div>
-      {routes.map(route => (
+      {routes.map((route) => (
         <MatchAsync
           key={\`\${route.to}-async\`}
           pattern={route.to}
@@ -3225,7 +3225,7 @@ singleQuote: false
     this.renderDevApp()
   ) : (
     <div>
-      {routes.map(route => (
+      {routes.map((route) => (
         <MatchAsync
           key={\`\${route.to}-async\`}
           pattern={route.to}
@@ -3240,7 +3240,7 @@ singleQuote: false
 <div>
   {__DEV__ && (
     <div>
-      {routes.map(route => (
+      {routes.map((route) => (
         <MatchAsync
           key={\`\${route.to}-async\`}
           pattern={route.to}
@@ -3307,7 +3307,7 @@ singleQuote: true
     this.renderDevApp()
   ) : (
     <div>
-      {routes.map(route => (
+      {routes.map((route) => (
         <MatchAsync
           key={\`\${route.to}-async\`}
           pattern={route.to}
@@ -3322,7 +3322,7 @@ singleQuote: true
 <div>
   {__DEV__ && (
     <div>
-      {routes.map(route => (
+      {routes.map((route) => (
         <MatchAsync
           key={\`\${route.to}-async\`}
           pattern={route.to}
@@ -3389,7 +3389,7 @@ singleQuote: true
     this.renderDevApp()
   ) : (
     <div>
-      {routes.map(route => (
+      {routes.map((route) => (
         <MatchAsync
           key={\`\${route.to}-async\`}
           pattern={route.to}
@@ -3404,7 +3404,7 @@ singleQuote: true
 <div>
   {__DEV__ && (
     <div>
-      {routes.map(route => (
+      {routes.map((route) => (
         <MatchAsync
           key={\`\${route.to}-async\`}
           pattern={route.to}
@@ -3769,8 +3769,8 @@ const tabs = [
         onCancel={onCancel}
         countries={countries}
       />
-    )
-  }
+    ),
+  },
 ];
 
 ================================================================================
@@ -3809,8 +3809,8 @@ const tabs = [
         onCancel={onCancel}
         countries={countries}
       />
-    )
-  }
+    ),
+  },
 ];
 
 ================================================================================
@@ -3849,8 +3849,8 @@ const tabs = [
         onCancel={onCancel}
         countries={countries}
       />
-    )
-  }
+    ),
+  },
 ];
 
 ================================================================================
@@ -3889,8 +3889,8 @@ const tabs = [
         onCancel={onCancel}
         countries={countries}
       />
-    )
-  }
+    ),
+  },
 ];
 
 ================================================================================
@@ -4109,7 +4109,7 @@ a = [
   <path
     key="1"
     d="M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,"
-  />
+  />,
 ];
 
 <div {...(foo || foo === null ? { foo } : null)} />;
@@ -4161,7 +4161,7 @@ a = [
   <path
     key='1'
     d='M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,'
-  />
+  />,
 ];
 
 <div {...(foo || foo === null ? { foo } : null)} />;
@@ -4213,7 +4213,7 @@ a = [
   <path
     key="1"
     d="M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,"
-  />
+  />,
 ];
 
 <div {...(foo || foo === null ? { foo } : null)} />;
@@ -4265,7 +4265,7 @@ a = [
   <path
     key='1'
     d='M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,'
-  />
+  />,
 ];
 
 <div {...(foo || foo === null ? { foo } : null)} />;
@@ -4723,11 +4723,11 @@ const BreakingArrowExpressionWBody = () => {
   );
 };
 
-const NonBreakingFunction = function() {
+const NonBreakingFunction = function () {
   return <div />;
 };
 
-const BreakingFunction = function() {
+const BreakingFunction = function () {
   return (
     <div>
       <div>bla bla bla</div>
@@ -4837,11 +4837,11 @@ const BreakingArrowExpressionWBody = () => {
   );
 };
 
-const NonBreakingFunction = function() {
+const NonBreakingFunction = function () {
   return <div />;
 };
 
-const BreakingFunction = function() {
+const BreakingFunction = function () {
   return (
     <div>
       <div>bla bla bla</div>
@@ -4951,11 +4951,11 @@ const BreakingArrowExpressionWBody = () => {
   );
 };
 
-const NonBreakingFunction = function() {
+const NonBreakingFunction = function () {
   return <div />;
 };
 
-const BreakingFunction = function() {
+const BreakingFunction = function () {
   return (
     <div>
       <div>bla bla bla</div>
@@ -5065,11 +5065,11 @@ const BreakingArrowExpressionWBody = () => {
   );
 };
 
-const NonBreakingFunction = function() {
+const NonBreakingFunction = function () {
   return <div />;
 };
 
-const BreakingFunction = function() {
+const BreakingFunction = function () {
   return (
     <div>
       <div>bla bla bla</div>
@@ -5202,7 +5202,7 @@ const Labels = {
 
   label2: <fbt>Label 2</fbt>,
 
-  label3: <fbt>Label 3</fbt>
+  label3: <fbt>Label 3</fbt>,
 };
 
 ================================================================================
@@ -5242,7 +5242,7 @@ const Labels = {
 
   label2: <fbt>Label 2</fbt>,
 
-  label3: <fbt>Label 3</fbt>
+  label3: <fbt>Label 3</fbt>,
 };
 
 ================================================================================
@@ -5282,7 +5282,7 @@ const Labels = {
 
   label2: <fbt>Label 2</fbt>,
 
-  label3: <fbt>Label 3</fbt>
+  label3: <fbt>Label 3</fbt>,
 };
 
 ================================================================================
@@ -5322,7 +5322,7 @@ const Labels = {
 
   label2: <fbt>Label 2</fbt>,
 
-  label3: <fbt>Label 3</fbt>
+  label3: <fbt>Label 3</fbt>,
 };
 
 ================================================================================

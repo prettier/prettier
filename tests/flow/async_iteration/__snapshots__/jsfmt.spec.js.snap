@@ -34,19 +34,19 @@ async function *delegate_return() {
 }
 
 =====================================output=====================================
-async function* delegate_next() {
-  async function* inner() {
+async function *delegate_next() {
+  async function *inner() {
     var x: void = yield; // error: number ~> void
   }
-  yield* inner();
+  yield *inner();
 }
 delegate_next().next(0);
 
-async function* delegate_yield() {
-  async function* inner() {
+async function *delegate_yield() {
+  async function *inner() {
     yield 0;
   }
-  yield* inner();
+  yield *inner();
 }
 async () => {
   for await (const x of delegate_yield()) {
@@ -54,11 +54,11 @@ async () => {
   }
 };
 
-async function* delegate_return() {
-  async function* inner() {
+async function *delegate_return() {
+  async function *inner() {
     return 0;
   }
-  var x: void = yield* inner(); // error: number ~> void
+  var x: void = yield *inner(); // error: number ~> void
 }
 
 ================================================================================
@@ -105,7 +105,7 @@ declare interface File {
 
 declare function fileOpen(path: string): Promise<File>;
 
-async function* readLines(path) {
+async function *readLines(path) {
   let file: File = await fileOpen(path);
 
   try {
@@ -160,13 +160,13 @@ declare var gen: AsyncGenerator<void, string, void>;
 
 // You can pass whatever you like to return, it doesn't need to be related to
 // the AsyncGenerator's return type
-gen.return(0).then(result => {
+gen.return(0).then((result) => {
   (result.value: void); // error: string | number ~> void
 });
 
 // However, a generator can "refuse" the return by catching an exception and
 // yielding or returning internally.
-async function* refuse_return() {
+async function *refuse_return() {
   try {
     yield 1;
   } finally {
@@ -175,7 +175,7 @@ async function* refuse_return() {
 }
 refuse_return()
   .return("string")
-  .then(result => {
+  .then((result) => {
     if (result.done) {
       (result.value: string); // error: number | void ~> string
     }
@@ -224,7 +224,7 @@ async function *yield_return() {
 });
 
 =====================================output=====================================
-async function* catch_return() {
+async function *catch_return() {
   try {
     yield 0;
   } catch (e) {
@@ -242,7 +242,7 @@ async () => {
     });
 };
 
-async function* yield_return() {
+async function *yield_return() {
   try {
     yield 0;
     return;

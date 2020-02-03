@@ -1,11 +1,7 @@
 ---
 id: plugins
-title: Plugins (Beta)
+title: Plugins
 ---
-
-## IN BETA
-
-> The plugin API is in a **beta** state as of Prettier 1.10 and the API may change in the next release!
 
 Plugins are ways of adding new languages to Prettier. Prettier's own implementations of all languages are expressed using the plugin API. The core `prettier` package contains JavaScript and other web-focused languages built in. For additional languages you'll need to install a plugin.
 
@@ -253,7 +249,6 @@ function getNextNonSpaceNonCommentCharacterIndex<N>(text: string, node: N, locEn
 function isNextLineEmptyAfterIndex(text: string, index: number): boolean;
 function isNextLineEmpty<N>(text: string, node: N, locEnd: (node: N) => number): boolean;
 function isPreviousLineEmpty<N>(text: string, node: N, locStart: (node: N) => number): boolean;
-function mapDoc(doc: object, callback: function): void;
 ```
 
 ### Tutorials
