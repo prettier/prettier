@@ -617,10 +617,10 @@ function printHtmlTemplateLiteral(path, print, textToDoc, parser, options) {
     }
   );
 
-  const leadingWhitespace = node.quasis[0].value.raw.match(/^\s/) ? " " : "";
-  const trailingWhitespace = node.quasis[
-    node.quasis.length - 1
-  ].value.raw.match(/\s$/)
+  const leadingWhitespace = /^\s/.test(node.quasis[0].value.raw) ? " " : "";
+  const trailingWhitespace = /\s$/.test(
+    node.quasis[node.quasis.length - 1].value.raw
+  )
     ? " "
     : "";
 
