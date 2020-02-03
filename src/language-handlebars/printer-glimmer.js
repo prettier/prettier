@@ -531,19 +531,6 @@ function isNextNodeOfType(path, type) {
   return nextNode && nextNode.type === type;
 }
 
-function clean(ast, newObj) {
-  delete newObj.loc;
-  delete newObj.selfClosing;
-
-  // (Glimmer/HTML) ignore TextNode whitespace
-  if (ast.type === "TextNode") {
-    if (ast.chars.replace(/\s+/, "") === "") {
-      return null;
-    }
-    newObj.chars = ast.chars.replace(/^\s+/, "").replace(/\s+$/, "");
-  }
-}
-
 function countNewLines(string) {
   /* istanbul ignore next */
   string = typeof string === "string" ? string : "";
@@ -622,5 +609,5 @@ function isPrettierIgnoreNode(node) {
 
 module.exports = {
   print,
-  massageAstNode: clean
+  massageAstNode: require("./clean")
 };
