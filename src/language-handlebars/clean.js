@@ -6,9 +6,10 @@ module.exports = function(ast, newNode) {
 
   // (Glimmer/HTML) ignore TextNode whitespace
   if (ast.type === "TextNode") {
-    if (ast.chars.trim() === "") {
+    const trimmed = ast.chars.trim();
+    if (!trimmed) {
       return null;
     }
-    newNode.chars = ast.chars.trim();
+    newNode.chars = trimmed;
   }
 };
