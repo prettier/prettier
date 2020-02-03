@@ -62,7 +62,7 @@ function print(path, options, print) {
     case "Block":
     case "Program":
     case "Template": {
-      return group(concat(path.map(print, "body").filter(text => text !== "")));
+      return group(concat(path.map(print, "body")));
     }
     case "ElementNode": {
       const hasChildren = n.children.length > 0;
