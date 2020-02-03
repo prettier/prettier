@@ -35,20 +35,20 @@ function isNextNodeOfSomeType(path, types) {
   return isNodeOfSomeType(nextNode, types);
 }
 
-function getPreviousNode(path, lookBack = 1) {
+function getSiblingNode(path, offset) {
   const node = path.getValue();
   const parentNode = path.getParentNode(0) || {};
   const children = parentNode.children || parentNode.body || [];
   const index = children.indexOf(node);
-  return index !== -1 && children[index - lookBack];
+  return index !== -1 && children[index + offset];
+}
+
+function getPreviousNode(path, lookBack = 1) {
+  return getSiblingNode(path, -lookBack);
 }
 
 function getNextNode(path) {
-  const node = path.getValue();
-  const parentNode = path.getParentNode(0);
-  const children = parentNode.children || parentNode.body || [];
-  const index = children.indexOf(node);
-  return index !== -1 && children[index + 1];
+  return getSiblingNode(path, 1);
 }
 
 function isPrettierIgnoreNode(node) {
