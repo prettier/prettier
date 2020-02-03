@@ -1,18 +1,19 @@
 "use strict";
 
+function isUppercase(string) {
+  return string.toUpperCase() === string;
+}
+
 function isGlimmerComponent(node) {
-  if (node.type !== "ElementNode") {
-    return false;
-  }
-
-  const tagFirstChar = node.tag && node.tag[0];
-  const isLocal = node.tag.includes(".");
-
-  return tagFirstChar.toUpperCase() === tagFirstChar || isLocal;
+  return (
+    isNodeOfSomeType(node, ["ElementNode"]) &&
+    typeof node.tag === "string" &&
+    (isUppercase(node.tag[0]) || node.tag.includes("."))
+  );
 }
 
 function isWhitespaceNode(node) {
-  return node.type === "TextNode" && !/\S/.test(node.chars);
+  return isNodeOfSomeType(node, ["TextNode"]) && !/\S/.test(node.chars);
 }
 
 function isNodeOfSomeType(node, types) {
@@ -36,49 +37,34 @@ function isNextNodeOfSomeType(path, types) {
 
 function getPreviousNode(path, lookBack = 1) {
   const node = path.getValue();
-  const parentNode = path.getParentNode(0);
-
-  const children = parentNode && (parentNode.children || parentNode.body);
-  if (children) {
-    const nodeIndex = children.indexOf(node);
-    if (nodeIndex > 0) {
-      const previousNode = children[nodeIndex - lookBack];
-      return previousNode;
-    }
-  }
+  const parentNode = path.getParentNode(0) || {};
+  const children = parentNode.children || parentNode.body || [];
+  const index = children.indexOf(node);
+  return index !== -1 && children[index - lookBack];
 }
 
 function getNextNode(path) {
   const node = path.getValue();
   const parentNode = path.getParentNode(0);
-
-  const children = parentNode.children || parentNode.body;
-  if (children) {
-    const nodeIndex = children.indexOf(node);
-    if (nodeIndex < children.length) {
-      const nextNode = children[nodeIndex + 1];
-      return nextNode;
-    }
-  }
+  const children = parentNode.children || parentNode.body || [];
+  const index = children.indexOf(node);
+  return index !== -1 && children[index + 1];
 }
 
 function isPrettierIgnoreNode(node) {
-  if (!isNodeOfSomeType(node, ["MustacheCommentStatement"])) {
-    return false;
-  }
-
   return (
-    typeof node.value === "string" && node.value.trim() === "prettier-ignore"
+    isNodeOfSomeType(node, ["MustacheCommentStatement"]) &&
+    typeof node.value === "string" &&
+    node.value.trim() === "prettier-ignore"
   );
 }
 
 function hasPrettierIgnore(path) {
-  const n = path.getValue();
+  const node = path.getValue();
   const previousPreviousNode = getPreviousNode(path, 2);
-  const isIgnoreNode = isPrettierIgnoreNode(n);
-  const isCoveredByIgnoreNode = isPrettierIgnoreNode(previousPreviousNode);
-
-  return isIgnoreNode || isCoveredByIgnoreNode;
+  return (
+    isPrettierIgnoreNode(node) || isPrettierIgnoreNode(previousPreviousNode)
+  );
 }
 
 module.exports = {
