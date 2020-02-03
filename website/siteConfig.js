@@ -59,7 +59,7 @@ const siteConfig = {
   stylesheets: [
     "//unpkg.com/@sandhose/prettier-animated-logo@1.0.3/dist/wide.css"
   ],
-  usePrism: ["jsx"],
+  usePrism: true,
   algolia: {
     apiKey: process.env.ALGOLIA_PRETTIER_API_KEY,
     indexName: "prettier"
