@@ -12,13 +12,14 @@ const {
 } = require("../document").builders;
 
 const {
-  getPreviousNode,
   getNextNode,
+  getPreviousNode,
+  isGlimmerComponent,
+  isNextNodeOfSomeType,
+  isNodeOfSomeType,
   isParentOfSomeType,
   isPreviousNodeOfSomeType,
-  isNextNodeOfSomeType,
-  isWhitespaceNode,
-  isGlimmerComponent
+  isWhitespaceNode
 } = require("./utils");
 
 // http://w3c.github.io/html/single-page.html#void-elements

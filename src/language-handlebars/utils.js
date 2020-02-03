@@ -66,12 +66,12 @@ function getNextNode(path) {
 }
 
 module.exports = {
-  getPreviousNode,
   getNextNode,
+  getPreviousNode,
+  isGlimmerComponent,
+  isNextNodeOfSomeType,
   isNodeOfSomeType,
   isParentOfSomeType,
   isPreviousNodeOfSomeType,
-  isNextNodeOfSomeType,
-  isWhitespaceNode,
-  isGlimmerComponent
+  isWhitespaceNode
 };
