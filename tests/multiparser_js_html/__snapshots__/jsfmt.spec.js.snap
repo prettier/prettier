@@ -1,5 +1,148 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`html-template-literals.js 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const nestedFun = /* HTML */ \`\${outerExpr(1)}
+  <script>
+    const tpl = html\\\`<div>\\\${innerExpr(1)} \${outerExpr(2)}</div>\\\`;
+  </script>\`;
+
+setFoo(
+  html\`<div>one</div>
+    <div>two</div>
+    <div>three</div>\`,
+  secondArgument
+);
+
+setFoo(
+  html\`<div>
+      <div>nested</div>
+    </div>
+    <div>two</div>
+    <div>three</div>\`,
+  secondArgument
+);
+
+setFoo(
+  html\`<div>
+    <div>nested</div>
+  </div>\`,
+  secondArgument
+);
+
+=====================================output=====================================
+const nestedFun = /* HTML */ \`\${outerExpr(1)}
+  <script>
+    const tpl = html\\\`<div>\\\${innerExpr(1)} \${outerExpr(2)}</div>\\\`;
+  </script>\`;
+
+setFoo(
+  html\`<div>one</div>
+    <div>two</div>
+    <div>three</div>\`,
+  secondArgument
+);
+
+setFoo(
+  html\`<div>
+      <div>nested</div>
+    </div>
+    <div>two</div>
+    <div>three</div>\`,
+  secondArgument
+);
+
+setFoo(
+  html\`<div>
+    <div>nested</div>
+  </div>\`,
+  secondArgument
+);
+
+================================================================================
+`;
+
+exports[`html-template-literals.js 2`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "ignore"
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const nestedFun = /* HTML */ \`\${outerExpr(1)}
+  <script>
+    const tpl = html\\\`<div>\\\${innerExpr(1)} \${outerExpr(2)}</div>\\\`;
+  </script>\`;
+
+setFoo(
+  html\`<div>one</div>
+    <div>two</div>
+    <div>three</div>\`,
+  secondArgument
+);
+
+setFoo(
+  html\`<div>
+      <div>nested</div>
+    </div>
+    <div>two</div>
+    <div>three</div>\`,
+  secondArgument
+);
+
+setFoo(
+  html\`<div>
+    <div>nested</div>
+  </div>\`,
+  secondArgument
+);
+
+=====================================output=====================================
+const nestedFun = /* HTML */ \`
+  \${outerExpr(1)}
+  <script>
+    const tpl = html\\\`
+      <div>\\\${innerExpr(1)} \${outerExpr(2)}</div>
+    \\\`;
+  </script>
+\`;
+
+setFoo(
+  html\`
+    <div>one</div>
+    <div>two</div>
+    <div>three</div>
+  \`,
+  secondArgument
+);
+
+setFoo(
+  html\`
+    <div>
+      <div>nested</div>
+    </div>
+    <div>two</div>
+    <div>three</div>
+  \`,
+  secondArgument
+);
+
+setFoo(
+  html\`
+    <div>
+      <div>nested</div>
+    </div>
+  \`,
+  secondArgument
+);
+
+================================================================================
+`;
+
 exports[`lit-html.js 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -85,34 +228,6 @@ const closingScriptTagShouldBeEscapedProperly = /* HTML */ \`
 
 const closingScriptTag2 = /* HTML */ \`<script>const  scriptTag='<\\\\/script>'; <\\/script>\`;
 
-const nestedFun = /* HTML */ \`\${outerExpr(1)}
-  <script>
-    const tpl = html\\\`<div>\\\${innerExpr(1)} \${outerExpr(2)}</div>\\\`;
-  </script>\`;
-
-setFoo(
-  html\`<div>one</div>
-    <div>two</div>
-    <div>three</div>\`,
-  secondArgument
-);
-
-setFoo(
-  html\`<div>
-      <div>nested</div>
-    </div>
-    <div>two</div>
-    <div>three</div>\`,
-  secondArgument
-);
-
-setFoo(
-  html\`<div>
-    <div>nested</div>
-  </div>\`,
-  secondArgument
-);
-
 =====================================output=====================================
 import { LitElement, html } from "@polymer/lit-element";
 
@@ -182,34 +297,6 @@ const closingScriptTagShouldBeEscapedProperly = /* HTML */ \`
 const closingScriptTag2 = /* HTML */ \`<script>
   const scriptTag = "<\\\\/script>";
 </script>\`;
-
-const nestedFun = /* HTML */ \`\${outerExpr(1)}
-  <script>
-    const tpl = html\\\`<div>\\\${innerExpr(1)} \${outerExpr(2)}</div>\\\`;
-  </script>\`;
-
-setFoo(
-  html\`<div>one</div>
-    <div>two</div>
-    <div>three</div>\`,
-  secondArgument
-);
-
-setFoo(
-  html\`<div>
-      <div>nested</div>
-    </div>
-    <div>two</div>
-    <div>three</div>\`,
-  secondArgument
-);
-
-setFoo(
-  html\`<div>
-    <div>nested</div>
-  </div>\`,
-  secondArgument
-);
 
 ================================================================================
 `;
@@ -299,34 +386,6 @@ const closingScriptTagShouldBeEscapedProperly = /* HTML */ \`
 \`;
 
 const closingScriptTag2 = /* HTML */ \`<script>const  scriptTag='<\\\\/script>'; <\\/script>\`;
-
-const nestedFun = /* HTML */ \`\${outerExpr(1)}
-  <script>
-    const tpl = html\\\`<div>\\\${innerExpr(1)} \${outerExpr(2)}</div>\\\`;
-  </script>\`;
-
-setFoo(
-  html\`<div>one</div>
-    <div>two</div>
-    <div>three</div>\`,
-  secondArgument
-);
-
-setFoo(
-  html\`<div>
-      <div>nested</div>
-    </div>
-    <div>two</div>
-    <div>three</div>\`,
-  secondArgument
-);
-
-setFoo(
-  html\`<div>
-    <div>nested</div>
-  </div>\`,
-  secondArgument
-);
 
 =====================================output=====================================
 import { LitElement, html } from "@polymer/lit-element";
@@ -429,44 +488,6 @@ const closingScriptTag2 = /* HTML */ \`
     const scriptTag = "<\\\\/script>";
   </script>
 \`;
-
-const nestedFun = /* HTML */ \`
-  \${outerExpr(1)}
-  <script>
-    const tpl = html\\\`
-      <div>\\\${innerExpr(1)} \${outerExpr(2)}</div>
-    \\\`;
-  </script>
-\`;
-
-setFoo(
-  html\`
-    <div>one</div>
-    <div>two</div>
-    <div>three</div>
-  \`,
-  secondArgument
-);
-
-setFoo(
-  html\`
-    <div>
-      <div>nested</div>
-    </div>
-    <div>two</div>
-    <div>three</div>
-  \`,
-  secondArgument
-);
-
-setFoo(
-  html\`
-    <div>
-      <div>nested</div>
-    </div>
-  \`,
-  secondArgument
-);
 
 ================================================================================
 `;

@@ -76,31 +76,3 @@ const closingScriptTagShouldBeEscapedProperly = /* HTML */ `
 `;
 
 const closingScriptTag2 = /* HTML */ `<script>const  scriptTag='<\\/script>'; <\/script>`;
-
-const nestedFun = /* HTML */ `${outerExpr(1)}
-  <script>
-    const tpl = html\`<div>\${innerExpr(1)} ${outerExpr(2)}</div>\`;
-  </script>`;
-
-setFoo(
-  html`<div>one</div>
-    <div>two</div>
-    <div>three</div>`,
-  secondArgument
-);
-
-setFoo(
-  html`<div>
-      <div>nested</div>
-    </div>
-    <div>two</div>
-    <div>three</div>`,
-  secondArgument
-);
-
-setFoo(
-  html`<div>
-    <div>nested</div>
-  </div>`,
-  secondArgument
-);
