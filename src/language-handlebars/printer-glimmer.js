@@ -565,15 +565,13 @@ function locationToOffset(source, line, column) {
 }
 
 function isPrettierIgnoreNode(node) {
-  if (!node) {
+  if (!isNodeOfSomeType(node, ["MustacheCommentStatement"])) {
     return false;
   }
 
-  const isMustacheComment = node.type === "MustacheCommentStatement";
-  const containsPrettierIgnore =
-    typeof node.value === "string" && node.value.trim() === "prettier-ignore";
-
-  return isMustacheComment && containsPrettierIgnore;
+  return (
+    typeof node.value === "string" && node.value.trim() === "prettier-ignore"
+  );
 }
 
 module.exports = {
