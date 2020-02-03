@@ -172,6 +172,9 @@ function genericPrint(path, options, print) {
   const node = path.getValue();
   switch (node.type) {
     case "root":
+      if (options.__onHtmlRoot) {
+        options.__onHtmlRoot(node);
+      }
       // use original concat to not break stripTrailingHardline
       return builders.concat([
         group(printChildren(path, options, print)),
