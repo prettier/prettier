@@ -617,12 +617,8 @@ function printHtmlTemplateLiteral(path, print, textToDoc, parser, options) {
     }
   );
 
-  const leadingWhitespace = /^\s/.test(node.quasis[0].value.raw) ? " " : "";
-  const trailingWhitespace = /\s$/.test(
-    node.quasis[node.quasis.length - 1].value.raw
-  )
-    ? " "
-    : "";
+  const leadingWhitespace = /^\s/.test(text) ? " " : "";
+  const trailingWhitespace = /\s$/.test(text) ? " " : "";
 
   const linebreak =
     options.htmlWhitespaceSensitivity === "ignore"
