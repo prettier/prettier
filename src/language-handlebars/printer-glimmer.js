@@ -1,5 +1,7 @@
 "use strict";
 
+const clean = require("./clean");
+
 const {
   concat,
   join,
@@ -609,5 +611,5 @@ function isPrettierIgnoreNode(node) {
 
 module.exports = {
   print,
-  massageAstNode: require("./clean")
+  massageAstNode: clean
 };
