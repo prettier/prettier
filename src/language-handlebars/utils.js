@@ -65,9 +65,29 @@ function getNextNode(path) {
   }
 }
 
+function isPrettierIgnoreNode(node) {
+  if (!isNodeOfSomeType(node, ["MustacheCommentStatement"])) {
+    return false;
+  }
+
+  return (
+    typeof node.value === "string" && node.value.trim() === "prettier-ignore"
+  );
+}
+
+function hasPrettierIgnore(path) {
+  const n = path.getValue();
+  const previousPreviousNode = getPreviousNode(path, 2);
+  const isIgnoreNode = isPrettierIgnoreNode(n);
+  const isCoveredByIgnoreNode = isPrettierIgnoreNode(previousPreviousNode);
+
+  return isIgnoreNode || isCoveredByIgnoreNode;
+}
+
 module.exports = {
   getNextNode,
   getPreviousNode,
+  hasPrettierIgnore,
   isGlimmerComponent,
   isNextNodeOfSomeType,
   isNodeOfSomeType,

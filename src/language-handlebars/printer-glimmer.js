@@ -14,9 +14,9 @@ const {
 const {
   getNextNode,
   getPreviousNode,
+  hasPrettierIgnore,
   isGlimmerComponent,
   isNextNodeOfSomeType,
-  isNodeOfSomeType,
   isParentOfSomeType,
   isPreviousNodeOfSomeType,
   isWhitespaceNode
@@ -524,15 +524,6 @@ function generateHardlines(number = 0, max = 0) {
   return new Array(Math.min(number, max)).fill(hardline);
 }
 
-function hasPrettierIgnore(path) {
-  const n = path.getValue();
-  const previousPreviousNode = getPreviousNode(path, 2);
-  const isIgnoreNode = isPrettierIgnoreNode(n);
-  const isCoveredByIgnoreNode = isPrettierIgnoreNode(previousPreviousNode);
-
-  return isIgnoreNode || isCoveredByIgnoreNode;
-}
-
 /* istanbul ignore next
    https://github.com/glimmerjs/glimmer-vm/blob/master/packages/%40glimmer/compiler/lib/location.ts#L5-L29
 */
@@ -562,16 +553,6 @@ function locationToOffset(source, line, column) {
     seenLines += 1;
     seenChars = nextLine + 1;
   }
-}
-
-function isPrettierIgnoreNode(node) {
-  if (!isNodeOfSomeType(node, ["MustacheCommentStatement"])) {
-    return false;
-  }
-
-  return (
-    typeof node.value === "string" && node.value.trim() === "prettier-ignore"
-  );
 }
 
 module.exports = {
