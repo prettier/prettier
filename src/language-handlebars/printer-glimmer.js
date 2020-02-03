@@ -11,7 +11,16 @@ const {
   ifBreak
 } = require("../document").builders;
 
-const { isGlimmerComponent } = require("./utils");
+const {
+  getNextNode,
+  getPreviousNode,
+  hasPrettierIgnore,
+  isGlimmerComponent,
+  isNextNodeOfSomeType,
+  isParentOfSomeType,
+  isPreviousNodeOfSomeType,
+  isWhitespaceNode
+} = require("./utils");
 
 // http://w3c.github.io/html/single-page.html#void-elements
 const voidTags = [
@@ -177,12 +186,13 @@ function print(path, options, print) {
       const opening = isEscaped ? "{{{" : "{{";
       const closing = isEscaped ? "}}}" : "}}";
 
-      const leading =
-        isParentOfType(path, "AttrNode") ||
-        isParentOfType(path, "ConcatStatement") ||
-        isParentOfType(path, "ElementNode")
-          ? [opening, indent(softline)]
-          : [opening];
+      const leading = isParentOfSomeType(path, [
+        "AttrNode",
+        "ConcatStatement",
+        "ElementNode"
+      ])
+        ? [opening, indent(softline)]
+        : [opening];
 
       return group(
         concat([...leading, printPathParams(path, print), softline, closing])
@@ -253,10 +263,7 @@ function print(path, options, print) {
         );
         trailingLineBreaksCount = 0;
       } else {
-        if (
-          isNextNodeOfType(path, "ElementNode") ||
-          isNextNodeOfType(path, "BlockStatement")
-        ) {
+        if (isNextNodeOfSomeType(path, ["BlockStatement", "ElementNode"])) {
           trailingLineBreaksCount = Math.max(trailingLineBreaksCount, 1);
         }
 
@@ -298,7 +305,7 @@ function print(path, options, print) {
       } else {
         if (
           trailingLineBreaksCount === 0 &&
-          isNextNodeOfType(path, "MustacheStatement")
+          isNextNodeOfSomeType(path, ["MustacheStatement"])
         ) {
           trailingSpace = " ";
         }
@@ -480,57 +487,6 @@ function printCloseBlock(path, print) {
   return concat(["{{/", path.call(print, "path"), "}}"]);
 }
 
-function isWhitespaceNode(node) {
-  return node.type === "TextNode" && !/\S/.test(node.chars);
-}
-
-function isParentOfType(path, nodeType) {
-  const p = path.getParentNode(0);
-  return p && p.type === nodeType;
-}
-
-function getPreviousNode(path, lookBack = 1) {
-  const node = path.getValue();
-  const parentNode = path.getParentNode(0);
-
-  const children = parentNode && (parentNode.children || parentNode.body);
-  if (children) {
-    const nodeIndex = children.indexOf(node);
-    if (nodeIndex > 0) {
-      const previousNode = children[nodeIndex - lookBack];
-      return previousNode;
-    }
-  }
-}
-
-function getNextNode(path) {
-  const node = path.getValue();
-  const parentNode = path.getParentNode(0);
-
-  const children = parentNode.children || parentNode.body;
-  if (children) {
-    const nodeIndex = children.indexOf(node);
-    if (nodeIndex < children.length) {
-      const nextNode = children[nodeIndex + 1];
-      return nextNode;
-    }
-  }
-}
-
-function isPreviousNodeOfSomeType(path, types) {
-  const previousNode = getPreviousNode(path);
-
-  if (previousNode) {
-    return types.some(type => previousNode.type === type);
-  }
-  return false;
-}
-
-function isNextNodeOfType(path, type) {
-  const nextNode = getNextNode(path);
-  return nextNode && nextNode.type === type;
-}
-
 function clean(ast, newObj) {
   delete newObj.loc;
   delete newObj.selfClosing;
@@ -568,15 +524,6 @@ function generateHardlines(number = 0, max = 0) {
   return new Array(Math.min(number, max)).fill(hardline);
 }
 
-function hasPrettierIgnore(path) {
-  const n = path.getValue();
-  const previousPreviousNode = getPreviousNode(path, 2);
-  const isIgnoreNode = isPrettierIgnoreNode(n);
-  const isCoveredByIgnoreNode = isPrettierIgnoreNode(previousPreviousNode);
-
-  return isIgnoreNode || isCoveredByIgnoreNode;
-}
-
 /* istanbul ignore next
    https://github.com/glimmerjs/glimmer-vm/blob/master/packages/%40glimmer/compiler/lib/location.ts#L5-L29
 */
@@ -606,18 +553,6 @@ function locationToOffset(source, line, column) {
     seenLines += 1;
     seenChars = nextLine + 1;
   }
-}
-
-function isPrettierIgnoreNode(node) {
-  if (!node) {
-    return false;
-  }
-
-  const isMustacheComment = node.type === "MustacheCommentStatement";
-  const containsPrettierIgnore =
-    typeof node.value === "string" && node.value.trim() === "prettier-ignore";
-
-  return isMustacheComment && containsPrettierIgnore;
 }
 
 module.exports = {
