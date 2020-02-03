@@ -16,10 +16,7 @@ function isWhitespaceNode(node) {
 }
 
 function isNodeOfSomeType(node, types) {
-  if (node) {
-    return types.some(type => node.type === type);
-  }
-  return false;
+  return node && types.some(type => node.type === type);
 }
 
 function isParentOfSomeType(path, types) {
