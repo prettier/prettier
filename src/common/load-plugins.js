@@ -3,7 +3,7 @@
 const uniqBy = require("lodash/uniqBy");
 const partition = require("lodash/partition");
 const fs = require("fs");
-const glob = require("glob");
+const globby = require("globby");
 const path = require("path");
 const resolve = require("resolve");
 const thirdParty = require("./third-party");
@@ -92,10 +92,17 @@ function loadPlugins(plugins, pluginSearchDirs) {
 }
 
 function findPluginsInNodeModules(nodeModulesDir) {
-  // `node-glob` is faster in this case
-  const pluginPackageJsonPaths = glob.sync(
-    "{prettier-plugin-*,@*/prettier-plugin-*,@prettier/plugin-*}/package.json",
-    { cwd: nodeModulesDir }
+  const pluginPackageJsonPaths = globby.sync(
+    [
+      "prettier-plugin-*/package.json",
+      "@*/prettier-plugin-*/package.json",
+      "@prettier/plugin-*/package.json"
+    ],
+    {
+      cwd: nodeModulesDir,
+      expandDirectories: false,
+      onlyFiles: true
+    }
   );
   return pluginPackageJsonPaths.map(path.dirname);
 }

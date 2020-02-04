@@ -410,7 +410,11 @@ function eachFilename(context, patterns, callback) {
   patterns = patterns.concat(["!**/.{git,svn,hg}/**", "!./.{git,svn,hg}/**"]);
 
   try {
-    const filePaths = globby.sync(patterns, { dot: true });
+    const filePaths = globby.sync(patterns, {
+      dot: true,
+      expandDirectories: false,
+      onlyFiles: true
+    });
 
     if (filePaths.length === 0) {
       context.logger.error(
@@ -422,6 +426,7 @@ function eachFilename(context, patterns, callback) {
 
     filePaths
       .map(filePath => path.relative(process.cwd(), filePath))
+      // keeping file orders for backward compatibility
       .sort((a, b) => a.localeCompare(b))
       .forEach(filePath => callback(filePath));
   } catch (error) {
