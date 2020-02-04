@@ -106,7 +106,7 @@ exports[`should not expand directories (stdout) 1`] = `""`;
 exports[`should not expand directories (write) 1`] = `Array []`;
 
 exports[`should not support dot pattern (stderr) 1`] = `
-"[error] No matching files. Patterns tried: . !**/node_modules/** !./node_modules/** !**/.{git,svn,hg}/** !./.{git,svn,hg}/**
+"[error] No matching files. Patterns tried: !**/node_modules/** !./node_modules/** !**/.{git,svn,hg}/** !./.{git,svn,hg}/**
 "
 `;
 

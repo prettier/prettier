@@ -409,10 +409,15 @@ function eachFilename(context, patterns, callback) {
   }
   patterns = patterns.concat(["!**/.{git,svn,hg}/**", "!./.{git,svn,hg}/**"]);
 
+  // `dot pattern` and `expand directories` support need handle differently
+  // for backward compatibility reason temporary disable them
+  // see https://github.com/prettier/prettier/pull/6639#issuecomment-548949954
+  patterns = patterns.filter(pattern => pattern !== ".");
+
   try {
     const filePaths = globby.sync(patterns, {
       dot: true,
-      expandDirectories: false,
+      expandDirectories: false, // see comment above
       onlyFiles: true
     });
 
