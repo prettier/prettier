@@ -100,8 +100,7 @@ function findPluginsInNodeModules(nodeModulesDir) {
     ],
     {
       cwd: nodeModulesDir,
-      expandDirectories: false,
-      onlyFiles: true
+      expandDirectories: false
     }
   );
   return pluginPackageJsonPaths.map(path.dirname);

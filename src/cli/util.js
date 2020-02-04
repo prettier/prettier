@@ -417,8 +417,7 @@ function eachFilename(context, patterns, callback) {
   try {
     const filePaths = globby.sync(patterns, {
       dot: true,
-      expandDirectories: false, // see comment above
-      onlyFiles: true
+      expandDirectories: false // see comment above
     });
 
     if (filePaths.length === 0) {
