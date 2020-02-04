@@ -7,13 +7,19 @@ function clean(ast, newObj, parent) {
     "comments",
     "leadingComments",
     "trailingComments",
+    "innerComments",
     "extra",
     "start",
     "end",
-    "flags"
+    "flags",
+    "errors"
   ].forEach(name => {
     delete newObj[name];
   });
+
+  if (ast.loc && ast.loc.source === null) {
+    delete newObj.loc.source;
+  }
 
   if (ast.type === "BigIntLiteral") {
     newObj.value = newObj.value.toLowerCase();

@@ -7,11 +7,13 @@ function preprocess(ast, options) {
     case "json-stringify":
     case "__js_expression":
     case "__vue_expression":
-      return Object.assign({}, ast, {
+      return {
+        ...ast,
         type: options.parser.startsWith("__") ? "JsExpressionRoot" : "JsonRoot",
         node: ast,
-        comments: []
-      });
+        comments: [],
+        rootMarker: options.rootMarker
+      };
     default:
       return ast;
   }

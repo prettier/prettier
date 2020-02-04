@@ -47,7 +47,7 @@ function g2(ylam: (s: string) => number) {}
 function f2(xlam) {
   g2(xlam);
 }
-f2(function(x) {
+f2(function (x) {
   return x * x;
 });
 
@@ -96,11 +96,11 @@ function f(b): React.Element<*> {
 var React = require("react");
 
 var A = React.createClass({
-  propTypes: { foo: React.PropTypes.string.isRequired }
+  propTypes: { foo: React.PropTypes.string.isRequired },
 });
 
 var B = React.createClass({
-  propTypes: { bar: React.PropTypes.string.isRequired }
+  propTypes: { bar: React.PropTypes.string.isRequired },
 });
 
 function f(b): React.Element<*> {

@@ -10,8 +10,8 @@ const { waitForEnter } = require("../utils");
 function getBlogPostInfo(version) {
   const date = new Date();
   const year = date.getFullYear();
-  const month = new String(date.getMonth() + 1).padStart(2, "0");
-  const day = new String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
 
   return {
     file: `website/blog/${year}-${month}-${day}-${version}.md`,
@@ -57,7 +57,7 @@ module.exports = async function({ version, previousVersion }) {
       dedent(chalk`
         {yellow.bold A manual step is necessary.}
 
-        You can copy the entries from {bold CHANGELOG.unreleased.md} to {bold CHANGELOG.md}
+        You can copy the entries from {bold changelog_unreleased/*/pr-*.md} to {bold CHANGELOG.md}
         and update it accordingly.
 
         You don't need to commit the file, the script will take care of that.

@@ -8,11 +8,12 @@ const getFileContentOrNull = require("../utils/get-file-content-or-null");
  * @param {undefined | string} ignorePath
  * @param {undefined | boolean} withNodeModules
  */
-function createIgnorer(ignorePath, withNodeModules) {
-  return (!ignorePath
-    ? Promise.resolve(null)
-    : getFileContentOrNull(path.resolve(ignorePath))
-  ).then(ignoreContent => _createIgnorer(ignoreContent, withNodeModules));
+async function createIgnorer(ignorePath, withNodeModules) {
+  const ignoreContent = ignorePath
+    ? await getFileContentOrNull(path.resolve(ignorePath))
+    : null;
+
+  return _createIgnorer(ignoreContent, withNodeModules);
 }
 
 /**

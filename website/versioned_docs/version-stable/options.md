@@ -308,6 +308,21 @@ Valid options:
 | ------- | ------------------------------------------------------------------------ | ----------------------------------------------------------------------- |
 | `"css"` | <code>--html-whitespace-sensitivity <css&#124;strict&#124;ignore></code> | <code>htmlWhitespaceSensitivity: "<css&#124;strict&#124;ignore>"</code> |
 
+## Vue files script and style tags indentation
+
+_First available in v1.19.0_
+
+Whether or not to indent the code inside `<script>` and `<style>` tags in Vue files. Some people (like [the creator of Vue](https://github.com/prettier/prettier/issues/3888#issuecomment-459521863)) don’t indent to save an indentation level, but this might break code folding in your editor.
+
+Valid options:
+
+- `"false"` - Do not indent script and style tags in Vue files.
+- `"true"` - Indent script and style tags in Vue files.
+
+| Default | CLI Override                    | API Override                      |
+| ------- | ------------------------------- | --------------------------------- |
+| `false` | `--vue-indent-script-and-style` | `vueIndentScriptAndStyle: <bool>` |
+
 ## End of Line
 
 _First available in 1.15.0_

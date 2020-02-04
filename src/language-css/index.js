@@ -5,35 +5,30 @@ const options = require("./options");
 const createLanguage = require("../utils/create-language");
 
 const languages = [
-  createLanguage(require("linguist-languages/data/CSS"), data =>
-    Object.assign(data, {
-      since: "1.4.0",
-      parsers: ["css"],
-      vscodeLanguageIds: ["css"]
-    })
-  ),
-  createLanguage(require("linguist-languages/data/PostCSS"), data =>
-    Object.assign(data, {
-      since: "1.4.0",
-      parsers: ["css"],
-      vscodeLanguageIds: ["postcss"],
-      extensions: data.extensions.concat(".postcss")
-    })
-  ),
-  createLanguage(require("linguist-languages/data/Less"), data =>
-    Object.assign(data, {
-      since: "1.4.0",
-      parsers: ["less"],
-      vscodeLanguageIds: ["less"]
-    })
-  ),
-  createLanguage(require("linguist-languages/data/SCSS"), data =>
-    Object.assign(data, {
-      since: "1.4.0",
-      parsers: ["scss"],
-      vscodeLanguageIds: ["scss"]
-    })
-  )
+  createLanguage(require("linguist-languages/data/CSS"), data => ({
+    ...data,
+    since: "1.4.0",
+    parsers: ["css"],
+    vscodeLanguageIds: ["css"]
+  })),
+  createLanguage(require("linguist-languages/data/PostCSS"), data => ({
+    ...data,
+    since: "1.4.0",
+    parsers: ["css"],
+    vscodeLanguageIds: ["postcss"]
+  })),
+  createLanguage(require("linguist-languages/data/Less"), data => ({
+    ...data,
+    since: "1.4.0",
+    parsers: ["less"],
+    vscodeLanguageIds: ["less"]
+  })),
+  createLanguage(require("linguist-languages/data/SCSS"), data => ({
+    ...data,
+    since: "1.4.0",
+    parsers: ["scss"],
+    vscodeLanguageIds: ["scss"]
+  }))
 ];
 
 const printers = {

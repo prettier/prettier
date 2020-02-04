@@ -1,0 +1,69 @@
+name: Prod_Test
+
+on: [pull_request]
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12"
+
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build Package
+        run: yarn build
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: dist
+          path: dist
+
+  prod_test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - "ubuntu-latest"
+          - "macos-latest"
+          - "windows-latest"
+        node:
+          - "13"
+          - "12"
+          - "10"
+
+    name: Prod test on node ${{ matrix.node }} and ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    needs: [build]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Download Artifact
+        uses: actions/download-artifact@v1
+        with:
+          name: dist
+          path: dist
+
+      - name: Run Test
+        run: yarn test:dist

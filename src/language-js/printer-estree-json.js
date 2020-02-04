@@ -1,6 +1,6 @@
 "use strict";
 
-const { concat, hardline, indent, join } = require("../doc").builders;
+const { concat, hardline, indent, join } = require("../document").builders;
 const preprocess = require("./preprocess");
 
 function genericPrint(path, options, print) {
@@ -64,6 +64,7 @@ function clean(node, newNode /*, parent*/) {
   delete newNode.extra;
   delete newNode.loc;
   delete newNode.comments;
+  delete newNode.errors;
 
   if (node.type === "Identifier") {
     return { type: "StringLiteral", value: node.name };

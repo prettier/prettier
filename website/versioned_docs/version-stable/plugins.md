@@ -46,6 +46,7 @@ Providing at least one path to `--plugin-search-dir`/`pluginSearchDirs` turns of
 - [`@prettier/plugin-pug`](https://github.com/prettier/plugin-pug) by [**@Shinigami92**](https://github.com/Shinigami92)
 - [`@prettier/plugin-ruby`](https://github.com/prettier/plugin-ruby)
 - [`@prettier/plugin-swift`](https://github.com/prettier/plugin-swift)
+- [`@prettier/plugin-xml`](https://github.com/prettier/plugin-xml)
 
 ## Community Plugins
 
@@ -53,6 +54,7 @@ Providing at least one path to `--plugin-search-dir`/`pluginSearchDirs` turns of
 - [`prettier-plugin-elm`](https://github.com/gicentre/prettier-plugin-elm) by [**@giCentre**](https://github.com/gicentre)
 - [`prettier-plugin-java`](https://github.com/jhipster/prettier-java) by [**@JHipster**](https://github.com/jhipster)
 - [`prettier-plugin-kotlin`](https://github.com/Angry-Potato/prettier-plugin-kotlin) by [**@Angry-Potato**](https://github.com/Angry-Potato)
+- [`prettier-plugin-package`](https://github.com/shellscape/prettier-plugin-package) by [**@shellscape**](https://github.com/shellscape)
 - [`prettier-plugin-packagejson`](https://github.com/matzkoh/prettier-plugin-packagejson) by [**@matzkoh**](https://github.com/matzkoh)
 - [`prettier-plugin-pg`](https://github.com/benjie/prettier-plugin-pg) by [**@benjie**](https://github.com/benjie)
 - [`prettier-plugin-solidity`](https://github.com/prettier-solidity/prettier-plugin-solidity) by [**@mattiaerre**](https://github.com/mattiaerre)
@@ -228,28 +230,31 @@ defaultOptions: {
 
 A `util` module from Prettier core is considered a private API and is not meant to be consumed by plugins. Instead, the `util-shared` module provides the following limited set of utility functions for plugins:
 
+<!-- prettier-ignore -->
 ```ts
-getMaxContinuousCount(str: string, target: string): number;
-getStringWidth(text: string): number;
-getAlignmentSize(value: string, tabWidth: number, startIndex: number): number;
-getIndentSize(value: string, tabWidth: number): number;
-skip(chars: string|RegExp): number;
-skipWhitespace(text: string, index: number, options: object): number;
-skipSpaces(text: string, index: number, options: object): number;
-skipToLineEnd(text: string, index: number, options: object): number;
-skipEverythingButNewLine(text: string, index: number, options: object): number;
-skipInlineComment(text: string, index: number): number;
-skipTrailingComment(text: string, index: number): number;
-skipNewline(text: string, index: number, options: object): number;
-hasNewline(text: string, index: number, options: object): boolean;
-hasNewlineInRange(text: string, start: number, start: number): boolean;
-hasSpaces(text: string, index: number, options: object): number;
-makeString(rawContent: string, enclosingQuote: string, unescapeUnnecessarEscapes: boolean): string;
-getNextNonSpaceNonCommentCharacterIndex(text: string, node: object, options: object): number;
-isNextLineEmptyAfterIndex(text: string, index: number): boolean;
-isNextLineEmpty(text: string, node: object, options: object): boolean;
-isPreviousLineEmpty(text: string, node: object, options: object): boolean;
-mapDoc(doc: object, callback: function): void;
+type Quote = '"' | "'";
+type SkipOptions = { backwards?: boolean };
+function getMaxContinuousCount(str: string, target: string): number;
+function getStringWidth(text: string): number;
+function getAlignmentSize(value: string, tabWidth: number, startIndex?: number): number;
+function getIndentSize(value: string, tabWidth: number): number;
+function skip(chars: string | RegExp): (text: string, index: number | false, opts?: SkipOptions) => number | false;
+function skipWhitespace(text: string, index: number | false, opts?: SkipOptions): number | false;
+function skipSpaces(text: string, index: number | false, opts?: SkipOptions): number | false;
+function skipToLineEnd(text: string, index: number | false, opts?: SkipOptions): number | false;
+function skipEverythingButNewLine(text: string, index: number | false, opts?: SkipOptions): number | false;
+function skipInlineComment(text: string, index: number | false): number | false;
+function skipTrailingComment(text: string, index: number | false): number | false;
+function skipNewline(text: string, index: number | false, opts?: SkipOptions): number | false;
+function hasNewline(text: string, index: number, opts?: SkipOptions): boolean;
+function hasNewlineInRange(text: string, start: number, end: number): boolean;
+function hasSpaces(text: string, index: number, opts?: SkipOptions): boolean;
+function makeString(rawContent: string, enclosingQuote: Quote, unescapeUnnecessaryEscapes?: boolean): string;
+function getNextNonSpaceNonCommentCharacterIndex<N>(text: string, node: N, locEnd: (node: N) => number): number | false;
+function isNextLineEmptyAfterIndex(text: string, index: number): boolean;
+function isNextLineEmpty<N>(text: string, node: N, locEnd: (node: N) => number): boolean;
+function isPreviousLineEmpty<N>(text: string, node: N, locStart: (node: N) => number): boolean;
+function mapDoc(doc: object, callback: function): void;
 ```
 
 ### Tutorials

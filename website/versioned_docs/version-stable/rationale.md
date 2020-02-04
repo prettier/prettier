@@ -131,11 +131,11 @@ class OrderLine {
 
 One final thing: TC39 has [not yet decided if decorators come before or after `export`](https://github.com/tc39/proposal-decorators/issues/69). In the meantime, Prettier supports both:
 
+<!-- prettier-ignore -->
 ```js
-@decorator
-export class Foo { }
+@decorator export class Foo {}
 
-export @decorator class Foo { }
+export @decorator class Foo {}
 ```
 
 ### Semicolons

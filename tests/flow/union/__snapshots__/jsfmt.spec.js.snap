@@ -55,7 +55,7 @@ export class ModOp extends BinaryExpression<ArithmeticExpression, ArithmeticExpr
 
 export type Select = {
   expression: ArithmeticExpression,
-  alias: ?string
+  alias: ?string,
 };
 
 export class Query {
@@ -64,7 +64,7 @@ export class Query {
   select(expr: ArithmeticExpression): this {
     this._select.push({
       expression: expr,
-      alias: ""
+      alias: "",
     });
     return this;
   }
@@ -203,7 +203,7 @@ var l: Array<T> = [
   { type: "b", b: "monkey" },
   { type: "b", b: "gorilla" },
   { type: "b", b: "giraffe" },
-  { type: "b", b: "penguin" }
+  { type: "b", b: "penguin" },
 ];
 
 ================================================================================
@@ -227,13 +227,13 @@ var p = new Promise(function(resolve, reject) {
     });
 
 =====================================output=====================================
-var p = new Promise(function(resolve, reject) {
+var p = new Promise(function (resolve, reject) {
   resolve(5);
 })
-  .then(function(num) {
+  .then(function (num) {
     return num.toFixed();
   })
-  .then(function(str) {
+  .then(function (str) {
     // This should fail because str is string, not number
     return str.toFixed();
   });
@@ -261,8 +261,8 @@ declare class Myclass {
 }
 declare var myclass: Myclass;
 
-myclass.myfun(["1", "2", "3", "4", "5", "6", function(ar) {}]);
-myclass.myfun(["1", "2", "3", "4", "5", "6", "7", function(ar) {}]);
+myclass.myfun(["1", "2", "3", "4", "5", "6", function (ar) {}]);
+myclass.myfun(["1", "2", "3", "4", "5", "6", "7", function (ar) {}]);
 
 ================================================================================
 `;
@@ -479,15 +479,15 @@ const u3 : union2 = {
  */
 
 type t1 = {
-  p1: number
+  p1: number,
 };
 
 type t2 = {
-  p2: number
+  p2: number,
 };
 
 type t3 = {
-  p3: number
+  p3: number,
 };
 
 type intersected = t1 & t2;
@@ -495,17 +495,17 @@ type union = intersected | t3;
 type union2 = t3 | intersected;
 
 const u1: union = {
-  p3: 3
+  p3: 3,
 };
 
 const u2: union = {
   p1: 1,
-  p2: 2
+  p2: 2,
 };
 
 const u3: union2 = {
   p1: 1,
-  p2: 2
+  p2: 2,
 };
 
 ================================================================================
@@ -10743,7 +10743,7 @@ type ErrorCode =
   | 4999;
 
 type Data = {
-  error?: ErrorCode
+  error?: ErrorCode,
 };
 
 ================================================================================
