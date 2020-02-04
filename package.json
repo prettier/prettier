@@ -130,5 +130,8 @@
     "build-docs": "node ./scripts/build-docs.js",
     "check-deps": "node ./scripts/check-deps.js",
     "spellcheck": "cspell {bin,scripts,src}/**/*.js {docs,website/blog,changelog_unreleased}/**/*.md"
+  },
+  "resolutions": {
+    "globby/fast-glob": "3.2.0-beta"
   }
 }

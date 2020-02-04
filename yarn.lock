@@ -3446,10 +3446,10 @@ fast-diff@^1.1.2:
   resolved "https://registry.yarnpkg.com/fast-diff/-/fast-diff-1.2.0.tgz#73ee11982d86caaf7959828d519cfe927fac5f03"
   integrity sha512-xJuoT5+L99XlZ8twedaRf6Ax2TgQVxvgZOYoPKqZufmJib0tL2tegPBOZb1pVNgIhlqDlA0eO0c3wBvQcmzx4w==
 
-fast-glob@^3.1.1:
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/fast-glob/-/fast-glob-3.1.1.tgz#87ee30e9e9f3eb40d6f254a7997655da753d7c82"
-  integrity sha512-nTCREpBY8w8r+boyFYAx21iL6faSsQynliPHM4Uf56SbkyohCNxpVPEH9xrF5TXKy+IsjkPUHDKiUkzBVRXn9g==
+fast-glob@3.2.0-beta, fast-glob@^3.1.1:
+  version "3.2.0-beta"
+  resolved "https://registry.yarnpkg.com/fast-glob/-/fast-glob-3.2.0-beta.tgz#480a15222f573aa9e6cf881a850ccf5bd9e36161"
+  integrity sha512-cO2P6ZQ0LyM7r6i+UIUgBI3iTsjjs+4SFM2V4OUbhnigN8/PwDp80/g5rTo1L6C4n58GhyY2cjZ92EORVzJ6bw==
   dependencies:
     "@nodelib/fs.stat" "^2.0.2"
     "@nodelib/fs.walk" "^1.2.3"
