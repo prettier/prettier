@@ -79,6 +79,7 @@ async function preparePackage() {
   pkg.bin = "./bin-prettier.js";
   delete pkg.dependencies;
   delete pkg.devDependencies;
+  delete pkg.browserslist;
   pkg.scripts = {
     prepublishOnly:
       "node -e \"assert.equal(require('.').version, require('..').version)\""

@@ -1,0 +1,4 @@
+extends:
+  - plugin:escompat/recommended
+rules:
+  escompat/no-regexp-s-flag: off

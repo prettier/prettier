@@ -16,6 +16,7 @@ const nativeShims = require("./rollup-plugins/native-shims");
 const executable = require("./rollup-plugins/executable");
 const evaluate = require("./rollup-plugins/evaluate");
 const externals = require("./rollup-plugins/externals");
+const universalBundleTarget = require("../../package.json").browserslist;
 
 const EXTERNALS = [
   "assert",
@@ -50,12 +51,7 @@ function getBabelConfig(bundle) {
   }
   const targets = { node: "10" };
   if (bundle.target === "universal") {
-    targets.browsers = [
-      ">0.5%",
-      "not ie 11",
-      "not safari 5.1",
-      "not op_mini all"
-    ];
+    targets.browsers = universalBundleTarget;
   }
   config.presets = [
     [

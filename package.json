@@ -124,10 +124,16 @@
     "lint": "cross-env EFF_NO_LINK_RULES=true eslint . --format friendly",
     "lint-changelog": "node ./scripts/lint-changelog.js",
     "lint-prettier": "prettier \"**/*.{md,json,yml,html,css}\" --check",
-    "lint-dist": "eslint --no-eslintrc --no-ignore --env=es6,browser \"dist/!(bin-prettier|index|third-party).js\"",
+    "lint-dist": "eslint --no-eslintrc --config=./scripts/bundle-eslintrc.yml --no-ignore \"dist/!(bin-prettier|index|third-party).js\"",
     "build": "node --max-old-space-size=3072 ./scripts/build/build.js",
     "build-docs": "node ./scripts/build-docs.js",
     "check-deps": "node ./scripts/check-deps.js",
     "spellcheck": "cspell {bin,scripts,src}/**/*.js {docs,website/blog,changelog_unreleased}/**/*.md"
-  }
+  },
+  "browserslist": [
+    ">0.5%",
+    "not ie 11",
+    "not safari 5.1",
+    "not op_mini all"
+  ]
 }
