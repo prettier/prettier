@@ -1,6 +1,6 @@
 "use strict";
 
-const requireModule = require("./require-module");
+const requireModule = require;
 
 // We need to list the parsers and getters so we can load them only when necessary.
 module.exports = [

@@ -9,7 +9,7 @@ const resolve = require("resolve");
 const thirdParty = require("./third-party");
 const internalPlugins = require("./internal-plugins");
 
-const requireModule = require("./require-module");
+const requireModule = require;
 
 function loadPlugins(plugins, pluginSearchDirs) {
   if (!plugins) {

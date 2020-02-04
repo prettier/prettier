@@ -9,7 +9,7 @@ const mem = require("mem");
 const resolveEditorConfig = require("./resolve-config-editorconfig");
 const loadToml = require("../utils/load-toml");
 
-const requireModule = require("../common/require-module");
+const requireModule = require;
 
 const getExplorerMemoized = mem(
   opts => {
