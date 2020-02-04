@@ -1,5 +1,7 @@
 "use strict";
 
+const clean = require("./clean");
+
 const {
   concat,
   join,
@@ -485,19 +487,6 @@ function printOpenBlock(path, print) {
 
 function printCloseBlock(path, print) {
   return concat(["{{/", path.call(print, "path"), "}}"]);
-}
-
-function clean(ast, newObj) {
-  delete newObj.loc;
-  delete newObj.selfClosing;
-
-  // (Glimmer/HTML) ignore TextNode whitespace
-  if (ast.type === "TextNode") {
-    if (ast.chars.replace(/\s+/, "") === "") {
-      return null;
-    }
-    newObj.chars = ast.chars.replace(/^\s+/, "").replace(/\s+$/, "");
-  }
 }
 
 function countNewLines(string) {
