@@ -4,7 +4,7 @@ const path = require("path");
 const { ConfigError } = require("../common/errors");
 const jsLoc = require("../language-js/loc");
 
-const requireModule = require;
+const requireModule = eval("require");
 
 const { locStart, locEnd } = jsLoc;
 
