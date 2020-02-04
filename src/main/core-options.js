@@ -130,13 +130,6 @@ const options = {
       { value: "babel-ts", since: "2.0.0", description: "TypeScript" },
       { value: "typescript", since: "1.4.0", description: "TypeScript" },
       { value: "css", since: "1.7.1", description: "CSS" },
-      {
-        value: "postcss",
-        since: "1.4.0",
-        description: "CSS/Less/SCSS",
-        deprecated: "1.7.1",
-        redirect: "css"
-      },
       { value: "less", since: "1.7.1", description: "Less" },
       { value: "scss", since: "1.7.1", description: "SCSS" },
       { value: "json", since: "1.5.0", description: "JSON" },
