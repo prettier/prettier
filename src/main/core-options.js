@@ -125,12 +125,6 @@ const options = {
       typeof value === "string" || typeof value === "function",
     choices: [
       { value: "flow", description: "Flow" },
-      {
-        value: "babylon",
-        description: "JavaScript",
-        deprecated: "1.16.0",
-        redirect: "babel"
-      },
       { value: "babel", since: "1.16.0", description: "JavaScript" },
       { value: "babel-flow", since: "1.16.0", description: "Flow" },
       { value: "babel-ts", since: "2.0.0", description: "TypeScript" },
