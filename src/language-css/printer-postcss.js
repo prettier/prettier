@@ -101,7 +101,7 @@ function genericPrint(path, options, print) {
     case "css-root": {
       const nodes = printNodeSequence(path, options, print);
 
-      if (nodes.parts.length) {
+      if (nodes.parts.length && !options.__isHTMLStyleAttribute) {
         return concat([nodes, hardline]);
       }
 

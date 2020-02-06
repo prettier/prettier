@@ -965,6 +965,15 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
     return printExpand(printImgSrcset(getValue()));
   }
 
+  if (node.fullName === "style") {
+    return printExpand(
+      textToDoc(getValue(), {
+        parser: "css",
+        __isHTMLStyleAttribute: true
+      })
+    );
+  }
+
   if (options.parser === "vue") {
     if (node.fullName === "v-for") {
       return printVueFor(getValue(), textToDoc);
