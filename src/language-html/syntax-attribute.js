@@ -1,7 +1,7 @@
 "use strict";
 
 const {
-  builders: { concat, ifBreak, join, line }
+  builders: { concat, ifBreak, join, line, fill }
 } = require("../document");
 const parseSrcset = require("srcset").parse;
 
@@ -53,6 +53,18 @@ function printImgSrcset(value) {
   );
 }
 
+function printClassNames(value) {
+  return fill(
+    value
+      .trim()
+      .split(/\s+/)
+      .map((className, index) =>
+        concat([index ? ifBreak(line, " ") : "", className])
+      )
+  );
+}
+
 module.exports = {
-  printImgSrcset
+  printImgSrcset,
+  printClassNames
 };
