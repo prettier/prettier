@@ -218,6 +218,7 @@ $KeepScssVar: val;
     @KeepDetachedRuleset();
 
     &:extend(.Keep ALL);
+    &:EXTEND(.Keep ALL);
 
     .Keep;
     .Keep();
@@ -367,6 +368,7 @@ $KeepScssVar: val;
   @KeepDetachedRuleset();
 
   &:extend(.Keep ALL);
+  &:EXTEND(.Keep ALL);
 
   .Keep;
   .Keep();
