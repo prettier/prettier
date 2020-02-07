@@ -101,8 +101,8 @@ function genericPrint(path, options, print) {
     case "css-root": {
       const nodes = printNodeSequence(path, options, print);
 
-      if (nodes.parts.length && !options.__isHTMLStyleAttribute) {
-        return concat([nodes, hardline]);
+      if (nodes.parts.length) {
+        return concat([nodes, options.__isHTMLStyleAttribute ? "" : hardline]);
       }
 
       return nodes;
@@ -888,7 +888,7 @@ function printNodeSequence(path, options, print) {
       ) {
         parts.push(" ");
       } else {
-        parts.push(hardline);
+        parts.push(options.__isHTMLStyleAttribute ? line : hardline);
         if (
           isNextLineEmpty(
             options.originalText,
@@ -898,7 +898,7 @@ function printNodeSequence(path, options, print) {
           node.nodes[i].type !== "yaml" &&
           node.nodes[i].type !== "toml"
         ) {
-          parts.push(hardline);
+          parts.push(options.__isHTMLStyleAttribute ? line : hardline);
         }
       }
     }
