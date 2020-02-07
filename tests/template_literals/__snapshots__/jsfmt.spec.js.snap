@@ -89,6 +89,7 @@ function SomeComponent(props) {
         & .some-class {
           font-size: 20px;
         }
+
       \`}
     >
       This will be blue until hovered.
@@ -102,6 +103,7 @@ const TestComponent = ({ children, ...props }) => (
     css={\`
       color: white;
       background: black;
+
     \`}
   >
     {children}
@@ -328,12 +330,14 @@ margin: 0;
 const Button = styled.a\`
   /* Comment */
   display: \${(props) => props.display};
+
 \`;
 
 styled.div\`
   display: \${(props) => props.display};
   border: \${(props) => props.border}px;
   margin: 10px \${(props) => props.border}px;
+
 \`;
 
 const EqualDivider = styled.div\`
@@ -348,6 +352,7 @@ const EqualDivider = styled.div\`
       \${(props) => (props.vertical ? "margin-top" : "margin-left")}: 1rem;
     }
   }
+
 \`;
 
 const header = css\`
@@ -370,6 +375,7 @@ const header = css\`
     left: 0;
     right: 0;
   }
+
 \`;
 
 ================================================================================
@@ -470,6 +476,7 @@ margin: 0;
     color: red;
     display: none;
   }
+
 \`}</style>;
 
 <div>
@@ -479,6 +486,7 @@ margin: 0;
       color: red;
       display: none;
     }
+
   \`}</style>
 </div>;
 
@@ -487,6 +495,7 @@ margin: 0;
     div {
       color: red;
     }
+
   \`}</style>
 </div>;
 
@@ -516,6 +525,7 @@ const header = css\`
     left: 0;
     right: 0;
   }
+
 \`;
 
 const headerResolve = css.resolve\`
@@ -538,6 +548,7 @@ const headerResolve = css.resolve\`
     left: 0;
     right: 0;
   }
+
 \`;
 
 const headerGlobal = css.global\`
@@ -560,6 +571,7 @@ const headerGlobal = css.global\`
     left: 0;
     right: 0;
   }
+
 \`;
 
 ================================================================================
@@ -642,12 +654,14 @@ printWidth: 80
   @font-face {
     \${expr}
   }
+
 \`}</style>;
 
 <style jsx>{\`
   div {
     animation: linear \${seconds}s ease-out;
   }
+
 \`}</style>;
 
 <style jsx>{\`
@@ -655,6 +669,7 @@ printWidth: 80
     animation: 3s ease-in 1s \${(foo) => foo.getIterations()} reverse both paused
       slidein;
   }
+
 \`}</style>;
 
 ================================================================================

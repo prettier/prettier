@@ -46,6 +46,7 @@ printWidth: 80
   #header {
     color: @light-blue;
   }
+
 </style>
 
 <style lang="less">
@@ -55,6 +56,7 @@ printWidth: 80
   #header {
     color: @light-blue;
   }
+
 </style>
 
 ================================================================================
@@ -80,6 +82,7 @@ printWidth: 80
     background: navy;
     color: yellow;
   }
+
 </style>
 
 <style lang="postcss">
@@ -87,6 +90,7 @@ printWidth: 80
     background: navy;
     color: yellow;
   }
+
 </style>
 
 ================================================================================
@@ -140,6 +144,7 @@ printWidth: 80
     font: 100% $font-stack;
     color: $primary-color;
   }
+
 </style>
 
 <style lang="scss">
@@ -150,6 +155,7 @@ printWidth: 80
     font: 100% $font-stack;
     color: $primary-color;
   }
+
 </style>
 
 <style lang="scss">
@@ -163,6 +169,7 @@ printWidth: 80
       margin-bottom: 10px;
     }
   }
+
 </style>
 
 ================================================================================
@@ -198,12 +205,14 @@ printWidth: 80
       a {
         color: red;
       }
+
     </style>
     <style>
       body {
         background: navy;
         color: yellow;
       }
+
     </style>
   </head>
   <body>
@@ -235,6 +244,7 @@ printWidth: 80
   a {
     color: red;
   }
+
 </style>
 <style>
   h1 {
@@ -242,6 +252,7 @@ printWidth: 80
     font-family: Verdana, Arial, Helvetica, sans-serif;
     color: #333366;
   }
+
 </style>
 
 ================================================================================

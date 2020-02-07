@@ -273,6 +273,7 @@ class MyElement extends LitElement {
         .mood {
           color: green;
         }
+
       </style>
 
       Web Components are <span class="mood">\${this.mood}</span>!
@@ -432,6 +433,7 @@ class MyElement extends LitElement {
         .mood {
           color: green;
         }
+
       </style>
 
       Web Components are

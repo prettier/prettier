@@ -262,41 +262,49 @@ const ListItem2 = styled.li\`\`;
 
 const Dropdown = styled.div\`
   position: relative;
+
 \`;
 
 const Button = styled.button\`
   color: palevioletred;
 
   font-size: 1em;
+
 \`;
 
 const TomatoButton = Button.extend\`
   color: tomato;
 
   border-color: tomato;
+
 \`;
 
 Button.extend.attr({})\`
   border-color: black;
+
 \`;
 
 styled(ExistingComponent)\`
   color: papayawhip;
   background-color: firebrick;
+
 \`;
 
 styled.button.attr({})\`
   border: rebeccapurple;
+
 \`;
 
 styled(ExistingComponent).attr({})\`
   border: rebeccapurple;
+
 \`;
 
 styled.div\`
   color: \${(props) => props.theme.colors.paragraph};
   /* prettier-ignore */
   \${(props) => (props.small ? "font-size: 0.8em;" : "")};
+
 \`;
 
 styled.div\`
@@ -334,11 +342,13 @@ styled.div\`
   html {
     margin: 0;
   }
+
 \`;
 
 styled.div\`
   \${bar}
   baz
+
 \`;
 
 styled.span\`
@@ -356,10 +366,12 @@ styled.div\`
 styled.span\`
   \${foo}
   \${bar}
+
 \`;
 
 styled.div\`
   \${foo} bar
+
 \`;
 
 styled.span\`
@@ -370,22 +382,27 @@ styled.span\`
 styled.span\`
   \${foo};
   \${bar};
+
 \`;
 
 styled.span\`
   \${foo}: \${bar};
+
 \`;
 
 styled.span\`
   \${foo}: \${bar}
+
 \`;
 
 styled.span\`
   \${foo}: \${bar}
+
 \`;
 
 styled.span\`
   \${foo}: \${bar};
+
 \`;
 
 styled.a\`
@@ -395,6 +412,7 @@ styled.a\`
   \${FeedbackCount} {
     margin: 0;
   }
+
 \`;
 
 const StyledComponent1 = styled.div\`
@@ -404,6 +422,7 @@ const StyledComponent1 = styled.div\`
   .aRule {
     color: red;
   }
+
 \`;
 
 const StyledComponent2 = styled.div\`
@@ -414,39 +433,47 @@ const StyledComponent2 = styled.div\`
   .aRule {
     color: red;
   }
+
 \`;
 
 const Direction = styled.span\`
   \${({ up }) => up && \`color: \${color.positive};\`}
   \${({ down }) => down && \`color: \${color.negative};\`}
+
 \`;
 
 const Direction2 = styled.span\`
   \${({ up }) => up && \`color: \${color.positive}\`};
   \${({ down }) => down && \`color: \${color.negative}\`};
+
 \`;
 
 const mixin = css\`
   color: \${(props) => props.color};
   \${(props) => props.otherProperty}: \${(props) => props.otherValue};
+
 \`;
 
 const foo = styled.div\`
   display: flex;
   \${(props) => props.useMixin && mixin}
+
 \`;
 
 const Single1 = styled.div\`
   color: red;
+
 \`;
 
 const Single2 = styled.div\`
   color: red;
+
 \`;
 
 const Dropdown = styled.div\`
   /* A comment to avoid the prettier issue: https://github.com/prettier/prettier/issues/2291 */
   position: relative;
+
 \`;
 
 const bar = styled.div\`
@@ -460,6 +487,7 @@ const bar = styled.div\`
     (props.complete || props.inProgress) &&
     css\`
       border-color: rgba(var(--green-rgb), 0.15);
+
     \`}
 
   div {
@@ -474,14 +502,17 @@ const bar = styled.div\`
       css\`
         background-color: var(--green);
         border-width: 7px;
+
       \`}
 
     \${(props) =>
       (props.complete || props.inProgress) &&
       css\`
         border-color: var(--green);
+
       \`}
   }
+
 \`;
 
 const A = styled.a\`
@@ -491,8 +522,10 @@ const A = styled.a\`
     props.a &&
     css\`
       display: none;
+
     \`}
   height: 30px;
+
 \`;
 
 const Foo = styled.p\`
@@ -506,6 +539,7 @@ const Foo = styled.p\`
   &.bottom {
     margin-top: 3rem;
   }
+
 \`;
 
 ================================================================================

@@ -303,6 +303,7 @@ const Bar = styled.div\`
     props.highlight.length > 0
       ? palette(["text", "dark", "tertiary"])(props)
       : palette(["text", "dark", "primary"])(props)} !important;
+
 \`;
 
 ================================================================================
@@ -487,6 +488,7 @@ const Bar = styled.div\`
     props.highlight.length > 0
       ? palette(["text", "dark", "tertiary"])(props)
       : palette(["text", "dark", "primary"])(props)} !important;
+
 \`;
 
 ================================================================================

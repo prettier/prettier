@@ -102,7 +102,7 @@ function genericPrint(path, options, print) {
       const nodes = printNodeSequence(path, options, print);
 
       if (nodes.parts.length) {
-        return concat([nodes, hardline]);
+        return concat([nodes, line]);
       }
 
       return nodes;
@@ -888,7 +888,7 @@ function printNodeSequence(path, options, print) {
       ) {
         parts.push(" ");
       } else {
-        parts.push(hardline);
+        parts.push(line);
         if (
           isNextLineEmpty(
             options.originalText,
@@ -898,7 +898,7 @@ function printNodeSequence(path, options, print) {
           node.nodes[i].type !== "yaml" &&
           node.nodes[i].type !== "toml"
         ) {
-          parts.push(hardline);
+          parts.push(line);
         }
       }
     }

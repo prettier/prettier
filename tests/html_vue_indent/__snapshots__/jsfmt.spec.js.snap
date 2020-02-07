@@ -40,6 +40,7 @@ vueIndentScriptAndStyle: true
     div {
       background: #00abc9;
     }
+
   </style>
 
   <script>
@@ -97,6 +98,7 @@ vueIndentScriptAndStyle: false
     div {
       background: #00abc9;
     }
+
   </style>
 
   <script>
@@ -158,6 +160,7 @@ footer {
   footer {
     background: #00abc9;
   }
+
 </style>
 
 <template>
@@ -215,6 +218,7 @@ footer {
 footer {
   background: #00abc9;
 }
+
 </style>
 
 <template>

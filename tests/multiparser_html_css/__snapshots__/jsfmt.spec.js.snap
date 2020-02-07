@@ -27,6 +27,7 @@ printWidth: 80
       blink {
         display: none;
       }
+
     </style>
   </head>
   <body></body>
