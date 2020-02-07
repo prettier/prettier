@@ -384,6 +384,10 @@ function isLessParser(options) {
   return options.parser === "css" || options.parser === "less";
 }
 
+function lastLineHasInlineComment(text) {
+  return /\/\//.test(text.split(/[\r\n]/).pop());
+}
+
 module.exports = {
   getAncestorCounter,
   getAncestorNode,
@@ -430,5 +434,6 @@ module.exports = {
   isWordNode,
   isColonNode,
   isMediaAndSupportsKeywords,
-  isColorAdjusterFuncNode
+  isColorAdjusterFuncNode,
+  lastLineHasInlineComment
 };

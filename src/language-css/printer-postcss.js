@@ -69,7 +69,8 @@ const {
   isWordNode,
   isColonNode,
   isMediaAndSupportsKeywords,
-  isColorAdjusterFuncNode
+  isColorAdjusterFuncNode,
+  lastLineHasInlineComment
 } = require("./utils");
 
 function shouldPrintComma(options) {
@@ -981,10 +982,6 @@ const ADJUST_NUMBERS_REGEX = new RegExp(
 
 function adjustStrings(value, options) {
   return value.replace(STRING_REGEX, match => printString(match, options));
-}
-
-function lastLineHasInlineComment(value) {
-  return /\/\//.test(value.split(/[\r\n]/).pop());
 }
 
 function quoteAttributeValue(value, options) {
