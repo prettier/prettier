@@ -966,12 +966,15 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
   }
 
   if (node.fullName === "style" && !options.parentParser) {
-    return printExpand(
-      textToDoc(getValue(), {
-        parser: "css",
-        __isHTMLStyleAttribute: true
-      })
-    );
+    const value = getValue();
+    if (!value.startsWith("{{") && !value.endsWith("{{")) {
+      return printExpand(
+        textToDoc(value, {
+          parser: "css",
+          __isHTMLStyleAttribute: true
+        })
+      );
+    }
   }
 
   if (options.parser === "vue") {

@@ -397,6 +397,8 @@ style="css-prop-1: css-value;css-prop-2: css-value;css-prop-3: css-value;css-pro
  attribute-1 attribute-2 attribute-3 attribute-4 attribute-5 attribute-6 attribute-7 >
   </div>
 
+<div style="{{ ...styles }}" 
+></div>
 =====================================output=====================================
 <div style="color: #fff;"></div>
 
@@ -460,6 +462,8 @@ style="css-prop-1: css-value;css-prop-2: css-value;css-prop-3: css-value;css-pro
   attribute-6
   attribute-7
 ></div>
+
+<div style="{{ ...styles }}"></div>
 
 ================================================================================
 `;
