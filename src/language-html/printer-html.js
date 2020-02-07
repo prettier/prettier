@@ -967,7 +967,7 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
 
   if (node.fullName === "style" && !options.parentParser) {
     const value = getValue();
-    if (!value.startsWith("{{") && !value.endsWith("{{")) {
+    if (!value.includes("{{")) {
       return printExpand(
         textToDoc(value, {
           parser: "css",
