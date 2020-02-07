@@ -965,7 +965,7 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
     return printExpand(printImgSrcset(getValue()));
   }
 
-  if (node.fullName === "style") {
+  if (node.fullName === "style" && !options.parentParser) {
     return printExpand(
       textToDoc(getValue(), {
         parser: "css",

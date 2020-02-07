@@ -76,3 +76,27 @@ const closingScriptTagShouldBeEscapedProperly = /* HTML */ `
 `;
 
 const closingScriptTag2 = /* HTML */ `<script>const  scriptTag='<\\/script>'; <\/script>`;
+
+html`
+ <div style="
+ ${ foo}
+"></div>
+`
+html`
+ <div style=${ 
+  foo
+ }></div>
+`
+
+html`<div style="   color : red;
+            display    :inline ">
+  </div>`
+
+html`<div style="   color : red;
+${ foo}
+            display    :inline ">
+  </div>`
+html`<div style="   color : red;
+${ foo}:${bar};
+            display    :inline ">
+  </div>`
