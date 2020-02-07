@@ -966,7 +966,7 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
   }
 
   if (node.fullName === "class") {
-    return printExpand(printClassNames(getValue()));
+    return printClassNames(getValue());
   }
 
   if (options.parser === "vue") {
