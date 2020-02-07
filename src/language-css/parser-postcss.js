@@ -4,7 +4,7 @@ const createError = require("../common/parser-create-error");
 const parseFrontMatter = require("../utils/front-matter");
 const lineColumnToIndex = require("../utils/line-column-to-index");
 const { hasPragma } = require("./pragma");
-const { isSCSS, isSCSSNestedPropertyNode } = require("./utils");
+const { isLessParser, isSCSS, isSCSSNestedPropertyNode } = require("./utils");
 
 function parseValueNodes(nodes) {
   let parenGroup = {
@@ -376,24 +376,23 @@ function parseNestedCSS(node, options) {
     }
 
     if (node.type === "css-atrule") {
-      const isLessParser =
-        options.parser === "css" || options.parser === "less";
+      if (isLessParser(options)) {
+        // mixin
+        if (node.mixin) {
+          const source =
+            node.raws.identifier +
+            node.name +
+            node.raws.afterName +
+            node.raws.params;
+          node.selector = parseSelector(source);
+          delete node.params;
+          return node;
+        }
 
-      // mixin
-      if (isLessParser && node.mixin) {
-        const source =
-          node.raws.identifier +
-          node.name +
-          node.raws.afterName +
-          node.raws.params;
-        node.selector = parseSelector(source);
-        delete node.params;
-        return node;
-      }
-
-      // function
-      if (isLessParser && node.function) {
-        return node;
+        // function
+        if (node.function) {
+          return node;
+        }
       }
 
       // only css support custom-selector
@@ -407,29 +406,30 @@ function parseNestedCSS(node, options) {
         return node;
       }
 
-      // Whitespace between variable and colon
-      if (isLessParser && node.name.indexOf(":") !== -1 && !node.params) {
-        node.variable = true;
-        const parts = node.name.split(":");
-        node.name = parts[0];
-        node.value = parseValue(parts.slice(1).join(":"));
-      }
+      if (isLessParser(options)) {
+        // Whitespace between variable and colon
+        if (node.name.includes(":") && !node.params) {
+          node.variable = true;
+          const parts = node.name.split(":");
+          node.name = parts[0];
+          node.value = parseValue(parts.slice(1).join(":"));
+        }
 
-      // Missing whitespace between variable and colon
-      if (
-        isLessParser &&
-        ["page", "nest"].indexOf(node.name) === -1 &&
-        node.params &&
-        node.params[0] === ":"
-      ) {
-        node.variable = true;
-        node.value = parseValue(node.params.slice(1));
-      }
+        // Missing whitespace between variable and colon
+        if (
+          !["page", "nest"].includes(node.name) &&
+          node.params &&
+          node.params[0] === ":"
+        ) {
+          node.variable = true;
+          node.value = parseValue(node.params.slice(1));
+        }
 
-      // Less variable
-      if (isLessParser && node.variable) {
-        delete node.params;
-        return node;
+        // Less variable
+        if (node.variable) {
+          delete node.params;
+          return node;
+        }
       }
     }
 

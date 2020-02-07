@@ -39,6 +39,7 @@ const {
   isWideKeywords,
   isSCSS,
   isLastNode,
+  isLessParser,
   isSCSSControlDirectiveNode,
   isDetachedRulesetDeclarationNode,
   isRelationalOperatorNode,
@@ -206,47 +207,47 @@ function genericPrint(path, options, print) {
         isTemplatePlaceholderNode(node) &&
         !parentNode.raws.semicolon &&
         options.originalText[options.locEnd(node) - 1] !== ";";
-      const isLessParser =
-        options.parser === "css" || options.parser === "less";
 
-      if (isLessParser && node.mixin) {
-        return concat([
-          path.call(print, "selector"),
-          node.important ? " !important" : "",
-          isTemplatePlaceholderNodeWithoutSemiColon ? "" : ";"
-        ]);
-      }
+      if (isLessParser(options)) {
+        if (node.mixin) {
+          return concat([
+            path.call(print, "selector"),
+            node.important ? " !important" : "",
+            isTemplatePlaceholderNodeWithoutSemiColon ? "" : ";"
+          ]);
+        }
 
-      if (isLessParser && node.function) {
-        return concat([
-          node.name,
-          concat([path.call(print, "params")]),
-          isTemplatePlaceholderNodeWithoutSemiColon ? "" : ";"
-        ]);
-      }
+        if (node.function) {
+          return concat([
+            node.name,
+            concat([path.call(print, "params")]),
+            isTemplatePlaceholderNodeWithoutSemiColon ? "" : ";"
+          ]);
+        }
 
-      if (isLessParser && node.variable) {
-        return concat([
-          "@",
-          node.name,
-          ": ",
-          node.value ? concat([path.call(print, "value")]) : "",
-          node.raws.between.trim() ? node.raws.between.trim() + " " : "",
-          node.nodes
-            ? concat([
-                "{",
-                indent(
-                  concat([
-                    node.nodes.length > 0 ? softline : "",
-                    printNodeSequence(path, options, print)
-                  ])
-                ),
-                softline,
-                "}"
-              ])
-            : "",
-          isTemplatePlaceholderNodeWithoutSemiColon ? "" : ";"
-        ]);
+        if (node.variable) {
+          return concat([
+            "@",
+            node.name,
+            ": ",
+            node.value ? concat([path.call(print, "value")]) : "",
+            node.raws.between.trim() ? node.raws.between.trim() + " " : "",
+            node.nodes
+              ? concat([
+                  "{",
+                  indent(
+                    concat([
+                      node.nodes.length > 0 ? softline : "",
+                      printNodeSequence(path, options, print)
+                    ])
+                  ),
+                  softline,
+                  "}"
+                ])
+              : "",
+            isTemplatePlaceholderNodeWithoutSemiColon ? "" : ";"
+          ]);
+        }
       }
 
       return concat([
