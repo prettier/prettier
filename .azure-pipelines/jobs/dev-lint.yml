@@ -1,17 +1,17 @@
 steps:
   - template: ../steps/install-nodejs.yml
   - template: ../steps/install-dependencies.yml
-  - script: yarn check-deps
+  - script: yarn lint:deps
     displayName: "Check dependencies"
-  - script: yarn check-types
+  - script: yarn lint:types
     displayName: "Check JSDoc types"
-  - script: yarn lint
+  - script: yarn lint:eslint
     displayName: "Lint code"
-  - script: yarn lint-prettier
+  - script: yarn lint:prettier
     displayName: "Lint prettier"
-  - script: yarn spellcheck
+  - script: yarn lint:spellcheck
     displayName: "Spellcheck"
   - script: yarn && echo "Listing changed files:" && git diff --name-only --exit-code && echo "No files changed during lint."
     displayName: "Check file changes"
-  - script: yarn lint-changelog
+  - script: yarn lint:changelog
     displayName: "Lint changelog"
