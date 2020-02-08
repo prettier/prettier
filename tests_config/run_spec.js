@@ -116,7 +116,11 @@ global.run_spec = (dirname, parsers, options) => {
 
     if (DEEP_COMPARE) {
       test(`${filename} second format`, () => {
-        const secondOutput = format(output, filename, { ...mainOptions });
+        const secondOutput = format(
+          output.replace(CURSOR_PLACEHOLDER, ""),
+          filename,
+          { ...mainOptions }
+        );
         expect(visualizeEndOfLine(secondOutput)).toEqual(visualizedOutput);
       });
     }
