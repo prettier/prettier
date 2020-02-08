@@ -3,8 +3,10 @@
 const fs = require("fs");
 const path = require("path");
 const raw = require("jest-snapshot-serializer-raw").wrap;
+const { isCI } = require("ci-info");
 
 const { AST_COMPARE, TEST_STANDALONE, TEST_CRLF } = process.env;
+const DEEP_COMPARE = isCI || process.env.DEEP_COMPARE;
 
 const CURSOR_PLACEHOLDER = "<|>";
 const RANGE_START_PLACEHOLDER = "<<<PRETTIER_RANGE_START>>>";
@@ -110,6 +112,13 @@ global.run_spec = (dirname, parsers, options) => {
       )
     ) {
       parsersToVerify.push("babel-ts");
+    }
+
+    if (DEEP_COMPARE) {
+      test(`${filename} second format`, () => {
+        const secondOutput = format(output, filename, { ...mainOptions });
+        expect(visualizeEndOfLine(secondOutput)).toEqual(visualizedOutput);
+      });
     }
 
     for (const parser of parsersToVerify) {
