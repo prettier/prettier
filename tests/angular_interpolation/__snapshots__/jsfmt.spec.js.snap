@@ -121,9 +121,10 @@ trailingComma: "none"
           keyB: shortValue | pipeB | pipeC: valueToPipeC
         }
     | aaa,
-  (hideLinqPanel
-    ? "ReportSelection.HideShowLabel_Show.String"
-    : "ReportSelection.HideShowLabel_Hide.String"
+  (
+    hideLinqPanel
+      ? "ReportSelection.HideShowLabel_Show.String"
+      : "ReportSelection.HideShowLabel_Hide.String"
   ) | localize: localizationSection
 ]
 ================================================================================
@@ -187,9 +188,10 @@ printWidth: 80
           keyB: shortValue | pipeB | pipeC: valueToPipeC
         }
     | aaa,
-  (hideLinqPanel
-    ? "ReportSelection.HideShowLabel_Show.String"
-    : "ReportSelection.HideShowLabel_Hide.String"
+  (
+    hideLinqPanel
+      ? "ReportSelection.HideShowLabel_Show.String"
+      : "ReportSelection.HideShowLabel_Hide.String"
   ) | localize: localizationSection
 ]
 ================================================================================
@@ -254,9 +256,10 @@ trailingComma: "all"
           keyB: shortValue | pipeB | pipeC: valueToPipeC
         }
     | aaa,
-  (hideLinqPanel
-    ? "ReportSelection.HideShowLabel_Show.String"
-    : "ReportSelection.HideShowLabel_Hide.String"
+  (
+    hideLinqPanel
+      ? "ReportSelection.HideShowLabel_Show.String"
+      : "ReportSelection.HideShowLabel_Hide.String"
   ) | localize: localizationSection
 ]
 ================================================================================

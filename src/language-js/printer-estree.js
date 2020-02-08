@@ -272,7 +272,6 @@ function printDecorators(path, options, print) {
  * and TSConditionalType
  * @typedef {Object} OperatorOptions
  * @property {() => Array<string | Doc>} beforeParts - Parts to print before the `?`.
- * @property {(breakClosingParen: boolean) => Array<string | Doc>} afterParts - Parts to print after the conditional expression.
  * @property {boolean} shouldCheckJsx - Whether to check for and print in JSX mode.
  * @property {string} conditionalNodeType - The type of the conditional expression node, ie "ConditionalExpression" or "TSConditionalType".
  * @property {string} consequentNodePropertyName - The property at which the consequent node can be found on the main node, eg "consequent".
@@ -394,12 +393,13 @@ function printTernaryOperator(path, options, print, operatorOptions) {
   const maybeGroup = doc =>
     parent === firstNonConditionalParent ? group(doc) : doc;
 
-  // Break the closing paren to keep the chain right after it:
-  // (a
-  //   ? b
-  //   : c
+  // Break the paren to keep the chain right after it:
+  // (
+  //   a
+  //     ? b
+  //     : c
   // ).call()
-  const breakClosingParen =
+  const breakParen =
     !jsxMode &&
     (parent.type === "MemberExpression" ||
       parent.type === "OptionalMemberExpression" ||
@@ -424,13 +424,12 @@ function printTernaryOperator(path, options, print, operatorOptions) {
           parent[operatorOptions.alternateNodePropertyName] === node
             ? align(2, testDoc)
             : testDoc)(concat(operatorOptions.beforeParts())),
-        forceNoIndent ? concat(parts) : indent(concat(parts)),
-        operatorOptions.afterParts(breakClosingParen)
+        forceNoIndent ? concat(parts) : indent(concat(parts))
       )
     )
   );
 
-  return isParentTest
+  return isParentTest || breakParen
     ? group(concat([indent(concat([softline, result])), softline]))
     : result;
 }
@@ -1695,7 +1694,6 @@ function printPathNoParens(path, options, print, args) {
     case "ConditionalExpression":
       return printTernaryOperator(path, options, print, {
         beforeParts: () => [path.call(print, "test")],
-        afterParts: breakClosingParen => [breakClosingParen ? softline : ""],
         shouldCheckJsx: true,
         conditionalNodeType: "ConditionalExpression",
         consequentNodePropertyName: "consequent",
@@ -3562,7 +3560,6 @@ function printPathNoParens(path, options, print, args) {
           " ",
           path.call(print, "extendsType")
         ],
-        afterParts: () => [],
         shouldCheckJsx: false,
         conditionalNodeType: "TSConditionalType",
         consequentNodePropertyName: "trueType",
