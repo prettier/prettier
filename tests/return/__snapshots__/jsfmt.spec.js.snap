@@ -151,3 +151,57 @@ fn(function f() {
 
 ================================================================================
 `;
+
+exports[`conditional.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+function foo (){
+      return (
+          a
+? looooooooooooooooooooooooooooooooooooooooooooooooooong1
+: looooooooooooooooooooooooooooooooooooooooooooooooooong2
+      );
+}
+
+function foo (){
+      return (
+          a
+? looooooooooooooooooooooooooooooooooooooooooooooooooong1
+: looooooooooooooooooooooooooooooooooooooooooooooooooong2
+      ).foo;
+}
+
+function foo (){
+      return (
+          a
+? looooooooooooooooooooooooooooooooooooooooooooooooooong1
+: looooooooooooooooooooooooooooooooooooooooooooooooooong2
+      ).foo();
+}
+
+=====================================output=====================================
+function foo() {
+  return a
+    ? looooooooooooooooooooooooooooooooooooooooooooooooooong1
+    : looooooooooooooooooooooooooooooooooooooooooooooooooong2;
+}
+
+function foo() {
+  return (a
+    ? looooooooooooooooooooooooooooooooooooooooooooooooooong1
+    : looooooooooooooooooooooooooooooooooooooooooooooooooong2
+  ).foo;
+}
+
+function foo() {
+  return (a
+    ? looooooooooooooooooooooooooooooooooooooooooooooooooong1
+    : looooooooooooooooooooooooooooooooooooooooooooooooooong2
+  ).foo();
+}
+
+================================================================================
+`;
