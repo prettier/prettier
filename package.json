@@ -131,6 +131,6 @@
     "spellcheck": "cspell {bin,scripts,src}/**/*.js {docs,website/blog,changelog_unreleased}/**/*.md"
   },
   "resolutions": {
-    "globby/fast-glob": "3.2.0-beta"
+    "globby/fast-glob": "3.2.0-beta.2"
   }
 }
