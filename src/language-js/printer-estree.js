@@ -1744,7 +1744,27 @@ function printPathNoParens(path, options, print, args) {
 
       return group(concat(parts));
     }
-    case "VariableDeclarator":
+    case "VariableDeclarator": {
+      if (
+        n.id.typeAnnotation &&
+        n.id.typeAnnotation.typeAnnotation.type === "TSFunctionType" &&
+        n.init &&
+        n.init.type === "ArrowFunctionExpression"
+      ) {
+        return group(
+          concat([
+            n.id.name,
+            indent(
+              concat([
+                softline,
+                ": ",
+                indent(path.call(print, "id", "typeAnnotation"))
+              ])
+            ),
+            indent(concat([line, "= ", path.call(print, "init")]))
+          ])
+        );
+      }
       return printAssignment(
         n.id,
         path.call(print, "id"),
@@ -1753,6 +1773,7 @@ function printPathNoParens(path, options, print, args) {
         n.init && path.call(print, "init"),
         options
       );
+    }
     case "WithStatement":
       return group(
         concat([
@@ -2729,25 +2750,34 @@ function printPathNoParens(path, options, print, args) {
         parts.push("(");
       }
 
-      parts.push(
-        printFunctionParams(
-          path,
-          print,
-          options,
-          /* expandArg */ false,
-          /* printTypeParams */ true
-        )
+      const fun = path.getValue();
+      const paramsField = fun.parameters ? "parameters" : "params";
+      const printedParams = printFunctionParams(
+        path,
+        print,
+        options,
+        /* expandArg */ false,
+        /* printTypeParams */ true
       );
-
+      parts.push(
+        isArrowFunctionTypeAnnotation && fun[paramsField].length <= 1
+          ? // group parameters to avoid breaking them first
+            group(printedParams)
+          : printedParams
+      );
       // The returnType is not wrapped in a TypeAnnotation, so the colon
       // needs to be added separately.
       if (n.returnType || n.predicate || n.typeAnnotation) {
-        parts.push(
-          isArrowFunctionTypeAnnotation ? " => " : ": ",
+        const typeAnnotation = concat([
           path.call(print, "returnType"),
           path.call(print, "predicate"),
           path.call(print, "typeAnnotation")
-        );
+        ]);
+        if (isArrowFunctionTypeAnnotation) {
+          parts.push(" => ", indent(group(concat([softline, typeAnnotation]))));
+        } else {
+          parts.push(": ", typeAnnotation);
+        }
       }
       if (needsParens) {
         parts.push(")");
