@@ -1,0 +1,131 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`declared-arrow-fn.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const arrFn: (x: string) => (y: number) => (z: boolean) => [string, number, boolean]
+  = (x) => y => z => [x, y, z]
+
+=====================================output=====================================
+const arrFn
+  : (x: string) => (y: number) => (z: boolean) => [string, number, boolean]
+  = x => y => z => [x, y, z];
+
+================================================================================
+`;
+
+exports[`declared-arrow-fn.ts 2`] = `
+====================================options=====================================
+arrowParens: "always"
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const arrFn: (x: string) => (y: number) => (z: boolean) => [string, number, boolean]
+  = (x) => y => z => [x, y, z]
+
+=====================================output=====================================
+const arrFn
+  : (x: string) => (y: number) => (z: boolean) => [string, number, boolean]
+  = (x) => (y) => (z) => [x, y, z];
+
+================================================================================
+`;
+
+exports[`long-type-defn.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const arrFn: (x: SuperLongTypeNameDefinedElseWhere) => (y: AnotherReallyLongTypeName) => (z: ThirdVeryLongAndBoringInterfaceName) => VeryLongReturnTypeValue;
+
+const arrFnWithImpl: (x: SuperLongTypeNameDefinedElseWhere) => (y: AnotherReallyLongTypeName) => (z: ThirdVeryLongAndBoringInterfaceName) => VeryLongReturnTypeValue
+  = (argumentNumberOne) => (argumentNumberTwo) => (argumentNumberThree) =>
+    someVeryVeryVeryLoooooooooongFunctionInvocation(argumentNumberOne, argumentNumberTwo, argumentNumberThree);
+
+const arrFnWithLongerImpl: (x: SuperLongTypeNameDefinedElseWhere) => (y: AnotherReallyLongTypeName) => (z: ThirdVeryLongAndBoringInterfaceName) => VeryLongReturnTypeValue
+  = (argumentNumberOne) => (argumentNumberTwo) => (argumentNumberThreeIsLoooooooooooooooooooooooooooooong) =>
+    someVeryVeryVeryLoooooooooongFunctionInvocation(argumentNumberOne, argumentNumberTwo, argumentNumberThreeIsLoooooooooooooooooooooooooooooong);
+
+=====================================output=====================================
+const arrFn: (x: SuperLongTypeNameDefinedElseWhere) =>
+  (y: AnotherReallyLongTypeName) =>
+    (z: ThirdVeryLongAndBoringInterfaceName) => VeryLongReturnTypeValue;
+
+const arrFnWithImpl
+  : (x: SuperLongTypeNameDefinedElseWhere) =>
+      (y: AnotherReallyLongTypeName) =>
+        (z: ThirdVeryLongAndBoringInterfaceName) => VeryLongReturnTypeValue
+  = argumentNumberOne => argumentNumberTwo => argumentNumberThree =>
+    someVeryVeryVeryLoooooooooongFunctionInvocation(
+      argumentNumberOne,
+      argumentNumberTwo,
+      argumentNumberThree
+    );
+
+const arrFnWithLongerImpl
+  : (x: SuperLongTypeNameDefinedElseWhere) =>
+      (y: AnotherReallyLongTypeName) =>
+        (z: ThirdVeryLongAndBoringInterfaceName) => VeryLongReturnTypeValue
+  = argumentNumberOne => argumentNumberTwo => argumentNumberThreeIsLoooooooooooooooooooooooooooooong =>
+    someVeryVeryVeryLoooooooooongFunctionInvocation(
+      argumentNumberOne,
+      argumentNumberTwo,
+      argumentNumberThreeIsLoooooooooooooooooooooooooooooong
+    );
+
+================================================================================
+`;
+
+exports[`long-type-defn.ts 2`] = `
+====================================options=====================================
+arrowParens: "always"
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const arrFn: (x: SuperLongTypeNameDefinedElseWhere) => (y: AnotherReallyLongTypeName) => (z: ThirdVeryLongAndBoringInterfaceName) => VeryLongReturnTypeValue;
+
+const arrFnWithImpl: (x: SuperLongTypeNameDefinedElseWhere) => (y: AnotherReallyLongTypeName) => (z: ThirdVeryLongAndBoringInterfaceName) => VeryLongReturnTypeValue
+  = (argumentNumberOne) => (argumentNumberTwo) => (argumentNumberThree) =>
+    someVeryVeryVeryLoooooooooongFunctionInvocation(argumentNumberOne, argumentNumberTwo, argumentNumberThree);
+
+const arrFnWithLongerImpl: (x: SuperLongTypeNameDefinedElseWhere) => (y: AnotherReallyLongTypeName) => (z: ThirdVeryLongAndBoringInterfaceName) => VeryLongReturnTypeValue
+  = (argumentNumberOne) => (argumentNumberTwo) => (argumentNumberThreeIsLoooooooooooooooooooooooooooooong) =>
+    someVeryVeryVeryLoooooooooongFunctionInvocation(argumentNumberOne, argumentNumberTwo, argumentNumberThreeIsLoooooooooooooooooooooooooooooong);
+
+=====================================output=====================================
+const arrFn: (x: SuperLongTypeNameDefinedElseWhere) =>
+  (y: AnotherReallyLongTypeName) =>
+    (z: ThirdVeryLongAndBoringInterfaceName) => VeryLongReturnTypeValue;
+
+const arrFnWithImpl
+  : (x: SuperLongTypeNameDefinedElseWhere) =>
+      (y: AnotherReallyLongTypeName) =>
+        (z: ThirdVeryLongAndBoringInterfaceName) => VeryLongReturnTypeValue
+  = (argumentNumberOne) => (argumentNumberTwo) => (argumentNumberThree) =>
+    someVeryVeryVeryLoooooooooongFunctionInvocation(
+      argumentNumberOne,
+      argumentNumberTwo,
+      argumentNumberThree
+    );
+
+const arrFnWithLongerImpl
+  : (x: SuperLongTypeNameDefinedElseWhere) =>
+      (y: AnotherReallyLongTypeName) =>
+        (z: ThirdVeryLongAndBoringInterfaceName) => VeryLongReturnTypeValue
+  = (argumentNumberOne) => (argumentNumberTwo) => (
+    argumentNumberThreeIsLoooooooooooooooooooooooooooooong
+  ) =>
+    someVeryVeryVeryLoooooooooongFunctionInvocation(
+      argumentNumberOne,
+      argumentNumberTwo,
+      argumentNumberThreeIsLoooooooooooooooooooooooooooooong
+    );
+
+================================================================================
+`;
