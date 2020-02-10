@@ -2170,17 +2170,16 @@ co@^4.6.0:
   resolved "https://registry.yarnpkg.com/co/-/co-4.6.0.tgz#6ea6bdf3d853ae54ccb8e47bfa0bf3f9031fb184"
   integrity sha1-bqa989hTrlTMuOR7+gvz+QMfsYQ=
 
-codecov@3.6.4:
-  version "3.6.4"
-  resolved "https://registry.yarnpkg.com/codecov/-/codecov-3.6.4.tgz#c993a58704ad5f15dcdd6aa3c3af22070c69eb18"
-  integrity sha512-R9zEcTR5/IDLepdGUHAkRMZOIKhBE1NRGS1N2H96zhBOskhdW9Q22GtYYyecbZL1aheU00D2F21nNBGRISui0A==
+codecov@3.6.5:
+  version "3.6.5"
+  resolved "https://registry.yarnpkg.com/codecov/-/codecov-3.6.5.tgz#d73ce62e8a021f5249f54b073e6f2d6a513f172a"
+  integrity sha512-v48WuDMUug6JXwmmfsMzhCHRnhUf8O3duqXvltaYJKrO1OekZWpB/eH6iIoaxMl8Qli0+u3OxptdsBOYiD7VAQ==
   dependencies:
     argv "0.0.2"
     ignore-walk "3.0.3"
     js-yaml "3.13.1"
     teeny-request "6.0.1"
     urlgrey "0.4.4"
-    validator "12.2.0"
 
 collapse-white-space@^1.0.2:
   version "1.0.5"
@@ -7939,11 +7938,6 @@ validate-npm-package-license@^3.0.1:
   dependencies:
     spdx-correct "^3.0.0"
     spdx-expression-parse "^3.0.0"
-
-validator@12.2.0:
-  version "12.2.0"
-  resolved "https://registry.yarnpkg.com/validator/-/validator-12.2.0.tgz#660d47e96267033fd070096c3b1a6f2db4380a0a"
-  integrity sha512-jJfE/DW6tIK1Ek8nCfNFqt8Wb3nzMoAbocBF6/Icgg1ZFSBpObdnwVY2jQj6qUqzhx5jc71fpvBWyLGO7Xl+nQ==
 
 verror@1.10.0:
   version "1.10.0"
