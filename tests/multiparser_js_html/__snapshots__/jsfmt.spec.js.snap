@@ -275,6 +275,7 @@ html\`<div style="   color : red;
 \${ foo}:\${bar};
             display    :inline ">
   </div>\`
+
 =====================================output=====================================
 import { LitElement, html } from "@polymer/lit-element";
 
@@ -482,6 +483,7 @@ html\`<div style="   color : red;
 \${ foo}:\${bar};
             display    :inline ">
   </div>\`
+
 =====================================output=====================================
 import { LitElement, html } from "@polymer/lit-element";
 

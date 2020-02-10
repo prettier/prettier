@@ -898,7 +898,7 @@ function printNodeSequence(path, options, print) {
           node.nodes[i].type !== "yaml" &&
           node.nodes[i].type !== "toml"
         ) {
-          parts.push(options.__isHTMLStyleAttribute ? "" : hardline);
+          parts.push(hardline);
         }
       }
     }
