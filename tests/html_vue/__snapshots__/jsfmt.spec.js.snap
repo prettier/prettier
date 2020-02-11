@@ -889,6 +889,8 @@ printWidth: 80
   <legend>{{ $t('package') }}<!-- comment after interpolation --></legend><!-- comment after tag-->
   
   <legend>{{ $t('package') }}</legend><!-- comment after tag -->
+
+  <legend>{{ $t('package') }}<!-- long long long long comment after interpolation --></legend>
 </template>
 
 =====================================output=====================================
@@ -898,6 +900,11 @@ printWidth: 80
 
   <legend>{{ $t("package") }}</legend>
   <!-- comment after tag -->
+
+  <legend>
+    {{ $t("package") }}
+    <!-- long long long long comment after interpolation -->
+  </legend>
 </template>
 
 ================================================================================
@@ -914,6 +921,8 @@ trailingComma: "es5"
   <legend>{{ $t('package') }}<!-- comment after interpolation --></legend><!-- comment after tag-->
   
   <legend>{{ $t('package') }}</legend><!-- comment after tag -->
+
+  <legend>{{ $t('package') }}<!-- long long long long comment after interpolation --></legend>
 </template>
 
 =====================================output=====================================
@@ -923,6 +932,11 @@ trailingComma: "es5"
 
   <legend>{{ $t("package") }}</legend>
   <!-- comment after tag -->
+
+  <legend>
+    {{ $t("package") }}
+    <!-- long long long long comment after interpolation -->
+  </legend>
 </template>
 
 ================================================================================
@@ -939,6 +953,8 @@ semi: false
   <legend>{{ $t('package') }}<!-- comment after interpolation --></legend><!-- comment after tag-->
   
   <legend>{{ $t('package') }}</legend><!-- comment after tag -->
+
+  <legend>{{ $t('package') }}<!-- long long long long comment after interpolation --></legend>
 </template>
 
 =====================================output=====================================
@@ -948,6 +964,11 @@ semi: false
 
   <legend>{{ $t("package") }}</legend>
   <!-- comment after tag -->
+
+  <legend>
+    {{ $t("package") }}
+    <!-- long long long long comment after interpolation -->
+  </legend>
 </template>
 
 ================================================================================
