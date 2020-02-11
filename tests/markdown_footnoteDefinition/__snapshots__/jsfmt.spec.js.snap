@@ -13,7 +13,6 @@ proseWrap: "always"
 
 =====================================output=====================================
 [^hello]:
-
   this is a long long long long long long long long long long long long long
   paragraph.
 
@@ -96,7 +95,6 @@ proseWrap: "always"
 
 =====================================output=====================================
 [^fn1]:
-
   > \`\`\`rs
   > fn main() {
   >     println!("this is some Rust!");
@@ -112,7 +110,6 @@ proseWrap: "always"
   \`\`\`
 
 [^fn2]:
-
   Here is a footnote which includes code. Here is a footnote which includes
   code. Here is a footnote which includes code.
 
@@ -158,7 +155,6 @@ proseWrap: "never"
 
 =====================================output=====================================
 [^fn1]:
-
   > \`\`\`rs
   > fn main() {
   >     println!("this is some Rust!");
@@ -174,7 +170,6 @@ proseWrap: "never"
   \`\`\`
 
 [^fn2]:
-
   Here is a footnote which includes code. Here is a footnote which includes code. Here is a footnote which includes code.
 
   \`\`\`rs
@@ -219,7 +214,6 @@ proseWrap: "preserve"
 
 =====================================output=====================================
 [^fn1]:
-
   > \`\`\`rs
   > fn main() {
   >     println!("this is some Rust!");
@@ -235,7 +229,6 @@ proseWrap: "preserve"
   \`\`\`
 
 [^fn2]:
-
   Here is a footnote which includes code. Here is a footnote which includes code. Here is a footnote which includes code.
 
   \`\`\`rs
@@ -295,13 +288,11 @@ proseWrap: "always"
 [^a]: a
 [^a]: a
 [^a]:
-
   > 123\\
   > 456
 
 [^a]: a
 [^a]:
-
   > 123\\
   > 456
 
@@ -360,13 +351,11 @@ proseWrap: "never"
 [^a]: a
 [^a]: a
 [^a]:
-
   > 123\\
   > 456
 
 [^a]: a
 [^a]:
-
   > 123\\
   > 456
 
@@ -425,13 +414,11 @@ proseWrap: "preserve"
 [^a]: a
 [^a]: a
 [^a]:
-
   > 123\\
   > 456
 
 [^a]: a
 [^a]:
-
   > 123\\
   > 456
 
