@@ -4338,7 +4338,8 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
     typeParams !== "" &&
     parent.type === "TSTypeAliasDeclaration" &&
     fun.typeParameters &&
-    fun.typeParameters.params.length === 1
+    fun.typeParameters.params.length === 1 &&
+    fun.params.length === 1
   ) {
     return indent(
       concat([
