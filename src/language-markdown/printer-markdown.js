@@ -358,24 +358,8 @@ function genericPrint(path, options, print) {
                   " ".repeat(options.tabWidth),
                   printChildren(path, options, print, {
                     processor: (childPath, index) => {
-                      const node = path.getValue();
-                      const isMultilineFootnote =
-                        node.children &&
-                        node.children[0].children &&
-                        node.children[0].children.some(
-                          child => child.value === "\n"
-                        );
-
                       return index === 0
-                        ? isMultilineFootnote
-                          ? group(concat([softline, childPath.call(print)]))
-                          : group(
-                              concat([
-                                softline,
-                                softline,
-                                childPath.call(print)
-                              ])
-                            )
+                        ? group(concat([softline, childPath.call(print)]))
                         : childPath.call(print);
                     }
                   })
