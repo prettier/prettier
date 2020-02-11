@@ -330,8 +330,10 @@ function genericPrint(path, options, print) {
         printClosingTagEnd(node, options)
       ]);
     case "comment": {
+      const openingTagPrefix = printOpeningTagPrefix(node, options);
       return concat([
-        printOpeningTagPrefix(node, options),
+        openingTagPrefix,
+        openingTagPrefix === "}}" && softline,
         concat(
           replaceEndOfLineWith(
             options.originalText.slice(
