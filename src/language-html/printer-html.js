@@ -965,8 +965,11 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
     return printExpand(printImgSrcset(getValue()));
   }
 
-  if (node.fullName === "class") {
-    return printClassNames(getValue());
+  if (node.fullName === "class" && !options.parentParser) {
+    const value = getValue();
+    if (!value.includes("{{")) {
+      return printClassNames(getValue());
+    }
   }
 
   if (options.parser === "vue") {
