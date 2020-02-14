@@ -402,7 +402,7 @@ function createIgnorerFromContextOrDie(context) {
 /**
  * Get stats of a given path.
  * @param {string} filePath The path to target file.
- * @returns {fs.Stats|null} The stats.
+ * @returns {fs.Stats|undefined} The stats.
  * @private
  */
 function statSafeSync(filePath) {
@@ -413,7 +413,6 @@ function statSafeSync(filePath) {
     if (error.code !== "ENOENT") {
       throw error;
     }
-    return null;
   }
 }
 
