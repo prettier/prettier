@@ -427,6 +427,17 @@ function isGlobPattern(pattern) {
 
 const globbyOptions = { dot: true, nodir: true, absolute: true };
 function eachFilename(context, maybePatterns, callback) {
+  const extraPatterns = [
+    // The '!./' globs are due to https://github.com/prettier/prettier/issues/2110
+    ...(context.argv["with-node-modules"] !== true
+      ? ["!**/node_modules/**", "!./node_modules/**"]
+      : []),
+    "!**/.{git,svn,hg}/**",
+    "!./.{git,svn,hg}/**"
+  ];
+
+  const filesInDirectoryPatterns = ["**/*", ...extraPatterns];
+
   let files = [];
   const cwd = process.cwd();
   const patterns = [];
@@ -449,7 +460,7 @@ function eachFilename(context, maybePatterns, callback) {
       isGlobPattern(pattern)
     ) {
       files = files.concat(
-        globby.sync("**/*", {
+        globby.sync(filesInDirectoryPatterns, {
           ...globbyOptions,
           cwd: absolutePath
         })
@@ -467,14 +478,6 @@ function eachFilename(context, maybePatterns, callback) {
     }
   }
 
-  const extraPatterns = [
-    // The '!./' globs are due to https://github.com/prettier/prettier/issues/2110
-    ...(context.argv["with-node-modules"] !== true
-      ? ["!**/node_modules/**", "!./node_modules/**"]
-      : []),
-    "!**/.{git,svn,hg}/**",
-    "!./.{git,svn,hg}/**"
-  ];
   if (patterns.length > 0) {
     try {
       files = files.concat(
