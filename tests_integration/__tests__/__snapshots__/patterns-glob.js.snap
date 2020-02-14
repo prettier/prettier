@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fixtures-1: Should match all files (stderr) 1`] = `""`;
+
+exports[`fixtures-1: Should match all files (stdout) 1`] = `
+"!file.js
+a.js
+b.js
+"
+`;
+
+exports[`fixtures-1: Should match all files (write) 1`] = `Array []`;
+
+exports[`fixtures-1: Should match files except \`a.js\` (stderr) 1`] = `""`;
+
+exports[`fixtures-1: Should match files except \`a.js\` (stdout) 1`] = `
+"!file.js
+b.js
+"
+`;
+
+exports[`fixtures-1: Should match files except \`a.js\` (write) 1`] = `Array []`;
+
+exports[`fixtures-2: Should match all files (stderr) 1`] = `""`;
+
+exports[`fixtures-2: Should match all files (stdout) 1`] = `
+"!b.js
+!dir.js/1.css
+!dir.js/2.css
+a.js
+"
+`;
+
+exports[`fixtures-2: Should match all files (write) 1`] = `Array []`;
+
+exports[`fixtures-2: Should not match any css file (stderr) 1`] = `""`;
+
+exports[`fixtures-2: Should not match any css file (stdout) 1`] = `
+"!b.js
+a.js
+"
+`;
+
+exports[`fixtures-2: Should not match any css file (write) 1`] = `Array []`;
+
+exports[`fixtures-2: Should only match \`!b.js\` (stderr) 1`] = `""`;
+
+exports[`fixtures-2: Should only match \`!b.js\` (stdout) 1`] = `
+"!b.js
+"
+`;
+
+exports[`fixtures-2: Should only match \`!b.js\` (write) 1`] = `Array []`;

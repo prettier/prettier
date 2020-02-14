@@ -5,12 +5,14 @@ const camelCase = require("camelcase");
 const dashify = require("dashify");
 const fs = require("fs");
 const globby = require("globby");
+const isGlob = require("is-glob");
 const chalk = require("chalk");
 const readline = require("readline");
 const stringify = require("json-stable-stringify");
 const fromPairs = require("lodash/fromPairs");
 const pick = require("lodash/pick");
 const groupBy = require("lodash/groupBy");
+const uniq = require("lodash/uniq");
 
 const minimist = require("./minimist");
 const prettier = require("../../index");
@@ -397,33 +399,114 @@ function createIgnorerFromContextOrDie(context) {
   }
 }
 
-function eachFilename(context, patterns, callback) {
-  // The '!./' globs are due to https://github.com/prettier/prettier/issues/2110
-  const ignoreNodeModules = context.argv["with-node-modules"] !== true;
-  if (ignoreNodeModules) {
-    patterns = patterns.concat(["!**/node_modules/**", "!./node_modules/**"]);
-  }
-  patterns = patterns.concat(["!**/.{git,svn,hg}/**", "!./.{git,svn,hg}/**"]);
-
+/**
+ * Get stats of a given path.
+ * @param {string} filePath The path to target file.
+ * @returns {fs.Stats|null} The stats.
+ * @private
+ */
+function statSafeSync(filePath) {
   try {
-    const filePaths = globby
-      .sync(patterns, { dot: true, nodir: true })
-      .map(filePath => path.relative(process.cwd(), filePath));
-
-    if (filePaths.length === 0) {
-      context.logger.error(
-        `No matching files. Patterns tried: ${patterns.join(" ")}`
-      );
-      process.exitCode = 2;
-      return;
-    }
-    filePaths.forEach(filePath => callback(filePath));
+    return fs.statSync(filePath);
   } catch (error) {
+    /* istanbul ignore next */
+    if (error.code !== "ENOENT") {
+      throw error;
+    }
+    return null;
+  }
+}
+
+/**
+ * Check if a string is a glob pattern or not.
+ * @param {string} pattern A glob pattern.
+ * @returns {boolean} `true` if the string is a glob pattern.
+ */
+function isGlobPattern(pattern) {
+  return isGlob(path.sep === "\\" ? pattern.replace(/\\/gu, "/") : pattern);
+}
+
+const globbyOptions = { dot: true, nodir: true, absolute: true };
+function eachFilename(context, maybePatterns, callback) {
+  let files = [];
+  const cwd = process.cwd();
+  const patterns = [];
+
+  for (const pattern of maybePatterns) {
+    const absolutePath = path.resolve(cwd, pattern);
+    const stat = statSafeSync(absolutePath);
+
+    if (
+      stat &&
+      stat.isDirectory() &&
+      // `dot pattern` and `expand directories` support need handle differently
+      // for backward compatibility reason only expand `directories` like a glob pattern
+      // see https://github.com/prettier/prettier/pull/6639#issuecomment-548949954
+      isGlobPattern(pattern)
+    ) {
+      files = files.concat(
+        globby.sync("**/*", {
+          ...globbyOptions,
+          cwd: absolutePath
+        })
+      );
+      continue;
+    }
+
+    if (stat && stat.isFile()) {
+      files.push(absolutePath);
+      continue;
+    }
+
+    if (isGlobPattern(pattern)) {
+      patterns.push(pattern);
+    }
+  }
+
+  const extraPatterns = [
+    // The '!./' globs are due to https://github.com/prettier/prettier/issues/2110
+    ...(context.argv["with-node-modules"] !== true
+      ? ["!**/node_modules/**", "!./node_modules/**"]
+      : []),
+    "!**/.{git,svn,hg}/**",
+    "!./.{git,svn,hg}/**"
+  ];
+  if (patterns.length > 0) {
+    try {
+      files = files.concat(
+        globby.sync([...patterns, ...extraPatterns], globbyOptions)
+      );
+    } catch (error) {
+      context.logger.error(
+        `Unable to expand glob patterns: ${[
+          ...maybePatterns,
+          ...extraPatterns
+        ].join(" ")}\n${error.message}`
+      );
+      // Don't exit the process if one pattern failed
+      process.exitCode = 2;
+    }
+  }
+
+  if (files.length === 0) {
     context.logger.error(
-      `Unable to expand glob patterns: ${patterns.join(" ")}\n${error.message}`
+      `No matching files. Patterns tried: ${[
+        ...maybePatterns,
+        ...extraPatterns
+      ].join(" ")}`
     );
-    // Don't exit the process if one pattern failed
     process.exitCode = 2;
+    return;
+  }
+  files = uniq(
+    files
+      // keeping file orders for backward compatibility
+      .sort((a, b) => a.localeCompare(b))
+      .map(file => path.relative(process.cwd(), file))
+  );
+
+  for (const file of files) {
+    callback(file);
   }
 }
 
