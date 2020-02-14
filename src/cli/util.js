@@ -436,7 +436,7 @@ function eachFilename(context, maybePatterns, callback) {
     const stat = statSafeSync(absolutePath);
 
     // Ignores files in version control systems
-    if (/(^|[\\/])\.(?:git|svn|hg)([\\/]|$)/.test(absolutePath)) {
+    if (/(?:^|[\\/])\.(?:git|svn|hg)(?:[\\/]|$)/.test(absolutePath)) {
       continue;
     }
 
