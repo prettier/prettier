@@ -102,7 +102,7 @@ function genericPrint(path, options, print) {
       const nodes = printNodeSequence(path, options, print);
 
       if (nodes.parts.length) {
-        return concat([nodes, hardline]);
+        return concat([nodes, options.__isHTMLStyleAttribute ? "" : hardline]);
       }
 
       return nodes;
@@ -888,7 +888,7 @@ function printNodeSequence(path, options, print) {
       ) {
         parts.push(" ");
       } else {
-        parts.push(hardline);
+        parts.push(options.__isHTMLStyleAttribute ? line : hardline);
         if (
           isNextLineEmpty(
             options.originalText,
