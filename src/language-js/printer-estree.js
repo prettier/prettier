@@ -6181,14 +6181,14 @@ function shouldPrintArrowFunctionBodyOnSameLine(path, options) {
         "Property",
         "ObjectExpression",
         "ArrayExpression",
-        "ReturnStatement",
-        // "CallExpression",
-        // "OptionalCallExpression",
+        "ReturnStatement"
       ].includes(parent.type)
     ) {
       return true;
     }
   }
+
+  return false;
 }
 
 module.exports = {
