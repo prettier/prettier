@@ -76,3 +76,13 @@ const closingScriptTagShouldBeEscapedProperly = /* HTML */ `
 `;
 
 const closingScriptTag2 = /* HTML */ `<script>const  scriptTag='<\\/script>'; <\/script>`;
+
+class Foo {
+  render() {
+    html`<div       > this should be pretty </div     >`;
+    this.html`<div       > this should be pretty </div     >`;
+    this['html']`<div       > this should be ugly </div     >`;
+    this[html]`<div       > this should be ugly </div     >`;
+    foo.html`<div       > this should be ugly </div     >`;
+  }
+}

@@ -530,9 +530,16 @@ function hasLanguageComment(node, languageName) {
 }
 
 /**
- *     - html`...`
+ *     - html`...` / this.html`...`
  *     - HTML comment block
  */
+const isIdentifierNamed = (node, name) =>
+  node.type === "Identifier" && node.name === name;
+const isThisMethodNamed = (node, name) =>
+  node.type === "MemberExpression" &&
+  !node.computed &&
+  node.object.type === "ThisExpression" &&
+  isIdentifierNamed(node.property, name);
 function isHtml(path) {
   return (
     hasLanguageComment(path.getValue(), "HTML") ||
@@ -540,8 +547,8 @@ function isHtml(path) {
       node => node.type === "TemplateLiteral",
       (node, name) =>
         node.type === "TaggedTemplateExpression" &&
-        node.tag.type === "Identifier" &&
-        node.tag.name === "html" &&
+        (isIdentifierNamed(node.tag, "html") ||
+          isThisMethodNamed(node.tag, "html")) &&
         name === "quasi"
     )
   );
