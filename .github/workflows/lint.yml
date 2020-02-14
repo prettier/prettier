@@ -24,7 +24,7 @@ jobs:
         run: yarn lint:deps
 
       - name: Check JSDoc types
-        run: yarn lint:types
+        run: yarn lint:typecheck
 
       - name: Lint code
         run: yarn lint:eslint
