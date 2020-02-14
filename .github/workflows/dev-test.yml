@@ -15,19 +15,10 @@ jobs:
           - "13"
           - "12"
           - "10"
-        exclude:
-          - os: "macos-latest"
-            node: "13"
-          - os: "macos-latest"
-            node: "12"
-          - os: "windows-latest"
-            node: "13"
-          - os: "windows-latest"
-            node: "12"
         include:
           # only enable coverage on the fastest job
           - os: "macos-latest"
-            node: "10"
+            node: "12"
             ENABLE_CODE_COVERAGE: "true"
     env:
       ENABLE_CODE_COVERAGE: ${{ matrix.ENABLE_CODE_COVERAGE }}
@@ -50,13 +41,13 @@ jobs:
       - name: Run Tests
         run: yarn test
 
-      - name: Upload Coverage To Codecov
-        uses: codecov/codecov-action@v1
-        if: matrix.ENABLE_CODE_COVERAGE
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          file: ./coverage/cobertura-coverage.xml
-          fail_ci_if_error: true
+      # - name: Upload Coverage To Codecov
+      #   uses: codecov/codecov-action@v1
+      #   if: matrix.ENABLE_CODE_COVERAGE
+      #   with:
+      #     token: ${{ secrets.CODECOV_TOKEN }}
+      #     file: ./coverage/cobertura-coverage.xml
+      #     fail_ci_if_error: true
 
       - name: Upload Coverage To Coveralls
         uses: coverallsapp/github-action@master
