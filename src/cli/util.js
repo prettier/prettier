@@ -459,12 +459,13 @@ function eachFilename(context, maybePatterns, callback) {
       // see https://github.com/prettier/prettier/pull/6639#issuecomment-548949954
       isGlobPattern(pattern)
     ) {
-      files = files.concat(
-        globby.sync(filesInDirectoryPatterns, {
+      files = [
+        ...files,
+        ...globby.sync(filesInDirectoryPatterns, {
           ...globbyOptions,
           cwd: absolutePath
         })
-      );
+      ];
       continue;
     }
 
@@ -480,9 +481,10 @@ function eachFilename(context, maybePatterns, callback) {
 
   if (patterns.length > 0) {
     try {
-      files = files.concat(
-        globby.sync([...patterns, ...extraPatterns], globbyOptions)
-      );
+      files = [
+        ...files,
+        ...globby.sync([...patterns, ...extraPatterns], globbyOptions)
+      ];
     } catch (error) {
       context.logger.error(
         `Unable to expand glob patterns: ${[
