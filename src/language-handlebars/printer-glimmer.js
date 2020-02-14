@@ -213,7 +213,14 @@ function print(path, options, print) {
     }
     case "AttrNode": {
       const isText = n.value.type === "TextNode";
-      if (isText && n.value.loc.start.column === n.value.loc.end.column) {
+      const isEmptyText = isText && n.value.chars === "";
+
+      // If the text is empty and the value's loc start and end columns are the
+      // same, there is no value for this AttrNode and it should be printed
+      // without the `=""`. Example: `<img data-test>` -> `<img data-test>`
+      const isEmptyValue =
+        isEmptyText && n.value.loc.start.column === n.value.loc.end.column;
+      if (isEmptyValue) {
         return concat([n.name]);
       }
       const value = path.call(print, "value");

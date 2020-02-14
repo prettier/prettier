@@ -4753,7 +4753,7 @@ can be found in the LICENSE file at http://angular.io/license
 <div id="two-way-1">
   <app-sizer [(size)]="fontSizePx"></app-sizer>
   <div [style.font-size.px]="fontSizePx">Resizable Text</div>
-  <label>FontSize (px): <input [(ngModel)]="fontSizePx"/></label>
+  <label>FontSize (px): <input [(ngModel)]="fontSizePx" /></label>
 </div>
 <br />
 <div id="two-way-2">
@@ -4807,7 +4807,7 @@ bindon-ngModel
 
 <!-- not used in chapter -->
 <br />
-<label>saveable <input type="checkbox" [(ngModel)]="canSave"/></label> |
+<label>saveable <input type="checkbox" [(ngModel)]="canSave" /></label> |
 <label
   >modified:
   <input
@@ -4816,7 +4816,7 @@ bindon-ngModel
     (change)="isUnchanged = !isUnchanged"
 /></label>
 |
-<label>special: <input type="checkbox" [(ngModel)]="isSpecial"/></label>
+<label>special: <input type="checkbox" [(ngModel)]="isSpecial" /></label>
 <button (click)="setCurrentClasses()">Refresh currentClasses</button>
 <br /><br />
 <div [ngClass]="currentClasses">
@@ -4849,9 +4849,9 @@ bindon-ngModel
 
 <!-- not used in chapter -->
 <br />
-<label>italic: <input type="checkbox" [(ngModel)]="canSave"/></label> |
-<label>normal: <input type="checkbox" [(ngModel)]="isUnchanged"/></label> |
-<label>xlarge: <input type="checkbox" [(ngModel)]="isSpecial"/></label>
+<label>italic: <input type="checkbox" [(ngModel)]="canSave" /></label> |
+<label>normal: <input type="checkbox" [(ngModel)]="isUnchanged" /></label> |
+<label>xlarge: <input type="checkbox" [(ngModel)]="isSpecial" /></label>
 <button (click)="setCurrentStyles()">Refresh currentStyles</button>
 <br /><br />
 <div [ngStyle]="currentStyles">
@@ -6281,7 +6281,7 @@ can be found in the LICENSE file at http://angular.io/license
 <div id="two-way-1">
   <app-sizer [(size)]="fontSizePx"></app-sizer>
   <div [style.font-size.px]="fontSizePx">Resizable Text</div>
-  <label>FontSize (px): <input [(ngModel)]="fontSizePx"/></label>
+  <label>FontSize (px): <input [(ngModel)]="fontSizePx" /></label>
 </div>
 <br />
 <div id="two-way-2">
@@ -6335,7 +6335,7 @@ bindon-ngModel
 
 <!-- not used in chapter -->
 <br />
-<label>saveable <input type="checkbox" [(ngModel)]="canSave"/></label> |
+<label>saveable <input type="checkbox" [(ngModel)]="canSave" /></label> |
 <label
   >modified:
   <input
@@ -6344,7 +6344,7 @@ bindon-ngModel
     (change)="isUnchanged = !isUnchanged"
 /></label>
 |
-<label>special: <input type="checkbox" [(ngModel)]="isSpecial"/></label>
+<label>special: <input type="checkbox" [(ngModel)]="isSpecial" /></label>
 <button (click)="setCurrentClasses()">Refresh currentClasses</button>
 <br /><br />
 <div [ngClass]="currentClasses">
@@ -6377,9 +6377,9 @@ bindon-ngModel
 
 <!-- not used in chapter -->
 <br />
-<label>italic: <input type="checkbox" [(ngModel)]="canSave"/></label> |
-<label>normal: <input type="checkbox" [(ngModel)]="isUnchanged"/></label> |
-<label>xlarge: <input type="checkbox" [(ngModel)]="isSpecial"/></label>
+<label>italic: <input type="checkbox" [(ngModel)]="canSave" /></label> |
+<label>normal: <input type="checkbox" [(ngModel)]="isUnchanged" /></label> |
+<label>xlarge: <input type="checkbox" [(ngModel)]="isSpecial" /></label>
 <button (click)="setCurrentStyles()">Refresh currentStyles</button>
 <br /><br />
 <div [ngStyle]="currentStyles">
@@ -12888,7 +12888,7 @@ can be found in the LICENSE file at http://angular.io/license
 <div id="two-way-1">
   <app-sizer [(size)]="fontSizePx"></app-sizer>
   <div [style.font-size.px]="fontSizePx">Resizable Text</div>
-  <label>FontSize (px): <input [(ngModel)]="fontSizePx"/></label>
+  <label>FontSize (px): <input [(ngModel)]="fontSizePx" /></label>
 </div>
 <br />
 <div id="two-way-2">
@@ -12942,7 +12942,7 @@ bindon-ngModel
 
 <!-- not used in chapter -->
 <br />
-<label>saveable <input type="checkbox" [(ngModel)]="canSave"/></label> |
+<label>saveable <input type="checkbox" [(ngModel)]="canSave" /></label> |
 <label
   >modified:
   <input
@@ -12951,7 +12951,7 @@ bindon-ngModel
     (change)="isUnchanged = !isUnchanged"
 /></label>
 |
-<label>special: <input type="checkbox" [(ngModel)]="isSpecial"/></label>
+<label>special: <input type="checkbox" [(ngModel)]="isSpecial" /></label>
 <button (click)="setCurrentClasses()">Refresh currentClasses</button>
 <br /><br />
 <div [ngClass]="currentClasses">
@@ -12984,9 +12984,9 @@ bindon-ngModel
 
 <!-- not used in chapter -->
 <br />
-<label>italic: <input type="checkbox" [(ngModel)]="canSave"/></label> |
-<label>normal: <input type="checkbox" [(ngModel)]="isUnchanged"/></label> |
-<label>xlarge: <input type="checkbox" [(ngModel)]="isSpecial"/></label>
+<label>italic: <input type="checkbox" [(ngModel)]="canSave" /></label> |
+<label>normal: <input type="checkbox" [(ngModel)]="isUnchanged" /></label> |
+<label>xlarge: <input type="checkbox" [(ngModel)]="isSpecial" /></label>
 <button (click)="setCurrentStyles()">Refresh currentStyles</button>
 <br /><br />
 <div [ngStyle]="currentStyles">
