@@ -59,7 +59,7 @@ trailingComma: "none"
     v-for="n in 10"
     v-for="{ a } in [0].map(() => ({ a: 1 }))"
     v-for="({ a }, [c]) in [0].map(() => 1)"
-    v-for="n in items.map(x => {
+    v-for="n in items.map((x) => {
       return x;
     })"
     @click="/* hello */"
@@ -167,7 +167,7 @@ printWidth: 80
     v-for="n in 10"
     v-for="{ a } in [0].map(() => ({ a: 1 }))"
     v-for="({ a }, [c]) in [0].map(() => 1)"
-    v-for="n in items.map(x => {
+    v-for="n in items.map((x) => {
       return x;
     })"
     @click="/* hello */"
@@ -276,7 +276,7 @@ semi: false
     v-for="n in 10"
     v-for="{ a } in [0].map(() => ({ a: 1 }))"
     v-for="({ a }, [c]) in [0].map(() => 1)"
-    v-for="n in items.map(x => {
+    v-for="n in items.map((x) => {
       return x
     })"
     @click="/* hello */"
@@ -968,6 +968,227 @@ semi: false
 ================================================================================
 `;
 
+exports[`expression-binding.vue 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+<!-- #7396 -->
+<template>
+<MyComponent :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"/>
+</template>
+<template>
+<MyComponent :attr="\`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
++\`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`"/>
+</template>
+<template>
+<MyComponent :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo +               bar} template literal value\`"/>
+</template>
+<template>
+<MyComponent :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"/>
+</template>
+<template>
+<MyComponent :src="'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' + 'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'"/>
+</template>
+<template>
+<MyComponent :src="100000000000000000000000000000000000000000000000000000000000000000000000000"/>
+</template>
+
+=====================================output=====================================
+<!-- #7396 -->
+<template>
+  <MyComponent
+    :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"
+  />
+</template>
+<template>
+  <MyComponent
+    :attr="
+      \`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\` +
+        \`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
+    "
+  />
+</template>
+<template>
+  <MyComponent
+    :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${
+      foo + bar
+    } template literal value\`"
+  />
+</template>
+<template>
+  <MyComponent
+    :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"
+  />
+</template>
+<template>
+  <MyComponent
+    :src="
+      'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' +
+        'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'
+    "
+  />
+</template>
+<template>
+  <MyComponent
+    :src="
+      100000000000000000000000000000000000000000000000000000000000000000000000000
+    "
+  />
+</template>
+
+================================================================================
+`;
+
+exports[`expression-binding.vue 2`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<!-- #7396 -->
+<template>
+<MyComponent :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"/>
+</template>
+<template>
+<MyComponent :attr="\`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
++\`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`"/>
+</template>
+<template>
+<MyComponent :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo +               bar} template literal value\`"/>
+</template>
+<template>
+<MyComponent :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"/>
+</template>
+<template>
+<MyComponent :src="'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' + 'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'"/>
+</template>
+<template>
+<MyComponent :src="100000000000000000000000000000000000000000000000000000000000000000000000000"/>
+</template>
+
+=====================================output=====================================
+<!-- #7396 -->
+<template>
+  <MyComponent
+    :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"
+  />
+</template>
+<template>
+  <MyComponent
+    :attr="
+      \`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\` +
+        \`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
+    "
+  />
+</template>
+<template>
+  <MyComponent
+    :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${
+      foo + bar
+    } template literal value\`"
+  />
+</template>
+<template>
+  <MyComponent
+    :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"
+  />
+</template>
+<template>
+  <MyComponent
+    :src="
+      'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' +
+        'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'
+    "
+  />
+</template>
+<template>
+  <MyComponent
+    :src="
+      100000000000000000000000000000000000000000000000000000000000000000000000000
+    "
+  />
+</template>
+
+================================================================================
+`;
+
+exports[`expression-binding.vue 3`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+<!-- #7396 -->
+<template>
+<MyComponent :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"/>
+</template>
+<template>
+<MyComponent :attr="\`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
++\`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`"/>
+</template>
+<template>
+<MyComponent :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo +               bar} template literal value\`"/>
+</template>
+<template>
+<MyComponent :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"/>
+</template>
+<template>
+<MyComponent :src="'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' + 'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'"/>
+</template>
+<template>
+<MyComponent :src="100000000000000000000000000000000000000000000000000000000000000000000000000"/>
+</template>
+
+=====================================output=====================================
+<!-- #7396 -->
+<template>
+  <MyComponent
+    :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"
+  />
+</template>
+<template>
+  <MyComponent
+    :attr="
+      \`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\` +
+        \`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
+    "
+  />
+</template>
+<template>
+  <MyComponent
+    :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${
+      foo + bar
+    } template literal value\`"
+  />
+</template>
+<template>
+  <MyComponent
+    :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"
+  />
+</template>
+<template>
+  <MyComponent
+    :src="
+      'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' +
+        'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'
+    "
+  />
+</template>
+<template>
+  <MyComponent
+    :src="
+      100000000000000000000000000000000000000000000000000000000000000000000000000
+    "
+  />
+</template>
+
+================================================================================
+`;
+
 exports[`filter.vue 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
@@ -1211,7 +1432,7 @@ x => {
 <template>
   <div>
     Fuga magnam facilis. Voluptatem quaerat porro.{{
-      x => {
+      (x) => {
         const hello = "world";
         return hello;
       }
@@ -1341,7 +1562,7 @@ x => {
 <template>
   <div>
     Fuga magnam facilis. Voluptatem quaerat porro.{{
-      x => {
+      (x) => {
         const hello = "world";
         return hello;
       }
@@ -1472,7 +1693,7 @@ x => {
 <template>
   <div>
     Fuga magnam facilis. Voluptatem quaerat porro.{{
-      x => {
+      (x) => {
         const hello = "world"
         return hello
       }

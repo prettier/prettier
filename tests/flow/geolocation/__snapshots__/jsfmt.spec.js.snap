@@ -32,11 +32,11 @@ geolocation.clearWatch(id);
 
 var geolocation = new Geolocation();
 var id = geolocation.watchPosition(
-  position => {
+  (position) => {
     var coords: Coordinates = position.coords;
     var accuracy: number = coords.accuracy;
   },
-  e => {
+  (e) => {
     var message: string = e.message;
     switch (e.code) {
       case e.PERMISSION_DENIED:

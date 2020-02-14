@@ -29,8 +29,8 @@ jobs:
       - name: Lint Code
         run: yarn lint
 
-      - name: Lint Docs
-        run: yarn lint-docs
+      - name: Lint prettier
+        run: yarn lint-prettier
 
       - name: Spellcheck
         run: yarn spellcheck
@@ -40,4 +40,3 @@ jobs:
 
       - name: Check File Changes
         run: yarn && echo "Listing changed files:" && git diff --name-only --exit-code && echo "No files changed during lint."
-

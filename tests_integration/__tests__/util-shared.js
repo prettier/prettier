@@ -24,7 +24,6 @@ test("shared util has correct structure", () => {
   expect(typeof sharedUtil.getNextNonSpaceNonCommentCharacterIndex).toEqual(
     "function"
   );
-  expect(typeof sharedUtil.mapDoc).toEqual("function");
   expect(typeof sharedUtil.makeString).toEqual("function");
 });
 

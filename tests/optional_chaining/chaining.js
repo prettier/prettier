@@ -38,6 +38,8 @@ a?.[b?.c]?.d();
 
 (one?.fn());
 (one?.two).fn();
+(one?.two)();
+(one?.two())();
 (one.two?.fn());
 (one.two?.three).fn();
 (one.two?.three?.fn());
@@ -75,3 +77,7 @@ a = () => ({}?.b() && a);
 (x) => ({}?.b.b);
 ({}?.a().b());
 ({ a: 1 }?.entries());
+
+new (foo?.bar)();
+new (foo?.bar())();
+new (foo?.())();

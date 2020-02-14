@@ -4576,7 +4576,7 @@ let // Comment
 
 const foo3 = 123;
 // Nothing to see here.
-["2", "3"].forEach(x => console.log(x));
+["2", "3"].forEach((x) => console.log(x));
 
 ================================================================================
 `;
@@ -4727,7 +4727,7 @@ let // Comment
 
 const foo3 = 123
 // Nothing to see here.
-;["2", "3"].forEach(x => console.log(x))
+;["2", "3"].forEach((x) => console.log(x))
 
 ================================================================================
 `;

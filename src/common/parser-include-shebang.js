@@ -12,7 +12,6 @@ function includeShebang(text, ast) {
     value: shebang,
     range: [0, index],
     loc: {
-      source: null,
       start: {
         line: 1,
         column: 0

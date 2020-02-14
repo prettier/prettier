@@ -40,7 +40,7 @@ Button.propTypes = {
 function Tidelift() {
   return (
     <a className="tidelift" href={siteConfig.tideliftUrl}>
-      GET PROFESSIONALLY SUPPORTED PRETTIER
+      PRETTIER FOR ENTERPRISE
     </a>
   );
 }
@@ -298,7 +298,7 @@ class GetStartedSection extends React.Component {
                   </div>
                 </li>
                 <li>
-                  Run prettier when commiting files:
+                  Run prettier when committing files:
                   <div className="yarnOnly">
                     <MarkdownBlock>
                       {bash`yarn add pretty-quick husky --dev`}

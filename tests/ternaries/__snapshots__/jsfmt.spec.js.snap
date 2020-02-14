@@ -1713,8 +1713,8 @@ a
 =====================================output=====================================
 let icecream =
   what == "cone"
-    ? p => (!!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`)
-    : p => \`here's your \${p} \${what}\`;
+    ? (p) => (!!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`)
+    : (p) => \`here's your \${p} \${what}\`;
 
 const value = condition1
   ? value1
@@ -1917,8 +1917,8 @@ a
 =====================================output=====================================
 let icecream =
     what == "cone"
-        ? p => (!!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`)
-        : p => \`here's your \${p} \${what}\`;
+        ? (p) => (!!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`)
+        : (p) => \`here's your \${p} \${what}\`;
 
 const value = condition1
     ? value1
@@ -2121,8 +2121,8 @@ a
 =====================================output=====================================
 let icecream =
 	what == "cone"
-		? p => (!!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`)
-		: p => \`here's your \${p} \${what}\`;
+		? (p) => (!!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`)
+		: (p) => \`here's your \${p} \${what}\`;
 
 const value = condition1
 	? value1
@@ -2326,8 +2326,8 @@ a
 =====================================output=====================================
 let icecream =
 	what == "cone"
-		? p => (!!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`)
-		: p => \`here's your \${p} \${what}\`;
+		? (p) => (!!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`)
+		: (p) => \`here's your \${p} \${what}\`;
 
 const value = condition1
 	? value1
@@ -2801,7 +2801,7 @@ debug
     : "hidden"
   : null;
 
-a =>
+(a) =>
   a
     ? () => {
         a;
@@ -2809,8 +2809,8 @@ a =>
     : () => {
         a;
       };
-a => (a ? a : a);
-a =>
+(a) => (a ? a : a);
+(a) =>
   a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a;
 
 ================================================================================
@@ -2838,7 +2838,7 @@ debug
         : "hidden"
     : null;
 
-a =>
+(a) =>
     a
         ? () => {
               a;
@@ -2846,8 +2846,8 @@ a =>
         : () => {
               a;
           };
-a => (a ? a : a);
-a =>
+(a) => (a ? a : a);
+(a) =>
     a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a;
 
 ================================================================================
@@ -2875,7 +2875,7 @@ debug
 		: "hidden"
 	: null;
 
-a =>
+(a) =>
 	a
 		? () => {
 				a;
@@ -2883,8 +2883,8 @@ a =>
 		: () => {
 				a;
 		  };
-a => (a ? a : a);
-a =>
+(a) => (a ? a : a);
+(a) =>
 	a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a;
 
 ================================================================================
@@ -2913,7 +2913,7 @@ debug
 		: "hidden"
 	: null;
 
-a =>
+(a) =>
 	a
 		? () => {
 				a;
@@ -2921,8 +2921,8 @@ a =>
 		: () => {
 				a;
 		  };
-a => (a ? a : a);
-a =>
+(a) => (a ? a : a);
+(a) =>
 	a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a;
 
 ================================================================================
