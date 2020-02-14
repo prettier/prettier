@@ -171,26 +171,23 @@ const myCurriedFn
 const myCurriedFn2
   : (longNameFirstArgument: LongFirstType) =>
       (longNameSecondArgument: LongSecondType) =>
-        (longNameThirdArgument: LongThirdType) =>
-          LongReturnType
+        (longNameThirdArgument: LongThirdType) => LongReturnType
   = a => b => c => a + b + c;
 
 const myCurriedFn3
   : (longNameFirstArgument: LongFirstType) =>
       (longNameSecondArgument: LongSecondType) =>
-        (longNameThirdArgument: LongThirdType) =>
-          LongReturnType
+        (longNameThirdArgument: LongThirdType) => LongReturnType
   = longFirstParameter => longSecondParameter => longThirdParameter =>
     longFirstParameter + longSecondParameter + longThirdParameter;
 
 const myCurriedFn4
   : (longNameFirstArgument: LongFirstType) =>
       (longNameSecondArgument: LongSecondType) =>
-        (longNameThirdArgument: LongThirdType) =>
-          LongReturnType
-  = (longFirstParameter: LongFirstType) =>
-    (longSecondParameter: LongSecondType) =>
-    (longThirdParameter: LongThirdType): LongReturnType =>
+        (longNameThirdArgument: LongThirdType) => LongReturnType
+  = (longFirstParameter: LongFirstType) => (
+    longSecondParameter: LongSecondType
+  ) => (longThirdParameter: LongThirdType): LongReturnType =>
     longFirstParameter + longSecondParameter + longThirdParameter;
 
 ================================================================================
@@ -238,26 +235,23 @@ const myCurriedFn
 const myCurriedFn2
   : (longNameFirstArgument: LongFirstType) =>
       (longNameSecondArgument: LongSecondType) =>
-        (longNameThirdArgument: LongThirdType) =>
-          LongReturnType
+        (longNameThirdArgument: LongThirdType) => LongReturnType
   = (a) => (b) => (c) => a + b + c;
 
 const myCurriedFn3
   : (longNameFirstArgument: LongFirstType) =>
       (longNameSecondArgument: LongSecondType) =>
-        (longNameThirdArgument: LongThirdType) =>
-          LongReturnType
+        (longNameThirdArgument: LongThirdType) => LongReturnType
   = (longFirstParameter) => (longSecondParameter) => (longThirdParameter) =>
     longFirstParameter + longSecondParameter + longThirdParameter;
 
 const myCurriedFn4
   : (longNameFirstArgument: LongFirstType) =>
       (longNameSecondArgument: LongSecondType) =>
-        (longNameThirdArgument: LongThirdType) =>
-          LongReturnType
-  = (longFirstParameter: LongFirstType) =>
-    (longSecondParameter: LongSecondType) =>
-    (longThirdParameter: LongThirdType): LongReturnType =>
+        (longNameThirdArgument: LongThirdType) => LongReturnType
+  = (longFirstParameter: LongFirstType) => (
+    longSecondParameter: LongSecondType
+  ) => (longThirdParameter: LongThirdType): LongReturnType =>
     longFirstParameter + longSecondParameter + longThirdParameter;
 
 ================================================================================
