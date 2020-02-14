@@ -21,22 +21,22 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Check Dependencies
-        run: yarn check-deps
+        run: yarn lint:deps
 
       - name: Check JSDoc Types
-        run: yarn check-types
+        run: yarn lint:typecheck
 
       - name: Lint Code
-        run: yarn lint
+        run: yarn lint:eslint
 
       - name: Lint Prettier
-        run: yarn lint-prettier
+        run: yarn lint:prettier
 
       - name: Spellcheck
-        run: yarn spellcheck
+        run: yarn lint:spellcheck
 
       - name: Lint Changelog
-        run: yarn lint-changelog
+        run: yarn lint:changelog
 
       - name: Check File Changes
         run: yarn && echo "Listing changed files:" && git diff --name-only --exit-code && echo "No files changed during lint."
