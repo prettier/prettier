@@ -497,12 +497,9 @@ function eachFilename(context, maybePatterns, callback) {
     process.exitCode = 2;
     return;
   }
-  files = uniq(
-    files
-      // keeping file orders for backward compatibility
-      .sort((a, b) => a.localeCompare(b))
-      .map(file => path.relative(process.cwd(), file))
-  );
+  files = uniq(files.map(file => path.relative(process.cwd(), file)))
+    // keeping file orders for backward compatibility
+    .sort((a, b) => a.localeCompare(b));
 
   for (const file of files) {
     callback(file);
