@@ -15,11 +15,12 @@ const selectorByPath:
 > = memoizeWithArgs(/* ... */)
 
 =====================================output=====================================
-const selectorByPath: Path => SomethingSelector<
-  SomethingUEditorContextType,
-  SomethingUEditorContextType,
-  SomethingBulkValue<string>
-> = memoizeWithArgs(/* ... */);
+const selectorByPath: Path =>
+  SomethingSelector<
+    SomethingUEditorContextType,
+    SomethingUEditorContextType,
+    SomethingBulkValue<string>
+  > = memoizeWithArgs(/* ... */);
 
 ================================================================================
 `;
@@ -40,11 +41,12 @@ const selectorByPath:
 > = memoizeWithArgs(/* ... */)
 
 =====================================output=====================================
-const selectorByPath: Path => SomethingSelector<
-  SomethingUEditorContextType,
-  SomethingUEditorContextType,
-  SomethingBulkValue<string>,
-> = memoizeWithArgs(/* ... */);
+const selectorByPath: Path =>
+  SomethingSelector<
+    SomethingUEditorContextType,
+    SomethingUEditorContextType,
+    SomethingBulkValue<string>,
+  > = memoizeWithArgs(/* ... */);
 
 ================================================================================
 `;
@@ -65,11 +67,12 @@ const selectorByPath:
 > = memoizeWithArgs(/* ... */)
 
 =====================================output=====================================
-const selectorByPath: (Path) => SomethingSelector<
-  SomethingUEditorContextType,
-  SomethingUEditorContextType,
-  SomethingBulkValue<string>
-> = memoizeWithArgs(/* ... */);
+const selectorByPath: (Path) =>
+  SomethingSelector<
+    SomethingUEditorContextType,
+    SomethingUEditorContextType,
+    SomethingBulkValue<string>
+  > = memoizeWithArgs(/* ... */);
 
 ================================================================================
 `;
@@ -182,12 +185,14 @@ type f6 = (?arg) => void;
 
 class Y {
   constructor(
-    ideConnectionFactory: child_process$ChildProcess => FlowIDEConnection = defaultIDEConnectionFactory
+    ideConnectionFactory: child_process$ChildProcess =>
+      FlowIDEConnection = defaultIDEConnectionFactory
   ) {}
 }
 
 interface F {
-  ideConnectionFactoryLongLongLong: child_process$ChildProcess => FlowIDEConnection;
+  ideConnectionFactoryLongLongLong: child_process$ChildProcess =>
+    FlowIDEConnection;
 }
 
 type ExtractType = <A>(B<C>) => D;
@@ -319,12 +324,14 @@ type f6 = (?arg) => void;
 
 class Y {
   constructor(
-    ideConnectionFactory: child_process$ChildProcess => FlowIDEConnection = defaultIDEConnectionFactory,
+    ideConnectionFactory: child_process$ChildProcess =>
+      FlowIDEConnection = defaultIDEConnectionFactory,
   ) {}
 }
 
 interface F {
-  ideConnectionFactoryLongLongLong: child_process$ChildProcess => FlowIDEConnection;
+  ideConnectionFactoryLongLongLong: child_process$ChildProcess =>
+    FlowIDEConnection;
 }
 
 type ExtractType = <A>(B<C>) => D;
@@ -456,12 +463,14 @@ type f6 = (?arg) => void;
 
 class Y {
   constructor(
-    ideConnectionFactory: (child_process$ChildProcess) => FlowIDEConnection = defaultIDEConnectionFactory
+    ideConnectionFactory: (child_process$ChildProcess) =>
+      FlowIDEConnection = defaultIDEConnectionFactory
   ) {}
 }
 
 interface F {
-  ideConnectionFactoryLongLongLong: (child_process$ChildProcess) => FlowIDEConnection;
+  ideConnectionFactoryLongLongLong: (child_process$ChildProcess) =>
+    FlowIDEConnection;
 }
 
 type ExtractType = <A>(B<C>) => D;
