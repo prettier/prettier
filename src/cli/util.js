@@ -435,6 +435,11 @@ function eachFilename(context, maybePatterns, callback) {
     const absolutePath = path.resolve(cwd, pattern);
     const stat = statSafeSync(absolutePath);
 
+    // Ignores files in version control systems
+    if (/(^|[\\/])\.(?:git|svn|hg)([\\/]|$)/.test(absolutePath)) {
+      continue;
+    }
+
     if (
       stat &&
       stat.isDirectory() &&
