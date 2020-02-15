@@ -6,6 +6,7 @@ const dashify = require("dashify");
 const fs = require("fs");
 const globby = require("globby");
 const isGlob = require("is-glob");
+const isPathInside = require("is-path-inside");
 const chalk = require("chalk");
 const readline = require("readline");
 const stringify = require("json-stable-stringify");
@@ -427,11 +428,10 @@ function isGlobPattern(pattern) {
 
 const globbyOptions = { dot: true, nodir: true, absolute: true };
 function eachFilename(context, maybePatterns, callback) {
+  const withNodeModules = context.argv["with-node-modules"] === true;
   const extraPatterns = [
     // The '!./' globs are due to https://github.com/prettier/prettier/issues/2110
-    ...(context.argv["with-node-modules"] !== true
-      ? ["!**/node_modules/**", "!./node_modules/**"]
-      : []),
+    ...(withNodeModules ? [] : ["!**/node_modules/**", "!./node_modules/**"]),
     "!**/.{git,svn,hg}/**",
     "!./.{git,svn,hg}/**"
   ];
@@ -444,34 +444,38 @@ function eachFilename(context, maybePatterns, callback) {
 
   for (const pattern of maybePatterns) {
     const absolutePath = path.resolve(cwd, pattern);
-    const stat = statSafeSync(absolutePath);
 
-    // Ignores files in version control systems
-    if (/(?:^|[\\/])\.(?:git|svn|hg)(?:[\\/]|$)/.test(absolutePath)) {
-      continue;
-    }
+    if (isPathInside(absolutePath, cwd)) {
+      const stat = statSafeSync(absolutePath);
+      const relativeFilepath = path.relative(process.cwd(), absolutePath);
 
-    if (
-      stat &&
-      stat.isDirectory() &&
-      // `dot pattern` and `expand directories` support need handle differently
-      // for backward compatibility reason only expand `directories` like a glob pattern
-      // see https://github.com/prettier/prettier/pull/6639#issuecomment-548949954
-      isGlobPattern(pattern)
-    ) {
-      files = [
-        ...files,
-        ...globby.sync(filesInDirectoryPatterns, {
-          ...globbyOptions,
-          cwd: absolutePath
-        })
-      ];
-      continue;
-    }
+      // Ignores files in version control systems
+      if (/(?:^|[\\/])\.(?:git|svn|hg)(?:[\\/]|$)/.test(relativeFilepath)) {
+        continue;
+      }
 
-    if (stat && stat.isFile()) {
-      files.push(absolutePath);
-      continue;
+      if (
+        stat &&
+        stat.isDirectory() &&
+        // `dot pattern` and `expand directories` support need handle differently
+        // for backward compatibility reason only expand `directories` like a glob pattern
+        // see https://github.com/prettier/prettier/pull/6639#issuecomment-548949954
+        isGlobPattern(pattern)
+      ) {
+        files = [
+          ...files,
+          ...globby.sync(filesInDirectoryPatterns, {
+            ...globbyOptions,
+            cwd: absolutePath
+          })
+        ];
+        continue;
+      }
+
+      if (stat && stat.isFile()) {
+        files.push(absolutePath);
+        continue;
+      }
     }
 
     if (isGlobPattern(pattern)) {

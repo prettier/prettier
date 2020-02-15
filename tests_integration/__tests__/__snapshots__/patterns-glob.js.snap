@@ -81,3 +81,12 @@ outside.js
 `;
 
 exports[`fixtures-3: Should match all files except \`.svn/in-svn.js\` (write) 1`] = `Array []`;
+
+exports[`fixtures-4: Should not include any file outside cwd (stderr) 1`] = `""`;
+
+exports[`fixtures-4: Should not include any file outside cwd (stdout) 1`] = `
+"inside.js
+"
+`;
+
+exports[`fixtures-4: Should not include any file outside cwd (write) 1`] = `Array []`;
