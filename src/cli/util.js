@@ -429,6 +429,7 @@ function isGlobPattern(pattern) {
 const globbyOptions = { dot: true, nodir: true, absolute: true };
 function eachFilename(context, maybePatterns, callback) {
   const withNodeModules = context.argv["with-node-modules"] === true;
+  // TODO: use `ignore` option for `globby`
   const extraPatterns = [
     // The '!./' globs are due to https://github.com/prettier/prettier/issues/2110
     ...(withNodeModules ? [] : ["!**/node_modules/**", "!./node_modules/**"]),
@@ -436,7 +437,12 @@ function eachFilename(context, maybePatterns, callback) {
     "!./.{git,svn,hg}/**"
   ];
 
-  const filesInDirectoryPatterns = ["**/*", ...extraPatterns];
+  const allFilesInPatterns = ["**/*", ...extraPatterns];
+  // Ignores files in version control systems directories and `node_modules`
+  const ignoredDirectories = [".git", ".svn", ".hg"];
+  if (!withNodeModules) {
+    ignoredDirectories.push("node_modules");
+  }
 
   let files = [];
   const cwd = process.cwd();
@@ -446,14 +452,17 @@ function eachFilename(context, maybePatterns, callback) {
     const absolutePath = path.resolve(cwd, pattern);
 
     if (isPathInside(absolutePath, cwd)) {
-      const stat = statSafeSync(absolutePath);
       const relativeFilepath = path.relative(process.cwd(), absolutePath);
 
-      // Ignores files in version control systems
-      if (/(?:^|[\\/])\.(?:git|svn|hg)(?:[\\/]|$)/.test(relativeFilepath)) {
+      if (
+        relativeFilepath
+          .split(/[\\/]/)
+          .some(directory => ignoredDirectories.includes(directory))
+      ) {
         continue;
       }
 
+      const stat = statSafeSync(absolutePath);
       if (
         stat &&
         stat.isDirectory() &&
@@ -464,7 +473,7 @@ function eachFilename(context, maybePatterns, callback) {
       ) {
         files = [
           ...files,
-          ...globby.sync(filesInDirectoryPatterns, {
+          ...globby.sync(allFilesInPatterns, {
             ...globbyOptions,
             cwd: absolutePath
           })
