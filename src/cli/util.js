@@ -452,17 +452,17 @@ function eachFilename(context, maybePatterns, callback) {
     const absolutePath = path.resolve(cwd, pattern);
 
     if (isPathInside(absolutePath, cwd)) {
-      const relativeFilepath = path.relative(process.cwd(), absolutePath);
-
+      const stat = statSafeSync(absolutePath);
       if (
-        relativeFilepath
+        stat &&
+        path
+          .relative(process.cwd(), absolutePath)
           .split(/[\\/]/)
           .some(directory => ignoredDirectories.includes(directory))
       ) {
         continue;
       }
 
-      const stat = statSafeSync(absolutePath);
       if (
         stat &&
         stat.isDirectory() &&
