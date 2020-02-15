@@ -51,3 +51,33 @@ exports[`fixtures-2: Should only match \`!b.js\` (stdout) 1`] = `
 `;
 
 exports[`fixtures-2: Should only match \`!b.js\` (write) 1`] = `Array []`;
+
+exports[`fixtures-3: Should exclude \`.svn\` (stderr) 1`] = `""`;
+
+exports[`fixtures-3: Should exclude \`.svn\` (stdout) 1`] = `
+"outside.js
+"
+`;
+
+exports[`fixtures-3: Should exclude \`.svn\` (write) 1`] = `Array []`;
+
+exports[`fixtures-3: Should exclude \`node_modules/in-node_modules.js\` (stderr) 1`] = `""`;
+
+exports[`fixtures-3: Should exclude \`node_modules/in-node_modules.js\` (stdout) 1`] = `
+"!dir.js/inside.js
+outside.js
+"
+`;
+
+exports[`fixtures-3: Should exclude \`node_modules/in-node_modules.js\` (write) 1`] = `Array []`;
+
+exports[`fixtures-3: Should match all files except \`.svn/in-svn.js\` (stderr) 1`] = `""`;
+
+exports[`fixtures-3: Should match all files except \`.svn/in-svn.js\` (stdout) 1`] = `
+"!dir.js/inside.js
+!dir.js/node_modules/in-node_modules.js
+outside.js
+"
+`;
+
+exports[`fixtures-3: Should match all files except \`.svn/in-svn.js\` (write) 1`] = `Array []`;
