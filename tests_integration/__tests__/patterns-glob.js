@@ -83,23 +83,3 @@ describe("fixtures-3: Should exclude `.svn`", () => {
     status: 1
   });
 });
-
-/*
-fixtures-4/
-├─ inside.js
-└─ !outside-dir/
-│ └─in-outside-dir.js
-└─ cwd
-  └─inside.js
-*/
-
-describe("fixtures-4: Should not include any file outside cwd", () => {
-  runPrettier("cli/patterns-glob/fixtures-4/cwd", [
-    "*.js",
-    "../!outside.js",
-    "../!outside-dir",
-    "-l"
-  ]).test({
-    status: 1
-  });
-});
