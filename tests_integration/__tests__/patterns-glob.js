@@ -55,9 +55,9 @@ fixtures-3/
 ├─ outside.js
 └─ !dir.js/
   ├─ inside.js
-  ├─ node_modules
+  ├─ node_modules/
   │ └─in-node_modules.js
-  └─ .svn
+  └─ .svn/
     └─in-svn.js
 */
 
