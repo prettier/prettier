@@ -669,7 +669,9 @@ function printOpeningTag(path, options, print) {
            */
           (node.isSelfClosing &&
             needsToBorrowLastChildClosingTagEndMarker(node.parent))
-            ? ""
+            ? node.isSelfClosing
+              ? " "
+              : ""
             : node.isSelfClosing
             ? forceNotToBreakAttrContent
               ? " "
@@ -925,7 +927,7 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
 
   let shouldHug = false;
 
-  const __onHtmlBindingRoot = root => {
+  const __onHtmlBindingRoot = (root, options) => {
     const rootNode =
       root.type === "NGRoot"
         ? root.node.type === "NGMicrosyntax" &&
@@ -939,7 +941,10 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
     if (
       rootNode &&
       (rootNode.type === "ObjectExpression" ||
-        rootNode.type === "ArrayExpression")
+        rootNode.type === "ArrayExpression" ||
+        (options.parser === "__vue_expression" &&
+          (rootNode.type === "TemplateLiteral" ||
+            rootNode.type === "StringLiteral")))
     ) {
       shouldHug = true;
     }
@@ -968,7 +973,19 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
   if (node.fullName === "class" && !options.parentParser) {
     const value = getValue();
     if (!value.includes("{{")) {
-      return printClassNames(getValue());
+      return printClassNames(value);
+    }
+  }
+
+  if (node.fullName === "style" && !options.parentParser) {
+    const value = getValue();
+    if (!value.includes("{{")) {
+      return printExpand(
+        textToDoc(value, {
+          parser: "css",
+          __isHTMLStyleAttribute: true
+        })
+      );
     }
   }
 
@@ -1025,7 +1042,7 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
   if (options.parser === "angular") {
     const ngTextToDoc = (code, opts) =>
       // angular does not allow trailing comma
-      textToDoc(code, { trailingComma: "none", ...opts });
+      textToDoc(code, { ...opts, trailingComma: "none" });
 
     /**
      *     *directive="angularDirective"
