@@ -47,7 +47,7 @@ const {
   printVueSlotScope,
   isVueEventBindingExpression
 } = require("./syntax-vue");
-const { printImgSrcset } = require("./syntax-attribute");
+const { printImgSrcset, printClassNames } = require("./syntax-attribute");
 
 function concat(parts) {
   const newParts = normalizeParts(parts);
@@ -968,6 +968,13 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
     (node.parent.fullName === "img" || node.parent.fullName === "source")
   ) {
     return printExpand(printImgSrcset(getValue()));
+  }
+
+  if (node.fullName === "class" && !options.parentParser) {
+    const value = getValue();
+    if (!value.includes("{{")) {
+      return printClassNames(value);
+    }
   }
 
   if (node.fullName === "style" && !options.parentParser) {
