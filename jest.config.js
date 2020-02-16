@@ -1,6 +1,7 @@
 "use strict";
+const { isCI } = require("ci-info");
 
-const ENABLE_TEST_RESULTS = !!process.env.ENABLE_TEST_RESULTS;
+const ENABLE_TEST_RESULTS = isCI || !!process.env.ENABLE_TEST_RESULTS;
 const ENABLE_CODE_COVERAGE = !!process.env.ENABLE_CODE_COVERAGE;
 
 module.exports = {

@@ -120,16 +120,6 @@ const {
 let uid = 0;
 
 function shouldPrintComma(options, level) {
-  // angular does not allow trailing comma
-  if (
-    options.parser === "__ng_interpolation" ||
-    options.parser === "__ng_action" ||
-    options.parser === "__ng_binding" ||
-    options.parser === "__ng_directive"
-  ) {
-    return false;
-  }
-
   level = level || "es5";
 
   switch (options.trailingComma) {

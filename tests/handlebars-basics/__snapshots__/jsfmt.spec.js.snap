@@ -32,6 +32,9 @@ printWidth: 80
 
 <div ...attributes>Hello</div>
 
+<ul class="list-unstyled
+  one-tab">
+</ul>
 =====================================output=====================================
 <UserGreeting @name="Ricardo" @greeting="Olá" />
 {{@greeting}}, {{@name}}!
@@ -64,6 +67,10 @@ printWidth: 80
 <div ...attributes>
   Hello
 </div>
+
+<ul class="list-unstyled
+  one-tab">
+</ul>
 ================================================================================
 `;
 
@@ -100,6 +107,9 @@ singleQuote: true
 
 <div ...attributes>Hello</div>
 
+<ul class="list-unstyled
+  one-tab">
+</ul>
 =====================================output=====================================
 <UserGreeting @name='Ricardo' @greeting='Olá' />
 {{@greeting}}, {{@name}}!
@@ -132,6 +142,10 @@ singleQuote: true
 <div ...attributes>
   Hello
 </div>
+
+<ul class='list-unstyled
+  one-tab'>
+</ul>
 ================================================================================
 `;
 
