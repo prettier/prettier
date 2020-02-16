@@ -454,7 +454,7 @@ function eachFilename(context, maybePatterns, callback) {
       stat &&
       path
         .relative(process.cwd(), absolutePath)
-        .split(/[\\/]/)
+        .split(path.sep)
         .some(directory => ignoredDirectories.includes(directory))
     ) {
       continue;
