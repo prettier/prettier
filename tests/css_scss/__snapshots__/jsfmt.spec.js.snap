@@ -833,7 +833,18 @@ $lg-and-up: '(min-width: 1200px)';
 
 @media #{$value} {}
 
-@import url(#{$foundation-dir}/foundation/components/grid);
+$foundation-dir: 'foundation';
+@import url('#{$foundation-dir}/components/grid');
+@import url(#{$foundation-dir}/components/grid);
+@import url($foundation-dir/components/grid);
+@import url($foundation-dir+"/components/grid");
+
+@function get-font-family($family) {
+  @return $family;
+}
+@import url("//fonts.googleapis.com/css?family=#{ get-font-family('Roboto') }:100,300,500,700,900&display=swap");
+@import url(//fonts.googleapis.com/css?family=#{ get-font-family('Roboto') }:100,300,500,700,900&display=swap);
+
 
 @keyframes loader {
   0% {
@@ -1787,7 +1798,17 @@ $lg-and-up: "(min-width: 1200px)";
 @media #{$value} {
 }
 
-@import url(#{$foundation-dir}/foundation/components/grid);
+$foundation-dir: "foundation";
+@import url("#{$foundation-dir}/components/grid");
+@import url(#{$foundation-dir}/components/grid);
+@import url($foundation-dir/components/grid);
+@import url($foundation-dir + "/components/grid");
+
+@function get-font-family($family) {
+  @return $family;
+}
+@import url("//fonts.googleapis.com/css?family=#{ get-font-family('Roboto') }:100,300,500,700,900&display=swap");
+@import url(//fonts.googleapis.com/css?family=#{ get-font-family('Roboto') }:100,300,500,700,900&display=swap);
 
 @keyframes loader {
   0% {
@@ -2861,7 +2882,18 @@ $lg-and-up: '(min-width: 1200px)';
 
 @media #{$value} {}
 
-@import url(#{$foundation-dir}/foundation/components/grid);
+$foundation-dir: 'foundation';
+@import url('#{$foundation-dir}/components/grid');
+@import url(#{$foundation-dir}/components/grid);
+@import url($foundation-dir/components/grid);
+@import url($foundation-dir+"/components/grid");
+
+@function get-font-family($family) {
+  @return $family;
+}
+@import url("//fonts.googleapis.com/css?family=#{ get-font-family('Roboto') }:100,300,500,700,900&display=swap");
+@import url(//fonts.googleapis.com/css?family=#{ get-font-family('Roboto') }:100,300,500,700,900&display=swap);
+
 
 @keyframes loader {
   0% {
@@ -3815,7 +3847,17 @@ $lg-and-up: "(min-width: 1200px)";
 @media #{$value} {
 }
 
-@import url(#{$foundation-dir}/foundation/components/grid);
+$foundation-dir: "foundation";
+@import url("#{$foundation-dir}/components/grid");
+@import url(#{$foundation-dir}/components/grid);
+@import url($foundation-dir/components/grid);
+@import url($foundation-dir + "/components/grid");
+
+@function get-font-family($family) {
+  @return $family;
+}
+@import url("//fonts.googleapis.com/css?family=#{ get-font-family('Roboto') }:100,300,500,700,900&display=swap");
+@import url(//fonts.googleapis.com/css?family=#{ get-font-family('Roboto') }:100,300,500,700,900&display=swap);
 
 @keyframes loader {
   0% {
@@ -4171,6 +4213,7 @@ a {
   background-image: url($test-path + 'static/test.jpg');
   background-image: url('../test/' + $test-path);
   background-image: url('../test/' + 'static/test.jpg');
+  background-image: url($test-path+$test-path);
 }
 
 =====================================output=====================================
@@ -4179,6 +4222,7 @@ a {
   background-image: url($test-path + "static/test.jpg");
   background-image: url("../test/" + $test-path);
   background-image: url("../test/" + "static/test.jpg");
+  background-image: url($test-path + $test-path);
 }
 
 ================================================================================
@@ -4195,6 +4239,7 @@ a {
   background-image: url($test-path + 'static/test.jpg');
   background-image: url('../test/' + $test-path);
   background-image: url('../test/' + 'static/test.jpg');
+  background-image: url($test-path+$test-path);
 }
 
 =====================================output=====================================
@@ -4203,6 +4248,7 @@ a {
   background-image: url($test-path + "static/test.jpg");
   background-image: url("../test/" + $test-path);
   background-image: url("../test/" + "static/test.jpg");
+  background-image: url($test-path + $test-path);
 }
 
 ================================================================================
