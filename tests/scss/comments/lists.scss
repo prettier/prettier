@@ -6,3 +6,14 @@ $my-list2:
   a // a
   b
   c;
+
+$my-list3: // Baz
+  'foo', // Foo
+  'bar'; // Bar
+
+.grid {
+  grid-template-areas: // a
+    "header header header" // b
+    "sidebar content content" // c
+    "footer footer footer";
+}
