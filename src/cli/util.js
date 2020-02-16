@@ -436,7 +436,7 @@ function eachFilename(context, maybePatterns, callback) {
     "!./.{git,svn,hg}/**"
   ];
 
-  const allFilesInPatterns = ["**/*", ...extraPatterns];
+  const allFilesPatterns = ["**/*", ...extraPatterns];
   // Ignores files in version control systems directories and `node_modules`
   const ignoredDirectories = [".git", ".svn", ".hg"];
   if (!withNodeModules) {
@@ -468,9 +468,10 @@ function eachFilename(context, maybePatterns, callback) {
       // see https://github.com/prettier/prettier/pull/6639#issuecomment-548949954
       isGlobPattern(pattern)
     ) {
+      // Don't use `files.push(...)`, there is limitation on the number of arguments.
       files = [
         ...files,
-        ...globby.sync(allFilesInPatterns, {
+        ...globby.sync(allFilesPatterns, {
           ...globbyOptions,
           cwd: absolutePath
         })
