@@ -6,15 +6,13 @@ const createLanguage = require("../utils/create-language");
 
 const languages = [
   createLanguage(require("linguist-languages/data/Markdown"), data => ({
-    ...data,
     since: "1.8.0",
     parsers: ["remark"],
     vscodeLanguageIds: ["markdown"],
     filenames: data.filenames.concat(["README"]),
     extensions: data.extensions.filter(extension => extension !== ".mdx")
   })),
-  createLanguage(require("linguist-languages/data/Markdown"), data => ({
-    ...data,
+  createLanguage(require("linguist-languages/data/Markdown"), () => ({
     name: "MDX",
     since: "1.15.0",
     parsers: ["mdx"],
