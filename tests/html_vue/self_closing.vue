@@ -14,3 +14,9 @@ foo( )
   <HomeY />
 </div>
 </template>
+
+<template>
+  <Foo><Bar
+         attr
+                                     /></Foo>
+</template>

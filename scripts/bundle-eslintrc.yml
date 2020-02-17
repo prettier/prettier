@@ -1,4 +1,8 @@
-extends:
-  - plugin:escompat/recommended
+root: true
+env:
+  browser: true
+  es6: true
+plugins:
+  - compat
 rules:
-  escompat/no-regexp-s-flag: off
+  compat/compat: "error"

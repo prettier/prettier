@@ -34,9 +34,9 @@ For convenience, the following commands for profiling are available via `package
 
 _Unfortunately, [`yarn` simply appends passed arguments to commands, cannot reference them by name](https://github.com/yarnpkg/yarn/issues/5207), so we have to use inline environment variables to pass them._
 
-- `PERF_FILE=<filename> PERF_REPEAT=[number-of-repetitions:1000] yarn perf-repeat` starts the naïve loop. See the CLI output for when the measurements finish, and stop profiling at that moment.
-- `PERF_FILE=<filename> PERF_REPEAT=[number-of-repetitions:1000] yarn perf-repeat-inspect` starts the naïve loop with `node --inspect-brk` flag that pauses execution and waits for Chromium/Chrome/Node Inspector to attach. Open [`chrome://inspect`](chrome://inspect), select the process to inspect, and activate the CPU Profiler, this will unpause execution. See the CLI output for when the measurements finish, and stop the CPU Profiler at that moment to avoid collecting more data than needed.
-- `PERF_FILE=<filename> yarn perf-benchmark` starts the `benchmark`-powered measurements. See the CLI output for when the measurements finish.
+- `PERF_FILE=<filename> PERF_REPEAT=[number-of-repetitions:1000] yarn perf:repeat` starts the naïve loop. See the CLI output for when the measurements finish, and stop profiling at that moment.
+- `PERF_FILE=<filename> PERF_REPEAT=[number-of-repetitions:1000] yarn perf:repeat-inspect` starts the naïve loop with `node --inspect-brk` flag that pauses execution and waits for Chromium/Chrome/Node Inspector to attach. Open [`chrome://inspect`](chrome://inspect), select the process to inspect, and activate the CPU Profiler, this will unpause execution. See the CLI output for when the measurements finish, and stop the CPU Profiler at that moment to avoid collecting more data than needed.
+- `PERF_FILE=<filename> yarn perf:benchmark` starts the `benchmark`-powered measurements. See the CLI output for when the measurements finish.
 
 In the above commands:
 
