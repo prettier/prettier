@@ -21,27 +21,25 @@ b.js
 
 exports[`fixtures-1: Should match files except \`a.js\` (write) 1`] = `Array []`;
 
-exports[`fixtures-2: Should match all files (stderr) 1`] = `""`;
+exports[`fixtures-2: Should match \`a.js\` and \`!b.js\` (stderr) 1`] = `""`;
 
-exports[`fixtures-2: Should match all files (stdout) 1`] = `
-"!b.js
-!dir.js/1.css
-!dir.js/2.css
-a.js
-"
-`;
-
-exports[`fixtures-2: Should match all files (write) 1`] = `Array []`;
-
-exports[`fixtures-2: Should not match any css file (stderr) 1`] = `""`;
-
-exports[`fixtures-2: Should not match any css file (stdout) 1`] = `
+exports[`fixtures-2: Should match \`a.js\` and \`!b.js\` (stdout) 1`] = `
 "!b.js
 a.js
 "
 `;
 
-exports[`fixtures-2: Should not match any css file (write) 1`] = `Array []`;
+exports[`fixtures-2: Should match \`a.js\` and \`!b.js\` (write) 1`] = `Array []`;
+
+exports[`fixtures-2: Should match all js files (stderr) 1`] = `""`;
+
+exports[`fixtures-2: Should match all js files (stdout) 1`] = `
+"!b.js
+a.js
+"
+`;
+
+exports[`fixtures-2: Should match all js files (write) 1`] = `Array []`;
 
 exports[`fixtures-2: Should only match \`!b.js\` (stderr) 1`] = `""`;
 
@@ -61,23 +59,23 @@ exports[`fixtures-3: Should exclude \`.svn\` (stdout) 1`] = `
 
 exports[`fixtures-3: Should exclude \`.svn\` (write) 1`] = `Array []`;
 
-exports[`fixtures-3: Should exclude \`node_modules/in-node_modules.js\` (stderr) 1`] = `""`;
+exports[`fixtures-3: Should match \`outside.js\`, \`dir/inside.js\` and \`dir/node_modules/in-node_modules.js\` (stderr) 1`] = `""`;
 
-exports[`fixtures-3: Should exclude \`node_modules/in-node_modules.js\` (stdout) 1`] = `
-"!dir.js/inside.js
+exports[`fixtures-3: Should match \`outside.js\`, \`dir/inside.js\` and \`dir/node_modules/in-node_modules.js\` (stdout) 1`] = `
+"dir/inside.js
+dir/node_modules/in-node_modules.js
 outside.js
 "
 `;
 
-exports[`fixtures-3: Should exclude \`node_modules/in-node_modules.js\` (write) 1`] = `Array []`;
+exports[`fixtures-3: Should match \`outside.js\`, \`dir/inside.js\` and \`dir/node_modules/in-node_modules.js\` (write) 1`] = `Array []`;
 
-exports[`fixtures-3: Should match all files except \`.svn/in-svn.js\` (stderr) 1`] = `""`;
+exports[`fixtures-3: Should only match \`outside.js\` and \`dir/inside.js\` (stderr) 1`] = `""`;
 
-exports[`fixtures-3: Should match all files except \`.svn/in-svn.js\` (stdout) 1`] = `
-"!dir.js/inside.js
-!dir.js/node_modules/in-node_modules.js
+exports[`fixtures-3: Should only match \`outside.js\` and \`dir/inside.js\` (stdout) 1`] = `
+"dir/inside.js
 outside.js
 "
 `;
 
-exports[`fixtures-3: Should match all files except \`.svn/in-svn.js\` (write) 1`] = `Array []`;
+exports[`fixtures-3: Should only match \`outside.js\` and \`dir/inside.js\` (write) 1`] = `Array []`;

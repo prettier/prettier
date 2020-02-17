@@ -32,13 +32,13 @@ fixtures-2/
   └─ 2.css
 */
 
-describe("fixtures-2: Should match all files", () => {
+describe("fixtures-2: Should match all js files", () => {
   runPrettier("cli/patterns-glob/fixtures-2", ["*.js", "!dir.js", "-l"]).test({
     status: 1
   });
 });
 
-describe("fixtures-2: Should not match any css file", () => {
+describe("fixtures-2: Should match `a.js` and `!b.js`", () => {
   runPrettier("cli/patterns-glob/fixtures-2", ["*.js", "!b.js", "-l"]).test({
     status: 1
   });
@@ -53,7 +53,7 @@ describe("fixtures-2: Should only match `!b.js`", () => {
 /*
 fixtures-3/
 ├─ outside.js
-└─ !dir.js/
+└─ dir
   ├─ inside.js
   ├─ node_modules/
   │ └─in-node_modules.js
@@ -61,10 +61,9 @@ fixtures-3/
     └─in-svn.js
 */
 
-describe("fixtures-3: Should match all files except `.svn/in-svn.js`", () => {
+describe("fixtures-3: Should match `outside.js`, `dir/inside.js` and `dir/node_modules/in-node_modules.js`", () => {
   runPrettier("cli/patterns-glob/fixtures-3", [
-    "*.js",
-    "!dir.js",
+    "**/*.js",
     "-l",
     "--with-node-modules"
   ]).test({
@@ -72,14 +71,18 @@ describe("fixtures-3: Should match all files except `.svn/in-svn.js`", () => {
   });
 });
 
-describe("fixtures-3: Should exclude `node_modules/in-node_modules.js`", () => {
-  runPrettier("cli/patterns-glob/fixtures-3", ["*.js", "!dir.js", "-l"]).test({
+describe("fixtures-3: Should only match `outside.js` and `dir/inside.js`", () => {
+  runPrettier("cli/patterns-glob/fixtures-3", ["**/*.js", "-l"]).test({
     status: 1
   });
 });
 
 describe("fixtures-3: Should exclude `.svn`", () => {
-  runPrettier("cli/patterns-glob/fixtures-3", ["*.js", ".svn", "-l"]).test({
+  runPrettier("cli/patterns-glob/fixtures-3", [
+    "*.js",
+    ".svn/in-svn.js",
+    "-l"
+  ]).test({
     status: 1
   });
 });

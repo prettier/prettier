@@ -5,7 +5,6 @@ const camelCase = require("camelcase");
 const dashify = require("dashify");
 const fs = require("fs");
 const globby = require("globby");
-const isGlob = require("is-glob");
 const chalk = require("chalk");
 const readline = require("readline");
 const stringify = require("json-stable-stringify");
@@ -416,15 +415,6 @@ function statSafeSync(filePath) {
   }
 }
 
-/**
- * Check if a string is a glob pattern or not.
- * @param {string} pattern A glob pattern.
- * @returns {boolean} `true` if the string is a glob pattern.
- */
-function isGlobPattern(pattern) {
-  return isGlob(path.sep === "\\" ? pattern.replace(/\\/gu, "/") : pattern);
-}
-
 const globbyOptions = { dot: true, nodir: true, absolute: true };
 function eachFilename(context, maybePatterns, callback) {
   const withNodeModules = context.argv["with-node-modules"] === true;
@@ -436,7 +426,6 @@ function eachFilename(context, maybePatterns, callback) {
     "!./.{git,svn,hg}/**"
   ];
 
-  const allFilesPatterns = ["**/*", ...extraPatterns];
   // Ignores files in version control systems directories and `node_modules`
   const ignoredDirectories = [".git", ".svn", ".hg"];
   if (!withNodeModules) {
@@ -452,39 +441,14 @@ function eachFilename(context, maybePatterns, callback) {
     const stat = statSafeSync(absolutePath);
     if (
       stat &&
+      stat.isFile() &&
       path
         .relative(process.cwd(), absolutePath)
         .split(path.sep)
         .some(directory => ignoredDirectories.includes(directory))
     ) {
-      continue;
-    }
-
-    if (
-      stat &&
-      stat.isDirectory() &&
-      // `dot pattern` and `expand directories` support need handle differently
-      // for backward compatibility reason only expand `directories` like a glob pattern
-      // see https://github.com/prettier/prettier/pull/6639#issuecomment-548949954
-      isGlobPattern(pattern)
-    ) {
-      // Don't use `files.push(...)`, there is limitation on the number of arguments.
-      files = [
-        ...files,
-        ...globby.sync(allFilesPatterns, {
-          ...globbyOptions,
-          cwd: absolutePath
-        })
-      ];
-      continue;
-    }
-
-    if (stat && stat.isFile()) {
       files.push(absolutePath);
-      continue;
-    }
-
-    if (isGlobPattern(pattern)) {
+    } else {
       patterns.push(pattern);
     }
   }
