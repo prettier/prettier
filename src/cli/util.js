@@ -443,7 +443,7 @@ function eachFilename(context, maybePatterns, callback) {
       stat &&
       stat.isFile() &&
       path
-        .relative(process.cwd(), absolutePath)
+        .relative(cwd, absolutePath)
         .split(path.sep)
         .some(directory => ignoredDirectories.includes(directory))
     ) {
@@ -481,8 +481,9 @@ function eachFilename(context, maybePatterns, callback) {
     process.exitCode = 2;
     return;
   }
-  files = uniq(files.map(file => path.relative(process.cwd(), file)))
-    // keeping file orders for backward compatibility
+
+  files = uniq(files.map(file => path.relative(cwd, file)))
+    // keeping file order for backward compatibility
     .sort((a, b) => a.localeCompare(b));
 
   for (const file of files) {
