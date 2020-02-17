@@ -442,7 +442,7 @@ function eachFilename(context, maybePatterns, callback) {
     if (
       stat &&
       stat.isFile() &&
-      path
+      !path
         .relative(process.cwd(), absolutePath)
         .split(path.sep)
         .some(directory => ignoredDirectories.includes(directory))
