@@ -3,7 +3,7 @@ id: cli
 title: CLI
 ---
 
-Run Prettier through the CLI with this script. Run it without any arguments to see the [options](options.md).
+Use the `prettier` command to run Prettier from the command line. Run it without any arguments to see the [options](options.md).
 
 To format a file in-place, use `--write`. You may want to consider committing your code before doing that, just in case.
 
@@ -17,9 +17,13 @@ In practice, this may look something like:
 prettier --single-quote --trailing-comma es5 --write "{app,__{tests,mocks}__}/**/*.js"
 ```
 
-Don't forget the quotes around the globs! The quotes make sure that Prettier expands the globs rather than your shell, for cross-platform usage. The [glob syntax from the glob module](https://github.com/isaacs/node-glob/blob/master/README.md#glob-primer) is used.
+> Don't forget the **quotes** around the globs! The quotes make sure that Prettier CLI expands the globs rather than your shell, which is important for cross-platform usage.
 
-Prettier CLI will ignore files located in `node_modules` directory. To opt-out from this behavior use `--with-node-modules` flag.
+Prettier CLI uses the [glob syntax from the `fast-glob` module](https://github.com/mrmlnc/fast-glob#pattern-syntax). To escape special glob characters, one of the two escaping syntaxes can be used: `prettier "\[my-dir]/*.js"` or `prettier "[[]my-dir]/*.js"`. Both match all JS files in a directory named `[my-dir]`, however the latter syntax is preferable as the former doesn't work on Windows, where backslashes are treated as path separators.
+
+Prettier CLI will ignore files located in `node_modules` directory. To opt out from this behavior use `--with-node-modules` flag.
+
+Since file names in Linux can contain almost any characters, before resolving a glob pattern, Prettier CLI first treats it as a literal file name. If a file with such a name is found, Prettier CLI proceeds with that file and doesn't resolve the pattern as a glob.
 
 ## `--check`
 
