@@ -2,5 +2,7 @@ parameters:
   flags: ""
 
 steps:
+  - script: npm install --global yarn
+    displayName: "Update yarn"
   - script: yarn install --frozen-lockfile
     displayName: "Install dependencies"
