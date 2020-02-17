@@ -362,7 +362,11 @@ function formatStdin(context) {
     : process.cwd();
 
   const ignorer = createIgnorerFromContextOrDie(context);
-  const relativeFilepath = path.relative(process.cwd(), filepath);
+  // If there's an ignore-path set, the filename must be relative to the
+  // ignore path, not the current working directory.
+  const relativeFilepath = context.argv["ignore-path"]
+    ? path.relative(path.dirname(context.argv["ignore-path"]), filepath)
+    : path.relative(process.cwd(), filepath);
 
   thirdParty
     .getStream(process.stdin)
@@ -439,7 +443,12 @@ function formatFiles(context) {
   }
 
   eachFilename(context, context.filePatterns, filename => {
-    const fileIgnored = ignorer.filter([filename]).length === 0;
+    // If there's an ignore-path set, the filename must be relative to the
+    // ignore path, not the current working directory.
+    const ignoreFilename = context.argv["ignore-path"]
+      ? path.relative(path.dirname(context.argv["ignore-path"]), filename)
+      : filename;
+    const fileIgnored = ignorer.filter([ignoreFilename]).length === 0;
     if (
       fileIgnored &&
       (context.argv["debug-check"] ||
