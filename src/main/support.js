@@ -29,7 +29,6 @@ function getSupportInfo(
   )
     .filter(option => filterSince(option) && filterDeprecated(option))
     .sort((a, b) => (a.name === b.name ? 0 : a.name < b.name ? -1 : 1))
-    .map(mapDeprecated)
     .map(mapInternal)
     .map(option => {
       option = { ...option };
@@ -46,9 +45,9 @@ function getSupportInfo(
       }
 
       if (Array.isArray(option.choices)) {
-        option.choices = option.choices
-          .filter(option => filterSince(option) && filterDeprecated(option))
-          .map(mapDeprecated);
+        option.choices = option.choices.filter(
+          option => filterSince(option) && filterDeprecated(option)
+        );
       }
 
       const filteredPlugins = plugins.filter(
@@ -85,15 +84,6 @@ function getSupportInfo(
       !("deprecated" in object) ||
       (object.deprecated && semver.lt(version, object.deprecated))
     );
-  }
-
-  function mapDeprecated(object) {
-    if (!object.deprecated || showDeprecated) {
-      return object;
-    }
-
-    const { deprecated, redirect, ...newObject } = object;
-    return newObject;
   }
 
   function mapInternal(object) {
