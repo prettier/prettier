@@ -106,7 +106,7 @@ Use `prettier.getFileInfo.sync(filePath [, options])` if you'd like to use sync 
 
 ## `prettier.getSupportInfo()`
 
-Returns an object representing the parsers, languages and file types the current version of Prettier supports.
+Returns an object representing the options, parsers, languages and file types Prettier supports.
 
 The support information looks like this:
 
