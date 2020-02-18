@@ -371,12 +371,11 @@ function genericPrint(path, options, print) {
                 align(
                   " ".repeat(options.tabWidth),
                   printChildren(path, options, print, {
-                    processor: (childPath, index) =>
-                      index === 0
-                        ? group(
-                            concat([softline, softline, childPath.call(print)])
-                          )
-                        : childPath.call(print)
+                    processor: (childPath, index) => {
+                      return index === 0
+                        ? group(concat([softline, childPath.call(print)]))
+                        : childPath.call(print);
+                    }
                   })
                 ),
                 nextNode && nextNode.type === "footnoteDefinition"

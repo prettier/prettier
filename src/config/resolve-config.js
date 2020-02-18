@@ -49,20 +49,16 @@ const getExplorerMemoized = mem(
       }
     });
 
-    return {
-      // cosmiconfig v4 interface
-      load: (searchPath, configPath) =>
-        configPath ? explorer.load(configPath) : explorer.search(searchPath)
-    };
+    return explorer;
   },
   { cacheKey: JSON.stringify }
 );
 
 /** @param {{ cache: boolean, sync: boolean }} opts */
-function getLoadFunction(opts) {
+function getExplorer(opts) {
   // Normalize opts before passing to a memoized function
   opts = { sync: false, cache: false, ...opts };
-  return getExplorerMemoized(opts).load;
+  return getExplorerMemoized(opts);
 }
 
 function _resolveConfig(filePath, opts, sync) {
@@ -72,9 +68,12 @@ function _resolveConfig(filePath, opts, sync) {
     sync: !!sync,
     editorconfig: !!opts.editorconfig
   };
-  const load = getLoadFunction(loadOpts);
+  const { load, search } = getExplorer(loadOpts);
   const loadEditorConfig = resolveEditorConfig.getLoadFunction(loadOpts);
-  const arr = [load, loadEditorConfig].map(l => l(filePath, opts.config));
+  const arr = [
+    opts.config ? load(opts.config) : search(filePath),
+    loadEditorConfig(filePath)
+  ];
 
   const unwrapAndMerge = ([result, editorConfigured]) => {
     const merged = {
@@ -116,14 +115,14 @@ function clearCache() {
 }
 
 async function resolveConfigFile(filePath) {
-  const load = getLoadFunction({ sync: false });
-  const result = await load(filePath);
+  const { search } = getExplorer({ sync: false });
+  const result = await search(filePath);
   return result ? result.filepath : null;
 }
 
 resolveConfigFile.sync = filePath => {
-  const load = getLoadFunction({ sync: true });
-  const result = load(filePath);
+  const { search } = getExplorer({ sync: true });
+  const result = search(filePath);
   return result ? result.filepath : null;
 };
 
