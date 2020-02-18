@@ -9,16 +9,12 @@ const arrayify = require("../utils/arrayify");
 const currentVersion = require("../../package.json").version;
 const coreOptions = require("./core-options").options;
 
-function getSupportInfo(
-  _,
-  // This has to be the second parameter. See _withPlugins in src/index.js.
-  {
-    plugins = [],
-    showUnreleased = false,
-    showDeprecated = false,
-    showInternal = false
-  }
-) {
+function getSupportInfo({
+  plugins = [],
+  showUnreleased = false,
+  showDeprecated = false,
+  showInternal = false
+}) {
   // pre-release version is smaller than the normal version in semver,
   // we need to treat it as the normal one so as to test new features.
   const version = currentVersion.split("-", 1)[0];
