@@ -363,7 +363,11 @@ function formatStdin(context) {
     : process.cwd();
 
   const ignorer = createIgnorerFromContextOrDie(context);
-  const relativeFilepath = path.relative(process.cwd(), filepath);
+  // If there's an ignore-path set, the filename must be relative to the
+  // ignore path, not the current working directory.
+  const relativeFilepath = context.argv["ignore-path"]
+    ? path.relative(path.dirname(context.argv["ignore-path"]), filepath)
+    : path.relative(process.cwd(), filepath);
 
   thirdParty
     .getStream(process.stdin)
@@ -415,7 +419,10 @@ function statSafeSync(filePath) {
   }
 }
 
-const globbyOptions = { dot: true, nodir: true, absolute: true };
+// `dot pattern` and `expand directories` support need handle differently
+// for backward compatibility reason temporary remove `.` and set `expandDirectories=false`
+// see https://github.com/prettier/prettier/pull/6639#issuecomment-548949954
+const isWindows = path.sep === "\\";
 function eachFilename(context, maybePatterns, callback) {
   const withNodeModules = context.argv["with-node-modules"] === true;
   // TODO: use `ignore` option for `globby`
@@ -449,15 +456,25 @@ function eachFilename(context, maybePatterns, callback) {
     ) {
       files.push(absolutePath);
     } else {
-      patterns.push(pattern);
+      // Ignore `dot pattern` for now
+      if (pattern !== ".") {
+        // workaround for fast-glob on Windows ref:
+        // https://github.com/mrmlnc/fast-glob#how-to-write-patterns-on-windows
+        patterns.push(isWindows ? pattern.replace(/\\/g, "/") : pattern);
+      }
     }
   }
 
   if (patterns.length > 0) {
     try {
+      // Don't use `files.push(...)`, there is limitation on the number of arguments.
       files = [
         ...files,
-        ...globby.sync([...patterns, ...extraPatterns], globbyOptions)
+        ...globby.sync([...patterns, ...extraPatterns], {
+          dot: true,
+          expandDirectories: false,
+          absolute: true
+        })
       ];
     } catch (error) {
       context.logger.error(
@@ -503,7 +520,12 @@ function formatFiles(context) {
   }
 
   eachFilename(context, context.filePatterns, filename => {
-    const fileIgnored = ignorer.filter([filename]).length === 0;
+    // If there's an ignore-path set, the filename must be relative to the
+    // ignore path, not the current working directory.
+    const ignoreFilename = context.argv["ignore-path"]
+      ? path.relative(path.dirname(context.argv["ignore-path"]), filename)
+      : filename;
+    const fileIgnored = ignorer.filter([ignoreFilename]).length === 0;
     if (
       fileIgnored &&
       (context.argv["debug-check"] ||
