@@ -79,3 +79,30 @@ outside.js
 `;
 
 exports[`fixtures-3: Should only match \`outside.js\` and \`dir/inside.js\` (write) 1`] = `Array []`;
+
+exports[`fixtures-4: Should match \`level-1.js\` #2 (stderr) 1`] = `""`;
+
+exports[`fixtures-4: Should match \`level-1.js\` #2 (stdout) 1`] = `
+"0/level-1.js
+"
+`;
+
+exports[`fixtures-4: Should match \`level-1.js\` #2 (write) 1`] = `Array []`;
+
+exports[`fixtures-4: Should match \`level-1.js\` #3 (stderr) 1`] = `""`;
+
+exports[`fixtures-4: Should match \`level-1.js\` #3 (stdout) 1`] = `
+"0/level-1.js
+"
+`;
+
+exports[`fixtures-4: Should match \`level-1.js\` #3 (write) 1`] = `Array []`;
+
+exports[`fixtures-4: Should match \`level-1.js\` (stderr) 1`] = `""`;
+
+exports[`fixtures-4: Should match \`level-1.js\` (stdout) 1`] = `
+"0/level-1.js
+"
+`;
+
+exports[`fixtures-4: Should match \`level-1.js\` (write) 1`] = `Array []`;

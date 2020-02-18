@@ -86,3 +86,38 @@ describe("fixtures-3: Should exclude `.svn`", () => {
     status: 1
   });
 });
+
+/*
+fixtures-4/
+├─ level-0.js
+└─ 0
+  ├─ level-1.js
+  └─ 1/
+    ├─ level-2.js
+    └─ 2/
+      └─ level-3.js
+*/
+
+describe("fixtures-4: Should match `level-1.js`", () => {
+  runPrettier("cli/patterns-glob/fixtures-4", ["./0/./level-1.js", "-l"]).test({
+    status: 1
+  });
+});
+
+describe("fixtures-4: Should match `level-1.js` #2", () => {
+  runPrettier("cli/patterns-glob/fixtures-4", [
+    "./0/1/2/../../level-1.js",
+    "-l"
+  ]).test({
+    status: 1
+  });
+});
+
+describe("fixtures-4: Should match `level-1.js` #3", () => {
+  runPrettier("cli/patterns-glob/fixtures-4", [
+    "./0/non-exists-dir/2/../../level-1.js",
+    "-l"
+  ]).test({
+    status: 1
+  });
+});
