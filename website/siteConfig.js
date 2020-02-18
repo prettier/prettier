@@ -53,7 +53,9 @@ const siteConfig = {
   },
   highlight: {
     theme: "default",
+    version: require("highlight.js/package.json").version,
   },
+  usePrism: ["javascript", "jsx", "typescript", "ts", "js", "html"],
   useEnglishUrl: true,
   scripts: ["https://buttons.github.io/buttons.js"],
   stylesheets: [

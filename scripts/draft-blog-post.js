@@ -29,7 +29,7 @@ const categories = [
   { dir: "mdx", title: "MDX" },
   { dir: "yaml", title: "YAML" },
   { dir: "api", title: "API" },
-  { dir: "cli", title: "CLI" }
+  { dir: "cli", title: "CLI" },
 ];
 
 const categoriesByDir = categories.reduce((result, category) => {
@@ -39,7 +39,7 @@ const categoriesByDir = categories.reduce((result, category) => {
 
 const dirs = fs
   .readdirSync(changelogUnreleasedDir, { withFileTypes: true })
-  .filter(entry => entry.isDirectory());
+  .filter((entry) => entry.isDirectory());
 
 for (const dir of dirs) {
   const dirPath = path.join(changelogUnreleasedDir, dir.name);
@@ -51,8 +51,8 @@ for (const dir of dirs) {
 
   category.entries = fs
     .readdirSync(path.join(changelogUnreleasedDir, dir.name))
-    .filter(fileName => /^pr-\d+\.md$/.test(fileName))
-    .map(fileName => {
+    .filter((fileName) => /^pr-\d+\.md$/.test(fileName))
+    .map((fileName) => {
       const [title, ...rest] = fs
         .readFileSync(path.join(dirPath, fileName), "utf8")
         .trim()
@@ -64,9 +64,9 @@ for (const dir of dirs) {
           title
             .replace(/\[(BREAKING|HIGHLIGHT)\]/g, "")
             .replace(/\s+/g, " ")
-            .replace(/^#### [a-z]/, s => s.toUpperCase()),
-          ...rest
-        ].join("\n")
+            .replace(/^#### [a-z]/, (s) => s.toUpperCase()),
+          ...rest,
+        ].join("\n"),
       };
     });
 }
@@ -81,16 +81,16 @@ title: "Prettier ${versionShort}: 🚧"
   "<!--truncate-->",
   ...printEntries({
     title: "Highlights",
-    filter: entry => entry.highlight
+    filter: (entry) => entry.highlight,
   }),
   ...printEntries({
     title: "Breaking changes",
-    filter: entry => entry.breaking && !entry.highlight
+    filter: (entry) => entry.breaking && !entry.highlight,
   }),
   ...printEntries({
     title: "Other changes",
-    filter: entry => !entry.breaking && !entry.highlight
-  })
+    filter: (entry) => !entry.breaking && !entry.highlight,
+  }),
 ];
 
 function printEntries({ title, filter }) {
@@ -100,7 +100,7 @@ function printEntries({ title, filter }) {
     const filteredEntries = entries.filter(filter);
     if (filteredEntries.length) {
       result.push("### " + title);
-      result.push(...filteredEntries.map(entry => entry.content));
+      result.push(...filteredEntries.map((entry) => entry.content));
     }
   }
 
