@@ -1040,6 +1040,8 @@ $my-list:
 $my-map: (
   'foo': 1, // Comment
   'bar': 2, // Comment
+  'buz': calc(1 + 2), // Buz
+  'baz': 4, // Baz
 );
 
 [href]:hover &, // Comment
@@ -2003,6 +2005,10 @@ $my-map: (
   // Comment
     "bar": 2,
   // Comment
+    "buz": calc(1 + 2),
+  // Buz
+    "baz": 4,
+  // Baz
 );
 
 [href]:hover &, // Comment
@@ -3063,6 +3069,8 @@ $my-list:
 $my-map: (
   'foo': 1, // Comment
   'bar': 2, // Comment
+  'buz': calc(1 + 2), // Buz
+  'baz': 4, // Baz
 );
 
 [href]:hover &, // Comment
@@ -4026,6 +4034,10 @@ $my-map: (
   // Comment
     "bar": 2,
   // Comment
+    "buz": calc(1 + 2),
+  // Buz
+    "baz": 4,
+  // Baz
 );
 
 [href]:hover &, // Comment
