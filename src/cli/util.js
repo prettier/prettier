@@ -423,6 +423,7 @@ function statSafeSync(filePath) {
 // for backward compatibility reason temporary remove `.` and set `expandDirectories=false`
 // see https://github.com/prettier/prettier/pull/6639#issuecomment-548949954
 const isWindows = path.sep === "\\";
+const globbyOptions = { dot: true, expandDirectories: false, absolute: true };
 function eachFilename(context, maybePatterns, callback) {
   const withNodeModules = context.argv["with-node-modules"] === true;
   // TODO: use `ignore` option for `globby`
@@ -470,11 +471,7 @@ function eachFilename(context, maybePatterns, callback) {
       // Don't use `files.push(...)`, there is limitation on the number of arguments.
       files = [
         ...files,
-        ...globby.sync([...patterns, ...extraPatterns], {
-          dot: true,
-          expandDirectories: false,
-          absolute: true
-        })
+        ...globby.sync([...patterns, ...extraPatterns], globbyOptions)
       ];
     } catch (error) {
       context.logger.error(
