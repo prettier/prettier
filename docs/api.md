@@ -104,11 +104,9 @@ When setting `options.resolveConfig` (`boolean`, default `false`), Prettier will
 
 Use `prettier.getFileInfo.sync(filePath [, options])` if you'd like to use sync version.
 
-## `prettier.getSupportInfo([version])`
+## `prettier.getSupportInfo()`
 
-Returns an object representing the parsers, languages and file types Prettier supports.
-
-If `version` is provided (e.g. `"1.5.0"`), information for that version will be returned, otherwise information for the current version will be returned.
+Returns an object representing the parsers, languages and file types the current version of Prettier supports.
 
 The support information looks like this:
 
