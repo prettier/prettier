@@ -937,9 +937,7 @@ function adjustNumbers(value) {
     ADJUST_NUMBERS_REGEX,
     (match, quote, wordPart, number, unit) =>
       !wordPart && number
-        ? (wordPart || "") +
-          printCssNumber(number) +
-          maybeToLowerCase(unit || "")
+        ? printCssNumber(number) + maybeToLowerCase(unit || "")
         : match
   );
 }
