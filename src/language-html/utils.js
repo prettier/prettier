@@ -91,7 +91,7 @@ function shouldPreserveContent(node, options) {
 }
 
 function hasPrettierIgnore(node) {
-  if (node.type === "attribute" || isTextLikeNode(node)) {
+  if (node.type === "attribute") {
     return false;
   }
 
