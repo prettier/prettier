@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`1. \`prettier dir1 dir2\` (stdout) 1`] = `
+"dir1/a1.js
+dir1/b1.js
+dir1/nested1/an1.css
+dir1/nested1/an1.js
+dir1/nested1/bn1.js
+dir2/a2.js
+dir2/b2.js
+dir2/nested2/an2.js
+dir2/nested2/bn2.js
+"
+`;
+
+exports[`1. \`prettier dir1 dir2\` with *.foo plugin (stdout) 1`] = `
+"dir1/a1.foo
+dir1/a1.js
+dir1/b1.js
+dir1/nested1/an1.css
+dir1/nested1/an1.js
+dir1/nested1/bn1.js
+dir2/a2.foo
+dir2/a2.js
+dir2/b2.js
+dir2/nested2/an2.js
+dir2/nested2/bn2.js
+"
+`;

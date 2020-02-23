@@ -424,16 +424,19 @@ function statSafeSync(filePath) {
 // for backward compatibility reason temporary remove `.` and set `expandDirectories=false`
 // see https://github.com/prettier/prettier/pull/6639#issuecomment-548949954
 const isWindows = path.sep === "\\";
-const globbyOptions = { dot: true, expandDirectories: false, absolute: true };
-function eachFilename(context, maybePatterns, callback) {
+const baseGlobbyOptions = {
+  dot: true,
+  expandDirectories: false,
+  absolute: true
+};
+
+/**
+ * @param {Context} context
+ * @param {string[]} patterns
+ * @param {(filename: string) => void} callback
+ */
+function eachFilename(context, patterns, callback) {
   const withNodeModules = context.argv["with-node-modules"] === true;
-  // TODO: use `ignore` option for `globby`
-  const extraPatterns = [
-    // The '!./' globs are due to https://github.com/prettier/prettier/issues/2110
-    ...(withNodeModules ? [] : ["!**/node_modules/**", "!./node_modules/**"]),
-    "!**/.{git,svn,hg}/**",
-    "!./.{git,svn,hg}/**"
-  ];
 
   // Ignores files in version control systems directories and `node_modules`
   const ignoredDirectories = [".git", ".svn", ".hg"];
@@ -441,45 +444,71 @@ function eachFilename(context, maybePatterns, callback) {
     ignoredDirectories.push("node_modules");
   }
 
+  const globbyOptions = {
+    ...baseGlobbyOptions,
+    ignore: ignoredDirectories.map(dir => `**/${dir}/**`)
+  };
+
   let files = [];
   const cwd = process.cwd();
-  const patterns = [];
+  const globs = [];
+  const dirs = [];
 
-  for (const pattern of maybePatterns) {
+  for (const pattern of patterns) {
     const absolutePath = path.resolve(cwd, pattern);
     const stat = statSafeSync(absolutePath);
-    if (
-      stat &&
-      stat.isFile() &&
-      !path
-        .relative(cwd, absolutePath)
-        .split(path.sep)
-        .some(directory => ignoredDirectories.includes(directory))
-    ) {
-      files.push(absolutePath);
-    } else {
-      // Ignore `dot pattern` for now
-      if (pattern !== ".") {
-        // workaround for fast-glob on Windows ref:
-        // https://github.com/mrmlnc/fast-glob#how-to-write-patterns-on-windows
-        patterns.push(isWindows ? pattern.replace(/\\/g, "/") : pattern);
+    if (stat) {
+      if (
+        path
+          .relative(cwd, absolutePath)
+          .split(path.sep)
+          .some(directory => ignoredDirectories.includes(directory))
+      ) {
+        continue;
       }
+
+      if (stat.isFile()) {
+        files.push(absolutePath);
+      }
+
+      if (stat.isDirectory()) {
+        dirs.push(pattern);
+      }
+    } else {
+      // Using backslashes in globs is probably not okay, but not accepting
+      // backslashes as path separators on Windows is even more not okay.
+      // https://github.com/prettier/prettier/pull/6776#discussion_r380723717
+      // https://github.com/mrmlnc/fast-glob#how-to-write-patterns-on-windows
+      globs.push(isWindows ? pattern.replace(/\\/g, "/") : pattern);
     }
   }
 
-  if (patterns.length > 0) {
+  if (dirs.length > 0) {
+    const extensions = flattenArray(
+      context.languages.map(lang => lang.extensions || [])
+    );
+    const filenames = flattenArray(
+      context.languages.map(lang => lang.filenames || [])
+    );
+    const supportedFilesGlob =
+      "/**/{" +
+      extensions
+        .map(ext => "*" + (ext[0] === "." ? ext : "." + ext))
+        .concat(filenames)
+        .join(",") +
+      "}";
+    globs.push(...dirs.map(dir => dir + supportedFilesGlob));
+  }
+
+  if (globs.length > 0) {
     try {
       // Don't use `files.push(...)`, there is limitation on the number of arguments.
-      files = [
-        ...files,
-        ...globby.sync([...patterns, ...extraPatterns], globbyOptions)
-      ];
+      files = [...files, ...globby.sync(globs, globbyOptions)];
     } catch (error) {
       context.logger.error(
-        `Unable to expand glob patterns: ${[
-          ...maybePatterns,
-          ...extraPatterns
-        ].join(" ")}\n${error.message}`
+        `Unable to expand glob patterns: ${patterns.join(" ")}\n${
+          error.message
+        }`
       );
       // Don't exit the process if one pattern failed
       process.exitCode = 2;
@@ -488,10 +517,7 @@ function eachFilename(context, maybePatterns, callback) {
 
   if (files.length === 0) {
     context.logger.error(
-      `No matching files. Patterns tried: ${[
-        ...maybePatterns,
-        ...extraPatterns
-      ].join(" ")}`
+      `No matching files. Patterns tried: ${patterns.join(" ")}`
     );
     process.exitCode = 2;
     return;
@@ -964,16 +990,20 @@ function createDetailedOptionMap(supportOptions) {
 /**
  * @typedef {Object} Context
  * @property logger
- * @property args
+ * @property {string[]} args
  * @property argv
- * @property filePatterns
+ * @property {string[]} filePatterns
  * @property supportOptions
  * @property detailedOptions
  * @property detailedOptionMap
  * @property apiDefaultOptions
+ * @property languages
+ * @property {Partial<Context>[]} stack
  */
+
+/** @returns {Context} */
 function createContext(args) {
-  const context = { args };
+  const context = { args, stack: [] };
 
   updateContextArgv(context);
   normalizeContextArgv(context, ["loglevel", "plugin", "plugin-search-dir"]);
@@ -994,14 +1024,19 @@ function initContext(context) {
   normalizeContextArgv(context);
 }
 
+/**
+ * @param {Context} context
+ * @param {string[]} plugins
+ * @param {string[]=} pluginSearchDirs
+ */
 function updateContextOptions(context, plugins, pluginSearchDirs) {
-  const supportOptions = prettier.getSupportInfo({
+  const { options: supportOptions, languages } = prettier.getSupportInfo({
     showDeprecated: true,
     showUnreleased: true,
     showInternal: true,
     plugins,
     pluginSearchDirs
-  }).options;
+  });
 
   const detailedOptionMap = normalizeDetailedOptionMap({
     ...createDetailedOptionMap(supportOptions),
@@ -1019,25 +1054,38 @@ function updateContextOptions(context, plugins, pluginSearchDirs) {
     )
   };
 
-  context.supportOptions = supportOptions;
-  context.detailedOptions = detailedOptions;
-  context.detailedOptionMap = detailedOptionMap;
-  context.apiDefaultOptions = apiDefaultOptions;
+  Object.assign(context, {
+    supportOptions,
+    detailedOptions,
+    detailedOptionMap,
+    apiDefaultOptions,
+    languages
+  });
 }
 
+/**
+ * @param {Context} context
+ * @param {string[]} plugins
+ * @param {string[]=} pluginSearchDirs
+ */
 function pushContextPlugins(context, plugins, pluginSearchDirs) {
-  context._supportOptions = context.supportOptions;
-  context._detailedOptions = context.detailedOptions;
-  context._detailedOptionMap = context.detailedOptionMap;
-  context._apiDefaultOptions = context.apiDefaultOptions;
+  context.stack.push(
+    pick(context, [
+      "supportOptions",
+      "detailedOptions",
+      "detailedOptionMap",
+      "apiDefaultOptions",
+      "languages"
+    ])
+  );
   updateContextOptions(context, plugins, pluginSearchDirs);
 }
 
+/**
+ * @param {Context} context
+ */
 function popContextPlugins(context) {
-  context.supportOptions = context._supportOptions;
-  context.detailedOptions = context._detailedOptions;
-  context.detailedOptionMap = context._detailedOptionMap;
-  context.apiDefaultOptions = context._apiDefaultOptions;
+  Object.assign(context, context.stack.pop());
 }
 
 function updateContextArgv(context, plugins, pluginSearchDirs) {
