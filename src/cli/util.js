@@ -994,7 +994,7 @@ function initContext(context) {
 }
 
 function updateContextOptions(context, plugins, pluginSearchDirs) {
-  const supportOptions = prettier.getSupportInfo(null, {
+  const supportOptions = prettier.getSupportInfo({
     showDeprecated: true,
     showUnreleased: true,
     showInternal: true,
