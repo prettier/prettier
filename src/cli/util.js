@@ -4,18 +4,19 @@ const path = require("path");
 const camelCase = require("camelcase");
 const dashify = require("dashify");
 const fs = require("fs");
-const globby = require("globby");
+
 const chalk = require("chalk");
 const readline = require("readline");
 const stringify = require("json-stable-stringify");
 const fromPairs = require("lodash/fromPairs");
 const pick = require("lodash/pick");
 const groupBy = require("lodash/groupBy");
-const uniq = require("lodash/uniq");
+const flat = require("lodash/flatten");
 
 const minimist = require("./minimist");
 const prettier = require("../../index");
 const createIgnorer = require("../common/create-ignorer");
+const expandPatterns = require("./expand-patterns");
 const errors = require("../common/errors");
 const constant = require("./constant");
 const coreOptions = require("../main/core-options");
@@ -403,135 +404,6 @@ function createIgnorerFromContextOrDie(context) {
   }
 }
 
-/**
- * Get stats of a given path.
- * @param {string} filePath The path to target file.
- * @returns {fs.Stats|undefined} The stats.
- * @private
- */
-function statSafeSync(filePath) {
-  try {
-    return fs.statSync(filePath);
-  } catch (error) {
-    /* istanbul ignore next */
-    if (error.code !== "ENOENT") {
-      throw error;
-    }
-  }
-}
-
-// `dot pattern` and `expand directories` support need handle differently
-// for backward compatibility reason temporary remove `.` and set `expandDirectories=false`
-// see https://github.com/prettier/prettier/pull/6639#issuecomment-548949954
-const isWindows = path.sep === "\\";
-const baseGlobbyOptions = {
-  dot: true,
-  expandDirectories: false,
-  absolute: true
-};
-
-/**
- * @param {Context} context
- * @param {string[]} patterns
- * @param {(filename: string) => void} callback
- */
-function eachFilename(context, patterns, callback) {
-  const withNodeModules = context.argv["with-node-modules"] === true;
-
-  // Ignores files in version control systems directories and `node_modules`
-  const ignoredDirectories = [".git", ".svn", ".hg"];
-  if (!withNodeModules) {
-    ignoredDirectories.push("node_modules");
-  }
-
-  const globbyOptions = {
-    ...baseGlobbyOptions,
-    ignore: ignoredDirectories.map(dir => `**/${dir}/**`)
-  };
-
-  let files = [];
-  const cwd = process.cwd();
-  const globs = [];
-  const dirs = [];
-
-  for (const pattern of patterns) {
-    const absolutePath = path.resolve(cwd, pattern);
-    const stat = statSafeSync(absolutePath);
-    if (stat) {
-      if (
-        path
-          .relative(cwd, absolutePath)
-          .split(path.sep)
-          .some(directory => ignoredDirectories.includes(directory))
-      ) {
-        continue;
-      }
-
-      if (stat.isFile()) {
-        files.push(absolutePath);
-      }
-
-      if (stat.isDirectory()) {
-        dirs.push(pattern);
-      }
-    } else {
-      // Using backslashes in globs is probably not okay, but not accepting
-      // backslashes as path separators on Windows is even more not okay.
-      // https://github.com/prettier/prettier/pull/6776#discussion_r380723717
-      // https://github.com/mrmlnc/fast-glob#how-to-write-patterns-on-windows
-      globs.push(isWindows ? pattern.replace(/\\/g, "/") : pattern);
-    }
-  }
-
-  if (dirs.length > 0) {
-    const extensions = flattenArray(
-      context.languages.map(lang => lang.extensions || [])
-    );
-    const filenames = flattenArray(
-      context.languages.map(lang => lang.filenames || [])
-    );
-    const supportedFilesGlob =
-      "/**/{" +
-      extensions
-        .map(ext => "*" + (ext[0] === "." ? ext : "." + ext))
-        .concat(filenames)
-        .join(",") +
-      "}";
-    globs.push(...dirs.map(dir => dir + supportedFilesGlob));
-  }
-
-  if (globs.length > 0) {
-    try {
-      // Don't use `files.push(...)`, there is limitation on the number of arguments.
-      files = [...files, ...globby.sync(globs, globbyOptions)];
-    } catch (error) {
-      context.logger.error(
-        `Unable to expand glob patterns: ${patterns.join(" ")}\n${
-          error.message
-        }`
-      );
-      // Don't exit the process if one pattern failed
-      process.exitCode = 2;
-    }
-  }
-
-  if (files.length === 0) {
-    context.logger.error(
-      `No matching files. Patterns tried: ${patterns.join(" ")}`
-    );
-    process.exitCode = 2;
-    return;
-  }
-
-  files = uniq(files.map(file => path.relative(cwd, file)))
-    // keeping file order for backward compatibility
-    .sort((a, b) => a.localeCompare(b));
-
-  for (const file of files) {
-    callback(file);
-  }
-}
-
 function formatFiles(context) {
   // The ignorer will be used to filter file paths after the glob is checked,
   // before any files are actually written
@@ -543,7 +415,15 @@ function formatFiles(context) {
     context.logger.log("Checking formatting...");
   }
 
-  eachFilename(context, context.filePatterns, filename => {
+  for (const pathOrError of expandPatterns(context)) {
+    if (typeof pathOrError === "object") {
+      context.logger.error(pathOrError.error);
+      // Don't exit, but set the exit code to 2
+      process.exitCode = 2;
+      continue;
+    }
+
+    const filename = pathOrError;
     // If there's an ignore-path set, the filename must be relative to the
     // ignore path, not the current working directory.
     const ignoreFilename = context.argv["ignore-path"]
@@ -557,7 +437,7 @@ function formatFiles(context) {
         context.argv.check ||
         context.argv["list-different"])
     ) {
-      return;
+      continue;
     }
 
     const options = {
@@ -581,12 +461,12 @@ function formatFiles(context) {
       );
       // Don't exit the process if one file failed
       process.exitCode = 2;
-      return;
+      continue;
     }
 
     if (fileIgnored) {
       writeOutput(context, { formatted: input }, options);
-      return;
+      continue;
     }
 
     const start = Date.now();
@@ -599,7 +479,7 @@ function formatFiles(context) {
       output = result.formatted;
     } catch (error) {
       handleError(context, filename, error);
-      return;
+      continue;
     }
 
     const isDifferent = output !== input;
@@ -644,7 +524,7 @@ function formatFiles(context) {
       context.logger.log(filename);
       numberOfUnformattedFilesFound += 1;
     }
-  });
+  }
 
   // Print check summary based on expected exit code
   if (context.argv.check) {
@@ -681,7 +561,7 @@ function getOptionsWithOpposites(options) {
         }
       : null
   ]);
-  return flattenArray(optionsWithOpposites).filter(Boolean);
+  return flat(optionsWithOpposites).filter(Boolean);
 }
 
 function createUsage(context) {
@@ -768,10 +648,6 @@ function createOptionUsageType(option) {
     default:
       return `<${option.type}>`;
   }
-}
-
-function flattenArray(array) {
-  return [].concat(...array);
 }
 
 function createChoiceUsages(choices, margin, indentation) {
@@ -993,7 +869,7 @@ function createDetailedOptionMap(supportOptions) {
  * @property {string[]} args
  * @property argv
  * @property {string[]} filePatterns
- * @property supportOptions
+ * @property {any[]} supportOptions
  * @property detailedOptions
  * @property detailedOptionMap
  * @property apiDefaultOptions
@@ -1016,7 +892,7 @@ function createContext(args) {
     context.argv["plugin-search-dir"]
   );
 
-  return context;
+  return /** @type {Context} */ (context);
 }
 
 function initContext(context) {

@@ -15,9 +15,9 @@ exports[`doesn't ignore node_modules with --with-node-modules flag (write) 1`] =
 exports[`doesn't ignore node_modules with --with-node-modules flag for file list (stderr) 1`] = `""`;
 
 exports[`doesn't ignore node_modules with --with-node-modules flag for file list (stdout) 1`] = `
-"nested/node_modules/node-module.js
-node_modules/node-module.js
+"node_modules/node-module.js
 not_node_modules/file.js
+nested/node_modules/node-module.js
 regular-module.js
 "
 `;
