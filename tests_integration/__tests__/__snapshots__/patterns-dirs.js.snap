@@ -28,6 +28,20 @@ dir2/nested2/bn2.js
 "
 `;
 
+exports[`1c. \`prettier dir1 empty\` (stderr) 1`] = `
+"[error] No supported files were found in the directory \\"empty\\".
+"
+`;
+
+exports[`1c. \`prettier dir1 empty\` (stdout) 1`] = `
+"dir1/a1.js
+dir1/b1.js
+dir1/nested1/an1.css
+dir1/nested1/an1.js
+dir1/nested1/bn1.js
+"
+`;
+
 exports[`2. \`prettier dir1 "dir2/**/*"\` (stderr) 1`] = `
 "[error] No parser could be inferred for file: dir2/a2.foo
 "

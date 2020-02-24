@@ -54,6 +54,13 @@ describe('1b. `prettier dir1 "!dir"` - special characters in dir name', () => {
   });
 });
 
+describe("1c. `prettier dir1 empty`", () => {
+  runPrettier("cli/patterns-dirs", ["dir1", "empty", "-l"]).test({
+    status: 2,
+    write: []
+  });
+});
+
 describe('2. `prettier dir1 "dir2/**/*"`', () => {
   runPrettier("cli/patterns-dirs", ["dir1", "dir2/**/*", "-l"]).test({
     status: 1,
