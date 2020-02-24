@@ -57,17 +57,6 @@ describe("deprecated options are warned", () => {
   });
 });
 
-describe("deprecated option values are warned", () => {
-  runPrettier("cli/arg-parsing", [
-    "--end-of-line",
-    "lf",
-    "file.js",
-    "--trailing-comma"
-  ]).test({
-    status: 0
-  });
-});
-
 describe("allow overriding flags", () => {
   runPrettier(
     "cli/arg-parsing",
