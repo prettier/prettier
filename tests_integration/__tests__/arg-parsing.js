@@ -46,17 +46,6 @@ describe("unknown negated options are warned", () => {
   });
 });
 
-describe("deprecated options are warned", () => {
-  runPrettier("cli/arg-parsing", [
-    "--end-of-line",
-    "lf",
-    "file.js",
-    "--flow-parser"
-  ]).test({
-    status: 0
-  });
-});
-
 describe("allow overriding flags", () => {
   runPrettier(
     "cli/arg-parsing",

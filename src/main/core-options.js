@@ -233,19 +233,6 @@ const options = {
     description: "Number of spaces per indentation level.",
     range: { start: 0, end: Infinity, step: 1 }
   },
-  useFlowParser: {
-    since: "0.0.0",
-    category: CATEGORY_GLOBAL,
-    type: "boolean",
-    default: [
-      { since: "0.0.0", value: false },
-      { since: "1.15.0", value: undefined }
-    ],
-    deprecated: "0.0.10",
-    description: "Use flow parser.",
-    redirect: { option: "parser", value: "flow" },
-    cliName: "flow-parser"
-  },
   useTabs: {
     since: "1.0.0",
     category: CATEGORY_GLOBAL,
