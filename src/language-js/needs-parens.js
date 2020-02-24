@@ -204,7 +204,10 @@ function needsParens(path, options) {
       }
 
     case "BinaryExpression": {
-      if (parent.type === "UpdateExpression") {
+      if (
+        parent.type === "UpdateExpression" ||
+        (parent.type === "PipelineTopicExpression" && node.operator === "|>")
+      ) {
         return true;
       }
 
@@ -561,6 +564,9 @@ function needsParens(path, options) {
 
     case "ArrowFunctionExpression":
       switch (parent.type) {
+        case "PipelineTopicExpression":
+          return !!(node.extra && node.extra.parenthesized);
+
         case "NewExpression":
         case "CallExpression":
         case "OptionalCallExpression":
