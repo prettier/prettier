@@ -30,7 +30,7 @@ function babelOptions(extraPlugins = []) {
       "optionalCatchBinding",
       "optionalChaining",
       "classPrivateProperties",
-      ["pipelineOperator", { proposal: "minimal" }],
+      ["pipelineOperator", { proposal: "smart" }],
       "nullishCoalescingOperator",
       "bigInt",
       "throwExpressions",
