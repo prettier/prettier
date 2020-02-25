@@ -294,38 +294,38 @@ styled(ExistingComponent).attr({})\`
 \`;
 
 styled.div\`
-  color: \${props => props.theme.colors.paragraph};
+  color: \${(props) => props.theme.colors.paragraph};
   /* prettier-ignore */
-  \${props => (props.small ? "font-size: 0.8em;" : "")};
+  \${(props) => (props.small ? "font-size: 0.8em;" : "")};
 \`;
 
 styled.div\`
-  color: \${props => props.theme.colors.paragraph};
+  color: \${(props) => props.theme.colors.paragraph};
   /* prettier-ignore */
-  \${props => (props.small ? "font-size: 0.8em;" : "")}
+  \${(props) => (props.small ? "font-size: 0.8em;" : "")}
 \`;
 
 styled.div\`
    /* prettier-ignore */
-  color: \${props => props.theme.colors.paragraph};
-  \${props => (props.small ? "font-size: 0.8em;" : "")};
+  color: \${(props) => props.theme.colors.paragraph};
+  \${(props) => (props.small ? "font-size: 0.8em;" : "")};
 \`;
 
 styled.div\`
-  color: \${props => props.theme.colors.paragraph};
+  color: \${(props) => props.theme.colors.paragraph};
   /* prettier-ignore */
-  \${props => (props.small ? "font-size: 0.8em;" : "")};
+  \${(props) => (props.small ? "font-size: 0.8em;" : "")};
   /* prettier-ignore */
-  \${props => (props.red ? "color: red;" : "")};
+  \${(props) => (props.red ? "color: red;" : "")};
 \`;
 
 styled.div\`
   /* prettier-ignore */
-  color: \${props => props.theme.colors.paragraph};
+  color: \${(props) => props.theme.colors.paragraph};
   /* prettier-ignore */
-  \${props => (props.small ? "font-size: 0.8em;" : "")};
+  \${(props) => (props.small ? "font-size: 0.8em;" : "")};
   /* prettier-ignore */
-  \${props => (props.red ? "color: red;" : "")};
+  \${(props) => (props.red ? "color: red;" : "")};
   /* prettier-ignore */
 \`;
 
@@ -427,13 +427,13 @@ const Direction2 = styled.span\`
 \`;
 
 const mixin = css\`
-  color: \${props => props.color};
-  \${props => props.otherProperty}: \${props => props.otherValue};
+  color: \${(props) => props.color};
+  \${(props) => props.otherProperty}: \${(props) => props.otherValue};
 \`;
 
 const foo = styled.div\`
   display: flex;
-  \${props => props.useMixin && mixin}
+  \${(props) => props.useMixin && mixin}
 \`;
 
 const Single1 = styled.div\`
@@ -456,7 +456,7 @@ const bar = styled.div\`
   height: 40px;
   width: 40px;
 
-  \${props =>
+  \${(props) =>
     (props.complete || props.inProgress) &&
     css\`
       border-color: rgba(var(--green-rgb), 0.15);
@@ -469,14 +469,14 @@ const bar = styled.div\`
     color: var(--purpleTT);
     display: inline-flex;
 
-    \${props =>
+    \${(props) =>
       props.complete &&
       css\`
         background-color: var(--green);
         border-width: 7px;
       \`}
 
-    \${props =>
+    \${(props) =>
       (props.complete || props.inProgress) &&
       css\`
         border-color: var(--green);
@@ -487,7 +487,7 @@ const bar = styled.div\`
 const A = styled.a\`
   display: inline-block;
   color: #fff;
-  \${props =>
+  \${(props) =>
     props.a &&
     css\`
       display: none;

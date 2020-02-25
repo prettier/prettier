@@ -3,8 +3,10 @@
 const fs = require("fs");
 const path = require("path");
 const raw = require("jest-snapshot-serializer-raw").wrap;
+const { isCI } = require("ci-info");
 
-const { AST_COMPARE, TEST_STANDALONE, TEST_CRLF } = process.env;
+const { TEST_STANDALONE, TEST_CRLF } = process.env;
+const AST_COMPARE = isCI || process.env.AST_COMPARE;
 
 const CURSOR_PLACEHOLDER = "<|>";
 const RANGE_START_PLACEHOLDER = "<<<PRETTIER_RANGE_START>>>";
@@ -15,8 +17,11 @@ const prettier = !TEST_STANDALONE
   : require("prettier/standalone");
 
 global.run_spec = (dirname, parsers, options) => {
-  // istanbul ignore next
-  if (!parsers || !parsers.length) {
+  // `IS_PARSER_INFERENCE_TESTS` mean to test `inferParser` on `standalone`
+  const IS_PARSER_INFERENCE_TESTS = dirname.endsWith("parser-inference");
+  if (IS_PARSER_INFERENCE_TESTS) {
+    parsers = [];
+  } else if (!parsers || !parsers.length) {
     throw new Error(`No parsers were specified for ${dirname}`);
   }
 
@@ -62,7 +67,12 @@ global.run_spec = (dirname, parsers, options) => {
       rangeEnd,
       cursorOffset
     };
-    const mainOptions = { ...baseOptions, parser: parsers[0] };
+    const mainOptions = {
+      ...baseOptions,
+      ...(IS_PARSER_INFERENCE_TESTS
+        ? { filepath: filename }
+        : { parser: parsers[0] })
+    };
 
     const hasEndOfLine = "endOfLine" in mainOptions;
 
@@ -90,7 +100,21 @@ global.run_spec = (dirname, parsers, options) => {
       ).toMatchSnapshot();
     });
 
-    for (const parser of parsers.slice(1)) {
+    const parsersToVerify = parsers.slice(1);
+    if (
+      parsers.includes("typescript") &&
+      !parsers.includes("babel-ts") &&
+      !(
+        options &&
+        (options.disableBabelTS === true ||
+          (Array.isArray(options.disableBabelTS) &&
+            options.disableBabelTS.includes(basename)))
+      )
+    ) {
+      parsersToVerify.push("babel-ts");
+    }
+
+    for (const parser of parsersToVerify) {
       const verifyOptions = { ...baseOptions, parser };
       test(`${basename} - ${parser}-verify`, () => {
         const verifyOutput = format(input, filename, verifyOptions);
@@ -172,7 +196,11 @@ function createSnapshot(input, output, options) {
       printOptions(
         omit(
           options,
-          k => k === "rangeStart" || k === "rangeEnd" || k === "cursorOffset"
+          k =>
+            k === "rangeStart" ||
+            k === "rangeEnd" ||
+            k === "cursorOffset" ||
+            k === "disableBabelTS"
         )
       ),
       printWidthIndicator,

@@ -8,6 +8,10 @@ const globby = require("globby");
 const chalk = require("chalk");
 const readline = require("readline");
 const stringify = require("json-stable-stringify");
+const fromPairs = require("lodash/fromPairs");
+const pick = require("lodash/pick");
+const groupBy = require("lodash/groupBy");
+const uniq = require("lodash/uniq");
 
 const minimist = require("./minimist");
 const prettier = require("../../index");
@@ -26,15 +30,11 @@ const CHOICE_USAGE_MARGIN = 3;
 const CHOICE_USAGE_INDENTATION = 2;
 
 function getOptions(argv, detailedOptions) {
-  return detailedOptions
-    .filter(option => option.forwardToApi)
-    .reduce(
-      (current, option) =>
-        Object.assign(current, {
-          [option.forwardToApi]: argv[option.name]
-        }),
-      {}
-    );
+  return fromPairs(
+    detailedOptions
+      .filter(({ forwardToApi }) => forwardToApi)
+      .map(({ forwardToApi, name }) => [forwardToApi, argv[name]])
+  );
 }
 
 function cliifyOptions(object, apiDetailedOptionMap) {
@@ -200,7 +200,7 @@ function format(context, input, opt) {
     return { formatted: pp, filepath: opt.filepath || "(stdin)\n" };
   }
 
-  /* istanbul ignore if */
+  /* istanbul ignore next */
   if (context.argv["debug-benchmark"]) {
     let benchmark;
     try {
@@ -363,7 +363,11 @@ function formatStdin(context) {
     : process.cwd();
 
   const ignorer = createIgnorerFromContextOrDie(context);
-  const relativeFilepath = path.relative(process.cwd(), filepath);
+  // If there's an ignore-path set, the filename must be relative to the
+  // ignore path, not the current working directory.
+  const relativeFilepath = context.argv["ignore-path"]
+    ? path.relative(path.dirname(context.argv["ignore-path"]), filepath)
+    : path.relative(process.cwd(), filepath);
 
   thirdParty
     .getStream(process.stdin)
@@ -398,33 +402,106 @@ function createIgnorerFromContextOrDie(context) {
   }
 }
 
-function eachFilename(context, patterns, callback) {
-  // The '!./' globs are due to https://github.com/prettier/prettier/issues/2110
-  const ignoreNodeModules = context.argv["with-node-modules"] !== true;
-  if (ignoreNodeModules) {
-    patterns = patterns.concat(["!**/node_modules/**", "!./node_modules/**"]);
-  }
-  patterns = patterns.concat(["!**/.{git,svn,hg}/**", "!./.{git,svn,hg}/**"]);
-
+/**
+ * Get stats of a given path.
+ * @param {string} filePath The path to target file.
+ * @returns {fs.Stats|undefined} The stats.
+ * @private
+ */
+function statSafeSync(filePath) {
   try {
-    const filePaths = globby
-      .sync(patterns, { dot: true, nodir: true })
-      .map(filePath => path.relative(process.cwd(), filePath));
-
-    if (filePaths.length === 0) {
-      context.logger.error(
-        `No matching files. Patterns tried: ${patterns.join(" ")}`
-      );
-      process.exitCode = 2;
-      return;
-    }
-    filePaths.forEach(filePath => callback(filePath));
+    return fs.statSync(filePath);
   } catch (error) {
+    /* istanbul ignore next */
+    if (error.code !== "ENOENT") {
+      throw error;
+    }
+  }
+}
+
+// `dot pattern` and `expand directories` support need handle differently
+// for backward compatibility reason temporary remove `.` and set `expandDirectories=false`
+// see https://github.com/prettier/prettier/pull/6639#issuecomment-548949954
+const isWindows = path.sep === "\\";
+const globbyOptions = { dot: true, expandDirectories: false, absolute: true };
+function eachFilename(context, maybePatterns, callback) {
+  const withNodeModules = context.argv["with-node-modules"] === true;
+  // TODO: use `ignore` option for `globby`
+  const extraPatterns = [
+    // The '!./' globs are due to https://github.com/prettier/prettier/issues/2110
+    ...(withNodeModules ? [] : ["!**/node_modules/**", "!./node_modules/**"]),
+    "!**/.{git,svn,hg}/**",
+    "!./.{git,svn,hg}/**"
+  ];
+
+  // Ignores files in version control systems directories and `node_modules`
+  const ignoredDirectories = [".git", ".svn", ".hg"];
+  if (!withNodeModules) {
+    ignoredDirectories.push("node_modules");
+  }
+
+  let files = [];
+  const cwd = process.cwd();
+  const patterns = [];
+
+  for (const pattern of maybePatterns) {
+    const absolutePath = path.resolve(cwd, pattern);
+    const stat = statSafeSync(absolutePath);
+    if (
+      stat &&
+      stat.isFile() &&
+      !path
+        .relative(cwd, absolutePath)
+        .split(path.sep)
+        .some(directory => ignoredDirectories.includes(directory))
+    ) {
+      files.push(absolutePath);
+    } else {
+      // Ignore `dot pattern` for now
+      if (pattern !== ".") {
+        // workaround for fast-glob on Windows ref:
+        // https://github.com/mrmlnc/fast-glob#how-to-write-patterns-on-windows
+        patterns.push(isWindows ? pattern.replace(/\\/g, "/") : pattern);
+      }
+    }
+  }
+
+  if (patterns.length > 0) {
+    try {
+      // Don't use `files.push(...)`, there is limitation on the number of arguments.
+      files = [
+        ...files,
+        ...globby.sync([...patterns, ...extraPatterns], globbyOptions)
+      ];
+    } catch (error) {
+      context.logger.error(
+        `Unable to expand glob patterns: ${[
+          ...maybePatterns,
+          ...extraPatterns
+        ].join(" ")}\n${error.message}`
+      );
+      // Don't exit the process if one pattern failed
+      process.exitCode = 2;
+    }
+  }
+
+  if (files.length === 0) {
     context.logger.error(
-      `Unable to expand glob patterns: ${patterns.join(" ")}\n${error.message}`
+      `No matching files. Patterns tried: ${[
+        ...maybePatterns,
+        ...extraPatterns
+      ].join(" ")}`
     );
-    // Don't exit the process if one pattern failed
     process.exitCode = 2;
+    return;
+  }
+
+  files = uniq(files.map(file => path.relative(cwd, file)))
+    // keeping file order for backward compatibility
+    .sort((a, b) => a.localeCompare(b));
+
+  for (const file of files) {
+    callback(file);
   }
 }
 
@@ -440,7 +517,12 @@ function formatFiles(context) {
   }
 
   eachFilename(context, context.filePatterns, filename => {
-    const fileIgnored = ignorer.filter([filename]).length === 0;
+    // If there's an ignore-path set, the filename must be relative to the
+    // ignore path, not the current working directory.
+    const ignoreFilename = context.argv["ignore-path"]
+      ? path.relative(path.dirname(context.argv["ignore-path"]), filename)
+      : filename;
+    const fileIgnored = ignorer.filter([ignoreFilename]).length === 0;
     if (
       fileIgnored &&
       (context.argv["debug-check"] ||
@@ -451,9 +533,10 @@ function formatFiles(context) {
       return;
     }
 
-    const options = Object.assign(getOptionsForFile(context, filename), {
+    const options = {
+      ...getOptionsForFile(context, filename),
       filepath: filename
-    });
+    };
 
     if (isTTY()) {
       context.logger.log(filename, { newline: false });
@@ -590,10 +673,13 @@ function createUsage(context) {
   const firstCategories = constant.categoryOrder.slice(0, -1);
   const lastCategories = constant.categoryOrder.slice(-1);
   const restCategories = Object.keys(groupedOptions).filter(
-    category =>
-      !firstCategories.includes(category) && !lastCategories.includes(category)
+    category => !constant.categoryOrder.includes(category)
   );
-  const allCategories = firstCategories.concat(restCategories, lastCategories);
+  const allCategories = [
+    ...firstCategories,
+    ...restCategories,
+    ...lastCategories
+  ];
 
   const optionsUsage = allCategories.map(category => {
     const categoryOptions = groupedOptions[category]
@@ -736,23 +822,6 @@ function indent(str, spaces) {
   return str.replace(/^/gm, " ".repeat(spaces));
 }
 
-function groupBy(array, getKey) {
-  return array.reduce((obj, item) => {
-    const key = getKey(item);
-    const previousItems = key in obj ? obj[key] : [];
-    return { ...obj, [key]: previousItems.concat(item) };
-  }, Object.create(null));
-}
-
-function pick(object, keys) {
-  return !keys
-    ? object
-    : keys.reduce(
-        (reduced, key) => Object.assign(reduced, { [key]: object[key] }),
-        {}
-      );
-}
-
 function createLogger(logLevel) {
   return {
     warn: createLogFunc("warn", "yellow"),
@@ -822,14 +891,11 @@ function normalizeDetailedOption(name, option) {
 }
 
 function normalizeDetailedOptionMap(detailedOptionMap) {
-  return Object.keys(detailedOptionMap)
-    .sort()
-    .reduce((normalized, name) => {
-      const option = detailedOptionMap[name];
-      return Object.assign(normalized, {
-        [name]: normalizeDetailedOption(name, option)
-      });
-    }, {});
+  return fromPairs(
+    Object.entries(detailedOptionMap)
+      .sort(([leftName], [rightName]) => leftName.localeCompare(rightName))
+      .map(([name, option]) => [name, normalizeDetailedOption(name, option)])
+  );
 }
 
 function createMinimistOptions(detailedOptions) {
@@ -861,34 +927,36 @@ function createMinimistOptions(detailedOptions) {
 }
 
 function createApiDetailedOptionMap(detailedOptions) {
-  return detailedOptions.reduce(
-    (current, option) =>
-      option.forwardToApi && option.forwardToApi !== option.name
-        ? Object.assign(current, { [option.forwardToApi]: option })
-        : current,
-    {}
+  return fromPairs(
+    detailedOptions
+      .filter(
+        option => option.forwardToApi && option.forwardToApi !== option.name
+      )
+      .map(option => [option.forwardToApi, option])
   );
 }
 
 function createDetailedOptionMap(supportOptions) {
-  return supportOptions.reduce((reduced, option) => {
-    const newOption = {
-      ...option,
-      name: option.cliName || dashify(option.name),
-      description: option.cliDescription || option.description,
-      category: option.cliCategory || coreOptions.CATEGORY_FORMAT,
-      forwardToApi: option.name
-    };
+  return fromPairs(
+    supportOptions.map(option => {
+      const newOption = {
+        ...option,
+        name: option.cliName || dashify(option.name),
+        description: option.cliDescription || option.description,
+        category: option.cliCategory || coreOptions.CATEGORY_FORMAT,
+        forwardToApi: option.name
+      };
 
-    if (option.deprecated) {
-      delete newOption.forwardToApi;
-      delete newOption.description;
-      delete newOption.oppositeDescription;
-      newOption.deprecated = true;
-    }
+      if (option.deprecated) {
+        delete newOption.forwardToApi;
+        delete newOption.description;
+        delete newOption.oppositeDescription;
+        newOption.deprecated = true;
+      }
 
-    return Object.assign(reduced, { [newOption.name]: newOption });
-  }, {});
+      return [newOption.name, newOption];
+    })
+  );
 }
 
 //-----------------------------context-util-start-------------------------------
@@ -926,7 +994,7 @@ function initContext(context) {
 }
 
 function updateContextOptions(context, plugins, pluginSearchDirs) {
-  const supportOptions = prettier.getSupportInfo(null, {
+  const supportOptions = prettier.getSupportInfo({
     showDeprecated: true,
     showUnreleased: true,
     showInternal: true,
@@ -941,13 +1009,14 @@ function updateContextOptions(context, plugins, pluginSearchDirs) {
 
   const detailedOptions = arrayify(detailedOptionMap, "name");
 
-  const apiDefaultOptions = supportOptions
-    .filter(optionInfo => !optionInfo.deprecated)
-    .reduce(
-      (reduced, optionInfo) =>
-        Object.assign(reduced, { [optionInfo.name]: optionInfo.default }),
-      { ...optionsModule.hiddenDefaults }
-    );
+  const apiDefaultOptions = {
+    ...optionsModule.hiddenDefaults,
+    ...fromPairs(
+      supportOptions
+        .filter(({ deprecated }) => !deprecated)
+        .map(option => [option.name, option.default])
+    )
+  };
 
   context.supportOptions = supportOptions;
   context.detailedOptions = detailedOptions;

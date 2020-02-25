@@ -543,7 +543,7 @@ async function bar2() {
   (() => 3) // foo
 );
 
-function *bar() {
+function* bar() {
   !(yield x);
   !((yield x) /* foo */);
   !(/* foo */ (yield x));

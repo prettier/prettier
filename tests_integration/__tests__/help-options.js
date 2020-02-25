@@ -9,7 +9,7 @@ const arrayify = require("../../src/utils/arrayify");
 arrayify(
   {
     ...util.createDetailedOptionMap(
-      prettier.getSupportInfo(null, {
+      prettier.getSupportInfo({
         showDeprecated: true,
         showUnreleased: true,
         showInternal: true

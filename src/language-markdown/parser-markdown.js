@@ -109,7 +109,6 @@ const mdxParser = { ...baseParser, parse: createParse({ isMDX: true }) };
 module.exports = {
   parsers: {
     remark: markdownParser,
-    // TODO: Delete this in 2.0
     markdown: markdownParser,
     mdx: mdxParser
   }

@@ -1902,6 +1902,16 @@ printWidth: 80
   <i class="fa fa-refresh fa-spin" />
 </span>
 
+<!-- #5810 -->
+<table><tr>
+</tr>
+</table><div>Should not insert empty line before this div</div>
+
+<!-- self-closing -->
+<span><input type="checkbox"/> </span>
+<span><span><input type="checkbox"/></span></span>
+<span><input type="checkbox"/></span>
+
 =====================================output=====================================
 <br />
 <br />
@@ -2088,6 +2098,19 @@ printWidth: 80
   <i class="fa fa-refresh fa-spin" />
 </span>
 
+<!-- #5810 -->
+<table>
+  <tr></tr>
+</table>
+<div>Should not insert empty line before this div</div>
+
+<!-- self-closing -->
+<span><input type="checkbox" /> </span>
+<span
+  ><span><input type="checkbox" /></span
+></span>
+<span><input type="checkbox" /></span>
+
 ================================================================================
 `;
 
@@ -2212,6 +2235,16 @@ printWidth: 1
   <i class="fa fa-refresh fa-spin" />
   <i class="fa fa-refresh fa-spin" />
 </span>
+
+<!-- #5810 -->
+<table><tr>
+</tr>
+</table><div>Should not insert empty line before this div</div>
+
+<!-- self-closing -->
+<span><input type="checkbox"/> </span>
+<span><span><input type="checkbox"/></span></span>
+<span><input type="checkbox"/></span>
 
 =====================================output=====================================
 <br />
@@ -2599,6 +2632,37 @@ printWidth: 1
   />
 </span>
 
+<!-- #5810 -->
+<table>
+  <tr></tr>
+</table>
+<div>
+  Should
+  not
+  insert
+  empty
+  line
+  before
+  this
+  div
+</div>
+
+<!-- self-closing -->
+<span
+  ><input
+    type="checkbox"
+  />
+</span>
+<span
+  ><span
+    ><input
+      type="checkbox" /></span
+></span>
+<span
+  ><input
+    type="checkbox"
+/></span>
+
 ================================================================================
 `;
 
@@ -2723,6 +2787,16 @@ printWidth: Infinity
   <i class="fa fa-refresh fa-spin" />
 </span>
 
+<!-- #5810 -->
+<table><tr>
+</tr>
+</table><div>Should not insert empty line before this div</div>
+
+<!-- self-closing -->
+<span><input type="checkbox"/> </span>
+<span><span><input type="checkbox"/></span></span>
+<span><input type="checkbox"/></span>
+
 =====================================output=====================================
 <br />
 <br />
@@ -2842,6 +2916,19 @@ printWidth: Infinity
   <i class="fa fa-refresh fa-spin" />
   <i class="fa fa-refresh fa-spin" />
 </span>
+
+<!-- #5810 -->
+<table>
+  <tr></tr>
+</table>
+<div>Should not insert empty line before this div</div>
+
+<!-- self-closing -->
+<span><input type="checkbox" /> </span>
+<span
+  ><span><input type="checkbox" /></span
+></span>
+<span><input type="checkbox" /></span>
 
 ================================================================================
 `;
@@ -2969,6 +3056,16 @@ printWidth: 80
   <i class="fa fa-refresh fa-spin" />
 </span>
 
+<!-- #5810 -->
+<table><tr>
+</tr>
+</table><div>Should not insert empty line before this div</div>
+
+<!-- self-closing -->
+<span><input type="checkbox"/> </span>
+<span><span><input type="checkbox"/></span></span>
+<span><input type="checkbox"/></span>
+
 =====================================output=====================================
 <br />
 <br />
@@ -3083,7 +3180,7 @@ printWidth: 80
 />123
 <div>123<meta attr />456</div>
 <p>x<span a="b"></span></p>
-<p>x<meta a/></p>
+<p>x<meta a /></p>
 <p>x<meta /></p>
 <span></span>
 
@@ -3140,6 +3237,17 @@ printWidth: 80
   <i class="fa fa-refresh fa-spin" />
   <i class="fa fa-refresh fa-spin" />
 </span>
+
+<!-- #5810 -->
+<table><tr> </tr> </table
+><div>Should not insert empty line before this div</div>
+
+<!-- self-closing -->
+<span><input type="checkbox" /> </span>
+<span
+  ><span><input type="checkbox" /></span
+></span>
+<span><input type="checkbox" /></span>
 
 ================================================================================
 `;
@@ -3266,6 +3374,16 @@ printWidth: 80
   <i class="fa fa-refresh fa-spin" />
   <i class="fa fa-refresh fa-spin" />
 </span>
+
+<!-- #5810 -->
+<table><tr>
+</tr>
+</table><div>Should not insert empty line before this div</div>
+
+<!-- self-closing -->
+<span><input type="checkbox"/> </span>
+<span><span><input type="checkbox"/></span></span>
+<span><input type="checkbox"/></span>
 
 =====================================output=====================================
 <br />
@@ -3481,6 +3599,17 @@ printWidth: 80
   <i class="fa fa-refresh fa-spin" />
   <i class="fa fa-refresh fa-spin" />
 </span>
+
+<!-- #5810 -->
+<table><tr></tr></table>
+<div>Should not insert empty line before this div</div>
+
+<!-- self-closing -->
+<span><input type="checkbox" /></span>
+<span>
+  <span><input type="checkbox" /></span>
+</span>
+<span><input type="checkbox" /></span>
 
 ================================================================================
 `;

@@ -102,7 +102,7 @@ function genericPrint(path, options, print) {
       const nodes = printNodeSequence(path, options, print);
 
       if (nodes.parts.length) {
-        return concat([nodes, hardline]);
+        return concat([nodes, options.__isHTMLStyleAttribute ? "" : hardline]);
       }
 
       return nodes;
@@ -888,12 +888,12 @@ function printNodeSequence(path, options, print) {
       ) {
         parts.push(" ");
       } else {
-        parts.push(hardline);
+        parts.push(options.__isHTMLStyleAttribute ? line : hardline);
         if (
           isNextLineEmpty(
             options.originalText,
             pathChild.getValue(),
-            options
+            options.locEnd
           ) &&
           node.nodes[i].type !== "yaml" &&
           node.nodes[i].type !== "toml"
@@ -937,9 +937,7 @@ function adjustNumbers(value) {
     ADJUST_NUMBERS_REGEX,
     (match, quote, wordPart, number, unit) =>
       !wordPart && number
-        ? (wordPart || "") +
-          printCssNumber(number) +
-          maybeToLowerCase(unit || "")
+        ? printCssNumber(number) + maybeToLowerCase(unit || "")
         : match
   );
 }

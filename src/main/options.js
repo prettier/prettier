@@ -1,8 +1,9 @@
 "use strict";
 
 const fs = require("fs");
-const normalizePath = require("normalize-path");
+const path = require("path");
 const readlines = require("n-readlines");
+const fromPairs = require("lodash/fromPairs");
 const { UndefinedParserError } = require("../common/errors");
 const { getSupportInfo } = require("../main/support");
 const normalizer = require("./options-normalizer");
@@ -22,21 +23,20 @@ function normalize(options, opts) {
 
   const rawOptions = { ...options };
 
-  const supportOptions = getSupportInfo(null, {
+  const supportOptions = getSupportInfo({
     plugins: options.plugins,
     showUnreleased: true,
     showDeprecated: true
   }).options;
-  const defaults = Object.assign(
-    {},
-    hiddenDefaults,
-    ...supportOptions.map(optionInfo =>
-      optionInfo.default !== undefined
-        ? { [optionInfo.name]: optionInfo.default }
-        : undefined
-    )
-  );
 
+  const defaults = {
+    ...hiddenDefaults,
+    ...fromPairs(
+      supportOptions
+        .filter(optionInfo => optionInfo.default !== undefined)
+        .map(option => [option.name, option.default])
+    )
+  };
   if (!rawOptions.parser) {
     if (!rawOptions.filepath) {
       const logger = opts.logger || console;
@@ -162,15 +162,12 @@ function getInterpreter(filepath) {
 }
 
 function inferParser(filepath, plugins) {
-  const filepathParts = normalizePath(filepath).split("/");
-  const filename = filepathParts[filepathParts.length - 1].toLowerCase();
+  const filename = path.basename(filepath).toLowerCase();
 
   // If the file has no extension, we can try to infer the language from the
   // interpreter in the shebang line, if any; but since this requires FS access,
   // do it last.
-  const language = getSupportInfo(null, {
-    plugins
-  }).languages.find(
+  const language = getSupportInfo({ plugins }).languages.find(
     language =>
       language.since !== null &&
       ((language.extensions &&

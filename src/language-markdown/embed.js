@@ -66,15 +66,13 @@ function embed(path, print, textToDoc, options) {
   return null;
 
   function getParserName(lang) {
-    const supportInfo = support.getSupportInfo(null, {
-      plugins: options.plugins
-    });
+    const supportInfo = support.getSupportInfo({ plugins: options.plugins });
     const language = supportInfo.languages.find(
       language =>
         language.name.toLowerCase() === lang ||
         (language.aliases && language.aliases.includes(lang)) ||
         (language.extensions &&
-          language.extensions.find(ext => ext.substring(1) === lang))
+          language.extensions.find(ext => ext === `.${lang}`))
     );
     if (language) {
       return language.parsers[0];

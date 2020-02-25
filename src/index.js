@@ -12,23 +12,24 @@ const config = require("./config/resolve-config");
 
 const doc = require("./document");
 
-// Luckily `opts` is always the 2nd argument
-function _withPlugins(fn) {
-  return function(first, opts, ...rest) {
-    opts = opts || {};
-    opts = {
+function _withPlugins(
+  fn,
+  optsArgIdx = 1 // Usually `opts` is the 2nd argument
+) {
+  return (...args) => {
+    const opts = args[optsArgIdx] || {};
+    args[optsArgIdx] = {
       ...opts,
       plugins: loadPlugins(opts.plugins, opts.pluginSearchDirs)
     };
-
-    return fn(first, opts, ...rest);
+    return fn(...args);
   };
 }
 
-function withPlugins(fn) {
-  const resultingFn = _withPlugins(fn);
+function withPlugins(fn, optsArgIdx) {
+  const resultingFn = _withPlugins(fn, optsArgIdx);
   if (fn.sync) {
-    resultingFn.sync = _withPlugins(fn.sync);
+    resultingFn.sync = _withPlugins(fn.sync, optsArgIdx);
   }
   return resultingFn;
 }
@@ -54,7 +55,7 @@ module.exports = {
   clearConfigCache: config.clearCache,
 
   getFileInfo: withPlugins(getFileInfo),
-  getSupportInfo: withPlugins(getSupportInfo),
+  getSupportInfo: withPlugins(getSupportInfo, 0),
 
   version,
 
