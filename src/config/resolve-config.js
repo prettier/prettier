@@ -2,7 +2,6 @@
 
 const thirdParty = require("../common/third-party");
 const minimatch = require("minimatch");
-const resolve = require("resolve");
 const path = require("path");
 const mem = require("mem");
 
@@ -17,10 +16,17 @@ const getExplorerMemoized = mem(
       transform: result => {
         if (result && result.config) {
           if (typeof result.config === "string") {
-            const modulePath = resolve.sync(result.config, {
-              basedir: path.dirname(result.filepath)
-            });
-            result.config = eval("require")(modulePath);
+            const dir = path.dirname(result.filepath);
+            try {
+              const modulePath = eval("require").resolve(result.config, {
+                paths: [dir]
+              });
+              result.config = eval("require")(modulePath);
+            } catch (error) {
+              // Original message contains `__filename`, can't pass tests
+              error.message = `Cannot find module '${result.config}' from '${dir}'`;
+              throw error;
+            }
           }
 
           if (typeof result.config !== "object") {

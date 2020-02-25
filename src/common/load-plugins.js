@@ -5,7 +5,6 @@ const partition = require("lodash/partition");
 const fs = require("fs");
 const globby = require("globby");
 const path = require("path");
-const resolve = require("resolve");
 const thirdParty = require("./third-party");
 const internalPlugins = require("./internal-plugins");
 
@@ -34,11 +33,16 @@ function loadPlugins(plugins, pluginSearchDirs) {
     let requirePath;
     try {
       // try local files
-      requirePath = resolve.sync(path.resolve(process.cwd(), pluginName));
-    } catch (e) {
+      requirePath = eval("require").resolve(
+        path.resolve(process.cwd(), pluginName)
+      );
+    } catch (_) {
       // try node modules
-      requirePath = resolve.sync(pluginName, { basedir: process.cwd() });
+      requirePath = eval("require").resolve(pluginName, {
+        paths: [process.cwd()]
+      });
     }
+
     return {
       name: pluginName,
       requirePath
@@ -71,8 +75,8 @@ function loadPlugins(plugins, pluginSearchDirs) {
 
       return findPluginsInNodeModules(nodeModulesDir).map(pluginName => ({
         name: pluginName,
-        requirePath: resolve.sync(pluginName, {
-          basedir: resolvedPluginSearchDir
+        requirePath: eval("require").resolve(pluginName, {
+          paths: [resolvedPluginSearchDir]
         })
       }));
     })
