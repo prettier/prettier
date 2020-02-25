@@ -137,7 +137,7 @@ function* expandPatternsInternal(context) {
             error: `No supported files were found in the directory "${input}".`
           };
         } else {
-          yield* sortIfNotBig(result);
+          yield* sortPaths(result);
         }
         continue;
       }
@@ -158,7 +158,7 @@ function* expandPatternsInternal(context) {
             error: `No files matching the pattern "${input}" were found.`
           };
         } else {
-          yield* sortIfNotBig(result);
+          yield* sortPaths(result);
         }
         continue;
       }
@@ -196,10 +196,8 @@ function containsIgnoredPathSegment(absolutePath, cwd, ignoredDirectories) {
 /**
  * @param {string[]} paths
  */
-function sortIfNotBig(paths) {
-  return paths.length > 10000
-    ? paths
-    : paths.sort((a, b) => a.localeCompare(b));
+function sortPaths(paths) {
+  return paths.sort((a, b) => a.localeCompare(b));
 }
 
 /**
