@@ -71,14 +71,7 @@ function* expandPatternsInternal(context) {
   let supportedFilesGlob;
   const cwd = process.cwd();
 
-  /**
-   * @type {Array<{
-   *  type: 'file' | 'dir' | 'glob';
-   *  absolutePath?: string;
-   *  glob?: string;
-   *  input: string;
-   * }>}
-   */
+  /** @type {Array<{ type: 'file' | 'dir' | 'glob'; glob?: string; input: string; }>} */
   const entries = [];
 
   for (const pattern of context.filePatterns) {
@@ -91,11 +84,14 @@ function* expandPatternsInternal(context) {
     const stat = statSafeSync(absolutePath);
     if (stat) {
       if (stat.isFile()) {
-        entries.push({ type: "file", absolutePath, input: pattern });
+        entries.push({
+          type: "file",
+          glob: escapePathForGlob(pattern),
+          input: pattern
+        });
       } else if (stat.isDirectory()) {
         entries.push({
           type: "dir",
-          absolutePath,
           glob: escapePathForGlob(pattern) + "/" + getSupportedFilesGlob(),
           input: pattern
         });
@@ -112,11 +108,26 @@ function* expandPatternsInternal(context) {
     }
   }
 
-  for (const { type, absolutePath, glob, input } of entries) {
+  for (const { type, glob, input } of entries) {
     switch (type) {
-      case "file":
-        yield absolutePath;
+      case "file": {
+        let result;
+        try {
+          result = globby.sync(glob, globbyOptions);
+        } catch ({ message }) {
+          yield { error: `Unable to resolve file: ${input}\n${message}` };
+          continue;
+        }
+
+        if (result.length === 0) {
+          yield {
+            error: `Explicitly specified file was ignored because of negative glob patterns: "${input}".`
+          };
+        } else {
+          yield* result;
+        }
         continue;
+      }
 
       case "dir": {
         let result;
