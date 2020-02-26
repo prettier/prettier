@@ -183,6 +183,7 @@ function format(context, input, opt) {
         prettier.__debug.parse(pp, opt, /* massage */ true).ast
       );
 
+      /* istanbul ignore next */
       if (ast !== past) {
         const MAX_AST_SIZE = 2097152; // 2MB
         const astDiff =
