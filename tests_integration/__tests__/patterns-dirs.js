@@ -61,6 +61,14 @@ describe("1c. `prettier dir1 empty`", () => {
   });
 });
 
+describe("1d. `prettier dir1 '!dir1/nested1/*'` - negative pattern", () => {
+  runPrettier("cli/patterns-dirs", ["dir1", "!dir1/nested1/*", "-l"]).test({
+    stderr: "",
+    status: 1,
+    write: []
+  });
+});
+
 describe('2. `prettier dir1 "dir2/**/*"`', () => {
   runPrettier("cli/patterns-dirs", ["dir1", "dir2/**/*", "-l"]).test({
     status: 1,

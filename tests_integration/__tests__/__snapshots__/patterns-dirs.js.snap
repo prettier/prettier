@@ -42,6 +42,12 @@ dir1/nested1/bn1.js
 "
 `;
 
+exports[`1d. \`prettier dir1 '!dir1/nested1/*'\` - negative pattern (stdout) 1`] = `
+"dir1/a1.js
+dir1/b1.js
+"
+`;
+
 exports[`2. \`prettier dir1 "dir2/**/*"\` (stderr) 1`] = `
 "[error] No parser could be inferred for file: dir2/a2.foo
 "
@@ -92,6 +98,7 @@ dir2/a2.js
 dir2/b2.js
 dir2/nested2/an2.js
 dir2/nested2/bn2.js
+x!x/a.js
 dir2/node-shebang
 "
 `;

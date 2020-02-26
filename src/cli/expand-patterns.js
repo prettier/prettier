@@ -3,6 +3,7 @@
 const path = require("path");
 const fs = require("fs");
 const globby = require("globby");
+const fastGlob = require("fast-glob");
 const flat = require("lodash/flatten");
 
 /** @typedef {import('./util').Context} Context */
@@ -41,8 +42,6 @@ function* expandPatterns(context) {
   }
 }
 
-const isWindows = path.sep === "\\";
-
 // TODO: use `fast-glob` directly, without `globby`
 const baseGlobbyOptions = {
   dot: true,
@@ -75,7 +74,7 @@ function* expandPatternsInternal(context) {
   /**
    * @type {Array<{
    *  type: 'file' | 'dir' | 'glob';
-   *  path?: string;
+   *  absolutePath?: string;
    *  glob?: string;
    *  input: string;
    * }>}
@@ -92,41 +91,37 @@ function* expandPatternsInternal(context) {
     const stat = statSafeSync(absolutePath);
     if (stat) {
       if (stat.isFile()) {
-        entries.push({ type: "file", path: absolutePath, input: pattern });
+        entries.push({ type: "file", absolutePath, input: pattern });
       } else if (stat.isDirectory()) {
         entries.push({
           type: "dir",
-          path: absolutePath,
-          glob: getSupportedFilesGlob(),
+          absolutePath,
+          glob: escapePathForGlob(pattern) + "/" + getSupportedFilesGlob(),
           input: pattern
         });
       }
     } else if (pattern[0] === "!") {
       // convert negative patterns to `ignore` entries
-      globbyOptions.ignore.push(pattern.slice(1));
+      globbyOptions.ignore.push(fixWindowsSlashes(pattern.slice(1)));
     } else {
       entries.push({
         type: "glob",
-        // Using backslashes in globs is probably not okay, but not accepting
-        // backslashes as path separators on Windows is even more not okay.
-        // https://github.com/prettier/prettier/pull/6776#discussion_r380723717
-        // https://github.com/mrmlnc/fast-glob#how-to-write-patterns-on-windows
-        glob: isWindows ? pattern.replace(/\\/g, "/") : pattern,
+        glob: fixWindowsSlashes(pattern),
         input: pattern
       });
     }
   }
 
-  for (const { type, path, glob, input } of entries) {
+  for (const { type, absolutePath, glob, input } of entries) {
     switch (type) {
       case "file":
-        yield path;
+        yield absolutePath;
         continue;
 
       case "dir": {
         let result;
         try {
-          result = globby.sync(glob, { ...globbyOptions, cwd: path });
+          result = globby.sync(glob, globbyOptions);
         } catch ({ message }) {
           yield { error: `Unable to expand directory: ${input}\n${message}` };
           continue;
@@ -214,6 +209,26 @@ function statSafeSync(filePath) {
       throw error;
     }
   }
+}
+
+/**
+ * @param {string} path
+ */
+function escapePathForGlob(path) {
+  return fastGlob.escapePath(path).replace(/\\!/g, "@(!)");
+}
+
+const isWindows = path.sep === "\\";
+
+// Using backslashes in globs is probably not okay, but not accepting
+// backslashes as path separators on Windows is even more not okay.
+// https://github.com/prettier/prettier/pull/6776#discussion_r380723717
+// https://github.com/mrmlnc/fast-glob#how-to-write-patterns-on-windows
+/**
+ * @param {string} pattern
+ */
+function fixWindowsSlashes(pattern) {
+  return isWindows ? pattern.replace(/\\/g, "/") : pattern;
 }
 
 module.exports = expandPatterns;
