@@ -24,68 +24,39 @@ expect.addSnapshotSerializer(require("../path-serializer"));
 //
 // (*) That error ("No parser could be inferred for file") doesn't affect the error code.
 
-describe("1. `prettier dir1 dir2`", () => {
-  runPrettier("cli/patterns-dirs", ["dir1", "dir2", "-l"]).test({
-    stderr: "",
-    status: 1,
-    write: []
-  });
+testPatterns("1", ["dir1", "dir2"]);
+testPatterns("1a - with *.foo plugin", [
+  "dir1",
+  "dir2",
+  "--plugin=../../plugins/extensions/plugin"
+]);
+testPatterns("1b - special characters in dir name", ["dir1", "!dir"], {
+  stdout: expect.stringMatching(/!dir[/\\]a\.js/)
+});
+testPatterns("1c", ["dir1", "empty"], { status: 2 });
+
+testPatterns("2", ["dir1", "dir2/**/*"], { status: 1 });
+
+testPatterns("3", ["non-exists-dir", "dir2/**/*"], { status: 2 });
+
+testPatterns("4", [".", "dir2/**/*"], { status: 1 });
+
+describe("Negative patterns", () => {
+  testPatterns("1", ["dir1", "!dir1/nested1/*"]);
+  testPatterns("2", ["dir1", "!dir1/nested1"]);
 });
 
-describe("1a. `prettier dir1 dir2` with *.foo plugin", () => {
-  runPrettier("cli/patterns-dirs", [
-    "dir1",
-    "dir2",
-    "-l",
-    "--plugin=../../plugins/extensions/plugin"
-  ]).test({
-    stderr: "",
-    status: 1,
-    write: []
-  });
-});
+function testPatterns(namePrefix, cliArgs, testOptions = {}) {
+  const testName =
+    namePrefix +
+    ": prettier " +
+    cliArgs.map(arg => (/^[\w.=/-]+$/.test(arg) ? arg : `'${arg}'`)).join(" ");
 
-describe('1b. `prettier dir1 "!dir"` - special characters in dir name', () => {
-  runPrettier("cli/patterns-dirs", ["dir1", "!dir", "-l"]).test({
-    stdout: expect.stringMatching(/!dir[/\\]a\.js/),
-    stderr: "",
-    status: 1,
-    write: []
+  describe(testName, () => {
+    runPrettier("cli/patterns-dirs", [...cliArgs, "-l"]).test({
+      write: [],
+      ...(!("status" in testOptions) && { stderr: "", status: 1 }),
+      ...testOptions
+    });
   });
-});
-
-describe("1c. `prettier dir1 empty`", () => {
-  runPrettier("cli/patterns-dirs", ["dir1", "empty", "-l"]).test({
-    status: 2,
-    write: []
-  });
-});
-
-describe("1d. `prettier dir1 '!dir1/nested1/*'` - negative pattern", () => {
-  runPrettier("cli/patterns-dirs", ["dir1", "!dir1/nested1/*", "-l"]).test({
-    stderr: "",
-    status: 1,
-    write: []
-  });
-});
-
-describe('2. `prettier dir1 "dir2/**/*"`', () => {
-  runPrettier("cli/patterns-dirs", ["dir1", "dir2/**/*", "-l"]).test({
-    status: 1,
-    write: []
-  });
-});
-
-describe('3. `prettier non-exists-dir "dir2/**/*"`', () => {
-  runPrettier("cli/patterns-dirs", ["non-exists-dir", "dir2/**/*", "-l"]).test({
-    status: 2,
-    write: []
-  });
-});
-
-describe('4. `prettier . "dir2/**/*"`', () => {
-  runPrettier("cli/patterns-dirs", [".", "dir2/**/*", "-l"]).test({
-    status: 1,
-    write: []
-  });
-});
+}
