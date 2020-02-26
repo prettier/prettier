@@ -475,7 +475,7 @@ function formatFiles(context) {
     let output;
 
     try {
-      result = format(context, input, { ...options, filepath: filename });
+      result = format(context, input, options);
       output = result.formatted;
     } catch (error) {
       handleError(context, filename, error);

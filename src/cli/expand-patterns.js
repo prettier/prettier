@@ -63,7 +63,7 @@ function* expandPatternsInternal(context) {
   let supportedFilesGlob;
   const cwd = process.cwd();
 
-  /** @type {Array<{ type: 'file' | 'dir' | 'glob'; glob?: string; input: string; }>} */
+  /** @type {Array<{ type: 'file' | 'dir' | 'glob'; glob: string; input: string; }>} */
   const entries = [];
 
   for (const pattern of context.filePatterns) {
@@ -104,65 +104,19 @@ function* expandPatternsInternal(context) {
   }
 
   for (const { type, glob, input } of entries) {
-    switch (type) {
-      case "file": {
-        let result;
-        try {
-          result = fastGlob.sync(glob, globOptions);
-        } catch ({ message }) {
-          yield { error: `Unable to resolve file: ${input}\n${message}` };
-          continue;
-        }
+    let result;
 
-        if (result.length === 0) {
-          yield {
-            error: `Explicitly specified file was ignored due to negative glob patterns: "${input}".`
-          };
-        } else {
-          yield* result;
-        }
-        continue;
-      }
+    try {
+      result = fastGlob.sync(glob, globOptions);
+    } catch ({ message }) {
+      yield { error: `${errorMessages.globError[type]}: ${input}\n${message}` };
+      continue;
+    }
 
-      case "dir": {
-        let result;
-        try {
-          result = fastGlob.sync(glob, globOptions);
-        } catch ({ message }) {
-          yield { error: `Unable to expand directory: ${input}\n${message}` };
-          continue;
-        }
-
-        if (result.length === 0) {
-          yield {
-            error: `No supported files were found in the directory "${input}".`
-          };
-        } else {
-          yield* sortPaths(result);
-        }
-        continue;
-      }
-
-      case "glob": {
-        let result;
-        try {
-          result = fastGlob.sync(glob, globOptions);
-        } catch ({ message }) {
-          yield {
-            error: `Unable to expand glob pattern: ${input}\n${message}`
-          };
-          continue;
-        }
-
-        if (result.length === 0) {
-          yield {
-            error: `No files matching the pattern "${input}" were found.`
-          };
-        } else {
-          yield* sortPaths(result);
-        }
-        continue;
-      }
+    if (result.length === 0) {
+      yield { error: `${errorMessages.emptyResults[type]}: "${input}".` };
+    } else {
+      yield* sortPaths(result);
     }
   }
 
@@ -181,6 +135,19 @@ function* expandPatternsInternal(context) {
     return supportedFilesGlob;
   }
 }
+
+const errorMessages = {
+  globError: {
+    file: "Unable to resolve file",
+    dir: "Unable to expand directory",
+    glob: "Unable to expand glob pattern"
+  },
+  emptyResults: {
+    file: "Explicitly specified file was ignored due to negative glob patterns",
+    dir: "No supported files were found in the directory",
+    glob: "No files matching the pattern were found"
+  }
+};
 
 /**
  * @param {string} absolutePath
