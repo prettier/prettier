@@ -37,13 +37,19 @@ testPatterns("1c", ["dir1", "empty"], { status: 2 });
 
 testPatterns("2", ["dir1", "dir2/**/*"], { status: 1 });
 
-testPatterns("3", ["non-exists-dir", "dir2/**/*"], { status: 2 });
+testPatterns("3", ["nonexistent-dir", "dir2/**/*"], { status: 2 });
 
 testPatterns("4", [".", "dir2/**/*"], { status: 1 });
 
 describe("Negative patterns", () => {
-  testPatterns("1", ["dir1", "!dir1/nested1/*"]);
-  testPatterns("2", ["dir1", "!dir1/nested1"]);
+  testPatterns("1", ["dir1", "!dir1/nested1"]);
+  testPatterns("1a", ["dir1", "!dir1/nested1/*"]);
+  testPatterns("2", [".", "!dir1/nested1"]);
+  testPatterns("3", [".", "!dir1/nested1/an1.js"]);
+  testPatterns("4", ["!nonexistent-dir1 !nonexistent-dir2"], { status: 2 });
+  testPatterns("with explicit files", ["dir1/a1.js", "dir2/a2.js", "!dir1/*"], {
+    status: 2
+  });
 });
 
 const path = require("path");
