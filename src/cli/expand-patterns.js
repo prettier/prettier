@@ -13,7 +13,7 @@ const flat = require("lodash/flatten");
  */
 function* expandPatterns(context) {
   const cwd = process.cwd();
-  const seen = Object.create(null);
+  const seen = new Set();
   let noResults = true;
 
   for (const pathOrError of expandPatternsInternal(context)) {
@@ -26,11 +26,11 @@ function* expandPatterns(context) {
     const relativePath = path.relative(cwd, pathOrError);
 
     // filter out duplicates
-    if (relativePath in seen) {
+    if (seen.has(relativePath)) {
       continue;
     }
 
-    seen[relativePath] = true;
+    seen.add(relativePath);
     yield relativePath;
   }
 
@@ -86,13 +86,16 @@ function* expandPatternsInternal(context) {
       if (stat.isFile()) {
         entries.push({
           type: "file",
-          glob: escapePathForGlob(pattern),
+          glob: escapePathForGlob(fixWindowsSlashes(pattern)),
           input: pattern
         });
       } else if (stat.isDirectory()) {
         entries.push({
           type: "dir",
-          glob: escapePathForGlob(pattern) + "/" + getSupportedFilesGlob(),
+          glob:
+            escapePathForGlob(fixWindowsSlashes(pattern)) +
+            "/" +
+            getSupportedFilesGlob(),
           input: pattern
         });
       }
@@ -121,7 +124,7 @@ function* expandPatternsInternal(context) {
 
         if (result.length === 0) {
           yield {
-            error: `Explicitly specified file was ignored because of negative glob patterns: "${input}".`
+            error: `Explicitly specified file was ignored due to negative glob patterns: "${input}".`
           };
         } else {
           yield* result;
@@ -226,16 +229,21 @@ function statSafeSync(filePath) {
  * @param {string} path
  */
 function escapePathForGlob(path) {
-  return fastGlob.escapePath(path).replace(/\\!/g, "@(!)");
+  return (
+    fastGlob
+      .escapePath(path)
+      // Workaround for https://github.com/mrmlnc/fast-glob/issues/261
+      .replace(/\\!/g, "@(!)")
+  );
 }
 
 const isWindows = path.sep === "\\";
 
-// Using backslashes in globs is probably not okay, but not accepting
-// backslashes as path separators on Windows is even more not okay.
-// https://github.com/prettier/prettier/pull/6776#discussion_r380723717
-// https://github.com/mrmlnc/fast-glob#how-to-write-patterns-on-windows
 /**
+ * Using backslashes in globs is probably not okay, but not accepting
+ * backslashes as path separators on Windows is even more not okay.
+ * https://github.com/prettier/prettier/pull/6776#discussion_r380723717
+ * https://github.com/mrmlnc/fast-glob#how-to-write-patterns-on-windows
  * @param {string} pattern
  */
 function fixWindowsSlashes(pattern) {
