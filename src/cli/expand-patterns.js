@@ -2,7 +2,6 @@
 
 const path = require("path");
 const fs = require("fs");
-const globby = require("globby");
 const fastGlob = require("fast-glob");
 const flat = require("lodash/flatten");
 
@@ -42,29 +41,22 @@ function* expandPatterns(context) {
   }
 }
 
-// TODO: use `fast-glob` directly, without `globby`
-const baseGlobbyOptions = {
-  dot: true,
-  expandDirectories: false,
-  absolute: true
-};
-
 /**
  * @param {Context} context
  */
 function* expandPatternsInternal(context) {
   // Ignores files in version control systems directories and `node_modules`
-  const ignoredDirectories = {
+  const silentlyIgnoredDirs = {
     ".git": true,
     ".svn": true,
     ".hg": true,
     node_modules: context.argv["with-node-modules"] !== true
   };
 
-  const globbyOptions = {
-    ...baseGlobbyOptions,
-    ignore: Object.keys(ignoredDirectories)
-      .filter(dir => ignoredDirectories[dir])
+  const globOptions = {
+    dot: true,
+    ignore: Object.keys(silentlyIgnoredDirs)
+      .filter(dir => silentlyIgnoredDirs[dir])
       .map(dir => "**/" + dir)
   };
 
@@ -77,7 +69,7 @@ function* expandPatternsInternal(context) {
   for (const pattern of context.filePatterns) {
     const absolutePath = path.resolve(cwd, pattern);
 
-    if (containsIgnoredPathSegment(absolutePath, cwd, ignoredDirectories)) {
+    if (containsIgnoredPathSegment(absolutePath, cwd, silentlyIgnoredDirs)) {
       continue;
     }
 
@@ -101,7 +93,7 @@ function* expandPatternsInternal(context) {
       }
     } else if (pattern[0] === "!") {
       // convert negative patterns to `ignore` entries
-      globbyOptions.ignore.push(fixWindowsSlashes(pattern.slice(1)));
+      globOptions.ignore.push(fixWindowsSlashes(pattern.slice(1)));
     } else {
       entries.push({
         type: "glob",
@@ -116,7 +108,7 @@ function* expandPatternsInternal(context) {
       case "file": {
         let result;
         try {
-          result = globby.sync(glob, globbyOptions);
+          result = fastGlob.sync(glob, globOptions);
         } catch ({ message }) {
           yield { error: `Unable to resolve file: ${input}\n${message}` };
           continue;
@@ -135,7 +127,7 @@ function* expandPatternsInternal(context) {
       case "dir": {
         let result;
         try {
-          result = globby.sync(glob, globbyOptions);
+          result = fastGlob.sync(glob, globOptions);
         } catch ({ message }) {
           yield { error: `Unable to expand directory: ${input}\n${message}` };
           continue;
@@ -154,7 +146,7 @@ function* expandPatternsInternal(context) {
       case "glob": {
         let result;
         try {
-          result = globby.sync(glob, globbyOptions);
+          result = fastGlob.sync(glob, globOptions);
         } catch ({ message }) {
           yield {
             error: `Unable to expand glob pattern: ${input}\n${message}`
@@ -226,15 +218,18 @@ function statSafeSync(filePath) {
 }
 
 /**
+ * This function should be replaced with `fastGlob.escapePath` when these issues are fixed:
+ * - https://github.com/mrmlnc/fast-glob/issues/261
+ * - https://github.com/mrmlnc/fast-glob/issues/262
  * @param {string} path
  */
 function escapePathForGlob(path) {
-  return (
-    fastGlob
-      .escapePath(path)
-      // Workaround for https://github.com/mrmlnc/fast-glob/issues/261
-      .replace(/\\!/g, "@(!)")
-  );
+  return fastGlob
+    .escapePath(
+      path.replace(/\\/g, "\0") // Workaround for fast-glob#262 (part 1)
+    )
+    .replace(/\\!/g, "@(!)") // Workaround for fast-glob#261
+    .replace(/\0/g, "@(\\\\)"); // Workaround for fast-glob#262 (part 2)
 }
 
 const isWindows = path.sep === "\\";
