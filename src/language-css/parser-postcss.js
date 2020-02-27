@@ -441,7 +441,9 @@ function parseNestedCSS(node, options) {
           "function",
           "return",
           "define-mixin",
-          "add-mixin"
+          "add-mixin",
+          "use",
+          "forward"
         ].indexOf(name) !== -1
       ) {
         // Remove unnecessary spaces in SCSS variable arguments
