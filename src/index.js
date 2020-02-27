@@ -6,10 +6,8 @@ const core = require("./main/core");
 const { getSupportInfo } = require("./main/support");
 const getFileInfo = require("./common/get-file-info");
 const sharedUtil = require("./common/util-shared");
-const loadPlugins = require("./common/load-plugins");
-
+const plugins = require("./common/load-plugins");
 const config = require("./config/resolve-config");
-
 const doc = require("./document");
 
 function _withPlugins(
@@ -20,7 +18,7 @@ function _withPlugins(
     const opts = args[optsArgIdx] || {};
     args[optsArgIdx] = {
       ...opts,
-      plugins: loadPlugins(opts.plugins, opts.pluginSearchDirs)
+      plugins: plugins.loadPlugins(opts.plugins, opts.pluginSearchDirs)
     };
     return fn(...args);
   };
@@ -52,7 +50,10 @@ module.exports = {
 
   resolveConfig: config.resolveConfig,
   resolveConfigFile: config.resolveConfigFile,
-  clearConfigCache: config.clearCache,
+  clearConfigCache() {
+    config.clearCache();
+    plugins.clearCache();
+  },
 
   getFileInfo: withPlugins(getFileInfo),
   getSupportInfo: withPlugins(getSupportInfo, 0),

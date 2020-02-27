@@ -7,8 +7,16 @@ const globby = require("globby");
 const path = require("path");
 const thirdParty = require("./third-party");
 const internalPlugins = require("./internal-plugins");
+const mem = require("mem");
 
-function loadPlugins(plugins, pluginSearchDirs) {
+const memoizedLoad = mem(load, { cacheKey: JSON.stringify });
+const memoizedSearch = mem(findPluginsInNodeModules);
+const clearCache = () => {
+  mem.clear(memoizedLoad);
+  mem.clear(memoizedSearch);
+};
+
+function load(plugins, pluginSearchDirs) {
   if (!plugins) {
     plugins = [];
   }
@@ -73,7 +81,7 @@ function loadPlugins(plugins, pluginSearchDirs) {
         );
       }
 
-      return findPluginsInNodeModules(nodeModulesDir).map(pluginName => ({
+      return memoizedSearch(nodeModulesDir).map(pluginName => ({
         name: pluginName,
         requirePath: eval("require").resolve(pluginName, {
           paths: [resolvedPluginSearchDir]
@@ -117,4 +125,8 @@ function isDirectory(dir) {
     return false;
   }
 }
-module.exports = loadPlugins;
+
+module.exports = {
+  loadPlugins: memoizedLoad,
+  clearCache
+};

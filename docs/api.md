@@ -81,7 +81,7 @@ Use `prettier.resolveConfigFile.sync([filePath])` if you'd like to use sync vers
 
 ## `prettier.clearConfigCache()`
 
-As you repeatedly call `resolveConfig`, the file system structure will be cached for performance. This function will clear the cache. Generally this is only needed for editor integrations that know that the file system has changed since the last format took place.
+When Prettier loads configuration files and plugins, the file system structure is cached for performance. This function will clear the cache. Generally this is only needed for editor integrations that know that the file system has changed since the last format took place.
 
 ## `prettier.getFileInfo(filePath [, options])`
 
