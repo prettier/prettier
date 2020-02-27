@@ -187,10 +187,6 @@ const options = {
     default: "log",
     choices: ["silent", "error", "warn", "log", "debug"]
   },
-  stdin: {
-    type: "boolean",
-    description: "Force reading input from stdin."
-  },
   "support-info": {
     type: "boolean",
     description: "Print support information as JSON."
