@@ -2685,10 +2685,10 @@ cspell-util-bundle@^4.0.9:
   resolved "https://registry.yarnpkg.com/cspell-util-bundle/-/cspell-util-bundle-4.0.9.tgz#9e6a7f3dcd4aef1b9c6743d33d09379cf94ecd08"
   integrity sha512-+xhIGJAkPxD7aKl97S0E34B5dF+HSTSoEL6M2f6Y46tusFGc9VdhA/iIZQooZZx2RQy4WaHw/ABfsRfxtnFVLw==
 
-cspell@4.0.53:
-  version "4.0.53"
-  resolved "https://registry.yarnpkg.com/cspell/-/cspell-4.0.53.tgz#e68a28471e9e00d47ab80edec1f21af92bb37d9a"
-  integrity sha512-SCtSe6zZ7KhzidM+eFYVxtZZBijX5INg4lGFz15Usw7RPWlZKDGzkfYK6GXNmY6kLyDh0bILXiZPZsIAfPuT9Q==
+cspell@4.0.55:
+  version "4.0.55"
+  resolved "https://registry.yarnpkg.com/cspell/-/cspell-4.0.55.tgz#4295b88c9cb7b1bf7290027212913203be5f3f9d"
+  integrity sha512-LmBk2VNrBSXFPOpmhJalqYGdDF1x68H4wI3c7RDMRLfG/zOaFoZUEuJUYOC07tFXDosczXMu38Qt9cnEVZmrAA==
   dependencies:
     chalk "^2.4.2"
     commander "^2.20.3"
