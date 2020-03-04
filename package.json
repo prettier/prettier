@@ -81,7 +81,7 @@
     "benchmark": "2.1.4",
     "builtin-modules": "3.1.0",
     "codecov": "3.6.5",
-    "cross-env": "7.0.0",
+    "cross-env": "7.0.1",
     "cspell": "4.0.55",
     "eslint": "6.8.0",
     "eslint-config-prettier": "6.10.0",
