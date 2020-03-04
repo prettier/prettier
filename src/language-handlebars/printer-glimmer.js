@@ -288,11 +288,12 @@ function print(path, options, print) {
           leadingLineBreaksCount = Math.max(leadingLineBreaksCount, 1);
         }
       }
-
-      let leadingSpace = "";
-      let trailingSpace = "";
+      // used in attribute node
       let leadingLine = null;
       let trailingLine = null;
+      // used otherwise
+      let leadingSpace = "";
+      let trailingSpace = "";
 
       // In attribute node, preserve space/line break before and after mustache statements.
       if (isInAttrNode) {
@@ -300,19 +301,23 @@ function print(path, options, print) {
           if (isWhitespaceOnly) {
             return line;
           }
-          const previousNode = getPreviousNode(path);
-          const isAfterMustache =
-            previousNode && previousNode.type === "MustacheStatement";
-          const startsWithWhitespace = /^\s/.test(n.chars);
-          if (isAfterMustache && startsWithWhitespace && leadingLineBreaksCount === 0) {
-            leadingLine = line;
-          }
-          const nextNode = getNextNode(path);
-          const isBeforeMustache =
-            nextNode && nextNode.type === "MustacheStatement";
+
           const endsWithWhitespace = /\s$/.test(n.chars);
-          if (isBeforeMustache && endsWithWhitespace && trailingLineBreaksCount === 0) {
+          if (
+            isNextNodeOfType(path, "MustacheStatement") &&
+            endsWithWhitespace &&
+            trailingLineBreaksCount === 0
+          ) {
             trailingLine = line;
+          }
+
+          const startsWithWhitespace = /^\s/.test(n.chars);
+          if (
+            isPreviousNodeOfSomeType(path, ["MustacheStatement"]) &&
+            startsWithWhitespace &&
+            leadingLineBreaksCount === 0
+          ) {
+            leadingLine = line;
           }
         }
       } else {
@@ -341,15 +346,15 @@ function print(path, options, print) {
         }
       }
 
-      let chars = n.chars
-      .replace(/^[\s ]+/g, leadingSpace)
-      .replace(/[\s ]+$/, trailingSpace)
+      let trimmedChars = n.chars
+        .replace(/^[\s ]+/g, leadingSpace)
+        .replace(/[\s ]+$/, trailingSpace);
 
       return concat(
         [
           ...generateHardlines(leadingLineBreaksCount, maxLineBreaksToPreserve),
           leadingLine,
-          chars,
+          trimmedChars,
           trailingLine,
           ...generateHardlines(trailingLineBreaksCount, maxLineBreaksToPreserve)
         ].filter(Boolean)
