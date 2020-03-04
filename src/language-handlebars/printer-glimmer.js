@@ -304,14 +304,14 @@ function print(path, options, print) {
           const isAfterMustache =
             previousNode && previousNode.type === "MustacheStatement";
           const startsWithWhitespace = /^\s/.test(n.chars);
-          if (isAfterMustache && startsWithWhitespace) {
+          if (isAfterMustache && startsWithWhitespace && leadingLineBreaksCount === 0) {
             leadingLine = line;
           }
           const nextNode = getNextNode(path);
           const isBeforeMustache =
             nextNode && nextNode.type === "MustacheStatement";
           const endsWithWhitespace = /\s$/.test(n.chars);
-          if (isBeforeMustache && endsWithWhitespace) {
+          if (isBeforeMustache && endsWithWhitespace && trailingLineBreaksCount === 0) {
             trailingLine = line;
           }
         }
@@ -341,13 +341,15 @@ function print(path, options, print) {
         }
       }
 
+      let chars = n.chars
+      .replace(/^[\s ]+/g, leadingSpace)
+      .replace(/[\s ]+$/, trailingSpace)
+
       return concat(
         [
           ...generateHardlines(leadingLineBreaksCount, maxLineBreaksToPreserve),
           leadingLine,
-          n.chars
-            .replace(/^[\s ]+/g, leadingSpace)
-            .replace(/[\s ]+$/, trailingSpace),
+          chars,
           trailingLine,
           ...generateHardlines(trailingLineBreaksCount, maxLineBreaksToPreserve)
         ].filter(Boolean)

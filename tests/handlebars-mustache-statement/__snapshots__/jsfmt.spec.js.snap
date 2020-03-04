@@ -84,7 +84,6 @@ printWidth: 80
 
 <div
   class="a multi line list of classes with a complex mustache statement
-
     {{if (or this.a this.b) this.c this.d}}"
 >
 </div>
@@ -103,7 +102,6 @@ printWidth: 80
 
 <div
   class="a-first-class
-
     {{if this.optionOne "optionOne"}}
     {{if this.optionTwo "optionTwo"}}
     {{if this.optionThree "optionThree"}}
@@ -201,7 +199,6 @@ singleQuote: true
 
 <div
   class="a multi line list of classes with a complex mustache statement
-
     {{if (or this.a this.b) this.c this.d}}"
 >
 </div>
@@ -220,7 +217,6 @@ singleQuote: true
 
 <div
   class="a-first-class
-
     {{if this.optionOne 'optionOne'}}
     {{if this.optionTwo 'optionTwo'}}
     {{if this.optionThree 'optionThree'}}
