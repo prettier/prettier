@@ -346,7 +346,7 @@ function print(path, options, print) {
         }
       }
 
-      let trimmedChars = n.chars
+      const trimmedChars = n.chars
         .replace(/^[\s ]+/g, leadingSpace)
         .replace(/[\s ]+$/, trailingSpace);
 
