@@ -104,11 +104,14 @@ var fnString =
   "long" +
   "string";
 
-var fnString = // Comment
+var fnString =
+  // Comment
   // Comment
   "some" + "long" + "string";
 
-var fnString = "some" + "long" + "string"; // Comment
+var fnString =
+  // Comment
+  "some" + "long" + "string";
 
 let f1 = (
   //comment

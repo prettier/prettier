@@ -78,6 +78,9 @@ const v6 = /**@type {string} */(value);
 const v7 = /** @type{string} */(value);
 const v8 = /**@type{string} */(value);
 
+const v9 = /** @type {string} */
+  (value);
+
 =====================================output=====================================
 // test to make sure comments are attached correctly
 let inlineComment = /* some comment */ someReallyLongFunctionCall(
@@ -153,6 +156,10 @@ const style2 = /**
 const v6 = /**@type {string} */ (value);
 const v7 = /** @type{string} */ (value);
 const v8 = /**@type{string} */ (value);
+
+const v9 =
+  /** @type {string} */
+  (value);
 
 ================================================================================
 `;
