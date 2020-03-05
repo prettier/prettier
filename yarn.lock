@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@angular/compiler@9.0.3":
-  version "9.0.3"
-  resolved "https://registry.yarnpkg.com/@angular/compiler/-/compiler-9.0.3.tgz#88c83a6b92d255e09fb1eebd1bc26b30e2ae852f"
-  integrity sha512-gmRr2DKItPa5b2LGW/C+SnCcO8XsaR085at4xVdfBsc6BKcoVVlnbUAfV4kV2G2gRow3O1tviJEG+/A8LpAcog==
+"@angular/compiler@9.0.4":
+  version "9.0.4"
+  resolved "https://registry.yarnpkg.com/@angular/compiler/-/compiler-9.0.4.tgz#038c9cdbf76f1cce47bd1b355c7d212cc89b18f9"
+  integrity sha512-+Ku8RUU00yHaKVkVw6YIfM3c5Gmvas5gJcEleiagkLbc1f/jKk1cY4gaUP6xn4TLypFM7NQglneWd+E+8wh0hQ==
 
 "@babel/code-frame@7.0.0":
   version "7.0.0"
