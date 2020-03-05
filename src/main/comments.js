@@ -389,31 +389,21 @@ function printLeadingComment(commentPath, print, options) {
   // Leading block comments should see if they need to stay on the
   // same line or not.
   if (isBlock) {
-    const commentsHasNewline = hasNewline(
-      options.originalText,
-      options.locEnd(comment)
-    );
-    const grandParent = commentPath.getParentNode(1);
-    const leftKey =
-      grandParent &&
-      (grandParent.type === "VariableDeclarator"
-        ? "id"
-        : grandParent.type === "AssignmentExpression"
-        ? "left"
-        : null);
-    const shouldPrintLine =
-      commentsHasNewline &&
-      leftKey &&
-      !hasNewlineInRange(
-        options.originalText,
-        options.locEnd(grandParent[leftKey]),
-        options.locStart(comment)
-      );
+    const leftNode =
+      options.printer.getAssignmentLeftNode &&
+      options.printer.getAssignmentLeftNode(commentPath.getParentNode(1));
+    const lineBreak = hasNewline(options.originalText, options.locEnd(comment))
+      ? leftNode &&
+        !hasNewlineInRange(
+          options.originalText,
+          options.locEnd(leftNode),
+          options.locStart(comment)
+        )
+        ? line
+        : hardline
+      : " ";
 
-    return concat([
-      contents,
-      shouldPrintLine ? line : commentsHasNewline ? hardline : " "
-    ]);
+    return concat([contents, lineBreak]);
   }
 
   return concat([contents, hardline]);
