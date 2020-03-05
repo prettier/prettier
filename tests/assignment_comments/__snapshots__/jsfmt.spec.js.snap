@@ -192,9 +192,7 @@ var fnNumber =
   // Comment
   3;
 
-var fnNumber =
-  /* comment */
-  3;
+var fnNumber = /* comment */ 3;
 
 var fnNumber =
   /* comment */

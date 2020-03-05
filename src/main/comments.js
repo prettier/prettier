@@ -3,6 +3,7 @@
 const assert = require("assert");
 const {
   concat,
+  line,
   hardline,
   breakParent,
   indent,
@@ -13,6 +14,7 @@ const {
 const {
   hasNewline,
   skipNewline,
+  hasNewlineInRange,
   isPreviousLineEmpty
 } = require("../common/util");
 const {
@@ -387,9 +389,30 @@ function printLeadingComment(commentPath, print, options) {
   // Leading block comments should see if they need to stay on the
   // same line or not.
   if (isBlock) {
+    const commentsHasNewline = hasNewline(
+      options.originalText,
+      options.locEnd(comment)
+    );
+    const grandParent = commentPath.getParentNode(1);
+    const leftKey =
+      grandParent &&
+      (grandParent.type === "VariableDeclarator"
+        ? "id"
+        : grandParent.type === "AssignmentExpression"
+        ? "left"
+        : null);
+    const shouldPrintLine =
+      commentsHasNewline &&
+      leftKey &&
+      !hasNewlineInRange(
+        options.originalText,
+        options.locEnd(grandParent[leftKey]),
+        options.locStart(comment)
+      );
+
     return concat([
       contents,
-      hasNewline(options.originalText, options.locEnd(comment)) ? hardline : " "
+      shouldPrintLine ? line : commentsHasNewline ? hardline : " "
     ]);
   }
 
