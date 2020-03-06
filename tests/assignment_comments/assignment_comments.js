@@ -26,8 +26,8 @@ fnString =
 fnString =
   /* inline */ 'some' + 'long' + 'string' + 'some' + 'long' + 'string' + 'some' + 'long' + 'string' + 'some' + 'long' + 'string';
 
-fnString = // Comment
-  // Comment
+fnString = // Comment0
+  // Comment1
   'some' + 'long' + 'string';
 
 fnString = // Comment
@@ -61,8 +61,8 @@ var fnString =
 var fnString =
   /* inline */ 'some' + 'long' + 'string' + 'some' + 'long' + 'string' + 'some' + 'long' + 'string' + 'some' + 'long' + 'string';
 
-var fnString = // Comment
-  // Comment
+var fnString = // Comment0
+  // Comment1
   'some' + 'long' + 'string';
 
 var fnString = // Comment
@@ -141,15 +141,15 @@ fnNumber =
   3;
 
 fnNumber =
-  // Comment
-  // Comment
+  // Comment0
+  // Comment1
   3;
 
 fnNumber = /* comment */
   3;
 
-fnNumber = /* comment */
-  /* comments */
+fnNumber = /* comments0 */
+  /* comments1 */
   3;
 
 fnNumber =
@@ -163,13 +163,13 @@ var fnNumber =
   3;
 
 var fnNumber =
-  // Comment
-  // Comment
+  // Comment0
+  // Comment1
   3;
 
 var fnNumber = /* comment */
   3;
 
-var fnNumber = /* comment */
-  /* comments */
+var fnNumber = /* comments0 */
+  /* comments1 */
   3;
