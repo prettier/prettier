@@ -14,7 +14,6 @@ const {
 const {
   hasNewline,
   skipNewline,
-  hasNewlineInRange,
   isPreviousLineEmpty
 } = require("../common/util");
 const {
@@ -389,18 +388,12 @@ function printLeadingComment(commentPath, print, options) {
   // Leading block comments should see if they need to stay on the
   // same line or not.
   if (isBlock) {
-    const leftNode =
-      options.printer.getAssignmentLeftNode &&
-      options.printer.getAssignmentLeftNode(commentPath.getParentNode(1));
     const lineBreak = hasNewline(options.originalText, options.locEnd(comment))
-      ? leftNode &&
-        !hasNewlineInRange(
-          options.originalText,
-          options.locEnd(leftNode),
-          options.locStart(comment)
-        )
-        ? line
-        : hardline
+      ? hasNewline(options.originalText, options.locStart(comment), {
+          backwards: true
+        })
+        ? hardline
+        : line
       : " ";
 
     return concat([contents, lineBreak]);

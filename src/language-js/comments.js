@@ -944,19 +944,6 @@ function getCommentChildNodes(node, options) {
   }
 }
 
-function getAssignmentLeftNode(node) {
-  if (!node) {
-    return null;
-  }
-  if (node.type === "AssignmentExpression") {
-    return node.left;
-  }
-  if (node.type === "VariableDeclarator") {
-    return node.id;
-  }
-  return null;
-}
-
 module.exports = {
   handleOwnLineComment,
   handleEndOfLineComment,
@@ -964,6 +951,5 @@ module.exports = {
   hasLeadingComment,
   isBlockComment,
   getGapRegex,
-  getCommentChildNodes,
-  getAssignmentLeftNode
+  getCommentChildNodes
 };
