@@ -59,4 +59,3 @@ let f6 = /* comment */
   // Comment
   
   () => {}
-  
