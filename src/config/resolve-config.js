@@ -1,7 +1,7 @@
 "use strict";
 
 const thirdParty = require("../common/third-party");
-const minimatch = require("minimatch");
+const micromatch = require("micromatch");
 const resolve = require("resolve");
 const path = require("path");
 const mem = require("mem");
@@ -161,9 +161,9 @@ function pathMatchesGlobs(filePath, patterns, excludedPatterns) {
   const opts = { matchBase: true, dot: true };
 
   return (
-    patternList.some(pattern => minimatch(filePath, pattern, opts)) &&
+    patternList.some(pattern => micromatch.isMatch(filePath, pattern, opts)) &&
     !excludedPatternList.some(excludedPattern =>
-      minimatch(filePath, excludedPattern, opts)
+      micromatch.isMatch(filePath, excludedPattern, opts)
     )
   );
 }
