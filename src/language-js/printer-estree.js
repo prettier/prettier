@@ -2888,7 +2888,8 @@ function printPathNoParens(path, options, print, args) {
         !(
           (parent.type === "TypeAlias" ||
             parent.type === "VariableDeclarator" ||
-            parent.type === "TSTypeAliasDeclaration") &&
+            parent.type === "TSTypeAliasDeclaration" ||
+            parent.type === "TSTypeAnnotation") &&
           hasLeadingOwnLineComment(options.originalText, n, options)
         );
 
@@ -3202,7 +3203,18 @@ function printPathNoParens(path, options, print, args) {
 
       if (n.typeAnnotation) {
         parts.push(": ");
-        parts.push(path.call(print, "typeAnnotation"));
+        const typeAnnotation = path.call(print, "typeAnnotation");
+        if (
+          hasLeadingOwnLineComment(
+            options.originalText,
+            n.typeAnnotation.typeAnnotation,
+            options
+          )
+        ) {
+          parts.push(indent(concat([hardline, typeAnnotation])));
+        } else {
+          parts.push(typeAnnotation);
+        }
       }
 
       // This isn't valid semantically, but it's in the AST so we can print it.
