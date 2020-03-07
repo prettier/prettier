@@ -126,6 +126,31 @@ let f6 =
 ================================================================================
 `;
 
+exports[`identifier.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const kochabCooieGameOnOboleUnweave = // ???
+      annularCooeedSplicesWalksWayWay;
+
+const bifornCringerMoshedPerplexSawder = // !!!
+  glimseGlyphsHazardNoopsTieTie +
+  averredBathersBoxroomBuggyNurl -
+  anodyneCondosMalateOverateRetinol;
+
+=====================================output=====================================
+const kochabCooieGameOnOboleUnweave = annularCooeedSplicesWalksWayWay; // ???
+
+const bifornCringerMoshedPerplexSawder = // !!!
+  glimseGlyphsHazardNoopsTieTie +
+  averredBathersBoxroomBuggyNurl -
+  anodyneCondosMalateOverateRetinol;
+
+================================================================================
+`;
+
 exports[`number.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
