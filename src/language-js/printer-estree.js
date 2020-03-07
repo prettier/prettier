@@ -2919,12 +2919,6 @@ function printPathNoParens(path, options, print, args) {
         shouldIndent &&
         !hasLeadingOwnLineComment(options.originalText, n, options);
 
-      // console.log(
-      //   "s",
-      //   shouldIndent,
-      //   hasLeadingOwnLineComment(options.originalText, n, options)
-      // );
-
       const code = concat([
         ifBreak(concat([shouldAddStartLine ? line : "", "| "])),
         join(concat([line, "| "]), printed)
