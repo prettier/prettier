@@ -2919,6 +2919,12 @@ function printPathNoParens(path, options, print, args) {
         shouldIndent &&
         !hasLeadingOwnLineComment(options.originalText, n, options);
 
+      // console.log(
+      //   "s",
+      //   shouldIndent,
+      //   hasLeadingOwnLineComment(options.originalText, n, options)
+      // );
+
       const code = concat([
         ifBreak(concat([shouldAddStartLine ? line : "", "| "])),
         join(concat([line, "| "]), printed)
@@ -4221,10 +4227,23 @@ function printTypeAnnotation(path, options, print) {
     return concat([" /*: ", path.call(print, "typeAnnotation"), " */"]);
   }
 
-  return concat([
-    isFunctionDeclarationIdentifier ? "" : isDefinite ? "!: " : ": ",
-    path.call(print, "typeAnnotation")
-  ]);
+  const parts = [
+    isFunctionDeclarationIdentifier ? "" : isDefinite ? "!: " : ": "
+  ];
+  const printed = path.call(print, "typeAnnotation");
+  if (
+    hasLeadingOwnLineComment(
+      options.originalText,
+      node.typeAnnotation.typeAnnotation,
+      options
+    )
+  ) {
+    parts.push(indent(concat([hardline, printed])));
+  } else {
+    parts.push(printed);
+  }
+
+  return concat(parts);
 }
 
 function printFunctionTypeParameters(path, options, print) {
