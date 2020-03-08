@@ -13,11 +13,12 @@ const myValue = (callcallcallcallcallcall(87689769876876897698768768976987687689
 =====================================output=====================================
 const myValue = (callcallcallcallcallcall(
   87689769876876897698768768976987687689769876
-): // Comment
-| one
-  | two
-  | thre
-  | jdkxhflksjdhfglkjsdhfglkjhsdkfljghskdjhfgkljshdfgkjhsdkljfhgkljshdfgjdfklgjhklj);
+):
+  // Comment
+  | one
+    | two
+    | thre
+    | jdkxhflksjdhfglkjsdhfglkjhsdkfljghskdjhfgkljshdfgkjhsdkljfhgkljshdfgjdfklgjhklj);
 
 ================================================================================
 `;
