@@ -4639,7 +4639,14 @@ function printTypeParameters(path, options, print, paramsKey) {
           n[paramsKey][0].type !== "TSArrayType")));
 
   if (shouldInline) {
-    return concat(["<", join(", ", path.map(print, paramsKey)), ">"]);
+    return concat([
+      "<",
+      join(", ", path.map(print, paramsKey)),
+      hasDanglingComments(n)
+        ? comments.printDanglingComments(path, options, /* sameIndent */ true)
+        : "",
+      ">"
+    ]);
   }
 
   return group(
