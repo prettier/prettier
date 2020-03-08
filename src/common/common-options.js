@@ -43,9 +43,7 @@ module.exports = {
         since: "1.9.0",
         value: "preserve",
         description: "Wrap prose as-is."
-      },
-      { value: false, deprecated: "1.9.0", redirect: "never" },
-      { value: true, deprecated: "1.9.0", redirect: "always" }
+      }
     ]
   }
 };

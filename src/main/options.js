@@ -23,11 +23,12 @@ function normalize(options, opts) {
 
   const rawOptions = { ...options };
 
-  const supportOptions = getSupportInfo(null, {
+  const supportOptions = getSupportInfo({
     plugins: options.plugins,
     showUnreleased: true,
     showDeprecated: true
   }).options;
+
   const defaults = {
     ...hiddenDefaults,
     ...fromPairs(
@@ -166,9 +167,7 @@ function inferParser(filepath, plugins) {
   // If the file has no extension, we can try to infer the language from the
   // interpreter in the shebang line, if any; but since this requires FS access,
   // do it last.
-  const language = getSupportInfo(null, {
-    plugins
-  }).languages.find(
+  const language = getSupportInfo({ plugins }).languages.find(
     language =>
       language.since !== null &&
       ((language.extensions &&

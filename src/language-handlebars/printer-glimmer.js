@@ -143,21 +143,37 @@ function print(path, options, print) {
         n.inverse.body[0].type === "BlockStatement" &&
         n.inverse.body[0].path.parts[0] === "if";
       const indentElse = hasElseIf ? a => a : indent;
+      const inverseElseStatement =
+        (n.inverseStrip.open ? "{{~" : "{{") +
+        "else" +
+        (n.inverseStrip.close ? "~}}" : "}}");
       if (n.inverse) {
         return concat([
           isElseIf
-            ? concat(["{{else ", printPathParams(path, print), "}}"])
-            : printOpenBlock(path, print),
+            ? concat([
+                n.openStrip.open ? "{{~else " : "{{else ",
+                printPathParams(path, print),
+                n.openStrip.close ? "~}}" : "}}"
+              ])
+            : printOpenBlock(path, print, n.openStrip),
           indent(concat([hardline, path.call(print, "program")])),
-          n.inverse && !hasElseIf ? concat([hardline, "{{else}}"]) : "",
+          n.inverse && !hasElseIf
+            ? concat([hardline, inverseElseStatement])
+            : "",
           n.inverse
             ? indentElse(concat([hardline, path.call(print, "inverse")]))
             : "",
-          isElseIf ? "" : concat([hardline, printCloseBlock(path, print)])
+          isElseIf
+            ? ""
+            : concat([hardline, printCloseBlock(path, print, n.closeStrip)])
         ]);
       } else if (isElseIf) {
         return concat([
-          concat(["{{else ", printPathParams(path, print), "}}"]),
+          concat([
+            n.openStrip.open ? "{{~else" : "{{else ",
+            printPathParams(path, print),
+            n.openStrip.close ? "~}}" : "}}"
+          ]),
           indent(concat([hardline, path.call(print, "program")]))
         ]);
       }
@@ -167,12 +183,12 @@ function print(path, options, print) {
       );
 
       return concat([
-        printOpenBlock(path, print),
+        printOpenBlock(path, print, n.openStrip),
         group(
           concat([
             indent(concat([softline, path.call(print, "program")])),
             hasNonWhitespaceChildren ? hardline : softline,
-            printCloseBlock(path, print)
+            printCloseBlock(path, print, n.closeStrip)
           ])
         )
       ]);
@@ -184,9 +200,9 @@ function print(path, options, print) {
     }
     case "MustacheStatement": {
       const isEscaped = n.escaped === false;
-
-      const opening = isEscaped ? "{{{" : "{{";
-      const closing = isEscaped ? "}}}" : "}}";
+      const { open: openStrip, close: closeStrip } = n.strip;
+      const opening = (isEscaped ? "{{{" : "{{") + (openStrip ? "~" : "");
+      const closing = (closeStrip ? "~" : "") + (isEscaped ? "}}}" : "}}");
 
       const leading = isParentOfSomeType(path, [
         "AttrNode",
@@ -213,7 +229,14 @@ function print(path, options, print) {
     }
     case "AttrNode": {
       const isText = n.value.type === "TextNode";
-      if (isText && n.value.loc.start.column === n.value.loc.end.column) {
+      const isEmptyText = isText && n.value.chars === "";
+
+      // If the text is empty and the value's loc start and end columns are the
+      // same, there is no value for this AttrNode and it should be printed
+      // without the `=""`. Example: `<img data-test>` -> `<img data-test>`
+      const isEmptyValue =
+        isEmptyText && n.value.loc.start.column === n.value.loc.end.column;
+      if (isEmptyValue) {
         return concat([n.name]);
       }
       const value = path.call(print, "value");
@@ -473,20 +496,32 @@ function printBlockParams(path) {
   return concat([" as |", block.program.blockParams.join(" "), "|"]);
 }
 
-function printOpenBlock(path, print) {
+function printOpenBlock(
+  path,
+  print,
+  { open: isOpenStrip = false, close: isCloseStrip = false } = {}
+) {
   return group(
     concat([
-      "{{#",
+      isOpenStrip ? "{{~#" : "{{#",
       printPathParams(path, print),
       printBlockParams(path),
       softline,
-      "}}"
+      isCloseStrip ? "~}}" : "}}"
     ])
   );
 }
 
-function printCloseBlock(path, print) {
-  return concat(["{{/", path.call(print, "path"), "}}"]);
+function printCloseBlock(
+  path,
+  print,
+  { open: isOpenStrip = false, close: isCloseStrip = false } = {}
+) {
+  return concat([
+    isOpenStrip ? "{{~/" : "{{/",
+    path.call(print, "path"),
+    isCloseStrip ? "~}}" : "}}"
+  ]);
 }
 
 function countNewLines(string) {

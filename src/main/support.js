@@ -9,22 +9,15 @@ const arrayify = require("../utils/arrayify");
 const currentVersion = require("../../package.json").version;
 const coreOptions = require("./core-options").options;
 
-function getSupportInfo(version, opts) {
-  opts = {
-    plugins: [],
-    showUnreleased: false,
-    showDeprecated: false,
-    showInternal: false,
-    ...opts
-  };
-
-  if (!version) {
-    // pre-release version is smaller than the normal version in semver,
-    // we need to treat it as the normal one so as to test new features.
-    version = currentVersion.split("-", 1)[0];
-  }
-
-  const { plugins } = opts;
+function getSupportInfo({
+  plugins = [],
+  showUnreleased = false,
+  showDeprecated = false,
+  showInternal = false
+} = {}) {
+  // pre-release version is smaller than the normal version in semver,
+  // we need to treat it as the normal one so as to test new features.
+  const version = currentVersion.split("-", 1)[0];
 
   const options = arrayify(
     Object.assign({}, ...plugins.map(({ options }) => options), coreOptions),
@@ -32,7 +25,6 @@ function getSupportInfo(version, opts) {
   )
     .filter(option => filterSince(option) && filterDeprecated(option))
     .sort((a, b) => (a.name === b.name ? 0 : a.name < b.name ? -1 : 1))
-    .map(mapDeprecated)
     .map(mapInternal)
     .map(option => {
       option = { ...option };
@@ -49,9 +41,9 @@ function getSupportInfo(version, opts) {
       }
 
       if (Array.isArray(option.choices)) {
-        option.choices = option.choices
-          .filter(option => filterSince(option) && filterDeprecated(option))
-          .map(mapDeprecated);
+        option.choices = option.choices.filter(
+          option => filterSince(option) && filterDeprecated(option)
+        );
       }
 
       const filteredPlugins = plugins.filter(
@@ -59,64 +51,39 @@ function getSupportInfo(version, opts) {
           plugin.defaultOptions &&
           plugin.defaultOptions[option.name] !== undefined
       );
+
       const pluginDefaults = filteredPlugins.reduce((reduced, plugin) => {
         reduced[plugin.name] = plugin.defaultOptions[option.name];
         return reduced;
       }, {});
+
       return { ...option, pluginDefaults };
     });
 
-  const usePostCssParser = semver.lt(version, "1.7.1");
-  const useBabylonParser = semver.lt(version, "1.16.0");
-
   const languages = plugins
     .reduce((all, plugin) => all.concat(plugin.languages || []), [])
-    .filter(filterSince)
-    .map(language => {
-      let parsers;
-      // Prevent breaking changes
-      if (language.name === "Markdown") {
-        parsers = ["markdown"];
-        // "babylon" was renamed to "babel" in 1.16.0
-      } else if (useBabylonParser && language.parsers.includes("babel")) {
-        parsers = language.parsers.map(parser =>
-          parser === "babel" ? "babylon" : parser
-        );
-      } else if (
-        usePostCssParser &&
-        (language.name === "CSS" || language.group === "CSS")
-      ) {
-        parsers = ["postcss"];
-      }
-      return parsers ? { ...language, parsers } : language;
-    });
+    .filter(filterSince);
 
   return { languages, options };
 
   function filterSince(object) {
     return (
-      opts.showUnreleased ||
+      showUnreleased ||
       !("since" in object) ||
       (object.since && semver.gte(version, object.since))
     );
   }
+
   function filterDeprecated(object) {
     return (
-      opts.showDeprecated ||
+      showDeprecated ||
       !("deprecated" in object) ||
       (object.deprecated && semver.lt(version, object.deprecated))
     );
   }
-  function mapDeprecated(object) {
-    if (!object.deprecated || opts.showDeprecated) {
-      return object;
-    }
 
-    const { deprecated, redirect, ...newObject } = object;
-    return newObject;
-  }
   function mapInternal(object) {
-    if (opts.showInternal) {
+    if (showInternal) {
       return object;
     }
     const { cliName, cliCategory, cliDescription, ...newObject } = object;

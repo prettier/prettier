@@ -477,7 +477,7 @@ new B()\`\`;
 (++b)\`\`;
 
 // "YieldExpression"
-function *d() {
+function* d() {
   (yield 1)\`\`;
 }
 

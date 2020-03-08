@@ -18,12 +18,15 @@ const internalPlugins = [
   require("./language-yaml")
 ];
 
-// Luckily `opts` is always the 2nd argument
-function withPlugins(fn) {
-  return function(first, opts, ...rest) {
-    const { plugins = [] } = opts || {};
+function withPlugins(
+  fn,
+  optsArgIdx = 1 // Usually `opts` is the 2nd argument
+) {
+  return (...args) => {
+    const opts = args[optsArgIdx] || {};
+    const plugins = opts.plugins || [];
 
-    opts = {
+    args[optsArgIdx] = {
       ...opts,
       plugins: [
         ...internalPlugins,
@@ -31,7 +34,7 @@ function withPlugins(fn) {
       ]
     };
 
-    return fn(first, opts, ...rest);
+    return fn(...args);
   };
 }
 
@@ -51,7 +54,7 @@ module.exports = {
 
   doc,
 
-  getSupportInfo: withPlugins(getSupportInfo),
+  getSupportInfo: withPlugins(getSupportInfo, 0),
 
   version,
 

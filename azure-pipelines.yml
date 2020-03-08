@@ -4,8 +4,6 @@ trigger:
   - release-*
 
 variables:
-  AST_COMPARE: true
-  ENABLE_TEST_RESULTS: true
   ENABLE_CODE_COVERAGE: "" # only enable coverage on the fastest job
 
 jobs:

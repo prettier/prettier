@@ -5,8 +5,7 @@ const createLanguage = require("../utils/create-language");
 const options = require("./options");
 
 const languages = [
-  createLanguage(require("linguist-languages/data/HTML"), data => ({
-    ...data,
+  createLanguage(require("linguist-languages/data/HTML"), () => ({
     name: "Angular",
     since: "1.15.0",
     parsers: ["angular"],
@@ -15,7 +14,6 @@ const languages = [
     filenames: []
   })),
   createLanguage(require("linguist-languages/data/HTML"), data => ({
-    ...data,
     since: "1.15.0",
     parsers: ["html"],
     vscodeLanguageIds: ["html"],
@@ -23,8 +21,7 @@ const languages = [
       ".mjml" // MJML is considered XML in Linguist but it should be formatted as HTML
     ])
   })),
-  createLanguage(require("linguist-languages/data/HTML"), data => ({
-    ...data,
+  createLanguage(require("linguist-languages/data/HTML"), () => ({
     name: "Lightning Web Components",
     since: "1.17.0",
     parsers: ["lwc"],
@@ -32,8 +29,7 @@ const languages = [
     extensions: [],
     filenames: []
   })),
-  createLanguage(require("linguist-languages/data/Vue"), data => ({
-    ...data,
+  createLanguage(require("linguist-languages/data/Vue"), () => ({
     since: "1.10.0",
     parsers: ["vue"],
     vscodeLanguageIds: ["vue"]

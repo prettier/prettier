@@ -1,8 +1,5 @@
 "use strict";
 
-// This file is currently named parser-babylon.js to maintain backwards compatibility.
-// However, it should be named parser-babel.js in the next major release.
-
 const createError = require("../common/parser-create-error");
 const { hasPragma } = require("./pragma");
 const locFns = require("./loc");
@@ -179,8 +176,6 @@ module.exports = {
     babel,
     "babel-flow": babelFlow,
     "babel-ts": babelTypeScript,
-    // aliased to keep backwards compatibility
-    babylon: babel,
     json: {
       ...babelExpression,
       hasPragma() {
