@@ -217,6 +217,7 @@ $KeepScssVar: val;
 
     @KeepDetachedRuleset();
 
+    &:extend(.Keep ALL);
     &:EXTEND(.Keep ALL);
 
     .Keep;
@@ -224,6 +225,8 @@ $KeepScssVar: val;
     .Keep(4PX)!IMPORTANT;
     .Keep() when (@Keep=Keep);
     .Keep() when (@Keep=12PX);
+    .Keep() when (@Keep="12px");
+    .Keep() when (@Keep="12PX");
     .Keep() when (@Keep=Keep12PX);
 }
 
@@ -308,7 +311,7 @@ svg[viewBox] linearGradient,
   --Keep-custom-Prop: red;
   background: Var(--Keep-custom-Prop);
   animation-name: KeepAnimationName;
-  important: something !IMPORTANT;
+  important: something !important;
   font-family: initial;
   padding: unset;
   border: inherit;
@@ -364,13 +367,16 @@ $KeepScssVar: val;
 
   @KeepDetachedRuleset();
 
-  &: EXTEND(.Keep ALL);
+  &:extend(.Keep ALL);
+  &:EXTEND(.Keep ALL);
 
   .Keep;
   .Keep();
   .Keep(4px) !important;
   .Keep() when (@Keep=Keep);
-  .Keep() when (@Keep=12PX);
+  .Keep() when (@Keep=12px);
+  .Keep() when (@Keep="12px");
+  .Keep() when (@Keep="12PX");
   .Keep() when (@Keep=Keep12PX);
 }
 
