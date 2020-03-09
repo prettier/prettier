@@ -4,12 +4,17 @@
 
 const fs = require("fs");
 const path = require("path");
+const rimraf = require("rimraf");
 
 const changelogUnreleasedDir = path.join(__dirname, "../changelog_unreleased");
 const blogDir = path.join(__dirname, "../website/blog");
-
+const introFile = path.join(changelogUnreleasedDir, "blog-post-intro.md");
 const version = require("../package.json").version.replace(/-.+/, "");
-const versionShort = version.replace(/\.0$/, "");
+const postGlob = path.join(blogDir, `????-??-??-${version}.md`);
+const postFile = path.join(
+  blogDir,
+  `${new Date().toISOString().replace(/T.+/, "")}-${version}.md`
+);
 
 const categories = [
   { dir: "javascript", title: "JavaScript" },
@@ -23,7 +28,7 @@ const categories = [
   { dir: "vue", title: "Vue" },
   { dir: "angular", title: "Angular" },
   { dir: "lwc", title: "LWC" },
-  { dir: "handlebars", title: "Handlebars" },
+  { dir: "handlebars", title: "Handlebars (alpha)" },
   { dir: "graphql", title: "GraphQL" },
   { dir: "markdown", title: "Markdown" },
   { dir: "mdx", title: "MDX" },
@@ -71,27 +76,27 @@ for (const dir of dirs) {
     });
 }
 
-const result = [
-  `---
-author: "🚧"
-authorURL: "https://github.com/🚧"
-title: "Prettier ${versionShort}: 🚧"
----`,
-  "🚧 Write an introduction here.",
-  "<!--truncate-->",
-  ...printEntries({
-    title: "Highlights",
-    filter: (entry) => entry.highlight,
-  }),
-  ...printEntries({
-    title: "Breaking changes",
-    filter: (entry) => entry.breaking && !entry.highlight,
-  }),
-  ...printEntries({
-    title: "Other changes",
-    filter: (entry) => !entry.breaking && !entry.highlight,
-  }),
-];
+rimraf.sync(postGlob);
+
+fs.writeFileSync(
+  postFile,
+  [
+    fs.readFileSync(introFile, "utf8").trim(),
+    "<!--truncate-->",
+    ...printEntries({
+      title: "Highlights",
+      filter: (entry) => entry.highlight,
+    }),
+    ...printEntries({
+      title: "Breaking changes",
+      filter: (entry) => entry.breaking && !entry.highlight,
+    }),
+    ...printEntries({
+      title: "Other changes",
+      filter: (entry) => !entry.breaking && !entry.highlight,
+    }),
+  ].join("\n\n") + "\n"
+);
 
 function printEntries({ title, filter }) {
   const result = [];
@@ -110,8 +115,3 @@ function printEntries({ title, filter }) {
 
   return result;
 }
-
-fs.writeFileSync(
-  path.join(blogDir, `${new Date().getFullYear()}-00-00-${version}.md`),
-  result.join("\n\n") + "\n"
-);

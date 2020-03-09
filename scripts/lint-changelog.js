@@ -1,9 +1,11 @@
+#!/usr/bin/env node
 "use strict";
 const fs = require("fs");
 const path = require("path");
 
 const CHANGELOG_DIR = "changelog_unreleased";
 const TEMPLATE_FILE = "TEMPLATE.md";
+const BLOG_POST_INTRO_FILE = "blog-post-intro.md";
 const CHANGELOG_CATEGORIES = [
   "angular",
   "api",
@@ -32,11 +34,19 @@ const showErrorMessage = (message) => {
 
 const files = fs.readdirSync(CHANGELOG_ROOT);
 for (const file of files) {
-  if (file !== TEMPLATE_FILE && !CHANGELOG_CATEGORIES.includes(file)) {
+  if (
+    file !== TEMPLATE_FILE &&
+    file !== BLOG_POST_INTRO_FILE &&
+    !CHANGELOG_CATEGORIES.includes(file)
+  ) {
     showErrorMessage(`Please remove "${file}" from "${CHANGELOG_DIR}".`);
   }
 }
-for (const file of [TEMPLATE_FILE, ...CHANGELOG_CATEGORIES]) {
+for (const file of [
+  TEMPLATE_FILE,
+  BLOG_POST_INTRO_FILE,
+  ...CHANGELOG_CATEGORIES,
+]) {
   if (!files.includes(file)) {
     showErrorMessage(`Please don't remove "${file}" from "${CHANGELOG_DIR}".`);
   }
