@@ -124,7 +124,7 @@ global.run_spec = (dirname, parsers, options) => {
     ) {
       test(`${filename} second format`, () => {
         const secondOutput = format(output, filename, { ...mainOptions });
-        expect(visualizeEndOfLine(secondOutput)).toEqual(output);
+        expect(secondOutput).toEqual(output);
       });
     }
 
