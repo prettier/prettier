@@ -117,9 +117,9 @@ global.run_spec = (dirname, parsers, options) => {
 
     if (
       DEEP_COMPARE &&
-      !rangeStart &&
-      !rangeEnd &&
-      !cursorOffset &&
+      typeof rangeStart === "undefined" &&
+      typeof rangeEnd === "undefined" &&
+      typeof cursorOffset === "undefined" &&
       !TEST_CRLF
     ) {
       test(`${filename} second format`, () => {
