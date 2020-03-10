@@ -25,24 +25,20 @@ const PROJECT_ROOT = path.resolve(__dirname, "../..");
 /** @type {Bundle[]} */
 const parsers = [
   {
-    input: "src/language-js/parser-babylon.js",
-    target: "universal"
+    input: "src/language-js/parser-babel.js"
   },
   {
     input: "src/language-js/parser-flow.js",
-    target: "universal",
     strict: false
   },
   {
     input: "src/language-js/parser-typescript.js",
-    target: "universal",
     replace: {
       'require("@microsoft/typescript-etw")': "undefined"
     }
   },
   {
     input: "src/language-js/parser-angular.js",
-    target: "universal",
     alias: {
       // Force using the CJS file, instead of ESM; i.e. get the file
       // from `"main"` instead of `"module"` (rollup default) of package.json
@@ -62,7 +58,6 @@ const parsers = [
   },
   {
     input: "src/language-css/parser-postcss.js",
-    target: "universal",
     // postcss has dependency cycles that don't work with rollup
     bundler: "webpack",
     terserOptions: {
@@ -71,22 +66,21 @@ const parsers = [
       terserOptions: {
         mangle: {
           // postcss need keep_fnames when minify
-          keep_fnames: true
+          keep_fnames: true,
+          // we don't transform class anymore, so we need keep_classnames too
+          keep_classnames: true
         }
       }
     }
   },
   {
-    input: "src/language-graphql/parser-graphql.js",
-    target: "universal"
+    input: "src/language-graphql/parser-graphql.js"
   },
   {
-    input: "src/language-markdown/parser-markdown.js",
-    target: "universal"
+    input: "src/language-markdown/parser-markdown.js"
   },
   {
     input: "src/language-handlebars/parser-glimmer.js",
-    target: "universal",
     alias: {
       entries: [
         // `handlebars` causes webpack warning by using `require.extensions`
@@ -101,7 +95,10 @@ const parsers = [
     },
     commonjs: {
       namedExports: {
-        [require.resolve("handlebars/dist/cjs/handlebars.js")]: ["parse"],
+        [require.resolve("handlebars/dist/cjs/handlebars.js")]: [
+          "parse",
+          "parseWithoutProcessing"
+        ],
         [require.resolve(
           "@glimmer/syntax/dist/modules/es2017/index.js"
         )]: "default"
@@ -110,12 +107,10 @@ const parsers = [
     }
   },
   {
-    input: "src/language-html/parser-html.js",
-    target: "universal"
+    input: "src/language-html/parser-html.js"
   },
   {
     input: "src/language-yaml/parser-yaml.js",
-    target: "universal",
     alias: {
       // Force using the CJS file, instead of ESM; i.e. get the file
       // from `"main"` instead of `"module"` (rollup default) of package.json
@@ -127,12 +122,14 @@ const parsers = [
       ]
     }
   }
-].map(parser => {
-  const name = getFileOutput(parser)
+].map(parser => ({
+  type: "plugin",
+  target: "universal",
+  name: getFileOutput(parser)
     .replace(/\.js$/, "")
-    .split("-")[1];
-  return Object.assign(parser, { type: "plugin", name });
-});
+    .split("-")[1],
+  ...parser
+}));
 
 /** @type {Bundle[]} */
 const coreBundles = [
@@ -174,7 +171,9 @@ const coreBundles = [
       // cosmiconfig@5 -> import-fresh uses `require` to resolve js config, which caused Error:
       // Dynamic requires are not currently supported by rollup-plugin-commonjs.
       "require(filePath)": "eval('require')(filePath)",
-      "require.cache": "eval('require').cache"
+      "require.cache": "eval('require').cache",
+      // cosmiconfig@6 -> import-fresh can't find parentModule, since module is bundled
+      "parentModule(__filename)": "__filename"
     }
   }
 ];
@@ -183,6 +182,7 @@ function getFileOutput(bundle) {
   return bundle.output || path.basename(bundle.input);
 }
 
-module.exports = coreBundles
-  .concat(parsers)
-  .map(bundle => Object.assign(bundle, { output: getFileOutput(bundle) }));
+module.exports = coreBundles.concat(parsers).map(bundle => ({
+  ...bundle,
+  output: getFileOutput(bundle)
+}));

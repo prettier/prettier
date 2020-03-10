@@ -6,6 +6,7 @@ const {
   builders: {
     indent,
     join,
+    line,
     hardline,
     softline,
     literalline,
@@ -35,7 +36,7 @@ function embed(path, print, textToDoc, options) {
         const rawQuasis = node.quasis.map(q => q.value.raw);
         let placeholderID = 0;
         const text = rawQuasis.reduce((prevVal, currVal, idx) => {
-          return idx == 0
+          return idx === 0
             ? currVal
             : prevVal +
                 "@prettier-placeholder-" +
@@ -147,7 +148,7 @@ function embed(path, print, textToDoc, options) {
           print,
           textToDoc,
           htmlParser,
-          options.embeddedInHtml
+          options
         );
       }
 
@@ -222,7 +223,7 @@ function escapeTemplateCharacters(doc, raw) {
       }
     });
 
-    return Object.assign({}, currentDoc, { parts });
+    return { ...currentDoc, parts };
   });
 }
 
@@ -266,7 +267,7 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
     if (!doc || !doc.parts || !doc.parts.length) {
       return doc;
     }
-    let parts = doc.parts;
+    let { parts } = doc;
     const atIndex = parts.indexOf("@");
     const placeholderIndex = atIndex + 1;
     if (
@@ -305,9 +306,7 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
         .concat(["${", expression, "}" + suffix])
         .concat(rest);
     }
-    return Object.assign({}, doc, {
-      parts: parts
-    });
+    return { ...doc, parts };
   });
 
   return expressions.length === replaceCounter ? newDoc : null;
@@ -393,7 +392,7 @@ function isAngularComponentStyles(path) {
     node => node.type === "TemplateLiteral",
     (node, name) => node.type === "ArrayExpression" && name === "elements",
     (node, name) =>
-      node.type === "Property" &&
+      (node.type === "Property" || node.type === "ObjectProperty") &&
       node.key.type === "Identifier" &&
       node.key.name === "styles" &&
       name === "value",
@@ -404,7 +403,7 @@ function isAngularComponentTemplate(path) {
   return path.match(
     node => node.type === "TemplateLiteral",
     (node, name) =>
-      node.type === "Property" &&
+      (node.type === "Property" || node.type === "ObjectProperty") &&
       node.key.type === "Identifier" &&
       node.key.name === "template" &&
       name === "value",
@@ -431,7 +430,7 @@ function isStyledComponents(path) {
     return false;
   }
 
-  const tag = parent.tag;
+  const { tag } = parent;
 
   switch (tag.type) {
     case "MemberExpression":
@@ -551,13 +550,7 @@ function isHtml(path) {
 // The counter is needed to distinguish nested embeds.
 let htmlTemplateLiteralCounter = 0;
 
-function printHtmlTemplateLiteral(
-  path,
-  print,
-  textToDoc,
-  parser,
-  escapeClosingScriptTag
-) {
+function printHtmlTemplateLiteral(path, print, textToDoc, parser, options) {
   const node = path.getValue();
 
   const counter = htmlTemplateLiteralCounter;
@@ -580,10 +573,18 @@ function printHtmlTemplateLiteral(
     return "``";
   }
 
-  const placeholderRegex = RegExp(composePlaceholder("(\\d+)"), "g");
+  const placeholderRegex = new RegExp(composePlaceholder("(\\d+)"), "g");
+  let topLevelCount = 0;
 
   const contentDoc = mapDoc(
-    stripTrailingHardline(textToDoc(text, { parser })),
+    stripTrailingHardline(
+      textToDoc(text, {
+        parser,
+        __onHtmlRoot(root) {
+          topLevelCount = root.children.length;
+        }
+      })
+    ),
     doc => {
       if (typeof doc !== "string") {
         return doc;
@@ -598,7 +599,7 @@ function printHtmlTemplateLiteral(
         if (i % 2 === 0) {
           if (component) {
             component = uncook(component);
-            if (escapeClosingScriptTag) {
+            if (options.embeddedInHtml) {
               component = component.replace(/<\/(script)\b/gi, "<\\/$1");
             }
             parts.push(component);
@@ -616,8 +617,35 @@ function printHtmlTemplateLiteral(
     }
   );
 
+  const leadingWhitespace = /^\s/.test(text) ? " " : "";
+  const trailingWhitespace = /\s$/.test(text) ? " " : "";
+
+  const linebreak =
+    options.htmlWhitespaceSensitivity === "ignore"
+      ? hardline
+      : leadingWhitespace && trailingWhitespace
+      ? line
+      : null;
+
+  if (linebreak) {
+    return group(
+      concat([
+        "`",
+        indent(concat([linebreak, group(contentDoc)])),
+        linebreak,
+        "`"
+      ])
+    );
+  }
+
   return group(
-    concat(["`", indent(concat([hardline, group(contentDoc)])), softline, "`"])
+    concat([
+      "`",
+      leadingWhitespace,
+      topLevelCount > 1 ? indent(group(contentDoc)) : group(contentDoc),
+      trailingWhitespace,
+      "`"
+    ])
   );
 }
 

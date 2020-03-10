@@ -65,7 +65,7 @@ function genericPrint(path, options, print) {
       }
       return concat([
         normalizeDoc(printRoot(path, options, print)),
-        TRAILING_HARDLINE_NODES.indexOf(getLastDescendantNode(node).type) === -1
+        !TRAILING_HARDLINE_NODES.includes(getLastDescendantNode(node).type)
           ? hardline
           : ""
       ]);
@@ -230,7 +230,7 @@ function genericPrint(path, options, print) {
       const value =
         parentNode.type === "root" &&
         privateUtil.getLast(parentNode.children) === node
-          ? node.value.trimRight()
+          ? node.value.trimEnd()
           : node.value;
       const isHtmlComment = /^<!--[\s\S]*-->$/.test(value);
       return concat(
@@ -371,12 +371,11 @@ function genericPrint(path, options, print) {
                 align(
                   " ".repeat(options.tabWidth),
                   printChildren(path, options, print, {
-                    processor: (childPath, index) =>
-                      index === 0
-                        ? group(
-                            concat([softline, softline, childPath.call(print)])
-                          )
-                        : childPath.call(print)
+                    processor: (childPath, index) => {
+                      return index === 0
+                        ? group(concat([softline, childPath.call(print)]))
+                        : childPath.call(print);
+                    }
                   })
                 ),
                 nextNode && nextNode.type === "footnoteDefinition"
@@ -496,7 +495,7 @@ function getAncestorCounter(path, typeOrTypes) {
   let ancestorNode;
 
   while ((ancestorNode = path.getParentNode(++counter))) {
-    if (types.indexOf(ancestorNode.type) !== -1) {
+    if (types.includes(ancestorNode.type)) {
       return counter;
     }
   }
@@ -660,7 +659,7 @@ function printRoot(path, options, print) {
   /** @type {IgnorePosition | null} */
   let ignoreStart = null;
 
-  const children = path.getValue().children;
+  const { children } = path.getValue();
   children.forEach((childNode, index) => {
     switch (isPrettierIgnore(childNode)) {
       case "start":
@@ -742,7 +741,7 @@ function printChildren(path, options, print, events) {
 
         if (
           lastChildNode &&
-          TRAILING_HARDLINE_NODES.indexOf(lastChildNode.type) !== -1
+          TRAILING_HARDLINE_NODES.includes(lastChildNode.type)
         ) {
           if (shouldPrePrintTripleHardline(childNode, data)) {
             parts.push(hardline);
@@ -791,19 +790,18 @@ function isPrettierIgnore(node) {
 
 function shouldNotPrePrintHardline(node, data) {
   const isFirstNode = data.parts.length === 0;
-  const isInlineNode = INLINE_NODE_TYPES.indexOf(node.type) !== -1;
+  const isInlineNode = INLINE_NODE_TYPES.includes(node.type);
 
   const isInlineHTML =
     node.type === "html" &&
-    INLINE_NODE_WRAPPER_TYPES.indexOf(data.parentNode.type) !== -1;
+    INLINE_NODE_WRAPPER_TYPES.includes(data.parentNode.type);
 
   return isFirstNode || isInlineNode || isInlineHTML;
 }
 
 function shouldPrePrintDoubleHardline(node, data) {
   const isSequence = (data.prevNode && data.prevNode.type) === node.type;
-  const isSiblingNode =
-    isSequence && SIBLING_NODE_TYPES.indexOf(node.type) !== -1;
+  const isSiblingNode = isSequence && SIBLING_NODE_TYPES.includes(node.type);
 
   const isInTightListItem =
     data.parentNode.type === "listItem" && !data.parentNode.loose;
@@ -868,19 +866,19 @@ function normalizeDoc(doc) {
       return currentDoc.parts[0];
     }
 
-    const parts = [];
-
-    currentDoc.parts.forEach(part => {
+    const parts = currentDoc.parts.reduce((parts, part) => {
       if (part.type === "concat") {
-        parts.push.apply(parts, part.parts);
+        parts.push(...part.parts);
       } else if (part !== "") {
         parts.push(part);
       }
-    });
+      return parts;
+    }, []);
 
-    return Object.assign({}, currentDoc, {
+    return {
+      ...currentDoc,
       parts: normalizeParts(parts)
-    });
+    };
   });
 }
 

@@ -4,6 +4,7 @@ exports[`import_comma.scss 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 @import "rounded-corners", "text-shadow";
@@ -18,7 +19,6 @@ exports[`import_comma.scss 2`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 @import "rounded-corners", "text-shadow";
@@ -33,6 +33,7 @@ exports[`scss.scss 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 @media #{$g-breakpoint-tiny} {}
@@ -1040,6 +1041,8 @@ $my-list:
 $my-map: (
   'foo': 1, // Comment
   'bar': 2, // Comment
+  'buz': calc(1 + 2), // Buz
+  'baz': 4, // Baz
 );
 
 [href]:hover &, // Comment
@@ -2003,6 +2006,10 @@ $my-map: (
   // Comment
     "bar": 2,
   // Comment
+    "buz": calc(1 + 2),
+  // Buz
+    "baz": 4,
+  // Baz
 );
 
 [href]:hover &, // Comment
@@ -2055,7 +2062,6 @@ exports[`scss.scss 2`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 @media #{$g-breakpoint-tiny} {}
@@ -3063,6 +3069,8 @@ $my-list:
 $my-map: (
   'foo': 1, // Comment
   'bar': 2, // Comment
+  'buz': calc(1 + 2), // Buz
+  'baz': 4, // Baz
 );
 
 [href]:hover &, // Comment
@@ -4026,6 +4034,10 @@ $my-map: (
   // Comment
     "bar": 2,
   // Comment
+    "buz": calc(1 + 2),
+  // Buz
+    "baz": 4,
+  // Baz
 );
 
 [href]:hover &, // Comment
@@ -4078,6 +4090,7 @@ exports[`string-concatanation.scss 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 a {
@@ -4102,7 +4115,6 @@ exports[`string-concatanation.scss 2`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 a {

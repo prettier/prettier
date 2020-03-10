@@ -1000,8 +1000,7 @@ input:not(/* comment 125 */[/* comment 126 */disabled/* comment 127 */]/* commen
 ,
 /* comment 21 */
 .element
-/* comment 22 */
- {
+/* comment 22 */ {
 }
 
 /* comment 23 */
@@ -1011,8 +1010,7 @@ input:not(/* comment 125 */[/* comment 126 */disabled/* comment 127 */]/* commen
 .element
 /* comment 27 */
 .element
-/* comment 28 */
- {
+/* comment 28 */ {
 }
 
 /* comment 29 */
@@ -1024,8 +1022,7 @@ input:not(/* comment 125 */[/* comment 126 */disabled/* comment 127 */]/* commen
 >
 /* comment 35 */
 .element
-/* comment 36 */
- {
+/* comment 36 */ {
 }
 
 /* comment 37 */
@@ -1037,8 +1034,7 @@ input:not(/* comment 125 */[/* comment 126 */disabled/* comment 127 */]/* commen
 +
 /* comment 43 */
 .element
-/* comment 44 */
- {
+/* comment 44 */ {
 }
 
 /* comment 45 */
@@ -1050,8 +1046,7 @@ input:not(/* comment 125 */[/* comment 126 */disabled/* comment 127 */]/* commen
 ~
 /* comment 51 */
 .element
-/* comment 52 */
- {
+/* comment 52 */ {
 }
 
 /* comment 53 */
@@ -1063,8 +1058,7 @@ input:not(/* comment 125 */[/* comment 126 */disabled/* comment 127 */]/* commen
 >>>
 /* comment 59 */
 .element
-/* comment 60 */
- {
+/* comment 60 */ {
 }
 
 a[/* comment 61 */target/* comment 62 */] {
@@ -1292,7 +1286,7 @@ printWidth: 80
   &[data-field-id="1"], // comment 4
   &[data-field-id="2"], // comment 5
   &[data-field-id="3"], // comment 6
- {
+  {
     background: green;
   }
 }
@@ -1300,7 +1294,7 @@ printWidth: 80
 // comment 7
 .field
 // comment 8
- {
+{
   // comment 9
   // comment 10
   &[data-field-id="1"], // comment 11
@@ -1311,7 +1305,7 @@ printWidth: 80
   // comment 16
   &[data-field-id="3"], // comment 17
   // comment 18
- {
+  {
     // comment 19
     // comment 20
     background: green;
@@ -1325,7 +1319,7 @@ printWidth: 80
 // comment 25
 .bar
 // comment 26
- {
+{
 }
 
 .foo
@@ -1334,7 +1328,7 @@ printWidth: 80
 // comment 28
 .bar
 // comment 29
- {
+{
 }
 
 ================================================================================

@@ -2,7 +2,7 @@
 
 const createError = require("../common/parser-create-error");
 const includeShebang = require("../common/parser-include-shebang");
-const hasPragma = require("./pragma").hasPragma;
+const { hasPragma } = require("./pragma");
 const locFns = require("./loc");
 const postprocess = require("./postprocess");
 
@@ -31,7 +31,7 @@ function parse(text, parsers, opts) {
   }
 
   includeShebang(text, ast);
-  return postprocess(ast, Object.assign({}, opts, { originalText: text }));
+  return postprocess(ast, { ...opts, originalText: text });
 }
 
 function tryParseTypeScript(text, jsx) {
@@ -59,7 +59,7 @@ function isProbablyJsx(text) {
   ).test(text);
 }
 
-const parser = Object.assign({ parse, astFormat: "estree", hasPragma }, locFns);
+const parser = { parse, astFormat: "estree", hasPragma, ...locFns };
 
 // Export as a plugin so we can reuse the same bundle for UMD loading
 module.exports = {

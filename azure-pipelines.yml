@@ -4,8 +4,6 @@ trigger:
   - release-*
 
 variables:
-  AST_COMPARE: true
-  ENABLE_TEST_RESULTS: true
   ENABLE_CODE_COVERAGE: "" # only enable coverage on the fastest job
 
 jobs:
@@ -31,7 +29,7 @@ jobs:
   - job: Dev_Test_macOS
     displayName: Dev Test on macOS Node v12
     pool:
-      vmImage: macos-10.13
+      vmImage: macos-10.14
     variables:
       node_version: 12
       ENABLE_CODE_COVERAGE: true
@@ -80,12 +78,11 @@ jobs:
     dependsOn: Prod_Build
     displayName: Prod Test on macOS
     pool:
-      vmImage: macos-10.13
+      vmImage: macos-10.14
     strategy:
       matrix:
-        Node_v4:
-          node_version: 4
-          ENABLE_TEST_RESULTS: "" # jest-junit requires node v6+
+        Node_v10:
+          node_version: 10
         Node_v12:
           node_version: 12
         Node_v12_standalone:

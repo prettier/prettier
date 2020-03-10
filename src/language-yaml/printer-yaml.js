@@ -670,7 +670,7 @@ function isAbsolutelyPrintedAsSingleLineNode(node, options) {
 
   switch (options.proseWrap) {
     case "never":
-      return node.value.indexOf("\n") === -1;
+      return !node.value.includes("\n");
     case "always":
       return !/[\n ]/.test(node.value);
     // istanbul ignore next

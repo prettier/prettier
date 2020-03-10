@@ -31,7 +31,7 @@ var React = require("react");
 
 class CustomComponent extends React.Component {
   props: {
-    prop: string
+    prop: string,
   };
 }
 

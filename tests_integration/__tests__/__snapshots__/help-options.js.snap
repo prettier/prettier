@@ -3,16 +3,16 @@
 exports[`show detailed usage with --help arrow-parens (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help arrow-parens (stdout) 1`] = `
-"--arrow-parens <avoid|always>
+"--arrow-parens <always|avoid>
 
   Include parentheses around a sole arrow function parameter.
 
 Valid options:
 
-  avoid    Omit parens when possible. Example: \`x => x\`
   always   Always include parens. Example: \`(x) => x\`
+  avoid    Omit parens when possible. Example: \`x => x\`
 
-Default: avoid
+Default: always
 "
 `;
 
@@ -117,19 +117,19 @@ exports[`show detailed usage with --help editorconfig (write) 1`] = `Array []`;
 exports[`show detailed usage with --help end-of-line (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help end-of-line (stdout) 1`] = `
-"--end-of-line <auto|lf|crlf|cr>
+"--end-of-line <lf|crlf|cr|auto>
 
   Which end of line characters to apply.
 
 Valid options:
 
-  auto   Maintain existing
-         (mixed values within one file are normalised by looking at what's used after the first line)
   lf     Line Feed only (\\\\n), common on Linux and macOS as well as inside git repos
   crlf   Carriage Return + Line Feed characters (\\\\r\\\\n), common on Windows
   cr     Carriage Return character only (\\\\r), used very rarely
+  auto   Maintain existing
+         (mixed values within one file are normalised by looking at what's used after the first line)
 
-Default: auto
+Default: lf
 "
 `;
 
@@ -332,7 +332,7 @@ exports[`show detailed usage with --help no-semi (write) 1`] = `Array []`;
 exports[`show detailed usage with --help parser (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help parser (stdout) 1`] = `
-"--parser <flow|babel|babel-flow|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|html|angular|lwc>
+"--parser <flow|babel|babel-flow|babel-ts|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|html|angular|lwc>
 
   Which parser to use.
 
@@ -341,6 +341,7 @@ Valid options:
   flow             Flow
   babel            JavaScript
   babel-flow       Flow
+  babel-ts         TypeScript
   typescript       TypeScript
   css              CSS
   less             Less
@@ -510,17 +511,6 @@ Default: false
 
 exports[`show detailed usage with --help single-quote (write) 1`] = `Array []`;
 
-exports[`show detailed usage with --help stdin (stderr) 1`] = `""`;
-
-exports[`show detailed usage with --help stdin (stdout) 1`] = `
-"--stdin
-
-  Force reading input from stdin.
-"
-`;
-
-exports[`show detailed usage with --help stdin (write) 1`] = `Array []`;
-
 exports[`show detailed usage with --help stdin-filepath (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help stdin-filepath (stdout) 1`] = `
@@ -559,17 +549,17 @@ exports[`show detailed usage with --help tab-width (write) 1`] = `Array []`;
 exports[`show detailed usage with --help trailing-comma (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help trailing-comma (stdout) 1`] = `
-"--trailing-comma <none|es5|all>
+"--trailing-comma <es5|none|all>
 
   Print trailing commas wherever possible when multi-line.
 
 Valid options:
 
-  none   No trailing commas.
   es5    Trailing commas where valid in ES5 (objects, arrays, etc.)
+  none   No trailing commas.
   all    Trailing commas wherever possible (including function arguments).
 
-Default: none
+Default: es5
 "
 `;
 

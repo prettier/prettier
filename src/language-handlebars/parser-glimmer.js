@@ -5,12 +5,7 @@ const createError = require("../common/parser-create-error");
 function parse(text) {
   try {
     const glimmer = require("@glimmer/syntax").preprocess;
-    return glimmer(text, {
-      plugins: {
-        ast: []
-      },
-      mode: "codemod"
-    });
+    return glimmer(text, { mode: "codemod" });
     /* istanbul ignore next */
   } catch (error) {
     const matches = error.message.match(/on line (\d+)/);

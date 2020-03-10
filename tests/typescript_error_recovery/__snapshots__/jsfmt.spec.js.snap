@@ -37,7 +37,7 @@ class f4 {
   constructor<>() {}
 }
 
-const f5 = function<>() {};
+const f5 = function <>() {};
 
 interface f6<> {
   test<>();
@@ -88,7 +88,7 @@ class f4 {
   constructor<>() {}
 }
 
-const f5 = function<>() {};
+const f5 = function <>() {};
 
 interface f6<> {
   test<>();
@@ -139,7 +139,7 @@ class f4 {
   constructor<>() {}
 }
 
-const f5 = function<>() {};
+const f5 = function <>() {};
 
 interface f6<> {
   test<>();
@@ -186,13 +186,13 @@ type ThreeParams = {
 type TooLong = {
   [
     loooooooooooooooooooooooooong: string,
-    looooooooooooooooooooooooooooooooooooooong: string
+    looooooooooooooooooooooooooooooooooooooong: string,
   ]: string;
 };
 type TooLong81 = {
   [
     loooooooooooooooooooooooooong: string,
-    loooooooooooooooooong: string
+    loooooooooooooooooong: string,
   ]: string;
 };
 type TooLong80 = {
@@ -318,8 +318,6 @@ let e: ?(string | number);
 let f: !string;
 let g: string!;
 let h: !(string | number);
-let i: function(): string;
-let j: (function(): string) | number;
 
 =====================================output=====================================
 let a: *;
@@ -330,8 +328,6 @@ let e: ?(string | number);
 let f: !string;
 let g: !string;
 let h: !(string | number);
-let i: function(): string;
-let j: (function(): string) | number;
 
 ================================================================================
 `;
@@ -351,8 +347,6 @@ let e: ?(string | number);
 let f: !string;
 let g: string!;
 let h: !(string | number);
-let i: function(): string;
-let j: (function(): string) | number;
 
 =====================================output=====================================
 let a: *;
@@ -363,8 +357,6 @@ let e: ?(string | number);
 let f: !string;
 let g: !string;
 let h: !(string | number);
-let i: function(): string;
-let j: (function(): string) | number;
 
 ================================================================================
 `;
@@ -384,8 +376,6 @@ let e: ?(string | number);
 let f: !string;
 let g: string!;
 let h: !(string | number);
-let i: function(): string;
-let j: (function(): string) | number;
 
 =====================================output=====================================
 let a: *;
@@ -396,8 +386,6 @@ let e: ?(string | number);
 let f: !string;
 let g: !string;
 let h: !(string | number);
-let i: function(): string;
-let j: (function(): string) | number;
 
 ================================================================================
 `;

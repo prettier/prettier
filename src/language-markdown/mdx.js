@@ -50,7 +50,7 @@ tokenizeEsSyntax.locator = (value /*, fromIndex*/) => {
 };
 
 function esSyntax() {
-  const Parser = this.Parser;
+  const { Parser } = this;
   const tokenizers = Parser.prototype.blockTokenizers;
   const methods = Parser.prototype.blockMethods;
 

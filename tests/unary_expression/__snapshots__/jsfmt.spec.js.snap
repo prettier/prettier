@@ -368,33 +368,33 @@ async function bar2() {
   { a: 1, b: 2 } // foo
 );
 
-!function() {
+!function () {
   return x;
 };
 !(
-  function() {
+  function () {
     return x;
   } /* foo */
 );
 !(
-  /* foo */ function() {
+  /* foo */ function () {
     return x;
   }
 );
 !(
   /* foo */
-  function() {
+  function () {
     return x;
   }
 );
 !(
-  function() {
+  function () {
     return x;
   }
   /* foo */
 );
 !(
-  function() {
+  function () {
     return x;
   } // foo
 );

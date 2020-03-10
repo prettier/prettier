@@ -2,5 +2,5 @@ steps:
   - template: ../steps/download-dist.yml
   - template: ../steps/install-nodejs.yml
   - template: ../steps/install-dependencies.yml
-  - script: yarn lint-dist
+  - script: yarn lint:dist
     displayName: "Lint dist"
