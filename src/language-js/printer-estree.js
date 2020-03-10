@@ -4638,13 +4638,29 @@ function printTypeParameters(path, options, print, paramsKey) {
           n[paramsKey][0].type !== "TSIndexedAccessType" &&
           n[paramsKey][0].type !== "TSArrayType")));
 
+  function printDanglingCommentsForInline(n) {
+    if (!hasDanglingComments(n)) {
+      return "";
+    }
+    const hasOnlyBlockComments = n.comments.every(
+      handleComments.isBlockComment
+    );
+    const printed = comments.printDanglingComments(
+      path,
+      options,
+      /* sameIndent */ hasOnlyBlockComments
+    );
+    if (hasOnlyBlockComments) {
+      return printed;
+    }
+    return concat([printed, line]);
+  }
+
   if (shouldInline) {
     return concat([
       "<",
       join(", ", path.map(print, paramsKey)),
-      hasDanglingComments(n)
-        ? comments.printDanglingComments(path, options, /* sameIndent */ true)
-        : "",
+      printDanglingCommentsForInline(n),
       ">"
     ]);
   }
