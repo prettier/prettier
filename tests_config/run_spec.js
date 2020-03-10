@@ -114,14 +114,16 @@ global.run_spec = (dirname, parsers, options) => {
       parsersToVerify.push("babel-ts");
     }
 
-    if (DEEP_COMPARE) {
+    if (
+      DEEP_COMPARE &&
+      !rangeStart &&
+      !rangeEnd &&
+      !cursorOffset &&
+      !TEST_CRLF
+    ) {
       test(`${filename} second format`, () => {
-        const secondOutput = format(
-          output.replace(CURSOR_PLACEHOLDER, ""),
-          filename,
-          { ...mainOptions }
-        );
-        expect(visualizeEndOfLine(secondOutput)).toEqual(visualizedOutput);
+        const secondOutput = format(output, filename, { ...mainOptions });
+        expect(visualizeEndOfLine(secondOutput)).toEqual(output);
       });
     }
 
