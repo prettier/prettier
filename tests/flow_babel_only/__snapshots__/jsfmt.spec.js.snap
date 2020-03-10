@@ -1,20 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`field_declare_modifier.js 1`] = `
+exports[`constructor-field-override.js 1`] = `
 ====================================options=====================================
-parsers: ["flow"]
+parsers: ["babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
+// https://github.com/prettier/prettier/issues/1481
 class Foo {
-  declare foo: number;
-  declare static bar: string;
+  constructor: () => this;
 }
 
 =====================================output=====================================
+// https://github.com/prettier/prettier/issues/1481
 class Foo {
-  declare foo: number;
-  declare static bar: string;
+  constructor: () => this;
 }
 
 ================================================================================

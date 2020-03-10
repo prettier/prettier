@@ -39,6 +39,7 @@ const {
   isWideKeywords,
   isSCSS,
   isLastNode,
+  isLessParser,
   isSCSSControlDirectiveNode,
   isDetachedRulesetDeclarationNode,
   isRelationalOperatorNode,
@@ -68,7 +69,8 @@ const {
   isWordNode,
   isColonNode,
   isMediaAndSupportsKeywords,
-  isColorAdjusterFuncNode
+  isColorAdjusterFuncNode,
+  lastLineHasInlineComment
 } = require("./utils");
 
 function shouldPrintComma(options) {
@@ -115,12 +117,20 @@ function genericPrint(path, options, print) {
         options.locStart(node),
         options.locEnd(node)
       );
+
       const rawText = node.raws.text || node.text;
       // Workaround a bug where the location is off.
       // https://github.com/postcss/postcss-scss/issues/63
       if (!text.includes(rawText)) {
-        if (node.raws.inline) {
-          return concat(["// ", rawText]);
+        if (node.raws.inline || node.inline) {
+          const needBreakAfter = !(
+            node.source.input.css.split(/[\r\n]/)[node.source.end.line] || ""
+          ).trim();
+          return concat([
+            "//",
+            node.raws.left + rawText,
+            needBreakAfter ? line : ""
+          ]);
         }
         return concat(["/* ", rawText, " */"]);
       }
@@ -132,7 +142,12 @@ function genericPrint(path, options, print) {
         node.important ? " !important" : "",
         node.nodes
           ? concat([
-              " {",
+              node.selector &&
+              node.selector.type === "selector-unknown" &&
+              lastLineHasInlineComment(node.selector.value)
+                ? line
+                : " ",
+              "{",
               node.nodes.length > 0
                 ? indent(
                     concat([hardline, printNodeSequence(path, options, print)])
@@ -189,6 +204,52 @@ function genericPrint(path, options, print) {
     }
     case "css-atrule": {
       const parentNode = path.getParentNode();
+      const isTemplatePlaceholderNodeWithoutSemiColon =
+        isTemplatePlaceholderNode(node) &&
+        !parentNode.raws.semicolon &&
+        options.originalText[options.locEnd(node) - 1] !== ";";
+
+      if (isLessParser(options)) {
+        if (node.mixin) {
+          return concat([
+            path.call(print, "selector"),
+            node.important ? " !important" : "",
+            isTemplatePlaceholderNodeWithoutSemiColon ? "" : ";"
+          ]);
+        }
+
+        if (node.function) {
+          return concat([
+            node.name,
+            concat([path.call(print, "params")]),
+            isTemplatePlaceholderNodeWithoutSemiColon ? "" : ";"
+          ]);
+        }
+
+        if (node.variable) {
+          return concat([
+            "@",
+            node.name,
+            ": ",
+            node.value ? concat([path.call(print, "value")]) : "",
+            node.raws.between.trim() ? node.raws.between.trim() + " " : "",
+            node.nodes
+              ? concat([
+                  "{",
+                  indent(
+                    concat([
+                      node.nodes.length > 0 ? softline : "",
+                      printNodeSequence(path, options, print)
+                    ])
+                  ),
+                  softline,
+                  "}"
+                ])
+              : "",
+            isTemplatePlaceholderNodeWithoutSemiColon ? "" : ";"
+          ]);
+        }
+      }
 
       return concat([
         "@",
@@ -242,9 +303,7 @@ function genericPrint(path, options, print) {
               softline,
               "}"
             ])
-          : isTemplatePlaceholderNode(node) &&
-            !parentNode.raws.semicolon &&
-            options.originalText[options.locEnd(node) - 1] !== ";"
+          : isTemplatePlaceholderNodeWithoutSemiColon
           ? ""
           : ";"
       ]);
