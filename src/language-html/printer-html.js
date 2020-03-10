@@ -47,7 +47,7 @@ const {
   printVueSlotScope,
   isVueEventBindingExpression
 } = require("./syntax-vue");
-const { printImgSrcset } = require("./syntax-attribute");
+const { printImgSrcset, printClassNames } = require("./syntax-attribute");
 
 function concat(parts) {
   const newParts = normalizeParts(parts);
@@ -669,7 +669,9 @@ function printOpeningTag(path, options, print) {
            */
           (node.isSelfClosing &&
             needsToBorrowLastChildClosingTagEndMarker(node.parent))
-            ? ""
+            ? node.isSelfClosing
+              ? " "
+              : ""
             : node.isSelfClosing
             ? forceNotToBreakAttrContent
               ? " "
@@ -925,7 +927,7 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
 
   let shouldHug = false;
 
-  const __onHtmlBindingRoot = root => {
+  const __onHtmlBindingRoot = (root, options) => {
     const rootNode =
       root.type === "NGRoot"
         ? root.node.type === "NGMicrosyntax" &&
@@ -939,7 +941,10 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
     if (
       rootNode &&
       (rootNode.type === "ObjectExpression" ||
-        rootNode.type === "ArrayExpression")
+        rootNode.type === "ArrayExpression" ||
+        (options.parser === "__vue_expression" &&
+          (rootNode.type === "TemplateLiteral" ||
+            rootNode.type === "StringLiteral")))
     ) {
       shouldHug = true;
     }
@@ -963,6 +968,25 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
     (node.parent.fullName === "img" || node.parent.fullName === "source")
   ) {
     return printExpand(printImgSrcset(getValue()));
+  }
+
+  if (node.fullName === "class" && !options.parentParser) {
+    const value = getValue();
+    if (!value.includes("{{")) {
+      return printClassNames(value);
+    }
+  }
+
+  if (node.fullName === "style" && !options.parentParser) {
+    const value = getValue();
+    if (!value.includes("{{")) {
+      return printExpand(
+        textToDoc(value, {
+          parser: "css",
+          __isHTMLStyleAttribute: true
+        })
+      );
+    }
   }
 
   if (options.parser === "vue") {
@@ -1018,7 +1042,7 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
   if (options.parser === "angular") {
     const ngTextToDoc = (code, opts) =>
       // angular does not allow trailing comma
-      textToDoc(code, { trailingComma: "none", ...opts });
+      textToDoc(code, { ...opts, trailingComma: "none" });
 
     /**
      *     *directive="angularDirective"
@@ -1035,7 +1059,12 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
      *     [(target)]="angularExpression"
      *     bindon-target="angularExpression"
      */
-    const ngExpressionBindingPatterns = ["^\\[.+\\]$", "^bind(on)?-"];
+    const ngExpressionBindingPatterns = [
+      "^\\[.+\\]$",
+      "^bind(on)?-",
+      // Unofficial rudimentary support for some of the most used directives of AngularJS 1.x
+      "^ng-(if|show|hide|class|style)$"
+    ];
     /**
      *     i18n="longDescription"
      *     i18n-attr="longDescription"

@@ -11,6 +11,7 @@ const stringify = require("json-stable-stringify");
 const fromPairs = require("lodash/fromPairs");
 const pick = require("lodash/pick");
 const groupBy = require("lodash/groupBy");
+const uniq = require("lodash/uniq");
 
 const minimist = require("./minimist");
 const prettier = require("../../index");
@@ -182,6 +183,7 @@ function format(context, input, opt) {
         prettier.__debug.parse(pp, opt, /* massage */ true).ast
       );
 
+      /* istanbul ignore next */
       if (ast !== past) {
         const MAX_AST_SIZE = 2097152; // 2MB
         const astDiff =
@@ -199,7 +201,7 @@ function format(context, input, opt) {
     return { formatted: pp, filepath: opt.filepath || "(stdin)\n" };
   }
 
-  /* istanbul ignore if */
+  /* istanbul ignore next */
   if (context.argv["debug-benchmark"]) {
     let benchmark;
     try {
@@ -362,7 +364,11 @@ function formatStdin(context) {
     : process.cwd();
 
   const ignorer = createIgnorerFromContextOrDie(context);
-  const relativeFilepath = path.relative(process.cwd(), filepath);
+  // If there's an ignore-path set, the filename must be relative to the
+  // ignore path, not the current working directory.
+  const relativeFilepath = context.argv["ignore-path"]
+    ? path.relative(path.dirname(context.argv["ignore-path"]), filepath)
+    : path.relative(process.cwd(), filepath);
 
   thirdParty
     .getStream(process.stdin)
@@ -397,33 +403,106 @@ function createIgnorerFromContextOrDie(context) {
   }
 }
 
-function eachFilename(context, patterns, callback) {
-  // The '!./' globs are due to https://github.com/prettier/prettier/issues/2110
-  const ignoreNodeModules = context.argv["with-node-modules"] !== true;
-  if (ignoreNodeModules) {
-    patterns = patterns.concat(["!**/node_modules/**", "!./node_modules/**"]);
-  }
-  patterns = patterns.concat(["!**/.{git,svn,hg}/**", "!./.{git,svn,hg}/**"]);
-
+/**
+ * Get stats of a given path.
+ * @param {string} filePath The path to target file.
+ * @returns {fs.Stats|undefined} The stats.
+ * @private
+ */
+function statSafeSync(filePath) {
   try {
-    const filePaths = globby
-      .sync(patterns, { dot: true, nodir: true })
-      .map(filePath => path.relative(process.cwd(), filePath));
-
-    if (filePaths.length === 0) {
-      context.logger.error(
-        `No matching files. Patterns tried: ${patterns.join(" ")}`
-      );
-      process.exitCode = 2;
-      return;
-    }
-    filePaths.forEach(filePath => callback(filePath));
+    return fs.statSync(filePath);
   } catch (error) {
+    /* istanbul ignore next */
+    if (error.code !== "ENOENT") {
+      throw error;
+    }
+  }
+}
+
+// `dot pattern` and `expand directories` support need handle differently
+// for backward compatibility reason temporary remove `.` and set `expandDirectories=false`
+// see https://github.com/prettier/prettier/pull/6639#issuecomment-548949954
+const isWindows = path.sep === "\\";
+const globbyOptions = { dot: true, expandDirectories: false, absolute: true };
+function eachFilename(context, maybePatterns, callback) {
+  const withNodeModules = context.argv["with-node-modules"] === true;
+  // TODO: use `ignore` option for `globby`
+  const extraPatterns = [
+    // The '!./' globs are due to https://github.com/prettier/prettier/issues/2110
+    ...(withNodeModules ? [] : ["!**/node_modules/**", "!./node_modules/**"]),
+    "!**/.{git,svn,hg}/**",
+    "!./.{git,svn,hg}/**"
+  ];
+
+  // Ignores files in version control systems directories and `node_modules`
+  const ignoredDirectories = [".git", ".svn", ".hg"];
+  if (!withNodeModules) {
+    ignoredDirectories.push("node_modules");
+  }
+
+  let files = [];
+  const cwd = process.cwd();
+  const patterns = [];
+
+  for (const pattern of maybePatterns) {
+    const absolutePath = path.resolve(cwd, pattern);
+    const stat = statSafeSync(absolutePath);
+    if (
+      stat &&
+      stat.isFile() &&
+      !path
+        .relative(cwd, absolutePath)
+        .split(path.sep)
+        .some(directory => ignoredDirectories.includes(directory))
+    ) {
+      files.push(absolutePath);
+    } else {
+      // Ignore `dot pattern` for now
+      if (pattern !== ".") {
+        // workaround for fast-glob on Windows ref:
+        // https://github.com/mrmlnc/fast-glob#how-to-write-patterns-on-windows
+        patterns.push(isWindows ? pattern.replace(/\\/g, "/") : pattern);
+      }
+    }
+  }
+
+  if (patterns.length > 0) {
+    try {
+      // Don't use `files.push(...)`, there is limitation on the number of arguments.
+      files = [
+        ...files,
+        ...globby.sync([...patterns, ...extraPatterns], globbyOptions)
+      ];
+    } catch (error) {
+      context.logger.error(
+        `Unable to expand glob patterns: ${[
+          ...maybePatterns,
+          ...extraPatterns
+        ].join(" ")}\n${error.message}`
+      );
+      // Don't exit the process if one pattern failed
+      process.exitCode = 2;
+    }
+  }
+
+  if (files.length === 0) {
     context.logger.error(
-      `Unable to expand glob patterns: ${patterns.join(" ")}\n${error.message}`
+      `No matching files. Patterns tried: ${[
+        ...maybePatterns,
+        ...extraPatterns
+      ].join(" ")}`
     );
-    // Don't exit the process if one pattern failed
     process.exitCode = 2;
+    return;
+  }
+
+  files = uniq(files.map(file => path.relative(cwd, file)))
+    // keeping file order for backward compatibility
+    .sort((a, b) => a.localeCompare(b));
+
+  for (const file of files) {
+    callback(file);
   }
 }
 
@@ -439,7 +518,12 @@ function formatFiles(context) {
   }
 
   eachFilename(context, context.filePatterns, filename => {
-    const fileIgnored = ignorer.filter([filename]).length === 0;
+    // If there's an ignore-path set, the filename must be relative to the
+    // ignore path, not the current working directory.
+    const ignoreFilename = context.argv["ignore-path"]
+      ? path.relative(path.dirname(context.argv["ignore-path"]), filename)
+      : filename;
+    const fileIgnored = ignorer.filter([ignoreFilename]).length === 0;
     if (
       fileIgnored &&
       (context.argv["debug-check"] ||
@@ -911,7 +995,7 @@ function initContext(context) {
 }
 
 function updateContextOptions(context, plugins, pluginSearchDirs) {
-  const supportOptions = prettier.getSupportInfo(null, {
+  const supportOptions = prettier.getSupportInfo({
     showDeprecated: true,
     showUnreleased: true,
     showInternal: true,

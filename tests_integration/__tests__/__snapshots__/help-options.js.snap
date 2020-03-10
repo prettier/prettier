@@ -511,17 +511,6 @@ Default: false
 
 exports[`show detailed usage with --help single-quote (write) 1`] = `Array []`;
 
-exports[`show detailed usage with --help stdin (stderr) 1`] = `""`;
-
-exports[`show detailed usage with --help stdin (stdout) 1`] = `
-"--stdin
-
-  Force reading input from stdin.
-"
-`;
-
-exports[`show detailed usage with --help stdin (write) 1`] = `Array []`;
-
 exports[`show detailed usage with --help stdin-filepath (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help stdin-filepath (stdout) 1`] = `

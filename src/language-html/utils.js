@@ -91,7 +91,7 @@ function shouldPreserveContent(node, options) {
 }
 
 function hasPrettierIgnore(node) {
-  if (node.type === "attribute" || isTextLikeNode(node)) {
+  if (node.type === "attribute") {
     return false;
   }
 
@@ -578,7 +578,7 @@ function normalizeParts(parts) {
     }
 
     if (part.type === "concat") {
-      Array.prototype.unshift.apply(restParts, part.parts);
+      restParts.unshift(...part.parts);
       continue;
     }
 
