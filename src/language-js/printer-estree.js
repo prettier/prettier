@@ -4653,7 +4653,7 @@ function printTypeParameters(path, options, print, paramsKey) {
     if (hasOnlyBlockComments) {
       return printed;
     }
-    return concat([printed, line]);
+    return concat([printed, hardline]);
   }
 
   if (shouldInline) {
