@@ -5750,7 +5750,7 @@ function printBinaryishExpressions(
 
 function printAssignmentRight(leftNode, rightNode, printedRight, options) {
   if (hasLeadingOwnLineComment(options.originalText, rightNode, options)) {
-    return indent(concat([hardline, printedRight]));
+    return indent(concat([line, printedRight]));
   }
 
   const canBreak =

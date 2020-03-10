@@ -818,7 +818,8 @@ function handleVariableDeclaratorComments(
     (followingNode.type === "ObjectExpression" ||
       followingNode.type === "ArrayExpression" ||
       followingNode.type === "TemplateLiteral" ||
-      followingNode.type === "TaggedTemplateExpression")
+      followingNode.type === "TaggedTemplateExpression" ||
+      isBlockComment(comment))
   ) {
     addLeadingComment(followingNode, comment);
     return true;
