@@ -123,7 +123,7 @@ global.run_spec = (dirname, parsers, options) => {
       !TEST_CRLF
     ) {
       test(`${filename} second format`, () => {
-        const secondOutput = format(output, filename, { ...mainOptions });
+        const secondOutput = format(output, filename, mainOptions);
         expect(secondOutput).toEqual(output);
       });
     }
