@@ -3521,6 +3521,10 @@ function printPathNoParens(path, options, print, args) {
     case "PrivateName":
       return concat(["#", path.call(print, "id")]);
 
+    // TODO: Temporary auto-generated node type. To remove when typescript-estree has proper support for private fields.
+    case "TSPrivateIdentifier":
+      return n.escapedText;
+
     case "TSConditionalType":
       return printTernaryOperator(path, options, print, {
         beforeParts: () => [
