@@ -50,7 +50,7 @@
     "lodash": "4.17.15",
     "mem": "6.0.1",
     "minimatch": "3.0.4",
-    "minimist": "1.2.3",
+    "minimist": "1.2.4",
     "n-readlines": "1.0.0",
     "postcss-less": "3.1.4",
     "postcss-media-query-parser": "0.2.3",
