@@ -3,6 +3,7 @@
 const assert = require("assert");
 const {
   concat,
+  line,
   hardline,
   breakParent,
   indent,
@@ -387,10 +388,15 @@ function printLeadingComment(commentPath, print, options) {
   // Leading block comments should see if they need to stay on the
   // same line or not.
   if (isBlock) {
-    return concat([
-      contents,
-      hasNewline(options.originalText, options.locEnd(comment)) ? hardline : " "
-    ]);
+    const lineBreak = hasNewline(options.originalText, options.locEnd(comment))
+      ? hasNewline(options.originalText, options.locStart(comment), {
+          backwards: true
+        })
+        ? hardline
+        : line
+      : " ";
+
+    return concat([contents, lineBreak]);
   }
 
   return concat([contents, hardline]);
