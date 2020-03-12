@@ -149,8 +149,8 @@ global.run_spec = (dirname, parsers, options) => {
       test(`${filename} second format`, () => {
         const secondOutput = format(output, filename, mainOptions);
         if (unstableTests.has(filename)) {
-          // This assert never suppose to pass, if it fails,
-          // just remove the file from `unstableTests`
+          // To keep eye on failed tests, this assert never supposed to pass,
+          // if it fails, just remove the file from `unstableTests`
           expect(secondOutput).not.toEqual(output);
         } else {
           expect(secondOutput).toEqual(output);
