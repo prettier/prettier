@@ -27,10 +27,8 @@ const unstableTests = new Set(
     "comments/tagged-template-literal.js",
     "css_atrule/include.css",
     "graphql_interface/separator-detection.graphql",
-    "html_angular/attributes.component.html",
     "html_prettier_ignore/cases.html",
     "js_empty/semicolon.js",
-    "jsx_ignore/jsx_ignore.js",
     "markdown_footnoteDefinition/multiline.md",
     "markdown_spec/example-234.md",
     "markdown_spec/example-235.md",
@@ -144,17 +142,12 @@ global.run_spec = (dirname, parsers, options) => {
       typeof rangeStart === "undefined" &&
       typeof rangeEnd === "undefined" &&
       typeof cursorOffset === "undefined" &&
-      !TEST_CRLF
+      !TEST_CRLF &&
+      !unstableTests.has(filename)
     ) {
       test(`${filename} second format`, () => {
         const secondOutput = format(output, filename, mainOptions);
-        if (unstableTests.has(filename)) {
-          // To keep eye on failed tests, this assert never supposed to pass,
-          // if it fails, just remove the file from `unstableTests`
-          expect(secondOutput).not.toEqual(output);
-        } else {
-          expect(secondOutput).toEqual(output);
-        }
+        expect(secondOutput).toEqual(output);
       });
     }
 
