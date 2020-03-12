@@ -20,19 +20,50 @@ const prettier = !TEST_STANDALONE
 // TODO: these test files need fix
 const unstableTests = new Set(
   [
-    "html_angular/jsfmt.spec.js",
-    "markdown_footnoteDefinition/jsfmt.spec.js",
-    "comments/jsfmt.spec.js",
-    "no-semi/jsfmt.spec.js",
-    "markdown_spec/jsfmt.spec.js",
-    "multiparser_js_markdown/jsfmt.spec.js",
-    "js_empty/jsfmt.spec.js",
-    "jsx_ignore/jsfmt.spec.js",
-    "class_comment/jsfmt.spec.js",
-    "graphql_interface/jsfmt.spec.js",
-    "multiparser_html_js/jsfmt.spec.js",
-    "html_prettier_ignore/jsfmt.spec.js",
-    "yaml_prettier_ignore/jsfmt.spec.js"
+    "class_comment/comments.js",
+    "class_comment/comments.js",
+    "comments/dangling_array.js",
+    "comments/dangling_array.js",
+    "comments/jsx.js",
+    "comments/jsx.js",
+    "comments/return-statement.js",
+    "comments/return-statement.js",
+    "comments/return-statement.js",
+    "comments/return-statement.js",
+    "comments/tagged-template-literal.js",
+    "comments/tagged-template-literal.js",
+    "comments/tagged-template-literal.js",
+    "comments/tagged-template-literal.js",
+    "css_atrule/include.css",
+    "css_atrule/include.css",
+    "graphql_interface/separator-detection.graphql",
+    "graphql_interface/separator-detection.graphql",
+    "html_angular/attributes.component.html",
+    "html_angular/attributes.component.html",
+    "html_prettier_ignore/cases.html",
+    "html_prettier_ignore/cases.html",
+    "js_empty/semicolon.js",
+    "js_empty/semicolon.js",
+    "jsx_ignore/jsx_ignore.js",
+    "jsx_ignore/jsx_ignore.js",
+    "markdown_footnoteDefinition/multiline.md",
+    "markdown_footnoteDefinition/multiline.md",
+    "markdown_footnoteDefinition/multiline.md",
+    "markdown_footnoteDefinition/multiline.md",
+    "markdown_footnoteDefinition/multiline.md",
+    "markdown_footnoteDefinition/multiline.md",
+    "markdown_spec/example-234.md",
+    "markdown_spec/example-234.md",
+    "markdown_spec/example-235.md",
+    "markdown_spec/example-235.md",
+    "multiparser_html_js/script-tag-escaping.html",
+    "multiparser_html_js/script-tag-escaping.html",
+    "multiparser_js_markdown/codeblock.js",
+    "multiparser_js_markdown/codeblock.js",
+    "no-semi/comments.js",
+    "no-semi/comments.js",
+    "yaml_prettier_ignore/document.yml",
+    "yaml_prettier_ignore/document.yml"
   ].map(file => path.join(__dirname, "../tests/", file))
 );
 
@@ -139,12 +170,17 @@ global.run_spec = (dirname, parsers, options) => {
       typeof rangeStart === "undefined" &&
       typeof rangeEnd === "undefined" &&
       typeof cursorOffset === "undefined" &&
-      !TEST_CRLF &&
-      !unstableTests.has(path.join(dirname, "jsfmt.spec.js"))
+      !TEST_CRLF
     ) {
       test(`${filename} second format`, () => {
         const secondOutput = format(output, filename, mainOptions);
-        expect(secondOutput).toEqual(output);
+        if (unstableTests.has(filename)) {
+          // This assert never suppose to pass, if it fails,
+          // just remove the file from `unstableTests`
+          expect(secondOutput).not.toEqual(output);
+        } else {
+          expect(secondOutput).toEqual(output);
+        }
       });
     }
 
