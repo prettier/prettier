@@ -143,7 +143,7 @@ global.run_spec = (dirname, parsers, options) => {
     ) {
       test(`${filename} second format`, () => {
         const secondOutput = format(output, filename, mainOptions);
-        if (unstableTests.has(filename)) {
+        if (unstableTests.has(path.join(dirname, "jsfmt.spec.js"))) {
           // If this test fails, remove file from `unstableTests`
           expect(secondOutput).not.toEqual(output);
         } else {
