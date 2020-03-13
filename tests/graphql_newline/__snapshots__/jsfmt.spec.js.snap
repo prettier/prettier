@@ -55,13 +55,15 @@ query MyQuery @directive(
 }
 
 =====================================output=====================================
-query MyQuery @directive(
+query MyQuery
+@directive(
   arg: 5
 
   # comment
   arg2: 10
 ) {
-  field @skip(
+  field
+  @skip(
     if: true
 
     # comment
@@ -69,9 +71,8 @@ query MyQuery @directive(
   )
   @nope
   otherField
-  ...fragmentSpread @include(
-    if: ["this isn't even a boolean", "wow, that's really odd"]
-  )
+  ...fragmentSpread
+  @include(if: ["this isn't even a boolean", "wow, that's really odd"])
 }
 
 ================================================================================

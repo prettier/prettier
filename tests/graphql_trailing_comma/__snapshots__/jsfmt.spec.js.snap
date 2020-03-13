@@ -34,7 +34,8 @@ query Query(
   $scale: Float
   $PROJECT_UNIT_PROFILE_PICTURE_SIZE: Int
   $PROJECT_UNIT_CARD_SIZE: Int
-) @argumentDefinitions(
+)
+@argumentDefinitions(
   count: {
     type: "Int"
     defaultValue: 20
@@ -93,7 +94,8 @@ query Query(
   $scale: Float
   $PROJECT_UNIT_PROFILE_PICTURE_SIZE: Int
   $PROJECT_UNIT_CARD_SIZE: Int
-) @argumentDefinitions(
+)
+@argumentDefinitions(
   count: {
     type: "Int"
     defaultValue: 20
@@ -151,7 +153,8 @@ query Query(
   $scale: Float
   $PROJECT_UNIT_PROFILE_PICTURE_SIZE: Int
   $PROJECT_UNIT_CARD_SIZE: Int
-) @argumentDefinitions(
+)
+@argumentDefinitions(
   count: {
     type: "Int"
     defaultValue: 20
