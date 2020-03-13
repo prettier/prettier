@@ -1231,10 +1231,10 @@
   dependencies:
     "@types/yargs-parser" "*"
 
-"@typescript-eslint/typescript-estree@2.23.0":
-  version "2.23.0"
-  resolved "https://registry.yarnpkg.com/@typescript-eslint/typescript-estree/-/typescript-estree-2.23.0.tgz#d355960fab96bd550855488dcc34b9a4acac8d36"
-  integrity sha512-pmf7IlmvXdlEXvE/JWNNJpEvwBV59wtJqA8MLAxMKLXNKVRC3HZBXR/SlZLPWTCcwOSg9IM7GeRSV3SIerGVqw==
+"@typescript-eslint/typescript-estree@canary":
+  version "2.23.1-alpha.2"
+  resolved "https://registry.yarnpkg.com/@typescript-eslint/typescript-estree/-/typescript-estree-2.23.1-alpha.2.tgz#5636174a10293d1d9e7c3ef4354c781c5a962f13"
+  integrity sha512-krYyHGQFgxRrguKHWjMGuJsqcS7Yll6OttxWMvDZCtAZmhlAZGT0u3tTypJMFO6QC5CQe+YPDoq7MIcjzJ9IDQ==
   dependencies:
     debug "^4.1.1"
     eslint-visitor-keys "^1.1.0"

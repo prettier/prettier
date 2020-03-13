@@ -980,7 +980,13 @@ function printPathNoParens(path, options, print, args) {
         parts.push("type ");
       }
 
-      parts.push("* from ", path.call(print, "source"), semi);
+      parts.push("* ");
+
+      if (n.exported) {
+        parts.push("as ", path.call(print, "exported"), " ");
+      }
+
+      parts.push("from ", path.call(print, "source"), semi);
 
       return concat(parts);
 
