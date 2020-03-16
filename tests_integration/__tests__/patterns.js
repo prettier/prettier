@@ -20,7 +20,7 @@ describe("multiple patterns with non exists pattern", () => {
     "non-existent.js",
     "-l"
   ]).test({
-    status: 1
+    status: 2
   });
 });
 
@@ -71,26 +71,5 @@ describe("multiple patterns, throw error and exit with non zero code on non exis
     "-l"
   ]).test({
     status: 2
-  });
-});
-
-// the following 3 tests make sure we don't support broken
-// `dot pattern` and `expand directories` implementation
-// see https://github.com/prettier/prettier/pull/6639#issuecomment-548949954
-describe("should not support dot pattern", () => {
-  runPrettier("cli/patterns", [".", "-l"]).test({
-    status: 2
-  });
-});
-
-describe("should not expand directories", () => {
-  runPrettier("cli/patterns", ["directory", "other-directory", "-l"]).test({
-    status: 2
-  });
-});
-
-describe("directories and patterns", () => {
-  runPrettier("cli/patterns", ["directory", "other-directory/**", "-l"]).test({
-    status: 1
   });
 });
