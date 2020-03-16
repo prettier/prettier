@@ -42,9 +42,10 @@ function hasClosureCompilerTypeCastComment(text, path) {
 
   function hasTypeCastComment(node, parenStart, ancestorParenStart) {
     return (
-      node.leadingComments &&
-      node.leadingComments.some(
+      node.comments &&
+      node.comments.some(
         comment =>
+          comment.leading &&
           comment.end <= parenStart &&
           comment.start >= ancestorParenStart &&
           comments.isBlockComment(comment) &&
