@@ -50,7 +50,7 @@
     "lodash": "4.17.15",
     "mem": "5.1.1",
     "minimatch": "3.0.4",
-    "minimist": "1.2.0",
+    "minimist": "1.2.2",
     "n-readlines": "1.0.0",
     "normalize-path": "3.0.0",
     "parse-srcset": "ikatyang/parse-srcset#54eb9c1cb21db5c62b4d0e275d7249516df6f0ee",
