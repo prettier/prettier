@@ -17,11 +17,10 @@ function hasClosureCompilerTypeCastComment(text, path) {
 
   const n = path.getValue();
   const parenStart = getParenStart(n);
-  // console.log(n);
 
   return (
-    parenStart <= n.start &&
-    (hasTypeCastComment(n, parenStart, 0) ||
+    parenStart !== -1 &&
+    (hasTypeCastComment(n, parenStart, -1) ||
       hasAncestorTypeCastComment(0, parenStart))
   );
 
@@ -33,11 +32,11 @@ function hasClosureCompilerTypeCastComment(text, path) {
     }
 
     const ancestorParenStart = getParenStart(ancestor);
-
-    return ancestorParenStart > parenStart
-      ? hasTypeCastComment(ancestor, parenStart, 0) ||
-          hasAncestorTypeCastComment(index + 1, parenStart)
-      : hasTypeCastComment(ancestor, parenStart, ancestorParenStart);
+    return (
+      hasTypeCastComment(ancestor, parenStart, ancestorParenStart) ||
+      (ancestorParenStart === -1 &&
+        hasAncestorTypeCastComment(index + 1, parenStart))
+    );
   }
 
   function hasTypeCastComment(node, parenStart, ancestorParenStart) {
@@ -59,9 +58,13 @@ function hasClosureCompilerTypeCastComment(text, path) {
     // typescript or flow parsers, so we take advantage of the babel parser's
     // parenthesized expressions.
     if (!node.extra || !node.extra.parenthesized) {
-      return node.end;
+      return -1;
     }
     let { parenStart } = node.extra;
+
+    // There may be multiple parens that describe this node. Babel records the
+    // first paren, but we need the last since there may be typecasts in
+    // between. Eg, `((/** @type {Foo} */ (foo)))`.
     for (
       let nextParen = parenStart;
       nextParen < node.start && text.charAt(nextParen) === "(";
