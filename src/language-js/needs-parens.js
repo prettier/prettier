@@ -16,37 +16,62 @@ function hasClosureCompilerTypeCastComment(text, path) {
   // Syntax example: var x = /** @type {string} */ (fruit);
 
   const n = path.getValue();
+  const parenStart = getParenStart(n);
+  // console.log(n);
 
   return (
-    isParenthesized(n) &&
-    (hasTypeCastComment(n) || hasAncestorTypeCastComment(0))
+    parenStart <= n.start &&
+    (hasTypeCastComment(n, parenStart, 0) ||
+      hasAncestorTypeCastComment(0, parenStart))
   );
 
   // for sub-item: /** @type {array} */ (numberOrString).map(x => x);
-  function hasAncestorTypeCastComment(index) {
+  function hasAncestorTypeCastComment(index, parenStart) {
     const ancestor = path.getParentNode(index);
-    return ancestor && !isParenthesized(ancestor)
-      ? hasTypeCastComment(ancestor) || hasAncestorTypeCastComment(index + 1)
-      : false;
+    if (!ancestor) {
+      return false;
+    }
+
+    const ancestorParenStart = getParenStart(ancestor);
+
+    return ancestorParenStart > parenStart
+      ? hasTypeCastComment(ancestor, parenStart, 0) ||
+          hasAncestorTypeCastComment(index + 1, parenStart)
+      : hasTypeCastComment(ancestor, parenStart, ancestorParenStart);
   }
 
-  function hasTypeCastComment(node) {
+  function hasTypeCastComment(node, parenStart, ancestorParenStart) {
     return (
-      node.comments &&
-      node.comments.some(
+      node.leadingComments &&
+      node.leadingComments.some(
         comment =>
-          comment.leading &&
+          comment.end <= parenStart &&
+          comment.start >= ancestorParenStart &&
           comments.isBlockComment(comment) &&
           isTypeCastComment(comment.value)
       )
     );
   }
 
-  function isParenthesized(node) {
+  function getParenStart(node) {
     // Closure typecast comments only really make sense when _not_ using
     // typescript or flow parsers, so we take advantage of the babel parser's
     // parenthesized expressions.
-    return node.extra && node.extra.parenthesized;
+    if (!node.extra || !node.extra.parenthesized) {
+      return node.end;
+    }
+    let { parenStart } = node.extra;
+    for (
+      let nextParen = parenStart;
+      nextParen < node.start && text.charAt(nextParen) === "(";
+      nextParen = util.getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
+        text,
+        nextParen + 1
+      )
+    ) {
+      parenStart = nextParen;
+    }
+    return parenStart;
   }
 
   function isTypeCastComment(comment) {
