@@ -549,7 +549,6 @@ function printPathNoParens(path, options, print, args) {
           parent.type === "WhileStatement" ||
           parent.type === "SwitchStatement" ||
           parent.type === "DoWhileStatement");
-
       const parts = printBinaryishExpressions(
         path,
         print,
@@ -597,6 +596,7 @@ function printPathNoParens(path, options, print, args) {
       // Avoid indenting sub-expressions in some cases where the first sub-expression is already
       // indented accordingly. We should indent sub-expressions where the first case isn't indented.
       const shouldNotIndent =
+        parent.type === "JsExpressionRoot" ||
         parent.type === "ReturnStatement" ||
         parent.type === "ThrowStatement" ||
         (parent.type === "JSXExpressionContainer" &&
