@@ -50,8 +50,8 @@ function hasClosureCompilerTypeCastComment(text, path) {
 
     // There's an annoying issue if both our node contains a typecast, and this
     // ancestor contains a typecast. Unfortunately, both comments are applied
-    // to ancestor. So we need to detect this situation, and insert hacky paren
-    // comments to simulate the correct warpping.
+    // to ancestor. So we need to detect this situation, and insert hack paren
+    // comments to simulate the correct wrapping.
     if (
       ancestorParenStart !== -1 &&
       getTypeCastIndex(ancestor, ancestorParenStart, -1) !== -1
