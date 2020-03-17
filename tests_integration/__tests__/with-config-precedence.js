@@ -118,12 +118,7 @@ describe("CLI validate options with --config-precedence prefer-file", () => {
 describe("CLI --stdin-filepath works with --config-precedence prefer-file", () => {
   runPrettier(
     "cli/config/",
-    [
-      "--stdin",
-      "--stdin-filepath=abc.ts",
-      "--no-semi",
-      "--config-precedence=prefer-file"
-    ],
+    ["--stdin-filepath=abc.ts", "--no-semi", "--config-precedence=prefer-file"],
     { input: "let x: keyof Y = foo<typeof X>()" } // typescript
   ).test({
     stderr: "",
@@ -135,7 +130,6 @@ describe("CLI --stdin-filepath works with --config-precedence file-override", ()
   runPrettier(
     "cli/config/",
     [
-      "--stdin",
       "--stdin-filepath=abc.ts",
       "--no-semi",
       "--config-precedence=file-override"
@@ -151,7 +145,6 @@ describe("CLI --stdin-filepath works with --config-precedence cli-override", () 
   runPrettier(
     "cli/config/",
     [
-      "--stdin",
       "--stdin-filepath=abc.ts",
       "--no-semi",
       "--config-precedence=cli-override"

@@ -129,3 +129,7 @@ cable ? (
     )
   ) : null}
 </div>;
+
+// #3552
+foo ? <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span> :
+undefined

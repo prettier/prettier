@@ -334,18 +334,20 @@ function printTernaryOperator(path, options, print, operatorOptions) {
     // The only things we don't wrap are:
     // * Nested conditional expressions in alternates
     // * null
-    const isNull = node =>
+    // * undefined
+    const isNil = node =>
       node.type === "NullLiteral" ||
-      (node.type === "Literal" && node.value === null);
+      (node.type === "Literal" && node.value === null) ||
+      (node.type === "Identifier" && node.name === "undefined");
 
     parts.push(
       " ? ",
-      isNull(consequentNode)
+      isNil(consequentNode)
         ? path.call(print, operatorOptions.consequentNodePropertyName)
         : wrap(path.call(print, operatorOptions.consequentNodePropertyName)),
       " : ",
       alternateNode.type === operatorOptions.conditionalNodeType ||
-        isNull(alternateNode)
+        isNil(alternateNode)
         ? path.call(print, operatorOptions.alternateNodePropertyName)
         : wrap(path.call(print, operatorOptions.alternateNodePropertyName))
     );
@@ -915,14 +917,11 @@ function printPathNoParens(path, options, print, args) {
     case "YieldExpression":
       parts.push("yield");
 
-      if (n.delegate || n.argument) {
-        parts.push(" ");
-      }
       if (n.delegate) {
         parts.push("*");
       }
       if (n.argument) {
-        parts.push(path.call(print, "argument"));
+        parts.push(" ", path.call(print, "argument"));
       }
 
       return concat(parts);
@@ -981,7 +980,13 @@ function printPathNoParens(path, options, print, args) {
         parts.push("type ");
       }
 
-      parts.push("* from ", path.call(print, "source"), semi);
+      parts.push("* ");
+
+      if (n.exported) {
+        parts.push("as ", path.call(print, "exported"), " ");
+      }
+
+      parts.push("from ", path.call(print, "source"), semi);
 
       return concat(parts);
 
@@ -3522,6 +3527,10 @@ function printPathNoParens(path, options, print, args) {
     case "PrivateName":
       return concat(["#", path.call(print, "id")]);
 
+    // TODO: Temporary auto-generated node type. To remove when typescript-estree has proper support for private fields.
+    case "TSPrivateIdentifier":
+      return n.escapedText;
+
     case "TSConditionalType":
       return printTernaryOperator(path, options, print, {
         beforeParts: () => [
@@ -4410,10 +4419,10 @@ function printFunctionDeclaration(path, print, options) {
     parts.push("async ");
   }
 
-  parts.push("function ");
-
   if (n.generator) {
-    parts.push("*");
+    parts.push("function* ");
+  } else {
+    parts.push("function ");
   }
 
   if (n.id) {
@@ -4639,8 +4648,31 @@ function printTypeParameters(path, options, print, paramsKey) {
           n[paramsKey][0].type !== "TSIndexedAccessType" &&
           n[paramsKey][0].type !== "TSArrayType")));
 
+  function printDanglingCommentsForInline(n) {
+    if (!hasDanglingComments(n)) {
+      return "";
+    }
+    const hasOnlyBlockComments = n.comments.every(
+      handleComments.isBlockComment
+    );
+    const printed = comments.printDanglingComments(
+      path,
+      options,
+      /* sameIndent */ hasOnlyBlockComments
+    );
+    if (hasOnlyBlockComments) {
+      return printed;
+    }
+    return concat([printed, hardline]);
+  }
+
   if (shouldInline) {
-    return concat(["<", join(", ", path.map(print, paramsKey)), ">"]);
+    return concat([
+      "<",
+      join(", ", path.map(print, paramsKey)),
+      printDanglingCommentsForInline(n),
+      ">"
+    ]);
   }
 
   return group(
@@ -5751,7 +5783,7 @@ function printBinaryishExpressions(
 
 function printAssignmentRight(leftNode, rightNode, printedRight, options) {
   if (hasLeadingOwnLineComment(options.originalText, rightNode, options)) {
-    return indent(concat([hardline, printedRight]));
+    return indent(concat([line, printedRight]));
   }
 
   const canBreak =

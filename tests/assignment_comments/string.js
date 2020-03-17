@@ -2,7 +2,38 @@ fnString =
   // Comment
   'some' + 'long' + 'string';
 
-var fnString =
+fnString =
+  // Comment
+
+  'some' + 'long' + 'string';
+
+fnString =
+
+  // Comment
+
+  'some' + 'long' + 'string';
+
+fnString =
+  /* comment */
+  'some' + 'long' + 'string';
+
+fnString =
+  /**
+   * multi-line
+   */
+  'some' + 'long' + 'string';
+
+fnString =
+  /* inline */ 'some' + 'long' + 'string' + 'some' + 'long' + 'string' + 'some' + 'long' + 'string' + 'some' + 'long' + 'string';
+
+fnString = // Comment0
+  // Comment1
+  'some' + 'long' + 'string';
+
+fnString = // Comment
+  'some' + 'long' + 'string';
+
+fnString =
   // Comment
   'some' + 'long' + 'string';
 
@@ -30,25 +61,9 @@ var fnString =
 var fnString =
   /* inline */ 'some' + 'long' + 'string' + 'some' + 'long' + 'string' + 'some' + 'long' + 'string' + 'some' + 'long' + 'string';
 
-var fnString = // Comment
-  // Comment
+var fnString = // Comment0
+  // Comment1
   'some' + 'long' + 'string';
 
 var fnString = // Comment
   'some' + 'long' + 'string';
-
-let f1 = (
-  a =
-  //comment
-  b
-) => {};
-
-let f2 = (
-  a = //comment
-  b
-) => {};
-
-let f3 = (
-  a =
-  b //comment
-) => {};

@@ -929,12 +929,7 @@ import(
   /* Hello */
 );
 
-wrap(
-  import(
-    /* Hello */
-    "something"
-  )
-);
+wrap(import(/* Hello */ "something"));
 
 ================================================================================
 `;
@@ -981,12 +976,7 @@ import(
   /* Hello */
 )
 
-wrap(
-  import(
-    /* Hello */
-    "something"
-  )
-)
+wrap(import(/* Hello */ "something"))
 
 ================================================================================
 `;
@@ -1572,9 +1562,7 @@ else {
 if (10) {
   /* comment */ // comment
   true;
-} else if (11)
-  /* comment */
-  true;
+} else if (11) /* comment */ true;
 else if (12)
   // comment /* comment */ // comment
   true;
@@ -1721,9 +1709,7 @@ else {
 if (10) {
   /* comment */ // comment
   true
-} else if (11)
-  /* comment */
-  true
+} else if (11) /* comment */ true
 else if (12)
   // comment /* comment */ // comment
   true

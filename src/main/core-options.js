@@ -125,24 +125,11 @@ const options = {
       typeof value === "string" || typeof value === "function",
     choices: [
       { value: "flow", description: "Flow" },
-      {
-        value: "babylon",
-        description: "JavaScript",
-        deprecated: "1.16.0",
-        redirect: "babel"
-      },
       { value: "babel", since: "1.16.0", description: "JavaScript" },
       { value: "babel-flow", since: "1.16.0", description: "Flow" },
       { value: "babel-ts", since: "2.0.0", description: "TypeScript" },
       { value: "typescript", since: "1.4.0", description: "TypeScript" },
       { value: "css", since: "1.7.1", description: "CSS" },
-      {
-        value: "postcss",
-        since: "1.4.0",
-        description: "CSS/Less/SCSS",
-        deprecated: "1.7.1",
-        redirect: "css"
-      },
       { value: "less", since: "1.7.1", description: "Less" },
       { value: "scss", since: "1.7.1", description: "SCSS" },
       { value: "json", since: "1.5.0", description: "JSON" },
@@ -245,19 +232,6 @@ const options = {
     default: 2,
     description: "Number of spaces per indentation level.",
     range: { start: 0, end: Infinity, step: 1 }
-  },
-  useFlowParser: {
-    since: "0.0.0",
-    category: CATEGORY_GLOBAL,
-    type: "boolean",
-    default: [
-      { since: "0.0.0", value: false },
-      { since: "1.15.0", value: undefined }
-    ],
-    deprecated: "0.0.10",
-    description: "Use flow parser.",
-    redirect: { option: "parser", value: "flow" },
-    cliName: "flow-parser"
   },
   useTabs: {
     since: "1.0.0",

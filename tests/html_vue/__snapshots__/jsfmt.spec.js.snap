@@ -2145,6 +2145,12 @@ foo( )
 </div>
 </template>
 
+<template>
+  <Foo><Bar
+         attr
+                                     /></Foo>
+</template>
+
 =====================================output=====================================
 <template>
   <div />
@@ -2161,6 +2167,10 @@ foo();
     <HomeX />
     <HomeY />
   </div>
+</template>
+
+<template>
+  <Foo><Bar attr /></Foo>
 </template>
 
 ================================================================================
@@ -2189,6 +2199,12 @@ foo( )
 </div>
 </template>
 
+<template>
+  <Foo><Bar
+         attr
+                                     /></Foo>
+</template>
+
 =====================================output=====================================
 <template>
   <div />
@@ -2205,6 +2221,10 @@ foo();
     <HomeX />
     <HomeY />
   </div>
+</template>
+
+<template>
+  <Foo><Bar attr /></Foo>
 </template>
 
 ================================================================================
@@ -2234,6 +2254,12 @@ foo( )
 </div>
 </template>
 
+<template>
+  <Foo><Bar
+         attr
+                                     /></Foo>
+</template>
+
 =====================================output=====================================
 <template>
   <div />
@@ -2250,6 +2276,10 @@ foo()
     <HomeX />
     <HomeY />
   </div>
+</template>
+
+<template>
+  <Foo><Bar attr /></Foo>
 </template>
 
 ================================================================================
