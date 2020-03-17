@@ -38,7 +38,7 @@ function calculateLoc(node, text) {
 }
 
 // Workaround for a bug: quotes in inline comments corrupt loc data of subsequent nodes.
-// This function replaces the quotes with spaces. Later, when the comments are printed,
+// This function replaces the quotes with \0 and \uffff. Later, when the comments are printed,
 // their content is extracted from the original text.
 // https://github.com/prettier/prettier/issues/7780
 // https://github.com/shellscape/postcss-less/issues/145
@@ -134,7 +134,10 @@ function replaceQuotesInInlineComments(text) {
   for (const [start, end] of inlineCommentsToReplace) {
     text =
       text.slice(0, start) +
-      text.slice(start, end).replace(/'|"/g, " ") +
+      text
+        .slice(start, end)
+        .replace(/'/g, "\0")
+        .replace(/"/g, "\uffff") +
       text.slice(end);
   }
 

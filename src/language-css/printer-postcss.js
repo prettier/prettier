@@ -481,7 +481,9 @@ function genericPrint(path, options, print) {
     case "value-comment": {
       return concat([
         node.inline ? "//" : "/*",
-        node.value,
+        // see replaceQuotesInInlineComments in loc.js
+        // value-* nodes don't have correct location data, so we have to rely on placeholder characters.
+        node.value.replace(/\0/g, "'").replace(/\uffff/g, '"'),
         node.inline ? "" : "*/"
       ]);
     }

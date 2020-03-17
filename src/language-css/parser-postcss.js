@@ -294,7 +294,7 @@ function parseNestedCSS(node, options) {
 
       value = value.trim();
 
-      node.raws.value = selector;
+      node.raws.value = value;
     }
 
     let params = "";
