@@ -4,4 +4,4 @@ steps:
   - script: yarn test
     displayName: "Run tests"
   - template: ../steps/publish-test-results.yml
-  - template: ../steps/publish-code-coverage.yml
+  # - template: ../steps/publish-code-coverage.yml
