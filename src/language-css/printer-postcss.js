@@ -463,6 +463,14 @@ function genericPrint(path, options, print) {
         );
       }
 
+      // originalText has to be used for Less, see replaceQuotesInInlineComments in loc.js
+      const parentNode = path.getParentNode();
+      if (parentNode.raws && parentNode.raws.selector) {
+        const start = options.locStart(parentNode);
+        const end = start + parentNode.raws.selector.length;
+        return options.originalText.slice(start, end).trim();
+      }
+
       return node.value;
     }
     // postcss-values-parser
