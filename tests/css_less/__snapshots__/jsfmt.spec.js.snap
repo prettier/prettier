@@ -3390,18 +3390,33 @@ printWidth: 80
 // Animation   
 // '
 .a { color: red }
+
+.aa:hover::after { content: "\\""; } // "
     
     
 .b { background:url(http://example.com); }   .b::after { content: "a"; }
 
 // Animation   !
-.d { color:red    }
+.c { color:red    }
+
+.d { color: red /* // */ }  .d::after { content: "'"; }
+
+/*        fff
+   //   */     .d:hover::after {
+     // qw'erty 
+    content: "'''"; }
+   
+
 =====================================output=====================================
 // Animation
 // '
 .a {
   color: red;
 }
+
+.aa:hover::after {
+  content: '"';
+} // "
 
 .b {
   background: url(http://example.com);
@@ -3411,8 +3426,22 @@ printWidth: 80
 }
 
 // Animation   !
-.d {
+.c {
   color: red;
+}
+
+.d {
+  color: red; /* // */
+}
+.d::after {
+  content: "'";
+}
+
+/*        fff
+   //   */
+.d:hover::after {
+  // qw'erty
+  content: "'''";
 }
 
 ================================================================================

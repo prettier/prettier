@@ -38,37 +38,107 @@ function calculateLoc(node, text) {
 }
 
 // Workaround for a bug: quotes in inline comments corrupt loc data of subsequent nodes.
+// This function replaces the quotes with spaces. Later, when the comments are printed,
+// their content is extracted from the original text.
 // https://github.com/prettier/prettier/issues/7780
 // https://github.com/shellscape/postcss-less/issues/145
+/** @param text {string} */
 function replaceQuotesInInlineComments(text) {
-  return text.replace(/^(.*)\/\/(.+?)$/gm, (line, before, after) => {
-    let insideParens = false;
-    let insideQuotes = false;
-    for (let i = 0; i < before.length; i++) {
-      const c = before[i];
+  /** @type { 'initial' | 'single-quotes' | 'double-quotes' | 'url' | 'comment-block' | 'comment-inline' } */
+  let state = "initial";
+  let inlineCommentStartIndex;
+  let inlineCommentContainsQuotes = false;
+  const inlineCommentsToReplace = [];
 
-      if (insideQuotes) {
-        if (c === insideQuotes) {
-          insideQuotes = false;
-        }
-      } else {
-        if (c === "(" && !insideParens) {
-          insideParens = true;
-        }
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
 
-        if (c === ")" && insideParens) {
-          insideParens = false;
+    switch (state) {
+      case "initial":
+        if (c === "'") {
+          state = "single-quotes";
+          continue;
         }
 
-        if (c === "'" || c === '"') {
-          insideQuotes = c;
+        if (c === '"') {
+          state = "double-quotes";
+          continue;
         }
-      }
+
+        if (c === "(" && /\burl$/i.test(text.slice(i - 4, i))) {
+          state = "url";
+          continue;
+        }
+
+        if (c === "*" && text[i - 1] === "/") {
+          state = "comment-block";
+          continue;
+        }
+
+        if (c === "/" && text[i - 1] === "/") {
+          state = "comment-inline";
+          inlineCommentStartIndex = i - 1;
+          continue;
+        }
+
+        continue;
+
+      case "single-quotes":
+        if (c === "'" && text[i - 1] !== "\\") {
+          state = "initial";
+        }
+        if (c === "\n" || c === "\r") {
+          return text; // invalid input
+        }
+        continue;
+
+      case "double-quotes":
+        if (c === '"' && text[i - 1] !== "\\") {
+          state = "initial";
+        }
+        if (c === "\n" || c === "\r") {
+          return text; // invalid input
+        }
+        continue;
+
+      case "url":
+        if (c === ")") {
+          state = "initial";
+        }
+        if (c === "\n" || c === "\r") {
+          return text; // invalid input
+        }
+        continue;
+
+      case "comment-block":
+        if (c === "/" && text[i - 1] === "*") {
+          state = "initial";
+        }
+        continue;
+
+      case "comment-inline":
+        if (c === '"' || c === "'") {
+          inlineCommentContainsQuotes = true;
+        }
+        if (c === "\n" || c === "\r") {
+          if (inlineCommentContainsQuotes) {
+            inlineCommentsToReplace.push([inlineCommentStartIndex, i]);
+          }
+          state = "initial";
+          inlineCommentContainsQuotes = false;
+        }
+        continue;
     }
-    return insideQuotes || insideParens
-      ? line
-      : before + "//" + after.replace(/['"]/g, " ");
-  });
+  }
+
+  for (const [start, end] of inlineCommentsToReplace) {
+    text =
+      text.slice(0, start) +
+      text.slice(start, end).replace(/'|"/g, " ") +
+      text.slice(end);
+  }
+
+  return text;
 }
 
 module.exports = { calculateLoc, replaceQuotesInInlineComments };

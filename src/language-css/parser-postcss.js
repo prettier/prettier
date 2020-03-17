@@ -557,6 +557,8 @@ function requireParser(isSCSSParser) {
 
   const lessParser = require("postcss-less");
   return {
+    // Workaround for https://github.com/shellscape/postcss-less/issues/145
+    // See comments for `replaceQuotesInInlineComments` in `loc.js`.
     parse: text => lessParser.parse(replaceQuotesInInlineComments(text))
   };
 }
