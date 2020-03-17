@@ -276,3 +276,21 @@ printWidth: 80
 
 ================================================================================
 `;
+
+exports[`range-invalid.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<div><!-- prettier-ignore-start -->test   test   </div><!-- prettier-ignore-end -->
+<div><!-- prettier-ignore-start --><span>test        test</span></div><!-- prettier-ignore-end -->
+
+=====================================output=====================================
+<div><!-- prettier-ignore-start -->test test</div>
+<!-- prettier-ignore-end -->
+<div><!-- prettier-ignore-start --><span>test test</span></div>
+<!-- prettier-ignore-end -->
+
+================================================================================
+`;
