@@ -17,9 +17,9 @@ jobs:
           - "10"
         include:
           # only enable coverage on the fastest job
-          - os: "macos-latest"
+          - os: "ubuntu-latest"
             node: "12"
-            ENABLE_CODE_COVERAGE: "true"
+            ENABLE_CODE_COVERAGE: 1
     env:
       ENABLE_CODE_COVERAGE: ${{ matrix.ENABLE_CODE_COVERAGE }}
     name: Node.js ${{ matrix.node }} on ${{ matrix.os }}

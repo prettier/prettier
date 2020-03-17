@@ -54,7 +54,7 @@ jobs:
           path: dist
 
       - name: Lint Code
-        run: yarn test:dist
+        run: yarn lint:dist
 
   test:
     strategy:
@@ -107,7 +107,7 @@ jobs:
           - "12"
           - "10"
     env:
-      STANDALONE: "true"
+      STANDALONE: 1
     name: Node.js ${{ matrix.node }} on ${{ matrix.os }} (standalone)
     runs-on: ${{ matrix.os }}
     needs: [build]
