@@ -510,9 +510,13 @@ function printComments(path, print, options, needsSemi) {
 
   path.each(commentPath => {
     const comment = commentPath.getValue();
-    const { leading, trailing } = comment;
+    const { leading, trailing, value } = comment;
 
-    if (leading) {
+    if (value === "__PRETTIER_OPEN_PAREN__") {
+      leadingParts.push(concat(["("]));
+    } else if (value === "__PRETTIER_CLOSE_PAREN__") {
+      trailingParts.push(concat([")"]));
+    } else if (leading) {
       const contents = printLeadingComment(commentPath, print, options);
       if (!contents) {
         return;

@@ -20,7 +20,7 @@ function hasClosureCompilerTypeCastComment(text, path) {
 
   return (
     parenStart !== -1 &&
-    (hasTypeCastComment(n, parenStart, -1) ||
+    (getTypeCastIndex(n, parenStart, -1) !== -1 ||
       hasAncestorTypeCastComment(0, parenStart))
   );
 
@@ -32,24 +32,53 @@ function hasClosureCompilerTypeCastComment(text, path) {
     }
 
     const ancestorParenStart = getParenStart(ancestor);
-    return (
-      hasTypeCastComment(ancestor, parenStart, ancestorParenStart) ||
-      (ancestorParenStart === -1 &&
-        hasAncestorTypeCastComment(index + 1, parenStart))
+    const typeCastIndex = getTypeCastIndex(
+      ancestor,
+      parenStart,
+      ancestorParenStart
     );
+
+    // The node can inherit a typecast all the way to the root expression,
+    // provided some ancestor is not wrapped in parens. If so, then any
+    // typecast above that ancestor applies to the ancestor, not our node.
+    if (typeCastIndex === -1) {
+      return (
+        ancestorParenStart === -1 &&
+        hasAncestorTypeCastComment(index + 1, parenStart)
+      );
+    }
+
+    // There's an annoying issue if both our node contains a typecast, and this
+    // ancestor contains a typecast. Unfortunately, both comments are applied
+    // to ancestor. So we need to detect this situation, and insert hacky paren
+    // comments to simulate the correct warpping.
+    if (
+      ancestorParenStart !== -1 &&
+      getTypeCastIndex(ancestor, ancestorParenStart, -1) !== -1
+    ) {
+      ancestor.comments.splice(
+        typeCastIndex,
+        0,
+        comments.makeOpenParenComment()
+      );
+      n.comments = n.comments || [];
+      n.comments.unshift(comments.makeCloseParenComment());
+      return false;
+    }
+    return true;
   }
 
-  function hasTypeCastComment(node, parenStart, ancestorParenStart) {
-    return (
-      node.comments &&
-      node.comments.some(
-        comment =>
-          comment.leading &&
-          comment.end <= parenStart &&
-          comment.start >= ancestorParenStart &&
-          comments.isBlockComment(comment) &&
-          isTypeCastComment(comment.value)
-      )
+  function getTypeCastIndex(node, parenStart, ancestorParenStart) {
+    if (!node.comments) {
+      return -1;
+    }
+    return node.comments.findIndex(
+      comment =>
+        comment.leading &&
+        comment.end <= parenStart &&
+        comment.start >= ancestorParenStart &&
+        comments.isBlockComment(comment) &&
+        isTypeCastComment(comment.value)
     );
   }
 

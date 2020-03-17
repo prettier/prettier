@@ -950,6 +950,31 @@ function getCommentChildNodes(node, options) {
   }
 }
 
+function makeComment() {
+  return {
+    type: "CommentBlock",
+    value: "",
+    start: 0,
+    end: 0,
+    leading: false,
+    trailing: false
+  };
+}
+
+function makeOpenParenComment() {
+  const comment = makeComment();
+  comment.value = "__PRETTIER_OPEN_PAREN__";
+  comment.leading = true;
+  return comment;
+}
+
+function makeCloseParenComment() {
+  const comment = makeComment();
+  comment.value = "__PRETTIER_CLOSE_PAREN__";
+  comment.trailing = true;
+  return comment;
+}
+
 module.exports = {
   handleOwnLineComment,
   handleEndOfLineComment,
@@ -957,5 +982,7 @@ module.exports = {
   hasLeadingComment,
   isBlockComment,
   getGapRegex,
-  getCommentChildNodes
+  getCommentChildNodes,
+  makeCloseParenComment,
+  makeOpenParenComment
 };

@@ -76,8 +76,4 @@ const v9 = /** @type {string} */
 var foo = (/** @type {!Baz} */ (baz)).bar;
 var foo = (/** @type {!Baz} */ (baz).bar);
 var foo = /** @type {!Bar} */ ((/** @type {!Baz} */ (baz)).bar);
-
-// TODO: This next one will not print correct. The paren location is important
-// to the typecast parse, and printing both comments before the opening paren
-// makes it inavlid.
 var foo = /** @type {!Bar} */ (/** @type {!Baz} */ (baz).bar);
