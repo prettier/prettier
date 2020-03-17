@@ -549,6 +549,7 @@ function printPathNoParens(path, options, print, args) {
           parent.type === "WhileStatement" ||
           parent.type === "SwitchStatement" ||
           parent.type === "DoWhileStatement");
+
       const parts = printBinaryishExpressions(
         path,
         print,

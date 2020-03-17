@@ -1007,7 +1007,7 @@ trailingComma: "none"
   <MyComponent
     :attr="
       \`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\` +
-        \`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
+      \`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
     "
   />
 </template>
@@ -1027,7 +1027,7 @@ trailingComma: "none"
   <MyComponent
     :src="
       'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' +
-        'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'
+      'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'
     "
   />
 </template>
@@ -1080,7 +1080,7 @@ printWidth: 80
   <MyComponent
     :attr="
       \`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\` +
-        \`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
+      \`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
     "
   />
 </template>
@@ -1100,7 +1100,7 @@ printWidth: 80
   <MyComponent
     :src="
       'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' +
-        'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'
+      'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'
     "
   />
 </template>
@@ -1154,7 +1154,7 @@ semi: false
   <MyComponent
     :attr="
       \`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\` +
-        \`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
+      \`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
     "
   />
 </template>
@@ -1174,7 +1174,7 @@ semi: false
   <MyComponent
     :src="
       'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' +
-        'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'
+      'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'
     "
   />
 </template>
@@ -1210,27 +1210,27 @@ trailingComma: "none"
   <div class="allowed">
     {{
       value
-        | thisIsARealSuperLongFilterPipe("arg1", arg2)
-        | anotherPipeLongJustForFun
-        | pipeTheThird
+      | thisIsARealSuperLongFilterPipe("arg1", arg2)
+      | anotherPipeLongJustForFun
+      | pipeTheThird
     }}
   </div>
   <div
     class="allowed"
     v-bind:something="
       value
-        | thisIsARealSuperLongFilterPipe('arg1', arg2)
-        | anotherPipeLongJustForFun
-        | pipeTheThird
+      | thisIsARealSuperLongFilterPipe('arg1', arg2)
+      | anotherPipeLongJustForFun
+      | pipeTheThird
     "
   ></div>
   <div
     class="allowed"
     :class="
       value
-        | thisIsARealSuperLongFilterPipe('arg1', arg2)
-        | anotherPipeLongJustForFun
-        | pipeTheThird
+      | thisIsARealSuperLongFilterPipe('arg1', arg2)
+      | anotherPipeLongJustForFun
+      | pipeTheThird
     "
   ></div>
   <div
@@ -1267,27 +1267,27 @@ printWidth: 80
   <div class="allowed">
     {{
       value
-        | thisIsARealSuperLongFilterPipe("arg1", arg2)
-        | anotherPipeLongJustForFun
-        | pipeTheThird
+      | thisIsARealSuperLongFilterPipe("arg1", arg2)
+      | anotherPipeLongJustForFun
+      | pipeTheThird
     }}
   </div>
   <div
     class="allowed"
     v-bind:something="
       value
-        | thisIsARealSuperLongFilterPipe('arg1', arg2)
-        | anotherPipeLongJustForFun
-        | pipeTheThird
+      | thisIsARealSuperLongFilterPipe('arg1', arg2)
+      | anotherPipeLongJustForFun
+      | pipeTheThird
     "
   ></div>
   <div
     class="allowed"
     :class="
       value
-        | thisIsARealSuperLongFilterPipe('arg1', arg2)
-        | anotherPipeLongJustForFun
-        | pipeTheThird
+      | thisIsARealSuperLongFilterPipe('arg1', arg2)
+      | anotherPipeLongJustForFun
+      | pipeTheThird
     "
   ></div>
   <div
@@ -1325,27 +1325,27 @@ semi: false
   <div class="allowed">
     {{
       value
-        | thisIsARealSuperLongFilterPipe("arg1", arg2)
-        | anotherPipeLongJustForFun
-        | pipeTheThird
+      | thisIsARealSuperLongFilterPipe("arg1", arg2)
+      | anotherPipeLongJustForFun
+      | pipeTheThird
     }}
   </div>
   <div
     class="allowed"
     v-bind:something="
       value
-        | thisIsARealSuperLongFilterPipe('arg1', arg2)
-        | anotherPipeLongJustForFun
-        | pipeTheThird
+      | thisIsARealSuperLongFilterPipe('arg1', arg2)
+      | anotherPipeLongJustForFun
+      | pipeTheThird
     "
   ></div>
   <div
     class="allowed"
     :class="
       value
-        | thisIsARealSuperLongFilterPipe('arg1', arg2)
-        | anotherPipeLongJustForFun
-        | pipeTheThird
+      | thisIsARealSuperLongFilterPipe('arg1', arg2)
+      | anotherPipeLongJustForFun
+      | pipeTheThird
     "
   ></div>
   <div
@@ -1843,15 +1843,15 @@ trailingComma: "none"
   <pre class="woot">
   123{{
       wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq
+      wqeqwwqwqweqweqwewwq ||
+      wqeqwwqwqweqweqwewwq ||
+      wqeqwwqwqweqweqwewwq
     }}123
   123{{
       wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq
+      wqeqwwqwqweqweqwewwq ||
+      wqeqwwqwqweqweqwewwq ||
+      wqeqwwqwqweqweqwewwq
     }}123
     </pre
   >
@@ -1948,15 +1948,15 @@ printWidth: 80
   <pre class="woot">
   123{{
       wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq
+      wqeqwwqwqweqweqwewwq ||
+      wqeqwwqwqweqweqwewwq ||
+      wqeqwwqwqweqweqwewwq
     }}123
   123{{
       wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq
+      wqeqwwqwqweqweqwewwq ||
+      wqeqwwqwqweqweqwewwq ||
+      wqeqwwqwqweqweqwewwq
     }}123
     </pre
   >
@@ -2054,15 +2054,15 @@ semi: false
   <pre class="woot">
   123{{
       wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq
+      wqeqwwqwqweqweqwewwq ||
+      wqeqwwqwqweqweqwewwq ||
+      wqeqwwqwqweqweqwewwq
     }}123
   123{{
       wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq
+      wqeqwwqwqweqweqwewwq ||
+      wqeqwwqwqweqweqwewwq ||
+      wqeqwwqwqweqweqwewwq
     }}123
     </pre
   >
