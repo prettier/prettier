@@ -1,72 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`basic-handlebars.hbs 1`] = `
-====================================options=====================================
-parsers: ["glimmer"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-<script id="entry-template" type="text/x-handlebars-template">
-  <div class="entry">
-    <h1>{{title}}</h1>
-    <div class="body">
-      {{body}}
-    </div>
-  </div>
-</script>
-
-<div class="{{hello}} {{world}}"></div>
-
-=====================================output=====================================
-<script id="entry-template" type="text/x-handlebars-template">
-  <div class="entry">
-    <h1>
-      {{title}}
-    </h1>
-    <div class="body">
-      {{body}}
-    </div>
-  </div>
-</script>
-
-<div class="{{hello}} {{world}}"></div>
-================================================================================
-`;
-
-exports[`basic-handlebars.hbs 2`] = `
-====================================options=====================================
-parsers: ["glimmer"]
-printWidth: 80
-singleQuote: true
-                                                                                | printWidth
-=====================================input======================================
-<script id="entry-template" type="text/x-handlebars-template">
-  <div class="entry">
-    <h1>{{title}}</h1>
-    <div class="body">
-      {{body}}
-    </div>
-  </div>
-</script>
-
-<div class="{{hello}} {{world}}"></div>
-
-=====================================output=====================================
-<script id='entry-template' type='text/x-handlebars-template'>
-  <div class='entry'>
-    <h1>
-      {{title}}
-    </h1>
-    <div class='body'>
-      {{body}}
-    </div>
-  </div>
-</script>
-
-<div class="{{hello}} {{world}}"></div>
-================================================================================
-`;
-
 exports[`component.hbs 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
@@ -99,6 +32,9 @@ printWidth: 80
 
 <div ...attributes>Hello</div>
 
+<ul class="list-unstyled
+  one-tab">
+</ul>
 =====================================output=====================================
 <UserGreeting @name="Ricardo" @greeting="Olá" />
 {{@greeting}}, {{@name}}!
@@ -131,6 +67,10 @@ printWidth: 80
 <div ...attributes>
   Hello
 </div>
+
+<ul class="list-unstyled
+  one-tab">
+</ul>
 ================================================================================
 `;
 
@@ -167,6 +107,9 @@ singleQuote: true
 
 <div ...attributes>Hello</div>
 
+<ul class="list-unstyled
+  one-tab">
+</ul>
 =====================================output=====================================
 <UserGreeting @name='Ricardo' @greeting='Olá' />
 {{@greeting}}, {{@name}}!
@@ -199,6 +142,10 @@ singleQuote: true
 <div ...attributes>
   Hello
 </div>
+
+<ul class='list-unstyled
+  one-tab'>
+</ul>
 ================================================================================
 `;
 

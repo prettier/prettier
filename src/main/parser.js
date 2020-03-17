@@ -1,7 +1,7 @@
 "use strict";
 
 const path = require("path");
-const ConfigError = require("../common/errors").ConfigError;
+const { ConfigError } = require("../common/errors");
 const jsLoc = require("../language-js/loc");
 
 const { locStart, locEnd } = jsLoc;
@@ -92,7 +92,7 @@ function parse(text, opts) {
       ast: parser.parse(text, parsersForCustomParserApi, opts)
     };
   } catch (error) {
-    const loc = error.loc;
+    const { loc } = error;
 
     if (loc) {
       const codeFrame = require("@babel/code-frame");

@@ -22,9 +22,7 @@ shell.mkdir("-p", docs);
 if (isPullRequest) {
   // --- Build prettier for PR ---
   const pkg = require("../package.json");
-  const newPkg = Object.assign({}, pkg, {
-    version: `999.999.999-pr.${process.env.REVIEW_ID}`
-  });
+  const newPkg = { ...pkg, version: `999.999.999-pr.${process.env.REVIEW_ID}` };
   pipe(JSON.stringify(newPkg, null, 2)).to("package.json");
   shell.exec("yarn build");
   pipe(JSON.stringify(pkg, null, 2)).to("package.json"); // restore

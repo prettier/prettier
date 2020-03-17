@@ -167,7 +167,7 @@ printWidth: 80
     <meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
     <title>XHTML markup</title>
   </head>
-  <body style="background-color:#ffffcc; color:#008800">
+  <body style="background-color: #ffffcc; color: #008800;">
     <br />
     <h2 align="center">Sample XHTML page</h2>
     <br />
@@ -180,7 +180,7 @@ printWidth: 80
         vspace="20"
       />
     </div>
-    <p align="center" style="font-size:17px">
+    <p align="center" style="font-size: 17px;">
       Bar Foo,<br />
       Foo,<br />
       Bar<br />

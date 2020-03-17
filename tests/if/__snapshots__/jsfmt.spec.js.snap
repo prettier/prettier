@@ -71,7 +71,7 @@ function f() {
   else
     return {
       name: pair.substring(0, position),
-      value: pair.substring(position + 1)
+      value: pair.substring(position + 1),
     };
 }
 
@@ -80,7 +80,7 @@ function f() {
   else
     return {
       name: pair.substring(0, position),
-      value: pair.substring(position + 1)
+      value: pair.substring(position + 1),
     };
 }
 
@@ -162,15 +162,9 @@ async function f1() {
 }
 
 async function f2() {
-  if (untrackedChoice === 0)
-    /* Cancel */
-    null;
-  else if (untrackedChoice === 1)
-    /* Add */
-    shouldAmend = true;
-  else if (untrackedChoice === 2)
-    /* Allow Untracked */
-    allowUntracked = true;
+  if (untrackedChoice === 0) /* Cancel */ null;
+  else if (untrackedChoice === 1) /* Add */ shouldAmend = true;
+  else if (untrackedChoice === 2) /* Allow Untracked */ allowUntracked = true;
 }
 
 async function f3() {

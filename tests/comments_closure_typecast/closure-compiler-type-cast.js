@@ -69,3 +69,6 @@ const style2 =/**
 const v6 = /**@type {string} */(value);
 const v7 = /** @type{string} */(value);
 const v8 = /**@type{string} */(value);
+
+const v9 = /** @type {string} */
+  (value);

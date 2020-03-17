@@ -2,30 +2,24 @@
 
 const {
   builders: { concat, ifBreak, join, line }
-} = require("../doc");
-const parseSrcset = require("parse-srcset");
+} = require("../document");
+const parseSrcset = require("srcset").parse;
 
 function printImgSrcset(value) {
-  const srcset = parseSrcset(value, {
-    logger: {
-      error(message) {
-        throw new Error(message);
-      }
-    }
-  });
+  const srcset = parseSrcset(value);
 
-  const hasW = srcset.some(src => src.w);
-  const hasH = srcset.some(src => src.h);
-  const hasX = srcset.some(src => src.d);
+  const hasW = srcset.some(src => src.width);
+  const hasH = srcset.some(src => src.height);
+  const hasX = srcset.some(src => src.density);
 
-  if (hasW + hasH + hasX !== 1) {
-    throw new Error(`Mixed descriptor in srcset is not supported`);
+  if (hasW + hasH + hasX > 1) {
+    throw new Error("Mixed descriptor in srcset is not supported");
   }
 
-  const key = hasW ? "w" : hasH ? "h" : "d";
+  const key = hasW ? "width" : hasH ? "height" : "density";
   const unit = hasW ? "w" : hasH ? "h" : "x";
 
-  const getMax = values => Math.max.apply(Math, values);
+  const getMax = values => Math.max(...values);
 
   const urls = srcset.map(src => src.url);
   const maxUrlLength = getMax(urls.map(url => url.length));
@@ -59,6 +53,14 @@ function printImgSrcset(value) {
   );
 }
 
+function printClassNames(value) {
+  return value
+    .trim()
+    .split(/\s+/)
+    .join(" ");
+}
+
 module.exports = {
-  printImgSrcset
+  printImgSrcset,
+  printClassNames
 };

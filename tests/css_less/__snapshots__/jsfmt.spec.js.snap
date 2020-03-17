@@ -1,5 +1,52 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`function-each.less 1`] = `
+====================================options=====================================
+parsers: ["less"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// http://lesscss.org/functions/#list-functions-each
+
+@selectors: blue, green, red;
+
+each(@selectors, {
+  .sel-@{value} {
+    a: b;
+  }
+});
+
+
+// TODO: fix this
+each(@selectors, 
+{
+  .sel-@{value} {
+a: b;
+  }
+});
+
+=====================================output=====================================
+// http://lesscss.org/functions/#list-functions-each
+
+@selectors: blue, green, red;
+
+each(@selectors, {
+  .sel-@{value} {
+    a: b;
+  }
+});
+
+// TODO: fix this
+each(@selectors, 
+{
+  .sel-@{value} {
+a: b;
+  }
+});
+
+================================================================================
+`;
+
 exports[`less.less 1`] = `
 ====================================options=====================================
 parsers: ["less"]
@@ -1677,6 +1724,12 @@ label {
   .margin-bottom-1\\/3;
 }
 
+// whitespace between variable and colon, #2925 #4090
+@FoO : bar;
+
+// should not parse as custom-selector
+@custom-selector     :--icon #id;
+
 =====================================output=====================================
 @nice-blue: #5b83ad;
 @light-blue: @nice-blue + #111;
@@ -2738,7 +2791,9 @@ div {
 header {
   background-color: blue;
 
-  .desktop-and-old-ie({background-color: red;});
+  .desktop-and-old-ie({
+    background-color: red;
+  });
 }
 
 header {
@@ -3280,6 +3335,12 @@ li + li {
 label {
   .margin-bottom-1\\/3;
 }
+
+// whitespace between variable and colon, #2925 #4090
+@FoO: bar;
+
+// should not parse as custom-selector
+@custom-selector: --icon #id;
 
 ================================================================================
 `;

@@ -12,18 +12,20 @@ const CATEGORY_SPECIAL = "Special";
 
 /**
  * @typedef {Object} OptionInfo
- * @property {string} since - available since version
+ * @property {string} [since] - available since version
  * @property {string} category
  * @property {'int' | 'boolean' | 'choice' | 'path'} type
- * @property {boolean} array - indicate it's an array of the specified type
- * @property {boolean?} deprecated - deprecated since version
- * @property {OptionRedirectInfo?} redirect - redirect deprecated option
+ * @property {boolean} [array] - indicate it's an array of the specified type
+ * @property {OptionValueInfo} [default]
+ * @property {OptionRangeInfo} [range] - for type int
  * @property {string} description
- * @property {string?} oppositeDescription - for `false` option
- * @property {OptionValueInfo} default
- * @property {OptionRangeInfo?} range - for type int
- * @property {OptionChoiceInfo?} choices - for type choice
- * @property {(value: any) => boolean} exception
+ * @property {string} [deprecated] - deprecated since version
+ * @property {OptionRedirectInfo} [redirect] - redirect deprecated option
+ * @property {(value: any) => boolean} [exception]
+ * @property {OptionChoiceInfo[]} [choices] - for type choice
+ * @property {string} [cliName]
+ * @property {string} [cliCategory]
+ * @property {string} [cliDescription]
  *
  * @typedef {number | boolean | string} OptionValue
  * @typedef {OptionValue | [{ value: OptionValue[] }] | Array<{ since: string, value: OptionValue}>} OptionValueInfo
@@ -39,16 +41,13 @@ const CATEGORY_SPECIAL = "Special";
  *
  * @typedef {Object} OptionChoiceInfo
  * @property {boolean | string} value - boolean for the option that is originally boolean type
- * @property {string?} description - undefined if redirect
- * @property {string?} since - undefined if available since the first version of the option
- * @property {string?} deprecated - deprecated since version
- * @property {OptionValueInfo?} redirect - redirect deprecated value
- *
- * @property {string?} cliName
- * @property {string?} cliCategory
- * @property {string?} cliDescription
+ * @property {string} description
+ * @property {string} [since] - undefined if available since the first version of the option
+ * @property {string} [deprecated] - deprecated since version
+ * @property {OptionValueInfo} [redirect] - redirect deprecated value
  */
-/** @type {{ [name: string]: OptionInfo } */
+
+/** @type {{ [name: string]: OptionInfo }} */
 const options = {
   cursorOffset: {
     since: "1.4.0",
@@ -66,16 +65,12 @@ const options = {
     since: "1.15.0",
     category: CATEGORY_GLOBAL,
     type: "choice",
-    default: "auto",
+    default: [
+      { since: "1.15.0", value: "auto" },
+      { since: "2.0.0", value: "lf" }
+    ],
     description: "Which end of line characters to apply.",
     choices: [
-      {
-        value: "auto",
-        description: dedent`
-          Maintain existing
-          (mixed values within one file are normalised by looking at what's used after the first line)
-        `
-      },
       {
         value: "lf",
         description:
@@ -89,6 +84,13 @@ const options = {
       {
         value: "cr",
         description: "Carriage Return character only (\\r), used very rarely"
+      },
+      {
+        value: "auto",
+        description: dedent`
+          Maintain existing
+          (mixed values within one file are normalised by looking at what's used after the first line)
+        `
       }
     ]
   },
@@ -123,23 +125,11 @@ const options = {
       typeof value === "string" || typeof value === "function",
     choices: [
       { value: "flow", description: "Flow" },
-      {
-        value: "babylon",
-        description: "JavaScript",
-        deprecated: "1.16.0",
-        redirect: "babel"
-      },
       { value: "babel", since: "1.16.0", description: "JavaScript" },
       { value: "babel-flow", since: "1.16.0", description: "Flow" },
+      { value: "babel-ts", since: "2.0.0", description: "TypeScript" },
       { value: "typescript", since: "1.4.0", description: "TypeScript" },
       { value: "css", since: "1.7.1", description: "CSS" },
-      {
-        value: "postcss",
-        since: "1.4.0",
-        description: "CSS/Less/SCSS",
-        deprecated: "1.7.1",
-        redirect: "css"
-      },
       { value: "less", since: "1.7.1", description: "Less" },
       { value: "scss", since: "1.7.1", description: "SCSS" },
       { value: "json", since: "1.5.0", description: "JSON" },
@@ -242,19 +232,6 @@ const options = {
     default: 2,
     description: "Number of spaces per indentation level.",
     range: { start: 0, end: Infinity, step: 1 }
-  },
-  useFlowParser: {
-    since: "0.0.0",
-    category: CATEGORY_GLOBAL,
-    type: "boolean",
-    default: [
-      { since: "0.0.0", value: false },
-      { since: "1.15.0", value: undefined }
-    ],
-    deprecated: "0.0.10",
-    description: "Use flow parser.",
-    redirect: { option: "parser", value: "flow" },
-    cliName: "flow-parser"
   },
   useTabs: {
     since: "1.0.0",

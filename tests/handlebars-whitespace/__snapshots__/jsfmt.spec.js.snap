@@ -118,7 +118,8 @@ hey
 
 =====================================output=====================================
 <p>
-  Hi {{firstName}} {{lastName
+  Hi {{firstName}} {{
+    lastName
   }} , welcome!
 </p>
 {{#component propA}}
@@ -355,6 +356,98 @@ printWidth: 40
 ================================================================================
 `;
 
+exports[`preserved-spaces-and-breaks.hbs 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 40
+                                        | printWidth
+=====================================input======================================
+<SomeComponent />
+{{name}}
+
+
+
+Some sentence with  {{dynamic}}  expressions.
+
+sometimes{{nogaps}}areimportant<Hello></Hello>
+
+
+{{name}}  is your name
+
+
+{{#block}}
+{{/block}}
+
+
+{{#block}}
+  some {{text}}
+{{/block}}
+
+{{#block}}
+
+  some {{text}}
+{{/block}}
+
+<HelloWorld>
+</HelloWorld>
+
+<HelloWorld>
+  some {{text}}
+</HelloWorld>
+
+<HelloWorld>
+
+  some {{text}}
+</HelloWorld>
+
+<div class="a list of classes">
+</div>
+
+<div class="a list of classes">
+
+</div>
+
+=====================================output=====================================
+<SomeComponent />
+{{name}}
+
+Some sentence with {{dynamic
+}} expressions.
+
+sometimes{{nogaps
+}}areimportant
+<Hello />
+
+{{name}} is your name
+
+{{#block}}{{/block}}
+
+{{#block}}
+  some {{text}}
+{{/block}}
+
+{{#block}}
+  some {{text}}
+{{/block}}
+
+<HelloWorld />
+
+<HelloWorld>
+  some {{text}}
+</HelloWorld>
+
+<HelloWorld>
+  some {{text}}
+</HelloWorld>
+
+<div class="a list of classes">
+</div>
+
+<div class="a list of classes">
+</div>
+================================================================================
+`;
+
 exports[`punctuation.hbs 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
@@ -515,5 +608,66 @@ printWidth: 40
     </tr>
   </thead>
 </table>
+================================================================================
+`;
+
+exports[`whitespace-control.hbs 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 40
+                                        | printWidth
+=====================================input======================================
+{{~#if foo~}}
+  abc
+{{~/if~}}
+
+{{~#if foo}}
+  abc
+{{/if~}}
+
+{{foo~}}
+
+{{~foo abc}}
+
+{{~#if bar}}
+  if1
+{{~else~}}
+  else
+{{~/if~}}
+
+{{~#if bar}}
+  if1
+{{~else if foo~}}
+  else if foo
+{{else~}}
+  else
+{{/if~}}
+
+=====================================output=====================================
+{{~#if foo~}}
+  abc
+{{~/if~}}
+
+{{~#if foo}}
+  abc
+{{/if~}}
+
+{{foo~}}
+
+{{~foo abc}}
+
+{{~#if bar}}
+  if1
+{{~else~}}
+  else
+{{~/if~}}
+
+{{~#if bar}}
+  if1
+{{~else if foo~}}
+  else if foo
+{{else~}}
+  else
+{{/if~}}
 ================================================================================
 `;

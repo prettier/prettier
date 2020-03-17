@@ -101,13 +101,37 @@ async function f() {
   const result = typeof fn === "function" ? await fn() : null;
 }
 
-(async function() {
+(async function () {
   console.log(await (true ? Promise.resolve("A") : Promise.resolve("B")));
 })();
 
 async function f2() {
   await (spellcheck && spellcheck.setChecking(false));
   (await spellcheck) && spellcheck.setChecking(false);
+}
+
+================================================================================
+`;
+
+exports[`inline_await.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+async function f() {
+  const admins = (await(db.select('*').from('admins').leftJoin('bla').where('id', 'in', [1,2,3,4]))).map(({id, name})=>({id, name}))
+}
+
+=====================================output=====================================
+async function f() {
+  const admins = (
+    await db
+      .select("*")
+      .from("admins")
+      .leftJoin("bla")
+      .where("id", "in", [1, 2, 3, 4])
+  ).map(({ id, name }) => ({ id, name }));
 }
 
 ================================================================================

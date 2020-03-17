@@ -29,7 +29,7 @@ function fitTerminal(input) {
   const columns = Math.min(process.stdout.columns || 40, 80);
   const WIDTH = columns - stringWidth(OK) + 1;
   if (input.length < WIDTH) {
-    input += Array(WIDTH - input.length).join(chalk.dim("."));
+    input += chalk.dim(".").repeat(WIDTH - input.length - 1);
   }
   return input;
 }
@@ -77,7 +77,6 @@ async function cacheFiles() {
 async function preparePackage() {
   const pkg = await util.readJson("package.json");
   pkg.bin = "./bin-prettier.js";
-  pkg.engines.node = ">=4";
   delete pkg.dependencies;
   delete pkg.devDependencies;
   pkg.scripts = {
@@ -99,7 +98,7 @@ async function run(params) {
     await execa("rm", ["-rf", ".cache"]);
   }
 
-  const bundleCache = new Cache(".cache/", "v17");
+  const bundleCache = new Cache(".cache/", "v21");
   await bundleCache.load();
 
   console.log(chalk.inverse(" Building packages "));

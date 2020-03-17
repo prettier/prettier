@@ -3,7 +3,6 @@
 const fs = require("fs");
 const flowParser = require("flow-parser");
 const globby = require("globby");
-const mkdirp = require("mkdirp");
 const path = require("path");
 const rimraf = require("rimraf");
 
@@ -19,9 +18,8 @@ function tryParse(file, content) {
   });
 
   if (ast.errors.length > 0) {
-    const line = ast.errors[0].loc.start.line;
-    const column = ast.errors[0].loc.start.column;
-    const message = ast.errors[0].message;
+    const { line, column } = ast.errors[0].loc.start;
+    const { message } = ast.errors[0];
     return `${file}:${line}:${column}: ${message}`;
   }
 
@@ -66,7 +64,7 @@ function syncTests(syncDir) {
     const specFile = path.join(dirname, SPEC_FILE_NAME);
     const specContent = specContents[specFile] || DEFAULT_SPEC_CONTENT;
 
-    mkdirp.sync(dirname);
+    fs.mkdirSync(dirname, { recursive: true });
     fs.writeFileSync(newFile, content);
     fs.writeFileSync(specFile, specContent);
   });

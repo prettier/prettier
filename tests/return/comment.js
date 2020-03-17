@@ -2,6 +2,22 @@ function f() {
   return /* a */;
 }
 
+function f() {
+  return // a
+  ;
+}
+
+function f() {
+  return // a
+  /* b */;
+}
+
+function f() {
+  return /* a */
+  // b
+  ;
+}
+
 function x() {
   return func2
       //comment

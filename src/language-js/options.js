@@ -10,16 +10,19 @@ module.exports = {
     since: "1.9.0",
     category: CATEGORY_JAVASCRIPT,
     type: "choice",
-    default: "avoid",
+    default: [
+      { since: "1.9.0", value: "avoid" },
+      { since: "2.0.0", value: "always" }
+    ],
     description: "Include parentheses around a sole arrow function parameter.",
     choices: [
       {
-        value: "avoid",
-        description: "Omit parens when possible. Example: `x => x`"
-      },
-      {
         value: "always",
         description: "Always include parens. Example: `(x) => x`"
+      },
+      {
+        value: "avoid",
+        description: "Omit parens when possible. Example: `x => x`"
       }
     ]
   },
@@ -76,23 +79,22 @@ module.exports = {
     type: "choice",
     default: [
       { since: "0.0.0", value: false },
-      { since: "0.19.0", value: "none" }
+      { since: "0.19.0", value: "none" },
+      { since: "2.0.0", value: "es5" }
     ],
     description: "Print trailing commas wherever possible when multi-line.",
     choices: [
-      { value: "none", description: "No trailing commas." },
       {
         value: "es5",
         description:
           "Trailing commas where valid in ES5 (objects, arrays, etc.)"
       },
+      { value: "none", description: "No trailing commas." },
       {
         value: "all",
         description:
           "Trailing commas wherever possible (including function arguments)."
-      },
-      { value: true, deprecated: "0.19.0", redirect: "es5" },
-      { value: false, deprecated: "0.19.0", redirect: "none" }
+      }
     ]
   }
 };

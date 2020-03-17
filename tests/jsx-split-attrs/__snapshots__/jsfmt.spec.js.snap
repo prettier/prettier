@@ -220,7 +220,7 @@ long_obj = (
       use: "bootstrap",
       and: "instead",
       use: "massive",
-      objects
+      objects,
     }}
   >
     hello world

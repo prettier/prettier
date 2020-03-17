@@ -3,8 +3,6 @@
 ## Usage
 
 ```sh
-# set environment variable GITHUB_API_TOKEN if it's a patch release
-# since we need to get merged PRs from GitHub to generate changelog
 node ./scripts/release/release.js --version NEW_VERSION
 ```
 

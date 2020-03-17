@@ -22,18 +22,19 @@ function isNode(value, types) {
   return (
     value &&
     typeof value.type === "string" &&
-    (!types || types.indexOf(value.type) !== -1)
+    (!types || types.includes(value.type))
   );
 }
 
 function mapNode(node, callback, parent) {
   return callback(
     "children" in node
-      ? Object.assign({}, node, {
+      ? {
+          ...node,
           children: node.children.map(childNode =>
             mapNode(childNode, callback, node)
           )
-        })
+        }
       : node,
     parent
   );
@@ -198,8 +199,8 @@ function getFlowScalarLineContents(nodeType, content, options) {
         : index !== 0 && index !== lineContents.length - 1
         ? lineContent.trim()
         : index === 0
-        ? lineContent.trimRight()
-        : lineContent.trimLeft()
+        ? lineContent.trimEnd()
+        : lineContent.trimStart()
     );
 
   if (options.proseWrap === "preserve") {
@@ -217,8 +218,13 @@ function getFlowScalarLineContents(nodeType, content, options) {
         index !== 0 &&
         rawLineContents[index - 1].length !== 0 &&
         lineContentWords.length !== 0 &&
-        !// trailing backslash in quoteDouble should be preserved
-        (nodeType === "quoteDouble" && getLast(getLast(reduced)).endsWith("\\"))
+        !(
+          // trailing backslash in quoteDouble should be preserved
+          (
+            nodeType === "quoteDouble" &&
+            getLast(getLast(reduced)).endsWith("\\")
+          )
+        )
           ? reduced.concat([reduced.pop().concat(lineContentWords)])
           : reduced.concat([lineContentWords]),
       []

@@ -2,13 +2,13 @@
 
 const {
   builders: { concat, join, line }
-} = require("../doc");
+} = require("../document");
 
 function printHtmlBinding(path, options, print) {
   const node = path.getValue();
 
   if (options.__onHtmlBindingRoot && path.getName() === null) {
-    options.__onHtmlBindingRoot(node);
+    options.__onHtmlBindingRoot(node, options);
   }
 
   if (node.type !== "File") {

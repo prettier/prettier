@@ -4,7 +4,7 @@ const clean = require("./clean");
 const {
   builders,
   utils: { stripTrailingHardline, mapDoc }
-} = require("../doc");
+} = require("../document");
 const {
   breakParent,
   dedentToRoot,
@@ -48,7 +48,7 @@ const {
   printVueSlotScope,
   isVueEventBindingExpression
 } = require("./syntax-vue");
-const { printImgSrcset } = require("./syntax-attribute");
+const { printImgSrcset, printClassNames } = require("./syntax-attribute");
 
 function concat(parts) {
   const newParts = normalizeParts(parts);
@@ -84,19 +84,14 @@ function embed(path, print, textToDoc, options) {
           indent(
             concat([
               line,
-              textToDoc(
-                node.value,
-                Object.assign(
-                  {
-                    __isInHtmlInterpolation: true // to avoid unexpected `}}`
-                  },
-                  options.parser === "angular"
-                    ? { parser: "__ng_interpolation", trailingComma: "none" }
-                    : options.parser === "vue"
-                    ? { parser: "__vue_expression" }
-                    : { parser: "__js_expression" }
-                )
-              )
+              textToDoc(node.value, {
+                __isInHtmlInterpolation: true, // to avoid unexpected `}}`
+                ...(options.parser === "angular"
+                  ? { parser: "__ng_interpolation", trailingComma: "none" }
+                  : options.parser === "vue"
+                  ? { parser: "__vue_expression" }
+                  : { parser: "__js_expression" })
+              })
             ])
           ),
           node.parent.next &&
@@ -143,7 +138,7 @@ function embed(path, print, textToDoc, options) {
         node,
         (code, opts) =>
           // strictly prefer single quote to avoid unnecessary html entity escape
-          textToDoc(code, Object.assign({ __isInHtmlAttribute: true }, opts)),
+          textToDoc(code, { __isInHtmlAttribute: true, ...opts }),
         options
       );
       if (embeddedAttributeValueDoc) {
@@ -178,6 +173,9 @@ function genericPrint(path, options, print) {
   const node = path.getValue();
   switch (node.type) {
     case "root":
+      if (options.__onHtmlRoot) {
+        options.__onHtmlRoot(node);
+      }
       // use original concat to not break stripTrailingHardline
       return builders.concat([
         group(printChildren(path, options, print)),
@@ -208,10 +206,10 @@ function genericPrint(path, options, print) {
       const shouldHugContent =
         node.children.length === 1 &&
         node.firstChild.type === "interpolation" &&
-        (node.firstChild.isLeadingSpaceSensitive &&
-          !node.firstChild.hasLeadingSpaces) &&
-        (node.lastChild.isTrailingSpaceSensitive &&
-          !node.lastChild.hasTrailingSpaces);
+        node.firstChild.isLeadingSpaceSensitive &&
+        !node.firstChild.hasLeadingSpaces &&
+        node.lastChild.isTrailingSpaceSensitive &&
+        !node.lastChild.hasTrailingSpaces;
       const attrGroupId = Symbol("element-attr-group-id");
       return concat([
         group(
@@ -726,7 +724,7 @@ function printOpeningTag(path, options, print) {
                     typeof ignoreAttributeData === "boolean"
                       ? () => ignoreAttributeData
                       : Array.isArray(ignoreAttributeData)
-                      ? attr => ignoreAttributeData.indexOf(attr.rawName) !== -1
+                      ? attr => ignoreAttributeData.includes(attr.rawName)
                       : () => false;
                   return path.map(attrPath => {
                     const attr = attrPath.getValue();
@@ -766,7 +764,9 @@ function printOpeningTag(path, options, print) {
            */
           (node.isSelfClosing &&
             needsToBorrowLastChildClosingTagEndMarker(node.parent))
-            ? ""
+            ? node.isSelfClosing
+              ? " "
+              : ""
             : node.isSelfClosing
             ? forceNotToBreakAttrContent
               ? " "
@@ -933,7 +933,7 @@ function printOpeningTagStartMarker(node) {
     case "ieConditionalStartComment":
       return `<!--[if ${node.condition}`;
     case "ieConditionalEndComment":
-      return `<!--<!`;
+      return "<!--<!";
     case "interpolation":
       return "{{";
     case "docType":
@@ -955,11 +955,11 @@ function printOpeningTagEndMarker(node) {
       return "]>";
     case "element":
       if (node.condition) {
-        return `><!--<![endif]-->`;
+        return "><!--<![endif]-->";
       }
     // fall through
     default:
-      return `>`;
+      return ">";
   }
 }
 
@@ -988,9 +988,9 @@ function printClosingTagEndMarker(node, options) {
   switch (node.type) {
     case "ieConditionalComment":
     case "ieConditionalEndComment":
-      return `[endif]-->`;
+      return "[endif]-->";
     case "ieConditionalStartComment":
-      return `]><!-->`;
+      return "]><!-->";
     case "interpolation":
       return "}}";
     case "element":
@@ -1022,7 +1022,7 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
 
   let shouldHug = false;
 
-  const __onHtmlBindingRoot = root => {
+  const __onHtmlBindingRoot = (root, options) => {
     const rootNode =
       root.type === "NGRoot"
         ? root.node.type === "NGMicrosyntax" &&
@@ -1036,25 +1036,52 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
     if (
       rootNode &&
       (rootNode.type === "ObjectExpression" ||
-        rootNode.type === "ArrayExpression")
+        rootNode.type === "ArrayExpression" ||
+        (options.parser === "__vue_expression" &&
+          (rootNode.type === "TemplateLiteral" ||
+            rootNode.type === "StringLiteral")))
     ) {
       shouldHug = true;
     }
   };
 
   const printHug = doc => group(doc);
-  const printExpand = doc =>
-    group(concat([indent(concat([softline, doc])), softline]));
+  const printExpand = (doc, canHaveTrailingWhitespace = true) =>
+    group(
+      concat([
+        indent(concat([softline, doc])),
+        canHaveTrailingWhitespace ? softline : ""
+      ])
+    );
   const printMaybeHug = doc => (shouldHug ? printHug(doc) : printExpand(doc));
 
   const textToDoc = (code, opts) =>
-    originalTextToDoc(code, Object.assign({ __onHtmlBindingRoot }, opts));
+    originalTextToDoc(code, { __onHtmlBindingRoot, ...opts });
 
   if (
     node.fullName === "srcset" &&
     (node.parent.fullName === "img" || node.parent.fullName === "source")
   ) {
     return printExpand(printImgSrcset(getValue()));
+  }
+
+  if (node.fullName === "class" && !options.parentParser) {
+    const value = getValue();
+    if (!value.includes("{{")) {
+      return printClassNames(value);
+    }
+  }
+
+  if (node.fullName === "style" && !options.parentParser) {
+    const value = getValue();
+    if (!value.includes("{{")) {
+      return printExpand(
+        textToDoc(value, {
+          parser: "css",
+          __isHTMLStyleAttribute: true
+        })
+      );
+    }
   }
 
   if (options.parser === "vue") {
@@ -1110,7 +1137,7 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
   if (options.parser === "angular") {
     const ngTextToDoc = (code, opts) =>
       // angular does not allow trailing comma
-      textToDoc(code, Object.assign({ trailingComma: "none" }, opts));
+      textToDoc(code, { ...opts, trailingComma: "none" });
 
     /**
      *     *directive="angularDirective"
@@ -1127,7 +1154,17 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
      *     [(target)]="angularExpression"
      *     bindon-target="angularExpression"
      */
-    const ngExpressionBindingPatterns = ["^\\[.+\\]$", "^bind(on)?-"];
+    const ngExpressionBindingPatterns = [
+      "^\\[.+\\]$",
+      "^bind(on)?-",
+      // Unofficial rudimentary support for some of the most used directives of AngularJS 1.x
+      "^ng-(if|show|hide|class|style)$"
+    ];
+    /**
+     *     i18n="longDescription"
+     *     i18n-attr="longDescription"
+     */
+    const ngI18nPatterns = ["^i18n(-.+)?$"];
 
     if (isKeyMatched(ngStatementBindingPatterns)) {
       return printMaybeHug(ngTextToDoc(getValue(), { parser: "__ng_action" }));
@@ -1135,6 +1172,14 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
 
     if (isKeyMatched(ngExpressionBindingPatterns)) {
       return printMaybeHug(ngTextToDoc(getValue(), { parser: "__ng_binding" }));
+    }
+
+    if (isKeyMatched(ngI18nPatterns)) {
+      const value = getValue().trim();
+      return printExpand(
+        fill(getTextValueParts(node, value)),
+        !value.includes("@@")
+      );
     }
 
     if (isKeyMatched(ngDirectiveBindingPatterns)) {

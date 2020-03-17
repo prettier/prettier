@@ -28,7 +28,7 @@ type Foo = {
   [key: string]: void,
   // c
 
-  beta: 10
+  beta: 10,
 
   // d
 };

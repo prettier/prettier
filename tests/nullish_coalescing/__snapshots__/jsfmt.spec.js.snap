@@ -2,7 +2,7 @@
 
 exports[`nullish_coalesing_operator.js 1`] = `
 ====================================options=====================================
-parsers: ["babel", "flow"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -13,8 +13,18 @@ const x = (foo, bar = foo ?? bar) => {};
 foo ? bar ?? foo : baz;
 
 foo ?? (bar ?? baz);
+(foo ?? bar) ?? baz;
 
+// Mixing ?? and (&& or ||) requires parens
+// It's a syntax error without it.
 (foo ?? baz) || baz;
+foo ?? (baz || baz);
+
+(foo ?? baz) && baz;
+foo ?? (baz && baz);
+
+(foo || baz) ?? baz;
+foo || (baz ?? baz);
 
 (foo && baz) ?? baz;
 foo && (baz ?? baz);
@@ -26,9 +36,19 @@ const x = (foo, bar = foo ?? bar) => {};
 
 foo ? bar ?? foo : baz;
 
-foo ?? (bar ?? baz);
+foo ?? bar ?? baz;
+foo ?? bar ?? baz;
 
+// Mixing ?? and (&& or ||) requires parens
+// It's a syntax error without it.
 (foo ?? baz) || baz;
+foo ?? (baz || baz);
+
+(foo ?? baz) && baz;
+foo ?? (baz && baz);
+
+(foo || baz) ?? baz;
+foo || (baz ?? baz);
 
 (foo && baz) ?? baz;
 foo && (baz ?? baz);
