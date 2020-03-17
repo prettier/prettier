@@ -2,9 +2,9 @@
 
 const createError = require("../common/parser-create-error");
 const parseFrontMatter = require("../utils/front-matter");
-const lineColumnToIndex = require("../utils/line-column-to-index");
 const { hasPragma } = require("./pragma");
 const { isLessParser, isSCSS, isSCSSNestedPropertyNode } = require("./utils");
+const { calculateLoc, replaceQuotesInInlineComments } = require("./loc");
 
 function parseValueNodes(nodes) {
   let parenGroup = {
@@ -541,6 +541,8 @@ function parseWithParser(parser, text, options) {
 
   result = parseNestedCSS(addTypePrefix(result, "css-"), options);
 
+  calculateLoc(result, text);
+
   if (frontMatter) {
     result.nodes.unshift(frontMatter);
   }
@@ -553,7 +555,10 @@ function requireParser(isSCSSParser) {
     return require("postcss-scss");
   }
 
-  return require("postcss-less");
+  const lessParser = require("postcss-less");
+  return {
+    parse: text => lessParser.parse(replaceQuotesInInlineComments(text))
+  };
 }
 
 function parse(text, parsers, options) {
@@ -582,17 +587,13 @@ const parser = {
   hasPragma,
   locStart(node) {
     if (node.source) {
-      return lineColumnToIndex(node.source.start, node.source.input.css) - 1;
+      return node.source.startOffset;
     }
     return null;
   },
   locEnd(node) {
-    const endNode = node.nodes && node.nodes[node.nodes.length - 1];
-    if (endNode && node.source && !node.source.end) {
-      node = endNode;
-    }
-    if (node.source && node.source.end) {
-      return lineColumnToIndex(node.source.end, node.source.input.css);
+    if (node.source) {
+      return node.source.endOffset;
     }
     return null;
   }
