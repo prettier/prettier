@@ -4,18 +4,19 @@ const path = require("path");
 const camelCase = require("camelcase");
 const dashify = require("dashify");
 const fs = require("fs");
-const globby = require("globby");
+
 const chalk = require("chalk");
 const readline = require("readline");
 const stringify = require("json-stable-stringify");
 const fromPairs = require("lodash/fromPairs");
 const pick = require("lodash/pick");
 const groupBy = require("lodash/groupBy");
-const uniq = require("lodash/uniq");
+const flat = require("lodash/flatten");
 
 const minimist = require("./minimist");
 const prettier = require("../../index");
 const createIgnorer = require("../common/create-ignorer");
+const expandPatterns = require("./expand-patterns");
 const errors = require("../common/errors");
 const constant = require("./constant");
 const coreOptions = require("../main/core-options");
@@ -403,109 +404,6 @@ function createIgnorerFromContextOrDie(context) {
   }
 }
 
-/**
- * Get stats of a given path.
- * @param {string} filePath The path to target file.
- * @returns {fs.Stats|undefined} The stats.
- * @private
- */
-function statSafeSync(filePath) {
-  try {
-    return fs.statSync(filePath);
-  } catch (error) {
-    /* istanbul ignore next */
-    if (error.code !== "ENOENT") {
-      throw error;
-    }
-  }
-}
-
-// `dot pattern` and `expand directories` support need handle differently
-// for backward compatibility reason temporary remove `.` and set `expandDirectories=false`
-// see https://github.com/prettier/prettier/pull/6639#issuecomment-548949954
-const isWindows = path.sep === "\\";
-const globbyOptions = { dot: true, expandDirectories: false, absolute: true };
-function eachFilename(context, maybePatterns, callback) {
-  const withNodeModules = context.argv["with-node-modules"] === true;
-  // TODO: use `ignore` option for `globby`
-  const extraPatterns = [
-    // The '!./' globs are due to https://github.com/prettier/prettier/issues/2110
-    ...(withNodeModules ? [] : ["!**/node_modules/**", "!./node_modules/**"]),
-    "!**/.{git,svn,hg}/**",
-    "!./.{git,svn,hg}/**"
-  ];
-
-  // Ignores files in version control systems directories and `node_modules`
-  const ignoredDirectories = [".git", ".svn", ".hg"];
-  if (!withNodeModules) {
-    ignoredDirectories.push("node_modules");
-  }
-
-  let files = [];
-  const cwd = process.cwd();
-  const patterns = [];
-
-  for (const pattern of maybePatterns) {
-    const absolutePath = path.resolve(cwd, pattern);
-    const stat = statSafeSync(absolutePath);
-    if (
-      stat &&
-      stat.isFile() &&
-      !path
-        .relative(cwd, absolutePath)
-        .split(path.sep)
-        .some(directory => ignoredDirectories.includes(directory))
-    ) {
-      files.push(absolutePath);
-    } else {
-      // Ignore `dot pattern` for now
-      if (pattern !== ".") {
-        // workaround for fast-glob on Windows ref:
-        // https://github.com/mrmlnc/fast-glob#how-to-write-patterns-on-windows
-        patterns.push(isWindows ? pattern.replace(/\\/g, "/") : pattern);
-      }
-    }
-  }
-
-  if (patterns.length > 0) {
-    try {
-      // Don't use `files.push(...)`, there is limitation on the number of arguments.
-      files = [
-        ...files,
-        ...globby.sync([...patterns, ...extraPatterns], globbyOptions)
-      ];
-    } catch (error) {
-      context.logger.error(
-        `Unable to expand glob patterns: ${[
-          ...maybePatterns,
-          ...extraPatterns
-        ].join(" ")}\n${error.message}`
-      );
-      // Don't exit the process if one pattern failed
-      process.exitCode = 2;
-    }
-  }
-
-  if (files.length === 0) {
-    context.logger.error(
-      `No matching files. Patterns tried: ${[
-        ...maybePatterns,
-        ...extraPatterns
-      ].join(" ")}`
-    );
-    process.exitCode = 2;
-    return;
-  }
-
-  files = uniq(files.map(file => path.relative(cwd, file)))
-    // keeping file order for backward compatibility
-    .sort((a, b) => a.localeCompare(b));
-
-  for (const file of files) {
-    callback(file);
-  }
-}
-
 function formatFiles(context) {
   // The ignorer will be used to filter file paths after the glob is checked,
   // before any files are actually written
@@ -517,7 +415,15 @@ function formatFiles(context) {
     context.logger.log("Checking formatting...");
   }
 
-  eachFilename(context, context.filePatterns, filename => {
+  for (const pathOrError of expandPatterns(context)) {
+    if (typeof pathOrError === "object") {
+      context.logger.error(pathOrError.error);
+      // Don't exit, but set the exit code to 2
+      process.exitCode = 2;
+      continue;
+    }
+
+    const filename = pathOrError;
     // If there's an ignore-path set, the filename must be relative to the
     // ignore path, not the current working directory.
     const ignoreFilename = context.argv["ignore-path"]
@@ -531,7 +437,7 @@ function formatFiles(context) {
         context.argv.check ||
         context.argv["list-different"])
     ) {
-      return;
+      continue;
     }
 
     const options = {
@@ -555,12 +461,12 @@ function formatFiles(context) {
       );
       // Don't exit the process if one file failed
       process.exitCode = 2;
-      return;
+      continue;
     }
 
     if (fileIgnored) {
       writeOutput(context, { formatted: input }, options);
-      return;
+      continue;
     }
 
     const start = Date.now();
@@ -569,11 +475,11 @@ function formatFiles(context) {
     let output;
 
     try {
-      result = format(context, input, { ...options, filepath: filename });
+      result = format(context, input, options);
       output = result.formatted;
     } catch (error) {
       handleError(context, filename, error);
-      return;
+      continue;
     }
 
     const isDifferent = output !== input;
@@ -618,7 +524,7 @@ function formatFiles(context) {
       context.logger.log(filename);
       numberOfUnformattedFilesFound += 1;
     }
-  });
+  }
 
   // Print check summary based on expected exit code
   if (context.argv.check) {
@@ -655,7 +561,7 @@ function getOptionsWithOpposites(options) {
         }
       : null
   ]);
-  return flattenArray(optionsWithOpposites).filter(Boolean);
+  return flat(optionsWithOpposites).filter(Boolean);
 }
 
 function createUsage(context) {
@@ -742,10 +648,6 @@ function createOptionUsageType(option) {
     default:
       return `<${option.type}>`;
   }
-}
-
-function flattenArray(array) {
-  return [].concat(...array);
 }
 
 function createChoiceUsages(choices, margin, indentation) {
@@ -964,16 +866,20 @@ function createDetailedOptionMap(supportOptions) {
 /**
  * @typedef {Object} Context
  * @property logger
- * @property args
+ * @property {string[]} args
  * @property argv
- * @property filePatterns
- * @property supportOptions
+ * @property {string[]} filePatterns
+ * @property {any[]} supportOptions
  * @property detailedOptions
  * @property detailedOptionMap
  * @property apiDefaultOptions
+ * @property languages
+ * @property {Partial<Context>[]} stack
  */
+
+/** @returns {Context} */
 function createContext(args) {
-  const context = { args };
+  const context = { args, stack: [] };
 
   updateContextArgv(context);
   normalizeContextArgv(context, ["loglevel", "plugin", "plugin-search-dir"]);
@@ -986,7 +892,7 @@ function createContext(args) {
     context.argv["plugin-search-dir"]
   );
 
-  return context;
+  return /** @type {Context} */ (context);
 }
 
 function initContext(context) {
@@ -994,14 +900,19 @@ function initContext(context) {
   normalizeContextArgv(context);
 }
 
+/**
+ * @param {Context} context
+ * @param {string[]} plugins
+ * @param {string[]=} pluginSearchDirs
+ */
 function updateContextOptions(context, plugins, pluginSearchDirs) {
-  const supportOptions = prettier.getSupportInfo({
+  const { options: supportOptions, languages } = prettier.getSupportInfo({
     showDeprecated: true,
     showUnreleased: true,
     showInternal: true,
     plugins,
     pluginSearchDirs
-  }).options;
+  });
 
   const detailedOptionMap = normalizeDetailedOptionMap({
     ...createDetailedOptionMap(supportOptions),
@@ -1019,25 +930,38 @@ function updateContextOptions(context, plugins, pluginSearchDirs) {
     )
   };
 
-  context.supportOptions = supportOptions;
-  context.detailedOptions = detailedOptions;
-  context.detailedOptionMap = detailedOptionMap;
-  context.apiDefaultOptions = apiDefaultOptions;
+  Object.assign(context, {
+    supportOptions,
+    detailedOptions,
+    detailedOptionMap,
+    apiDefaultOptions,
+    languages
+  });
 }
 
+/**
+ * @param {Context} context
+ * @param {string[]} plugins
+ * @param {string[]=} pluginSearchDirs
+ */
 function pushContextPlugins(context, plugins, pluginSearchDirs) {
-  context._supportOptions = context.supportOptions;
-  context._detailedOptions = context.detailedOptions;
-  context._detailedOptionMap = context.detailedOptionMap;
-  context._apiDefaultOptions = context.apiDefaultOptions;
+  context.stack.push(
+    pick(context, [
+      "supportOptions",
+      "detailedOptions",
+      "detailedOptionMap",
+      "apiDefaultOptions",
+      "languages"
+    ])
+  );
   updateContextOptions(context, plugins, pluginSearchDirs);
 }
 
+/**
+ * @param {Context} context
+ */
 function popContextPlugins(context) {
-  context.supportOptions = context._supportOptions;
-  context.detailedOptions = context._detailedOptions;
-  context.detailedOptionMap = context._detailedOptionMap;
-  context.apiDefaultOptions = context._apiDefaultOptions;
+  Object.assign(context, context.stack.pop());
 }
 
 function updateContextArgv(context, plugins, pluginSearchDirs) {

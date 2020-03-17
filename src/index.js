@@ -27,6 +27,7 @@ function _withPlugins(
 function withPlugins(fn, optsArgIdx) {
   const resultingFn = _withPlugins(fn, optsArgIdx);
   if (fn.sync) {
+    // @ts-ignore
     resultingFn.sync = _withPlugins(fn.sync, optsArgIdx);
   }
   return resultingFn;
@@ -55,8 +56,11 @@ module.exports = {
     plugins.clearCache();
   },
 
-  getFileInfo: withPlugins(getFileInfo),
-  getSupportInfo: withPlugins(getSupportInfo, 0),
+  getFileInfo: /** @type {typeof getFileInfo} */ (withPlugins(getFileInfo)),
+  getSupportInfo: /** @type {typeof getSupportInfo} */ (withPlugins(
+    getSupportInfo,
+    0
+  )),
 
   version,
 
