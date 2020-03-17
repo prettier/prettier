@@ -42,7 +42,7 @@ jobs:
         run: yarn test
 
       - name: Upload Coverage To Codecov
-        uses: codecov/codecov-action@v1
+        uses: codecov/codecov-action@master
         if: matrix.ENABLE_CODE_COVERAGE
         with:
           file: ./coverage/cobertura-coverage.xml
