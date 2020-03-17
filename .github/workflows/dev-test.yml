@@ -19,7 +19,7 @@ jobs:
           # only enable coverage on the fastest job
           - os: "ubuntu-latest"
             node: "12"
-            ENABLE_CODE_COVERAGE: 1
+            ENABLE_CODE_COVERAGE: true
     env:
       ENABLE_CODE_COVERAGE: ${{ matrix.ENABLE_CODE_COVERAGE }}
     name: Node.js ${{ matrix.node }} on ${{ matrix.os }}
@@ -41,7 +41,7 @@ jobs:
       - name: Run Tests
         run: yarn test
 
-      - name: Upload Coverage To Codecov
+      - name: Upload Coverage
         uses: codecov/codecov-action@master
         if: matrix.ENABLE_CODE_COVERAGE
         with:

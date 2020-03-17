@@ -107,7 +107,7 @@ jobs:
           - "12"
           - "10"
     env:
-      STANDALONE: 1
+      STANDALONE: true
     name: Node.js ${{ matrix.node }} on ${{ matrix.os }} (standalone)
     runs-on: ${{ matrix.os }}
     needs: [build]
