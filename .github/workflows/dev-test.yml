@@ -45,6 +45,5 @@ jobs:
         uses: codecov/codecov-action@v1
         if: matrix.ENABLE_CODE_COVERAGE
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}
           file: ./coverage/cobertura-coverage.xml
           fail_ci_if_error: true
