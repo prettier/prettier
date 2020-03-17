@@ -38,10 +38,12 @@ function calculateLoc(node, text) {
 }
 
 // Workaround for a bug: quotes in inline comments corrupt loc data of subsequent nodes.
-// This function replaces the quotes with \0 and \uffff. Later, when the comments are printed,
-// their content is extracted from the original text.
+// This function replaces the quotes with \ufffe and \uffff. Later, when the comments are printed,
+// their content is extracted from the original text or restored by replacing the placeholder
+// characters back with quotes.
 // https://github.com/prettier/prettier/issues/7780
 // https://github.com/shellscape/postcss-less/issues/145
+// About noncharacters U+FFFE and U+FFFF: http://www.unicode.org/faq/private_use.html#nonchar1
 /** @param text {string} */
 function replaceQuotesInInlineComments(text) {
   /** @type { 'initial' | 'single-quotes' | 'double-quotes' | 'url' | 'comment-block' | 'comment-inline' } */
@@ -136,7 +138,7 @@ function replaceQuotesInInlineComments(text) {
       text.slice(0, start) +
       text
         .slice(start, end)
-        .replace(/'/g, "\0")
+        .replace(/'/g, "\ufffe")
         .replace(/"/g, "\uffff") +
       text.slice(end);
   }
@@ -144,4 +146,12 @@ function replaceQuotesInInlineComments(text) {
   return text;
 }
 
-module.exports = { calculateLoc, replaceQuotesInInlineComments };
+function restoreQuotesInInlineComments(text) {
+  return text.replace(/\ufffe/g, "'").replace(/\uffff/g, '"');
+}
+
+module.exports = {
+  calculateLoc,
+  replaceQuotesInInlineComments,
+  restoreQuotesInInlineComments
+};

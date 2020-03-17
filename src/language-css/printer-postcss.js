@@ -10,6 +10,7 @@ const {
   hasNewline
 } = require("../common/util");
 const { isNextLineEmpty } = require("../common/util-shared");
+const { restoreQuotesInInlineComments } = require("./loc");
 
 const {
   builders: {
@@ -483,7 +484,7 @@ function genericPrint(path, options, print) {
         node.inline ? "//" : "/*",
         // see replaceQuotesInInlineComments in loc.js
         // value-* nodes don't have correct location data, so we have to rely on placeholder characters.
-        node.value.replace(/\0/g, "'").replace(/\uffff/g, '"'),
+        restoreQuotesInInlineComments(node.value),
         node.inline ? "" : "*/"
       ]);
     }
