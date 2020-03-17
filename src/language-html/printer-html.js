@@ -26,11 +26,11 @@ const {
   forceBreakChildren,
   forceBreakContent,
   forceNextEmptyLine,
+  getIgnoreRanges,
   getLastDescendant,
   getPrettierIgnoreAttributeCommentData,
   hasPrettierIgnore,
   inferScriptParser,
-  isPrettierIgnore,
   isScriptLikeTag,
   isTextLikeNode,
   normalizeParts,
@@ -376,42 +376,9 @@ function genericPrint(path, options, print) {
   }
 }
 
-function getIgnoreRanges(children) {
-  /** @typedef {{ index: number, offset: number }} IgnorePosition */
-  /** @type {Array<{start: IgnorePosition, end: IgnorePosition}>} */
-  const ignoreRanges = [];
-
-  /** @type {IgnorePosition | null} */
-  let ignoreStart = null;
-
-  children.forEach((childNode, index) => {
-    switch (isPrettierIgnore(childNode)) {
-      case "start":
-        if (ignoreStart === null) {
-          ignoreStart = { index, offset: childNode.sourceSpan.end.offset };
-        }
-        break;
-      case "end":
-        if (ignoreStart !== null) {
-          ignoreRanges.push({
-            start: ignoreStart,
-            end: { index, offset: childNode.sourceSpan.start.offset }
-          });
-          ignoreStart = null;
-        }
-        break;
-      default:
-        // do nothing
-        break;
-    }
-  });
-
-  return ignoreRanges;
-}
-
 function printChildren(path, options, print) {
   const node = path.getValue();
-  const children = node.children;
+  const { children } = node;
   const ignoreRanges = getIgnoreRanges(children);
 
   if (forceBreakChildren(node)) {
