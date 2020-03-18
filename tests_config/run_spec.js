@@ -147,7 +147,7 @@ global.run_spec = (dirname, parsers, options) => {
       !TEST_CRLF &&
       !unstableTests.has(filename)
     ) {
-      test(`${filename} second format`, () => {
+      test(`${basename} second format`, () => {
         const secondOutput = format(output, filename, mainOptions);
         if (unstableTests.has(filename)) {
           // To keep eye on failed tests, this assert never supposed to pass,
@@ -168,7 +168,7 @@ global.run_spec = (dirname, parsers, options) => {
     }
 
     if (AST_COMPARE) {
-      test(`${filename} parse`, () => {
+      test(`${basename} parse`, () => {
         const parseOptions = { ...mainOptions };
         delete parseOptions.cursorOffset;
 
