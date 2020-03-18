@@ -11,7 +11,6 @@ module.exports = {
     "jest-snapshot-serializer-ansi"
   ],
   testRegex: "jsfmt\\.spec\\.js$|__tests__/.*\\.js$",
-  testPathIgnorePatterns: ["tests/new_react", "tests/more_react"],
   collectCoverage: ENABLE_CODE_COVERAGE,
   collectCoverageFrom: ["src/**/*.js", "!<rootDir>/node_modules/"],
   coveragePathIgnorePatterns: [
