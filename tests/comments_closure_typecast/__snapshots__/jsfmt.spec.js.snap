@@ -323,10 +323,12 @@ const BarImpl = /** @type {BarConstructor} */ (
 =====================================output=====================================
 foo = /** @type {!Foo} */ (/** @type {!Baz} */ (baz).bar);
 
-const BarImpl = /** @type {BarConstructor} */ (/** @type {unknown} */
-(function Bar() {
-  throw new Error("Internal error: Illegal constructor");
-}));
+const BarImpl = /** @type {BarConstructor} */ (
+  /** @type {unknown} */
+  (function Bar() {
+    throw new Error("Internal error: Illegal constructor");
+  })
+);
 
 ================================================================================
 `;
@@ -359,6 +361,41 @@ z((x) => {
 let q = z((x) => {
   return 1;
 });
+
+================================================================================
+`;
+
+exports[`object-with-comment.js 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const objectWithComment = /** @type MyType */ (
+  /* comment */
+  {
+    foo: bar
+  }
+);
+
+const objectWithComment2 = /** @type MyType */ (  /* comment */  {
+    foo: bar
+  }
+);
+
+=====================================output=====================================
+const objectWithComment = /** @type MyType */ (
+  /* comment */
+  {
+    foo: bar,
+  }
+);
+
+const objectWithComment2 = /** @type MyType */ (
+  /* comment */ {
+    foo: bar,
+  }
+);
 
 ================================================================================
 `;
