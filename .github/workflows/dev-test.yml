@@ -45,5 +45,5 @@ jobs:
         uses: codecov/codecov-action@master
         if: matrix.ENABLE_CODE_COVERAGE
         with:
-          file: ./coverage/cobertura-coverage.xml
+          file: ./coverage/lcov.info
           fail_ci_if_error: true
