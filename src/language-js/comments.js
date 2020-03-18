@@ -74,6 +74,7 @@ function handleOwnLineComment(comment, text, options, ast, isLastComment) {
 function handleEndOfLineComment(comment, text, options, ast, isLastComment) {
   const { precedingNode, enclosingNode, followingNode } = comment;
   return (
+    handleClosureTypeCastComments(followingNode, comment) ||
     handleLastFunctionArgComments(
       text,
       precedingNode,
@@ -197,6 +198,14 @@ function addBlockOrNotComment(node, comment) {
   } else {
     addLeadingComment(node, comment);
   }
+}
+
+function handleClosureTypeCastComments(followingNode, comment) {
+  if (followingNode && isTypeCastComment(comment)) {
+    addLeadingComment(followingNode, comment);
+    return true;
+  }
+  return false;
 }
 
 // There are often comments before the else clause of if statements like
