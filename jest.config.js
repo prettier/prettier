@@ -13,9 +13,8 @@ module.exports = {
   testRegex: "jsfmt\\.spec\\.js$|__tests__/.*\\.js$",
   testPathIgnorePatterns: ["tests/new_react", "tests/more_react"],
   collectCoverage: ENABLE_CODE_COVERAGE,
-  collectCoverageFrom: ["src/**/*.js", "index.js", "!<rootDir>/node_modules/"],
+  collectCoverageFrom: ["src/**/*.js", "!<rootDir>/node_modules/"],
   coveragePathIgnorePatterns: [
-    "<rootDir>/standalone.js",
     "<rootDir>/src/doc/doc-debug.js",
     "<rootDir>/src/main/massage-ast.js"
   ],
