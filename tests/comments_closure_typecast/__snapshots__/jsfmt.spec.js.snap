@@ -97,6 +97,11 @@ var foo = /** @type {!Foo} */ (((/** @type {!Baz} */ (baz)).bar).foo);
 var foo = /** @type {!Foo} */ ((/** @type {!Baz} */ (baz).bar).foo);
 var foo = /** @type {!Foo} */ (/** @type {!Baz} */ (baz).bar.foo);
 
+var foo = /** @type {!Foo} */ ((((/** @type {!Qux} */ (qux)).baz).bar).foo);
+var foo = /** @type {!Foo} */ (((/** @type {!Qux} */ (qux).baz).bar).foo);
+var foo = /** @type {!Foo} */ ((/** @type {!Qux} */ (qux).baz.bar).foo);
+var foo = /** @type {!Foo} */ (/** @type {!Qux} */ (qux).baz.bar.foo);
+
 =====================================output=====================================
 // test to make sure comments are attached correctly
 let inlineComment = /* some comment */ someReallyLongFunctionCall(
@@ -194,6 +199,11 @@ var foo = /** @type {!Foo} */ (/** @type {!Baz} */ (baz).bar.foo);
 var foo = /** @type {!Foo} */ (/** @type {!Baz} */ (baz).bar.foo);
 var foo = /** @type {!Foo} */ (/** @type {!Baz} */ (baz).bar.foo);
 var foo = /** @type {!Foo} */ (/** @type {!Baz} */ (baz).bar.foo);
+
+var foo = /** @type {!Foo} */ (/** @type {!Qux} */ (qux).baz.bar.foo);
+var foo = /** @type {!Foo} */ (/** @type {!Qux} */ (qux).baz.bar.foo);
+var foo = /** @type {!Foo} */ (/** @type {!Qux} */ (qux).baz.bar.foo);
+var foo = /** @type {!Foo} */ (/** @type {!Qux} */ (qux).baz.bar.foo);
 
 ================================================================================
 `;

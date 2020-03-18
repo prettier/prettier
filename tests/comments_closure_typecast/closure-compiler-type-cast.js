@@ -88,3 +88,8 @@ var foo = /** @type {!Foo} */ (((/** @type {!Baz} */ (baz).bar)).foo);
 var foo = /** @type {!Foo} */ (((/** @type {!Baz} */ (baz)).bar).foo);
 var foo = /** @type {!Foo} */ ((/** @type {!Baz} */ (baz).bar).foo);
 var foo = /** @type {!Foo} */ (/** @type {!Baz} */ (baz).bar.foo);
+
+var foo = /** @type {!Foo} */ ((((/** @type {!Qux} */ (qux)).baz).bar).foo);
+var foo = /** @type {!Foo} */ (((/** @type {!Qux} */ (qux).baz).bar).foo);
+var foo = /** @type {!Foo} */ ((/** @type {!Qux} */ (qux).baz.bar).foo);
+var foo = /** @type {!Foo} */ (/** @type {!Qux} */ (qux).baz.bar.foo);
