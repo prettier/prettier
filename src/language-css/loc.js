@@ -37,17 +37,22 @@ function calculateLoc(node, text) {
   }
 }
 
-// Workaround for a bug: quotes in inline comments corrupt loc data of subsequent nodes.
-// This function replaces the quotes with \ufffe and \uffff. Later, when the comments are printed,
-// their content is extracted from the original text or restored by replacing the placeholder
-// characters back with quotes.
-// https://github.com/prettier/prettier/issues/7780
-// https://github.com/shellscape/postcss-less/issues/145
-// About noncharacters U+FFFE and U+FFFF: http://www.unicode.org/faq/private_use.html#nonchar1
-/** @param text {string} */
+/**
+ * Workaround for a bug: quotes in inline comments corrupt loc data of subsequent nodes.
+ * This function replaces the quotes with U+FFFE and U+FFFF. Later, when the comments are printed,
+ * their content is extracted from the original text or restored by replacing the placeholder
+ * characters back with quotes.
+ * - https://github.com/prettier/prettier/issues/7780
+ * - https://github.com/shellscape/postcss-less/issues/145
+ * - About noncharacters (U+FFFE and U+FFFF): http://www.unicode.org/faq/private_use.html#nonchar1
+ * @param text {string}
+ */
 function replaceQuotesInInlineComments(text) {
-  /** @type { 'initial' | 'single-quotes' | 'double-quotes' | 'url' | 'comment-block' | 'comment-inline' } */
+  /** @typedef { 'initial' | 'single-quotes' | 'double-quotes' | 'url' | 'comment-block' | 'comment-inline' } State */
+  /** @type {State} */
   let state = "initial";
+  /** @type {State} */
+  let stateToReturnFromQuotes = "initial";
   let inlineCommentStartIndex;
   let inlineCommentContainsQuotes = false;
   const inlineCommentsToReplace = [];
@@ -67,8 +72,12 @@ function replaceQuotesInInlineComments(text) {
           continue;
         }
 
-        if (c === "(" && /\burl$/i.test(text.slice(i - 4, i))) {
+        if (
+          (c === "u" || c === "U") &&
+          text.slice(i, i + 4).toLowerCase() === "url("
+        ) {
           state = "url";
+          i += 3;
           continue;
         }
 
@@ -87,7 +96,8 @@ function replaceQuotesInInlineComments(text) {
 
       case "single-quotes":
         if (c === "'" && text[i - 1] !== "\\") {
-          state = "initial";
+          state = stateToReturnFromQuotes;
+          stateToReturnFromQuotes = "initial";
         }
         if (c === "\n" || c === "\r") {
           return text; // invalid input
@@ -96,7 +106,8 @@ function replaceQuotesInInlineComments(text) {
 
       case "double-quotes":
         if (c === '"' && text[i - 1] !== "\\") {
-          state = "initial";
+          state = stateToReturnFromQuotes;
+          stateToReturnFromQuotes = "initial";
         }
         if (c === "\n" || c === "\r") {
           return text; // invalid input
@@ -109,6 +120,16 @@ function replaceQuotesInInlineComments(text) {
         }
         if (c === "\n" || c === "\r") {
           return text; // invalid input
+        }
+        if (c === "'") {
+          state = "single-quotes";
+          stateToReturnFromQuotes = "url";
+          continue;
+        }
+        if (c === '"') {
+          state = "double-quotes";
+          stateToReturnFromQuotes = "url";
+          continue;
         }
         continue;
 

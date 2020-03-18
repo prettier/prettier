@@ -3396,6 +3396,8 @@ printWidth: 80
     
 .b { background:url(http://example.com); }   .b::after { content: "a"; }
 
+.bb { background:url('http://example.com/(foo)bar'); }   .bb::after { content: "'a"; } // """
+
 // Animation   !
 .c { color:red    }
 
@@ -3427,6 +3429,13 @@ printWidth: 80
 .b::after {
   content: "a";
 }
+
+.bb {
+  background: url("http://example.com/(foo)bar");
+}
+.bb::after {
+  content: "'a";
+} // """
 
 // Animation   !
 .c {
