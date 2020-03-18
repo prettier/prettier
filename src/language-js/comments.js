@@ -120,7 +120,15 @@ function handleEndOfLineComment(comment, text, options, ast, isLastComment) {
     handlePropertyComments(enclosingNode, comment) ||
     handleOnlyComments(enclosingNode, ast, comment, isLastComment) ||
     handleTypeAliasComments(enclosingNode, followingNode, comment) ||
-    handleVariableDeclaratorComments(enclosingNode, followingNode, comment)
+    handleVariableDeclaratorComments(enclosingNode, followingNode, comment) ||
+    handleLogicalExpression(
+      text,
+      enclosingNode,
+      precedingNode,
+      followingNode,
+      comment,
+      options
+    )
   );
 }
 
@@ -908,6 +916,30 @@ function handleTSMappedTypeComments(
     return true;
   }
 
+  return false;
+}
+
+function handleLogicalExpression(
+  text,
+  enclosingNode,
+  precedingNode,
+  followingNode,
+  comment,
+  options
+) {
+  if (enclosingNode && enclosingNode.type === "LogicalExpression") {
+    if (
+      followingNode &&
+      ((["babel", "babel-ts"].includes(options.parser) &&
+        comment.type === "CommentBlock") ||
+        (["flow", "typescript"].includes(options.parser) &&
+          comment.type === "Block")) &&
+      privateUtil.hasNewline(text, options.locEnd(comment))
+    ) {
+      addLeadingComment(followingNode, comment);
+      return true;
+    }
+  }
   return false;
 }
 
