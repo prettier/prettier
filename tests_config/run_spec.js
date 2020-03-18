@@ -156,7 +156,7 @@ global.run_spec = (dirname, parsers, options) => {
       typeof cursorOffset === "undefined" &&
       !TEST_CRLF
     ) {
-      test(`${basename} second format - ${JSON.stringify(options)}`, () => {
+      test(`${basename} second format`, () => {
         const secondOutput = format(output, filename, mainOptions);
         const isUnstable = unstableTests.get(filename);
         if (isUnstable && isUnstable(options || {})) {
