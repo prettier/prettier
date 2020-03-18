@@ -35,8 +35,8 @@ const unstableTests = new Map(
     "js_empty/semicolon.js",
     "jsx_ignore/jsx_ignore.js",
     "markdown_footnoteDefinition/multiline.md",
-    ["markdown_spec/example-234.md"],
-    ["markdown_spec/example-235.md"],
+    "markdown_spec/example-234.md",
+    "markdown_spec/example-235.md",
     "multiparser_html_js/script-tag-escaping.html",
     [
       "multiparser_js_markdown/codeblock.js",
