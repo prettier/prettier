@@ -25,6 +25,16 @@ global.run_spec = (dirname, parsers, options) => {
     throw new Error(`No parsers were specified for ${dirname}`);
   }
 
+  let stringifyOptions = JSON.stringify(options || {}, (key, value) =>
+    key === "disableBabelTS"
+      ? undefined
+      : value === Infinity
+      ? "Infinity"
+      : value
+  );
+
+  stringifyOptions = stringifyOptions === "{}" ? "" : ` - ${stringifyOptions}`;
+
   const files = fs.readdirSync(dirname, { withFileTypes: true });
   for (const file of files) {
     const basename = file.name;
@@ -79,7 +89,7 @@ global.run_spec = (dirname, parsers, options) => {
     const output = format(input, filename, mainOptions);
     const visualizedOutput = visualizeEndOfLine(output);
 
-    test(basename, () => {
+    test(`${basename}${stringifyOptions}`, () => {
       expect(visualizedOutput).toEqual(
         visualizeEndOfLine(consistentEndOfLine(output))
       );
@@ -116,14 +126,14 @@ global.run_spec = (dirname, parsers, options) => {
 
     for (const parser of parsersToVerify) {
       const verifyOptions = { ...baseOptions, parser };
-      test(`${basename} - ${parser}-verify`, () => {
+      test(`${basename}(verify with ${parser})${stringifyOptions}`, () => {
         const verifyOutput = format(input, filename, verifyOptions);
         expect(visualizeEndOfLine(verifyOutput)).toEqual(visualizedOutput);
       });
     }
 
     if (AST_COMPARE) {
-      test(`${filename} parse`, () => {
+      test(`${basename}(parse)${stringifyOptions}`, () => {
         const parseOptions = { ...mainOptions };
         delete parseOptions.cursorOffset;
 

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`import_comma.scss 1`] = `
+exports[`import_comma.scss - {"trailingComma":"none"} 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
@@ -15,7 +15,7 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`import_comma.scss 2`] = `
+exports[`import_comma.scss 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
@@ -29,7 +29,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`scss.scss 1`] = `
+exports[`scss.scss - {"trailingComma":"none"} 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
@@ -2058,7 +2058,7 @@ label {
 ================================================================================
 `;
 
-exports[`scss.scss 2`] = `
+exports[`scss.scss 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
@@ -4086,7 +4086,7 @@ label {
 ================================================================================
 `;
 
-exports[`string-concatanation.scss 1`] = `
+exports[`string-concatanation.scss - {"trailingComma":"none"} 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
@@ -4111,7 +4111,7 @@ a {
 ================================================================================
 `;
 
-exports[`string-concatanation.scss 2`] = `
+exports[`string-concatanation.scss 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80

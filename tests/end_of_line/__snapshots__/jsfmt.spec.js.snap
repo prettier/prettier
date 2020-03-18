@@ -1,25 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`example.js 1`] = `
-====================================options=====================================
-endOfLine: "lf"
-parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-function f() {<LF>
-  console.log("testing line endings");<LF>
-}<LF>
-
-=====================================output=====================================
-function f() {<LF>
-  console.log("testing line endings");<LF>
-}<LF>
-
-================================================================================
-`;
-
-exports[`example.js 2`] = `
+exports[`example.js - {"endOfLine":"cr"} 1`] = `
 ====================================options=====================================
 endOfLine: "cr"
 parsers: ["babel"]
@@ -38,7 +19,7 @@ function f() {<CR>
 ================================================================================
 `;
 
-exports[`example.js 3`] = `
+exports[`example.js - {"endOfLine":"crlf"} 1`] = `
 ====================================options=====================================
 endOfLine: "crlf"
 parsers: ["babel"]
@@ -53,6 +34,25 @@ function f() {<LF>
 function f() {<CRLF>
   console.log("testing line endings");<CRLF>
 }<CRLF>
+
+================================================================================
+`;
+
+exports[`example.js - {"endOfLine":"lf"} 1`] = `
+====================================options=====================================
+endOfLine: "lf"
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+function f() {<LF>
+  console.log("testing line endings");<LF>
+}<LF>
+
+=====================================output=====================================
+function f() {<LF>
+  console.log("testing line endings");<LF>
+}<LF>
 
 ================================================================================
 `;

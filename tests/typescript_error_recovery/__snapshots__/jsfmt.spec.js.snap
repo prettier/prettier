@@ -1,9 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`generic.ts 1`] = `
+exports[`generic.ts - {"trailingComma":"all"} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
+trailingComma: "all"
                                                                                 | printWidth
 =====================================input======================================
 f1<>();
@@ -50,7 +51,7 @@ class f7<> {
 ================================================================================
 `;
 
-exports[`generic.ts 2`] = `
+exports[`generic.ts - {"trailingComma":"es5"} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -101,11 +102,10 @@ class f7<> {
 ================================================================================
 `;
 
-exports[`generic.ts 3`] = `
+exports[`generic.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
-trailingComma: "all"
                                                                                 | printWidth
 =====================================input======================================
 f1<>();
@@ -148,6 +148,108 @@ interface f6<> {
 class f7<> {
   test<>() {}
 }
+
+================================================================================
+`;
+
+exports[`index-signature.ts - {"trailingComma":"all"} 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
+type A = { [key: string] };
+
+type TwoParams = {
+  [a: string, b: string]: string;
+};
+type ThreeParams = {
+  [a: string, b: string, c: string]: string;
+};
+
+type TooLong = {
+  [loooooooooooooooooooooooooong: string, looooooooooooooooooooooooooooooooooooooong: string]: string;
+}
+type TooLong81 = { [loooooooooooooooooooooooooong: string, loooooooooooooooooong: string]: string; }
+type TooLong80 = { [loooooooooooooooooooooooooong: string, looooooooooooooooong: string]: string; }
+
+=====================================output=====================================
+type A = { [key: string] };
+
+type TwoParams = {
+  [a: string, b: string]: string;
+};
+type ThreeParams = {
+  [a: string, b: string, c: string]: string;
+};
+
+type TooLong = {
+  [
+    loooooooooooooooooooooooooong: string,
+    looooooooooooooooooooooooooooooooooooooong: string,
+  ]: string;
+};
+type TooLong81 = {
+  [
+    loooooooooooooooooooooooooong: string,
+    loooooooooooooooooong: string,
+  ]: string;
+};
+type TooLong80 = {
+  [loooooooooooooooooooooooooong: string, looooooooooooooooong: string]: string;
+};
+
+================================================================================
+`;
+
+exports[`index-signature.ts - {"trailingComma":"es5"} 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+type A = { [key: string] };
+
+type TwoParams = {
+  [a: string, b: string]: string;
+};
+type ThreeParams = {
+  [a: string, b: string, c: string]: string;
+};
+
+type TooLong = {
+  [loooooooooooooooooooooooooong: string, looooooooooooooooooooooooooooooooooooooong: string]: string;
+}
+type TooLong81 = { [loooooooooooooooooooooooooong: string, loooooooooooooooooong: string]: string; }
+type TooLong80 = { [loooooooooooooooooooooooooong: string, looooooooooooooooong: string]: string; }
+
+=====================================output=====================================
+type A = { [key: string] };
+
+type TwoParams = {
+  [a: string, b: string]: string;
+};
+type ThreeParams = {
+  [a: string, b: string, c: string]: string;
+};
+
+type TooLong = {
+  [
+    loooooooooooooooooooooooooong: string,
+    looooooooooooooooooooooooooooooooooooooong: string,
+  ]: string;
+};
+type TooLong81 = {
+  [
+    loooooooooooooooooooooooooong: string,
+    loooooooooooooooooong: string,
+  ]: string;
+};
+type TooLong80 = {
+  [loooooooooooooooooooooooooong: string, looooooooooooooooong: string]: string;
+};
 
 ================================================================================
 `;
@@ -202,104 +304,60 @@ type TooLong80 = {
 ================================================================================
 `;
 
-exports[`index-signature.ts 2`] = `
-====================================options=====================================
-parsers: ["typescript"]
-printWidth: 80
-trailingComma: "es5"
-                                                                                | printWidth
-=====================================input======================================
-type A = { [key: string] };
-
-type TwoParams = {
-  [a: string, b: string]: string;
-};
-type ThreeParams = {
-  [a: string, b: string, c: string]: string;
-};
-
-type TooLong = {
-  [loooooooooooooooooooooooooong: string, looooooooooooooooooooooooooooooooooooooong: string]: string;
-}
-type TooLong81 = { [loooooooooooooooooooooooooong: string, loooooooooooooooooong: string]: string; }
-type TooLong80 = { [loooooooooooooooooooooooooong: string, looooooooooooooooong: string]: string; }
-
-=====================================output=====================================
-type A = { [key: string] };
-
-type TwoParams = {
-  [a: string, b: string]: string;
-};
-type ThreeParams = {
-  [a: string, b: string, c: string]: string;
-};
-
-type TooLong = {
-  [
-    loooooooooooooooooooooooooong: string,
-    looooooooooooooooooooooooooooooooooooooong: string,
-  ]: string;
-};
-type TooLong81 = {
-  [
-    loooooooooooooooooooooooooong: string,
-    loooooooooooooooooong: string,
-  ]: string;
-};
-type TooLong80 = {
-  [loooooooooooooooooooooooooong: string, looooooooooooooooong: string]: string;
-};
-
-================================================================================
-`;
-
-exports[`index-signature.ts 3`] = `
+exports[`jsdoc_only_types.ts - {"trailingComma":"all"} 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
 trailingComma: "all"
                                                                                 | printWidth
 =====================================input======================================
-type A = { [key: string] };
-
-type TwoParams = {
-  [a: string, b: string]: string;
-};
-type ThreeParams = {
-  [a: string, b: string, c: string]: string;
-};
-
-type TooLong = {
-  [loooooooooooooooooooooooooong: string, looooooooooooooooooooooooooooooooooooooong: string]: string;
-}
-type TooLong81 = { [loooooooooooooooooooooooooong: string, loooooooooooooooooong: string]: string; }
-type TooLong80 = { [loooooooooooooooooooooooooong: string, looooooooooooooooong: string]: string; }
+let a: *;
+function b(x: ?) {}
+let c: ?string;
+let d: string?;
+let e: ?(string | number);
+let f: !string;
+let g: string!;
+let h: !(string | number);
 
 =====================================output=====================================
-type A = { [key: string] };
+let a: *;
+function b(x: ?) {}
+let c: ?string;
+let d: ?string;
+let e: ?(string | number);
+let f: !string;
+let g: !string;
+let h: !(string | number);
 
-type TwoParams = {
-  [a: string, b: string]: string;
-};
-type ThreeParams = {
-  [a: string, b: string, c: string]: string;
-};
+================================================================================
+`;
 
-type TooLong = {
-  [
-    loooooooooooooooooooooooooong: string,
-    looooooooooooooooooooooooooooooooooooooong: string,
-  ]: string;
-};
-type TooLong81 = {
-  [
-    loooooooooooooooooooooooooong: string,
-    loooooooooooooooooong: string,
-  ]: string;
-};
-type TooLong80 = {
-  [loooooooooooooooooooooooooong: string, looooooooooooooooong: string]: string;
-};
+exports[`jsdoc_only_types.ts - {"trailingComma":"es5"} 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "es5"
+                                                                                | printWidth
+=====================================input======================================
+let a: *;
+function b(x: ?) {}
+let c: ?string;
+let d: string?;
+let e: ?(string | number);
+let f: !string;
+let g: string!;
+let h: !(string | number);
+
+=====================================output=====================================
+let a: *;
+function b(x: ?) {}
+let c: ?string;
+let d: ?string;
+let e: ?(string | number);
+let f: !string;
+let g: !string;
+let h: !(string | number);
 
 ================================================================================
 `;
@@ -308,64 +366,6 @@ exports[`jsdoc_only_types.ts 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-let a: *;
-function b(x: ?) {}
-let c: ?string;
-let d: string?;
-let e: ?(string | number);
-let f: !string;
-let g: string!;
-let h: !(string | number);
-
-=====================================output=====================================
-let a: *;
-function b(x: ?) {}
-let c: ?string;
-let d: ?string;
-let e: ?(string | number);
-let f: !string;
-let g: !string;
-let h: !(string | number);
-
-================================================================================
-`;
-
-exports[`jsdoc_only_types.ts 2`] = `
-====================================options=====================================
-parsers: ["typescript"]
-printWidth: 80
-trailingComma: "es5"
-                                                                                | printWidth
-=====================================input======================================
-let a: *;
-function b(x: ?) {}
-let c: ?string;
-let d: string?;
-let e: ?(string | number);
-let f: !string;
-let g: string!;
-let h: !(string | number);
-
-=====================================output=====================================
-let a: *;
-function b(x: ?) {}
-let c: ?string;
-let d: ?string;
-let e: ?(string | number);
-let f: !string;
-let g: !string;
-let h: !(string | number);
-
-================================================================================
-`;
-
-exports[`jsdoc_only_types.ts 3`] = `
-====================================options=====================================
-parsers: ["typescript"]
-printWidth: 80
-trailingComma: "all"
                                                                                 | printWidth
 =====================================input======================================
 let a: *;
