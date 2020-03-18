@@ -18,27 +18,37 @@ const prettier = !TEST_STANDALONE
   : require("prettier/standalone");
 
 // TODO: these test files need fix
-const unstableTests = new Set(
+const unstableTests = new Map(
   [
     "class_comment/comments.js",
-    "comments/dangling_array.js",
-    "comments/jsx.js",
+    ["comments/dangling_array.js", options => options.semi === false],
+    ["comments/jsx.js", options => options.semi === false],
     "comments/return-statement.js",
     "comments/tagged-template-literal.js",
     "css_atrule/include.css",
     "graphql_interface/separator-detection.graphql",
-    "html_angular/attributes.component.html",
+    [
+      "html_angular/attributes.component.html",
+      options => options.printWidth === 1
+    ],
     "html_prettier_ignore/cases.html",
     "js_empty/semicolon.js",
     "jsx_ignore/jsx_ignore.js",
     "markdown_footnoteDefinition/multiline.md",
-    "markdown_spec/example-234.md",
-    "markdown_spec/example-235.md",
+    ["markdown_spec/example-234.md"],
+    ["markdown_spec/example-235.md"],
     "multiparser_html_js/script-tag-escaping.html",
-    "multiparser_js_markdown/codeblock.js",
-    "no-semi/comments.js",
+    [
+      "multiparser_js_markdown/codeblock.js",
+      options => options.proseWrap === "always"
+    ],
+    ["no-semi/comments.js", options => options.semi === false],
     "yaml_prettier_ignore/document.yml"
-  ].map(file => path.join(__dirname, "../tests/", file))
+  ].map(fixture => {
+    fixture = Array.isArray(fixture) ? fixture : [fixture];
+    const [file, isUnstable = () => true] = fixture;
+    return [path.join(__dirname, "../tests/", file), isUnstable];
+  })
 );
 
 global.run_spec = (dirname, parsers, options) => {
@@ -144,12 +154,12 @@ global.run_spec = (dirname, parsers, options) => {
       typeof rangeStart === "undefined" &&
       typeof rangeEnd === "undefined" &&
       typeof cursorOffset === "undefined" &&
-      !TEST_CRLF &&
-      !unstableTests.has(filename)
+      !TEST_CRLF
     ) {
-      test(`${basename} second format`, () => {
+      test(`${basename} second format - ${JSON.stringify(options)}`, () => {
         const secondOutput = format(output, filename, mainOptions);
-        if (unstableTests.has(filename)) {
+        const isUnstable = unstableTests.get(filename);
+        if (isUnstable && isUnstable(options || {})) {
           // To keep eye on failed tests, this assert never supposed to pass,
           // if it fails, just remove the file from `unstableTests`
           expect(secondOutput).not.toEqual(output);
