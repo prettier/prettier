@@ -526,7 +526,8 @@ function printPathNoParens(path, options, print, args) {
       return concat([
         path.call(print, "expression"),
         isTheOnlyJSXElementInMarkdown(options, path) ? "" : semi
-      ]); // Babel extension.
+      ]);
+    // Babel non-standard node. Used for Closure-style type casts. See postprocess.js.
     case "ParenthesizedExpression":
       return concat(["(", path.call(print, "expression"), ")"]);
     case "AssignmentExpression":

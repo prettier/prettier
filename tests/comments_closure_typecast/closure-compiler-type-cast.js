@@ -44,6 +44,8 @@ const v3 = /** @type } */ (value);
 const v4 = /** @type { */ (value);
 const v5 = /** @type {{} */ (value);
 
+const w1 = /** @typefoo Foo */ (value);
+
 const style = /** @type {{
   width: number,
   height: number,

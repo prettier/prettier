@@ -3,83 +3,12 @@
 const assert = require("assert");
 
 const util = require("../common/util");
-const comments = require("./comments");
 const {
   getLeftSidePathName,
   hasFlowShorthandAnnotationComment,
   hasNakedLeftSide,
   hasNode
 } = require("./utils");
-
-function hasClosureCompilerTypeCastComment(text, path) {
-  // https://github.com/google/closure-compiler/wiki/Annotating-Types#type-casts
-  // Syntax example: var x = /** @type {string} */ (fruit);
-
-  const n = path.getValue();
-
-  return (
-    isParenthesized(n) &&
-    (hasTypeCastComment(n) || hasAncestorTypeCastComment(0))
-  );
-
-  // for sub-item: /** @type {array} */ (numberOrString).map(x => x);
-  function hasAncestorTypeCastComment(index) {
-    const ancestor = path.getParentNode(index);
-    return ancestor && !isParenthesized(ancestor)
-      ? hasTypeCastComment(ancestor) || hasAncestorTypeCastComment(index + 1)
-      : false;
-  }
-
-  function hasTypeCastComment(node) {
-    return (
-      node.comments &&
-      node.comments.some(
-        comment =>
-          comment.leading &&
-          comments.isBlockComment(comment) &&
-          isTypeCastComment(comment.value)
-      )
-    );
-  }
-
-  function isParenthesized(node) {
-    // Closure typecast comments only really make sense when _not_ using
-    // typescript or flow parsers, so we take advantage of the babel parser's
-    // parenthesized expressions.
-    return node.extra && node.extra.parenthesized;
-  }
-
-  function isTypeCastComment(comment) {
-    const cleaned = comment
-      .trim()
-      .split("\n")
-      .map(line => line.replace(/^[\s*]+/, "").replace(/[\s*]+$/, ""))
-      .join(" ")
-      .trim();
-    if (!/^@type\s*\{[^]+\}$/.test(cleaned)) {
-      return false;
-    }
-    let isCompletelyClosed = false;
-    let unpairedBracketCount = 0;
-    for (const char of cleaned) {
-      if (char === "{") {
-        if (isCompletelyClosed) {
-          return false;
-        }
-        unpairedBracketCount++;
-      } else if (char === "}") {
-        if (unpairedBracketCount === 0) {
-          return false;
-        }
-        unpairedBracketCount--;
-        if (unpairedBracketCount === 0) {
-          isCompletelyClosed = true;
-        }
-      }
-    }
-    return unpairedBracketCount === 0;
-  }
-}
 
 function needsParens(path, options) {
   const parent = path.getParentNode();
@@ -110,12 +39,6 @@ function needsParens(path, options) {
   // Only statements don't need parentheses.
   if (isStatement(node)) {
     return false;
-  }
-
-  // Closure compiler requires that type casted expressions to be surrounded by
-  // parentheses.
-  if (hasClosureCompilerTypeCastComment(options.originalText, path)) {
-    return true;
   }
 
   if (

@@ -5,8 +5,42 @@ const {
   getNextNonSpaceNonCommentCharacter
 } = require("../common/util");
 const { composeLoc, locEnd } = require("./loc");
+const { isTypeCastComment } = require("./comments");
 
 function postprocess(ast, options) {
+  // Keep Babel's non-standard ParenthesizedExpression nodes only if they have Closure-style type cast comments.
+  if (options.parser !== "typescript" && options.parser !== "flow") {
+    const startOffsetsOfTypeCastedNodes = new Set();
+
+    // Comments might be attached not directly to ParenthesizedExpression but to its ancestor.
+    // E.g.: /** @type {Foo} */ (foo).bar();
+    // Let's use the fact that those ancestors and ParenthesizedExpression have the same start offset.
+
+    visitNode(ast, node => {
+      if (
+        node.leadingComments &&
+        node.leadingComments.some(isTypeCastComment)
+      ) {
+        startOffsetsOfTypeCastedNodes.add(node.start);
+      }
+    });
+
+    visitNode(ast, node => {
+      if (
+        node.type === "ParenthesizedExpression" &&
+        !startOffsetsOfTypeCastedNodes.has(node.start)
+      ) {
+        const { expression } = node;
+        if (!expression.extra) {
+          expression.extra = {};
+        }
+        expression.extra.parenthesized = true;
+        expression.extra.parenStart = node.start;
+        return expression;
+      }
+    });
+  }
+
   visitNode(ast, node => {
     switch (node.type) {
       case "LogicalExpression": {

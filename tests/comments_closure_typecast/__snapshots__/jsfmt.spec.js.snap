@@ -1,5 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`binary-expr.js 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+var a = b || /** @type {string} */
+    (c);
+
+=====================================output=====================================
+var a = b /** @type {string} */ || (c);
+
+================================================================================
+`;
+
 exports[`closure-compiler-type-cast.js 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
@@ -51,6 +66,8 @@ const v2 = /** @type {}} */ (value);
 const v3 = /** @type } */ (value);
 const v4 = /** @type { */ (value);
 const v5 = /** @type {{} */ (value);
+
+const w1 = /** @typefoo Foo */ (value);
 
 const style = /** @type {{
   width: number,
@@ -125,11 +142,13 @@ const data = functionCall(
 );
 
 // Invalid type casts
-const v1 = /** @type {} */ value;
-const v2 = /** @type {}} */ value;
-const v3 = /** @type } */ value;
-const v4 = /** @type { */ value;
-const v5 = /** @type {{} */ value;
+const v1 = /** @type {} */ (value);
+const v2 = /** @type {}} */ (value);
+const v3 = /** @type } */ (value);
+const v4 = /** @type { */ (value);
+const v5 = /** @type {{} */ (value);
+
+const w1 = /** @typefoo Foo */ value;
 
 const style = /** @type {{
   width: number,
@@ -162,6 +181,40 @@ const v9 = /** @type {string} */ (value);
 ================================================================================
 `;
 
+exports[`comment-in-the-middle.js 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+var a =
+/**
+ * bla bla bla
+ * @type {string |
+  * number
+ * }
+* bla bla bla
+ */
+//2
+ ((window['s'])).toString();
+console.log(a.foo());
+
+=====================================output=====================================
+var a =
+  /**
+   * bla bla bla
+   * @type {string |
+   * number
+   * }
+   * bla bla bla
+   */
+  //2
+  (window["s"]).toString();
+console.log(a.foo());
+
+================================================================================
+`;
+
 exports[`extra-spaces-and-asterisks.js 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
@@ -186,6 +239,126 @@ const foo5 = /** @type {!Foo} * * */ (bar);
 const foo6 = /** @type {!Foo} *****/ (bar);
 const foo7 = /** @type {!Foo} *   *   *   *   */ (bar);
 const foo8 = /** @type {!Foo}    ** *   *   */ (bar);
+
+================================================================================
+`;
+
+exports[`issue-4124.js 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/** @type {Object} */(myObject.property).someProp = true;
+(/** @type {Object} */(myObject.property)).someProp = true;
+
+const prop = /** @type {Object} */(myObject.property).someProp;
+
+const test = /** @type (function (*): ?|undefined) */
+      (goog.partial(NewThing.onTemplateChange, rationaleField, typeField));
+
+const test = /** @type (function (*): ?|undefined) */ (goog.partial(NewThing.onTemplateChange, rationaleField, typeField));
+
+const model = /** @type {?{getIndex: Function}} */ (model);
+
+const foo = /** @type {string} */
+  (bar);
+
+const test = /** @type (function (*): ?|undefined) */ (foo);
+
+=====================================output=====================================
+/** @type {Object} */ (myObject.property).someProp = true;
+/** @type {Object} */ (myObject.property).someProp = true;
+
+const prop = /** @type {Object} */ (myObject.property).someProp;
+
+const test =
+  /** @type (function (*): ?|undefined) */
+  (goog.partial(NewThing.onTemplateChange, rationaleField, typeField));
+
+const test = /** @type (function (*): ?|undefined) */ (goog.partial(
+  NewThing.onTemplateChange,
+  rationaleField,
+  typeField
+));
+
+const model = /** @type {?{getIndex: Function}} */ (model);
+
+const foo = /** @type {string} */ (bar);
+
+const test = /** @type (function (*): ?|undefined) */ (foo);
+
+================================================================================
+`;
+
+exports[`member.js 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+foo = (/** @type {!Baz} */ (baz).bar);
+
+=====================================output=====================================
+foo = /** @type {!Baz} */ (baz).bar;
+
+================================================================================
+`;
+
+exports[`nested.js 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+foo = /** @type {!Foo} */ (/** @type {!Baz} */ (baz).bar );
+
+const BarImpl = /** @type {BarConstructor} */ (
+	/** @type {unknown} */
+	(function Bar() {
+		throw new Error("Internal error: Illegal constructor");
+	})
+);
+
+=====================================output=====================================
+foo = /** @type {!Foo} */ (/** @type {!Baz} */ (baz).bar);
+
+const BarImpl = /** @type {BarConstructor} */ (/** @type {unknown} */
+(function Bar() {
+  throw new Error("Internal error: Illegal constructor");
+}));
+
+================================================================================
+`;
+
+exports[`non-casts.js 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/* @type { } */
+z(x => {
+  (foo)((bar)(2+(3)))
+  return (1);
+})
+
+/** @type {number} */
+let q = z(x => {
+  return (1);
+})
+
+=====================================output=====================================
+/* @type { } */
+z((x) => {
+  foo(bar(2 + 3));
+  return 1;
+});
+
+/** @type {number} */
+let q = z((x) => {
+  return 1;
+});
 
 ================================================================================
 `;

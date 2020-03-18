@@ -14,6 +14,7 @@ function babelOptions(extraPlugins = []) {
     allowSuperOutsideMethod: true,
     allowUndeclaredExports: true,
     errorRecovery: true,
+    createParenthesizedExpressions: true,
     plugins: [
       "doExpressions",
       "objectRestSpread",

@@ -950,12 +950,32 @@ function getCommentChildNodes(node, options) {
   }
 }
 
+function removeJsDocAsterisks(commentValue) {
+  return commentValue
+    .split("\n")
+    .map(line => line.trim().replace(/^\*\s*/, ""))
+    .join("\n")
+    .trim();
+}
+
+function isTypeCastComment(comment) {
+  return (
+    isBlockComment(comment) &&
+    comment.value[0] === "*" &&
+    // TypeScript expects the type to be enclosed in curly brackets,
+    // however Closure Compiler accepts types in parens and even without any delimiters at all.
+    // That's why we only check that there is at least one non-whitespace character after "@type".
+    /@type\b\s*\S/.test(removeJsDocAsterisks(comment.value))
+  );
+}
+
 module.exports = {
   handleOwnLineComment,
   handleEndOfLineComment,
   handleRemainingComment,
   hasLeadingComment,
   isBlockComment,
+  isTypeCastComment,
   getGapRegex,
   getCommentChildNodes
 };
