@@ -14,7 +14,7 @@ module.exports = {
   collectCoverage: ENABLE_CODE_COVERAGE,
   collectCoverageFrom: ["src/**/*.js", "!<rootDir>/node_modules/"],
   coveragePathIgnorePatterns: [
-    "<rootDir>/src/doc/doc-debug.js",
+    "<rootDir>/src/document/doc-debug.js",
     "<rootDir>/src/main/massage-ast.js"
   ],
   coverageReporters: ["text", "html", "cobertura"],
