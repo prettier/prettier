@@ -45,8 +45,9 @@ const unstableTests = new Map(
     ["no-semi/comments.js", options => options.semi === false],
     "yaml_prettier_ignore/document.yml"
   ].map(fixture => {
-    fixture = Array.isArray(fixture) ? fixture : [fixture];
-    const [file, isUnstable = () => true] = fixture;
+    const [file, isUnstable = () => true] = Array.isArray(fixture)
+      ? fixture
+      : [fixture];
     return [path.join(__dirname, "../tests/", file), isUnstable];
   })
 );
