@@ -77,3 +77,14 @@ var foo = (/** @type {!Baz} */ (baz)).bar;
 var foo = (/** @type {!Baz} */ (baz).bar);
 var foo = /** @type {!Bar} */ ((/** @type {!Baz} */ (baz)).bar);
 var foo = /** @type {!Bar} */ (/** @type {!Baz} */ (baz).bar);
+
+var foo = /** @type {!Foo} */ ((/** @type {!Bar} */ ((/** @type {!Baz} */ (baz)).bar)).foo);
+var foo = /** @type {!Foo} */ ((/** @type {!Bar} */ (/** @type {!Baz} */ (baz).bar)).foo);
+var foo = /** @type {!Foo} */ (/** @type {!Bar} */ ((/** @type {!Baz} */ (baz)).bar).foo);
+var foo = /** @type {!Foo} */ (/** @type {!Bar} */ (/** @type {!Baz} */ (baz).bar).foo);
+
+var foo = /** @type {!Foo} */ ((((/** @type {!Baz} */ (baz)).bar)).foo);
+var foo = /** @type {!Foo} */ (((/** @type {!Baz} */ (baz).bar)).foo);
+var foo = /** @type {!Foo} */ (((/** @type {!Baz} */ (baz)).bar).foo);
+var foo = /** @type {!Foo} */ ((/** @type {!Baz} */ (baz).bar).foo);
+var foo = /** @type {!Foo} */ (/** @type {!Baz} */ (baz).bar.foo);
