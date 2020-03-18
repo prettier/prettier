@@ -601,6 +601,7 @@ function printPathNoParens(path, options, print, args) {
         parent.type === "ThrowStatement" ||
         (parent.type === "JSXExpressionContainer" &&
           parentParent.type === "JSXAttribute") ||
+        (n.operator !== "|" && parent.type === "JsExpressionRoot") ||
         (n.type !== "NGPipeExpression" &&
           ((parent.type === "NGRoot" && options.parser === "__ng_binding") ||
             (parent.type === "NGMicrosyntaxExpression" &&

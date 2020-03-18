@@ -1007,7 +1007,7 @@ semi: false
   <MyComponent
     :attr="
       \`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\` +
-        \`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
+      \`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
     "
   />
 </template>
@@ -1027,7 +1027,7 @@ semi: false
   <MyComponent
     :src="
       'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' +
-        'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'
+      'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'
     "
   />
 </template>
@@ -1081,7 +1081,7 @@ trailingComma: "none"
   <MyComponent
     :attr="
       \`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\` +
-        \`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
+      \`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
     "
   />
 </template>
@@ -1101,7 +1101,7 @@ trailingComma: "none"
   <MyComponent
     :src="
       'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' +
-        'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'
+      'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'
     "
   />
 </template>
@@ -1154,7 +1154,7 @@ printWidth: 80
   <MyComponent
     :attr="
       \`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\` +
-        \`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
+      \`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
     "
   />
 </template>
@@ -1174,7 +1174,7 @@ printWidth: 80
   <MyComponent
     :src="
       'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' +
-        'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'
+      'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'
     "
   />
 </template>
@@ -1843,15 +1843,15 @@ semi: false
   <pre class="woot">
   123{{
       wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq
+      wqeqwwqwqweqweqwewwq ||
+      wqeqwwqwqweqweqwewwq ||
+      wqeqwwqwqweqweqwewwq
     }}123
   123{{
       wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq
+      wqeqwwqwqweqweqwewwq ||
+      wqeqwwqwqweqweqwewwq ||
+      wqeqwwqwqweqweqwewwq
     }}123
     </pre
   >
@@ -1949,15 +1949,15 @@ trailingComma: "none"
   <pre class="woot">
   123{{
       wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq
+      wqeqwwqwqweqweqwewwq ||
+      wqeqwwqwqweqweqwewwq ||
+      wqeqwwqwqweqweqwewwq
     }}123
   123{{
       wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq
+      wqeqwwqwqweqweqwewwq ||
+      wqeqwwqwqweqweqwewwq ||
+      wqeqwwqwqweqweqwewwq
     }}123
     </pre
   >
@@ -2054,15 +2054,15 @@ printWidth: 80
   <pre class="woot">
   123{{
       wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq
+      wqeqwwqwqweqweqwewwq ||
+      wqeqwwqwqweqweqwewwq ||
+      wqeqwwqwqweqweqwewwq
     }}123
   123{{
       wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq
+      wqeqwwqwqweqweqwewwq ||
+      wqeqwwqwqweqweqwewwq ||
+      wqeqwwqwqweqweqwewwq
     }}123
     </pre
   >
@@ -3132,6 +3132,338 @@ printWidth: 80
     foo
     <br />
   </footer>
+</template>
+
+================================================================================
+`;
+
+exports[`v-if.vue 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+<template>
+<root>
+  <and v-if="
+long_long_long_long_long_long_long_condition_1 && long_long_long_long_long_long_long_condition_2 && short_1 && short_2 &&
+long_long_long_long_long_long_long_condition_3 &&
+long_long_long_long_long_long_long_condition_4
+"></and>
+  <and v-if="
+(long_long_long_long_long_long_long_condition_1 && long_long_long_long_long_long_long_condition_2 && (short_1 && short_2) ) &&
+long_long_long_long_long_long_long_condition_3 &&
+long_long_long_long_long_long_long_condition_4
+"></and>
+  <or v-if="
+long_long_long_long_long_long_long_condition_1 || long_long_long_long_long_long_long_condition_2 ||short_1 || short_2 ||
+long_long_long_long_long_long_long_condition_3 ||
+long_long_long_long_long_long_long_condition_4
+"></or>
+  <or v-if="
+(long_long_long_long_long_long_long_condition_1 || long_long_long_long_long_long_long_condition_2 || (short_1 || short_2) ||
+long_long_long_long_long_long_long_condition_3) ||
+long_long_long_long_long_long_long_condition_4
+"></or>
+  <mixed v-if="
+long_long_long_long_long_long_long_condition_1 && long_long_long_long_long_long_long_condition_2 ||  ((short_1 && short_2) &&
+long_long_long_long_long_long_long_condition_3 &&
+long_long_long_long_long_long_long_condition_4)
+"></mixed>
+  <mixed v-if="
+long_long_long_long_long_long_long_condition_1 && long_long_long_long_long_long_long_condition_2 || short_1 && short_2 &&
+long_long_long_long_long_long_long_condition_3 ||
+long_long_long_long_long_long_long_condition_4
+"></mixed>
+</root>
+</template>
+
+=====================================output=====================================
+<template>
+  <root>
+    <and
+      v-if="
+        long_long_long_long_long_long_long_condition_1 &&
+        long_long_long_long_long_long_long_condition_2 &&
+        short_1 &&
+        short_2 &&
+        long_long_long_long_long_long_long_condition_3 &&
+        long_long_long_long_long_long_long_condition_4
+      "
+    ></and>
+    <and
+      v-if="
+        long_long_long_long_long_long_long_condition_1 &&
+        long_long_long_long_long_long_long_condition_2 &&
+        short_1 &&
+        short_2 &&
+        long_long_long_long_long_long_long_condition_3 &&
+        long_long_long_long_long_long_long_condition_4
+      "
+    ></and>
+    <or
+      v-if="
+        long_long_long_long_long_long_long_condition_1 ||
+        long_long_long_long_long_long_long_condition_2 ||
+        short_1 ||
+        short_2 ||
+        long_long_long_long_long_long_long_condition_3 ||
+        long_long_long_long_long_long_long_condition_4
+      "
+    ></or>
+    <or
+      v-if="
+        long_long_long_long_long_long_long_condition_1 ||
+        long_long_long_long_long_long_long_condition_2 ||
+        short_1 ||
+        short_2 ||
+        long_long_long_long_long_long_long_condition_3 ||
+        long_long_long_long_long_long_long_condition_4
+      "
+    ></or>
+    <mixed
+      v-if="
+        (long_long_long_long_long_long_long_condition_1 &&
+          long_long_long_long_long_long_long_condition_2) ||
+        (short_1 &&
+          short_2 &&
+          long_long_long_long_long_long_long_condition_3 &&
+          long_long_long_long_long_long_long_condition_4)
+      "
+    ></mixed>
+    <mixed
+      v-if="
+        (long_long_long_long_long_long_long_condition_1 &&
+          long_long_long_long_long_long_long_condition_2) ||
+        (short_1 &&
+          short_2 &&
+          long_long_long_long_long_long_long_condition_3) ||
+        long_long_long_long_long_long_long_condition_4
+      "
+    ></mixed>
+  </root>
+</template>
+
+================================================================================
+`;
+
+exports[`v-if.vue 2`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<template>
+<root>
+  <and v-if="
+long_long_long_long_long_long_long_condition_1 && long_long_long_long_long_long_long_condition_2 && short_1 && short_2 &&
+long_long_long_long_long_long_long_condition_3 &&
+long_long_long_long_long_long_long_condition_4
+"></and>
+  <and v-if="
+(long_long_long_long_long_long_long_condition_1 && long_long_long_long_long_long_long_condition_2 && (short_1 && short_2) ) &&
+long_long_long_long_long_long_long_condition_3 &&
+long_long_long_long_long_long_long_condition_4
+"></and>
+  <or v-if="
+long_long_long_long_long_long_long_condition_1 || long_long_long_long_long_long_long_condition_2 ||short_1 || short_2 ||
+long_long_long_long_long_long_long_condition_3 ||
+long_long_long_long_long_long_long_condition_4
+"></or>
+  <or v-if="
+(long_long_long_long_long_long_long_condition_1 || long_long_long_long_long_long_long_condition_2 || (short_1 || short_2) ||
+long_long_long_long_long_long_long_condition_3) ||
+long_long_long_long_long_long_long_condition_4
+"></or>
+  <mixed v-if="
+long_long_long_long_long_long_long_condition_1 && long_long_long_long_long_long_long_condition_2 ||  ((short_1 && short_2) &&
+long_long_long_long_long_long_long_condition_3 &&
+long_long_long_long_long_long_long_condition_4)
+"></mixed>
+  <mixed v-if="
+long_long_long_long_long_long_long_condition_1 && long_long_long_long_long_long_long_condition_2 || short_1 && short_2 &&
+long_long_long_long_long_long_long_condition_3 ||
+long_long_long_long_long_long_long_condition_4
+"></mixed>
+</root>
+</template>
+
+=====================================output=====================================
+<template>
+  <root>
+    <and
+      v-if="
+        long_long_long_long_long_long_long_condition_1 &&
+        long_long_long_long_long_long_long_condition_2 &&
+        short_1 &&
+        short_2 &&
+        long_long_long_long_long_long_long_condition_3 &&
+        long_long_long_long_long_long_long_condition_4
+      "
+    ></and>
+    <and
+      v-if="
+        long_long_long_long_long_long_long_condition_1 &&
+        long_long_long_long_long_long_long_condition_2 &&
+        short_1 &&
+        short_2 &&
+        long_long_long_long_long_long_long_condition_3 &&
+        long_long_long_long_long_long_long_condition_4
+      "
+    ></and>
+    <or
+      v-if="
+        long_long_long_long_long_long_long_condition_1 ||
+        long_long_long_long_long_long_long_condition_2 ||
+        short_1 ||
+        short_2 ||
+        long_long_long_long_long_long_long_condition_3 ||
+        long_long_long_long_long_long_long_condition_4
+      "
+    ></or>
+    <or
+      v-if="
+        long_long_long_long_long_long_long_condition_1 ||
+        long_long_long_long_long_long_long_condition_2 ||
+        short_1 ||
+        short_2 ||
+        long_long_long_long_long_long_long_condition_3 ||
+        long_long_long_long_long_long_long_condition_4
+      "
+    ></or>
+    <mixed
+      v-if="
+        (long_long_long_long_long_long_long_condition_1 &&
+          long_long_long_long_long_long_long_condition_2) ||
+        (short_1 &&
+          short_2 &&
+          long_long_long_long_long_long_long_condition_3 &&
+          long_long_long_long_long_long_long_condition_4)
+      "
+    ></mixed>
+    <mixed
+      v-if="
+        (long_long_long_long_long_long_long_condition_1 &&
+          long_long_long_long_long_long_long_condition_2) ||
+        (short_1 &&
+          short_2 &&
+          long_long_long_long_long_long_long_condition_3) ||
+        long_long_long_long_long_long_long_condition_4
+      "
+    ></mixed>
+  </root>
+</template>
+
+================================================================================
+`;
+
+exports[`v-if.vue 3`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+<template>
+<root>
+  <and v-if="
+long_long_long_long_long_long_long_condition_1 && long_long_long_long_long_long_long_condition_2 && short_1 && short_2 &&
+long_long_long_long_long_long_long_condition_3 &&
+long_long_long_long_long_long_long_condition_4
+"></and>
+  <and v-if="
+(long_long_long_long_long_long_long_condition_1 && long_long_long_long_long_long_long_condition_2 && (short_1 && short_2) ) &&
+long_long_long_long_long_long_long_condition_3 &&
+long_long_long_long_long_long_long_condition_4
+"></and>
+  <or v-if="
+long_long_long_long_long_long_long_condition_1 || long_long_long_long_long_long_long_condition_2 ||short_1 || short_2 ||
+long_long_long_long_long_long_long_condition_3 ||
+long_long_long_long_long_long_long_condition_4
+"></or>
+  <or v-if="
+(long_long_long_long_long_long_long_condition_1 || long_long_long_long_long_long_long_condition_2 || (short_1 || short_2) ||
+long_long_long_long_long_long_long_condition_3) ||
+long_long_long_long_long_long_long_condition_4
+"></or>
+  <mixed v-if="
+long_long_long_long_long_long_long_condition_1 && long_long_long_long_long_long_long_condition_2 ||  ((short_1 && short_2) &&
+long_long_long_long_long_long_long_condition_3 &&
+long_long_long_long_long_long_long_condition_4)
+"></mixed>
+  <mixed v-if="
+long_long_long_long_long_long_long_condition_1 && long_long_long_long_long_long_long_condition_2 || short_1 && short_2 &&
+long_long_long_long_long_long_long_condition_3 ||
+long_long_long_long_long_long_long_condition_4
+"></mixed>
+</root>
+</template>
+
+=====================================output=====================================
+<template>
+  <root>
+    <and
+      v-if="
+        long_long_long_long_long_long_long_condition_1 &&
+        long_long_long_long_long_long_long_condition_2 &&
+        short_1 &&
+        short_2 &&
+        long_long_long_long_long_long_long_condition_3 &&
+        long_long_long_long_long_long_long_condition_4
+      "
+    ></and>
+    <and
+      v-if="
+        long_long_long_long_long_long_long_condition_1 &&
+        long_long_long_long_long_long_long_condition_2 &&
+        short_1 &&
+        short_2 &&
+        long_long_long_long_long_long_long_condition_3 &&
+        long_long_long_long_long_long_long_condition_4
+      "
+    ></and>
+    <or
+      v-if="
+        long_long_long_long_long_long_long_condition_1 ||
+        long_long_long_long_long_long_long_condition_2 ||
+        short_1 ||
+        short_2 ||
+        long_long_long_long_long_long_long_condition_3 ||
+        long_long_long_long_long_long_long_condition_4
+      "
+    ></or>
+    <or
+      v-if="
+        long_long_long_long_long_long_long_condition_1 ||
+        long_long_long_long_long_long_long_condition_2 ||
+        short_1 ||
+        short_2 ||
+        long_long_long_long_long_long_long_condition_3 ||
+        long_long_long_long_long_long_long_condition_4
+      "
+    ></or>
+    <mixed
+      v-if="
+        (long_long_long_long_long_long_long_condition_1 &&
+          long_long_long_long_long_long_long_condition_2) ||
+        (short_1 &&
+          short_2 &&
+          long_long_long_long_long_long_long_condition_3 &&
+          long_long_long_long_long_long_long_condition_4)
+      "
+    ></mixed>
+    <mixed
+      v-if="
+        (long_long_long_long_long_long_long_condition_1 &&
+          long_long_long_long_long_long_long_condition_2) ||
+        (short_1 &&
+          short_2 &&
+          long_long_long_long_long_long_long_condition_3) ||
+        long_long_long_long_long_long_long_condition_4
+      "
+    ></mixed>
+  </root>
 </template>
 
 ================================================================================
