@@ -2,7 +2,7 @@
 
 exports[`expand.js 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -24,70 +24,9 @@ const Component2 = ({ props }) => <Text>Test</Text>;
 ================================================================================
 `;
 
-exports[`expression.js 1`] = `
-====================================options=====================================
-parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-() => ({}\`\`);
-({})\`\`;
-a = () => ({}).x;
-({} && a, b);
-({}::b, 0);
-({}::b()\`\`[''].c++ && 0 ? 0 : 0, 0);
-({}(), 0);
-({} = 0);
-(({} = 0), 1);
-
-const a1 = {
-  someKey:
-    (shortName, shortName)
-};
-
-const a2 = {
-  someKey:
-    (longLongLongLongLongLongLongLongLongLongLongLongLongLongName, shortName)
-};
-
-const a3 = {
-  someKey:
-    (longLongLongLongLongLongLongLongLongLongLongLongLongLongName, longLongLongLongLongLongLongLongLongLongLongLongLongLongName, longLongLongLongLongLongLongLongLongLongLongLongLongLongName)
-};
-
-=====================================output=====================================
-() => ({}\`\`);
-({}\`\`);
-a = () => ({}.x);
-({} && a, b);
-({}::b, 0);
-({}::b()\`\`[""].c++ && 0 ? 0 : 0, 0);
-({}(), 0);
-({} = 0);
-({} = 0), 1;
-
-const a1 = {
-  someKey: (shortName, shortName)
-};
-
-const a2 = {
-  someKey:
-    (longLongLongLongLongLongLongLongLongLongLongLongLongLongName, shortName)
-};
-
-const a3 = {
-  someKey:
-    (longLongLongLongLongLongLongLongLongLongLongLongLongLongName,
-    longLongLongLongLongLongLongLongLongLongLongLongLongLongName,
-    longLongLongLongLongLongLongLongLongLongLongLongLongLongName)
-};
-
-================================================================================
-`;
-
 exports[`method.js 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -101,7 +40,7 @@ a = { f() {} };
 
 exports[`range.js 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -139,7 +78,7 @@ group(
 
 exports[`right_break.js 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
