@@ -526,9 +526,22 @@ function printPathNoParens(path, options, print, args) {
       return concat([
         path.call(print, "expression"),
         isTheOnlyJSXElementInMarkdown(options, path) ? "" : semi
-      ]); // Babel extension.
-    case "ParenthesizedExpression":
-      return concat(["(", path.call(print, "expression"), ")"]);
+      ]);
+    // Babel non-standard node. Used for Closure-style type casts. See postprocess.js.
+    case "ParenthesizedExpression": {
+      const shouldHug = !n.expression.comments;
+      if (shouldHug) {
+        return concat(["(", path.call(print, "expression"), ")"]);
+      }
+      return group(
+        concat([
+          "(",
+          indent(concat([softline, path.call(print, "expression")])),
+          softline,
+          ")"
+        ])
+      );
+    }
     case "AssignmentExpression":
       return printAssignment(
         n.left,

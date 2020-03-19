@@ -74,6 +74,7 @@ function handleOwnLineComment(comment, text, options, ast, isLastComment) {
 function handleEndOfLineComment(comment, text, options, ast, isLastComment) {
   const { precedingNode, enclosingNode, followingNode } = comment;
   return (
+    handleClosureTypeCastComments(followingNode, comment) ||
     handleLastFunctionArgComments(
       text,
       precedingNode,
@@ -197,6 +198,14 @@ function addBlockOrNotComment(node, comment) {
   } else {
     addLeadingComment(node, comment);
   }
+}
+
+function handleClosureTypeCastComments(followingNode, comment) {
+  if (followingNode && isTypeCastComment(comment)) {
+    addLeadingComment(followingNode, comment);
+    return true;
+  }
+  return false;
 }
 
 // There are often comments before the else clause of if statements like
@@ -950,12 +959,24 @@ function getCommentChildNodes(node, options) {
   }
 }
 
+function isTypeCastComment(comment) {
+  return (
+    isBlockComment(comment) &&
+    comment.value[0] === "*" &&
+    // TypeScript expects the type to be enclosed in curly brackets, however
+    // Closure Compiler accepts types in parens and even without any delimiters at all.
+    // That's why we just search for "@type".
+    /@type\b/.test(comment.value)
+  );
+}
+
 module.exports = {
   handleOwnLineComment,
   handleEndOfLineComment,
   handleRemainingComment,
   hasLeadingComment,
   isBlockComment,
+  isTypeCastComment,
   getGapRegex,
   getCommentChildNodes
 };
