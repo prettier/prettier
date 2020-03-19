@@ -265,10 +265,11 @@ function genericPrint(path, options, print) {
                           node.isIndentationSensitive)) &&
                       new RegExp(
                         `\\n\\s{${options.tabWidth *
-                          countParents(
+                          (countParents(
                             path,
                             n => n.parent && n.parent.type !== "root"
-                          )}}$`
+                          ) +
+                            (options.parentParser ? 2 : 0))}}$`
                       ).test(node.lastChild.value)
                     ? /**
                        *     <div>
