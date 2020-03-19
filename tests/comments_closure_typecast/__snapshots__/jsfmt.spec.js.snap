@@ -60,15 +60,6 @@ const data = functionCall(
   arg2,
   /** @type {{height: number, width: number}} */ (arg3));
 
-// Invalid type casts
-const v1 = /** @type {} */ (value);
-const v2 = /** @type {}} */ (value);
-const v3 = /** @type } */ (value);
-const v4 = /** @type { */ (value);
-const v5 = /** @type {{} */ (value);
-
-const w1 = /** @typefoo Foo */ (value);
-
 const style = /** @type {{
   width: number,
   height: number,
@@ -90,13 +81,6 @@ const style2 =/**
   width,
 });
 
-// Spaces aren't necessary
-const v6 = /**@type {string} */(value);
-const v7 = /** @type{string} */(value);
-const v8 = /**@type{string} */(value);
-
-const v9 = /** @type {string} */
-  (value);
 
 =====================================output=====================================
 // test to make sure comments are attached correctly
@@ -141,15 +125,6 @@ const data = functionCall(
   /** @type {{height: number, width: number}} */ (arg3)
 );
 
-// Invalid type casts
-const v1 = /** @type {} */ (value);
-const v2 = /** @type {}} */ (value);
-const v3 = /** @type } */ (value);
-const v4 = /** @type { */ (value);
-const v5 = /** @type {{} */ (value);
-
-const w1 = /** @typefoo Foo */ value;
-
 const style = /** @type {{
   width: number,
   height: number,
@@ -170,13 +145,6 @@ const style2 = /**
  */ ({
   width,
 });
-
-// Spaces aren't necessary
-const v6 = /**@type {string} */ (value);
-const v7 = /** @type{string} */ (value);
-const v8 = /**@type{string} */ (value);
-
-const v9 = /** @type {string} */ (value);
 
 ================================================================================
 `;
@@ -215,6 +183,51 @@ console.log(a.foo());
 ================================================================================
 `;
 
+exports[`comment-placement.js 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const foo1 = /** @type {string} */
+  (value);
+
+const foo2 =
+  /** @type {string} */
+  (value);
+
+const foo3 =
+
+  /** @type {string} */
+  (value);
+
+
+const foo4 =
+  /** @type {string} */(value);
+
+const foo5 =
+  /** @type {string} */ (
+    value
+  );
+
+=====================================output=====================================
+const foo1 = /** @type {string} */ (value);
+
+const foo2 =
+  /** @type {string} */
+  (value);
+
+const foo3 =
+  /** @type {string} */
+  (value);
+
+const foo4 = /** @type {string} */ (value);
+
+const foo5 = /** @type {string} */ (value);
+
+================================================================================
+`;
+
 exports[`extra-spaces-and-asterisks.js 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
@@ -239,6 +252,40 @@ const foo5 = /** @type {!Foo} * * */ (bar);
 const foo6 = /** @type {!Foo} *****/ (bar);
 const foo7 = /** @type {!Foo} *   *   *   *   */ (bar);
 const foo8 = /** @type {!Foo}    ** *   *   */ (bar);
+
+================================================================================
+`;
+
+exports[`iife.js 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const helpers1 = /** @type {Helpers} */ ((
+  (helpers = {}) => helpers
+)());
+
+const helpers2 = /** @type {Helpers} */ ((
+  function() { return something }
+)());
+
+// TODO: @param is misplaced https://github.com/prettier/prettier/issues/5850
+const helpers = /** @type {Helpers} */ ((
+  /** @param {Partial<Helpers>} helpers */
+  (helpers = {}) => helpers
+)());
+
+=====================================output=====================================
+const helpers1 = /** @type {Helpers} */ (((helpers = {}) => helpers)());
+
+const helpers2 = /** @type {Helpers} */ ((function () {
+  return something;
+})());
+
+// TODO: @param is misplaced https://github.com/prettier/prettier/issues/5850
+const helpers = /** @type {Helpers} */ (/** @param {Partial<Helpers>} helpers */
+((helpers = {}) => helpers)());
 
 ================================================================================
 `;
@@ -345,13 +392,27 @@ z(x => {
   return (1);
 })
 
+/** @type { } */
+z(x => {
+  (foo)((bar)(2+(3)))
+  return (1);
+})
+
 /** @type {number} */
 let q = z(x => {
   return (1);
 })
 
+const w1 = /** @typefoo Foo */ (value);
+
 =====================================output=====================================
 /* @type { } */
+z((x) => {
+  foo(bar(2 + 3));
+  return 1;
+});
+
+/** @type { } */
 z((x) => {
   foo(bar(2 + 3));
   return 1;
@@ -361,6 +422,8 @@ z((x) => {
 let q = z((x) => {
   return 1;
 });
+
+const w1 = /** @typefoo Foo */ value;
 
 ================================================================================
 `;
@@ -396,6 +459,44 @@ const objectWithComment2 = /** @type MyType */ (
     foo: bar,
   }
 );
+
+================================================================================
+`;
+
+exports[`ways-to-specify-type.js 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const curlyBraces = /** @type {string} */ (foo);
+const curlyBraces2 = /**@type {string} */ (foo);
+const noWhitespace = /** @type{string} */ (foo);
+const noWhitespace2 = /**@type{string} */ (foo);
+const noBraces = /** @type string */ (foo);
+const parens = /** @type (string | number) */ (foo);
+
+// Prettier just searches for "@type" and doesn't check the syntax of types.
+const v1 = /** @type {} */ (value);
+const v2 = /** @type {}} */ (value);
+const v3 = /** @type } */ (value);
+const v4 = /** @type { */ (value);
+const v5 = /** @type {{} */ (value);
+
+=====================================output=====================================
+const curlyBraces = /** @type {string} */ (foo);
+const curlyBraces2 = /**@type {string} */ (foo);
+const noWhitespace = /** @type{string} */ (foo);
+const noWhitespace2 = /**@type{string} */ (foo);
+const noBraces = /** @type string */ (foo);
+const parens = /** @type (string | number) */ (foo);
+
+// Prettier just searches for "@type" and doesn't check the syntax of types.
+const v1 = /** @type {} */ (value);
+const v2 = /** @type {}} */ (value);
+const v3 = /** @type } */ (value);
+const v4 = /** @type { */ (value);
+const v5 = /** @type {{} */ (value);
 
 ================================================================================
 `;
