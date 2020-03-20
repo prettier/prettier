@@ -127,7 +127,7 @@ global.run_spec = (dirname, parsers, options) => {
     }
 
     if (AST_COMPARE) {
-      test(`${filename} parse`, () => {
+      test(`${basename} parse`, () => {
         const parseOptions = { ...mainOptions };
         delete parseOptions.cursorOffset;
 
