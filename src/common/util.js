@@ -749,17 +749,17 @@ function hasIgnoreComment(path) {
 function hasNodeIgnoreComment(node) {
   return (
     node &&
-    node.comments &&
-    node.comments.length > 0 &&
-    node.comments.some(isNodeIgnoreComment)
+    ((node.comments &&
+      node.comments.length > 0 &&
+      node.comments.some(
+        comment => isNodeIgnoreComment(comment) && !comment.unignore
+      )) ||
+      node.prettierIgnore)
   );
 }
 
 function isNodeIgnoreComment(comment) {
-  return (
-    comment.bogusIgnore ||
-    (comment.value.trim() === "prettier-ignore" && !comment.unignore)
-  );
+  return comment.value.trim() === "prettier-ignore";
 }
 
 function addCommentHelper(node, comment) {

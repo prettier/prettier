@@ -724,7 +724,7 @@ function handleUnionTypeComments(
   ) {
     addTrailingComment(precedingNode, comment);
     if (privateUtil.isNodeIgnoreComment(comment)) {
-      addLeadingComment(followingNode, { bogusIgnore: true });
+      followingNode.prettierIgnore = true;
       comment.unignore = true;
     }
     return true;
@@ -736,7 +736,7 @@ function handleUnionTypeComments(
       followingNode.type === "TSUnionType") &&
     privateUtil.isNodeIgnoreComment(comment)
   ) {
-    addLeadingComment(followingNode.types[0], { bogusIgnore: true });
+    followingNode.types[0].prettierIgnore = true;
     comment.unignore = true;
   }
 

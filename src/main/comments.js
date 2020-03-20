@@ -349,9 +349,6 @@ function breakTies(tiesToBreak, text, options) {
 function printComment(commentPath, options) {
   const comment = commentPath.getValue();
   comment.printed = true;
-  if (comment.bogusIgnore) {
-    return "";
-  }
   return options.printer.printComment(commentPath, options);
 }
 
