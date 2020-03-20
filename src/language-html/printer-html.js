@@ -702,11 +702,36 @@ function printOpeningTagEnd(node) {
     : printOpeningTagEndMarker(node);
 }
 
+function isLastElement(node) {
+  const { parent } = node;
+  if (!parent) {
+    return true;
+  }
+
+  const children = parent.children.filter(({ type }) => type === "element");
+
+  return children[children.length - 1] === node && isLastElement(parent);
+}
+
+function isParentOpen(node) {
+  const { parent } = node;
+  if (!parent) {
+    return isElementOpen(node);
+  }
+  return isElementOpen(node) && isParentOpen(parent);
+}
+
+function isElementOpen(node) {
+  return !node.endSourceSpan && !node.isSelfClosing;
+}
+
 function printClosingTag(node, options) {
-  return concat([
-    node.isSelfClosing ? "" : printClosingTagStart(node, options),
-    printClosingTagEnd(node, options)
-  ]);
+  return !isElementOpen(node) || !isLastElement(node) || !isParentOpen(node)
+    ? concat([
+        node.isSelfClosing ? "" : printClosingTagStart(node, options),
+        printClosingTagEnd(node, options)
+      ])
+    : "";
 }
 
 function printClosingTagStart(node, options) {
