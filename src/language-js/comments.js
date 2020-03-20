@@ -722,12 +722,15 @@ function handleUnionTypeComments(
     (enclosingNode.type === "UnionTypeAnnotation" ||
       enclosingNode.type === "TSUnionType")
   ) {
-    addTrailingComment(precedingNode, comment);
     if (privateUtil.isNodeIgnoreComment(comment)) {
       followingNode.prettierIgnore = true;
       comment.unignore = true;
     }
-    return true;
+    if (precedingNode) {
+      addTrailingComment(precedingNode, comment);
+      return true;
+    }
+    return false;
   }
 
   if (
