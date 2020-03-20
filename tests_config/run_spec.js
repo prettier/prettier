@@ -128,14 +128,12 @@ global.run_spec = (dirname, parsers, options) => {
 
     if (AST_COMPARE) {
       const formatted = output.replace(CURSOR_PLACEHOLDER, "");
-      if (formatted !== input) {
-        test(`${basename} parse`, () => {
-          const { cursorOffset, ...parseOptions } = mainOptions;
-          const originalAst = parse(input, parseOptions);
-          const formattedAst = parse(formatted, parseOptions);
-          expect(originalAst).toEqual(formattedAst);
-        });
-      }
+      (formatted === input ? test.skip : test)(`${basename} parse`, () => {
+        const { cursorOffset, ...parseOptions } = mainOptions;
+        const originalAst = parse(input, parseOptions);
+        const formattedAst = parse(formatted, parseOptions);
+        expect(originalAst).toEqual(formattedAst);
+      });
     }
   }
 };
