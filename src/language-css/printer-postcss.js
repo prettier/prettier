@@ -10,6 +10,7 @@ const {
   hasNewline
 } = require("../common/util");
 const { isNextLineEmpty } = require("../common/util-shared");
+const { restoreQuotesInInlineComments } = require("./loc");
 
 const {
   builders: {
@@ -110,31 +111,13 @@ function genericPrint(path, options, print) {
       return nodes;
     }
     case "css-comment": {
-      if (node.raws.content) {
-        return node.raws.content;
-      }
+      const isInlineComment = node.inline || node.raws.inline;
       const text = options.originalText.slice(
         options.locStart(node),
         options.locEnd(node)
       );
 
-      const rawText = node.raws.text || node.text;
-      // Workaround a bug where the location is off.
-      // https://github.com/postcss/postcss-scss/issues/63
-      if (!text.includes(rawText)) {
-        if (node.raws.inline || node.inline) {
-          const needBreakAfter = !(
-            node.source.input.css.split(/[\r\n]/)[node.source.end.line] || ""
-          ).trim();
-          return concat([
-            "//",
-            node.raws.left + rawText,
-            needBreakAfter ? line : ""
-          ]);
-        }
-        return concat(["/* ", rawText, " */"]);
-      }
-      return text;
+      return isInlineComment ? text.trimEnd() : text;
     }
     case "css-rule": {
       return concat([
@@ -481,6 +464,14 @@ function genericPrint(path, options, print) {
         );
       }
 
+      // originalText has to be used for Less, see replaceQuotesInInlineComments in loc.js
+      const parentNode = path.getParentNode();
+      if (parentNode.raws && parentNode.raws.selector) {
+        const start = options.locStart(parentNode);
+        const end = start + parentNode.raws.selector.length;
+        return options.originalText.slice(start, end).trim();
+      }
+
       return node.value;
     }
     // postcss-values-parser
@@ -491,7 +482,9 @@ function genericPrint(path, options, print) {
     case "value-comment": {
       return concat([
         node.inline ? "//" : "/*",
-        node.value,
+        // see replaceQuotesInInlineComments in loc.js
+        // value-* nodes don't have correct location data, so we have to rely on placeholder characters.
+        restoreQuotesInInlineComments(node.value),
         node.inline ? "" : "*/"
       ]);
     }
