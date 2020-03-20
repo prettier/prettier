@@ -113,6 +113,8 @@ function optionTypeToSchemaType(optionType) {
       );
     case "path":
       return "string";
+    case "any":
+      return "object";
     default:
       throw new Error(`Unexpected optionType '${optionType}'`);
   }

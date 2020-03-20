@@ -24,6 +24,14 @@ module.exports = {
     ]
   },
   bracketSpacing: commonOptions.bracketSpacing,
+  jsCustomTags: {
+    since: "1.18.2",
+    category: CATEGORY_JAVASCRIPT,
+    type: "any",
+    default: {},
+    description:
+      "A map of languages and custom template literal tag names. Example: { 'styled-components': ['media'] }"
+  },
   jsxBracketSameLine: {
     since: "0.17.0",
     category: CATEGORY_JAVASCRIPT,

@@ -151,6 +151,9 @@ function optionInfoToSchema(optionInfo, { isCLI, optionInfos }) {
     case "path":
       SchemaConstructor = vnopts.StringSchema;
       break;
+    case "any":
+      SchemaConstructor = vnopts.AnySchema;
+      break;
     default:
       throw new Error(`Unexpected type ${optionInfo.type}`);
   }
