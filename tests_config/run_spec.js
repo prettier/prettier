@@ -127,21 +127,15 @@ global.run_spec = (dirname, parsers, options) => {
     }
 
     if (AST_COMPARE) {
-      test(`${filename} parse`, () => {
-        const parseOptions = { ...mainOptions };
-        delete parseOptions.cursorOffset;
-
-        const originalAst = parse(input, parseOptions);
-        let formattedAst;
-
-        expect(() => {
-          formattedAst = parse(
-            output.replace(CURSOR_PLACEHOLDER, ""),
-            parseOptions
-          );
-        }).not.toThrow();
-        expect(originalAst).toEqual(formattedAst);
-      });
+      const formatted = output.replace(CURSOR_PLACEHOLDER, "");
+      if (formatted !== input) {
+        test(`${filename} parse`, () => {
+          const { cursorOffset, ...parseOptions } = mainOptions;
+          const originalAst = parse(input, parseOptions);
+          const formattedAst = parse(formatted, parseOptions);
+          expect(originalAst).toEqual(formattedAst);
+        });
+      }
     }
   }
 };
