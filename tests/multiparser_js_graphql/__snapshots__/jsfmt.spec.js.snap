@@ -17,15 +17,16 @@ const query = /* GraphQL */\`
 \`;
 
 =====================================output=====================================
-const query = /* GraphQL */ \`
-  {
-    user(id: 5) {
-      firstName
+const query =
+  /* GraphQL */ \`
+    {
+      user(id: 5) {
+        firstName
 
-      lastName
+        lastName
+      }
     }
-  }
-\`;
+  \`;
 
 ================================================================================
 `;

@@ -113,7 +113,8 @@ const g = classnames({
 
 const h = {
   foo: "bar",
-  baz: \`Lorem
+  baz:
+    \`Lorem
 ipsum\`
 };
 
