@@ -6089,7 +6089,9 @@ function willPrintOwnComments(path /*, options */) {
           ((parent.type === "ClassDeclaration" ||
             parent.type === "ClassExpression") &&
             parent.superClass === node)))) &&
-    !hasIgnoreComment(path)
+    (!hasIgnoreComment(path) ||
+      parent.type === "UnionTypeAnnotation" ||
+      parent.type === "TSUnionType")
   );
 }
 

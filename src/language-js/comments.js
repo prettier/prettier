@@ -723,8 +723,23 @@ function handleUnionTypeComments(
       enclosingNode.type === "TSUnionType")
   ) {
     addTrailingComment(precedingNode, comment);
+    if (privateUtil.isNodeIgnoreComment(comment)) {
+      addLeadingComment(followingNode, { bogusIgnore: true });
+      comment.unignore = true;
+    }
     return true;
   }
+
+  if (
+    followingNode &&
+    (followingNode.type === "UnionTypeAnnotation" ||
+      followingNode.type === "TSUnionType") &&
+    privateUtil.isNodeIgnoreComment(comment)
+  ) {
+    addLeadingComment(followingNode.types[0], { bogusIgnore: true });
+    comment.unignore = true;
+  }
+
   return false;
 }
 

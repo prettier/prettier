@@ -751,7 +751,14 @@ function hasNodeIgnoreComment(node) {
     node &&
     node.comments &&
     node.comments.length > 0 &&
-    node.comments.some((comment) => comment.value.trim() === "prettier-ignore")
+    node.comments.some(isNodeIgnoreComment)
+  );
+}
+
+function isNodeIgnoreComment(comment) {
+  return (
+    comment.bogusIgnore ||
+    (comment.value.trim() === "prettier-ignore" && !comment.unignore)
   );
 }
 
@@ -850,6 +857,7 @@ module.exports = {
   printNumber,
   hasIgnoreComment,
   hasNodeIgnoreComment,
+  isNodeIgnoreComment,
   makeString,
   addLeadingComment,
   addDanglingComment,
