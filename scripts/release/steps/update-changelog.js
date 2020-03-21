@@ -68,5 +68,5 @@ module.exports = async function({ version, previousVersion }) {
   }
 
   await waitForEnter();
-  await execa("yarn", ["lint-docs", "--fix"]);
+  await execa("yarn", ["lint:prettier", "--write"]);
 };

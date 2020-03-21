@@ -5,8 +5,8 @@ const semver = require("semver");
 const { logPromise, readJson, writeJson } = require("../utils");
 
 async function format() {
-  await execa("yarn", ["lint", "--fix"]);
-  await execa("yarn", ["lint-docs", "--fix"]);
+  await execa("yarn", ["lint:eslint", "--fix"]);
+  await execa("yarn", ["lint:prettier", "--write"]);
 }
 
 async function commit(version) {
