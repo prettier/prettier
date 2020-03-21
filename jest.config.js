@@ -8,7 +8,7 @@ module.exports = {
   setupFiles: ["<rootDir>/tests_config/run_spec.js"],
   snapshotSerializers: [
     "jest-snapshot-serializer-raw",
-    "jest-snapshot-serializer-ansi"
+    "jest-snapshot-serializer-ansi",
   ],
   testRegex: "jsfmt\\.spec\\.js$|__tests__/.*\\.js$",
   testPathIgnorePatterns: ["tests/new_react", "tests/more_react"],
@@ -17,7 +17,7 @@ module.exports = {
   coveragePathIgnorePatterns: [
     "<rootDir>/standalone.js",
     "<rootDir>/src/doc/doc-debug.js",
-    "<rootDir>/src/main/massage-ast.js"
+    "<rootDir>/src/main/massage-ast.js",
   ],
   coverageReporters: ["text", "html", "cobertura"],
   moduleNameMapper: {
@@ -28,13 +28,13 @@ module.exports = {
     "graceful-fs": "<rootDir>/tests_config/fs.js",
 
     "prettier/local": "<rootDir>/tests_config/require_prettier.js",
-    "prettier/standalone": "<rootDir>/tests_config/require_standalone.js"
+    "prettier/standalone": "<rootDir>/tests_config/require_standalone.js",
   },
   testEnvironment: "node",
   transform: {},
   watchPlugins: [
     "jest-watch-typeahead/filename",
-    "jest-watch-typeahead/testname"
+    "jest-watch-typeahead/testname",
   ],
-  reporters: ["default"].concat(ENABLE_TEST_RESULTS ? "jest-junit" : [])
+  reporters: ["default"].concat(ENABLE_TEST_RESULTS ? "jest-junit" : []),
 };

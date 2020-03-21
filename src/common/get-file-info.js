@@ -32,7 +32,7 @@ async function getFileInfo(filePath, opts) {
     filePath: normalizeFilePath(filePath, opts.ignorePath),
     plugins: opts.plugins,
     resolveConfig: opts.resolveConfig,
-    sync: false
+    sync: false,
   });
 }
 
@@ -41,7 +41,7 @@ async function getFileInfo(filePath, opts) {
  * @param {FileInfoOptions} opts
  * @returns {FileInfoResult}
  */
-getFileInfo.sync = function(filePath, opts) {
+getFileInfo.sync = function (filePath, opts) {
   if (typeof filePath !== "string") {
     throw new TypeError(
       `expect \`filePath\` to be a string, got \`${typeof filePath}\``
@@ -54,7 +54,7 @@ getFileInfo.sync = function(filePath, opts) {
     filePath: normalizeFilePath(filePath, opts.ignorePath),
     plugins: opts.plugins,
     resolveConfig: opts.resolveConfig,
-    sync: true
+    sync: true,
   });
 };
 
@@ -63,16 +63,16 @@ function _getFileInfo({
   filePath,
   plugins,
   resolveConfig = false,
-  sync = false
+  sync = false,
 }) {
   const fileInfo = {
     ignored: ignorer.ignores(filePath),
-    inferredParser: options.inferParser(filePath, plugins) || null
+    inferredParser: options.inferParser(filePath, plugins) || null,
   };
 
   if (!fileInfo.inferredParser && resolveConfig) {
     if (!sync) {
-      return config.resolveConfig(filePath).then(resolvedConfig => {
+      return config.resolveConfig(filePath).then((resolvedConfig) => {
         if (resolvedConfig && resolvedConfig.parser) {
           fileInfo.inferredParser = resolvedConfig.parser;
         }

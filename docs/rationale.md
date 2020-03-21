@@ -36,7 +36,7 @@ By default, Prettier’s printing algorithm prints expressions on a single line 
 ```js
 const user = {
   name: "John Doe",
-  age: 30
+  age: 30,
 };
 ```
 
@@ -68,7 +68,7 @@ const user = {
 ```js
 const user = {
   name: "John Doe",
-  age: 30
+  age: 30,
 };
 ```
 
@@ -84,7 +84,7 @@ Just like with objects, decorators are used for a lot of different things. Somet
 ```js
 @Component({
   selector: "hero-button",
-  template: `<button>{{label}}</button>`
+  template: `<button>{{ label }}</button>`,
 })
 class HeroButtonComponent {
   // These decorators were written inline and fit on the line so they stay
@@ -198,7 +198,7 @@ Prettier can break long `import` statements across several lines:
 ```js
 import {
   CollectionDashboard,
-  DashboardPlaceholder
+  DashboardPlaceholder,
 } from "../components/collections/collection-dashboard/main";
 ```
 

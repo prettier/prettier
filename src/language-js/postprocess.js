@@ -2,7 +2,7 @@
 
 const {
   getLast,
-  getNextNonSpaceNonCommentCharacter
+  getNextNonSpaceNonCommentCharacter,
 } = require("../common/util");
 const { composeLoc, locEnd } = require("./loc");
 const { isTypeCastComment } = require("./comments");
@@ -16,7 +16,7 @@ function postprocess(ast, options) {
     // E.g.: /** @type {Foo} */ (foo).bar();
     // Let's use the fact that those ancestors and ParenthesizedExpression have the same start offset.
 
-    visitNode(ast, node => {
+    visitNode(ast, (node) => {
       if (
         node.leadingComments &&
         node.leadingComments.some(isTypeCastComment)
@@ -25,7 +25,7 @@ function postprocess(ast, options) {
       }
     });
 
-    visitNode(ast, node => {
+    visitNode(ast, (node) => {
       if (
         node.type === "ParenthesizedExpression" &&
         !startOffsetsOfTypeCastedNodes.has(node.start)
@@ -41,7 +41,7 @@ function postprocess(ast, options) {
     });
   }
 
-  visitNode(ast, node => {
+  visitNode(ast, (node) => {
     switch (node.type) {
       case "LogicalExpression": {
         // We remove unneeded parens around same-operator LogicalExpressions
@@ -75,7 +75,7 @@ function postprocess(ast, options) {
           node.name = {
             type: "Identifier",
             name: node.name,
-            ...composeLoc(node, node.name.length)
+            ...composeLoc(node, node.name.length),
           };
         }
         break;
@@ -115,14 +115,14 @@ function postprocess(ast, options) {
     if (Array.isArray(toBeOverriddenNode.range)) {
       toBeOverriddenNode.range = [
         toBeOverriddenNode.range[0],
-        toOverrideNode.range[1]
+        toOverrideNode.range[1],
       ];
     } else {
       toBeOverriddenNode.end = toOverrideNode.end;
     }
     toBeOverriddenNode.loc = {
       ...toBeOverriddenNode.loc,
-      end: toBeOverriddenNode.loc.end
+      end: toBeOverriddenNode.loc.end,
     };
   }
 }
@@ -175,10 +175,10 @@ function rebalanceLogicalTree(node) {
       operator: node.operator,
       left: node.left,
       right: node.right.left,
-      ...composeLoc(node.left, node.right.left)
+      ...composeLoc(node.left, node.right.left),
     }),
     right: node.right.right,
-    ...composeLoc(node)
+    ...composeLoc(node),
   });
 }
 

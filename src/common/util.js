@@ -332,9 +332,9 @@ const PRECEDENCE = {};
   [">>", "<<", ">>>"],
   ["+", "-"],
   ["*", "/", "%"],
-  ["**"]
+  ["**"],
 ].forEach((tier, i) => {
-  tier.forEach(op => {
+  tier.forEach((op) => {
     PRECEDENCE[op] = i;
   });
 });
@@ -347,17 +347,17 @@ const equalityOperators = {
   "==": true,
   "!=": true,
   "===": true,
-  "!==": true
+  "!==": true,
 };
 const multiplicativeOperators = {
   "*": true,
   "/": true,
-  "%": true
+  "%": true,
 };
 const bitshiftOperators = {
   ">>": true,
   ">>>": true,
-  "<<": true
+  "<<": true,
 };
 
 function shouldFlatten(parentOp, nodeOp) {
@@ -751,7 +751,7 @@ function hasNodeIgnoreComment(node) {
     node &&
     node.comments &&
     node.comments.length > 0 &&
-    node.comments.some(comment => comment.value.trim() === "prettier-ignore")
+    node.comments.some((comment) => comment.value.trim() === "prettier-ignore")
   );
 }
 
@@ -854,5 +854,5 @@ module.exports = {
   addLeadingComment,
   addDanglingComment,
   addTrailingComment,
-  isWithinParentArrayProperty
+  isWithinParentArrayProperty,
 };

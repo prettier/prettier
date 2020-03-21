@@ -21,7 +21,7 @@ See [Usage](#usage) below for examples.
 <script>
   prettier.format("query { }", {
     parser: "graphql",
-    plugins: prettierPlugins
+    plugins: prettierPlugins,
   });
 </script>
 ```
@@ -34,7 +34,7 @@ import parserGraphql from "prettier/parser-graphql";
 
 prettier.format("query { }", {
   parser: "graphql",
-  plugins: [parserGraphql]
+  plugins: [parserGraphql],
 });
 ```
 
@@ -43,7 +43,7 @@ prettier.format("query { }", {
 ```js
 define([
   "https://unpkg.com/prettier@2.0.0/standalone.js",
-  "https://unpkg.com/prettier@2.0.0/parser-graphql.js"
+  "https://unpkg.com/prettier@2.0.0/parser-graphql.js",
 ], (prettier, ...plugins) => {
   prettier.format("query { }", { parser: "graphql", plugins });
 });

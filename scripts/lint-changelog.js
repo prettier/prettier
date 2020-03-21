@@ -22,10 +22,10 @@ const CHANGELOG_CATEGORIES = [
   "scss",
   "typescript",
   "vue",
-  "yaml"
+  "yaml",
 ];
 const CHANGELOG_ROOT = path.join(__dirname, `../${CHANGELOG_DIR}`);
-const showErrorMessage = message => {
+const showErrorMessage = (message) => {
   console.error(message);
   process.exitCode = 1;
 };
@@ -106,10 +106,7 @@ for (const category of CHANGELOG_CATEGORIES) {
       continue;
     }
     const [, title] = titleMatch;
-    const categoryInTitle = title
-      .split(":")
-      .shift()
-      .trim();
+    const categoryInTitle = title.split(":").shift().trim();
     if (CHANGELOG_CATEGORIES.includes(categoryInTitle.toLowerCase())) {
       showErrorMessage(
         `[${displayPath}]: Please remove "${categoryInTitle}:" in title.`

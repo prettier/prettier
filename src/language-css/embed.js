@@ -2,7 +2,7 @@
 
 const {
   builders: { hardline, literalline, concat, markAsRoot },
-  utils: { mapDoc }
+  utils: { mapDoc },
 } = require("../document");
 
 function embed(path, print, textToDoc /*, options */) {
@@ -19,7 +19,7 @@ function embed(path, print, textToDoc /*, options */) {
             )
           : "",
         "---",
-        hardline
+        hardline,
       ])
     );
   }
@@ -27,7 +27,7 @@ function embed(path, print, textToDoc /*, options */) {
   return null;
 
   function replaceNewlinesWithLiterallines(doc) {
-    return mapDoc(doc, currentDoc =>
+    return mapDoc(doc, (currentDoc) =>
       typeof currentDoc === "string" && currentDoc.includes("\n")
         ? concat(
             currentDoc

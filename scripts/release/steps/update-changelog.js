@@ -15,7 +15,7 @@ function getBlogPostInfo(version) {
 
   return {
     file: `website/blog/${year}-${month}-${day}-${version}.md`,
-    path: `blog/${year}/${month}/${day}/${version}.html`
+    path: `blog/${year}/${month}/${day}/${version}.html`,
   };
 }
 
@@ -31,7 +31,7 @@ function writeChangelog({ version, previousVersion, releaseNotes }) {
   fs.writeFileSync("CHANGELOG.md", newEntry + "\n\n" + changelog);
 }
 
-module.exports = async function({ version, previousVersion }) {
+module.exports = async function ({ version, previousVersion }) {
   const semverDiff = semver.diff(version, previousVersion);
 
   if (semverDiff !== "patch") {
@@ -39,7 +39,7 @@ module.exports = async function({ version, previousVersion }) {
     writeChangelog({
       version,
       previousVersion,
-      releaseNotes: `🔗 [Release Notes](https://prettier.io/${blogPost.path})`
+      releaseNotes: `🔗 [Release Notes](https://prettier.io/${blogPost.path})`,
     });
     if (fs.existsSync(blogPost.file)) {
       // Everything is fine, this step is finished

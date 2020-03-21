@@ -141,17 +141,17 @@ var parsers = {
   get lwc() {
     importScriptOnce("lib/parser-html.js");
     return prettierPlugins.html.parsers.lwc;
-  }
+  },
 };
 
 importScripts("lib/standalone.js");
 // eslint-disable-next-line no-unused-vars
 var PRETTIER_DEBUG = true;
 
-self.onmessage = function(event) {
+self.onmessage = function (event) {
   self.postMessage({
     uid: event.data.uid,
-    message: handleMessage(event.data.message)
+    message: handleMessage(event.data.message),
   });
 };
 
@@ -162,11 +162,11 @@ function handleMessage(message) {
       supportInfo: JSON.parse(
         JSON.stringify(
           prettier.getSupportInfo({
-            showUnreleased: /-pr\./.test(prettier.version)
+            showUnreleased: /-pr\./.test(prettier.version),
           })
         )
       ),
-      version: prettier.version
+      version: prettier.version,
     };
   }
 
@@ -185,8 +185,8 @@ function handleMessage(message) {
       debug: {
         ast: null,
         doc: null,
-        reformatted: null
-      }
+        reformatted: null,
+      },
     };
 
     if (message.debug.ast) {

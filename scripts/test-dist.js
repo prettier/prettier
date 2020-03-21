@@ -30,9 +30,9 @@ const { code } = shell.exec(cmd, {
     ...process.env,
     NODE_ENV: "production",
     AST_COMPARE: "1",
-    PRETTIER_DIR: path.join(tmpDir, "node_modules/prettier")
+    PRETTIER_DIR: path.join(tmpDir, "node_modules/prettier"),
   },
-  shell: true
+  shell: true,
 });
 
 process.exit(code);

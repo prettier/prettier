@@ -28,7 +28,7 @@ function textToDoc(text, partialNextOptions, parentOptions, printAstToDoc) {
         parentOptions.parser === "angular" ||
         parentOptions.parser === "lwc"
       ),
-      originalText: text
+      originalText: text,
     },
     { passThrough: true }
   );
@@ -44,5 +44,5 @@ function textToDoc(text, partialNextOptions, parentOptions, printAstToDoc) {
 }
 
 module.exports = {
-  printSubtree
+  printSubtree,
 };

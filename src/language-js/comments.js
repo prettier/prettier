@@ -5,7 +5,7 @@ const {
   addLeadingComment,
   addTrailingComment,
   addDanglingComment,
-  getNextNonSpaceNonCommentCharacterIndex
+  getNextNonSpaceNonCommentCharacterIndex,
 } = require("../common/util-shared");
 
 function handleOwnLineComment(comment, text, options, ast, isLastComment) {
@@ -184,7 +184,7 @@ function handleRemainingComment(comment, text, options, ast, isLastComment) {
 }
 
 function addBlockStatementFirstComment(node, comment) {
-  const body = node.body.filter(n => n.type !== "EmptyStatement");
+  const body = node.body.filter((n) => n.type !== "EmptyStatement");
   if (body.length === 0) {
     addDanglingComment(node, comment);
   } else {
@@ -902,7 +902,7 @@ function hasLeadingComment(node, fn = () => true) {
     return node.leadingComments.some(fn);
   }
   if (node.comments) {
-    return node.comments.some(comment => comment.leading && fn(comment));
+    return node.comments.some((comment) => comment.leading && fn(comment));
   }
   return false;
 }
@@ -978,5 +978,5 @@ module.exports = {
   isBlockComment,
   isTypeCastComment,
   getGapRegex,
-  getCommentChildNodes
+  getCommentChildNodes,
 };

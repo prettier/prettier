@@ -12,7 +12,7 @@ function tryFormat(file) {
       // Allow specifying the parser via an environment variable:
       parser: process.env.PARSER,
       // Use file extension detection otherwise:
-      filepath: file
+      filepath: file,
     });
   } catch (error) {
     return error;
@@ -30,10 +30,10 @@ function runExternalTests(patterns) {
   const results = {
     good: [],
     skipped: [],
-    bad: []
+    bad: [],
   };
 
-  testFiles.forEach(file => {
+  testFiles.forEach((file) => {
     const error = tryFormat(file);
 
     if (error instanceof SyntaxError) {
@@ -60,7 +60,7 @@ function run(argv) {
         "Examples:",
         '  node scripts/run-external-tests.js "../TypeScript/tests/**/*.ts"',
         '  node scripts/run-external-tests.js "../flow/tests/**/*.js"',
-        '  PARSER=flow node scripts/run-external-tests.js "../flow/tests/**/*.js"'
+        '  PARSER=flow node scripts/run-external-tests.js "../flow/tests/**/*.js"',
       ].join("\n")
     );
     return 1;
@@ -77,7 +77,7 @@ function run(argv) {
 
   console.log("");
   console.log(
-    results.bad.map(data => `${data.file}\n${data.error}`).join("\n\n\n")
+    results.bad.map((data) => `${data.file}\n${data.error}`).join("\n\n\n")
   );
 
   return 0;

@@ -28,7 +28,7 @@ When plugins cannot be found automatically, you can load them with:
   prettier.format("code", {
     parser: "foo",
     pluginSearchDirs: ["./dir-with-plugins"],
-    plugins: ["./foo-plugin"]
+    plugins: ["./foo-plugin"],
   });
   ```
 
@@ -80,8 +80,8 @@ export const languages = [
     name: "InterpretedDanceScript",
     // Parsers that can parse this language.
     // This can be built-in parsers, or parsers you have contributed via this plugin.
-    parsers: ["dance-parse"]
-  }
+    parsers: ["dance-parse"],
+  },
 ];
 ```
 
@@ -100,8 +100,8 @@ export const parsers = {
     hasPragma,
     locStart,
     locEnd,
-    preprocess
-  }
+    preprocess,
+  },
 };
 ```
 
@@ -140,8 +140,8 @@ export const printers = {
   "dance-ast": {
     print,
     embed,
-    insertPragma
-  }
+    insertPragma,
+  },
 };
 ```
 
@@ -265,7 +265,7 @@ const prettier = require("prettier");
 const code = "(add 1 2)";
 prettier.format(code, {
   parser: "lisp",
-  plugins: ["."]
+  plugins: ["."],
 });
 ```
 

@@ -7,15 +7,15 @@ const languages = [
   createLanguage(require("linguist-languages/data/Handlebars"), () => ({
     since: null, // unreleased
     parsers: ["glimmer"],
-    vscodeLanguageIds: ["handlebars"]
-  }))
+    vscodeLanguageIds: ["handlebars"],
+  })),
 ];
 
 const printers = {
-  glimmer: printer
+  glimmer: printer,
 };
 
 module.exports = {
   languages,
-  printers
+  printers,
 };

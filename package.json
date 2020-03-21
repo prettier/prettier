@@ -1,6 +1,6 @@
 {
   "name": "prettier",
-  "version": "2.0.0",
+  "version": "2.1.0-dev",
   "description": "Prettier is an opinionated code formatter",
   "bin": "./bin/prettier.js",
   "repository": "prettier/prettier",
@@ -97,7 +97,7 @@
     "jest-snapshot-serializer-ansi": "1.0.0",
     "jest-snapshot-serializer-raw": "1.1.0",
     "jest-watch-typeahead": "0.4.2",
-    "prettier": "1.19.1",
+    "prettier": "2.0.0",
     "rimraf": "3.0.2",
     "rollup": "2.1.0",
     "rollup-plugin-babel": "4.4.0",
