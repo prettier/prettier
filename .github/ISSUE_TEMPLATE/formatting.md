@@ -26,7 +26,7 @@ Tip! Don't write this stuff manually.
 
 -->
 
-**Prettier 2.0.0**
+**Prettier 2.0.1**
 [Playground link](https://prettier.io/playground/#.....)
 
 ```sh
