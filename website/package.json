@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "clipboard": "2.0.6",
-    "codemirror": "5.52.0",
+    "codemirror": "5.52.2",
     "codemirror-graphql": "0.11.6",
     "lodash": "4.17.15",
     "lz-string": "1.4.4",
