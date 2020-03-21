@@ -5,6 +5,7 @@
 const path = require("path");
 const shell = require("shelljs");
 const tempy = require("tempy");
+const { isCI } = require("ci-info");
 
 shell.config.fatal = true;
 
@@ -20,7 +21,7 @@ shell.exec("npm init -y", { cwd: tmpDir });
 shell.exec(`npm install "${tarPath}"`, { cwd: tmpDir });
 shell.config.silent = false;
 
-const runInBand = process.env.CI ? "--runInBand" : "";
+const runInBand = isCI ? "--runInBand" : "";
 const testPath = process.env.TEST_STANDALONE ? "tests/" : "";
 const cmd = `yarn test --color ${runInBand} ${testPath}`;
 
