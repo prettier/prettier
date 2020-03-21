@@ -17,7 +17,7 @@ function isWhitespaceNode(node) {
 }
 
 function isNodeOfSomeType(node, types) {
-  return node && types.some(type => node.type === type);
+  return node && types.some((type) => node.type === type);
 }
 
 function isParentOfSomeType(path, types) {
@@ -76,5 +76,5 @@ module.exports = {
   isNodeOfSomeType,
   isParentOfSomeType,
   isPreviousNodeOfSomeType,
-  isWhitespaceNode
+  isWhitespaceNode,
 };

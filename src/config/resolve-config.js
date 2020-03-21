@@ -9,17 +9,17 @@ const resolveEditorConfig = require("./resolve-config-editorconfig");
 const loadToml = require("../utils/load-toml");
 
 const getExplorerMemoized = mem(
-  opts => {
+  (opts) => {
     const cosmiconfig = thirdParty["cosmiconfig" + (opts.sync ? "Sync" : "")];
     const explorer = cosmiconfig("prettier", {
       cache: opts.cache,
-      transform: result => {
+      transform: (result) => {
         if (result && result.config) {
           if (typeof result.config === "string") {
             const dir = path.dirname(result.filepath);
             try {
               const modulePath = eval("require").resolve(result.config, {
-                paths: [dir]
+                paths: [dir],
               });
               result.config = eval("require")(modulePath);
             } catch (error) {
@@ -48,11 +48,11 @@ const getExplorerMemoized = mem(
         ".prettierrc.yml",
         ".prettierrc.js",
         "prettier.config.js",
-        ".prettierrc.toml"
+        ".prettierrc.toml",
       ],
       loaders: {
-        ".toml": loadToml
-      }
+        ".toml": loadToml,
+      },
     });
 
     return explorer;
@@ -72,24 +72,24 @@ function _resolveConfig(filePath, opts, sync) {
   const loadOpts = {
     cache: !!opts.useCache,
     sync: !!sync,
-    editorconfig: !!opts.editorconfig
+    editorconfig: !!opts.editorconfig,
   };
   const { load, search } = getExplorer(loadOpts);
   const loadEditorConfig = resolveEditorConfig.getLoadFunction(loadOpts);
   const arr = [
     opts.config ? load(opts.config) : search(filePath),
-    loadEditorConfig(filePath)
+    loadEditorConfig(filePath),
   ];
 
   const unwrapAndMerge = ([result, editorConfigured]) => {
     const merged = {
       ...editorConfigured,
-      ...mergeOverrides(result, filePath)
+      ...mergeOverrides(result, filePath),
     };
 
-    ["plugins", "pluginSearchDirs"].forEach(optionName => {
+    ["plugins", "pluginSearchDirs"].forEach((optionName) => {
       if (Array.isArray(merged[optionName])) {
-        merged[optionName] = merged[optionName].map(value =>
+        merged[optionName] = merged[optionName].map((value) =>
           typeof value === "string" && value.startsWith(".") // relative path
             ? path.resolve(path.dirname(result.filepath), value)
             : value
@@ -126,7 +126,7 @@ async function resolveConfigFile(filePath) {
   return result ? result.filepath : null;
 }
 
-resolveConfigFile.sync = filePath => {
+resolveConfigFile.sync = (filePath) => {
   const { search } = getExplorer({ sync: true });
   const result = search(filePath);
   return result ? result.filepath : null;
@@ -160,8 +160,8 @@ function pathMatchesGlobs(filePath, patterns, excludedPatterns) {
   const opts = { matchBase: true, dot: true };
 
   return (
-    patternList.some(pattern => minimatch(filePath, pattern, opts)) &&
-    !excludedPatternList.some(excludedPattern =>
+    patternList.some((pattern) => minimatch(filePath, pattern, opts)) &&
+    !excludedPatternList.some((excludedPattern) =>
       minimatch(filePath, excludedPattern, opts)
     )
   );
@@ -170,5 +170,5 @@ function pathMatchesGlobs(filePath, patterns, excludedPatterns) {
 module.exports = {
   resolveConfig,
   resolveConfigFile,
-  clearCache
+  clearCache,
 };

@@ -1,16 +1,16 @@
 "use strict";
 
 const {
-  builders: { concat, ifBreak, join, line }
+  builders: { concat, ifBreak, join, line },
 } = require("../document");
 const parseSrcset = require("srcset").parse;
 
 function printImgSrcset(value) {
   const srcset = parseSrcset(value);
 
-  const hasW = srcset.some(src => src.width);
-  const hasH = srcset.some(src => src.height);
-  const hasX = srcset.some(src => src.density);
+  const hasW = srcset.some((src) => src.width);
+  const hasH = srcset.some((src) => src.height);
+  const hasX = srcset.some((src) => src.density);
 
   if (hasW + hasH + hasX > 1) {
     throw new Error("Mixed descriptor in srcset is not supported");
@@ -19,15 +19,15 @@ function printImgSrcset(value) {
   const key = hasW ? "width" : hasH ? "height" : "density";
   const unit = hasW ? "w" : hasH ? "h" : "x";
 
-  const getMax = values => Math.max(...values);
+  const getMax = (values) => Math.max(...values);
 
-  const urls = srcset.map(src => src.url);
-  const maxUrlLength = getMax(urls.map(url => url.length));
+  const urls = srcset.map((src) => src.url);
+  const maxUrlLength = getMax(urls.map((url) => url.length));
 
   const descriptors = srcset
-    .map(src => src[key])
-    .map(descriptor => (descriptor ? descriptor.toString() : ""));
-  const descriptorLeftLengths = descriptors.map(descriptor => {
+    .map((src) => src[key])
+    .map((descriptor) => (descriptor ? descriptor.toString() : ""));
+  const descriptorLeftLengths = descriptors.map((descriptor) => {
     const index = descriptor.indexOf(".");
     return index === -1 ? descriptor.length : index;
   });
@@ -54,13 +54,10 @@ function printImgSrcset(value) {
 }
 
 function printClassNames(value) {
-  return value
-    .trim()
-    .split(/\s+/)
-    .join(" ");
+  return value.trim().split(/\s+/).join(" ");
 }
 
 module.exports = {
   printImgSrcset,
-  printClassNames
+  printClassNames,
 };

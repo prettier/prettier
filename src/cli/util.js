@@ -50,7 +50,7 @@ function cliifyOptions(object, apiDetailedOptionMap) {
 
 function diff(a, b) {
   return require("diff").createTwoFilesPatch("", "", a, b, "", "", {
-    context: 2
+    context: 2,
   });
 }
 
@@ -111,7 +111,7 @@ function logFileInfoOrDie(context) {
     ignorePath: context.argv["ignore-path"],
     withNodeModules: context.argv["with-node-modules"],
     plugins: context.argv.plugin,
-    pluginSearchDirs: context.argv["plugin-search-dir"]
+    pluginSearchDirs: context.argv["plugin-search-dir"],
   };
   context.logger.log(
     prettier.format(
@@ -176,7 +176,7 @@ function format(context, input, opt) {
         "prettier(input) !== prettier(prettier(input))\n" + diff(pp, pppp)
       );
     } else {
-      const stringify = obj => JSON.stringify(obj, null, 2);
+      const stringify = (obj) => JSON.stringify(obj, null, 2);
       const ast = stringify(
         prettier.__debug.parse(input, opt, /* massage */ true).ast
       );
@@ -221,11 +221,11 @@ function format(context, input, opt) {
       .add("format", () => {
         prettier.formatWithCursor(input, opt);
       })
-      .on("cycle", event => {
+      .on("cycle", (event) => {
         const results = {
           benchmark: String(event.target),
           hz: event.target.hz,
-          ms: event.target.times.cycle * 1000
+          ms: event.target.times.cycle * 1000,
         };
         context.logger.debug(
           "'--debug-benchmark' measurements for formatWithCursor: " +
@@ -252,7 +252,7 @@ function format(context, input, opt) {
     const results = {
       repeat,
       hz: 1000 / averageMs,
-      ms: averageMs
+      ms: averageMs,
     };
     context.logger.debug(
       "'--debug-repeat' measurements for formatWithCursor: " +
@@ -280,7 +280,7 @@ function getOptionsOrDie(context, filePath) {
 
     const options = prettier.resolveConfig.sync(filePath, {
       editorconfig: context.argv.editorconfig,
-      config: context.argv.config
+      config: context.argv.config,
     });
 
     context.logger.debug("loaded options `" + JSON.stringify(options) + "`");
@@ -307,9 +307,9 @@ function getOptionsForFile(context, filepath) {
       context,
       options &&
         optionsNormalizer.normalizeApiOptions(options, context.supportOptions, {
-          logger: context.logger
+          logger: context.logger,
         })
-    )
+    ),
   };
 
   context.logger.debug(
@@ -334,7 +334,7 @@ function parseArgsToOptions(context, overrideDefaults) {
       minimist(context.args, {
         string: minimistOptions.string,
         boolean: minimistOptions.boolean,
-        default: cliifyOptions(overrideDefaults, apiDetailedOptionMap)
+        default: cliifyOptions(overrideDefaults, apiDetailedOptionMap),
       }),
       context.detailedOptions,
       { logger: false }
@@ -373,7 +373,7 @@ function formatStdin(context) {
 
   thirdParty
     .getStream(process.stdin)
-    .then(input => {
+    .then((input) => {
       if (relativeFilepath && ignorer.filter([relativeFilepath]).length === 0) {
         writeOutput(context, { formatted: input });
         return;
@@ -387,7 +387,7 @@ function formatStdin(context) {
 
       writeOutput(context, format(context, input, options), options);
     })
-    .catch(error => {
+    .catch((error) => {
       handleError(context, relativeFilepath || "stdin", error);
     });
 }
@@ -442,7 +442,7 @@ function formatFiles(context) {
 
     const options = {
       ...getOptionsForFile(context, filename),
-      filepath: filename
+      filepath: filename,
     };
 
     if (isTTY()) {
@@ -550,16 +550,16 @@ function formatFiles(context) {
 
 function getOptionsWithOpposites(options) {
   // Add --no-foo after --foo.
-  const optionsWithOpposites = options.map(option => [
+  const optionsWithOpposites = options.map((option) => [
     option.description ? option : null,
     option.oppositeDescription
       ? {
           ...option,
           name: `no-${option.name}`,
           type: "boolean",
-          description: option.oppositeDescription
+          description: option.oppositeDescription,
         }
-      : null
+      : null,
   ]);
   return flat(optionsWithOpposites).filter(Boolean);
 }
@@ -567,7 +567,7 @@ function getOptionsWithOpposites(options) {
 function createUsage(context) {
   const options = getOptionsWithOpposites(context.detailedOptions).filter(
     // remove unnecessary option (e.g. `semi`, `color`, etc.), which is only used for --help <flag>
-    option =>
+    (option) =>
       !(
         option.type === "boolean" &&
         option.oppositeDescription &&
@@ -575,22 +575,24 @@ function createUsage(context) {
       )
   );
 
-  const groupedOptions = groupBy(options, option => option.category);
+  const groupedOptions = groupBy(options, (option) => option.category);
 
   const firstCategories = constant.categoryOrder.slice(0, -1);
   const lastCategories = constant.categoryOrder.slice(-1);
   const restCategories = Object.keys(groupedOptions).filter(
-    category => !constant.categoryOrder.includes(category)
+    (category) => !constant.categoryOrder.includes(category)
   );
   const allCategories = [
     ...firstCategories,
     ...restCategories,
-    ...lastCategories
+    ...lastCategories,
   ];
 
-  const optionsUsage = allCategories.map(category => {
+  const optionsUsage = allCategories.map((category) => {
     const categoryOptions = groupedOptions[category]
-      .map(option => createOptionUsage(context, option, OPTION_USAGE_THRESHOLD))
+      .map((option) =>
+        createOptionUsage(context, option, OPTION_USAGE_THRESHOLD)
+      )
       .join("\n");
     return `${category} options:\n\n${indent(categoryOptions, 2)}`;
   });
@@ -642,8 +644,8 @@ function createOptionUsageType(option) {
       return null;
     case "choice":
       return `<${option.choices
-        .filter(choice => !choice.deprecated && choice.since !== null)
-        .map(choice => choice.value)
+        .filter((choice) => !choice.deprecated && choice.since !== null)
+        .map((choice) => choice.value)
         .join("|")}>`;
     default:
       return `<${option.type}>`;
@@ -652,13 +654,13 @@ function createOptionUsageType(option) {
 
 function createChoiceUsages(choices, margin, indentation) {
   const activeChoices = choices.filter(
-    choice => !choice.deprecated && choice.since !== null
+    (choice) => !choice.deprecated && choice.since !== null
   );
   const threshold =
     activeChoices
-      .map(choice => choice.value.length)
+      .map((choice) => choice.value.length)
       .reduce((current, length) => Math.max(current, length), 0) + margin;
-  return activeChoices.map(choice =>
+  return activeChoices.map((choice) =>
     indent(
       createOptionUsageRow(choice.value, choice.description, threshold),
       indentation
@@ -668,7 +670,7 @@ function createChoiceUsages(choices, margin, indentation) {
 
 function createDetailedUsage(context, flag) {
   const option = getOptionsWithOpposites(context.detailedOptions).find(
-    option => option.name === flag || option.alias === flag
+    (option) => option.name === flag || option.alias === flag
   );
 
   const header = createOptionUsageHeader(option);
@@ -692,7 +694,7 @@ function createDetailedUsage(context, flag) {
   const pluginDefaults =
     option.pluginDefaults && Object.keys(option.pluginDefaults).length
       ? `\nPlugin defaults:${Object.keys(option.pluginDefaults).map(
-          key =>
+          (key) =>
             `\n* ${key}: ${createDefaultValueDisplay(
               option.pluginDefaults[key]
             )}`
@@ -730,7 +732,7 @@ function createLogger(logLevel) {
     warn: createLogFunc("warn", "yellow"),
     error: createLogFunc("error", "red"),
     debug: createLogFunc("debug", "blue"),
-    log: createLogFunc("log")
+    log: createLogFunc("log"),
   };
 
   function createLogFunc(loggerName, color) {
@@ -739,7 +741,7 @@ function createLogger(logLevel) {
     }
 
     const prefix = color ? `[${chalk[color](loggerName)}] ` : "";
-    return function(message, opts) {
+    return function (message, opts) {
       opts = { newline: true, ...opts };
       const stream = process[loggerName === "log" ? "stdout" : "stderr"];
       stream.write(message.replace(/^/gm, prefix) + (opts.newline ? "\n" : ""));
@@ -779,17 +781,17 @@ function normalizeDetailedOption(name, option) {
     ...option,
     choices:
       option.choices &&
-      option.choices.map(choice => {
+      option.choices.map((choice) => {
         const newChoice = {
           description: "",
           deprecated: false,
-          ...(typeof choice === "object" ? choice : { value: choice })
+          ...(typeof choice === "object" ? choice : { value: choice }),
         };
         if (newChoice.value === true) {
           newChoice.value = ""; // backward compatibility for original boolean option
         }
         return newChoice;
-      })
+      }),
   };
 }
 
@@ -806,16 +808,16 @@ function createMinimistOptions(detailedOptions) {
     // we use vnopts' AliasSchema to handle aliases for better error messages
     alias: {},
     boolean: detailedOptions
-      .filter(option => option.type === "boolean")
-      .map(option => [option.name].concat(option.alias || []))
+      .filter((option) => option.type === "boolean")
+      .map((option) => [option.name].concat(option.alias || []))
       .reduce((a, b) => a.concat(b)),
     string: detailedOptions
-      .filter(option => option.type !== "boolean")
-      .map(option => [option.name].concat(option.alias || []))
+      .filter((option) => option.type !== "boolean")
+      .map((option) => [option.name].concat(option.alias || []))
       .reduce((a, b) => a.concat(b)),
     default: detailedOptions
       .filter(
-        option =>
+        (option) =>
           !option.deprecated &&
           (!option.forwardToApi ||
             option.name === "plugin" ||
@@ -825,7 +827,7 @@ function createMinimistOptions(detailedOptions) {
       .reduce(
         (current, option) => ({ [option.name]: option.default, ...current }),
         {}
-      )
+      ),
   };
 }
 
@@ -833,21 +835,21 @@ function createApiDetailedOptionMap(detailedOptions) {
   return fromPairs(
     detailedOptions
       .filter(
-        option => option.forwardToApi && option.forwardToApi !== option.name
+        (option) => option.forwardToApi && option.forwardToApi !== option.name
       )
-      .map(option => [option.forwardToApi, option])
+      .map((option) => [option.forwardToApi, option])
   );
 }
 
 function createDetailedOptionMap(supportOptions) {
   return fromPairs(
-    supportOptions.map(option => {
+    supportOptions.map((option) => {
       const newOption = {
         ...option,
         name: option.cliName || dashify(option.name),
         description: option.cliDescription || option.description,
         category: option.cliCategory || coreOptions.CATEGORY_FORMAT,
-        forwardToApi: option.name
+        forwardToApi: option.name,
       };
 
       if (option.deprecated) {
@@ -911,12 +913,12 @@ function updateContextOptions(context, plugins, pluginSearchDirs) {
     showUnreleased: true,
     showInternal: true,
     plugins,
-    pluginSearchDirs
+    pluginSearchDirs,
   });
 
   const detailedOptionMap = normalizeDetailedOptionMap({
     ...createDetailedOptionMap(supportOptions),
-    ...constant.options
+    ...constant.options,
   });
 
   const detailedOptions = arrayify(detailedOptionMap, "name");
@@ -926,8 +928,8 @@ function updateContextOptions(context, plugins, pluginSearchDirs) {
     ...fromPairs(
       supportOptions
         .filter(({ deprecated }) => !deprecated)
-        .map(option => [option.name, option.default])
-    )
+        .map((option) => [option.name, option.default])
+    ),
   };
 
   Object.assign(context, {
@@ -935,7 +937,7 @@ function updateContextOptions(context, plugins, pluginSearchDirs) {
     detailedOptions,
     detailedOptionMap,
     apiDefaultOptions,
-    languages
+    languages,
   });
 }
 
@@ -951,7 +953,7 @@ function pushContextPlugins(context, plugins, pluginSearchDirs) {
       "detailedOptions",
       "detailedOptionMap",
       "apiDefaultOptions",
-      "languages"
+      "languages",
     ])
   );
   updateContextOptions(context, plugins, pluginSearchDirs);
@@ -977,11 +979,11 @@ function updateContextArgv(context, plugins, pluginSearchDirs) {
 function normalizeContextArgv(context, keys) {
   const detailedOptions = !keys
     ? context.detailedOptions
-    : context.detailedOptions.filter(option => keys.includes(option.name));
+    : context.detailedOptions.filter((option) => keys.includes(option.name));
   const argv = !keys ? context.argv : pick(context.argv, keys);
 
   context.argv = optionsNormalizer.normalizeCliOptions(argv, detailedOptions, {
-    logger: context.logger
+    logger: context.logger,
   });
 }
 //------------------------------context-util-end--------------------------------
@@ -997,5 +999,5 @@ module.exports = {
   initContext,
   logResolvedConfigPathOrDie,
   logFileInfoOrDie,
-  normalizeDetailedOptionMap
+  normalizeDetailedOptionMap,
 };

@@ -28,10 +28,10 @@ testPatterns("1", ["dir1", "dir2"]);
 testPatterns("1a - with *.foo plugin", [
   "dir1",
   "dir2",
-  "--plugin=../../plugins/extensions/plugin"
+  "--plugin=../../plugins/extensions/plugin",
 ]);
 testPatterns("1b - special characters in dir name", ["dir1", "!dir"], {
-  stdout: expect.stringMatching(/!dir[/\\]a\.js/)
+  stdout: expect.stringMatching(/!dir[/\\]a\.js/),
 });
 testPatterns("1c", ["dir1", "empty"], { status: 2 });
 
@@ -48,7 +48,7 @@ describe("Negative patterns", () => {
   testPatterns("3", [".", "!dir1/nested1/an1.js"]);
   testPatterns("4", ["!nonexistent-dir1 !nonexistent-dir2"], { status: 2 });
   testPatterns("with explicit files", ["dir1/a1.js", "dir2/a2.js", "!dir1/*"], {
-    status: 2
+    status: 2,
   });
 });
 
@@ -90,13 +90,15 @@ function testPatterns(namePrefix, cliArgs, expected = {}) {
   const testName =
     (namePrefix ? namePrefix + ": " : "") +
     "prettier " +
-    cliArgs.map(arg => (/^[\w.=/-]+$/.test(arg) ? arg : `'${arg}'`)).join(" ");
+    cliArgs
+      .map((arg) => (/^[\w.=/-]+$/.test(arg) ? arg : `'${arg}'`))
+      .join(" ");
 
   describe(testName, () => {
     runPrettier("cli/patterns-dirs", [...cliArgs, "-l"]).test({
       write: [],
       ...(!("status" in expected) && { stderr: "", status: 1 }),
-      ...expected
+      ...expected,
     });
   });
 }

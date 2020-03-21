@@ -2,7 +2,6 @@ export type { SomeThing };
 export type { A as B };
 export type { B as C } from './a';
 export type { foo } from 'bar';
-export type * from 'bar';
 export type { foo };
 
 // this should be treated as a normal import statement

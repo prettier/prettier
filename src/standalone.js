@@ -15,7 +15,7 @@ const internalPlugins = [
   require("./language-html"),
   require("./language-js"),
   require("./language-markdown"),
-  require("./language-yaml")
+  require("./language-yaml"),
 ];
 
 function withPlugins(
@@ -30,8 +30,8 @@ function withPlugins(
       ...opts,
       plugins: [
         ...internalPlugins,
-        ...(Array.isArray(plugins) ? plugins : Object.values(plugins))
-      ]
+        ...(Array.isArray(plugins) ? plugins : Object.values(plugins)),
+      ],
     };
 
     return fn(...args);
@@ -65,6 +65,6 @@ module.exports = {
     formatAST: withPlugins(core.formatAST),
     formatDoc: withPlugins(core.formatDoc),
     printToDoc: withPlugins(core.printToDoc),
-    printDocToString: withPlugins(core.printDocToString)
-  }
+    printDocToString: withPlugins(core.printDocToString),
+  },
 };
