@@ -25,6 +25,7 @@ const unstableTests = new Map(
     ["comments/jsx.js", options => options.semi === false],
     "comments/return-statement.js",
     "comments/tagged-template-literal.js",
+    "comments_closure_typecast/iife.js",
     "css_atrule/include.css",
     "graphql_interface/separator-detection.graphql",
     [
