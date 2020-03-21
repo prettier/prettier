@@ -16,7 +16,7 @@
     "lz-string": "1.4.4",
     "prop-types": "15.7.2",
     "react": "16.13.1",
-    "react-dom": "16.13.0"
+    "react-dom": "16.13.1"
   },
   "devDependencies": {
     "@babel/preset-env": "7.8.7",
