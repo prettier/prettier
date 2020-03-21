@@ -101,29 +101,33 @@ global.run_spec = (dirname, parsers, options) => {
     });
 
     const parsersToVerify = parsers.slice(1);
-    if (
-      parsers.includes("typescript") &&
-      !parsers.includes("babel-ts") &&
-      !(
-        options &&
-        (options.disableBabelTS === true ||
-          (Array.isArray(options.disableBabelTS) &&
-            options.disableBabelTS.includes(basename)))
-      )
-    ) {
+    if (parsers.includes("typescript") && !parsers.includes("babel-ts")) {
       parsersToVerify.push("babel-ts");
     }
 
     for (const parser of parsersToVerify) {
       const verifyOptions = { ...baseOptions, parser };
+
       test(`${basename} - ${parser}-verify`, () => {
-        const verifyOutput = format(input, filename, verifyOptions);
-        expect(visualizeEndOfLine(verifyOutput)).toEqual(visualizedOutput);
+        if (
+          parser === "babel-ts" &&
+          options &&
+          (options.disableBabelTS === true ||
+            (Array.isArray(options.disableBabelTS) &&
+              options.disableBabelTS.includes(basename)))
+        ) {
+          expect(() => {
+            format(input, filename, verifyOptions);
+          }).toThrow(TEST_STANDALONE ? undefined : SyntaxError);
+        } else {
+          const verifyOutput = format(input, filename, verifyOptions);
+          expect(visualizeEndOfLine(verifyOutput)).toEqual(visualizedOutput);
+        }
       });
     }
 
     if (AST_COMPARE) {
-      test(`${filename} parse`, () => {
+      test(`${basename} parse`, () => {
         const parseOptions = { ...mainOptions };
         delete parseOptions.cursorOffset;
 

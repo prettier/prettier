@@ -4,17 +4,19 @@ const path = require("path");
 const camelCase = require("camelcase");
 const dashify = require("dashify");
 const fs = require("fs");
-const globby = require("globby");
+
 const chalk = require("chalk");
 const readline = require("readline");
 const stringify = require("json-stable-stringify");
 const fromPairs = require("lodash/fromPairs");
 const pick = require("lodash/pick");
 const groupBy = require("lodash/groupBy");
+const flat = require("lodash/flatten");
 
 const minimist = require("./minimist");
 const prettier = require("../../index");
 const createIgnorer = require("../common/create-ignorer");
+const expandPatterns = require("./expand-patterns");
 const errors = require("../common/errors");
 const constant = require("./constant");
 const coreOptions = require("../main/core-options");
@@ -182,6 +184,7 @@ function format(context, input, opt) {
         prettier.__debug.parse(pp, opt, /* massage */ true).ast
       );
 
+      /* istanbul ignore next */
       if (ast !== past) {
         const MAX_AST_SIZE = 2097152; // 2MB
         const astDiff =
@@ -199,7 +202,7 @@ function format(context, input, opt) {
     return { formatted: pp, filepath: opt.filepath || "(stdin)\n" };
   }
 
-  /* istanbul ignore if */
+  /* istanbul ignore next */
   if (context.argv["debug-benchmark"]) {
     let benchmark;
     try {
@@ -362,7 +365,11 @@ function formatStdin(context) {
     : process.cwd();
 
   const ignorer = createIgnorerFromContextOrDie(context);
-  const relativeFilepath = path.relative(process.cwd(), filepath);
+  // If there's an ignore-path set, the filename must be relative to the
+  // ignore path, not the current working directory.
+  const relativeFilepath = context.argv["ignore-path"]
+    ? path.relative(path.dirname(context.argv["ignore-path"]), filepath)
+    : path.relative(process.cwd(), filepath);
 
   thirdParty
     .getStream(process.stdin)
@@ -397,36 +404,6 @@ function createIgnorerFromContextOrDie(context) {
   }
 }
 
-function eachFilename(context, patterns, callback) {
-  // The '!./' globs are due to https://github.com/prettier/prettier/issues/2110
-  const ignoreNodeModules = context.argv["with-node-modules"] !== true;
-  if (ignoreNodeModules) {
-    patterns = patterns.concat(["!**/node_modules/**", "!./node_modules/**"]);
-  }
-  patterns = patterns.concat(["!**/.{git,svn,hg}/**", "!./.{git,svn,hg}/**"]);
-
-  try {
-    const filePaths = globby
-      .sync(patterns, { dot: true, nodir: true })
-      .map(filePath => path.relative(process.cwd(), filePath));
-
-    if (filePaths.length === 0) {
-      context.logger.error(
-        `No matching files. Patterns tried: ${patterns.join(" ")}`
-      );
-      process.exitCode = 2;
-      return;
-    }
-    filePaths.forEach(filePath => callback(filePath));
-  } catch (error) {
-    context.logger.error(
-      `Unable to expand glob patterns: ${patterns.join(" ")}\n${error.message}`
-    );
-    // Don't exit the process if one pattern failed
-    process.exitCode = 2;
-  }
-}
-
 function formatFiles(context) {
   // The ignorer will be used to filter file paths after the glob is checked,
   // before any files are actually written
@@ -438,8 +415,21 @@ function formatFiles(context) {
     context.logger.log("Checking formatting...");
   }
 
-  eachFilename(context, context.filePatterns, filename => {
-    const fileIgnored = ignorer.filter([filename]).length === 0;
+  for (const pathOrError of expandPatterns(context)) {
+    if (typeof pathOrError === "object") {
+      context.logger.error(pathOrError.error);
+      // Don't exit, but set the exit code to 2
+      process.exitCode = 2;
+      continue;
+    }
+
+    const filename = pathOrError;
+    // If there's an ignore-path set, the filename must be relative to the
+    // ignore path, not the current working directory.
+    const ignoreFilename = context.argv["ignore-path"]
+      ? path.relative(path.dirname(context.argv["ignore-path"]), filename)
+      : filename;
+    const fileIgnored = ignorer.filter([ignoreFilename]).length === 0;
     if (
       fileIgnored &&
       (context.argv["debug-check"] ||
@@ -447,7 +437,7 @@ function formatFiles(context) {
         context.argv.check ||
         context.argv["list-different"])
     ) {
-      return;
+      continue;
     }
 
     const options = {
@@ -471,12 +461,12 @@ function formatFiles(context) {
       );
       // Don't exit the process if one file failed
       process.exitCode = 2;
-      return;
+      continue;
     }
 
     if (fileIgnored) {
       writeOutput(context, { formatted: input }, options);
-      return;
+      continue;
     }
 
     const start = Date.now();
@@ -485,11 +475,11 @@ function formatFiles(context) {
     let output;
 
     try {
-      result = format(context, input, { ...options, filepath: filename });
+      result = format(context, input, options);
       output = result.formatted;
     } catch (error) {
       handleError(context, filename, error);
-      return;
+      continue;
     }
 
     const isDifferent = output !== input;
@@ -534,7 +524,7 @@ function formatFiles(context) {
       context.logger.log(filename);
       numberOfUnformattedFilesFound += 1;
     }
-  });
+  }
 
   // Print check summary based on expected exit code
   if (context.argv.check) {
@@ -571,7 +561,7 @@ function getOptionsWithOpposites(options) {
         }
       : null
   ]);
-  return flattenArray(optionsWithOpposites).filter(Boolean);
+  return flat(optionsWithOpposites).filter(Boolean);
 }
 
 function createUsage(context) {
@@ -658,10 +648,6 @@ function createOptionUsageType(option) {
     default:
       return `<${option.type}>`;
   }
-}
-
-function flattenArray(array) {
-  return [].concat(...array);
 }
 
 function createChoiceUsages(choices, margin, indentation) {
@@ -880,16 +866,20 @@ function createDetailedOptionMap(supportOptions) {
 /**
  * @typedef {Object} Context
  * @property logger
- * @property args
+ * @property {string[]} args
  * @property argv
- * @property filePatterns
- * @property supportOptions
+ * @property {string[]} filePatterns
+ * @property {any[]} supportOptions
  * @property detailedOptions
  * @property detailedOptionMap
  * @property apiDefaultOptions
+ * @property languages
+ * @property {Partial<Context>[]} stack
  */
+
+/** @returns {Context} */
 function createContext(args) {
-  const context = { args };
+  const context = { args, stack: [] };
 
   updateContextArgv(context);
   normalizeContextArgv(context, ["loglevel", "plugin", "plugin-search-dir"]);
@@ -902,7 +892,7 @@ function createContext(args) {
     context.argv["plugin-search-dir"]
   );
 
-  return context;
+  return /** @type {Context} */ (context);
 }
 
 function initContext(context) {
@@ -910,14 +900,19 @@ function initContext(context) {
   normalizeContextArgv(context);
 }
 
+/**
+ * @param {Context} context
+ * @param {string[]} plugins
+ * @param {string[]=} pluginSearchDirs
+ */
 function updateContextOptions(context, plugins, pluginSearchDirs) {
-  const supportOptions = prettier.getSupportInfo(null, {
+  const { options: supportOptions, languages } = prettier.getSupportInfo({
     showDeprecated: true,
     showUnreleased: true,
     showInternal: true,
     plugins,
     pluginSearchDirs
-  }).options;
+  });
 
   const detailedOptionMap = normalizeDetailedOptionMap({
     ...createDetailedOptionMap(supportOptions),
@@ -935,25 +930,38 @@ function updateContextOptions(context, plugins, pluginSearchDirs) {
     )
   };
 
-  context.supportOptions = supportOptions;
-  context.detailedOptions = detailedOptions;
-  context.detailedOptionMap = detailedOptionMap;
-  context.apiDefaultOptions = apiDefaultOptions;
+  Object.assign(context, {
+    supportOptions,
+    detailedOptions,
+    detailedOptionMap,
+    apiDefaultOptions,
+    languages
+  });
 }
 
+/**
+ * @param {Context} context
+ * @param {string[]} plugins
+ * @param {string[]=} pluginSearchDirs
+ */
 function pushContextPlugins(context, plugins, pluginSearchDirs) {
-  context._supportOptions = context.supportOptions;
-  context._detailedOptions = context.detailedOptions;
-  context._detailedOptionMap = context.detailedOptionMap;
-  context._apiDefaultOptions = context.apiDefaultOptions;
+  context.stack.push(
+    pick(context, [
+      "supportOptions",
+      "detailedOptions",
+      "detailedOptionMap",
+      "apiDefaultOptions",
+      "languages"
+    ])
+  );
   updateContextOptions(context, plugins, pluginSearchDirs);
 }
 
+/**
+ * @param {Context} context
+ */
 function popContextPlugins(context) {
-  context.supportOptions = context._supportOptions;
-  context.detailedOptions = context._detailedOptions;
-  context.detailedOptionMap = context._detailedOptionMap;
-  context.apiDefaultOptions = context._apiDefaultOptions;
+  Object.assign(context, context.stack.pop());
 }
 
 function updateContextArgv(context, plugins, pluginSearchDirs) {

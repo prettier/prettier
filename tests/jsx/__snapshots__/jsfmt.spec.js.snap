@@ -756,6 +756,10 @@ cable ? (
   ) : null}
 </div>;
 
+// #3552
+foo ? <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span> :
+undefined
+
 =====================================output=====================================
 // There are two ways to print ConditionalExpressions: "normal mode" and
 // "JSX mode". This is normal mode (when breaking):
@@ -901,6 +905,13 @@ cable ? (
   ) : null}
 </div>;
 
+// #3552
+foo ? (
+  <span>
+    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
+  </span>
+) : undefined;
+
 ================================================================================
 `;
 
@@ -1043,6 +1054,10 @@ cable ? (
     )
   ) : null}
 </div>;
+
+// #3552
+foo ? <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span> :
+undefined
 
 =====================================output=====================================
 // There are two ways to print ConditionalExpressions: "normal mode" and
@@ -1189,6 +1204,13 @@ cable ? (
   ) : null}
 </div>;
 
+// #3552
+foo ? (
+  <span>
+    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
+  </span>
+) : undefined;
+
 ================================================================================
 `;
 
@@ -1331,6 +1353,10 @@ cable ? (
     )
   ) : null}
 </div>;
+
+// #3552
+foo ? <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span> :
+undefined
 
 =====================================output=====================================
 // There are two ways to print ConditionalExpressions: "normal mode" and
@@ -1477,6 +1503,13 @@ cable ? (
   ) : null}
 </div>;
 
+// #3552
+foo ? (
+  <span>
+    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
+  </span>
+) : undefined;
+
 ================================================================================
 `;
 
@@ -1619,6 +1652,10 @@ cable ? (
     )
   ) : null}
 </div>;
+
+// #3552
+foo ? <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span> :
+undefined
 
 =====================================output=====================================
 // There are two ways to print ConditionalExpressions: "normal mode" and
@@ -1764,6 +1801,13 @@ cable ? (
     )
   ) : null}
 </div>;
+
+// #3552
+foo ? (
+  <span>
+    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
+  </span>
+) : undefined;
 
 ================================================================================
 `;

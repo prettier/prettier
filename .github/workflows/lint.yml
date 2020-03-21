@@ -26,7 +26,7 @@ jobs:
       - name: Check JSDoc Types
         run: yarn lint:typecheck
 
-      - name: Lint Code
+      - name: Lint ESLint
         run: yarn lint:eslint
 
       - name: Lint Prettier
@@ -38,5 +38,5 @@ jobs:
       - name: Lint Changelog
         run: yarn lint:changelog
 
-      - name: Check File Changes
+      - name: Check Lock File Changes
         run: yarn && echo "Listing changed files:" && git diff --name-only --exit-code && echo "No files changed during lint."

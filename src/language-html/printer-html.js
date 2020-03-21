@@ -47,7 +47,7 @@ const {
   printVueSlotScope,
   isVueEventBindingExpression
 } = require("./syntax-vue");
-const { printImgSrcset } = require("./syntax-attribute");
+const { printImgSrcset, printClassNames } = require("./syntax-attribute");
 
 function concat(parts) {
   const newParts = normalizeParts(parts);
@@ -669,7 +669,9 @@ function printOpeningTag(path, options, print) {
            */
           (node.isSelfClosing &&
             needsToBorrowLastChildClosingTagEndMarker(node.parent))
-            ? ""
+            ? node.isSelfClosing
+              ? " "
+              : ""
             : node.isSelfClosing
             ? forceNotToBreakAttrContent
               ? " "
@@ -968,6 +970,25 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
     return printExpand(printImgSrcset(getValue()));
   }
 
+  if (node.fullName === "class" && !options.parentParser) {
+    const value = getValue();
+    if (!value.includes("{{")) {
+      return printClassNames(value);
+    }
+  }
+
+  if (node.fullName === "style" && !options.parentParser) {
+    const value = getValue();
+    if (!value.includes("{{")) {
+      return printExpand(
+        textToDoc(value, {
+          parser: "css",
+          __isHTMLStyleAttribute: true
+        })
+      );
+    }
+  }
+
   if (options.parser === "vue") {
     if (node.fullName === "v-for") {
       return printVueFor(getValue(), textToDoc);
@@ -1038,7 +1059,12 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
      *     [(target)]="angularExpression"
      *     bindon-target="angularExpression"
      */
-    const ngExpressionBindingPatterns = ["^\\[.+\\]$", "^bind(on)?-"];
+    const ngExpressionBindingPatterns = [
+      "^\\[.+\\]$",
+      "^bind(on)?-",
+      // Unofficial rudimentary support for some of the most used directives of AngularJS 1.x
+      "^ng-(if|show|hide|class|style)$"
+    ];
     /**
      *     i18n="longDescription"
      *     i18n-attr="longDescription"
