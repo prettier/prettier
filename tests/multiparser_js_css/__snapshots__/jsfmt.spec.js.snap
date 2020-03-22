@@ -255,6 +255,31 @@ const Foo = styled.p\`
   }
 \`;
 
+styled.div\`
+  \${props => props.firstProp && css\`
+    color: red;
+  \`}
+\`
+
+styled.div\`
+  \${props => props.firstProp && props.secondProp && props.thirdProp && css\`
+    color: red;
+  \`}
+\`
+
+const foo = css\`
+  color: red;
+  background: yellow;
+
+  \${bool && css\`
+    border: 1px solid blue;
+
+    \${bool2 && css\`
+      padding: 20px;
+    \`}
+  \`}
+\`;
+
 =====================================output=====================================
 const ListItem1 = styled.li\`\`;
 
@@ -417,13 +442,21 @@ const StyledComponent2 = styled.div\`
 \`;
 
 const Direction = styled.span\`
-  \${({ up }) => up && \`color: \${color.positive};\`}
-  \${({ down }) => down && \`color: \${color.negative};\`}
+  \${({ up }) => up && \`
+    color: \${color.positive};
+  \`}
+  \${({ down }) => down && \`
+    color: \${color.negative};
+  \`}
 \`;
 
 const Direction2 = styled.span\`
-  \${({ up }) => up && \`color: \${color.positive}\`};
-  \${({ down }) => down && \`color: \${color.negative}\`};
+  \${({ up }) => up && \`
+    color: \${color.positive};
+  \`};
+  \${({ down }) => down && \`
+    color: \${color.negative};
+  \`};
 \`;
 
 const mixin = css\`
@@ -456,11 +489,9 @@ const bar = styled.div\`
   height: 40px;
   width: 40px;
 
-  \${(props) =>
-    (props.complete || props.inProgress) &&
-    css\`
-      border-color: rgba(var(--green-rgb), 0.15);
-    \`}
+  \${(props) => (props.complete || props.inProgress) && css\`
+    border-color: rgba(var(--green-rgb), 0.15);
+  \`}
 
   div {
     background-color: var(--purpleTT);
@@ -469,29 +500,23 @@ const bar = styled.div\`
     color: var(--purpleTT);
     display: inline-flex;
 
-    \${(props) =>
-      props.complete &&
-      css\`
-        background-color: var(--green);
-        border-width: 7px;
-      \`}
+    \${(props) => props.complete && css\`
+      background-color: var(--green);
+      border-width: 7px;
+    \`}
 
-    \${(props) =>
-      (props.complete || props.inProgress) &&
-      css\`
-        border-color: var(--green);
-      \`}
+    \${(props) => (props.complete || props.inProgress) && css\`
+      border-color: var(--green);
+    \`}
   }
 \`;
 
 const A = styled.a\`
   display: inline-block;
   color: #fff;
-  \${(props) =>
-    props.a &&
-    css\`
-      display: none;
-    \`}
+  \${(props) => props.a && css\`
+    display: none;
+  \`}
   height: 30px;
 \`;
 
@@ -506,6 +531,35 @@ const Foo = styled.p\`
   &.bottom {
     margin-top: 3rem;
   }
+\`;
+
+styled.div\`
+  \${(props) => props.firstProp && css\`
+    color: red;
+  \`}
+\`;
+
+styled.div\`
+  \${(props) =>
+    props.firstProp &&
+    props.secondProp &&
+    props.thirdProp &&
+    css\`
+      color: red;
+    \`}
+\`;
+
+const foo = css\`
+  color: red;
+  background: yellow;
+
+  \${bool && css\`
+    border: 1px solid blue;
+
+    \${bool2 && css\`
+      padding: 20px;
+    \`}
+  \`}
 \`;
 
 ================================================================================
