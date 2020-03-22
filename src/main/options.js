@@ -163,23 +163,30 @@ function getInterpreter(filepath) {
 
 function inferParser(filepath, plugins) {
   const filename = path.basename(filepath).toLowerCase();
+  const languages = getSupportInfo({ plugins }).languages.filter(
+    (language) => language.since !== null
+  );
 
   // If the file has no extension, we can try to infer the language from the
   // interpreter in the shebang line, if any; but since this requires FS access,
   // do it last.
-  const language = getSupportInfo({ plugins }).languages.find(
+  let language = languages.find(
     (language) =>
-      language.since !== null &&
-      ((language.extensions &&
+      (language.extensions &&
         language.extensions.some((extension) =>
           filename.endsWith(extension)
         )) ||
-        (language.filenames &&
-          language.filenames.find((name) => name.toLowerCase() === filename)) ||
-        (!filename.includes(".") &&
-          language.interpreters &&
-          language.interpreters.includes(getInterpreter(filepath))))
+      (language.filenames &&
+        language.filenames.find((name) => name.toLowerCase() === filename))
   );
+
+  if (!language && !filename.includes(".")) {
+    const interpreter = getInterpreter(filepath);
+    language = languages.find(
+      (language) =>
+        language.interpreters && language.interpreters.includes(interpreter)
+    );
+  }
 
   return language && language.parsers[0];
 }
