@@ -86,6 +86,9 @@ const siteConfig = {
   separateCss: ["static/separate-css"],
   gaTrackingId: "UA-111350464-1",
   twitter: true,
+  twitterUsername: "PrettierCode",
+  twitterImage: "icon.png",
+  ogImage: "icon.png",
   onPageNav: "separate",
 };
 

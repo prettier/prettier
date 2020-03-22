@@ -236,7 +236,7 @@ class Playground extends React.Component {
                       <ClipboardButton
                         copy={JSON.stringify(
                           // Remove `parser` since people usually paste this
-                          // into their .prettierrc and specifying a toplevel
+                          // into their .prettierrc and specifying a top-level
                           // parser there is an anti-pattern. Note:
                           // `JSON.stringify` omits keys whose values are
                           // `undefined`.
