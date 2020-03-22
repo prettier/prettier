@@ -9,7 +9,7 @@ function findSiblingAncestors(startNodeAndParents, endNodeAndParents, opts) {
   if (resultStartNode === resultEndNode) {
     return {
       startNode: resultStartNode,
-      endNode: resultEndNode
+      endNode: resultEndNode,
     };
   }
 
@@ -39,7 +39,7 @@ function findSiblingAncestors(startNodeAndParents, endNodeAndParents, opts) {
 
   return {
     startNode: resultStartNode,
-    endNode: resultEndNode
+    endNode: resultEndNode,
   };
 }
 
@@ -65,7 +65,7 @@ function findNodeAtOffset(node, offset, options, predicate, parentNodes) {
     if (predicate(node)) {
       return {
         node,
-        parentNodes
+        parentNodes,
       };
     }
   }
@@ -106,7 +106,7 @@ function isSourceElement(opts, node) {
     "InterfaceDeclaration", // Flow, TypeScript
     "TypeAliasDeclaration", // TypeScript
     "ExportAssignment", // TypeScript
-    "ExportDeclaration" // TypeScript
+    "ExportDeclaration", // TypeScript
   ];
   const jsonSourceElements = [
     "ObjectExpression",
@@ -114,7 +114,7 @@ function isSourceElement(opts, node) {
     "StringLiteral",
     "NumericLiteral",
     "BooleanLiteral",
-    "NullLiteral"
+    "NullLiteral",
   ];
   const graphqlSourceElements = [
     "OperationDefinition",
@@ -132,7 +132,7 @@ function isSourceElement(opts, node) {
     "OperationTypeDefinition",
     "InterfaceTypeDefinition",
     "UnionTypeDefinition",
-    "ScalarTypeDefinition"
+    "ScalarTypeDefinition",
   ];
   switch (opts.parser) {
     case "flow":
@@ -174,19 +174,19 @@ function calculateRange(text, opts, ast) {
     ast,
     startNonWhitespace,
     opts,
-    node => isSourceElement(opts, node)
+    (node) => isSourceElement(opts, node)
   );
   const endNodeAndParents = findNodeAtOffset(
     ast,
     endNonWhitespace,
     opts,
-    node => isSourceElement(opts, node)
+    (node) => isSourceElement(opts, node)
   );
 
   if (!startNodeAndParents || !endNodeAndParents) {
     return {
       rangeStart: 0,
-      rangeEnd: 0
+      rangeEnd: 0,
     };
   }
 
@@ -207,11 +207,11 @@ function calculateRange(text, opts, ast) {
 
   return {
     rangeStart,
-    rangeEnd
+    rangeEnd,
   };
 }
 
 module.exports = {
   calculateRange,
-  findNodeAtOffset
+  findNodeAtOffset,
 };

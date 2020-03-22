@@ -35,7 +35,7 @@ module.exports = {
   trailingComma: "es5",
   tabWidth: 4,
   semi: false,
-  singleQuote: true
+  singleQuote: true,
 };
 ```
 
@@ -129,7 +129,7 @@ An example configuration repository is available [here](https://github.com/azz/p
 > ```js
 > module.exports = {
 >   ...require("@company/prettier-config"),
->   semi: false
+>   semi: false,
 > };
 > ```
 

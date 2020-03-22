@@ -9,14 +9,14 @@ const parser = require("./parser");
 const printAstToDoc = require("./ast-to-doc");
 const {
   guessEndOfLine,
-  convertEndOfLineToChars
+  convertEndOfLineToChars,
 } = require("../common/end-of-line");
 const rangeUtil = require("./range-util");
 const privateUtil = require("../common/util");
 const {
   utils: { mapDoc },
   printer: { printDocToString },
-  debug: { printDocToDebug }
+  debug: { printDocToDebug },
 } = require("../document");
 
 const BOM = "\uFEFF";
@@ -25,7 +25,7 @@ const CURSOR = Symbol("cursor");
 const PLACEHOLDERS = {
   cursorOffset: "<<<PRETTIER_CURSOR>>>",
   rangeStart: "<<<PRETTIER_RANGE_START>>>",
-  rangeEnd: "<<<PRETTIER_RANGE_END>>>"
+  rangeEnd: "<<<PRETTIER_RANGE_END>>>",
 };
 
 function ensureAllCommentsPrinted(astComments) {
@@ -41,7 +41,7 @@ function ensureAllCommentsPrinted(astComments) {
     }
   }
 
-  astComments.forEach(comment => {
+  astComments.forEach((comment) => {
     if (!comment.printed) {
       throw new Error(
         'Comment "' +
@@ -89,7 +89,7 @@ function coreFormat(text, opts, addAlignmentSize) {
   const result = printDocToString(
     opts.endOfLine === "lf"
       ? doc
-      : mapDoc(doc, currentDoc =>
+      : mapDoc(doc, (currentDoc) =>
           typeof currentDoc === "string" && currentDoc.includes("\n")
             ? currentDoc.replace(/\n/g, eol)
             : currentDoc
@@ -143,7 +143,7 @@ function coreFormat(text, opts, addAlignmentSize) {
     if (oldCursorNodeText === newCursorNodeText) {
       return {
         formatted: result.formatted,
-        cursorOffset: newCursorNodeStart + cursorOffsetRelativeToOldCursorNode
+        cursorOffset: newCursorNodeStart + cursorOffsetRelativeToOldCursorNode,
       };
     }
 
@@ -214,7 +214,7 @@ function formatRange(text, opts) {
       cursorOffset:
         opts.cursorOffset >= rangeStart && opts.cursorOffset < rangeEnd
           ? opts.cursorOffset - rangeStart
-          : -1
+          : -1,
     },
     alignmentSize
   );
@@ -297,7 +297,7 @@ function format(text, opts) {
     const offsetKeys = [
       hasCursor && "cursorOffset",
       hasRangeStart && "rangeStart",
-      hasRangeEnd && "rangeEnd"
+      hasRangeEnd && "rangeEnd",
     ]
       .filter(Boolean)
       .sort((aKey, bKey) => opts[aKey] - opts[bKey]);
@@ -406,5 +406,5 @@ module.exports = {
 
   printDocToString(doc, opts) {
     return printDocToString(doc, normalizeOptions(opts));
-  }
+  },
 };

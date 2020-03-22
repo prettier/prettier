@@ -21,13 +21,13 @@ function formatMarkdown(
     codeBlock(input, syntax),
     "",
     "**Output:**",
-    codeBlock(output, syntax)
+    codeBlock(output, syntax),
   ]
     .concat(
       isIdempotent ? [] : ["", "**Second Output:**", codeBlock(output2, syntax)]
     )
     .concat(full ? ["", "**Expected behavior:**", ""] : [])
-    .filter(part => {
+    .filter((part) => {
       return part != null;
     })
     .join("\n");
