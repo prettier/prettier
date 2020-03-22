@@ -52,6 +52,10 @@ describe("Negative patterns", () => {
   });
 });
 
+testPatterns("Exclude yarn.lock when expanding directories", ["."], {
+  stdout: expect.not.stringContaining("yarn.lock"),
+});
+
 const path = require("path");
 const fs = require("fs");
 if (path.sep === "/") {
