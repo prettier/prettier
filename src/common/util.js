@@ -752,7 +752,7 @@ function hasNodeIgnoreComment(node) {
     ((node.comments &&
       node.comments.length > 0 &&
       node.comments.some(
-        comment => isNodeIgnoreComment(comment) && !comment.unignore
+        (comment) => isNodeIgnoreComment(comment) && !comment.unignore
       )) ||
       node.prettierIgnore)
   );
