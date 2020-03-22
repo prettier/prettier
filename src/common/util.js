@@ -749,10 +749,17 @@ function hasIgnoreComment(path) {
 function hasNodeIgnoreComment(node) {
   return (
     node &&
-    node.comments &&
-    node.comments.length > 0 &&
-    node.comments.some((comment) => comment.value.trim() === "prettier-ignore")
+    ((node.comments &&
+      node.comments.length > 0 &&
+      node.comments.some(
+        (comment) => isNodeIgnoreComment(comment) && !comment.unignore
+      )) ||
+      node.prettierIgnore)
   );
+}
+
+function isNodeIgnoreComment(comment) {
+  return comment.value.trim() === "prettier-ignore";
 }
 
 function addCommentHelper(node, comment) {
@@ -850,6 +857,7 @@ module.exports = {
   printNumber,
   hasIgnoreComment,
   hasNodeIgnoreComment,
+  isNodeIgnoreComment,
   makeString,
   addLeadingComment,
   addDanglingComment,
