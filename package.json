@@ -72,7 +72,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.9.0",
-    "@babel/preset-env": "7.8.7",
+    "@babel/preset-env": "7.9.0",
     "@rollup/plugin-alias": "3.0.1",
     "@rollup/plugin-commonjs": "11.0.2",
     "@rollup/plugin-json": "4.0.2",
