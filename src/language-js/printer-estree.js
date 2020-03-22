@@ -3263,9 +3263,10 @@ function printPathNoParens(path, options, print, args) {
       // using them, it makes sense to have a trailing comma. But if you
       // aren't, this is more like a computed property name than an array.
       // So we leave off the trailing comma when there's just one parameter.
-      const trailingComma = n.parameters.length > 1
-        ? ifBreak(shouldPrintComma(options) ? "," : "")
-        : "";
+      const trailingComma =
+        n.parameters.length > 1
+          ? ifBreak(shouldPrintComma(options) ? "," : "")
+          : "";
 
       const parametersGroup = group(
         concat([
