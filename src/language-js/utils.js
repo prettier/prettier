@@ -289,6 +289,7 @@ const binaryishNodeTypes = new Set([
   "BinaryExpression",
   "LogicalExpression",
   "NGPipeExpression",
+  "TSAsExpression",
 ]);
 function isBinaryish(node) {
   return binaryishNodeTypes.has(node.type);
@@ -1003,10 +1004,29 @@ function isTSXFile(options) {
   return options.filepath && /\.tsx$/i.test(options.filepath);
 }
 
+function convertToBinaryishNode(node) {
+  if (node.type === "TSAsExpression") {
+    const binaryishNode = { ...node };
+
+    binaryishNode.operator = "as";
+
+    binaryishNode.left = node.expression;
+    delete binaryishNode.expression;
+
+    binaryishNode.right = node.typeAnnotation;
+    delete binaryishNode.typeAnnotation;
+
+    return binaryishNode;
+  }
+
+  return node;
+}
+
 module.exports = {
   classChildNeedsASIProtection,
   classPropMayCauseASIProblems,
   conditionalExpressionChainContainsJSX,
+  convertToBinaryishNode,
   getFlowVariance,
   getLeftSidePathName,
   getParentExportDeclaration,

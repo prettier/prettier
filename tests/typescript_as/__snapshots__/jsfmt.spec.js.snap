@@ -39,18 +39,18 @@ const state = JSON.stringify({
 =====================================output=====================================
 const name = (description as DescriptionObject).name || (description as string);
 this.isTabActionBar((e.target || e.srcElement) as HTMLElement);
-(originalError
-  ? wrappedError(errMsg, originalError)
-  : Error(errMsg)) as InjectionError;
+(originalError ? wrappedError(errMsg, originalError) : Error(errMsg)) as
+  InjectionError;
 "current" in (props.pagination as Object);
 start + (yearSelectTotal as number);
 scrollTop > (visibilityHeight as number);
-export default class Column<T> extends (RcTable.Column as React.ComponentClass<
-  ColumnProps<T>,
-  ColumnProps<T>,
-  ColumnProps<T>,
-  ColumnProps<T>
->) {}
+export default class Column<T> extends (RcTable.Column as
+  React.ComponentClass<
+    ColumnProps<T>,
+    ColumnProps<T>,
+    ColumnProps<T>,
+    ColumnProps<T>
+  >) {}
 export const MobxTypedForm = class extends (Form as { new (): any }) {};
 export abstract class MobxTypedForm1 extends (Form as { new (): any }) {}
 ({} as {});

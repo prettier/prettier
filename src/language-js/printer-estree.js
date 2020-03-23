@@ -39,6 +39,7 @@ const {
   classChildNeedsASIProtection,
   classPropMayCauseASIProblems,
   conditionalExpressionChainContainsJSX,
+  convertToBinaryishNode,
   getFlowVariance,
   getLeftSidePathName,
   getParentExportDeclaration,
@@ -553,11 +554,13 @@ function printPathNoParens(path, options, print, args) {
       );
     case "BinaryExpression":
     case "LogicalExpression":
-    case "NGPipeExpression": {
+    case "NGPipeExpression":
+    case "TSAsExpression": {
+      const node = convertToBinaryishNode(n);
       const parent = path.getParentNode();
       const parentParent = path.getParentNode(1);
       const isInsideParenthesis =
-        n !== parent.body &&
+        node !== parent.body &&
         (parent.type === "IfStatement" ||
           parent.type === "WhileStatement" ||
           parent.type === "SwitchStatement" ||
@@ -596,7 +599,7 @@ function printPathNoParens(path, options, print, args) {
       if (
         ((parent.type === "CallExpression" ||
           parent.type === "OptionalCallExpression") &&
-          parent.callee === n) ||
+          parent.callee === node) ||
         parent.type === "UnaryExpression" ||
         ((parent.type === "MemberExpression" ||
           parent.type === "OptionalMemberExpression") &&
@@ -614,14 +617,14 @@ function printPathNoParens(path, options, print, args) {
         parent.type === "ThrowStatement" ||
         (parent.type === "JSXExpressionContainer" &&
           parentParent.type === "JSXAttribute") ||
-        (n.operator !== "|" && parent.type === "JsExpressionRoot") ||
-        (n.type !== "NGPipeExpression" &&
+        (node.operator !== "|" && parent.type === "JsExpressionRoot") ||
+        (node.type !== "NGPipeExpression" &&
           ((parent.type === "NGRoot" && options.parser === "__ng_binding") ||
             (parent.type === "NGMicrosyntaxExpression" &&
               parentParent.type === "NGMicrosyntax" &&
               parentParent.body.length === 1))) ||
-        (n === parent.body && parent.type === "ArrowFunctionExpression") ||
-        (n !== parent.body && parent.type === "ForStatement") ||
+        (node === parent.body && parent.type === "ArrowFunctionExpression") ||
+        (node !== parent.body && parent.type === "ForStatement") ||
         (parent.type === "ConditionalExpression" &&
           parentParent.type !== "ReturnStatement" &&
           parentParent.type !== "ThrowStatement" &&
@@ -639,12 +642,12 @@ function printPathNoParens(path, options, print, args) {
         parent.type === "Property";
 
       const samePrecedenceSubExpression =
-        isBinaryish(n.left) && shouldFlatten(n.operator, n.left.operator);
+        isBinaryish(node.left) && shouldFlatten(node.operator, node.left.operator);
 
       if (
         shouldNotIndent ||
-        (shouldInlineLogicalExpression(n) && !samePrecedenceSubExpression) ||
-        (!shouldInlineLogicalExpression(n) && shouldIndentIfInlining)
+        (shouldInlineLogicalExpression(node) && !samePrecedenceSubExpression) ||
+        (!shouldInlineLogicalExpression(node) && shouldIndentIfInlining)
       ) {
         return group(concat(parts));
       }
@@ -662,7 +665,7 @@ function printPathNoParens(path, options, print, args) {
       //     </Foo>
       //   )
 
-      const hasJSX = isJSXNode(n.right);
+      const hasJSX = isJSXNode(node.right);
       const rest = concat(hasJSX ? parts.slice(1, -1) : parts.slice(1));
 
       const groupId = Symbol("logicalChain-" + ++uid);
@@ -5713,10 +5716,13 @@ function printBinaryishExpressions(
   isInsideParenthesis
 ) {
   let parts = [];
-  const node = path.getValue();
+  const node = convertToBinaryishNode(path.getValue());
 
   // We treat BinaryExpression and LogicalExpression nodes the same.
   if (isBinaryish(node)) {
+    const leftNodeName = node.type === "TSAsExpression" ? "expression" : "left";
+    const rightNodeName =
+      node.type === "TSAsExpression" ? "typeAnnotation" : "right";
     // Put all operators with the same precedence level in the same
     // group. The reason we only need to do this with the `left`
     // expression is because given an expression like `1 + 2 - 3`, it
@@ -5738,11 +5744,11 @@ function printBinaryishExpressions(
               /* isNested */ true,
               isInsideParenthesis
             ),
-          "left"
+          leftNodeName
         )
       );
     } else {
-      parts.push(path.call(print, "left"));
+      parts.push(path.call(print, leftNodeName));
     }
 
     const shouldInline = shouldInlineLogicalExpression(node);
@@ -5772,12 +5778,12 @@ function printBinaryishExpressions(
         : "";
 
     const right = shouldInline
-      ? concat([operator, " ", path.call(print, "right"), rightSuffix])
+      ? concat([operator, " ", path.call(print, rightNodeName), rightSuffix])
       : concat([
           lineBeforeOperator ? softline : "",
           operator,
           lineBeforeOperator ? " " : line,
-          path.call(print, "right"),
+          path.call(print, rightNodeName),
           rightSuffix,
         ]);
 
