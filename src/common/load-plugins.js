@@ -34,31 +34,33 @@ function load(plugins, pluginSearchDirs) {
 
   const [externalPluginNames, externalPluginInstances] = partition(
     plugins,
-    plugin => typeof plugin === "string"
+    (plugin) => typeof plugin === "string"
   );
 
-  const externalManualLoadPluginInfos = externalPluginNames.map(pluginName => {
-    let requirePath;
-    try {
-      // try local files
-      requirePath = eval("require").resolve(
-        path.resolve(process.cwd(), pluginName)
-      );
-    } catch (_) {
-      // try node modules
-      requirePath = eval("require").resolve(pluginName, {
-        paths: [process.cwd()]
-      });
-    }
+  const externalManualLoadPluginInfos = externalPluginNames.map(
+    (pluginName) => {
+      let requirePath;
+      try {
+        // try local files
+        requirePath = eval("require").resolve(
+          path.resolve(process.cwd(), pluginName)
+        );
+      } catch (_) {
+        // try node modules
+        requirePath = eval("require").resolve(pluginName, {
+          paths: [process.cwd()],
+        });
+      }
 
-    return {
-      name: pluginName,
-      requirePath
-    };
-  });
+      return {
+        name: pluginName,
+        requirePath,
+      };
+    }
+  );
 
   const externalAutoLoadPluginInfos = pluginSearchDirs
-    .map(pluginSearchDir => {
+    .map((pluginSearchDir) => {
       const resolvedPluginSearchDir = path.resolve(
         process.cwd(),
         pluginSearchDir
@@ -81,11 +83,11 @@ function load(plugins, pluginSearchDirs) {
         );
       }
 
-      return memoizedSearch(nodeModulesDir).map(pluginName => ({
+      return memoizedSearch(nodeModulesDir).map((pluginName) => ({
         name: pluginName,
         requirePath: eval("require").resolve(pluginName, {
-          paths: [resolvedPluginSearchDir]
-        })
+          paths: [resolvedPluginSearchDir],
+        }),
       }));
     })
     .reduce((a, b) => a.concat(b), []);
@@ -94,9 +96,9 @@ function load(plugins, pluginSearchDirs) {
     externalManualLoadPluginInfos.concat(externalAutoLoadPluginInfos),
     "requirePath"
   )
-    .map(externalPluginInfo => ({
+    .map((externalPluginInfo) => ({
       name: externalPluginInfo.name,
-      ...eval("require")(externalPluginInfo.requirePath)
+      ...eval("require")(externalPluginInfo.requirePath),
     }))
     .concat(externalPluginInstances);
 
@@ -108,11 +110,11 @@ function findPluginsInNodeModules(nodeModulesDir) {
     [
       "prettier-plugin-*/package.json",
       "@*/prettier-plugin-*/package.json",
-      "@prettier/plugin-*/package.json"
+      "@prettier/plugin-*/package.json",
     ],
     {
       cwd: nodeModulesDir,
-      expandDirectories: false
+      expandDirectories: false,
     }
   );
   return pluginPackageJsonPaths.map(path.dirname);
@@ -128,5 +130,5 @@ function isDirectory(dir) {
 
 module.exports = {
   loadPlugins: memoizedLoad,
-  clearCache
+  clearCache,
 };

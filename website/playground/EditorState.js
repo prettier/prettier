@@ -15,7 +15,7 @@ export default class extends React.Component {
       toggleAst: () => this.setState(stateToggler("showAst")),
       toggleDoc: () => this.setState(stateToggler("showDoc")),
       toggleSecondFormat: () => this.setState(stateToggler("showSecondFormat")),
-      ...storage.get("editor_state")
+      ...storage.get("editor_state"),
     };
   }
 

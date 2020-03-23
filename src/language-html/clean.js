@@ -1,6 +1,6 @@
 "use strict";
 
-module.exports = function(ast, newNode) {
+module.exports = function (ast, newNode) {
   delete newNode.sourceSpan;
   delete newNode.startSourceSpan;
   delete newNode.endSourceSpan;

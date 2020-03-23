@@ -26,12 +26,12 @@ export default class PrettierFormat extends React.Component {
       options,
       debugAst: ast,
       debugDoc: doc,
-      reformat
+      reformat,
     } = this.props;
 
     worker
       .format(code, options, { ast, doc, reformat })
-      .then(result => this.setState(result));
+      .then((result) => this.setState(result));
   }
 
   render() {

@@ -1,5 +1,7 @@
 "use strict";
 
+require("please-upgrade-node")(require("../../package.json"));
+
 const prettier = require("../../index");
 const stringify = require("json-stable-stringify");
 const util = require("./util");
@@ -49,7 +51,7 @@ function run(args) {
     if (context.argv["support-info"]) {
       context.logger.log(
         prettier.format(stringify(prettier.getSupportInfo()), {
-          parser: "json"
+          parser: "json",
         })
       );
       process.exit(0);
@@ -79,5 +81,5 @@ function run(args) {
 }
 
 module.exports = {
-  run
+  run,
 };

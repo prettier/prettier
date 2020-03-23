@@ -1,7 +1,7 @@
 "use strict";
 
 const {
-  builders: { concat, group }
+  builders: { concat, group },
 } = require("../document");
 
 /**
@@ -16,13 +16,13 @@ function printVueFor(value, textToDoc) {
     group(
       textToDoc(`function _(${left}) {}`, {
         parser: "babel",
-        __isVueForBindingLeft: true
+        __isVueForBindingLeft: true,
       })
     ),
     " ",
     operator,
     " ",
-    textToDoc(right, { parser: "__js_expression" })
+    textToDoc(right, { parser: "__js_expression" }),
   ]);
 }
 
@@ -55,14 +55,14 @@ function parseVueFor(value) {
       .filter(Boolean)
       .join(",")}`,
     operator: inMatch[2],
-    right: res.for
+    right: res.for,
   };
 }
 
 function printVueSlotScope(value, textToDoc) {
   return textToDoc(`function _(${value}) {}`, {
     parser: "babel",
-    __isVueSlotScope: true
+    __isVueSlotScope: true,
   });
 }
 
@@ -82,5 +82,5 @@ function isVueEventBindingExpression(eventBindingValue) {
 module.exports = {
   isVueEventBindingExpression,
   printVueFor,
-  printVueSlotScope
+  printVueSlotScope,
 };

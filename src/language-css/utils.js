@@ -25,7 +25,7 @@ const colorAdjusterFunctions = [
   "hsl",
   "hsla",
   "hwb",
-  "hwba"
+  "hwba",
 ];
 
 function getAncestorCounter(path, typeOrTypes) {
@@ -435,5 +435,5 @@ module.exports = {
   isColonNode,
   isMediaAndSupportsKeywords,
   isColorAdjusterFuncNode,
-  lastLineHasInlineComment
+  lastLineHasInlineComment,
 };
