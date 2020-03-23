@@ -2203,16 +2203,16 @@ a {
 
 $my-list: "foo",
   // Comment
-    "bar"; // Comment
+  "bar"; // Comment
 
 $my-map: (
   "foo": 1,
   // Comment
-    "bar": 2,
+  "bar": 2,
   // Comment
-    "buz": calc(1 + 2),
+  "buz": calc(1 + 2),
   // Buz
-    "baz": 4,
+  "baz": 4,
   // Baz
 );
 
@@ -2225,13 +2225,13 @@ $my-map: (
 }
 
 @import // Comment
-    "mixins",
+  "mixins",
   "variables",
   // Comment
-    "reset",
+  "reset",
   "scaffolding", "type",
   // Comment
-    "bar",
+  "bar",
   "tabs";
 
 @mixin placeholder {
@@ -4252,16 +4252,16 @@ a {
 
 $my-list: "foo",
   // Comment
-    "bar"; // Comment
+  "bar"; // Comment
 
 $my-map: (
   "foo": 1,
   // Comment
-    "bar": 2,
+  "bar": 2,
   // Comment
-    "buz": calc(1 + 2),
+  "buz": calc(1 + 2),
   // Buz
-    "baz": 4,
+  "baz": 4,
   // Baz
 );
 
@@ -4274,13 +4274,13 @@ $my-map: (
 }
 
 @import // Comment
-    "mixins",
+  "mixins",
   "variables",
   // Comment
-    "reset",
+  "reset",
   "scaffolding", "type",
   // Comment
-    "bar",
+  "bar",
   "tabs";
 
 @mixin placeholder {
