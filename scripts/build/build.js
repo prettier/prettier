@@ -13,7 +13,7 @@ const Cache = require("./cache");
 
 // Errors in promises should be fatal.
 const loggedErrors = new Set();
-process.on("unhandledRejection", err => {
+process.on("unhandledRejection", (err) => {
   // No need to print it twice.
   if (!loggedErrors.has(err)) {
     console.error(err);
@@ -39,11 +39,11 @@ async function createBundle(bundleConfig, cache) {
   process.stdout.write(fitTerminal(output));
 
   return bundler(bundleConfig, cache)
-    .catch(error => {
+    .catch((error) => {
       console.log(FAIL + "\n");
       handleError(error);
     })
-    .then(result => {
+    .then((result) => {
       if (result.cached) {
         console.log(CACHED);
       } else {
@@ -66,7 +66,7 @@ async function cacheFiles() {
     for (const bundleConfig of bundleConfigs) {
       await execa("cp", [
         path.join("dist", bundleConfig.output),
-        path.join(".cache", "files")
+        path.join(".cache", "files"),
       ]);
     }
   } catch (err) {
@@ -81,7 +81,7 @@ async function preparePackage() {
   delete pkg.devDependencies;
   pkg.scripts = {
     prepublishOnly:
-      "node -e \"assert.equal(require('.').version, require('..').version)\""
+      "node -e \"assert.equal(require('.').version, require('..').version)\"",
   };
   pkg.files = ["*.js"];
   await util.writeJson("dist/package.json", pkg);
@@ -114,6 +114,6 @@ async function run(params) {
 
 run(
   minimist(process.argv.slice(2), {
-    boolean: ["purge-cache"]
+    boolean: ["purge-cache"],
   })
 );

@@ -15,8 +15,8 @@ const sources = [
   "parser-markdown.js",
   "parser-postcss.js",
   "parser-typescript.js",
-  "parser-yaml.js"
-].map(filename =>
+  "parser-yaml.js",
+].map((filename) =>
   fs.readFileSync(path.join(process.env.PRETTIER_DIR, filename), "utf-8")
 );
 
@@ -46,6 +46,6 @@ module.exports = {
         );`,
         { $$$input: input, $$$options: options, ...sandbox }
       );
-    }
-  }
+    },
+  },
 };

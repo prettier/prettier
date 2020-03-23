@@ -1,12 +1,8 @@
 ---
 id: version-stable-plugins
-title: Plugins (Beta)
+title: Plugins
 original_id: plugins
 ---
-
-## IN BETA
-
-> The plugin API is in a **beta** state as of Prettier 1.10 and the API may change in the next release!
 
 Plugins are ways of adding new languages to Prettier. Prettier's own implementations of all languages are expressed using the plugin API. The core `prettier` package contains JavaScript and other web-focused languages built in. For additional languages you'll need to install a plugin.
 
@@ -32,7 +28,7 @@ When plugins cannot be found automatically, you can load them with:
   prettier.format("code", {
     parser: "foo",
     pluginSearchDirs: ["./dir-with-plugins"],
-    plugins: ["./foo-plugin"]
+    plugins: ["./foo-plugin"],
   });
   ```
 
@@ -73,7 +69,7 @@ Prettier plugins are regular JavaScript modules with five exports:
 
 ### `languages`
 
-Languages is an array of language definitions that your plugin will contribute to Prettier. It can include all of the fields specified in [`prettier.getSupportInfo()`](api.md#prettiergetsupportinfo-version).
+Languages is an array of language definitions that your plugin will contribute to Prettier. It can include all of the fields specified in [`prettier.getSupportInfo()`](api.md#prettiergetsupportinfo).
 
 It **must** include `name` and `parsers`.
 
@@ -84,8 +80,8 @@ export const languages = [
     name: "InterpretedDanceScript",
     // Parsers that can parse this language.
     // This can be built-in parsers, or parsers you have contributed via this plugin.
-    parsers: ["dance-parse"]
-  }
+    parsers: ["dance-parse"],
+  },
 ];
 ```
 
@@ -104,8 +100,8 @@ export const parsers = {
     hasPragma,
     locStart,
     locEnd,
-    preprocess
-  }
+    preprocess,
+  },
 };
 ```
 
@@ -144,8 +140,8 @@ export const printers = {
   "dance-ast": {
     print,
     embed,
-    insertPragma
-  }
+    insertPragma,
+  },
 };
 ```
 
@@ -254,7 +250,6 @@ function getNextNonSpaceNonCommentCharacterIndex<N>(text: string, node: N, locEn
 function isNextLineEmptyAfterIndex(text: string, index: number): boolean;
 function isNextLineEmpty<N>(text: string, node: N, locEnd: (node: N) => number): boolean;
 function isPreviousLineEmpty<N>(text: string, node: N, locStart: (node: N) => number): boolean;
-function mapDoc(doc: object, callback: function): void;
 ```
 
 ### Tutorials
@@ -270,7 +265,7 @@ const prettier = require("prettier");
 const code = "(add 1 2)";
 prettier.format(code, {
   parser: "lisp",
-  plugins: ["."]
+  plugins: ["."],
 });
 ```
 

@@ -2,22 +2,22 @@
 
 const createError = require("../common/parser-create-error");
 const parseFrontMatter = require("../utils/front-matter");
-const lineColumnToIndex = require("../utils/line-column-to-index");
 const { hasPragma } = require("./pragma");
 const { isLessParser, isSCSS, isSCSSNestedPropertyNode } = require("./utils");
+const { calculateLoc, replaceQuotesInInlineComments } = require("./loc");
 
 function parseValueNodes(nodes) {
   let parenGroup = {
     open: null,
     close: null,
     groups: [],
-    type: "paren_group"
+    type: "paren_group",
   };
   const parenGroupStack = [parenGroup];
   const rootParenGroup = parenGroup;
   let commaGroup = {
     groups: [],
-    type: "comma_group"
+    type: "comma_group",
   };
   const commaGroupStack = [commaGroup];
 
@@ -45,13 +45,13 @@ function parseValueNodes(nodes) {
         open: node,
         close: null,
         groups: [],
-        type: "paren_group"
+        type: "paren_group",
       };
       parenGroupStack.push(parenGroup);
 
       commaGroup = {
         groups: [],
-        type: "comma_group"
+        type: "comma_group",
       };
       commaGroupStack.push(commaGroup);
     } else if (node.type === "paren" && node.value === ")") {
@@ -74,7 +74,7 @@ function parseValueNodes(nodes) {
       parenGroup.groups.push(commaGroup);
       commaGroup = {
         groups: [],
-        type: "comma_group"
+        type: "comma_group",
       };
       commaGroupStack[commaGroupStack.length - 1] = commaGroup;
     } else {
@@ -185,7 +185,7 @@ function parseValue(value) {
   } catch (e) {
     return {
       type: "value-unknown",
-      value
+      value,
     };
   }
 
@@ -202,7 +202,7 @@ function parseSelector(selector) {
   if (/\/\/|\/\*/.test(selector)) {
     return {
       type: "selector-unknown",
-      value: selector.trim()
+      value: selector.trim(),
     };
   }
 
@@ -211,7 +211,7 @@ function parseSelector(selector) {
   let result = null;
 
   try {
-    selectorParser(result_ => {
+    selectorParser((result_) => {
       result = result_;
     }).process(selector);
   } catch (e) {
@@ -223,7 +223,7 @@ function parseSelector(selector) {
     // https://github.com/postcss/postcss-scss/issues/39
     return {
       type: "selector-unknown",
-      value: selector
+      value: selector,
     };
   }
 
@@ -241,7 +241,7 @@ function parseMediaQuery(params) {
     // Ignore bad media queries
     return {
       type: "selector-unknown",
-      value: params
+      value: params,
     };
   }
 
@@ -294,7 +294,7 @@ function parseNestedCSS(node, options) {
 
       value = value.trim();
 
-      node.raws.value = selector;
+      node.raws.value = value;
     }
 
     let params = "";
@@ -368,7 +368,7 @@ function parseNestedCSS(node, options) {
       if (value.startsWith("progid:")) {
         return {
           type: "value-unknown",
-          value
+          value,
         };
       }
 
@@ -440,7 +440,7 @@ function parseNestedCSS(node, options) {
       if (name === "warn" || name === "error") {
         node.params = {
           type: "media-unknown",
-          value: params
+          value: params,
         };
 
         return node;
@@ -486,7 +486,7 @@ function parseNestedCSS(node, options) {
           "function",
           "return",
           "define-mixin",
-          "add-mixin"
+          "add-mixin",
         ].includes(name)
       ) {
         // Remove unnecessary spaces in SCSS variable arguments
@@ -505,7 +505,7 @@ function parseNestedCSS(node, options) {
           // Workaround for media at rule with scss interpolation
           return {
             type: "media-unknown",
-            value: params
+            value: params,
           };
         }
 
@@ -541,6 +541,8 @@ function parseWithParser(parser, text, options) {
 
   result = parseNestedCSS(addTypePrefix(result, "css-"), options);
 
+  calculateLoc(result, text);
+
   if (frontMatter) {
     result.nodes.unshift(frontMatter);
   }
@@ -553,7 +555,12 @@ function requireParser(isSCSSParser) {
     return require("postcss-scss");
   }
 
-  return require("postcss-less");
+  const lessParser = require("postcss-less");
+  return {
+    // Workaround for https://github.com/shellscape/postcss-less/issues/145
+    // See comments for `replaceQuotesInInlineComments` in `loc.js`.
+    parse: (text) => lessParser.parse(replaceQuotesInInlineComments(text)),
+  };
 }
 
 function parse(text, parsers, options) {
@@ -582,20 +589,16 @@ const parser = {
   hasPragma,
   locStart(node) {
     if (node.source) {
-      return lineColumnToIndex(node.source.start, node.source.input.css) - 1;
+      return node.source.startOffset;
     }
     return null;
   },
   locEnd(node) {
-    const endNode = node.nodes && node.nodes[node.nodes.length - 1];
-    if (endNode && node.source && !node.source.end) {
-      node = endNode;
-    }
-    if (node.source && node.source.end) {
-      return lineColumnToIndex(node.source.end, node.source.input.css);
+    if (node.source) {
+      return node.source.endOffset;
     }
     return null;
-  }
+  },
 };
 
 // Export as a plugin so we can reuse the same bundle for UMD loading
@@ -603,6 +606,6 @@ module.exports = {
   parsers: {
     css: parser,
     less: parser,
-    scss: parser
-  }
+    scss: parser,
+  },
 };

@@ -8,7 +8,7 @@ const categoryOrder = [
   coreOptions.CATEGORY_FORMAT,
   coreOptions.CATEGORY_CONFIG,
   coreOptions.CATEGORY_EDITOR,
-  coreOptions.CATEGORY_OTHER
+  coreOptions.CATEGORY_OTHER,
 ];
 
 /**
@@ -77,7 +77,7 @@ const options = {
     description: dedent`
       Check if the given files are formatted, print a human-friendly summary
       message and paths to unformatted files (see also --list-different).
-    `
+    `,
   },
   color: {
     // The supports-color package (a sub sub dependency) looks directly at
@@ -87,7 +87,7 @@ const options = {
     type: "boolean",
     default: true,
     description: "Colorize error messages.",
-    oppositeDescription: "Do not colorize error messages."
+    oppositeDescription: "Do not colorize error messages.",
   },
   config: {
     type: "path",
@@ -95,7 +95,7 @@ const options = {
     description:
       "Path to a Prettier configuration file (.prettierrc, package.json, prettier.config.js).",
     oppositeDescription: "Do not look for a configuration file.",
-    exception: value => value === false
+    exception: (value) => value === false,
   },
   "config-precedence": {
     type: "choice",
@@ -104,38 +104,38 @@ const options = {
     choices: [
       {
         value: "cli-override",
-        description: "CLI options take precedence over config file"
+        description: "CLI options take precedence over config file",
       },
       {
         value: "file-override",
-        description: "Config file take precedence over CLI options"
+        description: "Config file take precedence over CLI options",
       },
       {
         value: "prefer-file",
         description: dedent`
           If a config file is found will evaluate it and ignore other CLI options.
           If no config file is found CLI options will evaluate as normal.
-        `
-      }
+        `,
+      },
     ],
     description:
-      "Define in which order config files and CLI options should be evaluated."
+      "Define in which order config files and CLI options should be evaluated.",
   },
   "debug-benchmark": {
     // Run the formatting benchmarks. Requires 'benchmark' module to be installed.
-    type: "boolean"
+    type: "boolean",
   },
   "debug-check": {
     // Run the formatting once again on the formatted output, throw if different.
-    type: "boolean"
+    type: "boolean",
   },
   "debug-print-doc": {
-    type: "boolean"
+    type: "boolean",
   },
   "debug-repeat": {
     // Repeat the formatting a few times and measure the average duration.
     type: "int",
-    default: 0
+    default: 0,
   },
   editorconfig: {
     type: "boolean",
@@ -143,13 +143,13 @@ const options = {
     description: "Take .editorconfig into account when parsing configuration.",
     oppositeDescription:
       "Don't take .editorconfig into account when parsing configuration.",
-    default: true
+    default: true,
   },
   "find-config-path": {
     type: "path",
     category: coreOptions.CATEGORY_CONFIG,
     description:
-      "Find and print the path to a configuration file for the given input file."
+      "Find and print the path to a configuration file for the given input file.",
   },
   "file-info": {
     type: "path",
@@ -157,7 +157,7 @@ const options = {
       Extract the following info (as JSON) for a given file path. Reported fields:
       * ignored (boolean) - true if file path is filtered by --ignore-path
       * inferredParser (string | null) - name of parser inferred from file path
-    `
+    `,
   },
   help: {
     type: "flag",
@@ -166,46 +166,46 @@ const options = {
       Show CLI usage, or details about the given flag.
       Example: --help write
     `,
-    exception: value => value === ""
+    exception: (value) => value === "",
   },
   "ignore-path": {
     type: "path",
     category: coreOptions.CATEGORY_CONFIG,
     default: ".prettierignore",
-    description: "Path to a file with patterns describing files to ignore."
+    description: "Path to a file with patterns describing files to ignore.",
   },
   "list-different": {
     type: "boolean",
     category: coreOptions.CATEGORY_OUTPUT,
     alias: "l",
     description:
-      "Print the names of files that are different from Prettier's formatting (see also --check)."
+      "Print the names of files that are different from Prettier's formatting (see also --check).",
   },
   loglevel: {
     type: "choice",
     description: "What level of logs to report.",
     default: "log",
-    choices: ["silent", "error", "warn", "log", "debug"]
+    choices: ["silent", "error", "warn", "log", "debug"],
   },
   "support-info": {
     type: "boolean",
-    description: "Print support information as JSON."
+    description: "Print support information as JSON.",
   },
   version: {
     type: "boolean",
     alias: "v",
-    description: "Print Prettier version."
+    description: "Print Prettier version.",
   },
   "with-node-modules": {
     type: "boolean",
     category: coreOptions.CATEGORY_CONFIG,
-    description: "Process files inside 'node_modules' directory."
+    description: "Process files inside 'node_modules' directory.",
   },
   write: {
     type: "boolean",
     category: coreOptions.CATEGORY_OUTPUT,
-    description: "Edit files in-place. (Beware!)"
-  }
+    description: "Edit files in-place. (Beware!)",
+  },
 };
 
 const usageSummary = dedent`
@@ -218,5 +218,5 @@ const usageSummary = dedent`
 module.exports = {
   categoryOrder,
   options,
-  usageSummary
+  usageSummary,
 };

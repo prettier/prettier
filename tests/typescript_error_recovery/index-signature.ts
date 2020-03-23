@@ -12,3 +12,8 @@ type TooLong = {
 }
 type TooLong81 = { [loooooooooooooooooooooooooong: string, loooooooooooooooooong: string]: string; }
 type TooLong80 = { [loooooooooooooooooooooooooong: string, looooooooooooooooong: string]: string; }
+
+// note lack of trailing comma in the index signature
+type TooLongSingleParam = {
+  [looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong: string]: string;
+}
