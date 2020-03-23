@@ -285,12 +285,13 @@ function isTypeAnnotationAFunction(node, options) {
   );
 }
 
+const binaryishNodeTypes = new Set([
+  "BinaryExpression",
+  "LogicalExpression",
+  "NGPipeExpression",
+]);
 function isBinaryish(node) {
-  return (
-    node.type === "BinaryExpression" ||
-    node.type === "LogicalExpression" ||
-    node.type === "NGPipeExpression"
-  );
+  return binaryishNodeTypes.has(node.type);
 }
 
 function isMemberish(node) {
