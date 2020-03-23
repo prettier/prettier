@@ -1,7 +1,4 @@
 "use strict";
-const { isCI } = require("ci-info");
-
-const ENABLE_TEST_RESULTS = isCI || !!process.env.ENABLE_TEST_RESULTS;
 const ENABLE_CODE_COVERAGE = !!process.env.ENABLE_CODE_COVERAGE;
 
 module.exports = {
@@ -19,7 +16,7 @@ module.exports = {
     "<rootDir>/src/doc/doc-debug.js",
     "<rootDir>/src/main/massage-ast.js",
   ],
-  coverageReporters: ["text", "html", "cobertura", "lcov"],
+  coverageReporters: ["text", "lcov"],
   moduleNameMapper: {
     // Jest wires `fs` to `graceful-fs`, which causes a memory leak when
     // `graceful-fs` does `require('fs')`.
@@ -36,6 +33,5 @@ module.exports = {
     "jest-watch-typeahead/filename",
     "jest-watch-typeahead/testname",
   ],
-  reporters: ["default"].concat(ENABLE_TEST_RESULTS ? "jest-junit" : []),
   verbose: true,
 };
