@@ -85,3 +85,19 @@ describe("throw error and show usage with something unexpected", () => {
     status: "non-zero",
   });
 });
+
+describe("node version error", () => {
+  const originalProcessVersion = process.version;
+  try {
+    Object.defineProperty(process, "version", {
+      value: "v8.0.0",
+      writable: false,
+    });
+    runPrettier("cli", ["--help"]).test({ status: 1 });
+  } finally {
+    Object.defineProperty(process, "version", {
+      value: originalProcessVersion,
+      writable: false,
+    });
+  }
+});
