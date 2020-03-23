@@ -127,6 +127,7 @@ function getInterpreter(filepath) {
   try {
     fd = fs.openSync(filepath, "r");
   } catch (err) {
+    // istanbul ignore next
     return "";
   }
 
