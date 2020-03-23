@@ -21,8 +21,8 @@ const prettier = !TEST_STANDALONE
 const unstableTests = new Map(
   [
     "class_comment/comments.js",
-    ["comments/dangling_array.js", options => options.semi === false],
-    ["comments/jsx.js", options => options.semi === false],
+    ["comments/dangling_array.js", (options) => options.semi === false],
+    ["comments/jsx.js", (options) => options.semi === false],
     "comments/return-statement.js",
     "comments/tagged-template-literal.js",
     "comments_closure_typecast/iife.js",
@@ -30,7 +30,7 @@ const unstableTests = new Map(
     "graphql_interface/separator-detection.graphql",
     [
       "html_angular/attributes.component.html",
-      options => options.printWidth === 1
+      (options) => options.printWidth === 1,
     ],
     "html_prettier_ignore/cases.html",
     "js_empty/semicolon.js",
@@ -41,11 +41,11 @@ const unstableTests = new Map(
     "multiparser_html_js/script-tag-escaping.html",
     [
       "multiparser_js_markdown/codeblock.js",
-      options => options.proseWrap === "always"
+      (options) => options.proseWrap === "always",
     ],
-    ["no-semi/comments.js", options => options.semi === false],
-    "yaml_prettier_ignore/document.yml"
-  ].map(fixture => {
+    ["no-semi/comments.js", (options) => options.semi === false],
+    "yaml_prettier_ignore/document.yml",
+  ].map((fixture) => {
     const [file, isUnstable = () => true] = Array.isArray(fixture)
       ? fixture
       : [fixture];
@@ -102,13 +102,13 @@ global.run_spec = (dirname, parsers, options) => {
       ...options,
       rangeStart,
       rangeEnd,
-      cursorOffset
+      cursorOffset,
     };
     const mainOptions = {
       ...baseOptions,
       ...(IS_PARSER_INFERENCE_TESTS
         ? { filepath: filename }
-        : { parser: parsers[0] })
+        : { parser: parsers[0] }),
     };
 
     const hasEndOfLine = "endOfLine" in mainOptions;
@@ -205,7 +205,7 @@ function parse(source, options) {
 function format(source, filename, options) {
   const result = prettier.formatWithCursor(source, {
     filepath: filename,
-    ...options
+    ...options,
   });
 
   return options.cursorOffset >= 0
@@ -217,7 +217,7 @@ function format(source, filename, options) {
 
 function consistentEndOfLine(text) {
   let firstEndOfLine;
-  return text.replace(/\r\n?|\n/g, endOfLine => {
+  return text.replace(/\r\n?|\n/g, (endOfLine) => {
     if (!firstEndOfLine) {
       firstEndOfLine = endOfLine;
     }
@@ -226,7 +226,7 @@ function consistentEndOfLine(text) {
 }
 
 function visualizeEndOfLine(text) {
-  return text.replace(/\r\n?|\n/g, endOfLine => {
+  return text.replace(/\r\n?|\n/g, (endOfLine) => {
     switch (endOfLine) {
       case "\n":
         return "<LF>\n";
@@ -252,7 +252,7 @@ function createSnapshot(input, output, options) {
       printOptions(
         omit(
           options,
-          k =>
+          (k) =>
             k === "rangeStart" ||
             k === "rangeEnd" ||
             k === "cursorOffset" ||
@@ -278,12 +278,12 @@ function printSeparator(width, description) {
 
 function printOptions(options) {
   const keys = Object.keys(options).sort();
-  return keys.map(key => `${key}: ${stringify(options[key])}`).join("\n");
+  return keys.map((key) => `${key}: ${stringify(options[key])}`).join("\n");
   function stringify(value) {
     return value === Infinity
       ? "Infinity"
       : Array.isArray(value)
-      ? `[${value.map(v => JSON.stringify(v)).join(", ")}]`
+      ? `[${value.map((v) => JSON.stringify(v)).join(", ")}]`
       : JSON.stringify(value);
   }
 }
