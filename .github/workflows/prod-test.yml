@@ -1,6 +1,6 @@
-name: Prod_Test
+name: Prod
 
-on: [pull_request]
+on: [push, pull_request]
 
 jobs:
   build:
@@ -29,7 +29,34 @@ jobs:
           name: dist
           path: dist
 
-  prod_test:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12"
+
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Download Artifact
+        uses: actions/download-artifact@v1
+        with:
+          name: dist
+          path: dist
+
+      - name: Lint Code
+        run: yarn lint:dist
+
+  test:
     strategy:
       fail-fast: false
       matrix:
@@ -41,8 +68,7 @@ jobs:
           - "13"
           - "12"
           - "10"
-
-    name: Prod test on node ${{ matrix.node }} and ${{ matrix.os }}
+    name: Node.js ${{ matrix.node }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     needs: [build]
     steps:
@@ -65,5 +91,45 @@ jobs:
           name: dist
           path: dist
 
-      - name: Run Test
+      - name: Run Tests
+        run: yarn test:dist
+
+  standalone:
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - "ubuntu-latest"
+          - "macos-latest"
+          - "windows-latest"
+        node:
+          - "13"
+          - "12"
+          - "10"
+    env:
+      STANDALONE: true
+    name: Node.js ${{ matrix.node }} on ${{ matrix.os }} (standalone)
+    runs-on: ${{ matrix.os }}
+    needs: [build]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Download Artifact
+        uses: actions/download-artifact@v1
+        with:
+          name: dist
+          path: dist
+
+      - name: Run Tests
         run: yarn test:dist
