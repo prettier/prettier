@@ -389,3 +389,50 @@ printWidth: 80
 </div>
 ================================================================================
 `;
+
+exports[`escaped.hbs - {"singleQuote":true} format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
+an escaped mustache:
+\\{{my-component}}
+a non-escaped mustache:
+\\\\{{my-component}}
+another non-escaped mustache:
+\\\\\\{{my-component}}
+
+=====================================output=====================================
+an escaped mustache:
+\\{{my-component}}
+a non-escaped mustache:
+\\\\{{my-component}}
+another non-escaped mustache:
+\\\\\\{{my-component}}
+================================================================================
+`;
+
+exports[`escaped.hbs format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+an escaped mustache:
+\\{{my-component}}
+a non-escaped mustache:
+\\\\{{my-component}}
+another non-escaped mustache:
+\\\\\\{{my-component}}
+
+=====================================output=====================================
+an escaped mustache:
+\\{{my-component}}
+a non-escaped mustache:
+\\\\{{my-component}}
+another non-escaped mustache:
+\\\\\\{{my-component}}
+================================================================================
+`;
