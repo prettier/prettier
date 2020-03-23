@@ -3195,12 +3195,6 @@ function printPathNoParens(path, options, print, args) {
       return "unknown";
     case "TSVoidKeyword":
       return "void";
-    case "TSAsExpression":
-      return concat([
-        path.call(print, "expression"),
-        " as ",
-        path.call(print, "typeAnnotation"),
-      ]);
     case "TSArrayType":
       return concat([path.call(print, "elementType"), "[]"]);
     case "TSPropertySignature": {
