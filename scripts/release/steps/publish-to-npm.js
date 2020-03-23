@@ -34,7 +34,7 @@ module.exports = async function ({ dry, version }) {
       - Test the API and CLI
 
       After that, we can proceed to bump this repo's Prettier dependency.
-      Press any key to continue.
+      Press ENTER to continue.
     `)
   );
   await waitForEnter();

@@ -3259,6 +3259,15 @@ function printPathNoParens(path, options, print, args) {
     case "TSIndexSignature": {
       const parent = path.getParentNode();
 
+      // The typescript parser accepts multiple parameters here. If you're
+      // using them, it makes sense to have a trailing comma. But if you
+      // aren't, this is more like a computed property name than an array.
+      // So we leave off the trailing comma when there's just one parameter.
+      const trailingComma =
+        n.parameters.length > 1
+          ? ifBreak(shouldPrintComma(options) ? "," : "")
+          : "";
+
       const parametersGroup = group(
         concat([
           indent(
@@ -3267,7 +3276,7 @@ function printPathNoParens(path, options, print, args) {
               join(concat([", ", softline]), path.map(print, "parameters")),
             ])
           ),
-          ifBreak(shouldPrintComma(options) ? "," : ""),
+          trailingComma,
           softline,
         ])
       );
@@ -6089,7 +6098,9 @@ function willPrintOwnComments(path /*, options */) {
           ((parent.type === "ClassDeclaration" ||
             parent.type === "ClassExpression") &&
             parent.superClass === node)))) &&
-    !hasIgnoreComment(path)
+    (!hasIgnoreComment(path) ||
+      parent.type === "UnionTypeAnnotation" ||
+      parent.type === "TSUnionType")
   );
 }
 

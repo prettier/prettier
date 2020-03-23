@@ -60,13 +60,13 @@ function postprocess(ast, options) {
       }
       // remove redundant TypeScript nodes
       case "TSParenthesizedType": {
-        return node.typeAnnotation;
+        return { ...node.typeAnnotation, ...composeLoc(node) };
       }
       case "TSUnionType":
       case "TSIntersectionType":
         if (node.types.length === 1) {
           // override loc, so that comments are attached properly
-          return { ...node.types[0], loc: node.loc, range: node.range };
+          return { ...node.types[0], ...composeLoc(node) };
         }
         break;
       case "TSTypeParameter":

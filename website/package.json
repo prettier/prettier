@@ -10,19 +10,18 @@
   },
   "dependencies": {
     "clipboard": "2.0.6",
-    "codemirror": "5.52.0",
     "codemirror-graphql": "0.11.6",
     "lodash": "4.17.15",
     "lz-string": "1.4.4",
     "prop-types": "15.7.2",
     "react": "16.13.1",
-    "react-dom": "16.13.0"
+    "react-dom": "16.13.1"
   },
   "devDependencies": {
-    "@babel/preset-env": "7.8.7",
-    "@babel/preset-react": "7.8.3",
+    "@babel/preset-env": "7.9.0",
+    "@babel/preset-react": "7.9.1",
     "@sandhose/prettier-animated-logo": "1.0.3",
-    "babel-loader": "8.0.6",
+    "babel-loader": "8.1.0",
     "concurrently": "5.1.0",
     "docusaurus": "1.14.4",
     "js-yaml": "3.13.1",

@@ -1,3 +1,9 @@
+# 2.0.1
+
+[diff](https://github.com/prettier/prettier/compare/2.0.0...2.0.1)
+
+#### API: Fix build script to not corrupt `import-fresh` module ([#7820](https://github.com/prettier/prettier/pull/7820) by [@thorn0](https://github.com/thorn0))
+
 # 2.0.0
 
 [diff](https://github.com/prettier/prettier/compare/1.19.1...2.0.0)
