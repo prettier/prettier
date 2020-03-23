@@ -2494,7 +2494,6 @@ function printPathNoParens(path, options, print, args) {
               n.expressions[i].type === "OptionalMemberExpression" ||
               n.expressions[i].type === "ConditionalExpression" ||
               n.expressions[i].type === "SequenceExpression" ||
-              n.expressions[i].type === "TSAsExpression" ||
               isBinaryish(n.expressions[i])
             ) {
               printed = concat([indent(concat([softline, printed])), softline]);
