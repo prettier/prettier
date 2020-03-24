@@ -1,7 +1,7 @@
 "use strict";
 
 const {
-  builders: { concat, ifBreak, join, line },
+  builders: { concat, group, ifBreak, indent, join, line, softline },
 } = require("../document");
 const parseSrcset = require("parse-srcset");
 
@@ -59,8 +59,50 @@ function printImgSrcset(value) {
   );
 }
 
+function getClassPrefix(className) {
+  let idx = className.search(/--|__/);
+  if (idx === -1) {
+    idx = className.indexOf("_");
+  }
+  if (idx === -1) {
+    idx = className.indexOf("-");
+  }
+  return idx === -1 ? className : className.slice(0, idx);
+}
+
 function printClassNames(value) {
-  return value.trim().split(/\s+/).join(" ");
+  const classNames = value.trim().split(/\s+/);
+
+  // Try keeping consecutive classes with the same prefix on one line.
+  const groupedByPrefix = [];
+  let previousPrefix = undefined;
+  for (let i = 0; i < classNames.length; i++) {
+    const prefix = getClassPrefix(classNames[i]);
+    if (
+      prefix !== previousPrefix &&
+      // "home-link" and "home-link_blue_yes" should be considered same-prefix
+      prefix !== classNames[i - 1]
+    ) {
+      groupedByPrefix.push([]);
+    }
+    groupedByPrefix[groupedByPrefix.length - 1].push(classNames[i]);
+    previousPrefix = prefix;
+  }
+
+  return concat([
+    indent(
+      group(
+        concat([
+          softline,
+          join(
+            line,
+            groupedByPrefix.map((classNames) => group(join(line, classNames)))
+          ),
+        ])
+      )
+    ),
+    softline,
+  ]);
 }
 
 module.exports = {
