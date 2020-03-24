@@ -37,8 +37,6 @@
 </p>
 
 <p align="center">
-  <a href="https://dev.azure.com/prettier/prettier/_build/latest?definitionId=5">
-    <img alt="Azure Pipelines Build Status" src="https://img.shields.io/azure-devops/build/prettier/79013671-677c-4846-a6d8-3050d40e21c0/5.svg?style=flat-square&label=build&branchName=master"></a>
   <a href="https://github.com/prettier/prettier/actions?query=workflow%3AProd+branch%3Amaster">
     <img alt="Github Actions Build Status" src="https://img.shields.io/github/workflow/status/prettier/prettier/Prod?label=Prod&style=flat-square"></a>
   <a href="https://github.com/prettier/prettier/actions?query=workflow%3ADev+branch%3Amaster">
