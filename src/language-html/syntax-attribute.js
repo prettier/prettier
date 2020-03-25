@@ -59,15 +59,19 @@ function printImgSrcset(value) {
   );
 }
 
+const prefixDelimiters = ["__", "--", "_", "-"];
+
 function getClassPrefix(className) {
-  let idx = className.search(/--|__/);
-  if (idx === -1) {
-    idx = className.indexOf("_");
+  const startIndex = className.search(/[^-_]/);
+  if (startIndex !== -1) {
+    for (const delimiter of prefixDelimiters) {
+      const delimiterIndex = className.indexOf(delimiter, startIndex);
+      if (delimiterIndex !== -1) {
+        return className.slice(0, delimiterIndex);
+      }
+    }
   }
-  if (idx === -1) {
-    idx = className.indexOf("-");
-  }
-  return idx === -1 ? className : className.slice(0, idx);
+  return className;
 }
 
 function printClassNames(value) {
