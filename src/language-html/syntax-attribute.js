@@ -91,15 +91,13 @@ function printClassNames(value) {
 
   return concat([
     indent(
-      group(
-        concat([
-          softline,
-          join(
-            line,
-            groupedByPrefix.map((classNames) => group(join(line, classNames)))
-          ),
-        ])
-      )
+      concat([
+        softline,
+        join(
+          line,
+          groupedByPrefix.map((classNames) => group(join(line, classNames)))
+        ),
+      ])
     ),
     softline,
   ]);
