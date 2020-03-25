@@ -642,7 +642,8 @@ function printPathNoParens(path, options, print, args) {
         parent.type === "Property";
 
       const samePrecedenceSubExpression =
-        isBinaryish(node.left) && shouldFlatten(node.operator, node.left.operator);
+        isBinaryish(node.left) &&
+        shouldFlatten(node.operator, node.left.operator);
 
       if (
         shouldNotIndent ||
