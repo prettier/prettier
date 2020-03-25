@@ -1382,7 +1382,7 @@ function printPathNoParens(path, options, print, args) {
         });
 
       if (n.inexact) {
-        props.push(concat(separatorParts.concat(group("..."))));
+        props.push(concat(separatorParts.concat("...")));
       }
 
       const lastElem = getLast(n[propertiesField]);
