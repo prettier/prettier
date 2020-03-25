@@ -14,7 +14,7 @@ module.exports = {
   collectCoverageFrom: ["src/**/*.js", "index.js", "!<rootDir>/node_modules/"],
   coveragePathIgnorePatterns: [
     "<rootDir>/standalone.js",
-    "<rootDir>/src/doc/doc-debug.js",
+    "<rootDir>/src/document/doc-debug.js",
     "<rootDir>/src/main/massage-ast.js",
   ],
   coverageReporters: ["text", "lcov"],
