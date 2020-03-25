@@ -15,6 +15,9 @@ async function bump({ version }) {
   processFile(".github/ISSUE_TEMPLATE/integration.md", (content) =>
     content.replace(/^(- Prettier Version: ).*?$/m, `$1${version}`)
   );
+  processFile("docs/install.md", (content) =>
+    content.replace(/^(npx prettier@)\S+/m, `$1${version}`)
+  );
 
   // Update unpkg link in docs
   processFile("docs/browser.md", (content) =>

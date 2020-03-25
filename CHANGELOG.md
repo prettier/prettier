@@ -1,3 +1,104 @@
+# 2.0.2
+
+[diff](https://github.com/prettier/prettier/compare/2.0.1...2.0.2)
+
+### 2.0 regressions
+
+#### JavaScript: Fix formatting of pseudo-elements and pseudo-classes in styled-components template literals ([#7842](https://github.com/prettier/prettier/pull/7842) by [@thorn0](https://github.com/thorn0))
+
+<!-- prettier-ignore -->
+```jsx
+// Input
+const Foo = styled.div`
+  ${media.smallDown}::before {}
+`;
+
+// Prettier 2.0.0
+const Foo = styled.div`
+  ${media.smallDown}: : before{
+  }
+`;
+
+// Prettier 2.0.2
+const Foo = styled.div`
+  ${media.smallDown}::before {
+  }
+`;
+```
+
+#### TypeScript: Avoid trailing commas on index signatures with only one parameter ([#7836](https://github.com/prettier/prettier/pull/7836) by [@bakkot](https://github.com/bakkot))
+
+TypeScript index signatures technically allow multiple parameters and trailing commas, but it's an error to have multiple parameters there, and Babel's TypeScript parser does not accept them. So Prettier now avoids putting a trailing comma there when you have only one parameter.
+
+<!-- prettier-ignore -->
+```ts
+// Input
+export type A = {
+  a?: {
+    [
+      x: string
+    ]: typeof SomeLongLongLongTypeName[keyof typeof SomeLongLongLongTypeName];
+  } | null;
+};
+
+// Prettier 2.0.0
+export type A = {
+  a?: {
+    [
+      x: string,
+    ]: typeof SomeLongLongLongTypeName[keyof typeof SomeLongLongLongTypeName];
+  } | null;
+};
+
+// Prettier 2.0.2
+export type A = {
+  a?: {
+    [
+      x: string
+    ]: typeof SomeLongLongLongTypeName[keyof typeof SomeLongLongLongTypeName];
+  } | null;
+};
+```
+
+#### Revert "markdown: fix redundant leading spaces in markdown list" ([#7847](https://github.com/prettier/prettier/pull/7847))
+
+See [#7846](https://github.com/prettier/prettier/issues/7846)
+
+### Other changes
+
+#### TypeScript: Fix `prettier-ignore` in union types ([#7798](https://github.com/prettier/prettier/pull/7798) by [@thorn0](https://github.com/thorn0))
+
+<!-- prettier-ignore -->
+```ts
+// Input
+export type a =
+  // foo
+  | foo1&foo2
+  // prettier-ignore
+  | bar1&bar2
+  // baz
+  | baz1&baz2;
+
+// Prettier 2.0.0
+export type a =
+  // foo
+  | foo1&foo2
+    // prettier-ignore
+  // prettier-ignore
+  | (bar1 & bar2)
+  // baz
+  | (baz1 & baz2);
+
+// Prettier 2.0.2
+export type a =
+  // foo
+  | (foo1 & foo2)
+  // prettier-ignore
+  | bar1&bar2
+  // baz
+  | (baz1 & baz2);
+```
+
 # 2.0.1
 
 [diff](https://github.com/prettier/prettier/compare/2.0.0...2.0.1)

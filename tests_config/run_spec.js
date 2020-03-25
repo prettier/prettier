@@ -5,9 +5,11 @@ const path = require("path");
 const raw = require("jest-snapshot-serializer-raw").wrap;
 const { isCI } = require("ci-info");
 
-const { TEST_STANDALONE, TEST_CRLF } = process.env;
+const { TEST_STANDALONE } = process.env;
 const AST_COMPARE = isCI || process.env.AST_COMPARE;
 const DEEP_COMPARE = isCI || process.env.DEEP_COMPARE;
+const TEST_CRLF =
+  (isCI && process.platform === "win32") || process.env.TEST_CRLF;
 
 const CURSOR_PLACEHOLDER = "<|>";
 const RANGE_START_PLACEHOLDER = "<<<PRETTIER_RANGE_START>>>";
