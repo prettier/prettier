@@ -72,6 +72,9 @@ jobs:
           - "13"
           - "12"
           - "10"
+        exclude:
+          - os: "macos-latest"
+            node: "13"
     name: Node.js ${{ matrix.node }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     needs: [build]
@@ -110,6 +113,9 @@ jobs:
           - "13"
           - "12"
           - "10"
+        exclude:
+          - os: "macos-latest"
+            node: "13"
     env:
       STANDALONE: true
     name: Node.js ${{ matrix.node }} on ${{ matrix.os }} (standalone)
