@@ -555,9 +555,7 @@ function printPathNoParens(path, options, print, args) {
     case "LogicalExpression":
     case "NGPipeExpression":
     case "TSAsExpression": {
-      const leftNodeName = n.type === "TSAsExpression" ? "expression" : "left";
-      const rightNodeName =
-        n.type === "TSAsExpression" ? "typeAnnotation" : "right";
+      const { leftNodeName, rightNodeName } = getBinaryishNodeNames(n);
       const parent = path.getParentNode();
       const parentParent = path.getParentNode(1);
       const isInsideParenthesis =
@@ -5695,6 +5693,20 @@ function shouldInlineLogicalExpression(node) {
   return false;
 }
 
+function getBinaryishNodeNames(node) {
+  const leftNodeName = node.type === "TSAsExpression" ? "expression" : "left";
+  const rightNodeName =
+    node.type === "TSAsExpression" ? "typeAnnotation" : "right";
+  const operator =
+    node.type === "NGPipeExpression"
+      ? "|"
+      : node.type === "TSAsExpression"
+      ? "as"
+      : node.operator;
+
+  return { leftNodeName, rightNodeName, operator };
+}
+
 // For binary expressions to be consistent, we need to group
 // subsequent operators with the same precedence level under a single
 // group. Otherwise they will be nested such that some of them break
@@ -5715,9 +5727,9 @@ function printBinaryishExpressions(
 
   // We treat BinaryExpression, LogicalExpression, NGPipeExpression and TSAsExpression the same.
   if (isBinaryish(node)) {
-    const leftNodeName = node.type === "TSAsExpression" ? "expression" : "left";
-    const rightNodeName =
-      node.type === "TSAsExpression" ? "typeAnnotation" : "right";
+    const { leftNodeName, rightNodeName, operator } = getBinaryishNodeNames(
+      node
+    );
 
     // Put all operators with the same precedence level in the same
     // group. The reason we only need to do this with the `left`
@@ -5746,13 +5758,6 @@ function printBinaryishExpressions(
     } else {
       parts.push(path.call(print, leftNodeName));
     }
-
-    const operator =
-      node.type === "NGPipeExpression"
-        ? "|"
-        : node.type === "TSAsExpression"
-        ? "as"
-        : node.operator;
 
     const shouldInline = shouldInlineLogicalExpression(node);
     const lineBeforeOperator =
