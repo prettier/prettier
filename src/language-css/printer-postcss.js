@@ -535,6 +535,15 @@ function genericPrint(path, options, print) {
           continue;
         }
 
+        // styled.div` background: var(--${one}); `
+        if (
+          !iPrevNode &&
+          iNode.value === "--" &&
+          iNextNode.type === "value-atword"
+        ) {
+          continue;
+        }
+
         // Ignore spaces before/after string interpolation (i.e. `"#{my-fn("_")}"`)
         const isStartSCSSInterpolationInString =
           iNode.type === "value-string" && iNode.value.startsWith("#{");

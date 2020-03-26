@@ -621,14 +621,14 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 const Something = styled.div\`
-  background: var(--\${one}); /* FIXME */
+  background: var(--\${one}); /* ... */
   border: 1px solid var(--\${two}); /* ... */
 \`;
 
 =====================================output=====================================
 const Something = styled.div\`
-  background: var(-- \${one}); /* FIXME */
-  border: 1px solid var(-- \${two}); /* ... */
+  background: var(--\${one}); /* ... */
+  border: 1px solid var(--\${two}); /* ... */
 \`;
 
 ================================================================================
