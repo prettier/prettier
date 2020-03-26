@@ -555,7 +555,9 @@ function printPathNoParens(path, options, print, args) {
     case "LogicalExpression":
     case "NGPipeExpression":
     case "TSAsExpression": {
-      const { leftNodeName, rightNodeName, operator } = getBinaryishNodeNames(n);
+      const { leftNodeName, rightNodeName, operator } = getBinaryishNodeNames(
+        n
+      );
       const parent = path.getParentNode();
       const parentParent = path.getParentNode(1);
       const isInsideParenthesis =
