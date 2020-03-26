@@ -39,7 +39,6 @@ const {
   classChildNeedsASIProtection,
   classPropMayCauseASIProblems,
   conditionalExpressionChainContainsJSX,
-  convertToBinaryishNode,
   getFlowVariance,
   getLeftSidePathName,
   getParentExportDeclaration,
@@ -556,11 +555,13 @@ function printPathNoParens(path, options, print, args) {
     case "LogicalExpression":
     case "NGPipeExpression":
     case "TSAsExpression": {
-      const node = convertToBinaryishNode(n);
+      const leftNodeName = n.type === "TSAsExpression" ? "expression" : "left";
+      const rightNodeName =
+        n.type === "TSAsExpression" ? "typeAnnotation" : "right";
       const parent = path.getParentNode();
       const parentParent = path.getParentNode(1);
       const isInsideParenthesis =
-        node !== parent.body &&
+        n !== parent.body &&
         (parent.type === "IfStatement" ||
           parent.type === "WhileStatement" ||
           parent.type === "SwitchStatement" ||
@@ -599,7 +600,7 @@ function printPathNoParens(path, options, print, args) {
       if (
         ((parent.type === "CallExpression" ||
           parent.type === "OptionalCallExpression") &&
-          parent.callee === node) ||
+          parent.callee === n) ||
         parent.type === "UnaryExpression" ||
         ((parent.type === "MemberExpression" ||
           parent.type === "OptionalMemberExpression") &&
@@ -617,14 +618,14 @@ function printPathNoParens(path, options, print, args) {
         parent.type === "ThrowStatement" ||
         (parent.type === "JSXExpressionContainer" &&
           parentParent.type === "JSXAttribute") ||
-        (node.operator !== "|" && parent.type === "JsExpressionRoot") ||
-        (node.type !== "NGPipeExpression" &&
+        (n.operator !== "|" && parent.type === "JsExpressionRoot") ||
+        (n.type !== "NGPipeExpression" &&
           ((parent.type === "NGRoot" && options.parser === "__ng_binding") ||
             (parent.type === "NGMicrosyntaxExpression" &&
               parentParent.type === "NGMicrosyntax" &&
               parentParent.body.length === 1))) ||
-        (node === parent.body && parent.type === "ArrowFunctionExpression") ||
-        (node !== parent.body && parent.type === "ForStatement") ||
+        (n === parent.body && parent.type === "ArrowFunctionExpression") ||
+        (n !== parent.body && parent.type === "ForStatement") ||
         (parent.type === "ConditionalExpression" &&
           parentParent.type !== "ReturnStatement" &&
           parentParent.type !== "ThrowStatement" &&
@@ -642,13 +643,13 @@ function printPathNoParens(path, options, print, args) {
         parent.type === "Property";
 
       const samePrecedenceSubExpression =
-        isBinaryish(node.left) &&
-        shouldFlatten(node.operator, node.left.operator);
+        isBinaryish(n[leftNodeName]) &&
+        shouldFlatten(n.operator, n[leftNodeName].operator);
 
       if (
         shouldNotIndent ||
-        (shouldInlineLogicalExpression(node) && !samePrecedenceSubExpression) ||
-        (!shouldInlineLogicalExpression(node) && shouldIndentIfInlining)
+        (shouldInlineLogicalExpression(n) && !samePrecedenceSubExpression) ||
+        (!shouldInlineLogicalExpression(n) && shouldIndentIfInlining)
       ) {
         return group(concat(parts));
       }
@@ -666,7 +667,7 @@ function printPathNoParens(path, options, print, args) {
       //     </Foo>
       //   )
 
-      const hasJSX = isJSXNode(node.right);
+      const hasJSX = isJSXNode(n[rightNodeName]);
       const rest = concat(hasJSX ? parts.slice(1, -1) : parts.slice(1));
 
       const groupId = Symbol("logicalChain-" + ++uid);
@@ -5710,13 +5711,14 @@ function printBinaryishExpressions(
   isInsideParenthesis
 ) {
   let parts = [];
-  const node = convertToBinaryishNode(path.getValue());
+  const node = path.getValue();
 
   // We treat BinaryExpression and LogicalExpression nodes the same.
   if (isBinaryish(node)) {
     const leftNodeName = node.type === "TSAsExpression" ? "expression" : "left";
     const rightNodeName =
       node.type === "TSAsExpression" ? "typeAnnotation" : "right";
+
     // Put all operators with the same precedence level in the same
     // group. The reason we only need to do this with the `left`
     // expression is because given an expression like `1 + 2 - 3`, it
@@ -5726,7 +5728,7 @@ function printBinaryishExpressions(
     // precedence level and should be treated as a separate group, so
     // print them normally. (This doesn't hold for the `**` operator,
     // which is unique in that it is right-associative.)
-    if (shouldFlatten(node.operator, node.left.operator)) {
+    if (shouldFlatten(node.operator, node[leftNodeName].operator)) {
       // Flatten them out by recursively calling this function.
       parts = parts.concat(
         path.call(
@@ -5745,14 +5747,24 @@ function printBinaryishExpressions(
       parts.push(path.call(print, leftNodeName));
     }
 
+    const operator =
+      node.type === "NGPipeExpression"
+        ? "|"
+        : node.type === "TSAsExpression"
+        ? "as"
+        : node.operator;
+
     const shouldInline = shouldInlineLogicalExpression(node);
     const lineBeforeOperator =
-      (node.operator === "|>" ||
+      (operator === "|>" ||
         node.type === "NGPipeExpression" ||
-        (node.operator === "|" && options.parser === "__vue_expression")) &&
-      !hasLeadingOwnLineComment(options.originalText, node.right, options);
+        (operator === "|" && options.parser === "__vue_expression")) &&
+      !hasLeadingOwnLineComment(
+        options.originalText,
+        node[rightNodeName],
+        options
+      );
 
-    const operator = node.type === "NGPipeExpression" ? "|" : node.operator;
     const rightSuffix =
       node.type === "NGPipeExpression" && node.arguments.length !== 0
         ? group(
@@ -5787,8 +5799,8 @@ function printBinaryishExpressions(
     const shouldGroup =
       !(isInsideParenthesis && node.type === "LogicalExpression") &&
       parent.type !== node.type &&
-      node.left.type !== node.type &&
-      node.right.type !== node.type;
+      node[leftNodeName].type !== node.type &&
+      node[rightNodeName].type !== node.type;
 
     parts.push(" ", shouldGroup ? group(right) : right);
 
