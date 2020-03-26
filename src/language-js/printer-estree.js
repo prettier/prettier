@@ -5713,7 +5713,7 @@ function printBinaryishExpressions(
   let parts = [];
   const node = path.getValue();
 
-  // We treat BinaryExpression and LogicalExpression nodes the same.
+  // We treat BinaryExpression, LogicalExpression, NGPipeExpression and TSAsExpression the same.
   if (isBinaryish(node)) {
     const leftNodeName = node.type === "TSAsExpression" ? "expression" : "left";
     const rightNodeName =
