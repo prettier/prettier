@@ -36,36 +36,15 @@ function embed(path, print, textToDoc, options) {
         const rawQuasis = node.quasis.map((q) => q.value.raw);
         let placeholderID = 0;
         const text = rawQuasis.reduce((prevVal, currVal, idx) => {
-          if (idx === 0) {
-            return currVal;
-          }
-
-          let specialSuffix = ""; // colons and whitespaces
-
-          const trailingColons = currVal.match(/^(\s*)(:+)(\s*)/);
-          if (trailingColons) {
-            const whitespaceBeforeColons = !!trailingColons[1];
-            const numberOfColons = trailingColons[2].length;
-            const whitespaceAfterColons = !!trailingColons[3];
-
-            if (whitespaceAfterColons) {
-              // do nothing, it's not a pseudo-element or pseudo-class
-            } else {
-              if (whitespaceBeforeColons) {
-                specialSuffix += "-whitespace";
-              }
-              specialSuffix += "-colon".repeat(numberOfColons);
-
-              currVal = "\uffff" + currVal.slice(trailingColons[0].length);
-            }
-          }
-
-          const placeholder = `@prettier-placeholder${specialSuffix}-${placeholderID++}-id`;
-
-          return prevVal + placeholder + currVal;
+          return idx === 0
+            ? currVal
+            : prevVal +
+                "@prettier-placeholder-" +
+                placeholderID++ +
+                "-id" +
+                currVal;
         }, "");
-
-        const doc = textToDoc(text, { parser: "css" });
+        const doc = textToDoc(text, { parser: "scss" });
         return transformCssDoc(doc, path, print);
       }
 
@@ -313,20 +292,13 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
       const placeholder = parts[atPlaceholderIndex];
       const rest = parts.slice(atPlaceholderIndex + 1);
       const placeholderMatch = placeholder.match(
-        /@prettier-placeholder((?:-whitespace|-colon)*)-(.+)-id([\s\S]*)/
+        /@prettier-placeholder-(.+)-id([\s\S]*)/
       );
-      const specialSuffix = placeholderMatch[1]; // colons and whitespaces
-      const placeholderID = placeholderMatch[2];
+      const placeholderID = placeholderMatch[1];
       // When the expression has a suffix appended, like:
       // animation: linear ${time}s ease-out;
-      let suffix = placeholderMatch[3];
+      const suffix = placeholderMatch[2];
       const expression = expressions[placeholderID];
-
-      if (specialSuffix) {
-        suffix =
-          specialSuffix.replace(/-whitespace/g, " ").replace(/-colon/g, ":") +
-          suffix.replace(/^\uffff/g, "");
-      }
 
       replaceCounter++;
       parts = parts
