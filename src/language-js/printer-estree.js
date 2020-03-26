@@ -555,7 +555,7 @@ function printPathNoParens(path, options, print, args) {
     case "LogicalExpression":
     case "NGPipeExpression":
     case "TSAsExpression": {
-      const { leftNodeName, rightNodeName } = getBinaryishNodeNames(n);
+      const { leftNodeName, rightNodeName, operator } = getBinaryishNodeNames(n);
       const parent = path.getParentNode();
       const parentParent = path.getParentNode(1);
       const isInsideParenthesis =
@@ -616,7 +616,7 @@ function printPathNoParens(path, options, print, args) {
         parent.type === "ThrowStatement" ||
         (parent.type === "JSXExpressionContainer" &&
           parentParent.type === "JSXAttribute") ||
-        (n.operator !== "|" && parent.type === "JsExpressionRoot") ||
+        (operator !== "|" && parent.type === "JsExpressionRoot") ||
         (n.type !== "NGPipeExpression" &&
           ((parent.type === "NGRoot" && options.parser === "__ng_binding") ||
             (parent.type === "NGMicrosyntaxExpression" &&
@@ -642,7 +642,10 @@ function printPathNoParens(path, options, print, args) {
 
       const samePrecedenceSubExpression =
         isBinaryish(n[leftNodeName]) &&
-        shouldFlatten(n.operator, n[leftNodeName].operator);
+        shouldFlatten(
+          operator,
+          getBinaryishNodeNames(n[leftNodeName]).operator
+        );
 
       if (
         shouldNotIndent ||
@@ -5740,7 +5743,13 @@ function printBinaryishExpressions(
     // precedence level and should be treated as a separate group, so
     // print them normally. (This doesn't hold for the `**` operator,
     // which is unique in that it is right-associative.)
-    if (shouldFlatten(node.operator, node[leftNodeName].operator)) {
+    if (
+      node.type === "NGPipeExpression" ||
+      shouldFlatten(
+        operator,
+        getBinaryishNodeNames(node[leftNodeName]).operator
+      )
+    ) {
       // Flatten them out by recursively calling this function.
       parts = parts.concat(
         path.call(

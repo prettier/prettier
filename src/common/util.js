@@ -399,6 +399,11 @@ function shouldFlatten(parentOp, nodeOp) {
     return false;
   }
 
+  // foo as SomeType01 as SomeType02 --> (foo as SomeType01) as SomeType02
+  if (parentOp === "as" && nodeOp === "as") {
+    return false;
+  }
+
   return true;
 }
 
