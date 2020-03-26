@@ -546,6 +546,24 @@ Default: 2
 
 exports[`show detailed usage with --help tab-width (write) 1`] = `Array []`;
 
+exports[`show detailed usage with --help template-formatting (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help template-formatting (stdout) 1`] = `
+"--template-formatting <auto|off>
+
+  Control how Prettier formats template literals containing code.
+
+Valid options:
+
+  auto   Format template literals if Prettier detects they appear to be a known kind of template.
+  off    Never automatically format template literals.
+
+Default: auto
+"
+`;
+
+exports[`show detailed usage with --help template-formatting (write) 1`] = `Array []`;
+
 exports[`show detailed usage with --help trailing-comma (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help trailing-comma (stdout) 1`] = `

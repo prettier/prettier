@@ -228,6 +228,14 @@ Object {
       },
       "type": "int",
     },
+    "templateFormatting": Object {
+      "choices": Array [
+        "auto",
+        "off",
+      ],
+      "default": "auto",
+      "type": "choice",
+    },
     "trailingComma": Object {
       "choices": Array [
         "es5",
@@ -988,6 +996,25 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"pluginDefaults\\": {},
       \\"range\\": { \\"end\\": null, \\"start\\": 0, \\"step\\": 1 },
       \\"type\\": \\"int\\"
+    },
+    {
+      \\"category\\": \\"JavaScript\\",
+      \\"choices\\": [
+        {
+          \\"description\\": \\"Format template literals if Prettier detects they appear to be a known kind of template.\\",
+          \\"value\\": \\"auto\\"
+        },
+        {
+          \\"description\\": \\"Never automatically format template literals.\\",
+          \\"value\\": \\"off\\"
+        }
+      ],
+      \\"default\\": \\"auto\\",
+      \\"description\\": \\"Control how Prettier formats template literals containing code.\\",
+      \\"name\\": \\"templateFormatting\\",
+      \\"pluginDefaults\\": {},
+      \\"since\\": \\"2.1.0\\",
+      \\"type\\": \\"choice\\"
     },
     {
       \\"category\\": \\"JavaScript\\",

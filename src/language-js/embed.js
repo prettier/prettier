@@ -18,6 +18,9 @@ const {
 } = require("../document");
 
 function embed(path, print, textToDoc, options) {
+  if (options.templateFormatting === 'off') {
+    return null;
+  }
   const node = path.getValue();
   const parent = path.getParentNode();
   const parentParent = path.getParentNode(1);

@@ -336,6 +336,24 @@ in order for it to be formatted.",
           "description": "Number of spaces per indentation level.",
           "type": "integer",
         },
+        "templateFormatting": Object {
+          "default": "auto",
+          "description": "Control how Prettier formats template literals containing code.",
+          "oneOf": Array [
+            Object {
+              "description": "Format template literals if Prettier detects they appear to be a known kind of template.",
+              "enum": Array [
+                "auto",
+              ],
+            },
+            Object {
+              "description": "Never automatically format template literals.",
+              "enum": Array [
+                "off",
+              ],
+            },
+          ],
+        },
         "trailingComma": Object {
           "default": "es5",
           "description": "Print trailing commas wherever possible when multi-line.",

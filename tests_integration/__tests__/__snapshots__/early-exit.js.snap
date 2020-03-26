@@ -96,6 +96,9 @@ Format options:
                            Defaults to false.
   --tab-width <int>        Number of spaces per indentation level.
                            Defaults to 2.
+  --template-formatting <auto|off>
+                           Control how Prettier formats template literals containing code.
+                           Defaults to auto.
   --trailing-comma <es5|none|all>
                            Print trailing commas wherever possible when multi-line.
                            Defaults to es5.
@@ -252,6 +255,9 @@ Format options:
                            Defaults to false.
   --tab-width <int>        Number of spaces per indentation level.
                            Defaults to 2.
+  --template-formatting <auto|off>
+                           Control how Prettier formats template literals containing code.
+                           Defaults to auto.
   --trailing-comma <es5|none|all>
                            Print trailing commas wherever possible when multi-line.
                            Defaults to es5.
