@@ -484,13 +484,11 @@ styled.span\`
 \`;
 
 styled.span\`
-  \${foo}:
-  \${bar}
+  \${foo}: \${bar}
 \`;
 
 styled.span\`
-  \${foo}:
-  \${bar};
+  \${foo}: \${bar};
 \`;
 
 styled.a\`

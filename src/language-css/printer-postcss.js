@@ -249,6 +249,8 @@ function genericPrint(path, options, print) {
                 : isTemplatePlaceholderNode(node)
                 ? node.raws.afterName === ""
                   ? ""
+                  : node.name.endsWith(":")
+                  ? " "
                   : /^\s*\n\s*\n/.test(node.raws.afterName)
                   ? concat([hardline, hardline])
                   : /^\s*\n/.test(node.raws.afterName)
