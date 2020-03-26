@@ -35,7 +35,6 @@ const unstableTests = new Map(
       (options) => options.printWidth === 1,
     ],
     "js_empty/semicolon.js",
-    "jsx_ignore/jsx_ignore.js",
     "markdown_footnoteDefinition/multiline.md",
     "markdown_spec/example-234.md",
     "markdown_spec/example-235.md",
