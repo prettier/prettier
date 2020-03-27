@@ -8,8 +8,8 @@ req.checkBody('name').notEmpty().optional();
 const x = moment().add(1, 'day').valueOf()
 
 // should stay on one line:
-obj.foo(1).foo(2).foo(3);
-obj.foo(-1).foo(import('2')).foo(!x).check(/[A-Z]/);
+const y = obj.foo(1).foo(2).foo(3);
+const z = obj.foo(-1).foo(import('2')).foo(!x).check(/[A-Z]/);
 
 // better on multiple lines:
 somePromise.then(format).then((val)=>doSomething(val)).catch((err)=>handleError(err))
@@ -63,7 +63,7 @@ db.branch(
 
 sandbox.stub(config, 'get').withArgs('env').returns('dev')
 
-moment.utc(userInput).hour(0).minute(0).second(0)
+const date = moment.utc(userInput).hour(0).minute(0).second(0)
 
 fetchUser(id)
   .then(fetchAccountForUser)
@@ -125,13 +125,13 @@ it('gets triggered by mouseenter', () => {
   wrapper.dive().find(Button).prop();
 });
 
-x.a(true).b(null).c(123)
-x.d('').e(``).f(g)
-x.d('').e(`${123}`).f(g)
-x.h(i.j).k(l()).m([n, o])
+const a1 = x.a(true).b(null).c(123)
+const a2 = x.d('').e(``).f(g)
+const a3 = x.d('').e(`${123}`).f(g)
+const a4 = x.h(i.j).k(l()).m([n, o])
 class X {
   y() {
-    x.a(this).b(super.cde()).f(/g/).h(new i()).j()
+    const j = x.a(this).b(super.cde()).f(/g/).h(new i()).j();
   }
 }
 
