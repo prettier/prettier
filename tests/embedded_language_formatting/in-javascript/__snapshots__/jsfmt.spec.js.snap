@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`misc.js 1`] = `
+exports[`test.js 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -54,11 +54,11 @@ class TestComponent {}
 ================================================================================
 `;
 
-exports[`misc.js 2`] = `
+exports[`test.js 2`] = `
 ====================================options=====================================
+embeddedLanguageFormatting: "off"
 parsers: ["babel"]
 printWidth: 80
-templateFormatting: "off"
                                                                                 | printWidth
 =====================================input======================================
 css\`a { }\`

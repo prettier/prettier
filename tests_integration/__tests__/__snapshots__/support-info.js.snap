@@ -94,6 +94,14 @@ Object {
       },
       "type": "int",
     },
+    "embeddedLanguageFormatting": Object {
+      "choices": Array [
+        "auto",
+        "off",
+      ],
+      "default": "auto",
+      "type": "choice",
+    },
     "endOfLine": Object {
       "choices": Array [
         "lf",
@@ -227,14 +235,6 @@ Object {
         "step": 1,
       },
       "type": "int",
-    },
-    "templateFormatting": Object {
-      "choices": Array [
-        "auto",
-        "off",
-      ],
-      "default": "auto",
-      "type": "choice",
     },
     "trailingComma": Object {
       "choices": Array [
@@ -739,6 +739,25 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"category\\": \\"Global\\",
       \\"choices\\": [
         {
+          \\"description\\": \\"Format embedded code if Prettier can automatically identify it.\\",
+          \\"value\\": \\"auto\\"
+        },
+        {
+          \\"description\\": \\"Never automatically format embedded code.\\",
+          \\"value\\": \\"off\\"
+        }
+      ],
+      \\"default\\": \\"auto\\",
+      \\"description\\": \\"Control how Prettier formats quoted code embedded in the file.\\",
+      \\"name\\": \\"embeddedLanguageFormatting\\",
+      \\"pluginDefaults\\": {},
+      \\"since\\": \\"2.1.0\\",
+      \\"type\\": \\"choice\\"
+    },
+    {
+      \\"category\\": \\"Global\\",
+      \\"choices\\": [
+        {
           \\"description\\": \\"Line Feed only (\\\\\\\\n), common on Linux and macOS as well as inside git repos\\",
           \\"value\\": \\"lf\\"
         },
@@ -996,25 +1015,6 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"pluginDefaults\\": {},
       \\"range\\": { \\"end\\": null, \\"start\\": 0, \\"step\\": 1 },
       \\"type\\": \\"int\\"
-    },
-    {
-      \\"category\\": \\"JavaScript\\",
-      \\"choices\\": [
-        {
-          \\"description\\": \\"Format template literals if Prettier detects they appear to be a known kind of template.\\",
-          \\"value\\": \\"auto\\"
-        },
-        {
-          \\"description\\": \\"Never automatically format template literals.\\",
-          \\"value\\": \\"off\\"
-        }
-      ],
-      \\"default\\": \\"auto\\",
-      \\"description\\": \\"Control how Prettier formats template literals containing code.\\",
-      \\"name\\": \\"templateFormatting\\",
-      \\"pluginDefaults\\": {},
-      \\"since\\": \\"2.1.0\\",
-      \\"type\\": \\"choice\\"
     },
     {
       \\"category\\": \\"JavaScript\\",

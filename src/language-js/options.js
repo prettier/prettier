@@ -51,25 +51,6 @@ module.exports = {
     default: false,
     description: "Use single quotes in JSX.",
   },
-  templateFormatting: {
-    since: "2.1.0",
-    category: CATEGORY_JAVASCRIPT,
-    type: "choice",
-    default: [
-      { since: "2.1.0", value: "auto" },
-    ],
-    description: "Control how Prettier formats template literals containing code.",
-    choices: [
-      {
-        value: "auto",
-        description: "Format template literals if Prettier detects they appear to be a known kind of template.",
-      },
-      {
-        value: "off",
-        description: "Never automatically format template literals.",
-      },
-    ],
-  },
   quoteProps: {
     since: "1.17.0",
     category: CATEGORY_JAVASCRIPT,

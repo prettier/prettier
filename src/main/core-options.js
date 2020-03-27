@@ -246,6 +246,25 @@ const options = {
     default: false,
     description: "Indent with tabs instead of spaces.",
   },
+  embeddedLanguageFormatting: {
+    since: "2.1.0",
+    category: CATEGORY_GLOBAL,
+    type: "choice",
+    default: [
+      { since: "2.1.0", value: "auto" },
+    ],
+    description: "Control how Prettier formats quoted code embedded in the file.",
+    choices: [
+      {
+        value: "auto",
+        description: "Format embedded code if Prettier can automatically identify it.",
+      },
+      {
+        value: "off",
+        description: "Never automatically format embedded code.",
+      },
+    ],
+  },
 };
 
 module.exports = {
