@@ -555,9 +555,7 @@ function printPathNoParens(path, options, print, args) {
     case "LogicalExpression":
     case "NGPipeExpression":
     case "TSAsExpression": {
-      const { leftNodeName, rightNodeName, operator } = getBinaryishNodeNames(
-        n
-      );
+      const { rightNodeName, operator } = getBinaryishNodeNames(n);
       const parent = path.getParentNode();
       const parentParent = path.getParentNode(1);
       const isInsideParenthesis =
@@ -613,7 +611,7 @@ function printPathNoParens(path, options, print, args) {
 
       // Avoid indenting sub-expressions in some cases where the first sub-expression is already
       // indented accordingly. We should indent sub-expressions where the first case isn't indented.
-      const shouldNotIndent =
+      let shouldNotIndent =
         parent.type === "ReturnStatement" ||
         parent.type === "ThrowStatement" ||
         (parent.type === "JSXExpressionContainer" &&
@@ -633,27 +631,25 @@ function printPathNoParens(path, options, print, args) {
           parentParent.type !== "OptionalCallExpression") ||
         parent.type === "TemplateLiteral";
 
-      const shouldIndentIfInlining =
-        parent.type === "AssignmentExpression" ||
-        parent.type === "VariableDeclarator" ||
-        parent.type === "ClassProperty" ||
-        parent.type === "TSAbstractClassProperty" ||
-        parent.type === "ClassPrivateProperty" ||
-        parent.type === "ObjectProperty" ||
-        parent.type === "Property";
+      if (!shouldNotIndent) {
+        if (shouldInlineLogicalExpression(n)) {
+          const samePrecedenceSubExpression =
+            isBinaryish(n.left) && shouldFlatten(operator, n.left.operator);
+          shouldNotIndent = !samePrecedenceSubExpression;
+        } else {
+          const shouldIndentIfInlining =
+            parent.type === "AssignmentExpression" ||
+            parent.type === "VariableDeclarator" ||
+            parent.type === "ClassProperty" ||
+            parent.type === "TSAbstractClassProperty" ||
+            parent.type === "ClassPrivateProperty" ||
+            parent.type === "ObjectProperty" ||
+            parent.type === "Property";
+          shouldNotIndent = shouldIndentIfInlining;
+        }
+      }
 
-      const samePrecedenceSubExpression =
-        isBinaryish(n[leftNodeName]) &&
-        shouldFlatten(
-          operator,
-          getBinaryishNodeNames(n[leftNodeName]).operator
-        );
-
-      if (
-        shouldNotIndent ||
-        (shouldInlineLogicalExpression(n) && !samePrecedenceSubExpression) ||
-        (!shouldInlineLogicalExpression(n) && shouldIndentIfInlining)
-      ) {
+      if (shouldNotIndent) {
         return group(concat(parts));
       }
 
