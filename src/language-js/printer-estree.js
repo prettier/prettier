@@ -5747,10 +5747,8 @@ function printBinaryishExpressions(
     // which is unique in that it is right-associative.)
     if (
       node.type === "NGPipeExpression" ||
-      shouldFlatten(
-        operator,
-        getBinaryishNodeNames(node[leftNodeName]).operator
-      )
+      (node.type !== "TSAsExpression" &&
+        shouldFlatten(operator, node[leftNodeName].operator))
     ) {
       // Flatten them out by recursively calling this function.
       parts = parts.concat(
