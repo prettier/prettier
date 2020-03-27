@@ -280,6 +280,15 @@ function printMemberChain(path, options, print) {
   }
 
   function shouldNotWrap(groups) {
+    const hasComplexArgs = groups[1]
+      .map(({ node }) => node)
+      .filter(isCallOrOptionalCallExpression)
+      .some(callHasComplexArguments);
+
+    const argsWillBreak = groups[1]
+      .map(({ printed }) => printed)
+      .some(willBreak);
+
     const hasComputed = groups[1].length && groups[1][0].node.computed;
 
     if (groups[0].length === 1) {
@@ -287,7 +296,8 @@ function printMemberChain(path, options, print) {
       return (
         firstNode.type === "ThisExpression" ||
         (firstNode.type === "Identifier" &&
-          (isFactory(firstNode.name) ||
+          ((isFactory(firstNode.name) &&
+            (isShort(firstNode.name) || !hasComplexArgs || argsWillBreak)) ||
             (isExpressionStatement && isShort(firstNode.name)) ||
             hasComputed))
       );
@@ -304,6 +314,8 @@ function printMemberChain(path, options, print) {
 
   const shouldMerge =
     groups.length >= 2 && !groups[1][0].node.comments && shouldNotWrap(groups);
+  const factoryArgsWillBreak =
+    shouldMerge && groups[1].map(({ printed }) => printed).some(willBreak);
 
   function printGroup(printedGroup) {
     const printed = printedGroup.map((tuple) => tuple.printed);
@@ -344,7 +356,10 @@ function printMemberChain(path, options, print) {
     if (isLongCurriedCallExpression(path)) {
       return oneLine;
     }
-    return group(oneLine);
+    // see https://github.com/prettier/prettier/pull/7889#issuecomment-610725563
+    if (groups.length !== 3 || factoryArgsWillBreak) {
+      return group(oneLine);
+    }
   }
 
   // Find out the last node in the first group and check if it has an

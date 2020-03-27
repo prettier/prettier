@@ -501,10 +501,12 @@ Promise.resolve(Promise.resolve(0)).then(function (num) {
 });
 
 // Promise.resolve(Promise<Promise<T>>) -> then(T)
-Promise.resolve(Promise.resolve(Promise.resolve(0))).then(function (num) {
-  var a: number = num;
-  var b: string = num; // Error: number ~> string
-});
+Promise
+  .resolve(Promise.resolve(Promise.resolve(0)))
+  .then(function (num) {
+    var a: number = num;
+    var b: string = num; // Error: number ~> string
+  });
 
 ////////////////////////////
 // == Promise.reject() == //
