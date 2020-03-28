@@ -53,4 +53,4 @@ jobs:
         if: matrix.ENABLE_CODE_COVERAGE
         with:
           file: ./coverage/lcov.info
-          fail_ci_if_error: true
+          fail_ci_if_error: false
