@@ -56,3 +56,132 @@ function f() {<CRLF>
 
 ================================================================================
 `;
+
+exports[`multiline.js 1`] = `
+====================================options=====================================
+endOfLine: "lf"
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const foo = bar(<LF>
+  (_0: baz) => {<LF>
+    setTimeout(() => {<LF>
+      /*<LF>
+          Multiline comment<LF>
+          Multiline comment<LF>
+          Multiline comment<LF>
+      */<LF>
+      console.log(<LF>
+        'Multiline string\\<LF>
+         Multiline string\\<LF>
+         Multiline string'<LF>
+      );<LF>
+    });<LF>
+  }<LF>
+);<LF>
+
+=====================================output=====================================
+const foo = bar((_0: baz) => {<LF>
+  setTimeout(() => {<LF>
+    /*<LF>
+          Multiline comment<LF>
+          Multiline comment<LF>
+          Multiline comment<LF>
+      */<LF>
+    console.log(<LF>
+      "Multiline string\\<LF>
+         Multiline string\\<LF>
+         Multiline string"<LF>
+    );<LF>
+  });<LF>
+});<LF>
+
+================================================================================
+`;
+
+exports[`multiline.js 2`] = `
+====================================options=====================================
+endOfLine: "cr"
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const foo = bar(<LF>
+  (_0: baz) => {<LF>
+    setTimeout(() => {<LF>
+      /*<LF>
+          Multiline comment<LF>
+          Multiline comment<LF>
+          Multiline comment<LF>
+      */<LF>
+      console.log(<LF>
+        'Multiline string\\<LF>
+         Multiline string\\<LF>
+         Multiline string'<LF>
+      );<LF>
+    });<LF>
+  }<LF>
+);<LF>
+
+=====================================output=====================================
+const foo = bar((_0: baz) => {<CR>
+  setTimeout(() => {<CR>
+    /*<CR>
+          Multiline comment<CR>
+          Multiline comment<CR>
+          Multiline comment<CR>
+      */<CR>
+    console.log(<CR>
+      "Multiline string\\<CR>
+         Multiline string\\<CR>
+         Multiline string"<CR>
+    );<CR>
+  });<CR>
+});<CR>
+
+================================================================================
+`;
+
+exports[`multiline.js 3`] = `
+====================================options=====================================
+endOfLine: "crlf"
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const foo = bar(<LF>
+  (_0: baz) => {<LF>
+    setTimeout(() => {<LF>
+      /*<LF>
+          Multiline comment<LF>
+          Multiline comment<LF>
+          Multiline comment<LF>
+      */<LF>
+      console.log(<LF>
+        'Multiline string\\<LF>
+         Multiline string\\<LF>
+         Multiline string'<LF>
+      );<LF>
+    });<LF>
+  }<LF>
+);<LF>
+
+=====================================output=====================================
+const foo = bar((_0: baz) => {<CRLF>
+  setTimeout(() => {<CRLF>
+    /*<CRLF>
+          Multiline comment<CRLF>
+          Multiline comment<CRLF>
+          Multiline comment<CRLF>
+      */<CRLF>
+    console.log(<CRLF>
+      "Multiline string\\<CRLF>
+         Multiline string\\<CRLF>
+         Multiline string"<CRLF>
+    );<CRLF>
+  });<CRLF>
+});<CRLF>
+
+================================================================================
+`;
