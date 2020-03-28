@@ -1382,7 +1382,31 @@ function printPathNoParens(path, options, print, args) {
         });
 
       if (n.inexact) {
-        props.push(concat(separatorParts.concat("...")));
+        let printed;
+        if (hasDanglingComments(n)) {
+          const hasLineComments = !n.comments.every(
+            handleComments.isBlockComment
+          );
+          const printedDanglingComments = comments.printDanglingComments(
+            path,
+            options,
+            /* sameIndent */ true
+          );
+          printed = concat([
+            printedDanglingComments,
+            hasLineComments ||
+            hasNewline(
+              options.originalText,
+              options.locEnd(n.comments[n.comments.length - 1])
+            )
+              ? hardline
+              : line,
+            "...",
+          ]);
+        } else {
+          printed = "...";
+        }
+        props.push(concat(separatorParts.concat(printed)));
       }
 
       const lastElem = getLast(n[propertiesField]);

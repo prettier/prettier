@@ -1,5 +1,128 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`comments.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+type Foo = {
+  // comment
+  ...,
+};
+
+type Foo = {
+  /* comment */
+  ...,
+};
+
+type Foo = { /* comment */ ... };
+
+type Foo = { /* comment */
+  ...};
+
+type Foo = {
+  // comment0
+  // comment1
+  ...,
+};
+
+type Foo = {
+  /* comment0 */
+  /* comment1 */
+  ...,
+};
+
+type Foo = {
+  // comment
+  foo: string,
+  ...
+};
+
+type Foo = {
+  // comment0
+  // comment1
+  foo: string,
+  ...
+};
+
+type Foo = {
+  /* comment */
+  foo: string,
+  ...
+};
+
+type Foo = {
+  /* comment0 */
+  /* comment1 */
+  foo: string,
+  ...
+};
+
+=====================================output=====================================
+// @flow
+
+type Foo = {
+  // comment
+  ...
+};
+
+type Foo = {
+  /* comment */
+  ...
+};
+
+type Foo = { /* comment */ ... };
+
+type Foo = {
+  /* comment */
+  ...
+};
+
+type Foo = {
+  // comment0
+  // comment1
+  ...
+};
+
+type Foo = {
+  /* comment0 */
+  /* comment1 */
+  ...
+};
+
+type Foo = {
+  // comment
+  foo: string,
+  ...
+};
+
+type Foo = {
+  // comment0
+  // comment1
+  foo: string,
+  ...
+};
+
+type Foo = {
+  /* comment */
+  foo: string,
+  ...
+};
+
+type Foo = {
+  /* comment0 */
+  /* comment1 */
+  foo: string,
+  ...
+};
+
+================================================================================
+`;
+
 exports[`test.js 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
