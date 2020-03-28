@@ -64,8 +64,10 @@ parsers: ["babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-const foo = bar(<LF>
-  (_0: baz) => {<LF>
+type IAmIncredibleLongParameterType = {};<LF>
+const IAmAnotherFunctionName = (_0: IAmIncredibleLongParameterType) => {};<LF>
+export const IAmIncredibleLongFunctionName = IAmAnotherFunctionName(<LF>
+  (_0: IAmIncredibleLongParameterType) => {<LF>
     setTimeout(() => {<LF>
       /*<LF>
           Multiline comment<LF>
@@ -82,20 +84,24 @@ const foo = bar(<LF>
 );<LF>
 
 =====================================output=====================================
-const foo = bar((_0: baz) => {<LF>
-  setTimeout(() => {<LF>
-    /*<LF>
+type IAmIncredibleLongParameterType = {};<LF>
+const IAmAnotherFunctionName = (_0: IAmIncredibleLongParameterType) => {};<LF>
+export const IAmIncredibleLongFunctionName = IAmAnotherFunctionName(<LF>
+  (_0: IAmIncredibleLongParameterType) => {<LF>
+    setTimeout(() => {<LF>
+      /*<LF>
           Multiline comment<LF>
           Multiline comment<LF>
           Multiline comment<LF>
       */<LF>
-    console.log(<LF>
-      "Multiline string\\<LF>
+      console.log(<LF>
+        "Multiline string\\<LF>
          Multiline string\\<LF>
          Multiline string"<LF>
-    );<LF>
-  });<LF>
-});<LF>
+      );<LF>
+    });<LF>
+  }<LF>
+);<LF>
 
 ================================================================================
 `;
@@ -107,8 +113,10 @@ parsers: ["babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-const foo = bar(<LF>
-  (_0: baz) => {<LF>
+type IAmIncredibleLongParameterType = {};<LF>
+const IAmAnotherFunctionName = (_0: IAmIncredibleLongParameterType) => {};<LF>
+export const IAmIncredibleLongFunctionName = IAmAnotherFunctionName(<LF>
+  (_0: IAmIncredibleLongParameterType) => {<LF>
     setTimeout(() => {<LF>
       /*<LF>
           Multiline comment<LF>
@@ -125,20 +133,24 @@ const foo = bar(<LF>
 );<LF>
 
 =====================================output=====================================
-const foo = bar((_0: baz) => {<CR>
-  setTimeout(() => {<CR>
-    /*<CR>
+type IAmIncredibleLongParameterType = {};<CR>
+const IAmAnotherFunctionName = (_0: IAmIncredibleLongParameterType) => {};<CR>
+export const IAmIncredibleLongFunctionName = IAmAnotherFunctionName(<CR>
+  (_0: IAmIncredibleLongParameterType) => {<CR>
+    setTimeout(() => {<CR>
+      /*<CR>
           Multiline comment<CR>
           Multiline comment<CR>
           Multiline comment<CR>
       */<CR>
-    console.log(<CR>
-      "Multiline string\\<CR>
+      console.log(<CR>
+        "Multiline string\\<CR>
          Multiline string\\<CR>
          Multiline string"<CR>
-    );<CR>
-  });<CR>
-});<CR>
+      );<CR>
+    });<CR>
+  }<CR>
+);<CR>
 
 ================================================================================
 `;
@@ -150,8 +162,10 @@ parsers: ["babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-const foo = bar(<LF>
-  (_0: baz) => {<LF>
+type IAmIncredibleLongParameterType = {};<LF>
+const IAmAnotherFunctionName = (_0: IAmIncredibleLongParameterType) => {};<LF>
+export const IAmIncredibleLongFunctionName = IAmAnotherFunctionName(<LF>
+  (_0: IAmIncredibleLongParameterType) => {<LF>
     setTimeout(() => {<LF>
       /*<LF>
           Multiline comment<LF>
@@ -168,20 +182,24 @@ const foo = bar(<LF>
 );<LF>
 
 =====================================output=====================================
-const foo = bar((_0: baz) => {<CRLF>
-  setTimeout(() => {<CRLF>
-    /*<CRLF>
+type IAmIncredibleLongParameterType = {};<CRLF>
+const IAmAnotherFunctionName = (_0: IAmIncredibleLongParameterType) => {};<CRLF>
+export const IAmIncredibleLongFunctionName = IAmAnotherFunctionName(<CRLF>
+  (_0: IAmIncredibleLongParameterType) => {<CRLF>
+    setTimeout(() => {<CRLF>
+      /*<CRLF>
           Multiline comment<CRLF>
           Multiline comment<CRLF>
           Multiline comment<CRLF>
       */<CRLF>
-    console.log(<CRLF>
-      "Multiline string\\<CRLF>
+      console.log(<CRLF>
+        "Multiline string\\<CRLF>
          Multiline string\\<CRLF>
          Multiline string"<CRLF>
-    );<CRLF>
-  });<CRLF>
-});<CRLF>
+      );<CRLF>
+    });<CRLF>
+  }<CRLF>
+);<CRLF>
 
 ================================================================================
 `;

@@ -1,5 +1,7 @@
-const foo = bar(
-  (_0: baz) => {
+type IAmIncredibleLongParameterType = {};
+const IAmAnotherFunctionName = (_0: IAmIncredibleLongParameterType) => {};
+export const IAmIncredibleLongFunctionName = IAmAnotherFunctionName(
+  (_0: IAmIncredibleLongParameterType) => {
     setTimeout(() => {
       /*
           Multiline comment
