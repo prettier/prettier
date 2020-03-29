@@ -24,6 +24,9 @@ jobs:
           - os: "ubuntu-latest"
             node: "12"
             ENABLE_CODE_COVERAGE: true
+        exclude:
+          - os: "macos-latest"
+            node: "13"
     env:
       ENABLE_CODE_COVERAGE: ${{ matrix.ENABLE_CODE_COVERAGE }}
     name: Node.js ${{ matrix.node }} on ${{ matrix.os }}

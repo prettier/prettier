@@ -1,4 +1,5 @@
 "use strict";
+const { isCI } = require("ci-info");
 const ENABLE_CODE_COVERAGE = !!process.env.ENABLE_CODE_COVERAGE;
 
 module.exports = {
@@ -8,12 +9,11 @@ module.exports = {
     "jest-snapshot-serializer-ansi",
   ],
   testRegex: "jsfmt\\.spec\\.js$|__tests__/.*\\.js$",
-  testPathIgnorePatterns: ["tests/new_react", "tests/more_react"],
   collectCoverage: ENABLE_CODE_COVERAGE,
   collectCoverageFrom: ["src/**/*.js", "index.js", "!<rootDir>/node_modules/"],
   coveragePathIgnorePatterns: [
     "<rootDir>/standalone.js",
-    "<rootDir>/src/doc/doc-debug.js",
+    "<rootDir>/src/document/doc-debug.js",
     "<rootDir>/src/main/massage-ast.js",
   ],
   coverageReporters: ["text", "lcov"],
@@ -33,5 +33,5 @@ module.exports = {
     "jest-watch-typeahead/filename",
     "jest-watch-typeahead/testname",
   ],
-  verbose: true,
+  verbose: isCI,
 };

@@ -2174,26 +2174,24 @@ function printPathNoParens(path, options, print, args) {
     case "JSXExpressionContainer": {
       const parent = path.getParentNode(0);
 
-      const preventInline =
-        parent.type === "JSXAttribute" &&
-        n.expression.comments &&
-        n.expression.comments.length > 0;
+      const hasComments =
+        n.expression.comments && n.expression.comments.length > 0;
 
       const shouldInline =
-        !preventInline &&
-        (n.expression.type === "ArrayExpression" ||
-          n.expression.type === "ObjectExpression" ||
-          n.expression.type === "ArrowFunctionExpression" ||
-          n.expression.type === "CallExpression" ||
-          n.expression.type === "OptionalCallExpression" ||
-          n.expression.type === "FunctionExpression" ||
-          n.expression.type === "JSXEmptyExpression" ||
-          n.expression.type === "TemplateLiteral" ||
-          n.expression.type === "TaggedTemplateExpression" ||
-          n.expression.type === "DoExpression" ||
-          (isJSXNode(parent) &&
-            (n.expression.type === "ConditionalExpression" ||
-              isBinaryish(n.expression))));
+        n.expression.type === "JSXEmptyExpression" ||
+        (!hasComments &&
+          (n.expression.type === "ArrayExpression" ||
+            n.expression.type === "ObjectExpression" ||
+            n.expression.type === "ArrowFunctionExpression" ||
+            n.expression.type === "CallExpression" ||
+            n.expression.type === "OptionalCallExpression" ||
+            n.expression.type === "FunctionExpression" ||
+            n.expression.type === "TemplateLiteral" ||
+            n.expression.type === "TaggedTemplateExpression" ||
+            n.expression.type === "DoExpression" ||
+            (isJSXNode(parent) &&
+              (n.expression.type === "ConditionalExpression" ||
+                isBinaryish(n.expression)))));
 
       if (shouldInline) {
         return group(
