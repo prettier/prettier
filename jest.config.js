@@ -17,7 +17,7 @@ module.exports = {
     "<rootDir>/src/main/massage-ast.js",
   ],
   coverageReporters: ["text", "lcov"],
-  coverageProvider: "v8",
+  coverageProvider: ENABLE_CODE_COVERAGE ? "v8" : undefined,
   moduleNameMapper: {
     // Jest wires `fs` to `graceful-fs`, which causes a memory leak when
     // `graceful-fs` does `require('fs')`.
