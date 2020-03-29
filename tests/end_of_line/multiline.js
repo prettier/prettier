@@ -13,6 +13,11 @@ export const IAmIncredibleLongFunctionName = IAmAnotherFunctionName(
          Multiline string\
          Multiline string'
       );
+      console.log(
+        `Multiline \n string\
+         Multiline string\
+         Multiline string`
+      );
     });
   }
 );

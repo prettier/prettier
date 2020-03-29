@@ -79,6 +79,11 @@ export const IAmIncredibleLongFunctionName = IAmAnotherFunctionName(<LF>
          Multiline string\\<LF>
          Multiline string'<LF>
       );<LF>
+      console.log(<LF>
+        \`Multiline \\n string\\<LF>
+         Multiline string\\<LF>
+         Multiline string\`<LF>
+      );<LF>
     });<LF>
   }<LF>
 );<LF>
@@ -98,6 +103,11 @@ export const IAmIncredibleLongFunctionName = IAmAnotherFunctionName(<LF>
         "Multiline string\\<LF>
          Multiline string\\<LF>
          Multiline string"<LF>
+      );<LF>
+      console.log(<LF>
+        \`Multiline \\n string\\<LF>
+         Multiline string\\<LF>
+         Multiline string\`<LF>
       );<LF>
     });<LF>
   }<LF>
@@ -128,6 +138,11 @@ export const IAmIncredibleLongFunctionName = IAmAnotherFunctionName(<LF>
          Multiline string\\<LF>
          Multiline string'<LF>
       );<LF>
+      console.log(<LF>
+        \`Multiline \\n string\\<LF>
+         Multiline string\\<LF>
+         Multiline string\`<LF>
+      );<LF>
     });<LF>
   }<LF>
 );<LF>
@@ -147,6 +162,11 @@ export const IAmIncredibleLongFunctionName = IAmAnotherFunctionName(<CR>
         "Multiline string\\<CR>
          Multiline string\\<CR>
          Multiline string"<CR>
+      );<CR>
+      console.log(<CR>
+        \`Multiline \\n string\\<CR>
+         Multiline string\\<CR>
+         Multiline string\`<CR>
       );<CR>
     });<CR>
   }<CR>
@@ -177,6 +197,11 @@ export const IAmIncredibleLongFunctionName = IAmAnotherFunctionName(<LF>
          Multiline string\\<LF>
          Multiline string'<LF>
       );<LF>
+      console.log(<LF>
+        \`Multiline \\n string\\<LF>
+         Multiline string\\<LF>
+         Multiline string\`<LF>
+      );<LF>
     });<LF>
   }<LF>
 );<LF>
@@ -196,6 +221,11 @@ export const IAmIncredibleLongFunctionName = IAmAnotherFunctionName(<CRLF>
         "Multiline string\\<CRLF>
          Multiline string\\<CRLF>
          Multiline string"<CRLF>
+      );<CRLF>
+      console.log(<CRLF>
+        \`Multiline \\n string\\<CRLF>
+         Multiline string\\<CRLF>
+         Multiline string\`<CRLF>
       );<CRLF>
     });<CRLF>
   }<CRLF>
