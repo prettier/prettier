@@ -20,9 +20,9 @@ jobs:
           - "12"
           - "10"
         include:
-          # only enable coverage on the fastest job
+          # using the latest versions of node yields better results
           - os: "ubuntu-latest"
-            node: "12"
+            node: "13"
             ENABLE_CODE_COVERAGE: true
         exclude:
           - os: "macos-latest"
