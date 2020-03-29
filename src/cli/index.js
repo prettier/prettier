@@ -1,7 +1,5 @@
 "use strict";
 
-require("please-upgrade-node")(require("../../package.json"));
-
 const prettier = require("../../index");
 const stringify = require("json-stable-stringify");
 const util = require("./util");
