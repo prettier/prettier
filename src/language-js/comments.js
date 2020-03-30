@@ -938,10 +938,7 @@ function handleLogicalExpression(
   if (enclosingNode && enclosingNode.type === "LogicalExpression") {
     if (
       followingNode &&
-      ((["babel", "babel-ts"].includes(options.parser) &&
-        comment.type === "CommentBlock") ||
-        (["flow", "typescript"].includes(options.parser) &&
-          comment.type === "Block")) &&
+      isBlockComment(comment) &&
       privateUtil.hasNewline(text, options.locEnd(comment))
     ) {
       addLeadingComment(followingNode, comment);
