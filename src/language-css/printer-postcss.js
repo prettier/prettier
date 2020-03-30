@@ -72,6 +72,7 @@ const {
   isMediaAndSupportsKeywords,
   isColorAdjusterFuncNode,
   lastLineHasInlineComment,
+  isAdditionOperandNodeInsideURLFunction,
 } = require("./utils");
 
 function shouldPrintComma(options) {
@@ -517,8 +518,11 @@ function genericPrint(path, options, print) {
 
         if (insideURLFunction) {
           if (
-            (iNextNode && isAdditionNode(iNextNode)) ||
-            isAdditionNode(iNode)
+            (iNextNode &&
+              isAdditionNode(iNextNode) &&
+              isAdditionOperandNodeInsideURLFunction(iNode)) ||
+            (isAdditionNode(iNode) &&
+              isAdditionOperandNodeInsideURLFunction(iNextNode))
           ) {
             parts.push(" ");
           }

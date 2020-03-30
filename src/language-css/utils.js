@@ -388,6 +388,13 @@ function lastLineHasInlineComment(text) {
   return /\/\//.test(text.split(/[\r\n]/).pop());
 }
 
+function isAdditionOperandNodeInsideURLFunction(node) {
+  return (
+    node.type === "value-string" ||
+    (node.type === "value-word" && node.value.startsWith("$"))
+  );
+}
+
 module.exports = {
   getAncestorCounter,
   getAncestorNode,
@@ -436,4 +443,5 @@ module.exports = {
   isMediaAndSupportsKeywords,
   isColorAdjusterFuncNode,
   lastLineHasInlineComment,
+  isAdditionOperandNodeInsideURLFunction,
 };
