@@ -128,6 +128,14 @@ function handleEndOfLineComment(comment, text, options, ast, isLastComment) {
       followingNode,
       comment,
       options
+    ) ||
+    handleBinaryExpression(
+      text,
+      enclosingNode,
+      precedingNode,
+      followingNode,
+      comment,
+      options
     )
   );
 }
@@ -934,6 +942,27 @@ function handleLogicalExpression(
         comment.type === "CommentBlock") ||
         (["flow", "typescript"].includes(options.parser) &&
           comment.type === "Block")) &&
+      privateUtil.hasNewline(text, options.locEnd(comment))
+    ) {
+      addLeadingComment(followingNode, comment);
+      return true;
+    }
+  }
+  return false;
+}
+
+function handleBinaryExpression(
+  text,
+  enclosingNode,
+  precedingNode,
+  followingNode,
+  comment,
+  options
+) {
+  if (enclosingNode && enclosingNode.type === "BinaryExpression") {
+    if (
+      followingNode &&
+      isBlockComment(comment) &&
       privateUtil.hasNewline(text, options.locEnd(comment))
     ) {
       addLeadingComment(followingNode, comment);
