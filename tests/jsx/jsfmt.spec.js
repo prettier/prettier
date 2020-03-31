@@ -1,16 +1,16 @@
 run_spec(__dirname, ["flow", "babel", "typescript"], {
   singleQuote: false,
-  jsxSingleQuote: false
+  jsxSingleQuote: false,
 });
 run_spec(__dirname, ["flow", "babel", "typescript"], {
   singleQuote: false,
-  jsxSingleQuote: true
+  jsxSingleQuote: true,
 });
 run_spec(__dirname, ["flow", "babel", "typescript"], {
   singleQuote: true,
-  jsxSingleQuote: false
+  jsxSingleQuote: false,
 });
 run_spec(__dirname, ["flow", "babel", "typescript"], {
   singleQuote: true,
-  jsxSingleQuote: true
+  jsxSingleQuote: true,
 });

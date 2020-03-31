@@ -246,11 +246,16 @@ function genericPrint(path, options, print) {
           ? concat([
               isDetachedRulesetCallNode(node)
                 ? ""
-                : isTemplatePlaceholderNode(node) &&
-                  /^\s*\n/.test(node.raws.afterName)
-                ? /^\s*\n\s*\n/.test(node.raws.afterName)
+                : isTemplatePlaceholderNode(node)
+                ? node.raws.afterName === ""
+                  ? ""
+                  : node.name.endsWith(":")
+                  ? " "
+                  : /^\s*\n\s*\n/.test(node.raws.afterName)
                   ? concat([hardline, hardline])
-                  : hardline
+                  : /^\s*\n/.test(node.raws.afterName)
+                  ? hardline
+                  : " "
                 : " ",
               path.call(print, "params"),
             ])
@@ -527,6 +532,15 @@ function genericPrint(path, options, print) {
 
         // Ignore after latest node (i.e. before semicolon)
         if (!iNextNode) {
+          continue;
+        }
+
+        // styled.div` background: var(--${one}); `
+        if (
+          !iPrevNode &&
+          iNode.value === "--" &&
+          iNextNode.type === "value-atword"
+        ) {
           continue;
         }
 

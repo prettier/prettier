@@ -45,6 +45,64 @@ const Icon = styled.div\`
 ================================================================================
 `;
 
+exports[`colons-after-substitutions2.js 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const Icon = styled.div\`
+  height: 48px;
+
+  \${Link}:nth-child(2) {
+    fill: rebeccapurple;
+  }
+\`;
+
+const Icon2 = styled.div\`
+  height: 48px;
+
+  \${Link}:empty:before{
+    fill: rebeccapurple;
+  }
+\`;
+
+const Icon3 = styled.div\`
+  height: 48px;
+
+  \${Link}:not(:first-child) {
+    fill: rebeccapurple;
+  }
+\`;
+
+=====================================output=====================================
+const Icon = styled.div\`
+  height: 48px;
+
+  \${Link}:nth-child(2) {
+    fill: rebeccapurple;
+  }
+\`;
+
+const Icon2 = styled.div\`
+  height: 48px;
+
+  \${Link}:empty:before {
+    fill: rebeccapurple;
+  }
+\`;
+
+const Icon3 = styled.div\`
+  height: 48px;
+
+  \${Link}:not(:first-child) {
+    fill: rebeccapurple;
+  }
+\`;
+
+================================================================================
+`;
+
 exports[`styled-components.js 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
@@ -551,6 +609,26 @@ const Foo = styled.p\`
   &.bottom {
     margin-top: 3rem;
   }
+\`;
+
+================================================================================
+`;
+
+exports[`var.js 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const Something = styled.div\`
+  background: var(--\${one}); /* ... */
+  border: 1px solid var(--\${two}); /* ... */
+\`;
+
+=====================================output=====================================
+const Something = styled.div\`
+  background: var(--\${one}); /* ... */
+  border: 1px solid var(--\${two}); /* ... */
 \`;
 
 ================================================================================
