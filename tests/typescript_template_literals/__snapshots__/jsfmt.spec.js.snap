@@ -25,7 +25,8 @@ const b = \`\${
 }\`;
 const b = \`\${
   (veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongFoo +
-    veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBar) as veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBaz
+    veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBar) as
+  veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBaz
 }\`;
 
 ================================================================================

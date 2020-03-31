@@ -289,6 +289,7 @@ const binaryishNodeTypes = new Set([
   "BinaryExpression",
   "LogicalExpression",
   "NGPipeExpression",
+  "TSAsExpression",
 ]);
 function isBinaryish(node) {
   return binaryishNodeTypes.has(node.type);
