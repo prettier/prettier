@@ -4,7 +4,7 @@ const { normalize } = require("./options");
 const comments = require("./comments");
 
 function printSubtree(path, print, options, printAstToDoc) {
-  if (options.printer.embed && options.embeddedLanguageFormatting === 'auto') {
+  if (options.printer.embed && options.embeddedLanguageFormatting === "auto") {
     return options.printer.embed(
       path,
       print,

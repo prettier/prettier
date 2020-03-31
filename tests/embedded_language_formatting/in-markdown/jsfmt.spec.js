@@ -1,2 +1,2 @@
 run_spec(__dirname, ["markdown"]);
-run_spec(__dirname, ["markdown"], { embeddedLanguageFormatting: 'off' });
+run_spec(__dirname, ["markdown"], { embeddedLanguageFormatting: "off" });
