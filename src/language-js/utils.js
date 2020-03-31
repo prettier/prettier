@@ -958,7 +958,7 @@ function isSimpleCallArgument(node, depth) {
     );
   }
   if (node.type === "ArrayExpression") {
-    return node.elements.every(isChildSimple);
+    return node.elements.every((x) => x == null || isChildSimple(x));
   }
   if (
     node.type === "CallExpression" ||
