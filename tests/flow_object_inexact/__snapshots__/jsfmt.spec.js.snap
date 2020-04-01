@@ -73,31 +73,31 @@ type Foo = {
 
 type Foo = {
   // comment
-  ...,
+  ...
 };
 
 type Foo = {
   /* comment */
-  ...,
+  ...
 };
 
 type Foo = { /* comment */ ... };
 
 type Foo = {
   /* comment */
-  ...,
+  ...
 };
 
 type Foo = {
   // comment0
   // comment1
-  ...,
+  ...
 };
 
 type Foo = {
   /* comment0 */
   /* comment1 */
-  ...,
+  ...
 };
 
 type Foo = {
@@ -122,7 +122,7 @@ type Foo = {
 type Foo = {
   /* comment */
   [string]: string,
-  ...,
+  ...
 };
 
 type Foo = {
@@ -343,31 +343,31 @@ type Foo = {
 
 type Foo = {
   // comment
-  ...,
+  ...
 };
 
 type Foo = {
   /* comment */
-  ...,
+  ...
 };
 
 type Foo = { /* comment */ ... };
 
 type Foo = {
   /* comment */
-  ...,
+  ...
 };
 
 type Foo = {
   // comment0
   // comment1
-  ...,
+  ...
 };
 
 type Foo = {
   /* comment0 */
   /* comment1 */
-  ...,
+  ...
 };
 
 type Foo = {
@@ -392,7 +392,7 @@ type Foo = {
 type Foo = {
   /* comment */
   [string]: string,
-  ...,
+  ...
 };
 
 type Foo = {
@@ -444,7 +444,7 @@ type T = {
 
 type I = {
   [string]: number,
-  ...,
+  ...
 };
 
 type U = {
@@ -670,7 +670,7 @@ type T = {
 
 type I = {
   [string]: number,
-  ...,
+  ...
 };
 
 type U = {
