@@ -30,3 +30,6 @@ setFoo(
   </div>`,
   secondArgument
 );
+
+document.write(/* HTML */ `<!-- a --> <!-- b -->`);
+const foo = () => /* HTML */ `<!-- a --> <!-- b -->`;

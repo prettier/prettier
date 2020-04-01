@@ -46,18 +46,22 @@ new Error(formatErrorMessage\`
 \`);
 
 =====================================output=====================================
-insertRule(\`*, *:before, *:after {
+insertRule(
+  \`*, *:before, *:after {
   box-sizing: inherit;
-}\`);
+}\`
+);
 
 insertRule\`*, *:before, *:after {
   box-sizing: inherit;
 }\`;
 
-new Error(formatErrorMessage\`
+new Error(
+  formatErrorMessage\`
   This a really bad error.
   Which has more than one line.
-\`);
+\`
+);
 
 ================================================================================
 `;
@@ -321,9 +325,11 @@ this._pipe.write(
   \`\\n\\n Pattern matches \${total} \${pluralizeTest} but that's long\`
 );
 
-this._pipe.write(\`
+this._pipe.write(
+  \`
   \\n\\n Pattern matches \${total} \${pluralizeTest} but that's long
-\`);
+\`
+);
 
 () => \`
   a

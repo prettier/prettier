@@ -39,6 +39,9 @@ setFoo(
   secondArgument
 );
 
+document.write(/* HTML */ \`<!-- a --> <!-- b -->\`);
+const foo = () => /* HTML */ \`<!-- a --> <!-- b -->\`;
+
 =====================================output=====================================
 const nestedFun = /* HTML */ \`\${outerExpr(1)}
   <script>
@@ -72,6 +75,14 @@ setFoo(
   </div>\`,
   secondArgument
 );
+
+document.write(
+  /* HTML */ \`<!-- a -->
+    <!-- b -->\`
+);
+const foo = () =>
+  /* HTML */ \`<!-- a -->
+    <!-- b -->\`;
 
 ================================================================================
 `;
@@ -115,6 +126,9 @@ setFoo(
   </div>\`,
   secondArgument
 );
+
+document.write(/* HTML */ \`<!-- a --> <!-- b -->\`);
+const foo = () => /* HTML */ \`<!-- a --> <!-- b -->\`;
 
 =====================================output=====================================
 const nestedFun = /* HTML */ \`
@@ -163,6 +177,18 @@ setFoo(
   \`,
   secondArgument
 );
+
+document.write(
+  /* HTML */ \`
+    <!-- a -->
+    <!-- b -->
+  \`
+);
+const foo = () =>
+  /* HTML */ \`
+    <!-- a -->
+    <!-- b -->
+  \`;
 
 ================================================================================
 `;
@@ -551,9 +577,10 @@ function HelloWorld() {
   return html\`
     <h3>Bar List</h3>
     \${bars.map(
-      (bar) => html\`
-        <p>\${bar}</p>
-      \`
+      (bar) =>
+        html\`
+          <p>\${bar}</p>
+        \`
     )}
   \`;
 }
