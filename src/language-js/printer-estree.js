@@ -494,7 +494,10 @@ function printPathNoParens(path, options, print, args) {
       );
 
       // Only force a trailing newline if there were any contents.
-      if (n.body.length || n.comments) {
+      if (
+        !n.body.every(({ type }) => type === "EmptyStatement") ||
+        n.comments
+      ) {
         parts.push(hardline);
       }
 
@@ -1416,11 +1419,11 @@ function printPathNoParens(path, options, print, args) {
       const lastElem = getLast(n[propertiesField]);
 
       const canHaveTrailingSeparator = !(
-        lastElem &&
-        (lastElem.type === "RestProperty" ||
-          lastElem.type === "RestElement" ||
-          hasNodeIgnoreComment(lastElem) ||
-          n.inexact)
+        n.inexact ||
+        (lastElem &&
+          (lastElem.type === "RestProperty" ||
+            lastElem.type === "RestElement" ||
+            hasNodeIgnoreComment(lastElem)))
       );
 
       let content;

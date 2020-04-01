@@ -110,3 +110,18 @@ e-wrap </html:textarea>
   const func = function() { console.log('Hello, there');}
   </script>
   </with:colon>
+
+<!-- script like -->
+<with:colon>
+<style>.a{color:#f00}</style>
+  <SCRIPT>
+  const func = function() { console.log('Hello, there');}
+  </SCRIPT>
+<STYLE>.A{COLOR:#F00}</STYLE>
+<html:script>const func = function() { console.log('Hello, there');}</html:script>
+<html:style>.a{color:#f00}</html:style>
+<svg><style>.a{color:#f00}</style></svg>
+<svg><style>.a{color:#f00}</style></svg>
+</with:colon>
+<html:script>const func = function() { console.log('Hello, there');}</html:script>
+<html:style>.a{color:#f00}</html:style>

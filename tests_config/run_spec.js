@@ -30,7 +30,6 @@ const unstableTests = new Map(
     "comments_closure_typecast/iife.js",
     "css_atrule/include.css",
     "graphql_interface/separator-detection.graphql",
-    "js_empty/semicolon.js",
     "markdown_footnoteDefinition/multiline.md",
     "markdown_spec/example-234.md",
     "markdown_spec/example-235.md",
