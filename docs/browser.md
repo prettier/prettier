@@ -7,7 +7,7 @@ Run Prettier in the browser with the `standalone.js` UMD bundle shipped in the N
 
 ### `prettier.format(code, options)`
 
-Unlike the `format` function from the [main API](api.md#prettierformatsource-options), this function does not load plugins automatically, so a `plugins` property is required if you want to load plugins. Additionally, the parsers included in the Prettier package won't be loaded automatically, so you need to load them before using them.
+Unlike the `format` function from the [main API](api.md#prettierformatsource--options), this function does not load plugins automatically, so a `plugins` property is required if you want to load plugins. Additionally, the parsers included in the Prettier package won't be loaded automatically, so you need to load them before using them.
 
 See [Usage](#usage) below for examples.
 
