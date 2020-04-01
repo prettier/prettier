@@ -56,6 +56,12 @@ type Foo = {
 };
 
 type Foo = {
+  /* comment */
+  [string]: string,
+  ...
+};
+
+type Foo = {
   /* comment0 */
   /* comment1 */
   foo: string,
@@ -111,6 +117,12 @@ type Foo = {
   /* comment */
   foo: string,
   ...
+};
+
+type Foo = {
+  /* comment */
+  [string]: string,
+  ...,
 };
 
 type Foo = {
@@ -179,6 +191,12 @@ type Foo = {
 };
 
 type Foo = {
+  /* comment */
+  [string]: string,
+  ...
+};
+
+type Foo = {
   /* comment0 */
   /* comment1 */
   foo: string,
@@ -237,6 +255,12 @@ type Foo = {
 };
 
 type Foo = {
+  /* comment */
+  [string]: string,
+  ...
+};
+
+type Foo = {
   /* comment0 */
   /* comment1 */
   foo: string,
@@ -259,6 +283,11 @@ type T = {
   ...,
 }
 
+type I = {
+  [string]: number,
+  ...,
+}
+
 type U = { a: number, b: number, c: number, d: number, e: number, f: number, g: number, ...};
 
 type V = {x: {...}, y: {x: {...}, a: number, b: number, c: number, d: number, e: number, f: number, ...}, z: {...}, foo: number, bar: {foo: number, ...}, ...};
@@ -276,6 +305,11 @@ type X = {
 type T = {
   a: number,
   ...
+};
+
+type I = {
+  [string]: number,
+  ...,
 };
 
 type U = {
@@ -362,6 +396,11 @@ type T = {
   ...,
 }
 
+type I = {
+  [string]: number,
+  ...,
+}
+
 type U = { a: number, b: number, c: number, d: number, e: number, f: number, g: number, ...};
 
 type V = {x: {...}, y: {x: {...}, a: number, b: number, c: number, d: number, e: number, f: number, ...}, z: {...}, foo: number, bar: {foo: number, ...}, ...};
@@ -378,6 +417,11 @@ type X = {
 //@flow
 type T = {
   a: number,
+  ...
+};
+
+type I = {
+  [string]: number,
   ...
 };
 
