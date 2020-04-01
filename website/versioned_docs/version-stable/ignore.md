@@ -8,7 +8,7 @@ Prettier offers an escape hatch to ignore a block of code or prevent entire file
 
 ## Ignoring Files
 
-To exclude files from formatting, add entries to a `.prettierignore` file in the project root or set the [`--ignore-path` CLI option](cli.md#ignore-path). `.prettierignore` uses [gitignore syntax](https://git-scm.com/docs/gitignore#_pattern_format).
+To exclude files from formatting, add entries to a `.prettierignore` file in the project root or set the [`--ignore-path` CLI option](cli.md#--ignore-path). `.prettierignore` uses [gitignore syntax](https://git-scm.com/docs/gitignore#_pattern_format).
 
 ## JavaScript
 
