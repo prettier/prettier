@@ -1416,11 +1416,11 @@ function printPathNoParens(path, options, print, args) {
       const lastElem = getLast(n[propertiesField]);
 
       const canHaveTrailingSeparator = !(
-        lastElem &&
-        (lastElem.type === "RestProperty" ||
-          lastElem.type === "RestElement" ||
-          hasNodeIgnoreComment(lastElem) ||
-          n.inexact)
+        n.inexact ||
+        (lastElem &&
+          (lastElem.type === "RestProperty" ||
+            lastElem.type === "RestElement" ||
+            hasNodeIgnoreComment(lastElem)))
       );
 
       let content;

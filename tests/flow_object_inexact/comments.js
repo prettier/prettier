@@ -47,6 +47,12 @@ type Foo = {
 };
 
 type Foo = {
+  /* comment */
+  [string]: string,
+  ...
+};
+
+type Foo = {
   /* comment0 */
   /* comment1 */
   foo: string,
