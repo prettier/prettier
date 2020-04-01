@@ -494,7 +494,10 @@ function printPathNoParens(path, options, print, args) {
       );
 
       // Only force a trailing newline if there were any contents.
-      if (n.body.length || n.comments) {
+      if (
+        !n.body.every(({ type }) => type === "EmptyStatement") ||
+        n.comments
+      ) {
         parts.push(hardline);
       }
 
