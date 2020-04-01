@@ -34,7 +34,6 @@ const unstableTests = new Map(
       "html_angular/attributes.component.html",
       (options) => options.printWidth === 1,
     ],
-    "js_empty/semicolon.js",
     "markdown_footnoteDefinition/multiline.md",
     "markdown_spec/example-234.md",
     "markdown_spec/example-235.md",
