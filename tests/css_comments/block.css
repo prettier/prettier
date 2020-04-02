@@ -1,5 +1,3 @@
-// Animation definitions cannot cross the shadow boundary,
-// and thus need to be loaded directly into the atom-text-editor scope.
 /* Kikoo */
 /**
  * Kikoo
