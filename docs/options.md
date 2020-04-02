@@ -380,6 +380,6 @@ Valid options:
 - `"auto"` – Format embedded code if Prettier can automatically identify it.
 - `"off"` - Never automatically format embedded code.
 
-| Default  | CLI Override                                    | API Override                                   |
-| -------- | ----------------------------------------------- | ---------------------------------------------- |
+| Default  | CLI Override                         | API Override                        |
+| -------- | ------------------------------------ | ----------------------------------- |
 | `"auto"` | `--embedded-language-formatting=off` | `embeddedLanguageFormatting: "off"` |
