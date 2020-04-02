@@ -29,10 +29,6 @@ const unstableTests = new Map(
     "comments/tagged-template-literal.js",
     "comments_closure_typecast/iife.js",
     "graphql_interface/separator-detection.graphql",
-    [
-      "html_angular/attributes.component.html",
-      (options) => options.printWidth === 1,
-    ],
     "markdown_footnoteDefinition/multiline.md",
     "markdown_spec/example-234.md",
     "markdown_spec/example-235.md",
