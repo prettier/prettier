@@ -550,41 +550,46 @@ function parseWithParser(parser, text, options) {
   return result;
 }
 
-function requireParser(isSCSSParser) {
-  if (isSCSSParser) {
-    return require("postcss-scss");
-  }
-
-  const lessParser = require("postcss-less");
-  return {
-    // Workaround for https://github.com/shellscape/postcss-less/issues/145
-    // See comments for `replaceQuotesInInlineComments` in `loc.js`.
-    parse: (text) => lessParser.parse(replaceQuotesInInlineComments(text)),
-  };
-}
-
-function parse(text, parsers, options) {
-  const hasExplicitParserChoice =
-    options.parser === "less" || options.parser === "scss";
+// TODO: make this only work on css
+function parseCss(text, parsers, options) {
   const isSCSSParser = isSCSS(options.parser, text);
+  const parseFunctions = isSCSSParser
+    ? [parseScss, parseLess]
+    : [parseLess, parseScss];
 
-  try {
-    return parseWithParser(requireParser(isSCSSParser), text, options);
-  } catch (originalError) {
-    if (hasExplicitParserChoice) {
-      throw originalError;
-    }
-
+  let error;
+  for (const parse of parseFunctions) {
     try {
-      return parseWithParser(requireParser(!isSCSSParser), text, options);
-    } catch (_secondError) {
-      throw originalError;
+      return parse(text, parsers, options);
+    } catch (parseError) {
+      error = error || parseError;
     }
+  }
+
+  if (error) {
+    throw error;
   }
 }
 
-const parser = {
-  parse,
+function parseLess(text, parsers, options) {
+  const lessParser = require("postcss-less");
+  return parseWithParser(
+    {
+      // Workaround for https://github.com/shellscape/postcss-less/issues/145
+      // See comments for `replaceQuotesInInlineComments` in `loc.js`.
+      parse: (text) => lessParser.parse(replaceQuotesInInlineComments(text)),
+    },
+    text,
+    options
+  );
+}
+
+function parseScss(text, parsers, options) {
+  const scssParser = require("postcss-scss");
+  return parseWithParser(scssParser, text, options);
+}
+
+const postCssParser = {
   astFormat: "postcss",
   hasPragma,
   locStart(node) {
@@ -604,8 +609,17 @@ const parser = {
 // Export as a plugin so we can reuse the same bundle for UMD loading
 module.exports = {
   parsers: {
-    css: parser,
-    less: parser,
-    scss: parser,
+    css: {
+      ...postCssParser,
+      parse: parseCss,
+    },
+    less: {
+      ...postCssParser,
+      parse: parseLess,
+    },
+    scss: {
+      ...postCssParser,
+      parse: parseScss,
+    },
   },
 };
