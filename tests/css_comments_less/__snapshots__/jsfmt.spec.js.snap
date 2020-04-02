@@ -1,58 +1,70 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CRLF.css 1`] = `
+exports[`CRLF.less 1`] = `
 ====================================options=====================================
-parsers: ["css"]
+parsers: ["less"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
+@nice-blue: #5B83AD;
+@light-blue: @nice-blue + #111;
+
+// Comment 1
 /*
- * Comment 1
+ * Comment 2
  */
 #header {
-    /*
-     * Comment 2
-     */
-    color: red;
+  // Comment 3
+  /*
+   * Comment 4
+   */
+  color: @light-blue;
 }
 
 @media only screen and (max-width: 600px) {
-    /*
-     * Comment 3
-     */
-    body {
-        background-color: lightblue; /* Comment 4 */
-        color: red; /* Comment 5 */
-    }
+  // Comment 1
+  /*
+   * Comment 5
+   */
+  body {
+    background-color: lightblue; // Comment 6
+    color: red; /* Comment 7 */
+  }
 }
 
 =====================================output=====================================
+@nice-blue: #5b83ad;
+@light-blue: @nice-blue + #111;
+
+// Comment 1
 /*
- * Comment 1
+ * Comment 2
  */
 #header {
+  // Comment 3
   /*
-     * Comment 2
-     */
-  color: red;
+   * Comment 4
+   */
+  color: @light-blue;
 }
 
 @media only screen and (max-width: 600px) {
+  // Comment 1
   /*
-     * Comment 3
-     */
+   * Comment 5
+   */
   body {
-    background-color: lightblue; /* Comment 4 */
-    color: red; /* Comment 5 */
+    background-color: lightblue; // Comment 6
+    color: red; /* Comment 7 */
   }
 }
 
 ================================================================================
 `;
 
-exports[`at-rules.css 1`] = `
+exports[`at-rules.less 1`] = `
 ====================================options=====================================
-parsers: ["css"]
+parsers: ["less"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -266,18 +278,22 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`block.css 1`] = `
+exports[`block.less 1`] = `
 ====================================options=====================================
-parsers: ["css"]
+parsers: ["less"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
+// Animation definitions cannot cross the shadow boundary,
+// and thus need to be loaded directly into the atom-text-editor scope.
 /* Kikoo */
 /**
  * Kikoo
  */
 
 =====================================output=====================================
+// Animation definitions cannot cross the shadow boundary,
+// and thus need to be loaded directly into the atom-text-editor scope.
 /* Kikoo */
 /**
  * Kikoo
@@ -286,28 +302,47 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`bug.css 1`] = `
+exports[`bug.less 1`] = `
 ====================================options=====================================
-parsers: ["css"]
+parsers: ["less"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
+@font-face  {
+  src: url(if(
+    $bootstrap-sass-asset-helper,
+    twbs-font-path('#{$icon-font-path}#{$icon-font-name}.eot'),
+    '#{$icon-font-path}#{$icon-font-name}.eot'
+  ));
+}
 
+// Catchall baseclass
 /* Catchall baseclass */
 .glyphicon {
 }
 
 =====================================output=====================================
-/* Catchall baseclass */
+@font-face {
+  src: url(if(
+    $bootstrap-sass-asset-helper,
+    twbs-font-path("#{$icon-font-path}#{$icon-font-name}.eot"),
+    "#{$icon-font-path}#{$icon-font-name}.eot"
+  ));
+}
+}
+
+
+// Catchall baseclass
+/
 .glyphicon {
 }
 
 ================================================================================
 `;
 
-exports[`declaration.css 1`] = `
+exports[`declaration.less 1`] = `
 ====================================options=====================================
-parsers: ["css"]
+parsers: ["less"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -477,12 +512,44 @@ body {
 ================================================================================
 `;
 
-exports[`prettier-ignore.css 1`] = `
+exports[`places.less 1`] = `
 ====================================options=====================================
-parsers: ["css"]
+parsers: ["less"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
+div {
+  // a
+
+  margin-left: -@leftMargin; // b
+} // c
+
+// d
+div {}
+
+=====================================output=====================================
+div {
+  // a
+
+  margin-left: -@leftMargin; // b
+} // c
+
+// d
+div {
+}
+
+================================================================================
+`;
+
+exports[`prettier-ignore.less 1`] = `
+====================================options=====================================
+parsers: ["less"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// prettier-ignore
+@blue:  blue;
+@black: darkgray;
 
 foo {
   /* prettier-ignore */
@@ -491,6 +558,10 @@ foo {
 }
 
 =====================================output=====================================
+// prettier-ignore
+@blue:  blue;
+@black: darkgray;
+
 foo {
   /* prettier-ignore */
   thing:     foo;
@@ -500,9 +571,9 @@ foo {
 ================================================================================
 `;
 
-exports[`selectors.css 1`] = `
+exports[`selectors.less 1`] = `
 ====================================options=====================================
-parsers: ["css"]
+parsers: ["less"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -899,9 +970,9 @@ article /* comment 168 */ :--heading /* comment 169 */ + /* comment 170 */ p /* 
 ================================================================================
 `;
 
-exports[`source-map.css 1`] = `
+exports[`source-map.less 1`] = `
 ====================================options=====================================
-parsers: ["css"]
+parsers: ["less"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -921,146 +992,125 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`types.css 1`] = `
+exports[`trailing_star_slash.less 1`] = `
 ====================================options=====================================
-parsers: ["css"]
+parsers: ["less"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-/* This is a basic comment */
-
-/* ==========================================================================
-   This is a Section Comment
-   ========================================================================== */
-
-/*
-   This is a sub-section comment
-   ========================================================================== */
-
-/**
- * Short description using Doxygen-style comment format
- *
- * The first sentence of the long description starts here and continues on this
- * line for a while finally concluding here at the end of this paragraph.
- *
- * The long description is ideal for more detailed explanations and
- * documentation. It can include example HTML, URLs, or any other information
- * that is deemed necessary or useful.
- *
- * @tag This is a tag named 'tag'
- *
- * TODO: This is a todo statement that describes an atomic task to be completed
- *   at a later date. It wraps after 80 characters and following lines are
- *   indented by 2 spaces.
- */
-
-/**
- * TODO:
- *
- * => Write some code
- * => Make some lists
- *
- */
-
-/*
-span {
-  color: blue;
-  font-size: 1.5em;
+@media (max-width: 1) {}
+a {
+  // element.style */
 }
-*/
-
-/*
-<small class=tooltip><span>Lorem ipsum dolor</span></small>
-*/
 
 =====================================output=====================================
-/* This is a basic comment */
-
-/* ==========================================================================
-   This is a Section Comment
-   ========================================================================== */
-
-/*
-   This is a sub-section comment
-   ========================================================================== */
-
-/**
- * Short description using Doxygen-style comment format
- *
- * The first sentence of the long description starts here and continues on this
- * line for a while finally concluding here at the end of this paragraph.
- *
- * The long description is ideal for more detailed explanations and
- * documentation. It can include example HTML, URLs, or any other information
- * that is deemed necessary or useful.
- *
- * @tag This is a tag named 'tag'
- *
- * TODO: This is a todo statement that describes an atomic task to be completed
- *   at a later date. It wraps after 80 characters and following lines are
- *   indented by 2 spaces.
- */
-
-/**
- * TODO:
- *
- * => Write some code
- * => Make some lists
- *
- */
-
-/*
-span {
-  color: blue;
-  font-size: 1.5em;
+@media (max-width: 1) {
 }
-*/
-
-/*
-<small class=tooltip><span>Lorem ipsum dolor</span></small>
-*/
+a {
+  // element.style */
+}
 
 ================================================================================
 `;
 
-exports[`variable-declaration.scss 1`] = `
+exports[`types.less 1`] = `
 ====================================options=====================================
-parsers: ["css"]
+parsers: ["less"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-$var: /* comment 1 */ all /* comment 2 */ !default /* comment 3 */ ; /* comment 4 */
+/* This is a basic comment */
 
-@mixin text-color {
-  /* comment 5 */
-  /* comment 6 */ $text-color /* comment 7 */ : /* comment 8 */ red /* comment 9 */ !default /* comment 10 */ ; /* comment 11 */
-  /* comment 12 */
-  color: $text-color;
-}
+/* ==========================================================================
+   This is a Section Comment
+   ========================================================================== */
 
-.error {
-  /* comment 13 */
-  /* comment 14 */ $text-color /* comment 15 */ : /* comment 16 */ green /* comment 17 */ !global /* comment 18 */ ; /* comment 19 */
-  /* comment 20 */
+/*
+   This is a sub-section comment
+   ========================================================================== */
+
+/**
+ * Short description using Doxygen-style comment format
+ *
+ * The first sentence of the long description starts here and continues on this
+ * line for a while finally concluding here at the end of this paragraph.
+ *
+ * The long description is ideal for more detailed explanations and
+ * documentation. It can include example HTML, URLs, or any other information
+ * that is deemed necessary or useful.
+ *
+ * @tag This is a tag named 'tag'
+ *
+ * TODO: This is a todo statement that describes an atomic task to be completed
+ *   at a later date. It wraps after 80 characters and following lines are
+ *   indented by 2 spaces.
+ */
+
+/**
+ * TODO:
+ *
+ * => Write some code
+ * => Make some lists
+ *
+ */
+
+/*
+span {
+  color: blue;
+  font-size: 1.5em;
 }
+*/
+
+/*
+<small class=tooltip><span>Lorem ipsum dolor</span></small>
+*/
 
 =====================================output=====================================
-$var: /* comment 1 */ all /* comment 2 */ !default /* comment 3 */; /* comment 4 */
+/* This is a basic comment */
 
-@mixin text-color {
-  /* comment 5 */
-  /* comment 6 */
-  $text-color/* comment 7 */ : /* comment 8 */ red /* comment 9 */ !default /* comment 10 */; /* comment 11 */
-  /* comment 12 */
-  color: $text-color;
-}
+/* ==========================================================================
+   This is a Section Comment
+   ========================================================================== */
 
-.error {
-  /* comment 13 */
-  /* comment 14 */
-  $text-color/* comment 15 */ : /* comment 16 */ green /* comment 17 */ !global /* comment 18 */; /* comment 19 */
-  /* comment 20 */
+/*
+   This is a sub-section comment
+   ========================================================================== */
+
+/**
+ * Short description using Doxygen-style comment format
+ *
+ * The first sentence of the long description starts here and continues on this
+ * line for a while finally concluding here at the end of this paragraph.
+ *
+ * The long description is ideal for more detailed explanations and
+ * documentation. It can include example HTML, URLs, or any other information
+ * that is deemed necessary or useful.
+ *
+ * @tag This is a tag named 'tag'
+ *
+ * TODO: This is a todo statement that describes an atomic task to be completed
+ *   at a later date. It wraps after 80 characters and following lines are
+ *   indented by 2 spaces.
+ */
+
+/**
+ * TODO:
+ *
+ * => Write some code
+ * => Make some lists
+ *
+ */
+
+/*
+span {
+  color: blue;
+  font-size: 1.5em;
 }
+*/
+
+/*
+<small class=tooltip><span>Lorem ipsum dolor</span></small>
+*/
 
 ================================================================================
 `;
