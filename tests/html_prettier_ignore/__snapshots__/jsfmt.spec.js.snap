@@ -14,8 +14,7 @@ printWidth: 80
 123<!--prettier-ignore-->456
 
 <span></span
-><!--prettier-ignore--><span
-></span>
+><!--prettier-ignore--><span></span>
 
 ================================================================================
 `;

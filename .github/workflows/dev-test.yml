@@ -24,6 +24,9 @@ jobs:
           - os: "ubuntu-latest"
             node: "12"
             ENABLE_CODE_COVERAGE: true
+        exclude:
+          - os: "macos-latest"
+            node: "13"
     env:
       ENABLE_CODE_COVERAGE: ${{ matrix.ENABLE_CODE_COVERAGE }}
     name: Node.js ${{ matrix.node }} on ${{ matrix.os }}
@@ -49,5 +52,6 @@ jobs:
         uses: codecov/codecov-action@v1
         if: matrix.ENABLE_CODE_COVERAGE
         with:
+          token: ${{ secrets.CODECOV_TOKEN }}
           file: ./coverage/lcov.info
           fail_ci_if_error: true

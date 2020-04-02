@@ -289,6 +289,7 @@ const binaryishNodeTypes = new Set([
   "BinaryExpression",
   "LogicalExpression",
   "NGPipeExpression",
+  "TSAsExpression",
 ]);
 function isBinaryish(node) {
   return binaryishNodeTypes.has(node.type);
@@ -958,7 +959,7 @@ function isSimpleCallArgument(node, depth) {
     );
   }
   if (node.type === "ArrayExpression") {
-    return node.elements.every(isChildSimple);
+    return node.elements.every((x) => x == null || isChildSimple(x));
   }
   if (
     node.type === "CallExpression" ||

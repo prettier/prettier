@@ -554,12 +554,13 @@ function printChildren(path, options, print) {
         ? hardline
         : softline
       : (needsToBorrowNextOpeningTagStartMarker(prevNode) &&
-          /**
-           *     123<a
-           *          ~
-           *       ><b>
-           */
-          (nextNode.firstChild ||
+          (hasPrettierIgnore(nextNode) ||
+            /**
+             *     123<a
+             *          ~
+             *       ><b>
+             */
+            nextNode.firstChild ||
             /**
              *     123<!--
              *            ~
