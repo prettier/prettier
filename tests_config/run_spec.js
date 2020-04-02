@@ -112,10 +112,13 @@ global.run_spec = (dirname, parsers, options) => {
 
     const hasEndOfLine = "endOfLine" in mainOptions;
 
-    const output = format(input, filename, mainOptions);
-    const visualizedOutput = visualizeEndOfLine(output);
+    let output;
+    let visualizedOutput;
 
     test(basename, () => {
+      output = format(input, filename, mainOptions);
+      visualizedOutput = visualizeEndOfLine(output);
+
       expect(visualizedOutput).toEqual(
         visualizeEndOfLine(consistentEndOfLine(output))
       );
