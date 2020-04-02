@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`parens.css 1`] = `
+exports[`parens.scss 1`] = `
 ====================================options=====================================
-parsers: ["css"]
+parsers: ["scss"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -134,6 +134,9 @@ a {
   padding-top: var(  --paddingC  );
   margin: 1*1 (1)*1 1*(1) (1)*(1);
   prop: -1*-1 -(-1)*-1 -1*-(-1) -(-1)*-(-1);
+  prop1: #{($m)*(10)};
+  prop2: #{$m * 10};
+  prop3: #{-(-$m)*-(-10)};
   prop4: +1;
   prop5: -1;
   prop6: word + 1; /* word1 */
@@ -155,6 +158,10 @@ a {
   prop22: 2/@width 2 /@width 2/ @width 2 / @width;
   prop23: (@width/2) (@width /2) (@width/ 2) (@width / 2);
   prop24: (2/@width) (2 /@width) (2/ @width) (2 / @width);
+  prop25-1: #{$width}/#{$width} #{$width} /#{$width} #{$width}/ #{$width} #{$width} / #{$width};
+  prop25-2: #{$width}*#{$width} #{$width} *#{$width} #{$width}* #{$width} #{$width} * #{$width};
+  prop25-3: #{$width}+#{$width} #{$width} +#{$width} #{$width}+ #{$width} #{$width} + #{$width};
+  prop25-4: #{$width}-#{$width} #{$width} -#{$width} #{$width}- #{$width} #{$width} - #{$width};
   prop26: 8px/2px 8px /1 1/ 2px 1 / 2;
   prop27: 8px/2px 8px/1 1/2px 1/2;
   prop28: 8px / 2px 8px / 1 1 / 2px 1 / 2;
@@ -381,6 +388,9 @@ a {
   padding-top: var(--paddingC);
   margin: 1 * 1 (1) * 1 1 * (1) (1) * (1);
   prop: -1 * -1 - (-1) * -1 -1 * -(-1) - (-1) * -(-1);
+  prop1: #{($m) * (10)};
+  prop2: #{$m * 10};
+  prop3: #{- (-$m) * -(-10)};
   prop4: +1;
   prop5: -1;
   prop6: word + 1; /* word1 */
@@ -402,6 +412,14 @@ a {
   prop22: 2 / @width 2 / @width 2 / @width 2 / @width;
   prop23: (@width / 2) (@width / 2) (@width / 2) (@width / 2);
   prop24: (2 / @width) (2 / @width) (2 / @width) (2 / @width);
+  prop25-1: #{$width}/#{$width} #{$width} /#{$width} #{$width}/ #{$width} #{$width} /
+    #{$width};
+  prop25-2: #{$width}*#{$width} #{$width} *#{$width} #{$width}* #{$width} #{$width} *
+    #{$width};
+  prop25-3: #{$width}+#{$width} #{$width} +#{$width} #{$width}+ #{$width} #{$width} +
+    #{$width};
+  prop25-4: #{$width}-#{$width} #{$width} -#{$width} #{$width}- #{$width} #{$width} -
+    #{$width};
   prop26: 8px/2px 8px /1 1/ 2px 1 / 2;
   prop27: 8px/2px 8px/1 1/2px 1/2;
   prop28: 8px / 2px 8px / 1 1 / 2px 1 / 2;
