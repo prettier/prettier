@@ -12,16 +12,15 @@ function includeShebang(text, ast) {
     value: shebang,
     range: [0, index],
     loc: {
-      source: null,
       start: {
         line: 1,
-        column: 0
+        column: 0,
       },
       end: {
         line: 1,
-        column: index
-      }
-    }
+        column: index,
+      },
+    },
   };
 
   ast.comments = [comment].concat(ast.comments);

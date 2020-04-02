@@ -25,7 +25,7 @@ let Prettier        = format => { your.js('though') }
 </template>
 
 <script>
-let Prettier = format => {
+let Prettier = (format) => {
   your.js("though");
 };
 </script>

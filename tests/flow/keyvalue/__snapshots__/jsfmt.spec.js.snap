@@ -18,9 +18,9 @@ let tests = [
 // @flow
 
 let tests = [
-  function(x: { [key: number]: string }) {
+  function (x: { [key: number]: string }) {
     (x[""]: number);
-  }
+  },
 ];
 
 ================================================================================

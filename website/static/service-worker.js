@@ -9,7 +9,7 @@ toolbox.precache([
   // Scripts
   "lib/standalone.js",
   "lib/parser-angular.js",
-  "lib/parser-babylon.js",
+  "lib/parser-babel.js",
   "lib/parser-flow.js",
   "lib/parser-glimmer.js",
   "lib/parser-graphql.js",
@@ -42,7 +42,7 @@ toolbox.precache([
   "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.3.1/umd/react-dom.production.min.js",
 
   // Images
-  "/prettier.png"
+  "/prettier.png",
 ]);
 
 // Default to hit the cache only if there's a network error

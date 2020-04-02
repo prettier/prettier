@@ -1,5 +1,16 @@
+const sep = /[\\/]/;
+
 export function extname(path) {
-  const dotIndex = path.lastIndexOf(".");
+  const filename = basename(path);
+  const dotIndex = filename.lastIndexOf(".");
   if (dotIndex === -1) return "";
-  return path.slice(dotIndex);
+  return filename.slice(dotIndex);
+}
+
+export function basename(path) {
+  return path.split(sep).pop();
+}
+
+export function isAbsolute() {
+  return true;
 }

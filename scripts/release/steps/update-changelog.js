@@ -10,12 +10,12 @@ const { waitForEnter } = require("../utils");
 function getBlogPostInfo(version) {
   const date = new Date();
   const year = date.getFullYear();
-  const month = new String(date.getMonth() + 1).padStart(2, "0");
-  const day = new String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
 
   return {
     file: `website/blog/${year}-${month}-${day}-${version}.md`,
-    path: `blog/${year}/${month}/${day}/${version}.html`
+    path: `blog/${year}/${month}/${day}/${version}.html`,
   };
 }
 
@@ -31,7 +31,7 @@ function writeChangelog({ version, previousVersion, releaseNotes }) {
   fs.writeFileSync("CHANGELOG.md", newEntry + "\n\n" + changelog);
 }
 
-module.exports = async function({ version, previousVersion }) {
+module.exports = async function ({ version, previousVersion }) {
   const semverDiff = semver.diff(version, previousVersion);
 
   if (semverDiff !== "patch") {
@@ -39,7 +39,7 @@ module.exports = async function({ version, previousVersion }) {
     writeChangelog({
       version,
       previousVersion,
-      releaseNotes: `🔗 [Release Notes](https://prettier.io/${blogPost.path})`
+      releaseNotes: `🔗 [Release Notes](https://prettier.io/${blogPost.path})`,
     });
     if (fs.existsSync(blogPost.file)) {
       // Everything is fine, this step is finished
@@ -68,5 +68,5 @@ module.exports = async function({ version, previousVersion }) {
   }
 
   await waitForEnter();
-  await execa("yarn", ["lint-docs", "--fix"]);
+  await execa("yarn", ["lint:prettier", "--write"]);
 };

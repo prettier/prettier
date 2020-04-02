@@ -16,7 +16,7 @@ type State = {
 
 =====================================output=====================================
 type State = {
-  sharedProperty: any
+  sharedProperty: any,
 } & (
   | { discriminant: "FOO", foo: any }
   | { discriminant: "BAR", bar: any }

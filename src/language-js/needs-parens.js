@@ -3,83 +3,12 @@
 const assert = require("assert");
 
 const util = require("../common/util");
-const comments = require("./comments");
 const {
   getLeftSidePathName,
   hasFlowShorthandAnnotationComment,
   hasNakedLeftSide,
-  hasNode
+  hasNode,
 } = require("./utils");
-
-function hasClosureCompilerTypeCastComment(text, path) {
-  // https://github.com/google/closure-compiler/wiki/Annotating-Types#type-casts
-  // Syntax example: var x = /** @type {string} */ (fruit);
-
-  const n = path.getValue();
-
-  return (
-    isParenthesized(n) &&
-    (hasTypeCastComment(n) || hasAncestorTypeCastComment(0))
-  );
-
-  // for sub-item: /** @type {array} */ (numberOrString).map(x => x);
-  function hasAncestorTypeCastComment(index) {
-    const ancestor = path.getParentNode(index);
-    return ancestor && !isParenthesized(ancestor)
-      ? hasTypeCastComment(ancestor) || hasAncestorTypeCastComment(index + 1)
-      : false;
-  }
-
-  function hasTypeCastComment(node) {
-    return (
-      node.comments &&
-      node.comments.some(
-        comment =>
-          comment.leading &&
-          comments.isBlockComment(comment) &&
-          isTypeCastComment(comment.value)
-      )
-    );
-  }
-
-  function isParenthesized(node) {
-    // Closure typecast comments only really make sense when _not_ using
-    // typescript or flow parsers, so we take advantage of the babel parser's
-    // parenthesized expressions.
-    return node.extra && node.extra.parenthesized;
-  }
-
-  function isTypeCastComment(comment) {
-    const cleaned = comment
-      .trim()
-      .split("\n")
-      .map(line => line.replace(/^[\s*]+/, "").replace(/[\s*]+$/, ""))
-      .join(" ")
-      .trim();
-    if (!/^@type\s*\{[^]+\}$/.test(cleaned)) {
-      return false;
-    }
-    let isCompletelyClosed = false;
-    let unpairedBracketCount = 0;
-    for (const char of cleaned) {
-      if (char === "{") {
-        if (isCompletelyClosed) {
-          return false;
-        }
-        unpairedBracketCount++;
-      } else if (char === "}") {
-        if (unpairedBracketCount === 0) {
-          return false;
-        }
-        unpairedBracketCount--;
-        if (unpairedBracketCount === 0) {
-          isCompletelyClosed = true;
-        }
-      }
-    }
-    return unpairedBracketCount === 0;
-  }
-}
 
 function needsParens(path, options) {
   const parent = path.getParentNode();
@@ -110,12 +39,6 @@ function needsParens(path, options) {
   // Only statements don't need parentheses.
   if (isStatement(node)) {
     return false;
-  }
-
-  // Closure compiler requires that type casted expressions to be surrounded by
-  // parentheses.
-  if (hasClosureCompilerTypeCastComment(options.originalText, path)) {
-    return true;
   }
 
   if (
@@ -172,11 +95,15 @@ function needsParens(path, options) {
     return true;
   }
 
-  // `export default function` or `export default class` can't be followed by
-  // anything after. So an expression like `export default (function(){}).toString()`
-  // needs to be followed by a parentheses
   if (parent.type === "ExportDefaultDeclaration") {
-    return shouldWrapFunctionForExportDefault(path, options);
+    return (
+      // `export default function` or `export default class` can't be followed by
+      // anything after. So an expression like `export default (function(){}).toString()`
+      // needs to be followed by a parentheses
+      shouldWrapFunctionForExportDefault(path, options) ||
+      // `export default (foo, bar)` also needs parentheses
+      node.type === "SequenceExpression"
+    );
   }
 
   if (parent.type === "Decorator" && parent.expression === node) {
@@ -281,7 +208,7 @@ function needsParens(path, options) {
         return true;
       }
 
-      const isLeftOfAForStatement = node => {
+      const isLeftOfAForStatement = (node) => {
         let i = 0;
         while (node) {
           const parent = path.getParentNode(i++);
@@ -525,7 +452,7 @@ function needsParens(path, options) {
         // See corresponding workaround in printer.js case: "Literal"
         ((options.parser !== "typescript" && !parent.directive) ||
           (options.parser === "typescript" &&
-            options.originalText.substr(options.locStart(node) - 1, 1) === "("))
+            options.originalText.charAt(options.locStart(node) - 1) === "("))
       ) {
         // To avoid becoming a directive
         const grandParent = path.getParentNode(1);
@@ -672,7 +599,9 @@ function needsParens(path, options) {
     case "OptionalCallExpression":
       if (
         (parent.type === "MemberExpression" && name === "object") ||
-        (parent.type === "CallExpression" && name === "callee")
+        ((parent.type === "CallExpression" ||
+          parent.type === "NewExpression") &&
+          name === "callee")
       ) {
         return true;
       }
@@ -761,7 +690,8 @@ function needsParens(path, options) {
           parent.type !== "ReturnStatement" &&
           parent.type !== "ThrowStatement" &&
           parent.type !== "TypeCastExpression" &&
-          parent.type !== "VariableDeclarator")
+          parent.type !== "VariableDeclarator" &&
+          parent.type !== "YieldExpression")
       );
     case "TypeAnnotation":
       return (
@@ -829,9 +759,12 @@ function isStatement(node) {
 function includesFunctionTypeInObjectType(node) {
   return hasNode(
     node,
-    n1 =>
+    (n1) =>
       (n1.type === "ObjectTypeAnnotation" &&
-        hasNode(n1, n2 => n2.type === "FunctionTypeAnnotation" || undefined)) ||
+        hasNode(
+          n1,
+          (n2) => n2.type === "FunctionTypeAnnotation" || undefined
+        )) ||
       undefined
   );
 }
@@ -908,11 +841,9 @@ function shouldWrapFunctionForExportDefault(path, options) {
     return false;
   }
 
-  return path.call.apply(
-    path,
-    [
-      childPath => shouldWrapFunctionForExportDefault(childPath, options)
-    ].concat(getLeftSidePathName(path, node))
+  return path.call(
+    (childPath) => shouldWrapFunctionForExportDefault(childPath, options),
+    ...getLeftSidePathName(path, node)
   );
 }
 

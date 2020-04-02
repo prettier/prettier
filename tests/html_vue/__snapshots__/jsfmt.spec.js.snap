@@ -4,6 +4,7 @@ exports[`attributes.vue 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <template>
@@ -58,7 +59,7 @@ printWidth: 80
     v-for="n in 10"
     v-for="{ a } in [0].map(() => ({ a: 1 }))"
     v-for="({ a }, [c]) in [0].map(() => 1)"
-    v-for="n in items.map(x => {
+    v-for="n in items.map((x) => {
       return x;
     })"
     @click="/* hello */"
@@ -112,7 +113,6 @@ exports[`attributes.vue 2`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 <template>
@@ -167,7 +167,7 @@ trailingComma: "es5"
     v-for="n in 10"
     v-for="{ a } in [0].map(() => ({ a: 1 }))"
     v-for="({ a }, [c]) in [0].map(() => 1)"
-    v-for="n in items.map(x => {
+    v-for="n in items.map((x) => {
       return x;
     })"
     @click="/* hello */"
@@ -276,7 +276,7 @@ semi: false
     v-for="n in 10"
     v-for="{ a } in [0].map(() => ({ a: 1 }))"
     v-for="({ a }, [c]) in [0].map(() => 1)"
-    v-for="n in items.map(x => {
+    v-for="n in items.map((x) => {
       return x
     })"
     @click="/* hello */"
@@ -293,11 +293,11 @@ semi: false
     slot-scope="{ row }"
     slot-scope="{
       destructuring: {
-        a: { b }
-      }
+        a: { b },
+      },
     }"
     :class="{
-      longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true
+      longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true,
     }"
     :class="
       (() => {
@@ -330,6 +330,7 @@ exports[`board_card.vue 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <script>
@@ -495,7 +496,6 @@ exports[`board_card.vue 2`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 <script>
@@ -748,7 +748,7 @@ const Store = gl.issueBoards.BoardsStore
 export default {
   name: "BoardsIssueCard",
   components: {
-    "issue-card-inner": gl.issueBoards.IssueCardInner
+    "issue-card-inner": gl.issueBoards.IssueCardInner,
   },
   props: {
     list: Object,
@@ -756,12 +756,12 @@ export default {
     issueLinkBase: String,
     disabled: Boolean,
     index: Number,
-    rootPath: String
+    rootPath: String,
   },
   data() {
     return {
       showDetail: false,
-      detailIssue: Store.detail
+      detailIssue: Store.detail,
     }
   },
   computed: {
@@ -769,7 +769,7 @@ export default {
       return (
         this.detailIssue.issue && this.detailIssue.issue.id === this.issue.id
       )
-    }
+    },
   },
   methods: {
     mouseDown() {
@@ -791,8 +791,8 @@ export default {
           Store.detail.list = this.list
         }
       }
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -802,7 +802,7 @@ export default {
     :class="{
       'user-can-drag': !disabled && issue.id,
       'is-disabled': disabled || !issue.id,
-      'is-active': issueDetailVisible
+      'is-active': issueDetailVisible,
     }"
     :index="index"
     :data-issue-id="issue.id"
@@ -827,6 +827,7 @@ exports[`case-sensitive-tags.vue 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <template>
@@ -845,7 +846,6 @@ exports[`case-sensitive-tags.vue 2`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 <template>
@@ -883,6 +883,7 @@ exports[`custom-block.vue 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <i18n>
@@ -912,7 +913,6 @@ exports[`custom-block.vue 2`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 <i18n>
@@ -968,10 +968,232 @@ semi: false
 ================================================================================
 `;
 
+exports[`expression-binding.vue 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+<!-- #7396 -->
+<template>
+<MyComponent :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"/>
+</template>
+<template>
+<MyComponent :attr="\`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
++\`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`"/>
+</template>
+<template>
+<MyComponent :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo +               bar} template literal value\`"/>
+</template>
+<template>
+<MyComponent :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"/>
+</template>
+<template>
+<MyComponent :src="'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' + 'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'"/>
+</template>
+<template>
+<MyComponent :src="100000000000000000000000000000000000000000000000000000000000000000000000000"/>
+</template>
+
+=====================================output=====================================
+<!-- #7396 -->
+<template>
+  <MyComponent
+    :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"
+  />
+</template>
+<template>
+  <MyComponent
+    :attr="
+      \`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\` +
+      \`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
+    "
+  />
+</template>
+<template>
+  <MyComponent
+    :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${
+      foo + bar
+    } template literal value\`"
+  />
+</template>
+<template>
+  <MyComponent
+    :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"
+  />
+</template>
+<template>
+  <MyComponent
+    :src="
+      'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' +
+      'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'
+    "
+  />
+</template>
+<template>
+  <MyComponent
+    :src="
+      100000000000000000000000000000000000000000000000000000000000000000000000000
+    "
+  />
+</template>
+
+================================================================================
+`;
+
+exports[`expression-binding.vue 2`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<!-- #7396 -->
+<template>
+<MyComponent :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"/>
+</template>
+<template>
+<MyComponent :attr="\`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
++\`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`"/>
+</template>
+<template>
+<MyComponent :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo +               bar} template literal value\`"/>
+</template>
+<template>
+<MyComponent :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"/>
+</template>
+<template>
+<MyComponent :src="'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' + 'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'"/>
+</template>
+<template>
+<MyComponent :src="100000000000000000000000000000000000000000000000000000000000000000000000000"/>
+</template>
+
+=====================================output=====================================
+<!-- #7396 -->
+<template>
+  <MyComponent
+    :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"
+  />
+</template>
+<template>
+  <MyComponent
+    :attr="
+      \`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\` +
+      \`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
+    "
+  />
+</template>
+<template>
+  <MyComponent
+    :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${
+      foo + bar
+    } template literal value\`"
+  />
+</template>
+<template>
+  <MyComponent
+    :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"
+  />
+</template>
+<template>
+  <MyComponent
+    :src="
+      'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' +
+      'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'
+    "
+  />
+</template>
+<template>
+  <MyComponent
+    :src="
+      100000000000000000000000000000000000000000000000000000000000000000000000000
+    "
+  />
+</template>
+
+================================================================================
+`;
+
+exports[`expression-binding.vue 3`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+<!-- #7396 -->
+<template>
+<MyComponent :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"/>
+</template>
+<template>
+<MyComponent :attr="\`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
++\`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`"/>
+</template>
+<template>
+<MyComponent :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo +               bar} template literal value\`"/>
+</template>
+<template>
+<MyComponent :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"/>
+</template>
+<template>
+<MyComponent :src="'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' + 'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'"/>
+</template>
+<template>
+<MyComponent :src="100000000000000000000000000000000000000000000000000000000000000000000000000"/>
+</template>
+
+=====================================output=====================================
+<!-- #7396 -->
+<template>
+  <MyComponent
+    :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"
+  />
+</template>
+<template>
+  <MyComponent
+    :attr="
+      \`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\` +
+      \`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
+    "
+  />
+</template>
+<template>
+  <MyComponent
+    :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${
+      foo + bar
+    } template literal value\`"
+  />
+</template>
+<template>
+  <MyComponent
+    :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"
+  />
+</template>
+<template>
+  <MyComponent
+    :src="
+      'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' +
+      'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'
+    "
+  />
+</template>
+<template>
+  <MyComponent
+    :src="
+      100000000000000000000000000000000000000000000000000000000000000000000000000
+    "
+  />
+</template>
+
+================================================================================
+`;
+
 exports[`filter.vue 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <!-- vue filters are only allowed in v-bind and interpolation -->
@@ -1029,7 +1251,6 @@ exports[`filter.vue 2`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 <!-- vue filters are only allowed in v-bind and interpolation -->
@@ -1145,6 +1366,7 @@ exports[`interpolations.vue 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <template>
@@ -1210,7 +1432,7 @@ x => {
 <template>
   <div>
     Fuga magnam facilis. Voluptatem quaerat porro.{{
-      x => {
+      (x) => {
         const hello = "world";
         return hello;
       }
@@ -1275,7 +1497,6 @@ exports[`interpolations.vue 2`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 <template>
@@ -1341,7 +1562,7 @@ x => {
 <template>
   <div>
     Fuga magnam facilis. Voluptatem quaerat porro.{{
-      x => {
+      (x) => {
         const hello = "world";
         return hello;
       }
@@ -1472,7 +1693,7 @@ x => {
 <template>
   <div>
     Fuga magnam facilis. Voluptatem quaerat porro.{{
-      x => {
+      (x) => {
         const hello = "world"
         return hello
       }
@@ -1537,6 +1758,7 @@ exports[`pre-child.vue 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <template>
@@ -1621,15 +1843,15 @@ printWidth: 80
   <pre class="woot">
   123{{
       wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq
+      wqeqwwqwqweqweqwewwq ||
+      wqeqwwqwqweqweqwewwq ||
+      wqeqwwqwqweqweqwewwq
     }}123
   123{{
       wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq
+      wqeqwwqwqweqweqwewwq ||
+      wqeqwwqwqweqweqwewwq ||
+      wqeqwwqwqweqweqwewwq
     }}123
     </pre
   >
@@ -1642,7 +1864,6 @@ exports[`pre-child.vue 2`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 <template>
@@ -1727,15 +1948,15 @@ trailingComma: "es5"
   <pre class="woot">
   123{{
       wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq
+      wqeqwwqwqweqweqwewwq ||
+      wqeqwwqwqweqweqwewwq ||
+      wqeqwwqwqweqweqwewwq
     }}123
   123{{
       wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq
+      wqeqwwqwqweqweqwewwq ||
+      wqeqwwqwqweqweqwewwq ||
+      wqeqwwqwqweqweqwewwq
     }}123
     </pre
   >
@@ -1833,15 +2054,15 @@ semi: false
   <pre class="woot">
   123{{
       wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq
+      wqeqwwqwqweqweqwewwq ||
+      wqeqwwqwqweqweqwewwq ||
+      wqeqwwqwqweqweqwewwq
     }}123
   123{{
       wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq
+      wqeqwwqwqweqweqwewwq ||
+      wqeqwwqwqweqweqwewwq ||
+      wqeqwwqwqweqweqwewwq
     }}123
     </pre
   >
@@ -1854,6 +2075,7 @@ exports[`script_src.vue 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
@@ -1870,7 +2092,6 @@ exports[`script_src.vue 2`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 <script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
@@ -1904,6 +2125,7 @@ exports[`self_closing.vue 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <template>
@@ -1923,6 +2145,12 @@ foo( )
 </div>
 </template>
 
+<template>
+  <Foo><Bar
+         attr
+                                     /></Foo>
+</template>
+
 =====================================output=====================================
 <template>
   <div />
@@ -1939,6 +2167,10 @@ foo();
     <HomeX />
     <HomeY />
   </div>
+</template>
+
+<template>
+  <Foo><Bar attr /></Foo>
 </template>
 
 ================================================================================
@@ -1948,7 +2180,6 @@ exports[`self_closing.vue 2`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 <template>
@@ -1968,6 +2199,12 @@ foo( )
 </div>
 </template>
 
+<template>
+  <Foo><Bar
+         attr
+                                     /></Foo>
+</template>
+
 =====================================output=====================================
 <template>
   <div />
@@ -1984,6 +2221,10 @@ foo();
     <HomeX />
     <HomeY />
   </div>
+</template>
+
+<template>
+  <Foo><Bar attr /></Foo>
 </template>
 
 ================================================================================
@@ -2013,6 +2254,12 @@ foo( )
 </div>
 </template>
 
+<template>
+  <Foo><Bar
+         attr
+                                     /></Foo>
+</template>
+
 =====================================output=====================================
 <template>
   <div />
@@ -2031,6 +2278,10 @@ foo()
   </div>
 </template>
 
+<template>
+  <Foo><Bar attr /></Foo>
+</template>
+
 ================================================================================
 `;
 
@@ -2038,6 +2289,7 @@ exports[`self_closing_style.vue 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <template>
@@ -2060,7 +2312,6 @@ exports[`self_closing_style.vue 2`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 <template>
@@ -2106,6 +2357,7 @@ exports[`style.vue 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <script>
@@ -2212,7 +2464,6 @@ exports[`style.vue 2`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 <script>
@@ -2426,6 +2677,7 @@ exports[`tag-name.vue 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <template>
@@ -2444,7 +2696,6 @@ exports[`tag-name.vue 2`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 <template>
@@ -2482,6 +2733,7 @@ exports[`template.vue 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <!--copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/vue_shared/components/content_viewer/viewers/image_viewer.vue-->
@@ -2547,7 +2799,6 @@ exports[`template.vue 2`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 <!--copied from https://github.com/gitlabhq/gitlabhq/blob/master/app/assets/javascripts/vue_shared/components/content_viewer/viewers/image_viewer.vue-->
@@ -2679,6 +2930,7 @@ exports[`template-lang.vue 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <template lang="pug">
@@ -2717,7 +2969,6 @@ exports[`template-lang.vue 2`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 <template lang="pug">
@@ -2795,6 +3046,7 @@ exports[`test.vue 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <script>
@@ -2826,7 +3078,6 @@ exports[`test.vue 2`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 <script>
@@ -2881,6 +3132,338 @@ semi: false
     foo
     <br />
   </footer>
+</template>
+
+================================================================================
+`;
+
+exports[`v-if.vue 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+<template>
+<root>
+  <and v-if="
+long_long_long_long_long_long_long_condition_1 && long_long_long_long_long_long_long_condition_2 && short_1 && short_2 &&
+long_long_long_long_long_long_long_condition_3 &&
+long_long_long_long_long_long_long_condition_4
+"></and>
+  <and v-if="
+(long_long_long_long_long_long_long_condition_1 && long_long_long_long_long_long_long_condition_2 && (short_1 && short_2) ) &&
+long_long_long_long_long_long_long_condition_3 &&
+long_long_long_long_long_long_long_condition_4
+"></and>
+  <or v-if="
+long_long_long_long_long_long_long_condition_1 || long_long_long_long_long_long_long_condition_2 ||short_1 || short_2 ||
+long_long_long_long_long_long_long_condition_3 ||
+long_long_long_long_long_long_long_condition_4
+"></or>
+  <or v-if="
+(long_long_long_long_long_long_long_condition_1 || long_long_long_long_long_long_long_condition_2 || (short_1 || short_2) ||
+long_long_long_long_long_long_long_condition_3) ||
+long_long_long_long_long_long_long_condition_4
+"></or>
+  <mixed v-if="
+long_long_long_long_long_long_long_condition_1 && long_long_long_long_long_long_long_condition_2 ||  ((short_1 && short_2) &&
+long_long_long_long_long_long_long_condition_3 &&
+long_long_long_long_long_long_long_condition_4)
+"></mixed>
+  <mixed v-if="
+long_long_long_long_long_long_long_condition_1 && long_long_long_long_long_long_long_condition_2 || short_1 && short_2 &&
+long_long_long_long_long_long_long_condition_3 ||
+long_long_long_long_long_long_long_condition_4
+"></mixed>
+</root>
+</template>
+
+=====================================output=====================================
+<template>
+  <root>
+    <and
+      v-if="
+        long_long_long_long_long_long_long_condition_1 &&
+        long_long_long_long_long_long_long_condition_2 &&
+        short_1 &&
+        short_2 &&
+        long_long_long_long_long_long_long_condition_3 &&
+        long_long_long_long_long_long_long_condition_4
+      "
+    ></and>
+    <and
+      v-if="
+        long_long_long_long_long_long_long_condition_1 &&
+        long_long_long_long_long_long_long_condition_2 &&
+        short_1 &&
+        short_2 &&
+        long_long_long_long_long_long_long_condition_3 &&
+        long_long_long_long_long_long_long_condition_4
+      "
+    ></and>
+    <or
+      v-if="
+        long_long_long_long_long_long_long_condition_1 ||
+        long_long_long_long_long_long_long_condition_2 ||
+        short_1 ||
+        short_2 ||
+        long_long_long_long_long_long_long_condition_3 ||
+        long_long_long_long_long_long_long_condition_4
+      "
+    ></or>
+    <or
+      v-if="
+        long_long_long_long_long_long_long_condition_1 ||
+        long_long_long_long_long_long_long_condition_2 ||
+        short_1 ||
+        short_2 ||
+        long_long_long_long_long_long_long_condition_3 ||
+        long_long_long_long_long_long_long_condition_4
+      "
+    ></or>
+    <mixed
+      v-if="
+        (long_long_long_long_long_long_long_condition_1 &&
+          long_long_long_long_long_long_long_condition_2) ||
+        (short_1 &&
+          short_2 &&
+          long_long_long_long_long_long_long_condition_3 &&
+          long_long_long_long_long_long_long_condition_4)
+      "
+    ></mixed>
+    <mixed
+      v-if="
+        (long_long_long_long_long_long_long_condition_1 &&
+          long_long_long_long_long_long_long_condition_2) ||
+        (short_1 &&
+          short_2 &&
+          long_long_long_long_long_long_long_condition_3) ||
+        long_long_long_long_long_long_long_condition_4
+      "
+    ></mixed>
+  </root>
+</template>
+
+================================================================================
+`;
+
+exports[`v-if.vue 2`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<template>
+<root>
+  <and v-if="
+long_long_long_long_long_long_long_condition_1 && long_long_long_long_long_long_long_condition_2 && short_1 && short_2 &&
+long_long_long_long_long_long_long_condition_3 &&
+long_long_long_long_long_long_long_condition_4
+"></and>
+  <and v-if="
+(long_long_long_long_long_long_long_condition_1 && long_long_long_long_long_long_long_condition_2 && (short_1 && short_2) ) &&
+long_long_long_long_long_long_long_condition_3 &&
+long_long_long_long_long_long_long_condition_4
+"></and>
+  <or v-if="
+long_long_long_long_long_long_long_condition_1 || long_long_long_long_long_long_long_condition_2 ||short_1 || short_2 ||
+long_long_long_long_long_long_long_condition_3 ||
+long_long_long_long_long_long_long_condition_4
+"></or>
+  <or v-if="
+(long_long_long_long_long_long_long_condition_1 || long_long_long_long_long_long_long_condition_2 || (short_1 || short_2) ||
+long_long_long_long_long_long_long_condition_3) ||
+long_long_long_long_long_long_long_condition_4
+"></or>
+  <mixed v-if="
+long_long_long_long_long_long_long_condition_1 && long_long_long_long_long_long_long_condition_2 ||  ((short_1 && short_2) &&
+long_long_long_long_long_long_long_condition_3 &&
+long_long_long_long_long_long_long_condition_4)
+"></mixed>
+  <mixed v-if="
+long_long_long_long_long_long_long_condition_1 && long_long_long_long_long_long_long_condition_2 || short_1 && short_2 &&
+long_long_long_long_long_long_long_condition_3 ||
+long_long_long_long_long_long_long_condition_4
+"></mixed>
+</root>
+</template>
+
+=====================================output=====================================
+<template>
+  <root>
+    <and
+      v-if="
+        long_long_long_long_long_long_long_condition_1 &&
+        long_long_long_long_long_long_long_condition_2 &&
+        short_1 &&
+        short_2 &&
+        long_long_long_long_long_long_long_condition_3 &&
+        long_long_long_long_long_long_long_condition_4
+      "
+    ></and>
+    <and
+      v-if="
+        long_long_long_long_long_long_long_condition_1 &&
+        long_long_long_long_long_long_long_condition_2 &&
+        short_1 &&
+        short_2 &&
+        long_long_long_long_long_long_long_condition_3 &&
+        long_long_long_long_long_long_long_condition_4
+      "
+    ></and>
+    <or
+      v-if="
+        long_long_long_long_long_long_long_condition_1 ||
+        long_long_long_long_long_long_long_condition_2 ||
+        short_1 ||
+        short_2 ||
+        long_long_long_long_long_long_long_condition_3 ||
+        long_long_long_long_long_long_long_condition_4
+      "
+    ></or>
+    <or
+      v-if="
+        long_long_long_long_long_long_long_condition_1 ||
+        long_long_long_long_long_long_long_condition_2 ||
+        short_1 ||
+        short_2 ||
+        long_long_long_long_long_long_long_condition_3 ||
+        long_long_long_long_long_long_long_condition_4
+      "
+    ></or>
+    <mixed
+      v-if="
+        (long_long_long_long_long_long_long_condition_1 &&
+          long_long_long_long_long_long_long_condition_2) ||
+        (short_1 &&
+          short_2 &&
+          long_long_long_long_long_long_long_condition_3 &&
+          long_long_long_long_long_long_long_condition_4)
+      "
+    ></mixed>
+    <mixed
+      v-if="
+        (long_long_long_long_long_long_long_condition_1 &&
+          long_long_long_long_long_long_long_condition_2) ||
+        (short_1 &&
+          short_2 &&
+          long_long_long_long_long_long_long_condition_3) ||
+        long_long_long_long_long_long_long_condition_4
+      "
+    ></mixed>
+  </root>
+</template>
+
+================================================================================
+`;
+
+exports[`v-if.vue 3`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+<template>
+<root>
+  <and v-if="
+long_long_long_long_long_long_long_condition_1 && long_long_long_long_long_long_long_condition_2 && short_1 && short_2 &&
+long_long_long_long_long_long_long_condition_3 &&
+long_long_long_long_long_long_long_condition_4
+"></and>
+  <and v-if="
+(long_long_long_long_long_long_long_condition_1 && long_long_long_long_long_long_long_condition_2 && (short_1 && short_2) ) &&
+long_long_long_long_long_long_long_condition_3 &&
+long_long_long_long_long_long_long_condition_4
+"></and>
+  <or v-if="
+long_long_long_long_long_long_long_condition_1 || long_long_long_long_long_long_long_condition_2 ||short_1 || short_2 ||
+long_long_long_long_long_long_long_condition_3 ||
+long_long_long_long_long_long_long_condition_4
+"></or>
+  <or v-if="
+(long_long_long_long_long_long_long_condition_1 || long_long_long_long_long_long_long_condition_2 || (short_1 || short_2) ||
+long_long_long_long_long_long_long_condition_3) ||
+long_long_long_long_long_long_long_condition_4
+"></or>
+  <mixed v-if="
+long_long_long_long_long_long_long_condition_1 && long_long_long_long_long_long_long_condition_2 ||  ((short_1 && short_2) &&
+long_long_long_long_long_long_long_condition_3 &&
+long_long_long_long_long_long_long_condition_4)
+"></mixed>
+  <mixed v-if="
+long_long_long_long_long_long_long_condition_1 && long_long_long_long_long_long_long_condition_2 || short_1 && short_2 &&
+long_long_long_long_long_long_long_condition_3 ||
+long_long_long_long_long_long_long_condition_4
+"></mixed>
+</root>
+</template>
+
+=====================================output=====================================
+<template>
+  <root>
+    <and
+      v-if="
+        long_long_long_long_long_long_long_condition_1 &&
+        long_long_long_long_long_long_long_condition_2 &&
+        short_1 &&
+        short_2 &&
+        long_long_long_long_long_long_long_condition_3 &&
+        long_long_long_long_long_long_long_condition_4
+      "
+    ></and>
+    <and
+      v-if="
+        long_long_long_long_long_long_long_condition_1 &&
+        long_long_long_long_long_long_long_condition_2 &&
+        short_1 &&
+        short_2 &&
+        long_long_long_long_long_long_long_condition_3 &&
+        long_long_long_long_long_long_long_condition_4
+      "
+    ></and>
+    <or
+      v-if="
+        long_long_long_long_long_long_long_condition_1 ||
+        long_long_long_long_long_long_long_condition_2 ||
+        short_1 ||
+        short_2 ||
+        long_long_long_long_long_long_long_condition_3 ||
+        long_long_long_long_long_long_long_condition_4
+      "
+    ></or>
+    <or
+      v-if="
+        long_long_long_long_long_long_long_condition_1 ||
+        long_long_long_long_long_long_long_condition_2 ||
+        short_1 ||
+        short_2 ||
+        long_long_long_long_long_long_long_condition_3 ||
+        long_long_long_long_long_long_long_condition_4
+      "
+    ></or>
+    <mixed
+      v-if="
+        (long_long_long_long_long_long_long_condition_1 &&
+          long_long_long_long_long_long_long_condition_2) ||
+        (short_1 &&
+          short_2 &&
+          long_long_long_long_long_long_long_condition_3 &&
+          long_long_long_long_long_long_long_condition_4)
+      "
+    ></mixed>
+    <mixed
+      v-if="
+        (long_long_long_long_long_long_long_condition_1 &&
+          long_long_long_long_long_long_long_condition_2) ||
+        (short_1 &&
+          short_2 &&
+          long_long_long_long_long_long_long_condition_3) ||
+        long_long_long_long_long_long_long_condition_4
+      "
+    ></mixed>
+  </root>
 </template>
 
 ================================================================================

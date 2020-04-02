@@ -4,12 +4,8 @@ const prettier = require("prettier/local");
 const docPrinter = prettier.doc.printer;
 const docBuilders = prettier.doc.builders;
 
-const printDocToString = docPrinter.printDocToString;
-const concat = docBuilders.concat;
-const line = docBuilders.line;
-const trim = docBuilders.trim;
-const group = docBuilders.group;
-const indent = docBuilders.indent;
+const { printDocToString } = docPrinter;
+const { concat, line, trim, group, indent } = docBuilders;
 
 // These tests don't use `runPrettier` because `trim` is not used by any
 // bundled parser (only third-party plugins).
@@ -31,11 +27,11 @@ describe("trim", () => {
               line,
               "alert(42);",
               line,
-              group(concat([trim, "#endif"]))
+              group(concat([trim, "#endif"])),
             ])
           ),
           line,
-          "}"
+          "}",
         ])
       ),
       `function()
@@ -43,13 +39,13 @@ describe("trim", () => {
 #if DEBUG
   alert(42);
 #endif
-}`
+}`,
     ],
     [
       "ignores trimmed characters when fitting the line",
       group(concat(["hello  ", "  ", trim, line, "world!"])),
-      "hello world!"
-    ]
+      "hello world!",
+    ],
   ])("%s", (_, doc, expected) => {
     const result = printDocToString(doc, { printWidth: 12, tabWidth: 2 });
 

@@ -355,7 +355,7 @@ import c = C;
 
 enum E {
   Red,
-  Blue
+  Blue,
 }
 
 import e = E;

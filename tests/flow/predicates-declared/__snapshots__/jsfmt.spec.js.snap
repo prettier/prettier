@@ -285,11 +285,11 @@ function f(_this: { m: ?Meeting }): string {
 
 type Meeting = {
   organizer: ?Invitee,
-  es: Array<Invitee>
+  es: Array<Invitee>,
 };
 
 type Invitee = {
-  fbid: number
+  fbid: number,
 };
 
 function f(_this: { m: ?Meeting }): string {
@@ -297,7 +297,7 @@ function f(_this: { m: ?Meeting }): string {
     return "0";
   }
 
-  if (_this.m.es.some(a => a.fbid === 0)) {
+  if (_this.m.es.some((a) => a.fbid === 0)) {
   }
   return "3";
 }

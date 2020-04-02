@@ -99,7 +99,7 @@
 <router-outlet></router-outlet>
 <app-footer [input]="something"></app-footer>
 </div>
-<x:root><SPAN>foreign tag name should not be lower cased</SPAN></x:root>
+<x:root><SPAN>tag name in other namespace should also lower cased</SPAN></x:root>
 <div>
   Lorem ipsum dolor sit amet, consectetur adipiscing elit,
   "<strong>seddoeiusmod</strong>".
@@ -113,3 +113,13 @@
   <i class="fa fa-refresh fa-spin" />
   <i class="fa fa-refresh fa-spin" />
 </span>
+
+<!-- #5810 -->
+<table><tr>
+</tr>
+</table><div>Should not insert empty line before this div</div>
+
+<!-- self-closing -->
+<span><input type="checkbox"/> </span>
+<span><span><input type="checkbox"/></span></span>
+<span><input type="checkbox"/></span>

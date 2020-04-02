@@ -4,12 +4,19 @@ env:
   node: true
 extends:
   - eslint:recommended
-  - plugin:react/recommended
   - plugin:prettier/recommended
+parserOptions:
+  ecmaVersion: 2018
 plugins:
   - import
+  - unicorn
 rules:
   curly: error
+  dot-notation: error
+  eqeqeq:
+    - error
+    - always
+    - null: ignore
   import/no-extraneous-dependencies:
     - error
     - devDependencies: ["tests*/**", "scripts/**"]
@@ -17,18 +24,53 @@ rules:
   no-inner-declarations: error
   no-unneeded-ternary: error
   no-useless-return: error
+  no-unused-vars:
+    - error
+    - ignoreRestSiblings: true
   no-var: error
+  object-shorthand: error
   one-var:
     - error
     - never
   prefer-arrow-callback: error
   prefer-const: error
-  react/display-name: off
-  react/no-deprecated: off
-  react/prop-types: off
+  prefer-destructuring:
+    - error
+    - VariableDeclarator:
+        array: false
+        object: true
+      AssignmentExpression:
+        array: false
+        object: false
+    - enforceForRenamedProperties: false
+  prefer-object-spread: error
+  prefer-rest-params: error
+  prefer-spread: error
+  quotes:
+    - error
+    - double
+    - avoidEscape: true
   strict: error
   symbol-description: error
   yoda:
     - error
     - never
     - exceptRange: true
+  unicorn/new-for-builtins: error
+  unicorn/prefer-includes: error
+  unicorn/prefer-string-slice: error
+overrides:
+  - files:
+      - scripts/**/*.js
+    rules:
+      no-console: off
+  - files:
+      - "{tests,tests_config,tests_integration}/**/*.js"
+    env:
+      jest: true
+  - files:
+      - tests/**/*.js
+    rules:
+      strict: off
+    globals:
+      run_spec: false

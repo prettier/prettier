@@ -806,6 +806,19 @@ ___________________________
 
 <pre><code #foo></code></pre>
 
+<details>
+  <pre><!--Comments-->
+  </pre></details>
+
+<details><pre>
+  <!--Comments-->
+</pre>
+</details>
+
+<!-- #6028 -->
+<pre><br></pre>
+<pre><hr></pre>
+
 =====================================output=====================================
 <pre>
 --------------------------------------------------------------------------------
@@ -896,6 +909,21 @@ ___________________________
 
 <pre><code #foo></code></pre>
 
+<details>
+  <pre><!--Comments-->
+  </pre>
+</details>
+
+<details>
+  <pre>
+  <!--Comments-->
+</pre>
+</details>
+
+<!-- #6028 -->
+<pre><br /></pre>
+<pre><hr /></pre>
+
 ================================================================================
 `;
 
@@ -985,6 +1013,19 @@ ___________________________
 <pre></pre>
 
 <pre><code #foo></code></pre>
+
+<details>
+  <pre><!--Comments-->
+  </pre></details>
+
+<details><pre>
+  <!--Comments-->
+</pre>
+</details>
+
+<!-- #6028 -->
+<pre><br></pre>
+<pre><hr></pre>
 
 =====================================output=====================================
 <pre>
@@ -1100,6 +1141,25 @@ ___________________________
 
 <pre><code #foo></code></pre>
 
+<details>
+  <pre><!--Comments-->
+  </pre>
+</details>
+
+<details>
+  <pre>
+  <!--Comments-->
+</pre>
+</details>
+
+<!-- #6028 -->
+<pre>
+  <br
+/></pre>
+<pre>
+  <hr
+/></pre>
+
 ================================================================================
 `;
 
@@ -1189,6 +1249,19 @@ ___________________________
 
 <pre><code #foo></code></pre>
 
+<details>
+  <pre><!--Comments-->
+  </pre></details>
+
+<details><pre>
+  <!--Comments-->
+</pre>
+</details>
+
+<!-- #6028 -->
+<pre><br></pre>
+<pre><hr></pre>
+
 =====================================output=====================================
 <pre>
 --------------------------------------------------------------------------------
@@ -1270,6 +1343,21 @@ ___________________________
 <pre></pre>
 
 <pre><code #foo></code></pre>
+
+<details>
+  <pre><!--Comments-->
+  </pre>
+</details>
+
+<details>
+  <pre>
+  <!--Comments-->
+</pre>
+</details>
+
+<!-- #6028 -->
+<pre><br /></pre>
+<pre><hr /></pre>
 
 ================================================================================
 `;
@@ -1362,6 +1450,19 @@ ___________________________
 
 <pre><code #foo></code></pre>
 
+<details>
+  <pre><!--Comments-->
+  </pre></details>
+
+<details><pre>
+  <!--Comments-->
+</pre>
+</details>
+
+<!-- #6028 -->
+<pre><br></pre>
+<pre><hr></pre>
+
 =====================================output=====================================
 <pre>
 --------------------------------------------------------------------------------
@@ -1451,6 +1552,21 @@ ___________________________
 <pre></pre>
 
 <pre><code #foo></code></pre>
+
+<details>
+  <pre><!--Comments-->
+  </pre>
+</details>
+
+<details>
+  <pre>
+  <!--Comments-->
+</pre>
+</details>
+
+<!-- #6028 -->
+<pre><br /></pre>
+<pre><hr /></pre>
 
 ================================================================================
 `;
@@ -1543,6 +1659,19 @@ ___________________________
 
 <pre><code #foo></code></pre>
 
+<details>
+  <pre><!--Comments-->
+  </pre></details>
+
+<details><pre>
+  <!--Comments-->
+</pre>
+</details>
+
+<!-- #6028 -->
+<pre><br></pre>
+<pre><hr></pre>
+
 =====================================output=====================================
 <pre>
 --------------------------------------------------------------------------------
@@ -1632,6 +1761,21 @@ ___________________________
 <pre></pre>
 
 <pre><code #foo></code></pre>
+
+<details>
+  <pre><!--Comments-->
+  </pre>
+</details>
+
+<details>
+  <pre>
+  <!--Comments-->
+</pre>
+</details>
+
+<!-- #6028 -->
+<pre><br /></pre>
+<pre><hr /></pre>
 
 ================================================================================
 `;
@@ -1743,7 +1887,7 @@ printWidth: 80
 <router-outlet></router-outlet>
 <app-footer [input]="something"></app-footer>
 </div>
-<x:root><SPAN>foreign tag name should not be lower cased</SPAN></x:root>
+<x:root><SPAN>tag name in other namespace should also lower cased</SPAN></x:root>
 <div>
   Lorem ipsum dolor sit amet, consectetur adipiscing elit,
   "<strong>seddoeiusmod</strong>".
@@ -1757,6 +1901,16 @@ printWidth: 80
   <i class="fa fa-refresh fa-spin" />
   <i class="fa fa-refresh fa-spin" />
 </span>
+
+<!-- #5810 -->
+<table><tr>
+</tr>
+</table><div>Should not insert empty line before this div</div>
+
+<!-- self-closing -->
+<span><input type="checkbox"/> </span>
+<span><span><input type="checkbox"/></span></span>
+<span><input type="checkbox"/></span>
 
 =====================================output=====================================
 <br />
@@ -1927,7 +2081,9 @@ printWidth: 80
   <router-outlet></router-outlet>
   <app-footer [input]="something"></app-footer>
 </div>
-<x:root><SPAN>foreign tag name should not be lower cased</SPAN></x:root>
+<x:root
+  ><span>tag name in other namespace should also lower cased</span></x:root
+>
 <div>
   Lorem ipsum dolor sit amet, consectetur adipiscing elit,
   "<strong>seddoeiusmod</strong>".
@@ -1941,6 +2097,19 @@ printWidth: 80
   <i class="fa fa-refresh fa-spin" />
   <i class="fa fa-refresh fa-spin" />
 </span>
+
+<!-- #5810 -->
+<table>
+  <tr></tr>
+</table>
+<div>Should not insert empty line before this div</div>
+
+<!-- self-closing -->
+<span><input type="checkbox" /> </span>
+<span
+  ><span><input type="checkbox" /></span
+></span>
+<span><input type="checkbox" /></span>
 
 ================================================================================
 `;
@@ -2052,7 +2221,7 @@ printWidth: 1
 <router-outlet></router-outlet>
 <app-footer [input]="something"></app-footer>
 </div>
-<x:root><SPAN>foreign tag name should not be lower cased</SPAN></x:root>
+<x:root><SPAN>tag name in other namespace should also lower cased</SPAN></x:root>
 <div>
   Lorem ipsum dolor sit amet, consectetur adipiscing elit,
   "<strong>seddoeiusmod</strong>".
@@ -2066,6 +2235,16 @@ printWidth: 1
   <i class="fa fa-refresh fa-spin" />
   <i class="fa fa-refresh fa-spin" />
 </span>
+
+<!-- #5810 -->
+<table><tr>
+</tr>
+</table><div>Should not insert empty line before this div</div>
+
+<!-- self-closing -->
+<span><input type="checkbox"/> </span>
+<span><span><input type="checkbox"/></span></span>
+<span><input type="checkbox"/></span>
 
 =====================================output=====================================
 <br />
@@ -2405,15 +2584,16 @@ printWidth: 1
   ></app-footer>
 </div>
 <x:root
-  ><SPAN
-    >foreign
-    tag
+  ><span
+    >tag
     name
+    in
+    other
+    namespace
     should
-    not
-    be
+    also
     lower
-    cased</SPAN
+    cased</span
   ></x:root
 >
 <div>
@@ -2451,6 +2631,37 @@ printWidth: 1
     class="fa fa-refresh fa-spin"
   />
 </span>
+
+<!-- #5810 -->
+<table>
+  <tr></tr>
+</table>
+<div>
+  Should
+  not
+  insert
+  empty
+  line
+  before
+  this
+  div
+</div>
+
+<!-- self-closing -->
+<span
+  ><input
+    type="checkbox"
+  />
+</span>
+<span
+  ><span
+    ><input
+      type="checkbox" /></span
+></span>
+<span
+  ><input
+    type="checkbox"
+/></span>
 
 ================================================================================
 `;
@@ -2561,7 +2772,7 @@ printWidth: Infinity
 <router-outlet></router-outlet>
 <app-footer [input]="something"></app-footer>
 </div>
-<x:root><SPAN>foreign tag name should not be lower cased</SPAN></x:root>
+<x:root><SPAN>tag name in other namespace should also lower cased</SPAN></x:root>
 <div>
   Lorem ipsum dolor sit amet, consectetur adipiscing elit,
   "<strong>seddoeiusmod</strong>".
@@ -2575,6 +2786,16 @@ printWidth: Infinity
   <i class="fa fa-refresh fa-spin" />
   <i class="fa fa-refresh fa-spin" />
 </span>
+
+<!-- #5810 -->
+<table><tr>
+</tr>
+</table><div>Should not insert empty line before this div</div>
+
+<!-- self-closing -->
+<span><input type="checkbox"/> </span>
+<span><span><input type="checkbox"/></span></span>
+<span><input type="checkbox"/></span>
 
 =====================================output=====================================
 <br />
@@ -2682,7 +2903,7 @@ printWidth: Infinity
   <router-outlet></router-outlet>
   <app-footer [input]="something"></app-footer>
 </div>
-<x:root><SPAN>foreign tag name should not be lower cased</SPAN></x:root>
+<x:root><span>tag name in other namespace should also lower cased</span></x:root>
 <div>
   Lorem ipsum dolor sit amet, consectetur adipiscing elit, "<strong>seddoeiusmod</strong>".
 </div>
@@ -2695,6 +2916,19 @@ printWidth: Infinity
   <i class="fa fa-refresh fa-spin" />
   <i class="fa fa-refresh fa-spin" />
 </span>
+
+<!-- #5810 -->
+<table>
+  <tr></tr>
+</table>
+<div>Should not insert empty line before this div</div>
+
+<!-- self-closing -->
+<span><input type="checkbox" /> </span>
+<span
+  ><span><input type="checkbox" /></span
+></span>
+<span><input type="checkbox" /></span>
 
 ================================================================================
 `;
@@ -2807,7 +3041,7 @@ printWidth: 80
 <router-outlet></router-outlet>
 <app-footer [input]="something"></app-footer>
 </div>
-<x:root><SPAN>foreign tag name should not be lower cased</SPAN></x:root>
+<x:root><SPAN>tag name in other namespace should also lower cased</SPAN></x:root>
 <div>
   Lorem ipsum dolor sit amet, consectetur adipiscing elit,
   "<strong>seddoeiusmod</strong>".
@@ -2821,6 +3055,16 @@ printWidth: 80
   <i class="fa fa-refresh fa-spin" />
   <i class="fa fa-refresh fa-spin" />
 </span>
+
+<!-- #5810 -->
+<table><tr>
+</tr>
+</table><div>Should not insert empty line before this div</div>
+
+<!-- self-closing -->
+<span><input type="checkbox"/> </span>
+<span><span><input type="checkbox"/></span></span>
+<span><input type="checkbox"/></span>
 
 =====================================output=====================================
 <br />
@@ -2936,7 +3180,7 @@ printWidth: 80
 />123
 <div>123<meta attr />456</div>
 <p>x<span a="b"></span></p>
-<p>x<meta a/></p>
+<p>x<meta a /></p>
 <p>x<meta /></p>
 <span></span>
 
@@ -2977,7 +3221,9 @@ printWidth: 80
   <router-outlet></router-outlet>
   <app-footer [input]="something"></app-footer>
 </div>
-<x:root><SPAN>foreign tag name should not be lower cased</SPAN></x:root>
+<x:root
+  ><span>tag name in other namespace should also lower cased</span></x:root
+>
 <div>
   Lorem ipsum dolor sit amet, consectetur adipiscing elit,
   "<strong>seddoeiusmod</strong>".
@@ -2991,6 +3237,17 @@ printWidth: 80
   <i class="fa fa-refresh fa-spin" />
   <i class="fa fa-refresh fa-spin" />
 </span>
+
+<!-- #5810 -->
+<table><tr> </tr> </table
+><div>Should not insert empty line before this div</div>
+
+<!-- self-closing -->
+<span><input type="checkbox" /> </span>
+<span
+  ><span><input type="checkbox" /></span
+></span>
+<span><input type="checkbox" /></span>
 
 ================================================================================
 `;
@@ -3103,7 +3360,7 @@ printWidth: 80
 <router-outlet></router-outlet>
 <app-footer [input]="something"></app-footer>
 </div>
-<x:root><SPAN>foreign tag name should not be lower cased</SPAN></x:root>
+<x:root><SPAN>tag name in other namespace should also lower cased</SPAN></x:root>
 <div>
   Lorem ipsum dolor sit amet, consectetur adipiscing elit,
   "<strong>seddoeiusmod</strong>".
@@ -3117,6 +3374,16 @@ printWidth: 80
   <i class="fa fa-refresh fa-spin" />
   <i class="fa fa-refresh fa-spin" />
 </span>
+
+<!-- #5810 -->
+<table><tr>
+</tr>
+</table><div>Should not insert empty line before this div</div>
+
+<!-- self-closing -->
+<span><input type="checkbox"/> </span>
+<span><span><input type="checkbox"/></span></span>
+<span><input type="checkbox"/></span>
 
 =====================================output=====================================
 <br />
@@ -3314,7 +3581,9 @@ printWidth: 80
   <router-outlet></router-outlet>
   <app-footer [input]="something"></app-footer>
 </div>
-<x:root><SPAN>foreign tag name should not be lower cased</SPAN></x:root>
+<x:root>
+  <span>tag name in other namespace should also lower cased</span>
+</x:root>
 <div>
   Lorem ipsum dolor sit amet, consectetur adipiscing elit, "
   <strong>seddoeiusmod</strong>
@@ -3330,6 +3599,17 @@ printWidth: 80
   <i class="fa fa-refresh fa-spin" />
   <i class="fa fa-refresh fa-spin" />
 </span>
+
+<!-- #5810 -->
+<table><tr></tr></table>
+<div>Should not insert empty line before this div</div>
+
+<!-- self-closing -->
+<span><input type="checkbox" /></span>
+<span>
+  <span><input type="checkbox" /></span>
+</span>
+<span><input type="checkbox" /></span>
 
 ================================================================================
 `;
