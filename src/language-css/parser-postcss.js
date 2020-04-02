@@ -523,7 +523,7 @@ function parseNestedCSS(node, options) {
   return node;
 }
 
-function parseWithParser(parser, text, options) {
+function parseWithParser(parse, text, options) {
   const parsed = parseFrontMatter(text);
   const { frontMatter } = parsed;
   text = parsed.content;
@@ -531,7 +531,7 @@ function parseWithParser(parser, text, options) {
   let result;
 
   try {
-    result = parser.parse(text);
+    result = parse(text);
   } catch (e) {
     if (typeof e.line !== "number") {
       throw e;
@@ -574,19 +574,17 @@ function parseCss(text, parsers, options) {
 function parseLess(text, parsers, options) {
   const lessParser = require("postcss-less");
   return parseWithParser(
-    {
-      // Workaround for https://github.com/shellscape/postcss-less/issues/145
-      // See comments for `replaceQuotesInInlineComments` in `loc.js`.
-      parse: (text) => lessParser.parse(replaceQuotesInInlineComments(text)),
-    },
+    // Workaround for https://github.com/shellscape/postcss-less/issues/145
+    // See comments for `replaceQuotesInInlineComments` in `loc.js`.
+    (text) => lessParser.parse(replaceQuotesInInlineComments(text)),
     text,
     options
   );
 }
 
 function parseScss(text, parsers, options) {
-  const scssParser = require("postcss-scss");
-  return parseWithParser(scssParser, text, options);
+  const { parse } = require("postcss-scss");
+  return parseWithParser(parse, text, options);
 }
 
 const postCssParser = {
