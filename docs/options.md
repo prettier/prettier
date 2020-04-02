@@ -382,4 +382,4 @@ Valid options:
 
 | Default  | CLI Override                                    | API Override                                   |
 | -------- | ----------------------------------------------- | ---------------------------------------------- |
-| `"auto"` | <code>--embedded-language-formatting=off</code> | <code>embeddedLanguageFormatting: "off"</code> |
+| `"auto"` | `--embedded-language-formatting=off` | `embeddedLanguageFormatting: "off"` |
