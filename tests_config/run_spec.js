@@ -28,7 +28,6 @@ const unstableTests = new Map(
     "comments/return-statement.js",
     "comments/tagged-template-literal.js",
     "comments_closure_typecast/iife.js",
-    "css_atrule/include.css",
     "graphql_interface/separator-detection.graphql",
     [
       "html_angular/attributes.component.html",
