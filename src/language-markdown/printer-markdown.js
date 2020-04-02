@@ -435,14 +435,14 @@ function genericPrint(path, options, print) {
 function printListItem(path, options, print, listPrefix) {
   const node = path.getValue();
   const prefix = node.checked === null ? "" : node.checked ? "[x] " : "[ ] ";
+
+  const parent = path.getParentNode();
   return concat([
+    parent && parent.type === "listItem" ? hardline : "",
     prefix,
     printChildren(path, options, print, {
       processor: (childPath, index) => {
-        const child = childPath.getValue();
-        const isChildList = child.type === "list";
-
-        if (index === 0 && !isChildList) {
+        if (index === 0 && childPath.getValue().type !== "list") {
           return align(" ".repeat(prefix.length), childPath.call(print));
         }
 
@@ -450,17 +450,7 @@ function printListItem(path, options, print, listPrefix) {
           clamp(options.tabWidth - listPrefix.length, 0, 3) // 4+ will cause indented code block
         );
 
-        let blankLineBefore = false;
-
-        if (index === 0 && isChildList) {
-          blankLineBefore = child.spread;
-        }
-
-        return concat([
-          blankLineBefore ? hardline : "",
-          alignment,
-          align(alignment, childPath.call(print)),
-        ]);
+        return concat([alignment, align(alignment, childPath.call(print))]);
       },
     }),
   ]);
