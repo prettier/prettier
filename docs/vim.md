@@ -114,8 +114,10 @@ command! -nargs=0 Prettier :call CocAction('runCommand', 'prettier.formatFile')
 
 Update your `coc-settings.json` for languages that you want format on save.
 
-```vim
-  "coc.preferences.formatOnSaveFiletypes": ["css", "Markdown"],
+```json
+{
+  "coc.preferences.formatOnSaveFiletypes": ["css", "Markdown"]
+}
 ```
 
 [coc-prettier](https://github.com/neoclide/coc-prettier) have same configurations of [prettier-vscode](https://github.com/prettier/prettier-vscode), open `coc-settings.json` by `:CocConfig` to get autocompletion support.
