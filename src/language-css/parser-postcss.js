@@ -536,9 +536,7 @@ function parseWithParser(parse, text, options) {
     if (typeof e.line !== "number") {
       throw e;
     }
-    throw createError(`${options.parser} parser: ${e.name} ${e.reason}`, {
-      start: e,
-    });
+    throw createError("(postcss) " + e.name + " " + e.reason, { start: e });
   }
 
   result = parseNestedCSS(addTypePrefix(result, "css-"), options);
