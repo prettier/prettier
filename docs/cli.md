@@ -52,14 +52,14 @@ prettier --check "src/**/*.js"
 
 Console output if all files are formatted:
 
-```
+```console
 Checking formatting...
 All matched files use Prettier code style!
 ```
 
 Console output if some of the files require re-formatting:
 
-```
+```console
 Checking formatting...
 src/fileA.js
 src/fileB.js
@@ -192,7 +192,7 @@ _abc.css_
 
 _shell_
 
-```bash
+```console
 $ cat abc.css | prettier --stdin-filepath abc.css
 .name {
   display: none;
