@@ -288,7 +288,8 @@ function printTernaryOperator(path, options, print, operatorOptions) {
     parent.type === operatorOptions.conditionalNodeType &&
     operatorOptions.testNodePropertyNames.some((prop) => parent[prop] === node);
   let forceNoIndent =
-    parent.type === operatorOptions.conditionalNodeType && !isParentTest;
+  operatorOptions.conditionalNodeType === 'TSConditionalType' ||
+    (parent.type === operatorOptions.conditionalNodeType && !isParentTest);
 
   // Find the outermost non-ConditionalExpression parent, and the outermost
   // ConditionalExpression parent. We'll use these to determine if we should
@@ -354,13 +355,15 @@ function printTernaryOperator(path, options, print, operatorOptions) {
   } else {
     // normal mode
     const part = concat([
-      " ? ",
+      operatorOptions.conditionalNodeType === 'TSConditionalType' ? " " : softline,
+      "?",
+      operatorOptions.conditionalNodeType === 'TSConditionalType' ? " " : "",
       consequentNode.type === operatorOptions.conditionalNodeType
         ? ifBreak("", "(")
         : "",
       group(
         concat([
-          softline,
+          operatorOptions.conditionalNodeType === 'TSConditionalType' ? softline : " ",
           align(
             2,
             path.call(print, operatorOptions.consequentNodePropertyName)
@@ -368,10 +371,11 @@ function printTernaryOperator(path, options, print, operatorOptions) {
           consequentNode.type === operatorOptions.conditionalNodeType
             ? ifBreak("", ")")
             : "",
-          " :",
+          operatorOptions.conditionalNodeType === 'TSConditionalType' ? " " : line,
+          ":",
         ])
       ),
-      line,
+      operatorOptions.conditionalNodeType === 'TSConditionalType' ? line : " ",
       alternateNode.type === operatorOptions.conditionalNodeType
         ? path.call(print, operatorOptions.alternateNodePropertyName)
         : align(2, path.call(print, operatorOptions.alternateNodePropertyName)),
@@ -408,7 +412,7 @@ function printTernaryOperator(path, options, print, operatorOptions) {
   const result = maybeGroup(
     concat(
       [].concat(
-        parent.type !== operatorOptions.conditionalNodeType ? [softline] : [],
+        operatorOptions.conditionalNodeType === 'TSConditionalType' && parent.type !== operatorOptions.conditionalNodeType ? [softline] : [],
         ((testDoc) => {
           /**
            *     a
@@ -425,7 +429,7 @@ function printTernaryOperator(path, options, print, operatorOptions) {
             ? align(2, testDoc)
             : testDoc;
         })(concat(operatorOptions.beforeParts())),
-        forceNoIndent ? concat(parts) : concat(parts),
+        forceNoIndent ? concat(parts) : indent(concat(parts)),
         operatorOptions.afterParts(breakClosingParen)
       )
     )
@@ -433,7 +437,7 @@ function printTernaryOperator(path, options, print, operatorOptions) {
 
   return isParentTest
     ? group(concat([indent(concat([softline, result])), softline]))
-    : parent.type !== operatorOptions.conditionalNodeType
+    : parent.type !== operatorOptions.conditionalNodeType && operatorOptions.conditionalNodeType === 'TSConditionalType'
     ? indent(result)
     : result;
 }
