@@ -354,17 +354,24 @@ function printTernaryOperator(path, options, print, operatorOptions) {
   } else {
     // normal mode
     const part = concat([
-      line,
-      "? ",
+      " ? ",
       consequentNode.type === operatorOptions.conditionalNodeType
         ? ifBreak("", "(")
         : "",
-      align(2, path.call(print, operatorOptions.consequentNodePropertyName)),
-      consequentNode.type === operatorOptions.conditionalNodeType
-        ? ifBreak("", ")")
-        : "",
+      group(
+        concat([
+          softline,
+          align(
+            2,
+            path.call(print, operatorOptions.consequentNodePropertyName)
+          ),
+          consequentNode.type === operatorOptions.conditionalNodeType
+            ? ifBreak("", ")")
+            : "",
+          " :",
+        ])
+      ),
       line,
-      ": ",
       alternateNode.type === operatorOptions.conditionalNodeType
         ? path.call(print, operatorOptions.alternateNodePropertyName)
         : align(2, path.call(print, operatorOptions.alternateNodePropertyName)),
@@ -401,22 +408,24 @@ function printTernaryOperator(path, options, print, operatorOptions) {
   const result = maybeGroup(
     concat(
       [].concat(
-        ((testDoc) =>
+        parent.type !== operatorOptions.conditionalNodeType ? [softline] : [],
+        ((testDoc) => {
           /**
            *     a
-           *       ? b
-           *       : multiline
+           *       ? b :
+           *         multiline
            *         test
            *         node
            *       ^^ align(2)
-           *       ? d
-           *       : e
+           *       ? d :
+           *       e
            */
-          parent.type === operatorOptions.conditionalNodeType &&
-          parent[operatorOptions.alternateNodePropertyName] === node
+          return parent.type === operatorOptions.conditionalNodeType &&
+            parent[operatorOptions.alternateNodePropertyName] === node
             ? align(2, testDoc)
-            : testDoc)(concat(operatorOptions.beforeParts())),
-        forceNoIndent ? concat(parts) : indent(concat(parts)),
+            : testDoc;
+        })(concat(operatorOptions.beforeParts())),
+        forceNoIndent ? concat(parts) : concat(parts),
         operatorOptions.afterParts(breakClosingParen)
       )
     )
@@ -424,6 +433,8 @@ function printTernaryOperator(path, options, print, operatorOptions) {
 
   return isParentTest
     ? group(concat([indent(concat([softline, result])), softline]))
+    : parent.type !== operatorOptions.conditionalNodeType
+    ? indent(result)
     : result;
 }
 
