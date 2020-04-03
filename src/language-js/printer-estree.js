@@ -3629,7 +3629,7 @@ function printPathNoParens(path, options, print, args) {
     case "NGEmptyExpression":
       return "";
     case "NGQuotedExpression":
-      return concat([n.prefix, ":", n.value]);
+      return concat([n.prefix, ": ", n.value.trim()]);
     case "NGMicrosyntax":
       return concat(
         path.map(

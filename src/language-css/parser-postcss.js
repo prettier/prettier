@@ -578,6 +578,7 @@ const postCssParser = {
     if (node.source) {
       return node.source.startOffset;
     }
+    /* istanbul ignore next */
     return null;
   },
   locEnd(node) {
