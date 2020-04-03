@@ -101,7 +101,7 @@
     "rimraf": "3.0.2",
     "rollup": "2.3.2",
     "rollup-plugin-babel": "4.4.0",
-    "rollup-plugin-node-globals": "1.4.0",
+    "rollup-plugin-node-polyfills": "0.2.1",
     "rollup-plugin-terser": "5.3.0",
     "shelljs": "0.8.3",
     "snapshot-diff": "0.7.0",
