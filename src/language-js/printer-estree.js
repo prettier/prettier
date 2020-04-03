@@ -801,7 +801,6 @@ function printPathNoParens(path, options, print, args) {
       return concat(["%", n.name]);
     case "SpreadElement":
     case "SpreadElementPattern":
-    case "RestProperty":
     case "SpreadProperty":
     case "SpreadPropertyPattern":
     case "RestElement":
@@ -1421,9 +1420,7 @@ function printPathNoParens(path, options, print, args) {
       const canHaveTrailingSeparator = !(
         n.inexact ||
         (lastElem &&
-          (lastElem.type === "RestProperty" ||
-            lastElem.type === "RestElement" ||
-            hasNodeIgnoreComment(lastElem)))
+          (lastElem.type === "RestElement" || hasNodeIgnoreComment(lastElem)))
       );
 
       let content;
