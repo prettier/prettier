@@ -856,9 +856,7 @@ e-wrap </textarea
 <!-- script like -->
 <with:colon>
   <style>
-    .a {
-      color: #f00;
-    }
+    .a { color: #f00; }
   </style>
   <script>
     const func = function () {
@@ -866,9 +864,7 @@ e-wrap </textarea
     };
   </script>
   <style>
-    .A {
-      color: #f00;
-    }
+    .A { color: #f00; }
   </style>
   <html:script
     >const func = function() { console.log('Hello, there');}</html:script
@@ -878,16 +874,12 @@ e-wrap </textarea
   >
   <svg>
     <style>
-      .a {
-        color: #f00;
-      }
+      .a { color: #f00; }
     </style>
   </svg>
   <svg>
     <style>
-      .a {
-        color: #f00;
-      }
+      .a { color: #f00; }
     </style>
   </svg>
 </with:colon>

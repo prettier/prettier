@@ -195,9 +195,7 @@ printWidth: 80
   <head>
     <title>Sample styled page</title>
     <style>
-      a {
-        color: red;
-      }
+      a { color: red; }
     </style>
     <style>
       body {
@@ -232,9 +230,7 @@ printWidth: 80
 
 =====================================output=====================================
 <style>
-  a {
-    color: red;
-  }
+  a { color: red; }
 </style>
 <style>
   h1 {

@@ -100,12 +100,8 @@ printWidth: 80
 #a\\\\b {}
 
 @keyframes \\@mymove {
-  from {
-    top: 0px;
-  }
-  to {
-    top: 200px;
-  }
+  from { top: 0px; }
+  to { top: 200px; }
 }
 
 .foo {

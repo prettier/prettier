@@ -1912,12 +1912,8 @@ background-color: #112244 + #111; // result is #223355
       background-color: white;
     }
   }
-  .tab {
-    /* ... */
-  }
-  .citation {
-    /* ... */
-  }
+  .tab { /* ... */ }
+  .citation { /* ... */ }
 }
 
 #header a {
@@ -2525,22 +2521,16 @@ button:hover {
 }
 
 #namespace when (@mode=huge) {
-  .mixin() {
-    /* */
-  }
+  .mixin() { /* */ }
 }
 
 #namespace {
-  .mixin() when (@mode=huge) {
-    /* */
-  }
+  .mixin() when (@mode=huge) { /* */ }
 }
 
 #sp_1 when (default()) {
   #sp_2 when (default()) {
-    .mixin() when not(default()) {
-      /* */
-    }
+    .mixin() when not(default()) { /* */ }
   }
 }
 
@@ -2594,9 +2584,7 @@ button:hover {
   word-wrap: break-word;
 }
 
-pre {
-  .wrap;
-}
+pre { .wrap; }
 
 pre {
   text-wrap: wrap;
@@ -2676,9 +2664,7 @@ pre {
   // @arguments is bound to all arguments
 }
 
-.mixin(@s; @color) {
-  /* ... */
-}
+.mixin(@s; @color) { /* ... */ }
 
 .class {
   .mixin(@switch; #888);
@@ -2792,9 +2778,7 @@ div {
   @media screen and (min-width: 1200px) {
     @rules();
   }
-  html.lt-ie9 & {
-    @rules();
-  }
+  html.lt-ie9 & { @rules(); }
 }
 
 header {
@@ -2939,11 +2923,9 @@ selector {
 }
 
 @my-ruleset: {
-  .my-selector {
-    @media tv {
-      background-color: black;
-    }
-  }
+  .my-selector { @media tv {
+    background-color: black;
+  } }
 };
 
 .foo {
@@ -2992,12 +2974,8 @@ selector {
   color: @a;
 }
 
-.class1 {
-  .mixin(#ddd);
-}
-.class2 {
-  .mixin(#555);
-}
+.class1 { .mixin(#ddd); }
+.class2 { .mixin(#555); }
 
 .class1 {
   background-color: black;
@@ -3008,12 +2986,8 @@ selector {
   color: #555;
 }
 
-.truth (@a) when (@a) {
-  /* ... */
-}
-.truth (@a) when (@a = true) {
-  /* ... */
-}
+.truth (@a) when (@a) { /* ... */ }
+.truth (@a) when (@a = true) { /* ... */ }
 
 .class {
   .truth(40); // Will not match any of the above definitions.
@@ -3021,45 +2995,26 @@ selector {
 
 @media: mobile;
 
-.mixin (@a) when (@media = mobile) {
-  /* ... */
-}
-.mixin (@a) when (@media = desktop) {
-  /* ... */
-}
+.mixin (@a) when (@media = mobile) { /* ... */ }
+.mixin (@a) when (@media = desktop) { /* ... */ }
 
-.max (@a; @b) when (@a > @b) {
-  width: @a;
-}
-.max (@a; @b) when (@a < @b) {
-  width: @b;
-}
+.max (@a; @b) when (@a > @b) { width: @a; }
+.max (@a; @b) when (@a < @b) { width: @b; }
 
-.mixin (@a) when (isnumber(@a)) and (@a > 0) {
-  /* ... */
-}
+.mixin (@a) when (isnumber(@a)) and (@a > 0) { /* ... */ }
 
-.mixin (@a) when (@a > 10), (@a < -10) {
-  /* ... */
-}
+.mixin (@a) when (@a > 10), (@a < -10) { /* ... */ }
 
-.mixin (@b) when not (@b > 0) {
-  /* ... */
-}
+.mixin (@b) when not (@b > 0) { /* ... */ }
 
-.mixin (@a; @b: 0) when (isnumber(@b)) {
-  /* ... */
-}
-.mixin (@a; @b: black) when (iscolor(@b)) {
-  /* ... */
-}
+.mixin (@a; @b: 0) when (isnumber(@b)) { /* ... */ }
+.mixin (@a; @b: black) when (iscolor(@b)) { /* ... */ }
 
-.mixin (@a) when (@a > 0) {
-  /* ... */
-}
-.mixin (@a) when (default()) {
-  /* ... */
-} // matches only if first mixin does not, i.e. when @a <= 0
+.mixin (@a) when (@a > 0) { /* ... */ }
+.mixin
+  (@a)
+  when
+  (default()) { /* ... */ } // matches only if first mixin does not, i.e. when @a <= 0
 
 .my-optional-style() when (@my-option = true) {
   button {
@@ -3386,39 +3341,23 @@ printWidth: 80
 =====================================output=====================================
 // Animation
 // '
-.a {
-  color: red;
-}
+.a { color: red; }
 
-.aa:hover::after {
-  content: '"';
-} // "
+.aa:hover::after { content: '"'; } // "
 
-.b {
-  background: url(http://example.com);
-}
-.b::after {
-  content: "a";
-}
+.b { background: url(http://example.com); }
+.b::after { content: "a"; }
 
-.bb {
-  background: url("http://example.com/(foo)bar");
-}
-.bb::after {
-  content: "'a";
-} // """
+.bb { background: url("http://example.com/(foo)bar"); }
+.bb::after { content: "'a"; } // """
 
 // Animation   !
-.c {
-  color: red;
-}
+.c { color: red; }
 
 .d {
   color: red; /* // */
 }
-.d::after {
-  content: "'";
-}
+.d::after { content: "'"; }
 
 /*        fff
    //   */

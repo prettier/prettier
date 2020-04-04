@@ -616,12 +616,8 @@ a {
   /* comment 75 */
 }
 
-body {
-  /* comment 76 */
-}
-body {
-  /* comment 77 */
-}
+body { /* comment 76 */ }
+body { /* comment 77 */ }
 body {
   /* comment 78 */
 }
@@ -1117,9 +1113,7 @@ h1/* comment 130 */, /* comment 131 */h2/* comment 132 */,/* comment 133 */ h3/*
   a /* comment 157 */ {
     /* comment 158 */
     /* comment 159 */
-    b/* comment 160 */ {
-      /* comment 161 */
-    } /* comment 162 */
+    b/* comment 160 */ { /* comment 161 */ } /* comment 162 */
     /* comment 163 */
   } /* comment 164 */
   /* comment 165 */

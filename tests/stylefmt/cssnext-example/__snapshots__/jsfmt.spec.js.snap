@@ -69,30 +69,20 @@ body {
 
 /* custom media query usage */
 @media (--viewport-medium) {
-  body {
-    font-size: calc(var(--fontSize) * 1.2);
-  }
+  body { font-size: calc(var(--fontSize) * 1.2); }
 }
 /* custom selectors */
 @custom-selector :--heading h1, h2, h3, h4, h5, h6;
-:--heading {
-  margin-top: 0;
-}
+:--heading { margin-top: 0; }
 
 /* colors stuff */
 a {
   color: var(--highlightColor);
   transition: color 1s;
 }
-a:hover {
-  color: gray(255, 50%);
-}
-a:active {
-  color: rebeccapurple;
-}
-a:any-link {
-  color: color(var(--highlightColor) blackness(+ 20%));
-}
+a:hover { color: gray(255, 50%); }
+a:active { color: rebeccapurple; }
+a:any-link { color: color(var(--highlightColor) blackness(+ 20%)); }
 
 /* font stuff */
 h2 {
@@ -102,9 +92,7 @@ table {
   font-variant-numeric: lining-nums;
 }
 /* filters */
-.blur {
-  filter: blur(4px);
-}
+.blur { filter: blur(4px); }
 .sepia {
   filter: sepia(0.8);
 }

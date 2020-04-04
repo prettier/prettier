@@ -15,15 +15,11 @@ printWidth: 80
 
 =====================================output=====================================
 @media (width >= 500px) and (width <= 1200px) {
-  .rule {
-    color: red;
-  }
+  .rule { color: red; }
 }
 @custom-media --only-medium-screen (width >=500px) and (width<= 1200px);
 @media (--only-medium-screen) {
-  .rule {
-    color: blue;
-  }
+  .rule { color: blue; }
 }
 
 ================================================================================

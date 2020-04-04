@@ -322,17 +322,13 @@ ns|* {}
 .a,
 .b,
 .c {}
-.r {
-  &,
-  &:hover {}
-}
+.r { &,
+&:hover {} }
 
 @media (min-width: 0px) {
   .a,
   .b,
-  :not(asdasldaskdhjkashdahsdkjahskdjhakj, asdasldaskdhjkashdahsdkjahskdjhakj) {
-    color: red;
-  }
+  :not(asdasldaskdhjkashdahsdkjahskdjhakj, asdasldaskdhjkashdahsdkjahskdjhakj) { color: red; }
 }
 
 .asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkas
