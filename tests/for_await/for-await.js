@@ -6,7 +6,7 @@ async function foo() {
     console.log(num);
   }
 }
-  
+
 (async () => {
   for await (num of asyncIterable) {
     console.log(num);
