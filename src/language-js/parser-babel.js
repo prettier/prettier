@@ -38,10 +38,23 @@ function babelOptions(extraPlugins = []) {
       "classPrivateMethods",
       "v8intrinsic",
       "partialApplication",
-      ["decorators", { decoratorsBeforeExport: false }],
       ...extraPlugins,
     ],
   };
+}
+
+function resolvePluginsConflict(
+  condition,
+  pluginCombinations,
+  conflictPlugins
+) {
+  if (condition) {
+    for (const combination of [...pluginCombinations]) {
+      for (const plugin of conflictPlugins) {
+        pluginCombinations.push([...combination, plugin]);
+      }
+    }
+  }
 }
 
 function createParse(parseMethod, ...pluginCombinations) {
@@ -51,6 +64,10 @@ function createParse(parseMethod, ...pluginCombinations) {
 
     let ast;
     try {
+      resolvePluginsConflict(text.includes("@"), pluginCombinations, [
+        ["decorators", { decoratorsBeforeExport: false }],
+        "decorators-legacy",
+      ]);
       ast = tryCombinations(
         (options) => babel[parseMethod](text, options),
         pluginCombinations.map(babelOptions)
