@@ -132,11 +132,16 @@ function genericPrint(path, options, print) {
                 : " ",
               "{",
               node.nodes.length > 0
-                ? indent(
-                    concat([hardline, printNodeSequence(path, options, print)])
-                  )
+                ? concat([
+                    indent(
+                      concat([
+                        hardline,
+                        printNodeSequence(path, options, print),
+                      ])
+                    ),
+                    hardline,
+                  ])
                 : "",
-              hardline,
               "}",
               isDetachedRulesetDeclarationNode(node) ? ";" : "",
             ])

@@ -1781,8 +1781,7 @@ $lg-and-up: "(min-width: 1200px)";
   }
 }
 
-.el:nth-of-type(#{$i}) {
-}
+.el:nth-of-type(#{$i}) {}
 
 @media #{$value} {
 }
@@ -3809,8 +3808,7 @@ $lg-and-up: "(min-width: 1200px)";
   }
 }
 
-.el:nth-of-type(#{$i}) {
-}
+.el:nth-of-type(#{$i}) {}
 
 @media #{$value} {
 }

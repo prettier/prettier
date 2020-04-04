@@ -188,10 +188,8 @@ one 'two' three {}
 @foo ('one');
 @foo ("one" two 'three');
 
-one "two" three {
-}
-one "two" three {
-}
+one "two" three {}
+one "two" three {}
 
 ================================================================================
 `;
@@ -385,10 +383,8 @@ one 'two' three {}
 @foo ('one');
 @foo ("one" two 'three');
 
-one 'two' three {
-}
-one 'two' three {
-}
+one 'two' three {}
+one 'two' three {}
 
 ================================================================================
 `;

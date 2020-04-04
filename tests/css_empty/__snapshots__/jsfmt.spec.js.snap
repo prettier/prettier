@@ -19,8 +19,7 @@ div {
 =====================================output=====================================
 .ui-syntax-color();
 
-details[open] {
-}
+details[open] {}
 
 div {
   box-sizing: border-box;
