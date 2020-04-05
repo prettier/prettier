@@ -6,4 +6,6 @@ coverage/
 /tests_integration/cli/
 /tests_integration/plugins/
 /website/build/
+/website/static/lib/
+/website/static/playground.js
 cspell.json
