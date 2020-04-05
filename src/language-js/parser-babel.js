@@ -30,7 +30,6 @@ function babelOptions(extraPlugins = []) {
       "optionalCatchBinding",
       "optionalChaining",
       "classPrivateProperties",
-      ["pipelineOperator", { proposal: "smart" }],
       "nullishCoalescingOperator",
       "bigInt",
       "throwExpressions",
@@ -44,6 +43,20 @@ function babelOptions(extraPlugins = []) {
   };
 }
 
+function resolvePluginsConflict(
+  condition,
+  pluginCombinations,
+  conflictPlugins
+) {
+  if (condition) {
+    for (const combination of [...pluginCombinations]) {
+      for (const plugin of conflictPlugins) {
+        pluginCombinations.push([...combination, plugin]);
+      }
+    }
+  }
+}
+
 function createParse(parseMethod, ...pluginCombinations) {
   return (text, parsers, opts) => {
     // Inline the require to avoid loading all the JS if we don't use it
@@ -51,6 +64,11 @@ function createParse(parseMethod, ...pluginCombinations) {
 
     let ast;
     try {
+      resolvePluginsConflict(text.includes("|>"), pluginCombinations, [
+        ["pipelineOperator", { proposal: "smart" }],
+        ["pipelineOperator", { proposal: "minimal" }],
+        ["pipelineOperator", { proposal: "fsharp" }],
+      ]);
       ast = tryCombinations(
         (options) => babel[parseMethod](text, options),
         pluginCombinations.map(babelOptions)

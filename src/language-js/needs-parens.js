@@ -355,7 +355,6 @@ function needsParens(path, options) {
       switch (parent.type) {
         case "TaggedTemplateExpression":
         case "UnaryExpression":
-        case "BinaryExpression":
         case "LogicalExpression":
         case "SpreadElement":
         case "SpreadProperty":
@@ -375,6 +374,13 @@ function needsParens(path, options) {
 
         case "ConditionalExpression":
           return parent.test === node;
+
+        case "BinaryExpression": {
+          if (!node.argument && parent.operator === "|>") {
+            return false;
+          }
+          return true;
+        }
 
         default:
           return false;
@@ -567,6 +573,13 @@ function needsParens(path, options) {
         case "PipelineTopicExpression":
           return !!(node.extra && node.extra.parenthesized);
 
+        case "BinaryExpression":
+          return !!(
+            node.operator === "|>" &&
+            node.extra &&
+            node.extra.parenthesized
+          );
+
         case "NewExpression":
         case "CallExpression":
         case "OptionalCallExpression":
@@ -581,7 +594,6 @@ function needsParens(path, options) {
         case "TaggedTemplateExpression":
         case "UnaryExpression":
         case "LogicalExpression":
-        case "BinaryExpression":
         case "AwaitExpression":
         case "TSTypeAssertion":
           return true;

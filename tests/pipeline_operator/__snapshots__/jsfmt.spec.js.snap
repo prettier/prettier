@@ -1,5 +1,60 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`fsharp_style_pipeline_operator.js 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+promise
+  |> await
+  |> x => doubleSay(x, ', ')
+  |> capitalize
+  |> x => x + '!'
+  |> x => new User.Message(x)
+  |> x => stream.write(x)
+  |> await
+  |> console.log;
+
+const result = "hello"
+  |> doubleSay
+  |> capitalize
+  |> exclaim;
+
+const newScore = person.score
+  |> double
+  |> n => add(7, n)
+  |> n => boundScore(0, 100, n);
+
+const user = url
+  |> api.get
+  |> await
+  |> r => r.json()
+  |> await
+  |> j => j.data.user;
+
+=====================================output=====================================
+promise
+  |> await
+  |> (x) => doubleSay(x, ", ")
+  |> capitalize
+  |> (x) => x + "!"
+  |> (x) => new User.Message(x)
+  |> (x) => stream.write(x)
+  |> await
+  |> console.log;
+
+const result = "hello" |> doubleSay |> capitalize |> exclaim;
+
+const newScore =
+  person.score |> double |> (n) => add(7, n) |> (n) => boundScore(0, 100, n);
+
+const user =
+  url |> api.get |> await |> (r) => r.json() |> await |> (j) => j.data.user;
+
+================================================================================
+`;
+
 exports[`minimal_pipeline_operator.js 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
