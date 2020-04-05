@@ -575,7 +575,7 @@ function needsParens(path, options) {
 
         case "BinaryExpression":
           return !!(
-            node.operator === "|>" &&
+            parent.operator === "|>" &&
             node.extra &&
             node.extra.parenthesized
           );
