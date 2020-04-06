@@ -4,13 +4,13 @@ const clean = require("./clean");
 
 const {
   concat,
-  join,
-  softline,
-  hardline,
-  line,
   group,
-  indent,
+  hardline,
   ifBreak,
+  indent,
+  join,
+  line,
+  softline,
 } = require("../document").builders;
 
 const {
@@ -58,14 +58,6 @@ function print(path, options, print) {
       return group(concat(path.map(print, "body")));
     }
     case "ElementNode": {
-      const hasChildren = n.children.length > 0;
-
-      const hasNonWhitespaceChildren = n.children.some(
-        (n) => !isWhitespaceNode(n)
-      );
-
-      const closeTagForNoBreak = isVoid(n) ? concat([" />", softline]) : ">";
-      const closeTagForBreak = isVoid(n) ? "/>" : ">";
       const printParams = (path, print) =>
         indent(
           concat([
@@ -80,31 +72,35 @@ function print(path, options, print) {
           ])
         );
 
-      const nextNode = getNextNode(path);
+      const startingTag = group(
+        concat([
+          "<",
+          n.tag,
+          printParams(path, print),
+          printBlockParams(n),
+          printStartingTagEndMarker(n),
+        ])
+      );
+
+      // TODO: make it whitespace sensitive
+      const bim = isNextNodeOfSomeType(path, ["ElementNode"]) ? hardline : "";
+
+      if (isVoid(n)) {
+        return concat([startingTag, bim]);
+      }
+
+      const isWhitespaceOnly = n.children.every((n) => isWhitespaceNode(n));
 
       return concat([
+        startingTag,
         group(
           concat([
-            "<",
-            n.tag,
-            printParams(path, print),
-            n.blockParams.length ? ` as |${n.blockParams.join(" ")}|` : "",
-            ifBreak(softline, ""),
-            ifBreak(closeTagForBreak, closeTagForNoBreak),
+            isWhitespaceOnly ? "" : indent(printChildren(path, options, print)),
+            n.children.length ? hardline : "",
+            concat(["</", n.tag, ">"]),
           ])
         ),
-        isVoid(n)
-          ? ""
-          : group(
-              concat([
-                hasNonWhitespaceChildren
-                  ? indent(printChildren(path, options, print))
-                  : "",
-                ifBreak(hasChildren ? hardline : "", ""),
-                concat(["</", n.tag, ">"]),
-              ])
-            ),
-        isNextNodeOfSomeType(path, ["ElementNode"]) ? hardline : "",
+        bim,
       ]);
     }
     case "BlockStatement": {
@@ -177,21 +173,20 @@ function print(path, options, print) {
       );
     }
     case "MustacheStatement": {
-      const isEscaped = n.escaped === false;
-      const { open: openStrip, close: closeStrip } = n.strip;
-      const opening = (isEscaped ? "{{{" : "{{") + (openStrip ? "~" : "");
-      const closing = (closeStrip ? "~" : "") + (isEscaped ? "}}}" : "}}");
-
-      const leading = isParentOfSomeType(path, [
+      const shouldBreakOpeningMustache = isParentOfSomeType(path, [
         "AttrNode",
         "ConcatStatement",
         "ElementNode",
-      ])
-        ? [opening, indent(softline)]
-        : [opening];
+      ]);
 
       return group(
-        concat([...leading, printPathParams(path, print), softline, closing])
+        concat([
+          printOpeningMustache(n),
+          shouldBreakOpeningMustache ? indent(softline) : "",
+          printPathParams(path, print),
+          softline,
+          printClosingMustache(n),
+        ])
       );
     }
 
@@ -378,24 +373,40 @@ function print(path, options, print) {
   }
 }
 
+/* ElementNode print helpers */
+
 function printChildren(path, options, print) {
   return concat(
     path.map((childPath, childIndex) => {
-      const childNode = path.getValue();
-      const isFirstNode = childIndex === 0;
-      const isLastNode =
-        childIndex === path.getParentNode(0).children.length - 1;
-      const isLastNodeInMultiNodeList = isLastNode && !isFirstNode;
-      const isWhitespace = isWhitespaceNode(childNode);
-
-      if (isWhitespace && isLastNodeInMultiNodeList) {
-        return print(childPath, options, print);
-      } else if (isFirstNode) {
+      if (childIndex === 0) {
         return concat([softline, print(childPath, options, print)]);
       }
+
       return print(childPath, options, print);
     }, "children")
   );
+}
+
+function printStartingTagEndMarker(node) {
+  if (isVoid(node)) {
+    return ifBreak(concat([softline, "/>"]), concat([" />", softline]));
+  }
+
+  return ifBreak(concat([softline, ">"]), ">");
+}
+
+/* MustacheStatement print helpers */
+
+function printOpeningMustache(node) {
+  const mustache = node.escaped === false ? "{{{" : "{{";
+  const strip = node.strip.open ? "~" : "";
+  return concat([mustache, strip]);
+}
+
+function printClosingMustache(node) {
+  const mustache = node.escaped === false ? "}}}" : "}}";
+  const strip = node.strip.close ? "~" : "";
+  return concat([strip, mustache]);
 }
 
 /**
@@ -463,20 +474,22 @@ function printParams(path, print) {
 }
 
 function printPathParams(path, print) {
-  const printedPath = printPath(path, print);
-  const printedParams = printParams(path, print);
+  let pathParams = printPath(path, print);
 
-  const parts = [printedPath, ...printedParams];
+  const params = printParams(path, print);
+  if (params.length) {
+    pathParams = group(concat([pathParams, line, join(line, params)]));
+  }
 
-  return indent(group(join(line, parts)));
+  return indent(pathParams);
 }
 
-function printBlockParams(path) {
-  const block = path.getValue();
-  if (!block.program || !block.program.blockParams.length) {
+function printBlockParams(node) {
+  if (!node || !node.blockParams.length) {
     return "";
   }
-  return concat([" as |", block.program.blockParams.join(" "), "|"]);
+
+  return concat([" as |", node.blockParams.join(" "), "|"]);
 }
 
 function printOpenBlock(
@@ -484,11 +497,13 @@ function printOpenBlock(
   print,
   { open: isOpenStrip = false, close: isCloseStrip = false } = {}
 ) {
+  const node = path.getValue();
+
   return group(
     concat([
       isOpenStrip ? "{{~#" : "{{#",
       printPathParams(path, print),
-      printBlockParams(path),
+      printBlockParams(node.program),
       softline,
       isCloseStrip ? "~}}" : "}}",
     ])
