@@ -126,7 +126,7 @@ function print(path, options, print) {
           isElseIf
             ? concat([
                 n.openStrip.open ? "{{~else " : "{{else ",
-                printPathParams(path, print),
+                printPathAndParams(path, print),
                 n.openStrip.close ? "~}}" : "}}",
               ])
             : printOpenBlock(path, print, n.openStrip),
@@ -145,7 +145,7 @@ function print(path, options, print) {
         return concat([
           concat([
             n.openStrip.open ? "{{~else" : "{{else ",
-            printPathParams(path, print),
+            printPathAndParams(path, print),
             n.openStrip.close ? "~}}" : "}}",
           ]),
           indent(concat([hardline, path.call(print, "program")])),
@@ -169,7 +169,7 @@ function print(path, options, print) {
     }
     case "ElementModifierStatement": {
       return group(
-        concat(["{{", printPathParams(path, print), softline, "}}"])
+        concat(["{{", printPathAndParams(path, print), softline, "}}"])
       );
     }
     case "MustacheStatement": {
@@ -183,7 +183,7 @@ function print(path, options, print) {
         concat([
           printOpeningMustache(n),
           shouldBreakOpeningMustache ? indent(softline) : "",
-          printPathParams(path, print),
+          printPathAndParams(path, print),
           softline,
           printClosingMustache(n),
         ])
@@ -473,7 +473,7 @@ function printParams(path, print) {
   return parts;
 }
 
-function printPathParams(path, print) {
+function printPathAndParams(path, print) {
   let pathParams = printPath(path, print);
 
   const params = printParams(path, print);
@@ -502,7 +502,7 @@ function printOpenBlock(
   return group(
     concat([
       isOpenStrip ? "{{~#" : "{{#",
-      printPathParams(path, print),
+      printPathAndParams(path, print),
       printBlockParams(node.program),
       softline,
       isCloseStrip ? "~}}" : "}}",
