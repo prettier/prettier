@@ -81,7 +81,7 @@ Valid options:
 
 | Default       | CLI Override                                    | API Override                                    |
 | ------------- | ----------------------------------------------- | ----------------------------------------------- |
-| `"as-needed"` | `--quote-props <as-needed|consistent|preserve>` | `quoteProps: "<as-needed|consistent|preserve>"` |
+| `"as-needed"` | `--quote-props <as-needed\|consistent\|preserve>` | `quoteProps: "<as-needed\|consistent\|preserve>"` |
 
 ## JSX Quotes
 
@@ -105,7 +105,7 @@ Valid options:
 
 | Default | CLI Override                      | API Override                      |
 | ------- | --------------------------------- | --------------------------------- |
-| `"es5"` | `--trailing-comma <es5|none|all>` | `trailingComma: "<es5|none|all>"` |
+| `"es5"` | `--trailing-comma <es5\|none\|all>` | `trailingComma: "<es5\|none\|all>"` |
 
 ## Bracket Spacing
 
@@ -168,7 +168,7 @@ Valid options:
 
 | Default    | CLI Override                    | API Override                    |
 | ---------- | ------------------------------- | ------------------------------- |
-| `"always"` | `--arrow-parens <always|avoid>` | `arrowParens: "<always|avoid>"` |
+| `"always"` | `--arrow-parens <always\|avoid>` | `arrowParens: "<always\|avoid>"` |
 
 At first glance, avoiding parentheses may look like a better choice because of less visual noise.
 However, when Prettier removes parentheses, it becomes harder to add type annotations, extra arguments or default values as well as making other changes.
@@ -294,7 +294,7 @@ Valid options:
 
 | Default      | CLI Override                           | API Override                           |
 | ------------ | -------------------------------------- | -------------------------------------- |
-| `"preserve"` | `--prose-wrap <always|never|preserve>` | `proseWrap: "<always|never|preserve>"` |
+| `"preserve"` | `--prose-wrap <always\|never\|preserve>` | `proseWrap: "<always\|never\|preserve>"` |
 
 ## HTML Whitespace Sensitivity
 
@@ -312,7 +312,7 @@ Valid options:
 
 | Default | CLI Override                                        | API Override                                       |
 | ------- | --------------------------------------------------- | -------------------------------------------------- |
-| `"css"` | `--html-whitespace-sensitivity <css|strict|ignore>` | `htmlWhitespaceSensitivity: "<css|strict|ignore>"` |
+| `"css"` | `--html-whitespace-sensitivity <css\|strict\|ignore>` | `htmlWhitespaceSensitivity: "<css\|strict\|ignore>"` |
 
 ## Vue files script and style tags indentation
 
@@ -363,4 +363,4 @@ Valid options:
 
 | Default | CLI Override                      | API Override                     |
 | ------- | --------------------------------- | -------------------------------- |
-| `"lf"`  | `--end-of-line <lf|crlf|cr|auto>` | `endOfLine: "<lf|crlf|cr|auto>"` |
+| `"lf"`  | `--end-of-line <lf\|crlf\|cr\|auto>` | `endOfLine: "<lf\|crlf\|cr\|auto>"` |
