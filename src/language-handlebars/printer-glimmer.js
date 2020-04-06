@@ -93,8 +93,9 @@ function print(path, options, print) {
             ifBreak(closeTagForBreak, closeTagForNoBreak),
           ])
         ),
-        !isVoid(n)
-          ? group(
+        isVoid(n)
+          ? ""
+          : group(
               concat([
                 hasNonWhitespaceChildren
                   ? indent(printChildren(path, options, print))
@@ -102,9 +103,8 @@ function print(path, options, print) {
                 ifBreak(hasChildren ? hardline : "", ""),
                 concat(["</", n.tag, ">"]),
               ])
-            )
-          : "",
-        nextNode && nextNode.type === "ElementNode" ? hardline : "",
+            ),
+        isNextNodeOfSomeType(path, ["ElementNode"]) ? hardline : "",
       ]);
     }
     case "BlockStatement": {
