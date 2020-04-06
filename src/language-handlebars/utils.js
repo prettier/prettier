@@ -1,5 +1,23 @@
 "use strict";
 
+// http://w3c.github.io/html/single-page.html#void-elements
+const voidTags = [
+  "area",
+  "base",
+  "br",
+  "col",
+  "embed",
+  "hr",
+  "img",
+  "input",
+  "link",
+  "meta",
+  "param",
+  "source",
+  "track",
+  "wbr",
+];
+
 function isUppercase(string) {
   return string.toUpperCase() === string;
 }
@@ -9,6 +27,18 @@ function isGlimmerComponent(node) {
     isNodeOfSomeType(node, ["ElementNode"]) &&
     typeof node.tag === "string" &&
     (isUppercase(node.tag[0]) || node.tag.includes("."))
+  );
+}
+
+function isVoid(node) {
+  const hasChildren = node.children.length > 0;
+  const hasNonWhitespaceChildren = node.children.some(
+    (n) => !isWhitespaceNode(n)
+  );
+
+  return (
+    (isGlimmerComponent(node) && (!hasChildren || !hasNonWhitespaceChildren)) ||
+    voidTags.includes(node.tag)
   );
 }
 
@@ -71,10 +101,10 @@ module.exports = {
   getNextNode,
   getPreviousNode,
   hasPrettierIgnore,
-  isGlimmerComponent,
   isNextNodeOfSomeType,
   isNodeOfSomeType,
   isParentOfSomeType,
   isPreviousNodeOfSomeType,
+  isVoid,
   isWhitespaceNode,
 };

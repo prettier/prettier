@@ -1,17 +1,5 @@
 "use strict";
 
-function isVoid(node) {
-  const hasChildren = node.children.length > 0;
-  const hasNonWhitespaceChildren = node.children.some(
-    (n) => !isWhitespaceNode(n)
-  );
-
-  return (
-    (isGlimmerComponent(node) && (!hasChildren || !hasNonWhitespaceChildren)) ||
-    voidTags.includes(node.tag)
-  );
-}
-
 const clean = require("./clean");
 
 const {
@@ -29,30 +17,12 @@ const {
   getNextNode,
   getPreviousNode,
   hasPrettierIgnore,
-  isGlimmerComponent,
   isNextNodeOfSomeType,
   isParentOfSomeType,
   isPreviousNodeOfSomeType,
+  isVoid,
   isWhitespaceNode,
 } = require("./utils");
-
-// http://w3c.github.io/html/single-page.html#void-elements
-const voidTags = [
-  "area",
-  "base",
-  "br",
-  "col",
-  "embed",
-  "hr",
-  "img",
-  "input",
-  "link",
-  "meta",
-  "param",
-  "source",
-  "track",
-  "wbr",
-];
 
 // Formatter based on @glimmerjs/syntax's built-in test formatter:
 // https://github.com/glimmerjs/glimmer-vm/blob/master/packages/%40glimmer/syntax/lib/generation/print.ts
