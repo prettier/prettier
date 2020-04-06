@@ -31,13 +31,10 @@ function isGlimmerComponent(node) {
 }
 
 function isVoid(node) {
-  const hasChildren = node.children.length > 0;
-  const hasNonWhitespaceChildren = node.children.some(
-    (n) => !isWhitespaceNode(n)
-  );
-
   return (
-    (isGlimmerComponent(node) && (!hasChildren || !hasNonWhitespaceChildren)) ||
+    (isGlimmerComponent(node) &&
+      (node.children === 0 ||
+        node.children.every((n) => isWhitespaceNode(n)))) ||
     voidTags.includes(node.tag)
   );
 }
