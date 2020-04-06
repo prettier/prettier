@@ -1,5 +1,17 @@
 "use strict";
 
+function isVoid(node) {
+  const hasChildren = node.children.length > 0;
+  const hasNonWhitespaceChildren = node.children.some(
+    (n) => !isWhitespaceNode(n)
+  );
+
+  return (
+    (isGlimmerComponent(node) && (!hasChildren || !hasNonWhitespaceChildren)) ||
+    voidTags.includes(node.tag)
+  );
+}
+
 const clean = require("./clean");
 
 const {
@@ -82,12 +94,8 @@ function print(path, options, print) {
         (n) => !isWhitespaceNode(n)
       );
 
-      const isVoid =
-        (isGlimmerComponent(n) &&
-          (!hasChildren || !hasNonWhitespaceChildren)) ||
-        voidTags.includes(n.tag);
-      const closeTagForNoBreak = isVoid ? concat([" />", softline]) : ">";
-      const closeTagForBreak = isVoid ? "/>" : ">";
+      const closeTagForNoBreak = isVoid(n) ? concat([" />", softline]) : ">";
+      const closeTagForBreak = isVoid(n) ? "/>" : ">";
       const printParams = (path, print) =>
         indent(
           concat([
@@ -115,7 +123,7 @@ function print(path, options, print) {
             ifBreak(closeTagForBreak, closeTagForNoBreak),
           ])
         ),
-        !isVoid
+        !isVoid(n)
           ? group(
               concat([
                 hasNonWhitespaceChildren
