@@ -25,5 +25,5 @@ npm install --global prettier
 If you use `npx` to run Prettier, the version should be pinned like this:
 
 ```bash
-npx prettier@2.0.3 . --write
+npx prettier@2.0.4 . --write
 ```

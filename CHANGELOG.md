@@ -1,3 +1,9 @@
+# 2.0.4
+
+[diff](https://github.com/prettier/prettier/compare/2.0.3...2.0.4)
+
+#### Revert [#7869](https://github.com/prettier/prettier/pull/7869), "[TypeScript] format TSAsExpression with same logic as BinaryExpression" ([#7958](https://github.com/prettier/prettier/pull/7958))
+
 # 2.0.3
 
 [diff](https://github.com/prettier/prettier/compare/2.0.2...2.0.3)
