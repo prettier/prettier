@@ -18,6 +18,7 @@ const {
   getPreviousNode,
   hasPrettierIgnore,
   isNextNodeOfSomeType,
+  isNodeOfSomeType,
   isParentOfSomeType,
   isPreviousNodeOfSomeType,
   isVoid,
@@ -105,66 +106,24 @@ function print(path, options, print) {
     }
     case "BlockStatement": {
       const pp = path.getParentNode(1);
+
       const isElseIf =
         pp &&
         pp.inverse &&
         pp.inverse.body.length === 1 &&
         pp.inverse.body[0] === n &&
         pp.inverse.body[0].path.parts[0] === "if";
-      const hasElseIf =
-        n.inverse &&
-        n.inverse.body.length === 1 &&
-        n.inverse.body[0].type === "BlockStatement" &&
-        n.inverse.body[0].path.parts[0] === "if";
-      const indentElse = hasElseIf ? (a) => a : indent;
-      const inverseElseStatement =
-        (n.inverseStrip.open ? "{{~" : "{{") +
-        "else" +
-        (n.inverseStrip.close ? "~}}" : "}}");
-      if (n.inverse) {
+
+      if (isElseIf) {
         return concat([
-          isElseIf
-            ? concat([
-                n.openStrip.open ? "{{~else " : "{{else ",
-                printPathAndParams(path, print),
-                n.openStrip.close ? "~}}" : "}}",
-              ])
-            : printOpenBlock(path, print, n.openStrip),
-          indent(concat([hardline, path.call(print, "program")])),
-          n.inverse && !hasElseIf
-            ? concat([hardline, inverseElseStatement])
-            : "",
-          n.inverse
-            ? indentElse(concat([hardline, path.call(print, "inverse")]))
-            : "",
-          isElseIf
-            ? ""
-            : concat([hardline, printCloseBlock(path, print, n.closeStrip)]),
-        ]);
-      } else if (isElseIf) {
-        return concat([
-          concat([
-            n.openStrip.open ? "{{~else" : "{{else ",
-            printPathAndParams(path, print),
-            n.openStrip.close ? "~}}" : "}}",
-          ]),
-          indent(concat([hardline, path.call(print, "program")])),
+          printElseIfBlock(path, print),
+          printProgramAndInverseForElseIf(path, print),
         ]);
       }
 
-      const hasNonWhitespaceChildren = n.program.body.some(
-        (n) => !isWhitespaceNode(n)
-      );
-
       return concat([
-        printOpenBlock(path, print, n.openStrip),
-        group(
-          concat([
-            indent(concat([softline, path.call(print, "program")])),
-            hasNonWhitespaceChildren ? hardline : softline,
-            printCloseBlock(path, print, n.closeStrip),
-          ])
-        ),
+        printOpenBlock(path, print),
+        group(printProgramAndInverse(path, print)),
       ]);
     }
     case "ElementModifierStatement": {
@@ -399,14 +358,177 @@ function printStartingTagEndMarker(node) {
 
 function printOpeningMustache(node) {
   const mustache = node.escaped === false ? "{{{" : "{{";
-  const strip = node.strip.open ? "~" : "";
+  const strip = node.strip && node.strip.open ? "~" : "";
   return concat([mustache, strip]);
 }
 
 function printClosingMustache(node) {
   const mustache = node.escaped === false ? "}}}" : "}}";
-  const strip = node.strip.close ? "~" : "";
+  const strip = node.strip && node.strip.close ? "~" : "";
   return concat([strip, mustache]);
+}
+
+/* BlockStatement print helpers */
+
+function printOpeningBlockOpeningMustache(node) {
+  const opening = printOpeningMustache(node);
+  const strip = node.openStrip.open ? "~" : "";
+  return concat([opening, strip, "#"]);
+}
+
+function printOpeningBlockClosingMustache(node) {
+  const closing = printClosingMustache(node);
+  const strip = node.openStrip.close ? "~" : "";
+  return concat([strip, closing]);
+}
+
+function printClosingBlockOpeningMustache(node) {
+  const opening = printOpeningMustache(node);
+  const strip = node.closeStrip.open ? "~" : "";
+  return concat([opening, strip, "/"]);
+}
+
+function printClosingBlockClosingMustache(node) {
+  const closing = printClosingMustache(node);
+  const strip = node.closeStrip.close ? "~" : "";
+  return concat([strip, closing]);
+}
+
+function printInverseBlockOpeningMustache(node) {
+  const opening = printOpeningMustache(node);
+  const strip = node.inverseStrip.open ? "~" : "";
+  return concat([opening, strip]);
+}
+
+function printInverseBlockClosingMustache(node) {
+  const closing = printClosingMustache(node);
+  const strip = node.inverseStrip.close ? "~" : "";
+  return concat([strip, closing]);
+}
+
+function printOpenBlock(path, print) {
+  const node = path.getValue();
+
+  return group(
+    concat([
+      printOpeningBlockOpeningMustache(node),
+      printPathAndParams(path, print),
+      printBlockParams(node.program),
+      softline,
+      printOpeningBlockClosingMustache(node),
+    ])
+  );
+}
+
+function printElseBlock(node) {
+  return concat([
+    hardline,
+    printInverseBlockOpeningMustache(node),
+    "else",
+    printInverseBlockClosingMustache(node),
+  ]);
+}
+
+function printElseIfBlock(path, print) {
+  const parentNode = path.getParentNode(1);
+
+  return concat([
+    printInverseBlockOpeningMustache(parentNode),
+    "else ",
+    printPathAndParams(path, print),
+    printInverseBlockClosingMustache(parentNode),
+  ]);
+}
+
+function printCloseBlock(path, print) {
+  const node = path.getValue();
+
+  return concat([
+    blockStatementHasOnlyWhitespaceInProgram(node) ? softline : hardline,
+    printClosingBlockOpeningMustache(node),
+    path.call(print, "path"),
+    printClosingBlockClosingMustache(node),
+  ]);
+}
+
+function blockStatementHasOnlyWhitespaceInProgram(node) {
+  return (
+    isNodeOfSomeType(node, ["BlockStatement"]) &&
+    node.program.body.every((n) => isWhitespaceNode(n))
+  );
+}
+
+function blockStatementHasElseIf(node) {
+  return (
+    blockStatementHasElse(node) &&
+    node.inverse.body.length === 1 &&
+    isNodeOfSomeType(node.inverse.body[0], ["BlockStatement"]) &&
+    node.inverse.body[0].path.parts[0] === "if"
+  );
+}
+
+function blockStatementHasElse(node) {
+  return isNodeOfSomeType(node, ["BlockStatement"]) && node.inverse;
+}
+
+function printProgram(path, print) {
+  return indent(concat([hardline, path.call(print, "program")]));
+}
+
+function printProgramIfNotWhitespaceOnly(path, print) {
+  const node = path.getValue();
+
+  return blockStatementHasOnlyWhitespaceInProgram(node)
+    ? ""
+    : printProgram(path, print);
+}
+
+function printInverse(path, print) {
+  return concat([hardline, path.call(print, "inverse")]);
+}
+
+function printProgramAndInverseForElseIf(path, print) {
+  const node = path.getValue();
+
+  if (blockStatementHasElseIf(node)) {
+    return concat([printProgram(path, print), printInverse(path, print)]);
+  }
+
+  if (blockStatementHasElse(node)) {
+    return concat([
+      printProgram(path, print),
+      printElseBlock(node),
+      indent(printInverse(path, print)),
+    ]);
+  }
+
+  return printProgram(path, print);
+}
+
+function printProgramAndInverse(path, print) {
+  const node = path.getValue();
+
+  if (blockStatementHasElseIf(node)) {
+    return concat([
+      printProgramIfNotWhitespaceOnly(path, print),
+      printInverse(path, print),
+      printCloseBlock(path, print),
+    ]);
+  }
+
+  if (blockStatementHasElse(node)) {
+    return concat([
+      printProgramIfNotWhitespaceOnly(path, print),
+      printElseBlock(node),
+      indent(printInverse(path, print)),
+      printCloseBlock(path, print),
+    ]);
+  }
+
+  return concat([
+    printProgramIfNotWhitespaceOnly(path, print),
+    printCloseBlock(path, print),
+  ]);
 }
 
 /**
@@ -490,36 +612,6 @@ function printBlockParams(node) {
   }
 
   return concat([" as |", node.blockParams.join(" "), "|"]);
-}
-
-function printOpenBlock(
-  path,
-  print,
-  { open: isOpenStrip = false, close: isCloseStrip = false } = {}
-) {
-  const node = path.getValue();
-
-  return group(
-    concat([
-      isOpenStrip ? "{{~#" : "{{#",
-      printPathAndParams(path, print),
-      printBlockParams(node.program),
-      softline,
-      isCloseStrip ? "~}}" : "}}",
-    ])
-  );
-}
-
-function printCloseBlock(
-  path,
-  print,
-  { open: isOpenStrip = false, close: isCloseStrip = false } = {}
-) {
-  return concat([
-    isOpenStrip ? "{{~/" : "{{/",
-    path.call(print, "path"),
-    isCloseStrip ? "~}}" : "}}",
-  ]);
 }
 
 function countNewLines(string) {
