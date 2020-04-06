@@ -93,13 +93,20 @@ function print(path, options, print) {
       if (isElseIf) {
         return concat([
           printElseIfBlock(path, print),
-          printProgramAndInverseForElseIf(path, print),
+          printProgram(path, print),
+          printInverse(path, print),
         ]);
       }
 
       return concat([
         printOpenBlock(path, print),
-        group(printProgramAndInverse(path, print)),
+        group(
+          concat([
+            printProgram(path, print),
+            printInverse(path, print),
+            printCloseBlock(path, print),
+          ])
+        ),
       ]);
     }
     case "ElementModifierStatement": {
@@ -450,63 +457,31 @@ function blockStatementHasElse(node) {
 }
 
 function printProgram(path, print) {
-  return indent(concat([hardline, path.call(print, "program")]));
-}
-
-function printProgramIfNotWhitespaceOnly(path, print) {
   const node = path.getValue();
 
-  return blockStatementHasOnlyWhitespaceInProgram(node)
-    ? ""
-    : printProgram(path, print);
+  if (blockStatementHasOnlyWhitespaceInProgram(node)) {
+    return "";
+  }
+
+  const program = path.call(print, "program");
+  return indent(concat([hardline, program]));
 }
 
 function printInverse(path, print) {
-  return concat([hardline, path.call(print, "inverse")]);
-}
-
-function printProgramAndInverseForElseIf(path, print) {
   const node = path.getValue();
 
+  const inverse = path.call(print, "inverse");
+  const parts = concat([hardline, inverse]);
+
   if (blockStatementHasElseIf(node)) {
-    return concat([printProgram(path, print), printInverse(path, print)]);
+    return parts;
   }
 
   if (blockStatementHasElse(node)) {
-    return concat([
-      printProgram(path, print),
-      printElseBlock(node),
-      indent(printInverse(path, print)),
-    ]);
+    return concat([printElseBlock(node), indent(parts)]);
   }
 
-  return printProgram(path, print);
-}
-
-function printProgramAndInverse(path, print) {
-  const node = path.getValue();
-
-  if (blockStatementHasElseIf(node)) {
-    return concat([
-      printProgramIfNotWhitespaceOnly(path, print),
-      printInverse(path, print),
-      printCloseBlock(path, print),
-    ]);
-  }
-
-  if (blockStatementHasElse(node)) {
-    return concat([
-      printProgramIfNotWhitespaceOnly(path, print),
-      printElseBlock(node),
-      indent(printInverse(path, print)),
-      printCloseBlock(path, print),
-    ]);
-  }
-
-  return concat([
-    printProgramIfNotWhitespaceOnly(path, print),
-    printCloseBlock(path, print),
-  ]);
+  return "";
 }
 
 /* TextNode print helpers */
