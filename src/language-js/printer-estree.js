@@ -556,9 +556,7 @@ function printPathNoParens(path, options, print, args) {
       );
     case "BinaryExpression":
     case "LogicalExpression":
-    case "NGPipeExpression":
-    case "TSAsExpression": {
-      const { rightNodeName, operator } = getBinaryishNodeNames(n);
+    case "NGPipeExpression": {
       const parent = path.getParentNode();
       const parentParent = path.getParentNode(1);
       const isInsideParenthesis =
@@ -614,12 +612,12 @@ function printPathNoParens(path, options, print, args) {
 
       // Avoid indenting sub-expressions in some cases where the first sub-expression is already
       // indented accordingly. We should indent sub-expressions where the first case isn't indented.
-      let shouldNotIndent =
+      const shouldNotIndent =
         parent.type === "ReturnStatement" ||
         parent.type === "ThrowStatement" ||
         (parent.type === "JSXExpressionContainer" &&
           parentParent.type === "JSXAttribute") ||
-        (operator !== "|" && parent.type === "JsExpressionRoot") ||
+        (n.operator !== "|" && parent.type === "JsExpressionRoot") ||
         (n.type !== "NGPipeExpression" &&
           ((parent.type === "NGRoot" && options.parser === "__ng_binding") ||
             (parent.type === "NGMicrosyntaxExpression" &&
@@ -634,25 +632,23 @@ function printPathNoParens(path, options, print, args) {
           parentParent.type !== "OptionalCallExpression") ||
         parent.type === "TemplateLiteral";
 
-      if (!shouldNotIndent) {
-        if (shouldInlineLogicalExpression(n)) {
-          const samePrecedenceSubExpression =
-            isBinaryish(n.left) && shouldFlatten(operator, n.left.operator);
-          shouldNotIndent = !samePrecedenceSubExpression;
-        } else {
-          const shouldIndentIfInlining =
-            parent.type === "AssignmentExpression" ||
-            parent.type === "VariableDeclarator" ||
-            parent.type === "ClassProperty" ||
-            parent.type === "TSAbstractClassProperty" ||
-            parent.type === "ClassPrivateProperty" ||
-            parent.type === "ObjectProperty" ||
-            parent.type === "Property";
-          shouldNotIndent = shouldIndentIfInlining;
-        }
-      }
+      const shouldIndentIfInlining =
+        parent.type === "AssignmentExpression" ||
+        parent.type === "VariableDeclarator" ||
+        parent.type === "ClassProperty" ||
+        parent.type === "TSAbstractClassProperty" ||
+        parent.type === "ClassPrivateProperty" ||
+        parent.type === "ObjectProperty" ||
+        parent.type === "Property";
 
-      if (shouldNotIndent) {
+      const samePrecedenceSubExpression =
+        isBinaryish(n.left) && shouldFlatten(n.operator, n.left.operator);
+
+      if (
+        shouldNotIndent ||
+        (shouldInlineLogicalExpression(n) && !samePrecedenceSubExpression) ||
+        (!shouldInlineLogicalExpression(n) && shouldIndentIfInlining)
+      ) {
         return group(concat(parts));
       }
 
@@ -669,7 +665,7 @@ function printPathNoParens(path, options, print, args) {
       //     </Foo>
       //   )
 
-      const hasJSX = isJSXNode(n[rightNodeName]);
+      const hasJSX = isJSXNode(n.right);
       const rest = concat(hasJSX ? parts.slice(1, -1) : parts.slice(1));
 
       const groupId = Symbol("logicalChain-" + ++uid);
@@ -2509,6 +2505,7 @@ function printPathNoParens(path, options, print, args) {
               n.expressions[i].type === "OptionalMemberExpression" ||
               n.expressions[i].type === "ConditionalExpression" ||
               n.expressions[i].type === "SequenceExpression" ||
+              n.expressions[i].type === "TSAsExpression" ||
               isBinaryish(n.expressions[i])
             ) {
               printed = concat([indent(concat([softline, printed])), softline]);
@@ -3209,6 +3206,12 @@ function printPathNoParens(path, options, print, args) {
       return "unknown";
     case "TSVoidKeyword":
       return "void";
+    case "TSAsExpression":
+      return concat([
+        path.call(print, "expression"),
+        " as ",
+        path.call(print, "typeAnnotation"),
+      ]);
     case "TSArrayType":
       return concat([path.call(print, "elementType"), "[]"]);
     case "TSPropertySignature": {
@@ -5708,20 +5711,6 @@ function shouldInlineLogicalExpression(node) {
   return false;
 }
 
-function getBinaryishNodeNames(node) {
-  const leftNodeName = node.type === "TSAsExpression" ? "expression" : "left";
-  const rightNodeName =
-    node.type === "TSAsExpression" ? "typeAnnotation" : "right";
-  const operator =
-    node.type === "NGPipeExpression"
-      ? "|"
-      : node.type === "TSAsExpression"
-      ? "as"
-      : node.operator;
-
-  return { leftNodeName, rightNodeName, operator };
-}
-
 // For binary expressions to be consistent, we need to group
 // subsequent operators with the same precedence level under a single
 // group. Otherwise they will be nested such that some of them break
@@ -5740,12 +5729,8 @@ function printBinaryishExpressions(
   let parts = [];
   const node = path.getValue();
 
-  // We treat BinaryExpression, LogicalExpression, NGPipeExpression and TSAsExpression the same.
+  // We treat BinaryExpression and LogicalExpression nodes the same.
   if (isBinaryish(node)) {
-    const { leftNodeName, rightNodeName, operator } = getBinaryishNodeNames(
-      node
-    );
-
     // Put all operators with the same precedence level in the same
     // group. The reason we only need to do this with the `left`
     // expression is because given an expression like `1 + 2 - 3`, it
@@ -5755,11 +5740,7 @@ function printBinaryishExpressions(
     // precedence level and should be treated as a separate group, so
     // print them normally. (This doesn't hold for the `**` operator,
     // which is unique in that it is right-associative.)
-    if (
-      node.type === "NGPipeExpression" ||
-      (node.type !== "TSAsExpression" &&
-        shouldFlatten(operator, node[leftNodeName].operator))
-    ) {
+    if (shouldFlatten(node.operator, node.left.operator)) {
       // Flatten them out by recursively calling this function.
       parts = parts.concat(
         path.call(
@@ -5771,24 +5752,21 @@ function printBinaryishExpressions(
               /* isNested */ true,
               isInsideParenthesis
             ),
-          leftNodeName
+          "left"
         )
       );
     } else {
-      parts.push(path.call(print, leftNodeName));
+      parts.push(path.call(print, "left"));
     }
 
     const shouldInline = shouldInlineLogicalExpression(node);
     const lineBeforeOperator =
-      (operator === "|>" ||
+      (node.operator === "|>" ||
         node.type === "NGPipeExpression" ||
-        (operator === "|" && options.parser === "__vue_expression")) &&
-      !hasLeadingOwnLineComment(
-        options.originalText,
-        node[rightNodeName],
-        options
-      );
+        (node.operator === "|" && options.parser === "__vue_expression")) &&
+      !hasLeadingOwnLineComment(options.originalText, node.right, options);
 
+    const operator = node.type === "NGPipeExpression" ? "|" : node.operator;
     const rightSuffix =
       node.type === "NGPipeExpression" && node.arguments.length !== 0
         ? group(
@@ -5808,12 +5786,12 @@ function printBinaryishExpressions(
         : "";
 
     const right = shouldInline
-      ? concat([operator, " ", path.call(print, rightNodeName), rightSuffix])
+      ? concat([operator, " ", path.call(print, "right"), rightSuffix])
       : concat([
           lineBeforeOperator ? softline : "",
           operator,
           lineBeforeOperator ? " " : line,
-          path.call(print, rightNodeName),
+          path.call(print, "right"),
           rightSuffix,
         ]);
 
@@ -5823,8 +5801,8 @@ function printBinaryishExpressions(
     const shouldGroup =
       !(isInsideParenthesis && node.type === "LogicalExpression") &&
       parent.type !== node.type &&
-      node[leftNodeName].type !== node.type &&
-      node[rightNodeName].type !== node.type;
+      node.left.type !== node.type &&
+      node.right.type !== node.type;
 
     parts.push(" ", shouldGroup ? group(right) : right);
 
