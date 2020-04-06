@@ -65,7 +65,8 @@ function isNextNodeOfSomeType(path, types) {
 function getSiblingNode(path, offset) {
   const node = path.getValue();
   const parentNode = path.getParentNode(0) || {};
-  const children = parentNode.children || parentNode.body || [];
+  const children =
+    parentNode.children || parentNode.body || parentNode.parts || [];
   const index = children.indexOf(node);
   return index !== -1 && children[index + offset];
 }

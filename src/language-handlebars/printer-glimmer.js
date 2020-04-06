@@ -172,9 +172,6 @@ function print(path, options, print) {
       const isLastElement = !getNextNode(path);
       const isWhitespaceOnly = !/\S/.test(n.chars);
       const lineBreaksCount = countNewLines(n.chars);
-      const hasBlockParent = path.getParentNode(0).type === "Block";
-      const hasElementParent = path.getParentNode(0).type === "ElementNode";
-      const hasTemplateParent = path.getParentNode(0).type === "Template";
 
       let leadingLineBreaksCount = countLeadingNewLines(n.chars);
       let trailingLineBreaksCount = countTrailingNewLines(n.chars);
@@ -182,7 +179,7 @@ function print(path, options, print) {
       if (
         (isFirstElement || isLastElement) &&
         isWhitespaceOnly &&
-        (hasBlockParent || hasElementParent || hasTemplateParent)
+        isParentOfSomeType(path, ["Block", "ElementNode", "Template"])
       ) {
         return "";
       }
@@ -198,10 +195,7 @@ function print(path, options, print) {
           trailingLineBreaksCount = Math.max(trailingLineBreaksCount, 1);
         }
 
-        if (
-          isPreviousNodeOfSomeType(path, ["ElementNode"]) ||
-          isPreviousNodeOfSomeType(path, ["BlockStatement"])
-        ) {
+        if (isPreviousNodeOfSomeType(path, ["BlockStatement", "ElementNode"])) {
           leadingLineBreaksCount = Math.max(leadingLineBreaksCount, 1);
         }
       }
@@ -213,24 +207,12 @@ function print(path, options, print) {
       // when next to mustache statement.
       const inAttrNode = path.stack.includes("attributes");
       if (inAttrNode) {
-        const parentNode = path.getParentNode(0);
-        const isConcat = parentNode.type === "ConcatStatement";
-        if (isConcat) {
-          const { parts } = parentNode;
-          const partIndex = parts.indexOf(n);
-          if (partIndex > 0) {
-            const partType = parts[partIndex - 1].type;
-            const isMustache = partType === "MustacheStatement";
-            if (isMustache) {
-              leadingSpace = " ";
-            }
+        if (isParentOfSomeType(path, ["ConcatStatement"])) {
+          if (isPreviousNodeOfSomeType(path, ["MustacheStatement"])) {
+            leadingSpace = " ";
           }
-          if (partIndex < parts.length - 1) {
-            const partType = parts[partIndex + 1].type;
-            const isMustache = partType === "MustacheStatement";
-            if (isMustache) {
-              trailingSpace = " ";
-            }
+          if (isNextNodeOfSomeType(path, ["MustacheStatement"])) {
+            trailingSpace = " ";
           }
         }
       } else {
@@ -259,18 +241,13 @@ function print(path, options, print) {
         }
       }
 
-      return concat(
-        [
-          ...generateHardlines(leadingLineBreaksCount, maxLineBreaksToPreserve),
-          n.chars
-            .replace(/^[\s ]+/g, leadingSpace)
-            .replace(/[\s ]+$/, trailingSpace),
-          ...generateHardlines(
-            trailingLineBreaksCount,
-            maxLineBreaksToPreserve
-          ),
-        ].filter(Boolean)
-      );
+      return concat([
+        ...generateHardlines(leadingLineBreaksCount, maxLineBreaksToPreserve),
+        n.chars
+          .replace(/^[\s ]+/g, leadingSpace)
+          .replace(/[\s ]+$/, trailingSpace),
+        ...generateHardlines(trailingLineBreaksCount, maxLineBreaksToPreserve),
+      ]);
     }
     case "MustacheCommentStatement": {
       const dashes = n.value.includes("}}") ? "--" : "";
@@ -532,6 +509,34 @@ function printProgramAndInverse(path, print) {
   ]);
 }
 
+/* TextNode print helpers */
+
+function countNewLines(string) {
+  /* istanbul ignore next */
+  string = typeof string === "string" ? string : "";
+  return string.split("\n").length - 1;
+}
+
+function countLeadingNewLines(string) {
+  /* istanbul ignore next */
+  string = typeof string === "string" ? string : "";
+  const newLines = (string.match(/^([^\S\r\n]*[\r\n])+/g) || [])[0] || "";
+  return countNewLines(newLines);
+}
+
+function countTrailingNewLines(string) {
+  /* istanbul ignore next */
+  string = typeof string === "string" ? string : "";
+  const newLines = (string.match(/([\r\n][^\S\r\n]*)+$/g) || [])[0] || "";
+  return countNewLines(newLines);
+}
+
+function generateHardlines(number = 0, max = 0) {
+  return new Array(Math.min(number, max)).fill(hardline);
+}
+
+/* StringLiteral print helpers */
+
 /**
  * Prints a string literal with the correct surrounding quotes based on
  * `options.singleQuote` and the number of escaped quotes contained in
@@ -613,30 +618,6 @@ function printBlockParams(node) {
   }
 
   return concat([" as |", node.blockParams.join(" "), "|"]);
-}
-
-function countNewLines(string) {
-  /* istanbul ignore next */
-  string = typeof string === "string" ? string : "";
-  return string.split("\n").length - 1;
-}
-
-function countLeadingNewLines(string) {
-  /* istanbul ignore next */
-  string = typeof string === "string" ? string : "";
-  const newLines = (string.match(/^([^\S\r\n]*[\r\n])+/g) || [])[0] || "";
-  return countNewLines(newLines);
-}
-
-function countTrailingNewLines(string) {
-  /* istanbul ignore next */
-  string = typeof string === "string" ? string : "";
-  const newLines = (string.match(/([\r\n][^\S\r\n]*)+$/g) || [])[0] || "";
-  return countNewLines(newLines);
-}
-
-function generateHardlines(number = 0, max = 0) {
-  return new Array(Math.min(number, max)).fill(hardline);
 }
 
 /* istanbul ignore next
