@@ -126,13 +126,13 @@ function print(path, options, print) {
     }
 
     case "SubExpression": {
-      const params = printParams(path, print);
-      const printedParams =
-        params.length > 0
-          ? indent(concat([line, group(join(line, params))]))
-          : "";
       return group(
-        concat(["(", printPath(path, print), printedParams, softline, ")"])
+        concat([
+          "(",
+          printPathAndParamsForSubExpresssion(path, print),
+          softline,
+          ")",
+        ])
       );
     }
     case "AttrNode": {
@@ -583,33 +583,55 @@ function printStringLiteral(stringLiteral, options) {
   ]);
 }
 
+/* SubExpression print helpers */
+
+function printPathAndParamsForSubExpresssion(path, print) {
+  const p = printPath(path, print);
+  const params = printParams(path, print);
+
+  if (!params) {
+    return p;
+  }
+
+  return indent(concat([p, line, group(params)]));
+}
+
+/* misc. print helpers */
+
+function printPathAndParams(path, print) {
+  const p = printPath(path, print);
+  const params = printParams(path, print);
+
+  if (!params) {
+    return p;
+  }
+
+  return indent(group(concat([p, line, params])));
+}
+
 function printPath(path, print) {
   return path.call(print, "path");
 }
 
 function printParams(path, print) {
   const node = path.getValue();
-  let parts = [];
+  const parts = [];
 
-  if (node.params.length > 0) {
-    parts = parts.concat(path.map(print, "params"));
+  if (node.params.length) {
+    const params = path.map(print, "params");
+    parts.push(...params);
   }
 
   if (node.hash && node.hash.pairs.length > 0) {
-    parts.push(path.call(print, "hash"));
-  }
-  return parts;
-}
-
-function printPathAndParams(path, print) {
-  let pathParams = printPath(path, print);
-
-  const params = printParams(path, print);
-  if (params.length) {
-    pathParams = group(concat([pathParams, line, join(line, params)]));
+    const hash = path.call(print, "hash");
+    parts.push(hash);
   }
 
-  return indent(pathParams);
+  if (!parts.length) {
+    return "";
+  }
+
+  return join(line, parts);
 }
 
 function printBlockParams(node) {
