@@ -59,41 +59,17 @@ function print(path, options, print) {
       return group(concat(path.map(print, "body")));
     }
     case "ElementNode": {
-      const printParams = (path, print) =>
-        indent(
-          concat([
-            n.attributes.length ? line : "",
-            join(line, path.map(print, "attributes")),
-
-            n.modifiers.length ? line : "",
-            join(line, path.map(print, "modifiers")),
-
-            n.comments.length ? line : "",
-            join(line, path.map(print, "comments")),
-          ])
-        );
-
-      const startingTag = group(
-        concat([
-          "<",
-          n.tag,
-          printParams(path, print),
-          printBlockParams(n),
-          printStartingTagEndMarker(n),
-        ])
-      );
-
       // TODO: make it whitespace sensitive
       const bim = isNextNodeOfSomeType(path, ["ElementNode"]) ? hardline : "";
 
       if (isVoid(n)) {
-        return concat([startingTag, bim]);
+        return concat([group(printStartingTag(path, print)), bim]);
       }
 
       const isWhitespaceOnly = n.children.every((n) => isWhitespaceNode(n));
 
       return concat([
-        startingTag,
+        group(printStartingTag(path, print)),
         group(
           concat([
             isWhitespaceOnly ? "" : indent(printChildren(path, options, print)),
@@ -333,6 +309,35 @@ function print(path, options, print) {
 }
 
 /* ElementNode print helpers */
+
+function printStartingTag(path, print) {
+  const node = path.getValue();
+
+  return concat([
+    "<",
+    node.tag,
+    printAttributesLike(path, print),
+    printBlockParams(node),
+    printStartingTagEndMarker(node),
+  ]);
+}
+
+function printAttributesLike(path, print) {
+  const node = path.getValue();
+
+  return indent(
+    concat([
+      node.attributes.length ? line : "",
+      join(line, path.map(print, "attributes")),
+
+      node.modifiers.length ? line : "",
+      join(line, path.map(print, "modifiers")),
+
+      node.comments.length ? line : "",
+      join(line, path.map(print, "comments")),
+    ])
+  );
+}
 
 function printChildren(path, options, print) {
   return concat(
