@@ -27,10 +27,8 @@ describe("--list-different works in CI just as in a non-TTY mode", () => {
     "cli/write",
     ["--list-different", "formatted.js", "unformatted.js"],
     {
-      env: {
-        CI: "true",
-      },
       stdoutIsTTY: true,
+      ci: true,
     }
   ).test({
     status: 1,
