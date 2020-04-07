@@ -18,14 +18,8 @@ const getExplorerMemoized = mem(
         if (result && result.config) {
           if (typeof result.config === "string") {
             const dir = path.dirname(result.filepath);
-            try {
-              const modulePath = resolve(result.config, { paths: [dir] });
-              result.config = eval("require")(modulePath);
-            } catch (error) {
-              // Original message contains `__filename`, can't pass tests
-              error.message = `Cannot find module '${result.config}' from '${dir}'`;
-              throw error;
-            }
+            const modulePath = resolve(result.config, { paths: [dir] });
+            result.config = eval("require")(modulePath);
           }
 
           if (typeof result.config !== "object") {

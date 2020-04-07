@@ -1,5 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`resolves external configuration from package.json (stderr) 1`] = `
+"[error] Invalid configuration file \`syntax-error.js\`: THIS ERROR MUST COME FROM THIS syntax-error.js FILE
+"
+`;
+
+exports[`resolves external configuration from package.json (stdout) 1`] = `""`;
+
+exports[`resolves external configuration from package.json (write) 1`] = `Array []`;
+
 exports[`show warning with kebab-case option key (stderr) 1`] = `
 "[warn] Ignored unknown option { \\"print-width\\": 3 }. Did you mean printWidth?
 "
@@ -28,7 +37,7 @@ exports[`throw error for unsupported extension (stdout) 1`] = `""`;
 exports[`throw error for unsupported extension (write) 1`] = `Array []`;
 
 exports[`throw error with invalid config format (stderr) 1`] = `
-"[error] Invalid configuration file \`<cwd>/tests_integration/cli/config/invalid\`: Cannot find module '--invalid--' from '<cwd>/tests_integration/cli/config/invalid/file'
+"[error] Invalid configuration file \`<cwd>/tests_integration/cli/config/invalid\`: Cannot resolve module '--invalid--' from paths ['<cwd>/tests_integration/cli/config/invalid/file'] from <cwd>/src/common/resolve.js
 "
 `;
 
