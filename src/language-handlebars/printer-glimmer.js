@@ -136,7 +136,7 @@ function print(path, options, print) {
       return group(
         concat([
           "(",
-          printPathAndParamsForSubExpresssion(path, print),
+          printSubExpressionPathAndParams(path, print),
           softline,
           ")",
         ])
@@ -560,7 +560,7 @@ function printStringLiteral(stringLiteral, options) {
 
 /* SubExpression print helpers */
 
-function printPathAndParamsForSubExpresssion(path, print) {
+function printSubExpressionPathAndParams(path, print) {
   const p = printPath(path, print);
   const params = printParams(path, print);
 
