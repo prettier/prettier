@@ -251,8 +251,8 @@ function print(path, options, print) {
       return concat([
         ...generateHardlines(leadingLineBreaksCount, maxLineBreaksToPreserve),
         n.chars
-          .replace(/^[\s ]+/g, leadingSpace)
-          .replace(/[\s ]+$/, trailingSpace),
+          .replace(/^\s+/g, leadingSpace)
+          .replace(/\s+$/, trailingSpace),
         ...generateHardlines(trailingLineBreaksCount, maxLineBreaksToPreserve),
       ]);
     }
