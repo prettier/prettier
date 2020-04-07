@@ -53,7 +53,7 @@ describe("throw error with invalid config precedence option (configPrecedence)",
 });
 
 describe("resolves external configuration from package.json", () => {
-  runPrettier("cli/config-external-config-syntax-error/", [
+  runPrettier("cli/config-external-config-syntax-error", [
     "syntax-error.js",
   ]).test({
     status: 2,

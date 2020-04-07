@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`resolves external configuration from package.json (stderr) 1`] = `
-"[error] Invalid configuration file \`syntax-error.js\`: THIS ERROR MUST COME FROM THIS syntax-error.js FILE
+"[error] Invalid configuration file \`syntax-error.js\`: THIS ERROR MESSAGE MUST COME FROM THIS syntax-error.js FILE
 "
 `;
 
