@@ -582,17 +582,17 @@ function needsParens(path, options) {
         case "PipelineTopicExpression":
           return !!(node.extra && node.extra.parenthesized);
 
-        case "BinaryExpression":
-          if (node.extra && node.extra.parenthesized) {
-            return (
-              parent.operator === "|>" ||
-              (parent.operator !== "|>" &&
-                node.body.type === "BinaryExpression" &&
-                node.body.operator === "|>")
-            );
-          }
-          return false;
-
+        case "BinaryExpression": {
+          const isParenthesized = node.extra && node.extra.parenthesized;
+          return (
+            parent.operator !== "|>" ||
+            (isParenthesized && parent.operator === "|>") ||
+            (isParenthesized &&
+              parent.operator !== "|>" &&
+              node.body.type === "BinaryExpression" &&
+              node.body.operator === "|>")
+          );
+        }
         case "NewExpression":
         case "CallExpression":
         case "OptionalCallExpression":
