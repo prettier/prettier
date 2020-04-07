@@ -942,7 +942,10 @@ function printPathNoParens(path, options, print, args) {
 
       return concat(parts);
     case "AwaitExpression": {
-      parts.push("await ", path.call(print, "argument"));
+      parts.push("await");
+      if (n.argument) {
+        parts.push(" ", path.call(print, "argument"));
+      }
       const parent = path.getParentNode();
       if (
         ((parent.type === "CallExpression" ||
@@ -3676,6 +3679,15 @@ function printPathNoParens(path, options, print, args) {
         " as ",
         path.call(print, "alias"),
       ]);
+
+    case "PipelineBareFunction":
+      return path.call(print, "callee");
+    case "PipelineTopicExpression":
+      return path.call(print, "expression");
+    case "PipelinePrimaryTopicReference": {
+      parts.push("#");
+      return concat(parts);
+    }
 
     case "ArgumentPlaceholder":
       return "?";
