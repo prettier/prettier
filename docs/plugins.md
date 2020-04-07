@@ -1,11 +1,7 @@
 ---
 id: plugins
-title: Plugins (Beta)
+title: Plugins
 ---
-
-## IN BETA
-
-> The plugin API is in a **beta** state as of Prettier 1.10 and the API may change in the next release!
 
 Plugins are ways of adding new languages to Prettier. Prettier's own implementations of all languages are expressed using the plugin API. The core `prettier` package contains JavaScript and other web-focused languages built in. For additional languages you'll need to install a plugin.
 
@@ -31,7 +27,7 @@ When plugins cannot be found automatically, you can load them with:
   prettier.format("code", {
     parser: "foo",
     pluginSearchDirs: ["./dir-with-plugins"],
-    plugins: ["./foo-plugin"]
+    plugins: ["./foo-plugin"],
   });
   ```
 
@@ -45,6 +41,7 @@ Providing at least one path to `--plugin-search-dir`/`pluginSearchDirs` turns of
 - [`@prettier/plugin-pug`](https://github.com/prettier/plugin-pug) by [**@Shinigami92**](https://github.com/Shinigami92)
 - [`@prettier/plugin-ruby`](https://github.com/prettier/plugin-ruby)
 - [`@prettier/plugin-swift`](https://github.com/prettier/plugin-swift)
+- [`@prettier/plugin-xml`](https://github.com/prettier/plugin-xml)
 
 ## Community Plugins
 
@@ -58,6 +55,7 @@ Providing at least one path to `--plugin-search-dir`/`pluginSearchDirs` turns of
 - [`prettier-plugin-solidity`](https://github.com/prettier-solidity/prettier-plugin-solidity) by [**@mattiaerre**](https://github.com/mattiaerre)
 - [`prettier-plugin-svelte`](https://github.com/UnwrittenFun/prettier-plugin-svelte) by [**@UnwrittenFun**](https://github.com/UnwrittenFun)
 - [`prettier-plugin-toml`](https://github.com/bd82/toml-tools/tree/master/packages/prettier-plugin-toml) by [**@bd82**](https://github.com/bd82)
+- [`prettier-plugin-organize-imports`](https://github.com/simonhaenisch/prettier-plugin-organize-imports) by [**@simonhaenisch**](https://github.com/simonhaenisch)
 
 ## Developing Plugins
 
@@ -71,7 +69,7 @@ Prettier plugins are regular JavaScript modules with five exports:
 
 ### `languages`
 
-Languages is an array of language definitions that your plugin will contribute to Prettier. It can include all of the fields specified in [`prettier.getSupportInfo()`](api.md#prettiergetsupportinfo-version).
+Languages is an array of language definitions that your plugin will contribute to Prettier. It can include all of the fields specified in [`prettier.getSupportInfo()`](api.md#prettiergetsupportinfo).
 
 It **must** include `name` and `parsers`.
 
@@ -82,8 +80,8 @@ export const languages = [
     name: "InterpretedDanceScript",
     // Parsers that can parse this language.
     // This can be built-in parsers, or parsers you have contributed via this plugin.
-    parsers: ["dance-parse"]
-  }
+    parsers: ["dance-parse"],
+  },
 ];
 ```
 
@@ -102,8 +100,8 @@ export const parsers = {
     hasPragma,
     locStart,
     locEnd,
-    preprocess
-  }
+    preprocess,
+  },
 };
 ```
 
@@ -142,8 +140,8 @@ export const printers = {
   "dance-ast": {
     print,
     embed,
-    insertPragma
-  }
+    insertPragma,
+  },
 };
 ```
 
@@ -228,28 +226,30 @@ defaultOptions: {
 
 A `util` module from Prettier core is considered a private API and is not meant to be consumed by plugins. Instead, the `util-shared` module provides the following limited set of utility functions for plugins:
 
+<!-- prettier-ignore -->
 ```ts
-getMaxContinuousCount(str: string, target: string): number;
-getStringWidth(text: string): number;
-getAlignmentSize(value: string, tabWidth: number, startIndex: number): number;
-getIndentSize(value: string, tabWidth: number): number;
-skip(chars: string|RegExp): number;
-skipWhitespace(text: string, index: number, options: object): number;
-skipSpaces(text: string, index: number, options: object): number;
-skipToLineEnd(text: string, index: number, options: object): number;
-skipEverythingButNewLine(text: string, index: number, options: object): number;
-skipInlineComment(text: string, index: number): number;
-skipTrailingComment(text: string, index: number): number;
-skipNewline(text: string, index: number, options: object): number;
-hasNewline(text: string, index: number, options: object): boolean;
-hasNewlineInRange(text: string, start: number, start: number): boolean;
-hasSpaces(text: string, index: number, options: object): number;
-makeString(rawContent: string, enclosingQuote: string, unescapeUnnecessaryEscapes: boolean): string;
-getNextNonSpaceNonCommentCharacterIndex(text: string, node: object, options: object): number;
-isNextLineEmptyAfterIndex(text: string, index: number): boolean;
-isNextLineEmpty(text: string, node: object, options: object): boolean;
-isPreviousLineEmpty(text: string, node: object, options: object): boolean;
-mapDoc(doc: object, callback: function): void;
+type Quote = '"' | "'";
+type SkipOptions = { backwards?: boolean };
+function getMaxContinuousCount(str: string, target: string): number;
+function getStringWidth(text: string): number;
+function getAlignmentSize(value: string, tabWidth: number, startIndex?: number): number;
+function getIndentSize(value: string, tabWidth: number): number;
+function skip(chars: string | RegExp): (text: string, index: number | false, opts?: SkipOptions) => number | false;
+function skipWhitespace(text: string, index: number | false, opts?: SkipOptions): number | false;
+function skipSpaces(text: string, index: number | false, opts?: SkipOptions): number | false;
+function skipToLineEnd(text: string, index: number | false, opts?: SkipOptions): number | false;
+function skipEverythingButNewLine(text: string, index: number | false, opts?: SkipOptions): number | false;
+function skipInlineComment(text: string, index: number | false): number | false;
+function skipTrailingComment(text: string, index: number | false): number | false;
+function skipNewline(text: string, index: number | false, opts?: SkipOptions): number | false;
+function hasNewline(text: string, index: number, opts?: SkipOptions): boolean;
+function hasNewlineInRange(text: string, start: number, end: number): boolean;
+function hasSpaces(text: string, index: number, opts?: SkipOptions): boolean;
+function makeString(rawContent: string, enclosingQuote: Quote, unescapeUnnecessaryEscapes?: boolean): string;
+function getNextNonSpaceNonCommentCharacterIndex<N>(text: string, node: N, locEnd: (node: N) => number): number | false;
+function isNextLineEmptyAfterIndex(text: string, index: number): boolean;
+function isNextLineEmpty<N>(text: string, node: N, locEnd: (node: N) => number): boolean;
+function isPreviousLineEmpty<N>(text: string, node: N, locStart: (node: N) => number): boolean;
 ```
 
 ### Tutorials
@@ -265,7 +265,7 @@ const prettier = require("prettier");
 const code = "(add 1 2)";
 prettier.format(code, {
   parser: "lisp",
-  plugins: ["."]
+  plugins: ["."],
 });
 ```
 

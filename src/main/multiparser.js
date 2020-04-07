@@ -1,6 +1,6 @@
 "use strict";
 
-const normalize = require("./options").normalize;
+const { normalize } = require("./options");
 const comments = require("./comments");
 
 function printSubtree(path, print, options, printAstToDoc) {
@@ -17,7 +17,9 @@ function printSubtree(path, print, options, printAstToDoc) {
 
 function textToDoc(text, partialNextOptions, parentOptions, printAstToDoc) {
   const nextOptions = normalize(
-    Object.assign({}, parentOptions, partialNextOptions, {
+    {
+      ...parentOptions,
+      ...partialNextOptions,
       parentParser: parentOptions.parser,
       embeddedInHtml: !!(
         parentOptions.embeddedInHtml ||
@@ -26,13 +28,13 @@ function textToDoc(text, partialNextOptions, parentOptions, printAstToDoc) {
         parentOptions.parser === "angular" ||
         parentOptions.parser === "lwc"
       ),
-      originalText: text
-    }),
+      originalText: text,
+    },
     { passThrough: true }
   );
 
   const result = require("./parser").parse(text, nextOptions);
-  const ast = result.ast;
+  const { ast } = result;
   text = result.text;
 
   const astComments = ast.comments;
@@ -42,5 +44,5 @@ function textToDoc(text, partialNextOptions, parentOptions, printAstToDoc) {
 }
 
 module.exports = {
-  printSubtree
+  printSubtree,
 };

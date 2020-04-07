@@ -52,14 +52,14 @@ function parseGroup(
   counter: number,
   begin: number,
   end: number,
-  text: string
+  text: string,
 } {
   var counter = parseCounter(lines[0]);
   var timeframe = parseTimeframe(lines[1]);
   return {
     counter,
     ...timeframe,
-    text: lines[2]
+    text: lines[2],
   };
 }
 
@@ -67,7 +67,7 @@ function parseTimeframe(line: string): { begin: number, end: number } {
   var timestamps = line.split("-->");
   return {
     begin: parseTimestamp(timestamps[0].trim()),
-    end: parseTimestamp(timestamps[1].trim())
+    end: parseTimestamp(timestamps[1].trim()),
   };
 }
 
@@ -134,7 +134,7 @@ var q = { z: "" };
 var o = {
   x: 5,
   ...p,
-  ...q
+  ...q,
 };
 var y: number = o.y;
 var z: number = o.z;
@@ -143,7 +143,7 @@ var z: number = o.z;
 var r = { y: 123 };
 var s = {
   ...p,
-  ...r
+  ...r,
 };
 var t: boolean = s.y; // error, string or number
 
@@ -220,11 +220,11 @@ function test(
   x: { kind: ?string },
   kinds: { [key: string]: string }
 ): Array<{ kind: ?string }> {
-  return map(kinds, value => {
+  return map(kinds, (value) => {
     (value: string); // OK
     return {
       ...x,
-      kind: value
+      kind: value,
     };
   });
 }
@@ -261,20 +261,20 @@ for (var i = 0; i < 10; i++) {
 
 =====================================output=====================================
 var o = {
-  foo: "bar"
+  foo: "bar",
 };
 o = { ...o };
 (o: { foo: string });
 
 var p = {
-  foo: "bar"
+  foo: "bar",
 };
 (p: { foo: string, abc: string }); // error, p doesn't have \`abc\` yet
 p = { ...p, abc: "def" };
 (p: { foo: string, abc: string });
 
 var q = {
-  foo: "bar"
+  foo: "bar",
 };
 for (var i = 0; i < 10; i++) {
   q = { ...q };
@@ -303,10 +303,10 @@ let tests = [
 // @flow
 
 let tests = [
-  function(x: Object) {
+  function (x: Object) {
     ({ ...x }: Object);
     ({ ...x }: void); // error, Object
-  }
+  },
 ];
 
 ================================================================================

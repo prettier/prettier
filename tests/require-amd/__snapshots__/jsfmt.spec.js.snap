@@ -49,8 +49,8 @@ require([
   "some_project/rectangle",
   "some_project/triangle",
   "some_project/circle",
-  "some_project/star"
-], function(
+  "some_project/star",
+], function (
   $,
   Context,
   EventLogger,
@@ -71,8 +71,8 @@ define([
   "some_project/rectangle",
   "some_project/triangle",
   "some_project/circle",
-  "some_project/star"
-], function(
+  "some_project/star",
+], function (
   $,
   Context,
   EventLogger,

@@ -35,7 +35,7 @@ var o3: {[key: AnyKey]: number} = { foo: 0 };
 type Key1 = "foo" | "bar"; // make an enum type with known key set
 var o1: { [key: Key1]: number } = {
   foo: 0,
-  bar: "" // error: string ~/~ number
+  bar: "", // error: string ~/~ number
 };
 o1.foo; // OK
 o1.qux; // error: qux not found

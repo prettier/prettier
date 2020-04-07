@@ -35,10 +35,10 @@ However, if any of the items inside the array have a hard break, the array will 
 ```js
 [
   1,
-  function() {
+  function () {
     return 2;
   },
-  3
+  3,
 ];
 ```
 

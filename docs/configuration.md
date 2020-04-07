@@ -35,7 +35,7 @@ module.exports = {
   trailingComma: "es5",
   tabWidth: 4,
   semi: false,
-  singleQuote: true
+  singleQuote: true,
 };
 ```
 
@@ -63,7 +63,7 @@ singleQuote = true
 
 Overrides let you have different configuration for certain file extensions, folders and specific files.
 
-Prettier borrows ESLint’s [override format](http://eslint.org/docs/user-guide/configuring#example-configuration).
+Prettier borrows ESLint’s [override format](https://eslint.org/docs/user-guide/configuring#example-configuration).
 
 JSON:
 
@@ -129,7 +129,7 @@ An example configuration repository is available [here](https://github.com/azz/p
 > ```js
 > module.exports = {
 >   ...require("@company/prettier-config"),
->   semi: false
+>   semi: false,
 > };
 > ```
 
