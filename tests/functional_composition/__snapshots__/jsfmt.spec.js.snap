@@ -1,87 +1,146 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`functional_compose.js - flow-verify 1`] = `
+exports[`functional_compose.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 compose(
-  sortBy(x => x), 
-  flatten, 
+  sortBy(x => x),
+  flatten,
   map(x => [x, x*2])
 );
 
 somelib.compose(
-  sortBy(x => x), 
-  flatten, 
+  sortBy(x => x),
+  flatten,
   map(x => [x, x*2])
 );
 
 composeFlipped(
-  sortBy(x => x), 
-  flatten, 
+  sortBy(x => x),
+  flatten,
   map(x => [x, x*2])
 );
 
 somelib.composeFlipped(
-  sortBy(x => x), 
-  flatten, 
+  sortBy(x => x),
+  flatten,
   map(x => [x, x*2])
 );
 
 // no regression (#4602)
 const hasValue = hasOwnProperty(a, b);
 
-// filter out ThisExpression
 this.compose(sortBy(x => x), flatten);
 this.a.b.c.compose(sortBy(x => x), flatten);
 someObj.someMethod(this.field.compose(a, b));
 
-// filter out Super
 class A extends B {
   compose() {
     super.compose(sortBy(x => x), flatten);
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+this.subscriptions.add(
+            this.componentUpdates
+                .pipe(startWith(this.props), distinctUntilChanged(isEqual))
+                .subscribe(props => {
+
+                })
+        )
+
+=====================================output=====================================
 compose(
-  sortBy(x => x),
+  sortBy((x) => x),
   flatten,
-  map(x => [x, x * 2])
+  map((x) => [x, x * 2])
 );
 
 somelib.compose(
-  sortBy(x => x),
+  sortBy((x) => x),
   flatten,
-  map(x => [x, x * 2])
+  map((x) => [x, x * 2])
 );
 
 composeFlipped(
-  sortBy(x => x),
+  sortBy((x) => x),
   flatten,
-  map(x => [x, x * 2])
+  map((x) => [x, x * 2])
 );
 
 somelib.composeFlipped(
-  sortBy(x => x),
+  sortBy((x) => x),
   flatten,
-  map(x => [x, x * 2])
+  map((x) => [x, x * 2])
 );
 
 // no regression (#4602)
 const hasValue = hasOwnProperty(a, b);
 
-// filter out ThisExpression
-this.compose(sortBy(x => x), flatten);
-this.a.b.c.compose(sortBy(x => x), flatten);
+this.compose(
+  sortBy((x) => x),
+  flatten
+);
+this.a.b.c.compose(
+  sortBy((x) => x),
+  flatten
+);
 someObj.someMethod(this.field.compose(a, b));
 
-// filter out Super
 class A extends B {
   compose() {
-    super.compose(sortBy(x => x), flatten);
+    super.compose(
+      sortBy((x) => x),
+      flatten
+    );
   }
 }
 
+this.subscriptions.add(
+  this.componentUpdates
+    .pipe(startWith(this.props), distinctUntilChanged(isEqual))
+    .subscribe((props) => {})
+);
+
+================================================================================
 `;
 
-exports[`lodash_flow.js - flow-verify 1`] = `
+exports[`gobject_connect.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+button.connect(
+  "clicked",
+  () => doSomething()
+);
+app.connect(
+  "activate",
+  async () => {
+    await data.load();
+    win.show_all();
+  }
+);
+
+=====================================output=====================================
+button.connect("clicked", () => doSomething());
+app.connect("activate", async () => {
+  await data.load();
+  win.show_all();
+});
+
+================================================================================
+`;
+
+exports[`lodash_flow.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 import { flow } from "lodash";
 
 const foo = flow(
@@ -94,37 +153,44 @@ foo(6);
 
 import * as _ from "lodash";
 
-const foo = _.flow(
+const bar = _.flow(
   x => x + 1,
   x => x * 3,
   x => x - 6,
 );
 
-foo(6);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+bar(6);
+
+=====================================output=====================================
 import { flow } from "lodash";
 
 const foo = flow(
-  x => x + 1,
-  x => x * 3,
-  x => x - 6
+  (x) => x + 1,
+  (x) => x * 3,
+  (x) => x - 6
 );
 
 foo(6);
 
 import * as _ from "lodash";
 
-const foo = _.flow(
-  x => x + 1,
-  x => x * 3,
-  x => x - 6
+const bar = _.flow(
+  (x) => x + 1,
+  (x) => x * 3,
+  (x) => x - 6
 );
 
-foo(6);
+bar(6);
 
+================================================================================
 `;
 
-exports[`lodash_flow_right.js - flow-verify 1`] = `
+exports[`lodash_flow_right.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 import { flowRight } from "lodash";
 
 const foo = flowRight(
@@ -137,37 +203,67 @@ foo(6);
 
 import * as _ from "lodash";
 
-const foo = _.flowRight(
+const bar = _.flowRight(
   x => x + 1,
   x => x * 3,
   x => x - 6,
 );
 
-foo(6);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+bar(6);
+
+=====================================output=====================================
 import { flowRight } from "lodash";
 
 const foo = flowRight(
-  x => x + 1,
-  x => x * 3,
-  x => x - 6
+  (x) => x + 1,
+  (x) => x * 3,
+  (x) => x - 6
 );
 
 foo(6);
 
 import * as _ from "lodash";
 
-const foo = _.flowRight(
-  x => x + 1,
-  x => x * 3,
-  x => x - 6
+const bar = _.flowRight(
+  (x) => x + 1,
+  (x) => x * 3,
+  (x) => x - 6
 );
 
-foo(6);
+bar(6);
 
+================================================================================
 `;
 
-exports[`ramda_compose.js - flow-verify 1`] = `
+exports[`mongo_connect.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+MongoClient.connect(
+  "mongodb://localhost:27017/posts",
+  (err, db) => {
+    assert.equal(null, err);
+    db.close();
+  }
+);
+
+=====================================output=====================================
+MongoClient.connect("mongodb://localhost:27017/posts", (err, db) => {
+  assert.equal(null, err);
+  db.close();
+});
+
+================================================================================
+`;
+
+exports[`ramda_compose.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 var classyGreeting = (firstName, lastName) =>
   "The name's " + lastName + ", " + firstName + " " + lastName;
 var yellGreeting = R.compose(R.toUpper, classyGreeting);
@@ -206,30 +302,26 @@ lookupUser("JOE").then(lookupFollowers);
 var followersForUser = R.composeP(lookupFollowers, lookupUser);
 followersForUser("JOE").then(followers => console.log("Followers:", followers));
 // Followers: ["STEVE","SUZY"]
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+const mapStateToProps = state => ({
+  users: R.compose( R.filter(R.propEq('status', 'active')),
+    R.values)(state.users)
+});
+
+=====================================output=====================================
 var classyGreeting = (firstName, lastName) =>
   "The name's " + lastName + ", " + firstName + " " + lastName;
-var yellGreeting = R.compose(
-  R.toUpper,
-  classyGreeting
-);
+var yellGreeting = R.compose(R.toUpper, classyGreeting);
 yellGreeting("James", "Bond"); //=> "THE NAME'S BOND, JAMES BOND"
 
-R.compose(
-  Math.abs,
-  R.add(1),
-  R.multiply(2)
-)(-4); //=> 7
+R.compose(Math.abs, R.add(1), R.multiply(2))(-4); //=> 7
 
 //  get :: String -> Object -> Maybe *
 var get = R.curry((propName, obj) => Maybe(obj[propName]));
 
 //  getStateCode :: Maybe String -> Maybe String
 var getStateCode = R.composeK(
-  R.compose(
-    Maybe.of,
-    R.toUpper
-  ),
+  R.compose(Maybe.of, R.toUpper),
   get("state"),
   get("address"),
   get("user")
@@ -241,27 +333,39 @@ var db = {
   users: {
     JOE: {
       name: "Joe",
-      followers: ["STEVE", "SUZY"]
-    }
-  }
+      followers: ["STEVE", "SUZY"],
+    },
+  },
 };
 
 // We'll pretend to do a db lookup which returns a promise
-var lookupUser = userId => Promise.resolve(db.users[userId]);
-var lookupFollowers = user => Promise.resolve(user.followers);
+var lookupUser = (userId) => Promise.resolve(db.users[userId]);
+var lookupFollowers = (user) => Promise.resolve(user.followers);
 lookupUser("JOE").then(lookupFollowers);
 
 //  followersForUser :: String -> Promise [UserId]
-var followersForUser = R.composeP(
-  lookupFollowers,
-  lookupUser
+var followersForUser = R.composeP(lookupFollowers, lookupUser);
+followersForUser("JOE").then((followers) =>
+  console.log("Followers:", followers)
 );
-followersForUser("JOE").then(followers => console.log("Followers:", followers));
 // Followers: ["STEVE","SUZY"]
 
+const mapStateToProps = (state) => ({
+  users: R.compose(
+    R.filter(R.propEq("status", "active")),
+    R.values
+  )(state.users),
+});
+
+================================================================================
 `;
 
-exports[`ramda_pipe.js - flow-verify 1`] = `
+exports[`ramda_pipe.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 var f = R.pipe(Math.pow, R.negate, R.inc);
 
 f(3, 4); // -(3^4) + 1
@@ -285,12 +389,9 @@ getStateCode("[Invalid JSON]");
 
 //  followersForUser :: String -> Promise [User]
 var followersForUser = R.pipeP(db.getUserById, db.getFollowers);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var f = R.pipe(
-  Math.pow,
-  R.negate,
-  R.inc
-);
+
+=====================================output=====================================
+var f = R.pipe(Math.pow, R.negate, R.inc);
 
 f(3, 4); // -(3^4) + 1
 
@@ -303,10 +404,7 @@ var getStateCode = R.pipeK(
   get("user"),
   get("address"),
   get("state"),
-  R.compose(
-    Maybe.of,
-    R.toUpper
-  )
+  R.compose(Maybe.of, R.toUpper)
 );
 
 getStateCode('{"user":{"address":{"state":"ny"}}}');
@@ -315,14 +413,17 @@ getStateCode("[Invalid JSON]");
 //=> Nothing()
 
 //  followersForUser :: String -> Promise [User]
-var followersForUser = R.pipeP(
-  db.getUserById,
-  db.getFollowers
-);
+var followersForUser = R.pipeP(db.getUserById, db.getFollowers);
 
+================================================================================
 `;
 
-exports[`redux_compose.js - flow-verify 1`] = `
+exports[`redux_compose.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import DevTools from './containers/DevTools';
@@ -336,7 +437,8 @@ const store = createStore(
   )
 )
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import DevTools from "./containers/DevTools";
@@ -344,26 +446,69 @@ import reducer from "../reducers";
 
 const store = createStore(
   reducer,
-  compose(
-    applyMiddleware(thunk),
-    DevTools.instrument()
-  )
+  compose(applyMiddleware(thunk), DevTools.instrument())
 );
 
+================================================================================
 `;
 
-exports[`redux_connect.js - flow-verify 1`] = `
+exports[`redux_connect.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const ArtistInput = connect(mapStateToProps, mapDispatchToProps, mergeProps)(Component);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const ArtistInput = connect(
   mapStateToProps,
   mapDispatchToProps,
   mergeProps
 )(Component);
 
+================================================================================
 `;
 
-exports[`rxjs_pipe.js - flow-verify 1`] = `
+exports[`reselect_createselector.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import { createSelector } from 'reselect';
+
+const foo = createSelector(
+  getIds,
+  getObjects,
+  (ids, objects) => ids.map(id => objects[id])
+);
+
+const bar = createSelector(
+  [getIds, getObjects],
+  (ids, objects) => ids.map(id => objects[id])
+);
+
+=====================================output=====================================
+import { createSelector } from "reselect";
+
+const foo = createSelector(getIds, getObjects, (ids, objects) =>
+  ids.map((id) => objects[id])
+);
+
+const bar = createSelector([getIds, getObjects], (ids, objects) =>
+  ids.map((id) => objects[id])
+);
+
+================================================================================
+`;
+
+exports[`rxjs_pipe.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 import { range } from 'rxjs/observable/range';
 import { map, filter, scan } from 'rxjs/operators';
 
@@ -375,7 +520,8 @@ source$.pipe(
   scan((acc, x) => acc + x, 0)
 )
 .subscribe(x => console.log(x))
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 import { range } from "rxjs/observable/range";
 import { map, filter, scan } from "rxjs/operators";
 
@@ -383,10 +529,11 @@ const source$ = range(0, 10);
 
 source$
   .pipe(
-    filter(x => x % 2 === 0),
-    map(x => x + x),
+    filter((x) => x % 2 === 0),
+    map((x) => x + x),
     scan((acc, x) => acc + x, 0)
   )
-  .subscribe(x => console.log(x));
+  .subscribe((x) => console.log(x));
 
+================================================================================
 `;

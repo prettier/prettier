@@ -1,13 +1,13 @@
-class A {
+class A1 {
   // comment
 }
 
-class A { // comment
+class A2 { // comment
 }
 
-class A {
+class A3 {
 }
 
-class A {
+class A4 {
   m() {}
 }

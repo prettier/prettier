@@ -1,6 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`align.md - markdown-verify 1`] = `
+exports[`align.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 1. 123
 
 ---
@@ -18,67 +24,117 @@ exports[`align.md - markdown-verify 1`] = `
 ---
 
 11111. 123
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
 1.  123
 
 ---
 
+1.  123
+2.  123
+
+---
+
 11. 123
-
----
-
-111.  123
-
----
-
-1111. 123
-
----
-
-11111.  123
-
-`;
-
-exports[`align.md - markdown-verify 2`] = `
 1. 123
 
 ---
 
 11. 123
-
----
-
-111. 123
-
----
-
-1111. 123
-
----
-
-11111. 123
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 1.  123
 
 ---
 
+1. 123
+2. 123
+   1.   123
+   2.   123
+
+---
+
+1.  123
+2.  123
+    1.   123
+    2.   123
+
+---
+
+- 123
+- 123
+  1.  123
+  2.  123
+
+=====================================output=====================================
+1. 123
+
+---
+
 11. 123
 
 ---
 
-111.    123
+111. 123
 
 ---
 
-1111.   123
+1111. 123
 
 ---
 
-11111.  123
+11111. 123
 
+---
+
+1.  123
+
+---
+
+1.  123
+2.  123
+
+---
+
+11. 123
+1. 123
+
+---
+
+11. 123
+1.  123
+
+---
+
+1. 123
+2. 123
+   1. 123
+   2. 123
+
+---
+
+1.  123
+2.  123
+    1.  123
+    2.  123
+
+---
+
+- 123
+- 123
+  1.  123
+  2.  123
+
+================================================================================
 `;
 
-exports[`align.md - markdown-verify 3`] = `
+exports[`align.md 2`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 4
+                                                                                | printWidth
+=====================================input======================================
 1. 123
 
 ---
@@ -96,7 +152,48 @@ exports[`align.md - markdown-verify 3`] = `
 ---
 
 11111. 123
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+1.  123
+
+---
+
+1.  123
+2.  123
+
+---
+
+11. 123
+1. 123
+
+---
+
+11. 123
+1.  123
+
+---
+
+1. 123
+2. 123
+   1.   123
+   2.   123
+
+---
+
+1.  123
+2.  123
+    1.   123
+    2.   123
+
+---
+
+- 123
+- 123
+  1.  123
+  2.  123
+
+=====================================output=====================================
 1. 123
 
 ---
@@ -115,9 +212,57 @@ exports[`align.md - markdown-verify 3`] = `
 
 11111. 123
 
+---
+
+1.  123
+
+---
+
+1.  123
+2.  123
+
+---
+
+11. 123
+1. 123
+
+---
+
+11. 123
+1.  123
+
+---
+
+1. 123
+2. 123
+    1. 123
+    2. 123
+
+---
+
+1.  123
+2.  123
+    1.  123
+    2.  123
+
+---
+
+-   123
+-   123
+    1.  123
+    2.  123
+
+================================================================================
 `;
 
-exports[`align.md - markdown-verify 4`] = `
+exports[`align.md 3`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 999
+                                                                                | printWidth
+=====================================input======================================
 1. 123
 
 ---
@@ -135,7 +280,48 @@ exports[`align.md - markdown-verify 4`] = `
 ---
 
 11111. 123
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+---
+
+1.  123
+
+---
+
+1.  123
+2.  123
+
+---
+
+11. 123
+1. 123
+
+---
+
+11. 123
+1.  123
+
+---
+
+1. 123
+2. 123
+   1.   123
+   2.   123
+
+---
+
+1.  123
+2.  123
+    1.   123
+    2.   123
+
+---
+
+- 123
+- 123
+  1.  123
+  2.  123
+
+=====================================output=====================================
 1. 123
 
 ---
@@ -154,97 +340,342 @@ exports[`align.md - markdown-verify 4`] = `
 
 11111. 123
 
+---
+
+1. 123
+
+---
+
+1. 123
+2. 123
+
+---
+
+11. 123
+1. 123
+
+---
+
+11. 123
+1. 123
+
+---
+
+1. 123
+2. 123
+      1. 123
+      2. 123
+
+---
+
+1. 123
+2. 123
+      1. 123
+      2. 123
+
+---
+
+- 123
+- 123
+     1. 123
+     2. 123
+
+================================================================================
 `;
 
-exports[`checkbox.md - markdown-verify 1`] = `
+exports[`align.md 4`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 0
+                                                                                | printWidth
+=====================================input======================================
+1. 123
+
+---
+
+11. 123
+
+---
+
+111. 123
+
+---
+
+1111. 123
+
+---
+
+11111. 123
+
+---
+
+1.  123
+
+---
+
+1.  123
+2.  123
+
+---
+
+11. 123
+1. 123
+
+---
+
+11. 123
+1.  123
+
+---
+
+1. 123
+2. 123
+   1.   123
+   2.   123
+
+---
+
+1.  123
+2.  123
+    1.   123
+    2.   123
+
+---
+
+- 123
+- 123
+  1.  123
+  2.  123
+
+=====================================output=====================================
+1. 123
+
+---
+
+11. 123
+
+---
+
+111. 123
+
+---
+
+1111. 123
+
+---
+
+11111. 123
+
+---
+
+1. 123
+
+---
+
+1. 123
+2. 123
+
+---
+
+11. 123
+1. 123
+
+---
+
+11. 123
+1. 123
+
+---
+
+1. 123
+2. 123
+   1. 123
+   2. 123
+
+---
+
+1. 123
+2. 123
+   1. 123
+   2. 123
+
+---
+
+- 123
+- 123
+  1. 123
+  2. 123
+
+================================================================================
+`;
+
+exports[`checkbox.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 - [ ] this is a long long long long long long long long long long long long long long paragraph.
 - [x] this is a long long long long long long long long long long long long long long paragraph.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 - [ ] this is a long long long long long long long long long long long long long
       long paragraph.
 - [x] this is a long long long long long long long long long long long long long
       long paragraph.
 
+================================================================================
 `;
 
-exports[`checkbox.md - markdown-verify 2`] = `
+exports[`checkbox.md 2`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 4
+                                                                                | printWidth
+=====================================input======================================
 - [ ] this is a long long long long long long long long long long long long long long paragraph.
 - [x] this is a long long long long long long long long long long long long long long paragraph.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 -   [ ] this is a long long long long long long long long long long long long
         long long paragraph.
 -   [x] this is a long long long long long long long long long long long long
         long long paragraph.
 
+================================================================================
 `;
 
-exports[`checkbox.md - markdown-verify 3`] = `
+exports[`checkbox.md 3`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 999
+                                                                                | printWidth
+=====================================input======================================
 - [ ] this is a long long long long long long long long long long long long long long paragraph.
 - [x] this is a long long long long long long long long long long long long long long paragraph.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 - [ ] this is a long long long long long long long long long long long long long
       long paragraph.
 - [x] this is a long long long long long long long long long long long long long
       long paragraph.
 
+================================================================================
 `;
 
-exports[`checkbox.md - markdown-verify 4`] = `
+exports[`checkbox.md 4`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 0
+                                                                                | printWidth
+=====================================input======================================
 - [ ] this is a long long long long long long long long long long long long long long paragraph.
 - [x] this is a long long long long long long long long long long long long long long paragraph.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 - [ ] this is a long long long long long long long long long long long long long
       long paragraph.
 - [x] this is a long long long long long long long long long long long long long
       long paragraph.
 
+================================================================================
 `;
 
-exports[`git-diff-friendly.md - markdown-verify 1`] = `
+exports[`git-diff-friendly.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 5. abc
 1. def
 999. ghi
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-5.  abc
-1.  def
-1.  ghi
 
-`;
-
-exports[`git-diff-friendly.md - markdown-verify 2`] = `
-5. abc
-1. def
-999. ghi
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-5.  abc
-1.  def
-1.  ghi
-
-`;
-
-exports[`git-diff-friendly.md - markdown-verify 3`] = `
-5. abc
-1. def
-999. ghi
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=====================================output=====================================
 5. abc
 1. def
 1. ghi
 
+================================================================================
 `;
 
-exports[`git-diff-friendly.md - markdown-verify 4`] = `
+exports[`git-diff-friendly.md 2`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 4
+                                                                                | printWidth
+=====================================input======================================
 5. abc
 1. def
 999. ghi
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 5. abc
 1. def
 1. ghi
 
+================================================================================
 `;
 
-exports[`indent.md - markdown-verify 1`] = `
+exports[`git-diff-friendly.md 3`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 999
+                                                                                | printWidth
+=====================================input======================================
+5. abc
+1. def
+999. ghi
+
+=====================================output=====================================
+5. abc
+1. def
+1. ghi
+
+================================================================================
+`;
+
+exports[`git-diff-friendly.md 4`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 0
+                                                                                | printWidth
+=====================================input======================================
+5. abc
+1. def
+999. ghi
+
+=====================================output=====================================
+5. abc
+1. def
+1. ghi
+
+================================================================================
+`;
+
+exports[`indent.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
 
     - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
@@ -330,661 +761,8 @@ exports[`indent.md - markdown-verify 1`] = `
                     b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
 
           a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-- [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-      a a a a a a a a a a a a a a a
 
-  - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-    a a a a a a a a a a a a a a
-
-    b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-    b b b b b b b b b b b b b b
-
-  - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-        a a a a a a a a a a a a a a
-
-    b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-    b b b b b b b b b b b b b b
-
-  1.  a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-      a a a a a a a a a a a a a a a
-
-      b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-      b b b b b b b b b b b b b b b
-
-  1.  [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-          a a a a a a a a a a a a a a a
-
-      b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-      b b b b b b b b b b b b b b b
-
-  12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-            a a a a a a a a a a a a a a
-
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-            b b b b b b b b b b b b b b
-
-  12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-                a a a a a a a a a a a a a a
-
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-            b b b b b b b b b b b b b b
-
-  a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-  a a a a a a a a a a a a a a
-
-1.  [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-        a a a a a a a a a a a a a a a a
-
-    - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-      a a a a a a a a a a a a a a a
-
-      b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-      b b b b b b b b b b b b b b b
-
-    - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-          a a a a a a a a a a a a a a a
-
-      b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-      b b b b b b b b b b b b b b b
-
-    1.  a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-        a a a a a a a a a a a a a a a a
-
-        b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-        b b b b b b b b b b b b b b b b
-
-    1.  [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-            a a a a a a a a a a a a a a a a
-
-        b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-        b b b b b b b b b b b b b b b b
-
-    12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-              a a a a a a a a a a a a a a a
-
-              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-              b b b b b b b b b b b b b b b
-
-    12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-                  a a a a a a a a a a a a a a a
-
-              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-              b b b b b b b b b b b b b b b
-
-    a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-    a a a a a a a a a a a a a a a
-
-12345678) [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-              a a a a a a a a a a a a a a a
-
-          b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-          b b b b b b b b b b b b b b b
-
-          - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-            a a a a a a a a a a a a a a a
-
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-            b b b b b b b b b b b b b b b
-
-          - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-                a a a a a a a a a a a a a a a
-
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-            b b b b b b b b b b b b b b b
-
-          1.  a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-              a a a a a a a a a a a a a a a a
-
-              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-              b b b b b b b b b b b b b b b b
-
-          1.  [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-                  a a a a a a a a a a a a a a a a
-
-              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-              b b b b b b b b b b b b b b b b
-
-          12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-                    a a a a a a a a a a a a a a a
-
-                    b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-                    b b b b b b b b b b b b b b b b
-
-          12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-                        a a a a a a a a a a a a a a a
-
-                    b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-                    b b b b b b b b b b b b b b b b
-
-          a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-          a a a a a a a a a a a a a a a
-
-`;
-
-exports[`indent.md - markdown-verify 2`] = `
-- [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-    - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-      b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-
-    - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-      b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-
-    1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-       b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-
-    1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-       b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-
-    12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-
-    12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-
-    a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-    - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-      b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-
-    - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-      b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-
-    1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-       b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-
-    1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-       b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-
-    12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-
-    12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-
-    a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-12345678) [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-          b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-
-          - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-
-          - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-
-          1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-             b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-
-          1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-             b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-
-          12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-                    b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-
-          12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-                    b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-
-          a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
--   [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-        a a a a a a a a a a a a a a a a
-
-    -   a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-        a a a a a a a a a a a a a a a a
-
-        b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-        b b b b b b b b b b b b b b b b
-
-    -   [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-            a a a a a a a a a a a a a a a a
-
-        b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-        b b b b b b b b b b b b b b b b
-
-    1.  a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-        a a a a a a a a a a a a a a a a
-
-        b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-        b b b b b b b b b b b b b b b b
-
-    1.  [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-            a a a a a a a a a a a a a a a a
-
-        b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-        b b b b b b b b b b b b b b b b
-
-    12345678)   a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-                a a a a a a a a a a a a a a a a
-
-                b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-                b b b b b b b b b b b b b b b b
-
-    12345678.   [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-                    a a a a a a a a a a a a a a a a
-
-                b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-                b b b b b b b b b b b b b b b b
-
-    a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-    a a a a a a a a a a a a a a a
-
-1.  [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-        a a a a a a a a a a a a a a a a
-
-    -   a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-        a a a a a a a a a a a a a a a a
-
-        b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-        b b b b b b b b b b b b b b b b
-
-    -   [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-            a a a a a a a a a a a a a a a a
-
-        b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-        b b b b b b b b b b b b b b b b
-
-    1.  a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-        a a a a a a a a a a a a a a a a
-
-        b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-        b b b b b b b b b b b b b b b b
-
-    1.  [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-            a a a a a a a a a a a a a a a a
-
-        b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-        b b b b b b b b b b b b b b b b
-
-    12345678)   a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-                a a a a a a a a a a a a a a a a
-
-                b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-                b b b b b b b b b b b b b b b b
-
-    12345678.   [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-                    a a a a a a a a a a a a a a a a
-
-                b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-                b b b b b b b b b b b b b b b b
-
-    a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-    a a a a a a a a a a a a a a a
-
-12345678)   [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-                a a a a a a a a a a a a a a a a
-
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-            b b b b b b b b b b b b b b b b
-
-            -   a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-                a a a a a a a a a a a a a a a a a
-
-                b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-                b b b b b b b b b b b b b b b b b
-
-            -   [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-                    a a a a a a a a a a a a a a a a a
-
-                b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-                b b b b b b b b b b b b b b b b b
-
-            1.  a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-                a a a a a a a a a a a a a a a a a
-
-                b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-                b b b b b b b b b b b b b b b b b
-
-            1.  [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-                    a a a a a a a a a a a a a a a a a
-
-                b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-                b b b b b b b b b b b b b b b b b
-
-            12345678)   a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-                        a a a a a a a a a a a a a a a a a
-
-                        b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-                        b b b b b b b b b b b b b b b b b b
-
-            12345678.   [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a
-                            a a a a a a a a a a a a a a a a a
-
-                        b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-                        b b b b b b b b b b b b b b b b b b
-
-            a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-            a a a a a a a a a a a a a a a a
-
-`;
-
-exports[`indent.md - markdown-verify 3`] = `
-- [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-    - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-      b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-
-    - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-      b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-
-    1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-       b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-
-    1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-       b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-
-    12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-
-    12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-
-    a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-    - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-      b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-
-    - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-      b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-
-    1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-       b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-
-    1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-       b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-
-    12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-
-    12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-
-    a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-12345678) [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-          b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-
-          - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-
-          - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-
-          1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-             b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-
-          1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-             b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-
-          12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-                    b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-
-          12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-                    b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-
-          a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-- [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-      a a a a a a a a a a a a a a a
-
-     - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-       a a a a a a a a a a a a a a a
-
-          b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-          b b b b b b b b b b b b b b b b b
-
-     - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-           a a a a a a a a a a a a a a a
-
-          b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-          b b b b b b b b b b b b b b b b b
-
-     1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-        a a a a a a a a a a a a a a a a
-
-           b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-           b b b b b b b b b b b b b b b b b
-
-     1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-            a a a a a a a a a a a a a a a a
-
-           b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-           b b b b b b b b b b b b b b b b b
-
-     12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-               a a a a a a a a a a a a a a a
-
-                  b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-                  b b b b b b b b b b b b b b b b b
-
-     12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-                   a a a a a a a a a a a a a a a
-
-                  b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-                  b b b b b b b b b b b b b b b b b
-
-     a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-     a a a a a a a a a a a a a a a
-
-1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-       a a a a a a a a a a a a a a a
-
-      - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-        a a a a a a a a a a a a a a a a
-
-           b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-           b b b b b b b b b b b b b b b b b
-
-      - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-            a a a a a a a a a a a a a a a a
-
-           b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-           b b b b b b b b b b b b b b b b b
-
-      1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-         a a a a a a a a a a a a a a a a
-
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-            b b b b b b b b b b b b b b b b b b
-
-      1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-             a a a a a a a a a a a a a a a a
-
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-            b b b b b b b b b b b b b b b b b b
-
-      12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-                a a a a a a a a a a a a a a a a
-
-                   b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-                   b b b b b b b b b b b b b b b b b
-
-      12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-                    a a a a a a a a a a a a a a a a
-
-                   b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-                   b b b b b b b b b b b b b b b b b
-
-      a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-      a a a a a a a a a a a a a a a a
-
-12345678) [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-              a a a a a a a a a a a a a a a
-
-             b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-             b b b b b b b b b b b b b b b b
-
-             - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-               a a a a a a a a a a a a a a a a
-
-                  b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-                  b b b b b b b b b b b b b b b b b b
-
-             - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-                   a a a a a a a a a a a a a a a a
-
-                  b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-                  b b b b b b b b b b b b b b b b b b
-
-             1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-                a a a a a a a a a a a a a a a a a
-
-                   b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-                   b b b b b b b b b b b b b b b b b b
-
-             1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-                    a a a a a a a a a a a a a a a a a
-
-                   b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-                   b b b b b b b b b b b b b b b b b b
-
-             12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-                       a a a a a a a a a a a a a a a a
-
-                          b b b b b b b b b b b b b b b b b b b b b b b b b b b
-                          b b b b b b b b b b b b b b b b b b b
-
-             12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a
-                           a a a a a a a a a a a a a a a a
-
-                          b b b b b b b b b b b b b b b b b b b b b b b b b b b
-                          b b b b b b b b b b b b b b b b b b b
-
-             a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-             a a a a a a a a a a a a a a a a
-
-`;
-
-exports[`indent.md - markdown-verify 4`] = `
-- [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-    - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-      b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-
-    - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-      b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-
-    1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-       b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-
-    1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-       b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-
-    12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-
-    12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-
-    a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-    - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-      b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-
-    - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-      b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-
-    1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-       b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-
-    1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-       b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-
-    12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-
-    12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-
-    a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-12345678) [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-          b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-
-          - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-
-          - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-
-          1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-             b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-
-          1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-             b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-
-          12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-                    b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-
-          12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-
-                    b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
-
-          a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=====================================output=====================================
 - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
       a a a a a a a a a a a a a a a
 
@@ -1114,81 +892,978 @@ exports[`indent.md - markdown-verify 4`] = `
           a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
           a a a a a a a a a a a a a a a
 
+================================================================================
 `;
 
-exports[`interrupt.md - markdown-verify 1`] = `
+exports[`indent.md 2`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 4
+                                                                                | printWidth
+=====================================input======================================
+- [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+    - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+      b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+    - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+      b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+    1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+       b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+    1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+       b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+    12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+    12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+    a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+    - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+      b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+    - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+      b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+    1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+       b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+    1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+       b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+    12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+    12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+    a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+12345678) [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+          b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+          - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+          - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+          1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+             b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+          1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+             b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+          12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+                    b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+          12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+                    b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+          a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+=====================================output=====================================
+-   [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+        a a a a a a a a a a a a a a a a
+
+    -   a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+        a a a a a a a a a a a a a a a a
+
+        b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+        b b b b b b b b b b b b b b b b
+
+    -   [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+            a a a a a a a a a a a a a a a a
+
+        b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+        b b b b b b b b b b b b b b b b
+
+    1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+       a a a a a a a a a a a a a a a
+
+        b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+        b b b b b b b b b b b b b b b b
+
+    1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+           a a a a a a a a a a a a a a a
+
+        b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+        b b b b b b b b b b b b b b b b
+
+    12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+              a a a a a a a a a a a a a a a
+
+              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+              b b b b b b b b b b b b b b b
+
+    12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+                  a a a a a a a a a a a a a a a
+
+              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+              b b b b b b b b b b b b b b b
+
+    a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+    a a a a a a a a a a a a a a a
+
+1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+       a a a a a a a a a a a a a a a
+
+    - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+      a a a a a a a a a a a a a a a
+
+        b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+        b b b b b b b b b b b b b b b b
+
+    - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+          a a a a a a a a a a a a a a a
+
+        b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+        b b b b b b b b b b b b b b b b
+
+    1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+       a a a a a a a a a a a a a a a
+
+        b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+        b b b b b b b b b b b b b b b b
+
+    1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+           a a a a a a a a a a a a a a a
+
+        b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+        b b b b b b b b b b b b b b b b
+
+    12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+              a a a a a a a a a a a a a a a
+
+              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+              b b b b b b b b b b b b b b b
+
+    12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+                  a a a a a a a a a a a a a a a
+
+              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+              b b b b b b b b b b b b b b b
+
+    a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+    a a a a a a a a a a a a a a a
+
+12345678) [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+              a a a a a a a a a a a a a a a
+
+          b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+          b b b b b b b b b b b b b b b
+
+          - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+            a a a a a a a a a a a a a a a
+
+              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+              b b b b b b b b b b b b b b b b
+
+          - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+                a a a a a a a a a a a a a a a
+
+              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+              b b b b b b b b b b b b b b b b
+
+          1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+             a a a a a a a a a a a a a a a
+
+              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+              b b b b b b b b b b b b b b b b
+
+          1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+                 a a a a a a a a a a a a a a a
+
+              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+              b b b b b b b b b b b b b b b b
+
+          12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+                    a a a a a a a a a a a a a a a
+
+                    b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+                    b b b b b b b b b b b b b b b b
+
+          12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+                        a a a a a a a a a a a a a a a
+
+                    b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+                    b b b b b b b b b b b b b b b b
+
+          a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+          a a a a a a a a a a a a a a a
+
+================================================================================
+`;
+
+exports[`indent.md 3`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 999
+                                                                                | printWidth
+=====================================input======================================
+- [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+    - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+      b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+    - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+      b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+    1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+       b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+    1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+       b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+    12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+    12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+    a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+    - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+      b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+    - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+      b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+    1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+       b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+    1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+       b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+    12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+    12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+    a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+12345678) [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+          b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+          - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+          - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+          1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+             b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+          1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+             b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+          12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+                    b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+          12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+                    b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+          a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+=====================================output=====================================
+- [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+      a a a a a a a a a a a a a a a
+
+     - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+       a a a a a a a a a a a a a a a
+
+          b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+          b b b b b b b b b b b b b b b b b
+
+     - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+           a a a a a a a a a a a a a a a
+
+          b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+          b b b b b b b b b b b b b b b b b
+
+     1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+        a a a a a a a a a a a a a a a a
+
+           b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+           b b b b b b b b b b b b b b b b b
+
+     1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+            a a a a a a a a a a a a a a a a
+
+           b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+           b b b b b b b b b b b b b b b b b
+
+     12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+               a a a a a a a a a a a a a a a
+
+                  b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+                  b b b b b b b b b b b b b b b b b
+
+     12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+                   a a a a a a a a a a a a a a a
+
+                  b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+                  b b b b b b b b b b b b b b b b b
+
+     a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+     a a a a a a a a a a a a a a a
+
+1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+       a a a a a a a a a a a a a a a
+
+      - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+        a a a a a a a a a a a a a a a a
+
+           b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+           b b b b b b b b b b b b b b b b b
+
+      - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+            a a a a a a a a a a a a a a a a
+
+           b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+           b b b b b b b b b b b b b b b b b
+
+      1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+         a a a a a a a a a a a a a a a a
+
+            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+            b b b b b b b b b b b b b b b b b b
+
+      1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+             a a a a a a a a a a a a a a a a
+
+            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+            b b b b b b b b b b b b b b b b b b
+
+      12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+                a a a a a a a a a a a a a a a a
+
+                   b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+                   b b b b b b b b b b b b b b b b b
+
+      12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+                    a a a a a a a a a a a a a a a a
+
+                   b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+                   b b b b b b b b b b b b b b b b b
+
+      a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+      a a a a a a a a a a a a a a a a
+
+12345678) [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+              a a a a a a a a a a a a a a a
+
+             b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+             b b b b b b b b b b b b b b b b
+
+             - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+               a a a a a a a a a a a a a a a a
+
+                  b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+                  b b b b b b b b b b b b b b b b b b
+
+             - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+                   a a a a a a a a a a a a a a a a
+
+                  b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+                  b b b b b b b b b b b b b b b b b b
+
+             1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+                a a a a a a a a a a a a a a a a a
+
+                   b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+                   b b b b b b b b b b b b b b b b b b
+
+             1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+                    a a a a a a a a a a a a a a a a a
+
+                   b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+                   b b b b b b b b b b b b b b b b b b
+
+             12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+                       a a a a a a a a a a a a a a a a
+
+                          b b b b b b b b b b b b b b b b b b b b b b b b b b b
+                          b b b b b b b b b b b b b b b b b b b
+
+             12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a
+                           a a a a a a a a a a a a a a a a
+
+                          b b b b b b b b b b b b b b b b b b b b b b b b b b b
+                          b b b b b b b b b b b b b b b b b b b
+
+             a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+             a a a a a a a a a a a a a a a a
+
+================================================================================
+`;
+
+exports[`indent.md 4`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 0
+                                                                                | printWidth
+=====================================input======================================
+- [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+    - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+      b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+    - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+      b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+    1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+       b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+    1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+       b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+    12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+    12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+    a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+    - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+      b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+    - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+      b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+    1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+       b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+    1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+       b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+    12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+    12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+    a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+12345678) [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+          b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+          - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+          - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+          1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+             b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+          1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+             b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+          12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+                    b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+          12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+                    b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+
+          a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+
+=====================================output=====================================
+- [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+      a a a a a a a a a a a a a a a
+
+  - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+    a a a a a a a a a a a a a a
+
+    b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+    b b b b b b b b b b b b b b
+
+  - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+        a a a a a a a a a a a a a a
+
+    b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+    b b b b b b b b b b b b b b
+
+  1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+     a a a a a a a a a a a a a a
+
+     b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+     b b b b b b b b b b b b b b
+
+  1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+         a a a a a a a a a a a a a a
+
+     b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+     b b b b b b b b b b b b b b
+
+  12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+            a a a a a a a a a a a a a a
+
+            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+            b b b b b b b b b b b b b b
+
+  12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+                a a a a a a a a a a a a a a
+
+            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+            b b b b b b b b b b b b b b
+
+  a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+  a a a a a a a a a a a a a a
+
+1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+       a a a a a a a a a a a a a a a
+
+   - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+     a a a a a a a a a a a a a a
+
+     b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+     b b b b b b b b b b b b b b
+
+   - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+         a a a a a a a a a a a a a a
+
+     b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+     b b b b b b b b b b b b b b
+
+   1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+      a a a a a a a a a a a a a a a
+
+      b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+      b b b b b b b b b b b b b b b
+
+   1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+          a a a a a a a a a a a a a a a
+
+      b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+      b b b b b b b b b b b b b b b
+
+   12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+             a a a a a a a a a a a a a a
+
+             b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+             b b b b b b b b b b b b b b
+
+   12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+                 a a a a a a a a a a a a a a
+
+             b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+             b b b b b b b b b b b b b b
+
+   a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+   a a a a a a a a a a a a a a
+
+12345678) [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+              a a a a a a a a a a a a a a a
+
+          b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+          b b b b b b b b b b b b b b b
+
+          - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+            a a a a a a a a a a a a a a a
+
+            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+            b b b b b b b b b b b b b b b
+
+          - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+                a a a a a a a a a a a a a a a
+
+            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+            b b b b b b b b b b b b b b b
+
+          1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+             a a a a a a a a a a a a a a a
+
+             b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+             b b b b b b b b b b b b b b b
+
+          1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+                 a a a a a a a a a a a a a a a
+
+             b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+             b b b b b b b b b b b b b b b
+
+          12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+                    a a a a a a a a a a a a a a a
+
+                    b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+                    b b b b b b b b b b b b b b b b
+
+          12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+                        a a a a a a a a a a a a a a a
+
+                    b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
+                    b b b b b b b b b b b b b b b b
+
+          a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
+          a a a a a a a a a a a a a a a
+
+================================================================================
+`;
+
+exports[`interrupt.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 * Something
 ### Some heading
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 - Something
 
 ### Some heading
 
+================================================================================
 `;
 
-exports[`interrupt.md - markdown-verify 2`] = `
+exports[`interrupt.md 2`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 4
+                                                                                | printWidth
+=====================================input======================================
 * Something
 ### Some heading
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 -   Something
 
 ### Some heading
 
+================================================================================
 `;
 
-exports[`interrupt.md - markdown-verify 3`] = `
+exports[`interrupt.md 3`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 999
+                                                                                | printWidth
+=====================================input======================================
 * Something
 ### Some heading
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 - Something
 
 ### Some heading
 
+================================================================================
 `;
 
-exports[`interrupt.md - markdown-verify 4`] = `
+exports[`interrupt.md 4`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 0
+                                                                                | printWidth
+=====================================input======================================
 * Something
 ### Some heading
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 - Something
 
 ### Some heading
 
+================================================================================
 `;
 
-exports[`long-paragraph.md - markdown-verify 1`] = `
+exports[`issue-7846.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+- a a  
+   b b  
+    c c  
+   d d  
+  e e
+
+1.  a a a  
+   b b b  
+  c c c  
+   d d d  
+    e e e
+=====================================output=====================================
+- a a  
+   b b  
+   c c  
+   d d  
+  e e
+
+1.  a a a  
+     b b b  
+    c c c  
+     d d d  
+     e e e
+
+================================================================================
+`;
+
+exports[`issue-7846.md 2`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 4
+                                                                                | printWidth
+=====================================input======================================
+- a a  
+   b b  
+    c c  
+   d d  
+  e e
+
+1.  a a a  
+   b b b  
+  c c c  
+   d d d  
+    e e e
+=====================================output=====================================
+-   a a  
+     b b  
+     c c  
+     d d  
+    e e
+
+1.  a a a  
+     b b b  
+    c c c  
+     d d d  
+     e e e
+
+================================================================================
+`;
+
+exports[`issue-7846.md 3`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 999
+                                                                                | printWidth
+=====================================input======================================
+- a a  
+   b b  
+    c c  
+   d d  
+  e e
+
+1.  a a a  
+   b b b  
+  c c c  
+   d d d  
+    e e e
+=====================================output=====================================
+- a a  
+   b b  
+   c c  
+   d d  
+  e e
+
+1. a a a  
+    b b b  
+   c c c  
+    d d d  
+    e e e
+
+================================================================================
+`;
+
+exports[`issue-7846.md 4`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 0
+                                                                                | printWidth
+=====================================input======================================
+- a a  
+   b b  
+    c c  
+   d d  
+  e e
+
+1.  a a a  
+   b b b  
+  c c c  
+   d d d  
+    e e e
+=====================================output=====================================
+- a a  
+   b b  
+   c c  
+   d d  
+  e e
+
+1. a a a  
+    b b b  
+   c c c  
+    d d d  
+    e e e
+
+================================================================================
+`;
+
+exports[`long-paragraph.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 - This is a long long long long long long long long long long long long long long paragraph.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 - This is a long long long long long long long long long long long long long
   long paragraph.
 
+================================================================================
 `;
 
-exports[`long-paragraph.md - markdown-verify 2`] = `
+exports[`long-paragraph.md 2`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 4
+                                                                                | printWidth
+=====================================input======================================
 - This is a long long long long long long long long long long long long long long paragraph.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 -   This is a long long long long long long long long long long long long long
     long paragraph.
 
+================================================================================
 `;
 
-exports[`long-paragraph.md - markdown-verify 3`] = `
+exports[`long-paragraph.md 3`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 999
+                                                                                | printWidth
+=====================================input======================================
 - This is a long long long long long long long long long long long long long long paragraph.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 - This is a long long long long long long long long long long long long long
   long paragraph.
 
+================================================================================
 `;
 
-exports[`long-paragraph.md - markdown-verify 4`] = `
+exports[`long-paragraph.md 4`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 0
+                                                                                | printWidth
+=====================================input======================================
 - This is a long long long long long long long long long long long long long long paragraph.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 - This is a long long long long long long long long long long long long long
   long paragraph.
 
+================================================================================
 `;
 
-exports[`loose.md - markdown-verify 1`] = `
+exports[`loose.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 - 123
 
   - abc
@@ -1200,7 +1875,8 @@ exports[`loose.md - markdown-verify 1`] = `
 - 789
 
   - ghi
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 - 123
 
   - abc
@@ -1213,9 +1889,17 @@ exports[`loose.md - markdown-verify 1`] = `
 
   - ghi
 
+================================================================================
 `;
 
-exports[`loose.md - markdown-verify 2`] = `
+exports[`loose.md 2`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 4
+                                                                                | printWidth
+=====================================input======================================
 - 123
 
   - abc
@@ -1227,7 +1911,8 @@ exports[`loose.md - markdown-verify 2`] = `
 - 789
 
   - ghi
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 -   123
 
     -   abc
@@ -1240,9 +1925,17 @@ exports[`loose.md - markdown-verify 2`] = `
 
     -   ghi
 
+================================================================================
 `;
 
-exports[`loose.md - markdown-verify 3`] = `
+exports[`loose.md 3`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 999
+                                                                                | printWidth
+=====================================input======================================
 - 123
 
   - abc
@@ -1254,7 +1947,8 @@ exports[`loose.md - markdown-verify 3`] = `
 - 789
 
   - ghi
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 - 123
 
      - abc
@@ -1267,9 +1961,17 @@ exports[`loose.md - markdown-verify 3`] = `
 
      - ghi
 
+================================================================================
 `;
 
-exports[`loose.md - markdown-verify 4`] = `
+exports[`loose.md 4`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 0
+                                                                                | printWidth
+=====================================input======================================
 - 123
 
   - abc
@@ -1281,7 +1983,8 @@ exports[`loose.md - markdown-verify 4`] = `
 - 789
 
   - ghi
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 - 123
 
   - abc
@@ -1294,89 +1997,166 @@ exports[`loose.md - markdown-verify 4`] = `
 
   - ghi
 
+================================================================================
 `;
 
-exports[`multiline.md - markdown-verify 1`] = `
+exports[`multiline.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 - 123
   456
   789
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 - 123 456 789
 
+================================================================================
 `;
 
-exports[`multiline.md - markdown-verify 2`] = `
+exports[`multiline.md 2`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 4
+                                                                                | printWidth
+=====================================input======================================
 - 123
   456
   789
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 -   123 456 789
 
+================================================================================
 `;
 
-exports[`multiline.md - markdown-verify 3`] = `
+exports[`multiline.md 3`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 999
+                                                                                | printWidth
+=====================================input======================================
 - 123
   456
   789
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 - 123 456 789
 
+================================================================================
 `;
 
-exports[`multiline.md - markdown-verify 4`] = `
+exports[`multiline.md 4`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 0
+                                                                                | printWidth
+=====================================input======================================
 - 123
   456
   789
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 - 123 456 789
 
+================================================================================
 `;
 
-exports[`nested.md - markdown-verify 1`] = `
-- Level 1
-  - Level 2
-    - Level 3
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`nested.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 - Level 1
   - Level 2
     - Level 3
 
+=====================================output=====================================
+- Level 1
+  - Level 2
+    - Level 3
+
+================================================================================
 `;
 
-exports[`nested.md - markdown-verify 2`] = `
+exports[`nested.md 2`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 4
+                                                                                | printWidth
+=====================================input======================================
 - Level 1
   - Level 2
     - Level 3
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 -   Level 1
     -   Level 2
         -   Level 3
 
+================================================================================
 `;
 
-exports[`nested.md - markdown-verify 3`] = `
+exports[`nested.md 3`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 999
+                                                                                | printWidth
+=====================================input======================================
 - Level 1
   - Level 2
     - Level 3
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 - Level 1
      - Level 2
           - Level 3
 
+================================================================================
 `;
 
-exports[`nested.md - markdown-verify 4`] = `
+exports[`nested.md 4`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 0
+                                                                                | printWidth
+=====================================input======================================
 - Level 1
   - Level 2
     - Level 3
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 - Level 1
   - Level 2
     - Level 3
 
+================================================================================
 `;
 
-exports[`nested-checkbox.md - markdown-verify 1`] = `
+exports[`nested-checkbox.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 * parent list item parent list item parent list item parent list item parent list item parent list item
 
      * child list item child list item child list item child list item child list item child list item
@@ -1388,7 +2168,8 @@ exports[`nested-checkbox.md - markdown-verify 1`] = `
      * [x] child task list item child task list item child task list item child task list item
 
     paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 - parent list item parent list item parent list item parent list item parent
   list item parent list item
 
@@ -1407,9 +2188,17 @@ exports[`nested-checkbox.md - markdown-verify 1`] = `
   paragraph paragraph paragraph paragraph paragraph paragraph paragraph
   paragraph paragraph
 
+================================================================================
 `;
 
-exports[`nested-checkbox.md - markdown-verify 2`] = `
+exports[`nested-checkbox.md 2`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 4
+                                                                                | printWidth
+=====================================input======================================
 * parent list item parent list item parent list item parent list item parent list item parent list item
 
      * child list item child list item child list item child list item child list item child list item
@@ -1421,7 +2210,8 @@ exports[`nested-checkbox.md - markdown-verify 2`] = `
      * [x] child task list item child task list item child task list item child task list item
 
     paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 -   parent list item parent list item parent list item parent list item parent
     list item parent list item
 
@@ -1440,9 +2230,17 @@ exports[`nested-checkbox.md - markdown-verify 2`] = `
     paragraph paragraph paragraph paragraph paragraph paragraph paragraph
     paragraph paragraph
 
+================================================================================
 `;
 
-exports[`nested-checkbox.md - markdown-verify 3`] = `
+exports[`nested-checkbox.md 3`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 999
+                                                                                | printWidth
+=====================================input======================================
 * parent list item parent list item parent list item parent list item parent list item parent list item
 
      * child list item child list item child list item child list item child list item child list item
@@ -1454,7 +2252,8 @@ exports[`nested-checkbox.md - markdown-verify 3`] = `
      * [x] child task list item child task list item child task list item child task list item
 
     paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 - parent list item parent list item parent list item parent list item parent
   list item parent list item
 
@@ -1473,9 +2272,17 @@ exports[`nested-checkbox.md - markdown-verify 3`] = `
      paragraph paragraph paragraph paragraph paragraph paragraph paragraph
      paragraph paragraph
 
+================================================================================
 `;
 
-exports[`nested-checkbox.md - markdown-verify 4`] = `
+exports[`nested-checkbox.md 4`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 0
+                                                                                | printWidth
+=====================================input======================================
 * parent list item parent list item parent list item parent list item parent list item parent list item
 
      * child list item child list item child list item child list item child list item child list item
@@ -1487,7 +2294,8 @@ exports[`nested-checkbox.md - markdown-verify 4`] = `
      * [x] child task list item child task list item child task list item child task list item
 
     paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph paragraph
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 - parent list item parent list item parent list item parent list item parent
   list item parent list item
 
@@ -1506,72 +2314,95 @@ exports[`nested-checkbox.md - markdown-verify 4`] = `
   paragraph paragraph paragraph paragraph paragraph paragraph paragraph
   paragraph paragraph
 
+================================================================================
 `;
 
-exports[`ordered.md - markdown-verify 1`] = `
-1. 123
-1. 456
-1. 789
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-1.  123
-1.  456
-1.  789
-
-`;
-
-exports[`ordered.md - markdown-verify 2`] = `
-1. 123
-1. 456
-1. 789
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-1.  123
-1.  456
-1.  789
-
-`;
-
-exports[`ordered.md - markdown-verify 3`] = `
-1. 123
-1. 456
-1. 789
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`ordered.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 1. 123
 1. 456
 1. 789
 
-`;
-
-exports[`ordered.md - markdown-verify 4`] = `
-1. 123
-1. 456
-1. 789
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=====================================output=====================================
 1. 123
 1. 456
 1. 789
 
+================================================================================
 `;
 
-exports[`separate.md - markdown-verify 1`] = `
-- 123
-- 123
-- 123
+exports[`ordered.md 2`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 4
+                                                                                | printWidth
+=====================================input======================================
+1. 123
+1. 456
+1. 789
 
-* 123
-* 123
-* 123
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-- 123
-- 123
-- 123
+=====================================output=====================================
+1. 123
+1. 456
+1. 789
 
-* 123
-* 123
-* 123
-
+================================================================================
 `;
 
-exports[`separate.md - markdown-verify 2`] = `
+exports[`ordered.md 3`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 999
+                                                                                | printWidth
+=====================================input======================================
+1. 123
+1. 456
+1. 789
+
+=====================================output=====================================
+1. 123
+1. 456
+1. 789
+
+================================================================================
+`;
+
+exports[`ordered.md 4`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 0
+                                                                                | printWidth
+=====================================input======================================
+1. 123
+1. 456
+1. 789
+
+=====================================output=====================================
+1. 123
+1. 456
+1. 789
+
+================================================================================
+`;
+
+exports[`separate.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 - 123
 - 123
 - 123
@@ -1579,7 +2410,36 @@ exports[`separate.md - markdown-verify 2`] = `
 * 123
 * 123
 * 123
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
+- 123
+- 123
+- 123
+
+* 123
+* 123
+* 123
+
+================================================================================
+`;
+
+exports[`separate.md 2`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 4
+                                                                                | printWidth
+=====================================input======================================
+- 123
+- 123
+- 123
+
+* 123
+* 123
+* 123
+
+=====================================output=====================================
 -   123
 -   123
 -   123
@@ -1588,9 +2448,17 @@ exports[`separate.md - markdown-verify 2`] = `
 *   123
 *   123
 
+================================================================================
 `;
 
-exports[`separate.md - markdown-verify 3`] = `
+exports[`separate.md 3`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 999
+                                                                                | printWidth
+=====================================input======================================
 - 123
 - 123
 - 123
@@ -1598,7 +2466,8 @@ exports[`separate.md - markdown-verify 3`] = `
 * 123
 * 123
 * 123
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 - 123
 - 123
 - 123
@@ -1607,9 +2476,17 @@ exports[`separate.md - markdown-verify 3`] = `
 * 123
 * 123
 
+================================================================================
 `;
 
-exports[`separate.md - markdown-verify 4`] = `
+exports[`separate.md 4`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 0
+                                                                                | printWidth
+=====================================input======================================
 - 123
 - 123
 - 123
@@ -1617,7 +2494,8 @@ exports[`separate.md - markdown-verify 4`] = `
 * 123
 * 123
 * 123
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 - 123
 - 123
 - 123
@@ -1626,92 +2504,919 @@ exports[`separate.md - markdown-verify 4`] = `
 * 123
 * 123
 
+================================================================================
 `;
 
-exports[`simple.md - markdown-verify 1`] = `
+exports[`simple.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 - 123
 - 456
 - 789
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 - 123
 - 456
 - 789
 
+================================================================================
 `;
 
-exports[`simple.md - markdown-verify 2`] = `
+exports[`simple.md 2`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 4
+                                                                                | printWidth
+=====================================input======================================
 - 123
 - 456
 - 789
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 -   123
 -   456
 -   789
 
+================================================================================
 `;
 
-exports[`simple.md - markdown-verify 3`] = `
-- 123
-- 456
-- 789
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-- 123
-- 456
-- 789
-
-`;
-
-exports[`simple.md - markdown-verify 4`] = `
-- 123
-- 456
-- 789
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`simple.md 3`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 999
+                                                                                | printWidth
+=====================================input======================================
 - 123
 - 456
 - 789
 
+=====================================output=====================================
+- 123
+- 456
+- 789
+
+================================================================================
 `;
 
-exports[`start.md - markdown-verify 1`] = `
-5. abc
-6. def
-7. ghi
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-5.  abc
-6.  def
-7.  ghi
+exports[`simple.md 4`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 0
+                                                                                | printWidth
+=====================================input======================================
+- 123
+- 456
+- 789
 
+=====================================output=====================================
+- 123
+- 456
+- 789
+
+================================================================================
 `;
 
-exports[`start.md - markdown-verify 2`] = `
+exports[`start.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 5. abc
 6. def
 7. ghi
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-5.  abc
-6.  def
-7.  ghi
 
+---
+
+0. abc
+0. def
+0. ghi
+
+---
+
+1. abc
+1. def
+1. ghi
+
+---
+
+2. abc
+2. def
+2. ghi
+
+---
+
+0. abc
+1. def
+2. ghi
+
+---
+
+0. abc
+1. def
+1. ghi
+
+---
+
+1. abc
+2. def
+3. ghi
+
+---
+
+2. abc
+3. def
+4. ghi
+
+---
+
+999. abc
+145. def
+69. ghi
+
+---
+
+0. abc
+
+---
+
+1. abc
+
+---
+
+2. abc
+
+---
+
+999. abc
+
+---
+
+0. abc
+1. def
+
+---
+
+1. abc
+2. def
+
+---
+
+
+1. abc
+1. def
+
+---
+
+2. abc
+3. def
+
+---
+
+999. abc
+1. def
+
+---
+
+999. abc
+2. def
+
+=====================================output=====================================
+5. abc
+6. def
+7. ghi
+
+---
+
+0. abc
+1. def
+2. ghi
+
+---
+
+1. abc
+1. def
+1. ghi
+
+---
+
+2. abc
+3. def
+4. ghi
+
+---
+
+0. abc
+1. def
+2. ghi
+
+---
+
+0. abc
+1. def
+1. ghi
+
+---
+
+1. abc
+2. def
+3. ghi
+
+---
+
+2. abc
+3. def
+4. ghi
+
+---
+
+999. abc
+1000. def
+1001. ghi
+
+---
+
+0. abc
+
+---
+
+1. abc
+
+---
+
+2. abc
+
+---
+
+999. abc
+
+---
+
+0. abc
+1. def
+
+---
+
+1. abc
+2. def
+
+---
+
+1. abc
+1. def
+
+---
+
+2. abc
+3. def
+
+---
+
+999. abc
+1. def
+
+---
+
+999. abc
+1000. def
+
+================================================================================
 `;
 
-exports[`start.md - markdown-verify 3`] = `
-5. abc
-6. def
-7. ghi
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`start.md 2`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 4
+                                                                                | printWidth
+=====================================input======================================
 5. abc
 6. def
 7. ghi
 
+---
+
+0. abc
+0. def
+0. ghi
+
+---
+
+1. abc
+1. def
+1. ghi
+
+---
+
+2. abc
+2. def
+2. ghi
+
+---
+
+0. abc
+1. def
+2. ghi
+
+---
+
+0. abc
+1. def
+1. ghi
+
+---
+
+1. abc
+2. def
+3. ghi
+
+---
+
+2. abc
+3. def
+4. ghi
+
+---
+
+999. abc
+145. def
+69. ghi
+
+---
+
+0. abc
+
+---
+
+1. abc
+
+---
+
+2. abc
+
+---
+
+999. abc
+
+---
+
+0. abc
+1. def
+
+---
+
+1. abc
+2. def
+
+---
+
+
+1. abc
+1. def
+
+---
+
+2. abc
+3. def
+
+---
+
+999. abc
+1. def
+
+---
+
+999. abc
+2. def
+
+=====================================output=====================================
+5. abc
+6. def
+7. ghi
+
+---
+
+0. abc
+1. def
+2. ghi
+
+---
+
+1. abc
+1. def
+1. ghi
+
+---
+
+2. abc
+3. def
+4. ghi
+
+---
+
+0. abc
+1. def
+2. ghi
+
+---
+
+0. abc
+1. def
+1. ghi
+
+---
+
+1. abc
+2. def
+3. ghi
+
+---
+
+2. abc
+3. def
+4. ghi
+
+---
+
+999. abc
+1000. def
+1001. ghi
+
+---
+
+0. abc
+
+---
+
+1. abc
+
+---
+
+2. abc
+
+---
+
+999. abc
+
+---
+
+0. abc
+1. def
+
+---
+
+1. abc
+2. def
+
+---
+
+1. abc
+1. def
+
+---
+
+2. abc
+3. def
+
+---
+
+999. abc
+1. def
+
+---
+
+999. abc
+1000. def
+
+================================================================================
 `;
 
-exports[`start.md - markdown-verify 4`] = `
-5. abc
-6. def
-7. ghi
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`start.md 3`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 999
+                                                                                | printWidth
+=====================================input======================================
 5. abc
 6. def
 7. ghi
 
+---
+
+0. abc
+0. def
+0. ghi
+
+---
+
+1. abc
+1. def
+1. ghi
+
+---
+
+2. abc
+2. def
+2. ghi
+
+---
+
+0. abc
+1. def
+2. ghi
+
+---
+
+0. abc
+1. def
+1. ghi
+
+---
+
+1. abc
+2. def
+3. ghi
+
+---
+
+2. abc
+3. def
+4. ghi
+
+---
+
+999. abc
+145. def
+69. ghi
+
+---
+
+0. abc
+
+---
+
+1. abc
+
+---
+
+2. abc
+
+---
+
+999. abc
+
+---
+
+0. abc
+1. def
+
+---
+
+1. abc
+2. def
+
+---
+
+
+1. abc
+1. def
+
+---
+
+2. abc
+3. def
+
+---
+
+999. abc
+1. def
+
+---
+
+999. abc
+2. def
+
+=====================================output=====================================
+5. abc
+6. def
+7. ghi
+
+---
+
+0. abc
+1. def
+2. ghi
+
+---
+
+1. abc
+1. def
+1. ghi
+
+---
+
+2. abc
+3. def
+4. ghi
+
+---
+
+0. abc
+1. def
+2. ghi
+
+---
+
+0. abc
+1. def
+1. ghi
+
+---
+
+1. abc
+2. def
+3. ghi
+
+---
+
+2. abc
+3. def
+4. ghi
+
+---
+
+999. abc
+1000. def
+1001. ghi
+
+---
+
+0. abc
+
+---
+
+1. abc
+
+---
+
+2. abc
+
+---
+
+999. abc
+
+---
+
+0. abc
+1. def
+
+---
+
+1. abc
+2. def
+
+---
+
+1. abc
+1. def
+
+---
+
+2. abc
+3. def
+
+---
+
+999. abc
+1. def
+
+---
+
+999. abc
+1000. def
+
+================================================================================
+`;
+
+exports[`start.md 4`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 0
+                                                                                | printWidth
+=====================================input======================================
+5. abc
+6. def
+7. ghi
+
+---
+
+0. abc
+0. def
+0. ghi
+
+---
+
+1. abc
+1. def
+1. ghi
+
+---
+
+2. abc
+2. def
+2. ghi
+
+---
+
+0. abc
+1. def
+2. ghi
+
+---
+
+0. abc
+1. def
+1. ghi
+
+---
+
+1. abc
+2. def
+3. ghi
+
+---
+
+2. abc
+3. def
+4. ghi
+
+---
+
+999. abc
+145. def
+69. ghi
+
+---
+
+0. abc
+
+---
+
+1. abc
+
+---
+
+2. abc
+
+---
+
+999. abc
+
+---
+
+0. abc
+1. def
+
+---
+
+1. abc
+2. def
+
+---
+
+
+1. abc
+1. def
+
+---
+
+2. abc
+3. def
+
+---
+
+999. abc
+1. def
+
+---
+
+999. abc
+2. def
+
+=====================================output=====================================
+5. abc
+6. def
+7. ghi
+
+---
+
+0. abc
+1. def
+2. ghi
+
+---
+
+1. abc
+1. def
+1. ghi
+
+---
+
+2. abc
+3. def
+4. ghi
+
+---
+
+0. abc
+1. def
+2. ghi
+
+---
+
+0. abc
+1. def
+1. ghi
+
+---
+
+1. abc
+2. def
+3. ghi
+
+---
+
+2. abc
+3. def
+4. ghi
+
+---
+
+999. abc
+1000. def
+1001. ghi
+
+---
+
+0. abc
+
+---
+
+1. abc
+
+---
+
+2. abc
+
+---
+
+999. abc
+
+---
+
+0. abc
+1. def
+
+---
+
+1. abc
+2. def
+
+---
+
+1. abc
+1. def
+
+---
+
+2. abc
+3. def
+
+---
+
+999. abc
+1. def
+
+---
+
+999. abc
+1000. def
+
+================================================================================
 `;

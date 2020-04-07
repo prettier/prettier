@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`enum.ts - typescript-verify 1`] = `
+exports[`enum.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 enum Direction {
     Up = 1,
     Down,
@@ -25,12 +30,13 @@ const enum Enum {
     A = 1,
     B = A * 2
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 enum Direction {
   Up = 1,
   Down,
   Left,
-  Right
+  Right,
 }
 
 enum FileAccess {
@@ -40,14 +46,15 @@ enum FileAccess {
   Write = 1 << 2,
   ReadWrite = Read | Write,
   // computed member
-  G = "123".length
+  G = "123".length,
 }
 
 enum Empty {}
 
 const enum Enum {
   A = 1,
-  B = A * 2
+  B = A * 2,
 }
 
+================================================================================
 `;

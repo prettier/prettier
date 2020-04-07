@@ -6,15 +6,17 @@ const vm = require("vm");
 
 const sources = [
   "standalone.js",
-  "parser-babylon.js",
+  "parser-angular.js",
+  "parser-babel.js",
   "parser-flow.js",
-  "parser-typescript.js",
-  "parser-postcss.js",
+  "parser-glimmer.js",
   "parser-graphql.js",
+  "parser-html.js",
   "parser-markdown.js",
-  "parser-vue.js",
-  "parser-yaml.js"
-].map(filename =>
+  "parser-postcss.js",
+  "parser-typescript.js",
+  "parser-yaml.js",
+].map((filename) =>
   fs.readFileSync(path.join(process.env.PRETTIER_DIR, filename), "utf-8")
 );
 
@@ -30,7 +32,7 @@ module.exports = {
         $$$input,
         Object.assign({ plugins: prettierPlugins }, $$$options)
       );`,
-      Object.assign({ $$$input: input, $$$options: options }, sandbox)
+      { $$$input: input, $$$options: options, ...sandbox }
     );
   },
 
@@ -42,8 +44,8 @@ module.exports = {
           Object.assign({ plugins: prettierPlugins }, $$$options),
           ${JSON.stringify(massage)}
         );`,
-        Object.assign({ $$$input: input, $$$options: options }, sandbox)
+        { $$$input: input, $$$options: options, ...sandbox }
       );
-    }
-  }
+    },
+  },
 };

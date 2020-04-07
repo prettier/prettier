@@ -1,13 +1,40 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`union.js - flow-verify 1`] = `
+exports[`comment.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const myValue = (callcallcallcallcallcall(87689769876876897698768768976987687689769876):
+                 // Comment
+                 one | two| thre | jdkxhflksjdhfglkjsdhfglkjhsdkfljghskdjhfgkljshdfgkjhsdkljfhgkljshdfgjdfklgjhklj );
+
+=====================================output=====================================
+const myValue = (callcallcallcallcallcall(
+  87689769876876897698768768976987687689769876
+): // Comment
+| one
+  | two
+  | thre
+  | jdkxhflksjdhfglkjsdhfglkjhsdkfljghskdjhfgkljshdfgkjhsdkljfhgkljshdfgjdfklgjhklj);
+
+================================================================================
+`;
+
+exports[`union.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 interface RelayProps {
   articles: Array<{
     __id: string,
   } | null> | null | void | 1,
 }
 
-interface RelayProps {
+interface RelayProps2 {
   articles: Array<{
     __id: string,
   } | null> | null | void,
@@ -27,20 +54,21 @@ export function aShortFn(aShortParmName: MyType | null): string[] {}
 export function aPrettyLongFunctionE(aRatherLongParameterName: Array<{
   __id: string,
 } | null> | null | void): string[] {}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 interface RelayProps {
   articles:
     | Array<{
-        __id: string
+        __id: string,
       } | null>
     | null
     | void
     | 1;
 }
 
-interface RelayProps {
+interface RelayProps2 {
   articles: Array<{
-    __id: string
+    __id: string,
   } | null> | null | void;
 }
 
@@ -67,8 +95,62 @@ export function aShortFn(aShortParmName: MyType | null): string[] {}
 
 export function aPrettyLongFunctionE(
   aRatherLongParameterName: Array<{
-    __id: string
+    __id: string,
   } | null> | null | void
 ): string[] {}
 
+================================================================================
+`;
+
+exports[`within-tuple.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type A = [AAAAAAAAAAAAAAAAAAAAAA | BBBBBBBBBBBBBBBBBBBBBB | CCCCCCCCCCCCCCCCCCCCCC | DDDDDDDDDDDDDDDDDDDDDD]
+
+type B = [
+  | AAAAAAAAAAAAAAAAAAAAAA
+  | BBBBBBBBBBBBBBBBBBBBBB
+  | CCCCCCCCCCCCCCCCCCCCCC
+  | DDDDDDDDDDDDDDDDDDDDDD
+]
+
+type C = [
+  | [AAAAAAAAAAAAAAAAAAAAAA | BBBBBBBBBBBBBBBBBBBBBB | CCCCCCCCCCCCCCCCCCCCCC | DDDDDDDDDDDDDDDDDDDDDD]
+  | [AAAAAAAAAAAAAAAAAAAAAA | BBBBBBBBBBBBBBBBBBBBBB | CCCCCCCCCCCCCCCCCCCCCC | DDDDDDDDDDDDDDDDDDDDDD]
+]
+
+=====================================output=====================================
+type A = [
+  | AAAAAAAAAAAAAAAAAAAAAA
+  | BBBBBBBBBBBBBBBBBBBBBB
+  | CCCCCCCCCCCCCCCCCCCCCC
+  | DDDDDDDDDDDDDDDDDDDDDD
+];
+
+type B = [
+  | AAAAAAAAAAAAAAAAAAAAAA
+  | BBBBBBBBBBBBBBBBBBBBBB
+  | CCCCCCCCCCCCCCCCCCCCCC
+  | DDDDDDDDDDDDDDDDDDDDDD
+];
+
+type C = [
+  | [
+      | AAAAAAAAAAAAAAAAAAAAAA
+      | BBBBBBBBBBBBBBBBBBBBBB
+      | CCCCCCCCCCCCCCCCCCCCCC
+      | DDDDDDDDDDDDDDDDDDDDDD
+    ]
+  | [
+      | AAAAAAAAAAAAAAAAAAAAAA
+      | BBBBBBBBBBBBBBBBBBBBBB
+      | CCCCCCCCCCCCCCCCCCCCCC
+      | DDDDDDDDDDDDDDDDDDDDDD
+    ]
+];
+
+================================================================================
 `;

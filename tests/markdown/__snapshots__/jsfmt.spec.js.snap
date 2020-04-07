@@ -1,6 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`real-world-case.md - markdown-verify 1`] = `
+exports[`real-world-case.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 # Prettier
 
 [![Gitter](https://badges.gitter.im/gitterHQ/gitter.svg)](https://gitter.im/jlongster/prettier)
@@ -898,7 +904,8 @@ Show the world you're using *Prettier* → [![styled with prettier](https://img.
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md).
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 # Prettier
 
 [![Gitter](https://badges.gitter.im/gitterHQ/gitter.svg)](https://gitter.im/jlongster/prettier)
@@ -1472,7 +1479,7 @@ If \`options.useCache\` is \`false\`, all caching will be bypassed.
 
 \`\`\`js
 const text = fs.readFileSync(filePath, "utf8");
-prettier.resolveConfig(filePath).then(options => {
+prettier.resolveConfig(filePath).then((options) => {
   const formatted = prettier.format(text, options);
 });
 \`\`\`
@@ -1505,7 +1512,7 @@ prettier.format("lodash ( )", {
     const ast = babylon(text);
     ast.program.body[0].expression.callee.name = "_";
     return ast;
-  }
+  },
 });
 // -> "_();\\n"
 \`\`\`
@@ -1969,9 +1976,17 @@ Show the world you're using _Prettier_ →
 
 See [CONTRIBUTING.md](CONTRIBUTING.md).
 
+================================================================================
 `;
 
-exports[`real-world-case.md - markdown-verify 2`] = `
+exports[`real-world-case.md 2`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
 # Prettier
 
 [![Gitter](https://badges.gitter.im/gitterHQ/gitter.svg)](https://gitter.im/jlongster/prettier)
@@ -2869,7 +2884,8 @@ Show the world you're using *Prettier* → [![styled with prettier](https://img.
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md).
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 # Prettier
 
 [![Gitter](https://badges.gitter.im/gitterHQ/gitter.svg)](https://gitter.im/jlongster/prettier)
@@ -3443,7 +3459,7 @@ If \`options.useCache\` is \`false\`, all caching will be bypassed.
 
 \`\`\`js
 const text = fs.readFileSync(filePath, 'utf8');
-prettier.resolveConfig(filePath).then(options => {
+prettier.resolveConfig(filePath).then((options) => {
   const formatted = prettier.format(text, options);
 });
 \`\`\`
@@ -3476,7 +3492,7 @@ prettier.format('lodash ( )', {
     const ast = babylon(text);
     ast.program.body[0].expression.callee.name = '_';
     return ast;
-  }
+  },
 });
 // -> "_();\\n"
 \`\`\`
@@ -3940,9 +3956,16 @@ Show the world you're using _Prettier_ →
 
 See [CONTRIBUTING.md](CONTRIBUTING.md).
 
+================================================================================
 `;
 
-exports[`test-case.md - markdown-verify 1`] = `
+exports[`test-case.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 [View raw (TEST.md)](https://raw.github.com/adamschwartz/github-markdown-kitchen-sink/master/README.md)
 
 This is a paragraph.
@@ -4144,7 +4167,8 @@ This paragraph has some \`code\` in it.
 ![Alt Text](http://placehold.it/200x50 "Image Title")
 
     ![Alt Text](http://placehold.it/200x50 "Image Title")
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 [View raw (TEST.md)](https://raw.github.com/adamschwartz/github-markdown-kitchen-sink/master/README.md)
 
 This is a paragraph.
@@ -4207,8 +4231,8 @@ This is a paragraph.
 
 > ## This is a header.
 >
-> 1.  This is the first list item.
-> 2.  This is the second list item.
+> 1. This is the first list item.
+> 2. This is the second list item.
 >
 > Here's some example code:
 >
@@ -4248,14 +4272,14 @@ This is a paragraph.
 - Blue
 \`\`\`
 
-1.  Buy flour and salt
-1.  Mix together with water
-1.  Bake
+1. Buy flour and salt
+1. Mix together with water
+1. Bake
 
 \`\`\`markdown
-1.  Buy flour and salt
-1.  Mix together with water
-1.  Bake
+1. Buy flour and salt
+1. Mix together with water
+1. Bake
 \`\`\`
 
 Paragraph:
@@ -4328,9 +4352,17 @@ This paragraph has some \`code\` in it.
 
     ![Alt Text](http://placehold.it/200x50 "Image Title")
 
+================================================================================
 `;
 
-exports[`test-case.md - markdown-verify 2`] = `
+exports[`test-case.md 2`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
 [View raw (TEST.md)](https://raw.github.com/adamschwartz/github-markdown-kitchen-sink/master/README.md)
 
 This is a paragraph.
@@ -4532,7 +4564,8 @@ This paragraph has some \`code\` in it.
 ![Alt Text](http://placehold.it/200x50 "Image Title")
 
     ![Alt Text](http://placehold.it/200x50 "Image Title")
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 [View raw (TEST.md)](https://raw.github.com/adamschwartz/github-markdown-kitchen-sink/master/README.md)
 
 This is a paragraph.
@@ -4595,8 +4628,8 @@ This is a paragraph.
 
 > ## This is a header.
 >
-> 1.  This is the first list item.
-> 2.  This is the second list item.
+> 1. This is the first list item.
+> 2. This is the second list item.
 >
 > Here's some example code:
 >
@@ -4636,14 +4669,14 @@ This is a paragraph.
 - Blue
 \`\`\`
 
-1.  Buy flour and salt
-1.  Mix together with water
-1.  Bake
+1. Buy flour and salt
+1. Mix together with water
+1. Bake
 
 \`\`\`markdown
-1.  Buy flour and salt
-1.  Mix together with water
-1.  Bake
+1. Buy flour and salt
+1. Mix together with water
+1. Bake
 \`\`\`
 
 Paragraph:
@@ -4716,4 +4749,5 @@ This paragraph has some \`code\` in it.
 
     ![Alt Text](http://placehold.it/200x50 "Image Title")
 
+================================================================================
 `;

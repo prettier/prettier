@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Traces.js - flow-verify 1`] = `
+exports[`Traces.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // arg/param type mismatch on arg 0
 function g0(y:string) { }
 function f0(x) { g0(x) }
@@ -21,7 +26,8 @@ function g3(ylam: (s:string) => number) { }
 function f3(xlam) { g3(xlam) }
 function double(n) { return n * 2 }
 f3(double);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // arg/param type mismatch on arg 0
 function g0(y: string) {}
 function f0(x) {
@@ -41,7 +47,7 @@ function g2(ylam: (s: string) => number) {}
 function f2(xlam) {
   g2(xlam);
 }
-f2(function(x) {
+f2(function (x) {
   return x * x;
 });
 
@@ -55,9 +61,15 @@ function double(n) {
 }
 f3(double);
 
+================================================================================
 `;
 
-exports[`Traces2.js - flow-verify 1`] = `
+exports[`Traces2.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 var React = require('react');
@@ -77,17 +89,18 @@ function f(b): React.Element<*> {
     return <B bar="hey"/>;
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 var React = require("react");
 
 var A = React.createClass({
-  propTypes: { foo: React.PropTypes.string.isRequired }
+  propTypes: { foo: React.PropTypes.string.isRequired },
 });
 
 var B = React.createClass({
-  propTypes: { bar: React.PropTypes.string.isRequired }
+  propTypes: { bar: React.PropTypes.string.isRequired },
 });
 
 function f(b): React.Element<*> {
@@ -98,4 +111,5 @@ function f(b): React.Element<*> {
   }
 }
 
+================================================================================
 `;

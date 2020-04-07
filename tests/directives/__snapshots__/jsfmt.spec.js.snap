@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`escaped.js - flow-verify 1`] = `
+exports[`escaped.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // Unnecessary escapes. (adapted from tests/quotes/strings.js)
 // Note that in directives, unnecessary escapes should be preserved.
 // See https://github.com/prettier/prettier/issues/1555
@@ -36,7 +41,8 @@ exports[`escaped.js - flow-verify 1`] = `
 '
 'escaped \\u2028 \\ '
 'escaped \\u2029 \\ '
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // Unnecessary escapes. (adapted from tests/quotes/strings.js)
 // Note that in directives, unnecessary escapes should be preserved.
 // See https://github.com/prettier/prettier/issues/1555
@@ -73,30 +79,57 @@ exports[`escaped.js - flow-verify 1`] = `
 "escaped \\u2028 \\ ";
 "escaped \\u2029 \\ ";
 
+================================================================================
 `;
 
-exports[`last-line-0.js - flow-verify 1`] = `
-'use strict';~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-"use strict";
-
-`;
-
-exports[`last-line-1.js - flow-verify 1`] = `
+exports[`last-line-0.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 'use strict';
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=====================================output=====================================
 "use strict";
 
+================================================================================
 `;
 
-exports[`last-line-2.js - flow-verify 1`] = `
+exports[`last-line-1.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 'use strict';
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=====================================output=====================================
 "use strict";
 
+================================================================================
 `;
 
-exports[`newline.js - flow-verify 1`] = `
+exports[`last-line-2.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+'use strict';
+
+
+=====================================output=====================================
+"use strict";
+
+================================================================================
+`;
+
+exports[`newline.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 "use strict";
@@ -104,7 +137,8 @@ exports[`newline.js - flow-verify 1`] = `
 import a from "a";
 
 a();
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 "use strict";
@@ -113,30 +147,43 @@ import a from "a";
 
 a();
 
+================================================================================
 `;
 
-exports[`no-newline.js - flow-verify 1`] = `
+exports[`no-newline.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 "use strict";
 a
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 "use strict";
 a;
 
+================================================================================
 `;
 
-exports[`test.js - flow-verify 1`] = `
+exports[`test.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 "use strict";
 
-function fn() {
+function f1() {
   "use strict";
 }
 
-function f() {
+function f2() {
   'ngInject';
   Object.assign(this, { $log, $uibModal });
 }
 
-function f() {
+function f3() {
 
   'ngInject';
 
@@ -144,34 +191,36 @@ function f() {
 
 }
 
-function f() {
+function f4() {
   'ngInject';
 
 
   Object.assign(this, { $log, $uibModal });
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 "use strict";
 
-function fn() {
+function f1() {
   "use strict";
 }
 
-function f() {
+function f2() {
   "ngInject";
   Object.assign(this, { $log, $uibModal });
 }
 
-function f() {
-  "ngInject";
-
-  Object.assign(this, { $log, $uibModal });
-}
-
-function f() {
+function f3() {
   "ngInject";
 
   Object.assign(this, { $log, $uibModal });
 }
 
+function f4() {
+  "ngInject";
+
+  Object.assign(this, { $log, $uibModal });
+}
+
+================================================================================
 `;

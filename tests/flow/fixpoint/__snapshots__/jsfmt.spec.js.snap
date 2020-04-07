@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Fun.js - flow-verify 1`] = `
+exports[`Fun.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 
 /* @providesModule Fun */
 
@@ -31,7 +36,8 @@ var factorial = mk_factorial();
 factorial("...");
 
 module.exports = {fn: fix};
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @providesModule Fun */
 
 function eq(x: number, y: number) {
@@ -45,8 +51,8 @@ function mul(x: number, y: number) {
 }
 
 function fix(fold) {
-  var delta = function(delta) {
-    return fold(function(x) {
+  var delta = function (delta) {
+    return fold(function (x) {
       var eta = delta(delta);
       return eta(x);
     });
@@ -55,8 +61,8 @@ function fix(fold) {
 }
 
 function mk_factorial() {
-  return fix(function(factorial) {
-    return function(n) {
+  return fix(function (factorial) {
+    return function (n) {
       if (eq(n, 1)) {
         return 1;
       }
@@ -70,9 +76,15 @@ factorial("...");
 
 module.exports = { fn: fix };
 
+================================================================================
 `;
 
-exports[`Ycombinator.js - flow-verify 1`] = `
+exports[`Ycombinator.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 
 /* @providesModule Ycombinator */
 
@@ -94,7 +106,8 @@ Y(func1);
 Y(func2);
 
 module.exports = Y;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @providesModule Ycombinator */
 
 function Y(f) {
@@ -122,4 +135,5 @@ Y(func2);
 
 module.exports = Y;
 
+================================================================================
 `;

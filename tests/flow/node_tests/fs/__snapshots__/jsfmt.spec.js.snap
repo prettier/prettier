@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`fs.js - flow-verify 1`] = `
+exports[`fs.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 var fs = require("fs");
 
 /* readFile */
@@ -34,7 +39,8 @@ fs.readFile("file.exp", {}, (_, data) => {
 
 (fs.readFileSync("file.exp", {}) : Buffer);
 (fs.readFileSync("file.exp", {}) : string); // error
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 var fs = require("fs");
 
 /* readFile */
@@ -69,4 +75,5 @@ fs.readFile("file.exp", {}, (_, data) => {
 (fs.readFileSync("file.exp", {}): Buffer);
 (fs.readFileSync("file.exp", {}): string); // error
 
+================================================================================
 `;

@@ -1,33 +1,33 @@
-run_spec(__dirname, ["babylon", "typescript", "flow"]);
+run_spec(__dirname, ["babel", "typescript", "flow"]);
 
 const prettier = require("prettier/local");
 
 test("translates cursor correctly in basic case", () => {
   expect(
-    prettier.formatWithCursor(" 1", { parser: "babylon", cursorOffset: 2 })
+    prettier.formatWithCursor(" 1", { parser: "babel", cursorOffset: 2 })
   ).toEqual({
     formatted: "1;\n",
-    cursorOffset: 1
+    cursorOffset: 1,
   });
 });
 
 test("positions cursor relative to closest node, not SourceElement", () => {
   const code = "return         15";
   expect(
-    prettier.formatWithCursor(code, { parser: "babylon", cursorOffset: 15 })
+    prettier.formatWithCursor(code, { parser: "babel", cursorOffset: 15 })
   ).toEqual({
     formatted: "return 15;\n",
-    cursorOffset: 7
+    cursorOffset: 7,
   });
 });
 
 test("keeps cursor inside formatted node", () => {
   const code = "return         15";
   expect(
-    prettier.formatWithCursor(code, { parser: "babylon", cursorOffset: 14 })
+    prettier.formatWithCursor(code, { parser: "babel", cursorOffset: 14 })
   ).toEqual({
     formatted: "return 15;\n",
-    cursorOffset: 7
+    cursorOffset: 7,
   });
 });
 
@@ -37,12 +37,12 @@ foo('bar', cb => {
   console.log('stuff')
 })`;
   expect(
-    prettier.formatWithCursor(code, { parser: "babylon", cursorOffset: 24 })
+    prettier.formatWithCursor(code, { parser: "babel", cursorOffset: 24 })
   ).toEqual({
-    formatted: `foo("bar", cb => {
+    formatted: `foo("bar", (cb) => {
   console.log("stuff");
 });
 `,
-    cursorOffset: 23
+    cursorOffset: 25,
   });
 });

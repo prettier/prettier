@@ -24,6 +24,12 @@ function f() {
   )
 }
 console.log(
+  \\"should have no semi\\"
+)
+console.log(
+  \\"jest/__best-tests__/.file.js should have semi\\"
+);
+console.log(
   \\"jest/__best-tests__/file.js should have semi\\"
 );
 console.log(
@@ -40,7 +46,9 @@ function js() {
 \\"use strict\\";
 
 module.exports = {
-        tabWidth: 8
+        endOfLine:
+                \\"auto\\",
+        tabWidth: 8,
 };
 function noConfigJs() {
   console.log(
@@ -57,6 +65,16 @@ function rcJson() {
     null,
     [
       'rc-json/file.js',
+      'should have trailing comma',
+      'and single quotes',
+    ],
+  );
+}
+function rcToml() {
+  console.log.apply(
+    null,
+    [
+      'rc-toml/file.js',
       'should have trailing comma',
       'and single quotes',
     ],
@@ -118,6 +136,8 @@ function f() {
     \\"should have space width 2 despite ../.editorconfig specifying 8, because ./.hg is present\\"
   )
 }
+console.log(\\"should have no semi\\")
+console.log(\\"jest/__best-tests__/.file.js should have semi\\");
 console.log(\\"jest/__best-tests__/file.js should have semi\\");
 console.log(\\"jest/Component.js should not have semi\\")
 console.log(\\"jest/Component.test.js should have semi\\");
@@ -127,7 +147,8 @@ function js() {
 \\"use strict\\";
 
 module.exports = {
-        tabWidth: 8
+        endOfLine: \\"auto\\",
+        tabWidth: 8,
 };
 function noConfigJs() {
   console.log(\\"no-config/file.js should have no semicolons\\")
@@ -138,6 +159,13 @@ function packageJs() {
 function rcJson() {
   console.log.apply(null, [
     'rc-json/file.js',
+    'should have trailing comma',
+    'and single quotes',
+  ]);
+}
+function rcToml() {
+  console.log.apply(null, [
+    'rc-toml/file.js',
     'should have trailing comma',
     'and single quotes',
   ]);
@@ -172,6 +200,15 @@ function packageTs() {
 
 exports[`resolves configuration from external files and overrides by extname (write) 1`] = `Array []`;
 
+exports[`resolves external configuration from package.json (stderr) 1`] = `""`;
+
+exports[`resolves external configuration from package.json (stdout) 1`] = `
+"console.log(\\"should have no semi\\")
+"
+`;
+
+exports[`resolves external configuration from package.json (write) 1`] = `Array []`;
+
 exports[`resolves json configuration file with --find-config-path file (stderr) 1`] = `""`;
 
 exports[`resolves json configuration file with --find-config-path file (stdout) 1`] = `
@@ -180,6 +217,15 @@ exports[`resolves json configuration file with --find-config-path file (stdout) 
 `;
 
 exports[`resolves json configuration file with --find-config-path file (write) 1`] = `Array []`;
+
+exports[`resolves toml configuration file with --find-config-path file (stderr) 1`] = `""`;
+
+exports[`resolves toml configuration file with --find-config-path file (stdout) 1`] = `
+"rc-toml/.prettierrc.toml
+"
+`;
+
+exports[`resolves toml configuration file with --find-config-path file (write) 1`] = `Array []`;
 
 exports[`resolves yaml configuration file with --find-config-path file (stderr) 1`] = `""`;
 

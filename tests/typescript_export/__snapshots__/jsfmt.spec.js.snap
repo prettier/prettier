@@ -1,26 +1,45 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comment.js - typescript-verify 1`] = `
+exports[`comment.js 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 export function match(): string /* the matching pattern */
 a
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 export function match(): string; /* the matching pattern */
 a;
 
+================================================================================
 `;
 
-exports[`default.js - typescript-verify 1`] = `
+exports[`default.js 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 export default interface Foo {
   readonly bar?: string;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 export default interface Foo {
   readonly bar?: string;
 }
 
+================================================================================
 `;
 
-exports[`export.ts - typescript-verify 1`] = `
+exports[`export.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 declare module "hello" {
     export default Hello;
 }
@@ -28,7 +47,8 @@ declare module "hello" {
 declare module "hello" {
     export = Hello;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 declare module "hello" {
   export default Hello;
 }
@@ -37,17 +57,39 @@ declare module "hello" {
   export = Hello;
 }
 
+================================================================================
 `;
 
-exports[`export-class.js - typescript-verify 1`] = `
-export class A {}
-export default class B {}
-export abstract class C {}
-export default abstract class D {}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`export-as-ns.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export * as utilities from "./utilities.js";
+
+=====================================output=====================================
+export * as utilities from "./utilities.js";
+
+================================================================================
+`;
+
+exports[`export-class.js 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 export class A {}
 export default class B {}
 export abstract class C {}
 export default abstract class D {}
 
+=====================================output=====================================
+export class A {}
+export default class B {}
+export abstract class C {}
+export default abstract class D {}
+
+================================================================================
 `;

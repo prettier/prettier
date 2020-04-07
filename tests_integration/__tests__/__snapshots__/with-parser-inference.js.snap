@@ -14,6 +14,16 @@ exports[`infers postcss parser (stdout) 1`] = `
 
 exports[`infers postcss parser (write) 1`] = `Array []`;
 
+exports[`infers postcss parser with --check (stderr) 1`] = `""`;
+
+exports[`infers postcss parser with --check (stdout) 1`] = `
+"Checking formatting...
+All matched files use Prettier code style!
+"
+`;
+
+exports[`infers postcss parser with --check (write) 1`] = `Array []`;
+
 exports[`infers postcss parser with --list-different (stderr) 1`] = `""`;
 
 exports[`infers postcss parser with --list-different (stdout) 1`] = `""`;

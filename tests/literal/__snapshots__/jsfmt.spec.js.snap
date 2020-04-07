@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`number.js - babylon-verify 1`] = `
+exports[`number.js 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // parentheses around numeric literal should be preserved
 function test5(): string {
   return (100).toString();
@@ -89,7 +94,8 @@ function test5(): string {
 10
 9700
 10e100
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // parentheses around numeric literal should be preserved
 function test5(): string {
   return (100).toString();
@@ -179,4 +185,5 @@ function test5(): string {
 9700;
 10e100;
 
+================================================================================
 `;

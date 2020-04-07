@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`private_fields.js - babylon-verify 1`] = `
+exports[`private_fields.js 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 class A { #x; #y; }
 class B { #x = 0; #y = 1; }
 
@@ -33,7 +38,25 @@ class Point {
 
   toString() { return \`Point<\${ this.#x },\${ this.#y }>\` }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+class E {
+  async #a() {}
+  #b() {}
+  get #c() {}
+  set #c(bar) {}
+  *#d() {}
+  async *#e() {}
+  get #f() {}
+  set #f(taz) {}
+}
+
+class F {
+  #func(id, { blog: { title } }) {
+    return id + title;
+  }
+}
+
+=====================================output=====================================
 class A {
   #x;
   #y;
@@ -85,9 +108,33 @@ class Point {
   }
 }
 
+class E {
+  async #a() {}
+  #b() {}
+  get #c() {}
+  set #c(bar) {}
+  *#d() {}
+  async *#e() {}
+  get #f() {}
+  set #f(taz) {}
+}
+
+class F {
+  #func(id, { blog: { title } }) {
+    return id + title;
+  }
+}
+
+================================================================================
 `;
 
-exports[`private_fields.js - babylon-verify 2`] = `
+exports[`private_fields.js 2`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
 class A { #x; #y; }
 class B { #x = 0; #y = 1; }
 
@@ -120,7 +167,25 @@ class Point {
 
   toString() { return \`Point<\${ this.#x },\${ this.#y }>\` }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+class E {
+  async #a() {}
+  #b() {}
+  get #c() {}
+  set #c(bar) {}
+  *#d() {}
+  async *#e() {}
+  get #f() {}
+  set #f(taz) {}
+}
+
+class F {
+  #func(id, { blog: { title } }) {
+    return id + title;
+  }
+}
+
+=====================================output=====================================
 class A {
   #x
   #y
@@ -172,17 +237,32 @@ class Point {
   }
 }
 
+class E {
+  async #a() {}
+  #b() {}
+  get #c() {}
+  set #c(bar) {}
+  *#d() {}
+  async *#e() {}
+  get #f() {}
+  set #f(taz) {}
+}
+
+class F {
+  #func(id, { blog: { title } }) {
+    return id + title
+  }
+}
+
+================================================================================
 `;
 
-exports[`with_comments.js - babylon-verify 1`] = `
-class A {
-  #foobar =
-    // comment to break
-    1 +
-    // comment to break again
-    2;
-}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`with_comments.js 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 class A {
   #foobar =
     // comment to break
@@ -191,9 +271,25 @@ class A {
     2;
 }
 
+=====================================output=====================================
+class A {
+  #foobar =
+    // comment to break
+    1 +
+    // comment to break again
+    2;
+}
+
+================================================================================
 `;
 
-exports[`with_comments.js - babylon-verify 2`] = `
+exports[`with_comments.js 2`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
 class A {
   #foobar =
     // comment to break
@@ -201,7 +297,8 @@ class A {
     // comment to break again
     2;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 class A {
   #foobar =
     // comment to break
@@ -210,4 +307,5 @@ class A {
     2
 }
 
+================================================================================
 `;

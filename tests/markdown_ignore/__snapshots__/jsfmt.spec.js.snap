@@ -1,6 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`indented.md - markdown-verify 1`] = `
+exports[`indented.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 - 123
 - 456
 - 789
@@ -8,7 +14,8 @@ exports[`indented.md - markdown-verify 1`] = `
   - This is a long long
     long long long long
     long long paragraph.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 - 123
 - 456
 - 789
@@ -17,18 +24,33 @@ exports[`indented.md - markdown-verify 1`] = `
     long long long long
     long long paragraph.
 
+================================================================================
 `;
 
-exports[`simple.md - markdown-verify 1`] = `
-<!-- prettier-ignore -->
-This is a long long long long long long long long long long long long long long long paragraph.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`simple.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 <!-- prettier-ignore -->
 This is a long long long long long long long long long long long long long long long paragraph.
 
+=====================================output=====================================
+<!-- prettier-ignore -->
+This is a long long long long long long long long long long long long long long long paragraph.
+
+================================================================================
 `;
 
-exports[`top-level-range.md - markdown-verify 1`] = `
+exports[`top-level-range.md 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 <!-- prettier-ignore-start -->
 <!-- some tool start (this should be ignored) -->
 
@@ -50,7 +72,8 @@ exports[`top-level-range.md - markdown-verify 1`] = `
 >
 > <!-- some tool end -->
 > <!-- prettier-ignore-end -->
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <!-- prettier-ignore-start -->
 <!-- some tool start (this should be ignored) -->
 
@@ -73,4 +96,5 @@ exports[`top-level-range.md - markdown-verify 1`] = `
 > <!-- some tool end -->
 > <!-- prettier-ignore-end -->
 
+================================================================================
 `;

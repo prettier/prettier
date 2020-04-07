@@ -1,19 +1,23 @@
 "use strict";
 
+const { isBlockComment, hasLeadingComment } = require("./comments");
+
 const {
   builders: {
     indent,
     join,
+    line,
     hardline,
     softline,
     literalline,
     concat,
-    dedentToRoot
+    group,
+    dedentToRoot,
   },
-  utils: { mapDoc, stripTrailingHardline }
-} = require("../doc");
+  utils: { mapDoc, stripTrailingHardline },
+} = require("../document");
 
-function embed(path, print, textToDoc /*, options */) {
+function embed(path, print, textToDoc, options) {
   const node = path.getValue();
   const parent = path.getParentNode();
   const parentParent = path.getParentNode(1);
@@ -24,15 +28,15 @@ function embed(path, print, textToDoc /*, options */) {
         isStyledJsx,
         isStyledComponents,
         isCssProp,
-        isAngularComponentStyles
-      ].some(isIt => isIt(path));
+        isAngularComponentStyles,
+      ].some((isIt) => isIt(path));
 
       if (isCss) {
         // Get full template literal with expressions replaced by placeholders
-        const rawQuasis = node.quasis.map(q => q.value.raw);
+        const rawQuasis = node.quasis.map((q) => q.value.raw);
         let placeholderID = 0;
         const text = rawQuasis.reduce((prevVal, currVal, idx) => {
-          return idx == 0
+          return idx === 0
             ? currVal
             : prevVal +
                 "@prettier-placeholder-" +
@@ -40,7 +44,7 @@ function embed(path, print, textToDoc /*, options */) {
                 "-id" +
                 currVal;
         }, "");
-        const doc = textToDoc(text, { parser: "css" });
+        const doc = textToDoc(text, { parser: "scss" });
         return transformCssDoc(doc, path, print);
       }
 
@@ -89,7 +93,7 @@ function embed(path, print, textToDoc /*, options */) {
             lines[numLines - 1].trim() === "" &&
             lines[numLines - 2].trim() === "";
 
-          const commentsAndWhitespaceOnly = lines.every(line =>
+          const commentsAndWhitespaceOnly = lines.every((line) =>
             /^\s*(?:#[^\r\n]*)?$/.test(line)
           );
 
@@ -107,7 +111,7 @@ function embed(path, print, textToDoc /*, options */) {
           }
 
           if (doc) {
-            doc = escapeBackticks(doc);
+            doc = escapeTemplateCharacters(doc, false);
             if (!isFirst && startsWithBlankLine) {
               parts.push("");
             }
@@ -128,8 +132,24 @@ function embed(path, print, textToDoc /*, options */) {
           "`",
           indent(concat([hardline, join(hardline, parts)])),
           hardline,
-          "`"
+          "`",
         ]);
+      }
+
+      const htmlParser = isHtml(path)
+        ? "html"
+        : isAngularComponentTemplate(path)
+        ? "angular"
+        : undefined;
+
+      if (htmlParser) {
+        return printHtmlTemplateLiteral(
+          path,
+          print,
+          textToDoc,
+          htmlParser,
+          options
+        );
       }
 
       break;
@@ -142,11 +162,10 @@ function embed(path, print, textToDoc /*, options */) {
        */
       if (
         parentParent &&
-        (parentParent.type === "TaggedTemplateExpression" &&
-          parent.quasis.length === 1 &&
-          (parentParent.tag.type === "Identifier" &&
-            (parentParent.tag.name === "md" ||
-              parentParent.tag.name === "markdown")))
+        parentParent.type === "TaggedTemplateExpression" &&
+        parent.quasis.length === 1 &&
+        parentParent.tag.type === "Identifier" &&
+        (parentParent.tag.name === "md" || parentParent.tag.name === "markdown")
       ) {
         const text = parent.quasis[0].value.raw.replace(
           /((?:\\\\)*)\\`/g,
@@ -161,11 +180,11 @@ function embed(path, print, textToDoc /*, options */) {
                   softline,
                   printMarkdown(
                     text.replace(new RegExp(`^${indentation}`, "gm"), "")
-                  )
+                  ),
                 ])
               )
             : concat([literalline, dedentToRoot(printMarkdown(text))]),
-          softline
+          softline,
         ]);
       }
 
@@ -175,20 +194,8 @@ function embed(path, print, textToDoc /*, options */) {
 
   function printMarkdown(text) {
     const doc = textToDoc(text, { parser: "markdown", __inJsTemplate: true });
-    return stripTrailingHardline(escapeBackticks(doc));
+    return stripTrailingHardline(escapeTemplateCharacters(doc, true));
   }
-}
-
-function isPropertyWithinAngularComponentDecorator(path, parentIndexToCheck) {
-  const parent = path.getParentNode(parentIndexToCheck);
-  return !!(
-    parent &&
-    parent.type === "Decorator" &&
-    parent.expression &&
-    parent.expression.type === "CallExpression" &&
-    parent.expression.callee &&
-    parent.expression.callee.name === "Component"
-  );
 }
 
 function getIndentation(str) {
@@ -196,23 +203,27 @@ function getIndentation(str) {
   return firstMatchedIndent === null ? "" : firstMatchedIndent[1];
 }
 
-function escapeBackticks(doc) {
-  return mapDoc(doc, currentDoc => {
+function uncook(cookedValue) {
+  return cookedValue.replace(/([\\`]|\$\{)/g, "\\$1");
+}
+
+function escapeTemplateCharacters(doc, raw) {
+  return mapDoc(doc, (currentDoc) => {
     if (!currentDoc.parts) {
       return currentDoc;
     }
 
     const parts = [];
 
-    currentDoc.parts.forEach(part => {
+    currentDoc.parts.forEach((part) => {
       if (typeof part === "string") {
-        parts.push(part.replace(/(\\*)`/g, "$1$1\\`"));
+        parts.push(raw ? part.replace(/(\\*)`/g, "$1$1\\`") : uncook(part));
       } else {
         parts.push(part);
       }
     });
 
-    return Object.assign({}, currentDoc, { parts });
+    return { ...currentDoc, parts };
   });
 }
 
@@ -237,7 +248,7 @@ function transformCssDoc(quasisDoc, path, print) {
     "`",
     indent(concat([hardline, stripTrailingHardline(newDoc)])),
     softline,
-    "`"
+    "`",
   ]);
 }
 
@@ -252,11 +263,11 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
 
   const expressions = expressionDocs.slice();
   let replaceCounter = 0;
-  const newDoc = mapDoc(quasisDoc, doc => {
+  const newDoc = mapDoc(quasisDoc, (doc) => {
     if (!doc || !doc.parts || !doc.parts.length) {
       return doc;
     }
-    let parts = doc.parts;
+    let { parts } = doc;
     const atIndex = parts.indexOf("@");
     const placeholderIndex = atIndex + 1;
     if (
@@ -274,7 +285,7 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
         .concat(rest);
     }
     const atPlaceholderIndex = parts.findIndex(
-      part =>
+      (part) =>
         typeof part === "string" && part.startsWith("@prettier-placeholder")
     );
     if (atPlaceholderIndex > -1) {
@@ -295,9 +306,7 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
         .concat(["${", expression, "}" + suffix])
         .concat(rest);
     }
-    return Object.assign({}, doc, {
-      parts: parts
-    });
+    return { ...doc, parts };
   });
 
   return expressions.length === replaceCounter ? newDoc : null;
@@ -307,45 +316,60 @@ function printGraphqlComments(lines) {
   const parts = [];
   let seenComment = false;
 
-  lines.map(textLine => textLine.trim()).forEach((textLine, i, array) => {
-    // Lines are either whitespace only, or a comment (with poential whitespace
-    // around it). Drop whitespace-only lines.
-    if (textLine === "") {
-      return;
-    }
+  lines
+    .map((textLine) => textLine.trim())
+    .forEach((textLine, i, array) => {
+      // Lines are either whitespace only, or a comment (with potential whitespace
+      // around it). Drop whitespace-only lines.
+      if (textLine === "") {
+        return;
+      }
 
-    if (array[i - 1] === "" && seenComment) {
-      // If a non-first comment is preceded by a blank (whitespace only) line,
-      // add in a blank line.
-      parts.push(concat([hardline, textLine]));
-    } else {
-      parts.push(textLine);
-    }
+      if (array[i - 1] === "" && seenComment) {
+        // If a non-first comment is preceded by a blank (whitespace only) line,
+        // add in a blank line.
+        parts.push(concat([hardline, textLine]));
+      } else {
+        parts.push(textLine);
+      }
 
-    seenComment = true;
-  });
+      seenComment = true;
+    });
 
   // If `lines` was whitespace only, return `null`.
   return parts.length === 0 ? null : join(hardline, parts);
 }
 
 /**
- * Template literal in this context:
+ * Template literal in these contexts:
  * <style jsx>{`div{color:red}`}</style>
+ * css``
+ * css.global``
+ * css.resolve``
  */
 function isStyledJsx(path) {
   const node = path.getValue();
   const parent = path.getParentNode();
   const parentParent = path.getParentNode(1);
   return (
-    parentParent &&
-    node.quasis &&
-    parent.type === "JSXExpressionContainer" &&
-    parentParent.type === "JSXElement" &&
-    parentParent.openingElement.name.name === "style" &&
-    parentParent.openingElement.attributes.some(
-      attribute => attribute.name.name === "jsx"
-    )
+    (parentParent &&
+      node.quasis &&
+      parent.type === "JSXExpressionContainer" &&
+      parentParent.type === "JSXElement" &&
+      parentParent.openingElement.name.name === "style" &&
+      parentParent.openingElement.attributes.some(
+        (attribute) => attribute.name.name === "jsx"
+      )) ||
+    (parent &&
+      parent.type === "TaggedTemplateExpression" &&
+      parent.tag.type === "Identifier" &&
+      parent.tag.name === "css") ||
+    (parent &&
+      parent.type === "TaggedTemplateExpression" &&
+      parent.tag.type === "MemberExpression" &&
+      parent.tag.object.name === "css" &&
+      (parent.tag.property.name === "global" ||
+        parent.tag.property.name === "resolve"))
   );
 }
 
@@ -357,9 +381,6 @@ function isStyledJsx(path) {
  * ...which are both within template literals somewhere
  * inside of the Component decorator factory.
  *
- * TODO: Format HTML template once prettier's HTML
- * formatting is "ready"
- *
  * E.g.
  * @Component({
  *  template: `<div>...</div>`,
@@ -367,22 +388,37 @@ function isStyledJsx(path) {
  * })
  */
 function isAngularComponentStyles(path) {
-  const parent = path.getParentNode();
-  const parentParent = path.getParentNode(1);
-  const isWithinArrayValueFromProperty = !!(
-    parent &&
-    (parent.type === "ArrayExpression" && parentParent.type === "Property")
+  return path.match(
+    (node) => node.type === "TemplateLiteral",
+    (node, name) => node.type === "ArrayExpression" && name === "elements",
+    (node, name) =>
+      (node.type === "Property" || node.type === "ObjectProperty") &&
+      node.key.type === "Identifier" &&
+      node.key.name === "styles" &&
+      name === "value",
+    ...angularComponentObjectExpressionPredicates
   );
-  if (
-    isWithinArrayValueFromProperty &&
-    isPropertyWithinAngularComponentDecorator(path, 4)
-  ) {
-    if (parentParent.key && parentParent.key.name === "styles") {
-      return true;
-    }
-  }
-  return false;
 }
+function isAngularComponentTemplate(path) {
+  return path.match(
+    (node) => node.type === "TemplateLiteral",
+    (node, name) =>
+      (node.type === "Property" || node.type === "ObjectProperty") &&
+      node.key.type === "Identifier" &&
+      node.key.name === "template" &&
+      name === "value",
+    ...angularComponentObjectExpressionPredicates
+  );
+}
+const angularComponentObjectExpressionPredicates = [
+  (node, name) => node.type === "ObjectExpression" && name === "properties",
+  (node, name) =>
+    node.type === "CallExpression" &&
+    node.callee.type === "Identifier" &&
+    node.callee.name === "Component" &&
+    name === "arguments",
+  (node, name) => node.type === "Decorator" && name === "expression",
+];
 
 /**
  * styled-components template literals
@@ -394,7 +430,7 @@ function isStyledComponents(path) {
     return false;
   }
 
-  const tag = parent.tag;
+  const { tag } = parent;
 
   switch (tag.type) {
     case "MemberExpression":
@@ -411,11 +447,11 @@ function isStyledComponents(path) {
         isStyledIdentifier(tag.callee) ||
         (tag.callee.type === "MemberExpression" &&
           ((tag.callee.object.type === "MemberExpression" &&
-            // styled.foo.attr({})``
+            // styled.foo.attrs({})``
             (isStyledIdentifier(tag.callee.object.object) ||
-              // Component.extend.attr({)``
+              // Component.extend.attrs({})``
               isStyledExtend(tag.callee.object))) ||
-            // styled(Component).attr({})``
+            // styled(Component).attrs({})``
             (tag.callee.object.type === "CallExpression" &&
               isStyledIdentifier(tag.callee.object.callee))))
       );
@@ -466,20 +502,8 @@ function isGraphQL(path) {
   const node = path.getValue();
   const parent = path.getParentNode();
 
-  // This checks for a leading comment that is exactly `/* GraphQL */`
-  // In order to be in line with other implementations of this comment tag
-  // we will not trim the comment value and we will expect exactly one space on
-  // either side of the GraphQL string
-  // Also see ./clean.js
-  const hasGraphQLComment =
-    node.leadingComments &&
-    node.leadingComments.some(
-      comment =>
-        comment.type === "CommentBlock" && comment.value === " GraphQL "
-    );
-
   return (
-    hasGraphQLComment ||
+    hasLanguageComment(node, "GraphQL") ||
     (parent &&
       ((parent.type === "TaggedTemplateExpression" &&
         ((parent.tag.type === "MemberExpression" &&
@@ -490,6 +514,139 @@ function isGraphQL(path) {
         (parent.type === "CallExpression" &&
           parent.callee.type === "Identifier" &&
           parent.callee.name === "graphql")))
+  );
+}
+
+function hasLanguageComment(node, languageName) {
+  // This checks for a leading comment that is exactly `/* GraphQL */`
+  // In order to be in line with other implementations of this comment tag
+  // we will not trim the comment value and we will expect exactly one space on
+  // either side of the GraphQL string
+  // Also see ./clean.js
+  return hasLeadingComment(
+    node,
+    (comment) =>
+      isBlockComment(comment) && comment.value === ` ${languageName} `
+  );
+}
+
+/**
+ *     - html`...`
+ *     - HTML comment block
+ */
+function isHtml(path) {
+  return (
+    hasLanguageComment(path.getValue(), "HTML") ||
+    path.match(
+      (node) => node.type === "TemplateLiteral",
+      (node, name) =>
+        node.type === "TaggedTemplateExpression" &&
+        node.tag.type === "Identifier" &&
+        node.tag.name === "html" &&
+        name === "quasi"
+    )
+  );
+}
+
+// The counter is needed to distinguish nested embeds.
+let htmlTemplateLiteralCounter = 0;
+
+function printHtmlTemplateLiteral(path, print, textToDoc, parser, options) {
+  const node = path.getValue();
+
+  const counter = htmlTemplateLiteralCounter;
+  htmlTemplateLiteralCounter = (htmlTemplateLiteralCounter + 1) >>> 0;
+
+  const composePlaceholder = (index) =>
+    `PRETTIER_HTML_PLACEHOLDER_${index}_${counter}_IN_JS`;
+
+  const text = node.quasis
+    .map((quasi, index, quasis) =>
+      index === quasis.length - 1
+        ? quasi.value.cooked
+        : quasi.value.cooked + composePlaceholder(index)
+    )
+    .join("");
+
+  const expressionDocs = path.map(print, "expressions");
+
+  if (expressionDocs.length === 0 && text.trim().length === 0) {
+    return "``";
+  }
+
+  const placeholderRegex = new RegExp(composePlaceholder("(\\d+)"), "g");
+  let topLevelCount = 0;
+
+  const contentDoc = mapDoc(
+    stripTrailingHardline(
+      textToDoc(text, {
+        parser,
+        __onHtmlRoot(root) {
+          topLevelCount = root.children.length;
+        },
+      })
+    ),
+    (doc) => {
+      if (typeof doc !== "string") {
+        return doc;
+      }
+
+      const parts = [];
+
+      const components = doc.split(placeholderRegex);
+      for (let i = 0; i < components.length; i++) {
+        let component = components[i];
+
+        if (i % 2 === 0) {
+          if (component) {
+            component = uncook(component);
+            if (options.embeddedInHtml) {
+              component = component.replace(/<\/(script)\b/gi, "<\\/$1");
+            }
+            parts.push(component);
+          }
+          continue;
+        }
+
+        const placeholderIndex = +component;
+        parts.push(
+          concat(["${", group(expressionDocs[placeholderIndex]), "}"])
+        );
+      }
+
+      return concat(parts);
+    }
+  );
+
+  const leadingWhitespace = /^\s/.test(text) ? " " : "";
+  const trailingWhitespace = /\s$/.test(text) ? " " : "";
+
+  const linebreak =
+    options.htmlWhitespaceSensitivity === "ignore"
+      ? hardline
+      : leadingWhitespace && trailingWhitespace
+      ? line
+      : null;
+
+  if (linebreak) {
+    return group(
+      concat([
+        "`",
+        indent(concat([linebreak, group(contentDoc)])),
+        linebreak,
+        "`",
+      ])
+    );
+  }
+
+  return group(
+    concat([
+      "`",
+      leadingWhitespace,
+      topLevelCount > 1 ? indent(group(contentDoc)) : group(contentDoc),
+      trailingWhitespace,
+      "`",
+    ])
   );
 }
 

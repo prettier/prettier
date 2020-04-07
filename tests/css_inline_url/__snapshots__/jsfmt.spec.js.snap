@@ -1,17 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`empty.css - css-verify 1`] = `
-@font-face {
-  src: url();
-}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`empty.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 @font-face {
   src: url();
 }
 
+=====================================output=====================================
+@font-face {
+  src: url();
+}
+
+================================================================================
 `;
 
-exports[`inline_url.css - css-verify 1`] = `
+exports[`inline_url.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 .breadItem {
   background-image: url('/images/product/simple_product_manager/breadcrumb/chevron_right.png');
   background-image: url(/images/product/simple_product_manager/breadcrumb/chevron_right.png);
@@ -21,7 +33,8 @@ exports[`inline_url.css - css-verify 1`] = `
   background-image: url(data:application/font-woff;charset=utf-8;base64,ThisIsNormalBut/+0ThisIsLowerCased);
   background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mO4/B8AAqgB0yr7dJgAAAAASUVORK5CYII=) center center no-repeat;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 .breadItem {
   background-image: url("/images/product/simple_product_manager/breadcrumb/chevron_right.png");
   background-image: url(/images/product/simple_product_manager/breadcrumb/chevron_right.png);
@@ -33,4 +46,5 @@ exports[`inline_url.css - css-verify 1`] = `
     center center no-repeat;
 }
 
+================================================================================
 `;

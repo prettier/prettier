@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`argument-list.js - flow-verify 1`] = `
+exports[`argument-list.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 longArgNamesWithComments(
 
   // Hello World
@@ -188,7 +193,27 @@ doSomething(
 
 
 );
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+function foo(
+  one,
+
+  two,
+  three,
+  four,
+
+
+  five,
+  six,
+  seven,
+  eight,
+  nine,
+  ten,
+
+  eleven
+
+) {}
+
+=====================================output=====================================
 longArgNamesWithComments(
   // Hello World
 
@@ -242,7 +267,7 @@ moreArgTypes(
 
   {
     name: "Hello World",
-    age: 29
+    age: 29,
   },
 
   doSomething(
@@ -308,7 +333,7 @@ doAnotherThing(
 
   {
     solution_type,
-    time_frame
+    time_frame,
   }
 );
 
@@ -317,7 +342,7 @@ stuff.doThing(
 
   -1,
   {
-    accept: node => doSomething(node)
+    accept: (node) => doSomething(node),
   }
 );
 
@@ -327,7 +352,7 @@ doThing(
   // This is important
   true,
   {
-    decline: creditCard => takeMoney(creditCard)
+    decline: (creditCard) => takeMoney(creditCard),
   }
 );
 
@@ -350,9 +375,32 @@ doSomething(
   { helloWorld, someImportantStuff }
 );
 
+function foo(
+  one,
+
+  two,
+  three,
+  four,
+
+  five,
+  six,
+  seven,
+  eight,
+  nine,
+  ten,
+
+  eleven
+) {}
+
+================================================================================
 `;
 
-exports[`comments.js - flow-verify 1`] = `
+exports[`comments.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 function a() {
   const a = 5; // comment
 
@@ -381,7 +429,8 @@ function a() {
 
   return a;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 function a() {
   const a = 5; // comment
 
@@ -411,9 +460,15 @@ function a() {
   return a;
 }
 
+================================================================================
 `;
 
-exports[`member-chain.js - flow-verify 1`] = `
+exports[`member-chain.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 fooBar.doSomething('Hello World').doAnotherThing('Foo', { foo: bar })
 
   // App configuration.
@@ -473,7 +528,8 @@ const sel = this.connections
 
   .concat(this.activities.concat(this.operators))
   .filter(x => x.selected);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 fooBar
   .doSomething("Hello World")
   .doAnotherThing("Foo", { foo: bar })
@@ -517,7 +573,7 @@ helloWorld
 
   .text()
 
-  .then(t => t);
+  .then((t) => t);
 
 (
   veryLongVeryLongVeryLong ||
@@ -525,13 +581,272 @@ helloWorld
   veryVeryVeryLongError
 )
 
-  .map(tickets => TicketRecord.createFromSomeLongString())
+  .map((tickets) => TicketRecord.createFromSomeLongString())
 
-  .filter(obj => !!obj);
+  .filter((obj) => !!obj);
 
 const sel = this.connections
 
   .concat(this.activities.concat(this.operators))
-  .filter(x => x.selected);
+  .filter((x) => x.selected);
 
+================================================================================
+`;
+
+exports[`parameter-list.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class Foo {
+  constructor(
+    one,
+
+    two,
+    three,
+    four,
+
+
+    five,
+    six,
+    seven,
+    eight,
+    nine,
+    ten,
+
+    eleven
+
+  ) {}
+}
+
+function foo(
+  one,
+
+  two,
+  three,
+  four,
+
+
+  five,
+  six,
+  seven,
+  eight,
+  nine,
+  ten,
+
+  eleven
+
+) {}
+
+call((a, b) => {});
+
+call((
+  one,
+  two,
+  three,
+  four,
+  five,
+  six,
+  seven,
+  eight,
+  nine,
+  ten,
+  eleven
+) => {});
+
+call((
+  one,
+
+  two,
+  three,
+  four,
+
+
+  five,
+  six,
+  seven,
+  eight,
+  nine,
+  ten,
+
+  eleven
+
+) => {});
+
+function test({
+  one,
+
+  two,
+  three,
+  four,
+
+
+  five,
+  six,
+  seven,
+  eight,
+  nine,
+  ten,
+
+  eleven
+
+}) {}
+
+function test({
+  one,
+  two,
+  three,
+  four,
+}) {}
+
+function test({
+  one,
+
+  two,
+  three,
+  four,
+
+}) {}
+
+function test({ one, two, three, four }, $a) {}
+
+
+function test(
+  { one, two, three, four },
+
+  $a
+) {}
+
+function foo(
+
+  ...rest
+
+) {}
+
+function foo(
+  one,
+
+  ...rest
+) {}
+
+function foo(one,...rest) {}
+
+f(
+  superSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLong,...args
+);
+
+it(
+
+  "does something really long and complicated so I have to write a very long name for the test",
+
+  function(
+
+    done,
+
+    foo
+  ) {
+
+    console.log("hello!");
+  }
+);
+
+=====================================output=====================================
+class Foo {
+  constructor(
+    one,
+
+    two,
+    three,
+    four,
+
+    five,
+    six,
+    seven,
+    eight,
+    nine,
+    ten,
+
+    eleven
+  ) {}
+}
+
+function foo(
+  one,
+
+  two,
+  three,
+  four,
+
+  five,
+  six,
+  seven,
+  eight,
+  nine,
+  ten,
+
+  eleven
+) {}
+
+call((a, b) => {});
+
+call((one, two, three, four, five, six, seven, eight, nine, ten, eleven) => {});
+
+call((one, two, three, four, five, six, seven, eight, nine, ten, eleven) => {});
+
+function test({
+  one,
+
+  two,
+  three,
+  four,
+
+  five,
+  six,
+  seven,
+  eight,
+  nine,
+  ten,
+
+  eleven,
+}) {}
+
+function test({ one, two, three, four }) {}
+
+function test({
+  one,
+
+  two,
+  three,
+  four,
+}) {}
+
+function test({ one, two, three, four }, $a) {}
+
+function test(
+  { one, two, three, four },
+
+  $a
+) {}
+
+function foo(...rest) {}
+
+function foo(
+  one,
+
+  ...rest
+) {}
+
+function foo(one, ...rest) {}
+
+f(
+  superSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperSuperLong,
+  ...args
+);
+
+it("does something really long and complicated so I have to write a very long name for the test", function (done, foo) {
+  console.log("hello!");
+});
+
+================================================================================
 `;

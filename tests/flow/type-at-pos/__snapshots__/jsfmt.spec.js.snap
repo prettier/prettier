@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`destructuring.js - flow-verify 1`] = `
+exports[`destructuring.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 let [x, y] = [1, 2];
@@ -20,7 +25,8 @@ export const X = {
     let [a, b] = this.returnsATuple();
   }
 };
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 let [x, y] = [1, 2];
@@ -32,18 +38,24 @@ let [x, y] = [1, 2];
  * returns EmptyT.
  */
 export const X = {
-  returnsATuple: function(): [number, number] {
+  returnsATuple: function (): [number, number] {
     return [1, 2];
   },
 
-  test: function() {
+  test: function () {
     let [a, b] = this.returnsATuple();
-  }
+  },
 };
 
+================================================================================
 `;
 
-exports[`function_expressions.js - flow-verify 1`] = `
+exports[`function_expressions.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 // TODO: type-at-pos between the ()'s should be () => void
@@ -66,7 +78,8 @@ const c = {
 const d = {
   m: function<T>(x: T): T { return x; }
 };
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 // TODO: type-at-pos between the ()'s should be () => void
@@ -75,28 +88,34 @@ const d = {
 // }
 
 const a = {
-  bar(): void {}
+  bar(): void {},
 };
 
 const b = {
-  bar: function(): void {}
+  bar: function (): void {},
 };
 
 const c = {
   m<T>(x: T): T {
     return x;
-  }
+  },
 };
 
 const d = {
-  m: function<T>(x: T): T {
+  m: function <T>(x: T): T {
     return x;
-  }
+  },
 };
 
+================================================================================
 `;
 
-exports[`generics.js - flow-verify 1`] = `
+exports[`generics.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 class C<X> { }
@@ -123,7 +142,8 @@ on;
 type Mono = C<void>;
 var mn: Mono<number> = new C; // error: application of non-poly type
 mn;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 class C<X> {}
@@ -153,24 +173,37 @@ type Mono = C<void>;
 var mn: Mono<number> = new C(); // error: application of non-poly type
 mn;
 
+================================================================================
 `;
 
-exports[`import.js - flow-verify 1`] = `
+exports[`import.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 var num = 42;
 function bar() { }
 bar();
 module.exports = num;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 var num = 42;
 function bar() {}
 bar();
 module.exports = num;
 
+================================================================================
 `;
 
-exports[`object_special_cases.js - flow-verify 1`] = `
+exports[`object_special_cases.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 let tests = [
@@ -179,19 +212,26 @@ let tests = [
     Object.defineProperty(x, 'foo', { value: '' });
   },
 ];
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 let tests = [
-  function() {
+  function () {
     let x = {};
     Object.defineProperty(x, "foo", { value: "" });
-  }
+  },
 ];
 
+================================================================================
 `;
 
-exports[`optional.js - flow-verify 1`] = `
+exports[`optional.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 function foo(x?: string) {
@@ -207,7 +247,8 @@ function bar(obj: { x?: string }) {
 function qux(x?) {
   return x;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 function foo(x?: string) {
@@ -224,16 +265,23 @@ function qux(x?) {
   return x;
 }
 
+================================================================================
 `;
 
-exports[`predicates.js - flow-verify 1`] = `
+exports[`predicates.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 let x = 0;
 if (x == null) {}
 if (x == undefined) {}
 if (Array.isArray(x)) {}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 let x = 0;
@@ -244,27 +292,47 @@ if (x == undefined) {
 if (Array.isArray(x)) {
 }
 
+================================================================================
 `;
 
-exports[`react.js - flow-verify 1`] = `
+exports[`react.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 import React from "react";
 React.createElement;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 import React from "react";
 React.createElement;
 
+================================================================================
 `;
 
-exports[`templates.js - flow-verify 1`] = `
-/* @flow */
-\`foo bar\`;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`templates.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 \`foo bar\`;
 
+=====================================output=====================================
+/* @flow */
+\`foo bar\`;
+
+================================================================================
 `;
 
-exports[`test.js - flow-verify 1`] = `
+exports[`test.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 var str = require('./import');
 function foo() { }
@@ -279,7 +347,8 @@ type MyBool = true;
 const z:MyBool = true;
 type MyNum = 42;
 const w:MyNum = 42;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 var str = require("./import");
 function foo() {}
@@ -295,19 +364,27 @@ const z: MyBool = true;
 type MyNum = 42;
 const w: MyNum = 42;
 
+================================================================================
 `;
 
-exports[`trycatch.js - flow-verify 1`] = `
+exports[`trycatch.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 try {
   throw "foo";
 } catch (e) {}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 try {
   throw "foo";
 } catch (e) {}
 
+================================================================================
 `;

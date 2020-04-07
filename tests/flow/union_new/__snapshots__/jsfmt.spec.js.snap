@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`issue-815.js - flow-verify 1`] = `
+exports[`issue-815.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 type T = A|B;
 class U {};
@@ -22,7 +27,8 @@ class VirtualNode {
       children;
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 type T = A | B;
 class U {}
@@ -43,9 +49,15 @@ class VirtualNode {
   }
 }
 
+================================================================================
 `;
 
-exports[`issue-824.js - flow-verify 1`] = `
+exports[`issue-824.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 import { B, C } from "./issue-824-helper";
 
 type K = B | C;
@@ -62,13 +74,14 @@ export default class A {
     return this.foo(p);
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 import { B, C } from "./issue-824-helper";
 
 type K = B | C;
 
 type I = {
-  which(): number
+  which(): number,
 };
 
 export default class A {
@@ -80,9 +93,15 @@ export default class A {
   }
 }
 
+================================================================================
 `;
 
-exports[`issue-824-helper.js - flow-verify 1`] = `
+exports[`issue-824-helper.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 import A from "./issue-824";
 
 export class B extends A {
@@ -95,7 +114,8 @@ export class C extends A {
     return 2;
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 import A from "./issue-824";
 
 export class B extends A {
@@ -109,26 +129,39 @@ export class C extends A {
   }
 }
 
+================================================================================
 `;
 
-exports[`issue-1349.js - flow-verify 1`] = `
+exports[`issue-1349.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 var bar: Array<{b: ?boolean, c: number} | {b: boolean}> = [
   {b: true, c: 123},
   {b: true}
 ];
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 var bar: Array<{ b: ?boolean, c: number } | { b: boolean }> = [
   { b: true, c: 123 },
-  { b: true }
+  { b: true },
 ];
 
+================================================================================
 `;
 
-exports[`issue-1371.js - flow-verify 1`] = `
+exports[`issue-1371.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 function create(a: any): { type: 'B', data: number } | { type: 'A', data: string }
 {
   return {
@@ -136,19 +169,26 @@ function create(a: any): { type: 'B', data: number } | { type: 'A', data: string
     data: a
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 function create(
   a: any
 ): { type: "B", data: number } | { type: "A", data: string } {
   return {
     type: "A",
-    data: a
+    data: a,
   };
 }
 
+================================================================================
 `;
 
-exports[`issue-1455.js - flow-verify 1`] = `
+exports[`issue-1455.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 import type {Foobar} from "./issue-1455-helper"
 
@@ -158,7 +198,8 @@ function create(content: ?Foobar | String | Array<String>) {
 function node(content: ?Foobar | String | Array<String>) {
   create(content)
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 import type { Foobar } from "./issue-1455-helper";
 
@@ -168,20 +209,33 @@ function node(content: ?Foobar | String | Array<String>) {
   create(content);
 }
 
+================================================================================
 `;
 
-exports[`issue-1455-helper.js - flow-verify 1`] = `
+exports[`issue-1455-helper.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 export class Foobar { }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 export class Foobar {}
 
+================================================================================
 `;
 
-exports[`issue-1462-i.js - flow-verify 1`] = `
+exports[`issue-1462-i.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 type Common = {
 };
 
@@ -204,17 +258,18 @@ function print(x: number) {
 function printAll(val: MyType) {
   print(val.foo);  // <--- foo could be an array
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 type Common = {};
 
 type A = Common & {
   type: "A",
-  foo: number
+  foo: number,
 };
 
 type B = Common & {
   type: "B",
-  foo: Array<number>
+  foo: Array<number>,
 };
 
 type MyType = A | B;
@@ -227,9 +282,15 @@ function printAll(val: MyType) {
   print(val.foo); // <--- foo could be an array
 }
 
+================================================================================
 `;
 
-exports[`issue-1462-ii.js - flow-verify 1`] = `
+exports[`issue-1462-ii.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 type Common = {
 };
 
@@ -257,17 +318,18 @@ function printAll(val: MyType) {
     val.foo.forEach(print);
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 type Common = {};
 
 type A = {
   type: "A",
-  foo: number
+  foo: number,
 } & Common;
 
 type B = {
   type: "B",
-  foo: Array<number>
+  foo: Array<number>,
 } & Common;
 
 type MyType = A | B;
@@ -284,9 +346,15 @@ function printAll(val: MyType) {
   }
 }
 
+================================================================================
 `;
 
-exports[`issue-1664.js - flow-verify 1`] = `
+exports[`issue-1664.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 type DataBase = {
@@ -313,20 +381,21 @@ const data: Data = {
 if (data.kind === "system") {
   (data: SystemData);
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 type DataBase = {
   id: string,
-  name: string
+  name: string,
 };
 
 type UserData = DataBase & {
-  kind: "user"
+  kind: "user",
 };
 
 type SystemData = DataBase & {
-  kind: "system"
+  kind: "system",
 };
 
 type Data = UserData | SystemData;
@@ -334,16 +403,22 @@ type Data = UserData | SystemData;
 const data: Data = {
   id: "",
   name: "",
-  kind: "system"
+  kind: "system",
 };
 
 if (data.kind === "system") {
   (data: SystemData);
 }
 
+================================================================================
 `;
 
-exports[`issue-1759.js - flow-verify 1`] = `
+exports[`issue-1759.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 type X = ({a:true} & {b:string}) | ({a:false} & {c:string});
@@ -352,7 +427,8 @@ type X = ({a:true} & {b:string}) | ({a:false} & {c:string});
 function hello(x:X): string {
   if (x.a === true) return x.b; else return x.c;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 type X = ({ a: true } & { b: string }) | ({ a: false } & { c: string });
@@ -363,9 +439,15 @@ function hello(x: X): string {
   else return x.c;
 }
 
+================================================================================
 `;
 
-exports[`issue-2232.js - flow-verify 1`] = `
+exports[`issue-2232.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 declare type Entity<T> = {
@@ -390,23 +472,24 @@ function test(f: Foo| EmptyFoo) {
     (f: Foo)
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 declare type Entity<T> = {
   id: T,
-  name: string
+  name: string,
 };
 
 declare type StringEntity = Entity<string>;
 
 declare type Foo = StringEntity & {
   bars: Object,
-  kind: 1
+  kind: 1,
 };
 declare type EmptyFoo = StringEntity & {
   bars: null,
-  kind: 2
+  kind: 2,
 };
 
 function test(f: Foo | EmptyFoo) {
@@ -415,9 +498,15 @@ function test(f: Foo | EmptyFoo) {
   }
 }
 
+================================================================================
 `;
 
-exports[`test1.js - flow-verify 1`] = `
+exports[`test1.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @noflow
 
 /**
@@ -478,7 +567,8 @@ inst([new B6]);
 
 type A5 = B5[];
 type A6 = B6[];
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @noflow
 
 /**
@@ -540,9 +630,15 @@ inst([new B6()]);
 type A5 = B5[];
 type A6 = B6[];
 
+================================================================================
 `;
 
-exports[`test2.js - flow-verify 1`] = `
+exports[`test2.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @noflow
 
 /**
@@ -620,7 +716,8 @@ tup((["",false]: A6));
 
 type A6 = [B6,boolean];
 type B6 = string;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @noflow
 
 /**
@@ -699,9 +796,15 @@ tup((["", false]: A6));
 type A6 = [B6, boolean];
 type B6 = string;
 
+================================================================================
 `;
 
-exports[`test3.js - flow-verify 1`] = `
+exports[`test3.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @noflow
 
 /**
@@ -731,7 +834,8 @@ arr(([]: A2));
 type A2 = B2[];
 
 type B2 = string;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @noflow
 
 /**
@@ -744,7 +848,7 @@ type B2 = string;
 
 function fun(a: ((x: number) => void) | ((x: string) => void)) {}
 
-fun((x => {}: A1));
+fun(((x) => {}: A1));
 
 type A1 = (x: B1) => void;
 
@@ -762,9 +866,15 @@ type A2 = B2[];
 
 type B2 = string;
 
+================================================================================
 `;
 
-exports[`test4.js - flow-verify 1`] = `
+exports[`test4.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @noflow
 
 /**
@@ -801,7 +911,8 @@ function arr_get(i: number): string { return a2[i]; }
 type A2 = B2[];
 
 type B2 = string;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @noflow
 
 /**
@@ -814,7 +925,7 @@ type B2 = string;
 
 function fun(a: ((x: number) => void) | ((x: string) => void)) {}
 
-const a1 = (x => {}: A1);
+const a1 = ((x) => {}: A1);
 fun(a1);
 
 function fun_call(x: string) {
@@ -845,9 +956,15 @@ type A2 = B2[];
 
 type B2 = string;
 
+================================================================================
 `;
 
-exports[`test5.js - flow-verify 1`] = `
+exports[`test5.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @noflow
 
 /**
@@ -875,7 +992,8 @@ var a2 = [];
 arr(a2);
 
 function arr_set(x: string, i: number) { a2[i] = x; }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @noflow
 
 /**
@@ -910,9 +1028,15 @@ function arr_set(x: string, i: number) {
   a2[i] = x;
 }
 
+================================================================================
 `;
 
-exports[`test6.js - flow-verify 1`] = `
+exports[`test6.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @noflow
 
 /**
@@ -938,7 +1062,8 @@ const _C = mk_C();
 class D<X> extends _C<X> { }
 
 class C<X> { }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @noflow
 
 /**
@@ -967,9 +1092,15 @@ class D<X> extends _C<X> {}
 
 class C<X> {}
 
+================================================================================
 `;
 
-exports[`test7.js - flow-verify 1`] = `
+exports[`test7.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @noflow
 
 /**
@@ -999,7 +1130,8 @@ rec({ x: 0 });
 
 type PF<X> = PG<X>;
 type PG<X> = { x: X, y?: PG<X> };
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @noflow
 
 /**
@@ -1030,9 +1162,15 @@ rec({ x: 0 });
 type PF<X> = PG<X>;
 type PG<X> = { x: X, y?: PG<X> };
 
+================================================================================
 `;
 
-exports[`test8.js - flow-verify 1`] = `
+exports[`test8.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @noflow
 
 /**
@@ -1056,7 +1194,8 @@ type H1 = boolean;
 type H1_ = string;
 type H2 = boolean;
 type H2_ = number;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @noflow
 
 /**
@@ -1081,9 +1220,15 @@ type H1_ = string;
 type H2 = boolean;
 type H2_ = number;
 
+================================================================================
 `;
 
-exports[`test9.js - flow-verify 1`] = `
+exports[`test9.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @noflow
 
 /**
@@ -1100,7 +1245,8 @@ function square(x? = 0) {
 
 function foo(f: ((_: ?number) => ?number) | (() => void)) { }
 foo((x): number => square(x))
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @noflow
 
 /**
@@ -1118,9 +1264,15 @@ function square(x? = 0) {
 function foo(f: ((_: ?number) => ?number) | (() => void)) {}
 foo((x): number => square(x));
 
+================================================================================
 `;
 
-exports[`test10.js - flow-verify 1`] = `
+exports[`test10.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @noflow
 
 function id<X>(x: X): X { return x; }
@@ -1193,7 +1345,8 @@ function check_poly_inst(_: P<number> | P<string>) { }
 
 // help!
 check_poly_inst(new P);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @noflow
 
 function id<X>(x: X): X {
@@ -1233,7 +1386,7 @@ check_inst(id(new C()));
 function check_fun(_: ((_: number) => number) | ((_: string) => string)) {}
 
 // help!
-check_fun(x => x);
+check_fun((x) => x);
 
 //////////////////////
 // object annotations
@@ -1269,9 +1422,15 @@ function check_poly_inst(_: P<number> | P<string>) {}
 // help!
 check_poly_inst(new P());
 
+================================================================================
 `;
 
-exports[`test11.js - flow-verify 1`] = `
+exports[`test11.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @noflow
 
 // disjoint unions
@@ -1290,7 +1449,8 @@ length({ kind: "empty" }); // \`kind\` not found
 type List = Nil | Cons;
 type Nil = { kind: "nil" };
 type Cons = { kind: "cons", next: List };
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @noflow
 
 // disjoint unions
@@ -1309,9 +1469,15 @@ type List = Nil | Cons;
 type Nil = { kind: "nil" };
 type Cons = { kind: "cons", next: List };
 
+================================================================================
 `;
 
-exports[`test12.js - flow-verify 1`] = `
+exports[`test12.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @noflow
 
 // polymorphic recursive types
@@ -1321,7 +1487,8 @@ type G = { x: number }
 type H = { x: string }
 
 function rec(x: F<string>): G | H { return x; }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @noflow
 
 // polymorphic recursive types
@@ -1334,9 +1501,15 @@ function rec(x: F<string>): G | H {
   return x;
 }
 
+================================================================================
 `;
 
-exports[`test13.js - flow-verify 1`] = `
+exports[`test13.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @noflow
 
 /* ensure there are no unintended side effects when trying branches */
@@ -1348,7 +1521,8 @@ exports[`test13.js - flow-verify 1`] = `
   type: 'B';
   id: string;
 });
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @noflow
 
 /* ensure there are no unintended side effects when trying branches */
@@ -1356,16 +1530,22 @@ exports[`test13.js - flow-verify 1`] = `
 ({ type: "B", id: "hi" }:
   | {
       type: "A",
-      id: ?string
+      id: ?string,
     }
   | {
       type: "B",
-      id: string
+      id: string,
     });
 
+================================================================================
 `;
 
-exports[`test14.js - flow-verify 1`] = `
+exports[`test14.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @noflow
 
 // annotations
@@ -1379,7 +1559,8 @@ function union(o: { x: string } | { x: number }) { }
 function foo(c: C<number>) {
   union({ x: c.get() });
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @noflow
 
 // annotations
@@ -1394,9 +1575,15 @@ function foo(c: C<number>) {
   union({ x: c.get() });
 }
 
+================================================================================
 `;
 
-exports[`test15.js - flow-verify 1`] = `
+exports[`test15.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @noflow
 
 // functions as objects
@@ -1421,13 +1608,14 @@ type KeyboardEventHandler = (event: KeyboardEvent) => mixed
 function bar(x: (() => void) | { x: number }) { }
 
 bar(() => { });
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @noflow
 
 // functions as objects
 
 function foo<X>(target: EventTarget) {
-  target.addEventListener("click", e => {});
+  target.addEventListener("click", (e) => {});
 }
 
 declare class EventTarget {
@@ -1447,9 +1635,15 @@ function bar(x: (() => void) | { x: number }) {}
 
 bar(() => {});
 
+================================================================================
 `;
 
-exports[`test16.js - flow-verify 1`] = `
+exports[`test16.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @noflow
 
 // annotations
@@ -1468,7 +1662,8 @@ bar(() => qux());
 var x = false;
 function qux() { return x; }
 x = "";
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @noflow
 
 // annotations
@@ -1490,9 +1685,15 @@ function qux() {
 }
 x = "";
 
+================================================================================
 `;
 
-exports[`test17.js - flow-verify 1`] = `
+exports[`test17.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @noflow
 
 // Array#concat
@@ -1500,7 +1701,8 @@ exports[`test17.js - flow-verify 1`] = `
 [].concat([]);
 
 ([].concat([0,1])[1]: string)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @noflow
 
 // Array#concat
@@ -1509,9 +1711,15 @@ exports[`test17.js - flow-verify 1`] = `
 
 ([].concat([0, 1])[1]: string);
 
+================================================================================
 `;
 
-exports[`test18.js - flow-verify 1`] = `
+exports[`test18.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @noflow
 
 // method overloads
@@ -1524,7 +1732,8 @@ declare class C {
 function f() { return 0; }
 
 new C().m(f());
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @noflow
 
 // method overloads
@@ -1540,9 +1749,15 @@ function f() {
 
 new C().m(f());
 
+================================================================================
 `;
 
-exports[`test19.js - flow-verify 1`] = `
+exports[`test19.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @noflow
 
 // constructor overloads
@@ -1555,7 +1770,8 @@ declare class D {
   constructor(_: void): void;
   constructor(_: null): void;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @noflow
 
 // constructor overloads
@@ -1569,9 +1785,15 @@ declare class D {
   constructor(_: null): void;
 }
 
+================================================================================
 `;
 
-exports[`test20.js - flow-verify 1`] = `
+exports[`test20.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @noflow
 
 // Array#reduce
@@ -1586,7 +1808,8 @@ exports[`test20.js - flow-verify 1`] = `
 );
 
 [""].reduce((acc,str) => acc * str.length);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @noflow
 
 // Array#reduce
@@ -1599,9 +1822,15 @@ exports[`test20.js - flow-verify 1`] = `
 
 [""].reduce((acc, str) => acc * str.length);
 
+================================================================================
 `;
 
-exports[`test21.js - flow-verify 1`] = `
+exports[`test21.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @noflow
 
 // annotations for disjoint unions
@@ -1623,7 +1852,8 @@ function bar() {
 function str() {
   return "hello";
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @noflow
 
 // annotations for disjoint unions
@@ -1644,9 +1874,15 @@ function str() {
   return "hello";
 }
 
+================================================================================
 `;
 
-exports[`test22.js - flow-verify 1`] = `
+exports[`test22.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @noflow
 
 // refinement of disjoint unions
@@ -1668,7 +1904,8 @@ function foo(x: T) {
   if (x.type === 'SUCCESS') return x.result;
   else return x.result;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @noflow
 
 // refinement of disjoint unions
@@ -1677,11 +1914,11 @@ type Empty = {};
 
 type Success = {
   type: "SUCCESS",
-  result: string
+  result: string,
 };
 
 type Error = {
-  type: "ERROR"
+  type: "ERROR",
 } & Empty;
 
 export type T = Success | Error;
@@ -1691,9 +1928,15 @@ function foo(x: T) {
   else return x.result;
 }
 
+================================================================================
 `;
 
-exports[`test23.js - flow-verify 1`] = `
+exports[`test23.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @noflow
 
 // nested intersections (see also lib/test23_lib.js)
@@ -1706,7 +1949,8 @@ function foo(obj: Obj) {
   obj.x; // should be OK
   obj.x; // should also be OK (the check above shouldn't affect anything)
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @noflow
 
 // nested intersections (see also lib/test23_lib.js)
@@ -1720,9 +1964,15 @@ function foo(obj: Obj) {
   obj.x; // should also be OK (the check above shouldn't affect anything)
 }
 
+================================================================================
 `;
 
-exports[`test24.js - flow-verify 1`] = `
+exports[`test24.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @noflow
 
 // scaling test for full type resolution
@@ -1753,7 +2003,8 @@ declare class D extends C {
 }
 
 (0: D | number);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @noflow
 
 // scaling test for full type resolution
@@ -1790,9 +2041,15 @@ declare class D extends C {
 
 (0: D | number);
 
+================================================================================
 `;
 
-exports[`test25.js - flow-verify 1`] = `
+exports[`test25.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @noflow
 
 // termination test (see also lib/test25_lib.js)
@@ -1806,7 +2063,8 @@ function foo(rows: Rows, set: Set<number>) {
     set,
   );
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @noflow
 
 // termination test (see also lib/test25_lib.js)
@@ -1818,9 +2076,15 @@ function foo(rows: Rows, set: Set<number>) {
   );
 }
 
+================================================================================
 `;
 
-exports[`test26.js - flow-verify 1`] = `
+exports[`test26.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @noflow
 
 declare function foo(x: number): number;
@@ -1841,7 +2105,8 @@ declare class Record {
 }
 
 new Record().set('foo', "42");
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @noflow
 
 declare function foo(x: number): number;
@@ -1863,9 +2128,15 @@ declare class Record {
 
 new Record().set("foo", "42");
 
+================================================================================
 `;
 
-exports[`test27.js - flow-verify 1`] = `
+exports[`test27.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @noflow
 
 type X = ({a:true} & {b:string}) | ({a:false} & {c:string});
@@ -1886,7 +2157,8 @@ function hello3(x:X): string {
 function hello4(x:X): string {
   if (!x.a) { return x.c; } else { return x.b; }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @noflow
 
 type X = ({ a: true } & { b: string }) | ({ a: false } & { c: string });
@@ -1918,9 +2190,15 @@ function hello4(x: X): string {
   }
 }
 
+================================================================================
 `;
 
-exports[`test29.js - flow-verify 1`] = `
+exports[`test29.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @noflow
 
 // Make sure caching doesn't cause a spurious successful match (e.g., when a
@@ -1952,7 +2230,8 @@ class C {
     );
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @noflow
 
 // Make sure caching doesn't cause a spurious successful match (e.g., when a
@@ -1979,9 +2258,15 @@ class C {
   }
 }
 
+================================================================================
 `;
 
-exports[`test30.js - flow-verify 1`] = `
+exports[`test30.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @noflow
 
 const Constants = require('./test30-helper');
@@ -1991,7 +2276,8 @@ type ActionType =
   | { type: 'bar', x: number }
 
 ({ type: Constants.BAR, x: 0 }: ActionType);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @noflow
 
 const Constants = require("./test30-helper");
@@ -2000,26 +2286,39 @@ type ActionType = { type: "foo", x: number } | { type: "bar", x: number };
 
 ({ type: Constants.BAR, x: 0 }: ActionType);
 
+================================================================================
 `;
 
-exports[`test30-helper.js - flow-verify 1`] = `
+exports[`test30-helper.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @noflow
 
 module.exports = {
   FOO: 'foo',
   BAR: 'bar',
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @noflow
 
 module.exports = {
   FOO: "foo",
-  BAR: "bar"
+  BAR: "bar",
 };
 
+================================================================================
 `;
 
-exports[`test31.js - flow-verify 1`] = `
+exports[`test31.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @noflow
 
 // make sure tuples are type arguments (as used e.g. when viewing maps as
@@ -2045,7 +2344,8 @@ function foo(): ImmutableMap<string, boolean> {
   countersGlobalMap.set("", false);
   return convert(countersGlobalMap);
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @noflow
 
 // make sure tuples are type arguments (as used e.g. when viewing maps as
@@ -2072,9 +2372,15 @@ function foo(): ImmutableMap<string, boolean> {
   return convert(countersGlobalMap);
 }
 
+================================================================================
 `;
 
-exports[`test32.js - flow-verify 1`] = `
+exports[`test32.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 // make sure that full resolution jobs don't cache improperly to signal success
@@ -2084,7 +2390,8 @@ function foo(value: Indirect<string> | number): Indirect<string> | number {
   const castedValue: number = typeof value === 'number' ? value : 0;
   return castedValue;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 // make sure that full resolution jobs don't cache improperly to signal success
@@ -2095,4 +2402,5 @@ function foo(value: Indirect<string> | number): Indirect<string> | number {
   return castedValue;
 }
 
+================================================================================
 `;

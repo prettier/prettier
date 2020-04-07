@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`A.js - flow-verify 1`] = `
+exports[`A.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 var m1 = require('./1DoesntExist');
@@ -26,7 +31,8 @@ var c_2: string = m3.numVal; // Error: number ~> string
 import {numVal as numVal3} from '5DoesntExist';
 var c_3: number = numVal3;
 var c_4: string = numVal3; // Error: number ~> string
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 var m1 = require("./1DoesntExist");
@@ -53,19 +59,27 @@ import { numVal as numVal3 } from "5DoesntExist";
 var c_3: number = numVal3;
 var c_4: string = numVal3; // Error: number ~> string
 
+================================================================================
 `;
 
-exports[`Exists.js - flow-verify 1`] = `
+exports[`Exists.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 module.exports = {
   numVal: 42
 };
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 module.exports = {
-  numVal: 42
+  numVal: 42,
 };
 
+================================================================================
 `;

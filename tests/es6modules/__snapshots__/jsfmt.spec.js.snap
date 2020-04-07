@@ -1,141 +1,141 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`export_default_arrow_expression.js - babylon-verify 1`] = `
-export default () => {};
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`export_default_arrow_expression.js 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 export default () => {};
 
+=====================================output=====================================
+export default () => {};
+
+================================================================================
 `;
 
-exports[`export_default_arrow_expression.js - flow-verify 1`] = `
-export default () => {};
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-export default () => {};
-
-`;
-
-exports[`export_default_call_expression.js - babylon-verify 1`] = `
+exports[`export_default_call_expression.js 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 export default foo()
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 export default foo();
 
+================================================================================
 `;
 
-exports[`export_default_call_expression.js - flow-verify 1`] = `
-export default foo()
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-export default foo();
+exports[`export_default_class_declaration.js 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export default class Foo {}
 
+=====================================output=====================================
+export default class Foo {}
+
+================================================================================
 `;
 
-exports[`export_default_class_declaration.js - babylon-verify 1`] = `
-export default class Foo {}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-export default class Foo {}
-
-`;
-
-exports[`export_default_class_declaration.js - flow-verify 1`] = `
-export default class Foo {}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-export default class Foo {}
-
-`;
-
-exports[`export_default_class_expression.js - babylon-verify 1`] = `
+exports[`export_default_class_expression.js 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 export default (class foobar {})
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 export default (class foobar {});
 
+================================================================================
 `;
 
-exports[`export_default_class_expression.js - flow-verify 1`] = `
-export default (class foobar {})
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-export default (class foobar {});
+exports[`export_default_function_declaration.js 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export default function() {}
 
+=====================================output=====================================
+export default function () {}
+
+================================================================================
 `;
 
-exports[`export_default_function_declaration.js - babylon-verify 1`] = `
-export default function() {}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-export default function() {}
-
-`;
-
-exports[`export_default_function_declaration.js - flow-verify 1`] = `
-export default function() {}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-export default function() {}
-
-`;
-
-exports[`export_default_function_declaration_async.js - babylon-verify 1`] = `
-export default async function foo() {}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`export_default_function_declaration_async.js 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 export default async function foo() {}
 
-`;
-
-exports[`export_default_function_declaration_async.js - flow-verify 1`] = `
+=====================================output=====================================
 export default async function foo() {}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-export default (async function foo() {});
 
+================================================================================
 `;
 
-exports[`export_default_function_declaration_named.js - babylon-verify 1`] = `
+exports[`export_default_function_declaration_named.js 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 export default function f(){}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 export default function f() {}
 
+================================================================================
 `;
 
-exports[`export_default_function_declaration_named.js - flow-verify 1`] = `
-export default function f(){}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-export default function f() {}
+exports[`export_default_function_expression.js 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export default (function() {});
 
+=====================================output=====================================
+export default (function () {});
+
+================================================================================
 `;
 
-exports[`export_default_function_expression.js - babylon-verify 1`] = `
-export default (function() {});
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-export default (function() {});
-
-`;
-
-exports[`export_default_function_expression.js - flow-verify 1`] = `
-export default (function() {});
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-export default (function() {});
-
-`;
-
-exports[`export_default_function_expression_named.js - babylon-verify 1`] = `
+exports[`export_default_function_expression_named.js 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 export default (function f(){})
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 export default (function f() {});
 
+================================================================================
 `;
 
-exports[`export_default_function_expression_named.js - flow-verify 1`] = `
-export default (function f(){})
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-export default (function f() {});
-
-`;
-
-exports[`export_default_new_expression.js - babylon-verify 1`] = `
-export default new Foo();
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`export_default_new_expression.js 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 export default new Foo();
 
-`;
-
-exports[`export_default_new_expression.js - flow-verify 1`] = `
-export default new Foo();
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=====================================output=====================================
 export default new Foo();
 
+================================================================================
 `;

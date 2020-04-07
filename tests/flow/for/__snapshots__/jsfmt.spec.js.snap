@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`abnormal.js - flow-verify 1`] = `
+exports[`abnormal.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 function foo(x: boolean) {
@@ -48,7 +53,8 @@ function corge(x: boolean) {
   }
   console.log('this is still reachable');
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 function foo(x: boolean) {
@@ -97,9 +103,15 @@ function corge(x: boolean) {
   console.log("this is still reachable");
 }
 
+================================================================================
 `;
 
-exports[`abnormal_for_in.js - flow-verify 1`] = `
+exports[`abnormal_for_in.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 function foo(x: boolean) {
   var obj = { a: 1, b: 2};
   for (var prop in obj) {
@@ -142,7 +154,8 @@ function corge(x: boolean) {
   }
   console.log('this is still reachable');
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 function foo(x: boolean) {
   var obj = { a: 1, b: 2 };
   for (var prop in obj) {
@@ -186,9 +199,15 @@ function corge(x: boolean) {
   console.log("this is still reachable");
 }
 
+================================================================================
 `;
 
-exports[`abnormal_for_of.js - flow-verify 1`] = `
+exports[`abnormal_for_of.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 function foo(x: boolean) {
   var arr = [1, 2, 3];
   for (var elem of arr) {
@@ -231,7 +250,8 @@ function corge(x: boolean) {
   }
   console.log('this is still reachable');
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 function foo(x: boolean) {
   var arr = [1, 2, 3];
   for (var elem of arr) {
@@ -275,4 +295,5 @@ function corge(x: boolean) {
   console.log("this is still reachable");
 }
 
+================================================================================
 `;

@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`keys.js - flow-verify 1`] = `
+exports[`keys.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 function testKeysOfObject(str: string, lit: 'hi') {
@@ -46,7 +51,8 @@ function testKeysOfOtherObj(str: string, lit: 'hi') {
 
   (123: $Keys<ObjLit>); // Error: number -> keys of ObjLit
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 function testKeysOfObject(str: string, lit: "hi") {
@@ -93,4 +99,5 @@ function testKeysOfOtherObj(str: string, lit: "hi") {
   (123: $Keys<ObjLit>); // Error: number -> keys of ObjLit
 }
 
+================================================================================
 `;

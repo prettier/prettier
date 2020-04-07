@@ -1,14 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`main.js - flow-verify 1`] = `
+exports[`main.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 var React = require('react');
 (<fbt />: React.Element<*>);
 (<fbt />: number); // Error: ReactElement ~> number
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 var React = require("react");
 (<fbt />: React.Element<*>);
 (<fbt />: number); // Error: ReactElement ~> number
 
+================================================================================
 `;

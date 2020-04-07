@@ -1,13 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`index.js - flow-verify 1`] = `
+exports[`index.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 (require('Module1'): boolean);
 require('Module2');
 require('Module3');
 require('Module4');
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 (require("Module1"): boolean);
@@ -15,4 +21,5 @@ require("Module2");
 require("Module3");
 require("Module4");
 
+================================================================================
 `;

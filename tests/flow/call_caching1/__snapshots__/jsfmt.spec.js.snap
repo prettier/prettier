@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.js - flow-verify 1`] = `
+exports[`test.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 const Immutable = require('immutable');
@@ -11,21 +16,28 @@ const tasksPerStatusMap = new Map(
 for (let [taskStatus, tasksMap] of tasksPerStatusMap) {
   tasksPerStatusMap.set(taskStatus, Immutable.Map(tasksMap));
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 const Immutable = require("immutable");
 
 const tasksPerStatusMap = new Map(
-  [].map(taskStatus => [taskStatus, new Map()])
+  [].map((taskStatus) => [taskStatus, new Map()])
 );
 for (let [taskStatus, tasksMap] of tasksPerStatusMap) {
   tasksPerStatusMap.set(taskStatus, Immutable.Map(tasksMap));
 }
 
+================================================================================
 `;
 
-exports[`test2.js - flow-verify 1`] = `
+exports[`test2.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 declare class Bar<K> {
@@ -44,7 +56,8 @@ foo(
   items,
   (acc) => acc.update(updater)
 );
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 declare class Bar<K> {
@@ -59,11 +72,17 @@ declare function foo<U>(
 declare var items: Bar<string>;
 declare var updater: (value: Bar<string>) => Bar<string>;
 
-foo(items, acc => acc.update(updater));
+foo(items, (acc) => acc.update(updater));
 
+================================================================================
 `;
 
-exports[`test3.js - flow-verify 1`] = `
+exports[`test3.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 declare class ImmBox<T> {
@@ -80,7 +99,8 @@ declare class Box<T> {
 const outer = new Box();
 const inner = outer.get();
 outer.set(ImmBox(inner));
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 declare class ImmBox<T> {
@@ -98,4 +118,5 @@ const outer = new Box();
 const inner = outer.get();
 outer.set(ImmBox(inner));
 
+================================================================================
 `;

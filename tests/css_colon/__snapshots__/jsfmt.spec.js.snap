@@ -1,12 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`colon.css - css-verify 1`] = `
-div {
-  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
-}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`colon.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 div {
   filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
 }
 
+=====================================output=====================================
+div {
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+}
+
+================================================================================
 `;

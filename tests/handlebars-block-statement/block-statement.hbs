@@ -1,0 +1,52 @@
+{{#block param hashKey=hashValue as |blockParam|}}
+  Hello
+{{/block}}
+
+{{#block almost80CharacterLongPositionalParamThatIsFirstAlmost80Chars helloWorldParam key=here}}
+{{/block}}
+
+{{#block param param param param param param param hashKey=hashValue as |blockParam|}}
+  Hello
+{{/block}}
+
+{{#block param param param param param param param hashKey=HashValue hashKey=hashValue}}
+  Hello
+{{/block}}
+
+{{#block param param param param param param param param param param param param param}}
+  Hello
+{{/block}}
+
+{{#block hashKey=HashValue hashKey=hashValue hashKey=HashValue hashKey=hashValue hashKey=HashValue}}
+  Hello
+{{/block}}
+
+{{#block}}
+  {{#block}}
+   hello
+  {{/block}}
+{{/block}}
+
+{{#block}}
+  {{#block param}}
+    hello
+  {{/block}}
+{{/block}}
+
+{{#block param}}
+  {{#block param}}
+    hello
+  {{/block}}
+{{/block}}
+
+{{#block}}
+  hello
+{{/block}}
+
+<MyComponent as |firstName|>
+  {{firstName}}
+</MyComponent>
+
+<MyComponent as |firstName lastName|>
+  {{firstName}} {{lastName}}
+</MyComponent>

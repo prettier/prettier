@@ -1,57 +1,11 @@
 "use strict";
 
 const stringWidth = require("string-width");
-const emojiRegex = require("emoji-regex")();
 const escapeStringRegexp = require("escape-string-regexp");
-const getCjkRegex = require("cjk-regex");
-const getUnicodeRegex = require("unicode-regex");
+const getLast = require("../utils/get-last");
 
 // eslint-disable-next-line no-control-regex
 const notAsciiRegex = /[^\x20-\x7F]/;
-
-const cjkPattern = getCjkRegex().source;
-
-// http://spec.commonmark.org/0.25/#ascii-punctuation-character
-const asciiPunctuationCharRange = escapeStringRegexp(
-  "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"
-);
-
-// http://spec.commonmark.org/0.25/#punctuation-character
-const punctuationCharRange = `${asciiPunctuationCharRange}${getUnicodeRegex([
-  "Pc",
-  "Pd",
-  "Pe",
-  "Pf",
-  "Pi",
-  "Po",
-  "Ps"
-]).source.slice(1, -1)}`; // remove bracket expression `[` and `]`
-
-const punctuationRegex = new RegExp(`[${punctuationCharRange}]`);
-
-function isExportDeclaration(node) {
-  if (node) {
-    switch (node.type) {
-      case "ExportDefaultDeclaration":
-      case "ExportDefaultSpecifier":
-      case "DeclareExportDeclaration":
-      case "ExportNamedDeclaration":
-      case "ExportAllDeclaration":
-        return true;
-    }
-  }
-
-  return false;
-}
-
-function getParentExportDeclaration(path) {
-  const parentNode = path.getParentNode();
-  if (path.getName() === "declaration" && isExportDeclaration(parentNode)) {
-    return parentNode;
-  }
-
-  return null;
-}
 
 function getPenultimate(arr) {
   if (arr.length > 1) {
@@ -60,13 +14,14 @@ function getPenultimate(arr) {
   return null;
 }
 
-function getLast(arr) {
-  if (arr.length > 0) {
-    return arr[arr.length - 1];
-  }
-  return null;
-}
+/**
+ * @typedef {{backwards?: boolean}} SkipOptions
+ */
 
+/**
+ * @param {string | RegExp} chars
+ * @returns {(text: string, index: number | false, opts?: SkipOptions) => number | false}
+ */
 function skip(chars) {
   return (text, index, opts) => {
     const backwards = opts && opts.backwards;
@@ -77,7 +32,7 @@ function skip(chars) {
       return false;
     }
 
-    const length = text.length;
+    const { length } = text;
     let cursor = index;
     while (cursor >= 0 && cursor < length) {
       const c = text.charAt(cursor);
@@ -85,7 +40,7 @@ function skip(chars) {
         if (!chars.test(c)) {
           return cursor;
         }
-      } else if (chars.indexOf(c) === -1) {
+      } else if (!chars.includes(c)) {
         return cursor;
       }
 
@@ -103,11 +58,28 @@ function skip(chars) {
   };
 }
 
+/**
+ * @type {(text: string, index: number | false, opts?: SkipOptions) => number | false}
+ */
 const skipWhitespace = skip(/\s/);
+/**
+ * @type {(text: string, index: number | false, opts?: SkipOptions) => number | false}
+ */
 const skipSpaces = skip(" \t");
+/**
+ * @type {(text: string, index: number | false, opts?: SkipOptions) => number | false}
+ */
 const skipToLineEnd = skip(",; \t");
+/**
+ * @type {(text: string, index: number | false, opts?: SkipOptions) => number | false}
+ */
 const skipEverythingButNewLine = skip(/[^\r\n]/);
 
+/**
+ * @param {string} text
+ * @param {number | false} index
+ * @returns {number | false}
+ */
 function skipInlineComment(text, index) {
   if (index === false) {
     return false;
@@ -123,6 +95,11 @@ function skipInlineComment(text, index) {
   return index;
 }
 
+/**
+ * @param {string} text
+ * @param {number | false} index
+ * @returns {number | false}
+ */
 function skipTrailingComment(text, index) {
   if (index === false) {
     return false;
@@ -137,6 +114,12 @@ function skipTrailingComment(text, index) {
 // This one doesn't use the above helper function because it wants to
 // test \r\n in order and `skip` doesn't support ordering and we only
 // want to skip one newline. It's simple to implement.
+/**
+ * @param {string} text
+ * @param {number | false} index
+ * @param {SkipOptions=} opts
+ * @returns {number | false}
+ */
 function skipNewline(text, index, opts) {
   const backwards = opts && opts.backwards;
   if (index === false) {
@@ -173,6 +156,12 @@ function skipNewline(text, index, opts) {
   return index;
 }
 
+/**
+ * @param {string} text
+ * @param {number} index
+ * @param {SkipOptions=} opts
+ * @returns {boolean}
+ */
 function hasNewline(text, index, opts) {
   opts = opts || {};
   const idx = skipSpaces(text, opts.backwards ? index - 1 : index, opts);
@@ -180,6 +169,12 @@ function hasNewline(text, index, opts) {
   return idx !== idx2;
 }
 
+/**
+ * @param {string} text
+ * @param {number} start
+ * @param {number} end
+ * @returns {boolean}
+ */
 function hasNewlineInRange(text, start, end) {
   for (let i = start; i < end; ++i) {
     if (text.charAt(i) === "\n") {
@@ -190,7 +185,14 @@ function hasNewlineInRange(text, start, end) {
 }
 
 // Note: this function doesn't ignore leading comments unlike isNextLineEmpty
+/**
+ * @template N
+ * @param {string} text
+ * @param {N} node
+ * @param {(node: N) => number} locStart
+ */
 function isPreviousLineEmpty(text, node, locStart) {
+  /** @type {number | false} */
   let idx = locStart(node) - 1;
   idx = skipSpaces(text, idx, { backwards: true });
   idx = skipNewline(text, idx, { backwards: true });
@@ -199,8 +201,15 @@ function isPreviousLineEmpty(text, node, locStart) {
   return idx !== idx2;
 }
 
+/**
+ * @param {string} text
+ * @param {number} index
+ * @returns {boolean}
+ */
 function isNextLineEmptyAfterIndex(text, index) {
+  /** @type {number | false} */
   let oldIdx = null;
+  /** @type {number | false} */
   let idx = index;
   while (idx !== oldIdx) {
     // We need to skip all the potential trailing inline comments
@@ -211,38 +220,84 @@ function isNextLineEmptyAfterIndex(text, index) {
   }
   idx = skipTrailingComment(text, idx);
   idx = skipNewline(text, idx);
-  return hasNewline(text, idx);
+  return idx !== false && hasNewline(text, idx);
 }
 
+/**
+ * @template N
+ * @param {string} text
+ * @param {N} node
+ * @param {(node: N) => number} locEnd
+ * @returns {boolean}
+ */
 function isNextLineEmpty(text, node, locEnd) {
   return isNextLineEmptyAfterIndex(text, locEnd(node));
 }
 
-function getNextNonSpaceNonCommentCharacterIndex(text, node, locEnd) {
+/**
+ * @param {string} text
+ * @param {number} idx
+ * @returns {number | false}
+ */
+function getNextNonSpaceNonCommentCharacterIndexWithStartIndex(text, idx) {
+  /** @type {number | false} */
   let oldIdx = null;
-  let idx = locEnd(node);
-  while (idx !== oldIdx) {
-    oldIdx = idx;
-    idx = skipSpaces(text, idx);
-    idx = skipInlineComment(text, idx);
-    idx = skipTrailingComment(text, idx);
-    idx = skipNewline(text, idx);
+  /** @type {number | false} */
+  let nextIdx = idx;
+  while (nextIdx !== oldIdx) {
+    oldIdx = nextIdx;
+    nextIdx = skipSpaces(text, nextIdx);
+    nextIdx = skipInlineComment(text, nextIdx);
+    nextIdx = skipTrailingComment(text, nextIdx);
+    nextIdx = skipNewline(text, nextIdx);
   }
-  return idx;
+  return nextIdx;
 }
 
+/**
+ * @template N
+ * @param {string} text
+ * @param {N} node
+ * @param {(node: N) => number} locEnd
+ * @returns {number | false}
+ */
+function getNextNonSpaceNonCommentCharacterIndex(text, node, locEnd) {
+  return getNextNonSpaceNonCommentCharacterIndexWithStartIndex(
+    text,
+    locEnd(node)
+  );
+}
+
+/**
+ * @template N
+ * @param {string} text
+ * @param {N} node
+ * @param {(node: N) => number} locEnd
+ * @returns {string}
+ */
 function getNextNonSpaceNonCommentCharacter(text, node, locEnd) {
   return text.charAt(
+    // @ts-ignore => TBD: can return false, should we define a fallback?
     getNextNonSpaceNonCommentCharacterIndex(text, node, locEnd)
   );
 }
 
+/**
+ * @param {string} text
+ * @param {number} index
+ * @param {SkipOptions=} opts
+ * @returns {boolean}
+ */
 function hasSpaces(text, index, opts) {
   opts = opts || {};
   const idx = skipSpaces(text, opts.backwards ? index - 1 : index, opts);
   return idx !== index;
 }
 
+/**
+ * @param {{range?: [number, number], start?: number}} node
+ * @param {number} index
+ */
 function setLocStart(node, index) {
   if (node.range) {
     node.range[0] = index;
@@ -251,6 +306,10 @@ function setLocStart(node, index) {
   }
 }
 
+/**
+ * @param {{range?: [number, number], end?: number}} node
+ * @param {number} index
+ */
 function setLocEnd(node, index) {
   if (node.range) {
     node.range[1] = index;
@@ -262,7 +321,8 @@ function setLocEnd(node, index) {
 const PRECEDENCE = {};
 [
   ["|>"],
-  ["||", "??"],
+  ["??"],
+  ["||"],
   ["&&"],
   ["|"],
   ["^"],
@@ -272,9 +332,9 @@ const PRECEDENCE = {};
   [">>", "<<", ">>>"],
   ["+", "-"],
   ["*", "/", "%"],
-  ["**"]
+  ["**"],
 ].forEach((tier, i) => {
-  tier.forEach(op => {
+  tier.forEach((op) => {
     PRECEDENCE[op] = i;
   });
 });
@@ -287,30 +347,21 @@ const equalityOperators = {
   "==": true,
   "!=": true,
   "===": true,
-  "!==": true
-};
-const additiveOperators = {
-  "+": true,
-  "-": true
+  "!==": true,
 };
 const multiplicativeOperators = {
   "*": true,
   "/": true,
-  "%": true
+  "%": true,
 };
 const bitshiftOperators = {
   ">>": true,
   ">>>": true,
-  "<<": true
+  "<<": true,
 };
 
 function shouldFlatten(parentOp, nodeOp) {
   if (getPrecedence(nodeOp) !== getPrecedence(parentOp)) {
-    // x + y % z --> (x + y) % z
-    if (nodeOp === "%" && !additiveOperators[parentOp]) {
-      return true;
-    }
-
     return false;
   }
 
@@ -366,9 +417,6 @@ function isBitwiseOperator(operator) {
 function startsWithNoLookaheadToken(node, forbidFunctionClassAndDoExpr) {
   node = getLeftMost(node);
   switch (node.type) {
-    // Hack. Remove after https://github.com/eslint/typescript-eslint-parser/issues/331
-    case "ObjectPattern":
-      return !forbidFunctionClassAndDoExpr;
     case "FunctionExpression":
     case "ClassExpression":
     case "DoExpression":
@@ -376,6 +424,7 @@ function startsWithNoLookaheadToken(node, forbidFunctionClassAndDoExpr) {
     case "ObjectExpression":
       return true;
     case "MemberExpression":
+    case "OptionalMemberExpression":
       return startsWithNoLookaheadToken(
         node.object,
         forbidFunctionClassAndDoExpr
@@ -387,6 +436,7 @@ function startsWithNoLookaheadToken(node, forbidFunctionClassAndDoExpr) {
       }
       return startsWithNoLookaheadToken(node.tag, forbidFunctionClassAndDoExpr);
     case "CallExpression":
+    case "OptionalCallExpression":
       if (node.callee.type === "FunctionExpression") {
         // IIFEs are always already parenthesized
         return false;
@@ -432,6 +482,12 @@ function getLeftMost(node) {
   return node;
 }
 
+/**
+ * @param {string} value
+ * @param {number} tabWidth
+ * @param {number=} startIndex
+ * @returns {number}
+ */
 function getAlignmentSize(value, tabWidth, startIndex) {
   startIndex = startIndex || 0;
 
@@ -451,6 +507,11 @@ function getAlignmentSize(value, tabWidth, startIndex) {
   return size;
 }
 
+/**
+ * @param {string} value
+ * @param {number} tabWidth
+ * @returns {number}
+ */
 function getIndentSize(value, tabWidth) {
   const lastNewlineIndex = value.lastIndexOf("\n");
   if (lastNewlineIndex === -1) {
@@ -464,25 +525,34 @@ function getIndentSize(value, tabWidth) {
   );
 }
 
-function printString(raw, options, isDirectiveLiteral) {
+/**
+ * @typedef {'"' | "'"} Quote
+ */
+
+/**
+ *
+ * @param {string} raw
+ * @param {Quote} preferredQuote
+ * @returns {Quote}
+ */
+function getPreferredQuote(raw, preferredQuote) {
   // `rawContent` is the string exactly like it appeared in the input source
   // code, without its enclosing quotes.
   const rawContent = raw.slice(1, -1);
 
+  /** @type {{ quote: '"', regex: RegExp }} */
   const double = { quote: '"', regex: /"/g };
+  /** @type {{ quote: "'", regex: RegExp }} */
   const single = { quote: "'", regex: /'/g };
 
-  const preferred = options.singleQuote ? single : double;
+  const preferred = preferredQuote === "'" ? single : double;
   const alternate = preferred === single ? double : single;
 
-  let shouldUseAlternateQuote = false;
-  let canChangeDirectiveQuotes = false;
+  let result = preferred.quote;
 
   // If `rawContent` contains at least one of the quote preferred for enclosing
   // the string, we might want to enclose with the alternate quote instead, to
   // minimize the number of escaped quotes.
-  // Also check for the alternate quote, to determine if we're allowed to swap
-  // the quotes on a DirectiveLiteral.
   if (
     rawContent.includes(preferred.quote) ||
     rawContent.includes(alternate.quote)
@@ -490,17 +560,32 @@ function printString(raw, options, isDirectiveLiteral) {
     const numPreferredQuotes = (rawContent.match(preferred.regex) || []).length;
     const numAlternateQuotes = (rawContent.match(alternate.regex) || []).length;
 
-    shouldUseAlternateQuote = numPreferredQuotes > numAlternateQuotes;
-  } else {
-    canChangeDirectiveQuotes = true;
-  }
-
-  const enclosingQuote =
-    options.parser === "json"
-      ? double.quote
-      : shouldUseAlternateQuote
+    result =
+      numPreferredQuotes > numAlternateQuotes
         ? alternate.quote
         : preferred.quote;
+  }
+
+  return result;
+}
+
+function printString(raw, options, isDirectiveLiteral) {
+  // `rawContent` is the string exactly like it appeared in the input source
+  // code, without its enclosing quotes.
+  const rawContent = raw.slice(1, -1);
+
+  // Check for the alternate quote, to determine if we're allowed to swap
+  // the quotes on a DirectiveLiteral.
+  const canChangeDirectiveQuotes =
+    !rawContent.includes('"') && !rawContent.includes("'");
+
+  /** @type {Quote} */
+  const enclosingQuote =
+    options.parser === "json"
+      ? '"'
+      : options.__isInHtmlAttribute
+      ? "'"
+      : getPreferredQuote(raw, options.singleQuote ? "'" : '"');
 
   // Directives are exact code unit sequences, which means that you can't
   // change the escape sequences they use.
@@ -523,11 +608,18 @@ function printString(raw, options, isDirectiveLiteral) {
     !(
       options.parser === "css" ||
       options.parser === "less" ||
-      options.parser === "scss"
+      options.parser === "scss" ||
+      options.embeddedInHtml
     )
   );
 }
 
+/**
+ * @param {string} rawContent
+ * @param {Quote} enclosingQuote
+ * @param {boolean=} unescapeUnnecessaryEscapes
+ * @returns {string}
+ */
 function makeString(rawContent, enclosingQuote, unescapeUnnecessaryEscapes) {
   const otherQuote = enclosingQuote === '"' ? "'" : '"';
 
@@ -583,6 +675,11 @@ function printNumber(rawNumber) {
   );
 }
 
+/**
+ * @param {string} str
+ * @param {string} target
+ * @returns {number}
+ */
 function getMaxContinuousCount(str, target) {
   const results = str.match(
     new RegExp(`(${escapeStringRegexp(target)})+`, "g")
@@ -598,119 +695,39 @@ function getMaxContinuousCount(str, target) {
   );
 }
 
-/**
- * split text into whitespaces and words
- * @param {string} text
- * @return {Array<{ type: "whitespace", value: " " | "\n" | "" } | { type: "word", value: string }>}
- */
-function splitText(text, options) {
-  const KIND_NON_CJK = "non-cjk";
-  const KIND_CJK_CHARACTER = "cjk-character";
-  const KIND_CJK_PUNCTUATION = "cjk-punctuation";
+function getMinNotPresentContinuousCount(str, target) {
+  const matches = str.match(
+    new RegExp(`(${escapeStringRegexp(target)})+`, "g")
+  );
 
-  const nodes = [];
+  if (matches === null) {
+    return 0;
+  }
 
-  (options.proseWrap === "preserve"
-    ? text
-    : text.replace(new RegExp(`(${cjkPattern})\n(${cjkPattern})`, "g"), "$1$2")
-  )
-    .split(/([ \t\n]+)/)
-    .forEach((token, index, tokens) => {
-      // whitespace
-      if (index % 2 === 1) {
-        nodes.push({
-          type: "whitespace",
-          value: /\n/.test(token) ? "\n" : " "
-        });
-        return;
-      }
+  const countPresent = new Map();
+  let max = 0;
 
-      // word separated by whitespace
-
-      if ((index === 0 || index === tokens.length - 1) && token === "") {
-        return;
-      }
-
-      token
-        .split(new RegExp(`(${cjkPattern})`))
-        .forEach((innerToken, innerIndex, innerTokens) => {
-          if (
-            (innerIndex === 0 || innerIndex === innerTokens.length - 1) &&
-            innerToken === ""
-          ) {
-            return;
-          }
-
-          // non-CJK word
-          if (innerIndex % 2 === 0) {
-            if (innerToken !== "") {
-              appendNode({
-                type: "word",
-                value: innerToken,
-                kind: KIND_NON_CJK,
-                hasLeadingPunctuation: punctuationRegex.test(innerToken[0]),
-                hasTrailingPunctuation: punctuationRegex.test(
-                  getLast(innerToken)
-                )
-              });
-            }
-            return;
-          }
-
-          // CJK character
-          appendNode(
-            punctuationRegex.test(innerToken)
-              ? {
-                  type: "word",
-                  value: innerToken,
-                  kind: KIND_CJK_PUNCTUATION,
-                  hasLeadingPunctuation: true,
-                  hasTrailingPunctuation: true
-                }
-              : {
-                  type: "word",
-                  value: innerToken,
-                  kind: KIND_CJK_CHARACTER,
-                  hasLeadingPunctuation: false,
-                  hasTrailingPunctuation: false
-                }
-          );
-        });
-    });
-
-  return nodes;
-
-  function appendNode(node) {
-    const lastNode = getLast(nodes);
-    if (lastNode && lastNode.type === "word") {
-      if (
-        (lastNode.kind === KIND_NON_CJK &&
-          node.kind === KIND_CJK_CHARACTER &&
-          !lastNode.hasTrailingPunctuation) ||
-        (lastNode.kind === KIND_CJK_CHARACTER &&
-          node.kind === KIND_NON_CJK &&
-          !node.hasLeadingPunctuation)
-      ) {
-        nodes.push({ type: "whitespace", value: " " });
-      } else if (
-        !isBetween(KIND_NON_CJK, KIND_CJK_PUNCTUATION) &&
-        // disallow leading/trailing full-width whitespace
-        ![lastNode.value, node.value].some(value => /\u3000/.test(value))
-      ) {
-        nodes.push({ type: "whitespace", value: "" });
-      }
-    }
-    nodes.push(node);
-
-    function isBetween(kind1, kind2) {
-      return (
-        (lastNode.kind === kind1 && node.kind === kind2) ||
-        (lastNode.kind === kind2 && node.kind === kind1)
-      );
+  for (const match of matches) {
+    const count = match.length / target.length;
+    countPresent.set(count, true);
+    if (count > max) {
+      max = count;
     }
   }
+
+  for (let i = 1; i < max; i++) {
+    if (!countPresent.get(i)) {
+      return i;
+    }
+  }
+
+  return max + 1;
 }
 
+/**
+ * @param {string} text
+ * @returns {number}
+ */
 function getStringWidth(text) {
   if (!text) {
     return 0;
@@ -721,10 +738,7 @@ function getStringWidth(text) {
     return text.length;
   }
 
-  // emojis are considered 2-char width for consistency
-  // see https://github.com/sindresorhus/string-width/issues/11
-  // for the reason why not implemented in `string-width`
-  return stringWidth(text.replace(emojiRegex, "  "));
+  return stringWidth(text);
 }
 
 function hasIgnoreComment(path) {
@@ -735,24 +749,17 @@ function hasIgnoreComment(path) {
 function hasNodeIgnoreComment(node) {
   return (
     node &&
-    node.comments &&
-    node.comments.length > 0 &&
-    node.comments.some(comment => comment.value.trim() === "prettier-ignore")
+    ((node.comments &&
+      node.comments.length > 0 &&
+      node.comments.some(
+        (comment) => isNodeIgnoreComment(comment) && !comment.unignore
+      )) ||
+      node.prettierIgnore)
   );
 }
 
-function matchAncestorTypes(path, types, index) {
-  index = index || 0;
-  types = types.slice();
-  while (types.length) {
-    const parent = path.getParentNode(index);
-    const type = types.shift();
-    if (!parent || parent.type !== type) {
-      return false;
-    }
-    index++;
-  }
-  return true;
+function isNodeIgnoreComment(comment) {
+  return comment.value.trim() === "prettier-ignore";
 }
 
 function addCommentHelper(node, comment) {
@@ -802,23 +809,37 @@ function isWithinParentArrayProperty(path, propertyName) {
   return parent[propertyName][key] === node;
 }
 
+function replaceEndOfLineWith(text, replacement) {
+  const parts = [];
+  for (const part of text.split("\n")) {
+    if (parts.length !== 0) {
+      parts.push(replacement);
+    }
+    parts.push(part);
+  }
+  return parts;
+}
+
 module.exports = {
-  punctuationRegex,
-  punctuationCharRange,
+  replaceEndOfLineWith,
   getStringWidth,
-  splitText,
   getMaxContinuousCount,
+  getMinNotPresentContinuousCount,
   getPrecedence,
   shouldFlatten,
   isBitwiseOperator,
-  isExportDeclaration,
-  getParentExportDeclaration,
   getPenultimate,
   getLast,
+  getNextNonSpaceNonCommentCharacterIndexWithStartIndex,
   getNextNonSpaceNonCommentCharacterIndex,
   getNextNonSpaceNonCommentCharacter,
+  skip,
   skipWhitespace,
   skipSpaces,
+  skipToLineEnd,
+  skipEverythingButNewLine,
+  skipInlineComment,
+  skipTrailingComment,
   skipNewline,
   isNextLineEmptyAfterIndex,
   isNextLineEmpty,
@@ -831,14 +852,15 @@ module.exports = {
   startsWithNoLookaheadToken,
   getAlignmentSize,
   getIndentSize,
+  getPreferredQuote,
   printString,
   printNumber,
   hasIgnoreComment,
   hasNodeIgnoreComment,
+  isNodeIgnoreComment,
   makeString,
-  matchAncestorTypes,
   addLeadingComment,
   addDanglingComment,
   addTrailingComment,
-  isWithinParentArrayProperty
+  isWithinParentArrayProperty,
 };

@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`do.js - babylon-verify 1`] = `
+exports[`do.js 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const envSpecific = {
   domain:
     do {
@@ -14,7 +19,7 @@ let x = do {
   tmp * tmp + 1
 };
 
-let x = do {
+let y = do {
   if (foo()) { f() }
   else if (bar()) { g() }
   else { h() }
@@ -55,12 +60,13 @@ function foo() {
     obj[key];
   }
 };
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const envSpecific = {
   domain: do {
     if (env === "production") "https://abc.mno.com/";
     else if (env === "development") "http://localhost:4000";
-  }
+  },
 };
 
 let x = do {
@@ -68,7 +74,7 @@ let x = do {
   tmp * tmp + 1;
 };
 
-let x = do {
+let y = do {
   if (foo()) {
     f();
   } else if (bar()) {
@@ -114,4 +120,5 @@ function foo() {
   }
 };
 
+================================================================================
 `;

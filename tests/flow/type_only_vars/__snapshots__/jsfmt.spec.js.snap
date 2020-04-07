@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`A.js - flow-verify 1`] = `
+exports[`A.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @flow
  */
@@ -15,7 +20,8 @@ module.exports = {
   Foo: Foo,
   Bar: Bar
 };
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @flow
  */
@@ -26,12 +32,18 @@ class Bar {}
 
 module.exports = {
   Foo: Foo,
-  Bar: Bar
+  Bar: Bar,
 };
 
+================================================================================
 `;
 
-exports[`bad_shadowing.js - flow-verify 1`] = `
+exports[`bad_shadowing.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @flow
  */
@@ -50,7 +62,8 @@ var Baz: string = "Go away please";
 
 // This string type should conflict with the typedef
 var duck: string = "quack";
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @flow
  */
@@ -59,7 +72,7 @@ import typeof A from "./A.js";
 import type { Foo, Bar as Baz } from "./A.js";
 
 type duck = {
-  quack: () => string
+  quack: () => string,
 };
 
 // These string types should confict with the imported types
@@ -70,9 +83,15 @@ var Baz: string = "Go away please";
 // This string type should conflict with the typedef
 var duck: string = "quack";
 
+================================================================================
 `;
 
-exports[`good_shadowing.js - flow-verify 1`] = `
+exports[`good_shadowing.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @flow
  */
@@ -93,7 +112,8 @@ var o = Baz;
 var a: Foo = new Foo();
 var b: Foo = new A.Foo();
 (new A.Bar(): Baz);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @flow
  */
@@ -115,9 +135,15 @@ var a: Foo = new Foo();
 var b: Foo = new A.Foo();
 (new A.Bar(): Baz);
 
+================================================================================
 `;
 
-exports[`import_type.js - flow-verify 1`] = `
+exports[`import_type.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @flow
  */
@@ -135,7 +161,8 @@ var o = Baz;
 // But using it in a type should still work
 var a: Foo = new actualA.Foo();
 (new actualA.Bar(): Baz);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @flow
  */
@@ -154,9 +181,15 @@ var o = Baz;
 var a: Foo = new actualA.Foo();
 (new actualA.Bar(): Baz);
 
+================================================================================
 `;
 
-exports[`type_alias.js - flow-verify 1`] = `
+exports[`type_alias.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @flow
  */
@@ -170,7 +203,8 @@ var x = Foo;
 var a: Foo = 123;
 var b: Array<Foo> = [123];
 type c = Foo;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @flow
  */
@@ -185,4 +219,5 @@ var a: Foo = 123;
 var b: Array<Foo> = [123];
 type c = Foo;
 
+================================================================================
 `;

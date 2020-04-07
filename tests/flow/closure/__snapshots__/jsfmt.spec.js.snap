@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Closure.js - flow-verify 1`] = `
+exports[`Closure.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /***
  * Test tracking of variable types across closure calls.
  * @flow
@@ -81,7 +86,8 @@ function local_meth() {
 
   local_y = 42;  // shouldn't pollute linear refinement
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /***
  * Test tracking of variable types across closure calls.
  * @flow
@@ -133,10 +139,10 @@ function local_func() {
 var global_y = "hello";
 
 var global_o = {
-  f: function() {},
-  g: function() {
+  f: function () {},
+  g: function () {
     global_y = 42;
-  }
+  },
 };
 
 global_o.f();
@@ -154,10 +160,10 @@ function local_meth() {
   var local_y = "hello";
 
   var local_o = {
-    f: function() {},
-    g: function() {
+    f: function () {},
+    g: function () {
       local_y = 42;
-    }
+    },
   };
 
   local_o.f();
@@ -169,9 +175,15 @@ function local_meth() {
   local_y = 42; // shouldn't pollute linear refinement
 }
 
+================================================================================
 `;
 
-exports[`cond_havoc.js - flow-verify 1`] = `
+exports[`cond_havoc.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 // from sam, https://github.com/facebook/flow/issues/780
@@ -185,7 +197,8 @@ function example(b: bool): number {
   }
   return x; // error, string ~/~> number (return type anno) TODO
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 // from sam, https://github.com/facebook/flow/issues/780
@@ -202,9 +215,15 @@ function example(b: boolean): number {
   return x; // error, string ~/~> number (return type anno) TODO
 }
 
+================================================================================
 `;
 
-exports[`const.js - flow-verify 1`] = `
+exports[`const.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /***
  * consts retain refinements
  * @flow
@@ -252,7 +271,8 @@ function h(x: number | string | boolean) {
 
 // in a galaxy far far away
 call_me();
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /***
  * consts retain refinements
  * @flow
@@ -315,4 +335,5 @@ function h(x: number | string | boolean) {
 // in a galaxy far far away
 call_me();
 
+================================================================================
 `;

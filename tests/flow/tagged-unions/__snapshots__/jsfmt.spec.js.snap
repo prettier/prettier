@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`classes.js - flow-verify 1`] = `
+exports[`classes.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 class Foo {
@@ -32,7 +37,8 @@ function foo(x: Foo): string {
 function bar(x: Bar): string {
   return x.bar;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 class Foo {
@@ -65,9 +71,15 @@ function bar(x: Bar): string {
   return x.bar;
 }
 
+================================================================================
 `;
 
-exports[`interfaces-neg.js - flow-verify 1`] = `
+exports[`interfaces-neg.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 declare interface IDataBase {
@@ -94,64 +106,8 @@ const data: IData = {
 if (data.kind === "user") {
   (data: ISystemData);
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/* @flow */
 
-declare interface IDataBase {
-  id: string;
-  name: string;
-}
-
-declare interface IUserData extends IDataBase {
-  kind: "user";
-}
-
-declare interface ISystemData extends IDataBase {
-  kind: "system";
-}
-
-declare type IData = IUserData | ISystemData;
-
-const data: IData = {
-  id: "",
-  name: "",
-  kind: "system"
-};
-
-if (data.kind === "user") {
-  (data: ISystemData);
-}
-
-`;
-
-exports[`interfaces-pos.js - flow-verify 1`] = `
-/* @flow */
-
-declare interface IDataBase {
-  id: string,
-  name: string,
-}
-
-declare interface IUserData extends IDataBase {
-  kind: "user",
-}
-
-declare interface ISystemData extends IDataBase {
-  kind: "system",
-}
-
-declare type IData = IUserData | ISystemData;
-
-const data: IData = {
-  id: "",
-  name: "",
-  kind: "system",
-}
-
-if (data.kind === "system") {
-  (data: ISystemData);
-}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=====================================output=====================================
 /* @flow */
 
 declare interface IDataBase {
@@ -172,16 +128,86 @@ declare type IData = IUserData | ISystemData;
 const data: IData = {
   id: "",
   name: "",
-  kind: "system"
+  kind: "system",
+};
+
+if (data.kind === "user") {
+  (data: ISystemData);
+}
+
+================================================================================
+`;
+
+exports[`interfaces-pos.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/* @flow */
+
+declare interface IDataBase {
+  id: string,
+  name: string,
+}
+
+declare interface IUserData extends IDataBase {
+  kind: "user",
+}
+
+declare interface ISystemData extends IDataBase {
+  kind: "system",
+}
+
+declare type IData = IUserData | ISystemData;
+
+const data: IData = {
+  id: "",
+  name: "",
+  kind: "system",
+}
+
+if (data.kind === "system") {
+  (data: ISystemData);
+}
+
+=====================================output=====================================
+/* @flow */
+
+declare interface IDataBase {
+  id: string;
+  name: string;
+}
+
+declare interface IUserData extends IDataBase {
+  kind: "user";
+}
+
+declare interface ISystemData extends IDataBase {
+  kind: "system";
+}
+
+declare type IData = IUserData | ISystemData;
+
+const data: IData = {
+  id: "",
+  name: "",
+  kind: "system",
 };
 
 if (data.kind === "system") {
   (data: ISystemData);
 }
 
+================================================================================
 `;
 
-exports[`type-decls-neg.js - flow-verify 1`] = `
+exports[`type-decls-neg.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 type DataBase = {
@@ -212,24 +238,25 @@ const data: Data = {
 if (data.kind === "user") {
   (data: SystemData);
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 type DataBase = {
   id: string,
-  name: string
+  name: string,
 };
 
 type UserData = {
   id: string,
   name: string,
-  kind: "user"
+  kind: "user",
 };
 
 type SystemData = {
   id: string,
   name: string,
-  kind: "system"
+  kind: "system",
 };
 
 declare type Data = UserData | SystemData;
@@ -237,16 +264,22 @@ declare type Data = UserData | SystemData;
 const data: Data = {
   id: "",
   name: "",
-  kind: "system"
+  kind: "system",
 };
 
 if (data.kind === "user") {
   (data: SystemData);
 }
 
+================================================================================
 `;
 
-exports[`type-decls-pos.js - flow-verify 1`] = `
+exports[`type-decls-pos.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 type DataBase = {
@@ -277,24 +310,25 @@ const data: Data = {
 if (data.kind === "system") {
   (data: SystemData);
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 type DataBase = {
   id: string,
-  name: string
+  name: string,
 };
 
 type UserData = {
   id: string,
   name: string,
-  kind: "user"
+  kind: "user",
 };
 
 type SystemData = {
   id: string,
   name: string,
-  kind: "system"
+  kind: "system",
 };
 
 declare type Data = UserData | SystemData;
@@ -302,11 +336,12 @@ declare type Data = UserData | SystemData;
 const data: Data = {
   id: "",
   name: "",
-  kind: "system"
+  kind: "system",
 };
 
 if (data.kind === "system") {
   (data: SystemData);
 }
 
+================================================================================
 `;

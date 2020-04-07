@@ -1,24 +1,37 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`id.js - flow-verify 1`] = `
+exports[`id.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 declare function id<X>(_: X): X;
 
 module.exports = id;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 declare function id<X>(_: X): X;
 
 module.exports = id;
 
+================================================================================
 `;
 
-exports[`subtype.js - flow-verify 1`] = `
+exports[`subtype.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 interface Interface {
   m(): void;
 }
 import type { ObjectType } from './test';
 
 function subtypeCheck(x: Interface): ObjectType { return x; }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 interface Interface {
   m(): void;
 }
@@ -28,9 +41,15 @@ function subtypeCheck(x: Interface): ObjectType {
   return x;
 }
 
+================================================================================
 `;
 
-exports[`test.js - flow-verify 1`] = `
+exports[`test.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const id = require('./id');
 
 export type ObjectType = {
@@ -44,11 +63,12 @@ function methodCaller(x: ObjectType) {
 module.exports = id(
   methodCaller
 );
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const id = require("./id");
 
 export type ObjectType = {
-  +m: () => void
+  +m: () => void,
 };
 
 function methodCaller(x: ObjectType) {
@@ -57,9 +77,15 @@ function methodCaller(x: ObjectType) {
 
 module.exports = id(methodCaller);
 
+================================================================================
 `;
 
-exports[`test2.js - flow-verify 1`] = `
+exports[`test2.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 function f() {
@@ -77,7 +103,8 @@ var b = {
 
 a.f(); // okey-dokie
 b.f(); // error, property \`p\` not found
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 function f() {
@@ -86,19 +113,25 @@ function f() {
 
 var a = {
   p: 0,
-  f
+  f,
 };
 
 var b = {
-  f
+  f,
 };
 
 a.f(); // okey-dokie
 b.f(); // error, property \`p\` not found
 
+================================================================================
 `;
 
-exports[`test3.js - flow-verify 1`] = `
+exports[`test3.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 function foo() {
@@ -117,7 +150,8 @@ function qux(o: { f: () => void }) {
 }
 
 qux({ f: foo });  // error, since \`this\` is used non-trivially in \`foo\`
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 function foo() {
@@ -137,4 +171,5 @@ function qux(o: { f: () => void }) {
 
 qux({ f: foo }); // error, since \`this\` is used non-trivially in \`foo\`
 
+================================================================================
 `;

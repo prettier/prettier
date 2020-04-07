@@ -1,6 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.component.ts - typescript-verify 1`] = `
+exports[`test.component.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
 @Component({
        selector: 'app-test',
   template: \`<ul>   <li>test</li>
@@ -18,12 +24,13 @@ exports[`test.component.ts - typescript-verify 1`] = `
 ]
 })
 class     TestComponent {}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 @Component({
   selector: "app-test",
-  template: \`<ul>   <li>test</li>
-  </ul>
-  \`,
+  template: \`<ul>
+    <li>test</li>
+  </ul> \`,
   styles: [
     \`
       :host {
@@ -37,9 +44,15 @@ class     TestComponent {}
 })
 class TestComponent {}
 
+================================================================================
 `;
 
-exports[`test.component.ts - typescript-verify 2`] = `
+exports[`test.component.ts 2`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 @Component({
        selector: 'app-test',
   template: \`<ul>   <li>test</li>
@@ -57,12 +70,13 @@ exports[`test.component.ts - typescript-verify 2`] = `
 ]
 })
 class     TestComponent {}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 @Component({
   selector: "app-test",
-  template: \`<ul>   <li>test</li>
-  </ul>
-  \`,
+  template: \`<ul>
+    <li>test</li>
+  </ul> \`,
   styles: [
     \`
       :host {
@@ -76,4 +90,5 @@ class     TestComponent {}
 })
 class TestComponent {}
 
+================================================================================
 `;

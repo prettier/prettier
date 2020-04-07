@@ -2,8 +2,8 @@
 
 const {
   builders: { hardline, literalline, concat, markAsRoot },
-  utils: { mapDoc }
-} = require("../doc");
+  utils: { mapDoc },
+} = require("../document");
 
 function embed(path, print, textToDoc /*, options */) {
   const node = path.getValue();
@@ -19,7 +19,7 @@ function embed(path, print, textToDoc /*, options */) {
             )
           : "",
         "---",
-        hardline
+        hardline,
       ])
     );
   }
@@ -27,16 +27,14 @@ function embed(path, print, textToDoc /*, options */) {
   return null;
 
   function replaceNewlinesWithLiterallines(doc) {
-    return mapDoc(
-      doc,
-      currentDoc =>
-        typeof currentDoc === "string" && currentDoc.includes("\n")
-          ? concat(
-              currentDoc
-                .split(/(\n)/g)
-                .map((v, i) => (i % 2 === 0 ? v : literalline))
-            )
-          : currentDoc
+    return mapDoc(doc, (currentDoc) =>
+      typeof currentDoc === "string" && currentDoc.includes("\n")
+        ? concat(
+            currentDoc
+              .split(/(\n)/g)
+              .map((v, i) => (i % 2 === 0 ? v : literalline))
+          )
+        : currentDoc
     );
   }
 }

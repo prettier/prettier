@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`This.js - flow-verify 1`] = `
+exports[`This.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @providesModule This */
 
 function F() { this.x = 0; }
@@ -61,13 +66,14 @@ var f2_4 = f2();                         // error, (global object).x
 (this: void);
 
 module.exports = true;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @providesModule This */
 
 function F() {
   this.x = 0;
 }
-F.prototype.m = function() {
+F.prototype.m = function () {
   this.y = 0;
 };
 
@@ -129,9 +135,15 @@ var f2_4 = f2(); // error, (global object).x
 
 module.exports = true;
 
+================================================================================
 `;
 
-exports[`arrows.js - flow-verify 1`] = `
+exports[`arrows.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 class C {
   foo() {
     return () => { return this.bar(); }; // OK, since this: C
@@ -159,7 +171,8 @@ class F extends E {
     })();
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 class C {
   foo() {
     return () => {
@@ -193,4 +206,5 @@ class F extends E {
   }
 }
 
+================================================================================
 `;

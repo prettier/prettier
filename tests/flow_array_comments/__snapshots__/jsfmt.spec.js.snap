@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.js - flow-verify 1`] = `
+exports[`test.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 export type FileMetaData = [
   /* id */ string,
   /* mtime */ number,
@@ -9,7 +14,8 @@ export type FileMetaData = [
 ];
 
 export type ModuleMetaData = [Path, /* type */ number];
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 export type FileMetaData = [
   /* id */ string,
   /* mtime */ number,
@@ -19,4 +25,5 @@ export type FileMetaData = [
 
 export type ModuleMetaData = [Path, /* type */ number];
 
+================================================================================
 `;

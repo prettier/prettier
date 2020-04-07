@@ -1,3 +1,24 @@
+# Prettier Website
+
+https://prettier.io/
+
+## Setup
+
+1. Build the Prettier browser libs for the playground by running the following in the project root dir:
+
+   ```sh
+   cd your/path/to/prettier
+   yarn build-docs
+   ```
+
+   (To build for master, use `PULL_REQUEST=true yarn build-docs`)
+
+2. Switch to the `website` dir and start the server:
+   ```sh
+   cd website
+   yarn start
+   ```
+
 ## Configuration
 
 In the project repo, the `docs` folder is used to hold documentation written in markdown. A `blog` folder can be used to hold blog posts written in markdown.
@@ -6,28 +27,28 @@ In the project repo, the `docs` folder is used to hold documentation written in 
 
 Documentation should contain front matter that follows this example:
 
-```
----
-id: doc1 <!-- used for docs to find each other and to map links -->
+```yaml
+id: doc1 # used for docs to find each other and to map links
 title: Document Title
-layout: docs1 <!-- used to determine different sidebar groupings -->
-category: Sidebar Category 1 <!-- Category on the sidebar under which this doc goes -->
-permalink: docs/en/doc1.html <!-- link to the document that is used for site -->
-previous: doc0 <!-- previous doc on sidebar for navigation -->
-next: doc2 <!-- next doc on the sidebar for navigation -->
-<!-- don't include next if this is the last doc; don't include previous if first doc -->
+layout: docs1 # used to determine different sidebar groupings
+category: Sidebar Category 1 # Category on the sidebar under which this doc goes
+permalink: docs/en/doc1.html # link to the document that is used for site
+previous: doc0 # previous doc on sidebar for navigation
+next: doc2 # next doc on the sidebar for navigation
+# don't include next if this is the last doc; don't include previous if first doc
 ---
+
 ```
 
 Blog posts should be written as markdown files with the following front matter:
 
-```
----
+```yaml
 title: Blog Post Title
 author: Author Name
-authorURL: http://twitter.com/author <!-- (or some other link) -->
-authorFBID: 21315325 <!-- id to get author's picture -->
+authorURL: http://twitter.com/author # (or some other link)
+authorFBID: 21315325 # id to get author's picture
 ---
+
 ```
 
 In the blog post you should include a line `<!--truncate-->`. This will determine under which point text will be ignored when generating the preview of your blog post. Blog posts should have the file name format: `yyyy-mm-dd-your-file-name.md`.
@@ -104,7 +125,3 @@ If you wish to manually publish your website with the `publish-gh-pages` script,
 ```
 DEPLOY_USER=deltice GIT_USER=test-site-bot CIRCLE_PROJECT_USERNAME=deltice CIRCLE_PROJECT_REPONAME=test-site CIRCLE_BRANCH=master npm run publish-gh-pages
 ```
-
-## Playground
-
-The playground is not integrated with the Docusaurus infrastructure. If you want to edit something in the playground, you need to run `yarn start` to start the Docusaurus server and `webpack --watch` in a separate shell to compile the playground changes.

@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.js - flow-verify 1`] = `
+exports[`test.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 // Classes
@@ -42,7 +47,8 @@ const o = {
 (o.x: boolean); // last wins
 (o.bar: boolean); // last wins
 (o.qux(): boolean); // last wins
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 // Classes
@@ -91,7 +97,7 @@ const o = {
   qux: 42,
   qux(): string {
     return "hello";
-  } // last wins
+  }, // last wins
 };
 
 // check
@@ -101,4 +107,5 @@ const o = {
 (o.bar: boolean); // last wins
 (o.qux(): boolean); // last wins
 
+================================================================================
 `;

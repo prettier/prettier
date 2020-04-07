@@ -1,36 +1,55 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`array.js - flow-verify 1`] = `
+exports[`array.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 type Foo = {};
 var f: Foo = {};
 export var arr = [f];
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 type Foo = {};
 var f: Foo = {};
 export var arr = [f];
 
+================================================================================
 `;
 
-exports[`async_return.js - flow-verify 1`] = `
+exports[`async_return.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 export async function foo() {
   return 123;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 export async function foo() {
   return 123;
 }
 
+================================================================================
 `;
 
-exports[`infer.js - flow-verify 1`] = `
+exports[`infer.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 var Foo = {
@@ -89,56 +108,57 @@ var Bar = {
 };
 
 module.exports = Foo, Bar;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 var Foo = {
-  a: function(arg) {
+  a: function (arg) {
     // missing arg annotation
     return arg;
   },
 
-  b: function(arg) {
+  b: function (arg) {
     // missing arg annotation
     return {
-      bar: arg
+      bar: arg,
     };
   },
 
-  c: function(arg: string) {
+  c: function (arg: string) {
     // no return annotation required
     return {
-      bar: arg
+      bar: arg,
     };
   },
 
-  d: function(
+  d: function (
     arg: string
   ): {
-    bar: string
+    bar: string,
   } {
     return {
-      bar: arg
+      bar: arg,
     };
   },
 
   // return type annotation may be omitted, but if so, input positions on
   // observed return type (e.g. param types in a function type) must come
   // from annotations
-  e: function(arg: string) {
-    return function(x) {
+  e: function (arg: string) {
+    return function (x) {
       // missing param annotation
       return x;
     };
   },
 
   // ...if the return type is annotated explicitly, this is unnecessary
-  f: function(arg: string): (x: number) => number {
-    return function(x) {
+  f: function (arg: string): (x: number) => number {
+    return function (x) {
       // no error
       return x;
     };
-  }
+  },
 };
 
 var Bar = {
@@ -150,9 +170,10 @@ var Bar = {
 
   c: Foo.c("bar"), // no annotation required
 
-  d: Foo.d("bar") // no annotation required
+  d: Foo.d("bar"), // no annotation required
 };
 
 (module.exports = Foo), Bar;
 
+================================================================================
 `;

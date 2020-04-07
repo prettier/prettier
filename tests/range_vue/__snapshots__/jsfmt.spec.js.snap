@@ -1,8 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`example.vue - vue-verify 1`] = `
+exports[`example.vue 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <template>
-  <p>Templates are not formatted yet ...
+  <p>Templates are formatted as well...
     </p>
 </template>
 
@@ -13,20 +18,22 @@ let Prettier        = format => { your.js('though') }
 <style>
 .and { css: too !important }
 </style>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <template>
-  <p>Templates are not formatted yet ...
-    </p>
+  <p>Templates are formatted as well...</p>
 </template>
 
 <script>
-let Prettier = format => {
+let Prettier = (format) => {
   your.js("though");
 };
 </script>
 
 <style>
-.and { css: too !important }
+.and {
+  css: too !important;
+}
 </style>
-
+================================================================================
 `;

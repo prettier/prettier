@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.js - flow-verify 1`] = `
+exports[`test.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 long_closed =
   <BaseForm url="/auth/google" method="GET" colour="blue" size="large" submitLabel="Sign in with Google"/>
 
@@ -49,7 +54,8 @@ long_string_with_extra_param =
 
 long_obj =
   <div style={{ i: 'dont', use: 'bootstrap', and: 'instead', use: 'massive', objects }}>hello world</div>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 long_closed = (
   <BaseForm
     url="/auth/google"
@@ -103,7 +109,7 @@ long_open_long_children = (
     <div>
       <div>
         <div>
-          <div attr="long" attr2="also long" attr3="gonna break" />
+          <div attr="long" attr2="also long" attr3="gonna break"></div>
         </div>
       </div>
     </div>
@@ -132,7 +138,7 @@ long_open_long_children = (
         colour="blue"
         size="large"
         submitLabel="Sign in with Google"
-      />
+      ></BaseForm>
       d
     </BaseForm>
     <BaseForm
@@ -148,7 +154,7 @@ long_open_long_children = (
         colour="blue"
         size="large"
         submitLabel="Sign in with Google"
-      />
+      ></BaseForm>
     </BaseForm>
   </BaseForm>
 );
@@ -169,14 +175,14 @@ make_self_closing = (
       colour="blue"
       size="large"
       submitLabel="Sign in with Google"
-    />
+    ></BaseForm>
     <BaseForm
       url="/auth/google"
       method="GET"
       colour="blue"
       size="large"
       submitLabel="Sign in with Google"
-    />
+    ></BaseForm>
   </div>
 );
 
@@ -214,11 +220,12 @@ long_obj = (
       use: "bootstrap",
       and: "instead",
       use: "massive",
-      objects
+      objects,
     }}
   >
     hello world
   </div>
 );
 
+================================================================================
 `;

@@ -185,3 +185,22 @@ doSomething(
 
 
 );
+
+function foo(
+  one,
+
+  two,
+  three,
+  four,
+
+
+  five,
+  six,
+  seven,
+  eight,
+  nine,
+  ten,
+
+  eleven
+
+) {}

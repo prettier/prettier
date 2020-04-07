@@ -13,7 +13,7 @@ class CodeMirrorPanel extends React.Component {
   }
 
   componentDidMount() {
-    const options = Object.assign({}, this.props);
+    const options = { ...this.props };
     delete options.ruler;
     delete options.rulerColor;
     delete options.value;
@@ -27,6 +27,9 @@ class CodeMirrorPanel extends React.Component {
     );
     this._codeMirror.on("change", this.handleChange);
     this._codeMirror.on("focus", this.handleFocus);
+
+    window.CodeMirror.keyMap.pcSublime["Ctrl-L"] = false;
+    window.CodeMirror.keyMap.sublime["Ctrl-L"] = false;
 
     this.updateValue(this.props.value || "");
     this.updateOverlay();
@@ -66,7 +69,7 @@ class CodeMirrorPanel extends React.Component {
       }
       const [start, end] = getIndexPosition(this.props.value, [
         this.props.overlayStart,
-        this.props.overlayEnd
+        this.props.overlayEnd,
       ]);
       this._overlay = createOverlay(start, end);
       this._codeMirror.addOverlay(this._overlay);
@@ -123,7 +126,7 @@ function getIndexPosition(text, indexes) {
 function createOverlay(start, end) {
   return {
     token(stream) {
-      const line = stream.lineOracle.line;
+      const { line } = stream.lineOracle;
 
       if (line < start.line || line > end.line) {
         stream.skipToEnd();
@@ -139,7 +142,7 @@ function createOverlay(start, end) {
         stream.skipToEnd();
         return "searching";
       }
-    }
+    },
   };
 }
 

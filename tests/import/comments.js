@@ -7,18 +7,18 @@ import {
   a as //comment1
   //comment2
   //comment3
-  b
+  b1
 } from "";
 
 import {
   a as //comment2 //comment1
   //comment3
-  b
+  b2
 } from "";
 
 import {
   a as //comment3 //comment2 //comment1
-  b
+  b3
 } from "";
 
 import {
@@ -38,3 +38,8 @@ import {
   SelectionSetNode,
   /* tslint:enable */
 } from 'graphql';
+
+import x, {
+  // comment
+  y
+} from 'z';

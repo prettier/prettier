@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`single.js - flow-verify 1`] = `
+exports[`single.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const selectorByPath:
   Path
  => SomethingSelector<
@@ -8,59 +13,82 @@ const selectorByPath:
   SomethingUEditorContextType,
   SomethingBulkValue<string>
 > = memoizeWithArgs(/* ... */)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-const selectorByPath: Path => SomethingSelector<
-  SomethingUEditorContextType,
-  SomethingUEditorContextType,
-  SomethingBulkValue<string>
-> = memoizeWithArgs(/* ... */);
 
-`;
-
-exports[`single.js - flow-verify 2`] = `
-const selectorByPath:
-  Path
- => SomethingSelector<
-  SomethingUEditorContextType,
-  SomethingUEditorContextType,
-  SomethingBulkValue<string>
-> = memoizeWithArgs(/* ... */)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-const selectorByPath: Path => SomethingSelector<
-  SomethingUEditorContextType,
-  SomethingUEditorContextType,
-  SomethingBulkValue<string>,
-> = memoizeWithArgs(/* ... */);
-
-`;
-
-exports[`single.js - flow-verify 3`] = `
-const selectorByPath:
-  Path
- => SomethingSelector<
-  SomethingUEditorContextType,
-  SomethingUEditorContextType,
-  SomethingBulkValue<string>
-> = memoizeWithArgs(/* ... */)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=====================================output=====================================
 const selectorByPath: (Path) => SomethingSelector<
   SomethingUEditorContextType,
   SomethingUEditorContextType,
   SomethingBulkValue<string>
 > = memoizeWithArgs(/* ... */);
 
+================================================================================
 `;
 
-exports[`test.js - flow-verify 1`] = `
+exports[`single.js 2`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
+const selectorByPath:
+  Path
+ => SomethingSelector<
+  SomethingUEditorContextType,
+  SomethingUEditorContextType,
+  SomethingBulkValue<string>
+> = memoizeWithArgs(/* ... */)
+
+=====================================output=====================================
+const selectorByPath: (Path) => SomethingSelector<
+  SomethingUEditorContextType,
+  SomethingUEditorContextType,
+  SomethingBulkValue<string>,
+> = memoizeWithArgs(/* ... */);
+
+================================================================================
+`;
+
+exports[`single.js 3`] = `
+====================================options=====================================
+arrowParens: "avoid"
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const selectorByPath:
+  Path
+ => SomethingSelector<
+  SomethingUEditorContextType,
+  SomethingUEditorContextType,
+  SomethingBulkValue<string>
+> = memoizeWithArgs(/* ... */)
+
+=====================================output=====================================
+const selectorByPath: Path => SomethingSelector<
+  SomethingUEditorContextType,
+  SomethingUEditorContextType,
+  SomethingBulkValue<string>
+> = memoizeWithArgs(/* ... */);
+
+================================================================================
+`;
+
+exports[`test.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 type Banana = {
   eat: string => boolean,
 };
 
 type Hex = {n: 0x01};
 
-type T = { method: (a) => void };
+type T1 = { method: (a) => void };
 
-type T = { method(a): void };
+type T2 = { method(a): void };
 
 declare class X { method(a): void }
 
@@ -68,23 +96,23 @@ declare function f(a): void;
 
 var f: (a) => void;
 
-interface F { m(string): number }
+interface F1 { m(string): number }
 
-interface F { m: (string) => number }
+interface F2 { m: (string) => number }
 
-function f(o: { f: (string) => void }) {}
+function f1(o: { f: (string) => void }) {}
 
-function f(o: { f(string): void }) {}
+function f2(o: { f(string): void }) {}
 
-type f = (...arg) => void;
+type f3 = (...arg) => void;
 
-type f = (/* comment */ arg) => void;
+type f4 = (/* comment */ arg) => void;
 
-type f = (arg /* comment */) => void;
+type f5 = (arg /* comment */) => void;
 
-type f = (?arg) => void;
+type f6 = (?arg) => void;
 
-class X {
+class Y {
   constructor(
     ideConnectionFactory: child_process$ChildProcess => FlowIDEConnection =
         defaultIDEConnectionFactory,
@@ -98,300 +126,61 @@ interface F {
 
 type ExtractType = <A>(B<C>) => D
 
-type T = ?(() => A);
+type T3 = ?(() => A);
 
-type T = ?(() => A) | B;
+type T4 = ?(() => A) | B;
 
-type T = ?() => A | B;
+type T5 = ?() => A | B;
 
-type T = (?() => A) | B;
+type T6 = (?() => A) | B;
 
 // https://github.com/babel/babel/issues/7924
 //type T = ??() => A;
 
-type T = ?(?(() => A));
+type T7 = ?(?(() => A));
 
-type T = ?(?() => A) | B;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+type T8 = ?(?() => A) | B;
+
+=====================================output=====================================
 type Banana = {
-  eat: string => boolean
+  eat: (string) => boolean,
 };
 
 type Hex = { n: 0x01 };
 
-type T = { method: a => void };
+type T1 = { method: (a) => void };
 
-type T = { method(a): void };
+type T2 = { method(a): void };
 
-declare class X { method(a): void }
-
-declare function f(a): void;
-
-var f: a => void;
-
-interface F { m(string): number }
-
-interface F { m: string => number }
-
-function f(o: { f: string => void }) {}
-
-function f(o: { f(string): void }) {}
-
-type f = (...arg) => void;
-
-type f = /* comment */ arg => void;
-
-type f = arg /* comment */ => void;
-
-type f = (?arg) => void;
-
-class X {
-  constructor(
-    ideConnectionFactory: child_process$ChildProcess => FlowIDEConnection = defaultIDEConnectionFactory
-  ) {}
+declare class X {
+  method(a): void;
 }
-
-interface F {
-  ideConnectionFactoryLongLongLong: child_process$ChildProcess => FlowIDEConnection;
-}
-
-type ExtractType = <A>(B<C>) => D;
-
-type T = ?() => A;
-
-type T = ?(() => A) | B;
-
-type T = ?() => A | B;
-
-type T = ?(() => A) | B;
-
-// https://github.com/babel/babel/issues/7924
-//type T = ??() => A;
-
-type T = ??(() => A);
-
-type T = ??(() => A) | B;
-
-`;
-
-exports[`test.js - flow-verify 2`] = `
-type Banana = {
-  eat: string => boolean,
-};
-
-type Hex = {n: 0x01};
-
-type T = { method: (a) => void };
-
-type T = { method(a): void };
-
-declare class X { method(a): void }
 
 declare function f(a): void;
 
 var f: (a) => void;
 
-interface F { m(string): number }
-
-interface F { m: (string) => number }
-
-function f(o: { f: (string) => void }) {}
-
-function f(o: { f(string): void }) {}
-
-type f = (...arg) => void;
-
-type f = (/* comment */ arg) => void;
-
-type f = (arg /* comment */) => void;
-
-type f = (?arg) => void;
-
-class X {
-  constructor(
-    ideConnectionFactory: child_process$ChildProcess => FlowIDEConnection =
-        defaultIDEConnectionFactory,
-  ) {
-  }
+interface F1 {
+  m(string): number;
 }
 
-interface F {
-  ideConnectionFactoryLongLongLong: (child_process$ChildProcess) => FlowIDEConnection
+interface F2 {
+  m: (string) => number;
 }
 
-type ExtractType = <A>(B<C>) => D
+function f1(o: { f: (string) => void }) {}
 
-type T = ?(() => A);
+function f2(o: { f(string): void }) {}
 
-type T = ?(() => A) | B;
+type f3 = (...arg) => void;
 
-type T = ?() => A | B;
+type f4 = (/* comment */ arg) => void;
 
-type T = (?() => A) | B;
+type f5 = (arg /* comment */) => void;
 
-// https://github.com/babel/babel/issues/7924
-//type T = ??() => A;
+type f6 = (?arg) => void;
 
-type T = ?(?(() => A));
-
-type T = ?(?() => A) | B;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-type Banana = {
-  eat: string => boolean,
-};
-
-type Hex = { n: 0x01 };
-
-type T = { method: a => void };
-
-type T = { method(a): void };
-
-declare class X { method(a): void }
-
-declare function f(a): void;
-
-var f: a => void;
-
-interface F { m(string): number }
-
-interface F { m: string => number }
-
-function f(o: { f: string => void }) {}
-
-function f(o: { f(string): void }) {}
-
-type f = (...arg) => void;
-
-type f = /* comment */ arg => void;
-
-type f = arg /* comment */ => void;
-
-type f = (?arg) => void;
-
-class X {
-  constructor(
-    ideConnectionFactory: child_process$ChildProcess => FlowIDEConnection = defaultIDEConnectionFactory,
-  ) {}
-}
-
-interface F {
-  ideConnectionFactoryLongLongLong: child_process$ChildProcess => FlowIDEConnection;
-}
-
-type ExtractType = <A>(B<C>) => D;
-
-type T = ?() => A;
-
-type T = ?(() => A) | B;
-
-type T = ?() => A | B;
-
-type T = ?(() => A) | B;
-
-// https://github.com/babel/babel/issues/7924
-//type T = ??() => A;
-
-type T = ??(() => A);
-
-type T = ??(() => A) | B;
-
-`;
-
-exports[`test.js - flow-verify 3`] = `
-type Banana = {
-  eat: string => boolean,
-};
-
-type Hex = {n: 0x01};
-
-type T = { method: (a) => void };
-
-type T = { method(a): void };
-
-declare class X { method(a): void }
-
-declare function f(a): void;
-
-var f: (a) => void;
-
-interface F { m(string): number }
-
-interface F { m: (string) => number }
-
-function f(o: { f: (string) => void }) {}
-
-function f(o: { f(string): void }) {}
-
-type f = (...arg) => void;
-
-type f = (/* comment */ arg) => void;
-
-type f = (arg /* comment */) => void;
-
-type f = (?arg) => void;
-
-class X {
-  constructor(
-    ideConnectionFactory: child_process$ChildProcess => FlowIDEConnection =
-        defaultIDEConnectionFactory,
-  ) {
-  }
-}
-
-interface F {
-  ideConnectionFactoryLongLongLong: (child_process$ChildProcess) => FlowIDEConnection
-}
-
-type ExtractType = <A>(B<C>) => D
-
-type T = ?(() => A);
-
-type T = ?(() => A) | B;
-
-type T = ?() => A | B;
-
-type T = (?() => A) | B;
-
-// https://github.com/babel/babel/issues/7924
-//type T = ??() => A;
-
-type T = ?(?(() => A));
-
-type T = ?(?() => A) | B;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-type Banana = {
-  eat: (string) => boolean
-};
-
-type Hex = { n: 0x01 };
-
-type T = { method: (a) => void };
-
-type T = { method(a): void };
-
-declare class X { method(a): void }
-
-declare function f(a): void;
-
-var f: (a) => void;
-
-interface F { m(string): number }
-
-interface F { m: (string) => number }
-
-function f(o: { f: (string) => void }) {}
-
-function f(o: { f(string): void }) {}
-
-type f = (...arg) => void;
-
-type f = (/* comment */ arg) => void;
-
-type f = (arg /* comment */) => void;
-
-type f = (?arg) => void;
-
-class X {
+class Y {
   constructor(
     ideConnectionFactory: (child_process$ChildProcess) => FlowIDEConnection = defaultIDEConnectionFactory
   ) {}
@@ -403,19 +192,294 @@ interface F {
 
 type ExtractType = <A>(B<C>) => D;
 
-type T = ?() => A;
+type T3 = ?() => A;
 
-type T = ?(() => A) | B;
+type T4 = ?(() => A) | B;
 
-type T = ?() => A | B;
+type T5 = ?() => A | B;
 
-type T = ?(() => A) | B;
+type T6 = ?(() => A) | B;
 
 // https://github.com/babel/babel/issues/7924
 //type T = ??() => A;
 
-type T = ??(() => A);
+type T7 = ??(() => A);
 
-type T = ??(() => A) | B;
+type T8 = ??(() => A) | B;
 
+================================================================================
+`;
+
+exports[`test.js 2`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
+type Banana = {
+  eat: string => boolean,
+};
+
+type Hex = {n: 0x01};
+
+type T1 = { method: (a) => void };
+
+type T2 = { method(a): void };
+
+declare class X { method(a): void }
+
+declare function f(a): void;
+
+var f: (a) => void;
+
+interface F1 { m(string): number }
+
+interface F2 { m: (string) => number }
+
+function f1(o: { f: (string) => void }) {}
+
+function f2(o: { f(string): void }) {}
+
+type f3 = (...arg) => void;
+
+type f4 = (/* comment */ arg) => void;
+
+type f5 = (arg /* comment */) => void;
+
+type f6 = (?arg) => void;
+
+class Y {
+  constructor(
+    ideConnectionFactory: child_process$ChildProcess => FlowIDEConnection =
+        defaultIDEConnectionFactory,
+  ) {
+  }
+}
+
+interface F {
+  ideConnectionFactoryLongLongLong: (child_process$ChildProcess) => FlowIDEConnection
+}
+
+type ExtractType = <A>(B<C>) => D
+
+type T3 = ?(() => A);
+
+type T4 = ?(() => A) | B;
+
+type T5 = ?() => A | B;
+
+type T6 = (?() => A) | B;
+
+// https://github.com/babel/babel/issues/7924
+//type T = ??() => A;
+
+type T7 = ?(?(() => A));
+
+type T8 = ?(?() => A) | B;
+
+=====================================output=====================================
+type Banana = {
+  eat: (string) => boolean,
+};
+
+type Hex = { n: 0x01 };
+
+type T1 = { method: (a) => void };
+
+type T2 = { method(a): void };
+
+declare class X {
+  method(a): void;
+}
+
+declare function f(a): void;
+
+var f: (a) => void;
+
+interface F1 {
+  m(string): number;
+}
+
+interface F2 {
+  m: (string) => number;
+}
+
+function f1(o: { f: (string) => void }) {}
+
+function f2(o: { f(string): void }) {}
+
+type f3 = (...arg) => void;
+
+type f4 = (/* comment */ arg) => void;
+
+type f5 = (arg /* comment */) => void;
+
+type f6 = (?arg) => void;
+
+class Y {
+  constructor(
+    ideConnectionFactory: (child_process$ChildProcess) => FlowIDEConnection = defaultIDEConnectionFactory,
+  ) {}
+}
+
+interface F {
+  ideConnectionFactoryLongLongLong: (child_process$ChildProcess) => FlowIDEConnection;
+}
+
+type ExtractType = <A>(B<C>) => D;
+
+type T3 = ?() => A;
+
+type T4 = ?(() => A) | B;
+
+type T5 = ?() => A | B;
+
+type T6 = ?(() => A) | B;
+
+// https://github.com/babel/babel/issues/7924
+//type T = ??() => A;
+
+type T7 = ??(() => A);
+
+type T8 = ??(() => A) | B;
+
+================================================================================
+`;
+
+exports[`test.js 3`] = `
+====================================options=====================================
+arrowParens: "avoid"
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type Banana = {
+  eat: string => boolean,
+};
+
+type Hex = {n: 0x01};
+
+type T1 = { method: (a) => void };
+
+type T2 = { method(a): void };
+
+declare class X { method(a): void }
+
+declare function f(a): void;
+
+var f: (a) => void;
+
+interface F1 { m(string): number }
+
+interface F2 { m: (string) => number }
+
+function f1(o: { f: (string) => void }) {}
+
+function f2(o: { f(string): void }) {}
+
+type f3 = (...arg) => void;
+
+type f4 = (/* comment */ arg) => void;
+
+type f5 = (arg /* comment */) => void;
+
+type f6 = (?arg) => void;
+
+class Y {
+  constructor(
+    ideConnectionFactory: child_process$ChildProcess => FlowIDEConnection =
+        defaultIDEConnectionFactory,
+  ) {
+  }
+}
+
+interface F {
+  ideConnectionFactoryLongLongLong: (child_process$ChildProcess) => FlowIDEConnection
+}
+
+type ExtractType = <A>(B<C>) => D
+
+type T3 = ?(() => A);
+
+type T4 = ?(() => A) | B;
+
+type T5 = ?() => A | B;
+
+type T6 = (?() => A) | B;
+
+// https://github.com/babel/babel/issues/7924
+//type T = ??() => A;
+
+type T7 = ?(?(() => A));
+
+type T8 = ?(?() => A) | B;
+
+=====================================output=====================================
+type Banana = {
+  eat: string => boolean,
+};
+
+type Hex = { n: 0x01 };
+
+type T1 = { method: a => void };
+
+type T2 = { method(a): void };
+
+declare class X {
+  method(a): void;
+}
+
+declare function f(a): void;
+
+var f: a => void;
+
+interface F1 {
+  m(string): number;
+}
+
+interface F2 {
+  m: string => number;
+}
+
+function f1(o: { f: string => void }) {}
+
+function f2(o: { f(string): void }) {}
+
+type f3 = (...arg) => void;
+
+type f4 = /* comment */ arg => void;
+
+type f5 = arg /* comment */ => void;
+
+type f6 = (?arg) => void;
+
+class Y {
+  constructor(
+    ideConnectionFactory: child_process$ChildProcess => FlowIDEConnection = defaultIDEConnectionFactory
+  ) {}
+}
+
+interface F {
+  ideConnectionFactoryLongLongLong: child_process$ChildProcess => FlowIDEConnection;
+}
+
+type ExtractType = <A>(B<C>) => D;
+
+type T3 = ?() => A;
+
+type T4 = ?(() => A) | B;
+
+type T5 = ?() => A | B;
+
+type T6 = ?(() => A) | B;
+
+// https://github.com/babel/babel/issues/7924
+//type T = ??() => A;
+
+type T7 = ??(() => A);
+
+type T8 = ??(() => A) | B;
+
+================================================================================
 `;

@@ -1,12 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`override.js - babylon-verify 1`] = `
+exports[`field_declare_modifier.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 class Foo {
-  constructor: () => this;
-}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-class Foo {
-  constructor: () => this;
+  declare foo: number;
+  declare static bar: string;
 }
 
+=====================================output=====================================
+class Foo {
+  declare foo: number;
+  declare static bar: string;
+}
+
+================================================================================
 `;

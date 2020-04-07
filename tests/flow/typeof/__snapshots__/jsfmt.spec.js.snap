@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`typeof.js - flow-verify 1`] = `
+exports[`typeof.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @flow
  */
@@ -83,7 +88,8 @@ var f: typeof numberAlias = 42; // Error: 'typeof <<type-alias>>' makes no sense
 
  var Map = { "A": "this is A", "B": "this is B", "C": "this is C" };
  var keys: $Keys<Map> = "A";  // Error: ineligible value used in type anno
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @flow
  */
@@ -171,4 +177,5 @@ var f: typeof numberAlias = 42; // Error: 'typeof <<type-alias>>' makes no sense
 var Map = { A: "this is A", B: "this is B", C: "this is C" };
 var keys: $Keys<Map> = "A"; // Error: ineligible value used in type anno
 
+================================================================================
 `;

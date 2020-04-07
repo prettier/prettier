@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.js - flow-verify 1`] = `
+exports[`test.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * test handling of const params
  * - reassignment prohibited
@@ -30,7 +35,8 @@ function durable_refi(x: ?number) {
     return () => { var y:number = x; };
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * test handling of const params
  * - reassignment prohibited
@@ -63,4 +69,5 @@ function durable_refi(x: ?number) {
   }
 }
 
+================================================================================
 `;

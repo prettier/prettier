@@ -1,6 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`trailing.ts - typescript-verify 1`] = `
+exports[`trailing.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
 export class BaseSingleLevelProfileTargeting<
 	T extends ValidSingleLevelProfileNode,
 > {
@@ -17,7 +23,8 @@ const {
   longKeySoThisWillGoOnMultipleLines3,
   ...rest,
 } = something;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 export class BaseSingleLevelProfileTargeting<
   T extends ValidSingleLevelProfileNode
 > {}
@@ -34,4 +41,5 @@ const {
   ...rest
 } = something;
 
+================================================================================
 `;

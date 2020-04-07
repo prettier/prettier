@@ -2,38 +2,37 @@
 
 const printer = require("./printer-postcss");
 const options = require("./options");
-const languageExtend = require("../utils/language-extend");
+const createLanguage = require("../utils/create-language");
 
 const languages = [
-  languageExtend({}, require("linguist-languages/data/css"), {
+  createLanguage(require("linguist-languages/data/CSS"), () => ({
     since: "1.4.0",
     parsers: ["css"],
-    vscodeLanguageIds: ["css"]
-  }),
-  languageExtend({}, require("linguist-languages/data/postcss"), {
+    vscodeLanguageIds: ["css"],
+  })),
+  createLanguage(require("linguist-languages/data/PostCSS"), () => ({
     since: "1.4.0",
     parsers: ["css"],
-    extensions: [".postcss"],
-    vscodeLanguageIds: ["postcss"]
-  }),
-  languageExtend({}, require("linguist-languages/data/less"), {
+    vscodeLanguageIds: ["postcss"],
+  })),
+  createLanguage(require("linguist-languages/data/Less"), () => ({
     since: "1.4.0",
     parsers: ["less"],
-    vscodeLanguageIds: ["less"]
-  }),
-  languageExtend({}, require("linguist-languages/data/scss"), {
+    vscodeLanguageIds: ["less"],
+  })),
+  createLanguage(require("linguist-languages/data/SCSS"), () => ({
     since: "1.4.0",
     parsers: ["scss"],
-    vscodeLanguageIds: ["scss"]
-  })
+    vscodeLanguageIds: ["scss"],
+  })),
 ];
 
 const printers = {
-  postcss: printer
+  postcss: printer,
 };
 
 module.exports = {
   languages,
   options,
-  printers
+  printers,
 };

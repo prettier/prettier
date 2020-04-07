@@ -1,23 +1,35 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`enum.js - flow-verify 1`] = `
+exports[`enum.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 var APIKeys = {
     AGE: 'age',
     NAME: 'name',
 };
 
 module.exports = APIKeys;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 var APIKeys = {
   AGE: "age",
-  NAME: "name"
+  NAME: "name",
 };
 
 module.exports = APIKeys;
 
+================================================================================
 `;
 
-exports[`enum_client.js - flow-verify 1`] = `
+exports[`enum_client.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 var APIKeys = require('./enum');
 // object that maps "AGE" to "age", "NAME" to "name"
 
@@ -39,7 +51,8 @@ var name:number = object[APIKeys.NAME]; // error: object.name is a string
 var indices = { red: 0, green: 1, blue: 2 };
 var tuple = [42, "hello", false];
 var red:string = tuple[indices.red]; // error: tuple[0] is a number
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 var APIKeys = require("./enum");
 // object that maps "AGE" to "age", "NAME" to "name"
 
@@ -62,9 +75,15 @@ var indices = { red: 0, green: 1, blue: 2 };
 var tuple = [42, "hello", false];
 var red: string = tuple[indices.red]; // error: tuple[0] is a number
 
+================================================================================
 `;
 
-exports[`number.js - flow-verify 1`] = `
+exports[`number.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 function test1(x: number): number {
   return -x;
 }
@@ -88,7 +107,8 @@ function test4(flip_times: number): number {
   }
   return x;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 function test1(x: number): number {
   return -x;
 }
@@ -113,4 +133,5 @@ function test4(flip_times: number): number {
   return x;
 }
 
+================================================================================
 `;

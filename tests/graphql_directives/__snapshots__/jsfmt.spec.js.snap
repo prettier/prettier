@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`directives.graphql - graphql-verify 1`] = `
+exports[`directives.graphql 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 query MyQuery @directive(
   arg: 5
 ) {
@@ -21,7 +26,8 @@ fragment YouCanHaveDirectivesHereToo on SomeType @yesReally(what: "yes") {
 }
 
 query QueryWVars($x: String) @directive { hey }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 query MyQuery @directive(arg: 5) {
   field @skip(if: true) @nope
   otherField
@@ -49,4 +55,5 @@ query QueryWVars($x: String) @directive {
   hey
 }
 
+================================================================================
 `;

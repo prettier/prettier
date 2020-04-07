@@ -7,13 +7,19 @@ function clean(ast, newObj, parent) {
     "comments",
     "leadingComments",
     "trailingComments",
+    "innerComments",
     "extra",
     "start",
     "end",
-    "flags"
-  ].forEach(name => {
+    "flags",
+    "errors",
+  ].forEach((name) => {
     delete newObj[name];
   });
+
+  if (ast.loc && ast.loc.source === null) {
+    delete newObj.loc.source;
+  }
 
   if (ast.type === "BigIntLiteral") {
     newObj.value = newObj.value.toLowerCase();
@@ -47,7 +53,7 @@ function clean(ast, newObj, parent) {
       type: "Identifier",
       name: ast.parameter.name,
       typeAnnotation: newObj.parameter.typeAnnotation,
-      decorators: newObj.decorators
+      decorators: newObj.decorators,
     };
   }
 
@@ -58,14 +64,6 @@ function clean(ast, newObj, parent) {
     ast.specifiers.length === 0
   ) {
     delete newObj.specifiers;
-  }
-
-  // (TypeScript) bypass TSParenthesizedType
-  if (
-    ast.type === "TSParenthesizedType" &&
-    ast.typeAnnotation.type === "TSTypeAnnotation"
-  ) {
-    return newObj.typeAnnotation.typeAnnotation;
   }
 
   // We convert <div></div> to <div />
@@ -103,22 +101,22 @@ function clean(ast, newObj, parent) {
   if (
     ast.type === "JSXElement" &&
     ast.openingElement.name.name === "style" &&
-    ast.openingElement.attributes.some(attr => attr.name.name === "jsx")
+    ast.openingElement.attributes.some((attr) => attr.name.name === "jsx")
   ) {
     const templateLiterals = newObj.children
       .filter(
-        child =>
+        (child) =>
           child.type === "JSXExpressionContainer" &&
           child.expression.type === "TemplateLiteral"
       )
-      .map(container => container.expression);
+      .map((container) => container.expression);
 
     const quasis = templateLiterals.reduce(
       (quasis, templateLiteral) => quasis.concat(templateLiteral.quasis),
       []
     );
 
-    quasis.forEach(q => delete q.value);
+    quasis.forEach((q) => delete q.value);
   }
 
   // CSS template literals in css prop
@@ -128,24 +126,36 @@ function clean(ast, newObj, parent) {
     ast.value.type === "JSXExpressionContainer" &&
     ast.value.expression.type === "TemplateLiteral"
   ) {
-    newObj.value.expression.quasis.forEach(q => delete q.value);
+    newObj.value.expression.quasis.forEach((q) => delete q.value);
   }
 
-  // CSS template literals in Angular Component decorator
+  // Angular Components: Inline HTML template and Inline CSS styles
   const expression = ast.expression || ast.callee;
   if (
     ast.type === "Decorator" &&
     expression.type === "CallExpression" &&
     expression.callee.name === "Component" &&
-    expression.arguments.length === 1 &&
-    expression.arguments[0].properties.some(
-      prop =>
-        prop.key.name === "styles" && prop.value.type === "ArrayExpression"
-    )
+    expression.arguments.length === 1
   ) {
-    newObj.expression.arguments[0].properties.forEach(prop => {
-      if (prop.value.type === "ArrayExpression") {
-        prop.value.elements[0].quasis.forEach(q => delete q.value);
+    const astProps = ast.expression.arguments[0].properties;
+    newObj.expression.arguments[0].properties.forEach((prop, index) => {
+      let templateLiteral = null;
+
+      switch (astProps[index].key.name) {
+        case "styles":
+          if (prop.value.type === "ArrayExpression") {
+            templateLiteral = prop.value.elements[0];
+          }
+          break;
+        case "template":
+          if (prop.value.type === "TemplateLiteral") {
+            templateLiteral = prop.value;
+          }
+          break;
+      }
+
+      if (templateLiteral) {
+        templateLiteral.quasis.forEach((q) => delete q.value);
       }
     });
   }
@@ -159,10 +169,11 @@ function clean(ast, newObj, parent) {
           ast.tag.name === "graphql" ||
           ast.tag.name === "css" ||
           ast.tag.name === "md" ||
-          ast.tag.name === "markdown")) ||
+          ast.tag.name === "markdown" ||
+          ast.tag.name === "html")) ||
       ast.tag.type === "CallExpression")
   ) {
-    newObj.quasi.quasis.forEach(quasi => delete quasi.value);
+    newObj.quasi.quasis.forEach((quasi) => delete quasi.value);
   }
   if (ast.type === "TemplateLiteral") {
     // This checks for a leading comment that is exactly `/* GraphQL */`
@@ -170,17 +181,20 @@ function clean(ast, newObj, parent) {
     // we will not trim the comment value and we will expect exactly one space on
     // either side of the GraphQL string
     // Also see ./embed.js
-    const hasGraphQLComment =
+    const hasLanguageComment =
       ast.leadingComments &&
       ast.leadingComments.some(
-        comment =>
-          comment.type === "CommentBlock" && comment.value === " GraphQL "
+        (comment) =>
+          comment.type === "CommentBlock" &&
+          ["GraphQL", "HTML"].some(
+            (languageName) => comment.value === ` ${languageName} `
+          )
       );
     if (
-      hasGraphQLComment ||
+      hasLanguageComment ||
       (parent.type === "CallExpression" && parent.callee.name === "graphql")
     ) {
-      newObj.quasis.forEach(quasi => delete quasi.value);
+      newObj.quasis.forEach((quasi) => delete quasi.value);
     }
   }
 }

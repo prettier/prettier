@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`expand.js - babylon-verify 1`] = `
+exports[`expand.js 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const Component1 = ({ props }) => (
   <Text>Test</Text>
 );
@@ -10,14 +15,21 @@ const Component2 = ({
 }) => (
   <Text>Test</Text>
 );
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const Component1 = ({ props }) => <Text>Test</Text>;
 
 const Component2 = ({ props }) => <Text>Test</Text>;
 
+================================================================================
 `;
 
-exports[`expression.js - babylon-verify 1`] = `
+exports[`expression.js 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 () => ({}\`\`);
 ({})\`\`;
 a = () => ({}).x;
@@ -27,7 +39,23 @@ a = () => ({}).x;
 ({}(), 0);
 ({} = 0);
 (({} = 0), 1);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+const a1 = {
+  someKey:
+    (shortName, shortName)
+};
+
+const a2 = {
+  someKey:
+    (longLongLongLongLongLongLongLongLongLongLongLongLongLongName, shortName)
+};
+
+const a3 = {
+  someKey:
+    (longLongLongLongLongLongLongLongLongLongLongLongLongLongName, longLongLongLongLongLongLongLongLongLongLongLongLongLongName, longLongLongLongLongLongLongLongLongLongLongLongLongLongName)
+};
+
+=====================================output=====================================
 () => ({}\`\`);
 ({}\`\`);
 a = () => ({}.x);
@@ -38,16 +66,45 @@ a = () => ({}.x);
 ({} = 0);
 ({} = 0), 1;
 
+const a1 = {
+  someKey: (shortName, shortName),
+};
+
+const a2 = {
+  someKey:
+    (longLongLongLongLongLongLongLongLongLongLongLongLongLongName, shortName),
+};
+
+const a3 = {
+  someKey:
+    (longLongLongLongLongLongLongLongLongLongLongLongLongLongName,
+    longLongLongLongLongLongLongLongLongLongLongLongLongLongName,
+    longLongLongLongLongLongLongLongLongLongLongLongLongLongName),
+};
+
+================================================================================
 `;
 
-exports[`method.js - babylon-verify 1`] = `
+exports[`method.js 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 a = { f() {} }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 a = { f() {} };
 
+================================================================================
 `;
 
-exports[`range.js - babylon-verify 1`] = `
+exports[`range.js 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 group(
   concat([
     "(",
@@ -61,7 +118,8 @@ group(
   ]),
   {shouldBreak: true}
 )
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 group(
   concat([
     "(",
@@ -71,14 +129,20 @@ group(
     ),
     options.trailingComma ? "," : "",
     line,
-    ")"
+    ")",
   ]),
   { shouldBreak: true }
 );
 
+================================================================================
 `;
 
-exports[`right_break.js - babylon-verify 1`] = `
+exports[`right_break.js 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 const blablah =
   "aldkfkladfskladklsfkladklfkaldfadfkdaf" +
   "adlfasdklfkldsklfakldsfkladsfkadsfladsfa" +
@@ -97,7 +161,8 @@ const o = {
   somethingThatsAReallyLongPropName:
     this.props.cardType === AwesomizerCardEnum.SEEFIRST,
 };
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 const blablah =
   "aldkfkladfskladklsfkladklfkaldfadfkdaf" +
   "adlfasdklfkldsklfakldsfkladsfkadsfladsfa" +
@@ -107,7 +172,7 @@ const k = {
   blablah:
     "aldkfkladfskladklsfkladklfkaldfadfkdaf" +
     "adlfasdklfkldsklfakldsfkladsfkadsfladsfa" +
-    "dflkadfkladsfklkadlfkladlfkadklfjadlfdfdaf"
+    "dflkadfkladsfklkadlfkladlfkadklfjadlfdfdaf",
 };
 
 somethingThatsAReallyLongPropName =
@@ -115,7 +180,8 @@ somethingThatsAReallyLongPropName =
 
 const o = {
   somethingThatsAReallyLongPropName:
-    this.props.cardType === AwesomizerCardEnum.SEEFIRST
+    this.props.cardType === AwesomizerCardEnum.SEEFIRST,
 };
 
+================================================================================
 `;

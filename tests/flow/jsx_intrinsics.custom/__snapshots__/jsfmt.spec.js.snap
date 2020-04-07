@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`main.js - flow-verify 1`] = `
+exports[`main.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 var React = require('react');
@@ -18,14 +23,15 @@ var b: React.Element<{prop1: string}> = <CustomComponent prop="asdf" />; // Erro
 <div id={42} />; // Error: (\`id\` prop) number ~> string
 var c: React.Element<{id: string}> = <div id="asdf" />;
 var d: React.Element<{id: number}> = <div id="asdf" />; // Error: Props<{id:string}> ~> Props<{id:number}>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 var React = require("react");
 
 class CustomComponent extends React.Component {
   props: {
-    prop: string
+    prop: string,
   };
 }
 
@@ -37,9 +43,15 @@ var b: React.Element<{ prop1: string }> = <CustomComponent prop="asdf" />; // Er
 var c: React.Element<{ id: string }> = <div id="asdf" />;
 var d: React.Element<{ id: number }> = <div id="asdf" />; // Error: Props<{id:string}> ~> Props<{id:number}>
 
+================================================================================
 `;
 
-exports[`strings.js - flow-verify 1`] = `
+exports[`strings.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 var React = require('react');
@@ -58,7 +70,8 @@ React.createElement(Str, {}); // Error: string ~> keys of JSXIntrinsics
 
 // TODO: Make this an error
 <Div id={42} />; // Not an error but should be eventually
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 var React = require("react");
@@ -78,4 +91,5 @@ React.createElement(Str, {}); // Error: string ~> keys of JSXIntrinsics
 // TODO: Make this an error
 <Div id={42} />; // Not an error but should be eventually
 
+================================================================================
 `;

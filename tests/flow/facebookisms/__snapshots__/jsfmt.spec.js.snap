@@ -1,15 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Bar.js - flow-verify 1`] = `
-var Bar = { x: 0 };
-module.exports = Bar;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`Bar.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 var Bar = { x: 0 };
 module.exports = Bar;
 
+=====================================output=====================================
+var Bar = { x: 0 };
+module.exports = Bar;
+
+================================================================================
 `;
 
-exports[`copyProperties.js - flow-verify 1`] = `
+exports[`copyProperties.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 let tests = [
@@ -49,28 +61,29 @@ let tests = [
     x(copyProperties);
   }
 ];
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 let tests = [
   // global
-  function() {
+  function () {
     copyProperties(); // error, unknown global
   },
 
   // annotation
-  function(copyProperties: Object$Assign) {
+  function (copyProperties: Object$Assign) {
     let result = {};
     result.baz = false;
     (copyProperties(result, { foo: "a" }, { bar: 123 }): {
       foo: string,
       bar: number,
-      baz: boolean
+      baz: boolean,
     });
   },
 
   // module from lib
-  function() {
+  function () {
     const copyProperties = require("copyProperties");
     let x = { foo: "a" };
     let y = { bar: 123 };
@@ -78,21 +91,27 @@ let tests = [
   },
 
   // too few args
-  function(copyProperties: Object$Assign) {
+  function (copyProperties: Object$Assign) {
     copyProperties();
     (copyProperties({ foo: "a" }): { foo: number }); // err, num !~> string
   },
 
   // passed as a function
-  function(copyProperties: Object$Assign) {
+  function (copyProperties: Object$Assign) {
     function x(cb: Function) {}
     x(copyProperties);
-  }
+  },
 ];
 
+================================================================================
 `;
 
-exports[`invariant.js - flow-verify 1`] = `
+exports[`invariant.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 let tests = [
@@ -107,25 +126,32 @@ let tests = [
     (x: string);
   }
 ]
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 let tests = [
-  function() {
+  function () {
     let x: ?string = null;
     invariant(x, "truthy only"); // error, forgot to require invariant
   },
 
-  function(invariant: Function) {
+  function (invariant: Function) {
     let x: ?string = null;
     invariant(x);
     (x: string);
-  }
+  },
 ];
 
+================================================================================
 `;
 
-exports[`lib.js - flow-verify 1`] = `
+exports[`lib.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 declare module "copyProperties" {
   declare var exports: Object$Assign;
 }
@@ -137,7 +163,8 @@ declare module "mergeInto" {
 declare module "mixin" {
   declare var exports: $Facebookism$Mixin;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 declare module "copyProperties" {
   declare var exports: Object$Assign;
 }
@@ -150,9 +177,15 @@ declare module "mixin" {
   declare var exports: $Facebookism$Mixin;
 }
 
+================================================================================
 `;
 
-exports[`mergeInto.js - flow-verify 1`] = `
+exports[`mergeInto.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 let tests = [
@@ -187,17 +220,18 @@ let tests = [
     x(mergeInto);
   }
 ];
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 let tests = [
   // global
-  function() {
+  function () {
     mergeInto(); // error, unknown global
   },
 
   // annotation
-  function(mergeInto: $Facebookism$MergeInto) {
+  function (mergeInto: $Facebookism$MergeInto) {
     let result = {};
     result.baz = false;
     (mergeInto(result, { foo: "a" }, { bar: 123 }): void);
@@ -205,27 +239,33 @@ let tests = [
   },
 
   // module from lib
-  function() {
+  function () {
     const mergeInto = require("mergeInto");
     let result: { foo?: string, bar?: number, baz: boolean } = { baz: false };
     (mergeInto(result, { foo: "a" }, { bar: 123 }): void);
   },
 
   // too few args
-  function(mergeInto: $Facebookism$MergeInto) {
+  function (mergeInto: $Facebookism$MergeInto) {
     mergeInto();
   },
 
   // passed as a function
-  function(mergeInto: $Facebookism$MergeInto) {
+  function (mergeInto: $Facebookism$MergeInto) {
     function x(cb: Function) {}
     x(mergeInto);
-  }
+  },
 ];
 
+================================================================================
 `;
 
-exports[`test.js - flow-verify 1`] = `
+exports[`test.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 var Bar = require('./Bar');
 var mixin = require('mixin');
 
@@ -235,7 +275,8 @@ class Foo extends mixin(Bar) {
     this.y = "";
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 var Bar = require("./Bar");
 var mixin = require("mixin");
 
@@ -246,4 +287,5 @@ class Foo extends mixin(Bar) {
   }
 }
 
+================================================================================
 `;

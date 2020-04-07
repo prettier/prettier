@@ -1,13 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`main.js - flow-verify 1`] = `
+exports[`main.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 import {test} from 'testmodule';
 
 var a: number = test;
 var b: string = test; // Error: number ~> string
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 import { test } from "testmodule";
@@ -15,4 +21,5 @@ import { test } from "testmodule";
 var a: number = test;
 var b: string = test; // Error: number ~> string
 
+================================================================================
 `;

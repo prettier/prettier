@@ -2,19 +2,32 @@
 
 "use strict";
 
+const { exec, execSync } = require("child_process");
+
 async function run() {
   const chalk = require("chalk");
   const dedent = require("dedent");
   const minimist = require("minimist");
+  const semver = require("semver");
 
   const { readJson } = require("./utils");
 
   const params = minimist(process.argv.slice(2), {
     string: ["version"],
     boolean: ["dry"],
-    alias: { v: "version" }
+    alias: { v: "version" },
   });
-  params.previousVersion = (await readJson("package.json")).version;
+
+  const previousVersion = execSync("git describe --tags --abbrev=0")
+    .toString()
+    .trim();
+
+  if (semver.parse(previousVersion) === null) {
+    throw new Error(`Unexpected previousVersion: ${previousVersion}`);
+  } else {
+    params.previousVersion = previousVersion;
+    params.previousVersionOnMaster = (await readJson("package.json")).version;
+  }
 
   const steps = [
     require("./steps/validate-new-version"),
@@ -27,7 +40,7 @@ async function run() {
     require("./steps/push-to-git"),
     require("./steps/publish-to-npm"),
     require("./steps/bump-prettier"),
-    require("./steps/post-publish-steps")
+    require("./steps/post-publish-steps"),
   ];
 
   try {
@@ -42,13 +55,18 @@ async function run() {
   }
 }
 
-// Install script's dependencies before any require
-const { exec } = require("child_process");
-exec("yarn install", { cwd: __dirname }, error => {
-  if (error) {
-    console.error(error);
-    process.exit(1);
-  } else {
-    run();
+exec(
+  [
+    "git fetch --tags", // Fetch git tags to get the previous version number (i.e. the latest tag)
+    "yarn install", // Install script's dependencies before any require
+  ].join(" && "),
+  { cwd: __dirname },
+  (error) => {
+    if (error) {
+      console.error(error);
+      process.exit(1);
+    } else {
+      run();
+    }
   }
-});
+);

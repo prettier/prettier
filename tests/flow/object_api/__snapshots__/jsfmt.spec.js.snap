@@ -1,23 +1,36 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`a.js - flow-verify 1`] = `
+exports[`a.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
-module.exports = { a() {} };~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+module.exports = { a() {} };
+=====================================output=====================================
 /* @flow */
 
 module.exports = { a() {} };
 
+================================================================================
 `;
 
-exports[`b.js - flow-verify 1`] = `
+exports[`b.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 var a = require('./a');
 var b = Object.assign({ bar() {}, ...{} }, a);
 b.a(); // works here
 module.exports = b;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 var a = require("./a");
@@ -25,23 +38,36 @@ var b = Object.assign({ bar() {}, ...{} }, a);
 b.a(); // works here
 module.exports = b;
 
+================================================================================
 `;
 
-exports[`c.js - flow-verify 1`] = `
+exports[`c.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 var c = require('./b');
 c.a();
-c.foo();~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+c.foo();
+=====================================output=====================================
 /* @flow */
 
 var c = require("./b");
 c.a();
 c.foo();
 
+================================================================================
 `;
 
-exports[`object_assign.js - flow-verify 1`] = `
+exports[`object_assign.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 var export_ = Object.assign({}, {
@@ -54,15 +80,16 @@ let anyObj: Object = {};
 Object.assign(anyObj, anyObj); // makes sure this terminates
 
 module.exports = export_;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 var export_ = Object.assign(
   {},
   {
-    foo: function(param) {
+    foo: function (param) {
       return param;
-    }
+    },
   }
 );
 
@@ -73,9 +100,15 @@ Object.assign(anyObj, anyObj); // makes sure this terminates
 
 module.exports = export_;
 
+================================================================================
 `;
 
-exports[`object_create.js - flow-verify 1`] = `
+exports[`object_create.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 class C { foo: string; }
@@ -93,7 +126,8 @@ class C { foo: string; }
 type O = { foo: string; }
 declare var o: O;
 (o: C);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 class C {
@@ -114,9 +148,15 @@ type O = { foo: string };
 declare var o: O;
 (o: C);
 
+================================================================================
 `;
 
-exports[`object_getprototypeof.js - flow-verify 1`] = `
+exports[`object_getprototypeof.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 class Foo {}
@@ -128,22 +168,29 @@ let tests = [
     (Object.getPrototypeOf(x): Foo);
   },
 ];
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 class Foo {}
 class Bar extends Foo {}
 
 let tests = [
-  function() {
+  function () {
     const x = new Bar();
     (Object.getPrototypeOf(x): Foo);
-  }
+  },
 ];
 
+================================================================================
 `;
 
-exports[`object_keys.js - flow-verify 1`] = `
+exports[`object_keys.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 var sealed = {one: 'one', two: 'two'};
@@ -176,7 +223,8 @@ class Bar extends Foo {
 }
 // only own enumerable props
 (Object.keys(new Bar()): Array<'error'>); // error: bar_prop ~> error
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 var sealed = { one: "one", two: "two" };
@@ -184,12 +232,12 @@ var sealed = { one: "one", two: "two" };
 (Object.keys(sealed): void); // error, Array<string>
 
 var unsealed = {};
-Object.keys(unsealed).forEach(k => {
+Object.keys(unsealed).forEach((k) => {
   (k: number); // error: string ~> number
 });
 
 var dict: { [k: number]: string } = {};
-Object.keys(dict).forEach(k => {
+Object.keys(dict).forEach((k) => {
   (k: number); // error: string ~> number
 });
 
@@ -210,9 +258,15 @@ class Bar extends Foo {
 // only own enumerable props
 (Object.keys(new Bar()): Array<"error">); // error: bar_prop ~> error
 
+================================================================================
 `;
 
-exports[`object_missing.js - flow-verify 1`] = `
+exports[`object_missing.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 let tests = [
@@ -220,18 +274,25 @@ let tests = [
     Object.doesNotExist();
   },
 ];
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 let tests = [
-  function() {
+  function () {
     Object.doesNotExist();
-  }
+  },
 ];
 
+================================================================================
 `;
 
-exports[`object_prototype.js - flow-verify 1`] = `
+exports[`object_prototype.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 function takesABool(x: boolean) {}
@@ -396,7 +457,8 @@ takesAString(y.toLocaleString());
 
 var k : Object = a.constructor;
 (123).constructor;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 function takesABool(x: boolean) {}
@@ -410,9 +472,9 @@ var a = { foo: "bar" };
 var b = { foo: "bar", ...{} };
 var c = {
   foo: "bar",
-  toString: function(): number {
+  toString: function (): number {
     return 123;
-  }
+  },
 };
 var d: { [key: string]: string } = { foo: "bar" };
 var x = new Date();
@@ -432,10 +494,10 @@ var aToString2 = a.toString;
 takesAString(aToString2());
 
 // set
-b.toString = function(): string {
+b.toString = function (): string {
   return "foo";
 };
-c.toString = function(): number {
+c.toString = function (): number {
   return 123;
 };
 
@@ -454,7 +516,7 @@ takesAString(y.toString());
 // ... on a primitive
 (123).toString();
 (123).toString;
-(123).toString = function() {}; // error
+(123).toString = function () {}; // error
 (123).toString(2);
 (123).toString("foo"); // error
 (123).toString(null); // error
@@ -472,7 +534,7 @@ var aHasOwnProperty2 = a.hasOwnProperty;
 takesABool(aHasOwnProperty2("bar"));
 
 // set
-b.hasOwnProperty = function() {
+b.hasOwnProperty = function () {
   return false;
 };
 
@@ -498,7 +560,7 @@ var aPropertyIsEnumerable2 = a.propertyIsEnumerable;
 takesABool(aPropertyIsEnumerable2("bar"));
 
 // set
-b.propertyIsEnumerable = function() {
+b.propertyIsEnumerable = function () {
   return false;
 };
 
@@ -524,7 +586,7 @@ var aValueOf2 = a.valueOf;
 takesAnObject(aValueOf2());
 
 // set
-b.valueOf = function() {
+b.valueOf = function () {
   return {};
 };
 
@@ -554,7 +616,7 @@ var aToLocaleString2 = a.toLocaleString;
 takesAString(aToLocaleString2());
 
 // set
-b.toLocaleString = function() {
+b.toLocaleString = function () {
   return "derp";
 };
 
@@ -574,4 +636,5 @@ takesAString(y.toLocaleString());
 var k: Object = a.constructor;
 (123).constructor;
 
+================================================================================
 `;

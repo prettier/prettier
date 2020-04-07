@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`async-iteration.js - flow-verify 1`] = `
+exports[`async-iteration.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 
 async function * a() {
     yield* b();
@@ -11,7 +16,8 @@ class X {
         yield* a();
     }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 async function* a() {
   yield* b();
 }
@@ -22,36 +28,43 @@ class X {
   }
 }
 
+================================================================================
 `;
 
-exports[`await_parse.js - flow-verify 1`] = `
-async function f() { (await f()).length }
+exports[`await_parse.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+async function f1() { (await f()).length }
 async function g() {
   invariant(
     (await driver.navigator.getUrl()).substr(-7)
   );
 }
-function *f(){
+function *f2(){
   !(yield a);
 }
-async function f() {
+async function f3() {
   a = !await f();
 }
 async () => {
   new A(await x);
   obj[await x];
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-async function f() {
+
+=====================================output=====================================
+async function f1() {
   (await f()).length;
 }
 async function g() {
   invariant((await driver.navigator.getUrl()).substr(-7));
 }
-function* f() {
+function* f2() {
   !(yield a);
 }
-async function f() {
+async function f3() {
   a = !(await f());
 }
 async () => {
@@ -59,9 +72,15 @@ async () => {
   obj[await x];
 };
 
+================================================================================
 `;
 
-exports[`conditional-expression.js - flow-verify 1`] = `
+exports[`conditional-expression.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 async function f() {
   const result = typeof fn === 'function' ? await fn() : null;
 }
@@ -72,37 +91,70 @@ async function f() {
   );
 })()
 
-async function f() {
+async function f2() {
   await (spellcheck && spellcheck.setChecking(false));
   await spellcheck && spellcheck.setChecking(false)
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 async function f() {
   const result = typeof fn === "function" ? await fn() : null;
 }
 
-(async function() {
+(async function () {
   console.log(await (true ? Promise.resolve("A") : Promise.resolve("B")));
 })();
 
-async function f() {
+async function f2() {
   await (spellcheck && spellcheck.setChecking(false));
   (await spellcheck) && spellcheck.setChecking(false);
 }
 
+================================================================================
 `;
 
-exports[`parens.js - flow-verify 1`] = `
+exports[`inline_await.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+async function f() {
+  const admins = (await(db.select('*').from('admins').leftJoin('bla').where('id', 'in', [1,2,3,4]))).map(({id, name})=>({id, name}))
+}
+
+=====================================output=====================================
+async function f() {
+  const admins = (
+    await db
+      .select("*")
+      .from("admins")
+      .leftJoin("bla")
+      .where("id", "in", [1, 2, 3, 4])
+  ).map(({ id, name }) => ({ id, name }));
+}
+
+================================================================================
+`;
+
+exports[`parens.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 async function *f(){ await (yield x); }
 
-async function f(){ await (() => {}); }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+async function f2(){ await (() => {}); }
+
+=====================================output=====================================
 async function* f() {
   await (yield x);
 }
 
-async function f() {
+async function f2() {
   await (() => {});
 }
 
+================================================================================
 `;

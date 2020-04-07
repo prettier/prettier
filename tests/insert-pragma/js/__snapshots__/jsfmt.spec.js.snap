@@ -1,6 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`module-with-late-docblock.js - flow-verify 1`] = `
+exports[`module-with-late-docblock.js 1`] = `
+====================================options=====================================
+insertPragma: true
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 function foo(bar) { 
   return bar + 3 + 4;
 }
@@ -9,7 +15,8 @@ function foo(bar) {
  * Some notes that should not be appended to
  */ 
 const fruit = 'tomatoes';
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /** @format */
 
 function foo(bar) {
@@ -22,23 +29,38 @@ function foo(bar) {
 
 const fruit = "tomatoes";
 
+================================================================================
 `;
 
-exports[`module-with-multiple-same-pragma.js - flow-verify 1`] = `
+exports[`module-with-multiple-same-pragma.js 1`] = `
+====================================options=====================================
+insertPragma: true
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @x 1
  * @x 2
  */
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @format
  * @x 1
  * @x 2
  */
 
+================================================================================
 `;
 
-exports[`module-with-pragma.js - flow-verify 1`] = `
+exports[`module-with-pragma.js 1`] = `
+====================================options=====================================
+insertPragma: true
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * Here lie words above pragmas
  * 
@@ -49,7 +71,8 @@ exports[`module-with-pragma.js - flow-verify 1`] = `
 function foo(bar) {
   return bar + 3 + 4;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * Here lie words above pragmas
  *
@@ -61,22 +84,37 @@ function foo(bar) {
   return bar + 3 + 4;
 }
 
+================================================================================
 `;
 
-exports[`module-without-docblock.js - flow-verify 1`] = `
+exports[`module-without-docblock.js 1`] = `
+====================================options=====================================
+insertPragma: true
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 function foo(bar) { 
   return bar + 3 + 4;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /** @format */
 
 function foo(bar) {
   return bar + 3 + 4;
 }
 
+================================================================================
 `;
 
-exports[`module-without-pragma.js - flow-verify 1`] = `
+exports[`module-without-pragma.js 1`] = `
+====================================options=====================================
+insertPragma: true
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @flow
  * 
@@ -86,7 +124,8 @@ exports[`module-without-pragma.js - flow-verify 1`] = `
 function foo(bar) { 
   return bar + 3 + 4;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * Words below the wrong pragma
  *
@@ -98,9 +137,16 @@ function foo(bar) {
   return bar + 3 + 4;
 }
 
+================================================================================
 `;
 
-exports[`trailing-spaces-first-line.js - flow-verify 1`] = `
+exports[`trailing-spaces-first-line.js 1`] = `
+====================================options=====================================
+insertPragma: true
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**	
  * Copyright (c) 2015-present, Facebook, Inc.	
  * All rights reserved.	
@@ -108,7 +154,8 @@ exports[`trailing-spaces-first-line.js - flow-verify 1`] = `
  * This source code is licensed under the license found in the LICENSE file in	
  * the root directory of this source tree.	
  */	
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * Copyright (c) 2015-present, Facebook, Inc.
  * All rights reserved.
@@ -119,4 +166,5 @@ exports[`trailing-spaces-first-line.js - flow-verify 1`] = `
  * @format
  */
 
+================================================================================
 `;

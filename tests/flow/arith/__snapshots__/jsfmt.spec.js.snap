@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Arith.js - flow-verify 1`] = `
+exports[`Arith.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 
 /* @providesModule Arith */
 
@@ -92,7 +97,8 @@ let tests = [
     (z + x: empty); // error, string ~> empty
   },
 ];
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @providesModule Arith */
 
 function num(x: number) {}
@@ -155,7 +161,7 @@ str("foo" + undefined); // error
 str(undefined + "foo"); // error
 
 let tests = [
-  function(x: mixed, y: mixed) {
+  function (x: mixed, y: mixed) {
     x + y; // error
     x + 0; // error
     0 + x; // error
@@ -168,25 +174,31 @@ let tests = [
   // when one side is a string or number and the other is invalid, we
   // assume you are expecting a string or number (respectively), rather than
   // erroring twice saying number !~> string and obj !~> string.
-  function() {
+  function () {
     (1 + {}: number); // error: object !~> number
     ({} + 1: number); // error: object !~> number
     ("1" + {}: string); // error: object !~> string
     ({} + "1": string); // error: object !~> string
   },
 
-  function(x: any, y: number, z: string) {
+  function (x: any, y: number, z: string) {
     (x + y: string); // ok
     (y + x: string); // ok
 
     (x + z: empty); // error, string ~> empty
     (z + x: empty); // error, string ~> empty
-  }
+  },
 ];
 
+================================================================================
 `;
 
-exports[`exponent.js - flow-verify 1`] = `
+exports[`exponent.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 let x: number = 2 ** 3;
@@ -198,7 +210,8 @@ y **= 2; // error
 1 + 2 ** 3 + 4;
 2 ** 2;
 (-2) ** 2;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 let x: number = 2 ** 3;
@@ -211,9 +224,15 @@ y **= 2; // error
 2 ** 2;
 (-2) ** 2;
 
+================================================================================
 `;
 
-exports[`generic.js - flow-verify 1`] = `
+exports[`generic.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 function f<A>(a: A): A { return a + a; } // error
@@ -221,7 +240,8 @@ function f<A,B>(a: A, b: B): A {return a + b; } // error
 function f<A,B>(a: A, b: B): A {return b + a; } // error
 function f<A,B>(a: A, b: B): B {return a + b; } // error
 function f<A,B>(a: A, b: B): B {return b + a; } // error
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 function f<A>(a: A): A {
@@ -240,9 +260,15 @@ function f<A, B>(a: A, b: B): B {
   return b + a;
 } // error
 
+================================================================================
 `;
 
-exports[`mult.js - flow-verify 1`] = `
+exports[`mult.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 function num(x:number) { }
@@ -255,7 +281,8 @@ x *= 4;
 
 let y: string = "123";
 y *= 2; // error
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 function num(x: number) {}
@@ -269,9 +296,15 @@ x *= 4;
 let y: string = "123";
 y *= 2; // error
 
+================================================================================
 `;
 
-exports[`relational.js - flow-verify 1`] = `
+exports[`relational.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 (1 < 2);
@@ -302,7 +335,8 @@ let tests = [
     (x > z);
   },
 ];
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 1 < 2;
@@ -328,10 +362,11 @@ NaN < 1;
 NaN < NaN;
 
 let tests = [
-  function(x: any, y: number, z: string) {
+  function (x: any, y: number, z: string) {
     x > y;
     x > z;
-  }
+  },
 ];
 
+================================================================================
 `;

@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`DeclareModule_TypeAlias.js - flow-verify 1`] = `
+exports[`DeclareModule_TypeAlias.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @flow
  */
@@ -10,7 +15,8 @@ declare module ModuleAliasFoo {
     declare type toz = string;
     declare function foo(bar : baz) : toz;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @flow
  */
@@ -21,9 +27,15 @@ declare module ModuleAliasFoo {
   declare function foo(bar: baz): toz;
 }
 
+================================================================================
 `;
 
-exports[`declare_type_exports.js - flow-verify 1`] = `
+exports[`declare_type_exports.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 declare module 'foo' {
@@ -41,7 +53,8 @@ declare module 'foo' {
         (a : number, b : number) : number
     };
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 declare module "foo" {
@@ -56,8 +69,9 @@ declare module "foo" {
   declare type Id<T> = T;
 
   declare var exports: {
-    (a: number, b: number): number
+    (a: number, b: number): number,
   };
 }
 
+================================================================================
 `;

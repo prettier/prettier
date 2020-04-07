@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 
 const root = document.getElementById("version");
 
-export default function({ version }) {
+export default function ({ version }) {
   const match = version.match(/^pr-(\d+)$/);
   let href;
   if (match) {
@@ -17,7 +17,7 @@ export default function({ version }) {
     <a
       href={`https://github.com/prettier/prettier/${href}`}
       target="_blank"
-      rel="noopener"
+      rel="noreferrer noopener"
     >
       {match ? `PR #${match[1]}` : `v${version}`}
     </a>,

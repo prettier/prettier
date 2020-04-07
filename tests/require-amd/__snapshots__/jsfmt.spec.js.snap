@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`require.js - flow-verify 1`] = `
+exports[`require.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 require(
     [
         'jquery',
@@ -34,7 +39,8 @@ define(
         console.log('some code')
     }
 );
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 require([
   "jquery",
   "common/global.context",
@@ -43,8 +49,8 @@ require([
   "some_project/rectangle",
   "some_project/triangle",
   "some_project/circle",
-  "some_project/star"
-], function(
+  "some_project/star",
+], function (
   $,
   Context,
   EventLogger,
@@ -65,8 +71,8 @@ define([
   "some_project/rectangle",
   "some_project/triangle",
   "some_project/circle",
-  "some_project/star"
-], function(
+  "some_project/star",
+], function (
   $,
   Context,
   EventLogger,
@@ -79,4 +85,5 @@ define([
   console.log("some code");
 });
 
+================================================================================
 `;

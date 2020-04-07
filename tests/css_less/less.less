@@ -1648,8 +1648,8 @@ li + li {
 // Variables
 @link-color: #428bca; // Comment
 
-[href]:hover &, // Comment
-[href]:focus &, // Comment
+[href]:hover &, // Comment'
+[href]:focus &, // Comment"
 [href]:active & {
   .tooltip {
     opacity: 1;
@@ -1659,3 +1659,18 @@ li + li {
 // Usage
 @import // Comment
   "@{themes}/tidal-wave.less";
+
+// Mixin with escaped /
+.margin-bottom-1\/3() {
+  margin-bottom: 0.8rem;
+}
+
+label {
+  .margin-bottom-1\/3;
+}
+
+// whitespace between variable and colon, #2925 #4090
+@FoO : bar;
+
+// should not parse as custom-selector
+@custom-selector     :--icon #id;

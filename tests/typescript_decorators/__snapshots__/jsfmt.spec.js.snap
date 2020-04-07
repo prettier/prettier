@@ -1,25 +1,74 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`decorator-type-assertion.ts - typescript-verify 1`] = `
-@(bind as ClassDecorator)
-class Decorated {
+exports[`argument-list-preserve-line.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class Foo {
+    constructor(
+        @inject(Bar)
+        private readonly bar: IBar,
 
+        @inject(MyProcessor)
+        private readonly myProcessor: IMyProcessor,
+
+        @inject(InjectionTypes.AnotherThing)
+
+        private readonly anotherThing: IAnotherThing | undefined,
+    ) { }
 }
 
-@(<ClassDecorator>bind)
-class Decorated {
+=====================================output=====================================
+class Foo {
+  constructor(
+    @inject(Bar)
+    private readonly bar: IBar,
 
+    @inject(MyProcessor)
+    private readonly myProcessor: IMyProcessor,
+
+    @inject(InjectionTypes.AnotherThing)
+    private readonly anotherThing: IAnotherThing | undefined
+  ) {}
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-@(bind as ClassDecorator)
-class Decorated {}
 
-@(<ClassDecorator>bind)
-class Decorated {}
-
+================================================================================
 `;
 
-exports[`decorators.js - typescript-verify 1`] = `
+exports[`decorator-type-assertion.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@(bind as ClassDecorator)
+class Decorated {
+
+}
+
+@(<ClassDecorator>bind)
+class Decorated {
+
+}
+
+=====================================output=====================================
+@(bind as ClassDecorator)
+class Decorated {}
+
+@(<ClassDecorator>bind)
+class Decorated {}
+
+================================================================================
+`;
+
+exports[`decorators.js 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 export class TestTextFileService {
 	constructor(
 		@ILifecycleService lifecycleService,
@@ -37,7 +86,51 @@ export class TabCompletionController {
 class AngularComponent {
   @Input() myInput: string;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+class Class {
+  method(
+    @Decorator
+    { prop1, prop2 }: Type
+  ) {
+    doSomething();
+  }
+}
+
+class Class2 {
+  method(
+    @Decorator1
+    @Decorator2
+    { prop1, prop2 }: Type
+  ) {
+    doSomething();
+  }
+}
+
+class Class3 {
+  method(
+    @Decorator
+    { prop1_1, prop1_2 }: Type,
+    { prop2_1, prop2_2 }: Type
+  ) {
+    doSomething();
+  }
+}
+
+class Class4 {
+  method(
+    param1,
+    @Decorator
+    { prop1, prop2 }: Type
+  ) {}
+}
+
+class Class5 {
+  method(
+    @Decorator { prop1 }: Type
+  ) {}
+}
+
+=====================================output=====================================
 export class TestTextFileService {
   constructor(@ILifecycleService lifecycleService) {}
 }
@@ -46,16 +139,62 @@ export class TestTextFileService {
 export class TabCompletionController {}
 
 @Component({
-  selector: "angular-component"
+  selector: "angular-component",
 })
 class AngularComponent {
-  @Input()
-  myInput: string;
+  @Input() myInput: string;
 }
 
+class Class {
+  method(
+    @Decorator
+    { prop1, prop2 }: Type
+  ) {
+    doSomething();
+  }
+}
+
+class Class2 {
+  method(
+    @Decorator1
+    @Decorator2
+    { prop1, prop2 }: Type
+  ) {
+    doSomething();
+  }
+}
+
+class Class3 {
+  method(
+    @Decorator
+    { prop1_1, prop1_2 }: Type,
+    { prop2_1, prop2_2 }: Type
+  ) {
+    doSomething();
+  }
+}
+
+class Class4 {
+  method(
+    param1,
+    @Decorator
+    { prop1, prop2 }: Type
+  ) {}
+}
+
+class Class5 {
+  method(@Decorator { prop1 }: Type) {}
+}
+
+================================================================================
 `;
 
-exports[`decorators-comments.js - typescript-verify 1`] = `
+exports[`decorators-comments.js 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 
 class Foo1 {
     @foo
@@ -87,18 +226,19 @@ class Something {
     readonly property: Array<string>
 }
 
-class Something {
+class Something2 {
     @foo()
     // comment
     abstract property: Array<string>
 }
 
-class Something {
+class Something3 {
     @foo()
     // comment
     abstract method(): Array<string>
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 class Foo1 {
   @foo
   // comment
@@ -129,21 +269,27 @@ class Something {
   readonly property: Array<string>;
 }
 
-class Something {
+class Something2 {
   @foo()
   // comment
   abstract property: Array<string>;
 }
 
-class Something {
+class Something3 {
   @foo()
   // comment
   abstract method(): Array<string>;
 }
 
+================================================================================
 `;
 
-exports[`inline-decorators.ts - typescript-verify 1`] = `
+exports[`inline-decorators.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 
 @d1
 @d2(foo)
@@ -193,7 +339,8 @@ class Bar {
 class MyContainerComponent {
   @ContentChildren(MyComponent) components: QueryListSomeBigName<MyComponentThat>;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 @d1
 @d2(foo)
 @d3.bar
@@ -218,21 +365,17 @@ class Class2 {
 }
 
 class Class3 {
-  @d1
-  fieldA;
-  @d2(foo)
-  fieldB;
-  @d3.bar
-  fieldC;
-  @d4.baz()
-  fieldD;
+  @d1 fieldA;
+  @d2(foo) fieldB;
+  @d3.bar fieldC;
+  @d4.baz() fieldD;
 
   constructor(
     @d1 private x: number,
     @d2(foo) private y: number,
     @d3("foo") private z: number,
     @d4({
-      x: string
+      x: string,
     })
     private a: string
   ) {}
@@ -242,25 +385,32 @@ class Class3 {
 class Foo {}
 
 class Bar {
-  @decorated
-  method() {}
+  @decorated method() {}
 }
 
 class MyContainerComponent {
-  @ContentChildren(MyComponent)
-  components: QueryListSomeBigName<MyComponentThat>;
+  @ContentChildren(MyComponent) components: QueryListSomeBigName<
+    MyComponentThat
+  >;
 }
 
+================================================================================
 `;
 
-exports[`interface.ts - typescript-verify 1`] = `
+exports[`interface.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // invalid place but shouldn't be removed
 
 @hello()
 interface MyInterface {
   id: string;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // invalid place but shouldn't be removed
 
 @hello()
@@ -268,4 +418,5 @@ interface MyInterface {
   id: string;
 }
 
+================================================================================
 `;

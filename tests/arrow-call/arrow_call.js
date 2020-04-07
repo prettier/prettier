@@ -40,3 +40,5 @@ const composition = (ViewComponent, ContainerComponent) =>
   class extends React.Component {
     static propTypes = {};
   };
+
+promise.then(result => result.veryLongVariable.veryLongPropertyName > someOtherVariable ? "ok" : "fail");

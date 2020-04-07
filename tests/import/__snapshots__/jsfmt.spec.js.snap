@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`brackets.js - flow-verify 1`] = `
+exports[`brackets.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 import {
   runTaskForChanged,
   description,
@@ -12,7 +17,8 @@ import {
   soWeCanGetItTo80Columns
 } from '.';
 import {fitsIn, oneLine} from '.';
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 import {
   runTaskForChanged,
   description,
@@ -21,13 +27,20 @@ import {
   itGo,
   multiLine,
   andMore,
-  soWeCanGetItTo80Columns
+  soWeCanGetItTo80Columns,
 } from ".";
 import { fitsIn, oneLine } from ".";
 
+================================================================================
 `;
 
-exports[`brackets.js - flow-verify 2`] = `
+exports[`brackets.js 2`] = `
+====================================options=====================================
+bracketSpacing: false
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 import {
   runTaskForChanged,
   description,
@@ -39,7 +52,8 @@ import {
   soWeCanGetItTo80Columns
 } from '.';
 import {fitsIn, oneLine} from '.';
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 import {
   runTaskForChanged,
   description,
@@ -48,13 +62,19 @@ import {
   itGo,
   multiLine,
   andMore,
-  soWeCanGetItTo80Columns
+  soWeCanGetItTo80Columns,
 } from ".";
 import {fitsIn, oneLine} from ".";
 
+================================================================================
 `;
 
-exports[`comments.js - flow-verify 1`] = `
+exports[`comments.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 import { a //comment1
 //comment2
 //comment3
@@ -64,18 +84,18 @@ import {
   a as //comment1
   //comment2
   //comment3
-  b
+  b1
 } from "";
 
 import {
   a as //comment2 //comment1
   //comment3
-  b
+  b2
 } from "";
 
 import {
   a as //comment3 //comment2 //comment1
-  b
+  b3
 } from "";
 
 import {
@@ -95,30 +115,36 @@ import {
   SelectionSetNode,
   /* tslint:enable */
 } from 'graphql';
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+import x, {
+  // comment
+  y
+} from 'z';
+
+=====================================output=====================================
 import {
   //comment1
   //comment2
   //comment3
-  a as b
+  a as b,
 } from "";
 
 import {
   //comment1
   //comment2
   //comment3
-  a as b
+  a as b1,
 } from "";
 
 import {
   //comment2 //comment1
   //comment3
-  a as b
+  a as b2,
 } from "";
 
 import {
   //comment3 //comment2 //comment1
-  a as b
+  a as b3,
 } from "";
 
 import {
@@ -126,7 +152,7 @@ import {
   FN1, // comment 2
   /* comment 3 */ FN2,
   // FN3,
-  FN4 /* comment 4 */
+  FN4 /* comment 4 */,
   // FN4,
   // FN5
 } from "./module";
@@ -135,13 +161,25 @@ import {
   ExecutionResult,
   DocumentNode,
   /* tslint:disable */
-  SelectionSetNode
+  SelectionSetNode,
   /* tslint:enable */
 } from "graphql";
 
+import x, {
+  // comment
+  y,
+} from "z";
+
+================================================================================
 `;
 
-exports[`comments.js - flow-verify 2`] = `
+exports[`comments.js 2`] = `
+====================================options=====================================
+bracketSpacing: false
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 import { a //comment1
 //comment2
 //comment3
@@ -151,18 +189,18 @@ import {
   a as //comment1
   //comment2
   //comment3
-  b
+  b1
 } from "";
 
 import {
   a as //comment2 //comment1
   //comment3
-  b
+  b2
 } from "";
 
 import {
   a as //comment3 //comment2 //comment1
-  b
+  b3
 } from "";
 
 import {
@@ -182,30 +220,36 @@ import {
   SelectionSetNode,
   /* tslint:enable */
 } from 'graphql';
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+import x, {
+  // comment
+  y
+} from 'z';
+
+=====================================output=====================================
 import {
   //comment1
   //comment2
   //comment3
-  a as b
+  a as b,
 } from "";
 
 import {
   //comment1
   //comment2
   //comment3
-  a as b
+  a as b1,
 } from "";
 
 import {
   //comment2 //comment1
   //comment3
-  a as b
+  a as b2,
 } from "";
 
 import {
   //comment3 //comment2 //comment1
-  a as b
+  a as b3,
 } from "";
 
 import {
@@ -213,7 +257,7 @@ import {
   FN1, // comment 2
   /* comment 3 */ FN2,
   // FN3,
-  FN4 /* comment 4 */
+  FN4 /* comment 4 */,
   // FN4,
   // FN5
 } from "./module";
@@ -222,86 +266,152 @@ import {
   ExecutionResult,
   DocumentNode,
   /* tslint:disable */
-  SelectionSetNode
+  SelectionSetNode,
   /* tslint:enable */
 } from "graphql";
 
+import x, {
+  // comment
+  y,
+} from "z";
+
+================================================================================
 `;
 
-exports[`empty-import.js - flow-verify 1`] = `
+exports[`empty-import.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 import { } from '@types/googlemaps';
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 import {} from "@types/googlemaps";
 
+================================================================================
 `;
 
-exports[`empty-import.js - flow-verify 2`] = `
+exports[`empty-import.js 2`] = `
+====================================options=====================================
+bracketSpacing: false
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 import { } from '@types/googlemaps';
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 import {} from "@types/googlemaps";
 
+================================================================================
 `;
 
-exports[`inline.js - flow-verify 1`] = `
+exports[`inline.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 import somethingSuperLongsomethingSuperLong from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
-import {somethingSuperLongsomethingSuperLong} from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
-import a, {somethingSuperLongsomethingSuperLong} from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
-import {a, somethingSuperLongsomethingSuperLong} from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import {somethingSuperLongsomethingSuperLong1} from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
+import a, {somethingSuperLongsomethingSuperLong2} from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
+import {a2, somethingSuperLongsomethingSuperLong3} from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
+
+=====================================output=====================================
 import somethingSuperLongsomethingSuperLong from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
-import { somethingSuperLongsomethingSuperLong } from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
+import { somethingSuperLongsomethingSuperLong1 } from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
 import a, {
-  somethingSuperLongsomethingSuperLong
+  somethingSuperLongsomethingSuperLong2,
 } from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
 import {
-  a,
-  somethingSuperLongsomethingSuperLong
+  a2,
+  somethingSuperLongsomethingSuperLong3,
 } from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
 
+================================================================================
 `;
 
-exports[`inline.js - flow-verify 2`] = `
+exports[`inline.js 2`] = `
+====================================options=====================================
+bracketSpacing: false
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 import somethingSuperLongsomethingSuperLong from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
-import {somethingSuperLongsomethingSuperLong} from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
-import a, {somethingSuperLongsomethingSuperLong} from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
-import {a, somethingSuperLongsomethingSuperLong} from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import {somethingSuperLongsomethingSuperLong1} from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
+import a, {somethingSuperLongsomethingSuperLong2} from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
+import {a2, somethingSuperLongsomethingSuperLong3} from 'somethingSuperLongsomethingSuperLongsomethingSuperLong'
+
+=====================================output=====================================
 import somethingSuperLongsomethingSuperLong from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
-import {somethingSuperLongsomethingSuperLong} from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
+import {somethingSuperLongsomethingSuperLong1} from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
 import a, {
-  somethingSuperLongsomethingSuperLong
+  somethingSuperLongsomethingSuperLong2,
 } from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
 import {
-  a,
-  somethingSuperLongsomethingSuperLong
+  a2,
+  somethingSuperLongsomethingSuperLong3,
 } from "somethingSuperLongsomethingSuperLongsomethingSuperLong";
 
+================================================================================
 `;
 
-exports[`long-line.js - flow-verify 1`] = `
+exports[`long-line.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 import someCoolUtilWithARatherLongName from '../../../../utils/someCoolUtilWithARatherLongName';
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 import someCoolUtilWithARatherLongName from "../../../../utils/someCoolUtilWithARatherLongName";
 
+================================================================================
 `;
 
-exports[`long-line.js - flow-verify 2`] = `
+exports[`long-line.js 2`] = `
+====================================options=====================================
+bracketSpacing: false
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 import someCoolUtilWithARatherLongName from '../../../../utils/someCoolUtilWithARatherLongName';
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 import someCoolUtilWithARatherLongName from "../../../../utils/someCoolUtilWithARatherLongName";
 
+================================================================================
 `;
 
-exports[`multiple_standalones.js - flow-verify 1`] = `
+exports[`multiple_standalones.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 import a, * as b from 'a';
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 import a, * as b from "a";
 
+================================================================================
 `;
 
-exports[`multiple_standalones.js - flow-verify 2`] = `
+exports[`multiple_standalones.js 2`] = `
+====================================options=====================================
+bracketSpacing: false
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 import a, * as b from 'a';
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 import a, * as b from "a";
 
+================================================================================
 `;

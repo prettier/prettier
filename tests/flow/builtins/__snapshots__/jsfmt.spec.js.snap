@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`array.js - flow-verify 1`] = `
+exports[`array.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 var a = ["..."];
 var b = a.map (function (x) { return 0; });
 var c: string = b[0]; // error: number !~> string
@@ -18,16 +23,17 @@ function g() {
     var x:number = foo1.get(); // error: string !~> number
     foo = foo1;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 var a = ["..."];
-var b = a.map(function(x) {
+var b = a.map(function (x) {
   return 0;
 });
 var c: string = b[0]; // error: number !~> string
 
 var array = [];
 function f() {
-  array = array.map(function() {
+  array = array.map(function () {
     return "...";
   });
   var x: number = array[0]; // error: string !~> number
@@ -36,16 +42,22 @@ function f() {
 var Foo = require("./genericfoo");
 var foo = new Foo();
 function g() {
-  var foo1 = foo.map(function() {
+  var foo1 = foo.map(function () {
     return "...";
   });
   var x: number = foo1.get(); // error: string !~> number
   foo = foo1;
 }
 
+================================================================================
 `;
 
-exports[`genericfoo.js - flow-verify 1`] = `
+exports[`genericfoo.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 class Foo<T> {
     x:T;
     self():Foo<T> { return this; }
@@ -55,7 +67,8 @@ class Foo<T> {
 }
 
 module.exports = Foo;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 class Foo<T> {
   x: T;
   self(): Foo<T> {
@@ -72,4 +85,5 @@ class Foo<T> {
 
 module.exports = Foo;
 
+================================================================================
 `;

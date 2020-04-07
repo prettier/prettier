@@ -1,14 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comments.js - flow-verify 1`] = `
-graphql.experimental\`
-  # required by createPaginationContainer
-  fragment MobileHomeDiffsSearchList_search on DifferentialRevisionSearch {
-    # required by createPaginationContainer
-    name
-  }
-\`;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+exports[`comments.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 graphql.experimental\`
   # required by createPaginationContainer
   fragment MobileHomeDiffsSearchList_search on DifferentialRevisionSearch {
@@ -17,4 +14,14 @@ graphql.experimental\`
   }
 \`;
 
+=====================================output=====================================
+graphql.experimental\`
+  # required by createPaginationContainer
+  fragment MobileHomeDiffsSearchList_search on DifferentialRevisionSearch {
+    # required by createPaginationContainer
+    name
+  }
+\`;
+
+================================================================================
 `;

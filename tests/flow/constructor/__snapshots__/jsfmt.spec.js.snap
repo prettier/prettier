@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`constructor.js - flow-verify 1`] = `
+exports[`constructor.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 class C {
     constructor() { }
 }
@@ -23,7 +28,8 @@ declare class Baz<T> {
 }
 (new Baz('x'): Baz<string>); // ok
 (new Baz(123): Baz<string>); // error, number !~> string
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 class C {
   constructor() {}
 }
@@ -47,4 +53,5 @@ declare class Baz<T> {
 (new Baz("x"): Baz<string>); // ok
 (new Baz(123): Baz<string>); // error, number !~> string
 
+================================================================================
 `;

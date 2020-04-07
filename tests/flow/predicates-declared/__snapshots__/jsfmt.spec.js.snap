@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`function-bind.js - flow-verify 1`] = `
+exports[`function-bind.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 // Sanity checks:
@@ -41,7 +46,8 @@ class D {
 declare var m: Function;
 const x = "";
 if (m.bind(this)(x)) { }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 // Sanity checks:
@@ -84,9 +90,15 @@ const x = "";
 if (m.bind(this)(x)) {
 }
 
+================================================================================
 `;
 
-exports[`function-union.js - flow-verify 1`] = `
+exports[`function-union.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 declare function f1(x: mixed): boolean %checks(typeof x === "string");
@@ -105,7 +117,8 @@ function foo(x: number | string | Array<string>): number {
     return 1;
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 declare function f1(x: mixed): boolean %checks(typeof x === "string");
@@ -124,9 +137,15 @@ function foo(x: number | string | Array<string>): number {
   }
 }
 
+================================================================================
 `;
 
-exports[`is-string-decl.js - flow-verify 1`] = `
+exports[`is-string-decl.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 declare function is_string(x: mixed): boolean %checks(typeof x === "string");
@@ -145,7 +164,8 @@ function foo(x: string | Array<string>): string {
     return x.join();
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 declare function is_string(x: mixed): boolean %checks(typeof x === "string");
@@ -165,9 +185,15 @@ function foo(x: string | Array<string>): string {
   }
 }
 
+================================================================================
 `;
 
-exports[`logical-or.js - flow-verify 1`] = `
+exports[`logical-or.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 // Sanity check:
@@ -190,7 +216,8 @@ function foo(x: mixed) { return 1; }
 (foo(dollars) || 0);
 
 (Number(dollars) || 0);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 // Sanity check:
@@ -216,9 +243,15 @@ foo(dollars) || 0;
 
 Number(dollars) || 0;
 
+================================================================================
 `;
 
-exports[`object-invariant.js - flow-verify 1`] = `
+exports[`object-invariant.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 // Sanity check:
@@ -243,7 +276,8 @@ function f(_this: { m: ?Meeting }): string {
   }
   return "3";
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 // Sanity check:
@@ -251,11 +285,11 @@ function f(_this: { m: ?Meeting }): string {
 
 type Meeting = {
   organizer: ?Invitee,
-  es: Array<Invitee>
+  es: Array<Invitee>,
 };
 
 type Invitee = {
-  fbid: number
+  fbid: number,
 };
 
 function f(_this: { m: ?Meeting }): string {
@@ -263,14 +297,20 @@ function f(_this: { m: ?Meeting }): string {
     return "0";
   }
 
-  if (_this.m.es.some(a => a.fbid === 0)) {
+  if (_this.m.es.some((a) => a.fbid === 0)) {
   }
   return "3";
 }
 
+================================================================================
 `;
 
-exports[`orig-string-tag-check.js - flow-verify 1`] = `
+exports[`orig-string-tag-check.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 // The original first-order case
@@ -283,7 +323,8 @@ function foo(x: string | Array<string>): string {
     return x.join(); // [ERROR] x: string doesn't have .join method
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 // The original first-order case
@@ -296,9 +337,15 @@ function foo(x: string | Array<string>): string {
   }
 }
 
+================================================================================
 `;
 
-exports[`sanity-fall-through.js - flow-verify 1`] = `
+exports[`sanity-fall-through.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 // Sanity check:
@@ -312,7 +359,8 @@ function foo(s: Array<string>): string {
   }
   return 1;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 // Sanity check:
@@ -327,9 +375,15 @@ function foo(s: Array<string>): string {
   return 1;
 }
 
+================================================================================
 `;
 
-exports[`sanity-invalid-calls.js - flow-verify 1`] = `
+exports[`sanity-invalid-calls.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 // Sanity check:
@@ -349,7 +403,8 @@ function foo(s: Array<string>): string {
 
   return "1"
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 // Sanity check:
@@ -369,9 +424,15 @@ function foo(s: Array<string>): string {
   return "1";
 }
 
+================================================================================
 `;
 
-exports[`sanity-is-string-bug.js - flow-verify 1`] = `
+exports[`sanity-is-string-bug.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 declare function is_string(x: mixed): boolean %checks(typeof x === "string");
@@ -387,7 +448,8 @@ function bar(x: string | Array<string>): string {
     return x.join();    // error: both string and Array<string> can flow to x
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 declare function is_string(x: mixed): boolean %checks(typeof x === "string");
@@ -404,9 +466,15 @@ function bar(x: string | Array<string>): string {
   }
 }
 
+================================================================================
 `;
 
-exports[`sanity-parameter-mismatch.js - flow-verify 1`] = `
+exports[`sanity-parameter-mismatch.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 // Sanity check: make sure the parameters are checked as usual
@@ -417,7 +485,8 @@ declare function foo(
 ): boolean %checks(typeof input === "string" || Array.isArray(input));
 
 foo(3, 3);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 // Sanity check: make sure the parameters are checked as usual
@@ -429,9 +498,15 @@ declare function foo(
 
 foo(3, 3);
 
+================================================================================
 `;
 
-exports[`sanity-pred-with-body.js - flow-verify 1`] = `
+exports[`sanity-pred-with-body.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 // Sanity check:
@@ -447,7 +522,8 @@ function foo(x: string | Array<string>): string {
   }
   return "1"
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 // Sanity check:
@@ -465,15 +541,23 @@ function foo(x: string | Array<string>): string {
   return "1";
 }
 
+================================================================================
 `;
 
-exports[`sanity-return-type.js - flow-verify 1`] = `
+exports[`sanity-return-type.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 declare function f2(x: mixed): string %checks(Array.isArray(x));
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 declare function f2(x: mixed): string %checks(Array.isArray(x));
 
+================================================================================
 `;

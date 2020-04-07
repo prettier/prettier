@@ -1,11 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`fields.graphql - graphql-verify 1`] = `
+exports[`fields.graphql 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 {
   posts {, title, votes, author {,   firstName,   posts {, author { firstName } }
     }}
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 {
   posts {
     title
@@ -21,4 +27,5 @@ exports[`fields.graphql - graphql-verify 1`] = `
   }
 }
 
+================================================================================
 `;

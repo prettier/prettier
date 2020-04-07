@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`lib.js - flow-verify 1`] = `
+exports[`lib.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // @flow
 
 // defs used in tests, here to stress tvar machinery
@@ -35,7 +40,8 @@ type B = { a: string, b: string };
 
 type C = { [key: string]: number } & { [key: string]: number };
 type D = { [key: string]: number };
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // @flow
 
 // defs used in tests, here to stress tvar machinery
@@ -49,13 +55,13 @@ type ObjAssignT = { foo: string } & { bar: string };
 type ReadableStreamOptions = {
   highWaterMark?: number,
   encoding?: ?string,
-  objectMode?: boolean
+  objectMode?: boolean,
 };
 
 type WritableStreamOptions = {
   highWaterMark?: number,
   decodeString?: boolean,
-  objectMode?: boolean
+  objectMode?: boolean,
 };
 
 // used in test_fun.js
@@ -71,4 +77,5 @@ type B = { a: string, b: string };
 type C = { [key: string]: number } & { [key: string]: number };
 type D = { [key: string]: number };
 
+================================================================================
 `;

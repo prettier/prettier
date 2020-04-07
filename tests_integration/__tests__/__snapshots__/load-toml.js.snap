@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TOML loads toml successfully 1`] = `
+Object {
+  "database": Object {
+    "connection_max": 5000,
+    "enabled": true,
+    "ports": Array [
+      8001,
+      8001,
+      8002,
+    ],
+    "server": "192.168.1.1",
+  },
+  "owner": Object {
+    "dob": 1979-05-27T15:32:00.000Z,
+    "name": "Tom Preston-Werner",
+  },
+  "title": "TOML Example",
+}
+`;
+
+exports[`TOML throws error on incorrect toml 1`] = `
+"TOML Error in example.toml:
+Unknown character \\"47\\" at row 1, col 2, pos 1:
+1> ///ERROR///
+    ^
+
+"
+`;

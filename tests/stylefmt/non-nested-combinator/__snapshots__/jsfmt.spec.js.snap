@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`non-nested-combinator.css - css-verify 1`] = `
+exports[`non-nested-combinator.css 1`] = `
+====================================options=====================================
+parsers: ["css"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 .card-meta {
   @include padding(null 1rem 1rem);background-color: $card-base-background-color;
   color: $meta-font-color;
@@ -10,7 +15,8 @@ exports[`non-nested-combinator.css - css-verify 1`] = `
     color: inherit;
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 .card-meta {
   @include padding(null 1rem 1rem);
   background-color: $card-base-background-color;
@@ -23,4 +29,5 @@ exports[`non-nested-combinator.css - css-verify 1`] = `
   }
 }
 
+================================================================================
 `;

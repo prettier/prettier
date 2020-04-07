@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`compatibility.js - flow-verify 1`] = `
+exports[`compatibility.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 let tests = [
   function(x: { x: { foo: string } }, y: { x: { bar: number } }) {
     x = y; // 2 errors: \`foo\` not found in y.x; \`bar\` not found in x.x
@@ -30,40 +35,47 @@ let tests = [
     x = y; // 2 errors: string !~> number; number !~> string
   },
 ];
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 let tests = [
-  function(x: { x: { foo: string } }, y: { x: { bar: number } }) {
+  function (x: { x: { foo: string } }, y: { x: { bar: number } }) {
     x = y; // 2 errors: \`foo\` not found in y.x; \`bar\` not found in x.x
   },
 
-  function(x: { foo: string }, y: { foo: number }) {
+  function (x: { foo: string }, y: { foo: number }) {
     x = y; // 2 errors: string !~> number; number !~> string
   },
 
-  function(x: { x: { foo: string } }, y: { x: { foo: number } }) {
+  function (x: { x: { foo: string } }, y: { x: { foo: number } }) {
     x = y; // 2 errors: string !~> number; number !~> string
   },
 
-  function(x: { +foo: string }, y: { +foo: number }) {
+  function (x: { +foo: string }, y: { +foo: number }) {
     x = y; // 1 error: number !~> string
   },
 
-  function(x: { x: { +foo: string } }, y: { x: { +foo: number } }) {
+  function (x: { x: { +foo: string } }, y: { x: { +foo: number } }) {
     x = y; // 2 errors: string !~> number; number !~> string
   },
 
-  function(x: { -foo: string }, y: { -foo: number }) {
+  function (x: { -foo: string }, y: { -foo: number }) {
     x = y; // 1 error: string !~> number
   },
 
-  function(x: { x: { -foo: string } }, y: { x: { -foo: number } }) {
+  function (x: { x: { -foo: string } }, y: { x: { -foo: number } }) {
     x = y; // 2 errors: string !~> number; number !~> string
-  }
+  },
 ];
 
+================================================================================
 `;
 
-exports[`conversion.js - flow-verify 1`] = `
+exports[`conversion.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 (Object({foo: 'bar'}): {foo: string});
@@ -83,7 +95,8 @@ var y = Object("123");
 
 var z = Object(123); // error (next line makes this not match any signatures)
 (z.charAt(0): string);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 (Object({ foo: "bar" }): { foo: string });
@@ -104,9 +117,15 @@ var y = Object("123");
 var z = Object(123); // error (next line makes this not match any signatures)
 (z.charAt(0): string);
 
+================================================================================
 `;
 
-exports[`objects.js - flow-verify 1`] = `
+exports[`objects.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 var x : {'123': string, bar: string} = {'123': 'val', bar: 'bar'};
@@ -125,7 +144,8 @@ y['foo'] = 123; // error, number !~> string
 y['bar'] = 'abc'; // error, property not found
 
 (y['hasOwnProperty']: string); // error, prototype method is not a string
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 var x: { "123": string, bar: string } = { "123": "val", bar: "bar" };
@@ -145,9 +165,15 @@ y["bar"] = "abc"; // error, property not found
 
 (y["hasOwnProperty"]: string); // error, prototype method is not a string
 
+================================================================================
 `;
 
-exports[`unaliased_assign.js - flow-verify 1`] = `
+exports[`unaliased_assign.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * test handling of unaliased value assignment.
  *
@@ -175,7 +201,8 @@ function assign_then_widen() {
   obj = { x: "hey" };
   obj.x = 10;  // ok, by lvalue's given type
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * test handling of unaliased value assignment.
  *
@@ -204,4 +231,5 @@ function assign_then_widen() {
   obj.x = 10; // ok, by lvalue's given type
 }
 
+================================================================================
 `;

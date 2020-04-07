@@ -1,6 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`generic-cast.ts - typescript-verify 1`] = `
+exports[`as-const.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+let x = '123' as const;
+
+=====================================output=====================================
+let x = "123" as const;
+
+================================================================================
+`;
+
+exports[`generic-cast.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // https://github.com/prettier/prettier/issues/4171
 function y() {
 
@@ -55,7 +74,8 @@ function x() {
 
   const insideFuncCall = myFunc(param1, <PermissionsChecker<any> | undefined>param2, param3)
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // https://github.com/prettier/prettier/issues/4171
 function y() {
   const fits = <Immutable.Map<string, any>>fits();
@@ -119,7 +139,7 @@ function y() {
   );
 
   const testObjLiteral = <Immutable.Map<string, any>>{
-    property1: "myPropertyVal"
+    property1: "myPropertyVal",
   };
 
   const testObjLiteral2 = <
@@ -139,7 +159,7 @@ function y() {
   const testArrayLiteral = <Immutable.Map<string, any>>[
     "first",
     "second",
-    "third"
+    "third",
   ];
 
   const testArrayLiteral2 = <
@@ -206,7 +226,7 @@ function x() {
   ];
 
   const testObjLiteral = <PermissionsChecker<any> | undefined>{
-    prop1: "myPropVal"
+    prop1: "myPropVal",
   };
 
   const testObjLiteral2 = <
@@ -223,7 +243,7 @@ function x() {
   const testArrayLiteral = <PermissionsChecker<any> | undefined>[
     "first",
     "second",
-    "third"
+    "third",
   ];
 
   const testArrayLiteral2 = <
@@ -244,9 +264,15 @@ function x() {
   );
 }
 
+================================================================================
 `;
 
-exports[`hug-args.ts - typescript-verify 1`] = `
+exports[`hug-args.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 postMessage(
   <IActionMessage>{
     context: item.context,
@@ -269,27 +295,34 @@ postMessages(
     }
   ]
 );
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 postMessage(<IActionMessage>{
   context: item.context,
-  topic: item.topic
+  topic: item.topic,
 });
 
 window.postMessage({
   context: item.context,
-  topic: item.topic
+  topic: item.topic,
 } as IActionMessage);
 
 postMessages(<IActionMessage[]>[
   {
     context: item.context,
-    topic: item.topic
-  }
+    topic: item.topic,
+  },
 ]);
 
+================================================================================
 `;
 
-exports[`parenthesis.ts - typescript-verify 1`] = `
+exports[`parenthesis.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 <DocumentHighlightKind>(a ? b : c);
 <any>(() => {});
 
@@ -298,7 +331,8 @@ exports[`parenthesis.ts - typescript-verify 1`] = `
 true || <x>a;
 <x>a + <x>b;
 (<x>a) = 1;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 <DocumentHighlightKind>(a ? b : c);
 <any>(() => {});
 
@@ -308,4 +342,5 @@ true || <x>a;
 <x>a + <x>b;
 (<x>a) = 1;
 
+================================================================================
 `;

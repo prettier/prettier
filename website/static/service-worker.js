@@ -7,15 +7,16 @@ importScripts("https://unpkg.com/sw-toolbox@3.6.0/sw-toolbox.js");
 
 toolbox.precache([
   // Scripts
-  "lib/index.js",
-  "lib/parser-babylon.js",
-  "lib/parser-typescript.js",
-  "lib/parser-postcss.js",
+  "lib/standalone.js",
+  "lib/parser-angular.js",
+  "lib/parser-babel.js",
   "lib/parser-flow.js",
-  "lib/parser-json-stringify.js",
   "lib/parser-glimmer.js",
   "lib/parser-graphql.js",
+  "lib/parser-html.js",
   "lib/parser-markdown.js",
+  "lib/parser-postcss.js",
+  "lib/parser-typescript.js",
   "lib/parser-yaml.js",
   "playground.js",
   "https://unpkg.com/sw-toolbox@3.6.0/sw-toolbox.js",
@@ -41,7 +42,7 @@ toolbox.precache([
   "https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.3.1/umd/react-dom.production.min.js",
 
   // Images
-  "/prettier.png"
+  "/prettier.png",
 ]);
 
 // Default to hit the cache only if there's a network error

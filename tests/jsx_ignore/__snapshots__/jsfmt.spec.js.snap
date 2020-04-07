@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`jsx_ignore.js - flow-verify 1`] = `
+exports[`jsx_ignore.js 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 // this should remain as-is
 <div>
  {/* prettier-ignore */}
@@ -56,7 +61,8 @@ function f() {
     <JSX />
   );
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 // this should remain as-is
 <div>
   {/* prettier-ignore */}
@@ -85,14 +91,18 @@ f(
 
 // this should remain as-is
 <div>
-  {/* prettier-ignore */
-  foo ( )}
+  {
+    /* prettier-ignore */
+    foo ( )
+  }
 </div>;
 
 // this should remain as-is
 <div>
-  {/* prettier-ignore */
-  x     ?   <Y/> : <Z/>}
+  {
+    /* prettier-ignore */
+    x     ?   <Y/> : <Z/>
+  }
 </div>;
 
 push(
@@ -109,4 +119,5 @@ function f() {
   );
 }
 
+================================================================================
 `;

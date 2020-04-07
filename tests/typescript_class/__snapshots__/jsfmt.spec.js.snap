@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`constructor.ts - typescript-verify 1`] = `
+exports[`constructor.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 class foo {
   constructor(static a: number) {}
 }
@@ -8,7 +13,15 @@ class foo {
 class foo {
   constructor(export a: number) {}
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+class A {
+    'constructor': typeof A
+    static Foo() {
+        return new A()
+    }
+}
+
+=====================================output=====================================
 class foo {
   constructor(static a: number) {}
 }
@@ -17,28 +30,46 @@ class foo {
   constructor(export a: number) {}
 }
 
+class A {
+  "constructor": typeof A;
+  static Foo() {
+    return new A();
+  }
+}
+
+================================================================================
 `;
 
-exports[`dunder.ts - typescript-verify 1`] = `
-// eslint/typescript-eslint-parser#296
-class F<__T> {}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// eslint/typescript-eslint-parser#296
+exports[`dunder.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 class F<__T> {}
 
+=====================================output=====================================
+class F<__T> {}
+
+================================================================================
 `;
 
-exports[`extends_implements.ts - typescript-verify 1`] = `
+exports[`extends_implements.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 class Class extends AbstractClass implements Interface1, Interface2, Interface3, Interface4 {}
 
-class ExtendsAbstractClassAndImplementsInterfaces extends AbstractClass
+class ExtendsAbstractClassAndImplementsInterfaces1 extends AbstractClass
   implements Interface1, Interface2, Interface3, Interface4 {}
 
-class ExtendsAbstractClassAndImplementsInterfaces
+class ExtendsAbstractClassAndImplementsInterfaces2
   extends AAAAAAAAAAAAAAbstractClass
   implements Interface1, Interface2, Interface3, Interface4 {}
 
-class ExtendsAbstractClassAndImplementsInterfaces
+class ExtendsAbstractClassAndImplementsInterfaces3
   extends AAAAAAAAAAAAAAbstractClass
   implements
     Interface1,
@@ -50,10 +81,10 @@ class ExtendsAbstractClassAndImplementsInterfaces
     Interface7,
     Interface8 {}
 
-class ExtendsAbstractClassAndImplementsInterfaces
-  extends AAAAAAAAAAAAAAbstractClass<Type1, Type2, Type3, Type4, Type5, Type6, Type7> {} 
+class ExtendsAbstractClassAndImplementsInterfaces4
+  extends AAAAAAAAAAAAAAbstractClass<Type1, Type2, Type3, Type4, Type5, Type6, Type7> {}
 
-class ExtendsAbstractClassAndImplementsInterfaces
+class ExtendsAbstractClassAndImplementsInterfaces5
   extends AAAAAAAAAAAAAAbstractClass<Type1, Type2, Type3, Type4, Type5, Type6, Type7>
   implements
     Interface1,
@@ -64,18 +95,19 @@ class ExtendsAbstractClassAndImplementsInterfaces
     Interface6,
     Interface7,
     Interface8 {}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 class Class extends AbstractClass
   implements Interface1, Interface2, Interface3, Interface4 {}
 
-class ExtendsAbstractClassAndImplementsInterfaces extends AbstractClass
+class ExtendsAbstractClassAndImplementsInterfaces1 extends AbstractClass
   implements Interface1, Interface2, Interface3, Interface4 {}
 
-class ExtendsAbstractClassAndImplementsInterfaces
+class ExtendsAbstractClassAndImplementsInterfaces2
   extends AAAAAAAAAAAAAAbstractClass
   implements Interface1, Interface2, Interface3, Interface4 {}
 
-class ExtendsAbstractClassAndImplementsInterfaces
+class ExtendsAbstractClassAndImplementsInterfaces3
   extends AAAAAAAAAAAAAAbstractClass
   implements
     Interface1,
@@ -87,7 +119,7 @@ class ExtendsAbstractClassAndImplementsInterfaces
     Interface7,
     Interface8 {}
 
-class ExtendsAbstractClassAndImplementsInterfaces extends AAAAAAAAAAAAAAbstractClass<
+class ExtendsAbstractClassAndImplementsInterfaces4 extends AAAAAAAAAAAAAAbstractClass<
   Type1,
   Type2,
   Type3,
@@ -97,7 +129,7 @@ class ExtendsAbstractClassAndImplementsInterfaces extends AAAAAAAAAAAAAAbstractC
   Type7
 > {}
 
-class ExtendsAbstractClassAndImplementsInterfaces
+class ExtendsAbstractClassAndImplementsInterfaces5
   extends AAAAAAAAAAAAAAbstractClass<
     Type1,
     Type2,
@@ -117,24 +149,37 @@ class ExtendsAbstractClassAndImplementsInterfaces
     Interface7,
     Interface8 {}
 
+================================================================================
 `;
 
-exports[`generics.ts - typescript-verify 1`] = `
+exports[`generics.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 class<T> implements Map<T> {}
 
 interface AudioBufferList {
 	mBuffers: interop.Reference<any /*AudioBuffer*/>;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 class<T> implements Map<T> {}
 
 interface AudioBufferList {
   mBuffers: interop.Reference<any /*AudioBuffer*/>;
 }
 
+================================================================================
 `;
 
-exports[`methods.ts - typescript-verify 1`] = `
+exports[`methods.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 class X {
     optionalMethod?() {}
 }
@@ -146,7 +191,8 @@ interface Iterable<T> {
 export class Check {
   private static property = 'test';
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 class X {
   optionalMethod?() {}
 }
@@ -159,28 +205,105 @@ export class Check {
   private static property = "test";
 }
 
+================================================================================
 `;
 
-exports[`optional.ts - typescript-verify 1`] = `
+exports[`optional.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 class X {
   private foo? = undefined;
   "a-prop"?: boolean;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+class A {
+  protected [s]?() {}
+}
+
+=====================================output=====================================
 class X {
   private foo? = undefined;
   "a-prop"?: boolean;
 }
 
+class A {
+  protected [s]?() {}
+}
+
+================================================================================
 `;
 
-exports[`quoted-property.ts - typescript-verify 1`] = `
+exports[`quoted-property.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 class User {
     "username": string;
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 class User {
   "username": string;
 }
 
+================================================================================
+`;
+
+exports[`standard_private_fields.ts 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class Square {
+    #sideLength: number;
+    readonly #area: number;
+    #unit?: string;
+
+    constructor(sideLength: number, unit?: string) {
+        this.#sideLength = sideLength;
+        this.#area = this.#sideLength ** 2;
+        if (unit) {
+          this.#unit = unit;
+        }
+    }
+
+    equals(other: any) {
+        return this.#sideLength === other.#sideLength;
+    }
+
+    getArea() {
+      return this.#area + (this.#unit ?? 'px') + '²';
+    }
+}
+
+=====================================output=====================================
+class Square {
+  #sideLength: number;
+  readonly #area: number;
+  #unit?: string;
+
+  constructor(sideLength: number, unit?: string) {
+    this.#sideLength = sideLength;
+    this.#area = this.#sideLength ** 2;
+    if (unit) {
+      this.#unit = unit;
+    }
+  }
+
+  equals(other: any) {
+    return this.#sideLength === other.#sideLength;
+  }
+
+  getArea() {
+    return this.#area + (this.#unit ?? "px") + "²";
+  }
+}
+
+================================================================================
 `;

@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Client.js - flow-verify 1`] = `
+exports[`Client.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * Client imports some but not all modules,
  * triggering/suppressing parse errors.
@@ -12,7 +17,8 @@ var A = require("Foo");          // non-Flow file @providesModule Foo
 var B = require("./NoProvides"); // non-Flow file
 
 var C = require("./ParseError"); // Flow file
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * Client imports some but not all modules,
  * triggering/suppressing parse errors.
@@ -25,4 +31,5 @@ var B = require("./NoProvides"); // non-Flow file
 
 var C = require("./ParseError"); // Flow file
 
+================================================================================
 `;

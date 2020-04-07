@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`issue-598.js - flow-verify 1`] = `
+exports[`issue-598.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 type F<A> = { foo<B>(x: A): F<B> }
@@ -20,7 +25,8 @@ function identity<A>(val: A): Functor<A> {
     map<B>(f: (_: typeof val) => B): Functor<B> { return identity(f(val)) }
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 type F<A> = { foo<B>(x: A): F<B> };
@@ -38,20 +44,26 @@ function bar2<X>(y: F<any>): F<X> {
 }
 
 type Functor<A> = {
-  map<B>(f: (val: A) => B): Functor<B>
+  map<B>(f: (val: A) => B): Functor<B>,
 };
 
 function identity<A>(val: A): Functor<A> {
   return {
     map<B>(f: (_: typeof val) => B): Functor<B> {
       return identity(f(val));
-    }
+    },
   };
 }
 
+================================================================================
 `;
 
-exports[`issue-1228.js - flow-verify 1`] = `
+exports[`issue-1228.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 type Task <error, value>
@@ -60,22 +72,29 @@ type Task <error, value>
     }
 
 function id(x: Task<any,any>): Task<any,any> { return x; }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 type Task<error, value> = {
   chain<tagged>(
     next: (input: value) => Task<error, tagged>
-  ): Task<error, tagged>
+  ): Task<error, tagged>,
 };
 
 function id(x: Task<any, any>): Task<any, any> {
   return x;
 }
 
+================================================================================
 `;
 
-exports[`test.js - flow-verify 1`] = `
+exports[`test.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 class P<X> { x: X; } // this is like Promise
 
 type Pstar<X> = X | Pstar<P<X>>; // this is like Promise*
@@ -92,7 +111,8 @@ pstar = p; // OK
 
 pstar = (new P: P<P<number>>); // OK
 (pstar.x: string); // error
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 class P<X> {
   x: X;
 } // this is like Promise
@@ -112,9 +132,15 @@ pstar = p; // OK
 pstar = (new P(): P<P<number>>); // OK
 (pstar.x: string); // error
 
+================================================================================
 `;
 
-exports[`test2.js - flow-verify 1`] = `
+exports[`test2.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 var a = []; // Array<X> ~> a
 function bar() {
   a = a.concat([]); // terminate despite expanding types:
@@ -145,7 +171,8 @@ class D<X> { }
 class B<X> extends D<X> { }
 class C<X> extends B<X> { }
 ((new C: C<number>): D<string>) // error: number ~/~ string
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 var a = []; // Array<X> ~> a
 function bar() {
   a = a.concat([]); // terminate despite expanding types:
@@ -177,9 +204,15 @@ class B<X> extends D<X> {}
 class C<X> extends B<X> {}
 ((new C(): C<number>): D<string>); // error: number ~/~ string
 
+================================================================================
 `;
 
-exports[`test3.js - flow-verify 1`] = `
+exports[`test3.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 type I<X> = () => I<I<X>>;
 type J<X> = () => J<J<X>>;
 
@@ -196,7 +229,8 @@ function bar(x: P<number>): () => P<number> {
   // P<number> = () => { x: P<number> }
   // () => P<number> = () => () => { x: P<number> }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 type I<X> = () => I<I<X>>;
 type J<X> = () => J<J<X>>;
 
@@ -214,16 +248,29 @@ function bar(x: P<number>): () => P<number> {
   // () => P<number> = () => () => { x: P<number> }
 }
 
+================================================================================
 `;
 
-exports[`test4.js - flow-verify 1`] = `
+exports[`test4.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 type T = T // cycle in type alias should not cause non-termination
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 type T = T; // cycle in type alias should not cause non-termination
 
+================================================================================
 `;
 
-exports[`test5.js - flow-verify 1`] = `
+exports[`test5.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 type NestedArray<T> = Array<T | NestedArray<T>>;
@@ -234,7 +281,8 @@ function flatten<T>(arrArg: NestedArray<T>) {
     arr = Array.prototype.concat.apply([], arr);
   }
 }
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 type NestedArray<T> = Array<T | NestedArray<T>>;
@@ -246,4 +294,5 @@ function flatten<T>(arrArg: NestedArray<T>) {
   }
 }
 
+================================================================================
 `;

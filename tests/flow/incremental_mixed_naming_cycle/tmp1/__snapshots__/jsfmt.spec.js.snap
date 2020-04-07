@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`root.js - flow-verify 1`] = `
+exports[`root.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /**
  * @providesModule Root
  * @flow
@@ -8,7 +13,8 @@ exports[`root.js - flow-verify 1`] = `
 
 // trivial edit (adding this comment)
 module.exports = 'Root';
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /**
  * @providesModule Root
  * @flow
@@ -17,4 +23,5 @@ module.exports = 'Root';
 // trivial edit (adding this comment)
 module.exports = "Root";
 
+================================================================================
 `;

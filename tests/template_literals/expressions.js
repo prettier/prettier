@@ -1,14 +1,19 @@
-const long = `long ${a//comment
+const long1 = `long ${a//comment
   .b} long longlong ${a.b.c.d.e} long longlong ${a.b.c.d.e} long longlong ${a.b.c.d.e} long long`;
-const long = `long ${a.b.c.d.e} long longlong ${loooooooooooooooooong} long longlong ${loooooooooooooooooong} long longlong ${loooooooooooooooooong} long long`;
+const long2 = `long ${a.b.c.d.e} long longlong ${loooooooooooooooooong} long longlong ${loooooooooooooooooong} long longlong ${loooooooooooooooooong} long long`;
 
-const long = `long long long long long long long long long long long ${a.b.c.d.e} long long long long long long long long long long long long long`;
+const long3 = `long long long long long long long long long long long ${a.b.c.d.e} long long long long long long long long long long long long long`;
 
 const description =
   `The value of the ${cssName} css of the ${this._name} element`;
 
 const foo = `such a long template string ${foo.bar.baz} that prettier will want to wrap it`;
 
+const shouldWrapForNow = `such a long template string ${foo().bar.baz} that prettier will want to wrap it`;
+
+const shouldNotWrap = `simple expressions should not break ${this} ${variable} ${a.b.c} ${this.b.c} ${a[b].c} ${a.b[c]} ${a.b['c']} ${a?.b?.c}`;
+
+console.log(chalk.white(`Covered Lines below threshold: ${coverageSettings.lines}%. Actual: ${coverageSummary.total.lines.pct}%`))
 
 x = `mdl-textfield mdl-js-textfield ${className} ${content.length > 0
   ? 'is-dirty'

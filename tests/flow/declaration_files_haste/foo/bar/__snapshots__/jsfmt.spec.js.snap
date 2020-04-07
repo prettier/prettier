@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`nested_test.js - flow-verify 1`] = `
+exports[`nested_test.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 /* @flow */
 
 var docblock = require('qux/docblock');
@@ -16,7 +21,8 @@ var unreachable = require('annotation');
 (min.fun(): string);
 (corge.fun(): string);
 (SomeOtherModule.fun(): string);
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+=====================================output=====================================
 /* @flow */
 
 var docblock = require("qux/docblock");
@@ -33,4 +39,5 @@ var unreachable = require("annotation");
 (corge.fun(): string);
 (SomeOtherModule.fun(): string);
 
+================================================================================
 `;

@@ -1,6 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`poly.js - flow-verify 1`] = `
+exports[`poly.js 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
 var foo1 = function<T>(x:T):T { return x; }
 
 function foo2<T,S>(x:T):S { return x; }
@@ -30,8 +35,9 @@ function foo8<U>(x:U,y):U {
 /*
  foo8(0,void 0);
 */
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-var foo1 = function<T>(x: T): T {
+
+=====================================output=====================================
+var foo1 = function <T>(x: T): T {
   return x;
 };
 
@@ -39,7 +45,7 @@ function foo2<T, S>(x: T): S {
   return x;
 }
 
-var foo3 = function<T>(x: T): T {
+var foo3 = function <T>(x: T): T {
   return foo3(x);
 };
 
@@ -58,7 +64,7 @@ function foo5<T>(): Array<T> {
  var y: string = b[0];
 */
 
-var foo6 = function<R>(x: R): R {
+var foo6 = function <R>(x: R): R {
   return foo1(x);
 };
 
@@ -75,4 +81,5 @@ function foo8<U>(x: U, y): U {
  foo8(0,void 0);
 */
 
+================================================================================
 `;
