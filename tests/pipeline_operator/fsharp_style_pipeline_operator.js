@@ -24,3 +24,26 @@ const user = url
   |> r => r.json()
   |> await
   |> j => j.data.user;
+
+const f = (x) => (x |> (y) => y + 1)
+  |> (z) => z * y
+
+const _f = (x) => x
+  |> (y) => y + 1
+  |> (z) => z * y
+
+const g = (x) => x
+  |> (y) => (y + 1 |> (z) => z * y)
+
+const _g = (x) => x
+  |> (y => (y + 1 |> (z) => z * y))
+
+const __g = (x) => x
+  |> (
+    y => {
+      return (y + 1 |> (z) => z * y);
+    }
+  )
+
+const f = x + ((f) => (f |> f));
+const f = x |> (f) => f |> f;

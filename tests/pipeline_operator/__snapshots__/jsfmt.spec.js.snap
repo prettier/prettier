@@ -33,6 +33,29 @@ const user = url
   |> await
   |> j => j.data.user;
 
+const f = (x) => (x |> (y) => y + 1)
+  |> (z) => z * y
+
+const _f = (x) => x
+  |> (y) => y + 1
+  |> (z) => z * y
+
+const g = (x) => x
+  |> (y) => (y + 1 |> (z) => z * y)
+
+const _g = (x) => x
+  |> (y => (y + 1 |> (z) => z * y))
+
+const __g = (x) => x
+  |> (
+    y => {
+      return (y + 1 |> (z) => z * y);
+    }
+  )
+
+const f = x + ((f) => (f |> f));
+const f = x |> (f) => f |> f;
+
 =====================================output=====================================
 promise
   |> await
@@ -51,6 +74,23 @@ const newScore =
 
 const user =
   url |> api.get |> await |> (r) => r.json() |> await |> (j) => j.data.user;
+
+const f = (x) => x |> (y) => y + 1 |> (z) => z * y;
+
+const _f = (x) => x |> (y) => y + 1 |> (z) => z * y;
+
+const g = (x) => x |> (y) => (y + 1 |> (z) => z * y);
+
+const _g = (x) => x |> ((y) => (y + 1 |> (z) => z * y));
+
+const __g = (x) =>
+  x
+  |> ((y) => {
+    return y + 1 |> (z) => z * y;
+  });
+
+const f = x + ((f) => f |> f);
+const f = x |> (f) => f |> f;
 
 ================================================================================
 `;
@@ -89,6 +129,28 @@ function createPerson (attrs) {
 foo |> (bar ?? baz);
 (foo |> bar) ?? baz;
 
+const result = [1,2,3]
+ |> map(a => a * 2)
+ |> filter(a => a > 5)
+ |> reduce((sum, a) => a+sum, 0)
+ |> increment
+ |> add(3)
+
+const searchResults$ = fromEvent(document.querySelector('input'), 'input')
+  |> map(event => event.target.value)
+  |> filter(searchText => searchText.length > 2)
+  |> debounce(300)
+  |> distinctUntilChanged()
+  |> switchMap(searchText => queryApi(searchText) |> retry(3))
+  |> share();
+
+const result = [5,10]
+  |> (_ => _.map(x => x * 2))
+  |> (_ => _.reduce( (a,b) => a + b ))
+  |> (sum => sum + 1)
+
+const result2 = [4, 9].map( x => x |> inc |> double )
+
 =====================================output=====================================
 a |> b |> c;
 
@@ -115,6 +177,31 @@ function createPerson(attrs) {
 
 foo |> bar ?? baz;
 (foo |> bar) ?? baz;
+
+const result =
+  [1, 2, 3]
+  |> map((a) => a * 2)
+  |> filter((a) => a > 5)
+  |> reduce((sum, a) => a + sum, 0)
+  |> increment
+  |> add(3);
+
+const searchResults$ =
+  fromEvent(document.querySelector("input"), "input")
+  |> map((event) => event.target.value)
+  |> filter((searchText) => searchText.length > 2)
+  |> debounce(300)
+  |> distinctUntilChanged()
+  |> switchMap((searchText) => queryApi(searchText) |> retry(3))
+  |> share();
+
+const result =
+  [5, 10]
+  |> ((_) => _.map((x) => x * 2))
+  |> ((_) => _.reduce((a, b) => a + b))
+  |> ((sum) => sum + 1);
+
+const result2 = [4, 9].map((x) => x |> inc |> double);
 
 ================================================================================
 `;
@@ -149,6 +236,23 @@ function createPerson (attrs) {
     |> Person.insertIntoDatabase;
 }
 
+const result = [1,2,3]
+ |> #.map(a => a * 2 )
+ |> #.filter(a => a > 5)
+ |> #.reduce((sum, a) => a+sum, 0)
+ |> increment
+ |> add(#, 3)
+
+const searchResults$ = fromEvent(document.querySelector('input'), 'input')
+  |> map(#, event => event.target.value)
+  |> filter(#, searchText => searchText.length > 2)
+  |> debounce(#, 300)
+  |> distinctUntilChanged
+  |> switchMap(#, searchText => queryApi(searchText) |> retry(#, 3))
+  |> share;
+
+v |> #.method() |> f;
+
 =====================================output=====================================
 a |> await # |> # * 3;
 
@@ -167,6 +271,25 @@ const result = "hello" |> doubleSay |> capitalize(#, "foo") |> exclaim;
 function createPerson(attrs) {
   attrs |> foo |> foo |> Person.insertIntoDatabase;
 }
+
+const result =
+  [1, 2, 3]
+  |> #.map((a) => a * 2)
+  |> #.filter((a) => a > 5)
+  |> #.reduce((sum, a) => a + sum, 0)
+  |> increment
+  |> add(#, 3);
+
+const searchResults$ =
+  fromEvent(document.querySelector("input"), "input")
+  |> map(#, (event) => event.target.value)
+  |> filter(#, (searchText) => searchText.length > 2)
+  |> debounce(#, 300)
+  |> distinctUntilChanged
+  |> switchMap(#, (searchText) => queryApi(searchText) |> retry(#, 3))
+  |> share;
+
+v |> #.method() |> f;
 
 ================================================================================
 `;

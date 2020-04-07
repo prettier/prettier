@@ -228,6 +228,15 @@ function needsParens(path, options) {
       if (node.operator === "in" && isLeftOfAForStatement(node)) {
         return true;
       }
+      if (node.operator === "|>" && node.extra && node.extra.parenthesized) {
+        const grandParent = path.getParentNode(1);
+        if (
+          grandParent.type === "BinaryExpression" &&
+          grandParent.operator === "|>"
+        ) {
+          return true;
+        }
+      }
     }
     // fallthrough
     case "TSTypeAssertion":
@@ -574,11 +583,15 @@ function needsParens(path, options) {
           return !!(node.extra && node.extra.parenthesized);
 
         case "BinaryExpression":
-          return !!(
-            parent.operator === "|>" &&
-            node.extra &&
-            node.extra.parenthesized
-          );
+          if (node.extra && node.extra.parenthesized) {
+            return (
+              parent.operator === "|>" ||
+              (parent.operator !== "|>" &&
+                node.body.type === "BinaryExpression" &&
+                node.body.operator === "|>")
+            );
+          }
+          return false;
 
         case "NewExpression":
         case "CallExpression":
