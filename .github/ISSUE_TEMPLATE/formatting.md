@@ -22,7 +22,7 @@ BEFORE SUBMITTING AN ISSUE:
 🤖 Let a program fill the issue template for you!
 
 1. Go to https://prettier.io/playground
-2. Paste your code and set Prettier options
+2. Paste your code and set options
 3. Press the "Report issue" button in the lower right
 4. Enter a title and describe the expected behavior
 5. Submit
