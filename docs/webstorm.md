@@ -11,7 +11,7 @@ To run Prettier on save in WebStorm 2020.1 or above, open _Preferences | Languag
 
 By default, only JavaScript and TypeScript files will be formatted automatically. You can further configure what files will be updated using the [glob pattern](https://github.com/isaacs/node-glob#glob-primer).
 
-Don't forget to install `prettier` first.
+Don't forget to install Prettier first.
 
 To use Prettier in IntelliJ IDEA, PhpStorm, PyCharm, and other JetBrains IDEs, please install this [plugin](https://plugins.jetbrains.com/plugin/10456-prettier).
 
@@ -19,7 +19,7 @@ To run Prettier on save in older IDE versions, you can set up a file watcher fol
 
 ## Running Prettier on save using File Watcher
 
-To automatically format your files using `prettier` on save in WebStorm 2019.* or earlier, you can use a [File Watcher](https://plugins.jetbrains.com/plugin/7177-file-watchers).
+To automatically format your files using Prettier on save in WebStorm 2019.\* or earlier, you can use a [File Watcher](https://plugins.jetbrains.com/plugin/7177-file-watchers).
 
 Go to _Preferences | Tools | File Watchers_ and click **+** to add a new watcher.
 
@@ -28,13 +28,13 @@ In Webstorm 2018.2, select Prettier from the list, review the configuration, add
 In older IDE versions, select Custom and do the following configuration:
 
 - **Name**: _Prettier_ or any other name
-- **File Type**: _JavaScript_ (or _Any_ if you want to run `prettier` on all files)
+- **File Type**: _JavaScript_ (or _Any_ if you want to run Prettier on all files)
 - **Scope**: _Project Files_
 - **Program**: full path to `.bin/prettier` or `.bin\prettier.cmd` in the project's `node_module` folder. Or, if Prettier is installed globally, select `prettier` on macOS and Linux or `C:\Users\user_name\AppData\Roaming\npm\prettier.cmd` on Windows (or whatever `npm prefix -g` returns).
 - **Arguments**: `--write [other options] $FilePathRelativeToProjectRoot$`
 - **Output paths to refresh**: `$FilePathRelativeToProjectRoot$`
 - **Working directory**: `$ProjectFileDir$`
-- **Environment variables**: add `COMPILE_PARTIAL=true` if you want to run `prettier` on partials (like `_component.scss`)
+- **Environment variables**: add `COMPILE_PARTIAL=true` if you want to run Prettier on partials (like `_component.scss`)
 - **Auto-save edited files to trigger the watcher**: Uncheck to reformat on Save only.
 
 ![Example](/docs/assets/webstorm/file-watcher-prettier.png)
@@ -59,6 +59,6 @@ Go to _Preferences | Tools | External Tools_ and click **+** to add a new tool. 
 
 Press `Cmd/Ctrl-Shift-A` (_Find Action_), search for _Prettier_, and then hit `Enter`.
 
-It will run `prettier` for the current file.
+It will run Prettier for the current file.
 
 You can [add a keyboard shortcut](https://www.jetbrains.com/help/webstorm/configuring-keyboard-shortcuts.html) to run this External tool configuration in _Preferences | Keymap_.
