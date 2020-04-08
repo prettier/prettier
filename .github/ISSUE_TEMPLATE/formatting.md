@@ -18,7 +18,7 @@ BEFORE SUBMITTING AN ISSUE:
     This means we have a very high bar for adding new options.
     Find out more: https://prettier.io/docs/en/option-philosophy.html
 
-👉 If you're sure you want to submit an issue, 🛑 DON'T USE THIS FORM.
+👉 Still sure you want to submit an issue? 🛑 DON'T USE THIS FORM.
 🤖 Let a program fill the issue template for you!
 
 1. Go to https://prettier.io/playground
