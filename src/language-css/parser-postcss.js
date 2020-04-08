@@ -342,16 +342,6 @@ function parseNestedCSS(node, options) {
       return node;
     }
 
-    // extend is missing
-    if (
-      isLessParser(options) &&
-      node.type === "css-decl" &&
-      !node.extend &&
-      value.startsWith("extend(")
-    ) {
-      node.extend = node.raws.between === ":";
-    }
-
     if (value.length > 0) {
       const defaultSCSSDirectiveIndex = value.match(DEFAULT_SCSS_DIRECTIVE);
 
@@ -383,6 +373,16 @@ function parseNestedCSS(node, options) {
       }
 
       node.value = parseValue(value);
+    }
+
+    // extend is missing
+    if (
+      isLessParser(options) &&
+      node.type === "css-decl" &&
+      !node.extend &&
+      value.startsWith("extend(")
+    ) {
+      node.extend = node.raws.between === ":";
     }
 
     if (node.type === "css-atrule") {
