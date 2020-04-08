@@ -18,32 +18,12 @@ BEFORE SUBMITTING AN ISSUE:
     This means we have a very high bar for adding new options.
     Find out more: https://prettier.io/docs/en/option-philosophy.html
 
-👉 Please fill the issue template, but DON'T FILL IT MANUALLY. 🤖 Instead:
+🤚 NOW, DON'T USE THIS FORM. 🛑 Instead, if you're sure you want to submit an issue:
 
 1. Go to https://prettier.io/playground
-2. Paste your code and set options
+2. Paste your code and set Prettier options
 3. Press the "Report issue" button in the lower right
+4. Enter a title and describe the expected behavior
+5. Submit 🤖
 
 -->
-
-**Prettier 2.2.1**
-[Playground link](https://prettier.io/playground/#.....)
-
-```sh
-# Options (if any):
---single-quote
-```
-
-**Input:**
-
-```jsx
-// code snippet
-```
-
-**Output:**
-
-```jsx
-// code snippet
-```
-
-**Expected behavior:**
