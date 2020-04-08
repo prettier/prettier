@@ -158,9 +158,11 @@ global.run_spec = (dirname, parsers, options) => {
     }
 
     const formatted = output.replace(CURSOR_PLACEHOLDER, "");
+    const isUnstable = unstableTests.get(filename);
+    const isUnstableTest = isUnstable && isUnstable(options || {});
     if (
       DEEP_COMPARE &&
-      formatted !== input &&
+      (formatted !== input || isUnstableTest) &&
       typeof rangeStart === "undefined" &&
       typeof rangeEnd === "undefined" &&
       typeof cursorOffset === "undefined" &&
@@ -168,8 +170,7 @@ global.run_spec = (dirname, parsers, options) => {
     ) {
       test(`${basename} second format`, () => {
         const secondOutput = format(formatted, filename, mainOptions);
-        const isUnstable = unstableTests.get(filename);
-        if (isUnstable && isUnstable(options || {})) {
+        if (isUnstableTest) {
           // To keep eye on failed tests, this assert never supposed to pass,
           // if it fails, just remove the file from `unstableTests`
           expect(secondOutput).not.toEqual(output);
