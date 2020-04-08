@@ -93,7 +93,7 @@ function ngHtmlParser(
           attr.value = null;
         } else {
           attr.value = attr.valueSpan.toString();
-          if (/['"]/.test(attr.value[0])) {
+          if (/["']/.test(attr.value[0])) {
             attr.value = attr.value.slice(1, -1);
           }
         }
@@ -204,7 +204,7 @@ function _parse(text, options, parserOptions, shouldParseFrontMatter = true) {
 
   const parseSubHtml = (subContent, startSpan) => {
     const { offset } = startSpan;
-    const fakeContent = text.slice(0, offset).replace(/[^\r\n]/g, " ");
+    const fakeContent = text.slice(0, offset).replace(/[^\n\r]/g, " ");
     const realContent = subContent;
     const subAst = _parse(
       fakeContent + realContent,

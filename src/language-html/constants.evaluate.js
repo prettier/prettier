@@ -13,7 +13,7 @@ const getCssStyleTags = (property) =>
           htmlStyle.selectorText
             .split(",")
             .map((selector) => selector.trim())
-            .filter((selector) => /^[a-zA-Z0-9]+$/.test(selector))
+            .filter((selector) => /^[\dA-Za-z]+$/.test(selector))
             .map((tagName) => [tagName, htmlStyle.style[property]])
         )
     )

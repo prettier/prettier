@@ -21,7 +21,7 @@ async function bump({ version }) {
 
   // Update unpkg link in docs
   processFile("docs/browser.md", (content) =>
-    content.replace(/(\/\/unpkg\.com\/prettier@)(?:.*?)\//g, `$1${version}/`)
+    content.replace(/(\/\/unpkg\.com\/prettier@).*?\//g, `$1${version}/`)
   );
 
   await execa("yarn", ["update-stable-docs"], {

@@ -974,10 +974,10 @@ function printNodeSequence(path, options, print) {
   return concat(parts);
 }
 
-const STRING_REGEX = /(['"])(?:(?!\1)[^\\]|\\[\s\S])*\1/g;
-const NUMBER_REGEX = /(?:\d*\.\d+|\d+\.?)(?:[eE][+-]?\d+)?/g;
-const STANDARD_UNIT_REGEX = /[a-zA-Z]+/g;
-const WORD_PART_REGEX = /[$@]?[a-zA-Z_\u0080-\uFFFF][\w\-\u0080-\uFFFF]*/g;
+const STRING_REGEX = /(["'])(?:(?!\1)[^\\]|\\[\S\s])*\1/g;
+const NUMBER_REGEX = /(?:\d*\.\d+|\d+\.?)(?:[Ee][+-]?\d+)?/g;
+const STANDARD_UNIT_REGEX = /[A-Za-z]+/g;
+const WORD_PART_REGEX = /[$@]?[A-Z_a-z\u0080-\uFFFF][\w\u0080-\uFFFF-]*/g;
 const ADJUST_NUMBERS_REGEX = new RegExp(
   STRING_REGEX.source +
     "|" +

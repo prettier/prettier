@@ -13,7 +13,7 @@ function embed(path, print, textToDoc, options) {
 
   if (node.type === "code" && node.lang !== null) {
     // only look for the first string so as to support [markdown-preview-enhanced](https://shd101wyy.github.io/markdown-preview-enhanced/#/code-chunk)
-    const langMatch = node.lang.match(/^[A-Za-z0-9_-]+/);
+    const langMatch = node.lang.match(/^[\w-]+/);
     const lang = langMatch ? langMatch[0] : "";
     const parser = getParserName(lang);
     if (parser) {

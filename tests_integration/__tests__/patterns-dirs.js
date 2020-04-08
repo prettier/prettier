@@ -95,7 +95,7 @@ function testPatterns(namePrefix, cliArgs, expected = {}) {
     (namePrefix ? namePrefix + ": " : "") +
     "prettier " +
     cliArgs
-      .map((arg) => (/^[\w.=/-]+$/.test(arg) ? arg : `'${arg}'`))
+      .map((arg) => (/^[\w./=-]+$/.test(arg) ? arg : `'${arg}'`))
       .join(" ");
 
   describe(testName, () => {

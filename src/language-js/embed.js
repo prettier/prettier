@@ -94,11 +94,11 @@ function embed(path, print, textToDoc, options) {
             lines[numLines - 2].trim() === "";
 
           const commentsAndWhitespaceOnly = lines.every((line) =>
-            /^\s*(?:#[^\r\n]*)?$/.test(line)
+            /^\s*(?:#[^\n\r]*)?$/.test(line)
           );
 
           // Bail out if an interpolation occurs within a comment.
-          if (!isLast && /#[^\r\n]*$/.test(lines[numLines - 1])) {
+          if (!isLast && /#[^\n\r]*$/.test(lines[numLines - 1])) {
             return null;
           }
 
@@ -204,7 +204,7 @@ function getIndentation(str) {
 }
 
 function uncook(cookedValue) {
-  return cookedValue.replace(/([\\`]|\$\{)/g, "\\$1");
+  return cookedValue.replace(/([\\`]|\${)/g, "\\$1");
 }
 
 function escapeTemplateCharacters(doc, raw) {
@@ -292,7 +292,7 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
       const placeholder = parts[atPlaceholderIndex];
       const rest = parts.slice(atPlaceholderIndex + 1);
       const placeholderMatch = placeholder.match(
-        /@prettier-placeholder-(.+)-id([\s\S]*)/
+        /@prettier-placeholder-(.+)-id([\S\s]*)/
       );
       const placeholderID = placeholderMatch[1];
       // When the expression has a suffix appended, like:

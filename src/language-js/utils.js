@@ -732,7 +732,7 @@ function isJestEachTemplateLiteral(node, parentNode) {
    *
    * Ref: https://github.com/facebook/jest/pull/6102
    */
-  const jestEachTriggerRegex = /^[xf]?(describe|it|test)$/;
+  const jestEachTriggerRegex = /^[fx]?(describe|it|test)$/;
   return (
     parentNode.type === "TaggedTemplateExpression" &&
     parentNode.quasi === node &&
