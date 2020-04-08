@@ -32,4 +32,4 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Run Tests
-        run: yarn test --maxWorkers=4
+        run: yarn test:dev
