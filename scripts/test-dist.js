@@ -21,9 +21,9 @@ shell.exec("npm init -y", { cwd: tmpDir });
 shell.exec(`npm install "${tarPath}"`, { cwd: tmpDir });
 shell.config.silent = false;
 
-const runInBand = isCI ? "--runInBand" : "";
+const maxWorkers = isCI ? "--maxWorkers=2" : "";
 const testPath = process.env.TEST_STANDALONE ? "tests/" : "";
-const cmd = `yarn test --color ${runInBand} ${testPath}`;
+const cmd = `yarn test --color ${maxWorkers} ${testPath}`;
 
 const { code } = shell.exec(cmd, {
   cwd: rootDir,
