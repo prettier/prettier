@@ -925,7 +925,7 @@ Prettier is an opinionated code formatter with support for:
 - [JSON](http://json.org/)
 - [GraphQL](http://graphql.org/)
 
-It removes all original styling[\\*](#styling-footnote) and ensures that all
+It removes all original styling[*](#styling-footnote) and ensures that all
 outputted code conforms to a consistent style. (See this
 [blog post](http://jlongster.com/A-Prettier-Formatter))
 
@@ -1021,11 +1021,11 @@ foo(
 
 Prettier enforces a consistent code **style** (i.e. code formatting that won't
 affect the AST) across your entire codebase because it disregards the original
-styling[\\*](#styling-footnote) by parsing it away and re-printing the parsed AST
+styling[*](#styling-footnote) by parsing it away and re-printing the parsed AST
 with its own rules that take the maximum line length into account, wrapping code
 when necessary.
 
-<a href="#styling-footnote" name="styling-footnote">\\*</a>_Well actually, some
+<a href="#styling-footnote" name="styling-footnote">*</a>_Well actually, some
 original styling is preserved when practical—see [empty lines] and [multi-line
 objects]._
 
@@ -2905,7 +2905,7 @@ Prettier is an opinionated code formatter with support for:
 - [JSON](http://json.org/)
 - [GraphQL](http://graphql.org/)
 
-It removes all original styling[\\*](#styling-footnote) and ensures that all
+It removes all original styling[*](#styling-footnote) and ensures that all
 outputted code conforms to a consistent style. (See this
 [blog post](http://jlongster.com/A-Prettier-Formatter))
 
@@ -3001,11 +3001,11 @@ foo(
 
 Prettier enforces a consistent code **style** (i.e. code formatting that won't
 affect the AST) across your entire codebase because it disregards the original
-styling[\\*](#styling-footnote) by parsing it away and re-printing the parsed AST
+styling[*](#styling-footnote) by parsing it away and re-printing the parsed AST
 with its own rules that take the maximum line length into account, wrapping code
 when necessary.
 
-<a href="#styling-footnote" name="styling-footnote">\\*</a>_Well actually, some
+<a href="#styling-footnote" name="styling-footnote">*</a>_Well actually, some
 original styling is preserved when practical—see [empty lines] and [multi-line
 objects]._
 

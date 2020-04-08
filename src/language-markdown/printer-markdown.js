@@ -76,22 +76,20 @@ function genericPrint(path, options, print) {
     case "sentence":
       return printChildren(path, options, print);
     case "word":
-      return node.value
-        .replace(/[*$]/g, "\\$&") // escape all `*` and `$` (math)
-        .replace(
-          new RegExp(
-            [
-              `(^|${punctuationPattern})(_+)`,
-              `(_+)(${punctuationPattern}|$)`,
-            ].join("|"),
-            "g"
-          ),
-          (_, text1, underscore1, underscore2, text2) =>
-            (underscore1
-              ? `${text1}${underscore1}`
-              : `${underscore2}${text2}`
-            ).replace(/_/g, "\\_")
-        ); // escape all `_` except concating with non-punctuation, e.g. `1_2_3` is not considered emphasis
+      return node.value.replace(
+        new RegExp(
+          [
+            `(^|${punctuationPattern})(_+)`,
+            `(_+)(${punctuationPattern}|$)`,
+          ].join("|"),
+          "g"
+        ),
+        (_, text1, underscore1, underscore2, text2) =>
+          (underscore1
+            ? `${text1}${underscore1}`
+            : `${underscore2}${text2}`
+          ).replace(/_/g, "\\_")
+      ); // escape all `_` except concating with non-punctuation, e.g. `1_2_3` is not considered emphasis
     case "whitespace": {
       const parentNode = path.getParentNode();
       const index = parentNode.children.indexOf(node);
