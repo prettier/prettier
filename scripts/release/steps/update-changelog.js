@@ -2,10 +2,9 @@
 
 const chalk = require("chalk");
 const dedent = require("dedent");
-const execa = require("execa");
 const fs = require("fs");
 const semver = require("semver");
-const { waitForEnter } = require("../utils");
+const { waitForEnter, runYarn, logPromise } = require("../utils");
 
 function getBlogPostInfo(version) {
   const date = new Date();
@@ -68,5 +67,8 @@ module.exports = async function ({ version, previousVersion }) {
   }
 
   await waitForEnter();
-  await execa("yarn", ["lint:prettier", "--write"]);
+  await logPromise(
+    "Re-running Prettier on docs",
+    runYarn(["lint:prettier", "--write"])
+  );
 };

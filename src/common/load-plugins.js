@@ -8,6 +8,7 @@ const path = require("path");
 const thirdParty = require("./third-party");
 const internalPlugins = require("./internal-plugins");
 const mem = require("mem");
+const resolve = require("./resolve");
 
 const memoizedLoad = mem(load, { cacheKey: JSON.stringify });
 const memoizedSearch = mem(findPluginsInNodeModules);
@@ -42,14 +43,10 @@ function load(plugins, pluginSearchDirs) {
       let requirePath;
       try {
         // try local files
-        requirePath = eval("require").resolve(
-          path.resolve(process.cwd(), pluginName)
-        );
+        requirePath = resolve(path.resolve(process.cwd(), pluginName));
       } catch (_) {
         // try node modules
-        requirePath = eval("require").resolve(pluginName, {
-          paths: [process.cwd()],
-        });
+        requirePath = resolve(pluginName, { paths: [process.cwd()] });
       }
 
       return {
@@ -85,9 +82,7 @@ function load(plugins, pluginSearchDirs) {
 
       return memoizedSearch(nodeModulesDir).map((pluginName) => ({
         name: pluginName,
-        requirePath: eval("require").resolve(pluginName, {
-          paths: [resolvedPluginSearchDir],
-        }),
+        requirePath: resolve(pluginName, { paths: [resolvedPluginSearchDir] }),
       }));
     })
     .reduce((a, b) => a.concat(b), []);

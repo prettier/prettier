@@ -28,12 +28,7 @@ const unstableTests = new Map(
     "comments/return-statement.js",
     "comments/tagged-template-literal.js",
     "comments_closure_typecast/iife.js",
-    "css_atrule/include.css",
     "graphql_interface/separator-detection.graphql",
-    [
-      "html_angular/attributes.component.html",
-      (options) => options.printWidth === 1,
-    ],
     "markdown_footnoteDefinition/multiline.md",
     "markdown_spec/example-234.md",
     "markdown_spec/example-235.md",
@@ -74,7 +69,6 @@ global.run_spec = (dirname, parsers, options) => {
     ) {
       continue;
     }
-
     describe(basename, () => {
       let rangeStart;
       let rangeEnd;
@@ -112,13 +106,10 @@ global.run_spec = (dirname, parsers, options) => {
       };
 
       const hasEndOfLine = "endOfLine" in mainOptions;
-      let output;
-      let visualizedOutput;
+      const output = format(input, filename, mainOptions);
+      const visualizedOutput = visualizeEndOfLine(output);
 
       test("format", () => {
-        output = format(input, filename, mainOptions);
-        visualizedOutput = visualizeEndOfLine(output);
-
         expect(visualizedOutput).toEqual(
           visualizeEndOfLine(consistentEndOfLine(output))
         );
@@ -186,21 +177,16 @@ global.run_spec = (dirname, parsers, options) => {
       }
 
       if (AST_COMPARE) {
-        test("parse", () => {
-          const parseOptions = { ...mainOptions };
-          delete parseOptions.cursorOffset;
+        const formatted = output.replace(CURSOR_PLACEHOLDER, "");
 
-          const originalAst = parse(input, parseOptions);
-          let formattedAst;
-
-          expect(() => {
-            formattedAst = parse(
-              output.replace(CURSOR_PLACEHOLDER, ""),
-              parseOptions
-            );
-          }).not.toThrow();
-          expect(originalAst).toEqual(formattedAst);
-        });
+        if (formatted !== input) {
+          test("parse", () => {
+            const { cursorOffset, ...parseOptions } = mainOptions;
+            const originalAst = parse(input, parseOptions);
+            const formattedAst = parse(formatted, parseOptions);
+            expect(originalAst).toEqual(formattedAst);
+          });
+        }
       }
     });
   }

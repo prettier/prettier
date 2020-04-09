@@ -253,9 +253,12 @@ function printDocToString(doc, options) {
     const [ind, mode, doc] = cmds.pop();
 
     if (typeof doc === "string") {
-      out.push(doc);
-
-      pos += getStringWidth(doc);
+      const formatted =
+        newLine !== "\n" && doc.includes("\n")
+          ? doc.replace(/\n/g, newLine)
+          : doc;
+      out.push(formatted);
+      pos += getStringWidth(formatted);
     } else {
       switch (doc.type) {
         case "cursor":

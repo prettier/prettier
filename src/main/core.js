@@ -14,7 +14,6 @@ const {
 const rangeUtil = require("./range-util");
 const privateUtil = require("../common/util");
 const {
-  utils: { mapDoc },
   printer: { printDocToString },
   debug: { printDocToDebug },
 } = require("../document");
@@ -85,17 +84,7 @@ function coreFormat(text, opts, addAlignmentSize) {
   const astComments = attachComments(text, ast, opts);
   const doc = printAstToDoc(ast, opts, addAlignmentSize);
 
-  const eol = convertEndOfLineToChars(opts.endOfLine);
-  const result = printDocToString(
-    opts.endOfLine === "lf"
-      ? doc
-      : mapDoc(doc, (currentDoc) =>
-          typeof currentDoc === "string" && currentDoc.includes("\n")
-            ? currentDoc.replace(/\n/g, eol)
-            : currentDoc
-        ),
-    opts
-  );
+  const result = printDocToString(doc, opts);
 
   ensureAllCommentsPrinted(astComments);
   // Remove extra leading indentation as well as the added indentation after last newline
