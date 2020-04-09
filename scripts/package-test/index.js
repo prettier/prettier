@@ -1,5 +1,6 @@
 "use strict";
 
+const os = require("os");
 const path = require("path");
 const shell = require("shelljs");
 const tempy = require("tempy");
@@ -22,9 +23,12 @@ module.exports = function (options) {
   shell.exec("npm init -y", { cwd: TEMP_DIR, silent: true });
   shell.exec(`npm install "${tarPath}" --engine-strict`, { cwd: TEMP_DIR });
 
-  const runInBand = isCI ? "--runInBand" : "";
+  // This `maxWorkers` number is hard code for github actions
+  const maxWorkers = isCI
+    ? `--maxWorkers=${os.platform() === "darwin" ? 4 : 2}`
+    : "";
   const testPath = process.env.TEST_STANDALONE ? "tests/" : "";
-  const cmd = `yarn test --color ${runInBand} ${testPath}`;
+  const cmd = `yarn test --color ${maxWorkers} ${testPath}`;
 
   return shell.exec(cmd, {
     cwd: rootDir,

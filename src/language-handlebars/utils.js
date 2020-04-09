@@ -1,7 +1,7 @@
 "use strict";
 
 // http://w3c.github.io/html/single-page.html#void-elements
-const voidTags = [
+const voidTags = new Set([
   "area",
   "base",
   "br",
@@ -16,7 +16,7 @@ const voidTags = [
   "source",
   "track",
   "wbr",
-];
+]);
 
 function isUppercase(string) {
   return string.toUpperCase() === string;
@@ -35,7 +35,7 @@ function isVoid(node) {
     (isGlimmerComponent(node) &&
       (node.children === 0 ||
         node.children.every((n) => isWhitespaceNode(n)))) ||
-    voidTags.includes(node.tag)
+    voidTags.has(node.tag)
   );
 }
 
