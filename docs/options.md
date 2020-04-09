@@ -129,7 +129,7 @@ Valid options:
 - `true` - Example:
 
 <!-- prettier-ignore -->
-```
+```jsx
 <button
   className="prettier-class"
   id="prettier-id"
@@ -141,7 +141,7 @@ Valid options:
 - `false` - Example:
 
 <!-- prettier-ignore -->
-```
+```jsx
 <button
   className="prettier-class"
   id="prettier-id"

@@ -204,7 +204,10 @@ function needsParens(path, options) {
       }
 
     case "BinaryExpression": {
-      if (parent.type === "UpdateExpression") {
+      if (
+        parent.type === "UpdateExpression" ||
+        (parent.type === "PipelineTopicExpression" && node.operator === "|>")
+      ) {
         return true;
       }
 
@@ -224,6 +227,15 @@ function needsParens(path, options) {
       };
       if (node.operator === "in" && isLeftOfAForStatement(node)) {
         return true;
+      }
+      if (node.operator === "|>" && node.extra && node.extra.parenthesized) {
+        const grandParent = path.getParentNode(1);
+        if (
+          grandParent.type === "BinaryExpression" &&
+          grandParent.operator === "|>"
+        ) {
+          return true;
+        }
       }
     }
     // fallthrough
@@ -352,7 +364,6 @@ function needsParens(path, options) {
       switch (parent.type) {
         case "TaggedTemplateExpression":
         case "UnaryExpression":
-        case "BinaryExpression":
         case "LogicalExpression":
         case "SpreadElement":
         case "SpreadProperty":
@@ -372,6 +383,13 @@ function needsParens(path, options) {
 
         case "ConditionalExpression":
           return parent.test === node;
+
+        case "BinaryExpression": {
+          if (!node.argument && parent.operator === "|>") {
+            return false;
+          }
+          return true;
+        }
 
         default:
           return false;
@@ -561,6 +579,13 @@ function needsParens(path, options) {
 
     case "ArrowFunctionExpression":
       switch (parent.type) {
+        case "PipelineTopicExpression":
+          return !!(node.extra && node.extra.parenthesized);
+
+        case "BinaryExpression":
+          return (
+            parent.operator !== "|>" || (node.extra && node.extra.parenthesized)
+          );
         case "NewExpression":
         case "CallExpression":
         case "OptionalCallExpression":
@@ -575,7 +600,6 @@ function needsParens(path, options) {
         case "TaggedTemplateExpression":
         case "UnaryExpression":
         case "LogicalExpression":
-        case "BinaryExpression":
         case "AwaitExpression":
         case "TSTypeAssertion":
           return true;
@@ -729,7 +753,6 @@ function isStatement(node) {
     node.type === "ExportDefaultDeclaration" ||
     node.type === "ExportNamedDeclaration" ||
     node.type === "ExpressionStatement" ||
-    node.type === "ForAwaitStatement" ||
     node.type === "ForInStatement" ||
     node.type === "ForOfStatement" ||
     node.type === "ForStatement" ||
