@@ -93,7 +93,7 @@
     "eslint-plugin-react": "7.19.0",
     "eslint-plugin-unicorn": "18.0.1",
     "execa": "4.0.0",
-    "jest": "25.2.7",
+    "jest": "25.3.0",
     "jest-snapshot-serializer-ansi": "1.0.0",
     "jest-snapshot-serializer-raw": "1.1.0",
     "jest-watch-typeahead": "0.5.0",
