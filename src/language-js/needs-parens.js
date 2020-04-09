@@ -583,16 +583,9 @@ function needsParens(path, options) {
           return !!(node.extra && node.extra.parenthesized);
 
         case "BinaryExpression":
-          if (node.extra && node.extra.parenthesized) {
-            return (
-              parent.operator === "|>" ||
-              (parent.operator !== "|>" &&
-                node.body.type === "BinaryExpression" &&
-                node.body.operator === "|>")
-            );
-          }
-          return false;
-
+          return (
+            parent.operator !== "|>" || (node.extra && node.extra.parenthesized)
+          );
         case "NewExpression":
         case "CallExpression":
         case "OptionalCallExpression":
