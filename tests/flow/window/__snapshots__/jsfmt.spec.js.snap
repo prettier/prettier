@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`window1.js 1`] = `
+exports[`window1.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -20,7 +20,7 @@ module.exports = window.history;
 ================================================================================
 `;
 
-exports[`window2.js 1`] = `
+exports[`window2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

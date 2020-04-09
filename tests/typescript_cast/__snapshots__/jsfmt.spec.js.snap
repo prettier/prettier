@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`as-const.ts 1`] = `
+exports[`as-const.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -14,7 +14,7 @@ let x = "123" as const;
 ================================================================================
 `;
 
-exports[`generic-cast.ts 1`] = `
+exports[`generic-cast.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -267,7 +267,7 @@ function x() {
 ================================================================================
 `;
 
-exports[`hug-args.ts 1`] = `
+exports[`hug-args.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -317,7 +317,7 @@ postMessages(<IActionMessage[]>[
 ================================================================================
 `;
 
-exports[`parenthesis.ts 1`] = `
+exports[`parenthesis.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

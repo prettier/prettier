@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comment-tag.js 1`] = `
+exports[`comment-tag.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -30,7 +30,7 @@ const query = /* GraphQL */ \`
 ================================================================================
 `;
 
-exports[`definitions.js 1`] = `
+exports[`definitions.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -60,7 +60,7 @@ graphql\`
 ================================================================================
 `;
 
-exports[`escape.js 1`] = `
+exports[`escape.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -154,7 +154,7 @@ gql\`
 ================================================================================
 `;
 
-exports[`expressions.js 1`] = `
+exports[`expressions.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -204,7 +204,7 @@ const veryLongVariableNameToMakeTheLineBreak = graphql(
 ================================================================================
 `;
 
-exports[`graphql.js 1`] = `
+exports[`graphql.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -234,7 +234,7 @@ graphql(
 ================================================================================
 `;
 
-exports[`graphql-tag.js 1`] = `
+exports[`graphql-tag.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -567,7 +567,7 @@ gql\`
 ================================================================================
 `;
 
-exports[`invalid.js 1`] = `
+exports[`invalid.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -623,7 +623,7 @@ gql\`
 ================================================================================
 `;
 
-exports[`react-relay.js 1`] = `
+exports[`react-relay.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`license_with_flow.js 1`] = `
+exports[`license_with_flow.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -20,7 +20,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`max_header_tokens.js 1`] = `
+exports[`max_header_tokens.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -48,7 +48,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`multiple_flows_1.js 1`] = `
+exports[`multiple_flows_1.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -64,7 +64,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`multiple_flows_2.js 1`] = `
+exports[`multiple_flows_2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -84,7 +84,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`multiple_providesModule_1.js 1`] = `
+exports[`multiple_providesModule_1.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -106,7 +106,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`multiple_providesModule_2.js 1`] = `
+exports[`multiple_providesModule_2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -132,7 +132,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`use_strict_with_flow.js 1`] = `
+exports[`use_strict_with_flow.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -152,7 +152,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`with_flow.js 1`] = `
+exports[`with_flow.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -170,7 +170,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`without_flow.js 1`] = `
+exports[`without_flow.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

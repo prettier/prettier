@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`h1.js 1`] = `
+exports[`h1.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

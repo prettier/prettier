@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Traces.js 1`] = `
+exports[`Traces.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -64,7 +64,7 @@ f3(double);
 ================================================================================
 `;
 
-exports[`Traces2.js 1`] = `
+exports[`Traces2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

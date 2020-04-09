@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`escaped.js 1`] = `
+exports[`escaped.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -82,7 +82,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`last-line-0.js 1`] = `
+exports[`last-line-0.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -95,7 +95,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`last-line-1.js 1`] = `
+exports[`last-line-1.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -109,7 +109,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`last-line-2.js 1`] = `
+exports[`last-line-2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -124,7 +124,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`newline.js 1`] = `
+exports[`newline.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -150,7 +150,7 @@ a();
 ================================================================================
 `;
 
-exports[`no-newline.js 1`] = `
+exports[`no-newline.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -166,7 +166,7 @@ a;
 ================================================================================
 `;
 
-exports[`test.js 1`] = `
+exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80

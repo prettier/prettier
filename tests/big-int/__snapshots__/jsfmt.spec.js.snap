@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`literal.js 1`] = `
+exports[`literal.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript", "flow"]
 printWidth: 80

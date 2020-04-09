@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`block-statement.hbs 1`] = `
+exports[`block-statement.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -157,7 +157,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`block-statement.hbs 2`] = `
+exports[`block-statement.hbs format 2`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -315,7 +315,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`each.hbs 1`] = `
+exports[`each.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -344,7 +344,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`each.hbs 2`] = `
+exports[`each.hbs format 2`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -374,7 +374,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`if-else.hbs 1`] = `
+exports[`if-else.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -595,7 +595,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`if-else.hbs 2`] = `
+exports[`if-else.hbs format 2`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -817,7 +817,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`loop.hbs 1`] = `
+exports[`loop.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -840,7 +840,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`loop.hbs 2`] = `
+exports[`loop.hbs format 2`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80

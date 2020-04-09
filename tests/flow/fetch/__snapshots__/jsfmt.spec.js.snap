@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`fetch.js 1`] = `
+exports[`fetch.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -60,7 +60,7 @@ const d: Promise<Blob> = fetch("image.png"); // incorrect
 ================================================================================
 `;
 
-exports[`headers.js 1`] = `
+exports[`headers.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -136,7 +136,7 @@ e.forEach(() => {}, {}); // correct
 ================================================================================
 `;
 
-exports[`request.js 1`] = `
+exports[`request.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -274,7 +274,7 @@ new Request("/", { method: null }); // incorrect
 ================================================================================
 `;
 
-exports[`response.js 1`] = `
+exports[`response.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -374,7 +374,7 @@ h.arrayBuffer().then((ab: Buffer) => ab); // incorrect
 ================================================================================
 `;
 
-exports[`urlsearchparams.js 1`] = `
+exports[`urlsearchparams.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

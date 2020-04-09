@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`function.js 1`] = `
+exports[`function.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -126,7 +126,7 @@ let f6 =
 ================================================================================
 `;
 
-exports[`identifier.js 1`] = `
+exports[`identifier.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -151,7 +151,7 @@ const bifornCringerMoshedPerplexSawder = // !!!
 ================================================================================
 `;
 
-exports[`number.js 1`] = `
+exports[`number.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -247,7 +247,7 @@ var fnNumber =
 ================================================================================
 `;
 
-exports[`string.js 1`] = `
+exports[`string.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80

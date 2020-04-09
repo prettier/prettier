@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`constructor.js 1`] = `
+exports[`constructor.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -322,7 +322,7 @@ class N extends N_ {
 ================================================================================
 `;
 
-exports[`import.js 1`] = `
+exports[`import.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -344,7 +344,7 @@ module.exports = D;
 ================================================================================
 `;
 
-exports[`super.js 1`] = `
+exports[`super.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -401,7 +401,7 @@ class B extends A {
 ================================================================================
 `;
 
-exports[`test.js 1`] = `
+exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

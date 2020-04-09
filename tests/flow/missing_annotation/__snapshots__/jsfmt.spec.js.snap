@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`array.js 1`] = `
+exports[`array.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -22,7 +22,7 @@ export var arr = [f];
 ================================================================================
 `;
 
-exports[`async_return.js 1`] = `
+exports[`async_return.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -44,7 +44,7 @@ export async function foo() {
 ================================================================================
 `;
 
-exports[`infer.js 1`] = `
+exports[`infer.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`private_fields.js 1`] = `
+exports[`private_fields.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -128,7 +128,7 @@ class F {
 ================================================================================
 `;
 
-exports[`private_fields.js 2`] = `
+exports[`private_fields.js format 2`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -257,7 +257,7 @@ class F {
 ================================================================================
 `;
 
-exports[`with_comments.js 1`] = `
+exports[`with_comments.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -283,7 +283,7 @@ class A {
 ================================================================================
 `;
 
-exports[`with_comments.js 2`] = `
+exports[`with_comments.js format 2`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80

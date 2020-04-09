@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`angularjs.html 1`] = `
+exports[`angularjs.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
@@ -41,7 +41,7 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`angularjs.html 2`] = `
+exports[`angularjs.html format 2`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
@@ -81,7 +81,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`angularjs.html 3`] = `
+exports[`angularjs.html format 3`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 1
@@ -152,7 +152,7 @@ printWidth: 1
 ================================================================================
 `;
 
-exports[`angularjs.html 4`] = `
+exports[`angularjs.html format 4`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["angular"]
@@ -193,7 +193,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`angularjs.html 5`] = `
+exports[`angularjs.html format 5`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["angular"]
@@ -234,7 +234,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`attr-name.component.html 1`] = `
+exports[`attr-name.component.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
@@ -249,7 +249,7 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`attr-name.component.html 2`] = `
+exports[`attr-name.component.html format 2`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
@@ -263,7 +263,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`attr-name.component.html 3`] = `
+exports[`attr-name.component.html format 3`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 1
@@ -280,7 +280,7 @@ printWidth: 1
 ================================================================================
 `;
 
-exports[`attr-name.component.html 4`] = `
+exports[`attr-name.component.html format 4`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["angular"]
@@ -295,7 +295,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`attr-name.component.html 5`] = `
+exports[`attr-name.component.html format 5`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["angular"]
@@ -310,7 +310,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`attributes.component.html 1`] = `
+exports[`attributes.component.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
@@ -581,7 +581,7 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`attributes.component.html 2`] = `
+exports[`attributes.component.html format 2`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
@@ -851,7 +851,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`attributes.component.html 3`] = `
+exports[`attributes.component.html format 3`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 1
@@ -1450,7 +1450,7 @@ printWidth: 1
 ================================================================================
 `;
 
-exports[`attributes.component.html 4`] = `
+exports[`attributes.component.html format 4`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["angular"]
@@ -1721,7 +1721,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`attributes.component.html 5`] = `
+exports[`attributes.component.html format 5`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["angular"]
@@ -1992,7 +1992,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`first-lf.component.html 1`] = `
+exports[`first-lf.component.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
@@ -2085,7 +2085,7 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`first-lf.component.html 2`] = `
+exports[`first-lf.component.html format 2`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
@@ -2177,7 +2177,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`first-lf.component.html 3`] = `
+exports[`first-lf.component.html format 3`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 1
@@ -2349,7 +2349,7 @@ printWidth: 1
 ================================================================================
 `;
 
-exports[`first-lf.component.html 4`] = `
+exports[`first-lf.component.html format 4`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["angular"]
@@ -2442,7 +2442,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`first-lf.component.html 5`] = `
+exports[`first-lf.component.html format 5`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["angular"]
@@ -2535,7 +2535,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`ignore-attribute.component.html 1`] = `
+exports[`ignore-attribute.component.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
@@ -2594,7 +2594,7 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`ignore-attribute.component.html 2`] = `
+exports[`ignore-attribute.component.html format 2`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
@@ -2652,7 +2652,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`ignore-attribute.component.html 3`] = `
+exports[`ignore-attribute.component.html format 3`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 1
@@ -2734,7 +2734,7 @@ printWidth: 1
 ================================================================================
 `;
 
-exports[`ignore-attribute.component.html 4`] = `
+exports[`ignore-attribute.component.html format 4`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["angular"]
@@ -2793,7 +2793,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`ignore-attribute.component.html 5`] = `
+exports[`ignore-attribute.component.html format 5`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["angular"]
@@ -2852,7 +2852,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`interpolation.component.html 1`] = `
+exports[`interpolation.component.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
@@ -3019,7 +3019,7 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`interpolation.component.html 2`] = `
+exports[`interpolation.component.html format 2`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
@@ -3185,7 +3185,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`interpolation.component.html 3`] = `
+exports[`interpolation.component.html format 3`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 1
@@ -3557,7 +3557,7 @@ printWidth: 1
 ================================================================================
 `;
 
-exports[`interpolation.component.html 4`] = `
+exports[`interpolation.component.html format 4`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["angular"]
@@ -3729,7 +3729,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`interpolation.component.html 5`] = `
+exports[`interpolation.component.html format 5`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["angular"]
@@ -3896,7 +3896,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`real-world.component.html 1`] = `
+exports[`real-world.component.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
@@ -5425,7 +5425,7 @@ can be found in the LICENSE file at http://angular.io/license
 ================================================================================
 `;
 
-exports[`real-world.component.html 2`] = `
+exports[`real-world.component.html format 2`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
@@ -6953,7 +6953,7 @@ can be found in the LICENSE file at http://angular.io/license
 ================================================================================
 `;
 
-exports[`real-world.component.html 3`] = `
+exports[`real-world.component.html format 3`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 1
@@ -10364,7 +10364,7 @@ can be found in the LICENSE file at http://angular.io/license
 ================================================================================
 `;
 
-exports[`real-world.component.html 4`] = `
+exports[`real-world.component.html format 4`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["angular"]
@@ -12031,7 +12031,7 @@ can be found in the LICENSE file at http://angular.io/license
 ================================================================================
 `;
 
-exports[`real-world.component.html 5`] = `
+exports[`real-world.component.html format 5`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["angular"]
@@ -13560,7 +13560,7 @@ can be found in the LICENSE file at http://angular.io/license
 ================================================================================
 `;
 
-exports[`tag-name.component.html 1`] = `
+exports[`tag-name.component.html format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
@@ -13575,7 +13575,7 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`tag-name.component.html 2`] = `
+exports[`tag-name.component.html format 2`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
@@ -13589,7 +13589,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`tag-name.component.html 3`] = `
+exports[`tag-name.component.html format 3`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 1
@@ -13603,7 +13603,7 @@ printWidth: 1
 ================================================================================
 `;
 
-exports[`tag-name.component.html 4`] = `
+exports[`tag-name.component.html format 4`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["angular"]
@@ -13618,7 +13618,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`tag-name.component.html 5`] = `
+exports[`tag-name.component.html format 5`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["angular"]

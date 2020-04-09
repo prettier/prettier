@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`class.js 1`] = `
+exports[`class.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -148,7 +148,7 @@ foo.propOverriddenWithSetter = 123; // Error number ~> string
 ================================================================================
 `;
 
-exports[`declare_class.js 1`] = `
+exports[`declare_class.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -254,7 +254,7 @@ foo.propOverriddenWithSetter = 123; // Error number ~> string
 ================================================================================
 `;
 
-exports[`object.js 1`] = `
+exports[`object.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -410,7 +410,7 @@ var testExampleOrOrderOfGetterAndSetterReordered: number =
 ================================================================================
 `;
 
-exports[`object_type.js 1`] = `
+exports[`object_type.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -529,7 +529,7 @@ function test(obj: T) {
 ================================================================================
 `;
 
-exports[`react.js 1`] = `
+exports[`react.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -581,7 +581,7 @@ const Example = React.createClass({
 ================================================================================
 `;
 
-exports[`variance.js 1`] = `
+exports[`variance.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80

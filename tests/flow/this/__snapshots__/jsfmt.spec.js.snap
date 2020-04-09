@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`This.js 1`] = `
+exports[`This.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -138,7 +138,7 @@ module.exports = true;
 ================================================================================
 `;
 
-exports[`arrows.js 1`] = `
+exports[`arrows.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`class.js 1`] = `
+exports[`class.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -272,7 +272,7 @@ for (var x of examples.delegate_yield_iterable([])) {
 ================================================================================
 `;
 
-exports[`class_failure.js 1`] = `
+exports[`class_failure.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -326,7 +326,7 @@ if (typeof infer_stmt_next === "undefined") {
 ================================================================================
 `;
 
-exports[`generators.js 1`] = `
+exports[`generators.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -598,7 +598,7 @@ if (multiple_return_result.done) {
 ================================================================================
 `;
 
-exports[`refi.js 1`] = `
+exports[`refi.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -672,7 +672,7 @@ function* d(x: void | string): Generator<void, void, void> {
 ================================================================================
 `;
 
-exports[`return.js 1`] = `
+exports[`return.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -726,7 +726,7 @@ if (refuse_return_result.done) {
 ================================================================================
 `;
 
-exports[`throw.js 1`] = `
+exports[`throw.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -788,7 +788,7 @@ if (yield_return_value !== undefined) {
 ================================================================================
 `;
 
-exports[`variance.js 1`] = `
+exports[`variance.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

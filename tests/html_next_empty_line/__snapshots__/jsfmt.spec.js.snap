@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`standalone-end-marker.html 1`] = `
+exports[`standalone-end-marker.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80

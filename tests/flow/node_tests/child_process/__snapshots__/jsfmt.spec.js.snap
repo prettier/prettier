@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`exec.js 1`] = `
+exports[`exec.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -44,7 +44,7 @@ exec("ls", { maxBuffer: 100 }, function (error, stdout, stderr) {
 ================================================================================
 `;
 
-exports[`execFile.js 1`] = `
+exports[`execFile.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -110,7 +110,7 @@ execFile("ls", ["-l"], { timeout: 250 }, function (error, stdout, stderr) {
 ================================================================================
 `;
 
-exports[`execSync.js 1`] = `
+exports[`execSync.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -142,7 +142,7 @@ execSync("ls", { stdio: ["inherit"] }); // error, no signatures match
 ================================================================================
 `;
 
-exports[`spawn.js 1`] = `
+exports[`spawn.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`binaryish.js 1`] = `
+exports[`binaryish.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript", "babel"]
 printWidth: 80
@@ -58,7 +58,7 @@ function f() {
 ================================================================================
 `;
 
-exports[`comment.js 1`] = `
+exports[`comment.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript", "babel"]
 printWidth: 80
@@ -114,7 +114,7 @@ fn(function f() {
 ================================================================================
 `;
 
-exports[`jsx.js 1`] = `
+exports[`jsx.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript", "babel"]
 printWidth: 80

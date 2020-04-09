@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`expand.js 1`] = `
+exports[`expand.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -24,7 +24,7 @@ const Component2 = ({ props }) => <Text>Test</Text>;
 ================================================================================
 `;
 
-exports[`expression.js 1`] = `
+exports[`expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -85,7 +85,7 @@ const a3 = {
 ================================================================================
 `;
 
-exports[`method.js 1`] = `
+exports[`method.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -99,7 +99,7 @@ a = { f() {} };
 ================================================================================
 `;
 
-exports[`range.js 1`] = `
+exports[`range.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -137,7 +137,7 @@ group(
 ================================================================================
 `;
 
-exports[`right_break.js 1`] = `
+exports[`right_break.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`strings.js 1`] = `
+exports[`strings.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -62,7 +62,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`strings.js 2`] = `
+exports[`strings.js format 2`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -125,7 +125,7 @@ trailingComma: "all"
 ================================================================================
 `;
 
-exports[`template-literals.js 1`] = `
+exports[`template-literals.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -308,7 +308,7 @@ const Bar = styled.div\`
 ================================================================================
 `;
 
-exports[`template-literals.js 2`] = `
+exports[`template-literals.js format 2`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

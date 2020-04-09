@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`with-pragma.yml 1`] = `
+exports[`with-pragma.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -19,7 +19,7 @@ requirePragma: true
 ================================================================================
 `;
 
-exports[`without-pragma.yml 1`] = `
+exports[`without-pragma.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80

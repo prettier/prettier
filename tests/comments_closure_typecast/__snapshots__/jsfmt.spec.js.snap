@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`binary-expr.js 1`] = `
+exports[`binary-expr.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -15,7 +15,7 @@ var a = b || /** @type {string} */ (c);
 ================================================================================
 `;
 
-exports[`closure-compiler-type-cast.js 1`] = `
+exports[`closure-compiler-type-cast.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -149,7 +149,7 @@ const style2 = /**
 ================================================================================
 `;
 
-exports[`comment-in-the-middle.js 1`] = `
+exports[`comment-in-the-middle.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -183,7 +183,7 @@ console.log(a.foo());
 ================================================================================
 `;
 
-exports[`comment-placement.js 1`] = `
+exports[`comment-placement.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -228,7 +228,7 @@ const foo5 = /** @type {string} */ (value);
 ================================================================================
 `;
 
-exports[`extra-spaces-and-asterisks.js 1`] = `
+exports[`extra-spaces-and-asterisks.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -256,7 +256,7 @@ const foo8 = /** @type {!Foo}    ** *   *   */ (bar);
 ================================================================================
 `;
 
-exports[`iife.js 1`] = `
+exports[`iife.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -290,7 +290,7 @@ const helpers = /** @type {Helpers} */ (/** @param {Partial<Helpers>} helpers */
 ================================================================================
 `;
 
-exports[`issue-4124.js 1`] = `
+exports[`issue-4124.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -338,7 +338,7 @@ const test = /** @type (function (*): ?|undefined) */ (foo);
 ================================================================================
 `;
 
-exports[`member.js 1`] = `
+exports[`member.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -352,7 +352,7 @@ foo = /** @type {!Baz} */ (baz).bar;
 ================================================================================
 `;
 
-exports[`nested.js 1`] = `
+exports[`nested.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -380,7 +380,7 @@ const BarImpl = /** @type {BarConstructor} */ (
 ================================================================================
 `;
 
-exports[`non-casts.js 1`] = `
+exports[`non-casts.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -428,7 +428,7 @@ const w1 = /** @typefoo Foo */ value;
 ================================================================================
 `;
 
-exports[`object-with-comment.js 1`] = `
+exports[`object-with-comment.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -463,7 +463,7 @@ const objectWithComment2 = /** @type MyType */ (
 ================================================================================
 `;
 
-exports[`ways-to-specify-type.js 1`] = `
+exports[`ways-to-specify-type.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80

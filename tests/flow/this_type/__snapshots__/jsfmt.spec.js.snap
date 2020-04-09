@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`class_expr.js 1`] = `
+exports[`class_expr.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -28,7 +28,7 @@ const Thing = class Thing {
 ================================================================================
 `;
 
-exports[`contra.js 1`] = `
+exports[`contra.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -156,7 +156,7 @@ class Misc {
 ================================================================================
 `;
 
-exports[`export.js 1`] = `
+exports[`export.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -202,7 +202,7 @@ export class A3<X> extends A2<X> {}
 ================================================================================
 `;
 
-exports[`generics.js 1`] = `
+exports[`generics.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -237,7 +237,7 @@ class ImplicitNumber extends Implicit {
 ================================================================================
 `;
 
-exports[`import.js 1`] = `
+exports[`import.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -297,7 +297,7 @@ class B3<X> extends A3<X> {
 ================================================================================
 `;
 
-exports[`interface.js 1`] = `
+exports[`interface.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -335,7 +335,7 @@ function bar(c: C): J {
 ================================================================================
 `;
 
-exports[`lib_client.js 1`] = `
+exports[`lib_client.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -367,7 +367,7 @@ class C {
 ================================================================================
 `;
 
-exports[`self.js 1`] = `
+exports[`self.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -397,7 +397,7 @@ class A {
 ================================================================================
 `;
 
-exports[`statics.js 1`] = `
+exports[`statics.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -444,7 +444,7 @@ class B extends A {} // inherits statics method too, with \`this\` bound to the 
 ================================================================================
 `;
 
-exports[`test.js 1`] = `
+exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

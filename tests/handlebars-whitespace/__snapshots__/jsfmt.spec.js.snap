@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`basics.hbs 1`] = `
+exports[`basics.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 40
@@ -94,7 +94,7 @@ printWidth: 40
 ================================================================================
 `;
 
-exports[`boss.hbs 1`] = `
+exports[`boss.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 40
@@ -145,7 +145,7 @@ hey
 ================================================================================
 `;
 
-exports[`curly.hbs 1`] = `
+exports[`curly.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 40
@@ -163,7 +163,7 @@ printWidth: 40
 ================================================================================
 `;
 
-exports[`display-inline-block.hbs 1`] = `
+exports[`display-inline-block.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 40
@@ -209,7 +209,7 @@ Click here! Click here! Click here! Click here! Click here! Click here!
 ================================================================================
 `;
 
-exports[`display-none.hbs 1`] = `
+exports[`display-none.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 40
@@ -233,7 +233,7 @@ printWidth: 40
 ================================================================================
 `;
 
-exports[`fill.hbs 1`] = `
+exports[`fill.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 40
@@ -270,7 +270,7 @@ printWidth: 40
 ================================================================================
 `;
 
-exports[`inline-element.hbs 1`] = `
+exports[`inline-element.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 40
@@ -327,7 +327,7 @@ conubia nostra, per inceptos himenaeos. Donec in ornare velit.
 ================================================================================
 `;
 
-exports[`non-breaking-whitespace.hbs 1`] = `
+exports[`non-breaking-whitespace.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 40
@@ -356,7 +356,7 @@ printWidth: 40
 ================================================================================
 `;
 
-exports[`preserved-spaces-and-breaks.hbs 1`] = `
+exports[`preserved-spaces-and-breaks.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 40
@@ -448,7 +448,7 @@ sometimes{{nogaps
 ================================================================================
 `;
 
-exports[`punctuation.hbs 1`] = `
+exports[`punctuation.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 40
@@ -471,7 +471,7 @@ printWidth: 40
 ================================================================================
 `;
 
-exports[`surrounding-linebreak.hbs 1`] = `
+exports[`surrounding-linebreak.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 40
@@ -524,7 +524,7 @@ printWidth: 40
 ================================================================================
 `;
 
-exports[`table.hbs 1`] = `
+exports[`table.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 40
@@ -611,7 +611,7 @@ printWidth: 40
 ================================================================================
 `;
 
-exports[`whitespace-control.hbs 1`] = `
+exports[`whitespace-control.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 40

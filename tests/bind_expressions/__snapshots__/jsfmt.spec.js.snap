@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`await.js 1`] = `
+exports[`await.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -20,7 +20,7 @@ const doBothThings = async () => {
 ================================================================================
 `;
 
-exports[`await.js 2`] = `
+exports[`await.js format 2`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -41,7 +41,7 @@ const doBothThings = async () => {
 ================================================================================
 `;
 
-exports[`bind_parens.js 1`] = `
+exports[`bind_parens.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -121,7 +121,7 @@ f[a::b()];
 ================================================================================
 `;
 
-exports[`bind_parens.js 2`] = `
+exports[`bind_parens.js format 2`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -202,7 +202,7 @@ f[a::b()]
 ================================================================================
 `;
 
-exports[`long_name_method.js 1`] = `
+exports[`long_name_method.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -232,7 +232,7 @@ class X {
 ================================================================================
 `;
 
-exports[`long_name_method.js 2`] = `
+exports[`long_name_method.js format 2`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -263,7 +263,7 @@ class X {
 ================================================================================
 `;
 
-exports[`method_chain.js 1`] = `
+exports[`method_chain.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -309,7 +309,7 @@ function test(observable) {
 ================================================================================
 `;
 
-exports[`method_chain.js 2`] = `
+exports[`method_chain.js format 2`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -356,7 +356,7 @@ function test(observable) {
 ================================================================================
 `;
 
-exports[`short_name_method.js 1`] = `
+exports[`short_name_method.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -385,7 +385,7 @@ class X {
 ================================================================================
 `;
 
-exports[`short_name_method.js 2`] = `
+exports[`short_name_method.js format 2`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -415,7 +415,7 @@ class X {
 ================================================================================
 `;
 
-exports[`unary.js 1`] = `
+exports[`unary.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -455,7 +455,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`unary.js 2`] = `
+exports[`unary.js format 2`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80

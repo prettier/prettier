@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`intersection.js 1`] = `
+exports[`intersection.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

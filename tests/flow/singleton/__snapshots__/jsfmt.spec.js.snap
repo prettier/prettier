@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`boolean.js 1`] = `
+exports[`boolean.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -86,7 +86,7 @@ function alwaysFalsy(x: boolean): false {
 ================================================================================
 `;
 
-exports[`number.js 1`] = `
+exports[`number.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -143,7 +143,7 @@ sort((x, y) => -1);
 ================================================================================
 `;
 
-exports[`string.js 1`] = `
+exports[`string.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

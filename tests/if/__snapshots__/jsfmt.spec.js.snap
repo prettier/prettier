@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comment_before_else.js 1`] = `
+exports[`comment_before_else.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -38,7 +38,7 @@ else stuff;
 ================================================================================
 `;
 
-exports[`else.js 1`] = `
+exports[`else.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -87,7 +87,7 @@ function f() {
 ================================================================================
 `;
 
-exports[`if_comments.js 1`] = `
+exports[`if_comments.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -204,7 +204,7 @@ async function f5() {
 ================================================================================
 `;
 
-exports[`trailing_comment.js 1`] = `
+exports[`trailing_comment.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80

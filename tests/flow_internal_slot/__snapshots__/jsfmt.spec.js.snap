@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`internal_slot.js 1`] = `
+exports[`internal_slot.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80

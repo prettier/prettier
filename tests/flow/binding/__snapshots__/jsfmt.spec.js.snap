@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`const.js 1`] = `
+exports[`const.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -66,7 +66,7 @@ for (const { baz } of bazzes) {
 ================================================================================
 `;
 
-exports[`rebinding.js 1`] = `
+exports[`rebinding.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -472,7 +472,7 @@ function fn_params_clash_fn_binding(x, y) {
 ================================================================================
 `;
 
-exports[`scope.js 1`] = `
+exports[`scope.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -706,7 +706,7 @@ function default_param_2() {
 ================================================================================
 `;
 
-exports[`tdz.js 1`] = `
+exports[`tdz.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

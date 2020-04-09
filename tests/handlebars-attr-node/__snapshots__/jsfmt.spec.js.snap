@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`brackets.hbs 1`] = `
+exports[`brackets.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -19,7 +19,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`brackets.hbs 2`] = `
+exports[`brackets.hbs format 2`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80

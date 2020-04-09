@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`block-comment.json 1`] = `
+exports[`block-comment.json format 1`] = `
 ====================================options=====================================
 parsers: ["json"]
 printWidth: 80
@@ -14,7 +14,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`block-comment.json 2`] = `
+exports[`block-comment.json format 2`] = `
 ====================================options=====================================
 parsers: ["json"]
 printWidth: 80
@@ -29,7 +29,7 @@ trailingComma: "all"
 ================================================================================
 `;
 
-exports[`block-comment.json 3`] = `
+exports[`block-comment.json format 3`] = `
 ====================================options=====================================
 parsers: ["json5"]
 printWidth: 80
@@ -43,7 +43,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`block-comment.json 4`] = `
+exports[`block-comment.json format 4`] = `
 ====================================options=====================================
 parsers: ["json5"]
 printWidth: 80
@@ -58,7 +58,7 @@ trailingComma: "all"
 ================================================================================
 `;
 
-exports[`bottom-block-comment.json 1`] = `
+exports[`bottom-block-comment.json format 1`] = `
 ====================================options=====================================
 parsers: ["json"]
 printWidth: 80
@@ -72,7 +72,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`bottom-block-comment.json 2`] = `
+exports[`bottom-block-comment.json format 2`] = `
 ====================================options=====================================
 parsers: ["json"]
 printWidth: 80
@@ -87,7 +87,7 @@ trailingComma: "all"
 ================================================================================
 `;
 
-exports[`bottom-block-comment.json 3`] = `
+exports[`bottom-block-comment.json format 3`] = `
 ====================================options=====================================
 parsers: ["json5"]
 printWidth: 80
@@ -101,7 +101,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`bottom-block-comment.json 4`] = `
+exports[`bottom-block-comment.json format 4`] = `
 ====================================options=====================================
 parsers: ["json5"]
 printWidth: 80
@@ -116,7 +116,7 @@ trailingComma: "all"
 ================================================================================
 `;
 
-exports[`bottom-line-comment.json 1`] = `
+exports[`bottom-line-comment.json format 1`] = `
 ====================================options=====================================
 parsers: ["json"]
 printWidth: 80
@@ -130,7 +130,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`bottom-line-comment.json 2`] = `
+exports[`bottom-line-comment.json format 2`] = `
 ====================================options=====================================
 parsers: ["json"]
 printWidth: 80
@@ -145,7 +145,7 @@ trailingComma: "all"
 ================================================================================
 `;
 
-exports[`bottom-line-comment.json 3`] = `
+exports[`bottom-line-comment.json format 3`] = `
 ====================================options=====================================
 parsers: ["json5"]
 printWidth: 80
@@ -159,7 +159,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`bottom-line-comment.json 4`] = `
+exports[`bottom-line-comment.json format 4`] = `
 ====================================options=====================================
 parsers: ["json5"]
 printWidth: 80
@@ -174,7 +174,7 @@ trailingComma: "all"
 ================================================================================
 `;
 
-exports[`line-comment.json 1`] = `
+exports[`line-comment.json format 1`] = `
 ====================================options=====================================
 parsers: ["json"]
 printWidth: 80
@@ -194,7 +194,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`line-comment.json 2`] = `
+exports[`line-comment.json format 2`] = `
 ====================================options=====================================
 parsers: ["json"]
 printWidth: 80
@@ -215,7 +215,7 @@ trailingComma: "all"
 ================================================================================
 `;
 
-exports[`line-comment.json 3`] = `
+exports[`line-comment.json format 3`] = `
 ====================================options=====================================
 parsers: ["json5"]
 printWidth: 80
@@ -235,7 +235,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`line-comment.json 4`] = `
+exports[`line-comment.json format 4`] = `
 ====================================options=====================================
 parsers: ["json5"]
 printWidth: 80
@@ -256,7 +256,7 @@ trailingComma: "all"
 ================================================================================
 `;
 
-exports[`top-block-comment.json 1`] = `
+exports[`top-block-comment.json format 1`] = `
 ====================================options=====================================
 parsers: ["json"]
 printWidth: 80
@@ -274,7 +274,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`top-block-comment.json 2`] = `
+exports[`top-block-comment.json format 2`] = `
 ====================================options=====================================
 parsers: ["json"]
 printWidth: 80
@@ -293,7 +293,7 @@ trailingComma: "all"
 ================================================================================
 `;
 
-exports[`top-block-comment.json 3`] = `
+exports[`top-block-comment.json format 3`] = `
 ====================================options=====================================
 parsers: ["json5"]
 printWidth: 80
@@ -311,7 +311,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`top-block-comment.json 4`] = `
+exports[`top-block-comment.json format 4`] = `
 ====================================options=====================================
 parsers: ["json5"]
 printWidth: 80
@@ -330,7 +330,7 @@ trailingComma: "all"
 ================================================================================
 `;
 
-exports[`top-line-comment.json 1`] = `
+exports[`top-line-comment.json format 1`] = `
 ====================================options=====================================
 parsers: ["json"]
 printWidth: 80
@@ -352,7 +352,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`top-line-comment.json 2`] = `
+exports[`top-line-comment.json format 2`] = `
 ====================================options=====================================
 parsers: ["json"]
 printWidth: 80
@@ -375,7 +375,7 @@ trailingComma: "all"
 ================================================================================
 `;
 
-exports[`top-line-comment.json 3`] = `
+exports[`top-line-comment.json format 3`] = `
 ====================================options=====================================
 parsers: ["json5"]
 printWidth: 80
@@ -397,7 +397,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`top-line-comment.json 4`] = `
+exports[`top-line-comment.json format 4`] = `
 ====================================options=====================================
 parsers: ["json5"]
 printWidth: 80

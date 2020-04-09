@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`component.hbs 1`] = `
+exports[`component.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -74,7 +74,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`component.hbs 2`] = `
+exports[`component.hbs format 2`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -149,7 +149,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`literals.hbs 1`] = `
+exports[`literals.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -174,7 +174,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`literals.hbs 2`] = `
+exports[`literals.hbs format 2`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -200,7 +200,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`nested-path.hbs 1`] = `
+exports[`nested-path.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -231,7 +231,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`nested-path.hbs 2`] = `
+exports[`nested-path.hbs format 2`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -263,7 +263,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`raw.hbs 1`] = `
+exports[`raw.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -278,7 +278,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`raw.hbs 2`] = `
+exports[`raw.hbs format 2`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -294,7 +294,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`string-literals.hbs 1`] = `
+exports[`string-literals.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -317,7 +317,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`string-literals.hbs 2`] = `
+exports[`string-literals.hbs format 2`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`conditional.js 1`] = `
+exports[`conditional.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -20,7 +20,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`expand.js 1`] = `
+exports[`expand.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -113,7 +113,7 @@ window.FooClient.something
 ================================================================================
 `;
 
-exports[`logical.js 1`] = `
+exports[`logical.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80

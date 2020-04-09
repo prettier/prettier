@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`client.js 1`] = `
+exports[`client.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -18,7 +18,7 @@ var bar: string = ns.foo;
 ================================================================================
 `;
 
-exports[`namespace.js 1`] = `
+exports[`namespace.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

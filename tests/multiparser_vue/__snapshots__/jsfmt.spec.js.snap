@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`lang-jsx.vue 1`] = `
+exports[`lang-jsx.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -35,7 +35,7 @@ export default {
 ================================================================================
 `;
 
-exports[`lang-ts.vue 1`] = `
+exports[`lang-ts.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -70,7 +70,7 @@ export default {
 ================================================================================
 `;
 
-exports[`lang-tsx.vue 1`] = `
+exports[`lang-tsx.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -102,7 +102,7 @@ export default {
 ================================================================================
 `;
 
-exports[`template-bind.vue 1`] = `
+exports[`template-bind.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -133,7 +133,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`template-class.vue 1`] = `
+exports[`template-class.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -164,7 +164,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`vue-component.vue 1`] = `
+exports[`vue-component.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80

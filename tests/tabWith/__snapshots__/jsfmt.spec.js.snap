@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`class.js 1`] = `
+exports[`class.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -32,7 +32,7 @@ class A {
 ================================================================================
 `;
 
-exports[`class.js 2`] = `
+exports[`class.js format 2`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -65,7 +65,7 @@ class A {
 ================================================================================
 `;
 
-exports[`nested-functions.spec.js 1`] = `
+exports[`nested-functions.spec.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -99,7 +99,7 @@ function a() {
 ================================================================================
 `;
 
-exports[`nested-functions.spec.js 2`] = `
+exports[`nested-functions.spec.js format 2`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80

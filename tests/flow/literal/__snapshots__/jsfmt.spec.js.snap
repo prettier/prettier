@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`enum.js 1`] = `
+exports[`enum.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -24,7 +24,7 @@ module.exports = APIKeys;
 ================================================================================
 `;
 
-exports[`enum_client.js 1`] = `
+exports[`enum_client.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -78,7 +78,7 @@ var red: string = tuple[indices.red]; // error: tuple[0] is a number
 ================================================================================
 `;
 
-exports[`number.js 1`] = `
+exports[`number.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

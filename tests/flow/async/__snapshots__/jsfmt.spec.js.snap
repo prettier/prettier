@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`async.js 1`] = `
+exports[`async.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -124,7 +124,7 @@ var objf: () => Promise<number> = obj.f;
 ================================================================================
 `;
 
-exports[`async_base_class.js 1`] = `
+exports[`async_base_class.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -164,7 +164,7 @@ async function foo() {
 ================================================================================
 `;
 
-exports[`async_parse.js 1`] = `
+exports[`async_parse.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -224,7 +224,7 @@ var y = { async };
 ================================================================================
 `;
 
-exports[`async_promise.js 1`] = `
+exports[`async_promise.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -242,7 +242,7 @@ async function f(): Promise<number> {
 ================================================================================
 `;
 
-exports[`async_return_void.js 1`] = `
+exports[`async_return_void.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -282,7 +282,7 @@ async function foo3(): Promise<string> {
 ================================================================================
 `;
 
-exports[`async2.js 1`] = `
+exports[`async2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -416,7 +416,7 @@ function test5() {
 ================================================================================
 `;
 
-exports[`async3.js 1`] = `
+exports[`async3.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -491,7 +491,7 @@ async function baz() {
 ================================================================================
 `;
 
-exports[`await_parse.js 1`] = `
+exports[`await_parse.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

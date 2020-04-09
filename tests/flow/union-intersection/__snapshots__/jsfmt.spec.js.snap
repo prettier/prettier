@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`gen_big_disjoint_union.js 1`] = `
+exports[`gen_big_disjoint_union.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -8020,7 +8020,7 @@ function foo(x: TAction): TAction {
 ================================================================================
 `;
 
-exports[`test.js 1`] = `
+exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

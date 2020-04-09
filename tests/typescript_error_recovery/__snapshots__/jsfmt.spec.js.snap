@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`generic.ts 1`] = `
+exports[`generic.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -50,7 +50,7 @@ class f7<> {
 ================================================================================
 `;
 
-exports[`generic.ts 2`] = `
+exports[`generic.ts format 2`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -101,7 +101,7 @@ class f7<> {
 ================================================================================
 `;
 
-exports[`generic.ts 3`] = `
+exports[`generic.ts format 3`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -152,7 +152,7 @@ class f7<> {
 ================================================================================
 `;
 
-exports[`index-signature.ts 1`] = `
+exports[`index-signature.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -214,7 +214,7 @@ type TooLongSingleParam = {
 ================================================================================
 `;
 
-exports[`index-signature.ts 2`] = `
+exports[`index-signature.ts format 2`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -277,7 +277,7 @@ type TooLongSingleParam = {
 ================================================================================
 `;
 
-exports[`index-signature.ts 3`] = `
+exports[`index-signature.ts format 3`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -340,7 +340,7 @@ type TooLongSingleParam = {
 ================================================================================
 `;
 
-exports[`jsdoc_only_types.ts 1`] = `
+exports[`jsdoc_only_types.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -368,7 +368,7 @@ let h: !(string | number);
 ================================================================================
 `;
 
-exports[`jsdoc_only_types.ts 2`] = `
+exports[`jsdoc_only_types.ts format 2`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -397,7 +397,7 @@ let h: !(string | number);
 ================================================================================
 `;
 
-exports[`jsdoc_only_types.ts 3`] = `
+exports[`jsdoc_only_types.ts format 3`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

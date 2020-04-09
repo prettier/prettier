@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`with-parameters.yml 1`] = `
+exports[`with-parameters.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -16,7 +16,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`without-parameters.yml 1`] = `
+exports[`without-parameters.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80

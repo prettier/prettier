@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`exports_default.js 1`] = `
+exports[`exports_default.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -22,7 +22,7 @@ export default x;
 ================================================================================
 `;
 
-exports[`exports_named.js 1`] = `
+exports[`exports_named.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

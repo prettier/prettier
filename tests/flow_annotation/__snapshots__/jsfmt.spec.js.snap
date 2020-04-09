@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`array_of_functions.js 1`] = `
+exports[`array_of_functions.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80

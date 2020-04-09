@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comment.js 1`] = `
+exports[`comment.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -24,7 +24,7 @@ function foo() {
 ================================================================================
 `;
 
-exports[`long-value.js 1`] = `
+exports[`long-value.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -43,7 +43,7 @@ const x = {
 ================================================================================
 `;
 
-exports[`test.js 1`] = `
+exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80

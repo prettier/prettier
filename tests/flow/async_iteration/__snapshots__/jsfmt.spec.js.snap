@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`delegate_yield.js 1`] = `
+exports[`delegate_yield.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -64,7 +64,7 @@ async function* delegate_return() {
 ================================================================================
 `;
 
-exports[`generator.js 1`] = `
+exports[`generator.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -126,7 +126,7 @@ async function f() {
 ================================================================================
 `;
 
-exports[`return.js 1`] = `
+exports[`return.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -184,7 +184,7 @@ refuse_return()
 ================================================================================
 `;
 
-exports[`throw.js 1`] = `
+exports[`throw.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80

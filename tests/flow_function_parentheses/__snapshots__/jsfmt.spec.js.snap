@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`single.js 1`] = `
+exports[`single.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -24,7 +24,7 @@ const selectorByPath: (Path) => SomethingSelector<
 ================================================================================
 `;
 
-exports[`single.js 2`] = `
+exports[`single.js format 2`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -49,7 +49,7 @@ const selectorByPath: (Path) => SomethingSelector<
 ================================================================================
 `;
 
-exports[`single.js 3`] = `
+exports[`single.js format 3`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["flow", "babel"]
@@ -74,7 +74,7 @@ const selectorByPath: Path => SomethingSelector<
 ================================================================================
 `;
 
-exports[`test.js 1`] = `
+exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -210,7 +210,7 @@ type T8 = ??(() => A) | B;
 ================================================================================
 `;
 
-exports[`test.js 2`] = `
+exports[`test.js format 2`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -347,7 +347,7 @@ type T8 = ??(() => A) | B;
 ================================================================================
 `;
 
-exports[`test.js 3`] = `
+exports[`test.js format 3`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["flow", "babel"]

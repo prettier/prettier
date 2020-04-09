@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`as.ts 1`] = `
+exports[`as.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -115,7 +115,7 @@ const iter2 = createIterator(
 ================================================================================
 `;
 
-exports[`export_default_as.ts 1`] = `
+exports[`export_default_as.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

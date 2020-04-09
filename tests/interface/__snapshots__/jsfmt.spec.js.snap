@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`break.js 1`] = `
+exports[`break.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -180,7 +180,7 @@ export interface ExtendsLongOneWithGenerics
 ================================================================================
 `;
 
-exports[`module.js 1`] = `
+exports[`module.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80

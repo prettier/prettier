@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`jsx-comment.md 1`] = `
+exports[`jsx-comment.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -37,7 +37,7 @@ const Foo = () => {
 ================================================================================
 `;
 
-exports[`markdown-preview-enhanced.md 1`] = `
+exports[`markdown-preview-enhanced.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -84,7 +84,7 @@ console.log("hello world");
 ================================================================================
 `;
 
-exports[`trailing-comma.md 1`] = `
+exports[`trailing-comma.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`case.css 1`] = `
+exports[`case.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -137,7 +137,7 @@ x-panel {
 ================================================================================
 `;
 
-exports[`case.less 1`] = `
+exports[`case.less format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -459,7 +459,7 @@ TABLE {
 ================================================================================
 `;
 
-exports[`case.scss 1`] = `
+exports[`case.scss format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -776,7 +776,7 @@ TABLE {
 ================================================================================
 `;
 
-exports[`custom-selectors.css 1`] = `
+exports[`custom-selectors.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80

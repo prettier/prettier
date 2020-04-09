@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`binary.js 1`] = `
+exports[`binary.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -20,7 +20,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`break.js 1`] = `
+exports[`break.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -105,7 +105,7 @@ export class VisTimelineComponent2
 ================================================================================
 `;
 
-exports[`call.js 1`] = `
+exports[`call.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -119,7 +119,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`empty.js 1`] = `
+exports[`empty.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -157,7 +157,7 @@ class A4 {
 ================================================================================
 `;
 
-exports[`member.js 1`] = `
+exports[`member.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -173,7 +173,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`method.js 1`] = `
+exports[`method.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -203,7 +203,7 @@ class C {
 ================================================================================
 `;
 
-exports[`new.js 1`] = `
+exports[`new.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -219,7 +219,7 @@ new Ctor(class {});
 ================================================================================
 `;
 
-exports[`property.js 1`] = `
+exports[`property.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -267,7 +267,7 @@ class B {
 ================================================================================
 `;
 
-exports[`ternary.js 1`] = `
+exports[`ternary.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80

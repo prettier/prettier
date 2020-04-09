@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`interface.graphql 1`] = `
+exports[`interface.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
 printWidth: 80
@@ -20,7 +20,7 @@ interface Actor {
 ================================================================================
 `;
 
-exports[`object_type_def.graphql 1`] = `
+exports[`object_type_def.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
 printWidth: 80
@@ -75,7 +75,7 @@ type Artist implements Node & Entity {
 ================================================================================
 `;
 
-exports[`object_type_def_mixed_syntax.graphql 1`] = `
+exports[`object_type_def_mixed_syntax.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
 printWidth: 80
@@ -130,7 +130,7 @@ type MixedArtist implements Node, Entity & Releasable {
 ================================================================================
 `;
 
-exports[`object_type_def_old_syntax.graphql 1`] = `
+exports[`object_type_def_old_syntax.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
 printWidth: 80
@@ -185,7 +185,7 @@ type OldArtist implements Node, Entity {
 ================================================================================
 `;
 
-exports[`separator-detection.graphql 1`] = `
+exports[`separator-detection.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
 printWidth: 80

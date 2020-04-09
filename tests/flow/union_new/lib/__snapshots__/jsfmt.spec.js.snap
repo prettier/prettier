@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test23_lib.js 1`] = `
+exports[`test23_lib.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -14,7 +14,7 @@ declare class SomeLibClass {}
 ================================================================================
 `;
 
-exports[`test25_lib.js 1`] = `
+exports[`test25_lib.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -68,7 +68,7 @@ declare class Rows {
 ================================================================================
 `;
 
-exports[`test32_lib.js 1`] = `
+exports[`test32_lib.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

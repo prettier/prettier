@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`class-method.ts 1`] = `
+exports[`class-method.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -286,7 +286,7 @@ const appIDs = createSelector(
 ================================================================================
 `;
 
-exports[`long-function-arg.ts 1`] = `
+exports[`long-function-arg.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -328,7 +328,7 @@ export const forwardS1 = R.curry(
 ================================================================================
 `;
 
-exports[`tagged-template-expression.ts 1`] = `
+exports[`tagged-template-expression.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

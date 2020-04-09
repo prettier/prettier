@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`annot.js 1`] = `
+exports[`annot.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -36,7 +36,7 @@ function bar(): A<*> {
 ================================================================================
 `;
 
-exports[`implicit_bounded_instantiation.js 1`] = `
+exports[`implicit_bounded_instantiation.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -88,7 +88,7 @@ a.meth(new Base()); // Error: Base ~> Middle
 ================================================================================
 `;
 
-exports[`issue-1029.js 1`] = `
+exports[`issue-1029.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -136,7 +136,7 @@ unbox(bool);
 ================================================================================
 `;
 
-exports[`poly.js 1`] = `
+exports[`poly.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -188,7 +188,7 @@ var z: Foo<number> = Q.bar(foo, "");
 ================================================================================
 `;
 
-exports[`test.js 1`] = `
+exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

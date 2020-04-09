@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`with-pragma.html 1`] = `
+exports[`with-pragma.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -20,7 +20,7 @@ requirePragma: true
 ================================================================================
 `;
 
-exports[`without-pragma.html 1`] = `
+exports[`without-pragma.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80

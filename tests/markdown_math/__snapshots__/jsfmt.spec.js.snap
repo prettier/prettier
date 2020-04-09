@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`dollar-sign.md 1`] = `
+exports[`dollar-sign.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -26,7 +26,7 @@ $
 ================================================================================
 `;
 
-exports[`empty-block.md 1`] = `
+exports[`empty-block.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -42,7 +42,7 @@ $$
 ================================================================================
 `;
 
-exports[`math-like.md 1`] = `
+exports[`math-like.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -56,7 +56,7 @@ $10 - $20
 ================================================================================
 `;
 
-exports[`remark-math.md 1`] = `
+exports[`remark-math.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80

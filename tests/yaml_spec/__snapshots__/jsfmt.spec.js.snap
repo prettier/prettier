@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`aliases-in-block-sequence.yml 1`] = `
+exports[`aliases-in-block-sequence.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -21,7 +21,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`aliases-in-block-sequence.yml 2`] = `
+exports[`aliases-in-block-sequence.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -42,7 +42,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`aliases-in-explicit-block-mapping.yml 1`] = `
+exports[`aliases-in-explicit-block-mapping.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -60,7 +60,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`aliases-in-explicit-block-mapping.yml 2`] = `
+exports[`aliases-in-explicit-block-mapping.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -78,7 +78,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`allowed-characters-in-alias.yml 1`] = `
+exports[`allowed-characters-in-alias.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -95,7 +95,7 @@ b: *:@*!$"<foo>:
 ================================================================================
 `;
 
-exports[`allowed-characters-in-alias.yml 2`] = `
+exports[`allowed-characters-in-alias.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -112,7 +112,7 @@ b: *:@*!$"<foo>:
 ================================================================================
 `;
 
-exports[`allowed-characters-in-keys.yml 1`] = `
+exports[`allowed-characters-in-keys.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -135,7 +135,7 @@ this is#not: a comment
 ================================================================================
 `;
 
-exports[`allowed-characters-in-keys.yml 2`] = `
+exports[`allowed-characters-in-keys.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -158,7 +158,7 @@ this is#not: a comment
 ================================================================================
 `;
 
-exports[`allowed-characters-in-plain-scalars.yml 1`] = `
+exports[`allowed-characters-in-plain-scalars.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -181,7 +181,7 @@ safe dash: -foo
 ================================================================================
 `;
 
-exports[`allowed-characters-in-plain-scalars.yml 2`] = `
+exports[`allowed-characters-in-plain-scalars.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -204,7 +204,7 @@ safe dash: -foo
 ================================================================================
 `;
 
-exports[`allowed-characters-in-quoted-mapping-key.yml 1`] = `
+exports[`allowed-characters-in-quoted-mapping-key.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -221,7 +221,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`allowed-characters-in-quoted-mapping-key.yml 2`] = `
+exports[`allowed-characters-in-quoted-mapping-key.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -238,7 +238,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`anchor-before-zero-indented-sequence.yml 1`] = `
+exports[`anchor-before-zero-indented-sequence.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -260,7 +260,7 @@ seq: &anchor
 ================================================================================
 `;
 
-exports[`anchor-before-zero-indented-sequence.yml 2`] = `
+exports[`anchor-before-zero-indented-sequence.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -282,7 +282,7 @@ seq: &anchor
 ================================================================================
 `;
 
-exports[`anchor-with-unicode-character.yml 1`] = `
+exports[`anchor-with-unicode-character.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -299,7 +299,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`anchor-with-unicode-character.yml 2`] = `
+exports[`anchor-with-unicode-character.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -316,7 +316,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`anchors-and-tags.yml 1`] = `
+exports[`anchors-and-tags.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -337,7 +337,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`anchors-and-tags.yml 2`] = `
+exports[`anchors-and-tags.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -358,7 +358,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`anchors-in-mapping.yml 1`] = `
+exports[`anchors-in-mapping.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -375,7 +375,7 @@ c: &d d
 ================================================================================
 `;
 
-exports[`anchors-in-mapping.yml 2`] = `
+exports[`anchors-in-mapping.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -392,7 +392,7 @@ c: &d d
 ================================================================================
 `;
 
-exports[`anchors-with-colon-in-name.yml 1`] = `
+exports[`anchors-with-colon-in-name.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -410,7 +410,7 @@ foo: *a:
 ================================================================================
 `;
 
-exports[`anchors-with-colon-in-name.yml 2`] = `
+exports[`anchors-with-colon-in-name.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -428,7 +428,7 @@ foo: *a:
 ================================================================================
 `;
 
-exports[`backslashes-in-singlequotes.yml 1`] = `
+exports[`backslashes-in-singlequotes.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -443,7 +443,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`backslashes-in-singlequotes.yml 2`] = `
+exports[`backslashes-in-singlequotes.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -458,7 +458,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`bare-document-after-document-end-marker.yml 1`] = `
+exports[`bare-document-after-document-end-marker.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -479,7 +479,7 @@ key: value
 ================================================================================
 `;
 
-exports[`bare-document-after-document-end-marker.yml 2`] = `
+exports[`bare-document-after-document-end-marker.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -500,7 +500,7 @@ key: value
 ================================================================================
 `;
 
-exports[`blank-lines.yml 1`] = `
+exports[`blank-lines.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -537,7 +537,7 @@ text: |
 ================================================================================
 `;
 
-exports[`blank-lines.yml 2`] = `
+exports[`blank-lines.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -574,7 +574,7 @@ text: |
 ================================================================================
 `;
 
-exports[`block-mapping-with-missing-values.yml 1`] = `
+exports[`block-mapping-with-missing-values.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -593,7 +593,7 @@ c:
 ================================================================================
 `;
 
-exports[`block-mapping-with-missing-values.yml 2`] = `
+exports[`block-mapping-with-missing-values.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -612,7 +612,7 @@ c:
 ================================================================================
 `;
 
-exports[`block-mapping-with-multiline-scalars.yml 1`] = `
+exports[`block-mapping-with-multiline-scalars.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -637,7 +637,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`block-mapping-with-multiline-scalars.yml 2`] = `
+exports[`block-mapping-with-multiline-scalars.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -658,7 +658,7 @@ a true: null d
 ================================================================================
 `;
 
-exports[`block-mappings-in-block-sequence.yml 1`] = `
+exports[`block-mappings-in-block-sequence.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -678,7 +678,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`block-mappings-in-block-sequence.yml 2`] = `
+exports[`block-mappings-in-block-sequence.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -698,7 +698,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`block-scalar-indicator-order.yml 1`] = `
+exports[`block-scalar-indicator-order.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -719,7 +719,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`block-scalar-indicator-order.yml 2`] = `
+exports[`block-scalar-indicator-order.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -740,7 +740,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`block-scalar-keep.yml 1`] = `
+exports[`block-scalar-keep.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -763,7 +763,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`block-scalar-keep.yml 2`] = `
+exports[`block-scalar-keep.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -786,7 +786,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`block-scalar-strip.yml 1`] = `
+exports[`block-scalar-strip.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -806,7 +806,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`block-scalar-strip.yml 2`] = `
+exports[`block-scalar-strip.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -826,7 +826,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`block-scalar-with-spaces-only.yml 1`] = `
+exports[`block-scalar-with-spaces-only.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -847,7 +847,7 @@ empty block scalar: >
 ================================================================================
 `;
 
-exports[`block-scalar-with-spaces-only.yml 2`] = `
+exports[`block-scalar-with-spaces-only.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -868,7 +868,7 @@ empty block scalar: >
 ================================================================================
 `;
 
-exports[`block-sequence-in-block-mapping.yml 1`] = `
+exports[`block-sequence-in-block-mapping.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -887,7 +887,7 @@ key:
 ================================================================================
 `;
 
-exports[`block-sequence-in-block-mapping.yml 2`] = `
+exports[`block-sequence-in-block-mapping.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -906,7 +906,7 @@ key:
 ================================================================================
 `;
 
-exports[`block-sequence-in-block-sequence.yml 1`] = `
+exports[`block-sequence-in-block-sequence.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -925,7 +925,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`block-sequence-in-block-sequence.yml 2`] = `
+exports[`block-sequence-in-block-sequence.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -944,7 +944,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`block-submapping.yml 1`] = `
+exports[`block-submapping.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -963,7 +963,7 @@ baz: 2
 ================================================================================
 `;
 
-exports[`block-submapping.yml 2`] = `
+exports[`block-submapping.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -982,7 +982,7 @@ baz: 2
 ================================================================================
 `;
 
-exports[`colon-in-double-quoted-string.yml 1`] = `
+exports[`colon-in-double-quoted-string.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -997,7 +997,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`colon-in-double-quoted-string.yml 2`] = `
+exports[`colon-in-double-quoted-string.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -1012,7 +1012,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`comment-in-flow-sequence-before-comma.yml 1`] = `
+exports[`comment-in-flow-sequence-before-comma.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -1035,7 +1035,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`comment-in-flow-sequence-before-comma.yml 2`] = `
+exports[`comment-in-flow-sequence-before-comma.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -1058,7 +1058,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`construct-binary.yml 1`] = `
+exports[`construct-binary.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -1094,7 +1094,7 @@ description: The binary value above is a tiny arrow encoded as a gif image.
 ================================================================================
 `;
 
-exports[`construct-binary.yml 2`] = `
+exports[`construct-binary.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -1130,7 +1130,7 @@ description: The binary value above is a tiny arrow encoded as a gif image.
 ================================================================================
 `;
 
-exports[`document-start-on-last-line.yml 1`] = `
+exports[`document-start-on-last-line.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -1150,7 +1150,7 @@ a: b
 ================================================================================
 `;
 
-exports[`document-start-on-last-line.yml 2`] = `
+exports[`document-start-on-last-line.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -1170,7 +1170,7 @@ a: b
 ================================================================================
 `;
 
-exports[`document-with-footer.yml 1`] = `
+exports[`document-with-footer.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -1186,7 +1186,7 @@ aaa: bbb
 ================================================================================
 `;
 
-exports[`document-with-footer.yml 2`] = `
+exports[`document-with-footer.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -1202,7 +1202,7 @@ aaa: bbb
 ================================================================================
 `;
 
-exports[`empty-lines-at-end-of-document.yml 1`] = `
+exports[`empty-lines-at-end-of-document.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -1220,7 +1220,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`empty-lines-at-end-of-document.yml 2`] = `
+exports[`empty-lines-at-end-of-document.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -1238,7 +1238,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`empty-lines-between-mapping-elements.yml 1`] = `
+exports[`empty-lines-between-mapping-elements.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -1258,7 +1258,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`empty-lines-between-mapping-elements.yml 2`] = `
+exports[`empty-lines-between-mapping-elements.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -1278,7 +1278,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`empty-stream.yml 1`] = `
+exports[`empty-stream.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -1291,7 +1291,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`empty-stream.yml 2`] = `
+exports[`empty-stream.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -1304,7 +1304,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`escaped-slash-in-double-quotes.yml 1`] = `
+exports[`escaped-slash-in-double-quotes.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -1319,7 +1319,7 @@ escaped slash: "a\\/b"
 ================================================================================
 `;
 
-exports[`escaped-slash-in-double-quotes.yml 2`] = `
+exports[`escaped-slash-in-double-quotes.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -1334,7 +1334,7 @@ escaped slash: "a\\/b"
 ================================================================================
 `;
 
-exports[`explicit-non-specific-tag.yml 1`] = `
+exports[`explicit-non-specific-tag.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -1349,7 +1349,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`explicit-non-specific-tag.yml 2`] = `
+exports[`explicit-non-specific-tag.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -1364,7 +1364,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`flow-mapping.yml 1`] = `
+exports[`flow-mapping.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -1379,7 +1379,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`flow-mapping.yml 2`] = `
+exports[`flow-mapping.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -1394,7 +1394,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`flow-mapping-in-block-sequence.yml 1`] = `
+exports[`flow-mapping-in-block-sequence.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -1409,7 +1409,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`flow-mapping-in-block-sequence.yml 2`] = `
+exports[`flow-mapping-in-block-sequence.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -1424,7 +1424,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`flow-sequence.yml 1`] = `
+exports[`flow-sequence.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -1439,7 +1439,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`flow-sequence.yml 2`] = `
+exports[`flow-sequence.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -1454,7 +1454,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`flow-sequence-in-block-mapping.yml 1`] = `
+exports[`flow-sequence-in-block-mapping.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -1469,7 +1469,7 @@ a: [b, c]
 ================================================================================
 `;
 
-exports[`flow-sequence-in-block-mapping.yml 2`] = `
+exports[`flow-sequence-in-block-mapping.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -1484,7 +1484,7 @@ a: [b, c]
 ================================================================================
 `;
 
-exports[`flow-sequence-in-flow-mapping.yml 1`] = `
+exports[`flow-sequence-in-flow-mapping.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -1499,7 +1499,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`flow-sequence-in-flow-mapping.yml 2`] = `
+exports[`flow-sequence-in-flow-mapping.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -1514,7 +1514,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`flow-sequence-in-flow-sequence.yml 1`] = `
+exports[`flow-sequence-in-flow-sequence.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -1529,7 +1529,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`flow-sequence-in-flow-sequence.yml 2`] = `
+exports[`flow-sequence-in-flow-sequence.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -1544,7 +1544,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`folded-block-scalar.yml 1`] = `
+exports[`folded-block-scalar.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -1573,7 +1573,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`folded-block-scalar.yml 2`] = `
+exports[`folded-block-scalar.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -1601,7 +1601,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`implicit-flow-mapping-key-on-one-line.yml 1`] = `
+exports[`implicit-flow-mapping-key-on-one-line.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -1616,7 +1616,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`implicit-flow-mapping-key-on-one-line.yml 2`] = `
+exports[`implicit-flow-mapping-key-on-one-line.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -1631,7 +1631,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`key-with-anchor-after-missing-explicit-mapping-value.yml 1`] = `
+exports[`key-with-anchor-after-missing-explicit-mapping-value.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -1652,7 +1652,7 @@ b:
 ================================================================================
 `;
 
-exports[`key-with-anchor-after-missing-explicit-mapping-value.yml 2`] = `
+exports[`key-with-anchor-after-missing-explicit-mapping-value.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -1673,7 +1673,7 @@ b:
 ================================================================================
 `;
 
-exports[`literal-block-scalar.yml 1`] = `
+exports[`literal-block-scalar.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -1699,7 +1699,7 @@ a: |
 ================================================================================
 `;
 
-exports[`literal-block-scalar.yml 2`] = `
+exports[`literal-block-scalar.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -1725,7 +1725,7 @@ a: |
 ================================================================================
 `;
 
-exports[`literal-unicode.yml 1`] = `
+exports[`literal-unicode.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -1742,7 +1742,7 @@ wanted: love ♥ and peace ☮
 ================================================================================
 `;
 
-exports[`literal-unicode.yml 2`] = `
+exports[`literal-unicode.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -1759,7 +1759,7 @@ wanted: love ♥ and peace ☮
 ================================================================================
 `;
 
-exports[`lookahead-test-cases.yml 1`] = `
+exports[`lookahead-test-cases.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -1776,7 +1776,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`lookahead-test-cases.yml 2`] = `
+exports[`lookahead-test-cases.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -1793,7 +1793,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`mapping-key-and-flow-sequence-item-anchors.yml 1`] = `
+exports[`mapping-key-and-flow-sequence-item-anchors.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -1812,7 +1812,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`mapping-key-and-flow-sequence-item-anchors.yml 2`] = `
+exports[`mapping-key-and-flow-sequence-item-anchors.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -1831,7 +1831,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`mixed-block-mapping-explicit-to-implicit.yml 1`] = `
+exports[`mixed-block-mapping-explicit-to-implicit.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -1849,7 +1849,7 @@ a: 13
 ================================================================================
 `;
 
-exports[`mixed-block-mapping-explicit-to-implicit.yml 2`] = `
+exports[`mixed-block-mapping-explicit-to-implicit.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -1867,7 +1867,7 @@ a: 13
 ================================================================================
 `;
 
-exports[`mixed-block-mapping-implicit-to-explicit.yml 1`] = `
+exports[`mixed-block-mapping-implicit-to-explicit.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -1885,7 +1885,7 @@ a: 4.2
 ================================================================================
 `;
 
-exports[`mixed-block-mapping-implicit-to-explicit.yml 2`] = `
+exports[`mixed-block-mapping-implicit-to-explicit.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -1903,7 +1903,7 @@ a: 4.2
 ================================================================================
 `;
 
-exports[`multi-level-mapping-indent.yml 1`] = `
+exports[`multi-level-mapping-indent.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -1928,7 +1928,7 @@ h: i
 ================================================================================
 `;
 
-exports[`multi-level-mapping-indent.yml 2`] = `
+exports[`multi-level-mapping-indent.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -1953,7 +1953,7 @@ h: i
 ================================================================================
 `;
 
-exports[`multiline-plain-scalar-with-empty-line.yml 1`] = `
+exports[`multiline-plain-scalar-with-empty-line.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -1976,7 +1976,7 @@ plain: a
 ================================================================================
 `;
 
-exports[`multiline-plain-scalar-with-empty-line.yml 2`] = `
+exports[`multiline-plain-scalar-with-empty-line.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -1998,7 +1998,7 @@ plain: a b
 ================================================================================
 `;
 
-exports[`multiline-scalar-at-top-level.yml 1`] = `
+exports[`multiline-scalar-at-top-level.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -2023,7 +2023,7 @@ e
 ================================================================================
 `;
 
-exports[`multiline-scalar-at-top-level.yml 2`] = `
+exports[`multiline-scalar-at-top-level.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -2045,7 +2045,7 @@ e
 ================================================================================
 `;
 
-exports[`multiline-scalar-in-mapping.yml 1`] = `
+exports[`multiline-scalar-in-mapping.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -2067,7 +2067,7 @@ d: e
 ================================================================================
 `;
 
-exports[`multiline-scalar-in-mapping.yml 2`] = `
+exports[`multiline-scalar-in-mapping.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -2087,7 +2087,7 @@ d: e f
 ================================================================================
 `;
 
-exports[`multiline-scalar-that-looks-like-a-yaml-directive.yml 1`] = `
+exports[`multiline-scalar-that-looks-like-a-yaml-directive.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -2106,7 +2106,7 @@ scalar
 ================================================================================
 `;
 
-exports[`multiline-scalar-that-looks-like-a-yaml-directive.yml 2`] = `
+exports[`multiline-scalar-that-looks-like-a-yaml-directive.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -2124,7 +2124,7 @@ scalar %YAML 1.2
 ================================================================================
 `;
 
-exports[`multiple-entry-block-sequence.yml 1`] = `
+exports[`multiple-entry-block-sequence.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -2143,7 +2143,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`multiple-entry-block-sequence.yml 2`] = `
+exports[`multiple-entry-block-sequence.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -2162,7 +2162,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`multiple-pair-block-mapping.yml 1`] = `
+exports[`multiple-pair-block-mapping.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -2181,7 +2181,7 @@ baz: jazz
 ================================================================================
 `;
 
-exports[`multiple-pair-block-mapping.yml 2`] = `
+exports[`multiple-pair-block-mapping.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -2200,7 +2200,7 @@ baz: jazz
 ================================================================================
 `;
 
-exports[`nested-flow-collections.yml 1`] = `
+exports[`nested-flow-collections.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -2223,7 +2223,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`nested-flow-collections.yml 2`] = `
+exports[`nested-flow-collections.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -2246,7 +2246,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`nested-flow-collections-on-one-line.yml 1`] = `
+exports[`nested-flow-collections-on-one-line.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -2263,7 +2263,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`nested-flow-collections-on-one-line.yml 2`] = `
+exports[`nested-flow-collections-on-one-line.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -2280,7 +2280,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`node-anchor-and-tag-on-seperate-lines.yml 1`] = `
+exports[`node-anchor-and-tag-on-seperate-lines.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -2298,7 +2298,7 @@ key: !!map &anchor
 ================================================================================
 `;
 
-exports[`node-anchor-and-tag-on-seperate-lines.yml 2`] = `
+exports[`node-anchor-and-tag-on-seperate-lines.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -2316,7 +2316,7 @@ key: !!map &anchor
 ================================================================================
 `;
 
-exports[`node-and-mapping-key-anchors.yml 1`] = `
+exports[`node-and-mapping-key-anchors.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -2359,7 +2359,7 @@ top7: &val7 seven
 ================================================================================
 `;
 
-exports[`node-and-mapping-key-anchors.yml 2`] = `
+exports[`node-and-mapping-key-anchors.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -2402,7 +2402,7 @@ top7: &val7 seven
 ================================================================================
 `;
 
-exports[`non-specific-tags-on-scalars.yml 1`] = `
+exports[`non-specific-tags-on-scalars.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -2427,7 +2427,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`non-specific-tags-on-scalars.yml 2`] = `
+exports[`non-specific-tags-on-scalars.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -2452,7 +2452,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`plain-mapping-key-ending-with-colon.yml 1`] = `
+exports[`plain-mapping-key-ending-with-colon.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -2469,7 +2469,7 @@ key ends with two colons::: value
 ================================================================================
 `;
 
-exports[`plain-mapping-key-ending-with-colon.yml 2`] = `
+exports[`plain-mapping-key-ending-with-colon.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -2486,7 +2486,7 @@ key ends with two colons::: value
 ================================================================================
 `;
 
-exports[`plain-scalar-looking-like-key-comment-anchor-and-tag.yml 1`] = `
+exports[`plain-scalar-looking-like-key-comment-anchor-and-tag.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -2503,7 +2503,7 @@ k:#foo
 ================================================================================
 `;
 
-exports[`plain-scalar-looking-like-key-comment-anchor-and-tag.yml 2`] = `
+exports[`plain-scalar-looking-like-key-comment-anchor-and-tag.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -2519,7 +2519,7 @@ k:#foo &a !t s
 ================================================================================
 `;
 
-exports[`plain-scalar-with-backslashes.yml 1`] = `
+exports[`plain-scalar-with-backslashes.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -2536,7 +2536,7 @@ plain\\value\\with\\backslashes
 ================================================================================
 `;
 
-exports[`plain-scalar-with-backslashes.yml 2`] = `
+exports[`plain-scalar-with-backslashes.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -2553,7 +2553,7 @@ plain\\value\\with\\backslashes
 ================================================================================
 `;
 
-exports[`plain-url-in-flow-mapping.yml 1`] = `
+exports[`plain-url-in-flow-mapping.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -2568,7 +2568,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`plain-url-in-flow-mapping.yml 2`] = `
+exports[`plain-url-in-flow-mapping.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -2583,7 +2583,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`scalars-on-line.yml 1`] = `
+exports[`scalars-on-line.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -2604,7 +2604,7 @@ string"
 ================================================================================
 `;
 
-exports[`scalars-on-line.yml 2`] = `
+exports[`scalars-on-line.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -2624,7 +2624,7 @@ string"
 ================================================================================
 `;
 
-exports[`sequence-entry-that-looks-like-two-with-wrong-indentation.yml 1`] = `
+exports[`sequence-entry-that-looks-like-two-with-wrong-indentation.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -2641,7 +2641,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`sequence-entry-that-looks-like-two-with-wrong-indentation.yml 2`] = `
+exports[`sequence-entry-that-looks-like-two-with-wrong-indentation.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -2657,7 +2657,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`sequence-indent.yml 1`] = `
+exports[`sequence-indent.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -2678,7 +2678,7 @@ bar:
 ================================================================================
 `;
 
-exports[`sequence-indent.yml 2`] = `
+exports[`sequence-indent.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -2699,7 +2699,7 @@ bar:
 ================================================================================
 `;
 
-exports[`sequence-with-same-indentation-as-parent-mapping.yml 1`] = `
+exports[`sequence-with-same-indentation-as-parent-mapping.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -2720,7 +2720,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`sequence-with-same-indentation-as-parent-mapping.yml 2`] = `
+exports[`sequence-with-same-indentation-as-parent-mapping.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -2741,7 +2741,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`simple-mapping-indent.yml 1`] = `
+exports[`simple-mapping-indent.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -2758,7 +2758,7 @@ foo:
 ================================================================================
 `;
 
-exports[`simple-mapping-indent.yml 2`] = `
+exports[`simple-mapping-indent.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -2775,7 +2775,7 @@ foo:
 ================================================================================
 `;
 
-exports[`single-entry-block-sequence.yml 1`] = `
+exports[`single-entry-block-sequence.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -2790,7 +2790,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`single-entry-block-sequence.yml 2`] = `
+exports[`single-entry-block-sequence.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -2805,7 +2805,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`single-pair-block-mapping.yml 1`] = `
+exports[`single-pair-block-mapping.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -2820,7 +2820,7 @@ foo: bar
 ================================================================================
 `;
 
-exports[`single-pair-block-mapping.yml 2`] = `
+exports[`single-pair-block-mapping.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -2835,7 +2835,7 @@ foo: bar
 ================================================================================
 `;
 
-exports[`spec-example-2-1-sequence-of-scalars.yml 1`] = `
+exports[`spec-example-2-1-sequence-of-scalars.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -2854,7 +2854,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`spec-example-2-1-sequence-of-scalars.yml 2`] = `
+exports[`spec-example-2-1-sequence-of-scalars.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -2873,7 +2873,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`spec-example-2-2-mapping-scalars-to-scalars.yml 1`] = `
+exports[`spec-example-2-2-mapping-scalars-to-scalars.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -2892,7 +2892,7 @@ rbi: 147 # Runs Batted In
 ================================================================================
 `;
 
-exports[`spec-example-2-2-mapping-scalars-to-scalars.yml 2`] = `
+exports[`spec-example-2-2-mapping-scalars-to-scalars.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -2911,7 +2911,7 @@ rbi: 147 # Runs Batted In
 ================================================================================
 `;
 
-exports[`spec-example-2-3-mapping-scalars-to-sequences.yml 1`] = `
+exports[`spec-example-2-3-mapping-scalars-to-sequences.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -2940,7 +2940,7 @@ national:
 ================================================================================
 `;
 
-exports[`spec-example-2-3-mapping-scalars-to-sequences.yml 2`] = `
+exports[`spec-example-2-3-mapping-scalars-to-sequences.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -2969,7 +2969,7 @@ national:
 ================================================================================
 `;
 
-exports[`spec-example-2-4-sequence-of-mappings.yml 1`] = `
+exports[`spec-example-2-4-sequence-of-mappings.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -2996,7 +2996,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`spec-example-2-4-sequence-of-mappings.yml 2`] = `
+exports[`spec-example-2-4-sequence-of-mappings.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -3023,7 +3023,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`spec-example-2-5-sequence-of-sequences.yml 1`] = `
+exports[`spec-example-2-5-sequence-of-sequences.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -3042,7 +3042,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`spec-example-2-5-sequence-of-sequences.yml 2`] = `
+exports[`spec-example-2-5-sequence-of-sequences.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -3061,7 +3061,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`spec-example-2-6-mapping-of-mappings.yml 1`] = `
+exports[`spec-example-2-6-mapping-of-mappings.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -3081,7 +3081,7 @@ Sammy Sosa: { hr: 63, avg: 0.288 }
 ================================================================================
 `;
 
-exports[`spec-example-2-6-mapping-of-mappings.yml 2`] = `
+exports[`spec-example-2-6-mapping-of-mappings.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -3101,7 +3101,7 @@ Sammy Sosa: { hr: 63, avg: 0.288 }
 ================================================================================
 `;
 
-exports[`spec-example-2-7-two-documents-in-a-stream.yml 1`] = `
+exports[`spec-example-2-7-two-documents-in-a-stream.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -3134,7 +3134,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`spec-example-2-7-two-documents-in-a-stream.yml 2`] = `
+exports[`spec-example-2-7-two-documents-in-a-stream.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -3167,7 +3167,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`spec-example-2-8-play-by-play-feed-from-a-game.yml 1`] = `
+exports[`spec-example-2-8-play-by-play-feed-from-a-game.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -3198,7 +3198,7 @@ action: grand slam
 ================================================================================
 `;
 
-exports[`spec-example-2-8-play-by-play-feed-from-a-game.yml 2`] = `
+exports[`spec-example-2-8-play-by-play-feed-from-a-game.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -3229,7 +3229,7 @@ action: grand slam
 ================================================================================
 `;
 
-exports[`spec-example-2-9-single-document-with-two-comments.yml 1`] = `
+exports[`spec-example-2-9-single-document-with-two-comments.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -3258,7 +3258,7 @@ rbi:
 ================================================================================
 `;
 
-exports[`spec-example-2-9-single-document-with-two-comments.yml 2`] = `
+exports[`spec-example-2-9-single-document-with-two-comments.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -3287,7 +3287,7 @@ rbi:
 ================================================================================
 `;
 
-exports[`spec-example-2-10-node-for-sammy-sosa-appears-twice-in-this-document.yml 1`] = `
+exports[`spec-example-2-10-node-for-sammy-sosa-appears-twice-in-this-document.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -3316,7 +3316,7 @@ rbi:
 ================================================================================
 `;
 
-exports[`spec-example-2-10-node-for-sammy-sosa-appears-twice-in-this-document.yml 2`] = `
+exports[`spec-example-2-10-node-for-sammy-sosa-appears-twice-in-this-document.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -3345,7 +3345,7 @@ rbi:
 ================================================================================
 `;
 
-exports[`spec-example-2-11-mapping-between-sequences.yml 1`] = `
+exports[`spec-example-2-11-mapping-between-sequences.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -3372,7 +3372,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`spec-example-2-11-mapping-between-sequences.yml 2`] = `
+exports[`spec-example-2-11-mapping-between-sequences.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -3399,7 +3399,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`spec-example-2-12-compact-nested-mapping.yml 1`] = `
+exports[`spec-example-2-12-compact-nested-mapping.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -3428,7 +3428,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`spec-example-2-12-compact-nested-mapping.yml 2`] = `
+exports[`spec-example-2-12-compact-nested-mapping.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -3457,7 +3457,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`spec-example-2-13-in-literals-newlines-are-preserved.yml 1`] = `
+exports[`spec-example-2-13-in-literals-newlines-are-preserved.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -3479,7 +3479,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`spec-example-2-13-in-literals-newlines-are-preserved.yml 2`] = `
+exports[`spec-example-2-13-in-literals-newlines-are-preserved.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -3501,7 +3501,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`spec-example-2-14-in-the-folded-scalars-newlines-become-spaces.yml 1`] = `
+exports[`spec-example-2-14-in-the-folded-scalars-newlines-become-spaces.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -3523,7 +3523,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`spec-example-2-14-in-the-folded-scalars-newlines-become-spaces.yml 2`] = `
+exports[`spec-example-2-14-in-the-folded-scalars-newlines-become-spaces.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -3543,7 +3543,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`spec-example-2-15-folded-newlines-are-preserved-for-more-indented-and-blank-lines.yml 1`] = `
+exports[`spec-example-2-15-folded-newlines-are-preserved-for-more-indented-and-blank-lines.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -3572,7 +3572,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`spec-example-2-15-folded-newlines-are-preserved-for-more-indented-and-blank-lines.yml 2`] = `
+exports[`spec-example-2-15-folded-newlines-are-preserved-for-more-indented-and-blank-lines.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -3600,7 +3600,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`spec-example-2-16-indentation-determines-scope.yml 1`] = `
+exports[`spec-example-2-16-indentation-determines-scope.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -3627,7 +3627,7 @@ stats: |
 ================================================================================
 `;
 
-exports[`spec-example-2-16-indentation-determines-scope.yml 2`] = `
+exports[`spec-example-2-16-indentation-determines-scope.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -3653,7 +3653,7 @@ stats: |
 ================================================================================
 `;
 
-exports[`spec-example-2-17-quoted-scalars.yml 1`] = `
+exports[`spec-example-2-17-quoted-scalars.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -3680,7 +3680,7 @@ tie-fighter: '|\\-*-/|'
 ================================================================================
 `;
 
-exports[`spec-example-2-17-quoted-scalars.yml 2`] = `
+exports[`spec-example-2-17-quoted-scalars.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -3707,7 +3707,7 @@ tie-fighter: '|\\-*-/|'
 ================================================================================
 `;
 
-exports[`spec-example-2-18-multi-line-flow-scalars.yml 1`] = `
+exports[`spec-example-2-18-multi-line-flow-scalars.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -3731,7 +3731,7 @@ quoted: "So does this
 ================================================================================
 `;
 
-exports[`spec-example-2-18-multi-line-flow-scalars.yml 2`] = `
+exports[`spec-example-2-18-multi-line-flow-scalars.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -3753,7 +3753,7 @@ quoted: "So does this quoted scalar.\\n"
 ================================================================================
 `;
 
-exports[`spec-example-2-23-various-explicit-tags.yml 1`] = `
+exports[`spec-example-2-23-various-explicit-tags.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -3792,7 +3792,7 @@ application specific tag: !something |
 ================================================================================
 `;
 
-exports[`spec-example-2-23-various-explicit-tags.yml 2`] = `
+exports[`spec-example-2-23-various-explicit-tags.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -3831,7 +3831,7 @@ application specific tag: !something |
 ================================================================================
 `;
 
-exports[`spec-example-2-24-global-tags.yml 1`] = `
+exports[`spec-example-2-24-global-tags.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -3873,7 +3873,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`spec-example-2-24-global-tags.yml 2`] = `
+exports[`spec-example-2-24-global-tags.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -3915,7 +3915,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`spec-example-2-25-unordered-sets.yml 1`] = `
+exports[`spec-example-2-25-unordered-sets.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -3943,7 +3943,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`spec-example-2-25-unordered-sets.yml 2`] = `
+exports[`spec-example-2-25-unordered-sets.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -3971,7 +3971,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`spec-example-2-26-ordered-mappings.yml 1`] = `
+exports[`spec-example-2-26-ordered-mappings.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -3999,7 +3999,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`spec-example-2-26-ordered-mappings.yml 2`] = `
+exports[`spec-example-2-26-ordered-mappings.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -4027,7 +4027,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`spec-example-2-27-invoice.yml 1`] = `
+exports[`spec-example-2-27-invoice.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -4098,7 +4098,7 @@ comments: Late afternoon is best.
 ================================================================================
 `;
 
-exports[`spec-example-2-27-invoice.yml 2`] = `
+exports[`spec-example-2-27-invoice.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -4167,7 +4167,7 @@ comments: Late afternoon is best. Backup contact is Nancy Billsmer @ 338-4338.
 ================================================================================
 `;
 
-exports[`spec-example-2-28-log-file.yml 1`] = `
+exports[`spec-example-2-28-log-file.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -4229,7 +4229,7 @@ Stack:
 ================================================================================
 `;
 
-exports[`spec-example-2-28-log-file.yml 2`] = `
+exports[`spec-example-2-28-log-file.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -4289,7 +4289,7 @@ Stack:
 ================================================================================
 `;
 
-exports[`spec-example-5-3-block-structure-indicators.yml 1`] = `
+exports[`spec-example-5-3-block-structure-indicators.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -4315,7 +4315,7 @@ mapping:
 ================================================================================
 `;
 
-exports[`spec-example-5-3-block-structure-indicators.yml 2`] = `
+exports[`spec-example-5-3-block-structure-indicators.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -4341,7 +4341,7 @@ mapping:
 ================================================================================
 `;
 
-exports[`spec-example-5-4-flow-collection-indicators.yml 1`] = `
+exports[`spec-example-5-4-flow-collection-indicators.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -4358,7 +4358,7 @@ mapping: { sky: blue, sea: green }
 ================================================================================
 `;
 
-exports[`spec-example-5-4-flow-collection-indicators.yml 2`] = `
+exports[`spec-example-5-4-flow-collection-indicators.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -4375,7 +4375,7 @@ mapping: { sky: blue, sea: green }
 ================================================================================
 `;
 
-exports[`spec-example-5-5-comment-indicator.yml 1`] = `
+exports[`spec-example-5-5-comment-indicator.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -4390,7 +4390,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`spec-example-5-5-comment-indicator.yml 2`] = `
+exports[`spec-example-5-5-comment-indicator.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -4405,7 +4405,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`spec-example-5-6-node-property-indicators.yml 1`] = `
+exports[`spec-example-5-6-node-property-indicators.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -4422,7 +4422,7 @@ alias: *anchor
 ================================================================================
 `;
 
-exports[`spec-example-5-6-node-property-indicators.yml 2`] = `
+exports[`spec-example-5-6-node-property-indicators.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -4439,7 +4439,7 @@ alias: *anchor
 ================================================================================
 `;
 
-exports[`spec-example-5-7-block-scalar-indicators.yml 1`] = `
+exports[`spec-example-5-7-block-scalar-indicators.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -4464,7 +4464,7 @@ folded: >
 ================================================================================
 `;
 
-exports[`spec-example-5-7-block-scalar-indicators.yml 2`] = `
+exports[`spec-example-5-7-block-scalar-indicators.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -4488,7 +4488,7 @@ folded: >
 ================================================================================
 `;
 
-exports[`spec-example-5-8-quoted-scalar-indicators.yml 1`] = `
+exports[`spec-example-5-8-quoted-scalar-indicators.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -4505,7 +4505,7 @@ double: "text"
 ================================================================================
 `;
 
-exports[`spec-example-5-8-quoted-scalar-indicators.yml 2`] = `
+exports[`spec-example-5-8-quoted-scalar-indicators.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -4522,7 +4522,7 @@ double: "text"
 ================================================================================
 `;
 
-exports[`spec-example-5-9-directive-indicator.yml 1`] = `
+exports[`spec-example-5-9-directive-indicator.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -4540,7 +4540,7 @@ text
 ================================================================================
 `;
 
-exports[`spec-example-5-9-directive-indicator.yml 2`] = `
+exports[`spec-example-5-9-directive-indicator.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -4558,7 +4558,7 @@ text
 ================================================================================
 `;
 
-exports[`spec-example-5-12-tabs-and-spaces.yml 1`] = `
+exports[`spec-example-5-12-tabs-and-spaces.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -4583,7 +4583,7 @@ block: |
 ================================================================================
 `;
 
-exports[`spec-example-5-12-tabs-and-spaces.yml 2`] = `
+exports[`spec-example-5-12-tabs-and-spaces.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -4608,7 +4608,7 @@ block: |
 ================================================================================
 `;
 
-exports[`spec-example-6-1-indentation-spaces.yml 1`] = `
+exports[`spec-example-6-1-indentation-spaces.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -4646,7 +4646,7 @@ Not indented:
 ================================================================================
 `;
 
-exports[`spec-example-6-1-indentation-spaces.yml 2`] = `
+exports[`spec-example-6-1-indentation-spaces.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -4684,7 +4684,7 @@ Not indented:
 ================================================================================
 `;
 
-exports[`spec-example-6-2-indentation-indicators.yml 1`] = `
+exports[`spec-example-6-2-indentation-indicators.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -4705,7 +4705,7 @@ a:
 ================================================================================
 `;
 
-exports[`spec-example-6-2-indentation-indicators.yml 2`] = `
+exports[`spec-example-6-2-indentation-indicators.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -4726,7 +4726,7 @@ a:
 ================================================================================
 `;
 
-exports[`spec-example-6-3-separation-spaces.yml 1`] = `
+exports[`spec-example-6-3-separation-spaces.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -4745,7 +4745,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`spec-example-6-3-separation-spaces.yml 2`] = `
+exports[`spec-example-6-3-separation-spaces.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -4764,7 +4764,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`spec-example-6-4-line-prefixes.yml 1`] = `
+exports[`spec-example-6-4-line-prefixes.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -4791,7 +4791,7 @@ block: |
 ================================================================================
 `;
 
-exports[`spec-example-6-4-line-prefixes.yml 2`] = `
+exports[`spec-example-6-4-line-prefixes.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -4816,7 +4816,7 @@ block: |
 ================================================================================
 `;
 
-exports[`spec-example-6-5-empty-lines.yml 1`] = `
+exports[`spec-example-6-5-empty-lines.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -4842,7 +4842,7 @@ Chomping: |
 ================================================================================
 `;
 
-exports[`spec-example-6-5-empty-lines.yml 2`] = `
+exports[`spec-example-6-5-empty-lines.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -4868,7 +4868,7 @@ Chomping: |
 ================================================================================
 `;
 
-exports[`spec-example-6-6-line-folding.yml 1`] = `
+exports[`spec-example-6-6-line-folding.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -4895,7 +4895,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`spec-example-6-6-line-folding.yml 2`] = `
+exports[`spec-example-6-6-line-folding.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -4921,7 +4921,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`spec-example-6-7-block-folding.yml 1`] = `
+exports[`spec-example-6-7-block-folding.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -4946,7 +4946,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`spec-example-6-7-block-folding.yml 2`] = `
+exports[`spec-example-6-7-block-folding.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -4971,38 +4971,11 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`spec-example-6-8-flow-folding.yml 1`] = `
+exports[`spec-example-6-8-flow-folding.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
 useTabs: true
-                                                                                | printWidth
-=====================================input======================================
-"
-  foo 
- 
-  	 bar
-
-  baz
-"
-
-=====================================output=====================================
-"
-foo
-
-bar
-
-baz
-"
-
-================================================================================
-`;
-
-exports[`spec-example-6-8-flow-folding.yml 2`] = `
-====================================options=====================================
-parsers: ["yaml"]
-printWidth: 80
-proseWrap: "always"
                                                                                 | printWidth
 =====================================input======================================
 "
@@ -5025,7 +4998,34 @@ baz
 ================================================================================
 `;
 
-exports[`spec-example-6-9-separated-comment.yml 1`] = `
+exports[`spec-example-6-8-flow-folding.yml format 2`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+"
+  foo 
+ 
+  	 bar
+
+  baz
+"
+
+=====================================output=====================================
+"
+foo
+
+bar
+
+baz
+"
+
+================================================================================
+`;
+
+exports[`spec-example-6-9-separated-comment.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -5042,7 +5042,7 @@ key: # Comment
 ================================================================================
 `;
 
-exports[`spec-example-6-9-separated-comment.yml 2`] = `
+exports[`spec-example-6-9-separated-comment.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -5059,7 +5059,7 @@ key: # Comment
 ================================================================================
 `;
 
-exports[`spec-example-6-10-comment-lines.yml 1`] = `
+exports[`spec-example-6-10-comment-lines.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -5077,7 +5077,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`spec-example-6-10-comment-lines.yml 2`] = `
+exports[`spec-example-6-10-comment-lines.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -5095,7 +5095,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`spec-example-6-11-multi-line-comments.yml 1`] = `
+exports[`spec-example-6-11-multi-line-comments.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -5116,7 +5116,7 @@ key: # Comment
 ================================================================================
 `;
 
-exports[`spec-example-6-11-multi-line-comments.yml 2`] = `
+exports[`spec-example-6-11-multi-line-comments.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -5137,7 +5137,7 @@ key: # Comment
 ================================================================================
 `;
 
-exports[`spec-example-6-12-separation-spaces.yml 1`] = `
+exports[`spec-example-6-12-separation-spaces.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -5162,7 +5162,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`spec-example-6-12-separation-spaces.yml 2`] = `
+exports[`spec-example-6-12-separation-spaces.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -5187,7 +5187,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`spec-example-6-13-reserved-directives.yml 1`] = `
+exports[`spec-example-6-13-reserved-directives.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -5207,7 +5207,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`spec-example-6-13-reserved-directives.yml 2`] = `
+exports[`spec-example-6-13-reserved-directives.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -5227,7 +5227,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`spec-example-6-14-yaml-directive.yml 1`] = `
+exports[`spec-example-6-14-yaml-directive.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -5248,7 +5248,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`spec-example-6-14-yaml-directive.yml 2`] = `
+exports[`spec-example-6-14-yaml-directive.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -5269,7 +5269,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`spec-example-6-16-tag-directive.yml 1`] = `
+exports[`spec-example-6-16-tag-directive.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -5288,7 +5288,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`spec-example-6-16-tag-directive.yml 2`] = `
+exports[`spec-example-6-16-tag-directive.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -5307,7 +5307,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`spec-example-6-18-primary-tag-handle.yml 1`] = `
+exports[`spec-example-6-18-primary-tag-handle.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -5334,7 +5334,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`spec-example-6-18-primary-tag-handle.yml 2`] = `
+exports[`spec-example-6-18-primary-tag-handle.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -5361,7 +5361,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`spec-example-6-19-secondary-tag-handle.yml 1`] = `
+exports[`spec-example-6-19-secondary-tag-handle.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -5380,7 +5380,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`spec-example-6-19-secondary-tag-handle.yml 2`] = `
+exports[`spec-example-6-19-secondary-tag-handle.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -5399,7 +5399,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`spec-example-6-20-tag-handles.yml 1`] = `
+exports[`spec-example-6-20-tag-handles.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -5418,7 +5418,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`spec-example-6-20-tag-handles.yml 2`] = `
+exports[`spec-example-6-20-tag-handles.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -5437,7 +5437,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`spec-example-6-21-local-tag-prefix.yml 1`] = `
+exports[`spec-example-6-21-local-tag-prefix.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -5464,7 +5464,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`spec-example-6-21-local-tag-prefix.yml 2`] = `
+exports[`spec-example-6-21-local-tag-prefix.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -5491,7 +5491,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`spec-example-6-22-global-tag-prefix.yml 1`] = `
+exports[`spec-example-6-22-global-tag-prefix.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -5510,7 +5510,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`spec-example-6-22-global-tag-prefix.yml 2`] = `
+exports[`spec-example-6-22-global-tag-prefix.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -5529,7 +5529,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`spec-example-6-23-node-properties.yml 1`] = `
+exports[`spec-example-6-23-node-properties.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -5547,7 +5547,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`spec-example-6-23-node-properties.yml 2`] = `
+exports[`spec-example-6-23-node-properties.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -5565,7 +5565,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`spec-example-6-24-verbatim-tags.yml 1`] = `
+exports[`spec-example-6-24-verbatim-tags.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -5581,7 +5581,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`spec-example-6-24-verbatim-tags.yml 2`] = `
+exports[`spec-example-6-24-verbatim-tags.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -5597,7 +5597,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`spec-example-6-26-tag-shorthands.yml 1`] = `
+exports[`spec-example-6-26-tag-shorthands.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -5620,7 +5620,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`spec-example-6-26-tag-shorthands.yml 2`] = `
+exports[`spec-example-6-26-tag-shorthands.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -5643,7 +5643,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`spec-example-6-28-non-specific-tags.yml 1`] = `
+exports[`spec-example-6-28-non-specific-tags.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -5664,7 +5664,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`spec-example-6-28-non-specific-tags.yml 2`] = `
+exports[`spec-example-6-28-non-specific-tags.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -5685,7 +5685,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`spec-example-6-29-node-anchors.yml 1`] = `
+exports[`spec-example-6-29-node-anchors.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -5702,7 +5702,7 @@ Second occurrence: *anchor
 ================================================================================
 `;
 
-exports[`spec-example-6-29-node-anchors.yml 2`] = `
+exports[`spec-example-6-29-node-anchors.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -5719,7 +5719,7 @@ Second occurrence: *anchor
 ================================================================================
 `;
 
-exports[`spec-example-7-1-alias-nodes.yml 1`] = `
+exports[`spec-example-7-1-alias-nodes.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -5740,7 +5740,7 @@ Reuse anchor: *anchor
 ================================================================================
 `;
 
-exports[`spec-example-7-1-alias-nodes.yml 2`] = `
+exports[`spec-example-7-1-alias-nodes.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -5761,7 +5761,7 @@ Reuse anchor: *anchor
 ================================================================================
 `;
 
-exports[`spec-example-7-2-empty-content.yml 1`] = `
+exports[`spec-example-7-2-empty-content.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -5779,7 +5779,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`spec-example-7-2-empty-content.yml 2`] = `
+exports[`spec-example-7-2-empty-content.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -5797,7 +5797,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`spec-example-7-3-completely-empty-flow-nodes.yml 1`] = `
+exports[`spec-example-7-3-completely-empty-flow-nodes.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -5815,7 +5815,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`spec-example-7-3-completely-empty-flow-nodes.yml 2`] = `
+exports[`spec-example-7-3-completely-empty-flow-nodes.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -5833,7 +5833,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`spec-example-7-4-double-quoted-implicit-keys.yml 1`] = `
+exports[`spec-example-7-4-double-quoted-implicit-keys.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -5850,7 +5850,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`spec-example-7-4-double-quoted-implicit-keys.yml 2`] = `
+exports[`spec-example-7-4-double-quoted-implicit-keys.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -5867,7 +5867,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`spec-example-7-5-double-quoted-line-breaks.yml 1`] = `
+exports[`spec-example-7-5-double-quoted-line-breaks.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -5890,7 +5890,7 @@ to a line feed, or 	\\
 ================================================================================
 `;
 
-exports[`spec-example-7-5-double-quoted-line-breaks.yml 2`] = `
+exports[`spec-example-7-5-double-quoted-line-breaks.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -5912,7 +5912,7 @@ to a line feed, or 	\\
 ================================================================================
 `;
 
-exports[`spec-example-7-6-double-quoted-lines.yml 1`] = `
+exports[`spec-example-7-6-double-quoted-lines.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -5933,7 +5933,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`spec-example-7-6-double-quoted-lines.yml 2`] = `
+exports[`spec-example-7-6-double-quoted-lines.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -5953,7 +5953,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`spec-example-7-7-single-quoted-characters.yml 1`] = `
+exports[`spec-example-7-7-single-quoted-characters.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -5968,7 +5968,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`spec-example-7-7-single-quoted-characters.yml 2`] = `
+exports[`spec-example-7-7-single-quoted-characters.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -5983,7 +5983,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`spec-example-7-8-single-quoted-implicit-keys.yml 1`] = `
+exports[`spec-example-7-8-single-quoted-implicit-keys.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -6000,7 +6000,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`spec-example-7-8-single-quoted-implicit-keys.yml 2`] = `
+exports[`spec-example-7-8-single-quoted-implicit-keys.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -6017,7 +6017,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`spec-example-7-9-single-quoted-lines.yml 1`] = `
+exports[`spec-example-7-9-single-quoted-lines.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -6038,7 +6038,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`spec-example-7-9-single-quoted-lines.yml 2`] = `
+exports[`spec-example-7-9-single-quoted-lines.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -6058,7 +6058,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`spec-example-7-10-plain-characters.yml 1`] = `
+exports[`spec-example-7-10-plain-characters.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -6091,7 +6091,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`spec-example-7-10-plain-characters.yml 2`] = `
+exports[`spec-example-7-10-plain-characters.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -6124,7 +6124,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`spec-example-7-11-plain-implicit-keys.yml 1`] = `
+exports[`spec-example-7-11-plain-implicit-keys.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -6141,7 +6141,7 @@ implicit block key: [implicit flow key: value]
 ================================================================================
 `;
 
-exports[`spec-example-7-11-plain-implicit-keys.yml 2`] = `
+exports[`spec-example-7-11-plain-implicit-keys.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -6158,7 +6158,7 @@ implicit block key: [implicit flow key: value]
 ================================================================================
 `;
 
-exports[`spec-example-7-12-plain-lines.yml 1`] = `
+exports[`spec-example-7-12-plain-lines.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -6179,7 +6179,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`spec-example-7-12-plain-lines.yml 2`] = `
+exports[`spec-example-7-12-plain-lines.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -6199,7 +6199,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`spec-example-7-13-flow-sequence.yml 1`] = `
+exports[`spec-example-7-13-flow-sequence.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -6216,7 +6216,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`spec-example-7-13-flow-sequence.yml 2`] = `
+exports[`spec-example-7-13-flow-sequence.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -6233,7 +6233,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`spec-example-7-14-flow-sequence-entries.yml 1`] = `
+exports[`spec-example-7-14-flow-sequence-entries.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -6264,7 +6264,7 @@ single: pair,
 ================================================================================
 `;
 
-exports[`spec-example-7-14-flow-sequence-entries.yml 2`] = `
+exports[`spec-example-7-14-flow-sequence-entries.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -6286,7 +6286,7 @@ single: pair,
 ================================================================================
 `;
 
-exports[`spec-example-7-15-flow-mappings.yml 1`] = `
+exports[`spec-example-7-15-flow-mappings.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -6303,7 +6303,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`spec-example-7-15-flow-mappings.yml 2`] = `
+exports[`spec-example-7-15-flow-mappings.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -6320,7 +6320,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`spec-example-7-16-flow-mapping-entries.yml 1`] = `
+exports[`spec-example-7-16-flow-mapping-entries.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -6339,7 +6339,7 @@ implicit: entry,
 ================================================================================
 `;
 
-exports[`spec-example-7-16-flow-mapping-entries.yml 2`] = `
+exports[`spec-example-7-16-flow-mapping-entries.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -6358,7 +6358,7 @@ implicit: entry,
 ================================================================================
 `;
 
-exports[`spec-example-7-17-flow-mapping-separate-values.yml 1`] = `
+exports[`spec-example-7-17-flow-mapping-separate-values.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -6378,7 +6378,7 @@ omitted value:,
 ================================================================================
 `;
 
-exports[`spec-example-7-17-flow-mapping-separate-values.yml 2`] = `
+exports[`spec-example-7-17-flow-mapping-separate-values.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -6398,7 +6398,7 @@ omitted value:,
 ================================================================================
 `;
 
-exports[`spec-example-7-18-flow-mapping-adjacent-values.yml 1`] = `
+exports[`spec-example-7-18-flow-mapping-adjacent-values.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -6417,7 +6417,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`spec-example-7-18-flow-mapping-adjacent-values.yml 2`] = `
+exports[`spec-example-7-18-flow-mapping-adjacent-values.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -6436,7 +6436,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`spec-example-7-19-single-pair-flow-mappings.yml 1`] = `
+exports[`spec-example-7-19-single-pair-flow-mappings.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -6453,7 +6453,7 @@ foo: bar
 ================================================================================
 `;
 
-exports[`spec-example-7-19-single-pair-flow-mappings.yml 2`] = `
+exports[`spec-example-7-19-single-pair-flow-mappings.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -6470,7 +6470,7 @@ foo: bar
 ================================================================================
 `;
 
-exports[`spec-example-7-20-single-pair-explicit-entry.yml 1`] = `
+exports[`spec-example-7-20-single-pair-explicit-entry.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -6490,7 +6490,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`spec-example-7-20-single-pair-explicit-entry.yml 2`] = `
+exports[`spec-example-7-20-single-pair-explicit-entry.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -6508,7 +6508,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`spec-example-7-21-single-pair-implicit-entries.yml 1`] = `
+exports[`spec-example-7-21-single-pair-implicit-entries.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -6527,7 +6527,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`spec-example-7-21-single-pair-implicit-entries.yml 2`] = `
+exports[`spec-example-7-21-single-pair-implicit-entries.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -6546,7 +6546,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`spec-example-7-23-flow-content.yml 1`] = `
+exports[`spec-example-7-23-flow-content.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -6569,7 +6569,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`spec-example-7-23-flow-content.yml 2`] = `
+exports[`spec-example-7-23-flow-content.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -6592,7 +6592,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`spec-example-7-24-flow-nodes.yml 1`] = `
+exports[`spec-example-7-24-flow-nodes.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -6615,7 +6615,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`spec-example-7-24-flow-nodes.yml 2`] = `
+exports[`spec-example-7-24-flow-nodes.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -6638,7 +6638,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`spec-example-8-1-block-scalar-header.yml 1`] = `
+exports[`spec-example-8-1-block-scalar-header.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -6669,7 +6669,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`spec-example-8-1-block-scalar-header.yml 2`] = `
+exports[`spec-example-8-1-block-scalar-header.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -6700,7 +6700,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`spec-example-8-2-block-indentation-indicator.yml 1`] = `
+exports[`spec-example-8-2-block-indentation-indicator.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -6735,7 +6735,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`spec-example-8-2-block-indentation-indicator.yml 2`] = `
+exports[`spec-example-8-2-block-indentation-indicator.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -6770,7 +6770,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`spec-example-8-4-chomping-final-line-break.yml 1`] = `
+exports[`spec-example-8-4-chomping-final-line-break.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -6795,7 +6795,7 @@ keep: |+
 ================================================================================
 `;
 
-exports[`spec-example-8-4-chomping-final-line-break.yml 2`] = `
+exports[`spec-example-8-4-chomping-final-line-break.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -6820,7 +6820,7 @@ keep: |+
 ================================================================================
 `;
 
-exports[`spec-example-8-5-chomping-trailing-lines.yml 1`] = `
+exports[`spec-example-8-5-chomping-trailing-lines.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -6870,7 +6870,7 @@ keep: |+
 ================================================================================
 `;
 
-exports[`spec-example-8-5-chomping-trailing-lines.yml 2`] = `
+exports[`spec-example-8-5-chomping-trailing-lines.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -6920,7 +6920,7 @@ keep: |+
 ================================================================================
 `;
 
-exports[`spec-example-8-6-empty-scalar-chomping.yml 1`] = `
+exports[`spec-example-8-6-empty-scalar-chomping.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -6945,7 +6945,7 @@ keep: |+
 ================================================================================
 `;
 
-exports[`spec-example-8-6-empty-scalar-chomping.yml 2`] = `
+exports[`spec-example-8-6-empty-scalar-chomping.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -6970,7 +6970,7 @@ keep: |+
 ================================================================================
 `;
 
-exports[`spec-example-8-7-literal-scalar.yml 1`] = `
+exports[`spec-example-8-7-literal-scalar.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -6991,7 +6991,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`spec-example-8-7-literal-scalar.yml 2`] = `
+exports[`spec-example-8-7-literal-scalar.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -7012,7 +7012,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`spec-example-8-8-literal-content.yml 1`] = `
+exports[`spec-example-8-8-literal-content.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -7043,7 +7043,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`spec-example-8-8-literal-content.yml 2`] = `
+exports[`spec-example-8-8-literal-content.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -7074,7 +7074,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`spec-example-8-9-folded-scalar.yml 1`] = `
+exports[`spec-example-8-9-folded-scalar.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -7095,7 +7095,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`spec-example-8-9-folded-scalar.yml 2`] = `
+exports[`spec-example-8-9-folded-scalar.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -7115,7 +7115,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`spec-example-8-10-folded-lines-8-13-final-empty-lines.yml 1`] = `
+exports[`spec-example-8-10-folded-lines-8-13-final-empty-lines.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -7160,7 +7160,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`spec-example-8-10-folded-lines-8-13-final-empty-lines.yml 2`] = `
+exports[`spec-example-8-10-folded-lines-8-13-final-empty-lines.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -7202,7 +7202,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`spec-example-8-14-block-sequence.yml 1`] = `
+exports[`spec-example-8-14-block-sequence.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -7221,7 +7221,7 @@ block sequence:
 ================================================================================
 `;
 
-exports[`spec-example-8-14-block-sequence.yml 2`] = `
+exports[`spec-example-8-14-block-sequence.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -7240,7 +7240,7 @@ block sequence:
 ================================================================================
 `;
 
-exports[`spec-example-8-15-block-sequence-entry-types.yml 1`] = `
+exports[`spec-example-8-15-block-sequence-entry-types.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -7265,7 +7265,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`spec-example-8-15-block-sequence-entry-types.yml 2`] = `
+exports[`spec-example-8-15-block-sequence-entry-types.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -7290,7 +7290,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`spec-example-8-16-block-mappings.yml 1`] = `
+exports[`spec-example-8-16-block-mappings.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -7307,7 +7307,7 @@ block mapping:
 ================================================================================
 `;
 
-exports[`spec-example-8-16-block-mappings.yml 2`] = `
+exports[`spec-example-8-16-block-mappings.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -7324,7 +7324,7 @@ block mapping:
 ================================================================================
 `;
 
-exports[`spec-example-8-17-explicit-block-mapping-entries.yml 1`] = `
+exports[`spec-example-8-17-explicit-block-mapping-entries.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -7347,7 +7347,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`spec-example-8-17-explicit-block-mapping-entries.yml 2`] = `
+exports[`spec-example-8-17-explicit-block-mapping-entries.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -7370,7 +7370,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`spec-example-8-18-implicit-block-mapping-entries.yml 1`] = `
+exports[`spec-example-8-18-implicit-block-mapping-entries.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -7391,7 +7391,7 @@ plain key: in-line value
 ================================================================================
 `;
 
-exports[`spec-example-8-18-implicit-block-mapping-entries.yml 2`] = `
+exports[`spec-example-8-18-implicit-block-mapping-entries.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -7412,7 +7412,7 @@ plain key: in-line value
 ================================================================================
 `;
 
-exports[`spec-example-8-19-compact-block-mappings.yml 1`] = `
+exports[`spec-example-8-19-compact-block-mappings.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -7431,7 +7431,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`spec-example-8-19-compact-block-mappings.yml 2`] = `
+exports[`spec-example-8-19-compact-block-mappings.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -7450,7 +7450,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`spec-example-8-20-block-node-types.yml 1`] = `
+exports[`spec-example-8-20-block-node-types.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -7474,7 +7474,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`spec-example-8-20-block-node-types.yml 2`] = `
+exports[`spec-example-8-20-block-node-types.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -7498,7 +7498,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`spec-example-8-21-block-scalar-nodes.yml 1`] = `
+exports[`spec-example-8-21-block-scalar-nodes.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -7521,7 +7521,7 @@ folded: !foo >1
 ================================================================================
 `;
 
-exports[`spec-example-8-21-block-scalar-nodes.yml 2`] = `
+exports[`spec-example-8-21-block-scalar-nodes.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -7544,7 +7544,7 @@ folded: !foo >1
 ================================================================================
 `;
 
-exports[`spec-example-8-22-block-collection-nodes.yml 1`] = `
+exports[`spec-example-8-22-block-collection-nodes.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -7569,7 +7569,7 @@ mapping: !!map
 ================================================================================
 `;
 
-exports[`spec-example-8-22-block-collection-nodes.yml 2`] = `
+exports[`spec-example-8-22-block-collection-nodes.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -7594,7 +7594,7 @@ mapping: !!map
 ================================================================================
 `;
 
-exports[`spec-example-9-2-document-markers.yml 1`] = `
+exports[`spec-example-9-2-document-markers.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -7615,7 +7615,7 @@ Document
 ================================================================================
 `;
 
-exports[`spec-example-9-2-document-markers.yml 2`] = `
+exports[`spec-example-9-2-document-markers.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -7636,7 +7636,7 @@ Document
 ================================================================================
 `;
 
-exports[`spec-example-9-3-bare-documents.yml 1`] = `
+exports[`spec-example-9-3-bare-documents.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -7663,7 +7663,7 @@ document
 ================================================================================
 `;
 
-exports[`spec-example-9-3-bare-documents.yml 2`] = `
+exports[`spec-example-9-3-bare-documents.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -7689,7 +7689,7 @@ Bare document
 ================================================================================
 `;
 
-exports[`spec-example-9-4-explicit-documents.yml 1`] = `
+exports[`spec-example-9-4-explicit-documents.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -7715,7 +7715,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`spec-example-9-4-explicit-documents.yml 2`] = `
+exports[`spec-example-9-4-explicit-documents.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -7739,7 +7739,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`spec-example-9-5-directives-documents.yml 1`] = `
+exports[`spec-example-9-5-directives-documents.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -7768,7 +7768,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`spec-example-9-5-directives-documents.yml 2`] = `
+exports[`spec-example-9-5-directives-documents.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -7797,7 +7797,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`spec-example-9-6-stream.yml 1`] = `
+exports[`spec-example-9-6-stream.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -7824,7 +7824,7 @@ matches %: 20
 ================================================================================
 `;
 
-exports[`spec-example-9-6-stream.yml 2`] = `
+exports[`spec-example-9-6-stream.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -7851,7 +7851,7 @@ matches %: 20
 ================================================================================
 `;
 
-exports[`tab-after-document-header.yml 1`] = `
+exports[`tab-after-document-header.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -7867,7 +7867,7 @@ scalar
 ================================================================================
 `;
 
-exports[`tab-after-document-header.yml 2`] = `
+exports[`tab-after-document-header.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -7883,7 +7883,7 @@ scalar
 ================================================================================
 `;
 
-exports[`tab-at-beginning-of-line-followed-by-a-flow-mapping.yml 1`] = `
+exports[`tab-at-beginning-of-line-followed-by-a-flow-mapping.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -7898,7 +7898,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`tab-at-beginning-of-line-followed-by-a-flow-mapping.yml 2`] = `
+exports[`tab-at-beginning-of-line-followed-by-a-flow-mapping.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -7913,7 +7913,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`tags-for-block-objects.yml 1`] = `
+exports[`tags-for-block-objects.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -7934,7 +7934,7 @@ foo: !!seq
 ================================================================================
 `;
 
-exports[`tags-for-block-objects.yml 2`] = `
+exports[`tags-for-block-objects.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -7955,7 +7955,7 @@ foo: !!seq
 ================================================================================
 `;
 
-exports[`tags-for-flow-objects.yml 1`] = `
+exports[`tags-for-flow-objects.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -7973,7 +7973,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`tags-for-flow-objects.yml 2`] = `
+exports[`tags-for-flow-objects.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -7991,7 +7991,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`tags-for-root-objects.yml 1`] = `
+exports[`tags-for-root-objects.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -8021,7 +8021,7 @@ e
 ================================================================================
 `;
 
-exports[`tags-for-root-objects.yml 2`] = `
+exports[`tags-for-root-objects.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -8050,7 +8050,7 @@ a: b
 ================================================================================
 `;
 
-exports[`tags-in-block-sequence.yml 1`] = `
+exports[`tags-in-block-sequence.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -8071,7 +8071,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`tags-in-block-sequence.yml 2`] = `
+exports[`tags-in-block-sequence.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -8092,7 +8092,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`tags-in-explicit-mapping.yml 1`] = `
+exports[`tags-in-explicit-mapping.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -8111,7 +8111,7 @@ c: !!str d
 ================================================================================
 `;
 
-exports[`tags-in-explicit-mapping.yml 2`] = `
+exports[`tags-in-explicit-mapping.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -8130,7 +8130,7 @@ c: !!str d
 ================================================================================
 `;
 
-exports[`tags-in-implicit-mapping.yml 1`] = `
+exports[`tags-in-implicit-mapping.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -8153,7 +8153,7 @@ g: h
 ================================================================================
 `;
 
-exports[`tags-in-implicit-mapping.yml 2`] = `
+exports[`tags-in-implicit-mapping.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -8176,7 +8176,7 @@ g: h
 ================================================================================
 `;
 
-exports[`tags-on-empty-scalars.yml 1`] = `
+exports[`tags-on-empty-scalars.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -8198,7 +8198,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`tags-on-empty-scalars.yml 2`] = `
+exports[`tags-on-empty-scalars.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -8220,7 +8220,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`three-dashes-and-content-without-space.yml 1`] = `
+exports[`three-dashes-and-content-without-space.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -8237,7 +8237,7 @@ word2
 ================================================================================
 `;
 
-exports[`three-dashes-and-content-without-space.yml 2`] = `
+exports[`three-dashes-and-content-without-space.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -8253,7 +8253,7 @@ word2
 ================================================================================
 `;
 
-exports[`various-combinations-of-tags-and-anchors.yml 1`] = `
+exports[`various-combinations-of-tags-and-anchors.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -8312,7 +8312,7 @@ a6: 1
 ================================================================================
 `;
 
-exports[`various-combinations-of-tags-and-anchors.yml 2`] = `
+exports[`various-combinations-of-tags-and-anchors.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -8371,7 +8371,7 @@ a6: 1
 ================================================================================
 `;
 
-exports[`various-location-of-anchors-in-flow-sequence.yml 1`] = `
+exports[`various-location-of-anchors-in-flow-sequence.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -8391,7 +8391,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`various-location-of-anchors-in-flow-sequence.yml 2`] = `
+exports[`various-location-of-anchors-in-flow-sequence.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -8411,7 +8411,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`various-trailing-comments.yml 1`] = `
+exports[`various-trailing-comments.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -8455,7 +8455,7 @@ block: > # lala
 ================================================================================
 `;
 
-exports[`various-trailing-comments.yml 2`] = `
+exports[`various-trailing-comments.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -8497,7 +8497,7 @@ block: > # lala
 ================================================================================
 `;
 
-exports[`various-trailing-tabs.yml 1`] = `
+exports[`various-trailing-tabs.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -8518,7 +8518,7 @@ c: d #X
 ================================================================================
 `;
 
-exports[`various-trailing-tabs.yml 2`] = `
+exports[`various-trailing-tabs.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -8539,7 +8539,7 @@ c: d #X
 ================================================================================
 `;
 
-exports[`whitespace-after-scalars-in-flow.yml 1`] = `
+exports[`whitespace-after-scalars-in-flow.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -8561,7 +8561,7 @@ useTabs: true
 ================================================================================
 `;
 
-exports[`whitespace-after-scalars-in-flow.yml 2`] = `
+exports[`whitespace-after-scalars-in-flow.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -8583,7 +8583,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`whitespace-around-colon-in-mappings.yml 1`] = `
+exports[`whitespace-around-colon-in-mappings.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -8619,7 +8619,7 @@ top6:
 ================================================================================
 `;
 
-exports[`whitespace-around-colon-in-mappings.yml 2`] = `
+exports[`whitespace-around-colon-in-mappings.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -8655,7 +8655,7 @@ top6:
 ================================================================================
 `;
 
-exports[`zero-indented-block-scalar.yml 1`] = `
+exports[`zero-indented-block-scalar.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -8677,7 +8677,7 @@ line3
 ================================================================================
 `;
 
-exports[`zero-indented-block-scalar.yml 2`] = `
+exports[`zero-indented-block-scalar.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -8697,7 +8697,7 @@ line3
 ================================================================================
 `;
 
-exports[`zero-indented-block-scalar-with-line-that-looks-like-a-comment.yml 1`] = `
+exports[`zero-indented-block-scalar-with-line-that-looks-like-a-comment.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -8719,7 +8719,7 @@ line3
 ================================================================================
 `;
 
-exports[`zero-indented-block-scalar-with-line-that-looks-like-a-comment.yml 2`] = `
+exports[`zero-indented-block-scalar-with-line-that-looks-like-a-comment.yml format 2`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80

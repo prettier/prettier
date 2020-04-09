@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`constructor-field-override.js 1`] = `
+exports[`constructor-field-override.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80

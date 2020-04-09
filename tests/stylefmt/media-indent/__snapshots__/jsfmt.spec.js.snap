@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`media-indent.css 1`] = `
+exports[`media-indent.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80

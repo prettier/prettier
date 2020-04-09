@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ie-hacks.css 1`] = `
+exports[`ie-hacks.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80

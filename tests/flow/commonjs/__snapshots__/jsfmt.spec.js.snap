@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Abs.js 1`] = `
+exports[`Abs.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -19,7 +19,7 @@ module.exports = f;
 ================================================================================
 `;
 
-exports[`Rel.js 1`] = `
+exports[`Rel.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`shebang.js 1`] = `
+exports[`shebang.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript", "babel"]
 printWidth: 80
@@ -16,7 +16,7 @@ function a() {}
 ================================================================================
 `;
 
-exports[`shebang-newline.js 1`] = `
+exports[`shebang-newline.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript", "babel"]
 printWidth: 80

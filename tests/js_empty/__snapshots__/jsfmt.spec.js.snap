@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`empty.js 1`] = `
+exports[`empty.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -13,7 +13,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`many-semicolons.js 1`] = `
+exports[`many-semicolons.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -27,7 +27,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`semicolon.js 1`] = `
+exports[`semicolon.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`autolink.md 1`] = `
+exports[`autolink.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -23,7 +23,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`autolink.md 2`] = `
+exports[`autolink.md format 2`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -47,7 +47,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`entity.md 1`] = `
+exports[`entity.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -62,7 +62,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`entity.md 2`] = `
+exports[`entity.md format 2`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -78,7 +78,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`long.md 1`] = `
+exports[`long.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -93,38 +93,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`long.md 2`] = `
-====================================options=====================================
-parsers: ["markdown"]
-printWidth: 80
-proseWrap: "always"
-singleQuote: true
-                                                                                | printWidth
-=====================================input======================================
-[podium context](https://github.schibsted.io/finn/podium/tree/master/packages/podium-context)
-
-=====================================output=====================================
-[podium context](https://github.schibsted.io/finn/podium/tree/master/packages/podium-context)
-
-================================================================================
-`;
-
-exports[`simple.md 1`] = `
-====================================options=====================================
-parsers: ["markdown"]
-printWidth: 80
-proseWrap: "always"
-                                                                                | printWidth
-=====================================input======================================
-[hello](#world)
-
-=====================================output=====================================
-[hello](#world)
-
-================================================================================
-`;
-
-exports[`simple.md 2`] = `
+exports[`long.md format 2`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -132,6 +101,21 @@ proseWrap: "always"
 singleQuote: true
                                                                                 | printWidth
 =====================================input======================================
+[podium context](https://github.schibsted.io/finn/podium/tree/master/packages/podium-context)
+
+=====================================output=====================================
+[podium context](https://github.schibsted.io/finn/podium/tree/master/packages/podium-context)
+
+================================================================================
+`;
+
+exports[`simple.md format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
 [hello](#world)
 
 =====================================output=====================================
@@ -140,7 +124,23 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`title.md 1`] = `
+exports[`simple.md format 2`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
+[hello](#world)
+
+=====================================output=====================================
+[hello](#world)
+
+================================================================================
+`;
+
+exports[`title.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -207,7 +207,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`title.md 2`] = `
+exports[`title.md format 2`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -275,7 +275,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`url.md 1`] = `
+exports[`url.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -290,7 +290,7 @@ https://www.example.com/
 ================================================================================
 `;
 
-exports[`url.md 2`] = `
+exports[`url.md format 2`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80

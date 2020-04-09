@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`apply.js 1`] = `
+exports[`apply.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -112,7 +112,7 @@ function test3(x: { (a: string, b: string): void }) {
 ================================================================================
 `;
 
-exports[`bind.js 1`] = `
+exports[`bind.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -179,7 +179,7 @@ let tests = [
 ================================================================================
 `;
 
-exports[`call.js 1`] = `
+exports[`call.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -277,7 +277,7 @@ function test3(x: { (a: string, b: string): void }) {
 ================================================================================
 `;
 
-exports[`function.js 1`] = `
+exports[`function.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -423,7 +423,7 @@ var e = (d.bind(1): Function)();
 ================================================================================
 `;
 
-exports[`rest.js 1`] = `
+exports[`rest.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -572,7 +572,7 @@ requires_first_param(); // Error: missing first arg
 ================================================================================
 `;
 
-exports[`rest_type.js 1`] = `
+exports[`rest_type.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

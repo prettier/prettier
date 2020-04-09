@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`f.js 1`] = `
+exports[`f.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`values.css 1`] = `
+exports[`values.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80

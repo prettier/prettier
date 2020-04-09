@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comments.js 1`] = `
+exports[`comments.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -89,7 +89,7 @@ const { configureStore } =
 ================================================================================
 `;
 
-exports[`new-expression.js 1`] = `
+exports[`new-expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -107,7 +107,7 @@ const testConsole = new TestConsole(
 ================================================================================
 `;
 
-exports[`no-confusing-arrow.js 1`] = `
+exports[`no-confusing-arrow.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80

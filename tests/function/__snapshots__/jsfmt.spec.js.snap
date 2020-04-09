@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`function_expression.js 1`] = `
+exports[`function_expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -34,7 +34,7 @@ new (function () {})();
 ================================================================================
 `;
 
-exports[`single_expand.js 1`] = `
+exports[`single_expand.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80

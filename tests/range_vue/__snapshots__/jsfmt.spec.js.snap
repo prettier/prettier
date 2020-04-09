@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`example.vue 1`] = `
+exports[`example.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80

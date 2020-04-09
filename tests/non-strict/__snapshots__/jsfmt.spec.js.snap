@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`argument-name-clash.js 1`] = `
+exports[`argument-name-clash.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
 printWidth: 80
@@ -16,7 +16,7 @@ function f(a, a) {
 ================================================================================
 `;
 
-exports[`keywords.js 1`] = `
+exports[`keywords.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
 printWidth: 80
@@ -44,7 +44,7 @@ function myFunction() {
 ================================================================================
 `;
 
-exports[`octal-number.js 1`] = `
+exports[`octal-number.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
 printWidth: 80

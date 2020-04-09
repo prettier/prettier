@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`type.js 1`] = `
+exports[`type.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -206,7 +206,7 @@ declare var o13: O13;
 ================================================================================
 `;
 
-exports[`type_any.js 1`] = `
+exports[`type_any.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -244,7 +244,7 @@ var o3: O3 = (0: mixed); // ok
 ================================================================================
 `;
 
-exports[`type_contra.js 1`] = `
+exports[`type_contra.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -282,7 +282,7 @@ declare var o2: O2;
 ================================================================================
 `;
 
-exports[`type_dict.js 1`] = `
+exports[`type_dict.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -370,7 +370,7 @@ declare var o12: { ...{| [string]: T |}, ...{| [string]: U |} };
 ================================================================================
 `;
 
-exports[`type_generic.js 1`] = `
+exports[`type_generic.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -388,7 +388,7 @@ declare function spread<A, B>(a: A, b: B): { ...A, ...B };
 ================================================================================
 `;
 
-exports[`type_instance.js 1`] = `
+exports[`type_instance.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -428,7 +428,7 @@ declare var o2: O2;
 ================================================================================
 `;
 
-exports[`type_intersection.js 1`] = `
+exports[`type_intersection.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -496,7 +496,7 @@ declare var o5: O5;
 ================================================================================
 `;
 
-exports[`type_intersection_optional.js 1`] = `
+exports[`type_intersection_optional.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -638,7 +638,7 @@ declare var o21: { ...{| p: T |} & { q: U } };
 ================================================================================
 `;
 
-exports[`type_optional.js 1`] = `
+exports[`type_optional.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -710,7 +710,7 @@ declare var p: { ...{| p?: T |}, ...{| p?: U |} };
 ================================================================================
 `;
 
-exports[`type_union.js 1`] = `
+exports[`type_union.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80

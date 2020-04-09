@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`nested.js 1`] = `
+exports[`nested.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -70,7 +70,7 @@ someObject.someFunction().then(function () {
 ================================================================================
 `;
 
-exports[`nested-real.js 1`] = `
+exports[`nested-real.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80

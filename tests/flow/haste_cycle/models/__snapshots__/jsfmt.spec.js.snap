@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`OpenGraphAction.js 1`] = `
+exports[`OpenGraphAction.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -18,7 +18,7 @@ var OpenGraphValueContainer = require("./OpenGraphValueContainer.js");
 ================================================================================
 `;
 
-exports[`OpenGraphObject.js 1`] = `
+exports[`OpenGraphObject.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -36,7 +36,7 @@ var OpenGraphValueContainer = require("./OpenGraphValueContainer.js");
 ================================================================================
 `;
 
-exports[`OpenGraphValueContainer.js 1`] = `
+exports[`OpenGraphValueContainer.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.js 1`] = `
+exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -36,7 +36,7 @@ bar({ foo: "" });
 ================================================================================
 `;
 
-exports[`test2.js 1`] = `
+exports[`test2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -74,7 +74,7 @@ var f: { foo?: ?string } = { foo: null }; // Also fine
 ================================================================================
 `;
 
-exports[`test3.js 1`] = `
+exports[`test3.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -198,7 +198,7 @@ class A {
 ================================================================================
 `;
 
-exports[`test3_exact_annot.js 1`] = `
+exports[`test3_exact_annot.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -224,7 +224,7 @@ b.b = 0; // because subsequent writes would widen the exact object
 ================================================================================
 `;
 
-exports[`test3_failure.js 1`] = `
+exports[`test3_failure.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

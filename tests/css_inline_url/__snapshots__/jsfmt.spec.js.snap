@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`empty.css 1`] = `
+exports[`empty.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -18,7 +18,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`inline_url.css 1`] = `
+exports[`inline_url.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80

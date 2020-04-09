@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CanvasRenderingContext2D.js 1`] = `
+exports[`CanvasRenderingContext2D.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -38,7 +38,7 @@ let tests = [
 ================================================================================
 `;
 
-exports[`CustomEvent.js 1`] = `
+exports[`CustomEvent.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -68,7 +68,7 @@ let tests = [
 ================================================================================
 `;
 
-exports[`Document.js 1`] = `
+exports[`Document.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -106,7 +106,7 @@ let tests = [
 ================================================================================
 `;
 
-exports[`Element.js 1`] = `
+exports[`Element.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -154,7 +154,7 @@ let tests = [
 ================================================================================
 `;
 
-exports[`HTMLCanvasElement.js 1`] = `
+exports[`HTMLCanvasElement.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -182,7 +182,7 @@ let tests = [
 ================================================================================
 `;
 
-exports[`HTMLElement.js 1`] = `
+exports[`HTMLElement.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -230,7 +230,7 @@ let tests = [
 ================================================================================
 `;
 
-exports[`HTMLInputElement.js 1`] = `
+exports[`HTMLInputElement.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -266,7 +266,7 @@ let tests = [
 ================================================================================
 `;
 
-exports[`URL.js 1`] = `
+exports[`URL.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -318,7 +318,7 @@ const r: string = c.username; // correct
 ================================================================================
 `;
 
-exports[`eventtarget.js 1`] = `
+exports[`eventtarget.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -380,7 +380,7 @@ let tests = [
 ================================================================================
 `;
 
-exports[`path2d.js 1`] = `
+exports[`path2d.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -414,7 +414,7 @@ let tests = [
 ================================================================================
 `;
 
-exports[`registerElement.js 1`] = `
+exports[`registerElement.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -535,7 +535,7 @@ let tests = [
 ================================================================================
 `;
 
-exports[`traversal.js 1`] = `
+exports[`traversal.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

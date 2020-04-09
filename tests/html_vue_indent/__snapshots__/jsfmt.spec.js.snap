@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`inside-template.vue 1`] = `
+exports[`inside-template.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -57,7 +57,7 @@ vueIndentScriptAndStyle: true
 ================================================================================
 `;
 
-exports[`inside-template.vue 2`] = `
+exports[`inside-template.vue format 2`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -114,7 +114,7 @@ vueIndentScriptAndStyle: false
 ================================================================================
 `;
 
-exports[`vue-tag-indent.vue 1`] = `
+exports[`vue-tag-indent.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -171,7 +171,7 @@ footer {
 ================================================================================
 `;
 
-exports[`vue-tag-indent.vue 2`] = `
+exports[`vue-tag-indent.vue format 2`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80

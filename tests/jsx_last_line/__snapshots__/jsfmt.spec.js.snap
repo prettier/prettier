@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`last_line.js 1`] = `
+exports[`last_line.js format 1`] = `
 ====================================options=====================================
 jsxBracketSameLine: true
 parsers: ["flow", "typescript"]
@@ -32,7 +32,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`last_line.js 2`] = `
+exports[`last_line.js format 2`] = `
 ====================================options=====================================
 jsxBracketSameLine: false
 parsers: ["flow", "typescript"]
@@ -65,7 +65,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`single_prop_multiline_string.js 1`] = `
+exports[`single_prop_multiline_string.js format 1`] = `
 ====================================options=====================================
 jsxBracketSameLine: true
 parsers: ["flow", "typescript"]
@@ -95,7 +95,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`single_prop_multiline_string.js 2`] = `
+exports[`single_prop_multiline_string.js format 2`] = `
 ====================================options=====================================
 jsxBracketSameLine: false
 parsers: ["flow", "typescript"]

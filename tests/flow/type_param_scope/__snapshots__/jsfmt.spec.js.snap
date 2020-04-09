@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`class.js 1`] = `
+exports[`class.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -28,7 +28,7 @@ class C<T> {
 ================================================================================
 `;
 
-exports[`default_params.js 1`] = `
+exports[`default_params.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -64,7 +64,7 @@ f(0); // ok
 ================================================================================
 `;
 
-exports[`method_shadow.js 1`] = `
+exports[`method_shadow.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

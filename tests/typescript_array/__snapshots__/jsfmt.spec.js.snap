@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comment.js 1`] = `
+exports[`comment.js format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -28,7 +28,7 @@ export class ViewTokensChangedEvent {
 ================================================================================
 `;
 
-exports[`key.ts 1`] = `
+exports[`key.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

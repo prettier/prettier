@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`array_rest.js 1`] = `
+exports[`array_rest.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -36,7 +36,7 @@ let [...e] = 0;
 ================================================================================
 `;
 
-exports[`computed.js 1`] = `
+exports[`computed.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -66,7 +66,7 @@ var { ["key"]: val3, ...spread } = { key: "val" };
 ================================================================================
 `;
 
-exports[`defaults.js 1`] = `
+exports[`defaults.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -246,7 +246,7 @@ function default_expr_scope({ a, b = a }) {}
 ================================================================================
 `;
 
-exports[`destructuring.js 1`] = `
+exports[`destructuring.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -400,7 +400,7 @@ var cp2_err: string = others.childprop2; // Error: number ~> string
 ================================================================================
 `;
 
-exports[`eager.js 1`] = `
+exports[`eager.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -416,7 +416,7 @@ var x;
 ================================================================================
 `;
 
-exports[`poly.js 1`] = `
+exports[`poly.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -494,7 +494,7 @@ function arr_rest_pattern<X>([_, ...a]: ArrRest<X>) {
 ================================================================================
 `;
 
-exports[`rec.js 1`] = `
+exports[`rec.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -546,7 +546,7 @@ var { x: o } = o;
 ================================================================================
 `;
 
-exports[`refinement_non_termination.js 1`] = `
+exports[`refinement_non_termination.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -578,7 +578,7 @@ class UndefinedValue extends Value {}
 ================================================================================
 `;
 
-exports[`string_lit.js 1`] = `
+exports[`string_lit.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -600,7 +600,7 @@ var { "with-dash": with_dash } = { "with-dash": "motivating example" };
 ================================================================================
 `;
 
-exports[`unannotated.js 1`] = `
+exports[`unannotated.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`color-adjuster.css 1`] = `
+exports[`color-adjuster.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -257,7 +257,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`current-color.css 1`] = `
+exports[`current-color.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -277,7 +277,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`functional-syntax.css 1`] = `
+exports[`functional-syntax.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -305,7 +305,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`hexcolor.css 1`] = `
+exports[`hexcolor.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -335,7 +335,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`whitespace-syntax.css 1`] = `
+exports[`whitespace-syntax.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80

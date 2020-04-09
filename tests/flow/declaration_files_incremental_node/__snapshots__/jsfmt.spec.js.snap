@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`A.js 1`] = `
+exports[`A.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -18,7 +18,7 @@ export function foo(): Implementation {
 ================================================================================
 `;
 
-exports[`test_absolute.js 1`] = `
+exports[`test_absolute.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -112,7 +112,7 @@ var F = require("package_with_dir_main");
 ================================================================================
 `;
 
-exports[`test_relative.js 1`] = `
+exports[`test_relative.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

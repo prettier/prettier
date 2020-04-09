@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`implements.js 1`] = `
+exports[`implements.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

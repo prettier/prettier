@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`backslash_2028.js 1`] = `
+exports[`backslash_2028.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -15,7 +15,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`backslash_2029.js 1`] = `
+exports[`backslash_2029.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

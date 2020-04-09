@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`after-key.js 1`] = `
+exports[`after-key.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -26,7 +26,7 @@ let b = {
 ================================================================================
 `;
 
-exports[`comment.js 1`] = `
+exports[`comment.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80

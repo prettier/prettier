@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`bracket_spacing.graphql 1`] = `
+exports[`bracket_spacing.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
 printWidth: 80
@@ -22,7 +22,7 @@ fragment Visit on HighlightedVisit
 ================================================================================
 `;
 
-exports[`bracket_spacing.graphql 2`] = `
+exports[`bracket_spacing.graphql format 2`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["graphql"]

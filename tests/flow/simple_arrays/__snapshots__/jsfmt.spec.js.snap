@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`array.js 1`] = `
+exports[`array.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -61,7 +61,7 @@ function baz(i: number): string {
 ================================================================================
 `;
 
-exports[`array2.js 1`] = `
+exports[`array2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

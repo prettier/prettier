@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`empty.html 1`] = `
+exports[`empty.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -14,7 +14,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`less.html 1`] = `
+exports[`less.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -60,7 +60,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`postcss.html 1`] = `
+exports[`postcss.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -92,7 +92,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`scss.html 1`] = `
+exports[`scss.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -168,7 +168,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`simple.html 1`] = `
+exports[`simple.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -215,7 +215,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`single-style.html 1`] = `
+exports[`single-style.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`concat-statement.hbs 1`] = `
+exports[`concat-statement.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -54,7 +54,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`concat-statement.hbs 2`] = `
+exports[`concat-statement.hbs format 2`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -109,7 +109,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`in-attr-node.hbs 1`] = `
+exports[`in-attr-node.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -148,7 +148,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`in-attr-node.hbs 2`] = `
+exports[`in-attr-node.hbs format 2`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80

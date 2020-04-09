@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`complex.md 1`] = `
+exports[`complex.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -25,7 +25,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`empty.md 1`] = `
+exports[`empty.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -42,7 +42,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`empty-2.md 1`] = `
+exports[`empty-2.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -63,7 +63,7 @@ Content
 ================================================================================
 `;
 
-exports[`simple.md 1`] = `
+exports[`simple.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -82,7 +82,7 @@ hello: world
 ================================================================================
 `;
 
-exports[`simple-2.md 1`] = `
+exports[`simple-2.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -105,7 +105,7 @@ Content
 ================================================================================
 `;
 
-exports[`trailing-spaces.md 1`] = `
+exports[`trailing-spaces.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comment.js 1`] = `
+exports[`comment.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -22,7 +22,7 @@ const myValue = (callcallcallcallcallcall(
 ================================================================================
 `;
 
-exports[`union.js 1`] = `
+exports[`union.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -102,7 +102,7 @@ export function aPrettyLongFunctionE(
 ================================================================================
 `;
 
-exports[`within-tuple.js 1`] = `
+exports[`within-tuple.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80

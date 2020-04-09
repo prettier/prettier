@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`class.js 1`] = `
+exports[`class.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -66,7 +66,7 @@ function f(x: Foo | null | void): void {
 ================================================================================
 `;
 
-exports[`example.js 1`] = `
+exports[`example.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -108,7 +108,7 @@ lib.bar();
 ================================================================================
 `;
 
-exports[`imports.js 1`] = `
+exports[`imports.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -142,7 +142,7 @@ things;
 ================================================================================
 `;
 
-exports[`library.js 1`] = `
+exports[`library.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

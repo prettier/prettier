@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`A.js 1`] = `
+exports[`A.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -38,7 +38,7 @@ import { numVal as numVal2 } from "3DoesntExist"; // Error
 ================================================================================
 `;
 
-exports[`Exists.js 1`] = `
+exports[`Exists.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

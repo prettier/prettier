@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`semi.md 1`] = `
+exports[`semi.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -30,7 +30,7 @@ const a = 1;
 ================================================================================
 `;
 
-exports[`semi.md 2`] = `
+exports[`semi.md format 2`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
