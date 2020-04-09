@@ -30,6 +30,7 @@ const {
   getPrettierIgnoreAttributeCommentData,
   hasPrettierIgnore,
   inferScriptParser,
+  isCustomBlock,
   isScriptLikeTag,
   isTextLikeNode,
   normalizeParts,
@@ -72,9 +73,9 @@ function embed(path, print, textToDoc, options) {
           return builders.concat([
             concat([
               breakParent,
-              printOpeningTagPrefix(node, options),
+              printOpeningTagPrefix(node),
               stripTrailingHardline(textToDoc(value, { parser })),
-              printClosingTagSuffix(node, options),
+              printClosingTagSuffix(node),
             ]),
           ]);
         }
@@ -98,6 +99,33 @@ function embed(path, print, textToDoc, options) {
             ? " "
             : line,
         ]);
+      } else if (isCustomBlock(node.parent, options)) {
+        const langAttr =
+          node.parent.attrs &&
+          node.parent.attrs.find((attr) => attr.name === "lang");
+        const lang = langAttr && langAttr.value;
+        let printed;
+        if (lang) {
+          try {
+            printed = textToDoc(node.value, { parser: lang });
+          } catch (error) {
+            // Do nothing
+          }
+        } else {
+          const parsers = ["json", "yaml", "graphql"];
+          for (let i = 0; i < parsers.length && !printed; i++) {
+            const parser = parsers[i];
+            try {
+              printed = textToDoc(node.value, { parser });
+            } catch (error) {
+              // Do nothing
+            }
+          }
+        }
+        if (printed == null) {
+          printed = node.value;
+        }
+        return stripTrailingHardline(printed);
       }
       break;
     }
@@ -225,7 +253,8 @@ function genericPrint(path, options, print) {
                       ? ifBreak(indent(childrenDoc), childrenDoc, {
                           groupId: attrGroupId,
                         })
-                      : isScriptLikeTag(node) &&
+                      : (isScriptLikeTag(node) ||
+                          isCustomBlock(node, options)) &&
                         node.parent.type === "root" &&
                         options.parser === "vue" &&
                         !options.vueIndentScriptAndStyle
@@ -285,7 +314,7 @@ function genericPrint(path, options, print) {
                 ]),
           ])
         ),
-        printClosingTag(node, options),
+        printClosingTag(node),
       ]);
     }
     case "ieConditionalStartComment":
@@ -293,9 +322,9 @@ function genericPrint(path, options, print) {
       return concat([printOpeningTagStart(node), printClosingTagEnd(node)]);
     case "interpolation":
       return concat([
-        printOpeningTagStart(node, options),
+        printOpeningTagStart(node),
         concat(path.map(print, "children")),
-        printClosingTagEnd(node, options),
+        printClosingTagEnd(node),
       ]);
     case "text": {
       if (node.parent.type === "interpolation") {
@@ -313,9 +342,9 @@ function genericPrint(path, options, print) {
       return fill(
         normalizeParts(
           [].concat(
-            printOpeningTagPrefix(node, options),
+            printOpeningTagPrefix(node),
             getTextValueParts(node),
-            printClosingTagSuffix(node, options)
+            printClosingTagSuffix(node)
           )
         )
       );
@@ -324,16 +353,16 @@ function genericPrint(path, options, print) {
       return concat([
         group(
           concat([
-            printOpeningTagStart(node, options),
+            printOpeningTagStart(node),
             " ",
             node.value.replace(/^html\b/i, "html").replace(/\s+/g, " "),
           ])
         ),
-        printClosingTagEnd(node, options),
+        printClosingTagEnd(node),
       ]);
     case "comment": {
       return concat([
-        printOpeningTagPrefix(node, options),
+        printOpeningTagPrefix(node),
         concat(
           replaceEndOfLineWith(
             options.originalText.slice(
@@ -343,7 +372,7 @@ function genericPrint(path, options, print) {
             literalline
           )
         ),
-        printClosingTagSuffix(node, options),
+        printClosingTagSuffix(node),
       ]);
     }
     case "attribute": {
@@ -491,7 +520,7 @@ function printChildren(path, options, print) {
     if (hasPrettierIgnore(child)) {
       return concat(
         [].concat(
-          printOpeningTagPrefix(child, options),
+          printOpeningTagPrefix(child),
           replaceEndOfLineWith(
             options.originalText.slice(
               options.locStart(child) +
@@ -501,20 +530,20 @@ function printChildren(path, options, print) {
                   : 0),
               options.locEnd(child) -
                 (child.next && needsToBorrowPrevClosingTagEndMarker(child.next)
-                  ? printClosingTagEndMarker(child, options).length
+                  ? printClosingTagEndMarker(child).length
                   : 0)
             ),
             literalline
           ),
-          printClosingTagSuffix(child, options)
+          printClosingTagSuffix(child)
         )
       );
     }
 
-    if (shouldPreserveContent(child, options)) {
+    if (shouldPreserveContent(child)) {
       return concat(
         [].concat(
-          printOpeningTagPrefix(child, options),
+          printOpeningTagPrefix(child),
           group(printOpeningTag(childPath, options, print)),
           replaceEndOfLineWith(
             options.originalText.slice(
@@ -526,15 +555,15 @@ function printChildren(path, options, print) {
               child.endSourceSpan.start.offset +
                 (child.lastChild &&
                 needsToBorrowParentClosingTagStartMarker(child.lastChild)
-                  ? printClosingTagStartMarker(child, options).length
+                  ? printClosingTagStartMarker(child).length
                   : needsToBorrowLastChildClosingTagEndMarker(child)
-                  ? -printClosingTagEndMarker(child.lastChild, options).length
+                  ? -printClosingTagEndMarker(child.lastChild).length
                   : 0)
             ),
             literalline
           ),
-          printClosingTag(child, options),
-          printClosingTagSuffix(child, options)
+          printClosingTag(child),
+          printClosingTagSuffix(child)
         )
       );
     }
@@ -614,7 +643,7 @@ function printOpeningTag(path, options, print) {
     node.attrs[0].fullName === "src" &&
     node.children.length === 0;
   return concat([
-    printOpeningTagStart(node, options),
+    printOpeningTagStart(node),
     !node.attrs || node.attrs.length === 0
       ? node.isSelfClosing
         ? /**
@@ -689,13 +718,10 @@ function printOpeningTag(path, options, print) {
   ]);
 }
 
-function printOpeningTagStart(node, options) {
+function printOpeningTagStart(node) {
   return node.prev && needsToBorrowNextOpeningTagStartMarker(node.prev)
     ? ""
-    : concat([
-        printOpeningTagPrefix(node, options),
-        printOpeningTagStartMarker(node),
-      ]);
+    : concat([printOpeningTagPrefix(node), printOpeningTagStartMarker(node)]);
 }
 
 function printOpeningTagEnd(node) {
@@ -705,34 +731,28 @@ function printOpeningTagEnd(node) {
     : printOpeningTagEndMarker(node);
 }
 
-function printClosingTag(node, options) {
+function printClosingTag(node) {
   return concat([
-    node.isSelfClosing ? "" : printClosingTagStart(node, options),
-    printClosingTagEnd(node, options),
+    node.isSelfClosing ? "" : printClosingTagStart(node),
+    printClosingTagEnd(node),
   ]);
 }
 
-function printClosingTagStart(node, options) {
+function printClosingTagStart(node) {
   return node.lastChild &&
     needsToBorrowParentClosingTagStartMarker(node.lastChild)
     ? ""
-    : concat([
-        printClosingTagPrefix(node, options),
-        printClosingTagStartMarker(node, options),
-      ]);
+    : concat([printClosingTagPrefix(node), printClosingTagStartMarker(node)]);
 }
 
-function printClosingTagEnd(node, options) {
+function printClosingTagEnd(node) {
   return (
     node.next
       ? needsToBorrowPrevClosingTagEndMarker(node.next)
       : needsToBorrowLastChildClosingTagEndMarker(node.parent)
   )
     ? ""
-    : concat([
-        printClosingTagEndMarker(node, options),
-        printClosingTagSuffix(node, options),
-      ]);
+    : concat([printClosingTagEndMarker(node), printClosingTagSuffix(node)]);
 }
 
 function needsToBorrowNextOpeningTagStartMarker(node) {
@@ -817,23 +837,23 @@ function needsToBorrowParentClosingTagStartMarker(node) {
   );
 }
 
-function printOpeningTagPrefix(node, options) {
+function printOpeningTagPrefix(node) {
   return needsToBorrowParentOpeningTagEndMarker(node)
     ? printOpeningTagEndMarker(node.parent)
     : needsToBorrowPrevClosingTagEndMarker(node)
-    ? printClosingTagEndMarker(node.prev, options)
+    ? printClosingTagEndMarker(node.prev)
     : "";
 }
 
-function printClosingTagPrefix(node, options) {
+function printClosingTagPrefix(node) {
   return needsToBorrowLastChildClosingTagEndMarker(node)
-    ? printClosingTagEndMarker(node.lastChild, options)
+    ? printClosingTagEndMarker(node.lastChild)
     : "";
 }
 
-function printClosingTagSuffix(node, options) {
+function printClosingTagSuffix(node) {
   return needsToBorrowParentClosingTagStartMarker(node)
-    ? printClosingTagStartMarker(node.parent, options)
+    ? printClosingTagStartMarker(node.parent)
     : needsToBorrowNextOpeningTagStartMarker(node)
     ? printOpeningTagStartMarker(node.next)
     : "";
@@ -875,9 +895,9 @@ function printOpeningTagEndMarker(node) {
   }
 }
 
-function printClosingTagStartMarker(node, options) {
+function printClosingTagStartMarker(node) {
   assert(!node.isSelfClosing);
-  if (shouldNotPrintClosingTag(node, options)) {
+  if (shouldNotPrintClosingTag(node)) {
     return "";
   }
   switch (node.type) {
@@ -893,8 +913,8 @@ function printClosingTagStartMarker(node, options) {
   }
 }
 
-function printClosingTagEndMarker(node, options) {
-  if (shouldNotPrintClosingTag(node, options)) {
+function printClosingTagEndMarker(node) {
+  if (shouldNotPrintClosingTag(node)) {
     return "";
   }
   switch (node.type) {

@@ -29,7 +29,7 @@ function mapObject(object, fn) {
   return newObject;
 }
 
-function shouldPreserveContent(node, options) {
+function shouldPreserveContent(node) {
   if (!node.endSourceSpan) {
     return false;
   }
@@ -57,23 +57,6 @@ function shouldPreserveContent(node, options) {
   // incomplete html in ie conditional comment
   // e.g. <!--[if lt IE 9]></div><![endif]-->
   if (node.type === "ieConditionalComment" && !node.complete) {
-    return true;
-  }
-
-  // top-level elements (excluding <template>, <style> and <script>) in Vue SFC are considered custom block
-  // custom blocks can be written in other languages so we should preserve them to not break the code
-  if (
-    options.parser === "vue" &&
-    node.type === "element" &&
-    node.parent.type === "root" &&
-    ![
-      "template",
-      "style",
-      "script",
-      // vue parser can be used for vue dom template as well, so we should still format top-level <html>
-      "html",
-    ].includes(node.fullName)
-  ) {
     return true;
   }
 
@@ -603,11 +586,11 @@ function identity(x) {
   return x;
 }
 
-function shouldNotPrintClosingTag(node, options) {
+function shouldNotPrintClosingTag(node) {
   return (
     !node.isSelfClosing &&
     !node.endSourceSpan &&
-    (hasPrettierIgnore(node) || shouldPreserveContent(node.parent, options))
+    (hasPrettierIgnore(node) || shouldPreserveContent(node.parent))
   );
 }
 
@@ -623,6 +606,17 @@ function countChars(text, char) {
 
 function unescapeQuoteEntities(text) {
   return text.replace(/&apos;/g, "'").replace(/&quot;/g, '"');
+}
+
+// top-level elements (excluding <template>, <style> and <script>) in Vue SFC are considered custom block
+const rootElementsSet = new Set(["template", "style", "script", "html"]);
+function isCustomBlock(node, options) {
+  return (
+    options.parser === "vue" &&
+    node.type === "element" &&
+    node.parent.type === "root" &&
+    !rootElementsSet.has(node.fullName)
+  );
 }
 
 module.exports = {
@@ -642,6 +636,7 @@ module.exports = {
   hasPrettierIgnore,
   identity,
   inferScriptParser,
+  isCustomBlock,
   isDanglingSpaceSensitiveNode,
   isFrontMatterNode,
   isIndentationSensitiveNode,
