@@ -4419,6 +4419,27 @@ function printFunctionParams(path, print, options, expandArg, printTypeParams) {
   const canHaveTrailingComma =
     !(lastParam && lastParam.type === "RestElement") && !fun.rest;
 
+  if (
+    typeParams !== "" &&
+    parent.type === "TSTypeAliasDeclaration" &&
+    fun.typeParameters &&
+    fun.typeParameters.params.length === 1 &&
+    fun.params.length === 1
+  ) {
+    return indent(
+      concat([
+        softline,
+        typeParams,
+        "(",
+        concat(printed),
+        ifBreak(
+          canHaveTrailingComma && shouldPrintComma(options, "all") ? "," : ""
+        ),
+        ")"
+      ])
+    );
+  }
+
   return concat([
     typeParams,
     "(",
