@@ -3641,7 +3641,7 @@ function printPathNoParens(path, options, print, args) {
         )
       );
     case "NGMicrosyntaxKey":
-      return /^[a-z_$][a-z0-9_$]*(-[a-z_$][a-z0-9_$])*$/i.test(n.name)
+      return /^[$_a-z][\w$]*(-[$_a-z][\w$])*$/i.test(n.name)
         ? n.name
         : JSON.stringify(n.name);
     case "NGMicrosyntaxExpression":
@@ -5114,7 +5114,7 @@ function printMemberChain(path, options, print) {
   // letter or just a sequence of _$. The rationale is that they are
   // likely to be factories.
   function isFactory(name) {
-    return /^[A-Z]|^[_$]+$/.test(name);
+    return /^[A-Z]|^[$_]+$/.test(name);
   }
 
   // In case the Identifier is shorter than tab width, we can keep the

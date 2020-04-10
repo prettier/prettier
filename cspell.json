@@ -431,7 +431,8 @@
         "\\[@\\w+?\\]",
         "\\[`\\w+`\\]",
         "ve{2,}r{2,}y",
-        "ve+r+y+long\\w*"
+        "ve+r+y+long\\w*",
+        "\\/.*?\\/"
     ],
     "ignorePaths": [
         "**/node_modules/**",
