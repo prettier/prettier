@@ -16,6 +16,9 @@ describe("throw error for unsupported extension", () => {
 describe("throw error with invalid config format", () => {
   runPrettier("cli/config/invalid", ["--config", "file/.prettierrc"]).test({
     status: "non-zero",
+    stderr: expect.stringMatching(
+      /Cannot (?:resolve|find) module '--invalid--' from/
+    ),
   });
 });
 
@@ -46,6 +49,14 @@ describe("throw error with invalid config precedence option (configPrecedence)",
     "option/configPrecedence",
   ]).test({
     status: "non-zero",
+  });
+});
+
+describe("resolves external configuration from package.json", () => {
+  runPrettier("cli/config-external-config-syntax-error", [
+    "syntax-error.js",
+  ]).test({
+    status: 2,
   });
 });
 
