@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`any.js 1`] = `
+exports[`any.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -22,7 +22,7 @@ const val: string = dict[k]; // error: number incompatible with string
 ================================================================================
 `;
 
-exports[`compatible.js 1`] = `
+exports[`compatible.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -66,7 +66,7 @@ function foo2(x: {
 ================================================================================
 `;
 
-exports[`dictionary.js 1`] = `
+exports[`dictionary.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -674,7 +674,7 @@ function subtype_optional_c_to_dict(x: { p?: C }): { [k: string]: B } {
 ================================================================================
 `;
 
-exports[`incompatible.js 1`] = `
+exports[`incompatible.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -804,7 +804,7 @@ function foo8(x: { [key: string]: number }) {
 ================================================================================
 `;
 
-exports[`issue-1745.js 1`] = `
+exports[`issue-1745.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -866,7 +866,7 @@ class B {
 ================================================================================
 `;
 
-exports[`test.js 1`] = `
+exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -898,7 +898,7 @@ module.exports = o;
 ================================================================================
 `;
 
-exports[`test_client.js 1`] = `
+exports[`test_client.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80

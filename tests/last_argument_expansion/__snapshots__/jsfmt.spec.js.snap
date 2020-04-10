@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`arrow.js 1`] = `
+exports[`arrow.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -46,7 +46,7 @@ export default function searchUsers(action$) {
 ================================================================================
 `;
 
-exports[`break.js 1`] = `
+exports[`break.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -84,7 +84,7 @@ export default class AddAssetHtmlPlugin {
 ================================================================================
 `;
 
-exports[`break-parent.js 1`] = `
+exports[`break-parent.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -148,7 +148,7 @@ true ? (
 ================================================================================
 `;
 
-exports[`edge_case.js 1`] = `
+exports[`edge_case.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -305,7 +305,7 @@ someReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReal
 ================================================================================
 `;
 
-exports[`empty-object.js 1`] = `
+exports[`empty-object.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -367,7 +367,7 @@ func(
 ================================================================================
 `;
 
-exports[`jsx.js 1`] = `
+exports[`jsx.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -389,7 +389,7 @@ const els = items.map((item) => (
 ================================================================================
 `;
 
-exports[`object.js 1`] = `
+exports[`object.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -439,7 +439,7 @@ export const log = (y) => {
 ================================================================================
 `;
 
-exports[`overflow.js 1`] = `
+exports[`overflow.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

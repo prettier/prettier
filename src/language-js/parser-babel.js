@@ -48,12 +48,13 @@ function resolvePluginsConflict(
   pluginCombinations,
   conflictPlugins
 ) {
-  const combinations = [...pluginCombinations];
-  if (condition) {
-    for (const combination of pluginCombinations) {
-      for (const plugin of conflictPlugins) {
-        combinations.push([...combination, plugin]);
-      }
+  if (!condition) {
+    return pluginCombinations;
+  }
+  const combinations = [];
+  for (const combination of pluginCombinations) {
+    for (const plugin of conflictPlugins) {
+      combinations.push([...combination, plugin]);
     }
   }
   return combinations;

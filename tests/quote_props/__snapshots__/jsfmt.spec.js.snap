@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`classes.js 1`] = `
+exports[`classes.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -47,7 +47,7 @@ class D {
 ================================================================================
 `;
 
-exports[`classes.js 2`] = `
+exports[`classes.js format 2`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -94,7 +94,7 @@ class D {
 ================================================================================
 `;
 
-exports[`classes.js 3`] = `
+exports[`classes.js format 3`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -141,7 +141,7 @@ class D {
 ================================================================================
 `;
 
-exports[`classes.js 4`] = `
+exports[`classes.js format 4`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -189,7 +189,7 @@ class D {
 ================================================================================
 `;
 
-exports[`objects.js 1`] = `
+exports[`objects.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -236,7 +236,7 @@ const d = {
 ================================================================================
 `;
 
-exports[`objects.js 2`] = `
+exports[`objects.js format 2`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -283,7 +283,7 @@ const d = {
 ================================================================================
 `;
 
-exports[`objects.js 3`] = `
+exports[`objects.js format 3`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -330,7 +330,7 @@ const d = {
 ================================================================================
 `;
 
-exports[`objects.js 4`] = `
+exports[`objects.js format 4`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -378,7 +378,7 @@ const d = {
 ================================================================================
 `;
 
-exports[`with_member_expressions.js 1`] = `
+exports[`with_member_expressions.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -409,7 +409,7 @@ class Foo {
 ================================================================================
 `;
 
-exports[`with_member_expressions.js 2`] = `
+exports[`with_member_expressions.js format 2`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -440,7 +440,7 @@ class Foo {
 ================================================================================
 `;
 
-exports[`with_member_expressions.js 3`] = `
+exports[`with_member_expressions.js format 3`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -471,7 +471,7 @@ class Foo {
 ================================================================================
 `;
 
-exports[`with_member_expressions.js 4`] = `
+exports[`with_member_expressions.js format 4`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -503,7 +503,7 @@ class Foo {
 ================================================================================
 `;
 
-exports[`with_numbers.js 1`] = `
+exports[`with_numbers.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -544,7 +544,7 @@ obj = {
 ================================================================================
 `;
 
-exports[`with_numbers.js 2`] = `
+exports[`with_numbers.js format 2`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -585,7 +585,7 @@ obj = {
 ================================================================================
 `;
 
-exports[`with_numbers.js 3`] = `
+exports[`with_numbers.js format 3`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -626,7 +626,7 @@ obj = {
 ================================================================================
 `;
 
-exports[`with_numbers.js 4`] = `
+exports[`with_numbers.js format 4`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80

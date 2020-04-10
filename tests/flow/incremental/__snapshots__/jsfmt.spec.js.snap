@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`a.js 1`] = `
+exports[`a.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -14,7 +14,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`b.js 1`] = `
+exports[`b.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -36,7 +36,7 @@ var A = require("IncrModuleA");
 ================================================================================
 `;
 
-exports[`dup_a.js 1`] = `
+exports[`dup_a.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

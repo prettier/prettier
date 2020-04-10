@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`base_class.js 1`] = `
+exports[`base_class.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -156,7 +156,7 @@ var o = new Base();
 ================================================================================
 `;
 
-exports[`derived_class.js 1`] = `
+exports[`derived_class.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -435,7 +435,7 @@ var o = new Child();
 ================================================================================
 `;
 
-exports[`generic_class.js 1`] = `
+exports[`generic_class.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -508,7 +508,7 @@ class ClassGenericInitialized<T, U> {
 ================================================================================
 `;
 
-exports[`scoping.js 1`] = `
+exports[`scoping.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

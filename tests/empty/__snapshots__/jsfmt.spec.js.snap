@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`empty 1`] = `
+exports[`empty format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "babel-flow", "babel-ts", "typescript", "css", "less", "scss", "json", "json5", "json-stringify", "graphql", "markdown", "mdx", "vue", "yaml", "html", "angular", "lwc"]
 printWidth: 80
@@ -12,7 +12,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`newline 1`] = `
+exports[`newline format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "babel-flow", "babel-ts", "typescript", "css", "less", "scss", "json", "json5", "json-stringify", "graphql", "markdown", "mdx", "vue", "yaml", "html", "angular", "lwc"]
 printWidth: 80
@@ -25,7 +25,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`space 1`] = `
+exports[`space format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "babel-flow", "babel-ts", "typescript", "css", "less", "scss", "json", "json5", "json-stringify", "graphql", "markdown", "mdx", "vue", "yaml", "html", "angular", "lwc"]
 printWidth: 80
@@ -38,7 +38,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`space-newline 1`] = `
+exports[`space-newline format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "babel-flow", "babel-ts", "typescript", "css", "less", "scss", "json", "json5", "json-stringify", "graphql", "markdown", "mdx", "vue", "yaml", "html", "angular", "lwc"]
 printWidth: 80

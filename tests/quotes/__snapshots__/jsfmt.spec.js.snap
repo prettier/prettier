@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`functions.js 1`] = `
+exports[`functions.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -22,7 +22,7 @@ function b(object, key) {
 ================================================================================
 `;
 
-exports[`functions.js 2`] = `
+exports[`functions.js format 2`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -45,7 +45,7 @@ function b(object, key) {
 ================================================================================
 `;
 
-exports[`objects.js 1`] = `
+exports[`objects.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -67,7 +67,7 @@ const obj = {
 ================================================================================
 `;
 
-exports[`objects.js 2`] = `
+exports[`objects.js format 2`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -90,7 +90,7 @@ const obj = {
 ================================================================================
 `;
 
-exports[`strings.js 1`] = `
+exports[`strings.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -302,7 +302,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`strings.js 2`] = `
+exports[`strings.js format 2`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

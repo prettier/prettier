@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`all.js 1`] = `
+exports[`all.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -90,7 +90,7 @@ function tes2(val: Map<string, Promise<number>>) {
 ================================================================================
 `;
 
-exports[`covariance.js 1`] = `
+exports[`covariance.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -134,7 +134,7 @@ async function testRace() {
 ================================================================================
 `;
 
-exports[`promise.js 1`] = `
+exports[`promise.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -617,7 +617,7 @@ Promise.resolve(0)
 ================================================================================
 `;
 
-exports[`resolve_global.js 1`] = `
+exports[`resolve_global.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -711,7 +711,7 @@ async function baz(): Promise<number> {
 ================================================================================
 `;
 
-exports[`resolve_void.js 1`] = `
+exports[`resolve_void.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

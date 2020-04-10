@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`import-type.ts 1`] = `
+exports[`import-type.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -42,7 +42,7 @@ type X = A<import("B").C<any>>;
 ================================================================================
 `;
 
-exports[`import-type.ts 2`] = `
+exports[`import-type.ts format 2`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
