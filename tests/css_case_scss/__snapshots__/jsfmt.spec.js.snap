@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`case.scss 1`] = `
+exports[`case.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
@@ -317,7 +317,7 @@ TABLE {
 ================================================================================
 `;
 
-exports[`custom-selectors.scss 1`] = `
+exports[`custom-selectors.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80

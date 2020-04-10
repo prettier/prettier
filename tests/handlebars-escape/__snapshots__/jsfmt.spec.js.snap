@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`html-entities.hbs 1`] = `
+exports[`html-entities.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -14,7 +14,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`html-entities.hbs 2`] = `
+exports[`html-entities.hbs format 2`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80

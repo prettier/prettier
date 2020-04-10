@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`baz.js 1`] = `
+exports[`baz.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

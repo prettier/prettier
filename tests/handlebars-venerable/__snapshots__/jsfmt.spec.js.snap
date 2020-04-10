@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`template.html 1`] = `
+exports[`template.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -40,7 +40,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`template.html 2`] = `
+exports[`template.html format 2`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80

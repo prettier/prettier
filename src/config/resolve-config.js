@@ -7,6 +7,7 @@ const mem = require("mem");
 
 const resolveEditorConfig = require("./resolve-config-editorconfig");
 const loadToml = require("../utils/load-toml");
+const resolve = require("../common/resolve");
 
 const getExplorerMemoized = mem(
   (opts) => {
@@ -18,9 +19,7 @@ const getExplorerMemoized = mem(
           if (typeof result.config === "string") {
             const dir = path.dirname(result.filepath);
             try {
-              const modulePath = eval("require").resolve(result.config, {
-                paths: [dir],
-              });
+              const modulePath = resolve(result.config, { paths: [dir] });
               result.config = eval("require")(modulePath);
             } catch (error) {
               // Original message contains `__filename`, can't pass tests

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`lists.graphql 1`] = `
+exports[`lists.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
 printWidth: 80

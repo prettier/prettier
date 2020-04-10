@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comment-in-rules.css 1`] = `
+exports[`comment-in-rules.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80

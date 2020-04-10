@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`collapsed.md 1`] = `
+exports[`collapsed.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -15,7 +15,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`full.md 1`] = `
+exports[`full.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -30,7 +30,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`full-no-alt.md 1`] = `
+exports[`full-no-alt.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -45,7 +45,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`shortcut.md 1`] = `
+exports[`shortcut.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`inline-comment.scss 1`] = `
+exports[`inline-comment.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80

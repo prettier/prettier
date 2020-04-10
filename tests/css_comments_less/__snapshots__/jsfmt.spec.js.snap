@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CRLF.less 1`] = `
+exports[`CRLF.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
 printWidth: 80
@@ -62,7 +62,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`at-rules.less 1`] = `
+exports[`at-rules.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
 printWidth: 80
@@ -278,7 +278,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`block.less 1`] = `
+exports[`block.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
 printWidth: 80
@@ -302,7 +302,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`declaration.less 1`] = `
+exports[`declaration.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
 printWidth: 80
@@ -474,7 +474,7 @@ body {
 ================================================================================
 `;
 
-exports[`places.less 1`] = `
+exports[`places.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
 printWidth: 80
@@ -503,7 +503,7 @@ div {
 ================================================================================
 `;
 
-exports[`prettier-ignore.less 1`] = `
+exports[`prettier-ignore.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
 printWidth: 80
@@ -533,7 +533,7 @@ foo {
 ================================================================================
 `;
 
-exports[`selectors.less 1`] = `
+exports[`selectors.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
 printWidth: 80
@@ -932,7 +932,7 @@ article /* comment 168 */ :--heading /* comment 169 */ + /* comment 170 */ p /* 
 ================================================================================
 `;
 
-exports[`source-map.less 1`] = `
+exports[`source-map.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
 printWidth: 80
@@ -954,7 +954,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`trailing_star_slash.less 1`] = `
+exports[`trailing_star_slash.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
 printWidth: 80
@@ -975,7 +975,7 @@ a {
 ================================================================================
 `;
 
-exports[`types.less 1`] = `
+exports[`types.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
 printWidth: 80

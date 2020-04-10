@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`empty.less 1`] = `
+exports[`empty.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
 printWidth: 80
