@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`directive_decl.graphql 1`] = `
+exports[`directive_decl.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
 printWidth: 80

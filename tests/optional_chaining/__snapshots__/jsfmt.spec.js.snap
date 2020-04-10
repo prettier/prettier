@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`chaining.js 1`] = `
+exports[`chaining.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -182,7 +182,7 @@ new (foo?.())();
 ================================================================================
 `;
 
-exports[`comments.js 1`] = `
+exports[`comments.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

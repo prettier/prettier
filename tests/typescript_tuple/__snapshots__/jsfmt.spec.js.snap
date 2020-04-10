@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`no-trailing-comma-after-rest.ts 1`] = `
+exports[`no-trailing-comma-after-rest.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -29,7 +29,7 @@ type ValidateArgs = [
 ================================================================================
 `;
 
-exports[`no-trailing-comma-after-rest.ts 2`] = `
+exports[`no-trailing-comma-after-rest.ts format 2`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -57,7 +57,7 @@ type ValidateArgs = [
 ================================================================================
 `;
 
-exports[`no-trailing-comma-after-rest.ts 3`] = `
+exports[`no-trailing-comma-after-rest.ts format 3`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -86,7 +86,7 @@ type ValidateArgs = [
 ================================================================================
 `;
 
-exports[`trailing-comma.ts 1`] = `
+exports[`trailing-comma.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -127,7 +127,7 @@ export interface ShopQueryResult {
 ================================================================================
 `;
 
-exports[`trailing-comma.ts 2`] = `
+exports[`trailing-comma.ts format 2`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -167,7 +167,7 @@ export interface ShopQueryResult {
 ================================================================================
 `;
 
-exports[`trailing-comma.ts 3`] = `
+exports[`trailing-comma.ts format 3`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -208,7 +208,7 @@ export interface ShopQueryResult {
 ================================================================================
 `;
 
-exports[`tuple.ts 1`] = `
+exports[`tuple.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -238,7 +238,7 @@ export type SCMRawResource = [
 ================================================================================
 `;
 
-exports[`tuple.ts 2`] = `
+exports[`tuple.ts format 2`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -267,7 +267,7 @@ export type SCMRawResource = [
 ================================================================================
 `;
 
-exports[`tuple.ts 3`] = `
+exports[`tuple.ts format 3`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

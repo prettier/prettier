@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`a.js 1`] = `
+exports[`a.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -18,7 +18,7 @@ module.exports = a;
 ================================================================================
 `;
 
-exports[`b.js 1`] = `
+exports[`b.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -38,7 +38,7 @@ module.exports = b;
 ================================================================================
 `;
 
-exports[`c.js 1`] = `
+exports[`c.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -58,7 +58,7 @@ module.exports = c;
 ================================================================================
 `;
 
-exports[`dupe1.js 1`] = `
+exports[`dupe1.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -82,7 +82,7 @@ module.exports = "dupe1";
 ================================================================================
 `;
 
-exports[`dupe2.js 1`] = `
+exports[`dupe2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -106,7 +106,7 @@ module.exports = "dupe2";
 ================================================================================
 `;
 
-exports[`requires_dupe.js 1`] = `
+exports[`requires_dupe.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -128,7 +128,7 @@ var dupe = require("Dupe");
 ================================================================================
 `;
 
-exports[`requires_unchecked.js 1`] = `
+exports[`requires_unchecked.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -150,7 +150,7 @@ var unchecked = require("Unchecked");
 ================================================================================
 `;
 
-exports[`unchecked.js 1`] = `
+exports[`unchecked.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

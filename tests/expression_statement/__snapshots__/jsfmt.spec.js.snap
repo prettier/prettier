@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`no_regression.js 1`] = `
+exports[`no_regression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -16,7 +16,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`use_strict.js 1`] = `
+exports[`use_strict.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`argument-list-preserve-line.ts 1`] = `
+exports[`argument-list-preserve-line.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -37,7 +37,7 @@ class Foo {
 ================================================================================
 `;
 
-exports[`decorator-type-assertion.ts 1`] = `
+exports[`decorator-type-assertion.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -63,7 +63,7 @@ class Decorated {}
 ================================================================================
 `;
 
-exports[`decorators.js 1`] = `
+exports[`decorators.js format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -189,7 +189,7 @@ class Class5 {
 ================================================================================
 `;
 
-exports[`decorators-comments.js 1`] = `
+exports[`decorators-comments.js format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -284,7 +284,7 @@ class Something3 {
 ================================================================================
 `;
 
-exports[`inline-decorators.ts 1`] = `
+exports[`inline-decorators.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -397,7 +397,7 @@ class MyContainerComponent {
 ================================================================================
 `;
 
-exports[`interface.ts 1`] = `
+exports[`interface.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

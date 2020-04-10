@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`html-with-js-script.html 1`] = `
+exports[`html-with-js-script.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -32,7 +32,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`script-tag-escaping.html 1`] = `
+exports[`script-tag-escaping.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`long-table.md 1`] = `
+exports[`long-table.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -37,7 +37,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`long-table.md 2`] = `
+exports[`long-table.md format 2`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80

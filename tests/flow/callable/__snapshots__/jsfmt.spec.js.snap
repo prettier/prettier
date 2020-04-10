@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`optional.js 1`] = `
+exports[`optional.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -32,7 +32,7 @@ function f(x) {
 ================================================================================
 `;
 
-exports[`primitives.js 1`] = `
+exports[`primitives.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

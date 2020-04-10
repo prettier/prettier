@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`core.js 1`] = `
+exports[`core.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -65,7 +65,7 @@ declare class Map<K, V> {
 ================================================================================
 `;
 
-exports[`immutable.js 1`] = `
+exports[`immutable.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

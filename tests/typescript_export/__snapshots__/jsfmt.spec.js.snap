@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comment.js 1`] = `
+exports[`comment.js format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -16,7 +16,7 @@ a;
 ================================================================================
 `;
 
-exports[`default.js 1`] = `
+exports[`default.js format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -34,7 +34,7 @@ export default interface Foo {
 ================================================================================
 `;
 
-exports[`export.ts 1`] = `
+exports[`export.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -60,7 +60,7 @@ declare module "hello" {
 ================================================================================
 `;
 
-exports[`export-as-ns.ts 1`] = `
+exports[`export-as-ns.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -74,7 +74,7 @@ export * as utilities from "./utilities.js";
 ================================================================================
 `;
 
-exports[`export-class.js 1`] = `
+exports[`export-class.js format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

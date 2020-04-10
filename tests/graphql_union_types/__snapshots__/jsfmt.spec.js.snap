@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`union_types.graphql 1`] = `
+exports[`union_types.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
 printWidth: 80
