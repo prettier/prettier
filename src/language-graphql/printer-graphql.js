@@ -506,8 +506,13 @@ function genericPrint(path, options, print) {
         n.kind === "InterfaceTypeExtension" ? "extend " : "",
         "interface ",
         path.call(print, "name"),
+        n.interfaces.length > 0
+          ? concat([
+              " implements ",
+              concat(printInterfaces(path, options, print)),
+            ])
+          : "",
         printDirectives(path, print, n),
-
         n.fields.length > 0
           ? concat([
               " {",
