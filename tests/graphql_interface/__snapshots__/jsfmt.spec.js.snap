@@ -305,19 +305,22 @@ type Type2 implements A, B, C, D {
   a: a
 }
 
-type Type3 implements A, # &&&&&&&& comment line 1
+type Type3 implements A,
+# &&&&&&&& comment line 1
 # &&&&&&&& comment line 2
 B & C, D {
   a: a
 }
 
-type Type4 implements A, # &&&&&&&& comment line 1
+type Type4 implements A,
+# &&&&&&&& comment line 1
 # &&&&&&&& comment line 2
 B & C, D {
   a: a
 }
 
-type Type5 implements A, # &&&&&&&& comment line 1
+type Type5 implements A,
+# &&&&&&&& comment line 1
 # &&&&&&&& comment line 2
 B & C, D {
   a: a
