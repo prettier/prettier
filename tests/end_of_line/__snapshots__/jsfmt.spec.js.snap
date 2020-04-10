@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`example.js 1`] = `
+exports[`example.js format 1`] = `
 ====================================options=====================================
 endOfLine: "lf"
 parsers: ["babel"]
@@ -19,7 +19,7 @@ function f() {<LF>
 ================================================================================
 `;
 
-exports[`example.js 2`] = `
+exports[`example.js format 2`] = `
 ====================================options=====================================
 endOfLine: "cr"
 parsers: ["babel"]
@@ -38,7 +38,7 @@ function f() {<CR>
 ================================================================================
 `;
 
-exports[`example.js 3`] = `
+exports[`example.js format 3`] = `
 ====================================options=====================================
 endOfLine: "crlf"
 parsers: ["babel"]
@@ -57,7 +57,7 @@ function f() {<CRLF>
 ================================================================================
 `;
 
-exports[`multiline.js 1`] = `
+exports[`multiline.js format 1`] = `
 ====================================options=====================================
 endOfLine: "lf"
 parsers: ["babel"]
@@ -116,7 +116,7 @@ export const IAmIncredibleLongFunctionName = IAmAnotherFunctionName(<LF>
 ================================================================================
 `;
 
-exports[`multiline.js 2`] = `
+exports[`multiline.js format 2`] = `
 ====================================options=====================================
 endOfLine: "cr"
 parsers: ["babel"]
@@ -175,7 +175,7 @@ export const IAmIncredibleLongFunctionName = IAmAnotherFunctionName(<CR>
 ================================================================================
 `;
 
-exports[`multiline.js 3`] = `
+exports[`multiline.js format 3`] = `
 ====================================options=====================================
 endOfLine: "crlf"
 parsers: ["babel"]

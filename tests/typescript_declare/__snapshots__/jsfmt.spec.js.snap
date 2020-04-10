@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`declare_class_fields.ts 1`] = `
+exports[`declare_class_fields.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -20,7 +20,7 @@ class C extends B {
 ================================================================================
 `;
 
-exports[`declare_enum.ts 1`] = `
+exports[`declare_enum.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -36,7 +36,7 @@ declare enum Bar {}
 ================================================================================
 `;
 
-exports[`declare_function.ts 1`] = `
+exports[`declare_function.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -62,7 +62,7 @@ declare namespace A {
 ================================================================================
 `;
 
-exports[`declare_interface.ts 1`] = `
+exports[`declare_interface.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -80,7 +80,7 @@ declare interface Dictionary<T> {
 ================================================================================
 `;
 
-exports[`declare_var.ts 1`] = `
+exports[`declare_var.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

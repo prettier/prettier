@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`combining-characters.js 1`] = `
+exports[`combining-characters.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -18,7 +18,7 @@ const x = ["ÁÀĀÉÈĒẸE̩Ẹ́É̩Ẹ̀È̩Ẹ̄Ē̩ÍÌĪÓÒŌỌO̩Ọ́
 ================================================================================
 `;
 
-exports[`keys.js 1`] = `
+exports[`keys.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -32,7 +32,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`nbsp-jsx.js 1`] = `
+exports[`nbsp-jsx.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`no-semi.ts 1`] = `
+exports[`no-semi.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -32,7 +32,7 @@ class A {
 ================================================================================
 `;
 
-exports[`no-semi.ts 2`] = `
+exports[`no-semi.ts format 2`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -65,7 +65,7 @@ class A {
 ================================================================================
 `;
 
-exports[`non-null.ts 1`] = `
+exports[`non-null.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -83,7 +83,7 @@ const el = ReactDOM.findDOMNode(ref);
 ================================================================================
 `;
 
-exports[`non-null.ts 2`] = `
+exports[`non-null.ts format 2`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

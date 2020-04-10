@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`class_statics.js 1`] = `
+exports[`class_statics.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -33,7 +33,7 @@ C.x = 0;
 ================================================================================
 `;
 
-exports[`funstatics.js 1`] = `
+exports[`funstatics.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

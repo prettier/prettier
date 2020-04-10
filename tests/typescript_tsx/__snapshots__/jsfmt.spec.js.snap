@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`generic-component.tsx 1`] = `
+exports[`generic-component.tsx format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -22,7 +22,7 @@ const c3 = <MyComponent<number> attr="value" />;
 ================================================================================
 `;
 
-exports[`keyword.tsx 1`] = `
+exports[`keyword.tsx format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -38,7 +38,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`member-expression.tsx 1`] = `
+exports[`member-expression.tsx format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -98,7 +98,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`not-react.ts 1`] = `
+exports[`not-react.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -126,7 +126,7 @@ const footer = "<footer></footer>";
 ================================================================================
 `;
 
-exports[`react.tsx 1`] = `
+exports[`react.tsx format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -147,7 +147,7 @@ const MyCoolThing = ({ thingo }) => <li>{thingo}</li>;
 ================================================================================
 `;
 
-exports[`this.tsx 1`] = `
+exports[`this.tsx format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -163,7 +163,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`type-parameters.tsx 1`] = `
+exports[`type-parameters.tsx format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -217,7 +217,7 @@ type Type2 = Two<T>;
 ================================================================================
 `;
 
-exports[`url.tsx 1`] = `
+exports[`url.tsx format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

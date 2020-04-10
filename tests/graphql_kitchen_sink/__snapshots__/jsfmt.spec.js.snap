@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`kitchen_sink.graphql 1`] = `
+exports[`kitchen_sink.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
 printWidth: 80
@@ -133,7 +133,7 @@ fragment frag on Friend {
 ================================================================================
 `;
 
-exports[`schema_kitchen_sink.graphql 1`] = `
+exports[`schema_kitchen_sink.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
 printWidth: 80
