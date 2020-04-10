@@ -101,7 +101,7 @@ Valid options:
 
 - `"es5"` - Trailing commas where valid in ES5 (objects, arrays, etc.)
 - `"none"` - No trailing commas.
-- `"all"` - Trailing commas wherever possible (including function arguments). This requires node 8 or a [transform](https://babeljs.io/docs/plugins/syntax-trailing-function-commas/).
+- `"all"` - Trailing commas wherever possible (including function arguments).
 
 | Default | CLI Override                                           | API Override                                           |
 | ------- | ------------------------------------------------------ | ------------------------------------------------------ |
