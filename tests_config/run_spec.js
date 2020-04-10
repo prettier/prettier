@@ -135,26 +135,6 @@ global.run_spec = (dirname, parsers, options) => {
         parsersToVerify.push("babel-ts");
       }
 
-      if (
-        DEEP_COMPARE &&
-        typeof rangeStart === "undefined" &&
-        typeof rangeEnd === "undefined" &&
-        typeof cursorOffset === "undefined" &&
-        !TEST_CRLF
-      ) {
-        test("second format", () => {
-          const secondOutput = format(output, filename, mainOptions);
-          const isUnstable = unstableTests.get(filename);
-          if (isUnstable && isUnstable(options || {})) {
-            // To keep eye on failed tests, this assert never supposed to pass,
-            // if it fails, just remove the file from `unstableTests`
-            expect(secondOutput).not.toEqual(output);
-          } else {
-            expect(secondOutput).toEqual(output);
-          }
-        });
-      }
-
       for (const parser of parsersToVerify) {
         const verifyOptions = { ...baseOptions, parser };
 
@@ -176,17 +156,36 @@ global.run_spec = (dirname, parsers, options) => {
         });
       }
 
-      if (AST_COMPARE) {
-        const formatted = output.replace(CURSOR_PLACEHOLDER, "");
+      const formatted = output.replace(CURSOR_PLACEHOLDER, "");
+      const isUnstable = unstableTests.get(filename);
+      const isUnstableTest = isUnstable && isUnstable(options || {});
+      if (
+        DEEP_COMPARE &&
+        (formatted !== input || isUnstableTest) &&
+        typeof rangeStart === "undefined" &&
+        typeof rangeEnd === "undefined" &&
+        typeof cursorOffset === "undefined" &&
+        !TEST_CRLF
+      ) {
+        test("second format", () => {
+          const secondOutput = format(formatted, filename, mainOptions);
+          if (isUnstableTest) {
+            // To keep eye on failed tests, this assert never supposed to pass,
+            // if it fails, just remove the file from `unstableTests`
+            expect(secondOutput).not.toEqual(output);
+          } else {
+            expect(secondOutput).toEqual(output);
+          }
+        });
+      }
 
-        if (formatted !== input) {
-          test("compare AST", () => {
-            const { cursorOffset, ...parseOptions } = mainOptions;
-            const originalAst = parse(input, parseOptions);
-            const formattedAst = parse(formatted, parseOptions);
-            expect(originalAst).toEqual(formattedAst);
-          });
-        }
+      if (AST_COMPARE && formatted !== input) {
+        test("compare AST", () => {
+          const { cursorOffset, ...parseOptions } = mainOptions;
+          const originalAst = parse(input, parseOptions);
+          const formattedAst = parse(formatted, parseOptions);
+          expect(originalAst).toEqual(formattedAst);
+        });
       }
     });
   }
