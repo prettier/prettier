@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`common.yml 1`] = `
+exports[`common.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80

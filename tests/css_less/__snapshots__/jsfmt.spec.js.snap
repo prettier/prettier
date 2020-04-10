@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comments.less 1`] = `
+exports[`comments.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
 printWidth: 80
@@ -36,7 +36,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`function-each.less 1`] = `
+exports[`function-each.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
 printWidth: 80
@@ -83,7 +83,7 @@ a: b;
 ================================================================================
 `;
 
-exports[`less.less 1`] = `
+exports[`less.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
 printWidth: 80
@@ -3412,7 +3412,7 @@ label {
 ================================================================================
 `;
 
-exports[`quotes-in-comments.less 1`] = `
+exports[`quotes-in-comments.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
 printWidth: 80

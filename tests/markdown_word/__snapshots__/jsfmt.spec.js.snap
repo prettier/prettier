@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`escape.md 1`] = `
+exports[`escape.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80

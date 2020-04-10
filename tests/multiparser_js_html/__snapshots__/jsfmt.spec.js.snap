@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`html-template-literals.js 1`] = `
+exports[`html-template-literals.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -76,7 +76,7 @@ setFoo(
 ================================================================================
 `;
 
-exports[`html-template-literals.js 2`] = `
+exports[`html-template-literals.js format 2`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["babel", "flow", "typescript"]
@@ -167,7 +167,7 @@ setFoo(
 ================================================================================
 `;
 
-exports[`lit-html.js 1`] = `
+exports[`lit-html.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -374,7 +374,7 @@ html\`<div
 ================================================================================
 `;
 
-exports[`lit-html.js 2`] = `
+exports[`lit-html.js format 2`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["babel", "flow", "typescript"]

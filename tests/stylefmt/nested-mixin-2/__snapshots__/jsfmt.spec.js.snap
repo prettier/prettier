@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`nested-mixin-2.css 1`] = `
+exports[`nested-mixin-2.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`arrow.js 1`] = `
+exports[`arrow.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -26,7 +26,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`call.js 1`] = `
+exports[`call.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -62,7 +62,7 @@ new Error(formatErrorMessage\`
 ================================================================================
 `;
 
-exports[`comment.js 1`] = `
+exports[`comment.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -101,7 +101,7 @@ g
 ================================================================================
 `;
 
-exports[`faulty-locations.js 1`] = `
+exports[`faulty-locations.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -141,7 +141,7 @@ var x = {
 ================================================================================
 `;
 
-exports[`graphql.js 1`] = `
+exports[`graphql.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -187,7 +187,7 @@ module.exports = Relay.createContainer(
 ================================================================================
 `;
 
-exports[`indent.js 1`] = `
+exports[`indent.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -240,7 +240,7 @@ line n + n
 ================================================================================
 `;
 
-exports[`inline.js 1`] = `
+exports[`inline.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -364,7 +364,7 @@ editTitle += \`\${iconHTML({ class: "reply-to-glyph" })}\`;
 ================================================================================
 `;
 
-exports[`parenthesis.js 1`] = `
+exports[`parenthesis.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
