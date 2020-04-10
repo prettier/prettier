@@ -180,7 +180,7 @@ global.run_spec = (dirname, parsers, options) => {
         const formatted = output.replace(CURSOR_PLACEHOLDER, "");
 
         if (formatted !== input) {
-          test("parse", () => {
+          test("compare AST", () => {
             const { cursorOffset, ...parseOptions } = mainOptions;
             const originalAst = parse(input, parseOptions);
             const formattedAst = parse(formatted, parseOptions);
