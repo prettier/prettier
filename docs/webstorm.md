@@ -18,6 +18,7 @@ To use Prettier in IntelliJ IDEA, PhpStorm, PyCharm, and other JetBrains IDEs, p
 To run Prettier on save in older IDE versions, you can set up a file watcher following the instructions below.
 
 ## Running Prettier on save using File Watcher
+To automatically format your files using Prettier on save in WebStorm 2020.1 onwards, you can use the built-in _Run on save for files_ option located in _Preferences/Settings | Languages & Frameworks | JavaScript | Prettier_.
 
 To automatically format your files using Prettier on save in WebStorm 2019.\* or earlier, you can use a [File Watcher](https://plugins.jetbrains.com/plugin/7177-file-watchers).
 
