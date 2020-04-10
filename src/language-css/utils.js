@@ -1,6 +1,6 @@
 "use strict";
 
-const colorAdjusterFunctions = [
+const colorAdjusterFunctions = new Set([
   "red",
   "green",
   "blue",
@@ -26,7 +26,7 @@ const colorAdjusterFunctions = [
   "hsla",
   "hwb",
   "hwba",
-];
+]);
 
 function getAncestorCounter(path, typeOrTypes) {
   const types = [].concat(typeOrTypes);
@@ -376,7 +376,7 @@ function isColorAdjusterFuncNode(node) {
     return false;
   }
 
-  return colorAdjusterFunctions.includes(node.value.toLowerCase());
+  return colorAdjusterFunctions.has(node.value.toLowerCase());
 }
 
 // TODO: only check `less` when we don't use `less` to parse `css`

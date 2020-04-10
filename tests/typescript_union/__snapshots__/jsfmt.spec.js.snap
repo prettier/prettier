@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`inlining.ts 1`] = `
+exports[`inlining.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -94,7 +94,7 @@ type T8 = number | ((arg: any) => void);
 ================================================================================
 `;
 
-exports[`prettier-ignore.ts 1`] = `
+exports[`prettier-ignore.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -156,7 +156,7 @@ export type a =
 ================================================================================
 `;
 
-exports[`prettier-ignore-nested-unions.ts 1`] = `
+exports[`prettier-ignore-nested-unions.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -222,7 +222,7 @@ export type b =
 ================================================================================
 `;
 
-exports[`union-parens.ts 1`] = `
+exports[`union-parens.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -453,7 +453,7 @@ type Ctor = (new () => X) | Y;
 ================================================================================
 `;
 
-exports[`with-type-params.ts 1`] = `
+exports[`with-type-params.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -483,7 +483,7 @@ type GetChatsSagaEffects =
 ================================================================================
 `;
 
-exports[`within-tuple.ts 1`] = `
+exports[`within-tuple.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

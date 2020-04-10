@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`param.js 1`] = `
+exports[`param.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -16,7 +16,7 @@ function g({}: Foo) {}
 ================================================================================
 `;
 
-exports[`param.js 2`] = `
+exports[`param.js format 2`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80

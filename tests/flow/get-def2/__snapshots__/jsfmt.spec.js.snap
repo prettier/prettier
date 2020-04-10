@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Parent.js 1`] = `
+exports[`Parent.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -20,7 +20,7 @@ module.exports = { ParentFoo };
 ================================================================================
 `;
 
-exports[`main.js 1`] = `
+exports[`main.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -80,7 +80,7 @@ function takesFoo(foo: Foo) {}
 ================================================================================
 `;
 
-exports[`override.js 1`] = `
+exports[`override.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -118,7 +118,7 @@ class D extends C {
 ================================================================================
 `;
 
-exports[`react.js 1`] = `
+exports[`react.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -152,7 +152,7 @@ let msg = "hello";
 ================================================================================
 `;
 
-exports[`types.js 1`] = `
+exports[`types.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

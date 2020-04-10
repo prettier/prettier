@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`break-tags.html 1`] = `
+exports[`break-tags.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -20,7 +20,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`display-inline-block.html 1`] = `
+exports[`display-inline-block.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -69,7 +69,7 @@ Click here! Click here! Click here! Click here! Click here! Click here!
 ================================================================================
 `;
 
-exports[`display-none.html 1`] = `
+exports[`display-none.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -90,7 +90,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`fill.html 1`] = `
+exports[`fill.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -125,7 +125,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`inline-leading-trailing-spaces.html 1`] = `
+exports[`inline-leading-trailing-spaces.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -143,7 +143,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`inline-nodes.html 1`] = `
+exports[`inline-nodes.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -193,7 +193,7 @@ conubia nostra, per inceptos himenaeos. Donec in ornare velit.</p>
 ================================================================================
 `;
 
-exports[`non-breaking-whitespace.html 1`] = `
+exports[`non-breaking-whitespace.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -222,7 +222,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`surrounding-linebreak.html 1`] = `
+exports[`surrounding-linebreak.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -266,7 +266,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`table.html 1`] = `
+exports[`table.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -333,7 +333,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`template.html 1`] = `
+exports[`template.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80

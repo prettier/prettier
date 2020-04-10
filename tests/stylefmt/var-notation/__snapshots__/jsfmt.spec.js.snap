@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`var-notation.css 1`] = `
+exports[`var-notation.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80

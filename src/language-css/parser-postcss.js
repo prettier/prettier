@@ -375,6 +375,16 @@ function parseNestedCSS(node, options) {
       node.value = parseValue(value);
     }
 
+    // extend is missing
+    if (
+      isLessParser(options) &&
+      node.type === "css-decl" &&
+      !node.extend &&
+      value.startsWith("extend(")
+    ) {
+      node.extend = node.raws.between === ":";
+    }
+
     if (node.type === "css-atrule") {
       if (isLessParser(options)) {
         // mixin
