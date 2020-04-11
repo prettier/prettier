@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`empty.js 1`] = `
+exports[`empty.js format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -14,7 +14,7 @@ declare module "autoprefixer";
 ================================================================================
 `;
 
-exports[`global.js 1`] = `
+exports[`global.js format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -34,7 +34,7 @@ declare global {}
 ================================================================================
 `;
 
-exports[`keyword.ts 1`] = `
+exports[`keyword.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -108,7 +108,7 @@ namespace X {
 ================================================================================
 `;
 
-exports[`namespace_function.ts 1`] = `
+exports[`namespace_function.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

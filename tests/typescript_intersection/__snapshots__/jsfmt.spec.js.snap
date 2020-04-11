@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`intersection-parens.ts 1`] = `
+exports[`intersection-parens.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -98,7 +98,7 @@ type D6 /*0*/ = /*1*/ a & b;
 ================================================================================
 `;
 
-exports[`intersection-parens.ts 2`] = `
+exports[`intersection-parens.ts format 2`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

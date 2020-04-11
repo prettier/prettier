@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`invalid.html 1`] = `
+exports[`invalid.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -29,7 +29,7 @@ invalid:
 ================================================================================
 `;
 
-exports[`yaml.html 1`] = `
+exports[`yaml.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80

@@ -951,7 +951,7 @@ function getGapRegex(enclosingNode) {
   ) {
     // Support degenerate single-element unions and intersections.
     // E.g.: `type A = /* 1 */ & B`
-    return /^[\s(&|]*$/;
+    return /^[\s&(|]*$/;
   }
 }
 

@@ -302,24 +302,23 @@ function isMemberish(node) {
   );
 }
 
+const flowTypeAnnotations = new Set([
+  "AnyTypeAnnotation",
+  "NullLiteralTypeAnnotation",
+  "GenericTypeAnnotation",
+  "ThisTypeAnnotation",
+  "NumberTypeAnnotation",
+  "VoidTypeAnnotation",
+  "EmptyTypeAnnotation",
+  "MixedTypeAnnotation",
+  "BooleanTypeAnnotation",
+  "BooleanLiteralTypeAnnotation",
+  "StringTypeAnnotation",
+]);
 function isSimpleFlowType(node) {
-  const flowTypeAnnotations = [
-    "AnyTypeAnnotation",
-    "NullLiteralTypeAnnotation",
-    "GenericTypeAnnotation",
-    "ThisTypeAnnotation",
-    "NumberTypeAnnotation",
-    "VoidTypeAnnotation",
-    "EmptyTypeAnnotation",
-    "MixedTypeAnnotation",
-    "BooleanTypeAnnotation",
-    "BooleanLiteralTypeAnnotation",
-    "StringTypeAnnotation",
-  ];
-
   return (
     node &&
-    flowTypeAnnotations.includes(node.type) &&
+    flowTypeAnnotations.has(node.type) &&
     !(node.type === "GenericTypeAnnotation" && node.typeParameters)
   );
 }
@@ -732,7 +731,7 @@ function isJestEachTemplateLiteral(node, parentNode) {
    *
    * Ref: https://github.com/facebook/jest/pull/6102
    */
-  const jestEachTriggerRegex = /^[xf]?(describe|it|test)$/;
+  const jestEachTriggerRegex = /^[fx]?(describe|it|test)$/;
   return (
     parentNode.type === "TaggedTemplateExpression" &&
     parentNode.quasi === node &&

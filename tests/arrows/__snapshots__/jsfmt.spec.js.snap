@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`arrow_function_expression.js 1`] = `
+exports[`arrow_function_expression.js format 1`] = `
 ====================================options=====================================
 arrowParens: "always"
 parsers: ["babel", "typescript"]
@@ -84,7 +84,7 @@ a = (b) => {
 ================================================================================
 `;
 
-exports[`arrow_function_expression.js 2`] = `
+exports[`arrow_function_expression.js format 2`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["babel", "typescript"]
@@ -168,7 +168,7 @@ a = b => {
 ================================================================================
 `;
 
-exports[`block_like.js 1`] = `
+exports[`block_like.js format 1`] = `
 ====================================options=====================================
 arrowParens: "always"
 parsers: ["babel", "typescript"]
@@ -183,7 +183,7 @@ a = () => ({} = this);
 ================================================================================
 `;
 
-exports[`block_like.js 2`] = `
+exports[`block_like.js format 2`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["babel", "typescript"]
@@ -198,7 +198,7 @@ a = () => ({} = this);
 ================================================================================
 `;
 
-exports[`call.js 1`] = `
+exports[`call.js format 1`] = `
 ====================================options=====================================
 arrowParens: "always"
 parsers: ["babel", "typescript"]
@@ -995,7 +995,7 @@ foo(
 ================================================================================
 `;
 
-exports[`call.js 2`] = `
+exports[`call.js format 2`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["babel", "typescript"]
@@ -1792,7 +1792,7 @@ foo(
 ================================================================================
 `;
 
-exports[`comment.js 1`] = `
+exports[`comment.js format 1`] = `
 ====================================options=====================================
 arrowParens: "always"
 parsers: ["babel", "typescript"]
@@ -1865,7 +1865,7 @@ export const bem = (block) =>
 ================================================================================
 `;
 
-exports[`comment.js 2`] = `
+exports[`comment.js format 2`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["babel", "typescript"]
@@ -1938,7 +1938,7 @@ export const bem = block =>
 ================================================================================
 `;
 
-exports[`currying.js 1`] = `
+exports[`currying.js format 1`] = `
 ====================================options=====================================
 arrowParens: "always"
 parsers: ["babel", "typescript"]
@@ -1985,7 +1985,7 @@ const middleware = (options) => (req, res, next) => {
 ================================================================================
 `;
 
-exports[`currying.js 2`] = `
+exports[`currying.js format 2`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["babel", "typescript"]
@@ -2032,7 +2032,7 @@ const middleware = options => (req, res, next) => {
 ================================================================================
 `;
 
-exports[`long-call-no-args.js 1`] = `
+exports[`long-call-no-args.js format 1`] = `
 ====================================options=====================================
 arrowParens: "always"
 parsers: ["babel", "typescript"]
@@ -2050,7 +2050,7 @@ veryLongCall(
 ================================================================================
 `;
 
-exports[`long-call-no-args.js 2`] = `
+exports[`long-call-no-args.js format 2`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["babel", "typescript"]
@@ -2068,7 +2068,7 @@ veryLongCall(
 ================================================================================
 `;
 
-exports[`long-contents.js 1`] = `
+exports[`long-contents.js format 1`] = `
 ====================================options=====================================
 arrowParens: "always"
 parsers: ["babel", "typescript"]
@@ -2092,7 +2092,7 @@ const foo = () => {
 ================================================================================
 `;
 
-exports[`long-contents.js 2`] = `
+exports[`long-contents.js format 2`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["babel", "typescript"]
@@ -2116,7 +2116,7 @@ const foo = () => {
 ================================================================================
 `;
 
-exports[`parens.js 1`] = `
+exports[`parens.js format 1`] = `
 ====================================options=====================================
 arrowParens: "always"
 parsers: ["babel", "typescript"]
@@ -2167,7 +2167,7 @@ foo((a) => b, d);
 ================================================================================
 `;
 
-exports[`parens.js 2`] = `
+exports[`parens.js format 2`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["babel", "typescript"]
@@ -2218,7 +2218,7 @@ foo(a => b, d);
 ================================================================================
 `;
 
-exports[`short_body.js 1`] = `
+exports[`short_body.js format 1`] = `
 ====================================options=====================================
 arrowParens: "always"
 parsers: ["babel", "typescript"]
@@ -2243,7 +2243,7 @@ const initializeSnapshotState = (
 ================================================================================
 `;
 
-exports[`short_body.js 2`] = `
+exports[`short_body.js format 2`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["babel", "typescript"]
@@ -2268,7 +2268,7 @@ const initializeSnapshotState = (
 ================================================================================
 `;
 
-exports[`type_params.js 1`] = `
+exports[`type_params.js format 1`] = `
 ====================================options=====================================
 arrowParens: "always"
 parsers: ["babel", "typescript"]
@@ -2283,7 +2283,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`type_params.js 2`] = `
+exports[`type_params.js format 2`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["babel", "typescript"]

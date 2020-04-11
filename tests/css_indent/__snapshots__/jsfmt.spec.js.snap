@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`indent.css 1`] = `
+exports[`indent.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -27,7 +27,7 @@ div {
 ================================================================================
 `;
 
-exports[`selectors.css 1`] = `
+exports[`selectors.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80

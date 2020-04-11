@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`arrays.js 1`] = `
+exports[`arrays.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -22,7 +22,7 @@ n * s.length;
 ================================================================================
 `;
 
-exports[`export_class.js 1`] = `
+exports[`export_class.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -48,7 +48,7 @@ module.exports = C;
 ================================================================================
 `;
 
-exports[`generics.js 1`] = `
+exports[`generics.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -71,7 +71,7 @@ function foo<X>(x: X): X {
 ================================================================================
 `;
 
-exports[`import_class.js 1`] = `
+exports[`import_class.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -89,7 +89,7 @@ var c = new C("");
 ================================================================================
 `;
 
-exports[`locals.js 1`] = `
+exports[`locals.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -123,7 +123,7 @@ function bar(x: ?string): number {
 ================================================================================
 `;
 
-exports[`objects.js 1`] = `
+exports[`objects.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

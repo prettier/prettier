@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`argument-list.js 1`] = `
+exports[`argument-list.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -395,7 +395,7 @@ function foo(
 ================================================================================
 `;
 
-exports[`comments.js 1`] = `
+exports[`comments.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -463,7 +463,7 @@ function a() {
 ================================================================================
 `;
 
-exports[`member-chain.js 1`] = `
+exports[`member-chain.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -593,7 +593,7 @@ const sel = this.connections
 ================================================================================
 `;
 
-exports[`parameter-list.js 1`] = `
+exports[`parameter-list.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80

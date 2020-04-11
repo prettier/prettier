@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`html4.01_frameset.html 1`] = `
+exports[`html4.01_frameset.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -33,7 +33,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`html4.01_strict.html 1`] = `
+exports[`html4.01_strict.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -66,7 +66,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`html4.01_transitional.html 1`] = `
+exports[`html4.01_transitional.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -99,7 +99,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`html5.html 1`] = `
+exports[`html5.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -131,7 +131,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`xhtml1.1.html 1`] = `
+exports[`xhtml1.1.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80

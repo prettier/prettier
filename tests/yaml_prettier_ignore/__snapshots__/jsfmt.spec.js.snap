@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`document.yml 1`] = `
+exports[`document.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -25,7 +25,7 @@ aaaaa: bbbbb
 ================================================================================
 `;
 
-exports[`leading-comment.yml 1`] = `
+exports[`leading-comment.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -43,7 +43,7 @@ def:     456
 ================================================================================
 `;
 
-exports[`middle-comment.yml 1`] = `
+exports[`middle-comment.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -65,7 +65,7 @@ def:  !!str #   hello
 ================================================================================
 `;
 
-exports[`trailing-comma.yml 1`] = `
+exports[`trailing-comma.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -95,7 +95,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`trailing-comment.yml 1`] = `
+exports[`trailing-comment.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80

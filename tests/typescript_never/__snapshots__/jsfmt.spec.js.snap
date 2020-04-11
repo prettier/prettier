@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`type-argument.src.ts 1`] = `
+exports[`type-argument.src.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

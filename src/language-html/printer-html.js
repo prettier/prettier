@@ -120,7 +120,7 @@ function embed(path, print, textToDoc, options) {
 
       // lwc: html`<my-element data-for={value}></my-element>`
       if (options.parser === "lwc") {
-        const interpolationRegex = /^\{[\s\S]*\}$/;
+        const interpolationRegex = /^{[\S\s]*}$/;
         if (
           interpolationRegex.test(
             options.originalText.slice(
@@ -1100,7 +1100,7 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
       );
     }
 
-    const interpolationRegex = /\{\{([\s\S]+?)\}\}/g;
+    const interpolationRegex = /{{([\S\s]+?)}}/g;
     const value = getValue();
     if (interpolationRegex.test(value)) {
       const parts = [];

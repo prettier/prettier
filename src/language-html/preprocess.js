@@ -232,7 +232,7 @@ function extractInterpolation(ast, options) {
     return ast;
   }
 
-  const interpolationRegex = /\{\{([\s\S]+?)\}\}/g;
+  const interpolationRegex = /{{([\S\s]+?)}}/g;
   return ast.map((node) => {
     if (!canHaveInterpolation(node)) {
       return node;
@@ -337,7 +337,7 @@ function extractWhitespaces(ast /*, options*/) {
           const localChildren = [];
 
           const [, leadingSpaces, text, trailingSpaces] = child.value.match(
-            /^(\s*)([\s\S]*?)(\s*)$/
+            /^(\s*)([\S\s]*?)(\s*)$/
           );
 
           if (leadingSpaces) {

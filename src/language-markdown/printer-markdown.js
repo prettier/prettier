@@ -33,9 +33,13 @@ const {
 } = require("./utils");
 const { replaceEndOfLineWith } = require("../common/util");
 
-const TRAILING_HARDLINE_NODES = ["importExport"];
+const TRAILING_HARDLINE_NODES = new Set(["importExport"]);
 const SINGLE_LINE_NODE_TYPES = ["heading", "tableCell", "link"];
-const SIBLING_NODE_TYPES = ["listItem", "definition", "footnoteDefinition"];
+const SIBLING_NODE_TYPES = new Set([
+  "listItem",
+  "definition",
+  "footnoteDefinition",
+]);
 
 function genericPrint(path, options, print) {
   const node = path.getValue();
@@ -65,7 +69,7 @@ function genericPrint(path, options, print) {
       }
       return concat([
         normalizeDoc(printRoot(path, options, print)),
-        !TRAILING_HARDLINE_NODES.includes(getLastDescendantNode(node).type)
+        !TRAILING_HARDLINE_NODES.has(getLastDescendantNode(node).type)
           ? hardline
           : "",
       ]);
@@ -77,7 +81,7 @@ function genericPrint(path, options, print) {
       return printChildren(path, options, print);
     case "word":
       return node.value
-        .replace(/[*$]/g, "\\$&") // escape all `*` and `$` (math)
+        .replace(/[$*]/g, "\\$&") // escape all `*` and `$` (math)
         .replace(
           new RegExp(
             [
@@ -99,7 +103,7 @@ function genericPrint(path, options, print) {
 
       const proseWrap =
         // leading char that may cause different syntax
-        nextNode && /^>|^([-+*]|#{1,6}|[0-9]+[.)])$/.test(nextNode.value)
+        nextNode && /^>|^([*+-]|#{1,6}|\d+[).])$/.test(nextNode.value)
           ? "never"
           : options.proseWrap;
 
@@ -232,7 +236,7 @@ function genericPrint(path, options, print) {
         privateUtil.getLast(parentNode.children) === node
           ? node.value.trimEnd()
           : node.value;
-      const isHtmlComment = /^<!--[\s\S]*-->$/.test(value);
+      const isHtmlComment = /^<!--[\S\s]*-->$/.test(value);
       return concat(
         replaceEndOfLineWith(
           value,
@@ -728,10 +732,7 @@ function printChildren(path, options, print, events) {
       if (!shouldNotPrePrintHardline(childNode, data)) {
         parts.push(hardline);
 
-        if (
-          lastChildNode &&
-          TRAILING_HARDLINE_NODES.includes(lastChildNode.type)
-        ) {
+        if (lastChildNode && TRAILING_HARDLINE_NODES.has(lastChildNode.type)) {
           if (shouldPrePrintTripleHardline(childNode, data)) {
             parts.push(hardline);
           }
@@ -790,7 +791,7 @@ function shouldNotPrePrintHardline(node, data) {
 
 function shouldPrePrintDoubleHardline(node, data) {
   const isSequence = (data.prevNode && data.prevNode.type) === node.type;
-  const isSiblingNode = isSequence && SIBLING_NODE_TYPES.includes(node.type);
+  const isSiblingNode = isSequence && SIBLING_NODE_TYPES.has(node.type);
 
   const isInTightListItem =
     data.parentNode.type === "listItem" && !data.parentNode.loose;
@@ -950,7 +951,7 @@ function clean(ast, newObj, parent) {
   }
 
   if (ast.type === "inlineCode") {
-    newObj.value = ast.value.replace(/[ \t\n]+/g, " ");
+    newObj.value = ast.value.replace(/[\t\n ]+/g, " ");
   }
 
   // for insert pragma

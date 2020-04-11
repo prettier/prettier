@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`postcss-mixins.css 1`] = `
+exports[`postcss-mixins.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -76,7 +76,7 @@ a {
 ================================================================================
 `;
 
-exports[`postcss-nested.css 1`] = `
+exports[`postcss-nested.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -116,7 +116,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`postcss-nested-props.css 1`] = `
+exports[`postcss-nested-props.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -154,7 +154,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`postcss-nesting.css 1`] = `
+exports[`postcss-nesting.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -581,7 +581,7 @@ a {
 ================================================================================
 `;
 
-exports[`postcss-simple-vars.css 1`] = `
+exports[`postcss-simple-vars.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
