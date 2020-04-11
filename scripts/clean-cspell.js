@@ -21,12 +21,21 @@ const updateConfig = (config) =>
     await execa("yarn lint:spellcheck");
   } catch (error) {
     const { stdout } = error;
-    const words = [...stdout.matchAll(/ - Unknown word \((.*?)\)/g)].map(
+    let words = [...stdout.matchAll(/ - Unknown word \((.*?)\)/g)].map(
       ([, word]) => word
     );
-    config.words = [...new Set(words)]
-      // Compare function from https://github.com/streetsidesoftware/vscode-spell-checker/blob/2fde3bc5c658ee51da5a56580aa1370bf8174070/packages/client/src/settings/CSpellSettings.ts#L78
-      .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
+    // Unique
+    words = [...new Set(words)];
+    // Remove upper case word, if lower case one already exists
+    words = words.filter((word) => {
+      const lowerCased = word.toLowerCase();
+      return lowerCased === word || !words.includes(lowerCased);
+    });
+    // Compare function from https://github.com/streetsidesoftware/vscode-spell-checker/blob/2fde3bc5c658ee51da5a56580aa1370bf8174070/packages/client/src/settings/CSpellSettings.ts#L78
+    words = words.sort((a, b) =>
+      a.toLowerCase().localeCompare(b.toLowerCase())
+    );
+    config.words = words;
   }
 
   console.log("Updating words ...");
