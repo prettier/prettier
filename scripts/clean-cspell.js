@@ -39,7 +39,7 @@ const updateConfig = (config) =>
   }
 
   console.log("Updating words ...");
-  updateConfig({ ...config });
+  updateConfig(config);
 
   console.log("Running spellcheck with new words ...");
   const subprocess = execa("yarn lint:spellcheck");
