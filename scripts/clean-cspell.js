@@ -19,8 +19,7 @@ const updateConfig = (config) =>
   console.log("Running spellcheck with empty words ...");
   try {
     await execa("yarn lint:spellcheck");
-  } catch (error) {
-    const { stdout } = error;
+  } catch ({ stdout }) {
     let words = [...stdout.matchAll(/ - Unknown word \((.*?)\)/g)].map(
       ([, word]) => word
     );
