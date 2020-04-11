@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.html 1`] = `
+exports[`test.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -27,7 +27,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`test.html 2`] = `
+exports[`test.html format 2`] = `
 ====================================options=====================================
 embeddedLanguageFormatting: "off"
 parsers: ["html"]
