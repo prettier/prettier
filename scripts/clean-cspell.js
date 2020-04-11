@@ -24,7 +24,10 @@ const updateConfig = (config) =>
     const words = [
       ...stdout.matchAll(/ - Unknown word \((.*?)\)/g),
     ].map(([, word]) => word.toLowerCase());
-    config.words = [...new Set(words)].sort();
+    config.words = [...new Set(words)]
+      // We already lowercase word above
+      // https://github.com/streetsidesoftware/vscode-spell-checker/blob/2fde3bc5c658ee51da5a56580aa1370bf8174070/packages/client/src/settings/CSpellSettings.ts#L78
+      .sort((a, b) => a.localeCompare(b));
   }
 
   console.log("Updating words ...");
