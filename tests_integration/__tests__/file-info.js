@@ -77,7 +77,7 @@ describe("extracts file-info with inferredParser=null for file.foo", () => {
   });
 });
 
-describe("extracts file-info with inferredParser=foo when plugins are autoloaded", () => {
+describe("extracts file-info with inferredParser=foo when plugins are auto loaded", () => {
   runPrettier("plugins/automatic/", ["--file-info", "file.foo"]).test({
     status: 0,
   });

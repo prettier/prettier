@@ -80,15 +80,15 @@ exports[`extracts file-info with inferredParser=foo when a plugin is hand-picked
 
 exports[`extracts file-info with inferredParser=foo when a plugin is hand-picked (write) 1`] = `Array []`;
 
-exports[`extracts file-info with inferredParser=foo when plugins are autoloaded (stderr) 1`] = `""`;
+exports[`extracts file-info with inferredParser=foo when plugins are auto loaded (stderr) 1`] = `""`;
 
-exports[`extracts file-info with inferredParser=foo when plugins are autoloaded (stdout) 1`] = `
+exports[`extracts file-info with inferredParser=foo when plugins are auto loaded (stdout) 1`] = `
 "{ \\"ignored\\": false, \\"inferredParser\\": \\"foo\\" }
 
 "
 `;
 
-exports[`extracts file-info with inferredParser=foo when plugins are autoloaded (write) 1`] = `Array []`;
+exports[`extracts file-info with inferredParser=foo when plugins are auto loaded (write) 1`] = `Array []`;
 
 exports[`extracts file-info with inferredParser=foo when plugins are loaded with --plugin-search-dir (stderr) 1`] = `""`;
 
