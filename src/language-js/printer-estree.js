@@ -1,6 +1,7 @@
 "use strict";
 
 const assert = require("assert");
+const stripComments = require("strip-comments");
 
 // TODO(azz): anything that imports from main shouldn't be in a `language-*` dir.
 const comments = require("../main/comments");
@@ -1080,12 +1081,14 @@ function printPathNoParens(path, options, print, args) {
       } else if (
         (n.importKind && n.importKind === "type") ||
         // import {} from 'x'
-        /{\s*}/.test(
+        stripComments(
           options.originalText.slice(
             options.locStart(n),
             options.locStart(n.source)
           )
         )
+          .trim()
+          .endsWith("from")
       ) {
         parts.push("{} from ");
       }
