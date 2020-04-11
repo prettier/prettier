@@ -36,3 +36,6 @@ import /* comment ends with from */ 'a';
 import // comment not ends with from ___
 'a';
 import /* comment not ends with from ___ */ 'a';
+
+// Static import source can't parenthesized
+// import {} from (('a'));

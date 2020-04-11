@@ -323,6 +323,9 @@ import // comment not ends with from ___
 'a';
 import /* comment not ends with from ___ */ 'a';
 
+// Static import source can't parenthesized
+// import {} from (('a'));
+
 =====================================output=====================================
 import {} from "@types/googlemaps";
 import "a";
@@ -357,6 +360,9 @@ import /* comment ends with from */ "a";
 import // comment not ends with from ___
 "a";
 import /* comment not ends with from ___ */ "a";
+
+// Static import source can't parenthesized
+// import {} from (('a'));
 
 ================================================================================
 `;
@@ -407,6 +413,9 @@ import // comment not ends with from ___
 'a';
 import /* comment not ends with from ___ */ 'a';
 
+// Static import source can't parenthesized
+// import {} from (('a'));
+
 =====================================output=====================================
 import {} from "@types/googlemaps";
 import "a";
@@ -441,6 +450,9 @@ import /* comment ends with from */ "a";
 import // comment not ends with from ___
 "a";
 import /* comment not ends with from ___ */ "a";
+
+// Static import source can't parenthesized
+// import {} from (('a'));
 
 ================================================================================
 `;
