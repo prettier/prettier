@@ -2528,14 +2528,14 @@ function printPathNoParens(path, options, print, args) {
 
       return concat(parts);
     }
-    // These types are unprintable because they serve as abstract
-    // supertypes for other (printable) types.
     case "TaggedTemplateExpression":
       return concat([
         path.call(print, "tag"),
         path.call(print, "typeParameters"),
         path.call(print, "quasi"),
       ]);
+    // These types are unprintable because they serve as abstract
+    // supertypes for other (printable) types.
     case "Node":
     case "Printable":
     case "SourceLocation":
