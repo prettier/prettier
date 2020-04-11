@@ -344,7 +344,7 @@ function hasNonTextChild(node) {
   return node.children && node.children.some((child) => child.type !== "text");
 }
 
-function inferScriptParser(node) {
+function inferScriptParser(node, options) {
   if (node.name === "script" && !node.attrMap.src) {
     if (
       (!node.attrMap.lang && !node.attrMap.type) ||
@@ -397,6 +397,16 @@ function inferScriptParser(node) {
     if (node.attrMap.lang === "less") {
       return "less";
     }
+  }
+
+  if (options && isCustomBlock(node, options)) {
+    const { lang, type } = node.attrMap;
+    if (type) {
+      if (type.endsWith("json")) {
+        return "json";
+      }
+    }
+    return lang;
   }
 
   return null;

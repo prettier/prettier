@@ -276,6 +276,19 @@ trailingComma: "none"
 }
 </i18n>
 
+<i18n type="application/json">
+{ "en": {
+    "hello": "hello world!"
+
+
+    }, "ja": {
+
+
+    "hello": "こんにちは、世界！"
+  }
+}
+</i18n>
+
 =====================================output=====================================
 <i18n>
 {
@@ -289,6 +302,17 @@ trailingComma: "none"
 </i18n>
 
 <i18n lang="json">
+{
+  "en": {
+    "hello": "hello world!"
+  },
+  "ja": {
+    "hello": "こんにちは、世界！"
+  }
+}
+</i18n>
+
+<i18n type="application/json">
 {
   "en": {
     "hello": "hello world!"
@@ -334,6 +358,19 @@ printWidth: 80
 }
 </i18n>
 
+<i18n type="application/json">
+{ "en": {
+    "hello": "hello world!"
+
+
+    }, "ja": {
+
+
+    "hello": "こんにちは、世界！"
+  }
+}
+</i18n>
+
 =====================================output=====================================
 <i18n>
 {
@@ -347,6 +384,17 @@ printWidth: 80
 </i18n>
 
 <i18n lang="json">
+{
+  "en": {
+    "hello": "hello world!"
+  },
+  "ja": {
+    "hello": "こんにちは、世界！"
+  }
+}
+</i18n>
+
+<i18n type="application/json">
 {
   "en": {
     "hello": "hello world!"
@@ -393,6 +441,19 @@ semi: false
 }
 </i18n>
 
+<i18n type="application/json">
+{ "en": {
+    "hello": "hello world!"
+
+
+    }, "ja": {
+
+
+    "hello": "こんにちは、世界！"
+  }
+}
+</i18n>
+
 =====================================output=====================================
 <i18n>
 {
@@ -406,6 +467,17 @@ semi: false
 </i18n>
 
 <i18n lang="json">
+{
+  "en": {
+    "hello": "hello world!"
+  },
+  "ja": {
+    "hello": "こんにちは、世界！"
+  }
+}
+</i18n>
+
+<i18n type="application/json">
 {
   "en": {
     "hello": "hello world!"
@@ -452,6 +524,19 @@ vueIndentScriptAndStyle: true
 }
 </i18n>
 
+<i18n type="application/json">
+{ "en": {
+    "hello": "hello world!"
+
+
+    }, "ja": {
+
+
+    "hello": "こんにちは、世界！"
+  }
+}
+</i18n>
+
 =====================================output=====================================
 <i18n>
   {
@@ -465,6 +550,17 @@ vueIndentScriptAndStyle: true
 </i18n>
 
 <i18n lang="json">
+  {
+    "en": {
+      "hello": "hello world!"
+    },
+    "ja": {
+      "hello": "こんにちは、世界！"
+    }
+  }
+</i18n>
+
+<i18n type="application/json">
   {
     "en": {
       "hello": "hello world!"

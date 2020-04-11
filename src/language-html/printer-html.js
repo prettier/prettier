@@ -100,14 +100,11 @@ function embed(path, print, textToDoc, options) {
             : line,
         ]);
       } else if (isCustomBlock(node.parent, options)) {
-        const langAttr =
-          node.parent.attrs &&
-          node.parent.attrs.find((attr) => attr.name === "lang");
-        const lang = langAttr && langAttr.value;
+        const parser = inferScriptParser(node.parent, options);
         let printed;
-        if (lang) {
+        if (parser) {
           try {
-            printed = textToDoc(node.value, { parser: lang });
+            printed = textToDoc(node.value, { parser });
           } catch (error) {
             // Do nothing
           }
