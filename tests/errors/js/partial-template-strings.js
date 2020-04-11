@@ -1,4 +1,5 @@
 // partial template strings is not supported by babel yet
+// If parsers supported, should remove this and open a issue about this
 // Proposal: https://github.com/tc39/proposal-partial-application/blob/master/README.md#proposal
 
 const Diagnostics = {

@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`partial-template-strings.js error test 1`] = `
-"Unexpected token (5:42)
-  3 | 
-  4 | const Diagnostics = {
-> 5 |   unexpected_token: \`Unexpected token: \${?}\`,
+"Unexpected token (6:42)
+  4 | 
+  5 | const Diagnostics = {
+> 6 |   unexpected_token: \`Unexpected token: \${?}\`,
     |                                          ^
-  6 |   name_not_found: \`'\${?}' not found.\`
-  7 | };
-  8 | Diagnostics.name_not_found(\\"foo\\"); // \\"'foo' not found.\\""
+  7 |   name_not_found: \`'\${?}' not found.\`
+  8 | };
+  9 | Diagnostics.name_not_found(\\"foo\\"); // \\"'foo' not found.\\""
 `;
 
 exports[`static-import-source-should-not-has-extra-token.js error test 1`] = `
