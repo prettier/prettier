@@ -189,6 +189,8 @@ function parseValue(value) {
     };
   }
 
+  result.text = value;
+
   const parsedResult = parseNestedValue(result);
 
   return addTypePrefix(parsedResult, "value-");

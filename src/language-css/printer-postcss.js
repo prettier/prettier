@@ -10,7 +10,6 @@ const {
   hasNewline,
 } = require("../common/util");
 const { isNextLineEmpty } = require("../common/util-shared");
-const { restoreQuotesInInlineComments } = require("./loc");
 
 const {
   builders: {
@@ -500,13 +499,10 @@ function genericPrint(path, options, print) {
       return path.call(print, "group");
     }
     case "value-comment": {
-      return concat([
-        node.inline ? "//" : "/*",
-        // see replaceQuotesInInlineComments in loc.js
-        // value-* nodes don't have correct location data, so we have to rely on placeholder characters.
-        restoreQuotesInInlineComments(node.value),
-        node.inline ? "" : "*/",
-      ]);
+      return options.originalText.slice(
+        options.locStart(node),
+        options.locEnd(node)
+      );
     }
     case "value-comma_group": {
       const parentNode = path.getParentNode();
