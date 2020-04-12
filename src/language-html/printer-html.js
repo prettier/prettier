@@ -112,7 +112,7 @@ function embed(path, print, textToDoc, options) {
         if (printed == null) {
           printed = node.value;
         }
-        return stripTrailingHardline(printed);
+        return stripTrailingHardline(printed, true);
       }
       break;
     }

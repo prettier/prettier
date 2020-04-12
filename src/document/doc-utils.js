@@ -195,10 +195,10 @@ function getInnerParts(doc) {
   return parts;
 }
 
-function stripTrailingHardline(doc) {
+function stripTrailingHardline(doc, withInnerParts = false) {
   // HACK remove ending hardline, original PR: #1984
   if (doc.type === "concat" && doc.parts.length !== 0) {
-    const parts = getInnerParts(doc);
+    const parts = withInnerParts ? getInnerParts(doc) : doc.parts;
     const lastPart = parts[parts.length - 1];
     if (lastPart.type === "concat") {
       if (
