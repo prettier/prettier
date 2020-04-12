@@ -9,6 +9,7 @@ on:
 
 jobs:
   cleanup:
+    name: Cancel Previous Runs
     runs-on: ubuntu-latest
     steps:
       - name: Cancel Previous Runs
