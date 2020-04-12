@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`a.js 1`] = `
+exports[`a.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -24,7 +24,7 @@ TypeAssertIs<(x: number) => string>(8);
 ================================================================================
 `;
 
-exports[`b.js 1`] = `
+exports[`b.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -48,7 +48,7 @@ TypeAssertIs<(x: number) => string>(8);
 ================================================================================
 `;
 
-exports[`c.js 1`] = `
+exports[`c.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

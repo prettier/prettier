@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`declare_class_unsupported.js 1`] = `
+exports[`declare_class_unsupported.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -16,7 +16,7 @@ declare class C {
 ================================================================================
 `;
 
-exports[`interface_unsupported.js 1`] = `
+exports[`interface_unsupported.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -32,7 +32,7 @@ interface I {
 ================================================================================
 `;
 
-exports[`object_unsupported.js 1`] = `
+exports[`object_unsupported.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`enum-crash.js 1`] = `
+exports[`enum-crash.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -44,7 +44,7 @@ function bar(e: Enum) {
 ================================================================================
 `;
 
-exports[`enumerror.js 1`] = `
+exports[`enumerror.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

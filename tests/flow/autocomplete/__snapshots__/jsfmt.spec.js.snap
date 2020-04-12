@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comments.js 1`] = `
+exports[`comments.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -22,7 +22,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`customfun.js 1`] = `
+exports[`customfun.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -45,7 +45,7 @@ declare var objectAssign: Object$Assign;
 ================================================================================
 `;
 
-exports[`import_source.js 1`] = `
+exports[`import_source.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -63,7 +63,7 @@ import {} from "";
 ================================================================================
 `;
 
-exports[`jsx-text.js 1`] = `
+exports[`jsx-text.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -79,7 +79,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`literal.js 1`] = `
+exports[`literal.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -105,7 +105,7 @@ const z = \`foo  bar\`;
 ================================================================================
 `;
 
-exports[`normalize-2.js 1`] = `
+exports[`normalize-2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -129,7 +129,7 @@ function foo<T>(a: { b: T }) {
 ================================================================================
 `;
 
-exports[`pattern.js 1`] = `
+exports[`pattern.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -161,7 +161,7 @@ function bar() {}
 ================================================================================
 `;
 
-exports[`this2.js 1`] = `
+exports[`this2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -187,7 +187,7 @@ class A {
 ================================================================================
 `;
 
-exports[`type-exports.js 1`] = `
+exports[`type-exports.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -231,7 +231,7 @@ export default 15150;
 ================================================================================
 `;
 
-exports[`typeparams_function.js 1`] = `
+exports[`typeparams_function.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -249,7 +249,7 @@ function test<T>() {}
 ================================================================================
 `;
 
-exports[`unknown.js 1`] = `
+exports[`unknown.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

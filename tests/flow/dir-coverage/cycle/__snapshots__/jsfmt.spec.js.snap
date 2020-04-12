@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`cycle1.js 1`] = `
+exports[`cycle1.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -28,7 +28,7 @@ module.exports = { x: number, y: string };
 ================================================================================
 `;
 
-exports[`cycle2.js 1`] = `
+exports[`cycle2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -58,7 +58,7 @@ module.exports = { a: number, b: string, c: number };
 ================================================================================
 `;
 
-exports[`cycle3.js 1`] = `
+exports[`cycle3.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

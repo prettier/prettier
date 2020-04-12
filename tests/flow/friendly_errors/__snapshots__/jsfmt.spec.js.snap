@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`class-extends-and-implements.js 1`] = `
+exports[`class-extends-and-implements.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -220,7 +220,7 @@ class T implements R1<empty>, R2<empty> {
 ================================================================================
 `;
 
-exports[`class-refinement-env-merge.js 1`] = `
+exports[`class-refinement-env-merge.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -260,7 +260,7 @@ class X {
 ================================================================================
 `;
 
-exports[`desc-class-properties.js 1`] = `
+exports[`desc-class-properties.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -314,7 +314,7 @@ class X extends Y {
 ================================================================================
 `;
 
-exports[`indexer-key-compatibility.js 1`] = `
+exports[`indexer-key-compatibility.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -340,7 +340,7 @@ declare var o: { [k: number]: any };
 ================================================================================
 `;
 
-exports[`loc-primary.js 1`] = `
+exports[`loc-primary.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -440,7 +440,7 @@ declare var d5: number;
 ================================================================================
 `;
 
-exports[`loc-primary-for-covariant-ops.js 1`] = `
+exports[`loc-primary-for-covariant-ops.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -474,7 +474,7 @@ type X<-T> = mixed;
 ================================================================================
 `;
 
-exports[`loc-reference.js 1`] = `
+exports[`loc-reference.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -570,7 +570,7 @@ function fn2<T>(x: T) {
 ================================================================================
 `;
 
-exports[`misc-incompatibles.js 1`] = `
+exports[`misc-incompatibles.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -616,7 +616,7 @@ o[true] = 42;
 ================================================================================
 `;
 
-exports[`order.js 1`] = `
+exports[`order.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -658,7 +658,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`prop-variance.js 1`] = `
+exports[`prop-variance.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -704,7 +704,7 @@ declare opaque type T;
 ================================================================================
 `;
 
-exports[`typeof-unexpected.js 1`] = `
+exports[`typeof-unexpected.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

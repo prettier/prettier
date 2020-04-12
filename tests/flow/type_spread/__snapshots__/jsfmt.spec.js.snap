@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`all_cases.js 1`] = `
+exports[`all_cases.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -766,7 +766,7 @@ declare var Y32: C32;
 ================================================================================
 `;
 
-exports[`error_messages.js 1`] = `
+exports[`error_messages.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -916,7 +916,7 @@ declare var x5: { foo: number, bar: number, ...B }; // Error, representative of 
 ================================================================================
 `;
 
-exports[`inline.js 1`] = `
+exports[`inline.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

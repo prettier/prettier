@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`sanity.js 1`] = `
+exports[`sanity.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -66,7 +66,7 @@ function bak(z: string | number): number {
 ================================================================================
 `;
 
-exports[`sanity-multi-params.js 1`] = `
+exports[`sanity-multi-params.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -106,7 +106,7 @@ function foo(x: string | Array<string>): string {
 ================================================================================
 `;
 
-exports[`sanity-ordering.js 1`] = `
+exports[`sanity-ordering.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -154,7 +154,7 @@ function dotAccess(head, create) {
 ================================================================================
 `;
 
-exports[`sanity-unbound-var.js 1`] = `
+exports[`sanity-unbound-var.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -200,7 +200,7 @@ function foo(x: string | Array<string>): string {
 ================================================================================
 `;
 
-exports[`simple-predicate-func.js 1`] = `
+exports[`simple-predicate-func.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -358,7 +358,7 @@ declare function from_two_strings(x: string, y: string): void;
 ================================================================================
 `;
 
-exports[`simple-predicate-func-post.js 1`] = `
+exports[`simple-predicate-func-post.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -412,7 +412,7 @@ function is_string(x): %checks {
 ================================================================================
 `;
 
-exports[`wf-eval.js 1`] = `
+exports[`wf-eval.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -440,7 +440,7 @@ function f3<V>(x: V): $Call<<V>(V) => V, V> %checks {
 ================================================================================
 `;
 
-exports[`wf-polymorphic.js 1`] = `
+exports[`wf-polymorphic.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`class.js 1`] = `
+exports[`class.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -86,7 +86,7 @@ export { Foo };
 ================================================================================
 `;
 
-exports[`declare_class.js 1`] = `
+exports[`declare_class.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -162,7 +162,7 @@ export { Foo };
 ================================================================================
 `;
 
-exports[`import-class.js 1`] = `
+exports[`import-class.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -218,7 +218,7 @@ var testSubtypingGetterAndSetter: number = foo.propWithSubtypingGetterAndSetter;
 ================================================================================
 `;
 
-exports[`import-declare_class.js 1`] = `
+exports[`import-declare_class.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -274,7 +274,7 @@ foo.propOverriddenWithSetter = 123; // Error number ~> string
 ================================================================================
 `;
 
-exports[`import-object_type.js 1`] = `
+exports[`import-object_type.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -345,7 +345,7 @@ function test(obj: T) {
 ================================================================================
 `;
 
-exports[`import-variance.js 1`] = `
+exports[`import-variance.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -481,7 +481,7 @@ declare var c: C;
 ================================================================================
 `;
 
-exports[`object_type.js 1`] = `
+exports[`object_type.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -553,7 +553,7 @@ export type T = {
 ================================================================================
 `;
 
-exports[`variance.js 1`] = `
+exports[`variance.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

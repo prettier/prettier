@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`dependent.js 1`] = `
+exports[`dependent.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -20,7 +20,7 @@ import dependency from "dependency";
 ================================================================================
 `;
 
-exports[`unrelated.js 1`] = `
+exports[`unrelated.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

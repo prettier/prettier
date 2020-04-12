@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`type_then_var.js 1`] = `
+exports[`type_then_var.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -28,7 +28,7 @@ var B: string;
 ================================================================================
 `;
 
-exports[`var_then_type.js 1`] = `
+exports[`var_then_type.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

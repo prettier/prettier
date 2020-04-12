@@ -4,7 +4,7 @@ const {
   CSS_DISPLAY_TAGS,
   CSS_DISPLAY_DEFAULT,
   CSS_WHITE_SPACE_TAGS,
-  CSS_WHITE_SPACE_DEFAULT
+  CSS_WHITE_SPACE_DEFAULT,
 } = require("./constants.evaluate");
 
 const htmlTagNames = require("html-tag-names");
@@ -71,7 +71,7 @@ function shouldPreserveContent(node, options) {
       "style",
       "script",
       // vue parser can be used for vue dom template as well, so we should still format top-level <html>
-      "html"
+      "html",
     ].includes(node.fullName)
   ) {
     return true;
@@ -81,7 +81,7 @@ function shouldPreserveContent(node, options) {
   if (
     isPreLikeNode(node) &&
     node.children.some(
-      child => child.type !== "text" && child.type !== "interpolation"
+      (child) => child.type !== "text" && child.type !== "interpolation"
     )
   ) {
     return true;
@@ -91,7 +91,7 @@ function shouldPreserveContent(node, options) {
 }
 
 function hasPrettierIgnore(node) {
-  if (node.type === "attribute" || isTextLikeNode(node)) {
+  if (node.type === "attribute") {
     return false;
   }
 
@@ -135,7 +135,9 @@ function isScriptLikeTag(node) {
     node.type === "element" &&
     (node.fullName === "script" ||
       node.fullName === "style" ||
-      node.fullName === "svg:style")
+      node.fullName === "svg:style" ||
+      (isUnknownNamespace(node) &&
+        (node.name === "script" || node.name === "style")))
   );
 }
 
@@ -279,7 +281,7 @@ function forceBreakContent(node) {
     (node.type === "element" &&
       node.children.length !== 0 &&
       (["body", "script", "style"].includes(node.name) ||
-        node.children.some(child => hasNonTextChild(child)))) ||
+        node.children.some((child) => hasNonTextChild(child)))) ||
     (node.firstChild &&
       node.firstChild === node.lastChild &&
       hasLeadingLineBreak(node.firstChild) &&
@@ -356,7 +358,7 @@ function getLastDescendant(node) {
 }
 
 function hasNonTextChild(node) {
-  return node.children && node.children.some(child => child.type !== "text");
+  return node.children && node.children.some((child) => child.type !== "text");
 }
 
 function inferScriptParser(node) {
@@ -490,7 +492,7 @@ function getNodeCssStyleDisplay(node, options) {
 
   let isInSvgForeignObject = false;
   if (node.type === "element" && node.namespace === "svg") {
-    if (hasParent(node, parent => parent.fullName === "svg:foreignObject")) {
+    if (hasParent(node, (parent) => parent.fullName === "svg:foreignObject")) {
       isInSvgForeignObject = true;
     } else {
       return node.name === "svg" ? "inline-block" : "block";
@@ -562,7 +564,7 @@ function dedentString(text, minIndent = getMinIndentation(text)) {
     ? text
     : text
         .split("\n")
-        .map(lineText => lineText.slice(minIndent))
+        .map((lineText) => lineText.slice(minIndent))
         .join("\n");
 }
 
@@ -578,7 +580,7 @@ function normalizeParts(parts) {
     }
 
     if (part.type === "concat") {
-      Array.prototype.unshift.apply(restParts, part.parts);
+      restParts.unshift(...part.parts);
       continue;
     }
 
@@ -655,5 +657,5 @@ module.exports = {
   preferHardlineAsTrailingSpaces,
   shouldNotPrintClosingTag,
   shouldPreserveContent,
-  unescapeQuoteEntities
+  unescapeQuoteEntities,
 };

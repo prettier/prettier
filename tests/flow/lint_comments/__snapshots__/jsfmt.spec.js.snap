@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`simple_sketchies.js 1`] = `
+exports[`simple_sketchies.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

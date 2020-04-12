@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`imports.js 1`] = `
+exports[`imports.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -82,7 +82,7 @@ import typeof BangObj from "./untyped_exports.js"; //Error; Suppressed
 ================================================================================
 `;
 
-exports[`typed_exports.js 1`] = `
+exports[`typed_exports.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -112,7 +112,7 @@ export type { AnyType };
 ================================================================================
 `;
 
-exports[`untyped_exports.js 1`] = `
+exports[`untyped_exports.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

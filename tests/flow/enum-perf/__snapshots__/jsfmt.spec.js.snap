@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`binary-op.js 1`] = `
+exports[`binary-op.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -5035,7 +5035,7 @@ function componentDidUpdate(props: Props, prevProps: Props): void {
 ================================================================================
 `;
 
-exports[`yuge.js 1`] = `
+exports[`yuge.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

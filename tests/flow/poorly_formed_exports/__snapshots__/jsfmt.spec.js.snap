@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`bad-default-export.js 1`] = `
+exports[`bad-default-export.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -22,7 +22,7 @@ if (true) {
 ================================================================================
 `;
 
-exports[`bad-named-export.js 1`] = `
+exports[`bad-named-export.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -46,7 +46,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`bad-uses.js 1`] = `
+exports[`bad-uses.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -186,7 +186,7 @@ exports.foo;
 ================================================================================
 `;
 
-exports[`good-default-export.js 1`] = `
+exports[`good-default-export.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -204,7 +204,7 @@ module.exports = 42;
 ================================================================================
 `;
 
-exports[`good-named-export.js 1`] = `
+exports[`good-named-export.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

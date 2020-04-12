@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`bar.js 1`] = `
+exports[`bar.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -24,7 +24,7 @@ export function f(x: T): number {
 ================================================================================
 `;
 
-exports[`foo.js 1`] = `
+exports[`foo.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -40,7 +40,7 @@ export default <T>(x: T): T => x;
 ================================================================================
 `;
 
-exports[`test.js 1`] = `
+exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -124,7 +124,7 @@ exports.hide = hide;
 ================================================================================
 `;
 
-exports[`testimport.js 1`] = `
+exports[`testimport.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

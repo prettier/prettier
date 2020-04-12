@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`destructuring.js 1`] = `
+exports[`destructuring.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -50,7 +50,7 @@ export const X = {
 ================================================================================
 `;
 
-exports[`function_expressions.js 1`] = `
+exports[`function_expressions.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -110,7 +110,7 @@ const d = {
 ================================================================================
 `;
 
-exports[`generics.js 1`] = `
+exports[`generics.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -176,7 +176,7 @@ mn;
 ================================================================================
 `;
 
-exports[`import.js 1`] = `
+exports[`import.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -198,7 +198,7 @@ module.exports = num;
 ================================================================================
 `;
 
-exports[`object_special_cases.js 1`] = `
+exports[`object_special_cases.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -226,7 +226,7 @@ let tests = [
 ================================================================================
 `;
 
-exports[`optional.js 1`] = `
+exports[`optional.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -268,7 +268,7 @@ function qux(x?) {
 ================================================================================
 `;
 
-exports[`predicates.js 1`] = `
+exports[`predicates.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -295,7 +295,7 @@ if (Array.isArray(x)) {
 ================================================================================
 `;
 
-exports[`react.js 1`] = `
+exports[`react.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -311,7 +311,7 @@ React.createElement;
 ================================================================================
 `;
 
-exports[`templates.js 1`] = `
+exports[`templates.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -327,7 +327,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`test.js 1`] = `
+exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -367,7 +367,7 @@ const w: MyNum = 42;
 ================================================================================
 `;
 
-exports[`trycatch.js 1`] = `
+exports[`trycatch.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

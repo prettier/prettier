@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`direct.js 1`] = `
+exports[`direct.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -18,7 +18,7 @@ module.exports = require("./touched");
 ================================================================================
 `;
 
-exports[`mixed.js 1`] = `
+exports[`mixed.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -48,7 +48,7 @@ module.exports = foo;
 ================================================================================
 `;
 
-exports[`touched.js 1`] = `
+exports[`touched.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -68,7 +68,7 @@ module.exports = Touched;
 ================================================================================
 `;
 
-exports[`types.js 1`] = `
+exports[`types.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

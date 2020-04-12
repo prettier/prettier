@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`call.js 1`] = `
+exports[`call.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -18,7 +18,7 @@ interface I<+T> {
 ================================================================================
 `;
 
-exports[`fun.js 1`] = `
+exports[`fun.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -50,7 +50,7 @@ type FlipRetPos<+T> = (() => T) => void; // Error: +T in negative position
 ================================================================================
 `;
 
-exports[`implements.js 1`] = `
+exports[`implements.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -66,7 +66,7 @@ class C<+T> implements I<T> {} // Error: +T in a negative position
 ================================================================================
 `;
 
-exports[`method.js 1`] = `
+exports[`method.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -86,7 +86,7 @@ type A<-X> = {
 ================================================================================
 `;
 
-exports[`obj.js 1`] = `
+exports[`obj.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

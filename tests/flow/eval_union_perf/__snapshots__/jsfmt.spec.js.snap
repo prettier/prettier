@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.js 1`] = `
+exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -203,7 +203,7 @@ function test<X>(config: Config): Config {
 ================================================================================
 `;
 
-exports[`type.js 1`] = `
+exports[`type.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

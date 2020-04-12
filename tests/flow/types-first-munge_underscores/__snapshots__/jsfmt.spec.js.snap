@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`class.js 1`] = `
+exports[`class.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -28,7 +28,7 @@ module.exports = A;
 ================================================================================
 `;
 
-exports[`import.js 1`] = `
+exports[`import.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

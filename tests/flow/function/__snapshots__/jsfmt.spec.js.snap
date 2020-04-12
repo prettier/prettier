@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`apply.js 1`] = `
+exports[`apply.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -118,7 +118,7 @@ function test3(x: { (a: string, b: string): void }) {
 ================================================================================
 `;
 
-exports[`apply-array-like.js 1`] = `
+exports[`apply-array-like.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -160,7 +160,7 @@ test.apply("", x);
 var y = new MyArrayLike<number>();
 test.apply("", y); // error: number ~> string
 
-function *gen() {
+function* gen() {
   yield "foo";
   yield "bar";
 }
@@ -170,7 +170,7 @@ test.apply([], gen()); // error: iterable ~> array-like
 ================================================================================
 `;
 
-exports[`bind.js 1`] = `
+exports[`bind.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -237,7 +237,7 @@ let tests = [
 ================================================================================
 `;
 
-exports[`call.js 1`] = `
+exports[`call.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -375,7 +375,7 @@ let tests = [
 ================================================================================
 `;
 
-exports[`call_error_generic.js 1`] = `
+exports[`call_error_generic.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -433,7 +433,7 @@ bar(foo);
 ================================================================================
 `;
 
-exports[`call_error_generic2.js 1`] = `
+exports[`call_error_generic2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -469,7 +469,7 @@ function foo(props: { userRef?: {} }) {
 ================================================================================
 `;
 
-exports[`function.js 1`] = `
+exports[`function.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -615,7 +615,7 @@ var e = (d.bind(1): Function)();
 ================================================================================
 `;
 
-exports[`issue-7529.js 1`] = `
+exports[`issue-7529.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -637,7 +637,7 @@ const bar = function foo(x: string) {
 ================================================================================
 `;
 
-exports[`rest.js 1`] = `
+exports[`rest.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -788,7 +788,7 @@ requires_first_param(); // Error: missing first arg
 ================================================================================
 `;
 
-exports[`rest_type.js 1`] = `
+exports[`rest_type.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

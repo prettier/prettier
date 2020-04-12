@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`async-iteration.js 1`] = `
+exports[`async-iteration.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -18,20 +18,20 @@ class X {
 }
 
 =====================================output=====================================
-async function *a() {
-  yield *b();
+async function* a() {
+  yield* b();
 }
 
 class X {
   async *b() {
-    yield *a();
+    yield* a();
   }
 }
 
 ================================================================================
 `;
 
-exports[`await_parse.js 1`] = `
+exports[`await_parse.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -61,7 +61,7 @@ async function f1() {
 async function g() {
   invariant((await driver.navigator.getUrl()).substr(-7));
 }
-function *f2() {
+function* f2() {
   !(yield a);
 }
 async function f3() {
@@ -75,7 +75,7 @@ async () => {
 ================================================================================
 `;
 
-exports[`conditional-expression.js 1`] = `
+exports[`conditional-expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -113,7 +113,7 @@ async function f2() {
 ================================================================================
 `;
 
-exports[`inline_await.js 1`] = `
+exports[`inline_await.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -137,7 +137,7 @@ async function f() {
 ================================================================================
 `;
 
-exports[`parens.js 1`] = `
+exports[`parens.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -148,7 +148,7 @@ async function *f(){ await (yield x); }
 async function f2(){ await (() => {}); }
 
 =====================================output=====================================
-async function *f() {
+async function* f() {
   await (yield x);
 }
 

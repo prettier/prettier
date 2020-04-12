@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`tagged_template.js 1`] = `
+exports[`tagged_template.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -58,7 +58,7 @@ let tests = [
 ================================================================================
 `;
 
-exports[`template.js 1`] = `
+exports[`template.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

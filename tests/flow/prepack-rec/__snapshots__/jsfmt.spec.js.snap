@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AbstractObjectValue.js 1`] = `
+exports[`AbstractObjectValue.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -23,7 +23,7 @@ export default class AbstractObjectValue extends Value {}
 ================================================================================
 `;
 
-exports[`NativeFunctionValue.js 1`] = `
+exports[`NativeFunctionValue.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -47,7 +47,7 @@ export default function constructor(callback: (args: Array<Value>) => void) {}
 ================================================================================
 `;
 
-exports[`ObjectValue.js 1`] = `
+exports[`ObjectValue.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -70,7 +70,7 @@ export default class ObjectValue extends Value {}
 ================================================================================
 `;
 
-exports[`Value.js 1`] = `
+exports[`Value.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -89,7 +89,7 @@ export default class Value {}
 ================================================================================
 `;
 
-exports[`global.js 1`] = `
+exports[`global.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

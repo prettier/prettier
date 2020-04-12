@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`assignment.js 1`] = `
+exports[`assignment.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -78,7 +78,7 @@ function bar2(x: Bar) {
 ================================================================================
 `;
 
-exports[`ast_node.js 1`] = `
+exports[`ast_node.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -112,7 +112,7 @@ export type ASTNode = Node1 | Node2;
 ================================================================================
 `;
 
-exports[`bool.js 1`] = `
+exports[`bool.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -216,7 +216,7 @@ let tests = [
 ================================================================================
 `;
 
-exports[`computed_string_literal.js 1`] = `
+exports[`computed_string_literal.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -308,7 +308,7 @@ function testSwitchLiteralProperty(b: B) {
 ================================================================================
 `;
 
-exports[`cond_expr.js 1`] = `
+exports[`cond_expr.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -340,7 +340,7 @@ if (b.q) {
 ================================================================================
 `;
 
-exports[`cond_prop.js 1`] = `
+exports[`cond_prop.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -463,7 +463,7 @@ let tests = [
 ================================================================================
 `;
 
-exports[`constants.js 1`] = `
+exports[`constants.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -483,7 +483,7 @@ export const ERROR: "ERROR" = "ERROR";
 ================================================================================
 `;
 
-exports[`eq.js 1`] = `
+exports[`eq.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -546,7 +546,7 @@ let tests = [
 ================================================================================
 `;
 
-exports[`eval.js 1`] = `
+exports[`eval.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -606,7 +606,7 @@ const _ = (arg: Foo | Bar) => {
 ================================================================================
 `;
 
-exports[`exists.js 1`] = `
+exports[`exists.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -655,7 +655,7 @@ if (TDR.current) {
 ================================================================================
 `;
 
-exports[`fn.js 1`] = `
+exports[`fn.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -837,7 +837,7 @@ function fun10(x: mixed) {
 ================================================================================
 `;
 
-exports[`func_call.js 1`] = `
+exports[`func_call.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -873,7 +873,7 @@ let tests = [
 ================================================================================
 `;
 
-exports[`hasOwnProperty.js 1`] = `
+exports[`hasOwnProperty.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -927,7 +927,7 @@ function bar(x: Object) {
 ================================================================================
 `;
 
-exports[`heap_defassign.js 1`] = `
+exports[`heap_defassign.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -1131,7 +1131,7 @@ function def_assign_setprop_nohavoc(obj: Obj, obj2: Obj2) {
 ================================================================================
 `;
 
-exports[`lib.js 1`] = `
+exports[`lib.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -1149,7 +1149,7 @@ declare var BAZ: { stuff?: (x: number) => void } | void;
 ================================================================================
 `;
 
-exports[`maybe_react.js 1`] = `
+exports[`maybe_react.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -1201,7 +1201,7 @@ const { title } = x;
 ================================================================================
 `;
 
-exports[`missing-property-cond.js 1`] = `
+exports[`missing-property-cond.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -1359,7 +1359,7 @@ function foo10() {
 ================================================================================
 `;
 
-exports[`mixed.js 1`] = `
+exports[`mixed.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -1613,7 +1613,7 @@ function arr0(x: mixed) {
 ================================================================================
 `;
 
-exports[`mixed_object.js 1`] = `
+exports[`mixed_object.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -1643,7 +1643,7 @@ bad(obj); // yikes
 ================================================================================
 `;
 
-exports[`nested_union_maybe.js 1`] = `
+exports[`nested_union_maybe.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -1680,7 +1680,7 @@ if (y != null) {
 ================================================================================
 `;
 
-exports[`node1.js 1`] = `
+exports[`node1.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -1694,7 +1694,7 @@ module.exports = "Node1";
 ================================================================================
 `;
 
-exports[`not.js 1`] = `
+exports[`not.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -1810,7 +1810,7 @@ let tests = [
 ================================================================================
 `;
 
-exports[`null.js 1`] = `
+exports[`null.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -1842,7 +1842,7 @@ function null_bogus_comparison() {
 ================================================================================
 `;
 
-exports[`number.js 1`] = `
+exports[`number.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -2200,7 +2200,7 @@ let negtests = [
 ================================================================================
 `;
 
-exports[`opaque_refinement.js 1`] = `
+exports[`opaque_refinement.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -2249,7 +2249,7 @@ function foo(state: State) {
 ================================================================================
 `;
 
-exports[`opaque_type.js 1`] = `
+exports[`opaque_type.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -2293,7 +2293,7 @@ export type State = {
 ================================================================================
 `;
 
-exports[`property.js 1`] = `
+exports[`property.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -2472,7 +2472,7 @@ function c3(
 ================================================================================
 `;
 
-exports[`refinements.js 1`] = `
+exports[`refinements.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -2642,7 +2642,7 @@ function global_in_conditional2(x: number) {
 ================================================================================
 `;
 
-exports[`string.js 1`] = `
+exports[`string.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -2922,7 +2922,7 @@ let tests = [
 ================================================================================
 `;
 
-exports[`super_member.js 1`] = `
+exports[`super_member.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -2987,7 +2987,7 @@ class C extends A {
 ================================================================================
 `;
 
-exports[`switch.js 1`] = `
+exports[`switch.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -3109,7 +3109,7 @@ function corge(text: string | number | Array<string>): string {
 ================================================================================
 `;
 
-exports[`tagged_union.js 1`] = `
+exports[`tagged_union.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -3691,7 +3691,7 @@ let tests = [
 ================================================================================
 `;
 
-exports[`tagged_union_import.js 1`] = `
+exports[`tagged_union_import.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -3749,7 +3749,7 @@ function handleStatus(status: Success | Error) {
 ================================================================================
 `;
 
-exports[`tuple.js 1`] = `
+exports[`tuple.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -3900,7 +3900,7 @@ function length_refinement_with_switch(a: [string] | [number, string]): void {
 ================================================================================
 `;
 
-exports[`typeof.js 1`] = `
+exports[`typeof.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -4083,7 +4083,7 @@ function testSymbol(x: mixed) {
 ================================================================================
 `;
 
-exports[`undef.js 1`] = `
+exports[`undef.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -4255,7 +4255,7 @@ function undef_bogus_comparison() {
 ================================================================================
 `;
 
-exports[`uninitialized_union.js 1`] = `
+exports[`uninitialized_union.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -4292,7 +4292,7 @@ if (y != null && y.f != null) {
 ================================================================================
 `;
 
-exports[`union.js 1`] = `
+exports[`union.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -4346,7 +4346,7 @@ function baz(x: ?thing) {
 ================================================================================
 `;
 
-exports[`void.js 1`] = `
+exports[`void.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80

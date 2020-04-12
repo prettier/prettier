@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`FormData.js 1`] = `
+exports[`FormData.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -155,7 +155,7 @@ for (let [x, y]: [number, number] of a.entries()) {
 ================================================================================
 `;
 
-exports[`Headers.js 1`] = `
+exports[`Headers.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -183,7 +183,7 @@ const b: string = headers.get("foo"); // incorrect
 ================================================================================
 `;
 
-exports[`MediaDevices.js 1`] = `
+exports[`MediaDevices.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -233,7 +233,7 @@ if (navigator.mediaDevices) {
 ================================================================================
 `;
 
-exports[`MutationObserver.js 1`] = `
+exports[`MutationObserver.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -306,7 +306,7 @@ o.disconnect(); // correct
 ================================================================================
 `;
 
-exports[`URLSearchParams.js 1`] = `
+exports[`URLSearchParams.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

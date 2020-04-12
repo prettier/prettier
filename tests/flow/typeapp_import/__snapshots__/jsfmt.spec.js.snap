@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`lib.js 1`] = `
+exports[`lib.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -22,7 +22,7 @@ export class C<X> {
 ================================================================================
 `;
 
-exports[`main.js 1`] = `
+exports[`main.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

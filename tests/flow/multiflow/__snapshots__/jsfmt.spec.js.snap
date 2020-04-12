@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`apply.js 1`] = `
+exports[`apply.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -100,7 +100,7 @@ applyType(withRest, ["hi", 123, false]); // Error - too many args
 ================================================================================
 `;
 
-exports[`issue3443.js 1`] = `
+exports[`issue3443.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -148,7 +148,7 @@ foo(123);
 ================================================================================
 `;
 
-exports[`jsx.js 1`] = `
+exports[`jsx.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -257,7 +257,7 @@ declare function ExpectsChildrenArray(
 ================================================================================
 `;
 
-exports[`spread.js 1`] = `
+exports[`spread.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

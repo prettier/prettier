@@ -3,22 +3,23 @@
 const assert = require("assert");
 const {
   concat,
+  line,
   hardline,
   breakParent,
   indent,
   lineSuffix,
   join,
-  cursor
+  cursor,
 } = require("../document").builders;
 const {
   hasNewline,
   skipNewline,
-  isPreviousLineEmpty
+  isPreviousLineEmpty,
 } = require("../common/util");
 const {
   addLeadingComment,
   addDanglingComment,
-  addTrailingComment
+  addTrailingComment,
 } = require("../common/util-shared");
 const childNodesCacheKey = Symbol("child-nodes");
 
@@ -55,12 +56,12 @@ function getSortedChildNodes(node, options, resultArray) {
     (typeof node === "object" &&
       Object.keys(node)
         .filter(
-          n =>
+          (n) =>
             n !== "enclosingNode" &&
             n !== "precedingNode" &&
             n !== "followingNode"
         )
-        .map(n => node[n]));
+        .map((n) => node[n]));
 
   if (!childNodes) {
     return;
@@ -69,11 +70,11 @@ function getSortedChildNodes(node, options, resultArray) {
   if (!resultArray) {
     Object.defineProperty(node, childNodesCacheKey, {
       value: (resultArray = []),
-      enumerable: false
+      enumerable: false,
     });
   }
 
-  childNodes.forEach(childNode => {
+  childNodes.forEach((childNode) => {
     getSortedChildNodes(childNode, options, resultArray);
   });
 
@@ -284,7 +285,7 @@ function attach(comments, ast, text, options) {
 
   breakTies(tiesToBreak, text, options);
 
-  comments.forEach(comment => {
+  comments.forEach((comment) => {
     // These node references were useful for breaking ties, but we
     // don't need them anymore, and they create cycles in the AST that
     // may lead to infinite recursion if we don't delete them here.
@@ -387,10 +388,15 @@ function printLeadingComment(commentPath, print, options) {
   // Leading block comments should see if they need to stay on the
   // same line or not.
   if (isBlock) {
-    return concat([
-      contents,
-      hasNewline(options.originalText, options.locEnd(comment)) ? hardline : " "
-    ]);
+    const lineBreak = hasNewline(options.originalText, options.locEnd(comment))
+      ? hasNewline(options.originalText, options.locStart(comment), {
+          backwards: true,
+        })
+        ? hardline
+        : line
+      : " ";
+
+    return concat([contents, lineBreak]);
   }
 
   return concat([contents, hardline]);
@@ -418,7 +424,7 @@ function printTrailingComment(commentPath, print, options) {
 
   if (
     hasNewline(options.originalText, options.locStart(comment), {
-      backwards: true
+      backwards: true,
     })
   ) {
     // This allows comments at the end of nested structures:
@@ -449,7 +455,7 @@ function printTrailingComment(commentPath, print, options) {
 
   return concat([
     lineSuffix(concat([" ", contents])),
-    !isBlock ? breakParent : ""
+    !isBlock ? breakParent : "",
   ]);
 }
 
@@ -461,7 +467,7 @@ function printDanglingComments(path, options, sameIndent, filter) {
     return "";
   }
 
-  path.each(commentPath => {
+  path.each((commentPath) => {
     const comment = commentPath.getValue();
     if (
       comment &&
@@ -502,7 +508,7 @@ function printComments(path, print, options, needsSemi) {
   const leadingParts = [];
   const trailingParts = [needsSemi ? ";" : "", printed];
 
-  path.each(commentPath => {
+  path.each((commentPath) => {
     const comment = commentPath.getValue();
     const { leading, trailing } = comment;
 
@@ -534,5 +540,5 @@ module.exports = {
   attach,
   printComments,
   printDanglingComments,
-  getSortedChildNodes
+  getSortedChildNodes,
 };

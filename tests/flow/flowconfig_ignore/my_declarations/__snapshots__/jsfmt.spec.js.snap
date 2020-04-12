@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`actually_typecheck.js 1`] = `
+exports[`actually_typecheck.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -20,7 +20,7 @@ x();
 ================================================================================
 `;
 
-exports[`outer_decls.js 1`] = `
+exports[`outer_decls.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -42,7 +42,7 @@ t();
 ================================================================================
 `;
 
-exports[`typecheck_if_in_root.js 1`] = `
+exports[`typecheck_if_in_root.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

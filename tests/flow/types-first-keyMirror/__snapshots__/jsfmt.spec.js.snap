@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Action.js 1`] = `
+exports[`Action.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -36,7 +36,7 @@ exports.ActionTypes = keyMirror({
 ================================================================================
 `;
 
-exports[`Layer.js 1`] = `
+exports[`Layer.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -92,7 +92,7 @@ module.exports = { LayerKey, LayerActions };
 ================================================================================
 `;
 
-exports[`keyMirror.js 1`] = `
+exports[`keyMirror.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -132,7 +132,7 @@ module.exports = keyMirror;
 ================================================================================
 `;
 
-exports[`test.js 1`] = `
+exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

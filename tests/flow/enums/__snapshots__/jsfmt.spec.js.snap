@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`cast.js 1`] = `
+exports[`cast.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -149,7 +149,7 @@ declare var bs: B | B2;
 ================================================================================
 `;
 
-exports[`enum-object.js 1`] = `
+exports[`enum-object.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -269,7 +269,7 @@ if (!x) {
 ================================================================================
 `;
 
-exports[`equality.js 1`] = `
+exports[`equality.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -403,7 +403,7 @@ switch (true) {
 ================================================================================
 `;
 
-exports[`error-access.js 1`] = `
+exports[`error-access.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -465,7 +465,7 @@ F.X; // Error: no suggestion
 ================================================================================
 `;
 
-exports[`error-coercion.js 1`] = `
+exports[`error-coercion.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -501,7 +501,7 @@ const b: E = "B";
 ================================================================================
 `;
 
-exports[`error-duplicate-values.js 1`] = `
+exports[`error-duplicate-values.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -585,7 +585,7 @@ enum I {
 ================================================================================
 `;
 
-exports[`error-modification.js 1`] = `
+exports[`error-modification.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -627,7 +627,7 @@ delete E.A;
 ================================================================================
 `;
 
-exports[`error-reassign.js 1`] = `
+exports[`error-reassign.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -647,7 +647,7 @@ E = 0;
 ================================================================================
 `;
 
-exports[`exhaustive-check.js 1`] = `
+exports[`exhaustive-check.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -984,7 +984,7 @@ switch (x) {
 ================================================================================
 `;
 
-exports[`export.js 1`] = `
+exports[`export.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1022,7 +1022,7 @@ export const F = E;
 ================================================================================
 `;
 
-exports[`export-commonjs.js 1`] = `
+exports[`export-commonjs.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1050,7 +1050,7 @@ module.exports = { B };
 ================================================================================
 `;
 
-exports[`export-commonjs-default.js 1`] = `
+exports[`export-commonjs-default.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1078,7 +1078,7 @@ module.exports = C;
 ================================================================================
 `;
 
-exports[`import.js 1`] = `
+exports[`import.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1134,7 +1134,7 @@ const f2: F2 = F2.A;
 ================================================================================
 `;
 
-exports[`member-as-type.js 1`] = `
+exports[`member-as-type.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1167,7 +1167,7 @@ function f(x: E.A) {}
 ================================================================================
 `;
 
-exports[`methods.js 1`] = `
+exports[`methods.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1249,7 +1249,7 @@ E.toString(); // Error
 ================================================================================
 `;
 
-exports[`refinement.js 1`] = `
+exports[`refinement.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1967,7 +1967,7 @@ if (!sTruthy) {
 ================================================================================
 `;
 
-exports[`spread.js 1`] = `
+exports[`spread.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1995,7 +1995,7 @@ const x = { ...E }; // Error
 ================================================================================
 `;
 
-exports[`utility-types.js 1`] = `
+exports[`utility-types.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -2085,7 +2085,7 @@ const trigger = null;
 ================================================================================
 `;
 
-exports[`valid.js 1`] = `
+exports[`valid.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

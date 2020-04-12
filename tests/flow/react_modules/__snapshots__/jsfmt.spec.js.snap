@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`createclass-callsite.js 1`] = `
+exports[`createclass-callsite.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -66,7 +66,7 @@ module.exports = Callsite;
 ================================================================================
 `;
 
-exports[`createclass-module.js 1`] = `
+exports[`createclass-module.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -108,7 +108,7 @@ module.exports = Hello;
 ================================================================================
 `;
 
-exports[`es6class-proptypes-callsite.js 1`] = `
+exports[`es6class-proptypes-callsite.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -174,7 +174,7 @@ module.exports = Callsite;
 ================================================================================
 `;
 
-exports[`es6class-proptypes-module.js 1`] = `
+exports[`es6class-proptypes-module.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -218,7 +218,7 @@ module.exports = Hello;
 ================================================================================
 `;
 
-exports[`es6class-types-callsite.js 1`] = `
+exports[`es6class-types-callsite.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -280,7 +280,7 @@ module.exports = Callsite;
 ================================================================================
 `;
 
-exports[`es6class-types-module.js 1`] = `
+exports[`es6class-types-module.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

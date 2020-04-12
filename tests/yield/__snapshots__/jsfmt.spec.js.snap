@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`arrow.js 1`] = `
+exports[`arrow.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
 printWidth: 80
@@ -13,7 +13,7 @@ function *f() {
 }
 
 =====================================output=====================================
-function *f() {
+function* f() {
   yield (a) => a;
   yield async (a) => a;
   yield async (a) => a;
@@ -22,7 +22,7 @@ function *f() {
 ================================================================================
 `;
 
-exports[`conditional.js 1`] = `
+exports[`conditional.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
 printWidth: 80
@@ -49,7 +49,7 @@ async function f3() {
 }
 
 =====================================output=====================================
-function *f1() {
+function* f1() {
   a = (yield) ? 1 : 1;
   a = yield 1 ? 1 : 1;
   a = (yield 1) ? 1 : 1;
@@ -57,10 +57,10 @@ function *f1() {
   a = 1 ? yield 1 : yield 1;
 }
 
-function *f2() {
-  a = yield *1 ? 1 : 1;
-  a = (yield *1) ? 1 : 1;
-  a = 1 ? yield *1 : yield *1;
+function* f2() {
+  a = yield* 1 ? 1 : 1;
+  a = (yield* 1) ? 1 : 1;
+  a = 1 ? yield* 1 : yield* 1;
 }
 
 async function f3() {
@@ -72,7 +72,7 @@ async function f3() {
 ================================================================================
 `;
 
-exports[`jsx.js 1`] = `
+exports[`jsx.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "typescript"]
 printWidth: 80
@@ -86,7 +86,7 @@ function* f() {
 }
 
 =====================================output=====================================
-function *f() {
+function* f() {
   yield <div>generator</div>;
   yield <div>generator</div>;
   yield (

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`lib.js 1`] = `
+exports[`lib.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -34,7 +34,7 @@ export type Props = BaseProps & {
 ================================================================================
 `;
 
-exports[`lint.js 1`] = `
+exports[`lint.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

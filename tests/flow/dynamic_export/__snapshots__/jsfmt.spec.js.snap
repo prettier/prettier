@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`basic.js 1`] = `
+exports[`basic.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -20,7 +20,7 @@ module.exports = { any: x, function: y };
 ================================================================================
 `;
 
-exports[`crash.js 1`] = `
+exports[`crash.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -38,7 +38,7 @@ Object.assign(module.exports, require("other"));
 ================================================================================
 `;
 
-exports[`cycle1.js 1`] = `
+exports[`cycle1.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -60,7 +60,7 @@ module.exports.g = (3: any);
 ================================================================================
 `;
 
-exports[`cycle2.js 1`] = `
+exports[`cycle2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -82,7 +82,7 @@ module.exports.g = c.g;
 ================================================================================
 `;
 
-exports[`error.js 1`] = `
+exports[`error.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -104,7 +104,7 @@ module.exports = err;
 ================================================================================
 `;
 
-exports[`esmodule.js 1`] = `
+exports[`esmodule.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -132,7 +132,7 @@ export class A {}
 ================================================================================
 `;
 
-exports[`implicit_ignored.js 1`] = `
+exports[`implicit_ignored.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -148,7 +148,7 @@ module.exports = (() => {}).constructor;
 ================================================================================
 `;
 
-exports[`not_object.js 1`] = `
+exports[`not_object.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -166,7 +166,7 @@ module.exports = x;
 ================================================================================
 `;
 
-exports[`other.js 1`] = `
+exports[`other.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -184,7 +184,7 @@ module.exports = (3: any);
 ================================================================================
 `;
 
-exports[`transitive.js 1`] = `
+exports[`transitive.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -228,7 +228,7 @@ module.exports.x = x;
 ================================================================================
 `;
 
-exports[`untyped.js 1`] = `
+exports[`untyped.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

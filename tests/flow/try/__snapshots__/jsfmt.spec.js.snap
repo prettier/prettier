@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`abnormals.js 1`] = `
+exports[`abnormals.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -42,7 +42,7 @@ function foo() {
 ================================================================================
 `;
 
-exports[`init.js 1`] = `
+exports[`init.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -358,7 +358,7 @@ function f(b) {
 ================================================================================
 `;
 
-exports[`optional-catch-binding.js 1`] = `
+exports[`optional-catch-binding.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -446,7 +446,7 @@ function f() {
 ================================================================================
 `;
 
-exports[`return.js 1`] = `
+exports[`return.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -586,7 +586,7 @@ function corge(): string {
 ================================================================================
 `;
 
-exports[`test.js 1`] = `
+exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

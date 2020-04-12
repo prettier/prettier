@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`main.js 1`] = `
+exports[`main.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -57,7 +57,7 @@ var f: Element<"div"> = <div not_a_real_attr="asdf" />;
 ================================================================================
 `;
 
-exports[`strings.js 1`] = `
+exports[`strings.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

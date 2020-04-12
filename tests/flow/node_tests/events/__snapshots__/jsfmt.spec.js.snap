@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`events.js 1`] = `
+exports[`events.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`clone_element.js 1`] = `
+exports[`clone_element.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -172,7 +172,7 @@ React.cloneElement(<SFC p={0} />, { p: "bad" }); // Error: string ~> number
 ================================================================================
 `;
 
-exports[`create_element.js 1`] = `
+exports[`create_element.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -632,7 +632,7 @@ class N extends React.Component<{}> {}
 ================================================================================
 `;
 
-exports[`create_factory.js 1`] = `
+exports[`create_factory.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

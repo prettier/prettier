@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`dupe1.js 1`] = `
+exports[`dupe1.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -22,7 +22,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`dupe2.js 1`] = `
+exports[`dupe2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

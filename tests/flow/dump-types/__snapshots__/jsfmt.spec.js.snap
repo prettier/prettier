@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`import.js 1`] = `
+exports[`import.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -22,7 +22,7 @@ module.exports = num;
 ================================================================================
 `;
 
-exports[`predicates.js 1`] = `
+exports[`predicates.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -58,7 +58,7 @@ if (Array.isArray(y.FOO)) {
 ================================================================================
 `;
 
-exports[`test.js 1`] = `
+exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -120,7 +120,7 @@ const idxResult = idx(obj, (obj) => obj.a.b.c.d);
 ================================================================================
 `;
 
-exports[`type-destructors.js 1`] = `
+exports[`type-destructors.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

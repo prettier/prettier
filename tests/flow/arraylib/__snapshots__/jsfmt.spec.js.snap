@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`array_lib.js 1`] = `
+exports[`array_lib.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -255,7 +255,7 @@ function flatMap_test() {
 ================================================================================
 `;
 
-exports[`issue_5182.js 1`] = `
+exports[`issue_5182.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -319,7 +319,7 @@ const b = [].reduce(
 ================================================================================
 `;
 
-exports[`issue_6656.js 1`] = `
+exports[`issue_6656.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -339,7 +339,7 @@ const b = ["a", "b"].reduce((acc) => acc * 2, (1.0: any)); // works
 ================================================================================
 `;
 
-exports[`issue_7680.js 1`] = `
+exports[`issue_7680.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -393,7 +393,7 @@ function brokenGenericReduce<T, V>(
 ================================================================================
 `;
 
-exports[`issue_7901.js 1`] = `
+exports[`issue_7901.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -413,7 +413,7 @@ var und2: void = [0].reduceRight((acc) => acc, undefined); // ok
 ================================================================================
 `;
 
-exports[`length.js 1`] = `
+exports[`length.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`import_shadow_exports.js 1`] = `
+exports[`import_shadow_exports.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -20,7 +20,7 @@ import x from "./shadow_exports";
 ================================================================================
 `;
 
-exports[`shadow_exports.js 1`] = `
+exports[`shadow_exports.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -40,7 +40,7 @@ module.exports = 42;
 ================================================================================
 `;
 
-exports[`shadow_exports_lookup.js 1`] = `
+exports[`shadow_exports_lookup.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

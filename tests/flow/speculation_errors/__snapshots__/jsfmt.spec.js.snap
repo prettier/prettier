@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`errors_intersection.js 1`] = `
+exports[`errors_intersection.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -254,7 +254,7 @@ f3(); // Error
 ================================================================================
 `;
 
-exports[`errors_union.js 1`] = `
+exports[`errors_union.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -490,7 +490,7 @@ type Point = NumberPoint | StringPoint;
 ================================================================================
 `;
 
-exports[`intersection-function.js 1`] = `
+exports[`intersection-function.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -670,7 +670,7 @@ m((new W(): W<number>));
 ================================================================================
 `;
 
-exports[`nullish.js 1`] = `
+exports[`nullish.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -710,7 +710,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`sentinel.js 1`] = `
+exports[`sentinel.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -746,7 +746,7 @@ type X =
 ================================================================================
 `;
 
-exports[`union.js 1`] = `
+exports[`union.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -870,7 +870,7 @@ type M = W<string> | { p: string };
 ================================================================================
 `;
 
-exports[`unsealed.js 1`] = `
+exports[`unsealed.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

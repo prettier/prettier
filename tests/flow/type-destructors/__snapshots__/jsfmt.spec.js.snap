@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`element_type.js 1`] = `
+exports[`element_type.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -58,7 +58,7 @@ function bar(o: Obj): $ElementType<Obj, string> {
 ================================================================================
 `;
 
-exports[`errors.js 1`] = `
+exports[`errors.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -126,7 +126,7 @@ fn4(null)(); // We should get an error on this line.
 ================================================================================
 `;
 
-exports[`errors2.js 1`] = `
+exports[`errors2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -190,7 +190,7 @@ declare var o: {};
 ================================================================================
 `;
 
-exports[`non_maybe_type.js 1`] = `
+exports[`non_maybe_type.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -302,7 +302,7 @@ function f() {
 ================================================================================
 `;
 
-exports[`property_type.js 1`] = `
+exports[`property_type.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -336,7 +336,7 @@ function foo(o: Obj): $PropertyType<Obj, "x"> {
 ================================================================================
 `;
 
-exports[`tvar1.js 1`] = `
+exports[`tvar1.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -366,7 +366,7 @@ const x = fn(c);
 ================================================================================
 `;
 
-exports[`tvar2.js 1`] = `
+exports[`tvar2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -402,7 +402,7 @@ const x = fn(c);
 ================================================================================
 `;
 
-exports[`tvar3.js 1`] = `
+exports[`tvar3.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -470,7 +470,7 @@ declare function fn8<T>(x: T, y: (T) => void): ($NonMaybeType<T>) => void;
 ================================================================================
 `;
 
-exports[`tvar4.js 1`] = `
+exports[`tvar4.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -589,7 +589,7 @@ fn4((x: {}) => {})(42);
 ================================================================================
 `;
 
-exports[`typeapp.js 1`] = `
+exports[`typeapp.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -635,7 +635,7 @@ declare var y: Y;
 ================================================================================
 `;
 
-exports[`union.js 1`] = `
+exports[`union.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`array-pattern.js 1`] = `
+exports[`array-pattern.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -18,7 +18,7 @@ module.exports = ([x, y]) => {};
 ================================================================================
 `;
 
-exports[`class.js 1`] = `
+exports[`class.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -63,7 +63,7 @@ export class A {
 ================================================================================
 `;
 
-exports[`variable-decl.js 1`] = `
+exports[`variable-decl.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

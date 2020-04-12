@@ -6,5 +6,3 @@ let e: ?(string | number);
 let f: !string;
 let g: string!;
 let h: !(string | number);
-let i: function(): string;
-let j: (function(): string) | number;

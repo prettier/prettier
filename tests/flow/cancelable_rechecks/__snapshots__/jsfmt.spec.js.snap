@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`foo.js 1`] = `
+exports[`foo.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -18,7 +18,7 @@ const foo: boolean = 123;
 ================================================================================
 `;
 
-exports[`sleep_dependent.js 1`] = `
+exports[`sleep_dependent.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

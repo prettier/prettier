@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`intersection.js 1`] = `
+exports[`intersection.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -40,7 +40,7 @@ class C {}
 ================================================================================
 `;
 
-exports[`lower.js 1`] = `
+exports[`lower.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -98,7 +98,7 @@ y.bla; // Error -- key not found.
 ================================================================================
 `;
 
-exports[`undefined.js 1`] = `
+exports[`undefined.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -130,7 +130,7 @@ class B {}
 ================================================================================
 `;
 
-exports[`union.js 1`] = `
+exports[`union.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

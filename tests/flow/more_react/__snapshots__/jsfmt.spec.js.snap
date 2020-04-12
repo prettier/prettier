@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`API.react.js 1`] = `
+exports[`API.react.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -27,7 +27,7 @@ bar(app.props.children); // No error, App doesn't specify propTypes so anything 
 ================================================================================
 `;
 
-exports[`App.react.js 1`] = `
+exports[`App.react.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -124,7 +124,7 @@ module.exports = App;
 ================================================================================
 `;
 
-exports[`InitializedFields.js 1`] = `
+exports[`InitializedFields.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -164,7 +164,7 @@ module.exports = App;
 ================================================================================
 `;
 
-exports[`JSX.js 1`] = `
+exports[`JSX.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -201,7 +201,7 @@ module.exports = app;
 ================================================================================
 `;
 
-exports[`checkPropTypes.js 1`] = `
+exports[`checkPropTypes.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -269,7 +269,7 @@ checkPropTypes(
 ================================================================================
 `;
 
-exports[`inexact_config.js 1`] = `
+exports[`inexact_config.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -335,7 +335,7 @@ const _h = <Component4></Component4>; //error
 ================================================================================
 `;
 
-exports[`inexact_props.js 1`] = `
+exports[`inexact_props.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -434,7 +434,7 @@ declare var s: ?string;
 ================================================================================
 `;
 
-exports[`propTypes.js 1`] = `
+exports[`propTypes.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -476,7 +476,7 @@ var D = React.createClass({
 ================================================================================
 `;
 
-exports[`react-copy-write.js 1`] = `
+exports[`react-copy-write.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -572,7 +572,7 @@ declare var store: Store<number>;
 ================================================================================
 `;
 
-exports[`subclassComponent.js 1`] = `
+exports[`subclassComponent.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

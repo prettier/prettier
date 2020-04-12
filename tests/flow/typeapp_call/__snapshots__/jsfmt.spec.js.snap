@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`array.js 1`] = `
+exports[`array.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -16,7 +16,7 @@ arr[0] = 0; // error: number ~> string
 ================================================================================
 `;
 
-exports[`call.js 1`] = `
+exports[`call.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -139,7 +139,7 @@ if (pred<string>(0)) {
 ================================================================================
 `;
 
-exports[`idx.js 1`] = `
+exports[`idx.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -155,7 +155,7 @@ idx<string>();
 ================================================================================
 `;
 
-exports[`new.js 1`] = `
+exports[`new.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -217,7 +217,7 @@ new NonPolyF<string>(); // error: expected polymorphic type
 ================================================================================
 `;
 
-exports[`require.js 1`] = `
+exports[`require.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

@@ -1,6 +1,11 @@
 name: Lint
 
-on: [pull_request]
+on:
+  push:
+    branches:
+      - master
+      - patch-release
+  pull_request:
 
 jobs:
   lint:
@@ -20,21 +25,23 @@ jobs:
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Check dependencies
-        run: yarn check-deps
+      - name: Check Dependencies
+        run: yarn lint:deps
 
-      - name: Check JSDoc types
-        run: yarn check-types
+      - name: Check JSDoc Types
+        run: yarn lint:typecheck
 
-      - name: Lint code
-        run: yarn lint
+      - name: Lint ESLint
+        run: yarn lint:eslint
 
-      - name: Lint docs
-        run: yarn lint-docs
+      - name: Lint Prettier
+        run: yarn lint:prettier
 
       - name: Spellcheck
-        run: yarn spellcheck
+        run: yarn lint:spellcheck
 
-      - name: Check file changes
+      - name: Lint Changelog
+        run: yarn lint:changelog
+
+      - name: Check Lock File Changes
         run: yarn && echo "Listing changed files:" && git diff --name-only --exit-code && echo "No files changed during lint."
-

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Profile.graphql.js 1`] = `
+exports[`Profile.graphql.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -54,7 +54,7 @@ export type Profile_user = Relay.Fragment<
 ================================================================================
 `;
 
-exports[`Profile.js 1`] = `
+exports[`Profile.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -136,7 +136,7 @@ export default createFragmentContainer(Profile);
 ================================================================================
 `;
 
-exports[`ProfilePic.graphql.js 1`] = `
+exports[`ProfilePic.graphql.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -180,7 +180,7 @@ export type ProfilePic_image = Relay.Fragment<
 ================================================================================
 `;
 
-exports[`ProfilePic.js 1`] = `
+exports[`ProfilePic.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -236,7 +236,7 @@ export default createFragmentContainer(ProfilePic);
 ================================================================================
 `;
 
-exports[`Relay.js 1`] = `
+exports[`Relay.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -344,7 +344,7 @@ export function createFragmentContainer<Props>(
 ================================================================================
 `;
 
-exports[`main.js 1`] = `
+exports[`main.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -398,7 +398,7 @@ declare var userRef: Profile_userRef;
 ================================================================================
 `;
 
-exports[`more.js 1`] = `
+exports[`more.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

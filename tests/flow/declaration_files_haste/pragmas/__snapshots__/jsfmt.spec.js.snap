@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Flow.js 1`] = `
+exports[`Flow.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -33,7 +33,7 @@ export const x: number = 123;
 ================================================================================
 `;
 
-exports[`FlowShadowed.js 1`] = `
+exports[`FlowShadowed.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -58,7 +58,7 @@ export const x: number = 123;
 ================================================================================
 `;
 
-exports[`NotFlow.js 1`] = `
+exports[`NotFlow.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -86,7 +86,7 @@ export const x = 123;
 ================================================================================
 `;
 
-exports[`NotFlowShadowed.js 1`] = `
+exports[`NotFlowShadowed.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`forof.js 1`] = `
+exports[`forof.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -154,7 +154,7 @@ declare var funky1: { @@iterator(): $Iterator<string, number, boolean> };
 declare var funky2: { @@iterator(): $Iterator<() => {}, empty, mixed> };
 declare var funky3: { @@iterator(): $Iterator<?typeof funky2, mixed, void> };
 declare var funky4: { @@iterator(): $Iterator<void, null, void> };
-function *funky() {
+function* funky() {
   yield 0;
   yield true;
   return "";
@@ -188,7 +188,7 @@ for (var x of funky()) {
 ================================================================================
 `;
 
-exports[`scope.js 1`] = `
+exports[`scope.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

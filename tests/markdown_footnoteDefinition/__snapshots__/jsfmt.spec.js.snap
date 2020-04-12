@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`long.md 1`] = `
+exports[`long.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -13,12 +13,10 @@ proseWrap: "always"
 
 =====================================output=====================================
 [^hello]:
-
   this is a long long long long long long long long long long long long long
   paragraph.
 
 [^world]:
-
   this is a long long long long long long long long long long long long long
   paragraph. this is a long long long long long long long long long long long
   long long paragraph.
@@ -26,7 +24,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`long.md 2`] = `
+exports[`long.md format 2`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -44,7 +42,7 @@ proseWrap: "never"
 ================================================================================
 `;
 
-exports[`long.md 3`] = `
+exports[`long.md format 3`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -58,14 +56,13 @@ proseWrap: "preserve"
 =====================================output=====================================
 [^hello]: this is a long long long long long long long long long long long long long paragraph.
 [^world]:
-
   this is a long long long long long long long long long long long long long paragraph.
   this is a long long long long long long long long long long long long long paragraph.
 
 ================================================================================
 `;
 
-exports[`multiline.md 1`] = `
+exports[`multiline.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -98,7 +95,6 @@ proseWrap: "always"
 
 =====================================output=====================================
 [^fn1]:
-
   > \`\`\`rs
   > fn main() {
   >     println!("this is some Rust!");
@@ -114,7 +110,6 @@ proseWrap: "always"
   \`\`\`
 
 [^fn2]:
-
   Here is a footnote which includes code. Here is a footnote which includes
   code. Here is a footnote which includes code.
 
@@ -127,7 +122,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`multiline.md 2`] = `
+exports[`multiline.md format 2`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -160,7 +155,6 @@ proseWrap: "never"
 
 =====================================output=====================================
 [^fn1]:
-
   > \`\`\`rs
   > fn main() {
   >     println!("this is some Rust!");
@@ -176,7 +170,6 @@ proseWrap: "never"
   \`\`\`
 
 [^fn2]:
-
   Here is a footnote which includes code. Here is a footnote which includes code. Here is a footnote which includes code.
 
   \`\`\`rs
@@ -188,7 +181,7 @@ proseWrap: "never"
 ================================================================================
 `;
 
-exports[`multiline.md 3`] = `
+exports[`multiline.md format 3`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -221,7 +214,6 @@ proseWrap: "preserve"
 
 =====================================output=====================================
 [^fn1]:
-
   > \`\`\`rs
   > fn main() {
   >     println!("this is some Rust!");
@@ -237,7 +229,6 @@ proseWrap: "preserve"
   \`\`\`
 
 [^fn2]:
-
   Here is a footnote which includes code. Here is a footnote which includes code. Here is a footnote which includes code.
 
   \`\`\`rs
@@ -249,7 +240,7 @@ proseWrap: "preserve"
 ================================================================================
 `;
 
-exports[`sibling.md 1`] = `
+exports[`sibling.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -297,13 +288,11 @@ proseWrap: "always"
 [^a]: a
 [^a]: a
 [^a]:
-
   > 123\\
   > 456
 
 [^a]: a
 [^a]:
-
   > 123\\
   > 456
 
@@ -314,7 +303,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`sibling.md 2`] = `
+exports[`sibling.md format 2`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -362,13 +351,11 @@ proseWrap: "never"
 [^a]: a
 [^a]: a
 [^a]:
-
   > 123\\
   > 456
 
 [^a]: a
 [^a]:
-
   > 123\\
   > 456
 
@@ -379,7 +366,7 @@ proseWrap: "never"
 ================================================================================
 `;
 
-exports[`sibling.md 3`] = `
+exports[`sibling.md format 3`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -427,13 +414,11 @@ proseWrap: "preserve"
 [^a]: a
 [^a]: a
 [^a]:
-
   > 123\\
   > 456
 
 [^a]: a
 [^a]:
-
   > 123\\
   > 456
 
@@ -444,7 +429,7 @@ proseWrap: "preserve"
 ================================================================================
 `;
 
-exports[`simple.md 1`] = `
+exports[`simple.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -459,7 +444,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`simple.md 2`] = `
+exports[`simple.md format 2`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -474,7 +459,7 @@ proseWrap: "never"
 ================================================================================
 `;
 
-exports[`simple.md 3`] = `
+exports[`simple.md format 3`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80

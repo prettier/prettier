@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SUIActionMenuUniform.js 1`] = `
+exports[`SUIActionMenuUniform.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -44,7 +44,7 @@ export type SUIActionMenuUniform = {|
 ================================================================================
 `;
 
-exports[`SUIButtonUniform.js 1`] = `
+exports[`SUIButtonUniform.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -70,7 +70,7 @@ module.exports = ({ borderRadius: 0 }: SUIButtonUniform);
 ================================================================================
 `;
 
-exports[`SUIExpressWiFiTheme.js 1`] = `
+exports[`SUIExpressWiFiTheme.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -114,7 +114,7 @@ export type ComponentUniforms = {
 ================================================================================
 `;
 
-exports[`SUIExpressWiFiThemeComponents.js 1`] = `
+exports[`SUIExpressWiFiThemeComponents.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

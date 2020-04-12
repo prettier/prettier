@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`foo.js 1`] = `
+exports[`foo.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -14,7 +14,7 @@ export type Foo = string;
 ================================================================================
 `;
 
-exports[`impl-dep-of-impl-dep.js 1`] = `
+exports[`impl-dep-of-impl-dep.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -32,7 +32,7 @@ f();
 ================================================================================
 `;
 
-exports[`impl-dep-of-sig-dep.js 1`] = `
+exports[`impl-dep-of-sig-dep.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -50,7 +50,7 @@ bar();
 ================================================================================
 `;
 
-exports[`impl-dependent.js 1`] = `
+exports[`impl-dependent.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -80,7 +80,7 @@ export function f(): string {
 ================================================================================
 `;
 
-exports[`sig-dep-of-impl-dep.js 1`] = `
+exports[`sig-dep-of-impl-dep.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -100,7 +100,7 @@ export function f(): Bar {
 ================================================================================
 `;
 
-exports[`sig-dependent.js 1`] = `
+exports[`sig-dependent.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

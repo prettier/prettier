@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`any.js 1`] = `
+exports[`any.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -22,7 +22,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`classes.js 1`] = `
+exports[`classes.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -150,7 +150,7 @@ class Child extends Parent {
 ================================================================================
 `;
 
-exports[`nested_fn.js 1`] = `
+exports[`nested_fn.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -190,7 +190,7 @@ function foo<K, V>() {
 ================================================================================
 `;
 
-exports[`non_object.js 1`] = `
+exports[`non_object.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -218,7 +218,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`object_types.js 1`] = `
+exports[`object_types.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

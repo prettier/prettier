@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`exports.js 1`] = `
+exports[`exports.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -22,7 +22,7 @@ exports.foo = function foo() {};
 ================================================================================
 `;
 
-exports[`exports-class.js 1`] = `
+exports[`exports-class.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -42,7 +42,7 @@ export { C };
 ================================================================================
 `;
 
-exports[`exports-default-class.js 1`] = `
+exports[`exports-default-class.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -66,7 +66,7 @@ module.exports = B;
 ================================================================================
 `;
 
-exports[`exports-default-class-funcall-a.js 1`] = `
+exports[`exports-default-class-funcall-a.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -96,7 +96,7 @@ module.exports = foo();
 ================================================================================
 `;
 
-exports[`exports-default-class-funcall-b.js 1`] = `
+exports[`exports-default-class-funcall-b.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -126,7 +126,7 @@ module.exports = foo();
 ================================================================================
 `;
 
-exports[`exports-default-function.js 1`] = `
+exports[`exports-default-function.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -150,7 +150,7 @@ module.exports = fileOneFunc;
 ================================================================================
 `;
 
-exports[`exports-default-instance.js 1`] = `
+exports[`exports-default-instance.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -174,7 +174,7 @@ module.exports = new A();
 ================================================================================
 `;
 
-exports[`exports-default-poly-class.js 1`] = `
+exports[`exports-default-poly-class.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -196,7 +196,7 @@ module.exports = B;
 ================================================================================
 `;
 
-exports[`exports-default-poly-instance.js 1`] = `
+exports[`exports-default-poly-instance.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -218,7 +218,7 @@ module.exports = new P<number>();
 ================================================================================
 `;
 
-exports[`exports-poly-class.js 1`] = `
+exports[`exports-poly-class.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -240,7 +240,7 @@ module.exports = { P };
 ================================================================================
 `;
 
-exports[`exports-type.js 1`] = `
+exports[`exports-type.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -258,7 +258,7 @@ export type MyUnionType = "A" | "B" | "C";
 ================================================================================
 `;
 
-exports[`import.js 1`] = `
+exports[`import.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -280,7 +280,7 @@ module.exports = num;
 ================================================================================
 `;
 
-exports[`import_interfaces.js 1`] = `
+exports[`import_interfaces.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -330,7 +330,7 @@ exports.MyClass = class MyClass<A> {
 ================================================================================
 `;
 
-exports[`import_lib.js 1`] = `
+exports[`import_lib.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -378,7 +378,7 @@ class AdsULLogger<TFields> implements Logger {
 ================================================================================
 `;
 
-exports[`import_lib_named.js 1`] = `
+exports[`import_lib_named.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -396,7 +396,7 @@ import type { Listener as MyListener, Logger } from "./import_interfaces";
 ================================================================================
 `;
 
-exports[`import-class-as-type.js 1`] = `
+exports[`import-class-as-type.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -430,7 +430,7 @@ declare var lp: LocalP<number>;
 ================================================================================
 `;
 
-exports[`import-default.js 1`] = `
+exports[`import-default.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -488,7 +488,7 @@ declare var f8: ImportedValueDefaultClassFuncall; // ImportedValueDefaultClassFu
 ================================================================================
 `;
 
-exports[`import-type.js 1`] = `
+exports[`import-type.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -506,7 +506,7 @@ import type { MyUnionType } from "./exports-type";
 ================================================================================
 `;
 
-exports[`import-typeof-class.js 1`] = `
+exports[`import-typeof-class.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -532,7 +532,7 @@ declare var d: D;
 ================================================================================
 `;
 
-exports[`module-export-0.js 1`] = `
+exports[`module-export-0.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -560,7 +560,7 @@ export var m = m;
 ================================================================================
 `;
 
-exports[`module-export-1.js 1`] = `
+exports[`module-export-1.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -592,7 +592,7 @@ if (0 < 1) {
 ================================================================================
 `;
 
-exports[`module-import.js 1`] = `
+exports[`module-import.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -610,7 +610,7 @@ const m = require("./module-export-0");
 ================================================================================
 `;
 
-exports[`require-class.js 1`] = `
+exports[`require-class.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -634,7 +634,7 @@ declare var d: D;
 ================================================================================
 `;
 
-exports[`test.js 1`] = `
+exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

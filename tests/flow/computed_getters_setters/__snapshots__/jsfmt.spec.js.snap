@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`computed_getters_setters.js 1`] = `
+exports[`computed_getters_setters.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

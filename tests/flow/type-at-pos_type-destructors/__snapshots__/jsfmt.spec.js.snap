@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`exact.js 1`] = `
+exports[`exact.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -70,7 +70,7 @@ type Q<X> = $Exact<P<X>>;
 ================================================================================
 `;
 
-exports[`react-component.js 1`] = `
+exports[`react-component.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -124,7 +124,7 @@ declare var b: { x: typeof a, y: typeof a };
 ================================================================================
 `;
 
-exports[`spread.js 1`] = `
+exports[`spread.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -316,7 +316,7 @@ rec.o;
 ================================================================================
 `;
 
-exports[`type-destructor.js 1`] = `
+exports[`type-destructor.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

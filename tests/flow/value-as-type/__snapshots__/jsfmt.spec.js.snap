@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test1.js 1`] = `
+exports[`test1.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -46,7 +46,7 @@ class BadParent extends React.Component<void> {
 ================================================================================
 `;
 
-exports[`test2.js 1`] = `
+exports[`test2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -68,7 +68,7 @@ let n = 0;
 ================================================================================
 `;
 
-exports[`test3.js 1`] = `
+exports[`test3.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -96,7 +96,7 @@ class C implements n {}
 ================================================================================
 `;
 
-exports[`test4.js 1`] = `
+exports[`test4.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

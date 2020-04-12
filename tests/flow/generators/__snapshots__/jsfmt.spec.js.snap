@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`class.js 1`] = `
+exports[`class.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -184,39 +184,39 @@ class GeneratorExamples {
   }
 
   *delegate_next_generator() {
-    function *inner() {
+    function* inner() {
       var x: number = yield; // error: string ~> number
     }
-    yield *inner();
+    yield* inner();
   }
 
   *delegate_yield_generator() {
-    function *inner() {
+    function* inner() {
       yield "";
     }
 
-    yield *inner();
+    yield* inner();
   }
 
   *delegate_return_generator() {
-    function *inner() {
+    function* inner() {
       return "";
     }
 
-    var x: number = yield *inner(); // error: string ~> number
+    var x: number = yield* inner(); // error: string ~> number
   }
 
   // only generators can make use of a value passed to next
   *delegate_next_iterable(xs: Array<number>) {
-    yield *xs;
+    yield* xs;
   }
 
   *delegate_yield_iterable(xs: Array<number>) {
-    yield *xs;
+    yield* xs;
   }
 
   *delegate_return_iterable(xs: Array<number>) {
-    var x: void = yield *xs; // ok: Iterator has no yield value
+    var x: void = yield* xs; // ok: Iterator has no yield value
   }
 
   *generic_yield<Y>(y: Y): Generator<Y, void, void> {
@@ -272,7 +272,7 @@ for (var x of examples.delegate_yield_iterable([])) {
 ================================================================================
 `;
 
-exports[`class_failure.js 1`] = `
+exports[`class_failure.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -326,7 +326,7 @@ if (typeof infer_stmt_next === "undefined") {
 ================================================================================
 `;
 
-exports[`generators.js 1`] = `
+exports[`generators.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -463,12 +463,12 @@ if (multiple_return_result.done) {
 }
 
 =====================================output=====================================
-function *stmt_yield(): Generator<number, void, void> {
+function* stmt_yield(): Generator<number, void, void> {
   yield 0; // ok
   yield ""; // error: string ~> number
 }
 
-function *stmt_next(): Generator<void, void, number> {
+function* stmt_next(): Generator<void, void, number> {
   var a = yield;
   if (a) {
     (a: number); // ok
@@ -480,15 +480,15 @@ function *stmt_next(): Generator<void, void, number> {
   }
 }
 
-function *stmt_return_ok(): Generator<void, number, void> {
+function* stmt_return_ok(): Generator<void, number, void> {
   return 0; // ok
 }
 
-function *stmt_return_err(): Generator<void, number, void> {
+function* stmt_return_err(): Generator<void, number, void> {
   return ""; // error: string ~> number
 }
 
-function *infer_stmt() {
+function* infer_stmt() {
   var x: boolean = yield 0;
   return "";
 }
@@ -502,7 +502,7 @@ if (typeof infer_stmt_next === "undefined") {
   (infer_stmt_next: boolean); // error: string ~> boolean
 }
 
-function *widen_next() {
+function* widen_next() {
   var x = yield 0;
   if (typeof x === "number") {
   } else if (typeof x === "boolean") {
@@ -514,7 +514,7 @@ widen_next().next(0);
 widen_next().next("");
 widen_next().next(true);
 
-function *widen_yield() {
+function* widen_yield() {
   yield 0;
   yield "";
   yield true;
@@ -527,63 +527,63 @@ for (var x of widen_yield()) {
   }
 }
 
-function *delegate_next_generator() {
-  function *inner() {
+function* delegate_next_generator() {
+  function* inner() {
     var x: number = yield; // error: string ~> number
   }
-  yield *inner();
+  yield* inner();
 }
 delegate_next_generator().next("");
 
-function *delegate_yield_generator() {
-  function *inner() {
+function* delegate_yield_generator() {
+  function* inner() {
     yield "";
   }
 
-  yield *inner();
+  yield* inner();
 }
 for (var x of delegate_yield_generator()) {
   (x: number); // error: string ~> number
 }
 
-function *delegate_return_generator() {
-  function *inner() {
+function* delegate_return_generator() {
+  function* inner() {
     return "";
   }
 
-  var x: number = yield *inner(); // error: string ~> number
+  var x: number = yield* inner(); // error: string ~> number
 }
 
 // only generators can make use of a value passed to next
-function *delegate_next_iterable(xs: Array<number>) {
-  yield *xs;
+function* delegate_next_iterable(xs: Array<number>) {
+  yield* xs;
 }
 delegate_next_iterable([]).next(""); // error: Iterator has no next value
 
-function *delegate_yield_iterable(xs: Array<number>) {
-  yield *xs;
+function* delegate_yield_iterable(xs: Array<number>) {
+  yield* xs;
 }
 for (var x of delegate_yield_iterable([])) {
   (x: string); // error: number ~> string
 }
 
-function *delegate_return_iterable(xs: Array<number>) {
-  var x: void = yield *xs; // ok: Iterator has no yield value
+function* delegate_return_iterable(xs: Array<number>) {
+  var x: void = yield* xs; // ok: Iterator has no yield value
 }
 
-function *generic_yield<Y>(y: Y): Generator<Y, void, void> {
+function* generic_yield<Y>(y: Y): Generator<Y, void, void> {
   yield y;
 }
 
-function *generic_return<R>(r: R): Generator<void, R, void> {
+function* generic_return<R>(r: R): Generator<void, R, void> {
   return r;
 }
 
-function *generic_next<N>(): Generator<void, N, N> {
+function* generic_next<N>(): Generator<void, N, N> {
   return yield undefined;
 }
 
-function *multiple_return(b) {
+function* multiple_return(b) {
   if (b) {
     return 0;
   } else {
@@ -598,7 +598,7 @@ if (multiple_return_result.done) {
 ================================================================================
 `;
 
-exports[`refi.js 1`] = `
+exports[`refi.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -637,14 +637,14 @@ function *d(x: void | string): Generator<void, void, void> {
 }
 
 =====================================output=====================================
-function *a(x: { a: void | string }): Generator<void, void, void> {
+function* a(x: { a: void | string }): Generator<void, void, void> {
   if (!x.a) return;
   (x.a: string); // ok
   yield;
   (x.a: string); // error
 }
 
-function *b(x: void | string): Generator<void, void, void> {
+function* b(x: void | string): Generator<void, void, void> {
   if (!x) return;
   (x: string); // ok
   yield;
@@ -653,26 +653,26 @@ function *b(x: void | string): Generator<void, void, void> {
 
 declare function fn(): Generator<void, void, void>;
 
-function *c(x: { a: void | string }): Generator<void, void, void> {
+function* c(x: { a: void | string }): Generator<void, void, void> {
   const gen = fn();
   if (!x.a) return;
   (x.a: string); // ok
-  yield *gen;
+  yield* gen;
   (x.a: string); // error
 }
 
-function *d(x: void | string): Generator<void, void, void> {
+function* d(x: void | string): Generator<void, void, void> {
   const gen = fn();
   if (!x) return;
   (x: string); // ok
-  yield *gen;
+  yield* gen;
   (x: string); // ok
 }
 
 ================================================================================
 `;
 
-exports[`return.js 1`] = `
+exports[`return.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -710,7 +710,7 @@ function test1(gen: Generator<void, string, void>) {
 
 // However, a generator can "refuse" the return by catching an exception and
 // yielding or returning internally.
-function *refuse_return() {
+function* refuse_return() {
   try {
     yield 1;
   } finally {
@@ -726,7 +726,7 @@ if (refuse_return_result.done) {
 ================================================================================
 `;
 
-exports[`throw.js 1`] = `
+exports[`throw.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -759,7 +759,7 @@ if (yield_return_value !== undefined) {
 }
 
 =====================================output=====================================
-function *catch_return() {
+function* catch_return() {
   try {
     yield 0;
   } catch (e) {
@@ -772,7 +772,7 @@ if (catch_return_value !== undefined) {
   (catch_return_value: string); // error: number ~> string
 }
 
-function *yield_return() {
+function* yield_return() {
   try {
     yield 0;
     return;
@@ -788,7 +788,7 @@ if (yield_return_value !== undefined) {
 ================================================================================
 `;
 
-exports[`variance.js 1`] = `
+exports[`variance.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`csx.js 1`] = `
+exports[`csx.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -22,7 +22,7 @@ const x = { a: 3 };
 ================================================================================
 `;
 
-exports[`jsx.js 1`] = `
+exports[`jsx.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`objmap.js 1`] = `
+exports[`objmap.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -22,7 +22,7 @@ c("string")();
 ================================================================================
 `;
 
-exports[`objmapi.js 1`] = `
+exports[`objmapi.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

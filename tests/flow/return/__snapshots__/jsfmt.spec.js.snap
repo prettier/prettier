@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`function_return.js 1`] = `
+exports[`function_return.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -88,7 +88,7 @@ module.exports = C;
 ================================================================================
 `;
 
-exports[`implicit.js 1`] = `
+exports[`implicit.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -114,7 +114,7 @@ async function g2(): Promise<number> {}
 ================================================================================
 `;
 
-exports[`void.js 1`] = `
+exports[`void.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`collator.js 1`] = `
+exports[`collator.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -84,7 +84,7 @@ Collator.supportedLocalesOf(["en"]); // correct
 ================================================================================
 `;
 
-exports[`date_time_format.js 1`] = `
+exports[`date_time_format.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -204,7 +204,7 @@ DateTimeFormat.supportedLocalesOf(["en"]); // correct
 ================================================================================
 `;
 
-exports[`intl.js 1`] = `
+exports[`intl.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -250,7 +250,7 @@ const l = Intl.PluralRules; // correct
 ================================================================================
 `;
 
-exports[`number_format.js 1`] = `
+exports[`number_format.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -348,7 +348,7 @@ NumberFormat.supportedLocalesOf(["en"]); // correct
 ================================================================================
 `;
 
-exports[`plural_rules.js 1`] = `
+exports[`plural_rules.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

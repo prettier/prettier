@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`annotated.js 1`] = `
+exports[`annotated.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -18,7 +18,7 @@ let x: number = 5;
 ================================================================================
 `;
 
-exports[`anonymous.js 1`] = `
+exports[`anonymous.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -40,7 +40,7 @@ function f() {
 ================================================================================
 `;
 
-exports[`big-type.js 1`] = `
+exports[`big-type.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -325,7 +325,7 @@ let x = {
 ================================================================================
 `;
 
-exports[`empty.js 1`] = `
+exports[`empty.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -339,7 +339,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`empty-array.js 1`] = `
+exports[`empty-array.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -361,7 +361,7 @@ module.exports = { a3 };
 ================================================================================
 `;
 
-exports[`object.js 1`] = `
+exports[`object.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -395,7 +395,7 @@ module.exports = {
 ================================================================================
 `;
 
-exports[`recursive.js 1`] = `
+exports[`recursive.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -419,7 +419,7 @@ function f(x: number) {
 ================================================================================
 `;
 
-exports[`type-shadowing.js 1`] = `
+exports[`type-shadowing.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -443,7 +443,7 @@ function outer<T>(y: T) {
 ================================================================================
 `;
 
-exports[`unparsable.js 1`] = `
+exports[`unparsable.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

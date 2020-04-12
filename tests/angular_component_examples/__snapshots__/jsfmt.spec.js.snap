@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.component.ts 1`] = `
+exports[`test.component.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -28,11 +28,9 @@ class     TestComponent {}
 =====================================output=====================================
 @Component({
   selector: "app-test",
-  template: \`
-    <ul>
-      <li>test</li>
-    </ul>
-  \`,
+  template: \`<ul>
+    <li>test</li>
+  </ul> \`,
   styles: [
     \`
       :host {
@@ -49,7 +47,7 @@ class TestComponent {}
 ================================================================================
 `;
 
-exports[`test.component.ts 2`] = `
+exports[`test.component.ts format 2`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -76,11 +74,9 @@ class     TestComponent {}
 =====================================output=====================================
 @Component({
   selector: "app-test",
-  template: \`
-    <ul>
-      <li>test</li>
-    </ul>
-  \`,
+  template: \`<ul>
+    <li>test</li>
+  </ul> \`,
   styles: [
     \`
       :host {

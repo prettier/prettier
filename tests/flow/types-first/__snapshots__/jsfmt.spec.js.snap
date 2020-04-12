@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`exports-predicate.js 1`] = `
+exports[`exports-predicate.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -40,7 +40,7 @@ module.exports = {
 ================================================================================
 `;
 
-exports[`import-type1.js 1`] = `
+exports[`import-type1.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -58,7 +58,7 @@ export type T = number;
 ================================================================================
 `;
 
-exports[`import-type2.js 1`] = `
+exports[`import-type2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -78,7 +78,7 @@ export type S = T; // number
 ================================================================================
 `;
 
-exports[`import-type3.js 1`] = `
+exports[`import-type3.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -96,7 +96,7 @@ export type T = number;
 ================================================================================
 `;
 
-exports[`import-type4.js 1`] = `
+exports[`import-type4.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -125,7 +125,7 @@ export type T = {
 ================================================================================
 `;
 
-exports[`import-type5.js 1`] = `
+exports[`import-type5.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -154,7 +154,7 @@ export type O = {
 ================================================================================
 `;
 
-exports[`import-value1.js 1`] = `
+exports[`import-value1.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -172,7 +172,7 @@ module.exports = 0;
 ================================================================================
 `;
 
-exports[`import-value2.js 1`] = `
+exports[`import-value2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -194,7 +194,7 @@ export function f(x: number): string {
 ================================================================================
 `;
 
-exports[`import-value3.js 1`] = `
+exports[`import-value3.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -224,7 +224,7 @@ module.exports = o2; // recursive object type
 ================================================================================
 `;
 
-exports[`import-value4.js 1`] = `
+exports[`import-value4.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -252,7 +252,7 @@ export class B extends A {
 ================================================================================
 `;
 
-exports[`import-value5.js 1`] = `
+exports[`import-value5.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -278,7 +278,7 @@ declare export class A {
 ================================================================================
 `;
 
-exports[`multiple-export-1.js 1`] = `
+exports[`multiple-export-1.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -306,7 +306,7 @@ module.exports = A;
 ================================================================================
 `;
 
-exports[`multiple-export-2.js 1`] = `
+exports[`multiple-export-2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -342,7 +342,7 @@ module.exports = B;
 ================================================================================
 `;
 
-exports[`test.js 1`] = `
+exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -380,7 +380,7 @@ import { type O } from "./import-type5";
 ================================================================================
 `;
 
-exports[`test-multiple-export-1.js 1`] = `
+exports[`test-multiple-export-1.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -402,7 +402,7 @@ const a = require("./multiple-export-1");
 ================================================================================
 `;
 
-exports[`test-multiple-export-2.js 1`] = `
+exports[`test-multiple-export-2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -426,7 +426,7 @@ const a = require("./multiple-export-2");
 ================================================================================
 `;
 
-exports[`test-predicate.js 1`] = `
+exports[`test-predicate.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

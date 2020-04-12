@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`FeedUFI.react.js 1`] = `
+exports[`FeedUFI.react.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -88,7 +88,7 @@ module.exports = FeedUFI;
 ================================================================================
 `;
 
-exports[`Mixin.js 1`] = `
+exports[`Mixin.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -108,7 +108,7 @@ module.exports = {
 ================================================================================
 `;
 
-exports[`UFILikeCount.react.js 1`] = `
+exports[`UFILikeCount.react.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -168,7 +168,7 @@ module.exports = UFILikeCount;
 ================================================================================
 `;
 
-exports[`argless_function.js 1`] = `
+exports[`argless_function.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -202,7 +202,7 @@ x.foo = 3; // Error, the props type for Component is a sealed empty object.
 ================================================================================
 `;
 
-exports[`bad_default_props.js 1`] = `
+exports[`bad_default_props.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -262,7 +262,7 @@ class C4 extends React.Component {
 ================================================================================
 `;
 
-exports[`classes.js 1`] = `
+exports[`classes.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -431,7 +431,7 @@ FooLegacy.bar();
 ================================================================================
 `;
 
-exports[`import-react.js 1`] = `
+exports[`import-react.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -477,7 +477,7 @@ class HelloMessage extends React.Component<{ name: string }> {}
 ================================================================================
 `;
 
-exports[`new_react.js 1`] = `
+exports[`new_react.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -554,7 +554,7 @@ var x: number = C.displayName;
 ================================================================================
 `;
 
-exports[`object_component.js 1`] = `
+exports[`object_component.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -625,7 +625,7 @@ const AC: React.AbstractComponent<
 ================================================================================
 `;
 
-exports[`propTypes.js 1`] = `
+exports[`propTypes.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -678,7 +678,7 @@ var props: Array<{ label: string, value?: number }> = [
 ================================================================================
 `;
 
-exports[`props.js 1`] = `
+exports[`props.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -743,7 +743,7 @@ var FooProps = React.createClass({
 ================================================================================
 `;
 
-exports[`props2.js 1`] = `
+exports[`props2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -789,7 +789,7 @@ var D = React.createClass({
 ================================================================================
 `;
 
-exports[`props3.js 1`] = `
+exports[`props3.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -907,7 +907,7 @@ var TestProps = React.createClass({
 ================================================================================
 `;
 
-exports[`props4.js 1`] = `
+exports[`props4.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -956,7 +956,7 @@ ReactDOM.render(<Example foo="foo" />, document.body);
 ================================================================================
 `;
 
-exports[`props5.js 1`] = `
+exports[`props5.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -986,7 +986,7 @@ module.exports = C;
 ================================================================================
 `;
 
-exports[`state.js 1`] = `
+exports[`state.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1040,7 +1040,7 @@ var ReactClass = React.createClass({
 ================================================================================
 `;
 
-exports[`state2.js 1`] = `
+exports[`state2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1086,7 +1086,7 @@ module.exports = Comp;
 ================================================================================
 `;
 
-exports[`state3.js 1`] = `
+exports[`state3.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1132,7 +1132,7 @@ var TestState = React.createClass({
 ================================================================================
 `;
 
-exports[`state4.js 1`] = `
+exports[`state4.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1169,7 +1169,7 @@ var C = React.createClass({
 ================================================================================
 `;
 
-exports[`state5.js 1`] = `
+exports[`state5.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1195,7 +1195,7 @@ class C extends React.Component<{}> {
 ================================================================================
 `;
 
-exports[`state6.js 1`] = `
+exports[`state6.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

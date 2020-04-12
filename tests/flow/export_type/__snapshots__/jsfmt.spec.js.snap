@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`cjs_with_types.js 1`] = `
+exports[`cjs_with_types.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -26,7 +26,7 @@ module.exports = {};
 ================================================================================
 `;
 
-exports[`importer.js 1`] = `
+exports[`importer.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -124,7 +124,7 @@ new ClsType();
 ================================================================================
 `;
 
-exports[`types_only.js 1`] = `
+exports[`types_only.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -168,7 +168,7 @@ export interface IFoo {
 ================================================================================
 `;
 
-exports[`types_only2.js 1`] = `
+exports[`types_only2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -192,7 +192,7 @@ export interface IFoo2 {
 ================================================================================
 `;
 
-exports[`values_as_type_exports.js 1`] = `
+exports[`values_as_type_exports.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

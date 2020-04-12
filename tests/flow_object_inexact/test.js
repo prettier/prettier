@@ -4,6 +4,11 @@ type T = {
   ...,
 }
 
+type I = {
+  [string]: number,
+  ...,
+}
+
 type U = { a: number, b: number, c: number, d: number, e: number, f: number, g: number, ...};
 
 type V = {x: {...}, y: {x: {...}, a: number, b: number, c: number, d: number, e: number, f: number, ...}, z: {...}, foo: number, bar: {foo: number, ...}, ...};

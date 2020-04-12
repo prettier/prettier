@@ -19,7 +19,7 @@ function tryParse(file, content) {
     esproposal_class_static_fields: true,
     esproposal_export_star_as: true,
     esproposal_optional_chaining: true,
-    esproposal_nullish_coalescing: true
+    esproposal_nullish_coalescing: true,
   });
 
   if (ast.errors.length > 0) {
@@ -41,7 +41,7 @@ function syncTests(syncDir) {
     throw new Error(
       [
         "Couldn't find any files to copy.",
-        `Please make sure that \`${syncDir}\` exists and contains the flow tests.`
+        `Please make sure that \`${syncDir}\` exists and contains the flow tests.`,
       ].join("\n")
     );
   }
@@ -55,7 +55,7 @@ function syncTests(syncDir) {
 
   rimraf.sync(FLOW_TESTS_DIR);
 
-  filesToCopy.forEach(file => {
+  filesToCopy.forEach((file) => {
     const content = fs.readFileSync(file, "utf8");
     const parseError = tryParse(file, content);
 
@@ -82,7 +82,7 @@ function run(argv) {
     console.error(
       [
         "You must provide the path to a flow tests directory to sync from!",
-        "Example: node scripts/sync-flow-tests.js ../flow/tests/"
+        "Example: node scripts/sync-flow-tests.js ../flow/tests/",
       ].join("\n")
     );
     return 1;
@@ -105,7 +105,7 @@ function run(argv) {
         "This is expected since flow tests for handling invalid code,",
         "but that's not interesting for Prettier's tests.",
         "This is the skipped stuff:",
-        ""
+        "",
       ]
         .concat(skipped, "")
         .join("\n")
@@ -119,7 +119,7 @@ function run(argv) {
       `1. Optional: Adjust some ${SPEC_FILE_NAME} files.`,
       "2. Run `jest -u` to create snapshots.",
       "3. Run `git diff` to check how tests and snapshots have changed",
-      "4. Take a look at new snapshots to see if they're OK."
+      "4. Take a look at new snapshots to see if they're OK.",
     ].join("\n")
   );
 

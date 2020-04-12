@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`useDeferredValue_hook.js 1`] = `
+exports[`useDeferredValue_hook.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -38,7 +38,7 @@ const deferredValue = React.useDeferredValue(true, { timeoutMs: 1000 }); // Ok
 ================================================================================
 `;
 
-exports[`useTransition_hook.js 1`] = `
+exports[`useTransition_hook.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

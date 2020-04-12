@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`a.js 1`] = `
+exports[`a.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -26,7 +26,7 @@ module.exports.x = 1;
 ================================================================================
 `;
 
-exports[`b.js 1`] = `
+exports[`b.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -70,7 +70,7 @@ const poly_a = require("./poly_a");
 ================================================================================
 `;
 
-exports[`poly_a.js 1`] = `
+exports[`poly_a.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

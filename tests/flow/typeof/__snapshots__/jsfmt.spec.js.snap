@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`export.js 1`] = `
+exports[`export.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -26,7 +26,7 @@ export type X = typeof x;
 ================================================================================
 `;
 
-exports[`maybe.js 1`] = `
+exports[`maybe.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -56,7 +56,7 @@ var x = f(42);
 ================================================================================
 `;
 
-exports[`optional.js 1`] = `
+exports[`optional.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -86,7 +86,7 @@ var x = f(42).p;
 ================================================================================
 `;
 
-exports[`typeof.js 1`] = `
+exports[`typeof.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -266,7 +266,7 @@ var keys: $Keys<Map> = "A"; // Error: ineligible value used in type anno
 ================================================================================
 `;
 
-exports[`union.js 1`] = `
+exports[`union.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Arrays.js 1`] = `
+exports[`Arrays.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -89,7 +89,7 @@ module.exports = "arrays";
 ================================================================================
 `;
 
-exports[`isarray.js 1`] = `
+exports[`isarray.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -155,7 +155,7 @@ function hmm(array: mixed) {
 ================================================================================
 `;
 
-exports[`numeric_elem.js 1`] = `
+exports[`numeric_elem.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -181,7 +181,7 @@ arr[day] = 0;
 ================================================================================
 `;
 
-exports[`predicates.js 1`] = `
+exports[`predicates.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -201,7 +201,7 @@ declare function foo(x: number): boolean;
 ================================================================================
 `;
 
-exports[`spread.js 1`] = `
+exports[`spread.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -357,7 +357,7 @@ function bar(a: [1, 2, 3], b: [4, 5, 6]): [1, 2, 3, 1, 2, 3] {
 ================================================================================
 `;
 
-exports[`spread_perf.js 1`] = `
+exports[`spread_perf.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

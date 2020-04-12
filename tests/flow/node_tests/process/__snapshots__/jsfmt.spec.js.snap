@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`emitWarning.js 1`] = `
+exports[`emitWarning.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -40,7 +40,7 @@ process.emitWarning("blah", "blah", 42); // error
 ================================================================================
 `;
 
-exports[`nextTick.js 1`] = `
+exports[`nextTick.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -103,7 +103,7 @@ process.nextTick(
 ================================================================================
 `;
 
-exports[`process.js 1`] = `
+exports[`process.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

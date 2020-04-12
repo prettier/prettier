@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`importtest.js 1`] = `
+exports[`importtest.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -71,7 +71,7 @@ function test6(x: Box<string>): Container<string> {
 ================================================================================
 `;
 
-exports[`importtest-polarity.js 1`] = `
+exports[`importtest-polarity.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -172,7 +172,7 @@ function test9(
 ================================================================================
 `;
 
-exports[`test.js 1`] = `
+exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -242,7 +242,7 @@ function test6(x: Box<string>): Container<string> {
 ================================================================================
 `;
 
-exports[`test-polarity.js 1`] = `
+exports[`test-polarity.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`type.js 1`] = `
+exports[`type.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -274,7 +274,7 @@ declare var o17: O17;
 ================================================================================
 `;
 
-exports[`type_dict.js 1`] = `
+exports[`type_dict.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -490,7 +490,7 @@ declare var o17: O17;
 ================================================================================
 `;
 
-exports[`type_generic.js 1`] = `
+exports[`type_generic.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -518,7 +518,7 @@ const [o, p] = remove({ x: "foo", p: 42 });
 ================================================================================
 `;
 
-exports[`type_union.js 1`] = `
+exports[`type_union.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Integer.js 1`] = `
+exports[`Integer.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -22,7 +22,7 @@ export const floor = (n: number): integer => n;
 ================================================================================
 `;
 
-exports[`Other.js 1`] = `
+exports[`Other.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -52,7 +52,7 @@ export const parseInteger = (input: string): ?integer => {
 ================================================================================
 `;
 
-exports[`decltest.js 1`] = `
+exports[`decltest.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -78,7 +78,7 @@ function f(foo: Foo<string>): string {
 ================================================================================
 `;
 
-exports[`importtest.js 1`] = `
+exports[`importtest.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -251,7 +251,7 @@ function test14(x: ID): string {
 ================================================================================
 `;
 
-exports[`super.js 1`] = `
+exports[`super.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -269,7 +269,7 @@ export opaque type SuperType: number = number;
 ================================================================================
 `;
 
-exports[`test.js 1`] = `
+exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -339,7 +339,7 @@ export opaque type ID: string = string;
 ================================================================================
 `;
 
-exports[`typeapp-export.js 1`] = `
+exports[`typeapp-export.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -357,7 +357,7 @@ export opaque type Foo<+T>: { +p: T } = { +p: T };
 ================================================================================
 `;
 
-exports[`typeapp-test.js 1`] = `
+exports[`typeapp-test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

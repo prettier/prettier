@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`dependency.js 1`] = `
+exports[`dependency.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -18,7 +18,7 @@ export default 123;
 ================================================================================
 `;
 
-exports[`focused.js 1`] = `
+exports[`focused.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

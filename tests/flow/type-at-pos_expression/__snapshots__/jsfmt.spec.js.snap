@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`dictionary.js 1`] = `
+exports[`dictionary.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -78,7 +78,7 @@ const d2 = {
 ================================================================================
 `;
 
-exports[`facebookism.js 1`] = `
+exports[`facebookism.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -96,7 +96,7 @@ const idx = require("./idx");
 ================================================================================
 `;
 
-exports[`jsx.js 1`] = `
+exports[`jsx.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -144,7 +144,7 @@ const d = <o.r>blah</o.r>;
 ================================================================================
 `;
 
-exports[`literals.js 1`] = `
+exports[`literals.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -220,7 +220,7 @@ const a_1 = new A<1>();
 ================================================================================
 `;
 
-exports[`new-array.js 1`] = `
+exports[`new-array.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -238,7 +238,7 @@ var a = new Array(1);
 ================================================================================
 `;
 
-exports[`object.js 1`] = `
+exports[`object.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -323,7 +323,7 @@ litobj;
 ================================================================================
 `;
 
-exports[`object-resolution.js 1`] = `
+exports[`object-resolution.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -361,7 +361,7 @@ if (spread.q) (spread.q: string);
 ================================================================================
 `;
 
-exports[`optional_chaining.js 1`] = `
+exports[`optional_chaining.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

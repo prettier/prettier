@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`api.js 1`] = `
+exports[`api.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -77,7 +77,7 @@ function sa(x: Array<string>) {}
 ================================================================================
 `;
 
-exports[`builtin_intrinsic.js 1`] = `
+exports[`builtin_intrinsic.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -139,7 +139,7 @@ import React from "react";
 ================================================================================
 `;
 
-exports[`component.js 1`] = `
+exports[`component.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -233,7 +233,7 @@ class MyComponentOptional extends React.Component<{ children?: Node }, void> {}
 ================================================================================
 `;
 
-exports[`fun.js 1`] = `
+exports[`fun.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -537,7 +537,7 @@ class FunArray extends React.Component<{ children: Fn | Array<Fn> }, void> {}
 ================================================================================
 `;
 
-exports[`issue-4648.js 1`] = `
+exports[`issue-4648.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -593,7 +593,7 @@ class Parent extends React.Component<{
 ================================================================================
 `;
 
-exports[`spread.js 1`] = `
+exports[`spread.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -619,7 +619,7 @@ class Foo extends React.Component<{ children: Array<string> }, void> {}
 ================================================================================
 `;
 
-exports[`tabs.js 1`] = `
+exports[`tabs.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -810,7 +810,7 @@ class TabBar extends React.Component<{ children: TabBarNode }, void> {}
 ================================================================================
 `;
 
-exports[`text.js 1`] = `
+exports[`text.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -936,7 +936,7 @@ class TextLiteral extends React.Component<{ children: "foo" | "bar" }, void> {}
 ================================================================================
 `;
 
-exports[`tuple.js 1`] = `
+exports[`tuple.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1039,7 +1039,7 @@ class TupleOne extends React.Component<{ children: [boolean] }, void> {}
 ================================================================================
 `;
 
-exports[`view.js 1`] = `
+exports[`view.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

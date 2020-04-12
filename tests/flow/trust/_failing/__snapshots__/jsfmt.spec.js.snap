@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`literal_tests.js 1`] = `
+exports[`literal_tests.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -68,7 +68,7 @@ a3.x = ("Hello world": any);
 ================================================================================
 `;
 
-exports[`operators.js 1`] = `
+exports[`operators.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ambiguous.js 1`] = `
+exports[`ambiguous.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -20,7 +20,7 @@ export default value;
 ================================================================================
 `;
 
-exports[`test.js 1`] = `
+exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -88,7 +88,7 @@ import sub_nonexistent from "subdir/nonexistent";
 ================================================================================
 `;
 
-exports[`user_code.js 1`] = `
+exports[`user_code.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

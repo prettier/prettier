@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`computed_properties.js 1`] = `
+exports[`computed_properties.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -78,7 +78,7 @@ declare var y2: Y;
 ================================================================================
 `;
 
-exports[`deletion.js 1`] = `
+exports[`deletion.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -138,7 +138,7 @@ delete (w?.g).e; // should fail
 ================================================================================
 `;
 
-exports[`function_calls.js 1`] = `
+exports[`function_calls.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -176,7 +176,7 @@ x3?.()();
 ================================================================================
 `;
 
-exports[`in_line_refinements.js 1`] = `
+exports[`in_line_refinements.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -236,7 +236,7 @@ x?.f2(x.a)(x.a); // havoc refinements
 ================================================================================
 `;
 
-exports[`lhs_types.js 1`] = `
+exports[`lhs_types.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -282,7 +282,7 @@ declare var union: Foo | null | void;
 ================================================================================
 `;
 
-exports[`method_calls.js 1`] = `
+exports[`method_calls.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -386,7 +386,7 @@ if (cc.c) {
 ================================================================================
 `;
 
-exports[`private_properties.js 1`] = `
+exports[`private_properties.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -432,7 +432,7 @@ class Y {
 ================================================================================
 `;
 
-exports[`refinements.js 1`] = `
+exports[`refinements.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -752,7 +752,7 @@ if (e?.length) {
 ================================================================================
 `;
 
-exports[`refinements2.js 1`] = `
+exports[`refinements2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -971,7 +971,7 @@ if (b1?.a === c1) {
 ================================================================================
 `;
 
-exports[`static_members.js 1`] = `
+exports[`static_members.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1059,7 +1059,7 @@ const d: string | null = c?.c;
 ================================================================================
 `;
 
-exports[`typeof.js 1`] = `
+exports[`typeof.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

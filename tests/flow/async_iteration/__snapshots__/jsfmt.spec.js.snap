@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`delegate_yield.js 1`] = `
+exports[`delegate_yield.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -34,19 +34,19 @@ async function *delegate_return() {
 }
 
 =====================================output=====================================
-async function *delegate_next() {
-  async function *inner() {
+async function* delegate_next() {
+  async function* inner() {
     var x: void = yield; // error: number ~> void
   }
-  yield *inner();
+  yield* inner();
 }
 delegate_next().next(0);
 
-async function *delegate_yield() {
-  async function *inner() {
+async function* delegate_yield() {
+  async function* inner() {
     yield 0;
   }
-  yield *inner();
+  yield* inner();
 }
 async () => {
   for await (const x of delegate_yield()) {
@@ -54,17 +54,17 @@ async () => {
   }
 };
 
-async function *delegate_return() {
-  async function *inner() {
+async function* delegate_return() {
+  async function* inner() {
     return 0;
   }
-  var x: void = yield *inner(); // error: number ~> void
+  var x: void = yield* inner(); // error: number ~> void
 }
 
 ================================================================================
 `;
 
-exports[`generator.js 1`] = `
+exports[`generator.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -105,7 +105,7 @@ declare interface File {
 
 declare function fileOpen(path: string): Promise<File>;
 
-async function *readLines(path) {
+async function* readLines(path) {
   let file: File = await fileOpen(path);
 
   try {
@@ -126,7 +126,7 @@ async function f() {
 ================================================================================
 `;
 
-exports[`return.js 1`] = `
+exports[`return.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -166,7 +166,7 @@ gen.return(0).then((result) => {
 
 // However, a generator can "refuse" the return by catching an exception and
 // yielding or returning internally.
-async function *refuse_return() {
+async function* refuse_return() {
   try {
     yield 1;
   } finally {
@@ -184,7 +184,7 @@ refuse_return()
 ================================================================================
 `;
 
-exports[`throw.js 1`] = `
+exports[`throw.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -224,7 +224,7 @@ async function *yield_return() {
 });
 
 =====================================output=====================================
-async function *catch_return() {
+async function* catch_return() {
   try {
     yield 0;
   } catch (e) {
@@ -242,7 +242,7 @@ async () => {
     });
 };
 
-async function *yield_return() {
+async function* yield_return() {
   try {
     yield 0;
     return;

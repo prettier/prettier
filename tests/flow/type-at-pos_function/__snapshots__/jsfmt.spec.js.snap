@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`declare.js 1`] = `
+exports[`declare.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -18,7 +18,7 @@ declare function foo(): void;
 ================================================================================
 `;
 
-exports[`default.js 1`] = `
+exports[`default.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -40,7 +40,7 @@ function g({ x = y }) {}
 ================================================================================
 `;
 
-exports[`function.js 1`] = `
+exports[`function.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -90,7 +90,7 @@ const d = {
 ================================================================================
 `;
 
-exports[`function-poly-0.js 1`] = `
+exports[`function-poly-0.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -112,7 +112,7 @@ const x = f(1);
 ================================================================================
 `;
 
-exports[`function-poly-1.js 1`] = `
+exports[`function-poly-1.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -134,7 +134,7 @@ const x = f(1);
 ================================================================================
 `;
 
-exports[`function-poly-2.js 1`] = `
+exports[`function-poly-2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -174,7 +174,7 @@ function outer<T>(y: T) {
 ================================================================================
 `;
 
-exports[`function-poly-3.js 1`] = `
+exports[`function-poly-3.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -202,7 +202,7 @@ x;
 ================================================================================
 `;
 
-exports[`function-poly-4.js 1`] = `
+exports[`function-poly-4.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -240,7 +240,7 @@ const obj = {
 ================================================================================
 `;
 
-exports[`function-poly-5.js 1`] = `
+exports[`function-poly-5.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

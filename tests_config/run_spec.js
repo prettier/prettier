@@ -3,8 +3,13 @@
 const fs = require("fs");
 const path = require("path");
 const raw = require("jest-snapshot-serializer-raw").wrap;
+const { isCI } = require("ci-info");
 
-const { AST_COMPARE, TEST_STANDALONE, TEST_CRLF } = process.env;
+const { TEST_STANDALONE } = process.env;
+const AST_COMPARE = isCI || process.env.AST_COMPARE;
+const DEEP_COMPARE = isCI || process.env.DEEP_COMPARE;
+const TEST_CRLF =
+  (isCI && process.platform === "win32") || process.env.TEST_CRLF;
 
 const CURSOR_PLACEHOLDER = "<|>";
 const RANGE_START_PLACEHOLDER = "<<<PRETTIER_RANGE_START>>>";
@@ -14,9 +19,39 @@ const prettier = !TEST_STANDALONE
   ? require("prettier/local")
   : require("prettier/standalone");
 
+// TODO: these test files need fix
+const unstableTests = new Map(
+  [
+    "class_comment/comments.js",
+    ["comments/dangling_array.js", (options) => options.semi === false],
+    ["comments/jsx.js", (options) => options.semi === false],
+    "comments/return-statement.js",
+    "comments/tagged-template-literal.js",
+    "comments_closure_typecast/iife.js",
+    "markdown_footnoteDefinition/multiline.md",
+    "markdown_spec/example-234.md",
+    "markdown_spec/example-235.md",
+    "multiparser_html_js/script-tag-escaping.html",
+    [
+      "multiparser_js_markdown/codeblock.js",
+      (options) => options.proseWrap === "always",
+    ],
+    ["no-semi/comments.js", (options) => options.semi === false],
+    "yaml_prettier_ignore/document.yml",
+  ].map((fixture) => {
+    const [file, isUnstable = () => true] = Array.isArray(fixture)
+      ? fixture
+      : [fixture];
+    return [path.join(__dirname, "../tests/", file), isUnstable];
+  })
+);
+
 global.run_spec = (dirname, parsers, options) => {
-  // istanbul ignore next
-  if (!parsers || !parsers.length) {
+  // `IS_PARSER_INFERENCE_TESTS` mean to test `inferParser` on `standalone`
+  const IS_PARSER_INFERENCE_TESTS = dirname.endsWith("parser-inference");
+  if (IS_PARSER_INFERENCE_TESTS) {
+    parsers = [];
+  } else if (!parsers || !parsers.length) {
     throw new Error(`No parsers were specified for ${dirname}`);
   }
 
@@ -33,102 +68,125 @@ global.run_spec = (dirname, parsers, options) => {
     ) {
       continue;
     }
+    describe(basename, () => {
+      let rangeStart;
+      let rangeEnd;
+      let cursorOffset;
 
-    let rangeStart;
-    let rangeEnd;
-    let cursorOffset;
+      const text = fs.readFileSync(filename, "utf8");
 
-    const text = fs.readFileSync(filename, "utf8");
+      const source = (TEST_CRLF ? text.replace(/\n/g, "\r\n") : text)
+        .replace(RANGE_START_PLACEHOLDER, (match, offset) => {
+          rangeStart = offset;
+          return "";
+        })
+        .replace(RANGE_END_PLACEHOLDER, (match, offset) => {
+          rangeEnd = offset;
+          return "";
+        });
 
-    const source = (TEST_CRLF ? text.replace(/\n/g, "\r\n") : text)
-      .replace(RANGE_START_PLACEHOLDER, (match, offset) => {
-        rangeStart = offset;
-        return "";
-      })
-      .replace(RANGE_END_PLACEHOLDER, (match, offset) => {
-        rangeEnd = offset;
+      const input = source.replace(CURSOR_PLACEHOLDER, (match, offset) => {
+        cursorOffset = offset;
         return "";
       });
 
-    const input = source.replace(CURSOR_PLACEHOLDER, (match, offset) => {
-      cursorOffset = offset;
-      return "";
-    });
+      const baseOptions = {
+        printWidth: 80,
+        ...options,
+        rangeStart,
+        rangeEnd,
+        cursorOffset,
+      };
+      const mainOptions = {
+        ...baseOptions,
+        ...(IS_PARSER_INFERENCE_TESTS
+          ? { filepath: filename }
+          : { parser: parsers[0] }),
+      };
 
-    const baseOptions = {
-      printWidth: 80,
-      ...options,
-      rangeStart,
-      rangeEnd,
-      cursorOffset
-    };
-    const mainOptions = { ...baseOptions, parser: parsers[0] };
+      const hasEndOfLine = "endOfLine" in mainOptions;
+      const output = format(input, filename, mainOptions);
+      const visualizedOutput = visualizeEndOfLine(output);
 
-    const hasEndOfLine = "endOfLine" in mainOptions;
-
-    const output = format(input, filename, mainOptions);
-    const visualizedOutput = visualizeEndOfLine(output);
-
-    test(basename, () => {
-      expect(visualizedOutput).toEqual(
-        visualizeEndOfLine(consistentEndOfLine(output))
-      );
-      expect(
-        raw(
-          createSnapshot(
-            hasEndOfLine
-              ? visualizeEndOfLine(
-                  text
-                    .replace(RANGE_START_PLACEHOLDER, "")
-                    .replace(RANGE_END_PLACEHOLDER, "")
-                )
-              : source,
-            hasEndOfLine ? visualizedOutput : output,
-            { ...baseOptions, parsers }
+      test("format", () => {
+        expect(visualizedOutput).toEqual(
+          visualizeEndOfLine(consistentEndOfLine(output))
+        );
+        expect(
+          raw(
+            createSnapshot(
+              hasEndOfLine
+                ? visualizeEndOfLine(
+                    text
+                      .replace(RANGE_START_PLACEHOLDER, "")
+                      .replace(RANGE_END_PLACEHOLDER, "")
+                  )
+                : source,
+              hasEndOfLine ? visualizedOutput : output,
+              { ...baseOptions, parsers }
+            )
           )
-        )
-      ).toMatchSnapshot();
+        ).toMatchSnapshot();
+      });
+
+      const parsersToVerify = parsers.slice(1);
+      if (parsers.includes("typescript") && !parsers.includes("babel-ts")) {
+        parsersToVerify.push("babel-ts");
+      }
+
+      for (const parser of parsersToVerify) {
+        const verifyOptions = { ...baseOptions, parser };
+
+        test(`verify (${parser})`, () => {
+          if (
+            parser === "babel-ts" &&
+            options &&
+            (options.disableBabelTS === true ||
+              (Array.isArray(options.disableBabelTS) &&
+                options.disableBabelTS.includes(basename)))
+          ) {
+            expect(() => {
+              format(input, filename, verifyOptions);
+            }).toThrow(TEST_STANDALONE ? undefined : SyntaxError);
+          } else {
+            const verifyOutput = format(input, filename, verifyOptions);
+            expect(visualizeEndOfLine(verifyOutput)).toEqual(visualizedOutput);
+          }
+        });
+      }
+
+      const formatted = output.replace(CURSOR_PLACEHOLDER, "");
+      const isUnstable = unstableTests.get(filename);
+      const isUnstableTest = isUnstable && isUnstable(options || {});
+      if (
+        DEEP_COMPARE &&
+        (formatted !== input || isUnstableTest) &&
+        typeof rangeStart === "undefined" &&
+        typeof rangeEnd === "undefined" &&
+        typeof cursorOffset === "undefined" &&
+        !TEST_CRLF
+      ) {
+        test("second format", () => {
+          const secondOutput = format(formatted, filename, mainOptions);
+          if (isUnstableTest) {
+            // To keep eye on failed tests, this assert never supposed to pass,
+            // if it fails, just remove the file from `unstableTests`
+            expect(secondOutput).not.toEqual(output);
+          } else {
+            expect(secondOutput).toEqual(output);
+          }
+        });
+      }
+
+      if (AST_COMPARE && formatted !== input) {
+        test("compare AST", () => {
+          const { cursorOffset, ...parseOptions } = mainOptions;
+          const originalAst = parse(input, parseOptions);
+          const formattedAst = parse(formatted, parseOptions);
+          expect(originalAst).toEqual(formattedAst);
+        });
+      }
     });
-
-    const parsersToVerify = parsers.slice(1);
-    if (
-      parsers.includes("typescript") &&
-      !parsers.includes("babel-ts") &&
-      !(
-        options &&
-        (options.disableBabelTS === true ||
-          (Array.isArray(options.disableBabelTS) &&
-            options.disableBabelTS.includes(basename)))
-      )
-    ) {
-      parsersToVerify.push("babel-ts");
-    }
-
-    for (const parser of parsersToVerify) {
-      const verifyOptions = { ...baseOptions, parser };
-      test(`${basename} - ${parser}-verify`, () => {
-        const verifyOutput = format(input, filename, verifyOptions);
-        expect(visualizeEndOfLine(verifyOutput)).toEqual(visualizedOutput);
-      });
-    }
-
-    if (AST_COMPARE) {
-      test(`${filename} parse`, () => {
-        const parseOptions = { ...mainOptions };
-        delete parseOptions.cursorOffset;
-
-        const originalAst = parse(input, parseOptions);
-        let formattedAst;
-
-        expect(() => {
-          formattedAst = parse(
-            output.replace(CURSOR_PLACEHOLDER, ""),
-            parseOptions
-          );
-        }).not.toThrow();
-        expect(originalAst).toEqual(formattedAst);
-      });
-    }
   }
 };
 
@@ -139,7 +197,7 @@ function parse(source, options) {
 function format(source, filename, options) {
   const result = prettier.formatWithCursor(source, {
     filepath: filename,
-    ...options
+    ...options,
   });
 
   return options.cursorOffset >= 0
@@ -151,7 +209,7 @@ function format(source, filename, options) {
 
 function consistentEndOfLine(text) {
   let firstEndOfLine;
-  return text.replace(/\r\n?|\n/g, endOfLine => {
+  return text.replace(/\r\n?|\n/g, (endOfLine) => {
     if (!firstEndOfLine) {
       firstEndOfLine = endOfLine;
     }
@@ -160,7 +218,7 @@ function consistentEndOfLine(text) {
 }
 
 function visualizeEndOfLine(text) {
-  return text.replace(/\r\n?|\n/g, endOfLine => {
+  return text.replace(/\r\n?|\n/g, (endOfLine) => {
     switch (endOfLine) {
       case "\n":
         return "<LF>\n";
@@ -186,7 +244,7 @@ function createSnapshot(input, output, options) {
       printOptions(
         omit(
           options,
-          k =>
+          (k) =>
             k === "rangeStart" ||
             k === "rangeEnd" ||
             k === "cursorOffset" ||
@@ -212,12 +270,12 @@ function printSeparator(width, description) {
 
 function printOptions(options) {
   const keys = Object.keys(options).sort();
-  return keys.map(key => `${key}: ${stringify(options[key])}`).join("\n");
+  return keys.map((key) => `${key}: ${stringify(options[key])}`).join("\n");
   function stringify(value) {
     return value === Infinity
       ? "Infinity"
       : Array.isArray(value)
-      ? `[${value.map(v => JSON.stringify(v)).join(", ")}]`
+      ? `[${value.map((v) => JSON.stringify(v)).join(", ")}]`
       : JSON.stringify(value);
   }
 }

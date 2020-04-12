@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`compatibility.js 1`] = `
+exports[`compatibility.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -70,7 +70,7 @@ let tests = [
 ================================================================================
 `;
 
-exports[`conversion.js 1`] = `
+exports[`conversion.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -120,7 +120,7 @@ var z = Object(123); // error (next line makes this not match any signatures)
 ================================================================================
 `;
 
-exports[`objects.js 1`] = `
+exports[`objects.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -174,7 +174,7 @@ var has_constructor_field: { constructor: string } = { constructor: "foo" };
 ================================================================================
 `;
 
-exports[`unaliased_assign.js 1`] = `
+exports[`unaliased_assign.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

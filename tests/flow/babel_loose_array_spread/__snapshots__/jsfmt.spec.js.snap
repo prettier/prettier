@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`apply.js 1`] = `
+exports[`apply.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -38,7 +38,7 @@ function f(...args) {}
 ================================================================================
 `;
 
-exports[`arguments.js 1`] = `
+exports[`arguments.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -68,7 +68,7 @@ function g() {}
 ================================================================================
 `;
 
-exports[`compose.js 1`] = `
+exports[`compose.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -108,7 +108,7 @@ if (Array.isArray(fns1)) {
 ================================================================================
 `;
 
-exports[`iterables.js 1`] = `
+exports[`iterables.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -162,7 +162,7 @@ function f(...args) {}
 ================================================================================
 `;
 
-exports[`maps.js 1`] = `
+exports[`maps.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -198,7 +198,7 @@ function f(...args) {}
 ================================================================================
 `;
 
-exports[`opaque.js 1`] = `
+exports[`opaque.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -222,7 +222,7 @@ export const opaqueIterable: OpaqueIterable = [];
 ================================================================================
 `;
 
-exports[`passing_cases.js 1`] = `
+exports[`passing_cases.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -306,7 +306,7 @@ f(...opaqueDerivedReadOnlyArray.map((x) => x + 1));
 ================================================================================
 `;
 
-exports[`types.js 1`] = `
+exports[`types.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

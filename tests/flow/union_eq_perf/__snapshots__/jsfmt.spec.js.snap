@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`non-strict-equal.js 1`] = `
+exports[`non-strict-equal.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -48,7 +48,7 @@ const _ = x == C.FOO;
 ================================================================================
 `;
 
-exports[`strict-equal.js 1`] = `
+exports[`strict-equal.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

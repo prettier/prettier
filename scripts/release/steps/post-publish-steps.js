@@ -18,8 +18,8 @@ async function checkSchema() {
   const remoteSchema = await logPromise(
     "Checking current schema in SchemaStore",
     fetch(RAW_URL)
-      .then(r => r.text())
-      .then(t => t.trim())
+      .then((r) => r.text())
+      .then((t) => t.trim())
   );
 
   if (schema === remoteSchema) {
@@ -44,7 +44,7 @@ function twitterAnnouncement() {
   `);
 }
 
-module.exports = async function() {
+module.exports = async function () {
   const steps = [await checkSchema(), twitterAnnouncement()].filter(Boolean);
 
   console.log(chalk.bold.green("The script has finished!\n"));

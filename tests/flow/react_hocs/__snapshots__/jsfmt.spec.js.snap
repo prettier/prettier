@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Bad.js 1`] = `
+exports[`Bad.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -53,7 +53,7 @@ export default (compose(
 ================================================================================
 `;
 
-exports[`Good.js 1`] = `
+exports[`Good.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -111,7 +111,7 @@ export default (compose(
 ================================================================================
 `;
 
-exports[`Good_use.js 1`] = `
+exports[`Good_use.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -145,7 +145,7 @@ import Good from "./Good";
 ================================================================================
 `;
 
-exports[`hocs.js 1`] = `
+exports[`hocs.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

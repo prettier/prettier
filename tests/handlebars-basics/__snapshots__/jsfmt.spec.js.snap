@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`component.hbs 1`] = `
+exports[`component.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -32,6 +32,9 @@ printWidth: 80
 
 <div ...attributes>Hello</div>
 
+<ul class="list-unstyled
+  one-tab">
+</ul>
 =====================================output=====================================
 <UserGreeting @name="Ricardo" @greeting="Olá" />
 {{@greeting}}, {{@name}}!
@@ -64,10 +67,14 @@ printWidth: 80
 <div ...attributes>
   Hello
 </div>
+
+<ul class="list-unstyled
+  one-tab">
+</ul>
 ================================================================================
 `;
 
-exports[`component.hbs 2`] = `
+exports[`component.hbs format 2`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -100,6 +107,9 @@ singleQuote: true
 
 <div ...attributes>Hello</div>
 
+<ul class="list-unstyled
+  one-tab">
+</ul>
 =====================================output=====================================
 <UserGreeting @name='Ricardo' @greeting='Olá' />
 {{@greeting}}, {{@name}}!
@@ -132,10 +142,14 @@ singleQuote: true
 <div ...attributes>
   Hello
 </div>
+
+<ul class='list-unstyled
+  one-tab'>
+</ul>
 ================================================================================
 `;
 
-exports[`literals.hbs 1`] = `
+exports[`literals.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -160,7 +174,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`literals.hbs 2`] = `
+exports[`literals.hbs format 2`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -186,7 +200,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`nested-path.hbs 1`] = `
+exports[`nested-path.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -217,7 +231,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`nested-path.hbs 2`] = `
+exports[`nested-path.hbs format 2`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -249,7 +263,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`raw.hbs 1`] = `
+exports[`raw.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -264,7 +278,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`raw.hbs 2`] = `
+exports[`raw.hbs format 2`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -280,7 +294,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`string-literals.hbs 1`] = `
+exports[`string-literals.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -303,7 +317,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`string-literals.hbs 2`] = `
+exports[`string-literals.hbs format 2`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80

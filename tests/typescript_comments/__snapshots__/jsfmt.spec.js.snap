@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`abstract_class.ts 1`] = `
+exports[`abstract_class.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -28,7 +28,7 @@ abstract class AbstractRule {
 ================================================================================
 `;
 
-exports[`after_jsx_generic.ts 1`] = `
+exports[`after_jsx_generic.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -90,7 +90,7 @@ let comp = (
 ================================================================================
 `;
 
-exports[`declare_function.ts 1`] = `
+exports[`declare_function.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -113,7 +113,7 @@ declare function /* foo */ f(/* baz */ a /* taz */); /* bar */
 ================================================================================
 `;
 
-exports[`interface.ts 1`] = `
+exports[`interface.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -181,7 +181,7 @@ interface Foo {
 ================================================================================
 `;
 
-exports[`issues.ts 1`] = `
+exports[`issues.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -259,7 +259,7 @@ export type AsyncExecuteOptions = child_process$execFileOpts & {
 ================================================================================
 `;
 
-exports[`jsx.ts 1`] = `
+exports[`jsx.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -281,7 +281,7 @@ var example2 = <div>/*test*/</div>;
 ================================================================================
 `;
 
-exports[`location.ts 1`] = `
+exports[`location.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -368,7 +368,7 @@ export type WrappedFormUtils = {
 ================================================================================
 `;
 
-exports[`mapped_types.ts 1`] = `
+exports[`mapped_types.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -460,7 +460,7 @@ type M = { [m in M /* commentG */]: string };
 ================================================================================
 `;
 
-exports[`method_types.ts 1`] = `
+exports[`method_types.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -550,7 +550,7 @@ abstract class Test {
 ================================================================================
 `;
 
-exports[`methods.ts 1`] = `
+exports[`methods.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -656,21 +656,81 @@ export class Point {
 ================================================================================
 `;
 
-exports[`type-parameters.ts 1`] = `
+exports[`type-parameters.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 functionName<A /* A comment */>();
+const a: T</* comment */> = 1;
+functionName</* comment */>();
+function foo</* comment */>() {}
+interface Foo {
+ </* comment */>(arg): any;
+}
+type T = </* comment */>(arg) => any;
+
+functionName<
+  A // comment
+>();
+const a: T<
+  // comment
+> = 1;
+functionName<
+  // comment
+>();
+function foo<
+  // comment
+>() {}
+interface Foo {
+ <
+  A// comment
+ >(arg): any;
+}
+type T = <
+  // comment
+>(arg) => any;
 
 =====================================output=====================================
 functionName<A /* A comment */>();
+const a: T</* comment */> = 1;
+functionName</* comment */>();
+function foo</* comment */>() {}
+interface Foo {
+  </* comment */>(arg): any;
+}
+type T = </* comment */>(arg) => any;
+
+functionName<
+  A // comment
+>();
+const a: T<
+  // comment
+> = 1;
+functionName<
+  // comment
+>();
+function foo<
+  // comment
+>() {}
+interface Foo {
+  <
+    A // comment
+  >(
+    arg
+  ): any;
+}
+type T = <
+  // comment
+>(
+  arg
+) => any;
 
 ================================================================================
 `;
 
-exports[`types.ts 1`] = `
+exports[`types.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -688,7 +748,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`union.ts 1`] = `
+exports[`union.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

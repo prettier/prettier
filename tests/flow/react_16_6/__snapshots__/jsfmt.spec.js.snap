@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Suspense.js 1`] = `
+exports[`Suspense.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -94,7 +94,7 @@ function Loading() {
 ================================================================================
 `;
 
-exports[`lazy.js 1`] = `
+exports[`lazy.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -168,7 +168,7 @@ const _h = <LazyClassComponent foo="string" />; // Error wrong type for foo
 ================================================================================
 `;
 
-exports[`lazy_ref.js 1`] = `
+exports[`lazy_ref.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -228,7 +228,7 @@ function App() {
 ================================================================================
 `;
 
-exports[`memo.js 1`] = `
+exports[`memo.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -291,7 +291,7 @@ const _i = React.memo(React.forwardRef(Component));
 ================================================================================
 `;
 
-exports[`memo_ref.js 1`] = `
+exports[`memo_ref.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

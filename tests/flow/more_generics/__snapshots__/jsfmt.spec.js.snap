@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`class_generic.js 1`] = `
+exports[`class_generic.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -32,7 +32,7 @@ class C<T> {
 ================================================================================
 `;
 
-exports[`error_message.js 1`] = `
+exports[`error_message.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -78,7 +78,7 @@ class C2<X, Y> {
 ================================================================================
 `;
 
-exports[`poly.js 1`] = `
+exports[`poly.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

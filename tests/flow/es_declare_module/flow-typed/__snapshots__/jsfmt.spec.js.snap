@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`declares.js 1`] = `
+exports[`declares.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -62,7 +62,7 @@ declare module "re-export" {
 ================================================================================
 `;
 
-exports[`imported_declares.js 1`] = `
+exports[`imported_declares.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

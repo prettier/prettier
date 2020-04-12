@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`basic.js 1`] = `
+exports[`basic.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -24,7 +24,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`code_frame.js 1`] = `
+exports[`code_frame.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -60,7 +60,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`code_frame_omit.js 1`] = `
+exports[`code_frame_omit.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -174,7 +174,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`group.js 1`] = `
+exports[`group.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

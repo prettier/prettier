@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`annot.js 1`] = `
+exports[`annot.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -147,7 +147,7 @@ function barfoo(n: number | null | void): ?number {
 ================================================================================
 `;
 
-exports[`forward_ref.js 1`] = `
+exports[`forward_ref.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -189,7 +189,7 @@ function foo() {
 ================================================================================
 `;
 
-exports[`issue-530.js 1`] = `
+exports[`issue-530.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -207,7 +207,7 @@ module.exports = foo;
 ================================================================================
 `;
 
-exports[`leak.js 1`] = `
+exports[`leak.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -263,7 +263,7 @@ function bar(y: MyObj): string {
 ================================================================================
 `;
 
-exports[`other.js 1`] = `
+exports[`other.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -279,7 +279,7 @@ module.exports = (C: any);
 ================================================================================
 `;
 
-exports[`scope.js 1`] = `
+exports[`scope.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -343,7 +343,7 @@ class Foo<A> {
 ================================================================================
 `;
 
-exports[`test.js 1`] = `
+exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

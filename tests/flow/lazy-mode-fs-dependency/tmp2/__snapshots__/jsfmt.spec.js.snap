@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`node_modules_bar_index.js 1`] = `
+exports[`node_modules_bar_index.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

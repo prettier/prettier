@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`become-optional.js 1`] = `
+exports[`become-optional.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -98,7 +98,7 @@ const f13 = () => {
 ================================================================================
 `;
 
-exports[`closure_add.js 1`] = `
+exports[`closure_add.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -168,7 +168,7 @@ const f13 = () => {
 ================================================================================
 `;
 
-exports[`conditional_express_loop.js 1`] = `
+exports[`conditional_express_loop.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -193,7 +193,7 @@ reduce(
 ================================================================================
 `;
 
-exports[`disjoint.js 1`] = `
+exports[`disjoint.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -213,7 +213,7 @@ const y: Disjoint = { ...obj.o }; // Ok!
 ================================================================================
 `;
 
-exports[`type_widening.js 1`] = `
+exports[`type_widening.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

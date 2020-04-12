@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`cjs_literal_array.js 1`] = `
+exports[`cjs_literal_array.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -16,7 +16,7 @@ module.exports = ["foo"]; // OK: array literal's exempt from annotation requirem
 ================================================================================
 `;
 
-exports[`exp.js 1`] = `
+exports[`exp.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -32,7 +32,7 @@ export type Config<T> = React$ElementConfig<T>;
 ================================================================================
 `;
 
-exports[`exportDeclared.js 1`] = `
+exports[`exportDeclared.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -52,7 +52,7 @@ module.exports = require("foo"); // CJS objects have read only props,
 ================================================================================
 `;
 
-exports[`reexport_cjs_namespace.js 1`] = `
+exports[`reexport_cjs_namespace.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -70,7 +70,7 @@ module.exports = foo; // OK: re-exported CJS namespace is covariant in its prope
 ================================================================================
 `;
 
-exports[`testA.js 1`] = `
+exports[`testA.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -102,7 +102,7 @@ export default f(0, 0); // should just be missing for A, not B
 ================================================================================
 `;
 
-exports[`testB.js 1`] = `
+exports[`testB.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -130,7 +130,7 @@ export default f(0, 0); // should just be missing for B, not A
 ================================================================================
 `;
 
-exports[`testC.js 1`] = `
+exports[`testC.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -150,7 +150,7 @@ export default test(); // missing annotation error since T appears contravariant
 ================================================================================
 `;
 
-exports[`testPolyTOfEvalT.js 1`] = `
+exports[`testPolyTOfEvalT.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -172,7 +172,7 @@ module.exports = f(); // should pass.
 ================================================================================
 `;
 
-exports[`type-destructor-trigger-test.js 1`] = `
+exports[`type-destructor-trigger-test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`other_root_dependent.js 1`] = `
+exports[`other_root_dependent.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -22,7 +22,7 @@ import foo from "./other_root_file";
 ================================================================================
 `;
 
-exports[`other_root_file.js 1`] = `
+exports[`other_root_file.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

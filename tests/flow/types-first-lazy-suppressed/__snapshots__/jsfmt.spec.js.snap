@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`fileA.js 1`] = `
+exports[`fileA.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -22,7 +22,7 @@ foo(0);
 ================================================================================
 `;
 
-exports[`fileB.js 1`] = `
+exports[`fileB.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -44,7 +44,7 @@ foo(0);
 ================================================================================
 `;
 
-exports[`suppressed-libB.js 1`] = `
+exports[`suppressed-libB.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

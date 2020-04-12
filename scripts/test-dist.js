@@ -2,9 +2,11 @@
 
 "use strict";
 
+const os = require("os");
 const path = require("path");
 const shell = require("shelljs");
 const tempy = require("tempy");
+const { isCI } = require("ci-info");
 
 shell.config.fatal = true;
 
@@ -20,9 +22,12 @@ shell.exec("npm init -y", { cwd: tmpDir });
 shell.exec(`npm install "${tarPath}"`, { cwd: tmpDir });
 shell.config.silent = false;
 
-const runInBand = process.env.CI ? "--runInBand" : "";
+// This `maxWorkers` number is hard code for github actions
+const maxWorkers = isCI
+  ? `--maxWorkers=${os.platform() === "darwin" ? 4 : 2}`
+  : "";
 const testPath = process.env.TEST_STANDALONE ? "tests/" : "";
-const cmd = `yarn test --color ${runInBand} ${testPath}`;
+const cmd = `yarn test --color ${maxWorkers} ${testPath}`;
 
 const { code } = shell.exec(cmd, {
   cwd: rootDir,
@@ -30,9 +35,9 @@ const { code } = shell.exec(cmd, {
     ...process.env,
     NODE_ENV: "production",
     AST_COMPARE: "1",
-    PRETTIER_DIR: path.join(tmpDir, "node_modules/prettier")
+    PRETTIER_DIR: path.join(tmpDir, "node_modules/prettier"),
   },
-  shell: true
+  shell: true,
 });
 
 process.exit(code);

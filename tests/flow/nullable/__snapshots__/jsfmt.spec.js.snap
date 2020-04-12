@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`error.js 1`] = `
+exports[`error.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -52,7 +52,7 @@ declare var any: any;
 ================================================================================
 `;
 
-exports[`maybe.js 1`] = `
+exports[`maybe.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -74,7 +74,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`nullable.js 1`] = `
+exports[`nullable.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -129,7 +129,7 @@ var array_of_nullable: Array<?number> = [null, 3];
 ================================================================================
 `;
 
-exports[`simple_nullable.js 1`] = `
+exports[`simple_nullable.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`class.js 1`] = `
+exports[`class.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -25,7 +25,7 @@ class x {
 ================================================================================
 `;
 
-exports[`empty_paren_comment.js 1`] = `
+exports[`empty_paren_comment.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80

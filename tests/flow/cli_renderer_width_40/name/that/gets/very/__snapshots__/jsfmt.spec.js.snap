@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`close.js 1`] = `
+exports[`close.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -24,7 +24,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`close2.js 1`] = `
+exports[`close2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

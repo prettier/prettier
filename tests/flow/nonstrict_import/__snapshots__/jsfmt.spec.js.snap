@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`cycle_a.js 1`] = `
+exports[`cycle_a.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -34,7 +34,7 @@ module.exports = xs;
 ================================================================================
 `;
 
-exports[`cycle_b.js 1`] = `
+exports[`cycle_b.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -68,7 +68,7 @@ module.exports = xs;
 ================================================================================
 `;
 
-exports[`imports.js 1`] = `
+exports[`imports.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -162,7 +162,7 @@ const BarObj3 = require("./nonstrict_exports"); // Error; Suppressed
 ================================================================================
 `;
 
-exports[`nonstrict_exports.js 1`] = `
+exports[`nonstrict_exports.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -208,7 +208,7 @@ export default BarObj;
 ================================================================================
 `;
 
-exports[`strict_exports.js 1`] = `
+exports[`strict_exports.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -236,7 +236,7 @@ export default A;
 ================================================================================
 `;
 
-exports[`strict_local_exports.js 1`] = `
+exports[`strict_local_exports.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ExportCJSDefault_Class.js 1`] = `
+exports[`ExportCJSDefault_Class.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -38,7 +38,7 @@ module.exports = ClassFoo3;
 ================================================================================
 `;
 
-exports[`ExportCJSNamed_Class.js 1`] = `
+exports[`ExportCJSNamed_Class.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -96,7 +96,7 @@ exports.foo5Inst = new ClassFoo5();
 ================================================================================
 `;
 
-exports[`ExportDefault_Class.js 1`] = `
+exports[`ExportDefault_Class.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -130,7 +130,7 @@ export var foo1Inst = new ClassFoo1();
 ================================================================================
 `;
 
-exports[`ExportDefaultNonType.js 1`] = `
+exports[`ExportDefaultNonType.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -156,7 +156,7 @@ export default x;
 ================================================================================
 `;
 
-exports[`ExportExactObject.js 1`] = `
+exports[`ExportExactObject.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -176,7 +176,7 @@ module.exports = obj;
 ================================================================================
 `;
 
-exports[`ExportNamed_Alias.js 1`] = `
+exports[`ExportNamed_Alias.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -214,7 +214,7 @@ export function givesAFoo3Obj(): AliasFoo3 {
 ================================================================================
 `;
 
-exports[`ExportNamed_Class.js 1`] = `
+exports[`ExportNamed_Class.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -248,7 +248,7 @@ export var foo2Inst = new ClassFoo2();
 ================================================================================
 `;
 
-exports[`ExportObject.js 1`] = `
+exports[`ExportObject.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -268,7 +268,7 @@ module.exports = obj;
 ================================================================================
 `;
 
-exports[`ExportsANumber.js 1`] = `
+exports[`ExportsANumber.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -286,7 +286,7 @@ export var numValue = 42;
 ================================================================================
 `;
 
-exports[`import_type.js 1`] = `
+exports[`import_type.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -498,7 +498,7 @@ import type x from "./ExportDefaultNonType";
 ================================================================================
 `;
 
-exports[`issue-359.js 1`] = `
+exports[`issue-359.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`downstream.js 1`] = `
+exports[`downstream.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -28,7 +28,7 @@ module.exports = o;
 ================================================================================
 `;
 
-exports[`nested_frozen_object.js 1`] = `
+exports[`nested_frozen_object.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

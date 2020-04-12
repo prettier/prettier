@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.js 1`] = `
+exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -66,7 +66,7 @@ function makeUnion(): number | { x: string } {
 ================================================================================
 `;
 
-exports[`test2.js 1`] = `
+exports[`test2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

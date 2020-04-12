@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`extends.js 1`] = `
+exports[`extends.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -116,7 +116,7 @@ class a14 extends (void b) {}
 class a15 extends (++b) {}
 
 // "YieldExpression"
-function *f2() {
+function* f2() {
   // Flow has a bug parsing it.
   // class a extends (yield 1) {}
 }

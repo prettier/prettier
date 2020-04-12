@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Bar.js 1`] = `
+exports[`Bar.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -51,7 +51,7 @@ module.exports = Bar;
 ================================================================================
 `;
 
-exports[`Foo.js 1`] = `
+exports[`Foo.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -114,7 +114,7 @@ module.exports = Foo;
 ================================================================================
 `;
 
-exports[`Qux.js 1`] = `
+exports[`Qux.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

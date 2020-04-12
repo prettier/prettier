@@ -9,7 +9,7 @@ function findSiblingAncestors(startNodeAndParents, endNodeAndParents, opts) {
   if (resultStartNode === resultEndNode) {
     return {
       startNode: resultStartNode,
-      endNode: resultEndNode
+      endNode: resultEndNode,
     };
   }
 
@@ -39,7 +39,7 @@ function findSiblingAncestors(startNodeAndParents, endNodeAndParents, opts) {
 
   return {
     startNode: resultStartNode,
-    endNode: resultEndNode
+    endNode: resultEndNode,
   };
 }
 
@@ -65,86 +65,87 @@ function findNodeAtOffset(node, offset, options, predicate, parentNodes) {
     if (predicate(node)) {
       return {
         node,
-        parentNodes
+        parentNodes,
       };
     }
   }
 }
 
 // See https://www.ecma-international.org/ecma-262/5.1/#sec-A.5
+
+// JS and JS like to avoid repetitions
+const jsSourceElements = new Set([
+  "FunctionDeclaration",
+  "BlockStatement",
+  "BreakStatement",
+  "ContinueStatement",
+  "DebuggerStatement",
+  "DoWhileStatement",
+  "EmptyStatement",
+  "ExpressionStatement",
+  "ForInStatement",
+  "ForStatement",
+  "IfStatement",
+  "LabeledStatement",
+  "ReturnStatement",
+  "SwitchStatement",
+  "ThrowStatement",
+  "TryStatement",
+  "VariableDeclaration",
+  "WhileStatement",
+  "WithStatement",
+  "ClassDeclaration", // ES 2015
+  "ImportDeclaration", // Module
+  "ExportDefaultDeclaration", // Module
+  "ExportNamedDeclaration", // Module
+  "ExportAllDeclaration", // Module
+  "TypeAlias", // Flow
+  "InterfaceDeclaration", // Flow, TypeScript
+  "TypeAliasDeclaration", // TypeScript
+  "ExportAssignment", // TypeScript
+  "ExportDeclaration", // TypeScript
+]);
+const jsonSourceElements = new Set([
+  "ObjectExpression",
+  "ArrayExpression",
+  "StringLiteral",
+  "NumericLiteral",
+  "BooleanLiteral",
+  "NullLiteral",
+]);
+const graphqlSourceElements = new Set([
+  "OperationDefinition",
+  "FragmentDefinition",
+  "VariableDefinition",
+  "TypeExtensionDefinition",
+  "ObjectTypeDefinition",
+  "FieldDefinition",
+  "DirectiveDefinition",
+  "EnumTypeDefinition",
+  "EnumValueDefinition",
+  "InputValueDefinition",
+  "InputObjectTypeDefinition",
+  "SchemaDefinition",
+  "OperationTypeDefinition",
+  "InterfaceTypeDefinition",
+  "UnionTypeDefinition",
+  "ScalarTypeDefinition",
+]);
 function isSourceElement(opts, node) {
   if (node == null) {
     return false;
   }
-  // JS and JS like to avoid repetitions
-  const jsSourceElements = [
-    "FunctionDeclaration",
-    "BlockStatement",
-    "BreakStatement",
-    "ContinueStatement",
-    "DebuggerStatement",
-    "DoWhileStatement",
-    "EmptyStatement",
-    "ExpressionStatement",
-    "ForInStatement",
-    "ForStatement",
-    "IfStatement",
-    "LabeledStatement",
-    "ReturnStatement",
-    "SwitchStatement",
-    "ThrowStatement",
-    "TryStatement",
-    "VariableDeclaration",
-    "WhileStatement",
-    "WithStatement",
-    "ClassDeclaration", // ES 2015
-    "ImportDeclaration", // Module
-    "ExportDefaultDeclaration", // Module
-    "ExportNamedDeclaration", // Module
-    "ExportAllDeclaration", // Module
-    "TypeAlias", // Flow
-    "InterfaceDeclaration", // Flow, TypeScript
-    "TypeAliasDeclaration", // TypeScript
-    "ExportAssignment", // TypeScript
-    "ExportDeclaration" // TypeScript
-  ];
-  const jsonSourceElements = [
-    "ObjectExpression",
-    "ArrayExpression",
-    "StringLiteral",
-    "NumericLiteral",
-    "BooleanLiteral",
-    "NullLiteral"
-  ];
-  const graphqlSourceElements = [
-    "OperationDefinition",
-    "FragmentDefinition",
-    "VariableDefinition",
-    "TypeExtensionDefinition",
-    "ObjectTypeDefinition",
-    "FieldDefinition",
-    "DirectiveDefinition",
-    "EnumTypeDefinition",
-    "EnumValueDefinition",
-    "InputValueDefinition",
-    "InputObjectTypeDefinition",
-    "SchemaDefinition",
-    "OperationTypeDefinition",
-    "InterfaceTypeDefinition",
-    "UnionTypeDefinition",
-    "ScalarTypeDefinition"
-  ];
   switch (opts.parser) {
     case "flow":
     case "babel":
     case "babel-flow":
     case "babel-ts":
     case "typescript":
-      return jsSourceElements.includes(node.type);
+      return jsSourceElements.has(node.type);
     case "json":
-      return jsonSourceElements.includes(node.type);
+      return jsonSourceElements.has(node.type);
     case "graphql":
-      return graphqlSourceElements.includes(node.kind);
+      return graphqlSourceElements.has(node.kind);
     case "vue":
       return node.tag !== "root";
   }
@@ -174,19 +175,19 @@ function calculateRange(text, opts, ast) {
     ast,
     startNonWhitespace,
     opts,
-    node => isSourceElement(opts, node)
+    (node) => isSourceElement(opts, node)
   );
   const endNodeAndParents = findNodeAtOffset(
     ast,
     endNonWhitespace,
     opts,
-    node => isSourceElement(opts, node)
+    (node) => isSourceElement(opts, node)
   );
 
   if (!startNodeAndParents || !endNodeAndParents) {
     return {
       rangeStart: 0,
-      rangeEnd: 0
+      rangeEnd: 0,
     };
   }
 
@@ -207,11 +208,11 @@ function calculateRange(text, opts, ast) {
 
   return {
     rangeStart,
-    rangeEnd
+    rangeEnd,
   };
 }
 
 module.exports = {
   calculateRange,
-  findNodeAtOffset
+  findNodeAtOffset,
 };

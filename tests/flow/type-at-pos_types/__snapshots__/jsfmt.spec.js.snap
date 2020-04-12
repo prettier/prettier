@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`any.js 1`] = `
+exports[`any.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -30,7 +30,7 @@ any_obj.fff = 0;
 ================================================================================
 `;
 
-exports[`array.js 1`] = `
+exports[`array.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -90,7 +90,7 @@ function blah(arr: Array<string | number>) {
 ================================================================================
 `;
 
-exports[`callable-object.js 1`] = `
+exports[`callable-object.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -176,7 +176,7 @@ type Obj5 = {
 ================================================================================
 `;
 
-exports[`destructuring.js 1`] = `
+exports[`destructuring.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -226,7 +226,7 @@ export const X = {
 ================================================================================
 `;
 
-exports[`generics.js 1`] = `
+exports[`generics.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -300,7 +300,7 @@ declare var a: Empty.T<number>;
 ================================================================================
 `;
 
-exports[`implicit-instantiation.js 1`] = `
+exports[`implicit-instantiation.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -338,7 +338,7 @@ x.x = "string";
 ================================================================================
 `;
 
-exports[`interface.js 1`] = `
+exports[`interface.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -374,7 +374,7 @@ type I7 = interface extends C { (): number };
 ================================================================================
 `;
 
-exports[`keyMirrorRecursive.js 1`] = `
+exports[`keyMirrorRecursive.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -412,7 +412,7 @@ module.exports = keyMirrorRecursive;
 ================================================================================
 `;
 
-exports[`mixed.js 1`] = `
+exports[`mixed.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -462,7 +462,7 @@ foo.forEach((ab) => {
 ================================================================================
 `;
 
-exports[`opaque.js 1`] = `
+exports[`opaque.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -522,7 +522,7 @@ const o = fOpaque();
 ================================================================================
 `;
 
-exports[`opaque-lib.js 1`] = `
+exports[`opaque-lib.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -552,7 +552,7 @@ declare export function fOpaque(): Opaque;
 ================================================================================
 `;
 
-exports[`optional.js 1`] = `
+exports[`optional.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -594,7 +594,7 @@ function qux(x?) {
 ================================================================================
 `;
 
-exports[`recursive.js 1`] = `
+exports[`recursive.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -730,7 +730,7 @@ type CA<+T> = $ReadOnlyArray<CA<T>>;
 ================================================================================
 `;
 
-exports[`stack-overflow-bugfix.js 1`] = `
+exports[`stack-overflow-bugfix.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -752,7 +752,7 @@ type T = { fn<A, B>(): S<A, B> };
 ================================================================================
 `;
 
-exports[`subst.js 1`] = `
+exports[`subst.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -808,7 +808,7 @@ const j2 = map(<J />);
 ================================================================================
 `;
 
-exports[`tparam_defaults.js 1`] = `
+exports[`tparam_defaults.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -870,7 +870,7 @@ const three7: Three<Bar, number> = {};
 ================================================================================
 `;
 
-exports[`type-alias.js 1`] = `
+exports[`type-alias.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -950,7 +950,7 @@ type TKlass = typeof Klass;
 ================================================================================
 `;
 
-exports[`type-destructor-trigger.js 1`] = `
+exports[`type-destructor-trigger.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -988,7 +988,7 @@ module.exports = keyMirrorRecursiveObj;
 ================================================================================
 `;
 
-exports[`unions.js 1`] = `
+exports[`unions.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

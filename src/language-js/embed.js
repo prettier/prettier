@@ -6,14 +6,15 @@ const {
   builders: {
     indent,
     join,
+    line,
     hardline,
     softline,
     literalline,
     concat,
     group,
-    dedentToRoot
+    dedentToRoot,
   },
-  utils: { mapDoc, stripTrailingHardline }
+  utils: { mapDoc, stripTrailingHardline },
 } = require("../document");
 
 function embed(path, print, textToDoc, options) {
@@ -27,12 +28,12 @@ function embed(path, print, textToDoc, options) {
         isStyledJsx,
         isStyledComponents,
         isCssProp,
-        isAngularComponentStyles
-      ].some(isIt => isIt(path));
+        isAngularComponentStyles,
+      ].some((isIt) => isIt(path));
 
       if (isCss) {
         // Get full template literal with expressions replaced by placeholders
-        const rawQuasis = node.quasis.map(q => q.value.raw);
+        const rawQuasis = node.quasis.map((q) => q.value.raw);
         let placeholderID = 0;
         const text = rawQuasis.reduce((prevVal, currVal, idx) => {
           return idx === 0
@@ -43,7 +44,7 @@ function embed(path, print, textToDoc, options) {
                 "-id" +
                 currVal;
         }, "");
-        const doc = textToDoc(text, { parser: "css" });
+        const doc = textToDoc(text, { parser: "scss" });
         return transformCssDoc(doc, path, print);
       }
 
@@ -92,12 +93,12 @@ function embed(path, print, textToDoc, options) {
             lines[numLines - 1].trim() === "" &&
             lines[numLines - 2].trim() === "";
 
-          const commentsAndWhitespaceOnly = lines.every(line =>
-            /^\s*(?:#[^\r\n]*)?$/.test(line)
+          const commentsAndWhitespaceOnly = lines.every((line) =>
+            /^\s*(?:#[^\n\r]*)?$/.test(line)
           );
 
           // Bail out if an interpolation occurs within a comment.
-          if (!isLast && /#[^\r\n]*$/.test(lines[numLines - 1])) {
+          if (!isLast && /#[^\n\r]*$/.test(lines[numLines - 1])) {
             return null;
           }
 
@@ -131,7 +132,7 @@ function embed(path, print, textToDoc, options) {
           "`",
           indent(concat([hardline, join(hardline, parts)])),
           hardline,
-          "`"
+          "`",
         ]);
       }
 
@@ -147,7 +148,7 @@ function embed(path, print, textToDoc, options) {
           print,
           textToDoc,
           htmlParser,
-          options.embeddedInHtml
+          options
         );
       }
 
@@ -179,11 +180,11 @@ function embed(path, print, textToDoc, options) {
                   softline,
                   printMarkdown(
                     text.replace(new RegExp(`^${indentation}`, "gm"), "")
-                  )
+                  ),
                 ])
               )
             : concat([literalline, dedentToRoot(printMarkdown(text))]),
-          softline
+          softline,
         ]);
       }
 
@@ -203,18 +204,18 @@ function getIndentation(str) {
 }
 
 function uncook(cookedValue) {
-  return cookedValue.replace(/([\\`]|\$\{)/g, "\\$1");
+  return cookedValue.replace(/([\\`]|\${)/g, "\\$1");
 }
 
 function escapeTemplateCharacters(doc, raw) {
-  return mapDoc(doc, currentDoc => {
+  return mapDoc(doc, (currentDoc) => {
     if (!currentDoc.parts) {
       return currentDoc;
     }
 
     const parts = [];
 
-    currentDoc.parts.forEach(part => {
+    currentDoc.parts.forEach((part) => {
       if (typeof part === "string") {
         parts.push(raw ? part.replace(/(\\*)`/g, "$1$1\\`") : uncook(part));
       } else {
@@ -247,7 +248,7 @@ function transformCssDoc(quasisDoc, path, print) {
     "`",
     indent(concat([hardline, stripTrailingHardline(newDoc)])),
     softline,
-    "`"
+    "`",
   ]);
 }
 
@@ -262,7 +263,7 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
 
   const expressions = expressionDocs.slice();
   let replaceCounter = 0;
-  const newDoc = mapDoc(quasisDoc, doc => {
+  const newDoc = mapDoc(quasisDoc, (doc) => {
     if (!doc || !doc.parts || !doc.parts.length) {
       return doc;
     }
@@ -284,14 +285,14 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
         .concat(rest);
     }
     const atPlaceholderIndex = parts.findIndex(
-      part =>
+      (part) =>
         typeof part === "string" && part.startsWith("@prettier-placeholder")
     );
     if (atPlaceholderIndex > -1) {
       const placeholder = parts[atPlaceholderIndex];
       const rest = parts.slice(atPlaceholderIndex + 1);
       const placeholderMatch = placeholder.match(
-        /@prettier-placeholder-(.+)-id([\s\S]*)/
+        /@prettier-placeholder-(.+)-id([\S\s]*)/
       );
       const placeholderID = placeholderMatch[1];
       // When the expression has a suffix appended, like:
@@ -316,7 +317,7 @@ function printGraphqlComments(lines) {
   let seenComment = false;
 
   lines
-    .map(textLine => textLine.trim())
+    .map((textLine) => textLine.trim())
     .forEach((textLine, i, array) => {
       // Lines are either whitespace only, or a comment (with potential whitespace
       // around it). Drop whitespace-only lines.
@@ -357,7 +358,7 @@ function isStyledJsx(path) {
       parentParent.type === "JSXElement" &&
       parentParent.openingElement.name.name === "style" &&
       parentParent.openingElement.attributes.some(
-        attribute => attribute.name.name === "jsx"
+        (attribute) => attribute.name.name === "jsx"
       )) ||
     (parent &&
       parent.type === "TaggedTemplateExpression" &&
@@ -388,7 +389,7 @@ function isStyledJsx(path) {
  */
 function isAngularComponentStyles(path) {
   return path.match(
-    node => node.type === "TemplateLiteral",
+    (node) => node.type === "TemplateLiteral",
     (node, name) => node.type === "ArrayExpression" && name === "elements",
     (node, name) =>
       (node.type === "Property" || node.type === "ObjectProperty") &&
@@ -400,7 +401,7 @@ function isAngularComponentStyles(path) {
 }
 function isAngularComponentTemplate(path) {
   return path.match(
-    node => node.type === "TemplateLiteral",
+    (node) => node.type === "TemplateLiteral",
     (node, name) =>
       (node.type === "Property" || node.type === "ObjectProperty") &&
       node.key.type === "Identifier" &&
@@ -416,7 +417,7 @@ const angularComponentObjectExpressionPredicates = [
     node.callee.type === "Identifier" &&
     node.callee.name === "Component" &&
     name === "arguments",
-  (node, name) => node.type === "Decorator" && name === "expression"
+  (node, name) => node.type === "Decorator" && name === "expression",
 ];
 
 /**
@@ -524,7 +525,8 @@ function hasLanguageComment(node, languageName) {
   // Also see ./clean.js
   return hasLeadingComment(
     node,
-    comment => isBlockComment(comment) && comment.value === ` ${languageName} `
+    (comment) =>
+      isBlockComment(comment) && comment.value === ` ${languageName} `
   );
 }
 
@@ -536,7 +538,7 @@ function isHtml(path) {
   return (
     hasLanguageComment(path.getValue(), "HTML") ||
     path.match(
-      node => node.type === "TemplateLiteral",
+      (node) => node.type === "TemplateLiteral",
       (node, name) =>
         node.type === "TaggedTemplateExpression" &&
         node.tag.type === "Identifier" &&
@@ -549,19 +551,13 @@ function isHtml(path) {
 // The counter is needed to distinguish nested embeds.
 let htmlTemplateLiteralCounter = 0;
 
-function printHtmlTemplateLiteral(
-  path,
-  print,
-  textToDoc,
-  parser,
-  escapeClosingScriptTag
-) {
+function printHtmlTemplateLiteral(path, print, textToDoc, parser, options) {
   const node = path.getValue();
 
   const counter = htmlTemplateLiteralCounter;
   htmlTemplateLiteralCounter = (htmlTemplateLiteralCounter + 1) >>> 0;
 
-  const composePlaceholder = index =>
+  const composePlaceholder = (index) =>
     `PRETTIER_HTML_PLACEHOLDER_${index}_${counter}_IN_JS`;
 
   const text = node.quasis
@@ -579,10 +575,18 @@ function printHtmlTemplateLiteral(
   }
 
   const placeholderRegex = new RegExp(composePlaceholder("(\\d+)"), "g");
+  let topLevelCount = 0;
 
   const contentDoc = mapDoc(
-    stripTrailingHardline(textToDoc(text, { parser })),
-    doc => {
+    stripTrailingHardline(
+      textToDoc(text, {
+        parser,
+        __onHtmlRoot(root) {
+          topLevelCount = root.children.length;
+        },
+      })
+    ),
+    (doc) => {
       if (typeof doc !== "string") {
         return doc;
       }
@@ -596,7 +600,7 @@ function printHtmlTemplateLiteral(
         if (i % 2 === 0) {
           if (component) {
             component = uncook(component);
-            if (escapeClosingScriptTag) {
+            if (options.embeddedInHtml) {
               component = component.replace(/<\/(script)\b/gi, "<\\/$1");
             }
             parts.push(component);
@@ -614,8 +618,35 @@ function printHtmlTemplateLiteral(
     }
   );
 
+  const leadingWhitespace = /^\s/.test(text) ? " " : "";
+  const trailingWhitespace = /\s$/.test(text) ? " " : "";
+
+  const linebreak =
+    options.htmlWhitespaceSensitivity === "ignore"
+      ? hardline
+      : leadingWhitespace && trailingWhitespace
+      ? line
+      : null;
+
+  if (linebreak) {
+    return group(
+      concat([
+        "`",
+        indent(concat([linebreak, group(contentDoc)])),
+        linebreak,
+        "`",
+      ])
+    );
+  }
+
   return group(
-    concat(["`", indent(concat([hardline, group(contentDoc)])), softline, "`"])
+    concat([
+      "`",
+      leadingWhitespace,
+      topLevelCount > 1 ? indent(group(contentDoc)) : group(contentDoc),
+      trailingWhitespace,
+      "`",
+    ])
   );
 }
 

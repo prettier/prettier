@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`case-sensitive.html 1`] = `
+exports[`case-sensitive.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -14,7 +14,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`case-sensitive.html 2`] = `
+exports[`case-sensitive.html format 2`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
@@ -32,7 +32,7 @@ printWidth: 1
 ================================================================================
 `;
 
-exports[`case-sensitive.html 3`] = `
+exports[`case-sensitive.html format 3`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: Infinity
@@ -45,7 +45,7 @@ printWidth: Infinity
 ================================================================================
 `;
 
-exports[`case-sensitive.html 4`] = `
+exports[`case-sensitive.html format 4`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "strict"
 parsers: ["html"]
@@ -60,7 +60,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`case-sensitive.html 5`] = `
+exports[`case-sensitive.html format 5`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["html"]
@@ -75,7 +75,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`closing-at-start.html 1`] = `
+exports[`closing-at-start.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -117,7 +117,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`closing-at-start.html 2`] = `
+exports[`closing-at-start.html format 2`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
@@ -159,7 +159,7 @@ printWidth: 1
 ================================================================================
 `;
 
-exports[`closing-at-start.html 3`] = `
+exports[`closing-at-start.html format 3`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: Infinity
@@ -194,7 +194,7 @@ printWidth: Infinity
 ================================================================================
 `;
 
-exports[`closing-at-start.html 4`] = `
+exports[`closing-at-start.html format 4`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "strict"
 parsers: ["html"]
@@ -237,7 +237,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`closing-at-start.html 5`] = `
+exports[`closing-at-start.html format 5`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["html"]
@@ -283,7 +283,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`custom-element.html 1`] = `
+exports[`custom-element.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -299,7 +299,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`custom-element.html 2`] = `
+exports[`custom-element.html format 2`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
@@ -315,7 +315,7 @@ printWidth: 1
 ================================================================================
 `;
 
-exports[`custom-element.html 3`] = `
+exports[`custom-element.html format 3`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: Infinity
@@ -330,7 +330,7 @@ printWidth: Infinity
 ================================================================================
 `;
 
-exports[`custom-element.html 4`] = `
+exports[`custom-element.html format 4`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "strict"
 parsers: ["html"]
@@ -347,7 +347,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`custom-element.html 5`] = `
+exports[`custom-element.html format 5`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["html"]
@@ -364,7 +364,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`openging-at-end.html 1`] = `
+exports[`openging-at-end.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -427,7 +427,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`openging-at-end.html 2`] = `
+exports[`openging-at-end.html format 2`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
@@ -527,7 +527,7 @@ printWidth: 1
 ================================================================================
 `;
 
-exports[`openging-at-end.html 3`] = `
+exports[`openging-at-end.html format 3`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: Infinity
@@ -584,7 +584,7 @@ printWidth: Infinity
 ================================================================================
 `;
 
-exports[`openging-at-end.html 4`] = `
+exports[`openging-at-end.html format 4`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "strict"
 parsers: ["html"]
@@ -648,7 +648,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`openging-at-end.html 5`] = `
+exports[`openging-at-end.html format 5`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["html"]
@@ -719,7 +719,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`pre.html 1`] = `
+exports[`pre.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -927,7 +927,7 @@ ___________________________
 ================================================================================
 `;
 
-exports[`pre.html 2`] = `
+exports[`pre.html format 2`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
@@ -1163,7 +1163,7 @@ ___________________________
 ================================================================================
 `;
 
-exports[`pre.html 3`] = `
+exports[`pre.html format 3`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: Infinity
@@ -1362,7 +1362,7 @@ ___________________________
 ================================================================================
 `;
 
-exports[`pre.html 4`] = `
+exports[`pre.html format 4`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "strict"
 parsers: ["html"]
@@ -1571,7 +1571,7 @@ ___________________________
 ================================================================================
 `;
 
-exports[`pre.html 5`] = `
+exports[`pre.html format 5`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["html"]
@@ -1780,7 +1780,7 @@ ___________________________
 ================================================================================
 `;
 
-exports[`tags.html 1`] = `
+exports[`tags.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -1906,6 +1906,11 @@ printWidth: 80
 <table><tr>
 </tr>
 </table><div>Should not insert empty line before this div</div>
+
+<!-- self-closing -->
+<span><input type="checkbox"/> </span>
+<span><span><input type="checkbox"/></span></span>
+<span><input type="checkbox"/></span>
 
 =====================================output=====================================
 <br />
@@ -2099,10 +2104,17 @@ printWidth: 80
 </table>
 <div>Should not insert empty line before this div</div>
 
+<!-- self-closing -->
+<span><input type="checkbox" /> </span>
+<span
+  ><span><input type="checkbox" /></span
+></span>
+<span><input type="checkbox" /></span>
+
 ================================================================================
 `;
 
-exports[`tags.html 2`] = `
+exports[`tags.html format 2`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
@@ -2228,6 +2240,11 @@ printWidth: 1
 <table><tr>
 </tr>
 </table><div>Should not insert empty line before this div</div>
+
+<!-- self-closing -->
+<span><input type="checkbox"/> </span>
+<span><span><input type="checkbox"/></span></span>
+<span><input type="checkbox"/></span>
 
 =====================================output=====================================
 <br />
@@ -2630,10 +2647,26 @@ printWidth: 1
   div
 </div>
 
+<!-- self-closing -->
+<span
+  ><input
+    type="checkbox"
+  />
+</span>
+<span
+  ><span
+    ><input
+      type="checkbox" /></span
+></span>
+<span
+  ><input
+    type="checkbox"
+/></span>
+
 ================================================================================
 `;
 
-exports[`tags.html 3`] = `
+exports[`tags.html format 3`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: Infinity
@@ -2758,6 +2791,11 @@ printWidth: Infinity
 <table><tr>
 </tr>
 </table><div>Should not insert empty line before this div</div>
+
+<!-- self-closing -->
+<span><input type="checkbox"/> </span>
+<span><span><input type="checkbox"/></span></span>
+<span><input type="checkbox"/></span>
 
 =====================================output=====================================
 <br />
@@ -2885,10 +2923,17 @@ printWidth: Infinity
 </table>
 <div>Should not insert empty line before this div</div>
 
+<!-- self-closing -->
+<span><input type="checkbox" /> </span>
+<span
+  ><span><input type="checkbox" /></span
+></span>
+<span><input type="checkbox" /></span>
+
 ================================================================================
 `;
 
-exports[`tags.html 4`] = `
+exports[`tags.html format 4`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "strict"
 parsers: ["html"]
@@ -3016,6 +3061,11 @@ printWidth: 80
 </tr>
 </table><div>Should not insert empty line before this div</div>
 
+<!-- self-closing -->
+<span><input type="checkbox"/> </span>
+<span><span><input type="checkbox"/></span></span>
+<span><input type="checkbox"/></span>
+
 =====================================output=====================================
 <br />
 <br />
@@ -3130,7 +3180,7 @@ printWidth: 80
 />123
 <div>123<meta attr />456</div>
 <p>x<span a="b"></span></p>
-<p>x<meta a/></p>
+<p>x<meta a /></p>
 <p>x<meta /></p>
 <span></span>
 
@@ -3192,10 +3242,17 @@ printWidth: 80
 <table><tr> </tr> </table
 ><div>Should not insert empty line before this div</div>
 
+<!-- self-closing -->
+<span><input type="checkbox" /> </span>
+<span
+  ><span><input type="checkbox" /></span
+></span>
+<span><input type="checkbox" /></span>
+
 ================================================================================
 `;
 
-exports[`tags.html 5`] = `
+exports[`tags.html format 5`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["html"]
@@ -3322,6 +3379,11 @@ printWidth: 80
 <table><tr>
 </tr>
 </table><div>Should not insert empty line before this div</div>
+
+<!-- self-closing -->
+<span><input type="checkbox"/> </span>
+<span><span><input type="checkbox"/></span></span>
+<span><input type="checkbox"/></span>
 
 =====================================output=====================================
 <br />
@@ -3542,10 +3604,17 @@ printWidth: 80
 <table><tr></tr></table>
 <div>Should not insert empty line before this div</div>
 
+<!-- self-closing -->
+<span><input type="checkbox" /></span>
+<span>
+  <span><input type="checkbox" /></span>
+</span>
+<span><input type="checkbox" /></span>
+
 ================================================================================
 `;
 
-exports[`textarea.html 1`] = `
+exports[`textarea.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -3617,7 +3686,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`textarea.html 2`] = `
+exports[`textarea.html format 2`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
@@ -3697,7 +3766,7 @@ lorem ipsum</textarea
 ================================================================================
 `;
 
-exports[`textarea.html 3`] = `
+exports[`textarea.html format 3`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: Infinity
@@ -3768,7 +3837,7 @@ printWidth: Infinity
 ================================================================================
 `;
 
-exports[`textarea.html 4`] = `
+exports[`textarea.html format 4`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "strict"
 parsers: ["html"]
@@ -3841,7 +3910,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`textarea.html 5`] = `
+exports[`textarea.html format 5`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["html"]
@@ -3914,7 +3983,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`unsupported.html 1`] = `
+exports[`unsupported.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -3928,7 +3997,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`unsupported.html 2`] = `
+exports[`unsupported.html format 2`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
@@ -3942,7 +4011,7 @@ printWidth: 1
 ================================================================================
 `;
 
-exports[`unsupported.html 3`] = `
+exports[`unsupported.html format 3`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: Infinity
@@ -3955,7 +4024,7 @@ printWidth: Infinity
 ================================================================================
 `;
 
-exports[`unsupported.html 4`] = `
+exports[`unsupported.html format 4`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "strict"
 parsers: ["html"]
@@ -3970,7 +4039,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`unsupported.html 5`] = `
+exports[`unsupported.html format 5`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["html"]

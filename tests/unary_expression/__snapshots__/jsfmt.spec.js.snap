@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comments.js 1`] = `
+exports[`comments.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -543,7 +543,7 @@ async function bar2() {
   (() => 3) // foo
 );
 
-function *bar() {
+function* bar() {
   !(yield x);
   !((yield x) /* foo */);
   !(/* foo */ (yield x));
@@ -580,7 +580,7 @@ async function bar2() {
 ================================================================================
 `;
 
-exports[`urnary_expression.js 1`] = `
+exports[`urnary_expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80

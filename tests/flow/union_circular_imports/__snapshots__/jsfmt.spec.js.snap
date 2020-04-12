@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`one.js 1`] = `
+exports[`one.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -18,7 +18,7 @@ export type One = number;
 ================================================================================
 `;
 
-exports[`two.js 1`] = `
+exports[`two.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

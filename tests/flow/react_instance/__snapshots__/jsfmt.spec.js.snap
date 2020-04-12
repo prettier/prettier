@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`class.js 1`] = `
+exports[`class.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -46,7 +46,7 @@ class Bar extends React.Component<{}, void> {
 ================================================================================
 `;
 
-exports[`function.js 1`] = `
+exports[`function.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -72,7 +72,7 @@ function Foo(props: {}) {}
 ================================================================================
 `;
 
-exports[`intrinsic.js 1`] = `
+exports[`intrinsic.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

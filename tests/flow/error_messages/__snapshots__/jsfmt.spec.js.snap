@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`errors.js 1`] = `
+exports[`errors.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -15,7 +15,7 @@ if (typeof define === "function" && define.amd) {
 ================================================================================
 `;
 
-exports[`long_string_lit.js 1`] = `
+exports[`long_string_lit.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

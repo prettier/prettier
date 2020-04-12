@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`any-in-union.js 1`] = `
+exports[`any-in-union.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -40,7 +40,7 @@ module.exports = [() => x1, () => x2, () => x3, () => x4, () => x5];
 ================================================================================
 `;
 
-exports[`any-to-flowfixme-no-strict.js 1`] = `
+exports[`any-to-flowfixme-no-strict.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -60,7 +60,7 @@ module.exports = () => x1;
 ================================================================================
 `;
 
-exports[`any-to-flowfixme-strict.js 1`] = `
+exports[`any-to-flowfixme-strict.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -80,7 +80,7 @@ module.exports = () => x1;
 ================================================================================
 `;
 
-exports[`any-to-flowfixme-strict-local.js 1`] = `
+exports[`any-to-flowfixme-strict-local.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`basic.js 1`] = `
+exports[`basic.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -24,7 +24,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`name_that_gets_very_close.js 1`] = `
+exports[`name_that_gets_very_close.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -48,7 +48,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`name_that_gets_very_close2.js 1`] = `
+exports[`name_that_gets_very_close2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -72,7 +72,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`non_breakable_breaks.js 1`] = `
+exports[`non_breakable_breaks.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -128,7 +128,7 @@ const mnopqrstuvwxyzabcdefghijklm = 42;
 ================================================================================
 `;
 
-exports[`really_long_filename_that_is_much_more_then_40_characters.js 1`] = `
+exports[`really_long_filename_that_is_much_more_then_40_characters.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -152,7 +152,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`wrap.js 1`] = `
+exports[`wrap.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -298,7 +298,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`wrap_group.js 1`] = `
+exports[`wrap_group.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

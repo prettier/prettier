@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`bar.js 1`] = `
+exports[`bar.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -16,7 +16,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`dependency.js 1`] = `
+exports[`dependency.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -32,7 +32,7 @@ module.exports = ("hello": number);
 ================================================================================
 `;
 
-exports[`foo.js 1`] = `
+exports[`foo.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -50,7 +50,7 @@ module.exports = 0;
 ================================================================================
 `;
 
-exports[`test.js 1`] = `
+exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -68,7 +68,7 @@ require("./unchecked-dependency");
 ================================================================================
 `;
 
-exports[`unchecked-dependency.js 1`] = `
+exports[`unchecked-dependency.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -80,7 +80,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`unsaved_foo.js 1`] = `
+exports[`unsaved_foo.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`get.js 1`] = `
+exports[`get.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -44,7 +44,7 @@ http.get(url, { port: "expects number" }, () => {}); // error
 ================================================================================
 `;
 
-exports[`request.js 1`] = `
+exports[`request.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -88,7 +88,7 @@ http.request(url, { port: "expects number" }, () => {}); // error
 ================================================================================
 `;
 
-exports[`server.js 1`] = `
+exports[`server.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

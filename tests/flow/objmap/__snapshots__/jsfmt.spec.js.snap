@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`arity.js 1`] = `
+exports[`arity.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -73,7 +73,7 @@ declare function makeEditedColumn(a: number, b: string): number;
 ================================================================================
 `;
 
-exports[`arity2.js 1`] = `
+exports[`arity2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -147,7 +147,7 @@ declare function makeEditedColumn(a: string, b: number, c: boolean): number;
 ================================================================================
 `;
 
-exports[`arity3.js 1`] = `
+exports[`arity3.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -206,7 +206,7 @@ declare function makeEditedColumn(a: number, b: string): number;
 ================================================================================
 `;
 
-exports[`arity4.js 1`] = `
+exports[`arity4.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -263,7 +263,7 @@ declare function makeEditedColumn(a: number, b: string): number;
 ================================================================================
 `;
 
-exports[`identity.js 1`] = `
+exports[`identity.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -419,7 +419,7 @@ declare var foo: Foo;
 ================================================================================
 `;
 
-exports[`issue-2674.js 1`] = `
+exports[`issue-2674.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -475,7 +475,7 @@ c[0] = "BAR"; // error
 ================================================================================
 `;
 
-exports[`objmap.js 1`] = `
+exports[`objmap.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -537,7 +537,7 @@ var bar: $ObjMap<{ a: number }, <T>(t: T) => T> = {}; // ok
 ================================================================================
 `;
 
-exports[`optional.js 1`] = `
+exports[`optional.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -583,7 +583,7 @@ declare var o6: $ObjMapi<{ a: number, b?: number }, <T>(any, T) => Array<T>>;
 ================================================================================
 `;
 
-exports[`unions.js 1`] = `
+exports[`unions.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

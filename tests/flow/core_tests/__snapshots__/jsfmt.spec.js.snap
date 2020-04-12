@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`boolean.js 1`] = `
+exports[`boolean.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -96,7 +96,7 @@ let tests = [
 ================================================================================
 `;
 
-exports[`json_stringify.js 1`] = `
+exports[`json_stringify.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -138,7 +138,7 @@ declare var good2: { foo: string };
 ================================================================================
 `;
 
-exports[`map.js 1`] = `
+exports[`map.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -180,7 +180,7 @@ let tests = [
 =====================================output=====================================
 // @flow
 
-function *generator(): Iterable<[string, number]> {
+function* generator(): Iterable<[string, number]> {
   while (true) {
     yield ["foo", 123];
   }
@@ -214,7 +214,7 @@ let tests = [
 ================================================================================
 `;
 
-exports[`regexp.js 1`] = `
+exports[`regexp.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -284,7 +284,7 @@ let tests = [
 ================================================================================
 `;
 
-exports[`weakset.js 1`] = `
+exports[`weakset.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -348,7 +348,7 @@ let ws2 = new WeakSet([obj, dict]);
 
 let ws3 = new WeakSet([1, 2, 3]); // error, must be objects
 
-function *generator(): Iterable<{ foo: string }> {
+function* generator(): Iterable<{ foo: string }> {
   while (true) {
     yield { foo: "bar" };
   }
@@ -356,7 +356,7 @@ function *generator(): Iterable<{ foo: string }> {
 
 let ws4 = new WeakSet(generator());
 
-function *numbers(): Iterable<number> {
+function* numbers(): Iterable<number> {
   let i = 0;
   while (true) {
     yield i++;

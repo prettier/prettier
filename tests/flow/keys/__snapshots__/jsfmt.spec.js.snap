@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`enum.js 1`] = `
+exports[`enum.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -52,7 +52,7 @@ const R: {|
 ================================================================================
 `;
 
-exports[`errors.js 1`] = `
+exports[`errors.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -84,7 +84,7 @@ declare var k: K;
 ================================================================================
 `;
 
-exports[`keys.js 1`] = `
+exports[`keys.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

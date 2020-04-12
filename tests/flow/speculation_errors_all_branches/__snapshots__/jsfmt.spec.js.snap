@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`intersection-function.js 1`] = `
+exports[`intersection-function.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -180,7 +180,7 @@ m((new W(): W<number>));
 ================================================================================
 `;
 
-exports[`sentinel.js 1`] = `
+exports[`sentinel.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -216,7 +216,7 @@ type X =
 ================================================================================
 `;
 
-exports[`union.js 1`] = `
+exports[`union.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

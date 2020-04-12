@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`basic.js 1`] = `
+exports[`basic.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -40,7 +40,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`code_frame.js 1`] = `
+exports[`code_frame.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -76,7 +76,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`code_frame_omit.js 1`] = `
+exports[`code_frame_omit.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -190,7 +190,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`function-primary-loc.js 1`] = `
+exports[`function-primary-loc.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -270,7 +270,7 @@ declare function myFn2(x: number): void;
 ================================================================================
 `;
 
-exports[`group.js 1`] = `
+exports[`group.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -310,7 +310,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`large_locs.js 1`] = `
+exports[`large_locs.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1022,7 +1022,7 @@ long string\`: empty);
 ================================================================================
 `;
 
-exports[`layout.js 1`] = `
+exports[`layout.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1100,7 +1100,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`underline_spaces.js 1`] = `
+exports[`underline_spaces.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1124,7 +1124,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`union.js 1`] = `
+exports[`union.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1360,7 +1360,7 @@ type Point = NumberPoint | StringPoint;
 ================================================================================
 `;
 
-exports[`warning.js 1`] = `
+exports[`warning.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

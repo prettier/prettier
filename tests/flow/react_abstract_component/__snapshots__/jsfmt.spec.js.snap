@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`HOC.js 1`] = `
+exports[`HOC.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -118,7 +118,7 @@ const WrappedAddPropWithDefault = AddPropWithDefault(Component);
 ================================================================================
 `;
 
-exports[`abstract_vs_abstract.js 1`] = `
+exports[`abstract_vs_abstract.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -195,7 +195,7 @@ function test5(
 ================================================================================
 `;
 
-exports[`arity.js 1`] = `
+exports[`arity.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -236,7 +236,7 @@ function test3(x: React$AbstractComponent<any, any, any>) {
 ================================================================================
 `;
 
-exports[`classes_lower.js 1`] = `
+exports[`classes_lower.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -303,7 +303,7 @@ class Subclass extends Component {}
 ================================================================================
 `;
 
-exports[`config.js 1`] = `
+exports[`config.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -401,7 +401,7 @@ const _f = <WrappedComponent2 />;
 ================================================================================
 `;
 
-exports[`create_element.js 1`] = `
+exports[`create_element.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -454,7 +454,7 @@ const _h = <C foo={3} bar="string" baz={4} key={{ bad: 3 }} />; // Error bad key
 ================================================================================
 `;
 
-exports[`destructors.js 1`] = `
+exports[`destructors.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -508,7 +508,7 @@ const _b = <C baz={3} />; // Error, bar missing
 ================================================================================
 `;
 
-exports[`double_wrapped.js 1`] = `
+exports[`double_wrapped.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -570,7 +570,7 @@ const _c = <WrappedBoth foo={42} />;
 ================================================================================
 `;
 
-exports[`function_lower.js 1`] = `
+exports[`function_lower.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -642,7 +642,7 @@ function NotAFunctionComponent(x: Props) {
 ================================================================================
 `;
 
-exports[`get_set_elem.js 1`] = `
+exports[`get_set_elem.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -666,7 +666,7 @@ x[y] = y; // Ok
 ================================================================================
 `;
 
-exports[`get_set_props.js 1`] = `
+exports[`get_set_props.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -702,7 +702,7 @@ function test(x: React$AbstractComponent<any, any>) {
 ================================================================================
 `;
 
-exports[`no_annot_fun.js 1`] = `
+exports[`no_annot_fun.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -725,7 +725,7 @@ function Component(props) {
 ================================================================================
 `;
 
-exports[`strict.js 1`] = `
+exports[`strict.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -794,7 +794,7 @@ declare var e: React$Element<Class<Component2>>;
 ================================================================================
 `;
 
-exports[`test_prop.js 1`] = `
+exports[`test_prop.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -820,7 +820,7 @@ function test(x: React$AbstractComponent<any, any>) {
 ================================================================================
 `;
 
-exports[`type_visitor.js 1`] = `
+exports[`type_visitor.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

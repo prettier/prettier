@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`classInheritance.js 1`] = `
+exports[`classInheritance.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -90,7 +90,7 @@ B.bar;
 ================================================================================
 `;
 
-exports[`declare.js 1`] = `
+exports[`declare.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -110,7 +110,7 @@ foo;
 ================================================================================
 `;
 
-exports[`empty.js 1`] = `
+exports[`empty.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -124,7 +124,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`external.js 1`] = `
+exports[`external.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -146,7 +146,7 @@ export class ExternalClass {
 ================================================================================
 `;
 
-exports[`idx.js 1`] = `
+exports[`idx.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -184,7 +184,7 @@ function foo(x: ?Foo): ?string {
 ================================================================================
 `;
 
-exports[`importStar.js 1`] = `
+exports[`importStar.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -208,7 +208,7 @@ external.ExternalClass;
 ================================================================================
 `;
 
-exports[`jsx.js 1`] = `
+exports[`jsx.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -238,7 +238,7 @@ new Foo();
 ================================================================================
 `;
 
-exports[`objects.js 1`] = `
+exports[`objects.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -348,7 +348,7 @@ function destructuring(x: Alias): void {
 ================================================================================
 `;
 
-exports[`optional-chaining.js 1`] = `
+exports[`optional-chaining.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -394,7 +394,7 @@ foo?.bar.baz;
 ================================================================================
 `;
 
-exports[`unchecked.js 1`] = `
+exports[`unchecked.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -414,7 +414,7 @@ foo.bar;
 ================================================================================
 `;
 
-exports[`unions.js 1`] = `
+exports[`unions.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

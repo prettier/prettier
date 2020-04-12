@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`app.js 1`] = `
+exports[`app.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -31,7 +31,7 @@ export default (fn((o: { a: number, b: number }) => {}): ({|
 ================================================================================
 `;
 
-exports[`fn.js 1`] = `
+exports[`fn.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -53,7 +53,7 @@ export default function fn<A>(arg: ({ ...A, c: number }) => void): (A) => void {
 ================================================================================
 `;
 
-exports[`use.js 1`] = `
+exports[`use.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Child.js 1`] = `
+exports[`Child.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -20,7 +20,7 @@ module.exports = { ChildFoo: ParentFoo };
 ================================================================================
 `;
 
-exports[`Parent.js 1`] = `
+exports[`Parent.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -40,7 +40,7 @@ module.exports = { ParentFoo };
 ================================================================================
 `;
 
-exports[`declare.js 1`] = `
+exports[`declare.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -78,7 +78,7 @@ new Foo();
 ================================================================================
 `;
 
-exports[`main.js 1`] = `
+exports[`main.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -156,7 +156,7 @@ Child.ChildFoo.foo;
 ================================================================================
 `;
 
-exports[`override.js 1`] = `
+exports[`override.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -200,7 +200,7 @@ class D extends C {
 ================================================================================
 `;
 
-exports[`react.js 1`] = `
+exports[`react.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -237,7 +237,7 @@ let msg = "hello";
 ================================================================================
 `;
 
-exports[`refinements.js 1`] = `
+exports[`refinements.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -277,7 +277,7 @@ function foo(x: Foo): void {
 ================================================================================
 `;
 
-exports[`require.js 1`] = `
+exports[`require.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -297,7 +297,7 @@ ParentFoo;
 ================================================================================
 `;
 
-exports[`types.js 1`] = `
+exports[`types.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

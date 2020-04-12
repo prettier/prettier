@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`call.js 1`] = `
+exports[`call.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -69,7 +69,7 @@ let c2: $Exact<C> = {
 ================================================================================
 `;
 
-exports[`callable.js 1`] = `
+exports[`callable.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -115,7 +115,7 @@ var g: {| x: string |} = f; // error: callable signature in f missing in g
 ================================================================================
 `;
 
-exports[`error_continues.js 1`] = `
+exports[`error_continues.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -137,7 +137,7 @@ declare var any: any;
 ================================================================================
 `;
 
-exports[`exact_basics.js 1`] = `
+exports[`exact_basics.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -337,7 +337,7 @@ takesPersonPred(returnsExactlyPersonPred()); // error
 ================================================================================
 `;
 
-exports[`literal.js 1`] = `
+exports[`literal.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -359,7 +359,7 @@ o.p = p;
 ================================================================================
 `;
 
-exports[`objmap.js 1`] = `
+exports[`objmap.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -399,7 +399,7 @@ const shouldntWork: MappedThing = { a: 2, b: 1 };
 ================================================================================
 `;
 
-exports[`optional.js 1`] = `
+exports[`optional.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -435,7 +435,7 @@ function foo5(x: {| __proto__: { p?: number } |}): { +p?: number } {
 ================================================================================
 `;
 
-exports[`per_prop_subtyping.js 1`] = `
+exports[`per_prop_subtyping.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -485,7 +485,7 @@ function getFlag_ok(): Flag {
 ================================================================================
 `;
 
-exports[`prop_test.js 1`] = `
+exports[`prop_test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -611,7 +611,7 @@ function prop_test_exact_union_3(b: $Exact<Bundle3> | $Exact<Bundle4>): string {
 ================================================================================
 `;
 
-exports[`prop_test2.js 1`] = `
+exports[`prop_test2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -692,7 +692,7 @@ function checkFlag_ok(flag: Flag): string {
 ================================================================================
 `;
 
-exports[`unsealed.js 1`] = `
+exports[`unsealed.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -738,7 +738,7 @@ function g() {
 ================================================================================
 `;
 
-exports[`unsealed2.js 1`] = `
+exports[`unsealed2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -798,7 +798,7 @@ function g(x) {
 ================================================================================
 `;
 
-exports[`use_ops.js 1`] = `
+exports[`use_ops.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`array_spread.js 1`] = `
+exports[`array_spread.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -41,7 +41,7 @@ function foo(xs: Array<any>) {
 ================================================================================
 `;
 
-exports[`eval_union.js 1`] = `
+exports[`eval_union.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -73,7 +73,7 @@ acc = acc.filter(Boolean);
 ================================================================================
 `;
 
-exports[`issue-598.js 1`] = `
+exports[`issue-598.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -131,7 +131,7 @@ function identity<A>(val: A): Functor<A> {
 ================================================================================
 `;
 
-exports[`issue-1228.js 1`] = `
+exports[`issue-1228.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -162,7 +162,7 @@ function id(x: Task<any, any>): Task<any, any> {
 ================================================================================
 `;
 
-exports[`issue-4070.js 1`] = `
+exports[`issue-4070.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -192,7 +192,7 @@ ys.set("a", [...y]);
 ================================================================================
 `;
 
-exports[`issue-4370.js 1`] = `
+exports[`issue-4370.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -236,7 +236,7 @@ export const checkComponent = (obj: any[]): Object[] =>
 ================================================================================
 `;
 
-exports[`issue6155.js 1`] = `
+exports[`issue6155.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -292,7 +292,7 @@ const f: (Type) => Array<string> = matcher({
 ================================================================================
 `;
 
-exports[`non_maybe_type.js 1`] = `
+exports[`non_maybe_type.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -319,7 +319,7 @@ function foo(arr: $ReadOnlyArray<Object>) {
 ================================================================================
 `;
 
-exports[`recursive_react_component.js 1`] = `
+exports[`recursive_react_component.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -377,7 +377,7 @@ const TimeoutFn = (props: Props) => {
 ================================================================================
 `;
 
-exports[`test.js 1`] = `
+exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -423,7 +423,7 @@ pstar = (new P(): P<P<number>>); // OK
 ================================================================================
 `;
 
-exports[`test2.js 1`] = `
+exports[`test2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -495,7 +495,7 @@ class C<X> extends B<X> {}
 ================================================================================
 `;
 
-exports[`test3.js 1`] = `
+exports[`test3.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -539,7 +539,7 @@ function bar(x: P<number>): () => P<number> {
 ================================================================================
 `;
 
-exports[`test4.js 1`] = `
+exports[`test4.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -553,7 +553,7 @@ type T = T; // cycle in type alias should not cause non-termination
 ================================================================================
 `;
 
-exports[`test5.js 1`] = `
+exports[`test5.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -585,7 +585,7 @@ function flatten<T>(arrArg: NestedArray<T>) {
 ================================================================================
 `;
 
-exports[`test6.js 1`] = `
+exports[`test6.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -635,7 +635,7 @@ function foo(x: Foo<any>): FooOld {
 ================================================================================
 `;
 
-exports[`test7.js 1`] = `
+exports[`test7.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -689,7 +689,7 @@ function bar() {
 ================================================================================
 `;
 
-exports[`test8.js 1`] = `
+exports[`test8.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -747,7 +747,7 @@ function asObjectList(length: number) {
 ================================================================================
 `;
 
-exports[`test9.js 1`] = `
+exports[`test9.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -787,7 +787,7 @@ type O = {
 ================================================================================
 `;
 
-exports[`this_subst.js 1`] = `
+exports[`this_subst.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -813,7 +813,7 @@ var container = class InstrumentedContainer extends container {
 ================================================================================
 `;
 
-exports[`union-spread.js 1`] = `
+exports[`union-spread.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

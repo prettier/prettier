@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`dynamic-export.js 1`] = `
+exports[`dynamic-export.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -18,7 +18,7 @@ module.exports = (3: any); // should only report unclear type, not dynamic-expor
 ================================================================================
 `;
 
-exports[`implicit-inexact-object.js 1`] = `
+exports[`implicit-inexact-object.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -42,7 +42,7 @@ type X = {}; // No error
 ================================================================================
 `;
 
-exports[`sketchy_null.js 1`] = `
+exports[`sketchy_null.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -72,7 +72,7 @@ if (x) {
 ================================================================================
 `;
 
-exports[`uninitialized-instance-property.js 1`] = `
+exports[`uninitialized-instance-property.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

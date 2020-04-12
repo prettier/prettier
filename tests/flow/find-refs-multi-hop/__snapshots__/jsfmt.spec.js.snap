@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`bar.js 1`] = `
+exports[`bar.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -22,7 +22,7 @@ export type Bar = {
 ================================================================================
 `;
 
-exports[`baz.js 1`] = `
+exports[`baz.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -44,7 +44,7 @@ export type Baz = {
 ================================================================================
 `;
 
-exports[`classes.js 1`] = `
+exports[`classes.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -120,7 +120,7 @@ type RelatedToSub = {
 ================================================================================
 `;
 
-exports[`foo.js 1`] = `
+exports[`foo.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -142,7 +142,7 @@ export type Foo = {
 ================================================================================
 `;
 
-exports[`relatesFooAndBar.js 1`] = `
+exports[`relatesFooAndBar.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -168,7 +168,7 @@ function f(x: Foo): Bar {
 ================================================================================
 `;
 
-exports[`usesBar.js 1`] = `
+exports[`usesBar.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -198,7 +198,7 @@ const z: Bar = { prop: "" };
 ================================================================================
 `;
 
-exports[`usesBaz.js 1`] = `
+exports[`usesBaz.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -224,7 +224,7 @@ function takesBaz(x: Baz): void {
 ================================================================================
 `;
 
-exports[`usesFoo.js 1`] = `
+exports[`usesFoo.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

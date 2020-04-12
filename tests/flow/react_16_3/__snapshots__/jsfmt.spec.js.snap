@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`forwardRef.js 1`] = `
+exports[`forwardRef.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

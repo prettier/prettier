@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`arrow.js 1`] = `
+exports[`arrow.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -18,7 +18,7 @@ const fn2 = (/*event, data*/) => doSomething(anything);
 ================================================================================
 `;
 
-exports[`arrow.js 2`] = `
+exports[`arrow.js format 2`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -37,7 +37,7 @@ const fn2 = (/*event, data*/) => doSomething(anything)
 ================================================================================
 `;
 
-exports[`assignment-pattern.js 1`] = `
+exports[`assignment-pattern.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -62,7 +62,7 @@ let {
 ================================================================================
 `;
 
-exports[`assignment-pattern.js 2`] = `
+exports[`assignment-pattern.js format 2`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -88,7 +88,7 @@ let {
 ================================================================================
 `;
 
-exports[`before-comma.js 1`] = `
+exports[`before-comma.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -112,7 +112,7 @@ const foo = {
 ================================================================================
 `;
 
-exports[`before-comma.js 2`] = `
+exports[`before-comma.js format 2`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -137,7 +137,7 @@ const foo = {
 ================================================================================
 `;
 
-exports[`binary-expressions.js 1`] = `
+exports[`binary-expressions.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -291,7 +291,7 @@ function bitwiseXor() {
 ================================================================================
 `;
 
-exports[`binary-expressions.js 2`] = `
+exports[`binary-expressions.js format 2`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -446,7 +446,7 @@ function bitwiseXor() {
 ================================================================================
 `;
 
-exports[`blank.js 1`] = `
+exports[`blank.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -500,7 +500,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`blank.js 2`] = `
+exports[`blank.js format 2`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -555,7 +555,7 @@ semi: false
 ================================================================================
 `;
 
-exports[`break-continue-statements.js 1`] = `
+exports[`break-continue-statements.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -589,7 +589,7 @@ loop: for (;;) {
 ================================================================================
 `;
 
-exports[`break-continue-statements.js 2`] = `
+exports[`break-continue-statements.js format 2`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -624,7 +624,7 @@ loop: for (;;) {
 ================================================================================
 `;
 
-exports[`call_comment.js 1`] = `
+exports[`call_comment.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -667,7 +667,7 @@ render?.(
 ================================================================================
 `;
 
-exports[`call_comment.js 2`] = `
+exports[`call_comment.js format 2`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -711,7 +711,7 @@ render?.(
 ================================================================================
 `;
 
-exports[`dangling.js 1`] = `
+exports[`dangling.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -755,7 +755,7 @@ export /* dangling */{};
 ================================================================================
 `;
 
-exports[`dangling.js 2`] = `
+exports[`dangling.js format 2`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -800,7 +800,7 @@ export /* dangling */{}
 ================================================================================
 `;
 
-exports[`dangling_array.js 1`] = `
+exports[`dangling_array.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -822,7 +822,7 @@ expect(() => {}).toTriggerReadyStateChanges([
 ================================================================================
 `;
 
-exports[`dangling_array.js 2`] = `
+exports[`dangling_array.js format 2`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -845,7 +845,7 @@ expect(() => {}).toTriggerReadyStateChanges([
 ================================================================================
 `;
 
-exports[`dangling_for.js 1`] = `
+exports[`dangling_for.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -866,7 +866,7 @@ for (;;);
 ================================================================================
 `;
 
-exports[`dangling_for.js 2`] = `
+exports[`dangling_for.js format 2`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -888,7 +888,7 @@ for (;;);
 ================================================================================
 `;
 
-exports[`dynamic_imports.js 1`] = `
+exports[`dynamic_imports.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -929,17 +929,12 @@ import(
   /* Hello */
 );
 
-wrap(
-  import(
-    /* Hello */
-    "something"
-  )
-);
+wrap(import(/* Hello */ "something"));
 
 ================================================================================
 `;
 
-exports[`dynamic_imports.js 2`] = `
+exports[`dynamic_imports.js format 2`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -981,17 +976,12 @@ import(
   /* Hello */
 )
 
-wrap(
-  import(
-    /* Hello */
-    "something"
-  )
-)
+wrap(import(/* Hello */ "something"))
 
 ================================================================================
 `;
 
-exports[`emoji.js 1`] = `
+exports[`emoji.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -1013,7 +1003,7 @@ const test = "💖";
 ================================================================================
 `;
 
-exports[`emoji.js 2`] = `
+exports[`emoji.js format 2`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -1036,7 +1026,7 @@ const test = "💖"
 ================================================================================
 `;
 
-exports[`export.js 1`] = `
+exports[`export.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -1092,7 +1082,7 @@ export {
 ================================================================================
 `;
 
-exports[`export.js 2`] = `
+exports[`export.js format 2`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -1149,7 +1139,7 @@ export {
 ================================================================================
 `;
 
-exports[`first-line.js 1`] = `
+exports[`first-line.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -1165,7 +1155,7 @@ b;
 ================================================================================
 `;
 
-exports[`first-line.js 2`] = `
+exports[`first-line.js format 2`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -1182,7 +1172,7 @@ b
 ================================================================================
 `;
 
-exports[`function-declaration.js 1`] = `
+exports[`function-declaration.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -1316,7 +1306,7 @@ function foo4() {
 ================================================================================
 `;
 
-exports[`function-declaration.js 2`] = `
+exports[`function-declaration.js format 2`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -1451,7 +1441,7 @@ function foo4() {
 ================================================================================
 `;
 
-exports[`if.js 1`] = `
+exports[`if.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -1572,9 +1562,7 @@ else {
 if (10) {
   /* comment */ // comment
   true;
-} else if (11)
-  /* comment */
-  true;
+} else if (11) /* comment */ true;
 else if (12)
   // comment /* comment */ // comment
   true;
@@ -1599,7 +1587,7 @@ if (14) {
 ================================================================================
 `;
 
-exports[`if.js 2`] = `
+exports[`if.js format 2`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -1721,9 +1709,7 @@ else {
 if (10) {
   /* comment */ // comment
   true
-} else if (11)
-  /* comment */
-  true
+} else if (11) /* comment */ true
 else if (12)
   // comment /* comment */ // comment
   true
@@ -1748,7 +1734,7 @@ if (14) {
 ================================================================================
 `;
 
-exports[`issues.js 1`] = `
+exports[`issues.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -1911,7 +1897,7 @@ foo(
 ================================================================================
 `;
 
-exports[`issues.js 2`] = `
+exports[`issues.js format 2`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -2075,7 +2061,7 @@ foo(
 ================================================================================
 `;
 
-exports[`jsdoc.js 1`] = `
+exports[`jsdoc.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -2138,7 +2124,7 @@ function HelloWorld() {
 ================================================================================
 `;
 
-exports[`jsdoc.js 2`] = `
+exports[`jsdoc.js format 2`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -2202,7 +2188,7 @@ function HelloWorld() {
 ================================================================================
 `;
 
-exports[`jsx.js 1`] = `
+exports[`jsx.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -2443,7 +2429,7 @@ onClick={() => {}}>
 ================================================================================
 `;
 
-exports[`jsx.js 2`] = `
+exports[`jsx.js format 2`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -2685,7 +2671,7 @@ onClick={() => {}}>
 ================================================================================
 `;
 
-exports[`last-arg.js 1`] = `
+exports[`last-arg.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -2877,7 +2863,7 @@ class Foo {
 ================================================================================
 `;
 
-exports[`last-arg.js 2`] = `
+exports[`last-arg.js format 2`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -3070,7 +3056,7 @@ class Foo {
 ================================================================================
 `;
 
-exports[`preserve-new-line-last.js 1`] = `
+exports[`preserve-new-line-last.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -3124,7 +3110,7 @@ function name() {
 ================================================================================
 `;
 
-exports[`preserve-new-line-last.js 2`] = `
+exports[`preserve-new-line-last.js format 2`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -3179,7 +3165,7 @@ function name() {
 ================================================================================
 `;
 
-exports[`return-statement.js 1`] = `
+exports[`return-statement.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -3441,7 +3427,7 @@ function inlineComment() {
 ================================================================================
 `;
 
-exports[`return-statement.js 2`] = `
+exports[`return-statement.js format 2`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -3704,7 +3690,7 @@ function inlineComment() {
 ================================================================================
 `;
 
-exports[`single-star-jsdoc.js 1`] = `
+exports[`single-star-jsdoc.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -3776,7 +3762,7 @@ if (true) {
 ================================================================================
 `;
 
-exports[`single-star-jsdoc.js 2`] = `
+exports[`single-star-jsdoc.js format 2`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -3849,7 +3835,7 @@ if (true) {
 ================================================================================
 `;
 
-exports[`switch.js 1`] = `
+exports[`switch.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -3936,7 +3922,7 @@ switch (foo) {
 ================================================================================
 `;
 
-exports[`switch.js 2`] = `
+exports[`switch.js format 2`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -4024,7 +4010,7 @@ switch (foo) {
 ================================================================================
 `;
 
-exports[`tagged-template-literal.js 1`] = `
+exports[`tagged-template-literal.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -4065,7 +4051,7 @@ foo /* comment */\`
 ================================================================================
 `;
 
-exports[`tagged-template-literal.js 2`] = `
+exports[`tagged-template-literal.js format 2`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -4107,7 +4093,7 @@ foo /* comment */\`
 ================================================================================
 `;
 
-exports[`template-literal.js 1`] = `
+exports[`template-literal.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -4145,7 +4131,7 @@ d //comment
 ================================================================================
 `;
 
-exports[`template-literal.js 2`] = `
+exports[`template-literal.js format 2`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -4184,7 +4170,7 @@ d //comment
 ================================================================================
 `;
 
-exports[`trailing_space.js 1`] = `
+exports[`trailing_space.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -4206,7 +4192,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`trailing_space.js 2`] = `
+exports[`trailing_space.js format 2`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -4229,7 +4215,7 @@ semi: false
 ================================================================================
 `;
 
-exports[`trailing-jsdocs.js 1`] = `
+exports[`trailing-jsdocs.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -4290,7 +4276,7 @@ const CONNECTION_STATUS = (exports.CONNECTION_STATUS = {
 ================================================================================
 `;
 
-exports[`trailing-jsdocs.js 2`] = `
+exports[`trailing-jsdocs.js format 2`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -4352,7 +4338,7 @@ const CONNECTION_STATUS = (exports.CONNECTION_STATUS = {
 ================================================================================
 `;
 
-exports[`try.js 1`] = `
+exports[`try.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -4391,7 +4377,7 @@ try {
 ================================================================================
 `;
 
-exports[`try.js 2`] = `
+exports[`try.js format 2`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -4431,7 +4417,7 @@ try {
 ================================================================================
 `;
 
-exports[`variable_declarator.js 1`] = `
+exports[`variable_declarator.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -4581,7 +4567,7 @@ const foo3 = 123;
 ================================================================================
 `;
 
-exports[`variable_declarator.js 2`] = `
+exports[`variable_declarator.js format 2`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -4732,7 +4718,7 @@ const foo3 = 123
 ================================================================================
 `;
 
-exports[`while.js 1`] = `
+exports[`while.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -4787,7 +4773,7 @@ while (true) /* comment */ ++x;
 ================================================================================
 `;
 
-exports[`while.js 2`] = `
+exports[`while.js format 2`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ast.js 1`] = `
+exports[`ast.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -170,7 +170,7 @@ export type TypedNode =
 ================================================================================
 `;
 
-exports[`emit.js 1`] = `
+exports[`emit.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -310,7 +310,7 @@ export function emitExpression(node: TypedNode): t.Expression {
 ================================================================================
 `;
 
-exports[`jsAst.js 1`] = `
+exports[`jsAst.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1547,7 +1547,7 @@ export const builders: {
 ================================================================================
 `;
 
-exports[`non_term.js 1`] = `
+exports[`non_term.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1602,7 +1602,7 @@ class Foo extends React.Component<Props, State> {
 ================================================================================
 `;
 
-exports[`spread.js 1`] = `
+exports[`spread.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

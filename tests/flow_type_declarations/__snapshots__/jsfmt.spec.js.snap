@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`declare_export.js 1`] = `
+exports[`declare_export.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -14,7 +14,7 @@ declare export default 5;
 ================================================================================
 `;
 
-exports[`declare_export.js 2`] = `
+exports[`declare_export.js format 2`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -29,7 +29,7 @@ declare export default 5
 ================================================================================
 `;
 
-exports[`declare_type.js 1`] = `
+exports[`declare_type.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -43,7 +43,7 @@ declare type A = string;
 ================================================================================
 `;
 
-exports[`declare_type.js 2`] = `
+exports[`declare_type.js format 2`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -58,7 +58,7 @@ declare type A = string
 ================================================================================
 `;
 
-exports[`declare_var.js 1`] = `
+exports[`declare_var.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -72,7 +72,7 @@ declare var bool: React$PropType$Primitive<boolean>;
 ================================================================================
 `;
 
-exports[`declare_var.js 2`] = `
+exports[`declare_var.js format 2`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -87,7 +87,7 @@ declare var bool: React$PropType$Primitive<boolean>
 ================================================================================
 `;
 
-exports[`long.js 1`] = `
+exports[`long.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -115,7 +115,7 @@ type SomeOtherLongLongLongLongLongLongLongLongLongLongLongLongLongLongKey2 = Som
 ================================================================================
 `;
 
-exports[`long.js 2`] = `
+exports[`long.js format 2`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -144,7 +144,7 @@ type SomeOtherLongLongLongLongLongLongLongLongLongLongLongLongLongLongKey2 = Som
 ================================================================================
 `;
 
-exports[`opaque.js 1`] = `
+exports[`opaque.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -184,7 +184,7 @@ opaque type overloads = ((x: string) => number) & ((x: number) => string);
 ================================================================================
 `;
 
-exports[`opaque.js 2`] = `
+exports[`opaque.js format 2`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80

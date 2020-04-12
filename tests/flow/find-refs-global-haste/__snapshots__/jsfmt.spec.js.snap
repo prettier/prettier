@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`es6-1.js 1`] = `
+exports[`es6-1.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -30,7 +30,7 @@ foo();
 ================================================================================
 `;
 
-exports[`es6-2.js 1`] = `
+exports[`es6-2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

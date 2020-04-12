@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`big_union_error_message.js 1`] = `
+exports[`big_union_error_message.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -50,7 +50,7 @@ var z = { ...x, ...y }; // Error, only mentions two elements per union
 ================================================================================
 `;
 
-exports[`large_type_spread.js 1`] = `
+exports[`large_type_spread.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -2078,7 +2078,7 @@ declare var a: {| ...A, ...A, ...{||} |};
 ================================================================================
 `;
 
-exports[`type_spread.js 1`] = `
+exports[`type_spread.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

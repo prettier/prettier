@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`attributes.vue 1`] = `
+exports[`attributes.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -109,7 +109,7 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`attributes.vue 2`] = `
+exports[`attributes.vue format 2`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -217,7 +217,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`attributes.vue 3`] = `
+exports[`attributes.vue format 3`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -326,7 +326,7 @@ semi: false
 ================================================================================
 `;
 
-exports[`board_card.vue 1`] = `
+exports[`board_card.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -492,7 +492,7 @@ export default {
 ================================================================================
 `;
 
-exports[`board_card.vue 2`] = `
+exports[`board_card.vue format 2`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -657,7 +657,7 @@ export default {
 ================================================================================
 `;
 
-exports[`board_card.vue 3`] = `
+exports[`board_card.vue format 3`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -823,7 +823,7 @@ export default {
 ================================================================================
 `;
 
-exports[`case-sensitive-tags.vue 1`] = `
+exports[`case-sensitive-tags.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -842,7 +842,7 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`case-sensitive-tags.vue 2`] = `
+exports[`case-sensitive-tags.vue format 2`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -860,7 +860,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`case-sensitive-tags.vue 3`] = `
+exports[`case-sensitive-tags.vue format 3`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -879,7 +879,7 @@ semi: false
 ================================================================================
 `;
 
-exports[`custom-block.vue 1`] = `
+exports[`custom-block.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -909,7 +909,7 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`custom-block.vue 2`] = `
+exports[`custom-block.vue format 2`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -938,7 +938,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`custom-block.vue 3`] = `
+exports[`custom-block.vue format 3`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -968,7 +968,228 @@ semi: false
 ================================================================================
 `;
 
-exports[`filter.vue 1`] = `
+exports[`expression-binding.vue format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+<!-- #7396 -->
+<template>
+<MyComponent :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"/>
+</template>
+<template>
+<MyComponent :attr="\`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
++\`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`"/>
+</template>
+<template>
+<MyComponent :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo +               bar} template literal value\`"/>
+</template>
+<template>
+<MyComponent :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"/>
+</template>
+<template>
+<MyComponent :src="'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' + 'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'"/>
+</template>
+<template>
+<MyComponent :src="100000000000000000000000000000000000000000000000000000000000000000000000000"/>
+</template>
+
+=====================================output=====================================
+<!-- #7396 -->
+<template>
+  <MyComponent
+    :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"
+  />
+</template>
+<template>
+  <MyComponent
+    :attr="
+      \`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\` +
+      \`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
+    "
+  />
+</template>
+<template>
+  <MyComponent
+    :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${
+      foo + bar
+    } template literal value\`"
+  />
+</template>
+<template>
+  <MyComponent
+    :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"
+  />
+</template>
+<template>
+  <MyComponent
+    :src="
+      'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' +
+      'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'
+    "
+  />
+</template>
+<template>
+  <MyComponent
+    :src="
+      100000000000000000000000000000000000000000000000000000000000000000000000000
+    "
+  />
+</template>
+
+================================================================================
+`;
+
+exports[`expression-binding.vue format 2`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<!-- #7396 -->
+<template>
+<MyComponent :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"/>
+</template>
+<template>
+<MyComponent :attr="\`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
++\`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`"/>
+</template>
+<template>
+<MyComponent :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo +               bar} template literal value\`"/>
+</template>
+<template>
+<MyComponent :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"/>
+</template>
+<template>
+<MyComponent :src="'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' + 'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'"/>
+</template>
+<template>
+<MyComponent :src="100000000000000000000000000000000000000000000000000000000000000000000000000"/>
+</template>
+
+=====================================output=====================================
+<!-- #7396 -->
+<template>
+  <MyComponent
+    :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"
+  />
+</template>
+<template>
+  <MyComponent
+    :attr="
+      \`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\` +
+      \`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
+    "
+  />
+</template>
+<template>
+  <MyComponent
+    :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${
+      foo + bar
+    } template literal value\`"
+  />
+</template>
+<template>
+  <MyComponent
+    :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"
+  />
+</template>
+<template>
+  <MyComponent
+    :src="
+      'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' +
+      'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'
+    "
+  />
+</template>
+<template>
+  <MyComponent
+    :src="
+      100000000000000000000000000000000000000000000000000000000000000000000000000
+    "
+  />
+</template>
+
+================================================================================
+`;
+
+exports[`expression-binding.vue format 3`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+<!-- #7396 -->
+<template>
+<MyComponent :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"/>
+</template>
+<template>
+<MyComponent :attr="\`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
++\`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`"/>
+</template>
+<template>
+<MyComponent :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo +               bar} template literal value\`"/>
+</template>
+<template>
+<MyComponent :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"/>
+</template>
+<template>
+<MyComponent :src="'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' + 'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'"/>
+</template>
+<template>
+<MyComponent :src="100000000000000000000000000000000000000000000000000000000000000000000000000"/>
+</template>
+
+=====================================output=====================================
+<!-- #7396 -->
+<template>
+  <MyComponent
+    :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${foo} template literal value\`"
+  />
+</template>
+<template>
+  <MyComponent
+    :attr="
+      \`\${first} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\` +
+      \`\${second} loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${template} \${literal}\`
+    "
+  />
+</template>
+<template>
+  <MyComponent
+    :attr="\`loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog \${
+      foo + bar
+    } template literal value\`"
+  />
+</template>
+<template>
+  <MyComponent
+    :src="'loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog literal string value'"
+  />
+</template>
+<template>
+  <MyComponent
+    :src="
+      'first loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog' +
+      'second loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooog'
+    "
+  />
+</template>
+<template>
+  <MyComponent
+    :src="
+      100000000000000000000000000000000000000000000000000000000000000000000000000
+    "
+  />
+</template>
+
+================================================================================
+`;
+
+exports[`filter.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -1026,7 +1247,7 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`filter.vue 2`] = `
+exports[`filter.vue format 2`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -1083,7 +1304,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`filter.vue 3`] = `
+exports[`filter.vue format 3`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -1141,7 +1362,7 @@ semi: false
 ================================================================================
 `;
 
-exports[`interpolations.vue 1`] = `
+exports[`interpolations.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -1272,7 +1493,7 @@ x => {
 ================================================================================
 `;
 
-exports[`interpolations.vue 2`] = `
+exports[`interpolations.vue format 2`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -1402,7 +1623,7 @@ x => {
 ================================================================================
 `;
 
-exports[`interpolations.vue 3`] = `
+exports[`interpolations.vue format 3`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -1533,7 +1754,7 @@ x => {
 ================================================================================
 `;
 
-exports[`pre-child.vue 1`] = `
+exports[`pre-child.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -1622,15 +1843,15 @@ trailingComma: "none"
   <pre class="woot">
   123{{
       wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq
+      wqeqwwqwqweqweqwewwq ||
+      wqeqwwqwqweqweqwewwq ||
+      wqeqwwqwqweqweqwewwq
     }}123
   123{{
       wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq
+      wqeqwwqwqweqweqwewwq ||
+      wqeqwwqwqweqweqwewwq ||
+      wqeqwwqwqweqweqwewwq
     }}123
     </pre
   >
@@ -1639,7 +1860,7 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`pre-child.vue 2`] = `
+exports[`pre-child.vue format 2`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -1727,15 +1948,15 @@ printWidth: 80
   <pre class="woot">
   123{{
       wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq
+      wqeqwwqwqweqweqwewwq ||
+      wqeqwwqwqweqweqwewwq ||
+      wqeqwwqwqweqweqwewwq
     }}123
   123{{
       wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq
+      wqeqwwqwqweqweqwewwq ||
+      wqeqwwqwqweqweqwewwq ||
+      wqeqwwqwqweqweqwewwq
     }}123
     </pre
   >
@@ -1744,7 +1965,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`pre-child.vue 3`] = `
+exports[`pre-child.vue format 3`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -1833,15 +2054,15 @@ semi: false
   <pre class="woot">
   123{{
       wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq
+      wqeqwwqwqweqweqwewwq ||
+      wqeqwwqwqweqweqwewwq ||
+      wqeqwwqwqweqweqwewwq
     }}123
   123{{
       wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq ||
-        wqeqwwqwqweqweqwewwq
+      wqeqwwqwqweqweqwewwq ||
+      wqeqwwqwqweqweqwewwq ||
+      wqeqwwqwqweqweqwewwq
     }}123
     </pre
   >
@@ -1850,7 +2071,7 @@ semi: false
 ================================================================================
 `;
 
-exports[`script_src.vue 1`] = `
+exports[`script_src.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -1867,7 +2088,7 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`script_src.vue 2`] = `
+exports[`script_src.vue format 2`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -1883,7 +2104,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`script_src.vue 3`] = `
+exports[`script_src.vue format 3`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -1900,7 +2121,7 @@ semi: false
 ================================================================================
 `;
 
-exports[`self_closing.vue 1`] = `
+exports[`self_closing.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -1922,6 +2143,12 @@ foo( )
   <HomeX />
   <HomeY />
 </div>
+</template>
+
+<template>
+  <Foo><Bar
+         attr
+                                     /></Foo>
 </template>
 
 =====================================output=====================================
@@ -1942,10 +2169,14 @@ foo();
   </div>
 </template>
 
+<template>
+  <Foo><Bar attr /></Foo>
+</template>
+
 ================================================================================
 `;
 
-exports[`self_closing.vue 2`] = `
+exports[`self_closing.vue format 2`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -1968,6 +2199,12 @@ foo( )
 </div>
 </template>
 
+<template>
+  <Foo><Bar
+         attr
+                                     /></Foo>
+</template>
+
 =====================================output=====================================
 <template>
   <div />
@@ -1986,10 +2223,14 @@ foo();
   </div>
 </template>
 
+<template>
+  <Foo><Bar attr /></Foo>
+</template>
+
 ================================================================================
 `;
 
-exports[`self_closing.vue 3`] = `
+exports[`self_closing.vue format 3`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -2011,6 +2252,12 @@ foo( )
   <HomeX />
   <HomeY />
 </div>
+</template>
+
+<template>
+  <Foo><Bar
+         attr
+                                     /></Foo>
 </template>
 
 =====================================output=====================================
@@ -2031,10 +2278,14 @@ foo()
   </div>
 </template>
 
+<template>
+  <Foo><Bar attr /></Foo>
+</template>
+
 ================================================================================
 `;
 
-exports[`self_closing_style.vue 1`] = `
+exports[`self_closing_style.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -2057,7 +2308,7 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`self_closing_style.vue 2`] = `
+exports[`self_closing_style.vue format 2`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -2079,7 +2330,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`self_closing_style.vue 3`] = `
+exports[`self_closing_style.vue format 3`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -2102,7 +2353,7 @@ semi: false
 ================================================================================
 `;
 
-exports[`style.vue 1`] = `
+exports[`style.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -2209,7 +2460,7 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`style.vue 2`] = `
+exports[`style.vue format 2`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -2315,7 +2566,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`style.vue 3`] = `
+exports[`style.vue format 3`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -2422,7 +2673,7 @@ semi: false
 ================================================================================
 `;
 
-exports[`tag-name.vue 1`] = `
+exports[`tag-name.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -2441,7 +2692,7 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`tag-name.vue 2`] = `
+exports[`tag-name.vue format 2`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -2459,7 +2710,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`tag-name.vue 3`] = `
+exports[`tag-name.vue format 3`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -2478,7 +2729,7 @@ semi: false
 ================================================================================
 `;
 
-exports[`template.vue 1`] = `
+exports[`template.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -2544,7 +2795,7 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`template.vue 2`] = `
+exports[`template.vue format 2`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -2609,7 +2860,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`template.vue 3`] = `
+exports[`template.vue format 3`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -2675,7 +2926,7 @@ semi: false
 ================================================================================
 `;
 
-exports[`template-lang.vue 1`] = `
+exports[`template-lang.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -2714,7 +2965,7 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`template-lang.vue 2`] = `
+exports[`template-lang.vue format 2`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -2752,7 +3003,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`template-lang.vue 3`] = `
+exports[`template-lang.vue format 3`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -2791,7 +3042,7 @@ semi: false
 ================================================================================
 `;
 
-exports[`test.vue 1`] = `
+exports[`test.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -2823,7 +3074,7 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`test.vue 2`] = `
+exports[`test.vue format 2`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -2854,7 +3105,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`test.vue 3`] = `
+exports[`test.vue format 3`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -2881,6 +3132,338 @@ semi: false
     foo
     <br />
   </footer>
+</template>
+
+================================================================================
+`;
+
+exports[`v-if.vue format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+<template>
+<root>
+  <and v-if="
+long_long_long_long_long_long_long_condition_1 && long_long_long_long_long_long_long_condition_2 && short_1 && short_2 &&
+long_long_long_long_long_long_long_condition_3 &&
+long_long_long_long_long_long_long_condition_4
+"></and>
+  <and v-if="
+(long_long_long_long_long_long_long_condition_1 && long_long_long_long_long_long_long_condition_2 && (short_1 && short_2) ) &&
+long_long_long_long_long_long_long_condition_3 &&
+long_long_long_long_long_long_long_condition_4
+"></and>
+  <or v-if="
+long_long_long_long_long_long_long_condition_1 || long_long_long_long_long_long_long_condition_2 ||short_1 || short_2 ||
+long_long_long_long_long_long_long_condition_3 ||
+long_long_long_long_long_long_long_condition_4
+"></or>
+  <or v-if="
+(long_long_long_long_long_long_long_condition_1 || long_long_long_long_long_long_long_condition_2 || (short_1 || short_2) ||
+long_long_long_long_long_long_long_condition_3) ||
+long_long_long_long_long_long_long_condition_4
+"></or>
+  <mixed v-if="
+long_long_long_long_long_long_long_condition_1 && long_long_long_long_long_long_long_condition_2 ||  ((short_1 && short_2) &&
+long_long_long_long_long_long_long_condition_3 &&
+long_long_long_long_long_long_long_condition_4)
+"></mixed>
+  <mixed v-if="
+long_long_long_long_long_long_long_condition_1 && long_long_long_long_long_long_long_condition_2 || short_1 && short_2 &&
+long_long_long_long_long_long_long_condition_3 ||
+long_long_long_long_long_long_long_condition_4
+"></mixed>
+</root>
+</template>
+
+=====================================output=====================================
+<template>
+  <root>
+    <and
+      v-if="
+        long_long_long_long_long_long_long_condition_1 &&
+        long_long_long_long_long_long_long_condition_2 &&
+        short_1 &&
+        short_2 &&
+        long_long_long_long_long_long_long_condition_3 &&
+        long_long_long_long_long_long_long_condition_4
+      "
+    ></and>
+    <and
+      v-if="
+        long_long_long_long_long_long_long_condition_1 &&
+        long_long_long_long_long_long_long_condition_2 &&
+        short_1 &&
+        short_2 &&
+        long_long_long_long_long_long_long_condition_3 &&
+        long_long_long_long_long_long_long_condition_4
+      "
+    ></and>
+    <or
+      v-if="
+        long_long_long_long_long_long_long_condition_1 ||
+        long_long_long_long_long_long_long_condition_2 ||
+        short_1 ||
+        short_2 ||
+        long_long_long_long_long_long_long_condition_3 ||
+        long_long_long_long_long_long_long_condition_4
+      "
+    ></or>
+    <or
+      v-if="
+        long_long_long_long_long_long_long_condition_1 ||
+        long_long_long_long_long_long_long_condition_2 ||
+        short_1 ||
+        short_2 ||
+        long_long_long_long_long_long_long_condition_3 ||
+        long_long_long_long_long_long_long_condition_4
+      "
+    ></or>
+    <mixed
+      v-if="
+        (long_long_long_long_long_long_long_condition_1 &&
+          long_long_long_long_long_long_long_condition_2) ||
+        (short_1 &&
+          short_2 &&
+          long_long_long_long_long_long_long_condition_3 &&
+          long_long_long_long_long_long_long_condition_4)
+      "
+    ></mixed>
+    <mixed
+      v-if="
+        (long_long_long_long_long_long_long_condition_1 &&
+          long_long_long_long_long_long_long_condition_2) ||
+        (short_1 &&
+          short_2 &&
+          long_long_long_long_long_long_long_condition_3) ||
+        long_long_long_long_long_long_long_condition_4
+      "
+    ></mixed>
+  </root>
+</template>
+
+================================================================================
+`;
+
+exports[`v-if.vue format 2`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<template>
+<root>
+  <and v-if="
+long_long_long_long_long_long_long_condition_1 && long_long_long_long_long_long_long_condition_2 && short_1 && short_2 &&
+long_long_long_long_long_long_long_condition_3 &&
+long_long_long_long_long_long_long_condition_4
+"></and>
+  <and v-if="
+(long_long_long_long_long_long_long_condition_1 && long_long_long_long_long_long_long_condition_2 && (short_1 && short_2) ) &&
+long_long_long_long_long_long_long_condition_3 &&
+long_long_long_long_long_long_long_condition_4
+"></and>
+  <or v-if="
+long_long_long_long_long_long_long_condition_1 || long_long_long_long_long_long_long_condition_2 ||short_1 || short_2 ||
+long_long_long_long_long_long_long_condition_3 ||
+long_long_long_long_long_long_long_condition_4
+"></or>
+  <or v-if="
+(long_long_long_long_long_long_long_condition_1 || long_long_long_long_long_long_long_condition_2 || (short_1 || short_2) ||
+long_long_long_long_long_long_long_condition_3) ||
+long_long_long_long_long_long_long_condition_4
+"></or>
+  <mixed v-if="
+long_long_long_long_long_long_long_condition_1 && long_long_long_long_long_long_long_condition_2 ||  ((short_1 && short_2) &&
+long_long_long_long_long_long_long_condition_3 &&
+long_long_long_long_long_long_long_condition_4)
+"></mixed>
+  <mixed v-if="
+long_long_long_long_long_long_long_condition_1 && long_long_long_long_long_long_long_condition_2 || short_1 && short_2 &&
+long_long_long_long_long_long_long_condition_3 ||
+long_long_long_long_long_long_long_condition_4
+"></mixed>
+</root>
+</template>
+
+=====================================output=====================================
+<template>
+  <root>
+    <and
+      v-if="
+        long_long_long_long_long_long_long_condition_1 &&
+        long_long_long_long_long_long_long_condition_2 &&
+        short_1 &&
+        short_2 &&
+        long_long_long_long_long_long_long_condition_3 &&
+        long_long_long_long_long_long_long_condition_4
+      "
+    ></and>
+    <and
+      v-if="
+        long_long_long_long_long_long_long_condition_1 &&
+        long_long_long_long_long_long_long_condition_2 &&
+        short_1 &&
+        short_2 &&
+        long_long_long_long_long_long_long_condition_3 &&
+        long_long_long_long_long_long_long_condition_4
+      "
+    ></and>
+    <or
+      v-if="
+        long_long_long_long_long_long_long_condition_1 ||
+        long_long_long_long_long_long_long_condition_2 ||
+        short_1 ||
+        short_2 ||
+        long_long_long_long_long_long_long_condition_3 ||
+        long_long_long_long_long_long_long_condition_4
+      "
+    ></or>
+    <or
+      v-if="
+        long_long_long_long_long_long_long_condition_1 ||
+        long_long_long_long_long_long_long_condition_2 ||
+        short_1 ||
+        short_2 ||
+        long_long_long_long_long_long_long_condition_3 ||
+        long_long_long_long_long_long_long_condition_4
+      "
+    ></or>
+    <mixed
+      v-if="
+        (long_long_long_long_long_long_long_condition_1 &&
+          long_long_long_long_long_long_long_condition_2) ||
+        (short_1 &&
+          short_2 &&
+          long_long_long_long_long_long_long_condition_3 &&
+          long_long_long_long_long_long_long_condition_4)
+      "
+    ></mixed>
+    <mixed
+      v-if="
+        (long_long_long_long_long_long_long_condition_1 &&
+          long_long_long_long_long_long_long_condition_2) ||
+        (short_1 &&
+          short_2 &&
+          long_long_long_long_long_long_long_condition_3) ||
+        long_long_long_long_long_long_long_condition_4
+      "
+    ></mixed>
+  </root>
+</template>
+
+================================================================================
+`;
+
+exports[`v-if.vue format 3`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+<template>
+<root>
+  <and v-if="
+long_long_long_long_long_long_long_condition_1 && long_long_long_long_long_long_long_condition_2 && short_1 && short_2 &&
+long_long_long_long_long_long_long_condition_3 &&
+long_long_long_long_long_long_long_condition_4
+"></and>
+  <and v-if="
+(long_long_long_long_long_long_long_condition_1 && long_long_long_long_long_long_long_condition_2 && (short_1 && short_2) ) &&
+long_long_long_long_long_long_long_condition_3 &&
+long_long_long_long_long_long_long_condition_4
+"></and>
+  <or v-if="
+long_long_long_long_long_long_long_condition_1 || long_long_long_long_long_long_long_condition_2 ||short_1 || short_2 ||
+long_long_long_long_long_long_long_condition_3 ||
+long_long_long_long_long_long_long_condition_4
+"></or>
+  <or v-if="
+(long_long_long_long_long_long_long_condition_1 || long_long_long_long_long_long_long_condition_2 || (short_1 || short_2) ||
+long_long_long_long_long_long_long_condition_3) ||
+long_long_long_long_long_long_long_condition_4
+"></or>
+  <mixed v-if="
+long_long_long_long_long_long_long_condition_1 && long_long_long_long_long_long_long_condition_2 ||  ((short_1 && short_2) &&
+long_long_long_long_long_long_long_condition_3 &&
+long_long_long_long_long_long_long_condition_4)
+"></mixed>
+  <mixed v-if="
+long_long_long_long_long_long_long_condition_1 && long_long_long_long_long_long_long_condition_2 || short_1 && short_2 &&
+long_long_long_long_long_long_long_condition_3 ||
+long_long_long_long_long_long_long_condition_4
+"></mixed>
+</root>
+</template>
+
+=====================================output=====================================
+<template>
+  <root>
+    <and
+      v-if="
+        long_long_long_long_long_long_long_condition_1 &&
+        long_long_long_long_long_long_long_condition_2 &&
+        short_1 &&
+        short_2 &&
+        long_long_long_long_long_long_long_condition_3 &&
+        long_long_long_long_long_long_long_condition_4
+      "
+    ></and>
+    <and
+      v-if="
+        long_long_long_long_long_long_long_condition_1 &&
+        long_long_long_long_long_long_long_condition_2 &&
+        short_1 &&
+        short_2 &&
+        long_long_long_long_long_long_long_condition_3 &&
+        long_long_long_long_long_long_long_condition_4
+      "
+    ></and>
+    <or
+      v-if="
+        long_long_long_long_long_long_long_condition_1 ||
+        long_long_long_long_long_long_long_condition_2 ||
+        short_1 ||
+        short_2 ||
+        long_long_long_long_long_long_long_condition_3 ||
+        long_long_long_long_long_long_long_condition_4
+      "
+    ></or>
+    <or
+      v-if="
+        long_long_long_long_long_long_long_condition_1 ||
+        long_long_long_long_long_long_long_condition_2 ||
+        short_1 ||
+        short_2 ||
+        long_long_long_long_long_long_long_condition_3 ||
+        long_long_long_long_long_long_long_condition_4
+      "
+    ></or>
+    <mixed
+      v-if="
+        (long_long_long_long_long_long_long_condition_1 &&
+          long_long_long_long_long_long_long_condition_2) ||
+        (short_1 &&
+          short_2 &&
+          long_long_long_long_long_long_long_condition_3 &&
+          long_long_long_long_long_long_long_condition_4)
+      "
+    ></mixed>
+    <mixed
+      v-if="
+        (long_long_long_long_long_long_long_condition_1 &&
+          long_long_long_long_long_long_long_condition_2) ||
+        (short_1 &&
+          short_2 &&
+          long_long_long_long_long_long_long_condition_3) ||
+        long_long_long_long_long_long_long_condition_4
+      "
+    ></mixed>
+  </root>
 </template>
 
 ================================================================================

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ArityError.react.js 1`] = `
+exports[`ArityError.react.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -34,7 +34,7 @@ module.exports = AudienceInsightsContainer;
 ================================================================================
 `;
 
-exports[`ConcurrentMode.js 1`] = `
+exports[`ConcurrentMode.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -120,7 +120,7 @@ import React from "react";
 ================================================================================
 `;
 
-exports[`StrictMode.js 1`] = `
+exports[`StrictMode.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -206,7 +206,7 @@ import React from "react";
 ================================================================================
 `;
 
-exports[`abstractelement.js 1`] = `
+exports[`abstractelement.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -272,7 +272,7 @@ takesAny(<div />);
 ================================================================================
 `;
 
-exports[`creatRef.js 1`] = `
+exports[`creatRef.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -312,7 +312,7 @@ import React from "react";
 ================================================================================
 `;
 
-exports[`create_class.js 1`] = `
+exports[`create_class.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -690,7 +690,7 @@ M.defaultProps.bar = 1; // error cannot update void property
 ================================================================================
 `;
 
-exports[`create_class_initial_state_sealed.js 1`] = `
+exports[`create_class_initial_state_sealed.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -878,7 +878,7 @@ React.createClass({
 ================================================================================
 `;
 
-exports[`create_class_statics_sealed.js 1`] = `
+exports[`create_class_statics_sealed.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1002,7 +1002,7 @@ F.baz = 0;
 ================================================================================
 `;
 
-exports[`create_class_super.js 1`] = `
+exports[`create_class_super.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1042,7 +1042,7 @@ class Derived extends Base {
 ================================================================================
 `;
 
-exports[`createContext.js 1`] = `
+exports[`createContext.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1163,7 +1163,7 @@ import React from "react";
 ================================================================================
 `;
 
-exports[`createElement_string.js 1`] = `
+exports[`createElement_string.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1197,7 +1197,7 @@ class Foo extends React.Component<{}> {
 ================================================================================
 `;
 
-exports[`createElementRequiredProp_string.js 1`] = `
+exports[`createElementRequiredProp_string.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1243,7 +1243,7 @@ class Foo extends React.Component<{}> {
 ================================================================================
 `;
 
-exports[`default_props_any.js 1`] = `
+exports[`default_props_any.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1283,7 +1283,7 @@ class Bar extends React.Component<{ required: number }> {
 ================================================================================
 `;
 
-exports[`default_props_undefined.js 1`] = `
+exports[`default_props_undefined.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1317,7 +1317,7 @@ class Foo extends React.Component<{ bar: number }, void> {
 ================================================================================
 `;
 
-exports[`dotvsdollar.js 1`] = `
+exports[`dotvsdollar.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1391,7 +1391,7 @@ const h = <Component />;
 ================================================================================
 `;
 
-exports[`element_config.js 1`] = `
+exports[`element_config.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1579,7 +1579,7 @@ class J extends React.Component<{ p?: ?number }> {
 ================================================================================
 `;
 
-exports[`element_with_component_type.js 1`] = `
+exports[`element_with_component_type.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1607,7 +1607,7 @@ class Foo extends React.Component<{ a: number }> {}
 ================================================================================
 `;
 
-exports[`hoc.js 1`] = `
+exports[`hoc.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1710,7 +1710,7 @@ const WrappedFun = myHOC(UnwrappedFun);
 ================================================================================
 `;
 
-exports[`hoc2.js 1`] = `
+exports[`hoc2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1788,7 +1788,7 @@ const MyEnhancedFunctionComponent = connect(MyFunctionComponent);
 ================================================================================
 `;
 
-exports[`hoc3.js 1`] = `
+exports[`hoc3.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1866,7 +1866,7 @@ const MyEnhancedFunctionComponent = connect(MyFunctionComponent);
 ================================================================================
 `;
 
-exports[`hoc4.js 1`] = `
+exports[`hoc4.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1944,7 +1944,7 @@ const MyEnhancedFunctionComponent = connect(MyFunctionComponent);
 ================================================================================
 `;
 
-exports[`hoc5.js 1`] = `
+exports[`hoc5.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -2066,7 +2066,7 @@ const MyEnhancedComponent2 = hoc(MyComponent2);
 ================================================================================
 `;
 
-exports[`import_react.js 1`] = `
+exports[`import_react.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -2092,7 +2092,7 @@ var b: number = new react.Component(); // Error: ReactComponent ~> number
 ================================================================================
 `;
 
-exports[`intersection_component_error.js 1`] = `
+exports[`intersection_component_error.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -2128,7 +2128,7 @@ declare var MyComponent: React.ComponentType<{ foo: number }> & {
 ================================================================================
 `;
 
-exports[`jsx_any_spread.js 1`] = `
+exports[`jsx_any_spread.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -2158,7 +2158,7 @@ class Foo extends React.Component<{ a: number, b: number, c: number }> {}
 ================================================================================
 `;
 
-exports[`jsx_spread.js 1`] = `
+exports[`jsx_spread.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -2192,7 +2192,7 @@ var blah = <Foo {...props} />; // error bar, number given string expected
 ================================================================================
 `;
 
-exports[`key.js 1`] = `
+exports[`key.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -2246,7 +2246,7 @@ class FooExact extends React.Component<{||}, void> {}
 ================================================================================
 `;
 
-exports[`opaue_default.js 1`] = `
+exports[`opaue_default.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -2300,7 +2300,7 @@ class C extends React.Component<Props, void> {
 ================================================================================
 `;
 
-exports[`portals.js 1`] = `
+exports[`portals.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -2342,7 +2342,7 @@ class MyComponent extends React.Component<{}> {
 ================================================================================
 `;
 
-exports[`proptype_any.js 1`] = `
+exports[`proptype_any.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -2392,7 +2392,7 @@ var AnyFunExample = React.createClass({
 ================================================================================
 `;
 
-exports[`proptype_arrayOf.js 1`] = `
+exports[`proptype_arrayOf.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -2494,7 +2494,7 @@ var InvalidExample = React.createClass({
 ================================================================================
 `;
 
-exports[`proptype_custom_validator.js 1`] = `
+exports[`proptype_custom_validator.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -2542,7 +2542,7 @@ var Example = React.createClass({
 ================================================================================
 `;
 
-exports[`proptype_func.js 1`] = `
+exports[`proptype_func.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -2582,7 +2582,7 @@ var fail_mistyped = <Example func={2} />;
 ================================================================================
 `;
 
-exports[`proptype_incompatible.js 1`] = `
+exports[`proptype_incompatible.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -2614,7 +2614,7 @@ var Example = React.createClass({
 ================================================================================
 `;
 
-exports[`proptype_instanceOf.js 1`] = `
+exports[`proptype_instanceOf.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -2712,7 +2712,7 @@ var PolyDefaultExample = React.createClass({
 ================================================================================
 `;
 
-exports[`proptype_missing.js 1`] = `
+exports[`proptype_missing.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -2788,7 +2788,7 @@ var Foo = React.createClass({
 ================================================================================
 `;
 
-exports[`proptype_object.js 1`] = `
+exports[`proptype_object.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -2826,7 +2826,7 @@ var fail_mistyped = <Example object={2} />;
 ================================================================================
 `;
 
-exports[`proptype_objectOf.js 1`] = `
+exports[`proptype_objectOf.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -2928,7 +2928,7 @@ var InvalidExample = React.createClass({
 ================================================================================
 `;
 
-exports[`proptype_oneOf.js 1`] = `
+exports[`proptype_oneOf.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -3114,7 +3114,7 @@ var NonLiteralElemExample = React.createClass({
 ================================================================================
 `;
 
-exports[`proptype_oneOfType.js 1`] = `
+exports[`proptype_oneOfType.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -3327,7 +3327,7 @@ var InvalidElemExample = React.createClass({
 ================================================================================
 `;
 
-exports[`proptype_shape.js 1`] = `
+exports[`proptype_shape.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -3409,7 +3409,7 @@ React.createClass({
 ================================================================================
 `;
 
-exports[`proptypes_builtins.js 1`] = `
+exports[`proptypes_builtins.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -3475,7 +3475,7 @@ type NoFun = (mixed) => empty;
 ================================================================================
 `;
 
-exports[`proptypes_sealed.js 1`] = `
+exports[`proptypes_sealed.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -3535,7 +3535,7 @@ React.createClass({
 ================================================================================
 `;
 
-exports[`ref.js 1`] = `
+exports[`ref.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -3625,7 +3625,7 @@ class NumRefs extends React.Component<{}> {
 ================================================================================
 `;
 
-exports[`render.js 1`] = `
+exports[`render.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -3751,7 +3751,7 @@ const G: React$StatelessFunctionalComponent<UnfixedPropsType> = (props) => {
 ================================================================================
 `;
 
-exports[`render_callback.js 1`] = `
+exports[`render_callback.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -3812,7 +3812,7 @@ ReactDOM.render(<Example />, test$querySelector("#site"), null);
 ================================================================================
 `;
 
-exports[`test-utils.js 1`] = `
+exports[`test-utils.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -3968,7 +3968,7 @@ async function runTest() {
 ================================================================================
 `;
 
-exports[`types_require.js 1`] = `
+exports[`types_require.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -3992,7 +3992,7 @@ declare var element: React.Element<any>; // OK: This is valid syntax.
 ================================================================================
 `;
 
-exports[`undefined_prop.js 1`] = `
+exports[`undefined_prop.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -4018,7 +4018,7 @@ class MyComponent extends React.Component<{ title: string }> {}
 ================================================================================
 `;
 
-exports[`useCallback_hook.js 1`] = `
+exports[`useCallback_hook.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -4076,7 +4076,7 @@ import React from "react";
 ================================================================================
 `;
 
-exports[`useContext_hook.js 1`] = `
+exports[`useContext_hook.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -4197,7 +4197,7 @@ type CustomType = {|
 ================================================================================
 `;
 
-exports[`useDebugValue_hook.js 1`] = `
+exports[`useDebugValue_hook.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -4225,7 +4225,7 @@ const undefinedValue = React.useDebugValue(123);
 ================================================================================
 `;
 
-exports[`useEffect_hook.js 1`] = `
+exports[`useEffect_hook.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -4289,7 +4289,7 @@ import React from "react";
 ================================================================================
 `;
 
-exports[`useImperativeHandle_hook.js 1`] = `
+exports[`useImperativeHandle_hook.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -4371,7 +4371,7 @@ type Interface = {|
 ================================================================================
 `;
 
-exports[`useLayoutEffect_hook.js 1`] = `
+exports[`useLayoutEffect_hook.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -4435,7 +4435,7 @@ import React from "react";
 ================================================================================
 `;
 
-exports[`useMemo_hook.js 1`] = `
+exports[`useMemo_hook.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -4483,7 +4483,7 @@ import React from "react";
 ================================================================================
 `;
 
-exports[`useMutationEffect_hook.js 1`] = `
+exports[`useMutationEffect_hook.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -4543,7 +4543,7 @@ import React from "react";
 ================================================================================
 `;
 
-exports[`useReducer_hook.js 1`] = `
+exports[`useReducer_hook.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -4649,7 +4649,7 @@ const initialState = { count: 0 };
 ================================================================================
 `;
 
-exports[`useRef_hook.js 1`] = `
+exports[`useRef_hook.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -4727,7 +4727,7 @@ class Bar extends React.Component<{}, void> {}
 ================================================================================
 `;
 
-exports[`useState_hook.js 1`] = `
+exports[`useState_hook.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

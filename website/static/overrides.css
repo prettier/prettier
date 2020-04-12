@@ -377,7 +377,7 @@ em {
 .usersSection a:hover {
   color: white !important;
 }
-.usersSection .alignCenter{
+.usersSection .alignCenter {
   display: flex;
   align-items: center;
 }
@@ -572,4 +572,8 @@ a {
 .hljs-selector-pseudo,
 .hljs-comment {
   color: #cda144;
+}
+
+.showcaseSection .logos img {
+  max-height: 64px;
 }

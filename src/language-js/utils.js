@@ -6,7 +6,7 @@ const {
   hasNewlineInRange,
   hasIgnoreComment,
   hasNodeIgnoreComment,
-  skipWhitespace
+  skipWhitespace,
 } = require("../common/util");
 const isIdentifierName = require("esutils").keyword.isIdentifierNameES5;
 const handleComments = require("./comments");
@@ -47,12 +47,12 @@ function hasNode(node, fn) {
     return false;
   }
   if (Array.isArray(node)) {
-    return node.some(value => hasNode(value, fn));
+    return node.some((value) => hasNode(value, fn));
   }
   const result = fn(node);
   return typeof result === "boolean"
     ? result
-    : Object.keys(node).some(key => hasNode(node[key], fn));
+    : Object.keys(node).some((key) => hasNode(node[key], fn));
 }
 
 function hasNakedLeftSide(node) {
@@ -123,7 +123,7 @@ const exportDeclarationTypes = new Set([
   "ExportDefaultSpecifier",
   "DeclareExportDeclaration",
   "ExportNamedDeclaration",
-  "ExportAllDeclaration"
+  "ExportAllDeclaration",
 ]);
 function isExportDeclaration(node) {
   return node && exportDeclarationTypes.has(node.type);
@@ -285,12 +285,13 @@ function isTypeAnnotationAFunction(node, options) {
   );
 }
 
+const binaryishNodeTypes = new Set([
+  "BinaryExpression",
+  "LogicalExpression",
+  "NGPipeExpression",
+]);
 function isBinaryish(node) {
-  return (
-    node.type === "BinaryExpression" ||
-    node.type === "LogicalExpression" ||
-    node.type === "NGPipeExpression"
-  );
+  return binaryishNodeTypes.has(node.type);
 }
 
 function isMemberish(node) {
@@ -301,24 +302,23 @@ function isMemberish(node) {
   );
 }
 
+const flowTypeAnnotations = new Set([
+  "AnyTypeAnnotation",
+  "NullLiteralTypeAnnotation",
+  "GenericTypeAnnotation",
+  "ThisTypeAnnotation",
+  "NumberTypeAnnotation",
+  "VoidTypeAnnotation",
+  "EmptyTypeAnnotation",
+  "MixedTypeAnnotation",
+  "BooleanTypeAnnotation",
+  "BooleanLiteralTypeAnnotation",
+  "StringTypeAnnotation",
+]);
 function isSimpleFlowType(node) {
-  const flowTypeAnnotations = [
-    "AnyTypeAnnotation",
-    "NullLiteralTypeAnnotation",
-    "GenericTypeAnnotation",
-    "ThisTypeAnnotation",
-    "NumberTypeAnnotation",
-    "VoidTypeAnnotation",
-    "EmptyTypeAnnotation",
-    "MixedTypeAnnotation",
-    "BooleanTypeAnnotation",
-    "BooleanLiteralTypeAnnotation",
-    "StringTypeAnnotation"
-  ];
-
   return (
     node &&
-    flowTypeAnnotations.includes(node.type) &&
+    flowTypeAnnotations.has(node.type) &&
     !(node.type === "GenericTypeAnnotation" && node.typeParameters)
   );
 }
@@ -382,11 +382,11 @@ function isTestCall(n, parent) {
 }
 
 function hasLeadingComment(node) {
-  return node.comments && node.comments.some(comment => comment.leading);
+  return node.comments && node.comments.some((comment) => comment.leading);
 }
 
 function hasTrailingComment(node) {
-  return node.comments && node.comments.some(comment => comment.trailing);
+  return node.comments && node.comments.some((comment) => comment.trailing);
 }
 
 function isCallOrOptionalCallExpression(node) {
@@ -398,13 +398,13 @@ function isCallOrOptionalCallExpression(node) {
 function hasDanglingComments(node) {
   return (
     node.comments &&
-    node.comments.some(comment => !comment.leading && !comment.trailing)
+    node.comments.some((comment) => !comment.leading && !comment.trailing)
   );
 }
 
 /** identify if an angular expression seems to have side effects */
 function hasNgSideEffect(path) {
-  return hasNode(path.getValue(), node => {
+  return hasNode(path.getValue(), (node) => {
     switch (node.type) {
       case undefined:
         return false;
@@ -432,7 +432,7 @@ function isSimpleTemplateLiteral(node) {
     return false;
   }
 
-  return node.expressions.every(expr => {
+  return node.expressions.every((expr) => {
     // Disallow comments since printDocToString can't print them here
     if (expr.comments) {
       return false;
@@ -627,7 +627,7 @@ function hasJsxIgnoreComment(path) {
     prevSibling.expression.type === "JSXEmptyExpression" &&
     prevSibling.expression.comments &&
     prevSibling.expression.comments.find(
-      comment => comment.value.trim() === "prettier-ignore"
+      (comment) => comment.value.trim() === "prettier-ignore"
     )
   );
 }
@@ -657,7 +657,7 @@ function isLastStatement(path) {
   }
   const node = path.getValue();
   const body = (parent.body || parent.consequent).filter(
-    stmt => stmt.type !== "EmptyStatement"
+    (stmt) => stmt.type !== "EmptyStatement"
   );
   return body && body[body.length - 1] === node;
 }
@@ -678,7 +678,7 @@ function hasLeadingOwnLineComment(text, node, options) {
   const res =
     node.comments &&
     node.comments.some(
-      comment => comment.leading && hasNewline(text, options.locEnd(comment))
+      (comment) => comment.leading && hasNewline(text, options.locEnd(comment))
     );
   return res;
 }
@@ -731,7 +731,7 @@ function isJestEachTemplateLiteral(node, parentNode) {
    *
    * Ref: https://github.com/facebook/jest/pull/6102
    */
-  const jestEachTriggerRegex = /^[xf]?(describe|it|test)$/;
+  const jestEachTriggerRegex = /^[fx]?(describe|it|test)$/;
   return (
     parentNode.type === "TaggedTemplateExpression" &&
     parentNode.quasi === node &&
@@ -750,7 +750,7 @@ function isJestEachTemplateLiteral(node, parentNode) {
 }
 
 function templateLiteralHasNewLines(template) {
-  return template.quasis.some(quasi => quasi.value.raw.includes("\n"));
+  return template.quasis.some((quasi) => quasi.value.raw.includes("\n"));
 }
 
 function isTemplateOnItsOwnLine(n, text, options) {
@@ -767,7 +767,7 @@ function needsHardlineAfterDanglingComment(node) {
     return false;
   }
   const lastDanglingComment = getLast(
-    node.comments.filter(comment => !comment.leading && !comment.trailing)
+    node.comments.filter((comment) => !comment.leading && !comment.trailing)
   );
   return (
     lastDanglingComment && !handleComments.isBlockComment(lastDanglingComment)
@@ -921,7 +921,7 @@ function isSimpleCallArgument(node, depth) {
   if (depth >= 2) {
     return false;
   }
-  const isChildSimple = child => isSimpleCallArgument(child, depth + 1);
+  const isChildSimple = (child) => isSimpleCallArgument(child, depth + 1);
 
   const regexpPattern =
     (node.type === "Literal" && node.regex && node.regex.pattern) ||
@@ -953,11 +953,11 @@ function isSimpleCallArgument(node, depth) {
   }
   if (node.type === "ObjectExpression") {
     return node.properties.every(
-      p => !p.computed && (p.shorthand || (p.value && isChildSimple(p.value)))
+      (p) => !p.computed && (p.shorthand || (p.value && isChildSimple(p.value)))
     );
   }
   if (node.type === "ArrayExpression") {
-    return node.elements.every(isChildSimple);
+    return node.elements.every((x) => x == null || isChildSimple(x));
   }
   if (
     node.type === "CallExpression" ||
@@ -1057,5 +1057,5 @@ module.exports = {
   matchJsxWhitespaceRegex,
   needsHardlineAfterDanglingComment,
   rawText,
-  returnArgumentHasLeadingComment
+  returnArgumentHasLeadingComment,
 };

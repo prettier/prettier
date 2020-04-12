@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`dependency.js 1`] = `
+exports[`dependency.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -22,7 +22,7 @@ export function foo(x: string) {}
 ================================================================================
 `;
 
-exports[`focused.js 1`] = `
+exports[`focused.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -48,7 +48,7 @@ foo("hello"); // No error
 ================================================================================
 `;
 
-exports[`unrelated.js 1`] = `
+exports[`unrelated.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

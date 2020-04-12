@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`C.js 1`] = `
+exports[`C.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -50,7 +50,7 @@ module.exports = C;
 ================================================================================
 `;
 
-exports[`View.js 1`] = `
+exports[`View.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -78,7 +78,7 @@ module.exports = View;
 ================================================================================
 `;
 
-exports[`error_positioning.js 1`] = `
+exports[`error_positioning.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`expression.js 1`] = `
+exports[`expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -151,12 +151,12 @@ class X extends class {
 (((!42: empty): T).p: empty);
 (((++a: empty): T).p: empty);
 (((a++: empty): T).p: empty);
-function *g1(): Generator<number | void, void, number> {
+function* g1(): Generator<number | void, void, number> {
   (((yield: empty): T).p: empty);
   (((yield 42: empty): T).p: empty);
 }
-function *g2(): Generator<number | void, void, number> {
-  (((yield *g1(): empty): T).p: empty);
+function* g2(): Generator<number | void, void, number> {
+  (((yield* g1(): empty): T).p: empty);
 }
 
 ================================================================================

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`fun.js 1`] = `
+exports[`fun.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -18,7 +18,7 @@ export function fun() {}
 ================================================================================
 `;
 
-exports[`uses_fun.js 1`] = `
+exports[`uses_fun.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
