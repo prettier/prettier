@@ -7,18 +7,6 @@ printWidth: 80
 trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
-<page-query>
-query { posts: allWordPressPost {
-    edges {
-   node {
-          id
-      title
-      }
-    }
-  }
-}
-</page-query>
-
 <page-query lang="graphql">
 query { posts: allWordPressPost {
     edges {
@@ -32,19 +20,6 @@ query { posts: allWordPressPost {
 </page-query>
 
 =====================================output=====================================
-<page-query>
-query {
-  posts: allWordPressPost {
-    edges {
-      node {
-        id
-        title
-      }
-    }
-  }
-}
-</page-query>
-
 <page-query lang="graphql">
 query {
   posts: allWordPressPost {
@@ -67,18 +42,6 @@ parsers: ["vue"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-<page-query>
-query { posts: allWordPressPost {
-    edges {
-   node {
-          id
-      title
-      }
-    }
-  }
-}
-</page-query>
-
 <page-query lang="graphql">
 query { posts: allWordPressPost {
     edges {
@@ -92,19 +55,6 @@ query { posts: allWordPressPost {
 </page-query>
 
 =====================================output=====================================
-<page-query>
-query {
-  posts: allWordPressPost {
-    edges {
-      node {
-        id
-        title
-      }
-    }
-  }
-}
-</page-query>
-
 <page-query lang="graphql">
 query {
   posts: allWordPressPost {
@@ -128,18 +78,6 @@ printWidth: 80
 semi: false
                                                                                 | printWidth
 =====================================input======================================
-<page-query>
-query { posts: allWordPressPost {
-    edges {
-   node {
-          id
-      title
-      }
-    }
-  }
-}
-</page-query>
-
 <page-query lang="graphql">
 query { posts: allWordPressPost {
     edges {
@@ -153,19 +91,6 @@ query { posts: allWordPressPost {
 </page-query>
 
 =====================================output=====================================
-<page-query>
-query {
-  posts: allWordPressPost {
-    edges {
-      node {
-        id
-        title
-      }
-    }
-  }
-}
-</page-query>
-
 <page-query lang="graphql">
 query {
   posts: allWordPressPost {
@@ -189,18 +114,6 @@ printWidth: 80
 vueIndentScriptAndStyle: true
                                                                                 | printWidth
 =====================================input======================================
-<page-query>
-query { posts: allWordPressPost {
-    edges {
-   node {
-          id
-      title
-      }
-    }
-  }
-}
-</page-query>
-
 <page-query lang="graphql">
 query { posts: allWordPressPost {
     edges {
@@ -214,19 +127,6 @@ query { posts: allWordPressPost {
 </page-query>
 
 =====================================output=====================================
-<page-query>
-  query {
-    posts: allWordPressPost {
-      edges {
-        node {
-          id
-          title
-        }
-      }
-    }
-  }
-</page-query>
-
 <page-query lang="graphql">
   query {
     posts: allWordPressPost {
@@ -250,19 +150,6 @@ printWidth: 80
 trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
-<i18n>
-{ "en": {
-    "hello": "hello world!"
-    
-    
-    }, "ja": {
-   
-   
-    "hello": "こんにちは、世界！"
-  }
-}
-</i18n>
-
 <i18n lang="json">
 { "en": {
     "hello": "hello world!"
@@ -290,17 +177,6 @@ trailingComma: "none"
 </i18n>
 
 =====================================output=====================================
-<i18n>
-{
-  "en": {
-    "hello": "hello world!"
-  },
-  "ja": {
-    "hello": "こんにちは、世界！"
-  }
-}
-</i18n>
-
 <i18n lang="json">
 {
   "en": {
@@ -332,19 +208,6 @@ parsers: ["vue"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-<i18n>
-{ "en": {
-    "hello": "hello world!"
-    
-    
-    }, "ja": {
-   
-   
-    "hello": "こんにちは、世界！"
-  }
-}
-</i18n>
-
 <i18n lang="json">
 { "en": {
     "hello": "hello world!"
@@ -372,17 +235,6 @@ printWidth: 80
 </i18n>
 
 =====================================output=====================================
-<i18n>
-{
-  "en": {
-    "hello": "hello world!"
-  },
-  "ja": {
-    "hello": "こんにちは、世界！"
-  }
-}
-</i18n>
-
 <i18n lang="json">
 {
   "en": {
@@ -415,19 +267,6 @@ printWidth: 80
 semi: false
                                                                                 | printWidth
 =====================================input======================================
-<i18n>
-{ "en": {
-    "hello": "hello world!"
-    
-    
-    }, "ja": {
-   
-   
-    "hello": "こんにちは、世界！"
-  }
-}
-</i18n>
-
 <i18n lang="json">
 { "en": {
     "hello": "hello world!"
@@ -455,17 +294,6 @@ semi: false
 </i18n>
 
 =====================================output=====================================
-<i18n>
-{
-  "en": {
-    "hello": "hello world!"
-  },
-  "ja": {
-    "hello": "こんにちは、世界！"
-  }
-}
-</i18n>
-
 <i18n lang="json">
 {
   "en": {
@@ -498,19 +326,6 @@ printWidth: 80
 vueIndentScriptAndStyle: true
                                                                                 | printWidth
 =====================================input======================================
-<i18n>
-{ "en": {
-    "hello": "hello world!"
-    
-    
-    }, "ja": {
-   
-   
-    "hello": "こんにちは、世界！"
-  }
-}
-</i18n>
-
 <i18n lang="json">
 { "en": {
     "hello": "hello world!"
@@ -538,17 +353,6 @@ vueIndentScriptAndStyle: true
 </i18n>
 
 =====================================output=====================================
-<i18n>
-  {
-    "en": {
-      "hello": "hello world!"
-    },
-    "ja": {
-      "hello": "こんにちは、世界！"
-    }
-  }
-</i18n>
-
 <i18n lang="json">
   {
     "en": {
@@ -570,81 +374,6 @@ vueIndentScriptAndStyle: true
     }
   }
 </i18n>
-
-================================================================================
-`;
-
-exports[`lang-attribute.vue format 1`] = `
-====================================options=====================================
-parsers: ["vue"]
-printWidth: 80
-trailingComma: "none"
-                                                                                | printWidth
-=====================================input======================================
-<custom lang="babel">
-const foo =       'foo'
-</custom>
-
-=====================================output=====================================
-<custom lang="babel">
-const foo = "foo";
-</custom>
-
-================================================================================
-`;
-
-exports[`lang-attribute.vue format 2`] = `
-====================================options=====================================
-parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-<custom lang="babel">
-const foo =       'foo'
-</custom>
-
-=====================================output=====================================
-<custom lang="babel">
-const foo = "foo";
-</custom>
-
-================================================================================
-`;
-
-exports[`lang-attribute.vue format 3`] = `
-====================================options=====================================
-parsers: ["vue"]
-printWidth: 80
-semi: false
-                                                                                | printWidth
-=====================================input======================================
-<custom lang="babel">
-const foo =       'foo'
-</custom>
-
-=====================================output=====================================
-<custom lang="babel">
-const foo = "foo"
-</custom>
-
-================================================================================
-`;
-
-exports[`lang-attribute.vue format 4`] = `
-====================================options=====================================
-parsers: ["vue"]
-printWidth: 80
-vueIndentScriptAndStyle: true
-                                                                                | printWidth
-=====================================input======================================
-<custom lang="babel">
-const foo =       'foo'
-</custom>
-
-=====================================output=====================================
-<custom lang="babel">
-  const foo = "foo";
-</custom>
 
 ================================================================================
 `;
@@ -686,7 +415,7 @@ const foo =
 const foo =
 
 
-"foo";
+     "foo";
 </custom>
 
 ================================================================================
@@ -728,7 +457,7 @@ const foo =
 const foo =
 
 
-"foo";
+     "foo";
 </custom>
 
 ================================================================================
@@ -771,7 +500,7 @@ const foo =
 const foo =
 
 
-"foo";
+     "foo";
 </custom>
 
 ================================================================================
@@ -814,7 +543,7 @@ const foo =
   const foo =
 
 
-  "foo";
+     "foo";
 </custom>
 
 ================================================================================
@@ -827,13 +556,6 @@ printWidth: 80
 trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
-<i18n>
-en:
-                       hello: "hello world!"
-ja:
-        hello: "こんにちは、世界！"
-</i18n>
-
 <i18n lang="yaml">
 en:
                        hello: "hello world!"
@@ -842,13 +564,6 @@ ja:
 </i18n>
 
 =====================================output=====================================
-<i18n>
-en:
-  hello: "hello world!"
-ja:
-  hello: "こんにちは、世界！"
-</i18n>
-
 <i18n lang="yaml">
 en:
   hello: "hello world!"
@@ -865,13 +580,6 @@ parsers: ["vue"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-<i18n>
-en:
-                       hello: "hello world!"
-ja:
-        hello: "こんにちは、世界！"
-</i18n>
-
 <i18n lang="yaml">
 en:
                        hello: "hello world!"
@@ -880,13 +588,6 @@ ja:
 </i18n>
 
 =====================================output=====================================
-<i18n>
-en:
-  hello: "hello world!"
-ja:
-  hello: "こんにちは、世界！"
-</i18n>
-
 <i18n lang="yaml">
 en:
   hello: "hello world!"
@@ -904,13 +605,6 @@ printWidth: 80
 semi: false
                                                                                 | printWidth
 =====================================input======================================
-<i18n>
-en:
-                       hello: "hello world!"
-ja:
-        hello: "こんにちは、世界！"
-</i18n>
-
 <i18n lang="yaml">
 en:
                        hello: "hello world!"
@@ -919,13 +613,6 @@ ja:
 </i18n>
 
 =====================================output=====================================
-<i18n>
-en:
-  hello: "hello world!"
-ja:
-  hello: "こんにちは、世界！"
-</i18n>
-
 <i18n lang="yaml">
 en:
   hello: "hello world!"
@@ -943,13 +630,6 @@ printWidth: 80
 vueIndentScriptAndStyle: true
                                                                                 | printWidth
 =====================================input======================================
-<i18n>
-en:
-                       hello: "hello world!"
-ja:
-        hello: "こんにちは、世界！"
-</i18n>
-
 <i18n lang="yaml">
 en:
                        hello: "hello world!"
@@ -958,13 +638,6 @@ ja:
 </i18n>
 
 =====================================output=====================================
-<i18n>
-  en:
-    hello: "hello world!"
-  ja:
-    hello: "こんにちは、世界！"
-</i18n>
-
 <i18n lang="yaml">
   en:
     hello: "hello world!"

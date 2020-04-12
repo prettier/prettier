@@ -108,16 +108,6 @@ function embed(path, print, textToDoc, options) {
           } catch (error) {
             // Do nothing
           }
-        } else {
-          const parsers = ["json", "yaml", "graphql"];
-          for (let i = 0; i < parsers.length && !printed; i++) {
-            const parser = parsers[i];
-            try {
-              printed = textToDoc(node.value, { parser });
-            } catch (error) {
-              // Do nothing
-            }
-          }
         }
         if (printed == null) {
           printed = node.value;

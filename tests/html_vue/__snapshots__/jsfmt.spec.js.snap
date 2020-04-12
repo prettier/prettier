@@ -897,8 +897,8 @@ trailingComma: "none"
 =====================================output=====================================
 <i18n>
 en:
-  one: One
-  two: Two
+    one: One
+    two: Two
 </i18n>
 
 <html>
@@ -926,8 +926,8 @@ printWidth: 80
 =====================================output=====================================
 <i18n>
 en:
-  one: One
-  two: Two
+    one: One
+    two: Two
 </i18n>
 
 <html>
@@ -956,8 +956,8 @@ semi: false
 =====================================output=====================================
 <i18n>
 en:
-  one: One
-  two: Two
+    one: One
+    two: Two
 </i18n>
 
 <html>
