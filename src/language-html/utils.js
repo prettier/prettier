@@ -344,69 +344,66 @@ function hasNonTextChild(node) {
   return node.children && node.children.some((child) => child.type !== "text");
 }
 
+function _inferScriptParser(node) {
+  const { type, lang } = node.attrMap;
+  if (
+    type === "module" ||
+    type === "text/javascript" ||
+    type === "text/babel" ||
+    type === "application/javascript" ||
+    lang === "jsx"
+  ) {
+    return "babel";
+  }
+
+  if (type === "application/x-typescript" || lang === "ts" || lang === "tsx") {
+    return "typescript";
+  }
+
+  if (type === "text/markdown") {
+    return "markdown";
+  }
+
+  if (type && (type.endsWith("json") || type.endsWith("importmap"))) {
+    return "json";
+  }
+
+  if (type === "text/x-handlebars-template") {
+    return "glimmer";
+  }
+}
+
+function inferStyleParser(node) {
+  const { lang } = node.attrMap;
+  if (lang === "postcss" || lang === "css") {
+    return "css";
+  }
+
+  if (lang === "scss") {
+    return "scss";
+  }
+
+  if (lang === "less") {
+    return "less";
+  }
+}
+
 function inferScriptParser(node, options) {
   if (node.name === "script" && !node.attrMap.src) {
-    if (
-      (!node.attrMap.lang && !node.attrMap.type) ||
-      node.attrMap.type === "module" ||
-      node.attrMap.type === "text/javascript" ||
-      node.attrMap.type === "text/babel" ||
-      node.attrMap.type === "application/javascript" ||
-      node.attrMap.lang === "jsx"
-    ) {
+    if (!node.attrMap.lang && !node.attrMap.type) {
       return "babel";
     }
-
-    if (
-      node.attrMap.type === "application/x-typescript" ||
-      node.attrMap.lang === "ts" ||
-      node.attrMap.lang === "tsx"
-    ) {
-      return "typescript";
-    }
-
-    if (node.attrMap.type === "text/markdown") {
-      return "markdown";
-    }
-
-    if (
-      node.attrMap.type.endsWith("json") ||
-      node.attrMap.type.endsWith("importmap")
-    ) {
-      return "json";
-    }
-
-    if (node.attrMap.type === "text/x-handlebars-template") {
-      return "glimmer";
-    }
+    return _inferScriptParser(node);
   }
 
   if (node.name === "style") {
-    if (
-      !node.attrMap.lang ||
-      node.attrMap.lang === "postcss" ||
-      node.attrMap.lang === "css"
-    ) {
-      return "css";
-    }
-
-    if (node.attrMap.lang === "scss") {
-      return "scss";
-    }
-
-    if (node.attrMap.lang === "less") {
-      return "less";
-    }
+    return inferStyleParser(node) || "css";
   }
 
   if (options && isCustomBlock(node, options)) {
-    const { lang, type } = node.attrMap;
-    if (type) {
-      if (type.endsWith("json")) {
-        return "json";
-      }
-    }
-    return lang;
+    return (
+      _inferScriptParser(node) || inferStyleParser(node) || node.attrMap.lang
+    );
   }
 
   return null;

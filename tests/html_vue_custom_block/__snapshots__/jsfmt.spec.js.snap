@@ -143,6 +143,81 @@ query { posts: allWordPressPost {
 ================================================================================
 `;
 
+exports[`handlebars.vue format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+<custom type="text/x-handlebars-template">
+Handlebars <b>{{     doesWhat}}</b>
+</custom>
+
+=====================================output=====================================
+<custom type="text/x-handlebars-template">
+Handlebars <b>{{ doesWhat }}</b>
+</custom>
+
+================================================================================
+`;
+
+exports[`handlebars.vue format 2`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<custom type="text/x-handlebars-template">
+Handlebars <b>{{     doesWhat}}</b>
+</custom>
+
+=====================================output=====================================
+<custom type="text/x-handlebars-template">
+Handlebars <b>{{ doesWhat }}</b>
+</custom>
+
+================================================================================
+`;
+
+exports[`handlebars.vue format 3`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+<custom type="text/x-handlebars-template">
+Handlebars <b>{{     doesWhat}}</b>
+</custom>
+
+=====================================output=====================================
+<custom type="text/x-handlebars-template">
+Handlebars <b>{{ doesWhat }}</b>
+</custom>
+
+================================================================================
+`;
+
+exports[`handlebars.vue format 4`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+vueIndentScriptAndStyle: true
+                                                                                | printWidth
+=====================================input======================================
+<custom type="text/x-handlebars-template">
+Handlebars <b>{{     doesWhat}}</b>
+</custom>
+
+=====================================output=====================================
+<custom type="text/x-handlebars-template">
+  Handlebars <b>{{ doesWhat }}</b>
+</custom>
+
+================================================================================
+`;
+
 exports[`json.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
@@ -374,6 +449,249 @@ vueIndentScriptAndStyle: true
     }
   }
 </i18n>
+
+================================================================================
+`;
+
+exports[`markdown.vue format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+<docs lang="markdown">
+# Foo
+- bar
+- baz
+
+| Age | Time | Food | Gold | Requirement |
+  | ------------ | ----- | ---- | ---- | ----------------------- |
+  | Feudal Age | 02:10 | 500 | 0 | Dark Age building x 2 |
+  | Castle Age | 02:40 | 800 | 200 |- |
+  | Imperial Age | 03:30 | 1000 | 800 | Castle Age building x 2 |
+</docs>
+
+<docs type="text/markdown">
+# Foo
+- bar
+- baz
+
+| Age | Time | Food | Gold | Requirement |
+  | ------------ | ----- | ---- | ---- | ----------------------- |
+  | Feudal Age | 02:10 | 500 | 0 | Dark Age building x 2 |
+  | Castle Age | 02:40 | 800 | 200 |- |
+  | Imperial Age | 03:30 | 1000 | 800 | Castle Age building x 2 |
+</docs>
+
+=====================================output=====================================
+<docs lang="markdown">
+# Foo
+
+- bar
+- baz
+
+| Age          | Time  | Food | Gold | Requirement             |
+| ------------ | ----- | ---- | ---- | ----------------------- |
+| Feudal Age   | 02:10 | 500  | 0    | Dark Age building x 2   |
+| Castle Age   | 02:40 | 800  | 200  | -                       |
+| Imperial Age | 03:30 | 1000 | 800  | Castle Age building x 2 |
+</docs>
+
+<docs type="text/markdown">
+# Foo
+
+- bar
+- baz
+
+| Age          | Time  | Food | Gold | Requirement             |
+| ------------ | ----- | ---- | ---- | ----------------------- |
+| Feudal Age   | 02:10 | 500  | 0    | Dark Age building x 2   |
+| Castle Age   | 02:40 | 800  | 200  | -                       |
+| Imperial Age | 03:30 | 1000 | 800  | Castle Age building x 2 |
+</docs>
+
+================================================================================
+`;
+
+exports[`markdown.vue format 2`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<docs lang="markdown">
+# Foo
+- bar
+- baz
+
+| Age | Time | Food | Gold | Requirement |
+  | ------------ | ----- | ---- | ---- | ----------------------- |
+  | Feudal Age | 02:10 | 500 | 0 | Dark Age building x 2 |
+  | Castle Age | 02:40 | 800 | 200 |- |
+  | Imperial Age | 03:30 | 1000 | 800 | Castle Age building x 2 |
+</docs>
+
+<docs type="text/markdown">
+# Foo
+- bar
+- baz
+
+| Age | Time | Food | Gold | Requirement |
+  | ------------ | ----- | ---- | ---- | ----------------------- |
+  | Feudal Age | 02:10 | 500 | 0 | Dark Age building x 2 |
+  | Castle Age | 02:40 | 800 | 200 |- |
+  | Imperial Age | 03:30 | 1000 | 800 | Castle Age building x 2 |
+</docs>
+
+=====================================output=====================================
+<docs lang="markdown">
+# Foo
+
+- bar
+- baz
+
+| Age          | Time  | Food | Gold | Requirement             |
+| ------------ | ----- | ---- | ---- | ----------------------- |
+| Feudal Age   | 02:10 | 500  | 0    | Dark Age building x 2   |
+| Castle Age   | 02:40 | 800  | 200  | -                       |
+| Imperial Age | 03:30 | 1000 | 800  | Castle Age building x 2 |
+</docs>
+
+<docs type="text/markdown">
+# Foo
+
+- bar
+- baz
+
+| Age          | Time  | Food | Gold | Requirement             |
+| ------------ | ----- | ---- | ---- | ----------------------- |
+| Feudal Age   | 02:10 | 500  | 0    | Dark Age building x 2   |
+| Castle Age   | 02:40 | 800  | 200  | -                       |
+| Imperial Age | 03:30 | 1000 | 800  | Castle Age building x 2 |
+</docs>
+
+================================================================================
+`;
+
+exports[`markdown.vue format 3`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+<docs lang="markdown">
+# Foo
+- bar
+- baz
+
+| Age | Time | Food | Gold | Requirement |
+  | ------------ | ----- | ---- | ---- | ----------------------- |
+  | Feudal Age | 02:10 | 500 | 0 | Dark Age building x 2 |
+  | Castle Age | 02:40 | 800 | 200 |- |
+  | Imperial Age | 03:30 | 1000 | 800 | Castle Age building x 2 |
+</docs>
+
+<docs type="text/markdown">
+# Foo
+- bar
+- baz
+
+| Age | Time | Food | Gold | Requirement |
+  | ------------ | ----- | ---- | ---- | ----------------------- |
+  | Feudal Age | 02:10 | 500 | 0 | Dark Age building x 2 |
+  | Castle Age | 02:40 | 800 | 200 |- |
+  | Imperial Age | 03:30 | 1000 | 800 | Castle Age building x 2 |
+</docs>
+
+=====================================output=====================================
+<docs lang="markdown">
+# Foo
+
+- bar
+- baz
+
+| Age          | Time  | Food | Gold | Requirement             |
+| ------------ | ----- | ---- | ---- | ----------------------- |
+| Feudal Age   | 02:10 | 500  | 0    | Dark Age building x 2   |
+| Castle Age   | 02:40 | 800  | 200  | -                       |
+| Imperial Age | 03:30 | 1000 | 800  | Castle Age building x 2 |
+</docs>
+
+<docs type="text/markdown">
+# Foo
+
+- bar
+- baz
+
+| Age          | Time  | Food | Gold | Requirement             |
+| ------------ | ----- | ---- | ---- | ----------------------- |
+| Feudal Age   | 02:10 | 500  | 0    | Dark Age building x 2   |
+| Castle Age   | 02:40 | 800  | 200  | -                       |
+| Imperial Age | 03:30 | 1000 | 800  | Castle Age building x 2 |
+</docs>
+
+================================================================================
+`;
+
+exports[`markdown.vue format 4`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+vueIndentScriptAndStyle: true
+                                                                                | printWidth
+=====================================input======================================
+<docs lang="markdown">
+# Foo
+- bar
+- baz
+
+| Age | Time | Food | Gold | Requirement |
+  | ------------ | ----- | ---- | ---- | ----------------------- |
+  | Feudal Age | 02:10 | 500 | 0 | Dark Age building x 2 |
+  | Castle Age | 02:40 | 800 | 200 |- |
+  | Imperial Age | 03:30 | 1000 | 800 | Castle Age building x 2 |
+</docs>
+
+<docs type="text/markdown">
+# Foo
+- bar
+- baz
+
+| Age | Time | Food | Gold | Requirement |
+  | ------------ | ----- | ---- | ---- | ----------------------- |
+  | Feudal Age | 02:10 | 500 | 0 | Dark Age building x 2 |
+  | Castle Age | 02:40 | 800 | 200 |- |
+  | Imperial Age | 03:30 | 1000 | 800 | Castle Age building x 2 |
+</docs>
+
+=====================================output=====================================
+<docs lang="markdown">
+  # Foo
+
+  - bar
+  - baz
+
+  | Age          | Time  | Food | Gold | Requirement             |
+  | ------------ | ----- | ---- | ---- | ----------------------- |
+  | Feudal Age   | 02:10 | 500  | 0    | Dark Age building x 2   |
+  | Castle Age   | 02:40 | 800  | 200  | -                       |
+  | Imperial Age | 03:30 | 1000 | 800  | Castle Age building x 2 |
+</docs>
+
+<docs type="text/markdown">
+  # Foo
+
+  - bar
+  - baz
+
+  | Age          | Time  | Food | Gold | Requirement             |
+  | ------------ | ----- | ---- | ---- | ----------------------- |
+  | Feudal Age   | 02:10 | 500  | 0    | Dark Age building x 2   |
+  | Castle Age   | 02:40 | 800  | 200  | -                       |
+  | Imperial Age | 03:30 | 1000 | 800  | Castle Age building x 2 |
+</docs>
 
 ================================================================================
 `;
