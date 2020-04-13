@@ -88,7 +88,8 @@ function runPrettier(dir, args, options) {
     .mockImplementation(() => SynchronousPromise.resolve(options.input || ""));
   jest
     .spyOn(require(thirdParty), "isCI")
-    .mockImplementation(() => process.env.CI);
+    // [prettierx] quick CI workaround:
+    .mockImplementation(() => !!options.test_ci);
   jest
     .spyOn(require(thirdParty), "cosmiconfig")
     .mockImplementation((moduleName, options) =>
