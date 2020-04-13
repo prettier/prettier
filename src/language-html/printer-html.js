@@ -112,7 +112,12 @@ function embed(path, print, textToDoc, options) {
         if (printed == null) {
           printed = node.value;
         }
-        return stripTrailingHardline(printed, true);
+        return concat([
+          breakParent,
+          printOpeningTagPrefix(node),
+          stripTrailingHardline(printed, true),
+          printClosingTagSuffix(node),
+        ]);
       }
       break;
     }
