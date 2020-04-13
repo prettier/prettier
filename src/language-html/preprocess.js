@@ -443,8 +443,14 @@ function addIsSpaceSensitive(ast, options) {
         .map((child) => {
           return {
             ...child,
-            isLeadingSpaceSensitive: isLeadingSpaceSensitiveNode(child, options),
-            isTrailingSpaceSensitive: isTrailingSpaceSensitiveNode(child, options),
+            isLeadingSpaceSensitive: isLeadingSpaceSensitiveNode(
+              child,
+              options
+            ),
+            isTrailingSpaceSensitive: isTrailingSpaceSensitiveNode(
+              child,
+              options
+            ),
           };
         })
         .map((child, index, children) => ({
