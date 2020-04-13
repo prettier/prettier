@@ -6,6 +6,7 @@ const {
   CSS_WHITE_SPACE_TAGS,
   CSS_WHITE_SPACE_DEFAULT,
 } = require("./constants.evaluate");
+const { getParserName } = require("../common/util");
 
 const htmlTagNames = require("html-tag-names");
 const htmlElementAttributes = require("html-element-attributes");
@@ -402,7 +403,9 @@ function inferScriptParser(node, options) {
 
   if (options && isVueCustomBlock(node, options)) {
     return (
-      _inferScriptParser(node) || inferStyleParser(node) || node.attrMap.lang
+      _inferScriptParser(node) ||
+      inferStyleParser(node) ||
+      getParserName(node.attrMap.lang, options)
     );
   }
 
