@@ -186,8 +186,8 @@ function getInnerParts(doc) {
   let { parts } = doc;
   let lastPart;
   // Avoid a falsy element like ""
-  for (let i = 0; i < doc.parts.length && !lastPart; i++) {
-    lastPart = parts[parts.length - (i + 1)];
+  for (let i = doc.parts.length; i > 0 && !lastPart; i--) {
+    lastPart = parts[i - 1];
   }
   if (lastPart.type === "group") {
     parts = lastPart.contents.parts;
