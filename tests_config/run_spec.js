@@ -56,7 +56,7 @@ global.run_spec = (dirname, parsers, options) => {
     "parser-inference"
   );
 
-  // `IS_ERROR_TEST` mean to watch errors like:
+  // `IS_ERROR_TESTS` mean to watch errors like:
   // - syntax parser hasn't supported yet
   // - syntax errors that should throws
   const IS_ERROR_TESTS = isTestDirectory(dirname, "errors");
