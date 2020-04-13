@@ -145,7 +145,7 @@ function isIndentationSensitiveNode(node) {
   return getNodeCssStyleWhiteSpace(node).startsWith("pre");
 }
 
-function isLeadingSpaceSensitiveNode(node) {
+function isLeadingSpaceSensitiveNode(node, options) {
   const isLeadingSpaceSensitive = _isLeadingSpaceSensitiveNode();
 
   if (
@@ -186,6 +186,7 @@ function isLeadingSpaceSensitiveNode(node) {
       (node.parent.type === "root" ||
         (isPreLikeNode(node) && node.parent) ||
         isScriptLikeTag(node.parent) ||
+        isVueCustomBlock(node.parent, options) ||
         !isFirstChildLeadingSpaceSensitiveCssDisplay(node.parent.cssDisplay))
     ) {
       return false;
@@ -202,7 +203,7 @@ function isLeadingSpaceSensitiveNode(node) {
   }
 }
 
-function isTrailingSpaceSensitiveNode(node) {
+function isTrailingSpaceSensitiveNode(node, options) {
   if (isFrontMatterNode(node)) {
     return false;
   }
@@ -228,6 +229,7 @@ function isTrailingSpaceSensitiveNode(node) {
     (node.parent.type === "root" ||
       (isPreLikeNode(node) && node.parent) ||
       isScriptLikeTag(node.parent) ||
+      isVueCustomBlock(node.parent, options) ||
       !isLastChildTrailingSpaceSensitiveCssDisplay(node.parent.cssDisplay))
   ) {
     return false;

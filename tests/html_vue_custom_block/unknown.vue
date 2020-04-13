@@ -13,3 +13,7 @@ const foo =
 
      "foo";
 </custom>
+
+<custom lang="zzz">
+const foo = "foo";
+  const foo = "foo";</custom>

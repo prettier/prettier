@@ -251,6 +251,15 @@ trailingComma: "none"
 }
 </i18n>
 
+<custom lang="json">{
+  "a": 1
+}</custom>
+
+<custom lang="json">{
+  "a": 1
+}
+</custom>
+
 =====================================output=====================================
 <i18n lang="json">
 {
@@ -273,6 +282,18 @@ trailingComma: "none"
   }
 }
 </i18n>
+
+<custom lang="json">
+{
+  "a": 1
+}
+</custom>
+
+<custom lang="json">
+{
+  "a": 1
+}
+</custom>
 
 ================================================================================
 `;
@@ -309,6 +330,15 @@ printWidth: 80
 }
 </i18n>
 
+<custom lang="json">{
+  "a": 1
+}</custom>
+
+<custom lang="json">{
+  "a": 1
+}
+</custom>
+
 =====================================output=====================================
 <i18n lang="json">
 {
@@ -331,6 +361,18 @@ printWidth: 80
   }
 }
 </i18n>
+
+<custom lang="json">
+{
+  "a": 1
+}
+</custom>
+
+<custom lang="json">
+{
+  "a": 1
+}
+</custom>
 
 ================================================================================
 `;
@@ -368,6 +410,15 @@ semi: false
 }
 </i18n>
 
+<custom lang="json">{
+  "a": 1
+}</custom>
+
+<custom lang="json">{
+  "a": 1
+}
+</custom>
+
 =====================================output=====================================
 <i18n lang="json">
 {
@@ -390,6 +441,18 @@ semi: false
   }
 }
 </i18n>
+
+<custom lang="json">
+{
+  "a": 1
+}
+</custom>
+
+<custom lang="json">
+{
+  "a": 1
+}
+</custom>
 
 ================================================================================
 `;
@@ -427,6 +490,15 @@ vueIndentScriptAndStyle: true
 }
 </i18n>
 
+<custom lang="json">{
+  "a": 1
+}</custom>
+
+<custom lang="json">{
+  "a": 1
+}
+</custom>
+
 =====================================output=====================================
 <i18n lang="json">
   {
@@ -449,6 +521,18 @@ vueIndentScriptAndStyle: true
     }
   }
 </i18n>
+
+<custom lang="json">
+  {
+    "a": 1
+  }
+</custom>
+
+<custom lang="json">
+  {
+    "a": 1
+  }
+</custom>
 
 ================================================================================
 `;
@@ -719,6 +803,10 @@ const foo =
      "foo";
 </custom>
 
+<custom lang="zzz">
+const foo = "foo";
+  const foo = "foo";</custom>
+
 =====================================output=====================================
 <i18n lang="foooo">
 {"en": {
@@ -734,6 +822,11 @@ const foo =
 
 
      "foo";
+</custom>
+
+<custom lang="zzz">
+const foo = "foo";
+  const foo = "foo";
 </custom>
 
 ================================================================================
@@ -761,6 +854,10 @@ const foo =
      "foo";
 </custom>
 
+<custom lang="zzz">
+const foo = "foo";
+  const foo = "foo";</custom>
+
 =====================================output=====================================
 <i18n lang="foooo">
 {"en": {
@@ -776,6 +873,11 @@ const foo =
 
 
      "foo";
+</custom>
+
+<custom lang="zzz">
+const foo = "foo";
+  const foo = "foo";
 </custom>
 
 ================================================================================
@@ -804,6 +906,10 @@ const foo =
      "foo";
 </custom>
 
+<custom lang="zzz">
+const foo = "foo";
+  const foo = "foo";</custom>
+
 =====================================output=====================================
 <i18n lang="foooo">
 {"en": {
@@ -819,6 +925,11 @@ const foo =
 
 
      "foo";
+</custom>
+
+<custom lang="zzz">
+const foo = "foo";
+  const foo = "foo";
 </custom>
 
 ================================================================================
@@ -847,6 +958,10 @@ const foo =
      "foo";
 </custom>
 
+<custom lang="zzz">
+const foo = "foo";
+  const foo = "foo";</custom>
+
 =====================================output=====================================
 <i18n lang="foooo">
 {"en": {
@@ -862,6 +977,11 @@ const foo =
 
 
      "foo";
+</custom>
+
+<custom lang="zzz">
+const foo = "foo";
+  const foo = "foo";
 </custom>
 
 ================================================================================

@@ -23,3 +23,12 @@
   }
 }
 </i18n>
+
+<custom lang="json">{
+  "a": 1
+}</custom>
+
+<custom lang="json">{
+  "a": 1
+}
+</custom>
