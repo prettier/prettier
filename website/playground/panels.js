@@ -21,6 +21,10 @@ class CodeMirrorPanel extends React.Component {
 
     options.rulers = [makeRuler(this.props)];
 
+    if (options.foldGutter) {
+      options.gutters = ["CodeMirror-linenumbers", "CodeMirror-foldgutter"];
+    }
+
     this._codeMirror = CodeMirror.fromTextArea(
       this._textareaRef.current,
       options
@@ -181,6 +185,7 @@ export function DebugPanel({ value }) {
     <CodeMirrorPanel
       readOnly={true}
       lineNumbers={false}
+      foldGutter={true}
       mode="jsx"
       value={value}
     />
