@@ -113,7 +113,7 @@ function embed(path, print, textToDoc, options) {
           printed = node.value;
         }
         return concat([
-          breakParent,
+          parser ? breakParent : "",
           printOpeningTagPrefix(node),
           stripTrailingHardline(printed, true),
           printClosingTagSuffix(node),

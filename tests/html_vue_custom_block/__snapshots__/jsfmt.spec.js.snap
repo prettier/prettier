@@ -886,6 +886,12 @@ const foo =
 const foo = "foo";
   const foo = "foo";</custom>
 
+<custom lang="zzz">123</custom>
+
+<custom>{
+     foo: "bar"
+}</custom>
+
 =====================================output=====================================
 <i18n lang="foooo">
 {"en": {
@@ -907,6 +913,12 @@ const foo =
 const foo = "foo";
   const foo = "foo";
 </custom>
+
+<custom lang="zzz">123</custom>
+
+<custom>{
+     foo: "bar"
+}</custom>
 
 ================================================================================
 `;
@@ -937,6 +949,12 @@ const foo =
 const foo = "foo";
   const foo = "foo";</custom>
 
+<custom lang="zzz">123</custom>
+
+<custom>{
+     foo: "bar"
+}</custom>
+
 =====================================output=====================================
 <i18n lang="foooo">
 {"en": {
@@ -958,6 +976,12 @@ const foo =
 const foo = "foo";
   const foo = "foo";
 </custom>
+
+<custom lang="zzz">123</custom>
+
+<custom>{
+     foo: "bar"
+}</custom>
 
 ================================================================================
 `;
@@ -989,6 +1013,12 @@ const foo =
 const foo = "foo";
   const foo = "foo";</custom>
 
+<custom lang="zzz">123</custom>
+
+<custom>{
+     foo: "bar"
+}</custom>
+
 =====================================output=====================================
 <i18n lang="foooo">
 {"en": {
@@ -1010,6 +1040,12 @@ const foo =
 const foo = "foo";
   const foo = "foo";
 </custom>
+
+<custom lang="zzz">123</custom>
+
+<custom>{
+     foo: "bar"
+}</custom>
 
 ================================================================================
 `;
@@ -1041,6 +1077,12 @@ const foo =
 const foo = "foo";
   const foo = "foo";</custom>
 
+<custom lang="zzz">123</custom>
+
+<custom>{
+     foo: "bar"
+}</custom>
+
 =====================================output=====================================
 <i18n lang="foooo">
 {"en": {
@@ -1062,6 +1104,12 @@ const foo =
 const foo = "foo";
   const foo = "foo";
 </custom>
+
+<custom lang="zzz">123</custom>
+
+<custom>{
+     foo: "bar"
+}</custom>
 
 ================================================================================
 `;
