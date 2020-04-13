@@ -30,7 +30,7 @@ const {
   getPrettierIgnoreAttributeCommentData,
   hasPrettierIgnore,
   inferScriptParser,
-  isCustomBlock,
+  isVueCustomBlock,
   isScriptLikeTag,
   isTextLikeNode,
   normalizeParts,
@@ -99,7 +99,7 @@ function embed(path, print, textToDoc, options) {
             ? " "
             : line,
         ]);
-      } else if (isCustomBlock(node.parent, options)) {
+      } else if (isVueCustomBlock(node.parent, options)) {
         const parser = inferScriptParser(node.parent, options);
         let printed;
         if (parser) {
@@ -241,7 +241,7 @@ function genericPrint(path, options, print) {
                           groupId: attrGroupId,
                         })
                       : (isScriptLikeTag(node) ||
-                          isCustomBlock(node, options)) &&
+                          isVueCustomBlock(node, options)) &&
                         node.parent.type === "root" &&
                         options.parser === "vue" &&
                         !options.vueIndentScriptAndStyle

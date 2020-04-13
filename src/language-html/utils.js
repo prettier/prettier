@@ -400,7 +400,7 @@ function inferScriptParser(node, options) {
     return inferStyleParser(node) || "css";
   }
 
-  if (options && isCustomBlock(node, options)) {
+  if (options && isVueCustomBlock(node, options)) {
     return (
       _inferScriptParser(node) || inferStyleParser(node) || node.attrMap.lang
     );
@@ -617,7 +617,7 @@ function unescapeQuoteEntities(text) {
 
 // top-level elements (excluding <template>, <style> and <script>) in Vue SFC are considered custom block
 const rootElementsSet = new Set(["template", "style", "script", "html"]);
-function isCustomBlock(node, options) {
+function isVueCustomBlock(node, options) {
   return (
     options.parser === "vue" &&
     node.type === "element" &&
@@ -643,7 +643,7 @@ module.exports = {
   hasPrettierIgnore,
   identity,
   inferScriptParser,
-  isCustomBlock,
+  isVueCustomBlock,
   isDanglingSpaceSensitiveNode,
   isFrontMatterNode,
   isIndentationSensitiveNode,
