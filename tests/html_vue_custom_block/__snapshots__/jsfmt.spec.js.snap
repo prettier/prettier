@@ -849,7 +849,7 @@ const foo =
 
 =====================================output=====================================
 <i18n lang="foooo">
-  {"en": {
+{"en": {
     "hello": "hello world!"
   }, "ja": {
     "hello": "こんにちは、世界！"
@@ -858,7 +858,7 @@ const foo =
 </i18n>
 
 <custom>
-  const foo =
+const foo =
 
 
      "foo";

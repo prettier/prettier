@@ -240,11 +240,13 @@ function genericPrint(path, options, print) {
                       ? ifBreak(indent(childrenDoc), childrenDoc, {
                           groupId: attrGroupId,
                         })
-                      : (isScriptLikeTag(node) ||
+                      : ((isScriptLikeTag(node) ||
                           isVueCustomBlock(node, options)) &&
-                        node.parent.type === "root" &&
-                        options.parser === "vue" &&
-                        !options.vueIndentScriptAndStyle
+                          node.parent.type === "root" &&
+                          options.parser === "vue" &&
+                          !options.vueIndentScriptAndStyle) ||
+                        (isVueCustomBlock(node, options) &&
+                          !inferScriptParser(node, options))
                       ? childrenDoc
                       : indent(childrenDoc))(
                     concat([
