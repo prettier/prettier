@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`prettier-ignore.hbs 1`] = `
+exports[`prettier-ignore.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -76,7 +76,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`prettier-ignore.hbs 2`] = `
+exports[`prettier-ignore.hbs format 2`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80

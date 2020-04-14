@@ -81,7 +81,7 @@ function genericPrint(path, options, print) {
       return printChildren(path, options, print);
     case "word":
       return node.value
-        .replace(/[*$]/g, "\\$&") // escape all `*` and `$` (math)
+        .replace(/[$*]/g, "\\$&") // escape all `*` and `$` (math)
         .replace(
           new RegExp(
             [
@@ -103,7 +103,7 @@ function genericPrint(path, options, print) {
 
       const proseWrap =
         // leading char that may cause different syntax
-        nextNode && /^>|^([-+*]|#{1,6}|[0-9]+[.)])$/.test(nextNode.value)
+        nextNode && /^>|^([*+-]|#{1,6}|\d+[).])$/.test(nextNode.value)
           ? "never"
           : options.proseWrap;
 
@@ -236,7 +236,7 @@ function genericPrint(path, options, print) {
         privateUtil.getLast(parentNode.children) === node
           ? node.value.trimEnd()
           : node.value;
-      const isHtmlComment = /^<!--[\s\S]*-->$/.test(value);
+      const isHtmlComment = /^<!--[\S\s]*-->$/.test(value);
       return concat(
         replaceEndOfLineWith(
           value,
@@ -951,7 +951,7 @@ function clean(ast, newObj, parent) {
   }
 
   if (ast.type === "inlineCode") {
-    newObj.value = ast.value.replace(/[ \t\n]+/g, " ");
+    newObj.value = ast.value.replace(/[\t\n ]+/g, " ");
   }
 
   // for insert pragma

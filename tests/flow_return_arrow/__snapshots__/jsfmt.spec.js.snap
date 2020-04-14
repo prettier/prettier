@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`in_object_type.js 1`] = `
+exports[`in_object_type.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -68,7 +68,7 @@ const example17 = (): (?{ p: (string) => string }) => (0: any);
 ================================================================================
 `;
 
-exports[`issue-1249.js 1`] = `
+exports[`issue-1249.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -122,7 +122,7 @@ type X = (a & b) => void;
 ================================================================================
 `;
 
-exports[`parens.js 1`] = `
+exports[`parens.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

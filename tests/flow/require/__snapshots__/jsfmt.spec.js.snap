@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`B.js 1`] = `
+exports[`B.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -18,7 +18,7 @@ exports.numberValue = 42;
 ================================================================================
 `;
 
-exports[`C.js 1`] = `
+exports[`C.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -32,7 +32,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`E.js 1`] = `
+exports[`E.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -64,7 +64,7 @@ exports = { stringValue: "" };
 ================================================================================
 `;
 
-exports[`ProvidesModuleA.js 1`] = `
+exports[`ProvidesModuleA.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -88,7 +88,7 @@ exports.numberValue = 42;
 ================================================================================
 `;
 
-exports[`ProvidesModuleD.js 1`] = `
+exports[`ProvidesModuleD.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -108,7 +108,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`not_builtin_require.js 1`] = `
+exports[`not_builtin_require.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -128,7 +128,7 @@ require("not a module name");
 ================================================================================
 `;
 
-exports[`not_builtin_require2.js 1`] = `
+exports[`not_builtin_require2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -148,7 +148,7 @@ var a: require = 42;
 ================================================================================
 `;
 
-exports[`require.js 1`] = `
+exports[`require.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

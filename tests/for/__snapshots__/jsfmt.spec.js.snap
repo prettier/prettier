@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comment.js 1`] = `
+exports[`comment.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -74,7 +74,7 @@ for (x of y);
 ================================================================================
 `;
 
-exports[`for.js 1`] = `
+exports[`for.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -96,7 +96,7 @@ for (var i = 0; i < 10; ++i) 0;
 ================================================================================
 `;
 
-exports[`in.js 1`] = `
+exports[`in.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -132,7 +132,7 @@ for (a in b) 0;
 ================================================================================
 `;
 
-exports[`var.js 1`] = `
+exports[`var.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80

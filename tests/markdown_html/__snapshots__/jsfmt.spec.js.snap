@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`beginning-tag-after-a-list-item.md 1`] = `
+exports[`beginning-tag-after-a-list-item.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -49,7 +49,7 @@ quoted sentence2</p>
 ================================================================================
 `;
 
-exports[`blank-line-between-htmls.md 1`] = `
+exports[`blank-line-between-htmls.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -68,7 +68,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`multiline.md 1`] = `
+exports[`multiline.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -127,7 +127,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`multiline-with-trailing-space.md 1`] = `
+exports[`multiline-with-trailing-space.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -186,7 +186,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`simple.md 1`] = `
+exports[`simple.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80

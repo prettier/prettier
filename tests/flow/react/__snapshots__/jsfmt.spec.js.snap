@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ArityError.react.js 1`] = `
+exports[`ArityError.react.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -34,7 +34,7 @@ module.exports = AudienceInsightsContainer;
 ================================================================================
 `;
 
-exports[`create_class.js 1`] = `
+exports[`create_class.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -398,7 +398,7 @@ React.createClass(({}: {})); // error: spec must be [ ] exact and [x] sealed
 ================================================================================
 `;
 
-exports[`create_class_initial_state_sealed.js 1`] = `
+exports[`create_class_initial_state_sealed.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -586,7 +586,7 @@ React.createClass({
 ================================================================================
 `;
 
-exports[`create_class_statics_sealed.js 1`] = `
+exports[`create_class_statics_sealed.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -710,7 +710,7 @@ F.baz = 0;
 ================================================================================
 `;
 
-exports[`createElement_string.js 1`] = `
+exports[`createElement_string.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -744,7 +744,7 @@ class Foo extends React.Component {
 ================================================================================
 `;
 
-exports[`createElementRequiredProp_string.js 1`] = `
+exports[`createElementRequiredProp_string.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -796,7 +796,7 @@ class Foo extends React.Component {
 ================================================================================
 `;
 
-exports[`import_react.js 1`] = `
+exports[`import_react.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -822,7 +822,7 @@ var b: number = new react.Component(); // Error: ReactComponent ~> number
 ================================================================================
 `;
 
-exports[`jsx_spread.js 1`] = `
+exports[`jsx_spread.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -856,7 +856,7 @@ var blah = <Foo {...props} />; // error bar, number given string expected
 ================================================================================
 `;
 
-exports[`proptype_any.js 1`] = `
+exports[`proptype_any.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -906,7 +906,7 @@ var AnyFunExample = React.createClass({
 ================================================================================
 `;
 
-exports[`proptype_arrayOf.js 1`] = `
+exports[`proptype_arrayOf.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1008,7 +1008,7 @@ var InvalidExample = React.createClass({
 ================================================================================
 `;
 
-exports[`proptype_custom_validator.js 1`] = `
+exports[`proptype_custom_validator.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1056,7 +1056,7 @@ var Example = React.createClass({
 ================================================================================
 `;
 
-exports[`proptype_func.js 1`] = `
+exports[`proptype_func.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1096,7 +1096,7 @@ var fail_mistyped = <Example func={2} />;
 ================================================================================
 `;
 
-exports[`proptype_incompatible.js 1`] = `
+exports[`proptype_incompatible.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1128,7 +1128,7 @@ var Example = React.createClass({
 ================================================================================
 `;
 
-exports[`proptype_instanceOf.js 1`] = `
+exports[`proptype_instanceOf.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1226,7 +1226,7 @@ var PolyDefaultExample = React.createClass({
 ================================================================================
 `;
 
-exports[`proptype_missing.js 1`] = `
+exports[`proptype_missing.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1302,7 +1302,7 @@ var Foo = React.createClass({
 ================================================================================
 `;
 
-exports[`proptype_object.js 1`] = `
+exports[`proptype_object.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1340,7 +1340,7 @@ var fail_mistyped = <Example object={2} />;
 ================================================================================
 `;
 
-exports[`proptype_objectOf.js 1`] = `
+exports[`proptype_objectOf.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1442,7 +1442,7 @@ var InvalidExample = React.createClass({
 ================================================================================
 `;
 
-exports[`proptype_oneOf.js 1`] = `
+exports[`proptype_oneOf.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1628,7 +1628,7 @@ var NonLiteralElemExample = React.createClass({
 ================================================================================
 `;
 
-exports[`proptype_oneOfType.js 1`] = `
+exports[`proptype_oneOfType.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1841,7 +1841,7 @@ var InvalidElemExample = React.createClass({
 ================================================================================
 `;
 
-exports[`proptype_shape.js 1`] = `
+exports[`proptype_shape.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1923,7 +1923,7 @@ React.createClass({
 ================================================================================
 `;
 
-exports[`proptypes_builtins.js 1`] = `
+exports[`proptypes_builtins.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1989,7 +1989,7 @@ type NoFun = (mixed) => empty;
 ================================================================================
 `;
 
-exports[`proptypes_sealed.js 1`] = `
+exports[`proptypes_sealed.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

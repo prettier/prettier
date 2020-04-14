@@ -506,8 +506,13 @@ function genericPrint(path, options, print) {
         n.kind === "InterfaceTypeExtension" ? "extend " : "",
         "interface ",
         path.call(print, "name"),
+        n.interfaces.length > 0
+          ? concat([
+              " implements ",
+              concat(printInterfaces(path, options, print)),
+            ])
+          : "",
         printDirectives(path, print, n),
-
         n.fields.length > 0
           ? concat([
               " {",
@@ -657,14 +662,6 @@ function printComment(commentPath) {
   throw new Error("Not a comment: " + JSON.stringify(comment));
 }
 
-function determineInterfaceSeparatorBetween(first, second, options) {
-  const textBetween = options.originalText
-    .slice(first.loc.end, second.loc.start)
-    .replace(/#.*/g, "")
-    .trim();
-
-  return textBetween === "," ? ", " : " & ";
-}
 function printInterfaces(path, options, print) {
   const node = path.getNode();
   const parts = [];
@@ -673,18 +670,21 @@ function printInterfaces(path, options, print) {
 
   for (let index = 0; index < interfaces.length; index++) {
     const interfaceNode = interfaces[index];
-    if (index > 0) {
-      parts.push(
-        determineInterfaceSeparatorBetween(
-          interfaces[index - 1],
-          interfaceNode,
-          options
-        )
-      );
-    }
-
     parts.push(printed[index]);
+    const nextInterfaceNode = interfaces[index + 1];
+    if (nextInterfaceNode) {
+      const textBetween = options.originalText.slice(
+        interfaceNode.loc.end,
+        nextInterfaceNode.loc.start
+      );
+      const hasComment = textBetween.includes("#");
+      const separator = textBetween.replace(/#.*/g, "").trim();
+
+      parts.push(separator === "," ? "," : " &");
+      parts.push(hasComment ? line : " ");
+    }
   }
+
   return parts;
 }
 

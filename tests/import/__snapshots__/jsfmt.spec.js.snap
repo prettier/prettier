@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`brackets.js 1`] = `
+exports[`brackets.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -34,7 +34,7 @@ import { fitsIn, oneLine } from ".";
 ================================================================================
 `;
 
-exports[`brackets.js 2`] = `
+exports[`brackets.js format 2`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["flow", "typescript"]
@@ -69,7 +69,7 @@ import {fitsIn, oneLine} from ".";
 ================================================================================
 `;
 
-exports[`comments.js 1`] = `
+exports[`comments.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -173,7 +173,7 @@ import x, {
 ================================================================================
 `;
 
-exports[`comments.js 2`] = `
+exports[`comments.js format 2`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["flow", "typescript"]
@@ -278,7 +278,7 @@ import x, {
 ================================================================================
 `;
 
-exports[`empty-import.js 1`] = `
+exports[`empty-import.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -292,7 +292,7 @@ import {} from "@types/googlemaps";
 ================================================================================
 `;
 
-exports[`empty-import.js 2`] = `
+exports[`empty-import.js format 2`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["flow", "typescript"]
@@ -307,7 +307,7 @@ import {} from "@types/googlemaps";
 ================================================================================
 `;
 
-exports[`inline.js 1`] = `
+exports[`inline.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -332,7 +332,7 @@ import {
 ================================================================================
 `;
 
-exports[`inline.js 2`] = `
+exports[`inline.js format 2`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["flow", "typescript"]
@@ -358,7 +358,7 @@ import {
 ================================================================================
 `;
 
-exports[`long-line.js 1`] = `
+exports[`long-line.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -372,7 +372,7 @@ import someCoolUtilWithARatherLongName from "../../../../utils/someCoolUtilWithA
 ================================================================================
 `;
 
-exports[`long-line.js 2`] = `
+exports[`long-line.js format 2`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["flow", "typescript"]
@@ -387,7 +387,7 @@ import someCoolUtilWithARatherLongName from "../../../../utils/someCoolUtilWithA
 ================================================================================
 `;
 
-exports[`multiple_standalones.js 1`] = `
+exports[`multiple_standalones.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -401,7 +401,7 @@ import a, * as b from "a";
 ================================================================================
 `;
 
-exports[`multiple_standalones.js 2`] = `
+exports[`multiple_standalones.js format 2`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["flow", "typescript"]

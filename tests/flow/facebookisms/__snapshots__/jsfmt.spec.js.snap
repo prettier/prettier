@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Bar.js 1`] = `
+exports[`Bar.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -16,7 +16,7 @@ module.exports = Bar;
 ================================================================================
 `;
 
-exports[`copyProperties.js 1`] = `
+exports[`copyProperties.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -106,7 +106,7 @@ let tests = [
 ================================================================================
 `;
 
-exports[`invariant.js 1`] = `
+exports[`invariant.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -146,7 +146,7 @@ let tests = [
 ================================================================================
 `;
 
-exports[`lib.js 1`] = `
+exports[`lib.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -180,7 +180,7 @@ declare module "mixin" {
 ================================================================================
 `;
 
-exports[`mergeInto.js 1`] = `
+exports[`mergeInto.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -260,7 +260,7 @@ let tests = [
 ================================================================================
 `;
 
-exports[`test.js 1`] = `
+exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

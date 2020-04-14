@@ -52,7 +52,7 @@ function splitText(text, options) {
     ? text
     : text.replace(new RegExp(`(${cjkPattern})\n(${cjkPattern})`, "g"), "$1$2")
   )
-    .split(/([ \t\n]+)/)
+    .split(/([\t\n ]+)/)
     .forEach((token, index, tokens) => {
       // whitespace
       if (index % 2 === 1) {

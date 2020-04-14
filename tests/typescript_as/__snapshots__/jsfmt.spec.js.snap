@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`as.ts 1`] = `
+exports[`as.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -116,7 +116,7 @@ const iter2 = createIterator(
 ================================================================================
 `;
 
-exports[`assignment.ts 1`] = `
+exports[`assignment.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -188,7 +188,7 @@ this.intervalID = (setInterval(() => {
 ================================================================================
 `;
 
-exports[`assignment2.ts 1`] = `
+exports[`assignment2.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -258,7 +258,7 @@ const originalPrototype = originalConstructor.prototype as TComponent &
 ================================================================================
 `;
 
-exports[`export_default_as.ts 1`] = `
+exports[`export_default_as.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -272,7 +272,7 @@ export default (function log() {} as typeof console.log);
 ================================================================================
 `;
 
-exports[`long-identifiers.ts 1`] = `
+exports[`long-identifiers.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -310,7 +310,7 @@ averredBathersBoxroomBuggyNurl(
 ================================================================================
 `;
 
-exports[`return.ts 1`] = `
+exports[`return.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

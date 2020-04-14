@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`libA.js 1`] = `
+exports[`libA.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -14,7 +14,7 @@ declare function foo(x: number): void;
 ================================================================================
 `;
 
-exports[`libB.js 1`] = `
+exports[`libB.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -28,7 +28,7 @@ declare function bar(x: string): void;
 ================================================================================
 `;
 
-exports[`libtest.js 1`] = `
+exports[`libtest.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

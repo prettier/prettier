@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`shorthand-with-sass-variables.css 1`] = `
+exports[`shorthand-with-sass-variables.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80

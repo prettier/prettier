@@ -47,6 +47,9 @@
   image: /images/users/zeit-200x100.png
   greyImage: /images/users/used_by_zeit.svg
   infoLink: https://zeit.co
+- caption: Spotify
+  image: /images/users/used_by_spotify.svg
+  infoLink: https://spotify.github.io
 - caption: PayPal
   image: /images/users/paypal-200x100.png
   infoLink: https://github.com/paypal/
