@@ -5367,9 +5367,10 @@ parse-json@^4.0.0:
     error-ex "^1.3.1"
     json-parse-better-errors "^1.0.1"
 
-parse-srcset@ikatyang/parse-srcset#54eb9c1cb21db5c62b4d0e275d7249516df6f0ee:
+parse-srcset@ikatyang/parse-srcset#03104fe7a2cdfd898e3717fef402fce528740370:
   version "1.0.2"
-  resolved "https://codeload.github.com/ikatyang/parse-srcset/tar.gz/54eb9c1cb21db5c62b4d0e275d7249516df6f0ee"
+  uid "03104fe7a2cdfd898e3717fef402fce528740370"
+  resolved "https://codeload.github.com/ikatyang/parse-srcset/tar.gz/03104fe7a2cdfd898e3717fef402fce528740370"
 
 parse5@4.0.0:
   version "4.0.0"
