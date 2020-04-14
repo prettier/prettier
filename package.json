@@ -12,9 +12,10 @@
     "node": ">=10.13.0"
   },
   "files": [
+    "index.js",
+    "standalone.js",
     "src",
-    "bin",
-    "index.js"
+    "bin"
   ],
   "dependencies": {
     "@angular/compiler": "9.0.5",
