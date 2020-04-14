@@ -5,13 +5,12 @@ name: npm dev test Node.js CI
 
 on:
   push:
-    branches: [ dev, dev-*, prettierx-* ]
+    branches: [dev, dev-*, prettierx-*]
   pull_request:
-    branches: [ dev, dev-*, prettierx-* ]
+    branches: [dev, dev-*, prettierx-*]
 
 jobs:
   build:
-
     # ref:
     # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idstrategymatrix
     runs-on: ${{ matrix.os }}
@@ -22,14 +21,14 @@ jobs:
         os: [ubuntu-latest, windows-latest]
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - run: npm i
-    - run: npm test
-      env:
-        CI: true
-    # from package scripts - should work across prettier@1.x & prettier@2.x:
-    - run: npx cross-env EFF_NO_LINK_RULES=true eslint . --format friendly
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm i
+      - run: npm test
+        env:
+          CI: true
+      # from package scripts - should work across prettier@1.x & prettier@2.x:
+      - run: npx cross-env EFF_NO_LINK_RULES=true eslint . --format friendly
