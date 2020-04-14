@@ -37,12 +37,9 @@ jobs:
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Install client
+      - name: Install Client Package
         if: matrix.NPM_CLIENT == 'pnpm'
         run: npm install --global ${{ matrix.NPM_CLIENT }}
-
-      - name: Run Tests
-        run: yarn test:dev
 
       - name: Run Tests
         run: yarn test:dev
