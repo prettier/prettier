@@ -46,9 +46,21 @@ const unstableTests = new Map(
   })
 );
 
+const isTestDirectory = (dirname, name) =>
+  dirname.startsWith(path.join(__dirname, "../tests", name));
+
 global.run_spec = (dirname, parsers, options) => {
   // `IS_PARSER_INFERENCE_TESTS` mean to test `inferParser` on `standalone`
-  const IS_PARSER_INFERENCE_TESTS = dirname.endsWith("parser-inference");
+  const IS_PARSER_INFERENCE_TESTS = isTestDirectory(
+    dirname,
+    "parser-inference"
+  );
+
+  // `IS_ERROR_TESTS` mean to watch errors like:
+  // - syntax parser hasn't supported yet
+  // - syntax errors that should throws
+  const IS_ERROR_TESTS = isTestDirectory(dirname, "errors");
+
   if (IS_PARSER_INFERENCE_TESTS) {
     parsers = [];
   } else if (!parsers || !parsers.length) {
@@ -105,6 +117,16 @@ global.run_spec = (dirname, parsers, options) => {
       };
 
       const hasEndOfLine = "endOfLine" in mainOptions;
+
+      if (IS_ERROR_TESTS) {
+        test("error test", () => {
+          expect(() => {
+            format(input, filename, mainOptions);
+          }).toThrowErrorMatchingSnapshot();
+        });
+        return;
+      }
+
       const output = format(input, filename, mainOptions);
       const visualizedOutput = visualizeEndOfLine(output);
 
