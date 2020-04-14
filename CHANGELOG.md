@@ -8,9 +8,17 @@ To get recent changes on prettier (TBD prettier/prettier) in a nice format:
 $ git log --pretty=format:"- %s" rev1..rev2 | sed 's/#\([0-9]*\)/\[prettier\/prettier#\1\]\(https:\/\/github.com\/prettier\/prettier\/pull\/\1\)/'
 -- -->
 
-## prettierx 0.11.1-dev
+## prettierx 0.11.1
 
-[compare prettierx-0.11.0...dev](https://github.com/brodybits/prettierx/compare/prettierx-0.11.0...dev)
+- Update dependency minimist to v1.2.3 [SECURITY](#176)
+- Update parse-srcset -> 03104fe (#170)
+- other updates to dependencies
+- add top-level files to package files
+  - CHANGELOG.md
+  - LICENSE
+  - README.md
+
+[compare prettierx-0.11.0...prettierx-0.11.0](https://github.com/brodybits/prettierx/compare/prettierx-0.11.0...prettierx-0.11.1)
 
 ## prettierx 0.11.0
 
