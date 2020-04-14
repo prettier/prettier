@@ -3,7 +3,7 @@
 exports[`member-chain.js 1`] = `
 ====================================options=====================================
 indentChains: false
-parsers: ["babel", "flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -113,7 +113,7 @@ exports[`member-chain.js 2`] = `
 ====================================options=====================================
 indentChains: false
 parenSpacing: true
-parsers: ["babel", "flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

@@ -4,7 +4,7 @@ exports[`correct.js 1`] = `
 ====================================options=====================================
 generatorStarSpacing: true
 jsxSingleQuote: true
-parsers: ["babel", "flow"]
+parsers: ["babel", "babel-flow", "flow"]
 printWidth: 80
 semi: false
 singleQuote: true
@@ -72,7 +72,7 @@ exports[`incorrect.js 1`] = `
 ====================================options=====================================
 generatorStarSpacing: true
 jsxSingleQuote: true
-parsers: ["babel", "flow"]
+parsers: ["babel", "babel-flow", "flow"]
 printWidth: 80
 semi: false
 singleQuote: true

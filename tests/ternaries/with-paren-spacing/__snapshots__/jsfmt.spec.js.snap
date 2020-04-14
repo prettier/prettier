@@ -4,7 +4,7 @@ exports[`binary.js 1`] = `
 ====================================options=====================================
 alignTernaryLines: true
 parenSpacing: true
-parsers: ["flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -47,7 +47,7 @@ exports[`crewdress.js 1`] = `
 ====================================options=====================================
 alignTernaryLines: true
 parenSpacing: true
-parsers: ["flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -81,7 +81,7 @@ exports[`func-call.js 1`] = `
 ====================================options=====================================
 alignTernaryLines: true
 parenSpacing: true
-parsers: ["flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -111,7 +111,7 @@ exports[`indent.js 1`] = `
 ====================================options=====================================
 alignTernaryLines: true
 parenSpacing: true
-parsers: ["flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -442,7 +442,7 @@ exports[`nested.js 1`] = `
 ====================================options=====================================
 alignTernaryLines: true
 parenSpacing: true
-parsers: ["flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -647,7 +647,7 @@ exports[`parenthesis.js 1`] = `
 ====================================options=====================================
 alignTernaryLines: true
 parenSpacing: true
-parsers: ["flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -685,7 +685,7 @@ exports[`test.js 1`] = `
 ====================================options=====================================
 alignTernaryLines: true
 parenSpacing: true
-parsers: ["flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

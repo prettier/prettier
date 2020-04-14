@@ -1,4 +1,4 @@
-run_spec(__dirname, ["babel", "flow"], {
+run_spec(__dirname, ["babel", "babel-flow", "flow"], {
   yieldStarSpacing: true,
   generatorStarSpacing: true,
   spaceBeforeFunctionParen: true,

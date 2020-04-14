@@ -6,7 +6,7 @@ alignTernaryLines: false
 endOfLine: "lf"
 generatorStarSpacing: true
 jsxSingleQuote: true
-parsers: ["flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
 semi: false
 singleQuote: true
@@ -707,7 +707,7 @@ alignTernaryLines: false
 endOfLine: "lf"
 generatorStarSpacing: true
 jsxSingleQuote: true
-parsers: ["flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
 semi: false
 singleQuote: true
@@ -1056,7 +1056,7 @@ alignTernaryLines: false
 endOfLine: "lf"
 generatorStarSpacing: true
 jsxSingleQuote: true
-parsers: ["flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
 semi: false
 singleQuote: true
@@ -1836,7 +1836,7 @@ alignTernaryLines: false
 endOfLine: "lf"
 generatorStarSpacing: true
 jsxSingleQuote: true
-parsers: ["flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
 semi: false
 singleQuote: true

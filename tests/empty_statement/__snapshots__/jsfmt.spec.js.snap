@@ -2,7 +2,7 @@
 
 exports[`body.js 1`] = `
 ====================================options=====================================
-parsers: ["babel", "flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -32,7 +32,7 @@ while (1);
 exports[`body.js 2`] = `
 ====================================options=====================================
 parenSpacing: true
-parsers: ["babel", "flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -61,7 +61,7 @@ while ( 1 );
 
 exports[`no-newline.js 1`] = `
 ====================================options=====================================
-parsers: ["babel", "flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -83,7 +83,7 @@ if (a) {
 exports[`no-newline.js 2`] = `
 ====================================options=====================================
 parenSpacing: true
-parsers: ["babel", "flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

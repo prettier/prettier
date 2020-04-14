@@ -3,7 +3,7 @@
 exports[`binary.js 1`] = `
 ====================================options=====================================
 alignTernaryLines: false
-parsers: ["flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -45,7 +45,7 @@ room = room.map((row, rowIndex) =>
 exports[`binary.js 2`] = `
 ====================================options=====================================
 alignTernaryLines: false
-parsers: ["flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
 tabWidth: 4
                                                                                 | printWidth
@@ -88,7 +88,7 @@ room = room.map((row, rowIndex) =>
 exports[`crewdress.js 1`] = `
 ====================================options=====================================
 alignTernaryLines: false
-parsers: ["flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -121,7 +121,7 @@ const dress = isSpace
 exports[`crewdress.js 2`] = `
 ====================================options=====================================
 alignTernaryLines: false
-parsers: ["flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
 tabWidth: 4
                                                                                 | printWidth
@@ -155,7 +155,7 @@ const dress = isSpace
 exports[`func-call.js 1`] = `
 ====================================options=====================================
 alignTernaryLines: false
-parsers: ["flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -184,7 +184,7 @@ fn(
 exports[`func-call.js 2`] = `
 ====================================options=====================================
 alignTernaryLines: false
-parsers: ["flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
 tabWidth: 4
                                                                                 | printWidth
@@ -214,7 +214,7 @@ fn(
 exports[`indent.js 1`] = `
 ====================================options=====================================
 alignTernaryLines: false
-parsers: ["flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -544,7 +544,7 @@ a
 exports[`indent.js 2`] = `
 ====================================options=====================================
 alignTernaryLines: false
-parsers: ["flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
 tabWidth: 4
                                                                                 | printWidth
@@ -875,7 +875,7 @@ a
 exports[`nested.js 1`] = `
 ====================================options=====================================
 alignTernaryLines: false
-parsers: ["flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -1079,7 +1079,7 @@ a
 exports[`nested.js 2`] = `
 ====================================options=====================================
 alignTernaryLines: false
-parsers: ["flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
 tabWidth: 4
                                                                                 | printWidth
@@ -1284,7 +1284,7 @@ a
 exports[`parenthesis.js 1`] = `
 ====================================options=====================================
 alignTernaryLines: false
-parsers: ["flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -1321,7 +1321,7 @@ a =>
 exports[`parenthesis.js 2`] = `
 ====================================options=====================================
 alignTernaryLines: false
-parsers: ["flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
 tabWidth: 4
                                                                                 | printWidth
@@ -1359,7 +1359,7 @@ a =>
 exports[`test.js 1`] = `
 ====================================options=====================================
 alignTernaryLines: false
-parsers: ["flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -1419,7 +1419,7 @@ const obj5 = conditionIsTruthy
 exports[`test.js 2`] = `
 ====================================options=====================================
 alignTernaryLines: false
-parsers: ["flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
 tabWidth: 4
                                                                                 | printWidth

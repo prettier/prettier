@@ -2,7 +2,7 @@
 
 exports[`eslint.js 1`] = `
 ====================================options=====================================
-parsers: ["flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
 spaceBeforeFunctionParen: true
                                                                                 | printWidth
@@ -77,7 +77,7 @@ var foo = async () => 1;
 
 exports[`eslint.js 2`] = `
 ====================================options=====================================
-parsers: ["flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

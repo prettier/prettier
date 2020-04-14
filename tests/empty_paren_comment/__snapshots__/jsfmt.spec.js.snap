@@ -2,7 +2,7 @@
 
 exports[`class.js 1`] = `
 ====================================options=====================================
-parsers: ["flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -28,7 +28,7 @@ class x {
 exports[`class.js 2`] = `
 ====================================options=====================================
 parenSpacing: true
-parsers: ["flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -53,7 +53,7 @@ class x {
 
 exports[`empty_paren_comment.js 1`] = `
 ====================================options=====================================
-parsers: ["flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -122,7 +122,7 @@ let f4 = () => doThing(a, /* ... */ b);
 exports[`empty_paren_comment.js 2`] = `
 ====================================options=====================================
 parenSpacing: true
-parsers: ["flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

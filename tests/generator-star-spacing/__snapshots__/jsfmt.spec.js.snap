@@ -3,7 +3,7 @@
 exports[`correct.js 1`] = `
 ====================================options=====================================
 generatorStarSpacing: true
-parsers: ["flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -40,7 +40,7 @@ class Example {
 exports[`correct.js 2`] = `
 ====================================options=====================================
 generatorStarSpacing: true
-parsers: ["flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
 spaceBeforeFunctionParen: true
                                                                                 | printWidth
@@ -78,7 +78,7 @@ class Example {
 exports[`incorrect.js 1`] = `
 ====================================options=====================================
 generatorStarSpacing: true
-parsers: ["flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -113,7 +113,7 @@ var shorthand = { * generator() {} };
 exports[`incorrect.js 2`] = `
 ====================================options=====================================
 generatorStarSpacing: true
-parsers: ["flow", "typescript"]
+parsers: ["babel", "babel-flow", "flow", "typescript"]
 printWidth: 80
 spaceBeforeFunctionParen: true
                                                                                 | printWidth
