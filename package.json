@@ -63,7 +63,7 @@
     "lodash.uniqby": "4.7.0",
     "mem": "5.1.1",
     "minimatch": "3.0.4",
-    "minimist": "1.2.0",
+    "minimist": "1.2.3",
     "n-readlines": "1.0.0",
     "normalize-path": "3.0.0",
     "parse-srcset": "ikatyang/parse-srcset#03104fe7a2cdfd898e3717fef402fce528740370",
