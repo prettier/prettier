@@ -19,6 +19,11 @@
     "lib",
     "src"
   ],
+  "// prettierx dependencies notes": [
+    "* typescript is moved to devDependencies, and",
+    "  it is specified as optional in peerDependenciesMeta",
+    "<!-- -->"
+  ],
   "dependencies": {
     "@angular/compiler": "8.2.13",
     "@babel/code-frame": "7.5.5",
@@ -125,9 +130,18 @@
       "optional": true
     }
   },
+  "// prettierx release scripts notes": [
+    "* prepublishOnly is changed to just log some info",
+    "* prepare-release script is normally not run on prettierx,",
+    "  use prepare-extra-release instead",
+    "* build script is normally not run on prettierx,",
+    "  use build-extra-dist instead",
+    "<!-- -->"
+  ],
   "scripts": {
-    "prepublishOnly-extra": "echo \"Error: must publish from dist/\" && exit 1",
-    "prepare-release": "yarn && yarn build && yarn test:dist",
+    "prepublishOnly": "echo 'now publishing prettierx from project root'",
+    "prepare-release": "echo 'use prepare-extra-release for prettierx' && exit 1",
+    "prepare-extra-release": "yarn && yarn build-extra-dist && yarn test:dist",
     "test": "jest",
     "test:dist": "node ./scripts/test-dist.js",
     "test-integration": "jest tests_integration",
@@ -138,8 +152,9 @@
     "lint": "cross-env EFF_NO_LINK_RULES=true eslint . --format friendly",
     "lint-docs": "prettylint {.,docs,website,website/blog}/*.md",
     "lint-dist": "eslint --no-eslintrc --no-ignore --env=browser \"dist/!(bin-prettierx|index|third-party).js\"",
-    "build-dist-extra": "node --max-old-space-size=2048 ./scripts/build/build.js",
     "build-docs": "node ./scripts/build-docs.js",
+    "build-extra-dist": "node --max-old-space-size=8192 ./scripts/build/build.js",
+    "build": "echo 'use build-extra-dist for prettierx' && exit 1",
     "check-deps": "node ./scripts/check-deps.js",
     "spellcheck": "npx -p cspell@4.0.31 cspell {bin,scripts,src}/**/*.js {docs,website/blog,changelog_unreleased}/**/*.md"
   }
