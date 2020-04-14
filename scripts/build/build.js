@@ -76,10 +76,11 @@ async function cacheFiles() {
 
 async function preparePackage() {
   const pkg = await util.readJson("package.json");
+  // [prettierx]
   pkg.bin = "./bin-prettierx.js";
-  // FUTURE TBD use this line to specify a different minimum
-  // Node.js version, if needed in the future:
-  // pkg.engines.node = ">=6";
+  // [prettierx] use line like this to specify a different minimum
+  // Node.js version in release build, if needed someday:
+  // pkg.engines.node = ">=8";
   delete pkg.dependencies;
   delete pkg.devDependencies;
   pkg.scripts = {

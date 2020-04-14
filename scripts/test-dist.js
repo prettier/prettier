@@ -29,6 +29,7 @@ const code = shell.exec(cmd, {
   env: Object.assign({}, process.env, {
     NODE_ENV: "production",
     AST_COMPARE: "1",
+    // [prettierx]
     PRETTIERX_DIR: path.join(tmpDir, "node_modules/prettierx")
   }),
   shell: true

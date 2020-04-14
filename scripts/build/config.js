@@ -163,12 +163,14 @@ const coreBundles = [
     target: "universal"
   },
   {
+    // [prettierx]
     input: "standalone.js",
     name: "prettierx",
     type: "core",
     target: "universal"
   },
   {
+    // [prettierx]
     input: "bin/prettierx.js",
     type: "core",
     output: "bin-prettierx.js",
