@@ -7,6 +7,6 @@
     "website/**/index.html",
     "website/**/package.json"
   ],
-  "commitMessage": "[prettierx] update {{depName}} -> {{newValue}}",
-  "prTitle": "update {{depName}} -> {{newValue}}"
+  "commitMessageExtra": "-> {{#if isSingleVersion}}{{{toVersion}}}{{else}}{{{newValue}}}{{/if}}",
+  "commitMessagePrefix": "[prettierx]"
 }
