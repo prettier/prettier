@@ -8,5 +8,6 @@
     "website/**/package.json"
   ],
   "commitMessageExtra": "-> {{#if isSingleVersion}}{{{toVersion}}}{{else}}{{{newValue}}}{{/if}}",
-  "commitMessagePrefix": "[prettierx]"
+  "commitMessagePrefix": "[prettierx]",
+  "commitMessageTopic": "{{depName}}"
 }
