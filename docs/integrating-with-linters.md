@@ -25,7 +25,7 @@ Then in `.eslintrc.json`:
 
 ```json
 {
-  "extends": ["prettier"]
+  "extends": ["prettier", "prettier/standard"]
 }
 ```
 
