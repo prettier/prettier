@@ -6,5 +6,7 @@
     "tests_integration/**/package.json",
     "website/**/index.html",
     "website/**/package.json"
-  ]
+  ],
+  "commitMessage": "[prettierx] {{depName}}@{{newValue}} update",
+  "prTitle": "{{depName}}@{{newValue}} update"
 }
