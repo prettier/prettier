@@ -139,6 +139,9 @@
     "  use prepare-extra-release instead",
     "* build script is normally not run on prettierx,",
     "  use build-extra-dist instead",
+    "* keeping build-extra-dist & test:dist scripts to",
+    "  help restore browser build support someday ref:",
+    "  https://github.com/brodybits/prettierx/issues/95",
     "<!-- -->"
   ],
   "scripts": {

@@ -1,5 +1,8 @@
 # This workflow will do a clean install of npm dependencies,
 # build and run dist tests across different versions of node
+# help restore browser build support someday ref:
+# https://github.com/brodybits/prettierx/issues/95
+#
 # For more information see:
 # https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
