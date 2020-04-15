@@ -107,7 +107,7 @@
     "jest-junit": "10.0.0",
     "jest-snapshot-serializer-ansi": "1.0.0",
     "jest-snapshot-serializer-raw": "1.1.0",
-    "jest-watch-typeahead": "0.4.2",
+    "jest-watch-typeahead": "0.5.0",
     "mkdirp": "0.5.1",
     "prettier": "1.19.1",
     "prettylint": "1.0.0",
