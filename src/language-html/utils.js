@@ -73,7 +73,8 @@ function shouldPreserveContent(node, options) {
 
   if (
     isVueCustomBlock(node, options) &&
-    options.embeddedLanguageFormatting === "off"
+    (options.embeddedLanguageFormatting === "off" ||
+      !inferScriptParser(node, options))
   ) {
     return true;
   }
