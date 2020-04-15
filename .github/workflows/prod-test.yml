@@ -36,6 +36,7 @@ jobs:
           key: v1-build-cache-${{ hashFiles('yarn.lock') }}-${{ github.ref }}-
           restore-keys: |
             v1-build-cache-${{ hashFiles('yarn.lock') }}-${{ github.ref }}-
+            v1-build-cache-${{ hashFiles('yarn.lock') }}-refs/heads/${{ github.base_ref }}-
             v1-build-cache-${{ hashFiles('yarn.lock') }}-refs/heads/master-
 
       # Unknown reason `scripts/build/build.js` created dir can't work
