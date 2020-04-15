@@ -69,7 +69,7 @@
     "minimist": "1.2.3",
     "n-readlines": "1.0.0",
     "normalize-path": "3.0.0",
-    "parse-srcset": "ikatyang/parse-srcset#03104fe7a2cdfd898e3717fef402fce528740370",
+    "parse-srcset": "1.0.2",
     "postcss-less": "2.0.0",
     "postcss-media-query-parser": "0.2.3",
     "postcss-scss": "2.0.0",
