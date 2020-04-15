@@ -1,5 +1,7 @@
 "use strict";
 
+const flat = require("lodash/flatten");
+
 const comments = require("../../main/comments");
 const { getLast } = require("../../common/util");
 const {
@@ -12,7 +14,7 @@ const {
   hasLeadingComment,
   hasTrailingComment,
   isCallOrOptionalCallExpression,
-  isFunctionOrArrowExpression,
+  isLiteralLikeValue,
   isLongCurriedCallExpression,
   isMemberish,
   isNumericLiteral,
@@ -52,6 +54,10 @@ const {
 // MemberExpression and CallExpression. We need to traverse the AST
 // and make groups out of it to print it in the desired way.
 function printMemberChain(path, options, print) {
+  const parent = path.getParentNode();
+  const isExpressionStatement =
+    !parent || parent.type === "ExpressionStatement";
+
   // The first phase is to linearize the AST by traversing it down.
   //
   //   a().b()
@@ -88,11 +94,8 @@ function printMemberChain(path, options, print) {
   function rec(path) {
     const node = path.getValue();
     if (
-      (node.type === "CallExpression" ||
-        node.type === "OptionalCallExpression") &&
-      (isMemberish(node.callee) ||
-        node.callee.type === "CallExpression" ||
-        node.callee.type === "OptionalCallExpression")
+      isCallOrOptionalCallExpression(node) &&
+      (isMemberish(node.callee) || isCallOrOptionalCallExpression(node.callee))
     ) {
       printedNodes.unshift({
         node,
@@ -183,8 +186,7 @@ function printMemberChain(path, options, print) {
   for (; i < printedNodes.length; ++i) {
     if (
       printedNodes[i].node.type === "TSNonNullExpression" ||
-      printedNodes[i].node.type === "OptionalCallExpression" ||
-      printedNodes[i].node.type === "CallExpression" ||
+      isCallOrOptionalCallExpression(printedNodes[i].node) ||
       ((printedNodes[i].node.type === "MemberExpression" ||
         printedNodes[i].node.type === "OptionalMemberExpression") &&
         printedNodes[i].node.computed &&
@@ -195,10 +197,7 @@ function printMemberChain(path, options, print) {
       break;
     }
   }
-  if (
-    printedNodes[0].node.type !== "CallExpression" &&
-    printedNodes[0].node.type !== "OptionalCallExpression"
-  ) {
+  if (!isCallOrOptionalCallExpression(printedNodes[0].node)) {
     for (; i + 1 < printedNodes.length; ++i) {
       if (
         isMemberish(printedNodes[i].node) &&
@@ -235,10 +234,7 @@ function printMemberChain(path, options, print) {
       hasSeenCallExpression = false;
     }
 
-    if (
-      printedNodes[i].node.type === "CallExpression" ||
-      printedNodes[i].node.type === "OptionalCallExpression"
-    ) {
+    if (isCallOrOptionalCallExpression(printedNodes[i].node)) {
       hasSeenCallExpression = true;
     }
     currentGroup.push(printedNodes[i]);
@@ -284,8 +280,6 @@ function printMemberChain(path, options, print) {
   }
 
   function shouldNotWrap(groups) {
-    const parent = path.getParentNode();
-    const isExpression = parent && parent.type === "ExpressionStatement";
     const hasComputed = groups[1].length && groups[1][0].node.computed;
 
     if (groups[0].length === 1) {
@@ -294,7 +288,7 @@ function printMemberChain(path, options, print) {
         firstNode.type === "ThisExpression" ||
         (firstNode.type === "Identifier" &&
           (isFactory(firstNode.name) ||
-            (isExpression && isShort(firstNode.name)) ||
+            (isExpressionStatement && isShort(firstNode.name)) ||
             hasComputed))
       );
     }
@@ -337,7 +331,7 @@ function printMemberChain(path, options, print) {
   const oneLine = concat(printedGroups);
 
   const cutoff = shouldMerge ? 3 : 2;
-  const flatGroups = groups.reduce((res, group) => res.concat(group), []);
+  const flatGroups = flat(groups);
 
   const hasComment =
     flatGroups.slice(1, -1).some((node) => hasLeadingComment(node.node)) ||
@@ -355,17 +349,14 @@ function printMemberChain(path, options, print) {
 
   // Find out the last node in the first group and check if it has an
   // empty line after
-  const lastNodeBeforeIndent = getLast(
-    shouldMerge ? groups.slice(1, 2)[0] : groups[0]
-  ).node;
+  const lastNodeBeforeIndent = getLast(groups[shouldMerge ? 1 : 0]).node;
   const shouldHaveEmptyLineBeforeIndent =
-    lastNodeBeforeIndent.type !== "CallExpression" &&
-    lastNodeBeforeIndent.type !== "OptionalCallExpression" &&
+    !isCallOrOptionalCallExpression(lastNodeBeforeIndent) &&
     shouldInsertEmptyLineAfter(lastNodeBeforeIndent);
 
   const expanded = concat([
     printGroup(groups[0]),
-    shouldMerge ? concat(groups.slice(1, 2).map(printGroup)) : "",
+    shouldMerge ? printGroup(groups[1]) : "",
     shouldHaveEmptyLineBeforeIndent ? hardline : "",
     printIndentedGroup(groups.slice(shouldMerge ? 2 : 1)),
   ]);
@@ -374,31 +365,75 @@ function printMemberChain(path, options, print) {
     .map(({ node }) => node)
     .filter(isCallOrOptionalCallExpression);
 
-  // We don't want to print in one line if the chain has:
-  //  * A comment.
-  //  * Non-trivial arguments.
-  //  * Any group but the last one has a hard line.
-  // If the last group is a function it's okay to inline if it fits.
+  function looksLikeFluentConfigurationPattern() {
+    if (
+      isExpressionStatement &&
+      callExpressions.length > 1 &&
+      // Keep simple chains like this on one line:
+      //    req.checkBody("name").notEmpty().optional();
+      !(
+        callExpressions[0].arguments.length <= 1 &&
+        callExpressions.slice(1).every((expr) => expr.arguments.length === 0)
+      )
+    ) {
+      const allArgs = flat(callExpressions.map((expr) => expr.arguments));
+      return allArgs.length > 0 && allArgs.every(isLiteralLikeValue);
+    }
+    return false;
+  }
+
+  function callHasComplexArguments(expr, index) {
+    return (
+      (index !== 0 && expr.arguments.length > 2) ||
+      !expr.arguments.every((arg) => isSimpleCallArgument(arg, 0))
+    );
+  }
+
+  /**
+   * If the last call's argument is a function, it's okay to inline if it fits and there is no other function arguments.
+   *
+   * This chain should be split:
+   *
+   *     const mapped = scopes.filter(scope => scope.value !== '').map((scope, i) => {
+   *       // multi line content
+   *     });
+   *
+   * This chain can be inlined:
+   *
+   *     const mapped = scopes.filter(myFilter).map((scope, i) => {
+   *       // multi line content
+   *     });
+   *
+   */
+  function lastGroupWillBreakAndOtherCallsHaveComplexArguments() {
+    const lastGroupNode = getLast(getLast(groups)).node;
+    const lastGroupDoc = getLast(printedGroups);
+    return (
+      isCallOrOptionalCallExpression(lastGroupNode) &&
+      willBreak(lastGroupDoc) &&
+      callExpressions.some(
+        (expr, index) =>
+          index !== callExpressions.length - 1 &&
+          callHasComplexArguments(expr, index)
+      )
+    );
+  }
+
+  // We don't want to print in one line if at least one of these conditions occurs:
+  //  * the chain has comments,
+  //  * the head of the chain is a constructor call,
+  //  * the chain is an expression statement and all the arguments are literal-like ("fluent configuration" pattern),
+  //  * the chain is longer than 2 calls and has non-trivial arguments or more than 2 arguments in any call but the first one,
+  //  * any group but the last one has a hard line,
+  //  * the last call's arguments have a hard line and other calls have non-trivial arguments.
   if (
     hasComment ||
+    printedNodes[0].node.type === "NewExpression" ||
+    looksLikeFluentConfigurationPattern() ||
     (callExpressions.length > 2 &&
-      callExpressions.some(
-        (expr) => !expr.arguments.every((arg) => isSimpleCallArgument(arg, 0))
-      )) ||
+      callExpressions.some(callHasComplexArguments)) ||
     printedGroups.slice(0, -1).some(willBreak) ||
-    /**
-     *     scopes.filter(scope => scope.value !== '').map((scope, i) => {
-     *       // multi line content
-     *     })
-     */
-    (((lastGroupDoc, lastGroupNode) =>
-      isCallOrOptionalCallExpression(lastGroupNode) && willBreak(lastGroupDoc))(
-      getLast(printedGroups),
-      getLast(getLast(groups)).node
-    ) &&
-      callExpressions
-        .slice(0, -1)
-        .some((n) => n.arguments.some(isFunctionOrArrowExpression)))
+    lastGroupWillBreakAndOtherCallsHaveComplexArguments()
   ) {
     return group(expanded);
   }
