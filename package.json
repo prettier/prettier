@@ -126,7 +126,7 @@
     "tempy": "0.3.0",
     "terser-webpack-plugin": "2.3.5",
     "typescript": "3.8.3",
-    "webpack": "4.41.2"
+    "webpack": "4.42.1"
   },
   "peerDependenciesMeta": {
     "typescript": {
