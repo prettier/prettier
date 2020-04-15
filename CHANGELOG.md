@@ -14,7 +14,7 @@ $ git log --pretty=format:"- %s" rev1..rev2 | sed 's/#\([0-9]*\)/\[prettier\/pre
 
 ## prettierx 0.11.1
 
-- Update dependency minimist to v1.2.3 [SECURITY] (#176)
+- Update dependency minimist to v1.2.3 - SECURITY (#176)
 - Update parse-srcset -> 03104fe (#170)
 - other updates to dependencies
 - add top-level files to package files
