@@ -118,7 +118,7 @@
     "rollup-plugin-json": "4.0.0",
     "rollup-plugin-node-globals": "1.4.0",
     "rollup-plugin-node-resolve": "5.2.0",
-    "rollup-plugin-terser": "5.1.2",
+    "rollup-plugin-terser": "5.3.0",
     "shelljs": "0.8.3",
     "snapshot-diff": "0.6.1",
     "strip-ansi": "6.0.0",
