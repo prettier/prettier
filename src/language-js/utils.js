@@ -1002,6 +1002,26 @@ function isTSXFile(options) {
   return options.filepath && /\.tsx$/i.test(options.filepath);
 }
 
+function shouldPrintComma(options, level) {
+  level = level || "es5";
+
+  switch (options.trailingComma) {
+    case "all":
+      if (level === "all") {
+        return true;
+      }
+    // fallthrough
+    case "es5":
+      if (level === "es5") {
+        return true;
+      }
+    // fallthrough
+    case "none":
+    default:
+      return false;
+  }
+}
+
 module.exports = {
   classChildNeedsASIProtection,
   classPropMayCauseASIProblems,
@@ -1058,4 +1078,5 @@ module.exports = {
   needsHardlineAfterDanglingComment,
   rawText,
   returnArgumentHasLeadingComment,
+  shouldPrintComma,
 };
