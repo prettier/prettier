@@ -120,7 +120,7 @@
     "rollup-plugin-node-resolve": "5.2.0",
     "rollup-plugin-terser": "5.3.0",
     "shelljs": "0.8.3",
-    "snapshot-diff": "0.6.1",
+    "snapshot-diff": "0.7.0",
     "strip-ansi": "6.0.0",
     "synchronous-promise": "2.0.10",
     "tempy": "0.3.0",
