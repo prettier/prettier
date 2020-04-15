@@ -111,7 +111,7 @@
     "mkdirp": "0.5.1",
     "prettier": "1.19.1",
     "prettylint": "1.0.0",
-    "rimraf": "3.0.0",
+    "rimraf": "3.0.2",
     "rollup": "1.32.1",
     "rollup-plugin-babel": "4.4.0",
     "rollup-plugin-commonjs": "10.1.0",
