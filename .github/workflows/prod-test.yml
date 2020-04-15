@@ -25,6 +25,23 @@ jobs:
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
 
+      - name: Cache Build Results
+        # Prevent error on re-run
+        # https://github.com/actions/cache/issues/107#issuecomment-556037278
+        if: github.event_name == 'push' || github.event_name == 'pull_request'
+        id: build-cache
+        uses: actions/cache@v1
+        with:
+          path: .cache
+          key: v1-build-cache-${{ hashFiles('yarn.lock') }}-${{ github.ref }}-
+          restore-keys: |
+            v1-build-cache-${{ hashFiles('yarn.lock') }}-${{ github.ref }}-
+            v1-build-cache-${{ hashFiles('yarn.lock') }}-${{ github.base_ref }}-
+            v1-build-cache-${{ hashFiles('yarn.lock') }}-master-
+
+      # Unknown reason `scripts/build/build.js` created dir can't work
+      - run: mkdir -p .cache/files
+
       - name: Build Package
         run: yarn build
 
