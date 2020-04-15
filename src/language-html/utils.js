@@ -30,7 +30,7 @@ function mapObject(object, fn) {
   return newObject;
 }
 
-function shouldPreserveContent(node) {
+function shouldPreserveContent(node, options) {
   if (!node.endSourceSpan) {
     return false;
   }
@@ -67,6 +67,13 @@ function shouldPreserveContent(node) {
     node.children.some(
       (child) => child.type !== "text" && child.type !== "interpolation"
     )
+  ) {
+    return true;
+  }
+
+  if (
+    isVueCustomBlock(node, options) &&
+    options.embeddedLanguageFormatting === "off"
   ) {
     return true;
   }
@@ -598,11 +605,11 @@ function identity(x) {
   return x;
 }
 
-function shouldNotPrintClosingTag(node) {
+function shouldNotPrintClosingTag(node, options) {
   return (
     !node.isSelfClosing &&
     !node.endSourceSpan &&
-    (hasPrettierIgnore(node) || shouldPreserveContent(node.parent))
+    (hasPrettierIgnore(node) || shouldPreserveContent(node.parent, options))
   );
 }
 
