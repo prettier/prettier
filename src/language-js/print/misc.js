@@ -1,10 +1,10 @@
 "use strict";
 
-const { isNumericLiteral } = require("./utils");
+const { isNumericLiteral } = require("../utils");
 
 const {
   builders: { concat, softline, group, indent },
-} = require("../document");
+} = require("../../document");
 
 function printOptionalToken(path) {
   const node = path.getValue();

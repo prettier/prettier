@@ -85,14 +85,14 @@ const {
   shouldPrintComma,
 } = require("./utils");
 
-const printMemberChain = require("./print-member-chain");
-const printCallArguments = require("./print-call-arguments");
+const printMemberChain = require("./print/member-chain");
+const printCallArguments = require("./print/call-arguments");
 const {
   printOptionalToken,
   printFunctionTypeParameters,
   printMemberLookup,
   printBindExpressionCallee,
-} = require("./print-misc");
+} = require("./print/misc");
 
 const needsQuoteProps = new WeakMap();
 

@@ -1,8 +1,8 @@
 "use strict";
 
-const comments = require("../main/comments");
-const { getLast, getPenultimate } = require("../common/util");
-const { isNextLineEmpty } = require("../common/util-shared");
+const comments = require("../../main/comments");
+const { getLast, getPenultimate } = require("../../common/util");
+const { isNextLineEmpty } = require("../../common/util-shared");
 const {
   hasLeadingComment,
   hasTrailingComment,
@@ -10,7 +10,7 @@ const {
   isJSXNode,
   isLongCurriedCallExpression,
   shouldPrintComma,
-} = require("./utils");
+} = require("../utils");
 
 const {
   builders: {
@@ -25,7 +25,7 @@ const {
     breakParent,
   },
   utils: { willBreak },
-} = require("../document");
+} = require("../../document");
 
 function printCallArguments(path, options, print) {
   const node = path.getValue();

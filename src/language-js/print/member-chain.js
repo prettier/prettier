@@ -1,13 +1,13 @@
 "use strict";
 
-const comments = require("../main/comments");
-const { getLast } = require("../common/util");
+const comments = require("../../main/comments");
+const { getLast } = require("../../common/util");
 const {
   isNextLineEmpty,
   isNextLineEmptyAfterIndex,
   getNextNonSpaceNonCommentCharacterIndex,
-} = require("../common/util-shared");
-const pathNeedsParens = require("./needs-parens");
+} = require("../../common/util-shared");
+const pathNeedsParens = require("../needs-parens");
 const {
   hasLeadingComment,
   hasTrailingComment,
@@ -17,15 +17,15 @@ const {
   isMemberish,
   isNumericLiteral,
   isSimpleCallArgument,
-} = require("./utils");
+} = require("../utils");
 
-const printCallArguments = require("./print-call-arguments");
+const printCallArguments = require("./call-arguments");
 const {
   printOptionalToken,
   printFunctionTypeParameters,
   printMemberLookup,
   printBindExpressionCallee,
-} = require("./print-misc");
+} = require("./misc");
 
 const {
   builders: {
@@ -38,7 +38,7 @@ const {
     breakParent,
   },
   utils: { willBreak },
-} = require("../document");
+} = require("../../document");
 
 // We detect calls on member expressions specially to format a
 // common pattern better. The pattern we are looking for is this:
