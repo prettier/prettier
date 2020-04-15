@@ -718,7 +718,7 @@ function printOpeningTagStart(node, options) {
     : concat([
         printOpeningTagPrefix(node, options),
         printOpeningTagStartMarker(node),
-     ]);
+      ]);
 }
 
 function printOpeningTagEnd(node) {
