@@ -556,8 +556,8 @@ function printChildren(path, options, print) {
             ),
             literalline
           ),
-          printClosingTag(child),
-          printClosingTagSuffix(child)
+          printClosingTag(child, options),
+          printClosingTagSuffix(child, options)
         )
       );
     }
@@ -740,7 +740,7 @@ function printClosingTagStart(node, options) {
     needsToBorrowParentClosingTagStartMarker(node.lastChild)
     ? ""
     : concat([
-        printClosingTagPrefix(node),
+        printClosingTagPrefix(node, options),
         printClosingTagStartMarker(node, options),
       ]);
 }
