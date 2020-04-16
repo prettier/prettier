@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`arrow.js 1`] = `
+exports[`arrow.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -30,7 +30,7 @@ const run = (cmd /*: string */) /*: Promise<void> */ => {};
 ================================================================================
 `;
 
-exports[`class.js 1`] = `
+exports[`class.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -52,7 +52,7 @@ class A {
 ================================================================================
 `;
 
-exports[`functions.js 1`] = `
+exports[`functions.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -66,7 +66,7 @@ function foo<T>(bar /*: T[] */, baz /*: T */) /*: S */ {}
 ================================================================================
 `;
 
-exports[`generics.js 1`] = `
+exports[`generics.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -100,7 +100,7 @@ foo/*:: <bar> */();
 ================================================================================
 `;
 
-exports[`interface.js 1`] = `
+exports[`interface.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -124,7 +124,7 @@ interface Foo {
 ================================================================================
 `;
 
-exports[`issues.js 1`] = `
+exports[`issues.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -202,7 +202,7 @@ export type AsyncExecuteOptions = child_process$execFileOpts & {
 ================================================================================
 `;
 
-exports[`let.js 1`] = `
+exports[`let.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -218,7 +218,7 @@ let bar /*: string */ = "a";
 ================================================================================
 `;
 
-exports[`object_type_annotation.js 1`] = `
+exports[`object_type_annotation.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -257,7 +257,7 @@ type Props3 = {
 ================================================================================
 `;
 
-exports[`type_annotations.js 1`] = `
+exports[`type_annotations.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -293,7 +293,7 @@ const x = (input /*: string */) /*: string */ => {};
 ================================================================================
 `;
 
-exports[`union.js 1`] = `
+exports[`union.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80

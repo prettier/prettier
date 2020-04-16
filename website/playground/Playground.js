@@ -41,6 +41,7 @@ const ENABLED_OPTIONS = [
   "insertPragma",
   "requirePragma",
   "vueIndentScriptAndStyle",
+  "embeddedLanguageFormatting",
 ];
 const ISSUES_URL = "https://github.com/prettier/prettier/issues/new?body=";
 const MAX_LENGTH = 8000 - ISSUES_URL.length; // it seems that GitHub limit is 8195

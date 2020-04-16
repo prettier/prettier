@@ -145,11 +145,30 @@ function isLiteral(node) {
     node.type === "Literal" ||
     node.type === "NullLiteral" ||
     node.type === "NumericLiteral" ||
+    node.type === "BigIntLiteral" ||
     node.type === "RegExpLiteral" ||
     node.type === "StringLiteral" ||
     node.type === "TemplateLiteral" ||
     node.type === "TSTypeLiteral" ||
     node.type === "JSXText"
+  );
+}
+
+function isLiteralLikeValue(node) {
+  return (
+    isLiteral(node) ||
+    (node.type === "Identifier" && /^[A-Z_]+$/.test(node.name)) ||
+    (node.type === "ArrayExpression" &&
+      node.elements.every(
+        (element) => element !== null && isLiteralLikeValue(element)
+      )) ||
+    (node.type === "ObjectExpression" &&
+      node.properties.every(
+        (property) =>
+          !property.computed &&
+          property.value &&
+          isLiteralLikeValue(property.value)
+      ))
   );
 }
 
@@ -289,7 +308,6 @@ const binaryishNodeTypes = new Set([
   "BinaryExpression",
   "LogicalExpression",
   "NGPipeExpression",
-  "TSAsExpression",
 ]);
 function isBinaryish(node) {
   return binaryishNodeTypes.has(node.type);
@@ -303,24 +321,23 @@ function isMemberish(node) {
   );
 }
 
+const flowTypeAnnotations = new Set([
+  "AnyTypeAnnotation",
+  "NullLiteralTypeAnnotation",
+  "GenericTypeAnnotation",
+  "ThisTypeAnnotation",
+  "NumberTypeAnnotation",
+  "VoidTypeAnnotation",
+  "EmptyTypeAnnotation",
+  "MixedTypeAnnotation",
+  "BooleanTypeAnnotation",
+  "BooleanLiteralTypeAnnotation",
+  "StringTypeAnnotation",
+]);
 function isSimpleFlowType(node) {
-  const flowTypeAnnotations = [
-    "AnyTypeAnnotation",
-    "NullLiteralTypeAnnotation",
-    "GenericTypeAnnotation",
-    "ThisTypeAnnotation",
-    "NumberTypeAnnotation",
-    "VoidTypeAnnotation",
-    "EmptyTypeAnnotation",
-    "MixedTypeAnnotation",
-    "BooleanTypeAnnotation",
-    "BooleanLiteralTypeAnnotation",
-    "StringTypeAnnotation",
-  ];
-
   return (
     node &&
-    flowTypeAnnotations.includes(node.type) &&
+    flowTypeAnnotations.has(node.type) &&
     !(node.type === "GenericTypeAnnotation" && node.typeParameters)
   );
 }
@@ -733,7 +750,7 @@ function isJestEachTemplateLiteral(node, parentNode) {
    *
    * Ref: https://github.com/facebook/jest/pull/6102
    */
-  const jestEachTriggerRegex = /^[xf]?(describe|it|test)$/;
+  const jestEachTriggerRegex = /^[fx]?(describe|it|test)$/;
   return (
     parentNode.type === "TaggedTemplateExpression" &&
     parentNode.quasi === node &&
@@ -920,10 +937,12 @@ function isLongCurriedCallExpression(path) {
  * @returns {boolean}
  */
 function isSimpleCallArgument(node, depth) {
-  if (depth >= 2) {
+  if (depth >= 3) {
     return false;
   }
-  const isChildSimple = (child) => isSimpleCallArgument(child, depth + 1);
+
+  const plusOne = (node) => isSimpleCallArgument(node, depth + 1);
+  const plusTwo = (node) => isSimpleCallArgument(node, depth + 2);
 
   const regexpPattern =
     (node.type === "Literal" && node.regex && node.regex.pattern) ||
@@ -935,60 +954,62 @@ function isSimpleCallArgument(node, depth) {
 
   if (
     node.type === "Literal" ||
+    node.type === "BigIntLiteral" ||
     node.type === "BooleanLiteral" ||
     node.type === "NullLiteral" ||
     node.type === "NumericLiteral" ||
+    node.type === "RegExpLiteral" ||
     node.type === "StringLiteral" ||
     node.type === "Identifier" ||
     node.type === "ThisExpression" ||
     node.type === "Super" ||
-    node.type === "BigIntLiteral" ||
     node.type === "PrivateName" ||
     node.type === "ArgumentPlaceholder" ||
-    node.type === "RegExpLiteral" ||
     node.type === "Import"
   ) {
     return true;
   }
+
   if (node.type === "TemplateLiteral") {
-    return node.expressions.every(isChildSimple);
+    return node.expressions.every(plusTwo);
   }
+
   if (node.type === "ObjectExpression") {
     return node.properties.every(
-      (p) => !p.computed && (p.shorthand || (p.value && isChildSimple(p.value)))
+      (p) => !p.computed && (p.shorthand || (p.value && plusTwo(p.value)))
     );
   }
+
   if (node.type === "ArrayExpression") {
-    return node.elements.every((x) => x == null || isChildSimple(x));
+    return node.elements.every((x) => x === null || plusTwo(x));
   }
+
   if (
     node.type === "CallExpression" ||
     node.type === "OptionalCallExpression" ||
     node.type === "NewExpression"
   ) {
-    return (
-      isSimpleCallArgument(node.callee, depth) &&
-      node.arguments.every(isChildSimple)
-    );
+    return plusOne(node.callee, depth) && node.arguments.every(plusTwo);
   }
+
   if (
     node.type === "MemberExpression" ||
     node.type === "OptionalMemberExpression"
   ) {
-    return (
-      isSimpleCallArgument(node.object, depth) &&
-      isSimpleCallArgument(node.property, depth)
-    );
+    return plusOne(node.object, depth) && plusOne(node.property, depth);
   }
+
   if (
     node.type === "UnaryExpression" &&
     (node.operator === "!" || node.operator === "-")
   ) {
-    return isSimpleCallArgument(node.argument, depth);
+    return plusOne(node.argument, depth);
   }
+
   if (node.type === "TSNonNullExpression") {
-    return isSimpleCallArgument(node.expression, depth);
+    return plusOne(node.expression, depth);
   }
+
   return false;
 }
 
@@ -1002,6 +1023,26 @@ function identity(x) {
 
 function isTSXFile(options) {
   return options.filepath && /\.tsx$/i.test(options.filepath);
+}
+
+function shouldPrintComma(options, level) {
+  level = level || "es5";
+
+  switch (options.trailingComma) {
+    case "all":
+      if (level === "all") {
+        return true;
+      }
+    // fallthrough
+    case "es5":
+      if (level === "es5") {
+        return true;
+      }
+    // fallthrough
+    case "none":
+    default:
+      return false;
+  }
 }
 
 module.exports = {
@@ -1038,6 +1079,7 @@ module.exports = {
   isJSXWhitespaceExpression,
   isLastStatement,
   isLiteral,
+  isLiteralLikeValue,
   isLongCurriedCallExpression,
   isSimpleCallArgument,
   isMeaningfulJSXText,
@@ -1060,4 +1102,5 @@ module.exports = {
   needsHardlineAfterDanglingComment,
   rawText,
   returnArgumentHasLeadingComment,
+  shouldPrintComma,
 };

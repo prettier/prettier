@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`basic.html 1`] = `
+exports[`basic.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`real-world-case.md 1`] = `
+exports[`real-world-case.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1979,7 +1979,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 ================================================================================
 `;
 
-exports[`real-world-case.md 2`] = `
+exports[`real-world-case.md format 2`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -3959,7 +3959,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 ================================================================================
 `;
 
-exports[`test-case.md 1`] = `
+exports[`test-case.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -4355,7 +4355,7 @@ This paragraph has some \`code\` in it.
 ================================================================================
 `;
 
-exports[`test-case.md 2`] = `
+exports[`test-case.md format 2`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`disjoint_union.js 1`] = `
+exports[`disjoint_union.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -41,7 +41,7 @@ function area(shape: Shape): number {
 ================================================================================
 `;
 
-exports[`enum.js 1`] = `
+exports[`enum.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

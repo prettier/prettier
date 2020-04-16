@@ -2,7 +2,6 @@
   "license": "MIT",
   "scripts": {
     "build": "webpack -p && docusaurus-build",
-    "publish-gh-pages": "docusaurus-publish",
     "start": "concurrently \"docusaurus-start\" \"webpack -d -w\"",
     "svgo": "svgo --pretty --indent=2 --config=svgo.yml",
     "svgo-all": "find static | grep '\\.svg$' | xargs -Iz -n 1 yarn svgo z",
@@ -18,7 +17,7 @@
     "react-dom": "16.13.1"
   },
   "devDependencies": {
-    "@babel/preset-env": "7.9.0",
+    "@babel/preset-env": "7.9.5",
     "@babel/preset-react": "7.9.4",
     "@sandhose/prettier-animated-logo": "1.0.3",
     "babel-loader": "8.1.0",

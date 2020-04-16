@@ -73,7 +73,7 @@ const skipToLineEnd = skip(",; \t");
 /**
  * @type {(text: string, index: number | false, opts?: SkipOptions) => number | false}
  */
-const skipEverythingButNewLine = skip(/[^\r\n]/);
+const skipEverythingButNewLine = skip(/[^\n\r]/);
 
 /**
  * @param {string} text
@@ -520,7 +520,7 @@ function getIndentSize(value, tabWidth) {
 
   return getAlignmentSize(
     // All the leading whitespaces
-    value.slice(lastNewlineIndex + 1).match(/^[ \t]*/)[0],
+    value.slice(lastNewlineIndex + 1).match(/^[\t ]*/)[0],
     tabWidth
   );
 }
@@ -624,7 +624,7 @@ function makeString(rawContent, enclosingQuote, unescapeUnnecessaryEscapes) {
   const otherQuote = enclosingQuote === '"' ? "'" : '"';
 
   // Matches _any_ escape and unescaped quotes (both single and double).
-  const regex = /\\([\s\S])|(['"])/g;
+  const regex = /\\([\S\s])|(["'])/g;
 
   // Escape and unescape single and double quotes as needed to be able to
   // enclose `rawContent` with `enclosingQuote`.
@@ -650,7 +650,7 @@ function makeString(rawContent, enclosingQuote, unescapeUnnecessaryEscapes) {
     // Unescape any unnecessarily escaped character.
     // Adapted from https://github.com/eslint/eslint/blob/de0b4ad7bd820ade41b1f606008bea68683dc11a/lib/rules/no-useless-escape.js#L27
     return unescapeUnnecessaryEscapes &&
-      /^[^\\nrvtbfux\r\n\u2028\u2029"'0-7]$/.test(escaped)
+      /^[^\n\r"'0-7\\bfnrt-vx\u2028\u2029]$/.test(escaped)
       ? escaped
       : "\\" + escaped;
   });

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`before-text.html 1`] = `
+exports[`before-text.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -18,7 +18,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`before-text.html 2`] = `
+exports[`before-text.html format 2`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
@@ -36,7 +36,7 @@ printWidth: 1
 ================================================================================
 `;
 
-exports[`before-text.html 3`] = `
+exports[`before-text.html format 3`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: Infinity
@@ -53,7 +53,7 @@ printWidth: Infinity
 ================================================================================
 `;
 
-exports[`before-text.html 4`] = `
+exports[`before-text.html format 4`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "strict"
 parsers: ["html"]
@@ -72,7 +72,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`before-text.html 5`] = `
+exports[`before-text.html format 5`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["html"]
@@ -91,7 +91,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`bogus.html 1`] = `
+exports[`bogus.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -107,7 +107,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`bogus.html 2`] = `
+exports[`bogus.html format 2`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
@@ -123,7 +123,7 @@ printWidth: 1
 ================================================================================
 `;
 
-exports[`bogus.html 3`] = `
+exports[`bogus.html format 3`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: Infinity
@@ -138,7 +138,7 @@ printWidth: Infinity
 ================================================================================
 `;
 
-exports[`bogus.html 4`] = `
+exports[`bogus.html format 4`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "strict"
 parsers: ["html"]
@@ -155,7 +155,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`bogus.html 5`] = `
+exports[`bogus.html format 5`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["html"]
@@ -172,7 +172,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`conditional.html 1`] = `
+exports[`conditional.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -324,7 +324,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`conditional.html 2`] = `
+exports[`conditional.html format 2`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
@@ -512,7 +512,7 @@ printWidth: 1
 ================================================================================
 `;
 
-exports[`conditional.html 3`] = `
+exports[`conditional.html format 3`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: Infinity
@@ -663,7 +663,7 @@ printWidth: Infinity
 ================================================================================
 `;
 
-exports[`conditional.html 4`] = `
+exports[`conditional.html format 4`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "strict"
 parsers: ["html"]
@@ -816,7 +816,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`conditional.html 5`] = `
+exports[`conditional.html format 5`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["html"]
@@ -984,7 +984,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`for_debugging.html 1`] = `
+exports[`for_debugging.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -1030,7 +1030,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`for_debugging.html 2`] = `
+exports[`for_debugging.html format 2`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
@@ -1076,7 +1076,7 @@ printWidth: 1
 ================================================================================
 `;
 
-exports[`for_debugging.html 3`] = `
+exports[`for_debugging.html format 3`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: Infinity
@@ -1121,7 +1121,7 @@ printWidth: Infinity
 ================================================================================
 `;
 
-exports[`for_debugging.html 4`] = `
+exports[`for_debugging.html format 4`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "strict"
 parsers: ["html"]
@@ -1168,7 +1168,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`for_debugging.html 5`] = `
+exports[`for_debugging.html format 5`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["html"]
@@ -1215,7 +1215,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`hidden.html 1`] = `
+exports[`hidden.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -1251,7 +1251,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`hidden.html 2`] = `
+exports[`hidden.html format 2`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
@@ -1292,7 +1292,7 @@ printWidth: 1
 ================================================================================
 `;
 
-exports[`hidden.html 3`] = `
+exports[`hidden.html format 3`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: Infinity
@@ -1327,7 +1327,7 @@ printWidth: Infinity
 ================================================================================
 `;
 
-exports[`hidden.html 4`] = `
+exports[`hidden.html format 4`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "strict"
 parsers: ["html"]
@@ -1364,7 +1364,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`hidden.html 5`] = `
+exports[`hidden.html format 5`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["html"]
@@ -1401,7 +1401,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`surrounding-empty-line.html 1`] = `
+exports[`surrounding-empty-line.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -1540,7 +1540,7 @@ See console log:
 ================================================================================
 `;
 
-exports[`surrounding-empty-line.html 2`] = `
+exports[`surrounding-empty-line.html format 2`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
@@ -1692,7 +1692,7 @@ See console log:
 ================================================================================
 `;
 
-exports[`surrounding-empty-line.html 3`] = `
+exports[`surrounding-empty-line.html format 3`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: Infinity
@@ -1830,7 +1830,7 @@ See console log:
 ================================================================================
 `;
 
-exports[`surrounding-empty-line.html 4`] = `
+exports[`surrounding-empty-line.html format 4`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "strict"
 parsers: ["html"]
@@ -1967,7 +1967,7 @@ See console log:
 ================================================================================
 `;
 
-exports[`surrounding-empty-line.html 5`] = `
+exports[`surrounding-empty-line.html format 5`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["html"]

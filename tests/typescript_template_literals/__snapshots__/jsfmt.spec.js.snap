@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`as-expression.ts 1`] = `
+exports[`as-expression.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -25,8 +25,7 @@ const b = \`\${
 }\`;
 const b = \`\${
   (veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongFoo +
-    veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBar) as
-  veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBaz
+    veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBar) as veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongBaz
 }\`;
 
 ================================================================================

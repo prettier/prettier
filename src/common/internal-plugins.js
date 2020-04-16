@@ -88,10 +88,10 @@ module.exports = [
         return eval("require")("../language-css/parser-postcss").parsers.css;
       },
       get less() {
-        return eval("require")("../language-css/parser-postcss").parsers.css;
+        return eval("require")("../language-css/parser-postcss").parsers.less;
       },
       get scss() {
-        return eval("require")("../language-css/parser-postcss").parsers.css;
+        return eval("require")("../language-css/parser-postcss").parsers.scss;
       },
     },
   },

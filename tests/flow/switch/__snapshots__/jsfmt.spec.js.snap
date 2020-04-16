@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`more_switch.js 1`] = `
+exports[`more_switch.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -71,7 +71,7 @@ function baz(x): number {
 ================================================================================
 `;
 
-exports[`switch.js 1`] = `
+exports[`switch.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -142,7 +142,7 @@ function qux(b) {
 ================================================================================
 `;
 
-exports[`switch_default_fallthrough.js 1`] = `
+exports[`switch_default_fallthrough.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -248,7 +248,7 @@ function baz(x: mixed): number {
 ================================================================================
 `;
 
-exports[`trailing_cases.js 1`] = `
+exports[`trailing_cases.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

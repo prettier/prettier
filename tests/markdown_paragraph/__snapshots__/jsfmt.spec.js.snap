@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`cjk.md 1`] = `
+exports[`cjk.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -52,7 +52,7 @@ This ia an english paragraph with a CJK quote “中文“.
 ================================================================================
 `;
 
-exports[`cjk.md 2`] = `
+exports[`cjk.md format 2`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -93,7 +93,7 @@ This ia an english paragraph with a CJK quote “中文“.
 ================================================================================
 `;
 
-exports[`cjk.md 3`] = `
+exports[`cjk.md format 3`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -136,7 +136,7 @@ This ia an english paragraph with a CJK quote “中文“.
 ================================================================================
 `;
 
-exports[`inline-nodes.md 1`] = `
+exports[`inline-nodes.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -153,7 +153,7 @@ outputted code conforms to a consistent style. (See this
 ================================================================================
 `;
 
-exports[`inline-nodes.md 2`] = `
+exports[`inline-nodes.md format 2`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -168,7 +168,7 @@ It removes all original styling[*](#styling-footnote) and ensures that all outpu
 ================================================================================
 `;
 
-exports[`inline-nodes.md 3`] = `
+exports[`inline-nodes.md format 3`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -183,7 +183,7 @@ It removes all original styling[*](#styling-footnote) and ensures that all outpu
 ================================================================================
 `;
 
-exports[`lorem.md 1`] = `
+exports[`lorem.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -217,7 +217,7 @@ Eos eos consequatur.
 ================================================================================
 `;
 
-exports[`lorem.md 2`] = `
+exports[`lorem.md format 2`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -245,7 +245,7 @@ Et quam mollitia velit iste enim exercitationem nemo. Hic dignissimos eos et. Eo
 ================================================================================
 `;
 
-exports[`lorem.md 3`] = `
+exports[`lorem.md format 3`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -278,7 +278,7 @@ Hic dignissimos eos et. Eos eos consequatur.
 ================================================================================
 `;
 
-exports[`simple.md 1`] = `
+exports[`simple.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -294,7 +294,7 @@ long paragraph.
 ================================================================================
 `;
 
-exports[`simple.md 2`] = `
+exports[`simple.md format 2`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -309,7 +309,7 @@ This is a long long long long long long long long long long long long long long 
 ================================================================================
 `;
 
-exports[`simple.md 3`] = `
+exports[`simple.md format 3`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -324,7 +324,7 @@ This is a long long long long long long long long long long long long long long 
 ================================================================================
 `;
 
-exports[`special-prefix.md 1`] = `
+exports[`special-prefix.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -385,7 +385,7 @@ aged 29. Oh no, why are we in a numbered list now?
 ================================================================================
 `;
 
-exports[`special-prefix.md 2`] = `
+exports[`special-prefix.md format 2`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -439,7 +439,7 @@ She grew up in an isolated village in the 19th century and met her father aged 2
 ================================================================================
 `;
 
-exports[`special-prefix.md 3`] = `
+exports[`special-prefix.md format 3`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -494,7 +494,7 @@ She grew up in an isolated village in the 19th century and met her father aged 2
 ================================================================================
 `;
 
-exports[`whitespace.md 1`] = `
+exports[`whitespace.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -522,7 +522,7 @@ keep these words together
 ================================================================================
 `;
 
-exports[`whitespace.md 2`] = `
+exports[`whitespace.md format 2`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -549,7 +549,7 @@ keep these words together keep these words together keep these words together ke
 ================================================================================
 `;
 
-exports[`whitespace.md 3`] = `
+exports[`whitespace.md format 3`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80

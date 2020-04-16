@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`body.js 1`] = `
+exports[`body.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -29,7 +29,7 @@ while (1);
 ================================================================================
 `;
 
-exports[`no-newline.js 1`] = `
+exports[`no-newline.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
