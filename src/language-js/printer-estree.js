@@ -1071,7 +1071,15 @@ function printPathNoParens(path, options, print, args) {
           )
         )
       ) {
-        parts.push("{} from ");
+        const dangling = comments.printDanglingComments(
+          path,
+          options,
+          /* sameLine */ false
+        );
+        parts.push("{");
+        const printedComments = dangling ? concat([dangling, softline]) : "";
+        parts.push(printedComments);
+        parts.push("} from ");
       }
 
       parts.push(path.call(print, "source"), semi);
