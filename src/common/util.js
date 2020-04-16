@@ -3,6 +3,7 @@
 const stringWidth = require("string-width");
 const escapeStringRegexp = require("escape-string-regexp");
 const getLast = require("../utils/get-last");
+const support = require("../main/support");
 
 // eslint-disable-next-line no-control-regex
 const notAsciiRegex = /[^\x20-\x7F]/;
@@ -820,6 +821,22 @@ function replaceEndOfLineWith(text, replacement) {
   return parts;
 }
 
+function getParserName(lang, options) {
+  const supportInfo = support.getSupportInfo({ plugins: options.plugins });
+  const language = supportInfo.languages.find(
+    (language) =>
+      language.name.toLowerCase() === lang ||
+      (language.aliases && language.aliases.includes(lang)) ||
+      (language.extensions &&
+        language.extensions.find((ext) => ext === `.${lang}`))
+  );
+  if (language) {
+    return language.parsers[0];
+  }
+
+  return null;
+}
+
 module.exports = {
   replaceEndOfLineWith,
   getStringWidth,
@@ -828,6 +845,7 @@ module.exports = {
   getPrecedence,
   shouldFlatten,
   isBitwiseOperator,
+  getParserName,
   getPenultimate,
   getLast,
   getNextNonSpaceNonCommentCharacterIndexWithStartIndex,
