@@ -802,30 +802,30 @@
   resolved "https://registry.yarnpkg.com/@glimmer/env/-/env-0.1.7.tgz#fd2d2b55a9029c6b37a6c935e8c8871ae70dfa07"
   integrity sha1-/S0rVakCnGs3psk16MiHGucN+gc=
 
-"@glimmer/interfaces@^0.50.2":
-  version "0.50.2"
-  resolved "https://registry.yarnpkg.com/@glimmer/interfaces/-/interfaces-0.50.2.tgz#5637beb45242b9c23b1b82b404ad085f1827ce16"
-  integrity sha512-SbrEspWDHQ6j0DI0inYpg29SMlfEEUS895apZWxMzC2RyGHy5SKmZJ4xjishaq7A0E1AaTfDKYnE/wfWrQZSsw==
+"@glimmer/interfaces@^0.50.3":
+  version "0.50.3"
+  resolved "https://registry.yarnpkg.com/@glimmer/interfaces/-/interfaces-0.50.3.tgz#e7b2d9bf937a568d05b0a2822e70582e3db591bc"
+  integrity sha512-7Afbv+oGO8v2MQQXMCsy8d4fhEPka5U6gR20+p7+XPIjcIZmX8DpMK0qOZgLvBDpKuOj0TMHIx5cr44NL1ypJQ==
   dependencies:
     "@simple-dom/interface" "^1.4.0"
 
-"@glimmer/syntax@0.50.2":
-  version "0.50.2"
-  resolved "https://registry.yarnpkg.com/@glimmer/syntax/-/syntax-0.50.2.tgz#e69731df2fb9069d30469c700eb9bae79e51c257"
-  integrity sha512-kmMZK4bN674sUhphLuads1RQNm3pzEuNcW7SHQiDJJz3zDsMFQ69YPtgYBrpJZtPgF6Oj/QgwUcD0d+ql5/cpw==
+"@glimmer/syntax@0.50.3":
+  version "0.50.3"
+  resolved "https://registry.yarnpkg.com/@glimmer/syntax/-/syntax-0.50.3.tgz#8cde8fe8a9186bba424549c3d50c03a805a22933"
+  integrity sha512-I9IsbnzmWHLq1aboPcwZ3vjcAVbspSF8Qkn2xqhjOIRjtNkTLHmsOe7ZVQLmk+4H2X7msdM9RyqtnvEheWW7Ig==
   dependencies:
-    "@glimmer/interfaces" "^0.50.2"
-    "@glimmer/util" "^0.50.2"
-    handlebars "^4.5.1"
+    "@glimmer/interfaces" "^0.50.3"
+    "@glimmer/util" "^0.50.3"
+    handlebars "^4.7.4"
     simple-html-tokenizer "^0.5.9"
 
-"@glimmer/util@^0.50.2":
-  version "0.50.2"
-  resolved "https://registry.yarnpkg.com/@glimmer/util/-/util-0.50.2.tgz#1519064c2722143871964a183ceb825b5c24f5d3"
-  integrity sha512-FG3gWONYZWUBwZojvuYdPALu6DWKzc2QGBzb6zBgY5vO2otAqLsi8WlfGP8ekkFsEHUtlPGeUAOqr+lSox+DQw==
+"@glimmer/util@^0.50.3":
+  version "0.50.3"
+  resolved "https://registry.yarnpkg.com/@glimmer/util/-/util-0.50.3.tgz#aaa5327c42944d320ccfa67b186ebfe0bcf690e8"
+  integrity sha512-ZsiOIAfqksnRCFOC3NKzWWUk+8WhjdSgkSc1suLLnslTtoHGU5PTucQpugANOzUNjo43hi1A44z/bWqDt86ugQ==
   dependencies:
     "@glimmer/env" "0.1.7"
-    "@glimmer/interfaces" "^0.50.2"
+    "@glimmer/interfaces" "^0.50.3"
     "@simple-dom/interface" "^1.4.0"
 
 "@iarna/toml@2.2.3":
@@ -3787,14 +3787,15 @@ growly@^1.3.0:
   resolved "https://registry.yarnpkg.com/growly/-/growly-1.3.0.tgz#f10748cbe76af964b7c96c93c6bcc28af120c081"
   integrity sha1-8QdIy+dq+WS3yWyTxrzCivEgwIE=
 
-handlebars@^4.5.1:
-  version "4.7.2"
-  resolved "https://registry.yarnpkg.com/handlebars/-/handlebars-4.7.2.tgz#01127b3840156a0927058779482031afe0e730d7"
-  integrity sha512-4PwqDL2laXtTWZghzzCtunQUTLbo31pcCJrd/B/9JP8XbhVzpS5ZXuKqlOzsd1rtcaLo4KqAn8nl8mkknS4MHw==
+handlebars@^4.7.4:
+  version "4.7.6"
+  resolved "https://registry.yarnpkg.com/handlebars/-/handlebars-4.7.6.tgz#d4c05c1baf90e9945f77aa68a7a219aa4a7df74e"
+  integrity sha512-1f2BACcBfiwAfStCKZNrUCgqNZkGsAT7UM3kkYtXuLo0KnaVfjKOyf7PRzB6++aK9STyT1Pd2ZCPe3EGOXleXA==
   dependencies:
+    minimist "^1.2.5"
     neo-async "^2.6.0"
-    optimist "^0.6.1"
     source-map "^0.6.1"
+    wordwrap "^1.0.0"
   optionalDependencies:
     uglify-js "^3.1.4"
 
@@ -5312,11 +5313,6 @@ minimist@1.2.5, minimist@^1.1.1, minimist@^1.2.0, minimist@^1.2.5:
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.5.tgz#67d66014b66a6a8aaa0c083c5fd58df4e4e97602"
   integrity sha512-FM9nNUYrRBAELZQT3xeZQ7fmMOBg6nWNmJKTcgsJeaLstP/UODVpGsr5OhXhhXg6f+qtJ8uiZ+PUxkDWcgIXLw==
 
-minimist@~0.0.1:
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/minimist/-/minimist-0.0.10.tgz#de3f98543dbf96082be48ad1a0c7cda836301dcf"
-  integrity sha1-3j+YVD2/lggr5IrRoMfNqDYwHc8=
-
 minipass-collect@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/minipass-collect/-/minipass-collect-1.0.2.tgz#22b813bf745dc6edba2576b940022ad6edc8c617"
@@ -5649,14 +5645,6 @@ onetime@^5.1.0:
   integrity sha512-5NcSkPHhwTVFIQN+TUqXoS5+dlElHXdpAWu9I0HP20YOtIi+aZ0Ct82jdlILDxjLEAWwvm+qj1m6aEtsDVmm6Q==
   dependencies:
     mimic-fn "^2.1.0"
-
-optimist@^0.6.1:
-  version "0.6.1"
-  resolved "https://registry.yarnpkg.com/optimist/-/optimist-0.6.1.tgz#da3ea74686fa21a19a111c326e90eb15a0196686"
-  integrity sha1-2j6nRob6IaGaERwybpDrFaAZZoY=
-  dependencies:
-    minimist "~0.0.1"
-    wordwrap "~0.0.2"
 
 optionator@^0.8.1, optionator@^0.8.3:
   version "0.8.3"
@@ -7886,10 +7874,10 @@ word-wrap@~1.2.3:
   resolved "https://registry.yarnpkg.com/word-wrap/-/word-wrap-1.2.3.tgz#610636f6b1f703891bd34771ccb17fb93b47079c"
   integrity sha512-Hz/mrNwitNRh/HUAtM/VT/5VH+ygD6DV7mYKZAtHOrbs8U7lvPS6xf7EJKMF0uW1KJCl0H701g3ZGus+muE5vQ==
 
-wordwrap@~0.0.2:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/wordwrap/-/wordwrap-0.0.3.tgz#a3d5da6cd5c0bc0008d37234bbaf1bed63059107"
-  integrity sha1-o9XabNXAvAAI03I0u68b7WMFkQc=
+wordwrap@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/wordwrap/-/wordwrap-1.0.0.tgz#27584810891456a4171c8d0226441ade90cbcaeb"
+  integrity sha1-J1hIEIkUVqQXHI0CJkQa3pDLyus=
 
 worker-farm@^1.7.0:
   version "1.7.0"
