@@ -99,8 +99,13 @@ jobs:
           name: dist
           path: dist
 
-      - name: Run Tests
-        run: yarn test:dist
+      - name: Run Tests (macOS)
+        if: matrix.os == 'macos-latest'
+        run: yarn test:dist --maxWorkers=4
+
+      - name: Run Tests (Linux and Windows)
+        if: matrix.os != 'macos-latest'
+        run: yarn test:dist --maxWorkers=2
 
   standalone:
     strategy:
@@ -117,8 +122,6 @@ jobs:
         exclude:
           - os: "macos-latest"
             node: "13"
-    env:
-      STANDALONE: true
     name: Node.js ${{ matrix.node }} on ${{ matrix.os }} (standalone)
     runs-on: ${{ matrix.os }}
     needs: [build]
@@ -142,5 +145,10 @@ jobs:
           name: dist
           path: dist
 
-      - name: Run Tests
-        run: yarn test:dist
+      - name: Run Tests (macOS)
+        if: matrix.os == 'macos-latest'
+        run: yarn test:dist-standalone --maxWorkers=4
+
+      - name: Run Tests (Linux and Windows)
+        if: matrix.os != 'macos-latest'
+        run: yarn test:dist-standalone --maxWorkers=2
