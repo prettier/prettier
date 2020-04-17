@@ -426,7 +426,7 @@ function addCssDisplay(ast, options) {
  * - add `isTrailingSpaceSensitive` field
  * - add `isDanglingSpaceSensitive` field for parent nodes
  */
-function addIsSpaceSensitive(ast /*, options */) {
+function addIsSpaceSensitive(ast, options) {
   return ast.map((node) => {
     if (!node.children) {
       return node;
@@ -443,8 +443,14 @@ function addIsSpaceSensitive(ast /*, options */) {
         .map((child) => {
           return {
             ...child,
-            isLeadingSpaceSensitive: isLeadingSpaceSensitiveNode(child),
-            isTrailingSpaceSensitive: isTrailingSpaceSensitiveNode(child),
+            isLeadingSpaceSensitive: isLeadingSpaceSensitiveNode(
+              child,
+              options
+            ),
+            isTrailingSpaceSensitive: isTrailingSpaceSensitiveNode(
+              child,
+              options
+            ),
           };
         })
         .map((child, index, children) => ({

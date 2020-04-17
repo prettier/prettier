@@ -30,6 +30,7 @@ const {
   getPrettierIgnoreAttributeCommentData,
   hasPrettierIgnore,
   inferScriptParser,
+  isVueCustomBlock,
   isScriptLikeTag,
   isTextLikeNode,
   normalizeParts,
@@ -97,6 +98,25 @@ function embed(path, print, textToDoc, options) {
           needsToBorrowPrevClosingTagEndMarker(node.parent.next)
             ? " "
             : line,
+        ]);
+      } else if (isVueCustomBlock(node.parent, options)) {
+        const parser = inferScriptParser(node.parent, options);
+        let printed;
+        if (parser) {
+          try {
+            printed = textToDoc(node.value, { parser });
+          } catch (error) {
+            // Do nothing
+          }
+        }
+        if (printed == null) {
+          printed = node.value;
+        }
+        return concat([
+          parser ? breakParent : "",
+          printOpeningTagPrefix(node),
+          stripTrailingHardline(printed, true),
+          printClosingTagSuffix(node),
         ]);
       }
       break;
@@ -225,7 +245,8 @@ function genericPrint(path, options, print) {
                       ? ifBreak(indent(childrenDoc), childrenDoc, {
                           groupId: attrGroupId,
                         })
-                      : isScriptLikeTag(node) &&
+                      : (isScriptLikeTag(node) ||
+                          isVueCustomBlock(node, options)) &&
                         node.parent.type === "root" &&
                         options.parser === "vue" &&
                         !options.vueIndentScriptAndStyle
