@@ -94,8 +94,7 @@ a:after {
   background-color: orange;
 }
 
-TABLE {
-}
+TABLE {}
 
 /* apply a dashed border to all unresolved elements */
 :unresolved {
@@ -380,17 +379,12 @@ $KeepScssVar: val;
   .Keep() when (@Keep=Keep12PX);
 }
 
-.Keep (@Keep) when (lightness(@Keep) >= 12px) and (@Keep > 0) {
-}
-.Keep (@Keep) when (lightness(@Keep) != "12PX") and (@Keep != "12PX") {
-}
-.Keep (@Keep) when (lightness(@Keep) >= Keep12PX) and (@Keep > @Keep12E5) {
-}
+.Keep (@Keep) when (lightness(@Keep) >= 12px) and (@Keep > 0) {}
+.Keep (@Keep) when (lightness(@Keep) != "12PX") and (@Keep != "12PX") {}
+.Keep (@Keep) when (lightness(@Keep) >= Keep12PX) and (@Keep > @Keep12E5) {}
 
-.Keep(@Keep: 12PX; @Keep: @Keep12PX; ...) /*:*/ {
-}
-.Keep(@Keep: '12PX'; @Keep: "12PX"; ...) /*:*/ {
-}
+.Keep(@Keep: 12PX; @Keep: @Keep12PX; ...) /*:*/ {}
+.Keep(@Keep: '12PX'; @Keep: "12PX"; ...) /*:*/ {}
 
 @media (min-width: 700px) /*:*/ {
 }
@@ -444,16 +438,12 @@ a:after {
   background-color: orange;
 }
 
-TABLE {
-}
+TABLE {}
 
 .foo {
-  &-KeepSelector {
-  }
-  &-KeepSelector & .KeepClassSelector {
-  }
-  &-100\\.200 {
-  }
+  &-KeepSelector {}
+  &-KeepSelector & .KeepClassSelector {}
+  &-100\\.200 {}
 }
 
 ================================================================================
@@ -761,16 +751,12 @@ a:after {
   background-color: orange;
 }
 
-TABLE {
-}
+TABLE {}
 
 .foo {
-  &-KeepSelector {
-  }
-  &-KeepSelector & .KeepClassSelector {
-  }
-  &-100\\.200 {
-  }
+  &-KeepSelector {}
+  &-KeepSelector & .KeepClassSelector {}
+  &-100\\.200 {}
 }
 
 ================================================================================

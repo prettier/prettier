@@ -42,17 +42,13 @@ padding: 12px
     display: table;
   }
 
-  &:after {
-    clear: both;
-  }
+  &:after { clear: both; }
 }
 .class {
   padding: 10px;
   @include clearfix();
 }
-.base {
-  color: red;
-} // placeholder
+.base { color: red; } // placeholder
 
 %base {
   padding: 12px;

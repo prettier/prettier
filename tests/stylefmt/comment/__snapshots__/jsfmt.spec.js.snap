@@ -59,9 +59,7 @@ printWidth: 80
 
 @media only screen {
   /* inner at rule comment */
-  .foo {
-    display: none;
-  }
+  .foo { display: none; }
 
   /*
    * another comment

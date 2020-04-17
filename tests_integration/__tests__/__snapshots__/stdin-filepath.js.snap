@@ -36,9 +36,7 @@ exports[`don’t apply editorconfig outside project for stdin-filepath with none
 exports[`format correctly if stdin content compatible with stdin-filepath (stderr) 1`] = `""`;
 
 exports[`format correctly if stdin content compatible with stdin-filepath (stdout) 1`] = `
-".name {
-  display: none;
-}
+".name { display: none; }
 "
 `;
 
@@ -47,9 +45,7 @@ exports[`format correctly if stdin content compatible with stdin-filepath (write
 exports[`gracefully handle stdin-filepath with nonexistent directory (stderr) 1`] = `""`;
 
 exports[`gracefully handle stdin-filepath with nonexistent directory (stdout) 1`] = `
-".name {
-  display: none;
-}
+".name { display: none; }
 "
 `;
 

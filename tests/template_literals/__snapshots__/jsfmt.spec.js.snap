@@ -484,9 +484,7 @@ margin: 0;
 
 <div>
   <style jsx>{\`
-    div {
-      color: red;
-    }
+    div { color: red; }
   \`}</style>
 </div>;
 

@@ -14,8 +14,7 @@ printWidth: 80
 =====================================output=====================================
 .nuclide-resize-sensitive-container-sensor,
 .nuclide-resize-sensitive-container-expand,
-.nuclide-resize-sensitive-container-shrink {
-}
+.nuclide-resize-sensitive-container-shrink {}
 
 ================================================================================
 `;

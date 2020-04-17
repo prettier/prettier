@@ -7,6 +7,7 @@ const {
   printNumber,
   printString,
   hasIgnoreComment,
+  hasNewlineInRange,
   hasNewline,
 } = require("../common/util");
 const { isNextLineEmpty } = require("../common/util-shared");
@@ -131,12 +132,7 @@ function genericPrint(path, options, print) {
                 ? line
                 : " ",
               "{",
-              node.nodes.length > 0
-                ? indent(
-                    concat([hardline, printNodeSequence(path, options, print)])
-                  )
-                : "",
-              hardline,
+              printDeclarationList(path, options, print),
               "}",
               isDetachedRulesetDeclarationNode(node) ? ";" : "",
             ])
@@ -1014,6 +1010,27 @@ function printCssNumber(rawNumber) {
       // Remove trailing `.0`.
       .replace(/\.0(?=$|e)/, "")
   );
+}
+
+function printDeclarationList(path, options, print) {
+  const node = path.getValue();
+  if (node.nodes.length === 0) {
+    return "";
+  }
+  if (
+    node.nodes.length === 1 &&
+    !hasNewlineInRange(
+      options.originalText,
+      options.locStart(node),
+      options.locEnd(node)
+    )
+  ) {
+    return concat([" ", printNodeSequence(path, options, print), " "]);
+  }
+  return concat([
+    indent(concat([hardline, printNodeSequence(path, options, print)])),
+    hardline,
+  ]);
 }
 
 module.exports = {

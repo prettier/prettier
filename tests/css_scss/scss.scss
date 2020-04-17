@@ -8,6 +8,11 @@ div {
   }
 }
 a { margin: 0 { left: 10px; } }
+a {
+  color: red;
+}
+a{color:blue}
+a{color:blue; font-weight: bold}
 
 $default: #111111 !default;
 $default: #111111   !default;

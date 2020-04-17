@@ -1925,12 +1925,8 @@ background-color: #112244 + #111; // result is #223355
       background-color: white;
     }
   }
-  .tab {
-    /* ... */
-  }
-  .citation {
-    /* ... */
-  }
+  .tab { /* ... */ }
+  .citation { /* ... */ }
 }
 
 #header a {
@@ -2107,8 +2103,7 @@ nav ul {
   color: red;
 }
 
-.a:extend(.b) {
-}
+.a:extend(.b) {}
 
 // the above block does the same thing as the below block
 .a {
@@ -2122,14 +2117,11 @@ nav ul {
   // extends only instances where the selector will be output as just ".d"
 }
 
-.e:extend(.f) {
-}
-.e:extend(.g) {
-}
+.e:extend(.f) {}
+.e:extend(.g) {}
 
 // the above an the below do the same thing
-.e:extend(.f, .g) {
-}
+.e:extend(.f, .g) {}
 
 .big-division,
 .big-bag:extend(.bag),
@@ -2143,8 +2135,7 @@ pre:hover,
 }
 
 pre:hover:extend(div pre),
-.some-class:extend(div pre) {
-}
+.some-class:extend(div pre) {}
 
 .bucket {
   tr {
@@ -2152,8 +2143,7 @@ pre:hover:extend(div pre),
     color: blue;
   }
 }
-.some-class:extend(.bucket tr) {
-} // nested ruleset is recognized
+.some-class:extend(.bucket tr) {} // nested ruleset is recognized
 
 .bucket tr,
 .some-class {
@@ -2166,8 +2156,7 @@ pre:hover:extend(div pre),
     color: blue;
   }
 }
-.some-class:extend(tr .bucket) {
-} // nested ruleset is recognized
+.some-class:extend(tr .bucket) {} // nested ruleset is recognized
 
 tr .bucket,
 .some-class {
@@ -2179,14 +2168,12 @@ tr .bucket,
 .class > .a {
   color: blue;
 }
-.test:extend(.class) {
-} // this will NOT match the any selectors above
+.test:extend(.class) {} // this will NOT match the any selectors above
 
 *.class {
   color: blue;
 }
-.noStar:extend(.class) {
-} // this will NOT match the *.class selector
+.noStar:extend(.class) {} // this will NOT match the *.class selector
 
 *.class {
   color: blue;
@@ -2195,8 +2182,7 @@ tr .bucket,
 link:hover:visited {
   color: blue;
 }
-.selector:extend(link:visited:hover) {
-}
+.selector:extend(link:visited:hover) {}
 
 link:hover:visited {
   color: blue;
@@ -2205,8 +2191,7 @@ link:hover:visited {
 :nth-child(1n + 3) {
   color: blue;
 }
-.child:extend(:nth-child(n + 3)) {
-}
+.child:extend(:nth-child(n + 3)) {}
 
 :nth-child(1n + 3) {
   color: blue;
@@ -2222,12 +2207,9 @@ link:hover:visited {
   color: blue;
 }
 
-.noQuote:extend([title="identifier"]) {
-}
-.singleQuote:extend([title="identifier"]) {
-}
-.doubleQuote:extend([title="identifier"]) {
-}
+.noQuote:extend([title="identifier"]) {}
+.singleQuote:extend([title="identifier"]) {}
+.doubleQuote:extend([title="identifier"]) {}
 
 [title="identifier"],
 .noQuote,
@@ -2260,8 +2242,7 @@ link:hover:visited {
   }
 }
 
-.replacement:extend(.test all) {
-}
+.replacement:extend(.test all) {}
 
 .a.b.test,
 .test.c,
@@ -2279,14 +2260,12 @@ link:hover:visited {
   // interpolated selector
   color: blue;
 }
-.some-class:extend(.bucket) {
-} // does nothing, no match is found
+.some-class:extend(.bucket) {} // does nothing, no match is found
 
 .bucket {
   color: blue;
 }
-.some-class:extend(@{variable}) {
-} // interpolated selector matches nothing
+.some-class:extend(@{variable}) {} // interpolated selector matches nothing
 @variable: .bucket;
 
 .bucket {
@@ -2296,8 +2275,7 @@ link:hover:visited {
 .bucket {
   color: blue;
 }
-@{variable}:extend(.bucket) {
-}
+@{variable}:extend(.bucket) {}
 @variable: .selector;
 
 .bucket,
@@ -2306,8 +2284,7 @@ link:hover:visited {
 }
 
 @media print {
-  .screenClass:extend(.selector) {
-  } // extend inside media
+  .screenClass:extend(.selector) {} // extend inside media
   .selector {
     // this will be matched - it is in the same media
     color: black;
@@ -2343,8 +2320,7 @@ link:hover:visited {
 }
 
 @media screen {
-  .screenClass:extend(.selector) {
-  } // extend inside media
+  .screenClass:extend(.selector) {} // extend inside media
   @media (min-width: 1023px) {
     .selector {
       // ruleset inside nested media - extend ignores it
@@ -2373,8 +2349,7 @@ link:hover:visited {
   }
 }
 
-.topLevel:extend(.selector) {
-} /* top level extend matches everything */
+.topLevel:extend(.selector) {} /* top level extend matches everything */
 
 @media screen {
   .selector,
@@ -2396,8 +2371,7 @@ link:hover:visited {
   /* declarations */
 }
 
-.alert:extend(.alert-info, .widget) {
-}
+.alert:extend(.alert-info, .widget) {}
 
 .alert-info,
 .widget,
@@ -2560,22 +2534,16 @@ button:hover {
 }
 
 #namespace when (@mode=huge) {
-  .mixin() {
-    /* */
-  }
+  .mixin() { /* */ }
 }
 
 #namespace {
-  .mixin() when (@mode=huge) {
-    /* */
-  }
+  .mixin() when (@mode=huge) { /* */ }
 }
 
 #sp_1 when (default()) {
   #sp_2 when (default()) {
-    .mixin() when not(default()) {
-      /* */
-    }
+    .mixin() when not(default()) { /* */ }
   }
 }
 
@@ -2629,9 +2597,7 @@ button:hover {
   word-wrap: break-word;
 }
 
-pre {
-  .wrap;
-}
+pre { .wrap; }
 
 pre {
   text-wrap: wrap;
@@ -2700,25 +2666,18 @@ pre {
   box-shadow: 2px 5px 1px #000;
 }
 
-.mixin(/* ... */) {
-} // matches 0-N arguments
-.mixin() {
-} // matches exactly 0 arguments
-.mixin(@a: 1) {
-} // matches 0-1 arguments
-.mixin(@a: 1; /* ... */) {
-} // matches 0-N arguments
-.mixin(@a; /* ... */) {
-} // matches 1-N arguments
+.mixin(/* ... */) {} // matches 0-N arguments
+.mixin() {} // matches exactly 0 arguments
+.mixin(@a: 1) {} // matches 0-1 arguments
+.mixin(@a: 1; /* ... */) {} // matches 0-N arguments
+.mixin(@a; /* ... */) {} // matches 1-N arguments
 
 .mixin(@a; @rest...) {
   // @rest is bound to arguments after @a
   // @arguments is bound to all arguments
 }
 
-.mixin(@s; @color) {
-  /* ... */
-}
+.mixin(@s; @color) { /* ... */ }
 
 .class {
   .mixin(@switch; #888);
@@ -2832,9 +2791,7 @@ div {
   @media screen and (min-width: 1200px) {
     @rules();
   }
-  html.lt-ie9 & {
-    @rules();
-  }
+  html.lt-ie9 & { @rules(); }
 }
 
 header {
@@ -2979,11 +2936,9 @@ selector {
 }
 
 @my-ruleset: {
-  .my-selector {
-    @media tv {
-      background-color: black;
-    }
-  }
+  .my-selector { @media tv {
+    background-color: black;
+  } }
 };
 
 .foo {
@@ -2996,8 +2951,7 @@ selector {
 @import "foo.php"; // foo.php imported as a less file
 @import "foo.css"; // statement left in place, as-is
 
-.navbar:extend(.navbar all) {
-}
+.navbar:extend(.navbar all) {}
 
 @import (less) "foo.css";
 
@@ -3033,12 +2987,8 @@ selector {
   color: @a;
 }
 
-.class1 {
-  .mixin(#ddd);
-}
-.class2 {
-  .mixin(#555);
-}
+.class1 { .mixin(#ddd); }
+.class2 { .mixin(#555); }
 
 .class1 {
   background-color: black;
@@ -3049,12 +2999,8 @@ selector {
   color: #555;
 }
 
-.truth (@a) when (@a) {
-  /* ... */
-}
-.truth (@a) when (@a = true) {
-  /* ... */
-}
+.truth (@a) when (@a) { /* ... */ }
+.truth (@a) when (@a = true) { /* ... */ }
 
 .class {
   .truth(40); // Will not match any of the above definitions.
@@ -3062,45 +3008,26 @@ selector {
 
 @media: mobile;
 
-.mixin (@a) when (@media = mobile) {
-  /* ... */
-}
-.mixin (@a) when (@media = desktop) {
-  /* ... */
-}
+.mixin (@a) when (@media = mobile) { /* ... */ }
+.mixin (@a) when (@media = desktop) { /* ... */ }
 
-.max (@a; @b) when (@a > @b) {
-  width: @a;
-}
-.max (@a; @b) when (@a < @b) {
-  width: @b;
-}
+.max (@a; @b) when (@a > @b) { width: @a; }
+.max (@a; @b) when (@a < @b) { width: @b; }
 
-.mixin (@a) when (isnumber(@a)) and (@a > 0) {
-  /* ... */
-}
+.mixin (@a) when (isnumber(@a)) and (@a > 0) { /* ... */ }
 
-.mixin (@a) when (@a > 10), (@a < -10) {
-  /* ... */
-}
+.mixin (@a) when (@a > 10), (@a < -10) { /* ... */ }
 
-.mixin (@b) when not (@b > 0) {
-  /* ... */
-}
+.mixin (@b) when not (@b > 0) { /* ... */ }
 
-.mixin (@a; @b: 0) when (isnumber(@b)) {
-  /* ... */
-}
-.mixin (@a; @b: black) when (iscolor(@b)) {
-  /* ... */
-}
+.mixin (@a; @b: 0) when (isnumber(@b)) { /* ... */ }
+.mixin (@a; @b: black) when (iscolor(@b)) { /* ... */ }
 
-.mixin (@a) when (@a > 0) {
-  /* ... */
-}
-.mixin (@a) when (default()) {
-  /* ... */
-} // matches only if first mixin does not, i.e. when @a <= 0
+.mixin (@a) when (@a > 0) { /* ... */ }
+.mixin
+  (@a)
+  when
+  (default()) { /* ... */ } // matches only if first mixin does not, i.e. when @a <= 0
 
 .my-optional-style() when (@my-option = true) {
   button {
@@ -3349,8 +3276,7 @@ li + li {
 .thing {
   &:hover {
     background-color: blue;
-    .thing-child {
-    }
+    .thing-child {}
   }
 }
 
@@ -3446,39 +3372,23 @@ printWidth: 80
 =====================================output=====================================
 // Animation
 // '
-.a {
-  color: red;
-}
+.a { color: red; }
 
-.aa:hover::after {
-  content: '"';
-} // "
+.aa:hover::after { content: '"'; } // "
 
-.b {
-  background: url(http://example.com);
-}
-.b::after {
-  content: "a";
-}
+.b { background: url(http://example.com); }
+.b::after { content: "a"; }
 
-.bb {
-  background: url("http://example.com/(foo)bar");
-}
-.bb::after {
-  content: "'a";
-} // """
+.bb { background: url("http://example.com/(foo)bar"); }
+.bb::after { content: "'a"; } // """
 
 // Animation   !
-.c {
-  color: red;
-}
+.c { color: red; }
 
 .d {
   color: red; /* // */
 }
-.d::after {
-  content: "'";
-}
+.d::after { content: "'"; }
 
 /*        fff
    //   */

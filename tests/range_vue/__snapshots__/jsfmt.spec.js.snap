@@ -31,9 +31,7 @@ let Prettier = (format) => {
 </script>
 
 <style>
-.and {
-  css: too !important;
-}
+.and { css: too !important; }
 </style>
 ================================================================================
 `;
