@@ -60,6 +60,12 @@ jobs:
         if: matrix.os != 'macos-latest'
         run: yarn test --maxWorkers=2
 
+      # #8073 test
+      - name: Run Tests (PRETTIER_FALLBACK_RESOLVE)
+        run: yarn test "tests_integration/__tests__/{config,plugin}-*.js"
+        env:
+          PRETTIER_FALLBACK_RESOLVE: true
+
       - name: Upload Coverage
         uses: codecov/codecov-action@v1
         if: matrix.ENABLE_CODE_COVERAGE

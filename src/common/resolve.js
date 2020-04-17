@@ -3,7 +3,7 @@
 let { resolve } = eval("require");
 
 // In the VS Code extension `require` is overridden and `require.resolve` doesn't support the 2nd argument.
-// if (resolve.length === 1) {
+if (resolve.length === 1 || process.env.PRETTIER_FALLBACK_RESOLVE) {
   resolve = (id, options) => {
     let basedir;
     if (options && options.paths && options.paths.length === 1) {
@@ -12,6 +12,6 @@ let { resolve } = eval("require");
 
     return require("resolve").sync(id, { basedir });
   };
-// }
+}
 
 module.exports = resolve;
