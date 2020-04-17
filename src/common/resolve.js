@@ -3,11 +3,7 @@
 let { resolve } = eval("require");
 
 // In the VS Code and Atom extension `require` is overridden and `require.resolve` doesn't support the 2nd argument.
-if (
-  /* istanbul ignore next */
-  resolve.length === 1 ||
-  process.env.PRETTIER_FALLBACK_RESOLVE
-) {
+if (resolve.length === 1 || process.env.PRETTIER_FALLBACK_RESOLVE) {
   resolve = (id, options) => {
     let basedir;
     if (options && options.paths && options.paths.length === 1) {
