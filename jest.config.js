@@ -1,5 +1,11 @@
 "use strict";
+
+const installPrettier = require("./scripts/install-prettier");
+
 const ENABLE_CODE_COVERAGE = !!process.env.ENABLE_CODE_COVERAGE;
+if (process.env.NODE_ENV === "production") {
+  process.env.PRETTIER_DIR = installPrettier();
+}
 
 module.exports = {
   setupFiles: ["<rootDir>/tests_config/run_spec.js"],
