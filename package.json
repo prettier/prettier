@@ -35,7 +35,7 @@
     "fast-glob": "3.2.2",
     "find-parent-dir": "0.3.0",
     "find-project-root": "1.1.1",
-    "flow-parser": "0.122.0",
+    "flow-parser": "0.123.0",
     "get-stream": "5.1.0",
     "globby": "11.0.0",
     "graphql": "15.0.0",
