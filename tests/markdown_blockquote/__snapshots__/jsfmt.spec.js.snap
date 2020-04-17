@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`code.md - {"proseWrap":"always"} 1`] = `
+exports[`code.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -43,7 +43,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`ignore-code.md - {"proseWrap":"always"} 1`] = `
+exports[`ignore-code.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -158,7 +158,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`nested.md - {"proseWrap":"always"} 1`] = `
+exports[`nested.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -173,7 +173,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`paragraph.md - {"proseWrap":"always"} 1`] = `
+exports[`paragraph.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -191,7 +191,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`simple.md - {"proseWrap":"always"} 1`] = `
+exports[`simple.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80

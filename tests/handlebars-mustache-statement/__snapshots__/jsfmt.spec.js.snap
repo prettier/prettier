@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`basics.hbs - {"singleQuote":true} 1`] = `
+exports[`basics.hbs - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -119,7 +119,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`basics.hbs 1`] = `
+exports[`basics.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -237,7 +237,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`element-modifier-statement.hbs - {"singleQuote":true} 1`] = `
+exports[`element-modifier-statement.hbs - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -314,7 +314,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`element-modifier-statement.hbs 1`] = `
+exports[`element-modifier-statement.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80

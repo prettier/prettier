@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`3-style.yml - {"tabWidth":4} 1`] = `
+exports[`3-style.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -27,7 +27,7 @@ tabWidth: 4
 ================================================================================
 `;
 
-exports[`3-style.yml 1`] = `
+exports[`3-style.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -53,7 +53,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`array-key.yml - {"tabWidth":4} 1`] = `
+exports[`array-key.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -68,7 +68,7 @@ tabWidth: 4
 ================================================================================
 `;
 
-exports[`array-key.yml 1`] = `
+exports[`array-key.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -82,7 +82,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`array-value.yml - {"tabWidth":4} 1`] = `
+exports[`array-value.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -97,7 +97,7 @@ tabWidth: 4
 ================================================================================
 `;
 
-exports[`array-value.yml 1`] = `
+exports[`array-value.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -111,7 +111,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`comment.yml - {"tabWidth":4} 1`] = `
+exports[`comment.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -130,7 +130,7 @@ tabWidth: 4
 ================================================================================
 `;
 
-exports[`comment.yml 1`] = `
+exports[`comment.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -148,7 +148,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`comment-value.yml - {"tabWidth":4} 1`] = `
+exports[`comment-value.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -163,7 +163,7 @@ tabWidth: 4
 ================================================================================
 `;
 
-exports[`comment-value.yml 1`] = `
+exports[`comment-value.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -177,7 +177,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`common.yml - {"tabWidth":4} 1`] = `
+exports[`common.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -194,7 +194,7 @@ key2: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglo
 ================================================================================
 `;
 
-exports[`common.yml 1`] = `
+exports[`common.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -210,7 +210,7 @@ key2: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglo
 ================================================================================
 `;
 
-exports[`explicit-key.yml - {"tabWidth":4} 1`] = `
+exports[`explicit-key.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -232,7 +232,7 @@ longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
 ================================================================================
 `;
 
-exports[`explicit-key.yml 1`] = `
+exports[`explicit-key.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -253,7 +253,7 @@ longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
 ================================================================================
 `;
 
-exports[`in-sequence.yml - {"tabWidth":4} 1`] = `
+exports[`in-sequence.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -270,7 +270,7 @@ tabWidth: 4
 ================================================================================
 `;
 
-exports[`in-sequence.yml 1`] = `
+exports[`in-sequence.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -286,7 +286,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`key-with-leading-comment.yml - {"tabWidth":4} 1`] = `
+exports[`key-with-leading-comment.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -305,7 +305,7 @@ tabWidth: 4
 ================================================================================
 `;
 
-exports[`key-with-leading-comment.yml 1`] = `
+exports[`key-with-leading-comment.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -323,7 +323,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`mapping.yml - {"tabWidth":4} 1`] = `
+exports[`mapping.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -340,7 +340,7 @@ key:
 ================================================================================
 `;
 
-exports[`mapping.yml 1`] = `
+exports[`mapping.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -356,7 +356,7 @@ key:
 ================================================================================
 `;
 
-exports[`merge-twice.yml - {"tabWidth":4} 1`] = `
+exports[`merge-twice.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -389,7 +389,7 @@ foo:
 ================================================================================
 `;
 
-exports[`merge-twice.yml 1`] = `
+exports[`merge-twice.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -421,7 +421,7 @@ foo:
 ================================================================================
 `;
 
-exports[`middle-comment.yml - {"tabWidth":4} 1`] = `
+exports[`middle-comment.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -438,7 +438,7 @@ a: 123
 ================================================================================
 `;
 
-exports[`middle-comment.yml 1`] = `
+exports[`middle-comment.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -454,7 +454,7 @@ a: 123
 ================================================================================
 `;
 
-exports[`middle-comments.yml - {"tabWidth":4} 1`] = `
+exports[`middle-comments.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -474,7 +474,7 @@ a: 123
 ================================================================================
 `;
 
-exports[`middle-comments.yml 1`] = `
+exports[`middle-comments.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -493,7 +493,7 @@ a: 123
 ================================================================================
 `;
 
-exports[`props.yml - {"tabWidth":4} 1`] = `
+exports[`props.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -511,7 +511,7 @@ a: 123
 ================================================================================
 `;
 
-exports[`props.yml 1`] = `
+exports[`props.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -528,7 +528,7 @@ a: 123
 ================================================================================
 `;
 
-exports[`props-in-map.yml - {"tabWidth":4} 1`] = `
+exports[`props-in-map.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -545,7 +545,7 @@ a: !!map &anchor
 ================================================================================
 `;
 
-exports[`props-in-map.yml 1`] = `
+exports[`props-in-map.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -561,7 +561,7 @@ a: !!map &anchor
 ================================================================================
 `;
 
-exports[`quote-key.yml - {"tabWidth":4} 1`] = `
+exports[`quote-key.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -578,7 +578,7 @@ tabWidth: 4
 ================================================================================
 `;
 
-exports[`quote-key.yml 1`] = `
+exports[`quote-key.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -594,7 +594,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`sequence.yml - {"tabWidth":4} 1`] = `
+exports[`sequence.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -611,7 +611,7 @@ key:
 ================================================================================
 `;
 
-exports[`sequence.yml 1`] = `
+exports[`sequence.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -627,7 +627,7 @@ key:
 ================================================================================
 `;
 
-exports[`tag-key.yml - {"tabWidth":4} 1`] = `
+exports[`tag-key.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -643,7 +643,7 @@ tabWidth: 4
 ================================================================================
 `;
 
-exports[`tag-key.yml 1`] = `
+exports[`tag-key.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80

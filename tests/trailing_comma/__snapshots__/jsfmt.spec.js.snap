@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`dynamic-import.js - {"trailingComma":"all"} 1`] = `
+exports[`dynamic-import.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -19,7 +19,7 @@ import(
 ================================================================================
 `;
 
-exports[`dynamic-import.js - {"trailingComma":"none"} 1`] = `
+exports[`dynamic-import.js - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -38,7 +38,7 @@ import(
 ================================================================================
 `;
 
-exports[`dynamic-import.js 1`] = `
+exports[`dynamic-import.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -56,7 +56,7 @@ import(
 ================================================================================
 `;
 
-exports[`es5.js - {"trailingComma":"all"} 1`] = `
+exports[`es5.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -103,7 +103,7 @@ function send_single_email(
 ================================================================================
 `;
 
-exports[`es5.js - {"trailingComma":"none"} 1`] = `
+exports[`es5.js - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -150,7 +150,7 @@ function send_single_email(
 ================================================================================
 `;
 
-exports[`es5.js 1`] = `
+exports[`es5.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -196,7 +196,7 @@ function send_single_email(
 ================================================================================
 `;
 
-exports[`function-calls.js - {"trailingComma":"all"} 1`] = `
+exports[`function-calls.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -249,7 +249,7 @@ a.b().c(
 ================================================================================
 `;
 
-exports[`function-calls.js - {"trailingComma":"none"} 1`] = `
+exports[`function-calls.js - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -302,7 +302,7 @@ a.b().c(
 ================================================================================
 `;
 
-exports[`function-calls.js 1`] = `
+exports[`function-calls.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -354,7 +354,7 @@ a.b().c(
 ================================================================================
 `;
 
-exports[`jsx.js - {"trailingComma":"all"} 1`] = `
+exports[`jsx.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -381,7 +381,7 @@ trailingComma: "all"
 ================================================================================
 `;
 
-exports[`jsx.js - {"trailingComma":"none"} 1`] = `
+exports[`jsx.js - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -408,7 +408,7 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`jsx.js 1`] = `
+exports[`jsx.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -434,7 +434,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`object.js - {"trailingComma":"all"} 1`] = `
+exports[`object.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -489,7 +489,7 @@ const aLong = {
 ================================================================================
 `;
 
-exports[`object.js - {"trailingComma":"none"} 1`] = `
+exports[`object.js - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -544,7 +544,7 @@ const aLong = {
 ================================================================================
 `;
 
-exports[`object.js 1`] = `
+exports[`object.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -598,7 +598,7 @@ const aLong = {
 ================================================================================
 `;
 
-exports[`trailing_whitespace.js - {"trailingComma":"all"} 1`] = `
+exports[`trailing_whitespace.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -697,7 +697,7 @@ this.getAttribute(function (s) /*string*/ {
 ================================================================================
 `;
 
-exports[`trailing_whitespace.js - {"trailingComma":"none"} 1`] = `
+exports[`trailing_whitespace.js - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -796,7 +796,7 @@ this.getAttribute(function (s) /*string*/ {
 ================================================================================
 `;
 
-exports[`trailing_whitespace.js 1`] = `
+exports[`trailing_whitespace.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80

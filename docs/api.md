@@ -44,7 +44,7 @@ If `options.useCache` is `false`, all caching will be bypassed.
 
 ```js
 const text = fs.readFileSync(filePath, "utf8");
-prettier.resolveConfig(filePath).then(options => {
+prettier.resolveConfig(filePath).then((options) => {
   const formatted = prettier.format(text, options);
 });
 ```
@@ -70,8 +70,8 @@ The promise will be rejected if there was an error parsing the configuration fil
 The search starts at `process.cwd()`, or at `filePath` if provided. Please see the [cosmiconfig docs](https://github.com/davidtheclark/cosmiconfig#explorersearch) for details on how the resolving works.
 
 ```js
-prettier.resolveConfigFile().then(filePath => {
-  prettier.resolveConfig(filePath).then(options => {
+prettier.resolveConfigFile().then((filePath) => {
+  prettier.resolveConfig(filePath).then((options) => {
     const formatted = prettier.format(text, options);
   });
 });
@@ -146,7 +146,7 @@ prettier.format("lodash ( )", {
     const ast = babel(text);
     ast.program.body[0].expression.callee.name = "_";
     return ast;
-  }
+  },
 });
 // -> "_();\n"
 ```

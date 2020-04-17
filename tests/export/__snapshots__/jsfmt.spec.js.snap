@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`bracket.js - {"bracketSpacing":false} 1`] = `
+exports[`bracket.js - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["flow", "typescript"]
@@ -35,7 +35,7 @@ export {fitsIn, oneLine};
 ================================================================================
 `;
 
-exports[`bracket.js 1`] = `
+exports[`bracket.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -69,7 +69,7 @@ export { fitsIn, oneLine };
 ================================================================================
 `;
 
-exports[`empty.js - {"bracketSpacing":false} 1`] = `
+exports[`empty.js - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["flow", "typescript"]
@@ -86,7 +86,7 @@ export {} from ".";
 ================================================================================
 `;
 
-exports[`empty.js 1`] = `
+exports[`empty.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80

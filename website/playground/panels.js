@@ -21,6 +21,10 @@ class CodeMirrorPanel extends React.Component {
 
     options.rulers = [makeRuler(this.props)];
 
+    if (options.foldGutter) {
+      options.gutters = ["CodeMirror-linenumbers", "CodeMirror-foldgutter"];
+    }
+
     this._codeMirror = CodeMirror.fromTextArea(
       this._textareaRef.current,
       options
@@ -69,7 +73,7 @@ class CodeMirrorPanel extends React.Component {
       }
       const [start, end] = getIndexPosition(this.props.value, [
         this.props.overlayStart,
-        this.props.overlayEnd
+        this.props.overlayEnd,
       ]);
       this._overlay = createOverlay(start, end);
       this._codeMirror.addOverlay(this._overlay);
@@ -142,7 +146,7 @@ function createOverlay(start, end) {
         stream.skipToEnd();
         return "searching";
       }
-    }
+    },
   };
 }
 
@@ -181,6 +185,7 @@ export function DebugPanel({ value }) {
     <CodeMirrorPanel
       readOnly={true}
       lineNumbers={false}
+      foldGutter={true}
       mode="jsx"
       value={value}
     />

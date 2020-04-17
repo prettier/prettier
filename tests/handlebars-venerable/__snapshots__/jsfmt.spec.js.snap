@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`template.html - {"singleQuote":true} 1`] = `
+exports[`template.html - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -41,7 +41,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`template.html 1`] = `
+exports[`template.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80

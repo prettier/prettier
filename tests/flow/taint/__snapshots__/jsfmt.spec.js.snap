@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`adder.js 1`] = `
+exports[`adder.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -74,7 +74,7 @@ function f7(x: $Tainted<string>, y: $Tainted<number>) {
 ================================================================================
 `;
 
-exports[`any_object.js 1`] = `
+exports[`any_object.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -136,7 +136,7 @@ let tests = [
 ================================================================================
 `;
 
-exports[`call-object-property.js 1`] = `
+exports[`call-object-property.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -198,7 +198,7 @@ function f_foo3(f1: Function, o1: Object, o2: { t: $Tainted<string> }) {
 ================================================================================
 `;
 
-exports[`comparator.js 1`] = `
+exports[`comparator.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -246,7 +246,7 @@ function f3(x: $Tainted<string>, y: string) {
 ================================================================================
 `;
 
-exports[`function.js 1`] = `
+exports[`function.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -286,7 +286,7 @@ let tests = [
 ================================================================================
 `;
 
-exports[`globals.js 1`] = `
+exports[`globals.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -322,7 +322,7 @@ class A {
 ================================================================================
 `;
 
-exports[`lib.js 1`] = `
+exports[`lib.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -358,7 +358,7 @@ declare var fakeLocation: FakeLocation;
 ================================================================================
 `;
 
-exports[`taint1.js 1`] = `
+exports[`taint1.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -390,7 +390,7 @@ class A {
 ================================================================================
 `;
 
-exports[`taint2.js 1`] = `
+exports[`taint2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -422,7 +422,7 @@ class A {
 ================================================================================
 `;
 
-exports[`taint3.js 1`] = `
+exports[`taint3.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -458,7 +458,7 @@ class A {
 ================================================================================
 `;
 
-exports[`taint4.js 1`] = `
+exports[`taint4.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -496,7 +496,7 @@ function f(x: $Tainted<any>) {
 ================================================================================
 `;
 
-exports[`use-types.js 1`] = `
+exports[`use-types.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

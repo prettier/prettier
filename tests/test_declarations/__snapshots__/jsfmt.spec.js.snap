@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`angular_async.js - {"arrowParens":"avoid"} 1`] = `
+exports[`angular_async.js - {"arrowParens":"avoid"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["flow", "typescript"]
@@ -75,7 +75,7 @@ function x() {
 ================================================================================
 `;
 
-exports[`angular_async.js 1`] = `
+exports[`angular_async.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -149,7 +149,7 @@ function x() {
 ================================================================================
 `;
 
-exports[`angular_fakeAsync.js - {"arrowParens":"avoid"} 1`] = `
+exports[`angular_fakeAsync.js - {"arrowParens":"avoid"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["flow", "typescript"]
@@ -213,7 +213,7 @@ function x() {
 ================================================================================
 `;
 
-exports[`angular_fakeAsync.js 1`] = `
+exports[`angular_fakeAsync.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -276,7 +276,7 @@ function x() {
 ================================================================================
 `;
 
-exports[`angularjs_inject.js - {"arrowParens":"avoid"} 1`] = `
+exports[`angularjs_inject.js - {"arrowParens":"avoid"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["flow", "typescript"]
@@ -346,7 +346,7 @@ function x() {
 ================================================================================
 `;
 
-exports[`angularjs_inject.js 1`] = `
+exports[`angularjs_inject.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -415,7 +415,7 @@ function x() {
 ================================================================================
 `;
 
-exports[`jest-each.js - {"arrowParens":"avoid"} 1`] = `
+exports[`jest-each.js - {"arrowParens":"avoid"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["flow", "typescript"]
@@ -560,7 +560,7 @@ test.each([
 ================================================================================
 `;
 
-exports[`jest-each.js 1`] = `
+exports[`jest-each.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -704,7 +704,7 @@ test.each([
 ================================================================================
 `;
 
-exports[`test_declarations.js - {"arrowParens":"avoid"} 1`] = `
+exports[`test_declarations.js - {"arrowParens":"avoid"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["flow", "typescript"]
@@ -988,7 +988,7 @@ it(
 ================================================================================
 `;
 
-exports[`test_declarations.js 1`] = `
+exports[`test_declarations.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80

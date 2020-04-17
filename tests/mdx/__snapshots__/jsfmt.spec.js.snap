@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`import-export.mdx - {"semi":false} 1`] = `
+exports[`import-export.mdx - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
 printWidth: 80
@@ -87,7 +87,7 @@ export const b = 1
 ================================================================================
 `;
 
-exports[`import-export.mdx 1`] = `
+exports[`import-export.mdx format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
 printWidth: 80
@@ -173,7 +173,7 @@ export const b = 1;
 ================================================================================
 `;
 
-exports[`inline-html.mdx - {"semi":false} 1`] = `
+exports[`inline-html.mdx - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
 printWidth: 80
@@ -202,7 +202,7 @@ and as you can see_ once you close the italics, it will break incorrectly when p
 ================================================================================
 `;
 
-exports[`inline-html.mdx 1`] = `
+exports[`inline-html.mdx format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
 printWidth: 80
@@ -230,7 +230,7 @@ and as you can see_ once you close the italics, it will break incorrectly when p
 ================================================================================
 `;
 
-exports[`jsx.mdx - {"semi":false} 1`] = `
+exports[`jsx.mdx - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
 printWidth: 80
@@ -319,7 +319,7 @@ semi: false
 ================================================================================
 `;
 
-exports[`jsx.mdx 1`] = `
+exports[`jsx.mdx format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
 printWidth: 80
@@ -407,7 +407,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`jsx-codeblock.mdx - {"semi":false} 1`] = `
+exports[`jsx-codeblock.mdx - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
 printWidth: 80
@@ -436,7 +436,7 @@ const a = 1
 ================================================================================
 `;
 
-exports[`jsx-codeblock.mdx 1`] = `
+exports[`jsx-codeblock.mdx format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
 printWidth: 80
@@ -464,7 +464,7 @@ const a = 1;
 ================================================================================
 `;
 
-exports[`levels.mdx - {"semi":false} 1`] = `
+exports[`levels.mdx - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
 printWidth: 80
@@ -520,7 +520,7 @@ test
 ================================================================================
 `;
 
-exports[`levels.mdx 1`] = `
+exports[`levels.mdx format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
 printWidth: 80
@@ -575,7 +575,7 @@ test
 ================================================================================
 `;
 
-exports[`mixed.mdx - {"semi":false} 1`] = `
+exports[`mixed.mdx - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
 printWidth: 80
@@ -666,7 +666,7 @@ export default ({ children }) => <div>{children}</div>
 ================================================================================
 `;
 
-exports[`mixed.mdx 1`] = `
+exports[`mixed.mdx format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
 printWidth: 80

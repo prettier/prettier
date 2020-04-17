@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`quotes.css - {"singleQuote":true} 1`] = `
+exports[`quotes.css - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -197,7 +197,7 @@ one 'two' three {
 ================================================================================
 `;
 
-exports[`quotes.css 1`] = `
+exports[`quotes.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80

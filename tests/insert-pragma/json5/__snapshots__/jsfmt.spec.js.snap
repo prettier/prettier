@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`with-pragma.json5 - {"insertPragma":true} 1`] = `
+exports[`with-pragma.json5 - {"insertPragma":true} format 1`] = `
 ====================================options=====================================
 insertPragma: true
 parsers: ["json5"]
@@ -19,7 +19,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`without-pragma.json5 - {"insertPragma":true} 1`] = `
+exports[`without-pragma.json5 - {"insertPragma":true} format 1`] = `
 ====================================options=====================================
 insertPragma: true
 parsers: ["json5"]

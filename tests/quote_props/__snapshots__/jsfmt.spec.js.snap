@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`classes.js - {"quoteProps":"as-needed"} 1`] = `
+exports[`classes.js - {"quoteProps":"as-needed"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -47,7 +47,7 @@ class D {
 ================================================================================
 `;
 
-exports[`classes.js - {"quoteProps":"consistent","singleQuote":true} 1`] = `
+exports[`classes.js - {"quoteProps":"consistent","singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -95,7 +95,7 @@ class D {
 ================================================================================
 `;
 
-exports[`classes.js - {"quoteProps":"consistent"} 1`] = `
+exports[`classes.js - {"quoteProps":"consistent"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -142,7 +142,7 @@ class D {
 ================================================================================
 `;
 
-exports[`classes.js - {"quoteProps":"preserve"} 1`] = `
+exports[`classes.js - {"quoteProps":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -189,7 +189,7 @@ class D {
 ================================================================================
 `;
 
-exports[`objects.js - {"quoteProps":"as-needed"} 1`] = `
+exports[`objects.js - {"quoteProps":"as-needed"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -236,7 +236,7 @@ const d = {
 ================================================================================
 `;
 
-exports[`objects.js - {"quoteProps":"consistent","singleQuote":true} 1`] = `
+exports[`objects.js - {"quoteProps":"consistent","singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -284,7 +284,7 @@ const d = {
 ================================================================================
 `;
 
-exports[`objects.js - {"quoteProps":"consistent"} 1`] = `
+exports[`objects.js - {"quoteProps":"consistent"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -331,7 +331,7 @@ const d = {
 ================================================================================
 `;
 
-exports[`objects.js - {"quoteProps":"preserve"} 1`] = `
+exports[`objects.js - {"quoteProps":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -378,7 +378,7 @@ const d = {
 ================================================================================
 `;
 
-exports[`with_member_expressions.js - {"quoteProps":"as-needed"} 1`] = `
+exports[`with_member_expressions.js - {"quoteProps":"as-needed"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -409,7 +409,7 @@ class Foo {
 ================================================================================
 `;
 
-exports[`with_member_expressions.js - {"quoteProps":"consistent","singleQuote":true} 1`] = `
+exports[`with_member_expressions.js - {"quoteProps":"consistent","singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -441,7 +441,7 @@ class Foo {
 ================================================================================
 `;
 
-exports[`with_member_expressions.js - {"quoteProps":"consistent"} 1`] = `
+exports[`with_member_expressions.js - {"quoteProps":"consistent"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -472,7 +472,7 @@ class Foo {
 ================================================================================
 `;
 
-exports[`with_member_expressions.js - {"quoteProps":"preserve"} 1`] = `
+exports[`with_member_expressions.js - {"quoteProps":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -503,7 +503,7 @@ class Foo {
 ================================================================================
 `;
 
-exports[`with_numbers.js - {"quoteProps":"as-needed"} 1`] = `
+exports[`with_numbers.js - {"quoteProps":"as-needed"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -544,7 +544,7 @@ obj = {
 ================================================================================
 `;
 
-exports[`with_numbers.js - {"quoteProps":"consistent","singleQuote":true} 1`] = `
+exports[`with_numbers.js - {"quoteProps":"consistent","singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -586,7 +586,7 @@ obj = {
 ================================================================================
 `;
 
-exports[`with_numbers.js - {"quoteProps":"consistent"} 1`] = `
+exports[`with_numbers.js - {"quoteProps":"consistent"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -627,7 +627,7 @@ obj = {
 ================================================================================
 `;
 
-exports[`with_numbers.js - {"quoteProps":"preserve"} 1`] = `
+exports[`with_numbers.js - {"quoteProps":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80

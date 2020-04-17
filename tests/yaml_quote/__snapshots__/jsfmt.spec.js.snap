@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`multiline.yml - {"proseWrap":"always"} 1`] = `
+exports[`multiline.yml - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -83,7 +83,7 @@ b: "
 ================================================================================
 `;
 
-exports[`multiline.yml - {"proseWrap":"never"} 1`] = `
+exports[`multiline.yml - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -160,7 +160,7 @@ b: "
 ================================================================================
 `;
 
-exports[`multiline.yml - {"singleQuote":true} 1`] = `
+exports[`multiline.yml - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -249,7 +249,7 @@ b: '
 ================================================================================
 `;
 
-exports[`multiline.yml 1`] = `
+exports[`multiline.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -337,7 +337,7 @@ b: "
 ================================================================================
 `;
 
-exports[`quote.yml - {"proseWrap":"always"} 1`] = `
+exports[`quote.yml - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -368,7 +368,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`quote.yml - {"proseWrap":"never"} 1`] = `
+exports[`quote.yml - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -399,7 +399,7 @@ proseWrap: "never"
 ================================================================================
 `;
 
-exports[`quote.yml - {"singleQuote":true} 1`] = `
+exports[`quote.yml - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -430,7 +430,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`quote.yml 1`] = `
+exports[`quote.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80

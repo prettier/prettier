@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`attributes.html 1`] = `
+exports[`attributes.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -156,7 +156,7 @@ and HTML5 Apps. It also documents Mozilla products, like Firefox OS."
 ================================================================================
 `;
 
-exports[`boolean.html 1`] = `
+exports[`boolean.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -220,7 +220,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`case-sensitive.html 1`] = `
+exports[`case-sensitive.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -234,7 +234,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`class-names.html 1`] = `
+exports[`class-names.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -339,7 +339,7 @@ width="205px" alt="Yahoo"/></a></h1></div></div>
 ================================================================================
 `;
 
-exports[`dobule-quotes.html 1`] = `
+exports[`dobule-quotes.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -353,7 +353,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`duplicate.html 1`] = `
+exports[`duplicate.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -367,7 +367,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`single-quotes.html 1`] = `
+exports[`single-quotes.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -381,7 +381,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`smart-quotes.html 1`] = `
+exports[`smart-quotes.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -403,7 +403,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`srcset.html 1`] = `
+exports[`srcset.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -458,7 +458,7 @@ srcset="
 ================================================================================
 `;
 
-exports[`style.html 1`] = `
+exports[`style.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -599,7 +599,7 @@ style="css-prop-1: css-value;css-prop-2: css-value;css-prop-3: css-value;css-pro
 ================================================================================
 `;
 
-exports[`without-quotes.html 1`] = `
+exports[`without-quotes.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80

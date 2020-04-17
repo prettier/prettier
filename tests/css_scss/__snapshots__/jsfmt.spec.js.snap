@@ -1,6 +1,79 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`import_comma.scss - {"trailingComma":"none"} 1`] = `
+exports[`comments.scss - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+// This comment won't be included in the CSS. 
+//This comment won't be included in the CSS.
+//     This comment won't be included in the CSS.     
+
+/* But this comment will, except in compressed mode. */
+/*     But this comment will, except in compressed mode.     */
+/*But this comment will, except in compressed mode.*/
+
+/*! This comment will be included even in compressed mode. */
+
+/// Computes an exponent.
+///// Computes an exponent.
+
+=====================================output=====================================
+// This comment won't be included in the CSS.
+//This comment won't be included in the CSS.
+//     This comment won't be included in the CSS.
+
+/* But this comment will, except in compressed mode. */
+/*     But this comment will, except in compressed mode.     */
+/*But this comment will, except in compressed mode.*/
+
+/*! This comment will be included even in compressed mode. */
+
+/// Computes an exponent.
+///// Computes an exponent.
+
+================================================================================
+`;
+
+exports[`comments.scss format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// This comment won't be included in the CSS. 
+//This comment won't be included in the CSS.
+//     This comment won't be included in the CSS.     
+
+/* But this comment will, except in compressed mode. */
+/*     But this comment will, except in compressed mode.     */
+/*But this comment will, except in compressed mode.*/
+
+/*! This comment will be included even in compressed mode. */
+
+/// Computes an exponent.
+///// Computes an exponent.
+
+=====================================output=====================================
+// This comment won't be included in the CSS.
+//This comment won't be included in the CSS.
+//     This comment won't be included in the CSS.
+
+/* But this comment will, except in compressed mode. */
+/*     But this comment will, except in compressed mode.     */
+/*But this comment will, except in compressed mode.*/
+
+/*! This comment will be included even in compressed mode. */
+
+/// Computes an exponent.
+///// Computes an exponent.
+
+================================================================================
+`;
+
+exports[`import_comma.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
@@ -15,7 +88,7 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`import_comma.scss 1`] = `
+exports[`import_comma.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
@@ -29,7 +102,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`scss.scss - {"trailingComma":"none"} 1`] = `
+exports[`scss.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
@@ -2058,7 +2131,7 @@ label {
 ================================================================================
 `;
 
-exports[`scss.scss 1`] = `
+exports[`scss.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
@@ -4086,7 +4159,7 @@ label {
 ================================================================================
 `;
 
-exports[`string-concatanation.scss - {"trailingComma":"none"} 1`] = `
+exports[`string-concatanation.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
@@ -4111,7 +4184,7 @@ a {
 ================================================================================
 `;
 
-exports[`string-concatanation.scss 1`] = `
+exports[`string-concatanation.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80

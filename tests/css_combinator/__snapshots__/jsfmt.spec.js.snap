@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`combinator.css 1`] = `
+exports[`combinator.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -40,7 +40,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`leading.css 1`] = `
+exports[`leading.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80

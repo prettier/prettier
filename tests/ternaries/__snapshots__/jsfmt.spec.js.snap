@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`binary.js - {"tabWidth":4} 1`] = `
+exports[`binary.js - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -42,7 +42,7 @@ room = room.map((row, rowIndex) =>
 ================================================================================
 `;
 
-exports[`binary.js - {"useTabs":true,"tabWidth":4} 1`] = `
+exports[`binary.js - {"useTabs":true,"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -85,7 +85,7 @@ room = room.map((row, rowIndex) =>
 ================================================================================
 `;
 
-exports[`binary.js - {"useTabs":true} 1`] = `
+exports[`binary.js - {"useTabs":true} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -127,7 +127,7 @@ room = room.map((row, rowIndex) =>
 ================================================================================
 `;
 
-exports[`binary.js 1`] = `
+exports[`binary.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -168,7 +168,7 @@ room = room.map((row, rowIndex) =>
 ================================================================================
 `;
 
-exports[`func-call.js - {"tabWidth":4} 1`] = `
+exports[`func-call.js - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -197,7 +197,7 @@ fn(
 ================================================================================
 `;
 
-exports[`func-call.js - {"useTabs":true,"tabWidth":4} 1`] = `
+exports[`func-call.js - {"useTabs":true,"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -227,7 +227,7 @@ fn(
 ================================================================================
 `;
 
-exports[`func-call.js - {"useTabs":true} 1`] = `
+exports[`func-call.js - {"useTabs":true} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -256,7 +256,7 @@ fn(
 ================================================================================
 `;
 
-exports[`func-call.js 1`] = `
+exports[`func-call.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -284,7 +284,7 @@ fn(
 ================================================================================
 `;
 
-exports[`indent.js - {"tabWidth":4} 1`] = `
+exports[`indent.js - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -614,7 +614,7 @@ a
 ================================================================================
 `;
 
-exports[`indent.js - {"useTabs":true,"tabWidth":4} 1`] = `
+exports[`indent.js - {"useTabs":true,"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -949,7 +949,7 @@ a
 ================================================================================
 `;
 
-exports[`indent.js - {"useTabs":true} 1`] = `
+exports[`indent.js - {"useTabs":true} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -1279,7 +1279,7 @@ a
 ================================================================================
 `;
 
-exports[`indent.js 1`] = `
+exports[`indent.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -1608,7 +1608,7 @@ a
 ================================================================================
 `;
 
-exports[`nested.js - {"tabWidth":4} 1`] = `
+exports[`nested.js - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -1812,7 +1812,7 @@ a
 ================================================================================
 `;
 
-exports[`nested.js - {"useTabs":true,"tabWidth":4} 1`] = `
+exports[`nested.js - {"useTabs":true,"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -2017,7 +2017,7 @@ a
 ================================================================================
 `;
 
-exports[`nested.js - {"useTabs":true} 1`] = `
+exports[`nested.js - {"useTabs":true} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -2221,7 +2221,7 @@ a
 ================================================================================
 `;
 
-exports[`nested.js 1`] = `
+exports[`nested.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -2424,7 +2424,7 @@ a
 ================================================================================
 `;
 
-exports[`nested-in-condition.js - {"tabWidth":4} 1`] = `
+exports[`nested-in-condition.js - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -2513,7 +2513,7 @@ const value = (
 ================================================================================
 `;
 
-exports[`nested-in-condition.js - {"useTabs":true,"tabWidth":4} 1`] = `
+exports[`nested-in-condition.js - {"useTabs":true,"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -2603,7 +2603,7 @@ const value = (
 ================================================================================
 `;
 
-exports[`nested-in-condition.js - {"useTabs":true} 1`] = `
+exports[`nested-in-condition.js - {"useTabs":true} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -2692,7 +2692,7 @@ const value = (
 ================================================================================
 `;
 
-exports[`nested-in-condition.js 1`] = `
+exports[`nested-in-condition.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -2780,7 +2780,7 @@ const value = (
 ================================================================================
 `;
 
-exports[`parenthesis.js - {"tabWidth":4} 1`] = `
+exports[`parenthesis.js - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -2817,7 +2817,7 @@ debug
 ================================================================================
 `;
 
-exports[`parenthesis.js - {"useTabs":true,"tabWidth":4} 1`] = `
+exports[`parenthesis.js - {"useTabs":true,"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -2855,7 +2855,7 @@ debug
 ================================================================================
 `;
 
-exports[`parenthesis.js - {"useTabs":true} 1`] = `
+exports[`parenthesis.js - {"useTabs":true} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -2892,7 +2892,7 @@ debug
 ================================================================================
 `;
 
-exports[`parenthesis.js 1`] = `
+exports[`parenthesis.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -2928,7 +2928,7 @@ debug
 ================================================================================
 `;
 
-exports[`test.js - {"tabWidth":4} 1`] = `
+exports[`test.js - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -2988,7 +2988,7 @@ const obj5 = conditionIsTruthy
 ================================================================================
 `;
 
-exports[`test.js - {"useTabs":true,"tabWidth":4} 1`] = `
+exports[`test.js - {"useTabs":true,"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -3049,7 +3049,7 @@ const obj5 = conditionIsTruthy
 ================================================================================
 `;
 
-exports[`test.js - {"useTabs":true} 1`] = `
+exports[`test.js - {"useTabs":true} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -3109,7 +3109,7 @@ const obj5 = conditionIsTruthy
 ================================================================================
 `;
 
-exports[`test.js 1`] = `
+exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80

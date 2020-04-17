@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`attributes.html - {"parser":"lwc","semi":false} 1`] = `
+exports[`attributes.html - {"parser":"lwc","semi":false} format 1`] = `
 ====================================options=====================================
 parser: "lwc"
 parsers: ["lwc"]
@@ -39,7 +39,7 @@ semi: false
 ================================================================================
 `;
 
-exports[`attributes.html - {"parser":"lwc","trailingComma":"none"} 1`] = `
+exports[`attributes.html - {"parser":"lwc","trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parser: "lwc"
 parsers: ["lwc"]
@@ -78,7 +78,7 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`attributes.html - {"parser":"lwc"} 1`] = `
+exports[`attributes.html - {"parser":"lwc"} format 1`] = `
 ====================================options=====================================
 parser: "lwc"
 parsers: ["lwc"]

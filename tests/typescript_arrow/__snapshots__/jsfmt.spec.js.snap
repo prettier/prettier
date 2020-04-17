@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`arrow_regression.js - {"semi":false} 1`] = `
+exports[`arrow_regression.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -42,7 +42,7 @@ app.get("/", (req, res): void => {
 ================================================================================
 `;
 
-exports[`arrow_regression.js 1`] = `
+exports[`arrow_regression.js format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -83,7 +83,7 @@ app.get("/", (req, res): void => {
 ================================================================================
 `;
 
-exports[`comments.js - {"semi":false} 1`] = `
+exports[`comments.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -115,7 +115,7 @@ const fn2 = () => {
 ================================================================================
 `;
 
-exports[`comments.js 1`] = `
+exports[`comments.js format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

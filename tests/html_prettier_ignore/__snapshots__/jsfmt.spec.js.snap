@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`cases.html 1`] = `
+exports[`cases.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -14,13 +14,12 @@ printWidth: 80
 123<!--prettier-ignore-->456
 
 <span></span
-><!--prettier-ignore--><span
-></span>
+><!--prettier-ignore--><span></span>
 
 ================================================================================
 `;
 
-exports[`document.html 1`] = `
+exports[`document.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -118,7 +117,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`long_lines.html 1`] = `
+exports[`long_lines.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80

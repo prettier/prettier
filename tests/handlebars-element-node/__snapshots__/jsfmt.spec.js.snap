@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`element-node.hbs - {"singleQuote":true} 1`] = `
+exports[`element-node.hbs - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -84,7 +84,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`element-node.hbs 1`] = `
+exports[`element-node.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80

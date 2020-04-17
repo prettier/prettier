@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`case-sensitive.html - {"htmlWhitespaceSensitivity":"ignore"} 1`] = `
+exports[`case-sensitive.html - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["html"]
@@ -15,7 +15,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`case-sensitive.html - {"htmlWhitespaceSensitivity":"strict"} 1`] = `
+exports[`case-sensitive.html - {"htmlWhitespaceSensitivity":"strict"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "strict"
 parsers: ["html"]
@@ -30,7 +30,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`case-sensitive.html - {"printWidth":"Infinity"} 1`] = `
+exports[`case-sensitive.html - {"printWidth":"Infinity"} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: Infinity
@@ -43,7 +43,7 @@ printWidth: Infinity
 ================================================================================
 `;
 
-exports[`case-sensitive.html - {"printWidth":1} 1`] = `
+exports[`case-sensitive.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
@@ -61,7 +61,7 @@ printWidth: 1
 ================================================================================
 `;
 
-exports[`case-sensitive.html 1`] = `
+exports[`case-sensitive.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -75,7 +75,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`closing-at-start.html - {"htmlWhitespaceSensitivity":"ignore"} 1`] = `
+exports[`closing-at-start.html - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["html"]
@@ -121,7 +121,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`closing-at-start.html - {"htmlWhitespaceSensitivity":"strict"} 1`] = `
+exports[`closing-at-start.html - {"htmlWhitespaceSensitivity":"strict"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "strict"
 parsers: ["html"]
@@ -164,7 +164,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`closing-at-start.html - {"printWidth":"Infinity"} 1`] = `
+exports[`closing-at-start.html - {"printWidth":"Infinity"} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: Infinity
@@ -199,7 +199,7 @@ printWidth: Infinity
 ================================================================================
 `;
 
-exports[`closing-at-start.html - {"printWidth":1} 1`] = `
+exports[`closing-at-start.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
@@ -241,7 +241,7 @@ printWidth: 1
 ================================================================================
 `;
 
-exports[`closing-at-start.html 1`] = `
+exports[`closing-at-start.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -283,7 +283,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`custom-element.html - {"htmlWhitespaceSensitivity":"ignore"} 1`] = `
+exports[`custom-element.html - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["html"]
@@ -300,7 +300,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`custom-element.html - {"htmlWhitespaceSensitivity":"strict"} 1`] = `
+exports[`custom-element.html - {"htmlWhitespaceSensitivity":"strict"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "strict"
 parsers: ["html"]
@@ -317,7 +317,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`custom-element.html - {"printWidth":"Infinity"} 1`] = `
+exports[`custom-element.html - {"printWidth":"Infinity"} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: Infinity
@@ -332,7 +332,7 @@ printWidth: Infinity
 ================================================================================
 `;
 
-exports[`custom-element.html - {"printWidth":1} 1`] = `
+exports[`custom-element.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
@@ -348,7 +348,7 @@ printWidth: 1
 ================================================================================
 `;
 
-exports[`custom-element.html 1`] = `
+exports[`custom-element.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -364,7 +364,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`openging-at-end.html - {"htmlWhitespaceSensitivity":"ignore"} 1`] = `
+exports[`openging-at-end.html - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["html"]
@@ -435,7 +435,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`openging-at-end.html - {"htmlWhitespaceSensitivity":"strict"} 1`] = `
+exports[`openging-at-end.html - {"htmlWhitespaceSensitivity":"strict"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "strict"
 parsers: ["html"]
@@ -499,7 +499,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`openging-at-end.html - {"printWidth":"Infinity"} 1`] = `
+exports[`openging-at-end.html - {"printWidth":"Infinity"} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: Infinity
@@ -556,7 +556,7 @@ printWidth: Infinity
 ================================================================================
 `;
 
-exports[`openging-at-end.html - {"printWidth":1} 1`] = `
+exports[`openging-at-end.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
@@ -656,7 +656,7 @@ printWidth: 1
 ================================================================================
 `;
 
-exports[`openging-at-end.html 1`] = `
+exports[`openging-at-end.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -719,7 +719,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`pre.html - {"htmlWhitespaceSensitivity":"ignore"} 1`] = `
+exports[`pre.html - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["html"]
@@ -928,7 +928,7 @@ ___________________________
 ================================================================================
 `;
 
-exports[`pre.html - {"htmlWhitespaceSensitivity":"strict"} 1`] = `
+exports[`pre.html - {"htmlWhitespaceSensitivity":"strict"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "strict"
 parsers: ["html"]
@@ -1137,7 +1137,7 @@ ___________________________
 ================================================================================
 `;
 
-exports[`pre.html - {"printWidth":"Infinity"} 1`] = `
+exports[`pre.html - {"printWidth":"Infinity"} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: Infinity
@@ -1336,7 +1336,7 @@ ___________________________
 ================================================================================
 `;
 
-exports[`pre.html - {"printWidth":1} 1`] = `
+exports[`pre.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
@@ -1572,7 +1572,7 @@ ___________________________
 ================================================================================
 `;
 
-exports[`pre.html 1`] = `
+exports[`pre.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -1780,7 +1780,7 @@ ___________________________
 ================================================================================
 `;
 
-exports[`tags.html - {"htmlWhitespaceSensitivity":"ignore"} 1`] = `
+exports[`tags.html - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["html"]
@@ -2142,7 +2142,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`tags.html - {"htmlWhitespaceSensitivity":"strict"} 1`] = `
+exports[`tags.html - {"htmlWhitespaceSensitivity":"strict"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "strict"
 parsers: ["html"]
@@ -2461,7 +2461,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`tags.html - {"printWidth":"Infinity"} 1`] = `
+exports[`tags.html - {"printWidth":"Infinity"} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: Infinity
@@ -2728,7 +2728,7 @@ printWidth: Infinity
 ================================================================================
 `;
 
-exports[`tags.html - {"printWidth":1} 1`] = `
+exports[`tags.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
@@ -3280,7 +3280,7 @@ printWidth: 1
 ================================================================================
 `;
 
-exports[`tags.html 1`] = `
+exports[`tags.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -3614,7 +3614,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`textarea.html - {"htmlWhitespaceSensitivity":"ignore"} 1`] = `
+exports[`textarea.html - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["html"]
@@ -3687,7 +3687,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`textarea.html - {"htmlWhitespaceSensitivity":"strict"} 1`] = `
+exports[`textarea.html - {"htmlWhitespaceSensitivity":"strict"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "strict"
 parsers: ["html"]
@@ -3760,7 +3760,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`textarea.html - {"printWidth":"Infinity"} 1`] = `
+exports[`textarea.html - {"printWidth":"Infinity"} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: Infinity
@@ -3831,7 +3831,7 @@ printWidth: Infinity
 ================================================================================
 `;
 
-exports[`textarea.html - {"printWidth":1} 1`] = `
+exports[`textarea.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
@@ -3911,7 +3911,7 @@ lorem ipsum</textarea
 ================================================================================
 `;
 
-exports[`textarea.html 1`] = `
+exports[`textarea.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -3983,7 +3983,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`unsupported.html - {"htmlWhitespaceSensitivity":"ignore"} 1`] = `
+exports[`unsupported.html - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["html"]
@@ -3998,7 +3998,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`unsupported.html - {"htmlWhitespaceSensitivity":"strict"} 1`] = `
+exports[`unsupported.html - {"htmlWhitespaceSensitivity":"strict"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "strict"
 parsers: ["html"]
@@ -4013,7 +4013,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`unsupported.html - {"printWidth":"Infinity"} 1`] = `
+exports[`unsupported.html - {"printWidth":"Infinity"} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: Infinity
@@ -4026,7 +4026,7 @@ printWidth: Infinity
 ================================================================================
 `;
 
-exports[`unsupported.html - {"printWidth":1} 1`] = `
+exports[`unsupported.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 1
@@ -4040,7 +4040,7 @@ printWidth: 1
 ================================================================================
 `;
 
-exports[`unsupported.html 1`] = `
+exports[`unsupported.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80

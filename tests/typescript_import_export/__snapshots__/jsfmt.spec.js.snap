@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`type-modifier.ts 1`] = `
+exports[`type-modifier.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -10,7 +10,6 @@ export type { SomeThing };
 export type { A as B };
 export type { B as C } from './a';
 export type { foo } from 'bar';
-export type * from 'bar';
 export type { foo };
 
 // this should be treated as a normal import statement
@@ -28,7 +27,6 @@ export type { SomeThing };
 export type { A as B };
 export type { B as C } from "./a";
 export type { foo } from "bar";
-export type * from "bar";
 export type { foo };
 
 // this should be treated as a normal import statement

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`no-trailing-comma-after-rest.ts - {"trailingComma":"all"} 1`] = `
+exports[`no-trailing-comma-after-rest.ts - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -29,7 +29,7 @@ type ValidateArgs = [
 ================================================================================
 `;
 
-exports[`no-trailing-comma-after-rest.ts - {"trailingComma":"none"} 1`] = `
+exports[`no-trailing-comma-after-rest.ts - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -58,7 +58,7 @@ type ValidateArgs = [
 ================================================================================
 `;
 
-exports[`no-trailing-comma-after-rest.ts 1`] = `
+exports[`no-trailing-comma-after-rest.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -86,7 +86,7 @@ type ValidateArgs = [
 ================================================================================
 `;
 
-exports[`trailing-comma.ts - {"trailingComma":"all"} 1`] = `
+exports[`trailing-comma.ts - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -127,7 +127,7 @@ export interface ShopQueryResult {
 ================================================================================
 `;
 
-exports[`trailing-comma.ts - {"trailingComma":"none"} 1`] = `
+exports[`trailing-comma.ts - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -168,7 +168,7 @@ export interface ShopQueryResult {
 ================================================================================
 `;
 
-exports[`trailing-comma.ts 1`] = `
+exports[`trailing-comma.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -208,7 +208,7 @@ export interface ShopQueryResult {
 ================================================================================
 `;
 
-exports[`tuple.ts - {"trailingComma":"all"} 1`] = `
+exports[`tuple.ts - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -238,7 +238,7 @@ export type SCMRawResource = [
 ================================================================================
 `;
 
-exports[`tuple.ts - {"trailingComma":"none"} 1`] = `
+exports[`tuple.ts - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -268,7 +268,7 @@ export type SCMRawResource = [
 ================================================================================
 `;
 
-exports[`tuple.ts 1`] = `
+exports[`tuple.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

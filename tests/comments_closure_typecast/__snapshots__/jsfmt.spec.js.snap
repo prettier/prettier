@@ -1,6 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`closure-compiler-type-cast.js 1`] = `
+exports[`binary-expr.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+var a = b || /** @type {string} */
+    (c);
+
+=====================================output=====================================
+var a = b || /** @type {string} */ (c);
+
+================================================================================
+`;
+
+exports[`closure-compiler-type-cast.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -45,13 +60,6 @@ const data = functionCall(
   arg2,
   /** @type {{height: number, width: number}} */ (arg3));
 
-// Invalid type casts
-const v1 = /** @type {} */ (value);
-const v2 = /** @type {}} */ (value);
-const v3 = /** @type } */ (value);
-const v4 = /** @type { */ (value);
-const v5 = /** @type {{} */ (value);
-
 const style = /** @type {{
   width: number,
   height: number,
@@ -73,13 +81,6 @@ const style2 =/**
   width,
 });
 
-// Spaces aren't necessary
-const v6 = /**@type {string} */(value);
-const v7 = /** @type{string} */(value);
-const v8 = /**@type{string} */(value);
-
-const v9 = /** @type {string} */
-  (value);
 
 =====================================output=====================================
 // test to make sure comments are attached correctly
@@ -124,13 +125,6 @@ const data = functionCall(
   /** @type {{height: number, width: number}} */ (arg3)
 );
 
-// Invalid type casts
-const v1 = /** @type {} */ value;
-const v2 = /** @type {}} */ value;
-const v3 = /** @type } */ value;
-const v4 = /** @type { */ value;
-const v5 = /** @type {{} */ value;
-
 const style = /** @type {{
   width: number,
   height: number,
@@ -152,17 +146,89 @@ const style2 = /**
   width,
 });
 
-// Spaces aren't necessary
-const v6 = /**@type {string} */ (value);
-const v7 = /** @type{string} */ (value);
-const v8 = /**@type{string} */ (value);
+================================================================================
+`;
 
-const v9 = /** @type {string} */ (value);
+exports[`comment-in-the-middle.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+var a =
+/**
+ * bla bla bla
+ * @type {string |
+  * number
+ * }
+* bla bla bla
+ */
+//2
+ ((window['s'])).toString();
+console.log(a.foo());
+
+=====================================output=====================================
+var a =
+  /**
+   * bla bla bla
+   * @type {string |
+   * number
+   * }
+   * bla bla bla
+   */
+  //2
+  (window["s"]).toString();
+console.log(a.foo());
 
 ================================================================================
 `;
 
-exports[`extra-spaces-and-asterisks.js 1`] = `
+exports[`comment-placement.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const foo1 = /** @type {string} */
+  (value);
+
+const foo2 =
+  /** @type {string} */
+  (value);
+
+const foo3 =
+
+  /** @type {string} */
+  (value);
+
+
+const foo4 =
+  /** @type {string} */(value);
+
+const foo5 =
+  /** @type {string} */ (
+    value
+  );
+
+=====================================output=====================================
+const foo1 = /** @type {string} */ (value);
+
+const foo2 =
+  /** @type {string} */
+  (value);
+
+const foo3 =
+  /** @type {string} */
+  (value);
+
+const foo4 = /** @type {string} */ (value);
+
+const foo5 = /** @type {string} */ (value);
+
+================================================================================
+`;
+
+exports[`extra-spaces-and-asterisks.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -186,6 +252,251 @@ const foo5 = /** @type {!Foo} * * */ (bar);
 const foo6 = /** @type {!Foo} *****/ (bar);
 const foo7 = /** @type {!Foo} *   *   *   *   */ (bar);
 const foo8 = /** @type {!Foo}    ** *   *   */ (bar);
+
+================================================================================
+`;
+
+exports[`iife.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const helpers1 = /** @type {Helpers} */ ((
+  (helpers = {}) => helpers
+)());
+
+const helpers2 = /** @type {Helpers} */ ((
+  function() { return something }
+)());
+
+// TODO: @param is misplaced https://github.com/prettier/prettier/issues/5850
+const helpers = /** @type {Helpers} */ ((
+  /** @param {Partial<Helpers>} helpers */
+  (helpers = {}) => helpers
+)());
+
+=====================================output=====================================
+const helpers1 = /** @type {Helpers} */ (((helpers = {}) => helpers)());
+
+const helpers2 = /** @type {Helpers} */ ((function () {
+  return something;
+})());
+
+// TODO: @param is misplaced https://github.com/prettier/prettier/issues/5850
+const helpers = /** @type {Helpers} */ (/** @param {Partial<Helpers>} helpers */
+((helpers = {}) => helpers)());
+
+================================================================================
+`;
+
+exports[`issue-4124.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/** @type {Object} */(myObject.property).someProp = true;
+(/** @type {Object} */(myObject.property)).someProp = true;
+
+const prop = /** @type {Object} */(myObject.property).someProp;
+
+const test = /** @type (function (*): ?|undefined) */
+      (goog.partial(NewThing.onTemplateChange, rationaleField, typeField));
+
+const test = /** @type (function (*): ?|undefined) */ (goog.partial(NewThing.onTemplateChange, rationaleField, typeField));
+
+const model = /** @type {?{getIndex: Function}} */ (model);
+
+const foo = /** @type {string} */
+  (bar);
+
+const test = /** @type (function (*): ?|undefined) */ (foo);
+
+=====================================output=====================================
+/** @type {Object} */ (myObject.property).someProp = true;
+/** @type {Object} */ (myObject.property).someProp = true;
+
+const prop = /** @type {Object} */ (myObject.property).someProp;
+
+const test =
+  /** @type (function (*): ?|undefined) */
+  (goog.partial(NewThing.onTemplateChange, rationaleField, typeField));
+
+const test = /** @type (function (*): ?|undefined) */ (goog.partial(
+  NewThing.onTemplateChange,
+  rationaleField,
+  typeField
+));
+
+const model = /** @type {?{getIndex: Function}} */ (model);
+
+const foo = /** @type {string} */ (bar);
+
+const test = /** @type (function (*): ?|undefined) */ (foo);
+
+================================================================================
+`;
+
+exports[`member.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+foo = (/** @type {!Baz} */ (baz).bar);
+
+=====================================output=====================================
+foo = /** @type {!Baz} */ (baz).bar;
+
+================================================================================
+`;
+
+exports[`nested.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+foo = /** @type {!Foo} */ (/** @type {!Baz} */ (baz).bar );
+
+const BarImpl = /** @type {BarConstructor} */ (
+	/** @type {unknown} */
+	(function Bar() {
+		throw new Error("Internal error: Illegal constructor");
+	})
+);
+
+=====================================output=====================================
+foo = /** @type {!Foo} */ (/** @type {!Baz} */ (baz).bar);
+
+const BarImpl = /** @type {BarConstructor} */ (
+  /** @type {unknown} */
+  (function Bar() {
+    throw new Error("Internal error: Illegal constructor");
+  })
+);
+
+================================================================================
+`;
+
+exports[`non-casts.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/* @type { } */
+z(x => {
+  (foo)((bar)(2+(3)))
+  return (1);
+})
+
+/** @type { } */
+z(x => {
+  (foo)((bar)(2+(3)))
+  return (1);
+})
+
+/** @type {number} */
+let q = z(x => {
+  return (1);
+})
+
+const w1 = /** @typefoo Foo */ (value);
+
+=====================================output=====================================
+/* @type { } */
+z((x) => {
+  foo(bar(2 + 3));
+  return 1;
+});
+
+/** @type { } */
+z((x) => {
+  foo(bar(2 + 3));
+  return 1;
+});
+
+/** @type {number} */
+let q = z((x) => {
+  return 1;
+});
+
+const w1 = /** @typefoo Foo */ value;
+
+================================================================================
+`;
+
+exports[`object-with-comment.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const objectWithComment = /** @type MyType */ (
+  /* comment */
+  {
+    foo: bar
+  }
+);
+
+const objectWithComment2 = /** @type MyType */ (  /* comment */  {
+    foo: bar
+  }
+);
+
+=====================================output=====================================
+const objectWithComment = /** @type MyType */ (
+  /* comment */
+  {
+    foo: bar,
+  }
+);
+
+const objectWithComment2 = /** @type MyType */ (
+  /* comment */ {
+    foo: bar,
+  }
+);
+
+================================================================================
+`;
+
+exports[`ways-to-specify-type.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const curlyBraces = /** @type {string} */ (foo);
+const curlyBraces2 = /**@type {string} */ (foo);
+const noWhitespace = /** @type{string} */ (foo);
+const noWhitespace2 = /**@type{string} */ (foo);
+const noBraces = /** @type string */ (foo);
+const parens = /** @type (string | number) */ (foo);
+
+// Prettier just searches for "@type" and doesn't check the syntax of types.
+const v1 = /** @type {} */ (value);
+const v2 = /** @type {}} */ (value);
+const v3 = /** @type } */ (value);
+const v4 = /** @type { */ (value);
+const v5 = /** @type {{} */ (value);
+
+=====================================output=====================================
+const curlyBraces = /** @type {string} */ (foo);
+const curlyBraces2 = /**@type {string} */ (foo);
+const noWhitespace = /** @type{string} */ (foo);
+const noWhitespace2 = /**@type{string} */ (foo);
+const noBraces = /** @type string */ (foo);
+const parens = /** @type (string | number) */ (foo);
+
+// Prettier just searches for "@type" and doesn't check the syntax of types.
+const v1 = /** @type {} */ (value);
+const v2 = /** @type {}} */ (value);
+const v3 = /** @type } */ (value);
+const v4 = /** @type { */ (value);
+const v5 = /** @type {{} */ (value);
 
 ================================================================================
 `;

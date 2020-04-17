@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`intrinsic_call.js 1`] = `
+exports[`intrinsic_call.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`align.md - {"proseWrap":"always","tabWidth":0} 1`] = `
+exports[`align.md - {"proseWrap":"always","tabWidth":0} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -128,7 +128,7 @@ tabWidth: 0
 ================================================================================
 `;
 
-exports[`align.md - {"proseWrap":"always","tabWidth":4} 1`] = `
+exports[`align.md - {"proseWrap":"always","tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -256,7 +256,7 @@ tabWidth: 4
 ================================================================================
 `;
 
-exports[`align.md - {"proseWrap":"always","tabWidth":999} 1`] = `
+exports[`align.md - {"proseWrap":"always","tabWidth":999} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -384,7 +384,7 @@ tabWidth: 999
 ================================================================================
 `;
 
-exports[`align.md - {"proseWrap":"always"} 1`] = `
+exports[`align.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -511,7 +511,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`checkbox.md - {"proseWrap":"always","tabWidth":0} 1`] = `
+exports[`checkbox.md - {"proseWrap":"always","tabWidth":0} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -531,7 +531,7 @@ tabWidth: 0
 ================================================================================
 `;
 
-exports[`checkbox.md - {"proseWrap":"always","tabWidth":4} 1`] = `
+exports[`checkbox.md - {"proseWrap":"always","tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -551,7 +551,7 @@ tabWidth: 4
 ================================================================================
 `;
 
-exports[`checkbox.md - {"proseWrap":"always","tabWidth":999} 1`] = `
+exports[`checkbox.md - {"proseWrap":"always","tabWidth":999} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -571,7 +571,7 @@ tabWidth: 999
 ================================================================================
 `;
 
-exports[`checkbox.md - {"proseWrap":"always"} 1`] = `
+exports[`checkbox.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -590,7 +590,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`git-diff-friendly.md - {"proseWrap":"always","tabWidth":0} 1`] = `
+exports[`git-diff-friendly.md - {"proseWrap":"always","tabWidth":0} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -610,7 +610,7 @@ tabWidth: 0
 ================================================================================
 `;
 
-exports[`git-diff-friendly.md - {"proseWrap":"always","tabWidth":4} 1`] = `
+exports[`git-diff-friendly.md - {"proseWrap":"always","tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -630,7 +630,7 @@ tabWidth: 4
 ================================================================================
 `;
 
-exports[`git-diff-friendly.md - {"proseWrap":"always","tabWidth":999} 1`] = `
+exports[`git-diff-friendly.md - {"proseWrap":"always","tabWidth":999} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -650,7 +650,7 @@ tabWidth: 999
 ================================================================================
 `;
 
-exports[`git-diff-friendly.md - {"proseWrap":"always"} 1`] = `
+exports[`git-diff-friendly.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -669,7 +669,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`indent.md - {"proseWrap":"always","tabWidth":0} 1`] = `
+exports[`indent.md - {"proseWrap":"always","tabWidth":0} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -896,7 +896,7 @@ tabWidth: 0
 ================================================================================
 `;
 
-exports[`indent.md - {"proseWrap":"always","tabWidth":4} 1`] = `
+exports[`indent.md - {"proseWrap":"always","tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1123,7 +1123,7 @@ tabWidth: 4
 ================================================================================
 `;
 
-exports[`indent.md - {"proseWrap":"always","tabWidth":999} 1`] = `
+exports[`indent.md - {"proseWrap":"always","tabWidth":999} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1350,7 +1350,7 @@ tabWidth: 999
 ================================================================================
 `;
 
-exports[`indent.md - {"proseWrap":"always"} 1`] = `
+exports[`indent.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1576,7 +1576,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`interrupt.md - {"proseWrap":"always","tabWidth":0} 1`] = `
+exports[`interrupt.md - {"proseWrap":"always","tabWidth":0} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1595,7 +1595,7 @@ tabWidth: 0
 ================================================================================
 `;
 
-exports[`interrupt.md - {"proseWrap":"always","tabWidth":4} 1`] = `
+exports[`interrupt.md - {"proseWrap":"always","tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1614,7 +1614,7 @@ tabWidth: 4
 ================================================================================
 `;
 
-exports[`interrupt.md - {"proseWrap":"always","tabWidth":999} 1`] = `
+exports[`interrupt.md - {"proseWrap":"always","tabWidth":999} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1633,7 +1633,7 @@ tabWidth: 999
 ================================================================================
 `;
 
-exports[`interrupt.md - {"proseWrap":"always"} 1`] = `
+exports[`interrupt.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1651,7 +1651,146 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`long-paragraph.md - {"proseWrap":"always","tabWidth":0} 1`] = `
+exports[`issue-7846.md - {"proseWrap":"always","tabWidth":0} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 0
+                                                                                | printWidth
+=====================================input======================================
+- a a  
+   b b  
+    c c  
+   d d  
+  e e
+
+1.  a a a  
+   b b b  
+  c c c  
+   d d d  
+    e e e
+=====================================output=====================================
+- a a  
+   b b  
+   c c  
+   d d  
+  e e
+
+1. a a a  
+    b b b  
+   c c c  
+    d d d  
+    e e e
+
+================================================================================
+`;
+
+exports[`issue-7846.md - {"proseWrap":"always","tabWidth":4} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 4
+                                                                                | printWidth
+=====================================input======================================
+- a a  
+   b b  
+    c c  
+   d d  
+  e e
+
+1.  a a a  
+   b b b  
+  c c c  
+   d d d  
+    e e e
+=====================================output=====================================
+-   a a  
+     b b  
+     c c  
+     d d  
+    e e
+
+1.  a a a  
+     b b b  
+    c c c  
+     d d d  
+     e e e
+
+================================================================================
+`;
+
+exports[`issue-7846.md - {"proseWrap":"always","tabWidth":999} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+tabWidth: 999
+                                                                                | printWidth
+=====================================input======================================
+- a a  
+   b b  
+    c c  
+   d d  
+  e e
+
+1.  a a a  
+   b b b  
+  c c c  
+   d d d  
+    e e e
+=====================================output=====================================
+- a a  
+   b b  
+   c c  
+   d d  
+  e e
+
+1. a a a  
+    b b b  
+   c c c  
+    d d d  
+    e e e
+
+================================================================================
+`;
+
+exports[`issue-7846.md - {"proseWrap":"always"} format 1`] = `
+====================================options=====================================
+parsers: ["markdown"]
+printWidth: 80
+proseWrap: "always"
+                                                                                | printWidth
+=====================================input======================================
+- a a  
+   b b  
+    c c  
+   d d  
+  e e
+
+1.  a a a  
+   b b b  
+  c c c  
+   d d d  
+    e e e
+=====================================output=====================================
+- a a  
+   b b  
+   c c  
+   d d  
+  e e
+
+1.  a a a  
+     b b b  
+    c c c  
+     d d d  
+     e e e
+
+================================================================================
+`;
+
+exports[`long-paragraph.md - {"proseWrap":"always","tabWidth":0} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1668,7 +1807,7 @@ tabWidth: 0
 ================================================================================
 `;
 
-exports[`long-paragraph.md - {"proseWrap":"always","tabWidth":4} 1`] = `
+exports[`long-paragraph.md - {"proseWrap":"always","tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1685,7 +1824,7 @@ tabWidth: 4
 ================================================================================
 `;
 
-exports[`long-paragraph.md - {"proseWrap":"always","tabWidth":999} 1`] = `
+exports[`long-paragraph.md - {"proseWrap":"always","tabWidth":999} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1702,7 +1841,7 @@ tabWidth: 999
 ================================================================================
 `;
 
-exports[`long-paragraph.md - {"proseWrap":"always"} 1`] = `
+exports[`long-paragraph.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1718,7 +1857,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`loose.md - {"proseWrap":"always","tabWidth":0} 1`] = `
+exports[`loose.md - {"proseWrap":"always","tabWidth":0} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1754,7 +1893,7 @@ tabWidth: 0
 ================================================================================
 `;
 
-exports[`loose.md - {"proseWrap":"always","tabWidth":4} 1`] = `
+exports[`loose.md - {"proseWrap":"always","tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1790,7 +1929,7 @@ tabWidth: 4
 ================================================================================
 `;
 
-exports[`loose.md - {"proseWrap":"always","tabWidth":999} 1`] = `
+exports[`loose.md - {"proseWrap":"always","tabWidth":999} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1826,7 +1965,7 @@ tabWidth: 999
 ================================================================================
 `;
 
-exports[`loose.md - {"proseWrap":"always"} 1`] = `
+exports[`loose.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1861,7 +2000,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`multiline.md - {"proseWrap":"always","tabWidth":0} 1`] = `
+exports[`multiline.md - {"proseWrap":"always","tabWidth":0} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1879,7 +2018,7 @@ tabWidth: 0
 ================================================================================
 `;
 
-exports[`multiline.md - {"proseWrap":"always","tabWidth":4} 1`] = `
+exports[`multiline.md - {"proseWrap":"always","tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1897,7 +2036,7 @@ tabWidth: 4
 ================================================================================
 `;
 
-exports[`multiline.md - {"proseWrap":"always","tabWidth":999} 1`] = `
+exports[`multiline.md - {"proseWrap":"always","tabWidth":999} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1915,7 +2054,7 @@ tabWidth: 999
 ================================================================================
 `;
 
-exports[`multiline.md - {"proseWrap":"always"} 1`] = `
+exports[`multiline.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1932,7 +2071,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`nested.md - {"proseWrap":"always","tabWidth":0} 1`] = `
+exports[`nested.md - {"proseWrap":"always","tabWidth":0} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1952,7 +2091,7 @@ tabWidth: 0
 ================================================================================
 `;
 
-exports[`nested.md - {"proseWrap":"always","tabWidth":4} 1`] = `
+exports[`nested.md - {"proseWrap":"always","tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1972,7 +2111,7 @@ tabWidth: 4
 ================================================================================
 `;
 
-exports[`nested.md - {"proseWrap":"always","tabWidth":999} 1`] = `
+exports[`nested.md - {"proseWrap":"always","tabWidth":999} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -1992,7 +2131,7 @@ tabWidth: 999
 ================================================================================
 `;
 
-exports[`nested.md - {"proseWrap":"always"} 1`] = `
+exports[`nested.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -2011,7 +2150,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`nested-checkbox.md - {"proseWrap":"always","tabWidth":0} 1`] = `
+exports[`nested-checkbox.md - {"proseWrap":"always","tabWidth":0} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -2053,7 +2192,7 @@ tabWidth: 0
 ================================================================================
 `;
 
-exports[`nested-checkbox.md - {"proseWrap":"always","tabWidth":4} 1`] = `
+exports[`nested-checkbox.md - {"proseWrap":"always","tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -2095,7 +2234,7 @@ tabWidth: 4
 ================================================================================
 `;
 
-exports[`nested-checkbox.md - {"proseWrap":"always","tabWidth":999} 1`] = `
+exports[`nested-checkbox.md - {"proseWrap":"always","tabWidth":999} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -2137,7 +2276,7 @@ tabWidth: 999
 ================================================================================
 `;
 
-exports[`nested-checkbox.md - {"proseWrap":"always"} 1`] = `
+exports[`nested-checkbox.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -2178,7 +2317,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`ordered.md - {"proseWrap":"always","tabWidth":0} 1`] = `
+exports[`ordered.md - {"proseWrap":"always","tabWidth":0} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -2198,7 +2337,7 @@ tabWidth: 0
 ================================================================================
 `;
 
-exports[`ordered.md - {"proseWrap":"always","tabWidth":4} 1`] = `
+exports[`ordered.md - {"proseWrap":"always","tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -2218,7 +2357,7 @@ tabWidth: 4
 ================================================================================
 `;
 
-exports[`ordered.md - {"proseWrap":"always","tabWidth":999} 1`] = `
+exports[`ordered.md - {"proseWrap":"always","tabWidth":999} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -2238,7 +2377,7 @@ tabWidth: 999
 ================================================================================
 `;
 
-exports[`ordered.md - {"proseWrap":"always"} 1`] = `
+exports[`ordered.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -2257,246 +2396,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`redundant-leading-spaces.md - {"proseWrap":"always","tabWidth":0} 1`] = `
-====================================options=====================================
-parsers: ["markdown"]
-printWidth: 80
-proseWrap: "always"
-tabWidth: 0
-                                                                                | printWidth
-=====================================input======================================
-- a  
-   b  
-    c  
-   d  
-  e
-
--   a  
-   b  
-  c  
-   d  
-    e
-
-1. a  
-   b  
-    c  
-   d  
-  e
-
-1.  a  
-   b  
-  c  
-   d  
-    e
-
-=====================================output=====================================
-- a  
-  b  
-  c  
-  d  
-  e
-
-- a  
-  b  
-  c  
-  d  
-  e
-
-1. a  
-   b  
-   c  
-   d  
-   e
-
-1. a  
-   b  
-   c  
-   d  
-   e
-
-================================================================================
-`;
-
-exports[`redundant-leading-spaces.md - {"proseWrap":"always","tabWidth":4} 1`] = `
-====================================options=====================================
-parsers: ["markdown"]
-printWidth: 80
-proseWrap: "always"
-tabWidth: 4
-                                                                                | printWidth
-=====================================input======================================
-- a  
-   b  
-    c  
-   d  
-  e
-
--   a  
-   b  
-  c  
-   d  
-    e
-
-1. a  
-   b  
-    c  
-   d  
-  e
-
-1.  a  
-   b  
-  c  
-   d  
-    e
-
-=====================================output=====================================
--   a  
-    b  
-    c  
-    d  
-    e
-
--   a  
-    b  
-    c  
-    d  
-    e
-
-1. a  
-   b  
-   c  
-   d  
-   e
-
-1. a  
-   b  
-   c  
-   d  
-   e
-
-================================================================================
-`;
-
-exports[`redundant-leading-spaces.md - {"proseWrap":"always","tabWidth":999} 1`] = `
-====================================options=====================================
-parsers: ["markdown"]
-printWidth: 80
-proseWrap: "always"
-tabWidth: 999
-                                                                                | printWidth
-=====================================input======================================
-- a  
-   b  
-    c  
-   d  
-  e
-
--   a  
-   b  
-  c  
-   d  
-    e
-
-1. a  
-   b  
-    c  
-   d  
-  e
-
-1.  a  
-   b  
-  c  
-   d  
-    e
-
-=====================================output=====================================
-- a  
-  b  
-  c  
-  d  
-  e
-
-- a  
-  b  
-  c  
-  d  
-  e
-
-1. a  
-   b  
-   c  
-   d  
-   e
-
-1. a  
-   b  
-   c  
-   d  
-   e
-
-================================================================================
-`;
-
-exports[`redundant-leading-spaces.md - {"proseWrap":"always"} 1`] = `
-====================================options=====================================
-parsers: ["markdown"]
-printWidth: 80
-proseWrap: "always"
-                                                                                | printWidth
-=====================================input======================================
-- a  
-   b  
-    c  
-   d  
-  e
-
--   a  
-   b  
-  c  
-   d  
-    e
-
-1. a  
-   b  
-    c  
-   d  
-  e
-
-1.  a  
-   b  
-  c  
-   d  
-    e
-
-=====================================output=====================================
-- a  
-  b  
-  c  
-  d  
-  e
-
-- a  
-  b  
-  c  
-  d  
-  e
-
-1. a  
-   b  
-   c  
-   d  
-   e
-
-1. a  
-   b  
-   c  
-   d  
-   e
-
-================================================================================
-`;
-
-exports[`separate.md - {"proseWrap":"always","tabWidth":0} 1`] = `
+exports[`separate.md - {"proseWrap":"always","tabWidth":0} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -2524,7 +2424,7 @@ tabWidth: 0
 ================================================================================
 `;
 
-exports[`separate.md - {"proseWrap":"always","tabWidth":4} 1`] = `
+exports[`separate.md - {"proseWrap":"always","tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -2552,7 +2452,7 @@ tabWidth: 4
 ================================================================================
 `;
 
-exports[`separate.md - {"proseWrap":"always","tabWidth":999} 1`] = `
+exports[`separate.md - {"proseWrap":"always","tabWidth":999} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -2580,7 +2480,7 @@ tabWidth: 999
 ================================================================================
 `;
 
-exports[`separate.md - {"proseWrap":"always"} 1`] = `
+exports[`separate.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -2607,7 +2507,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`simple.md - {"proseWrap":"always","tabWidth":0} 1`] = `
+exports[`simple.md - {"proseWrap":"always","tabWidth":0} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -2627,7 +2527,7 @@ tabWidth: 0
 ================================================================================
 `;
 
-exports[`simple.md - {"proseWrap":"always","tabWidth":4} 1`] = `
+exports[`simple.md - {"proseWrap":"always","tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -2647,7 +2547,7 @@ tabWidth: 4
 ================================================================================
 `;
 
-exports[`simple.md - {"proseWrap":"always","tabWidth":999} 1`] = `
+exports[`simple.md - {"proseWrap":"always","tabWidth":999} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -2667,7 +2567,7 @@ tabWidth: 999
 ================================================================================
 `;
 
-exports[`simple.md - {"proseWrap":"always"} 1`] = `
+exports[`simple.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -2686,7 +2586,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`start.md - {"proseWrap":"always","tabWidth":0} 1`] = `
+exports[`start.md - {"proseWrap":"always","tabWidth":0} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -2895,7 +2795,7 @@ tabWidth: 0
 ================================================================================
 `;
 
-exports[`start.md - {"proseWrap":"always","tabWidth":4} 1`] = `
+exports[`start.md - {"proseWrap":"always","tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -3104,7 +3004,7 @@ tabWidth: 4
 ================================================================================
 `;
 
-exports[`start.md - {"proseWrap":"always","tabWidth":999} 1`] = `
+exports[`start.md - {"proseWrap":"always","tabWidth":999} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -3313,7 +3213,7 @@ tabWidth: 999
 ================================================================================
 `;
 
-exports[`start.md - {"proseWrap":"always"} 1`] = `
+exports[`start.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80

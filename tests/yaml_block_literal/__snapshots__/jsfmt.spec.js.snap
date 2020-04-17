@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`clip.yml - {"proseWrap":"always"} 1`] = `
+exports[`clip.yml - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -23,7 +23,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`clip.yml 1`] = `
+exports[`clip.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -45,7 +45,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`indent.yml - {"proseWrap":"always"} 1`] = `
+exports[`indent.yml - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -68,7 +68,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`indent.yml 1`] = `
+exports[`indent.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -90,7 +90,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`keep.yml - {"proseWrap":"always"} 1`] = `
+exports[`keep.yml - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -115,7 +115,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`keep.yml 1`] = `
+exports[`keep.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -139,7 +139,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`map.yml - {"proseWrap":"always"} 1`] = `
+exports[`map.yml - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -180,7 +180,7 @@ c: 0
 ================================================================================
 `;
 
-exports[`map.yml 1`] = `
+exports[`map.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -220,7 +220,7 @@ c: 0
 ================================================================================
 `;
 
-exports[`middle-comment.yml - {"proseWrap":"always"} 1`] = `
+exports[`middle-comment.yml - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -239,7 +239,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`middle-comment.yml 1`] = `
+exports[`middle-comment.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -257,7 +257,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`middle-comments.yml - {"proseWrap":"always"} 1`] = `
+exports[`middle-comments.yml - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -279,7 +279,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`middle-comments.yml 1`] = `
+exports[`middle-comments.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -300,7 +300,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`newline.yml - {"proseWrap":"always"} 1`] = `
+exports[`newline.yml - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -329,7 +329,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`newline.yml 1`] = `
+exports[`newline.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -357,7 +357,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`newline-unaligned.yml - {"proseWrap":"always"} 1`] = `
+exports[`newline-unaligned.yml - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -432,7 +432,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`newline-unaligned.yml 1`] = `
+exports[`newline-unaligned.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -506,7 +506,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`props.yml - {"proseWrap":"always"} 1`] = `
+exports[`props.yml - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -523,7 +523,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`props.yml 1`] = `
+exports[`props.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -539,7 +539,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`props-in-map.yml - {"proseWrap":"always"} 1`] = `
+exports[`props-in-map.yml - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -556,7 +556,7 @@ a: !!str &anchor |
 ================================================================================
 `;
 
-exports[`props-in-map.yml 1`] = `
+exports[`props-in-map.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -572,7 +572,7 @@ a: !!str &anchor |
 ================================================================================
 `;
 
-exports[`seq.yml - {"proseWrap":"always"} 1`] = `
+exports[`seq.yml - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -603,7 +603,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`seq.yml 1`] = `
+exports[`seq.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -633,7 +633,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`strip.yml - {"proseWrap":"always"} 1`] = `
+exports[`strip.yml - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -656,7 +656,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`strip.yml 1`] = `
+exports[`strip.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -678,7 +678,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`trailing-comment.yml - {"proseWrap":"always"} 1`] = `
+exports[`trailing-comment.yml - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -695,7 +695,7 @@ a: !!str | # hello
 ================================================================================
 `;
 
-exports[`trailing-comment.yml 1`] = `
+exports[`trailing-comment.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80

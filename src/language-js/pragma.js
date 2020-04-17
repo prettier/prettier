@@ -13,7 +13,7 @@ function insertPragma(text) {
   const newDocblock = docblock
     .print({
       pragmas,
-      comments: parsedDocblock.comments.replace(/^(\s+?\r?\n)+/, "") // remove leading newlines
+      comments: parsedDocblock.comments.replace(/^(\s+?\r?\n)+/, ""), // remove leading newlines
     })
     .replace(/(\r\n|\r)/g, "\n"); // normalise newlines (mitigate use of os.EOL by jest-docblock)
   const strippedText = docblock.strip(text);
@@ -23,5 +23,5 @@ function insertPragma(text) {
 
 module.exports = {
   hasPragma,
-  insertPragma
+  insertPragma,
 };

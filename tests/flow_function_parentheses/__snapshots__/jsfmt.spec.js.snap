@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`single.js - {"arrowParens":"avoid"} 1`] = `
+exports[`single.js - {"arrowParens":"avoid"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["flow", "babel"]
@@ -25,7 +25,7 @@ const selectorByPath: Path => SomethingSelector<
 ================================================================================
 `;
 
-exports[`single.js - {"trailingComma":"all"} 1`] = `
+exports[`single.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -50,7 +50,7 @@ const selectorByPath: (Path) => SomethingSelector<
 ================================================================================
 `;
 
-exports[`single.js 1`] = `
+exports[`single.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -74,7 +74,7 @@ const selectorByPath: (Path) => SomethingSelector<
 ================================================================================
 `;
 
-exports[`test.js - {"arrowParens":"avoid"} 1`] = `
+exports[`test.js - {"arrowParens":"avoid"} format 1`] = `
 ====================================options=====================================
 arrowParens: "avoid"
 parsers: ["flow", "babel"]
@@ -211,7 +211,7 @@ type T8 = ??(() => A) | B;
 ================================================================================
 `;
 
-exports[`test.js - {"trailingComma":"all"} 1`] = `
+exports[`test.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -348,7 +348,7 @@ type T8 = ??(() => A) | B;
 ================================================================================
 `;
 
-exports[`test.js 1`] = `
+exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80

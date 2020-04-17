@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`no-semi.js - {"semi":false} 1`] = `
+exports[`no-semi.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -35,7 +35,7 @@ class A {
 ================================================================================
 `;
 
-exports[`no-semi.js 1`] = `
+exports[`no-semi.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80

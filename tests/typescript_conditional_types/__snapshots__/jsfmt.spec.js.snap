@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`conditonal-types.ts 1`] = `
+exports[`conditonal-types.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -94,7 +94,7 @@ type U2 = (new () => X) extends T ? U : V;
 ================================================================================
 `;
 
-exports[`infer-type.ts 1`] = `
+exports[`infer-type.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -126,7 +126,7 @@ type Unpacked<T> = T extends (infer U)[]
 ================================================================================
 `;
 
-exports[`nested-in-condition.ts 1`] = `
+exports[`nested-in-condition.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

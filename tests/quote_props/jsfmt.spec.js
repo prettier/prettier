@@ -1,15 +1,15 @@
 run_spec(__dirname, ["flow", "babel"], {
-  quoteProps: "as-needed"
+  quoteProps: "as-needed",
 });
 
 run_spec(__dirname, ["flow", "babel"], {
-  quoteProps: "preserve"
+  quoteProps: "preserve",
 });
 
 run_spec(__dirname, ["flow", "babel"], {
-  quoteProps: "consistent"
+  quoteProps: "consistent",
 });
 run_spec(__dirname, ["flow", "babel"], {
   quoteProps: "consistent",
-  singleQuote: true
+  singleQuote: true,
 });

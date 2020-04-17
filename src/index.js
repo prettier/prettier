@@ -18,7 +18,7 @@ function _withPlugins(
     const opts = args[optsArgIdx] || {};
     args[optsArgIdx] = {
       ...opts,
-      plugins: plugins.loadPlugins(opts.plugins, opts.pluginSearchDirs)
+      plugins: plugins.loadPlugins(opts.plugins, opts.pluginSearchDirs),
     };
     return fn(...args);
   };
@@ -72,6 +72,6 @@ module.exports = {
     formatAST: withPlugins(core.formatAST),
     formatDoc: withPlugins(core.formatDoc),
     printToDoc: withPlugins(core.printToDoc),
-    printDocToString: withPlugins(core.printDocToString)
-  }
+    printDocToString: withPlugins(core.printDocToString),
+  },
 };

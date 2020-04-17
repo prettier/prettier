@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`custom-selector.css - {"singleQuote":true} 1`] = `
+exports[`custom-selector.css - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -32,7 +32,7 @@ class
 ================================================================================
 `;
 
-exports[`custom-selector.css 1`] = `
+exports[`custom-selector.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -63,7 +63,7 @@ class
 ================================================================================
 `;
 
-exports[`insensitive.css - {"singleQuote":true} 1`] = `
+exports[`insensitive.css - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -85,7 +85,7 @@ section:has(:not([type='radio' i], [type='checkbox' i])) {
 ================================================================================
 `;
 
-exports[`insensitive.css 1`] = `
+exports[`insensitive.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -106,7 +106,7 @@ section:has(:not([type="radio" i], [type="checkbox" i])) {
 ================================================================================
 `;
 
-exports[`namespaces.css - {"singleQuote":true} 1`] = `
+exports[`namespaces.css - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -133,7 +133,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`namespaces.css 1`] = `
+exports[`namespaces.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -159,7 +159,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`quotes.css - {"singleQuote":true} 1`] = `
+exports[`quotes.css - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -196,7 +196,7 @@ section:has(:not([type='radio'], [type='checkbox'])) {
 ================================================================================
 `;
 
-exports[`quotes.css 1`] = `
+exports[`quotes.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -232,7 +232,7 @@ section:has(:not([type="radio"], [type="checkbox"])) {
 ================================================================================
 `;
 
-exports[`spaces.css - {"singleQuote":true} 1`] = `
+exports[`spaces.css - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -474,7 +474,7 @@ section:has(:not([type='radio' i], [type='checkbox' i])) {
 ================================================================================
 `;
 
-exports[`spaces.css 1`] = `
+exports[`spaces.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`inlining.ts 1`] = `
+exports[`inlining.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -94,7 +94,135 @@ type T8 = number | ((arg: any) => void);
 ================================================================================
 `;
 
-exports[`union-parens.ts 1`] = `
+exports[`prettier-ignore.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export type a =
+  // foo
+  | foo1&foo2
+  // bar
+  | bar1&bar2
+  // prettier-ignore
+  | qux1&qux2;
+
+export type a =
+  // foo
+  | foo1&foo2
+  // bar
+  | bar1&bar2
+  // prettier-ignore
+  | qux1&qux2
+  // baz
+  | baz1&baz2;
+
+export type a =
+  // prettier-ignore
+  | foo1&foo2
+  // bar
+  | bar1&bar2
+  // qux
+  | qux1&qux2;
+
+=====================================output=====================================
+export type a =
+  // foo
+  | (foo1 & foo2)
+  // bar
+  | (bar1 & bar2)
+  // prettier-ignore
+  | qux1&qux2;
+
+export type a =
+  // foo
+  | (foo1 & foo2)
+  // bar
+  | (bar1 & bar2)
+  // prettier-ignore
+  | qux1&qux2
+  // baz
+  | (baz1 & baz2);
+
+export type a =
+  // prettier-ignore
+  | foo1&foo2
+  // bar
+  | (bar1 & bar2)
+  // qux
+  | (qux1 & qux2);
+
+================================================================================
+`;
+
+exports[`prettier-ignore-nested-unions.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export type a =
+  // foo
+  | foo1&foo2
+  // bar
+  | bar1&bar2
+  // prettier-ignore
+  | (
+    | aaaaaaaaaaaaa&1
+    // b
+    | bbbbbbbbbbbbb&2
+  )
+  // baz
+  | baz1&baz2;
+
+export type b =
+  // foo
+  | foo1&foo2
+  // bar
+  | bar1&bar2
+  | (
+    // prettier-ignore
+    | aaaaaaaaaaaaa&1
+    // b
+    | bbbbbbbbbbbbb&2
+  )
+  // baz
+  | baz1&baz2;
+
+=====================================output=====================================
+export type a =
+  // foo
+  | (foo1 & foo2)
+  // bar
+  | (bar1 & bar2)
+  // prettier-ignore
+  | (
+    | aaaaaaaaaaaaa&1
+    // b
+    | bbbbbbbbbbbbb&2
+  )
+  // baz
+  | (baz1 & baz2);
+
+export type b =
+  // foo
+  | (foo1 & foo2)
+  // bar
+  | (bar1 & bar2)
+  | (
+      | // prettier-ignore
+      aaaaaaaaaaaaa&1
+      // b
+      | (bbbbbbbbbbbbb & 2)
+    )
+  // baz
+  | (baz1 & baz2);
+
+================================================================================
+`;
+
+exports[`union-parens.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -325,7 +453,7 @@ type Ctor = (new () => X) | Y;
 ================================================================================
 `;
 
-exports[`with-type-params.ts 1`] = `
+exports[`with-type-params.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -355,7 +483,7 @@ type GetChatsSagaEffects =
 ================================================================================
 `;
 
-exports[`within-tuple.ts 1`] = `
+exports[`within-tuple.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

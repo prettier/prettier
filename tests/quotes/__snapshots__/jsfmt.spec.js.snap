@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`functions.js - {"singleQuote":true} 1`] = `
+exports[`functions.js - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -23,7 +23,7 @@ function b(object, key) {
 ================================================================================
 `;
 
-exports[`functions.js 1`] = `
+exports[`functions.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -45,7 +45,7 @@ function b(object, key) {
 ================================================================================
 `;
 
-exports[`objects.js - {"singleQuote":true} 1`] = `
+exports[`objects.js - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -68,7 +68,7 @@ const obj = {
 ================================================================================
 `;
 
-exports[`objects.js 1`] = `
+exports[`objects.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -90,7 +90,7 @@ const obj = {
 ================================================================================
 `;
 
-exports[`strings.js - {"singleQuote":true} 1`] = `
+exports[`strings.js - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -303,7 +303,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`strings.js 1`] = `
+exports[`strings.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

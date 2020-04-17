@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`autolink.md - {"proseWrap":"always","singleQuote":true} 1`] = `
+exports[`autolink.md - {"proseWrap":"always","singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -24,7 +24,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`autolink.md - {"proseWrap":"always"} 1`] = `
+exports[`autolink.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -47,7 +47,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`entity.md - {"proseWrap":"always","singleQuote":true} 1`] = `
+exports[`entity.md - {"proseWrap":"always","singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -63,7 +63,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`entity.md - {"proseWrap":"always"} 1`] = `
+exports[`entity.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -78,7 +78,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`long.md - {"proseWrap":"always","singleQuote":true} 1`] = `
+exports[`long.md - {"proseWrap":"always","singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -94,7 +94,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`long.md - {"proseWrap":"always"} 1`] = `
+exports[`long.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -109,7 +109,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`simple.md - {"proseWrap":"always","singleQuote":true} 1`] = `
+exports[`simple.md - {"proseWrap":"always","singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -125,7 +125,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`simple.md - {"proseWrap":"always"} 1`] = `
+exports[`simple.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -140,7 +140,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`title.md - {"proseWrap":"always","singleQuote":true} 1`] = `
+exports[`title.md - {"proseWrap":"always","singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -208,7 +208,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`title.md - {"proseWrap":"always"} 1`] = `
+exports[`title.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -275,7 +275,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`url.md - {"proseWrap":"always","singleQuote":true} 1`] = `
+exports[`url.md - {"proseWrap":"always","singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -291,7 +291,7 @@ https://www.example.com/
 ================================================================================
 `;
 
-exports[`url.md - {"proseWrap":"always"} 1`] = `
+exports[`url.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80

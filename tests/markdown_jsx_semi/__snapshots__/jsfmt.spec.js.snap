@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`semi.md - {"semi":false,"proseWrap":"always"} 1`] = `
+exports[`semi.md - {"semi":false,"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -30,7 +30,7 @@ const a = 1
 ================================================================================
 `;
 
-exports[`semi.md - {"semi":true,"proseWrap":"always"} 1`] = `
+exports[`semi.md - {"semi":true,"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80

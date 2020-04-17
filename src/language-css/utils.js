@@ -1,6 +1,6 @@
 "use strict";
 
-const colorAdjusterFunctions = [
+const colorAdjusterFunctions = new Set([
   "red",
   "green",
   "blue",
@@ -25,8 +25,8 @@ const colorAdjusterFunctions = [
   "hsl",
   "hsla",
   "hwb",
-  "hwba"
-];
+  "hwba",
+]);
 
 function getAncestorCounter(path, typeOrTypes) {
   const types = [].concat(typeOrTypes);
@@ -60,7 +60,7 @@ function getPropOfDeclNode(path) {
 
 function isSCSS(parser, text) {
   const hasExplicitParserChoice = parser === "less" || parser === "scss";
-  const IS_POSSIBLY_SCSS = /(\w\s*: [^}:]+|#){|@import[^\n]+(url|,)/;
+  const IS_POSSIBLY_SCSS = /(\w\s*:\s*[^:}]+|#){|@import[^\n]+(?:url|,)/;
   return hasExplicitParserChoice
     ? parser === "scss"
     : IS_POSSIBLY_SCSS.test(text);
@@ -376,7 +376,7 @@ function isColorAdjusterFuncNode(node) {
     return false;
   }
 
-  return colorAdjusterFunctions.includes(node.value.toLowerCase());
+  return colorAdjusterFunctions.has(node.value.toLowerCase());
 }
 
 // TODO: only check `less` when we don't use `less` to parse `css`
@@ -385,7 +385,7 @@ function isLessParser(options) {
 }
 
 function lastLineHasInlineComment(text) {
-  return /\/\//.test(text.split(/[\r\n]/).pop());
+  return /\/\//.test(text.split(/[\n\r]/).pop());
 }
 
 module.exports = {
@@ -435,5 +435,5 @@ module.exports = {
   isColonNode,
   isMediaAndSupportsKeywords,
   isColorAdjusterFuncNode,
-  lastLineHasInlineComment
+  lastLineHasInlineComment,
 };

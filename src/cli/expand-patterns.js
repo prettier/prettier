@@ -36,7 +36,7 @@ function* expandPatterns(context) {
   if (noResults) {
     // If there was no files and no other errors, let's yield a general error.
     yield {
-      error: `No matching files. Patterns: ${context.filePatterns.join(" ")}`
+      error: `No matching files. Patterns: ${context.filePatterns.join(" ")}`,
     };
   }
 }
@@ -50,14 +50,14 @@ function* expandPatternsInternal(context) {
     ".git": true,
     ".svn": true,
     ".hg": true,
-    node_modules: context.argv["with-node-modules"] !== true
+    node_modules: context.argv["with-node-modules"] !== true,
   };
 
   const globOptions = {
     dot: true,
     ignore: Object.keys(silentlyIgnoredDirs)
-      .filter(dir => silentlyIgnoredDirs[dir])
-      .map(dir => "**/" + dir)
+      .filter((dir) => silentlyIgnoredDirs[dir])
+      .map((dir) => "**/" + dir),
   };
 
   let supportedFilesGlob;
@@ -79,7 +79,7 @@ function* expandPatternsInternal(context) {
         entries.push({
           type: "file",
           glob: escapePathForGlob(fixWindowsSlashes(pattern)),
-          input: pattern
+          input: pattern,
         });
       } else if (stat.isDirectory()) {
         entries.push({
@@ -88,7 +88,7 @@ function* expandPatternsInternal(context) {
             escapePathForGlob(fixWindowsSlashes(pattern)) +
             "/" +
             getSupportedFilesGlob(),
-          input: pattern
+          input: pattern,
         });
       }
     } else if (pattern[0] === "!") {
@@ -98,7 +98,7 @@ function* expandPatternsInternal(context) {
       entries.push({
         type: "glob",
         glob: fixWindowsSlashes(pattern),
-        input: pattern
+        input: pattern,
       });
     }
   }
@@ -123,13 +123,13 @@ function* expandPatternsInternal(context) {
   function getSupportedFilesGlob() {
     if (!supportedFilesGlob) {
       const extensions = flat(
-        context.languages.map(lang => lang.extensions || [])
+        context.languages.map((lang) => lang.extensions || [])
       );
       const filenames = flat(
-        context.languages.map(lang => lang.filenames || [])
+        context.languages.map((lang) => lang.filenames || [])
       );
       supportedFilesGlob = `**/{${extensions
-        .map(ext => "*" + (ext[0] === "." ? ext : "." + ext))
+        .map((ext) => "*" + (ext[0] === "." ? ext : "." + ext))
         .concat(filenames)}}`;
     }
     return supportedFilesGlob;
@@ -140,13 +140,13 @@ const errorMessages = {
   globError: {
     file: "Unable to resolve file",
     dir: "Unable to expand directory",
-    glob: "Unable to expand glob pattern"
+    glob: "Unable to expand glob pattern",
   },
   emptyResults: {
     file: "Explicitly specified file was ignored due to negative glob patterns",
     dir: "No supported files were found in the directory",
-    glob: "No files matching the pattern were found"
-  }
+    glob: "No files matching the pattern were found",
+  },
 };
 
 /**
@@ -158,7 +158,7 @@ function containsIgnoredPathSegment(absolutePath, cwd, ignoredDirectories) {
   return path
     .relative(cwd, absolutePath)
     .split(path.sep)
-    .some(dir => ignoredDirectories[dir]);
+    .some((dir) => ignoredDirectories[dir]);
 }
 
 /**

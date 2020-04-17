@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`force-singleline-in-mapping-value.yml - {"proseWrap":"always"} 1`] = `
+exports[`force-singleline-in-mapping-value.yml - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -36,7 +36,7 @@ newline: longlonglonglonglonglonglonglonglonglonglong
 ================================================================================
 `;
 
-exports[`force-singleline-in-mapping-value.yml - {"proseWrap":"never"} 1`] = `
+exports[`force-singleline-in-mapping-value.yml - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -68,7 +68,7 @@ newline: longlonglonglonglonglonglonglonglonglonglong
 ================================================================================
 `;
 
-exports[`force-singleline-in-mapping-value.yml 1`] = `
+exports[`force-singleline-in-mapping-value.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -100,7 +100,7 @@ newline: longlonglonglonglonglonglonglonglonglonglong
 ================================================================================
 `;
 
-exports[`middle-comment.yml - {"proseWrap":"always"} 1`] = `
+exports[`middle-comment.yml - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -117,7 +117,7 @@ hello
 ================================================================================
 `;
 
-exports[`middle-comment.yml - {"proseWrap":"never"} 1`] = `
+exports[`middle-comment.yml - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -134,7 +134,7 @@ hello
 ================================================================================
 `;
 
-exports[`middle-comment.yml 1`] = `
+exports[`middle-comment.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -150,7 +150,7 @@ hello
 ================================================================================
 `;
 
-exports[`middle-comments.yml - {"proseWrap":"always"} 1`] = `
+exports[`middle-comments.yml - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -170,7 +170,7 @@ hello
 ================================================================================
 `;
 
-exports[`middle-comments.yml - {"proseWrap":"never"} 1`] = `
+exports[`middle-comments.yml - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -190,7 +190,7 @@ hello
 ================================================================================
 `;
 
-exports[`middle-comments.yml 1`] = `
+exports[`middle-comments.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -209,7 +209,7 @@ hello
 ================================================================================
 `;
 
-exports[`multiline.yml - {"proseWrap":"always"} 1`] = `
+exports[`multiline.yml - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -255,7 +255,7 @@ b: 123123123123123123123123123 123123123123123123123123123
 ================================================================================
 `;
 
-exports[`multiline.yml - {"proseWrap":"never"} 1`] = `
+exports[`multiline.yml - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -299,7 +299,7 @@ b:
 ================================================================================
 `;
 
-exports[`multiline.yml 1`] = `
+exports[`multiline.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -347,7 +347,7 @@ b: 123123123123123123123123123
 ================================================================================
 `;
 
-exports[`true.yml - {"proseWrap":"always"} 1`] = `
+exports[`true.yml - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -362,7 +362,7 @@ hello
 ================================================================================
 `;
 
-exports[`true.yml - {"proseWrap":"never"} 1`] = `
+exports[`true.yml - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -377,7 +377,7 @@ hello
 ================================================================================
 `;
 
-exports[`true.yml 1`] = `
+exports[`true.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -391,7 +391,7 @@ hello
 ================================================================================
 `;
 
-exports[`verbatim.yml - {"proseWrap":"always"} 1`] = `
+exports[`verbatim.yml - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -406,7 +406,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`verbatim.yml - {"proseWrap":"never"} 1`] = `
+exports[`verbatim.yml - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -421,7 +421,7 @@ proseWrap: "never"
 ================================================================================
 `;
 
-exports[`verbatim.yml 1`] = `
+exports[`verbatim.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80

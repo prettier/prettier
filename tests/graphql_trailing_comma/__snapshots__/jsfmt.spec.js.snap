@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`trailing.graphql - {"trailingComma":"all"} 1`] = `
+exports[`trailing.graphql - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
 printWidth: 80
@@ -60,7 +60,7 @@ query Query(
 ================================================================================
 `;
 
-exports[`trailing.graphql - {"trailingComma":"none"} 1`] = `
+exports[`trailing.graphql - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
 printWidth: 80
@@ -120,7 +120,7 @@ query Query(
 ================================================================================
 `;
 
-exports[`trailing.graphql 1`] = `
+exports[`trailing.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
 printWidth: 80

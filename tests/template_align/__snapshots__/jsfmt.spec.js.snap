@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`indent.js - {"useTabs":true,"tabWidth":8} 1`] = `
+exports[`indent.js - {"useTabs":true,"tabWidth":8} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -68,7 +68,7 @@ Tabs:
 ================================================================================
 `;
 
-exports[`indent.js 1`] = `
+exports[`indent.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80

@@ -14,6 +14,7 @@ function babelOptions(extraPlugins = []) {
     allowSuperOutsideMethod: true,
     allowUndeclaredExports: true,
     errorRecovery: true,
+    createParenthesizedExpressions: true,
     plugins: [
       "doExpressions",
       "objectRestSpread",
@@ -29,7 +30,6 @@ function babelOptions(extraPlugins = []) {
       "optionalCatchBinding",
       "optionalChaining",
       "classPrivateProperties",
-      ["pipelineOperator", { proposal: "minimal" }],
       "nullishCoalescingOperator",
       "bigInt",
       "throwExpressions",
@@ -38,9 +38,26 @@ function babelOptions(extraPlugins = []) {
       "v8intrinsic",
       "partialApplication",
       ["decorators", { decoratorsBeforeExport: false }],
-      ...extraPlugins
-    ]
+      ...extraPlugins,
+    ],
   };
+}
+
+function resolvePluginsConflict(
+  condition,
+  pluginCombinations,
+  conflictPlugins
+) {
+  if (!condition) {
+    return pluginCombinations;
+  }
+  const combinations = [];
+  for (const combination of pluginCombinations) {
+    for (const plugin of conflictPlugins) {
+      combinations.push([...combination, plugin]);
+    }
+  }
+  return combinations;
 }
 
 function createParse(parseMethod, ...pluginCombinations) {
@@ -50,9 +67,18 @@ function createParse(parseMethod, ...pluginCombinations) {
 
     let ast;
     try {
+      const combinations = resolvePluginsConflict(
+        text.includes("|>"),
+        pluginCombinations,
+        [
+          ["pipelineOperator", { proposal: "smart" }],
+          ["pipelineOperator", { proposal: "minimal" }],
+          ["pipelineOperator", { proposal: "fsharp" }],
+        ]
+      );
       ast = tryCombinations(
-        options => babel[parseMethod](text, options),
-        pluginCombinations.map(babelOptions)
+        (options) => babel[parseMethod](text, options),
+        combinations.map(babelOptions)
       );
     } catch (error) {
       throw createError(
@@ -62,8 +88,8 @@ function createParse(parseMethod, ...pluginCombinations) {
         {
           start: {
             line: error.loc.line,
-            column: error.loc.column + 1
-          }
+            column: error.loc.column + 1,
+          },
         }
       );
     }
@@ -75,7 +101,7 @@ function createParse(parseMethod, ...pluginCombinations) {
 const parse = createParse("parse", ["jsx", "flow"]);
 const parseFlow = createParse("parse", [
   "jsx",
-  ["flow", { all: true, enums: true }]
+  ["flow", { all: true, enums: true }],
 ]);
 const parseTypeScript = createParse(
   "parse",
@@ -159,8 +185,8 @@ function assertJsonNode(node, parent) {
     return createError(`${name} is not allowed in JSON.`, {
       start: {
         line: node.loc.start.line,
-        column: node.loc.start.column + 1
-      }
+        column: node.loc.start.column + 1,
+      },
     });
   }
 }
@@ -180,19 +206,19 @@ module.exports = {
       ...babelExpression,
       hasPragma() {
         return true;
-      }
+      },
     },
     json5: babelExpression,
     "json-stringify": {
       parse: parseJson,
       astFormat: "estree-json",
-      ...locFns
+      ...locFns,
     },
     /** @internal */
     __js_expression: babelExpression,
     /** for vue filter */
     __vue_expression: babelExpression,
     /** for vue event binding to handle semicolon */
-    __vue_event_binding: babel
-  }
+    __vue_event_binding: babel,
+  },
 };

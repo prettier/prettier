@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`prettier-ignore.hbs - {"singleQuote":true} 1`] = `
+exports[`prettier-ignore.hbs - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -77,7 +77,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`prettier-ignore.hbs 1`] = `
+exports[`prettier-ignore.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80

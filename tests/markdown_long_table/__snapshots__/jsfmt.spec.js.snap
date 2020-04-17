@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`long-table.md - {"proseWrap":"never"} 1`] = `
+exports[`long-table.md - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -38,7 +38,7 @@ proseWrap: "never"
 ================================================================================
 `;
 
-exports[`long-table.md 1`] = `
+exports[`long-table.md format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80

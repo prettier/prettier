@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`symbol_entitites.html 1`] = `
+exports[`symbol_entitites.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80

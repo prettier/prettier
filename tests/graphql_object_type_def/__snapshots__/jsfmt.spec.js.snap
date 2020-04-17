@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`arguments.graphql 1`] = `
+exports[`arguments.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
 printWidth: 80
@@ -18,7 +18,7 @@ type Video {
 ================================================================================
 `;
 
-exports[`directives.graphql 1`] = `
+exports[`directives.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
 printWidth: 80
@@ -36,7 +36,7 @@ type PokemonType {
 ================================================================================
 `;
 
-exports[`extend.graphql 1`] = `
+exports[`extend.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
 printWidth: 80
@@ -54,7 +54,7 @@ extend type Feedback {
 ================================================================================
 `;
 
-exports[`implements.graphql 1`] = `
+exports[`implements.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
 printWidth: 80
@@ -72,7 +72,7 @@ type VRMConversation implements Node, Entity @foo {
 ================================================================================
 `;
 
-exports[`input.graphql 1`] = `
+exports[`input.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
 printWidth: 80
@@ -92,7 +92,7 @@ input Params {
 ================================================================================
 `;
 
-exports[`object_type_def.graphql 1`] = `
+exports[`object_type_def.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
 printWidth: 80

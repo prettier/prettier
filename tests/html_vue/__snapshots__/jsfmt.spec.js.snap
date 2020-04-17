@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`attributes.vue - {"semi":false} 1`] = `
+exports[`attributes.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -109,7 +109,7 @@ semi: false
 ================================================================================
 `;
 
-exports[`attributes.vue - {"trailingComma":"none"} 1`] = `
+exports[`attributes.vue - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -218,7 +218,7 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`attributes.vue 1`] = `
+exports[`attributes.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -326,7 +326,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`board_card.vue - {"semi":false} 1`] = `
+exports[`board_card.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -492,7 +492,7 @@ export default {
 ================================================================================
 `;
 
-exports[`board_card.vue - {"trailingComma":"none"} 1`] = `
+exports[`board_card.vue - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -658,7 +658,7 @@ export default {
 ================================================================================
 `;
 
-exports[`board_card.vue 1`] = `
+exports[`board_card.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -823,7 +823,7 @@ export default {
 ================================================================================
 `;
 
-exports[`case-sensitive-tags.vue - {"semi":false} 1`] = `
+exports[`case-sensitive-tags.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -842,7 +842,7 @@ semi: false
 ================================================================================
 `;
 
-exports[`case-sensitive-tags.vue - {"trailingComma":"none"} 1`] = `
+exports[`case-sensitive-tags.vue - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -861,7 +861,7 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`case-sensitive-tags.vue 1`] = `
+exports[`case-sensitive-tags.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -879,7 +879,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`custom-block.vue - {"semi":false} 1`] = `
+exports[`custom-block.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -909,7 +909,7 @@ semi: false
 ================================================================================
 `;
 
-exports[`custom-block.vue - {"trailingComma":"none"} 1`] = `
+exports[`custom-block.vue - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -939,7 +939,7 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`custom-block.vue 1`] = `
+exports[`custom-block.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -968,7 +968,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`expression-binding.vue - {"semi":false} 1`] = `
+exports[`expression-binding.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -1042,7 +1042,7 @@ semi: false
 ================================================================================
 `;
 
-exports[`expression-binding.vue - {"trailingComma":"none"} 1`] = `
+exports[`expression-binding.vue - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -1116,7 +1116,7 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`expression-binding.vue 1`] = `
+exports[`expression-binding.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -1189,7 +1189,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`filter.vue - {"semi":false} 1`] = `
+exports[`filter.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -1247,7 +1247,7 @@ semi: false
 ================================================================================
 `;
 
-exports[`filter.vue - {"trailingComma":"none"} 1`] = `
+exports[`filter.vue - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -1305,7 +1305,7 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`filter.vue 1`] = `
+exports[`filter.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -1362,7 +1362,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`interpolations.vue - {"semi":false} 1`] = `
+exports[`interpolations.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -1493,7 +1493,7 @@ x => {
 ================================================================================
 `;
 
-exports[`interpolations.vue - {"trailingComma":"none"} 1`] = `
+exports[`interpolations.vue - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -1624,7 +1624,7 @@ x => {
 ================================================================================
 `;
 
-exports[`interpolations.vue 1`] = `
+exports[`interpolations.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -1754,7 +1754,7 @@ x => {
 ================================================================================
 `;
 
-exports[`pre-child.vue - {"semi":false} 1`] = `
+exports[`pre-child.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -1860,7 +1860,7 @@ semi: false
 ================================================================================
 `;
 
-exports[`pre-child.vue - {"trailingComma":"none"} 1`] = `
+exports[`pre-child.vue - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -1966,7 +1966,7 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`pre-child.vue 1`] = `
+exports[`pre-child.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -2071,7 +2071,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`script_src.vue - {"semi":false} 1`] = `
+exports[`script_src.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -2088,7 +2088,7 @@ semi: false
 ================================================================================
 `;
 
-exports[`script_src.vue - {"trailingComma":"none"} 1`] = `
+exports[`script_src.vue - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -2105,7 +2105,7 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`script_src.vue 1`] = `
+exports[`script_src.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -2121,7 +2121,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`self_closing.vue - {"semi":false} 1`] = `
+exports[`self_closing.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -2176,7 +2176,7 @@ foo()
 ================================================================================
 `;
 
-exports[`self_closing.vue - {"trailingComma":"none"} 1`] = `
+exports[`self_closing.vue - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -2231,7 +2231,7 @@ foo();
 ================================================================================
 `;
 
-exports[`self_closing.vue 1`] = `
+exports[`self_closing.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -2285,7 +2285,7 @@ foo();
 ================================================================================
 `;
 
-exports[`self_closing_style.vue - {"semi":false} 1`] = `
+exports[`self_closing_style.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -2308,7 +2308,7 @@ semi: false
 ================================================================================
 `;
 
-exports[`self_closing_style.vue - {"trailingComma":"none"} 1`] = `
+exports[`self_closing_style.vue - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -2331,7 +2331,7 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`self_closing_style.vue 1`] = `
+exports[`self_closing_style.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -2353,7 +2353,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`style.vue - {"semi":false} 1`] = `
+exports[`style.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -2460,7 +2460,7 @@ semi: false
 ================================================================================
 `;
 
-exports[`style.vue - {"trailingComma":"none"} 1`] = `
+exports[`style.vue - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -2567,7 +2567,7 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`style.vue 1`] = `
+exports[`style.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -2673,7 +2673,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`tag-name.vue - {"semi":false} 1`] = `
+exports[`tag-name.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -2692,7 +2692,7 @@ semi: false
 ================================================================================
 `;
 
-exports[`tag-name.vue - {"trailingComma":"none"} 1`] = `
+exports[`tag-name.vue - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -2711,7 +2711,7 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`tag-name.vue 1`] = `
+exports[`tag-name.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -2729,7 +2729,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`template.vue - {"semi":false} 1`] = `
+exports[`template.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -2795,7 +2795,7 @@ semi: false
 ================================================================================
 `;
 
-exports[`template.vue - {"trailingComma":"none"} 1`] = `
+exports[`template.vue - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -2861,7 +2861,7 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`template.vue 1`] = `
+exports[`template.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -2926,7 +2926,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`template-lang.vue - {"semi":false} 1`] = `
+exports[`template-lang.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -2965,7 +2965,7 @@ semi: false
 ================================================================================
 `;
 
-exports[`template-lang.vue - {"trailingComma":"none"} 1`] = `
+exports[`template-lang.vue - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -3004,7 +3004,7 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`template-lang.vue 1`] = `
+exports[`template-lang.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -3042,7 +3042,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`test.vue - {"semi":false} 1`] = `
+exports[`test.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -3074,7 +3074,7 @@ semi: false
 ================================================================================
 `;
 
-exports[`test.vue - {"trailingComma":"none"} 1`] = `
+exports[`test.vue - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -3106,7 +3106,7 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`test.vue 1`] = `
+exports[`test.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -3137,7 +3137,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`v-if.vue - {"semi":false} 1`] = `
+exports[`v-if.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -3248,7 +3248,7 @@ long_long_long_long_long_long_long_condition_4
 ================================================================================
 `;
 
-exports[`v-if.vue - {"trailingComma":"none"} 1`] = `
+exports[`v-if.vue - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -3359,7 +3359,7 @@ long_long_long_long_long_long_long_condition_4
 ================================================================================
 `;
 
-exports[`v-if.vue 1`] = `
+exports[`v-if.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
