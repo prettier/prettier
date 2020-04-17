@@ -107,48 +107,10 @@ jobs:
         if: matrix.os != 'macos-latest'
         run: yarn test:dist --maxWorkers=2
 
-  standalone:
-    strategy:
-      fail-fast: false
-      matrix:
-        os:
-          - "ubuntu-latest"
-          - "macos-latest"
-          - "windows-latest"
-        node:
-          - "13"
-          - "12"
-          - "10"
-        exclude:
-          - os: "macos-latest"
-            node: "13"
-    name: Node.js ${{ matrix.node }} on ${{ matrix.os }} (standalone)
-    runs-on: ${{ matrix.os }}
-    needs: [build]
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 1
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node }}
-
-      - name: Install Dependencies
-        run: yarn install --frozen-lockfile
-
-      - name: Download Artifact
-        uses: actions/download-artifact@v1
-        with:
-          name: dist
-          path: dist
-
-      - name: Run Tests (macOS)
+      - name: Run Tests (standalone) (macOS)
         if: matrix.os == 'macos-latest'
         run: yarn test:dist-standalone --maxWorkers=4
 
-      - name: Run Tests (Linux and Windows)
+      - name: Run Tests (standalone) (Linux and Windows)
         if: matrix.os != 'macos-latest'
         run: yarn test:dist-standalone --maxWorkers=2
