@@ -5,10 +5,10 @@ const partition = require("lodash/partition");
 const fs = require("fs");
 const globby = require("globby");
 const path = require("path");
+const resolve = require("resolve");
 const thirdParty = require("./third-party");
 const internalPlugins = require("./internal-plugins");
 const mem = require("mem");
-const resolve = require("./resolve");
 
 const memoizedLoad = mem(load, { cacheKey: JSON.stringify });
 const memoizedSearch = mem(findPluginsInNodeModules);
@@ -43,10 +43,10 @@ function load(plugins, pluginSearchDirs) {
       let requirePath;
       try {
         // try local files
-        requirePath = resolve(path.resolve(process.cwd(), pluginName));
+        requirePath = resolve.sync(path.resolve(process.cwd(), pluginName));
       } catch (_) {
         // try node modules
-        requirePath = resolve(pluginName, { paths: [process.cwd()] });
+        requirePath = resolve.sync(pluginName, { basedir: process.cwd() });
       }
 
       return {
@@ -82,7 +82,9 @@ function load(plugins, pluginSearchDirs) {
 
       return memoizedSearch(nodeModulesDir).map((pluginName) => ({
         name: pluginName,
-        requirePath: resolve(pluginName, { paths: [resolvedPluginSearchDir] }),
+        requirePath: resolve.sync(pluginName, {
+          basedir: resolvedPluginSearchDir,
+        }),
       }));
     })
     .reduce((a, b) => a.concat(b), []);
