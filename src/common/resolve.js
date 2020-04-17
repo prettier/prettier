@@ -2,7 +2,7 @@
 
 let { resolve } = eval("require");
 
-// In the VS Code extension `require` is overridden and `require.resolve` doesn't support the 2nd argument.
+// In the VS Code and Atom extension `require` is overridden and `require.resolve` doesn't support the 2nd argument.
 if (
   /* istanbul ignore next */
   resolve.length === 1 ||
