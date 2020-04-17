@@ -2,12 +2,12 @@
 
 const thirdParty = require("../common/third-party");
 const minimatch = require("minimatch");
+const resolve = require("resolve");
 const path = require("path");
 const mem = require("mem");
 
 const resolveEditorConfig = require("./resolve-config-editorconfig");
 const loadToml = require("../utils/load-toml");
-const resolve = require("../common/resolve");
 
 const getExplorerMemoized = mem(
   (opts) => {
@@ -17,8 +17,9 @@ const getExplorerMemoized = mem(
       transform: (result) => {
         if (result && result.config) {
           if (typeof result.config === "string") {
-            const dir = path.dirname(result.filepath);
-            const modulePath = resolve(result.config, { paths: [dir] });
+            const modulePath = resolve.sync(result.config, {
+              basedir: path.dirname(result.filepath),
+            });
             result.config = eval("require")(modulePath);
           }
 
