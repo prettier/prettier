@@ -14,8 +14,8 @@ const {
 const {
   hasNewline,
   skipNewline,
-  hasSpaces,
-  isPreviousLineEmpty
+  skipSpaces,
+  isPreviousLineEmpty,
 } = require("../common/util");
 const {
   addLeadingComment,
@@ -521,12 +521,11 @@ function printComments(path, print, options, needsSemi) {
       leadingParts.push(contents);
 
       const text = options.originalText;
-      const index = skipNewline(text, options.locEnd(comment));
-      if (
-        index !== false &&
-        hasNewline(text, index) &&
-        !hasSpaces(text, index)
-      ) {
+      const index = skipNewline(
+        text,
+        skipSpaces(text, options.locEnd(comment))
+      );
+      if (index !== false && hasNewline(text, index)) {
         leadingParts.push(hardline);
       }
     } else if (trailing) {
