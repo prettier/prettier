@@ -108,7 +108,6 @@ const jsSourceElements = new Set([
 const jsonSourceElements = new Set([
   "ObjectExpression",
   "ArrayExpression",
-  "StringLiteral",
   "NumericLiteral",
   "BooleanLiteral",
   "NullLiteral",
