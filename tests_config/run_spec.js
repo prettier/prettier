@@ -80,7 +80,12 @@ global.run_spec = (dirname, parsers, options) => {
     ) {
       continue;
     }
-    describe(basename, () => {
+
+    const stringifiedOptions = stringifyOptions(options);
+
+    describe(`${basename}${
+      stringifiedOptions ? ` - ${stringifiedOptions}` : ""
+    }`, () => {
       let rangeStart;
       let rangeEnd;
       let cursorOffset;
@@ -310,4 +315,16 @@ function omit(obj, fn) {
     }
     return reduced;
   }, {});
+}
+
+function stringifyOptions(options) {
+  const string = JSON.stringify(options || {}, (key, value) =>
+    key === "disableBabelTS"
+      ? undefined
+      : value === Infinity
+      ? "Infinity"
+      : value
+  );
+
+  return string === "{}" ? "" : string;
 }

@@ -1,5 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`arrow.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+const fn = (/*event, data*/) => doSomething();
+
+const fn2 = (/*event, data*/) => doSomething(anything);
+
+=====================================output=====================================
+const fn = (/*event, data*/) => doSomething()
+
+const fn2 = (/*event, data*/) => doSomething(anything)
+
+================================================================================
+`;
+
 exports[`arrow.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
@@ -18,21 +37,28 @@ const fn2 = (/*event, data*/) => doSomething(anything);
 ================================================================================
 `;
 
-exports[`arrow.js format 2`] = `
+exports[`assignment-pattern.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
 =====================================input======================================
-const fn = (/*event, data*/) => doSomething();
+const { a /* comment */ = 1 } = b;
 
-const fn2 = (/*event, data*/) => doSomething(anything);
+const { c = 1 /* comment */ } = d;
+
+let {d //comment
+= b} = c
 
 =====================================output=====================================
-const fn = (/*event, data*/) => doSomething()
+const { a /* comment */ = 1 } = b
 
-const fn2 = (/*event, data*/) => doSomething(anything)
+const { c = 1 /* comment */ } = d
+
+let {
+  d = b, //comment
+} = c
 
 ================================================================================
 `;
@@ -62,28 +88,27 @@ let {
 ================================================================================
 `;
 
-exports[`assignment-pattern.js format 2`] = `
+exports[`before-comma.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
 =====================================input======================================
-const { a /* comment */ = 1 } = b;
+const foo = {
+  a: 'a' /* comment for this line */,
 
-const { c = 1 /* comment */ } = d;
-
-let {d //comment
-= b} = c
+  /* Section B */
+  b: 'b',
+};
 
 =====================================output=====================================
-const { a /* comment */ = 1 } = b
+const foo = {
+  a: "a" /* comment for this line */,
 
-const { c = 1 /* comment */ } = d
-
-let {
-  d = b, //comment
-} = c
+  /* Section B */
+  b: "b",
+}
 
 ================================================================================
 `;
@@ -112,26 +137,156 @@ const foo = {
 ================================================================================
 `;
 
-exports[`before-comma.js format 2`] = `
+exports[`binary-expressions.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
 =====================================input======================================
-const foo = {
-  a: 'a' /* comment for this line */,
+function addition() {
+	0
+	// Comment
+	+ x
+}
 
-  /* Section B */
-  b: 'b',
-};
+function multiplication() {
+	0
+	// Comment
+	* x
+}
+
+function division() {
+	0
+	// Comment
+	/ x
+}
+
+function substraction() {
+	0
+	// Comment
+	- x
+}
+
+function remainder() {
+	0
+	// Comment
+	% x
+}
+
+function exponentiation() {
+	0
+	// Comment
+	** x
+}
+
+function leftShift() {
+	0
+	// Comment
+	<< x
+}
+
+function rightShift() {
+	0
+	// Comment
+	>> x
+}
+
+function unsignedRightShift() {
+	0
+	// Comment
+	>>> x
+}
+
+function bitwiseAnd() {
+	0
+	// Comment
+	& x
+}
+
+function bitwiseOr() {
+	0
+	// Comment
+	| x
+}
+
+function bitwiseXor() {
+	0
+	// Comment
+	^ x
+}
 
 =====================================output=====================================
-const foo = {
-  a: "a" /* comment for this line */,
+function addition() {
+  0 +
+    // Comment
+    x
+}
 
-  /* Section B */
-  b: "b",
+function multiplication() {
+  0 *
+    // Comment
+    x
+}
+
+function division() {
+  0 /
+    // Comment
+    x
+}
+
+function substraction() {
+  0 -
+    // Comment
+    x
+}
+
+function remainder() {
+  0 %
+    // Comment
+    x
+}
+
+function exponentiation() {
+  0 **
+    // Comment
+    x
+}
+
+function leftShift() {
+  0 <<
+    // Comment
+    x
+}
+
+function rightShift() {
+  0 >>
+    // Comment
+    x
+}
+
+function unsignedRightShift() {
+  0 >>>
+    // Comment
+    x
+}
+
+function bitwiseAnd() {
+  0 &
+    // Comment
+    x
+}
+
+function bitwiseOr() {
+  0 |
+    // Comment
+    x
+}
+
+function bitwiseXor() {
+  0 ^
+    // Comment
+    x
 }
 
 ================================================================================
@@ -291,157 +446,57 @@ function bitwiseXor() {
 ================================================================================
 `;
 
-exports[`binary-expressions.js format 2`] = `
+exports[`blank.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
 =====================================input======================================
-function addition() {
-	0
-	// Comment
-	+ x
-}
+// This file only
+// has comments. This comment
+// should still exist
+//
+// when printed.
 
-function multiplication() {
-	0
-	// Comment
-	* x
-}
+/**
+ * @typedef {DataDrivenMapping|ConstantMapping} Mapping
+ */
+/**
+ * @typedef {Object.<String, Mapping>} ConfigurationMapping
+ */
 
-function division() {
-	0
-	// Comment
-	/ x
-}
+/**
+ * @typedef {Function} D3Scale - a D3 scale
+ * @property {Function} ticks
+ * @property {Function} tickFormat
+ */
+// comment
 
-function substraction() {
-	0
-	// Comment
-	- x
-}
-
-function remainder() {
-	0
-	// Comment
-	% x
-}
-
-function exponentiation() {
-	0
-	// Comment
-	** x
-}
-
-function leftShift() {
-	0
-	// Comment
-	<< x
-}
-
-function rightShift() {
-	0
-	// Comment
-	>> x
-}
-
-function unsignedRightShift() {
-	0
-	// Comment
-	>>> x
-}
-
-function bitwiseAnd() {
-	0
-	// Comment
-	& x
-}
-
-function bitwiseOr() {
-	0
-	// Comment
-	| x
-}
-
-function bitwiseXor() {
-	0
-	// Comment
-	^ x
-}
+// comment
 
 =====================================output=====================================
-function addition() {
-  0 +
-    // Comment
-    x
-}
+// This file only
+// has comments. This comment
+// should still exist
+//
+// when printed.
 
-function multiplication() {
-  0 *
-    // Comment
-    x
-}
+/**
+ * @typedef {DataDrivenMapping|ConstantMapping} Mapping
+ */
+/**
+ * @typedef {Object.<String, Mapping>} ConfigurationMapping
+ */
 
-function division() {
-  0 /
-    // Comment
-    x
-}
+/**
+ * @typedef {Function} D3Scale - a D3 scale
+ * @property {Function} ticks
+ * @property {Function} tickFormat
+ */
+// comment
 
-function substraction() {
-  0 -
-    // Comment
-    x
-}
-
-function remainder() {
-  0 %
-    // Comment
-    x
-}
-
-function exponentiation() {
-  0 **
-    // Comment
-    x
-}
-
-function leftShift() {
-  0 <<
-    // Comment
-    x
-}
-
-function rightShift() {
-  0 >>
-    // Comment
-    x
-}
-
-function unsignedRightShift() {
-  0 >>>
-    // Comment
-    x
-}
-
-function bitwiseAnd() {
-  0 &
-    // Comment
-    x
-}
-
-function bitwiseOr() {
-  0 |
-    // Comment
-    x
-}
-
-function bitwiseXor() {
-  0 ^
-    // Comment
-    x
-}
+// comment
 
 ================================================================================
 `;
@@ -500,57 +555,37 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`blank.js format 2`] = `
+exports[`break-continue-statements.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
 =====================================input======================================
-// This file only
-// has comments. This comment
-// should still exist
-//
-// when printed.
+for (;;) {
+  break /* comment */;
+  continue /* comment */;
+}
 
-/**
- * @typedef {DataDrivenMapping|ConstantMapping} Mapping
- */
-/**
- * @typedef {Object.<String, Mapping>} ConfigurationMapping
- */
-
-/**
- * @typedef {Function} D3Scale - a D3 scale
- * @property {Function} ticks
- * @property {Function} tickFormat
- */
-// comment
-
-// comment
+loop: for (;;) {
+  break /* comment */ loop;
+  break loop /* comment */;
+  continue /* comment */ loop;
+  continue loop /* comment */;
+}
 
 =====================================output=====================================
-// This file only
-// has comments. This comment
-// should still exist
-//
-// when printed.
+for (;;) {
+  break /* comment */
+  continue /* comment */
+}
 
-/**
- * @typedef {DataDrivenMapping|ConstantMapping} Mapping
- */
-/**
- * @typedef {Object.<String, Mapping>} ConfigurationMapping
- */
-
-/**
- * @typedef {Function} D3Scale - a D3 scale
- * @property {Function} ticks
- * @property {Function} tickFormat
- */
-// comment
-
-// comment
+loop: for (;;) {
+  break /* comment */ loop
+  break loop /* comment */
+  continue /* comment */ loop
+  continue loop /* comment */
+}
 
 ================================================================================
 `;
@@ -589,37 +624,46 @@ loop: for (;;) {
 ================================================================================
 `;
 
-exports[`break-continue-statements.js format 2`] = `
+exports[`call_comment.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
 =====================================input======================================
-for (;;) {
-  break /* comment */;
-  continue /* comment */;
-}
+render( // Warm any cache
+  <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
+  container
+);
 
-loop: for (;;) {
-  break /* comment */ loop;
-  break loop /* comment */;
-  continue /* comment */ loop;
-  continue loop /* comment */;
-}
+React.render( // Warm any cache
+  <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
+  container
+);
+
+render?.( // Warm any cache
+  <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
+  container
+);
 
 =====================================output=====================================
-for (;;) {
-  break /* comment */
-  continue /* comment */
-}
+render(
+  // Warm any cache
+  <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
+  container
+)
 
-loop: for (;;) {
-  break /* comment */ loop
-  break loop /* comment */
-  continue /* comment */ loop
-  continue loop /* comment */
-}
+React.render(
+  // Warm any cache
+  <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
+  container
+)
+
+render?.(
+  // Warm any cache
+  <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
+  container
+)
 
 ================================================================================
 `;
@@ -667,46 +711,47 @@ render?.(
 ================================================================================
 `;
 
-exports[`call_comment.js format 2`] = `
+exports[`dangling.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
 =====================================input======================================
-render( // Warm any cache
-  <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
-  container
-);
-
-React.render( // Warm any cache
-  <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
-  container
-);
-
-render?.( // Warm any cache
-  <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
-  container
-);
+var a = {/* dangling */};
+var b = {
+  // dangling
+};
+var b = [/* dangling */];
+function d() {
+  /* dangling */
+}
+new Thing(/* dangling */);
+Thing(/* dangling */);
+Thing?.(/* dangling */);
+declare class Foo extends Qux<string> {/* dangling */}
+export /* dangling */{};
 
 =====================================output=====================================
-render(
-  // Warm any cache
-  <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
-  container
-)
-
-React.render(
-  // Warm any cache
-  <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
-  container
-)
-
-render?.(
-  // Warm any cache
-  <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
-  container
-)
+var a = {
+  /* dangling */
+}
+var b = {
+  // dangling
+}
+var b = [
+  /* dangling */
+]
+function d() {
+  /* dangling */
+}
+new Thing(/* dangling */)
+Thing(/* dangling */)
+Thing?.(/* dangling */)
+declare class Foo extends Qux<string> {
+  /* dangling */
+}
+export /* dangling */{}
 
 ================================================================================
 `;
@@ -755,47 +800,25 @@ export /* dangling */{};
 ================================================================================
 `;
 
-exports[`dangling.js format 2`] = `
+exports[`dangling_array.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
 =====================================input======================================
-var a = {/* dangling */};
-var b = {
-  // dangling
-};
-var b = [/* dangling */];
-function d() {
-  /* dangling */
-}
-new Thing(/* dangling */);
-Thing(/* dangling */);
-Thing?.(/* dangling */);
-declare class Foo extends Qux<string> {/* dangling */}
-export /* dangling */{};
+expect(() => {}).toTriggerReadyStateChanges([
+  // Nothing.
+]);
+
+[1 /* first comment */, 2 /* second comment */, 3];
 
 =====================================output=====================================
-var a = {
-  /* dangling */
-}
-var b = {
-  // dangling
-}
-var b = [
-  /* dangling */
-]
-function d() {
-  /* dangling */
-}
-new Thing(/* dangling */)
-Thing(/* dangling */)
-Thing?.(/* dangling */)
-declare class Foo extends Qux<string> {
-  /* dangling */
-}
-export /* dangling */{}
+expect(() => {}).toTriggerReadyStateChanges([
+  // Nothing.
+])
+
+;[1 /* first comment */, 2 /* second comment */, 3]
 
 ================================================================================
 `;
@@ -822,25 +845,24 @@ expect(() => {}).toTriggerReadyStateChanges([
 ================================================================================
 `;
 
-exports[`dangling_array.js format 2`] = `
+exports[`dangling_for.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
 =====================================input======================================
-expect(() => {}).toTriggerReadyStateChanges([
-  // Nothing.
-]);
+for // comment
+(;;);
 
-[1 /* first comment */, 2 /* second comment */, 3];
+for /* comment */(;;);
 
 =====================================output=====================================
-expect(() => {}).toTriggerReadyStateChanges([
-  // Nothing.
-])
+// comment
+for (;;);
 
-;[1 /* first comment */, 2 /* second comment */, 3]
+/* comment */
+for (;;);
 
 ================================================================================
 `;
@@ -866,24 +888,49 @@ for (;;);
 ================================================================================
 `;
 
-exports[`dangling_for.js format 2`] = `
+exports[`dynamic_imports.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
 =====================================input======================================
-for // comment
-(;;);
+import(/* Hello */ 'something')
 
-for /* comment */(;;);
+import('something' /* Hello */)
+
+import(/* Hello */ 'something' /* Hello */)
+
+import('something' /* Hello */ + 'else')
+
+import(
+  /* Hello */
+  'something'
+  /* Hello */
+)
+
+wrap(
+  import(/* Hello */
+    'something'
+  )
+)
 
 =====================================output=====================================
-// comment
-for (;;);
+import(/* Hello */ "something")
 
-/* comment */
-for (;;);
+import("something" /* Hello */)
+
+import(/* Hello */ "something" /* Hello */)
+
+import("something" /* Hello */ + "else")
+
+import(
+  /* Hello */
+  "something"
+  /* Hello */
+)
+
+wrap(import(/* Hello */ "something"))
 
 ================================================================================
 `;
@@ -934,49 +981,25 @@ wrap(import(/* Hello */ "something"));
 ================================================================================
 `;
 
-exports[`dynamic_imports.js format 2`] = `
+exports[`emoji.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
 =====================================input======================================
-import(/* Hello */ 'something')
+/* #2091 */
 
-import('something' /* Hello */)
-
-import(/* Hello */ 'something' /* Hello */)
-
-import('something' /* Hello */ + 'else')
-
-import(
-  /* Hello */
-  'something'
-  /* Hello */
-)
-
-wrap(
-  import(/* Hello */
-    'something'
-  )
-)
+const test = '💖'
+// This comment
+// should not get collapsed
 
 =====================================output=====================================
-import(/* Hello */ "something")
+/* #2091 */
 
-import("something" /* Hello */)
-
-import(/* Hello */ "something" /* Hello */)
-
-import("something" /* Hello */ + "else")
-
-import(
-  /* Hello */
-  "something"
-  /* Hello */
-)
-
-wrap(import(/* Hello */ "something"))
+const test = "💖"
+// This comment
+// should not get collapsed
 
 ================================================================================
 `;
@@ -1003,25 +1026,59 @@ const test = "💖";
 ================================================================================
 `;
 
-exports[`emoji.js format 2`] = `
+exports[`export.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
 =====================================input======================================
-/* #2091 */
+export //comment
+{}
 
-const test = '💖'
-// This comment
-// should not get collapsed
+export /* comment */ {};
+
+const foo = ''
+export {
+  foo // comment
+}
+
+const bar = ''
+export {
+  // comment
+  bar
+}
+
+const fooo = ''
+const barr = ''
+export {
+  fooo, // comment
+  barr, // comment
+}
 
 =====================================output=====================================
-/* #2091 */
+export //comment
+{}
 
-const test = "💖"
-// This comment
-// should not get collapsed
+export /* comment */{}
+
+const foo = ""
+export {
+  foo, // comment
+}
+
+const bar = ""
+export {
+  // comment
+  bar,
+}
+
+const fooo = ""
+const barr = ""
+export {
+  fooo, // comment
+  barr, // comment
+}
 
 ================================================================================
 `;
@@ -1082,59 +1139,19 @@ export {
 ================================================================================
 `;
 
-exports[`export.js format 2`] = `
+exports[`first-line.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
 =====================================input======================================
-export //comment
-{}
-
-export /* comment */ {};
-
-const foo = ''
-export {
-  foo // comment
-}
-
-const bar = ''
-export {
-  // comment
-  bar
-}
-
-const fooo = ''
-const barr = ''
-export {
-  fooo, // comment
-  barr, // comment
-}
+a // comment
+b
 
 =====================================output=====================================
-export //comment
-{}
-
-export /* comment */{}
-
-const foo = ""
-export {
-  foo, // comment
-}
-
-const bar = ""
-export {
-  // comment
-  bar,
-}
-
-const fooo = ""
-const barr = ""
-export {
-  fooo, // comment
-  barr, // comment
-}
+a // comment
+b
 
 ================================================================================
 `;
@@ -1155,19 +1172,137 @@ b;
 ================================================================================
 `;
 
-exports[`first-line.js format 2`] = `
+exports[`function-declaration.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
 =====================================input======================================
-a // comment
-b
+function a(/* comment */) {} // comment
+function b() {} // comment
+function c(/* comment */ argA, argB, argC) {} // comment
+call((/*object*/ row) => {});
+KEYPAD_NUMBERS.map(num => ( // Buttons 0-9
+  <div />
+));
+
+function f1 /* f */() {}
+function f2 (/* args */) {}
+function f3 () /* returns */ {}
+function f4 /* f */(/* args */) /* returns */ {}
+
+function f5 /* f */(/* a */ a) {}
+function f6 /* f */(a /* a */) {}
+function f7 /* f */(/* a */ a) /* returns */ {}
+
+const obj = {
+  f1 /* f */() {},
+  f2 (/* args */) {},
+  f3 () /* returns */ {},
+  f4 /* f */(/* args */) /* returns */ {},
+};
+
+(function f /* f */() {})();
+(function f (/* args */) {})();
+(function f () /* returns */ {})();
+(function f /* f */(/* args */) /* returns */ {})();
+
+class C1 {
+  f/* f */() {}
+}
+class C2 {
+  f(/* args */) {}
+}
+class C3 {
+  f() /* returns */ {}
+}
+class C4 {
+  f/* f */(/* args */) /* returns */ {}
+}
+
+function foo1() 
+// this is a function
+{
+  return 42
+}
+
+function foo2() // this is a function
+{
+  return 42
+}
+
+function foo3() { // this is a function
+  return 42
+}
+
+function foo4() {
+  // this is a function
+  return 42;
+}
 
 =====================================output=====================================
-a // comment
-b
+function a(/* comment */) {} // comment
+function b() {} // comment
+function c(/* comment */ argA, argB, argC) {} // comment
+call((/*object*/ row) => {})
+KEYPAD_NUMBERS.map((
+  num // Buttons 0-9
+) => <div />)
+
+function f1 /* f */() {}
+function f2(/* args */) {}
+function f3() /* returns */ {}
+function f4 /* f */(/* args */) /* returns */ {}
+
+function f5 /* f */(/* a */ a) {}
+function f6 /* f */(a /* a */) {}
+function f7 /* f */(/* a */ a) /* returns */ {}
+
+const obj = {
+  f1 /* f */() {},
+  f2(/* args */) {},
+  f3() /* returns */ {},
+  f4 /* f */(/* args */) /* returns */ {},
+}
+
+;(function f /* f */() {})()
+;(function f(/* args */) {})()
+;(function f() /* returns */ {})()
+;(function f /* f */(/* args */) /* returns */ {})()
+
+class C1 {
+  f /* f */() {}
+}
+class C2 {
+  f(/* args */) {}
+}
+class C3 {
+  f() /* returns */ {}
+}
+class C4 {
+  f /* f */(/* args */) /* returns */ {}
+}
+
+function foo1() {
+  // this is a function
+  return 42
+}
+
+function foo2() {
+  // this is a function
+  return 42
+}
+
+function foo3() {
+  // this is a function
+  return 42
+}
+
+function foo4() {
+  // this is a function
+  return 42
+}
 
 ================================================================================
 `;
@@ -1306,137 +1441,149 @@ function foo4() {
 ================================================================================
 `;
 
-exports[`function-declaration.js format 2`] = `
+exports[`if.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
 =====================================input======================================
-function a(/* comment */) {} // comment
-function b() {} // comment
-function c(/* comment */ argA, argB, argC) {} // comment
-call((/*object*/ row) => {});
-KEYPAD_NUMBERS.map(num => ( // Buttons 0-9
-  <div />
-));
-
-function f1 /* f */() {}
-function f2 (/* args */) {}
-function f3 () /* returns */ {}
-function f4 /* f */(/* args */) /* returns */ {}
-
-function f5 /* f */(/* a */ a) {}
-function f6 /* f */(a /* a */) {}
-function f7 /* f */(/* a */ a) /* returns */ {}
-
-const obj = {
-  f1 /* f */() {},
-  f2 (/* args */) {},
-  f3 () /* returns */ {},
-  f4 /* f */(/* args */) /* returns */ {},
-};
-
-(function f /* f */() {})();
-(function f (/* args */) {})();
-(function f () /* returns */ {})();
-(function f /* f */(/* args */) /* returns */ {})();
-
-class C1 {
-  f/* f */() {}
-}
-class C2 {
-  f(/* args */) {}
-}
-class C3 {
-  f() /* returns */ {}
-}
-class C4 {
-  f/* f */(/* args */) /* returns */ {}
-}
-
-function foo1() 
-// this is a function
+if (1)
+// comment
 {
-  return 42
+  false
+}
+// comment
+else if (2)
+  true
+// multi
+// ple
+// lines
+else if (3)
+  // existing comment
+  true
+// okay?
+else if (4) {
+  // empty with existing comment
+}
+// comment
+else {
 }
 
-function foo2() // this is a function
-{
-  return 42
-}
+if (5) // comment
+true
 
-function foo3() { // this is a function
-  return 42
-}
+if (6) // comment
+{true}
+else if (7) // comment
+true
+else // comment
+{true}
 
-function foo4() {
-  // this is a function
-  return 42;
-}
+if (8) // comment
+// comment
+{true}
+else if (9) // comment
+// comment
+true
+else // comment
+// comment
+{true}
+
+if (10) /* comment */ // comment
+{true}
+else if (11) /* comment */
+true
+else if (12) // comment /* comment */ // comment
+true
+else if (13) /* comment */ /* comment */ // comment
+true
+else /* comment */
+{true}
+
+if (14) // comment
+/* comment */
+// comment
+{true}
+else if (15) // comment
+/* comment */
+/* comment */ // comment
+true
 
 =====================================output=====================================
-function a(/* comment */) {} // comment
-function b() {} // comment
-function c(/* comment */ argA, argB, argC) {} // comment
-call((/*object*/ row) => {})
-KEYPAD_NUMBERS.map((
-  num // Buttons 0-9
-) => <div />)
-
-function f1 /* f */() {}
-function f2(/* args */) {}
-function f3() /* returns */ {}
-function f4 /* f */(/* args */) /* returns */ {}
-
-function f5 /* f */(/* a */ a) {}
-function f6 /* f */(a /* a */) {}
-function f7 /* f */(/* a */ a) /* returns */ {}
-
-const obj = {
-  f1 /* f */() {},
-  f2(/* args */) {},
-  f3() /* returns */ {},
-  f4 /* f */(/* args */) /* returns */ {},
+if (1) {
+  // comment
+  false
+}
+// comment
+else if (2) true
+// multi
+// ple
+// lines
+else if (3)
+  // existing comment
+  true
+// okay?
+else if (4) {
+  // empty with existing comment
+}
+// comment
+else {
 }
 
-;(function f /* f */() {})()
-;(function f(/* args */) {})()
-;(function f() /* returns */ {})()
-;(function f /* f */(/* args */) /* returns */ {})()
+if (5)
+  // comment
+  true
 
-class C1 {
-  f /* f */() {}
-}
-class C2 {
-  f(/* args */) {}
-}
-class C3 {
-  f() /* returns */ {}
-}
-class C4 {
-  f /* f */(/* args */) /* returns */ {}
+if (6) {
+  // comment
+  true
+} else if (7)
+  // comment
+  true
+// comment
+else {
+  true
 }
 
-function foo1() {
-  // this is a function
-  return 42
+if (8) {
+  // comment
+  // comment
+  true
+} else if (9)
+  // comment
+  // comment
+  true
+// comment
+// comment
+else {
+  true
 }
 
-function foo2() {
-  // this is a function
-  return 42
+if (10) {
+  /* comment */ // comment
+  true
+} else if (11) /* comment */ true
+else if (12)
+  // comment /* comment */ // comment
+  true
+else if (13)
+  /* comment */ /* comment */ // comment
+  true
+/* comment */ else {
+  true
 }
 
-function foo3() {
-  // this is a function
-  return 42
-}
-
-function foo4() {
-  // this is a function
-  return 42
-}
+if (14) {
+  // comment
+  /* comment */
+  // comment
+  true
+} else if (15)
+  // comment
+  /* comment */
+  /* comment */ // comment
+  true
 
 ================================================================================
 `;
@@ -1587,149 +1734,166 @@ if (14) {
 ================================================================================
 `;
 
-exports[`if.js format 2`] = `
+exports[`issues.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
 =====================================input======================================
-if (1)
-// comment
-{
-  false
+// Does not need to break as it fits in 80 columns
+this.call(a, /* comment */ b);
+
+function f(
+  someReallyLongArgument: WithSomeLongType,
+  someReallyLongArgument2: WithSomeLongType,
+  // Trailing comment should stay after
+) {}
+
+// Comments should either stay at the end of the line or always before, but
+// not one before and one after.
+throw new ProcessSystemError({
+  code: acc.error.code, // Alias of errno
+  originalError: acc.error, // Just in case.
+});
+
+// Missing one level of indentation because of the comment
+const rootEpic = (actions, store) => (
+  combineEpics(...epics)(actions, store)
+    // Log errors and continue.
+    .catch((err, stream) => {
+      getLogger().error(err);
+      return stream;
+    })
+);
+
+// optional trailing comma gets moved all the way to the beginning
+const regex = new RegExp(
+  '^\\\\s*' + // beginning of the line
+  'name\\\\s*=\\\\s*' + // name =
+  '[\\'"]' + // opening quotation mark
+  escapeStringRegExp(target.name) + // target name
+  '[\\'"]' + // closing quotation mark
+  ',?$', // optional trailing comma
+);
+
+// The comment is moved and doesn't trigger the eslint rule anymore
+import path from 'path'; // eslint-disable-line nuclide-internal/prefer-nuclide-uri
+
+// Comments disappear in-between MemberExpressions
+Observable.of(process)
+  // Don't complete until we say so!
+  .merge(Observable.never())
+  // Get the errors.
+  .takeUntil(throwOnError ? errors.flatMap(Observable.throw) : errors)
+  .takeUntil(exit);
+
+// Comments disappear inside of JSX
+<div>
+  {/* Some comment */}
+</div>;
+
+// Comments in JSX tag are placed in a non optimal way
+<div
+  // comment
+/>;
+
+// Comments disappear in empty blocks
+if (1) {
+  // Comment
 }
-// comment
-else if (2)
-  true
-// multi
-// ple
-// lines
-else if (3)
-  // existing comment
-  true
-// okay?
-else if (4) {
-  // empty with existing comment
+
+// Comments trigger invalid JavaScript in-between else if
+if (1) {
 }
-// comment
+// Comment
 else {
+
 }
 
-if (5) // comment
-true
+// The comment makes the line break in a weird way
+const result = asyncExecute('non_existing_command', /* args */ []);
 
-if (6) // comment
-{true}
-else if (7) // comment
-true
-else // comment
-{true}
-
-if (8) // comment
-// comment
-{true}
-else if (9) // comment
-// comment
-true
-else // comment
-// comment
-{true}
-
-if (10) /* comment */ // comment
-{true}
-else if (11) /* comment */
-true
-else if (12) // comment /* comment */ // comment
-true
-else if (13) /* comment */ /* comment */ // comment
-true
-else /* comment */
-{true}
-
-if (14) // comment
-/* comment */
-// comment
-{true}
-else if (15) // comment
-/* comment */
-/* comment */ // comment
-true
+// The closing paren is printed on the same line as the comment
+foo({}
+  // Hi
+);
 
 =====================================output=====================================
+// Does not need to break as it fits in 80 columns
+this.call(a, /* comment */ b)
+
+function f(
+  someReallyLongArgument: WithSomeLongType,
+  someReallyLongArgument2: WithSomeLongType
+  // Trailing comment should stay after
+) {}
+
+// Comments should either stay at the end of the line or always before, but
+// not one before and one after.
+throw new ProcessSystemError({
+  code: acc.error.code, // Alias of errno
+  originalError: acc.error, // Just in case.
+})
+
+// Missing one level of indentation because of the comment
+const rootEpic = (actions, store) =>
+  combineEpics(...epics)(actions, store)
+    // Log errors and continue.
+    .catch((err, stream) => {
+      getLogger().error(err)
+      return stream
+    })
+
+// optional trailing comma gets moved all the way to the beginning
+const regex = new RegExp(
+  "^\\\\s*" + // beginning of the line
+  "name\\\\s*=\\\\s*" + // name =
+  "['\\"]" + // opening quotation mark
+  escapeStringRegExp(target.name) + // target name
+  "['\\"]" + // closing quotation mark
+    ",?$" // optional trailing comma
+)
+
+// The comment is moved and doesn't trigger the eslint rule anymore
+import path from "path" // eslint-disable-line nuclide-internal/prefer-nuclide-uri
+
+// Comments disappear in-between MemberExpressions
+Observable.of(process)
+  // Don't complete until we say so!
+  .merge(Observable.never())
+  // Get the errors.
+  .takeUntil(throwOnError ? errors.flatMap(Observable.throw) : errors)
+  .takeUntil(exit)
+
+// Comments disappear inside of JSX
+;<div>{/* Some comment */}</div>
+
+// Comments in JSX tag are placed in a non optimal way
+;<div
+// comment
+/>
+
+// Comments disappear in empty blocks
 if (1) {
-  // comment
-  false
+  // Comment
 }
-// comment
-else if (2) true
-// multi
-// ple
-// lines
-else if (3)
-  // existing comment
-  true
-// okay?
-else if (4) {
-  // empty with existing comment
+
+// Comments trigger invalid JavaScript in-between else if
+if (1) {
 }
-// comment
+// Comment
 else {
 }
 
-if (5)
-  // comment
-  true
+// The comment makes the line break in a weird way
+const result = asyncExecute("non_existing_command", /* args */ [])
 
-if (6) {
-  // comment
-  true
-} else if (7)
-  // comment
-  true
-// comment
-else {
-  true
-}
-
-if (8) {
-  // comment
-  // comment
-  true
-} else if (9)
-  // comment
-  // comment
-  true
-// comment
-// comment
-else {
-  true
-}
-
-if (10) {
-  /* comment */ // comment
-  true
-} else if (11) /* comment */ true
-else if (12)
-  // comment /* comment */ // comment
-  true
-else if (13)
-  /* comment */ /* comment */ // comment
-  true
-/* comment */ else {
-  true
-}
-
-if (14) {
-  // comment
-  /* comment */
-  // comment
-  true
-} else if (15)
-  // comment
-  /* comment */
-  /* comment */ // comment
-  true
+// The closing paren is printed on the same line as the comment
+foo(
+  {}
+  // Hi
+)
 
 ================================================================================
 `;
@@ -1897,166 +2061,66 @@ foo(
 ================================================================================
 `;
 
-exports[`issues.js format 2`] = `
+exports[`jsdoc.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
 =====================================input======================================
-// Does not need to break as it fits in 80 columns
-this.call(a, /* comment */ b);
-
-function f(
-  someReallyLongArgument: WithSomeLongType,
-  someReallyLongArgument2: WithSomeLongType,
-  // Trailing comment should stay after
-) {}
-
-// Comments should either stay at the end of the line or always before, but
-// not one before and one after.
-throw new ProcessSystemError({
-  code: acc.error.code, // Alias of errno
-  originalError: acc.error, // Just in case.
-});
-
-// Missing one level of indentation because of the comment
-const rootEpic = (actions, store) => (
-  combineEpics(...epics)(actions, store)
-    // Log errors and continue.
-    .catch((err, stream) => {
-      getLogger().error(err);
-      return stream;
-    })
+/** @type {any} */
+const x = (
+    <div>
+        <div />
+    </div>
 );
 
-// optional trailing comma gets moved all the way to the beginning
-const regex = new RegExp(
-  '^\\\\s*' + // beginning of the line
-  'name\\\\s*=\\\\s*' + // name =
-  '[\\'"]' + // opening quotation mark
-  escapeStringRegExp(target.name) + // target name
-  '[\\'"]' + // closing quotation mark
-  ',?$', // optional trailing comma
+/**
+ * @type {object}
+ */
+() => (
+    <div>
+        sajdfpoiasdjfpoiasdjfpoiasdjfpoiadsjfpaoisdjfapsdiofjapioisadfaskfaspiofjp
+    </div>
 );
 
-// The comment is moved and doesn't trigger the eslint rule anymore
-import path from 'path'; // eslint-disable-line nuclide-internal/prefer-nuclide-uri
-
-// Comments disappear in-between MemberExpressions
-Observable.of(process)
-  // Don't complete until we say so!
-  .merge(Observable.never())
-  // Get the errors.
-  .takeUntil(throwOnError ? errors.flatMap(Observable.throw) : errors)
-  .takeUntil(exit);
-
-// Comments disappear inside of JSX
-<div>
-  {/* Some comment */}
-</div>;
-
-// Comments in JSX tag are placed in a non optimal way
-<div
-  // comment
-/>;
-
-// Comments disappear in empty blocks
-if (1) {
-  // Comment
+/**
+ * @type {object}
+ */
+function HelloWorld() {
+    return (
+        <div>
+           <span>Test</span>
+        </div>
+    );
 }
-
-// Comments trigger invalid JavaScript in-between else if
-if (1) {
-}
-// Comment
-else {
-
-}
-
-// The comment makes the line break in a weird way
-const result = asyncExecute('non_existing_command', /* args */ []);
-
-// The closing paren is printed on the same line as the comment
-foo({}
-  // Hi
-);
-
 =====================================output=====================================
-// Does not need to break as it fits in 80 columns
-this.call(a, /* comment */ b)
-
-function f(
-  someReallyLongArgument: WithSomeLongType,
-  someReallyLongArgument2: WithSomeLongType
-  // Trailing comment should stay after
-) {}
-
-// Comments should either stay at the end of the line or always before, but
-// not one before and one after.
-throw new ProcessSystemError({
-  code: acc.error.code, // Alias of errno
-  originalError: acc.error, // Just in case.
-})
-
-// Missing one level of indentation because of the comment
-const rootEpic = (actions, store) =>
-  combineEpics(...epics)(actions, store)
-    // Log errors and continue.
-    .catch((err, stream) => {
-      getLogger().error(err)
-      return stream
-    })
-
-// optional trailing comma gets moved all the way to the beginning
-const regex = new RegExp(
-  "^\\\\s*" + // beginning of the line
-  "name\\\\s*=\\\\s*" + // name =
-  "['\\"]" + // opening quotation mark
-  escapeStringRegExp(target.name) + // target name
-  "['\\"]" + // closing quotation mark
-    ",?$" // optional trailing comma
+/** @type {any} */
+const x = (
+  <div>
+    <div />
+  </div>
 )
 
-// The comment is moved and doesn't trigger the eslint rule anymore
-import path from "path" // eslint-disable-line nuclide-internal/prefer-nuclide-uri
-
-// Comments disappear in-between MemberExpressions
-Observable.of(process)
-  // Don't complete until we say so!
-  .merge(Observable.never())
-  // Get the errors.
-  .takeUntil(throwOnError ? errors.flatMap(Observable.throw) : errors)
-  .takeUntil(exit)
-
-// Comments disappear inside of JSX
-;<div>{/* Some comment */}</div>
-
-// Comments in JSX tag are placed in a non optimal way
-;<div
-// comment
-/>
-
-// Comments disappear in empty blocks
-if (1) {
-  // Comment
-}
-
-// Comments trigger invalid JavaScript in-between else if
-if (1) {
-}
-// Comment
-else {
-}
-
-// The comment makes the line break in a weird way
-const result = asyncExecute("non_existing_command", /* args */ [])
-
-// The closing paren is printed on the same line as the comment
-foo(
-  {}
-  // Hi
+/**
+ * @type {object}
+ */
+;() => (
+  <div>
+    sajdfpoiasdjfpoiasdjfpoiasdjfpoiadsjfpaoisdjfapsdiofjapioisadfaskfaspiofjp
+  </div>
 )
+
+/**
+ * @type {object}
+ */
+function HelloWorld() {
+  return (
+    <div>
+      <span>Test</span>
+    </div>
+  )
+}
 
 ================================================================================
 `;
@@ -2124,66 +2188,244 @@ function HelloWorld() {
 ================================================================================
 `;
 
-exports[`jsdoc.js format 2`] = `
+exports[`jsx.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
 =====================================input======================================
-/** @type {any} */
-const x = (
-    <div>
-        <div />
-    </div>
-);
+<div>
+  {
+    /* comment */
+  }
+</div>;
 
-/**
- * @type {object}
- */
-() => (
-    <div>
-        sajdfpoiasdjfpoiasdjfpoiasdjfpoiadsjfpaoisdjfapsdiofjapioisadfaskfaspiofjp
-    </div>
-);
+<div>
+  {/* comment */
+  }
+</div>;
 
-/**
- * @type {object}
- */
-function HelloWorld() {
-    return (
-        <div>
-           <span>Test</span>
-        </div>
-    );
-}
+<div>
+  {/* comment
+*/
+  }
+</div>;
+
+<div>
+  {a/* comment
+*/
+  }
+</div>;
+
+<div>
+  {/* comment
+*/
+  a
+  }
+</div>;
+
+<div>
+  {/* comment */
+  }
+</div>;
+
+<div>
+  {/* comment */}
+</div>;
+
+<div>
+  {
+    // single line comment
+  }
+</div>;
+
+<div>
+  {
+    // multiple line comments 1
+    // multiple line comments 2
+  }
+</div>;
+
+<div>
+  {
+    // multiple mixed comments 1
+    /* multiple mixed comments 2 */
+    /* multiple mixed comments 3 */
+    // multiple mixed comments 4
+  }
+</div>;
+
+<div>
+  {
+    // Some very v  ery very very merry (xmas) very very long line to break line width limit
+  }
+</div>;
+
+<div>{/*<div>  Some very v  ery very very long line to break line width limit </div>*/}</div>;
+
+<div>
+  {/**
+   * JSDoc-y comment in JSX. I wonder what will happen to it?
+  */}
+</div>;
+
+<div>
+  {
+    /**
+   * Another JSDoc comment in JSX.
+  */
+  }
+</div>;
+
+<div
+  /**
+ * Handles clicks.
+*/
+onClick={() => {}}>
+
+</div>;
+
+<div
+  // comment
+>
+  {foo}
+</div>;
+
+<div
+  className="foo" // comment
+>
+  {foo}
+</div>;
+
+<div
+  className="foo"
+  // comment
+>
+  {foo}
+</div>;
+
+<div // comment
+  id="foo"
+>
+  {children}
+</div>;
+
+<Wrapper>
+  {}
+  <Component />
+</Wrapper>
+
 =====================================output=====================================
-/** @type {any} */
-const x = (
-  <div>
-    <div />
-  </div>
-)
+;<div>{/* comment */}</div>
 
-/**
- * @type {object}
- */
-;() => (
-  <div>
-    sajdfpoiasdjfpoiasdjfpoiasdjfpoiadsjfpaoisdjfapsdiofjapioisadfaskfaspiofjp
-  </div>
-)
+;<div>{/* comment */}</div>
 
-/**
- * @type {object}
- */
-function HelloWorld() {
-  return (
-    <div>
-      <span>Test</span>
-    </div>
-  )
-}
+;<div>
+  {/* comment
+   */}
+</div>
+
+;<div>
+  {
+    a
+    /* comment
+     */
+  }
+</div>
+
+;<div>
+  {
+    /* comment
+     */
+    a
+  }
+</div>
+
+;<div>{/* comment */}</div>
+
+;<div>{/* comment */}</div>
+
+;<div>
+  {
+    // single line comment
+  }
+</div>
+
+;<div>
+  {
+    // multiple line comments 1
+    // multiple line comments 2
+  }
+</div>
+
+;<div>
+  {
+    // multiple mixed comments 1
+    /* multiple mixed comments 2 */
+    /* multiple mixed comments 3 */
+    // multiple mixed comments 4
+  }
+</div>
+
+;<div>
+  {
+    // Some very v  ery very very merry (xmas) very very long line to break line width limit
+  }
+</div>
+
+;<div>
+  {/*<div>  Some very v  ery very very long line to break line width limit </div>*/}
+</div>
+
+;<div>
+  {/**
+   * JSDoc-y comment in JSX. I wonder what will happen to it?
+   */}
+</div>
+
+;<div>
+  {/**
+   * Another JSDoc comment in JSX.
+   */}
+</div>
+
+;<div
+  /**
+   * Handles clicks.
+   */
+  onClick={() => {}}
+></div>
+
+;<div
+// comment
+>
+  {foo}
+</div>
+
+;<div
+  className="foo" // comment
+>
+  {foo}
+</div>
+
+;<div
+  className="foo"
+  // comment
+>
+  {foo}
+</div>
+
+;<div // comment
+  id="foo"
+>
+  {children}
+</div>
+
+;<Wrapper>
+  {}
+  <Component />
+</Wrapper>
 
 ================================================================================
 `;
@@ -2429,244 +2671,195 @@ onClick={() => {}}>
 ================================================================================
 `;
 
-exports[`jsx.js format 2`] = `
+exports[`last-arg.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
 =====================================input======================================
-<div>
-  {
-    /* comment */
+type f1 = (
+  currentRequest: {a: number},
+  // TODO this is a very very very very long comment that makes it go > 80 columns
+) => number;
+
+f2 = (
+  currentRequest: {a: number},
+  // TODO this is a very very very very long comment that makes it go > 80 columns
+): number => {};
+
+f3 = (
+  currentRequest: {a: number},
+  // TODO this is a very very very very long comment that makes it go > 80 columns
+) => {};
+
+f4 = function(
+  currentRequest: {a: number},
+  // TODO this is a very very very very long comment that makes it go > 80 columns
+) {};
+
+class X {
+  f(
+    currentRequest: {a: number},
+    // TODO this is a very very very very long comment that makes it go > 80 columns
+  ) {}
+}
+
+function f5(
+  a: number
+// some comment here
+): number {
+  return a + 1;
+}
+
+var x = {
+  getSectionMode(
+    pageMetaData: PageMetaData,
+    sectionMetaData: SectionMetaData
+    /* $FlowFixMe This error was exposed while converting keyMirror
+     * to keyMirrorRecursive */
+  ): $Enum<SectionMode> {
   }
-</div>;
+}
 
-<div>
-  {/* comment */
+class X2 {
+  getSectionMode(
+    pageMetaData: PageMetaData,
+    sectionMetaData: SectionMetaData = ['unknown']
+    /* $FlowFixMe This error was exposed while converting keyMirror
+     * to keyMirrorRecursive */
+  ): $Enum<SectionMode> {
   }
-</div>;
+}
 
-<div>
-  {/* comment
-*/
-  }
-</div>;
+class Foo {
+  a(lol /*string*/) {}
 
-<div>
-  {a/* comment
-*/
-  }
-</div>;
+  b(lol /*string*/
+  ) {}
 
-<div>
-  {/* comment
-*/
-  a
-  }
-</div>;
+  d(
+    lol /*string*/,
+    lol2 /*string*/,
+    lol3 /*string*/,
+    lol4 /*string*/
+  ) {}
 
-<div>
-  {/* comment */
-  }
-</div>;
+  d(
+    lol /*string*/,
+    lol2 /*string*/,
+    lol3 /*string*/,
+    lol4 /*string*/
+  ) /*string*/ {}
 
-<div>
-  {/* comment */}
-</div>;
+  // prettier-ignore
+  c(lol /*string*/
+  ) {}
 
-<div>
-  {
-    // single line comment
-  }
-</div>;
+  // prettier-ignore
+  d(
+    lol /*string*/,
+    lol2 /*string*/,
+    lol3 /*string*/,
+    lol4 /*string*/
+  ) {}
 
-<div>
-  {
-    // multiple line comments 1
-    // multiple line comments 2
-  }
-</div>;
-
-<div>
-  {
-    // multiple mixed comments 1
-    /* multiple mixed comments 2 */
-    /* multiple mixed comments 3 */
-    // multiple mixed comments 4
-  }
-</div>;
-
-<div>
-  {
-    // Some very v  ery very very merry (xmas) very very long line to break line width limit
-  }
-</div>;
-
-<div>{/*<div>  Some very v  ery very very long line to break line width limit </div>*/}</div>;
-
-<div>
-  {/**
-   * JSDoc-y comment in JSX. I wonder what will happen to it?
-  */}
-</div>;
-
-<div>
-  {
-    /**
-   * Another JSDoc comment in JSX.
-  */
-  }
-</div>;
-
-<div
-  /**
- * Handles clicks.
-*/
-onClick={() => {}}>
-
-</div>;
-
-<div
-  // comment
->
-  {foo}
-</div>;
-
-<div
-  className="foo" // comment
->
-  {foo}
-</div>;
-
-<div
-  className="foo"
-  // comment
->
-  {foo}
-</div>;
-
-<div // comment
-  id="foo"
->
-  {children}
-</div>;
-
-<Wrapper>
-  {}
-  <Component />
-</Wrapper>
+  // prettier-ignore
+  e(
+    lol /*string*/,
+    lol2 /*string*/,
+    lol3 /*string*/,
+    lol4 /*string*/
+  ) {} /* string*/
+}
 
 =====================================output=====================================
-;<div>{/* comment */}</div>
+type f1 = (
+  currentRequest: { a: number }
+  // TODO this is a very very very very long comment that makes it go > 80 columns
+) => number
 
-;<div>{/* comment */}</div>
+f2 = (
+  currentRequest: { a: number }
+  // TODO this is a very very very very long comment that makes it go > 80 columns
+): number => {}
 
-;<div>
-  {/* comment
-   */}
-</div>
+f3 = (
+  currentRequest: { a: number }
+  // TODO this is a very very very very long comment that makes it go > 80 columns
+) => {}
 
-;<div>
-  {
-    a
-    /* comment
-     */
-  }
-</div>
+f4 = function (
+  currentRequest: { a: number }
+  // TODO this is a very very very very long comment that makes it go > 80 columns
+) {}
 
-;<div>
-  {
-    /* comment
-     */
-    a
-  }
-</div>
+class X {
+  f(
+    currentRequest: { a: number }
+    // TODO this is a very very very very long comment that makes it go > 80 columns
+  ) {}
+}
 
-;<div>{/* comment */}</div>
+function f5(
+  a: number
+  // some comment here
+): number {
+  return a + 1
+}
 
-;<div>{/* comment */}</div>
+var x = {
+  getSectionMode(
+    pageMetaData: PageMetaData,
+    sectionMetaData: SectionMetaData
+    /* $FlowFixMe This error was exposed while converting keyMirror
+     * to keyMirrorRecursive */
+  ): $Enum<SectionMode> {},
+}
 
-;<div>
-  {
-    // single line comment
-  }
-</div>
+class X2 {
+  getSectionMode(
+    pageMetaData: PageMetaData,
+    sectionMetaData: SectionMetaData = ["unknown"]
+    /* $FlowFixMe This error was exposed while converting keyMirror
+     * to keyMirrorRecursive */
+  ): $Enum<SectionMode> {}
+}
 
-;<div>
-  {
-    // multiple line comments 1
-    // multiple line comments 2
-  }
-</div>
+class Foo {
+  a(lol /*string*/) {}
 
-;<div>
-  {
-    // multiple mixed comments 1
-    /* multiple mixed comments 2 */
-    /* multiple mixed comments 3 */
-    // multiple mixed comments 4
-  }
-</div>
+  b(lol /*string*/) {}
 
-;<div>
-  {
-    // Some very v  ery very very merry (xmas) very very long line to break line width limit
-  }
-</div>
+  d(lol /*string*/, lol2 /*string*/, lol3 /*string*/, lol4 /*string*/) {}
 
-;<div>
-  {/*<div>  Some very v  ery very very long line to break line width limit </div>*/}
-</div>
+  d(
+    lol /*string*/,
+    lol2 /*string*/,
+    lol3 /*string*/,
+    lol4 /*string*/
+  ) /*string*/ {}
 
-;<div>
-  {/**
-   * JSDoc-y comment in JSX. I wonder what will happen to it?
-   */}
-</div>
+  // prettier-ignore
+  c(lol /*string*/
+  ) {}
 
-;<div>
-  {/**
-   * Another JSDoc comment in JSX.
-   */}
-</div>
+  // prettier-ignore
+  d(
+    lol /*string*/,
+    lol2 /*string*/,
+    lol3 /*string*/,
+    lol4 /*string*/
+  ) {}
 
-;<div
-  /**
-   * Handles clicks.
-   */
-  onClick={() => {}}
-></div>
-
-;<div
-// comment
->
-  {foo}
-</div>
-
-;<div
-  className="foo" // comment
->
-  {foo}
-</div>
-
-;<div
-  className="foo"
-  // comment
->
-  {foo}
-</div>
-
-;<div // comment
-  id="foo"
->
-  {children}
-</div>
-
-;<Wrapper>
-  {}
-  <Component />
-</Wrapper>
+  // prettier-ignore
+  e(
+    lol /*string*/,
+    lol2 /*string*/,
+    lol3 /*string*/,
+    lol4 /*string*/
+  ) {} /* string*/
+}
 
 ================================================================================
 `;
@@ -2863,194 +3056,56 @@ class Foo {
 ================================================================================
 `;
 
-exports[`last-arg.js format 2`] = `
+exports[`preserve-new-line-last.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
 =====================================input======================================
-type f1 = (
-  currentRequest: {a: number},
-  // TODO this is a very very very very long comment that makes it go > 80 columns
-) => number;
-
-f2 = (
-  currentRequest: {a: number},
-  // TODO this is a very very very very long comment that makes it go > 80 columns
-): number => {};
-
-f3 = (
-  currentRequest: {a: number},
-  // TODO this is a very very very very long comment that makes it go > 80 columns
-) => {};
-
-f4 = function(
-  currentRequest: {a: number},
-  // TODO this is a very very very very long comment that makes it go > 80 columns
-) {};
-
-class X {
-  f(
-    currentRequest: {a: number},
-    // TODO this is a very very very very long comment that makes it go > 80 columns
-  ) {}
+function f() {
+  a
+  /* eslint-disable */
 }
 
-function f5(
-  a: number
-// some comment here
-): number {
-  return a + 1;
+function f() {
+  a
+
+  /* eslint-disable */
 }
 
-var x = {
-  getSectionMode(
-    pageMetaData: PageMetaData,
-    sectionMetaData: SectionMetaData
-    /* $FlowFixMe This error was exposed while converting keyMirror
-     * to keyMirrorRecursive */
-  ): $Enum<SectionMode> {
-  }
-}
+function name() {
+  // comment1
+  func1()
 
-class X2 {
-  getSectionMode(
-    pageMetaData: PageMetaData,
-    sectionMetaData: SectionMetaData = ['unknown']
-    /* $FlowFixMe This error was exposed while converting keyMirror
-     * to keyMirrorRecursive */
-  ): $Enum<SectionMode> {
-  }
-}
+  // comment2
+  func2()
 
-class Foo {
-  a(lol /*string*/) {}
-
-  b(lol /*string*/
-  ) {}
-
-  d(
-    lol /*string*/,
-    lol2 /*string*/,
-    lol3 /*string*/,
-    lol4 /*string*/
-  ) {}
-
-  d(
-    lol /*string*/,
-    lol2 /*string*/,
-    lol3 /*string*/,
-    lol4 /*string*/
-  ) /*string*/ {}
-
-  // prettier-ignore
-  c(lol /*string*/
-  ) {}
-
-  // prettier-ignore
-  d(
-    lol /*string*/,
-    lol2 /*string*/,
-    lol3 /*string*/,
-    lol4 /*string*/
-  ) {}
-
-  // prettier-ignore
-  e(
-    lol /*string*/,
-    lol2 /*string*/,
-    lol3 /*string*/,
-    lol4 /*string*/
-  ) {} /* string*/
+  // comment3 why func3 commented
+  // func3()
 }
 
 =====================================output=====================================
-type f1 = (
-  currentRequest: { a: number }
-  // TODO this is a very very very very long comment that makes it go > 80 columns
-) => number
-
-f2 = (
-  currentRequest: { a: number }
-  // TODO this is a very very very very long comment that makes it go > 80 columns
-): number => {}
-
-f3 = (
-  currentRequest: { a: number }
-  // TODO this is a very very very very long comment that makes it go > 80 columns
-) => {}
-
-f4 = function (
-  currentRequest: { a: number }
-  // TODO this is a very very very very long comment that makes it go > 80 columns
-) {}
-
-class X {
-  f(
-    currentRequest: { a: number }
-    // TODO this is a very very very very long comment that makes it go > 80 columns
-  ) {}
+function f() {
+  a
+  /* eslint-disable */
 }
 
-function f5(
-  a: number
-  // some comment here
-): number {
-  return a + 1
+function f() {
+  a
+
+  /* eslint-disable */
 }
 
-var x = {
-  getSectionMode(
-    pageMetaData: PageMetaData,
-    sectionMetaData: SectionMetaData
-    /* $FlowFixMe This error was exposed while converting keyMirror
-     * to keyMirrorRecursive */
-  ): $Enum<SectionMode> {},
-}
+function name() {
+  // comment1
+  func1()
 
-class X2 {
-  getSectionMode(
-    pageMetaData: PageMetaData,
-    sectionMetaData: SectionMetaData = ["unknown"]
-    /* $FlowFixMe This error was exposed while converting keyMirror
-     * to keyMirrorRecursive */
-  ): $Enum<SectionMode> {}
-}
+  // comment2
+  func2()
 
-class Foo {
-  a(lol /*string*/) {}
-
-  b(lol /*string*/) {}
-
-  d(lol /*string*/, lol2 /*string*/, lol3 /*string*/, lol4 /*string*/) {}
-
-  d(
-    lol /*string*/,
-    lol2 /*string*/,
-    lol3 /*string*/,
-    lol4 /*string*/
-  ) /*string*/ {}
-
-  // prettier-ignore
-  c(lol /*string*/
-  ) {}
-
-  // prettier-ignore
-  d(
-    lol /*string*/,
-    lol2 /*string*/,
-    lol3 /*string*/,
-    lol4 /*string*/
-  ) {}
-
-  // prettier-ignore
-  e(
-    lol /*string*/,
-    lol2 /*string*/,
-    lol3 /*string*/,
-    lol4 /*string*/
-  ) {} /* string*/
+  // comment3 why func3 commented
+  // func3()
 }
 
 ================================================================================
@@ -3110,56 +3165,264 @@ function name() {
 ================================================================================
 `;
 
-exports[`preserve-new-line-last.js format 2`] = `
+exports[`return-statement.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
 =====================================input======================================
-function f() {
-  a
-  /* eslint-disable */
+function jsx() {
+  return (
+    // Comment
+    <div />
+  );
 }
 
-function f() {
-  a
-
-  /* eslint-disable */
+function unary() {
+  return (
+    // Comment
+    !!x
+  );
 }
 
-function name() {
-  // comment1
-  func1()
+function numericLiteralNoParen() {
+  return 1337; // Comment
+}
 
-  // comment2
-  func2()
+function logical() {
+  return (
+    // Reason for 42
+    42
+  ) && 84
+}
 
-  // comment3 why func3 commented
-  // func3()
+function binary() {
+  return (
+    // Reason for 42
+    42
+  ) * 84
+}
+
+function binaryInBinaryLeft() {
+  return (
+    // Reason for 42
+    42
+  ) * 84 + 2
+}
+
+function binaryInBinaryRight() {
+  return (
+    // Reason for 42
+    42
+  ) + 84 * 2
+}
+
+function conditional() {
+  return (
+    // Reason for 42
+    42
+  ) ? 1 : 2
+}
+
+function binaryInConditional() {
+  return (
+    // Reason for 42
+    42
+  ) * 3 ? 1 : 2
+}
+
+function call() {
+  return (
+    // Reason for a
+    a
+  )()
+}
+
+function memberInside() {
+  return (
+    // Reason for a.b
+    a.b
+  ).c
+}
+
+function memberOutside() {
+  return (
+    // Reason for a
+    a
+  ).b.c
+}
+
+function memberInAndOutWithCalls() {
+  return (
+    // Reason for a
+    aFunction.b()
+  ).c.d()
+}
+
+function excessiveEverything() {
+  return (
+    // Reason for stuff
+    a.b() * 3 + 4 ? (a\`hi\`, 1) ? 1 : 1 : 1
+  )
+}
+
+// See https://github.com/prettier/prettier/issues/2392
+// function sequenceExpression() {
+//   return (
+//     // Reason for a
+//     a
+//   ), b
+// }
+
+function sequenceExpressionInside() {
+  return ( // Reason for a
+    a, b
+  );
+}
+
+function taggedTemplate() {
+  return (
+    // Reason for a
+    a
+  )\`b\`
+}
+
+function inlineComment() {
+  return (
+    /* hi */ 42
+  ) || 42
 }
 
 =====================================output=====================================
-function f() {
-  a
-  /* eslint-disable */
+function jsx() {
+  return (
+    // Comment
+    <div />
+  )
 }
 
-function f() {
-  a
-
-  /* eslint-disable */
+function unary() {
+  return (
+    // Comment
+    !!x
+  )
 }
 
-function name() {
-  // comment1
-  func1()
+function numericLiteralNoParen() {
+  return 1337 // Comment
+}
 
-  // comment2
-  func2()
+function logical() {
+  return (
+    // Reason for 42
+    42 && 84
+  )
+}
 
-  // comment3 why func3 commented
-  // func3()
+function binary() {
+  return (
+    // Reason for 42
+    42 * 84
+  )
+}
+
+function binaryInBinaryLeft() {
+  return (
+    // Reason for 42
+    42 *
+      84 +
+    2
+  )
+}
+
+function binaryInBinaryRight() {
+  return (
+    // Reason for 42
+    42 +
+    84 * 2
+  )
+}
+
+function conditional() {
+  return (
+    // Reason for 42
+    42
+      ? 1
+      : 2
+  )
+}
+
+function binaryInConditional() {
+  return (
+    // Reason for 42
+    42 * 3
+      ? 1
+      : 2
+  )
+}
+
+function call() {
+  return (
+    // Reason for a
+    a()
+  )
+}
+
+function memberInside() {
+  return (
+    // Reason for a.b
+    a.b.c
+  )
+}
+
+function memberOutside() {
+  return (
+    // Reason for a
+    a.b.c
+  )
+}
+
+function memberInAndOutWithCalls() {
+  return (
+    aFunction
+      .b// Reason for a
+      ()
+      .c.d()
+  )
+}
+
+function excessiveEverything() {
+  return (
+    // Reason for stuff
+    a.b() * 3 + 4 ? ((a\`hi\`, 1) ? 1 : 1) : 1
+  )
+}
+
+// See https://github.com/prettier/prettier/issues/2392
+// function sequenceExpression() {
+//   return (
+//     // Reason for a
+//     a
+//   ), b
+// }
+
+function sequenceExpressionInside() {
+  return (
+    // Reason for a
+    a, b
+  )
+}
+
+function taggedTemplate() {
+  return (
+    // Reason for a
+    a\`b\`
+  )
+}
+
+function inlineComment() {
+  return /* hi */ 42 || 42
 }
 
 ================================================================================
@@ -3427,265 +3690,75 @@ function inlineComment() {
 ================================================================================
 `;
 
-exports[`return-statement.js format 2`] = `
+exports[`single-star-jsdoc.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
 =====================================input======================================
-function jsx() {
-  return (
-    // Comment
-    <div />
-  );
+/*
+ * Looking good!
+ */
+
+if(true) {
+    /*
+     * Oh no
+     */
 }
 
-function unary() {
-  return (
-    // Comment
-    !!x
-  );
-}
+  /** first line
+* second line
+   * third line */
 
-function numericLiteralNoParen() {
-  return 1337; // Comment
-}
+  /* first line
+* second line
+   * third line */
 
-function logical() {
-  return (
-    // Reason for 42
-    42
-  ) && 84
-}
+  /*! first line
+*second line
+   *  third line */
 
-function binary() {
-  return (
-    // Reason for 42
-    42
-  ) * 84
-}
-
-function binaryInBinaryLeft() {
-  return (
-    // Reason for 42
-    42
-  ) * 84 + 2
-}
-
-function binaryInBinaryRight() {
-  return (
-    // Reason for 42
-    42
-  ) + 84 * 2
-}
-
-function conditional() {
-  return (
-    // Reason for 42
-    42
-  ) ? 1 : 2
-}
-
-function binaryInConditional() {
-  return (
-    // Reason for 42
-    42
-  ) * 3 ? 1 : 2
-}
-
-function call() {
-  return (
-    // Reason for a
-    a
-  )()
-}
-
-function memberInside() {
-  return (
-    // Reason for a.b
-    a.b
-  ).c
-}
-
-function memberOutside() {
-  return (
-    // Reason for a
-    a
-  ).b.c
-}
-
-function memberInAndOutWithCalls() {
-  return (
-    // Reason for a
-    aFunction.b()
-  ).c.d()
-}
-
-function excessiveEverything() {
-  return (
-    // Reason for stuff
-    a.b() * 3 + 4 ? (a\`hi\`, 1) ? 1 : 1 : 1
-  )
-}
-
-// See https://github.com/prettier/prettier/issues/2392
-// function sequenceExpression() {
-//   return (
-//     // Reason for a
-//     a
-//   ), b
-// }
-
-function sequenceExpressionInside() {
-  return ( // Reason for a
-    a, b
-  );
-}
-
-function taggedTemplate() {
-  return (
-    // Reason for a
-    a
-  )\`b\`
-}
-
-function inlineComment() {
-  return (
-    /* hi */ 42
-  ) || 42
-}
+/*!
+* Extracted from vue codebase
+* https://github.com/vuejs/vue/blob/cfd73c2386623341fdbb3ac636c4baf84ea89c2c/src/compiler/parser/html-parser.js
+* HTML Parser By John Resig (ejohn.org)
+* Modified by Juriy "kangax" Zaytsev
+* Original code by Erik Arvidsson, Mozilla Public License
+* http://erik.eae.net/simplehtmlparser/simplehtmlparser.js
+*/
 
 =====================================output=====================================
-function jsx() {
-  return (
-    // Comment
-    <div />
-  )
+/*
+ * Looking good!
+ */
+
+if (true) {
+  /*
+   * Oh no
+   */
 }
 
-function unary() {
-  return (
-    // Comment
-    !!x
-  )
-}
+/** first line
+ * second line
+ * third line */
 
-function numericLiteralNoParen() {
-  return 1337 // Comment
-}
+/* first line
+ * second line
+ * third line */
 
-function logical() {
-  return (
-    // Reason for 42
-    42 && 84
-  )
-}
+/*! first line
+ *second line
+ *  third line */
 
-function binary() {
-  return (
-    // Reason for 42
-    42 * 84
-  )
-}
-
-function binaryInBinaryLeft() {
-  return (
-    // Reason for 42
-    42 *
-      84 +
-    2
-  )
-}
-
-function binaryInBinaryRight() {
-  return (
-    // Reason for 42
-    42 +
-    84 * 2
-  )
-}
-
-function conditional() {
-  return (
-    // Reason for 42
-    42
-      ? 1
-      : 2
-  )
-}
-
-function binaryInConditional() {
-  return (
-    // Reason for 42
-    42 * 3
-      ? 1
-      : 2
-  )
-}
-
-function call() {
-  return (
-    // Reason for a
-    a()
-  )
-}
-
-function memberInside() {
-  return (
-    // Reason for a.b
-    a.b.c
-  )
-}
-
-function memberOutside() {
-  return (
-    // Reason for a
-    a.b.c
-  )
-}
-
-function memberInAndOutWithCalls() {
-  return (
-    aFunction
-      .b// Reason for a
-      ()
-      .c.d()
-  )
-}
-
-function excessiveEverything() {
-  return (
-    // Reason for stuff
-    a.b() * 3 + 4 ? ((a\`hi\`, 1) ? 1 : 1) : 1
-  )
-}
-
-// See https://github.com/prettier/prettier/issues/2392
-// function sequenceExpression() {
-//   return (
-//     // Reason for a
-//     a
-//   ), b
-// }
-
-function sequenceExpressionInside() {
-  return (
-    // Reason for a
-    a, b
-  )
-}
-
-function taggedTemplate() {
-  return (
-    // Reason for a
-    a\`b\`
-  )
-}
-
-function inlineComment() {
-  return /* hi */ 42 || 42
-}
+/*!
+ * Extracted from vue codebase
+ * https://github.com/vuejs/vue/blob/cfd73c2386623341fdbb3ac636c4baf84ea89c2c/src/compiler/parser/html-parser.js
+ * HTML Parser By John Resig (ejohn.org)
+ * Modified by Juriy "kangax" Zaytsev
+ * Original code by Erik Arvidsson, Mozilla Public License
+ * http://erik.eae.net/simplehtmlparser/simplehtmlparser.js
+ */
 
 ================================================================================
 `;
@@ -3762,75 +3835,90 @@ if (true) {
 ================================================================================
 `;
 
-exports[`single-star-jsdoc.js format 2`] = `
+exports[`switch.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
 =====================================input======================================
-/*
- * Looking good!
- */
+switch (node && node.type) {
+  case "Property":
+  case "MethodDefinition":
+    prop = node.key;
+    break;
 
-if(true) {
-    /*
-     * Oh no
-     */
+  case "MemberExpression":
+    prop = node.property;
+    break;
+
+  // no default
 }
 
-  /** first line
-* second line
-   * third line */
+switch (foo) {
+  case "bar":
+    doThing()
 
-  /* first line
-* second line
-   * third line */
+  // no default
+}
 
-  /*! first line
-*second line
-   *  third line */
+switch (foo) {
+  case "bar": //comment
+    doThing(); //comment
 
-/*!
-* Extracted from vue codebase
-* https://github.com/vuejs/vue/blob/cfd73c2386623341fdbb3ac636c4baf84ea89c2c/src/compiler/parser/html-parser.js
-* HTML Parser By John Resig (ejohn.org)
-* Modified by Juriy "kangax" Zaytsev
-* Original code by Erik Arvidsson, Mozilla Public License
-* http://erik.eae.net/simplehtmlparser/simplehtmlparser.js
-*/
+  case "baz":
+    doOtherThing(); //comment
+
+}
+
+switch (foo) {
+  case "bar": {
+    doThing();
+  } //comment
+
+  case "baz": {
+    doThing();
+  } //comment
+}
 
 =====================================output=====================================
-/*
- * Looking good!
- */
+switch (node && node.type) {
+  case "Property":
+  case "MethodDefinition":
+    prop = node.key
+    break
 
-if (true) {
-  /*
-   * Oh no
-   */
+  case "MemberExpression":
+    prop = node.property
+    break
+
+  // no default
 }
 
-/** first line
- * second line
- * third line */
+switch (foo) {
+  case "bar":
+    doThing()
 
-/* first line
- * second line
- * third line */
+  // no default
+}
 
-/*! first line
- *second line
- *  third line */
+switch (foo) {
+  case "bar": //comment
+    doThing() //comment
 
-/*!
- * Extracted from vue codebase
- * https://github.com/vuejs/vue/blob/cfd73c2386623341fdbb3ac636c4baf84ea89c2c/src/compiler/parser/html-parser.js
- * HTML Parser By John Resig (ejohn.org)
- * Modified by Juriy "kangax" Zaytsev
- * Original code by Erik Arvidsson, Mozilla Public License
- * http://erik.eae.net/simplehtmlparser/simplehtmlparser.js
- */
+  case "baz":
+    doOtherThing() //comment
+}
+
+switch (foo) {
+  case "bar": {
+    doThing()
+  } //comment
+
+  case "baz": {
+    doThing()
+  } //comment
+}
 
 ================================================================================
 `;
@@ -3922,90 +4010,44 @@ switch (foo) {
 ================================================================================
 `;
 
-exports[`switch.js format 2`] = `
+exports[`tagged-template-literal.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
 =====================================input======================================
-switch (node && node.type) {
-  case "Property":
-  case "MethodDefinition":
-    prop = node.key;
-    break;
+foo\`\`; // comment
 
-  case "MemberExpression":
-    prop = node.property;
-    break;
+foo // comment
+\`\`;
 
-  // no default
-}
+foo // comment
+\`
+\`;
 
-switch (foo) {
-  case "bar":
-    doThing()
+foo /* comment */\`
+\`;
 
-  // no default
-}
-
-switch (foo) {
-  case "bar": //comment
-    doThing(); //comment
-
-  case "baz":
-    doOtherThing(); //comment
-
-}
-
-switch (foo) {
-  case "bar": {
-    doThing();
-  } //comment
-
-  case "baz": {
-    doThing();
-  } //comment
-}
+foo /* comment */
+\`
+\`;
 
 =====================================output=====================================
-switch (node && node.type) {
-  case "Property":
-  case "MethodDefinition":
-    prop = node.key
-    break
+foo\`\` // comment
 
-  case "MemberExpression":
-    prop = node.property
-    break
+foo // comment
+\`\`
 
-  // no default
-}
+foo // comment
+\`
+\`
 
-switch (foo) {
-  case "bar":
-    doThing()
+foo/* comment */ \`
+\`
 
-  // no default
-}
-
-switch (foo) {
-  case "bar": //comment
-    doThing() //comment
-
-  case "baz":
-    doOtherThing() //comment
-}
-
-switch (foo) {
-  case "bar": {
-    doThing()
-  } //comment
-
-  case "baz": {
-    doThing()
-  } //comment
-}
+foo /* comment */\`
+\`
 
 ================================================================================
 `;
@@ -4051,43 +4093,40 @@ foo /* comment */\`
 ================================================================================
 `;
 
-exports[`tagged-template-literal.js format 2`] = `
+exports[`template-literal.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
 =====================================input======================================
-foo\`\`; // comment
-
-foo // comment
-\`\`;
-
-foo // comment
 \`
-\`;
+\${a // comment
+}
 
-foo /* comment */\`
-\`;
+\${b /* comment */}
 
-foo /* comment */
+\${/* comment */ c /* comment */}
+
+\${// comment
+d //comment
+};
 \`
-\`;
 
 =====================================output=====================================
-foo\`\` // comment
+;\`
+\${
+  a // comment
+}
 
-foo // comment
-\`\`
+\${b /* comment */}
 
-foo // comment
-\`
-\`
+\${/* comment */ c /* comment */}
 
-foo/* comment */ \`
-\`
-
-foo /* comment */\`
+\${
+  // comment
+  d //comment
+};
 \`
 
 ================================================================================
@@ -4131,41 +4170,25 @@ d //comment
 ================================================================================
 `;
 
-exports[`template-literal.js format 2`] = `
+exports[`trailing_space.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
 =====================================input======================================
-\`
-\${a // comment
-}
+#!/there/is-space-here->         
 
-\${b /* comment */}
+// Do not trim trailing whitespace from this source file!
 
-\${/* comment */ c /* comment */}
-
-\${// comment
-d //comment
-};
-\`
+// There is some space here ->                        
 
 =====================================output=====================================
-;\`
-\${
-  a // comment
-}
+#!/there/is-space-here->
 
-\${b /* comment */}
+// Do not trim trailing whitespace from this source file!
 
-\${/* comment */ c /* comment */}
-
-\${
-  // comment
-  d //comment
-};
-\`
+// There is some space here ->
 
 ================================================================================
 `;
@@ -4192,25 +4215,64 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`trailing_space.js format 2`] = `
+exports[`trailing-jsdocs.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
 =====================================input======================================
-#!/there/is-space-here->         
+const CONNECTION_STATUS = exports.CONNECTION_STATUS = {
+  CLOSED: Object.freeze({ kind: 'CLOSED' }),
+  CONNECTED: Object.freeze({ kind: 'CONNECTED' }),
+  CONNECTING: Object.freeze({ kind: 'CONNECTING' }),
+  NOT_CONNECTED: Object.freeze({ kind: 'NOT_CONNECTED' }) };
 
-// Do not trim trailing whitespace from this source file!
-
-// There is some space here ->                        
+/* A comment */ /**
+* A type that can be written to a buffer.
+*/ /**
+* Describes the connection status of a ReactiveSocket/DuplexConnection.
+* - NOT_CONNECTED: no connection established or pending.
+* - CONNECTING: when \`connect()\` has been called but a connection is not yet
+*   established.
+* - CONNECTED: when a connection is established.
+* - CLOSED: when the connection has been explicitly closed via \`close()\`.
+* - ERROR: when the connection has been closed for any other reason.
+*/ /**
+* A contract providing different interaction models per the [ReactiveSocket protocol]
+* (https://github.com/ReactiveSocket/reactivesocket/blob/master/Protocol.md).
+*/ /**
+* A single unit of data exchanged between the peers of a \`ReactiveSocket\`.
+*/
 
 =====================================output=====================================
-#!/there/is-space-here->
+const CONNECTION_STATUS = (exports.CONNECTION_STATUS = {
+  CLOSED: Object.freeze({ kind: "CLOSED" }),
+  CONNECTED: Object.freeze({ kind: "CONNECTED" }),
+  CONNECTING: Object.freeze({ kind: "CONNECTING" }),
+  NOT_CONNECTED: Object.freeze({ kind: "NOT_CONNECTED" }),
+})
 
-// Do not trim trailing whitespace from this source file!
-
-// There is some space here ->
+/* A comment */
+/**
+ * A type that can be written to a buffer.
+ */
+/**
+ * Describes the connection status of a ReactiveSocket/DuplexConnection.
+ * - NOT_CONNECTED: no connection established or pending.
+ * - CONNECTING: when \`connect()\` has been called but a connection is not yet
+ *   established.
+ * - CONNECTED: when a connection is established.
+ * - CLOSED: when the connection has been explicitly closed via \`close()\`.
+ * - ERROR: when the connection has been closed for any other reason.
+ */
+/**
+ * A contract providing different interaction models per the [ReactiveSocket protocol]
+ * (https://github.com/ReactiveSocket/reactivesocket/blob/master/Protocol.md).
+ */
+/**
+ * A single unit of data exchanged between the peers of a \`ReactiveSocket\`.
+ */
 
 ================================================================================
 `;
@@ -4276,64 +4338,42 @@ const CONNECTION_STATUS = (exports.CONNECTION_STATUS = {
 ================================================================================
 `;
 
-exports[`trailing-jsdocs.js format 2`] = `
+exports[`try.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
 =====================================input======================================
-const CONNECTION_STATUS = exports.CONNECTION_STATUS = {
-  CLOSED: Object.freeze({ kind: 'CLOSED' }),
-  CONNECTED: Object.freeze({ kind: 'CONNECTED' }),
-  CONNECTING: Object.freeze({ kind: 'CONNECTING' }),
-  NOT_CONNECTED: Object.freeze({ kind: 'NOT_CONNECTED' }) };
-
-/* A comment */ /**
-* A type that can be written to a buffer.
-*/ /**
-* Describes the connection status of a ReactiveSocket/DuplexConnection.
-* - NOT_CONNECTED: no connection established or pending.
-* - CONNECTING: when \`connect()\` has been called but a connection is not yet
-*   established.
-* - CONNECTED: when a connection is established.
-* - CLOSED: when the connection has been explicitly closed via \`close()\`.
-* - ERROR: when the connection has been closed for any other reason.
-*/ /**
-* A contract providing different interaction models per the [ReactiveSocket protocol]
-* (https://github.com/ReactiveSocket/reactivesocket/blob/master/Protocol.md).
-*/ /**
-* A single unit of data exchanged between the peers of a \`ReactiveSocket\`.
-*/
+// Comment 1
+try { // Comment 2
+  // Comment 3
+}
+// Comment 4
+catch(e) { // Comment 5
+  // Comment 6
+}
+// Comment 7
+finally { // Comment 8
+  // Comment 9
+}
+// Comment 10
 
 =====================================output=====================================
-const CONNECTION_STATUS = (exports.CONNECTION_STATUS = {
-  CLOSED: Object.freeze({ kind: "CLOSED" }),
-  CONNECTED: Object.freeze({ kind: "CONNECTED" }),
-  CONNECTING: Object.freeze({ kind: "CONNECTING" }),
-  NOT_CONNECTED: Object.freeze({ kind: "NOT_CONNECTED" }),
-})
-
-/* A comment */
-/**
- * A type that can be written to a buffer.
- */
-/**
- * Describes the connection status of a ReactiveSocket/DuplexConnection.
- * - NOT_CONNECTED: no connection established or pending.
- * - CONNECTING: when \`connect()\` has been called but a connection is not yet
- *   established.
- * - CONNECTED: when a connection is established.
- * - CLOSED: when the connection has been explicitly closed via \`close()\`.
- * - ERROR: when the connection has been closed for any other reason.
- */
-/**
- * A contract providing different interaction models per the [ReactiveSocket protocol]
- * (https://github.com/ReactiveSocket/reactivesocket/blob/master/Protocol.md).
- */
-/**
- * A single unit of data exchanged between the peers of a \`ReactiveSocket\`.
- */
+// Comment 1
+try {
+  // Comment 2
+  // Comment 3
+} catch (e) {
+  // Comment 4
+  // Comment 5
+  // Comment 6
+} finally {
+  // Comment 7
+  // Comment 8
+  // Comment 9
+}
+// Comment 10
 
 ================================================================================
 `;
@@ -4377,42 +4417,153 @@ try {
 ================================================================================
 `;
 
-exports[`try.js format 2`] = `
+exports[`variable_declarator.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
 =====================================input======================================
-// Comment 1
-try { // Comment 2
-  // Comment 3
+let obj1 = // Comment
+{
+  key: 'val'
 }
-// Comment 4
-catch(e) { // Comment 5
-  // Comment 6
+
+let obj2 // Comment
+= {
+  key: 'val'
 }
-// Comment 7
-finally { // Comment 8
-  // Comment 9
+
+let obj3 = { // Comment
+  key: 'val'
 }
-// Comment 10
+
+let obj4 = {
+  // Comment
+  key: 'val'
+}
+
+let obj5 = // Comment
+[
+  'val'
+]
+
+let obj6 // Comment
+= [
+  'val'
+]
+
+let obj7 = [ // Comment
+  'val'
+]
+
+let obj8 = [
+  // Comment
+  'val'
+]
+
+let obj9 = // Comment
+\`val\`;
+
+let obj10 = // Comment
+\`
+val
+val
+\`;
+
+let obj11 = // Comment
+tag\`val\`;
+
+let obj12 = // Comment
+tag\`
+val
+val
+\`;
+
+let // Comment
+  foo1 = 'val';
+
+let // Comment
+  foo2 = 'val',
+  bar = 'val';
+
+const foo3 = 123
+// Nothing to see here.
+;["2", "3"].forEach(x => console.log(x))
 
 =====================================output=====================================
-// Comment 1
-try {
-  // Comment 2
-  // Comment 3
-} catch (e) {
-  // Comment 4
-  // Comment 5
-  // Comment 6
-} finally {
-  // Comment 7
-  // Comment 8
-  // Comment 9
+let obj1 =
+  // Comment
+  {
+    key: "val",
+  }
+
+let obj2 =
+  // Comment
+  {
+    key: "val",
+  }
+
+let obj3 = {
+  // Comment
+  key: "val",
 }
-// Comment 10
+
+let obj4 = {
+  // Comment
+  key: "val",
+}
+
+let obj5 =
+  // Comment
+  ["val"]
+
+let obj6 =
+  // Comment
+  ["val"]
+
+let obj7 = [
+  // Comment
+  "val",
+]
+
+let obj8 = [
+  // Comment
+  "val",
+]
+
+let obj9 =
+  // Comment
+  \`val\`
+
+let obj10 =
+  // Comment
+  \`
+val
+val
+\`
+
+let obj11 =
+  // Comment
+  tag\`val\`
+
+let obj12 =
+  // Comment
+  tag\`
+val
+val
+\`
+
+let // Comment
+  foo1 = "val"
+
+let // Comment
+  foo2 = "val",
+  bar = "val"
+
+const foo3 = 123
+// Nothing to see here.
+;["2", "3"].forEach((x) => console.log(x))
 
 ================================================================================
 `;
@@ -4567,153 +4718,58 @@ const foo3 = 123;
 ================================================================================
 `;
 
-exports[`variable_declarator.js format 2`] = `
+exports[`while.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
 =====================================input======================================
-let obj1 = // Comment
-{
-  key: 'val'
-}
+while(
+    true
+    // Comment
+  ) {}
 
-let obj2 // Comment
-= {
-  key: 'val'
-}
+while(true)// Comment
+{}
 
-let obj3 = { // Comment
-  key: 'val'
-}
+while(true){}// Comment
 
-let obj4 = {
-  // Comment
-  key: 'val'
-}
+while(true)/*Comment*/{}
 
-let obj5 = // Comment
-[
-  'val'
-]
+while(
+  true // Comment
+  && true // Comment
+  ){}
 
-let obj6 // Comment
-= [
-  'val'
-]
+while(true) {} // comment
 
-let obj7 = [ // Comment
-  'val'
-]
-
-let obj8 = [
-  // Comment
-  'val'
-]
-
-let obj9 = // Comment
-\`val\`;
-
-let obj10 = // Comment
-\`
-val
-val
-\`;
-
-let obj11 = // Comment
-tag\`val\`;
-
-let obj12 = // Comment
-tag\`
-val
-val
-\`;
-
-let // Comment
-  foo1 = 'val';
-
-let // Comment
-  foo2 = 'val',
-  bar = 'val';
-
-const foo3 = 123
-// Nothing to see here.
-;["2", "3"].forEach(x => console.log(x))
+while(true) /* comment */ ++x; 
 
 =====================================output=====================================
-let obj1 =
+while (
+  true
   // Comment
-  {
-    key: "val",
-  }
+) {}
 
-let obj2 =
+while (true) {
   // Comment
-  {
-    key: "val",
-  }
-
-let obj3 = {
-  // Comment
-  key: "val",
 }
 
-let obj4 = {
-  // Comment
-  key: "val",
+while (true) {} // Comment
+
+while (true) {
+  /*Comment*/
 }
 
-let obj5 =
-  // Comment
-  ["val"]
+while (
+  true && // Comment
+  true // Comment
+) {}
 
-let obj6 =
-  // Comment
-  ["val"]
+while (true) {} // comment
 
-let obj7 = [
-  // Comment
-  "val",
-]
-
-let obj8 = [
-  // Comment
-  "val",
-]
-
-let obj9 =
-  // Comment
-  \`val\`
-
-let obj10 =
-  // Comment
-  \`
-val
-val
-\`
-
-let obj11 =
-  // Comment
-  tag\`val\`
-
-let obj12 =
-  // Comment
-  tag\`
-val
-val
-\`
-
-let // Comment
-  foo1 = "val"
-
-let // Comment
-  foo2 = "val",
-  bar = "val"
-
-const foo3 = 123
-// Nothing to see here.
-;["2", "3"].forEach((x) => console.log(x))
+while (true) /* comment */ ++x
 
 ================================================================================
 `;
@@ -4769,62 +4825,6 @@ while (
 while (true) {} // comment
 
 while (true) /* comment */ ++x;
-
-================================================================================
-`;
-
-exports[`while.js format 2`] = `
-====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
-printWidth: 80
-semi: false
-                                                                                | printWidth
-=====================================input======================================
-while(
-    true
-    // Comment
-  ) {}
-
-while(true)// Comment
-{}
-
-while(true){}// Comment
-
-while(true)/*Comment*/{}
-
-while(
-  true // Comment
-  && true // Comment
-  ){}
-
-while(true) {} // comment
-
-while(true) /* comment */ ++x; 
-
-=====================================output=====================================
-while (
-  true
-  // Comment
-) {}
-
-while (true) {
-  // Comment
-}
-
-while (true) {} // Comment
-
-while (true) {
-  /*Comment*/
-}
-
-while (
-  true && // Comment
-  true // Comment
-) {}
-
-while (true) {} // comment
-
-while (true) /* comment */ ++x
 
 ================================================================================
 `;

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`constructor.js format 1`] = `
+exports[`constructor.js - {"printWidth":120} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 120
@@ -38,7 +38,7 @@ const writer = new BufferStackItem(
 ================================================================================
 `;
 
-exports[`issue-7884.js format 1`] = `
+exports[`issue-7884.js - {"printWidth":120} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 120

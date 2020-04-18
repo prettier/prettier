@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`empty-front-matter-with-pragma.md format 1`] = `
+exports[`empty-front-matter-with-pragma.md - {"requirePragma":true} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -25,7 +25,7 @@ I should be formatted !!
 ================================================================================
 `;
 
-exports[`empty-front-matter-without-pragma.md format 1`] = `
+exports[`empty-front-matter-without-pragma.md - {"requirePragma":true} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -46,7 +46,7 @@ I     should      stay      as-is   !!
 ================================================================================
 `;
 
-exports[`front-matter-with-pragma.md format 1`] = `
+exports[`front-matter-with-pragma.md - {"requirePragma":true} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -73,7 +73,7 @@ I should be formatted !!
 ================================================================================
 `;
 
-exports[`front-matter-without-pragma.md format 1`] = `
+exports[`front-matter-without-pragma.md - {"requirePragma":true} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -96,7 +96,7 @@ I     should      stay      as-is   !!
 ================================================================================
 `;
 
-exports[`with-pragma.md format 1`] = `
+exports[`with-pragma.md - {"requirePragma":true} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -115,7 +115,7 @@ I should be formatted !!
 ================================================================================
 `;
 
-exports[`with-pragma-in-multiline.md format 1`] = `
+exports[`with-pragma-in-multiline.md - {"requirePragma":true} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -146,7 +146,7 @@ I should be formatted !!
 ================================================================================
 `;
 
-exports[`without-pragma.md format 1`] = `
+exports[`without-pragma.md - {"requirePragma":true} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80

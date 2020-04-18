@@ -1,25 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`example.js format 1`] = `
-====================================options=====================================
-endOfLine: "lf"
-parsers: ["babel"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-function f() {<LF>
-  console.log("testing line endings");<LF>
-}<LF>
-
-=====================================output=====================================
-function f() {<LF>
-  console.log("testing line endings");<LF>
-}<LF>
-
-================================================================================
-`;
-
-exports[`example.js format 2`] = `
+exports[`example.js - {"endOfLine":"cr"} format 1`] = `
 ====================================options=====================================
 endOfLine: "cr"
 parsers: ["babel"]
@@ -38,7 +19,7 @@ function f() {<CR>
 ================================================================================
 `;
 
-exports[`example.js format 3`] = `
+exports[`example.js - {"endOfLine":"crlf"} format 1`] = `
 ====================================options=====================================
 endOfLine: "crlf"
 parsers: ["babel"]
@@ -57,66 +38,26 @@ function f() {<CRLF>
 ================================================================================
 `;
 
-exports[`multiline.js format 1`] = `
+exports[`example.js - {"endOfLine":"lf"} format 1`] = `
 ====================================options=====================================
 endOfLine: "lf"
 parsers: ["babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-type IAmIncredibleLongParameterType = {};<LF>
-const IAmAnotherFunctionName = (_0: IAmIncredibleLongParameterType) => {};<LF>
-export const IAmIncredibleLongFunctionName = IAmAnotherFunctionName(<LF>
-  (_0: IAmIncredibleLongParameterType) => {<LF>
-    setTimeout(() => {<LF>
-      /*<LF>
-          Multiline comment<LF>
-          Multiline comment<LF>
-          Multiline comment<LF>
-      */<LF>
-      console.log(<LF>
-        'Multiline string\\<LF>
-         Multiline string\\<LF>
-         Multiline string'<LF>
-      );<LF>
-      console.log(<LF>
-        \`Multiline \\n string\\<LF>
-         Multiline string\\<LF>
-         Multiline string\`<LF>
-      );<LF>
-    });<LF>
-  }<LF>
-);<LF>
+function f() {<LF>
+  console.log("testing line endings");<LF>
+}<LF>
 
 =====================================output=====================================
-type IAmIncredibleLongParameterType = {};<LF>
-const IAmAnotherFunctionName = (_0: IAmIncredibleLongParameterType) => {};<LF>
-export const IAmIncredibleLongFunctionName = IAmAnotherFunctionName(<LF>
-  (_0: IAmIncredibleLongParameterType) => {<LF>
-    setTimeout(() => {<LF>
-      /*<LF>
-          Multiline comment<LF>
-          Multiline comment<LF>
-          Multiline comment<LF>
-      */<LF>
-      console.log(<LF>
-        "Multiline string\\<LF>
-         Multiline string\\<LF>
-         Multiline string"<LF>
-      );<LF>
-      console.log(<LF>
-        \`Multiline \\n string\\<LF>
-         Multiline string\\<LF>
-         Multiline string\`<LF>
-      );<LF>
-    });<LF>
-  }<LF>
-);<LF>
+function f() {<LF>
+  console.log("testing line endings");<LF>
+}<LF>
 
 ================================================================================
 `;
 
-exports[`multiline.js format 2`] = `
+exports[`multiline.js - {"endOfLine":"cr"} format 1`] = `
 ====================================options=====================================
 endOfLine: "cr"
 parsers: ["babel"]
@@ -175,7 +116,7 @@ export const IAmIncredibleLongFunctionName = IAmAnotherFunctionName(<CR>
 ================================================================================
 `;
 
-exports[`multiline.js format 3`] = `
+exports[`multiline.js - {"endOfLine":"crlf"} format 1`] = `
 ====================================options=====================================
 endOfLine: "crlf"
 parsers: ["babel"]
@@ -230,6 +171,65 @@ export const IAmIncredibleLongFunctionName = IAmAnotherFunctionName(<CRLF>
     });<CRLF>
   }<CRLF>
 );<CRLF>
+
+================================================================================
+`;
+
+exports[`multiline.js - {"endOfLine":"lf"} format 1`] = `
+====================================options=====================================
+endOfLine: "lf"
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type IAmIncredibleLongParameterType = {};<LF>
+const IAmAnotherFunctionName = (_0: IAmIncredibleLongParameterType) => {};<LF>
+export const IAmIncredibleLongFunctionName = IAmAnotherFunctionName(<LF>
+  (_0: IAmIncredibleLongParameterType) => {<LF>
+    setTimeout(() => {<LF>
+      /*<LF>
+          Multiline comment<LF>
+          Multiline comment<LF>
+          Multiline comment<LF>
+      */<LF>
+      console.log(<LF>
+        'Multiline string\\<LF>
+         Multiline string\\<LF>
+         Multiline string'<LF>
+      );<LF>
+      console.log(<LF>
+        \`Multiline \\n string\\<LF>
+         Multiline string\\<LF>
+         Multiline string\`<LF>
+      );<LF>
+    });<LF>
+  }<LF>
+);<LF>
+
+=====================================output=====================================
+type IAmIncredibleLongParameterType = {};<LF>
+const IAmAnotherFunctionName = (_0: IAmIncredibleLongParameterType) => {};<LF>
+export const IAmIncredibleLongFunctionName = IAmAnotherFunctionName(<LF>
+  (_0: IAmIncredibleLongParameterType) => {<LF>
+    setTimeout(() => {<LF>
+      /*<LF>
+          Multiline comment<LF>
+          Multiline comment<LF>
+          Multiline comment<LF>
+      */<LF>
+      console.log(<LF>
+        "Multiline string\\<LF>
+         Multiline string\\<LF>
+         Multiline string"<LF>
+      );<LF>
+      console.log(<LF>
+        \`Multiline \\n string\\<LF>
+         Multiline string\\<LF>
+         Multiline string\`<LF>
+      );<LF>
+    });<LF>
+  }<LF>
+);<LF>
 
 ================================================================================
 `;

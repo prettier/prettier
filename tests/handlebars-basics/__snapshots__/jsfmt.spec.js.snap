@@ -1,80 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`component.hbs format 1`] = `
-====================================options=====================================
-parsers: ["glimmer"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-<UserGreeting @name="Ricardo" @greeting="Olá" />
-{{@greeting}}, {{@name}}!
-
-<div>
-  <UserGreeting
-    @aVeryLongArgumentNameThatIsStillGoing={{@alsoAVeryLongArgument}}
-  />
-</div>
-
-<Form as |f|>
-  <f.input @title="hello" />
-  <f.input>hello</f.input>
-</Form>
-
-<this.label @title="hello" />
-
-<button onclick={{action next}}>Next</button>
-
-<button disabled class="disabled"></button>
-
-<button disabled=disabled class="disabled"></button>
-
-<img alt="" />
-
-<div ...attributes>Hello</div>
-
-<ul class="list-unstyled
-  one-tab">
-</ul>
-=====================================output=====================================
-<UserGreeting @name="Ricardo" @greeting="Olá" />
-{{@greeting}}, {{@name}}!
-
-<div>
-  <UserGreeting
-    @aVeryLongArgumentNameThatIsStillGoing={{@alsoAVeryLongArgument}}
-  />
-</div>
-
-<Form as |f|>
-  <f.input @title="hello" />
-  <f.input>
-    hello
-  </f.input>
-</Form>
-
-<this.label @title="hello" />
-
-<button onclick={{action next}}>
-  Next
-</button>
-
-<button disabled class="disabled"></button>
-
-<button disabled="disabled" class="disabled"></button>
-
-<img alt="" />
-
-<div ...attributes>
-  Hello
-</div>
-
-<ul class="list-unstyled
-  one-tab">
-</ul>
-================================================================================
-`;
-
-exports[`component.hbs format 2`] = `
+exports[`component.hbs - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -149,6 +75,106 @@ singleQuote: true
 ================================================================================
 `;
 
+exports[`component.hbs format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<UserGreeting @name="Ricardo" @greeting="Olá" />
+{{@greeting}}, {{@name}}!
+
+<div>
+  <UserGreeting
+    @aVeryLongArgumentNameThatIsStillGoing={{@alsoAVeryLongArgument}}
+  />
+</div>
+
+<Form as |f|>
+  <f.input @title="hello" />
+  <f.input>hello</f.input>
+</Form>
+
+<this.label @title="hello" />
+
+<button onclick={{action next}}>Next</button>
+
+<button disabled class="disabled"></button>
+
+<button disabled=disabled class="disabled"></button>
+
+<img alt="" />
+
+<div ...attributes>Hello</div>
+
+<ul class="list-unstyled
+  one-tab">
+</ul>
+=====================================output=====================================
+<UserGreeting @name="Ricardo" @greeting="Olá" />
+{{@greeting}}, {{@name}}!
+
+<div>
+  <UserGreeting
+    @aVeryLongArgumentNameThatIsStillGoing={{@alsoAVeryLongArgument}}
+  />
+</div>
+
+<Form as |f|>
+  <f.input @title="hello" />
+  <f.input>
+    hello
+  </f.input>
+</Form>
+
+<this.label @title="hello" />
+
+<button onclick={{action next}}>
+  Next
+</button>
+
+<button disabled class="disabled"></button>
+
+<button disabled="disabled" class="disabled"></button>
+
+<img alt="" />
+
+<div ...attributes>
+  Hello
+</div>
+
+<ul class="list-unstyled
+  one-tab">
+</ul>
+================================================================================
+`;
+
+exports[`literals.hbs - {"singleQuote":true} format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+singleQuote: true
+                                                                                | printWidth
+=====================================input======================================
+{{mustache true}}
+{{mustache 5}}
+{{mustache undefined}}
+{{mustache null}}
+<!-- hello world -->
+{{! Mustache Comment}}
+{{!-- Mustache Comment }} --}}
+
+=====================================output=====================================
+{{mustache true}}
+{{mustache 5}}
+{{mustache undefined}}
+{{mustache null}}
+<!-- hello world -->
+{{! Mustache Comment}}
+{{!-- Mustache Comment }} --}}
+================================================================================
+`;
+
 exports[`literals.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
@@ -174,29 +200,35 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`literals.hbs format 2`] = `
+exports[`nested-path.hbs - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
 singleQuote: true
                                                                                 | printWidth
 =====================================input======================================
-{{mustache true}}
-{{mustache 5}}
-{{mustache undefined}}
-{{mustache null}}
-<!-- hello world -->
-{{! Mustache Comment}}
-{{!-- Mustache Comment }} --}}
+<div class="entry">
+  <h1>{{title}}</h1>
+  <h2>By {{author.name}}</h2>
+
+  <div class="body">
+    {{body}}
+  </div>
+</div>
 
 =====================================output=====================================
-{{mustache true}}
-{{mustache 5}}
-{{mustache undefined}}
-{{mustache null}}
-<!-- hello world -->
-{{! Mustache Comment}}
-{{!-- Mustache Comment }} --}}
+<div class='entry'>
+  <h1>
+    {{title}}
+  </h1>
+  <h2>
+    By {{author.name}}
+  </h2>
+
+  <div class='body'>
+    {{body}}
+  </div>
+</div>
 ================================================================================
 `;
 
@@ -231,35 +263,19 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`nested-path.hbs format 2`] = `
+exports[`raw.hbs - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
 singleQuote: true
                                                                                 | printWidth
 =====================================input======================================
-<div class="entry">
-  <h1>{{title}}</h1>
-  <h2>By {{author.name}}</h2>
-
-  <div class="body">
-    {{body}}
-  </div>
-</div>
+<p>{{{raw}}}</p>
 
 =====================================output=====================================
-<div class='entry'>
-  <h1>
-    {{title}}
-  </h1>
-  <h2>
-    By {{author.name}}
-  </h2>
-
-  <div class='body'>
-    {{body}}
-  </div>
-</div>
+<p>
+  {{{raw}}}
+</p>
 ================================================================================
 `;
 
@@ -278,19 +294,27 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`raw.hbs format 2`] = `
+exports[`string-literals.hbs - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
 singleQuote: true
                                                                                 | printWidth
 =====================================input======================================
-<p>{{{raw}}}</p>
+{{"abc"}}
+{{'abc'}}
+{{" \\" \\" ' more double quote than single quote "}}
+{{' \\' \\' " more single quote than double quote '}}
+{{' " \\' \\" \\\\ '}}
+{{" \\" \\' ' \\\\ "}}
 
 =====================================output=====================================
-<p>
-  {{{raw}}}
-</p>
+{{'abc'}}
+{{'abc'}}
+{{' " " \\' more double quote than single quote '}}
+{{" ' ' \\" more single quote than double quote "}}
+{{' " \\' \\" \\\\ '}}
+{{" \\" \\' ' \\\\ "}}
 ================================================================================
 `;
 
@@ -310,30 +334,6 @@ printWidth: 80
 =====================================output=====================================
 {{"abc"}}
 {{"abc"}}
-{{' " " \\' more double quote than single quote '}}
-{{" ' ' \\" more single quote than double quote "}}
-{{' " \\' \\" \\\\ '}}
-{{" \\" \\' ' \\\\ "}}
-================================================================================
-`;
-
-exports[`string-literals.hbs format 2`] = `
-====================================options=====================================
-parsers: ["glimmer"]
-printWidth: 80
-singleQuote: true
-                                                                                | printWidth
-=====================================input======================================
-{{"abc"}}
-{{'abc'}}
-{{" \\" \\" ' more double quote than single quote "}}
-{{' \\' \\' " more single quote than double quote '}}
-{{' " \\' \\" \\\\ '}}
-{{" \\" \\' ' \\\\ "}}
-
-=====================================output=====================================
-{{'abc'}}
-{{'abc'}}
 {{' " " \\' more double quote than single quote '}}
 {{" ' ' \\" more single quote than double quote "}}
 {{' " \\' \\" \\\\ '}}

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`align.md format 1`] = `
+exports[`align.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -19,7 +19,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`cjk.md format 1`] = `
+exports[`cjk.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -38,7 +38,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`emoji.md format 1`] = `
+exports[`emoji.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -57,7 +57,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`empty.md format 1`] = `
+exports[`empty.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -78,7 +78,7 @@ Y   |
 ================================================================================
 `;
 
-exports[`escape.md format 1`] = `
+exports[`escape.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -97,7 +97,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`html.md format 1`] = `
+exports[`html.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -116,7 +116,7 @@ Default | CLI Override | API Override
 ================================================================================
 `;
 
-exports[`simple.md format 1`] = `
+exports[`simple.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -135,7 +135,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`table.md format 1`] = `
+exports[`table.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80

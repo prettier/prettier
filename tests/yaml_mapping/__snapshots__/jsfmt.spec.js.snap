@@ -1,32 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`3-style.yml format 1`] = `
-====================================options=====================================
-parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-
-[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-
-[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-
-=====================================output=====================================
-[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-
-[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]:
-  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-
-? [
-    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,
-  ]
-: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-
-================================================================================
-`;
-
-exports[`3-style.yml format 2`] = `
+exports[`3-style.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -53,6 +27,47 @@ tabWidth: 4
 ================================================================================
 `;
 
+exports[`3-style.yml format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
+[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
+[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
+=====================================output=====================================
+[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
+[aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa]:
+  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
+? [
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa,
+  ]
+: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
+================================================================================
+`;
+
+exports[`array-key.yml - {"tabWidth":4} format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+tabWidth: 4
+                                                                                | printWidth
+=====================================input======================================
+[1, 2, 3]: 123
+
+=====================================output=====================================
+[1, 2, 3]: 123
+
+================================================================================
+`;
+
 exports[`array-key.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
@@ -67,17 +82,17 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`array-key.yml format 2`] = `
+exports[`array-value.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
 tabWidth: 4
                                                                                 | printWidth
 =====================================input======================================
-[1, 2, 3]: 123
+123: [1, 2, 3]
 
 =====================================output=====================================
-[1, 2, 3]: 123
+123: [1, 2, 3]
 
 ================================================================================
 `;
@@ -96,17 +111,21 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`array-value.yml format 2`] = `
+exports[`comment.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
 tabWidth: 4
                                                                                 | printWidth
 =====================================input======================================
-123: [1, 2, 3]
+? key
+# comment
+: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
 
 =====================================output=====================================
-123: [1, 2, 3]
+? key
+# comment
+: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
 
 ================================================================================
 `;
@@ -129,21 +148,17 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`comment.yml format 2`] = `
+exports[`comment-value.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
 tabWidth: 4
                                                                                 | printWidth
 =====================================input======================================
-? key
-# comment
-: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+123: # hello
 
 =====================================output=====================================
-? key
-# comment
-: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+123: # hello
 
 ================================================================================
 `;
@@ -162,17 +177,19 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`comment-value.yml format 2`] = `
+exports[`common.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
 tabWidth: 4
                                                                                 | printWidth
 =====================================input======================================
-123: # hello
+key1: value
+key2: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
 
 =====================================output=====================================
-123: # hello
+key1: value
+key2: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
 
 ================================================================================
 `;
@@ -193,19 +210,24 @@ key2: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglo
 ================================================================================
 `;
 
-exports[`common.yml format 2`] = `
+exports[`explicit-key.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
 tabWidth: 4
                                                                                 | printWidth
 =====================================input======================================
-key1: value
-key2: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+? key1
+: value
+? key2
+: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+? longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+: value
 
 =====================================output=====================================
 key1: value
 key2: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: value
 
 ================================================================================
 `;
@@ -231,24 +253,19 @@ longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
 ================================================================================
 `;
 
-exports[`explicit-key.yml format 2`] = `
+exports[`in-sequence.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
 tabWidth: 4
                                                                                 | printWidth
 =====================================input======================================
-? key1
-: value
-? key2
-: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
-? longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
-: value
+- a: b
+  c: d
 
 =====================================output=====================================
-key1: value
-key2: longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
-longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: value
+- a: b
+  c: d
 
 ================================================================================
 `;
@@ -269,19 +286,21 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`in-sequence.yml format 2`] = `
+exports[`key-with-leading-comment.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
 tabWidth: 4
                                                                                 | printWidth
 =====================================input======================================
-- a: b
-  c: d
+? # comment
+  key
+: value
 
 =====================================output=====================================
-- a: b
-  c: d
+? # comment
+  key
+: value
 
 ================================================================================
 `;
@@ -304,21 +323,19 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`key-with-leading-comment.yml format 2`] = `
+exports[`mapping.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
 tabWidth: 4
                                                                                 | printWidth
 =====================================input======================================
-? # comment
-  key
-: value
+key:
+  key: value
 
 =====================================output=====================================
-? # comment
-  key
-: value
+key:
+    key: value
 
 ================================================================================
 `;
@@ -339,19 +356,35 @@ key:
 ================================================================================
 `;
 
-exports[`mapping.yml format 2`] = `
+exports[`merge-twice.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
 tabWidth: 4
                                                                                 | printWidth
 =====================================input======================================
-key:
-  key: value
+.anchors:
+  - &anchor1
+    key: value
+  - &anchor2
+    another: prop
+
+foo:
+  bar: baz
+  <<: *anchor1
+  <<: *anchor2
 
 =====================================output=====================================
-key:
-    key: value
+.anchors:
+    - &anchor1
+      key: value
+    - &anchor2
+      another: prop
+
+foo:
+    bar: baz
+    <<: *anchor1
+    <<: *anchor2
 
 ================================================================================
 `;
@@ -388,35 +421,19 @@ foo:
 ================================================================================
 `;
 
-exports[`merge-twice.yml format 2`] = `
+exports[`middle-comment.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
 tabWidth: 4
                                                                                 | printWidth
 =====================================input======================================
-.anchors:
-  - &anchor1
-    key: value
-  - &anchor2
-    another: prop
-
-foo:
-  bar: baz
-  <<: *anchor1
-  <<: *anchor2
+!!map # comment
+a: 123
 
 =====================================output=====================================
-.anchors:
-    - &anchor1
-      key: value
-    - &anchor2
-      another: prop
-
-foo:
-    bar: baz
-    <<: *anchor1
-    <<: *anchor2
+!!map # comment
+a: 123
 
 ================================================================================
 `;
@@ -437,18 +454,21 @@ a: 123
 ================================================================================
 `;
 
-exports[`middle-comment.yml format 2`] = `
+exports[`middle-comments.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
 tabWidth: 4
                                                                                 | printWidth
 =====================================input======================================
-!!map # comment
+!!map # comment 1
+# comment 2
 a: 123
 
 =====================================output=====================================
-!!map # comment
+!!map
+# comment 1
+# comment 2
 a: 123
 
 ================================================================================
@@ -473,21 +493,19 @@ a: 123
 ================================================================================
 `;
 
-exports[`middle-comments.yml format 2`] = `
+exports[`props.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
 tabWidth: 4
                                                                                 | printWidth
 =====================================input======================================
-!!map # comment 1
-# comment 2
+--- !!map &anchor
 a: 123
 
 =====================================output=====================================
-!!map
-# comment 1
-# comment 2
+---
+!!map &anchor
 a: 123
 
 ================================================================================
@@ -510,20 +528,19 @@ a: 123
 ================================================================================
 `;
 
-exports[`props.yml format 2`] = `
+exports[`props-in-map.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
 tabWidth: 4
                                                                                 | printWidth
 =====================================input======================================
---- !!map &anchor
-a: 123
+a: !!map &anchor
+  a: 123
 
 =====================================output=====================================
----
-!!map &anchor
-a: 123
+a: !!map &anchor
+    a: 123
 
 ================================================================================
 `;
@@ -544,19 +561,19 @@ a: !!map &anchor
 ================================================================================
 `;
 
-exports[`props-in-map.yml format 2`] = `
+exports[`quote-key.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
 tabWidth: 4
                                                                                 | printWidth
 =====================================input======================================
-a: !!map &anchor
-  a: 123
+"a": 123
+'b': 123
 
 =====================================output=====================================
-a: !!map &anchor
-    a: 123
+"a": 123
+"b": 123
 
 ================================================================================
 `;
@@ -577,19 +594,19 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`quote-key.yml format 2`] = `
+exports[`sequence.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
 tabWidth: 4
                                                                                 | printWidth
 =====================================input======================================
-"a": 123
-'b': 123
+key:
+- value
 
 =====================================output=====================================
-"a": 123
-"b": 123
+key:
+    - value
 
 ================================================================================
 `;
@@ -610,27 +627,11 @@ key:
 ================================================================================
 `;
 
-exports[`sequence.yml format 2`] = `
+exports[`tag-key.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
 tabWidth: 4
-                                                                                | printWidth
-=====================================input======================================
-key:
-- value
-
-=====================================output=====================================
-key:
-    - value
-
-================================================================================
-`;
-
-exports[`tag-key.yml format 1`] = `
-====================================options=====================================
-parsers: ["yaml"]
-printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 ? !!tag key
@@ -642,11 +643,10 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`tag-key.yml format 2`] = `
+exports[`tag-key.yml format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
-tabWidth: 4
                                                                                 | printWidth
 =====================================input======================================
 ? !!tag key

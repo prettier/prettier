@@ -1,43 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`graphql.vue format 1`] = `
+exports[`graphql.vue - {"embeddedLanguageFormatting":"off"} format 1`] = `
 ====================================options=====================================
-parsers: ["vue"]
-printWidth: 80
-trailingComma: "none"
-                                                                                | printWidth
-=====================================input======================================
-<page-query lang="graphql">
-query { posts: allWordPressPost {
-    edges {
-   node {
-          id
-      title
-      }
-    }
-  }
-}
-</page-query>
-
-=====================================output=====================================
-<page-query lang="graphql">
-query {
-  posts: allWordPressPost {
-    edges {
-      node {
-        id
-        title
-      }
-    }
-  }
-}
-</page-query>
-
-================================================================================
-`;
-
-exports[`graphql.vue format 2`] = `
-====================================options=====================================
+embeddedLanguageFormatting: "off"
 parsers: ["vue"]
 printWidth: 80
                                                                                 | printWidth
@@ -56,12 +21,11 @@ query { posts: allWordPressPost {
 
 =====================================output=====================================
 <page-query lang="graphql">
-query {
-  posts: allWordPressPost {
+query { posts: allWordPressPost {
     edges {
-      node {
-        id
-        title
+   node {
+          id
+      title
       }
     }
   }
@@ -71,7 +35,7 @@ query {
 ================================================================================
 `;
 
-exports[`graphql.vue format 3`] = `
+exports[`graphql.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -107,7 +71,43 @@ query {
 ================================================================================
 `;
 
-exports[`graphql.vue format 4`] = `
+exports[`graphql.vue - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+<page-query lang="graphql">
+query { posts: allWordPressPost {
+    edges {
+   node {
+          id
+      title
+      }
+    }
+  }
+}
+</page-query>
+
+=====================================output=====================================
+<page-query lang="graphql">
+query {
+  posts: allWordPressPost {
+    edges {
+      node {
+        id
+        title
+      }
+    }
+  }
+}
+</page-query>
+
+================================================================================
+`;
+
+exports[`graphql.vue - {"vueIndentScriptAndStyle":true} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -143,79 +143,61 @@ query { posts: allWordPressPost {
 ================================================================================
 `;
 
-exports[`graphql.vue format 5`] = `
+exports[`graphql.vue format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<page-query lang="graphql">
+query { posts: allWordPressPost {
+    edges {
+   node {
+          id
+      title
+      }
+    }
+  }
+}
+</page-query>
+
+=====================================output=====================================
+<page-query lang="graphql">
+query {
+  posts: allWordPressPost {
+    edges {
+      node {
+        id
+        title
+      }
+    }
+  }
+}
+</page-query>
+
+================================================================================
+`;
+
+exports[`handlebars.vue - {"embeddedLanguageFormatting":"off"} format 1`] = `
 ====================================options=====================================
 embeddedLanguageFormatting: "off"
 parsers: ["vue"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-<page-query lang="graphql">
-query { posts: allWordPressPost {
-    edges {
-   node {
-          id
-      title
-      }
-    }
-  }
-}
-</page-query>
-
-=====================================output=====================================
-<page-query lang="graphql">
-query { posts: allWordPressPost {
-    edges {
-   node {
-          id
-      title
-      }
-    }
-  }
-}
-</page-query>
-
-================================================================================
-`;
-
-exports[`handlebars.vue format 1`] = `
-====================================options=====================================
-parsers: ["vue"]
-printWidth: 80
-trailingComma: "none"
-                                                                                | printWidth
-=====================================input======================================
 <custom type="text/x-handlebars-template">
 Handlebars <b>{{     doesWhat}}</b>
 </custom>
 
 =====================================output=====================================
 <custom type="text/x-handlebars-template">
-Handlebars <b>{{ doesWhat }}</b>
-</custom>
-
-================================================================================
-`;
-
-exports[`handlebars.vue format 2`] = `
-====================================options=====================================
-parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-<custom type="text/x-handlebars-template">
 Handlebars <b>{{     doesWhat}}</b>
 </custom>
 
-=====================================output=====================================
-<custom type="text/x-handlebars-template">
-Handlebars <b>{{ doesWhat }}</b>
-</custom>
-
 ================================================================================
 `;
 
-exports[`handlebars.vue format 3`] = `
+exports[`handlebars.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -234,7 +216,26 @@ Handlebars <b>{{ doesWhat }}</b>
 ================================================================================
 `;
 
-exports[`handlebars.vue format 4`] = `
+exports[`handlebars.vue - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+<custom type="text/x-handlebars-template">
+Handlebars <b>{{     doesWhat}}</b>
+</custom>
+
+=====================================output=====================================
+<custom type="text/x-handlebars-template">
+Handlebars <b>{{ doesWhat }}</b>
+</custom>
+
+================================================================================
+`;
+
+exports[`handlebars.vue - {"vueIndentScriptAndStyle":true} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -253,32 +254,31 @@ Handlebars <b>{{     doesWhat}}</b>
 ================================================================================
 `;
 
-exports[`handlebars.vue format 5`] = `
+exports[`handlebars.vue format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<custom type="text/x-handlebars-template">
+Handlebars <b>{{     doesWhat}}</b>
+</custom>
+
+=====================================output=====================================
+<custom type="text/x-handlebars-template">
+Handlebars <b>{{ doesWhat }}</b>
+</custom>
+
+================================================================================
+`;
+
+exports[`json.vue - {"embeddedLanguageFormatting":"off"} format 1`] = `
 ====================================options=====================================
 embeddedLanguageFormatting: "off"
 parsers: ["vue"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-<custom type="text/x-handlebars-template">
-Handlebars <b>{{     doesWhat}}</b>
-</custom>
-
-=====================================output=====================================
-<custom type="text/x-handlebars-template">
-Handlebars <b>{{     doesWhat}}</b>
-</custom>
-
-================================================================================
-`;
-
-exports[`json.vue format 1`] = `
-====================================options=====================================
-parsers: ["vue"]
-printWidth: 80
-trailingComma: "none"
-                                                                                | printWidth
-=====================================input======================================
 <i18n lang="json">
 { "en": {
     "hello": "hello world!"
@@ -316,49 +316,6 @@ trailingComma: "none"
 
 =====================================output=====================================
 <i18n lang="json">
-{
-  "en": {
-    "hello": "hello world!"
-  },
-  "ja": {
-    "hello": "こんにちは、世界！"
-  }
-}
-</i18n>
-
-<i18n type="application/json">
-{
-  "en": {
-    "hello": "hello world!"
-  },
-  "ja": {
-    "hello": "こんにちは、世界！"
-  }
-}
-</i18n>
-
-<custom lang="json">
-{
-  "a": 1
-}
-</custom>
-
-<custom lang="json">
-{
-  "a": 1
-}
-</custom>
-
-================================================================================
-`;
-
-exports[`json.vue format 2`] = `
-====================================options=====================================
-parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-<i18n lang="json">
 { "en": {
     "hello": "hello world!"
     
@@ -393,45 +350,10 @@ printWidth: 80
 }
 </custom>
 
-=====================================output=====================================
-<i18n lang="json">
-{
-  "en": {
-    "hello": "hello world!"
-  },
-  "ja": {
-    "hello": "こんにちは、世界！"
-  }
-}
-</i18n>
-
-<i18n type="application/json">
-{
-  "en": {
-    "hello": "hello world!"
-  },
-  "ja": {
-    "hello": "こんにちは、世界！"
-  }
-}
-</i18n>
-
-<custom lang="json">
-{
-  "a": 1
-}
-</custom>
-
-<custom lang="json">
-{
-  "a": 1
-}
-</custom>
-
 ================================================================================
 `;
 
-exports[`json.vue format 3`] = `
+exports[`json.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -511,7 +433,87 @@ semi: false
 ================================================================================
 `;
 
-exports[`json.vue format 4`] = `
+exports[`json.vue - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+<i18n lang="json">
+{ "en": {
+    "hello": "hello world!"
+    
+    
+    }, "ja": {
+   
+   
+    "hello": "こんにちは、世界！"
+  }
+}
+</i18n>
+
+<i18n type="application/json">
+{ "en": {
+    "hello": "hello world!"
+
+
+    }, "ja": {
+
+
+    "hello": "こんにちは、世界！"
+  }
+}
+</i18n>
+
+<custom lang="json">{
+  "a": 1
+}</custom>
+
+<custom lang="json">{
+  "a": 1
+}
+</custom>
+
+=====================================output=====================================
+<i18n lang="json">
+{
+  "en": {
+    "hello": "hello world!"
+  },
+  "ja": {
+    "hello": "こんにちは、世界！"
+  }
+}
+</i18n>
+
+<i18n type="application/json">
+{
+  "en": {
+    "hello": "hello world!"
+  },
+  "ja": {
+    "hello": "こんにちは、世界！"
+  }
+}
+</i18n>
+
+<custom lang="json">
+{
+  "a": 1
+}
+</custom>
+
+<custom lang="json">
+{
+  "a": 1
+}
+</custom>
+
+================================================================================
+`;
+
+exports[`json.vue - {"vueIndentScriptAndStyle":true} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -591,94 +593,92 @@ vueIndentScriptAndStyle: true
 ================================================================================
 `;
 
-exports[`json.vue format 5`] = `
+exports[`json.vue format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<i18n lang="json">
+{ "en": {
+    "hello": "hello world!"
+    
+    
+    }, "ja": {
+   
+   
+    "hello": "こんにちは、世界！"
+  }
+}
+</i18n>
+
+<i18n type="application/json">
+{ "en": {
+    "hello": "hello world!"
+
+
+    }, "ja": {
+
+
+    "hello": "こんにちは、世界！"
+  }
+}
+</i18n>
+
+<custom lang="json">{
+  "a": 1
+}</custom>
+
+<custom lang="json">{
+  "a": 1
+}
+</custom>
+
+=====================================output=====================================
+<i18n lang="json">
+{
+  "en": {
+    "hello": "hello world!"
+  },
+  "ja": {
+    "hello": "こんにちは、世界！"
+  }
+}
+</i18n>
+
+<i18n type="application/json">
+{
+  "en": {
+    "hello": "hello world!"
+  },
+  "ja": {
+    "hello": "こんにちは、世界！"
+  }
+}
+</i18n>
+
+<custom lang="json">
+{
+  "a": 1
+}
+</custom>
+
+<custom lang="json">
+{
+  "a": 1
+}
+</custom>
+
+================================================================================
+`;
+
+exports[`lang-attribute.vue - {"embeddedLanguageFormatting":"off"} format 1`] = `
 ====================================options=====================================
 embeddedLanguageFormatting: "off"
 parsers: ["vue"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-<i18n lang="json">
-{ "en": {
-    "hello": "hello world!"
-    
-    
-    }, "ja": {
-   
-   
-    "hello": "こんにちは、世界！"
-  }
-}
-</i18n>
-
-<i18n type="application/json">
-{ "en": {
-    "hello": "hello world!"
-
-
-    }, "ja": {
-
-
-    "hello": "こんにちは、世界！"
-  }
-}
-</i18n>
-
-<custom lang="json">{
-  "a": 1
-}</custom>
-
-<custom lang="json">{
-  "a": 1
-}
-</custom>
-
-=====================================output=====================================
-<i18n lang="json">
-{ "en": {
-    "hello": "hello world!"
-    
-    
-    }, "ja": {
-   
-   
-    "hello": "こんにちは、世界！"
-  }
-}
-</i18n>
-
-<i18n type="application/json">
-{ "en": {
-    "hello": "hello world!"
-
-
-    }, "ja": {
-
-
-    "hello": "こんにちは、世界！"
-  }
-}
-</i18n>
-
-<custom lang="json">{
-  "a": 1
-}</custom>
-
-<custom lang="json">{
-  "a": 1
-}
-</custom>
-
-================================================================================
-`;
-
-exports[`lang-attribute.vue format 1`] = `
-====================================options=====================================
-parsers: ["vue"]
-printWidth: 80
-trailingComma: "none"
-                                                                                | printWidth
-=====================================input======================================
 <custom lang="js">
 const foo
       = 'foo'
@@ -686,32 +686,14 @@ const foo
 
 =====================================output=====================================
 <custom lang="js">
-const foo = "foo";
-</custom>
-
-================================================================================
-`;
-
-exports[`lang-attribute.vue format 2`] = `
-====================================options=====================================
-parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-<custom lang="js">
 const foo
       = 'foo'
 </custom>
 
-=====================================output=====================================
-<custom lang="js">
-const foo = "foo";
-</custom>
-
 ================================================================================
 `;
 
-exports[`lang-attribute.vue format 3`] = `
+exports[`lang-attribute.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -731,7 +713,27 @@ const foo = "foo"
 ================================================================================
 `;
 
-exports[`lang-attribute.vue format 4`] = `
+exports[`lang-attribute.vue - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+<custom lang="js">
+const foo
+      = 'foo'
+</custom>
+
+=====================================output=====================================
+<custom lang="js">
+const foo = "foo";
+</custom>
+
+================================================================================
+`;
+
+exports[`lang-attribute.vue - {"vueIndentScriptAndStyle":true} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -751,9 +753,8 @@ const foo
 ================================================================================
 `;
 
-exports[`lang-attribute.vue format 5`] = `
+exports[`lang-attribute.vue format 1`] = `
 ====================================options=====================================
-embeddedLanguageFormatting: "off"
 parsers: ["vue"]
 printWidth: 80
                                                                                 | printWidth
@@ -765,9 +766,250 @@ const foo
 
 =====================================output=====================================
 <custom lang="js">
-const foo
-      = 'foo'
+const foo = "foo";
 </custom>
+
+================================================================================
+`;
+
+exports[`markdown.vue - {"embeddedLanguageFormatting":"off"} format 1`] = `
+====================================options=====================================
+embeddedLanguageFormatting: "off"
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<docs lang="markdown">
+# Foo
+- bar
+- baz
+
+| Age | Time | Food | Gold | Requirement |
+  | ------------ | ----- | ---- | ---- | ----------------------- |
+  | Feudal Age | 02:10 | 500 | 0 | Dark Age building x 2 |
+  | Castle Age | 02:40 | 800 | 200 |- |
+  | Imperial Age | 03:30 | 1000 | 800 | Castle Age building x 2 |
+</docs>
+
+<docs type="text/markdown">
+# Foo
+- bar
+- baz
+
+| Age | Time | Food | Gold | Requirement |
+  | ------------ | ----- | ---- | ---- | ----------------------- |
+  | Feudal Age | 02:10 | 500 | 0 | Dark Age building x 2 |
+  | Castle Age | 02:40 | 800 | 200 |- |
+  | Imperial Age | 03:30 | 1000 | 800 | Castle Age building x 2 |
+</docs>
+
+=====================================output=====================================
+<docs lang="markdown">
+# Foo
+- bar
+- baz
+
+| Age | Time | Food | Gold | Requirement |
+  | ------------ | ----- | ---- | ---- | ----------------------- |
+  | Feudal Age | 02:10 | 500 | 0 | Dark Age building x 2 |
+  | Castle Age | 02:40 | 800 | 200 |- |
+  | Imperial Age | 03:30 | 1000 | 800 | Castle Age building x 2 |
+</docs>
+
+<docs type="text/markdown">
+# Foo
+- bar
+- baz
+
+| Age | Time | Food | Gold | Requirement |
+  | ------------ | ----- | ---- | ---- | ----------------------- |
+  | Feudal Age | 02:10 | 500 | 0 | Dark Age building x 2 |
+  | Castle Age | 02:40 | 800 | 200 |- |
+  | Imperial Age | 03:30 | 1000 | 800 | Castle Age building x 2 |
+</docs>
+
+================================================================================
+`;
+
+exports[`markdown.vue - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+<docs lang="markdown">
+# Foo
+- bar
+- baz
+
+| Age | Time | Food | Gold | Requirement |
+  | ------------ | ----- | ---- | ---- | ----------------------- |
+  | Feudal Age | 02:10 | 500 | 0 | Dark Age building x 2 |
+  | Castle Age | 02:40 | 800 | 200 |- |
+  | Imperial Age | 03:30 | 1000 | 800 | Castle Age building x 2 |
+</docs>
+
+<docs type="text/markdown">
+# Foo
+- bar
+- baz
+
+| Age | Time | Food | Gold | Requirement |
+  | ------------ | ----- | ---- | ---- | ----------------------- |
+  | Feudal Age | 02:10 | 500 | 0 | Dark Age building x 2 |
+  | Castle Age | 02:40 | 800 | 200 |- |
+  | Imperial Age | 03:30 | 1000 | 800 | Castle Age building x 2 |
+</docs>
+
+=====================================output=====================================
+<docs lang="markdown">
+# Foo
+
+- bar
+- baz
+
+| Age          | Time  | Food | Gold | Requirement             |
+| ------------ | ----- | ---- | ---- | ----------------------- |
+| Feudal Age   | 02:10 | 500  | 0    | Dark Age building x 2   |
+| Castle Age   | 02:40 | 800  | 200  | -                       |
+| Imperial Age | 03:30 | 1000 | 800  | Castle Age building x 2 |
+</docs>
+
+<docs type="text/markdown">
+# Foo
+
+- bar
+- baz
+
+| Age          | Time  | Food | Gold | Requirement             |
+| ------------ | ----- | ---- | ---- | ----------------------- |
+| Feudal Age   | 02:10 | 500  | 0    | Dark Age building x 2   |
+| Castle Age   | 02:40 | 800  | 200  | -                       |
+| Imperial Age | 03:30 | 1000 | 800  | Castle Age building x 2 |
+</docs>
+
+================================================================================
+`;
+
+exports[`markdown.vue - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+<docs lang="markdown">
+# Foo
+- bar
+- baz
+
+| Age | Time | Food | Gold | Requirement |
+  | ------------ | ----- | ---- | ---- | ----------------------- |
+  | Feudal Age | 02:10 | 500 | 0 | Dark Age building x 2 |
+  | Castle Age | 02:40 | 800 | 200 |- |
+  | Imperial Age | 03:30 | 1000 | 800 | Castle Age building x 2 |
+</docs>
+
+<docs type="text/markdown">
+# Foo
+- bar
+- baz
+
+| Age | Time | Food | Gold | Requirement |
+  | ------------ | ----- | ---- | ---- | ----------------------- |
+  | Feudal Age | 02:10 | 500 | 0 | Dark Age building x 2 |
+  | Castle Age | 02:40 | 800 | 200 |- |
+  | Imperial Age | 03:30 | 1000 | 800 | Castle Age building x 2 |
+</docs>
+
+=====================================output=====================================
+<docs lang="markdown">
+# Foo
+
+- bar
+- baz
+
+| Age          | Time  | Food | Gold | Requirement             |
+| ------------ | ----- | ---- | ---- | ----------------------- |
+| Feudal Age   | 02:10 | 500  | 0    | Dark Age building x 2   |
+| Castle Age   | 02:40 | 800  | 200  | -                       |
+| Imperial Age | 03:30 | 1000 | 800  | Castle Age building x 2 |
+</docs>
+
+<docs type="text/markdown">
+# Foo
+
+- bar
+- baz
+
+| Age          | Time  | Food | Gold | Requirement             |
+| ------------ | ----- | ---- | ---- | ----------------------- |
+| Feudal Age   | 02:10 | 500  | 0    | Dark Age building x 2   |
+| Castle Age   | 02:40 | 800  | 200  | -                       |
+| Imperial Age | 03:30 | 1000 | 800  | Castle Age building x 2 |
+</docs>
+
+================================================================================
+`;
+
+exports[`markdown.vue - {"vueIndentScriptAndStyle":true} format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+vueIndentScriptAndStyle: true
+                                                                                | printWidth
+=====================================input======================================
+<docs lang="markdown">
+# Foo
+- bar
+- baz
+
+| Age | Time | Food | Gold | Requirement |
+  | ------------ | ----- | ---- | ---- | ----------------------- |
+  | Feudal Age | 02:10 | 500 | 0 | Dark Age building x 2 |
+  | Castle Age | 02:40 | 800 | 200 |- |
+  | Imperial Age | 03:30 | 1000 | 800 | Castle Age building x 2 |
+</docs>
+
+<docs type="text/markdown">
+# Foo
+- bar
+- baz
+
+| Age | Time | Food | Gold | Requirement |
+  | ------------ | ----- | ---- | ---- | ----------------------- |
+  | Feudal Age | 02:10 | 500 | 0 | Dark Age building x 2 |
+  | Castle Age | 02:40 | 800 | 200 |- |
+  | Imperial Age | 03:30 | 1000 | 800 | Castle Age building x 2 |
+</docs>
+
+=====================================output=====================================
+<docs lang="markdown">
+  # Foo
+
+  - bar
+  - baz
+
+  | Age          | Time  | Food | Gold | Requirement             |
+  | ------------ | ----- | ---- | ---- | ----------------------- |
+  | Feudal Age   | 02:10 | 500  | 0    | Dark Age building x 2   |
+  | Castle Age   | 02:40 | 800  | 200  | -                       |
+  | Imperial Age | 03:30 | 1000 | 800  | Castle Age building x 2 |
+</docs>
+
+<docs type="text/markdown">
+  # Foo
+
+  - bar
+  - baz
+
+  | Age          | Time  | Food | Gold | Requirement             |
+  | ------------ | ----- | ---- | ---- | ----------------------- |
+  | Feudal Age   | 02:10 | 500  | 0    | Dark Age building x 2   |
+  | Castle Age   | 02:40 | 800  | 200  | -                       |
+  | Imperial Age | 03:30 | 1000 | 800  | Castle Age building x 2 |
+</docs>
 
 ================================================================================
 `;
@@ -776,7 +1018,6 @@ exports[`markdown.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
-trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <docs lang="markdown">
@@ -833,243 +1074,254 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`markdown.vue format 2`] = `
-====================================options=====================================
-parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-<docs lang="markdown">
-# Foo
-- bar
-- baz
-
-| Age | Time | Food | Gold | Requirement |
-  | ------------ | ----- | ---- | ---- | ----------------------- |
-  | Feudal Age | 02:10 | 500 | 0 | Dark Age building x 2 |
-  | Castle Age | 02:40 | 800 | 200 |- |
-  | Imperial Age | 03:30 | 1000 | 800 | Castle Age building x 2 |
-</docs>
-
-<docs type="text/markdown">
-# Foo
-- bar
-- baz
-
-| Age | Time | Food | Gold | Requirement |
-  | ------------ | ----- | ---- | ---- | ----------------------- |
-  | Feudal Age | 02:10 | 500 | 0 | Dark Age building x 2 |
-  | Castle Age | 02:40 | 800 | 200 |- |
-  | Imperial Age | 03:30 | 1000 | 800 | Castle Age building x 2 |
-</docs>
-
-=====================================output=====================================
-<docs lang="markdown">
-# Foo
-
-- bar
-- baz
-
-| Age          | Time  | Food | Gold | Requirement             |
-| ------------ | ----- | ---- | ---- | ----------------------- |
-| Feudal Age   | 02:10 | 500  | 0    | Dark Age building x 2   |
-| Castle Age   | 02:40 | 800  | 200  | -                       |
-| Imperial Age | 03:30 | 1000 | 800  | Castle Age building x 2 |
-</docs>
-
-<docs type="text/markdown">
-# Foo
-
-- bar
-- baz
-
-| Age          | Time  | Food | Gold | Requirement             |
-| ------------ | ----- | ---- | ---- | ----------------------- |
-| Feudal Age   | 02:10 | 500  | 0    | Dark Age building x 2   |
-| Castle Age   | 02:40 | 800  | 200  | -                       |
-| Imperial Age | 03:30 | 1000 | 800  | Castle Age building x 2 |
-</docs>
-
-================================================================================
-`;
-
-exports[`markdown.vue format 3`] = `
-====================================options=====================================
-parsers: ["vue"]
-printWidth: 80
-semi: false
-                                                                                | printWidth
-=====================================input======================================
-<docs lang="markdown">
-# Foo
-- bar
-- baz
-
-| Age | Time | Food | Gold | Requirement |
-  | ------------ | ----- | ---- | ---- | ----------------------- |
-  | Feudal Age | 02:10 | 500 | 0 | Dark Age building x 2 |
-  | Castle Age | 02:40 | 800 | 200 |- |
-  | Imperial Age | 03:30 | 1000 | 800 | Castle Age building x 2 |
-</docs>
-
-<docs type="text/markdown">
-# Foo
-- bar
-- baz
-
-| Age | Time | Food | Gold | Requirement |
-  | ------------ | ----- | ---- | ---- | ----------------------- |
-  | Feudal Age | 02:10 | 500 | 0 | Dark Age building x 2 |
-  | Castle Age | 02:40 | 800 | 200 |- |
-  | Imperial Age | 03:30 | 1000 | 800 | Castle Age building x 2 |
-</docs>
-
-=====================================output=====================================
-<docs lang="markdown">
-# Foo
-
-- bar
-- baz
-
-| Age          | Time  | Food | Gold | Requirement             |
-| ------------ | ----- | ---- | ---- | ----------------------- |
-| Feudal Age   | 02:10 | 500  | 0    | Dark Age building x 2   |
-| Castle Age   | 02:40 | 800  | 200  | -                       |
-| Imperial Age | 03:30 | 1000 | 800  | Castle Age building x 2 |
-</docs>
-
-<docs type="text/markdown">
-# Foo
-
-- bar
-- baz
-
-| Age          | Time  | Food | Gold | Requirement             |
-| ------------ | ----- | ---- | ---- | ----------------------- |
-| Feudal Age   | 02:10 | 500  | 0    | Dark Age building x 2   |
-| Castle Age   | 02:40 | 800  | 200  | -                       |
-| Imperial Age | 03:30 | 1000 | 800  | Castle Age building x 2 |
-</docs>
-
-================================================================================
-`;
-
-exports[`markdown.vue format 4`] = `
-====================================options=====================================
-parsers: ["vue"]
-printWidth: 80
-vueIndentScriptAndStyle: true
-                                                                                | printWidth
-=====================================input======================================
-<docs lang="markdown">
-# Foo
-- bar
-- baz
-
-| Age | Time | Food | Gold | Requirement |
-  | ------------ | ----- | ---- | ---- | ----------------------- |
-  | Feudal Age | 02:10 | 500 | 0 | Dark Age building x 2 |
-  | Castle Age | 02:40 | 800 | 200 |- |
-  | Imperial Age | 03:30 | 1000 | 800 | Castle Age building x 2 |
-</docs>
-
-<docs type="text/markdown">
-# Foo
-- bar
-- baz
-
-| Age | Time | Food | Gold | Requirement |
-  | ------------ | ----- | ---- | ---- | ----------------------- |
-  | Feudal Age | 02:10 | 500 | 0 | Dark Age building x 2 |
-  | Castle Age | 02:40 | 800 | 200 |- |
-  | Imperial Age | 03:30 | 1000 | 800 | Castle Age building x 2 |
-</docs>
-
-=====================================output=====================================
-<docs lang="markdown">
-  # Foo
-
-  - bar
-  - baz
-
-  | Age          | Time  | Food | Gold | Requirement             |
-  | ------------ | ----- | ---- | ---- | ----------------------- |
-  | Feudal Age   | 02:10 | 500  | 0    | Dark Age building x 2   |
-  | Castle Age   | 02:40 | 800  | 200  | -                       |
-  | Imperial Age | 03:30 | 1000 | 800  | Castle Age building x 2 |
-</docs>
-
-<docs type="text/markdown">
-  # Foo
-
-  - bar
-  - baz
-
-  | Age          | Time  | Food | Gold | Requirement             |
-  | ------------ | ----- | ---- | ---- | ----------------------- |
-  | Feudal Age   | 02:10 | 500  | 0    | Dark Age building x 2   |
-  | Castle Age   | 02:40 | 800  | 200  | -                       |
-  | Imperial Age | 03:30 | 1000 | 800  | Castle Age building x 2 |
-</docs>
-
-================================================================================
-`;
-
-exports[`markdown.vue format 5`] = `
+exports[`unknown.vue - {"embeddedLanguageFormatting":"off"} format 1`] = `
 ====================================options=====================================
 embeddedLanguageFormatting: "off"
 parsers: ["vue"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-<docs lang="markdown">
-# Foo
-- bar
-- baz
+<i18n lang="foooo">
+{"en": {
+    "hello": "hello world!"
+  }, "ja": {
+    "hello": "こんにちは、世界！"
+  }
+}
+</i18n>
 
-| Age | Time | Food | Gold | Requirement |
-  | ------------ | ----- | ---- | ---- | ----------------------- |
-  | Feudal Age | 02:10 | 500 | 0 | Dark Age building x 2 |
-  | Castle Age | 02:40 | 800 | 200 |- |
-  | Imperial Age | 03:30 | 1000 | 800 | Castle Age building x 2 |
-</docs>
+<custom>
+const foo =
 
-<docs type="text/markdown">
-# Foo
-- bar
-- baz
 
-| Age | Time | Food | Gold | Requirement |
-  | ------------ | ----- | ---- | ---- | ----------------------- |
-  | Feudal Age | 02:10 | 500 | 0 | Dark Age building x 2 |
-  | Castle Age | 02:40 | 800 | 200 |- |
-  | Imperial Age | 03:30 | 1000 | 800 | Castle Age building x 2 |
-</docs>
+     "foo";
+</custom>
+
+<custom lang="zzz">
+const foo = "foo";
+  const foo = "foo";</custom>
+
+<custom lang="zzz">123</custom>
+
+<custom>{
+     foo: "bar"
+}</custom>
 
 =====================================output=====================================
-<docs lang="markdown">
-# Foo
-- bar
-- baz
+<i18n lang="foooo">
+{"en": {
+    "hello": "hello world!"
+  }, "ja": {
+    "hello": "こんにちは、世界！"
+  }
+}
+</i18n>
 
-| Age | Time | Food | Gold | Requirement |
-  | ------------ | ----- | ---- | ---- | ----------------------- |
-  | Feudal Age | 02:10 | 500 | 0 | Dark Age building x 2 |
-  | Castle Age | 02:40 | 800 | 200 |- |
-  | Imperial Age | 03:30 | 1000 | 800 | Castle Age building x 2 |
-</docs>
+<custom>
+const foo =
 
-<docs type="text/markdown">
-# Foo
-- bar
-- baz
 
-| Age | Time | Food | Gold | Requirement |
-  | ------------ | ----- | ---- | ---- | ----------------------- |
-  | Feudal Age | 02:10 | 500 | 0 | Dark Age building x 2 |
-  | Castle Age | 02:40 | 800 | 200 |- |
-  | Imperial Age | 03:30 | 1000 | 800 | Castle Age building x 2 |
-</docs>
+     "foo";
+</custom>
+
+<custom lang="zzz">
+const foo = "foo";
+  const foo = "foo";</custom>
+
+<custom lang="zzz">123</custom>
+
+<custom>{
+     foo: "bar"
+}</custom>
+
+================================================================================
+`;
+
+exports[`unknown.vue - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+<i18n lang="foooo">
+{"en": {
+    "hello": "hello world!"
+  }, "ja": {
+    "hello": "こんにちは、世界！"
+  }
+}
+</i18n>
+
+<custom>
+const foo =
+
+
+     "foo";
+</custom>
+
+<custom lang="zzz">
+const foo = "foo";
+  const foo = "foo";</custom>
+
+<custom lang="zzz">123</custom>
+
+<custom>{
+     foo: "bar"
+}</custom>
+
+=====================================output=====================================
+<i18n lang="foooo">
+{"en": {
+    "hello": "hello world!"
+  }, "ja": {
+    "hello": "こんにちは、世界！"
+  }
+}
+</i18n>
+
+<custom>
+const foo =
+
+
+     "foo";
+</custom>
+
+<custom lang="zzz">
+const foo = "foo";
+  const foo = "foo";</custom>
+
+<custom lang="zzz">123</custom>
+
+<custom>{
+     foo: "bar"
+}</custom>
+
+================================================================================
+`;
+
+exports[`unknown.vue - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+<i18n lang="foooo">
+{"en": {
+    "hello": "hello world!"
+  }, "ja": {
+    "hello": "こんにちは、世界！"
+  }
+}
+</i18n>
+
+<custom>
+const foo =
+
+
+     "foo";
+</custom>
+
+<custom lang="zzz">
+const foo = "foo";
+  const foo = "foo";</custom>
+
+<custom lang="zzz">123</custom>
+
+<custom>{
+     foo: "bar"
+}</custom>
+
+=====================================output=====================================
+<i18n lang="foooo">
+{"en": {
+    "hello": "hello world!"
+  }, "ja": {
+    "hello": "こんにちは、世界！"
+  }
+}
+</i18n>
+
+<custom>
+const foo =
+
+
+     "foo";
+</custom>
+
+<custom lang="zzz">
+const foo = "foo";
+  const foo = "foo";</custom>
+
+<custom lang="zzz">123</custom>
+
+<custom>{
+     foo: "bar"
+}</custom>
+
+================================================================================
+`;
+
+exports[`unknown.vue - {"vueIndentScriptAndStyle":true} format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+vueIndentScriptAndStyle: true
+                                                                                | printWidth
+=====================================input======================================
+<i18n lang="foooo">
+{"en": {
+    "hello": "hello world!"
+  }, "ja": {
+    "hello": "こんにちは、世界！"
+  }
+}
+</i18n>
+
+<custom>
+const foo =
+
+
+     "foo";
+</custom>
+
+<custom lang="zzz">
+const foo = "foo";
+  const foo = "foo";</custom>
+
+<custom lang="zzz">123</custom>
+
+<custom>{
+     foo: "bar"
+}</custom>
+
+=====================================output=====================================
+<i18n lang="foooo">
+{"en": {
+    "hello": "hello world!"
+  }, "ja": {
+    "hello": "こんにちは、世界！"
+  }
+}
+</i18n>
+
+<custom>
+const foo =
+
+
+     "foo";
+</custom>
+
+<custom lang="zzz">
+const foo = "foo";
+  const foo = "foo";</custom>
+
+<custom lang="zzz">123</custom>
+
+<custom>{
+     foo: "bar"
+}</custom>
 
 ================================================================================
 `;
@@ -1078,7 +1330,6 @@ exports[`unknown.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
-trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <i18n lang="foooo">
@@ -1137,264 +1388,13 @@ const foo = "foo";
 ================================================================================
 `;
 
-exports[`unknown.vue format 2`] = `
-====================================options=====================================
-parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-<i18n lang="foooo">
-{"en": {
-    "hello": "hello world!"
-  }, "ja": {
-    "hello": "こんにちは、世界！"
-  }
-}
-</i18n>
-
-<custom>
-const foo =
-
-
-     "foo";
-</custom>
-
-<custom lang="zzz">
-const foo = "foo";
-  const foo = "foo";</custom>
-
-<custom lang="zzz">123</custom>
-
-<custom>{
-     foo: "bar"
-}</custom>
-
-=====================================output=====================================
-<i18n lang="foooo">
-{"en": {
-    "hello": "hello world!"
-  }, "ja": {
-    "hello": "こんにちは、世界！"
-  }
-}
-</i18n>
-
-<custom>
-const foo =
-
-
-     "foo";
-</custom>
-
-<custom lang="zzz">
-const foo = "foo";
-  const foo = "foo";</custom>
-
-<custom lang="zzz">123</custom>
-
-<custom>{
-     foo: "bar"
-}</custom>
-
-================================================================================
-`;
-
-exports[`unknown.vue format 3`] = `
-====================================options=====================================
-parsers: ["vue"]
-printWidth: 80
-semi: false
-                                                                                | printWidth
-=====================================input======================================
-<i18n lang="foooo">
-{"en": {
-    "hello": "hello world!"
-  }, "ja": {
-    "hello": "こんにちは、世界！"
-  }
-}
-</i18n>
-
-<custom>
-const foo =
-
-
-     "foo";
-</custom>
-
-<custom lang="zzz">
-const foo = "foo";
-  const foo = "foo";</custom>
-
-<custom lang="zzz">123</custom>
-
-<custom>{
-     foo: "bar"
-}</custom>
-
-=====================================output=====================================
-<i18n lang="foooo">
-{"en": {
-    "hello": "hello world!"
-  }, "ja": {
-    "hello": "こんにちは、世界！"
-  }
-}
-</i18n>
-
-<custom>
-const foo =
-
-
-     "foo";
-</custom>
-
-<custom lang="zzz">
-const foo = "foo";
-  const foo = "foo";</custom>
-
-<custom lang="zzz">123</custom>
-
-<custom>{
-     foo: "bar"
-}</custom>
-
-================================================================================
-`;
-
-exports[`unknown.vue format 4`] = `
-====================================options=====================================
-parsers: ["vue"]
-printWidth: 80
-vueIndentScriptAndStyle: true
-                                                                                | printWidth
-=====================================input======================================
-<i18n lang="foooo">
-{"en": {
-    "hello": "hello world!"
-  }, "ja": {
-    "hello": "こんにちは、世界！"
-  }
-}
-</i18n>
-
-<custom>
-const foo =
-
-
-     "foo";
-</custom>
-
-<custom lang="zzz">
-const foo = "foo";
-  const foo = "foo";</custom>
-
-<custom lang="zzz">123</custom>
-
-<custom>{
-     foo: "bar"
-}</custom>
-
-=====================================output=====================================
-<i18n lang="foooo">
-{"en": {
-    "hello": "hello world!"
-  }, "ja": {
-    "hello": "こんにちは、世界！"
-  }
-}
-</i18n>
-
-<custom>
-const foo =
-
-
-     "foo";
-</custom>
-
-<custom lang="zzz">
-const foo = "foo";
-  const foo = "foo";</custom>
-
-<custom lang="zzz">123</custom>
-
-<custom>{
-     foo: "bar"
-}</custom>
-
-================================================================================
-`;
-
-exports[`unknown.vue format 5`] = `
+exports[`yaml.vue - {"embeddedLanguageFormatting":"off"} format 1`] = `
 ====================================options=====================================
 embeddedLanguageFormatting: "off"
 parsers: ["vue"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-<i18n lang="foooo">
-{"en": {
-    "hello": "hello world!"
-  }, "ja": {
-    "hello": "こんにちは、世界！"
-  }
-}
-</i18n>
-
-<custom>
-const foo =
-
-
-     "foo";
-</custom>
-
-<custom lang="zzz">
-const foo = "foo";
-  const foo = "foo";</custom>
-
-<custom lang="zzz">123</custom>
-
-<custom>{
-     foo: "bar"
-}</custom>
-
-=====================================output=====================================
-<i18n lang="foooo">
-{"en": {
-    "hello": "hello world!"
-  }, "ja": {
-    "hello": "こんにちは、世界！"
-  }
-}
-</i18n>
-
-<custom>
-const foo =
-
-
-     "foo";
-</custom>
-
-<custom lang="zzz">
-const foo = "foo";
-  const foo = "foo";</custom>
-
-<custom lang="zzz">123</custom>
-
-<custom>{
-     foo: "bar"
-}</custom>
-
-================================================================================
-`;
-
-exports[`yaml.vue format 1`] = `
-====================================options=====================================
-parsers: ["vue"]
-printWidth: 80
-trailingComma: "none"
-                                                                                | printWidth
-=====================================input======================================
 <i18n lang="yaml">
 en:
                        hello: "hello world!"
@@ -1405,39 +1405,15 @@ ja:
 =====================================output=====================================
 <i18n lang="yaml">
 en:
-  hello: "hello world!"
-ja:
-  hello: "こんにちは、世界！"
-</i18n>
-
-================================================================================
-`;
-
-exports[`yaml.vue format 2`] = `
-====================================options=====================================
-parsers: ["vue"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-<i18n lang="yaml">
-en:
                        hello: "hello world!"
 ja:
         hello: "こんにちは、世界！"
 </i18n>
 
-=====================================output=====================================
-<i18n lang="yaml">
-en:
-  hello: "hello world!"
-ja:
-  hello: "こんにちは、世界！"
-</i18n>
-
 ================================================================================
 `;
 
-exports[`yaml.vue format 3`] = `
+exports[`yaml.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -1462,7 +1438,32 @@ ja:
 ================================================================================
 `;
 
-exports[`yaml.vue format 4`] = `
+exports[`yaml.vue - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+<i18n lang="yaml">
+en:
+                       hello: "hello world!"
+ja:
+        hello: "こんにちは、世界！"
+</i18n>
+
+=====================================output=====================================
+<i18n lang="yaml">
+en:
+  hello: "hello world!"
+ja:
+  hello: "こんにちは、世界！"
+</i18n>
+
+================================================================================
+`;
+
+exports[`yaml.vue - {"vueIndentScriptAndStyle":true} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -1487,9 +1488,8 @@ ja:
 ================================================================================
 `;
 
-exports[`yaml.vue format 5`] = `
+exports[`yaml.vue format 1`] = `
 ====================================options=====================================
-embeddedLanguageFormatting: "off"
 parsers: ["vue"]
 printWidth: 80
                                                                                 | printWidth
@@ -1504,9 +1504,9 @@ ja:
 =====================================output=====================================
 <i18n lang="yaml">
 en:
-                       hello: "hello world!"
+  hello: "hello world!"
 ja:
-        hello: "こんにちは、世界！"
+  hello: "こんにちは、世界！"
 </i18n>
 
 ================================================================================
