@@ -4011,7 +4011,7 @@ function printMethod(path, options, print) {
     // [prettierx merge from prettier@1.19.0] (...)
     if (value.generator) {
       parts.push("*");
-      // [prettierx] parenSpace generatorStarSpacing option support (...)
+      // [prettierx] generatorStarSpacing option support (...)
       if (options.generatorStarSpacing) {
         parts.push(" ");
       }
