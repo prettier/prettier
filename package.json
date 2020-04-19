@@ -19,7 +19,6 @@
     "README.md",
     "bin",
     "index.js",
-    "lib",
     "src"
   ],
   "// prettierx dependencies notes": [
