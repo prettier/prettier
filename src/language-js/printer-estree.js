@@ -4717,7 +4717,7 @@ function printFunctionDeclaration(path, print, options) {
   parts.push("function");
 
   if (n.generator) {
-    // [prettierx] parenSpace generatorStarSpacing option support (...)
+    // [prettierx] generatorStarSpacing option support (...)
     if (options.generatorStarSpacing) {
       parts.push(" ");
     }
@@ -4733,7 +4733,7 @@ function printFunctionDeclaration(path, print, options) {
       concat([
         // [prettierx] spaceBeforeFunctionParen option support (...)
         options.spaceBeforeFunctionParen ||
-        // [prettierx] parenSpace generatorStarSpacing option support (...)
+        // [prettierx] generatorStarSpacing option support (...)
         (options.generatorStarSpacing &&
           !n.id &&
           (n.typeParameters
