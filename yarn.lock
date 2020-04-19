@@ -7861,7 +7861,7 @@ yaml-unist-parser@1.1.1:
     tslib "^1.10.0"
     yaml "^1.7.1"
 
-yaml@^1.7.1:
+yaml@1.8.3, yaml@^1.7.1:
   version "1.8.3"
   resolved "https://registry.yarnpkg.com/yaml/-/yaml-1.8.3.tgz#2f420fca58b68ce3a332d0ca64be1d191dd3f87a"
   integrity sha512-X/v7VDnK+sxbQ2Imq4Jt2PRUsRsP7UcpSl3Llg6+NRRqWLIvxkMFYtH1FmvwNGYRKKPa+EPA4qDBlI9WVG1UKw==

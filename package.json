@@ -84,6 +84,7 @@
     "unicode-regex": "3.0.0",
     "unified": "8.4.2",
     "vnopts": "1.0.2",
+    "yaml": "1.8.3",
     "yaml-unist-parser": "1.1.1"
   },
   "devDependencies": {
