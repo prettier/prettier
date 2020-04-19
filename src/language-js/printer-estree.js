@@ -417,6 +417,7 @@ function printTernaryOperator(path, options, print, operatorOptions) {
       consequentNode.type === operatorOptions.conditionalNodeType
         ? ifBreak("", concat(["(", parenSpace]))
         : "",
+      // [prettierx] alignTernaryLines option support:
       options.alignTernaryLines
         ? align(2, path.call(print, operatorOptions.consequentNodePropertyName))
         : path.call(print, operatorOptions.consequentNodePropertyName),
@@ -426,6 +427,7 @@ function printTernaryOperator(path, options, print, operatorOptions) {
         : "",
       line,
       ": ",
+      // [prettierx] alignTernaryLines option support:
       !options.alignTernaryLines ||
       alternateNode.type === operatorOptions.conditionalNodeType
         ? path.call(print, operatorOptions.alternateNodePropertyName)
@@ -435,11 +437,12 @@ function printTernaryOperator(path, options, print, operatorOptions) {
       parent.type !== operatorOptions.conditionalNodeType ||
         parent[operatorOptions.alternateNodePropertyName] === node
         ? part
-        : options.useTabs || !options.alignTernaryLines
+        : options.useTabs || !options.alignTernaryLines // [prettierx] (...)
         ? dedent(indent(part))
         : align(Math.max(0, options.tabWidth - 2), part)
     );
 
+    // [prettierx] alignTernaryLines option support:
     // Indent the whole ternary if alignTernaryLines:false (like ESLint).
     if (!options.alignTernaryLines) {
       forceNoIndent = false;
@@ -449,6 +452,7 @@ function printTernaryOperator(path, options, print, operatorOptions) {
   // We want a whole chain of ConditionalExpressions to all
   // break if any of them break. That means we should only group around the
   // outer-most ConditionalExpression.
+  // [prettierx] with options for parenSpace support in ternaries
   const maybeGroup = (doc, options) =>
     operatorOptions.breakNested
       ? parent === firstNonConditionalParent
@@ -484,6 +488,7 @@ function printTernaryOperator(path, options, print, operatorOptions) {
            *       ? d
            *       : e
            */
+          // [prettierx] alignTernaryLines option support:
           options.alignTernaryLines &&
           parent.type === operatorOptions.conditionalNodeType &&
           parent[operatorOptions.alternateNodePropertyName] === node
@@ -493,6 +498,7 @@ function printTernaryOperator(path, options, print, operatorOptions) {
         operatorOptions.afterParts(breakClosingParen)
       )
     ),
+    // [prettierx] for parenSpace support in ternaries
     { addedLine: breakClosingParen }
   );
 }
