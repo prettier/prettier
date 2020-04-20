@@ -105,13 +105,7 @@ const jsSourceElements = new Set([
   "ExportAssignment", // TypeScript
   "ExportDeclaration", // TypeScript
 ]);
-const jsonSourceElements = new Set([
-  "ObjectExpression",
-  "ArrayExpression",
-  "NumericLiteral",
-  "BooleanLiteral",
-  "NullLiteral",
-]);
+const jsonSourceElements = new Set(["ObjectExpression", "ArrayExpression"]);
 const graphqlSourceElements = new Set([
   "OperationDefinition",
   "FragmentDefinition",
