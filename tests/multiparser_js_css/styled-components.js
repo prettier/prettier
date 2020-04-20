@@ -253,3 +253,10 @@ const Header = styled.div`
 margin-left:5px;
 }
 `
+
+const Header = styled.div`
+  ${something()}
+  & > ${Child}${Child2}:not(:first-child) {
+margin-left:5px;
+}
+`
