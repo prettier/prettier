@@ -1,6 +1,6 @@
 "use strict";
 
-let { resolve } = eval("require");
+let resolve = eval("require").resolve;
 
 // In the VS Code and Atom extension `require` is overridden and `require.resolve` doesn't support the 2nd argument.
 if (resolve.length === 1 || process.env.PRETTIER_FALLBACK_RESOLVE) {
