@@ -1,5 +1,6 @@
 "use strict";
 
+// eslint-disable-next-line prefer-destructuring
 let resolve = eval("require").resolve;
 
 // In the VS Code and Atom extension `require` is overridden and `require.resolve` doesn't support the 2nd argument.
