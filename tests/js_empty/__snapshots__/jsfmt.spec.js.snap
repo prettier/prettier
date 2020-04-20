@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`code: #0 format 1`] = `
+exports[`snippet: #0 format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -12,7 +12,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`code: #1 format 1`] = `
+exports[`snippet: #1 format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -25,7 +25,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`code: #2 format 1`] = `
+exports[`snippet: #2 format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -41,7 +41,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`code: #3 format 1`] = `
+exports[`snippet: #3 format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -53,7 +53,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`code: #4 format 1`] = `
+exports[`snippet: #4 format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -65,7 +65,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`code: #5 format 1`] = `
+exports[`snippet: #5 format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -78,7 +78,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`code: #6 format 1`] = `
+exports[`snippet: #6 format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
