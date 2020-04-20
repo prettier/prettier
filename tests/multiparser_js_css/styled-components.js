@@ -260,3 +260,9 @@ const Header = styled.div`
 margin-left:5px;
 }
 `
+
+styled.div`${foo}-0-idle { }`
+
+styled.div`
+font-family: "${a}", "${b}";
+`
