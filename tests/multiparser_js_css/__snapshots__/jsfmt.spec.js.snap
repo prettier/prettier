@@ -358,6 +358,12 @@ const Foo = styled.p\`
   }
 \`;
 
+const Header = styled.div\`
+  \${something()}
+  & > \${Child}:not(:first-child) {
+margin-left:5px;
+}
+\`
 =====================================output=====================================
 const ListItem1 = styled.li\`\`;
 
@@ -409,7 +415,7 @@ styled.div\`
 \`;
 
 styled.div\`
-   /* prettier-ignore */
+  /* prettier-ignore */
   color: \${(props) => props.theme.colors.paragraph};
   \${(props) => (props.small ? "font-size: 0.8em;" : "")};
 \`;
@@ -608,6 +614,13 @@ const Foo = styled.p\`
 
   &.bottom {
     margin-top: 3rem;
+  }
+\`;
+
+const Header = styled.div\`
+  \${something()}
+  & > \${Child}:not(:first-child) {
+    margin-left: 5px;
   }
 \`;
 

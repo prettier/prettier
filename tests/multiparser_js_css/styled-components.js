@@ -246,3 +246,10 @@ const Foo = styled.p`
     margin-top: 3rem;
   }
 `;
+
+const Header = styled.div`
+  ${something()}
+  & > ${Child}:not(:first-child) {
+margin-left:5px;
+}
+`
