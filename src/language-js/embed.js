@@ -267,6 +267,7 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
     if (!doc || !doc.parts || !doc.parts.length) {
       return doc;
     }
+
     let { parts } = doc;
     const atIndex = parts.indexOf("@");
     const placeholderIndex = atIndex + 1;
@@ -284,11 +285,13 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
         .concat([at + placeholder])
         .concat(rest);
     }
+
     let tokensCount = 0;
     parts.slice().forEach((part, idx) => {
       if (typeof part !== "string" || !part.includes("@prettier-placeholder")) {
         return;
       }
+
       // When we have multiple placeholders in one line, like:
       // ${Child}${Child2}:not(:first-child)
       const placeholders = part.split("@prettier-placeholder");
@@ -302,7 +305,7 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
 
         placeholder = "@prettier-placeholder" + placeholder;
         const placeholderMatch = placeholder.match(
-          /@prettier-placeholder-(.+)-id([\S\s]*)/
+          /@prettier-placeholder-(\d+)-id([\S\s]*)/
         );
         const placeholderID = placeholderMatch[1];
         // When the expression has a suffix appended, like:
