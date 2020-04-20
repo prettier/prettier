@@ -284,12 +284,11 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
         .concat([at + placeholder])
         .concat(rest);
     }
-    const atPlaceholderIndex = parts.findIndex(
-      (part) =>
-        typeof part === "string" && part.includes("@prettier-placeholder")
-    );
-    if (atPlaceholderIndex > -1) {
-      const part = parts[atPlaceholderIndex];
+    let tokensCount = 0;
+    parts.slice().forEach((part, idx) => {
+      if (typeof part !== "string" || !part.includes("@prettier-placeholder")) {
+        return;
+      }
       // When we have multiple placeholders in one line, like:
       // ${Child}${Child2}:not(:first-child)
       const placeholders = part.split("@prettier-placeholder");
@@ -314,9 +313,9 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
         replaceCounter++;
       });
 
-      const rest = parts.slice(atPlaceholderIndex + 1);
-      parts = parts.slice(0, atPlaceholderIndex).concat(tokens).concat(rest);
-    }
+      parts.splice(idx + tokensCount, 1, ...tokens);
+      tokensCount += tokens.length - 1;
+    });
     return { ...doc, parts };
   });
   return expressions.length === replaceCounter ? newDoc : null;
