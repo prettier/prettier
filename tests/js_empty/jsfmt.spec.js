@@ -1,7 +1,7 @@
 run_spec(
   {
     dirname: __dirname,
-    codes: [
+    snippets: [
       // empty
       "",
       // empty lines

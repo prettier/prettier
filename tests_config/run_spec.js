@@ -70,7 +70,7 @@ global.run_spec = (fixtures, parsers, options) => {
     throw new Error(`No parsers were specified for ${dirname}`);
   }
 
-  const codes = (fixtures.codes || []).map((test, index) => {
+  const snippets = (fixtures.snippets || []).map((test, index) => {
     test = typeof test === "string" ? { code: test } : test;
     return {
       name: `code: ${test.name || `#${index}`}`,
@@ -105,7 +105,7 @@ global.run_spec = (fixtures, parsers, options) => {
 
   const stringifiedOptions = stringifyOptions(options);
 
-  for (const { name, filename, code } of [...files, ...codes]) {
+  for (const { name, filename, code } of [...files, ...snippets]) {
     describe(`${name}${
       stringifiedOptions ? ` - ${stringifiedOptions}` : ""
     }`, () => {
