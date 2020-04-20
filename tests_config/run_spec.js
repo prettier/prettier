@@ -73,7 +73,7 @@ global.run_spec = (fixtures, parsers, options) => {
   const snippets = (fixtures.snippets || []).map((test, index) => {
     test = typeof test === "string" ? { code: test } : test;
     return {
-      name: `code: ${test.name || `#${index}`}`,
+      name: `snippet: ${test.name || `#${index}`}`,
       filename: test.filename,
       code: test.code,
     };
