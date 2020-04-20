@@ -1,92 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`import-export.mdx format 1`] = `
-====================================options=====================================
-parsers: ["mdx"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-import D from 'd'
-import {A,B,C}    from "hello-world"
-import {AAAAAAAAAAAAAAAAAAAAAAAA, BBBBBBBBBBBBBBBBBBBBBB, CCCCCCCCCCCCCCCCCCCCCCC}   from  'xyz';
-
----
-
-import D from 'd'
-
-
-import {A,B,C}    from "hello-world"
-
-
-import {AAAAAAAAAAAAAAAAAAAAAAAA, BBBBBBBBBBBBBBBBBBBBBB, CCCCCCCCCCCCCCCCCCCCCCC}   from  'xyz';
-
----
-
-export const meta = {
-authors: [fred, sue],
-layout: Layout
-}
-
-export default () =>
-  <Doc     components={{
-        h1: ui.Heading,
-         p:    ui.Text,
-      code:     ui.Code
-         }}
-      />
-
----
-
-export const a = 1;
-export const b = 1;
-
-=====================================output=====================================
-import D from "d";
-import { A, B, C } from "hello-world";
-import {
-  AAAAAAAAAAAAAAAAAAAAAAAA,
-  BBBBBBBBBBBBBBBBBBBBBB,
-  CCCCCCCCCCCCCCCCCCCCCCC,
-} from "xyz";
-
----
-
-import D from "d";
-
-import { A, B, C } from "hello-world";
-
-import {
-  AAAAAAAAAAAAAAAAAAAAAAAA,
-  BBBBBBBBBBBBBBBBBBBBBB,
-  CCCCCCCCCCCCCCCCCCCCCCC,
-} from "xyz";
-
----
-
-export const meta = {
-  authors: [fred, sue],
-  layout: Layout,
-};
-
-export default () => (
-  <Doc
-    components={{
-      h1: ui.Heading,
-      p: ui.Text,
-      code: ui.Code,
-    }}
-  />
-);
-
----
-
-export const a = 1;
-export const b = 1;
-
-================================================================================
-`;
-
-exports[`import-export.mdx format 2`] = `
+exports[`import-export.mdx - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
 printWidth: 80
@@ -173,6 +87,121 @@ export const b = 1
 ================================================================================
 `;
 
+exports[`import-export.mdx format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import D from 'd'
+import {A,B,C}    from "hello-world"
+import {AAAAAAAAAAAAAAAAAAAAAAAA, BBBBBBBBBBBBBBBBBBBBBB, CCCCCCCCCCCCCCCCCCCCCCC}   from  'xyz';
+
+---
+
+import D from 'd'
+
+
+import {A,B,C}    from "hello-world"
+
+
+import {AAAAAAAAAAAAAAAAAAAAAAAA, BBBBBBBBBBBBBBBBBBBBBB, CCCCCCCCCCCCCCCCCCCCCCC}   from  'xyz';
+
+---
+
+export const meta = {
+authors: [fred, sue],
+layout: Layout
+}
+
+export default () =>
+  <Doc     components={{
+        h1: ui.Heading,
+         p:    ui.Text,
+      code:     ui.Code
+         }}
+      />
+
+---
+
+export const a = 1;
+export const b = 1;
+
+=====================================output=====================================
+import D from "d";
+import { A, B, C } from "hello-world";
+import {
+  AAAAAAAAAAAAAAAAAAAAAAAA,
+  BBBBBBBBBBBBBBBBBBBBBB,
+  CCCCCCCCCCCCCCCCCCCCCCC,
+} from "xyz";
+
+---
+
+import D from "d";
+
+import { A, B, C } from "hello-world";
+
+import {
+  AAAAAAAAAAAAAAAAAAAAAAAA,
+  BBBBBBBBBBBBBBBBBBBBBB,
+  CCCCCCCCCCCCCCCCCCCCCCC,
+} from "xyz";
+
+---
+
+export const meta = {
+  authors: [fred, sue],
+  layout: Layout,
+};
+
+export default () => (
+  <Doc
+    components={{
+      h1: ui.Heading,
+      p: ui.Text,
+      code: ui.Code,
+    }}
+  />
+);
+
+---
+
+export const a = 1;
+export const b = 1;
+
+================================================================================
+`;
+
+exports[`inline-html.mdx - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["mdx"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+This is an example of a component _being used in some italic markdown with some <Bolded />, 
+and as you can see_ once you close the italics, it will break incorrectly when prettier formats it.
+
+| Column 1 | Column 2 |
+| -- | -- |
+| **\`Row 1 Code\`** | Some text. |
+| **<code>Row 2 Code</code>** | Some text. |
+| **<InlineCode>Row 2 Code</InlineCode>** | Some text. |
+
+=====================================output=====================================
+This is an example of a component _being used in some italic markdown with some <Bolded />,
+and as you can see_ once you close the italics, it will break incorrectly when prettier formats it.
+
+| Column 1                                | Column 2   |
+| --------------------------------------- | ---------- |
+| **\`Row 1 Code\`**                        | Some text. |
+| **<code>Row 2 Code</code>**             | Some text. |
+| **<InlineCode>Row 2 Code</InlineCode>** | Some text. |
+
+================================================================================
+`;
+
 exports[`inline-html.mdx format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
@@ -201,31 +230,91 @@ and as you can see_ once you close the italics, it will break incorrectly when p
 ================================================================================
 `;
 
-exports[`inline-html.mdx format 2`] = `
+exports[`jsx.mdx - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
 =====================================input======================================
-This is an example of a component _being used in some italic markdown with some <Bolded />, 
-and as you can see_ once you close the italics, it will break incorrectly when prettier formats it.
+<Heading hi='there'>Hello, world!
+</Heading>
+
+---
+
+<Hello>
+    test   <World />   test
+</Hello>123
+
+---
+
+<Hello>
+    test   <World />   test
+</Hello>
+<Hello>
+    test   <World />   test
+</Hello>123
+
+---
+
+<Hello>
+    test   <World />   test
+</Hello>       123
+<Hello>
+    test   <World />   test
+</Hello>       234
+
+---
+
+<>
+    test   <World        />   test
+</>       123
+
+---
 
 | Column 1 | Column 2 |
-| -- | -- |
-| **\`Row 1 Code\`** | Some text. |
-| **<code>Row 2 Code</code>** | Some text. |
-| **<InlineCode>Row 2 Code</InlineCode>** | Some text. |
+|---|---|
+| Text | <Hello>Text</Hello> |
 
 =====================================output=====================================
-This is an example of a component _being used in some italic markdown with some <Bolded />,
-and as you can see_ once you close the italics, it will break incorrectly when prettier formats it.
+<Heading hi="there">Hello, world!</Heading>
 
-| Column 1                                | Column 2   |
-| --------------------------------------- | ---------- |
-| **\`Row 1 Code\`**                        | Some text. |
-| **<code>Row 2 Code</code>**             | Some text. |
-| **<InlineCode>Row 2 Code</InlineCode>** | Some text. |
+---
+
+<Hello>
+  test <World /> test
+</Hello>
+123
+
+---
+
+<Hello>
+  test <World /> test
+</Hello>
+<Hello>
+  test <World /> test
+</Hello>123
+
+---
+
+<Hello>
+  test <World /> test
+</Hello> 123
+<Hello>
+  test <World /> test
+</Hello> 234
+
+---
+
+<>
+  test <World /> test
+</> 123
+
+---
+
+| Column 1 | Column 2            |
+| -------- | ------------------- |
+| Text     | <Hello>Text</Hello> |
 
 ================================================================================
 `;
@@ -318,91 +407,31 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`jsx.mdx format 2`] = `
+exports[`jsx-codeblock.mdx - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
 =====================================input======================================
-<Heading hi='there'>Hello, world!
-</Heading>
+\`\`\`jsx
+<div>foo</div>
+\`\`\`
 
----
-
-<Hello>
-    test   <World />   test
-</Hello>123
-
----
-
-<Hello>
-    test   <World />   test
-</Hello>
-<Hello>
-    test   <World />   test
-</Hello>123
-
----
-
-<Hello>
-    test   <World />   test
-</Hello>       123
-<Hello>
-    test   <World />   test
-</Hello>       234
-
----
-
-<>
-    test   <World        />   test
-</>       123
-
----
-
-| Column 1 | Column 2 |
-|---|---|
-| Text | <Hello>Text</Hello> |
+\`\`\`jsx
+const a = 1;
+<div>foo</div>;
+\`\`\`
 
 =====================================output=====================================
-<Heading hi="there">Hello, world!</Heading>
+\`\`\`jsx
+<div>foo</div>
+\`\`\`
 
----
-
-<Hello>
-  test <World /> test
-</Hello>
-123
-
----
-
-<Hello>
-  test <World /> test
-</Hello>
-<Hello>
-  test <World /> test
-</Hello>123
-
----
-
-<Hello>
-  test <World /> test
-</Hello> 123
-<Hello>
-  test <World /> test
-</Hello> 234
-
----
-
-<>
-  test <World /> test
-</> 123
-
----
-
-| Column 1 | Column 2            |
-| -------- | ------------------- |
-| Text     | <Hello>Text</Hello> |
+\`\`\`jsx
+const a = 1
+;<div>foo</div>
+\`\`\`
 
 ================================================================================
 `;
@@ -435,31 +464,58 @@ const a = 1;
 ================================================================================
 `;
 
-exports[`jsx-codeblock.mdx format 2`] = `
+exports[`levels.mdx - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
 =====================================input======================================
-\`\`\`jsx
-<div>foo</div>
-\`\`\`
+import     {     Foo,  Bar } from     './Fixture'
 
-\`\`\`jsx
-const a = 1;
-<div>foo</div>;
-\`\`\`
+# Hello,    world!
+
+<Foo bg='red'>
+   <div style={{   display:   'block'}   }>
+      <Bar    >hi    </Bar>
+       {  hello       }
+       {     /* another comment */}
+       </div>
+</Foo>
+
+asdfsdf <strong style={{fontWeight: 'bolder'}}>asdfasdf</strong>
+
+<Foo/>
+test
+
+<ul>
+      <li   >item    {' '} </li>
+      <li/>
+        </ul >
+
 
 =====================================output=====================================
-\`\`\`jsx
-<div>foo</div>
-\`\`\`
+import { Foo, Bar } from "./Fixture"
 
-\`\`\`jsx
-const a = 1
-;<div>foo</div>
-\`\`\`
+# Hello, world!
+
+<Foo bg="red">
+  <div style={{ display: "block" }}>
+    <Bar>hi </Bar>
+    {hello}
+    {/* another comment */}
+  </div>
+</Foo>
+
+asdfsdf <strong style={{fontWeight: 'bolder'}}>asdfasdf</strong>
+
+<Foo />
+test
+
+<ul>
+  <li>item </li>
+  <li />
+</ul>
 
 ================================================================================
 `;
@@ -519,58 +575,93 @@ test
 ================================================================================
 `;
 
-exports[`levels.mdx format 2`] = `
+exports[`mixed.mdx - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["mdx"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
 =====================================input======================================
-import     {     Foo,  Bar } from     './Fixture'
+import     {     Baz } from     './Fixture'
+import { Buz  }   from './Fixture'
+
+export  const   foo    = {
+  hi:     \`Fudge \${Baz.displayName || 'Baz'}\`,
+  authors: [
+     'fred',
+           'sally'
+    ]
+}
 
 # Hello,    world!
 
+
+ I'm an awesome   paragraph.
+
+<!-- I'm a comment -->
+
 <Foo bg='red'>
-   <div style={{   display:   'block'}   }>
       <Bar    >hi    </Bar>
        {  hello       }
        {     /* another comment */}
-       </div>
 </Foo>
 
-asdfsdf <strong style={{fontWeight: 'bolder'}}>asdfasdf</strong>
+\`\`\`
+test codeblock
+\`\`\`
 
-<Foo/>
-test
+\`\`\`js
+module.exports = 'test'
+\`\`\`
 
-<ul>
-      <li   >item    {' '} </li>
-      <li/>
-        </ul >
+\`\`\`sh
+npm i -g foo
+\`\`\`
 
+| Test  | Table   |
+|    :---     | :----  |
+|   Col1  | Col2    |
+
+export   default     ({children   }) => < div>{    children}</div>
 
 =====================================output=====================================
-import { Foo, Bar } from "./Fixture"
+import { Baz } from "./Fixture"
+import { Buz } from "./Fixture"
+
+export const foo = {
+  hi: \`Fudge \${Baz.displayName || "Baz"}\`,
+  authors: ["fred", "sally"],
+}
 
 # Hello, world!
 
+I'm an awesome paragraph.
+
+<!-- I'm a comment -->
+
 <Foo bg="red">
-  <div style={{ display: "block" }}>
-    <Bar>hi </Bar>
-    {hello}
-    {/* another comment */}
-  </div>
+  <Bar>hi </Bar>
+  {hello}
+  {/* another comment */}
 </Foo>
 
-asdfsdf <strong style={{fontWeight: 'bolder'}}>asdfasdf</strong>
+\`\`\`
+test codeblock
+\`\`\`
 
-<Foo />
-test
+\`\`\`js
+module.exports = "test"
+\`\`\`
 
-<ul>
-  <li>item </li>
-  <li />
-</ul>
+\`\`\`sh
+npm i -g foo
+\`\`\`
+
+| Test | Table |
+| :--- | :---- |
+| Col1 | Col2  |
+
+export default ({ children }) => <div>{children}</div>
 
 ================================================================================
 `;
@@ -661,97 +752,6 @@ npm i -g foo
 | Col1 | Col2  |
 
 export default ({ children }) => <div>{children}</div>;
-
-================================================================================
-`;
-
-exports[`mixed.mdx format 2`] = `
-====================================options=====================================
-parsers: ["mdx"]
-printWidth: 80
-semi: false
-                                                                                | printWidth
-=====================================input======================================
-import     {     Baz } from     './Fixture'
-import { Buz  }   from './Fixture'
-
-export  const   foo    = {
-  hi:     \`Fudge \${Baz.displayName || 'Baz'}\`,
-  authors: [
-     'fred',
-           'sally'
-    ]
-}
-
-# Hello,    world!
-
-
- I'm an awesome   paragraph.
-
-<!-- I'm a comment -->
-
-<Foo bg='red'>
-      <Bar    >hi    </Bar>
-       {  hello       }
-       {     /* another comment */}
-</Foo>
-
-\`\`\`
-test codeblock
-\`\`\`
-
-\`\`\`js
-module.exports = 'test'
-\`\`\`
-
-\`\`\`sh
-npm i -g foo
-\`\`\`
-
-| Test  | Table   |
-|    :---     | :----  |
-|   Col1  | Col2    |
-
-export   default     ({children   }) => < div>{    children}</div>
-
-=====================================output=====================================
-import { Baz } from "./Fixture"
-import { Buz } from "./Fixture"
-
-export const foo = {
-  hi: \`Fudge \${Baz.displayName || "Baz"}\`,
-  authors: ["fred", "sally"],
-}
-
-# Hello, world!
-
-I'm an awesome paragraph.
-
-<!-- I'm a comment -->
-
-<Foo bg="red">
-  <Bar>hi </Bar>
-  {hello}
-  {/* another comment */}
-</Foo>
-
-\`\`\`
-test codeblock
-\`\`\`
-
-\`\`\`js
-module.exports = "test"
-\`\`\`
-
-\`\`\`sh
-npm i -g foo
-\`\`\`
-
-| Test | Table |
-| :--- | :---- |
-| Col1 | Col2  |
-
-export default ({ children }) => <div>{children}</div>
 
 ================================================================================
 `;

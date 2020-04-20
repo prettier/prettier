@@ -1,5 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`abstract.ts - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+abstract interface I {
+
+}
+
+=====================================output=====================================
+abstract interface I {}
+
+================================================================================
+`;
+
 exports[`abstract.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
@@ -16,19 +33,23 @@ abstract interface I {}
 ================================================================================
 `;
 
-exports[`abstract.ts format 2`] = `
+exports[`comments.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
 =====================================input======================================
-abstract interface I {
-
+interface ScreenObject {
+	// I make things weird.
+	at(point: Point): Screen | undefined;
 }
 
 =====================================output=====================================
-abstract interface I {}
+interface ScreenObject {
+  // I make things weird.
+  at(point: Point): Screen | undefined
+}
 
 ================================================================================
 `;
@@ -53,22 +74,70 @@ interface ScreenObject {
 ================================================================================
 `;
 
-exports[`comments.js format 2`] = `
+exports[`ignore.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
 =====================================input======================================
-interface ScreenObject {
-	// I make things weird.
-	at(point: Point): Screen | undefined;
+interface Interface {
+  // prettier-ignore
+  prop: type
+  // prettier-ignore
+  prop: type;
+  prop: type;
+}
+
+// Last element
+interface Interface {
+  // prettier-ignore
+  prop: type
+  prop: type
+}
+
+interface foo extends bar {
+  // prettier-ignore
+  f(): void;
+  // prettier-ignore
+  g(): void;
+  h(): void;
+}
+
+interface T<T> {
+  // prettier-ignore
+  new<T>(): T<T>;
+  new<T>(): T<T>;
 }
 
 =====================================output=====================================
-interface ScreenObject {
-  // I make things weird.
-  at(point: Point): Screen | undefined
+interface Interface {
+  // prettier-ignore
+  prop: type
+  // prettier-ignore
+  prop: type;
+  prop: type
+}
+
+// Last element
+interface Interface {
+  // prettier-ignore
+  prop: type
+  prop: type
+}
+
+interface foo extends bar {
+  // prettier-ignore
+  f(): void;
+  // prettier-ignore
+  g(): void;
+  h(): void
+}
+
+interface T<T> {
+  // prettier-ignore
+  new<T>(): T<T>;
+  new <T>(): T<T>
 }
 
 ================================================================================
@@ -142,70 +211,60 @@ interface T<T> {
 ================================================================================
 `;
 
-exports[`ignore.js format 2`] = `
+exports[`long-extends.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
 =====================================input======================================
-interface Interface {
-  // prettier-ignore
-  prop: type
-  // prettier-ignore
-  prop: type;
-  prop: type;
+export interface I extends A, B, C {
+  c: string;
 }
 
-// Last element
-interface Interface {
-  // prettier-ignore
-  prop: type
-  prop: type
+export interface ThirdVeryLongAndBoringInterfaceName extends ALongAndBoringInterfaceName {
+  c: string;
 }
 
-interface foo extends bar {
-  // prettier-ignore
-  f(): void;
-  // prettier-ignore
-  g(): void;
-  h(): void;
+export interface ThirdVeryLongAndBoringInterfaceName extends ALongAndBoringInterfaceName, AnotherLongAndBoringInterfaceName {
+  c: string;
 }
 
-interface T<T> {
-  // prettier-ignore
-  new<T>(): T<T>;
-  new<T>(): T<T>;
+export interface ThirdVeryLongAndBoringInterfaceName extends AVeryLongAndBoringInterfaceName, AnotherVeryLongAndBoringInterfaceName {
+  c: string;
+}
+
+export interface ThirdVeryLongAndBoringInterfaceName extends A_AVeryLongAndBoringInterfaceName, B_AVeryLongAndBoringInterfaceName, C_AVeryLongAndBoringInterfaceName  {
+  c: string;
 }
 
 =====================================output=====================================
-interface Interface {
-  // prettier-ignore
-  prop: type
-  // prettier-ignore
-  prop: type;
-  prop: type
+export interface I extends A, B, C {
+  c: string
 }
 
-// Last element
-interface Interface {
-  // prettier-ignore
-  prop: type
-  prop: type
+export interface ThirdVeryLongAndBoringInterfaceName
+  extends ALongAndBoringInterfaceName {
+  c: string
 }
 
-interface foo extends bar {
-  // prettier-ignore
-  f(): void;
-  // prettier-ignore
-  g(): void;
-  h(): void
+export interface ThirdVeryLongAndBoringInterfaceName
+  extends ALongAndBoringInterfaceName,
+    AnotherLongAndBoringInterfaceName {
+  c: string
 }
 
-interface T<T> {
-  // prettier-ignore
-  new<T>(): T<T>;
-  new <T>(): T<T>
+export interface ThirdVeryLongAndBoringInterfaceName
+  extends AVeryLongAndBoringInterfaceName,
+    AnotherVeryLongAndBoringInterfaceName {
+  c: string
+}
+
+export interface ThirdVeryLongAndBoringInterfaceName
+  extends A_AVeryLongAndBoringInterfaceName,
+    B_AVeryLongAndBoringInterfaceName,
+    C_AVeryLongAndBoringInterfaceName {
+  c: string
 }
 
 ================================================================================
@@ -269,60 +328,47 @@ export interface ThirdVeryLongAndBoringInterfaceName
 ================================================================================
 `;
 
-exports[`long-extends.ts format 2`] = `
+exports[`separator.ts - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
 =====================================input======================================
-export interface I extends A, B, C {
-  c: string;
+declare module 'selenium-webdriver' {
+  export const until: {
+    ableToSwitchToFrame(frame: number | WebElement | By): Condition<boolean>;
+    alertIsPresent(): Condition<Alert>;
+  };
 }
 
-export interface ThirdVeryLongAndBoringInterfaceName extends ALongAndBoringInterfaceName {
-  c: string;
+export interface Edge {
+  cursor: {};
+  node: {
+    id: {};
+  };
 }
 
-export interface ThirdVeryLongAndBoringInterfaceName extends ALongAndBoringInterfaceName, AnotherLongAndBoringInterfaceName {
-  c: string;
-}
-
-export interface ThirdVeryLongAndBoringInterfaceName extends AVeryLongAndBoringInterfaceName, AnotherVeryLongAndBoringInterfaceName {
-  c: string;
-}
-
-export interface ThirdVeryLongAndBoringInterfaceName extends A_AVeryLongAndBoringInterfaceName, B_AVeryLongAndBoringInterfaceName, C_AVeryLongAndBoringInterfaceName  {
-  c: string;
-}
+interface Test { one: string, two: any[] }
 
 =====================================output=====================================
-export interface I extends A, B, C {
-  c: string
+declare module "selenium-webdriver" {
+  export const until: {
+    ableToSwitchToFrame(frame: number | WebElement | By): Condition<boolean>
+    alertIsPresent(): Condition<Alert>
+  }
 }
 
-export interface ThirdVeryLongAndBoringInterfaceName
-  extends ALongAndBoringInterfaceName {
-  c: string
+export interface Edge {
+  cursor: {}
+  node: {
+    id: {}
+  }
 }
 
-export interface ThirdVeryLongAndBoringInterfaceName
-  extends ALongAndBoringInterfaceName,
-    AnotherLongAndBoringInterfaceName {
-  c: string
-}
-
-export interface ThirdVeryLongAndBoringInterfaceName
-  extends AVeryLongAndBoringInterfaceName,
-    AnotherVeryLongAndBoringInterfaceName {
-  c: string
-}
-
-export interface ThirdVeryLongAndBoringInterfaceName
-  extends A_AVeryLongAndBoringInterfaceName,
-    B_AVeryLongAndBoringInterfaceName,
-    C_AVeryLongAndBoringInterfaceName {
-  c: string
+interface Test {
+  one: string
+  two: any[]
 }
 
 ================================================================================
@@ -368,52 +414,6 @@ export interface Edge {
 interface Test {
   one: string;
   two: any[];
-}
-
-================================================================================
-`;
-
-exports[`separator.ts format 2`] = `
-====================================options=====================================
-parsers: ["typescript"]
-printWidth: 80
-semi: false
-                                                                                | printWidth
-=====================================input======================================
-declare module 'selenium-webdriver' {
-  export const until: {
-    ableToSwitchToFrame(frame: number | WebElement | By): Condition<boolean>;
-    alertIsPresent(): Condition<Alert>;
-  };
-}
-
-export interface Edge {
-  cursor: {};
-  node: {
-    id: {};
-  };
-}
-
-interface Test { one: string, two: any[] }
-
-=====================================output=====================================
-declare module "selenium-webdriver" {
-  export const until: {
-    ableToSwitchToFrame(frame: number | WebElement | By): Condition<boolean>
-    alertIsPresent(): Condition<Alert>
-  }
-}
-
-export interface Edge {
-  cursor: {}
-  node: {
-    id: {}
-  }
-}
-
-interface Test {
-  one: string
-  two: any[]
 }
 
 ================================================================================

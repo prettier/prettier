@@ -1,5 +1,26 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`await.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+const doBothThings = async () => {
+    const request = doAsyncThing();
+    return (await request)::doSyncThing();
+};
+
+=====================================output=====================================
+const doBothThings = async () => {
+  const request = doAsyncThing()
+  return (await request)::doSyncThing()
+}
+
+================================================================================
+`;
+
 exports[`await.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
@@ -20,23 +41,83 @@ const doBothThings = async () => {
 ================================================================================
 `;
 
-exports[`await.js format 2`] = `
+exports[`bind_parens.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
 =====================================input======================================
-const doBothThings = async () => {
-    const request = doAsyncThing();
-    return (await request)::doSyncThing();
-};
+(a || b)::c;
+a || (b::c);
+::obj.prop;
+(void 0)::func();
+(+0)::is(-0);
+a::(b.c);
+a::(b.c());
+a::b.c();
+a::(b.c()());
+a::((b.c())());
+a::(b.c())();
+a::(b.c().d);
+a::(c().d.e);
+a::(b());
+a::(b::c());
+a::(b()::c);
+a::(b().c::d);
+a::(b.c::d);
+a::(b::c.d);
+a::(b.c::d::e);
+a::(b::c::d);
+a::(b::c::d.e);
+a::((b::c::d).e);
+a::(void 0);
+a::(b.c()::d.e);
+a::(b.c::d.e);
+a::(b.c::d.e)::f.g;
+b.c::d.e;
+(b.c::d).e;
+(b::c::d).e;
+new (a::b)();
+new f(a::b);
+f[a::b];
+f[a::b()];
 
 =====================================output=====================================
-const doBothThings = async () => {
-  const request = doAsyncThing()
-  return (await request)::doSyncThing()
-}
+;(a || b)::c
+a || b::c
+;::obj.prop
+;(void 0)::func()
+;(+0)::is(-0)
+a::b.c
+a::(b.c())
+a::b.c()
+a::(b.c()())
+a::(b.c()())
+a::(b.c())()
+a::(b.c().d)
+a::(c().d.e)
+a::(b())
+a::(b::c())
+a::(b()::c)
+a::(b().c::d)
+a::(b.c::d)
+a::(b::c.d)
+a::(b.c::d::e)
+a::(b::c::d)
+a::(b::c::d.e)
+a::(b::c::d).e
+a::(void 0)
+a::(b.c()::d.e)
+a::(b.c::d.e)
+a::(b.c::d.e)::f.g
+b.c::d.e
+;(b.c::d).e
+;(b::c::d).e
+new (a::b)()
+new f(a::b)
+f[a::b]
+f[a::b()]
 
 ================================================================================
 `;
@@ -121,83 +202,33 @@ f[a::b()];
 ================================================================================
 `;
 
-exports[`bind_parens.js format 2`] = `
+exports[`long_name_method.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
 =====================================input======================================
-(a || b)::c;
-a || (b::c);
-::obj.prop;
-(void 0)::func();
-(+0)::is(-0);
-a::(b.c);
-a::(b.c());
-a::b.c();
-a::(b.c()());
-a::((b.c())());
-a::(b.c())();
-a::(b.c().d);
-a::(c().d.e);
-a::(b());
-a::(b::c());
-a::(b()::c);
-a::(b().c::d);
-a::(b.c::d);
-a::(b::c.d);
-a::(b.c::d::e);
-a::(b::c::d);
-a::(b::c::d.e);
-a::((b::c::d).e);
-a::(void 0);
-a::(b.c()::d.e);
-a::(b.c::d.e);
-a::(b.c::d.e)::f.g;
-b.c::d.e;
-(b.c::d).e;
-(b::c::d).e;
-new (a::b)();
-new f(a::b);
-f[a::b];
-f[a::b()];
-
+class X {
+  constructor() {
+    this.testLongNameMethodAndSomethingElseLallala = ::this.testLongNameMethodAndSomethingElseLallala;
+  }
+  
+  testLongNameMethodAndSomethingElseLallala() {
+    return true;
+  }
+}
 =====================================output=====================================
-;(a || b)::c
-a || b::c
-;::obj.prop
-;(void 0)::func()
-;(+0)::is(-0)
-a::b.c
-a::(b.c())
-a::b.c()
-a::(b.c()())
-a::(b.c()())
-a::(b.c())()
-a::(b.c().d)
-a::(c().d.e)
-a::(b())
-a::(b::c())
-a::(b()::c)
-a::(b().c::d)
-a::(b.c::d)
-a::(b::c.d)
-a::(b.c::d::e)
-a::(b::c::d)
-a::(b::c::d.e)
-a::(b::c::d).e
-a::(void 0)
-a::(b.c()::d.e)
-a::(b.c::d.e)
-a::(b.c::d.e)::f.g
-b.c::d.e
-;(b.c::d).e
-;(b::c::d).e
-new (a::b)()
-new f(a::b)
-f[a::b]
-f[a::b()]
+class X {
+  constructor() {
+    this.testLongNameMethodAndSomethingElseLallala =
+      ::this.testLongNameMethodAndSomethingElseLallala
+  }
+
+  testLongNameMethodAndSomethingElseLallala() {
+    return true
+  }
+}
 
 ================================================================================
 `;
@@ -232,32 +263,48 @@ class X {
 ================================================================================
 `;
 
-exports[`long_name_method.js format 2`] = `
+exports[`method_chain.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
 =====================================input======================================
-class X {
-  constructor() {
-    this.testLongNameMethodAndSomethingElseLallala = ::this.testLongNameMethodAndSomethingElseLallala;
-  }
-  
-  testLongNameMethodAndSomethingElseLallala() {
-    return true;
-  }
-}
-=====================================output=====================================
-class X {
-  constructor() {
-    this.testLongNameMethodAndSomethingElseLallala =
-      ::this.testLongNameMethodAndSomethingElseLallala
-  }
+import {interval} from 'rxjs/observable/interval';
+import {filter} from 'rxjs/operator/filter';
+import {take} from 'rxjs/operator/take';
+import {map} from 'rxjs/operator/map';
+import {throttle} from 'rxjs/operator/throttle';
+import {takeUntil} from 'rxjs/operator/takeUntil';
 
-  testLongNameMethodAndSomethingElseLallala() {
-    return true
-  }
+function test(observable) {
+    return observable
+        ::filter(data => data.someTest)
+        ::throttle(() =>
+            interval(10)
+                ::take(1)
+                ::takeUntil(observable::filter(data => someOtherTest))
+        )
+        ::map(someFunction);
+}
+
+=====================================output=====================================
+import { interval } from "rxjs/observable/interval"
+import { filter } from "rxjs/operator/filter"
+import { take } from "rxjs/operator/take"
+import { map } from "rxjs/operator/map"
+import { throttle } from "rxjs/operator/throttle"
+import { takeUntil } from "rxjs/operator/takeUntil"
+
+function test(observable) {
+  return observable
+    ::filter((data) => data.someTest)
+    ::throttle(() =>
+      interval(10)
+        ::take(1)
+        ::takeUntil(observable::filter((data) => someOtherTest))
+    )
+    ::map(someFunction)
 }
 
 ================================================================================
@@ -309,48 +356,31 @@ function test(observable) {
 ================================================================================
 `;
 
-exports[`method_chain.js format 2`] = `
+exports[`short_name_method.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
 =====================================input======================================
-import {interval} from 'rxjs/observable/interval';
-import {filter} from 'rxjs/operator/filter';
-import {take} from 'rxjs/operator/take';
-import {map} from 'rxjs/operator/map';
-import {throttle} from 'rxjs/operator/throttle';
-import {takeUntil} from 'rxjs/operator/takeUntil';
-
-function test(observable) {
-    return observable
-        ::filter(data => data.someTest)
-        ::throttle(() =>
-            interval(10)
-                ::take(1)
-                ::takeUntil(observable::filter(data => someOtherTest))
-        )
-        ::map(someFunction);
+class X {
+  constructor() {
+    this.shortMethod = ::this.shortMethod;
+  }
+  
+  shortMethod() {
+    return true;
+  }
 }
-
 =====================================output=====================================
-import { interval } from "rxjs/observable/interval"
-import { filter } from "rxjs/operator/filter"
-import { take } from "rxjs/operator/take"
-import { map } from "rxjs/operator/map"
-import { throttle } from "rxjs/operator/throttle"
-import { takeUntil } from "rxjs/operator/takeUntil"
+class X {
+  constructor() {
+    this.shortMethod = ::this.shortMethod
+  }
 
-function test(observable) {
-  return observable
-    ::filter((data) => data.someTest)
-    ::throttle(() =>
-      interval(10)
-        ::take(1)
-        ::takeUntil(observable::filter((data) => someOtherTest))
-    )
-    ::map(someFunction)
+  shortMethod() {
+    return true
+  }
 }
 
 ================================================================================
@@ -385,32 +415,43 @@ class X {
 ================================================================================
 `;
 
-exports[`short_name_method.js format 2`] = `
+exports[`unary.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
 =====================================input======================================
-class X {
-  constructor() {
-    this.shortMethod = ::this.shortMethod;
-  }
-  
-  shortMethod() {
-    return true;
-  }
-}
-=====================================output=====================================
-class X {
-  constructor() {
-    this.shortMethod = ::this.shortMethod
-  }
+!x::y;
+!(x::y /* foo */);
+!(/* foo */ x::y);
+!(
+  /* foo */
+  x::y
+);
+!(
+  x::y
+  /* foo */
+);
+!(
+  x::y // foo
+);
 
-  shortMethod() {
-    return true
-  }
-}
+=====================================output=====================================
+!x::y
+!(x::y /* foo */)
+!(/* foo */ x::y)
+!(
+  /* foo */
+  x::y
+)
+!(
+  x::y
+  /* foo */
+)
+!(
+  x::y // foo
+)
 
 ================================================================================
 `;
@@ -451,47 +492,6 @@ printWidth: 80
 !(
   x::y // foo
 );
-
-================================================================================
-`;
-
-exports[`unary.js format 2`] = `
-====================================options=====================================
-parsers: ["babel"]
-printWidth: 80
-semi: false
-                                                                                | printWidth
-=====================================input======================================
-!x::y;
-!(x::y /* foo */);
-!(/* foo */ x::y);
-!(
-  /* foo */
-  x::y
-);
-!(
-  x::y
-  /* foo */
-);
-!(
-  x::y // foo
-);
-
-=====================================output=====================================
-!x::y
-!(x::y /* foo */)
-!(/* foo */ x::y)
-!(
-  /* foo */
-  x::y
-)
-!(
-  x::y
-  /* foo */
-)
-!(
-  x::y // foo
-)
 
 ================================================================================
 `;

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`indented.md format 1`] = `
+exports[`indented.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -27,7 +27,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`simple.md format 1`] = `
+exports[`simple.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -44,7 +44,7 @@ This is a long long long long long long long long long long long long long long 
 ================================================================================
 `;
 
-exports[`top-level-range.md format 1`] = `
+exports[`top-level-range.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80

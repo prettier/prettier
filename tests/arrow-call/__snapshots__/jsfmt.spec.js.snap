@@ -1,7 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`arrow_call.js format 1`] = `
+exports[`arrow_call.js - {"arrowParens":"always"} format 1`] = `
 ====================================options=====================================
+arrowParens: "always"
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -110,7 +111,7 @@ promise.then((result) =>
 ================================================================================
 `;
 
-exports[`arrow_call.js format 2`] = `
+exports[`arrow_call.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -221,9 +222,8 @@ promise.then((result) =>
 ================================================================================
 `;
 
-exports[`arrow_call.js format 3`] = `
+exports[`arrow_call.js format 1`] = `
 ====================================options=====================================
-arrowParens: "always"
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comments.scss format 1`] = `
+exports[`comments.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
@@ -37,7 +37,7 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`comments.scss format 2`] = `
+exports[`comments.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
@@ -69,6 +69,21 @@ printWidth: 80
 
 /// Computes an exponent.
 ///// Computes an exponent.
+
+================================================================================
+`;
+
+exports[`import_comma.scss - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+@import "rounded-corners", "text-shadow";
+
+=====================================output=====================================
+@import "rounded-corners", "text-shadow";
 
 ================================================================================
 `;
@@ -77,7 +92,6 @@ exports[`import_comma.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
-trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 @import "rounded-corners", "text-shadow";
@@ -88,21 +102,7 @@ trailingComma: "none"
 ================================================================================
 `;
 
-exports[`import_comma.scss format 2`] = `
-====================================options=====================================
-parsers: ["scss"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-@import "rounded-corners", "text-shadow";
-
-=====================================output=====================================
-@import "rounded-corners", "text-shadow";
-
-================================================================================
-`;
-
-exports[`scss.scss format 1`] = `
+exports[`scss.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
@@ -2131,7 +2131,7 @@ label {
 ================================================================================
 `;
 
-exports[`scss.scss format 2`] = `
+exports[`scss.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
@@ -4159,7 +4159,7 @@ label {
 ================================================================================
 `;
 
-exports[`string-concatanation.scss format 1`] = `
+exports[`string-concatanation.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
@@ -4184,7 +4184,7 @@ a {
 ================================================================================
 `;
 
-exports[`string-concatanation.scss format 2`] = `
+exports[`string-concatanation.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80

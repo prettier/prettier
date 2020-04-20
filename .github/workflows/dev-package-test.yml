@@ -1,4 +1,4 @@
-name: Dev_Install_Test
+name: Dev_Package_Test
 
 on:
   push:
@@ -20,6 +20,7 @@ jobs:
           - "npm"
           - "pnpm"
     env:
+      INSTALL_PACKAGE: true
       NPM_CLIENT: ${{ matrix.NPM_CLIENT }}
     name: Test with ${{ matrix.NPM_CLIENT }}
     runs-on: ${{ matrix.os }}
@@ -42,4 +43,4 @@ jobs:
         run: npm install --global ${{ matrix.NPM_CLIENT }}
 
       - name: Run Tests
-        run: yarn test:dev
+        run: yarn test:dev-package

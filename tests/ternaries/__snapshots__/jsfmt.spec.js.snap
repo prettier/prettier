@@ -1,47 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`binary.js format 1`] = `
-====================================options=====================================
-parsers: ["flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-const funnelSnapshotCard = (report === MY_OVERVIEW &&
-  !ReportGK.xar_metrics_active_capitol_v2) ||
-  (report === COMPANY_OVERVIEW &&
-    !ReportGK.xar_metrics_active_capitol_v2_company_metrics)
-  ? <ReportMetricsFunnelSnapshotCard metrics={metrics} />
-  : null;
-
-room = room.map((row, rowIndex) => (
-  row.map((col, colIndex) => (
-    (rowIndex === 0 || colIndex === 0 || rowIndex === height || colIndex === width) ? 1 : 0
-  ))
-))
-
-=====================================output=====================================
-const funnelSnapshotCard =
-  (report === MY_OVERVIEW && !ReportGK.xar_metrics_active_capitol_v2) ||
-  (report === COMPANY_OVERVIEW &&
-    !ReportGK.xar_metrics_active_capitol_v2_company_metrics) ? (
-    <ReportMetricsFunnelSnapshotCard metrics={metrics} />
-  ) : null;
-
-room = room.map((row, rowIndex) =>
-  row.map((col, colIndex) =>
-    rowIndex === 0 ||
-    colIndex === 0 ||
-    rowIndex === height ||
-    colIndex === width
-      ? 1
-      : 0
-  )
-);
-
-================================================================================
-`;
-
-exports[`binary.js format 2`] = `
+exports[`binary.js - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -83,7 +42,50 @@ room = room.map((row, rowIndex) =>
 ================================================================================
 `;
 
-exports[`binary.js format 3`] = `
+exports[`binary.js - {"useTabs":true,"tabWidth":4} format 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+tabWidth: 4
+useTabs: true
+                                                                                | printWidth
+=====================================input======================================
+const funnelSnapshotCard = (report === MY_OVERVIEW &&
+  !ReportGK.xar_metrics_active_capitol_v2) ||
+  (report === COMPANY_OVERVIEW &&
+    !ReportGK.xar_metrics_active_capitol_v2_company_metrics)
+  ? <ReportMetricsFunnelSnapshotCard metrics={metrics} />
+  : null;
+
+room = room.map((row, rowIndex) => (
+  row.map((col, colIndex) => (
+    (rowIndex === 0 || colIndex === 0 || rowIndex === height || colIndex === width) ? 1 : 0
+  ))
+))
+
+=====================================output=====================================
+const funnelSnapshotCard =
+	(report === MY_OVERVIEW && !ReportGK.xar_metrics_active_capitol_v2) ||
+	(report === COMPANY_OVERVIEW &&
+		!ReportGK.xar_metrics_active_capitol_v2_company_metrics) ? (
+		<ReportMetricsFunnelSnapshotCard metrics={metrics} />
+	) : null;
+
+room = room.map((row, rowIndex) =>
+	row.map((col, colIndex) =>
+		rowIndex === 0 ||
+		colIndex === 0 ||
+		rowIndex === height ||
+		colIndex === width
+			? 1
+			: 0
+	)
+);
+
+================================================================================
+`;
+
+exports[`binary.js - {"useTabs":true} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -125,12 +127,10 @@ room = room.map((row, rowIndex) =>
 ================================================================================
 `;
 
-exports[`binary.js format 4`] = `
+exports[`binary.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
-tabWidth: 4
-useTabs: true
                                                                                 | printWidth
 =====================================input======================================
 const funnelSnapshotCard = (report === MY_OVERVIEW &&
@@ -148,21 +148,109 @@ room = room.map((row, rowIndex) => (
 
 =====================================output=====================================
 const funnelSnapshotCard =
-	(report === MY_OVERVIEW && !ReportGK.xar_metrics_active_capitol_v2) ||
-	(report === COMPANY_OVERVIEW &&
-		!ReportGK.xar_metrics_active_capitol_v2_company_metrics) ? (
-		<ReportMetricsFunnelSnapshotCard metrics={metrics} />
-	) : null;
+  (report === MY_OVERVIEW && !ReportGK.xar_metrics_active_capitol_v2) ||
+  (report === COMPANY_OVERVIEW &&
+    !ReportGK.xar_metrics_active_capitol_v2_company_metrics) ? (
+    <ReportMetricsFunnelSnapshotCard metrics={metrics} />
+  ) : null;
 
 room = room.map((row, rowIndex) =>
-	row.map((col, colIndex) =>
-		rowIndex === 0 ||
-		colIndex === 0 ||
-		rowIndex === height ||
-		colIndex === width
-			? 1
-			: 0
-	)
+  row.map((col, colIndex) =>
+    rowIndex === 0 ||
+    colIndex === 0 ||
+    rowIndex === height ||
+    colIndex === width
+      ? 1
+      : 0
+  )
+);
+
+================================================================================
+`;
+
+exports[`func-call.js - {"tabWidth":4} format 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+tabWidth: 4
+                                                                                | printWidth
+=====================================input======================================
+fn(
+  bifornCringerMoshedPerplexSawder,
+  askTrovenaBeenaDependsRowans,
+  glimseGlyphsHazardNoopsTieTie === averredBathersBoxroomBuggyNurl &&
+    anodyneCondosMalateOverateRetinol 
+      ? annularCooeedSplicesWalksWayWay 
+      : kochabCooieGameOnOboleUnweave 
+);
+
+=====================================output=====================================
+fn(
+    bifornCringerMoshedPerplexSawder,
+    askTrovenaBeenaDependsRowans,
+    glimseGlyphsHazardNoopsTieTie === averredBathersBoxroomBuggyNurl &&
+        anodyneCondosMalateOverateRetinol
+        ? annularCooeedSplicesWalksWayWay
+        : kochabCooieGameOnOboleUnweave
+);
+
+================================================================================
+`;
+
+exports[`func-call.js - {"useTabs":true,"tabWidth":4} format 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+tabWidth: 4
+useTabs: true
+                                                                                | printWidth
+=====================================input======================================
+fn(
+  bifornCringerMoshedPerplexSawder,
+  askTrovenaBeenaDependsRowans,
+  glimseGlyphsHazardNoopsTieTie === averredBathersBoxroomBuggyNurl &&
+    anodyneCondosMalateOverateRetinol 
+      ? annularCooeedSplicesWalksWayWay 
+      : kochabCooieGameOnOboleUnweave 
+);
+
+=====================================output=====================================
+fn(
+	bifornCringerMoshedPerplexSawder,
+	askTrovenaBeenaDependsRowans,
+	glimseGlyphsHazardNoopsTieTie === averredBathersBoxroomBuggyNurl &&
+		anodyneCondosMalateOverateRetinol
+		? annularCooeedSplicesWalksWayWay
+		: kochabCooieGameOnOboleUnweave
+);
+
+================================================================================
+`;
+
+exports[`func-call.js - {"useTabs":true} format 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+useTabs: true
+                                                                                | printWidth
+=====================================input======================================
+fn(
+  bifornCringerMoshedPerplexSawder,
+  askTrovenaBeenaDependsRowans,
+  glimseGlyphsHazardNoopsTieTie === averredBathersBoxroomBuggyNurl &&
+    anodyneCondosMalateOverateRetinol 
+      ? annularCooeedSplicesWalksWayWay 
+      : kochabCooieGameOnOboleUnweave 
+);
+
+=====================================output=====================================
+fn(
+	bifornCringerMoshedPerplexSawder,
+	askTrovenaBeenaDependsRowans,
+	glimseGlyphsHazardNoopsTieTie === averredBathersBoxroomBuggyNurl &&
+		anodyneCondosMalateOverateRetinol
+		? annularCooeedSplicesWalksWayWay
+		: kochabCooieGameOnOboleUnweave
 );
 
 ================================================================================
@@ -196,424 +284,7 @@ fn(
 ================================================================================
 `;
 
-exports[`func-call.js format 2`] = `
-====================================options=====================================
-parsers: ["flow", "typescript"]
-printWidth: 80
-tabWidth: 4
-                                                                                | printWidth
-=====================================input======================================
-fn(
-  bifornCringerMoshedPerplexSawder,
-  askTrovenaBeenaDependsRowans,
-  glimseGlyphsHazardNoopsTieTie === averredBathersBoxroomBuggyNurl &&
-    anodyneCondosMalateOverateRetinol 
-      ? annularCooeedSplicesWalksWayWay 
-      : kochabCooieGameOnOboleUnweave 
-);
-
-=====================================output=====================================
-fn(
-    bifornCringerMoshedPerplexSawder,
-    askTrovenaBeenaDependsRowans,
-    glimseGlyphsHazardNoopsTieTie === averredBathersBoxroomBuggyNurl &&
-        anodyneCondosMalateOverateRetinol
-        ? annularCooeedSplicesWalksWayWay
-        : kochabCooieGameOnOboleUnweave
-);
-
-================================================================================
-`;
-
-exports[`func-call.js format 3`] = `
-====================================options=====================================
-parsers: ["flow", "typescript"]
-printWidth: 80
-useTabs: true
-                                                                                | printWidth
-=====================================input======================================
-fn(
-  bifornCringerMoshedPerplexSawder,
-  askTrovenaBeenaDependsRowans,
-  glimseGlyphsHazardNoopsTieTie === averredBathersBoxroomBuggyNurl &&
-    anodyneCondosMalateOverateRetinol 
-      ? annularCooeedSplicesWalksWayWay 
-      : kochabCooieGameOnOboleUnweave 
-);
-
-=====================================output=====================================
-fn(
-	bifornCringerMoshedPerplexSawder,
-	askTrovenaBeenaDependsRowans,
-	glimseGlyphsHazardNoopsTieTie === averredBathersBoxroomBuggyNurl &&
-		anodyneCondosMalateOverateRetinol
-		? annularCooeedSplicesWalksWayWay
-		: kochabCooieGameOnOboleUnweave
-);
-
-================================================================================
-`;
-
-exports[`func-call.js format 4`] = `
-====================================options=====================================
-parsers: ["flow", "typescript"]
-printWidth: 80
-tabWidth: 4
-useTabs: true
-                                                                                | printWidth
-=====================================input======================================
-fn(
-  bifornCringerMoshedPerplexSawder,
-  askTrovenaBeenaDependsRowans,
-  glimseGlyphsHazardNoopsTieTie === averredBathersBoxroomBuggyNurl &&
-    anodyneCondosMalateOverateRetinol 
-      ? annularCooeedSplicesWalksWayWay 
-      : kochabCooieGameOnOboleUnweave 
-);
-
-=====================================output=====================================
-fn(
-	bifornCringerMoshedPerplexSawder,
-	askTrovenaBeenaDependsRowans,
-	glimseGlyphsHazardNoopsTieTie === averredBathersBoxroomBuggyNurl &&
-		anodyneCondosMalateOverateRetinol
-		? annularCooeedSplicesWalksWayWay
-		: kochabCooieGameOnOboleUnweave
-);
-
-================================================================================
-`;
-
-exports[`indent.js format 1`] = `
-====================================options=====================================
-parsers: ["flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-aaaaaaaaaaaaaaa ? bbbbbbbbbbbbbbbbbb : ccccccccccccccc ? ddddddddddddddd : eeeeeeeeeeeeeee ? fffffffffffffff : gggggggggggggggg
-
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-?
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-?
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-?
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-:
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-:
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-:
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-
-a
-    ? {
-        a: 0
-      }
-    : {
-        a: {
-             a: 0
-           }
-            ? {
-                a: 0
-              }
-            : {
-                y: {
-                    a: 0
-                }
-                    ? {
-                        a: 0
-                    }
-                    : {
-                        a: 0
-                    }
-            }
-      }
-
-a
-	? {
-			a: function() {
-				return a
-					? {
-							a: [
-								a
-									? {
-											a: 0,
-											b: [
-												a
-													? [
-															0,
-															1
-													  ]
-													: []
-											]
-									  }
-									: [
-											[
-												0,
-												{
-													a: 0
-												},
-												a
-													? 0
-													: 1
-											],
-											function() {
-												return a
-													? {
-															a: 0
-													  }
-													: [
-															{
-																a: 0
-															},
-															{}
-													  ];
-											}
-									  ]
-							]
-					  }
-					: [
-							a
-								? function() {
-										a
-											? a(
-													a
-														? {
-																a: a(
-																	{
-																		a: 0
-																	}
-																)
-														  }
-														: [
-																0,
-																a(),
-																a(
-																	a(),
-																	{
-																		a: 0
-																	},
-																	a
-																		? a()
-																		: a(
-																				{
-																					a: 0
-																				}
-																		  )
-																),
-																a()
-																	? {
-																			a: a(),
-																			b: []
-																	  }
-																	: {}
-														  ]
-											  ):
-										a(
-											a()
-												? {
-														a: 0
-												  }
-												: (function(a) {
-														return a()
-															? [
-																	{
-																		a: 0,
-																		b: a()
-																	}
-															  ]
-															: a(
-																	[
-																		a
-																			? {
-																					a: 0
-																			  }
-																			: {},
-																		{
-																			a: 0
-																		}
-																	]
-															  );
-												  })(
-														a
-															? function(a) {
-																	return function() {
-																		return 0;
-																	};
-															  }
-															: function(a) {
-																	return function() {
-																		return 1;
-																	}
-															  }
-												  )
-										);
-								  }
-								: function() {
-
-								  }
-					  ];
-			}
-	  }
-    : a;
-
-=====================================output=====================================
-aaaaaaaaaaaaaaa
-  ? bbbbbbbbbbbbbbbbbb
-  : ccccccccccccccc
-  ? ddddddddddddddd
-  : eeeeeeeeeeeeeee
-  ? fffffffffffffff
-  : gggggggggggggggg;
-
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-  ? aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-    ? aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-      ? aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-      : aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-    : aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-  : aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa;
-
-a
-  ? {
-      a: 0,
-    }
-  : {
-      a: {
-        a: 0,
-      }
-        ? {
-            a: 0,
-          }
-        : {
-            y: {
-              a: 0,
-            }
-              ? {
-                  a: 0,
-                }
-              : {
-                  a: 0,
-                },
-          },
-    };
-
-a
-  ? {
-      a: function () {
-        return a
-          ? {
-              a: [
-                a
-                  ? {
-                      a: 0,
-                      b: [a ? [0, 1] : []],
-                    }
-                  : [
-                      [
-                        0,
-                        {
-                          a: 0,
-                        },
-                        a ? 0 : 1,
-                      ],
-                      function () {
-                        return a
-                          ? {
-                              a: 0,
-                            }
-                          : [
-                              {
-                                a: 0,
-                              },
-                              {},
-                            ];
-                      },
-                    ],
-              ],
-            }
-          : [
-              a
-                ? function () {
-                    a
-                      ? a(
-                          a
-                            ? {
-                                a: a({
-                                  a: 0,
-                                }),
-                              }
-                            : [
-                                0,
-                                a(),
-                                a(
-                                  a(),
-                                  {
-                                    a: 0,
-                                  },
-                                  a
-                                    ? a()
-                                    : a({
-                                        a: 0,
-                                      })
-                                ),
-                                a()
-                                  ? {
-                                      a: a(),
-                                      b: [],
-                                    }
-                                  : {},
-                              ]
-                        )
-                      : a(
-                          a()
-                            ? {
-                                a: 0,
-                              }
-                            : (function (a) {
-                                return a()
-                                  ? [
-                                      {
-                                        a: 0,
-                                        b: a(),
-                                      },
-                                    ]
-                                  : a([
-                                      a
-                                        ? {
-                                            a: 0,
-                                          }
-                                        : {},
-                                      {
-                                        a: 0,
-                                      },
-                                    ]);
-                              })(
-                                a
-                                  ? function (a) {
-                                      return function () {
-                                        return 0;
-                                      };
-                                    }
-                                  : function (a) {
-                                      return function () {
-                                        return 1;
-                                      };
-                                    }
-                              )
-                        );
-                  }
-                : function () {},
-            ];
-      },
-    }
-  : a;
-
-================================================================================
-`;
-
-exports[`indent.js format 2`] = `
+exports[`indent.js - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -943,337 +614,7 @@ a
 ================================================================================
 `;
 
-exports[`indent.js format 3`] = `
-====================================options=====================================
-parsers: ["flow", "typescript"]
-printWidth: 80
-useTabs: true
-                                                                                | printWidth
-=====================================input======================================
-aaaaaaaaaaaaaaa ? bbbbbbbbbbbbbbbbbb : ccccccccccccccc ? ddddddddddddddd : eeeeeeeeeeeeeee ? fffffffffffffff : gggggggggggggggg
-
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-?
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-?
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-?
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-:
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-:
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-:
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-
-a
-    ? {
-        a: 0
-      }
-    : {
-        a: {
-             a: 0
-           }
-            ? {
-                a: 0
-              }
-            : {
-                y: {
-                    a: 0
-                }
-                    ? {
-                        a: 0
-                    }
-                    : {
-                        a: 0
-                    }
-            }
-      }
-
-a
-	? {
-			a: function() {
-				return a
-					? {
-							a: [
-								a
-									? {
-											a: 0,
-											b: [
-												a
-													? [
-															0,
-															1
-													  ]
-													: []
-											]
-									  }
-									: [
-											[
-												0,
-												{
-													a: 0
-												},
-												a
-													? 0
-													: 1
-											],
-											function() {
-												return a
-													? {
-															a: 0
-													  }
-													: [
-															{
-																a: 0
-															},
-															{}
-													  ];
-											}
-									  ]
-							]
-					  }
-					: [
-							a
-								? function() {
-										a
-											? a(
-													a
-														? {
-																a: a(
-																	{
-																		a: 0
-																	}
-																)
-														  }
-														: [
-																0,
-																a(),
-																a(
-																	a(),
-																	{
-																		a: 0
-																	},
-																	a
-																		? a()
-																		: a(
-																				{
-																					a: 0
-																				}
-																		  )
-																),
-																a()
-																	? {
-																			a: a(),
-																			b: []
-																	  }
-																	: {}
-														  ]
-											  ):
-										a(
-											a()
-												? {
-														a: 0
-												  }
-												: (function(a) {
-														return a()
-															? [
-																	{
-																		a: 0,
-																		b: a()
-																	}
-															  ]
-															: a(
-																	[
-																		a
-																			? {
-																					a: 0
-																			  }
-																			: {},
-																		{
-																			a: 0
-																		}
-																	]
-															  );
-												  })(
-														a
-															? function(a) {
-																	return function() {
-																		return 0;
-																	};
-															  }
-															: function(a) {
-																	return function() {
-																		return 1;
-																	}
-															  }
-												  )
-										);
-								  }
-								: function() {
-
-								  }
-					  ];
-			}
-	  }
-    : a;
-
-=====================================output=====================================
-aaaaaaaaaaaaaaa
-	? bbbbbbbbbbbbbbbbbb
-	: ccccccccccccccc
-	? ddddddddddddddd
-	: eeeeeeeeeeeeeee
-	? fffffffffffffff
-	: gggggggggggggggg;
-
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-	? aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-		? aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-			? aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-			: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-		: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-	: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa;
-
-a
-	? {
-			a: 0,
-	  }
-	: {
-			a: {
-				a: 0,
-			}
-				? {
-						a: 0,
-				  }
-				: {
-						y: {
-							a: 0,
-						}
-							? {
-									a: 0,
-							  }
-							: {
-									a: 0,
-							  },
-				  },
-	  };
-
-a
-	? {
-			a: function () {
-				return a
-					? {
-							a: [
-								a
-									? {
-											a: 0,
-											b: [a ? [0, 1] : []],
-									  }
-									: [
-											[
-												0,
-												{
-													a: 0,
-												},
-												a ? 0 : 1,
-											],
-											function () {
-												return a
-													? {
-															a: 0,
-													  }
-													: [
-															{
-																a: 0,
-															},
-															{},
-													  ];
-											},
-									  ],
-							],
-					  }
-					: [
-							a
-								? function () {
-										a
-											? a(
-													a
-														? {
-																a: a({
-																	a: 0,
-																}),
-														  }
-														: [
-																0,
-																a(),
-																a(
-																	a(),
-																	{
-																		a: 0,
-																	},
-																	a
-																		? a()
-																		: a({
-																				a: 0,
-																		  })
-																),
-																a()
-																	? {
-																			a: a(),
-																			b: [],
-																	  }
-																	: {},
-														  ]
-											  )
-											: a(
-													a()
-														? {
-																a: 0,
-														  }
-														: (function (a) {
-																return a()
-																	? [
-																			{
-																				a: 0,
-																				b: a(),
-																			},
-																	  ]
-																	: a([
-																			a
-																				? {
-																						a: 0,
-																				  }
-																				: {},
-																			{
-																				a: 0,
-																			},
-																	  ]);
-														  })(
-																a
-																	? function (a) {
-																			return function () {
-																				return 0;
-																			};
-																	  }
-																	: function (a) {
-																			return function () {
-																				return 1;
-																			};
-																	  }
-														  )
-											  );
-								  }
-								: function () {},
-					  ];
-			},
-	  }
-	: a;
-
-================================================================================
-`;
-
-exports[`indent.js format 4`] = `
+exports[`indent.js - {"useTabs":true,"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -1608,210 +949,666 @@ a
 ================================================================================
 `;
 
-exports[`nested.js format 1`] = `
+exports[`indent.js - {"useTabs":true} format 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+useTabs: true
+                                                                                | printWidth
+=====================================input======================================
+aaaaaaaaaaaaaaa ? bbbbbbbbbbbbbbbbbb : ccccccccccccccc ? ddddddddddddddd : eeeeeeeeeeeeeee ? fffffffffffffff : gggggggggggggggg
+
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+?
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+?
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+?
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+:
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+:
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+:
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
+a
+    ? {
+        a: 0
+      }
+    : {
+        a: {
+             a: 0
+           }
+            ? {
+                a: 0
+              }
+            : {
+                y: {
+                    a: 0
+                }
+                    ? {
+                        a: 0
+                    }
+                    : {
+                        a: 0
+                    }
+            }
+      }
+
+a
+	? {
+			a: function() {
+				return a
+					? {
+							a: [
+								a
+									? {
+											a: 0,
+											b: [
+												a
+													? [
+															0,
+															1
+													  ]
+													: []
+											]
+									  }
+									: [
+											[
+												0,
+												{
+													a: 0
+												},
+												a
+													? 0
+													: 1
+											],
+											function() {
+												return a
+													? {
+															a: 0
+													  }
+													: [
+															{
+																a: 0
+															},
+															{}
+													  ];
+											}
+									  ]
+							]
+					  }
+					: [
+							a
+								? function() {
+										a
+											? a(
+													a
+														? {
+																a: a(
+																	{
+																		a: 0
+																	}
+																)
+														  }
+														: [
+																0,
+																a(),
+																a(
+																	a(),
+																	{
+																		a: 0
+																	},
+																	a
+																		? a()
+																		: a(
+																				{
+																					a: 0
+																				}
+																		  )
+																),
+																a()
+																	? {
+																			a: a(),
+																			b: []
+																	  }
+																	: {}
+														  ]
+											  ):
+										a(
+											a()
+												? {
+														a: 0
+												  }
+												: (function(a) {
+														return a()
+															? [
+																	{
+																		a: 0,
+																		b: a()
+																	}
+															  ]
+															: a(
+																	[
+																		a
+																			? {
+																					a: 0
+																			  }
+																			: {},
+																		{
+																			a: 0
+																		}
+																	]
+															  );
+												  })(
+														a
+															? function(a) {
+																	return function() {
+																		return 0;
+																	};
+															  }
+															: function(a) {
+																	return function() {
+																		return 1;
+																	}
+															  }
+												  )
+										);
+								  }
+								: function() {
+
+								  }
+					  ];
+			}
+	  }
+    : a;
+
+=====================================output=====================================
+aaaaaaaaaaaaaaa
+	? bbbbbbbbbbbbbbbbbb
+	: ccccccccccccccc
+	? ddddddddddddddd
+	: eeeeeeeeeeeeeee
+	? fffffffffffffff
+	: gggggggggggggggg;
+
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+	? aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+		? aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+			? aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+			: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+		: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+	: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa;
+
+a
+	? {
+			a: 0,
+	  }
+	: {
+			a: {
+				a: 0,
+			}
+				? {
+						a: 0,
+				  }
+				: {
+						y: {
+							a: 0,
+						}
+							? {
+									a: 0,
+							  }
+							: {
+									a: 0,
+							  },
+				  },
+	  };
+
+a
+	? {
+			a: function () {
+				return a
+					? {
+							a: [
+								a
+									? {
+											a: 0,
+											b: [a ? [0, 1] : []],
+									  }
+									: [
+											[
+												0,
+												{
+													a: 0,
+												},
+												a ? 0 : 1,
+											],
+											function () {
+												return a
+													? {
+															a: 0,
+													  }
+													: [
+															{
+																a: 0,
+															},
+															{},
+													  ];
+											},
+									  ],
+							],
+					  }
+					: [
+							a
+								? function () {
+										a
+											? a(
+													a
+														? {
+																a: a({
+																	a: 0,
+																}),
+														  }
+														: [
+																0,
+																a(),
+																a(
+																	a(),
+																	{
+																		a: 0,
+																	},
+																	a
+																		? a()
+																		: a({
+																				a: 0,
+																		  })
+																),
+																a()
+																	? {
+																			a: a(),
+																			b: [],
+																	  }
+																	: {},
+														  ]
+											  )
+											: a(
+													a()
+														? {
+																a: 0,
+														  }
+														: (function (a) {
+																return a()
+																	? [
+																			{
+																				a: 0,
+																				b: a(),
+																			},
+																	  ]
+																	: a([
+																			a
+																				? {
+																						a: 0,
+																				  }
+																				: {},
+																			{
+																				a: 0,
+																			},
+																	  ]);
+														  })(
+																a
+																	? function (a) {
+																			return function () {
+																				return 0;
+																			};
+																	  }
+																	: function (a) {
+																			return function () {
+																				return 1;
+																			};
+																	  }
+														  )
+											  );
+								  }
+								: function () {},
+					  ];
+			},
+	  }
+	: a;
+
+================================================================================
+`;
+
+exports[`indent.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-let icecream = what == "cone"
-  ? p => !!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`
-  : p => \`here's your \${p} \${what}\`;
+aaaaaaaaaaaaaaa ? bbbbbbbbbbbbbbbbbb : ccccccccccccccc ? ddddddddddddddd : eeeeeeeeeeeeeee ? fffffffffffffff : gggggggggggggggg
 
-const value = condition1
-? value1
-: condition2
-    ? value2
-    : condition3
-        ? value3
-        : value4;
-
-
-const StorybookLoader = ({ match }) => (
-  match.params.storyId === "button"
-    ? <ButtonStorybook />
-    : match.params.storyId === "color"
-    ? <ColorBook />
-    : match.params.storyId === "typography"
-    ? <TypographyBook />
-    : match.params.storyId === "loading"
-    ? <LoaderStorybook />
-    : match.params.storyId === "deal-list"
-    ? <DealListStory />
-    : (
-      <Message>
-        <Title>{'Missing story book'}</Title>
-        <Content>
-          <BackButton/>
-        </Content>
-      </Message>
-    )
-)
-
-const message =
-    i % 3 === 0 && i % 5 === 0 ?
-        'fizzbuzz'
-    : i % 3 === 0 ?
-        'fizz'
-    : i % 5 === 0 ?
-        'buzz'
-    :
-        String(i)
-
-const paymentMessage = state == 'success'
-  ? 'Payment completed successfully'
-
-: state == 'processing'
-  ? 'Payment processing'
-
-: state == 'invalid_cvc'
-  ? 'There was an issue with your CVC number'
-
-: state == 'invalid_expiry'
-  ? 'Expiry must be sometime in the past.'
-
-  : 'There was an issue with the payment.  Please contact support.'
-
-const paymentMessage2 = state == 'success'
-  ? 1 //'Payment completed successfully'
-
-: state == 'processing'
-  ? 2 //'Payment processing'
-
-: state == 'invalid_cvc'
-  ? 3 //'There was an issue with your CVC number'
-
-: true //state == 'invalid_expiry'
-  ? 4 //'Expiry must be sometime in the past.'
-
-  : 5 // 'There was an issue with the payment.  Please contact support.'
-
-const foo = <div className={'match-achievement-medal-type type' + (medals[0].record ? '-record' : (medals[0].unique ? '-unique' : medals[0].type))}>
-	{medals[0].record ? (
-		i18n('Record')
-	) : medals[0].unique ? (
-		i18n('Unique')
-	) : medals[0].type === 0 ? (
-		i18n('Silver')
-	) : medals[0].type === 1 ? (
-		i18n('Gold')
-	) : medals[0].type === 2 ? (
-		i18n('Platinum')
-	) : (
-		i18n('Theme')
-	)}
-</div>
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+?
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+?
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+?
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+:
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+:
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+:
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
 a
-    ? literalline
+    ? {
+        a: 0
+      }
     : {
-      123: 12
-    }
-    ? line
-    : softline
+        a: {
+             a: 0
+           }
+            ? {
+                a: 0
+              }
+            : {
+                y: {
+                    a: 0
+                }
+                    ? {
+                        a: 0
+                    }
+                    : {
+                        a: 0
+                    }
+            }
+      }
+
+a
+	? {
+			a: function() {
+				return a
+					? {
+							a: [
+								a
+									? {
+											a: 0,
+											b: [
+												a
+													? [
+															0,
+															1
+													  ]
+													: []
+											]
+									  }
+									: [
+											[
+												0,
+												{
+													a: 0
+												},
+												a
+													? 0
+													: 1
+											],
+											function() {
+												return a
+													? {
+															a: 0
+													  }
+													: [
+															{
+																a: 0
+															},
+															{}
+													  ];
+											}
+									  ]
+							]
+					  }
+					: [
+							a
+								? function() {
+										a
+											? a(
+													a
+														? {
+																a: a(
+																	{
+																		a: 0
+																	}
+																)
+														  }
+														: [
+																0,
+																a(),
+																a(
+																	a(),
+																	{
+																		a: 0
+																	},
+																	a
+																		? a()
+																		: a(
+																				{
+																					a: 0
+																				}
+																		  )
+																),
+																a()
+																	? {
+																			a: a(),
+																			b: []
+																	  }
+																	: {}
+														  ]
+											  ):
+										a(
+											a()
+												? {
+														a: 0
+												  }
+												: (function(a) {
+														return a()
+															? [
+																	{
+																		a: 0,
+																		b: a()
+																	}
+															  ]
+															: a(
+																	[
+																		a
+																			? {
+																					a: 0
+																			  }
+																			: {},
+																		{
+																			a: 0
+																		}
+																	]
+															  );
+												  })(
+														a
+															? function(a) {
+																	return function() {
+																		return 0;
+																	};
+															  }
+															: function(a) {
+																	return function() {
+																		return 1;
+																	}
+															  }
+												  )
+										);
+								  }
+								: function() {
+
+								  }
+					  ];
+			}
+	  }
+    : a;
 
 =====================================output=====================================
-let icecream =
-  what == "cone"
-    ? (p) => (!!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`)
-    : (p) => \`here's your \${p} \${what}\`;
+aaaaaaaaaaaaaaa
+  ? bbbbbbbbbbbbbbbbbb
+  : ccccccccccccccc
+  ? ddddddddddddddd
+  : eeeeeeeeeeeeeee
+  ? fffffffffffffff
+  : gggggggggggggggg;
 
-const value = condition1
-  ? value1
-  : condition2
-  ? value2
-  : condition3
-  ? value3
-  : value4;
-
-const StorybookLoader = ({ match }) =>
-  match.params.storyId === "button" ? (
-    <ButtonStorybook />
-  ) : match.params.storyId === "color" ? (
-    <ColorBook />
-  ) : match.params.storyId === "typography" ? (
-    <TypographyBook />
-  ) : match.params.storyId === "loading" ? (
-    <LoaderStorybook />
-  ) : match.params.storyId === "deal-list" ? (
-    <DealListStory />
-  ) : (
-    <Message>
-      <Title>{"Missing story book"}</Title>
-      <Content>
-        <BackButton />
-      </Content>
-    </Message>
-  );
-
-const message =
-  i % 3 === 0 && i % 5 === 0
-    ? "fizzbuzz"
-    : i % 3 === 0
-    ? "fizz"
-    : i % 5 === 0
-    ? "buzz"
-    : String(i);
-
-const paymentMessage =
-  state == "success"
-    ? "Payment completed successfully"
-    : state == "processing"
-    ? "Payment processing"
-    : state == "invalid_cvc"
-    ? "There was an issue with your CVC number"
-    : state == "invalid_expiry"
-    ? "Expiry must be sometime in the past."
-    : "There was an issue with the payment.  Please contact support.";
-
-const paymentMessage2 =
-  state == "success"
-    ? 1 //'Payment completed successfully'
-    : state == "processing"
-    ? 2 //'Payment processing'
-    : state == "invalid_cvc"
-    ? 3 //'There was an issue with your CVC number'
-    : true //state == 'invalid_expiry'
-    ? 4 //'Expiry must be sometime in the past.'
-    : 5; // 'There was an issue with the payment.  Please contact support.'
-
-const foo = (
-  <div
-    className={
-      "match-achievement-medal-type type" +
-      (medals[0].record
-        ? "-record"
-        : medals[0].unique
-        ? "-unique"
-        : medals[0].type)
-    }
-  >
-    {medals[0].record
-      ? i18n("Record")
-      : medals[0].unique
-      ? i18n("Unique")
-      : medals[0].type === 0
-      ? i18n("Silver")
-      : medals[0].type === 1
-      ? i18n("Gold")
-      : medals[0].type === 2
-      ? i18n("Platinum")
-      : i18n("Theme")}
-  </div>
-);
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  ? aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    ? aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+      ? aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+      : aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    : aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  : aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa;
 
 a
-  ? literalline
-  : {
-      123: 12,
+  ? {
+      a: 0,
     }
-  ? line
-  : softline;
+  : {
+      a: {
+        a: 0,
+      }
+        ? {
+            a: 0,
+          }
+        : {
+            y: {
+              a: 0,
+            }
+              ? {
+                  a: 0,
+                }
+              : {
+                  a: 0,
+                },
+          },
+    };
+
+a
+  ? {
+      a: function () {
+        return a
+          ? {
+              a: [
+                a
+                  ? {
+                      a: 0,
+                      b: [a ? [0, 1] : []],
+                    }
+                  : [
+                      [
+                        0,
+                        {
+                          a: 0,
+                        },
+                        a ? 0 : 1,
+                      ],
+                      function () {
+                        return a
+                          ? {
+                              a: 0,
+                            }
+                          : [
+                              {
+                                a: 0,
+                              },
+                              {},
+                            ];
+                      },
+                    ],
+              ],
+            }
+          : [
+              a
+                ? function () {
+                    a
+                      ? a(
+                          a
+                            ? {
+                                a: a({
+                                  a: 0,
+                                }),
+                              }
+                            : [
+                                0,
+                                a(),
+                                a(
+                                  a(),
+                                  {
+                                    a: 0,
+                                  },
+                                  a
+                                    ? a()
+                                    : a({
+                                        a: 0,
+                                      })
+                                ),
+                                a()
+                                  ? {
+                                      a: a(),
+                                      b: [],
+                                    }
+                                  : {},
+                              ]
+                        )
+                      : a(
+                          a()
+                            ? {
+                                a: 0,
+                              }
+                            : (function (a) {
+                                return a()
+                                  ? [
+                                      {
+                                        a: 0,
+                                        b: a(),
+                                      },
+                                    ]
+                                  : a([
+                                      a
+                                        ? {
+                                            a: 0,
+                                          }
+                                        : {},
+                                      {
+                                        a: 0,
+                                      },
+                                    ]);
+                              })(
+                                a
+                                  ? function (a) {
+                                      return function () {
+                                        return 0;
+                                      };
+                                    }
+                                  : function (a) {
+                                      return function () {
+                                        return 1;
+                                      };
+                                    }
+                              )
+                        );
+                  }
+                : function () {},
+            ];
+      },
+    }
+  : a;
 
 ================================================================================
 `;
 
-exports[`nested.js format 2`] = `
+exports[`nested.js - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -2015,7 +1812,212 @@ a
 ================================================================================
 `;
 
-exports[`nested.js format 3`] = `
+exports[`nested.js - {"useTabs":true,"tabWidth":4} format 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+tabWidth: 4
+useTabs: true
+                                                                                | printWidth
+=====================================input======================================
+let icecream = what == "cone"
+  ? p => !!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`
+  : p => \`here's your \${p} \${what}\`;
+
+const value = condition1
+? value1
+: condition2
+    ? value2
+    : condition3
+        ? value3
+        : value4;
+
+
+const StorybookLoader = ({ match }) => (
+  match.params.storyId === "button"
+    ? <ButtonStorybook />
+    : match.params.storyId === "color"
+    ? <ColorBook />
+    : match.params.storyId === "typography"
+    ? <TypographyBook />
+    : match.params.storyId === "loading"
+    ? <LoaderStorybook />
+    : match.params.storyId === "deal-list"
+    ? <DealListStory />
+    : (
+      <Message>
+        <Title>{'Missing story book'}</Title>
+        <Content>
+          <BackButton/>
+        </Content>
+      </Message>
+    )
+)
+
+const message =
+    i % 3 === 0 && i % 5 === 0 ?
+        'fizzbuzz'
+    : i % 3 === 0 ?
+        'fizz'
+    : i % 5 === 0 ?
+        'buzz'
+    :
+        String(i)
+
+const paymentMessage = state == 'success'
+  ? 'Payment completed successfully'
+
+: state == 'processing'
+  ? 'Payment processing'
+
+: state == 'invalid_cvc'
+  ? 'There was an issue with your CVC number'
+
+: state == 'invalid_expiry'
+  ? 'Expiry must be sometime in the past.'
+
+  : 'There was an issue with the payment.  Please contact support.'
+
+const paymentMessage2 = state == 'success'
+  ? 1 //'Payment completed successfully'
+
+: state == 'processing'
+  ? 2 //'Payment processing'
+
+: state == 'invalid_cvc'
+  ? 3 //'There was an issue with your CVC number'
+
+: true //state == 'invalid_expiry'
+  ? 4 //'Expiry must be sometime in the past.'
+
+  : 5 // 'There was an issue with the payment.  Please contact support.'
+
+const foo = <div className={'match-achievement-medal-type type' + (medals[0].record ? '-record' : (medals[0].unique ? '-unique' : medals[0].type))}>
+	{medals[0].record ? (
+		i18n('Record')
+	) : medals[0].unique ? (
+		i18n('Unique')
+	) : medals[0].type === 0 ? (
+		i18n('Silver')
+	) : medals[0].type === 1 ? (
+		i18n('Gold')
+	) : medals[0].type === 2 ? (
+		i18n('Platinum')
+	) : (
+		i18n('Theme')
+	)}
+</div>
+
+a
+    ? literalline
+    : {
+      123: 12
+    }
+    ? line
+    : softline
+
+=====================================output=====================================
+let icecream =
+	what == "cone"
+		? (p) => (!!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`)
+		: (p) => \`here's your \${p} \${what}\`;
+
+const value = condition1
+	? value1
+	: condition2
+	? value2
+	: condition3
+	? value3
+	: value4;
+
+const StorybookLoader = ({ match }) =>
+	match.params.storyId === "button" ? (
+		<ButtonStorybook />
+	) : match.params.storyId === "color" ? (
+		<ColorBook />
+	) : match.params.storyId === "typography" ? (
+		<TypographyBook />
+	) : match.params.storyId === "loading" ? (
+		<LoaderStorybook />
+	) : match.params.storyId === "deal-list" ? (
+		<DealListStory />
+	) : (
+		<Message>
+			<Title>{"Missing story book"}</Title>
+			<Content>
+				<BackButton />
+			</Content>
+		</Message>
+	);
+
+const message =
+	i % 3 === 0 && i % 5 === 0
+		? "fizzbuzz"
+		: i % 3 === 0
+		? "fizz"
+		: i % 5 === 0
+		? "buzz"
+		: String(i);
+
+const paymentMessage =
+	state == "success"
+		? "Payment completed successfully"
+		: state == "processing"
+		? "Payment processing"
+		: state == "invalid_cvc"
+		? "There was an issue with your CVC number"
+		: state == "invalid_expiry"
+		? "Expiry must be sometime in the past."
+		: "There was an issue with the payment.  Please contact support.";
+
+const paymentMessage2 =
+	state == "success"
+		? 1 //'Payment completed successfully'
+		: state == "processing"
+		? 2 //'Payment processing'
+		: state == "invalid_cvc"
+		? 3 //'There was an issue with your CVC number'
+		: true //state == 'invalid_expiry'
+		? 4 //'Expiry must be sometime in the past.'
+		: 5; // 'There was an issue with the payment.  Please contact support.'
+
+const foo = (
+	<div
+		className={
+			"match-achievement-medal-type type" +
+			(medals[0].record
+				? "-record"
+				: medals[0].unique
+				? "-unique"
+				: medals[0].type)
+		}
+	>
+		{medals[0].record
+			? i18n("Record")
+			: medals[0].unique
+			? i18n("Unique")
+			: medals[0].type === 0
+			? i18n("Silver")
+			: medals[0].type === 1
+			? i18n("Gold")
+			: medals[0].type === 2
+			? i18n("Platinum")
+			: i18n("Theme")}
+	</div>
+);
+
+a
+	? literalline
+	: {
+			123: 12,
+	  }
+	? line
+	: softline;
+
+================================================================================
+`;
+
+exports[`nested.js - {"useTabs":true} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -2219,12 +2221,10 @@ a
 ================================================================================
 `;
 
-exports[`nested.js format 4`] = `
+exports[`nested.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
-tabWidth: 4
-useTabs: true
                                                                                 | printWidth
 =====================================input======================================
 let icecream = what == "cone"
@@ -2325,101 +2325,369 @@ a
 
 =====================================output=====================================
 let icecream =
-	what == "cone"
-		? (p) => (!!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`)
-		: (p) => \`here's your \${p} \${what}\`;
+  what == "cone"
+    ? (p) => (!!p ? \`here's your \${p} cone\` : \`just the empty cone for you\`)
+    : (p) => \`here's your \${p} \${what}\`;
 
 const value = condition1
-	? value1
-	: condition2
-	? value2
-	: condition3
-	? value3
-	: value4;
+  ? value1
+  : condition2
+  ? value2
+  : condition3
+  ? value3
+  : value4;
 
 const StorybookLoader = ({ match }) =>
-	match.params.storyId === "button" ? (
-		<ButtonStorybook />
-	) : match.params.storyId === "color" ? (
-		<ColorBook />
-	) : match.params.storyId === "typography" ? (
-		<TypographyBook />
-	) : match.params.storyId === "loading" ? (
-		<LoaderStorybook />
-	) : match.params.storyId === "deal-list" ? (
-		<DealListStory />
-	) : (
-		<Message>
-			<Title>{"Missing story book"}</Title>
-			<Content>
-				<BackButton />
-			</Content>
-		</Message>
-	);
+  match.params.storyId === "button" ? (
+    <ButtonStorybook />
+  ) : match.params.storyId === "color" ? (
+    <ColorBook />
+  ) : match.params.storyId === "typography" ? (
+    <TypographyBook />
+  ) : match.params.storyId === "loading" ? (
+    <LoaderStorybook />
+  ) : match.params.storyId === "deal-list" ? (
+    <DealListStory />
+  ) : (
+    <Message>
+      <Title>{"Missing story book"}</Title>
+      <Content>
+        <BackButton />
+      </Content>
+    </Message>
+  );
 
 const message =
-	i % 3 === 0 && i % 5 === 0
-		? "fizzbuzz"
-		: i % 3 === 0
-		? "fizz"
-		: i % 5 === 0
-		? "buzz"
-		: String(i);
+  i % 3 === 0 && i % 5 === 0
+    ? "fizzbuzz"
+    : i % 3 === 0
+    ? "fizz"
+    : i % 5 === 0
+    ? "buzz"
+    : String(i);
 
 const paymentMessage =
-	state == "success"
-		? "Payment completed successfully"
-		: state == "processing"
-		? "Payment processing"
-		: state == "invalid_cvc"
-		? "There was an issue with your CVC number"
-		: state == "invalid_expiry"
-		? "Expiry must be sometime in the past."
-		: "There was an issue with the payment.  Please contact support.";
+  state == "success"
+    ? "Payment completed successfully"
+    : state == "processing"
+    ? "Payment processing"
+    : state == "invalid_cvc"
+    ? "There was an issue with your CVC number"
+    : state == "invalid_expiry"
+    ? "Expiry must be sometime in the past."
+    : "There was an issue with the payment.  Please contact support.";
 
 const paymentMessage2 =
-	state == "success"
-		? 1 //'Payment completed successfully'
-		: state == "processing"
-		? 2 //'Payment processing'
-		: state == "invalid_cvc"
-		? 3 //'There was an issue with your CVC number'
-		: true //state == 'invalid_expiry'
-		? 4 //'Expiry must be sometime in the past.'
-		: 5; // 'There was an issue with the payment.  Please contact support.'
+  state == "success"
+    ? 1 //'Payment completed successfully'
+    : state == "processing"
+    ? 2 //'Payment processing'
+    : state == "invalid_cvc"
+    ? 3 //'There was an issue with your CVC number'
+    : true //state == 'invalid_expiry'
+    ? 4 //'Expiry must be sometime in the past.'
+    : 5; // 'There was an issue with the payment.  Please contact support.'
 
 const foo = (
-	<div
-		className={
-			"match-achievement-medal-type type" +
-			(medals[0].record
-				? "-record"
-				: medals[0].unique
-				? "-unique"
-				: medals[0].type)
-		}
-	>
-		{medals[0].record
-			? i18n("Record")
-			: medals[0].unique
-			? i18n("Unique")
-			: medals[0].type === 0
-			? i18n("Silver")
-			: medals[0].type === 1
-			? i18n("Gold")
-			: medals[0].type === 2
-			? i18n("Platinum")
-			: i18n("Theme")}
-	</div>
+  <div
+    className={
+      "match-achievement-medal-type type" +
+      (medals[0].record
+        ? "-record"
+        : medals[0].unique
+        ? "-unique"
+        : medals[0].type)
+    }
+  >
+    {medals[0].record
+      ? i18n("Record")
+      : medals[0].unique
+      ? i18n("Unique")
+      : medals[0].type === 0
+      ? i18n("Silver")
+      : medals[0].type === 1
+      ? i18n("Gold")
+      : medals[0].type === 2
+      ? i18n("Platinum")
+      : i18n("Theme")}
+  </div>
 );
 
 a
-	? literalline
-	: {
-			123: 12,
-	  }
-	? line
-	: softline;
+  ? literalline
+  : {
+      123: 12,
+    }
+  ? line
+  : softline;
+
+================================================================================
+`;
+
+exports[`nested-in-condition.js - {"tabWidth":4} format 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+tabWidth: 4
+                                                                                | printWidth
+=====================================input======================================
+$var = ($number % 10 >= 2 && ($number % 100 < 10 || $number % 100 >= 20)
+? kochabCooieGameOnOboleUnweave
+: annularCooeedSplicesWalksWayWay)
+  ? anodyneCondosMalateOverateRetinol
+  : averredBathersBoxroomBuggyNurl;
+
+const value = (bifornCringerMoshedPerplexSawder
+? askTrovenaBeenaDependsRowans
+: glimseGlyphsHazardNoopsTieTie)
+  ? true
+    ? true
+    : false
+  : true
+  ? true
+  : false;
+
+(bifornCringerMoshedPerplexSawder ? (
+  askTrovenaBeenaDependsRowans
+) : (
+  glimseGlyphsHazardNoopsTieTie
+)) ? (
+  <Element>
+    <Sub />
+    <Sub />
+    <Sub />
+    <Sub />
+    <Sub />
+    <Sub />
+  </Element>
+) : (
+  <Element2>
+    <Sub />
+    <Sub />
+    <Sub />
+  </Element2>
+);
+
+=====================================output=====================================
+$var = (
+    $number % 10 >= 2 && ($number % 100 < 10 || $number % 100 >= 20)
+        ? kochabCooieGameOnOboleUnweave
+        : annularCooeedSplicesWalksWayWay
+)
+    ? anodyneCondosMalateOverateRetinol
+    : averredBathersBoxroomBuggyNurl;
+
+const value = (
+    bifornCringerMoshedPerplexSawder
+        ? askTrovenaBeenaDependsRowans
+        : glimseGlyphsHazardNoopsTieTie
+)
+    ? true
+        ? true
+        : false
+    : true
+    ? true
+    : false;
+
+(
+    bifornCringerMoshedPerplexSawder
+        ? askTrovenaBeenaDependsRowans
+        : glimseGlyphsHazardNoopsTieTie
+) ? (
+    <Element>
+        <Sub />
+        <Sub />
+        <Sub />
+        <Sub />
+        <Sub />
+        <Sub />
+    </Element>
+) : (
+    <Element2>
+        <Sub />
+        <Sub />
+        <Sub />
+    </Element2>
+);
+
+================================================================================
+`;
+
+exports[`nested-in-condition.js - {"useTabs":true,"tabWidth":4} format 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+tabWidth: 4
+useTabs: true
+                                                                                | printWidth
+=====================================input======================================
+$var = ($number % 10 >= 2 && ($number % 100 < 10 || $number % 100 >= 20)
+? kochabCooieGameOnOboleUnweave
+: annularCooeedSplicesWalksWayWay)
+  ? anodyneCondosMalateOverateRetinol
+  : averredBathersBoxroomBuggyNurl;
+
+const value = (bifornCringerMoshedPerplexSawder
+? askTrovenaBeenaDependsRowans
+: glimseGlyphsHazardNoopsTieTie)
+  ? true
+    ? true
+    : false
+  : true
+  ? true
+  : false;
+
+(bifornCringerMoshedPerplexSawder ? (
+  askTrovenaBeenaDependsRowans
+) : (
+  glimseGlyphsHazardNoopsTieTie
+)) ? (
+  <Element>
+    <Sub />
+    <Sub />
+    <Sub />
+    <Sub />
+    <Sub />
+    <Sub />
+  </Element>
+) : (
+  <Element2>
+    <Sub />
+    <Sub />
+    <Sub />
+  </Element2>
+);
+
+=====================================output=====================================
+$var = (
+	$number % 10 >= 2 && ($number % 100 < 10 || $number % 100 >= 20)
+		? kochabCooieGameOnOboleUnweave
+		: annularCooeedSplicesWalksWayWay
+)
+	? anodyneCondosMalateOverateRetinol
+	: averredBathersBoxroomBuggyNurl;
+
+const value = (
+	bifornCringerMoshedPerplexSawder
+		? askTrovenaBeenaDependsRowans
+		: glimseGlyphsHazardNoopsTieTie
+)
+	? true
+		? true
+		: false
+	: true
+	? true
+	: false;
+
+(
+	bifornCringerMoshedPerplexSawder
+		? askTrovenaBeenaDependsRowans
+		: glimseGlyphsHazardNoopsTieTie
+) ? (
+	<Element>
+		<Sub />
+		<Sub />
+		<Sub />
+		<Sub />
+		<Sub />
+		<Sub />
+	</Element>
+) : (
+	<Element2>
+		<Sub />
+		<Sub />
+		<Sub />
+	</Element2>
+);
+
+================================================================================
+`;
+
+exports[`nested-in-condition.js - {"useTabs":true} format 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+useTabs: true
+                                                                                | printWidth
+=====================================input======================================
+$var = ($number % 10 >= 2 && ($number % 100 < 10 || $number % 100 >= 20)
+? kochabCooieGameOnOboleUnweave
+: annularCooeedSplicesWalksWayWay)
+  ? anodyneCondosMalateOverateRetinol
+  : averredBathersBoxroomBuggyNurl;
+
+const value = (bifornCringerMoshedPerplexSawder
+? askTrovenaBeenaDependsRowans
+: glimseGlyphsHazardNoopsTieTie)
+  ? true
+    ? true
+    : false
+  : true
+  ? true
+  : false;
+
+(bifornCringerMoshedPerplexSawder ? (
+  askTrovenaBeenaDependsRowans
+) : (
+  glimseGlyphsHazardNoopsTieTie
+)) ? (
+  <Element>
+    <Sub />
+    <Sub />
+    <Sub />
+    <Sub />
+    <Sub />
+    <Sub />
+  </Element>
+) : (
+  <Element2>
+    <Sub />
+    <Sub />
+    <Sub />
+  </Element2>
+);
+
+=====================================output=====================================
+$var = (
+	$number % 10 >= 2 && ($number % 100 < 10 || $number % 100 >= 20)
+		? kochabCooieGameOnOboleUnweave
+		: annularCooeedSplicesWalksWayWay
+)
+	? anodyneCondosMalateOverateRetinol
+	: averredBathersBoxroomBuggyNurl;
+
+const value = (
+	bifornCringerMoshedPerplexSawder
+		? askTrovenaBeenaDependsRowans
+		: glimseGlyphsHazardNoopsTieTie
+)
+	? true
+		? true
+		: false
+	: true
+	? true
+	: false;
+
+(
+	bifornCringerMoshedPerplexSawder
+		? askTrovenaBeenaDependsRowans
+		: glimseGlyphsHazardNoopsTieTie
+) ? (
+	<Element>
+		<Sub />
+		<Sub />
+		<Sub />
+		<Sub />
+		<Sub />
+		<Sub />
+	</Element>
+) : (
+	<Element2>
+		<Sub />
+		<Sub />
+		<Sub />
+	</Element2>
+);
 
 ================================================================================
 `;
@@ -2512,185 +2780,44 @@ const value = (
 ================================================================================
 `;
 
-exports[`nested-in-condition.js format 2`] = `
+exports[`parenthesis.js - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
 tabWidth: 4
                                                                                 | printWidth
 =====================================input======================================
-$var = ($number % 10 >= 2 && ($number % 100 < 10 || $number % 100 >= 20)
-? kochabCooieGameOnOboleUnweave
-: annularCooeedSplicesWalksWayWay)
-  ? anodyneCondosMalateOverateRetinol
-  : averredBathersBoxroomBuggyNurl;
+debug ? this.state.isVisible ? "partially visible" : "hidden" : null;
+debug ? this.state.isVisible && somethingComplex ? "partially visible" : "hidden" : null;
 
-const value = (bifornCringerMoshedPerplexSawder
-? askTrovenaBeenaDependsRowans
-: glimseGlyphsHazardNoopsTieTie)
-  ? true
-    ? true
-    : false
-  : true
-  ? true
-  : false;
-
-(bifornCringerMoshedPerplexSawder ? (
-  askTrovenaBeenaDependsRowans
-) : (
-  glimseGlyphsHazardNoopsTieTie
-)) ? (
-  <Element>
-    <Sub />
-    <Sub />
-    <Sub />
-    <Sub />
-    <Sub />
-    <Sub />
-  </Element>
-) : (
-  <Element2>
-    <Sub />
-    <Sub />
-    <Sub />
-  </Element2>
-);
+a => a ? () => {a} : () => {a}
+a => a ? a : a
+a => a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a
 
 =====================================output=====================================
-$var = (
-    $number % 10 >= 2 && ($number % 100 < 10 || $number % 100 >= 20)
-        ? kochabCooieGameOnOboleUnweave
-        : annularCooeedSplicesWalksWayWay
-)
-    ? anodyneCondosMalateOverateRetinol
-    : averredBathersBoxroomBuggyNurl;
+debug ? (this.state.isVisible ? "partially visible" : "hidden") : null;
+debug
+    ? this.state.isVisible && somethingComplex
+        ? "partially visible"
+        : "hidden"
+    : null;
 
-const value = (
-    bifornCringerMoshedPerplexSawder
-        ? askTrovenaBeenaDependsRowans
-        : glimseGlyphsHazardNoopsTieTie
-)
-    ? true
-        ? true
-        : false
-    : true
-    ? true
-    : false;
-
-(
-    bifornCringerMoshedPerplexSawder
-        ? askTrovenaBeenaDependsRowans
-        : glimseGlyphsHazardNoopsTieTie
-) ? (
-    <Element>
-        <Sub />
-        <Sub />
-        <Sub />
-        <Sub />
-        <Sub />
-        <Sub />
-    </Element>
-) : (
-    <Element2>
-        <Sub />
-        <Sub />
-        <Sub />
-    </Element2>
-);
+(a) =>
+    a
+        ? () => {
+              a;
+          }
+        : () => {
+              a;
+          };
+(a) => (a ? a : a);
+(a) =>
+    a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a;
 
 ================================================================================
 `;
 
-exports[`nested-in-condition.js format 3`] = `
-====================================options=====================================
-parsers: ["flow", "typescript"]
-printWidth: 80
-useTabs: true
-                                                                                | printWidth
-=====================================input======================================
-$var = ($number % 10 >= 2 && ($number % 100 < 10 || $number % 100 >= 20)
-? kochabCooieGameOnOboleUnweave
-: annularCooeedSplicesWalksWayWay)
-  ? anodyneCondosMalateOverateRetinol
-  : averredBathersBoxroomBuggyNurl;
-
-const value = (bifornCringerMoshedPerplexSawder
-? askTrovenaBeenaDependsRowans
-: glimseGlyphsHazardNoopsTieTie)
-  ? true
-    ? true
-    : false
-  : true
-  ? true
-  : false;
-
-(bifornCringerMoshedPerplexSawder ? (
-  askTrovenaBeenaDependsRowans
-) : (
-  glimseGlyphsHazardNoopsTieTie
-)) ? (
-  <Element>
-    <Sub />
-    <Sub />
-    <Sub />
-    <Sub />
-    <Sub />
-    <Sub />
-  </Element>
-) : (
-  <Element2>
-    <Sub />
-    <Sub />
-    <Sub />
-  </Element2>
-);
-
-=====================================output=====================================
-$var = (
-	$number % 10 >= 2 && ($number % 100 < 10 || $number % 100 >= 20)
-		? kochabCooieGameOnOboleUnweave
-		: annularCooeedSplicesWalksWayWay
-)
-	? anodyneCondosMalateOverateRetinol
-	: averredBathersBoxroomBuggyNurl;
-
-const value = (
-	bifornCringerMoshedPerplexSawder
-		? askTrovenaBeenaDependsRowans
-		: glimseGlyphsHazardNoopsTieTie
-)
-	? true
-		? true
-		: false
-	: true
-	? true
-	: false;
-
-(
-	bifornCringerMoshedPerplexSawder
-		? askTrovenaBeenaDependsRowans
-		: glimseGlyphsHazardNoopsTieTie
-) ? (
-	<Element>
-		<Sub />
-		<Sub />
-		<Sub />
-		<Sub />
-		<Sub />
-		<Sub />
-	</Element>
-) : (
-	<Element2>
-		<Sub />
-		<Sub />
-		<Sub />
-	</Element2>
-);
-
-================================================================================
-`;
-
-exports[`nested-in-condition.js format 4`] = `
+exports[`parenthesis.js - {"useTabs":true,"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -2698,84 +2825,69 @@ tabWidth: 4
 useTabs: true
                                                                                 | printWidth
 =====================================input======================================
-$var = ($number % 10 >= 2 && ($number % 100 < 10 || $number % 100 >= 20)
-? kochabCooieGameOnOboleUnweave
-: annularCooeedSplicesWalksWayWay)
-  ? anodyneCondosMalateOverateRetinol
-  : averredBathersBoxroomBuggyNurl;
+debug ? this.state.isVisible ? "partially visible" : "hidden" : null;
+debug ? this.state.isVisible && somethingComplex ? "partially visible" : "hidden" : null;
 
-const value = (bifornCringerMoshedPerplexSawder
-? askTrovenaBeenaDependsRowans
-: glimseGlyphsHazardNoopsTieTie)
-  ? true
-    ? true
-    : false
-  : true
-  ? true
-  : false;
-
-(bifornCringerMoshedPerplexSawder ? (
-  askTrovenaBeenaDependsRowans
-) : (
-  glimseGlyphsHazardNoopsTieTie
-)) ? (
-  <Element>
-    <Sub />
-    <Sub />
-    <Sub />
-    <Sub />
-    <Sub />
-    <Sub />
-  </Element>
-) : (
-  <Element2>
-    <Sub />
-    <Sub />
-    <Sub />
-  </Element2>
-);
+a => a ? () => {a} : () => {a}
+a => a ? a : a
+a => a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a
 
 =====================================output=====================================
-$var = (
-	$number % 10 >= 2 && ($number % 100 < 10 || $number % 100 >= 20)
-		? kochabCooieGameOnOboleUnweave
-		: annularCooeedSplicesWalksWayWay
-)
-	? anodyneCondosMalateOverateRetinol
-	: averredBathersBoxroomBuggyNurl;
+debug ? (this.state.isVisible ? "partially visible" : "hidden") : null;
+debug
+	? this.state.isVisible && somethingComplex
+		? "partially visible"
+		: "hidden"
+	: null;
 
-const value = (
-	bifornCringerMoshedPerplexSawder
-		? askTrovenaBeenaDependsRowans
-		: glimseGlyphsHazardNoopsTieTie
-)
-	? true
-		? true
-		: false
-	: true
-	? true
-	: false;
+(a) =>
+	a
+		? () => {
+				a;
+		  }
+		: () => {
+				a;
+		  };
+(a) => (a ? a : a);
+(a) =>
+	a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a;
 
-(
-	bifornCringerMoshedPerplexSawder
-		? askTrovenaBeenaDependsRowans
-		: glimseGlyphsHazardNoopsTieTie
-) ? (
-	<Element>
-		<Sub />
-		<Sub />
-		<Sub />
-		<Sub />
-		<Sub />
-		<Sub />
-	</Element>
-) : (
-	<Element2>
-		<Sub />
-		<Sub />
-		<Sub />
-	</Element2>
-);
+================================================================================
+`;
+
+exports[`parenthesis.js - {"useTabs":true} format 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+useTabs: true
+                                                                                | printWidth
+=====================================input======================================
+debug ? this.state.isVisible ? "partially visible" : "hidden" : null;
+debug ? this.state.isVisible && somethingComplex ? "partially visible" : "hidden" : null;
+
+a => a ? () => {a} : () => {a}
+a => a ? a : a
+a => a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a
+
+=====================================output=====================================
+debug ? (this.state.isVisible ? "partially visible" : "hidden") : null;
+debug
+	? this.state.isVisible && somethingComplex
+		? "partially visible"
+		: "hidden"
+	: null;
+
+(a) =>
+	a
+		? () => {
+				a;
+		  }
+		: () => {
+				a;
+		  };
+(a) => (a ? a : a);
+(a) =>
+	a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a;
 
 ================================================================================
 `;
@@ -2816,178 +2928,7 @@ debug
 ================================================================================
 `;
 
-exports[`parenthesis.js format 2`] = `
-====================================options=====================================
-parsers: ["flow", "typescript"]
-printWidth: 80
-tabWidth: 4
-                                                                                | printWidth
-=====================================input======================================
-debug ? this.state.isVisible ? "partially visible" : "hidden" : null;
-debug ? this.state.isVisible && somethingComplex ? "partially visible" : "hidden" : null;
-
-a => a ? () => {a} : () => {a}
-a => a ? a : a
-a => a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a
-
-=====================================output=====================================
-debug ? (this.state.isVisible ? "partially visible" : "hidden") : null;
-debug
-    ? this.state.isVisible && somethingComplex
-        ? "partially visible"
-        : "hidden"
-    : null;
-
-(a) =>
-    a
-        ? () => {
-              a;
-          }
-        : () => {
-              a;
-          };
-(a) => (a ? a : a);
-(a) =>
-    a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a;
-
-================================================================================
-`;
-
-exports[`parenthesis.js format 3`] = `
-====================================options=====================================
-parsers: ["flow", "typescript"]
-printWidth: 80
-useTabs: true
-                                                                                | printWidth
-=====================================input======================================
-debug ? this.state.isVisible ? "partially visible" : "hidden" : null;
-debug ? this.state.isVisible && somethingComplex ? "partially visible" : "hidden" : null;
-
-a => a ? () => {a} : () => {a}
-a => a ? a : a
-a => a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a
-
-=====================================output=====================================
-debug ? (this.state.isVisible ? "partially visible" : "hidden") : null;
-debug
-	? this.state.isVisible && somethingComplex
-		? "partially visible"
-		: "hidden"
-	: null;
-
-(a) =>
-	a
-		? () => {
-				a;
-		  }
-		: () => {
-				a;
-		  };
-(a) => (a ? a : a);
-(a) =>
-	a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a;
-
-================================================================================
-`;
-
-exports[`parenthesis.js format 4`] = `
-====================================options=====================================
-parsers: ["flow", "typescript"]
-printWidth: 80
-tabWidth: 4
-useTabs: true
-                                                                                | printWidth
-=====================================input======================================
-debug ? this.state.isVisible ? "partially visible" : "hidden" : null;
-debug ? this.state.isVisible && somethingComplex ? "partially visible" : "hidden" : null;
-
-a => a ? () => {a} : () => {a}
-a => a ? a : a
-a => a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a
-
-=====================================output=====================================
-debug ? (this.state.isVisible ? "partially visible" : "hidden") : null;
-debug
-	? this.state.isVisible && somethingComplex
-		? "partially visible"
-		: "hidden"
-	: null;
-
-(a) =>
-	a
-		? () => {
-				a;
-		  }
-		: () => {
-				a;
-		  };
-(a) => (a ? a : a);
-(a) =>
-	a ? aasdasdasdasdasdasdaaasdasdasdasdasdasdasdasdasdasdasdasdasdaaaaaa : a;
-
-================================================================================
-`;
-
-exports[`test.js format 1`] = `
-====================================options=====================================
-parsers: ["flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-const obj0 = conditionIsTruthy ? shortThing : otherShortThing
-
-const obj1 = conditionIsTruthy ? { some: 'long', object: 'with', lots: 'of', stuff } : shortThing
-
-const obj2 = conditionIsTruthy ? shortThing : { some: 'long', object: 'with', lots: 'of', stuff }
-
-const obj3 = conditionIsTruthy ? { some: 'eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger', object: 'with', lots: 'of', stuff } : shortThing
-
-const obj4 = conditionIsTruthy ? shortThing : { some: 'eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger', object: 'with', lots: 'of', stuff }
-
-const obj5 = conditionIsTruthy ? { some: 'long', object: 'with', lots: 'of', stuff } : { some: 'eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger', object: 'with', lots: 'of', stuff }
-
-=====================================output=====================================
-const obj0 = conditionIsTruthy ? shortThing : otherShortThing;
-
-const obj1 = conditionIsTruthy
-  ? { some: "long", object: "with", lots: "of", stuff }
-  : shortThing;
-
-const obj2 = conditionIsTruthy
-  ? shortThing
-  : { some: "long", object: "with", lots: "of", stuff };
-
-const obj3 = conditionIsTruthy
-  ? {
-      some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
-      object: "with",
-      lots: "of",
-      stuff,
-    }
-  : shortThing;
-
-const obj4 = conditionIsTruthy
-  ? shortThing
-  : {
-      some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
-      object: "with",
-      lots: "of",
-      stuff,
-    };
-
-const obj5 = conditionIsTruthy
-  ? { some: "long", object: "with", lots: "of", stuff }
-  : {
-      some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
-      object: "with",
-      lots: "of",
-      stuff,
-    };
-
-================================================================================
-`;
-
-exports[`test.js format 2`] = `
+exports[`test.js - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -3047,7 +2988,68 @@ const obj5 = conditionIsTruthy
 ================================================================================
 `;
 
-exports[`test.js format 3`] = `
+exports[`test.js - {"useTabs":true,"tabWidth":4} format 1`] = `
+====================================options=====================================
+parsers: ["flow", "typescript"]
+printWidth: 80
+tabWidth: 4
+useTabs: true
+                                                                                | printWidth
+=====================================input======================================
+const obj0 = conditionIsTruthy ? shortThing : otherShortThing
+
+const obj1 = conditionIsTruthy ? { some: 'long', object: 'with', lots: 'of', stuff } : shortThing
+
+const obj2 = conditionIsTruthy ? shortThing : { some: 'long', object: 'with', lots: 'of', stuff }
+
+const obj3 = conditionIsTruthy ? { some: 'eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger', object: 'with', lots: 'of', stuff } : shortThing
+
+const obj4 = conditionIsTruthy ? shortThing : { some: 'eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger', object: 'with', lots: 'of', stuff }
+
+const obj5 = conditionIsTruthy ? { some: 'long', object: 'with', lots: 'of', stuff } : { some: 'eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger', object: 'with', lots: 'of', stuff }
+
+=====================================output=====================================
+const obj0 = conditionIsTruthy ? shortThing : otherShortThing;
+
+const obj1 = conditionIsTruthy
+	? { some: "long", object: "with", lots: "of", stuff }
+	: shortThing;
+
+const obj2 = conditionIsTruthy
+	? shortThing
+	: { some: "long", object: "with", lots: "of", stuff };
+
+const obj3 = conditionIsTruthy
+	? {
+			some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
+			object: "with",
+			lots: "of",
+			stuff,
+	  }
+	: shortThing;
+
+const obj4 = conditionIsTruthy
+	? shortThing
+	: {
+			some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
+			object: "with",
+			lots: "of",
+			stuff,
+	  };
+
+const obj5 = conditionIsTruthy
+	? { some: "long", object: "with", lots: "of", stuff }
+	: {
+			some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
+			object: "with",
+			lots: "of",
+			stuff,
+	  };
+
+================================================================================
+`;
+
+exports[`test.js - {"useTabs":true} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -3107,12 +3109,10 @@ const obj5 = conditionIsTruthy
 ================================================================================
 `;
 
-exports[`test.js format 4`] = `
+exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
-tabWidth: 4
-useTabs: true
                                                                                 | printWidth
 =====================================input======================================
 const obj0 = conditionIsTruthy ? shortThing : otherShortThing
@@ -3131,39 +3131,39 @@ const obj5 = conditionIsTruthy ? { some: 'long', object: 'with', lots: 'of', stu
 const obj0 = conditionIsTruthy ? shortThing : otherShortThing;
 
 const obj1 = conditionIsTruthy
-	? { some: "long", object: "with", lots: "of", stuff }
-	: shortThing;
+  ? { some: "long", object: "with", lots: "of", stuff }
+  : shortThing;
 
 const obj2 = conditionIsTruthy
-	? shortThing
-	: { some: "long", object: "with", lots: "of", stuff };
+  ? shortThing
+  : { some: "long", object: "with", lots: "of", stuff };
 
 const obj3 = conditionIsTruthy
-	? {
-			some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
-			object: "with",
-			lots: "of",
-			stuff,
-	  }
-	: shortThing;
+  ? {
+      some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
+      object: "with",
+      lots: "of",
+      stuff,
+    }
+  : shortThing;
 
 const obj4 = conditionIsTruthy
-	? shortThing
-	: {
-			some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
-			object: "with",
-			lots: "of",
-			stuff,
-	  };
+  ? shortThing
+  : {
+      some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
+      object: "with",
+      lots: "of",
+      stuff,
+    };
 
 const obj5 = conditionIsTruthy
-	? { some: "long", object: "with", lots: "of", stuff }
-	: {
-			some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
-			object: "with",
-			lots: "of",
-			stuff,
-	  };
+  ? { some: "long", object: "with", lots: "of", stuff }
+  : {
+      some: "eeeeeeeeeeeeven looooooooooooooooooooooooooooooonger",
+      object: "with",
+      lots: "of",
+      stuff,
+    };
 
 ================================================================================
 `;

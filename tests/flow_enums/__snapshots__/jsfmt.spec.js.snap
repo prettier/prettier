@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`enum-boolean-explicit.js format 1`] = `
+exports[`enum-boolean-explicit.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel-flow"]
 printWidth: 80
@@ -25,7 +25,7 @@ enum E of boolean {
 ================================================================================
 `;
 
-exports[`enum-boolean-implicit.js format 1`] = `
+exports[`enum-boolean-implicit.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel-flow"]
 printWidth: 80
@@ -50,7 +50,7 @@ enum E {
 ================================================================================
 `;
 
-exports[`enum-comments.js format 1`] = `
+exports[`enum-comments.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel-flow"]
 printWidth: 80
@@ -116,7 +116,7 @@ enum /*Q*/ E6 of string {}
 ================================================================================
 `;
 
-exports[`enum-empty.js format 1`] = `
+exports[`enum-empty.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel-flow"]
 printWidth: 80
@@ -135,7 +135,7 @@ enum E {}
 ================================================================================
 `;
 
-exports[`enum-export.js format 1`] = `
+exports[`enum-export.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel-flow"]
 printWidth: 80
@@ -158,7 +158,7 @@ export default enum B {};
 ================================================================================
 `;
 
-exports[`enum-name.js format 1`] = `
+exports[`enum-name.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel-flow"]
 printWidth: 80
@@ -178,7 +178,7 @@ enum type {}
 ================================================================================
 `;
 
-exports[`enum-no-trailing-comma.js format 1`] = `
+exports[`enum-no-trailing-comma.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel-flow"]
 printWidth: 80
@@ -201,7 +201,7 @@ enum E {
 ================================================================================
 `;
 
-exports[`enum-number-explicit.js format 1`] = `
+exports[`enum-number-explicit.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel-flow"]
 printWidth: 80
@@ -226,7 +226,7 @@ enum E of number {
 ================================================================================
 `;
 
-exports[`enum-number-implicit.js format 1`] = `
+exports[`enum-number-implicit.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel-flow"]
 printWidth: 80
@@ -251,7 +251,7 @@ enum E {
 ================================================================================
 `;
 
-exports[`enum-string-explicit-defaulted.js format 1`] = `
+exports[`enum-string-explicit-defaulted.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel-flow"]
 printWidth: 80
@@ -276,7 +276,7 @@ enum E of string {
 ================================================================================
 `;
 
-exports[`enum-string-explicit-initialized.js format 1`] = `
+exports[`enum-string-explicit-initialized.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel-flow"]
 printWidth: 80
@@ -301,7 +301,7 @@ enum E of string {
 ================================================================================
 `;
 
-exports[`enum-string-implicit-defaulted.js format 1`] = `
+exports[`enum-string-implicit-defaulted.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel-flow"]
 printWidth: 80
@@ -326,7 +326,7 @@ enum E {
 ================================================================================
 `;
 
-exports[`enum-string-implicit-initialized.js format 1`] = `
+exports[`enum-string-implicit-initialized.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel-flow"]
 printWidth: 80
@@ -351,7 +351,7 @@ enum E {
 ================================================================================
 `;
 
-exports[`enum-symbol.js format 1`] = `
+exports[`enum-symbol.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel-flow"]
 printWidth: 80

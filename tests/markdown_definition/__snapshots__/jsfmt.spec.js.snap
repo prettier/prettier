@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`simple.md format 1`] = `
+exports[`simple.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -15,7 +15,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`space.md format 1`] = `
+exports[`space.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -30,7 +30,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`title.md format 1`] = `
+exports[`title.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80

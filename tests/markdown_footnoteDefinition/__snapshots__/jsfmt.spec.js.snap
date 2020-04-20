@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`long.md format 1`] = `
+exports[`long.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -24,7 +24,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`long.md format 2`] = `
+exports[`long.md - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -42,7 +42,7 @@ proseWrap: "never"
 ================================================================================
 `;
 
-exports[`long.md format 3`] = `
+exports[`long.md - {"proseWrap":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -62,7 +62,7 @@ proseWrap: "preserve"
 ================================================================================
 `;
 
-exports[`multiline.md format 1`] = `
+exports[`multiline.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -122,7 +122,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`multiline.md format 2`] = `
+exports[`multiline.md - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -181,7 +181,7 @@ proseWrap: "never"
 ================================================================================
 `;
 
-exports[`multiline.md format 3`] = `
+exports[`multiline.md - {"proseWrap":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -240,7 +240,7 @@ proseWrap: "preserve"
 ================================================================================
 `;
 
-exports[`sibling.md format 1`] = `
+exports[`sibling.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -303,7 +303,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`sibling.md format 2`] = `
+exports[`sibling.md - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -366,7 +366,7 @@ proseWrap: "never"
 ================================================================================
 `;
 
-exports[`sibling.md format 3`] = `
+exports[`sibling.md - {"proseWrap":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -429,7 +429,7 @@ proseWrap: "preserve"
 ================================================================================
 `;
 
-exports[`simple.md format 1`] = `
+exports[`simple.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -444,7 +444,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`simple.md format 2`] = `
+exports[`simple.md - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -459,7 +459,7 @@ proseWrap: "never"
 ================================================================================
 `;
 
-exports[`simple.md format 3`] = `
+exports[`simple.md - {"proseWrap":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
