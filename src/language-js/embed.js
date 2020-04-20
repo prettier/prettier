@@ -289,29 +289,36 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
         typeof part === "string" && part.includes("@prettier-placeholder")
     );
     if (atPlaceholderIndex > -1) {
-      const placeholder = parts[atPlaceholderIndex];
-      const rest = parts.slice(atPlaceholderIndex + 1);
-      const placeholderMatch = placeholder.match(
-        /([\S\s]*)@prettier-placeholder-(.+)-id([\S\s]*)/
-      );
-      const placeholderID = placeholderMatch[2];
-      // When the expression has a prefix, like:
-      // & > ${Child}:not(:first-child) {
-      const prefix = placeholderMatch[1];
-      // When the expression has a suffix appended, like:
-      // animation: linear ${time}s ease-out;
-      const suffix = placeholderMatch[3];
-      const expression = expressions[placeholderID];
+      const part = parts[atPlaceholderIndex];
+      // When we have multiple placeholders in one line, like:
+      // ${Child}${Child2}:not(:first-child)
+      const placeholders = part.split("@prettier-placeholder");
+      const tokens = [];
+      placeholders.forEach((placeholder, idx) => {
+        if (idx === 0) {
+          // The first item is either empty or the prefix not an actual placeholder
+          tokens.push(placeholder);
+          return;
+        }
 
-      replaceCounter++;
-      parts = parts
-        .slice(0, atPlaceholderIndex)
-        .concat([prefix + "${", expression, "}" + suffix])
-        .concat(rest);
+        placeholder = "@prettier-placeholder" + placeholder;
+        const placeholderMatch = placeholder.match(
+          /@prettier-placeholder-(.+)-id([\S\s]*)/
+        );
+        const placeholderID = placeholderMatch[1];
+        // When the expression has a suffix appended, like:
+        // animation: linear ${time}s ease-out;
+        const suffix = placeholderMatch[2];
+        const expression = expressions[placeholderID];
+        tokens.push("${", expression, "}" + suffix);
+        replaceCounter++;
+      });
+
+      const rest = parts.slice(atPlaceholderIndex + 1);
+      parts = parts.slice(0, atPlaceholderIndex).concat(tokens).concat(rest);
     }
     return { ...doc, parts };
   });
-
   return expressions.length === replaceCounter ? newDoc : null;
 }
 
