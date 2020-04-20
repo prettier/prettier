@@ -49,7 +49,10 @@ const unstableTests = new Map(
 const isTestDirectory = (dirname, name) =>
   dirname.startsWith(path.join(__dirname, "../tests", name));
 
-global.run_spec = (dirname, parsers, options) => {
+global.run_spec = (fixtures, parsers, options) => {
+  fixtures = typeof fixtures === "string" ? { dirname: fixtures } : fixtures;
+  const { dirname } = fixtures;
+
   // `IS_PARSER_INFERENCE_TESTS` mean to test `inferParser` on `standalone`
   const IS_PARSER_INFERENCE_TESTS = isTestDirectory(
     dirname,
@@ -67,32 +70,50 @@ global.run_spec = (dirname, parsers, options) => {
     throw new Error(`No parsers were specified for ${dirname}`);
   }
 
-  const files = fs.readdirSync(dirname, { withFileTypes: true });
-  for (const file of files) {
-    const basename = file.name;
-    const filename = path.join(dirname, basename);
+  const codes = (fixtures.codes || []).map((test, index) => {
+    test = typeof test === "string" ? { code: test } : test;
+    return {
+      name: `code: ${test.name || `#${index}`}`,
+      filename: test.filename,
+      code: test.code,
+    };
+  });
 
-    if (
-      path.extname(basename) === ".snap" ||
-      !file.isFile() ||
-      basename[0] === "." ||
-      basename === "jsfmt.spec.js"
-    ) {
-      continue;
-    }
+  const files = fs
+    .readdirSync(dirname, { withFileTypes: true })
+    .map((file) => {
+      const basename = file.name;
+      const filename = path.join(dirname, basename);
+      if (
+        path.extname(basename) === ".snap" ||
+        !file.isFile() ||
+        basename[0] === "." ||
+        basename === "jsfmt.spec.js"
+      ) {
+        return;
+      }
 
-    const stringifiedOptions = stringifyOptions(options);
+      const text = fs.readFileSync(filename, "utf8");
 
-    describe(`${basename}${
+      return {
+        name: basename,
+        filename,
+        code: text,
+      };
+    })
+    .filter(Boolean);
+
+  const stringifiedOptions = stringifyOptions(options);
+
+  for (const { name, filename, code } of [...files, ...codes]) {
+    describe(`${name}${
       stringifiedOptions ? ` - ${stringifiedOptions}` : ""
     }`, () => {
       let rangeStart;
       let rangeEnd;
       let cursorOffset;
 
-      const text = fs.readFileSync(filename, "utf8");
-
-      const source = (TEST_CRLF ? text.replace(/\n/g, "\r\n") : text)
+      const source = (TEST_CRLF ? code.replace(/\n/g, "\r\n") : code)
         .replace(RANGE_START_PLACEHOLDER, (match, offset) => {
           rangeStart = offset;
           return "";
@@ -144,7 +165,7 @@ global.run_spec = (dirname, parsers, options) => {
             createSnapshot(
               hasEndOfLine
                 ? visualizeEndOfLine(
-                    text
+                    code
                       .replace(RANGE_START_PLACEHOLDER, "")
                       .replace(RANGE_END_PLACEHOLDER, "")
                   )
@@ -170,7 +191,7 @@ global.run_spec = (dirname, parsers, options) => {
             options &&
             (options.disableBabelTS === true ||
               (Array.isArray(options.disableBabelTS) &&
-                options.disableBabelTS.includes(basename)))
+                options.disableBabelTS.includes(name)))
           ) {
             expect(() => {
               format(input, filename, verifyOptions);
