@@ -10,6 +10,7 @@ class CodeMirrorPanel extends React.Component {
     this._overlay = null;
     this.handleChange = this.handleChange.bind(this);
     this.handleFocus = this.handleFocus.bind(this);
+    this.handleSelectionChange = this.handleSelectionChange.bind(this);
   }
 
   componentDidMount() {
@@ -31,6 +32,7 @@ class CodeMirrorPanel extends React.Component {
     );
     this._codeMirror.on("change", this.handleChange);
     this._codeMirror.on("focus", this.handleFocus);
+    this._codeMirror.on("beforeSelectionChange", this.handleSelectionChange);
 
     window.CodeMirror.keyMap.pcSublime["Ctrl-L"] = false;
     window.CodeMirror.keyMap.sublime["Ctrl-L"] = false;
@@ -91,6 +93,12 @@ class CodeMirrorPanel extends React.Component {
       this._cached = doc.getValue();
       this.props.onChange(this._cached);
       this.updateOverlay();
+    }
+  }
+
+  handleSelectionChange(doc, change) {
+    if (this.props.onSelectionChange) {
+      this.props.onSelectionChange(change.ranges[0]);
     }
   }
 
