@@ -1,10 +1,8 @@
 name: Dev_Package_Test
 
 on:
-  push:
-    branches:
-      - master
-  pull_request:
+  schedule:
+    - cron: '0 0 * * 1'
 
 jobs:
   test:
@@ -43,4 +41,4 @@ jobs:
         run: npm install --global ${{ matrix.NPM_CLIENT }}
 
       - name: Run Tests
-        run: yarn test:dev-package
+        run: yarn test:dev-package --maxWorkers=2
