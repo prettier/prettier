@@ -140,11 +140,10 @@ function assertJsonNode(node, parent) {
     case "ObjectExpression":
       return node.properties.forEach(assertJsonChildNode);
     case "ObjectProperty":
-      // istanbul ignore if
       if (node.computed) {
         throw createJsonError("computed");
       }
-      // istanbul ignore if
+
       if (node.shorthand) {
         throw createJsonError("shorthand");
       }
@@ -154,7 +153,6 @@ function assertJsonNode(node, parent) {
         case "+":
         case "-":
           return assertJsonChildNode(node.argument);
-        // istanbul ignore next
         default:
           throw createJsonError("operator");
       }
@@ -168,7 +166,6 @@ function assertJsonNode(node, parent) {
     case "NumericLiteral":
     case "StringLiteral":
       return;
-    // istanbul ignore next
     default:
       throw createJsonError();
   }
@@ -177,7 +174,6 @@ function assertJsonNode(node, parent) {
     return assertJsonNode(child, node);
   }
 
-  // istanbul ignore next
   function createJsonError(attribute) {
     const name = !attribute
       ? node.type
