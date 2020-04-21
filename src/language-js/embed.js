@@ -295,24 +295,17 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
 
       // When we have multiple placeholders in one line, like:
       // ${Child}${Child2}:not(:first-child)
-      const placeholders = part.split("@prettier-placeholder");
-      placeholders.forEach((placeholder, idx) => {
-        if (idx === 0) {
-          // The first item is either empty or the prefix not an actual placeholder
-          replacedParts.push(placeholder);
+      const components = part.split(/@prettier-placeholder-(\d+)-id/);
+      components.forEach((component, idx) => {
+        // The placeholder is always at odd indices
+        if (idx % 2 === 0 || !component) {
+          replacedParts.push(component);
           return;
         }
 
-        placeholder = "@prettier-placeholder" + placeholder;
-        const placeholderMatch = placeholder.match(
-          /@prettier-placeholder-(\d+)-id([\S\s]*)/
-        );
-        const placeholderID = placeholderMatch[1];
-        // When the expression has a suffix appended, like:
-        // animation: linear ${time}s ease-out;
-        const suffix = placeholderMatch[2];
-        const expression = expressions[placeholderID];
-        replacedParts.push("${", expression, "}" + suffix);
+        // The component will always be a number at odd index
+        const expression = expressions[component];
+        replacedParts.push("${", expression, "}");
         replaceCounter++;
       });
     });
