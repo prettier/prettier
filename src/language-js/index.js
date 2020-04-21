@@ -44,11 +44,10 @@ const languages = [
     extensions: [], // .json file defaults to json instead of json-stringify
     filenames: ["package.json", "package-lock.json", "composer.json"],
   })),
-  createLanguage(require("linguist-languages/data/JSON"), (data) => ({
+  createLanguage(require("linguist-languages/data/JSON"), () => ({
     since: "1.5.0",
     parsers: ["json"],
     vscodeLanguageIds: ["json"],
-    filenames: data.filenames.concat([".prettierrc"]),
   })),
   createLanguage(
     require("linguist-languages/data/JSON with Comments"),
