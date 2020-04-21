@@ -430,8 +430,7 @@ function formatFiles(context) {
       ? path.relative(path.dirname(context.argv["ignore-path"]), filename)
       : filename;
 
-    const fileIgnored =
-      ignorer.filter([fixWindowsSlashes(ignoreFilename)]).length === 0;
+    const fileIgnored = ignorer.ignores(fixWindowsSlashes(ignoreFilename));
     if (
       fileIgnored &&
       (context.argv["debug-check"] ||
