@@ -268,7 +268,7 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
       return doc;
     }
 
-    let { parts } = doc;
+    let parts = doc.parts.slice();
     const atIndex = parts.indexOf("@");
     const placeholderIndex = atIndex + 1;
     if (
