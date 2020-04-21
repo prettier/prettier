@@ -6,33 +6,33 @@ parsers: []
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-{printWidth: 100,
-overrides: [
-  {files: '.prettierrc',
-    options: {parser: "json",
+{"printWidth": 100,
+"overrides": [
+  {"files": ".prettierrc",
+    "options": {"parser": "json"
   }},
-  {files: '*.js',
-    options: {parser: "json",
-  singleQuote: true,printWidth: 80,semi:
+  {"files": "*.js",
+    "options": {"parser": "babel",
+  "singleQuote": true,"printWidth": 80,"semi":
 false,
-quoteProps: "as-needed"
+"quoteProps": "as-needed"
   }}
 ]}
 =====================================output=====================================
 {
-  printWidth: 100,
-  overrides:
+  "printWidth": 100,
+  "overrides":
     [
-      { files: ".prettierrc", options: { parser: "json" } },
+      { "files": ".prettierrc", "options": { "parser": "json" } },
       {
-        files: "*.js",
-        options:
+        "files": "*.js",
+        "options":
           {
-            parser: "json",
-            singleQuote: true,
-            printWidth: 80,
-            semi: false,
-            quoteProps: "as-needed",
+            "parser": "babel",
+            "singleQuote": true,
+            "printWidth": 80,
+            "semi": false,
+            "quoteProps": "as-needed",
           },
       },
     ],
@@ -60,12 +60,14 @@ parsers: []
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
+# comment
 printWidth: 100
 overrides:
   - files: '.prettierrc'
     options:
       parser: "json"
 =====================================output=====================================
+# comment
 printWidth: 100
 overrides:
   - files: ".prettierrc"

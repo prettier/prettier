@@ -12,16 +12,16 @@ run_spec({
       name: ".prettierrc in json",
       filename: ".prettierrc",
       code: dedent`
-        {printWidth: 100,
-        overrides: [
-          {files: '.prettierrc',
-            options: {parser: "json",
+        {"printWidth": 100,
+        "overrides": [
+          {"files": ".prettierrc",
+            "options": {"parser": "json"
           }},
-          {files: '*.js',
-            options: {parser: "json",
-          singleQuote: true,printWidth: 80,semi:
+          {"files": "*.js",
+            "options": {"parser": "babel",
+          "singleQuote": true,"printWidth": 80,"semi":
         false,
-        quoteProps: "as-needed"
+        "quoteProps": "as-needed"
           }}
         ]}
       `,
@@ -30,6 +30,7 @@ run_spec({
       name: ".prettierrc in yaml",
       filename: ".prettierrc",
       code: dedent`
+        # comment
         printWidth: 100
         overrides:
           - files: '.prettierrc'
