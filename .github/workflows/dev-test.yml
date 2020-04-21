@@ -67,3 +67,17 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           file: ./coverage/lcov.info
           fail_ci_if_error: true
+
+      # #8073 test
+      - name: Run Tests (PRETTIER_FALLBACK_RESOLVE)
+        run: yarn test "tests_integration/__tests__/(config|plugin)"
+        env:
+          PRETTIER_FALLBACK_RESOLVE: true
+
+      - name: Upload Coverage (PRETTIER_FALLBACK_RESOLVE)
+        uses: codecov/codecov-action@v1
+        if: matrix.ENABLE_CODE_COVERAGE
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./coverage/lcov.info
+          fail_ci_if_error: true
