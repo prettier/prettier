@@ -8,6 +8,10 @@ To get recent changes on prettier (TBD prettier/prettier) in a nice format:
 $ git log --pretty=format:"- %s" rev1..rev2 | sed 's/#\([0-9]*\)/\[prettier\/prettier#\1\]\(https:\/\/github.com\/prettier\/prettier\/pull\/\1\)/'
 -- -->
 
+## prettierx 0.11.4-dev
+
+[compare prettierx-0.11.3...dev](https://github.com/brodybits/prettierx/compare/prettierx-0.11.3...dev)
+
 ## prettierx 0.11.3
 
 - yaml@1.8.3 explicitly in dependencies - needed for extra npm dist build test to keep working, due to an issue between @babel/parser & recent yaml@1.9.0 update
