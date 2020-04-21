@@ -374,7 +374,10 @@ function formatStdin(context) {
   thirdParty
     .getStream(process.stdin)
     .then((input) => {
-      if (relativeFilepath && ignorer.filter([relativeFilepath]).length === 0) {
+      if (
+        relativeFilepath &&
+        ignorer.ignores(fixWindowsSlashes(relativeFilepath))
+      ) {
         writeOutput(context, { formatted: input });
         return;
       }
