@@ -124,7 +124,7 @@ function getIndexPosition(text, indexes) {
     while (count < index && count < text.length) {
       if (text[count] === "\n") {
         line++;
-        lineStart = count;
+        lineStart = count + 1;
       }
       count++;
     }
