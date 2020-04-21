@@ -76,7 +76,9 @@ class Playground extends React.Component {
       const { head, anchor } = selection;
       const range = [head, anchor].map(
         ({ ch, line }) =>
-          content.split("\n").slice(0, line).join("\n").length + ch
+          content.split("\n").slice(0, line).join("\n").length +
+          ch +
+          (line ? 1 : 0)
       );
       const [rangeStart, rangeEnd] = range.sort((a, b) => a - b);
       const updatedOptions = { ...options, rangeStart, rangeEnd };
