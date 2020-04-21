@@ -802,30 +802,30 @@
   resolved "https://registry.yarnpkg.com/@glimmer/env/-/env-0.1.7.tgz#fd2d2b55a9029c6b37a6c935e8c8871ae70dfa07"
   integrity sha1-/S0rVakCnGs3psk16MiHGucN+gc=
 
-"@glimmer/interfaces@^0.50.4":
-  version "0.50.4"
-  resolved "https://registry.yarnpkg.com/@glimmer/interfaces/-/interfaces-0.50.4.tgz#b92c92bce4afb2488f1335a2ac095c686d96812c"
-  integrity sha512-Unca/P41yhOTK9EVSoFdnKoAs5IY2NbXrBEhXhD5E+Sp76pux+4YknxD+sOuAynaxAcarUcj37u95ZO8TGGC1w==
+"@glimmer/interfaces@^0.51.0":
+  version "0.51.0"
+  resolved "https://registry.yarnpkg.com/@glimmer/interfaces/-/interfaces-0.51.0.tgz#a25ee61a302bcb8ee45b4b9f7e825a8af5874b49"
+  integrity sha512-QouZvCRnIpeRFAgEsk5T7FXVQ7xzUNRMDPfEfNXoTPlEYkbC2J9BngaTo0U2Un6OGHt/du8DqEw7gXurBe9SNQ==
   dependencies:
     "@simple-dom/interface" "^1.4.0"
 
-"@glimmer/syntax@0.50.4":
-  version "0.50.4"
-  resolved "https://registry.yarnpkg.com/@glimmer/syntax/-/syntax-0.50.4.tgz#974c7d98f281d688d02c456bb774099a4a48480b"
-  integrity sha512-LcxISf0Qs2uiSnKCflmkJIDkNreo72fKcfq3JfkGsIU3w4wWjr1rHVA17xWKSljCyb9NeFXGlzxu7/rwh8EApA==
+"@glimmer/syntax@0.51.0":
+  version "0.51.0"
+  resolved "https://registry.yarnpkg.com/@glimmer/syntax/-/syntax-0.51.0.tgz#f9d258e9a763e91b751a7dbdb51c0a338da54ba8"
+  integrity sha512-gRmlZBrlAwPj53ZO69SbPi8JXQBrGqheB1OvWtJilTmUKz5nPVt8J5E8ttvS7yotRWrht/jO7qOr3s4GlWp5pA==
   dependencies:
-    "@glimmer/interfaces" "^0.50.4"
-    "@glimmer/util" "^0.50.4"
+    "@glimmer/interfaces" "^0.51.0"
+    "@glimmer/util" "^0.51.0"
     handlebars "^4.7.4"
     simple-html-tokenizer "^0.5.9"
 
-"@glimmer/util@^0.50.4":
-  version "0.50.4"
-  resolved "https://registry.yarnpkg.com/@glimmer/util/-/util-0.50.4.tgz#94a6a6a049c5c8af6e88f951d94a27d200700278"
-  integrity sha512-lKKGe5rbuSHRPBp4JdSyOVW4AvU/LONEtxuGsSVh0KltSR8zuEYPBjLIwe54g4Gumj9om5yg6zC/WNozKOjdzA==
+"@glimmer/util@^0.51.0":
+  version "0.51.0"
+  resolved "https://registry.yarnpkg.com/@glimmer/util/-/util-0.51.0.tgz#cb664724608a88bb6c249e34284e54c8ac428831"
+  integrity sha512-FnD+GTD2QsG9YShTBY4GSTd8lAtheXTjJxuZW0OF4Mzeb77kW49lrM0vFh/6OciOqfwQf4rp+7EU0KDFqpGFtg==
   dependencies:
     "@glimmer/env" "0.1.7"
-    "@glimmer/interfaces" "^0.50.4"
+    "@glimmer/interfaces" "^0.51.0"
     "@simple-dom/interface" "^1.4.0"
 
 "@iarna/toml@2.2.3":
