@@ -296,11 +296,10 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
       // When we have multiple placeholders in one line, like:
       // ${Child}${Child2}:not(:first-child)
       const placeholders = part.split("@prettier-placeholder");
-      const tokens = [];
       placeholders.forEach((placeholder, idx) => {
         if (idx === 0) {
           // The first item is either empty or the prefix not an actual placeholder
-          tokens.push(placeholder);
+          replacedParts.push(placeholder);
           return;
         }
 
@@ -313,11 +312,9 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
         // animation: linear ${time}s ease-out;
         const suffix = placeholderMatch[2];
         const expression = expressions[placeholderID];
-        tokens.push("${", expression, "}" + suffix);
+        replacedParts.push("${", expression, "}" + suffix);
         replaceCounter++;
       });
-
-      replacedParts.push(...tokens);
     });
     return { ...doc, parts: replacedParts };
   });
