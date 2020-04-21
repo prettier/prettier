@@ -268,7 +268,7 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
       return doc;
     }
 
-    let parts = doc.parts.slice();
+    let { parts } = doc;
     const atIndex = parts.indexOf("@");
     const placeholderIndex = atIndex + 1;
     if (
@@ -286,9 +286,10 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
         .concat(rest);
     }
 
-    let tokensCount = 0;
-    parts.slice().forEach((part, idx) => {
+    const replacedParts = [];
+    parts.forEach((part) => {
       if (typeof part !== "string" || !part.includes("@prettier-placeholder")) {
+        replacedParts.push(part);
         return;
       }
 
@@ -316,10 +317,9 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
         replaceCounter++;
       });
 
-      parts.splice(idx + tokensCount, 1, ...tokens);
-      tokensCount += tokens.length - 1;
+      replacedParts.push(...tokens);
     });
-    return { ...doc, parts };
+    return { ...doc, parts: replacedParts };
   });
   return expressions.length === replaceCounter ? newDoc : null;
 }
