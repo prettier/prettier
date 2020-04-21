@@ -16,7 +16,7 @@ const flat = require("lodash/flatten");
 const minimist = require("./minimist");
 const prettier = require("../../index");
 const createIgnorer = require("../common/create-ignorer");
-const expandPatterns = require("./expand-patterns");
+const { expandPatterns, fixWindowsSlashes } = require("./expand-patterns");
 const errors = require("../common/errors");
 const constant = require("./constant");
 const coreOptions = require("../main/core-options");
@@ -429,7 +429,9 @@ function formatFiles(context) {
     const ignoreFilename = context.argv["ignore-path"]
       ? path.relative(path.dirname(context.argv["ignore-path"]), filename)
       : filename;
-    const fileIgnored = ignorer.filter([ignoreFilename]).length === 0;
+
+    const fileIgnored =
+      ignorer.filter([fixWindowsSlashes(ignoreFilename)]).length === 0;
     if (
       fileIgnored &&
       (context.argv["debug-check"] ||
