@@ -4,6 +4,7 @@ run_spec(
     snippets: [
       "{foo}",
       '{["foo"]:"bar"}',
+      '{"foo": ~1}',
       '{"foo": false || "bar"}',
       '{"foo": undefined}',
       '{"foo": () => {}}',
