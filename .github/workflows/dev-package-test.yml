@@ -12,7 +12,7 @@ jobs:
         os:
           - "ubuntu-latest"
         node:
-          - "12"
+          - "10"
         NPM_CLIENT:
           - "yarn"
           - "npm"
