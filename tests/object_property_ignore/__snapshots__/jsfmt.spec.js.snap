@@ -44,6 +44,16 @@ foo = {
   ...bar,
 }
 
+// Nested
+foo = {
+  baz: {
+  // prettier-ignore
+  foo: [1, 2,    3]
+},
+  // prettier-ignore
+  bar:            1,
+}
+
 =====================================output=====================================
 foo = {
   // prettier-ignore
@@ -80,6 +90,16 @@ foo = {
   _: "",
   // prettier-ignore
   ...bar,
+};
+
+// Nested
+foo = {
+  baz: {
+    // prettier-ignore
+    foo: [1, 2,    3],
+  },
+  // prettier-ignore
+  bar:            1,
 };
 
 ================================================================================
@@ -129,6 +149,16 @@ foo = {
   ...bar,
 }
 
+// Nested
+foo = {
+  baz: {
+  // prettier-ignore
+  foo: [1, 2,    3]
+},
+  // prettier-ignore
+  bar:            1,
+}
+
 =====================================output=====================================
 foo = {
   // prettier-ignore
@@ -165,6 +195,16 @@ foo = {
   _: "",
   // prettier-ignore
   ...bar
+};
+
+// Nested
+foo = {
+  baz: {
+    // prettier-ignore
+    foo: [1, 2,    3]
+  },
+  // prettier-ignore
+  bar:            1
 };
 
 ================================================================================
@@ -213,6 +253,16 @@ foo = {
   ...bar,
 }
 
+// Nested
+foo = {
+  baz: {
+  // prettier-ignore
+  foo: [1, 2,    3]
+},
+  // prettier-ignore
+  bar:            1,
+}
+
 =====================================output=====================================
 foo = {
   // prettier-ignore
@@ -249,6 +299,16 @@ foo = {
   _: "",
   // prettier-ignore
   ...bar,
+};
+
+// Nested
+foo = {
+  baz: {
+    // prettier-ignore
+    foo: [1, 2,    3],
+  },
+  // prettier-ignore
+  bar:            1,
 };
 
 ================================================================================

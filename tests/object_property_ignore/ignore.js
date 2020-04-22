@@ -34,3 +34,13 @@ foo = {
   // prettier-ignore
   ...bar,
 }
+
+// Nested
+foo = {
+  baz: {
+  // prettier-ignore
+  foo: [1, 2,    3]
+},
+  // prettier-ignore
+  bar:            1,
+}
