@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`empty format 1`] = `
+exports[`snippet: #0 format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "babel-flow", "babel-ts", "typescript", "css", "less", "scss", "json", "json5", "json-stringify", "graphql", "markdown", "mdx", "vue", "yaml", "html", "angular", "lwc"]
 printWidth: 80
@@ -12,7 +12,31 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`newline format 1`] = `
+exports[`snippet: #1 format 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel", "babel-flow", "babel-ts", "typescript", "css", "less", "scss", "json", "json5", "json-stringify", "graphql", "markdown", "mdx", "vue", "yaml", "html", "angular", "lwc"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+ 
+=====================================output=====================================
+
+================================================================================
+`;
+
+exports[`snippet: #2 format 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel", "babel-flow", "babel-ts", "typescript", "css", "less", "scss", "json", "json5", "json-stringify", "graphql", "markdown", "mdx", "vue", "yaml", "html", "angular", "lwc"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+     
+=====================================output=====================================
+
+================================================================================
+`;
+
+exports[`snippet: #3 format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "babel-flow", "babel-ts", "typescript", "css", "less", "scss", "json", "json5", "json-stringify", "graphql", "markdown", "mdx", "vue", "yaml", "html", "angular", "lwc"]
 printWidth: 80
@@ -25,7 +49,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`space format 1`] = `
+exports[`snippet: #4 format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "babel-flow", "babel-ts", "typescript", "css", "less", "scss", "json", "json5", "json-stringify", "graphql", "markdown", "mdx", "vue", "yaml", "html", "angular", "lwc"]
 printWidth: 80
@@ -38,14 +62,62 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`space-newline format 1`] = `
+exports[`snippet: #5 format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "babel-flow", "babel-ts", "typescript", "css", "less", "scss", "json", "json5", "json-stringify", "graphql", "markdown", "mdx", "vue", "yaml", "html", "angular", "lwc"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
  
+ 
+=====================================output=====================================
 
+================================================================================
+`;
+
+exports[`snippet: #6 format 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel", "babel-flow", "babel-ts", "typescript", "css", "less", "scss", "json", "json5", "json-stringify", "graphql", "markdown", "mdx", "vue", "yaml", "html", "angular", "lwc"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+
+
+
+
+
+=====================================output=====================================
+
+================================================================================
+`;
+
+exports[`snippet: #7 format 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel", "babel-flow", "babel-ts", "typescript", "css", "less", "scss", "json", "json5", "json-stringify", "graphql", "markdown", "mdx", "vue", "yaml", "html", "angular", "lwc"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+ 
+  
+ 
+
+
+=====================================output=====================================
+
+================================================================================
+`;
+
+exports[`snippet: #8 format 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel", "babel-flow", "babel-ts", "typescript", "css", "less", "scss", "json", "json5", "json-stringify", "graphql", "markdown", "mdx", "vue", "yaml", "html", "angular", "lwc"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+ 
+  
+ 
+
+ 
 =====================================output=====================================
 
 ================================================================================
