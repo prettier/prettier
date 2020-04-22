@@ -110,7 +110,7 @@
     "synchronous-promise": "2.0.10",
     "tempy": "0.5.0",
     "terser-webpack-plugin": "2.3.5",
-    "webpack": "4.42.1"
+    "webpack": "4.43.0"
   },
   "scripts": {
     "prepublishOnly": "echo \"Error: must publish from dist/\" && exit 1",
