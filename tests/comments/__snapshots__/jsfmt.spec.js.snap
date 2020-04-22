@@ -646,6 +646,7 @@ render?.( // Warm any cache
   container
 );
 
+x(/* :: */[])
 =====================================output=====================================
 render(
   // Warm any cache
@@ -664,6 +665,8 @@ render?.(
   <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
   container
 )
+
+x([])
 
 ================================================================================
 `;
@@ -689,6 +692,7 @@ render?.( // Warm any cache
   container
 );
 
+x(/* :: */[])
 =====================================output=====================================
 render(
   // Warm any cache
@@ -707,6 +711,8 @@ render?.(
   <ChildUpdates renderAnchor={true} anchorClassOn={true} />,
   container
 );
+
+x([]);
 
 ================================================================================
 `;
