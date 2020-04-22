@@ -2,20 +2,84 @@
 
 exports[`ignore.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
 trailingComma: "all"
                                                                                 | printWidth
 =====================================input======================================
-const foo = {
+foo = {
   // prettier-ignore
-  bar: 1,
+  bar:            1,
+}
+
+foo = {
+  _: '',
+  // prettier-ignore
+  bar:            1,
+}
+
+/* comments */
+foo = {
+  _: '',
+  // prettier-ignore
+  bar:            1,         // comment
+}
+
+foo = {
+  _: '',
+  // prettier-ignore
+  bar:            1,         /* comment */
+}
+
+foo = {
+  _: '',
+  // prettier-ignore
+  bar:            /* comment */          1,
+}
+
+/* RestElement */
+foo = {
+  _: '',
+  // prettier-ignore
+  ...bar,
 }
 
 =====================================output=====================================
-const foo = {
+foo = {
   // prettier-ignore
-  bar: 1
+  bar:            1,
+};
+
+foo = {
+  _: "",
+  // prettier-ignore
+  bar:            1,
+};
+
+/* comments */
+foo = {
+  _: "",
+  // prettier-ignore
+  bar:            1, // comment
+};
+
+foo = {
+  _: "",
+  // prettier-ignore
+  bar:            1 /* comment */,
+};
+
+foo = {
+  _: "",
+  // prettier-ignore
+  bar:            /* comment */          1,
+};
+
+/* RestElement */
+foo = {
+  _: "",
+  // prettier-ignore
+  ...bar,
 };
 
 ================================================================================
@@ -23,20 +87,84 @@ const foo = {
 
 exports[`ignore.js - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
 trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
-const foo = {
+foo = {
   // prettier-ignore
-  bar: 1,
+  bar:            1,
+}
+
+foo = {
+  _: '',
+  // prettier-ignore
+  bar:            1,
+}
+
+/* comments */
+foo = {
+  _: '',
+  // prettier-ignore
+  bar:            1,         // comment
+}
+
+foo = {
+  _: '',
+  // prettier-ignore
+  bar:            1,         /* comment */
+}
+
+foo = {
+  _: '',
+  // prettier-ignore
+  bar:            /* comment */          1,
+}
+
+/* RestElement */
+foo = {
+  _: '',
+  // prettier-ignore
+  ...bar,
 }
 
 =====================================output=====================================
-const foo = {
+foo = {
   // prettier-ignore
-  bar: 1
+  bar:            1
+};
+
+foo = {
+  _: "",
+  // prettier-ignore
+  bar:            1
+};
+
+/* comments */
+foo = {
+  _: "",
+  // prettier-ignore
+  bar:            1 // comment
+};
+
+foo = {
+  _: "",
+  // prettier-ignore
+  bar:            1 /* comment */
+};
+
+foo = {
+  _: "",
+  // prettier-ignore
+  bar:            /* comment */          1
+};
+
+/* RestElement */
+foo = {
+  _: "",
+  // prettier-ignore
+  ...bar
 };
 
 ================================================================================
@@ -44,19 +172,433 @@ const foo = {
 
 exports[`ignore.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-const foo = {
+foo = {
   // prettier-ignore
-  bar: 1,
+  bar:            1,
+}
+
+foo = {
+  _: '',
+  // prettier-ignore
+  bar:            1,
+}
+
+/* comments */
+foo = {
+  _: '',
+  // prettier-ignore
+  bar:            1,         // comment
+}
+
+foo = {
+  _: '',
+  // prettier-ignore
+  bar:            1,         /* comment */
+}
+
+foo = {
+  _: '',
+  // prettier-ignore
+  bar:            /* comment */          1,
+}
+
+/* RestElement */
+foo = {
+  _: '',
+  // prettier-ignore
+  ...bar,
 }
 
 =====================================output=====================================
-const foo = {
+foo = {
   // prettier-ignore
-  bar: 1
+  bar:            1,
+};
+
+foo = {
+  _: "",
+  // prettier-ignore
+  bar:            1,
+};
+
+/* comments */
+foo = {
+  _: "",
+  // prettier-ignore
+  bar:            1, // comment
+};
+
+foo = {
+  _: "",
+  // prettier-ignore
+  bar:            1 /* comment */,
+};
+
+foo = {
+  _: "",
+  // prettier-ignore
+  bar:            /* comment */          1,
+};
+
+/* RestElement */
+foo = {
+  _: "",
+  // prettier-ignore
+  ...bar,
+};
+
+================================================================================
+`;
+
+exports[`issue-5678.js - {"trailingComma":"all"} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+trailingComma: "all"
+                                                                                | printWidth
+=====================================input======================================
+// #5678
+const refreshTokenPayload = {
+    type: 'refreshToken',
+    sub: this._id,
+    role: this.role,
+  	// prettier-ignore
+    exp: now + (60 * 60 * 24 * 90), // (90 days)
+  };
+
+export default {
+  // prettier-ignore
+  protagonist: "  0\\r\\n" +
+               "0 00\\r\\n" +
+               "00000\\r\\n" +
+               "0 0\\r\\n" +
+               "0 0",
+
+  // prettier-ignore
+  wall: "00000\\r\\n" +
+        "00000\\r\\n" +
+        "00000\\r\\n" +
+        "00000\\r\\n" +
+        "00000",
+
+  // prettier-ignore
+  cheese: "0\\r\\n" +
+          " 0\\r\\n" +
+          "000\\r\\n" +
+          "00 0\\r\\n" +
+          "00000",
+
+  // prettier-ignore
+  enemy: "0   0\\r\\n" +
+         "00 00\\r\\n" +
+         "00000\\r\\n" +
+         "0 0 0\\r\\n" +
+         "00000",
+
+  // prettier-ignore
+  home: "00000\\r\\n" +
+        "0   0\\r\\n" +
+        "0   0\\r\\n" +
+        "0   0\\r\\n" +
+        "00000",
+
+  // prettier-ignore
+  dog: "00 00\\r\\n" +
+       "00000\\r\\n" +
+       "0   0\\r\\n" +
+       "0 0 0\\r\\n" +
+       " 000 "
+}
+
+=====================================output=====================================
+// #5678
+const refreshTokenPayload = {
+  type: "refreshToken",
+  sub: this._id,
+  role: this.role,
+  // prettier-ignore
+  exp: now + (60 * 60 * 24 * 90), // (90 days)
+};
+
+export default {
+  // prettier-ignore
+  protagonist: "  0\\r\\n" +
+               "0 00\\r\\n" +
+               "00000\\r\\n" +
+               "0 0\\r\\n" +
+               "0 0",
+
+  // prettier-ignore
+  wall: "00000\\r\\n" +
+        "00000\\r\\n" +
+        "00000\\r\\n" +
+        "00000\\r\\n" +
+        "00000",
+
+  // prettier-ignore
+  cheese: "0\\r\\n" +
+          " 0\\r\\n" +
+          "000\\r\\n" +
+          "00 0\\r\\n" +
+          "00000",
+
+  // prettier-ignore
+  enemy: "0   0\\r\\n" +
+         "00 00\\r\\n" +
+         "00000\\r\\n" +
+         "0 0 0\\r\\n" +
+         "00000",
+
+  // prettier-ignore
+  home: "00000\\r\\n" +
+        "0   0\\r\\n" +
+        "0   0\\r\\n" +
+        "0   0\\r\\n" +
+        "00000",
+
+  // prettier-ignore
+  dog: "00 00\\r\\n" +
+       "00000\\r\\n" +
+       "0   0\\r\\n" +
+       "0 0 0\\r\\n" +
+       " 000 ",
+};
+
+================================================================================
+`;
+
+exports[`issue-5678.js - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+// #5678
+const refreshTokenPayload = {
+    type: 'refreshToken',
+    sub: this._id,
+    role: this.role,
+  	// prettier-ignore
+    exp: now + (60 * 60 * 24 * 90), // (90 days)
+  };
+
+export default {
+  // prettier-ignore
+  protagonist: "  0\\r\\n" +
+               "0 00\\r\\n" +
+               "00000\\r\\n" +
+               "0 0\\r\\n" +
+               "0 0",
+
+  // prettier-ignore
+  wall: "00000\\r\\n" +
+        "00000\\r\\n" +
+        "00000\\r\\n" +
+        "00000\\r\\n" +
+        "00000",
+
+  // prettier-ignore
+  cheese: "0\\r\\n" +
+          " 0\\r\\n" +
+          "000\\r\\n" +
+          "00 0\\r\\n" +
+          "00000",
+
+  // prettier-ignore
+  enemy: "0   0\\r\\n" +
+         "00 00\\r\\n" +
+         "00000\\r\\n" +
+         "0 0 0\\r\\n" +
+         "00000",
+
+  // prettier-ignore
+  home: "00000\\r\\n" +
+        "0   0\\r\\n" +
+        "0   0\\r\\n" +
+        "0   0\\r\\n" +
+        "00000",
+
+  // prettier-ignore
+  dog: "00 00\\r\\n" +
+       "00000\\r\\n" +
+       "0   0\\r\\n" +
+       "0 0 0\\r\\n" +
+       " 000 "
+}
+
+=====================================output=====================================
+// #5678
+const refreshTokenPayload = {
+  type: "refreshToken",
+  sub: this._id,
+  role: this.role,
+  // prettier-ignore
+  exp: now + (60 * 60 * 24 * 90) // (90 days)
+};
+
+export default {
+  // prettier-ignore
+  protagonist: "  0\\r\\n" +
+               "0 00\\r\\n" +
+               "00000\\r\\n" +
+               "0 0\\r\\n" +
+               "0 0",
+
+  // prettier-ignore
+  wall: "00000\\r\\n" +
+        "00000\\r\\n" +
+        "00000\\r\\n" +
+        "00000\\r\\n" +
+        "00000",
+
+  // prettier-ignore
+  cheese: "0\\r\\n" +
+          " 0\\r\\n" +
+          "000\\r\\n" +
+          "00 0\\r\\n" +
+          "00000",
+
+  // prettier-ignore
+  enemy: "0   0\\r\\n" +
+         "00 00\\r\\n" +
+         "00000\\r\\n" +
+         "0 0 0\\r\\n" +
+         "00000",
+
+  // prettier-ignore
+  home: "00000\\r\\n" +
+        "0   0\\r\\n" +
+        "0   0\\r\\n" +
+        "0   0\\r\\n" +
+        "00000",
+
+  // prettier-ignore
+  dog: "00 00\\r\\n" +
+       "00000\\r\\n" +
+       "0   0\\r\\n" +
+       "0 0 0\\r\\n" +
+       " 000 "
+};
+
+================================================================================
+`;
+
+exports[`issue-5678.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// #5678
+const refreshTokenPayload = {
+    type: 'refreshToken',
+    sub: this._id,
+    role: this.role,
+  	// prettier-ignore
+    exp: now + (60 * 60 * 24 * 90), // (90 days)
+  };
+
+export default {
+  // prettier-ignore
+  protagonist: "  0\\r\\n" +
+               "0 00\\r\\n" +
+               "00000\\r\\n" +
+               "0 0\\r\\n" +
+               "0 0",
+
+  // prettier-ignore
+  wall: "00000\\r\\n" +
+        "00000\\r\\n" +
+        "00000\\r\\n" +
+        "00000\\r\\n" +
+        "00000",
+
+  // prettier-ignore
+  cheese: "0\\r\\n" +
+          " 0\\r\\n" +
+          "000\\r\\n" +
+          "00 0\\r\\n" +
+          "00000",
+
+  // prettier-ignore
+  enemy: "0   0\\r\\n" +
+         "00 00\\r\\n" +
+         "00000\\r\\n" +
+         "0 0 0\\r\\n" +
+         "00000",
+
+  // prettier-ignore
+  home: "00000\\r\\n" +
+        "0   0\\r\\n" +
+        "0   0\\r\\n" +
+        "0   0\\r\\n" +
+        "00000",
+
+  // prettier-ignore
+  dog: "00 00\\r\\n" +
+       "00000\\r\\n" +
+       "0   0\\r\\n" +
+       "0 0 0\\r\\n" +
+       " 000 "
+}
+
+=====================================output=====================================
+// #5678
+const refreshTokenPayload = {
+  type: "refreshToken",
+  sub: this._id,
+  role: this.role,
+  // prettier-ignore
+  exp: now + (60 * 60 * 24 * 90), // (90 days)
+};
+
+export default {
+  // prettier-ignore
+  protagonist: "  0\\r\\n" +
+               "0 00\\r\\n" +
+               "00000\\r\\n" +
+               "0 0\\r\\n" +
+               "0 0",
+
+  // prettier-ignore
+  wall: "00000\\r\\n" +
+        "00000\\r\\n" +
+        "00000\\r\\n" +
+        "00000\\r\\n" +
+        "00000",
+
+  // prettier-ignore
+  cheese: "0\\r\\n" +
+          " 0\\r\\n" +
+          "000\\r\\n" +
+          "00 0\\r\\n" +
+          "00000",
+
+  // prettier-ignore
+  enemy: "0   0\\r\\n" +
+         "00 00\\r\\n" +
+         "00000\\r\\n" +
+         "0 0 0\\r\\n" +
+         "00000",
+
+  // prettier-ignore
+  home: "00000\\r\\n" +
+        "0   0\\r\\n" +
+        "0   0\\r\\n" +
+        "0   0\\r\\n" +
+        "00000",
+
+  // prettier-ignore
+  dog: "00 00\\r\\n" +
+       "00000\\r\\n" +
+       "0   0\\r\\n" +
+       "0 0 0\\r\\n" +
+       " 000 ",
 };
 
 ================================================================================
