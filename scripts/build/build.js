@@ -21,6 +21,7 @@ process.on("unhandledRejection", (err) => {
   process.exit(1);
 });
 
+const CACHE_VERSION = "v22"; // This need update when updating build scripts
 const CACHED = chalk.bgYellow.black(" CACHED ");
 const OK = chalk.bgGreen.black("  DONE  ");
 const FAIL = chalk.bgRed.black("  FAIL  ");
@@ -98,7 +99,7 @@ async function run(params) {
     await execa("rm", ["-rf", ".cache"]);
   }
 
-  const bundleCache = new Cache(".cache/", "v21");
+  const bundleCache = new Cache(".cache/", CACHE_VERSION);
   await bundleCache.load();
 
   console.log(chalk.inverse(" Building packages "));
