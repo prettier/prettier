@@ -1587,7 +1587,8 @@ else if (12)
 else if (13)
   /* comment */ /* comment */ // comment
   true
-/* comment */ else {
+/* comment */
+else {
   true
 }
 
@@ -1603,16 +1604,21 @@ if (14) {
   true
 
 if (cond) console.log("db")
-/* comment */ else {
+/* comment */
+else {
 }
 
 if (cond) {
-} /* comment */ else {
+}
+/* comment */
+else {
 }
 
 if (cond) {
   console.log("db")
-} /* comment */ else {
+}
+/* comment */
+else {
 }
 
 ================================================================================
@@ -1763,7 +1769,8 @@ else if (12)
 else if (13)
   /* comment */ /* comment */ // comment
   true;
-/* comment */ else {
+/* comment */
+else {
   true;
 }
 
@@ -1779,16 +1786,21 @@ if (14) {
   true;
 
 if (cond) console.log("db");
-/* comment */ else {
+/* comment */
+else {
 }
 
 if (cond) {
-} /* comment */ else {
+}
+/* comment */
+else {
 }
 
 if (cond) {
   console.log("db");
-} /* comment */ else {
+}
+/* comment */
+else {
 }
 
 ================================================================================
