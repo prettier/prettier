@@ -256,12 +256,11 @@ function transformCssDoc(quasisDoc, path, print) {
 // and replace them with the expression docs one by one
 // returns a new doc with all the placeholders replaced,
 // or null if it couldn't replace any expression
-function replacePlaceholders(quasisDoc, expressionDocs) {
-  if (!expressionDocs || !expressionDocs.length) {
+function replacePlaceholders(quasisDoc, expressions) {
+  if (!expressions || !expressions.length) {
     return quasisDoc;
   }
 
-  const expressions = expressionDocs.slice();
   let replaceCounter = 0;
   const newDoc = mapDoc(quasisDoc, (doc) => {
     if (!doc || !doc.parts || !doc.parts.length) {
@@ -298,7 +297,7 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
       const components = part.split(/@prettier-placeholder-(\d+)-id/);
       components.forEach((component, idx) => {
         // The placeholder is always at odd indices
-        if (idx % 2 === 0 || !component) {
+        if (idx % 2 === 0) {
           replacedParts.push(component);
           return;
         }
