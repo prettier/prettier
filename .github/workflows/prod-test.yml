@@ -20,7 +20,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: "12"
+          node-version: "14"
 
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
@@ -64,7 +64,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: "12"
+          node-version: "14"
 
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
@@ -87,12 +87,12 @@ jobs:
           - "macos-latest"
           - "windows-latest"
         node:
-          - "13"
+          - "14"
           - "12"
           - "10"
         exclude:
           - os: "macos-latest"
-            node: "13"
+            node: "12"
     name: Node.js ${{ matrix.node }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     needs: [build]
