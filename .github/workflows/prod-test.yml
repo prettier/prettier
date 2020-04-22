@@ -93,6 +93,8 @@ jobs:
         exclude:
           - os: "macos-latest"
             node: "12"
+          - os: "windows-latest"
+            node: "12"
     name: Node.js ${{ matrix.node }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     needs: [build]
