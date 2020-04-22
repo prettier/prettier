@@ -1510,6 +1510,23 @@ else if (15) // comment
 /* comment */ // comment
 true
 
+if (cond) 
+  console.log("db");
+/* comment */ 
+else {
+}
+
+if (cond) {}
+/* comment */ 
+else {
+}
+
+if (cond) {
+  console.log("db");
+}
+/* comment */ 
+else {
+}
 =====================================output=====================================
 if (1) {
   // comment
@@ -1585,6 +1602,19 @@ if (14) {
   /* comment */ // comment
   true
 
+if (cond) console.log("db")
+/* comment */ else {
+}
+
+if (cond) {
+} /* comment */ else {
+}
+
+if (cond) {
+  console.log("db")
+} /* comment */ else {
+}
+
 ================================================================================
 `;
 
@@ -1656,6 +1686,23 @@ else if (15) // comment
 /* comment */ // comment
 true
 
+if (cond) 
+  console.log("db");
+/* comment */ 
+else {
+}
+
+if (cond) {}
+/* comment */ 
+else {
+}
+
+if (cond) {
+  console.log("db");
+}
+/* comment */ 
+else {
+}
 =====================================output=====================================
 if (1) {
   // comment
@@ -1730,6 +1777,19 @@ if (14) {
   /* comment */
   /* comment */ // comment
   true;
+
+if (cond) console.log("db");
+/* comment */ else {
+}
+
+if (cond) {
+} /* comment */ else {
+}
+
+if (cond) {
+  console.log("db");
+} /* comment */ else {
+}
 
 ================================================================================
 `;
