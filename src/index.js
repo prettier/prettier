@@ -66,6 +66,12 @@ module.exports = {
 
   util: sharedUtil,
 
+  // Internal shared
+  /* istanbul ignore next */
+  __shared: {
+    errors: require("./common/errors"),
+  },
+
   /* istanbul ignore next */
   __debug: {
     parse: withPlugins(core.parse),
