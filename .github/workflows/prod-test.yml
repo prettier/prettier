@@ -33,9 +33,11 @@ jobs:
         uses: actions/cache@v1
         with:
           path: .cache
-          key: -2020-04-23-
+          key: v1-build-cache-${{ hashFiles('yarn.lock') }}-${{ github.ref }}-
           restore-keys: |
-            -2020-04-23-
+            v1-build-cache-${{ hashFiles('yarn.lock') }}-${{ github.ref }}-
+            v1-build-cache-${{ hashFiles('yarn.lock') }}-refs/heads/${{ github.base_ref }}-
+            v1-build-cache-${{ hashFiles('yarn.lock') }}-refs/heads/master-
 
       - name: Build Package
         run: yarn build
