@@ -48,6 +48,9 @@ run_spec(
         "        \u2005        \u2005 ",
       ].map((textContent) => `<span>${textContent}</span>`),
 
+      // #7103 minimal reproduction
+      "<i /> \u2005 | \u2005 <i />",
+
       // #7103
       "<p><span>X</span> \u2005 or \u2005 <span>Y</span></p><p>X \u2005 or \u2005 Y</p>",
     ],

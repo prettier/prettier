@@ -336,8 +336,9 @@ function extractWhitespaces(ast /*, options*/) {
 
           const localChildren = [];
 
+          // https://infra.spec.whatwg.org/#ascii-whitespace
           const [, leadingSpaces, text, trailingSpaces] = child.value.match(
-            /^(\s*)([\S\s]*?)(\s*)$/
+            /^([\t\n\f\r ]*)([\S\s]*?)([\t\n\f\r ]*)$/
           );
 
           if (leadingSpaces) {
