@@ -766,124 +766,96 @@ tabWidth: 0
 =====================================output=====================================
 - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
       a a a a a a a a a a a a a a a
-
   - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
     a a a a a a a a a a a a a a
-
     b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
     b b b b b b b b b b b b b b
+
   - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
         a a a a a a a a a a a a a a
-
     b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
     b b b b b b b b b b b b b b
-
   1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
      a a a a a a a a a a a a a a
-
      b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
      b b b b b b b b b b b b b b
+
   1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
          a a a a a a a a a a a a a a
-
      b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
      b b b b b b b b b b b b b b
-
   12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
             a a a a a a a a a a a a a a
-
             b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
             b b b b b b b b b b b b b b
-
   12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                 a a a a a a a a a a a a a a
-
             b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
             b b b b b b b b b b b b b b
-
   a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
   a a a a a a a a a a a a a a
 
 1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
        a a a a a a a a a a a a a a a
-
    - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
      a a a a a a a a a a a a a a
-
      b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
      b b b b b b b b b b b b b b
+
    - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
          a a a a a a a a a a a a a a
-
      b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
      b b b b b b b b b b b b b b
-
    1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
       a a a a a a a a a a a a a a a
-
       b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
       b b b b b b b b b b b b b b b
+
    1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
           a a a a a a a a a a a a a a a
-
       b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
       b b b b b b b b b b b b b b b
-
    12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
              a a a a a a a a a a a a a a
-
              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
              b b b b b b b b b b b b b b
-
    12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                  a a a a a a a a a a a a a a
-
              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
              b b b b b b b b b b b b b b
-
    a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
    a a a a a a a a a a a a a a
 
 12345678) [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
               a a a a a a a a a a a a a a a
-
           b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
           b b b b b b b b b b b b b b b
-
           - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
             a a a a a a a a a a a a a a a
-
             b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
             b b b b b b b b b b b b b b b
+
           - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                 a a a a a a a a a a a a a a a
-
             b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
             b b b b b b b b b b b b b b b
-
           1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
              a a a a a a a a a a a a a a a
-
              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
              b b b b b b b b b b b b b b b
+
           1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                  a a a a a a a a a a a a a a a
-
              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
              b b b b b b b b b b b b b b b
-
           12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                     a a a a a a a a a a a a a a a
-
                     b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
                     b b b b b b b b b b b b b b b b
-
           12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                         a a a a a a a a a a a a a a a
-
                     b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
                     b b b b b b b b b b b b b b b b
-
           a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
           a a a a a a a a a a a a a a a
 
@@ -987,124 +959,96 @@ tabWidth: 4
 =====================================output=====================================
 -   [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
         a a a a a a a a a a a a a a a a
-
     -   a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
         a a a a a a a a a a a a a a a a
-
         b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
         b b b b b b b b b b b b b b b b
+
     -   [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
             a a a a a a a a a a a a a a a a
-
         b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
         b b b b b b b b b b b b b b b b
-
     1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
        a a a a a a a a a a a a a a a
-
         b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
         b b b b b b b b b b b b b b b b
+
     1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
            a a a a a a a a a a a a a a a
-
         b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
         b b b b b b b b b b b b b b b b
-
     12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
               a a a a a a a a a a a a a a a
-
               b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
               b b b b b b b b b b b b b b b
-
     12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                   a a a a a a a a a a a a a a a
-
               b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
               b b b b b b b b b b b b b b b
-
     a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
     a a a a a a a a a a a a a a a
 
 1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
        a a a a a a a a a a a a a a a
-
     - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
       a a a a a a a a a a a a a a a
-
         b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
         b b b b b b b b b b b b b b b b
+
     - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
           a a a a a a a a a a a a a a a
-
         b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
         b b b b b b b b b b b b b b b b
-
     1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
        a a a a a a a a a a a a a a a
-
         b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
         b b b b b b b b b b b b b b b b
+
     1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
            a a a a a a a a a a a a a a a
-
         b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
         b b b b b b b b b b b b b b b b
-
     12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
               a a a a a a a a a a a a a a a
-
               b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
               b b b b b b b b b b b b b b b
-
     12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                   a a a a a a a a a a a a a a a
-
               b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
               b b b b b b b b b b b b b b b
-
     a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
     a a a a a a a a a a a a a a a
 
 12345678) [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
               a a a a a a a a a a a a a a a
-
           b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
           b b b b b b b b b b b b b b b
-
           - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
             a a a a a a a a a a a a a a a
-
               b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
               b b b b b b b b b b b b b b b b
+
           - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                 a a a a a a a a a a a a a a a
-
               b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
               b b b b b b b b b b b b b b b b
-
           1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
              a a a a a a a a a a a a a a a
-
               b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
               b b b b b b b b b b b b b b b b
+
           1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                  a a a a a a a a a a a a a a a
-
               b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
               b b b b b b b b b b b b b b b b
-
           12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                     a a a a a a a a a a a a a a a
-
                     b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
                     b b b b b b b b b b b b b b b b
-
           12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                         a a a a a a a a a a a a a a a
-
                     b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
                     b b b b b b b b b b b b b b b b
-
           a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
           a a a a a a a a a a a a a a a
 
@@ -1208,124 +1152,96 @@ tabWidth: 999
 =====================================output=====================================
 - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
       a a a a a a a a a a a a a a a
-
      - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
        a a a a a a a a a a a a a a a
-
           b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
           b b b b b b b b b b b b b b b b b
+
      - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
            a a a a a a a a a a a a a a a
-
           b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
           b b b b b b b b b b b b b b b b b
-
      1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
         a a a a a a a a a a a a a a a a
-
            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
            b b b b b b b b b b b b b b b b b
+
      1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
             a a a a a a a a a a a a a a a a
-
            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
            b b b b b b b b b b b b b b b b b
-
      12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                a a a a a a a a a a a a a a a
-
                   b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
                   b b b b b b b b b b b b b b b b b
-
      12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                    a a a a a a a a a a a a a a a
-
                   b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
                   b b b b b b b b b b b b b b b b b
-
      a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
      a a a a a a a a a a a a a a a
 
 1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
        a a a a a a a a a a a a a a a
-
       - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
         a a a a a a a a a a a a a a a a
-
            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
            b b b b b b b b b b b b b b b b b
+
       - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
             a a a a a a a a a a a a a a a a
-
            b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
            b b b b b b b b b b b b b b b b b
-
       1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
          a a a a a a a a a a a a a a a a
-
             b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
             b b b b b b b b b b b b b b b b b b
+
       1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
              a a a a a a a a a a a a a a a a
-
             b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
             b b b b b b b b b b b b b b b b b b
-
       12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                 a a a a a a a a a a a a a a a a
-
                    b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
                    b b b b b b b b b b b b b b b b b
-
       12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                     a a a a a a a a a a a a a a a a
-
                    b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
                    b b b b b b b b b b b b b b b b b
-
       a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
       a a a a a a a a a a a a a a a a
 
 12345678) [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
               a a a a a a a a a a a a a a a
-
              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
              b b b b b b b b b b b b b b b b
-
              - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                a a a a a a a a a a a a a a a a
-
                   b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
                   b b b b b b b b b b b b b b b b b b
+
              - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                    a a a a a a a a a a a a a a a a
-
                   b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
                   b b b b b b b b b b b b b b b b b b
-
              1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                 a a a a a a a a a a a a a a a a a
-
                    b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
                    b b b b b b b b b b b b b b b b b b
+
              1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                     a a a a a a a a a a a a a a a a a
-
                    b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
                    b b b b b b b b b b b b b b b b b b
-
              12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                        a a a a a a a a a a a a a a a a
-
                           b b b b b b b b b b b b b b b b b b b b b b b b b b b
                           b b b b b b b b b b b b b b b b b b b
-
              12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a
                            a a a a a a a a a a a a a a a a
-
                           b b b b b b b b b b b b b b b b b b b b b b b b b b b
                           b b b b b b b b b b b b b b b b b b b
-
              a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
              a a a a a a a a a a a a a a a a
 
@@ -1428,124 +1344,96 @@ proseWrap: "always"
 =====================================output=====================================
 - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
       a a a a a a a a a a a a a a a
-
   - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
     a a a a a a a a a a a a a a
-
     b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
     b b b b b b b b b b b b b b
+
   - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
         a a a a a a a a a a a a a a
-
     b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
     b b b b b b b b b b b b b b
-
   1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
      a a a a a a a a a a a a a a
-
      b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
      b b b b b b b b b b b b b b
+
   1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
          a a a a a a a a a a a a a a
-
      b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
      b b b b b b b b b b b b b b
-
   12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
             a a a a a a a a a a a a a a
-
             b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
             b b b b b b b b b b b b b b
-
   12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                 a a a a a a a a a a a a a a
-
             b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
             b b b b b b b b b b b b b b
-
   a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
   a a a a a a a a a a a a a a
 
 1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
        a a a a a a a a a a a a a a a
-
    - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
      a a a a a a a a a a a a a a
-
      b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
      b b b b b b b b b b b b b b
+
    - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
          a a a a a a a a a a a a a a
-
      b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
      b b b b b b b b b b b b b b
-
    1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
       a a a a a a a a a a a a a a a
-
       b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
       b b b b b b b b b b b b b b b
+
    1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
           a a a a a a a a a a a a a a a
-
       b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
       b b b b b b b b b b b b b b b
-
    12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
              a a a a a a a a a a a a a a
-
              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
              b b b b b b b b b b b b b b
-
    12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                  a a a a a a a a a a a a a a
-
              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
              b b b b b b b b b b b b b b
-
    a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
    a a a a a a a a a a a a a a
 
 12345678) [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
               a a a a a a a a a a a a a a a
-
           b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
           b b b b b b b b b b b b b b b
-
           - a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
             a a a a a a a a a a a a a a a
-
             b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
             b b b b b b b b b b b b b b b
+
           - [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                 a a a a a a a a a a a a a a a
-
             b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
             b b b b b b b b b b b b b b b
-
           1. a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
              a a a a a a a a a a a a a a a
-
              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
              b b b b b b b b b b b b b b b
+
           1. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                  a a a a a a a a a a a a a a a
-
              b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
              b b b b b b b b b b b b b b b
-
           12345678) a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                     a a a a a a a a a a a a a a a
-
                     b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
                     b b b b b b b b b b b b b b b b
-
           12345678. [ ] a a a a a a a a a a a a a a a a a a a a a a a a a a a a
                         a a a a a a a a a a a a a a a
-
                     b b b b b b b b b b b b b b b b b b b b b b b b b b b b b b
                     b b b b b b b b b b b b b b b b
-
           a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a
           a a a a a a a a a a a a a a a
 
@@ -1855,13 +1743,12 @@ tabWidth: 0
 
 =====================================output=====================================
 - 123
-
   - abc
+
 - 456
-
   - def
-- 789
 
+- 789
   - ghi
 
 ================================================================================
@@ -1889,13 +1776,12 @@ tabWidth: 4
 
 =====================================output=====================================
 -   123
-
     -   abc
+
 -   456
-
     -   def
--   789
 
+-   789
     -   ghi
 
 ================================================================================
@@ -1923,13 +1809,12 @@ tabWidth: 999
 
 =====================================output=====================================
 - 123
-
      - abc
+
 - 456
-
      - def
-- 789
 
+- 789
      - ghi
 
 ================================================================================
@@ -1956,13 +1841,12 @@ proseWrap: "always"
 
 =====================================output=====================================
 - 123
-
   - abc
+
 - 456
-
   - def
-- 789
 
+- 789
   - ghi
 
 ================================================================================
@@ -2141,18 +2025,15 @@ tabWidth: 0
 =====================================output=====================================
 - parent list item parent list item parent list item parent list item parent
   list item parent list item
-
   - child list item child list item child list item child list item child list
     item child list item
-
   paragraph paragraph paragraph paragraph paragraph paragraph paragraph
   paragraph paragraph
+
 - [x] parent task list item parent task list item parent task list item parent
       task list item
-
   - [x] child task list item child task list item child task list item child
         task list item
-
   paragraph paragraph paragraph paragraph paragraph paragraph paragraph
   paragraph paragraph
 
@@ -2182,18 +2063,15 @@ tabWidth: 4
 =====================================output=====================================
 -   parent list item parent list item parent list item parent list item parent
     list item parent list item
-
     -   child list item child list item child list item child list item child
         list item child list item
-
     paragraph paragraph paragraph paragraph paragraph paragraph paragraph
     paragraph paragraph
+
 -   [x] parent task list item parent task list item parent task list item parent
         task list item
-
     -   [x] child task list item child task list item child task list item child
             task list item
-
     paragraph paragraph paragraph paragraph paragraph paragraph paragraph
     paragraph paragraph
 
@@ -2223,18 +2101,15 @@ tabWidth: 999
 =====================================output=====================================
 - parent list item parent list item parent list item parent list item parent
   list item parent list item
-
      - child list item child list item child list item child list item child
        list item child list item
-
      paragraph paragraph paragraph paragraph paragraph paragraph paragraph
      paragraph paragraph
+
 - [x] parent task list item parent task list item parent task list item parent
       task list item
-
      - [x] child task list item child task list item child task list item child
            task list item
-
      paragraph paragraph paragraph paragraph paragraph paragraph paragraph
      paragraph paragraph
 
@@ -2263,18 +2138,15 @@ proseWrap: "always"
 =====================================output=====================================
 - parent list item parent list item parent list item parent list item parent
   list item parent list item
-
   - child list item child list item child list item child list item child list
     item child list item
-
   paragraph paragraph paragraph paragraph paragraph paragraph paragraph
   paragraph paragraph
+
 - [x] parent task list item parent task list item parent task list item parent
       task list item
-
   - [x] child task list item child task list item child task list item child
         task list item
-
   paragraph paragraph paragraph paragraph paragraph paragraph paragraph
   paragraph paragraph
 
