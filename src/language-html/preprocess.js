@@ -176,8 +176,8 @@ function mergeSimpleElementIntoText(ast /*, options */) {
     node.attrs.length === 0 &&
     node.children.length === 1 &&
     node.firstChild.type === "text" &&
-    // \xA0: non-breaking whitespace
-    !/[^\S\xA0]/.test(node.children[0].value) &&
+    // https://infra.spec.whatwg.org/#ascii-whitespace
+    !/[^\t\n\f\r ]/.test(node.children[0].value) &&
     !node.firstChild.hasLeadingSpaces &&
     !node.firstChild.hasTrailingSpaces &&
     node.isLeadingSpaceSensitive &&
@@ -295,6 +295,10 @@ function extractInterpolation(ast, options) {
   });
 }
 
+const htmlTrimStart = (string) => string.replace(/^[\t\n\f\r ]+/, "");
+const htmlTrimEnd = (string) => string.replace(/[\t\n\f\r ]+$/, "");
+const htmlTrim = (string) => htmlTrimStart(htmlTrimEnd(string));
+
 /**
  * - add `hasLeadingSpaces` field
  * - add `hasTrailingSpaces` field
@@ -313,7 +317,7 @@ function extractWhitespaces(ast /*, options*/) {
       node.children.length === 0 ||
       (node.children.length === 1 &&
         node.children[0].type === "text" &&
-        node.children[0].value.trim().length === 0)
+        htmlTrim(node.children[0].value).length === 0)
     ) {
       return node.clone({
         children: [],
