@@ -33,6 +33,21 @@ run_spec(
         name: "should keep one space",
       })),
 
+      ...[
+        // single
+        "\u0009",
+        "\u000A",
+        "\u000C",
+        "\u000D",
+        "\u0020",
+
+        // many
+        "\u0009\u000A\u000C\u000D\u0020",
+      ].map((textContent) => ({
+        code: `<img/>${textContent}<img/>`,
+        name: "between",
+      })),
+
       // non-space
       ...[
         "\u2005",
@@ -47,6 +62,13 @@ run_spec(
         "        \u2005\u2005 ",
         "        \u2005        \u2005 ",
       ].map((textContent) => `<span>${textContent}</span>`),
+
+      ...[
+        "\u2005",
+        " \u2005        ",
+        "        \u2005\u2005 ",
+        "        \u2005        \u2005 ",
+      ].map((textContent) => `<img/>${textContent}<img/>`),
 
       // #7103 minimal reproduction
       "<i /> \u2005 | \u2005 <i />",
