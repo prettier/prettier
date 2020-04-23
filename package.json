@@ -61,7 +61,7 @@
     "postcss-values-parser": "2.0.1",
     "regexp-util": "1.2.2",
     "remark-math": "1.0.6",
-    "remark-parse": "5.0.0",
+    "remark-parse": "8.0.2",
     "resolve": "1.16.1",
     "semver": "7.3.2",
     "srcset": "2.0.1",

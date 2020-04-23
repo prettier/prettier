@@ -199,11 +199,11 @@ singleQuote: true
 
 <!-- mis-parsing, \`\\\` are missing: -->
 
-[a](https://example.com '"') [a](https://example.com "'")
-[a](https://example.com ')')
+[a](https://example.com '\\"') [a](https://example.com "\\'")
+[a](https://example.com '\\)')
 
-[a](https://example.com "'") [a](https://example.com '"')
-[a](https://example.com '"')
+[a](https://example.com "\\'") [a](https://example.com '\\"')
+[a](https://example.com '\\"')
 
 ================================================================================
 `;
@@ -266,11 +266,11 @@ proseWrap: "always"
 
 <!-- mis-parsing, \`\\\` are missing: -->
 
-[a](https://example.com '"') [a](https://example.com "'")
-[a](https://example.com ")")
+[a](https://example.com '\\"') [a](https://example.com "\\'")
+[a](https://example.com "\\)")
 
-[a](https://example.com "'") [a](https://example.com '"')
-[a](https://example.com '"')
+[a](https://example.com "\\'") [a](https://example.com '\\"')
+[a](https://example.com '\\"')
 
 ================================================================================
 `;

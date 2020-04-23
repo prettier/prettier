@@ -238,9 +238,9 @@ https://example.com (\\")
 [a]: https://example.com "\\\\\\"" [a]: https://example.com '\\\\\\'' [a]
 https://example.com (\\\\\\))
 
-[a]: https://example.com "'"
-[a]: https://example.com '"'
-[a]: https://example.com '"'
+[a]: https://example.com "\\'"
+[a]: https://example.com '\\"'
+[a]: https://example.com '\\"'
 
 ================================================================================
 `;
@@ -297,9 +297,9 @@ proseWrap: "never"
 
 [a]: https://example.com "\\\\\\"" [a]: https://example.com '\\\\\\'' [a] https://example.com (\\\\\\))
 
-[a]: https://example.com "'"
-[a]: https://example.com '"'
-[a]: https://example.com '"'
+[a]: https://example.com "\\'"
+[a]: https://example.com '\\"'
+[a]: https://example.com '\\"'
 
 ================================================================================
 `;

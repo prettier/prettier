@@ -71,13 +71,13 @@ console.log("hello world");
 
 ## js block with arguments
 
-\`\`\`js {cmd=node .line-numbers}
+\`\`\`js
 console.log("hello world");
 \`\`\`
 
 ## js block with arguments and no space
 
-\`\`\`js{cmd=node .line-numbers}
+\`\`\`js{cmd=node
 console.log("hello world");
 \`\`\`
 
