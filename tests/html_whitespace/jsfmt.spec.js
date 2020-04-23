@@ -35,21 +35,21 @@ run_spec(
 
       // non-space
       ...[
-        "\u0005",
-        " \u0005        ",
-        "        \u0005\u0005 ",
-        "        \u0005        \u0005 ",
+        "\u2005",
+        " \u2005        ",
+        "        \u2005\u2005 ",
+        "        \u2005        \u2005 ",
       ].map((textContent) => `<div>${textContent}</div>`),
 
       ...[
-        "\u0005",
-        " \u0005        ",
-        "        \u0005\u0005 ",
-        "        \u0005        \u0005 ",
+        "\u2005",
+        " \u2005        ",
+        "        \u2005\u2005 ",
+        "        \u2005        \u2005 ",
       ].map((textContent) => `<span>${textContent}</span>`),
 
       // #7103
-      "<p><span>X</span> \u0005or\u0005 <span>Y</span></p><p>X \u0005or\u0005 Y</p>",
+      "<p><span>X</span> \u2005or\u2005 <span>Y</span></p><p>X \u2005or\u2005 Y</p>",
     ],
   },
   ["html"]
