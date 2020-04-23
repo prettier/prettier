@@ -49,7 +49,7 @@ run_spec(
       ].map((textContent) => `<span>${textContent}</span>`),
 
       // #7103
-      "<p><span>X</span> \u2005or\u2005 <span>Y</span></p><p>X \u2005or\u2005 Y</p>",
+      "<p><span>X</span> \u2005 or \u2005 <span>Y</span></p><p>X \u2005 or \u2005 Y</p>",
     ],
   },
   ["html"]
