@@ -12,6 +12,17 @@ run_spec(
       ";;;;",
       ";\n",
       ";\n\n;;;\n",
+      // comments
+      "// comment",
+      "/* comment */",
+      "// comment\n",
+      "/* comment */\n",
+      "\n// comment\n",
+      "\n/* comment */\n",
+      "// comment\n;",
+      "/* comment */\n;",
+      ";\n// comment\n",
+      "\n;/* comment */\n",
     ],
   },
   ["babel", "flow", "typescript"]
