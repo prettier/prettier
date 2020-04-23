@@ -11,6 +11,13 @@
   "engines": {
     "node": ">=10.13.0"
   },
+  "files": [
+    "index.js",
+    "standalone.js",
+    "package.json",
+    "src",
+    "bin"
+  ],
   "dependencies": {
     "@angular/compiler": "9.0.5",
     "@babel/code-frame": "7.8.3",
@@ -116,6 +123,7 @@
     "prepublishOnly": "echo \"Error: must publish from dist/\" && exit 1",
     "prepare-release": "yarn && yarn build && yarn test:dist",
     "test": "jest",
+    "test:dev-package": "cross-env INSTALL_PACKAGE=1 jest",
     "test:dist": "cross-env NODE_ENV=production jest",
     "test:dist-standalone": "cross-env NODE_ENV=production TEST_STANDALONE=1 jest tests/",
     "test:integration": "jest tests_integration",
