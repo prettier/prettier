@@ -190,11 +190,11 @@ singleQuote: true
 [a](https://example.com "'") [a](https://example.com ')')
 [a](https://example.com ')')
 
-[a](https://example.com '\\\\"') [a](https://example.com "\\\\'")
-[a](https://example.com '\\\\)')
+[a](https://example.com '"') [a](https://example.com "'")
+[a](https://example.com ')')
 
-[a](https://example.com "\\\\'") [a](https://example.com '\\\\"')
-[a](https://example.com '\\\\"')
+[a](https://example.com "'") [a](https://example.com '"')
+[a](https://example.com '"')
 
 <!-- magical incantations -->
 
@@ -253,11 +253,11 @@ proseWrap: "always"
 [a](https://example.com "'") [a](https://example.com ")")
 [a](https://example.com ")")
 
-[a](https://example.com '\\\\"') [a](https://example.com "\\\\'")
-[a](https://example.com "\\\\)")
+[a](https://example.com '"') [a](https://example.com "'")
+[a](https://example.com ")")
 
-[a](https://example.com "\\\\'") [a](https://example.com '\\\\"')
-[a](https://example.com '\\\\"')
+[a](https://example.com "'") [a](https://example.com '"')
+[a](https://example.com '"')
 
 <!-- magical incantations -->
 
