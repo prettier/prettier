@@ -27,7 +27,10 @@ jobs:
           - 10.x
           - 12.x
           - 14.x
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest]
+        include:
+          - node-version: 12.x
+            os: windows-latest
 
     steps:
       - uses: actions/checkout@v2
