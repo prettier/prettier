@@ -3,7 +3,7 @@
 const installPrettier = require("./scripts/install-prettier");
 
 const ENABLE_CODE_COVERAGE = !!process.env.ENABLE_CODE_COVERAGE;
-if (process.env.NODE_ENV === "production") {
+if (process.env.NODE_ENV === "production" || process.env.INSTALL_PACKAGE) {
   process.env.PRETTIER_DIR = installPrettier();
 }
 
