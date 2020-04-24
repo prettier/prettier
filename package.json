@@ -90,7 +90,7 @@
     "@babel/core": "7.9.0",
     "@babel/preset-env": "7.9.5",
     "@rollup/plugin-alias": "3.1.0",
-    "@rollup/plugin-replace": "2.3.1",
+    "@rollup/plugin-replace": "2.3.2",
     "babel-loader": "8.1.0",
     "benchmark": "2.1.4",
     "builtin-modules": "3.1.0",
