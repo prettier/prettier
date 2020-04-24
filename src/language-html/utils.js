@@ -19,8 +19,7 @@ const HTML_WHITESPACE = new Set(["\t", "\n", "\f", "\r", " "]);
 const htmlTrimStart = (string) => string.replace(/^[\t\n\f\r ]+/, "");
 const htmlTrimEnd = (string) => string.replace(/[\t\n\f\r ]+$/, "");
 const htmlTrim = (string) => htmlTrimStart(htmlTrimEnd(string));
-const htmlTrimLineByLine = (string) =>
-  string.replace(/^[\t\f\r ]*?\n|\n[\t\f\r ]*?$/g, "");
+const htmlTrimFirstLine = (string) => string.replace(/^[\t\f\r ]*?\n/g, "");
 const splitByHtmlWhitespace = (string) => string.split(/[\t\n\f\r ]+/);
 const getLeadingHtmlWhitespace = (string) => string.match(/^[\t\n\f\r ]*/)[0];
 const getLeadingAndTrailingHtmlWhitespace = (string) => {
@@ -664,7 +663,8 @@ module.exports = {
   HTML_ELEMENT_ATTRIBUTES,
   HTML_TAGS,
   htmlTrim,
-  htmlTrimLineByLine,
+  htmlTrimEnd,
+  htmlTrimFirstLine,
   splitByHtmlWhitespace,
   hasHtmlWhitespace,
   getLeadingAndTrailingHtmlWhitespace,

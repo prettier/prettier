@@ -20,7 +20,8 @@ const {
   softline,
 } = builders;
 const {
-  htmlTrimLineByLine,
+  htmlTrimEnd,
+  htmlTrimFirstLine,
   splitByHtmlWhitespace,
   countChars,
   countParents,
@@ -942,7 +943,10 @@ function getTextValueParts(node, value = node.value) {
   return node.parent.isWhitespaceSensitive
     ? node.parent.isIndentationSensitive
       ? replaceEndOfLineWith(value, literalline)
-      : replaceEndOfLineWith(dedentString(htmlTrimLineByLine(value)), hardline)
+      : replaceEndOfLineWith(
+          dedentString(htmlTrimFirstLine(htmlTrimEnd(value))),
+          hardline
+        )
     : join(line, splitByHtmlWhitespace(value)).parts;
 }
 
