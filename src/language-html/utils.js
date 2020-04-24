@@ -15,11 +15,15 @@ const HTML_TAGS = arrayToMap(htmlTagNames);
 const HTML_ELEMENT_ATTRIBUTES = mapObject(htmlElementAttributes, arrayToMap);
 
 // https://infra.spec.whatwg.org/#ascii-whitespace
+const HTML_SPACES = new Set(["\t", "\n", "\f", "\r", " "]);
 const trimLeadingHtmlSpaces = (string) => string.replace(/^[\t\n\f\r ]+/, "");
 const trimTailingHtmlSpaces = (string) => string.replace(/[\t\n\f\r ]+$/, "");
 const trimHtmlSpaces = (string) =>
   trimLeadingHtmlSpaces(trimTailingHtmlSpaces(string));
+const trimHtmlSpacesLineByLine = (string) =>
+  string.replace(/^[\t\f\r ]*?\n|\n[\t\f\r ]*?$/g, "");
 const splitByHtmlSpaces = (string) => string.split(/[\t\n\f\r ]+/);
+const getHtmlLeadingSpaces = (string) => string.match(/^[\t\n\f\r ]*/)[0];
 const getHtmlLeadingAndTailingSpaces = (string) => {
   const [, leadingSpaces, text, trailingSpaces] = string.match(
     /^([\t\n\f\r ]*)([\S\s]*?)([\t\n\f\r ]*)$/
@@ -561,11 +565,11 @@ function getMinIndentation(text) {
       continue;
     }
 
-    if (/\S/.test(lineText[0])) {
+    if (!HTML_SPACES.has(lineText[0])) {
       return 0;
     }
 
-    const indentation = lineText.match(/^\s*/)[0].length;
+    const indentation = getHtmlLeadingSpaces(lineText).length;
 
     if (lineText.length === indentation) {
       continue;
@@ -660,6 +664,7 @@ module.exports = {
   HTML_ELEMENT_ATTRIBUTES,
   HTML_TAGS,
   trimHtmlSpaces,
+  trimHtmlSpacesLineByLine,
   splitByHtmlSpaces,
   getHtmlLeadingAndTailingSpaces,
   canHaveInterpolation,

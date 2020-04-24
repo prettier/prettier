@@ -405,6 +405,53 @@ printWidth: 80
 ================================================================================
 `;
 
+exports[`snippet: \`U+2005\` should indent like \`U+005F\` not like \`U+0020\` format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<!-- leading U+2005 -->
+<style lang="unknown">
+   
+          a
+          b
+</style>
+<!-- leading U+005F -->
+<style lang="unknown">
+  _
+          a
+          b
+</style>
+<!-- leading U+0020 -->
+<style lang="unknown">
+   
+          a
+          b
+</style>
+=====================================output=====================================
+<!-- leading U+2005 -->
+<style lang="unknown">
+   
+          a
+          b
+</style>
+<!-- leading U+005F -->
+<style lang="unknown">
+  _
+          a
+          b
+</style>
+<!-- leading U+0020 -->
+<style lang="unknown">
+
+  a
+  b
+</style>
+
+================================================================================
+`;
+
 exports[`snippet: between format 1`] = `
 ====================================options=====================================
 parsers: ["html"]

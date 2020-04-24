@@ -1,3 +1,5 @@
+const { outdent } = require("outdent");
+
 run_spec(
   {
     dirname: __dirname,
@@ -75,6 +77,33 @@ run_spec(
 
       // #7103
       "<p><span>X</span> \u2005 or \u2005 <span>Y</span></p><p>X \u2005 or \u2005 Y</p>",
+
+      // This test maybe not good, `U+2005` there don't make sense,
+      // but the node has to be `whitespaceSensitive` and `indentationSensitive`,
+      // to make the `whitespace check logic` work.
+      {
+        name: "`U+2005` should indent like `U+005F` not like `U+0020`",
+        code: outdent`
+          <!-- leading U+2005 -->
+          <style lang="unknown">
+            \u2005
+                    a
+                    b
+          </style>
+          <!-- leading U+005F -->
+          <style lang="unknown">
+            \u005F
+                    a
+                    b
+          </style>
+          <!-- leading U+0020 -->
+          <style lang="unknown">
+            \u0020
+                    a
+                    b
+          </style>
+        `,
+      },
     ],
   },
   ["html"]

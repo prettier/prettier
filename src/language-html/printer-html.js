@@ -20,6 +20,7 @@ const {
   softline,
 } = builders;
 const {
+  trimHtmlSpacesLineByLine,
   splitByHtmlSpaces,
   countChars,
   countParents,
@@ -942,7 +943,7 @@ function getTextValueParts(node, value = node.value) {
     ? node.parent.isIndentationSensitive
       ? replaceEndOfLineWith(value, literalline)
       : replaceEndOfLineWith(
-          dedentString(value.replace(/^\s*?\n|\n\s*?$/g, "")),
+          dedentString(trimHtmlSpacesLineByLine(value)),
           hardline
         )
     : join(line, splitByHtmlSpaces(value)).parts;
