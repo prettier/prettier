@@ -22,8 +22,8 @@ const htmlTrim = (string) => htmlTrimStart(htmlTrimEnd(string));
 const htmlTrimLineByLine = (string) =>
   string.replace(/^[\t\f\r ]*?\n|\n[\t\f\r ]*?$/g, "");
 const splitByHtmlWhitespace = (string) => string.split(/[\t\n\f\r ]+/);
-const getHtmlLeadingWhitespace = (string) => string.match(/^[\t\n\f\r ]*/)[0];
-const getHtmlLeadingAndTrailingWhitespace = (string) => {
+const getLeadingHtmlWhitespace = (string) => string.match(/^[\t\n\f\r ]*/)[0];
+const getLeadingAndTrailingHtmlWhitespace = (string) => {
   const [, leadingSpaces, text, trailingSpaces] = string.match(
     /^([\t\n\f\r ]*)([\S\s]*?)([\t\n\f\r ]*)$/
   );
@@ -569,7 +569,7 @@ function getMinIndentation(text) {
       return 0;
     }
 
-    const indentation = getHtmlLeadingWhitespace(lineText).length;
+    const indentation = getLeadingHtmlWhitespace(lineText).length;
 
     if (lineText.length === indentation) {
       continue;
@@ -667,7 +667,7 @@ module.exports = {
   htmlTrimLineByLine,
   splitByHtmlWhitespace,
   hasHtmlWhitespace,
-  getHtmlLeadingAndTrailingWhitespace,
+  getLeadingAndTrailingHtmlWhitespace,
   canHaveInterpolation,
   countChars,
   countParents,

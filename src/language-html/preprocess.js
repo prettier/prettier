@@ -2,7 +2,7 @@
 
 const {
   htmlTrim,
-  getHtmlLeadingAndTrailingWhitespace,
+  getLeadingAndTrailingHtmlWhitespace,
   hasHtmlWhitespace,
   canHaveInterpolation,
   getNodeCssStyleDisplay,
@@ -342,7 +342,7 @@ function extractWhitespaces(ast /*, options*/) {
             leadingSpaces,
             text,
             trailingSpaces,
-          } = getHtmlLeadingAndTrailingWhitespace(child.value);
+          } = getLeadingAndTrailingHtmlWhitespace(child.value);
 
           if (leadingSpaces) {
             localChildren.push({ type: TYPE_WHITESPACE });
