@@ -1,5 +1,5 @@
 /* eslint-disable no-irregular-whitespace */
-const dedent = require("dedent");
+const { outdent } = require("outdent");
 
 run_spec(
   {
@@ -46,24 +46,22 @@ run_spec(
         output: "zero_width_space = <div>]\u200b\u200b[</div>;",
       },
       {
-        code: dedent`
+        code: outdent`
           real_world_non_breaking_spaces = <p>
             Supprimer l’objectif «\u00A0{goal.name}\u00A0» ?
           </p>
         `,
-        output: dedent`
-          real_world_non_breaking_spaces = (
-            <p>Supprimer l’objectif «\u00A0{goal.name}\u00A0» ?</p>
-          );
+        output: outdent`
+          real_world_non_breaking_spaces = <p>Supprimer l’objectif «\u00A0{goal.name}\u00A0» ?</p>;
         `,
       },
       {
-        code: dedent`
+        code: outdent`
           real_world_non_breaking_spaces2 = <p>
             Supprimer l’objectif padding padding padding padding padding padding «\u00A0{goal.name}\u00A0» ?
           </p>
         `,
-        output: dedent`
+        output: outdent`
           real_world_non_breaking_spaces2 = (
             <p>
               Supprimer l’objectif padding padding padding padding padding padding «\u00A0
