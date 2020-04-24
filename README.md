@@ -2,7 +2,6 @@
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
 [![npm](https://img.shields.io/npm/v/prettierx.svg)](https://www.npmjs.com/package/prettierx)
-[![Build Status](https://dev.azure.com/brodybits/brodybits/_apis/build/status/brodybits.prettierx?branchName=dev)](https://dev.azure.com/brodybits/brodybits/_build/latest?definitionId=1?branchName=dev)
 
 Unofficial fork, intended to provide some additional options to help improve consistency with [`feross/standard`](https://github.com/standard/standard) and [`Flet/semistandard`](https://github.com/Flet/semistandard). This fork is an attempt to pick up where [`arijs/prettier-miscellaneous`](https://github.com/arijs/prettier-miscellaneous) left off.
 
