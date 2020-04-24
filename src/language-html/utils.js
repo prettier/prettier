@@ -24,12 +24,12 @@ const htmlTrimLineByLine = (string) =>
 const splitByHtmlWhitespace = (string) => string.split(/[\t\n\f\r ]+/);
 const getLeadingHtmlWhitespace = (string) => string.match(/^[\t\n\f\r ]*/)[0];
 const getLeadingAndTrailingHtmlWhitespace = (string) => {
-  const [, leadingSpaces, text, trailingSpaces] = string.match(
+  const [, leadingWhitespace, text, trailingWhitespace] = string.match(
     /^([\t\n\f\r ]*)([\S\s]*?)([\t\n\f\r ]*)$/
   );
   return {
-    leadingSpaces,
-    trailingSpaces,
+    leadingWhitespace,
+    trailingWhitespace,
     text,
   };
 };

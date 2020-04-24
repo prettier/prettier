@@ -339,12 +339,12 @@ function extractWhitespaces(ast /*, options*/) {
           const localChildren = [];
 
           const {
-            leadingSpaces,
+            leadingWhitespace,
             text,
-            trailingSpaces,
+            trailingWhitespace,
           } = getLeadingAndTrailingHtmlWhitespace(child.value);
 
-          if (leadingSpaces) {
+          if (leadingWhitespace) {
             localChildren.push({ type: TYPE_WHITESPACE });
           }
 
@@ -355,13 +355,13 @@ function extractWhitespaces(ast /*, options*/) {
               type: "text",
               value: text,
               sourceSpan: new ParseSourceSpan(
-                child.sourceSpan.start.moveBy(leadingSpaces.length),
-                child.sourceSpan.end.moveBy(-trailingSpaces.length)
+                child.sourceSpan.start.moveBy(leadingWhitespace.length),
+                child.sourceSpan.end.moveBy(-trailingWhitespace.length)
               ),
             });
           }
 
-          if (trailingSpaces) {
+          if (trailingWhitespace) {
             localChildren.push({ type: TYPE_WHITESPACE });
           }
 
