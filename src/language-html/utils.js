@@ -34,6 +34,7 @@ const getHtmlLeadingAndTailingSpaces = (string) => {
     text,
   };
 };
+const hasHtmlSpaces = (string) => /[\t\n\f\r ]/.test(string);
 
 function arrayToMap(array) {
   const map = Object.create(null);
@@ -666,6 +667,7 @@ module.exports = {
   trimHtmlSpaces,
   trimHtmlSpacesLineByLine,
   splitByHtmlSpaces,
+  hasHtmlSpaces,
   getHtmlLeadingAndTailingSpaces,
   canHaveInterpolation,
   countChars,

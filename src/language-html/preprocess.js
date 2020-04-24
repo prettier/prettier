@@ -3,6 +3,7 @@
 const {
   trimHtmlSpaces,
   getHtmlLeadingAndTailingSpaces,
+  hasHtmlSpaces,
   canHaveInterpolation,
   getNodeCssStyleDisplay,
   isDanglingSpaceSensitiveNode,
@@ -178,8 +179,7 @@ function mergeSimpleElementIntoText(ast /*, options */) {
     node.attrs.length === 0 &&
     node.children.length === 1 &&
     node.firstChild.type === "text" &&
-    // \xA0: non-breaking whitespace
-    !/[^\S\xA0]/.test(node.children[0].value) &&
+    !hasHtmlSpaces(node.children[0].value) &&
     !node.firstChild.hasLeadingSpaces &&
     !node.firstChild.hasTrailingSpaces &&
     node.isLeadingSpaceSensitive &&

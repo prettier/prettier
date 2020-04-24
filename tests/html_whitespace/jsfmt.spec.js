@@ -84,24 +84,39 @@ run_spec(
       {
         name: "`U+2005` should indent like `U+005F` not like `U+0020`",
         code: outdent`
-          <!-- leading U+2005 -->
-          <style lang="unknown">
-            \u2005
-                    a
-                    b
-          </style>
-          <!-- leading U+005F -->
-          <style lang="unknown">
-            \u005F
-                    a
-                    b
-          </style>
-          <!-- leading U+0020 -->
-          <style lang="unknown">
-            \u0020
-                    a
-                    b
-          </style>
+          <!-- U+2005 -->
+          <script type="text/unknown" lang="unknown">
+             \u2005    // comment
+                    // comment
+                    // comment
+                    // comment
+          </script>
+          <!-- U+005F -->
+          <script type="text/unknown" lang="unknown">
+             \u005F    // comment
+                    // comment
+                    // comment
+                    // comment
+          </script>
+          <!-- U+0020 -->
+          <script type="text/unknown" lang="unknown">
+             \u0020    // comment
+                    // comment
+                    // comment
+                    // comment
+          </script>
+        `,
+      },
+
+      {
+        name: "`U+2005` should format like `U+005F` not like `U+0020`",
+        code: outdent`
+          <!-- U+2005 -->
+          <div>before<span>\u2005</span>afterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafter</div>
+          <!-- U+005F -->
+          <div>before<span>\u005F</span>afterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafter</div>
+          <!-- U+0020 -->
+          <div>before<span>\u0020</span>afterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafter</div>
         `,
       },
     ],

@@ -405,49 +405,86 @@ printWidth: 80
 ================================================================================
 `;
 
+exports[`snippet: \`U+2005\` should format like \`U+005F\` not like \`U+0020\` format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<!-- U+2005 -->
+<div>before<span> </span>afterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafter</div>
+<!-- U+005F -->
+<div>before<span>_</span>afterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafter</div>
+<!-- U+0020 -->
+<div>before<span> </span>afterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafter</div>
+=====================================output=====================================
+<!-- U+2005 -->
+<div>
+  before<span> </span>afterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafter
+</div>
+<!-- U+005F -->
+<div>
+  before<span>_</span>afterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafter
+</div>
+<!-- U+0020 -->
+<div>
+  before<span
+  > </span
+  >afterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafter
+</div>
+
+================================================================================
+`;
+
 exports[`snippet: \`U+2005\` should indent like \`U+005F\` not like \`U+0020\` format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-<!-- leading U+2005 -->
-<style lang="unknown">
-   
-          a
-          b
-</style>
-<!-- leading U+005F -->
-<style lang="unknown">
-  _
-          a
-          b
-</style>
-<!-- leading U+0020 -->
-<style lang="unknown">
-   
-          a
-          b
-</style>
+<!-- U+2005 -->
+<script type="text/unknown" lang="unknown">
+        // comment
+          // comment
+          // comment
+          // comment
+</script>
+<!-- U+005F -->
+<script type="text/unknown" lang="unknown">
+   _    // comment
+          // comment
+          // comment
+          // comment
+</script>
+<!-- U+0020 -->
+<script type="text/unknown" lang="unknown">
+        // comment
+          // comment
+          // comment
+          // comment
+</script>
 =====================================output=====================================
-<!-- leading U+2005 -->
-<style lang="unknown">
-   
-          a
-          b
-</style>
-<!-- leading U+005F -->
-<style lang="unknown">
-  _
-          a
-          b
-</style>
-<!-- leading U+0020 -->
-<style lang="unknown">
-
-  a
-  b
-</style>
+<!-- U+2005 -->
+<script type="text/unknown" lang="unknown">
+       // comment
+         // comment
+         // comment
+         // comment
+</script>
+<!-- U+005F -->
+<script type="text/unknown" lang="unknown">
+  _    // comment
+         // comment
+         // comment
+         // comment
+</script>
+<!-- U+0020 -->
+<script type="text/unknown" lang="unknown">
+  // comment
+    // comment
+    // comment
+    // comment
+</script>
 
 ================================================================================
 `;
