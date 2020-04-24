@@ -4183,12 +4183,23 @@ semi: false
 
 // There is some space here ->                        
 
+var a = { /* extra whitespace --> */  
+  b };
+var a = { /* no whitespace --> */
+  b };
 =====================================output=====================================
 #!/there/is-space-here->
 
 // Do not trim trailing whitespace from this source file!
 
 // There is some space here ->
+
+var a = {
+  /* extra whitespace --> */ b,
+};
+var a = {
+  /* no whitespace --> */ b,
+};
 
 ================================================================================
 `;
@@ -4205,12 +4216,23 @@ printWidth: 80
 
 // There is some space here ->                        
 
+var a = { /* extra whitespace --> */  
+  b };
+var a = { /* no whitespace --> */
+  b };
 =====================================output=====================================
 #!/there/is-space-here->
 
 // Do not trim trailing whitespace from this source file!
 
 // There is some space here ->
+
+var a = {
+  /* extra whitespace --> */ b,
+}
+var a = {
+  /* no whitespace --> */ b,
+}
 
 ================================================================================
 `;
