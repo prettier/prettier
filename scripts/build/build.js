@@ -106,8 +106,8 @@ async function run(params) {
     await createBundle(bundleConfig, bundleCache);
   }
 
-  await bundleCache.save();
   await cacheFiles();
+  await bundleCache.save();
 
   await preparePackage();
 }
