@@ -10,7 +10,8 @@ $ git log --pretty=format:"- %s" rev1..rev2 | sed 's/#\([0-9]*\)/\[prettier\/pre
 
 ## prettierx 0.12.0
 
-- prettierx: add --break-before-else option (#224)
+- add --break-before-else option (#224)
+- update some dependencies
 
 [compare prettierx-0.11.3...prettierx-0.12.0](https://github.com/brodybits/prettierx/compare/prettierx-0.11.3...prettierx-0.12.0)
 
