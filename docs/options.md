@@ -251,6 +251,14 @@ Print spaces between parens, WordPress style.
 | ------- | ----------------- | ---------------------- |
 | `false` | `--paren-spacing` | `parenSpacing: <bool>` |
 
+## Align object properties
+
+Always add a line break before else.
+
+| Default | CLI Override          | API Override              |
+| ------- | --------------------- | ------------------------- |
+| `false` | `--break-before-else` | `breakBeforeElse: <bool>` |
+
 ## Parser
 
 Specify which parser to use.

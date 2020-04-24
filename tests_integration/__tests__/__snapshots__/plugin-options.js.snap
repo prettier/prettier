@@ -5,9 +5,9 @@ exports[` 1`] = `
 - First value
 + Second value
 
-@@ -21,10 +21,12 @@
-                             Defaults to avoid.
-    --no-bracket-spacing     Do not print spaces between brackets.
+@@ -23,10 +23,12 @@
+    --break-before-else      Always add a line break before else.
+                             Defaults to false.
     --end-of-line <auto|lf|crlf|cr>
                              Which end of line characters to apply.
                              Defaults to auto.

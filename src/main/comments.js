@@ -438,6 +438,12 @@ function printTrailingComment(commentPath, print, options) {
     return lineSuffix(
       concat([hardline, isLineBeforeEmpty ? hardline : "", contents])
     );
+  } else if (
+    options.breakBeforeElse &&
+    parentParentNode.type === "IfStatement" &&
+    parentParentNode.alternate
+  ) {
+    return concat([hardline, contents]);
   } else if (isBlock || isParentSuperClass) {
     // Trailing block comments never need a newline
     return concat([" ", contents]);

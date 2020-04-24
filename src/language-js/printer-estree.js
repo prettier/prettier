@@ -2017,7 +2017,9 @@ function printPathNoParens(path, options, print, args) {
             )) ||
           needsHardlineAfterDanglingComment(n);
         const elseOnSameLine =
-          n.consequent.type === "BlockStatement" && !commentOnOwnLine;
+          !options.breakBeforeElse &&
+          n.consequent.type === "BlockStatement" &&
+          !commentOnOwnLine;
         parts.push(elseOnSameLine ? " " : hardline);
 
         if (hasDanglingComments(n)) {

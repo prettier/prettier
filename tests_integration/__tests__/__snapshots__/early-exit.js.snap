@@ -66,6 +66,8 @@ Format options:
                            Include parentheses around a sole arrow function parameter.
                            Defaults to avoid.
   --no-bracket-spacing     Do not print spaces between brackets.
+  --break-before-else      Always add a line break before else.
+                           Defaults to false.
   --end-of-line <auto|lf|crlf|cr>
                            Which end of line characters to apply.
                            Defaults to auto.
@@ -236,6 +238,8 @@ Format options:
                            Include parentheses around a sole arrow function parameter.
                            Defaults to avoid.
   --no-bracket-spacing     Do not print spaces between brackets.
+  --break-before-else      Always add a line break before else.
+                           Defaults to false.
   --end-of-line <auto|lf|crlf|cr>
                            Which end of line characters to apply.
                            Defaults to auto.

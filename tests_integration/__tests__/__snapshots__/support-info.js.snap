@@ -99,6 +99,10 @@ Object {
       "default": true,
       "type": "boolean",
     },
+    "breakBeforeElse": Object {
+      "default": false,
+      "type": "boolean",
+    },
     "cursorOffset": Object {
       "default": -1,
       "range": Object {
@@ -799,6 +803,14 @@ exports[`CLI --support-info (stdout) 1`] = `
       \\"oppositeDescription\\": \\"Do not print spaces between brackets.\\",
       \\"pluginDefaults\\": {},
       \\"since\\": \\"0.0.0\\",
+      \\"type\\": \\"boolean\\"
+    },
+    {
+      \\"category\\": \\"JavaScript\\",
+      \\"default\\": false,
+      \\"description\\": \\"Always add a line break before else.\\",
+      \\"name\\": \\"breakBeforeElse\\",
+      \\"pluginDefaults\\": {},
       \\"type\\": \\"boolean\\"
     },
     {

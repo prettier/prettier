@@ -81,6 +81,12 @@ module.exports = {
     default: false,
     description: "Put a space before function parenthesis."
   },
+  breakBeforeElse: {
+    category: CATEGORY_JAVASCRIPT,
+    type: "boolean",
+    default: false,
+    description: "Always add a line break before else."
+  },
   singleQuote: commonOptions.singleQuote,
   jsxSingleQuote: {
     since: "1.15.0",

@@ -57,6 +57,19 @@ Default: true
 
 exports[`show detailed usage with --help bracket-spacing (write) 1`] = `Array []`;
 
+exports[`show detailed usage with --help break-before-else (stderr) 1`] = `""`;
+
+exports[`show detailed usage with --help break-before-else (stdout) 1`] = `
+"--break-before-else
+
+  Always add a line break before else.
+
+Default: false
+"
+`;
+
+exports[`show detailed usage with --help break-before-else (write) 1`] = `Array []`;
+
 exports[`show detailed usage with --help check (stderr) 1`] = `""`;
 
 exports[`show detailed usage with --help check (stdout) 1`] = `

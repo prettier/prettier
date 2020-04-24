@@ -47,6 +47,11 @@ Object {
           "description": "Print spaces between brackets.",
           "type": "boolean",
         },
+        "breakBeforeElse": Object {
+          "default": false,
+          "description": "Always add a line break before else.",
+          "type": "boolean",
+        },
         "cursorOffset": Object {
           "default": -1,
           "description": "Print (to stderr) where a cursor at the given position would move to after formatting.

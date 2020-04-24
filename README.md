@@ -45,6 +45,7 @@ prettierx <options> <file(s)>
 | Indent chains                                        | `true`        | `--no-indent-chains`            | `indentChains: <bool>`             | Print indents at the start of chained calls.                                                                                                                                                        |
 | Align ternary lines                                  | `true`        | `--no-align-ternary-lines`      | `alignTernaryLines: <bool>`        | Align ternary lines in case of multiline ternery term (default behavior, which is in conflict with ESLint/StandardJS behavior). Should be disabled for consistency with ESLint/StandardJS behavior. |
 | paren spacing                                        | `false`       | `--paren-spacing`               | `parenSpacing: <bool>`             | Print spaces between parens, WordPress style.                                                                                                                                                       |
+| break before else                                    | `false`       | `--break-before-else`           | `breakBeforeElse: <bool>`          | Always add a line break before else.                                                                                                                                                                |
 
 ## standard-like formatting
 
