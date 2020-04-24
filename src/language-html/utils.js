@@ -14,6 +14,23 @@ const htmlElementAttributes = require("html-element-attributes");
 const HTML_TAGS = arrayToMap(htmlTagNames);
 const HTML_ELEMENT_ATTRIBUTES = mapObject(htmlElementAttributes, arrayToMap);
 
+// https://infra.spec.whatwg.org/#ascii-whitespace
+const trimLeadingHtmlSpaces = (string) => string.replace(/^[\t\n\f\r ]+/, "");
+const trimTailingHtmlSpaces = (string) => string.replace(/[\t\n\f\r ]+$/, "");
+const trimHtmlSpaces = (string) =>
+  trimLeadingHtmlSpaces(trimTailingHtmlSpaces(string));
+const splitByHtmlSpaces = (string) => string.split(/[\t\n\f\r ]+/);
+const getHtmlLeadingAndTailingSpaces = (string) => {
+  const [, leadingSpaces, text, trailingSpaces] = string.match(
+    /^([\t\n\f\r ]*)([\S\s]*?)([\t\n\f\r ]*)$/
+  );
+  return {
+    leadingSpaces,
+    trailingSpaces,
+    text,
+  };
+};
+
 function arrayToMap(array) {
   const map = Object.create(null);
   for (const value of array) {
@@ -642,6 +659,9 @@ function isVueCustomBlock(node, options) {
 module.exports = {
   HTML_ELEMENT_ATTRIBUTES,
   HTML_TAGS,
+  trimHtmlSpaces,
+  splitByHtmlSpaces,
+  getHtmlLeadingAndTailingSpaces,
   canHaveInterpolation,
   countChars,
   countParents,

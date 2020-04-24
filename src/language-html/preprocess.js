@@ -1,6 +1,8 @@
 "use strict";
 
 const {
+  trimHtmlSpaces,
+  getHtmlLeadingAndTailingSpaces,
   canHaveInterpolation,
   getNodeCssStyleDisplay,
   isDanglingSpaceSensitiveNode,
@@ -295,10 +297,6 @@ function extractInterpolation(ast, options) {
   });
 }
 
-const htmlTrimStart = (string) => string.replace(/^[\t\n\f\r ]+/, "");
-const htmlTrimEnd = (string) => string.replace(/[\t\n\f\r ]+$/, "");
-const htmlTrim = (string) => htmlTrimStart(htmlTrimEnd(string));
-
 /**
  * - add `hasLeadingSpaces` field
  * - add `hasTrailingSpaces` field
@@ -317,7 +315,7 @@ function extractWhitespaces(ast /*, options*/) {
       node.children.length === 0 ||
       (node.children.length === 1 &&
         node.children[0].type === "text" &&
-        htmlTrim(node.children[0].value).length === 0)
+        trimHtmlSpaces(node.children[0].value).length === 0)
     ) {
       return node.clone({
         children: [],
@@ -340,10 +338,11 @@ function extractWhitespaces(ast /*, options*/) {
 
           const localChildren = [];
 
-          // https://infra.spec.whatwg.org/#ascii-whitespace
-          const [, leadingSpaces, text, trailingSpaces] = child.value.match(
-            /^([\t\n\f\r ]*)([\S\s]*?)([\t\n\f\r ]*)$/
-          );
+          const {
+            leadingSpaces,
+            text,
+            trailingSpaces,
+          } = getHtmlLeadingAndTailingSpaces(child.value);
 
           if (leadingSpaces) {
             localChildren.push({ type: TYPE_WHITESPACE });

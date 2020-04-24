@@ -20,6 +20,7 @@ const {
   softline,
 } = builders;
 const {
+  splitByHtmlSpaces,
   countChars,
   countParents,
   dedentString,
@@ -944,8 +945,7 @@ function getTextValueParts(node, value = node.value) {
           dedentString(value.replace(/^\s*?\n|\n\s*?$/g, "")),
           hardline
         )
-    : // https://infra.spec.whatwg.org/#ascii-whitespace
-      join(line, value.split(/[\t\n\f\r ]+/)).parts;
+    : join(line, splitByHtmlSpaces(value)).parts;
 }
 
 function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
