@@ -15,16 +15,15 @@ const HTML_TAGS = arrayToMap(htmlTagNames);
 const HTML_ELEMENT_ATTRIBUTES = mapObject(htmlElementAttributes, arrayToMap);
 
 // https://infra.spec.whatwg.org/#ascii-whitespace
-const HTML_SPACES = new Set(["\t", "\n", "\f", "\r", " "]);
-const trimLeadingHtmlSpaces = (string) => string.replace(/^[\t\n\f\r ]+/, "");
-const trimTailingHtmlSpaces = (string) => string.replace(/[\t\n\f\r ]+$/, "");
-const trimHtmlSpaces = (string) =>
-  trimLeadingHtmlSpaces(trimTailingHtmlSpaces(string));
-const trimHtmlSpacesLineByLine = (string) =>
+const HTML_WHITESPACE = new Set(["\t", "\n", "\f", "\r", " "]);
+const htmlTrimStart = (string) => string.replace(/^[\t\n\f\r ]+/, "");
+const htmlTrimEnd = (string) => string.replace(/[\t\n\f\r ]+$/, "");
+const htmlTrim = (string) => htmlTrimStart(htmlTrimEnd(string));
+const htmlTrimLineByLine = (string) =>
   string.replace(/^[\t\f\r ]*?\n|\n[\t\f\r ]*?$/g, "");
-const splitByHtmlSpaces = (string) => string.split(/[\t\n\f\r ]+/);
-const getHtmlLeadingSpaces = (string) => string.match(/^[\t\n\f\r ]*/)[0];
-const getHtmlLeadingAndTailingSpaces = (string) => {
+const splitByHtmlWhitespace = (string) => string.split(/[\t\n\f\r ]+/);
+const getHtmlLeadingWhitespace = (string) => string.match(/^[\t\n\f\r ]*/)[0];
+const getHtmlLeadingAndTrailingWhitespace = (string) => {
   const [, leadingSpaces, text, trailingSpaces] = string.match(
     /^([\t\n\f\r ]*)([\S\s]*?)([\t\n\f\r ]*)$/
   );
@@ -34,7 +33,7 @@ const getHtmlLeadingAndTailingSpaces = (string) => {
     text,
   };
 };
-const hasHtmlSpaces = (string) => /[\t\n\f\r ]/.test(string);
+const hasHtmlWhitespace = (string) => /[\t\n\f\r ]/.test(string);
 
 function arrayToMap(array) {
   const map = Object.create(null);
@@ -566,11 +565,11 @@ function getMinIndentation(text) {
       continue;
     }
 
-    if (!HTML_SPACES.has(lineText[0])) {
+    if (!HTML_WHITESPACE.has(lineText[0])) {
       return 0;
     }
 
-    const indentation = getHtmlLeadingSpaces(lineText).length;
+    const indentation = getHtmlLeadingWhitespace(lineText).length;
 
     if (lineText.length === indentation) {
       continue;
@@ -664,11 +663,11 @@ function isVueCustomBlock(node, options) {
 module.exports = {
   HTML_ELEMENT_ATTRIBUTES,
   HTML_TAGS,
-  trimHtmlSpaces,
-  trimHtmlSpacesLineByLine,
-  splitByHtmlSpaces,
-  hasHtmlSpaces,
-  getHtmlLeadingAndTailingSpaces,
+  htmlTrim,
+  htmlTrimLineByLine,
+  splitByHtmlWhitespace,
+  hasHtmlWhitespace,
+  getHtmlLeadingAndTrailingWhitespace,
   canHaveInterpolation,
   countChars,
   countParents,

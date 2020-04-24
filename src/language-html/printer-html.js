@@ -20,8 +20,8 @@ const {
   softline,
 } = builders;
 const {
-  trimHtmlSpacesLineByLine,
-  splitByHtmlSpaces,
+  htmlTrimLineByLine,
+  splitByHtmlWhitespace,
   countChars,
   countParents,
   dedentString,
@@ -942,11 +942,8 @@ function getTextValueParts(node, value = node.value) {
   return node.parent.isWhitespaceSensitive
     ? node.parent.isIndentationSensitive
       ? replaceEndOfLineWith(value, literalline)
-      : replaceEndOfLineWith(
-          dedentString(trimHtmlSpacesLineByLine(value)),
-          hardline
-        )
-    : join(line, splitByHtmlSpaces(value)).parts;
+      : replaceEndOfLineWith(dedentString(htmlTrimLineByLine(value)), hardline)
+    : join(line, splitByHtmlWhitespace(value)).parts;
 }
 
 function printEmbeddedAttributeValue(node, originalTextToDoc, options) {

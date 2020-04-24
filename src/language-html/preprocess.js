@@ -1,9 +1,9 @@
 "use strict";
 
 const {
-  trimHtmlSpaces,
-  getHtmlLeadingAndTailingSpaces,
-  hasHtmlSpaces,
+  htmlTrim,
+  getHtmlLeadingAndTrailingWhitespace,
+  hasHtmlWhitespace,
   canHaveInterpolation,
   getNodeCssStyleDisplay,
   isDanglingSpaceSensitiveNode,
@@ -179,7 +179,7 @@ function mergeSimpleElementIntoText(ast /*, options */) {
     node.attrs.length === 0 &&
     node.children.length === 1 &&
     node.firstChild.type === "text" &&
-    !hasHtmlSpaces(node.children[0].value) &&
+    !hasHtmlWhitespace(node.children[0].value) &&
     !node.firstChild.hasLeadingSpaces &&
     !node.firstChild.hasTrailingSpaces &&
     node.isLeadingSpaceSensitive &&
@@ -315,7 +315,7 @@ function extractWhitespaces(ast /*, options*/) {
       node.children.length === 0 ||
       (node.children.length === 1 &&
         node.children[0].type === "text" &&
-        trimHtmlSpaces(node.children[0].value).length === 0)
+        htmlTrim(node.children[0].value).length === 0)
     ) {
       return node.clone({
         children: [],
@@ -342,7 +342,7 @@ function extractWhitespaces(ast /*, options*/) {
             leadingSpaces,
             text,
             trailingSpaces,
-          } = getHtmlLeadingAndTailingSpaces(child.value);
+          } = getHtmlLeadingAndTrailingWhitespace(child.value);
 
           if (leadingSpaces) {
             localChildren.push({ type: TYPE_WHITESPACE });
