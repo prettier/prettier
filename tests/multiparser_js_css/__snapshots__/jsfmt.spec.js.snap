@@ -103,6 +103,64 @@ const Icon3 = styled.div\`
 ================================================================================
 `;
 
+exports[`issue-6259.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export const Group = styled.div\`
+  margin: 0;
+
+  .input {
+    margin: 0;
+  }
+
+  \${StyledInput}:not(:first-child) {
+    margin: 0;
+  }
+
+  & > :not(.\${inputWrap}):not(\${Button}) {
+    display: flex;
+  }
+\`
+
+const yesFrame = (
+    ...args: Interpolation<ThemedStyledProps<{}, Theme>>[]
+) => css\`
+    \${ChatRoot}[data-frame="yes"] & {
+        \${css({}, ...args)}
+    }
+\`
+
+=====================================output=====================================
+export const Group = styled.div\`
+  margin: 0;
+
+  .input {
+    margin: 0;
+  }
+
+  \${StyledInput}:not(:first-child) {
+    margin: 0;
+  }
+
+  & > :not(.\${inputWrap}):not(\${Button}) {
+    display: flex;
+  }
+\`;
+
+const yesFrame = (
+  ...args: Interpolation<ThemedStyledProps<{}, Theme>>[]
+) => css\`
+  \${ChatRoot}[data-frame="yes"] & {
+    \${css({}, ...args)}
+  }
+\`;
+
+================================================================================
+`;
+
 exports[`styled-components.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
@@ -625,10 +683,22 @@ const Something = styled.div\`
   border: 1px solid var(--\${two}); /* ... */
 \`;
 
+const StyledPurchaseCard = styled(Card)\`
+  min-width: 200px;
+  background-color: var(--\${props => props.color});
+  color: #fff;
+\`;
+
 =====================================output=====================================
 const Something = styled.div\`
   background: var(--\${one}); /* ... */
   border: 1px solid var(--\${two}); /* ... */
+\`;
+
+const StyledPurchaseCard = styled(Card)\`
+  min-width: 200px;
+  background-color: var(--\${(props) => props.color});
+  color: #fff;
 \`;
 
 ================================================================================

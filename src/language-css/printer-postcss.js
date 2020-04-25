@@ -182,6 +182,8 @@ function genericPrint(path, options, print) {
             !parentNode.raws.semicolon &&
             options.originalText[options.locEnd(node) - 1] !== ";"
           ? ""
+          : options.__isHTMLStyleAttribute && isLastNode(path, node)
+          ? ifBreak(";", "")
           : ";",
       ]);
     }
