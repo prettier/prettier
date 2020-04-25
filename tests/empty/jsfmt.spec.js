@@ -20,24 +20,23 @@ run_spec(
       "\n\n\n\n",
       " \n  \n \n\n",
       " \n  \n \n\n ",
-      // TODO: fix following tests
-      // // `\r`
-      // "\r",
-      // " \r",
-      // " \r ",
-      // "\r\r\r\r",
-      // " \r  \r \r\r",
-      // " \r  \r \r\r ",
-      // // `\r\n`
-      // "\r\n",
-      // " \r\n",
-      // " \r\n ",
-      // "\r\n\r\n\r\n\r\n",
-      // " \r\n  \r\n \r\n\r\n",
-      // " \r\n  \r\n \r\n\r\n ",
-      // // mixed `\r` `\r\n` '\n'
-      // " \r \r\n \n",
-    ],
+      // `\r`
+      "\r",
+      " \r",
+      " \r ",
+      "\r\r\r\r",
+      " \r  \r \r\r",
+      " \r  \r \r\r ",
+      // `\r\n`
+      "\r\n",
+      " \r\n",
+      " \r\n ",
+      "\r\n\r\n\r\n\r\n",
+      " \r\n  \r\n \r\n\r\n",
+      " \r\n  \r\n \r\n\r\n ",
+      // mixed `\r` `\r\n` '\n'
+      " \r \r\n \n ",
+    ].map((code) => ({ code, output: "" })),
   },
   parsers
 );
