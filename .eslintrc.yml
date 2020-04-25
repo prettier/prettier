@@ -59,7 +59,6 @@ rules:
   unicorn/better-regex: error
   unicorn/new-for-builtins: error
   unicorn/prefer-includes: error
-  unicorn/prefer-set-has: error
   unicorn/prefer-string-slice: error
 overrides:
   - files:
