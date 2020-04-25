@@ -19,7 +19,9 @@ function ngHtmlParser(
     normalizeAttributeName,
     allowHtmComponentClosingTags,
     isTagNameCaseSensitive,
-  }
+    getTagContentType,
+  },
+  options
 ) {
   const parser = require("angular-html-parser");
   const {
@@ -39,11 +41,41 @@ function ngHtmlParser(
     getHtmlTagDefinition,
   } = require("angular-html-parser/lib/compiler/src/ml_parser/html_tags");
 
-  const { rootNodes, errors } = parser.parse(input, {
+  const parseResult = parser.parse(input, {
     canSelfClose: recognizeSelfClosing,
     allowHtmComponentClosingTags,
     isTagNameCaseSensitive,
+    getTagContentType,
   });
+  const { rootNodes } = parseResult;
+  let { errors } = parseResult;
+
+  if (options.parser === "vue") {
+    errors = [];
+    const parseResult = parser.parse(input, {
+      canSelfClose: recognizeSelfClosing,
+      allowHtmComponentClosingTags,
+      isTagNameCaseSensitive,
+    });
+    const _rootNodes = parseResult.rootNodes;
+    const _errors = parseResult.errors;
+    for (let i = 0; i < rootNodes.length; i++) {
+      const node = rootNodes[i];
+      if (node.name === "template" || node.name === "html") {
+        // push error to errors array if it occured inside template tag
+        const startOffset = node.startSourceSpan.end.offset;
+        const endOffset = node.endSourceSpan.start.offset;
+        for (const error of _errors) {
+          const { offset } = error.span.start;
+          if (startOffset < offset && offset < endOffset) {
+            errors.push(error);
+            break;
+          }
+        }
+        rootNodes[i] = _rootNodes[i];
+      }
+    }
+  }
 
   if (errors.length !== 0) {
     const { msg, span } = errors[0];
@@ -193,7 +225,7 @@ function _parse(text, options, parserOptions, shouldParseFrontMatter = true) {
   const rawAst = {
     type: "root",
     sourceSpan: { start: { offset: 0 }, end: { offset: text.length } },
-    children: ngHtmlParser(content, parserOptions),
+    children: ngHtmlParser(content, parserOptions, options),
   };
 
   if (frontMatter) {
@@ -259,6 +291,7 @@ function createParser({
   normalizeAttributeName = false,
   allowHtmComponentClosingTags = false,
   isTagNameCaseSensitive = false,
+  getTagContentType = undefined,
 } = {}) {
   return {
     parse: (text, parsers, options) =>
@@ -268,6 +301,7 @@ function createParser({
         normalizeAttributeName,
         allowHtmComponentClosingTags,
         isTagNameCaseSensitive,
+        getTagContentType,
       }),
     hasPragma,
     astFormat: "html",
@@ -288,6 +322,11 @@ module.exports = {
     vue: createParser({
       recognizeSelfClosing: true,
       isTagNameCaseSensitive: true,
+      getTagContentType: (tagname) => {
+        if (tagname !== "template") {
+          return require("angular-html-parser").TagContentType.RAW_TEXT;
+        }
+      },
     }),
     lwc: createParser(),
   },
