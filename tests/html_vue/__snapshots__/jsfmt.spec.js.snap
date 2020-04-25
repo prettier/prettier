@@ -2860,6 +2860,11 @@ semi: false
   .bla
 </template>
 
+<template lang="pug">
+  #container
+    some-component(tag='<some-tag>')
+</template>
+
 =====================================output=====================================
 <template lang="pug">
   .test
@@ -2871,6 +2876,11 @@ semi: false
   .test
     #foo
   .bla
+</template>
+
+<template lang="pug">
+  #container
+    some-component(tag='<some-tag>')
 </template>
 
 ================================================================================
@@ -2899,6 +2909,11 @@ trailingComma: "none"
   .bla
 </template>
 
+<template lang="pug">
+  #container
+    some-component(tag='<some-tag>')
+</template>
+
 =====================================output=====================================
 <template lang="pug">
   .test
@@ -2910,6 +2925,11 @@ trailingComma: "none"
   .test
     #foo
   .bla
+</template>
+
+<template lang="pug">
+  #container
+    some-component(tag='<some-tag>')
 </template>
 
 ================================================================================
@@ -2937,6 +2957,11 @@ printWidth: 80
   .bla
 </template>
 
+<template lang="pug">
+  #container
+    some-component(tag='<some-tag>')
+</template>
+
 =====================================output=====================================
 <template lang="pug">
   .test
@@ -2948,6 +2973,11 @@ printWidth: 80
   .test
     #foo
   .bla
+</template>
+
+<template lang="pug">
+  #container
+    some-component(tag='<some-tag>')
 </template>
 
 ================================================================================

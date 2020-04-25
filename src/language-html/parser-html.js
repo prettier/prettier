@@ -10,6 +10,7 @@ const { hasPragma } = require("./pragma");
 const createError = require("../common/parser-create-error");
 const { Node } = require("./ast");
 const { parseIeConditionalComment } = require("./conditional-comment");
+const { getParserName } = require("../common/util");
 
 function ngHtmlParser(
   input,
@@ -24,6 +25,7 @@ function ngHtmlParser(
   options
 ) {
   const parser = require("angular-html-parser");
+  const { TagContentType } = parser;
   const {
     RecursiveVisitor,
     visitAll,
@@ -51,25 +53,40 @@ function ngHtmlParser(
   let { errors } = parseResult;
 
   if (options.parser === "vue") {
-    errors = [];
+    const templateNode = rootNodes.find((node) => node.name === "template");
+    const langAttr =
+      templateNode && templateNode.attrs.find((attr) => attr.name === "lang");
+    const langValue = langAttr && langAttr.value;
+    const shouldParseAsHtml =
+      langValue == null || getParserName(langValue, options) === "html";
+
     const parseResult = parser.parse(input, {
       canSelfClose: recognizeSelfClosing,
       allowHtmComponentClosingTags,
       isTagNameCaseSensitive,
+      // For not HTML languages written inside template like pug
+      getTagContentType: shouldParseAsHtml
+        ? undefined
+        : () => TagContentType.RAW_TEXT,
     });
     const _rootNodes = parseResult.rootNodes;
     const _errors = parseResult.errors;
+
+    errors = [];
+
     for (let i = 0; i < rootNodes.length; i++) {
       const node = rootNodes[i];
       if (node.name === "template") {
-        // push error to errors array if it occured inside template tag
-        const startOffset = node.startSourceSpan.end.offset;
-        const endOffset = node.endSourceSpan.start.offset;
-        for (const error of _errors) {
-          const { offset } = error.span.start;
-          if (startOffset < offset && offset < endOffset) {
-            errors.push(error);
-            break;
+        if (shouldParseAsHtml) {
+          // push error to errors array if it occured inside template tag
+          const startOffset = node.startSourceSpan.end.offset;
+          const endOffset = node.endSourceSpan.start.offset;
+          for (const error of _errors) {
+            const { offset } = error.span.start;
+            if (startOffset < offset && offset < endOffset) {
+              errors.push(error);
+              break;
+            }
           }
         }
         rootNodes[i] = _rootNodes[i];
