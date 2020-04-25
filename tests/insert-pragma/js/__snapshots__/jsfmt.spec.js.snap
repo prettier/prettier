@@ -26,7 +26,6 @@ function foo(bar) {
 /**
  * Some notes that should not be appended to
  */
-
 const fruit = "tomatoes";
 
 ================================================================================

@@ -14,6 +14,7 @@ const {
 const {
   hasNewline,
   skipNewline,
+  skipSpaces,
   isPreviousLineEmpty,
 } = require("../common/util");
 const {
@@ -520,7 +521,10 @@ function printComments(path, print, options, needsSemi) {
       leadingParts.push(contents);
 
       const text = options.originalText;
-      const index = skipNewline(text, options.locEnd(comment));
+      const index = skipNewline(
+        text,
+        skipSpaces(text, options.locEnd(comment))
+      );
       if (index !== false && hasNewline(text, index)) {
         leadingParts.push(hardline);
       }

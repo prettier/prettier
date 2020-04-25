@@ -67,6 +67,10 @@ overrides:
     rules:
       no-console: off
   - files:
+      - scripts/build/shims/*.js
+    parserOptions:
+      sourceType: module
+  - files:
       - "{tests,tests_config,tests_integration}/**/*.js"
     env:
       jest: true
