@@ -18,6 +18,7 @@ run_spec(
       ].map((textContent) => ({
         code: `<div>${textContent}</div>`,
         name: "should be empty",
+        output: "<div></div>\n",
       })),
 
       ...[
@@ -33,6 +34,7 @@ run_spec(
       ].map((textContent) => ({
         code: `<span>${textContent}</span>`,
         name: "should keep one space",
+        output: "<span> </span>\n",
       })),
 
       ...[
@@ -48,6 +50,7 @@ run_spec(
       ].map((textContent) => ({
         code: `<img/>${textContent}<img/>`,
         name: "between",
+        output: "<img /> <img />\n",
       })),
 
       // non-space
