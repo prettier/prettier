@@ -44,14 +44,16 @@ run_spec(
         "\u000C",
         "\u000D",
         "\u0020",
-
-        // many
-        "\u0009\u000A\u000C\u000D\u0020",
       ].map((textContent) => ({
         code: `<img/>${textContent}<img/>`,
         name: "between",
         output: "<img /> <img />\n",
       })),
+
+      {
+        code: "<img/>\u0009\u000A\u000C\u000D\u0020<img/>",
+        output: "<img />\n\n<img />\n",
+      },
 
       // non-space
       ...[
