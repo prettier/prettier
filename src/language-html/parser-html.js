@@ -61,7 +61,7 @@ function ngHtmlParser(
     const _errors = parseResult.errors;
     for (let i = 0; i < rootNodes.length; i++) {
       const node = rootNodes[i];
-      if (node.name === "template" || node.name === "html") {
+      if (node.name === "template") {
         // push error to errors array if it occured inside template tag
         const startOffset = node.startSourceSpan.end.offset;
         const endOffset = node.endSourceSpan.start.offset;
