@@ -28,7 +28,7 @@ foo = {
   bar:            /* comment */          1,
 }
 
-/* RestElement */
+/* SpreadElement */
 foo = {
   _: '',
   // prettier-ignore
