@@ -14,7 +14,7 @@
   .bla
 </template>
 
-<template lang="pug">
+<template lang="unknown">
   #container
     some-component(tag='<some-tag>')
 </template>
