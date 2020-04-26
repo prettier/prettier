@@ -724,6 +724,7 @@ function returnArgumentHasLeadingComment(options, argument) {
 
   return false;
 }
+
 function isStringPropSafeToCoerceToIdentifier(node, options) {
   return (
     isStringLiteral(node.key) &&
