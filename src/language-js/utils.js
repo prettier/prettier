@@ -724,16 +724,11 @@ function returnArgumentHasLeadingComment(options, argument) {
 
   return false;
 }
-
-function getStringLiteralRaw(node) {
-  return node.extra ? node.extra.raw : node.raw;
-}
-
 function isStringPropSafeToCoerceToIdentifier(node, options) {
   return (
     isStringLiteral(node.key) &&
     isIdentifierName(node.key.value) &&
-    getStringLiteralRaw(node.key).slice(1, -1) === node.key.value &&
+    rawText(node.key).slice(1, -1) === node.key.value &&
     options.parser !== "json" &&
     // With `--strictPropertyInitialization`, TS treats properties with quoted names differently than unquoted ones.
     // See https://github.com/microsoft/TypeScript/pull/20075
