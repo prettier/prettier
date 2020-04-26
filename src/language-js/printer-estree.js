@@ -1399,8 +1399,7 @@ function printPathNoParens(path, options, print, args) {
 
       const canHaveTrailingSeparator = !(
         n.inexact ||
-        (lastElem &&
-          (lastElem.type === "RestElement" || hasNodeIgnoreComment(lastElem)))
+        (lastElem && lastElem.type === "RestElement")
       );
 
       let content;

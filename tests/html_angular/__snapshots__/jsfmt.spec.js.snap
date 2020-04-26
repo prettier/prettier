@@ -4635,7 +4635,7 @@ can be found in the LICENSE file at http://angular.io/license
 <a href="#prop-vs-attrib">Properties vs. Attributes</a><br />
 <br />
 <a href="#property-binding">Property Binding</a><br />
-<div style="margin-left: 8px;">
+<div style="margin-left: 8px">
   <a href="#attribute-binding">Attribute Binding</a><br />
   <a href="#class-binding">Class Binding</a><br />
   <a href="#style-binding">Style Binding</a><br />
@@ -4645,13 +4645,13 @@ can be found in the LICENSE file at http://angular.io/license
 <a href="#two-way">Two-way Binding</a><br />
 <br />
 <div>Directives</div>
-<div style="margin-left: 8px;">
+<div style="margin-left: 8px">
   <a href="#ngModel">NgModel (two-way) Binding</a><br />
   <a href="#ngClass">NgClass Binding</a><br />
   <a href="#ngStyle">NgStyle Binding</a><br />
   <a href="#ngIf">NgIf</a><br />
   <a href="#ngFor">NgFor</a><br />
-  <div style="margin-left: 8px;">
+  <div style="margin-left: 8px">
     <a href="#ngFor-index">NgFor with index</a><br />
     <a href="#ngFor-trackBy">NgFor with trackBy</a><br />
   </div>
@@ -4675,7 +4675,7 @@ can be found in the LICENSE file at http://angular.io/license
 
 <h3>
   {{ title }}
-  <img src="{{ heroImageUrl }}" style="height: 30px;" />
+  <img src="{{ heroImageUrl }}" style="height: 30px" />
 </h3>
 
 <!-- "The sum of 1 + 1 is 2" -->
@@ -6171,7 +6171,7 @@ can be found in the LICENSE file at http://angular.io/license
 <br />
 <a href="#property-binding">Property Binding</a>
 <br />
-<div style="margin-left: 8px;">
+<div style="margin-left: 8px">
   <a href="#attribute-binding">Attribute Binding</a>
   <br />
   <a href="#class-binding">Class Binding</a>
@@ -6186,7 +6186,7 @@ can be found in the LICENSE file at http://angular.io/license
 <br />
 <br />
 <div>Directives</div>
-<div style="margin-left: 8px;">
+<div style="margin-left: 8px">
   <a href="#ngModel">NgModel (two-way) Binding</a>
   <br />
   <a href="#ngClass">NgClass Binding</a>
@@ -6197,7 +6197,7 @@ can be found in the LICENSE file at http://angular.io/license
   <br />
   <a href="#ngFor">NgFor</a>
   <br />
-  <div style="margin-left: 8px;">
+  <div style="margin-left: 8px">
     <a href="#ngFor-index">NgFor with index</a>
     <br />
     <a href="#ngFor-trackBy">NgFor with trackBy</a>
@@ -6234,7 +6234,7 @@ can be found in the LICENSE file at http://angular.io/license
 
 <h3>
   {{ title }}
-  <img src="{{ heroImageUrl }}" style="height: 30px;" />
+  <img src="{{ heroImageUrl }}" style="height: 30px" />
 </h3>
 
 <!-- "The sum of 1 + 1 is 2" -->
@@ -11242,7 +11242,7 @@ can be found in the LICENSE file at http://angular.io/license
 <a href="#prop-vs-attrib">Properties vs. Attributes</a><br />
 <br />
 <a href="#property-binding">Property Binding</a><br />
-<div style="margin-left: 8px;">
+<div style="margin-left: 8px">
   <a href="#attribute-binding">Attribute Binding</a><br />
   <a href="#class-binding">Class Binding</a><br />
   <a href="#style-binding">Style Binding</a><br />
@@ -11252,13 +11252,13 @@ can be found in the LICENSE file at http://angular.io/license
 <a href="#two-way">Two-way Binding</a><br />
 <br />
 <div>Directives</div>
-<div style="margin-left: 8px;">
+<div style="margin-left: 8px">
   <a href="#ngModel">NgModel (two-way) Binding</a><br />
   <a href="#ngClass">NgClass Binding</a><br />
   <a href="#ngStyle">NgStyle Binding</a><br />
   <a href="#ngIf">NgIf</a><br />
   <a href="#ngFor">NgFor</a><br />
-  <div style="margin-left: 8px;">
+  <div style="margin-left: 8px">
     <a href="#ngFor-index">NgFor with index</a><br />
     <a href="#ngFor-trackBy">NgFor with trackBy</a><br />
   </div>
@@ -11282,7 +11282,7 @@ can be found in the LICENSE file at http://angular.io/license
 
 <h3>
   {{ title }}
-  <img src="{{ heroImageUrl }}" style="height: 30px;" />
+  <img src="{{ heroImageUrl }}" style="height: 30px" />
 </h3>
 
 <!-- "The sum of 1 + 1 is 2" -->
@@ -12770,7 +12770,7 @@ can be found in the LICENSE file at http://angular.io/license
 <a href="#prop-vs-attrib">Properties vs. Attributes</a><br />
 <br />
 <a href="#property-binding">Property Binding</a><br />
-<div style="margin-left: 8px;">
+<div style="margin-left: 8px">
   <a href="#attribute-binding">Attribute Binding</a><br />
   <a href="#class-binding">Class Binding</a><br />
   <a href="#style-binding">Style Binding</a><br />
@@ -12780,13 +12780,13 @@ can be found in the LICENSE file at http://angular.io/license
 <a href="#two-way">Two-way Binding</a><br />
 <br />
 <div>Directives</div>
-<div style="margin-left: 8px;">
+<div style="margin-left: 8px">
   <a href="#ngModel">NgModel (two-way) Binding</a><br />
   <a href="#ngClass">NgClass Binding</a><br />
   <a href="#ngStyle">NgStyle Binding</a><br />
   <a href="#ngIf">NgIf</a><br />
   <a href="#ngFor">NgFor</a><br />
-  <div style="margin-left: 8px;">
+  <div style="margin-left: 8px">
     <a href="#ngFor-index">NgFor with index</a><br />
     <a href="#ngFor-trackBy">NgFor with trackBy</a><br />
   </div>
@@ -12810,7 +12810,7 @@ can be found in the LICENSE file at http://angular.io/license
 
 <h3>
   {{ title }}
-  <img src="{{ heroImageUrl }}" style="height: 30px;" />
+  <img src="{{ heroImageUrl }}" style="height: 30px" />
 </h3>
 
 <!-- "The sum of 1 + 1 is 2" -->

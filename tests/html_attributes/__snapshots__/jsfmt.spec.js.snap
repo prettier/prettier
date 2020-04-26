@@ -518,9 +518,8 @@ style="css-prop-1: css-value;css-prop-2: css-value;css-prop-3: css-value;css-pro
 
 <div style="color: red; {{ otherStyles }}"
 ></div>
-
 =====================================output=====================================
-<div style="color: #fff;"></div>
+<div style="color: #fff"></div>
 
 <div style=""></div>
 <div style></div>
@@ -559,7 +558,7 @@ style="css-prop-1: css-value;css-prop-2: css-value;css-prop-3: css-value;css-pro
   "
 ></div>
 
-<div style="color: red; display: inline;"></div>
+<div style="color: red; display: inline"></div>
 
 <div
   style="
