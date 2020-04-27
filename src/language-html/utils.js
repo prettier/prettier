@@ -630,7 +630,7 @@ function unescapeQuoteEntities(text) {
 
 // top-level elements (excluding <template>, <style> and <script>) in Vue SFC are considered custom block
 // See https://vue-loader.vuejs.org/spec.html for detail
-const vueRootElementsSet = new Set(["template", "style", "script"]);
+const vueRootElementsSet = new Set(["template", "style", "script", "html"]);
 function isVueCustomBlock(node, options) {
   return (
     options.parser === "vue" &&

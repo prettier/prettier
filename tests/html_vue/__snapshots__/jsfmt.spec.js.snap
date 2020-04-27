@@ -2837,6 +2837,101 @@ printWidth: 80
 ================================================================================
 `;
 
+exports[`template-dom.html - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+<!DOCTYPE html><html>
+  <body>
+    <div v-if="foo ===    'foo'">
+
+</div>
+    <script>
+new Vue({el: '#app'})
+    </script>
+  </body>
+</html>
+
+=====================================output=====================================
+<!DOCTYPE html>
+<html>
+  <body>
+    <div v-if="foo === 'foo'"></div>
+    <script>
+      new Vue({ el: "#app" })
+    </script>
+  </body>
+</html>
+
+================================================================================
+`;
+
+exports[`template-dom.html - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+<!DOCTYPE html><html>
+  <body>
+    <div v-if="foo ===    'foo'">
+
+</div>
+    <script>
+new Vue({el: '#app'})
+    </script>
+  </body>
+</html>
+
+=====================================output=====================================
+<!DOCTYPE html>
+<html>
+  <body>
+    <div v-if="foo === 'foo'"></div>
+    <script>
+      new Vue({ el: "#app" });
+    </script>
+  </body>
+</html>
+
+================================================================================
+`;
+
+exports[`template-dom.html format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<!DOCTYPE html><html>
+  <body>
+    <div v-if="foo ===    'foo'">
+
+</div>
+    <script>
+new Vue({el: '#app'})
+    </script>
+  </body>
+</html>
+
+=====================================output=====================================
+<!DOCTYPE html>
+<html>
+  <body>
+    <div v-if="foo === 'foo'"></div>
+    <script>
+      new Vue({ el: "#app" });
+    </script>
+  </body>
+</html>
+
+================================================================================
+`;
+
 exports[`template-lang.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]

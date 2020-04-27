@@ -76,7 +76,7 @@ function ngHtmlParser(
 
     for (let i = 0; i < rootNodes.length; i++) {
       const node = rootNodes[i];
-      if (node.name === "template") {
+      if (node.name === "template" || node.name === "html") {
         if (shouldParseAsHtml) {
           // push error to errors array if it occurred inside template tag
           const startOffset = node.startSourceSpan.end.offset;
@@ -340,7 +340,7 @@ module.exports = {
       recognizeSelfClosing: true,
       isTagNameCaseSensitive: true,
       getTagContentType: (tagname) => {
-        if (tagname !== "template") {
+        if (tagname !== "template" && tagname !== "html") {
           return require("angular-html-parser").TagContentType.RAW_TEXT;
         }
       },
