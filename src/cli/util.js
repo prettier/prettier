@@ -12,7 +12,9 @@ const fromPairs = require("lodash/fromPairs");
 const pick = require("lodash/pick");
 const groupBy = require("lodash/groupBy");
 const flat = require("lodash/flatten");
+// eslint-disable-next-line no-restricted-modules
 const prettier = require("../index");
+// eslint-disable-next-line no-restricted-modules
 const thirdParty = require("../common/third-party");
 const {
   createIgnorer,
