@@ -142,13 +142,6 @@ const coreBundles = [
     },
   },
   {
-    input: "src/document/index.js",
-    name: "doc",
-    type: "core",
-    output: "doc.js",
-    target: "universal",
-  },
-  {
     input: "standalone.js",
     name: "prettier",
     type: "core",
