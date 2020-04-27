@@ -82,5 +82,4 @@ overrides:
       no-restricted-modules:
         - error
         - patterns:
-          - ".."
-
+            - ".."
