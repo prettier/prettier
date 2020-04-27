@@ -18,7 +18,6 @@ const evaluate = require("./rollup-plugins/evaluate");
 const externals = require("./rollup-plugins/externals");
 
 const EXTERNALS = [
-  "assert",
   "buffer",
   "constants",
   "crypto",
