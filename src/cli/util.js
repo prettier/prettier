@@ -12,19 +12,20 @@ const fromPairs = require("lodash/fromPairs");
 const pick = require("lodash/pick");
 const groupBy = require("lodash/groupBy");
 const flat = require("lodash/flatten");
+const prettier = require("../index");
+const thirdParty = require("../common/third-party");
+const {
+  createIgnorer,
+  errors,
+  coreOptions,
+  optionsModule,
+  optionsNormalizer,
+  utils: { arrayify, isTTY },
+} = require("./prettier-internal");
 
 const minimist = require("./minimist");
-const prettier = require("../../index");
-const createIgnorer = require("../common/create-ignorer");
 const { expandPatterns, fixWindowsSlashes } = require("./expand-patterns");
-const { errors } = prettier.__shared;
 const constant = require("./constant");
-const coreOptions = require("../main/core-options");
-const optionsModule = require("../main/options");
-const optionsNormalizer = require("../main/options-normalizer");
-const thirdParty = require("../common/third-party");
-const arrayify = require("../utils/arrayify");
-const isTTY = require("../utils/is-tty");
 
 const OPTION_USAGE_THRESHOLD = 25;
 const CHOICE_USAGE_MARGIN = 3;

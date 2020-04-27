@@ -67,9 +67,16 @@ module.exports = {
   util: sharedUtil,
 
   // Internal shared
-  /* istanbul ignore next */
-  __shared: {
+  __internal: {
     errors: require("./common/errors"),
+    coreOptions: require("./main/core-options"),
+    createIgnorer: require("./common/create-ignorer"),
+    optionsModule: require("./main/options"),
+    optionsNormalizer: require("./main/options-normalizer"),
+    utils: {
+      arrayify: require("./utils/arrayify"),
+      isTTY: require("./utils/is-tty"),
+    },
   },
 
   /* istanbul ignore next */

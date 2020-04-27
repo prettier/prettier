@@ -1,7 +1,7 @@
 "use strict";
 
 const dedent = require("dedent");
-const coreOptions = require("../main/core-options");
+const { coreOptions } = require("./prettier-internal");
 
 const categoryOrder = [
   coreOptions.CATEGORY_OUTPUT,
