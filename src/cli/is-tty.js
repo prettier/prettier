@@ -1,5 +1,6 @@
 "use strict";
 
+// eslint-disable-next-line no-restricted-modules
 const thirdParty = require("../common/third-party");
 
 // Some CI pipelines incorrectly report process.stdout.isTTY status,

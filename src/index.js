@@ -75,7 +75,6 @@ module.exports = {
     optionsNormalizer: require("./main/options-normalizer"),
     utils: {
       arrayify: require("./utils/arrayify"),
-      isTTY: require("./utils/is-tty"),
     },
   },
 

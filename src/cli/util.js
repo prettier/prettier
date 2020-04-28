@@ -22,12 +22,13 @@ const {
   coreOptions,
   optionsModule,
   optionsNormalizer,
-  utils: { arrayify, isTTY },
+  utils: { arrayify },
 } = require("./prettier-internal");
 
 const minimist = require("./minimist");
 const { expandPatterns, fixWindowsSlashes } = require("./expand-patterns");
 const constant = require("./constant");
+const isTTY = require("./is-tty");
 
 const OPTION_USAGE_THRESHOLD = 25;
 const CHOICE_USAGE_MARGIN = 3;
