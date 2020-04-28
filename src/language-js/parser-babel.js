@@ -5,9 +5,9 @@ const { hasPragma } = require("./pragma");
 const locFns = require("./loc");
 const postprocess = require("./postprocess");
 
-function babelOptions(extraPlugins = []) {
+function babelOptions({ sourceType, extraPlugins = [] }) {
   return {
-    sourceType: "module",
+    sourceType,
     allowAwaitOutsideFunction: true,
     allowImportExportEverywhere: true,
     allowReturnOutsideFunction: true,
@@ -65,6 +65,10 @@ function createParse(parseMethod, ...pluginCombinations) {
     // Inline the require to avoid loading all the JS if we don't use it
     const babel = require("@babel/parser");
 
+    // HTML-like Comments https://tc39.es/ecma262/#sec-html-like-comments
+    // requires sourceType to be `script` https://github.com/babel/babel/issues/7802#issuecomment-492522145
+    const sourceType = /<!--|-->/.test(text) ? "unambiguous" : "module";
+
     let ast;
     try {
       const combinations = resolvePluginsConflict(
@@ -78,7 +82,9 @@ function createParse(parseMethod, ...pluginCombinations) {
       );
       ast = tryCombinations(
         (options) => babel[parseMethod](text, options),
-        combinations.map(babelOptions)
+        combinations.map((extraPlugins) =>
+          babelOptions({ sourceType, extraPlugins })
+        )
       );
     } catch (error) {
       throw createError(
