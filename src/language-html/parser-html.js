@@ -141,7 +141,6 @@ function ngHtmlParser(
     } else if (node instanceof Text) {
       node.type = "text";
     } else {
-      console.log(node);
       throw new Error(`Unexpected node ${JSON.stringify(node)}`);
     }
   };
