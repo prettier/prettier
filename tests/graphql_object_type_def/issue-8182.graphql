@@ -1,0 +1,16 @@
+"""
+#some docs
+"""
+# some comment
+type Foo {
+  id: ID!
+}
+
+"""
+some docs
+"""
+# some comment
+# extends
+type Foo {
+  id: ID!
+}

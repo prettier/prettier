@@ -13,6 +13,7 @@ const {
 const { hasIgnoreComment } = require("../common/util");
 const { isNextLineEmpty } = require("../common/util-shared");
 const { insertPragma } = require("./pragma");
+const handleComments = require("./comments");
 
 function genericPrint(path, options, print) {
   const n = path.getValue();
@@ -700,4 +701,5 @@ module.exports = {
   insertPragma,
   printComment,
   canAttachComment,
+  handleComments,
 };
