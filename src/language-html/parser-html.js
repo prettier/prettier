@@ -84,12 +84,15 @@ function ngHtmlParser(
           if (!_node || !_node.startSourceSpan) {
             return false;
           }
-          if (node.startSourceSpan.start.offset === _node.startSourceSpan.start.offset) {
+          if (
+            node.startSourceSpan.start.offset ===
+            _node.startSourceSpan.start.offset
+          ) {
             return true;
           }
           return false;
         });
-      }
+      };
       for (let i = 0; i < rootNodes.length; i++) {
         const node = rootNodes[i];
         const { endSourceSpan, startSourceSpan } = node;
