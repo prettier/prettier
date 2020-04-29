@@ -53,13 +53,16 @@ function ngHtmlParser(
 
   if (options.parser === "vue") {
     const shouldParseAsHTML = (node) => {
+      if (!node) {
+        return false;
+      }
       if (node.name === "html") {
         return true;
       }
       if (node.name !== "template") {
         return false;
       }
-      const langAttr = node && node.attrs.find((attr) => attr.name === "lang");
+      const langAttr = node.attrs.find((attr) => attr.name === "lang");
       const langValue = langAttr && langAttr.value;
       return langValue == null || getParserName(langValue, options) === "html";
     };
