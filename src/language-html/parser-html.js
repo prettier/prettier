@@ -75,6 +75,18 @@ function ngHtmlParser(
         secondParseResult
           ? secondParseResult
           : (secondParseResult = doSecondParse());
+      const getSameLocationNode = (node) => {
+        const result = getSecondParse();
+        return result.rootNodes.find((_node) => {
+          if (!_node || !_node.startSourceSpan) {
+            return false;
+          }
+          if (node.startSourceSpan.start.offset === _node.startSourceSpan.start.offset) {
+            return true;
+          }
+          return false;
+        });
+      }
       for (let i = 0; i < rootNodes.length; i++) {
         const node = rootNodes[i];
         const { endSourceSpan, startSourceSpan } = node;
@@ -82,7 +94,7 @@ function ngHtmlParser(
         if (isUnclosedNode) {
           const result = getSecondParse();
           errors = result.errors;
-          rootNodes[i] = result.rootNodes[i];
+          rootNodes[i] = getSameLocationNode(node);
         } else if (shouldParseAsHTML(node)) {
           const result = getSecondParse();
           const startOffset = startSourceSpan.end.offset;
@@ -94,7 +106,10 @@ function ngHtmlParser(
               break;
             }
           }
-          rootNodes[i] = result.rootNodes[i];
+          const replaceNode = getSameLocationNode(node);
+          if (replaceNode) {
+            rootNodes[i] = replaceNode;
+          }
         }
       }
     }

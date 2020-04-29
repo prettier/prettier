@@ -1754,6 +1754,142 @@ x => {
 ================================================================================
 `;
 
+exports[`multiple-template1.vue - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+<template></template>
+<template lang=unknown>
+<a>
+</template>
+cloned.
+
+=====================================output=====================================
+<template></template>
+<template lang="unknown">
+<a>
+</template>
+cloned.
+
+================================================================================
+`;
+
+exports[`multiple-template1.vue - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+<template></template>
+<template lang=unknown>
+<a>
+</template>
+cloned.
+
+=====================================output=====================================
+<template></template>
+<template lang="unknown">
+<a>
+</template>
+cloned.
+
+================================================================================
+`;
+
+exports[`multiple-template1.vue format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<template></template>
+<template lang=unknown>
+<a>
+</template>
+cloned.
+
+=====================================output=====================================
+<template></template>
+<template lang="unknown">
+<a>
+</template>
+cloned.
+
+================================================================================
+`;
+
+exports[`multiple-template2.vue - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+<template></template>
+<template lang=unknown>
+<a>
+</template>
+<template></template >
+
+=====================================output=====================================
+<template></template>
+<template lang="unknown">
+<a>
+</template>
+<template></template>
+
+================================================================================
+`;
+
+exports[`multiple-template2.vue - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+<template></template>
+<template lang=unknown>
+<a>
+</template>
+<template></template >
+
+=====================================output=====================================
+<template></template>
+<template lang="unknown">
+<a>
+</template>
+<template></template>
+
+================================================================================
+`;
+
+exports[`multiple-template2.vue format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<template></template>
+<template lang=unknown>
+<a>
+</template>
+<template></template >
+
+=====================================output=====================================
+<template></template>
+<template lang="unknown">
+<a>
+</template>
+<template></template>
+
+================================================================================
+`;
+
 exports[`nested-template.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
