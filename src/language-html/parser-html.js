@@ -52,14 +52,18 @@ function ngHtmlParser(
   let { errors } = parseResult;
 
   if (options.parser === "vue") {
-    const templateNode = rootNodes.find((node) => node.name === "template");
-    const langAttr =
-      templateNode && templateNode.attrs.find((attr) => attr.name === "lang");
-    const langValue = langAttr && langAttr.value;
-    const shouldParseAsHtml =
-      langValue == null || getParserName(langValue, options) === "html";
-
-    if (shouldParseAsHtml) {
+    const shouldParseAsHTML = (node) => {
+      if (node.name === "html") {
+        return true;
+      }
+      if (node.name !== "template") {
+        return false;
+      }
+      const langAttr = node && node.attrs.find((attr) => attr.name === "lang");
+      const langValue = langAttr && langAttr.value;
+      return langValue == null || getParserName(langValue, options) === "html";
+    };
+    if (rootNodes.some(shouldParseAsHTML)) {
       let secondParseResult;
       const doSecondParse = () =>
         parser.parse(input, {
@@ -79,7 +83,7 @@ function ngHtmlParser(
           const result = getSecondParse();
           errors = result.errors;
           rootNodes[i] = result.rootNodes[i];
-        } else if (node.name === "template" || node.name === "html") {
+        } else if (shouldParseAsHTML(node)) {
           const result = getSecondParse();
           const startOffset = startSourceSpan.end.offset;
           const endOffset = endSourceSpan.start.offset;
@@ -116,6 +120,7 @@ function ngHtmlParser(
     } else if (node instanceof Text) {
       node.type = "text";
     } else {
+      console.log(node);
       throw new Error(`Unexpected node ${JSON.stringify(node)}`);
     }
   };
