@@ -1779,6 +1779,10 @@ label {
   &:extend(.some-class .some-other-class .some-very-loooooooooooooong-class .some-very-loooooooooooooong-class all);
 }
 
+// #8177
+.hello {
+  &:extend(.input:disabled)}
+
 =====================================output=====================================
 @nice-blue: #5b83ad;
 @light-blue: @nice-blue + #111;
@@ -3393,20 +3397,28 @@ label {
 
 // extend #7977
 .class {
-  &:extend(
-    .some-class .some-other-class .some-very-loooooooooooooong-class all
-  );
+  &:extend(.some-class
+    .some-other-class
+    .some-very-loooooooooooooong-class
+    all);
 }
 .class {
-  &:extend(
-    .some-class .some-other-class .some-very-loooooooooooooong-class all
-  );
+  &:extend(.some-class
+    .some-other-class
+    .some-very-loooooooooooooong-class
+    all);
 }
 .class {
-  &:extend(
-    .some-class .some-other-class .some-very-loooooooooooooong-class
-      .some-very-loooooooooooooong-class all
-  );
+  &:extend(.some-class
+    .some-other-class
+    .some-very-loooooooooooooong-class
+    .some-very-loooooooooooooong-class
+    all);
+}
+
+// #8177
+.hello {
+  &:extend(.input:disabled);
 }
 
 ================================================================================
