@@ -73,9 +73,8 @@ global.run_spec = (fixtures, parsers, options) => {
   const snippets = (fixtures.snippets || []).map((test, index) => {
     test = typeof test === "string" ? { code: test } : test;
     return {
+      ...test,
       name: `snippet: ${test.name || `#${index}`}`,
-      filename: test.filename,
-      code: test.code,
     };
   });
 
@@ -105,7 +104,7 @@ global.run_spec = (fixtures, parsers, options) => {
 
   const stringifiedOptions = stringifyOptions(options);
 
-  for (const { name, filename, code } of [...files, ...snippets]) {
+  for (const { name, filename, code, output } of [...files, ...snippets]) {
     describe(`${name}${
       stringifiedOptions ? ` - ${stringifiedOptions}` : ""
     }`, () => {
@@ -153,28 +152,33 @@ global.run_spec = (fixtures, parsers, options) => {
         return;
       }
 
-      const output = format(input, filename, mainOptions);
-      const visualizedOutput = visualizeEndOfLine(output);
+      const formattedWithCursor = format(input, filename, mainOptions);
+      const formatted = formattedWithCursor.replace(CURSOR_PLACEHOLDER, "");
+      const visualizedOutput = visualizeEndOfLine(formattedWithCursor);
 
       test("format", () => {
         expect(visualizedOutput).toEqual(
-          visualizeEndOfLine(consistentEndOfLine(output))
+          visualizeEndOfLine(consistentEndOfLine(formattedWithCursor))
         );
-        expect(
-          raw(
-            createSnapshot(
-              hasEndOfLine
-                ? visualizeEndOfLine(
-                    code
-                      .replace(RANGE_START_PLACEHOLDER, "")
-                      .replace(RANGE_END_PLACEHOLDER, "")
-                  )
-                : source,
-              hasEndOfLine ? visualizedOutput : output,
-              { ...baseOptions, parsers }
+        if (typeof output === "string") {
+          expect(formatted).toEqual(output);
+        } else {
+          expect(
+            raw(
+              createSnapshot(
+                hasEndOfLine
+                  ? visualizeEndOfLine(
+                      code
+                        .replace(RANGE_START_PLACEHOLDER, "")
+                        .replace(RANGE_END_PLACEHOLDER, "")
+                    )
+                  : source,
+                hasEndOfLine ? visualizedOutput : formattedWithCursor,
+                { ...baseOptions, parsers }
+              )
             )
-          )
-        ).toMatchSnapshot();
+          ).toMatchSnapshot();
+        }
       });
 
       const parsersToVerify = parsers.slice(1);
@@ -203,7 +207,6 @@ global.run_spec = (fixtures, parsers, options) => {
         });
       }
 
-      const formatted = output.replace(CURSOR_PLACEHOLDER, "");
       const isUnstable = unstableTests.get(filename);
       const isUnstableTest = isUnstable && isUnstable(options || {});
       if (
@@ -219,9 +222,9 @@ global.run_spec = (fixtures, parsers, options) => {
           if (isUnstableTest) {
             // To keep eye on failed tests, this assert never supposed to pass,
             // if it fails, just remove the file from `unstableTests`
-            expect(secondOutput).not.toEqual(output);
+            expect(secondOutput).not.toEqual(formatted);
           } else {
-            expect(secondOutput).toEqual(output);
+            expect(secondOutput).toEqual(formatted);
           }
         });
       }
