@@ -339,8 +339,8 @@ module.exports = {
     vue: createParser({
       recognizeSelfClosing: true,
       isTagNameCaseSensitive: true,
-      getTagContentType: (tagname) => {
-        if (tagname !== "template" && tagname !== "html") {
+      getTagContentType: (tagName, prefix, hasParent) => {
+        if (tagName !== "template" && tagName !== "html" && !hasParent) {
           return require("angular-html-parser").TagContentType.RAW_TEXT;
         }
       },

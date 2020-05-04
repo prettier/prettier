@@ -1665,6 +1665,104 @@ x => {
 ================================================================================
 `;
 
+exports[`nested-template.vue - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+<template>
+  <div>
+      <template>
+        <div></div>
+      </template>
+      <div>
+               Do not go out, you'll got yourself cloned by bad bad people.
+      </div>
+  </div>
+</template>
+
+=====================================output=====================================
+<template>
+  <div>
+    <template>
+      <div></div>
+    </template>
+    <div>
+      Do not go out, you'll got yourself cloned by bad bad people.
+    </div>
+  </div>
+</template>
+
+================================================================================
+`;
+
+exports[`nested-template.vue - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+<template>
+  <div>
+      <template>
+        <div></div>
+      </template>
+      <div>
+               Do not go out, you'll got yourself cloned by bad bad people.
+      </div>
+  </div>
+</template>
+
+=====================================output=====================================
+<template>
+  <div>
+    <template>
+      <div></div>
+    </template>
+    <div>
+      Do not go out, you'll got yourself cloned by bad bad people.
+    </div>
+  </div>
+</template>
+
+================================================================================
+`;
+
+exports[`nested-template.vue format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<template>
+  <div>
+      <template>
+        <div></div>
+      </template>
+      <div>
+               Do not go out, you'll got yourself cloned by bad bad people.
+      </div>
+  </div>
+</template>
+
+=====================================output=====================================
+<template>
+  <div>
+    <template>
+      <div></div>
+    </template>
+    <div>
+      Do not go out, you'll got yourself cloned by bad bad people.
+    </div>
+  </div>
+</template>
+
+================================================================================
+`;
+
 exports[`pre-child.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
