@@ -10,6 +10,9 @@ function test(a: string, b: number): number {
   return this.length; // expect []/"" this
 }
 
+// arity is strictly two arguments
+test.apply("", ["", 0], 'error')
+
 // tuples flow correctly into params
 test.apply("", ["", 0]);
 
@@ -29,8 +32,8 @@ f(["", 0]); // OK
 f(["", ""]); // error: string ~> number (2nd arg)
 f([0, 0]); // error: number ~> string (1st arg)
 
-// expect array
-test.apply("", "not array"); // error: expect array of args
+// expect array-like
+test.apply("", "not array"); // error: string ~> object
 
 // expect 4 errors:
 // - lookup length on Number (because 0 is used as \`this\`)
@@ -60,6 +63,9 @@ function test(a: string, b: number): number {
   return this.length; // expect []/"" this
 }
 
+// arity is strictly two arguments
+test.apply("", ["", 0], "error");
+
 // tuples flow correctly into params
 test.apply("", ["", 0]);
 
@@ -81,8 +87,8 @@ f(["", 0]); // OK
 f(["", ""]); // error: string ~> number (2nd arg)
 f([0, 0]); // error: number ~> string (1st arg)
 
-// expect array
-test.apply("", "not array"); // error: expect array of args
+// expect array-like
+test.apply("", "not array"); // error: string ~> object
 
 // expect 4 errors:
 // - lookup length on Number (because 0 is used as \`this\`)
@@ -108,6 +114,58 @@ function test3(x: { (a: string, b: string): void }) {
   x.apply(x, ["foo", "bar"]); // ok
   x.apply(x, ["foo", 123]); // error, number !~> string
 }
+
+================================================================================
+`;
+
+exports[`apply-array-like.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+function test(a: string, b: string): number {
+  return this.length; // expect []/"" this
+}
+
+test.apply("", "foo"); // error: string ~> object
+declare class MyArrayLike<T> {
+  length: number;
+  [index: number]: T;
+}
+var x = new MyArrayLike<string>();
+test.apply("", x);
+var y = new MyArrayLike<number>();
+test.apply("", y); // error: number ~> string
+
+function * gen() {
+  yield "foo";
+  yield "bar";
+}
+
+test.apply([], gen()); // error: iterable ~> array-like
+
+=====================================output=====================================
+function test(a: string, b: string): number {
+  return this.length; // expect []/"" this
+}
+
+test.apply("", "foo"); // error: string ~> object
+declare class MyArrayLike<T> {
+  length: number;
+  [index: number]: T;
+}
+var x = new MyArrayLike<string>();
+test.apply("", x);
+var y = new MyArrayLike<number>();
+test.apply("", y); // error: number ~> string
+
+function* gen() {
+  yield "foo";
+  yield "bar";
+}
+
+test.apply([], gen()); // error: iterable ~> array-like
 
 ================================================================================
 `;
@@ -227,6 +285,26 @@ function test3(x: { (a: string, b: string): void }) {
   x.call(x, 'foo', 123); // error, number !~> string
 }
 
+let tests = [
+  // string literal errors track use ops
+  function() {
+    function f(y: { x: "bar" }): void {}
+    f({x: "foo"}); // error, "foo" !~> "bar"
+  },
+
+  // num literal errors track use ops
+  function() {
+    function f(y: { x: 123 }): void {}
+    f({x: 234}); // error, 234 !~> 123
+  },
+
+  // bool literal errors track use ops
+  function() {
+    function f(y: { x: false }): void {}
+    f({x: true}); // error, true !~> false
+  },
+];
+
 =====================================output=====================================
 // @flow
 
@@ -272,6 +350,120 @@ function test2(): number {
 function test3(x: { (a: string, b: string): void }) {
   x.call(x, "foo", "bar"); // ok
   x.call(x, "foo", 123); // error, number !~> string
+}
+
+let tests = [
+  // string literal errors track use ops
+  function () {
+    function f(y: { x: "bar" }): void {}
+    f({ x: "foo" }); // error, "foo" !~> "bar"
+  },
+
+  // num literal errors track use ops
+  function () {
+    function f(y: { x: 123 }): void {}
+    f({ x: 234 }); // error, 234 !~> 123
+  },
+
+  // bool literal errors track use ops
+  function () {
+    function f(y: { x: false }): void {}
+    f({ x: true }); // error, true !~> false
+  },
+];
+
+================================================================================
+`;
+
+exports[`call_error_generic.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+declare var some: ?{
+  x: string;
+}
+
+declare class Set<T> {
+  add(x: T): void;
+}
+declare class ROArray<+T> { }
+declare class RWArray<T> extends ROArray<T> { }
+
+declare function from<X>(set: Set<X>): RWArray<X>;
+
+const foo = (() => {
+  const set = new Set();
+  set.add(some?.x);
+  return from(set);
+})();
+
+function bar(x: ROArray<string>) { }
+
+bar(foo);
+
+=====================================output=====================================
+// @flow
+
+declare var some: ?{
+  x: string,
+};
+
+declare class Set<T> {
+  add(x: T): void;
+}
+declare class ROArray<+T> {}
+declare class RWArray<T> extends ROArray<T> {}
+
+declare function from<X>(set: Set<X>): RWArray<X>;
+
+const foo = (() => {
+  const set = new Set();
+  set.add(some?.x);
+  return from(set);
+})();
+
+function bar(x: ROArray<string>) {}
+
+bar(foo);
+
+================================================================================
+`;
+
+exports[`call_error_generic2.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+declare function bar1<TKey: ?{+$data?: mixed}>(key: TKey): void;
+
+function bar2(fragmentRef) {
+  bar1(fragmentRef);
+}
+
+function foo(props: { userRef?: {} }) {
+  const userRef = props.userRef;
+  bar2(userRef);
+}
+
+=====================================output=====================================
+// @flow
+
+declare function bar1<TKey: ?{ +$data?: mixed }>(key: TKey): void;
+
+function bar2(fragmentRef) {
+  bar1(fragmentRef);
+}
+
+function foo(props: { userRef?: {} }) {
+  const userRef = props.userRef;
+  bar2(userRef);
 }
 
 ================================================================================
@@ -423,6 +615,28 @@ var e = (d.bind(1): Function)();
 ================================================================================
 `;
 
+exports[`issue-7529.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+const bar = function foo(x: string) {
+  foo(123);
+}
+
+=====================================output=====================================
+// @flow
+
+const bar = function foo(x: string) {
+  foo(123);
+};
+
+================================================================================
+`;
+
 exports[`rest.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -466,8 +680,8 @@ function bounds_on_bounds<T>() {
 function bad_unbound_rest_t<T>(...xs: T): T {
   return xs.pop(); // Error - no bound on T
 }
-function string_rest_t<T: string>(...xs: T): void {} // Error - rest param can't be a string
-function empty_rest_t<T: empty>(...xs: T): void {} // Error - rest param can't be empty
+function string_rest_t<T: string>(...xs: T): void {}; string_rest_t(); // Error - rest param can't be a string
+function empty_rest_t<T: empty>(...xs: T): void {}; empty_rest_t(); // Error - rest param can't be empty
 
 type Rest = Array<string>;
 function rest_alias(...xs: Rest): void {} // Ok
@@ -537,8 +751,10 @@ function bounds_on_bounds<T>() {
 function bad_unbound_rest_t<T>(...xs: T): T {
   return xs.pop(); // Error - no bound on T
 }
-function string_rest_t<T: string>(...xs: T): void {} // Error - rest param can't be a string
-function empty_rest_t<T: empty>(...xs: T): void {} // Error - rest param can't be empty
+function string_rest_t<T: string>(...xs: T): void {}
+string_rest_t(); // Error - rest param can't be a string
+function empty_rest_t<T: empty>(...xs: T): void {}
+empty_rest_t(); // Error - rest param can't be empty
 
 type Rest = Array<string>;
 function rest_alias(...xs: Rest): void {} // Ok

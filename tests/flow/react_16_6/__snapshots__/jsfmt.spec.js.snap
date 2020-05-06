@@ -1,0 +1,340 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Suspense.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import React from 'react';
+
+const {Suspense} = React;
+
+function Loading() {
+  return <div>Loading...</div>;
+}
+
+{
+  <Suspense fallback={Loading} /> // Error: function is incompatible with exact React.Element
+}
+
+{
+  <Suspense fallback={<Loading/>} />
+}
+
+{
+  <Suspense fallback={<Loading/>}>
+    <div>Hello</div>
+  </Suspense>
+}
+
+{
+  <Suspense fallback={<Loading/>}>
+    <Suspense />
+  </Suspense>
+}
+
+{
+  <Suspense fallback={<Loading/>}>
+    <Suspense fallback={undefined} />
+  </Suspense>
+}
+
+{
+  <Suspense fallback={<Loading/>}>
+    <Suspense fallback={null} />
+  </Suspense>
+}
+
+=====================================output=====================================
+// @flow
+
+import React from "react";
+
+const { Suspense } = React;
+
+function Loading() {
+  return <div>Loading...</div>;
+}
+
+{
+  <Suspense fallback={Loading} />; // Error: function is incompatible with exact React.Element
+}
+
+{
+  <Suspense fallback={<Loading />} />;
+}
+
+{
+  <Suspense fallback={<Loading />}>
+    <div>Hello</div>
+  </Suspense>;
+}
+
+{
+  <Suspense fallback={<Loading />}>
+    <Suspense />
+  </Suspense>;
+}
+
+{
+  <Suspense fallback={<Loading />}>
+    <Suspense fallback={undefined} />
+  </Suspense>;
+}
+
+{
+  <Suspense fallback={<Loading />}>
+    <Suspense fallback={null} />
+  </Suspense>;
+}
+
+================================================================================
+`;
+
+exports[`lazy.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+const React = require('react');
+
+type Props = {| foo: number |};
+function FunctionComponent(x: Props): React.Node { return null }
+class ClassComponent extends React.Component<Props> {}
+
+React.lazy(() => FunctionComponent); // Error incompatible with Promise
+React.lazy(() => ClassComponent); // Error incompatible with Promise
+React.lazy(() => Promise.resolve(FunctionComponent)); // Error property default is missing
+React.lazy(() => Promise.resolve(ClassComponent)); // Error property default is missing
+
+const LazyFunctionComponent = React.lazy(
+  () => Promise.resolve({default: FunctionComponent})
+);
+
+const _a = <LazyFunctionComponent foo={3} />;
+const _b = <LazyFunctionComponent />; // Error missing foo
+const _c = <LazyFunctionComponent foo={3} bar={3} />; // Error extra bar
+const _d = <LazyFunctionComponent foo="string" />; // Error wrong type for foo
+
+const LazyClassComponent = React.lazy(
+  () => Promise.resolve({default: ClassComponent})
+);
+
+const _e = <LazyClassComponent foo={3} />;
+const _f = <LazyClassComponent />; // Error missing foo
+const _g = <LazyClassComponent foo={3} bar={3} />; // Error extra bar
+const _h = <LazyClassComponent foo="string" />; // Error wrong type for foo
+
+=====================================output=====================================
+//@flow
+
+const React = require("react");
+
+type Props = {| foo: number |};
+function FunctionComponent(x: Props): React.Node {
+  return null;
+}
+class ClassComponent extends React.Component<Props> {}
+
+React.lazy(() => FunctionComponent); // Error incompatible with Promise
+React.lazy(() => ClassComponent); // Error incompatible with Promise
+React.lazy(() => Promise.resolve(FunctionComponent)); // Error property default is missing
+React.lazy(() => Promise.resolve(ClassComponent)); // Error property default is missing
+
+const LazyFunctionComponent = React.lazy(() =>
+  Promise.resolve({ default: FunctionComponent })
+);
+
+const _a = <LazyFunctionComponent foo={3} />;
+const _b = <LazyFunctionComponent />; // Error missing foo
+const _c = <LazyFunctionComponent foo={3} bar={3} />; // Error extra bar
+const _d = <LazyFunctionComponent foo="string" />; // Error wrong type for foo
+
+const LazyClassComponent = React.lazy(() =>
+  Promise.resolve({ default: ClassComponent })
+);
+
+const _e = <LazyClassComponent foo={3} />;
+const _f = <LazyClassComponent />; // Error missing foo
+const _g = <LazyClassComponent foo={3} bar={3} />; // Error extra bar
+const _h = <LazyClassComponent foo="string" />; // Error wrong type for foo
+
+================================================================================
+`;
+
+exports[`lazy_ref.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+const React = require('react');
+const {useImperativeHandle} = React;
+
+function Demo(props, ref) {
+  useImperativeHandle(ref, () => ({
+    moo(x: string) {},
+  }));
+  return null;
+}
+
+const Lazy = React.lazy(async () => ({
+  default: React.forwardRef(Demo),
+}));
+
+function App() {
+  // Error below: moo expects a string, given a number
+  return (
+    <React.Suspense fallback="Loading...">
+      <Lazy ref={ref => ref && ref.moo(0)} />;
+    </React.Suspense>
+  );
+}
+
+=====================================output=====================================
+//@flow
+
+const React = require("react");
+const { useImperativeHandle } = React;
+
+function Demo(props, ref) {
+  useImperativeHandle(ref, () => ({
+    moo(x: string) {},
+  }));
+  return null;
+}
+
+const Lazy = React.lazy(async () => ({
+  default: React.forwardRef(Demo),
+}));
+
+function App() {
+  // Error below: moo expects a string, given a number
+  return (
+    <React.Suspense fallback="Loading...">
+      <Lazy ref={(ref) => ref && ref.moo(0)} />;
+    </React.Suspense>
+  );
+}
+
+================================================================================
+`;
+
+exports[`memo.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+const React = require('react');
+
+type Props = {| foo: number |};
+
+function Component(x: Props): React.Node { return null }
+
+const MemoComponent = React.memo(Component);
+
+const _a = <MemoComponent foo={3} />;
+const _b = <MemoComponent />; // Error missing foo
+const _c = <MemoComponent foo={3} bar={3} />; // Error extra bar
+const _d = <MemoComponent foo="string" />; // Error wrong type for foo
+
+const MemoComponentWithEqual = React.memo(Component, (props1, props2) => props1 === props2);
+
+const _e = <MemoComponentWithEqual foo={3} />;
+const _f = <MemoComponentWithEqual />; // Error missing foo
+const _g = <MemoComponentWithEqual foo={3} bar={3} />; // Error extra bar
+const _h = <MemoComponentWithEqual foo="string" />; // Error wrong type for foo
+
+const _i = React.memo(React.forwardRef(Component));
+
+=====================================output=====================================
+//@flow
+
+const React = require("react");
+
+type Props = {| foo: number |};
+
+function Component(x: Props): React.Node {
+  return null;
+}
+
+const MemoComponent = React.memo(Component);
+
+const _a = <MemoComponent foo={3} />;
+const _b = <MemoComponent />; // Error missing foo
+const _c = <MemoComponent foo={3} bar={3} />; // Error extra bar
+const _d = <MemoComponent foo="string" />; // Error wrong type for foo
+
+const MemoComponentWithEqual = React.memo(
+  Component,
+  (props1, props2) => props1 === props2
+);
+
+const _e = <MemoComponentWithEqual foo={3} />;
+const _f = <MemoComponentWithEqual />; // Error missing foo
+const _g = <MemoComponentWithEqual foo={3} bar={3} />; // Error extra bar
+const _h = <MemoComponentWithEqual foo="string" />; // Error wrong type for foo
+
+const _i = React.memo(React.forwardRef(Component));
+
+================================================================================
+`;
+
+exports[`memo_ref.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+const React = require('react');
+const {useImperativeHandle} = React;
+
+function Demo(props, ref) {
+  useImperativeHandle(ref, () => ({
+    moo(x: string) {},
+  }));
+  return null;
+}
+
+const Memo = React.memo(React.forwardRef(Demo));
+
+function App() {
+  // Error below: moo expects a string, given a number
+  return <Memo ref={ref => ref && ref.moo(0)} />;
+}
+
+=====================================output=====================================
+//@flow
+
+const React = require("react");
+const { useImperativeHandle } = React;
+
+function Demo(props, ref) {
+  useImperativeHandle(ref, () => ({
+    moo(x: string) {},
+  }));
+  return null;
+}
+
+const Memo = React.memo(React.forwardRef(Demo));
+
+function App() {
+  // Error below: moo expects a string, given a number
+  return <Memo ref={(ref) => ref && ref.moo(0)} />;
+}
+
+================================================================================
+`;

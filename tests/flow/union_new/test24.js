@@ -11,7 +11,9 @@ declare class C {
   once(event: string, listener: Function): C;
   removeAllListeners(event?: string): C;
   removeListener(event: string, listener: Function): C;
+  off(event: string, listener: Function): C;
   setMaxListeners(n: number): void;
+  rawListeners(event: string): Array<Function>;
 }
 
 declare class D extends C {

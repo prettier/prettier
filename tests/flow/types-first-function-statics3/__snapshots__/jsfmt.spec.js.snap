@@ -1,0 +1,133 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`a.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+const React = require("react");
+
+type Props = {|
+  f: number
+|};
+
+const Component = (props: Props) => <div />;
+
+const defaultProps = {
+  f: 1
+};
+
+module.exports = Component;
+
+module.exports.defaultProps = defaultProps;
+
+=====================================output=====================================
+// @flow
+
+const React = require("react");
+
+type Props = {|
+  f: number,
+|};
+
+const Component = (props: Props) => <div />;
+
+const defaultProps = {
+  f: 1,
+};
+
+module.exports = Component;
+
+module.exports.defaultProps = defaultProps;
+
+================================================================================
+`;
+
+exports[`b.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+const React = require('react');
+
+const Component = require('./a');
+
+<Component/>;
+<Component other={1}/>;
+
+const PolyComponent = require('./poly_a');
+
+<PolyComponent t={0}/>;
+<PolyComponent t={0} other={1}/>;
+
+=====================================output=====================================
+// @flow
+
+const React = require("react");
+
+const Component = require("./a");
+
+<Component />;
+<Component other={1} />;
+
+const PolyComponent = require("./poly_a");
+
+<PolyComponent t={0} />;
+<PolyComponent t={0} other={1} />;
+
+================================================================================
+`;
+
+exports[`poly_a.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+const React = require("react");
+
+type Props<T> = {|
+  t: T,
+  f: number
+|};
+
+const Component = <T>(props: Props<T>) => <div />;
+
+const defaultProps = {
+  f: 1
+};
+
+module.exports = Component;
+
+module.exports.defaultProps = defaultProps;
+
+=====================================output=====================================
+// @flow
+
+const React = require("react");
+
+type Props<T> = {|
+  t: T,
+  f: number,
+|};
+
+const Component = <T>(props: Props<T>) => <div />;
+
+const defaultProps = {
+  f: 1,
+};
+
+module.exports = Component;
+
+module.exports.defaultProps = defaultProps;
+
+================================================================================
+`;

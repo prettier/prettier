@@ -155,6 +155,84 @@ for (let [x, y]: [number, number] of a.entries()) {
 ================================================================================
 `;
 
+exports[`Headers.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/* @flow */
+
+// constructor
+const headers: Headers = new Headers(); // correct
+
+// get
+const a: null | string = headers.get('foo'); // correct
+const b: string = headers.get('foo'); // incorrect
+
+=====================================output=====================================
+/* @flow */
+
+// constructor
+const headers: Headers = new Headers(); // correct
+
+// get
+const a: null | string = headers.get("foo"); // correct
+const b: string = headers.get("foo"); // incorrect
+
+================================================================================
+`;
+
+exports[`MediaDevices.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/* @flow */
+
+if (navigator.mediaDevices) {
+  navigator.mediaDevices.getUserMedia({ audio: true }); // correct
+}
+
+if (navigator.mediaDevices) {
+  navigator.mediaDevices.getUserMedia({ video: true }); // correct
+}
+
+navigator.mediaDevices.getUserMedia({ audio: true }); // incorrect
+
+if (navigator.mediaDevices) {
+  navigator.mediaDevices.getUserMedia({
+    video: {
+      facingMode: 'user' // correct
+    }
+  });
+}
+
+=====================================output=====================================
+/* @flow */
+
+if (navigator.mediaDevices) {
+  navigator.mediaDevices.getUserMedia({ audio: true }); // correct
+}
+
+if (navigator.mediaDevices) {
+  navigator.mediaDevices.getUserMedia({ video: true }); // correct
+}
+
+navigator.mediaDevices.getUserMedia({ audio: true }); // incorrect
+
+if (navigator.mediaDevices) {
+  navigator.mediaDevices.getUserMedia({
+    video: {
+      facingMode: "user", // correct
+    },
+  });
+}
+
+================================================================================
+`;
+
 exports[`MutationObserver.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -224,6 +302,34 @@ o.takeRecords(); // correct
 
 // disconnect
 o.disconnect(); // correct
+
+================================================================================
+`;
+
+exports[`URLSearchParams.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/* @flow */
+
+// constructor
+const params: URLSearchParams = new URLSearchParams();
+
+// get
+const a: null | string = params.get('foo'); // correct
+const b: string = params.get('foo'); // incorrect
+
+=====================================output=====================================
+/* @flow */
+
+// constructor
+const params: URLSearchParams = new URLSearchParams();
+
+// get
+const a: null | string = params.get("foo"); // correct
+const b: string = params.get("foo"); // incorrect
 
 ================================================================================
 `;

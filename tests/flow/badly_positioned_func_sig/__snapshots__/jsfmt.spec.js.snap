@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+export type Bar = $Call<
+  <T>({
+    +blah: T,
+  }) => T,
+  {+blah: number},
+>;
+
+class X {
+  foo: {|bar: Bar|} = {bar: 'cat'};
+}
+
+=====================================output=====================================
+// @flow
+
+export type Bar = $Call<
+  <T>({
+    +blah: T,
+  }) => T,
+  { +blah: number }
+>;
+
+class X {
+  foo: {| bar: Bar |} = { bar: "cat" };
+}
+
+================================================================================
+`;

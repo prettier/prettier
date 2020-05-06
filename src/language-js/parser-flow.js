@@ -10,6 +10,8 @@ function parse(text, parsers, opts) {
   // Inline the require to avoid loading all the JS if we don't use it
   const flowParser = require("flow-parser");
 
+  // If you are updating parse options,
+  // Please also update options in `scripts/sync-flow-tests.js`
   const ast = flowParser.parse(text, {
     enums: true,
     esproposal_decorators: true,

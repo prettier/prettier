@@ -1,0 +1,195 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`intersection.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+declare opaque type A;
+declare opaque type B;
+declare var a: A;
+
+type X = $Call<(<T>(T) => T) & (<T>(T) => T), A | B>;
+
+(a: X); // OK
+function foo(x: X): A { return x; } // error
+function bar(x: X): B { return x; } // error
+
+=====================================output=====================================
+// @flow
+
+declare opaque type A;
+declare opaque type B;
+declare var a: A;
+
+type X = $Call<(<T>(T) => T) & (<T>(T) => T), A | B>;
+
+(a: X); // OK
+function foo(x: X): A {
+  return x;
+} // error
+function bar(x: X): B {
+  return x;
+} // error
+
+================================================================================
+`;
+
+exports[`test.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+type Fn0 = () => number;
+type Fn1 = <T>(T) => T;
+type Fn2 = <A, B>(A, B) => A | B;
+
+type A = $Call; // Error: one or more arguments are required.
+type B = $Call<>; // Error: one or more arguments are required.
+
+type C = $Call<Fn0>;
+declare var c: C;
+(42: C); // OK
+((null: mixed): C); // Error: mixed ~> number
+(c: number); // OK
+(c: empty); // Error: number ~> empty
+
+type D = $Call<Fn1>;
+declare var d: D;
+(42: D); // Error: number ~> undefined
+
+type E = $Call<Fn1, number>;
+declare var e: E;
+(42: E); // OK
+((null: mixed): E); // Error: mixed ~> number
+(e: number); // OK
+(e: empty); // Error: number ~> empty
+
+type F = $Call<Fn1, number, string>;
+declare var f: F;
+(42: F); // OK
+((null: mixed): F); // Error: mixed ~> number
+(f: number); // OK
+(f: empty); // Error: number ~> empty
+
+type G = $Call<Fn2, number, string>;
+declare var g: G;
+(42: G); // OK
+((null: mixed): G); // Error: mixed ~> number | string
+(g: number); // Error: number | string ~> number
+(g: number | string); // OK
+(g: empty); // Error: number | string ~> empty
+
+=====================================output=====================================
+// @flow
+
+type Fn0 = () => number;
+type Fn1 = <T>(T) => T;
+type Fn2 = <A, B>(A, B) => A | B;
+
+type A = $Call; // Error: one or more arguments are required.
+type B = $Call<>; // Error: one or more arguments are required.
+
+type C = $Call<Fn0>;
+declare var c: C;
+(42: C); // OK
+((null: mixed): C); // Error: mixed ~> number
+(c: number); // OK
+(c: empty); // Error: number ~> empty
+
+type D = $Call<Fn1>;
+declare var d: D;
+(42: D); // Error: number ~> undefined
+
+type E = $Call<Fn1, number>;
+declare var e: E;
+(42: E); // OK
+((null: mixed): E); // Error: mixed ~> number
+(e: number); // OK
+(e: empty); // Error: number ~> empty
+
+type F = $Call<Fn1, number, string>;
+declare var f: F;
+(42: F); // OK
+((null: mixed): F); // Error: mixed ~> number
+(f: number); // OK
+(f: empty); // Error: number ~> empty
+
+type G = $Call<Fn2, number, string>;
+declare var g: G;
+(42: G); // OK
+((null: mixed): G); // Error: mixed ~> number | string
+(g: number); // Error: number | string ~> number
+(g: number | string); // OK
+(g: empty); // Error: number | string ~> empty
+
+================================================================================
+`;
+
+exports[`union.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+type A = $Call<(() => number) | (() => string)>;
+declare var a: A;
+(42: A); // OK
+((null: mixed): A); // Error: mixed ~> number | string
+(a: number); // Error: number | string ~> number
+(a: number | string); // OK
+(a: empty); // Error: number | string ~> empty
+
+type B = $Call<(<T>(T) => T) | (<T>(any, T) => T), number, string>;
+declare var b: B;
+(42: B); // OK
+((null: mixed): B); // Error: mixed ~> number | string
+(b: number); // Error: number | string ~> number
+(b: number | string); // OK
+(b: empty); // Error: number | string ~> empty
+
+type C = $Call<<T>(T) => T, number | string>;
+declare var c: C;
+(42: C); // OK
+((null: mixed): C); // Error: mixed ~> number | string
+(c: number); // Error: number | string ~> number
+(c: number | string); // OK
+(c: empty); // Error: number | string ~> empty
+
+=====================================output=====================================
+// @flow
+
+type A = $Call<(() => number) | (() => string)>;
+declare var a: A;
+(42: A); // OK
+((null: mixed): A); // Error: mixed ~> number | string
+(a: number); // Error: number | string ~> number
+(a: number | string); // OK
+(a: empty); // Error: number | string ~> empty
+
+type B = $Call<(<T>(T) => T) | (<T>(any, T) => T), number, string>;
+declare var b: B;
+(42: B); // OK
+((null: mixed): B); // Error: mixed ~> number | string
+(b: number); // Error: number | string ~> number
+(b: number | string); // OK
+(b: empty); // Error: number | string ~> empty
+
+type C = $Call<<T>(T) => T, number | string>;
+declare var c: C;
+(42: C); // OK
+((null: mixed): C); // Error: mixed ~> number | string
+(c: number); // Error: number | string ~> number
+(c: number | string); // OK
+(c: empty); // Error: number | string ~> empty
+
+================================================================================
+`;

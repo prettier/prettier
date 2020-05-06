@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+type Obj1 = {
+  field: {key: ?string | Array<string>},
+};
+
+type Obj2 = {
+  field: {key: ?(string | Array<string>)},
+};
+
+
+function foo (state : Obj2) : Obj1 {
+  return {field : state.field};
+}
+
+=====================================output=====================================
+// @flow
+
+type Obj1 = {
+  field: { key: ?string | Array<string> },
+};
+
+type Obj2 = {
+  field: { key: ?(string | Array<string>) },
+};
+
+function foo(state: Obj2): Obj1 {
+  return { field: state.field };
+}
+
+================================================================================
+`;

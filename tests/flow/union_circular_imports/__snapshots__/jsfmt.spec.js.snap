@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`one.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/* @flow */
+import type { Two } from './two';
+export type One = number;
+
+=====================================output=====================================
+/* @flow */
+import type { Two } from "./two";
+export type One = number;
+
+================================================================================
+`;
+
+exports[`two.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/* @flow */
+import type { One } from './one';
+export type Two = string | One;
+const x: Two = false;
+
+=====================================output=====================================
+/* @flow */
+import type { One } from "./one";
+export type Two = string | One;
+const x: Two = false;
+
+================================================================================
+`;

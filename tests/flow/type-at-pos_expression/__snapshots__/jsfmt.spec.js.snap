@@ -1,0 +1,406 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`dictionary.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+const d1 = {
+  ab: null,
+  "a b": null,
+  "a'b": null,
+  "1": null,
+  "'": null,
+  " ": null,
+  "_": null,
+  "": null,
+  // TODO
+  get "x"() {
+    return null;
+  },
+  set "y"(z: string) {}
+};
+
+const d2 = {
+  ab: null,
+  'a b': null,
+  'a"b': null,
+  '1': null,
+  '"': null,
+  ' ': null,
+  '_': null,
+  '': null,
+  // TODO
+  get 'x'() {
+    return null;
+  },
+  set 'y'(z: string) {}
+};
+
+=====================================output=====================================
+// @flow
+
+const d1 = {
+  ab: null,
+  "a b": null,
+  "a'b": null,
+  "1": null,
+  "'": null,
+  " ": null,
+  _: null,
+  "": null,
+  // TODO
+  get x() {
+    return null;
+  },
+  set y(z: string) {},
+};
+
+const d2 = {
+  ab: null,
+  "a b": null,
+  'a"b': null,
+  "1": null,
+  '"': null,
+  " ": null,
+  _: null,
+  "": null,
+  // TODO
+  get x() {
+    return null;
+  },
+  set y(z: string) {},
+};
+
+================================================================================
+`;
+
+exports[`facebookism.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+const idx = require('./idx');
+
+=====================================output=====================================
+// @flow
+
+const idx = require("./idx");
+
+================================================================================
+`;
+
+exports[`jsx.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import * as React from "react";
+declare opaque type A;
+declare var props: { data: A, name: string };
+
+const a = <div name1={props.data} name2="literal" name3 {...props} />;
+const b = <div>{props.name}</div>;
+
+declare var str: string;
+const c = <div>{str}</div>;
+
+class C extends React.Component<any> {}
+const o = {
+  r: C
+};
+
+const d = <o.r>blah</o.r>;
+
+=====================================output=====================================
+// @flow
+
+import * as React from "react";
+declare opaque type A;
+declare var props: { data: A, name: string };
+
+const a = <div name1={props.data} name2="literal" name3 {...props} />;
+const b = <div>{props.name}</div>;
+
+declare var str: string;
+const c = <div>{str}</div>;
+
+class C extends React.Component<any> {}
+const o = {
+  r: C,
+};
+
+const d = <o.r>blah</o.r>;
+
+================================================================================
+`;
+
+exports[`literals.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+declare var rand: number;
+
+// Infered literal types
+const s = "A";
+const n = 1;
+const f = 1.01;
+const b = true;
+const u = [s, n, f, b][rand];
+
+// Literal type annotations
+type S = "A";
+type N = 1;
+type F = 1.01;
+type B = true;
+type U = "A" | 1 | 1.01 | true;
+
+const f1 = (x: "A" | "B") => x;
+
+const o1 = { f: "f" };
+const o2 = { f: ("f": "f") };
+
+const f2 = x => x;
+f2("A");
+f2("B");
+
+const numLitArray = [1, 2, 3, 4, 5];
+
+class A<X> {}
+const a_n = new A<number>();
+const a_1 = new A<1>();
+
+=====================================output=====================================
+// @flow
+
+declare var rand: number;
+
+// Infered literal types
+const s = "A";
+const n = 1;
+const f = 1.01;
+const b = true;
+const u = [s, n, f, b][rand];
+
+// Literal type annotations
+type S = "A";
+type N = 1;
+type F = 1.01;
+type B = true;
+type U = "A" | 1 | 1.01 | true;
+
+const f1 = (x: "A" | "B") => x;
+
+const o1 = { f: "f" };
+const o2 = { f: ("f": "f") };
+
+const f2 = (x) => x;
+f2("A");
+f2("B");
+
+const numLitArray = [1, 2, 3, 4, 5];
+
+class A<X> {}
+const a_n = new A<number>();
+const a_1 = new A<1>();
+
+================================================================================
+`;
+
+exports[`new-array.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+var a = new Array(1);
+
+=====================================output=====================================
+// @flow
+
+var a = new Array(1);
+
+================================================================================
+`;
+
+exports[`object.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+declare var obj: {a?: {b: ?{c: null | {d: number}}}};
+
+let _ =
+  obj.a ?
+    (obj.a.b ?
+      (obj.a.b.c ?
+        (obj.a.b.c.d ? obj.a.b.c.d : null) :
+        null) :
+      null) :
+    null;
+
+let myobj = {
+  m(n: string) { return n; },
+  n: (k: number) => k
+};
+
+myobj.m;
+myobj.m("a");
+myobj.n;
+myobj.n(1);
+
+declare var litobj: {
+  f: "ff";
+  g: "g\\"g";
+  h: 'h"h';
+  i: "i'i";
+  j: '\\'';
+  d: 11;
+  x: 0x111;
+  b: 0b111;
+}
+
+litobj;
+
+=====================================output=====================================
+// @flow
+
+declare var obj: { a?: { b: ?{ c: null | { d: number } } } };
+
+let _ = obj.a
+  ? obj.a.b
+    ? obj.a.b.c
+      ? obj.a.b.c.d
+        ? obj.a.b.c.d
+        : null
+      : null
+    : null
+  : null;
+
+let myobj = {
+  m(n: string) {
+    return n;
+  },
+  n: (k: number) => k,
+};
+
+myobj.m;
+myobj.m("a");
+myobj.n;
+myobj.n(1);
+
+declare var litobj: {
+  f: "ff",
+  g: 'g"g',
+  h: 'h"h',
+  i: "i'i",
+  j: "'",
+  d: 11,
+  x: 0x111,
+  b: 0b111,
+};
+
+litobj;
+
+================================================================================
+`;
+
+exports[`object-resolution.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+type O = {|p: number|};
+declare var ro: $ReadOnly<O>;
+(ro.p: number);
+
+type O1 = {p: number};
+type O2 = {p: number; q: string};
+declare var diff: $Diff<O2, O1>;
+(diff.q: string);
+
+declare var spread: { ...O2 };
+if (spread.q) (spread.q: string);
+
+=====================================output=====================================
+// @flow
+
+type O = {| p: number |};
+declare var ro: $ReadOnly<O>;
+(ro.p: number);
+
+type O1 = { p: number };
+type O2 = { p: number, q: string };
+declare var diff: $Diff<O2, O1>;
+(diff.q: string);
+
+declare var spread: { ...O2 };
+if (spread.q) (spread.q: string);
+
+================================================================================
+`;
+
+exports[`optional_chaining.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+class Foo {
+  bar: Bar
+}
+
+class Bar {
+  baz: Baz
+}
+
+class Baz {
+  qux: number
+}
+
+declare var foo: ?Foo;
+const n = foo?.bar.baz.qux;
+
+=====================================output=====================================
+// @flow
+
+class Foo {
+  bar: Bar;
+}
+
+class Bar {
+  baz: Baz;
+}
+
+class Baz {
+  qux: number;
+}
+
+declare var foo: ?Foo;
+const n = foo?.bar.baz.qux;
+
+================================================================================
+`;

@@ -1,0 +1,237 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`client.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+import { x } from './server'
+module.exports = (x: number);
+
+=====================================output=====================================
+//@flow
+
+import { x } from "./server";
+module.exports = (x: number);
+
+================================================================================
+`;
+
+exports[`client_client.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+const x = require("./client")
+x + x;
+
+=====================================output=====================================
+//@flow
+const x = require("./client");
+x + x;
+
+================================================================================
+`;
+
+exports[`server.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+export var x: number = 42;
+
+=====================================output=====================================
+//@flow
+
+export var x: number = 42;
+
+================================================================================
+`;
+
+exports[`t1.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+10;
+var x = 10;
+var y: number = 10;
+
+
+function f(x: number): number {
+  return x;
+}
+
+function g(x: number): number {
+  return f(x);
+}
+
+//g(("a": any));
+
+var a: number = g(10);
+var b = a;
+var c: number = b;
+var d: number = b;
+d = (42: any);
+var e: $Trusted<number> = c;
+
+=====================================output=====================================
+//@flow
+
+10;
+var x = 10;
+var y: number = 10;
+
+function f(x: number): number {
+  return x;
+}
+
+function g(x: number): number {
+  return f(x);
+}
+
+//g(("a": any));
+
+var a: number = g(10);
+var b = a;
+var c: number = b;
+var d: number = b;
+d = (42: any);
+var e: $Trusted<number> = c;
+
+================================================================================
+`;
+
+exports[`t2.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+function h(x: $Trusted<number>): number {
+  return (42: any)
+}
+
+function g(x) {
+  return h(x);
+}
+
+function f(x: number): $Trusted<number> {
+  return g(x)
+}
+
+f(42);
+f((42: any));
+
+var x: number=>number = (function (x: number): number { return (42: any); });
+var y: number=>$Trusted<number> = x;
+
+var a: $Trusted<number>=>$Trusted<number> = (function (x: $Trusted<number>): number { return x; });
+var b: number=>number = a;
+(b: any)
+
+declare var j: number;
+
+var o1 = { x: j };
+var o2: { x: $Trusted<number> } = o1;
+var o3: { x: number } = o1;
+o3.x = ('a': any);
+
+=====================================output=====================================
+//@flow
+
+function h(x: $Trusted<number>): number {
+  return (42: any);
+}
+
+function g(x) {
+  return h(x);
+}
+
+function f(x: number): $Trusted<number> {
+  return g(x);
+}
+
+f(42);
+f((42: any));
+
+var x: (number) => number = function (x: number): number {
+  return (42: any);
+};
+var y: (number) => $Trusted<number> = x;
+
+var a: ($Trusted<number>) => $Trusted<number> = function (
+  x: $Trusted<number>
+): number {
+  return x;
+};
+var b: (number) => number = a;
+(b: any);
+
+declare var j: number;
+
+var o1 = { x: j };
+var o2: { x: $Trusted<number> } = o1;
+var o3: { x: number } = o1;
+o3.x = ("a": any);
+
+================================================================================
+`;
+
+exports[`t3.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+function composenum(f: (number)=>number, g: (number)=>number): (number)=>number {
+  function ret(x:number): number {
+    return f(g(x));
+  }
+  return ret;
+}
+
+function id(x: number): number {
+  return x;
+}
+
+var a: number = composenum(id, id)((42: any));
+var b: $Trusted<number> = a;
+
+=====================================output=====================================
+//@flow
+
+function composenum(
+  f: (number) => number,
+  g: (number) => number
+): (number) => number {
+  function ret(x: number): number {
+    return f(g(x));
+  }
+  return ret;
+}
+
+function id(x: number): number {
+  return x;
+}
+
+var a: number = composenum(id, id)((42: any));
+var b: $Trusted<number> = a;
+
+================================================================================
+`;

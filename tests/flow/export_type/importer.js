@@ -30,3 +30,14 @@ var l: IFoo = {prop: 'asdf'}; // Error: {prop:string} ~> {prop:number}
 
 var m: IFoo2 = {prop: 'asdf'};
 var n: IFoo2 = {prop: 42}; // Error: {prop:number} ~> {prop:string}
+
+import {clsInstance} from './values_as_type_exports';
+
+// Should be an error, but currently isn't
+import {Cls as ClsValue} from './values_as_type_exports';
+new ClsValue();
+
+import type {Cls as ClsType} from './values_as_type_exports';
+new ClsType();
+(clsInstance: ClsType);
+(5: ClsType);

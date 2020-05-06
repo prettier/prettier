@@ -1,5 +1,71 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`object_keys.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+
+// Object.keys.map gives the arguments to map two lower bounds-- the keys of the object
+// AND any, due to any propagation. Since we only error on multiple string literal object keys,
+// we should expect an object with two keys to fail to construct an object from the computed keys
+// but an object with only one key to pass.
+
+
+const x = {foo: 3};
+Object.keys(x).map(k => { return {[k]: k} }); // No error
+
+const y = {foo: 3, bar: 3};
+Object.keys(y).map(k => { return {[k]: k} }); // Error
+
+=====================================output=====================================
+//@flow
+
+// Object.keys.map gives the arguments to map two lower bounds-- the keys of the object
+// AND any, due to any propagation. Since we only error on multiple string literal object keys,
+// we should expect an object with two keys to fail to construct an object from the computed keys
+// but an object with only one key to pass.
+
+const x = { foo: 3 };
+Object.keys(x).map((k) => {
+  return { [k]: k };
+}); // No error
+
+const y = { foo: 3, bar: 3 };
+Object.keys(y).map((k) => {
+  return { [k]: k };
+}); // Error
+
+================================================================================
+`;
+
+exports[`poly.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+function f1<T: string>(x: T) { return {[x]: x} } // ok
+function f2<T>(x: T) { return {[x]: x} } // error. mixed can't be used as a computed prop
+
+=====================================output=====================================
+//@flow
+
+function f1<T: string>(x: T) {
+  return { [x]: x };
+} // ok
+function f2<T>(x: T) {
+  return { [x]: x };
+} // error. mixed can't be used as a computed prop
+
+================================================================================
+`;
+
 exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -193,6 +259,51 @@ var arr = [
   },
 ];
 var y: string = arr[0](); // error: number ~> string
+
+================================================================================
+`;
+
+exports[`union.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+type key = 'a' | 'b' | 'c';
+
+declare var k: key;
+const a = {[k]: 3}; // Error, k has multiple lower bounds
+
+
+let x;
+if (true) {
+  x = 'foo';
+} else if (true) {
+  x = 'bar';
+} else {
+  x = 'baz';
+}
+
+const b = {[x]: 3} // Error, x has multiple lower bounds
+
+=====================================output=====================================
+//@flow
+type key = "a" | "b" | "c";
+
+declare var k: key;
+const a = { [k]: 3 }; // Error, k has multiple lower bounds
+
+let x;
+if (true) {
+  x = "foo";
+} else if (true) {
+  x = "bar";
+} else {
+  x = "baz";
+}
+
+const b = { [x]: 3 }; // Error, x has multiple lower bounds
 
 ================================================================================
 `;

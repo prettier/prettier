@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`import.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @noflow
+
+export type T = string;
+
+=====================================output=====================================
+// @noflow
+
+export type T = string;
+
+================================================================================
+`;
+
+exports[`nonstrict_import.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+export type S = number;
+
+=====================================output=====================================
+// @flow
+
+export type S = number;
+
+================================================================================
+`;
+
+exports[`test.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow strict-local
+
+import type { T } from './import'; // Error: untyped-type-import
+import type { S } from './nonstrict_import'; // No error
+
+(0: T);
+
+function f(x) {
+  x = 1; // Error: cannot reassign constant parameter
+}
+
+const x: any = {}; // Error: unclear-type
+
+=====================================output=====================================
+// @flow strict-local
+
+import type { T } from "./import"; // Error: untyped-type-import
+import type { S } from "./nonstrict_import"; // No error
+
+(0: T);
+
+function f(x) {
+  x = 1; // Error: cannot reassign constant parameter
+}
+
+const x: any = {}; // Error: unclear-type
+
+================================================================================
+`;

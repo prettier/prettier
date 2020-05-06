@@ -11,3 +11,15 @@ C.p = "hi";
 
 declare var o: {p:number};
 (o: Class<C>); // error, object type incompatible with class type
+
+class Dup1 {
+  static x: string;
+  static x() {}
+}
+(Dup1.x: empty); // function ~> empty
+
+class Dup2 {
+  static x() {}
+  static x: string;
+}
+(Dup2.x: empty); // string ~> empty

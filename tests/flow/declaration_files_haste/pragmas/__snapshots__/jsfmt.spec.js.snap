@@ -1,0 +1,115 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Flow.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @providesModule Flow
+ * @flow
+ *
+ * Tests that a .js.flow file with the flow pragma is a Flow file, when the
+ * underlying .js file has one too. That is, the .js.flow file's pragma, or
+ * lack thereof, wins.
+ */
+
+export const x: number = 123;
+
+
+=====================================output=====================================
+/**
+ * @providesModule Flow
+ * @flow
+ *
+ * Tests that a .js.flow file with the flow pragma is a Flow file, when the
+ * underlying .js file has one too. That is, the .js.flow file's pragma, or
+ * lack thereof, wins.
+ */
+
+export const x: number = 123;
+
+================================================================================
+`;
+
+exports[`FlowShadowed.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @providesModule FlowShadowed
+ * @flow
+ */
+
+export const x: number = 123;
+
+
+=====================================output=====================================
+/**
+ * @providesModule FlowShadowed
+ * @flow
+ */
+
+export const x: number = 123;
+
+================================================================================
+`;
+
+exports[`NotFlow.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @providesModule NotFlow
+ *
+ * Tests that a .js.flow file without the flow pragma is still not a Flow file.
+ * That is, the .js.flow file's pragma, or lack thereof, wins.
+ */
+
+export const x = 123;
+
+=====================================output=====================================
+/**
+ * @providesModule NotFlow
+ *
+ * Tests that a .js.flow file without the flow pragma is still not a Flow file.
+ * That is, the .js.flow file's pragma, or lack thereof, wins.
+ */
+
+export const x = 123;
+
+================================================================================
+`;
+
+exports[`NotFlowShadowed.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @providesModule NotFlowShadowed
+ *
+ * Tests that a .js.flow file with the flow pragma actually makes it a Flow file.
+ * That is, the .js.flow file's pragma, or lack thereof, wins.
+ */
+
+export const x = 123;
+
+=====================================output=====================================
+/**
+ * @providesModule NotFlowShadowed
+ *
+ * Tests that a .js.flow file with the flow pragma actually makes it a Flow file.
+ * That is, the .js.flow file's pragma, or lack thereof, wins.
+ */
+
+export const x = 123;
+
+================================================================================
+`;

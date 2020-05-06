@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`import_shadow_exports.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+import x from './shadow_exports';
+(x: number);
+
+=====================================output=====================================
+//@flow
+
+import x from "./shadow_exports";
+(x: number);
+
+================================================================================
+`;
+
+exports[`shadow_exports.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+declare var module: number => string;
+module.exports = 42;
+
+=====================================output=====================================
+//@flow
+
+declare var module: (number) => string;
+module.exports = 42;
+
+================================================================================
+`;
+
+exports[`shadow_exports_lookup.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+declare var module: {exports: string};
+var y: number = module.exports;
+
+=====================================output=====================================
+//@flow
+
+declare var module: { exports: string };
+var y: number = module.exports;
+
+================================================================================
+`;

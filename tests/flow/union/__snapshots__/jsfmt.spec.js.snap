@@ -34,19 +34,19 @@ export class PlusOp extends BinaryExpression<ArithmeticExpression, ArithmeticExp
 
 }
 
-export class MinusOp extends BinaryExpression<ArithmeticExpression, ArithmeticExpression, ArithmeticExpression, ArithmeticExpression> {
+export class MinusOp extends BinaryExpression<ArithmeticExpression, ArithmeticExpression> {
 
 }
 
-export class MulOp extends BinaryExpression<ArithmeticExpression, ArithmeticExpression, ArithmeticExpression, ArithmeticExpression> {
+export class MulOp extends BinaryExpression<ArithmeticExpression, ArithmeticExpression> {
 
 }
 
-export class DivOp extends BinaryExpression<ArithmeticExpression, ArithmeticExpression, ArithmeticExpression, ArithmeticExpression> {
+export class DivOp extends BinaryExpression<ArithmeticExpression, ArithmeticExpression> {
 
 }
 
-export class ModOp extends BinaryExpression<ArithmeticExpression, ArithmeticExpression, ArithmeticExpression, ArithmeticExpression> {
+export class ModOp extends BinaryExpression<ArithmeticExpression, ArithmeticExpression> {
 
 }
 
@@ -84,31 +84,80 @@ export class PlusOp extends BinaryExpression<
 
 export class MinusOp extends BinaryExpression<
   ArithmeticExpression,
-  ArithmeticExpression,
-  ArithmeticExpression,
   ArithmeticExpression
 > {}
 
 export class MulOp extends BinaryExpression<
-  ArithmeticExpression,
-  ArithmeticExpression,
   ArithmeticExpression,
   ArithmeticExpression
 > {}
 
 export class DivOp extends BinaryExpression<
   ArithmeticExpression,
-  ArithmeticExpression,
-  ArithmeticExpression,
   ArithmeticExpression
 > {}
 
 export class ModOp extends BinaryExpression<
   ArithmeticExpression,
-  ArithmeticExpression,
-  ArithmeticExpression,
   ArithmeticExpression
 > {}
+
+================================================================================
+`;
+
+exports[`enum-filtering.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+type Enum = 'ONE' | 'TWO';
+type Selection = { x: 'ONE' } | { x: 'TWO' } | { x: 'NONE' }
+
+type Rule = {
+  x: Enum,
+  y: Selection,
+}
+
+function foo(r: Rule) {
+  const x = r.x;
+  const y = r.y;
+  if (y.x === x) {
+    switch (y.x) {
+      case 'ONE': break;
+      case 'TWO': break;
+      default: (y.x: empty);
+    }
+  }
+}
+
+=====================================output=====================================
+// @flow
+
+type Enum = "ONE" | "TWO";
+type Selection = { x: "ONE" } | { x: "TWO" } | { x: "NONE" };
+
+type Rule = {
+  x: Enum,
+  y: Selection,
+};
+
+function foo(r: Rule) {
+  const x = r.x;
+  const y = r.y;
+  if (y.x === x) {
+    switch (y.x) {
+      case "ONE":
+        break;
+      case "TWO":
+        break;
+      default:
+        (y.x: empty);
+    }
+  }
+}
 
 ================================================================================
 `;
@@ -507,6 +556,66 @@ const u3: union2 = {
   p1: 1,
   p2: 2,
 };
+
+================================================================================
+`;
+
+exports[`issue-7322.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+class Foo {
+  noReturn() { }
+  returnNoArg() {
+    return;
+  }
+  returnUndefined() {
+    return undefined;
+  }
+}
+
+type Bar = {
+  useFoo(f: Foo): void
+};
+
+({}: Bar | {});
+
+const x: Foo = new Foo();
+
+// These should all error
+(x.noReturn(): number);
+(x.returnNoArg(): number);
+(x.returnUndefined(): number);
+
+=====================================output=====================================
+// @flow
+
+class Foo {
+  noReturn() {}
+  returnNoArg() {
+    return;
+  }
+  returnUndefined() {
+    return undefined;
+  }
+}
+
+type Bar = {
+  useFoo(f: Foo): void,
+};
+
+({}: Bar | {});
+
+const x: Foo = new Foo();
+
+// These should all error
+(x.noReturn(): number);
+(x.returnNoArg(): number);
+(x.returnUndefined(): number);
 
 ================================================================================
 `;

@@ -1,0 +1,121 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`foo.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export type Foo = string;
+
+=====================================output=====================================
+export type Foo = string;
+
+================================================================================
+`;
+
+exports[`impl-dep-of-impl-dep.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import {f} from './impl-dependent';
+
+f();
+
+=====================================output=====================================
+import { f } from "./impl-dependent";
+
+f();
+
+================================================================================
+`;
+
+exports[`impl-dep-of-sig-dep.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import {bar} from './sig-dependent';
+
+bar();
+
+=====================================output=====================================
+import { bar } from "./sig-dependent";
+
+bar();
+
+================================================================================
+`;
+
+exports[`impl-dependent.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import type {Foo} from './foo';
+
+function bar(): Foo { return ''; }
+
+export type Bar = string;
+
+export function f(): string { return ''; }
+
+=====================================output=====================================
+import type { Foo } from "./foo";
+
+function bar(): Foo {
+  return "";
+}
+
+export type Bar = string;
+
+export function f(): string {
+  return "";
+}
+
+================================================================================
+`;
+
+exports[`sig-dep-of-impl-dep.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import type {Bar} from './impl-dependent';
+
+export function f(): Bar { return ''; }
+
+=====================================output=====================================
+import type { Bar } from "./impl-dependent";
+
+export function f(): Bar {
+  return "";
+}
+
+================================================================================
+`;
+
+exports[`sig-dependent.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import type {Foo} from './foo';
+
+export function bar(): Foo { return ''; }
+
+=====================================output=====================================
+import type { Foo } from "./foo";
+
+export function bar(): Foo {
+  return "";
+}
+
+================================================================================
+`;

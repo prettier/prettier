@@ -1,0 +1,233 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`a.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+function foo() {}
+foo.x = 1;
+
+const bar = () => {};
+bar.x = 1;
+
+const React = require("react");
+
+type Props = {|
+  f: number
+|};
+
+const defaultProps = {
+  f: 1
+};
+
+function FooComponent(props: Props) { return <div />; }
+FooComponent.defaultProps = defaultProps;
+
+const BarComponent = (props: Props) => <div />;
+BarComponent.defaultProps = defaultProps;
+
+module.exports = { foo, bar, FooComponent, BarComponent };
+
+=====================================output=====================================
+// @flow
+
+function foo() {}
+foo.x = 1;
+
+const bar = () => {};
+bar.x = 1;
+
+const React = require("react");
+
+type Props = {|
+  f: number,
+|};
+
+const defaultProps = {
+  f: 1,
+};
+
+function FooComponent(props: Props) {
+  return <div />;
+}
+FooComponent.defaultProps = defaultProps;
+
+const BarComponent = (props: Props) => <div />;
+BarComponent.defaultProps = defaultProps;
+
+module.exports = { foo, bar, FooComponent, BarComponent };
+
+================================================================================
+`;
+
+exports[`b.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+const { foo, bar, FooComponent, BarComponent } = require('./a');
+const React = require('react');
+
+(foo: () => void);
+(foo.x: number);
+(foo.x: string);
+(foo.other: number);
+
+(bar: () => void);
+(bar.x: number);
+(bar.x: string);
+(bar.other: number);
+
+<FooComponent/>;
+<FooComponent other={1}/>;
+
+<BarComponent/>;
+<BarComponent other={1}/>;
+
+const {
+  foo: poly_foo,
+  bar: poly_bar,
+  FooComponent: PolyFooComponent,
+  BarComponent: PolyBarComponent
+} = require('./poly_a');
+
+(poly_foo: () => void);
+(poly_foo: <T>() => void);
+(poly_foo.x: number);
+(poly_foo.x: string);
+(poly_foo.other: number);
+
+(poly_bar: () => void);
+(poly_bar: <T>() => void);
+(poly_bar.x: number);
+(poly_bar.x: string);
+(poly_bar.other: number);
+
+<PolyFooComponent t={0}/>;
+<PolyFooComponent t={0} other={1}/>;
+
+<PolyBarComponent t={0}/>;
+<PolyBarComponent t={0} other={1}/>;
+
+=====================================output=====================================
+// @flow
+
+const { foo, bar, FooComponent, BarComponent } = require("./a");
+const React = require("react");
+
+(foo: () => void);
+(foo.x: number);
+(foo.x: string);
+(foo.other: number);
+
+(bar: () => void);
+(bar.x: number);
+(bar.x: string);
+(bar.other: number);
+
+<FooComponent />;
+<FooComponent other={1} />;
+
+<BarComponent />;
+<BarComponent other={1} />;
+
+const {
+  foo: poly_foo,
+  bar: poly_bar,
+  FooComponent: PolyFooComponent,
+  BarComponent: PolyBarComponent,
+} = require("./poly_a");
+
+(poly_foo: () => void);
+(poly_foo: <T>() => void);
+(poly_foo.x: number);
+(poly_foo.x: string);
+(poly_foo.other: number);
+
+(poly_bar: () => void);
+(poly_bar: <T>() => void);
+(poly_bar.x: number);
+(poly_bar.x: string);
+(poly_bar.other: number);
+
+<PolyFooComponent t={0} />;
+<PolyFooComponent t={0} other={1} />;
+
+<PolyBarComponent t={0} />;
+<PolyBarComponent t={0} other={1} />;
+
+================================================================================
+`;
+
+exports[`poly_a.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+function foo<T>() {}
+foo.x = 1;
+
+const bar = <T>() => {};
+bar.x = 1;
+
+const React = require("react");
+
+type Props<T> = {|
+  t: T,
+  f: number
+|};
+
+const defaultProps = {
+  f: 1
+};
+
+function FooComponent<T>(props: Props<T>) { return <div />; }
+FooComponent.defaultProps = defaultProps;
+
+const BarComponent = <T>(props: Props<T>) => <div />;
+BarComponent.defaultProps = defaultProps;
+
+module.exports = { foo, bar, FooComponent, BarComponent };
+
+=====================================output=====================================
+// @flow
+
+function foo<T>() {}
+foo.x = 1;
+
+const bar = <T>() => {};
+bar.x = 1;
+
+const React = require("react");
+
+type Props<T> = {|
+  t: T,
+  f: number,
+|};
+
+const defaultProps = {
+  f: 1,
+};
+
+function FooComponent<T>(props: Props<T>) {
+  return <div />;
+}
+FooComponent.defaultProps = defaultProps;
+
+const BarComponent = <T>(props: Props<T>) => <div />;
+BarComponent.defaultProps = defaultProps;
+
+module.exports = { foo, bar, FooComponent, BarComponent };
+
+================================================================================
+`;

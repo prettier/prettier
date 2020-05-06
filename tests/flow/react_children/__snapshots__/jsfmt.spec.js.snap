@@ -1,0 +1,1137 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`api.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import {Children, type ChildrenArray} from 'react';
+
+const a: ChildrenArray<?number> = [
+  1, null, 2, undefined,
+  [3, null, 4, undefined, [5, null, 6, undefined]],
+];
+
+na(Children.map(a, (x: number) => (x: number))); // OK
+na(Children.map(a, (x: string) => (x: string))); // Error
+sa(Children.map(a, (x: number) => (x: number))); // Error
+
+Children.forEach(a, (x: number) => {}); // Error
+Children.forEach(a, (x: ?number) => {}); // OK
+Children.forEach(a, (x: string) => {}); // Error
+
+n(Children.count(a)); // OK
+s(Children.count(a)); // Error
+
+n(Children.only(a)); // OK
+s(Children.only(a)); // Error
+
+na(Children.toArray(a)); // OK
+sa(Children.toArray(a)); // Error
+
+function v(x: null) {}
+function n(x: number) {}
+function s(x: string) {}
+function na(x: Array<number>) {}
+function sa(x: Array<string>) {}
+
+=====================================output=====================================
+// @flow
+
+import { Children, type ChildrenArray } from "react";
+
+const a: ChildrenArray<?number> = [
+  1,
+  null,
+  2,
+  undefined,
+  [3, null, 4, undefined, [5, null, 6, undefined]],
+];
+
+na(Children.map(a, (x: number) => (x: number))); // OK
+na(Children.map(a, (x: string) => (x: string))); // Error
+sa(Children.map(a, (x: number) => (x: number))); // Error
+
+Children.forEach(a, (x: number) => {}); // Error
+Children.forEach(a, (x: ?number) => {}); // OK
+Children.forEach(a, (x: string) => {}); // Error
+
+n(Children.count(a)); // OK
+s(Children.count(a)); // Error
+
+n(Children.only(a)); // OK
+s(Children.only(a)); // Error
+
+na(Children.toArray(a)); // OK
+sa(Children.toArray(a)); // Error
+
+function v(x: null) {}
+function n(x: number) {}
+function s(x: string) {}
+function na(x: Array<number>) {}
+function sa(x: Array<string>) {}
+
+================================================================================
+`;
+
+exports[`builtin_intrinsic.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import React from 'react';
+
+// OK: Builtin intrinsics do not need any children.
+<builtin />;
+
+// OK: The builtin intrinsics allow any children.
+<builtin>
+  {}
+  {undefined}
+  {null}
+  {true}
+  {false}
+  {0}
+  {42}
+  {'hello world'}
+  foobar
+  <buz />
+  {[undefined, null, true, false, 0, 42, 'hello world', 'foobar', <buz />]}
+</builtin>;
+
+// Error: Arbitrary objects are not allowed as children for builtin intrinsics.
+<builtin>
+  {{a: 1, b: 2, c: 3}}
+</builtin>;
+
+=====================================output=====================================
+// @flow
+
+import React from "react";
+
+// OK: Builtin intrinsics do not need any children.
+<builtin />;
+
+// OK: The builtin intrinsics allow any children.
+<builtin>
+  {}
+  {undefined}
+  {null}
+  {true}
+  {false}
+  {0}
+  {42}
+  {"hello world"}
+  foobar
+  <buz />
+  {[undefined, null, true, false, 0, 42, "hello world", "foobar", <buz />]}
+</builtin>;
+
+// Error: Arbitrary objects are not allowed as children for builtin intrinsics.
+<builtin>{{ a: 1, b: 2, c: 3 }}</builtin>;
+
+================================================================================
+`;
+
+exports[`component.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import React from 'react';
+import type {Node} from 'react';
+
+class MyComponent extends React.Component<{children: Node}, void> {
+  render(): Node {
+    // OK: Can pass a node down like so.
+    return <MyComponent>{this.props.children}</MyComponent>;
+  }
+}
+
+class MyComponentOptional extends React.Component<{children?: Node}, void> {}
+
+<MyComponent />; // Error: \`children\` is required.
+<MyComponent></MyComponent>; // Error: \`children\` is required.
+<MyComponent> </MyComponent>; // OK: \`children\` may be a string.
+<MyComponent>{}</MyComponent>; // Error: \`children\` is required.
+<MyComponentOptional />; // OK: \`children\` is optional.
+<MyComponentOptional></MyComponentOptional>; // OK: \`children\` is optional.
+<MyComponentOptional> </MyComponentOptional>; // OK: \`children\` may be a string.
+<MyComponentOptional>{}</MyComponentOptional>; // OK: \`children\` is optional.
+
+// OK: The \`ReactNode\` allows any children.
+<MyComponent>
+  {}
+  {undefined}
+  {null}
+  {true}
+  {false}
+  {0}
+  {42}
+  {'hello world'}
+  foobar
+  <buz />
+  {[undefined, null, true, false, 0, 42, 'hello world', 'foobar', <buz />]}
+</MyComponent>;
+
+// Error: Arbitrary objects are not allowed as children with \`ReactNode\`.
+<MyComponent>
+  {{a: 1, b: 2, c: 3}}
+</MyComponent>;
+
+=====================================output=====================================
+// @flow
+
+import React from "react";
+import type { Node } from "react";
+
+class MyComponent extends React.Component<{ children: Node }, void> {
+  render(): Node {
+    // OK: Can pass a node down like so.
+    return <MyComponent>{this.props.children}</MyComponent>;
+  }
+}
+
+class MyComponentOptional extends React.Component<{ children?: Node }, void> {}
+
+<MyComponent />; // Error: \`children\` is required.
+<MyComponent></MyComponent>; // Error: \`children\` is required.
+<MyComponent> </MyComponent>; // OK: \`children\` may be a string.
+<MyComponent>{}</MyComponent>; // Error: \`children\` is required.
+<MyComponentOptional />; // OK: \`children\` is optional.
+<MyComponentOptional></MyComponentOptional>; // OK: \`children\` is optional.
+<MyComponentOptional> </MyComponentOptional>; // OK: \`children\` may be a string.
+<MyComponentOptional>{}</MyComponentOptional>; // OK: \`children\` is optional.
+
+// OK: The \`ReactNode\` allows any children.
+<MyComponent>
+  {}
+  {undefined}
+  {null}
+  {true}
+  {false}
+  {0}
+  {42}
+  {"hello world"}
+  foobar
+  <buz />
+  {[undefined, null, true, false, 0, 42, "hello world", "foobar", <buz />]}
+</MyComponent>;
+
+// Error: Arbitrary objects are not allowed as children with \`ReactNode\`.
+<MyComponent>{{ a: 1, b: 2, c: 3 }}</MyComponent>;
+
+================================================================================
+`;
+
+exports[`fun.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+/**
+ * Pun intended.
+ */
+
+import React from 'react';
+
+type Data = {
+  foo: number,
+  bar: number,
+};
+
+type Fn = (Data) => number;
+
+class Fun extends React.Component<{children: Fn}, void> {}
+class FunOptional extends React.Component<{children?: Fn}, void> {}
+class Obj extends React.Component<{children: Data}, void> {}
+class ObjOptional extends React.Component<{children?: Data}, void> {}
+class FunArrayOnly extends React.Component<{children: Array<Fn>}, void> {}
+class FunArray extends React.Component<{children: Fn | Array<Fn>}, void> {}
+
+<Fun />; // Error: \`children\` is required.
+<FunOptional />; // OK: \`children\` is optional.
+
+<Fun>{() => 42}</Fun>; // OK: A function that returns a number.
+<Fun>{() => 42}{() => 42}</Fun>; // Error: Two functions are not allowed.
+<Fun>{data => data.foo + data.bar}</Fun>; // OK: Correctly typed function.
+<Fun>{() => 42}  </Fun>; // Error: Spaces make it an array.
+<Fun>  {() => 42}</Fun>; // Error: Spaces make it an array.
+
+// OK: Newlines are fine though.
+<Fun>
+  {() => 42}
+</Fun>;
+
+<Fun>
+  {data => {
+    (data.foo: number); // OK: \`foo\` is a number.
+    (data.bar: string); // Error: \`bar\` is a number.
+    (data.nope: boolean); // Error: \`nope\` does not exist.
+    return '42'; // Error: Must return a number.
+  }}
+</Fun>;
+
+<Fun>{}</Fun>; // Error: \`void\` is not allowed.
+<Fun>{/* Hello, world! */}</Fun>; // Error: comments are not allowed.
+<Fun>{undefined}</Fun>; // Error: \`undefined\` is not allowed.
+<Fun>{null}</Fun>; // Error: \`null\` is not allowed.
+<Fun>{true}</Fun>; // Error: \`boolean\`s are not allowed.
+<Fun>{false}</Fun>; // Error: \`boolean\`s are not allowed.
+<Fun>{0}</Fun>; // Error: \`number\`s are not allowed.
+<Fun>{42}</Fun>; // Error: \`number\`s are not allowed.
+<Fun><intrinsic/></Fun>; // Error: elements are not allowed.
+
+<Obj />; // Error: \`children\` is required.
+<ObjOptional />; // OK: \`children\` is optional.
+
+<Obj>{{foo: 1, bar: 2}}</Obj>; // OK: The data object.
+<Obj>{{foo: '1', bar: '2'}}</Obj>; // Error: Incorrect types.
+<Obj>{{foo: 1, bar: 2}}{{foo: 1, bar: 2}}</Obj>; // Error: Two objects are not
+                                                 // allowed.
+<Obj>{{foo: 1, bar: 2}}  </Obj>; // Error: Spaces make it an array.
+<Obj>  {{foo: 1, bar: 2}}</Obj>; // Error: Spaces make it an array.
+
+// OK: Newlines are fine though.
+<Obj>
+  {{foo: 1, bar: 2}}
+</Obj>;
+
+<FunArrayOnly>{() => 42}</FunArrayOnly>; // Error: A single expression is not
+                                         // an array.
+<FunArrayOnly>{() => 42}{() => 42}</FunArrayOnly>; // OK: This is an array.
+<FunArrayOnly>{[() => 42, () => 42]}</FunArrayOnly>; // OK: This is an array.
+
+// Error: This is an array of arrays.
+<FunArrayOnly>{[() => 42, () => 42]}{[() => 42, () => 42]}</FunArrayOnly>;
+
+// Error: This is an array of arrays with mixed dimensions.
+<FunArrayOnly>{[() => 42, () => 42]}{() => 42}</FunArrayOnly>;
+
+// Error: A single expression is not an array.
+<FunArrayOnly>
+  {() => 42}
+</FunArrayOnly>;
+
+// OK: This is an array without strings even though there are newlines.
+<FunArrayOnly>
+  {() => 42}
+  {() => 42}
+  {() => 42}
+</FunArrayOnly>;
+
+// OK: This is also an array.
+<FunArrayOnly>
+  {[
+    () => 42,
+    () => 42,
+    () => 42,
+  ]}
+</FunArrayOnly>;
+
+<FunArray>{() => 42}</FunArray>; // OK: Allows single expressions.
+<FunArray>{() => 42}{() => 42}</FunArray>; // OK: This is an array.
+<FunArray>{[() => 42, () => 42]}</FunArray>; // OK: This is an array.
+
+// Error: This is an array of arrays.
+<FunArray>{[() => 42, () => 42]}{[() => 42, () => 42]}</FunArray>;
+
+// Error: This is an array of arrays with mixed dimensions.
+<FunArray>{[() => 42, () => 42]}{() => 42}</FunArray>;
+
+// OK: Allows single expressions.
+<FunArray>
+  {() => 42}
+</FunArray>;
+
+// OK: This is an array without strings even though there are newlines.
+<FunArray>
+  {() => 42}
+  {() => 42}
+  {() => 42}
+</FunArray>;
+
+// OK: This is also an array.
+<FunArray>
+  {[
+    () => 42,
+    () => 42,
+    () => 42,
+  ]}
+</FunArray>;
+
+<FunArray>{}</FunArray>; // Error: \`void\` is not allowed.
+<FunArray>{/* Hello, world! */}</FunArray>; // Error: comments are not allowed.
+<FunArray>{undefined}</FunArray>; // Error: \`undefined\` is not allowed.
+<FunArray>{null}</FunArray>; // Error: \`null\` is not allowed.
+<FunArray>{true}</FunArray>; // Error: \`boolean\`s are not allowed.
+<FunArray>{false}</FunArray>; // Error: \`boolean\`s are not allowed.
+<FunArray>{0}</FunArray>; // Error: \`boolean\`s are not allowed.
+<FunArray>{42}</FunArray>; // Error: \`boolean\`s are not allowed.
+<FunArray><intrinsic/></FunArray>; // Error: elements are not allowed.
+
+=====================================output=====================================
+// @flow
+
+/**
+ * Pun intended.
+ */
+
+import React from "react";
+
+type Data = {
+  foo: number,
+  bar: number,
+};
+
+type Fn = (Data) => number;
+
+class Fun extends React.Component<{ children: Fn }, void> {}
+class FunOptional extends React.Component<{ children?: Fn }, void> {}
+class Obj extends React.Component<{ children: Data }, void> {}
+class ObjOptional extends React.Component<{ children?: Data }, void> {}
+class FunArrayOnly extends React.Component<{ children: Array<Fn> }, void> {}
+class FunArray extends React.Component<{ children: Fn | Array<Fn> }, void> {}
+
+<Fun />; // Error: \`children\` is required.
+<FunOptional />; // OK: \`children\` is optional.
+
+<Fun>{() => 42}</Fun>; // OK: A function that returns a number.
+<Fun>
+  {() => 42}
+  {() => 42}
+</Fun>; // Error: Two functions are not allowed.
+<Fun>{(data) => data.foo + data.bar}</Fun>; // OK: Correctly typed function.
+<Fun>{() => 42} </Fun>; // Error: Spaces make it an array.
+<Fun> {() => 42}</Fun>; // Error: Spaces make it an array.
+
+// OK: Newlines are fine though.
+<Fun>{() => 42}</Fun>;
+
+<Fun>
+  {(data) => {
+    (data.foo: number); // OK: \`foo\` is a number.
+    (data.bar: string); // Error: \`bar\` is a number.
+    (data.nope: boolean); // Error: \`nope\` does not exist.
+    return "42"; // Error: Must return a number.
+  }}
+</Fun>;
+
+<Fun>{}</Fun>; // Error: \`void\` is not allowed.
+<Fun>{/* Hello, world! */}</Fun>; // Error: comments are not allowed.
+<Fun>{undefined}</Fun>; // Error: \`undefined\` is not allowed.
+<Fun>{null}</Fun>; // Error: \`null\` is not allowed.
+<Fun>{true}</Fun>; // Error: \`boolean\`s are not allowed.
+<Fun>{false}</Fun>; // Error: \`boolean\`s are not allowed.
+<Fun>{0}</Fun>; // Error: \`number\`s are not allowed.
+<Fun>{42}</Fun>; // Error: \`number\`s are not allowed.
+<Fun>
+  <intrinsic />
+</Fun>; // Error: elements are not allowed.
+
+<Obj />; // Error: \`children\` is required.
+<ObjOptional />; // OK: \`children\` is optional.
+
+<Obj>{{ foo: 1, bar: 2 }}</Obj>; // OK: The data object.
+<Obj>{{ foo: "1", bar: "2" }}</Obj>; // Error: Incorrect types.
+<Obj>
+  {{ foo: 1, bar: 2 }}
+  {{ foo: 1, bar: 2 }}
+</Obj>; // Error: Two objects are not
+// allowed.
+<Obj>{{ foo: 1, bar: 2 }} </Obj>; // Error: Spaces make it an array.
+<Obj> {{ foo: 1, bar: 2 }}</Obj>; // Error: Spaces make it an array.
+
+// OK: Newlines are fine though.
+<Obj>{{ foo: 1, bar: 2 }}</Obj>;
+
+<FunArrayOnly>{() => 42}</FunArrayOnly>; // Error: A single expression is not
+// an array.
+<FunArrayOnly>
+  {() => 42}
+  {() => 42}
+</FunArrayOnly>; // OK: This is an array.
+<FunArrayOnly>{[() => 42, () => 42]}</FunArrayOnly>; // OK: This is an array.
+
+// Error: This is an array of arrays.
+<FunArrayOnly>
+  {[() => 42, () => 42]}
+  {[() => 42, () => 42]}
+</FunArrayOnly>;
+
+// Error: This is an array of arrays with mixed dimensions.
+<FunArrayOnly>
+  {[() => 42, () => 42]}
+  {() => 42}
+</FunArrayOnly>;
+
+// Error: A single expression is not an array.
+<FunArrayOnly>{() => 42}</FunArrayOnly>;
+
+// OK: This is an array without strings even though there are newlines.
+<FunArrayOnly>
+  {() => 42}
+  {() => 42}
+  {() => 42}
+</FunArrayOnly>;
+
+// OK: This is also an array.
+<FunArrayOnly>{[() => 42, () => 42, () => 42]}</FunArrayOnly>;
+
+<FunArray>{() => 42}</FunArray>; // OK: Allows single expressions.
+<FunArray>
+  {() => 42}
+  {() => 42}
+</FunArray>; // OK: This is an array.
+<FunArray>{[() => 42, () => 42]}</FunArray>; // OK: This is an array.
+
+// Error: This is an array of arrays.
+<FunArray>
+  {[() => 42, () => 42]}
+  {[() => 42, () => 42]}
+</FunArray>;
+
+// Error: This is an array of arrays with mixed dimensions.
+<FunArray>
+  {[() => 42, () => 42]}
+  {() => 42}
+</FunArray>;
+
+// OK: Allows single expressions.
+<FunArray>{() => 42}</FunArray>;
+
+// OK: This is an array without strings even though there are newlines.
+<FunArray>
+  {() => 42}
+  {() => 42}
+  {() => 42}
+</FunArray>;
+
+// OK: This is also an array.
+<FunArray>{[() => 42, () => 42, () => 42]}</FunArray>;
+
+<FunArray>{}</FunArray>; // Error: \`void\` is not allowed.
+<FunArray>{/* Hello, world! */}</FunArray>; // Error: comments are not allowed.
+<FunArray>{undefined}</FunArray>; // Error: \`undefined\` is not allowed.
+<FunArray>{null}</FunArray>; // Error: \`null\` is not allowed.
+<FunArray>{true}</FunArray>; // Error: \`boolean\`s are not allowed.
+<FunArray>{false}</FunArray>; // Error: \`boolean\`s are not allowed.
+<FunArray>{0}</FunArray>; // Error: \`boolean\`s are not allowed.
+<FunArray>{42}</FunArray>; // Error: \`boolean\`s are not allowed.
+<FunArray>
+  <intrinsic />
+</FunArray>; // Error: elements are not allowed.
+
+================================================================================
+`;
+
+exports[`issue-4648.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import React from 'react';
+import type {ChildrenArray, Element} from 'react';
+
+class Child extends React.Component<{
+  value1: string
+}> {}
+
+class Parent extends React.Component<{
+  children: ChildrenArray<Element<typeof Child>>
+}> {
+  render() {
+    React.Children.map(this.props.children, (child) => {
+      console.log(child.props);
+    });
+    React.Children.map(this.props.children, (child: Element<typeof Child>) => {
+      console.log(child.props);
+    });
+    return null;
+  }
+}
+
+=====================================output=====================================
+// @flow
+
+import React from "react";
+import type { ChildrenArray, Element } from "react";
+
+class Child extends React.Component<{
+  value1: string,
+}> {}
+
+class Parent extends React.Component<{
+  children: ChildrenArray<Element<typeof Child>>,
+}> {
+  render() {
+    React.Children.map(this.props.children, (child) => {
+      console.log(child.props);
+    });
+    React.Children.map(this.props.children, (child: Element<typeof Child>) => {
+      console.log(child.props);
+    });
+    return null;
+  }
+}
+
+================================================================================
+`;
+
+exports[`spread.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import React from 'react';
+
+class Foo extends React.Component<{children: Array<string>}, void> {}
+
+<Foo>{...["a", "b"]}</Foo>
+
+=====================================output=====================================
+// @flow
+
+import React from "react";
+
+class Foo extends React.Component<{ children: Array<string> }, void> {}
+
+<Foo>{...["a", "b"]}</Foo>;
+
+================================================================================
+`;
+
+exports[`tabs.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+/**
+ * This test represents a pattern which is commonly used to make tab bars, but
+ * this pattern is also used in many other places.
+ */
+
+import React from 'react';
+
+class Tab extends React.Component<{}, void> {}
+class NotTab extends React.Component<{}, void> {}
+
+type TabBarNode =
+  | void
+  | null
+  | boolean
+  | React$Element<typeof Tab>
+  | Array<TabBarNode>; // NOTE: This is intentionally \`Array<T>\` and not
+                       // \`Iterable<T>\` because \`strings\` are \`Iterable<string>\`
+                       // which is then \`Iterable<Iterable<string>>\` recursively
+                       // making strings valid children when we use
+                       // \`Iterable<T>\`.
+
+class TabBar extends React.Component<{children: TabBarNode}, void> {}
+
+<TabBar />; // Error: \`children\` is required.
+
+<TabBar><Tab/></TabBar>; // OK: We can have a single tab.
+<TabBar><Tab/><Tab/></TabBar>; // OK: We can have two tabs.
+<TabBar>  <Tab/><Tab/></TabBar>; // Error: Spaces are strings.
+<TabBar><Tab/>  <Tab/></TabBar>; // Error: Spaces are strings.
+<TabBar><Tab/><Tab/>  </TabBar>; // Error: Spaces are strings.
+
+// OK: We can have a single tab on multiple lines.
+<TabBar>
+  <Tab/>
+</TabBar>;
+
+// OK: We can have a multiple tabs on multiple lines.
+<TabBar>
+  <Tab/>
+  <Tab/>
+  <Tab/>
+</TabBar>;
+
+// OK: We can have an array of tabs.
+<TabBar>
+  {[
+    <Tab/>,
+    <Tab/>,
+    <Tab/>,
+  ]}
+</TabBar>;
+
+// OK: We can have two arrays of tabs.
+<TabBar>
+  {[
+    <Tab/>,
+    <Tab/>,
+  ]}
+  {[
+    <Tab/>,
+    <Tab/>,
+  ]}
+</TabBar>;
+
+<TabBar><NotTab/></TabBar>; // Error: We can only have tab components.
+<TabBar><NotTab/><NotTab/></TabBar>; // Error: We can only have tab components.
+
+// Error: Nope, can't sneak a non-tab in there.
+<TabBar>
+  <Tab/>
+  <NotTab/>
+  <Tab/>
+  <Tab/>
+</TabBar>;
+
+// OK: Booleans are allowed in the type.
+<TabBar>
+  {Math.random() > 0.5 && <Tab/>}
+</TabBar>;
+
+// OK: Booleans are allowed in the type.
+<TabBar>
+  {Math.random() > 0.5 && <Tab/>}
+  {Math.random() > 0.5 && <Tab/>}
+</TabBar>;
+
+=====================================output=====================================
+// @flow
+
+/**
+ * This test represents a pattern which is commonly used to make tab bars, but
+ * this pattern is also used in many other places.
+ */
+
+import React from "react";
+
+class Tab extends React.Component<{}, void> {}
+class NotTab extends React.Component<{}, void> {}
+
+type TabBarNode =
+  | void
+  | null
+  | boolean
+  | React$Element<typeof Tab>
+  | Array<TabBarNode>; // NOTE: This is intentionally \`Array<T>\` and not
+// \`Iterable<T>\` because \`strings\` are \`Iterable<string>\`
+// which is then \`Iterable<Iterable<string>>\` recursively
+// making strings valid children when we use
+// \`Iterable<T>\`.
+
+class TabBar extends React.Component<{ children: TabBarNode }, void> {}
+
+<TabBar />; // Error: \`children\` is required.
+
+<TabBar>
+  <Tab />
+</TabBar>; // OK: We can have a single tab.
+<TabBar>
+  <Tab />
+  <Tab />
+</TabBar>; // OK: We can have two tabs.
+<TabBar>
+  {" "}
+  <Tab />
+  <Tab />
+</TabBar>; // Error: Spaces are strings.
+<TabBar>
+  <Tab /> <Tab />
+</TabBar>; // Error: Spaces are strings.
+<TabBar>
+  <Tab />
+  <Tab />{" "}
+</TabBar>; // Error: Spaces are strings.
+
+// OK: We can have a single tab on multiple lines.
+<TabBar>
+  <Tab />
+</TabBar>;
+
+// OK: We can have a multiple tabs on multiple lines.
+<TabBar>
+  <Tab />
+  <Tab />
+  <Tab />
+</TabBar>;
+
+// OK: We can have an array of tabs.
+<TabBar>{[<Tab />, <Tab />, <Tab />]}</TabBar>;
+
+// OK: We can have two arrays of tabs.
+<TabBar>
+  {[<Tab />, <Tab />]}
+  {[<Tab />, <Tab />]}
+</TabBar>;
+
+<TabBar>
+  <NotTab />
+</TabBar>; // Error: We can only have tab components.
+<TabBar>
+  <NotTab />
+  <NotTab />
+</TabBar>; // Error: We can only have tab components.
+
+// Error: Nope, can't sneak a non-tab in there.
+<TabBar>
+  <Tab />
+  <NotTab />
+  <Tab />
+  <Tab />
+</TabBar>;
+
+// OK: Booleans are allowed in the type.
+<TabBar>{Math.random() > 0.5 && <Tab />}</TabBar>;
+
+// OK: Booleans are allowed in the type.
+<TabBar>
+  {Math.random() > 0.5 && <Tab />}
+  {Math.random() > 0.5 && <Tab />}
+</TabBar>;
+
+================================================================================
+`;
+
+exports[`text.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import React from 'react';
+
+class Text extends React.Component<{children: string}, void> {}
+class TextOptional extends React.Component<{children?: string}, void> {}
+class TextLiteral extends React.Component<{children: 'foo' | 'bar'}, void> {}
+
+<Text />; // Error: \`children\` is required.
+<TextOptional />; // OK: \`children\` is optional.
+<TextLiteral />; // Error: \`children\` is required.
+
+<Text>Hello, world!</Text>; // OK: \`children\` is a single string.
+
+<Text></Text>; // Error: \`children\` does not exist.
+<Text>  </Text>; // OK: \`children\` is some space.
+
+<Text>{}</Text>; // Error: \`children\` is required.
+<Text>{/* Hello, world! */}</Text>; // Error: \`children\` is required.
+<Text>{undefined}</Text>; // Error: \`undefined\` is not allowed.
+<Text>{null}</Text>; // Error: \`null\` is not allowed.
+<Text>{true}</Text>; // Error: \`boolean\`s are not allowed.
+<Text>{false}</Text>; // Error: \`boolean\`s are not allowed.
+<Text>{0}</Text>; // Error: \`number\`s are not allowed.
+<Text>{42}</Text>; // Error: \`number\`s are not allowed.
+<Text><intrinsic/></Text>; // Error: elements are not allowed.
+
+// OK: Text across multiple lines is fine.
+<Text>
+  Hello, world!
+  Multiline.
+</Text>;
+
+<Text>{'Hello, world!'}</Text>; // OK: Single string in an expression container.
+<Text>{'Hello, '}{'world!'}</Text>; // Error: We did not allow an array.
+<Text>Hello, {'world!'}</Text>; // Error: We did not allow an array.
+<Text>{'Hello, world!'}  </Text>; // Error: Spaces cause there to be an array.
+<Text>  {'Hello, world!'}</Text>; // Error: Spaces cause there to be an array.
+
+// OK: Newlines are trimmed.
+<Text>
+  {'Hello, world!'}
+</Text>;
+
+<TextLiteral>foo</TextLiteral>; // OK: Text literal is fine.
+<TextLiteral>bar</TextLiteral>; // OK: Text literal is fine.
+<TextLiteral>{'foo'}</TextLiteral>; // OK: Text literal is fine.
+<TextLiteral>buz</TextLiteral>; // Error: \`buz\` is not allowed.
+<TextLiteral>{'buz'}</TextLiteral>; // Error: \`buz\` is not allowed.
+<TextLiteral>foo  </TextLiteral>; // Error: Spaces are not trimmed.
+<TextLiteral>  foo</TextLiteral>; // Error: Spaces are not trimmed.
+<TextLiteral>{'foo'}  </TextLiteral>; // Error: Spaces are not trimmed.
+<TextLiteral>  {'foo'}</TextLiteral>; // Error: Spaces are not trimmed.
+
+// OK: Newlines are trimmed.
+<TextLiteral>
+  foo
+</TextLiteral>;
+
+=====================================output=====================================
+// @flow
+
+import React from "react";
+
+class Text extends React.Component<{ children: string }, void> {}
+class TextOptional extends React.Component<{ children?: string }, void> {}
+class TextLiteral extends React.Component<{ children: "foo" | "bar" }, void> {}
+
+<Text />; // Error: \`children\` is required.
+<TextOptional />; // OK: \`children\` is optional.
+<TextLiteral />; // Error: \`children\` is required.
+
+<Text>Hello, world!</Text>; // OK: \`children\` is a single string.
+
+<Text></Text>; // Error: \`children\` does not exist.
+<Text> </Text>; // OK: \`children\` is some space.
+
+<Text>{}</Text>; // Error: \`children\` is required.
+<Text>{/* Hello, world! */}</Text>; // Error: \`children\` is required.
+<Text>{undefined}</Text>; // Error: \`undefined\` is not allowed.
+<Text>{null}</Text>; // Error: \`null\` is not allowed.
+<Text>{true}</Text>; // Error: \`boolean\`s are not allowed.
+<Text>{false}</Text>; // Error: \`boolean\`s are not allowed.
+<Text>{0}</Text>; // Error: \`number\`s are not allowed.
+<Text>{42}</Text>; // Error: \`number\`s are not allowed.
+<Text>
+  <intrinsic />
+</Text>; // Error: elements are not allowed.
+
+// OK: Text across multiple lines is fine.
+<Text>Hello, world! Multiline.</Text>;
+
+<Text>{"Hello, world!"}</Text>; // OK: Single string in an expression container.
+<Text>
+  {"Hello, "}
+  {"world!"}
+</Text>; // Error: We did not allow an array.
+<Text>Hello, {"world!"}</Text>; // Error: We did not allow an array.
+<Text>{"Hello, world!"} </Text>; // Error: Spaces cause there to be an array.
+<Text> {"Hello, world!"}</Text>; // Error: Spaces cause there to be an array.
+
+// OK: Newlines are trimmed.
+<Text>{"Hello, world!"}</Text>;
+
+<TextLiteral>foo</TextLiteral>; // OK: Text literal is fine.
+<TextLiteral>bar</TextLiteral>; // OK: Text literal is fine.
+<TextLiteral>{"foo"}</TextLiteral>; // OK: Text literal is fine.
+<TextLiteral>buz</TextLiteral>; // Error: \`buz\` is not allowed.
+<TextLiteral>{"buz"}</TextLiteral>; // Error: \`buz\` is not allowed.
+<TextLiteral>foo </TextLiteral>; // Error: Spaces are not trimmed.
+<TextLiteral> foo</TextLiteral>; // Error: Spaces are not trimmed.
+<TextLiteral>{"foo"} </TextLiteral>; // Error: Spaces are not trimmed.
+<TextLiteral> {"foo"}</TextLiteral>; // Error: Spaces are not trimmed.
+
+// OK: Newlines are trimmed.
+<TextLiteral>foo</TextLiteral>;
+
+================================================================================
+`;
+
+exports[`tuple.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import React from 'react';
+
+class Tuple
+  extends React.Component<{children: [boolean, string, number]}, void> {}
+class TupleOne extends React.Component<{children: [boolean]}, void> {}
+
+<Tuple />; // Error: \`children\` is required.
+<Tuple>{true}{'foo'}{42}</Tuple>; // OK: All the tuple items.
+<Tuple>{true}foo{42}</Tuple>; // OK: Mixing text with expressions.
+<Tuple>{true}{'foo'}{42}{null}</Tuple>; // Error: One to many.
+<Tuple>  {true}foo{42}</Tuple>; // Error: Spaces add items.
+<Tuple>{true}foo{42}  </Tuple>; // Error: Spaces add items.
+<Tuple>{[true, 'foo', 42]}</Tuple>; // OK: All the tuple items.
+<Tuple>{[true, 'foo', 42]}{[true, 'foo', 42]}</Tuple>; // Error: There may only
+                                                       // be one tuple.
+<Tuple>{[true, 'foo', 42, null]}</Tuple>; // Error: One to many
+
+// OK: All the tuple items on multiple liens.
+<Tuple>
+  {true}
+  {'foo'}
+  {42}
+</Tuple>;
+
+// OK: All the tuple items mixing text and expressions.
+<Tuple>
+  {true}
+  foo
+  {42}
+</Tuple>;
+
+<TupleOne>{true}</TupleOne>; // Error: A single expression is not an array.
+<TupleOne>{[true]}</TupleOne>; // OK: This is ok.
+
+=====================================output=====================================
+// @flow
+
+import React from "react";
+
+class Tuple extends React.Component<
+  { children: [boolean, string, number] },
+  void
+> {}
+class TupleOne extends React.Component<{ children: [boolean] }, void> {}
+
+<Tuple />; // Error: \`children\` is required.
+<Tuple>
+  {true}
+  {"foo"}
+  {42}
+</Tuple>; // OK: All the tuple items.
+<Tuple>
+  {true}foo{42}
+</Tuple>; // OK: Mixing text with expressions.
+<Tuple>
+  {true}
+  {"foo"}
+  {42}
+  {null}
+</Tuple>; // Error: One to many.
+<Tuple>
+  {" "}
+  {true}foo{42}
+</Tuple>; // Error: Spaces add items.
+<Tuple>
+  {true}foo{42}{" "}
+</Tuple>; // Error: Spaces add items.
+<Tuple>{[true, "foo", 42]}</Tuple>; // OK: All the tuple items.
+<Tuple>
+  {[true, "foo", 42]}
+  {[true, "foo", 42]}
+</Tuple>; // Error: There may only
+// be one tuple.
+<Tuple>{[true, "foo", 42, null]}</Tuple>; // Error: One to many
+
+// OK: All the tuple items on multiple liens.
+<Tuple>
+  {true}
+  {"foo"}
+  {42}
+</Tuple>;
+
+// OK: All the tuple items mixing text and expressions.
+<Tuple>
+  {true}
+  foo
+  {42}
+</Tuple>;
+
+<TupleOne>{true}</TupleOne>; // Error: A single expression is not an array.
+<TupleOne>{[true]}</TupleOne>; // OK: This is ok.
+
+================================================================================
+`;
+
+exports[`view.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import React from 'react';
+
+type ReactNodeWithoutString =
+  | void
+  | null
+  | boolean
+  | React$Element<any>
+  | Array<ReactNodeWithoutString>; // NOTE: This is intentionally \`Array<T>\` and
+                                   // not \`Iterable<T>\` because \`strings\` are
+                                   // \`Iterable<string>\` which is then
+                                   // \`Iterable<Iterable<string>>\` recursively
+                                   // making strings valid children when we use
+                                   // \`Iterable<T>\`.
+
+class View extends React.Component<{children: ReactNodeWithoutString}, void> {}
+
+// OK: Allows any non-string children.
+<View>
+  {}
+  {undefined}
+  {null}
+  {true}
+  {false}
+  <buz />
+  {[undefined, null, true, false, <buz />]}
+</View>;
+
+// Error: Arbitrary objects are not allowed as children.
+<View>
+  {{a: 1, b: 2, c: 3}}
+</View>;
+
+<View>Hello, world!</View>; // Error: Strings are not allowed as children.
+<View>{'Hello, world!'}</View>; // Error: Strings are not allowed as children.
+<View>{42}</View>; // Error: Numbers are not allowed as children.
+<View>{1}{2}{3}</View>; // Error: Numbers are not allowed as children.
+<View>{['a', 'b', 'c']}</View>; // Error: Strings are not allowed deeply.
+<View>{[1, 2, 3]}</View>; // Error: Numbers are not allowed deeply.
+
+=====================================output=====================================
+// @flow
+
+import React from "react";
+
+type ReactNodeWithoutString =
+  | void
+  | null
+  | boolean
+  | React$Element<any>
+  | Array<ReactNodeWithoutString>; // NOTE: This is intentionally \`Array<T>\` and
+// not \`Iterable<T>\` because \`strings\` are
+// \`Iterable<string>\` which is then
+// \`Iterable<Iterable<string>>\` recursively
+// making strings valid children when we use
+// \`Iterable<T>\`.
+
+class View extends React.Component<
+  { children: ReactNodeWithoutString },
+  void
+> {}
+
+// OK: Allows any non-string children.
+<View>
+  {}
+  {undefined}
+  {null}
+  {true}
+  {false}
+  <buz />
+  {[undefined, null, true, false, <buz />]}
+</View>;
+
+// Error: Arbitrary objects are not allowed as children.
+<View>{{ a: 1, b: 2, c: 3 }}</View>;
+
+<View>Hello, world!</View>; // Error: Strings are not allowed as children.
+<View>{"Hello, world!"}</View>; // Error: Strings are not allowed as children.
+<View>{42}</View>; // Error: Numbers are not allowed as children.
+<View>
+  {1}
+  {2}
+  {3}
+</View>; // Error: Numbers are not allowed as children.
+<View>{["a", "b", "c"]}</View>; // Error: Strings are not allowed deeply.
+<View>{[1, 2, 3]}</View>; // Error: Numbers are not allowed deeply.
+
+================================================================================
+`;

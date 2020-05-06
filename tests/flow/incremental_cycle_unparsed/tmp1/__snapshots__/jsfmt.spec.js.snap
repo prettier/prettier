@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`foo.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @noflow
+
+import type {bar} from './bar';
+
+function err(bar: bar): number {
+  return bar.x;
+}
+
+export type foo = {
+  y: string;
+  bar: bar
+}
+
+=====================================output=====================================
+// @noflow
+
+import type { bar } from "./bar";
+
+function err(bar: bar): number {
+  return bar.x;
+}
+
+export type foo = {
+  y: string,
+  bar: bar,
+};
+
+================================================================================
+`;

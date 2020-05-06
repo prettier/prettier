@@ -9,6 +9,7 @@ printWidth: 80
 /* @flow */
 
 module.exports = { a() {} };
+
 =====================================output=====================================
 /* @flow */
 
@@ -52,6 +53,7 @@ printWidth: 80
 var c = require('./b');
 c.a();
 c.foo();
+
 =====================================output=====================================
 /* @flow */
 
@@ -71,7 +73,7 @@ printWidth: 80
 /* @flow */
 
 var export_ = Object.assign({}, {
-    foo: function(param) { return param; }
+    foo: function(param: mixed) { return param; }
 });
 
 var decl_export_: { foo: any; bar: any } = Object.assign({}, export_);
@@ -87,7 +89,7 @@ module.exports = export_;
 var export_ = Object.assign(
   {},
   {
-    foo: function (param) {
+    foo: function (param: mixed) {
       return param;
     },
   }
@@ -127,6 +129,8 @@ type O = { foo: string; }
 declare var o: O;
 (o: C);
 
+(Object.create(({}: Object)): C); // OK: AnyT might be C, who knows
+
 =====================================output=====================================
 /* @flow */
 
@@ -147,6 +151,8 @@ class C {
 type O = { foo: string };
 declare var o: O;
 (o: C);
+
+(Object.create(({}: Object)): C); // OK: AnyT might be C, who knows
 
 ================================================================================
 `;
@@ -224,6 +230,20 @@ class Bar extends Foo {
 // only own enumerable props
 (Object.keys(new Bar()): Array<'error'>); // error: bar_prop ~> error
 
+var tests = [
+  // dictionary of string literals -> array of string literals
+  function(dict: {['hi']: mixed}) {
+    (Object.keys(dict): Array<'hi'>);
+    (Object.keys(dict): Array<'bye'>); // error
+  },
+
+  // dictionary of number literals -> array of generic strings (for now)
+  function(dict: {[123]: mixed}) {
+    (Object.keys(dict): Array<string>);
+    (Object.keys(dict): Array<'123'>); // error: not supported yet
+  },
+];
+
 =====================================output=====================================
 /* @flow */
 
@@ -257,6 +277,20 @@ class Bar extends Foo {
 }
 // only own enumerable props
 (Object.keys(new Bar()): Array<"error">); // error: bar_prop ~> error
+
+var tests = [
+  // dictionary of string literals -> array of string literals
+  function (dict: { ["hi"]: mixed }) {
+    (Object.keys(dict): Array<"hi">);
+    (Object.keys(dict): Array<"bye">); // error
+  },
+
+  // dictionary of number literals -> array of generic strings (for now)
+  function (dict: { [123]: mixed }) {
+    (Object.keys(dict): Array<string>);
+    (Object.keys(dict): Array<"123">); // error: not supported yet
+  },
+];
 
 ================================================================================
 `;
@@ -403,12 +437,12 @@ takesABool(y.propertyIsEnumerable('foo'));
 //
 
 // call
-takesAnObject(a.valueOf());
+// takesAnObject(a.valueOf());
 
 // get
-var aValueOf : () => Object = a.valueOf;
-var aValueOf2 = a.valueOf;
-takesAnObject(aValueOf2());
+// var aValueOf : () => Object = a.valueOf;
+// var aValueOf2 = a.valueOf;
+// takesAnObject(aValueOf2());
 
 // set
 b.valueOf = function() { return {}; };
@@ -419,7 +453,7 @@ takesANumber(x.valueOf());
 
 // ... on an instance
 var yValueOf : number = y.valueOf; // error
-takesAnObject(y.valueOf());
+// takesAnObject(y.valueOf());
 
 // ... on a literal
 var strValueOf : string = ("foo").valueOf();
@@ -578,12 +612,12 @@ takesABool(y.propertyIsEnumerable("foo"));
 //
 
 // call
-takesAnObject(a.valueOf());
+// takesAnObject(a.valueOf());
 
 // get
-var aValueOf: () => Object = a.valueOf;
-var aValueOf2 = a.valueOf;
-takesAnObject(aValueOf2());
+// var aValueOf : () => Object = a.valueOf;
+// var aValueOf2 = a.valueOf;
+// takesAnObject(aValueOf2());
 
 // set
 b.valueOf = function () {
@@ -596,7 +630,7 @@ takesANumber(x.valueOf());
 
 // ... on an instance
 var yValueOf: number = y.valueOf; // error
-takesAnObject(y.valueOf());
+// takesAnObject(y.valueOf());
 
 // ... on a literal
 var strValueOf: string = "foo".valueOf();
@@ -635,6 +669,52 @@ takesAString(y.toLocaleString());
 
 var k: Object = a.constructor;
 (123).constructor;
+
+================================================================================
+`;
+
+exports[`proto.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+var o1 = {};
+var o1_proto = o1.__proto__; // ObjProtoT
+(o1_proto.toString: empty); // error: function ~> empty
+
+var o2 = Object.create({p:0});
+var o2_proto = o2.__proto__; // {p:0}
+(o2.__proto__.p: empty); // error: number ~> empty
+
+class C1 {
+  m() {}
+}
+var C1_proto = C1.__proto__;
+(C1_proto.bind: empty); // error: function ~> empty
+
+var inst1 = new C1;
+var inst1_proto = inst1.__proto__; // TODO: should be C1.prototype
+(inst1_proto.m: empty); // TODO error: function ~> empty
+
+=====================================output=====================================
+var o1 = {};
+var o1_proto = o1.__proto__; // ObjProtoT
+(o1_proto.toString: empty); // error: function ~> empty
+
+var o2 = Object.create({ p: 0 });
+var o2_proto = o2.__proto__; // {p:0}
+(o2.__proto__.p: empty); // error: number ~> empty
+
+class C1 {
+  m() {}
+}
+var C1_proto = C1.__proto__;
+(C1_proto.bind: empty); // error: function ~> empty
+
+var inst1 = new C1();
+var inst1_proto = inst1.__proto__; // TODO: should be C1.prototype
+(inst1_proto.m: empty); // TODO error: function ~> empty
 
 ================================================================================
 `;

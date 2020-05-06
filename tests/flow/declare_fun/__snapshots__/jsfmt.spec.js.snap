@@ -1,5 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`scope.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+declare function bar(y: T): string;
+type T = string;
+bar(0);
+bar("");
+
+=====================================output=====================================
+declare function bar(y: T): string;
+type T = string;
+bar(0);
+bar("");
+
+================================================================================
+`;
+
 exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]

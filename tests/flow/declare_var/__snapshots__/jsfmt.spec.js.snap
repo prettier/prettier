@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+declare var x: T;
+
+(0: T); // OK
+(null: T); // error: null ~> number
+
+type T = number;
+
+=====================================output=====================================
+declare var x: T;
+
+(0: T); // OK
+(null: T); // error: null ~> number
+
+type T = number;
+
+================================================================================
+`;

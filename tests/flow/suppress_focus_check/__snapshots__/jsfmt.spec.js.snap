@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`dependency.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+export function foo(x: string) {}
+
+// $FlowFixMe - Unused suppression
+
+=====================================output=====================================
+// @flow
+
+export function foo(x: string) {}
+
+// $FlowFixMe - Unused suppression
+
+================================================================================
+`;
+
+exports[`focused.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import {foo} from './dependency';
+
+foo("hello"); // No error
+
+// $FlowFixMe - Unused suppression
+
+=====================================output=====================================
+// @flow
+
+import { foo } from "./dependency";
+
+foo("hello"); // No error
+
+// $FlowFixMe - Unused suppression
+
+================================================================================
+`;
+
+exports[`unrelated.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import {foo} from './dependency';
+
+// $FlowFixMe - Suppresses error in unrelated.js
+foo(123);
+
+=====================================output=====================================
+// @flow
+
+import { foo } from "./dependency";
+
+// $FlowFixMe - Suppresses error in unrelated.js
+foo(123);
+
+================================================================================
+`;

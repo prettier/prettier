@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+let x : $Supertype<number> = 3;
+let y : $Subtype<number> = 3;
+
+=====================================output=====================================
+// @flow
+
+let x: $Supertype<number> = 3;
+let y: $Subtype<number> = 3;
+
+================================================================================
+`;

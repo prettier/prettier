@@ -1,0 +1,137 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`call.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type O<+T> = { (x: T): void }; // Error: +T in a negative position
+interface I<+T> { (x: T): void }; // Error: +T in a negative position (TODO)
+
+=====================================output=====================================
+type O<+T> = { (x: T): void }; // Error: +T in a negative position
+interface I<+T> {
+  (x: T): void;
+} // Error: +T in a negative position (TODO)
+
+================================================================================
+`;
+
+exports[`fun.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type Arg<T> = T => void; // OK
+type ArgNeg<-T> = T => void; // OK
+type ArgPos<+T> = T => void; // Error: +T in negative position
+type FlipArgNeg<-T> = (T => void) => void; // Error: -T in positive position
+type FlipArgPos<+T> = (T => void) => void; // OK
+type Ret<T> = () => T; // OK
+type RetNeg<-T> = () => T; // Error: -T in positive position
+type RetPos<+T> = () => T; // OK
+type FlipRetNeg<-T> = (() => T) => void; // OK
+type FlipRetPos<+T> = (() => T) => void; // Error: +T in negative position
+
+=====================================output=====================================
+type Arg<T> = (T) => void; // OK
+type ArgNeg<-T> = (T) => void; // OK
+type ArgPos<+T> = (T) => void; // Error: +T in negative position
+type FlipArgNeg<-T> = ((T) => void) => void; // Error: -T in positive position
+type FlipArgPos<+T> = ((T) => void) => void; // OK
+type Ret<T> = () => T; // OK
+type RetNeg<-T> = () => T; // Error: -T in positive position
+type RetPos<+T> = () => T; // OK
+type FlipRetNeg<-T> = (() => T) => void; // OK
+type FlipRetPos<+T> = (() => T) => void; // Error: +T in negative position
+
+================================================================================
+`;
+
+exports[`implements.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+interface I<-T> {}
+class C<+T> implements I<T> {} // Error: +T in a negative position
+
+=====================================output=====================================
+interface I<-T> {}
+class C<+T> implements I<T> {} // Error: +T in a negative position
+
+================================================================================
+`;
+
+exports[`method.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type F<-X> = (x: X) => void;
+type A<-X> = {
+  x: <+X>(x: F<X>) => void; 
+}
+
+=====================================output=====================================
+type F<-X> = (x: X) => void;
+type A<-X> = {
+  x: <+X>(x: F<X>) => void,
+};
+
+================================================================================
+`;
+
+exports[`obj.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type Field<T> = {x: T}; // OK
+type FieldNeg<-T> = {x: T}; // Error: -T in neutral position
+type FieldPos<+T> = {x: T}; // Error: +T in neutral position
+type PosField<T> = {+p: T}; // OK
+type PosFieldNeg<-T> = {+p: T}; // Error: -T in positive position
+type PosFieldPos<+T> = {+p: T}; // OK
+type FlipPosFieldNeg<-T> = ({+x: T}) => void; // OK
+type FlipPosFieldPos<+T> = ({+x: T}) => void; // Error: +T in negative position
+type NegField<T> = {-p: T}; // OK
+type NegFieldNeg<-T> = {-p: T}; // OK
+type NegFieldPos<+T> = {-p: T}; // Error: +T in negative position
+type FlipNegFieldNeg<-T> = ({-x: T}) => void; // Error: -T in positive position
+type FlipNegFieldPos<+T> = ({-x: T}) => void; // OK
+type Get<T> = {get p(): T}; // OK
+type GetNeg<-T> = {get p(): T}; // Error: -T in positive position
+type GetPos<+T> = {get p(): T}; // OK
+type Set<T> = {set p(x:T): void}; // OK
+type SetNeg<-T> = {set p(x:T): void}; // OK
+type SetPos<+T> = {set p(x:T): void}; // Error: +T in negative position
+
+=====================================output=====================================
+type Field<T> = { x: T }; // OK
+type FieldNeg<-T> = { x: T }; // Error: -T in neutral position
+type FieldPos<+T> = { x: T }; // Error: +T in neutral position
+type PosField<T> = { +p: T }; // OK
+type PosFieldNeg<-T> = { +p: T }; // Error: -T in positive position
+type PosFieldPos<+T> = { +p: T }; // OK
+type FlipPosFieldNeg<-T> = ({ +x: T }) => void; // OK
+type FlipPosFieldPos<+T> = ({ +x: T }) => void; // Error: +T in negative position
+type NegField<T> = { -p: T }; // OK
+type NegFieldNeg<-T> = { -p: T }; // OK
+type NegFieldPos<+T> = { -p: T }; // Error: +T in negative position
+type FlipNegFieldNeg<-T> = ({ -x: T }) => void; // Error: -T in positive position
+type FlipNegFieldPos<+T> = ({ -x: T }) => void; // OK
+type Get<T> = { get p(): T }; // OK
+type GetNeg<-T> = { get p(): T }; // Error: -T in positive position
+type GetPos<+T> = { get p(): T }; // OK
+type Set<T> = { set p(x: T): void }; // OK
+type SetNeg<-T> = { set p(x: T): void }; // OK
+type SetPos<+T> = { set p(x: T): void }; // Error: +T in negative position
+
+================================================================================
+`;

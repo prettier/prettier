@@ -1,0 +1,129 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`a.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+type Inexact = { data: string; type: string; }
+type Exact = {| data: string; type: string; |}
+
+function foo() {
+  return [
+    {data: "", type: ""},
+    {data: "", type: ""},
+  ];
+}
+
+(foo(): Array<Inexact>);
+(foo(): Array<Exact>);
+
+module.exports = foo;
+
+=====================================output=====================================
+// @flow
+
+type Inexact = { data: string, type: string };
+type Exact = {| data: string, type: string |};
+
+function foo() {
+  return [
+    { data: "", type: "" },
+    { data: "", type: "" },
+  ];
+}
+
+(foo(): Array<Inexact>);
+(foo(): Array<Exact>);
+
+module.exports = foo;
+
+================================================================================
+`;
+
+exports[`b.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+type Inexact = { data: string; type: string; }
+type Exact = {| data: string; type: string; |}
+
+function foo() {
+  return [
+    {data: "", type: ""},
+    {data: "", type: ""},
+  ];
+}
+
+(foo(): Array<Inexact>);
+
+module.exports = foo;
+
+=====================================output=====================================
+// @flow
+
+type Inexact = { data: string, type: string };
+type Exact = {| data: string, type: string |};
+
+function foo() {
+  return [
+    { data: "", type: "" },
+    { data: "", type: "" },
+  ];
+}
+
+(foo(): Array<Inexact>);
+
+module.exports = foo;
+
+================================================================================
+`;
+
+exports[`c.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+type Inexact = { data: string; type: string; }
+type Exact = {| data: string; type: string; |}
+
+function foo() {
+  return [
+    {data: "", type: ""},
+    {data: "", type: ""},
+  ];
+}
+
+(foo(): Array<Exact>);
+
+module.exports = foo;
+
+=====================================output=====================================
+// @flow
+
+type Inexact = { data: string, type: string };
+type Exact = {| data: string, type: string |};
+
+function foo() {
+  return [
+    { data: "", type: "" },
+    { data: "", type: "" },
+  ];
+}
+
+(foo(): Array<Exact>);
+
+module.exports = foo;
+
+================================================================================
+`;

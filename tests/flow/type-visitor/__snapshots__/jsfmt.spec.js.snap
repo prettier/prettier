@@ -1,0 +1,209 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`cjs_literal_array.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+module.exports = ["foo"]; // OK: array literal's exempt from annotation requirement
+
+=====================================output=====================================
+// @flow
+module.exports = ["foo"]; // OK: array literal's exempt from annotation requirement
+
+================================================================================
+`;
+
+exports[`exp.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+export type Config<T> = React$ElementConfig<T>;
+
+=====================================output=====================================
+//@flow
+export type Config<T> = React$ElementConfig<T>;
+
+================================================================================
+`;
+
+exports[`exportDeclared.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+module.exports = require("foo"); // CJS objects have read only props,
+                                 // so we don't need to error here.
+
+=====================================output=====================================
+//@flow
+
+module.exports = require("foo"); // CJS objects have read only props,
+// so we don't need to error here.
+
+================================================================================
+`;
+
+exports[`reexport_cjs_namespace.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+import * as foo from "./cjs_literal_array";
+module.exports = foo; // OK: re-exported CJS namespace is covariant in its properties
+
+=====================================output=====================================
+// @flow
+import * as foo from "./cjs_literal_array";
+module.exports = foo; // OK: re-exported CJS namespace is covariant in its properties
+
+================================================================================
+`;
+
+exports[`testA.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+type T<A,+B> = {a: A, +b: B};
+
+function f<A,B>(a: A, b: B): T<A,B> {
+  return {a, b}
+}
+
+export default f(0, 0); // should just be missing for A, not B
+
+// Compare to \`T<+A, B>\`
+
+=====================================output=====================================
+//@flow
+type T<A, +B> = { a: A, +b: B };
+
+function f<A, B>(a: A, b: B): T<A, B> {
+  return { a, b };
+}
+
+export default f(0, 0); // should just be missing for A, not B
+
+// Compare to \`T<+A, B>\`
+
+================================================================================
+`;
+
+exports[`testB.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+type T<+A,B> = {+a: A, b: B};
+
+function f<A,B>(a: A, b: B): T<A,B> {
+  return {a, b}
+}
+
+export default f(0, 0); // should just be missing for B, not A
+
+=====================================output=====================================
+//@flow
+type T<+A, B> = { +a: A, b: B };
+
+function f<A, B>(a: A, b: B): T<A, B> {
+  return { a, b };
+}
+
+export default f(0, 0); // should just be missing for B, not A
+
+================================================================================
+`;
+
+exports[`testC.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+declare function test<T>(): ((T => T) => any);
+
+export default test(); // missing annotation error since T appears contravariantly.
+
+=====================================output=====================================
+//@flow
+declare function test<T>(): ((T) => T) => any;
+
+export default test(); // missing annotation error since T appears contravariantly.
+
+================================================================================
+`;
+
+exports[`testPolyTOfEvalT.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+import type {Config} from './exp.js';
+declare function f<T>(): Config<T>;
+module.exports = f(); // should pass.
+
+=====================================output=====================================
+//@flow
+
+import type { Config } from "./exp.js";
+declare function f<T>(): Config<T>;
+module.exports = f(); // should pass.
+
+================================================================================
+`;
+
+exports[`type-destructor-trigger-test.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+type React$Element<+ElementType> = {|
+  +props: React$ElementProps<ElementType>,
+|};
+
+function test(
+  transform: React$Element<*>,
+): ?React$Element<*> {
+  return transform;
+}
+
+module.exports = {test}; // Should not error
+
+=====================================output=====================================
+// @flow
+
+type React$Element<+ElementType> = {|
+  +props: React$ElementProps<ElementType>,
+|};
+
+function test(transform: React$Element<*>): ?React$Element<*> {
+  return transform;
+}
+
+module.exports = { test }; // Should not error
+
+================================================================================
+`;

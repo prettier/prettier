@@ -1,0 +1,215 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`basic.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @format
+ * @flow
+ */
+
+(null: empty); // Error: null ~> empty
+
+=====================================output=====================================
+/**
+ * @format
+ * @flow
+ */
+
+(null: empty); // Error: null ~> empty
+
+================================================================================
+`;
+
+exports[`code_frame.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+({p: 42}: {p: empty});
+
+({p: 42}: {p: empty});
+
+({
+  p: 42,
+}: {
+  p: empty,
+});
+
+({p: 42}: {p: empty});
+
+=====================================output=====================================
+// @flow
+({ p: 42 }: { p: empty });
+
+({ p: 42 }: { p: empty });
+
+({
+  p: 42,
+}: {
+  p: empty,
+});
+
+({ p: 42 }: { p: empty });
+
+================================================================================
+`;
+
+exports[`code_frame_omit.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @format
+ * @flow
+ */
+
+{
+  const x = 42;
+  // empty line
+  const y = 42;
+  ([x, y]: [empty, empty]);
+  // empty line
+  // empty line
+  // empty line
+  // empty line
+  // empty line
+  ([x, y]: [empty, empty]);
+  ([x, y]: [empty, empty]);
+}
+
+{
+  const x = 42;
+  // empty line
+  // empty line
+  // empty line
+  const y = 42;
+  ([x, y]: [empty, empty]);
+  // empty line
+  // empty line
+  // empty line
+  // empty line
+  // empty line
+  ([x, y]: [empty, empty]);
+  ([x, y]: [empty, empty]);
+}
+
+{
+  const x = 42;
+  // empty line
+  // empty line
+  // empty line
+  // empty line
+  const y = 42;
+  ([x, y]: [empty, empty]);
+  // empty line
+  // empty line
+  // empty line
+  // empty line
+  // empty line
+  ([x, y]: [empty, empty]);
+  ([x, y]: [empty, empty]);
+}
+
+=====================================output=====================================
+/**
+ * @format
+ * @flow
+ */
+
+{
+  const x = 42;
+  // empty line
+  const y = 42;
+  ([x, y]: [empty, empty]);
+  // empty line
+  // empty line
+  // empty line
+  // empty line
+  // empty line
+  ([x, y]: [empty, empty]);
+  ([x, y]: [empty, empty]);
+}
+
+{
+  const x = 42;
+  // empty line
+  // empty line
+  // empty line
+  const y = 42;
+  ([x, y]: [empty, empty]);
+  // empty line
+  // empty line
+  // empty line
+  // empty line
+  // empty line
+  ([x, y]: [empty, empty]);
+  ([x, y]: [empty, empty]);
+}
+
+{
+  const x = 42;
+  // empty line
+  // empty line
+  // empty line
+  // empty line
+  const y = 42;
+  ([x, y]: [empty, empty]);
+  // empty line
+  // empty line
+  // empty line
+  // empty line
+  // empty line
+  ([x, y]: [empty, empty]);
+  ([x, y]: [empty, empty]);
+}
+
+================================================================================
+`;
+
+exports[`group.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @format
+ * @flow
+ */
+
+({
+  a: 1,
+  b: 2,
+  c: 3,
+}: {
+  a: string,
+  b: string,
+  c: string,
+});
+
+=====================================output=====================================
+/**
+ * @format
+ * @flow
+ */
+
+({
+  a: 1,
+  b: 2,
+  c: 3,
+}: {
+  a: string,
+  b: string,
+  c: string,
+});
+
+================================================================================
+`;

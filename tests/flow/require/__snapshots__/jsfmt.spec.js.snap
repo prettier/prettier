@@ -108,6 +108,26 @@ printWidth: 80
 ================================================================================
 `;
 
+exports[`exports-type.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/** @flow */
+
+export type MyType = number;
+export default {};
+
+=====================================output=====================================
+/** @flow */
+
+export type MyType = number;
+export default {};
+
+================================================================================
+`;
+
 exports[`not_builtin_require.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -226,6 +246,26 @@ require(\`\${"./E"}\`); // error: but only if they have no expressions
 
 // require.call is allowed but circumverts Flow's static analysis
 require.call(null, "DoesNotExist");
+
+================================================================================
+`;
+
+exports[`require-type-error.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/* @flow */
+
+// this errors, need to use 'import type' to import 'MyType'
+const {MyType} = require('./exports-type');
+
+=====================================output=====================================
+/* @flow */
+
+// this errors, need to use 'import type' to import 'MyType'
+const { MyType } = require("./exports-type");
 
 ================================================================================
 `;

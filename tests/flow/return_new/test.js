@@ -20,4 +20,4 @@ function makeC<T>(x: T): C<T> { return {x}; }
 function makeUnion(): number | {x: string} {
   return {x: 'x'};
 }
-(new makeUnion(): {x: string}); // error: `number` returns {}, missing prop x
+(new makeUnion(): {x: string}); // no error: `number` returns unsealed {} that might have prop x

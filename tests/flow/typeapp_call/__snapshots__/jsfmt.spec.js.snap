@@ -1,0 +1,234 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`array.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+var arr = new Array<string>(10); // TODO: also support empty args
+arr[0] = 0; // error: number ~> string
+
+=====================================output=====================================
+var arr = new Array<string>(10); // TODO: also support empty args
+arr[0] = 0; // error: number ~> string
+
+================================================================================
+`;
+
+exports[`call.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+function cond<T>(test: boolean, a: T, b: T): T {
+  if (test) {
+    return a;
+  } else {
+    return b;
+  }
+}
+
+declare var test: boolean;
+
+// T is implicitly instantiated and will widen based on inputs
+(cond(test, 0, ""): void); // errors: number|string ~> void
+
+// T is explicitly instantiated to number
+(cond<number>(test, 0, ""): void); // error: string ~> number, number ~> void
+
+// can't explicitly instantiate non-poly functions
+function f() {}
+f<number>(); // error: expected polymorphic type
+
+// object ~> explicit instantiation of property identifier call
+declare var o1: { m<T>(x: T): T };
+(o1.m<string>(0): void); // error: number ~> string, string ~> void
+
+// object ~> explicit instantiation of property expression call
+declare var o2: { [string]: <T>(x: T) => T };
+(o2.m<string>(0): void); // error: number ~> string, string ~> void
+
+// instance ~> explicit instantiation of property identifier call
+declare class O3 { m<T>(x: T): T }
+declare var o3: O3;
+(o3.m<string>(0): void); // error: number ~> string, string ~> void
+
+// instance ~> explicit instantiation of property expression call
+/* TODO: calling computed properties on instances is broken at the moment
+declare class O4 { [string]: <T>(x: T) => T }
+declare var o4: O4;
+(o4.m<string>(0): void); // error: number ~> string, string ~> void
+*/
+
+// super.m<T>()
+class A { m<T>(x: T): T { return x } }
+class B extends A {
+  foo(x: number): void {
+    return super.m<string>(x); // error: number ~> string, string ~> void
+  }
+}
+
+// predicated calls
+function pred<T>(x: T): T { return x };
+if (pred<string>(0)) {} // number ~> string
+
+=====================================output=====================================
+function cond<T>(test: boolean, a: T, b: T): T {
+  if (test) {
+    return a;
+  } else {
+    return b;
+  }
+}
+
+declare var test: boolean;
+
+// T is implicitly instantiated and will widen based on inputs
+(cond(test, 0, ""): void); // errors: number|string ~> void
+
+// T is explicitly instantiated to number
+(cond<number>(test, 0, ""): void); // error: string ~> number, number ~> void
+
+// can't explicitly instantiate non-poly functions
+function f() {}
+f<number>(); // error: expected polymorphic type
+
+// object ~> explicit instantiation of property identifier call
+declare var o1: { m<T>(x: T): T };
+(o1.m<string>(0): void); // error: number ~> string, string ~> void
+
+// object ~> explicit instantiation of property expression call
+declare var o2: { [string]: <T>(x: T) => T };
+(o2.m<string>(0): void); // error: number ~> string, string ~> void
+
+// instance ~> explicit instantiation of property identifier call
+declare class O3 {
+  m<T>(x: T): T;
+}
+declare var o3: O3;
+(o3.m<string>(0): void); // error: number ~> string, string ~> void
+
+// instance ~> explicit instantiation of property expression call
+/* TODO: calling computed properties on instances is broken at the moment
+declare class O4 { [string]: <T>(x: T) => T }
+declare var o4: O4;
+(o4.m<string>(0): void); // error: number ~> string, string ~> void
+*/
+
+// super.m<T>()
+class A {
+  m<T>(x: T): T {
+    return x;
+  }
+}
+class B extends A {
+  foo(x: number): void {
+    return super.m<string>(x); // error: number ~> string, string ~> void
+  }
+}
+
+// predicated calls
+function pred<T>(x: T): T {
+  return x;
+}
+if (pred<string>(0)) {
+} // number ~> string
+
+================================================================================
+`;
+
+exports[`idx.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+declare var idx: $Facebookism$Idx;
+idx<string>();
+
+=====================================output=====================================
+declare var idx: $Facebookism$Idx;
+idx<string>();
+
+================================================================================
+`;
+
+exports[`new.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class C<T> {
+  x: T;
+  m1(x: T) {}
+  m2(x: T) {}
+}
+
+var c1 = new C;
+c1.m1(0);
+c1.m2("");
+(c1.x: void); // error: number|string ~> void
+
+var c2 = new C<string>;
+c2.m1(0); // error: number ~> string
+c2.m2("");
+(c2.x: void); // error: string ~> void
+
+class NonPoly {}
+new NonPoly<string>; // error: expected polymorphic type
+
+function F<T>(x: T, y: T) {}
+new F<string>("foo", "bar"); // ok
+new F<string>("foo", 0); // error, number ~> string
+
+function NonPolyF() {}
+new NonPolyF<string>; // error: expected polymorphic type
+
+=====================================output=====================================
+class C<T> {
+  x: T;
+  m1(x: T) {}
+  m2(x: T) {}
+}
+
+var c1 = new C();
+c1.m1(0);
+c1.m2("");
+(c1.x: void); // error: number|string ~> void
+
+var c2 = new C<string>();
+c2.m1(0); // error: number ~> string
+c2.m2("");
+(c2.x: void); // error: string ~> void
+
+class NonPoly {}
+new NonPoly<string>(); // error: expected polymorphic type
+
+function F<T>(x: T, y: T) {}
+new F<string>("foo", "bar"); // ok
+new F<string>("foo", 0); // error, number ~> string
+
+function NonPolyF() {}
+new NonPolyF<string>(); // error: expected polymorphic type
+
+================================================================================
+`;
+
+exports[`require.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+require<string>("foo");
+requireLazy<string>("foo");
+
+=====================================output=====================================
+require<string>("foo");
+requireLazy<string>("foo");
+
+================================================================================
+`;

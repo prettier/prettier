@@ -1,0 +1,1119 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`any.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+declare var any: any;
+any.mmm(0);
+any.fff = 0;
+
+declare var any_obj: Object;
+any_obj.mmm(0);
+any_obj.fff = 0;
+
+=====================================output=====================================
+// @flow
+
+declare var any: any;
+any.mmm(0);
+any.fff = 0;
+
+declare var any_obj: Object;
+any_obj.mmm(0);
+any_obj.fff = 0;
+
+================================================================================
+`;
+
+exports[`array.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+type NumType = Array<{|+nums: number|}>;   // TODO
+type ReadOnlyNumType = $ReadOnlyArray<{|+nums: number|}>;
+
+function foo(num: NumType) {
+  num[0];
+}
+
+function bar(num: ReadOnlyNumType) {
+  num[0];
+}
+
+function baz(arr: Array<string>) {
+  arr;
+}
+
+function bliffl(arr: Array<?string>) {
+  arr;
+}
+
+function blah(arr: Array<string | number>) {
+  arr;
+}
+
+=====================================output=====================================
+// @flow
+
+type NumType = Array<{| +nums: number |}>; // TODO
+type ReadOnlyNumType = $ReadOnlyArray<{| +nums: number |}>;
+
+function foo(num: NumType) {
+  num[0];
+}
+
+function bar(num: ReadOnlyNumType) {
+  num[0];
+}
+
+function baz(arr: Array<string>) {
+  arr;
+}
+
+function bliffl(arr: Array<?string>) {
+  arr;
+}
+
+function blah(arr: Array<string | number>) {
+  arr;
+}
+
+================================================================================
+`;
+
+exports[`callable-object.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+declare opaque type O1;
+declare opaque type O2;
+declare opaque type O3;
+declare opaque type O4;
+
+type Obj1 = {
+  (...args: $ReadOnlyArray<mixed>): void,
+  f: <T>(x: T) => T
+};
+
+type Obj2 = {
+  $call: (...args: $ReadOnlyArray<mixed>) => void, // named prop
+  f: <T>(x: T) => T
+};
+
+type Obj3 = {
+  [[call]]: (...args: $ReadOnlyArray<mixed>) => void,
+  f: <T>(x: T) => T
+};
+
+type Obj4 = {
+  (...args: $ReadOnlyArray<mixed>): O1,
+  (...args: $ReadOnlyArray<mixed>): O2,
+  $call: (...args: $ReadOnlyArray<mixed>) => O3, // named prop
+  [[call]]: (...args: $ReadOnlyArray<mixed>) => O4,
+  f: <T>(x: T) => T
+};
+
+type Obj5 = {
+  [[call]]: (...args: $ReadOnlyArray<mixed>) => O4,
+  $call: (...args: $ReadOnlyArray<mixed>) => O3, // named prop
+  (...args: $ReadOnlyArray<mixed>): O1,
+  (...args: $ReadOnlyArray<mixed>): O2,
+  f: <T>(x: T) => T,
+};
+
+=====================================output=====================================
+// @flow
+
+declare opaque type O1;
+declare opaque type O2;
+declare opaque type O3;
+declare opaque type O4;
+
+type Obj1 = {
+  (...args: $ReadOnlyArray<mixed>): void,
+  f: <T>(x: T) => T,
+};
+
+type Obj2 = {
+  $call: (...args: $ReadOnlyArray<mixed>) => void, // named prop
+  f: <T>(x: T) => T,
+};
+
+type Obj3 = {
+  [[call]]: (...args: $ReadOnlyArray<mixed>) => void,
+  f: <T>(x: T) => T,
+};
+
+type Obj4 = {
+  (...args: $ReadOnlyArray<mixed>): O1,
+  (...args: $ReadOnlyArray<mixed>): O2,
+  $call: (...args: $ReadOnlyArray<mixed>) => O3, // named prop
+  [[call]]: (...args: $ReadOnlyArray<mixed>) => O4,
+  f: <T>(x: T) => T,
+};
+
+type Obj5 = {
+  [[call]]: (...args: $ReadOnlyArray<mixed>) => O4,
+  $call: (...args: $ReadOnlyArray<mixed>) => O3, // named prop
+  (...args: $ReadOnlyArray<mixed>): O1,
+  (...args: $ReadOnlyArray<mixed>): O2,
+  f: <T>(x: T) => T,
+};
+
+================================================================================
+`;
+
+exports[`destructuring.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+let [x, y] = [1, 2];
+
+/**
+ * Test what happens when the destructuring is unevaluated. In this case,
+ * \`this\` in a function is unbound, so we never actually find out the type of
+ * \`this.returnsATuple()\` is; thus, we never evaluate \`b\` and so type-at-pos
+ * returns EmptyT.
+ */
+export const X = {
+  returnsATuple: function(): [number, number] {
+    return [1, 2];
+  },
+
+  test: function() {
+    let [a, b] = this.returnsATuple(); // TODO what do we expect here?
+  }
+};
+
+=====================================output=====================================
+// @flow
+
+let [x, y] = [1, 2];
+
+/**
+ * Test what happens when the destructuring is unevaluated. In this case,
+ * \`this\` in a function is unbound, so we never actually find out the type of
+ * \`this.returnsATuple()\` is; thus, we never evaluate \`b\` and so type-at-pos
+ * returns EmptyT.
+ */
+export const X = {
+  returnsATuple: function (): [number, number] {
+    return [1, 2];
+  },
+
+  test: function () {
+    let [a, b] = this.returnsATuple(); // TODO what do we expect here?
+  },
+};
+
+================================================================================
+`;
+
+exports[`generics.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+class C<X> { }
+var cn: C<number> = new C;
+cn;
+
+function foo() { return C; }
+var D = foo();
+var dn: D<number> = new C;
+dn;
+
+type E<X> = C<X>;
+var en: E<number> = new C;
+en;
+
+type F<X> = C<void>;
+var fn: F<number> = new C;
+fn;
+
+type O<X> = { x: X };
+var on: O<number> = { x: 0 };
+on;
+
+type Mono = C<void>;
+
+/*
+ * $FlowFixMe
+ */
+type Empty = empty;
+declare var a: Empty.T<number>;
+
+=====================================output=====================================
+// @flow
+
+class C<X> {}
+var cn: C<number> = new C();
+cn;
+
+function foo() {
+  return C;
+}
+var D = foo();
+var dn: D<number> = new C();
+dn;
+
+type E<X> = C<X>;
+var en: E<number> = new C();
+en;
+
+type F<X> = C<void>;
+var fn: F<number> = new C();
+fn;
+
+type O<X> = { x: X };
+var on: O<number> = { x: 0 };
+on;
+
+type Mono = C<void>;
+
+/*
+ * $FlowFixMe
+ */
+type Empty = empty;
+declare var a: Empty.T<number>;
+
+================================================================================
+`;
+
+exports[`implicit-instantiation.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+function identity<T>(x: T): T { return x }
+
+identity<_>(3);
+identity<_>('string');
+
+declare function createObj<T>(): {x: T};
+
+const x = createObj<_>();
+x.x = 3;
+x.x = "string";
+
+=====================================output=====================================
+//@flow
+
+function identity<T>(x: T): T {
+  return x;
+}
+
+identity<_>(3);
+identity<_>("string");
+
+declare function createObj<T>(): { x: T };
+
+const x = createObj<_>();
+x.x = 3;
+x.x = "string";
+
+================================================================================
+`;
+
+exports[`interface.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+class C {}
+class D {}
+
+type I1 = interface {};
+type I2 = interface { (): number };
+type I3 = interface { +[my_key: string]: number };
+type I4 = interface { -[my_key: string]: number };
+type I5 = interface { [my_key: string]: number };
+type I6 = interface extends C, D { r(): number };
+type I7 = interface extends C { (): number };
+
+=====================================output=====================================
+// @flow
+
+class C {}
+class D {}
+
+type I1 = interface {};
+type I2 = interface { (): number };
+type I3 = interface { +[my_key: string]: number };
+type I4 = interface { -[my_key: string]: number };
+type I5 = interface { [my_key: string]: number };
+type I6 = interface extends C, D { r(): number };
+type I7 = interface extends C { (): number };
+
+================================================================================
+`;
+
+exports[`keyMirrorRecursive.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+export type KeyMirrorRecursive<O> = $ObjMapi<
+  O,
+  (<X: {}>(mixed, X) => KeyMirrorRecursive<X>) & (<K>(K) => K),
+>;
+
+declare function keyMirrorRecursive<O: {}>(
+  obj: O,
+  _: void,
+): KeyMirrorRecursive<O>;
+
+module.exports = keyMirrorRecursive;
+
+=====================================output=====================================
+// @flow
+
+export type KeyMirrorRecursive<O> = $ObjMapi<
+  O,
+  (<X: {}>(mixed, X) => KeyMirrorRecursive<X>) & (<K>(K) => K)
+>;
+
+declare function keyMirrorRecursive<O: {}>(
+  obj: O,
+  _: void
+): KeyMirrorRecursive<O>;
+
+module.exports = keyMirrorRecursive;
+
+================================================================================
+`;
+
+exports[`mixed.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+type A = {
+  kind: 'A',
+  metadata: {[key: string]: mixed},
+};
+
+type B = {
+  kind: 'B',
+  metadata: {[key: string]: mixed},
+};
+
+type AB = A | B;
+
+const foo: Array<AB> = [];
+
+foo.forEach(ab => {
+  const local = ab;
+});
+
+=====================================output=====================================
+// @flow
+
+type A = {
+  kind: "A",
+  metadata: { [key: string]: mixed },
+};
+
+type B = {
+  kind: "B",
+  metadata: { [key: string]: mixed },
+};
+
+type AB = A | B;
+
+const foo: Array<AB> = [];
+
+foo.forEach((ab) => {
+  const local = ab;
+});
+
+================================================================================
+`;
+
+exports[`opaque.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+export opaque type Foo = number;
+declare var foo: Foo;
+
+declare opaque type Bar: number;
+declare var bar: Bar;
+
+declare opaque type Baz;
+declare var baz: Baz;
+
+opaque type Bak<A> = number | A;
+declare var bak: Bak<string>;
+
+declare opaque type Bam<A>
+declare var bam: Bam<string>;
+
+import type { Opaque, PolyTransparent, PolyOpaque } from './opaque-lib';
+declare var opaque: Opaque;
+declare var polyTransparent: PolyTransparent<string>;
+declare var polyOpaque: PolyOpaque<string>;
+
+import { fOpaque } from './opaque-lib';
+const o = fOpaque();
+
+=====================================output=====================================
+// @flow
+
+export opaque type Foo = number;
+declare var foo: Foo;
+
+declare opaque type Bar: number;
+declare var bar: Bar;
+
+declare opaque type Baz;
+declare var baz: Baz;
+
+opaque type Bak<A> = number | A;
+declare var bak: Bak<string>;
+
+declare opaque type Bam<A>;
+declare var bam: Bam<string>;
+
+import type { Opaque, PolyTransparent, PolyOpaque } from "./opaque-lib";
+declare var opaque: Opaque;
+declare var polyTransparent: PolyTransparent<string>;
+declare var polyOpaque: PolyOpaque<string>;
+
+import { fOpaque } from "./opaque-lib";
+const o = fOpaque();
+
+================================================================================
+`;
+
+exports[`opaque-lib.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+declare opaque type Poly$Opaque<A>;
+
+export type PolyTransparent<A> = Poly$Opaque<A>;
+export opaque type Opaque = number;
+export opaque type PolyOpaque<A> = Poly$Opaque<A>;
+
+declare export function fOpaque(): Opaque;
+
+=====================================output=====================================
+// @flow
+
+declare opaque type Poly$Opaque<A>;
+
+export type PolyTransparent<A> = Poly$Opaque<A>;
+export opaque type Opaque = number;
+export opaque type PolyOpaque<A> = Poly$Opaque<A>;
+
+declare export function fOpaque(): Opaque;
+
+================================================================================
+`;
+
+exports[`optional.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+function foo(x?: string) {
+  return x;
+}
+
+foo();
+
+function bar(obj: { x?: string }) {
+  return obj.x;
+}
+
+function qux(x?) {
+  return x;
+}
+
+=====================================output=====================================
+// @flow
+
+function foo(x?: string) {
+  return x;
+}
+
+foo();
+
+function bar(obj: { x?: string }) {
+  return obj.x;
+}
+
+function qux(x?) {
+  return x;
+}
+
+================================================================================
+`;
+
+exports[`recursive.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+var o = { m() { return this; } };
+o.m();
+
+function alist(n: number) {
+  if (n <= 0) return null;
+  else return { data: n, next: alist(n - 1) };
+}
+
+const a = alist(10);
+
+function blist(n: number) {
+  if (n <= 0) return null;
+  if (n > 1)  return "";
+  return {
+    data: n,
+    a_next: alist(n - 1),
+    next: blist(n-1),
+  };
+}
+
+function clist(n: number) {
+  if (n <= 0) return null;
+  if (n > 1) return "";
+  return {
+    data: n,
+    a_next: alist(n - 1),
+    b_next: blist(n - 1),
+    next: clist(n - 1),
+  };
+}
+
+function foo(x) {
+  return x(x);
+}
+
+foo(x => x);
+
+type Foo = { n: typeof foo };
+function bar(x: Foo) {}
+
+// The following exhibits a use of the RemoveTopLevelTvarVisitor
+//
+// mu X . ((X | string) | string)
+// ==>
+// mu X . ((Bot | string) | string)
+// ==>
+// mu X . (string | string)
+// ==>
+// mu X . string
+// ==>
+// string
+let x = "";
+while (0 < 1) {
+  x = (0 < 1) ? x : "";
+}
+x;
+
+type CA<+T> = $ReadOnlyArray<CA<T>>;
+
+=====================================output=====================================
+// @flow
+
+var o = {
+  m() {
+    return this;
+  },
+};
+o.m();
+
+function alist(n: number) {
+  if (n <= 0) return null;
+  else return { data: n, next: alist(n - 1) };
+}
+
+const a = alist(10);
+
+function blist(n: number) {
+  if (n <= 0) return null;
+  if (n > 1) return "";
+  return {
+    data: n,
+    a_next: alist(n - 1),
+    next: blist(n - 1),
+  };
+}
+
+function clist(n: number) {
+  if (n <= 0) return null;
+  if (n > 1) return "";
+  return {
+    data: n,
+    a_next: alist(n - 1),
+    b_next: blist(n - 1),
+    next: clist(n - 1),
+  };
+}
+
+function foo(x) {
+  return x(x);
+}
+
+foo((x) => x);
+
+type Foo = { n: typeof foo };
+function bar(x: Foo) {}
+
+// The following exhibits a use of the RemoveTopLevelTvarVisitor
+//
+// mu X . ((X | string) | string)
+// ==>
+// mu X . ((Bot | string) | string)
+// ==>
+// mu X . (string | string)
+// ==>
+// mu X . string
+// ==>
+// string
+let x = "";
+while (0 < 1) {
+  x = 0 < 1 ? x : "";
+}
+x;
+
+type CA<+T> = $ReadOnlyArray<CA<T>>;
+
+================================================================================
+`;
+
+exports[`stack-overflow-bugfix.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+declare class C<X> { }
+type S<A, B> = (value: B) => S<A, C<B>>;
+type T = { fn<A, B>(): S<A, B> };
+
+=====================================output=====================================
+// @flow
+
+declare class C<X> {}
+type S<A, B> = (value: B) => S<A, C<B>>;
+type T = { fn<A, B>(): S<A, B> };
+
+================================================================================
+`;
+
+exports[`subst.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+const React = require("React");
+
+declare opaque type O<T>;
+type Mono = { m: number };
+type Poly<X> = { f: X };
+
+declare function mapUnion<TNext>(fn: O<TNext> | TNext): TNext;
+declare function map<TNext>(fn: TNext): TNext;
+
+declare var p: Poly<number>;
+const p1 = mapUnion(p);
+const p2 = map(p);
+
+declare var m: Mono;
+const m1 = mapUnion(m);
+const m2 = map(m);
+
+declare var J: any;
+const j1 = mapUnion(<J/>);
+const j2 = map(<J/>);
+
+=====================================output=====================================
+// @flow
+
+const React = require("React");
+
+declare opaque type O<T>;
+type Mono = { m: number };
+type Poly<X> = { f: X };
+
+declare function mapUnion<TNext>(fn: O<TNext> | TNext): TNext;
+declare function map<TNext>(fn: TNext): TNext;
+
+declare var p: Poly<number>;
+const p1 = mapUnion(p);
+const p2 = map(p);
+
+declare var m: Mono;
+const m1 = mapUnion(m);
+const m2 = map(m);
+
+declare var J: any;
+const j1 = mapUnion(<J />);
+const j2 = map(<J />);
+
+================================================================================
+`;
+
+exports[`tparam_defaults.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+class Bar {}
+
+type One<T = Bar> = {}
+
+type Two<T1 = Bar, T2 = Bar> = {}
+
+type Three<T1 = Bar, T2 = number, T3 = Bar> = {}
+
+const one1: One<string> = {};
+const one2: One<Bar> = {};
+
+const two1: Two<string, Bar> = {};
+const two2: Two<Bar, Bar> = {};
+const two3: Two<Bar, string> = {};
+
+const three1: Three<Bar, number, Bar> = {};
+const three2: Three<Bar, string, Bar> = {};
+const three3: Three<string, number, Bar> = {};
+const three4: Three<Bar, number, string> = {};
+const three5: Three<> = {};
+// $FlowFixMe: too many type params
+const three6: Three<Bar, number, Bar, Bar> = {};
+const three7: Three<Bar, number> = {};
+
+=====================================output=====================================
+// @flow
+
+class Bar {}
+
+type One<T = Bar> = {};
+
+type Two<T1 = Bar, T2 = Bar> = {};
+
+type Three<T1 = Bar, T2 = number, T3 = Bar> = {};
+
+const one1: One<string> = {};
+const one2: One<Bar> = {};
+
+const two1: Two<string, Bar> = {};
+const two2: Two<Bar, Bar> = {};
+const two3: Two<Bar, string> = {};
+
+const three1: Three<Bar, number, Bar> = {};
+const three2: Three<Bar, string, Bar> = {};
+const three3: Three<string, number, Bar> = {};
+const three4: Three<Bar, number, string> = {};
+const three5: Three<> = {};
+// $FlowFixMe: too many type params
+const three6: Three<Bar, number, Bar, Bar> = {};
+const three7: Three<Bar, number> = {};
+
+================================================================================
+`;
+
+exports[`type-alias.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+type A = A;
+type B = B | null;
+type C = A;
+type D = { x: number };
+type E = $Exact<D>;
+type F = ?D;
+
+type P<T: string> = { t: T } | boolean;
+declare var a: P<string>;
+if (typeof a !== "boolean") a;
+
+function f<X>() {
+  type A = X;
+  type B = B | null;
+  type C = A;
+  type D = { x: X };
+  type E = $Exact<X>;
+  type F = ?X;
+}
+
+type G<X> = X | null;
+type H = G<number>;
+type I = G<G<number> | string>
+type J<X> = (<X>(x: X) => void) | X | null;
+type K = J<number>;
+type L<X, Y> = (<X>(x: X, y: Y) => void) | X | Y | null;
+type M<Z> = L<number, Z>;
+type N<A> = { x: N<A> } | null;
+type O = N<number>
+
+class Klass {};
+type TKlass = typeof Klass;
+
+=====================================output=====================================
+// @flow
+
+type A = A;
+type B = B | null;
+type C = A;
+type D = { x: number };
+type E = $Exact<D>;
+type F = ?D;
+
+type P<T: string> = { t: T } | boolean;
+declare var a: P<string>;
+if (typeof a !== "boolean") a;
+
+function f<X>() {
+  type A = X;
+  type B = B | null;
+  type C = A;
+  type D = { x: X };
+  type E = $Exact<X>;
+  type F = ?X;
+}
+
+type G<X> = X | null;
+type H = G<number>;
+type I = G<G<number> | string>;
+type J<X> = (<X>(x: X) => void) | X | null;
+type K = J<number>;
+type L<X, Y> = (<X>(x: X, y: Y) => void) | X | Y | null;
+type M<Z> = L<number, Z>;
+type N<A> = { x: N<A> } | null;
+type O = N<number>;
+
+class Klass {}
+type TKlass = typeof Klass;
+
+================================================================================
+`;
+
+exports[`type-destructor-trigger.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+// The following causes an RTypeAlias to annotate a TypeDestructorTriggerT. It
+// is wrong to use that name to reconstruct an alias because the TypeDestructorTriggerT
+// might hide a type-app within. Instead the TypeDestructorTriggerT should have
+// actually triggered the construction of another type that we'll end up normalizing
+// as well.
+
+import keyMirrorRecursive from './keyMirrorRecursive';
+import typeof KeyMirrorRecursive from './keyMirrorRecursive';
+const keyMirrorRecursiveObj = keyMirrorRecursive({ A: '' });
+
+module.exports = keyMirrorRecursiveObj;
+
+=====================================output=====================================
+// @flow
+
+// The following causes an RTypeAlias to annotate a TypeDestructorTriggerT. It
+// is wrong to use that name to reconstruct an alias because the TypeDestructorTriggerT
+// might hide a type-app within. Instead the TypeDestructorTriggerT should have
+// actually triggered the construction of another type that we'll end up normalizing
+// as well.
+
+import keyMirrorRecursive from "./keyMirrorRecursive";
+import typeof KeyMirrorRecursive from "./keyMirrorRecursive";
+const keyMirrorRecursiveObj = keyMirrorRecursive({ A: "" });
+
+module.exports = keyMirrorRecursiveObj;
+
+================================================================================
+`;
+
+exports[`unions.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+declare function random(): boolean;
+
+let foo = () => "";
+if (random()) {
+  foo = () => 0;
+}
+foo;
+
+let bar = (x: string) => {};
+if (random()) {
+  bar = (x: number) => {};
+}
+bar;
+
+declare var numObj: { +f: number };
+declare var strObj: { +f: string };
+
+let obj = numObj;
+if (random()) {
+  obj = strObj;
+}
+obj;
+
+class G<X> {
+  x: X;
+  constructor(x: X) {
+    this.x = x;
+  }
+  get_X(): X {
+    return this.x;
+  }
+  set_X(x: X): void {
+    this.x = x;
+  }
+}
+
+var sg: G<string> = new G("");
+var ig = new G(1);
+
+var g = (0 < 1) ? sg : ig;
+g.get_X
+g.set_X
+
+// exhibits use of Ty_normalizer.simplify_unions_inters_visitor
+
+declare var top : mixed | mixed | number;
+top;
+
+declare var top_g : { g: mixed | mixed | number};
+top_g;
+
+type A = { f: number }
+var a1 = { f: 1 };
+var a2 = { f: 2 };
+var a = (0<1) ? a1 : a2;
+
+declare var maybe_empty: ?empty;
+
+=====================================output=====================================
+// @flow
+
+declare function random(): boolean;
+
+let foo = () => "";
+if (random()) {
+  foo = () => 0;
+}
+foo;
+
+let bar = (x: string) => {};
+if (random()) {
+  bar = (x: number) => {};
+}
+bar;
+
+declare var numObj: { +f: number };
+declare var strObj: { +f: string };
+
+let obj = numObj;
+if (random()) {
+  obj = strObj;
+}
+obj;
+
+class G<X> {
+  x: X;
+  constructor(x: X) {
+    this.x = x;
+  }
+  get_X(): X {
+    return this.x;
+  }
+  set_X(x: X): void {
+    this.x = x;
+  }
+}
+
+var sg: G<string> = new G("");
+var ig = new G(1);
+
+var g = 0 < 1 ? sg : ig;
+g.get_X;
+g.set_X;
+
+// exhibits use of Ty_normalizer.simplify_unions_inters_visitor
+
+declare var top: mixed | mixed | number;
+top;
+
+declare var top_g: { g: mixed | mixed | number };
+top_g;
+
+type A = { f: number };
+var a1 = { f: 1 };
+var a2 = { f: 2 };
+var a = 0 < 1 ? a1 : a2;
+
+declare var maybe_empty: ?empty;
+
+================================================================================
+`;

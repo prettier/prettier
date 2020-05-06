@@ -12,15 +12,15 @@ printWidth: 80
 
 var EventEmitter = require('events').EventEmitter;
 
-// This pattern seems to cause the trouble.
+// Bad is deferred on decl merge
 var Bad = Object.assign({}, EventEmitter.prototype, {
   foo: function(): string { return 'hi'; }
 });
 
-// Calling Bad.foo() in the same file doesn't error
+// Calling Bad.foo() adds \`Bad\` as \`this\`-type of \`foo\`
 var bad: number = Bad.foo();
 
-// Doesn't repro if I extend the class myself
+// Good is not deferred, as MyEventEmitter is local
 class MyEventEmitter extends events$EventEmitter {}
 var Good = Object.assign({}, MyEventEmitter.prototype, {
   foo: function(): string { return 'hi'; }
@@ -29,8 +29,8 @@ var Good = Object.assign({}, MyEventEmitter.prototype, {
 var good: number = Good.foo();
 
 module.exports = {
-  Bad: Bad,
-  Good: Good,
+  Bad: Bad, // assert_ground doesn't scrub out \`this\` type of \`foo\`
+  Good: Good, // assert_ground scrubs out \`this\` type of \`foo\`
 };
 
 =====================================output=====================================
@@ -40,17 +40,17 @@ module.exports = {
 
 var EventEmitter = require("events").EventEmitter;
 
-// This pattern seems to cause the trouble.
+// Bad is deferred on decl merge
 var Bad = Object.assign({}, EventEmitter.prototype, {
   foo: function (): string {
     return "hi";
   },
 });
 
-// Calling Bad.foo() in the same file doesn't error
+// Calling Bad.foo() adds \`Bad\` as \`this\`-type of \`foo\`
 var bad: number = Bad.foo();
 
-// Doesn't repro if I extend the class myself
+// Good is not deferred, as MyEventEmitter is local
 class MyEventEmitter extends events$EventEmitter {}
 var Good = Object.assign({}, MyEventEmitter.prototype, {
   foo: function (): string {
@@ -61,8 +61,8 @@ var Good = Object.assign({}, MyEventEmitter.prototype, {
 var good: number = Good.foo();
 
 module.exports = {
-  Bad: Bad,
-  Good: Good,
+  Bad: Bad, // assert_ground doesn't scrub out \`this\` type of \`foo\`
+  Good: Good, // assert_ground scrubs out \`this\` type of \`foo\`
 };
 
 ================================================================================
@@ -80,17 +80,12 @@ printWidth: 80
 
 var A = require('./A.js');
 
-var good: number = A.Good.foo();
+var good: number = A.Good.foo(); // string ~> number
 
 var f = A.Bad.foo; // Property access is fine
-var bad_: number = f(); // Calling the function is fine
+var bad_: number = f(); // error: string ~> number
 
-var bad: number = A.Bad.foo(); // Method call is not fine
-/*
-B.js|12 col 1 error|  call of method foo
-|| Property not found in
-A.js|8 col 23 error|  object literal
-*/
+var bad: number = A.Bad.foo(); // error: string, number (but \`this\` types are compatible)
 
 =====================================output=====================================
 /**
@@ -99,17 +94,12 @@ A.js|8 col 23 error|  object literal
 
 var A = require("./A.js");
 
-var good: number = A.Good.foo();
+var good: number = A.Good.foo(); // string ~> number
 
 var f = A.Bad.foo; // Property access is fine
-var bad_: number = f(); // Calling the function is fine
+var bad_: number = f(); // error: string ~> number
 
-var bad: number = A.Bad.foo(); // Method call is not fine
-/*
-B.js|12 col 1 error|  call of method foo
-|| Property not found in
-A.js|8 col 23 error|  object literal
-*/
+var bad: number = A.Bad.foo(); // error: string, number (but \`this\` types are compatible)
 
 ================================================================================
 `;
@@ -123,6 +113,18 @@ printWidth: 80
 // @flow
 
 (Object.assign.apply(null, [{}, {a: 1}, {b: 'foo'}]): {a: number, b: string});
+(Object.assign.apply(null, [{}, {a: 1}, {b: 2}]): {a: number, b: string}); // error
+(Object.assign.apply({}, {a: 1}, {b: 'foo'}): {a: number, b: string}); // error
+
+(Object.assign.call({}, [{a: 1}, {b: 'foo'}]): {a: number, b: string}); // error
+(Object.assign.call({}, {a: 1}, {b: 'foo'}): {a: number, b: string});
+(Object.assign.call({}, {a: 1}, {b: 2}): {a: number, b: string}); // error
+
+(Object.assign.length : number);
+(Object.assign.length : string); // error
+
+(Object.assign.name : number); // error
+(Object.assign.name : string);
 
 =====================================output=====================================
 // @flow
@@ -131,6 +133,18 @@ printWidth: 80
   a: number,
   b: string,
 });
+(Object.assign.apply(null, [{}, { a: 1 }, { b: 2 }]): { a: number, b: string }); // error
+(Object.assign.apply({}, { a: 1 }, { b: "foo" }): { a: number, b: string }); // error
+
+(Object.assign.call({}, [{ a: 1 }, { b: "foo" }]): { a: number, b: string }); // error
+(Object.assign.call({}, { a: 1 }, { b: "foo" }): { a: number, b: string });
+(Object.assign.call({}, { a: 1 }, { b: 2 }): { a: number, b: string }); // error
+
+(Object.assign.length: number);
+(Object.assign.length: string); // error
+
+(Object.assign.name: number); // error
+(Object.assign.name: string);
 
 ================================================================================
 `;
@@ -153,6 +167,85 @@ Object.assign({a: "foo"}, 123);
 Object.assign("123", { a: "foo" });
 Object.assign(123, { a: "foo" });
 Object.assign({ a: "foo" }, 123);
+
+================================================================================
+`;
+
+exports[`scope.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+type Obj = { attr: number | string }
+
+function f(obj: Obj, b: boolean) {
+  obj.attr = 42;
+  if (b) {
+    obj.attr = "hello";
+  } else {
+    obj.attr = "hello";
+  }
+}
+
+function g(obj: Obj, b: boolean) {
+  obj.attr = 42;
+  if (b) {
+    obj.attr = "hello";
+  }
+}
+
+
+function h(obj: Obj, b: boolean) {
+  obj.attr = 42;
+  if (obj.attr) {
+    obj.attr = "hello";
+  }
+}
+
+function i(obj: Obj, b: boolean) {
+  obj.attr = 42;
+  if (b) {
+    obj.attr = "hello";
+  }
+  (obj.attr: number);
+}
+
+=====================================output=====================================
+//@flow
+type Obj = { attr: number | string };
+
+function f(obj: Obj, b: boolean) {
+  obj.attr = 42;
+  if (b) {
+    obj.attr = "hello";
+  } else {
+    obj.attr = "hello";
+  }
+}
+
+function g(obj: Obj, b: boolean) {
+  obj.attr = 42;
+  if (b) {
+    obj.attr = "hello";
+  }
+}
+
+function h(obj: Obj, b: boolean) {
+  obj.attr = 42;
+  if (obj.attr) {
+    obj.attr = "hello";
+  }
+}
+
+function i(obj: Obj, b: boolean) {
+  obj.attr = 42;
+  if (b) {
+    obj.attr = "hello";
+  }
+  (obj.attr: number);
+}
 
 ================================================================================
 `;
@@ -217,8 +310,7 @@ type Props = {
   foo: number,
 }
 
-class MyReactThing extends React.Component {
-  props: Props;
+class MyReactThing extends React.Component<Props> {
   static defaultProps: DefaultProps;
   getFoo(): number { return this.props.foo; }
 }
@@ -239,8 +331,7 @@ type Props = {
   foo: number,
 };
 
-class MyReactThing extends React.Component {
-  props: Props;
+class MyReactThing extends React.Component<Props> {
   static defaultProps: DefaultProps;
   getFoo(): number {
     return this.props.foo;

@@ -1,0 +1,82 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`predicates.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/* @flow */
+
+let x = 0;
+if (x == null) {}
+if (x == undefined) {}
+if (Array.isArray(x)) {}
+
+let y = { FOO: 'foo' };
+if (y.FOO) {}
+if (y.FOO == '') {}
+if (y.FOO === '') {}
+if (y.FOO == null) {}
+if (y.FOO == undefined) {}
+if (Array.isArray(y.FOO)) {}
+
+=====================================output=====================================
+/* @flow */
+
+let x = 0;
+if (x == null) {
+}
+if (x == undefined) {
+}
+if (Array.isArray(x)) {
+}
+
+let y = { FOO: "foo" };
+if (y.FOO) {
+}
+if (y.FOO == "") {
+}
+if (y.FOO === "") {
+}
+if (y.FOO == null) {
+}
+if (y.FOO == undefined) {
+}
+if (Array.isArray(y.FOO)) {
+}
+
+================================================================================
+`;
+
+exports[`refinement.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+declare var a: {
+  foo?: () => void,
+};
+
+if (a.foo != null) { a.foo; }
+if (a.foo != null) { a.foo(); }
+
+=====================================output=====================================
+// @flow
+
+declare var a: {
+  foo?: () => void,
+};
+
+if (a.foo != null) {
+  a.foo;
+}
+if (a.foo != null) {
+  a.foo();
+}
+
+================================================================================
+`;

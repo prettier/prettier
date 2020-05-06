@@ -1,0 +1,102 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`concretize.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+const React = require('React');
+
+type Props = {
+    onKeyDown?: ?(e: SyntheticKeyboardEvent<>) => mixed,
+}
+class C1 extends React.Component<Props> {};
+function _onKeyDown(e: SyntheticKeyboardEvent<C1>): void {};
+<C1 onKeyDown={_onKeyDown} />;
+
+=====================================output=====================================
+// @flow
+
+const React = require("React");
+
+type Props = {
+  onKeyDown?: ?(e: SyntheticKeyboardEvent<>) => mixed,
+};
+class C1 extends React.Component<Props> {}
+function _onKeyDown(e: SyntheticKeyboardEvent<C1>): void {}
+<C1 onKeyDown={_onKeyDown} />;
+
+================================================================================
+`;
+
+exports[`test.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import * as React from 'react';
+
+declare opaque type T;
+type Props = {t: T};
+declare var props: Props;
+
+type D<Context, Props> = $Diff<
+  Props,
+  {context: Context}
+>;
+type X<Context, Props> = {
+  x: D<Context, Props>,
+};
+class Foo<
+  Props: {},
+  Context: {},
+> extends React.Component<
+  X<Context, Props>
+> {}
+//Error: cannot create Foo
+<Foo x={props.t} />;
+
+type Y<Context, Props> = {
+  y: $Diff<Props, { context: Context }>;
+};
+class Bar<
+  Props: {},
+  Context: {},
+> extends React.Component<
+  Y<Context, Props>
+> {}
+//Error: cannot create Bar
+<Bar y={props.t} />;
+
+=====================================output=====================================
+// @flow
+
+import * as React from "react";
+
+declare opaque type T;
+type Props = { t: T };
+declare var props: Props;
+
+type D<Context, Props> = $Diff<Props, { context: Context }>;
+type X<Context, Props> = {
+  x: D<Context, Props>,
+};
+class Foo<Props: {}, Context: {}> extends React.Component<X<Context, Props>> {}
+//Error: cannot create Foo
+<Foo x={props.t} />;
+
+type Y<Context, Props> = {
+  y: $Diff<Props, { context: Context }>,
+};
+class Bar<Props: {}, Context: {}> extends React.Component<Y<Context, Props>> {}
+//Error: cannot create Bar
+<Bar y={props.t} />;
+
+================================================================================
+`;

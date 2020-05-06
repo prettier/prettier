@@ -1,0 +1,117 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`A.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/*
+ * @providesModule A
+ * @flow
+ */
+
+module.exports = {
+  FOO: 'bar',
+};
+
+=====================================output=====================================
+/*
+ * @providesModule A
+ * @flow
+ */
+
+module.exports = {
+  FOO: "bar",
+};
+
+================================================================================
+`;
+
+exports[`B.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/*
+ * @providesModule B
+ * @flow
+ */
+
+declare function ifRequired<TModule, TYes>(
+  id: $Flow$ModuleRef<TModule>,
+  cbYes: (module: TModule) => TYes,
+): TYes | void;
+
+ifRequired('A', A => A.FOO); // Error - A is a plain string, not a module ref
+ifRequired('m#A', A => A.FOO); // Error - FOO is not present in A's exports
+ifRequired('m#A', A => A.BAR); // Ok
+
+=====================================output=====================================
+/*
+ * @providesModule B
+ * @flow
+ */
+
+declare function ifRequired<TModule, TYes>(
+  id: $Flow$ModuleRef<TModule>,
+  cbYes: (module: TModule) => TYes
+): TYes | void;
+
+ifRequired("A", (A) => A.FOO); // Error - A is a plain string, not a module ref
+ifRequired("m#A", (A) => A.FOO); // Error - FOO is not present in A's exports
+ifRequired("m#A", (A) => A.BAR); // Ok
+
+================================================================================
+`;
+
+exports[`C.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @providesModule C
+ * @noflow
+ */
+
+=====================================output=====================================
+/**
+ * @providesModule C
+ * @noflow
+ */
+
+================================================================================
+`;
+
+exports[`D.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @flow
+ */
+
+declare function myRequire<TModule>(
+  id: $Flow$ModuleRef<TModule>,
+): TModule;
+
+const C = myRequire(
+  'm#C',
+);
+
+=====================================output=====================================
+/**
+ * @flow
+ */
+
+declare function myRequire<TModule>(id: $Flow$ModuleRef<TModule>): TModule;
+
+const C = myRequire("m#C");
+
+================================================================================
+`;

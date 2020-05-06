@@ -1,0 +1,471 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`exports-predicate.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+function isStringNullOrEmpty(str: ?string): boolean %checks {
+  return str == null || str === "";
+}
+
+declare function declaredIsStringNullOrEmpty(
+  str: ?string
+): boolean %checks(str == null || str === "");
+
+module.exports = {
+  isStringNullOrEmpty,
+  declaredIsStringNullOrEmpty
+};
+
+=====================================output=====================================
+// @flow
+
+function isStringNullOrEmpty(str: ?string): boolean %checks {
+  return str == null || str === "";
+}
+
+declare function declaredIsStringNullOrEmpty(
+  str: ?string
+): boolean %checks(str == null || str === "");
+
+module.exports = {
+  isStringNullOrEmpty,
+  declaredIsStringNullOrEmpty,
+};
+
+================================================================================
+`;
+
+exports[`import-type1.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+export type T = number;
+
+=====================================output=====================================
+// @flow
+
+export type T = number;
+
+================================================================================
+`;
+
+exports[`import-type2.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import type { T } from './import-type3';
+export type S = T; // number
+
+=====================================output=====================================
+// @flow
+
+import type { T } from "./import-type3";
+export type S = T; // number
+
+================================================================================
+`;
+
+exports[`import-type3.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+export type T = number;
+
+=====================================output=====================================
+// @flow
+
+export type T = number;
+
+================================================================================
+`;
+
+exports[`import-type4.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import type { O } from './import-type5';
+
+export type T = { // mutually recursive object type
+  x: string;
+  y: O;
+}
+
+=====================================output=====================================
+// @flow
+
+import type { O } from "./import-type5";
+
+export type T = {
+  // mutually recursive object type
+  x: string,
+  y: O,
+};
+
+================================================================================
+`;
+
+exports[`import-type5.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import type { T } from './import-type4';
+
+export type O = { // mutually recursive object type
+  x: string;
+  y: T;
+}
+
+=====================================output=====================================
+// @flow
+
+import type { T } from "./import-type4";
+
+export type O = {
+  // mutually recursive object type
+  x: string,
+  y: T,
+};
+
+================================================================================
+`;
+
+exports[`import-value1.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+module.exports = 0;
+
+=====================================output=====================================
+// @flow
+
+module.exports = 0;
+
+================================================================================
+`;
+
+exports[`import-value2.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+export function f(x: number): string {
+  return x;
+}
+
+=====================================output=====================================
+// @flow
+
+export function f(x: number): string {
+  return x;
+}
+
+================================================================================
+`;
+
+exports[`import-value3.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+declare var o1: typeof o2;
+const o2 = {
+  x: 0,
+  y: o1,
+};
+
+module.exports = o2; // recursive object type
+
+=====================================output=====================================
+// @flow
+
+declare var o1: typeof o2;
+const o2 = {
+  x: 0,
+  y: o1,
+};
+
+module.exports = o2; // recursive object type
+
+================================================================================
+`;
+
+exports[`import-value4.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+const { A } = require('./import-value5');
+
+export class B extends A {
+  m(): B { return new B; }
+}
+
+=====================================output=====================================
+// @flow
+
+const { A } = require("./import-value5");
+
+export class B extends A {
+  m(): B {
+    return new B();
+  }
+}
+
+================================================================================
+`;
+
+exports[`import-value5.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import type { B } from './import-value4';
+
+declare export class A {
+  m(): B;
+}
+
+=====================================output=====================================
+// @flow
+
+import type { B } from "./import-value4";
+
+declare export class A {
+  m(): B;
+}
+
+================================================================================
+`;
+
+exports[`multiple-export-1.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+class A {
+  static f: number = 1
+}
+
+module.exports = A;
+module.exports = A;
+
+=====================================output=====================================
+// @flow
+
+class A {
+  static f: number = 1;
+}
+
+module.exports = A;
+module.exports = A;
+
+================================================================================
+`;
+
+exports[`multiple-export-2.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+class A {
+  static f: number = 1
+}
+
+class B {
+  static f: string = ""
+}
+
+module.exports = A;
+module.exports = B;
+
+=====================================output=====================================
+// @flow
+
+class A {
+  static f: number = 1;
+}
+
+class B {
+  static f: string = "";
+}
+
+module.exports = A;
+module.exports = B;
+
+================================================================================
+`;
+
+exports[`test.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+const n: string = require('./import-value1'); // error: number ~/~> string
+import { f } from './import-value2';
+const o = require('./import-value3');
+import { type T } from './import-type1';
+import { type S } from './import-type2';
+import { type O } from './import-type5';
+
+(n: T); // error: string ~/~> number
+(f(""): S); // error: string (argument) ~/~> number, string (return) ~/~> number
+(o: O); // error: number (property x) <~/~> string
+(o.y: O); // error: number (property x) <~/~> string
+
+=====================================output=====================================
+// @flow
+
+const n: string = require("./import-value1"); // error: number ~/~> string
+import { f } from "./import-value2";
+const o = require("./import-value3");
+import { type T } from "./import-type1";
+import { type S } from "./import-type2";
+import { type O } from "./import-type5";
+
+(n: T); // error: string ~/~> number
+(f(""): S); // error: string (argument) ~/~> number, string (return) ~/~> number
+(o: O); // error: number (property x) <~/~> string
+(o.y: O); // error: number (property x) <~/~> string
+
+================================================================================
+`;
+
+exports[`test-multiple-export-1.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+const a = require('./multiple-export-1');
+
+(a.f: number);
+
+=====================================output=====================================
+// @flow
+
+const a = require("./multiple-export-1");
+
+(a.f: number);
+
+================================================================================
+`;
+
+exports[`test-multiple-export-2.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+const a = require('./multiple-export-2');
+
+(a.f: string);
+(a.f: number);
+
+=====================================output=====================================
+// @flow
+
+const a = require("./multiple-export-2");
+
+(a.f: string);
+(a.f: number);
+
+================================================================================
+`;
+
+exports[`test-predicate.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import {
+  isStringNullOrEmpty,
+  declaredIsStringNullOrEmpty
+} from "./exports-predicate";
+
+declare var s: null | string;
+
+if (!isStringNullOrEmpty(s)) {
+  (s: string);
+}
+
+if (!declaredIsStringNullOrEmpty(s)) {
+  (s: string);
+}
+
+=====================================output=====================================
+// @flow
+
+import {
+  isStringNullOrEmpty,
+  declaredIsStringNullOrEmpty,
+} from "./exports-predicate";
+
+declare var s: null | string;
+
+if (!isStringNullOrEmpty(s)) {
+  (s: string);
+}
+
+if (!declaredIsStringNullOrEmpty(s)) {
+  (s: string);
+}
+
+================================================================================
+`;

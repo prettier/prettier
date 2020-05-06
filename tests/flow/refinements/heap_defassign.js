@@ -65,6 +65,18 @@ function def_assign_within_try(b: boolean, obj: Obj) {
     var z:string = obj.p;       // error, number ~/~ string
 }
 
+function def_assign_within_if_both_branches(b: boolean, obj: Obj) {
+    obj.p = "a";
+    if (b) {
+        f();
+        obj.p = 10;             // (obj.p : number)
+    } else {
+        f();
+        obj.p = 10;
+    }
+    var y: number = obj.p;      // error, obj.p : number | string
+}
+
 function def_assign_within_for(b: boolean, obj: Obj) {
     for (; b; ) {
         obj.p = 10;             // (obj.p : number)

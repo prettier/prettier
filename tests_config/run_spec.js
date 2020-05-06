@@ -38,6 +38,7 @@ const unstableTests = new Map(
     ],
     ["no-semi/comments.js", (options) => options.semi === false],
     "yaml_prettier_ignore/document.yml",
+    "flow/lint_comments/simple_sketchies.js",
   ].map((fixture) => {
     const [file, isUnstable = () => true] = Array.isArray(fixture)
       ? fixture

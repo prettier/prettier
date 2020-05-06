@@ -1,0 +1,202 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Bad.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import * as React from 'react';
+import {compose, mapProps, withProps} from './hocs';
+
+type Props = {
+  foo: number,
+  bar: number,
+};
+
+const Bad = (props: Props) => null;
+
+export default (compose(
+  mapProps(({ buz }) => ({ // Error: Missing foo
+    buz: (buz * 2).toString(), // Error: string ~> number
+  })),
+  withProps(({ buz }) => ({
+    bar: buz,
+  })),
+)(Bad): React.ComponentType<empty>);
+
+=====================================output=====================================
+// @flow
+
+import * as React from "react";
+import { compose, mapProps, withProps } from "./hocs";
+
+type Props = {
+  foo: number,
+  bar: number,
+};
+
+const Bad = (props: Props) => null;
+
+export default (compose(
+  mapProps(({ buz }) => ({
+    // Error: Missing foo
+    buz: (buz * 2).toString(), // Error: string ~> number
+  })),
+  withProps(({ buz }) => ({
+    bar: buz,
+  }))
+)(Bad): React.ComponentType<empty>);
+
+================================================================================
+`;
+
+exports[`Good.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import * as React from 'react';
+import {compose, mapProps, withProps} from './hocs';
+
+type Props = {
+  foo: string,
+  bar: number,
+  qux: number,
+};
+
+const Good = (props: Props) => null;
+
+export default (compose(
+  mapProps(({ foo, buz, qux }) => ({
+    foo: foo.toString(),
+    buz: buz * 2,
+    qux,
+  })),
+  withProps(({ buz }) => ({
+    bar: buz,
+  })),
+)(Good): React.ComponentType<{foo: number, buz: number, qux: number}>);
+
+=====================================output=====================================
+// @flow
+
+import * as React from "react";
+import { compose, mapProps, withProps } from "./hocs";
+
+type Props = {
+  foo: string,
+  bar: number,
+  qux: number,
+};
+
+const Good = (props: Props) => null;
+
+export default (compose(
+  mapProps(({ foo, buz, qux }) => ({
+    foo: foo.toString(),
+    buz: buz * 2,
+    qux,
+  })),
+  withProps(({ buz }) => ({
+    bar: buz,
+  }))
+)(Good): React.ComponentType<{ foo: number, buz: number, qux: number }>);
+
+================================================================================
+`;
+
+exports[`Good_use.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import * as React from 'react';
+import Good from './Good';
+
+<Good foo={1} buz={2} qux={3} />; // OK
+<Good foo={1} buz={2} />; // Error: Missing qux
+<Good foo={1} qux={3} />; // Error: Missing buz
+<Good buz={2} qux={3} />; // Error: Missing foo
+<Good foo={1} buz="nope" qux={3} />; // Error: Cannot multiply string
+<Good foo={1} buz={2} qux="nope" />; // Error: string ~> number
+
+=====================================output=====================================
+// @flow
+
+import * as React from "react";
+import Good from "./Good";
+
+<Good foo={1} buz={2} qux={3} />; // OK
+<Good foo={1} buz={2} />; // Error: Missing qux
+<Good foo={1} qux={3} />; // Error: Missing buz
+<Good buz={2} qux={3} />; // Error: Missing foo
+<Good foo={1} buz="nope" qux={3} />; // Error: Cannot multiply string
+<Good foo={1} buz={2} qux="nope" />; // Error: string ~> number
+
+================================================================================
+`;
+
+exports[`hocs.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import * as React from 'react';
+
+declare export var compose: $Compose;
+
+export function mapProps<InputProps, OutputProps>(
+  mapperFn: (InputProps) => OutputProps,
+): (React.ComponentType<OutputProps>) => React.ComponentType<InputProps> {
+  return Component => props => <Component {...mapperFn(props)} />;
+}
+
+export function withProps<Props, ExtraProps>(
+  extraFn: (Props) => ExtraProps,
+): (React.ComponentType<{|
+  ...Props,
+  ...ExtraProps,
+|}>) => React.ComponentType<Props> {
+  // $FlowFixMe: This will be ok when we have value spread.
+  return Component => props => <Component {...props} {...extraFn(props)} />;
+}
+
+=====================================output=====================================
+// @flow
+
+import * as React from "react";
+
+declare export var compose: $Compose;
+
+export function mapProps<InputProps, OutputProps>(
+  mapperFn: (InputProps) => OutputProps
+): (React.ComponentType<OutputProps>) => React.ComponentType<InputProps> {
+  return (Component) => (props) => <Component {...mapperFn(props)} />;
+}
+
+export function withProps<Props, ExtraProps>(
+  extraFn: (Props) => ExtraProps
+): (
+  React.ComponentType<{|
+    ...Props,
+    ...ExtraProps,
+  |}>
+) => React.ComponentType<Props> {
+  // $FlowFixMe: This will be ok when we have value spread.
+  return (Component) => (props) => <Component {...props} {...extraFn(props)} />;
+}
+
+================================================================================
+`;

@@ -1,0 +1,4 @@
+//@flow
+function test<T> () {
+  
+}

@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`jsx.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type $JSXIntrinsics = {
+  foo: {
+    props: any,
+    instance: {yep1: true},
+  },
+  bar: {
+    props: any,
+    instance: {yep2: true},
+  },
+};
+
+=====================================output=====================================
+type $JSXIntrinsics = {
+  foo: {
+    props: any,
+    instance: { yep1: true },
+  },
+  bar: {
+    props: any,
+    instance: { yep2: true },
+  },
+};
+
+================================================================================
+`;

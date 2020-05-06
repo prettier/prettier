@@ -1546,3 +1546,115 @@ export const builders: {
 
 ================================================================================
 `;
+
+exports[`non_term.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @flow
+ */
+
+const React = require('React');
+
+type Props = {
+  elements: Array<React.Element<any>>,
+};
+
+type State = {
+};
+
+class Foo extends React.Component<Props, State> {
+  bar() {
+    const x = this.props.elements;
+    let sliceFrom = x;
+    while (sliceFrom.length < 0) {
+      sliceFrom = sliceFrom.concat(sliceFrom);
+    }
+  }
+}
+
+=====================================output=====================================
+/**
+ * @flow
+ */
+
+const React = require("React");
+
+type Props = {
+  elements: Array<React.Element<any>>,
+};
+
+type State = {};
+
+class Foo extends React.Component<Props, State> {
+  bar() {
+    const x = this.props.elements;
+    let sliceFrom = x;
+    while (sliceFrom.length < 0) {
+      sliceFrom = sliceFrom.concat(sliceFrom);
+    }
+  }
+}
+
+================================================================================
+`;
+
+exports[`spread.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+export type Fragment = {|
+  type: 'ONE_CONFIG',
+|};
+
+export type One = {|
+  ...Fragment,
+  config: null,
+|};
+
+export type Two = {|
+  type: 'TWO_CONFIG',
+  config: null,
+|};
+
+export type Union =
+  | One
+  | Two
+
+function toMetricConfig(config: Union) {
+  if(config.type === (0: any)) {}
+};
+
+=====================================output=====================================
+// @flow
+
+export type Fragment = {|
+  type: "ONE_CONFIG",
+|};
+
+export type One = {|
+  ...Fragment,
+  config: null,
+|};
+
+export type Two = {|
+  type: "TWO_CONFIG",
+  config: null,
+|};
+
+export type Union = One | Two;
+
+function toMetricConfig(config: Union) {
+  if (config.type === (0: any)) {
+  }
+}
+
+================================================================================
+`;

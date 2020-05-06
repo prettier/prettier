@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`opaque_type.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+opaque type FBID = string;
+
+function concat(a: FBID, b: FBID) {
+    return a + b;
+}
+
+function toFBID(x: string) {
+    return x;
+}
+
+// This should work for now, but should stop working when opaque type is
+// implemented.
+function toString(x: FBID) {
+    return x;
+}
+
+=====================================output=====================================
+opaque type FBID = string;
+
+function concat(a: FBID, b: FBID) {
+  return a + b;
+}
+
+function toFBID(x: string) {
+  return x;
+}
+
+// This should work for now, but should stop working when opaque type is
+// implemented.
+function toString(x: FBID) {
+  return x;
+}
+
+================================================================================
+`;
+
+exports[`union.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+declare opaque type A: number | string; // ok
+declare opaque type B: ?number; // ok
+
+=====================================output=====================================
+declare opaque type A: number | string; // ok
+declare opaque type B: ?number; // ok
+
+================================================================================
+`;

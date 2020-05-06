@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`a.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+declare var cond: boolean;
+
+module.exports = () => (cond ? true : false);
+
+=====================================output=====================================
+// @flow
+
+declare var cond: boolean;
+
+module.exports = () => (cond ? true : false);
+
+================================================================================
+`;
+
+exports[`b.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+declare var cond: boolean;
+
+module.exports = () => (cond ? true : false);
+
+=====================================output=====================================
+// @flow
+
+declare var cond: boolean;
+
+module.exports = () => (cond ? true : false);
+
+================================================================================
+`;

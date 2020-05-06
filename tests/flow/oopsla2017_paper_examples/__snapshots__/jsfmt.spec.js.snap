@@ -1,0 +1,251 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`example1.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+function pipe(x, f) { f(x); }
+let hello = (s) => console.log("hello", s);
+pipe("world", hello);
+pipe("hello", null); // error
+
+=====================================output=====================================
+// @flow
+
+function pipe(x, f) {
+  f(x);
+}
+let hello = (s) => console.log("hello", s);
+pipe("world", hello);
+pipe("hello", null); // error
+
+================================================================================
+`;
+
+exports[`example2.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+function pipe(x, f) {
+  if (f != null) { f(x); }
+}
+let hello = (s) => console.log("hello", s);
+pipe("world", hello);
+pipe("hello", null); // ok
+
+=====================================output=====================================
+// @flow
+
+function pipe(x, f) {
+  if (f != null) {
+    f(x);
+  }
+}
+let hello = (s) => console.log("hello", s);
+pipe("world", hello);
+pipe("hello", null); // ok
+
+================================================================================
+`;
+
+exports[`example3.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+let nil = { kind: "nil" };
+let cons = (head, tail) => {
+  return { kind: "cons", head, tail };
+}
+
+function sum(list) {
+  if (list.kind === "cons") {
+    return list.head + sum(list.tail); // ok
+  }
+  return 0;
+}
+sum(cons(6, cons(7, nil)));
+
+=====================================output=====================================
+// @flow
+
+let nil = { kind: "nil" };
+let cons = (head, tail) => {
+  return { kind: "cons", head, tail };
+};
+
+function sum(list) {
+  if (list.kind === "cons") {
+    return list.head + sum(list.tail); // ok
+  }
+  return 0;
+}
+sum(cons(6, cons(7, nil)));
+
+================================================================================
+`;
+
+exports[`example4.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+let nil = { kind: "nil" };
+let cons = (head, tail) => {
+  return { kind: "cons", head, tail };
+}
+
+function merge(x) {
+  x = x || nil;
+  return x.kind; // ok
+}
+merge(cons(7, nil));
+merge(null);
+
+=====================================output=====================================
+// @flow
+
+let nil = { kind: "nil" };
+let cons = (head, tail) => {
+  return { kind: "cons", head, tail };
+};
+
+function merge(x) {
+  x = x || nil;
+  return x.kind; // ok
+}
+merge(cons(7, nil));
+merge(null);
+
+================================================================================
+`;
+
+exports[`example5.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+let nil = { kind: "nil" };
+let cons = (head, tail) => {
+  return { kind: "cons", head, tail };
+}
+
+function havoc(x) {
+  let reset = () => { x = null; }
+  x = x || nil;
+  reset();
+  return x.kind; // error
+}
+havoc(cons(7, nil));
+
+=====================================output=====================================
+// @flow
+
+let nil = { kind: "nil" };
+let cons = (head, tail) => {
+  return { kind: "cons", head, tail };
+};
+
+function havoc(x) {
+  let reset = () => {
+    x = null;
+  };
+  x = x || nil;
+  reset();
+  return x.kind; // error
+}
+havoc(cons(7, nil));
+
+================================================================================
+`;
+
+exports[`example6.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+type IDString = (string) => string;
+type IDNullableString = (?string) => ?string;
+type Ambiguous = IDString | IDNullableString;
+
+function onString(f: Ambiguous) { f(""); }
+let id = (x) => x;
+onString(id);
+id(null);
+
+=====================================output=====================================
+// @flow
+
+type IDString = (string) => string;
+type IDNullableString = (?string) => ?string;
+type Ambiguous = IDString | IDNullableString;
+
+function onString(f: Ambiguous) {
+  f("");
+}
+let id = (x) => x;
+onString(id);
+id(null);
+
+================================================================================
+`;
+
+exports[`example7.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+declare function displayString(_: string): void;
+
+type Correlated =
+  | { type: "string", val: string }
+  | { type: "number", val: number };
+
+function stringIsString(x: Correlated) {
+  if (x.type === "string") {
+    displayString(x.val);
+  }
+}
+stringIsString({ type: "string", val: 0 }); // error
+
+=====================================output=====================================
+// @flow
+
+declare function displayString(_: string): void;
+
+type Correlated =
+  | { type: "string", val: string }
+  | { type: "number", val: number };
+
+function stringIsString(x: Correlated) {
+  if (x.type === "string") {
+    displayString(x.val);
+  }
+}
+stringIsString({ type: "string", val: 0 }); // error
+
+================================================================================
+`;

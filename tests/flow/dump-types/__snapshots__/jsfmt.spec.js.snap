@@ -22,6 +22,42 @@ module.exports = num;
 ================================================================================
 `;
 
+exports[`predicates.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+let y = { FOO: 'foo' };
+if (y.FOO) {}
+if (y.FOO == '') {}
+if (y.FOO === '') {}
+if (y.FOO == null) {}
+if (y.FOO == undefined) {}
+if (Array.isArray(y.FOO)) {}
+
+=====================================output=====================================
+// @flow
+
+let y = { FOO: "foo" };
+if (y.FOO) {
+}
+if (y.FOO == "") {
+}
+if (y.FOO === "") {
+}
+if (y.FOO == null) {
+}
+if (y.FOO == undefined) {
+}
+if (Array.isArray(y.FOO)) {
+}
+
+================================================================================
+`;
+
 exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -80,6 +116,34 @@ function f3(x: ?string) {
 declare var idx: $Facebookism$Idx;
 declare var obj: { a?: { b: ?{ c: null | { d: number } } } };
 const idxResult = idx(obj, (obj) => obj.a.b.c.d);
+
+================================================================================
+`;
+
+exports[`type-destructors.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+type T<X> = $Shape<{ f: X }>;
+
+type Props = { name: string, age: number };
+type DefaultProps = { age: number };
+declare var diff: $Diff<Props, DefaultProps>;
+diff.name; // this is required for the type to actually be evaluated
+
+=====================================output=====================================
+// @flow
+
+type T<X> = $Shape<{ f: X }>;
+
+type Props = { name: string, age: number };
+type DefaultProps = { age: number };
+declare var diff: $Diff<Props, DefaultProps>;
+diff.name; // this is required for the type to actually be evaluated
 
 ================================================================================
 `;

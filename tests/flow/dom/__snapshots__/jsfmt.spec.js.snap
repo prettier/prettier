@@ -38,6 +38,94 @@ let tests = [
 ================================================================================
 `;
 
+exports[`ClipboardEvent.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+let tests = [
+  // ClipboardEvent
+  function () {
+    const copyEvent = new ClipboardEvent('copy'); // valid
+    const pasteEvent = new ClipboardEvent('paste'); // valid
+    const cutEvent = new ClipboardEvent('cut'); // valid
+    const changeEvent = new ClipboardEvent('clipboardchange'); // valid
+    const invalidEvent = new ClipboardEvent('invalid'); // invalid
+  },
+  function() {
+    const transfer = new DataTransfer();
+    transfer.setData('text/plain', 'Lorem ipsum');
+    const valid1 = new ClipboardEvent(
+      'cut',
+      {clipboardData: transfer},
+    ); // valid
+    const valid2 = new ClipboardEvent(
+      'cut',
+      {clipboardData: null}, // valid, clipboardData nullable
+    );
+    const invalid1 = new ClipboardEvent(
+      'cut',
+      {}, // invalid, clipboardData may not be omitted
+    );
+    const invalid2 = new ClipboardEvent('cut', {clipboardData: {
+      'text/plain': 'thats not how you do it'}}); // invalid
+  },
+  function(input: HTMLInputElement) {
+    input.addEventListener('cut', (e: ClipboardEvent) => {
+      e.clipboardData.getData('text/plain'); // invalid: null check required
+      if (e.clipboardData) {
+        const data: string = e.clipboardData.getData('text/plain'); // valid
+      }
+    })
+  },
+];
+
+=====================================output=====================================
+// @flow
+
+let tests = [
+  // ClipboardEvent
+  function () {
+    const copyEvent = new ClipboardEvent("copy"); // valid
+    const pasteEvent = new ClipboardEvent("paste"); // valid
+    const cutEvent = new ClipboardEvent("cut"); // valid
+    const changeEvent = new ClipboardEvent("clipboardchange"); // valid
+    const invalidEvent = new ClipboardEvent("invalid"); // invalid
+  },
+  function () {
+    const transfer = new DataTransfer();
+    transfer.setData("text/plain", "Lorem ipsum");
+    const valid1 = new ClipboardEvent("cut", { clipboardData: transfer }); // valid
+    const valid2 = new ClipboardEvent(
+      "cut",
+      { clipboardData: null } // valid, clipboardData nullable
+    );
+    const invalid1 = new ClipboardEvent(
+      "cut",
+      {} // invalid, clipboardData may not be omitted
+    );
+    const invalid2 = new ClipboardEvent("cut", {
+      clipboardData: {
+        "text/plain": "thats not how you do it",
+      },
+    }); // invalid
+  },
+  function (input: HTMLInputElement) {
+    input.addEventListener("cut", (e: ClipboardEvent) => {
+      e.clipboardData.getData("text/plain"); // invalid: null check required
+      if (e.clipboardData) {
+        const data: string = e.clipboardData.getData("text/plain"); // valid
+      }
+    });
+  },
+];
+
+================================================================================
+`;
+
 exports[`CustomEvent.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -85,6 +173,9 @@ let tests = [
     (document.createElement('select'): HTMLSelectElement);
     (document.querySelector('select'): HTMLSelectElement | null);
     (document.createElement('hr'): HTMLElement); // GH #3752
+  },
+  function (document: Document) {
+    (document.head: HTMLHeadElement | null);
   }
 ];
 
@@ -100,6 +191,9 @@ let tests = [
     (document.createElement("select"): HTMLSelectElement);
     (document.querySelector("select"): HTMLSelectElement | null);
     (document.createElement("hr"): HTMLElement); // GH #3752
+  },
+  function (document: Document) {
+    (document.head: HTMLHeadElement | null);
   },
 ];
 
@@ -182,6 +276,82 @@ let tests = [
 ================================================================================
 `;
 
+exports[`HTMLCollection.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+var collection = document.children
+
+// properties
+var length: number = collection.length // valid
+
+// methods
+var el = collection.item(0)
+el.className // invalid
+if (el) el.className // valid
+
+el = collection.namedItem('name')
+el.className // invalid
+if (el) el.className // valid
+
+// accessing items
+el = collection[0]
+el.className // valid
+if (el) el.className // valid
+
+el = collection['query']
+el.className // valid
+if (el) el.className // valid
+
+for (var field of collection) {
+  field.className // valid
+}
+
+// covariance
+declare var Anchors: HTMLCollection<HTMLAnchorElement>;
+(Anchors: HTMLCollection<HTMLElement>);
+
+=====================================output=====================================
+// @flow
+
+var collection = document.children;
+
+// properties
+var length: number = collection.length; // valid
+
+// methods
+var el = collection.item(0);
+el.className; // invalid
+if (el) el.className; // valid
+
+el = collection.namedItem("name");
+el.className; // invalid
+if (el) el.className; // valid
+
+// accessing items
+el = collection[0];
+el.className; // valid
+if (el) el.className; // valid
+
+el = collection["query"];
+el.className; // valid
+if (el) el.className; // valid
+
+for (var field of collection) {
+  field.className; // valid
+}
+
+// covariance
+declare var Anchors: HTMLCollection<HTMLAnchorElement>;
+(Anchors: HTMLCollection<HTMLElement>);
+
+================================================================================
+`;
+
 exports[`HTMLElement.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -204,6 +374,18 @@ let tests = [
     element.scrollIntoView({ behavior: 'invalid' });
     element.scrollIntoView({ block: 'invalid' });
     element.scrollIntoView(1);
+  },
+
+  // focus
+  function(element: HTMLElement) {
+    element.focus();
+    element.focus({});
+    element.focus({ preventScroll: true });
+    element.focus({ preventScroll: false });
+
+    // fails
+    element.focus({ preventScroll: 'invalid' });
+    element.focus(1);
   }
 ];
 
@@ -225,7 +407,103 @@ let tests = [
     element.scrollIntoView({ block: "invalid" });
     element.scrollIntoView(1);
   },
+
+  // focus
+  function (element: HTMLElement) {
+    element.focus();
+    element.focus({});
+    element.focus({ preventScroll: true });
+    element.focus({ preventScroll: false });
+
+    // fails
+    element.focus({ preventScroll: "invalid" });
+    element.focus(1);
+  },
 ];
+
+================================================================================
+`;
+
+exports[`HTMLFormElement.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+var form = document.createElement('form')
+
+// properties
+var acceptCharset: string = form.acceptCharset // valid
+var action: string = form.action // valid
+var encoding: string = form.encoding // valid
+var enctype: string = form.enctype // valid
+var length: number = form.length // valid
+var method: string = form.method // valid
+var name: string = form.name // valid
+var target: string = form.target // valid
+
+// methods
+var valid: boolean = form.checkValidity() // valid
+valid = form.reportValidity() // valid
+form.reset() // valid
+form.submit() // valid
+
+// accessing items
+var el = form[0]
+el.className // invalid
+if (el) el.className // valid
+
+el = form['query']
+el.className // invalid
+if (el) el.className // valid
+
+for (var field of form) {
+  field.className // valid
+}
+
+for (var field of form.elements) {
+  field.className // valid
+}
+
+=====================================output=====================================
+// @flow
+
+var form = document.createElement("form");
+
+// properties
+var acceptCharset: string = form.acceptCharset; // valid
+var action: string = form.action; // valid
+var encoding: string = form.encoding; // valid
+var enctype: string = form.enctype; // valid
+var length: number = form.length; // valid
+var method: string = form.method; // valid
+var name: string = form.name; // valid
+var target: string = form.target; // valid
+
+// methods
+var valid: boolean = form.checkValidity(); // valid
+valid = form.reportValidity(); // valid
+form.reset(); // valid
+form.submit(); // valid
+
+// accessing items
+var el = form[0];
+el.className; // invalid
+if (el) el.className; // valid
+
+el = form["query"];
+el.className; // invalid
+if (el) el.className; // valid
+
+for (var field of form) {
+  field.className; // valid
+}
+
+for (var field of form.elements) {
+  field.className; // valid
+}
 
 ================================================================================
 `;
@@ -262,6 +540,68 @@ let tests = [
     el.setRangeText("foo", 123, 234, "bogus"); // invalid value
   },
 ];
+
+================================================================================
+`;
+
+exports[`HTMLSelectElement.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+var select = document.createElement('select')
+
+// properties
+var autocomplete: string = select.autocomplete // valid
+var autofocus: boolean = select.autofocus // valid
+var disabled: boolean = select.disabled // valid
+
+var form = select.form
+form.action // invalid
+if (form) form.action // valid
+
+var required: boolean = select.required // valid
+var index: number = select.selectedIndex // valid
+
+// methods
+var item = select.item(0)
+item.value // invalid
+if (item) item.value // valid
+item = select.namedItem('hi')
+item.value // invalid
+if (item) item.value // valid
+
+select.setCustomValidity('oh noes') // valid
+
+=====================================output=====================================
+// @flow
+
+var select = document.createElement("select");
+
+// properties
+var autocomplete: string = select.autocomplete; // valid
+var autofocus: boolean = select.autofocus; // valid
+var disabled: boolean = select.disabled; // valid
+
+var form = select.form;
+form.action; // invalid
+if (form) form.action; // valid
+
+var required: boolean = select.required; // valid
+var index: number = select.selectedIndex; // valid
+
+// methods
+var item = select.item(0);
+item.value; // invalid
+if (item) item.value; // valid
+item = select.namedItem("hi");
+item.value; // invalid
+if (item) item.value; // valid
+
+select.setCustomValidity("oh noes"); // valid
 
 ================================================================================
 `;
@@ -389,6 +729,13 @@ printWidth: 80
 // @flow
 
 let tests = [
+  // constructors
+  function() {
+    let path1 = new Path2D(); // valid
+    let path2 = new Path2D(path1); // valid
+    let path3 = new Path2D('M10 10 h 80 v 80 h -80 Z'); // valid
+  },
+
   // arcTo
   function() {
     let path = new Path2D();
@@ -402,6 +749,13 @@ let tests = [
 // @flow
 
 let tests = [
+  // constructors
+  function () {
+    let path1 = new Path2D(); // valid
+    let path2 = new Path2D(path1); // valid
+    let path3 = new Path2D("M10 10 h 80 v 80 h -80 Z"); // valid
+  },
+
   // arcTo
   function () {
     let path = new Path2D();
@@ -543,38 +897,41 @@ printWidth: 80
 =====================================input======================================
 // @flow
 
+const document_body = document.body;
+if (document_body == null) throw new Error("document.body == null");
+
 let tests = [
   // basic functionality
   function() {
-    const i: NodeIterator<*,*> = document.createNodeIterator(document.body);
+    const i: NodeIterator<*,*> = document.createNodeIterator(document_body);
     const filter: NodeFilter = i.filter;
     const response:
       typeof NodeFilter.FILTER_ACCEPT |
       typeof NodeFilter.FILTER_REJECT |
       typeof NodeFilter.FILTER_SKIP =
-      filter.acceptNode(document.body);
+      filter.acceptNode(document_body);
   },
   function() {
-    const w: TreeWalker<*,*> = document.createTreeWalker(document.body);
+    const w: TreeWalker<*,*> = document.createTreeWalker(document_body);
     const filter: NodeFilter = w.filter;
     const response:
       typeof NodeFilter.FILTER_ACCEPT |
       typeof NodeFilter.FILTER_REJECT |
       typeof NodeFilter.FILTER_SKIP =
-      filter.acceptNode(document.body);
+      filter.acceptNode(document_body);
   },
   // rootNode must be a Node
   function() {
-    document.createNodeIterator(document.body); // valid
+    document.createNodeIterator(document_body); // valid
     document.createNodeIterator({}); // invalid
   },
   function() {
-    document.createTreeWalker(document.body);
+    document.createTreeWalker(document_body);
     document.createTreeWalker({}); // invalid
   },
   // Type Parameters
   function() {
-    const _root = document.body;
+    const _root = document_body;
     const i = document.createNodeIterator(_root, NodeFilter.SHOW_ELEMENT);
     const root: typeof _root = i.root;
     const referenceNode: typeof _root | Element = i.referenceNode;
@@ -582,7 +939,7 @@ let tests = [
     const nextNode: Element | null = i.nextNode();
   },
   function() {
-    const _root = document.body.attributes[0];
+    const _root = document_body.attributes[0];
     const i = document.createNodeIterator(_root, NodeFilter.SHOW_ATTRIBUTE);
     const root: typeof _root = i.root;
     const referenceNode: typeof _root | Attr = i.referenceNode
@@ -590,7 +947,7 @@ let tests = [
     const nextNode: Attr | null = i.nextNode();
   },
   function() {
-    const _root = document.body;
+    const _root = document_body;
     const i = document.createNodeIterator(_root, NodeFilter.SHOW_TEXT);
     const root: typeof _root = i.root;
     const referenceNode: typeof _root | Text = i.referenceNode;
@@ -622,7 +979,7 @@ let tests = [
     const nextNode: DocumentFragment | null = i.nextNode();
   },
   function() {
-    const _root = document.body;
+    const _root = document_body;
     const i = document.createNodeIterator(_root, NodeFilter.SHOW_ALL);
     const root: typeof _root = i.root;
     const referenceNode: typeof _root | Node = i.referenceNode;
@@ -630,7 +987,7 @@ let tests = [
     const nextNode: Node | null = i.nextNode();
   },
   function() {
-    const _root = document.body;
+    const _root = document_body;
     const w = document.createTreeWalker(_root, NodeFilter.SHOW_ELEMENT);
     const root: typeof _root = w.root;
     const currentNode: typeof _root | Element = w.currentNode;
@@ -643,7 +1000,7 @@ let tests = [
     const nextNode: Element | null = w.nextNode();
   },
   function() {
-    const _root = document.body.attributes[0];
+    const _root = document_body.attributes[0];
     const w = document.createTreeWalker(_root, NodeFilter.SHOW_ATTRIBUTE);
     const root: typeof _root = w.root;
     const currentNode: typeof _root | Attr = w.currentNode;
@@ -656,7 +1013,7 @@ let tests = [
     const nextNode: Attr | null = w.nextNode();
   },
   function() {
-    const _root = document.body;
+    const _root = document_body;
     const w = document.createTreeWalker(_root, NodeFilter.SHOW_TEXT);
     const root: typeof _root = w.root;
     const currentNode: typeof _root | Text = w.currentNode;
@@ -708,7 +1065,7 @@ let tests = [
     const nextNode: DocumentFragment | null = w.nextNode();
   },
   function() {
-    const _root = document.body;
+    const _root = document_body;
     const w = document.createTreeWalker(_root, NodeFilter.SHOW_ALL);
     const root: typeof _root = w.root;
     const currentNode: typeof _root | Node = w.currentNode;
@@ -722,54 +1079,57 @@ let tests = [
   },
   // NodeFilterInterface
   function() {
-    document.createNodeIterator(document.body, -1, node => NodeFilter.FILTER_ACCEPT); // valid
-    document.createNodeIterator(document.body, -1, node => 'accept'); // invalid
-    document.createNodeIterator(document.body, -1, { acceptNode: node => NodeFilter.FILTER_ACCEPT }); // valid
-    document.createNodeIterator(document.body, -1, { acceptNode: node => 'accept' }); // invalid
-    document.createNodeIterator(document.body, -1, {}); // invalid
+    document.createNodeIterator(document_body, -1, node => NodeFilter.FILTER_ACCEPT); // valid
+    document.createNodeIterator(document_body, -1, node => 'accept'); // invalid
+    document.createNodeIterator(document_body, -1, { acceptNode: node => NodeFilter.FILTER_ACCEPT }); // valid
+    document.createNodeIterator(document_body, -1, { acceptNode: node => 'accept' }); // invalid
+    document.createNodeIterator(document_body, -1, {}); // invalid
   },
   function() {
-    document.createTreeWalker(document.body, -1, node => NodeFilter.FILTER_ACCEPT); // valid
-    document.createTreeWalker(document.body, -1, node => 'accept'); // invalid
-    document.createTreeWalker(document.body, -1, { acceptNode: node => NodeFilter.FILTER_ACCEPT }); // valid
-    document.createTreeWalker(document.body, -1, { acceptNode: node => 'accept' }); // invalid
-    document.createTreeWalker(document.body, -1, {}); // invalid
+    document.createTreeWalker(document_body, -1, node => NodeFilter.FILTER_ACCEPT); // valid
+    document.createTreeWalker(document_body, -1, node => 'accept'); // invalid
+    document.createTreeWalker(document_body, -1, { acceptNode: node => NodeFilter.FILTER_ACCEPT }); // valid
+    document.createTreeWalker(document_body, -1, { acceptNode: node => 'accept' }); // invalid
+    document.createTreeWalker(document_body, -1, {}); // invalid
   },
 ];
 
 =====================================output=====================================
 // @flow
 
+const document_body = document.body;
+if (document_body == null) throw new Error("document.body == null");
+
 let tests = [
   // basic functionality
   function () {
-    const i: NodeIterator<*, *> = document.createNodeIterator(document.body);
+    const i: NodeIterator<*, *> = document.createNodeIterator(document_body);
     const filter: NodeFilter = i.filter;
     const response:
       | typeof NodeFilter.FILTER_ACCEPT
       | typeof NodeFilter.FILTER_REJECT
-      | typeof NodeFilter.FILTER_SKIP = filter.acceptNode(document.body);
+      | typeof NodeFilter.FILTER_SKIP = filter.acceptNode(document_body);
   },
   function () {
-    const w: TreeWalker<*, *> = document.createTreeWalker(document.body);
+    const w: TreeWalker<*, *> = document.createTreeWalker(document_body);
     const filter: NodeFilter = w.filter;
     const response:
       | typeof NodeFilter.FILTER_ACCEPT
       | typeof NodeFilter.FILTER_REJECT
-      | typeof NodeFilter.FILTER_SKIP = filter.acceptNode(document.body);
+      | typeof NodeFilter.FILTER_SKIP = filter.acceptNode(document_body);
   },
   // rootNode must be a Node
   function () {
-    document.createNodeIterator(document.body); // valid
+    document.createNodeIterator(document_body); // valid
     document.createNodeIterator({}); // invalid
   },
   function () {
-    document.createTreeWalker(document.body);
+    document.createTreeWalker(document_body);
     document.createTreeWalker({}); // invalid
   },
   // Type Parameters
   function () {
-    const _root = document.body;
+    const _root = document_body;
     const i = document.createNodeIterator(_root, NodeFilter.SHOW_ELEMENT);
     const root: typeof _root = i.root;
     const referenceNode: typeof _root | Element = i.referenceNode;
@@ -777,7 +1137,7 @@ let tests = [
     const nextNode: Element | null = i.nextNode();
   },
   function () {
-    const _root = document.body.attributes[0];
+    const _root = document_body.attributes[0];
     const i = document.createNodeIterator(_root, NodeFilter.SHOW_ATTRIBUTE);
     const root: typeof _root = i.root;
     const referenceNode: typeof _root | Attr = i.referenceNode;
@@ -785,7 +1145,7 @@ let tests = [
     const nextNode: Attr | null = i.nextNode();
   },
   function () {
-    const _root = document.body;
+    const _root = document_body;
     const i = document.createNodeIterator(_root, NodeFilter.SHOW_TEXT);
     const root: typeof _root = i.root;
     const referenceNode: typeof _root | Text = i.referenceNode;
@@ -820,7 +1180,7 @@ let tests = [
     const nextNode: DocumentFragment | null = i.nextNode();
   },
   function () {
-    const _root = document.body;
+    const _root = document_body;
     const i = document.createNodeIterator(_root, NodeFilter.SHOW_ALL);
     const root: typeof _root = i.root;
     const referenceNode: typeof _root | Node = i.referenceNode;
@@ -828,7 +1188,7 @@ let tests = [
     const nextNode: Node | null = i.nextNode();
   },
   function () {
-    const _root = document.body;
+    const _root = document_body;
     const w = document.createTreeWalker(_root, NodeFilter.SHOW_ELEMENT);
     const root: typeof _root = w.root;
     const currentNode: typeof _root | Element = w.currentNode;
@@ -841,7 +1201,7 @@ let tests = [
     const nextNode: Element | null = w.nextNode();
   },
   function () {
-    const _root = document.body.attributes[0];
+    const _root = document_body.attributes[0];
     const w = document.createTreeWalker(_root, NodeFilter.SHOW_ATTRIBUTE);
     const root: typeof _root = w.root;
     const currentNode: typeof _root | Attr = w.currentNode;
@@ -854,7 +1214,7 @@ let tests = [
     const nextNode: Attr | null = w.nextNode();
   },
   function () {
-    const _root = document.body;
+    const _root = document_body;
     const w = document.createTreeWalker(_root, NodeFilter.SHOW_TEXT);
     const root: typeof _root = w.root;
     const currentNode: typeof _root | Text = w.currentNode;
@@ -909,7 +1269,7 @@ let tests = [
     const nextNode: DocumentFragment | null = w.nextNode();
   },
   function () {
-    const _root = document.body;
+    const _root = document_body;
     const w = document.createTreeWalker(_root, NodeFilter.SHOW_ALL);
     const root: typeof _root = w.root;
     const currentNode: typeof _root | Node = w.currentNode;
@@ -924,33 +1284,33 @@ let tests = [
   // NodeFilterInterface
   function () {
     document.createNodeIterator(
-      document.body,
+      document_body,
       -1,
       (node) => NodeFilter.FILTER_ACCEPT
     ); // valid
-    document.createNodeIterator(document.body, -1, (node) => "accept"); // invalid
-    document.createNodeIterator(document.body, -1, {
+    document.createNodeIterator(document_body, -1, (node) => "accept"); // invalid
+    document.createNodeIterator(document_body, -1, {
       acceptNode: (node) => NodeFilter.FILTER_ACCEPT,
     }); // valid
-    document.createNodeIterator(document.body, -1, {
+    document.createNodeIterator(document_body, -1, {
       acceptNode: (node) => "accept",
     }); // invalid
-    document.createNodeIterator(document.body, -1, {}); // invalid
+    document.createNodeIterator(document_body, -1, {}); // invalid
   },
   function () {
     document.createTreeWalker(
-      document.body,
+      document_body,
       -1,
       (node) => NodeFilter.FILTER_ACCEPT
     ); // valid
-    document.createTreeWalker(document.body, -1, (node) => "accept"); // invalid
-    document.createTreeWalker(document.body, -1, {
+    document.createTreeWalker(document_body, -1, (node) => "accept"); // invalid
+    document.createTreeWalker(document_body, -1, {
       acceptNode: (node) => NodeFilter.FILTER_ACCEPT,
     }); // valid
-    document.createTreeWalker(document.body, -1, {
+    document.createTreeWalker(document_body, -1, {
       acceptNode: (node) => "accept",
     }); // invalid
-    document.createTreeWalker(document.body, -1, {}); // invalid
+    document.createTreeWalker(document_body, -1, {}); // invalid
   },
 ];
 

@@ -1,0 +1,81 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`useDeferredValue_hook.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import React from 'react';
+
+React.useDeferredValue(true); // Ok
+
+React.useDeferredValue(true, {}); // Error: property \`timeoutMs\` is missing in object literal but exists in \`SuspenseConfig\`
+
+React.useDeferredValue(true, {foo: 1}); // Error: property \`foo\` is missing in \`SuspenseConfig\`
+
+const deferredValue = React.useDeferredValue(true, {timeoutMs: 1000}); // Ok
+
+(deferredValue: boolean); // Ok
+
+=====================================output=====================================
+// @flow
+
+import React from "react";
+
+React.useDeferredValue(true); // Ok
+
+React.useDeferredValue(true, {}); // Error: property \`timeoutMs\` is missing in object literal but exists in \`SuspenseConfig\`
+
+React.useDeferredValue(true, { foo: 1 }); // Error: property \`foo\` is missing in \`SuspenseConfig\`
+
+const deferredValue = React.useDeferredValue(true, { timeoutMs: 1000 }); // Ok
+
+(deferredValue: boolean); // Ok
+
+================================================================================
+`;
+
+exports[`useTransition_hook.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import React from 'react';
+
+React.useTransition(); // Ok
+
+React.useTransition({}); // Error: property \`timeoutMs\` is missing in object literal but exists in \`SuspenseConfig\`
+
+React.useTransition({foo: 1}); // Error: property \`foo\` is missing in \`SuspenseConfig\`
+
+const [startTransition, isPending] = React.useTransition({timeoutMs: 1000}); // Ok
+(isPending: boolean); // Ok
+
+startTransition(() => {}); // Ok
+startTransition(true); // error
+
+=====================================output=====================================
+// @flow
+
+import React from "react";
+
+React.useTransition(); // Ok
+
+React.useTransition({}); // Error: property \`timeoutMs\` is missing in object literal but exists in \`SuspenseConfig\`
+
+React.useTransition({ foo: 1 }); // Error: property \`foo\` is missing in \`SuspenseConfig\`
+
+const [startTransition, isPending] = React.useTransition({ timeoutMs: 1000 }); // Ok
+(isPending: boolean); // Ok
+
+startTransition(() => {}); // Ok
+startTransition(true); // error
+
+================================================================================
+`;

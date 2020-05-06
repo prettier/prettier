@@ -6,7 +6,7 @@ declare module "CJS_Named" {
 declare module "CJS_Clobbered" {
   declare var num2: number;
   declare type numType = number;
-  declare var exports: {
+  declare module.exports: {
     numExport: number,
   };
 }
@@ -18,4 +18,8 @@ declare module "ES" {
   declare export class C {}
   declare export type T = number;
   declare var exports: number;
+}
+
+declare module "re-export" {
+  import type {Foo} from 'to-import';
 }

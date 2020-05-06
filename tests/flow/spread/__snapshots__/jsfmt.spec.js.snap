@@ -1,5 +1,199 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`dict.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+function foo(map: { [key: string]: mixed }) {
+  const first = { some: "hello" };
+  const options = { some: 42  };
+  return Object.assign (
+    {
+      first,
+      ...map // Error, can't spread indexer second
+    },
+    options
+  );
+}
+
+=====================================output=====================================
+// @flow
+
+function foo(map: { [key: string]: mixed }) {
+  const first = { some: "hello" };
+  const options = { some: 42 };
+  return Object.assign(
+    {
+      first,
+      ...map, // Error, can't spread indexer second
+    },
+    options
+  );
+}
+
+================================================================================
+`;
+
+exports[`exact.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+type Foo = {|
+  bar: string,
+  baz: number,
+|};
+
+const foo = {bar: 'hello', baz: 123};
+const other = {bar: 'wat'}
+
+const spread: Foo = {...foo, ...other};
+
+const foo_inexact: { baz: number } = { bar: 42, baz: 123 };
+const spread_inexact_first: Foo = {...foo_inexact, ...other}; // not OK
+const spread_inexact_second: Foo = {...other, ...foo_inexact}; // not OK
+
+=====================================output=====================================
+// @flow
+
+type Foo = {|
+  bar: string,
+  baz: number,
+|};
+
+const foo = { bar: "hello", baz: 123 };
+const other = { bar: "wat" };
+
+const spread: Foo = { ...foo, ...other };
+
+const foo_inexact: { baz: number } = { bar: 42, baz: 123 };
+const spread_inexact_first: Foo = { ...foo_inexact, ...other }; // not OK
+const spread_inexact_second: Foo = { ...other, ...foo_inexact }; // not OK
+
+================================================================================
+`;
+
+exports[`issue_4152.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+/**
+ * This regression test exercises a bug reported
+ * in https://github.com/facebook/flow/issues/4152
+ */
+
+export function wrapAndFlatten<T>(arr: Array<T>) {
+  const mapped = arr.map((n: T) => {
+    return [n];
+  });
+  return mapped.reduce((x, y) => [...x, ...y]);
+};
+
+=====================================output=====================================
+// @flow
+
+/**
+ * This regression test exercises a bug reported
+ * in https://github.com/facebook/flow/issues/4152
+ */
+
+export function wrapAndFlatten<T>(arr: Array<T>) {
+  const mapped = arr.map((n: T) => {
+    return [n];
+  });
+  return mapped.reduce((x, y) => [...x, ...y]);
+}
+
+================================================================================
+`;
+
+exports[`jsx.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+const React = require('react');
+
+type Props = $ReadOnly<{| bar: string, baz: number |}>;
+declare var TestComponent: React.ComponentType<Props>;
+const props: Props = {bar: '', baz: 0};
+
+<TestComponent {...props} />; //breaks
+({...props}: Props); //works
+
+=====================================output=====================================
+// @flow
+const React = require("react");
+
+type Props = $ReadOnly<{| bar: string, baz: number |}>;
+declare var TestComponent: React.ComponentType<Props>;
+const props: Props = { bar: "", baz: 0 };
+
+<TestComponent {...props} />; //breaks
+({ ...props }: Props); //works
+
+================================================================================
+`;
+
+exports[`lit_reason.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+declare function test(): {| foo: number |};
+const y: {foo: number | string} = {...test()}; // Should not error
+
+=====================================output=====================================
+//@flow
+
+declare function test(): {| foo: number |};
+const y: { foo: number | string } = { ...test() }; // Should not error
+
+================================================================================
+`;
+
+exports[`null.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+function foo() {
+  const bar = null;
+  const empty = {...bar};
+  (empty.x); // Error
+}
+
+=====================================output=====================================
+// @flow
+
+function foo() {
+  const bar = null;
+  const empty = { ...bar };
+  empty.x; // Error
+}
+
+================================================================================
+`;
+
 exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -29,7 +223,7 @@ function parseGroup(lines: Array<string>): {
     };
 }
 
-function parseTimeframe(line: string): { begin: number; end: number } {
+function parseTimeframe(line: string): {| begin: number; end: number |} {
     var timestamps = line.split('-->');
     return {
         begin: parseTimestamp(timestamps[0].trim()),
@@ -63,7 +257,7 @@ function parseGroup(
   };
 }
 
-function parseTimeframe(line: string): { begin: number, end: number } {
+function parseTimeframe(line: string): {| begin: number, end: number |} {
   var timestamps = line.split("-->");
   return {
     begin: parseTimestamp(timestamps[0].trim()),
@@ -117,16 +311,16 @@ var o = {
   ...p,
   ...q,
 };
-var y: number = o.y;
-var z: number = o.z;
+var y: number = o.y; // Error string ~> number
+var z: number = o.z; // Error string ~> number
 
-// test conflicting keys (they get unioned)
+// test conflicting keys (they get overwritten)
 var r = { y: 123 };
 var s = {
   ...p,
   ...r,
 };
-var t: boolean = s.y; // error, string or number
+var t: number = s.y;
 
 =====================================output=====================================
 var p = { y: "" };
@@ -136,16 +330,16 @@ var o = {
   ...p,
   ...q,
 };
-var y: number = o.y;
-var z: number = o.z;
+var y: number = o.y; // Error string ~> number
+var z: number = o.z; // Error string ~> number
 
-// test conflicting keys (they get unioned)
+// test conflicting keys (they get overwritten)
 var r = { y: 123 };
 var s = {
   ...p,
   ...r,
 };
-var t: boolean = s.y; // error, string or number
+var t: number = s.y;
 
 ================================================================================
 `;
@@ -308,6 +502,164 @@ let tests = [
     ({ ...x }: void); // error, Object
   },
 ];
+
+================================================================================
+`;
+
+exports[`test8.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/* Test to ensure that spreads of intersections wait until every member is
+ * resolved before the spread resolves to a result. */
+
+type O = A & B;
+declare var o: O;
+({ ...o }: { p: number, q: string }); // OK
+({ ...o }: { p: number, q: number }); // error: string ~> number (prop q)
+({ ...o }: { p: string, q: string }); // error: number ~> string (prop p)
+
+// types declared below, so they resolve after the spread is processed
+type A = { p: number };
+type B = { q: string };
+
+=====================================output=====================================
+/* Test to ensure that spreads of intersections wait until every member is
+ * resolved before the spread resolves to a result. */
+
+type O = A & B;
+declare var o: O;
+({ ...o }: { p: number, q: string }); // OK
+({ ...o }: { p: number, q: number }); // error: string ~> number (prop q)
+({ ...o }: { p: string, q: string }); // error: number ~> string (prop p)
+
+// types declared below, so they resolve after the spread is processed
+type A = { p: number };
+type B = { q: string };
+
+================================================================================
+`;
+
+exports[`test9.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+interface I_call {
+  (): void;
+}
+declare var o_call: I_call;
+({ ...o_call }: { "$call": any }); // error: interfaces cannot be spread 
+
+interface I_index {
+  [string]: number;
+}
+declare var o_index: I_index;
+({ ...o_index }: { "$key": any }); // error: interfaces cannot be spread 
+({ ...o_index }: { "$value": any }); // error: interfaces cannot be spread 
+
+=====================================output=====================================
+interface I_call {
+  (): void;
+}
+declare var o_call: I_call;
+({ ...o_call }: { $call: any }); // error: interfaces cannot be spread
+
+interface I_index {
+  [string]: number;
+}
+declare var o_index: I_index;
+({ ...o_index }: { $key: any }); // error: interfaces cannot be spread
+({ ...o_index }: { $value: any }); // error: interfaces cannot be spread
+
+================================================================================
+`;
+
+exports[`test10.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+var x = null;
+var o = { p: 0, ...x };
+(o.p: empty); // error: number ~> empty
+
+=====================================output=====================================
+var x = null;
+var o = { p: 0, ...x };
+(o.p: empty); // error: number ~> empty
+
+================================================================================
+`;
+
+exports[`unsealed.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+function foo1(b: bool): {| x?: number |} {
+  var o = {};
+  if (b) { o.x = 0; }
+  return o; // error, unsealed implies inexact
+}
+
+function foo2(b: bool): { x?: number } {
+  var o = {};
+  if (b) { o.x = 0; }
+  return o; // OK
+}
+
+function bar() {
+  const a = { x: 42 };
+  const b1 = {
+    ...a,
+    ...foo1(true), // must be exact, but runs into restrictions upstream
+  };
+  const b2 = {
+    ...foo2(true), // may be inexact, so workaround for above
+    ...a,
+  };
+  (b2.x: string); // expected error: number ~/~> string
+}
+
+=====================================output=====================================
+// @flow
+
+function foo1(b: boolean): {| x?: number |} {
+  var o = {};
+  if (b) {
+    o.x = 0;
+  }
+  return o; // error, unsealed implies inexact
+}
+
+function foo2(b: boolean): { x?: number } {
+  var o = {};
+  if (b) {
+    o.x = 0;
+  }
+  return o; // OK
+}
+
+function bar() {
+  const a = { x: 42 };
+  const b1 = {
+    ...a,
+    ...foo1(true), // must be exact, but runs into restrictions upstream
+  };
+  const b2 = {
+    ...foo2(true), // may be inexact, so workaround for above
+    ...a,
+  };
+  (b2.x: string); // expected error: number ~/~> string
+}
 
 ================================================================================
 `;

@@ -3,9 +3,9 @@ declare class Array<T> {
     map<U>(callbackfn: (value: T, index: number, array: Array<T>) => U, thisArg?: any): Array<U>;
 }
 
-type IteratorResult<Yield,Return> =
-  | { done: true, value?: Return }
-  | { done: false, value: Yield };
+type IteratorResult<+Yield,+Return> =
+  | { done: true, +value?: Return }
+  | { done: false, +value: Yield };
 
 interface $Iterator<+Yield,+Return,-Next> {
     @@iterator(): $Iterator<Yield,Return,Next>;

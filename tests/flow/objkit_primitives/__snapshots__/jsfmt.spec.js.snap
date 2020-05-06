@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+const a: {||} = {...3};
+const b: {||} = {...(3: 3)};
+const c: {||} = {...''};
+const d: {||} = {...('': '')};
+const e: {||} = {...false};
+const f: {||} = {...(false: false)};
+const g: {||} = {...null};
+const h: {||} = {...(null: null)};
+const i: {||} = {...undefined};
+const j: {||} = {...(undefined: void)};
+
+declare function showBlue(): boolean;
+const styles = {...(showBlue() && {backgroundColor: 'blue'}), color: 'red'};
+
+=====================================output=====================================
+//@flow
+const a: {||} = { ...3 };
+const b: {||} = { ...(3: 3) };
+const c: {||} = { ..."" };
+const d: {||} = { ...("": "") };
+const e: {||} = { ...false };
+const f: {||} = { ...(false: false) };
+const g: {||} = { ...null };
+const h: {||} = { ...(null: null) };
+const i: {||} = { ...undefined };
+const j: {||} = { ...(undefined: void) };
+
+declare function showBlue(): boolean;
+const styles = { ...(showBlue() && { backgroundColor: "blue" }), color: "red" };
+
+================================================================================
+`;

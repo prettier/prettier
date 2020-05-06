@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ambiguous.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+const value: "second_user_code" = "second_user_code";
+export default value;
+
+=====================================output=====================================
+// @flow
+
+const value: "second_user_code" = "second_user_code";
+export default value;
+
+================================================================================
+`;
+
+exports[`second_only_user_code.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+const value: "second_only_user_code" = "second_only_user_code";
+export default value;
+
+=====================================output=====================================
+// @flow
+
+const value: "second_only_user_code" = "second_only_user_code";
+export default value;
+
+================================================================================
+`;
+
+exports[`user_code.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+const value: "second_user_code" = "second_user_code";
+export default value;
+
+=====================================output=====================================
+// @flow
+
+const value: "second_user_code" = "second_user_code";
+export default value;
+
+================================================================================
+`;

@@ -1,37 +1,40 @@
 // @flow
 
+const document_body = document.body;
+if (document_body == null) throw new Error("document.body == null");
+
 let tests = [
   // basic functionality
   function() {
-    const i: NodeIterator<*,*> = document.createNodeIterator(document.body);
+    const i: NodeIterator<*,*> = document.createNodeIterator(document_body);
     const filter: NodeFilter = i.filter;
     const response:
       typeof NodeFilter.FILTER_ACCEPT |
       typeof NodeFilter.FILTER_REJECT |
       typeof NodeFilter.FILTER_SKIP =
-      filter.acceptNode(document.body);
+      filter.acceptNode(document_body);
   },
   function() {
-    const w: TreeWalker<*,*> = document.createTreeWalker(document.body);
+    const w: TreeWalker<*,*> = document.createTreeWalker(document_body);
     const filter: NodeFilter = w.filter;
     const response:
       typeof NodeFilter.FILTER_ACCEPT |
       typeof NodeFilter.FILTER_REJECT |
       typeof NodeFilter.FILTER_SKIP =
-      filter.acceptNode(document.body);
+      filter.acceptNode(document_body);
   },
   // rootNode must be a Node
   function() {
-    document.createNodeIterator(document.body); // valid
+    document.createNodeIterator(document_body); // valid
     document.createNodeIterator({}); // invalid
   },
   function() {
-    document.createTreeWalker(document.body);
+    document.createTreeWalker(document_body);
     document.createTreeWalker({}); // invalid
   },
   // Type Parameters
   function() {
-    const _root = document.body;
+    const _root = document_body;
     const i = document.createNodeIterator(_root, NodeFilter.SHOW_ELEMENT);
     const root: typeof _root = i.root;
     const referenceNode: typeof _root | Element = i.referenceNode;
@@ -39,7 +42,7 @@ let tests = [
     const nextNode: Element | null = i.nextNode();
   },
   function() {
-    const _root = document.body.attributes[0];
+    const _root = document_body.attributes[0];
     const i = document.createNodeIterator(_root, NodeFilter.SHOW_ATTRIBUTE);
     const root: typeof _root = i.root;
     const referenceNode: typeof _root | Attr = i.referenceNode
@@ -47,7 +50,7 @@ let tests = [
     const nextNode: Attr | null = i.nextNode();
   },
   function() {
-    const _root = document.body;
+    const _root = document_body;
     const i = document.createNodeIterator(_root, NodeFilter.SHOW_TEXT);
     const root: typeof _root = i.root;
     const referenceNode: typeof _root | Text = i.referenceNode;
@@ -79,7 +82,7 @@ let tests = [
     const nextNode: DocumentFragment | null = i.nextNode();
   },
   function() {
-    const _root = document.body;
+    const _root = document_body;
     const i = document.createNodeIterator(_root, NodeFilter.SHOW_ALL);
     const root: typeof _root = i.root;
     const referenceNode: typeof _root | Node = i.referenceNode;
@@ -87,7 +90,7 @@ let tests = [
     const nextNode: Node | null = i.nextNode();
   },
   function() {
-    const _root = document.body;
+    const _root = document_body;
     const w = document.createTreeWalker(_root, NodeFilter.SHOW_ELEMENT);
     const root: typeof _root = w.root;
     const currentNode: typeof _root | Element = w.currentNode;
@@ -100,7 +103,7 @@ let tests = [
     const nextNode: Element | null = w.nextNode();
   },
   function() {
-    const _root = document.body.attributes[0];
+    const _root = document_body.attributes[0];
     const w = document.createTreeWalker(_root, NodeFilter.SHOW_ATTRIBUTE);
     const root: typeof _root = w.root;
     const currentNode: typeof _root | Attr = w.currentNode;
@@ -113,7 +116,7 @@ let tests = [
     const nextNode: Attr | null = w.nextNode();
   },
   function() {
-    const _root = document.body;
+    const _root = document_body;
     const w = document.createTreeWalker(_root, NodeFilter.SHOW_TEXT);
     const root: typeof _root = w.root;
     const currentNode: typeof _root | Text = w.currentNode;
@@ -165,7 +168,7 @@ let tests = [
     const nextNode: DocumentFragment | null = w.nextNode();
   },
   function() {
-    const _root = document.body;
+    const _root = document_body;
     const w = document.createTreeWalker(_root, NodeFilter.SHOW_ALL);
     const root: typeof _root = w.root;
     const currentNode: typeof _root | Node = w.currentNode;
@@ -179,17 +182,17 @@ let tests = [
   },
   // NodeFilterInterface
   function() {
-    document.createNodeIterator(document.body, -1, node => NodeFilter.FILTER_ACCEPT); // valid
-    document.createNodeIterator(document.body, -1, node => 'accept'); // invalid
-    document.createNodeIterator(document.body, -1, { acceptNode: node => NodeFilter.FILTER_ACCEPT }); // valid
-    document.createNodeIterator(document.body, -1, { acceptNode: node => 'accept' }); // invalid
-    document.createNodeIterator(document.body, -1, {}); // invalid
+    document.createNodeIterator(document_body, -1, node => NodeFilter.FILTER_ACCEPT); // valid
+    document.createNodeIterator(document_body, -1, node => 'accept'); // invalid
+    document.createNodeIterator(document_body, -1, { acceptNode: node => NodeFilter.FILTER_ACCEPT }); // valid
+    document.createNodeIterator(document_body, -1, { acceptNode: node => 'accept' }); // invalid
+    document.createNodeIterator(document_body, -1, {}); // invalid
   },
   function() {
-    document.createTreeWalker(document.body, -1, node => NodeFilter.FILTER_ACCEPT); // valid
-    document.createTreeWalker(document.body, -1, node => 'accept'); // invalid
-    document.createTreeWalker(document.body, -1, { acceptNode: node => NodeFilter.FILTER_ACCEPT }); // valid
-    document.createTreeWalker(document.body, -1, { acceptNode: node => 'accept' }); // invalid
-    document.createTreeWalker(document.body, -1, {}); // invalid
+    document.createTreeWalker(document_body, -1, node => NodeFilter.FILTER_ACCEPT); // valid
+    document.createTreeWalker(document_body, -1, node => 'accept'); // invalid
+    document.createTreeWalker(document_body, -1, { acceptNode: node => NodeFilter.FILTER_ACCEPT }); // valid
+    document.createTreeWalker(document_body, -1, { acceptNode: node => 'accept' }); // invalid
+    document.createTreeWalker(document_body, -1, {}); // invalid
   },
 ];

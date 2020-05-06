@@ -1,5 +1,76 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`annot.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+var {p}: T = {p: "foo"};
+p = 42; // error: number ~> string
+type T = {p: string};
+
+=====================================output=====================================
+// @flow
+var { p }: T = { p: "foo" };
+p = 42; // error: number ~> string
+type T = { p: string };
+
+================================================================================
+`;
+
+exports[`annot_loop.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+// Destructuring self-referential annotations should terminate.
+
+type T = T;
+function f({p}: T) {
+  p = 0;
+}
+
+
+// Including tricky cases
+
+type A = B;
+type B = A;
+function g({p}: A) {
+  p = 0;
+}
+function h({p}: B) {
+  p = 0;
+}
+
+=====================================output=====================================
+// @flow
+
+// Destructuring self-referential annotations should terminate.
+
+type T = T;
+function f({ p }: T) {
+  p = 0;
+}
+
+// Including tricky cases
+
+type A = B;
+type B = A;
+function g({ p }: A) {
+  p = 0;
+}
+function h({ p }: B) {
+  p = 0;
+}
+
+================================================================================
+`;
+
 exports[`array_rest.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -32,6 +103,80 @@ let d = zs[1]; // run off the end
 (d: void); // error: number|string|boolean ~> void
 
 let [...e] = 0;
+
+================================================================================
+`;
+
+exports[`bad_annot.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+/* The code in this test has a confusing error and should be improved.
+ * Bindings that result from destructuring an annotation should themselves
+ * behave like annotations. In some cases, annotations are not recursively
+ * annotations, like the class example below.
+ *
+ * For now, we use some sketchy unification logic to pin things down, but it
+ * does not behave sensibly for tvars with incompatible lower bounds.
+ *
+ * Ideally annotations would be recursively annotations, instead of shallowly.
+ * Another possibility would be to forego the annotation behavior for these
+ * kinds of destructurings.
+ */
+
+class C {
+  p;
+  m(cond: boolean) {
+    if (cond) {
+      this.p = 0;
+    } else {
+      this.p = "";
+    }
+  }
+}
+
+function f({
+  p // weird: string ~/~> number. C#p is inferred, with both number and string inflows
+}: C) {
+  p = null; // weird: null ~/~> number. we pinned \`p\` to \`number\`
+}
+
+=====================================output=====================================
+// @flow
+
+/* The code in this test has a confusing error and should be improved.
+ * Bindings that result from destructuring an annotation should themselves
+ * behave like annotations. In some cases, annotations are not recursively
+ * annotations, like the class example below.
+ *
+ * For now, we use some sketchy unification logic to pin things down, but it
+ * does not behave sensibly for tvars with incompatible lower bounds.
+ *
+ * Ideally annotations would be recursively annotations, instead of shallowly.
+ * Another possibility would be to forego the annotation behavior for these
+ * kinds of destructurings.
+ */
+
+class C {
+  p;
+  m(cond: boolean) {
+    if (cond) {
+      this.p = 0;
+    } else {
+      this.p = "";
+    }
+  }
+}
+
+function f({
+  p, // weird: string ~/~> number. C#p is inferred, with both number and string inflows
+}: C) {
+  p = null; // weird: null ~/~> number. we pinned \`p\` to \`number\`
+}
 
 ================================================================================
 `;
@@ -150,7 +295,7 @@ function obj_prop_opt({p}:{p?:string}={p:0}) {}
 function obj_prop_maybe({p}:{p:?string}={p:0}) {}
 function obj_prop_union({p}:{p:number|string}={p:true}) {}
 
-// TODO: union-of-objects upper bounds preserved through destructuring
+// union-of-objects upper bounds preserved through destructuring
 function obj_prop_union2({p}:{p:number}|{p:string}={p:true}) {}
 
 function default_expr_scope({a, b = a}) {}
@@ -238,7 +383,7 @@ function obj_prop_opt({ p }: { p?: string } = { p: 0 }) {}
 function obj_prop_maybe({ p }: { p: ?string } = { p: 0 }) {}
 function obj_prop_union({ p }: { p: number | string } = { p: true }) {}
 
-// TODO: union-of-objects upper bounds preserved through destructuring
+// union-of-objects upper bounds preserved through destructuring
 function obj_prop_union2({ p }: { p: number } | { p: string } = { p: true }) {}
 
 function default_expr_scope({ a, b = a }) {}
@@ -297,7 +442,7 @@ function test() {
   var x = {foo: 'abc', bar: 123};
   var {foo, ...rest} = x;
   (x.baz: string); // error, baz doesn't exist
-  (rest.baz: string); // no error, rest is unsealed
+  (rest.baz: string); // error, rest is sealed
 }
 
 module.exports = corge;
@@ -370,7 +515,7 @@ function test() {
   var x = { foo: "abc", bar: 123 };
   var { foo, ...rest } = x;
   (x.baz: string); // error, baz doesn't exist
-  (rest.baz: string); // no error, rest is unsealed
+  (rest.baz: string); // error, rest is sealed
 }
 
 module.exports = corge;
@@ -400,6 +545,98 @@ var cp2_err: string = others.childprop2; // Error: number ~> string
 ================================================================================
 `;
 
+exports[`destructuring_missing_props.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+declare var x: {| foo: string |};
+var {nonExistent, defaults = "hi", foo = 3} = x; // Error, missing nonExistent
+(defaults: string);
+(foo: number); // Error, number | string
+(foo: number | string);
+
+declare var y: {| bar: string |};
+var {nonExistent2, defaults2 = "hi", bar = 3} = y; // Error, missing nonExistent2
+(defaults2: string);
+(bar: string); // Error, number | string
+(bar: number | string);
+
+var { baz = 15150 } = null // Error, baz is missing in null (you can't destructure null)
+
+declare var z : { thud : string };
+var { grunt = 15210 } = z; // Error, grunt missing in inexact object type
+
+const proto : {| foo : number |} = { foo : 3 };
+const obj = { __proto__ : proto, baz : "string" };
+var { qux = "string" } = obj; // Error, qux missing
+
+// Begin React examples
+
+const React = require('react');
+function Component({defaultProps = "default", regularProp}) { // Error, missing regularProp
+  (defaultProps: string);
+  (regularProp: number);
+  return null;
+}
+
+const _a = <Component regularProp={3} />;
+const _b = <Component />;
+
+class A {
+  prop: boolean;
+  // No err! prop will always be initialized to a boolean
+  constructor({prop = false}: {| prop: boolean |} = {}) {
+  }
+}
+
+=====================================output=====================================
+//@flow
+declare var x: {| foo: string |};
+var { nonExistent, defaults = "hi", foo = 3 } = x; // Error, missing nonExistent
+(defaults: string);
+(foo: number); // Error, number | string
+(foo: number | string);
+
+declare var y: {| bar: string |};
+var { nonExistent2, defaults2 = "hi", bar = 3 } = y; // Error, missing nonExistent2
+(defaults2: string);
+(bar: string); // Error, number | string
+(bar: number | string);
+
+var { baz = 15150 } = null; // Error, baz is missing in null (you can't destructure null)
+
+declare var z: { thud: string };
+var { grunt = 15210 } = z; // Error, grunt missing in inexact object type
+
+const proto: {| foo: number |} = { foo: 3 };
+const obj = { __proto__: proto, baz: "string" };
+var { qux = "string" } = obj; // Error, qux missing
+
+// Begin React examples
+
+const React = require("react");
+function Component({ defaultProps = "default", regularProp }) {
+  // Error, missing regularProp
+  (defaultProps: string);
+  (regularProp: number);
+  return null;
+}
+
+const _a = <Component regularProp={3} />;
+const _b = <Component />;
+
+class A {
+  prop: boolean;
+  // No err! prop will always be initialized to a boolean
+  constructor({ prop = false }: {| prop: boolean |} = {}) {}
+}
+
+================================================================================
+`;
+
 exports[`eager.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -412,6 +649,62 @@ var x;
 =====================================output=====================================
 var x;
 ({ x } = null); // error, property \`x\` can not be accessed on \`null\`
+
+================================================================================
+`;
+
+exports[`object_rest.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type O1 = { p: number, q: number }
+declare var o1: O1;
+var {p, ...o1_rest} = o1;
+(o1_rest: { q: number }); // ok
+o1_rest.x = 0; // error: rest result is sealed
+
+type O2 = {| p: number, q: number |}
+declare var o2: O2;
+var {p, ...o2_rest} = o2;
+(o2_rest: {| q: number|}); // ok
+o2_rest.x = 0; // error: rest result is sealed
+
+var o3 = { p: 0, q: 0 };
+var {p, ...o3_rest} = o3;
+(o3_rest: {| q: number |}); // ok
+o3_rest.x = 0; // error: rest result is sealed
+
+var o4 = {};
+var {x, ...o4_rest} = o4;
+// writes to the rest result do not reach reads from unsealed o4
+(x: string); // ok, shadow read from unsealed o4
+o4_rest.x = 0; // ok, rest result is unsealed
+
+=====================================output=====================================
+type O1 = { p: number, q: number };
+declare var o1: O1;
+var { p, ...o1_rest } = o1;
+(o1_rest: { q: number }); // ok
+o1_rest.x = 0; // error: rest result is sealed
+
+type O2 = {| p: number, q: number |};
+declare var o2: O2;
+var { p, ...o2_rest } = o2;
+(o2_rest: {| q: number |}); // ok
+o2_rest.x = 0; // error: rest result is sealed
+
+var o3 = { p: 0, q: 0 };
+var { p, ...o3_rest } = o3;
+(o3_rest: {| q: number |}); // ok
+o3_rest.x = 0; // error: rest result is sealed
+
+var o4 = {};
+var { x, ...o4_rest } = o4;
+// writes to the rest result do not reach reads from unsealed o4
+(x: string); // ok, shadow read from unsealed o4
+o4_rest.x = 0; // ok, rest result is unsealed
 
 ================================================================================
 `;

@@ -1,5 +1,91 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`export.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @format
+ * @flow
+ */
+
+const x = {foo: 42};
+export type X = typeof x;
+
+=====================================output=====================================
+/**
+ * @format
+ * @flow
+ */
+
+const x = { foo: 42 };
+export type X = typeof x;
+
+================================================================================
+`;
+
+exports[`maybe.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+function f<A>(a: A): ?A {
+  if (true) {
+    return null;
+  } else {
+    return a;
+  }
+}
+var x = f(42);
+('foo': typeof x); // error: string ~> number
+
+=====================================output=====================================
+function f<A>(a: A): ?A {
+  if (true) {
+    return null;
+  } else {
+    return a;
+  }
+}
+var x = f(42);
+("foo": typeof x); // error: string ~> number
+
+================================================================================
+`;
+
+exports[`optional.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+function f<A>(a: A): {p?: A} {
+  if (true) {
+    return {};
+  } else {
+    return {p: a};
+  }
+}
+var x = f(42).p;
+(null: typeof x); // error: null ~> $Optional<number> (i.e., void|number)
+
+=====================================output=====================================
+function f<A>(a: A): { p?: A } {
+  if (true) {
+    return {};
+  } else {
+    return { p: a };
+  }
+}
+var x = f(42).p;
+(null: typeof x); // error: null ~> $Optional<number> (i.e., void|number)
+
+================================================================================
+`;
+
 exports[`typeof.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -176,6 +262,36 @@ var f: typeof numberAlias = 42; // Error: 'typeof <<type-alias>>' makes no sense
 
 var Map = { A: "this is A", B: "this is B", C: "this is C" };
 var keys: $Keys<Map> = "A"; // Error: ineligible value used in type anno
+
+================================================================================
+`;
+
+exports[`union.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+function f<A, B>(a: A, b: B): A | B {
+  if (true) {
+    return a;
+  } else {
+    return b;
+  }
+}
+const x = f(42, 'foo');
+(null: typeof x); // error: null ~> number|string
+
+=====================================output=====================================
+function f<A, B>(a: A, b: B): A | B {
+  if (true) {
+    return a;
+  } else {
+    return b;
+  }
+}
+const x = f(42, "foo");
+(null: typeof x); // error: null ~> number|string
 
 ================================================================================
 `;

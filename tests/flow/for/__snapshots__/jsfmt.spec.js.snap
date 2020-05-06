@@ -297,3 +297,18 @@ function corge(x: boolean) {
 
 ================================================================================
 `;
+
+exports[`scope.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+for (const x in x) {} // error: can not reference undeclared x in right-hand expr
+
+=====================================output=====================================
+for (const x in x) {
+} // error: can not reference undeclared x in right-hand expr
+
+================================================================================
+`;

@@ -1,0 +1,469 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`classInheritance.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+class A {
+  static bar = 1;
+  bar(): void { }
+}
+
+class B extends A { }
+
+class C1 extends B {
+  bar(): void { }
+}
+
+class C2 extends B {
+  bar(): void {
+    super.bar();
+  }
+}
+
+new A().bar();
+new B().bar();
+new C1().bar();
+new C2().bar();
+
+class Foo<T> {
+  bar(): void { }
+}
+new Foo().bar();
+
+// Even though this is a \`C1\` instance at runtime, and so it calls \`C1\`'s \`bar\` implementation, it
+// is typed as an \`A\` instance so other uses of \`C1\`'s \`bar\` are not returned.
+(new C1(): A).bar();
+
+class HasNoBar { }
+// $FlowFixMe
+new HasNoBar().bar();
+
+A.bar;
+B.bar;
+
+=====================================output=====================================
+// @flow
+
+class A {
+  static bar = 1;
+  bar(): void {}
+}
+
+class B extends A {}
+
+class C1 extends B {
+  bar(): void {}
+}
+
+class C2 extends B {
+  bar(): void {
+    super.bar();
+  }
+}
+
+new A().bar();
+new B().bar();
+new C1().bar();
+new C2().bar();
+
+class Foo<T> {
+  bar(): void {}
+}
+new Foo().bar();
+
+// Even though this is a \`C1\` instance at runtime, and so it calls \`C1\`'s \`bar\` implementation, it
+// is typed as an \`A\` instance so other uses of \`C1\`'s \`bar\` are not returned.
+(new C1(): A).bar();
+
+class HasNoBar {}
+// $FlowFixMe
+new HasNoBar().bar();
+
+A.bar;
+B.bar;
+
+================================================================================
+`;
+
+exports[`declare.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+declare var foo: number;
+foo;
+
+=====================================output=====================================
+// @flow
+
+declare var foo: number;
+foo;
+
+================================================================================
+`;
+
+exports[`empty.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+=====================================output=====================================
+// @flow
+
+================================================================================
+`;
+
+exports[`external.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/* @flow */
+
+export class ExternalClass {
+  bar(): void {}
+}
+
+=====================================output=====================================
+/* @flow */
+
+export class ExternalClass {
+  bar(): void {}
+}
+
+================================================================================
+`;
+
+exports[`idx.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+declare var idx: $Facebookism$Idx;
+
+type Foo = {
+  foo: ?{
+    bar: string,
+  }
+};
+
+function foo(x: ?Foo): ?string {
+  return idx(x, _ => _.foo.bar);
+}
+
+=====================================output=====================================
+// @flow
+
+declare var idx: $Facebookism$Idx;
+
+type Foo = {
+  foo: ?{
+    bar: string,
+  },
+};
+
+function foo(x: ?Foo): ?string {
+  return idx(x, (_) => _.foo.bar);
+}
+
+================================================================================
+`;
+
+exports[`importStar.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/* @flow */
+
+import * as external from './external';
+
+external.ExternalClass;
+external.ExternalClass;
+
+=====================================output=====================================
+/* @flow */
+
+import * as external from "./external";
+
+external.ExternalClass;
+external.ExternalClass;
+
+================================================================================
+`;
+
+exports[`jsx.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+const React = require('react');
+
+class Foo extends React.Component<{}, void> {}
+
+<Foo></Foo>
+
+new Foo();
+
+=====================================output=====================================
+// @flow
+
+const React = require("react");
+
+class Foo extends React.Component<{}, void> {}
+
+<Foo></Foo>;
+
+new Foo();
+
+================================================================================
+`;
+
+exports[`objects.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+type Alias = {
+  foo(): void,
+  bar: string,
+};
+
+const a: Alias = { foo() {}, bar: ''};
+a.foo();
+a.foo();
+a.bar;
+a.bar;
+
+const b = {bar: ''};
+b.bar;
+b.bar;
+
+const c = {};
+c.bar = 4;
+c.bar;
+
+const d = {};
+d.bar;
+d.bar = 4;
+
+const e = {};
+e.bar;
+e.bar;
+
+type Spreaded = {
+  ...Alias,
+};
+
+const f: Spreaded = { foo() {}, bar: '', baz: 5 };
+if (f.foo != null) { f.foo() };
+
+type Alias2 = {
+  foo(): void,
+  bar: string,
+};
+
+const g = { foo() {}, bar: ''};
+(g: Alias);
+(g: Alias2);
+
+function destructuring(x: Alias): void {
+  const {foo, bar: baz} = x;
+}
+
+=====================================output=====================================
+// @flow
+
+type Alias = {
+  foo(): void,
+  bar: string,
+};
+
+const a: Alias = { foo() {}, bar: "" };
+a.foo();
+a.foo();
+a.bar;
+a.bar;
+
+const b = { bar: "" };
+b.bar;
+b.bar;
+
+const c = {};
+c.bar = 4;
+c.bar;
+
+const d = {};
+d.bar;
+d.bar = 4;
+
+const e = {};
+e.bar;
+e.bar;
+
+type Spreaded = {
+  ...Alias,
+};
+
+const f: Spreaded = { foo() {}, bar: "", baz: 5 };
+if (f.foo != null) {
+  f.foo();
+}
+
+type Alias2 = {
+  foo(): void,
+  bar: string,
+};
+
+const g = { foo() {}, bar: "" };
+(g: Alias);
+(g: Alias2);
+
+function destructuring(x: Alias): void {
+  const { foo, bar: baz } = x;
+}
+
+================================================================================
+`;
+
+exports[`optional-chaining.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+type Foo = {
+  bar: Bar
+}
+
+type Bar = {
+  baz: number
+}
+
+const foo: ?Foo = {
+  bar: {
+    baz: 42
+  }
+};
+
+foo?.bar.baz;
+
+=====================================output=====================================
+// @flow
+
+type Foo = {
+  bar: Bar,
+};
+
+type Bar = {
+  baz: number,
+};
+
+const foo: ?Foo = {
+  bar: {
+    baz: 42,
+  },
+};
+
+foo?.bar.baz;
+
+================================================================================
+`;
+
+exports[`unchecked.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// Note the abscense of the pragma here
+
+const foo = {bar: ''};
+foo.bar;
+
+=====================================output=====================================
+// Note the abscense of the pragma here
+
+const foo = { bar: "" };
+foo.bar;
+
+================================================================================
+`;
+
+exports[`unions.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+class SuperClass {
+  bar: string;
+}
+class BarClass extends SuperClass {
+  bar: string;
+}
+
+type Foo = {bar: string} | {bar: number} | any;
+
+type Bar = Foo | {baz: number} | BarClass;
+
+type Baz = Bar | {bar: string, baz: number} | Object;
+
+function f(x: Baz) {
+  if (x.bar) {
+  };
+}
+
+new BarClass().bar;
+
+=====================================output=====================================
+// @flow
+
+class SuperClass {
+  bar: string;
+}
+class BarClass extends SuperClass {
+  bar: string;
+}
+
+type Foo = { bar: string } | { bar: number } | any;
+
+type Bar = Foo | { baz: number } | BarClass;
+
+type Baz = Bar | { bar: string, baz: number } | Object;
+
+function f(x: Baz) {
+  if (x.bar) {
+  }
+}
+
+new BarClass().bar;
+
+================================================================================
+`;

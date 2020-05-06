@@ -71,6 +71,13 @@ export default class A {
     return false;
   }
   static bar(p: I & K): bool {
+    /* TODO: This should be OK. In general, I&K < K for any I and K.  This used
+     * to "work" but started erroring after we moved infer into merge.  A
+     * simpler repro:
+     *
+     * declare var x: bool & (number | string);
+     * (x: number | string);
+     */
     return this.foo(p);
   }
 }
@@ -89,6 +96,13 @@ export default class A {
     return false;
   }
   static bar(p: I & K): boolean {
+    /* TODO: This should be OK. In general, I&K < K for any I and K.  This used
+     * to "work" but started erroring after we moved infer into merge.  A
+     * simpler repro:
+     *
+     * declare var x: bool & (number | string);
+     * (x: number | string);
+     */
     return this.foo(p);
   }
 }
@@ -1986,7 +2000,9 @@ declare class C {
   once(event: string, listener: Function): C;
   removeAllListeners(event?: string): C;
   removeListener(event: string, listener: Function): C;
+  off(event: string, listener: Function): C;
   setMaxListeners(n: number): void;
+  rawListeners(event: string): Array<Function>;
 }
 
 declare class D extends C {
@@ -2018,7 +2034,9 @@ declare class C {
   once(event: string, listener: Function): C;
   removeAllListeners(event?: string): C;
   removeListener(event: string, listener: Function): C;
+  off(event: string, listener: Function): C;
   setMaxListeners(n: number): void;
+  rawListeners(event: string): Array<Function>;
 }
 
 declare class D extends C {
@@ -2054,7 +2072,7 @@ printWidth: 80
 
 // termination test (see also lib/test25_lib.js)
 
-function foo(rows: Rows, set: Set<number>) {
+function foo(rows: Rows, set: RowSet<number>) {
   return rows.reduce_rows(
     (set, row) => row.reduce_row(
       (set, i) => set.add(i),
@@ -2069,7 +2087,7 @@ function foo(rows: Rows, set: Set<number>) {
 
 // termination test (see also lib/test25_lib.js)
 
-function foo(rows: Rows, set: Set<number>) {
+function foo(rows: Rows, set: RowSet<number>) {
   return rows.reduce_rows(
     (set, row) => row.reduce_row((set, i) => set.add(i), set),
     set
@@ -2381,7 +2399,7 @@ parsers: ["flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-// @flow
+// @noflow
 
 // make sure that full resolution jobs don't cache improperly to signal success
 // when they have failed earlier
@@ -2392,7 +2410,7 @@ function foo(value: Indirect<string> | number): Indirect<string> | number {
 }
 
 =====================================output=====================================
-// @flow
+// @noflow
 
 // make sure that full resolution jobs don't cache improperly to signal success
 // when they have failed earlier
@@ -2401,6 +2419,110 @@ function foo(value: Indirect<string> | number): Indirect<string> | number {
   const castedValue: number = typeof value === "number" ? value : 0;
   return castedValue;
 }
+
+================================================================================
+`;
+
+exports[`test33.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @noflow
+
+// speculation failure should leave unresolved tvars alone
+
+function foo(cb: (() => string) | (() => number)) {}
+function bar() { return 0 }
+foo(bar); // error: ambiguous speculation
+(bar(): string); // error: number ~> string
+
+=====================================output=====================================
+// @noflow
+
+// speculation failure should leave unresolved tvars alone
+
+function foo(cb: (() => string) | (() => number)) {}
+function bar() {
+  return 0;
+}
+foo(bar); // error: ambiguous speculation
+(bar(): string); // error: number ~> string
+
+================================================================================
+`;
+
+exports[`test34.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @noflow
+
+type T =
+  | {type: 'A', ...A}
+  | {type: 'B', ...B}
+
+declare var x: T;
+switch (x.type) {
+  case 'A':
+    (x.foo: empty); // error: string ~> empty
+    break;
+}
+
+// types defined below use to ensure annot resolution happens after
+type B = {| bar: string |};
+type A = {| foo: string |};
+
+=====================================output=====================================
+// @noflow
+
+type T = { type: "A", ...A } | { type: "B", ...B };
+
+declare var x: T;
+switch (x.type) {
+  case "A":
+    (x.foo: empty); // error: string ~> empty
+    break;
+}
+
+// types defined below use to ensure annot resolution happens after
+type B = {| bar: string |};
+type A = {| foo: string |};
+
+================================================================================
+`;
+
+exports[`test35.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @noflow
+
+declare function f(x: {p: string}): number;
+declare function f(x: mixed): string;
+
+declare var x: {[K]: string}; // NB: \`K\` defined below
+var ret = f(x); // ok, should match case 2
+(ret: empty); // err, string ~> empty (matched case 2)
+
+type K = number;
+
+=====================================output=====================================
+// @noflow
+
+declare function f(x: { p: string }): number;
+declare function f(x: mixed): string;
+
+declare var x: { [K]: string }; // NB: \`K\` defined below
+var ret = f(x); // ok, should match case 2
+(ret: empty); // err, string ~> empty (matched case 2)
+
+type K = number;
 
 ================================================================================
 `;

@@ -1,5 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Child.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+var { ParentFoo } = require('./Parent');
+module.exports = { ChildFoo : ParentFoo }
+
+=====================================output=====================================
+// @flow
+
+var { ParentFoo } = require("./Parent");
+module.exports = { ChildFoo: ParentFoo };
+
+================================================================================
+`;
+
 exports[`Parent.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -20,6 +40,44 @@ module.exports = { ParentFoo };
 ================================================================================
 `;
 
+exports[`declare.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+declare var foo: number;
+foo;
+
+declare export var bar;
+bar;
+
+declare function baz(): void;
+baz();
+
+declare class Foo {};
+new Foo();
+
+=====================================output=====================================
+// @flow
+
+declare var foo: number;
+foo;
+
+declare export var bar;
+bar;
+
+declare function baz(): void;
+baz();
+
+declare class Foo {}
+new Foo();
+
+================================================================================
+`;
+
 exports[`main.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -36,13 +94,13 @@ let ParentFoo;
 ParentFoo; // Points to lval in line above this
 
 // Follows assignment on simple/"non-destructuring" patterns
-let ParentFoo2;
-ParentFoo2 = Parent;
-ParentFoo2; // Points to LHS of line above this
+let Parent2;
+Parent2 = Parent;
+Parent2; // Points to LHS of line above this
 
 // Follows assignment with declaration
-let ParentFoo3 = Parent;
-ParentFoo3; // Points to LHS of line above this
+let Parent3 = Parent;
+Parent3; // Points to LHS of line above this
 
 // Follows non-destructured property access of \`require('Parent')\`
 let foo = require('./Parent').ParentFoo.foo;
@@ -50,6 +108,15 @@ foo;
 
 import type {Foo} from './types';
 function takesFoo(foo: Foo) { }
+
+{
+  let require = (x : string) => x === './Parent';
+  let adopted = require('./Parent');
+  adopted;
+}
+
+var Child = require('./Child');
+Child.ChildFoo.foo;
 
 =====================================output=====================================
 // @flow
@@ -62,13 +129,13 @@ let ParentFoo;
 ParentFoo; // Points to lval in line above this
 
 // Follows assignment on simple/"non-destructuring" patterns
-let ParentFoo2;
-ParentFoo2 = Parent;
-ParentFoo2; // Points to LHS of line above this
+let Parent2;
+Parent2 = Parent;
+Parent2; // Points to LHS of line above this
 
 // Follows assignment with declaration
-let ParentFoo3 = Parent;
-ParentFoo3; // Points to LHS of line above this
+let Parent3 = Parent;
+Parent3; // Points to LHS of line above this
 
 // Follows non-destructured property access of \`require('Parent')\`
 let foo = require("./Parent").ParentFoo.foo;
@@ -76,6 +143,15 @@ foo;
 
 import type { Foo } from "./types";
 function takesFoo(foo: Foo) {}
+
+{
+  let require = (x: string) => x === "./Parent";
+  let adopted = require("./Parent");
+  adopted;
+}
+
+var Child = require("./Child");
+Child.ChildFoo.foo;
 
 ================================================================================
 `;
@@ -95,7 +171,10 @@ class C {
 class D extends C {
   foo() { this.override() }
   bar() { this.override }
-  override() { }
+  override() {
+    super.override();
+    super.override;
+  }
 }
 
 =====================================output=====================================
@@ -112,7 +191,10 @@ class D extends C {
   bar() {
     this.override;
   }
-  override() {}
+  override() {
+    super.override();
+    super.override;
+  }
 }
 
 ================================================================================
@@ -124,10 +206,12 @@ parsers: ["flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
+// @flow
+
 var React = require('react');
 
-class C extends React.Component {
-  props: { x: string };
+type Props = { x: string };
+class C extends React.Component<Props> {
 }
 
 let msg = "hello";
@@ -137,17 +221,78 @@ let msg = "hello";
 (<div id={msg}/>);
 
 =====================================output=====================================
+// @flow
+
 var React = require("react");
 
-class C extends React.Component {
-  props: { x: string };
-}
+type Props = { x: string };
+class C extends React.Component<Props> {}
 
 let msg = "hello";
 
 <C x={msg} />;
 
 <div id={msg} />;
+
+================================================================================
+`;
+
+exports[`refinements.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+type Foo = {
+  kind: 'asdf',
+} | {
+  kind: 'jkl;',
+}
+
+function foo(x: Foo): void {
+  if (x.kind === 'jkl;') {}
+  if (x.kind) {}
+}
+
+=====================================output=====================================
+// @flow
+
+type Foo =
+  | {
+      kind: "asdf",
+    }
+  | {
+      kind: "jkl;",
+    };
+
+function foo(x: Foo): void {
+  if (x.kind === "jkl;") {
+  }
+  if (x.kind) {
+  }
+}
+
+================================================================================
+`;
+
+exports[`require.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+const { ParentFoo } = require('./Parent');
+ParentFoo;
+
+=====================================output=====================================
+// @flow
+
+const { ParentFoo } = require("./Parent");
+ParentFoo;
 
 ================================================================================
 `;

@@ -1,0 +1,84 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`array-pattern.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+module.exports = ([x, y]) => {};
+
+=====================================output=====================================
+// @flow
+
+module.exports = ([x, y]) => {};
+
+================================================================================
+`;
+
+exports[`class.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+export class A {
+  // Ast.Expression.Object.Property.Identifier
+  x = 1;
+
+  // Ast.Expression.Object.Property.Literal
+  'b' = 5;
+
+  // Ast.Expression.Object.Property.PrivateName
+  #m = 2;
+
+  // Ast.Expression.Object.Property.Computed
+  ['a'] = 3;
+  ['a' + 'b'] = 4;
+
+}
+
+=====================================output=====================================
+// @flow
+
+export class A {
+  // Ast.Expression.Object.Property.Identifier
+  x = 1;
+
+  // Ast.Expression.Object.Property.Literal
+  b = 5;
+
+  // Ast.Expression.Object.Property.PrivateName
+  #m = 2;
+
+  // Ast.Expression.Object.Property.Computed
+  ["a"] = 3;
+  ["a" + "b"] = 4;
+}
+
+================================================================================
+`;
+
+exports[`variable-decl.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+var x = 0;
+module.exports = { x };
+
+=====================================output=====================================
+// @flow
+
+var x = 0;
+module.exports = { x };
+
+================================================================================
+`;

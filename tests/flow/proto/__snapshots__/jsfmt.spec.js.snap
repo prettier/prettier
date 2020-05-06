@@ -1,0 +1,263 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`annot.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type O = {p: number, __proto__: {q: string}};
+declare var o: O;
+(o.p: empty); // error: number ~> empty
+(o.q: empty); // error: string ~> empty
+
+({p: 0, q: ""}: O); // ok, lower \`q\` is own, but compatible with upper proto's \`q\`
+({p: 0, __proto__: {q: ""}}: O); // ok
+({p: 0, q: 0}: O); // error: number ~> string
+({p: 0, __proto__: {q: 0}}: O); // error: number ~> string
+({p: 0}: O); // error, property \`q\` not found
+
+// __proto__? treated like a normal property
+type O_optional = { __proto__?: { q: 0 } };
+declare var o_optional: O_optional;
+(o_optional.q: empty); // error: property \`q\` not found
+(o_optional.__proto__: empty); // error: void ~> empty, object type ~> empty
+
+// +__proto__ and -__proto__ treated like a normal property
+type O_variance = { +__proto__: { q: 0 } };
+declare var o_variance: O_variance;
+(o_variance.q: empty); // error: property \`q\` not found
+(o_variance.__proto__: empty); // error: object type ~> empty
+
+// __proto__ for callable objects is an error
+type O_callable = { (): void, __proto__: {} }; // error: unexpected proto after call
+declare var o_callable: O_callable;
+(o_callable.q: empty); // error: property \`q\` not found
+(o_callable.__proto__: empty); // error: function proto ~> empty
+
+// __proto__() treated like a normal (function-valued) property
+type O_method = { __proto__(): void };
+declare var o_method: O_method;
+(o_method.__proto__: empty); // error: function ~> empty
+
+type O_loop = { p: 0, __proto__: O_loop };
+declare var o_loop: O_loop;
+(o_loop.p: empty); // error: number ~> empty
+(o_loop.q: empty); // TODO: error (pruned at constraint cache)
+
+type O_invalid = { __proto__: number }; // error: number is not a valid proto
+
+type O_multi = {
+  __proto__: {},
+  __proto__: {}, // error: multiple protos
+}
+
+=====================================output=====================================
+type O = { p: number, __proto__: { q: string } };
+declare var o: O;
+(o.p: empty); // error: number ~> empty
+(o.q: empty); // error: string ~> empty
+
+({ p: 0, q: "" }: O); // ok, lower \`q\` is own, but compatible with upper proto's \`q\`
+({ p: 0, __proto__: { q: "" } }: O); // ok
+({ p: 0, q: 0 }: O); // error: number ~> string
+({ p: 0, __proto__: { q: 0 } }: O); // error: number ~> string
+({ p: 0 }: O); // error, property \`q\` not found
+
+// __proto__? treated like a normal property
+type O_optional = { __proto__?: { q: 0 } };
+declare var o_optional: O_optional;
+(o_optional.q: empty); // error: property \`q\` not found
+(o_optional.__proto__: empty); // error: void ~> empty, object type ~> empty
+
+// +__proto__ and -__proto__ treated like a normal property
+type O_variance = { +__proto__: { q: 0 } };
+declare var o_variance: O_variance;
+(o_variance.q: empty); // error: property \`q\` not found
+(o_variance.__proto__: empty); // error: object type ~> empty
+
+// __proto__ for callable objects is an error
+type O_callable = { (): void, __proto__: {} }; // error: unexpected proto after call
+declare var o_callable: O_callable;
+(o_callable.q: empty); // error: property \`q\` not found
+(o_callable.__proto__: empty); // error: function proto ~> empty
+
+// __proto__() treated like a normal (function-valued) property
+type O_method = { __proto__(): void };
+declare var o_method: O_method;
+(o_method.__proto__: empty); // error: function ~> empty
+
+type O_loop = { p: 0, __proto__: O_loop };
+declare var o_loop: O_loop;
+(o_loop.p: empty); // error: number ~> empty
+(o_loop.q: empty); // TODO: error (pruned at constraint cache)
+
+type O_invalid = { __proto__: number }; // error: number is not a valid proto
+
+type O_multi = {
+  __proto__: {},
+  __proto__: {}, // error: multiple protos
+};
+
+================================================================================
+`;
+
+exports[`lib.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+declare class Object {
+  static create(o: any, properties?: any): any; // compiler magic
+  static getPrototypeOf: Object$GetPrototypeOf;
+}
+
+=====================================output=====================================
+declare class Object {
+  static create(o: any, properties?: any): any; // compiler magic
+  static getPrototypeOf: Object$GetPrototypeOf;
+}
+
+================================================================================
+`;
+
+exports[`literal.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+var o = { p: 0, __proto__: { q: 1 } };
+(o.p: empty); // error: number ~> empty
+(o.q: empty); // error: number ~> empty
+
+var o_get = { get __proto__() { return { q: 1 } } };
+(o_get.q: empty); // error: property \`q\` not found
+(o_get.__proto__: { q: number }); // ok
+
+var o_set = { set __proto__(x) {} };
+(o_set.__proto__: empty); // error: read from contravariant prop
+
+var o_method = { __proto__() {} };
+(o_method.__proto__: empty); // error: function ~> empty
+
+var __proto__ = { q: 1 };
+var o_shorthand = { __proto__ };
+(o_shorthand.q: empty); // error: property \`q\` not found
+(o_shorthand.__proto__: { q: number }); // ok
+
+var o_computed = { ["__proto__"]: 0 }; // TODO: computed props use SetElem :/
+(o_computed.__proto__: empty); // TODO: error: number ~> empty
+
+var o_loop = { p: 0, __proto__: o_loop }; // error: void (undefined o_loop) is not a valid proto
+(o_loop.p: empty); // error: number ~> empty
+(o_loop.q: empty); // error: property \`q\` not found
+
+var o_invalid = { __proto__: 0 }; // error: 0 is not a valid proto
+
+=====================================output=====================================
+var o = { p: 0, __proto__: { q: 1 } };
+(o.p: empty); // error: number ~> empty
+(o.q: empty); // error: number ~> empty
+
+var o_get = {
+  get __proto__() {
+    return { q: 1 };
+  },
+};
+(o_get.q: empty); // error: property \`q\` not found
+(o_get.__proto__: { q: number }); // ok
+
+var o_set = { set __proto__(x) {} };
+(o_set.__proto__: empty); // error: read from contravariant prop
+
+var o_method = { __proto__() {} };
+(o_method.__proto__: empty); // error: function ~> empty
+
+var __proto__ = { q: 1 };
+var o_shorthand = { __proto__ };
+(o_shorthand.q: empty); // error: property \`q\` not found
+(o_shorthand.__proto__: { q: number }); // ok
+
+var o_computed = { ["__proto__"]: 0 }; // TODO: computed props use SetElem :/
+(o_computed.__proto__: empty); // TODO: error: number ~> empty
+
+var o_loop = { p: 0, __proto__: o_loop }; // error: void (undefined o_loop) is not a valid proto
+(o_loop.p: empty); // error: number ~> empty
+(o_loop.q: empty); // error: property \`q\` not found
+
+var o_invalid = { __proto__: 0 }; // error: 0 is not a valid proto
+
+================================================================================
+`;
+
+exports[`null.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type O_null = { __proto__: null }
+({}: O_null); // OK, similar to width subtyping we "forget" about Object.prototype
+
+var o_null = { p: 0, __proto__: null }
+o_null.toString(); // property \`toString\` not found
+
+(o_null: O_null); // OK
+
+// NB: can't use __proto__ getter on null-proto object!
+(Object.getPrototypeOf(o_null): null); // OK, NullProtoT is the same as NullT
+
+var o_shadow = Object.create(null);
+(o_shadow.p: string);
+o_shadow.p = 0; // error: number ~> string
+
+declare var o_nonstrict: { __proto__: null };
+if (o_nonstrict.p) { // Error - property p is unknown
+  (o_nonstrict.p: empty); // error: mixed ~> empty
+}
+
+=====================================output=====================================
+type O_null = { __proto__: null };
+({}: O_null); // OK, similar to width subtyping we "forget" about Object.prototype
+
+var o_null = { p: 0, __proto__: null };
+o_null.toString(); // property \`toString\` not found
+
+(o_null: O_null); // OK
+
+// NB: can't use __proto__ getter on null-proto object!
+(Object.getPrototypeOf(o_null): null); // OK, NullProtoT is the same as NullT
+
+var o_shadow = Object.create(null);
+(o_shadow.p: string);
+o_shadow.p = 0; // error: number ~> string
+
+declare var o_nonstrict: { __proto__: null };
+if (o_nonstrict.p) {
+  // Error - property p is unknown
+  (o_nonstrict.p: empty); // error: mixed ~> empty
+}
+
+================================================================================
+`;
+
+exports[`ternary-crash.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const err = new TypeError();
+const constructor = (typeof err.constructor === 'function') ? err.constructor : Error;
+const clone = Object.create(constructor.prototype);
+
+=====================================output=====================================
+const err = new TypeError();
+const constructor =
+  typeof err.constructor === "function" ? err.constructor : Error;
+const clone = Object.create(constructor.prototype);
+
+================================================================================
+`;

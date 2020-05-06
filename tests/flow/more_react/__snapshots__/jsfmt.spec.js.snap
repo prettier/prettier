@@ -269,13 +269,178 @@ checkPropTypes(
 ================================================================================
 `;
 
+exports[`inexact_config.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+const React = require('react');
+function Component(): React$Node { return null; }
+
+const _a = <Component foo={3} bar={3} />;
+const _b = <Component>{"foo"}</Component>;
+const _b2 = <Component></Component>;
+
+type Props = {||}
+function Component2(props : Props) : React$Node { return null; }
+
+const _c = <Component2 foo={3} bar={3} />; // error
+const _d = <Component2>{"foo"}</Component2>; //error
+
+function Component3(props : { }) : React$Node { return null; }
+
+const _e = <Component3 foo={3} bar={3} />;
+const _f = <Component3>{"foo"}</Component3>;
+
+function Component4(props : {| foo : number |}) : React$Node { return null; }
+
+const _g = <Component4 foo={3} bar={3} />; //error
+const _h = <Component4></Component4>; //error
+
+=====================================output=====================================
+//@flow
+const React = require("react");
+function Component(): React$Node {
+  return null;
+}
+
+const _a = <Component foo={3} bar={3} />;
+const _b = <Component>{"foo"}</Component>;
+const _b2 = <Component></Component>;
+
+type Props = {||};
+function Component2(props: Props): React$Node {
+  return null;
+}
+
+const _c = <Component2 foo={3} bar={3} />; // error
+const _d = <Component2>{"foo"}</Component2>; //error
+
+function Component3(props: {}): React$Node {
+  return null;
+}
+
+const _e = <Component3 foo={3} bar={3} />;
+const _f = <Component3>{"foo"}</Component3>;
+
+function Component4(props: {| foo: number |}): React$Node {
+  return null;
+}
+
+const _g = <Component4 foo={3} bar={3} />; //error
+const _h = <Component4></Component4>; //error
+
+================================================================================
+`;
+
+exports[`inexact_props.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+const React = require('react');
+
+type Props1 = {
+    +x : number;
+    y : string;
+}
+
+type Props2 = {|
+    +x : number;
+    y : string;
+|}
+
+class A extends React$Component<Props1> {}
+class B extends React$Component<Props2> {}
+
+<A x={4} y={"hello"} z={3}></A>;
+<B x={4} y={"hello"} z={3}></B>; // error
+
+
+type Props3 = { p1? : boolean, p2? : number }
+
+class XComponent<XProps : Props3, XState> extends React.PureComponent<
+  XProps,
+  XState
+> {}
+
+declare var cond : boolean;
+const BaseComponent = cond ? React.Component : XComponent;
+
+type Props4 = $Exact<{
+  p1? : boolean,
+  p2? : number,
+  p3? : string,
+}>;
+
+class YComponent extends BaseComponent<Props4, void> {
+  props : Props4;
+}
+
+declare var s : ?string;
+
+<YComponent p1={true} p2={3} p3={s}></YComponent>
+
+=====================================output=====================================
+//@flow
+
+const React = require("react");
+
+type Props1 = {
+  +x: number,
+  y: string,
+};
+
+type Props2 = {|
+  +x: number,
+  y: string,
+|};
+
+class A extends React$Component<Props1> {}
+class B extends React$Component<Props2> {}
+
+<A x={4} y={"hello"} z={3}></A>;
+<B x={4} y={"hello"} z={3}></B>; // error
+
+type Props3 = { p1?: boolean, p2?: number };
+
+class XComponent<XProps: Props3, XState> extends React.PureComponent<
+  XProps,
+  XState
+> {}
+
+declare var cond: boolean;
+const BaseComponent = cond ? React.Component : XComponent;
+
+type Props4 = $Exact<{
+  p1?: boolean,
+  p2?: number,
+  p3?: string,
+}>;
+
+class YComponent extends BaseComponent<Props4, void> {
+  props: Props4;
+}
+
+declare var s: ?string;
+
+<YComponent p1={true} p2={3} p3={s}></YComponent>;
+
+================================================================================
+`;
+
 exports[`propTypes.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-var React = require('React');
+var React = require('react');
 
 var C = React.createClass({
   propTypes: {
@@ -292,7 +457,7 @@ var D = React.createClass({
 <D />; // errors: properties \`name\` and \`title\` not found
 
 =====================================output=====================================
-var React = require("React");
+var React = require("react");
 
 var C = React.createClass({
   propTypes: {
@@ -307,6 +472,176 @@ var D = React.createClass({
 });
 
 <D />; // errors: properties \`name\` and \`title\` not found
+
+================================================================================
+`;
+
+exports[`react-copy-write.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+var React = require("react");
+
+export type Recipe<T> = (draft: T, state: $ReadOnly<T>) => void;
+export type Mutate<T> = (recipe: Recipe<T>) => void;
+
+type ConsumerRender<S> = (...S) => React$Node;
+
+type ProviderProps<T> = {|
+  children: React$Node,
+  initialState?: T,
+|};
+
+export type Provider<T> = React$ComponentType<ProviderProps<T>>;
+
+type GetReturnType = <T, S>((T) => S) => S;
+
+type ConsumerProps<T, TSelect: $ReadOnlyArray<(T) => mixed>> = {|
+  select?: TSelect,
+  children?: ConsumerRender<$TupleMap<TSelect, GetReturnType>>,
+  render?: ConsumerRender<$TupleMap<TSelect, GetReturnType>>,
+|};
+
+type Selector<T, R> = T => R;
+
+export type Store<T> = {
+  +Provider: Provider<T>,
+  +Consumer: {
+    <TSelect: $ReadOnlyArray<(T) => mixed>>(
+      ConsumerProps<T, TSelect>,
+    ): React$Node,
+    // Need the following to fake this as a functional component
+    displayName?: ?string,
+    propTypes?: any,
+    contextTypes?: any,
+  },
+  +mutate: Mutate<T>,
+  createSelector<R>(Selector<T, R>): Selector<T, R>,
+};
+
+declare var store : Store<number>;
+<store.Consumer></store.Consumer>
+
+=====================================output=====================================
+//@flow
+var React = require("react");
+
+export type Recipe<T> = (draft: T, state: $ReadOnly<T>) => void;
+export type Mutate<T> = (recipe: Recipe<T>) => void;
+
+type ConsumerRender<S> = (...S) => React$Node;
+
+type ProviderProps<T> = {|
+  children: React$Node,
+  initialState?: T,
+|};
+
+export type Provider<T> = React$ComponentType<ProviderProps<T>>;
+
+type GetReturnType = <T, S>((T) => S) => S;
+
+type ConsumerProps<T, TSelect: $ReadOnlyArray<(T) => mixed>> = {|
+  select?: TSelect,
+  children?: ConsumerRender<$TupleMap<TSelect, GetReturnType>>,
+  render?: ConsumerRender<$TupleMap<TSelect, GetReturnType>>,
+|};
+
+type Selector<T, R> = (T) => R;
+
+export type Store<T> = {
+  +Provider: Provider<T>,
+  +Consumer: {
+    <TSelect: $ReadOnlyArray<(T) => mixed>>(
+      ConsumerProps<T, TSelect>
+    ): React$Node,
+    // Need the following to fake this as a functional component
+    displayName?: ?string,
+    propTypes?: any,
+    contextTypes?: any,
+  },
+  +mutate: Mutate<T>,
+  createSelector<R>(Selector<T, R>): Selector<T, R>,
+};
+
+declare var store: Store<number>;
+<store.Consumer></store.Consumer>;
+
+================================================================================
+`;
+
+exports[`subclassComponent.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@#flow
+
+var React = require("React");
+
+type Props1 = {||}
+
+declare class A extends React$Component<Props1, void> {}
+declare class B extends A {}
+declare class C extends B {}
+
+<A></A>;
+<B></B>;
+<C></C>;
+
+declare class React$Component2<Props, State = void> {
+  props : Props;
+}
+
+type Props2 = {||}
+
+declare class D extends React$Component2<Props2, void> {}
+
+declare class E extends D {}
+
+declare class F {
+  props : {||}
+}
+
+<D></D>; // error
+<E></E>; // error
+<F></F>; // error
+
+=====================================output=====================================
+//@#flow
+
+var React = require("React");
+
+type Props1 = {||};
+
+declare class A extends React$Component<Props1, void> {}
+declare class B extends A {}
+declare class C extends B {}
+
+<A></A>;
+<B></B>;
+<C></C>;
+
+declare class React$Component2<Props, State = void> {
+  props: Props;
+}
+
+type Props2 = {||};
+
+declare class D extends React$Component2<Props2, void> {}
+
+declare class E extends D {}
+
+declare class F {
+  props: {||};
+}
+
+<D></D>; // error
+<E></E>; // error
+<F></F>; // error
 
 ================================================================================
 `;

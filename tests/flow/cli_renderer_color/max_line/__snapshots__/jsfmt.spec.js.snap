@@ -1,0 +1,429 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`foo.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @format
+ * @flow
+ */
+
+export const foo2 = 2;
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+export const foo1 = 1;
+
+=====================================output=====================================
+/**
+ * @format
+ * @flow
+ */
+
+export const foo2 = 2;
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+export const foo1 = 1;
+
+================================================================================
+`;
+
+exports[`test.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @format
+ * @flow
+ */
+
+import {foo1, foo2} from './foo';
+
+(foo1: empty);
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+(foo2: empty);
+
+=====================================output=====================================
+/**
+ * @format
+ * @flow
+ */
+
+import { foo1, foo2 } from "./foo";
+
+(foo1: empty);
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+// intentionally empty line
+(foo2: empty);
+
+================================================================================
+`;

@@ -1,0 +1,461 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`basic.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @format
+ * @flow
+ */
+
+(null: empty); // Error: null ~> empty
+
+=====================================output=====================================
+/**
+ * @format
+ * @flow
+ */
+
+(null: empty); // Error: null ~> empty
+
+================================================================================
+`;
+
+exports[`name_that_gets_very_close.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @format
+ * @flow
+ */
+
+(null: empty); // Error: null ~> empty
+
+=====================================output=====================================
+/**
+ * @format
+ * @flow
+ */
+
+(null: empty); // Error: null ~> empty
+
+================================================================================
+`;
+
+exports[`name_that_gets_very_close2.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @format
+ * @flow
+ */
+
+(null: empty); // Error: null ~> empty
+
+=====================================output=====================================
+/**
+ * @format
+ * @flow
+ */
+
+(null: empty); // Error: null ~> empty
+
+================================================================================
+`;
+
+exports[`non_breakable_breaks.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @format
+ * @flow
+ */
+
+const reallyReallyReallyReallyReallyReallyReallyReallyLongVariableName = 42;
+(reallyReallyReallyReallyReallyReallyReallyReallyLongVariableName: empty);
+
+const reallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyLongVariableName = 42;
+(reallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyLongVariableName: empty);
+
+const abcdefghijklmnopqrstuvwxyzabcdefghijkl = 42;
+(abcdefghijklmnopqrstuvwxyzabcdefghijkl: empty);
+
+const abcdefghijklmnopqrstuvwxyzabcdefghijklm = 42;
+(abcdefghijklmnopqrstuvwxyzabcdefghijklm: empty);
+
+const mnopqrstuvwxyzabcdefghijkl = 42;
+(mnopqrstuvwxyzabcdefghijkl: empty);
+
+const mnopqrstuvwxyzabcdefghijklm = 42;
+(mnopqrstuvwxyzabcdefghijklm: empty);
+
+=====================================output=====================================
+/**
+ * @format
+ * @flow
+ */
+
+const reallyReallyReallyReallyReallyReallyReallyReallyLongVariableName = 42;
+(reallyReallyReallyReallyReallyReallyReallyReallyLongVariableName: empty);
+
+const reallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyLongVariableName = 42;
+(reallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyReallyLongVariableName: empty);
+
+const abcdefghijklmnopqrstuvwxyzabcdefghijkl = 42;
+(abcdefghijklmnopqrstuvwxyzabcdefghijkl: empty);
+
+const abcdefghijklmnopqrstuvwxyzabcdefghijklm = 42;
+(abcdefghijklmnopqrstuvwxyzabcdefghijklm: empty);
+
+const mnopqrstuvwxyzabcdefghijkl = 42;
+(mnopqrstuvwxyzabcdefghijkl: empty);
+
+const mnopqrstuvwxyzabcdefghijklm = 42;
+(mnopqrstuvwxyzabcdefghijklm: empty);
+
+================================================================================
+`;
+
+exports[`really_long_filename_that_is_much_more_then_40_characters.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @format
+ * @flow
+ */
+
+(null: empty); // Error: null ~> empty
+
+=====================================output=====================================
+/**
+ * @format
+ * @flow
+ */
+
+(null: empty); // Error: null ~> empty
+
+================================================================================
+`;
+
+exports[`wrap.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @format
+ * @flow
+ */
+
+({
+  this: {
+    is: {
+      going: [
+        {
+          to: {
+            be: {
+              a: {
+                really: [
+                  {
+                    long: {
+                      error: {
+                        message: {
+                          that: {
+                            hopefully: [
+                              {breaks: {on: {multiple: {lines: 42}}}},
+                            ],
+                          },
+                        },
+                      },
+                    },
+                  },
+                ],
+              },
+            },
+          },
+        },
+      ],
+    },
+  },
+}: {
+  this: {
+    is: {
+      going: [
+        {
+          to: {
+            be: {
+              a: {
+                really: [
+                  {
+                    long: {
+                      error: {
+                        message: {
+                          that: {
+                            hopefully: [
+                              {breaks: {on: {multiple: {lines: string}}}},
+                            ],
+                          },
+                        },
+                      },
+                    },
+                  },
+                ],
+              },
+            },
+          },
+        },
+      ],
+    },
+  },
+});
+
+=====================================output=====================================
+/**
+ * @format
+ * @flow
+ */
+
+({
+  this: {
+    is: {
+      going: [
+        {
+          to: {
+            be: {
+              a: {
+                really: [
+                  {
+                    long: {
+                      error: {
+                        message: {
+                          that: {
+                            hopefully: [
+                              { breaks: { on: { multiple: { lines: 42 } } } },
+                            ],
+                          },
+                        },
+                      },
+                    },
+                  },
+                ],
+              },
+            },
+          },
+        },
+      ],
+    },
+  },
+}: {
+  this: {
+    is: {
+      going: [
+        {
+          to: {
+            be: {
+              a: {
+                really: [
+                  {
+                    long: {
+                      error: {
+                        message: {
+                          that: {
+                            hopefully: [
+                              {
+                                breaks: { on: { multiple: { lines: string } } },
+                              }
+                            ],
+                          },
+                        },
+                      },
+                    },
+                  }
+                ],
+              },
+            },
+          },
+        }
+      ],
+    },
+  },
+});
+
+================================================================================
+`;
+
+exports[`wrap_group.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @format
+ * @flow
+ */
+
+({
+  this: {
+    is: {
+      going: [
+        {
+          to: {
+            be: {
+              a: {
+                really: [
+                  {
+                    long: {
+                      error: {
+                        message: {
+                          that: {
+                            hopefully: [
+                              {breaks: {on: {multiple: {lines: {a: 1, b: 2}}}}},
+                            ],
+                          },
+                        },
+                      },
+                    },
+                  },
+                ],
+              },
+            },
+          },
+        },
+      ],
+    },
+  },
+}: {
+  this: {
+    is: {
+      going: [
+        {
+          to: {
+            be: {
+              a: {
+                really: [
+                  {
+                    long: {
+                      error: {
+                        message: {
+                          that: {
+                            hopefully: [
+                              {
+                                breaks: {
+                                  on: {
+                                    multiple: {lines: {a: string, b: string}},
+                                  },
+                                },
+                              },
+                            ],
+                          },
+                        },
+                      },
+                    },
+                  },
+                ],
+              },
+            },
+          },
+        },
+      ],
+    },
+  },
+});
+
+=====================================output=====================================
+/**
+ * @format
+ * @flow
+ */
+
+({
+  this: {
+    is: {
+      going: [
+        {
+          to: {
+            be: {
+              a: {
+                really: [
+                  {
+                    long: {
+                      error: {
+                        message: {
+                          that: {
+                            hopefully: [
+                              {
+                                breaks: {
+                                  on: { multiple: { lines: { a: 1, b: 2 } } },
+                                },
+                              },
+                            ],
+                          },
+                        },
+                      },
+                    },
+                  },
+                ],
+              },
+            },
+          },
+        },
+      ],
+    },
+  },
+}: {
+  this: {
+    is: {
+      going: [
+        {
+          to: {
+            be: {
+              a: {
+                really: [
+                  {
+                    long: {
+                      error: {
+                        message: {
+                          that: {
+                            hopefully: [
+                              {
+                                breaks: {
+                                  on: {
+                                    multiple: {
+                                      lines: { a: string, b: string },
+                                    },
+                                  },
+                                },
+                              }
+                            ],
+                          },
+                        },
+                      },
+                    },
+                  }
+                ],
+              },
+            },
+          },
+        }
+      ],
+    },
+  },
+});
+
+================================================================================
+`;

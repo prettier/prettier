@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`arrays.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+declare var noop : <T>(arr: Array<Array<T>>) => void;
+declare var arr : Array<Array<?string>>;
+let new_arr = [];
+arr.forEach(x => new_arr.push(x));
+new_arr = new_arr.filter(Boolean);
+noop<string>(new_arr);
+
+=====================================output=====================================
+//@flow
+
+declare var noop: <T>(arr: Array<Array<T>>) => void;
+declare var arr: Array<Array<?string>>;
+let new_arr = [];
+arr.forEach((x) => new_arr.push(x));
+new_arr = new_arr.filter(Boolean);
+noop<string>(new_arr);
+
+================================================================================
+`;
+
+exports[`function.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+declare var o: {[string]: string};
+function f1(x) {
+  // no errors, f1 is never called so \`x\` is never constrained
+  o[x] = 42;
+};
+
+function f2(x) {
+  // error, cast below constrains \`x\`, so we see the set-elem error
+  o[x] = 42;
+};
+(f2: (string) => void);
+
+function f3(x) {
+  // error, case to any also constrains \`x\`, so we see the set-elem error
+  o[x] = 42;
+};
+(f3: any);
+
+=====================================output=====================================
+// @flow
+declare var o: { [string]: string };
+function f1(x) {
+  // no errors, f1 is never called so \`x\` is never constrained
+  o[x] = 42;
+}
+
+function f2(x) {
+  // error, cast below constrains \`x\`, so we see the set-elem error
+  o[x] = 42;
+}
+(f2: (string) => void);
+
+function f3(x) {
+  // error, case to any also constrains \`x\`, so we see the set-elem error
+  o[x] = 42;
+}
+(f3: any);
+
+================================================================================
+`;

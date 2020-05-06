@@ -1,5 +1,78 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`array_spread.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+function foo(xs: Array<any>) {
+  const zs = [];
+  xs
+    .map(
+      x => [],
+    )
+    .map(ys =>
+      ys
+      .map(y => [])
+      .reduce((a, b) => [...a, ...b], []),
+    )
+    .reduce((a, b) => [...a, ...b], [])
+    .forEach(z => {
+        zs.push(z);
+    });
+}
+
+=====================================output=====================================
+// @flow
+
+function foo(xs: Array<any>) {
+  const zs = [];
+  xs.map((x) => [])
+    .map((ys) => ys.map((y) => []).reduce((a, b) => [...a, ...b], []))
+    .reduce((a, b) => [...a, ...b], [])
+    .forEach((z) => {
+      zs.push(z);
+    });
+}
+
+================================================================================
+`;
+
+exports[`eval_union.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+declare var b: boolean;
+declare function make<U>(cb: (U) => U): $NonMaybeType<U>;
+make(x => (b ? x : 42));
+
+declare var arr: Array<{ +f: ?number }>;
+let acc = [];
+arr.forEach(x => acc.push(x.f));
+acc = acc.filter(Boolean);
+
+=====================================output=====================================
+// @flow
+
+declare var b: boolean;
+declare function make<U>(cb: (U) => U): $NonMaybeType<U>;
+make((x) => (b ? x : 42));
+
+declare var arr: Array<{ +f: ?number }>;
+let acc = [];
+arr.forEach((x) => acc.push(x.f));
+acc = acc.filter(Boolean);
+
+================================================================================
+`;
+
 exports[`issue-598.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -85,6 +158,221 @@ type Task<error, value> = {
 function id(x: Task<any, any>): Task<any, any> {
   return x;
 }
+
+================================================================================
+`;
+
+exports[`issue-4070.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+const ys = new Map();
+const y = ys.get('a');
+
+ys.set('a', [...y]);
+ys.set('a', [...y]);
+ys.set('a', [...y]);
+ys.set('a', [...y]);
+
+=====================================output=====================================
+// @flow
+
+const ys = new Map();
+const y = ys.get("a");
+
+ys.set("a", [...y]);
+ys.set("a", [...y]);
+ys.set("a", [...y]);
+ys.set("a", [...y]);
+
+================================================================================
+`;
+
+exports[`issue-4370.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+export const checkComponent = (obj: any[]): Object[] =>
+  obj.reduce((acc, x) => {
+    if (x === undefined) {
+      return [...acc, {}];
+    }
+
+    if (x === 'hi') {
+      return [...acc, {}];
+    }
+
+    if (x.err) {
+      return [...acc, {}];
+    }
+    return acc;
+  }, []);
+
+=====================================output=====================================
+// @flow
+export const checkComponent = (obj: any[]): Object[] =>
+  obj.reduce((acc, x) => {
+    if (x === undefined) {
+      return [...acc, {}];
+    }
+
+    if (x === "hi") {
+      return [...acc, {}];
+    }
+
+    if (x.err) {
+      return [...acc, {}];
+    }
+    return acc;
+  }, []);
+
+================================================================================
+`;
+
+exports[`issue6155.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @noflow
+
+type A = {kind: 'a', e: Type};
+type B = {kind: 'b', k: Type, v: Type};
+type C = {kind: 'c'};
+type Type = A | B | C;
+
+type TypeCases<R> = {|
+    a: (A) => R,
+    b: (B) => R,
+    c: (C) => R
+|};
+
+function matcher<R>(cases: TypeCases<R>): (Type) => R {
+    return (type) => cases[type.kind](type);
+}
+
+const f: Type => Array<string> = matcher({
+    a: (a: A) => [...f(a.e)],
+    b: (b: B) => [...f(b.k), ...f(b.v)],
+    c: () =>  ['']
+});
+
+=====================================output=====================================
+// @noflow
+
+type A = { kind: "a", e: Type };
+type B = { kind: "b", k: Type, v: Type };
+type C = { kind: "c" };
+type Type = A | B | C;
+
+type TypeCases<R> = {|
+  a: (A) => R,
+  b: (B) => R,
+  c: (C) => R,
+|};
+
+function matcher<R>(cases: TypeCases<R>): (Type) => R {
+  return (type) => cases[type.kind](type);
+}
+
+const f: (Type) => Array<string> = matcher({
+  a: (a: A) => [...f(a.e)],
+  b: (b: B) => [...f(b.k), ...f(b.v)],
+  c: () => [""],
+});
+
+================================================================================
+`;
+
+exports[`non_maybe_type.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+function foo(arr: $ReadOnlyArray<Object>) {
+    return arr.map(foo)
+        .reduce((acc, item) => acc.concat(item), [])
+        .filter(Boolean);
+  }
+
+=====================================output=====================================
+//@flow
+
+function foo(arr: $ReadOnlyArray<Object>) {
+  return arr
+    .map(foo)
+    .reduce((acc, item) => acc.concat(item), [])
+    .filter(Boolean);
+}
+
+================================================================================
+`;
+
+exports[`recursive_react_component.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+// Array#concat
+'use strict';
+import * as React from 'react';
+
+type ElementProp<
+  T: React.ElementType,
+  P: $Keys<React.ElementConfig<T>>,
+> = $ElementType<React.ElementConfig<T>, P>;
+
+type BaseProps = $ReadOnly<{|
+  theme?: ElementProp<typeof TimeoutFn, 'theme'>,
+  size?: ElementProp<typeof TimeoutFn, 'size'>,
+|}>;
+
+type Props = {|...BaseProps|} | {|...BaseProps|};
+
+const TimeoutFn = (props: Props) => {
+  const tvarprops = props;
+  return <DoesntMatter
+    {...tvarprops}
+  />
+};
+
+=====================================output=====================================
+// @flow
+
+// Array#concat
+"use strict";
+import * as React from "react";
+
+type ElementProp<
+  T: React.ElementType,
+  P: $Keys<React.ElementConfig<T>>
+> = $ElementType<React.ElementConfig<T>, P>;
+
+type BaseProps = $ReadOnly<{|
+  theme?: ElementProp<typeof TimeoutFn, "theme">,
+  size?: ElementProp<typeof TimeoutFn, "size">,
+|}>;
+
+type Props = {| ...BaseProps |} | {| ...BaseProps |};
+
+const TimeoutFn = (props: Props) => {
+  const tvarprops = props;
+  return <DoesntMatter {...tvarprops} />;
+};
 
 ================================================================================
 `;
@@ -293,6 +581,272 @@ function flatten<T>(arrArg: NestedArray<T>) {
     arr = Array.prototype.concat.apply([], arr);
   }
 }
+
+================================================================================
+`;
+
+exports[`test6.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+interface FooOld {
+  m1(): FooOld;
+  m2(): FooOld;
+  m3(): FooOld;
+  m4(): FooOld;
+}
+
+interface Foo<K> {
+  m1(): Foo<K>,
+  m2(): Foo<K>,
+  m3(): Foo<K>,
+  m4(): Foo<K>,
+}
+
+function foo(x: Foo<any>): FooOld {
+  return x;
+}
+
+=====================================output=====================================
+// @flow
+
+interface FooOld {
+  m1(): FooOld;
+  m2(): FooOld;
+  m3(): FooOld;
+  m4(): FooOld;
+}
+
+interface Foo<K> {
+  m1(): Foo<K>;
+  m2(): Foo<K>;
+  m3(): Foo<K>;
+  m4(): Foo<K>;
+}
+
+function foo(x: Foo<any>): FooOld {
+  return x;
+}
+
+================================================================================
+`;
+
+exports[`test7.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @flow
+ */
+
+declare class ImmutableSet<T> {
+  toArray(): T[];
+}
+
+declare function foo(): ImmutableSet<string>;
+
+function bar() {
+  let value;
+
+  if (true) {
+    value = foo();
+  }
+
+  if (value instanceof ImmutableSet) {
+    value = value.toArray();
+  }
+}
+
+=====================================output=====================================
+/**
+ * @flow
+ */
+
+declare class ImmutableSet<T> {
+  toArray(): T[];
+}
+
+declare function foo(): ImmutableSet<string>;
+
+function bar() {
+  let value;
+
+  if (true) {
+    value = foo();
+  }
+
+  if (value instanceof ImmutableSet) {
+    value = value.toArray();
+  }
+}
+
+================================================================================
+`;
+
+exports[`test8.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+let data = [];
+
+function asObjectList(length: number) {
+  while (data.length < length) {
+    data = data.concat(data);
+  }
+
+  let list = [];
+  let ii = 0;
+
+  while (ii < length) {
+    const record = data[ii];
+    list.push({
+      id: record.id,
+      name: record.name.join(' '),
+      value: record.value.join(' '),
+    });
+    ii++;
+  }
+  return list;
+}
+
+=====================================output=====================================
+// @flow
+
+let data = [];
+
+function asObjectList(length: number) {
+  while (data.length < length) {
+    data = data.concat(data);
+  }
+
+  let list = [];
+  let ii = 0;
+
+  while (ii < length) {
+    const record = data[ii];
+    list.push({
+      id: record.id,
+      name: record.name.join(" "),
+      value: record.value.join(" "),
+    });
+    ii++;
+  }
+  return list;
+}
+
+================================================================================
+`;
+
+exports[`test9.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+declare var o: {
+  x: number,
+  y: typeof o,
+};
+
+type O = {
+  x: string;
+  y: O;
+}
+
+(o: O);
+(o.y: O);
+
+=====================================output=====================================
+// @flow
+
+declare var o: {
+  x: number,
+  y: typeof o,
+};
+
+type O = {
+  x: string,
+  y: O,
+};
+
+(o: O);
+(o.y: O);
+
+================================================================================
+`;
+
+exports[`this_subst.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+var container = class InstrumentedContainer extends container {
+  foo() {
+    return this.props;
+  }
+};
+
+=====================================output=====================================
+// @flow
+
+var container = class InstrumentedContainer extends container {
+  foo() {
+    return this.props;
+  }
+};
+
+================================================================================
+`;
+
+exports[`union-spread.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+type X = {[string]: null | void | X};
+type Y = {...X};
+
+// Trigger optimization for X
+const x: X = {a: null, b: {c: null}};
+// Trigger optimization for Y
+const y: Y = {a: null, b: {c: null}};
+
+function test(x: X): void {}
+declare var a: Y;
+test(a);
+
+=====================================output=====================================
+//@flow
+
+type X = { [string]: null | void | X };
+type Y = { ...X };
+
+// Trigger optimization for X
+const x: X = { a: null, b: { c: null } };
+// Trigger optimization for Y
+const y: Y = { a: null, b: { c: null } };
+
+function test(x: X): void {}
+declare var a: Y;
+test(a);
 
 ================================================================================
 `;

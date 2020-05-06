@@ -39,3 +39,23 @@ function test3(x: { (a: string, b: string): void }) {
   x.call(x, 'foo', 'bar'); // ok
   x.call(x, 'foo', 123); // error, number !~> string
 }
+
+let tests = [
+  // string literal errors track use ops
+  function() {
+    function f(y: { x: "bar" }): void {}
+    f({x: "foo"}); // error, "foo" !~> "bar"
+  },
+
+  // num literal errors track use ops
+  function() {
+    function f(y: { x: 123 }): void {}
+    f({x: 234}); // error, 234 !~> 123
+  },
+
+  // bool literal errors track use ops
+  function() {
+    function f(y: { x: false }): void {}
+    f({x: true}); // error, true !~> false
+  },
+];

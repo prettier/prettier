@@ -7,5 +7,8 @@ class C {
 class D extends C {
   foo() { this.override() }
   bar() { this.override }
-  override() { }
+  override() {
+    super.override();
+    super.override;
+  }
 }

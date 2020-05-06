@@ -1,0 +1,194 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`add1arg.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+function corrupt<S: string>(x: S): S {
+  return "A" + x;
+}
+
+var x: "B" = corrupt<"B">("B")
+
+=====================================output=====================================
+//@flow
+
+function corrupt<S: string>(x: S): S {
+  return "A" + x;
+}
+
+var x: "B" = corrupt<"B">("B");
+
+================================================================================
+`;
+
+exports[`logic.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+function f<A:string, B:string>(a: A, b: B): A {
+  return a && b
+}
+//var x: number = f(14, "broken");
+var y: "a" = f<"a", "b">("a", "b");
+
+function compareGeneric<T: number>(a: T, b: T): boolean {
+  return a < b;
+}
+
+function compareGeneric2<T: number, S: number>(a: T, b: S): boolean {
+  return a < b;
+}
+
+=====================================output=====================================
+//@flow
+function f<A: string, B: string>(a: A, b: B): A {
+  return a && b;
+}
+//var x: number = f(14, "broken");
+var y: "a" = f<"a", "b">("a", "b");
+
+function compareGeneric<T: number>(a: T, b: T): boolean {
+  return a < b;
+}
+
+function compareGeneric2<T: number, S: number>(a: T, b: S): boolean {
+  return a < b;
+}
+
+================================================================================
+`;
+
+exports[`logic2.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+function f<A, B>(a: A, b: B): A {
+  return a && b
+}
+var x: number = f(14, "broken");
+
+=====================================output=====================================
+//@flow
+function f<A, B>(a: A, b: B): A {
+  return a && b;
+}
+var x: number = f(14, "broken");
+
+================================================================================
+`;
+
+exports[`num.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+function f<A:number, B:number>(a: A, b: B): A {
+  return a + b
+}
+//var x: number = f(14, "broken");
+var y: 42 = f<42, 9>(42, 9);
+
+=====================================output=====================================
+//@flow
+function f<A: number, B: number>(a: A, b: B): A {
+  return a + b;
+}
+//var x: number = f(14, "broken");
+var y: 42 = f<42, 9>(42, 9);
+
+================================================================================
+`;
+
+exports[`reduce.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+function mergeNumsError<T: number>(
+  defaultNumber: T,
+  ...nums: Array<number>
+): T {
+  return nums.reduce<T>(
+    ((prevnum, curnum) => curnum + prevnum),
+    defaultNumber
+  )
+}
+
+var x: 42 = mergeNumsError(42, 90, 90);
+
+=====================================output=====================================
+//@flow
+
+function mergeNumsError<T: number>(
+  defaultNumber: T,
+  ...nums: Array<number>
+): T {
+  return nums.reduce<T>((prevnum, curnum) => curnum + prevnum, defaultNumber);
+}
+
+var x: 42 = mergeNumsError(42, 90, 90);
+
+================================================================================
+`;
+
+exports[`wc.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+function coerce<T, U>(t: T): U {
+  type Fruit<T> =
+    | {| +type: "APPLE", +value: T |}
+    | {| +type: "BAD_APPLE", +value: empty |};
+  function corrupt<S: string>(s: S): S {
+    return "BAD_" + s;
+  }
+  const fruit: Fruit<T> = { type: (corrupt("APPLE"): "APPLE"), value: t };
+  if (fruit.type === "BAD_APPLE") {
+    return fruit.value;
+  } else {
+    throw new Error("Unreachable.");
+  }
+}
+const twelve: number = coerce("twelve"); // no type error!
+twelve.toFixed(); // runtime error!
+
+=====================================output=====================================
+// @flow
+function coerce<T, U>(t: T): U {
+  type Fruit<T> =
+    | {| +type: "APPLE", +value: T |}
+    | {| +type: "BAD_APPLE", +value: empty |};
+  function corrupt<S: string>(s: S): S {
+    return "BAD_" + s;
+  }
+  const fruit: Fruit<T> = { type: (corrupt("APPLE"): "APPLE"), value: t };
+  if (fruit.type === "BAD_APPLE") {
+    return fruit.value;
+  } else {
+    throw new Error("Unreachable.");
+  }
+}
+const twelve: number = coerce("twelve"); // no type error!
+twelve.toFixed(); // runtime error!
+
+================================================================================
+`;

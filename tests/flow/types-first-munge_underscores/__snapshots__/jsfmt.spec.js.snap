@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`class.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+class A {
+  _x: number;
+  y: string;
+}
+
+module.exports = A;
+
+=====================================output=====================================
+// @flow
+
+class A {
+  _x: number;
+  y: string;
+}
+
+module.exports = A;
+
+================================================================================
+`;
+
+exports[`import.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import A from './class';
+
+const a = new A;
+a._x = 1; // error when munge_underscores = true
+a.y = ""; // okay
+
+=====================================output=====================================
+// @flow
+
+import A from "./class";
+
+const a = new A();
+a._x = 1; // error when munge_underscores = true
+a.y = ""; // okay
+
+================================================================================
+`;

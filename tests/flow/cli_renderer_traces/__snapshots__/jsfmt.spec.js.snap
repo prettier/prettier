@@ -1,0 +1,89 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`code_frame.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+({p: 42}: {p: empty});
+
+({p: 42}: {p: empty});
+
+({
+  p: 42,
+}: {
+  p: empty,
+});
+
+({p: 42}: {p: empty});
+
+=====================================output=====================================
+// @flow
+({ p: 42 }: { p: empty });
+
+({ p: 42 }: { p: empty });
+
+({
+  p: 42,
+}: {
+  p: empty,
+});
+
+({ p: 42 }: { p: empty });
+
+================================================================================
+`;
+
+exports[`test.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @format
+ * @flow
+ */
+
+({
+  p: 42, // Error: number ~> empty
+}: {
+  p: empty,
+});
+
+({
+  a: 1, // Error: number ~> empty
+  b: 2, // Error: number ~> empty
+  c: 3, // Error: number ~> empty
+}: {
+  a: empty,
+  b: empty,
+  c: empty,
+});
+
+=====================================output=====================================
+/**
+ * @format
+ * @flow
+ */
+
+({
+  p: 42, // Error: number ~> empty
+}: {
+  p: empty,
+});
+
+({
+  a: 1, // Error: number ~> empty
+  b: 2, // Error: number ~> empty
+  c: 3, // Error: number ~> empty
+}: {
+  a: empty,
+  b: empty,
+  c: empty,
+});
+
+================================================================================
+`;

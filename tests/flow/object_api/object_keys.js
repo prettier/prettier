@@ -30,3 +30,17 @@ class Bar extends Foo {
 }
 // only own enumerable props
 (Object.keys(new Bar()): Array<'error'>); // error: bar_prop ~> error
+
+var tests = [
+  // dictionary of string literals -> array of string literals
+  function(dict: {['hi']: mixed}) {
+    (Object.keys(dict): Array<'hi'>);
+    (Object.keys(dict): Array<'bye'>); // error
+  },
+
+  // dictionary of number literals -> array of generic strings (for now)
+  function(dict: {[123]: mixed}) {
+    (Object.keys(dict): Array<string>);
+    (Object.keys(dict): Array<'123'>); // error: not supported yet
+  },
+];

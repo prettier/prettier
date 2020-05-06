@@ -919,3 +919,27 @@ o.foo = function (params) {
 
 ================================================================================
 `;
+
+exports[`union_disambiguate.js format 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/* A function is arguably compatible with both branches of the union below, but
+ * we should choose the first branch, even without annotations on the function
+ * parameter and return types. */
+type T<X> = (X => X) | X;
+type D = { [string]: number };
+(x => x: T<D>);
+
+=====================================output=====================================
+/* A function is arguably compatible with both branches of the union below, but
+ * we should choose the first branch, even without annotations on the function
+ * parameter and return types. */
+type T<X> = ((X) => X) | X;
+type D = { [string]: number };
+((x) => x: T<D>);
+
+================================================================================
+`;

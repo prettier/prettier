@@ -1,0 +1,87 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`cycle1.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+const cycle3 = require('cycle3');
+
+let x : number = cycle3.f;
+let y : string = cycle3.g;
+
+module.exports = {x : number, y : string};
+
+=====================================output=====================================
+//@flow
+
+const cycle3 = require("cycle3");
+
+let x: number = cycle3.f;
+let y: string = cycle3.g;
+
+module.exports = { x: number, y: string };
+
+================================================================================
+`;
+
+exports[`cycle2.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+const cycle1 = require('cycle1');
+
+let a : number = cycle1.x;
+let b : string = cycle1.y;
+let c : number = 4;
+
+module.exports = {a : number, b : string, c : number};
+
+=====================================output=====================================
+//@flow
+
+const cycle1 = require("cycle1");
+
+let a: number = cycle1.x;
+let b: string = cycle1.y;
+let c: number = 4;
+
+module.exports = { a: number, b: string, c: number };
+
+================================================================================
+`;
+
+exports[`cycle3.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+const cycle2 = require('cycle2');
+
+let f : number = cycle2.a + cycle2.c;
+let g : string = cycle2.b;
+
+module.exports = {x : number, y : string};
+
+=====================================output=====================================
+//@flow
+
+const cycle2 = require("cycle2");
+
+let f: number = cycle2.a + cycle2.c;
+let g: string = cycle2.b;
+
+module.exports = { x: number, y: string };
+
+================================================================================
+`;

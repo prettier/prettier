@@ -1,0 +1,298 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`importtest.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import {type Box, type Container} from './test';
+
+
+function test1(x : Box<string>) : Box<number> { // Error: string ~> number
+    return x;
+}
+
+function test2(x : Box<string>) : Box<string> {
+    return x;
+}
+
+function test3(x : Container<string>) : Container<number> { // Error: string ~> number
+    return x;
+}
+
+function test4(x : Container<string>) : Container<string> {
+    return x;
+}
+
+function test5(x : Container<string>) : Box<string> { // Error: Container ~> Box
+    return x;
+}
+
+function test6(x : Box<string>) : Container<string> { // Error: Box ~> Container
+    return x;
+}
+
+=====================================output=====================================
+// @flow
+
+import { type Box, type Container } from "./test";
+
+function test1(x: Box<string>): Box<number> {
+  // Error: string ~> number
+  return x;
+}
+
+function test2(x: Box<string>): Box<string> {
+  return x;
+}
+
+function test3(x: Container<string>): Container<number> {
+  // Error: string ~> number
+  return x;
+}
+
+function test4(x: Container<string>): Container<string> {
+  return x;
+}
+
+function test5(x: Container<string>): Box<string> {
+  // Error: Container ~> Box
+  return x;
+}
+
+function test6(x: Box<string>): Container<string> {
+  // Error: Box ~> Container
+  return x;
+}
+
+================================================================================
+`;
+
+exports[`importtest-polarity.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import type {Covariant, Contravariant, Invariant, All} from './test-polarity';
+
+function test1(x: Covariant<number>) : Covariant<number | string> {
+    return x;
+}
+
+function test2(x: Covariant<number | string>) : Covariant<number> { // Error number | string ~> number
+    return x;
+}
+
+function test3(x: Contravariant<number | string>) : Contravariant<number> {
+    return x;
+}
+
+function test4(x: Contravariant<number>) : Contravariant<number | string> { // Error: number | string ~> number
+    return x;
+}
+
+function test5(x: Invariant<number>) : Invariant<number> {
+    return x;
+}
+
+function test6(x: Invariant<number>) : Invariant<number | string> { // Error: number ~> number | string
+    return x;
+}
+
+function test7(x: Invariant<number | string>) : Invariant<number> { // Error: number | string != number
+    return x;
+}
+
+function test8(x: All<number, number, number | string>) : All<number, number | string, string> {
+    // Ok: number ~> number, number ~> number | string, number | string ~> string
+    return x;
+}
+
+function test9(x: All<number, number | string, number | string>) : All<number | string, number, number | string | null> { // Errors: number != number | string (invariant), number | string ~> number (covariant), number | string ~> number | string | null (contravariant)
+    return x;
+}
+
+=====================================output=====================================
+// @flow
+
+import type { Covariant, Contravariant, Invariant, All } from "./test-polarity";
+
+function test1(x: Covariant<number>): Covariant<number | string> {
+  return x;
+}
+
+function test2(x: Covariant<number | string>): Covariant<number> {
+  // Error number | string ~> number
+  return x;
+}
+
+function test3(x: Contravariant<number | string>): Contravariant<number> {
+  return x;
+}
+
+function test4(x: Contravariant<number>): Contravariant<number | string> {
+  // Error: number | string ~> number
+  return x;
+}
+
+function test5(x: Invariant<number>): Invariant<number> {
+  return x;
+}
+
+function test6(x: Invariant<number>): Invariant<number | string> {
+  // Error: number ~> number | string
+  return x;
+}
+
+function test7(x: Invariant<number | string>): Invariant<number> {
+  // Error: number | string != number
+  return x;
+}
+
+function test8(
+  x: All<number, number, number | string>
+): All<number, number | string, string> {
+  // Ok: number ~> number, number ~> number | string, number | string ~> string
+  return x;
+}
+
+function test9(
+  x: All<number, number | string, number | string>
+): All<number | string, number, number | string | null> {
+  // Errors: number != number | string (invariant), number | string ~> number (covariant), number | string ~> number | string | null (contravariant)
+  return x;
+}
+
+================================================================================
+`;
+
+exports[`test.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+export opaque type Box<T> = [T];
+export opaque type Container<T> = Box<T>;
+
+function test1(x : Box<string>) : Box<number> { // Error: string ~> number
+    return x;
+}
+
+function test2(x : Box<string>) : Box<string> {
+    return x;
+}
+
+function test3(x : Container<string>) : Container<number> { // Error: string ~> number
+    return x;
+}
+
+function test4(x : Container<string>) : Container<string> {
+    return x;
+}
+
+function test5(x : Container<string>) : Box<string> {
+    return x;
+}
+
+function test6(x : Box<string>) : Container<string> {
+    return x;
+}
+
+=====================================output=====================================
+// @flow
+
+export opaque type Box<T> = [T];
+export opaque type Container<T> = Box<T>;
+
+function test1(x: Box<string>): Box<number> {
+  // Error: string ~> number
+  return x;
+}
+
+function test2(x: Box<string>): Box<string> {
+  return x;
+}
+
+function test3(x: Container<string>): Container<number> {
+  // Error: string ~> number
+  return x;
+}
+
+function test4(x: Container<string>): Container<string> {
+  return x;
+}
+
+function test5(x: Container<string>): Box<string> {
+  return x;
+}
+
+function test6(x: Box<string>): Container<string> {
+  return x;
+}
+
+================================================================================
+`;
+
+exports[`test-polarity.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+
+class Foo<+T> {}
+
+class Bar<-T> {}
+
+class Baz<T> {}
+
+class FooBarBaz<S, +T, -U> {}
+
+opaque type Bad1<-T> = Foo<T>; // Error: Foo expects covariant type
+opaque type Bad2<+T> = Bar<T>; // Error: Bar expects contravariant type
+opaque type Bad3<-T> = Baz<T>; // Error: Baz expects invariant type
+opaque type Bad4<+T> = Baz<T>; // Error: Baz expects invariant type
+
+// Note: Invariant can flow to contravariant/covariant in the declarations.
+
+export opaque type Covariant<+T> = Foo<T>;
+export opaque type Contravariant<-T> = Bar<T>;
+export opaque type Invariant<T> = Baz<T>;
+export opaque type All<S,+T,-U> = FooBarBaz<S,T,U>;
+
+=====================================output=====================================
+// @flow
+
+class Foo<+T> {}
+
+class Bar<-T> {}
+
+class Baz<T> {}
+
+class FooBarBaz<S, +T, -U> {}
+
+opaque type Bad1<-T> = Foo<T>; // Error: Foo expects covariant type
+opaque type Bad2<+T> = Bar<T>; // Error: Bar expects contravariant type
+opaque type Bad3<-T> = Baz<T>; // Error: Baz expects invariant type
+opaque type Bad4<+T> = Baz<T>; // Error: Baz expects invariant type
+
+// Note: Invariant can flow to contravariant/covariant in the declarations.
+
+export opaque type Covariant<+T> = Foo<T>;
+export opaque type Contravariant<-T> = Bar<T>;
+export opaque type Invariant<T> = Baz<T>;
+export opaque type All<S, +T, -U> = FooBarBaz<S, T, U>;
+
+================================================================================
+`;

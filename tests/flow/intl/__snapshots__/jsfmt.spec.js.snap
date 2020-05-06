@@ -1,0 +1,445 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`collator.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/* @flow */
+
+const a: Intl$Collator = Intl.Collator() // correct
+const b: Intl$Collator = new Intl.Collator() // correct
+const c: Intl$PluralRules = new Intl.Collator() // incorrect
+Intl.Collator(1, {
+  localeMatcher: 'look fit',
+  usage: 'find',
+  sensitivity: '',
+  ignorePunctuation: null,
+  numeric: 1,
+  caseFirst: 'true'
+}) // incorrect
+Intl.Collator('en') // correct
+Intl.Collator([ 'en', 'en-GB' ], {
+  localeMatcher: 'best fit',
+  usage: 'sort',
+  sensitivity: 'accent',
+  ignorePunctuation: false,
+  numeric: true,
+  caseFirst: 'false'
+}) // correct
+
+new Collator().format() // incorrect
+new Collator().compare() // incorrect
+new Collator().compare('a') // incorrect
+
+new Collator().compare('a', 'b') // correct
+
+new Collator().resolvedOptions() // correct
+
+Collator.getCanonicalLocales() // incorrect
+
+Collator.supportedLocalesOf(1) // incorrect
+Collator.supportedLocalesOf('en') // correct
+Collator.supportedLocalesOf([ 'en' ]) // correct
+
+=====================================output=====================================
+/* @flow */
+
+const a: Intl$Collator = Intl.Collator(); // correct
+const b: Intl$Collator = new Intl.Collator(); // correct
+const c: Intl$PluralRules = new Intl.Collator(); // incorrect
+Intl.Collator(1, {
+  localeMatcher: "look fit",
+  usage: "find",
+  sensitivity: "",
+  ignorePunctuation: null,
+  numeric: 1,
+  caseFirst: "true",
+}); // incorrect
+Intl.Collator("en"); // correct
+Intl.Collator(["en", "en-GB"], {
+  localeMatcher: "best fit",
+  usage: "sort",
+  sensitivity: "accent",
+  ignorePunctuation: false,
+  numeric: true,
+  caseFirst: "false",
+}); // correct
+
+new Collator().format(); // incorrect
+new Collator().compare(); // incorrect
+new Collator().compare("a"); // incorrect
+
+new Collator().compare("a", "b"); // correct
+
+new Collator().resolvedOptions(); // correct
+
+Collator.getCanonicalLocales(); // incorrect
+
+Collator.supportedLocalesOf(1); // incorrect
+Collator.supportedLocalesOf("en"); // correct
+Collator.supportedLocalesOf(["en"]); // correct
+
+================================================================================
+`;
+
+exports[`date_time_format.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/* @flow */
+
+const a: Intl$DateTimeFormat = Intl.DateTimeFormat() // correct
+const b: Intl$DateTimeFormat = new Intl.DateTimeFormat() // correct
+const c: Intl$NumberFormat = new Intl.DateTimeFormat() // incorrect
+Intl.DateTimeFormat(1, {
+  localeMatcher: 'look',
+  timeZone: 1,
+  hour12: '',
+  formatMatcher: 'basic fit',
+  weekday: '2-digit',
+  era: '',
+  year: '',
+  month: '',
+  day: '',
+  hour: '',
+  minute: 'long',
+  second: 'short',
+  timeZoneName: 'narrow'
+}) // incorrect
+Intl.DateTimeFormat('en') // correct
+Intl.DateTimeFormat([ 'en', 'en-GB' ], {
+  localeMatcher: 'best fit',
+  timeZone: 'America/Pacific',
+  hour12: true,
+  formatMatcher: 'best fit',
+  weekday: 'long',
+  era: 'long',
+  year: 'numeric',
+  month: 'long',
+  day: '2-digit',
+  hour: 'numeric',
+  minute: '2-digit',
+  second: '2-digit',
+  timeZoneName: 'long'
+}) // correct
+
+new DateTimeFormat().select() // incorrect
+
+new DateTimeFormat().format() // correct
+new DateTimeFormat().format(1) // correct
+new DateTimeFormat().format(new Date(2018, 3, 17)) // correct
+
+new DateTimeFormat().formatToParts();
+new DateTimeFormat().formatToParts(1) // correct
+new DateTimeFormat().formatToParts(new Date(2018, 3, 17)) // correct
+
+new DateTimeFormat().resolvedOptions() // correct
+
+DateTimeFormat.getCanonicalLocales() // incorrect
+
+DateTimeFormat.supportedLocalesOf(1) // incorrect
+DateTimeFormat.supportedLocalesOf('en') // correct
+DateTimeFormat.supportedLocalesOf([ 'en' ]) // correct
+
+=====================================output=====================================
+/* @flow */
+
+const a: Intl$DateTimeFormat = Intl.DateTimeFormat(); // correct
+const b: Intl$DateTimeFormat = new Intl.DateTimeFormat(); // correct
+const c: Intl$NumberFormat = new Intl.DateTimeFormat(); // incorrect
+Intl.DateTimeFormat(1, {
+  localeMatcher: "look",
+  timeZone: 1,
+  hour12: "",
+  formatMatcher: "basic fit",
+  weekday: "2-digit",
+  era: "",
+  year: "",
+  month: "",
+  day: "",
+  hour: "",
+  minute: "long",
+  second: "short",
+  timeZoneName: "narrow",
+}); // incorrect
+Intl.DateTimeFormat("en"); // correct
+Intl.DateTimeFormat(["en", "en-GB"], {
+  localeMatcher: "best fit",
+  timeZone: "America/Pacific",
+  hour12: true,
+  formatMatcher: "best fit",
+  weekday: "long",
+  era: "long",
+  year: "numeric",
+  month: "long",
+  day: "2-digit",
+  hour: "numeric",
+  minute: "2-digit",
+  second: "2-digit",
+  timeZoneName: "long",
+}); // correct
+
+new DateTimeFormat().select(); // incorrect
+
+new DateTimeFormat().format(); // correct
+new DateTimeFormat().format(1); // correct
+new DateTimeFormat().format(new Date(2018, 3, 17)); // correct
+
+new DateTimeFormat().formatToParts();
+new DateTimeFormat().formatToParts(1); // correct
+new DateTimeFormat().formatToParts(new Date(2018, 3, 17)); // correct
+
+new DateTimeFormat().resolvedOptions(); // correct
+
+DateTimeFormat.getCanonicalLocales(); // incorrect
+
+DateTimeFormat.supportedLocalesOf(1); // incorrect
+DateTimeFormat.supportedLocalesOf("en"); // correct
+DateTimeFormat.supportedLocalesOf(["en"]); // correct
+
+================================================================================
+`;
+
+exports[`intl.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/* @flow */
+const a: string = Intl.getCanonicalLocales(); // incorrect
+const getCanonicalLocales = Intl.getCanonicalLocales;
+if (getCanonicalLocales) {
+  const b: string = getCanonicalLocales(); // incorrect
+  const c: string[] = getCanonicalLocales(null); // incorrect
+  const d: string[] = getCanonicalLocales([ 1, 2 ]); // incorrect
+  const e: string[] = getCanonicalLocales(); // correct
+  const f: string[] = getCanonicalLocales('ar'); // correct
+  const g: string[] = getCanonicalLocales([ 'en', 'pt-BR' ]); // correct
+}
+
+const h = Intl.Unknown; // incorrect
+const i = Intl.Collator; // correct
+const j = Intl.DateTimeFormat; // correct
+const k = Intl.NumberFormat; // correct
+const l = Intl.PluralRules; // correct
+
+=====================================output=====================================
+/* @flow */
+const a: string = Intl.getCanonicalLocales(); // incorrect
+const getCanonicalLocales = Intl.getCanonicalLocales;
+if (getCanonicalLocales) {
+  const b: string = getCanonicalLocales(); // incorrect
+  const c: string[] = getCanonicalLocales(null); // incorrect
+  const d: string[] = getCanonicalLocales([1, 2]); // incorrect
+  const e: string[] = getCanonicalLocales(); // correct
+  const f: string[] = getCanonicalLocales("ar"); // correct
+  const g: string[] = getCanonicalLocales(["en", "pt-BR"]); // correct
+}
+
+const h = Intl.Unknown; // incorrect
+const i = Intl.Collator; // correct
+const j = Intl.DateTimeFormat; // correct
+const k = Intl.NumberFormat; // correct
+const l = Intl.PluralRules; // correct
+
+================================================================================
+`;
+
+exports[`number_format.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/* @flow */
+
+const a: Intl$NumberFormat = Intl.NumberFormat() // correct
+const b: Intl$NumberFormat = new Intl.NumberFormat() // correct
+const c: Intl$DateTimeFormat = new Intl.NumberFormat() // incorrect
+Intl.NumberFormat(1, {
+  localeMatcher: 'best',
+  style: 'octal',
+  currency: 123,
+  currencyDisplay: 'sym',
+  useGrouping: 5,
+  minimumIntegerDigits: {},
+  minimumFractionDigits: '',
+  maximumFractionDigits: null,
+  minimumSignificantDigits: '',
+  maximumSignificantDigits: null
+}) // incorrect
+Intl.NumberFormat('en') // correct
+Intl.NumberFormat([ 'en', 'en-GB' ], {
+  localeMatcher: 'best fit',
+  style: 'currency',
+  currency: 'GBP',
+  currencyDisplay: 'code',
+  useGrouping: true,
+  minimumIntegerDigits: 1,
+  minimumFractionDigits: 0,
+  maximumFractionDigits: 21,
+  minimumSignificantDigits: 1,
+  maximumSignificantDigits: 21
+}) // correct
+
+new NumberFormat().select() // incorrect
+new NumberFormat().format() // incorrect
+
+new NumberFormat().format(1) // correct
+
+new NumberFormat().resolvedOptions() // correct
+
+NumberFormat.getCanonicalLocales() // incorrect
+
+NumberFormat.supportedLocalesOf(1) // incorrect
+NumberFormat.supportedLocalesOf('en') // correct
+NumberFormat.supportedLocalesOf([ 'en' ]) // correct
+
+=====================================output=====================================
+/* @flow */
+
+const a: Intl$NumberFormat = Intl.NumberFormat(); // correct
+const b: Intl$NumberFormat = new Intl.NumberFormat(); // correct
+const c: Intl$DateTimeFormat = new Intl.NumberFormat(); // incorrect
+Intl.NumberFormat(1, {
+  localeMatcher: "best",
+  style: "octal",
+  currency: 123,
+  currencyDisplay: "sym",
+  useGrouping: 5,
+  minimumIntegerDigits: {},
+  minimumFractionDigits: "",
+  maximumFractionDigits: null,
+  minimumSignificantDigits: "",
+  maximumSignificantDigits: null,
+}); // incorrect
+Intl.NumberFormat("en"); // correct
+Intl.NumberFormat(["en", "en-GB"], {
+  localeMatcher: "best fit",
+  style: "currency",
+  currency: "GBP",
+  currencyDisplay: "code",
+  useGrouping: true,
+  minimumIntegerDigits: 1,
+  minimumFractionDigits: 0,
+  maximumFractionDigits: 21,
+  minimumSignificantDigits: 1,
+  maximumSignificantDigits: 21,
+}); // correct
+
+new NumberFormat().select(); // incorrect
+new NumberFormat().format(); // incorrect
+
+new NumberFormat().format(1); // correct
+
+new NumberFormat().resolvedOptions(); // correct
+
+NumberFormat.getCanonicalLocales(); // incorrect
+
+NumberFormat.supportedLocalesOf(1); // incorrect
+NumberFormat.supportedLocalesOf("en"); // correct
+NumberFormat.supportedLocalesOf(["en"]); // correct
+
+================================================================================
+`;
+
+exports[`plural_rules.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/* @flow */
+
+const a = Intl.PluralRules(); // incorrect
+const PluralRules = Intl.PluralRules
+if (PluralRules) {
+  const b = PluralRules(); // incorrect
+  const c = new PluralRules(); // correct
+  new PluralRules(1); // incorrect
+  new PluralRules('en'); // correct
+  new PluralRules([ 'en', 'pt' ]); // correct
+  new PluralRules('en', {
+    localeMatcher: 'best one',
+    type: 'count',
+    minimumIntegerDigits: '',
+    minimumFractionDigits: a,
+    maximumFractionDigits: b,
+    minimumSignificantDigits: c,
+    maximumSignificantDigits: ''
+  }); // all kinds of incorrect
+  new PluralRules('en', {
+    localeMatcher: 'lookup',
+    type: 'ordinal',
+    minimumIntegerDigits: 2,
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 4,
+    minimumSignificantDigits: 4,
+    maximumSignificantDigits: 6
+  }); // correct
+
+  new PluralRules().format() // incorrect
+  new PluralRules().select() // incorrect
+
+  new PluralRules().select(1) // correct
+
+  new PluralRules().resolvedOptions() // correct
+
+  PluralRules.getCanonicalLocales() // incorrect
+
+  PluralRules.supportedLocalesOf(1) // incorrect
+  PluralRules.supportedLocalesOf('en') // correct
+  PluralRules.supportedLocalesOf([ 'en' ]) // correct
+}
+
+=====================================output=====================================
+/* @flow */
+
+const a = Intl.PluralRules(); // incorrect
+const PluralRules = Intl.PluralRules;
+if (PluralRules) {
+  const b = PluralRules(); // incorrect
+  const c = new PluralRules(); // correct
+  new PluralRules(1); // incorrect
+  new PluralRules("en"); // correct
+  new PluralRules(["en", "pt"]); // correct
+  new PluralRules("en", {
+    localeMatcher: "best one",
+    type: "count",
+    minimumIntegerDigits: "",
+    minimumFractionDigits: a,
+    maximumFractionDigits: b,
+    minimumSignificantDigits: c,
+    maximumSignificantDigits: "",
+  }); // all kinds of incorrect
+  new PluralRules("en", {
+    localeMatcher: "lookup",
+    type: "ordinal",
+    minimumIntegerDigits: 2,
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 4,
+    minimumSignificantDigits: 4,
+    maximumSignificantDigits: 6,
+  }); // correct
+
+  new PluralRules().format(); // incorrect
+  new PluralRules().select(); // incorrect
+
+  new PluralRules().select(1); // correct
+
+  new PluralRules().resolvedOptions(); // correct
+
+  PluralRules.getCanonicalLocales(); // incorrect
+
+  PluralRules.supportedLocalesOf(1); // incorrect
+  PluralRules.supportedLocalesOf("en"); // correct
+  PluralRules.supportedLocalesOf(["en"]); // correct
+}
+
+================================================================================
+`;

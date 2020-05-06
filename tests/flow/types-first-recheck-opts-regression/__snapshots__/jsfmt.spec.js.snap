@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`a.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export type Foo = string
+
+=====================================output=====================================
+export type Foo = string;
+
+================================================================================
+`;
+
+exports[`b.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import type {Foo} from './a';
+
+export function foo(x: Foo): void {}
+
+export type Bar = number;
+
+=====================================output=====================================
+import type { Foo } from "./a";
+
+export function foo(x: Foo): void {}
+
+export type Bar = number;
+
+================================================================================
+`;
+
+exports[`c.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import type {Bar} from './b';
+import {foo} from './b';
+
+foo('');
+
+function bar(x: Bar): void {}
+
+=====================================output=====================================
+import type { Bar } from "./b";
+import { foo } from "./b";
+
+foo("");
+
+function bar(x: Bar): void {}
+
+================================================================================
+`;

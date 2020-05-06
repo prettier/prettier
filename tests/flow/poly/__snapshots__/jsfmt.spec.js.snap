@@ -36,6 +36,94 @@ function bar(): A<*> {
 ================================================================================
 `;
 
+exports[`annot1.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export const f = <T>(x: T) => (y: T) => y;
+export const g = <T>(x: T): (T => T) => (y: T) => y;
+
+=====================================output=====================================
+export const f = <T>(x: T) => (y: T) => y;
+export const g = <T>(x: T): ((T) => T) => (y: T) => y;
+
+================================================================================
+`;
+
+exports[`annot2.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import {f, g} from "./annot1";
+
+(f(0)(1): number); // errors: number ~> T (empty), T (mixed) ~> number
+(g(0)(1): number); // ok
+
+=====================================output=====================================
+import { f, g } from "./annot1";
+
+(f(0)(1): number); // errors: number ~> T (empty), T (mixed) ~> number
+(g(0)(1): number); // ok
+
+================================================================================
+`;
+
+exports[`error.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @format
+ * @flow
+ */
+
+declare function fn1<T>(x: (T) => void): T => void;
+const newFn1 = fn1((x: number) => {});
+newFn1('string'); // The error should point here.
+
+declare function fn2<T>(x: T): ((T) => void) => void;
+const newFn2 = fn2(42);
+newFn2((x: string) => {});
+
+declare function fn3<T>(x: T, y: (T) => void): void;
+fn3(42, (x: string) => {}); // The error should point to 42 and not string.
+
+declare function fn4<T>(): [T, (T) => void];
+const [newVal4, newFn4] = fn4();
+newFn4(42);
+(newVal4: string); // The error should point here.
+
+=====================================output=====================================
+/**
+ * @format
+ * @flow
+ */
+
+declare function fn1<T>(x: (T) => void): (T) => void;
+const newFn1 = fn1((x: number) => {});
+newFn1("string"); // The error should point here.
+
+declare function fn2<T>(x: T): ((T) => void) => void;
+const newFn2 = fn2(42);
+newFn2((x: string) => {});
+
+declare function fn3<T>(x: T, y: (T) => void): void;
+fn3(42, (x: string) => {}); // The error should point to 42 and not string.
+
+declare function fn4<T>(): [T, (T) => void];
+const [newVal4, newFn4] = fn4();
+newFn4(42);
+(newVal4: string); // The error should point here.
+
+================================================================================
+`;
+
 exports[`implicit_bounded_instantiation.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -88,6 +176,32 @@ a.meth(new Base()); // Error: Base ~> Middle
 ================================================================================
 `;
 
+exports[`inout.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+declare opaque type A;
+declare opaque type B: A;
+
+class C<+Out, -In: Out = Out> {}
+
+declare var x: C<B>;
+(x: C<A>); // error: A ~> B in default-expanded type
+
+=====================================output=====================================
+declare opaque type A;
+declare opaque type B: A;
+
+class C<+Out, -In: Out = Out> {}
+
+declare var x: C<B>;
+(x: C<A>); // error: A ~> B in default-expanded type
+
+================================================================================
+`;
+
 exports[`issue-1029.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -132,6 +246,48 @@ declare var bool: Box<boolean>;
 declare function unbox<A>(box: Box<A>): A;
 
 unbox(bool);
+
+================================================================================
+`;
+
+exports[`phantom.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+type A = T<number>;
+type B = T<string>;
+
+declare var a: A;
+(a: B); // Error
+
+type T<Phantom> = any;
+
+type C = T<number>;
+type D = T<string>;
+
+declare var c: C;
+(c: D); // Error
+
+=====================================output=====================================
+// @flow
+
+type A = T<number>;
+type B = T<string>;
+
+declare var a: A;
+(a: B); // Error
+
+type T<Phantom> = any;
+
+type C = T<number>;
+type D = T<string>;
+
+declare var c: C;
+(c: D); // Error
 
 ================================================================================
 `;
@@ -235,6 +391,45 @@ class D extends C {
   qux<X>(x: X): X {
     return x;
   } // OK (generalization)
+}
+
+================================================================================
+`;
+
+exports[`union.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+
+type Filter = [number] | [string];
+
+function convert(filter: Filter) {
+    filter.slice(0);
+}
+
+type Filter2 = Array<number> | Array<string>;
+
+function convert(filter: Filter2) : Filter2 {
+    return filter.slice(0);
+}
+
+=====================================output=====================================
+// @flow
+
+type Filter = [number] | [string];
+
+function convert(filter: Filter) {
+  filter.slice(0);
+}
+
+type Filter2 = Array<number> | Array<string>;
+
+function convert(filter: Filter2): Filter2 {
+  return filter.slice(0);
 }
 
 ================================================================================

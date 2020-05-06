@@ -1,0 +1,89 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`direct.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+module.exports = require('./touched');
+
+=====================================output=====================================
+// @flow
+
+module.exports = require("./touched");
+
+================================================================================
+`;
+
+exports[`mixed.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import type { Bar } from './types';
+export type Foo = Bar;
+
+require('./direct');
+
+function foo(x: Foo) { }
+module.exports = foo;
+
+=====================================output=====================================
+// @flow
+
+import type { Bar } from "./types";
+export type Foo = Bar;
+
+require("./direct");
+
+function foo(x: Foo) {}
+module.exports = foo;
+
+================================================================================
+`;
+
+exports[`touched.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+class Touched { }
+module.exports = Touched;
+
+=====================================output=====================================
+// @flow
+
+class Touched {}
+module.exports = Touched;
+
+================================================================================
+`;
+
+exports[`types.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import type { Foo } from './mixed';
+export type Bar = Foo;
+
+=====================================output=====================================
+// @flow
+
+import type { Foo } from "./mixed";
+export type Bar = Foo;
+
+================================================================================
+`;

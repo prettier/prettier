@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`destr.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+var { a, b: xb }: { a: number, b: number } = { a: 0, b: 0 };
+module.exports = { a, b: xb };
+
+=====================================output=====================================
+// @flow
+
+var { a, b: xb }: { a: number, b: number } = { a: 0, b: 0 };
+module.exports = { a, b: xb };
+
+================================================================================
+`;
+
+exports[`test.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+const { a, b } = require('./destr');
+(a: number);
+(a: string);
+(b: number);
+(b: string);
+
+=====================================output=====================================
+// @flow
+
+const { a, b } = require("./destr");
+(a: number);
+(a: string);
+(b: number);
+(b: string);
+
+================================================================================
+`;

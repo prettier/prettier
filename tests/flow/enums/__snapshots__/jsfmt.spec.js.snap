@@ -1,0 +1,2122 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`cast.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+enum B of boolean {
+  A = true,
+  B = false,
+}
+
+enum N of number {
+  A = 1,
+  B = 2,
+}
+
+enum S of string {
+  A,
+  B,
+}
+
+enum Y of symbol {
+  A,
+  B,
+}
+
+enum B2 of boolean {
+  A = true,
+  B = false,
+}
+
+
+const s: string = (S.A: string); // OK
+const b: boolean = (B.A: boolean); // OK
+const n: number = (N.A: number); // OK
+const y: symbol = (Y.A: symbol); // OK
+
+const X = B; // Renaming
+(X.A: boolean); // OK
+
+(S.A: ?string); // Error: if casting to representation type, must cast to exactly it
+
+const ss: S = (S.A: S); // OK
+const bb: B = (B.A: B); // OK
+const nn: N = (N.A: N); // OK
+const yy: Y = (Y.A: Y); // OK
+
+(S.A: ?S); // OK
+(S.A: S | B); // OK
+(S.A: mixed); // OK
+
+type T = string;
+(S.A: T); // OK
+
+(B.A: number); // Error
+(S.A: boolean); // Error
+(N.A: boolean); // Error
+(Y.A: boolean); // Error
+(X.A: string); // Error
+
+declare var BB: typeof B | typeof B2;
+const bba: B | B2 = BB.A;
+(BB.A: boolean); // OK
+
+declare var BS: typeof B | typeof S;
+const bsa: B | S  = BS.A;
+(BS.A: string | boolean); // Error
+
+declare var sb: S | B;
+(sb: string | boolean); // Error
+
+declare var bs: B | B2;
+(bs: boolean); // Error
+
+=====================================output=====================================
+// @flow
+
+enum B of boolean {
+  A = true,
+  B = false,
+}
+
+enum N of number {
+  A = 1,
+  B = 2,
+}
+
+enum S of string {
+  A,
+  B,
+}
+
+enum Y of symbol {
+  A,
+  B,
+}
+
+enum B2 of boolean {
+  A = true,
+  B = false,
+}
+
+const s: string = (S.A: string); // OK
+const b: boolean = (B.A: boolean); // OK
+const n: number = (N.A: number); // OK
+const y: symbol = (Y.A: symbol); // OK
+
+const X = B; // Renaming
+(X.A: boolean); // OK
+
+(S.A: ?string); // Error: if casting to representation type, must cast to exactly it
+
+const ss: S = (S.A: S); // OK
+const bb: B = (B.A: B); // OK
+const nn: N = (N.A: N); // OK
+const yy: Y = (Y.A: Y); // OK
+
+(S.A: ?S); // OK
+(S.A: S | B); // OK
+(S.A: mixed); // OK
+
+type T = string;
+(S.A: T); // OK
+
+(B.A: number); // Error
+(S.A: boolean); // Error
+(N.A: boolean); // Error
+(Y.A: boolean); // Error
+(X.A: string); // Error
+
+declare var BB: typeof B | typeof B2;
+const bba: B | B2 = BB.A;
+(BB.A: boolean); // OK
+
+declare var BS: typeof B | typeof S;
+const bsa: B | S = BS.A;
+(BS.A: string | boolean); // Error
+
+declare var sb: S | B;
+(sb: string | boolean); // Error
+
+declare var bs: B | B2;
+(bs: boolean); // Error
+
+================================================================================
+`;
+
+exports[`enum-object.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+enum E {
+  A,
+  B,
+}
+
+enum F {
+  A,
+  B,
+}
+
+// Comparison of enum object types
+type EO = typeof E;
+(E: EO); // Valid
+(F: EO); // Error: types are incompatible
+
+// Invalid access from enum object type
+EO.A;
+
+// Refinements
+type VoidableEO = void | EO;
+
+const x: VoidableEO = E;
+
+if (typeof x === "undefined") {
+  (x: void); // Valid
+  (x: EO); // Error
+}
+
+if (typeof x !== "undefined") {
+  (x: void); // Error
+  (x: EO); // Valid
+}
+
+if (typeof x === "object") {
+  (x: void); // Error
+  (x: EO); // Valid
+}
+
+if (typeof x !== "object") {
+  (x: void); // Valid
+  (x: EO); // Error
+}
+
+if (x) {
+  (x: void); // Error
+  (x: EO); // Valid
+}
+
+if (!x) {
+  (x: void); // Valid
+  (x: EO); // Error
+}
+
+=====================================output=====================================
+// @flow
+
+enum E {
+  A,
+  B,
+}
+
+enum F {
+  A,
+  B,
+}
+
+// Comparison of enum object types
+type EO = typeof E;
+(E: EO); // Valid
+(F: EO); // Error: types are incompatible
+
+// Invalid access from enum object type
+EO.A;
+
+// Refinements
+type VoidableEO = void | EO;
+
+const x: VoidableEO = E;
+
+if (typeof x === "undefined") {
+  (x: void); // Valid
+  (x: EO); // Error
+}
+
+if (typeof x !== "undefined") {
+  (x: void); // Error
+  (x: EO); // Valid
+}
+
+if (typeof x === "object") {
+  (x: void); // Error
+  (x: EO); // Valid
+}
+
+if (typeof x !== "object") {
+  (x: void); // Valid
+  (x: EO); // Error
+}
+
+if (x) {
+  (x: void); // Error
+  (x: EO); // Valid
+}
+
+if (!x) {
+  (x: void); // Valid
+  (x: EO); // Error
+}
+
+================================================================================
+`;
+
+exports[`equality.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+enum E {
+  A,
+  B,
+}
+
+enum F {
+  A,
+  B,
+}
+
+const e = E.A;
+const eo: typeof E = E;
+const maybeE: ?E = null;
+const ef: E | F = E.A;
+
+const s: string = "hi";
+
+// Comparison of enums with == or != is banned
+s == e; // Error
+e == s; // Error
+
+s != e; // Error
+e != s; // Error
+
+e == E.A; // Error
+ef == E.A; // Error
+F.A == E.A; // Error
+
+eo == s; // Error
+
+// Except comparison of enum to null or void, it is allowed
+maybeE != null; // OK
+maybeE != undefined; // OK
+
+// Strict comparison
+s === e; // Error
+e === s; // Error
+
+s !== e; // Error
+e !== s; // Error
+
+e === E.A; // OK
+e === e; // OK
+
+if (e === E.A) { } // Error
+if (E.A === e) { } // Error
+if (s.length > 0 && e === E.A) { } // Error
+
+while (e === E.A) { } // OK
+do {} while (e === E.A) // OK
+for (; e === E.A;) {} // OK
+
+(e === E.A ? 1 : 2); // OK
+
+switch (true) {
+  case s === E.A: break; // Error
+}
+
+=====================================output=====================================
+// @flow
+
+enum E {
+  A,
+  B,
+}
+
+enum F {
+  A,
+  B,
+}
+
+const e = E.A;
+const eo: typeof E = E;
+const maybeE: ?E = null;
+const ef: E | F = E.A;
+
+const s: string = "hi";
+
+// Comparison of enums with == or != is banned
+s == e; // Error
+e == s; // Error
+
+s != e; // Error
+e != s; // Error
+
+e == E.A; // Error
+ef == E.A; // Error
+F.A == E.A; // Error
+
+eo == s; // Error
+
+// Except comparison of enum to null or void, it is allowed
+maybeE != null; // OK
+maybeE != undefined; // OK
+
+// Strict comparison
+s === e; // Error
+e === s; // Error
+
+s !== e; // Error
+e !== s; // Error
+
+e === E.A; // OK
+e === e; // OK
+
+if (e === E.A) {
+} // Error
+if (E.A === e) {
+} // Error
+if (s.length > 0 && e === E.A) {
+} // Error
+
+while (e === E.A) {} // OK
+do {} while (e === E.A); // OK
+for (; e === E.A; ) {} // OK
+
+e === E.A ? 1 : 2; // OK
+
+switch (true) {
+  case s === E.A:
+    break; // Error
+}
+
+================================================================================
+`;
+
+exports[`error-access.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+enum E {
+  A,
+  B,
+}
+
+// Error: accessing non-existent member
+const x = E.C;
+// As it is the result of an error, \`x\` is \`any\`
+(x: boolean);
+
+// Error: computed access
+E["A"];
+
+enum F {
+  Cart,
+  Bart,
+  Foobar,
+}
+
+F.Car; // Error: suggest \`Cart\`
+F.Foobr; // Error: suggest \`Foobar\`
+F.Bar; // Error: suggest \`Bart\`
+F.X; // Error: no suggestion
+
+=====================================output=====================================
+// @flow
+
+enum E {
+  A,
+  B,
+}
+
+// Error: accessing non-existent member
+const x = E.C;
+// As it is the result of an error, \`x\` is \`any\`
+(x: boolean);
+
+// Error: computed access
+E["A"];
+
+enum F {
+  Cart,
+  Bart,
+  Foobar,
+}
+
+F.Car; // Error: suggest \`Cart\`
+F.Foobr; // Error: suggest \`Foobar\`
+F.Bar; // Error: suggest \`Bart\`
+F.X; // Error: no suggestion
+
+================================================================================
+`;
+
+exports[`error-coercion.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+enum E {
+  A,
+  B,
+}
+
+// Error: cannot implicitly coerce enum to its representation type
+const a: string = E.A;
+
+// Error: cannot implicitly coerce into enum type
+const b: E = 'B';
+
+=====================================output=====================================
+// @flow
+
+enum E {
+  A,
+  B,
+}
+
+// Error: cannot implicitly coerce enum to its representation type
+const a: string = E.A;
+
+// Error: cannot implicitly coerce into enum type
+const b: E = "B";
+
+================================================================================
+`;
+
+exports[`error-duplicate-values.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+enum E {
+  A = true,
+  B = false,
+  C = true, // Error: duplicate member initializer
+  D = true, // Error: duplicate member initializer
+}
+
+enum F {
+  A = 1,
+  B = 1, // Error: duplicate member initializer
+  C = 1.0, // Error: duplicate member initializer
+  D = 2,
+}
+
+enum G {
+  A = "b",
+  B = "a",
+  C = "a", // Error: duplicate member initializer
+  D = "a", // Error: duplicate member initializer
+}
+
+enum H {
+  A = 0,
+  // Due to IEEE 754, both below values are the same in JS
+  B = 2.2204460492503130808472633361816E-16, // Number.EPSILON
+  C = 2.2204460492503130808472633361815E-16, // Error: duplicate member initializer
+}
+
+enum I {
+  A = 9007199254740991, // Number.MAX_SAFE_INTEGER
+  // Due to IEEE 754, both below values are the same in JS
+  B = 9007199254740992,
+  C = 9007199254740993, // Error: duplicate member initializer
+}
+
+=====================================output=====================================
+// @flow
+
+enum E {
+  A = true,
+  B = false,
+  C = true, // Error: duplicate member initializer
+  D = true, // Error: duplicate member initializer
+}
+
+enum F {
+  A = 1,
+  B = 1, // Error: duplicate member initializer
+  C = 1.0, // Error: duplicate member initializer
+  D = 2,
+}
+
+enum G {
+  A = "b",
+  B = "a",
+  C = "a", // Error: duplicate member initializer
+  D = "a", // Error: duplicate member initializer
+}
+
+enum H {
+  A = 0,
+  // Due to IEEE 754, both below values are the same in JS
+  B = 2.2204460492503130808472633361816e-16, // Number.EPSILON
+  C = 2.2204460492503130808472633361815e-16, // Error: duplicate member initializer
+}
+
+enum I {
+  A = 9007199254740991, // Number.MAX_SAFE_INTEGER
+  // Due to IEEE 754, both below values are the same in JS
+  B = 9007199254740992,
+  C = 9007199254740993, // Error: duplicate member initializer
+}
+
+================================================================================
+`;
+
+exports[`error-modification.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+enum E {
+  A,
+  B,
+}
+
+// Error: cannot modify enums - named "prop"
+E.A = 1;
+
+// Error: cannot modify enums - computed "prop"
+E["A"] = 1;
+
+// Error: cannot modify enums - deletion
+delete E.A;
+
+=====================================output=====================================
+// @flow
+
+enum E {
+  A,
+  B,
+}
+
+// Error: cannot modify enums - named "prop"
+E.A = 1;
+
+// Error: cannot modify enums - computed "prop"
+E["A"] = 1;
+
+// Error: cannot modify enums - deletion
+delete E.A;
+
+================================================================================
+`;
+
+exports[`error-reassign.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+enum E {}
+E = 0;
+
+=====================================output=====================================
+// @flow
+
+enum E {}
+E = 0;
+
+================================================================================
+`;
+
+exports[`exhaustive-check.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+enum E {
+  A,
+  B,
+}
+
+enum F {
+  A,
+  B,
+}
+
+const x = E.A;
+
+///////////
+// Valid //
+///////////
+switch (x)  {
+  case E.A:
+    'A';
+    break;
+  case E.B:
+    'B';
+    break;
+}
+
+switch (x)  {
+  case E.A:
+    'A';
+    break;
+  default:
+    'B';
+    break;
+}
+
+const e = E;
+switch (x)  {
+  case e.A:
+    'A';
+    break;
+  case e.B:
+    'B'
+    break;
+}
+
+////////////
+// Errors //
+////////////
+
+// Missing check
+switch (x)  { // Error
+  case E.A:
+    'A';
+}
+
+// Invalid check
+switch (x)  {
+  case x: // Error
+    'A';
+}
+
+enum G {}
+function g(g: G) {
+  switch (g)  {
+    case g:; // Error
+  }
+}
+
+// Duplicate check
+switch (x)  {
+  case E.A:
+    'A1';
+    break;
+  case E.B:
+    'B';
+    break;
+  case E.A: // Error
+    'A2';
+    break;
+}
+
+switch (x)  {
+  case E.A:
+    'A';
+    break;
+  case E.B:
+    'B';
+    break;
+  default: // Error
+    'default';
+}
+
+// Incompatible types
+switch (x)  {
+  case F.A:
+    'A';
+    break;
+  case F.B:
+    'B';
+    break;
+}
+
+declare var s: string;
+switch (s)  {
+  case E.A:
+    'A';
+    break;
+  case E.B:
+    'B';
+    break;
+}
+
+// Discriminant is union
+function a(x?: E) {
+  switch (x)  { // Error
+    case E.A:
+      'A';
+    case E.B:
+      'B';
+  }
+}
+
+function a(x: ?E) {
+  switch (x)  { // Error
+    case E.A:
+      'A';
+    case E.B:
+      'B';
+  }
+}
+
+function b(x: E | F) {
+  switch (x)  { // Error
+    case E.A:
+      'A';
+    case E.B:
+      'B';
+  }
+}
+
+function c(x: E | string) {
+  switch (x)  { // Error
+    case E.A:
+      'A';
+    case E.B:
+      'B';
+  }
+}
+
+switch (x) {
+  case E.A:
+    'E.A';
+    break;
+  case F.A:
+    'F.A';
+    break;
+}
+
+=====================================output=====================================
+// @flow
+
+enum E {
+  A,
+  B,
+}
+
+enum F {
+  A,
+  B,
+}
+
+const x = E.A;
+
+///////////
+// Valid //
+///////////
+switch (x) {
+  case E.A:
+    "A";
+    break;
+  case E.B:
+    "B";
+    break;
+}
+
+switch (x) {
+  case E.A:
+    "A";
+    break;
+  default:
+    "B";
+    break;
+}
+
+const e = E;
+switch (x) {
+  case e.A:
+    "A";
+    break;
+  case e.B:
+    "B";
+    break;
+}
+
+////////////
+// Errors //
+////////////
+
+// Missing check
+switch (
+  x // Error
+) {
+  case E.A:
+    "A";
+}
+
+// Invalid check
+switch (x) {
+  case x: // Error
+    "A";
+}
+
+enum G {}
+function g(g: G) {
+  switch (g) {
+    case g: // Error
+  }
+}
+
+// Duplicate check
+switch (x) {
+  case E.A:
+    "A1";
+    break;
+  case E.B:
+    "B";
+    break;
+  case E.A: // Error
+    "A2";
+    break;
+}
+
+switch (x) {
+  case E.A:
+    "A";
+    break;
+  case E.B:
+    "B";
+    break;
+  default:
+    // Error
+    "default";
+}
+
+// Incompatible types
+switch (x) {
+  case F.A:
+    "A";
+    break;
+  case F.B:
+    "B";
+    break;
+}
+
+declare var s: string;
+switch (s) {
+  case E.A:
+    "A";
+    break;
+  case E.B:
+    "B";
+    break;
+}
+
+// Discriminant is union
+function a(x?: E) {
+  switch (
+    x // Error
+  ) {
+    case E.A:
+      "A";
+    case E.B:
+      "B";
+  }
+}
+
+function a(x: ?E) {
+  switch (
+    x // Error
+  ) {
+    case E.A:
+      "A";
+    case E.B:
+      "B";
+  }
+}
+
+function b(x: E | F) {
+  switch (
+    x // Error
+  ) {
+    case E.A:
+      "A";
+    case E.B:
+      "B";
+  }
+}
+
+function c(x: E | string) {
+  switch (
+    x // Error
+  ) {
+    case E.A:
+      "A";
+    case E.B:
+      "B";
+  }
+}
+
+switch (x) {
+  case E.A:
+    "E.A";
+    break;
+  case F.A:
+    "F.A";
+    break;
+}
+
+================================================================================
+`;
+
+exports[`export.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+export enum E {
+  A,
+  B,
+}
+
+export default enum D {
+  A,
+  B,
+}
+
+export const F = E;
+
+=====================================output=====================================
+// @flow
+
+export enum E {
+  A,
+  B,
+}
+
+export default enum D {
+  A,
+  B,
+};
+
+export const F = E;
+
+================================================================================
+`;
+
+exports[`export-commonjs.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+enum B {
+  A,
+  B,
+}
+
+module.exports = {B};
+
+=====================================output=====================================
+// @flow
+
+enum B {
+  A,
+  B,
+}
+
+module.exports = { B };
+
+================================================================================
+`;
+
+exports[`export-commonjs-default.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+enum C {
+  A,
+  B,
+}
+
+module.exports = C;
+
+=====================================output=====================================
+// @flow
+
+enum C {
+  A,
+  B,
+}
+
+module.exports = C;
+
+================================================================================
+`;
+
+exports[`import.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import {B} from './export-commonjs.js';
+import C from './export-commonjs-default.js';
+import D, {E, F} from './export.js';
+
+const {B: B2} = require('./export-commonjs.js');
+const C2 = require('./export-commonjs-default.js');
+const {default: D2} = require('./export.js');
+const {E: E2, F: F2} = require('./export.js');
+
+const b: B = B.A;
+const c: C = C.A;
+const d: D = D.A;
+const e: E = E.A;
+const f: F = F.A;
+
+const b2: B2 = B2.A;
+const c2: C2 = C2.A;
+const d2: D2 = D2.A;
+const e2: E2 = E2.A;
+const f2: F2 = F2.A;
+
+=====================================output=====================================
+// @flow
+
+import { B } from "./export-commonjs.js";
+import C from "./export-commonjs-default.js";
+import D, { E, F } from "./export.js";
+
+const { B: B2 } = require("./export-commonjs.js");
+const C2 = require("./export-commonjs-default.js");
+const { default: D2 } = require("./export.js");
+const { E: E2, F: F2 } = require("./export.js");
+
+const b: B = B.A;
+const c: C = C.A;
+const d: D = D.A;
+const e: E = E.A;
+const f: F = F.A;
+
+const b2: B2 = B2.A;
+const c2: C2 = C2.A;
+const d2: D2 = D2.A;
+const e2: E2 = E2.A;
+const f2: F2 = F2.A;
+
+================================================================================
+`;
+
+exports[`member-as-type.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+enum E {
+  A,
+  B,
+}
+
+declare var x: E.A;
+
+function f(x: E.A) {
+}
+
+=====================================output=====================================
+// @flow
+
+enum E {
+  A,
+  B,
+}
+
+declare var x: E.A;
+
+function f(x: E.A) {}
+
+================================================================================
+`;
+
+exports[`methods.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+enum E {
+  A,
+  B,
+}
+
+///////////
+// Valid //
+///////////
+const a: void | E = E.cast('A');
+const b: Iterable<E> = E.members();
+const c: boolean = E.isValid('A');
+
+const cast: (string) => void | E = E.cast;
+const members: () => Iterable<E> = E.members;
+const isValid: (string) => boolean = E.isValid;
+
+////////////
+// Errors //
+////////////
+// Cannot get non-existent method
+E.nonExistent; // Error
+
+// Cannot call non-existent method
+E.nonExistent(); // Error
+
+// Computed access not allowed
+E['members'](); // Error
+
+// Attempt calling an enum member
+E.A(); // Error
+
+// Object.prototype is not in the prototype chain
+E.toString(); // Error
+
+=====================================output=====================================
+// @flow
+
+enum E {
+  A,
+  B,
+}
+
+///////////
+// Valid //
+///////////
+const a: void | E = E.cast("A");
+const b: Iterable<E> = E.members();
+const c: boolean = E.isValid("A");
+
+const cast: (string) => void | E = E.cast;
+const members: () => Iterable<E> = E.members;
+const isValid: (string) => boolean = E.isValid;
+
+////////////
+// Errors //
+////////////
+// Cannot get non-existent method
+E.nonExistent; // Error
+
+// Cannot call non-existent method
+E.nonExistent(); // Error
+
+// Computed access not allowed
+E["members"](); // Error
+
+// Attempt calling an enum member
+E.A(); // Error
+
+// Object.prototype is not in the prototype chain
+E.toString(); // Error
+
+================================================================================
+`;
+
+exports[`refinement.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+/////////////
+// boolean //
+/////////////
+enum B of boolean {
+  A = true,
+  B = false,
+}
+
+declare var bVoidable: void | B;
+
+if (typeof bVoidable === "undefined") {
+  (bVoidable: void); // Valid
+  (bVoidable: B); // Error
+}
+
+if (typeof bVoidable !== "undefined") {
+  (bVoidable: void); // Error
+  (bVoidable: B); // Valid
+}
+
+if (typeof bVoidable === "boolean") {
+  (bVoidable: void); // Error
+  (bVoidable: B); // Valid
+}
+
+if (typeof bVoidable !== "boolean") {
+  (bVoidable: void); // Valid
+  (bVoidable: B); // Error
+}
+
+if (bVoidable === undefined) {
+  (bVoidable: void); // Valid
+  (bVoidable: B); // Error
+}
+
+if (bVoidable !== undefined) {
+  (bVoidable: void); // Error
+  (bVoidable: B); // Valid
+}
+
+declare var bMaybe: ?B;
+
+if (bMaybe == null) {
+  (bMaybe: null | void); // Valid
+  (bMaybe: B); // Error
+}
+
+if (bMaybe != null) {
+  (bMaybe: null); // Error
+  (bMaybe: void); // Error
+  (bMaybe: B); // Valid
+}
+
+if (bMaybe === null || bMaybe === undefined) {
+  (bMaybe: null | void); // Valid
+  (bMaybe: B); // Error
+}
+
+if (bMaybe !== null && bMaybe !== undefined) {
+  (bMaybe: null); // Error
+  (bMaybe: void); // Error
+  (bMaybe: B); // Valid
+}
+
+declare var bBoolVoid: B | boolean | void;
+
+if (typeof bBoolVoid === "boolean") {
+  (bBoolVoid: void); // Error
+  (bBoolVoid: boolean); // Valid
+  (bBoolVoid: B); // Error
+  (bBoolVoid: B | boolean); // Valid
+}
+
+if (typeof bBoolVoid !== "boolean") {
+  (bBoolVoid: void); // Valid
+  (bBoolVoid: boolean); // Error
+  (bBoolVoid: B); // Error
+  (bBoolVoid: B | boolean); // Error
+}
+
+if (bVoidable) {
+  (bVoidable: void); // Error
+  (bVoidable: B); // Valid
+}
+
+if (!bVoidable) {
+  (bVoidable: void | B); // Valid
+  (bVoidable: B); // Error
+  (bVoidable: void); // Error
+}
+
+enum BEmpty {}
+declare var bEmpty: BEmpty | void;
+
+if (bEmpty) {
+  (bEmpty: void); // Error
+  (bEmpty: BEmpty); // Valid
+}
+
+if (!bEmpty) {
+  (bEmpty: void); // Valid
+  (bEmpty: BEmpty); // Error
+}
+
+enum BTrue {
+  A = true,
+}
+declare var bTrue: BTrue | void;
+
+if (bTrue) {
+  (bTrue: void); // Error
+  (bTrue: BTrue); // Valid
+}
+
+if (!bTrue) {
+  (bTrue: void); // Valid
+  (bTrue: BTrue); // Error
+}
+
+enum BFalse {
+  A = false,
+}
+declare var bFalse: BFalse | true;
+
+if (bFalse) {
+  (bFalse: true); // Valid
+  (bFalse: BFalse); // Error
+}
+
+if (!bFalse) {
+  (bFalse: true); // Error
+  (bFalse: BFalse); // Valid
+}
+
+////////////
+// number //
+////////////
+enum N of number {
+  A = 0,
+  B = 1,
+}
+
+declare var nVoidable: void | N;
+
+if (typeof nVoidable === "undefined") {
+  (nVoidable: void); // Valid
+  (nVoidable: N); // Error
+}
+
+if (typeof nVoidable !== "undefined") {
+  (nVoidable: void); // Error
+  (nVoidable: N); // Valid
+}
+
+if (typeof nVoidable === "number") {
+  (nVoidable: void); // Error
+  (nVoidable: N); // Valid
+}
+
+if (typeof nVoidable !== "number") {
+  (nVoidable: void); // Valid
+  (nVoidable: N); // Error
+}
+
+declare var nMaybe: ?N;
+
+if (nMaybe == null) {
+  (nMaybe: null | void); // Valid
+  (nMaybe: N); // Error
+}
+
+if (nMaybe != null) {
+  (nMaybe: null); // Error
+  (nMaybe: void); // Error
+  (nMaybe: N); // Valid
+}
+
+declare var nNumVoid: N | number | void;
+
+if (typeof nNumVoid === "number") {
+  (nNumVoid: void); // Error
+  (nNumVoid: number); // Valid
+  (nNumVoid: N); // Error
+  (nNumVoid: N | number); // Valid
+}
+
+if (typeof nNumVoid !== "number") {
+  (nNumVoid: void); // Valid
+  (nNumVoid: number); // Error
+  (nNumVoid: N); // Error
+  (nNumVoid: N | number); // Error
+}
+
+if (nVoidable) {
+  (nVoidable: void); // Error
+  (nVoidable: N); // Valid
+}
+
+if (!nVoidable) {
+  (nVoidable: void | N); // Valid
+  (nVoidable: N); // Error
+  (nVoidable: void); // Error
+}
+
+enum NTruthy {
+  A = 1,
+  B = 2,
+}
+declare var nTruthy: NTruthy | void;
+
+if (nTruthy) {
+  (nTruthy: void); // Error
+  (nTruthy: NTruthy); // Valid
+}
+
+if (!nTruthy) {
+  (nTruthy: void); // Valid
+  (nTruthy: NTruthy); // Error
+}
+
+////////////
+// string //
+////////////
+enum S of string {
+  A = "",
+  B = "B",
+}
+
+declare var sVoidable: void | S;
+
+if (typeof sVoidable === "undefined") {
+  (sVoidable: void); // Valid
+  (sVoidable: S); // Error
+}
+
+if (typeof sVoidable !== "undefined") {
+  (sVoidable: void); // Error
+  (sVoidable: S); // Valid
+}
+
+if (typeof sVoidable === "string") {
+  (sVoidable: void); // Error
+  (sVoidable: S); // Valid
+}
+
+if (typeof sVoidable !== "string") {
+  (sVoidable: void); // Valid
+  (sVoidable: S); // Error
+}
+
+declare var sMaybe: ?S;
+
+if (sMaybe == null) {
+  (sMaybe: null | void); // Valid
+  (sMaybe: S); // Error
+}
+
+if (sMaybe != null) {
+  (sMaybe: null); // Error
+  (sMaybe: void); // Error
+  (sMaybe: S); // Valid
+}
+
+declare var sStrVoid: S | string | void;
+
+if (typeof sStrVoid === "string") {
+  (sStrVoid: void); // Error
+  (sStrVoid: string); // Valid
+  (sStrVoid: S); // Error
+  (sStrVoid: S | string); // Valid
+}
+
+if (typeof sStrVoid !== "string") {
+  (sStrVoid: void); // Valid
+  (sStrVoid: string); // Error
+  (sStrVoid: S); // Error
+  (sStrVoid: S | string); // Error
+}
+
+if (sVoidable) {
+  (sVoidable: void); // Error
+  (sVoidable: S); // Valid
+}
+
+if (!sVoidable) {
+  (sVoidable: void | S); // Valid
+  (sVoidable: S); // Error
+  (sVoidable: void); // Error
+}
+
+enum STruthy {
+  A,
+  B,
+}
+declare var sTruthy: STruthy | void;
+
+if (sTruthy) {
+  (sTruthy: void); // Error
+  (sTruthy: STruthy); // Valid
+}
+
+if (!sTruthy) {
+  (sTruthy: void); // Valid
+  (sTruthy: STruthy); // Error
+}
+
+//////////////
+// multiple //
+//////////////
+declare var bn: B | N;
+
+if (typeof bn == "boolean") {
+  (bn: B); // Valid
+  (bn: N); // Error
+}
+
+if (typeof bn == "number") {
+  (bn: B); // Error
+  (bn: N); // Valid
+}
+
+//////////////////
+// sketchy-null //
+//////////////////
+// flowlint sketchy-null:error
+
+if (bMaybe) { } // Error
+if (!bMaybe) { } // Error
+
+if (nMaybe) { } // Error
+if (!nMaybe) { } // Error
+
+if (sMaybe) { } // Error
+if (!sMaybe) { } // Error
+
+if (bTrue) { } // Valid
+if (!bTrue) { } // Valid
+
+if (nTruthy) { } // Valid
+if (!nTruthy) { } // Valid
+
+if (sTruthy) { } // Valid
+if (!sTruthy) { } // Valid
+
+// flowlint sketchy-null:off
+
+=====================================output=====================================
+// @flow
+
+/////////////
+// boolean //
+/////////////
+enum B of boolean {
+  A = true,
+  B = false,
+}
+
+declare var bVoidable: void | B;
+
+if (typeof bVoidable === "undefined") {
+  (bVoidable: void); // Valid
+  (bVoidable: B); // Error
+}
+
+if (typeof bVoidable !== "undefined") {
+  (bVoidable: void); // Error
+  (bVoidable: B); // Valid
+}
+
+if (typeof bVoidable === "boolean") {
+  (bVoidable: void); // Error
+  (bVoidable: B); // Valid
+}
+
+if (typeof bVoidable !== "boolean") {
+  (bVoidable: void); // Valid
+  (bVoidable: B); // Error
+}
+
+if (bVoidable === undefined) {
+  (bVoidable: void); // Valid
+  (bVoidable: B); // Error
+}
+
+if (bVoidable !== undefined) {
+  (bVoidable: void); // Error
+  (bVoidable: B); // Valid
+}
+
+declare var bMaybe: ?B;
+
+if (bMaybe == null) {
+  (bMaybe: null | void); // Valid
+  (bMaybe: B); // Error
+}
+
+if (bMaybe != null) {
+  (bMaybe: null); // Error
+  (bMaybe: void); // Error
+  (bMaybe: B); // Valid
+}
+
+if (bMaybe === null || bMaybe === undefined) {
+  (bMaybe: null | void); // Valid
+  (bMaybe: B); // Error
+}
+
+if (bMaybe !== null && bMaybe !== undefined) {
+  (bMaybe: null); // Error
+  (bMaybe: void); // Error
+  (bMaybe: B); // Valid
+}
+
+declare var bBoolVoid: B | boolean | void;
+
+if (typeof bBoolVoid === "boolean") {
+  (bBoolVoid: void); // Error
+  (bBoolVoid: boolean); // Valid
+  (bBoolVoid: B); // Error
+  (bBoolVoid: B | boolean); // Valid
+}
+
+if (typeof bBoolVoid !== "boolean") {
+  (bBoolVoid: void); // Valid
+  (bBoolVoid: boolean); // Error
+  (bBoolVoid: B); // Error
+  (bBoolVoid: B | boolean); // Error
+}
+
+if (bVoidable) {
+  (bVoidable: void); // Error
+  (bVoidable: B); // Valid
+}
+
+if (!bVoidable) {
+  (bVoidable: void | B); // Valid
+  (bVoidable: B); // Error
+  (bVoidable: void); // Error
+}
+
+enum BEmpty {}
+declare var bEmpty: BEmpty | void;
+
+if (bEmpty) {
+  (bEmpty: void); // Error
+  (bEmpty: BEmpty); // Valid
+}
+
+if (!bEmpty) {
+  (bEmpty: void); // Valid
+  (bEmpty: BEmpty); // Error
+}
+
+enum BTrue {
+  A = true,
+}
+declare var bTrue: BTrue | void;
+
+if (bTrue) {
+  (bTrue: void); // Error
+  (bTrue: BTrue); // Valid
+}
+
+if (!bTrue) {
+  (bTrue: void); // Valid
+  (bTrue: BTrue); // Error
+}
+
+enum BFalse {
+  A = false,
+}
+declare var bFalse: BFalse | true;
+
+if (bFalse) {
+  (bFalse: true); // Valid
+  (bFalse: BFalse); // Error
+}
+
+if (!bFalse) {
+  (bFalse: true); // Error
+  (bFalse: BFalse); // Valid
+}
+
+////////////
+// number //
+////////////
+enum N of number {
+  A = 0,
+  B = 1,
+}
+
+declare var nVoidable: void | N;
+
+if (typeof nVoidable === "undefined") {
+  (nVoidable: void); // Valid
+  (nVoidable: N); // Error
+}
+
+if (typeof nVoidable !== "undefined") {
+  (nVoidable: void); // Error
+  (nVoidable: N); // Valid
+}
+
+if (typeof nVoidable === "number") {
+  (nVoidable: void); // Error
+  (nVoidable: N); // Valid
+}
+
+if (typeof nVoidable !== "number") {
+  (nVoidable: void); // Valid
+  (nVoidable: N); // Error
+}
+
+declare var nMaybe: ?N;
+
+if (nMaybe == null) {
+  (nMaybe: null | void); // Valid
+  (nMaybe: N); // Error
+}
+
+if (nMaybe != null) {
+  (nMaybe: null); // Error
+  (nMaybe: void); // Error
+  (nMaybe: N); // Valid
+}
+
+declare var nNumVoid: N | number | void;
+
+if (typeof nNumVoid === "number") {
+  (nNumVoid: void); // Error
+  (nNumVoid: number); // Valid
+  (nNumVoid: N); // Error
+  (nNumVoid: N | number); // Valid
+}
+
+if (typeof nNumVoid !== "number") {
+  (nNumVoid: void); // Valid
+  (nNumVoid: number); // Error
+  (nNumVoid: N); // Error
+  (nNumVoid: N | number); // Error
+}
+
+if (nVoidable) {
+  (nVoidable: void); // Error
+  (nVoidable: N); // Valid
+}
+
+if (!nVoidable) {
+  (nVoidable: void | N); // Valid
+  (nVoidable: N); // Error
+  (nVoidable: void); // Error
+}
+
+enum NTruthy {
+  A = 1,
+  B = 2,
+}
+declare var nTruthy: NTruthy | void;
+
+if (nTruthy) {
+  (nTruthy: void); // Error
+  (nTruthy: NTruthy); // Valid
+}
+
+if (!nTruthy) {
+  (nTruthy: void); // Valid
+  (nTruthy: NTruthy); // Error
+}
+
+////////////
+// string //
+////////////
+enum S of string {
+  A = "",
+  B = "B",
+}
+
+declare var sVoidable: void | S;
+
+if (typeof sVoidable === "undefined") {
+  (sVoidable: void); // Valid
+  (sVoidable: S); // Error
+}
+
+if (typeof sVoidable !== "undefined") {
+  (sVoidable: void); // Error
+  (sVoidable: S); // Valid
+}
+
+if (typeof sVoidable === "string") {
+  (sVoidable: void); // Error
+  (sVoidable: S); // Valid
+}
+
+if (typeof sVoidable !== "string") {
+  (sVoidable: void); // Valid
+  (sVoidable: S); // Error
+}
+
+declare var sMaybe: ?S;
+
+if (sMaybe == null) {
+  (sMaybe: null | void); // Valid
+  (sMaybe: S); // Error
+}
+
+if (sMaybe != null) {
+  (sMaybe: null); // Error
+  (sMaybe: void); // Error
+  (sMaybe: S); // Valid
+}
+
+declare var sStrVoid: S | string | void;
+
+if (typeof sStrVoid === "string") {
+  (sStrVoid: void); // Error
+  (sStrVoid: string); // Valid
+  (sStrVoid: S); // Error
+  (sStrVoid: S | string); // Valid
+}
+
+if (typeof sStrVoid !== "string") {
+  (sStrVoid: void); // Valid
+  (sStrVoid: string); // Error
+  (sStrVoid: S); // Error
+  (sStrVoid: S | string); // Error
+}
+
+if (sVoidable) {
+  (sVoidable: void); // Error
+  (sVoidable: S); // Valid
+}
+
+if (!sVoidable) {
+  (sVoidable: void | S); // Valid
+  (sVoidable: S); // Error
+  (sVoidable: void); // Error
+}
+
+enum STruthy {
+  A,
+  B,
+}
+declare var sTruthy: STruthy | void;
+
+if (sTruthy) {
+  (sTruthy: void); // Error
+  (sTruthy: STruthy); // Valid
+}
+
+if (!sTruthy) {
+  (sTruthy: void); // Valid
+  (sTruthy: STruthy); // Error
+}
+
+//////////////
+// multiple //
+//////////////
+declare var bn: B | N;
+
+if (typeof bn == "boolean") {
+  (bn: B); // Valid
+  (bn: N); // Error
+}
+
+if (typeof bn == "number") {
+  (bn: B); // Error
+  (bn: N); // Valid
+}
+
+//////////////////
+// sketchy-null //
+//////////////////
+// flowlint sketchy-null:error
+
+if (bMaybe) {
+} // Error
+if (!bMaybe) {
+} // Error
+
+if (nMaybe) {
+} // Error
+if (!nMaybe) {
+} // Error
+
+if (sMaybe) {
+} // Error
+if (!sMaybe) {
+} // Error
+
+if (bTrue) {
+} // Valid
+if (!bTrue) {
+} // Valid
+
+if (nTruthy) {
+} // Valid
+if (!nTruthy) {
+} // Valid
+
+if (sTruthy) {
+} // Valid
+if (!sTruthy) {
+} // Valid
+
+// flowlint sketchy-null:off
+
+================================================================================
+`;
+
+exports[`spread.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+enum E {
+  A,
+  B,
+}
+
+const x = {...E}; // Error
+
+=====================================output=====================================
+// @flow
+
+enum E {
+  A,
+  B,
+}
+
+const x = { ...E }; // Error
+
+================================================================================
+`;
+
+exports[`utility-types.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+enum E {
+  A,
+  B,
+}
+
+const trigger = null;
+
+// $PropertyType
+(E.A: $PropertyType<typeof E, 'A'>); // OK
+(trigger: $PropertyType<typeof E, 'X'>); // Error: \`X\` is not a member of enum \`E\`
+
+// $ElementType
+(trigger: $ElementType<typeof E, string>); // Error: computed access is not allowed on enums
+
+// $Diff
+(trigger: $Diff<typeof E, {A: E}>); // Error: enum  \`E\` is not an object
+
+// $ReadOnly
+(trigger: $ReadOnly<typeof E>); // Error: enum \`E\` is not an object
+
+// $Keys
+("A": $Keys<typeof E>); // Error: TODO: improve error
+
+// $Values
+(trigger: $Values<typeof E>); // Error: enum \`E\` is not an object
+
+// $Exact
+(E: $Exact<typeof E>); // Error: TODO: improve error
+
+// $Rest
+(trigger: $Rest<typeof E, {A: E}>); // Error: enum  \`E\` is not an object
+
+// $ObjMap
+(trigger: $ObjMap<typeof E, <T>(T) => [T]>); // Error: enum \`E\` is not a valid arg to $ObjMap
+
+// $ObjMapi
+(trigger: $ObjMapi<typeof E, <K, V>(K, V) => [K, V]>); // Error: enum \`E\` is not a valid arg to $ObjMapi
+
+=====================================output=====================================
+// @flow
+
+enum E {
+  A,
+  B,
+}
+
+const trigger = null;
+
+// $PropertyType
+(E.A: $PropertyType<typeof E, "A">); // OK
+(trigger: $PropertyType<typeof E, "X">); // Error: \`X\` is not a member of enum \`E\`
+
+// $ElementType
+(trigger: $ElementType<typeof E, string>); // Error: computed access is not allowed on enums
+
+// $Diff
+(trigger: $Diff<typeof E, { A: E }>); // Error: enum  \`E\` is not an object
+
+// $ReadOnly
+(trigger: $ReadOnly<typeof E>); // Error: enum \`E\` is not an object
+
+// $Keys
+("A": $Keys<typeof E>); // Error: TODO: improve error
+
+// $Values
+(trigger: $Values<typeof E>); // Error: enum \`E\` is not an object
+
+// $Exact
+(E: $Exact<typeof E>); // Error: TODO: improve error
+
+// $Rest
+(trigger: $Rest<typeof E, { A: E }>); // Error: enum  \`E\` is not an object
+
+// $ObjMap
+(trigger: $ObjMap<typeof E, <T>(T) => [T]>); // Error: enum \`E\` is not a valid arg to $ObjMap
+
+// $ObjMapi
+(trigger: $ObjMapi<typeof E, <K, V>(K, V) => [K, V]>); // Error: enum \`E\` is not a valid arg to $ObjMapi
+
+================================================================================
+`;
+
+exports[`valid.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+enum E {
+  A,
+  B,
+}
+
+const a: E = E.A;
+
+// Use an enum name as a type before its declaration
+declare var x: E2;
+enum E2 {}
+
+=====================================output=====================================
+// @flow
+
+enum E {
+  A,
+  B,
+}
+
+const a: E = E.A;
+
+// Use an enum name as a type before its declaration
+declare var x: E2;
+enum E2 {}
+
+================================================================================
+`;

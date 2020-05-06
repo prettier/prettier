@@ -1,0 +1,345 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`apply.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+f.apply(null, [1,2,3]); // No error
+
+const it: Iterable<number> = [7,8,9];
+if (Array.isArray(it)) {
+  f.apply(null, it); // No error
+}
+
+// NOTE: This is ALWAYS incorrect since Function.prototype.apply only accepts
+// arrays and array-like objects - never iterables. When that is fixed we can
+// update this test to expect the proper error instead of the lint.
+f.apply(null, it); // Error
+
+function f(...args) {}
+
+=====================================output=====================================
+f.apply(null, [1, 2, 3]); // No error
+
+const it: Iterable<number> = [7, 8, 9];
+if (Array.isArray(it)) {
+  f.apply(null, it); // No error
+}
+
+// NOTE: This is ALWAYS incorrect since Function.prototype.apply only accepts
+// arrays and array-like objects - never iterables. When that is fixed we can
+// update this test to expect the proper error instead of the lint.
+f.apply(null, it); // Error
+
+function f(...args) {}
+
+================================================================================
+`;
+
+exports[`arguments.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// No errors are expected in this file.
+
+function f() {
+  const a = [...arguments];
+  g(...arguments);
+  g.apply(null, arguments);
+}
+
+function g() {}
+
+=====================================output=====================================
+// No errors are expected in this file.
+
+function f() {
+  const a = [...arguments];
+  g(...arguments);
+  g.apply(null, arguments);
+}
+
+function g() {}
+
+================================================================================
+`;
+
+exports[`compose.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/* @flow */
+
+declare var compose: $Compose;
+declare var fns1: Iterable<(number) => number>;
+
+(compose(
+  ...fns1, // Error
+)(42));
+
+if (Array.isArray(fns1)) {
+  (compose(
+    ...fns1, // No error
+  )(42));
+}
+
+=====================================output=====================================
+/* @flow */
+
+declare var compose: $Compose;
+declare var fns1: Iterable<(number) => number>;
+
+compose(
+  ...fns1 // Error
+)(42);
+
+if (Array.isArray(fns1)) {
+  compose(
+    ...fns1 // No error
+  )(42);
+}
+
+================================================================================
+`;
+
+exports[`iterables.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const it: Iterable<number> = [7,8,9];
+[...it]; // Error
+f(...it); // Error
+f.bind(null, ...it); // Error
+if (Array.isArray(it)) {
+  [...it]; // No error
+  f(...it); // No error
+  f.bind(null, ...it); // No error
+}
+
+import {opaqueIterable as oit} from './opaque';
+[...oit]; // Error
+f(...oit); // Error
+f.bind(null, ...oit); // Error
+if (Array.isArray(oit)) {
+  [...oit]; // No error
+  f(...oit); // No error
+  f.bind(null, ...oit); // No error
+}
+
+function f(...args) {}
+
+=====================================output=====================================
+const it: Iterable<number> = [7, 8, 9];
+[...it]; // Error
+f(...it); // Error
+f.bind(null, ...it); // Error
+if (Array.isArray(it)) {
+  [...it]; // No error
+  f(...it); // No error
+  f.bind(null, ...it); // No error
+}
+
+import { opaqueIterable as oit } from "./opaque";
+[...oit]; // Error
+f(...oit); // Error
+f.bind(null, ...oit); // Error
+if (Array.isArray(oit)) {
+  [...oit]; // No error
+  f(...oit); // No error
+  f.bind(null, ...oit); // No error
+}
+
+function f(...args) {}
+
+================================================================================
+`;
+
+exports[`maps.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const map1 = new Map();
+const map2 = new Map();
+new Map([
+  ...map1, // Error
+  ...map2 // Error
+]);
+new Map([...Array.from(map1), ...Array.from(map2)]); // No error
+f(
+  ...map1, // Error
+  ...map2 // Error
+);
+function f(...args) {}
+
+=====================================output=====================================
+const map1 = new Map();
+const map2 = new Map();
+new Map([
+  ...map1, // Error
+  ...map2, // Error
+]);
+new Map([...Array.from(map1), ...Array.from(map2)]); // No error
+f(
+  ...map1, // Error
+  ...map2 // Error
+);
+function f(...args) {}
+
+================================================================================
+`;
+
+exports[`opaque.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export opaque type OpaqueReadOnlyArray: $ReadOnlyArray<number> = $ReadOnlyArray<number>;
+export const opaqueReadOnlyArray: OpaqueReadOnlyArray = [];
+export opaque type OpaqueDerivedReadOnlyArray: OpaqueReadOnlyArray = OpaqueReadOnlyArray;
+export const opaqueDerivedReadOnlyArray: OpaqueDerivedReadOnlyArray = [];
+export opaque type OpaqueIterable: Iterable<number> = Iterable<number>;
+export const opaqueIterable: OpaqueIterable = [];
+
+=====================================output=====================================
+export opaque type OpaqueReadOnlyArray: $ReadOnlyArray<number> = $ReadOnlyArray<number>;
+export const opaqueReadOnlyArray: OpaqueReadOnlyArray = [];
+export opaque type OpaqueDerivedReadOnlyArray: OpaqueReadOnlyArray = OpaqueReadOnlyArray;
+export const opaqueDerivedReadOnlyArray: OpaqueDerivedReadOnlyArray = [];
+export opaque type OpaqueIterable: Iterable<number> = Iterable<number>;
+export const opaqueIterable: OpaqueIterable = [];
+
+================================================================================
+`;
+
+exports[`passing_cases.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// No errors are expected in this file.
+
+import {opaqueReadOnlyArray, opaqueDerivedReadOnlyArray} from './opaque';
+
+[...[1,2,3]];
+const a: Array<number> = [4,5,6];
+[...a];
+f(...a);
+[...a.map(x => x + 1)];
+f(...a.map(x => x + 1));
+const b: [number, string] = [42, "foo"];
+[...b];
+f(...b);
+f.apply(null, b);
+f.bind(null, ...b);
+
+function f(...args) {}
+
+declare var compose: $Compose;
+compose(...[x => x, x => x]);
+
+const c: $ReadOnlyArray<number> = [4,5,6];
+[...c];
+f(...c);
+[...c.map(x => x + 1)];
+f(...c.map(x => x + 1));
+
+[...opaqueReadOnlyArray];
+f(...opaqueReadOnlyArray);
+[...opaqueReadOnlyArray.map(x => x + 1)];
+f(...opaqueReadOnlyArray.map(x => x + 1));
+
+[...opaqueDerivedReadOnlyArray];
+f(...opaqueDerivedReadOnlyArray);
+[...opaqueDerivedReadOnlyArray.map(x => x + 1)];
+f(...opaqueDerivedReadOnlyArray.map(x => x + 1));
+
+=====================================output=====================================
+// No errors are expected in this file.
+
+import { opaqueReadOnlyArray, opaqueDerivedReadOnlyArray } from "./opaque";
+
+[...[1, 2, 3]];
+const a: Array<number> = [4, 5, 6];
+[...a];
+f(...a);
+[...a.map((x) => x + 1)];
+f(...a.map((x) => x + 1));
+const b: [number, string] = [42, "foo"];
+[...b];
+f(...b);
+f.apply(null, b);
+f.bind(null, ...b);
+
+function f(...args) {}
+
+declare var compose: $Compose;
+compose(...[(x) => x, (x) => x]);
+
+const c: $ReadOnlyArray<number> = [4, 5, 6];
+[...c];
+f(...c);
+[...c.map((x) => x + 1)];
+f(...c.map((x) => x + 1));
+
+[...opaqueReadOnlyArray];
+f(...opaqueReadOnlyArray);
+[...opaqueReadOnlyArray.map((x) => x + 1)];
+f(...opaqueReadOnlyArray.map((x) => x + 1));
+
+[...opaqueDerivedReadOnlyArray];
+f(...opaqueDerivedReadOnlyArray);
+[...opaqueDerivedReadOnlyArray.map((x) => x + 1)];
+f(...opaqueDerivedReadOnlyArray.map((x) => x + 1));
+
+================================================================================
+`;
+
+exports[`types.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// No errors are expected in this file.
+
+type GenericFnType<TArgs, TReturn> = (...TArgs) => TReturn;
+type T = GenericFnType<Iterable<string>, boolean>;
+var t: T = function(x: string, y: string): boolean {return false;}
+type U = (number, ...Iterable<string>) => boolean;
+var u: U = function(x: number, y: string): boolean {return false;}
+type GenericFnType2<TArgs, TReturn> = (number, ...TArgs) => TReturn;
+type V = (number, ...Iterable<string>) => boolean;
+var v: V = function(x: number, y: string): boolean {return false;}
+
+=====================================output=====================================
+// No errors are expected in this file.
+
+type GenericFnType<TArgs, TReturn> = (...TArgs) => TReturn;
+type T = GenericFnType<Iterable<string>, boolean>;
+var t: T = function (x: string, y: string): boolean {
+  return false;
+};
+type U = (number, ...Iterable<string>) => boolean;
+var u: U = function (x: number, y: string): boolean {
+  return false;
+};
+type GenericFnType2<TArgs, TReturn> = (number, ...TArgs) => TReturn;
+type V = (number, ...Iterable<string>) => boolean;
+var v: V = function (x: number, y: string): boolean {
+  return false;
+};
+
+================================================================================
+`;

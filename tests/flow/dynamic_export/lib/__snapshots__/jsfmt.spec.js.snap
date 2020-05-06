@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`libdef.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+declare module libdef {
+  declare var v : any;
+}
+
+=====================================output=====================================
+// @flow
+declare module libdef {
+  declare var v: any;
+}
+
+================================================================================
+`;

@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`type_then_var.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+interface A {}
+
+var A: string
+
+type B = number;
+
+var B : string;
+
+=====================================output=====================================
+// @flow
+interface A {}
+
+var A: string;
+
+type B = number;
+
+var B: string;
+
+================================================================================
+`;
+
+exports[`var_then_type.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+var A: string
+
+interface A {}
+
+var B : string;
+
+type B = number;
+
+=====================================output=====================================
+// @flow
+var A: string;
+
+interface A {}
+
+var B: string;
+
+type B = number;
+
+================================================================================
+`;

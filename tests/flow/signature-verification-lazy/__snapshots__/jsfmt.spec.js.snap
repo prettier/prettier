@@ -1,0 +1,177 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`bad_module_export.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+function foo() {
+  const x = module.exports;
+}
+
+=====================================output=====================================
+// @flow
+
+function foo() {
+  const x = module.exports;
+}
+
+================================================================================
+`;
+
+exports[`cycleA.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+const b = require('./cycleB');
+
+=====================================output=====================================
+// @flow
+
+const b = require("./cycleB");
+
+================================================================================
+`;
+
+exports[`cycleB.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+const c = require('./cycleC');
+
+// $FlowFixMe
+export function foo(x: number) { return x; }
+
+=====================================output=====================================
+// @flow
+
+const c = require("./cycleC");
+
+// $FlowFixMe
+export function foo(x: number) {
+  return x;
+}
+
+================================================================================
+`;
+
+exports[`cycleC.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+const a = require('./cycleA');
+
+export function foo(x: number) { return x; } // error when force-checking cycleA.js
+
+=====================================output=====================================
+// @flow
+
+const a = require("./cycleA");
+
+export function foo(x: number) {
+  return x;
+} // error when force-checking cycleA.js
+
+================================================================================
+`;
+
+exports[`no_error.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+export function foo(x: number): number { return x; }
+
+=====================================output=====================================
+// @flow
+
+export function foo(x: number): number {
+  return x;
+}
+
+================================================================================
+`;
+
+exports[`signature_verification_error.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+export function foo(x: number) { return x; }
+
+=====================================output=====================================
+// @flow
+
+export function foo(x: number) {
+  return x;
+}
+
+================================================================================
+`;
+
+exports[`suppressed_bad_module_export.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+function foo() {
+  // $FlowFixMe
+  const x = module.exports;
+}
+
+=====================================output=====================================
+// @flow
+
+function foo() {
+  // $FlowFixMe
+  const x = module.exports;
+}
+
+================================================================================
+`;
+
+exports[`suppressed_signature_verification_error.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+// $FlowFixMe
+export function foo(x: number) { return x; }
+
+=====================================output=====================================
+// @flow
+
+// $FlowFixMe
+export function foo(x: number) {
+  return x;
+}
+
+================================================================================
+`;

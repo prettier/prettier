@@ -1,0 +1,198 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`create_class.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+const React = require("react");
+const Foo = React.createClass({
+  propTypes: {
+    foo: React.PropTypes.string,
+    bar: React.PropTypes.string.isRequired
+  },
+  getInitialState() {
+    return { baz: 0 };
+  },
+  getDefaultProps() {
+    return {
+      foo: "foo"
+    };
+  }
+});
+
+const NoState = React.createClass({
+  propTypes: {
+    foo: React.PropTypes.string,
+    bar: React.PropTypes.string.isRequired
+  },
+  getDefaultProps() {
+    return {
+      foo: "foo"
+    };
+  }
+});
+
+const NoDefaultProps = React.createClass({
+  propTypes: {
+    foo: React.PropTypes.string,
+    bar: React.PropTypes.string.isRequired
+  },
+});
+
+=====================================output=====================================
+// @flow
+
+const React = require("react");
+const Foo = React.createClass({
+  propTypes: {
+    foo: React.PropTypes.string,
+    bar: React.PropTypes.string.isRequired,
+  },
+  getInitialState() {
+    return { baz: 0 };
+  },
+  getDefaultProps() {
+    return {
+      foo: "foo",
+    };
+  },
+});
+
+const NoState = React.createClass({
+  propTypes: {
+    foo: React.PropTypes.string,
+    bar: React.PropTypes.string.isRequired,
+  },
+  getDefaultProps() {
+    return {
+      foo: "foo",
+    };
+  },
+});
+
+const NoDefaultProps = React.createClass({
+  propTypes: {
+    foo: React.PropTypes.string,
+    bar: React.PropTypes.string.isRequired,
+  },
+});
+
+================================================================================
+`;
+
+exports[`react.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import React from "react";
+React.createElement;
+
+=====================================output=====================================
+import React from "react";
+React.createElement;
+
+================================================================================
+`;
+
+exports[`react_abstract_component.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+function test(x: React$AbstractComponent<any, any>) {
+  return;
+}
+
+=====================================output=====================================
+//@flow
+
+function test(x: React$AbstractComponent<any, any>) {
+  return;
+}
+
+================================================================================
+`;
+
+exports[`react_component.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+const React = require('react');
+
+type Props = {|
+  name: string
+|};
+
+type State = {|
+  enabled: boolean
+|}
+
+class Welcome extends React.Component<Props, State> {
+  state = {
+    enabled: false
+  }
+  render() {
+    if (this.state.enabled) {
+      return <h1>Hello, {this.props.name}</h1>;
+    } else {
+      return <h1>Hello</h1>;
+    }
+
+  }
+}
+
+React.default.Children;
+React.default.PropTypes;
+React.default.Component;
+
+React.Fragment
+declare var react_ct: React.ComponentType<number>;
+
+=====================================output=====================================
+// @flow
+
+const React = require("react");
+
+type Props = {|
+  name: string,
+|};
+
+type State = {|
+  enabled: boolean,
+|};
+
+class Welcome extends React.Component<Props, State> {
+  state = {
+    enabled: false,
+  };
+  render() {
+    if (this.state.enabled) {
+      return <h1>Hello, {this.props.name}</h1>;
+    } else {
+      return <h1>Hello</h1>;
+    }
+  }
+}
+
+React.default.Children;
+React.default.PropTypes;
+React.default.Component;
+
+React.Fragment;
+declare var react_ct: React.ComponentType<number>;
+
+================================================================================
+`;

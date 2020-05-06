@@ -37,16 +37,16 @@ declare var o11: {...{p:T}&{|p?:U|}};
 declare var o12: {...{p?:T}&{|p?:U|}};
 (o12: {p?:T&U}); // ok
 
-declare var o13: {...{|p:T|}&{|p:U|}};
+declare var o13: {|...{|p:T|}&{|p:U|}|};
 (o13: {|p:T&U|}); // ok
 
-declare var o14: {...{|p?:T|}&{|p:U|}};
+declare var o14: {|...{|p?:T|}&{|p:U|}|};
 (o14: {|p:T&U|}); // ok
 
-declare var o15: {...{|p:T|}&{|p?:U|}};
+declare var o15: {|...{|p:T|}&{|p?:U|}|};
 (o15: {|p:T&U|}); // ok
 
-declare var o16: {...{|p?:T|}&{|p?:U|}};
+declare var o16: {|...{|p?:T|}&{|p?:U|}|};
 (o16: {|p?:T&U|}); // ok
 
 declare var o17: {...{p:T}&{q:U}};

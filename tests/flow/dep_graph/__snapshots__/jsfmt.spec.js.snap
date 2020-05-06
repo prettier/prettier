@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fileA.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+const B = require('./fileB');
+
+class A {}
+
+module.exports = A;
+
+=====================================output=====================================
+// @flow
+
+const B = require("./fileB");
+
+class A {}
+
+module.exports = A;
+
+================================================================================
+`;
+
+exports[`fileB.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+const A = require("./fileA");
+
+class B extends A {}
+
+module.exports = B;
+
+=====================================output=====================================
+// @flow
+
+const A = require("./fileA");
+
+class B extends A {}
+
+module.exports = B;
+
+================================================================================
+`;

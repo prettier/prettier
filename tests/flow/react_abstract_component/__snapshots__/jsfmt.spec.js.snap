@@ -1,0 +1,853 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HOC.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+import * as React from 'react';
+
+class Component extends React.Component<{|foo: number, bar: number|}> {
+  static defaultProps: {| foo: number |} = {foo: 3};
+}
+
+function TrivialHOC<Props, Instance>(
+  x: React.AbstractComponent<Props, Instance>,
+): React.AbstractComponent<Props, Instance> {
+  return x;
+}
+
+const TrivialWrap = TrivialHOC(Component);
+(TrivialWrap: React.AbstractComponent<{|foo?: number, bar: number|}, Component>);
+
+function WrapInDivWithExtraProp<Props, Instance>(
+  x: React.AbstractComponent<Props, Instance>,
+): React.AbstractComponent<{| ...Props, baz: number |}, void> {
+  const C = (props: {|...Props, baz: number|}) =>
+    <div>
+      {props.baz}
+      <x {...props} />
+    </div>;
+  C.defaultProps = {...x.defaultProps};
+  return C;
+}
+
+const WrappedInDivWithExtraProp = WrapInDivWithExtraProp(Component); // Note, we lose instance type here
+(WrappedInDivWithExtraProp: React.AbstractComponent<{| foo?: number, bar: number, baz: number |}, void>);
+
+function AddPropWithDefault<Props, Instance>(
+  x: React.AbstractComponent<Props, Instance>
+): React.AbstractComponent<{| ...Props, baz?:number |}, void> {
+  const C = (props: {| ...Props, baz: number |}) =>
+    <div>
+      {props.baz}
+      <x {...props} />
+    </div>;
+  C.defaultProps = {...x.defaultProps, baz: 3};
+  return C;
+}
+
+const WrappedAddPropWithDefault = AddPropWithDefault(Component);
+(WrappedAddPropWithDefault: React.AbstractComponent<
+  {| foo?: number, bar: number, baz?: number |},
+  void,
+ >);
+
+=====================================output=====================================
+//@flow
+
+import * as React from "react";
+
+class Component extends React.Component<{| foo: number, bar: number |}> {
+  static defaultProps: {| foo: number |} = { foo: 3 };
+}
+
+function TrivialHOC<Props, Instance>(
+  x: React.AbstractComponent<Props, Instance>
+): React.AbstractComponent<Props, Instance> {
+  return x;
+}
+
+const TrivialWrap = TrivialHOC(Component);
+(TrivialWrap: React.AbstractComponent<
+  {| foo?: number, bar: number |},
+  Component
+>);
+
+function WrapInDivWithExtraProp<Props, Instance>(
+  x: React.AbstractComponent<Props, Instance>
+): React.AbstractComponent<{| ...Props, baz: number |}, void> {
+  const C = (props: {| ...Props, baz: number |}) => (
+    <div>
+      {props.baz}
+      <x {...props} />
+    </div>
+  );
+  C.defaultProps = { ...x.defaultProps };
+  return C;
+}
+
+const WrappedInDivWithExtraProp = WrapInDivWithExtraProp(Component); // Note, we lose instance type here
+(WrappedInDivWithExtraProp: React.AbstractComponent<
+  {| foo?: number, bar: number, baz: number |},
+  void
+>);
+
+function AddPropWithDefault<Props, Instance>(
+  x: React.AbstractComponent<Props, Instance>
+): React.AbstractComponent<{| ...Props, baz?: number |}, void> {
+  const C = (props: {| ...Props, baz: number |}) => (
+    <div>
+      {props.baz}
+      <x {...props} />
+    </div>
+  );
+  C.defaultProps = { ...x.defaultProps, baz: 3 };
+  return C;
+}
+
+const WrappedAddPropWithDefault = AddPropWithDefault(Component);
+(WrappedAddPropWithDefault: React.AbstractComponent<
+  {| foo?: number, bar: number, baz?: number |},
+  void
+>);
+
+================================================================================
+`;
+
+exports[`abstract_vs_abstract.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+const React = require('react');
+
+class Component extends React.Component<{}> {}
+class Subcomponent extends Component {}
+
+function test1(x: React$AbstractComponent<{}, Component>): React$AbstractComponent<{}, Component> { // Ok, all unify
+  return x;
+}
+
+function test2(x: React$AbstractComponent<{}, Component>): React$AbstractComponent<{foo: number}, Component> { // Extra props is ok
+  return x;
+}
+
+function test3(x: React$AbstractComponent<{foo: number}, Component>): React$AbstractComponent<{}, Component> { // Error missing props
+  return x;
+}
+
+function test4(x: React$AbstractComponent<{}, Component>): React$AbstractComponent<{}, Subcomponent> { // Error instance is covariant
+  return x;
+}
+
+function test5(x: React$AbstractComponent<{}, Subcomponent>): React$AbstractComponent<{}, Component> { // Ok, instance is covariant
+  return x;
+}
+
+=====================================output=====================================
+//@flow
+const React = require("react");
+
+class Component extends React.Component<{}> {}
+class Subcomponent extends Component {}
+
+function test1(
+  x: React$AbstractComponent<{}, Component>
+): React$AbstractComponent<{}, Component> {
+  // Ok, all unify
+  return x;
+}
+
+function test2(
+  x: React$AbstractComponent<{}, Component>
+): React$AbstractComponent<{ foo: number }, Component> {
+  // Extra props is ok
+  return x;
+}
+
+function test3(
+  x: React$AbstractComponent<{ foo: number }, Component>
+): React$AbstractComponent<{}, Component> {
+  // Error missing props
+  return x;
+}
+
+function test4(
+  x: React$AbstractComponent<{}, Component>
+): React$AbstractComponent<{}, Subcomponent> {
+  // Error instance is covariant
+  return x;
+}
+
+function test5(
+  x: React$AbstractComponent<{}, Subcomponent>
+): React$AbstractComponent<{}, Component> {
+  // Ok, instance is covariant
+  return x;
+}
+
+================================================================================
+`;
+
+exports[`arity.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+function test1(x: React$AbstractComponent<any>) { // Not enough targs
+  return x;
+}
+
+function test2(x: React$AbstractComponent<any,any>) { // Ok
+  return x;
+}
+
+function test3(x: React$AbstractComponent<any,any,any>) { // Too many targs
+  return x;
+}
+
+=====================================output=====================================
+//@flow
+
+function test1(x: React$AbstractComponent<any>) {
+  // Not enough targs
+  return x;
+}
+
+function test2(x: React$AbstractComponent<any, any>) {
+  // Ok
+  return x;
+}
+
+function test3(x: React$AbstractComponent<any, any, any>) {
+  // Too many targs
+  return x;
+}
+
+================================================================================
+`;
+
+exports[`classes_lower.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+const React = require('react');
+
+class Component extends React.Component<{}> {}
+
+(Component: React$AbstractComponent<any, any>);
+(Component: React$AbstractComponent<{}, any>);
+(Component: React$AbstractComponent<{+foo: number}, any>); // Extra props is ok
+
+class ComponentNarrower extends React.Component<{foo: number, bar: number}> {
+  static defaultProps: { foo: number } = {foo: 3};
+}
+
+(ComponentNarrower: React$AbstractComponent<any, any, any>);
+(ComponentNarrower: React$AbstractComponent<{+foo?: number, +bar: number}, any>);
+(ComponentNarrower: React$AbstractComponent<{}, any>); // Error missing foo and bar in config
+(ComponentNarrower: React$AbstractComponent<{+foo?: number}, any>); // Error missing bar in config
+(ComponentNarrower: React$AbstractComponent<any, Component>); // Error instance type is wrong
+(ComponentNarrower: React$AbstractComponent<any, ComponentNarrower>);
+
+class Subclass extends Component {}
+
+(Subclass: React$AbstractComponent<any, Component>); // Error, Instance is covariant
+(Component: React$AbstractComponent<any, Subclass>); // Ok, Instance is covariant
+(Subclass : React$AbstractComponent<any, Subclass>);
+
+=====================================output=====================================
+//@flow
+
+const React = require("react");
+
+class Component extends React.Component<{}> {}
+
+(Component: React$AbstractComponent<any, any>);
+(Component: React$AbstractComponent<{}, any>);
+(Component: React$AbstractComponent<{ +foo: number }, any>); // Extra props is ok
+
+class ComponentNarrower extends React.Component<{ foo: number, bar: number }> {
+  static defaultProps: { foo: number } = { foo: 3 };
+}
+
+(ComponentNarrower: React$AbstractComponent<any, any, any>);
+(ComponentNarrower: React$AbstractComponent<
+  { +foo?: number, +bar: number },
+  any
+>);
+(ComponentNarrower: React$AbstractComponent<{}, any>); // Error missing foo and bar in config
+(ComponentNarrower: React$AbstractComponent<{ +foo?: number }, any>); // Error missing bar in config
+(ComponentNarrower: React$AbstractComponent<any, Component>); // Error instance type is wrong
+(ComponentNarrower: React$AbstractComponent<any, ComponentNarrower>);
+
+class Subclass extends Component {}
+
+(Subclass: React$AbstractComponent<any, Component>); // Error, Instance is covariant
+(Component: React$AbstractComponent<any, Subclass>); // Ok, Instance is covariant
+(Subclass: React$AbstractComponent<any, Subclass>);
+
+================================================================================
+`;
+
+exports[`config.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+const React = require('react');
+type Props = {foo: number, bar: number};
+type DefaultProps = {foo: number};
+type Config = {+foo?: number, +bar: number};
+
+declare var x: Config;
+declare var y: React$Config<Props, DefaultProps>;
+(x: React$Config<Props, DefaultProps>);
+(y: Config);
+
+type NotTheRightConfig = {+baz: number, +qux: number};
+(y: NotTheRightConfig); // Error, configs don't match
+
+declare var z: NotTheRightConfig;
+(z: React$Config<Props, DefaultProps>); // Error, configs don't match
+
+function HOC<Config, Instance>(
+    x: React$AbstractComponent<Config, Instance>,
+): React$AbstractComponent<Config, Instance> {
+  return x;
+}
+
+function HOC2<Props: {}, DefaultProps: {}, Instance>(
+    x: React$AbstractComponent<React$Config<Props, DefaultProps>, Instance>,
+): React$AbstractComponent<React$Config<Props, DefaultProps>, Instance> {
+  return x;
+}
+
+class Component extends React.Component<{foo: number, bar: number}> {
+  static defaultProps = {foo: 3};
+}
+
+const WrappedComponent = HOC(Component);
+
+// Make sure all props are correctly required
+const _a = <WrappedComponent foo={3} bar={3} />;
+const _b = <WrappedComponent bar={3} />;
+const _c = <WrappedComponent foo={3} />; // Error missing bar
+
+const WrappedComponent2 = HOC2(Component);
+// KP: Props in HOC2 only receives upper bounds, so the config is never calculated
+const _f = <WrappedComponent2 />;
+
+=====================================output=====================================
+//@flow
+const React = require("react");
+type Props = { foo: number, bar: number };
+type DefaultProps = { foo: number };
+type Config = { +foo?: number, +bar: number };
+
+declare var x: Config;
+declare var y: React$Config<Props, DefaultProps>;
+(x: React$Config<Props, DefaultProps>);
+(y: Config);
+
+type NotTheRightConfig = { +baz: number, +qux: number };
+(y: NotTheRightConfig); // Error, configs don't match
+
+declare var z: NotTheRightConfig;
+(z: React$Config<Props, DefaultProps>); // Error, configs don't match
+
+function HOC<Config, Instance>(
+  x: React$AbstractComponent<Config, Instance>
+): React$AbstractComponent<Config, Instance> {
+  return x;
+}
+
+function HOC2<Props: {}, DefaultProps: {}, Instance>(
+  x: React$AbstractComponent<React$Config<Props, DefaultProps>, Instance>
+): React$AbstractComponent<React$Config<Props, DefaultProps>, Instance> {
+  return x;
+}
+
+class Component extends React.Component<{ foo: number, bar: number }> {
+  static defaultProps = { foo: 3 };
+}
+
+const WrappedComponent = HOC(Component);
+
+// Make sure all props are correctly required
+const _a = <WrappedComponent foo={3} bar={3} />;
+const _b = <WrappedComponent bar={3} />;
+const _c = <WrappedComponent foo={3} />; // Error missing bar
+
+const WrappedComponent2 = HOC2(Component);
+// KP: Props in HOC2 only receives upper bounds, so the config is never calculated
+const _f = <WrappedComponent2 />;
+
+================================================================================
+`;
+
+exports[`create_element.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+const React = require('react');
+
+declare var C: React$AbstractComponent<{+foo?: number, +bar: number | string, +baz: number}, number>;
+
+const _a = <C foo={3} bar="string" baz={4} />;
+const _b = <C bar={3} baz={4} />;
+const _c = <C baz={4} />; // Error missing bar
+const _d = <C bar={3} />; // Error missing baz
+
+const refGood = React.createRef<number>();
+const _e = <C bar="string" baz={4} ref={refGood} />;
+
+const refBad = React.createRef<string>();
+const _f = <C bar="string" baz={4} ref={refBad} />; // Error bad ref
+
+const _g = <C foo={3} bar="string" baz={4} key="test_ok" />;
+const _h = <C foo={3} bar="string" baz={4} key={{bad: 3}} />; // Error bad key
+
+=====================================output=====================================
+//@flow
+
+const React = require("react");
+
+declare var C: React$AbstractComponent<
+  { +foo?: number, +bar: number | string, +baz: number },
+  number
+>;
+
+const _a = <C foo={3} bar="string" baz={4} />;
+const _b = <C bar={3} baz={4} />;
+const _c = <C baz={4} />; // Error missing bar
+const _d = <C bar={3} />; // Error missing baz
+
+const refGood = React.createRef<number>();
+const _e = <C bar="string" baz={4} ref={refGood} />;
+
+const refBad = React.createRef<string>();
+const _f = <C bar="string" baz={4} ref={refBad} />; // Error bad ref
+
+const _g = <C foo={3} bar="string" baz={4} key="test_ok" />;
+const _h = <C foo={3} bar="string" baz={4} key={{ bad: 3 }} />; // Error bad key
+
+================================================================================
+`;
+
+exports[`destructors.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+const React = require('react');
+
+declare var C: React$AbstractComponent<{foo?: number, bar: number}, void>;
+
+// Create element tests props_to_tin
+const _a = <C bar={3} />;
+const _b = <C baz={3} />; // Error, bar missing
+
+// ElementRef tests get_instance
+
+(undefined: React$ElementRef<typeof C>);
+(3 : React$ElementRef<typeof C>); // Error, 3 is not void.
+
+// ElementConfig tests get_defaults and props_to_tout
+
+({foo: 3, bar: 3}: React$ElementConfig<typeof C>);
+({bar: 3}: React$ElementConfig<typeof C>);
+({foo: 3, bar: 3, baz: 3}: React$ElementConfig<typeof C>);
+({baz: 3}: React$ElementConfig<typeof C>); // Error, bar missing
+
+=====================================output=====================================
+//@flow
+
+const React = require("react");
+
+declare var C: React$AbstractComponent<{ foo?: number, bar: number }, void>;
+
+// Create element tests props_to_tin
+const _a = <C bar={3} />;
+const _b = <C baz={3} />; // Error, bar missing
+
+// ElementRef tests get_instance
+
+(undefined: React$ElementRef<typeof C>);
+(3: React$ElementRef<typeof C>); // Error, 3 is not void.
+
+// ElementConfig tests get_defaults and props_to_tout
+
+({ foo: 3, bar: 3 }: React$ElementConfig<typeof C>);
+({ bar: 3 }: React$ElementConfig<typeof C>);
+({ foo: 3, bar: 3, baz: 3 }: React$ElementConfig<typeof C>);
+({ baz: 3 }: React$ElementConfig<typeof C>); // Error, bar missing
+
+================================================================================
+`;
+
+exports[`double_wrapped.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+import * as React from 'react';
+
+class MyComponent extends React.Component<{| foo: number |}> {
+  render() {
+    return this.props.foo;
+  }
+}
+
+function wrapper<TProps: {}, TInstance>(
+  base: React$AbstractComponent<TProps, TInstance>,
+): React$AbstractComponent<TProps, TInstance> {
+  return base;
+}
+
+function wrapper2<TProps: {}, TInstance>(
+  base: React$AbstractComponent<TProps, TInstance>,
+): React$AbstractComponent<TProps, TInstance> {
+  return base;
+}
+
+const WrappedBoth = wrapper(wrapper2(MyComponent));
+const _a = <WrappedBoth foo={42} bar={43} />; // Error, extra prop bar
+const _b = <WrappedBoth />; // Error, missing prop foo
+const _c = <WrappedBoth foo={42} />;
+
+=====================================output=====================================
+//@flow
+import * as React from "react";
+
+class MyComponent extends React.Component<{| foo: number |}> {
+  render() {
+    return this.props.foo;
+  }
+}
+
+function wrapper<TProps: {}, TInstance>(
+  base: React$AbstractComponent<TProps, TInstance>
+): React$AbstractComponent<TProps, TInstance> {
+  return base;
+}
+
+function wrapper2<TProps: {}, TInstance>(
+  base: React$AbstractComponent<TProps, TInstance>
+): React$AbstractComponent<TProps, TInstance> {
+  return base;
+}
+
+const WrappedBoth = wrapper(wrapper2(MyComponent));
+const _a = <WrappedBoth foo={42} bar={43} />; // Error, extra prop bar
+const _b = <WrappedBoth />; // Error, missing prop foo
+const _c = <WrappedBoth foo={42} />;
+
+================================================================================
+`;
+
+exports[`function_lower.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+type Props = {+foo: number};
+function Component(x: Props): React$Node { return null; }
+
+(Component: React$AbstractComponent<Props, void>);
+(Component: React$AbstractComponent<{}, void>); // Error, missing foo
+(Component: React$AbstractComponent<{+foo: number, +bar: number}, void>); //Ok, extra prop bar
+(Component: React$AbstractComponent<Props, number | void>); // Ok
+(Component: React$AbstractComponent<Props, number>); // Error void ~> number
+
+type Props2 = {foo: number, bar: number};
+type Config2 = {+foo?: number, +bar: number};
+function ComponentWithDefaultProps(x: Props2) { return null; }
+ComponentWithDefaultProps.defaultProps = {foo: 3};
+
+(ComponentWithDefaultProps: React$AbstractComponent<Config2, void>);
+(ComponentWithDefaultProps: React$AbstractComponent<{}, void>); // Error, missing foo and bar
+(ComponentWithDefaultProps: React$AbstractComponent<Config2, number | void>); // Ok, instance is void
+(ComponentWithDefaultProps: React$AbstractComponent<Config2, number>); // Error, void ~> number
+
+class NotAComponent {}; // Error, not a component
+
+function NotAFunctionComponent(x: Props) {
+  return NotAComponent;
+}
+
+(NotAFunctionComponent: React$AbstractComponent<Props, void>);
+
+=====================================output=====================================
+//@flow
+
+type Props = { +foo: number };
+function Component(x: Props): React$Node {
+  return null;
+}
+
+(Component: React$AbstractComponent<Props, void>);
+(Component: React$AbstractComponent<{}, void>); // Error, missing foo
+(Component: React$AbstractComponent<{ +foo: number, +bar: number }, void>); //Ok, extra prop bar
+(Component: React$AbstractComponent<Props, number | void>); // Ok
+(Component: React$AbstractComponent<Props, number>); // Error void ~> number
+
+type Props2 = { foo: number, bar: number };
+type Config2 = { +foo?: number, +bar: number };
+function ComponentWithDefaultProps(x: Props2) {
+  return null;
+}
+ComponentWithDefaultProps.defaultProps = { foo: 3 };
+
+(ComponentWithDefaultProps: React$AbstractComponent<Config2, void>);
+(ComponentWithDefaultProps: React$AbstractComponent<{}, void>); // Error, missing foo and bar
+(ComponentWithDefaultProps: React$AbstractComponent<Config2, number | void>); // Ok, instance is void
+(ComponentWithDefaultProps: React$AbstractComponent<Config2, number>); // Error, void ~> number
+
+class NotAComponent {} // Error, not a component
+
+function NotAFunctionComponent(x: Props) {
+  return NotAComponent;
+}
+
+(NotAFunctionComponent: React$AbstractComponent<Props, void>);
+
+================================================================================
+`;
+
+exports[`get_set_elem.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+declare var x: React$AbstractComponent<any, any>;
+declare var y: string;
+x[y]; // Ok
+x[y] = y; // Ok
+
+=====================================output=====================================
+//@flow
+
+declare var x: React$AbstractComponent<any, any>;
+declare var y: string;
+x[y]; // Ok
+x[y] = y; // Ok
+
+================================================================================
+`;
+
+exports[`get_set_props.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+function test(x: React$AbstractComponent<any, any>) {
+  if (x.displayName) {
+    x.displayName;
+    x.displayName = null;
+  }
+  x.displayName.toString(); // Error maybe null or undefined
+  x.definitelyNotHere.toString(); // Error missing prop
+  x.displayName = 'display name';
+  x.displayName = 3; // Error num ~> string
+}
+
+=====================================output=====================================
+//@flow
+
+function test(x: React$AbstractComponent<any, any>) {
+  if (x.displayName) {
+    x.displayName;
+    x.displayName = null;
+  }
+  x.displayName.toString(); // Error maybe null or undefined
+  x.definitelyNotHere.toString(); // Error missing prop
+  x.displayName = "display name";
+  x.displayName = 3; // Error num ~> string
+}
+
+================================================================================
+`;
+
+exports[`no_annot_fun.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+function Component(props) { props.LOL ; return null} // Error, missing LOL
+(Component: React$AbstractComponent<{}, void>);
+
+=====================================output=====================================
+//@flow
+
+function Component(props) {
+  props.LOL;
+  return null;
+} // Error, missing LOL
+(Component: React$AbstractComponent<{}, void>);
+
+================================================================================
+`;
+
+exports[`strict.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const React = require('react');
+
+declare var Component : React$ElementType;
+const c = <Component f = {3}/>;
+(c : React$Element<React$ElementType>);
+
+declare function foo(a: ?React$Component<any, any>): void;
+declare var ref: ?React$ElementRef<React$ElementType>;
+foo(ref);
+
+class Component2 extends React.Component<{}> {};
+const d = <Component2/>;
+(d: React$Element<React$ElementType>);
+
+type Props = {someProp : string};
+type State = {};
+
+class MyComponent extends React.Component<Props, State> {
+  static _cloneElement(
+    element: React$Element<React$ElementType>,
+  ): React$Element<React$ElementType> {
+    const someProp = 'some value';
+    return React.cloneElement(element, {someProp});
+  }
+}
+
+
+declare var e : React$Element<Class<Component2>>;
+(e : React$Element<React$ElementType>);
+
+=====================================output=====================================
+const React = require("react");
+
+declare var Component: React$ElementType;
+const c = <Component f={3} />;
+(c: React$Element<React$ElementType>);
+
+declare function foo(a: ?React$Component<any, any>): void;
+declare var ref: ?React$ElementRef<React$ElementType>;
+foo(ref);
+
+class Component2 extends React.Component<{}> {}
+const d = <Component2 />;
+(d: React$Element<React$ElementType>);
+
+type Props = { someProp: string };
+type State = {};
+
+class MyComponent extends React.Component<Props, State> {
+  static _cloneElement(
+    element: React$Element<React$ElementType>
+  ): React$Element<React$ElementType> {
+    const someProp = "some value";
+    return React.cloneElement(element, { someProp });
+  }
+}
+
+declare var e: React$Element<Class<Component2>>;
+(e: React$Element<React$ElementType>);
+
+================================================================================
+`;
+
+exports[`test_prop.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+function test(x: React$AbstractComponent<any, any>) {
+  if (x.displayName) {} // We can look for props on components
+  if (x.notOnEitherSFCOrClass) {} // Error Not on any component
+}
+
+=====================================output=====================================
+//@flow
+
+function test(x: React$AbstractComponent<any, any>) {
+  if (x.displayName) {
+  } // We can look for props on components
+  if (x.notOnEitherSFCOrClass) {
+  } // Error Not on any component
+}
+
+================================================================================
+`;
+
+exports[`type_visitor.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+const React = require('react');
+
+declare function HOC<Config: {}, Instance>(
+    x: React.AbstractComponent<Config, Instance>,
+): React.AbstractComponent<Config, Instance>;
+
+class A extends React.Component<{}> {}
+
+module.exports = HOC(A); // Error, missing annotation only for Config
+
+=====================================output=====================================
+//@flow
+const React = require("react");
+
+declare function HOC<Config: {}, Instance>(
+  x: React.AbstractComponent<Config, Instance>
+): React.AbstractComponent<Config, Instance>;
+
+class A extends React.Component<{}> {}
+
+module.exports = HOC(A); // Error, missing annotation only for Config
+
+================================================================================
+`;

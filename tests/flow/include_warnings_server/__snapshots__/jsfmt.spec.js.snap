@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+//flowlint-next-line sketchy-null:error
+var x: ?number = 0;
+
+//flowlint-next-line sketchy-null:error
+if (x) {} //Error
+
+//flowlint-next-line sketchy-null:warn
+if (x) {} //Warning
+
+=====================================output=====================================
+// @flow
+
+//flowlint-next-line sketchy-null:error
+var x: ?number = 0;
+
+//flowlint-next-line sketchy-null:error
+if (x) {
+} //Error
+
+//flowlint-next-line sketchy-null:warn
+if (x) {
+} //Warning
+
+================================================================================
+`;

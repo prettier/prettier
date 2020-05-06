@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/* @flow */
+
+class Bar<T: {}> {
+    good (x: number) : $ReadOnlyWeakSet<T> { // Fine, invariant in invariant position
+        return new WeakSet();
+    }
+}
+
+class Foo<+T: {}> {
+    bad (x: number) : $ReadOnlyWeakSet<T> { // Error: T in invariant position
+        return new WeakSet();
+      }
+}
+
+class Baz<-T: {}> {
+    bad (x: number) : $ReadOnlyWeakSet<T> {// Error: T in invariant position
+        return new WeakSet();
+    }
+}
+
+=====================================output=====================================
+/* @flow */
+
+class Bar<T: {}> {
+  good(x: number): $ReadOnlyWeakSet<T> {
+    // Fine, invariant in invariant position
+    return new WeakSet();
+  }
+}
+
+class Foo<+T: {}> {
+  bad(x: number): $ReadOnlyWeakSet<T> {
+    // Error: T in invariant position
+    return new WeakSet();
+  }
+}
+
+class Baz<-T: {}> {
+  bad(x: number): $ReadOnlyWeakSet<T> {
+    // Error: T in invariant position
+    return new WeakSet();
+  }
+}
+
+================================================================================
+`;

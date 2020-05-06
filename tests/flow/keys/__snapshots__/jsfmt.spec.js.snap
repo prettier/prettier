@@ -1,5 +1,89 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`enum.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+function foo(r: $Keys<typeof R>): boolean {
+  switch (r) {
+    case R.A:
+      return false;
+    case R.B:
+      return false;
+    default:
+      return true;
+  }
+}
+
+const R: {|
+  A: 'A',
+  B: 'B',
+|} = {
+  A: 'A',
+  B: 'B',
+};
+
+=====================================output=====================================
+// @flow
+
+function foo(r: $Keys<typeof R>): boolean {
+  switch (r) {
+    case R.A:
+      return false;
+    case R.B:
+      return false;
+    default:
+      return true;
+  }
+}
+
+const R: {|
+  A: "A",
+  B: "B",
+|} = {
+  A: "A",
+  B: "B",
+};
+
+================================================================================
+`;
+
+exports[`errors.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @format
+ * @flow
+ */
+
+const O = {a: 1, b: 2};
+type K = $Keys<typeof O>;
+declare var k: K;
+(k: 'c');
+('c': K);
+
+=====================================output=====================================
+/**
+ * @format
+ * @flow
+ */
+
+const O = { a: 1, b: 2 };
+type K = $Keys<typeof O>;
+declare var k: K;
+(k: "c");
+("c": K);
+
+================================================================================
+`;
+
 exports[`keys.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]

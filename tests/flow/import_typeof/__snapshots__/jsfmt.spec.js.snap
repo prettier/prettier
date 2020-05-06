@@ -38,6 +38,34 @@ module.exports = ClassFoo3;
 ================================================================================
 `;
 
+exports[`ExportCJSDefault_Function.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @flow
+ */
+
+function functionFoo3(x: number): number { return x; }
+
+module.exports = functionFoo3;
+
+=====================================output=====================================
+/**
+ * @flow
+ */
+
+function functionFoo3(x: number): number {
+  return x;
+}
+
+module.exports = functionFoo3;
+
+================================================================================
+`;
+
 exports[`ExportCJSDefault_Number.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -78,6 +106,34 @@ exports.ClassFoo4 = ClassFoo4;
 class ClassFoo4 {}
 
 exports.ClassFoo4 = ClassFoo4;
+
+================================================================================
+`;
+
+exports[`ExportCJSNamed_Function.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @flow
+ */
+
+function functionFoo4(x: number): number { return x; }
+
+exports.functionFoo4 = functionFoo4;
+
+=====================================output=====================================
+/**
+ * @flow
+ */
+
+function functionFoo4(x: number): number {
+  return x;
+}
+
+exports.functionFoo4 = functionFoo4;
 
 ================================================================================
 `;
@@ -128,6 +184,34 @@ class ClassFoo1 {
 }
 
 export default ClassFoo1;
+
+================================================================================
+`;
+
+exports[`ExportDefault_Function.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @flow
+ */
+
+function functionFoo1(x: number): number { return x; }
+
+export default functionFoo1;
+
+=====================================output=====================================
+/**
+ * @flow
+ */
+
+function functionFoo1(x: number): number {
+  return x;
+}
+
+export default functionFoo1;
 
 ================================================================================
 `;
@@ -216,6 +300,34 @@ class ClassFoo2 {
 }
 
 export { ClassFoo2 };
+
+================================================================================
+`;
+
+exports[`ExportNamed_Function.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @flow
+ */
+
+function functionFoo2(x: number): number { return x; }
+
+export {functionFoo2};
+
+=====================================output=====================================
+/**
+ * @flow
+ */
+
+function functionFoo2(x: number): number {
+  return x;
+}
+
+export { functionFoo2 };
 
 ================================================================================
 `;
@@ -309,6 +421,42 @@ import {ClassFoo4} from "./ExportCJSNamed_Class";
 
 var d1: ClassFoo4T = ClassFoo4;
 var d2: ClassFoo4T = new ClassFoo4(); // Error: ClassFoo4 (inst) ~> ClassFoo4 (class)
+
+//////////////////////////////////////////////////////
+// == Importing Function Typeof (Default Export) == //
+//////////////////////////////////////////////////////
+
+import typeof functionFoo1T from "./ExportDefault_Function";
+import functionFoo1 from "./ExportDefault_Function";
+(functionFoo1: functionFoo1T);
+(() => {}: functionFoo1T); // Error: return types are not compatible
+
+////////////////////////////////////////////////////
+// == Importing Function Typeof (Named Export) == //
+////////////////////////////////////////////////////
+
+import typeof {functionFoo2 as functionFoo2T} from "./ExportNamed_Function";
+import {functionFoo2} from "./ExportNamed_Function";
+(functionFoo2: functionFoo2T);
+(() => {}: functionFoo2T); // Error: return types are not compatible
+
+//////////////////////////////////////////////////////////
+// == Importing Function Typeof (CJS Default Export) == //
+//////////////////////////////////////////////////////////
+
+import typeof functionFoo3T from "./ExportCJSDefault_Function";
+import functionFoo3 from "./ExportCJSDefault_Function";
+(functionFoo3: functionFoo3T);
+(() => {}: functionFoo3T); // Error: return types are not compatible
+
+////////////////////////////////////////////////////////
+// == Importing Function Typeof (CJS Named Export) == //
+////////////////////////////////////////////////////////
+
+import typeof {functionFoo4 as functionFoo4T} from "./ExportCJSNamed_Function";
+import {functionFoo4} from "./ExportCJSNamed_Function";
+(functionFoo4: functionFoo4T);
+(() => {}: functionFoo4T); // Error: return types are not compatible
 
 //////////////////////////////////////////////
 // == Import Typeof Alias (Named Export) == //
@@ -414,6 +562,42 @@ import { ClassFoo4 } from "./ExportCJSNamed_Class";
 
 var d1: ClassFoo4T = ClassFoo4;
 var d2: ClassFoo4T = new ClassFoo4(); // Error: ClassFoo4 (inst) ~> ClassFoo4 (class)
+
+//////////////////////////////////////////////////////
+// == Importing Function Typeof (Default Export) == //
+//////////////////////////////////////////////////////
+
+import typeof functionFoo1T from "./ExportDefault_Function";
+import functionFoo1 from "./ExportDefault_Function";
+(functionFoo1: functionFoo1T);
+(() => {}: functionFoo1T); // Error: return types are not compatible
+
+////////////////////////////////////////////////////
+// == Importing Function Typeof (Named Export) == //
+////////////////////////////////////////////////////
+
+import typeof { functionFoo2 as functionFoo2T } from "./ExportNamed_Function";
+import { functionFoo2 } from "./ExportNamed_Function";
+(functionFoo2: functionFoo2T);
+(() => {}: functionFoo2T); // Error: return types are not compatible
+
+//////////////////////////////////////////////////////////
+// == Importing Function Typeof (CJS Default Export) == //
+//////////////////////////////////////////////////////////
+
+import typeof functionFoo3T from "./ExportCJSDefault_Function";
+import functionFoo3 from "./ExportCJSDefault_Function";
+(functionFoo3: functionFoo3T);
+(() => {}: functionFoo3T); // Error: return types are not compatible
+
+////////////////////////////////////////////////////////
+// == Importing Function Typeof (CJS Named Export) == //
+////////////////////////////////////////////////////////
+
+import typeof { functionFoo4 as functionFoo4T } from "./ExportCJSNamed_Function";
+import { functionFoo4 } from "./ExportCJSNamed_Function";
+(functionFoo4: functionFoo4T);
+(() => {}: functionFoo4T); // Error: return types are not compatible
 
 //////////////////////////////////////////////
 // == Import Typeof Alias (Named Export) == //

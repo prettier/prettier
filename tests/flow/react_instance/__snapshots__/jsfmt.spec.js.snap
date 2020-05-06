@@ -1,0 +1,105 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`class.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import React from 'react';
+
+declare var any: any;
+
+class Foo extends React.Component<{}, void> {yep1: boolean}
+class Bar extends React.Component<{}, void> {yep2: boolean}
+
+(any: React$ElementRef<Class<Foo>>).yep1; // OK
+(any: React$ElementRef<Class<Foo>>).yep2; // Error
+(any: React$ElementRef<Class<Foo>>).nope; // Error
+(any: React$ElementRef<Class<Bar>>).yep1; // Error
+(any: React$ElementRef<Class<Bar>>).yep2; // OK
+(any: React$ElementRef<Class<Bar>>).nope; // Error
+
+=====================================output=====================================
+// @flow
+
+import React from "react";
+
+declare var any: any;
+
+class Foo extends React.Component<{}, void> {
+  yep1: boolean;
+}
+class Bar extends React.Component<{}, void> {
+  yep2: boolean;
+}
+
+(any: React$ElementRef<Class<Foo>>).yep1; // OK
+(any: React$ElementRef<Class<Foo>>).yep2; // Error
+(any: React$ElementRef<Class<Foo>>).nope; // Error
+(any: React$ElementRef<Class<Bar>>).yep1; // Error
+(any: React$ElementRef<Class<Bar>>).yep2; // OK
+(any: React$ElementRef<Class<Bar>>).nope; // Error
+
+================================================================================
+`;
+
+exports[`function.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+declare var any: any;
+
+function Foo(props: {}) {}
+
+(any: React$ElementRef<typeof Foo>).nope; // Error
+
+=====================================output=====================================
+// @flow
+
+declare var any: any;
+
+function Foo(props: {}) {}
+
+(any: React$ElementRef<typeof Foo>).nope; // Error
+
+================================================================================
+`;
+
+exports[`intrinsic.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+declare var any: any;
+
+(any: React$ElementRef<'foo'>).yep1; // OK
+(any: React$ElementRef<'foo'>).yep2; // Error
+(any: React$ElementRef<'foo'>).nope; // Error
+(any: React$ElementRef<'bar'>).yep1; // Error
+(any: React$ElementRef<'bar'>).yep2; // OK
+(any: React$ElementRef<'bar'>).nope; // Error
+
+=====================================output=====================================
+// @flow
+
+declare var any: any;
+
+(any: React$ElementRef<"foo">).yep1; // OK
+(any: React$ElementRef<"foo">).yep2; // Error
+(any: React$ElementRef<"foo">).nope; // Error
+(any: React$ElementRef<"bar">).yep1; // Error
+(any: React$ElementRef<"bar">).yep2; // OK
+(any: React$ElementRef<"bar">).nope; // Error
+
+================================================================================
+`;

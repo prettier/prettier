@@ -363,3 +363,119 @@ var z: Object = (x) => "hi";
 
 ================================================================================
 `;
+
+exports[`G.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// Callable properties are not inherited
+
+function f() {}
+var o = Object.create(f);
+o(); // error: o is not callable
+
+=====================================output=====================================
+// Callable properties are not inherited
+
+function f() {}
+var o = Object.create(f);
+o(); // error: o is not callable
+
+================================================================================
+`;
+
+exports[`internal_slot.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type O = {
+  [[call]](): void;
+}
+
+({}: O); // err: no callable property
+(function() { return 0 }: O); // err: number ~> void
+(function() {}: O); // ok
+
+interface I {
+  [[call]](): void;
+}
+
+({}: I); // err: no callable property
+(function() { return 0 }: I); // err: number ~> void
+(function() {}: I); // ok
+
+declare class C1 {
+  static [[call]](): void;
+}
+(C1(): empty); // error: void ~> empty
+
+declare var mixed_callable: { [[call]]: mixed };
+mixed_callable();
+
+declare var annot_callable: { [[call]]: Fn }
+type Fn = string => number;
+(annot_callable("foo"): number); // OK
+annot_callable(0); // error: number ~> string
+(annot_callable("foo"): empty); // error: number ~> empty
+
+=====================================output=====================================
+type O = {
+  [[call]](): void,
+};
+
+({}: O); // err: no callable property
+(function () {
+  return 0;
+}: O); // err: number ~> void
+(function () {}: O); // ok
+
+interface I {
+  [[call]](): void;
+}
+
+({}: I); // err: no callable property
+(function () {
+  return 0;
+}: I); // err: number ~> void
+(function () {}: I); // ok
+
+declare class C1 {
+  static [[call]](): void;
+}
+(C1(): empty); // error: void ~> empty
+
+declare var mixed_callable: { [[call]]: mixed };
+mixed_callable();
+
+declare var annot_callable: { [[call]]: Fn };
+type Fn = (string) => number;
+(annot_callable("foo"): number); // OK
+annot_callable(0); // error: number ~> string
+(annot_callable("foo"): empty); // error: number ~> empty
+
+================================================================================
+`;
+
+exports[`use_ops.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type A = { p: {} }
+type B = { +p: () => void }
+declare var a: A;
+(a: B); // error HERE and preserve use ops
+
+=====================================output=====================================
+type A = { p: {} };
+type B = { +p: () => void };
+declare var a: A;
+(a: B); // error HERE and preserve use ops
+
+================================================================================
+`;

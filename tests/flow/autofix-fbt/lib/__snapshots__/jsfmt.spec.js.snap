@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`fbt.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+declare type FbtElement = FbtResultBase;
+declare class FbtResultBase {}
+
+=====================================output=====================================
+// @flow
+declare type FbtElement = FbtResultBase;
+declare class FbtResultBase {}
+
+================================================================================
+`;

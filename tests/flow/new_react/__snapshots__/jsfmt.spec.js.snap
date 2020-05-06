@@ -7,7 +7,7 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 /**
- * Copyright 2004-present Facebook. All Rights Reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * @providesModule FeedUFI.react
  * @flow
@@ -17,6 +17,7 @@ printWidth: 80
 
 var UFILikeCount = require('UFILikeCount.react');
 var React = require('react');
+import type {Node} from 'react';
 
 var FeedUFI = React.createClass({
   _renderLikeCount: function(
@@ -39,7 +40,7 @@ var FeedUFI = React.createClass({
     );
   },
 
-  render: function(): ?React.Element<any> {
+  render: function(): Node {
     return (
       <div/>
     );
@@ -51,7 +52,7 @@ module.exports = FeedUFI;
 
 =====================================output=====================================
 /**
- * Copyright 2004-present Facebook. All Rights Reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * @providesModule FeedUFI.react
  * @flow
@@ -61,6 +62,7 @@ module.exports = FeedUFI;
 
 var UFILikeCount = require("UFILikeCount.react");
 var React = require("react");
+import type { Node } from "react";
 
 var FeedUFI = React.createClass({
   _renderLikeCount: function (feedback: any) {
@@ -76,7 +78,7 @@ var FeedUFI = React.createClass({
     );
   },
 
-  render: function (): ?React.Element<any> {
+  render: function (): Node {
     return <div />;
   },
 });
@@ -113,7 +115,7 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 /**
- * Copyright 2004-present Facebook. All Rights Reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * @providesModule UFILikeCount.react
  * @flow
@@ -122,6 +124,7 @@ printWidth: 80
 'use strict';
 
 var React = require('react');
+import type {Node} from 'react';
 
 var UFILikeCount = React.createClass({
   propTypes: {
@@ -129,7 +132,7 @@ var UFILikeCount = React.createClass({
     feedback: React.PropTypes.object.isRequired
   },
 
-  render: function(): ?React.Element<any> {
+  render: function(): Node {
     return <div/>;
   }
 });
@@ -138,7 +141,7 @@ module.exports = UFILikeCount;
 
 =====================================output=====================================
 /**
- * Copyright 2004-present Facebook. All Rights Reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * @providesModule UFILikeCount.react
  * @flow
@@ -147,6 +150,7 @@ module.exports = UFILikeCount;
 "use strict";
 
 var React = require("react");
+import type { Node } from "react";
 
 var UFILikeCount = React.createClass({
   propTypes: {
@@ -154,12 +158,46 @@ var UFILikeCount = React.createClass({
     feedback: React.PropTypes.object.isRequired,
   },
 
-  render: function (): ?React.Element<any> {
+  render: function (): Node {
     return <div />;
   },
 });
 
 module.exports = UFILikeCount;
+
+================================================================================
+`;
+
+exports[`argless_function.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+const React = require('react');
+
+function Component(): React.Node { return null; }
+
+const element = <Component />;
+
+var x: React.ElementProps<typeof Component> = element.props;
+x.foo = 3; // Error, the props type for Component is a sealed empty object.
+
+=====================================output=====================================
+//@flow
+
+const React = require("react");
+
+function Component(): React.Node {
+  return null;
+}
+
+const element = <Component />;
+
+var x: React.ElementProps<typeof Component> = element.props;
+x.foo = 3; // Error, the props type for Component is a sealed empty object.
 
 ================================================================================
 `;
@@ -170,73 +208,55 @@ parsers: ["flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-var React = require('React');
+var React = require('react');
 
-type T1 = { }
-type T2 = { x: number }
-type T3 = { x: number, y: number }
-
-class C1 extends React.Component<T1, T2, any> { // error
-}
-
-class C2 extends React.Component<void, T2, any> { // OK
-}
-
-// no need to add type arguments to React.Component
-class C3 extends React.Component { // OK
-  static defaultProps: T1;
-  props: T2;
-}
-
-class C4 extends React.Component { // OK, recommended
-  // no need to declare defaultProps unless necessary
-  props: T2;
-}
-
-class C5 extends React.Component<T2, T3, any> { // error
-}
-
-class C6 extends React.Component { // OK, recommended
-  static defaultProps: T2;
-  props: T3;
-}
-
-=====================================output=====================================
-var React = require("React");
-
-type T1 = {};
+type T1 = { };
 type T2 = { x: number };
-type T3 = { x: number, y: number };
 
-class C1 extends React.Component<T1, T2, any> {
-  // error
+
+class C1 extends React.Component<T1> { // OK
+  static defaultProps: T2;
 }
 
-class C2 extends React.Component<void, T2, any> {
-  // OK
+class C2 extends React.Component<T1> { // OK
 }
 
-// no need to add type arguments to React.Component
-class C3 extends React.Component {
-  // OK
+// You need to add type arguments to React.Component
+class C3 extends React.Component { // error
   static defaultProps: T1;
   props: T2;
 }
 
 class C4 extends React.Component {
-  // OK, recommended
   // no need to declare defaultProps unless necessary
   props: T2;
 }
 
-class C5 extends React.Component<T2, T3, any> {
-  // error
+=====================================output=====================================
+var React = require("react");
+
+type T1 = {};
+type T2 = { x: number };
+
+class C1 extends React.Component<T1> {
+  // OK
+  static defaultProps: T2;
 }
 
-class C6 extends React.Component {
-  // OK, recommended
-  static defaultProps: T2;
-  props: T3;
+class C2 extends React.Component<T1> {
+  // OK
+}
+
+// You need to add type arguments to React.Component
+class C3 extends React.Component {
+  // error
+  static defaultProps: T1;
+  props: T2;
+}
+
+class C4 extends React.Component {
+  // no need to declare defaultProps unless necessary
+  props: T2;
 }
 
 ================================================================================
@@ -248,15 +268,13 @@ parsers: ["flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-var React = require('React');
+var React = require('react');
 
 type DefaultProps = { };
 type Props = { x: number };
 type State = { y: number };
 
-class Foo extends React.Component {
-  props: Props;
-  state: State;
+class Foo extends React.Component<Props, State> {
   static defaultProps: DefaultProps;
 
   is_mounted: boolean;
@@ -333,15 +351,13 @@ var foo_legacy: $jsx<number> = <FooLegacy/>;
 FooLegacy.bar();
 
 =====================================output=====================================
-var React = require("React");
+var React = require("react");
 
 type DefaultProps = {};
 type Props = { x: number };
 type State = { y: number };
 
-class Foo extends React.Component {
-  props: Props;
-  state: State;
+class Foo extends React.Component<Props, State> {
   static defaultProps: DefaultProps;
 
   is_mounted: boolean;
@@ -434,9 +450,7 @@ import React from "react";
 //var React = require("react");
 //var React = require("React");
 
-class HelloMessage extends React.Component {
-  props: { name: string };
-}
+class HelloMessage extends React.Component<{ name: string }> {}
 
 <HelloMessage name={007} />; // number ~/~> string error
 <HelloMessage name="Bond" />; // ok
@@ -455,9 +469,7 @@ import React from "react";
 //var React = require("react");
 //var React = require("React");
 
-class HelloMessage extends React.Component {
-  props: { name: string };
-}
+class HelloMessage extends React.Component<{ name: string }> {}
 
 <HelloMessage name={007} />; // number ~/~> string error
 <HelloMessage name="Bond" />; // ok
@@ -538,6 +550,77 @@ var element = <C x={0} />;
 var element_ = <C />;
 
 var x: number = C.displayName;
+
+================================================================================
+`;
+
+exports[`object_component.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+const React = require('react');
+
+// Callable objects are valid react components with a void instance type.
+
+type ObjectComponent = {
+  (props: {| foo: number, bar: number |}): React.Node,
+  defaultProps: {| foo: number |},
+};
+
+declare var Component: ObjectComponent;
+
+const _a = <Component />; // Error, missing bar
+const _b = <Component bar={3} />; // Ok
+const _c = <Component foo={3} bar={3} />; // Ok
+const _d = <Component foo={3} bar={3} baz={3} />; // Error, baz is not in the config
+
+const _x: React.ElementRef<ObjectComponent> = undefined; // ok
+const _y: React.ElementRef<ObjectComponent> = null; // Error, ref is undefined
+
+const _props: React.ElementProps<ObjectComponent> = {foo: 3, bar: 3};
+const _badProps: React.ElementProps<ObjectComponent> = {bar: 3}; // Error missing foo
+const _badProps2: React.ElementProps<ObjectComponent> = {bar: 3, foo: 3, baz: 3}; // Error extra baz
+
+const AC: React.AbstractComponent<{| +foo?: number, +bar: number |}, void> = Component;
+
+=====================================output=====================================
+//@flow
+
+const React = require("react");
+
+// Callable objects are valid react components with a void instance type.
+
+type ObjectComponent = {
+  (props: {| foo: number, bar: number |}): React.Node,
+  defaultProps: {| foo: number |},
+};
+
+declare var Component: ObjectComponent;
+
+const _a = <Component />; // Error, missing bar
+const _b = <Component bar={3} />; // Ok
+const _c = <Component foo={3} bar={3} />; // Ok
+const _d = <Component foo={3} bar={3} baz={3} />; // Error, baz is not in the config
+
+const _x: React.ElementRef<ObjectComponent> = undefined; // ok
+const _y: React.ElementRef<ObjectComponent> = null; // Error, ref is undefined
+
+const _props: React.ElementProps<ObjectComponent> = { foo: 3, bar: 3 };
+const _badProps: React.ElementProps<ObjectComponent> = { bar: 3 }; // Error missing foo
+const _badProps2: React.ElementProps<ObjectComponent> = {
+  bar: 3,
+  foo: 3,
+  baz: 3,
+}; // Error extra baz
+
+const AC: React.AbstractComponent<
+  {| +foo?: number, +bar: number |},
+  void
+> = Component;
 
 ================================================================================
 `;
@@ -623,11 +706,11 @@ var TestProps = React.createClass({
 var element = <TestProps x={false} y={false} z={false} />; // 3 errors
 
 (element: $jsx<*>);
-(element: $jsx<TestProps>);
+(element: $jsx<Class<TestProps>>);
 var FooProps = React.createClass({
     propTypes: { w: React.PropTypes.string.isRequired }
 });
-(element: $jsx<FooProps>);
+(element: $jsx<Class<FooProps>>);
 
 =====================================output=====================================
 var React = require("react");
@@ -651,11 +734,11 @@ var TestProps = React.createClass({
 var element = <TestProps x={false} y={false} z={false} />; // 3 errors
 
 (element: $jsx<*>);
-(element: $jsx<TestProps>);
+(element: $jsx<Class<TestProps>>);
 var FooProps = React.createClass({
   propTypes: { w: React.PropTypes.string.isRequired },
 });
-(element: $jsx<FooProps>);
+(element: $jsx<Class<FooProps>>);
 
 ================================================================================
 `;
@@ -832,27 +915,21 @@ printWidth: 80
 =====================================input======================================
 // @flow
 
-import React from "React";
+import React from "react";
+import ReactDOM from "react-dom";
 
-class JDiv extends React.Component {
-  // static defaultProps: { };
-  props: {
-    id: string
-  };
-}
+class JDiv extends React.Component<{id: string}> {}
 
 // Should be a type error ('id' takes a string, not a number..)
 <JDiv id={42} />;
 
-class Example extends React.Component {
-  props: { bar: string };
-
+class Example extends React.Component<{ bar: string }> {
   render() {
     return <div>{this.props.bar}</div>
   }
 }
 
-React.render(
+ReactDOM.render(
   <Example foo="foo" />,
   document.body
 );
@@ -860,27 +937,21 @@ React.render(
 =====================================output=====================================
 // @flow
 
-import React from "React";
+import React from "react";
+import ReactDOM from "react-dom";
 
-class JDiv extends React.Component {
-  // static defaultProps: { };
-  props: {
-    id: string,
-  };
-}
+class JDiv extends React.Component<{ id: string }> {}
 
 // Should be a type error ('id' takes a string, not a number..)
 <JDiv id={42} />;
 
-class Example extends React.Component {
-  props: { bar: string };
-
+class Example extends React.Component<{ bar: string }> {
   render() {
     return <div>{this.props.bar}</div>;
   }
 }
 
-React.render(<Example foo="foo" />, document.body);
+ReactDOM.render(<Example foo="foo" />, document.body);
 
 ================================================================================
 `;
@@ -891,7 +962,7 @@ parsers: ["flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-var React = require('React');
+var React = require('react');
 
 var C = React.createClass({
   getDefaultProps: function() {
@@ -902,7 +973,7 @@ var C = React.createClass({
 module.exports = C;
 
 =====================================output=====================================
-var React = require("React");
+var React = require("react");
 
 var C = React.createClass({
   getDefaultProps: function () {
@@ -1067,7 +1138,7 @@ parsers: ["flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-var React = require('React');
+var React = require('react');
 
 var C = React.createClass({
   getInitialState: function(): { x: number } {
@@ -1082,7 +1153,7 @@ var C = React.createClass({
 });
 
 =====================================output=====================================
-var React = require("React");
+var React = require("react");
 
 var C = React.createClass({
   getInitialState: function (): { x: number } {
@@ -1104,22 +1175,132 @@ parsers: ["flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-var React = require('React');
+var React = require('react');
 
-class C extends React.Component {
+class C extends React.Component<{}> {
   foo(): number {
     return this.state.x; // error: need to declare type of state
   }
 }
 
 =====================================output=====================================
-var React = require("React");
+var React = require("react");
 
-class C extends React.Component {
+class C extends React.Component<{}> {
   foo(): number {
     return this.state.x; // error: need to declare type of state
   }
 }
+
+================================================================================
+`;
+
+exports[`state6.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import React from 'react';
+
+const any: any = null;
+
+type State = {foo: number, bar: number};
+
+type StateUpdater1 = {(State): $Shape<State>};
+type StateUpdater2 = {(State): $Shape<State>, foo: number, bar: number};
+type StateUpdater3 = {(number): number, foo: number, bar: number};
+
+class MyComponent extends React.Component<{prop: number}, State> {
+  state: State = {foo: 1, bar: 2};
+
+  componentDidUpdate() {
+    this.setState(prevState => ({ // OK: Updating partial state with a function.
+      foo: prevState.foo + 1,
+    }));
+    this.setState((prevState, props) => ({ // OK: Updating partial state with
+      foo: props.prop + 1,                 // a function.
+    }));
+    this.setState(prevState => { // OK: May return void.
+      if (Math.random() > 0.5) {
+        return;
+      }
+      return {foo: prevState.foo + 1};
+    });
+    this.setState(() => ({ // Error: \`bar\` should be a number.
+      bar: '42',
+    }));
+    this.setState(prevState => {
+      console.log(prevState.nope); // Error: \`nope\` does not exist.
+    });
+    this.setState((prevState, props) => {
+      console.log(props.nope); // Error: \`nope\` does not exist.
+    });
+    this.setState((any: StateUpdater1)); // OK: It has the right signature.
+    this.setState((any: StateUpdater2)); // OK: It has the right signature and
+                                         // the right properties.
+    this.setState((any: StateUpdater3)); // Error: It has the wrong signature
+                                         // even though it has the right
+                                         // properties.
+  }
+}
+
+((() => {}): $Shape<State>); // Error: Functions are not a valid object shape.
+
+=====================================output=====================================
+// @flow
+
+import React from "react";
+
+const any: any = null;
+
+type State = { foo: number, bar: number };
+
+type StateUpdater1 = { (State): $Shape<State> };
+type StateUpdater2 = { (State): $Shape<State>, foo: number, bar: number };
+type StateUpdater3 = { (number): number, foo: number, bar: number };
+
+class MyComponent extends React.Component<{ prop: number }, State> {
+  state: State = { foo: 1, bar: 2 };
+
+  componentDidUpdate() {
+    this.setState((prevState) => ({
+      // OK: Updating partial state with a function.
+      foo: prevState.foo + 1,
+    }));
+    this.setState((prevState, props) => ({
+      // OK: Updating partial state with
+      foo: props.prop + 1, // a function.
+    }));
+    this.setState((prevState) => {
+      // OK: May return void.
+      if (Math.random() > 0.5) {
+        return;
+      }
+      return { foo: prevState.foo + 1 };
+    });
+    this.setState(() => ({
+      // Error: \`bar\` should be a number.
+      bar: "42",
+    }));
+    this.setState((prevState) => {
+      console.log(prevState.nope); // Error: \`nope\` does not exist.
+    });
+    this.setState((prevState, props) => {
+      console.log(props.nope); // Error: \`nope\` does not exist.
+    });
+    this.setState((any: StateUpdater1)); // OK: It has the right signature.
+    this.setState((any: StateUpdater2)); // OK: It has the right signature and
+    // the right properties.
+    this.setState((any: StateUpdater3)); // Error: It has the wrong signature
+    // even though it has the right
+    // properties.
+  }
+}
+
+(() => {}: $Shape<State>); // Error: Functions are not a valid object shape.
 
 ================================================================================
 `;

@@ -1,0 +1,105 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ambiguous.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+const value: "user_code" = "user_code";
+export default value;
+
+=====================================output=====================================
+// @flow
+
+const value: "user_code" = "user_code";
+export default value;
+
+================================================================================
+`;
+
+exports[`test.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+// These exist in both user code and node_modules, but user code wins
+import ambiguous from 'ambiguous';
+(ambiguous: empty)
+
+import sub_ambiguous from 'subdir/ambiguous';
+(sub_ambiguous: empty)
+
+// These exist in only user code
+import user_code from 'user_code';
+(user_code: empty)
+
+import sub_user_code from 'subdir/user_code';
+(sub_user_code: empty)
+
+// These exist in only node code
+import node_code from 'node_code';
+(node_code: empty)
+
+import sub_node_code from 'subdir/node_code';
+(sub_node_code: empty)
+
+// These exist nowhere
+import nonexistent from 'nonexistent'
+import sub_nonexistent from 'subdir/nonexistent'
+
+=====================================output=====================================
+// @flow
+
+// These exist in both user code and node_modules, but user code wins
+import ambiguous from "ambiguous";
+(ambiguous: empty);
+
+import sub_ambiguous from "subdir/ambiguous";
+(sub_ambiguous: empty);
+
+// These exist in only user code
+import user_code from "user_code";
+(user_code: empty);
+
+import sub_user_code from "subdir/user_code";
+(sub_user_code: empty);
+
+// These exist in only node code
+import node_code from "node_code";
+(node_code: empty);
+
+import sub_node_code from "subdir/node_code";
+(sub_node_code: empty);
+
+// These exist nowhere
+import nonexistent from "nonexistent";
+import sub_nonexistent from "subdir/nonexistent";
+
+================================================================================
+`;
+
+exports[`user_code.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+const value: "user_code" = "user_code";
+export default value;
+
+=====================================output=====================================
+// @flow
+
+const value: "user_code" = "user_code";
+export default value;
+
+================================================================================
+`;

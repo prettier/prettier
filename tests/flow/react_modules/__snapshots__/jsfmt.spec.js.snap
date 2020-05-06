@@ -9,19 +9,20 @@ printWidth: 80
 /* @flow */
 var React = require('react');
 var Hello = require('./createclass-module');
+import type {Node} from 'react';
 
 var HelloLocal = React.createClass({
   propTypes: {
     name: React.PropTypes.string.isRequired,
   },
 
-  render: function(): React.Element<*> {
+  render: function(): Node {
     return <div>{this.props.name}</div>;
   }
 });
 
 var Callsite = React.createClass({
-  render: function(): React.Element<*> {
+  render: function(): Node {
     return (
       <div>
         <Hello />
@@ -37,19 +38,20 @@ module.exports = Callsite;
 /* @flow */
 var React = require("react");
 var Hello = require("./createclass-module");
+import type { Node } from "react";
 
 var HelloLocal = React.createClass({
   propTypes: {
     name: React.PropTypes.string.isRequired,
   },
 
-  render: function (): React.Element<*> {
+  render: function (): Node {
     return <div>{this.props.name}</div>;
   },
 });
 
 var Callsite = React.createClass({
-  render: function (): React.Element<*> {
+  render: function (): Node {
     return (
       <div>
         <Hello />
@@ -72,13 +74,14 @@ printWidth: 80
 =====================================input======================================
 /* @flow */
 var React = require('react');
+import type {Node} from 'react';
 
 var Hello = React.createClass({
   propTypes: {
     name: React.PropTypes.string.isRequired,
   },
 
-  render: function(): React.Element<*> {
+  render: function(): Node {
     return <div>{this.props.name}</div>;
   }
 });
@@ -88,13 +91,14 @@ module.exports = Hello;
 =====================================output=====================================
 /* @flow */
 var React = require("react");
+import type { Node } from "react";
 
 var Hello = React.createClass({
   propTypes: {
     name: React.PropTypes.string.isRequired,
   },
 
-  render: function (): React.Element<*> {
+  render: function (): Node {
     return <div>{this.props.name}</div>;
   },
 });
@@ -113,19 +117,20 @@ printWidth: 80
 /* @flow */
 import React from 'react';
 import Hello from './es6class-proptypes-module';
+import type {Node} from 'react';
 
-class HelloLocal extends React.Component<void, {name: string}, void> {
+class HelloLocal extends React.Component<{name: string}> {
   defaultProps = {};
   propTypes = {
     name: React.PropTypes.string.isRequired,
   };
-  render(): React.Element<*> {
+  render(): Node {
     return <div>{this.props.name}</div>;
   }
 }
 
-class Callsite extends React.Component<void, {}, void> {
-  render(): React.Element<*> {
+class Callsite extends React.Component<{}> {
+  render(): Node {
     return (
       <div>
         <Hello />
@@ -141,19 +146,20 @@ module.exports = Callsite;
 /* @flow */
 import React from "react";
 import Hello from "./es6class-proptypes-module";
+import type { Node } from "react";
 
-class HelloLocal extends React.Component<void, { name: string }, void> {
+class HelloLocal extends React.Component<{ name: string }> {
   defaultProps = {};
   propTypes = {
     name: React.PropTypes.string.isRequired,
   };
-  render(): React.Element<*> {
+  render(): Node {
     return <div>{this.props.name}</div>;
   }
 }
 
-class Callsite extends React.Component<void, {}, void> {
-  render(): React.Element<*> {
+class Callsite extends React.Component<{}> {
+  render(): Node {
     return (
       <div>
         <Hello />
@@ -176,14 +182,15 @@ printWidth: 80
 =====================================input======================================
 /* @flow */
 import React from 'react';
+import type {Node} from 'react';
 
-class Hello extends React.Component<void, {name: string}, void> {
+class Hello extends React.Component<{name: string}> {
   defaultProps = {};
   propTypes = {
     name: React.PropTypes.string.isRequired,
   };
 
-  render(): React.Element<*> {
+  render(): Node {
     return <div>{this.props.name}</div>;
   }
 }
@@ -193,14 +200,15 @@ module.exports = Hello;
 =====================================output=====================================
 /* @flow */
 import React from "react";
+import type { Node } from "react";
 
-class Hello extends React.Component<void, { name: string }, void> {
+class Hello extends React.Component<{ name: string }> {
   defaultProps = {};
   propTypes = {
     name: React.PropTypes.string.isRequired,
   };
 
-  render(): React.Element<*> {
+  render(): Node {
     return <div>{this.props.name}</div>;
   }
 }
@@ -219,19 +227,18 @@ printWidth: 80
 /* @flow */
 import React from 'react';
 import Hello from './es6class-types-module';
+import type {Node} from 'react';
 
 type Props = {name: string};
 
-class HelloLocal extends React.Component<void, Props, void> {
-  props: Props;
-
-  render(): React.Element<*> {
+class HelloLocal extends React.Component<Props> {
+  render(): Node {
     return <div>{this.props.name}</div>;
   }
 }
 
-class Callsite extends React.Component<void, Props, void> {
-  render(): React.Element<*> {
+class Callsite extends React.Component<Props> {
+  render(): Node {
     return (
       <div>
         <Hello />
@@ -247,19 +254,18 @@ module.exports = Callsite;
 /* @flow */
 import React from "react";
 import Hello from "./es6class-types-module";
+import type { Node } from "react";
 
 type Props = { name: string };
 
-class HelloLocal extends React.Component<void, Props, void> {
-  props: Props;
-
-  render(): React.Element<*> {
+class HelloLocal extends React.Component<Props> {
+  render(): Node {
     return <div>{this.props.name}</div>;
   }
 }
 
-class Callsite extends React.Component<void, Props, void> {
-  render(): React.Element<*> {
+class Callsite extends React.Component<Props> {
+  render(): Node {
     return (
       <div>
         <Hello />
@@ -282,14 +288,14 @@ printWidth: 80
 =====================================input======================================
 /* @flow */
 import React from 'react';
+import type {Node} from 'react';
 
 type Props = {name: string};
 
-class Hello extends React.Component<{}, Props, void>{
-  props: Props;
+class Hello extends React.Component<Props> {
   static defaultProps: {};
 
-  render(): React.Element<*> {
+  render(): Node {
     return <div>{this.props.name}</div>;
   }
 }
@@ -299,14 +305,14 @@ module.exports = Hello;
 =====================================output=====================================
 /* @flow */
 import React from "react";
+import type { Node } from "react";
 
 type Props = { name: string };
 
-class Hello extends React.Component<{}, Props, void> {
-  props: Props;
+class Hello extends React.Component<Props> {
   static defaultProps: {};
 
-  render(): React.Element<*> {
+  render(): Node {
     return <div>{this.props.name}</div>;
   }
 }

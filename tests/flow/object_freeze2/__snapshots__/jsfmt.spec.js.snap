@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`downstream.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import typeof T from './nested_frozen_object';
+declare var o: T;
+
+(o.a: number);
+
+module.exports = o;
+
+=====================================output=====================================
+// @flow
+
+import typeof T from "./nested_frozen_object";
+declare var o: T;
+
+(o.a: number);
+
+module.exports = o;
+
+================================================================================
+`;
+
+exports[`nested_frozen_object.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+module.exports = Object.freeze({
+  a: Object.freeze({
+    b: 'c',
+  }),
+});
+
+=====================================output=====================================
+// @flow
+
+module.exports = Object.freeze({
+  a: Object.freeze({
+    b: "c",
+  }),
+});
+
+================================================================================
+`;

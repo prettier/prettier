@@ -1,5 +1,5 @@
 declare module M {
-    declare function exports(x:string): string;
+    declare module.exports: (x: string) => string;
 }
 declare module N {
     declare var x: number;
@@ -7,5 +7,5 @@ declare module N {
     declare var z: number;
 }
 declare module Q {
-    declare var exports: $Exports<'M'>;
+    declare module.exports: $Exports<'M'>;
 }

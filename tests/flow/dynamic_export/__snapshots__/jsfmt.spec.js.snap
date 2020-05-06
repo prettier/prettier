@@ -1,0 +1,243 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`basic.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+let x : any = 3; // error
+let y : Function = () => {}; // error
+module.exports = {any: x, function: y};
+
+=====================================output=====================================
+// @flow
+let x: any = 3; // error
+let y: Function = () => {}; // error
+module.exports = { any: x, function: y };
+
+================================================================================
+`;
+
+exports[`crash.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+// This previously caused a crash because of locationless any type
+Object.assign(module.exports, require('other'));
+
+=====================================output=====================================
+// @flow
+// This previously caused a crash because of locationless any type
+Object.assign(module.exports, require("other"));
+
+================================================================================
+`;
+
+exports[`cycle1.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+let c = require('cycle2');
+module.exports.f = c.f;
+module.exports.g = (3 : any)
+
+=====================================output=====================================
+//@flow
+
+let c = require("cycle2");
+module.exports.f = c.f;
+module.exports.g = (3: any);
+
+================================================================================
+`;
+
+exports[`cycle2.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+let c = require('cycle1');
+module.exports.f = (3 : any);
+module.exports.g = c.g;
+
+=====================================output=====================================
+// @flow
+
+let c = require("cycle1");
+module.exports.f = (3: any);
+module.exports.g = c.g;
+
+================================================================================
+`;
+
+exports[`error.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+const err = require('./does_not_exist.js')
+
+module.exports = err;
+
+=====================================output=====================================
+//@flow
+
+const err = require("./does_not_exist.js");
+
+module.exports = err;
+
+================================================================================
+`;
+
+exports[`esmodule.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+export function foo (x : any) {}
+let x : any = 3;
+export {x as field}
+
+export function a () {}
+export class A {}
+
+=====================================output=====================================
+//@flow
+
+export function foo(x: any) {}
+let x: any = 3;
+export { x as field };
+
+export function a() {}
+export class A {}
+
+================================================================================
+`;
+
+exports[`implicit_ignored.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+module.exports = (() => {}).constructor;
+
+=====================================output=====================================
+// @flow
+module.exports = (() => {}).constructor;
+
+================================================================================
+`;
+
+exports[`not_object.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+let x : any = 3; // error
+module.exports = x;
+
+=====================================output=====================================
+// @flow
+let x: any = 3; // error
+module.exports = x;
+
+================================================================================
+`;
+
+exports[`other.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+//$FlowFixMe can't report this error because the message depends on the machine running the test
+module.exports = (3 : any);
+
+=====================================output=====================================
+//@flow
+//$FlowFixMe can't report this error because the message depends on the machine running the test
+module.exports = (3: any);
+
+================================================================================
+`;
+
+exports[`transitive.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+const e = require('basic');
+const i = require('implicit_ignored');
+const u = require('untyped');
+const L = require('libdef');
+import type { Type } from 'type';
+import { f } from 'type';
+
+module.exports.explicit_any = e.any; // error
+module.exports.explicit_function = e.function; // error
+module.exports.implicit_ignore = i;
+module.exports.untyped = u; // error
+module.exports.lib = L.v; // error
+module.exports.field = f; // error
+let x : Type = 3;
+module.exports.x = x;
+
+=====================================output=====================================
+// @flow
+const e = require("basic");
+const i = require("implicit_ignored");
+const u = require("untyped");
+const L = require("libdef");
+import type { Type } from "type";
+import { f } from "type";
+
+module.exports.explicit_any = e.any; // error
+module.exports.explicit_function = e.function; // error
+module.exports.implicit_ignore = i;
+module.exports.untyped = u; // error
+module.exports.lib = L.v; // error
+module.exports.field = f; // error
+let x: Type = 3;
+module.exports.x = x;
+
+================================================================================
+`;
+
+exports[`untyped.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+module.exports = 3;
+
+=====================================output=====================================
+module.exports = 3;
+
+================================================================================
+`;

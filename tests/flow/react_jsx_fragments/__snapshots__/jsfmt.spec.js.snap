@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import * as React from 'react';
+
+React.createElement(React.Fragment, null);
+
+< ></>; // success
+
+<></>; // success
+
+<>hi</>; // success
+
+<><span>hi</span><div>bye</div></>; // success
+
+< // a comment
+/* another comment */
+>hi</>; // success
+
+=====================================output=====================================
+// @flow
+
+import * as React from "react";
+
+React.createElement(React.Fragment, null);
+
+<></>; // success
+
+<></>; // success
+
+<>hi</>; // success
+
+<>
+  <span>hi</span>
+  <div>bye</div>
+</>; // success
+
+<
+  // a comment
+  /* another comment */
+>
+  hi
+</>; // success
+
+================================================================================
+`;

@@ -1,0 +1,951 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`errors_intersection.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @format
+ * @flow
+ */
+
+declare var any: any;
+declare opaque type A;
+declare opaque type B;
+declare opaque type C;
+declare opaque type D;
+
+// Error: Group should list three errors in the order: \`b\`, \`a\`, \`c\`
+((any: {+b: boolean, +a: boolean, +c: boolean}): {+b: 2, +a: 1, +c: 3});
+
+// Error: Group should list three errors in the order: \`a\`, \`b\`, \`c\`
+((any: {
+  +b: boolean & string,
+  +a: boolean & string,
+  +c: boolean & string,
+}): {+b: 2, +a: 1, +c: 3});
+
+// Error: Group should list three errors in the order: \`a\`, \`b\`, \`c\`
+((any: {+b: boolean, +a: boolean & string, +c: boolean}): {
+  +b: 2,
+  +a: 1,
+  +c: 3,
+});
+
+// Error: Group should list three errors in the order: \`b\`, \`a\`, \`c\`
+((any: {+b: boolean & string, +a: boolean, +c: boolean}): {
+  +b: 2,
+  +a: 1,
+  +c: 3,
+});
+
+// Error: Group should list three errors in the order: \`c\`, \`b\`, \`a\`
+((any: {+b: boolean, +a: boolean, +c: boolean & string}): {
+  +b: 2,
+  +a: 1,
+  +c: 3,
+});
+
+// Error: number ~> boolean
+((any: {+a: {+b: boolean}}): {+a: {+b: 42}});
+
+// Error: number ~> boolean. Because of union error scoring we should only see
+// one error.
+((any: {+a: boolean & {+b: boolean & {}}}): {+a: {+b: 42}});
+
+((any: boolean): 42); // Error: number ~> boolean
+((any: {} & {} & {} & boolean): 42); // Error: number ~> boolean
+((any: {} & ({} & ({} & boolean))): 42); // Error: number ~> boolean
+
+((any: number & string): true); // Error
+((any: number & string & {}): true); // Error: should not show the {} branch
+((any: {} & number & string): true); // Error: should not show the {} branch
+((any: number & {} & string): true); // Error: should not show the {} branch
+
+((any: {+a: number & string}): {+a: true}); // Error
+
+((any: {
+  +a: number & string,
+  +b: {} & number & string,
+  +c: number & {} & string,
+  +d: number & string & {},
+}): {
+  +a: true, // Error: should be grouped
+  +b: true, // Error: should be grouped, should not show the {} branch
+  +c: true, // Error: should be grouped, should not show the {} branch
+  +d: true, // Error: should be grouped, should not show the {} branch
+});
+
+// Demonstrates use_op ~> union speculation ~> use_op
+((any: {
+  +a: [number] & [string],
+  +b: [{}] & [number] & [string],
+  +c: [number] & [{}] & [string],
+  +d: [number] & [string] & [{}],
+}): {
+  +a: [true], // Error: should be grouped
+  +b: [true], // Error: should be grouped, should not show the [{}] branch
+  +c: [true], // Error: should be grouped, should not show the [{}] branch
+  +d: [true], // Error: should be grouped, should not show the [{}] branch
+});
+
+((any: number & (string & false)): true); // Error: should be flattened
+((any: (string & false) & number): true); // Error: should be flattened
+((any: {} & number & (string & false)): true); // Error: should be flattened
+((any: number & (string & false) & {}): true); // Error: should be flattened
+((any: number & (string & {} & false)): true); // Error: should be flattened
+
+((any: number & number & number & string): true); // Error: should be flattened
+((any: number & number & (number & string)): true); // Error: should be flattened
+((any: number & (number & (number & string))): true); // Error: should be flattened
+((any: (string & number) & number & number): true); // Error: should be flattened
+((any: ((string & number) & number) & number): true); // Error: should be flattened
+
+((any: number & {}): true); // Error
+((any: {+a: number & {}, +b: number & {}}): {+a: true, +b: true}); // Error
+((any: {+a: number & string & {}, +b: number & {}}): {+a: true, +b: true}); // Error
+
+// Error: union inside union fun.
+((any: [[null, A] & [null, B]] & [[null, C] & [null, D]]): [[null, number]]);
+
+// Error: union inside union fun, but thanks to scoring we only show three.
+((any: [[null, A] & {}] & [[null, C] & [null, D]]): [[null, number]]);
+
+// Error: union inside union fun, but thanks to scoring we only show two.
+((any: [[null, A] & {}] & [[null, C] & {}]): [[null, number]]);
+
+// Error: union inside union fun, but thanks to scoring we only show one.
+((any: {} & [[null, C] & {}]): [[null, number]]);
+
+declare var f1: A | B;
+f1(); // Error
+
+declare var f2: A | (B | C);
+f2(); // Error
+
+declare var f3: A | (B | (C | D));
+f3(); // Error
+
+=====================================output=====================================
+/**
+ * @format
+ * @flow
+ */
+
+declare var any: any;
+declare opaque type A;
+declare opaque type B;
+declare opaque type C;
+declare opaque type D;
+
+// Error: Group should list three errors in the order: \`b\`, \`a\`, \`c\`
+((any: { +b: boolean, +a: boolean, +c: boolean }): { +b: 2, +a: 1, +c: 3 });
+
+// Error: Group should list three errors in the order: \`a\`, \`b\`, \`c\`
+((any: {
+  +b: boolean & string,
+  +a: boolean & string,
+  +c: boolean & string,
+}): { +b: 2, +a: 1, +c: 3 });
+
+// Error: Group should list three errors in the order: \`a\`, \`b\`, \`c\`
+((any: { +b: boolean, +a: boolean & string, +c: boolean }): {
+  +b: 2,
+  +a: 1,
+  +c: 3,
+});
+
+// Error: Group should list three errors in the order: \`b\`, \`a\`, \`c\`
+((any: { +b: boolean & string, +a: boolean, +c: boolean }): {
+  +b: 2,
+  +a: 1,
+  +c: 3,
+});
+
+// Error: Group should list three errors in the order: \`c\`, \`b\`, \`a\`
+((any: { +b: boolean, +a: boolean, +c: boolean & string }): {
+  +b: 2,
+  +a: 1,
+  +c: 3,
+});
+
+// Error: number ~> boolean
+((any: { +a: { +b: boolean } }): { +a: { +b: 42 } });
+
+// Error: number ~> boolean. Because of union error scoring we should only see
+// one error.
+((any: { +a: boolean & { +b: boolean & {} } }): { +a: { +b: 42 } });
+
+((any: boolean): 42); // Error: number ~> boolean
+((any: {} & {} & {} & boolean): 42); // Error: number ~> boolean
+((any: {} & ({} & ({} & boolean))): 42); // Error: number ~> boolean
+
+((any: number & string): true); // Error
+((any: number & string & {}): true); // Error: should not show the {} branch
+((any: {} & number & string): true); // Error: should not show the {} branch
+((any: number & {} & string): true); // Error: should not show the {} branch
+
+((any: { +a: number & string }): { +a: true }); // Error
+
+((any: {
+  +a: number & string,
+  +b: {} & number & string,
+  +c: number & {} & string,
+  +d: number & string & {},
+}): {
+  +a: true, // Error: should be grouped
+  +b: true, // Error: should be grouped, should not show the {} branch
+  +c: true, // Error: should be grouped, should not show the {} branch
+  +d: true, // Error: should be grouped, should not show the {} branch
+});
+
+// Demonstrates use_op ~> union speculation ~> use_op
+((any: {
+  +a: [number] & [string],
+  +b: [{}] & [number] & [string],
+  +c: [number] & [{}] & [string],
+  +d: [number] & [string] & [{}],
+}): {
+  +a: [true], // Error: should be grouped
+  +b: [true], // Error: should be grouped, should not show the [{}] branch
+  +c: [true], // Error: should be grouped, should not show the [{}] branch
+  +d: [true], // Error: should be grouped, should not show the [{}] branch
+});
+
+((any: number & (string & false)): true); // Error: should be flattened
+((any: (string & false) & number): true); // Error: should be flattened
+((any: {} & number & (string & false)): true); // Error: should be flattened
+((any: number & (string & false) & {}): true); // Error: should be flattened
+((any: number & (string & {} & false)): true); // Error: should be flattened
+
+((any: number & number & number & string): true); // Error: should be flattened
+((any: number & number & (number & string)): true); // Error: should be flattened
+((any: number & (number & (number & string))): true); // Error: should be flattened
+((any: (string & number) & number & number): true); // Error: should be flattened
+((any: ((string & number) & number) & number): true); // Error: should be flattened
+
+((any: number & {}): true); // Error
+((any: { +a: number & {}, +b: number & {} }): { +a: true, +b: true }); // Error
+((any: { +a: number & string & {}, +b: number & {} }): { +a: true, +b: true }); // Error
+
+// Error: union inside union fun.
+((any: [[null, A] & [null, B]] & [[null, C] & [null, D]]): [[null, number]]);
+
+// Error: union inside union fun, but thanks to scoring we only show three.
+((any: [[null, A] & {}] & [[null, C] & [null, D]]): [[null, number]]);
+
+// Error: union inside union fun, but thanks to scoring we only show two.
+((any: [[null, A] & {}] & [[null, C] & {}]): [[null, number]]);
+
+// Error: union inside union fun, but thanks to scoring we only show one.
+((any: {} & [[null, C] & {}]): [[null, number]]);
+
+declare var f1: A | B;
+f1(); // Error
+
+declare var f2: A | (B | C);
+f2(); // Error
+
+declare var f3: A | (B | (C | D));
+f3(); // Error
+
+================================================================================
+`;
+
+exports[`errors_union.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @format
+ * @flow
+ */
+
+declare var any: any;
+declare opaque type A;
+declare opaque type B;
+declare opaque type C;
+declare opaque type D;
+
+// Error: Group should list three errors in the order: \`b\`, \`a\`, \`c\`
+({b: 2, a: 1, c: 3}: {a: boolean, b: boolean, c: boolean});
+
+// Error: Group should list three errors in the order: \`b\`, \`a\`, \`c\`
+({b: 2, a: 1, c: 3}: {
+  a: boolean | string,
+  b: boolean | string,
+  c: boolean | string,
+});
+
+// Error: Group should list three errors in the order: \`b\`, \`a\`, \`c\`
+({b: 2, a: 1, c: 3}: {a: boolean | string, b: boolean, c: boolean});
+
+// Error: Group should list three errors in the order: \`b\`, \`a\`, \`c\`
+({b: 2, a: 1, c: 3}: {a: boolean, b: boolean | string, c: boolean});
+
+// Error: Group should list three errors in the order: \`b\`, \`a\`, \`c\`
+({b: 2, a: 1, c: 3}: {a: boolean, b: boolean, c: boolean | string});
+
+// Error: number ~> boolean
+({a: {b: 42}}: {a: {b: boolean}});
+
+// Error: number ~> boolean. Because of union error scoring we should only see
+// one error.
+({a: {b: 42}}: {a: boolean | {b: boolean | {}}});
+
+(42: boolean); // Error: number ~> boolean
+(42: {} | {} | {} | boolean); // Error: number ~> boolean
+(42: {} | ({} | ({} | boolean))); // Error: number ~> boolean
+
+// Alias Example 1
+({x: 123, y: 'abc'}: {x: number, y: number} | {x: string, y: string}); // Error
+
+// Alias Example 2
+type NumberPoint = {x: number, y: number};
+type StringPoint = {x: string, y: string};
+({x: 123, y: 'abc'}: number | NumberPoint | StringPoint); // Error
+
+// Alias Example 3
+type Point = NumberPoint | StringPoint;
+({x: 123, y: 'abc'}: Point); // Error
+
+(true: number | string); // Error
+(true: number | string | {}); // Error: should not show the {} branch
+(true: {} | number | string); // Error: should not show the {} branch
+(true: number | {} | string); // Error: should not show the {} branch
+
+({a: true}: {a: number | string}); // Error
+
+({
+  a: true, // Error: should be grouped
+  b: true, // Error: should be grouped, should not show the {} branch
+  c: true, // Error: should be grouped, should not show the {} branch
+  d: true, // Error: should be grouped, should not show the {} branch
+}: {
+  a: number | string,
+  b: {} | number | string,
+  c: number | {} | string,
+  d: number | string | {},
+});
+
+// Demonstrates use_op ~> union speculation ~> use_op
+({
+  a: [true], // Error: should be grouped
+  b: [true], // Error: should be grouped, should not show the [{}] branch
+  c: [true], // Error: should be grouped, should not show the [{}] branch
+  d: [true], // Error: should be grouped, should not show the [{}] branch
+}: {
+  a: [number] | [string],
+  b: [{}] | [number] | [string],
+  c: [number] | [{}] | [string],
+  d: [number] | [string] | [{}],
+});
+
+(true: number | (string | false)); // Error: should be flattened
+(true: (string | false) | number); // Error: should be flattened
+(true: {} | number | (string | false)); // Error: should be flattened
+(true: number | (string | false) | {}); // Error: should be flattened
+(true: number | (string | {} | false)); // Error: should be flattened
+
+(true: number | number | number | string); // Error: should be flattened
+(true: number | number | (number | string)); // Error: should be flattened
+(true: number | (number | (number | string))); // Error: should be flattened
+(true: (string | number) | number | number); // Error: should be flattened
+(true: ((string | number) | number) | number); // Error: should be flattened
+
+(true: number | {}); // Error
+({a: true, b: true}: {a: number | {}, b: number | {}}); // Error
+({a: true, b: true}: {a: number | string | {}, b: number | {}}); // Error
+
+// Error: union inside union fun.
+((any: [[null, number]]): [[null, A] | [null, B]] | [[null, C] | [null, D]]);
+
+// Error: union inside union fun, but thanks to scoring we only show three.
+((any: [[null, number]]): [[null, A] | {}] | [[null, C] | [null, D]]);
+
+// Error: union inside union fun, but thanks to scoring we only show two.
+((any: [[null, number]]): [[null, A] | {}] | [[null, C] | {}]);
+
+// Error: union inside union fun, but thanks to scoring we only show one.
+((any: [[null, number]]): {} | [[null, C] | {}]);
+
+=====================================output=====================================
+/**
+ * @format
+ * @flow
+ */
+
+declare var any: any;
+declare opaque type A;
+declare opaque type B;
+declare opaque type C;
+declare opaque type D;
+
+// Error: Group should list three errors in the order: \`b\`, \`a\`, \`c\`
+({ b: 2, a: 1, c: 3 }: { a: boolean, b: boolean, c: boolean });
+
+// Error: Group should list three errors in the order: \`b\`, \`a\`, \`c\`
+({ b: 2, a: 1, c: 3 }: {
+  a: boolean | string,
+  b: boolean | string,
+  c: boolean | string,
+});
+
+// Error: Group should list three errors in the order: \`b\`, \`a\`, \`c\`
+({ b: 2, a: 1, c: 3 }: { a: boolean | string, b: boolean, c: boolean });
+
+// Error: Group should list three errors in the order: \`b\`, \`a\`, \`c\`
+({ b: 2, a: 1, c: 3 }: { a: boolean, b: boolean | string, c: boolean });
+
+// Error: Group should list three errors in the order: \`b\`, \`a\`, \`c\`
+({ b: 2, a: 1, c: 3 }: { a: boolean, b: boolean, c: boolean | string });
+
+// Error: number ~> boolean
+({ a: { b: 42 } }: { a: { b: boolean } });
+
+// Error: number ~> boolean. Because of union error scoring we should only see
+// one error.
+({ a: { b: 42 } }: { a: boolean | { b: boolean | {} } });
+
+(42: boolean); // Error: number ~> boolean
+(42: {} | {} | {} | boolean); // Error: number ~> boolean
+(42: {} | ({} | ({} | boolean))); // Error: number ~> boolean
+
+// Alias Example 1
+({ x: 123, y: "abc" }: { x: number, y: number } | { x: string, y: string }); // Error
+
+// Alias Example 2
+type NumberPoint = { x: number, y: number };
+type StringPoint = { x: string, y: string };
+({ x: 123, y: "abc" }: number | NumberPoint | StringPoint); // Error
+
+// Alias Example 3
+type Point = NumberPoint | StringPoint;
+({ x: 123, y: "abc" }: Point); // Error
+
+(true: number | string); // Error
+(true: number | string | {}); // Error: should not show the {} branch
+(true: {} | number | string); // Error: should not show the {} branch
+(true: number | {} | string); // Error: should not show the {} branch
+
+({ a: true }: { a: number | string }); // Error
+
+({
+  a: true, // Error: should be grouped
+  b: true, // Error: should be grouped, should not show the {} branch
+  c: true, // Error: should be grouped, should not show the {} branch
+  d: true, // Error: should be grouped, should not show the {} branch
+}: {
+  a: number | string,
+  b: {} | number | string,
+  c: number | {} | string,
+  d: number | string | {},
+});
+
+// Demonstrates use_op ~> union speculation ~> use_op
+({
+  a: [true], // Error: should be grouped
+  b: [true], // Error: should be grouped, should not show the [{}] branch
+  c: [true], // Error: should be grouped, should not show the [{}] branch
+  d: [true], // Error: should be grouped, should not show the [{}] branch
+}: {
+  a: [number] | [string],
+  b: [{}] | [number] | [string],
+  c: [number] | [{}] | [string],
+  d: [number] | [string] | [{}],
+});
+
+(true: number | (string | false)); // Error: should be flattened
+(true: (string | false) | number); // Error: should be flattened
+(true: {} | number | (string | false)); // Error: should be flattened
+(true: number | (string | false) | {}); // Error: should be flattened
+(true: number | (string | {} | false)); // Error: should be flattened
+
+(true: number | number | number | string); // Error: should be flattened
+(true: number | number | (number | string)); // Error: should be flattened
+(true: number | (number | (number | string))); // Error: should be flattened
+(true: (string | number) | number | number); // Error: should be flattened
+(true: ((string | number) | number) | number); // Error: should be flattened
+
+(true: number | {}); // Error
+({ a: true, b: true }: { a: number | {}, b: number | {} }); // Error
+({ a: true, b: true }: { a: number | string | {}, b: number | {} }); // Error
+
+// Error: union inside union fun.
+((any: [[null, number]]): [[null, A] | [null, B]] | [[null, C] | [null, D]]);
+
+// Error: union inside union fun, but thanks to scoring we only show three.
+((any: [[null, number]]): [[null, A] | {}] | [[null, C] | [null, D]]);
+
+// Error: union inside union fun, but thanks to scoring we only show two.
+((any: [[null, number]]): [[null, A] | {}] | [[null, C] | {}]);
+
+// Error: union inside union fun, but thanks to scoring we only show one.
+((any: [[null, number]]): {} | [[null, C] | {}]);
+
+================================================================================
+`;
+
+exports[`intersection-function.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @format
+ * @flow
+ */
+
+class X {
+  p: number;
+}
+class Y {
+  p: number;
+}
+class Z {}
+class W<T> {
+  p: T;
+}
+
+declare function a(x: number): void;
+declare function a(x: string): void;
+a(true);
+
+declare function b(x: string): void;
+declare function b(x: {p: string}): void;
+b(42);
+b({p: 42});
+
+declare function c(x: string): void;
+declare function c(x: {a: {b: string}}): void;
+declare function c(x: boolean): void;
+declare function c(x: {a: {b: boolean}}): void;
+c(42);
+c({a: {b: 42}});
+
+declare function d(x: string): void;
+declare function d(x: {a: string}): void;
+declare function d(x: {a: {b: string}}): void;
+d(42);
+d({a: 42});
+d({a: {b: 42}});
+
+declare function e(x: X): void;
+declare function e(x: {p: string}): void;
+e(42);
+e(new X());
+e(new Y());
+e(new Z());
+e({p: true});
+
+declare function f(x: {p: string}): void;
+declare function f(x: $ReadOnlyArray<string>): void;
+declare function f(x: [string, string]): void;
+f(42);
+f({p: 42});
+f({});
+f(new Y());
+f(new Z());
+f(([1]: [number]));
+f(([1, 2]: [number, number]));
+f(([1, 2, 3]: [number, number, number]));
+f(((null: any): Array<number> & {p: number}));
+
+declare function g(x: string): void;
+declare function g(x: Z): void;
+g(42);
+g({});
+
+declare function h(a: string, b: string): void;
+declare function h(a: number, b: {}, c: string): void;
+h(1, 2, 3);
+
+declare function i(a: Y, b: string): void;
+declare function i(a: X, b: number): void;
+i(new Y(), 42);
+
+declare function j(a: number, b: string): void;
+declare function j(a: string, b: number): void;
+j(1, 2);
+
+declare function k(a: number, b: {p: string}): void;
+declare function k(a: string, b: {p: number}): void;
+k(1, {p: 2});
+
+declare function m(x: W<string>): void;
+declare function m(x: {p: string}): void;
+m((new W(): W<number>));
+
+=====================================output=====================================
+/**
+ * @format
+ * @flow
+ */
+
+class X {
+  p: number;
+}
+class Y {
+  p: number;
+}
+class Z {}
+class W<T> {
+  p: T;
+}
+
+declare function a(x: number): void;
+declare function a(x: string): void;
+a(true);
+
+declare function b(x: string): void;
+declare function b(x: { p: string }): void;
+b(42);
+b({ p: 42 });
+
+declare function c(x: string): void;
+declare function c(x: { a: { b: string } }): void;
+declare function c(x: boolean): void;
+declare function c(x: { a: { b: boolean } }): void;
+c(42);
+c({ a: { b: 42 } });
+
+declare function d(x: string): void;
+declare function d(x: { a: string }): void;
+declare function d(x: { a: { b: string } }): void;
+d(42);
+d({ a: 42 });
+d({ a: { b: 42 } });
+
+declare function e(x: X): void;
+declare function e(x: { p: string }): void;
+e(42);
+e(new X());
+e(new Y());
+e(new Z());
+e({ p: true });
+
+declare function f(x: { p: string }): void;
+declare function f(x: $ReadOnlyArray<string>): void;
+declare function f(x: [string, string]): void;
+f(42);
+f({ p: 42 });
+f({});
+f(new Y());
+f(new Z());
+f(([1]: [number]));
+f(([1, 2]: [number, number]));
+f(([1, 2, 3]: [number, number, number]));
+f(((null: any): Array<number> & { p: number }));
+
+declare function g(x: string): void;
+declare function g(x: Z): void;
+g(42);
+g({});
+
+declare function h(a: string, b: string): void;
+declare function h(a: number, b: {}, c: string): void;
+h(1, 2, 3);
+
+declare function i(a: Y, b: string): void;
+declare function i(a: X, b: number): void;
+i(new Y(), 42);
+
+declare function j(a: number, b: string): void;
+declare function j(a: string, b: number): void;
+j(1, 2);
+
+declare function k(a: number, b: { p: string }): void;
+declare function k(a: string, b: { p: number }): void;
+k(1, { p: 2 });
+
+declare function m(x: W<string>): void;
+declare function m(x: { p: string }): void;
+m((new W(): W<number>));
+
+================================================================================
+`;
+
+exports[`nullish.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @format
+ * @flow
+ */
+
+(42: string | null | void); // Error: should only show string
+(42: {} | null | void); // Error: should only show object
+(42: [] | null | void); // Error: should only show array
+({}: string | null | void); // Error: should only show string
+({}: {p: empty} | null | void); // Error: should only show object
+({}: [] | null | void); // Error: should only show array
+([]: string | null | void); // Error: should only show string
+([]: {} | null | void); // Error: should only show object
+([]: [empty] | null | void); // Error: should only show array
+
+=====================================output=====================================
+/**
+ * @format
+ * @flow
+ */
+
+(42: string | null | void); // Error: should only show string
+(42: {} | null | void); // Error: should only show object
+(42: [] | null | void); // Error: should only show array
+({}: string | null | void); // Error: should only show string
+({}: { p: empty } | null | void); // Error: should only show object
+({}: [] | null | void); // Error: should only show array
+([]: string | null | void); // Error: should only show string
+([]: {} | null | void); // Error: should only show object
+([]: [empty] | null | void); // Error: should only show array
+
+================================================================================
+`;
+
+exports[`sentinel.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @format
+ * @flow
+ */
+
+type X =
+  | {type: 'A', p: number}
+  | {type: 'B', p: string}
+  | {type: 'C', p: boolean};
+
+({type: 'A', p: 'foo'}: X);
+({type: 'D'}: X);
+
+=====================================output=====================================
+/**
+ * @format
+ * @flow
+ */
+
+type X =
+  | { type: "A", p: number }
+  | { type: "B", p: string }
+  | { type: "C", p: boolean };
+
+({ type: "A", p: "foo" }: X);
+({ type: "D" }: X);
+
+================================================================================
+`;
+
+exports[`union.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @format
+ * @flow
+ */
+
+class X {
+  p: number;
+}
+class Y {
+  p: number;
+}
+class Z {}
+class W<T> {
+  p: T;
+}
+
+type A = number | string;
+(true: A);
+
+type B = string | {p: string};
+(42: B);
+({p: 42}: B);
+
+type C = string | {a: {b: string}} | boolean | {a: {b: boolean}};
+(42: C);
+({a: {b: 42}}: C);
+
+type D = string | {a: string} | {a: {b: string}};
+(42: D);
+({a: 42}: D);
+({a: {b: 42}}: D);
+
+type E = X | {p: string};
+(42: E);
+(new X(): E);
+(new Y(): E);
+(new Z(): E);
+({p: true}: E);
+
+type F = {p: string} | $ReadOnlyArray<string> | [string, string];
+(42: F);
+({p: 42}: F);
+({}: F);
+(new Y(): F);
+(new Z(): F);
+(([1]: [number]): F);
+(([1, 2]: [number, number]): F);
+(([1, 2, 3]: [number, number, number]): F);
+(((null: any): Array<number> & {p: number}): F);
+
+type G = string | Z;
+(42: G);
+({}: G);
+
+type M = W<string> | {p: string};
+((new W(): W<number>): M);
+
+=====================================output=====================================
+/**
+ * @format
+ * @flow
+ */
+
+class X {
+  p: number;
+}
+class Y {
+  p: number;
+}
+class Z {}
+class W<T> {
+  p: T;
+}
+
+type A = number | string;
+(true: A);
+
+type B = string | { p: string };
+(42: B);
+({ p: 42 }: B);
+
+type C = string | { a: { b: string } } | boolean | { a: { b: boolean } };
+(42: C);
+({ a: { b: 42 } }: C);
+
+type D = string | { a: string } | { a: { b: string } };
+(42: D);
+({ a: 42 }: D);
+({ a: { b: 42 } }: D);
+
+type E = X | { p: string };
+(42: E);
+(new X(): E);
+(new Y(): E);
+(new Z(): E);
+({ p: true }: E);
+
+type F = { p: string } | $ReadOnlyArray<string> | [string, string];
+(42: F);
+({ p: 42 }: F);
+({}: F);
+(new Y(): F);
+(new Z(): F);
+(([1]: [number]): F);
+(([1, 2]: [number, number]): F);
+(([1, 2, 3]: [number, number, number]): F);
+(((null: any): Array<number> & { p: number }): F);
+
+type G = string | Z;
+(42: G);
+({}: G);
+
+type M = W<string> | { p: string };
+((new W(): W<number>): M);
+
+================================================================================
+`;
+
+exports[`unsealed.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+const o1 = {};
+o1.q = 1;
+(o1: {p: string} | {q: number});
+(o1.p: number); // error
+
+const o2 = {};
+o2.q = 1;
+(o2.p: number);
+
+const o3 = {};
+o3.q = 1;
+(o3: {q: number} | {p: string});
+(o3.p: number); // cannot decide case
+
+const foo = {};
+(foo.x: number);
+(foo:
+  | {|a: number, b: string, c: boolean, x: string|}
+  | {a: string, b: number, c: void, x: number});
+(foo.a: string);
+(foo.a: number); // error
+(foo.b: string); // error
+(foo.b: number);
+(foo.c: boolean); // error
+(foo.c: void);
+(foo.x : number);
+(foo.x : string); // error
+
+let x = {};
+(x: {a: string, a: number} | number);
+(x.a: string); // error
+(x.a: number);
+
+=====================================output=====================================
+// @flow
+
+const o1 = {};
+o1.q = 1;
+(o1: { p: string } | { q: number });
+(o1.p: number); // error
+
+const o2 = {};
+o2.q = 1;
+(o2.p: number);
+
+const o3 = {};
+o3.q = 1;
+(o3: { q: number } | { p: string });
+(o3.p: number); // cannot decide case
+
+const foo = {};
+(foo.x: number);
+(foo:
+  | {| a: number, b: string, c: boolean, x: string |}
+  | { a: string, b: number, c: void, x: number });
+(foo.a: string);
+(foo.a: number); // error
+(foo.b: string); // error
+(foo.b: number);
+(foo.c: boolean); // error
+(foo.c: void);
+(foo.x: number);
+(foo.x: string); // error
+
+let x = {};
+(x: { a: string, a: number } | number);
+(x.a: string); // error
+(x.a: number);
+
+================================================================================
+`;

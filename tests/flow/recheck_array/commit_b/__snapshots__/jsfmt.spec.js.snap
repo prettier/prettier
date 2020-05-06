@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`import.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+export type Arr = $ReadOnlyArray<?number>;
+
+=====================================output=====================================
+//@flow
+
+export type Arr = $ReadOnlyArray<?number>;
+
+================================================================================
+`;
+
+exports[`test.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+import type {Arr} from './import';
+
+declare var x: Array<number>;
+(x: Arr);
+
+=====================================output=====================================
+//@flow
+
+import type { Arr } from "./import";
+
+declare var x: Array<number>;
+(x: Arr);
+
+================================================================================
+`;

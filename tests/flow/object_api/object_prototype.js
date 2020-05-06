@@ -108,12 +108,12 @@ takesABool(y.propertyIsEnumerable('foo'));
 //
 
 // call
-takesAnObject(a.valueOf());
+// takesAnObject(a.valueOf());
 
 // get
-var aValueOf : () => Object = a.valueOf;
-var aValueOf2 = a.valueOf;
-takesAnObject(aValueOf2());
+// var aValueOf : () => Object = a.valueOf;
+// var aValueOf2 = a.valueOf;
+// takesAnObject(aValueOf2());
 
 // set
 b.valueOf = function() { return {}; };
@@ -124,7 +124,7 @@ takesANumber(x.valueOf());
 
 // ... on an instance
 var yValueOf : number = y.valueOf; // error
-takesAnObject(y.valueOf());
+// takesAnObject(y.valueOf());
 
 // ... on a literal
 var strValueOf : string = ("foo").valueOf();

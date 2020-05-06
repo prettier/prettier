@@ -85,7 +85,7 @@ function nationality(x: Citizen | NonCitizen) {
 let tests = [
   // non-existent props
   function test7(x: A) {
-    if (x.kindTypo === 1) { // typos are allowed to be tested
+    if (x.kindTypo === 1) { // error: kindTypo prop missing
       (x.kindTypo: string); // typos can't be used, though
     }
   },
@@ -108,35 +108,36 @@ let tests = [
     r: Object, s: Function, t: () => void
   ) {
     if (x.length === 0) {}
-    if (x.legnth === 0) { // typos are allowed to be tested
+    if (x.legnth === 0) { // Error, typos
       (x.legnth: number); // inside the block, it's a number
       (x.legnth: string); // error: number literal 0 !~> string
     }
     if (y.length === 0) {}
-    if (y.legnth === 0) { // typos are allowed to be tested
+    if (y.legnth === 0) { // Error, typo
       (y.legnth: number); // inside the block, it's a number
       (y.legnth: string); // error: number literal 0 !~> string
     }
-    if (z.toString === 0) {}
-    if (z.toStirng === 0) { // typos are allowed to be tested
+    if (z.toString === 0) {} // Error
+    if (z.toStirng === 0) { // Error, typo
       (z.toStirng: number); // inside the block, it's a number
       (z.toStirng: string); // error: number literal 0 !~> string
     }
-    if (q.valueOf === 0) {}
-    if (q.valeuOf === 0) { // typos are allowed to be tested
+    if (q.valueOf === 0) {} // Error
+    if (q.valeuOf === 0) { // Error, typo
       (q.valeuOf: number); // inside the block, it's a number
       (q.valeuOf: string); // error: number literal 0 !~> string
     }
-    if (r.toStirng === 0) { // typos are allowed to be tested
-      (r.toStirng: empty); // props on AnyObjT are `any`
+    if (r.toStirng === 0) { // error: toStirng prop missing
+      (r.toStirng: empty); // error, toStirng is refined to 0
     }
-    if (s.call === 0) {}
-    if (s.calll === 0) { // typos are allowed to be tested
-      (t.calll: empty); // ok, props on functions are `any` :/
+    if (s.call === 0) {} // Error
+    if (s.calll === 0) { // error: calll prop missing
+      (s.calll: empty); // error, calll is refined to 0
     }
-    if (t.call === 0) {}
-    if (t.calll === 0) { // typos are allowed to be tested
-      (t.calll: empty); // ok, props on functions are `any` :/
+    if (t.call === 0) {} // Error
+    if (t.calll === 0) { // error: calll prop missing
+      (t.calll: number); // inside the block, it's a number
+      (t.calll: string); // error: number literal 0 !~> string
     }
   },
 
@@ -152,13 +153,13 @@ let tests = [
       (x.bool: false); // error: true !~> false
     }
     // even if it doesn't exist...
-    if (x.badStr === 'bad') {
+    if (x.badStr === 'bad') { // Error, reading unknown property
       (x.badStr: empty); // error: 'bad' !~> empty
     }
-    if (x.badNum === 123) {
+    if (x.badNum === 123) { // Error, reading unknown property
       (x.badNum: empty); // error: 123 !~> empty
     }
-    if (x.badBool === true) {
+    if (x.badBool === true) { // Error, reading unknown property
       (x.badBool: empty); // error: true !~> empty
     }
   },

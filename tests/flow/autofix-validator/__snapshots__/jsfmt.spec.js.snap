@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`simplify-empty.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+export function foo(x: any) {
+  if (x && x.bar) {
+    return x.bar();
+  }
+  return x;
+}
+
+=====================================output=====================================
+// @flow
+
+export function foo(x: any) {
+  if (x && x.bar) {
+    return x.bar();
+  }
+  return x;
+}
+
+================================================================================
+`;

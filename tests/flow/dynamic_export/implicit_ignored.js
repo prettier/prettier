@@ -1,0 +1,2 @@
+// @flow
+module.exports = (() => {}).constructor;

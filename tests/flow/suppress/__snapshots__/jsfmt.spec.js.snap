@@ -132,6 +132,37 @@ x = y;
 ================================================================================
 `;
 
+exports[`E.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// It's possible to suppress a lint error with a normal suppression comment, but
+// a suppression comment over a lint which was never enabled should not be
+// considered "used." Instead, it should show up as an unused suppression.
+
+// Note: this test assumes that sketchy-null-string is never explicitly enabled
+
+declare var x: ?string;
+// $FlowFixMe - this is unused because sketchy-null-string is off
+if (x) {}
+
+=====================================output=====================================
+// It's possible to suppress a lint error with a normal suppression comment, but
+// a suppression comment over a lint which was never enabled should not be
+// considered "used." Instead, it should show up as an unused suppression.
+
+// Note: this test assumes that sketchy-null-string is never explicitly enabled
+
+declare var x: ?string;
+// $FlowFixMe - this is unused because sketchy-null-string is off
+if (x) {
+}
+
+================================================================================
+`;
+
 exports[`lib.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -142,6 +173,32 @@ declare var library_num: number;
 
 =====================================output=====================================
 declare var library_num: number;
+
+================================================================================
+`;
+
+exports[`versions.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+// $WithVersion >=0.0.0
+(123: string); // should be suppressed
+
+// $WithVersion >=1000000.0.0
+(123: string); // should not be suppressed
+
+=====================================output=====================================
+// @flow
+
+// $WithVersion >=0.0.0
+(123: string); // should be suppressed
+
+// $WithVersion >=1000000.0.0
+(123: string); // should not be suppressed
 
 ================================================================================
 `;

@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`a.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @flow
+ */
+// error will not appear in output, because lib parse errors forego merge
+var x: string = 0;
+
+=====================================output=====================================
+/**
+ * @flow
+ */
+// error will not appear in output, because lib parse errors forego merge
+var x: string = 0;
+
+================================================================================
+`;

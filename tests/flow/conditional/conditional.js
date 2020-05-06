@@ -22,3 +22,11 @@ function d(): string { // expected `: number | boolean`
   var x: ?number = null;
   return (x != null) ? x : (x != null);
 }
+
+type Obj = {
+  f: ?number,
+};
+
+function foo(m: ?string): ?Obj {
+  return m != null ? JSON.parse(m) : {};
+}

@@ -1,0 +1,1397 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`basic.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @format
+ * @flow
+ */
+
+// nope
+// context -1
+// context -2
+// context -3
+(null: empty); // Error: null ~> empty
+// context +1
+// context +2
+// context +3
+// nope
+
+=====================================output=====================================
+/**
+ * @format
+ * @flow
+ */
+
+// nope
+// context -1
+// context -2
+// context -3
+(null: empty); // Error: null ~> empty
+// context +1
+// context +2
+// context +3
+// nope
+
+================================================================================
+`;
+
+exports[`code_frame.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+({p: 42}: {p: empty});
+
+({p: 42}: {p: empty});
+
+({
+  p: 42,
+}: {
+  p: empty,
+});
+
+({p: 42}: {p: empty});
+
+=====================================output=====================================
+// @flow
+({ p: 42 }: { p: empty });
+
+({ p: 42 }: { p: empty });
+
+({
+  p: 42,
+}: {
+  p: empty,
+});
+
+({ p: 42 }: { p: empty });
+
+================================================================================
+`;
+
+exports[`code_frame_omit.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @format
+ * @flow
+ */
+
+{
+  const x = 42;
+  // empty line
+  const y = 42;
+  ([x, y]: [empty, empty]);
+  // empty line
+  // empty line
+  // empty line
+  // empty line
+  // empty line
+  ([x, y]: [empty, empty]);
+  ([x, y]: [empty, empty]);
+}
+
+{
+  const x = 42;
+  // empty line
+  // empty line
+  // empty line
+  const y = 42;
+  ([x, y]: [empty, empty]);
+  // empty line
+  // empty line
+  // empty line
+  // empty line
+  // empty line
+  ([x, y]: [empty, empty]);
+  ([x, y]: [empty, empty]);
+}
+
+{
+  const x = 42;
+  // empty line
+  // empty line
+  // empty line
+  // empty line
+  const y = 42;
+  ([x, y]: [empty, empty]);
+  // empty line
+  // empty line
+  // empty line
+  // empty line
+  // empty line
+  ([x, y]: [empty, empty]);
+  ([x, y]: [empty, empty]);
+}
+
+=====================================output=====================================
+/**
+ * @format
+ * @flow
+ */
+
+{
+  const x = 42;
+  // empty line
+  const y = 42;
+  ([x, y]: [empty, empty]);
+  // empty line
+  // empty line
+  // empty line
+  // empty line
+  // empty line
+  ([x, y]: [empty, empty]);
+  ([x, y]: [empty, empty]);
+}
+
+{
+  const x = 42;
+  // empty line
+  // empty line
+  // empty line
+  const y = 42;
+  ([x, y]: [empty, empty]);
+  // empty line
+  // empty line
+  // empty line
+  // empty line
+  // empty line
+  ([x, y]: [empty, empty]);
+  ([x, y]: [empty, empty]);
+}
+
+{
+  const x = 42;
+  // empty line
+  // empty line
+  // empty line
+  // empty line
+  const y = 42;
+  ([x, y]: [empty, empty]);
+  // empty line
+  // empty line
+  // empty line
+  // empty line
+  // empty line
+  ([x, y]: [empty, empty]);
+  ([x, y]: [empty, empty]);
+}
+
+================================================================================
+`;
+
+exports[`function-primary-loc.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @format
+ * @flow
+ */
+
+(() => {
+  return 42; // Error: We should point to 42.
+}: () => string);
+
+const f = () => {
+  return 42;
+};
+(f: () => string); // Error: We should point to f.
+
+declare function myFn1(): number;
+declare function myFn2(x: number): void;
+
+({
+  fn1: myFn1, // Error: We should point to just the \`myFn1\` property.
+}: {
+  fn1: () => void,
+});
+
+({
+  fn2: myFn2, // Error: We should point to just the \`myFn1\` property.
+}: {
+  fn2: (x: string) => void,
+});
+
+({
+  fn2: myFn2, // Error: We should point to just the \`myFn1\` property.
+}: {
+  fn2: () => void,
+});
+
+=====================================output=====================================
+/**
+ * @format
+ * @flow
+ */
+
+(() => {
+  return 42; // Error: We should point to 42.
+}: () => string);
+
+const f = () => {
+  return 42;
+};
+(f: () => string); // Error: We should point to f.
+
+declare function myFn1(): number;
+declare function myFn2(x: number): void;
+
+({
+  fn1: myFn1, // Error: We should point to just the \`myFn1\` property.
+}: {
+  fn1: () => void,
+});
+
+({
+  fn2: myFn2, // Error: We should point to just the \`myFn1\` property.
+}: {
+  fn2: (x: string) => void,
+});
+
+({
+  fn2: myFn2, // Error: We should point to just the \`myFn1\` property.
+}: {
+  fn2: () => void,
+});
+
+================================================================================
+`;
+
+exports[`group.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @format
+ * @flow
+ */
+
+({
+  a: 1,
+  b: 2,
+  c: 3,
+}: {
+  a: string,
+  b: string,
+  c: string,
+});
+
+=====================================output=====================================
+/**
+ * @format
+ * @flow
+ */
+
+({
+  a: 1,
+  b: 2,
+  c: 3,
+}: {
+  a: string,
+  b: string,
+  c: string,
+});
+
+================================================================================
+`;
+
+exports[`large_locs.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @format
+ * @flow
+ */
+
+(\`some
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+long string\`: empty);
+
+(\`some
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+long string\`: empty);
+
+(\`some
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+long string\`: empty);
+
+(\`some
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+long string\`: empty);
+
+(\`some
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+long string\`: empty);
+
+({
+  // 2
+  // 3
+  // 4
+  // 5
+  // 6
+  // 7
+  // 8
+  // 9
+  // 10
+  // 11
+  // 12
+  // 13
+  // 14
+  // 15
+  // stop merge
+  // stop merge
+  // stop merge
+  a: 42,
+  // stop merge
+  // stop merge
+  // stop merge
+  // 15
+  // 14
+  // 13
+  // 12
+  // 11
+  // 10
+  // 9
+  // 8
+  // 7
+  // 6
+  // 5
+  // 4
+  // 3
+  // 2
+}: {
+  a: empty,
+});
+
+({
+  // 2
+  // 3
+  // 4
+  // 5
+  // 6
+  // 7
+  // 8
+  // 9
+  // 10
+  // 11
+  // 12
+  // 13
+  // 14
+  // 15
+  // stop merge
+  // stop merge
+  // stop merge
+  // stop merge
+  a: 42,
+  // stop merge
+  // stop merge
+  // stop merge
+  // 15
+  // 14
+  // 13
+  // 12
+  // 11
+  // 10
+  // 9
+  // 8
+  // 7
+  // 6
+  // 5
+  // 4
+  // 3
+  // 2
+}: {
+  a: empty,
+});
+
+({
+  // 2
+  // 3
+  // 4
+  // 5
+  // 6
+  // 7
+  // 8
+  // 9
+  // 10
+  // 11
+  // 12
+  // 13
+  // 14
+  // 15
+  // stop merge
+  // stop merge
+  // stop merge
+  a: 42,
+  // stop merge
+  // stop merge
+  // stop merge
+  // stop merge
+  // 15
+  // 14
+  // 13
+  // 12
+  // 11
+  // 10
+  // 9
+  // 8
+  // 7
+  // 6
+  // 5
+  // 4
+  // 3
+  // 2
+}: {
+  a: empty,
+});
+
+({
+  // 2
+  // 3
+  // 4
+  // 5
+  // 6
+  // 7
+  // 8
+  // 9
+  // 10
+  // 11
+  // 12
+  // 13
+  // 14
+  // 15
+  // stop merge
+  // stop merge
+  // stop merge
+  // stop merge
+  a: 42,
+  // stop merge
+  // stop merge
+  // stop merge
+  // stop merge
+  // 15
+  // 14
+  // 13
+  // 12
+  // 11
+  // 10
+  // 9
+  // 8
+  // 7
+  // 6
+  // 5
+  // 4
+  // 3
+  // 2
+}: {
+  a: empty,
+});
+
+=====================================output=====================================
+/**
+ * @format
+ * @flow
+ */
+
+(\`some
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+long string\`: empty);
+
+(\`some
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+long string\`: empty);
+
+(\`some
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+long string\`: empty);
+
+(\`some
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+long string\`: empty);
+
+(\`some
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+really
+long string\`: empty);
+
+({
+  // 2
+  // 3
+  // 4
+  // 5
+  // 6
+  // 7
+  // 8
+  // 9
+  // 10
+  // 11
+  // 12
+  // 13
+  // 14
+  // 15
+  // stop merge
+  // stop merge
+  // stop merge
+  a: 42,
+  // stop merge
+  // stop merge
+  // stop merge
+  // 15
+  // 14
+  // 13
+  // 12
+  // 11
+  // 10
+  // 9
+  // 8
+  // 7
+  // 6
+  // 5
+  // 4
+  // 3
+  // 2
+}: {
+  a: empty,
+});
+
+({
+  // 2
+  // 3
+  // 4
+  // 5
+  // 6
+  // 7
+  // 8
+  // 9
+  // 10
+  // 11
+  // 12
+  // 13
+  // 14
+  // 15
+  // stop merge
+  // stop merge
+  // stop merge
+  // stop merge
+  a: 42,
+  // stop merge
+  // stop merge
+  // stop merge
+  // 15
+  // 14
+  // 13
+  // 12
+  // 11
+  // 10
+  // 9
+  // 8
+  // 7
+  // 6
+  // 5
+  // 4
+  // 3
+  // 2
+}: {
+  a: empty,
+});
+
+({
+  // 2
+  // 3
+  // 4
+  // 5
+  // 6
+  // 7
+  // 8
+  // 9
+  // 10
+  // 11
+  // 12
+  // 13
+  // 14
+  // 15
+  // stop merge
+  // stop merge
+  // stop merge
+  a: 42,
+  // stop merge
+  // stop merge
+  // stop merge
+  // stop merge
+  // 15
+  // 14
+  // 13
+  // 12
+  // 11
+  // 10
+  // 9
+  // 8
+  // 7
+  // 6
+  // 5
+  // 4
+  // 3
+  // 2
+}: {
+  a: empty,
+});
+
+({
+  // 2
+  // 3
+  // 4
+  // 5
+  // 6
+  // 7
+  // 8
+  // 9
+  // 10
+  // 11
+  // 12
+  // 13
+  // 14
+  // 15
+  // stop merge
+  // stop merge
+  // stop merge
+  // stop merge
+  a: 42,
+  // stop merge
+  // stop merge
+  // stop merge
+  // stop merge
+  // 15
+  // 14
+  // 13
+  // 12
+  // 11
+  // 10
+  // 9
+  // 8
+  // 7
+  // 6
+  // 5
+  // 4
+  // 3
+  // 2
+}: {
+  a: empty,
+});
+
+================================================================================
+`;
+
+exports[`layout.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @format
+ * @flow
+ */
+
+{
+  const o = {a: {b: {c: {d: 42}}}};
+  ([o.a.b.c.d, o.a.b.c, o.a.b, o.a, o]: [empty, empty, empty, empty, empty]);
+  ([o, o.a, o.a.b, o.a.b.c, o.a.b.c.d]: [empty, empty, empty, empty, empty]);
+  ([o.a.b.c.d, o, o.a.b.c, o.a, o.a.b]: [empty, empty, empty, empty, empty]);
+  ([o, o.a.b.c.d, o.a, o.a.b.c, o.a.b]: [empty, empty, empty, empty, empty]);
+  ([o.a.b, o, o.a.b.c, o.a, o.a.b.c.d]: [empty, empty, empty, empty, empty]);
+  ([o.a.b, o.a.b.c.d, o.a.b.c, o.a, o]: [empty, empty, empty, empty, empty]);
+}
+
+{
+  const o = {a: 1, b: 2};
+  ([o, o.a, o.b]: [empty, empty, empty]);
+  ([o.a, o, o.b]: [empty, empty, empty]);
+  ([o.a, o.b, o]: [empty, empty, empty]);
+  ([o, o.b, o.a]: [empty, empty, empty]);
+  ([o.b, o, o.a]: [empty, empty, empty]);
+  ([o.b, o.a, o]: [empty, empty, empty]);
+}
+
+{
+  const o = {p: (() => o: () => empty)};
+}
+
+{
+  let a;
+  ((a = [() => a]): [empty & (() => empty)]);
+}
+
+=====================================output=====================================
+/**
+ * @format
+ * @flow
+ */
+
+{
+  const o = { a: { b: { c: { d: 42 } } } };
+  ([o.a.b.c.d, o.a.b.c, o.a.b, o.a, o]: [empty, empty, empty, empty, empty]);
+  ([o, o.a, o.a.b, o.a.b.c, o.a.b.c.d]: [empty, empty, empty, empty, empty]);
+  ([o.a.b.c.d, o, o.a.b.c, o.a, o.a.b]: [empty, empty, empty, empty, empty]);
+  ([o, o.a.b.c.d, o.a, o.a.b.c, o.a.b]: [empty, empty, empty, empty, empty]);
+  ([o.a.b, o, o.a.b.c, o.a, o.a.b.c.d]: [empty, empty, empty, empty, empty]);
+  ([o.a.b, o.a.b.c.d, o.a.b.c, o.a, o]: [empty, empty, empty, empty, empty]);
+}
+
+{
+  const o = { a: 1, b: 2 };
+  ([o, o.a, o.b]: [empty, empty, empty]);
+  ([o.a, o, o.b]: [empty, empty, empty]);
+  ([o.a, o.b, o]: [empty, empty, empty]);
+  ([o, o.b, o.a]: [empty, empty, empty]);
+  ([o.b, o, o.a]: [empty, empty, empty]);
+  ([o.b, o.a, o]: [empty, empty, empty]);
+}
+
+{
+  const o = { p: (() => o: () => empty) };
+}
+
+{
+  let a;
+  ((a = [() => a]): [empty & (() => empty)]);
+}
+
+================================================================================
+`;
+
+exports[`underline_spaces.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @format
+ * @flow
+ */
+
+((42: ?number): number);
+
+=====================================output=====================================
+/**
+ * @format
+ * @flow
+ */
+
+((42: ?number): number);
+
+================================================================================
+`;
+
+exports[`union.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @format
+ * @flow
+ */
+
+declare var any: any;
+declare opaque type A;
+declare opaque type B;
+declare opaque type C;
+declare opaque type D;
+
+// Error: Group should list three errors in the order: \`b\`, \`a\`, \`c\`
+({b: 2, a: 1, c: 3}: {a: boolean, b: boolean, c: boolean});
+
+// Error: Group should list three errors in the order: \`b\`, \`a\`, \`c\`
+({b: 2, a: 1, c: 3}: {
+  a: boolean | string,
+  b: boolean | string,
+  c: boolean | string,
+});
+
+// Error: Group should list three errors in the order: \`b\`, \`a\`, \`c\`
+({b: 2, a: 1, c: 3}: {a: boolean | string, b: boolean, c: boolean});
+
+// Error: Group should list three errors in the order: \`b\`, \`a\`, \`c\`
+({b: 2, a: 1, c: 3}: {a: boolean, b: boolean | string, c: boolean});
+
+// Error: Group should list three errors in the order: \`b\`, \`a\`, \`c\`
+({b: 2, a: 1, c: 3}: {a: boolean, b: boolean, c: boolean | string});
+
+// Error: number ~> boolean
+({a: {b: 42}}: {a: {b: boolean}});
+
+// Error: number ~> boolean. Because of union error scoring we should only see
+// one error.
+({a: {b: 42}}: {a: boolean | {b: boolean | {}}});
+
+(42: boolean); // Error: number ~> boolean
+(42: {} | {} | {} | boolean); // Error: number ~> boolean
+(42: {} | ({} | ({} | boolean))); // Error: number ~> boolean
+
+// Alias Example 1
+({x: 123, y: 'abc'}: {x: number, y: number} | {x: string, y: string}); // Error
+
+// Alias Example 2
+type NumberPoint = {x: number, y: number};
+type StringPoint = {x: string, y: string};
+({x: 123, y: 'abc'}: number | NumberPoint | StringPoint); // Error
+
+// Alias Example 3
+type Point = NumberPoint | StringPoint;
+({x: 123, y: 'abc'}: Point); // Error
+
+(true: number | string); // Error
+(true: number | string | {}); // Error: should not show the {} branch
+(true: {} | number | string); // Error: should not show the {} branch
+(true: number | {} | string); // Error: should not show the {} branch
+
+({a: true}: {a: number | string}); // Error
+
+({
+  a: true, // Error: should be grouped
+  b: true, // Error: should be grouped, should not show the {} branch
+  c: true, // Error: should be grouped, should not show the {} branch
+  d: true, // Error: should be grouped, should not show the {} branch
+}: {
+  a: number | string,
+  b: {} | number | string,
+  c: number | {} | string,
+  d: number | string | {},
+});
+
+// Demonstrates use_op ~> union speculation ~> use_op
+({
+  a: [true], // Error: should be grouped
+  b: [true], // Error: should be grouped, should not show the [{}] branch
+  c: [true], // Error: should be grouped, should not show the [{}] branch
+  d: [true], // Error: should be grouped, should not show the [{}] branch
+}: {
+  a: [number] | [string],
+  b: [{}] | [number] | [string],
+  c: [number] | [{}] | [string],
+  d: [number] | [string] | [{}],
+});
+
+(true: number | (string | false)); // Error: should be flattened
+(true: (string | false) | number); // Error: should be flattened
+(true: {} | number | (string | false)); // Error: should be flattened
+(true: number | (string | false) | {}); // Error: should be flattened
+(true: number | (string | {} | false)); // Error: should be flattened
+
+(true: number | number | number | string); // Error: should be flattened
+(true: number | number | (number | string)); // Error: should be flattened
+(true: number | (number | (number | string))); // Error: should be flattened
+(true: (string | number) | number | number); // Error: should be flattened
+(true: ((string | number) | number) | number); // Error: should be flattened
+
+(true: number | {}); // Error
+({a: true, b: true}: {a: number | {}, b: number | {}}); // Error
+({a: true, b: true}: {a: number | string | {}, b: number | {}}); // Error
+
+// Error: union inside union fun.
+((any: [[null, number]]): [[null, A] | [null, B]] | [[null, C] | [null, D]]);
+
+// Error: union inside union fun, but thanks to scoring we only show three.
+((any: [[null, number]]): [[null, A] | {}] | [[null, C] | [null, D]]);
+
+// Error: union inside union fun, but thanks to scoring we only show two.
+((any: [[null, number]]): [[null, A] | {}] | [[null, C] | {}]);
+
+// Error: union inside union fun, but thanks to scoring we only show one.
+((any: [[null, number]]): {} | [[null, C] | {}]);
+
+=====================================output=====================================
+/**
+ * @format
+ * @flow
+ */
+
+declare var any: any;
+declare opaque type A;
+declare opaque type B;
+declare opaque type C;
+declare opaque type D;
+
+// Error: Group should list three errors in the order: \`b\`, \`a\`, \`c\`
+({ b: 2, a: 1, c: 3 }: { a: boolean, b: boolean, c: boolean });
+
+// Error: Group should list three errors in the order: \`b\`, \`a\`, \`c\`
+({ b: 2, a: 1, c: 3 }: {
+  a: boolean | string,
+  b: boolean | string,
+  c: boolean | string,
+});
+
+// Error: Group should list three errors in the order: \`b\`, \`a\`, \`c\`
+({ b: 2, a: 1, c: 3 }: { a: boolean | string, b: boolean, c: boolean });
+
+// Error: Group should list three errors in the order: \`b\`, \`a\`, \`c\`
+({ b: 2, a: 1, c: 3 }: { a: boolean, b: boolean | string, c: boolean });
+
+// Error: Group should list three errors in the order: \`b\`, \`a\`, \`c\`
+({ b: 2, a: 1, c: 3 }: { a: boolean, b: boolean, c: boolean | string });
+
+// Error: number ~> boolean
+({ a: { b: 42 } }: { a: { b: boolean } });
+
+// Error: number ~> boolean. Because of union error scoring we should only see
+// one error.
+({ a: { b: 42 } }: { a: boolean | { b: boolean | {} } });
+
+(42: boolean); // Error: number ~> boolean
+(42: {} | {} | {} | boolean); // Error: number ~> boolean
+(42: {} | ({} | ({} | boolean))); // Error: number ~> boolean
+
+// Alias Example 1
+({ x: 123, y: "abc" }: { x: number, y: number } | { x: string, y: string }); // Error
+
+// Alias Example 2
+type NumberPoint = { x: number, y: number };
+type StringPoint = { x: string, y: string };
+({ x: 123, y: "abc" }: number | NumberPoint | StringPoint); // Error
+
+// Alias Example 3
+type Point = NumberPoint | StringPoint;
+({ x: 123, y: "abc" }: Point); // Error
+
+(true: number | string); // Error
+(true: number | string | {}); // Error: should not show the {} branch
+(true: {} | number | string); // Error: should not show the {} branch
+(true: number | {} | string); // Error: should not show the {} branch
+
+({ a: true }: { a: number | string }); // Error
+
+({
+  a: true, // Error: should be grouped
+  b: true, // Error: should be grouped, should not show the {} branch
+  c: true, // Error: should be grouped, should not show the {} branch
+  d: true, // Error: should be grouped, should not show the {} branch
+}: {
+  a: number | string,
+  b: {} | number | string,
+  c: number | {} | string,
+  d: number | string | {},
+});
+
+// Demonstrates use_op ~> union speculation ~> use_op
+({
+  a: [true], // Error: should be grouped
+  b: [true], // Error: should be grouped, should not show the [{}] branch
+  c: [true], // Error: should be grouped, should not show the [{}] branch
+  d: [true], // Error: should be grouped, should not show the [{}] branch
+}: {
+  a: [number] | [string],
+  b: [{}] | [number] | [string],
+  c: [number] | [{}] | [string],
+  d: [number] | [string] | [{}],
+});
+
+(true: number | (string | false)); // Error: should be flattened
+(true: (string | false) | number); // Error: should be flattened
+(true: {} | number | (string | false)); // Error: should be flattened
+(true: number | (string | false) | {}); // Error: should be flattened
+(true: number | (string | {} | false)); // Error: should be flattened
+
+(true: number | number | number | string); // Error: should be flattened
+(true: number | number | (number | string)); // Error: should be flattened
+(true: number | (number | (number | string))); // Error: should be flattened
+(true: (string | number) | number | number); // Error: should be flattened
+(true: ((string | number) | number) | number); // Error: should be flattened
+
+(true: number | {}); // Error
+({ a: true, b: true }: { a: number | {}, b: number | {} }); // Error
+({ a: true, b: true }: { a: number | string | {}, b: number | {} }); // Error
+
+// Error: union inside union fun.
+((any: [[null, number]]): [[null, A] | [null, B]] | [[null, C] | [null, D]]);
+
+// Error: union inside union fun, but thanks to scoring we only show three.
+((any: [[null, number]]): [[null, A] | {}] | [[null, C] | [null, D]]);
+
+// Error: union inside union fun, but thanks to scoring we only show two.
+((any: [[null, number]]): [[null, A] | {}] | [[null, C] | {}]);
+
+// Error: union inside union fun, but thanks to scoring we only show one.
+((any: [[null, number]]): {} | [[null, C] | {}]);
+
+================================================================================
+`;
+
+exports[`warning.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @format
+ * @flow
+ */
+
+/* flowlint sketchy-null:warn */
+
+const x: ?number = 42;
+
+// Warning: Sketchy-null check
+if (x) {
+}
+
+=====================================output=====================================
+/**
+ * @format
+ * @flow
+ */
+
+/* flowlint sketchy-null:warn */
+
+const x: ?number = 42;
+
+// Warning: Sketchy-null check
+if (x) {
+}
+
+================================================================================
+`;

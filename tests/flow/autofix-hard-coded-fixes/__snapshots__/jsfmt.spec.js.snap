@@ -1,0 +1,101 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`any-in-union.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+const React = require('react');
+
+declare var x1: { f: number } | any;
+declare var x2: any | { f: number };
+declare var x3: any | { f: number } | { node: React.Node };
+declare var x4: { f: number } | any | { node: React.Node };
+declare var x5: { f: number } | { node: React.Node } | any;
+
+module.exports = [
+  () => x1,
+  () => x2,
+  () => x3,
+  () => x4,
+  () => x5,
+];
+
+=====================================output=====================================
+// @flow
+
+const React = require("react");
+
+declare var x1: { f: number } | any;
+declare var x2: any | { f: number };
+declare var x3: any | { f: number } | { node: React.Node };
+declare var x4: { f: number } | any | { node: React.Node };
+declare var x5: { f: number } | { node: React.Node } | any;
+
+module.exports = [() => x1, () => x2, () => x3, () => x4, () => x5];
+
+================================================================================
+`;
+
+exports[`any-to-flowfixme-no-strict.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+declare var x1: { f: number } | any;
+module.exports = () => x1;
+
+=====================================output=====================================
+// @flow
+
+declare var x1: { f: number } | any;
+module.exports = () => x1;
+
+================================================================================
+`;
+
+exports[`any-to-flowfixme-strict.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow strict
+
+declare var x1: { f: number } | any;
+module.exports = () => x1;
+
+=====================================output=====================================
+// @flow strict
+
+declare var x1: { f: number } | any;
+module.exports = () => x1;
+
+================================================================================
+`;
+
+exports[`any-to-flowfixme-strict-local.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow strict-local
+
+declare var x1: { f: number } | any;
+module.exports = () => x1;
+
+=====================================output=====================================
+// @flow strict-local
+
+declare var x1: { f: number } | any;
+module.exports = () => x1;
+
+================================================================================
+`;

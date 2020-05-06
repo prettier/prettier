@@ -225,20 +225,41 @@ printWidth: 80
 // @flow
 
 type A = {
-  'b_c': ?string
+  b_c: ?string
 };
+
+type B = { "@type": "A", a: string } | { "@type": "B", b: string };
 
 function stuff(str: string) {}
 
 function testProperty(a: A) {
   if (a.b_c) {
-    stuff(a.b_c)
+    stuff(a.b_c);
   }
 }
 
-function testLiteralProperty(a: A) {
-  if (a['b_c']) {
-    stuff(a['b_c'])
+function testLiteralProperty(a: A, b: B) {
+  if (a["b_c"]) {
+    stuff(a["b_c"]);
+  }
+
+  if (b["@type"] === "A") {
+    (b.a: string); // ok
+    stuff(b.a);
+  } else {
+    (b.b: string); // ok
+    stuff(b.b);
+  }
+}
+
+function testSwitchLiteralProperty(b: B) {
+  switch (b["@type"]) {
+    case "A":
+      return b.a;
+    case "B":
+      return b.b;
+    default:
+      (b["@type"]: empty);
   }
 }
 
@@ -249,6 +270,8 @@ type A = {
   b_c: ?string,
 };
 
+type B = { "@type": "A", a: string } | { "@type": "B", b: string };
+
 function stuff(str: string) {}
 
 function testProperty(a: A) {
@@ -257,11 +280,62 @@ function testProperty(a: A) {
   }
 }
 
-function testLiteralProperty(a: A) {
+function testLiteralProperty(a: A, b: B) {
   if (a["b_c"]) {
     stuff(a["b_c"]);
   }
+
+  if (b["@type"] === "A") {
+    (b.a: string); // ok
+    stuff(b.a);
+  } else {
+    (b.b: string); // ok
+    stuff(b.b);
+  }
 }
+
+function testSwitchLiteralProperty(b: B) {
+  switch (b["@type"]) {
+    case "A":
+      return b.a;
+    case "B":
+      return b.b;
+    default:
+      (b["@type"]: empty);
+  }
+}
+
+================================================================================
+`;
+
+exports[`cond_expr.js format 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+var a = { p: 0 };
+(a.q ? a.q : "foo");
+(a.q: mixed); // An error here
+
+var b = { p: 0 };
+if (b.q) {} else {};
+(b.q: mixed); // is an error here
+
+=====================================output=====================================
+// @flow
+
+var a = { p: 0 };
+a.q ? a.q : "foo";
+(a.q: mixed); // An error here
+
+var b = { p: 0 };
+if (b.q) {
+} else {
+}
+(b.q: mixed); // is an error here
 
 ================================================================================
 `;
@@ -323,6 +397,10 @@ let tests = [
       }
     }
   },
+
+  function(o: null|{}) {
+    if (o.p) {} // 2 errors: property \`p\` not found on null and not found in {}
+  },
 ]
 
 =====================================output=====================================
@@ -375,6 +453,11 @@ let tests = [
       }
     }
   },
+
+  function (o: null | {}) {
+    if (o.p) {
+    } // 2 errors: property \`p\` not found on null and not found in {}
+  },
 ];
 
 ================================================================================
@@ -425,7 +508,7 @@ let tests = [
 
   function(x: { y: 'foo' } | { y: 'bar' }) {
     if (x.y == 123) {} // error
-    if (x.y === 123) {} // ok
+    if (x.y === 123) {} // error
   },
 ]
 
@@ -456,9 +539,69 @@ let tests = [
     if (x.y == 123) {
     } // error
     if (x.y === 123) {
-    } // ok
+    } // error
   },
 ];
+
+================================================================================
+`;
+
+exports[`eval.js format 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+type A = {|
+  +f: ?{|
+    +id: ?string,
+  |}
+|};
+
+type Foo = $PropertyType<A, 'f'>;
+
+type B = {|
+  +f: ?{|
+    +id: ?string,
+  |}
+|};
+
+type Bar = $PropertyType<B, 'f'>;
+
+const _ = (arg: Foo | Bar) => {
+  if (arg == null) {
+    return null;
+  }
+  const id = arg.id;
+}
+
+=====================================output=====================================
+// @flow
+
+type A = {|
+  +f: ?{|
+    +id: ?string,
+  |},
+|};
+
+type Foo = $PropertyType<A, "f">;
+
+type B = {|
+  +f: ?{|
+    +id: ?string,
+  |},
+|};
+
+type Bar = $PropertyType<B, "f">;
+
+const _ = (arg: Foo | Bar) => {
+  if (arg == null) {
+    return null;
+  }
+  const id = arg.id;
+};
 
 ================================================================================
 `;
@@ -485,6 +628,9 @@ function foo2(x: ?Class<Foo>): string {
   return x && new x().foo || "";
 }
 
+declare var TDR: {-current: {offsetWidth: number}};
+if (TDR.current) { }
+
 =====================================output=====================================
 declare class Foo {
   foo: string;
@@ -500,6 +646,192 @@ function foo1(x: ?Foo): string {
 
 function foo2(x: ?Class<Foo>): string {
   return (x && new x().foo) || "";
+}
+
+declare var TDR: { -current: { offsetWidth: number } };
+if (TDR.current) {
+}
+
+================================================================================
+`;
+
+exports[`fn.js format 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/* @flow */
+
+function takesBotFunction (x : empty => empty) {}
+function takesTopFunction (x : mixed => mixed) {}
+function takesMidFunction (x : empty => mixed) {}
+function takesMidFunction2 (x : mixed => empty) {}
+function takesHigherOrderFn (x : empty => empty => mixed) {}
+function takesHigherOrderFn2 (x : (empty => mixed) => mixed) {}
+function takesMultiArgFn (x : (empty, empty) => mixed) {}
+function takesMultiArgFn2 (x : (mixed, mixed) => mixed) {}
+
+function fun(x: mixed) {
+  if (typeof x === "function") {
+    takesBotFunction(x); //error
+  }
+}
+
+function fun2(x: mixed) {
+  if (typeof x === "function") {
+    takesTopFunction(x); // error
+  }
+}
+
+function fun3(x: mixed) {
+  if (typeof x === "function") {
+    takesMidFunction(x); // error
+  }
+}
+
+function fun4(x: mixed) {
+  if (typeof x === "function") {
+    takesMidFunction2(x); // error
+  }
+}
+
+function fun5(x: mixed) {
+  if (typeof x === "function") {
+    takesHigherOrderFn(x); // error
+  }
+}
+
+function fun6(x: mixed) {
+  if (typeof x === "function") {
+    takesHigherOrderFn2(x); // error
+  }
+}
+
+function fun7(x: mixed) {
+  if (typeof x === "function") {
+    takesMultiArgFn(x); // error
+  }
+}
+
+function fun8(x: mixed) {
+  if (typeof x === "function") {
+    takesMultiArgFn2(x); // error
+  }
+}
+
+function fun9(x: mixed, y : mixed, z : empty) {
+  if (typeof x === "function") {
+    x(y); // error
+    x(z);
+    x(x); // error
+    x(1,2,3,4,5); //error
+    x(...[1,2]); //error
+    x();
+  }
+}
+
+declare var obj : {field : mixed};
+if (typeof obj.field === 'function') {
+  const f = obj.field(0); // error
+  const f2 = f.foo; // error
+}
+
+function fun10(x: mixed) {
+  if (typeof x === "function") {
+    x.name;
+    x.length;
+    x.foo; // error
+    x.name = "bar"
+    x.length = 3;
+  }
+}
+
+=====================================output=====================================
+/* @flow */
+
+function takesBotFunction(x: (empty) => empty) {}
+function takesTopFunction(x: (mixed) => mixed) {}
+function takesMidFunction(x: (empty) => mixed) {}
+function takesMidFunction2(x: (mixed) => empty) {}
+function takesHigherOrderFn(x: (empty) => (empty) => mixed) {}
+function takesHigherOrderFn2(x: ((empty) => mixed) => mixed) {}
+function takesMultiArgFn(x: (empty, empty) => mixed) {}
+function takesMultiArgFn2(x: (mixed, mixed) => mixed) {}
+
+function fun(x: mixed) {
+  if (typeof x === "function") {
+    takesBotFunction(x); //error
+  }
+}
+
+function fun2(x: mixed) {
+  if (typeof x === "function") {
+    takesTopFunction(x); // error
+  }
+}
+
+function fun3(x: mixed) {
+  if (typeof x === "function") {
+    takesMidFunction(x); // error
+  }
+}
+
+function fun4(x: mixed) {
+  if (typeof x === "function") {
+    takesMidFunction2(x); // error
+  }
+}
+
+function fun5(x: mixed) {
+  if (typeof x === "function") {
+    takesHigherOrderFn(x); // error
+  }
+}
+
+function fun6(x: mixed) {
+  if (typeof x === "function") {
+    takesHigherOrderFn2(x); // error
+  }
+}
+
+function fun7(x: mixed) {
+  if (typeof x === "function") {
+    takesMultiArgFn(x); // error
+  }
+}
+
+function fun8(x: mixed) {
+  if (typeof x === "function") {
+    takesMultiArgFn2(x); // error
+  }
+}
+
+function fun9(x: mixed, y: mixed, z: empty) {
+  if (typeof x === "function") {
+    x(y); // error
+    x(z);
+    x(x); // error
+    x(1, 2, 3, 4, 5); //error
+    x(...[1, 2]); //error
+    x();
+  }
+}
+
+declare var obj: { field: mixed };
+if (typeof obj.field === "function") {
+  const f = obj.field(0); // error
+  const f2 = f.foo; // error
+}
+
+function fun10(x: mixed) {
+  if (typeof x === "function") {
+    x.name;
+    x.length;
+    x.foo; // error
+    x.name = "bar";
+    x.length = 3;
+  }
 }
 
 ================================================================================
@@ -668,6 +1000,18 @@ function def_assign_within_try(b: boolean, obj: Obj) {
     var z:string = obj.p;       // error, number ~/~ string
 }
 
+function def_assign_within_if_both_branches(b: boolean, obj: Obj) {
+    obj.p = "a";
+    if (b) {
+        f();
+        obj.p = 10;             // (obj.p : number)
+    } else {
+        f();
+        obj.p = 10;
+    }
+    var y: number = obj.p;      // error, obj.p : number | string
+}
+
 function def_assign_within_for(b: boolean, obj: Obj) {
     for (; b; ) {
         obj.p = 10;             // (obj.p : number)
@@ -754,6 +1098,18 @@ function def_assign_within_try(b: boolean, obj: Obj) {
   var z: string = obj.p; // error, number ~/~ string
 }
 
+function def_assign_within_if_both_branches(b: boolean, obj: Obj) {
+  obj.p = "a";
+  if (b) {
+    f();
+    obj.p = 10; // (obj.p : number)
+  } else {
+    f();
+    obj.p = 10;
+  }
+  var y: number = obj.p; // error, obj.p : number | string
+}
+
 function def_assign_within_for(b: boolean, obj: Obj) {
   for (; b; ) {
     obj.p = 10; // (obj.p : number)
@@ -793,6 +1149,58 @@ declare var BAZ: { stuff?: (x: number) => void } | void;
 ================================================================================
 `;
 
+exports[`maybe_react.js format 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+const React = require('react');
+
+type Node =
+    null
+  | boolean
+  | number
+  | string
+  | React$Element<any>
+  | Iterable<?React$Node>;
+
+type Props = {|
+  title?: ?number | Node,
+|};
+
+declare var x : Props;
+const {title} = x;
+
+((title != null ? title.toString() : '') : string)
+
+=====================================output=====================================
+// @flow
+
+const React = require("react");
+
+type Node =
+  | null
+  | boolean
+  | number
+  | string
+  | React$Element<any>
+  | Iterable<?React$Node>;
+
+type Props = {|
+  title?: ?number | Node,
+|};
+
+declare var x: Props;
+const { title } = x;
+
+((title != null ? title.toString() : ""): string);
+
+================================================================================
+`;
+
 exports[`missing-property-cond.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
@@ -802,13 +1210,13 @@ printWidth: 80
 // @flow
 
 function foo1(o: { x: number }) {
-  if (o.p1) { // OK, this is an idiomatic way of testing property existence
+  if (o.p1) { // Error, testing for unknown property
     o.x;
   }
 }
 
 function foo2(o: { x: number }) {
-  if (o.p2) { // OK
+  if (o.p2) { // Error, testing for unknown property
     o.p2.x; // error, since o.p2's type is unknown (e.g., could be \`number\`)
   }
 }
@@ -818,7 +1226,7 @@ function foo3(o: { x: number }) {
 }
 
 function foo4(o: $Exact<{ x: number }>) {
-  if (o.p4) { // OK
+  if (o.p4) { // Error, testing for unknown property
     o.p4.x; // currently OK, should be unreachable
   } else {
     o.p4.x; // error
@@ -828,7 +1236,7 @@ function foo4(o: $Exact<{ x: number }>) {
 function foo5() {
   const o = { };
   _foo5();
-  if (o.p) { o.p(); }
+  if (o.p) { o.p(); } // OK, unsealed objects are lax
   function _foo5() {
     o.p = function() { }
   }
@@ -856,10 +1264,14 @@ type Foo9Expected = {
 
 function foo9() {
   const actual = {};
-  if (actual.foo === undefined) {
+  if (actual.foo === undefined) { // OK, unsealed objects are lax
     actual.foo = 'foo';
   }
   (actual: Foo9Expected);
+}
+
+function foo10() {
+  if (null.q) {} // error: property \`q\` on null
 }
 
 =====================================output=====================================
@@ -867,14 +1279,14 @@ function foo9() {
 
 function foo1(o: { x: number }) {
   if (o.p1) {
-    // OK, this is an idiomatic way of testing property existence
+    // Error, testing for unknown property
     o.x;
   }
 }
 
 function foo2(o: { x: number }) {
   if (o.p2) {
-    // OK
+    // Error, testing for unknown property
     o.p2.x; // error, since o.p2's type is unknown (e.g., could be \`number\`)
   }
 }
@@ -885,7 +1297,7 @@ function foo3(o: { x: number }) {
 
 function foo4(o: $Exact<{ x: number }>) {
   if (o.p4) {
-    // OK
+    // Error, testing for unknown property
     o.p4.x; // currently OK, should be unreachable
   } else {
     o.p4.x; // error
@@ -897,7 +1309,7 @@ function foo5() {
   _foo5();
   if (o.p) {
     o.p();
-  }
+  } // OK, unsealed objects are lax
   function _foo5() {
     o.p = function () {};
   }
@@ -933,9 +1345,15 @@ type Foo9Expected = {
 function foo9() {
   const actual = {};
   if (actual.foo === undefined) {
+    // OK, unsealed objects are lax
     actual.foo = "foo";
   }
   (actual: Foo9Expected);
+}
+
+function foo10() {
+  if (null.q) {
+  } // error: property \`q\` on null
 }
 
 ================================================================================
@@ -1041,7 +1459,7 @@ function false_(x: mixed) {
 
 function obj2(x: mixed) {
   if (typeof x === "object") {
-    (x: { [key: string]: mixed } | null);
+    (x: { +[key: string]: mixed } | null);
     if (x !== null) {
       (x['foo']: string); // error, mixed
     }
@@ -1164,7 +1582,7 @@ function false_(x: mixed) {
 
 function obj2(x: mixed) {
   if (typeof x === "object") {
-    (x: { [key: string]: mixed } | null);
+    (x: { +[key: string]: mixed } | null);
     if (x !== null) {
       (x["foo"]: string); // error, mixed
     }
@@ -1190,6 +1608,73 @@ function arr0(x: mixed) {
   if (Array.isArray(x)) {
     takesString(x[0]); // error
   }
+}
+
+================================================================================
+`;
+
+exports[`mixed_object.js format 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+function bad (x : mixed) {
+  if (typeof x === "object" && x !== null) {
+    x.a = 3;
+  }
+}
+
+let obj : {a : string} = {a : "oops"};
+bad(obj); // yikes
+
+=====================================output=====================================
+// @flow
+function bad(x: mixed) {
+  if (typeof x === "object" && x !== null) {
+    x.a = 3;
+  }
+}
+
+let obj: { a: string } = { a: "oops" };
+bad(obj); // yikes
+
+================================================================================
+`;
+
+exports[`nested_union_maybe.js format 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+declare function foo(x : number) : ?string;
+
+declare var x : number;
+const y = true
+    ? foo
+        ? foo(x)
+        : null
+    : 'fail';
+
+
+if(y != null) { (y : string) }
+
+
+
+=====================================output=====================================
+// @flow
+
+declare function foo(x: number): ?string;
+
+declare var x: number;
+const y = true ? (foo ? foo(x) : null) : "fail";
+
+if (y != null) {
+  (y: string);
 }
 
 ================================================================================
@@ -1439,7 +1924,7 @@ let tests = [
   },
 
   function(num: number, obj: { foo: number }) {
-    if (num === obj.bar) { // ok, typos allowed in conditionals
+    if (num === obj.bar) { // Error, accessing unknown property
     }
   },
 
@@ -1484,6 +1969,57 @@ let tests = [
     }
   },
 ];
+
+let negtests = [
+  function(x: number) {
+    if (x === -1) {
+      (x: void); // error
+    }
+    (x: -1); // error
+  },
+
+  function(x: number) {
+    if (x !== -1) {
+      (x: -1); // error
+    }
+    (x: -1); // error
+  },
+
+  function(x: -1): -1 {
+    if (x === -1) {
+      return x;
+    }
+    return -1;
+  },
+
+  function(x: 0): number {
+    if (x === -1) { // error
+      return x;
+    }
+    return x;
+  },
+
+  function(x: -1) {
+    if (x === 0) { //error
+      (x: 0);
+    }
+    (x: -1);
+  },
+
+  function(x: -1 | 0): -1 {
+    if (x === 0) {
+      return -1;
+    }
+    return x;
+  },
+
+  function(x: -1 | 0): -1 {
+    if (x === -1) {
+      return x;
+    }
+    return x;
+  },
+]
 
 =====================================output=====================================
 // @flow
@@ -1561,7 +2097,7 @@ let tests = [
 
   function (num: number, obj: { foo: number }) {
     if (num === obj.bar) {
-      // ok, typos allowed in conditionals
+      // Error, accessing unknown property
     }
   },
 
@@ -1607,6 +2143,152 @@ let tests = [
     }
   },
 ];
+
+let negtests = [
+  function (x: number) {
+    if (x === -1) {
+      (x: void); // error
+    }
+    (x: -1); // error
+  },
+
+  function (x: number) {
+    if (x !== -1) {
+      (x: -1); // error
+    }
+    (x: -1); // error
+  },
+
+  function (x: -1): -1 {
+    if (x === -1) {
+      return x;
+    }
+    return -1;
+  },
+
+  function (x: 0): number {
+    if (x === -1) {
+      // error
+      return x;
+    }
+    return x;
+  },
+
+  function (x: -1) {
+    if (x === 0) {
+      //error
+      (x: 0);
+    }
+    (x: -1);
+  },
+
+  function (x: -1 | 0): -1 {
+    if (x === 0) {
+      return -1;
+    }
+    return x;
+  },
+
+  function (x: -1 | 0): -1 {
+    if (x === -1) {
+      return x;
+    }
+    return x;
+  },
+];
+
+================================================================================
+`;
+
+exports[`opaque_refinement.js format 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import type {Opaque, State} from './opaque_type.js'
+
+type Obj = {[id: Opaque]: void};
+
+declare var foo : null | Opaque;
+declare var bar : null | Obj
+if (foo != null && bar) {
+  bar[foo];
+}
+
+
+function foo(state: State) {
+  const id = state.o;
+  if (id != null && state.d) {
+    state.d.index[id];
+  }
+}
+
+=====================================output=====================================
+// @flow
+
+import type { Opaque, State } from "./opaque_type.js";
+
+type Obj = { [id: Opaque]: void };
+
+declare var foo: null | Opaque;
+declare var bar: null | Obj;
+if (foo != null && bar) {
+  bar[foo];
+}
+
+function foo(state: State) {
+  const id = state.o;
+  if (id != null && state.d) {
+    state.d.index[id];
+  }
+}
+
+================================================================================
+`;
+
+exports[`opaque_type.js format 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+export opaque type Opaque = string;
+
+export type Dict = {
+  [id: Opaque]: void,
+};
+
+export type Index = {
+  index: Dict,
+};
+
+export type State = {
+  o: null | Opaque,
+  d: null | Index,
+};
+
+=====================================output=====================================
+// @flow
+
+export opaque type Opaque = string;
+
+export type Dict = {
+  [id: Opaque]: void,
+};
+
+export type Index = {
+  index: Dict,
+};
+
+export type State = {
+  o: null | Opaque,
+  d: null | Index,
+};
 
 ================================================================================
 `;
@@ -2042,7 +2724,7 @@ let tests = [
   },
 
   function(str: string, obj: { foo: string }) {
-    if (str === obj.bar) { // ok, typos allowed in conditionals
+    if (str === obj.bar) { // Error, testing for unknown property
     }
   },
 
@@ -2178,7 +2860,7 @@ let tests = [
 
   function (str: string, obj: { foo: string }) {
     if (str === obj.bar) {
-      // ok, typos allowed in conditionals
+      // Error, testing for unknown property
     }
   },
 
@@ -2257,7 +2939,7 @@ class A {
 
 class B {
   test(): string {
-    if (super.prop) { // super.prop doesn't exist
+    if (super.prop) { // Error, super.prop doesn't exist
       return super.prop; // error, unknown type passed to string expected
     }
     return "B";
@@ -2286,7 +2968,7 @@ class A {
 class B {
   test(): string {
     if (super.prop) {
-      // super.prop doesn't exist
+      // Error, super.prop doesn't exist
       return super.prop; // error, unknown type passed to string expected
     }
     return "B";
@@ -2315,22 +2997,22 @@ printWidth: 80
 
 function foo(text: string | number): string {
   switch (typeof text) {
-　　case 'string':
-　　　return text;
+    case 'string':
+      return text;
     case 'number':
       return text; // error, should return string
-　　default:
-　　　return 'wat';
-　}
+    default:
+      return 'wat';
+  }
 }
 
 function bar(text: string | number): string {
   switch (typeof text) {
     case 'string':
       return text[0];
-  　default:
+    default:
       return (text++) + '';
-　}
+  }
 }
 
 function baz1(text: string | number): string {
@@ -2338,9 +3020,9 @@ function baz1(text: string | number): string {
     case 'number':
     case 'string':
       return text[0]; // error, [0] on number
-  　default:
+    default:
       return 'wat';
-　}
+  }
 }
 
 function baz2(text: string | number): string {
@@ -2348,9 +3030,9 @@ function baz2(text: string | number): string {
     case 'string':
     case 'number':
       return text[0]; // error, [0] on number
-  　default:
+    default:
       return 'wat';
-　}
+  }
 }
 
 function corge(text: string | number | Array<string>): string {
@@ -2362,9 +3044,9 @@ function corge(text: string | number | Array<string>): string {
       // using ++ since it isn't valid on arrays or strings.
       // should only error for string since Array was filtered out.
       return (text++) + '';
-  　default:
+    default:
       return 'wat';
-　}
+  }
 }
 
 =====================================output=====================================
@@ -2520,7 +3202,7 @@ function nationality(x: Citizen | NonCitizen) {
 let tests = [
   // non-existent props
   function test7(x: A) {
-    if (x.kindTypo === 1) { // typos are allowed to be tested
+    if (x.kindTypo === 1) { // error: kindTypo prop missing
       (x.kindTypo: string); // typos can't be used, though
     }
   },
@@ -2543,35 +3225,36 @@ let tests = [
     r: Object, s: Function, t: () => void
   ) {
     if (x.length === 0) {}
-    if (x.legnth === 0) { // typos are allowed to be tested
+    if (x.legnth === 0) { // Error, typos
       (x.legnth: number); // inside the block, it's a number
       (x.legnth: string); // error: number literal 0 !~> string
     }
     if (y.length === 0) {}
-    if (y.legnth === 0) { // typos are allowed to be tested
+    if (y.legnth === 0) { // Error, typo
       (y.legnth: number); // inside the block, it's a number
       (y.legnth: string); // error: number literal 0 !~> string
     }
-    if (z.toString === 0) {}
-    if (z.toStirng === 0) { // typos are allowed to be tested
+    if (z.toString === 0) {} // Error
+    if (z.toStirng === 0) { // Error, typo
       (z.toStirng: number); // inside the block, it's a number
       (z.toStirng: string); // error: number literal 0 !~> string
     }
-    if (q.valueOf === 0) {}
-    if (q.valeuOf === 0) { // typos are allowed to be tested
+    if (q.valueOf === 0) {} // Error
+    if (q.valeuOf === 0) { // Error, typo
       (q.valeuOf: number); // inside the block, it's a number
       (q.valeuOf: string); // error: number literal 0 !~> string
     }
-    if (r.toStirng === 0) { // typos are allowed to be tested
-      (r.toStirng: empty); // props on AnyObjT are \`any\`
+    if (r.toStirng === 0) { // error: toStirng prop missing
+      (r.toStirng: empty); // error, toStirng is refined to 0
     }
-    if (s.call === 0) {}
-    if (s.calll === 0) { // typos are allowed to be tested
-      (t.calll: empty); // ok, props on functions are \`any\` :/
+    if (s.call === 0) {} // Error
+    if (s.calll === 0) { // error: calll prop missing
+      (s.calll: empty); // error, calll is refined to 0
     }
-    if (t.call === 0) {}
-    if (t.calll === 0) { // typos are allowed to be tested
-      (t.calll: empty); // ok, props on functions are \`any\` :/
+    if (t.call === 0) {} // Error
+    if (t.calll === 0) { // error: calll prop missing
+      (t.calll: number); // inside the block, it's a number
+      (t.calll: string); // error: number literal 0 !~> string
     }
   },
 
@@ -2587,13 +3270,13 @@ let tests = [
       (x.bool: false); // error: true !~> false
     }
     // even if it doesn't exist...
-    if (x.badStr === 'bad') {
+    if (x.badStr === 'bad') { // Error, reading unknown property
       (x.badStr: empty); // error: 'bad' !~> empty
     }
-    if (x.badNum === 123) {
+    if (x.badNum === 123) { // Error, reading unknown property
       (x.badNum: empty); // error: 123 !~> empty
     }
-    if (x.badBool === true) {
+    if (x.badBool === true) { // Error, reading unknown property
       (x.badBool: empty); // error: true !~> empty
     }
   },
@@ -2797,7 +3480,7 @@ let tests = [
   // non-existent props
   function test7(x: A) {
     if (x.kindTypo === 1) {
-      // typos are allowed to be tested
+      // error: kindTypo prop missing
       (x.kindTypo: string); // typos can't be used, though
     }
   },
@@ -2831,46 +3514,47 @@ let tests = [
     if (x.length === 0) {
     }
     if (x.legnth === 0) {
-      // typos are allowed to be tested
+      // Error, typos
       (x.legnth: number); // inside the block, it's a number
       (x.legnth: string); // error: number literal 0 !~> string
     }
     if (y.length === 0) {
     }
     if (y.legnth === 0) {
-      // typos are allowed to be tested
+      // Error, typo
       (y.legnth: number); // inside the block, it's a number
       (y.legnth: string); // error: number literal 0 !~> string
     }
     if (z.toString === 0) {
-    }
+    } // Error
     if (z.toStirng === 0) {
-      // typos are allowed to be tested
+      // Error, typo
       (z.toStirng: number); // inside the block, it's a number
       (z.toStirng: string); // error: number literal 0 !~> string
     }
     if (q.valueOf === 0) {
-    }
+    } // Error
     if (q.valeuOf === 0) {
-      // typos are allowed to be tested
+      // Error, typo
       (q.valeuOf: number); // inside the block, it's a number
       (q.valeuOf: string); // error: number literal 0 !~> string
     }
     if (r.toStirng === 0) {
-      // typos are allowed to be tested
-      (r.toStirng: empty); // props on AnyObjT are \`any\`
+      // error: toStirng prop missing
+      (r.toStirng: empty); // error, toStirng is refined to 0
     }
     if (s.call === 0) {
-    }
+    } // Error
     if (s.calll === 0) {
-      // typos are allowed to be tested
-      (t.calll: empty); // ok, props on functions are \`any\` :/
+      // error: calll prop missing
+      (s.calll: empty); // error, calll is refined to 0
     }
     if (t.call === 0) {
-    }
+    } // Error
     if (t.calll === 0) {
-      // typos are allowed to be tested
-      (t.calll: empty); // ok, props on functions are \`any\` :/
+      // error: calll prop missing
+      (t.calll: number); // inside the block, it's a number
+      (t.calll: string); // error: number literal 0 !~> string
     }
   },
 
@@ -2887,12 +3571,15 @@ let tests = [
     }
     // even if it doesn't exist...
     if (x.badStr === "bad") {
+      // Error, reading unknown property
       (x.badStr: empty); // error: 'bad' !~> empty
     }
     if (x.badNum === 123) {
+      // Error, reading unknown property
       (x.badNum: empty); // error: 123 !~> empty
     }
     if (x.badBool === true) {
+      // Error, reading unknown property
       (x.badBool: empty); // error: true !~> empty
     }
   },
@@ -3062,6 +3749,157 @@ function handleStatus(status: Success | Error) {
 ================================================================================
 `;
 
+exports[`tuple.js format 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+function length_refinement(a: [string] | [number, string]): void {
+  if (a.length === 1) {
+    (a[0]: string);
+  } else {
+
+    (a[0]: number);
+    (a[1]: string);
+  }
+}
+
+function partial_length_refinement(
+  a: [string] | [number, number] | [number, number, number]
+): void {
+  if (a.length === 1) {
+    (a[0]: string);
+  } else {
+    (a[0]: number);
+    (a[1]: number);
+  }
+}
+
+function partial_length_refinement_not_specific_enough(
+  a: [string] | [number, number] | [number, number, number]
+): void {
+  if (a.length === 1) {
+    (a[0]: string);
+  } else {
+    (a[0]: number);
+    (a[1]: number);
+    (a[2]: number); // Error: one of the variants has only 2 elements.
+  }
+}
+
+function refine_on_negative_length(a: [number] | [string, number]): void {
+  if (a.length === -1) {
+    (a: empty);
+  }
+}
+
+function refine_on_length_that_is_too_large(a: [number] | [string, number]): void {
+  if (a.length === 7) {
+    (a: empty);
+  }
+}
+
+function check_no_rounding(a: [number] | [string, number]): void {
+  if (a.length === 0.9) {
+    (a: empty);
+  }
+  if (a.length === 1.1) {
+    (a: empty);
+  }
+  if (a.length === 1.9) {
+    (a: empty);
+  }
+}
+
+function length_refinement_with_switch(a: [string] | [number, string]): void {
+  switch (a.length) {
+  case 1:
+    (a[0]: string);
+    break;
+  default:
+    (a[0]: number);
+    (a[1]: string);
+  }
+}
+
+=====================================output=====================================
+// @flow
+
+function length_refinement(a: [string] | [number, string]): void {
+  if (a.length === 1) {
+    (a[0]: string);
+  } else {
+    (a[0]: number);
+    (a[1]: string);
+  }
+}
+
+function partial_length_refinement(
+  a: [string] | [number, number] | [number, number, number]
+): void {
+  if (a.length === 1) {
+    (a[0]: string);
+  } else {
+    (a[0]: number);
+    (a[1]: number);
+  }
+}
+
+function partial_length_refinement_not_specific_enough(
+  a: [string] | [number, number] | [number, number, number]
+): void {
+  if (a.length === 1) {
+    (a[0]: string);
+  } else {
+    (a[0]: number);
+    (a[1]: number);
+    (a[2]: number); // Error: one of the variants has only 2 elements.
+  }
+}
+
+function refine_on_negative_length(a: [number] | [string, number]): void {
+  if (a.length === -1) {
+    (a: empty);
+  }
+}
+
+function refine_on_length_that_is_too_large(
+  a: [number] | [string, number]
+): void {
+  if (a.length === 7) {
+    (a: empty);
+  }
+}
+
+function check_no_rounding(a: [number] | [string, number]): void {
+  if (a.length === 0.9) {
+    (a: empty);
+  }
+  if (a.length === 1.1) {
+    (a: empty);
+  }
+  if (a.length === 1.9) {
+    (a: empty);
+  }
+}
+
+function length_refinement_with_switch(a: [string] | [number, string]): void {
+  switch (a.length) {
+    case 1:
+      (a[0]: string);
+      break;
+    default:
+      (a[0]: number);
+      (a[1]: string);
+  }
+}
+
+================================================================================
+`;
+
 exports[`typeof.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
@@ -3133,6 +3971,27 @@ function testInvalidTemplateLiteral(x: string | number) {
   }
 }
 
+function testClassIsFunction() {
+  class Foo {}
+  if (typeof Foo === "function") {
+    (Foo: empty); // error, Foo is a class
+  }
+}
+
+function testInstanceIsObject() {
+  class Foo {}
+  let x = new Foo();
+  if (typeof x === "object") {
+    (x: empty); // error
+  }
+}
+
+function testSymbol(x: mixed) {
+  if (typeof x === "symbol") { // ok
+    (x: string); // error
+  }
+}
+
 =====================================output=====================================
 /* @flow */
 
@@ -3196,6 +4055,28 @@ function testInvalidTemplateLiteral(x: string | number) {
   if (typeof x === \`foo\`) {
     // error
     return 0;
+  }
+}
+
+function testClassIsFunction() {
+  class Foo {}
+  if (typeof Foo === "function") {
+    (Foo: empty); // error, Foo is a class
+  }
+}
+
+function testInstanceIsObject() {
+  class Foo {}
+  let x = new Foo();
+  if (typeof x === "object") {
+    (x: empty); // error
+  }
+}
+
+function testSymbol(x: mixed) {
+  if (typeof x === "symbol") {
+    // ok
+    (x: string); // error
   }
 }
 
@@ -3369,6 +4250,43 @@ function undef_bogus_comparison() {
   if (undefined * 100) {
     return;
   }
+}
+
+================================================================================
+`;
+
+exports[`uninitialized_union.js format 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+declare var x: ?{f : string};
+
+var y;
+
+if (true) {
+  y = x;
+}
+
+if (y != null && y.f != null) {
+
+}
+
+=====================================output=====================================
+// @flow
+
+declare var x: ?{ f: string };
+
+var y;
+
+if (true) {
+  y = x;
+}
+
+if (y != null && y.f != null) {
 }
 
 ================================================================================

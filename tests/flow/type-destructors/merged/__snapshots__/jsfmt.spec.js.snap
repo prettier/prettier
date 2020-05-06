@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`merged.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @format
+ * @flow
+ */
+
+function fn<T: {p: number}>(f: T => void): ($Diff<T, {p: number}>) => void {
+  return o => f({...o, p: 42});
+}
+
+export default fn((t: {|p: number|}) => {});
+
+=====================================output=====================================
+/**
+ * @format
+ * @flow
+ */
+
+function fn<T: { p: number }>(
+  f: (T) => void
+): ($Diff<T, { p: number }>) => void {
+  return (o) => f({ ...o, p: 42 });
+}
+
+export default fn((t: {| p: number |}) => {});
+
+================================================================================
+`;
+
+exports[`test.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @format
+ * @flow
+ */
+
+import fn from './merged';
+
+fn({}); // Ok
+fn({foo: 42}); // Error: \`foo\` is not in \`{||}\`
+
+=====================================output=====================================
+/**
+ * @format
+ * @flow
+ */
+
+import fn from "./merged";
+
+fn({}); // Ok
+fn({ foo: 42 }); // Error: \`foo\` is not in \`{||}\`
+
+================================================================================
+`;

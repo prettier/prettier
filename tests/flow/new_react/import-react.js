@@ -11,9 +11,7 @@ import React from "react";
 //var React = require("react");
 //var React = require("React");
 
-class HelloMessage extends React.Component {
-  props: { name: string };
-}
+class HelloMessage extends React.Component<{ name: string }> {}
 
 <HelloMessage name={007} />; // number ~/~> string error
 <HelloMessage name="Bond" />; // ok

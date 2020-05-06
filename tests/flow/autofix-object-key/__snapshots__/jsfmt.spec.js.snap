@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`a.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+type Key = 'A';
+declare opaque type Val;
+
+declare var key: Key;
+declare var val: Val
+
+module.exports = { [key]: val };
+
+=====================================output=====================================
+// @flow
+
+type Key = "A";
+declare opaque type Val;
+
+declare var key: Key;
+declare var val: Val;
+
+module.exports = { [key]: val };
+
+================================================================================
+`;

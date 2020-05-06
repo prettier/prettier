@@ -1,5 +1,45 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`emitWarning.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/* @flow */
+
+/* emitWarning */
+
+process.emitWarning("blah");
+process.emitWarning(new Error("blah"));
+process.emitWarning("blah", "blah");
+process.emitWarning("blah", "blah", () => {});
+
+process.emitWarning(); // error
+process.emitWarning(42); // error
+process.emitWarning("blah", 42); // error
+process.emitWarning("blah", "blah", 42); // error
+(process.emitWarning("blah"): string); // error
+
+=====================================output=====================================
+/* @flow */
+
+/* emitWarning */
+
+process.emitWarning("blah");
+process.emitWarning(new Error("blah"));
+process.emitWarning("blah", "blah");
+process.emitWarning("blah", "blah", () => {});
+
+process.emitWarning(); // error
+process.emitWarning(42); // error
+process.emitWarning("blah", 42); // error
+process.emitWarning("blah", "blah", 42); // error
+(process.emitWarning("blah"): string); // error
+
+================================================================================
+`;
+
 exports[`nextTick.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -59,6 +99,28 @@ process.nextTick(
 process.nextTick(
   (a: string, b: number, c: boolean) => {} // Error: too few arguments
 );
+
+================================================================================
+`;
+
+exports[`process.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/* @flow */
+
+(process.allowedNodeEnvironmentFlags: Set<string>);
+
+(process.allowedNodeEnvironmentFlags: string); // error
+
+=====================================output=====================================
+/* @flow */
+
+(process.allowedNodeEnvironmentFlags: Set<string>);
+
+(process.allowedNodeEnvironmentFlags: string); // error
 
 ================================================================================
 `;

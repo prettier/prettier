@@ -1,0 +1,384 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Integer.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/* @flow */
+
+export opaque type integer:number = number
+
+export const floor = (n:number):integer => n
+
+=====================================output=====================================
+/* @flow */
+
+export opaque type integer: number = number;
+
+export const floor = (n: number): integer => n;
+
+================================================================================
+`;
+
+exports[`Other.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/* @flow */
+
+import { type integer, floor } from "./Integer"
+declare function parseInt(x: string): number;
+
+export const parseInteger = (input: string): ?integer => {
+  const value = parseInt(input)
+  return value === value ? floor(value) : null
+}
+
+=====================================output=====================================
+/* @flow */
+
+import { type integer, floor } from "./Integer";
+declare function parseInt(x: string): number;
+
+export const parseInteger = (input: string): ?integer => {
+  const value = parseInt(input);
+  return value === value ? floor(value) : null;
+};
+
+================================================================================
+`;
+
+exports[`decltest.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+declare opaque type Foo<+T>: {p:T}; // Error, invariant use of T
+function f(foo: Foo<string>): string {
+  var foo2: Foo<string|null> = foo; // OK, by covariance
+  foo2.p = null; // Uh oh...
+  return foo.p; // ...boom
+}
+
+=====================================output=====================================
+//@flow
+declare opaque type Foo<+T>: { p: T }; // Error, invariant use of T
+function f(foo: Foo<string>): string {
+  var foo2: Foo<string | null> = foo; // OK, by covariance
+  foo2.p = null; // Uh oh...
+  return foo.p; // ...boom
+}
+
+================================================================================
+`;
+
+exports[`importtest.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import {type Counter, type OtherCounter, type SuperOpaque, type PolyFoo, type PolyBar, type PolyGood, type ID} from './test';
+import type {SuperType} from './super';
+
+function test1 (y: SuperType) : SuperOpaque { // Error: number ~> SuperOpaque
+    return y;
+}
+
+function test2 (x: SuperOpaque): SuperType { // Ok
+    return x;
+}
+
+function test3 (x: number): Counter {// Error: number ~> Counter
+    return x;
+}
+
+function test4(x: Counter): number {// Ok
+    return x;
+}
+
+function test5(x: PolyGood<number>): PolyFoo<number> { // Ok
+    return x;
+}
+
+function test6(x: PolyGood<number>): PolyBar<number> { // Error: PolyFoo ~> PolyBar
+    return x;
+}
+
+function test7(x: PolyGood<number>): PolyFoo<string> { // Error: number ~> string
+    return x;
+}
+
+function test8(x: ID): number { // Ok
+    return x.length;
+}
+
+function test9(x: SuperType): SuperType { // Error number ~> SuperType
+    return x++; // Error number ~> SuperType
+}
+
+function test10(x: SuperType): number { // Ok
+    var y = x + 1;
+    return y;
+}
+
+function test11(x: ID, y: ID): string { // Ok
+    return x + y;
+}
+
+function test12(x: ID, y: ID): number { // Error: string ~> number
+    return x + y;
+}
+
+function takesString(x: string): number { // Ok
+    return x.length;
+}
+
+function test13(x: ID): number { // Ok
+    return takesString(x);
+}
+
+function id<T>(x: T): T { return x; } // Ok
+
+function test14(x: ID): string { // Ok
+    var y: string = x;
+    return id(y) + id(x);
+}
+
+=====================================output=====================================
+// @flow
+
+import {
+  type Counter,
+  type OtherCounter,
+  type SuperOpaque,
+  type PolyFoo,
+  type PolyBar,
+  type PolyGood,
+  type ID,
+} from "./test";
+import type { SuperType } from "./super";
+
+function test1(y: SuperType): SuperOpaque {
+  // Error: number ~> SuperOpaque
+  return y;
+}
+
+function test2(x: SuperOpaque): SuperType {
+  // Ok
+  return x;
+}
+
+function test3(x: number): Counter {
+  // Error: number ~> Counter
+  return x;
+}
+
+function test4(x: Counter): number {
+  // Ok
+  return x;
+}
+
+function test5(x: PolyGood<number>): PolyFoo<number> {
+  // Ok
+  return x;
+}
+
+function test6(x: PolyGood<number>): PolyBar<number> {
+  // Error: PolyFoo ~> PolyBar
+  return x;
+}
+
+function test7(x: PolyGood<number>): PolyFoo<string> {
+  // Error: number ~> string
+  return x;
+}
+
+function test8(x: ID): number {
+  // Ok
+  return x.length;
+}
+
+function test9(x: SuperType): SuperType {
+  // Error number ~> SuperType
+  return x++; // Error number ~> SuperType
+}
+
+function test10(x: SuperType): number {
+  // Ok
+  var y = x + 1;
+  return y;
+}
+
+function test11(x: ID, y: ID): string {
+  // Ok
+  return x + y;
+}
+
+function test12(x: ID, y: ID): number {
+  // Error: string ~> number
+  return x + y;
+}
+
+function takesString(x: string): number {
+  // Ok
+  return x.length;
+}
+
+function test13(x: ID): number {
+  // Ok
+  return takesString(x);
+}
+
+function id<T>(x: T): T {
+  return x;
+} // Ok
+
+function test14(x: ID): string {
+  // Ok
+  var y: string = x;
+  return id(y) + id(x);
+}
+
+================================================================================
+`;
+
+exports[`super.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+export opaque type SuperType: number = number;
+
+=====================================output=====================================
+//@flow
+
+export opaque type SuperType: number = number;
+
+================================================================================
+`;
+
+exports[`test.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import type {SuperType} from './super';
+export opaque type Counter: number = number;
+export opaque type OtherCounter: number = number;
+export opaque type SuperOpaque: SuperType = SuperType;
+export opaque type SuperOpaqueBad: SuperType = Counter; // Error: number ~> SuperType
+
+class Foo {}
+class Bar extends Foo {}
+export opaque type ClassGood: Foo = Bar;
+export opaque type ClassBad: Bar = Foo; // Error: Foo ~> Bar
+
+export class PolyFoo<T> {}
+export class PolyBar<T> extends PolyFoo<T> {}
+export opaque type PolyGood<T>: PolyFoo<T> = PolyBar<T>;
+export opaque type PolyBad<T>: PolyBar<T> = PolyFoo<T>; // Error: PolyFoo ~> PolyBar
+
+class PolyBar2<T> extends PolyFoo {}
+export opaque type PolyBad2<T>: PolyFoo<T> = PolyBar2<T>; // Error: Incompatible instantiation
+export opaque type PolyBad3<T>: PolyBar2<T> = PolyFoo<T>; // Error: PolyFoo ~> PolyBar2
+
+class Contra<-T> {}
+class EContra<-T> extends Contra<T> {}
+
+export opaque type OContra: Contra<number> = EContra<number | string>;
+export opaque type BadContra: Contra<number | string> = EContra<string>; // Error: string ~> number
+
+export opaque type ID: string = string;
+
+=====================================output=====================================
+// @flow
+
+import type { SuperType } from "./super";
+export opaque type Counter: number = number;
+export opaque type OtherCounter: number = number;
+export opaque type SuperOpaque: SuperType = SuperType;
+export opaque type SuperOpaqueBad: SuperType = Counter; // Error: number ~> SuperType
+
+class Foo {}
+class Bar extends Foo {}
+export opaque type ClassGood: Foo = Bar;
+export opaque type ClassBad: Bar = Foo; // Error: Foo ~> Bar
+
+export class PolyFoo<T> {}
+export class PolyBar<T> extends PolyFoo<T> {}
+export opaque type PolyGood<T>: PolyFoo<T> = PolyBar<T>;
+export opaque type PolyBad<T>: PolyBar<T> = PolyFoo<T>; // Error: PolyFoo ~> PolyBar
+
+class PolyBar2<T> extends PolyFoo {}
+export opaque type PolyBad2<T>: PolyFoo<T> = PolyBar2<T>; // Error: Incompatible instantiation
+export opaque type PolyBad3<T>: PolyBar2<T> = PolyFoo<T>; // Error: PolyFoo ~> PolyBar2
+
+class Contra<-T> {}
+class EContra<-T> extends Contra<T> {}
+
+export opaque type OContra: Contra<number> = EContra<number | string>;
+export opaque type BadContra: Contra<number | string> = EContra<string>; // Error: string ~> number
+
+export opaque type ID: string = string;
+
+================================================================================
+`;
+
+exports[`typeapp-export.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+export opaque type Foo<+T>: {+p:T} = {+p:T};
+
+=====================================output=====================================
+//@flow
+
+export opaque type Foo<+T>: { +p: T } = { +p: T };
+
+================================================================================
+`;
+
+exports[`typeapp-test.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+import type {Foo} from './typeapp-export';
+function f(foo: Foo<string>): string {
+  var foo2: Foo<string|null> = foo; // OK, by covariance
+  foo2.p = null; // Error, covariant property p
+  return foo.p;
+}
+
+=====================================output=====================================
+//@flow
+import type { Foo } from "./typeapp-export";
+function f(foo: Foo<string>): string {
+  var foo2: Foo<string | null> = foo; // OK, by covariance
+  foo2.p = null; // Error, covariant property p
+  return foo.p;
+}
+
+================================================================================
+`;

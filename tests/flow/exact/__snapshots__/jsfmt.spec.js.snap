@@ -1,0 +1,823 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`call.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/* @flow */
+
+type DeepNestedMaybes = {|
+  a: ?{|
+    b: ?string,
+  |},
+  c: {|
+    d: ?{|
+      e: ?number,
+    |},
+  |},
+  g: null,
+|};
+
+type ExtractMaybe = <T>(a: ?T) => T;
+type ExtractNonNull<T> = $Call<ExtractMaybe, T>;
+
+type G = ExtractNonNull<$PropertyType<DeepNestedMaybes, 'g'>>;
+
+
+type C = ExtractNonNull<$PropertyType<DeepNestedMaybes, 'c'>>;
+let c1: C = {
+  f: '', // Should cause an error
+  d: null,
+};
+let c2: $Exact<C> = {
+  f: '',
+  d: null,
+};
+
+=====================================output=====================================
+/* @flow */
+
+type DeepNestedMaybes = {|
+  a: ?{|
+    b: ?string,
+  |},
+  c: {|
+    d: ?{|
+      e: ?number,
+    |},
+  |},
+  g: null,
+|};
+
+type ExtractMaybe = <T>(a: ?T) => T;
+type ExtractNonNull<T> = $Call<ExtractMaybe, T>;
+
+type G = ExtractNonNull<$PropertyType<DeepNestedMaybes, "g">>;
+
+type C = ExtractNonNull<$PropertyType<DeepNestedMaybes, "c">>;
+let c1: C = {
+  f: "", // Should cause an error
+  d: null,
+};
+let c2: $Exact<C> = {
+  f: "",
+  d: null,
+};
+
+================================================================================
+`;
+
+exports[`callable.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/* The exactness constraint describes the shape of an object. When it comes to
+ * operations like object spread, Object.values, hasOwnProperty, etc., the
+ * callable signature is distinct from the shape of the named properties.
+ *
+ * However, Flow does not allow callable signatures to be elided. This behavior
+ * is partly historical; call signatures used to be stored in the prop map, and
+ * participated in the exactness check "by accident."
+ *
+ * On the other hand, it is potentially useful to know that an exact object
+ * without a call signature is in fact not callable, and thus not a function.
+ * Consider a refinement of the form \`typeof o === "function"\`. If \`o\` were an
+ * exact object without a call property, we can know for certain that it is not
+ * a function.
+ */
+
+declare var f: {| (): void, x: string |};
+var g: {| x: string |} = f; // error: callable signature in f missing in g
+
+=====================================output=====================================
+/* The exactness constraint describes the shape of an object. When it comes to
+ * operations like object spread, Object.values, hasOwnProperty, etc., the
+ * callable signature is distinct from the shape of the named properties.
+ *
+ * However, Flow does not allow callable signatures to be elided. This behavior
+ * is partly historical; call signatures used to be stored in the prop map, and
+ * participated in the exactness check "by accident."
+ *
+ * On the other hand, it is potentially useful to know that an exact object
+ * without a call signature is in fact not callable, and thus not a function.
+ * Consider a refinement of the form \`typeof o === "function"\`. If \`o\` were an
+ * exact object without a call property, we can know for certain that it is not
+ * a function.
+ */
+
+declare var f: {| (): void, x: string |};
+var g: {| x: string |} = f; // error: callable signature in f missing in g
+
+================================================================================
+`;
+
+exports[`error_continues.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+declare var any: any;
+
+((any: {p: number}): {|p: string|}); // We should get two errors here!
+                                     // One for the inexact ~> exact, and
+                                     // one for number ~> string
+
+=====================================output=====================================
+declare var any: any;
+
+((any: { p: number }): {| p: string |}); // We should get two errors here!
+// One for the inexact ~> exact, and
+// one for number ~> string
+
+================================================================================
+`;
+
+exports[`exact_basics.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * Test basic handling of $Exact object types.
+ * 1. object literals have exact types
+ * 2. annotated object types are made exact by wrapping in $Exact<...>
+ * 3. inflows to exact UBs must be exact, and may not have extra props
+ * 4. outflows of exact LBs may interact with inexact UBs as usual
+ */
+
+/*
+* Exact uppers:
+
+- { x, y } ~> Exact<{x, y}>       // ok
+- { x, y, z } ~> Exact<{ x, y }>  // error
+
+- Exact<X> ~> Exact<X>            // ok
+- X ~> Exact<X>                   // error
+
+- Exact<X> ~> Exact<Y>            // error
+
+* Exact lowers:
+
+- Exact<{x, y}> ~> { x, y }       // ok
+- Exact<{x, y, z}> ~> { x, y }    // ok
+- Exact<{x, y}> ~> { x, y, z }    // error
+
+* Unsupported kinds
+
+- Exact<unsupported> ~> X
+- X ~> Exact<unsupported>
+*/
+
+// values that are exactly a Person have only these properties.
+// subtypes may have additional properties.
+//
+type Person = { salutation: string, last: string };
+type ExactPerson = {| salutation: string, last: string |};
+
+// object literals have exact inferred types.
+//
+var exactlyPerson = { salutation: "Mr", last: "Dobalina" };
+var subtypeOfPerson = { salutation: "Mr", first: "Bob", last: "Dobalina" };
+
+declare function takesExactlyPerson(person: ExactPerson): void;
+
+// { x, y } ~> Exact<{x, y}>
+takesExactlyPerson(exactlyPerson); // ok
+
+// { x, y, z } ~> Exact<{ x, y }>
+takesExactlyPerson(subtypeOfPerson); // error
+
+// annotated types are more subtle, since they carry their subtypes
+// around silently unless they're explicitly exact
+//
+declare function returnsSubtypeOfPerson(): Person;
+declare function returnsExactlyPerson(): ExactPerson;
+
+// Exact<X> ~> Exact<X>
+takesExactlyPerson(returnsExactlyPerson());  // ok
+
+// X ~> Exact<X>
+takesExactlyPerson(returnsSubtypeOfPerson());  // error
+
+// exact types must match, of course
+//
+type Person2 = { salutation: string, first: string, last: string };
+type ExactPerson2 = {| salutation: string, first: string, last: string |};
+
+declare function returnsExactlyPerson2(): ExactPerson2;
+
+// Exact<X> ~> Exact<Y>
+takesExactlyPerson(returnsExactlyPerson2()); // error
+
+// exact LBs are compatible wherever their inexact counterparts are
+//
+declare function takesSubtypeOfPerson(person: Person): void;
+declare function takesSubtypeOfPerson2(person2: Person2): void;
+
+// Exact<{x, y}> ~> { x, y }
+takesSubtypeOfPerson(returnsExactlyPerson()); // ok
+
+// Exact<{x, y, z}> ~> { x, y }
+takesSubtypeOfPerson(returnsExactlyPerson2()); // ok
+
+// Exact<{x, y}> ~> { x, y, z }
+takesSubtypeOfPerson2(returnsExactlyPerson()); // error
+
+// right now, only exact object types are supported.
+//
+type PersonPred = (person: Person) => bool;
+
+declare function returnsExactlyPersonPred(): $Exact<PersonPred>;
+declare function takesPersonPred(pred: PersonPred): void;
+
+takesPersonPred(returnsExactlyPersonPred()); // error
+
+=====================================output=====================================
+/**
+ * Test basic handling of $Exact object types.
+ * 1. object literals have exact types
+ * 2. annotated object types are made exact by wrapping in $Exact<...>
+ * 3. inflows to exact UBs must be exact, and may not have extra props
+ * 4. outflows of exact LBs may interact with inexact UBs as usual
+ */
+
+/*
+* Exact uppers:
+
+- { x, y } ~> Exact<{x, y}>       // ok
+- { x, y, z } ~> Exact<{ x, y }>  // error
+
+- Exact<X> ~> Exact<X>            // ok
+- X ~> Exact<X>                   // error
+
+- Exact<X> ~> Exact<Y>            // error
+
+* Exact lowers:
+
+- Exact<{x, y}> ~> { x, y }       // ok
+- Exact<{x, y, z}> ~> { x, y }    // ok
+- Exact<{x, y}> ~> { x, y, z }    // error
+
+* Unsupported kinds
+
+- Exact<unsupported> ~> X
+- X ~> Exact<unsupported>
+*/
+
+// values that are exactly a Person have only these properties.
+// subtypes may have additional properties.
+//
+type Person = { salutation: string, last: string };
+type ExactPerson = {| salutation: string, last: string |};
+
+// object literals have exact inferred types.
+//
+var exactlyPerson = { salutation: "Mr", last: "Dobalina" };
+var subtypeOfPerson = { salutation: "Mr", first: "Bob", last: "Dobalina" };
+
+declare function takesExactlyPerson(person: ExactPerson): void;
+
+// { x, y } ~> Exact<{x, y}>
+takesExactlyPerson(exactlyPerson); // ok
+
+// { x, y, z } ~> Exact<{ x, y }>
+takesExactlyPerson(subtypeOfPerson); // error
+
+// annotated types are more subtle, since they carry their subtypes
+// around silently unless they're explicitly exact
+//
+declare function returnsSubtypeOfPerson(): Person;
+declare function returnsExactlyPerson(): ExactPerson;
+
+// Exact<X> ~> Exact<X>
+takesExactlyPerson(returnsExactlyPerson()); // ok
+
+// X ~> Exact<X>
+takesExactlyPerson(returnsSubtypeOfPerson()); // error
+
+// exact types must match, of course
+//
+type Person2 = { salutation: string, first: string, last: string };
+type ExactPerson2 = {| salutation: string, first: string, last: string |};
+
+declare function returnsExactlyPerson2(): ExactPerson2;
+
+// Exact<X> ~> Exact<Y>
+takesExactlyPerson(returnsExactlyPerson2()); // error
+
+// exact LBs are compatible wherever their inexact counterparts are
+//
+declare function takesSubtypeOfPerson(person: Person): void;
+declare function takesSubtypeOfPerson2(person2: Person2): void;
+
+// Exact<{x, y}> ~> { x, y }
+takesSubtypeOfPerson(returnsExactlyPerson()); // ok
+
+// Exact<{x, y, z}> ~> { x, y }
+takesSubtypeOfPerson(returnsExactlyPerson2()); // ok
+
+// Exact<{x, y}> ~> { x, y, z }
+takesSubtypeOfPerson2(returnsExactlyPerson()); // error
+
+// right now, only exact object types are supported.
+//
+type PersonPred = (person: Person) => boolean;
+
+declare function returnsExactlyPersonPred(): $Exact<PersonPred>;
+declare function takesPersonPred(pred: PersonPred): void;
+
+takesPersonPred(returnsExactlyPersonPred()); // error
+
+================================================================================
+`;
+
+exports[`literal.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+var o = { p: { q: 0 } };
+var p: { q: number, r: number } = { q: 1, r: 2 };
+o.p = p;
+
+=====================================output=====================================
+// @flow
+
+var o = { p: { q: 0 } };
+var p: { q: number, r: number } = { q: 1, r: 2 };
+o.p = p;
+
+================================================================================
+`;
+
+exports[`objmap.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+type ExactThing = {| a: 1 |};
+
+type MappedThing = $ObjMap<ExactThing, (1) => 2>;
+
+// Works as expected
+const works: MappedThing = {a: 2};
+
+// Error as expected, \`a\` needs to be \`2\`.
+const doesError: MappedThing = {a: 3};
+
+// This should error, \`b\` is not part of the exact object
+const shouldntWork: MappedThing = {a: 2, b: 1};
+
+=====================================output=====================================
+// @flow
+
+type ExactThing = {| a: 1 |};
+
+type MappedThing = $ObjMap<ExactThing, (1) => 2>;
+
+// Works as expected
+const works: MappedThing = { a: 2 };
+
+// Error as expected, \`a\` needs to be \`2\`.
+const doesError: MappedThing = { a: 3 };
+
+// This should error, \`b\` is not part of the exact object
+const shouldntWork: MappedThing = { a: 2, b: 1 };
+
+================================================================================
+`;
+
+exports[`optional.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+function foo1(x: {||}): {p?: number} { return x; } // error, p must be read-only
+function foo2(x: {||}): {+p?: number} { return x; } // OK
+function foo3(x: {|__proto__: { p: string}|}): {+p?: number} { return x; } // error, type incompatibility
+function foo4(x: {|__proto__: { p: number}|}): {+p?: number} { return x; } // OK
+function foo5(x: {|__proto__: { p?: number}|}): {+p?: number} { return x; } // OK
+
+=====================================output=====================================
+// @flow
+
+function foo1(x: {||}): { p?: number } {
+  return x;
+} // error, p must be read-only
+function foo2(x: {||}): { +p?: number } {
+  return x;
+} // OK
+function foo3(x: {| __proto__: { p: string } |}): { +p?: number } {
+  return x;
+} // error, type incompatibility
+function foo4(x: {| __proto__: { p: number } |}): { +p?: number } {
+  return x;
+} // OK
+function foo5(x: {| __proto__: { p?: number } |}): { +p?: number } {
+  return x;
+} // OK
+
+================================================================================
+`;
+
+exports[`per_prop_subtyping.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/***
+ * exact object types prohibit extra properties, but
+ * allow per-property subtyping in the usual cases
+ */
+
+export type Flag = $Exact<{
+  name: string,
+  description: string,
+  aliases?: Array<string>,
+}>;
+
+// fresh values have per-property subtyping
+function getFlag_ok(): Flag {
+  return {
+    name: "help",
+    description: "Shows this usage message",
+    aliases: ["h"],   // prop subtyping is ok on fresh object values
+  };
+}
+
+=====================================output=====================================
+/***
+ * exact object types prohibit extra properties, but
+ * allow per-property subtyping in the usual cases
+ */
+
+export type Flag = $Exact<{
+  name: string,
+  description: string,
+  aliases?: Array<string>,
+}>;
+
+// fresh values have per-property subtyping
+function getFlag_ok(): Flag {
+  return {
+    name: "help",
+    description: "Shows this usage message",
+    aliases: ["h"], // prop subtyping is ok on fresh object values
+  };
+}
+
+================================================================================
+`;
+
+exports[`prop_test.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/***
+ * Nonstrict prop testing and refinements on exact object types
+ */
+
+//
+// property test on object type
+//
+
+type Person = { first: string, last: string };
+
+function prop_test_exact(p: $Exact<Person>): string {
+  if (p.xxx) {     // Error - xxx doesn't exist in the exact type
+    return p.xxx;  // ok currently, but should be reachability error
+  }
+  return p.first;
+}
+
+//
+// property test on union of object types
+//
+
+type Address = { city: string, state: string };
+
+function prop_test_exact_union(pc: $Exact<Person> | $Exact<Address>): string {
+  if (pc.first) {       // ok, union of exact types
+    return pc.last;     // ok, refined to $Exact<Person>
+  }
+  return pc.state;      // error, since (pc: $Exact<Person>).first may be ""
+}
+
+//
+// property test on union of object types (always truthy)
+//
+
+// direct declaration of subobjectss
+type Bundle1 = { person: { first: string, last: string }, extra1: string };
+type Bundle2 = { address: { city: string, state: string }, extra2: string };
+
+function prop_test_exact_union_2(b: $Exact<Bundle1> | $Exact<Bundle2>): string {
+  if (b.person) {       // ok
+    return b.extra1;    // ok, refined to $Exact<Bundle1>
+  }
+  return b.extra2;      // ok, refined to $Exact<Bundle2>
+}
+
+// aliased declaration of subobjects
+type Bundle3 = { person: Person, extra1: string };
+type Bundle4 = { address: Address, extra2: string };
+
+function prop_test_exact_union_3(b: $Exact<Bundle3> | $Exact<Bundle4>): string {
+  if (b.person) {       // ok
+    return b.extra1;    // ok, refined to $Exact<Bundle3>
+  }
+  return b.extra2;      // ok, refined to $Exact<Bundle4>
+}
+
+=====================================output=====================================
+/***
+ * Nonstrict prop testing and refinements on exact object types
+ */
+
+//
+// property test on object type
+//
+
+type Person = { first: string, last: string };
+
+function prop_test_exact(p: $Exact<Person>): string {
+  if (p.xxx) {
+    // Error - xxx doesn't exist in the exact type
+    return p.xxx; // ok currently, but should be reachability error
+  }
+  return p.first;
+}
+
+//
+// property test on union of object types
+//
+
+type Address = { city: string, state: string };
+
+function prop_test_exact_union(pc: $Exact<Person> | $Exact<Address>): string {
+  if (pc.first) {
+    // ok, union of exact types
+    return pc.last; // ok, refined to $Exact<Person>
+  }
+  return pc.state; // error, since (pc: $Exact<Person>).first may be ""
+}
+
+//
+// property test on union of object types (always truthy)
+//
+
+// direct declaration of subobjectss
+type Bundle1 = { person: { first: string, last: string }, extra1: string };
+type Bundle2 = { address: { city: string, state: string }, extra2: string };
+
+function prop_test_exact_union_2(b: $Exact<Bundle1> | $Exact<Bundle2>): string {
+  if (b.person) {
+    // ok
+    return b.extra1; // ok, refined to $Exact<Bundle1>
+  }
+  return b.extra2; // ok, refined to $Exact<Bundle2>
+}
+
+// aliased declaration of subobjects
+type Bundle3 = { person: Person, extra1: string };
+type Bundle4 = { address: Address, extra2: string };
+
+function prop_test_exact_union_3(b: $Exact<Bundle3> | $Exact<Bundle4>): string {
+  if (b.person) {
+    // ok
+    return b.extra1; // ok, refined to $Exact<Bundle3>
+  }
+  return b.extra2; // ok, refined to $Exact<Bundle4>
+}
+
+================================================================================
+`;
+
+exports[`prop_test2.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/***
+ * more prop tests on unions of objects,
+ * using {| ... |} annotation syntax
+ */
+
+type Flag = {|
+  type: "string",
+  name: string,
+  description: string,
+  argName: string,
+  aliases?: Array<string>,
+  default?: string,
+|} | {|
+  type: "boolean",
+  name: string,
+  description: string,
+  aliases?: Array<string>,
+|} | {|
+  type: "enum",
+  name: string,
+  description: string,
+  argName: string,
+  validValues: Array<string>,
+  aliases?: Array<string>,
+  default?: string,
+|};
+
+function checkFlag_ok(flag: Flag): string {
+  if (flag.default) {
+    return flag.argName; // ok, refined to $Exact<StringFlag> | $Exact<EnumFlag>
+  }
+  return "";
+}
+
+=====================================output=====================================
+/***
+ * more prop tests on unions of objects,
+ * using {| ... |} annotation syntax
+ */
+
+type Flag =
+  | {|
+      type: "string",
+      name: string,
+      description: string,
+      argName: string,
+      aliases?: Array<string>,
+      default?: string,
+    |}
+  | {|
+      type: "boolean",
+      name: string,
+      description: string,
+      aliases?: Array<string>,
+    |}
+  | {|
+      type: "enum",
+      name: string,
+      description: string,
+      argName: string,
+      validValues: Array<string>,
+      aliases?: Array<string>,
+      default?: string,
+    |};
+
+function checkFlag_ok(flag: Flag): string {
+  if (flag.default) {
+    return flag.argName; // ok, refined to $Exact<StringFlag> | $Exact<EnumFlag>
+  }
+  return "";
+}
+
+================================================================================
+`;
+
+exports[`unsealed.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/* An unsealed object is not compatible with an exact object type, as arbitrary
+   properties can be added to an unsealed object. */
+
+function f(o: {p: string} | $Exact<{}>): string {
+  if (o.p) {
+    return o.p;
+  } else {
+    return "";
+  }
+}
+
+var o = {};
+g();
+f(o);
+
+function g() { o.p = 0 } // error: cannot write a number to o because it later expects a string
+
+=====================================output=====================================
+/* An unsealed object is not compatible with an exact object type, as arbitrary
+   properties can be added to an unsealed object. */
+
+function f(o: { p: string } | $Exact<{}>): string {
+  if (o.p) {
+    return o.p;
+  } else {
+    return "";
+  }
+}
+
+var o = {};
+g();
+f(o);
+
+function g() {
+  o.p = 0;
+} // error: cannot write a number to o because it later expects a string
+
+================================================================================
+`;
+
+exports[`unsealed2.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/* An unsealed object can not be property tested permissively, becase the type
+   may be wider due to properties added later. */
+
+let x;
+if (false) {
+  x = { p: "something", q: 0 };
+} else {
+  x = {}; // type is exact but also unsealed
+  g(x);
+}
+f(x);
+
+function f(_): number {
+  if (x.p) {
+    return x.q;
+  } else {
+    return 0;
+  }
+}
+
+function g(x) {
+  x.p = "something";
+  x.q = "not a number";
+}
+
+=====================================output=====================================
+/* An unsealed object can not be property tested permissively, becase the type
+   may be wider due to properties added later. */
+
+let x;
+if (false) {
+  x = { p: "something", q: 0 };
+} else {
+  x = {}; // type is exact but also unsealed
+  g(x);
+}
+f(x);
+
+function f(_): number {
+  if (x.p) {
+    return x.q;
+  } else {
+    return 0;
+  }
+}
+
+function g(x) {
+  x.p = "something";
+  x.q = "not a number";
+}
+
+================================================================================
+`;
+
+exports[`use_ops.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+declare var a: { p: { q: null } };
+var b: { p: {| q: null |} } = a; // error a != b, with nested info for a.p != b.p
+
+function f(o: {| p: null |}) {}
+declare var o: { p: null };
+f(o); // error: inexact arg incompatible with exact param (error should indicate exactness issue)
+
+=====================================output=====================================
+declare var a: { p: { q: null } };
+var b: { p: {| q: null |} } = a; // error a != b, with nested info for a.p != b.p
+
+function f(o: {| p: null |}) {}
+declare var o: { p: null };
+f(o); // error: inexact arg incompatible with exact param (error should indicate exactness issue)
+
+================================================================================
+`;

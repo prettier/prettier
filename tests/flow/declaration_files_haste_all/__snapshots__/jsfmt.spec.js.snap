@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`bar.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export const foo = "i'm the .js file";
+
+=====================================output=====================================
+export const foo = "i'm the .js file";
+
+================================================================================
+`;
+
+exports[`test.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * Tests that .js.flow files are considered Flow files when \`all\` is set.
+ */
+
+import {foo} from './bar';
+
+(foo: empty); // error: should be string
+
+=====================================output=====================================
+/**
+ * Tests that .js.flow files are considered Flow files when \`all\` is set.
+ */
+
+import { foo } from "./bar";
+
+(foo: empty); // error: should be string
+
+================================================================================
+`;

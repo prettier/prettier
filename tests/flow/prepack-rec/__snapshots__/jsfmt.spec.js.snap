@@ -1,0 +1,129 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AbstractObjectValue.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import Value from "./Value.js";
+
+export default class AbstractObjectValue extends Value {
+}
+
+=====================================output=====================================
+// @flow
+
+import Value from "./Value.js";
+
+export default class AbstractObjectValue extends Value {}
+
+================================================================================
+`;
+
+exports[`NativeFunctionValue.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import Value from './Value.js';
+
+export default function constructor(
+  callback: (args: Array<Value>) => void,
+) { }
+
+=====================================output=====================================
+// @flow
+
+import Value from "./Value.js";
+
+export default function constructor(callback: (args: Array<Value>) => void) {}
+
+================================================================================
+`;
+
+exports[`ObjectValue.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import Value from "./Value.js";
+
+export default class ObjectValue extends Value {
+}
+
+=====================================output=====================================
+// @flow
+
+import Value from "./Value.js";
+
+export default class ObjectValue extends Value {}
+
+================================================================================
+`;
+
+exports[`Value.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+export default class Value {
+}
+
+=====================================output=====================================
+// @flow
+
+export default class Value {}
+
+================================================================================
+`;
+
+exports[`global.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import AbstractObjectValue from './AbstractObjectValue.js';
+import ObjectValue from './ObjectValue.js';
+import NativeFunctionValue from './NativeFunctionValue.js';
+
+function _() {
+  NativeFunctionValue(([object]) => {
+    if (object instanceof AbstractObjectValue || object instanceof ObjectValue) {
+    }
+  });
+}
+
+=====================================output=====================================
+// @flow
+
+import AbstractObjectValue from "./AbstractObjectValue.js";
+import ObjectValue from "./ObjectValue.js";
+import NativeFunctionValue from "./NativeFunctionValue.js";
+
+function _() {
+  NativeFunctionValue(([object]) => {
+    if (
+      object instanceof AbstractObjectValue ||
+      object instanceof ObjectValue
+    ) {
+    }
+  });
+}
+
+================================================================================
+`;

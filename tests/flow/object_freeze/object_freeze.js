@@ -18,3 +18,10 @@ baz.baz = 0;
 var x : number = Object.freeze(123);
 
 var xx : { x: number } = Object.freeze({ x: "error" })
+
+function f(x: Object) {
+  (Object.freeze({...x}): Object); // ok
+
+  let y = Object.freeze({...x});
+  y.foo = "bar"; // there is no frozen form of AnyT so this is "allowed"
+}

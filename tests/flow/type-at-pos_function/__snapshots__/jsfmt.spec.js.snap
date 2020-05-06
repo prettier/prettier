@@ -1,0 +1,271 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`declare.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+declare function foo(): void;
+
+=====================================output=====================================
+// @flow
+
+declare function foo(): void;
+
+================================================================================
+`;
+
+exports[`default.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+let y = 0;
+function f(x = y) {}
+function g({x = y}) {}
+
+=====================================output=====================================
+// @flow
+
+let y = 0;
+function f(x = y) {}
+function g({ x = y }) {}
+
+================================================================================
+`;
+
+exports[`function.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+const a = {
+  bar(): void {}
+};
+
+const b = {
+  bar: function (): void {}
+};
+
+const c = {
+  m<T>(x: T): T { return x; }
+};
+
+const d = {
+  m: function<T>(x: T): T { return x; }
+};
+
+=====================================output=====================================
+// @flow
+
+const a = {
+  bar(): void {},
+};
+
+const b = {
+  bar: function (): void {},
+};
+
+const c = {
+  m<T>(x: T): T {
+    return x;
+  },
+};
+
+const d = {
+  m: function <T>(x: T): T {
+    return x;
+  },
+};
+
+================================================================================
+`;
+
+exports[`function-poly-0.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+function f<T>(x: T) { return x; }
+const x = f(1);
+
+=====================================output=====================================
+// @flow
+
+function f<T>(x: T) {
+  return x;
+}
+const x = f(1);
+
+================================================================================
+`;
+
+exports[`function-poly-1.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+function f<T>(x: T): T { return x; }
+const x = f(1);
+
+=====================================output=====================================
+// @flow
+
+function f<T>(x: T): T {
+  return x;
+}
+const x = f(1);
+
+================================================================================
+`;
+
+exports[`function-poly-2.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+function outer<T>(y: T) {
+  function inner<T>(x: T, z) {
+    y;
+    inner(x, x);
+    return x;
+  }
+  const x = inner(1, y);
+
+  function inner_<T>(x: T) {
+    return x;
+  }
+}
+
+=====================================output=====================================
+// @flow
+
+function outer<T>(y: T) {
+  function inner<T>(x: T, z) {
+    y;
+    inner(x, x);
+    return x;
+  }
+  const x = inner(1, y);
+
+  function inner_<T>(x: T) {
+    return x;
+  }
+}
+
+================================================================================
+`;
+
+exports[`function-poly-3.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+var x = 1;
+function foo<T: string>(y: T) {
+  x = y;
+}
+foo("");
+x;
+
+=====================================output=====================================
+// @flow
+
+var x = 1;
+function foo<T: string>(y: T) {
+  x = y;
+}
+foo("");
+x;
+
+================================================================================
+`;
+
+exports[`function-poly-4.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+function foo<T>(x: T) {
+  return { f: x };
+}
+
+const bar = <T>(x: T) => ({ f: x });
+
+const obj = {
+  m<T>(x: T) {
+    return { f: x };
+  }
+}
+
+=====================================output=====================================
+// @flow
+
+function foo<T>(x: T) {
+  return { f: x };
+}
+
+const bar = <T>(x: T) => ({ f: x });
+
+const obj = {
+  m<T>(x: T) {
+    return { f: x };
+  },
+};
+
+================================================================================
+`;
+
+exports[`function-poly-5.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+function foo<T: number | string>(x: T) {
+  if (typeof x === 'number') {
+    return x
+  } else {
+    return 1;
+  }
+}
+
+=====================================output=====================================
+// @flow
+
+function foo<T: number | string>(x: T) {
+  if (typeof x === "number") {
+    return x;
+  } else {
+    return 1;
+  }
+}
+
+================================================================================
+`;

@@ -358,6 +358,94 @@ function f(b) {
 ================================================================================
 `;
 
+exports[`optional-catch-binding.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/***
+ * @flow
+ */
+
+// local use of annotated var within catch is ok
+function f() {
+  try {
+  } catch {
+    var x:number = 0;
+    var y:number = x;
+  }
+}
+
+// but not across try/catch
+function f() {
+  try {
+    var x:number = 0;
+  } catch {
+    var y:number = x; // error
+  }
+}
+
+// it type checks the block correctly and errors
+function f() {
+  try {
+  } catch {
+    var y:number = 'string'; // error
+  }
+}
+
+// scope works
+function f() {
+  var x: number = 0;
+  try {
+  } catch {
+    var y:string = x; // error
+  }
+}
+
+=====================================output=====================================
+/***
+ * @flow
+ */
+
+// local use of annotated var within catch is ok
+function f() {
+  try {
+  } catch {
+    var x: number = 0;
+    var y: number = x;
+  }
+}
+
+// but not across try/catch
+function f() {
+  try {
+    var x: number = 0;
+  } catch {
+    var y: number = x; // error
+  }
+}
+
+// it type checks the block correctly and errors
+function f() {
+  try {
+  } catch {
+    var y: number = "string"; // error
+  }
+}
+
+// scope works
+function f() {
+  var x: number = 0;
+  try {
+  } catch {
+    var y: string = x; // error
+  }
+}
+
+================================================================================
+`;
+
 exports[`return.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -547,6 +635,37 @@ function qux() {
     x(); // unreachable
 }
 
+function moz() {
+  let x: number[] = [];
+  try {
+    throw new Error(\`just capturing a stack trace\`);
+  } catch (e) {
+    var a: string = x[0];
+  } finally {
+    var b: string = x[0];
+  }
+  var c: string = x[0]; // reachable
+}
+
+function maz() {
+  let x: number[] = [];
+  try {
+    throw new Error(\`just capturing a stack trace\`);
+  } catch (e) {
+    var a: string = x[0];
+  }
+  var c: string = x[0]; // reachable
+}
+
+function maz() {
+  let x: number[] = [];
+  try {
+    throw new Error(\`just capturing a stack trace\`);
+  } catch (e) {
+  }
+  var c: string = x[0]; // reachable
+}
+
 =====================================output=====================================
 /***
  * test env state tracking thru try/catch/finally
@@ -590,6 +709,36 @@ function qux() {
   } finally {
   }
   x(); // unreachable
+}
+
+function moz() {
+  let x: number[] = [];
+  try {
+    throw new Error(\`just capturing a stack trace\`);
+  } catch (e) {
+    var a: string = x[0];
+  } finally {
+    var b: string = x[0];
+  }
+  var c: string = x[0]; // reachable
+}
+
+function maz() {
+  let x: number[] = [];
+  try {
+    throw new Error(\`just capturing a stack trace\`);
+  } catch (e) {
+    var a: string = x[0];
+  }
+  var c: string = x[0]; // reachable
+}
+
+function maz() {
+  let x: number[] = [];
+  try {
+    throw new Error(\`just capturing a stack trace\`);
+  } catch (e) {}
+  var c: string = x[0]; // reachable
 }
 
 ================================================================================

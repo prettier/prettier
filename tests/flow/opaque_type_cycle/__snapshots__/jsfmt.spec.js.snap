@@ -1,0 +1,122 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`cycle.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+import {test} from './test3';
+opaque type num = number;
+export var y: num = 3;
+test(y);
+
+=====================================output=====================================
+//@flow
+import { test } from "./test3";
+opaque type num = number;
+export var y: num = 3;
+test(y);
+
+================================================================================
+`;
+
+exports[`test1.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import {hide} from './test2';
+export opaque type ID = number;
+
+export function show(x: ID) : number {
+    return x;
+}
+
+export function opaquify(x: number) : ID {
+    return x;
+}
+
+hide(3);
+
+=====================================output=====================================
+import { hide } from "./test2";
+export opaque type ID = number;
+
+export function show(x: ID): number {
+  return x;
+}
+
+export function opaquify(x: number): ID {
+  return x;
+}
+
+hide(3);
+
+================================================================================
+`;
+
+exports[`test2.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import {type ID, show, opaquify} from './test1';
+
+export function hide(x: number) : ID {
+    return x; // Error: number ~> ID
+}
+
+function bad(x: ID) : ID {
+    return show(x); // Error: number ~> ID
+}
+
+function bad2(x: number): number {
+    return opaquify(x); // Error: ID ~> number
+}
+
+=====================================output=====================================
+import { type ID, show, opaquify } from "./test1";
+
+export function hide(x: number): ID {
+  return x; // Error: number ~> ID
+}
+
+function bad(x: ID): ID {
+  return show(x); // Error: number ~> ID
+}
+
+function bad2(x: number): number {
+  return opaquify(x); // Error: ID ~> number
+}
+
+================================================================================
+`;
+
+exports[`test3.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+import {y} from './cycle';
+
+export function test(x: number): typeof(y) {(x: typeof(y)); return x;}
+
+=====================================output=====================================
+//@flow
+
+import { y } from "./cycle";
+
+export function test(x: number): typeof y {
+  (x: typeof y);
+  return x;
+}
+
+================================================================================
+`;

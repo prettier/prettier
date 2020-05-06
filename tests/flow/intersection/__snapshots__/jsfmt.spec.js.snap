@@ -6,19 +6,11 @@ parsers: ["flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-function foo(x: $All<Error,{type:number}>): number {
-    return x.type;
-}
-
 function bar(x: Error & {type:number}): number {
     return x.type;
 }
 
 =====================================output=====================================
-function foo(x: $All<Error, { type: number }>): number {
-  return x.type;
-}
-
 function bar(x: Error & { type: number }): number {
   return x.type;
 }
@@ -121,6 +113,40 @@ function hasObjectMode_ok(options: DuplexStreamOptions): boolean {
     options.writableObjectMode
   );
 }
+
+================================================================================
+`;
+
+exports[`proper_blaming.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @flow
+ */
+
+type O = {p: null} & E;
+declare var o: O;
+
+const x = o.p; // no error here
+x.nope; // error here
+
+type E = {};
+
+=====================================output=====================================
+/**
+ * @flow
+ */
+
+type O = { p: null } & E;
+declare var o: O;
+
+const x = o.p; // no error here
+x.nope; // error here
+
+type E = {};
 
 ================================================================================
 `;

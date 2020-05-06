@@ -66,6 +66,62 @@ function f(x: Foo | null | void): void {
 ================================================================================
 `;
 
+exports[`const.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+const foo = 123;
+
+{
+  const foo = 'abc';
+  foo;
+}
+
+foo;
+
+=====================================output=====================================
+// @flow
+
+const foo = 123;
+
+{
+  const foo = "abc";
+  foo;
+}
+
+foo;
+
+================================================================================
+`;
+
+exports[`destructuring.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+{
+  let foo = { bar: 123 };
+  let {bar: baz} = foo;
+}
+
+=====================================output=====================================
+// @flow
+
+{
+  let foo = { bar: 123 };
+  let { bar: baz } = foo;
+}
+
+================================================================================
+`;
+
 exports[`example.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -108,6 +164,62 @@ lib.bar();
 ================================================================================
 `;
 
+exports[`global.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+Array;
+
+=====================================output=====================================
+// @flow
+
+Array;
+
+================================================================================
+`;
+
+exports[`idx.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+declare var idx: $Facebookism$Idx;
+
+type Foo = {
+  foo: ?{
+    bar: string,
+  }
+};
+
+function foo(x: ?Foo): ?string {
+  return idx(x, _ => _.foo.bar);
+}
+
+=====================================output=====================================
+// @flow
+
+declare var idx: $Facebookism$Idx;
+
+type Foo = {
+  foo: ?{
+    bar: string,
+  },
+};
+
+function foo(x: ?Foo): ?string {
+  return idx(x, (_) => _.foo.bar);
+}
+
+================================================================================
+`;
+
 exports[`imports.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -119,12 +231,23 @@ printWidth: 80
 import thing from "./helpers/exports_default.js";
 thing;
 
-import {foo, bar as baz} from "./helpers/exports_named.js";
+import {foo, bar as baz, letBinding, varBinding, fun, Cls} from "./helpers/exports_named.js";
 foo;
 baz;
 
 import * as things from "./helpers/exports_named.js";
 things;
+
+// $FlowFixMe
+import type {DoesNotExist} from "./doesNotExist";
+const x: DoesNotExist<number> = "foo";
+x.foo();
+
+type Foo = any;
+// $FlowFixMe
+const y: Foo<number> = "foo";
+// $FlowFixMe
+y.foo();
 
 =====================================output=====================================
 // @flow
@@ -132,12 +255,99 @@ things;
 import thing from "./helpers/exports_default.js";
 thing;
 
-import { foo, bar as baz } from "./helpers/exports_named.js";
+import {
+  foo,
+  bar as baz,
+  letBinding,
+  varBinding,
+  fun,
+  Cls,
+} from "./helpers/exports_named.js";
 foo;
 baz;
 
 import * as things from "./helpers/exports_named.js";
 things;
+
+// $FlowFixMe
+import type { DoesNotExist } from "./doesNotExist";
+const x: DoesNotExist<number> = "foo";
+x.foo();
+
+type Foo = any;
+// $FlowFixMe
+const y: Foo<number> = "foo";
+// $FlowFixMe
+y.foo();
+
+================================================================================
+`;
+
+exports[`let.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+let foo = 123;
+
+{
+  let foo = 'abc';
+  foo;
+}
+
+foo;
+
+let bar;
+if (true) {
+  bar = 1;
+} else {
+  bar = 2;
+}
+bar;
+
+
+let x;
+x = 123;
+x;
+
+{
+  let val = 'foo';
+  let obj = { foo: val };
+  let foo = obj.foo;
+}
+
+=====================================output=====================================
+// @flow
+
+let foo = 123;
+
+{
+  let foo = "abc";
+  foo;
+}
+
+foo;
+
+let bar;
+if (true) {
+  bar = 1;
+} else {
+  bar = 2;
+}
+bar;
+
+let x;
+x = 123;
+x;
+
+{
+  let val = "foo";
+  let obj = { foo: val };
+  let foo = obj.foo;
+}
 
 ================================================================================
 `;
@@ -174,6 +384,124 @@ module.exports = {
     return 42;
   },
 };
+
+================================================================================
+`;
+
+exports[`objects.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/* @flow */
+
+type Foo = {foo: string};
+const a: Foo = {foo: ''};
+a.foo;
+
+const b = {foo: ''};
+b.foo;
+
+const c = {};
+c.foo = '';
+c.foo;
+c.baz;
+c.baz = '';
+c.bar;
+c.bar;
+
+{
+  const {foo} = a;
+  const {foo: bar} = a;
+};
+{ const {foo} = b; }
+{ const {foo} = c; }
+{ const [foo] = a; }
+{ const foo = a.foo; }
+
+=====================================output=====================================
+/* @flow */
+
+type Foo = { foo: string };
+const a: Foo = { foo: "" };
+a.foo;
+
+const b = { foo: "" };
+b.foo;
+
+const c = {};
+c.foo = "";
+c.foo;
+c.baz;
+c.baz = "";
+c.bar;
+c.bar;
+
+{
+  const { foo } = a;
+  const { foo: bar } = a;
+}
+{
+  const { foo } = b;
+}
+{
+  const { foo } = c;
+}
+{
+  const [foo] = a;
+}
+{
+  const foo = a.foo;
+}
+
+================================================================================
+`;
+
+exports[`optional_chaining.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+type Foo = {
+  bar: {
+    baz: number
+  }
+}
+
+const foo: ?Foo = {
+  bar: {
+    baz: 42
+  }
+}
+
+const foo2: ?Foo = null;
+
+foo?.bar.baz;
+foo2?.bar.baz;
+
+=====================================output=====================================
+// @flow
+
+type Foo = {
+  bar: {
+    baz: number,
+  },
+};
+
+const foo: ?Foo = {
+  bar: {
+    baz: 42,
+  },
+};
+
+const foo2: ?Foo = null;
+
+foo?.bar.baz;
+foo2?.bar.baz;
 
 ================================================================================
 `;

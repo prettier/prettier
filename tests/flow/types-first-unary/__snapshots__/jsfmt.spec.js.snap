@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`a.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+export type T1 = -1;
+export type T2 = false;
+export type T3 = 1;
+export type T4 = true;
+
+module.exports = {
+  P1: -1,
+  P2: !true,
+  P3: -(-1),
+  P4: !!1,
+};
+
+=====================================output=====================================
+// @flow
+export type T1 = -1;
+export type T2 = false;
+export type T3 = 1;
+export type T4 = true;
+
+module.exports = {
+  P1: -1,
+  P2: !true,
+  P3: -(-1),
+  P4: !!1,
+};
+
+================================================================================
+`;
+
+exports[`b.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+import type {
+  T1,
+  T2,
+  T3,
+  T4,
+} from './a';
+const A = require('./a');
+(A.P1: T1);
+(A.P2: T2);
+(A.P3: T3);
+(A.P4: T4);
+
+=====================================output=====================================
+// @flow
+import type { T1, T2, T3, T4 } from "./a";
+const A = require("./a");
+(A.P1: T1);
+(A.P2: T2);
+(A.P3: T3);
+(A.P4: T4);
+
+================================================================================
+`;

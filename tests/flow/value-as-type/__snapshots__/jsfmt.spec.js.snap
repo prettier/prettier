@@ -1,0 +1,131 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test1.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+const React = require('react');
+type PropsType = { }
+
+class Child extends React.Component<PropsType> {}
+const HocChild: React.ComponentType<PropsType> = (null: any);
+
+class OkParent extends React.Component<void> {
+  render = () => <Child ref={this._handleChild} />;
+  _handleChild = (child: ?Child) => {};
+}
+
+class BadParent extends React.Component<void> {
+  render = () => <HocChild ref={this._handleChild} />;
+  _handleChild = (child: ?HocChild) => {};
+}
+
+=====================================output=====================================
+// @flow
+
+const React = require("react");
+type PropsType = {};
+
+class Child extends React.Component<PropsType> {}
+const HocChild: React.ComponentType<PropsType> = (null: any);
+
+class OkParent extends React.Component<void> {
+  render = () => <Child ref={this._handleChild} />;
+  _handleChild = (child: ?Child) => {};
+}
+
+class BadParent extends React.Component<void> {
+  render = () => <HocChild ref={this._handleChild} />;
+  _handleChild = (child: ?HocChild) => {};
+}
+
+================================================================================
+`;
+
+exports[`test2.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+let n = 0;
+(0: n);
+([0]: Array<n>);
+
+=====================================output=====================================
+// @flow
+
+let n = 0;
+(0: n);
+([0]: Array<n>);
+
+================================================================================
+`;
+
+exports[`test3.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+let n = 0;
+type T = n;
+opaque type OT1 = n;
+opaque type OT2: n = 0;
+interface I extends n { }
+class C implements n { }
+
+=====================================output=====================================
+// @flow
+
+let n = 0;
+type T = n;
+opaque type OT1 = n;
+opaque type OT2: n = 0;
+interface I extends n {}
+class C implements n {}
+
+================================================================================
+`;
+
+exports[`test4.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+const React = require('react');
+
+function connect<A>(): void { }
+
+type Foo = connect<number>;
+
+function foo(Component: Foo) {
+    <Component/>;
+}
+
+=====================================output=====================================
+// @flow
+
+const React = require("react");
+
+function connect<A>(): void {}
+
+type Foo = connect<number>;
+
+function foo(Component: Foo) {
+  <Component />;
+}
+
+================================================================================
+`;

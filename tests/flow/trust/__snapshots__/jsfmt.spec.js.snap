@@ -1,0 +1,195 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`basic.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+var x: $Trusted<number> = (42: any); //Fail
+var y: $Trusted<number> = 42; //ok
+var z: any = y; // ok
+
+function f(x: number): $Trusted<number> { return x; } // Fail without inference, ok with
+
+function g(x: $Trusted<number>): $Trusted<number> { return x; } //Ok
+
+function h(x: $Trusted<number>): number { return x; } //Ok
+
+var a = 42; //Ok
+var b: number = 42; // ok
+var c: $Trusted<number> = 42; // ok
+
+var i: $Trusted<number> = a; //ok
+var k: $Trusted<number> = b; // fail without inference, ok with
+var j: $Trusted<number> = c; // ok
+var l: number = c; // ok
+var m = c; // ok
+
+var d = 42; // ok
+d = ('Hello': any) // ok
+var e: $Trusted<number> = d; // fail
+
+=====================================output=====================================
+// @flow
+var x: $Trusted<number> = (42: any); //Fail
+var y: $Trusted<number> = 42; //ok
+var z: any = y; // ok
+
+function f(x: number): $Trusted<number> {
+  return x;
+} // Fail without inference, ok with
+
+function g(x: $Trusted<number>): $Trusted<number> {
+  return x;
+} //Ok
+
+function h(x: $Trusted<number>): number {
+  return x;
+} //Ok
+
+var a = 42; //Ok
+var b: number = 42; // ok
+var c: $Trusted<number> = 42; // ok
+
+var i: $Trusted<number> = a; //ok
+var k: $Trusted<number> = b; // fail without inference, ok with
+var j: $Trusted<number> = c; // ok
+var l: number = c; // ok
+var m = c; // ok
+
+var d = 42; // ok
+d = ("Hello": any); // ok
+var e: $Trusted<number> = d; // fail
+
+================================================================================
+`;
+
+exports[`errmsg.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+var a: $Trusted<number> = (42: any)
+var b: any = (42: $Private<number>)
+var c: $Trusted<number> = (42: $Private<number>)
+var d: $Trusted<number> = (42: number)
+var e: number = (42: $Private<number>);
+
+=====================================output=====================================
+//@flow
+
+var a: $Trusted<number> = (42: any);
+var b: any = (42: $Private<number>);
+var c: $Trusted<number> = (42: $Private<number>);
+var d: $Trusted<number> = (42: number);
+var e: number = (42: $Private<number>);
+
+================================================================================
+`;
+
+exports[`function_types.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+function f(x:$Trusted<number>): number { return x; }
+
+var a: ($Trusted<number> => number) = f;
+var b: (any => number) = a; //fail
+var c: (number=> number) = a; // fails without inference, ok with
+var d: ($Trusted<number> => any) = a;
+var e: any = a; //fail
+var h: ($Trusted<number> => $Trusted<number>) = a; //fails with inference
+
+function g(x: number): $Trusted<number> { return 42; }
+
+var x: ($Trusted<number> => number) = g;
+var y: (number => $Trusted<number>) = g;
+var z: (any => $Trusted<number>) = y;
+var w: (number => number) = y;
+var u: (number => any) = y;
+var v: any = y;
+
+=====================================output=====================================
+//@flow
+
+function f(x: $Trusted<number>): number {
+  return x;
+}
+
+var a: ($Trusted<number>) => number = f;
+var b: (any) => number = a; //fail
+var c: (number) => number = a; // fails without inference, ok with
+var d: ($Trusted<number>) => any = a;
+var e: any = a; //fail
+var h: ($Trusted<number>) => $Trusted<number> = a; //fails with inference
+
+function g(x: number): $Trusted<number> {
+  return 42;
+}
+
+var x: ($Trusted<number>) => number = g;
+var y: (number) => $Trusted<number> = g;
+var z: (any) => $Trusted<number> = y;
+var w: (number) => number = y;
+var u: (number) => any = y;
+var v: any = y;
+
+================================================================================
+`;
+
+exports[`objects.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+var w: $Trusted<number> = 42;
+var x: {y: $Trusted<number>} = {y: w}
+var z: any = x;
+
+=====================================output=====================================
+//@flow
+var w: $Trusted<number> = 42;
+var x: { y: $Trusted<number> } = { y: w };
+var z: any = x;
+
+================================================================================
+`;
+
+exports[`syntax.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+declare function f(x: $Trusted<number>): $Private<number>;
+declare var x: $Trusted<$Private<($Private<number>)=>$Trusted<number>>>;
+declare var y: $Trusted<any>;
+type T = $Trusted<number>;
+declare var z: $Trusted<T>
+(32: $Trusted<number>)
+
+=====================================output=====================================
+//@flow
+
+declare function f(x: $Trusted<number>): $Private<number>;
+declare var x: $Trusted<$Private<($Private<number>) => $Trusted<number>>>;
+declare var y: $Trusted<any>;
+type T = $Trusted<number>;
+declare var z: $Trusted<T>;
+(32: $Trusted<number>);
+
+================================================================================
+`;

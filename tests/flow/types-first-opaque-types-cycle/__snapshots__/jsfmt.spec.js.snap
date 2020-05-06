@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`a.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import type {O} from './b';
+declare var x: O;
+(x: number); // error O ~> number
+module.exports = x;
+
+=====================================output=====================================
+// @flow
+
+import type { O } from "./b";
+declare var x: O;
+(x: number); // error O ~> number
+module.exports = x;
+
+================================================================================
+`;
+
+exports[`b.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import a from "./a";
+export opaque type O = number;
+(a: number); // okay
+
+=====================================output=====================================
+// @flow
+
+import a from "./a";
+export opaque type O = number;
+(a: number); // okay
+
+================================================================================
+`;

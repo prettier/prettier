@@ -16,3 +16,6 @@ y['foo'] = 123; // error, number !~> string
 y['bar'] = 'abc'; // error, property not found
 
 (y['hasOwnProperty']: string); // error, prototype method is not a string
+
+// ok because properties named 'constructor' are only banned on classes
+var has_constructor_field : {constructor: string} = {constructor: 'foo'}

@@ -1,0 +1,157 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`commonjs.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const React = require('react');
+
+(React.Component: Object); // OK
+(React.Component: number); // Error
+('Hello, world!': React.Node); // OK
+({}: React.Node); // Error
+(null: React.Missing); // Error
+
+=====================================output=====================================
+const React = require("react");
+
+(React.Component: Object); // OK
+(React.Component: number); // Error
+("Hello, world!": React.Node); // OK
+({}: React.Node); // Error
+(null: React.Missing); // Error
+
+================================================================================
+`;
+
+exports[`commonjs-pascal.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const React = require('React');
+
+(React.Component: Object); // OK
+(React.Component: number); // Error
+('Hello, world!': React.Node); // OK
+({}: React.Node); // Error
+(null: React.Missing); // Error
+
+=====================================output=====================================
+const React = require("React");
+
+(React.Component: Object); // OK
+(React.Component: number); // Error
+("Hello, world!": React.Node); // OK
+({}: React.Node); // Error
+(null: React.Missing); // Error
+
+================================================================================
+`;
+
+exports[`es-default.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import React from 'react';
+
+(React.Component: Object); // OK
+(React.Component: number); // Error
+('Hello, world!': React.Node); // Error: Not in default export.
+({}: React.Node); // Error: Not in default export.
+(null: React.Missing); // Error: Not in default export.
+
+=====================================output=====================================
+import React from "react";
+
+(React.Component: Object); // OK
+(React.Component: number); // Error
+("Hello, world!": React.Node); // Error: Not in default export.
+({}: React.Node); // Error: Not in default export.
+(null: React.Missing); // Error: Not in default export.
+
+================================================================================
+`;
+
+exports[`es-default-pascal.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import React from 'React';
+
+(React.Component: Object); // OK
+(React.Component: number); // Error
+('Hello, world!': React.Node); // Error: Not in default export.
+({}: React.Node); // Error: Not in default export.
+(null: React.Missing); // Error: Not in default export.
+
+=====================================output=====================================
+import React from "React";
+
+(React.Component: Object); // OK
+(React.Component: number); // Error
+("Hello, world!": React.Node); // Error: Not in default export.
+({}: React.Node); // Error: Not in default export.
+(null: React.Missing); // Error: Not in default export.
+
+================================================================================
+`;
+
+exports[`es-namespace.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import * as React from 'react';
+
+(React.Component: Object); // OK
+(React.Component: number); // Error
+('Hello, world!': React.Node); // OK
+({}: React.Node); // Error
+(null: React.Missing); // Error
+
+=====================================output=====================================
+import * as React from "react";
+
+(React.Component: Object); // OK
+(React.Component: number); // Error
+("Hello, world!": React.Node); // OK
+({}: React.Node); // Error
+(null: React.Missing); // Error
+
+================================================================================
+`;
+
+exports[`es-namespace-pascal.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+import * as React from 'React';
+
+(React.Component: Object); // OK
+(React.Component: number); // Error
+('Hello, world!': React.Node); // OK
+({}: React.Node); // Error
+(null: React.Missing); // Error
+
+=====================================output=====================================
+import * as React from "React";
+
+(React.Component: Object); // OK
+(React.Component: number); // Error
+("Hello, world!": React.Node); // OK
+({}: React.Node); // Error
+(null: React.Missing); // Error
+
+================================================================================
+`;

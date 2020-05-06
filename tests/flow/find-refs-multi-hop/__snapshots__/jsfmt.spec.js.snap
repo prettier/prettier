@@ -1,0 +1,251 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`bar.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+export type Bar = {
+  prop: string,
+};
+
+=====================================output=====================================
+// @flow
+
+export type Bar = {
+  prop: string,
+};
+
+================================================================================
+`;
+
+exports[`baz.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+export type Baz = {
+  prop: string,
+};
+
+=====================================output=====================================
+// @flow
+
+export type Baz = {
+  prop: string,
+};
+
+================================================================================
+`;
+
+exports[`classes.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+class Superclass {
+  foo() {}
+}
+
+class Middleclass extends Superclass {
+  foo() {}
+}
+
+class Subclass extends Middleclass {
+  foo() {}
+}
+
+type Unrelated = {
+  foo(): void,
+}
+
+type RelatedToSuper = {
+  foo(): void,
+}
+(new Superclass(): RelatedToSuper);
+
+type RelatedToMiddle = {
+  foo(): void,
+}
+(new Middleclass(): RelatedToMiddle);
+
+type RelatedToSub = {
+  foo(): void,
+}
+(new Subclass(): RelatedToSub);
+
+=====================================output=====================================
+// @flow
+
+class Superclass {
+  foo() {}
+}
+
+class Middleclass extends Superclass {
+  foo() {}
+}
+
+class Subclass extends Middleclass {
+  foo() {}
+}
+
+type Unrelated = {
+  foo(): void,
+};
+
+type RelatedToSuper = {
+  foo(): void,
+};
+(new Superclass(): RelatedToSuper);
+
+type RelatedToMiddle = {
+  foo(): void,
+};
+(new Middleclass(): RelatedToMiddle);
+
+type RelatedToSub = {
+  foo(): void,
+};
+(new Subclass(): RelatedToSub);
+
+================================================================================
+`;
+
+exports[`foo.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+export type Foo = {
+  prop: string,
+};
+
+=====================================output=====================================
+// @flow
+
+export type Foo = {
+  prop: string,
+};
+
+================================================================================
+`;
+
+exports[`relatesFooAndBar.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import type {Foo} from './foo';
+import type {Bar} from './bar';
+
+function f(x: Foo): Bar { return x; }
+
+=====================================output=====================================
+// @flow
+
+import type { Foo } from "./foo";
+import type { Bar } from "./bar";
+
+function f(x: Foo): Bar {
+  return x;
+}
+
+================================================================================
+`;
+
+exports[`usesBar.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import type {Bar} from './bar';
+
+function takesBar(x: Bar): void {
+  x.prop;
+}
+
+const z: Bar = {prop: ''};
+
+=====================================output=====================================
+// @flow
+
+import type { Bar } from "./bar";
+
+function takesBar(x: Bar): void {
+  x.prop;
+}
+
+const z: Bar = { prop: "" };
+
+================================================================================
+`;
+
+exports[`usesBaz.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import type {Baz} from './baz';
+
+function takesBaz(x: Baz): void {
+  x.prop;
+}
+
+=====================================output=====================================
+// @flow
+
+import type { Baz } from "./baz";
+
+function takesBaz(x: Baz): void {
+  x.prop;
+}
+
+================================================================================
+`;
+
+exports[`usesFoo.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import type {Foo} from './foo';
+
+function takesFoo(x: Foo): void {
+  x.prop;
+}
+
+=====================================output=====================================
+// @flow
+
+import type { Foo } from "./foo";
+
+function takesFoo(x: Foo): void {
+  x.prop;
+}
+
+================================================================================
+`;

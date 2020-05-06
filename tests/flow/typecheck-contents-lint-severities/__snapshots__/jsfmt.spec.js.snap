@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`dep.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/* @flow */
+
+export function f(cb: ?number => void): void {}
+
+=====================================output=====================================
+/* @flow */
+
+export function f(cb: (?number) => void): void {}
+
+================================================================================
+`;
+
+exports[`test.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/* @flow */
+
+/* This test ensures that lint severity cover information from dependencies is
+ * merged before filtering errors in typecheck-contents. If we don't include
+ * dependency cover information, error filtering will raise. */
+
+import {f} from "./dep";
+
+f((x) => {
+  // This is a sketchy null check, but the relevant location is in dep.js
+  if (x) {}
+});
+
+=====================================output=====================================
+/* @flow */
+
+/* This test ensures that lint severity cover information from dependencies is
+ * merged before filtering errors in typecheck-contents. If we don't include
+ * dependency cover information, error filtering will raise. */
+
+import { f } from "./dep";
+
+f((x) => {
+  // This is a sketchy null check, but the relevant location is in dep.js
+  if (x) {
+  }
+});
+
+================================================================================
+`;

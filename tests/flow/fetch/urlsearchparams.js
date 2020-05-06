@@ -2,7 +2,7 @@
 
 const a = new URLSearchParams("key1=value1"); // correct
 const b = new URLSearchParams(['key1', 'value1']); // not correct
-const c = new URLSearchParams({'key1': 'value1'}); // not correct
+const c = new URLSearchParams({'key1': 'value1'}); // correct
 const d = new URLSearchParams(c); // correct
 const e: URLSearchParams = new URLSearchParams(); // correct
 e.append('key1', 'value1'); // correct

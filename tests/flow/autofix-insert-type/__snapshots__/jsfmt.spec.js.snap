@@ -1,0 +1,1124 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`alias.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+type MyNumber = number;
+
+function f(x: MyNumber) {
+  return x;
+};
+
+f(1);
+
+=====================================output=====================================
+// @flow
+
+type MyNumber = number;
+
+function f(x: MyNumber) {
+  return x;
+}
+
+f(1);
+
+================================================================================
+`;
+
+exports[`alias-0.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+type MyObject = {
+  foo: number,
+  bar: boolean,
+  baz: string,
+};
+
+function f(x: MyObject) {
+  return x;
+};
+
+f({foo:1, bar:true, baz:"baz"});
+
+=====================================output=====================================
+// @flow
+
+type MyObject = {
+  foo: number,
+  bar: boolean,
+  baz: string,
+};
+
+function f(x: MyObject) {
+  return x;
+}
+
+f({ foo: 1, bar: true, baz: "baz" });
+
+================================================================================
+`;
+
+exports[`array.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+function foo() {
+  return [1, 2];
+}
+
+=====================================output=====================================
+// @flow
+
+function foo() {
+  return [1, 2];
+}
+
+================================================================================
+`;
+
+exports[`arrow-0.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+const a = (x) => x + 1;
+a(1);
+
+=====================================output=====================================
+// @flow
+
+const a = (x) => x + 1;
+a(1);
+
+================================================================================
+`;
+
+exports[`arrow-1.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+const b = (x, y, z) => x(y, z.f);
+b((k, l) => (l + k), "a", { f: 2 });
+
+=====================================output=====================================
+// @flow
+
+const b = (x, y, z) => x(y, z.f);
+b((k, l) => l + k, "a", { f: 2 });
+
+================================================================================
+`;
+
+exports[`arrow-2.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+((x) => x + 1)(4);
+
+=====================================output=====================================
+// @flow
+
+((x) => x + 1)(4);
+
+================================================================================
+`;
+
+exports[`class-0.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+class A {
+  f = 1;
+  m(x) {
+    return this.f + 1;
+  }
+}
+
+(new A).m("");
+
+=====================================output=====================================
+// @flow
+
+class A {
+  f = 1;
+  m(x) {
+    return this.f + 1;
+  }
+}
+
+new A().m("");
+
+================================================================================
+`;
+
+exports[`class-1.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+class A {
+  f = 1;
+  m() { return "a"; }
+}
+
+var a = new A;
+function foo(x) { return x; }
+foo(A);
+
+=====================================output=====================================
+// @flow
+
+class A {
+  f = 1;
+  m() {
+    return "a";
+  }
+}
+
+var a = new A();
+function foo(x) {
+  return x;
+}
+foo(A);
+
+================================================================================
+`;
+
+exports[`class-2.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+class A {
+  m() {
+    return this;
+  }
+}
+
+=====================================output=====================================
+// @flow
+
+class A {
+  m() {
+    return this;
+  }
+}
+
+================================================================================
+`;
+
+exports[`class-3.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+class A {
+  m() {
+    return this;
+  }
+}
+
+function foo(x) {}
+foo(new A().m);
+
+=====================================output=====================================
+// @flow
+
+class A {
+  m() {
+    return this;
+  }
+}
+
+function foo(x) {}
+foo(new A().m);
+
+================================================================================
+`;
+
+exports[`comments-0.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+// BEFORE FUNCTION
+export function test (x: number) {
+  // ONE
+  const a = 4 + x; // END OF a = 4...
+  // TWO
+  return /* BETWEEEN */ \`\${a}\` // END OF return ...
+} // END
+
+=====================================output=====================================
+// @flow
+
+// BEFORE FUNCTION
+export function test(x: number) {
+  // ONE
+  const a = 4 + x; // END OF a = 4...
+  // TWO
+  return /* BETWEEEN */ \`\${a}\`; // END OF return ...
+} // END
+
+================================================================================
+`;
+
+exports[`dictionary.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+() => ({
+  ab: null,
+  "a b": null,
+  "a'b": null,
+  "1": null,
+  "'": null,
+  " ": null,
+  "_": null,
+  "": null,
+  get "x"() {
+    return null;
+  },
+  set "y"(z: string) {}
+});
+
+() => ({
+  ab: null,
+  'a b': null,
+  'a"b': null,
+  '1': null,
+  '"': null,
+  ' ': null,
+  '_': null,
+  '': null,
+  get 'x'() {
+    return null;
+  },
+  set 'y'(z: string) {}
+});
+
+=====================================output=====================================
+// @flow
+
+() => ({
+  ab: null,
+  "a b": null,
+  "a'b": null,
+  "1": null,
+  "'": null,
+  " ": null,
+  _: null,
+  "": null,
+  get x() {
+    return null;
+  },
+  set y(z: string) {},
+});
+
+() => ({
+  ab: null,
+  "a b": null,
+  'a"b': null,
+  "1": null,
+  '"': null,
+  " ": null,
+  _: null,
+  "": null,
+  get x() {
+    return null;
+  },
+  set y(z: string) {},
+});
+
+================================================================================
+`;
+
+exports[`func-0.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+function foo(x: number, y) {
+  return x + y;
+}
+
+foo(1, "");
+
+=====================================output=====================================
+// @flow
+
+function foo(x: number, y) {
+  return x + y;
+}
+
+foo(1, "");
+
+================================================================================
+`;
+
+exports[`func-1.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+function foo(x, y) {
+  return x + y(x);
+}
+
+foo(1, (z) => z + 1);
+
+=====================================output=====================================
+// @flow
+
+function foo(x, y) {
+  return x + y(x);
+}
+
+foo(1, (z) => z + 1);
+
+================================================================================
+`;
+
+exports[`func-2.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+function foo(x, y) {
+  function bar(z, w) {
+    return x + z + y + w;
+  }
+  bar(x, y);
+}
+
+foo(1, 1);
+
+=====================================output=====================================
+// @flow
+
+function foo(x, y) {
+  function bar(z, w) {
+    return x + z + y + w;
+  }
+  bar(x, y);
+}
+
+foo(1, 1);
+
+================================================================================
+`;
+
+exports[`func-3.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+function throws_arg() {
+  throw 42;
+}
+
+=====================================output=====================================
+// @flow
+function throws_arg() {
+  throw 42;
+}
+
+================================================================================
+`;
+
+exports[`func-4.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+function throws_arg() {
+  if (Math.random() < 0.5) {
+    throw 42;
+  } else {
+    throw 42;
+  }
+}
+
+=====================================output=====================================
+// @flow
+function throws_arg() {
+  if (Math.random() < 0.5) {
+    throw 42;
+  } else {
+    throw 42;
+  }
+}
+
+================================================================================
+`;
+
+exports[`func-5.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+function throws_arg() {
+  if (Math.random() < 0.5) {
+    return 42;
+  } else {
+    throw 42;
+  }
+}
+
+=====================================output=====================================
+// @flow
+function throws_arg() {
+  if (Math.random() < 0.5) {
+    return 42;
+  } else {
+    throw 42;
+  }
+}
+
+================================================================================
+`;
+
+exports[`func-poly-0.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+function outer<T>(y: T) {
+  function inner<T>(x: T, z) {
+    inner(x, x);
+  }
+}
+
+=====================================output=====================================
+// @flow
+
+function outer<T>(y: T) {
+  function inner<T>(x: T, z) {
+    inner(x, x);
+  }
+}
+
+================================================================================
+`;
+
+exports[`object-0.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+var obj = {
+  n(y) {
+    return this.m(y);
+  },
+  m(x) {
+    return "";
+  }
+}
+
+obj.n(0)
+
+=====================================output=====================================
+// @flow
+
+var obj = {
+  n(y) {
+    return this.m(y);
+  },
+  m(x) {
+    return "";
+  },
+};
+
+obj.n(0);
+
+================================================================================
+`;
+
+exports[`object-1.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+var obj = {
+  'n'(y) {
+    return this.m(y);
+  },
+  'm'(x) {
+    return "";
+  }
+}
+
+obj['n'](0)
+
+=====================================output=====================================
+// @flow
+
+var obj = {
+  n(y) {
+    return this.m(y);
+  },
+  m(x) {
+    return "";
+  },
+};
+
+obj["n"](0);
+
+================================================================================
+`;
+
+exports[`object-2.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+function foo(x) {}
+
+foo({
+  m() { return 1; },
+  n: () => 2,
+  l: function bar() {}
+});
+
+=====================================output=====================================
+// @flow
+
+function foo(x) {}
+
+foo({
+  m() {
+    return 1;
+  },
+  n: () => 2,
+  l: function bar() {},
+});
+
+================================================================================
+`;
+
+exports[`poly-0.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+function foo<T>(x: T) {
+  return {
+    f: x
+  }
+}
+
+=====================================output=====================================
+// @flow
+
+function foo<T>(x: T) {
+  return {
+    f: x,
+  };
+}
+
+================================================================================
+`;
+
+exports[`react-0.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import React from "react";
+import ReactDOM from "react-dom";
+
+function Clock(props) {
+  return (
+    <div>
+      <h1>Hello, world!</h1>
+      <h2>It is {props.date.toLocaleTimeString()}.</h2>
+    </div>
+  );
+}
+
+function tick() {
+  const element = document.getElementById('root');
+  if (element) {
+    ReactDOM.render(
+      <Clock date={new Date()} />,
+      element
+    );
+  }
+}
+
+setInterval(tick, 1000);
+
+=====================================output=====================================
+// @flow
+
+import React from "react";
+import ReactDOM from "react-dom";
+
+function Clock(props) {
+  return (
+    <div>
+      <h1>Hello, world!</h1>
+      <h2>It is {props.date.toLocaleTimeString()}.</h2>
+    </div>
+  );
+}
+
+function tick() {
+  const element = document.getElementById("root");
+  if (element) {
+    ReactDOM.render(<Clock date={new Date()} />, element);
+  }
+}
+
+setInterval(tick, 1000);
+
+================================================================================
+`;
+
+exports[`replacement-array.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+// preserve spacing
+
+function foo() {return [1, 2];}
+
+=====================================output=====================================
+// @flow
+
+// preserve spacing
+
+function foo() {
+  return [1, 2];
+}
+
+================================================================================
+`;
+
+exports[`replacement-arrow.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+const a = (x) =>
+                  x + 1;
+
+
+a(1);
+
+=====================================output=====================================
+// @flow
+
+const a = (x) => x + 1;
+
+a(1);
+
+================================================================================
+`;
+
+exports[`replacement-class.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+class A { // end of line comment
+                                f = 1;
+  m(x) { return this.f + 1; }
+} (new A).m(""); // weird spacing
+
+=====================================output=====================================
+// @flow
+
+class A {
+  // end of line comment
+  f = 1;
+  m(x) {
+    return this.f + 1;
+  }
+}
+new A().m(""); // weird spacing
+
+================================================================================
+`;
+
+exports[`replacement-dictionary.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+() => ({
+  ab: null, "a b": null, "a'b": null,
+  "1": null, "'": null, " ": null,
+  "_": null, "": null,
+  get "x"() {return null; },
+  set "y"(z: string) {}});
+
+() => ({
+  ab: null, 'a b': null, 'a"b': null, '1': null, '"': null, ' ': null, '_': null, '': null,
+  get 'x'() {return null;}, set 'y'(z: string) {} } );
+
+=====================================output=====================================
+// @flow
+
+() => ({
+  ab: null,
+  "a b": null,
+  "a'b": null,
+  "1": null,
+  "'": null,
+  " ": null,
+  _: null,
+  "": null,
+  get x() {
+    return null;
+  },
+  set y(z: string) {},
+});
+
+() => ({
+  ab: null,
+  "a b": null,
+  'a"b': null,
+  "1": null,
+  '"': null,
+  " ": null,
+  _: null,
+  "": null,
+  get x() {
+    return null;
+  },
+  set y(z: string) {},
+});
+
+================================================================================
+`;
+
+exports[`replacement-function.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+// Spaced out comments /* non-comments
+
+// BEFORE FUNCTION
+export //too many comments
+function /*Random*/ test /*weird*/ (x: number) /*Comments*/ {
+// ONE
+/* Two */  const a = 4 + x;    // END OF a = 4...
+
+
+
+  // Three
+
+  return /* BETWEEEN */ \`\${a}\` // END OF return ...
+} // END */
+
+=====================================output=====================================
+// @flow
+
+// Spaced out comments /* non-comments
+
+// BEFORE FUNCTION
+export //too many comments
+function /*Random*/ test /*weird*/(x: number) /*Comments*/ {
+  // ONE
+  /* Two */ const a = 4 + x; // END OF a = 4...
+
+  // Three
+
+  return /* BETWEEEN */ \`\${a}\`; // END OF return ...
+} // END */
+
+================================================================================
+`;
+
+exports[`replacement-object.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+var obj = {n(y) {return this.m(y);},m(x) {return "";}}
+obj.n(0)
+
+
+
+
+
+
+
+// This is kinda trailing whitespace
+
+=====================================output=====================================
+// @flow
+var obj = {
+  n(y) {
+    return this.m(y);
+  },
+  m(x) {
+    return "";
+  },
+};
+obj.n(0);
+
+// This is kinda trailing whitespace
+
+================================================================================
+`;
+
+exports[`spread.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+declare opaque type O;
+class C { f: O; }
+class D { g: O; }
+
+() => { declare var x: {w: O, ...{| x: O, y: O |}, z: O}; return x; };
+() => { declare var x: {|w: O, ...{| x: O, y: O |}, z: O|}; return x; };
+() => { declare var x: {...C, o: O}; return x; };
+() => { declare var x: {...C} & {...D}; return x; };
+<T: {||}, S: {| f: O |}>() => { declare var x: {...T, ...S, o: O}; return x; };
+<T: {||}>() => { declare var x: {...T, o: O}; return x; };
+
+=====================================output=====================================
+// @flow
+
+declare opaque type O;
+class C {
+  f: O;
+}
+class D {
+  g: O;
+}
+
+() => {
+  declare var x: { w: O, ...{| x: O, y: O |}, z: O };
+  return x;
+};
+() => {
+  declare var x: {| w: O, ...{| x: O, y: O |}, z: O |};
+  return x;
+};
+() => {
+  declare var x: { ...C, o: O };
+  return x;
+};
+() => {
+  declare var x: { ...C } & { ...D };
+  return x;
+};
+<T: {||}, S: {| f: O |}>() => {
+  declare var x: { ...T, ...S, o: O };
+  return x;
+};
+<T: {||}>() => {
+  declare var x: { ...T, o: O };
+  return x;
+};
+
+================================================================================
+`;
+
+exports[`string-literal.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+declare var a: "a";
+declare var single_quote: "'";
+declare var double_quote: '""';
+declare var backslash: '\\\\';
+
+function f1() { return a; }
+function f2() { return single_quote; }
+function f3() { return double_quote; }
+function f4() { return backslash; }
+
+=====================================output=====================================
+// @flow
+
+declare var a: "a";
+declare var single_quote: "'";
+declare var double_quote: '""';
+declare var backslash: "\\\\";
+
+function f1() {
+  return a;
+}
+function f2() {
+  return single_quote;
+}
+function f3() {
+  return double_quote;
+}
+function f4() {
+  return backslash;
+}
+
+================================================================================
+`;
+
+exports[`type-utils.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+declare class C<P> {};
+
+declare var typeof_C: typeof C;
+() => typeof_C;
+
+declare var class_of_C_number: Class<C<number>>;
+() => class_of_C_number;
+
+=====================================output=====================================
+// @flow
+
+declare class C<P> {}
+
+declare var typeof_C: typeof C;
+() => typeof_C;
+
+declare var class_of_C_number: Class<C<number>>;
+() => class_of_C_number;
+
+================================================================================
+`;
+
+exports[`union-0.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+function foo(x) { }
+
+foo(1);
+foo("1");
+foo(1);
+foo(2);
+foo(() => foo());
+foo();
+
+=====================================output=====================================
+// @flow
+
+function foo(x) {}
+
+foo(1);
+foo("1");
+foo(1);
+foo(2);
+foo(() => foo());
+foo();
+
+================================================================================
+`;

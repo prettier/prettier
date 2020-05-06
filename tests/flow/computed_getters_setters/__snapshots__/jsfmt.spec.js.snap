@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`computed_getters_setters.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @flow
+ */
+
+var f = {
+  get ['d']() { return 'foo'; },
+  set ['d'](x: number) {},
+  set "stringLiteral"(x: number) { },
+  get "stringLiteral"(): number { return 4; },
+};
+
+class Bar {
+  get ['d']() { return 'foo'; }
+  set ['d'](x: number) {}
+}
+
+=====================================output=====================================
+/**
+ * @flow
+ */
+
+var f = {
+  get ["d"]() {
+    return "foo";
+  },
+  set ["d"](x: number) {},
+  set stringLiteral(x: number) {},
+  get stringLiteral(): number {
+    return 4;
+  },
+};
+
+class Bar {
+  get ["d"]() {
+    return "foo";
+  }
+  set ["d"](x: number) {}
+}
+
+================================================================================
+`;

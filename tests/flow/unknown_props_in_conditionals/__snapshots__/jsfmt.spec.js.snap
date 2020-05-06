@@ -1,0 +1,243 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`cycle1.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import {o_loop} from "./cycle2";
+
+if (o_loop.q) {} // error: o_loop.q does not exist (NB: this is \`o\` exported from here)
+
+export var o = { p: 0 };
+
+=====================================output=====================================
+// @flow
+
+import { o_loop } from "./cycle2";
+
+if (o_loop.q) {
+} // error: o_loop.q does not exist (NB: this is \`o\` exported from here)
+
+export var o = { p: 0 };
+
+================================================================================
+`;
+
+exports[`cycle2.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import {o} from "./cycle1";
+
+if (o.q) {} // error: o.q does not exist
+
+export var o_loop = o;
+
+=====================================output=====================================
+// @flow
+
+import { o } from "./cycle1";
+
+if (o.q) {
+} // error: o.q does not exist
+
+export var o_loop = o;
+
+================================================================================
+`;
+
+exports[`dependency.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+export var o = { p: 0 };
+
+=====================================output=====================================
+// @flow
+
+export var o = { p: 0 };
+
+================================================================================
+`;
+
+exports[`dependent.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import {o} from "./dependency";
+
+if (o.q) {} // error, o.q not declared
+
+=====================================output=====================================
+// @flow
+
+import { o } from "./dependency";
+
+if (o.q) {
+} // error, o.q not declared
+
+================================================================================
+`;
+
+exports[`test.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+declare var mixed: mixed;
+declare var any: any;
+declare var myObject: Object;
+declare var myFunction: Function;
+
+declare var inexactObject: { x: string };
+declare var exactObject: {| x: string |};
+
+declare var unionOfObjects: { x: string } | { y: string };
+declare var intersectionOfObjects: { x: string } & { y: string };
+
+class myClass {}
+declare var instance: myClass;
+
+// We disallow accessing properties on mixed
+if (mixed.thisPropDoesNotExist) {} // Error
+// But we allow accessing properties on truthy or non-maybe mixed
+if (mixed && mixed.thisPropDoesNotExist) {} // No error
+if (mixed != null && mixed.thisPropDoesNotExist) {} // No error
+
+// We allow accessing properties on the any types
+if (any.thisPropDoesNotExist) {} // No error
+if (myObject.thisPropDoesNotExist) {} // No error
+if (myFunction.thisPropDoesNotExist) {} // No error
+
+// We disallow testing unknown properties on inexact objects
+if (inexactObject.thisPropDoesNotExist) {} // Error
+
+// We disallow testing unknown properties on exact objects
+if (exactObject.thisPropDoesNotExist) {} // Error
+
+// We disallow testing unknown properties on unions
+if (unionOfObjects.thisPropDoesNotExist) {} // Error
+// But we allow testing properties which appear on at least one branch
+if (unionOfObjects.y) {} // No error
+
+// We disallow testing unknown properties on intersections
+if (intersectionOfObjects.thisPropDoesNotExist) {} // Error
+// But we allow testing properties which appear on at least one branch
+if (intersectionOfObjects.y) {} // No error
+
+// We disallow accessing unknown properties on class statics
+if (myClass.thisPropDoesNotExist) {} // Error
+// and on class instances
+if (instance.thisPropDoesNotExist) {} // Error
+
+=====================================output=====================================
+// @flow
+
+declare var mixed: mixed;
+declare var any: any;
+declare var myObject: Object;
+declare var myFunction: Function;
+
+declare var inexactObject: { x: string };
+declare var exactObject: {| x: string |};
+
+declare var unionOfObjects: { x: string } | { y: string };
+declare var intersectionOfObjects: { x: string } & { y: string };
+
+class myClass {}
+declare var instance: myClass;
+
+// We disallow accessing properties on mixed
+if (mixed.thisPropDoesNotExist) {
+} // Error
+// But we allow accessing properties on truthy or non-maybe mixed
+if (mixed && mixed.thisPropDoesNotExist) {
+} // No error
+if (mixed != null && mixed.thisPropDoesNotExist) {
+} // No error
+
+// We allow accessing properties on the any types
+if (any.thisPropDoesNotExist) {
+} // No error
+if (myObject.thisPropDoesNotExist) {
+} // No error
+if (myFunction.thisPropDoesNotExist) {
+} // No error
+
+// We disallow testing unknown properties on inexact objects
+if (inexactObject.thisPropDoesNotExist) {
+} // Error
+
+// We disallow testing unknown properties on exact objects
+if (exactObject.thisPropDoesNotExist) {
+} // Error
+
+// We disallow testing unknown properties on unions
+if (unionOfObjects.thisPropDoesNotExist) {
+} // Error
+// But we allow testing properties which appear on at least one branch
+if (unionOfObjects.y) {
+} // No error
+
+// We disallow testing unknown properties on intersections
+if (intersectionOfObjects.thisPropDoesNotExist) {
+} // Error
+// But we allow testing properties which appear on at least one branch
+if (intersectionOfObjects.y) {
+} // No error
+
+// We disallow accessing unknown properties on class statics
+if (myClass.thisPropDoesNotExist) {
+} // Error
+// and on class instances
+if (instance.thisPropDoesNotExist) {
+} // Error
+
+================================================================================
+`;
+
+exports[`unsealed.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+var o = {};
+function f() {
+  if (o.p) {} // OK, o is unsealed and p may be added later
+}
+o.p = 0; // like so
+
+=====================================output=====================================
+// @flow
+
+var o = {};
+function f() {
+  if (o.p) {
+  } // OK, o is unsealed and p may be added later
+}
+o.p = 0; // like so
+
+================================================================================
+`;

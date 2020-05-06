@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`cycle1.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import {foo} from './cycle2';
+import type {Bar} from './cycle2';
+
+export class Foo {}
+
+const z: Foo = foo;
+
+(z: Bar);
+
+=====================================output=====================================
+// @flow
+
+import { foo } from "./cycle2";
+import type { Bar } from "./cycle2";
+
+export class Foo {}
+
+const z: Foo = foo;
+
+(z: Bar);
+
+================================================================================
+`;
+
+exports[`cycle2.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import {Foo} from './cycle1';
+
+export const foo = new Foo();
+
+export type Bar = Foo;
+
+=====================================output=====================================
+// @flow
+
+import { Foo } from "./cycle1";
+
+export const foo = new Foo();
+
+export type Bar = Foo;
+
+================================================================================
+`;

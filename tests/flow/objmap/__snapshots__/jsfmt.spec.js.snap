@@ -1,5 +1,480 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`arity.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+function g<T: {}>(o: T): $ObjMap<T, typeof makeEditedColumn> {
+  return o;
+}
+
+function f1(o: Columns): Columns {
+  return g(o);
+}
+
+function f2(o: Columns): Columns {
+  return g<Columns>(o);
+}
+
+function f3<T: Columns>(o: T): T {
+  return g(o);
+}
+
+function f4<T: Columns>(o: T): T {
+  return g<T>(o);
+}
+
+function h(o: Columns): $ObjMap<Columns, typeof makeEditedColumn> {
+  return o;
+}
+
+type Columns = {[string]: number};
+
+declare function makeEditedColumn(
+  a: number,
+  b: string,
+): number;
+
+=====================================output=====================================
+// @flow
+
+function g<T: {}>(o: T): $ObjMap<T, typeof makeEditedColumn> {
+  return o;
+}
+
+function f1(o: Columns): Columns {
+  return g(o);
+}
+
+function f2(o: Columns): Columns {
+  return g<Columns>(o);
+}
+
+function f3<T: Columns>(o: T): T {
+  return g(o);
+}
+
+function f4<T: Columns>(o: T): T {
+  return g<T>(o);
+}
+
+function h(o: Columns): $ObjMap<Columns, typeof makeEditedColumn> {
+  return o;
+}
+
+type Columns = { [string]: number };
+
+declare function makeEditedColumn(a: number, b: string): number;
+
+================================================================================
+`;
+
+exports[`arity2.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+function g<T: {}>(o: T): $ObjMapi<T, typeof makeEditedColumn> {
+  return o;
+}
+
+function f1(o: Columns): Columns {
+  return g(o);
+}
+
+function f2(o: Columns): Columns {
+  return g<Columns>(o);
+}
+
+function f3<T: Columns>(o: T): T {
+  return g(o);
+}
+
+function f4<T: Columns>(o: T): T {
+  return g<T>(o);
+}
+
+function h(o: Columns): $ObjMapi<Columns, typeof makeEditedColumn> {
+  return o;
+}
+
+type Columns = {[string]: number};
+
+declare function makeEditedColumn(
+  a: string,
+  b: number,
+  c: boolean,
+): number;
+
+=====================================output=====================================
+// @flow
+
+function g<T: {}>(o: T): $ObjMapi<T, typeof makeEditedColumn> {
+  return o;
+}
+
+function f1(o: Columns): Columns {
+  return g(o);
+}
+
+function f2(o: Columns): Columns {
+  return g<Columns>(o);
+}
+
+function f3<T: Columns>(o: T): T {
+  return g(o);
+}
+
+function f4<T: Columns>(o: T): T {
+  return g<T>(o);
+}
+
+function h(o: Columns): $ObjMapi<Columns, typeof makeEditedColumn> {
+  return o;
+}
+
+type Columns = { [string]: number };
+
+declare function makeEditedColumn(a: string, b: number, c: boolean): number;
+
+================================================================================
+`;
+
+exports[`arity3.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+function g<T: $ReadOnlyArray<number>>(o: T): $TupleMap<T, typeof makeEditedColumn> {
+  return o;
+}
+
+function f1(o: Columns): Columns {
+  return g(o);
+}
+
+function f2(o: Columns): Columns {
+  return g<Columns>(o);
+}
+
+function h(o: Columns): $TupleMap<Columns, typeof makeEditedColumn> {
+  return o;
+}
+
+type Columns = Array<number>;
+
+declare function makeEditedColumn(
+  a: number,
+  b: string,
+): number;
+
+=====================================output=====================================
+// @flow
+
+function g<T: $ReadOnlyArray<number>>(
+  o: T
+): $TupleMap<T, typeof makeEditedColumn> {
+  return o;
+}
+
+function f1(o: Columns): Columns {
+  return g(o);
+}
+
+function f2(o: Columns): Columns {
+  return g<Columns>(o);
+}
+
+function h(o: Columns): $TupleMap<Columns, typeof makeEditedColumn> {
+  return o;
+}
+
+type Columns = Array<number>;
+
+declare function makeEditedColumn(a: number, b: string): number;
+
+================================================================================
+`;
+
+exports[`arity4.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+function g<T: number>(o: T): $Call<typeof makeEditedColumn, T> {
+  return o;
+}
+
+function f1(o: Columns): Columns {
+  return g(o);
+}
+
+function f2(o: Columns): Columns {
+  return g<Columns>(o);
+}
+
+function h(o: Columns): $Call<typeof makeEditedColumn, Columns> {
+  return o;
+}
+
+type Columns = number;
+
+declare function makeEditedColumn(
+  a: number,
+  b: string,
+): number;
+
+=====================================output=====================================
+// @flow
+
+function g<T: number>(o: T): $Call<typeof makeEditedColumn, T> {
+  return o;
+}
+
+function f1(o: Columns): Columns {
+  return g(o);
+}
+
+function f2(o: Columns): Columns {
+  return g<Columns>(o);
+}
+
+function h(o: Columns): $Call<typeof makeEditedColumn, Columns> {
+  return o;
+}
+
+type Columns = number;
+
+declare function makeEditedColumn(a: number, b: string): number;
+
+================================================================================
+`;
+
+exports[`identity.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+declare var any: any;
+
+type Foo = $ObjMap<
+  {
+    a: number,
+    b: number,
+  },
+  <T>(T) => T,
+>;
+declare var foo: Foo;
+
+({
+  a: 42, // OK
+  b: 42, // OK
+}: Foo);
+
+({
+  a: 'asd', // Error: string ~> number
+  b: 'asd', // Error: string ~> number
+}: Foo);
+
+((any: {
+  a: string, // Error: string ~> number
+  b: string, // Error: string ~> number
+}): Foo);
+
+(({}: {}): Foo); // Error: \`a\` and \`b\` are not defined.
+
+((any: {}): Foo); // Error: \`a\` and \`b\` are not defined.
+
+(foo: {
+  a: number, // OK
+  b: number, // OK
+});
+
+(foo: {
+  a: string, // Error: number ~> string
+  b: string, // Error: number ~> string
+});
+
+(foo.a: empty); // Error: number ~> empty
+
+({
+  foo: 'asd', // OK
+}: $ObjMap<
+  {
+    foo: number | string,
+  },
+  <T>(T) => T,
+>);
+
+({
+  foo: 'asd', // OK
+}: $ObjMap<
+  ({ foo: number } | { foo: string }),
+  <T>(T) => T,
+>);
+
+({
+  foo: true, // Error: boolean ~> number | string
+}: $ObjMap<
+  {
+    foo: number | string,
+  },
+  <T>(T) => T,
+>);
+
+({
+  foo: true, // Error: boolean ~> number | string
+}: $ObjMap<
+  ({ foo: number } | { foo: string }),
+  <T>(T) => T,
+>);
+
+=====================================output=====================================
+// @flow
+
+declare var any: any;
+
+type Foo = $ObjMap<
+  {
+    a: number,
+    b: number,
+  },
+  <T>(T) => T
+>;
+declare var foo: Foo;
+
+({
+  a: 42, // OK
+  b: 42, // OK
+}: Foo);
+
+({
+  a: "asd", // Error: string ~> number
+  b: "asd", // Error: string ~> number
+}: Foo);
+
+((any: {
+  a: string, // Error: string ~> number
+  b: string, // Error: string ~> number
+}): Foo);
+
+(({}: {}): Foo); // Error: \`a\` and \`b\` are not defined.
+
+((any: {}): Foo); // Error: \`a\` and \`b\` are not defined.
+
+(foo: {
+  a: number, // OK
+  b: number, // OK
+});
+
+(foo: {
+  a: string, // Error: number ~> string
+  b: string, // Error: number ~> string
+});
+
+(foo.a: empty); // Error: number ~> empty
+
+({
+  foo: "asd", // OK
+}: $ObjMap<
+  {
+    foo: number | string,
+  },
+  <T>(T) => T
+>);
+
+({
+  foo: "asd", // OK
+}: $ObjMap<{ foo: number } | { foo: string }, <T>(T) => T>);
+
+({
+  foo: true, // Error: boolean ~> number | string
+}: $ObjMap<
+  {
+    foo: number | string,
+  },
+  <T>(T) => T
+>);
+
+({
+  foo: true, // Error: boolean ~> number | string
+}: $ObjMap<{ foo: number } | { foo: string }, <T>(T) => T>);
+
+================================================================================
+`;
+
+exports[`issue-2674.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+type A = $ObjMapi<{ FOO: null }, <K>(k: K) => K>;
+declare var a: A;
+
+(a.FOO: 'FOO'); // ok
+(a.FOO: 'BAR'); // error
+a.FOO = 'BAR'; // error
+
+type B = $ObjMap<{ FOO: null }, <K>(k: K) => 'FOO'>;
+declare var b: B;
+
+(b.FOO : 'FOO'); // ok
+(b.FOO : 'BAR'); // error
+b.FOO = 'BAR'; // error
+
+type C = $TupleMap<[mixed, mixed], <K>(k: K) => 'FOO'>;
+declare var c: C;
+
+(c[0]: 'FOO'); // ok
+(c[0]: 'BAR'); // error
+c[0] = 'BAR'; // error
+
+=====================================output=====================================
+// @flow
+
+type A = $ObjMapi<{ FOO: null }, <K>(k: K) => K>;
+declare var a: A;
+
+(a.FOO: "FOO"); // ok
+(a.FOO: "BAR"); // error
+a.FOO = "BAR"; // error
+
+type B = $ObjMap<{ FOO: null }, <K>(k: K) => "FOO">;
+declare var b: B;
+
+(b.FOO: "FOO"); // ok
+(b.FOO: "BAR"); // error
+b.FOO = "BAR"; // error
+
+type C = $TupleMap<[mixed, mixed], <K>(k: K) => "FOO">;
+declare var c: C;
+
+(c[0]: "FOO"); // ok
+(c[0]: "BAR"); // error
+c[0] = "BAR"; // error
+
+================================================================================
+`;
+
 exports[`objmap.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -25,6 +500,16 @@ promiseAllByKey({
   (o.bar: 'bar'); // ok
 });
 
+var foo: $ObjMap<
+  {|a: number|},
+  <T>(t:T) => T
+> = {} // error, {| a: number |} ~> {} 
+
+var bar: $ObjMap<
+  {a: number},
+  <T>(t:T) => T
+> = {} // ok
+
 =====================================output=====================================
 declare function promiseAllByKey<O>(o: O): Promise<$ObjMap<O, typeof $await>>;
 declare function keyMirror<O>(o: O): $ObjMapi<O, <K>(k: K) => K>;
@@ -44,6 +529,90 @@ promiseAllByKey({
   (o.foo: string); // error, number ~> string
   (o.bar: "bar"); // ok
 });
+
+var foo: $ObjMap<{| a: number |}, <T>(t: T) => T> = {}; // error, {| a: number |} ~> {}
+
+var bar: $ObjMap<{ a: number }, <T>(t: T) => T> = {}; // ok
+
+================================================================================
+`;
+
+exports[`optional.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+declare var o1: $ObjMap<{a: number, b?: number}, <T>(T) => Array<T>>;
+declare var o2: $ObjMap<{a: number, b?: number}, <T>(T) => Array<T>>;
+declare var o3: $ObjMap<{a: number, b?: number}, <T>(T) => Array<T>>;
+
+declare var o4: $ObjMapi<{a: number, b?: number}, <T>(any, T) => Array<T>>;
+declare var o5: $ObjMapi<{a: number, b?: number}, <T>(any, T) => Array<T>>;
+declare var o6: $ObjMapi<{a: number, b?: number}, <T>(any, T) => Array<T>>;
+
+(o1.a: Array<number>); // OK
+(o2.b: Array<number> | void); // OK
+(o3.b: Array<number | void>); // Error: void ~> array
+
+(o4.a: Array<number>); // OK
+(o5.b: Array<number> | void); // OK
+(o6.b: Array<number | void>); // Error: void ~> array
+
+=====================================output=====================================
+// @flow
+
+declare var o1: $ObjMap<{ a: number, b?: number }, <T>(T) => Array<T>>;
+declare var o2: $ObjMap<{ a: number, b?: number }, <T>(T) => Array<T>>;
+declare var o3: $ObjMap<{ a: number, b?: number }, <T>(T) => Array<T>>;
+
+declare var o4: $ObjMapi<{ a: number, b?: number }, <T>(any, T) => Array<T>>;
+declare var o5: $ObjMapi<{ a: number, b?: number }, <T>(any, T) => Array<T>>;
+declare var o6: $ObjMapi<{ a: number, b?: number }, <T>(any, T) => Array<T>>;
+
+(o1.a: Array<number>); // OK
+(o2.b: Array<number> | void); // OK
+(o3.b: Array<number | void>); // Error: void ~> array
+
+(o4.a: Array<number>); // OK
+(o5.b: Array<number> | void); // OK
+(o6.b: Array<number | void>); // Error: void ~> array
+
+================================================================================
+`;
+
+exports[`unions.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+type T = {p:string}|{p:number};
+type U = $ObjMap<T,<V>(V) => V>;
+({p:0}: T); // ok
+({p:0}: U); // ok
+
+type F = (<A>(A) => A)|(<B>(B) => null);
+type V = $ObjMap<{+p:number},F>;
+({p:0}: {+p:number|null}); // ok
+({p:0}: V); // ok
+
+=====================================output=====================================
+// @flow
+
+type T = { p: string } | { p: number };
+type U = $ObjMap<T, <V>(V) => V>;
+({ p: 0 }: T); // ok
+({ p: 0 }: U); // ok
+
+type F = (<A>(A) => A) | (<B>(B) => null);
+type V = $ObjMap<{ +p: number }, F>;
+({ p: 0 }: { +p: number | null }); // ok
+({ p: 0 }: V); // ok
 
 ================================================================================
 `;

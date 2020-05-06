@@ -6,15 +6,20 @@ const globby = require("globby");
 const path = require("path");
 const rimraf = require("rimraf");
 
-const DEFAULT_SPEC_CONTENT = "run_spec(__dirname);\n";
+const DEFAULT_SPEC_CONTENT = 'run_spec(__dirname, ["flow"]);\n';
 const SPEC_FILE_NAME = "jsfmt.spec.js";
 const FLOW_TESTS_DIR = path.join(__dirname, "..", "tests", "flow");
 
 function tryParse(file, content) {
+  // options should same as `src/language-js/parser-flow.js`
   const ast = flowParser.parse(content, {
+    enums: true,
+    esproposal_decorators: true,
     esproposal_class_instance_fields: true,
     esproposal_class_static_fields: true,
     esproposal_export_star_as: true,
+    esproposal_optional_chaining: true,
+    esproposal_nullish_coalescing: true,
   });
 
   if (ast.errors.length > 0) {

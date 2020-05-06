@@ -1,0 +1,89 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`a.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+module.exports = () => {};
+
+module.exports.g = "a";
+
+=====================================output=====================================
+// @flow
+
+module.exports = () => {};
+
+module.exports.g = "a";
+
+================================================================================
+`;
+
+exports[`b.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+const a = require('./a');
+
+(a: () => void);
+(a.g: string);
+(a.g: number);
+(a.other: string);
+
+const poly_a = require('./poly_a');
+
+(poly_a: () => void);
+(poly_a: <T>() => void);
+(poly_a.g: string);
+(poly_a.g: number);
+(poly_a.other: string);
+
+=====================================output=====================================
+// @flow
+
+const a = require("./a");
+
+(a: () => void);
+(a.g: string);
+(a.g: number);
+(a.other: string);
+
+const poly_a = require("./poly_a");
+
+(poly_a: () => void);
+(poly_a: <T>() => void);
+(poly_a.g: string);
+(poly_a.g: number);
+(poly_a.other: string);
+
+================================================================================
+`;
+
+exports[`poly_a.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+module.exports = <T>() => {};
+
+module.exports.g = "a";
+
+=====================================output=====================================
+// @flow
+
+module.exports = <T>() => {};
+
+module.exports.g = "a";
+
+================================================================================
+`;

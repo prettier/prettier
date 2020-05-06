@@ -18,6 +18,10 @@ fs.readFile("file.exp", {}, (_, data) => {
   (data : Buffer);
 });
 
+fs.readFile(0, {}, (_, data) => {
+  (data : Buffer);
+});
+
 /* readFileSync */
 
 (fs.readFileSync("file.exp") : Buffer);
@@ -31,3 +35,53 @@ fs.readFile("file.exp", {}, (_, data) => {
 
 (fs.readFileSync("file.exp", {}) : Buffer);
 (fs.readFileSync("file.exp", {}) : string); // error
+
+/* write */
+
+(fs.write(0, Buffer.alloc(0), 0, 0, 0, (err, bytesWritten, buffer) => {
+  (err: ?ErrnoError);
+  (bytesWritten: number);
+  (buffer: Buffer);
+}));
+
+(fs.write(0, Buffer.alloc(0), 0, 0, (err, bytesWritten, buffer) => {
+  (err: ?ErrnoError);
+  (bytesWritten: number);
+  (buffer: Buffer);
+}));
+
+(fs.write(0, Buffer.alloc(0), (err, bytesWritten, buffer) => {
+  (err: ?ErrnoError);
+  (bytesWritten: number);
+  (buffer: Buffer);
+}));
+
+(fs.write(0, "test", 0, "utf8", (err, written, str) => {
+  (err: ?ErrnoError);
+  (written: number);
+  (str: string);
+}));
+
+(fs.write(0, "test", 0, (err, written, str) => {
+  (err: ?ErrnoError);
+  (written: number);
+  (str: string);
+}));
+
+(fs.write(0, "test", (err, written, str) => {
+  (err: ?ErrnoError);
+  (written: number);
+  (str: string);
+}));
+
+/* open */
+
+(fs.open("file.exp", "r", (err, fd) => {
+  (err: ?ErrnoError);
+  (fd: number);
+}));
+
+(fs.open("file.exp", "r", 0o666, (err, fd) => {
+  (err: ?ErrnoError);
+  (fd: number);
+}));

@@ -1,0 +1,193 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Action.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+const keyMirror = require('./keyMirror');
+
+export type Action =
+  | {type: 'SET_OPEN_MODAL', modalType: number}
+  | {type: 'CLOSE_OPEN_MODAL'}
+
+exports.ActionTypes = keyMirror({
+  SET_OPEN_MODAL: '',
+  CLOSE_OPEN_MODAL: '',
+});
+
+=====================================output=====================================
+// @flow
+
+const keyMirror = require("./keyMirror");
+
+export type Action =
+  | { type: "SET_OPEN_MODAL", modalType: number }
+  | { type: "CLOSE_OPEN_MODAL" };
+
+exports.ActionTypes = keyMirror({
+  SET_OPEN_MODAL: "",
+  CLOSE_OPEN_MODAL: "",
+});
+
+================================================================================
+`;
+
+exports[`Layer.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+const keyMirror = require("./keyMirror");
+
+class LayerKey {}
+
+const LayerActions = keyMirror({
+  LAYER_SELECT_LAYER: null,
+  LAYER_SET_LAYER_LABEL: null
+});
+
+export type LayerActionType =
+  | {|
+      type: typeof LayerActions.LAYER_SELECT_LAYER,
+      layerKey: string
+    |}
+  | {|
+      type: typeof LayerActions.LAYER_SET_LAYER_LABEL,
+      layerKey: LayerKey
+    |};
+
+module.exports = { LayerKey, LayerActions };
+
+=====================================output=====================================
+// @flow
+
+const keyMirror = require("./keyMirror");
+
+class LayerKey {}
+
+const LayerActions = keyMirror({
+  LAYER_SELECT_LAYER: null,
+  LAYER_SET_LAYER_LABEL: null,
+});
+
+export type LayerActionType =
+  | {|
+      type: typeof LayerActions.LAYER_SELECT_LAYER,
+      layerKey: string,
+    |}
+  | {|
+      type: typeof LayerActions.LAYER_SET_LAYER_LABEL,
+      layerKey: LayerKey,
+    |};
+
+module.exports = { LayerKey, LayerActions };
+
+================================================================================
+`;
+
+exports[`keyMirror.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+function keyMirror<T: {}>(obj: T): $ObjMapi<T, <K>(K) => K> {
+  const ret = {};
+  for (const key in obj) {
+    if (!obj.hasOwnProperty(key)) {
+      continue;
+    }
+    ret[key] = key;
+  }
+  return ret;
+}
+
+module.exports = keyMirror;
+
+=====================================output=====================================
+// @flow
+
+function keyMirror<T: {}>(obj: T): $ObjMapi<T, <K>(K) => K> {
+  const ret = {};
+  for (const key in obj) {
+    if (!obj.hasOwnProperty(key)) {
+      continue;
+    }
+    ret[key] = key;
+  }
+  return ret;
+}
+
+module.exports = keyMirror;
+
+================================================================================
+`;
+
+exports[`test.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import type { LayerActionType } from "./Layer";
+const {LayerKey, LayerActions} = require("./Layer");
+
+({
+  type: 'LAYER_SET_LAYER_LABEL',
+  layerKey: new LayerKey()
+}: LayerActionType);
+
+import type {Action} from './Action';
+const {ActionTypes} = require('./Action');
+
+const openModal = (
+  action: Action,
+): number => {
+  switch (action.type) {
+    case ActionTypes.SET_OPEN_MODAL:
+      return action.modalType;
+    case ActionTypes.CLOSE_OPEN_MODAL:
+      return 0;
+    default:
+      return 0;
+  }
+};
+
+=====================================output=====================================
+// @flow
+
+import type { LayerActionType } from "./Layer";
+const { LayerKey, LayerActions } = require("./Layer");
+
+({
+  type: "LAYER_SET_LAYER_LABEL",
+  layerKey: new LayerKey(),
+}: LayerActionType);
+
+import type { Action } from "./Action";
+const { ActionTypes } = require("./Action");
+
+const openModal = (action: Action): number => {
+  switch (action.type) {
+    case ActionTypes.SET_OPEN_MODAL:
+      return action.modalType;
+    case ActionTypes.CLOSE_OPEN_MODAL:
+      return 0;
+    default:
+      return 0;
+  }
+};
+
+================================================================================
+`;

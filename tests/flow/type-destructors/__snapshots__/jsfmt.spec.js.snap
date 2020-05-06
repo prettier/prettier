@@ -1,5 +1,195 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`element_type.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type BadArity = $ElementType<number, number, number>;
+
+type Arr = Array<number>;
+type Arr_Elem = $ElementType<Arr, number>;
+
+(42: Arr_Elem); // OK: \`Arr_Elem\` is \`number\`
+('hello world': Arr_Elem);
+
+function foo(a: Arr): $ElementType<Arr, number> {
+  if (false) return a[0];
+  else return 0;
+}
+
+type Obj = { [key: string]: number };
+type Obj_Elem = $ElementType<Obj, string>;
+
+(42: Obj_Elem); // OK: \`Obj_Elem\` is \`number\`
+('hello world': Obj_Elem);
+
+function bar(o: Obj): $ElementType<Obj, string> {
+  if (false) return o['buz'];
+  else return 0;
+}
+
+=====================================output=====================================
+type BadArity = $ElementType<number, number, number>;
+
+type Arr = Array<number>;
+type Arr_Elem = $ElementType<Arr, number>;
+
+(42: Arr_Elem); // OK: \`Arr_Elem\` is \`number\`
+("hello world": Arr_Elem);
+
+function foo(a: Arr): $ElementType<Arr, number> {
+  if (false) return a[0];
+  else return 0;
+}
+
+type Obj = { [key: string]: number };
+type Obj_Elem = $ElementType<Obj, string>;
+
+(42: Obj_Elem); // OK: \`Obj_Elem\` is \`number\`
+("hello world": Obj_Elem);
+
+function bar(o: Obj): $ElementType<Obj, string> {
+  if (false) return o["buz"];
+  else return 0;
+}
+
+================================================================================
+`;
+
+exports[`errors.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @format
+ * @flow
+ */
+
+type P<O> = $PropertyType<O, 'p'>;
+declare function fn1<O>(l: O): $ElementType<O, 'p'>;
+declare function fn2<O>(l: O): ($ElementType<O, 'p'>) => void;
+declare function fn3<O>(o: O): $PropertyType<O, 'p'>;
+declare function fn4<O>(o: O): ($PropertyType<O, 'p'>) => void;
+
+type A = $PropertyType<{}, 'p'>; // We should get an error on this line.
+(null: A);
+
+type B = P<{}>; // We should get an error on this line.
+(null: B);
+
+fn1({x: 42}); // We should get an error on this line.
+fn1(null); // We should get an error on this line.
+
+fn2({x: 42})(); // We should get an error on this line.
+fn2(null)(); // We should get an error on this line.
+
+fn3({x: 42}); // We should get an error on this line.
+fn3(null); // We should get an error on this line.
+
+fn4({x: 42})(); // We should get an error on this line.
+fn4(null)(); // We should get an error on this line.
+
+=====================================output=====================================
+/**
+ * @format
+ * @flow
+ */
+
+type P<O> = $PropertyType<O, "p">;
+declare function fn1<O>(l: O): $ElementType<O, "p">;
+declare function fn2<O>(l: O): ($ElementType<O, "p">) => void;
+declare function fn3<O>(o: O): $PropertyType<O, "p">;
+declare function fn4<O>(o: O): ($PropertyType<O, "p">) => void;
+
+type A = $PropertyType<{}, "p">; // We should get an error on this line.
+(null: A);
+
+type B = P<{}>; // We should get an error on this line.
+(null: B);
+
+fn1({ x: 42 }); // We should get an error on this line.
+fn1(null); // We should get an error on this line.
+
+fn2({ x: 42 })(); // We should get an error on this line.
+fn2(null)(); // We should get an error on this line.
+
+fn3({ x: 42 }); // We should get an error on this line.
+fn3(null); // We should get an error on this line.
+
+fn4({ x: 42 })(); // We should get an error on this line.
+fn4(null)(); // We should get an error on this line.
+
+================================================================================
+`;
+
+exports[`errors2.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @format
+ * @flow
+ */
+
+(null: $PropertyType<{}, 'p'>); // Error should point here.
+
+type A = $PropertyType<{}, 'p'>; // Error should point here.
+(null: A);
+
+type B<O> = $PropertyType<O, 'p'>;
+type C = B<{}>; // Error should point here.
+(null: C);
+
+declare function f1<O>(o: O): $PropertyType<{}, 'p'>; // Error should point here.
+declare function f2<O>(o: O): A;
+declare function f3<O>(o: O): B<{}>; // Error should point here.
+declare function f4<O>(o: O): $PropertyType<O, 'p'>;
+declare function f5<O>(o: O): B<O>;
+
+declare var o: {};
+(f1(o): empty);
+(f2(o): empty);
+(f3(o): empty);
+(f4(o): empty); // Error should point here.
+(f5(o): empty); // Error should point here.
+
+=====================================output=====================================
+/**
+ * @format
+ * @flow
+ */
+
+(null: $PropertyType<{}, "p">); // Error should point here.
+
+type A = $PropertyType<{}, "p">; // Error should point here.
+(null: A);
+
+type B<O> = $PropertyType<O, "p">;
+type C = B<{}>; // Error should point here.
+(null: C);
+
+declare function f1<O>(o: O): $PropertyType<{}, "p">; // Error should point here.
+declare function f2<O>(o: O): A;
+declare function f3<O>(o: O): B<{}>; // Error should point here.
+declare function f4<O>(o: O): $PropertyType<O, "p">;
+declare function f5<O>(o: O): B<O>;
+
+declare var o: {};
+(f1(o): empty);
+(f2(o): empty);
+(f3(o): empty);
+(f4(o): empty); // Error should point here.
+(f5(o): empty); // Error should point here.
+
+================================================================================
+`;
+
 exports[`non_maybe_type.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -7,7 +197,6 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 // @flow
-
 function foo(x: ?string): $NonMaybeType<?string> {
   if (x != null) { return x; }
   else return 0; // this should be an error
@@ -18,10 +207,51 @@ function foo(x: ?string): $NonMaybeType<?string> {
 (0: $NonMaybeType<null>); // error
 (0: $NonMaybeType<?number>); // ok
 (0: $NonMaybeType<number | null>); // ok
+(0: $NonMaybeType<$PropertyType<{p?: number}, 'p'>>); // ok
+
+('str': $NonMaybeType<mixed>);
+(0: $NonMaybeType<mixed>);
+(null: $NonMaybeType<mixed>);
+(undefined: $NonMaybeType<mixed>);
+
+type Foo = $NonMaybeType<$PropertyType<Obj, 'foo'>>;
+
+type Enum =
+| 'A'
+| 'B'
+| 'C';
+
+type Obj =  {foo: ?Enum};
+
+class B {
+    type: Foo = 'A';
+}
+
+
+type Node = number | string;
+
+declare class A<T> {
+    concat<S, Item: A<S> | S>(items: A<Item>): A<T | S>;
+    filter(callbackfn: typeof Boolean): A<$NonMaybeType<T>>;
+}
+
+declare function mkA<T> (x : T) : A<T>;
+
+declare function bar () : Node
+
+declare var props : { s : string };
+
+function f() {
+  let x = (this.props.s === 'S'
+    ? mkA(bar())
+    : mkA()
+  );
+  let y = x.concat(mkA(bar()));
+  let z : A<Node> = y.filter(Boolean); // should not be an error, but unions + generics are broken
+}
 
 =====================================output=====================================
 // @flow
-
 function foo(x: ?string): $NonMaybeType<?string> {
   if (x != null) {
     return x;
@@ -33,6 +263,41 @@ function foo(x: ?string): $NonMaybeType<?string> {
 (0: $NonMaybeType<null>); // error
 (0: $NonMaybeType<?number>); // ok
 (0: $NonMaybeType<number | null>); // ok
+(0: $NonMaybeType<$PropertyType<{ p?: number }, "p">>); // ok
+
+("str": $NonMaybeType<mixed>);
+(0: $NonMaybeType<mixed>);
+(null: $NonMaybeType<mixed>);
+(undefined: $NonMaybeType<mixed>);
+
+type Foo = $NonMaybeType<$PropertyType<Obj, "foo">>;
+
+type Enum = "A" | "B" | "C";
+
+type Obj = { foo: ?Enum };
+
+class B {
+  type: Foo = "A";
+}
+
+type Node = number | string;
+
+declare class A<T> {
+  concat<S, Item: A<S> | S>(items: A<Item>): A<T | S>;
+  filter(callbackfn: typeof Boolean): A<$NonMaybeType<T>>;
+}
+
+declare function mkA<T>(x: T): A<T>;
+
+declare function bar(): Node;
+
+declare var props: { s: string };
+
+function f() {
+  let x = this.props.s === "S" ? mkA(bar()) : mkA();
+  let y = x.concat(mkA(bar()));
+  let z: A<Node> = y.filter(Boolean); // should not be an error, but unions + generics are broken
+}
 
 ================================================================================
 `;
@@ -71,6 +336,305 @@ function foo(o: Obj): $PropertyType<Obj, "x"> {
 ================================================================================
 `;
 
+exports[`tvar1.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+declare function fn<T>(x: T): $PropertyType<T, 'foo'>;
+
+declare var c: {foo: {bar: any}};
+const x = fn(c);
+
+(x: {bar: mixed});
+(x: {bar: empty});
+
+=====================================output=====================================
+// @flow
+
+declare function fn<T>(x: T): $PropertyType<T, "foo">;
+
+declare var c: { foo: { bar: any } };
+const x = fn(c);
+
+(x: { bar: mixed });
+(x: { bar: empty });
+
+================================================================================
+`;
+
+exports[`tvar2.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+class C<T> {x: T}
+
+declare function fn<T>(x: C<T>): C<$PropertyType<T, 'foo'>>;
+
+declare var c: C<{foo: {bar: any}}>;
+const x = fn(c);
+
+(x: C<{bar: mixed}>);
+(x: C<{bar: empty}>);
+
+=====================================output=====================================
+// @flow
+
+class C<T> {
+  x: T;
+}
+
+declare function fn<T>(x: C<T>): C<$PropertyType<T, "foo">>;
+
+declare var c: C<{ foo: { bar: any } }>;
+const x = fn(c);
+
+(x: C<{ bar: mixed }>);
+(x: C<{ bar: empty }>);
+
+================================================================================
+`;
+
+exports[`tvar3.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+declare opaque type A;
+declare opaque type B;
+declare opaque type C;
+declare var a: A;
+declare var b: B;
+declare var c: C;
+
+declare function fn1<T>(x: T): T;
+declare function fn2<T>(x: (T) => void): T => void;
+declare function fn3<T>(x: T, y: (T) => void): T;
+declare function fn4<T>(x: T, y: (T) => void): T => void;
+
+declare function fn5<T>(x: T): $NonMaybeType<T>;
+declare function fn6<T>(x: (T) => void): ($NonMaybeType<T>) => void;
+declare function fn7<T>(x: T, y: (T) => void): $NonMaybeType<T>;
+declare function fn8<T>(x: T, y: (T) => void): ($NonMaybeType<T>) => void;
+
+(fn1(a): B); // Error: A ~> B
+(fn2((a: A) => {}): B => void); // Error: B ~> A
+(fn3(a, (b: B) => {}): C); // Error: A ~> C and A ~> B. Not B ~> C!
+(fn4(a, (b: B) => {}): C => void); // Error: C ~> B and A ~> B. Not C ~> B!
+
+(fn5(a): B); // Error: A ~> B
+(fn6((a: A) => {}): B => void); // Error: B ~> A
+(fn7(a, (b: B) => {}): C); // Error: A ~> C and A ~> B twice. Not B ~> C!
+(fn8(a, (b: B) => {}): C => void); // Error: C ~> B and A ~> B twice. Not C ~> B!
+
+=====================================output=====================================
+// @flow
+
+declare opaque type A;
+declare opaque type B;
+declare opaque type C;
+declare var a: A;
+declare var b: B;
+declare var c: C;
+
+declare function fn1<T>(x: T): T;
+declare function fn2<T>(x: (T) => void): (T) => void;
+declare function fn3<T>(x: T, y: (T) => void): T;
+declare function fn4<T>(x: T, y: (T) => void): (T) => void;
+
+declare function fn5<T>(x: T): $NonMaybeType<T>;
+declare function fn6<T>(x: (T) => void): ($NonMaybeType<T>) => void;
+declare function fn7<T>(x: T, y: (T) => void): $NonMaybeType<T>;
+declare function fn8<T>(x: T, y: (T) => void): ($NonMaybeType<T>) => void;
+
+(fn1(a): B); // Error: A ~> B
+(fn2((a: A) => {}): (B) => void); // Error: B ~> A
+(fn3(a, (b: B) => {}): C); // Error: A ~> C and A ~> B. Not B ~> C!
+(fn4(a, (b: B) => {}): (C) => void); // Error: C ~> B and A ~> B. Not C ~> B!
+
+(fn5(a): B); // Error: A ~> B
+(fn6((a: A) => {}): (B) => void); // Error: B ~> A
+(fn7(a, (b: B) => {}): C); // Error: A ~> C and A ~> B twice. Not B ~> C!
+(fn8(a, (b: B) => {}): (C) => void); // Error: C ~> B and A ~> B twice. Not C ~> B!
+
+================================================================================
+`;
+
+exports[`tvar4.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+function fn1<T: {p: any}>(a: T, b: T => void): $PropertyType<T, 'p'> {
+  b(a);
+  return a.p;
+}
+
+function fn2<T: {p: any}>(a: T, b: T => void): ($PropertyType<T, 'p'>) => void {
+  return p => {
+    a.p = p;
+    return b(a);
+  };
+}
+
+// These function calls are errors because in the second argument we have an
+// empty object type, but $PropertyType expects that all bounds of T have a p
+// property. Looking at these calls, erroring because we could not evaluate
+// $PropertyType is overrestrictive. However, it is consistent with the
+// implementation of type destructors.
+//
+// As we show in the following examples, there are some cases where we do need
+// our type destructor to be restrictive. However, in this case we are
+// over-restrictive.
+fn1({p: 42}, (x: {}) => {});
+fn2({p: 42}, (x: {}) => {})('foo');
+
+function fn3<T: {p: any}>(a: T => void): ($Rest<T, {|p: number|}>) => void {
+  return x => a({...x, p: 42});
+}
+
+// In this case, we have a clear error that we want to catch. foo is passed a
+// number, but we expect a string.
+fn3((x: {foo: string, p: number}) => {})({foo: 42});
+
+// We error here because $Rest requires us to specify a p property in our object
+// type. But if we look at the implementation of fn3 this is a fine program
+// to accept.
+fn3((x: {foo: number}) => {})({foo: 42});
+
+function fn4<T: {|p: any|}>(a: T => void): ($PropertyType<T, 'p'>) => void {
+  // We error here because the implementation of {p: empty} ~> empty currently
+  // errors, but it would be a sound subtyping rule to allow.
+  return p => a({p});
+}
+
+// Here is an error we need to catch.
+fn4((x: {p: string}) => {})(42);
+
+// However, we are overly restrictive and error here. This would be an OK
+// program to accept.
+fn4((x: {}) => {})(42);
+
+=====================================output=====================================
+// @flow
+
+function fn1<T: { p: any }>(a: T, b: (T) => void): $PropertyType<T, "p"> {
+  b(a);
+  return a.p;
+}
+
+function fn2<T: { p: any }>(
+  a: T,
+  b: (T) => void
+): ($PropertyType<T, "p">) => void {
+  return (p) => {
+    a.p = p;
+    return b(a);
+  };
+}
+
+// These function calls are errors because in the second argument we have an
+// empty object type, but $PropertyType expects that all bounds of T have a p
+// property. Looking at these calls, erroring because we could not evaluate
+// $PropertyType is overrestrictive. However, it is consistent with the
+// implementation of type destructors.
+//
+// As we show in the following examples, there are some cases where we do need
+// our type destructor to be restrictive. However, in this case we are
+// over-restrictive.
+fn1({ p: 42 }, (x: {}) => {});
+fn2({ p: 42 }, (x: {}) => {})("foo");
+
+function fn3<T: { p: any }>(
+  a: (T) => void
+): ($Rest<T, {| p: number |}>) => void {
+  return (x) => a({ ...x, p: 42 });
+}
+
+// In this case, we have a clear error that we want to catch. foo is passed a
+// number, but we expect a string.
+fn3((x: { foo: string, p: number }) => {})({ foo: 42 });
+
+// We error here because $Rest requires us to specify a p property in our object
+// type. But if we look at the implementation of fn3 this is a fine program
+// to accept.
+fn3((x: { foo: number }) => {})({ foo: 42 });
+
+function fn4<T: {| p: any |}>(a: (T) => void): ($PropertyType<T, "p">) => void {
+  // We error here because the implementation of {p: empty} ~> empty currently
+  // errors, but it would be a sound subtyping rule to allow.
+  return (p) => a({ p });
+}
+
+// Here is an error we need to catch.
+fn4((x: { p: string }) => {})(42);
+
+// However, we are overly restrictive and error here. This would be an OK
+// program to accept.
+fn4((x: {}) => {})(42);
+
+================================================================================
+`;
+
+exports[`typeapp.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+type X<A, B> = A | B;
+
+(42: $NonMaybeType<number | string>); // Ok
+(42: $NonMaybeType<X<number, string>>); // Ok
+
+// Create a tvar that is not resolved or even 0->1 in an annotation!
+// Technically, this specific tvar is 0->1, but is not optimized to a Resolved
+// tvar in the implementation. But it is trivial to create an example where the
+// tvar is not 0->1.
+type _ItemType<T, _U: $ReadOnlyArray<T>> = T;
+type $ItemType<A: $ReadOnlyArray<mixed>> = _ItemType<*, A>;
+type Y = $NonMaybeType<$ItemType<$ReadOnlyArray<?number>>>;
+declare var y: Y;
+(y: number); // Ok
+(42: Y); // Ok
+
+=====================================output=====================================
+// @flow
+
+type X<A, B> = A | B;
+
+(42: $NonMaybeType<number | string>); // Ok
+(42: $NonMaybeType<X<number, string>>); // Ok
+
+// Create a tvar that is not resolved or even 0->1 in an annotation!
+// Technically, this specific tvar is 0->1, but is not optimized to a Resolved
+// tvar in the implementation. But it is trivial to create an example where the
+// tvar is not 0->1.
+type _ItemType<T, _U: $ReadOnlyArray<T>> = T;
+type $ItemType<A: $ReadOnlyArray<mixed>> = _ItemType<*, A>;
+type Y = $NonMaybeType<$ItemType<$ReadOnlyArray<?number>>>;
+declare var y: Y;
+(y: number); // Ok
+(42: Y); // Ok
+
+================================================================================
+`;
+
 exports[`union.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -82,11 +646,25 @@ var x1: $NonMaybeType<number|string> = true; // err, boolean ~> number|string
 var x2: $PropertyType<{p:number}|{p:string},'p'> = 0; // ok, number ~> number|string
 var x3: $PropertyType<{p:number}|{p:string},'p'> = true; // err, boolean ~> number|string
 
+// annots
+type P2 = $PropertyType<T, 'p'>; // NB: T is not resolved yet
+declare var p2: P2;
+(0: P2); // ok, number ~> string|number
+(null: P2); // err, null ~> string|number
+type T = {p: string} | {p: number}; // NB: T resolved here
+
 =====================================output=====================================
 var x0: $NonMaybeType<number | string> = 0; // ok, number ~> number|string
 var x1: $NonMaybeType<number | string> = true; // err, boolean ~> number|string
 var x2: $PropertyType<{ p: number } | { p: string }, "p"> = 0; // ok, number ~> number|string
 var x3: $PropertyType<{ p: number } | { p: string }, "p"> = true; // err, boolean ~> number|string
+
+// annots
+type P2 = $PropertyType<T, "p">; // NB: T is not resolved yet
+declare var p2: P2;
+(0: P2); // ok, number ~> string|number
+(null: P2); // err, null ~> string|number
+type T = { p: string } | { p: number }; // NB: T resolved here
 
 ================================================================================
 `;

@@ -1,4 +1,4 @@
-// Copyright 2004-present Facebook. All Rights Reserved.
+// Copyright (c) Facebook, Inc. and its affiliates.
 
 // These annotations are copy/pasted from the built-in Flow definitions for
 // Native Promises (https://phabricator.fb.com/P19792689),
@@ -7,7 +7,7 @@
 // Any definitions here will override similarly-named ones in
 // library files declared earlier, including default flow libs.
 
-declare class Promise<R> {
+declare class Promise<+R> {
   constructor(callback: (
     resolve: (result?: Promise<R> | R) => void,
     reject: (error?: any) => void

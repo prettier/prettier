@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`a.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+//@preventMunge
+const b = require('./b');
+module.exports = b.x;
+
+=====================================output=====================================
+//@flow
+//@preventMunge
+const b = require("./b");
+module.exports = b.x;
+
+================================================================================
+`;
+
+exports[`b.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+const a = require('./a');
+class A {
+  static x: number = 3;
+  _munged(arg) { return a; }
+}
+
+module.exports = A;
+
+=====================================output=====================================
+//@flow
+const a = require("./a");
+class A {
+  static x: number = 3;
+  _munged(arg) {
+    return a;
+  }
+}
+
+module.exports = A;
+
+================================================================================
+`;

@@ -1,5 +1,83 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`class_generic.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+class C<T> {
+  arr: Array<{value: T}>;
+
+  foo(value: T) {
+    var entry: {value: T} = {value};
+    this.arr.push(entry);
+  }
+}
+
+=====================================output=====================================
+// @flow
+
+class C<T> {
+  arr: Array<{ value: T }>;
+
+  foo(value: T) {
+    var entry: { value: T } = { value };
+    this.arr.push(entry);
+  }
+}
+
+================================================================================
+`;
+
+exports[`error_message.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/* @flow */
+
+type D1<X> = { p: * };
+
+class C1<X,Y> {
+  x: { p: Y };
+  foo(): D1<X> { return this.x; }
+}
+
+type D2<X,Y> = { p: Y };
+
+class C2<X,Y> {
+  x: { p: Y };
+  foo(): D2<X,Y> { return this.x; }
+}
+
+=====================================output=====================================
+/* @flow */
+
+type D1<X> = { p: * };
+
+class C1<X, Y> {
+  x: { p: Y };
+  foo(): D1<X> {
+    return this.x;
+  }
+}
+
+type D2<X, Y> = { p: Y };
+
+class C2<X, Y> {
+  x: { p: Y };
+  foo(): D2<X, Y> {
+    return this.x;
+  }
+}
+
+================================================================================
+`;
+
 exports[`poly.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]

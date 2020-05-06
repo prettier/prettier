@@ -1,0 +1,773 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Profile.graphql.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @format
+ * @flow
+ */
+
+import * as Relay from './Relay';
+import type {ProfilePic_imageRef} from './ProfilePic.graphql';
+
+declare export opaque type Profile_userRef;
+
+export type Profile_user = Relay.Fragment<
+  Profile_userRef,
+  {|
+    +$$typeof: Relay.$$TypeofFragment,
+    +id: string,
+    +name: string,
+    +pic: ProfilePic_imageRef & {|
+      +id: string,
+    |},
+  |},
+>;
+
+=====================================output=====================================
+/**
+ * @format
+ * @flow
+ */
+
+import * as Relay from "./Relay";
+import type { ProfilePic_imageRef } from "./ProfilePic.graphql";
+
+declare export opaque type Profile_userRef;
+
+export type Profile_user = Relay.Fragment<
+  Profile_userRef,
+  {|
+    +$$typeof: Relay.$$TypeofFragment,
+    +id: string,
+    +name: string,
+    +pic: ProfilePic_imageRef & {|
+      +id: string,
+    |},
+  |}
+>;
+
+================================================================================
+`;
+
+exports[`Profile.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @format
+ * @flow
+ */
+
+import * as React from 'react';
+import {type Fragment, createFragmentContainer} from './Relay';
+import ProfilePic from './ProfilePic';
+
+import type {Profile_user} from './Profile.graphql';
+
+type Props = {
+  user: Profile_user,
+  foo: number,
+};
+
+class Profile extends React.Component<Props> {
+  render() {
+    (this.props.foo: empty); // Error: number ~> empty
+    (this.props.user.id: empty); // Error: string ~> empty
+    (this.props.user.name: empty); // Error: string ~> empty
+    (this.props.user.pic.id: empty); // Error: string ~> empty
+    <ProfilePic image={{url: 'https://facebook.com'}} />; // Error: object ~> opaque type
+    return (
+      <div>
+        <p>{this.props.user.name}</p>
+        <p>{this.props.foo}</p>
+        <p>{this.props.user.pic.id}</p>
+        <ProfilePic image={this.props.user.pic} />
+      </div>
+    );
+  }
+}
+
+export default createFragmentContainer(Profile);
+
+=====================================output=====================================
+/**
+ * @format
+ * @flow
+ */
+
+import * as React from "react";
+import { type Fragment, createFragmentContainer } from "./Relay";
+import ProfilePic from "./ProfilePic";
+
+import type { Profile_user } from "./Profile.graphql";
+
+type Props = {
+  user: Profile_user,
+  foo: number,
+};
+
+class Profile extends React.Component<Props> {
+  render() {
+    (this.props.foo: empty); // Error: number ~> empty
+    (this.props.user.id: empty); // Error: string ~> empty
+    (this.props.user.name: empty); // Error: string ~> empty
+    (this.props.user.pic.id: empty); // Error: string ~> empty
+    <ProfilePic image={{ url: "https://facebook.com" }} />; // Error: object ~> opaque type
+    return (
+      <div>
+        <p>{this.props.user.name}</p>
+        <p>{this.props.foo}</p>
+        <p>{this.props.user.pic.id}</p>
+        <ProfilePic image={this.props.user.pic} />
+      </div>
+    );
+  }
+}
+
+export default createFragmentContainer(Profile);
+
+================================================================================
+`;
+
+exports[`ProfilePic.graphql.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @format
+ * @flow
+ */
+
+import * as Relay from './Relay';
+
+declare export opaque type ProfilePic_imageRef;
+
+export type ProfilePic_image = Relay.Fragment<
+  ProfilePic_imageRef,
+  {|
+    +$$typeof: Relay.$$TypeofFragment,
+    +url: string,
+  |},
+>;
+
+=====================================output=====================================
+/**
+ * @format
+ * @flow
+ */
+
+import * as Relay from "./Relay";
+
+declare export opaque type ProfilePic_imageRef;
+
+export type ProfilePic_image = Relay.Fragment<
+  ProfilePic_imageRef,
+  {|
+    +$$typeof: Relay.$$TypeofFragment,
+    +url: string,
+  |}
+>;
+
+================================================================================
+`;
+
+exports[`ProfilePic.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @format
+ * @flow
+ */
+
+import * as React from 'react';
+import {createFragmentContainer} from './Relay';
+
+import type {ProfilePic_image} from './ProfilePic.graphql';
+
+type Props = {
+  image: ProfilePic_image,
+};
+
+class ProfilePic extends React.Component<Props> {
+  render() {
+    (this.props.image.url: empty); // Error: string ~> empty
+    return <img src={this.props.image.url} />;
+  }
+}
+
+export default createFragmentContainer(ProfilePic);
+
+=====================================output=====================================
+/**
+ * @format
+ * @flow
+ */
+
+import * as React from "react";
+import { createFragmentContainer } from "./Relay";
+
+import type { ProfilePic_image } from "./ProfilePic.graphql";
+
+type Props = {
+  image: ProfilePic_image,
+};
+
+class ProfilePic extends React.Component<Props> {
+  render() {
+    (this.props.image.url: empty); // Error: string ~> empty
+    return <img src={this.props.image.url} />;
+  }
+}
+
+export default createFragmentContainer(ProfilePic);
+
+================================================================================
+`;
+
+exports[`Relay.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @format
+ * @flow
+ */
+
+import * as React from 'react';
+
+/**
+ * All Relay fragment types must be compatible with FragmentData. FragmentData
+ * has a private $$typeof property using the opaque type $$TypeofFragment. It is
+ * important that all fragment data types are compatible with FragmentData for
+ * GetPropFragmentRef.
+ *
+ * Consider the implementation of the branching logic for GetPropFragmentRef:
+ *
+ *     function getPropFragmentRef(fragmentOrValue) {
+ *       if (isFragment(fragmentOrValue)) {
+ *         // fragmentOrValue is a fragment...
+ *       } else {
+ *         // fragmentOrValue is a value...
+ *       }
+ *     }
+ *
+ * What is the implementation of isFragment() such that we include all Relay
+ * fragments, but exclude any other JavaScript value? Because all Relay
+ * fragments are compatible with FragmentData the implementation of isFragment()
+ * could be:
+ *
+ *   function isFragment(fragmentOrValue) {
+ *     return fragmentOrValue.$$typeof === $$TypeofFragment;
+ *   }
+ *
+ * This is why all Relay fragment types must be compatible with FragmentData. We
+ * need a way to distinguish Relay fragments from any other value for
+ * the GetPropFragmentRef function.
+ */
+declare export opaque type $$TypeofFragment;
+type FragmentData = {+$$typeof: $$TypeofFragment};
+
+export type Fragment<Ref, +Data: FragmentData> = Data;
+
+type GetPropFragmentRef = (<T>(Fragment<T, FragmentData>) => T) & (<T>(T) => T);
+
+export function createFragmentContainer<Props>(
+  Component: React.ComponentType<Props>,
+): React.ComponentType<$ObjMap<Props, GetPropFragmentRef>> {
+  return (null: any);
+}
+
+=====================================output=====================================
+/**
+ * @format
+ * @flow
+ */
+
+import * as React from "react";
+
+/**
+ * All Relay fragment types must be compatible with FragmentData. FragmentData
+ * has a private $$typeof property using the opaque type $$TypeofFragment. It is
+ * important that all fragment data types are compatible with FragmentData for
+ * GetPropFragmentRef.
+ *
+ * Consider the implementation of the branching logic for GetPropFragmentRef:
+ *
+ *     function getPropFragmentRef(fragmentOrValue) {
+ *       if (isFragment(fragmentOrValue)) {
+ *         // fragmentOrValue is a fragment...
+ *       } else {
+ *         // fragmentOrValue is a value...
+ *       }
+ *     }
+ *
+ * What is the implementation of isFragment() such that we include all Relay
+ * fragments, but exclude any other JavaScript value? Because all Relay
+ * fragments are compatible with FragmentData the implementation of isFragment()
+ * could be:
+ *
+ *   function isFragment(fragmentOrValue) {
+ *     return fragmentOrValue.$$typeof === $$TypeofFragment;
+ *   }
+ *
+ * This is why all Relay fragment types must be compatible with FragmentData. We
+ * need a way to distinguish Relay fragments from any other value for
+ * the GetPropFragmentRef function.
+ */
+declare export opaque type $$TypeofFragment;
+type FragmentData = { +$$typeof: $$TypeofFragment };
+
+export type Fragment<Ref, +Data: FragmentData> = Data;
+
+type GetPropFragmentRef = (<T>(Fragment<T, FragmentData>) => T) & (<T>(T) => T);
+
+export function createFragmentContainer<Props>(
+  Component: React.ComponentType<Props>
+): React.ComponentType<$ObjMap<Props, GetPropFragmentRef>> {
+  return (null: any);
+}
+
+================================================================================
+`;
+
+exports[`main.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @format
+ * @flow
+ */
+
+import * as React from 'react';
+import Profile from './Profile';
+
+import type {Profile_user, Profile_userRef} from './Profile.graphql';
+
+declare var user: Profile_user;
+declare var userRef: Profile_userRef;
+
+<Profile user={userRef} foo={42} />; // OK
+<Profile user={userRef} />; // Error: Missing foo
+<Profile foo={42} />; // Error: Missing user
+<Profile user={userRef} foo="bar" />; // Error: string ~> number
+<Profile />; // Error: Missing user and foo
+<Profile user={user} foo={42} />; // Error: You must pass in a ref
+<Profile user={user} foo="bar" />; // Error: You must pass in a ref and string ~> number
+<Profile user={(null: mixed)} foo={(null: mixed)} />; // Error: mixed ~> ref and mixed ~> number
+
+=====================================output=====================================
+/**
+ * @format
+ * @flow
+ */
+
+import * as React from "react";
+import Profile from "./Profile";
+
+import type { Profile_user, Profile_userRef } from "./Profile.graphql";
+
+declare var user: Profile_user;
+declare var userRef: Profile_userRef;
+
+<Profile user={userRef} foo={42} />; // OK
+<Profile user={userRef} />; // Error: Missing foo
+<Profile foo={42} />; // Error: Missing user
+<Profile user={userRef} foo="bar" />; // Error: string ~> number
+<Profile />; // Error: Missing user and foo
+<Profile user={user} foo={42} />; // Error: You must pass in a ref
+<Profile user={user} foo="bar" />; // Error: You must pass in a ref and string ~> number
+<Profile user={(null: mixed)} foo={(null: mixed)} />; // Error: mixed ~> ref and mixed ~> number
+
+================================================================================
+`;
+
+exports[`more.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @format
+ * @flow
+ */
+
+/*********************************
+ * Misc Relay types              *
+ *********************************/
+
+declare opaque type FragmentTypeof;
+declare opaque type FragmentReference<T: FragmentTypeof>;
+declare opaque type BadFragmentReference<T>;
+declare opaque type RelayProp;
+
+const React = require('React');
+
+/*********************************
+ * RelayModernTyped              *
+ *********************************/
+
+// prettier-ignore
+type $RelayProps<Props, RelayPropT> = $ObjMap<
+  $Diff<Props, {relay: RelayPropT | void}>,
+  & (<T: FragmentTypeof, Data: {+__typeof: T}>(Data) => {+__fragments: FragmentReference<T>})
+  & (<T: FragmentTypeof, Data: {+__typeof: T}>(?Data) => ?{+__fragments: FragmentReference<T>})
+  & (<T: FragmentTypeof, Data: {+__typeof: T}>($ReadOnlyArray<Data>) => $ReadOnlyArray<{+__fragments: FragmentReference<T>}>)
+  & (<T: FragmentTypeof, Data: {+__typeof: T}>(?$ReadOnlyArray<Data>) => ?$ReadOnlyArray<{+__fragments: FragmentReference<T>}>)
+  & (<T: FragmentTypeof, Data: {+__typeof: T}>($ReadOnlyArray<?Data>) => $ReadOnlyArray<?{+__fragments: FragmentReference<T>}>)
+  & (<T: FragmentTypeof, Data: {+__typeof: T}>(?$ReadOnlyArray<?Data>) => ?$ReadOnlyArray<?{+__fragments: FragmentReference<T>}>)
+  & (<T>(T) => T),
+>;
+
+declare function createFragmentContainer<Props: {}>(
+  Component: React.ComponentType<Props>,
+  fragments: mixed,
+): React.ComponentType<$RelayProps<Props, RelayProp>>;
+
+/*********************************
+ * From generated files          *
+ *********************************/
+
+declare export opaque type RelayModernTypedFlowtest_user$reference: FragmentTypeof;
+export type RelayModernTypedFlowtest_user = {|
+  +__typeof: RelayModernTypedFlowtest_user$reference,
+  +name: ?string,
+|};
+
+declare export opaque type RelayModernTypedFlowtest_users$reference: FragmentTypeof;
+export type RelayModernTypedFlowtest_users = $ReadOnlyArray<{|
+  +__typeof: RelayModernTypedFlowtest_users$reference,
+  +name: ?string,
+|}>;
+
+/*********************************
+ * RelayModernTyped-flowtest     *
+ *********************************/
+
+class SingularTest extends React.Component<{
+  string: string,
+  onClick: () => void,
+  user: RelayModernTypedFlowtest_user,
+  nullableUser: ?RelayModernTypedFlowtest_user,
+  optionalUser?: RelayModernTypedFlowtest_user,
+}> {}
+SingularTest = createFragmentContainer(SingularTest, 'fragments go here');
+
+class PluralTest extends React.Component<{
+  users: RelayModernTypedFlowtest_users,
+  nullableUsers: ?RelayModernTypedFlowtest_users,
+  optionalUsers?: RelayModernTypedFlowtest_users,
+}> {}
+PluralTest = createFragmentContainer(PluralTest, 'fragments go here');
+
+declare var aUserRef: {
+  +__fragments: FragmentReference<RelayModernTypedFlowtest_user$reference>,
+};
+
+declare var oneOfUsersRef: {
+  +__fragments: FragmentReference<RelayModernTypedFlowtest_users$reference>,
+};
+
+declare var usersRef: $ReadOnlyArray<{
+  +__fragments: FragmentReference<RelayModernTypedFlowtest_users$reference>,
+}>;
+
+declare var nonUserRef: {
+  +__fragments: BadFragmentReference<{thing: true}>,
+};
+
+function cb(): void {}
+
+// Error: can't pass null for user
+<SingularTest onClick={cb} string="x" user={null} nullableUser={null} />;
+
+// Error: user is required
+<SingularTest onClick={cb} string="x" nullableUser={null} />;
+
+// Error: can't pass non-user ref for user
+<SingularTest onClick={cb} string="x" user={nonUserRef} nullableUser={null} />;
+
+// OK
+<SingularTest onClick={cb} string="x" user={aUserRef} nullableUser={null} />;
+
+// OK
+<SingularTest
+  onClick={cb}
+  string="x"
+  user={aUserRef}
+  nullableUser={aUserRef}
+/>;
+
+// OK
+<SingularTest
+  onClick={cb}
+  string="x"
+  user={aUserRef}
+  nullableUser={null}
+  optionalUser={aUserRef}
+/>;
+
+// Error: optional, not nullable!
+<SingularTest
+  onClick={cb}
+  string="x"
+  user={aUserRef}
+  nullableUser={null}
+  optionalUser={null}
+/>;
+
+// OK
+declare var aComplexUserRef: {
+  __fragments: FragmentReference<{thing1: true}> &
+    FragmentReference<RelayModernTypedFlowtest_user$reference> &
+    FragmentReference<{thing2: true}>,
+};
+<SingularTest
+  string="x"
+  onClick={cb}
+  user={aComplexUserRef}
+  nullableUser={aComplexUserRef}
+  optionalUser={aComplexUserRef}
+/>;
+
+// Error: can't pass null for user
+<PluralTest users={null} nullableUsers={null} />;
+
+// Error: users is required
+<PluralTest nullableUsers={null} />;
+
+// Error: can't pass non-user refs for user
+<PluralTest users={[nonUserRef]} nullableUsers={null} />;
+
+// OK
+<PluralTest users={usersRef} nullableUsers={null} />;
+
+// OK
+<PluralTest
+  users={([oneOfUsersRef]: Array<typeof oneOfUsersRef>)}
+  nullableUsers={null}
+/>;
+
+// OK
+<PluralTest users={[oneOfUsersRef].map(x => x)} nullableUsers={null} />;
+
+// OK
+<PluralTest users={[oneOfUsersRef]} nullableUsers={null} />;
+
+// OK
+<PluralTest users={usersRef} nullableUsers={[oneOfUsersRef]} />;
+
+// OK
+<PluralTest users={usersRef} nullableUsers={null} optionalUsers={usersRef} />;
+
+// Error: optional, not nullable!
+<PluralTest users={usersRef} nullableUsers={null} optionalUsers={null} />;
+
+// Error: \`onClick\` prop is not a function
+<SingularTest onClick={'cb'} string="x" user={aUserRef} nullableUser={null} />;
+
+// Error: \`string\` prop is not a string
+<SingularTest onClick={cb} string={1} user={aUserRef} nullableUser={null} />;
+
+=====================================output=====================================
+/**
+ * @format
+ * @flow
+ */
+
+/*********************************
+ * Misc Relay types              *
+ *********************************/
+
+declare opaque type FragmentTypeof;
+declare opaque type FragmentReference<T: FragmentTypeof>;
+declare opaque type BadFragmentReference<T>;
+declare opaque type RelayProp;
+
+const React = require("React");
+
+/*********************************
+ * RelayModernTyped              *
+ *********************************/
+
+// prettier-ignore
+type $RelayProps<Props, RelayPropT> = $ObjMap<
+  $Diff<Props, {relay: RelayPropT | void}>,
+  & (<T: FragmentTypeof, Data: {+__typeof: T}>(Data) => {+__fragments: FragmentReference<T>})
+  & (<T: FragmentTypeof, Data: {+__typeof: T}>(?Data) => ?{+__fragments: FragmentReference<T>})
+  & (<T: FragmentTypeof, Data: {+__typeof: T}>($ReadOnlyArray<Data>) => $ReadOnlyArray<{+__fragments: FragmentReference<T>}>)
+  & (<T: FragmentTypeof, Data: {+__typeof: T}>(?$ReadOnlyArray<Data>) => ?$ReadOnlyArray<{+__fragments: FragmentReference<T>}>)
+  & (<T: FragmentTypeof, Data: {+__typeof: T}>($ReadOnlyArray<?Data>) => $ReadOnlyArray<?{+__fragments: FragmentReference<T>}>)
+  & (<T: FragmentTypeof, Data: {+__typeof: T}>(?$ReadOnlyArray<?Data>) => ?$ReadOnlyArray<?{+__fragments: FragmentReference<T>}>)
+  & (<T>(T) => T),
+>;
+
+declare function createFragmentContainer<Props: {}>(
+  Component: React.ComponentType<Props>,
+  fragments: mixed
+): React.ComponentType<$RelayProps<Props, RelayProp>>;
+
+/*********************************
+ * From generated files          *
+ *********************************/
+
+declare export opaque type RelayModernTypedFlowtest_user$reference: FragmentTypeof;
+export type RelayModernTypedFlowtest_user = {|
+  +__typeof: RelayModernTypedFlowtest_user$reference,
+  +name: ?string,
+|};
+
+declare export opaque type RelayModernTypedFlowtest_users$reference: FragmentTypeof;
+export type RelayModernTypedFlowtest_users = $ReadOnlyArray<{|
+  +__typeof: RelayModernTypedFlowtest_users$reference,
+  +name: ?string,
+|}>;
+
+/*********************************
+ * RelayModernTyped-flowtest     *
+ *********************************/
+
+class SingularTest extends React.Component<{
+  string: string,
+  onClick: () => void,
+  user: RelayModernTypedFlowtest_user,
+  nullableUser: ?RelayModernTypedFlowtest_user,
+  optionalUser?: RelayModernTypedFlowtest_user,
+}> {}
+SingularTest = createFragmentContainer(SingularTest, "fragments go here");
+
+class PluralTest extends React.Component<{
+  users: RelayModernTypedFlowtest_users,
+  nullableUsers: ?RelayModernTypedFlowtest_users,
+  optionalUsers?: RelayModernTypedFlowtest_users,
+}> {}
+PluralTest = createFragmentContainer(PluralTest, "fragments go here");
+
+declare var aUserRef: {
+  +__fragments: FragmentReference<RelayModernTypedFlowtest_user$reference>,
+};
+
+declare var oneOfUsersRef: {
+  +__fragments: FragmentReference<RelayModernTypedFlowtest_users$reference>,
+};
+
+declare var usersRef: $ReadOnlyArray<{
+  +__fragments: FragmentReference<RelayModernTypedFlowtest_users$reference>,
+}>;
+
+declare var nonUserRef: {
+  +__fragments: BadFragmentReference<{ thing: true }>,
+};
+
+function cb(): void {}
+
+// Error: can't pass null for user
+<SingularTest onClick={cb} string="x" user={null} nullableUser={null} />;
+
+// Error: user is required
+<SingularTest onClick={cb} string="x" nullableUser={null} />;
+
+// Error: can't pass non-user ref for user
+<SingularTest onClick={cb} string="x" user={nonUserRef} nullableUser={null} />;
+
+// OK
+<SingularTest onClick={cb} string="x" user={aUserRef} nullableUser={null} />;
+
+// OK
+<SingularTest
+  onClick={cb}
+  string="x"
+  user={aUserRef}
+  nullableUser={aUserRef}
+/>;
+
+// OK
+<SingularTest
+  onClick={cb}
+  string="x"
+  user={aUserRef}
+  nullableUser={null}
+  optionalUser={aUserRef}
+/>;
+
+// Error: optional, not nullable!
+<SingularTest
+  onClick={cb}
+  string="x"
+  user={aUserRef}
+  nullableUser={null}
+  optionalUser={null}
+/>;
+
+// OK
+declare var aComplexUserRef: {
+  __fragments: FragmentReference<{ thing1: true }> &
+    FragmentReference<RelayModernTypedFlowtest_user$reference> &
+    FragmentReference<{ thing2: true }>,
+};
+<SingularTest
+  string="x"
+  onClick={cb}
+  user={aComplexUserRef}
+  nullableUser={aComplexUserRef}
+  optionalUser={aComplexUserRef}
+/>;
+
+// Error: can't pass null for user
+<PluralTest users={null} nullableUsers={null} />;
+
+// Error: users is required
+<PluralTest nullableUsers={null} />;
+
+// Error: can't pass non-user refs for user
+<PluralTest users={[nonUserRef]} nullableUsers={null} />;
+
+// OK
+<PluralTest users={usersRef} nullableUsers={null} />;
+
+// OK
+<PluralTest
+  users={([oneOfUsersRef]: Array<typeof oneOfUsersRef>)}
+  nullableUsers={null}
+/>;
+
+// OK
+<PluralTest users={[oneOfUsersRef].map((x) => x)} nullableUsers={null} />;
+
+// OK
+<PluralTest users={[oneOfUsersRef]} nullableUsers={null} />;
+
+// OK
+<PluralTest users={usersRef} nullableUsers={[oneOfUsersRef]} />;
+
+// OK
+<PluralTest users={usersRef} nullableUsers={null} optionalUsers={usersRef} />;
+
+// Error: optional, not nullable!
+<PluralTest users={usersRef} nullableUsers={null} optionalUsers={null} />;
+
+// Error: \`onClick\` prop is not a function
+<SingularTest onClick={"cb"} string="x" user={aUserRef} nullableUser={null} />;
+
+// Error: \`string\` prop is not a string
+<SingularTest onClick={cb} string={1} user={aUserRef} nullableUser={null} />;
+
+================================================================================
+`;

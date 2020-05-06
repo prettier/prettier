@@ -43,7 +43,7 @@ printWidth: 80
 // A function to typecheck values against their types. Covariance of Class<.>
 // makes it useless in such a function (when limited to classes and instances),
 // since everything can be trivially satisfied by going to \`mixed\`.
-declare function check<X>(cls: $Type<X>, inst: X): void;
+declare function check<C>(cls: C, inst: $Call<<I>(Class<I>) => I, C>): void;
 
 class A { }
 class B extends A { }
@@ -59,7 +59,7 @@ check(B, new C);
 // A function to typecheck values against their types. Covariance of Class<.>
 // makes it useless in such a function (when limited to classes and instances),
 // since everything can be trivially satisfied by going to \`mixed\`.
-declare function check<X>(cls: $Type<X>, inst: X): void;
+declare function check<C>(cls: C, inst: $Call<<I>(Class<I>) => I, C>): void;
 
 class A {}
 class B extends A {}
@@ -70,6 +70,28 @@ check(A, new B());
 check(C, new A());
 check(C, new B());
 check(B, new C());
+
+================================================================================
+`;
+
+exports[`test3.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type T = { [string]: Class<null> }
+var o: T = {};
+
+// need use to force evaluation of ClassT type
+o.p.foo;
+
+=====================================output=====================================
+type T = { [string]: Class<null> };
+var o: T = {};
+
+// need use to force evaluation of ClassT type
+o.p.foo;
 
 ================================================================================
 `;

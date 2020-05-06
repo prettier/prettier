@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+type T = {...};
+type U = {foo: number, ...};
+
+declare var x: U;
+(x: T); // Ok, by width subtyping
+
+(x: {||}); // Error, inexact vs. exact
+
+=====================================output=====================================
+//@flow
+type T = { ... };
+type U = { foo: number, ... };
+
+declare var x: U;
+(x: T); // Ok, by width subtyping
+
+(x: {||}); // Error, inexact vs. exact
+
+================================================================================
+`;

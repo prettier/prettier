@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`l1.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+export opaque type T = number;
+
+export var x: T = 0;
+
+export var extra = null;
+
+=====================================output=====================================
+// @flow
+
+export opaque type T = number;
+
+export var x: T = 0;
+
+export var extra = null;
+
+================================================================================
+`;

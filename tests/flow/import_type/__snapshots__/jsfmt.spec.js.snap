@@ -130,6 +130,52 @@ export var foo1Inst = new ClassFoo1();
 ================================================================================
 `;
 
+exports[`ExportDefaultNonType.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @flow
+ */
+
+var x: number = 42;
+
+export default x;
+
+=====================================output=====================================
+/**
+ * @flow
+ */
+
+var x: number = 42;
+
+export default x;
+
+================================================================================
+`;
+
+exports[`ExportExactObject.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+declare var obj: {| f: number |}
+module.exports = obj;
+
+=====================================output=====================================
+// @flow
+
+declare var obj: {| f: number |};
+module.exports = obj;
+
+================================================================================
+`;
+
 exports[`ExportNamed_Alias.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -198,6 +244,26 @@ class ClassFoo2 {
 
 export { ClassFoo2 };
 export var foo2Inst = new ClassFoo2();
+
+================================================================================
+`;
+
+exports[`ExportObject.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+declare var obj: { f: number }
+module.exports = obj;
+
+=====================================output=====================================
+// @flow
+
+declare var obj: { f: number };
+module.exports = obj;
 
 ================================================================================
 `;
@@ -309,6 +375,24 @@ function foo() {
   ClassFoo6; // Error: Not a value binding
 }
 
+//////////////////////////////////////////////////
+// == Import Type of Object (Default Export) == //
+//////////////////////////////////////////////////
+
+import type Obj from './ExportObject';
+
+////////////////////////////////////////////////////////
+// == Import Type of Exact Object (Default Export) == //
+////////////////////////////////////////////////////////
+
+import type ExactObj from './ExportExactObject';
+
+////////////////////////////////////////////////////
+// == Import Type of a Non-Type Default Export == //
+////////////////////////////////////////////////////
+
+import type x from './ExportDefaultNonType';
+
 =====================================output=====================================
 /**
  * @flow
@@ -392,6 +476,24 @@ import type ClassFoo6 from "./issue-359";
 function foo() {
   ClassFoo6; // Error: Not a value binding
 }
+
+//////////////////////////////////////////////////
+// == Import Type of Object (Default Export) == //
+//////////////////////////////////////////////////
+
+import type Obj from "./ExportObject";
+
+////////////////////////////////////////////////////////
+// == Import Type of Exact Object (Default Export) == //
+////////////////////////////////////////////////////////
+
+import type ExactObj from "./ExportExactObject";
+
+////////////////////////////////////////////////////
+// == Import Type of a Non-Type Default Export == //
+////////////////////////////////////////////////////
+
+import type x from "./ExportDefaultNonType";
 
 ================================================================================
 `;

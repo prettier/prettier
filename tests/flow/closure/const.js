@@ -35,11 +35,11 @@ function h(x: number | string | boolean) {
 
   var var_x = x;
   if (typeof(var_x) == "number") {
-    call_me = () => { var y:number = var_x; };  // error
+    call_me = () => { var y:number = var_x; };  // OK because x is const-like
   } else if (typeof(var_x) == "string") {
-    call_me = () => { var y:string = var_x; };  // error
+    call_me = () => { var y:string = var_x; };  // OK because x is const-like
   } else if (typeof(var_x) == "boolean") {
-    call_me = () => { var y:boolean = var_x; };  // error
+    call_me = () => { var y:boolean = var_x; };  // OK because x is const-like
   }
 }
 

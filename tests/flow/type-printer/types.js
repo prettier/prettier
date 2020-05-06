@@ -5,7 +5,7 @@
 'use strict';
 
 /*
- * Flow types for the Babel AST.
+ * Flow types for the Babylon AST.
  */
 
 // Abstract types. Something must extend these.

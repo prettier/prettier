@@ -1,4 +1,4 @@
-// @flow
+// @noflow
 
 // make sure that full resolution jobs don't cache improperly to signal success
 // when they have failed earlier

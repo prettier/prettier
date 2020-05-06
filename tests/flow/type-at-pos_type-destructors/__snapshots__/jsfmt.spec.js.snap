@@ -1,0 +1,730 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`exact.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+type A = { x: number };
+type B = $Exact<A>;
+//   ^
+declare var a: $Exact<A>;
+//          ^
+declare var b: $Exact<B>;
+//          ^
+declare var c: $Exact<{ p: number }>;
+//          ^
+
+function foo<X>(x: $Exact<X>) {
+//              ^
+  var y: $Exact<X>;
+//    ^
+}
+
+declare var e: $Exact<$Exact<A>>;
+//          ^
+
+class C {}
+declare var f: $Exact<Class<C>>;
+//          ^
+
+type P<X> = $Exact<{ m: (x: X) => void}>;
+//   ^
+type Q<X> = $Exact<P<X>>;
+//   ^
+
+=====================================output=====================================
+// @flow
+
+type A = { x: number };
+type B = $Exact<A>;
+//   ^
+declare var a: $Exact<A>;
+//          ^
+declare var b: $Exact<B>;
+//          ^
+declare var c: $Exact<{ p: number }>;
+//          ^
+
+function foo<X>(x: $Exact<X>) {
+  //              ^
+  var y: $Exact<X>;
+  //    ^
+}
+
+declare var e: $Exact<$Exact<A>>;
+//          ^
+
+class C {}
+declare var f: $Exact<Class<C>>;
+//          ^
+
+type P<X> = $Exact<{ m: (x: X) => void }>;
+//   ^
+type Q<X> = $Exact<P<X>>;
+//   ^
+
+================================================================================
+`;
+
+exports[`react-component.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import * as React from 'react';
+
+class MyComponent extends React.Component<{foo: number}> {
+  static defaultProps = {foo: 42};
+  render() {
+    return this.props.foo;
+  }
+}
+
+type ReactA = React.ElementProps<typeof MyComponent>;
+//   ^
+type ReactAP<X> = React.ElementProps<X>;
+//   ^
+
+// The following tests caching of EvalT result. If re-evaluated the $NonMaybeType
+// under the second EvalT would appear as empty
+declare var a: { m<T>(x: $NonMaybeType<T>): T };
+declare var b: { x: typeof a; y: typeof a; }
+//          ^
+
+=====================================output=====================================
+// @flow
+
+import * as React from "react";
+
+class MyComponent extends React.Component<{ foo: number }> {
+  static defaultProps = { foo: 42 };
+  render() {
+    return this.props.foo;
+  }
+}
+
+type ReactA = React.ElementProps<typeof MyComponent>;
+//   ^
+type ReactAP<X> = React.ElementProps<X>;
+//   ^
+
+// The following tests caching of EvalT result. If re-evaluated the $NonMaybeType
+// under the second EvalT would appear as empty
+declare var a: { m<T>(x: $NonMaybeType<T>): T };
+declare var b: { x: typeof a, y: typeof a };
+//          ^
+
+================================================================================
+`;
+
+exports[`spread.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+declare opaque type O;
+declare var o: O;
+type C = {| f: O; |}
+class P<X> { p: X }
+class D { g: O; }
+type Ctor = Class<D>;
+
+// Concrete - should be evaluated before normalization
+
+type EObj2  = {|w: O, ...{| x: O, y: O |}, z: O|};
+//   ^
+type C1     = {...C, o: O};
+//   ^
+type C2     = {o: O, ...C};
+//   ^
+type EC1    = {|...$Exact<C>, o: O|};
+//   ^
+type EC2    = {|o: O, ...C|};
+//   ^
+type Ctor1  = {...Ctor, o: O};
+//   ^
+type P1<T>  = {...P<T>, o: O};
+//   ^
+type Rec    = {o: O, ...Rec};  // Rec = empty
+//   ^
+
+// Unevaluated
+type B1<T: {}, S: {}> = {...T, ...S, o: O};
+//   ^
+type B2<T: {}> = {...T, o: O};
+//   ^
+type B3<T: {}> = {o: O, ...T};
+//   ^
+type B4<T: {}> = {o: O, ...T, oo: O};
+//   ^
+type B5<T: {}> = {u: O, ...{ v: O, w: T }, x: O, ...T, y: O};
+//   ^
+type EB1<T: {}, S: {}> = {|...T, ...S, o: O|};
+//   ^
+type EB2<T: {}> = {|...T, o: O|};
+//   ^
+type EB3<T: {}> = {|o: O, ...T|};
+//   ^
+type EB4<T: {}> = {|o: O, ...T, oo: O|};
+//   ^
+type EB5<T: {}> = {|u: O, ...{ v: O, w: T }, x: O, ...T, y: O|};
+//   ^
+type PTA1<T: {}> = {...B2<T>, ...T};
+//   ^ --expand-type-aliases
+type PTA2<T: {}> = {...T, ...B2<T>};
+//   ^
+type EP1<T> = {|...P<T>, o: O|};
+//   ^
+type EP2<T> = {|o: O, ...P<T>|};
+//   ^
+type ECtor1 = {|...Ctor, o: O|};
+//   ^
+type ECtor2 = {|o: O, ...Ctor|};
+//   ^
+type PRec<X> = {o: O, ...PRec<X>};
+//   ^
+type IP1<T: {}> = {...B1<T>} & {...B2<T>};
+//   ^ --expand-type-aliases
+type Nest1<T: {}> = {...{...T}};
+//   ^
+type Nest2<T: {}> = {...{...{...T}}};
+//   ^
+type UNest<T: {}> = {...T} | {...{...T}} | {...{...{...T}}};
+//   ^
+
+
+declare var eobj2: EObj2; eobj2.z;
+
+declare var c1: C1; c1.o;
+declare var c2: C2; c2.o;
+declare var ec1: EC1; ec1.o;
+declare var ec2: EC2; ec2.o;
+declare var ctor1: Ctor1; ctor1.o;
+
+declare var p1_num: P1<number>; p1_num.o;
+
+
+declare var rec: Rec; rec.o;
+
+=====================================output=====================================
+// @flow
+
+declare opaque type O;
+declare var o: O;
+type C = {| f: O |};
+class P<X> {
+  p: X;
+}
+class D {
+  g: O;
+}
+type Ctor = Class<D>;
+
+// Concrete - should be evaluated before normalization
+
+type EObj2 = {| w: O, ...{| x: O, y: O |}, z: O |};
+//   ^
+type C1 = { ...C, o: O };
+//   ^
+type C2 = { o: O, ...C };
+//   ^
+type EC1 = {| ...$Exact<C>, o: O |};
+//   ^
+type EC2 = {| o: O, ...C |};
+//   ^
+type Ctor1 = { ...Ctor, o: O };
+//   ^
+type P1<T> = { ...P<T>, o: O };
+//   ^
+type Rec = { o: O, ...Rec }; // Rec = empty
+//   ^
+
+// Unevaluated
+type B1<T: {}, S: {}> = { ...T, ...S, o: O };
+//   ^
+type B2<T: {}> = { ...T, o: O };
+//   ^
+type B3<T: {}> = { o: O, ...T };
+//   ^
+type B4<T: {}> = { o: O, ...T, oo: O };
+//   ^
+type B5<T: {}> = { u: O, ...{ v: O, w: T }, x: O, ...T, y: O };
+//   ^
+type EB1<T: {}, S: {}> = {| ...T, ...S, o: O |};
+//   ^
+type EB2<T: {}> = {| ...T, o: O |};
+//   ^
+type EB3<T: {}> = {| o: O, ...T |};
+//   ^
+type EB4<T: {}> = {| o: O, ...T, oo: O |};
+//   ^
+type EB5<T: {}> = {| u: O, ...{ v: O, w: T }, x: O, ...T, y: O |};
+//   ^
+type PTA1<T: {}> = { ...B2<T>, ...T };
+//   ^ --expand-type-aliases
+type PTA2<T: {}> = { ...T, ...B2<T> };
+//   ^
+type EP1<T> = {| ...P<T>, o: O |};
+//   ^
+type EP2<T> = {| o: O, ...P<T> |};
+//   ^
+type ECtor1 = {| ...Ctor, o: O |};
+//   ^
+type ECtor2 = {| o: O, ...Ctor |};
+//   ^
+type PRec<X> = { o: O, ...PRec<X> };
+//   ^
+type IP1<T: {}> = { ...B1<T> } & { ...B2<T> };
+//   ^ --expand-type-aliases
+type Nest1<T: {}> = { ...{ ...T } };
+//   ^
+type Nest2<T: {}> = { ...{ ...{ ...T } } };
+//   ^
+type UNest<T: {}> = { ...T } | { ...{ ...T } } | { ...{ ...{ ...T } } };
+//   ^
+
+declare var eobj2: EObj2;
+eobj2.z;
+
+declare var c1: C1;
+c1.o;
+declare var c2: C2;
+c2.o;
+declare var ec1: EC1;
+ec1.o;
+declare var ec2: EC2;
+ec2.o;
+declare var ctor1: Ctor1;
+ctor1.o;
+
+declare var p1_num: P1<number>;
+p1_num.o;
+
+declare var rec: Rec;
+rec.o;
+
+================================================================================
+`;
+
+exports[`type-destructor.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+type Props = {
+  name: string,
+  age: number
+};
+
+type DefaultProps = { age: number };
+
+declare opaque type O1;
+declare opaque type O2;
+
+// $Keys<T> TODO this is not an EvalT
+const countries = {
+  US: "United States",
+  IT: "Italy",
+  FR: "France"
+};
+
+type Country = $Keys<typeof countries>;
+//   ^
+
+type KeysPoly<K> = $Keys<K>;
+//   ^
+
+// $Values<T>
+type Prop$Values = $Values<Props>;
+//   ^
+
+const frozenObject = Object.freeze({ A: "a", B: "b" });
+type ValuesOfFrozenObject = $Values<typeof frozenObject>;
+//   ^
+
+type ValuesPoly<X> = $Values<X>;
+//   ^
+
+type ValuesPolyBound<X: { f: number }> = $Values<X>;
+//   ^
+
+// $ReadOnly<T>
+type ReadOnlyObj = $ReadOnly<{
+//   ^
+  key: any
+}>;
+
+// $Exact<T>
+// see exact.js
+
+// $Diff<A, B>
+type RequiredProps = $Diff<Props, DefaultProps>;
+//   ^
+
+type DiffFromEmptyObjectError = $Diff<{}, { nope: number }>; // Error
+//   ^
+type DiffFromEmptyObjectOkay = $Diff<{}, { nope: number | void }>;
+//   ^
+type DiffObjPoly<X> = $Diff<{| y: X |}, {| [string]: X |}>;
+//   ^
+type DiffObjPoly2<X, Y> = $Diff<{| x: X, y: Y |}, {| x: X |}>;
+//   ^
+type DiffObjPoly3<X, Y> = $Diff<{| x: X, y: Y |}, ?{| x: X |}>;
+//   ^
+type DiffObjPoly4<X, Y> = $Diff<{| x: X, y: Y |}, {| x?: X |}>;
+//   ^
+
+// $Rest<A, B>
+type RestProps = $Rest<Props, {| age: number |}>;
+//   ^
+
+type RestObj = $Rest<{| y: O1 |}, {| [string]: O2 |}>;
+//   ^
+type RestObjPoly<X> = $Rest<{| y: X |}, {| [string]: X |}>;
+//   ^
+type RestObjPoly2<X, Y> = $Rest<{| x: X, y: Y |}, {| x: X |}>;
+//   ^
+
+// $PropertyType<T, k>
+type PropertyTypeProps = $PropertyType<Props, "name">;
+//   ^
+
+// $ElementType<T, K>
+type ElementTypeProps = $ElementType<Props, "name">;
+//   ^
+type ElementTypePropsPoly<K> = $ElementType<Props, K>;
+//   ^
+type ElementTypePropsPolyBounded<K: "name" | "age"> = $ElementType<Props, K>;
+//   ^
+type ElementTypePropsPolyBoundedEmpty<K: "phone"> = $ElementType<Props, K>;
+//   ^
+
+// $NonMaybeType<T>
+type NonMaybeTypeNumber = $NonMaybeType<?number>;
+//   ^
+type NonMaybeTypeAbstract<X> = $NonMaybeType<X>;
+//   ^
+
+// $ObjMap<T, F>
+type ObjMapProps = $ObjMap<Props, <T>(T) => Array<T>>;
+//   ^
+
+type ObjMapPoly<X, Y> = $ObjMap<{ a: X, b?: Y }, <T>(T) => Array<T>>;
+//   ^
+
+// $ObjMapi<T, F>
+type ObjMapiProps = $ObjMapi<Props, <K, V>(K, V) => Array<K | V>>;
+//   ^
+type ObjMapiPoly<X, Y> = $ObjMapi<{ a: X, b?: Y }, <K, V>(K, V) => Array<K | V>>;
+//   ^
+
+type ExtractReturnObjectType = <K, V>(K, () => V) => { k: K, v: V };
+type FnObj = { getName: () => string, getAge: () => number };
+type ObjMapFnReturnTypes = $ObjMapi<FnObj, ExtractReturnObjectType>;
+//   ^
+
+// $TupleMap<T, F>
+type TupleMapMixedPair = $TupleMap<[mixed, mixed], <K>(k: K) => K | null>;
+//   ^
+type TupleMapMixedPairPoly<X> = $TupleMap<[X, mixed], <K>(k: K) => K | null>;
+//   ^
+
+type ExtractReturnType = <V>(() => V) => V;
+type FnTuple = [() => string, () => number];
+type TupleMapFnReturnTypes = $TupleMap<FnTuple, ExtractReturnType>;
+//   ^
+
+// $Call<F, T...>
+type ExtractPropType = <T>({ prop: T }) => T;
+type PropObj = { prop: number };
+type CallExtractPropType = $Call<ExtractPropType, PropObj>;
+//   ^
+
+type NestedObj = {|
+  +status: ?number,
+  +data: ?$ReadOnlyArray<{|
+    +foo: ?{|
+      +bar: number
+    |}
+  |}>
+|};
+
+// If you wanted to extract the type for \`bar\`, you could use $Call:
+type CallNestedObjType = $Call<
+//   ^
+  <T>({
+    +data: ?$ReadOnlyArray<{
+      +foo: ?{
+        +bar: ?T
+      }
+    }>
+  }) => T,
+  NestedObj
+>;
+
+type CallPoly<R> = $Call<<N>(N) => N, R>;
+
+type PropObjPoly<P> = { prop: P };
+type CallExtractPropTypePoly<P> = $Call<ExtractPropType, PropObjPoly<P>>;
+//   ^
+
+// $Shape<T> TODO this is not an EvalT
+type PropsShape = $Shape<Props>;
+//   ^
+
+// $Exports<T>
+declare module m {
+  declare export var x: number;
+}
+
+type ExportsM = $Exports<"m">;
+//   ^
+
+// Multi-params (ordering)
+declare function right_order<T: {}, K: T>(): $ElementType<T, K>;
+//               ^
+declare function wrong_order<K: T, T: {}>(): $ElementType<T, K>;
+//               ^
+
+// Recursive
+type RecursiveTypeDestructor = {|
+//   ^
+  f: {|
+    g: $PropertyType<RecursiveTypeDestructor, "f">
+  |}
+|};
+
+type RecursiveTypeDestructorPoly<X> = {|
+//   ^
+  f: {| h: $PropertyType<RecursiveTypeDestructorPoly<X>, "f"> |} | X // TODO
+|};
+
+// Nested
+type $Pick<O: {}, K: $Keys<O>> = $ElementType<$NonMaybeType<O>, K>;
+//   ^
+
+// TODO
+// React.ElementPropsType
+// React.ElementConfigType
+// React.ElementRefType
+// React.ConfigType
+
+=====================================output=====================================
+// @flow
+
+type Props = {
+  name: string,
+  age: number,
+};
+
+type DefaultProps = { age: number };
+
+declare opaque type O1;
+declare opaque type O2;
+
+// $Keys<T> TODO this is not an EvalT
+const countries = {
+  US: "United States",
+  IT: "Italy",
+  FR: "France",
+};
+
+type Country = $Keys<typeof countries>;
+//   ^
+
+type KeysPoly<K> = $Keys<K>;
+//   ^
+
+// $Values<T>
+type Prop$Values = $Values<Props>;
+//   ^
+
+const frozenObject = Object.freeze({ A: "a", B: "b" });
+type ValuesOfFrozenObject = $Values<typeof frozenObject>;
+//   ^
+
+type ValuesPoly<X> = $Values<X>;
+//   ^
+
+type ValuesPolyBound<X: { f: number }> = $Values<X>;
+//   ^
+
+// $ReadOnly<T>
+type ReadOnlyObj = $ReadOnly<{
+  //   ^
+  key: any,
+}>;
+
+// $Exact<T>
+// see exact.js
+
+// $Diff<A, B>
+type RequiredProps = $Diff<Props, DefaultProps>;
+//   ^
+
+type DiffFromEmptyObjectError = $Diff<{}, { nope: number }>; // Error
+//   ^
+type DiffFromEmptyObjectOkay = $Diff<{}, { nope: number | void }>;
+//   ^
+type DiffObjPoly<X> = $Diff<{| y: X |}, {| [string]: X |}>;
+//   ^
+type DiffObjPoly2<X, Y> = $Diff<{| x: X, y: Y |}, {| x: X |}>;
+//   ^
+type DiffObjPoly3<X, Y> = $Diff<{| x: X, y: Y |}, ?{| x: X |}>;
+//   ^
+type DiffObjPoly4<X, Y> = $Diff<{| x: X, y: Y |}, {| x?: X |}>;
+//   ^
+
+// $Rest<A, B>
+type RestProps = $Rest<Props, {| age: number |}>;
+//   ^
+
+type RestObj = $Rest<{| y: O1 |}, {| [string]: O2 |}>;
+//   ^
+type RestObjPoly<X> = $Rest<{| y: X |}, {| [string]: X |}>;
+//   ^
+type RestObjPoly2<X, Y> = $Rest<{| x: X, y: Y |}, {| x: X |}>;
+//   ^
+
+// $PropertyType<T, k>
+type PropertyTypeProps = $PropertyType<Props, "name">;
+//   ^
+
+// $ElementType<T, K>
+type ElementTypeProps = $ElementType<Props, "name">;
+//   ^
+type ElementTypePropsPoly<K> = $ElementType<Props, K>;
+//   ^
+type ElementTypePropsPolyBounded<K: "name" | "age"> = $ElementType<Props, K>;
+//   ^
+type ElementTypePropsPolyBoundedEmpty<K: "phone"> = $ElementType<Props, K>;
+//   ^
+
+// $NonMaybeType<T>
+type NonMaybeTypeNumber = $NonMaybeType<?number>;
+//   ^
+type NonMaybeTypeAbstract<X> = $NonMaybeType<X>;
+//   ^
+
+// $ObjMap<T, F>
+type ObjMapProps = $ObjMap<Props, <T>(T) => Array<T>>;
+//   ^
+
+type ObjMapPoly<X, Y> = $ObjMap<{ a: X, b?: Y }, <T>(T) => Array<T>>;
+//   ^
+
+// $ObjMapi<T, F>
+type ObjMapiProps = $ObjMapi<Props, <K, V>(K, V) => Array<K | V>>;
+//   ^
+type ObjMapiPoly<X, Y> = $ObjMapi<
+  { a: X, b?: Y },
+  <K, V>(K, V) => Array<K | V>
+>;
+//   ^
+
+type ExtractReturnObjectType = <K, V>(K, () => V) => { k: K, v: V };
+type FnObj = { getName: () => string, getAge: () => number };
+type ObjMapFnReturnTypes = $ObjMapi<FnObj, ExtractReturnObjectType>;
+//   ^
+
+// $TupleMap<T, F>
+type TupleMapMixedPair = $TupleMap<[mixed, mixed], <K>(k: K) => K | null>;
+//   ^
+type TupleMapMixedPairPoly<X> = $TupleMap<[X, mixed], <K>(k: K) => K | null>;
+//   ^
+
+type ExtractReturnType = <V>(() => V) => V;
+type FnTuple = [() => string, () => number];
+type TupleMapFnReturnTypes = $TupleMap<FnTuple, ExtractReturnType>;
+//   ^
+
+// $Call<F, T...>
+type ExtractPropType = <T>({ prop: T }) => T;
+type PropObj = { prop: number };
+type CallExtractPropType = $Call<ExtractPropType, PropObj>;
+//   ^
+
+type NestedObj = {|
+  +status: ?number,
+  +data: ?$ReadOnlyArray<{|
+    +foo: ?{|
+      +bar: number,
+    |},
+  |}>,
+|};
+
+// If you wanted to extract the type for \`bar\`, you could use $Call:
+type CallNestedObjType = $Call<
+  //   ^
+  <T>({
+    +data: ?$ReadOnlyArray<{
+      +foo: ?{
+        +bar: ?T,
+      },
+    }>,
+  }) => T,
+  NestedObj
+>;
+
+type CallPoly<R> = $Call<<N>(N) => N, R>;
+
+type PropObjPoly<P> = { prop: P };
+type CallExtractPropTypePoly<P> = $Call<ExtractPropType, PropObjPoly<P>>;
+//   ^
+
+// $Shape<T> TODO this is not an EvalT
+type PropsShape = $Shape<Props>;
+//   ^
+
+// $Exports<T>
+declare module m {
+  declare export var x: number;
+}
+
+type ExportsM = $Exports<"m">;
+//   ^
+
+// Multi-params (ordering)
+declare function right_order<T: {}, K: T>(): $ElementType<T, K>;
+//               ^
+declare function wrong_order<K: T, T: {}>(): $ElementType<T, K>;
+//               ^
+
+// Recursive
+type RecursiveTypeDestructor = {|
+  //   ^
+  f: {|
+    g: $PropertyType<RecursiveTypeDestructor, "f">,
+  |},
+|};
+
+type RecursiveTypeDestructorPoly<X> = {|
+  //   ^
+  f: {| h: $PropertyType<RecursiveTypeDestructorPoly<X>, "f"> |} | X, // TODO
+|};
+
+// Nested
+type $Pick<O: {}, K: $Keys<O>> = $ElementType<$NonMaybeType<O>, K>;
+//   ^
+
+// TODO
+// React.ElementPropsType
+// React.ElementConfigType
+// React.ElementRefType
+// React.ConfigType
+
+================================================================================
+`;

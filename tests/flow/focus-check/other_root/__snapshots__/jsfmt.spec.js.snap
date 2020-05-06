@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`other_root_dependent.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import foo from './other_root_file';
+
+(foo: string); // Error
+
+=====================================output=====================================
+// @flow
+
+import foo from "./other_root_file";
+
+(foo: string); // Error
+
+================================================================================
+`;
+
+exports[`other_root_file.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+var x: string = 123; // Error
+
+export default 123;
+
+=====================================output=====================================
+// @flow
+
+var x: string = 123; // Error
+
+export default 123;
+
+================================================================================
+`;

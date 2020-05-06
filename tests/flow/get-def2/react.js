@@ -1,7 +1,9 @@
+// @flow
+
 var React = require('react');
 
-class C extends React.Component {
-  props: { x: string };
+type Props = { x: string };
+class C extends React.Component<Props> {
 }
 
 let msg = "hello";

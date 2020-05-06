@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test-lib.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+declare function test$getElementById(string): HTMLElement | null;
+declare function test$querySelector(selector: string): HTMLElement | null
+
+=====================================output=====================================
+// @flow
+
+declare function test$getElementById(string): HTMLElement | null;
+declare function test$querySelector(selector: string): HTMLElement | null;
+
+================================================================================
+`;

@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * This is a regression test for a fatal assertion that was found when comparing
+ * a type with too many type args to itself. You would not be able to see the
+ * error on line 12 since the fatal assertion would kill Flow.
+ */
+
+class T<U> {}
+type V = T<*, *>; // Error
+declare var x: V;
+(x: V);
+
+(42: empty); // Error: number ~> empty
+
+=====================================output=====================================
+/**
+ * This is a regression test for a fatal assertion that was found when comparing
+ * a type with too many type args to itself. You would not be able to see the
+ * error on line 12 since the fatal assertion would kill Flow.
+ */
+
+class T<U> {}
+type V = T<*, *>; // Error
+declare var x: V;
+(x: V);
+
+(42: empty); // Error: number ~> empty
+
+================================================================================
+`;

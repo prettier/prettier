@@ -1,5 +1,5 @@
 /**
- * Copyright 2004-present Facebook. All Rights Reserved.
+ * Copyright (c) Facebook, Inc. and its affiliates.
  *
  * @providesModule UFILikeCount.react
  * @flow
@@ -8,6 +8,7 @@
 'use strict';
 
 var React = require('react');
+import type {Node} from 'react';
 
 var UFILikeCount = React.createClass({
   propTypes: {
@@ -15,7 +16,7 @@ var UFILikeCount = React.createClass({
     feedback: React.PropTypes.object.isRequired
   },
 
-  render: function(): ?React.Element<any> {
+  render: function(): Node {
     return <div/>;
   }
 });

@@ -1,5 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`comments.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+// foo  bar
+
+/* foo  bar */
+
+=====================================output=====================================
+// @flow
+
+// foo  bar
+
+/* foo  bar */
+
+================================================================================
+`;
+
 exports[`customfun.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -9,27 +31,220 @@ printWidth: 80
 // @flow
 
 declare var idx: $Facebookism$Idx;
-declare var merge: $Facebookism$Merge;
-declare var mergeDeepInto: $Facebookism$MergeDeepInto;
-declare var mergeInto: $Facebookism$MergeInto;
-declare var mixin: $Facebookism$Mixin;
 declare var objectGetPrototypeOf: Object$GetPrototypeOf
 declare var objectAssign: Object$Assign
 
-m
 
 =====================================output=====================================
 // @flow
 
 declare var idx: $Facebookism$Idx;
-declare var merge: $Facebookism$Merge;
-declare var mergeDeepInto: $Facebookism$MergeDeepInto;
-declare var mergeInto: $Facebookism$MergeInto;
-declare var mixin: $Facebookism$Mixin;
 declare var objectGetPrototypeOf: Object$GetPrototypeOf;
 declare var objectAssign: Object$Assign;
 
-m;
+================================================================================
+`;
+
+exports[`import_source.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import {} from '';
+
+=====================================output=====================================
+// @flow
+
+import {} from "";
+
+================================================================================
+`;
+
+exports[`jsx-text.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+(<div>foo   bar</div>);
+//        ^
+
+=====================================output=====================================
+<div>foo bar</div>;
+//        ^
+
+================================================================================
+`;
+
+exports[`literal.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+const x = "foo  bar";
+
+const y = /foo  bar/;
+
+const z = \`foo  bar\`;
+
+=====================================output=====================================
+// @flow
+
+const x = "foo  bar";
+
+const y = /foo  bar/;
+
+const z = \`foo  bar\`;
+
+================================================================================
+`;
+
+exports[`normalize-2.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+function foo<T>(a : { b : T }) {
+  let c = a.b;
+  return  //
+}
+
+=====================================output=====================================
+//@flow
+
+function foo<T>(a: { b: T }) {
+  let c = a.b;
+  return; //
+}
+
+================================================================================
+`;
+
+exports[`pattern.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+var foo = 1;
+//     ^ we shouldn't suggest to shadow an existing variable
+
+foo = 2;
+// ^ it makes sense to suggest existing variables in assignments
+
+function bar() {}
+//           ^ we shouldn't suggest that the param shadow an existing variable
+
+=====================================output=====================================
+//@flow
+
+var foo = 1;
+//     ^ we shouldn't suggest to shadow an existing variable
+
+foo = 2;
+// ^ it makes sense to suggest existing variables in assignments
+
+function bar() {}
+//           ^ we shouldn't suggest that the param shadow an existing variable
+
+================================================================================
+`;
+
+exports[`this2.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+class A {
+  constructor() {
+    t
+  }
+}
+
+=====================================output=====================================
+//@flow
+
+class A {
+  constructor() {
+    t;
+  }
+}
+
+================================================================================
+`;
+
+exports[`type-exports.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+export type Typical = {|
+  x : number,
+  y : number
+|};
+
+export let Typhoon = "not a type";
+
+export let Typhoons = "also not a type";
+
+export class Tyrannosaurus {};
+
+export interface Typesafety {};
+
+export default 15150;
+
+=====================================output=====================================
+//@flow
+
+export type Typical = {|
+  x: number,
+  y: number,
+|};
+
+export let Typhoon = "not a type";
+
+export let Typhoons = "also not a type";
+
+export class Tyrannosaurus {}
+
+export interface Typesafety {}
+
+export default 15150;
+
+================================================================================
+`;
+
+exports[`typeparams_function.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+function test<T> () {
+  
+}
+
+=====================================output=====================================
+//@flow
+function test<T>() {}
 
 ================================================================================
 `;

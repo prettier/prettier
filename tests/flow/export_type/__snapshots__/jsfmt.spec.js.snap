@@ -65,6 +65,17 @@ var l: IFoo = {prop: 'asdf'}; // Error: {prop:string} ~> {prop:number}
 var m: IFoo2 = {prop: 'asdf'};
 var n: IFoo2 = {prop: 42}; // Error: {prop:number} ~> {prop:string}
 
+import {clsInstance} from './values_as_type_exports';
+
+// Should be an error, but currently isn't
+import {Cls as ClsValue} from './values_as_type_exports';
+new ClsValue();
+
+import type {Cls as ClsType} from './values_as_type_exports';
+new ClsType();
+(clsInstance: ClsType);
+(5: ClsType);
+
 =====================================output=====================================
 /* @flow */
 
@@ -98,6 +109,17 @@ var l: IFoo = { prop: "asdf" }; // Error: {prop:string} ~> {prop:number}
 
 var m: IFoo2 = { prop: "asdf" };
 var n: IFoo2 = { prop: 42 }; // Error: {prop:number} ~> {prop:string}
+
+import { clsInstance } from "./values_as_type_exports";
+
+// Should be an error, but currently isn't
+import { Cls as ClsValue } from "./values_as_type_exports";
+new ClsValue();
+
+import type { Cls as ClsType } from "./values_as_type_exports";
+new ClsType();
+(clsInstance: ClsType);
+(5: ClsType);
 
 ================================================================================
 `;
@@ -166,6 +188,50 @@ export type talias2 = number;
 export interface IFoo2 {
   prop: string;
 }
+
+================================================================================
+`;
+
+exports[`values_as_type_exports.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+const num = 42;
+export type {num};
+
+function fun() {}
+export type {fun}
+
+// This one is actually okay, since classes can be used as both values and
+// types. However, we should make sure that importers only end up with the type.
+class Cls {}
+export type {Cls}
+
+// Exported for testing the imported type of Cls
+const clsInstance = new Cls();
+export {clsInstance}
+
+=====================================output=====================================
+// @flow
+
+const num = 42;
+export type { num };
+
+function fun() {}
+export type { fun };
+
+// This one is actually okay, since classes can be used as both values and
+// types. However, we should make sure that importers only end up with the type.
+class Cls {}
+export type { Cls };
+
+// Exported for testing the imported type of Cls
+const clsInstance = new Cls();
+export { clsInstance };
 
 ================================================================================
 `;

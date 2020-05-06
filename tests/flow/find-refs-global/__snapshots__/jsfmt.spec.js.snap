@@ -1,0 +1,429 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`cjs-1.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+const a = 5;
+module.exports.foo = a;
+module.exports.foo2 = 0;
+
+=====================================output=====================================
+// @flow
+const a = 5;
+module.exports.foo = a;
+module.exports.foo2 = 0;
+
+================================================================================
+`;
+
+exports[`cjs-2.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+const b = 4;
+const bar3 = true;
+module.exports = {bar: b, bar2: 42, bar3};
+
+=====================================output=====================================
+// @flow
+const b = 4;
+const bar3 = true;
+module.exports = { bar: b, bar2: 42, bar3 };
+
+================================================================================
+`;
+
+exports[`cjs-3.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+const baz = {c: 0};
+module.exports = baz;
+
+=====================================output=====================================
+// @flow
+const baz = { c: 0 };
+module.exports = baz;
+
+================================================================================
+`;
+
+exports[`cjs-4.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+const {foo, foo2} = require('./cjs-1');
+const {bar: d, bar2, bar3} = require('./cjs-2');
+const baz = require('./cjs-3');
+foo;
+foo2;
+d;
+bar2;
+bar3;
+baz.c;
+
+=====================================output=====================================
+// @flow
+const { foo, foo2 } = require("./cjs-1");
+const { bar: d, bar2, bar3 } = require("./cjs-2");
+const baz = require("./cjs-3");
+foo;
+foo2;
+d;
+bar2;
+bar3;
+baz.c;
+
+================================================================================
+`;
+
+exports[`declare.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+declare var foo: number;
+foo;
+
+declare export var bar;
+bar;
+
+declare function baz(): void;
+baz();
+
+declare class Foo {};
+new Foo();
+
+=====================================output=====================================
+// @flow
+
+declare var foo: number;
+foo;
+
+declare export var bar;
+bar;
+
+declare function baz(): void;
+baz();
+
+declare class Foo {}
+new Foo();
+
+================================================================================
+`;
+
+exports[`es6-1.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/* @flow */
+
+export function foo() {
+
+}
+
+export default class Bar {}
+
+foo();
+
+// This foo shadows the other one: it is not the same variable
+function bar(foo) {
+  console.log(foo);
+}
+
+export class Foo {
+  foo(): void {}
+  bar(): void {
+    this.foo();
+  }
+}
+
+new Foo().bar();
+
+new Bar();
+
+export const baz = 1, qux = 2;
+
+=====================================output=====================================
+/* @flow */
+
+export function foo() {}
+
+export default class Bar {}
+
+foo();
+
+// This foo shadows the other one: it is not the same variable
+function bar(foo) {
+  console.log(foo);
+}
+
+export class Foo {
+  foo(): void {}
+  bar(): void {
+    this.foo();
+  }
+}
+
+new Foo().bar();
+
+new Bar();
+
+export const baz = 1,
+  qux = 2;
+
+================================================================================
+`;
+
+exports[`es6-2.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/* @flow */
+
+import Bar, {foo, Foo, baz as localBaz, baz as otherBaz} from './es6-1';
+import * as all from './es6-1';
+
+foo();
+
+const x = new Foo();
+x.foo();
+
+(x: any).foo();
+
+export function returnsFoo(): Foo {
+  return new Foo();
+}
+
+x.bar();
+
+new Bar();
+new all.default();
+
+all.foo();
+
+localBaz;
+otherBaz;
+
+import {qux} from './es6-1';
+qux;
+
+=====================================output=====================================
+/* @flow */
+
+import Bar, { foo, Foo, baz as localBaz, baz as otherBaz } from "./es6-1";
+import * as all from "./es6-1";
+
+foo();
+
+const x = new Foo();
+x.foo();
+
+(x: any).foo();
+
+export function returnsFoo(): Foo {
+  return new Foo();
+}
+
+x.bar();
+
+new Bar();
+new all.default();
+
+all.foo();
+
+localBaz;
+otherBaz;
+
+import { qux } from "./es6-1";
+qux;
+
+================================================================================
+`;
+
+exports[`exportDefaultAsync.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+export default async function foo() { foo(); }
+
+foo();
+
+=====================================output=====================================
+// @flow
+
+export default async function foo() {
+  foo();
+}
+
+foo();
+
+================================================================================
+`;
+
+exports[`exportDefaultExpr.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+function foo() {}
+
+export default (1, function foo() { foo(); });
+
+// This refers to the first foo function, since the \`export default\` contains
+// a function expression which is not in top-level scope.
+foo();
+
+=====================================output=====================================
+// @flow
+
+function foo() {}
+
+export default (1,
+function foo() {
+  foo();
+});
+
+// This refers to the first foo function, since the \`export default\` contains
+// a function expression which is not in top-level scope.
+foo();
+
+================================================================================
+`;
+
+exports[`extendsFoo.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import {Foo} from './es6-1';
+
+class Bar extends Foo {
+  // overrides Foo's bar
+  bar(): void { }
+}
+
+const x = new Bar();
+x.foo();
+x.bar();
+
+=====================================output=====================================
+// @flow
+
+import { Foo } from "./es6-1";
+
+class Bar extends Foo {
+  // overrides Foo's bar
+  bar(): void {}
+}
+
+const x = new Bar();
+x.foo();
+x.bar();
+
+================================================================================
+`;
+
+exports[`importDefault.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import fooAsync from './exportDefaultAsync';
+import foo from './exportDefaultExpr';
+
+fooAsync();
+foo();
+
+=====================================output=====================================
+// @flow
+
+import fooAsync from "./exportDefaultAsync";
+import foo from "./exportDefaultExpr";
+
+fooAsync();
+foo();
+
+================================================================================
+`;
+
+exports[`importFooType.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import type {Foo} from './es6-1';
+
+export function takesFoo(x: Foo) {
+  x.foo();
+}
+
+=====================================output=====================================
+// @flow
+
+import type { Foo } from "./es6-1";
+
+export function takesFoo(x: Foo) {
+  x.foo();
+}
+
+================================================================================
+`;
+
+exports[`transitiveDependent.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/* @flow */
+
+import {returnsFoo} from './es6-2';
+
+returnsFoo().foo();
+
+=====================================output=====================================
+/* @flow */
+
+import { returnsFoo } from "./es6-2";
+
+returnsFoo().foo();
+
+================================================================================
+`;

@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`app.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import fn from './fn';
+
+const app = fn((o: {a: number, b: number}) => {});
+app({a: 'foo', b: 2});
+
+export default (fn((o: {a: number, b: number}) => {}): {|a:number, b:number|} => void);
+
+=====================================output=====================================
+// @flow
+
+import fn from "./fn";
+
+const app = fn((o: { a: number, b: number }) => {});
+app({ a: "foo", b: 2 });
+
+export default (fn((o: { a: number, b: number }) => {}): ({|
+  a: number,
+  b: number,
+|}) => void);
+
+================================================================================
+`;
+
+exports[`fn.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+export default function fn<A>(arg: ({...A, c: number}) => void): A => void {
+  return (a: A) => arg({...a, c: 42});
+}
+
+=====================================output=====================================
+// @flow
+
+export default function fn<A>(arg: ({ ...A, c: number }) => void): (A) => void {
+  return (a: A) => arg({ ...a, c: 42 });
+}
+
+================================================================================
+`;
+
+exports[`use.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import app from './app';
+
+app({a: 'foo', b: 2});
+
+=====================================output=====================================
+// @flow
+
+import app from "./app";
+
+app({ a: "foo", b: 2 });
+
+================================================================================
+`;

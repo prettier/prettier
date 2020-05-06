@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`a.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+function keyA() { return 'keyA' };
+function keyB() { return 'keyB' };
+function keyAny(): any { return 'keyAny' };
+
+const FIELDS = {
+  A: keyA(),
+  B: keyB(),
+  keyAny: keyAny(),
+}
+
+const dict = {
+  [FIELDS.A]: 1,
+  [FIELDS.B]: 2,
+  [FIELDS.keyAny]: 3,
+};
+
+module.exports = dict;
+
+=====================================output=====================================
+// @flow
+
+function keyA() {
+  return "keyA";
+}
+function keyB() {
+  return "keyB";
+}
+function keyAny(): any {
+  return "keyAny";
+}
+
+const FIELDS = {
+  A: keyA(),
+  B: keyB(),
+  keyAny: keyAny(),
+};
+
+const dict = {
+  [FIELDS.A]: 1,
+  [FIELDS.B]: 2,
+  [FIELDS.keyAny]: 3,
+};
+
+module.exports = dict;
+
+================================================================================
+`;

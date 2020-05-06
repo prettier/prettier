@@ -1,0 +1,171 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SUIActionMenuUniform.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+export type SUIActionMenuUniform = {|
+  backgroundColor: string,
+  borderColor: string,
+  borderRadius?: ?number | string,
+  borderWidth?: ?number,
+  boxShadow?: string,
+  disabledItemColor: string,
+  headerColor: string,
+  highlightedItemBackgroundColor: string,
+  highlightedItemColor: string,
+  itemColor: string,
+  itemIconWidth: number,
+  itemHeight: number,
+|};
+
+=====================================output=====================================
+// @flow
+
+export type SUIActionMenuUniform = {|
+  backgroundColor: string,
+  borderColor: string,
+  borderRadius?: ?number | string,
+  borderWidth?: ?number,
+  boxShadow?: string,
+  disabledItemColor: string,
+  headerColor: string,
+  highlightedItemBackgroundColor: string,
+  highlightedItemColor: string,
+  itemColor: string,
+  itemIconWidth: number,
+  itemHeight: number,
+|};
+
+================================================================================
+`;
+
+exports[`SUIButtonUniform.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+export type SUIButtonUniform = {|
+  borderRadius?: string | number
+|};
+
+module.exports = ({ borderRadius: 0 }: SUIButtonUniform);
+
+=====================================output=====================================
+// @flow
+
+export type SUIButtonUniform = {|
+  borderRadius?: string | number,
+|};
+
+module.exports = ({ borderRadius: 0 }: SUIButtonUniform);
+
+================================================================================
+`;
+
+exports[`SUIExpressWiFiTheme.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import type {SUIButtonUniform} from './SUIButtonUniform';
+import type {SUIActionMenuUniform} from './SUIActionMenuUniform';
+
+const SUIExpressWiFiThemeComponents = require('./SUIExpressWiFiThemeComponents');
+
+export type ComponentUniforms = {
+  SUIActionMenu?: SUIActionMenuUniform,
+  SUIButton?: SUIButtonUniform,
+};
+
+// NOTE: This should error but does not because temporary object spreads use
+// object literal reasons. When that becomes the case, this should error because
+// the read-write properties will fail to unify.
+(SUIExpressWiFiThemeComponents: ComponentUniforms);
+
+=====================================output=====================================
+// @flow
+
+import type { SUIButtonUniform } from "./SUIButtonUniform";
+import type { SUIActionMenuUniform } from "./SUIActionMenuUniform";
+
+const SUIExpressWiFiThemeComponents = require("./SUIExpressWiFiThemeComponents");
+
+export type ComponentUniforms = {
+  SUIActionMenu?: SUIActionMenuUniform,
+  SUIButton?: SUIButtonUniform,
+};
+
+// NOTE: This should error but does not because temporary object spreads use
+// object literal reasons. When that becomes the case, this should error because
+// the read-write properties will fail to unify.
+(SUIExpressWiFiThemeComponents: ComponentUniforms);
+
+================================================================================
+`;
+
+exports[`SUIExpressWiFiThemeComponents.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+import type {SUIButtonUniform} from './SUIButtonUniform';
+import type {SUIActionMenuUniform} from './SUIActionMenuUniform';
+
+declare var SUIActionMenuUniformValue: SUIActionMenuUniform;
+declare var SUIButtonUniformValue: SUIButtonUniform;
+
+const SUIBusinessThemeComponents = {
+  SUIActionMenu: SUIActionMenuUniformValue,
+  SUIButton: SUIButtonUniformValue,
+};
+
+class SUITheme {}
+
+const SUIExpressWiFiThemeComponents = {
+  ...SUITheme,
+  ...SUIBusinessThemeComponents,
+  SUIButton: require('./SUIButtonUniform'),
+};
+
+module.exports = SUIExpressWiFiThemeComponents;
+
+=====================================output=====================================
+// @flow
+
+import type { SUIButtonUniform } from "./SUIButtonUniform";
+import type { SUIActionMenuUniform } from "./SUIActionMenuUniform";
+
+declare var SUIActionMenuUniformValue: SUIActionMenuUniform;
+declare var SUIButtonUniformValue: SUIButtonUniform;
+
+const SUIBusinessThemeComponents = {
+  SUIActionMenu: SUIActionMenuUniformValue,
+  SUIButton: SUIButtonUniformValue,
+};
+
+class SUITheme {}
+
+const SUIExpressWiFiThemeComponents = {
+  ...SUITheme,
+  ...SUIBusinessThemeComponents,
+  SUIButton: require("./SUIButtonUniform"),
+};
+
+module.exports = SUIExpressWiFiThemeComponents;
+
+================================================================================
+`;

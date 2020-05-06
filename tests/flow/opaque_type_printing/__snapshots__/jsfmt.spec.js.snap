@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`importtest.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+import type {ID} from './test';
+
+function test2(x: ID) {
+    return x;
+}
+
+function test3(x: LDefId): LDefId {
+    return x;
+}
+
+=====================================output=====================================
+//@flow
+import type { ID } from "./test";
+
+function test2(x: ID) {
+  return x;
+}
+
+function test3(x: LDefId): LDefId {
+  return x;
+}
+
+================================================================================
+`;
+
+exports[`test.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+export opaque type ID = string;
+
+function test(x: ID): ID {
+    return x;
+}
+
+=====================================output=====================================
+//@flow
+export opaque type ID = string;
+
+function test(x: ID): ID {
+  return x;
+}
+
+================================================================================
+`;

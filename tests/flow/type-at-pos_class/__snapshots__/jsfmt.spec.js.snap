@@ -1,0 +1,542 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`annot_t.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+declare class Seq<K, +V> {
+  static Keyed: typeof KeyedSeq;
+}
+declare class KeyedSeq<K, +V> extends Seq<K, V> {
+  key: K;
+}
+declare var a: Seq.Keyed<number, number>
+
+=====================================output=====================================
+// @flow
+
+declare class Seq<K, +V> {
+  static Keyed: typeof KeyedSeq;
+}
+declare class KeyedSeq<K, +V> extends Seq<K, V> {
+  key: K;
+}
+declare var a: Seq.Keyed<number, number>;
+
+================================================================================
+`;
+
+exports[`class-0.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+class A {
+  m() { this; }
+}
+
+// class_t (t=Ty.Any)
+var Any: any;
+var a: Class<Any<*>>;
+
+// class_t (t=Ty.Top)
+var b: Class<mixed>;
+
+// class_t (t=Ty.Bot)
+var c: Class<*>;
+
+class C1 {}
+class C2 {}
+
+// class_t (t=Ty.Inter)
+var i: Class<C1 & C2>;
+
+// class_t (t=Ty.Union)
+var u: Class<C1 | C2>;
+
+=====================================output=====================================
+// @flow
+
+class A {
+  m() {
+    this;
+  }
+}
+
+// class_t (t=Ty.Any)
+var Any: any;
+var a: Class<Any<*>>;
+
+// class_t (t=Ty.Top)
+var b: Class<mixed>;
+
+// class_t (t=Ty.Bot)
+var c: Class<*>;
+
+class C1 {}
+class C2 {}
+
+// class_t (t=Ty.Inter)
+var i: Class<C1 & C2>;
+
+// class_t (t=Ty.Union)
+var u: Class<C1 | C2>;
+
+================================================================================
+`;
+
+exports[`class-1.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+class A {
+  m() { }
+}
+
+class B extends A {
+  m() { return 1; }
+  constructor() {
+    super();
+  }
+}
+
+=====================================output=====================================
+// @flow
+
+class A {
+  m() {}
+}
+
+class B extends A {
+  m() {
+    return 1;
+  }
+  constructor() {
+    super();
+  }
+}
+
+================================================================================
+`;
+
+exports[`class-2.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+class A {
+  m() { return this; }
+}
+
+class B extends A { }
+
+(new A).m;
+(new B).m;
+
+const a = (new A).m();
+const b = (new B).m();
+
+=====================================output=====================================
+// @flow
+
+class A {
+  m() {
+    return this;
+  }
+}
+
+class B extends A {}
+
+new A().m;
+new B().m;
+
+const a = new A().m();
+const b = new B().m();
+
+================================================================================
+`;
+
+exports[`class-3.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+declare class A {
+  m(): this;
+}
+
+declare class B extends A { }
+
+(new A).m;
+(new B).m;
+
+=====================================output=====================================
+// @flow
+
+declare class A {
+  m(): this;
+}
+
+declare class B extends A {}
+
+new A().m;
+new B().m;
+
+================================================================================
+`;
+
+exports[`class-bound.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+class R<X> {}
+type C<T: R<any>> = Class<T>;
+
+=====================================output=====================================
+// @flow
+
+class R<X> {}
+type C<T: R<any>> = Class<T>;
+
+================================================================================
+`;
+
+exports[`class-getters-setters.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+declare var x: string;
+
+class A {
+  get x(): string {
+    return x;
+  }
+  set x(value: ?string) {
+    x = value || "default";
+  }
+}
+
+=====================================output=====================================
+// @flow
+
+declare var x: string;
+
+class A {
+  get x(): string {
+    return x;
+  }
+  set x(value: ?string) {
+    x = value || "default";
+  }
+}
+
+================================================================================
+`;
+
+exports[`class-poly-0.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+class Base { }
+
+class A<X: Base> {
+  x: X;
+  m() {}
+}
+
+class B<X: Base> extends A<X> {
+  constructor() {
+    super(); // TODO
+  }
+
+  m() {
+    this.x;
+    super.m();
+  }
+}
+
+=====================================output=====================================
+// @flow
+
+class Base {}
+
+class A<X: Base> {
+  x: X;
+  m() {}
+}
+
+class B<X: Base> extends A<X> {
+  constructor() {
+    super(); // TODO
+  }
+
+  m() {
+    this.x;
+    super.m();
+  }
+}
+
+================================================================================
+`;
+
+exports[`class-poly-1.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+export class A<T> {
+  x: T;
+  m() { return this.x; }
+}
+
+declare var a: A<number>;
+var x = a.m();
+
+=====================================output=====================================
+// @flow
+
+export class A<T> {
+  x: T;
+  m() {
+    return this.x;
+  }
+}
+
+declare var a: A<number>;
+var x = a.m();
+
+================================================================================
+`;
+
+exports[`class-statics.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+class A {
+  static m() {}
+}
+
+class B extends A {
+  static m() {
+    (this: Class<A>);
+    (this: Class<B>);
+    super.m();
+    return this;
+  }
+}
+
+var bCtor = B.m();
+var b = new bCtor;
+
+class C {
+  static +y: this;
+}
+
+=====================================output=====================================
+// @flow
+
+class A {
+  static m() {}
+}
+
+class B extends A {
+  static m() {
+    (this: Class<A>);
+    (this: Class<B>);
+    super.m();
+    return this;
+  }
+}
+
+var bCtor = B.m();
+var b = new bCtor();
+
+class C {
+  static +y: this;
+}
+
+================================================================================
+`;
+
+exports[`class-statics-poly.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+class A<T> {
+  static m() {}
+}
+
+class B<T> extends A<T> {
+  static m(): Class<B<T>> {
+    (this: Class<A<T>>);
+    (this: Class<B<T>>);
+    super.m();
+    return this;
+  }
+}
+
+var bCtor = B.m();
+var b = new bCtor;
+
+=====================================output=====================================
+// @flow
+
+class A<T> {
+  static m() {}
+}
+
+class B<T> extends A<T> {
+  static m(): Class<B<T>> {
+    (this: Class<A<T>>);
+    (this: Class<B<T>>);
+    super.m();
+    return this;
+  }
+}
+
+var bCtor = B.m();
+var b = new bCtor();
+
+================================================================================
+`;
+
+exports[`declare_class.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+declare class C {
+}
+
+=====================================output=====================================
+// @flow
+
+declare class C {}
+
+================================================================================
+`;
+
+exports[`default.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+let y = 0;
+class C { m(x = y) {} }
+class D { m({x = y}) {} }
+
+=====================================output=====================================
+// @flow
+
+let y = 0;
+class C {
+  m(x = y) {}
+}
+class D {
+  m({ x = y }) {}
+}
+
+================================================================================
+`;
+
+exports[`implements.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+interface IA<T> {}
+class A<X> implements IA<X> {}
+
+=====================================output=====================================
+// @flow
+
+interface IA<T> {}
+class A<X> implements IA<X> {}
+
+================================================================================
+`;
+
+exports[`type-utils.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+declare class C<P> {};
+
+declare var typeof_C: typeof C;
+declare var class_of_C_number: Class<C<number>>;
+
+declare class A {};
+
+declare var class_a: Class<A>;
+declare var class_class_a: Class<Class<A>>;
+declare var class_class_class_a: Class<Class<Class<A>>>;
+
+=====================================output=====================================
+// @flow
+
+declare class C<P> {}
+
+declare var typeof_C: typeof C;
+declare var class_of_C_number: Class<C<number>>;
+
+declare class A {}
+
+declare var class_a: Class<A>;
+declare var class_class_a: Class<Class<A>>;
+declare var class_class_class_a: Class<Class<Class<A>>>;
+
+================================================================================
+`;

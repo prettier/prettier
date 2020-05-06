@@ -1,0 +1,86 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`lib.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+type BaseProps = {
+  prop1?: ?boolean,
+  prop2?: ?number,
+};
+
+export type Props = BaseProps & {
+  prop3?: ?boolean,
+  prop4?: ?number,
+};
+
+=====================================output=====================================
+//@flow
+
+type BaseProps = {
+  prop1?: ?boolean,
+  prop2?: ?number,
+};
+
+export type Props = BaseProps & {
+  prop3?: ?boolean,
+  prop4?: ?number,
+};
+
+================================================================================
+`;
+
+exports[`lint.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+'use strict';
+
+import type {Props} from './lib.js';
+
+class Class {
+  constructor(props: Props) {
+    const inputProps = {
+      ...props,
+      foo: 'bar',
+    };
+  }
+}
+
+declare var x : mixed;
+//$FlowFixMe should suppress
+if(x) {
+
+};
+
+=====================================output=====================================
+//@flow
+
+"use strict";
+
+import type { Props } from "./lib.js";
+
+class Class {
+  constructor(props: Props) {
+    const inputProps = {
+      ...props,
+      foo: "bar",
+    };
+  }
+}
+
+declare var x: mixed;
+//$FlowFixMe should suppress
+if (x) {
+}
+
+================================================================================
+`;

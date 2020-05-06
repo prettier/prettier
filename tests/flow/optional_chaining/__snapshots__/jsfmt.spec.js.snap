@@ -1,5 +1,391 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`computed_properties.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+type X = {foo: number};
+type Y = {bar: X, baz: ?X};
+
+declare var x1: ?X;
+declare var x2: X;
+
+declare var y1: ?Y;
+declare var y2: Y;
+
+(x1?.["foo"]: empty);
+(x2?.["foo"]: empty);
+
+(y1?.["bar"]?.["foo"]: empty);
+(y2?.["bar"]?.["foo"]: empty);
+(y1?.["baz"]?.["foo"]: empty);
+(y2?.["baz"]?.["foo"]: empty);
+
+(y1?.["bar"]["foo"]: empty);
+(y2?.["bar"]["foo"]: empty);
+(y1?.["baz"]["foo"]: empty);
+(y2?.["baz"]["foo"]: empty);
+
+(y1["bar"]?.["foo"]: empty);
+(y2["bar"]?.["foo"]: empty);
+(y1["baz"]?.["foo"]: empty);
+(y2["baz"]?.["foo"]: empty);
+
+((y1?.["bar"])["foo"]: empty);
+((y2?.["bar"])["foo"]: empty);
+((y1?.["baz"])["foo"]: empty);
+((y2?.["baz"])["foo"]: empty);
+
+=====================================output=====================================
+// @flow
+
+type X = { foo: number };
+type Y = { bar: X, baz: ?X };
+
+declare var x1: ?X;
+declare var x2: X;
+
+declare var y1: ?Y;
+declare var y2: Y;
+
+(x1?.["foo"]: empty);
+(x2?.["foo"]: empty);
+
+(y1?.["bar"]?.["foo"]: empty);
+(y2?.["bar"]?.["foo"]: empty);
+(y1?.["baz"]?.["foo"]: empty);
+(y2?.["baz"]?.["foo"]: empty);
+
+(y1?.["bar"]["foo"]: empty);
+(y2?.["bar"]["foo"]: empty);
+(y1?.["baz"]["foo"]: empty);
+(y2?.["baz"]["foo"]: empty);
+
+(y1["bar"]?.["foo"]: empty);
+(y2["bar"]?.["foo"]: empty);
+(y1["baz"]?.["foo"]: empty);
+(y2["baz"]?.["foo"]: empty);
+
+((y1?.["bar"])["foo"]: empty);
+((y2?.["bar"])["foo"]: empty);
+((y1?.["baz"])["foo"]: empty);
+((y2?.["baz"])["foo"]: empty);
+
+================================================================================
+`;
+
+exports[`deletion.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+declare var x: ?{a: number, b?: {c: number}};
+declare var y: ?{[string]: number};
+declare var z: {d: ?{c: number}}
+declare var w: ?{g: {e: ?number}};
+declare var w2: {g: {e: ?number}};
+
+delete x?.a; // error from writing undefined to number, otherwise ok
+delete x?.b?.c; // error from writing undefined to number, otherwise ok
+delete y?.['a']; // ok
+delete z.d?.c; // error from writing undefined to number, otherwise ok
+delete z?.d; // unnecessary chain
+delete w?.g.e; // ok
+delete w?.g?.e; // one unnecessary chain
+delete w2?.g?.e; // two unnecessary chains
+
+declare var a: ?{a: ?number}
+delete a?.a;
+(a.a: empty); // don't refine a.a to definitely exist
+
+// optional chain in parens doesn't short-circuit
+(w?.g).e = 42; // should fail
+delete (w?.g).e; // should fail
+
+=====================================output=====================================
+//@flow
+
+declare var x: ?{ a: number, b?: { c: number } };
+declare var y: ?{ [string]: number };
+declare var z: { d: ?{ c: number } };
+declare var w: ?{ g: { e: ?number } };
+declare var w2: { g: { e: ?number } };
+
+delete x?.a; // error from writing undefined to number, otherwise ok
+delete x?.b?.c; // error from writing undefined to number, otherwise ok
+delete y?.["a"]; // ok
+delete z.d?.c; // error from writing undefined to number, otherwise ok
+delete z?.d; // unnecessary chain
+delete w?.g.e; // ok
+delete w?.g?.e; // one unnecessary chain
+delete w2?.g?.e; // two unnecessary chains
+
+declare var a: ?{ a: ?number };
+delete a?.a;
+(a.a: empty); // don't refine a.a to definitely exist
+
+// optional chain in parens doesn't short-circuit
+(w?.g).e = 42; // should fail
+delete (w?.g).e; // should fail
+
+================================================================================
+`;
+
+exports[`function_calls.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+type X = () => number;
+
+declare var x1: ?X;
+declare var x2: X;
+
+(x1?.(): empty);
+(x2?.(): empty)
+
+declare var x3: ?(() => (() => number));
+x3?.()();
+(x3?.())();
+
+=====================================output=====================================
+// @flow
+
+type X = () => number;
+
+declare var x1: ?X;
+declare var x2: X;
+
+(x1?.(): empty);
+(x2?.(): empty);
+
+declare var x3: ?() => () => number;
+x3?.()();
+(x3?.())();
+
+================================================================================
+`;
+
+exports[`in_line_refinements.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+declare var x: ?{
+  a: number,
+  f: number => string,
+  i: Array<number>,
+  of?: number => string,
+  oi?: Array<number>,
+  i2: Array<Array<number>>,
+  i3: Array<{a: ?number}>,
+  f2: number => number => string,
+};
+
+x?.f(x.a);
+x?.i[x.a];
+x?.i[x?.a]; // unnecessary optional chain
+x?.of?.(x.a);
+x?.oi?.[x.a];
+
+delete x?.i[x.a];
+delete x?.i2[x.a][0];
+delete x?.i3[x.a].a;
+
+x?.f2(x.a)(x.a); // havoc refinements
+
+=====================================output=====================================
+// @flow
+
+declare var x: ?{
+  a: number,
+  f: (number) => string,
+  i: Array<number>,
+  of?: (number) => string,
+  oi?: Array<number>,
+  i2: Array<Array<number>>,
+  i3: Array<{ a: ?number }>,
+  f2: (number) => (number) => string,
+};
+
+x?.f(x.a);
+x?.i[x.a];
+x?.i[x?.a]; // unnecessary optional chain
+x?.of?.(x.a);
+x?.oi?.[x.a];
+
+delete x?.i[x.a];
+delete x?.i2[x.a][0];
+delete x?.i3[x.a].a;
+
+x?.f2(x.a)(x.a); // havoc refinements
+
+================================================================================
+`;
+
+exports[`lhs_types.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+type Foo = {foo: number};
+
+declare var x: Foo;
+declare var mixed: mixed;
+declare var any: any;
+declare var empty: empty;
+declare var maybe: ?Foo;
+declare var union: Foo | null | void;
+
+(x?.foo: ?number); // no error, lint
+(mixed?.foo: ?number); // error, no lint
+(any?.foo: ?number); // no error, no lint
+(empty?.foo: ?number); // no error, no lint
+(maybe?.foo: ?number); // no error, no lint
+(union?.foo: ?number); // no error, no lint
+
+=====================================output=====================================
+// @flow
+
+type Foo = { foo: number };
+
+declare var x: Foo;
+declare var mixed: mixed;
+declare var any: any;
+declare var empty: empty;
+declare var maybe: ?Foo;
+declare var union: Foo | null | void;
+
+(x?.foo: ?number); // no error, lint
+(mixed?.foo: ?number); // error, no lint
+(any?.foo: ?number); // no error, no lint
+(empty?.foo: ?number); // no error, no lint
+(maybe?.foo: ?number); // no error, no lint
+(union?.foo: ?number); // no error, no lint
+
+================================================================================
+`;
+
+exports[`method_calls.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+type X = {
+  bar: ?(() => number),
+};
+
+declare var foo: ?X;
+
+(foo?.bar?.(): empty);
+(foo.bar?.(): empty);
+(foo?.bar(): empty);
+((foo?.bar)(): empty);
+
+declare var a: { b: ?(() => ?{c: ?{d: number}}), c: ?{d: ?{e:number}}, d: ?{e: {f: () => {g: number}}} };
+var y: empty = a.b?.()?.c?.d;
+var x: empty = a.c?.d?.e;
+var w: empty = a.d?.e.f().g;
+
+declare var b: {onClick?: () => number};
+var f: empty = b.onClick !== null ? b.onClick?.() : 42;
+
+declare var c: ?Array<?(() => ?Array<?Array<number>>)>;
+var z: empty = c?.[0]?.()?.[0]?.[0]
+
+// Ensure intersections work
+class A {
+  a: ?(() => number)
+}
+
+class B {
+  b: ?(() => number)
+}
+
+declare var ab: ?(A & B);
+
+ab?.a?.();
+ab?.b?.();
+
+// Ensure refinements work
+type P = {c?: () => void, b?: {c?: {d: number}}};
+declare var cc: P;
+if (cc.c) {
+  cc?.c();
+}
+
+=====================================output=====================================
+// @flow
+
+type X = {
+  bar: ?() => number,
+};
+
+declare var foo: ?X;
+
+(foo?.bar?.(): empty);
+(foo.bar?.(): empty);
+(foo?.bar(): empty);
+((foo?.bar)(): empty);
+
+declare var a: {
+  b: ?() => ?{ c: ?{ d: number } },
+  c: ?{ d: ?{ e: number } },
+  d: ?{ e: { f: () => { g: number } } },
+};
+var y: empty = a.b?.()?.c?.d;
+var x: empty = a.c?.d?.e;
+var w: empty = a.d?.e.f().g;
+
+declare var b: { onClick?: () => number };
+var f: empty = b.onClick !== null ? b.onClick?.() : 42;
+
+declare var c: ?Array<?() => ?Array<?Array<number>>>;
+var z: empty = c?.[0]?.()?.[0]?.[0];
+
+// Ensure intersections work
+class A {
+  a: ?() => number;
+}
+
+class B {
+  b: ?() => number;
+}
+
+declare var ab: ?(A & B);
+
+ab?.a?.();
+ab?.b?.();
+
+// Ensure refinements work
+type P = { c?: () => void, b?: { c?: { d: number } } };
+declare var cc: P;
+if (cc.c) {
+  cc?.c();
+}
+
+================================================================================
+`;
+
 exports[`private_properties.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
@@ -41,6 +427,659 @@ class Y {
     (this?.#bar: empty);
     (this?.#baz: empty);
   }
+}
+
+================================================================================
+`;
+
+exports[`refinements.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+type P = {c?: () => void, b?: {c?: {d: number}}};
+declare var cc: P;
+if (cc.b?.c) {
+  var xxx: number = cc.b.c.d;
+}
+
+declare var a: ?{b?: {c?: {d: number}, e: number, f: ?(() => number), g: ?(() => number)}};
+
+if (a && a.b) {
+  (a.b: {}); //ok
+  (a.b.c: ?{}); //ok
+  (a.b.c?.d: ?number); //ok
+  a.b.c.d; // bad
+  (a?.b.c?.d: ?number); // ok, one unneeded optional chain
+  (a?.b.e: number); // ok, one unneeded optional chain
+  (a.b?.e: number); // ok, one unneeded optional chain
+}
+
+if (a && a.b) {
+  (a.b?.f(): ?number); // unneeded chain and bad
+}
+
+if (a && a.b) {
+  (a.b.f?.(): ?number); // ok
+}
+
+if (a && a.b) {
+  (a.b?.f?.(): ?number); // ok, one unneeded optional chain
+}
+
+if (a && a.b && a.b.g) {
+  (a.b.g(): number); // ok
+}
+
+if (a && a.b && a.b.g) {
+  (a.b.g?.(): number); // ok, unneeded chain
+}
+
+if (a && a.b && a.b.g) {
+  (a.b?.g(): number); // ok, unneeded chain
+}
+
+if (a && a.b && a.b.g) {
+  (a.b?.g?.(): number); // ok, two unneeded chains
+} else {
+  (a: {}); // should fail, sanity check
+  (a: (null | void)); // should fail, sanity check
+}
+
+function f<T: any>(x: ?T) {
+  if (x?.a === null) {
+    return;
+  }
+  if (x) {
+    (x.a: empty) // ok
+  }
+  (x.a: empty) // should fail
+}
+
+if (a?.b) {
+  (a.b: {}); //ok
+  (a.b.c: ?{}); //ok
+  (a.b.c?.d: ?number); //ok
+  a.b.c.d; // bad
+  (a?.b.c?.d: ?number); // ok, one unneeded optional chain
+  (a?.b.e: number); // ok, one unneeded optional chain
+  (a.b?.e: number); // ok, one unneeded optional chain
+}
+
+if (a?.b) {
+  (a.b?.f(): ?number); // unneeded chain and bad
+}
+
+if (a?.b) {
+  (a.b.f?.(): ?number); // ok
+}
+
+if (a?.b) {
+  (a.b?.f?.(): ?number); // ok, one unneeded optional chain
+}
+
+if (a?.b?.g) {
+  (a.b.g(): number); // ok
+}
+
+if (a?.b?.g) {
+  (a.b.g?.(): number); // ok, unneeded chain
+}
+
+if (a?.b?.g) {
+  (a.b?.g(): number); // ok, unneeded chain
+}
+
+if (a?.b?.g) {
+  (a.b?.g?.(): number); // ok, two unneeded chains
+} else {
+  (a: {}); // should fail, sanity check
+  (a: (null | void)); // should fail, sanity check
+}
+type Z = {| a: "hello ", value: number |} | {| b: "goodbye", value: string |}
+declare var b: ?{x: boolean, y?: boolean, z: Z, w?: {u: () => number}};
+
+if (b?.x) {
+  (b.x: true); // ok
+} else {
+  (b.x: false); // nope
+}
+
+if (b?.w.u) { // error here
+  (b: {}); // ok
+  b.w.u(); // ok, because of error in predicate
+}
+
+if (b && b.w.u) { // error consistent with above
+  b.w.u(); // no error consistent with above
+}
+
+if (b?.z.a) {
+  (b.z.value: number); // yes
+} else {
+  (b.z.value: string); // error
+}
+
+if (b?.y) {// sketchy null
+  (b.y: true); // ok
+} else {
+  (b.y: false); // nope
+}
+
+declare var c: Array<?Array<{a: number, b: {c: {d: string}}}>>;
+if (c[0]?.[0].b.c) {
+  (c[0][0].a: number); //yes
+  (c[0][0].b: {}); //yes
+  (c[1][0]: {}); // no
+  (c[0][1].a: number); // yes
+}
+
+declare var d: ?{a?: () => {b?: {c: number}}, d: number};
+if (d?.a?.().b) {
+  (d.a().b.c: number); // nope, never was a refinement in the first place
+}
+
+declare var a11: ?({a: string} | {});
+declare var b11: ?{};
+// No error on looking up a11?.a, but that's consistent with non-optional behavior
+var x11: empty = a11?.a || b11?.a;
+
+declare var e: ?string;
+if (e?.length) { }
+
+=====================================output=====================================
+//@flow
+
+type P = { c?: () => void, b?: { c?: { d: number } } };
+declare var cc: P;
+if (cc.b?.c) {
+  var xxx: number = cc.b.c.d;
+}
+
+declare var a: ?{
+  b?: { c?: { d: number }, e: number, f: ?() => number, g: ?() => number },
+};
+
+if (a && a.b) {
+  (a.b: {}); //ok
+  (a.b.c: ?{}); //ok
+  (a.b.c?.d: ?number); //ok
+  a.b.c.d; // bad
+  (a?.b.c?.d: ?number); // ok, one unneeded optional chain
+  (a?.b.e: number); // ok, one unneeded optional chain
+  (a.b?.e: number); // ok, one unneeded optional chain
+}
+
+if (a && a.b) {
+  (a.b?.f(): ?number); // unneeded chain and bad
+}
+
+if (a && a.b) {
+  (a.b.f?.(): ?number); // ok
+}
+
+if (a && a.b) {
+  (a.b?.f?.(): ?number); // ok, one unneeded optional chain
+}
+
+if (a && a.b && a.b.g) {
+  (a.b.g(): number); // ok
+}
+
+if (a && a.b && a.b.g) {
+  (a.b.g?.(): number); // ok, unneeded chain
+}
+
+if (a && a.b && a.b.g) {
+  (a.b?.g(): number); // ok, unneeded chain
+}
+
+if (a && a.b && a.b.g) {
+  (a.b?.g?.(): number); // ok, two unneeded chains
+} else {
+  (a: {}); // should fail, sanity check
+  (a: null | void); // should fail, sanity check
+}
+
+function f<T: any>(x: ?T) {
+  if (x?.a === null) {
+    return;
+  }
+  if (x) {
+    (x.a: empty); // ok
+  }
+  (x.a: empty); // should fail
+}
+
+if (a?.b) {
+  (a.b: {}); //ok
+  (a.b.c: ?{}); //ok
+  (a.b.c?.d: ?number); //ok
+  a.b.c.d; // bad
+  (a?.b.c?.d: ?number); // ok, one unneeded optional chain
+  (a?.b.e: number); // ok, one unneeded optional chain
+  (a.b?.e: number); // ok, one unneeded optional chain
+}
+
+if (a?.b) {
+  (a.b?.f(): ?number); // unneeded chain and bad
+}
+
+if (a?.b) {
+  (a.b.f?.(): ?number); // ok
+}
+
+if (a?.b) {
+  (a.b?.f?.(): ?number); // ok, one unneeded optional chain
+}
+
+if (a?.b?.g) {
+  (a.b.g(): number); // ok
+}
+
+if (a?.b?.g) {
+  (a.b.g?.(): number); // ok, unneeded chain
+}
+
+if (a?.b?.g) {
+  (a.b?.g(): number); // ok, unneeded chain
+}
+
+if (a?.b?.g) {
+  (a.b?.g?.(): number); // ok, two unneeded chains
+} else {
+  (a: {}); // should fail, sanity check
+  (a: null | void); // should fail, sanity check
+}
+type Z = {| a: "hello ", value: number |} | {| b: "goodbye", value: string |};
+declare var b: ?{ x: boolean, y?: boolean, z: Z, w?: { u: () => number } };
+
+if (b?.x) {
+  (b.x: true); // ok
+} else {
+  (b.x: false); // nope
+}
+
+if (b?.w.u) {
+  // error here
+  (b: {}); // ok
+  b.w.u(); // ok, because of error in predicate
+}
+
+if (b && b.w.u) {
+  // error consistent with above
+  b.w.u(); // no error consistent with above
+}
+
+if (b?.z.a) {
+  (b.z.value: number); // yes
+} else {
+  (b.z.value: string); // error
+}
+
+if (b?.y) {
+  // sketchy null
+  (b.y: true); // ok
+} else {
+  (b.y: false); // nope
+}
+
+declare var c: Array<?Array<{ a: number, b: { c: { d: string } } }>>;
+if (c[0]?.[0].b.c) {
+  (c[0][0].a: number); //yes
+  (c[0][0].b: {}); //yes
+  (c[1][0]: {}); // no
+  (c[0][1].a: number); // yes
+}
+
+declare var d: ?{ a?: () => { b?: { c: number } }, d: number };
+if (d?.a?.().b) {
+  (d.a().b.c: number); // nope, never was a refinement in the first place
+}
+
+declare var a11: ?({ a: string } | {});
+declare var b11: ?{};
+// No error on looking up a11?.a, but that's consistent with non-optional behavior
+var x11: empty = a11?.a || b11?.a;
+
+declare var e: ?string;
+if (e?.length) {
+}
+
+================================================================================
+`;
+
+exports[`refinements2.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+//@flow
+
+type T = {a: null | number}
+declare var t: ?T;
+if (t?.a === null) {
+  (t: T); // yes
+  (t.a: null); // yes
+} else {
+  (t: (null | void)); // no
+  (t.a: number); // no for two reasons
+}
+if (t?.a !== null) {
+  (t: (null | void)); // no
+  (t.a: number); // no for two reasons
+} else {
+  (t: T); // yes
+  (t.a: null); // yes
+}
+
+type S = {a: ?number};
+declare var s: ?S;
+if (s?.a == null) {
+  (s: S); // no, may be nulled
+  (s.a: (null | void)); // no for two reasons
+} else {
+  (s: S); // yes
+  (s.a: number); // yes: s cannot be null and s.a cannot be null or void
+}
+if (s?.a != null) {
+  (s: S); // yes
+  (s.a: number); // yes: s cannot be null and s.a cannot be null or void
+} else {
+  (s: S); // no, may be nulled
+  (s.a: (null | void)); // no for two reasons
+}
+if (s?.a === undefined) {
+  (s: S); // no, may be nulled
+  (s.a: (null | void)); // no for two reasons
+} else {
+  (s: S); // yes
+  (s.a: number); // no: s.a can be null
+  (s.a: (number | null)); //yes
+}
+if (s?.a == undefined) {
+  (s: S); // no, may be nulled
+  (s.a: (null | void)); // no for two reasons
+} else {
+  (s: S); // yes
+  (s.a: number); // yes: s cannot be null and s.a cannot be null or void
+}
+
+type W = {a: number};
+declare var w: ?W;
+
+if (w?.a === 42) {
+  (w: W);
+  (w.a: 42);
+} else {
+  (w: W); // no
+  w.a; // no
+}
+
+declare var a: ?{b: number | string};
+if (typeof a?.b === 'number') {
+  (a.b: number);
+  (a: {});
+} else {
+  a.b; // nope
+  (a: (null | void));// nope
+}
+
+declare var b: ?{a?: number};
+if (typeof b?.a === 'undefined') {
+  b.a; //nope
+  (b: (null | void)); // nope
+} else {
+  (b: {});
+  (b.a: number);
+}
+
+if (b?.a instanceof Object) {
+  (b.a: number);
+  (b: {});
+} else {
+  b.a; // nope
+  (b: (null | void)); // nope
+}
+
+declare var c: ?{d?: Array<number>};
+if (Array.isArray(c?.d)) {
+  (c.d[0]: number);
+  (c: {});
+} else {
+  c.d; //nope
+  (c: (null | void)); //nope
+}
+
+
+// should not cause refinement with current model
+declare var b1: ?{a?: number};
+declare var c1: number;
+if (b1?.a === c1) {
+  (b1?.a: number) // b1.a may not exist and may not be number
+}
+
+=====================================output=====================================
+//@flow
+
+type T = { a: null | number };
+declare var t: ?T;
+if (t?.a === null) {
+  (t: T); // yes
+  (t.a: null); // yes
+} else {
+  (t: null | void); // no
+  (t.a: number); // no for two reasons
+}
+if (t?.a !== null) {
+  (t: null | void); // no
+  (t.a: number); // no for two reasons
+} else {
+  (t: T); // yes
+  (t.a: null); // yes
+}
+
+type S = { a: ?number };
+declare var s: ?S;
+if (s?.a == null) {
+  (s: S); // no, may be nulled
+  (s.a: null | void); // no for two reasons
+} else {
+  (s: S); // yes
+  (s.a: number); // yes: s cannot be null and s.a cannot be null or void
+}
+if (s?.a != null) {
+  (s: S); // yes
+  (s.a: number); // yes: s cannot be null and s.a cannot be null or void
+} else {
+  (s: S); // no, may be nulled
+  (s.a: null | void); // no for two reasons
+}
+if (s?.a === undefined) {
+  (s: S); // no, may be nulled
+  (s.a: null | void); // no for two reasons
+} else {
+  (s: S); // yes
+  (s.a: number); // no: s.a can be null
+  (s.a: number | null); //yes
+}
+if (s?.a == undefined) {
+  (s: S); // no, may be nulled
+  (s.a: null | void); // no for two reasons
+} else {
+  (s: S); // yes
+  (s.a: number); // yes: s cannot be null and s.a cannot be null or void
+}
+
+type W = { a: number };
+declare var w: ?W;
+
+if (w?.a === 42) {
+  (w: W);
+  (w.a: 42);
+} else {
+  (w: W); // no
+  w.a; // no
+}
+
+declare var a: ?{ b: number | string };
+if (typeof a?.b === "number") {
+  (a.b: number);
+  (a: {});
+} else {
+  a.b; // nope
+  (a: null | void); // nope
+}
+
+declare var b: ?{ a?: number };
+if (typeof b?.a === "undefined") {
+  b.a; //nope
+  (b: null | void); // nope
+} else {
+  (b: {});
+  (b.a: number);
+}
+
+if (b?.a instanceof Object) {
+  (b.a: number);
+  (b: {});
+} else {
+  b.a; // nope
+  (b: null | void); // nope
+}
+
+declare var c: ?{ d?: Array<number> };
+if (Array.isArray(c?.d)) {
+  (c.d[0]: number);
+  (c: {});
+} else {
+  c.d; //nope
+  (c: null | void); //nope
+}
+
+// should not cause refinement with current model
+declare var b1: ?{ a?: number };
+declare var c1: number;
+if (b1?.a === c1) {
+  (b1?.a: number); // b1.a may not exist and may not be number
+}
+
+================================================================================
+`;
+
+exports[`static_members.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+type X = {foo: number};
+type Y = {bar: X, baz: ?X};
+
+declare var x1: ?X;
+declare var x2: X;
+
+declare var y1: ?Y;
+declare var y2: Y;
+
+(x1?.foo: empty);
+(x2?.foo: empty);
+
+(y1?.bar?.foo: empty);
+(y2?.bar?.foo: empty);
+(y1?.baz?.foo: empty);
+(y2?.baz?.foo: empty);
+
+(y1?.bar.foo: empty);
+(y2?.bar.foo: empty);
+(y1?.baz.foo: empty);
+(y2?.baz.foo: empty);
+
+(y1.bar?.foo: empty);
+(y2.bar?.foo: empty);
+(y1.baz?.foo: empty);
+(y2.baz?.foo: empty);
+
+((y1?.bar).foo: empty);
+((y2?.bar).foo: empty);
+((y1?.baz).foo: empty);
+((y2?.baz).foo: empty);
+
+const a: any | null = 1337;
+const b: string | null = a?.a;
+const c: ?any = 1337;
+const d: string | null = c?.c;
+
+=====================================output=====================================
+// @flow
+
+type X = { foo: number };
+type Y = { bar: X, baz: ?X };
+
+declare var x1: ?X;
+declare var x2: X;
+
+declare var y1: ?Y;
+declare var y2: Y;
+
+(x1?.foo: empty);
+(x2?.foo: empty);
+
+(y1?.bar?.foo: empty);
+(y2?.bar?.foo: empty);
+(y1?.baz?.foo: empty);
+(y2?.baz?.foo: empty);
+
+(y1?.bar.foo: empty);
+(y2?.bar.foo: empty);
+(y1?.baz.foo: empty);
+(y2?.baz.foo: empty);
+
+(y1.bar?.foo: empty);
+(y2.bar?.foo: empty);
+(y1.baz?.foo: empty);
+(y2.baz?.foo: empty);
+
+((y1?.bar).foo: empty);
+((y2?.bar).foo: empty);
+((y1?.baz).foo: empty);
+((y2?.baz).foo: empty);
+
+const a: any | null = 1337;
+const b: string | null = a?.a;
+const c: ?any = 1337;
+const d: string | null = c?.c;
+
+================================================================================
+`;
+
+exports[`typeof.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+function foo() {
+  const x: {a?: {b: $ReadOnlyArray<{c: number}>}} = {};
+  const y = x.a?.b;
+  type T = $ElementType<typeof y, 0>;
+}
+
+=====================================output=====================================
+// @flow
+
+function foo() {
+  const x: { a?: { b: $ReadOnlyArray<{ c: number }> } } = {};
+  const y = x.a?.b;
+  type T = $ElementType<typeof y, 0>;
 }
 
 ================================================================================

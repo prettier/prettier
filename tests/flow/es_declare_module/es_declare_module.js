@@ -39,3 +39,5 @@ import type {T as T2} from "ES";
 ('asdf': T2); // Error: string ~> number
 
 import {exports as nope} from "ES"; // Error: Not an export
+
+import type {Foo} from 're-export'; // Error: imports are not explicitly exported

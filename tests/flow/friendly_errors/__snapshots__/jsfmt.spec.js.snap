@@ -1,0 +1,729 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`class-extends-and-implements.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @format
+ * @flow
+ */
+
+class A {
+  p: number;
+}
+
+class B<T> {
+  p: number;
+}
+
+class C extends A {
+  p: string;
+}
+
+class D extends B<empty> {
+  p: string;
+}
+
+interface E {
+  p: number;
+}
+
+interface F<T> {
+  p: number;
+}
+
+class G implements E {
+  p: string;
+}
+
+class H implements F<empty> {
+  p: string;
+}
+
+interface I {
+  p: number;
+}
+
+interface J<T> {
+  p: number;
+}
+
+interface K extends I {
+  p: string;
+}
+
+interface L extends J<empty> {
+  p: string;
+}
+
+interface M1 {
+  p1: number;
+}
+
+interface M2 {
+  p2: number;
+}
+
+interface N1<T> {
+  p1: number;
+}
+
+interface N2<T> {
+  p2: number;
+}
+
+interface O extends M1, M2 {
+  p1: string;
+  p2: string;
+}
+
+interface P extends N1<empty>, N2<empty> {
+  p1: string;
+  p2: string;
+}
+
+interface Q1 {
+  p1: string;
+}
+
+interface Q2 {
+  p2: string;
+}
+
+interface R1<T> {
+  p1: string;
+}
+
+interface R2<T> {
+  p2: string;
+}
+
+class S implements Q1, Q2 {
+  p1: number;
+  p2: number;
+}
+
+class T implements R1<empty>, R2<empty> {
+  p1: number;
+  p2: number;
+}
+
+=====================================output=====================================
+/**
+ * @format
+ * @flow
+ */
+
+class A {
+  p: number;
+}
+
+class B<T> {
+  p: number;
+}
+
+class C extends A {
+  p: string;
+}
+
+class D extends B<empty> {
+  p: string;
+}
+
+interface E {
+  p: number;
+}
+
+interface F<T> {
+  p: number;
+}
+
+class G implements E {
+  p: string;
+}
+
+class H implements F<empty> {
+  p: string;
+}
+
+interface I {
+  p: number;
+}
+
+interface J<T> {
+  p: number;
+}
+
+interface K extends I {
+  p: string;
+}
+
+interface L extends J<empty> {
+  p: string;
+}
+
+interface M1 {
+  p1: number;
+}
+
+interface M2 {
+  p2: number;
+}
+
+interface N1<T> {
+  p1: number;
+}
+
+interface N2<T> {
+  p2: number;
+}
+
+interface O extends M1, M2 {
+  p1: string;
+  p2: string;
+}
+
+interface P extends N1<empty>, N2<empty> {
+  p1: string;
+  p2: string;
+}
+
+interface Q1 {
+  p1: string;
+}
+
+interface Q2 {
+  p2: string;
+}
+
+interface R1<T> {
+  p1: string;
+}
+
+interface R2<T> {
+  p2: string;
+}
+
+class S implements Q1, Q2 {
+  p1: number;
+  p2: number;
+}
+
+class T implements R1<empty>, R2<empty> {
+  p1: number;
+  p2: number;
+}
+
+================================================================================
+`;
+
+exports[`class-refinement-env-merge.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @format
+ * @flow
+ */
+
+class X {
+  p: number | string;
+  m() {
+    if (typeof this.p === 'number') {
+      this.p = 'foo';
+    }
+    (this.p: number);
+  }
+}
+
+=====================================output=====================================
+/**
+ * @format
+ * @flow
+ */
+
+class X {
+  p: number | string;
+  m() {
+    if (typeof this.p === "number") {
+      this.p = "foo";
+    }
+    (this.p: number);
+  }
+}
+
+================================================================================
+`;
+
+exports[`desc-class-properties.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @format
+ * @flow
+ */
+
+declare class Y {
+  a: string;
+}
+
+class X extends Y {
+  b: string;
+  // prettier-ignore
+  #c: string;
+
+  foo() {
+    (this.a: number); // Error: string ~> number
+    (super.a: number); // Error: string ~> number
+    (this.b: number); // Error: string ~> number
+    (this.#c: number); // Error: string ~> number
+  }
+}
+
+=====================================output=====================================
+/**
+ * @format
+ * @flow
+ */
+
+declare class Y {
+  a: string;
+}
+
+class X extends Y {
+  b: string;
+  // prettier-ignore
+  #c: string;
+
+  foo() {
+    (this.a: number); // Error: string ~> number
+    (super.a: number); // Error: string ~> number
+    (this.b: number); // Error: string ~> number
+    (this.#c: number); // Error: string ~> number
+  }
+}
+
+================================================================================
+`;
+
+exports[`indexer-key-compatibility.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @format
+ * @flow
+ */
+
+declare var o: {[k: number]: any};
+(o: {[k: string]: any});
+
+=====================================output=====================================
+/**
+ * @format
+ * @flow
+ */
+
+declare var o: { [k: number]: any };
+(o: { [k: string]: any });
+
+================================================================================
+`;
+
+exports[`loc-primary.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @format
+ * @flow
+ */
+
+type A = {p: string};
+declare var a1: {p: number};
+(a1: A); // Error: string ~> number. We should point to a1.
+declare var a2: number;
+({p: a2}: A); // Error: string ~> number. We should point to a2.
+({p: 42}: A); // Error: string ~> number. We should point to 42.
+
+type B = {a: {b: string}};
+declare var b1: {a: {b: number}};
+(b1: B); // Error: string ~> number. We should point to b1.
+declare var b2: {b: number};
+({a: b2}: B); // Error: string ~> number. We should point to b2.
+declare var b3: number;
+({a: {b: b3}}: B); // Error: string ~> number. We should point to b3.
+({a: {b: 42}}: B); // Error: string ~> number. We should point to 42.
+
+type C = {a: {b: {c: string}}};
+declare var c1: {a: {b: {c: number}}};
+(c1: C); // Error: string ~> number. We should point to c1.
+declare var c2: {b: {c: number}};
+({a: c2}: C); // Error: string ~> number. We should point to c2.
+declare var c3: {c: number};
+({a: {b: c3}}: C); // Error: string ~> number. We should point to c3.
+declare var c4: number;
+({a: {b: {c: c4}}}: C); // Error: string ~> number. We should point to c4.
+({a: {b: {c: 42}}}: C); // Error: string ~> number. We should point to 42.
+
+type D = {a: {b: {c: {d: string}}}};
+declare var d1: {a: {b: {c: {d: number}}}};
+(d1: D); // Error: string ~> number. We should point to d1.
+declare var d2: {b: {c: {d: number}}};
+({a: d2}: D); // Error: string ~> number. We should point to d2.
+declare var d3: {c: {d: number}};
+({a: {b: d3}}: D); // Error: string ~> number. We should point to d3.
+declare var d4: {d: number};
+({a: {b: {c: d4}}}: D); // Error: string ~> number. We should point to d4.
+declare var d5: number;
+({a: {b: {c: {d: d5}}}}: D); // Error: string ~> number. We should point to d5.
+({a: {b: {c: {d: 42}}}}: D); // Error: string ~> number. We should point to 42.
+
+=====================================output=====================================
+/**
+ * @format
+ * @flow
+ */
+
+type A = { p: string };
+declare var a1: { p: number };
+(a1: A); // Error: string ~> number. We should point to a1.
+declare var a2: number;
+({ p: a2 }: A); // Error: string ~> number. We should point to a2.
+({ p: 42 }: A); // Error: string ~> number. We should point to 42.
+
+type B = { a: { b: string } };
+declare var b1: { a: { b: number } };
+(b1: B); // Error: string ~> number. We should point to b1.
+declare var b2: { b: number };
+({ a: b2 }: B); // Error: string ~> number. We should point to b2.
+declare var b3: number;
+({ a: { b: b3 } }: B); // Error: string ~> number. We should point to b3.
+({ a: { b: 42 } }: B); // Error: string ~> number. We should point to 42.
+
+type C = { a: { b: { c: string } } };
+declare var c1: { a: { b: { c: number } } };
+(c1: C); // Error: string ~> number. We should point to c1.
+declare var c2: { b: { c: number } };
+({ a: c2 }: C); // Error: string ~> number. We should point to c2.
+declare var c3: { c: number };
+({ a: { b: c3 } }: C); // Error: string ~> number. We should point to c3.
+declare var c4: number;
+({ a: { b: { c: c4 } } }: C); // Error: string ~> number. We should point to c4.
+({ a: { b: { c: 42 } } }: C); // Error: string ~> number. We should point to 42.
+
+type D = { a: { b: { c: { d: string } } } };
+declare var d1: { a: { b: { c: { d: number } } } };
+(d1: D); // Error: string ~> number. We should point to d1.
+declare var d2: { b: { c: { d: number } } };
+({ a: d2 }: D); // Error: string ~> number. We should point to d2.
+declare var d3: { c: { d: number } };
+({ a: { b: d3 } }: D); // Error: string ~> number. We should point to d3.
+declare var d4: { d: number };
+({ a: { b: { c: d4 } } }: D); // Error: string ~> number. We should point to d4.
+declare var d5: number;
+({ a: { b: { c: { d: d5 } } } }: D); // Error: string ~> number. We should point to d5.
+({ a: { b: { c: { d: 42 } } } }: D); // Error: string ~> number. We should point to 42.
+
+================================================================================
+`;
+
+exports[`loc-primary-for-covariant-ops.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @format
+ * @flow
+ */
+
+declare var any: any;
+
+((any: (x: {p: number}) => void): (x: {p: string}) => void);
+
+type X<-T> = mixed;
+((any: X<{p: number}>): X<{p: string}>);
+
+=====================================output=====================================
+/**
+ * @format
+ * @flow
+ */
+
+declare var any: any;
+
+((any: (x: { p: number }) => void): (x: { p: string }) => void);
+
+type X<-T> = mixed;
+((any: X<{ p: number }>): X<{ p: string }>);
+
+================================================================================
+`;
+
+exports[`loc-reference.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @format
+ * @flow
+ */
+
+class X {}
+
+const x1 = new X();
+const x2: X = new X();
+const x3 = x1;
+const x4 = x2;
+const x5: X = x1;
+const x6 = x1;
+
+(x1: empty); // X ~> empty. Ref should point to first \`new X()\`.
+(x2: empty); // X ~> empty. Ref should point to first \`X\` annotation.
+(x3: empty); // X ~> empty. Ref should point to first \`new X()\`.
+(x4: empty); // X ~> empty. Ref should point to first \`X\` annotation.
+(x5: empty); // X ~> empty. Ref should point to second \`X\` annotation.
+(x6: empty); // X ~> empty. Ref should point to second \`X\` annotation.
+
+const y1 = 42;
+const y2: number = -42;
+const y3 = y1;
+const y4 = y2;
+const y5: number = y1;
+const y6 = y1;
+
+(y1: empty); // number ~> empty. Ref should point to 42.
+(y2: empty); // number ~> empty. Ref should point to first \`number\` annotation.
+(y3: empty); // number ~> empty. Ref should point to 42.
+(y4: empty); // number ~> empty. Ref should point to first \`number\` annotation.
+(y5: empty); // number ~> empty. Ref should point to second \`number\` annotation.
+(y6: empty); // number ~> empty. Ref should point to 42.
+
+function fn1(x: string) {
+  (x: number); // string ~> number. Ref should point to \`x: string\`.
+}
+
+function fn2<T>(x: T) {
+  (x: number); // T ~> number. Ref should point to \`x: T\`.
+}
+
+=====================================output=====================================
+/**
+ * @format
+ * @flow
+ */
+
+class X {}
+
+const x1 = new X();
+const x2: X = new X();
+const x3 = x1;
+const x4 = x2;
+const x5: X = x1;
+const x6 = x1;
+
+(x1: empty); // X ~> empty. Ref should point to first \`new X()\`.
+(x2: empty); // X ~> empty. Ref should point to first \`X\` annotation.
+(x3: empty); // X ~> empty. Ref should point to first \`new X()\`.
+(x4: empty); // X ~> empty. Ref should point to first \`X\` annotation.
+(x5: empty); // X ~> empty. Ref should point to second \`X\` annotation.
+(x6: empty); // X ~> empty. Ref should point to second \`X\` annotation.
+
+const y1 = 42;
+const y2: number = -42;
+const y3 = y1;
+const y4 = y2;
+const y5: number = y1;
+const y6 = y1;
+
+(y1: empty); // number ~> empty. Ref should point to 42.
+(y2: empty); // number ~> empty. Ref should point to first \`number\` annotation.
+(y3: empty); // number ~> empty. Ref should point to 42.
+(y4: empty); // number ~> empty. Ref should point to first \`number\` annotation.
+(y5: empty); // number ~> empty. Ref should point to second \`number\` annotation.
+(y6: empty); // number ~> empty. Ref should point to 42.
+
+function fn1(x: string) {
+  (x: number); // string ~> number. Ref should point to \`x: string\`.
+}
+
+function fn2<T>(x: T) {
+  (x: number); // T ~> number. Ref should point to \`x: T\`.
+}
+
+================================================================================
+`;
+
+exports[`misc-incompatibles.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @format
+ * @flow
+ */
+
+const Y = 42;
+// prettier-ignore
+declare class X mixins Y {}
+
+type A = number;
+interface B extends A {}
+
+declare var o: {};
+o[true];
+o[true] = 42;
+
+[nope] += 1;
+
+=====================================output=====================================
+/**
+ * @format
+ * @flow
+ */
+
+const Y = 42;
+// prettier-ignore
+declare class X mixins Y {}
+
+type A = number;
+interface B extends A {}
+
+declare var o: {};
+o[true];
+o[true] = 42;
+
+[nope] += 1;
+
+================================================================================
+`;
+
+exports[`order.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @format
+ * @flow
+ */
+
+// Should be ordered by the root location. So the errors on 42 and true should
+// point to 42 and true but appear together before the error on 'foo'!
+({
+  a: 42,
+  b: ('foo': empty),
+  c: true,
+}: {
+  a: boolean,
+  c: number,
+});
+
+=====================================output=====================================
+/**
+ * @format
+ * @flow
+ */
+
+// Should be ordered by the root location. So the errors on 42 and true should
+// point to 42 and true but appear together before the error on 'foo'!
+({
+  a: 42,
+  b: ("foo": empty),
+  c: true,
+}: {
+  a: boolean,
+  c: number,
+});
+
+================================================================================
+`;
+
+exports[`prop-variance.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @format
+ * @flow
+ */
+
+declare var any: any;
+declare opaque type T;
+
+((any: {p: T}): {p: T}); // Ok
+((any: {p: T}): {+p: T}); // Ok
+((any: {p: T}): {-p: T}); // Ok
+((any: {+p: T}): {p: T}); // Error: read-only ~> writable
+((any: {+p: T}): {+p: T}); // Ok
+((any: {+p: T}): {-p: T}); // Error: read-only ~> write-only
+((any: {-p: T}): {p: T}); // Error: write-only ~> readable
+((any: {-p: T}): {+p: T}); // Error: write-only ~> read-only
+((any: {-p: T}): {-p: T}); // Ok
+
+=====================================output=====================================
+/**
+ * @format
+ * @flow
+ */
+
+declare var any: any;
+declare opaque type T;
+
+((any: { p: T }): { p: T }); // Ok
+((any: { p: T }): { +p: T }); // Ok
+((any: { p: T }): { -p: T }); // Ok
+((any: { +p: T }): { p: T }); // Error: read-only ~> writable
+((any: { +p: T }): { +p: T }); // Ok
+((any: { +p: T }): { -p: T }); // Error: read-only ~> write-only
+((any: { -p: T }): { p: T }); // Error: write-only ~> readable
+((any: { -p: T }): { +p: T }); // Error: write-only ~> read-only
+((any: { -p: T }): { -p: T }); // Ok
+
+================================================================================
+`;
+
+exports[`typeof-unexpected.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/**
+ * @format
+ * @flow
+ */
+
+(null: typeof 42);
+
+=====================================output=====================================
+/**
+ * @format
+ * @flow
+ */
+
+(null: typeof 42);
+
+================================================================================
+`;
