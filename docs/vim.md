@@ -97,7 +97,7 @@ Prettier extension for [coc.nvim](https://github.com/neoclide/coc.nvim) which re
 Install coc.nvim with your favorite plugin manager, such as [vim-plug](https://github.com/junegunn/vim-plug):
 
 ```vim
-Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 ```
 
 And install coc-prettier by command:
