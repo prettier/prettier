@@ -36,6 +36,8 @@
     "src/cli/index.js",
     "src/cli/expand-patterns.js",
     "src/cli/util.js",
+    "src/cli/constant.js",
+    "src/cli/prettier-internal.js",
     // [TBD] top-level JavaScript sources affected by JSDoc issues
     // in other sources:
     "src/index.js",
