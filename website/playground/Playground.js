@@ -241,7 +241,10 @@ class Playground extends React.Component {
                         onSelectionChange={this.setSelection}
                       />
                       {editorState.showAst ? (
-                        <DebugPanel value={debug.ast || ""} />
+                        <DebugPanel
+                          value={debug.ast || ""}
+                          autoFold={util.getAstAutoFold(options.parser)}
+                        />
                       ) : null}
                       {editorState.showDoc ? (
                         <DebugPanel value={debug.doc || ""} />
