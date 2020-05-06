@@ -35,16 +35,16 @@ query Query(
   $PROJECT_UNIT_PROFILE_PICTURE_SIZE: Int
   $PROJECT_UNIT_CARD_SIZE: Int
 )
-  @argumentDefinitions(
-    count: {
-      type: "Int"
-      defaultValue: 20
-      someSuperSuperSuperSuperLongType: 301
-    }
-    test: [
-      { type: "Int", defaultValue: 20, someSuperSuperSuperSuperLongType: 301 }
-    ]
-  ) {
+@argumentDefinitions(
+  count: {
+    type: "Int"
+    defaultValue: 20
+    someSuperSuperSuperSuperLongType: 301
+  }
+  test: [
+    { type: "Int", defaultValue: 20, someSuperSuperSuperSuperLongType: 301 }
+  ]
+) {
   cover_photo {
     image(
       width: $PROJECT_UNIT_CARD_SIZE
@@ -95,16 +95,16 @@ query Query(
   $PROJECT_UNIT_PROFILE_PICTURE_SIZE: Int
   $PROJECT_UNIT_CARD_SIZE: Int
 )
-  @argumentDefinitions(
-    count: {
-      type: "Int"
-      defaultValue: 20
-      someSuperSuperSuperSuperLongType: 301
-    }
-    test: [
-      { type: "Int", defaultValue: 20, someSuperSuperSuperSuperLongType: 301 }
-    ]
-  ) {
+@argumentDefinitions(
+  count: {
+    type: "Int"
+    defaultValue: 20
+    someSuperSuperSuperSuperLongType: 301
+  }
+  test: [
+    { type: "Int", defaultValue: 20, someSuperSuperSuperSuperLongType: 301 }
+  ]
+) {
   cover_photo {
     image(
       width: $PROJECT_UNIT_CARD_SIZE
@@ -154,16 +154,16 @@ query Query(
   $PROJECT_UNIT_PROFILE_PICTURE_SIZE: Int
   $PROJECT_UNIT_CARD_SIZE: Int
 )
-  @argumentDefinitions(
-    count: {
-      type: "Int"
-      defaultValue: 20
-      someSuperSuperSuperSuperLongType: 301
-    }
-    test: [
-      { type: "Int", defaultValue: 20, someSuperSuperSuperSuperLongType: 301 }
-    ]
-  ) {
+@argumentDefinitions(
+  count: {
+    type: "Int"
+    defaultValue: 20
+    someSuperSuperSuperSuperLongType: 301
+  }
+  test: [
+    { type: "Int", defaultValue: 20, someSuperSuperSuperSuperLongType: 301 }
+  ]
+) {
   cover_photo {
     image(
       width: $PROJECT_UNIT_CARD_SIZE
