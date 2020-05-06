@@ -121,18 +121,9 @@ function handleEndOfLineComment(comment, text, options, ast, isLastComment) {
     handleOnlyComments(enclosingNode, ast, comment, isLastComment) ||
     handleTypeAliasComments(enclosingNode, followingNode, comment) ||
     handleVariableDeclaratorComments(enclosingNode, followingNode, comment) ||
-    handleLogicalExpression(
+    handleEndOfLineBlockComments(
       text,
       enclosingNode,
-      precedingNode,
-      followingNode,
-      comment,
-      options
-    ) ||
-    handleBinaryExpression(
-      text,
-      enclosingNode,
-      precedingNode,
       followingNode,
       comment,
       options
@@ -927,44 +918,23 @@ function handleTSMappedTypeComments(
   return false;
 }
 
-function handleLogicalExpression(
+function handleEndOfLineBlockComments(
   text,
   enclosingNode,
-  precedingNode,
   followingNode,
   comment,
   options
 ) {
-  if (enclosingNode && enclosingNode.type === "LogicalExpression") {
-    if (
-      followingNode &&
-      isBlockComment(comment) &&
-      privateUtil.hasNewline(text, options.locEnd(comment))
-    ) {
-      addLeadingComment(followingNode, comment);
-      return true;
-    }
-  }
-  return false;
-}
-
-function handleBinaryExpression(
-  text,
-  enclosingNode,
-  precedingNode,
-  followingNode,
-  comment,
-  options
-) {
-  if (enclosingNode && enclosingNode.type === "BinaryExpression") {
-    if (
-      followingNode &&
-      isBlockComment(comment) &&
-      privateUtil.hasNewline(text, options.locEnd(comment))
-    ) {
-      addLeadingComment(followingNode, comment);
-      return true;
-    }
+  if (
+    enclosingNode &&
+    (enclosingNode.type === "LogicalExpression" ||
+      enclosingNode.type === "BinaryExpression") &&
+    followingNode &&
+    isBlockComment(comment) &&
+    privateUtil.hasNewline(text, options.locEnd(comment))
+  ) {
+    addLeadingComment(followingNode, comment);
+    return true;
   }
   return false;
 }

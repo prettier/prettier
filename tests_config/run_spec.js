@@ -23,10 +23,9 @@ const prettier = !TEST_STANDALONE
 const unstableTests = new Map(
   [
     "class_comment/comments.js",
-    "comments/binary-expressions-trailing-space.js",
     ["comments/dangling_array.js", (options) => options.semi === false],
     ["comments/jsx.js", (options) => options.semi === false],
-    "comments/logical-expression.js",
+    "comments/end-of-line-block-comments.js",
     "comments/return-statement.js",
     "comments/tagged-template-literal.js",
     "comments_closure_typecast/iife.js",
