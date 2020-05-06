@@ -446,6 +446,302 @@ function bitwiseXor() {
 ================================================================================
 `;
 
+exports[`binary-expressions-block-comments.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+a = b || /** Comment */
+c;
+
+a = b /** Comment */ ||
+c;
+
+a = b || /** TODO this is a very very very very long comment that makes it go > 80 columns */
+c;
+
+a = b /** TODO this is a very very very very long comment that makes it go > 80 columns */ ||
+c;
+
+a = b || /** TODO this is a very very very very long comment that makes it go > 80 columns */ c;
+
+a = b && /** Comment */
+c;
+
+a = b /** Comment */ &&
+c;
+
+a = b && /** TODO this is a very very very very long comment that makes it go > 80 columns */
+c;
+
+a = b /** TODO this is a very very very very long comment that makes it go > 80 columns */ &&
+c;
+
+a = b && /** TODO this is a very very very very long comment that makes it go > 80 columns */ c;
+
+a = b + /** Comment */
+c;
+
+a = b /** Comment */ +
+c;
+
+a = b + /** TODO this is a very very very very long comment that makes it go > 80 columns */
+c;
+
+a = b /** TODO this is a very very very very long comment that makes it go > 80 columns */ +
+c;
+
+a = b + /** TODO this is a very very very very long comment that makes it go > 80 columns */ c;
+=====================================output=====================================
+a = b || /** Comment */ c
+
+a = b /** Comment */ || c
+
+a =
+  b ||
+  /** TODO this is a very very very very long comment that makes it go > 80 columns */
+  c
+
+a =
+  b /** TODO this is a very very very very long comment that makes it go > 80 columns */ ||
+  c
+
+a =
+  b ||
+  /** TODO this is a very very very very long comment that makes it go > 80 columns */ c
+
+a = b && /** Comment */ c
+
+a = b /** Comment */ && c
+
+a =
+  b &&
+  /** TODO this is a very very very very long comment that makes it go > 80 columns */
+  c
+
+a =
+  b /** TODO this is a very very very very long comment that makes it go > 80 columns */ &&
+  c
+
+a =
+  b &&
+  /** TODO this is a very very very very long comment that makes it go > 80 columns */ c
+
+a = b + /** Comment */ c
+
+a = b /** Comment */ + c
+
+a =
+  b +
+  /** TODO this is a very very very very long comment that makes it go > 80 columns */
+  c
+
+a =
+  b /** TODO this is a very very very very long comment that makes it go > 80 columns */ +
+  c
+
+a =
+  b +
+  /** TODO this is a very very very very long comment that makes it go > 80 columns */ c
+
+================================================================================
+`;
+
+exports[`binary-expressions-block-comments.js format 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+a = b || /** Comment */
+c;
+
+a = b /** Comment */ ||
+c;
+
+a = b || /** TODO this is a very very very very long comment that makes it go > 80 columns */
+c;
+
+a = b /** TODO this is a very very very very long comment that makes it go > 80 columns */ ||
+c;
+
+a = b || /** TODO this is a very very very very long comment that makes it go > 80 columns */ c;
+
+a = b && /** Comment */
+c;
+
+a = b /** Comment */ &&
+c;
+
+a = b && /** TODO this is a very very very very long comment that makes it go > 80 columns */
+c;
+
+a = b /** TODO this is a very very very very long comment that makes it go > 80 columns */ &&
+c;
+
+a = b && /** TODO this is a very very very very long comment that makes it go > 80 columns */ c;
+
+a = b + /** Comment */
+c;
+
+a = b /** Comment */ +
+c;
+
+a = b + /** TODO this is a very very very very long comment that makes it go > 80 columns */
+c;
+
+a = b /** TODO this is a very very very very long comment that makes it go > 80 columns */ +
+c;
+
+a = b + /** TODO this is a very very very very long comment that makes it go > 80 columns */ c;
+=====================================output=====================================
+a = b || /** Comment */ c;
+
+a = b /** Comment */ || c;
+
+a =
+  b ||
+  /** TODO this is a very very very very long comment that makes it go > 80 columns */
+  c;
+
+a =
+  b /** TODO this is a very very very very long comment that makes it go > 80 columns */ ||
+  c;
+
+a =
+  b ||
+  /** TODO this is a very very very very long comment that makes it go > 80 columns */ c;
+
+a = b && /** Comment */ c;
+
+a = b /** Comment */ && c;
+
+a =
+  b &&
+  /** TODO this is a very very very very long comment that makes it go > 80 columns */
+  c;
+
+a =
+  b /** TODO this is a very very very very long comment that makes it go > 80 columns */ &&
+  c;
+
+a =
+  b &&
+  /** TODO this is a very very very very long comment that makes it go > 80 columns */ c;
+
+a = b + /** Comment */ c;
+
+a = b /** Comment */ + c;
+
+a =
+  b +
+  /** TODO this is a very very very very long comment that makes it go > 80 columns */
+  c;
+
+a =
+  b /** TODO this is a very very very very long comment that makes it go > 80 columns */ +
+  c;
+
+a =
+  b +
+  /** TODO this is a very very very very long comment that makes it go > 80 columns */ c;
+
+================================================================================
+`;
+
+exports[`binary-expressions-single-comments.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+a = b || // Comment
+c;
+
+a = b || // TODO this is a very very very very long comment that makes it go > 80 columns
+c;
+
+a = b && // Comment
+c;
+
+a = b && // TODO this is a very very very very long comment that makes it go > 80 columns
+c;
+
+a = b + // Comment
+c;
+
+a = b + // TODO this is a very very very very long comment that makes it go > 80 columns
+c;
+=====================================output=====================================
+a =
+  b || c // Comment
+
+a =
+  b || c // TODO this is a very very very very long comment that makes it go > 80 columns
+
+a =
+  b && c // Comment
+
+a =
+  b && c // TODO this is a very very very very long comment that makes it go > 80 columns
+
+a =
+  b + c // Comment
+
+a =
+  b + c // TODO this is a very very very very long comment that makes it go > 80 columns
+
+================================================================================
+`;
+
+exports[`binary-expressions-single-comments.js format 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+a = b || // Comment
+c;
+
+a = b || // TODO this is a very very very very long comment that makes it go > 80 columns
+c;
+
+a = b && // Comment
+c;
+
+a = b && // TODO this is a very very very very long comment that makes it go > 80 columns
+c;
+
+a = b + // Comment
+c;
+
+a = b + // TODO this is a very very very very long comment that makes it go > 80 columns
+c;
+=====================================output=====================================
+a =
+  b || c; // Comment
+
+a =
+  b || c; // TODO this is a very very very very long comment that makes it go > 80 columns
+
+a =
+  b && c; // Comment
+
+a =
+  b && c; // TODO this is a very very very very long comment that makes it go > 80 columns
+
+a =
+  b + c; // Comment
+
+a =
+  b + c; // TODO this is a very very very very long comment that makes it go > 80 columns
+
+================================================================================
+`;
+
 exports[`blank.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
@@ -1022,283 +1318,6 @@ const test = '💖'
 const test = "💖";
 // This comment
 // should not get collapsed
-
-================================================================================
-`;
-
-exports[`end-of-line-block-comments.js - {"semi":false} format 1`] = `
-====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
-printWidth: 80
-semi: false
-                                                                                | printWidth
-=====================================input======================================
-a = b || /** Comment */
-c;
-
-a = b /** Comment */ ||
-c;
-
-a = b || /** TODO this is a very very very very long comment that makes it go > 80 columns */
-c;
-
-a = b /** TODO this is a very very very very long comment that makes it go > 80 columns */ ||
-c;
-
-a = b || /** TODO this is a very very very very long comment that makes it go > 80 columns */ c;
-
-a = b || // Comment
-c;
-
-a = b || // TODO this is a very very very very long comment that makes it go > 80 columns
-c;
-
-a = b && /** Comment */
-c;
-
-a = b /** Comment */ &&
-c;
-
-a = b && /** TODO this is a very very very very long comment that makes it go > 80 columns */
-c;
-
-a = b /** TODO this is a very very very very long comment that makes it go > 80 columns */ &&
-c;
-
-a = b && /** TODO this is a very very very very long comment that makes it go > 80 columns */ c;
-
-a = b && // Comment
-c;
-
-a = b && // TODO this is a very very very very long comment that makes it go > 80 columns
-c;
-
-a = b + /** Comment */
-c;
-
-a = b /** Comment */ +
-c;
-
-a = b + /** TODO this is a very very very very long comment that makes it go > 80 columns */
-c;
-
-a = b /** TODO this is a very very very very long comment that makes it go > 80 columns */ +
-c;
-
-a = b + /** TODO this is a very very very very long comment that makes it go > 80 columns */ c;
-
-a = b + // Comment
-c;
-
-a = b + // TODO this is a very very very very long comment that makes it go > 80 columns
-c;
-=====================================output=====================================
-a = b || /** Comment */ c
-
-a = b /** Comment */ || c
-
-a =
-  b ||
-  /** TODO this is a very very very very long comment that makes it go > 80 columns */
-  c
-
-a =
-  b /** TODO this is a very very very very long comment that makes it go > 80 columns */ ||
-  c
-
-a =
-  b ||
-  /** TODO this is a very very very very long comment that makes it go > 80 columns */ c
-
-a =
-  b || c // Comment
-
-a =
-  b || c // TODO this is a very very very very long comment that makes it go > 80 columns
-
-a = b && /** Comment */ c
-
-a = b /** Comment */ && c
-
-a =
-  b &&
-  /** TODO this is a very very very very long comment that makes it go > 80 columns */
-  c
-
-a =
-  b /** TODO this is a very very very very long comment that makes it go > 80 columns */ &&
-  c
-
-a =
-  b &&
-  /** TODO this is a very very very very long comment that makes it go > 80 columns */ c
-
-a =
-  b && c // Comment
-
-a =
-  b && c // TODO this is a very very very very long comment that makes it go > 80 columns
-
-a = b + /** Comment */ c
-
-a = b /** Comment */ + c
-
-a =
-  b +
-  /** TODO this is a very very very very long comment that makes it go > 80 columns */
-  c
-
-a =
-  b /** TODO this is a very very very very long comment that makes it go > 80 columns */ +
-  c
-
-a =
-  b +
-  /** TODO this is a very very very very long comment that makes it go > 80 columns */ c
-
-a =
-  b + c // Comment
-
-a =
-  b + c // TODO this is a very very very very long comment that makes it go > 80 columns
-
-================================================================================
-`;
-
-exports[`end-of-line-block-comments.js format 1`] = `
-====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-a = b || /** Comment */
-c;
-
-a = b /** Comment */ ||
-c;
-
-a = b || /** TODO this is a very very very very long comment that makes it go > 80 columns */
-c;
-
-a = b /** TODO this is a very very very very long comment that makes it go > 80 columns */ ||
-c;
-
-a = b || /** TODO this is a very very very very long comment that makes it go > 80 columns */ c;
-
-a = b || // Comment
-c;
-
-a = b || // TODO this is a very very very very long comment that makes it go > 80 columns
-c;
-
-a = b && /** Comment */
-c;
-
-a = b /** Comment */ &&
-c;
-
-a = b && /** TODO this is a very very very very long comment that makes it go > 80 columns */
-c;
-
-a = b /** TODO this is a very very very very long comment that makes it go > 80 columns */ &&
-c;
-
-a = b && /** TODO this is a very very very very long comment that makes it go > 80 columns */ c;
-
-a = b && // Comment
-c;
-
-a = b && // TODO this is a very very very very long comment that makes it go > 80 columns
-c;
-
-a = b + /** Comment */
-c;
-
-a = b /** Comment */ +
-c;
-
-a = b + /** TODO this is a very very very very long comment that makes it go > 80 columns */
-c;
-
-a = b /** TODO this is a very very very very long comment that makes it go > 80 columns */ +
-c;
-
-a = b + /** TODO this is a very very very very long comment that makes it go > 80 columns */ c;
-
-a = b + // Comment
-c;
-
-a = b + // TODO this is a very very very very long comment that makes it go > 80 columns
-c;
-=====================================output=====================================
-a = b || /** Comment */ c;
-
-a = b /** Comment */ || c;
-
-a =
-  b ||
-  /** TODO this is a very very very very long comment that makes it go > 80 columns */
-  c;
-
-a =
-  b /** TODO this is a very very very very long comment that makes it go > 80 columns */ ||
-  c;
-
-a =
-  b ||
-  /** TODO this is a very very very very long comment that makes it go > 80 columns */ c;
-
-a =
-  b || c; // Comment
-
-a =
-  b || c; // TODO this is a very very very very long comment that makes it go > 80 columns
-
-a = b && /** Comment */ c;
-
-a = b /** Comment */ && c;
-
-a =
-  b &&
-  /** TODO this is a very very very very long comment that makes it go > 80 columns */
-  c;
-
-a =
-  b /** TODO this is a very very very very long comment that makes it go > 80 columns */ &&
-  c;
-
-a =
-  b &&
-  /** TODO this is a very very very very long comment that makes it go > 80 columns */ c;
-
-a =
-  b && c; // Comment
-
-a =
-  b && c; // TODO this is a very very very very long comment that makes it go > 80 columns
-
-a = b + /** Comment */ c;
-
-a = b /** Comment */ + c;
-
-a =
-  b +
-  /** TODO this is a very very very very long comment that makes it go > 80 columns */
-  c;
-
-a =
-  b /** TODO this is a very very very very long comment that makes it go > 80 columns */ +
-  c;
-
-a =
-  b +
-  /** TODO this is a very very very very long comment that makes it go > 80 columns */ c;
-
-a =
-  b + c; // Comment
-
-a =
-  b + c; // TODO this is a very very very very long comment that makes it go > 80 columns
 
 ================================================================================
 `;
