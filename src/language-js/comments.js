@@ -121,13 +121,7 @@ function handleEndOfLineComment(comment, text, options, ast, isLastComment) {
     handleOnlyComments(enclosingNode, ast, comment, isLastComment) ||
     handleTypeAliasComments(enclosingNode, followingNode, comment) ||
     handleVariableDeclaratorComments(enclosingNode, followingNode, comment) ||
-    handleEndOfLineBlockComments(
-      text,
-      enclosingNode,
-      followingNode,
-      comment,
-      options
-    )
+    handleBinaryExpression(text, enclosingNode, followingNode, comment, options)
   );
 }
 
@@ -918,7 +912,7 @@ function handleTSMappedTypeComments(
   return false;
 }
 
-function handleEndOfLineBlockComments(
+function handleBinaryExpression(
   text,
   enclosingNode,
   followingNode,
