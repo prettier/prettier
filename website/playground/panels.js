@@ -66,6 +66,16 @@ class CodeMirrorPanel extends React.Component {
   updateValue(value) {
     this._cached = value;
     this._codeMirror.setValue(value);
+
+    if (this.props.autoFold instanceof RegExp) {
+      const lines = value.split("\n");
+      // going backwards to prevent unfolding folds created earlier
+      for (let i = lines.length - 1; i >= 0; i--) {
+        if (this.props.autoFold.test(lines[i])) {
+          this._codeMirror.foldCode(i);
+        }
+      }
+    }
   }
 
   updateOverlay() {
@@ -188,12 +198,13 @@ export function OutputPanel(props) {
   );
 }
 
-export function DebugPanel({ value }) {
+export function DebugPanel({ value, autoFold }) {
   return (
     <CodeMirrorPanel
       readOnly={true}
       lineNumbers={false}
       foldGutter={true}
+      autoFold={autoFold}
       mode="jsx"
       value={value}
     />
