@@ -2,7 +2,7 @@
 
 exports[`colons-after-substitutions.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -47,7 +47,7 @@ const Icon = styled.div\`
 
 exports[`colons-after-substitutions2.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -103,9 +103,144 @@ const Icon3 = styled.div\`
 ================================================================================
 `;
 
+exports[`issue-2636.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export const ButtonWrapper = styled.button\`
+  \${base}
+  \${hover}
+  \${opaque}
+  \${block}
+  \${active}
+  \${disabled}
+  \${outline}
+  \${dashed}
+  \${spacing}
+\`;
+
+export const ButtonWrapper2 = styled.button\`
+  \${base} \${hover} \${opaque} \${block} \${active} \${disabled} \${outline} \${dashed} \${spacing}
+\`;
+
+=====================================output=====================================
+export const ButtonWrapper = styled.button\`
+  \${base}
+  \${hover}
+  \${opaque}
+  \${block}
+  \${active}
+  \${disabled}
+  \${outline}
+  \${dashed}
+  \${spacing}
+\`;
+
+export const ButtonWrapper2 = styled.button\`
+  \${base} \${hover} \${opaque} \${block} \${active} \${disabled} \${outline} \${dashed} \${spacing}
+\`;
+
+================================================================================
+`;
+
+exports[`issue-2883.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+export const foo = css\`
+&.foo .\${bar}::before,&.foo[value="hello"] .\${bar}::before {
+	position: absolute;
+}
+\`;
+
+export const foo2 = css\`
+a.\${bar}:focus,a.\${bar}:hover {
+  color: red;
+}
+\`;
+
+export const global = css\`
+button.\${foo}.\${bar} {
+  color: #fff;
+}
+\`;
+
+=====================================output=====================================
+export const foo = css\`
+  &.foo .\${bar}::before,&.foo[value="hello"] .\${bar}::before {
+    position: absolute;
+  }
+\`;
+
+export const foo2 = css\`
+  a.\${bar}:focus,a.\${bar}:hover {
+    color: red;
+  }
+\`;
+
+export const global = css\`
+  button.\${foo}.\${bar} {
+    color: #fff;
+  }
+\`;
+
+================================================================================
+`;
+
+exports[`issue-5697.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const StyledH1 = styled.div\`
+  font-size: 2.5em;
+  font-weight: \${(props) => (props.strong ? 500 : 100)};
+  font-family: \${constants.text.displayFont.fontFamily};
+  letter-spacing: \${(props) => (props.light ? '0.04em' : 0)};
+  color: \${(props) => props.textColor};
+  \${(props) =>
+    props.center
+      ? \` display: flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;\`
+      : ''}
+  @media (max-width: \${(props) => (props.noBreakPoint ? '0' : constants.layout.breakpoint.break1)}px) {
+    font-size: 2em;
+  }
+\`;
+
+=====================================output=====================================
+const StyledH1 = styled.div\`
+  font-size: 2.5em;
+  font-weight: \${(props) => (props.strong ? 500 : 100)};
+  font-family: \${constants.text.displayFont.fontFamily};
+  letter-spacing: \${(props) => (props.light ? "0.04em" : 0)};
+  color: \${(props) => props.textColor};
+  \${(props) =>
+    props.center
+      ? \` display: flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;\`
+      : ""}
+  @media (max-width: \${(props) =>
+    props.noBreakPoint ? "0" : constants.layout.breakpoint.break1}px) {
+    font-size: 2em;
+  }
+\`;
+
+================================================================================
+`;
+
 exports[`issue-6259.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -163,7 +298,7 @@ const yesFrame = (
 
 exports[`styled-components.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -467,7 +602,7 @@ styled.div\`
 \`;
 
 styled.div\`
-   /* prettier-ignore */
+  /* prettier-ignore */
   color: \${(props) => props.theme.colors.paragraph};
   \${(props) => (props.small ? "font-size: 0.8em;" : "")};
 \`;
@@ -672,9 +807,69 @@ const Foo = styled.p\`
 ================================================================================
 `;
 
+exports[`styled-components-multiple-expressions.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "typescript", "flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const Header = styled.div\`
+  \${something()}
+  & > \${Child}:not(:first-child) {
+margin-left:5px;
+}
+\`
+
+const Header = styled.div\`
+  \${something()}
+  & > \${Child}\${Child2}:not(:first-child) {
+margin-left:5px;
+}
+\`
+
+styled.div\`\${foo}-idle { }\`
+
+styled.div\`\${foo}-0-idle { }\`
+
+styled.div\`
+font-family: "\${a}", "\${b}";
+\`
+
+=====================================output=====================================
+const Header = styled.div\`
+  \${something()}
+  & > \${Child}:not(:first-child) {
+    margin-left: 5px;
+  }
+\`;
+
+const Header = styled.div\`
+  \${something()}
+  & > \${Child}\${Child2}:not(:first-child) {
+    margin-left: 5px;
+  }
+\`;
+
+styled.div\`
+  \${foo}-idle {
+  }
+\`;
+
+styled.div\`
+  \${foo}-0-idle {
+  }
+\`;
+
+styled.div\`
+  font-family: "\${a}", "\${b}";
+\`;
+
+================================================================================
+`;
+
 exports[`var.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["babel", "typescript", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
