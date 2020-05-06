@@ -14,6 +14,29 @@ const htmlElementAttributes = require("html-element-attributes");
 const HTML_TAGS = arrayToMap(htmlTagNames);
 const HTML_ELEMENT_ATTRIBUTES = mapObject(htmlElementAttributes, arrayToMap);
 
+// https://infra.spec.whatwg.org/#ascii-whitespace
+const HTML_WHITESPACE = new Set(["\t", "\n", "\f", "\r", " "]);
+const htmlTrimStart = (string) => string.replace(/^[\t\n\f\r ]+/, "");
+const htmlTrimEnd = (string) => string.replace(/[\t\n\f\r ]+$/, "");
+const htmlTrim = (string) => htmlTrimStart(htmlTrimEnd(string));
+const htmlTrimLeadingBlankLines = (string) =>
+  string.replace(/^[\t\f\r ]*?\n/g, "");
+const htmlTrimPreserveIndentation = (string) =>
+  htmlTrimLeadingBlankLines(htmlTrimEnd(string));
+const splitByHtmlWhitespace = (string) => string.split(/[\t\n\f\r ]+/);
+const getLeadingHtmlWhitespace = (string) => string.match(/^[\t\n\f\r ]*/)[0];
+const getLeadingAndTrailingHtmlWhitespace = (string) => {
+  const [, leadingWhitespace, text, trailingWhitespace] = string.match(
+    /^([\t\n\f\r ]*)([\S\s]*?)([\t\n\f\r ]*)$/
+  );
+  return {
+    leadingWhitespace,
+    trailingWhitespace,
+    text,
+  };
+};
+const hasHtmlWhitespace = (string) => /[\t\n\f\r ]/.test(string);
+
 function arrayToMap(array) {
   const map = Object.create(null);
   for (const value of array) {
@@ -544,11 +567,11 @@ function getMinIndentation(text) {
       continue;
     }
 
-    if (/\S/.test(lineText[0])) {
+    if (!HTML_WHITESPACE.has(lineText[0])) {
       return 0;
     }
 
-    const indentation = lineText.match(/^\s*/)[0].length;
+    const indentation = getLeadingHtmlWhitespace(lineText).length;
 
     if (lineText.length === indentation) {
       continue;
@@ -642,6 +665,11 @@ function isVueCustomBlock(node, options) {
 module.exports = {
   HTML_ELEMENT_ATTRIBUTES,
   HTML_TAGS,
+  htmlTrim,
+  htmlTrimPreserveIndentation,
+  splitByHtmlWhitespace,
+  hasHtmlWhitespace,
+  getLeadingAndTrailingHtmlWhitespace,
   canHaveInterpolation,
   countChars,
   countParents,

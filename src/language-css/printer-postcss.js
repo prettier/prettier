@@ -151,6 +151,9 @@ function genericPrint(path, options, print) {
         insideICSSRuleNode(path) ? node.prop : maybeToLowerCase(node.prop),
         node.raws.between.trim() === ":" ? ":" : node.raws.between.trim(),
         node.extend ? "" : " ",
+        isLessParser(options) && node.extend && node.selector
+          ? concat(["extend(", path.call(print, "selector"), ")"])
+          : "",
         hasComposesNode(node)
           ? removeLines(path.call(print, "value"))
           : path.call(print, "value"),
@@ -182,6 +185,8 @@ function genericPrint(path, options, print) {
             !parentNode.raws.semicolon &&
             options.originalText[options.locEnd(node) - 1] !== ";"
           ? ""
+          : options.__isHTMLStyleAttribute && isLastNode(path, node)
+          ? ifBreak(";", "")
           : ";",
       ]);
     }

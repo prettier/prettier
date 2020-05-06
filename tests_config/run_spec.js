@@ -49,7 +49,10 @@ const unstableTests = new Map(
 const isTestDirectory = (dirname, name) =>
   dirname.startsWith(path.join(__dirname, "../tests", name));
 
-global.run_spec = (dirname, parsers, options) => {
+global.run_spec = (fixtures, parsers, options) => {
+  fixtures = typeof fixtures === "string" ? { dirname: fixtures } : fixtures;
+  const { dirname } = fixtures;
+
   // `IS_PARSER_INFERENCE_TESTS` mean to test `inferParser` on `standalone`
   const IS_PARSER_INFERENCE_TESTS = isTestDirectory(
     dirname,
@@ -67,32 +70,49 @@ global.run_spec = (dirname, parsers, options) => {
     throw new Error(`No parsers were specified for ${dirname}`);
   }
 
-  const files = fs.readdirSync(dirname, { withFileTypes: true });
-  for (const file of files) {
-    const basename = file.name;
-    const filename = path.join(dirname, basename);
+  const snippets = (fixtures.snippets || []).map((test, index) => {
+    test = typeof test === "string" ? { code: test } : test;
+    return {
+      ...test,
+      name: `snippet: ${test.name || `#${index}`}`,
+    };
+  });
 
-    if (
-      path.extname(basename) === ".snap" ||
-      !file.isFile() ||
-      basename[0] === "." ||
-      basename === "jsfmt.spec.js"
-    ) {
-      continue;
-    }
+  const files = fs
+    .readdirSync(dirname, { withFileTypes: true })
+    .map((file) => {
+      const basename = file.name;
+      const filename = path.join(dirname, basename);
+      if (
+        path.extname(basename) === ".snap" ||
+        !file.isFile() ||
+        basename[0] === "." ||
+        basename === "jsfmt.spec.js"
+      ) {
+        return;
+      }
 
-    const stringifiedOptions = stringifyOptions(options);
+      const text = fs.readFileSync(filename, "utf8");
 
-    describe(`${basename}${
+      return {
+        name: basename,
+        filename,
+        code: text,
+      };
+    })
+    .filter(Boolean);
+
+  const stringifiedOptions = stringifyOptions(options);
+
+  for (const { name, filename, code, output } of [...files, ...snippets]) {
+    describe(`${name}${
       stringifiedOptions ? ` - ${stringifiedOptions}` : ""
     }`, () => {
       let rangeStart;
       let rangeEnd;
       let cursorOffset;
 
-      const text = fs.readFileSync(filename, "utf8");
-
-      const source = (TEST_CRLF ? text.replace(/\n/g, "\r\n") : text)
+      const source = (TEST_CRLF ? code.replace(/\n/g, "\r\n") : code)
         .replace(RANGE_START_PLACEHOLDER, (match, offset) => {
           rangeStart = offset;
           return "";
@@ -132,28 +152,33 @@ global.run_spec = (dirname, parsers, options) => {
         return;
       }
 
-      const output = format(input, filename, mainOptions);
-      const visualizedOutput = visualizeEndOfLine(output);
+      const formattedWithCursor = format(input, filename, mainOptions);
+      const formatted = formattedWithCursor.replace(CURSOR_PLACEHOLDER, "");
+      const visualizedOutput = visualizeEndOfLine(formattedWithCursor);
 
       test("format", () => {
         expect(visualizedOutput).toEqual(
-          visualizeEndOfLine(consistentEndOfLine(output))
+          visualizeEndOfLine(consistentEndOfLine(formattedWithCursor))
         );
-        expect(
-          raw(
-            createSnapshot(
-              hasEndOfLine
-                ? visualizeEndOfLine(
-                    text
-                      .replace(RANGE_START_PLACEHOLDER, "")
-                      .replace(RANGE_END_PLACEHOLDER, "")
-                  )
-                : source,
-              hasEndOfLine ? visualizedOutput : output,
-              { ...baseOptions, parsers }
+        if (typeof output === "string") {
+          expect(formatted).toEqual(output);
+        } else {
+          expect(
+            raw(
+              createSnapshot(
+                hasEndOfLine
+                  ? visualizeEndOfLine(
+                      code
+                        .replace(RANGE_START_PLACEHOLDER, "")
+                        .replace(RANGE_END_PLACEHOLDER, "")
+                    )
+                  : source,
+                hasEndOfLine ? visualizedOutput : formattedWithCursor,
+                { ...baseOptions, parsers }
+              )
             )
-          )
-        ).toMatchSnapshot();
+          ).toMatchSnapshot();
+        }
       });
 
       const parsersToVerify = parsers.slice(1);
@@ -170,7 +195,7 @@ global.run_spec = (dirname, parsers, options) => {
             options &&
             (options.disableBabelTS === true ||
               (Array.isArray(options.disableBabelTS) &&
-                options.disableBabelTS.includes(basename)))
+                options.disableBabelTS.includes(name)))
           ) {
             expect(() => {
               format(input, filename, verifyOptions);
@@ -182,7 +207,6 @@ global.run_spec = (dirname, parsers, options) => {
         });
       }
 
-      const formatted = output.replace(CURSOR_PLACEHOLDER, "");
       const isUnstable = unstableTests.get(filename);
       const isUnstableTest = isUnstable && isUnstable(options || {});
       if (
@@ -198,9 +222,9 @@ global.run_spec = (dirname, parsers, options) => {
           if (isUnstableTest) {
             // To keep eye on failed tests, this assert never supposed to pass,
             // if it fails, just remove the file from `unstableTests`
-            expect(secondOutput).not.toEqual(output);
+            expect(secondOutput).not.toEqual(formatted);
           } else {
-            expect(secondOutput).toEqual(output);
+            expect(secondOutput).toEqual(formatted);
           }
         });
       }
