@@ -15,7 +15,7 @@ const flat = require("lodash/flatten");
 // eslint-disable-next-line no-restricted-modules
 const prettier = require("../index");
 // eslint-disable-next-line no-restricted-modules
-const thirdParty = require("../common/third-party");
+const { getStream } = require("../common/third-party");
 const {
   createIgnorer,
   errors,
@@ -375,8 +375,7 @@ function formatStdin(context) {
     ? path.relative(path.dirname(context.argv["ignore-path"]), filepath)
     : path.relative(process.cwd(), filepath);
 
-  thirdParty
-    .getStream(process.stdin)
+  getStream(process.stdin)
     .then((input) => {
       if (
         relativeFilepath &&
