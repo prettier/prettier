@@ -13,7 +13,7 @@ function embed(path, print, textToDoc /*, options */) {
       concat([
         "---",
         hardline,
-        node.value.trim()
+        (node.value || "").trim()
           ? replaceNewlinesWithLiterallines(
               textToDoc(node.value, { parser: "yaml" })
             )

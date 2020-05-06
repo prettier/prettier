@@ -117,7 +117,10 @@ function callPluginPrintFunction(path, options, printPath, args) {
       }
     } catch (error) {
       /* istanbul ignore if */
-      if (process.env.PRETTIER_DEBUG) {
+      if (process.env.PRETTIER_DEBUG || process.env.NODE_ENV === "test") {
+        if (options.filepath) {
+          error.message = `File: ${options.filepath}\n${error.message}`;
+        }
         throw error;
       }
       // Continue with current parser
