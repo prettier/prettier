@@ -73,7 +73,7 @@
     "semver": "7.3.2",
     "srcset": "2.0.1",
     "string-width": "4.2.0",
-    "tslib": "1.11.1",
+    "tslib": "1.11.2",
     "typescript": "3.8.3",
     "unicode-regex": "3.0.0",
     "unified": "9.0.0",
