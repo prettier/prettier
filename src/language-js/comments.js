@@ -121,7 +121,7 @@ function handleEndOfLineComment(comment, text, options, ast, isLastComment) {
     handleOnlyComments(enclosingNode, ast, comment, isLastComment) ||
     handleTypeAliasComments(enclosingNode, followingNode, comment) ||
     handleVariableDeclaratorComments(enclosingNode, followingNode, comment) ||
-    handleBinaryExpression(text, enclosingNode, followingNode, comment, options)
+    handleBinaryExpression(enclosingNode, followingNode, comment)
   );
 }
 
@@ -912,20 +912,13 @@ function handleTSMappedTypeComments(
   return false;
 }
 
-function handleBinaryExpression(
-  text,
-  enclosingNode,
-  followingNode,
-  comment,
-  options
-) {
+function handleBinaryExpression(enclosingNode, followingNode, comment) {
   if (
     enclosingNode &&
     (enclosingNode.type === "LogicalExpression" ||
       enclosingNode.type === "BinaryExpression") &&
     followingNode &&
-    isBlockComment(comment) &&
-    privateUtil.hasNewline(text, options.locEnd(comment))
+    isBlockComment(comment)
   ) {
     addLeadingComment(followingNode, comment);
     return true;
