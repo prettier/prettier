@@ -256,8 +256,8 @@ function transformCssDoc(quasisDoc, path, print) {
 // and replace them with the expression docs one by one
 // returns a new doc with all the placeholders replaced,
 // or null if it couldn't replace any expression
-function replacePlaceholders(quasisDoc, expressions) {
-  if (!expressions || !expressions.length) {
+function replacePlaceholders(quasisDoc, expressionDocs) {
+  if (!expressionDocs || !expressionDocs.length) {
     return quasisDoc;
   }
 
@@ -294,8 +294,7 @@ function replacePlaceholders(quasisDoc, expressions) {
 
       // When we have multiple placeholders in one line, like:
       // ${Child}${Child2}:not(:first-child)
-      const components = part.split(/@prettier-placeholder-(\d+)-id/);
-      components.forEach((component, idx) => {
+      part.split(/@prettier-placeholder-(\d+)-id/).forEach((component, idx) => {
         // The placeholder is always at odd indices
         if (idx % 2 === 0) {
           replacedParts.push(component);
@@ -303,14 +302,13 @@ function replacePlaceholders(quasisDoc, expressions) {
         }
 
         // The component will always be a number at odd index
-        const expression = expressions[component];
-        replacedParts.push("${", expression, "}");
+        replacedParts.push("${", expressionDocs[component], "}");
         replaceCounter++;
       });
     });
     return { ...doc, parts: replacedParts };
   });
-  return expressions.length === replaceCounter ? newDoc : null;
+  return expressionDocs.length === replaceCounter ? newDoc : null;
 }
 
 function printGraphqlComments(lines) {
