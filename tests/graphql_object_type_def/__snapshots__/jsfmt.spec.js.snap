@@ -92,6 +92,50 @@ input Params {
 ================================================================================
 `;
 
+exports[`issue-8182.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+"""
+#some docs
+"""
+# some comment
+type Foo {
+  id: ID!
+}
+
+"""
+some docs
+"""
+# some comment
+# extends
+type Foo {
+  id: ID!
+}
+
+=====================================output=====================================
+"""
+#some docs
+"""
+# some comment
+type Foo {
+  id: ID!
+}
+
+"""
+some docs
+"""
+# some comment
+# extends
+type Foo {
+  id: ID!
+}
+
+================================================================================
+`;
+
 exports[`object_type_def.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
