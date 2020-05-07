@@ -152,6 +152,24 @@ function needsParens(path, options) {
     return true;
   }
 
+  if (
+    (node.type === "BinaryExpression" ||
+      node.type === "LogicalExpression" ||
+      node.type === "ArrowFunctionExpression" ||
+      node.type === "AwaitExpression" ||
+      node.type === "YieldExpression" ||
+      node.type === "SequenceExpression" ||
+      node.type === "ConditionalExpression" ||
+      node.type === "AssignmentExpression" ||
+      node.type === "TSAsExpression" ||
+      node.type === "TSTypeAssertion") &&
+    parent.type === "UnaryExpression" &&
+    node.comments &&
+    node.comments.length > 0
+  ) {
+    return false;
+  }
+
   switch (node.type) {
     case "SpreadElement":
     case "SpreadProperty":
