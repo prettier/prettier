@@ -29,16 +29,16 @@ const unstableTests = new Map(
     "comments/return-statement.js",
     "comments/tagged-template-literal.js",
     "comments_closure_typecast/iife.js",
-    "markdown_footnoteDefinition/multiline.md",
-    "markdown_spec/example-234.md",
-    "markdown_spec/example-235.md",
+    "markdown/footnoteDefinition/multiline.md",
+    "markdown/spec/example-234.md",
+    "markdown/spec/example-235.md",
     "html/multiparser-js/script-tag-escaping.html",
     [
       "multiparser_js_markdown/codeblock.js",
       (options) => options.proseWrap === "always",
     ],
     ["no-semi/comments.js", (options) => options.semi === false],
-    "yaml_prettier_ignore/document.yml",
+    "yaml/prettier-ignore/document.yml",
   ].map((fixture) => {
     const [file, isUnstable = () => true] = Array.isArray(fixture)
       ? fixture
