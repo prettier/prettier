@@ -622,7 +622,11 @@ function needsParens(path, options) {
     case "OptionalMemberExpression":
     case "OptionalCallExpression":
       if (
-        (parent.type === "MemberExpression" && name === "object") ||
+        (parent.type === "MemberExpression" &&
+          name === "object" &&
+          // https://github.com/prettier/prettier/issues/8252
+          (!options.parser.startsWith("__ng_") ||
+            (node.extra && node.extra.parenthesized))) ||
         ((parent.type === "CallExpression" ||
           parent.type === "NewExpression") &&
           name === "callee")
