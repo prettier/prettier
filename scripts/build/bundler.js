@@ -32,9 +32,6 @@ const EXTERNALS = [
   "util",
   "readline",
   "tty",
-
-  // See comment in jest.config.js
-  "graceful-fs",
 ];
 
 function getBabelConfig(bundle) {
