@@ -436,9 +436,7 @@ function printListItem(path, options, print, listPrefix) {
   const node = path.getValue();
   const prefix = node.checked === null ? "" : node.checked ? "[x] " : "[ ] ";
 
-  const parent = path.getParentNode();
   return concat([
-    parent && parent.type === "listItem" ? hardline : "",
     prefix,
     printChildren(path, options, print, {
       processor: (childPath, index) => {
@@ -799,10 +797,10 @@ function shouldPrePrintDoubleHardline(node, data) {
   const isSiblingNode = isSequence && SIBLING_NODE_TYPES.has(node.type);
 
   const isInTightListItem =
-    data.parentNode.type === "listItem" && !data.parentNode.spread;
+    data.parentNode.type === "listItem" && !data.parentNode.loose;
 
-  const isPrevNodeSpreadListItem =
-    data.prevNode === "listItem" && data.prevNode.spread;
+  const isPrevNodeLooseListItem =
+    data.prevNode === "listItem" && data.prevNode.loose;
   const isPrevNodePrettierIgnore = isPrettierIgnore(data.prevNode) === "next";
 
   const isBlockHtmlWithoutBlankLineBetweenPrevHtml =
@@ -819,7 +817,7 @@ function shouldPrePrintDoubleHardline(node, data) {
     data.prevNode.position.end.line + 1 === node.position.start.line;
 
   return (
-    isPrevNodeSpreadListItem ||
+    isPrevNodeLooseListItem ||
     !(
       isSiblingNode ||
       isInTightListItem ||
