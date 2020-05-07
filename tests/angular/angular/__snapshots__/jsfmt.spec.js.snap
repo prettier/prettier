@@ -3008,7 +3008,7 @@ printWidth: 80
 <p>
   {{
     "delete"
-      | translate: {what: "entities" | translate: ({count: array.length})}
+      | translate: {what: ("entities" | translate: ({count: array.length}))}
   }}
 </p>
 <p>{{ {a: 1 + ({})} }}</p>
@@ -3180,7 +3180,7 @@ printWidth: 80
 <p>
   {{
     "delete"
-      | translate: { what: "entities" | translate: { count: array.length } }
+      | translate: { what: ("entities" | translate: { count: array.length }) }
   }}
 </p>
 <p>{{ { a: 1 + {} } }}</p>
@@ -3516,12 +3516,12 @@ printWidth: 1
       | translate
         : {
             what:
-              "entities"
+              ("entities"
               | translate
                 : {
                     count:
                       array.length
-                  }
+                  })
           }
   }}
 </p>
@@ -3719,7 +3719,7 @@ trailingComma: "none"
 <p>
   {{
     "delete"
-      | translate: { what: "entities" | translate: { count: array.length } }
+      | translate: { what: ("entities" | translate: { count: array.length }) }
   }}
 </p>
 <p>{{ { a: 1 + {} } }}</p>
@@ -3885,7 +3885,7 @@ printWidth: 80
 <p>
   {{
     "delete"
-      | translate: { what: "entities" | translate: { count: array.length } }
+      | translate: { what: ("entities" | translate: { count: array.length }) }
   }}
 </p>
 <p>{{ { a: 1 + {} } }}</p>
