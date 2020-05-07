@@ -285,7 +285,11 @@ function genericPrint(path, options, print) {
           : "",
         node.nodes
           ? concat([
-              isSCSSControlDirectiveNode(node) ? "" : " ",
+              isSCSSControlDirectiveNode(node)
+                ? ""
+                : node.selector && lastLineHasInlineComment(node.selector.value)
+                ? line
+                : " ",
               "{",
               indent(
                 concat([
@@ -466,28 +470,23 @@ function genericPrint(path, options, print) {
     }
     case "selector-unknown": {
       const ruleAncestorNode = getAncestorNode(path, "css-rule");
-      const { value } = node;
 
       // Nested SCSS property
       if (ruleAncestorNode && ruleAncestorNode.isSCSSNesterProperty) {
-        return adjustNumbers(adjustStrings(maybeToLowerCase(value), options));
+        return adjustNumbers(
+          adjustStrings(maybeToLowerCase(node.value), options)
+        );
       }
 
-      const parentNode = path.getParentNode();
-
       // originalText has to be used for Less, see replaceQuotesInInlineComments in loc.js
+      const parentNode = path.getParentNode();
       if (parentNode.raws && parentNode.raws.selector) {
         const start = options.locStart(parentNode);
         const end = start + parentNode.raws.selector.length;
         return options.originalText.slice(start, end).trim();
       }
 
-      const needHardLine =
-        parentNode &&
-        parentNode.nodes !== undefined &&
-        lastLineHasInlineComment(value);
-
-      return needHardLine ? concat([value, hardline]) : value;
+      return node.value;
     }
     // postcss-values-parser
     case "value-value":
