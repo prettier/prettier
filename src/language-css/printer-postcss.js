@@ -287,7 +287,10 @@ function genericPrint(path, options, print) {
           ? concat([
               isSCSSControlDirectiveNode(node)
                 ? ""
-                : node.selector && lastLineHasInlineComment(node.selector.value)
+                : node.selector &&
+                  !node.selector.nodes &&
+                  node.selector.value !== undefined &&
+                  lastLineHasInlineComment(node.selector.value)
                 ? line
                 : " ",
               "{",
