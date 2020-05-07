@@ -246,3 +246,28 @@ const Foo = styled.p`
     margin-top: 3rem;
   }
 `;
+
+styled.div`
+  ${props => props.firstProp && css`
+    color: red;
+  `}
+`
+
+styled.div`
+  ${props => props.firstProp && props.secondProp && props.thirdProp && css`
+    color: red;
+  `}
+`
+
+const foo = css`
+  color: red;
+  background: yellow;
+
+  ${bool && css`
+    border: 1px solid blue;
+
+    ${bool2 && css`
+      padding: 20px;
+    `}
+  `}
+`;

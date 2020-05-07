@@ -61,6 +61,7 @@ const {
   isJestEachTemplateLiteral,
   isJSXNode,
   isJSXWhitespaceExpression,
+  isStyledComponents,
   isLastStatement,
   isLiteral,
   isMeaningfulJSXText,
@@ -843,6 +844,17 @@ function printPathNoParens(path, options, print, args) {
 
       const body = path.call((bodyPath) => print(bodyPath, args), "body");
 
+      let isStyledComponentsExpression;
+      if (
+        isStyledComponents(path) &&
+        n.body.left &&
+        (n.body.right.type === "TaggedTemplateExpression" ||
+          n.body.right.type === "TemplateLiteral") &&
+        !shouldFlatten(n.body.operator, n.body.left.operator)
+      ) {
+        isStyledComponentsExpression = true;
+      }
+
       // We want to always keep these types of nodes on the same line
       // as the arrow.
       if (
@@ -851,6 +863,7 @@ function printPathNoParens(path, options, print, args) {
           n.body.type === "ObjectExpression" ||
           n.body.type === "BlockStatement" ||
           isJSXNode(n.body) ||
+          isStyledComponentsExpression ||
           isTemplateOnItsOwnLine(n.body, options.originalText, options) ||
           n.body.type === "ArrowFunctionExpression" ||
           n.body.type === "DoExpression")
@@ -5062,7 +5075,17 @@ function printBinaryishExpressions(
       parts.push(path.call(print, "left"));
     }
 
-    const shouldInline = shouldInlineLogicalExpression(node);
+    let shouldInline = shouldInlineLogicalExpression(node);
+
+    if (
+      isStyledComponents(path) &&
+      !shouldFlatten(node.operator, node.left.operator) &&
+      (node.right.type === "TaggedTemplateExpression" ||
+        node.right.type === "TemplateLiteral")
+    ) {
+      shouldInline = true;
+    }
+
     const lineBeforeOperator =
       (node.operator === "|>" ||
         node.type === "NGPipeExpression" ||

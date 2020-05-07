@@ -8,6 +8,7 @@ const {
   hasNodeIgnoreComment,
   skipWhitespace,
 } = require("../common/util");
+const { getAncestorNode } = require("../language-css/utils");
 const isIdentifierName = require("esutils").keyword.isIdentifierNameES5;
 const handleComments = require("./comments");
 
@@ -240,6 +241,59 @@ function isTheOnlyJSXElementInMarkdown(options, path) {
   const parent = path.getParentNode();
 
   return parent.type === "Program" && parent.body.length === 1;
+}
+
+function isStyledComponents(path) {
+  const node = getAncestorNode(path, "TaggedTemplateExpression");
+  return isStyledComponentsNode(node);
+}
+
+function isStyledComponentsNode(node) {
+  if (!node || node.type !== "TaggedTemplateExpression") {
+    return false;
+  }
+
+  const { tag } = node;
+
+  switch (tag.type) {
+    case "MemberExpression":
+      return (
+        // styled.foo``
+        isStyledIdentifier(tag.object) ||
+        // Component.extend``
+        isStyledExtend(tag)
+      );
+
+    case "CallExpression":
+      return (
+        // styled(Component)``
+        isStyledIdentifier(tag.callee) ||
+        (tag.callee.type === "MemberExpression" &&
+          ((tag.callee.object.type === "MemberExpression" &&
+            // styled.foo.attrs({})``
+            (isStyledIdentifier(tag.callee.object.object) ||
+              // Component.extend.attrs({})``
+              isStyledExtend(tag.callee.object))) ||
+            // styled(Component).attrs({})``
+            (tag.callee.object.type === "CallExpression" &&
+              isStyledIdentifier(tag.callee.object.callee))))
+      );
+
+    case "Identifier":
+      // css``
+      return tag.name === "css";
+
+    default:
+      return false;
+  }
+}
+
+function isStyledIdentifier(node) {
+  return node.type === "Identifier" && node.name === "styled";
+}
+
+function isStyledExtend(node) {
+  return /^[A-Z]/.test(node.object.name) && node.property.name === "extend";
 }
 
 // Detect an expression node representing `{" "}`
@@ -1078,6 +1132,8 @@ module.exports = {
   isJestEachTemplateLiteral,
   isJSXNode,
   isJSXWhitespaceExpression,
+  isStyledComponentsNode,
+  isStyledComponents,
   isLastStatement,
   isLiteral,
   isLiteralLikeValue,

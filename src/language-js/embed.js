@@ -17,6 +17,8 @@ const {
   utils: { mapDoc, stripTrailingHardline },
 } = require("../document");
 
+const { isStyledComponents } = require("./utils");
+
 function embed(path, print, textToDoc, options) {
   const node = path.getValue();
   const parent = path.getParentNode();
@@ -420,51 +422,6 @@ const angularComponentObjectExpressionPredicates = [
 ];
 
 /**
- * styled-components template literals
- */
-function isStyledComponents(path) {
-  const parent = path.getParentNode();
-
-  if (!parent || parent.type !== "TaggedTemplateExpression") {
-    return false;
-  }
-
-  const { tag } = parent;
-
-  switch (tag.type) {
-    case "MemberExpression":
-      return (
-        // styled.foo``
-        isStyledIdentifier(tag.object) ||
-        // Component.extend``
-        isStyledExtend(tag)
-      );
-
-    case "CallExpression":
-      return (
-        // styled(Component)``
-        isStyledIdentifier(tag.callee) ||
-        (tag.callee.type === "MemberExpression" &&
-          ((tag.callee.object.type === "MemberExpression" &&
-            // styled.foo.attrs({})``
-            (isStyledIdentifier(tag.callee.object.object) ||
-              // Component.extend.attrs({})``
-              isStyledExtend(tag.callee.object))) ||
-            // styled(Component).attrs({})``
-            (tag.callee.object.type === "CallExpression" &&
-              isStyledIdentifier(tag.callee.object.callee))))
-      );
-
-    case "Identifier":
-      // css``
-      return tag.name === "css";
-
-    default:
-      return false;
-  }
-}
-
-/**
  * JSX element with CSS prop
  */
 function isCssProp(path) {
@@ -477,14 +434,6 @@ function isCssProp(path) {
     parentParent.name.type === "JSXIdentifier" &&
     parentParent.name.name === "css"
   );
-}
-
-function isStyledIdentifier(node) {
-  return node.type === "Identifier" && node.name === "styled";
-}
-
-function isStyledExtend(node) {
-  return /^[A-Z]/.test(node.object.name) && node.property.name === "extend";
 }
 
 /*
