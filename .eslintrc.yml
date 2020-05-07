@@ -79,3 +79,10 @@ overrides:
       strict: off
     globals:
       run_spec: false
+  - files:
+      - src/cli/**/*.js
+    rules:
+      no-restricted-modules:
+        - error
+        - patterns:
+            - ".."

@@ -120,7 +120,10 @@ const coreBundles = [
     type: "core",
     output: "bin-prettier.js",
     target: "node",
-    externals: [path.resolve("src/common/third-party.js")],
+    externals: [
+      path.resolve("src/index.js"),
+      path.resolve("src/common/third-party.js"),
+    ],
   },
   {
     input: "src/common/third-party.js",
