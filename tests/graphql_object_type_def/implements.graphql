@@ -1,3 +1,0 @@
-type VRMConversation implements Node, Entity @foo {
-  a: Int
-}

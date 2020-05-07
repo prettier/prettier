@@ -1,7 +1,0 @@
-fragment F($var: Int) on Type {
-  field
-}
-
-fragment G($first_variable: Int,   $second_variable: String =  "Very complex default argument value") on Type {
-  field
-}

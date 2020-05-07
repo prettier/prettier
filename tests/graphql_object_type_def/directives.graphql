@@ -1,3 +1,0 @@
-type PokemonType {
-  pokemon_type: String @mock(value: "Electric")
-}

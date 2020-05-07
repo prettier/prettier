@@ -1,6 +1,0 @@
-fragment Visit on HighlightedVisit
-  @argumentDefinitions(
-    count: {type: "Int", defaultValue: 20}
-  ) {
-  name
-}

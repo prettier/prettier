@@ -1,4 +1,0 @@
-type FeedHomeStories {
-  debug_info: String
-  query_title: String
-}

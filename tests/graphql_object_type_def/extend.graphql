@@ -1,3 +1,0 @@
-extend type Feedback {
-  custom_int: Int
-}

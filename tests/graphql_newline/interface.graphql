@@ -1,9 +1,0 @@
-interface Actor {
-  # Id
-  id: ID
-
-  # Actor fields
-  name: String
-  kind: String
-
-}

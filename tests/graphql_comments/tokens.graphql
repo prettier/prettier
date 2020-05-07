@@ -1,7 +1,0 @@
-# import "./claimsFragment.gql"
-
-query claimsByBookingReferenceAndLastName($bookingReference: String!, $lastName: String!) {
-  claimsByBookingReferenceAndLastName(bookingReference: $bookingReference, lastName: $lastName) {
-    ... claim
-  }
-}

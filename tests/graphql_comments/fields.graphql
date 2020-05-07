@@ -1,5 +1,0 @@
-query { 
-  someField # Trailing comment
-}
-
-

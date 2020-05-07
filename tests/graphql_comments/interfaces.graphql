@@ -1,7 +1,0 @@
-type Type1
-implements
-A & B &
-# comment 1
-                 C & D &
-# comment 2
- E {a: a}

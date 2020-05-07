@@ -1,6 +1,0 @@
-type Type {
-  id: ID
-
-  name: String
-
-}

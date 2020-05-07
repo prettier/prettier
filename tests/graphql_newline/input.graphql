@@ -1,8 +1,0 @@
-input Params {
-  # Id
-  id: ID
-
-  # Name
-  name: String
-
-}
