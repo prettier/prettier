@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`accessor-decorator.ts 1`] = `
+exports[`accessor-decorator.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -48,7 +48,7 @@ class Point {
 ================================================================================
 `;
 
-exports[`angular.ts 1`] = `
+exports[`angular.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -66,9 +66,7 @@ export class HeroButtonComponent {
 =====================================output=====================================
 @Component({
   selector: "toh-hero-button",
-  template: \`
-    <button>{{ label }}</button>
-  \`
+  template: \`<button>{{ label }}</button>\`,
 })
 export class HeroButtonComponent {
   @Output() change = new EventEmitter<any>();
@@ -78,7 +76,7 @@ export class HeroButtonComponent {
 ================================================================================
 `;
 
-exports[`class-decorator.ts 1`] = `
+exports[`class-decorator.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -110,7 +108,7 @@ class Greeter {
 ================================================================================
 `;
 
-exports[`method-decorator.ts 1`] = `
+exports[`method-decorator.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -144,7 +142,7 @@ class Greeter {
 ================================================================================
 `;
 
-exports[`mobx.ts 1`] = `
+exports[`mobx.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -172,7 +170,7 @@ class X {
 ================================================================================
 `;
 
-exports[`multiple.ts 1`] = `
+exports[`multiple.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -194,7 +192,7 @@ class C {
 ================================================================================
 `;
 
-exports[`parameter-decorator.ts 1`] = `
+exports[`parameter-decorator.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -240,7 +238,7 @@ class Greeter {
 ================================================================================
 `;
 
-exports[`property-decorator.ts 1`] = `
+exports[`property-decorator.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -274,7 +272,7 @@ class Greeter {
 ================================================================================
 `;
 
-exports[`typeorm.ts 1`] = `
+exports[`typeorm.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -321,10 +319,7 @@ export class Board {
   @Column()
   description: string;
 
-  @OneToMany(
-    type => Topic,
-    topic => topic.board
-  )
+  @OneToMany((type) => Topic, (topic) => topic.board)
   topics: Topic[];
 }
 

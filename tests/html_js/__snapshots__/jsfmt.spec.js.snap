@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`empty.html 1`] = `
+exports[`empty.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -14,7 +14,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`js.html 1`] = `
+exports[`js.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -74,7 +74,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`simple.html 1`] = `
+exports[`simple.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -120,7 +120,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`single-script.html 1`] = `
+exports[`single-script.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -142,7 +142,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`something-else.html 1`] = `
+exports[`something-else.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -162,7 +162,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`template-literal.html 1`] = `
+exports[`template-literal.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -205,7 +205,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`typescript.html 1`] = `
+exports[`typescript.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -355,8 +355,8 @@ printWidth: 80
         url: this.props.url,
         dataType: "json",
         cache: false,
-        success: data => this.setState({ data: data }),
-        error: (xhr, status, err) => console.error(status, err)
+        success: (data) => this.setState({ data: data }),
+        error: (xhr, status, err) => console.error(status, err),
       });
     }
     componentDidMount() {

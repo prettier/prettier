@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`function_expression.js 1`] = `
+exports[`function_expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -19,22 +19,22 @@ a + function() {};
 new function() {};
 
 =====================================output=====================================
-(function() {}.length);
-typeof function() {};
-export default (function() {})();
-(function() {})()\`\`;
-(function() {})\`\`;
-new (function() {})();
-(function() {});
+(function () {}.length);
+typeof function () {};
+export default (function () {})();
+(function () {})()\`\`;
+(function () {})\`\`;
+new (function () {})();
+(function () {});
 a = function f() {} || b;
-(function() {} && a);
-a + function() {};
-new (function() {})();
+(function () {} && a);
+a + function () {};
+new (function () {})();
 
 ================================================================================
 `;
 
-exports[`single_expand.js 1`] = `
+exports[`single_expand.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -58,14 +58,14 @@ class X {
 function onDidInsertSuggestion({
   editor,
   triggerPosition,
-  re
+  re,
 }): Promise<void> {}
 
 class X {
   async onDidInsertSuggestion({
     editor,
     triggerPosition,
-    suggestion
+    suggestion,
   }): Promise<void> {}
 }
 

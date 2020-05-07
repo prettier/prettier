@@ -1,6 +1,81 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`angular_async.js 1`] = `
+exports[`angular_async.js - {"arrowParens":"avoid"} format 1`] = `
+====================================options=====================================
+arrowParens: "avoid"
+parsers: ["flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+beforeEach(async(() => {
+  // code
+}));
+
+beforeEach(done =>
+  foo()
+    .bar()
+    .bar(),
+);
+
+afterAll(async(() => {
+  console.log('Hello');
+}));
+
+afterAll(done =>
+  foo()
+    .bar()
+    .bar(),
+);
+
+it('should create the app', async(() => {
+  //code
+}));
+
+it("does something really long and complicated so I have to write a very long name for the test", async(() => {
+  // code
+}));
+
+/*
+* isTestCall(parent) should only be called when parent exists
+* and parent.type is CallExpression. This test makes sure that
+* no errors are thrown when calling isTestCall(parent)
+*/
+function x() { async(() => {}) }
+
+=====================================output=====================================
+beforeEach(async(() => {
+  // code
+}));
+
+beforeEach(done => foo().bar().bar());
+
+afterAll(async(() => {
+  console.log("Hello");
+}));
+
+afterAll(done => foo().bar().bar());
+
+it("should create the app", async(() => {
+  //code
+}));
+
+it("does something really long and complicated so I have to write a very long name for the test", async(() => {
+  // code
+}));
+
+/*
+ * isTestCall(parent) should only be called when parent exists
+ * and parent.type is CallExpression. This test makes sure that
+ * no errors are thrown when calling isTestCall(parent)
+ */
+function x() {
+  async(() => {});
+}
+
+================================================================================
+`;
+
+exports[`angular_async.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -46,21 +121,13 @@ beforeEach(async(() => {
   // code
 }));
 
-beforeEach(done =>
-  foo()
-    .bar()
-    .bar()
-);
+beforeEach((done) => foo().bar().bar());
 
 afterAll(async(() => {
   console.log("Hello");
 }));
 
-afterAll(done =>
-  foo()
-    .bar()
-    .bar()
-);
+afterAll((done) => foo().bar().bar());
 
 it("should create the app", async(() => {
   //code
@@ -82,76 +149,57 @@ function x() {
 ================================================================================
 `;
 
-exports[`angular_async.js 2`] = `
+exports[`angular_fakeAsync.js - {"arrowParens":"avoid"} format 1`] = `
 ====================================options=====================================
-arrowParens: "always"
+arrowParens: "avoid"
 parsers: ["flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-beforeEach(async(() => {
+beforeEach(fakeAsync(() => {
   // code
 }));
 
-beforeEach(done =>
-  foo()
-    .bar()
-    .bar(),
-);
-
-afterAll(async(() => {
+afterAll(fakeAsync(() => {
   console.log('Hello');
 }));
 
-afterAll(done =>
-  foo()
-    .bar()
-    .bar(),
-);
-
-it('should create the app', async(() => {
+it('should create the app', fakeAsync(() => {
   //code
 }));
 
-it("does something really long and complicated so I have to write a very long name for the test", async(() => {
+it("does something really long and complicated so I have to write a very long name for the test", fakeAsync(() => {
   // code
 }));
+
+it("does something really long and complicated so I have to write a very long name for the test", fakeAsync(() => new SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS));
 
 /*
 * isTestCall(parent) should only be called when parent exists
 * and parent.type is CallExpression. This test makes sure that
 * no errors are thrown when calling isTestCall(parent)
 */
-function x() { async(() => {}) }
+function x() { fakeAsync(() => {}) }
 
 =====================================output=====================================
-beforeEach(async(() => {
+beforeEach(fakeAsync(() => {
   // code
 }));
 
-beforeEach((done) =>
-  foo()
-    .bar()
-    .bar()
-);
-
-afterAll(async(() => {
+afterAll(fakeAsync(() => {
   console.log("Hello");
 }));
 
-afterAll((done) =>
-  foo()
-    .bar()
-    .bar()
-);
-
-it("should create the app", async(() => {
+it("should create the app", fakeAsync(() => {
   //code
 }));
 
-it("does something really long and complicated so I have to write a very long name for the test", async(() => {
+it("does something really long and complicated so I have to write a very long name for the test", fakeAsync(() => {
   // code
 }));
+
+it("does something really long and complicated so I have to write a very long name for the test", fakeAsync(() =>
+  new SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS()));
 
 /*
  * isTestCall(parent) should only be called when parent exists
@@ -159,13 +207,13 @@ it("does something really long and complicated so I have to write a very long na
  * no errors are thrown when calling isTestCall(parent)
  */
 function x() {
-  async(() => {});
+  fakeAsync(() => {});
 }
 
 ================================================================================
 `;
 
-exports[`angular_fakeAsync.js 1`] = `
+exports[`angular_fakeAsync.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -228,57 +276,63 @@ function x() {
 ================================================================================
 `;
 
-exports[`angular_fakeAsync.js 2`] = `
+exports[`angularjs_inject.js - {"arrowParens":"avoid"} format 1`] = `
 ====================================options=====================================
-arrowParens: "always"
+arrowParens: "avoid"
 parsers: ["flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-beforeEach(fakeAsync(() => {
+beforeEach(inject(($fooService, $barService) => {
   // code
 }));
 
-afterAll(fakeAsync(() => {
+afterAll(inject(($fooService, $barService) => {
   console.log('Hello');
 }));
 
-it('should create the app', fakeAsync(() => {
+it('should create the app', inject(($fooService, $barService) => {
   //code
 }));
 
-it("does something really long and complicated so I have to write a very long name for the test", fakeAsync(() => {
+it("does something really long and complicated so I have to write a very long name for the test", inject(() => {
   // code
 }));
 
-it("does something really long and complicated so I have to write a very long name for the test", fakeAsync(() => new SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS));
+it("does something really long and complicated so I have to write a very long name for the test", inject(($fooServiceLongName, $barServiceLongName) => {
+  // code
+}));
 
 /*
 * isTestCall(parent) should only be called when parent exists
 * and parent.type is CallExpression. This test makes sure that
 * no errors are thrown when calling isTestCall(parent)
 */
-function x() { fakeAsync(() => {}) }
+function x() { inject(() => {}) }
 
 =====================================output=====================================
-beforeEach(fakeAsync(() => {
+beforeEach(inject(($fooService, $barService) => {
   // code
 }));
 
-afterAll(fakeAsync(() => {
+afterAll(inject(($fooService, $barService) => {
   console.log("Hello");
 }));
 
-it("should create the app", fakeAsync(() => {
+it("should create the app", inject(($fooService, $barService) => {
   //code
 }));
 
-it("does something really long and complicated so I have to write a very long name for the test", fakeAsync(() => {
+it("does something really long and complicated so I have to write a very long name for the test", inject(() => {
   // code
 }));
 
-it("does something really long and complicated so I have to write a very long name for the test", fakeAsync(() =>
-  new SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS()));
+it("does something really long and complicated so I have to write a very long name for the test", inject((
+  $fooServiceLongName,
+  $barServiceLongName
+) => {
+  // code
+}));
 
 /*
  * isTestCall(parent) should only be called when parent exists
@@ -286,13 +340,13 @@ it("does something really long and complicated so I have to write a very long na
  * no errors are thrown when calling isTestCall(parent)
  */
 function x() {
-  fakeAsync(() => {});
+  inject(() => {});
 }
 
 ================================================================================
 `;
 
-exports[`angularjs_inject.js 1`] = `
+exports[`angularjs_inject.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -361,78 +415,9 @@ function x() {
 ================================================================================
 `;
 
-exports[`angularjs_inject.js 2`] = `
+exports[`jest-each.js - {"arrowParens":"avoid"} format 1`] = `
 ====================================options=====================================
-arrowParens: "always"
-parsers: ["flow", "typescript"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-beforeEach(inject(($fooService, $barService) => {
-  // code
-}));
-
-afterAll(inject(($fooService, $barService) => {
-  console.log('Hello');
-}));
-
-it('should create the app', inject(($fooService, $barService) => {
-  //code
-}));
-
-it("does something really long and complicated so I have to write a very long name for the test", inject(() => {
-  // code
-}));
-
-it("does something really long and complicated so I have to write a very long name for the test", inject(($fooServiceLongName, $barServiceLongName) => {
-  // code
-}));
-
-/*
-* isTestCall(parent) should only be called when parent exists
-* and parent.type is CallExpression. This test makes sure that
-* no errors are thrown when calling isTestCall(parent)
-*/
-function x() { inject(() => {}) }
-
-=====================================output=====================================
-beforeEach(inject(($fooService, $barService) => {
-  // code
-}));
-
-afterAll(inject(($fooService, $barService) => {
-  console.log("Hello");
-}));
-
-it("should create the app", inject(($fooService, $barService) => {
-  //code
-}));
-
-it("does something really long and complicated so I have to write a very long name for the test", inject(() => {
-  // code
-}));
-
-it("does something really long and complicated so I have to write a very long name for the test", inject((
-  $fooServiceLongName,
-  $barServiceLongName
-) => {
-  // code
-}));
-
-/*
- * isTestCall(parent) should only be called when parent exists
- * and parent.type is CallExpression. This test makes sure that
- * no errors are thrown when calling isTestCall(parent)
- */
-function x() {
-  inject(() => {});
-}
-
-================================================================================
-`;
-
-exports[`jest-each.js 1`] = `
-====================================options=====================================
+arrowParens: "avoid"
 parsers: ["flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -477,7 +462,7 @@ describe.each\`a    | b    | expected
 
 // an example to demo multiline quasi
 describe.each\`a    | b    | expected
-\${11111111111} | \${a().b().c().d()} | \${2}
+\${11111111111} | \${a().b(x => x).c().d()} | \${2}
 \${1} | \${2} | \${3}
 \${2} | \${1} | \${3}\`
 
@@ -545,7 +530,7 @@ describe.each\`
 describe.each\`
   a    | b    | expected
   \${11111111111} | \${a()
-  .b()
+  .b(x => x)
   .c()
   .d()} | \${2}
   \${1} | \${2} | \${3}
@@ -559,7 +544,7 @@ describe.each([1, 2, 3])("test", a => {
 test.only.each([
   [1, 1, 2],
   [1, 2, 3],
-  [2, 1, 3]
+  [2, 1, 3],
 ])(".add(%i, %i)", (a, b, expected) => {
   expect(a + b).toBe(expected);
 });
@@ -567,7 +552,7 @@ test.only.each([
 test.each([
   { a: "1", b: 1 },
   { a: "2", b: 2 },
-  { a: "3", b: 3 }
+  { a: "3", b: 3 },
 ])("test", ({ a, b }) => {
   expect(Number(a)).toBe(b);
 });
@@ -575,9 +560,8 @@ test.each([
 ================================================================================
 `;
 
-exports[`jest-each.js 2`] = `
+exports[`jest-each.js format 1`] = `
 ====================================options=====================================
-arrowParens: "always"
 parsers: ["flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -622,7 +606,7 @@ describe.each\`a    | b    | expected
 
 // an example to demo multiline quasi
 describe.each\`a    | b    | expected
-\${11111111111} | \${a().b().c().d()} | \${2}
+\${11111111111} | \${a().b(x => x).c().d()} | \${2}
 \${1} | \${2} | \${3}
 \${2} | \${1} | \${3}\`
 
@@ -690,7 +674,7 @@ describe.each\`
 describe.each\`
   a    | b    | expected
   \${11111111111} | \${a()
-  .b()
+  .b((x) => x)
   .c()
   .d()} | \${2}
   \${1} | \${2} | \${3}
@@ -704,7 +688,7 @@ describe.each([1, 2, 3])("test", (a) => {
 test.only.each([
   [1, 1, 2],
   [1, 2, 3],
-  [2, 1, 3]
+  [2, 1, 3],
 ])(".add(%i, %i)", (a, b, expected) => {
   expect(a + b).toBe(expected);
 });
@@ -712,7 +696,7 @@ test.only.each([
 test.each([
   { a: "1", b: 1 },
   { a: "2", b: 2 },
-  { a: "3", b: 3 }
+  { a: "3", b: 3 },
 ])("test", ({ a, b }) => {
   expect(Number(a)).toBe(b);
 });
@@ -720,8 +704,9 @@ test.each([
 ================================================================================
 `;
 
-exports[`test_declarations.js 1`] = `
+exports[`test_declarations.js - {"arrowParens":"avoid"} format 1`] = `
 ====================================options=====================================
+arrowParens: "avoid"
 parsers: ["flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -864,11 +849,11 @@ it("does something really long and complicated so I have to write a very long na
   console.log("hello!");
 });
 
-it("does something really long and complicated so I have to write a very long name for the test", function() {
+it("does something really long and complicated so I have to write a very long name for the test", function () {
   console.log("hello!");
 });
 
-it("does something really long and complicated so I have to write a very long name for the test", function(done) {
+it("does something really long and complicated so I have to write a very long name for the test", function (done) {
   console.log("hello!");
 });
 
@@ -876,11 +861,11 @@ it("does something really long and complicated so I have to write a very long na
   console.log("hello!");
 });
 
-it(\`does something really long and complicated so I have to write a very long name for the test\`, function() {
+it(\`does something really long and complicated so I have to write a very long name for the test\`, function () {
   console.log("hello!");
 });
 
-it(\`{foo + bar} does something really long and complicated so I have to write a very long name for the test\`, function() {
+it(\`{foo + bar} does something really long and complicated so I have to write a very long name for the test\`, function () {
   console.log("hello!");
 });
 
@@ -1003,9 +988,8 @@ it(
 ================================================================================
 `;
 
-exports[`test_declarations.js 2`] = `
+exports[`test_declarations.js format 1`] = `
 ====================================options=====================================
-arrowParens: "always"
 parsers: ["flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
@@ -1148,11 +1132,11 @@ it("does something really long and complicated so I have to write a very long na
   console.log("hello!");
 });
 
-it("does something really long and complicated so I have to write a very long name for the test", function() {
+it("does something really long and complicated so I have to write a very long name for the test", function () {
   console.log("hello!");
 });
 
-it("does something really long and complicated so I have to write a very long name for the test", function(done) {
+it("does something really long and complicated so I have to write a very long name for the test", function (done) {
   console.log("hello!");
 });
 
@@ -1160,11 +1144,11 @@ it("does something really long and complicated so I have to write a very long na
   console.log("hello!");
 });
 
-it(\`does something really long and complicated so I have to write a very long name for the test\`, function() {
+it(\`does something really long and complicated so I have to write a very long name for the test\`, function () {
   console.log("hello!");
 });
 
-it(\`{foo + bar} does something really long and complicated so I have to write a very long name for the test\`, function() {
+it(\`{foo + bar} does something really long and complicated so I have to write a very long name for the test\`, function () {
   console.log("hello!");
 });
 

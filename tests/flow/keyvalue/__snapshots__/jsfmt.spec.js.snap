@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`keyvalue.js 1`] = `
+exports[`keyvalue.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -18,9 +18,9 @@ let tests = [
 // @flow
 
 let tests = [
-  function(x: { [key: number]: string }) {
+  function (x: { [key: number]: string }) {
     (x[""]: number);
-  }
+  },
 ];
 
 ================================================================================

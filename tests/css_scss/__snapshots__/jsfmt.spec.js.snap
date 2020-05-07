@@ -1,6 +1,94 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`import_comma.scss 1`] = `
+exports[`comments.scss - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+// This comment won't be included in the CSS. 
+//This comment won't be included in the CSS.
+//     This comment won't be included in the CSS.     
+
+/* But this comment will, except in compressed mode. */
+/*     But this comment will, except in compressed mode.     */
+/*But this comment will, except in compressed mode.*/
+
+/*! This comment will be included even in compressed mode. */
+
+/// Computes an exponent.
+///// Computes an exponent.
+
+=====================================output=====================================
+// This comment won't be included in the CSS.
+//This comment won't be included in the CSS.
+//     This comment won't be included in the CSS.
+
+/* But this comment will, except in compressed mode. */
+/*     But this comment will, except in compressed mode.     */
+/*But this comment will, except in compressed mode.*/
+
+/*! This comment will be included even in compressed mode. */
+
+/// Computes an exponent.
+///// Computes an exponent.
+
+================================================================================
+`;
+
+exports[`comments.scss format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// This comment won't be included in the CSS. 
+//This comment won't be included in the CSS.
+//     This comment won't be included in the CSS.     
+
+/* But this comment will, except in compressed mode. */
+/*     But this comment will, except in compressed mode.     */
+/*But this comment will, except in compressed mode.*/
+
+/*! This comment will be included even in compressed mode. */
+
+/// Computes an exponent.
+///// Computes an exponent.
+
+=====================================output=====================================
+// This comment won't be included in the CSS.
+//This comment won't be included in the CSS.
+//     This comment won't be included in the CSS.
+
+/* But this comment will, except in compressed mode. */
+/*     But this comment will, except in compressed mode.     */
+/*But this comment will, except in compressed mode.*/
+
+/*! This comment will be included even in compressed mode. */
+
+/// Computes an exponent.
+///// Computes an exponent.
+
+================================================================================
+`;
+
+exports[`import_comma.scss - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+@import "rounded-corners", "text-shadow";
+
+=====================================output=====================================
+@import "rounded-corners", "text-shadow";
+
+================================================================================
+`;
+
+exports[`import_comma.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
@@ -14,25 +102,11 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`import_comma.scss 2`] = `
+exports[`scss.scss - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
-trailingComma: "es5"
-                                                                                | printWidth
-=====================================input======================================
-@import "rounded-corners", "text-shadow";
-
-=====================================output=====================================
-@import "rounded-corners", "text-shadow";
-
-================================================================================
-`;
-
-exports[`scss.scss 1`] = `
-====================================options=====================================
-parsers: ["scss"]
-printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 @media #{$g-breakpoint-tiny} {}
@@ -1040,6 +1114,8 @@ $my-list:
 $my-map: (
   'foo': 1, // Comment
   'bar': 2, // Comment
+  'buz': calc(1 + 2), // Buz
+  'baz': 4, // Baz
 );
 
 [href]:hover &, // Comment
@@ -2003,6 +2079,10 @@ $my-map: (
   // Comment
     "bar": 2,
   // Comment
+    "buz": calc(1 + 2),
+  // Buz
+    "baz": 4,
+  // Baz
 );
 
 [href]:hover &, // Comment
@@ -2051,11 +2131,10 @@ label {
 ================================================================================
 `;
 
-exports[`scss.scss 2`] = `
+exports[`scss.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 @media #{$g-breakpoint-tiny} {}
@@ -3063,6 +3142,8 @@ $my-list:
 $my-map: (
   'foo': 1, // Comment
   'bar': 2, // Comment
+  'buz': calc(1 + 2), // Buz
+  'baz': 4, // Baz
 );
 
 [href]:hover &, // Comment
@@ -4026,6 +4107,10 @@ $my-map: (
   // Comment
     "bar": 2,
   // Comment
+    "buz": calc(1 + 2),
+  // Buz
+    "baz": 4,
+  // Baz
 );
 
 [href]:hover &, // Comment
@@ -4069,6 +4154,55 @@ $my-map: (
 
 label {
   @include margin-bottom-1\\/3;
+}
+
+================================================================================
+`;
+
+exports[`string-concatanation.scss - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+a {
+  background-image: url($test-path + $test-path);
+  background-image: url($test-path + 'static/test.jpg');
+  background-image: url('../test/' + $test-path);
+  background-image: url('../test/' + 'static/test.jpg');
+}
+
+=====================================output=====================================
+a {
+  background-image: url($test-path + $test-path);
+  background-image: url($test-path + "static/test.jpg");
+  background-image: url("../test/" + $test-path);
+  background-image: url("../test/" + "static/test.jpg");
+}
+
+================================================================================
+`;
+
+exports[`string-concatanation.scss format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+a {
+  background-image: url($test-path + $test-path);
+  background-image: url($test-path + 'static/test.jpg');
+  background-image: url('../test/' + $test-path);
+  background-image: url('../test/' + 'static/test.jpg');
+}
+
+=====================================output=====================================
+a {
+  background-image: url($test-path + $test-path);
+  background-image: url($test-path + "static/test.jpg");
+  background-image: url("../test/" + $test-path);
+  background-image: url("../test/" + "static/test.jpg");
 }
 
 ================================================================================

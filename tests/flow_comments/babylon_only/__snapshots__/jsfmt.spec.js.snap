@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`class_with_generics.js 1`] = `
+exports[`class_with_generics.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -34,7 +34,7 @@ class Component extends React.Component /*:: <Props, State> */ {
 ================================================================================
 `;
 
-exports[`functions.js 1`] = `
+exports[`functions.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80

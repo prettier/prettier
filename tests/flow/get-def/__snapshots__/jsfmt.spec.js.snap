@@ -1,6 +1,72 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`example.js 1`] = `
+exports[`class.js format 1`] = `
+====================================options=====================================
+parsers: ["flow"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// @flow
+
+class Foo {
+  prop: ?string;
+  #privateProp: number;
+  fun(): void {
+    this.#privateProp;
+    this.#privateProp = 4;
+  }
+}
+
+const foo = new Foo();
+foo.prop;
+foo.prop = null;
+foo.fun();
+
+if (foo.prop != null) {
+  foo.prop;
+}
+
+function f(x: ?Foo): void {
+  x.fun();
+}
+
+function f(x: Foo | null | void): void {
+  x.fun();
+}
+
+=====================================output=====================================
+// @flow
+
+class Foo {
+  prop: ?string;
+  #privateProp: number;
+  fun(): void {
+    this.#privateProp;
+    this.#privateProp = 4;
+  }
+}
+
+const foo = new Foo();
+foo.prop;
+foo.prop = null;
+foo.fun();
+
+if (foo.prop != null) {
+  foo.prop;
+}
+
+function f(x: ?Foo): void {
+  x.fun();
+}
+
+function f(x: Foo | null | void): void {
+  x.fun();
+}
+
+================================================================================
+`;
+
+exports[`example.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -42,7 +108,7 @@ lib.bar();
 ================================================================================
 `;
 
-exports[`imports.js 1`] = `
+exports[`imports.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -76,7 +142,7 @@ things;
 ================================================================================
 `;
 
-exports[`library.js 1`] = `
+exports[`library.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -100,13 +166,13 @@ module.exports = {
 /* @flow */
 
 module.exports = {
-  iTakeAString: function(name: string): number {
+  iTakeAString: function (name: string): number {
     return 42;
   },
 
-  bar: function(): number {
+  bar: function (): number {
     return 42;
-  }
+  },
 };
 
 ================================================================================

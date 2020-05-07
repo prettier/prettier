@@ -1,9 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.component.ts 1`] = `
+exports[`test.component.ts - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 @Component({
@@ -27,11 +28,9 @@ class     TestComponent {}
 =====================================output=====================================
 @Component({
   selector: "app-test",
-  template: \`
-    <ul>
-      <li>test</li>
-    </ul>
-  \`,
+  template: \`<ul>
+    <li>test</li>
+  </ul> \`,
   styles: [
     \`
       :host {
@@ -48,11 +47,10 @@ class TestComponent {}
 ================================================================================
 `;
 
-exports[`test.component.ts 2`] = `
+exports[`test.component.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 @Component({
@@ -76,11 +74,9 @@ class     TestComponent {}
 =====================================output=====================================
 @Component({
   selector: "app-test",
-  template: \`
-    <ul>
-      <li>test</li>
-    </ul>
-  \`,
+  template: \`<ul>
+    <li>test</li>
+  </ul> \`,
   styles: [
     \`
       :host {

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`require.js 1`] = `
+exports[`require.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -22,7 +22,7 @@ const {
   seven,
   eight,
   nine,
-  ten
+  ten,
 } = require("./my-utils");
 const {
   one1,
@@ -35,7 +35,7 @@ const {
   eight1,
   nine1,
   ten1,
-  eleven1
+  eleven1,
 } = require("./my-utils");
 
 const MyReallyExtrememlyLongModuleName = require("MyReallyExtrememlyLongModuleName");

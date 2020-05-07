@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Traces.js 1`] = `
+exports[`Traces.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -47,7 +47,7 @@ function g2(ylam: (s: string) => number) {}
 function f2(xlam) {
   g2(xlam);
 }
-f2(function(x) {
+f2(function (x) {
   return x * x;
 });
 
@@ -64,7 +64,7 @@ f3(double);
 ================================================================================
 `;
 
-exports[`Traces2.js 1`] = `
+exports[`Traces2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -96,11 +96,11 @@ function f(b): React.Element<*> {
 var React = require("react");
 
 var A = React.createClass({
-  propTypes: { foo: React.PropTypes.string.isRequired }
+  propTypes: { foo: React.PropTypes.string.isRequired },
 });
 
 var B = React.createClass({
-  propTypes: { bar: React.PropTypes.string.isRequired }
+  propTypes: { bar: React.PropTypes.string.isRequired },
 });
 
 function f(b): React.Element<*> {

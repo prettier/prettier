@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`async-iteration.js 1`] = `
+exports[`async-iteration.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -31,7 +31,7 @@ class X {
 ================================================================================
 `;
 
-exports[`await_parse.js 1`] = `
+exports[`await_parse.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -75,7 +75,7 @@ async () => {
 ================================================================================
 `;
 
-exports[`conditional-expression.js 1`] = `
+exports[`conditional-expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -101,7 +101,7 @@ async function f() {
   const result = typeof fn === "function" ? await fn() : null;
 }
 
-(async function() {
+(async function () {
   console.log(await (true ? Promise.resolve("A") : Promise.resolve("B")));
 })();
 
@@ -113,7 +113,7 @@ async function f2() {
 ================================================================================
 `;
 
-exports[`inline_await.js 1`] = `
+exports[`inline_await.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -137,7 +137,7 @@ async function f() {
 ================================================================================
 `;
 
-exports[`parens.js 1`] = `
+exports[`parens.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80

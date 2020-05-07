@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`with-pragma.vue 1`] = `
+exports[`with-pragma.vue - {"insertPragma":true} format 1`] = `
 ====================================options=====================================
 insertPragma: true
 parsers: ["vue"]
@@ -32,7 +32,7 @@ const x = 1;
 ================================================================================
 `;
 
-exports[`without-pragma.vue 1`] = `
+exports[`without-pragma.vue - {"insertPragma":true} format 1`] = `
 ====================================options=====================================
 insertPragma: true
 parsers: ["vue"]

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`throw_expression.js 1`] = `
+exports[`throw_expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -28,7 +28,7 @@ class Product {
 function save(filename = throw new TypeError("Argument required")) {}
 
 lint(ast, {
-  with: () => throw new Error("avoid using 'with' statements.")
+  with: () => throw new Error("avoid using 'with' statements."),
 });
 
 function getEncoder(encoding) {

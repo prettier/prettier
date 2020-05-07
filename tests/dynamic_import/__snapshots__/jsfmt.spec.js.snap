@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.js 1`] = `
+exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -11,7 +11,7 @@ import("module.js").then((a) => a);
 
 =====================================output=====================================
 import("module.js");
-import("module.js").then(a => a);
+import("module.js").then((a) => a);
 
 ================================================================================
 `;

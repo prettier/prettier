@@ -8,8 +8,8 @@ const {
   softline,
   group,
   indent,
-  ifBreak
-} = require("../doc").builders;
+  ifBreak,
+} = require("../document").builders;
 const { hasIgnoreComment } = require("../common/util");
 const { isNextLineEmpty } = require("../common/util-shared");
 const { insertPragma } = require("./pragma");
@@ -32,7 +32,11 @@ function genericPrint(path, options, print) {
         if (index !== n.definitions.length - 1) {
           parts.push(hardline);
           if (
-            isNextLineEmpty(options.originalText, pathChild.getValue(), options)
+            isNextLineEmpty(
+              options.originalText,
+              pathChild.getValue(),
+              options.locEnd
+            )
           ) {
             parts.push(hardline);
           }
@@ -56,17 +60,17 @@ function genericPrint(path, options, print) {
                     join(
                       concat([ifBreak("", ", "), softline]),
                       path.map(print, "variableDefinitions")
-                    )
+                    ),
                   ])
                 ),
                 softline,
-                ")"
+                ")",
               ])
             )
           : "",
         printDirectives(path, print, n),
         n.selectionSet ? (!hasOperation && !hasName ? "" : " ") : "",
-        path.call(print, "selectionSet")
+        path.call(print, "selectionSet"),
       ]);
     }
     case "FragmentDefinition": {
@@ -83,11 +87,11 @@ function genericPrint(path, options, print) {
                     join(
                       concat([ifBreak("", ", "), softline]),
                       path.map(print, "variableDefinitions")
-                    )
+                    ),
                   ])
                 ),
                 softline,
-                ")"
+                ")",
               ])
             )
           : "",
@@ -95,7 +99,7 @@ function genericPrint(path, options, print) {
         path.call(print, "typeCondition"),
         printDirectives(path, print, n),
         " ",
-        path.call(print, "selectionSet")
+        path.call(print, "selectionSet"),
       ]);
     }
     case "SelectionSet": {
@@ -107,14 +111,15 @@ function genericPrint(path, options, print) {
             join(
               hardline,
               path.call(
-                selectionsPath => printSequence(selectionsPath, options, print),
+                (selectionsPath) =>
+                  printSequence(selectionsPath, options, print),
                 "selections"
               )
-            )
+            ),
           ])
         ),
         hardline,
-        "}"
+        "}",
       ]);
     }
     case "Field": {
@@ -132,20 +137,20 @@ function genericPrint(path, options, print) {
                       join(
                         concat([ifBreak("", ", "), softline]),
                         path.call(
-                          argsPath => printSequence(argsPath, options, print),
+                          (argsPath) => printSequence(argsPath, options, print),
                           "arguments"
                         )
-                      )
+                      ),
                     ])
                   ),
                   softline,
-                  ")"
+                  ")",
                 ])
               )
             : "",
           printDirectives(path, print, n),
           n.selectionSet ? " " : "",
-          path.call(print, "selectionSet")
+          path.call(print, "selectionSet"),
         ])
       );
     }
@@ -159,13 +164,13 @@ function genericPrint(path, options, print) {
           hardline,
           join(hardline, n.value.replace(/"""/g, "\\$&").split("\n")),
           hardline,
-          '"""'
+          '"""',
         ]);
       }
       return concat([
         '"',
         n.value.replace(/["\\]/g, "\\$&").replace(/\n/g, "\\n"),
-        '"'
+        '"',
       ]);
     }
     case "IntValue":
@@ -192,11 +197,11 @@ function genericPrint(path, options, print) {
               join(
                 concat([ifBreak("", ", "), softline]),
                 path.map(print, "values")
-              )
+              ),
             ])
           ),
           softline,
-          "]"
+          "]",
         ])
       );
     }
@@ -211,12 +216,12 @@ function genericPrint(path, options, print) {
               join(
                 concat([ifBreak("", ", "), softline]),
                 path.map(print, "fields")
-              )
+              ),
             ])
           ),
           softline,
           ifBreak("", options.bracketSpacing && n.fields.length > 0 ? " " : ""),
-          "}"
+          "}",
         ])
       );
     }
@@ -225,7 +230,7 @@ function genericPrint(path, options, print) {
       return concat([
         path.call(print, "name"),
         ": ",
-        path.call(print, "value")
+        path.call(print, "value"),
       ]);
     }
 
@@ -243,17 +248,17 @@ function genericPrint(path, options, print) {
                     join(
                       concat([ifBreak("", ", "), softline]),
                       path.call(
-                        argsPath => printSequence(argsPath, options, print),
+                        (argsPath) => printSequence(argsPath, options, print),
                         "arguments"
                       )
-                    )
+                    ),
                   ])
                 ),
                 softline,
-                ")"
+                ")",
               ])
             )
-          : ""
+          : "",
       ]);
     }
 
@@ -267,7 +272,7 @@ function genericPrint(path, options, print) {
         ": ",
         path.call(print, "type"),
         n.defaultValue ? concat([" = ", path.call(print, "defaultValue")]) : "",
-        printDirectives(path, print, n)
+        printDirectives(path, print, n),
       ]);
     }
 
@@ -286,15 +291,7 @@ function genericPrint(path, options, print) {
         n.interfaces.length > 0
           ? concat([
               " implements ",
-              join(
-                determineInterfaceSeparator(
-                  options.originalText.substr(
-                    options.locStart(n),
-                    options.locEnd(n)
-                  )
-                ),
-                path.map(print, "interfaces")
-              )
+              concat(printInterfaces(path, options, print)),
             ])
           : "",
         printDirectives(path, print, n),
@@ -307,16 +304,16 @@ function genericPrint(path, options, print) {
                   join(
                     hardline,
                     path.call(
-                      fieldsPath => printSequence(fieldsPath, options, print),
+                      (fieldsPath) => printSequence(fieldsPath, options, print),
                       "fields"
                     )
-                  )
+                  ),
                 ])
               ),
               hardline,
-              "}"
+              "}",
             ])
-          : ""
+          : "",
       ]);
     }
 
@@ -335,20 +332,20 @@ function genericPrint(path, options, print) {
                     join(
                       concat([ifBreak("", ", "), softline]),
                       path.call(
-                        argsPath => printSequence(argsPath, options, print),
+                        (argsPath) => printSequence(argsPath, options, print),
                         "arguments"
                       )
-                    )
+                    ),
                   ])
                 ),
                 softline,
-                ")"
+                ")",
               ])
             )
           : "",
         ": ",
         path.call(print, "type"),
-        printDirectives(path, print, n)
+        printDirectives(path, print, n),
       ]);
     }
 
@@ -369,18 +366,19 @@ function genericPrint(path, options, print) {
                     join(
                       concat([ifBreak("", ", "), softline]),
                       path.call(
-                        argsPath => printSequence(argsPath, options, print),
+                        (argsPath) => printSequence(argsPath, options, print),
                         "arguments"
                       )
-                    )
+                    ),
                   ])
                 ),
                 softline,
-                ")"
+                ")",
               ])
             )
           : "",
-        concat([" on ", join(" | ", path.map(print, "locations"))])
+        n.repeatable ? " repeatable" : "",
+        concat([" on ", join(" | ", path.map(print, "locations"))]),
       ]);
     }
 
@@ -403,16 +401,16 @@ function genericPrint(path, options, print) {
                   join(
                     hardline,
                     path.call(
-                      valuesPath => printSequence(valuesPath, options, print),
+                      (valuesPath) => printSequence(valuesPath, options, print),
                       "values"
                     )
-                  )
+                  ),
                 ])
               ),
               hardline,
-              "}"
+              "}",
             ])
-          : ""
+          : "",
       ]);
     }
 
@@ -421,7 +419,7 @@ function genericPrint(path, options, print) {
         path.call(print, "description"),
         n.description ? hardline : "",
         path.call(print, "name"),
-        printDirectives(path, print, n)
+        printDirectives(path, print, n),
       ]);
     }
 
@@ -433,7 +431,7 @@ function genericPrint(path, options, print) {
         ": ",
         path.call(print, "type"),
         n.defaultValue ? concat([" = ", path.call(print, "defaultValue")]) : "",
-        printDirectives(path, print, n)
+        printDirectives(path, print, n),
       ]);
     }
 
@@ -455,16 +453,16 @@ function genericPrint(path, options, print) {
                   join(
                     hardline,
                     path.call(
-                      fieldsPath => printSequence(fieldsPath, options, print),
+                      (fieldsPath) => printSequence(fieldsPath, options, print),
                       "fields"
                     )
-                  )
+                  ),
                 ])
               ),
               hardline,
-              "}"
+              "}",
             ])
-          : ""
+          : "",
       ]);
     }
 
@@ -480,15 +478,15 @@ function genericPrint(path, options, print) {
                 join(
                   hardline,
                   path.call(
-                    opsPath => printSequence(opsPath, options, print),
+                    (opsPath) => printSequence(opsPath, options, print),
                     "operationTypes"
                   )
-                )
+                ),
               ])
             )
           : "",
         hardline,
-        "}"
+        "}",
       ]);
     }
 
@@ -496,7 +494,7 @@ function genericPrint(path, options, print) {
       return concat([
         path.call(print, "operation"),
         ": ",
-        path.call(print, "type")
+        path.call(print, "type"),
       ]);
     }
 
@@ -508,8 +506,13 @@ function genericPrint(path, options, print) {
         n.kind === "InterfaceTypeExtension" ? "extend " : "",
         "interface ",
         path.call(print, "name"),
+        n.interfaces.length > 0
+          ? concat([
+              " implements ",
+              concat(printInterfaces(path, options, print)),
+            ])
+          : "",
         printDirectives(path, print, n),
-
         n.fields.length > 0
           ? concat([
               " {",
@@ -519,16 +522,16 @@ function genericPrint(path, options, print) {
                   join(
                     hardline,
                     path.call(
-                      fieldsPath => printSequence(fieldsPath, options, print),
+                      (fieldsPath) => printSequence(fieldsPath, options, print),
                       "fields"
                     )
-                  )
+                  ),
                 ])
               ),
               hardline,
-              "}"
+              "}",
             ])
-          : ""
+          : "",
       ]);
     }
 
@@ -536,7 +539,7 @@ function genericPrint(path, options, print) {
       return concat([
         "...",
         path.call(print, "name"),
-        printDirectives(path, print, n)
+        printDirectives(path, print, n),
       ]);
     }
 
@@ -548,7 +551,7 @@ function genericPrint(path, options, print) {
           : "",
         printDirectives(path, print, n),
         " ",
-        path.call(print, "selectionSet")
+        path.call(print, "selectionSet"),
       ]);
     }
 
@@ -571,13 +574,13 @@ function genericPrint(path, options, print) {
                     indent(
                       concat([
                         ifBreak(concat([line, "  "])),
-                        join(concat([line, "| "]), path.map(print, "types"))
+                        join(concat([line, "| "]), path.map(print, "types")),
                       ])
-                    )
+                    ),
                   ])
-                : ""
+                : "",
             ])
-          )
+          ),
         ])
       );
     }
@@ -590,7 +593,7 @@ function genericPrint(path, options, print) {
         n.kind === "ScalarTypeExtension" ? "extend " : "",
         "scalar ",
         path.call(print, "name"),
-        printDirectives(path, print, n)
+        printDirectives(path, print, n),
       ]);
     }
 
@@ -613,20 +616,7 @@ function printDirectives(path, print, n) {
     return "";
   }
 
-  return concat([
-    " ",
-    group(
-      indent(
-        concat([
-          softline,
-          join(
-            concat([ifBreak("", " "), softline]),
-            path.map(print, "directives")
-          )
-        ])
-      )
-    )
-  ]);
+  return group(concat([line, join(line, path.map(print, "directives"))]));
 }
 
 function printSequence(sequencePath, options, print) {
@@ -636,7 +626,7 @@ function printSequence(sequencePath, options, print) {
     const printed = print(path);
 
     if (
-      isNextLineEmpty(options.originalText, path.getValue(), options) &&
+      isNextLineEmpty(options.originalText, path.getValue(), options.locEnd) &&
       i < count - 1
     ) {
       return concat([printed, hardline]);
@@ -653,22 +643,36 @@ function canAttachComment(node) {
 function printComment(commentPath) {
   const comment = commentPath.getValue();
   if (comment.kind === "Comment") {
-    return "#" + comment.value.trimRight();
+    return "#" + comment.value.trimEnd();
   }
 
   throw new Error("Not a comment: " + JSON.stringify(comment));
 }
 
-function determineInterfaceSeparator(originalSource) {
-  const start = originalSource.indexOf("implements");
-  if (start === -1) {
-    throw new Error("Must implement interfaces: " + originalSource);
+function printInterfaces(path, options, print) {
+  const node = path.getNode();
+  const parts = [];
+  const { interfaces } = node;
+  const printed = path.map((node) => print(node), "interfaces");
+
+  for (let index = 0; index < interfaces.length; index++) {
+    const interfaceNode = interfaces[index];
+    parts.push(printed[index]);
+    const nextInterfaceNode = interfaces[index + 1];
+    if (nextInterfaceNode) {
+      const textBetween = options.originalText.slice(
+        interfaceNode.loc.end,
+        nextInterfaceNode.loc.start
+      );
+      const hasComment = textBetween.includes("#");
+      const separator = textBetween.replace(/#.*/g, "").trim();
+
+      parts.push(separator === "," ? "," : " &");
+      parts.push(hasComment ? line : " ");
+    }
   }
-  let end = originalSource.indexOf("{");
-  if (end === -1) {
-    end = originalSource.length;
-  }
-  return originalSource.substr(start, end).includes("&") ? " & " : ", ";
+
+  return parts;
 }
 
 function clean(node, newNode /*, parent*/) {
@@ -682,5 +686,5 @@ module.exports = {
   hasPrettierIgnore: hasIgnoreComment,
   insertPragma,
   printComment,
-  canAttachComment
+  canAttachComment,
 };

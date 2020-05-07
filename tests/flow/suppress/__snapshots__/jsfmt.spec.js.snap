@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`A.js 1`] = `
+exports[`A.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -60,7 +60,7 @@ var test6: string = 123;
 ================================================================================
 `;
 
-exports[`B.js 1`] = `
+exports[`B.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -76,7 +76,7 @@ var test1: string = library_num;
 ================================================================================
 `;
 
-exports[`C.js 1`] = `
+exports[`C.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -104,7 +104,7 @@ function runTest(y: number): void {
 ================================================================================
 `;
 
-exports[`D.js 1`] = `
+exports[`D.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -121,18 +121,18 @@ x = y;
 
 =====================================output=====================================
 declare var x: {
-  x: { foo: string }
+  x: { foo: string },
 };
 declare var y: {
   // $FlowFixMe - this location is only mentioned in the extra section
-  x: { bar: number }
+  x: { bar: number },
 };
 x = y;
 
 ================================================================================
 `;
 
-exports[`lib.js 1`] = `
+exports[`lib.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

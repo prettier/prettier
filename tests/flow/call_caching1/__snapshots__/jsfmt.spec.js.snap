@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.js 1`] = `
+exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -23,7 +23,7 @@ for (let [taskStatus, tasksMap] of tasksPerStatusMap) {
 const Immutable = require("immutable");
 
 const tasksPerStatusMap = new Map(
-  [].map(taskStatus => [taskStatus, new Map()])
+  [].map((taskStatus) => [taskStatus, new Map()])
 );
 for (let [taskStatus, tasksMap] of tasksPerStatusMap) {
   tasksPerStatusMap.set(taskStatus, Immutable.Map(tasksMap));
@@ -32,7 +32,7 @@ for (let [taskStatus, tasksMap] of tasksPerStatusMap) {
 ================================================================================
 `;
 
-exports[`test2.js 1`] = `
+exports[`test2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -72,12 +72,12 @@ declare function foo<U>(
 declare var items: Bar<string>;
 declare var updater: (value: Bar<string>) => Bar<string>;
 
-foo(items, acc => acc.update(updater));
+foo(items, (acc) => acc.update(updater));
 
 ================================================================================
 `;
 
-exports[`test3.js 1`] = `
+exports[`test3.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`example.md 1`] = `
+exports[`example.md - {"proseWrap":"always","useTabs":true} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80

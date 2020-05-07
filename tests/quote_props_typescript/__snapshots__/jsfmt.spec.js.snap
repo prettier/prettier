@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`types.ts 1`] = `
+exports[`types.ts - {"quoteProps":"as-needed"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -31,11 +31,11 @@ type U = {
 ================================================================================
 `;
 
-exports[`types.ts 2`] = `
+exports[`types.ts - {"quoteProps":"consistent"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
-quoteProps: "preserve"
+quoteProps: "consistent"
                                                                                 | printWidth
 =====================================input======================================
 type T = {
@@ -62,11 +62,11 @@ type U = {
 ================================================================================
 `;
 
-exports[`types.ts 3`] = `
+exports[`types.ts - {"quoteProps":"preserve"} format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
-quoteProps: "consistent"
+quoteProps: "preserve"
                                                                                 | printWidth
 =====================================input======================================
 type T = {

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`client.js 1`] = `
+exports[`client.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -18,7 +18,7 @@ var bar: string = ns.foo;
 ================================================================================
 `;
 
-exports[`namespace.js 1`] = `
+exports[`namespace.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -45,7 +45,7 @@ module.exports = { foo: ("": number) };
 =====================================output=====================================
 /*@flow*/ // import type { T } from '...'
 type T = (x: number) => void;
-var f: T = function(x: string): void {};
+var f: T = function (x: string): void {};
 
 type Map<X, Y> = (x: X) => Y;
 
@@ -53,7 +53,7 @@ function bar<U, V>(x: U, f: Map<U, V>): V {
   return f(x);
 }
 
-var y: number = bar(0, x => "");
+var y: number = bar(0, (x) => "");
 
 type Seq = number | Array<Seq>;
 var s1: Seq = [0, [0]];

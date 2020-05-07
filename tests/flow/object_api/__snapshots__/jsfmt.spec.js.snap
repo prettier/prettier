@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`a.js 1`] = `
+exports[`a.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -17,7 +17,7 @@ module.exports = { a() {} };
 ================================================================================
 `;
 
-exports[`b.js 1`] = `
+exports[`b.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -41,7 +41,7 @@ module.exports = b;
 ================================================================================
 `;
 
-exports[`c.js 1`] = `
+exports[`c.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -62,7 +62,7 @@ c.foo();
 ================================================================================
 `;
 
-exports[`object_assign.js 1`] = `
+exports[`object_assign.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -87,9 +87,9 @@ module.exports = export_;
 var export_ = Object.assign(
   {},
   {
-    foo: function(param) {
+    foo: function (param) {
       return param;
-    }
+    },
   }
 );
 
@@ -103,7 +103,7 @@ module.exports = export_;
 ================================================================================
 `;
 
-exports[`object_create.js 1`] = `
+exports[`object_create.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -151,7 +151,7 @@ declare var o: O;
 ================================================================================
 `;
 
-exports[`object_getprototypeof.js 1`] = `
+exports[`object_getprototypeof.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -176,16 +176,16 @@ class Foo {}
 class Bar extends Foo {}
 
 let tests = [
-  function() {
+  function () {
     const x = new Bar();
     (Object.getPrototypeOf(x): Foo);
-  }
+  },
 ];
 
 ================================================================================
 `;
 
-exports[`object_keys.js 1`] = `
+exports[`object_keys.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -232,12 +232,12 @@ var sealed = { one: "one", two: "two" };
 (Object.keys(sealed): void); // error, Array<string>
 
 var unsealed = {};
-Object.keys(unsealed).forEach(k => {
+Object.keys(unsealed).forEach((k) => {
   (k: number); // error: string ~> number
 });
 
 var dict: { [k: number]: string } = {};
-Object.keys(dict).forEach(k => {
+Object.keys(dict).forEach((k) => {
   (k: number); // error: string ~> number
 });
 
@@ -261,7 +261,7 @@ class Bar extends Foo {
 ================================================================================
 `;
 
-exports[`object_missing.js 1`] = `
+exports[`object_missing.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -279,15 +279,15 @@ let tests = [
 // @flow
 
 let tests = [
-  function() {
+  function () {
     Object.doesNotExist();
-  }
+  },
 ];
 
 ================================================================================
 `;
 
-exports[`object_prototype.js 1`] = `
+exports[`object_prototype.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -472,9 +472,9 @@ var a = { foo: "bar" };
 var b = { foo: "bar", ...{} };
 var c = {
   foo: "bar",
-  toString: function(): number {
+  toString: function (): number {
     return 123;
-  }
+  },
 };
 var d: { [key: string]: string } = { foo: "bar" };
 var x = new Date();
@@ -494,10 +494,10 @@ var aToString2 = a.toString;
 takesAString(aToString2());
 
 // set
-b.toString = function(): string {
+b.toString = function (): string {
   return "foo";
 };
-c.toString = function(): number {
+c.toString = function (): number {
   return 123;
 };
 
@@ -516,7 +516,7 @@ takesAString(y.toString());
 // ... on a primitive
 (123).toString();
 (123).toString;
-(123).toString = function() {}; // error
+(123).toString = function () {}; // error
 (123).toString(2);
 (123).toString("foo"); // error
 (123).toString(null); // error
@@ -534,7 +534,7 @@ var aHasOwnProperty2 = a.hasOwnProperty;
 takesABool(aHasOwnProperty2("bar"));
 
 // set
-b.hasOwnProperty = function() {
+b.hasOwnProperty = function () {
   return false;
 };
 
@@ -560,7 +560,7 @@ var aPropertyIsEnumerable2 = a.propertyIsEnumerable;
 takesABool(aPropertyIsEnumerable2("bar"));
 
 // set
-b.propertyIsEnumerable = function() {
+b.propertyIsEnumerable = function () {
   return false;
 };
 
@@ -586,7 +586,7 @@ var aValueOf2 = a.valueOf;
 takesAnObject(aValueOf2());
 
 // set
-b.valueOf = function() {
+b.valueOf = function () {
   return {};
 };
 
@@ -616,7 +616,7 @@ var aToLocaleString2 = a.toLocaleString;
 takesAString(aToLocaleString2());
 
 // set
-b.toLocaleString = function() {
+b.toLocaleString = function () {
   return "derp";
 };
 

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comment.js 1`] = `
+exports[`comment.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -18,13 +18,13 @@ type Foo = {
   method(
     arg: number, // I belong with baz
     qux: string
-  ): void
+  ): void,
 };
 
 ================================================================================
 `;
 
-exports[`method.js 1`] = `
+exports[`method.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80

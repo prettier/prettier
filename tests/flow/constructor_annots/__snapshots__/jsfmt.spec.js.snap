@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`constructors.js 1`] = `
+exports[`constructors.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -37,7 +37,7 @@ Foo.y = 0; // has static property y
 Foo.prototype = {
   m() {
     return 0;
-  }
+  },
 };
 
 // exporting Foo directly doesn't work
@@ -58,7 +58,7 @@ exports.Foo2 = (Foo: Class<IFoo>);
 ================================================================================
 `;
 
-exports[`test.js 1`] = `
+exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

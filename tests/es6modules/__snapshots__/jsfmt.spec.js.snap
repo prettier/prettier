@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`export_default_arrow_expression.js 1`] = `
+exports[`export_default_arrow_expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -14,7 +14,7 @@ export default () => {};
 ================================================================================
 `;
 
-exports[`export_default_call_expression.js 1`] = `
+exports[`export_default_call_expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -28,7 +28,7 @@ export default foo();
 ================================================================================
 `;
 
-exports[`export_default_class_declaration.js 1`] = `
+exports[`export_default_class_declaration.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -42,7 +42,7 @@ export default class Foo {}
 ================================================================================
 `;
 
-exports[`export_default_class_expression.js 1`] = `
+exports[`export_default_class_expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -56,7 +56,7 @@ export default (class foobar {});
 ================================================================================
 `;
 
-exports[`export_default_function_declaration.js 1`] = `
+exports[`export_default_function_declaration.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -65,12 +65,12 @@ printWidth: 80
 export default function() {}
 
 =====================================output=====================================
-export default function() {}
+export default function () {}
 
 ================================================================================
 `;
 
-exports[`export_default_function_declaration_async.js 1`] = `
+exports[`export_default_function_declaration_async.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -84,7 +84,7 @@ export default async function foo() {}
 ================================================================================
 `;
 
-exports[`export_default_function_declaration_named.js 1`] = `
+exports[`export_default_function_declaration_named.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -98,7 +98,7 @@ export default function f() {}
 ================================================================================
 `;
 
-exports[`export_default_function_expression.js 1`] = `
+exports[`export_default_function_expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -107,12 +107,12 @@ printWidth: 80
 export default (function() {});
 
 =====================================output=====================================
-export default (function() {});
+export default (function () {});
 
 ================================================================================
 `;
 
-exports[`export_default_function_expression_named.js 1`] = `
+exports[`export_default_function_expression_named.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -126,7 +126,7 @@ export default (function f() {});
 ================================================================================
 `;
 
-exports[`export_default_new_expression.js 1`] = `
+exports[`export_default_new_expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

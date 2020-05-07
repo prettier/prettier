@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`issue-518.js 1`] = `
+exports[`issue-518.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -36,7 +36,7 @@ foo();
 ================================================================================
 `;
 
-exports[`undefined.js 1`] = `
+exports[`undefined.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -70,7 +70,7 @@ function qux(x?: number, y: string = "", z) {}
 ================================================================================
 `;
 
-exports[`undefined2.js 1`] = `
+exports[`undefined2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -112,7 +112,7 @@ let tests = [
 // @flow
 
 let tests = [
-  function(x: number) {
+  function (x: number) {
     var id;
     var name = id ? "John" : undefined;
     (name: boolean); // error, string or void
@@ -121,7 +121,7 @@ let tests = [
     (bar[x]: boolean); // error, string or void
   },
 
-  function(x: number) {
+  function (x: number) {
     var undefined = "foo";
     (undefined: string); // ok
 
@@ -132,7 +132,7 @@ let tests = [
 
     const bar = [undefined, "bar"];
     (bar[x]: boolean); // error, string only
-  }
+  },
 ];
 
 ================================================================================

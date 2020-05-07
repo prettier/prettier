@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`binaryish.js 1`] = `
+exports[`binaryish.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -28,7 +28,7 @@ computedDescriptionLines =
 ================================================================================
 `;
 
-exports[`destructuring.js 1`] = `
+exports[`destructuring.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -51,14 +51,14 @@ let {
   bottom: offsetBottom,
   left: offsetLeft,
   right: offsetRight,
-  top: offsetTop
+  top: offsetTop,
 } = getPressRectOffset == null ? DEFAULT_PRESS_RECT : getPressRectOffset();
 
 const {
   accessibilityModule: FooAccessibilityModule,
   accessibilityModule: FooAccessibilityModule2,
   accessibilityModule: FooAccessibilityModule3,
-  accessibilityModule: FooAccessibilityModule4
+  accessibilityModule: FooAccessibilityModule4,
 } = foo || {};
 
 ({ prop: toAssign = "default" } = { prop: "propval" });
@@ -66,7 +66,7 @@ const {
 ================================================================================
 `;
 
-exports[`sequence.js 1`] = `
+exports[`sequence.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80

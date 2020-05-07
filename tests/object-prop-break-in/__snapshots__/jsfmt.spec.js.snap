@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comment.js 1`] = `
+exports[`comment.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -17,14 +17,14 @@ function foo() {
 function foo() {
   return {
     // this comment causes the problem
-    bar: baz() + 1
+    bar: baz() + 1,
   };
 }
 
 ================================================================================
 `;
 
-exports[`long-value.js 1`] = `
+exports[`long-value.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -37,13 +37,13 @@ const x = {
 =====================================output=====================================
 const x = {
   ABC:
-    "12345678901234567890123456789012345678901234567890123456789012345678901234567890"
+    "12345678901234567890123456789012345678901234567890123456789012345678901234567890",
 };
 
 ================================================================================
 `;
 
-exports[`test.js 1`] = `
+exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -82,39 +82,39 @@ ipsum\` }
 
 =====================================output=====================================
 const a = classnames({
-  "some-prop": this.state.longLongLongLongLongLongLongLongLongTooLongProp
+  "some-prop": this.state.longLongLongLongLongLongLongLongLongTooLongProp,
 });
 
 const b = classnames({
   "some-prop":
-    this.state.longLongLongLongLongLongLongLongLongTooLongProp === true
+    this.state.longLongLongLongLongLongLongLongLongTooLongProp === true,
 });
 
 const c = classnames({
-  "some-prop": ["foo", "bar", "foo", "bar", "foo", "bar", "foo", "bar", "foo"]
+  "some-prop": ["foo", "bar", "foo", "bar", "foo", "bar", "foo", "bar", "foo"],
 });
 
 const d = classnames({
-  "some-prop": () => {}
+  "some-prop": () => {},
 });
 
 const e = classnames({
-  "some-prop": function bar() {}
+  "some-prop": function bar() {},
 });
 
 const f = classnames({
-  "some-prop": { foo: "bar", bar: "foo", foo: "bar", bar: "foo", foo: "bar" }
+  "some-prop": { foo: "bar", bar: "foo", foo: "bar", bar: "foo", foo: "bar" },
 });
 
 const g = classnames({
   "some-prop":
-    longLongLongLongLongLongLongLongLongLongLongLongLongTooLongVar || 1337
+    longLongLongLongLongLongLongLongLongLongLongLongLongTooLongVar || 1337,
 });
 
 const h = {
   foo: "bar",
   baz: \`Lorem
-ipsum\`
+ipsum\`,
 };
 
 ================================================================================

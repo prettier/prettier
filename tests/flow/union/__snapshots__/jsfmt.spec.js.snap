@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`blowup.js 1`] = `
+exports[`blowup.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -55,7 +55,7 @@ export class ModOp extends BinaryExpression<ArithmeticExpression, ArithmeticExpr
 
 export type Select = {
   expression: ArithmeticExpression,
-  alias: ?string
+  alias: ?string,
 };
 
 export class Query {
@@ -64,7 +64,7 @@ export class Query {
   select(expr: ArithmeticExpression): this {
     this._select.push({
       expression: expr,
-      alias: ""
+      alias: "",
     });
     return this;
   }
@@ -113,7 +113,7 @@ export class ModOp extends BinaryExpression<
 ================================================================================
 `;
 
-exports[`fields.js 1`] = `
+exports[`fields.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -137,7 +137,7 @@ class C {
 ================================================================================
 `;
 
-exports[`fields2.js 1`] = `
+exports[`fields2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -167,7 +167,7 @@ class D {
 ================================================================================
 `;
 
-exports[`issue-17.js 1`] = `
+exports[`issue-17.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -203,13 +203,13 @@ var l: Array<T> = [
   { type: "b", b: "monkey" },
   { type: "b", b: "gorilla" },
   { type: "b", b: "giraffe" },
-  { type: "b", b: "penguin" }
+  { type: "b", b: "penguin" },
 ];
 
 ================================================================================
 `;
 
-exports[`issue-198.js 1`] = `
+exports[`issue-198.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -227,13 +227,13 @@ var p = new Promise(function(resolve, reject) {
     });
 
 =====================================output=====================================
-var p = new Promise(function(resolve, reject) {
+var p = new Promise(function (resolve, reject) {
   resolve(5);
 })
-  .then(function(num) {
+  .then(function (num) {
     return num.toFixed();
   })
-  .then(function(str) {
+  .then(function (str) {
     // This should fail because str is string, not number
     return str.toFixed();
   });
@@ -241,7 +241,7 @@ var p = new Promise(function(resolve, reject) {
 ================================================================================
 `;
 
-exports[`issue-256.js 1`] = `
+exports[`issue-256.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -261,13 +261,13 @@ declare class Myclass {
 }
 declare var myclass: Myclass;
 
-myclass.myfun(["1", "2", "3", "4", "5", "6", function(ar) {}]);
-myclass.myfun(["1", "2", "3", "4", "5", "6", "7", function(ar) {}]);
+myclass.myfun(["1", "2", "3", "4", "5", "6", function (ar) {}]);
+myclass.myfun(["1", "2", "3", "4", "5", "6", "7", function (ar) {}]);
 
 ================================================================================
 `;
 
-exports[`issue-323.js 1`] = `
+exports[`issue-323.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -285,7 +285,7 @@ var foostr: Foo | string = foo;
 ================================================================================
 `;
 
-exports[`issue-323-lib.js 1`] = `
+exports[`issue-323-lib.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -303,7 +303,7 @@ module.exports = Foo;
 ================================================================================
 `;
 
-exports[`issue-324.js 1`] = `
+exports[`issue-324.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -331,7 +331,7 @@ foostr = barstr;
 ================================================================================
 `;
 
-exports[`issue-325.js 1`] = `
+exports[`issue-325.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -371,7 +371,7 @@ class Tag_ {
 ================================================================================
 `;
 
-exports[`issue-326.js 1`] = `
+exports[`issue-326.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -391,7 +391,7 @@ var result = numberAndStringArr.concat(stringArr); // no error
 ================================================================================
 `;
 
-exports[`issue-582.js 1`] = `
+exports[`issue-582.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -431,7 +431,7 @@ var nested2: FooBarBaz = "baz";
 ================================================================================
 `;
 
-exports[`issue-963.js 1`] = `
+exports[`issue-963.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -479,15 +479,15 @@ const u3 : union2 = {
  */
 
 type t1 = {
-  p1: number
+  p1: number,
 };
 
 type t2 = {
-  p2: number
+  p2: number,
 };
 
 type t3 = {
-  p3: number
+  p3: number,
 };
 
 type intersected = t1 & t2;
@@ -495,23 +495,23 @@ type union = intersected | t3;
 type union2 = t3 | intersected;
 
 const u1: union = {
-  p3: 3
+  p3: 3,
 };
 
 const u2: union = {
   p1: 1,
-  p2: 2
+  p2: 2,
 };
 
 const u3: union2 = {
   p1: 1,
-  p2: 2
+  p2: 2,
 };
 
 ================================================================================
 `;
 
-exports[`test.js 1`] = `
+exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -561,7 +561,7 @@ bar(f);
 ================================================================================
 `;
 
-exports[`test-lib.js 1`] = `
+exports[`test-lib.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -581,7 +581,7 @@ module.exports = C;
 ================================================================================
 `;
 
-exports[`type-app.js 1`] = `
+exports[`type-app.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -621,7 +621,7 @@ var b: Iterator<number> | number = 123;
 ================================================================================
 `;
 
-exports[`union.js 1`] = `
+exports[`union.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -675,7 +675,7 @@ function corge(b) {
 ================================================================================
 `;
 
-exports[`yuge.js 1`] = `
+exports[`yuge.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -10743,7 +10743,7 @@ type ErrorCode =
   | 4999;
 
 type Data = {
-  error?: ErrorCode
+  error?: ErrorCode,
 };
 
 ================================================================================

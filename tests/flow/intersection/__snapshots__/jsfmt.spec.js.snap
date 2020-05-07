@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`intersection.js 1`] = `
+exports[`intersection.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -26,7 +26,7 @@ function bar(x: Error & { type: number }): number {
 ================================================================================
 `;
 
-exports[`objassign.js 1`] = `
+exports[`objassign.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -60,7 +60,7 @@ let y: ObjAssignT = { ...x }; // should be fine
 ================================================================================
 `;
 
-exports[`pred.js 1`] = `
+exports[`pred.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -103,7 +103,7 @@ type DuplexStreamOptions = ReadableStreamOptions &
   WritableStreamOptions & {
     allowHalfOpen?: boolean,
     readableObjectMode?: boolean,
-    writableObjectMode?: boolean
+    writableObjectMode?: boolean,
   };
 
 function hasObjectMode_bad(options: DuplexStreamOptions): boolean {
@@ -125,7 +125,7 @@ function hasObjectMode_ok(options: DuplexStreamOptions): boolean {
 ================================================================================
 `;
 
-exports[`test_fun.js 1`] = `
+exports[`test_fun.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -199,7 +199,7 @@ var g: (_: number | string) => void = f;
 ================================================================================
 `;
 
-exports[`test_obj.js 1`] = `
+exports[`test_obj.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

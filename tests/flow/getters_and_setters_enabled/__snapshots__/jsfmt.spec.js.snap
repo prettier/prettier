@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`class.js 1`] = `
+exports[`class.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -148,7 +148,7 @@ foo.propOverriddenWithSetter = 123; // Error number ~> string
 ================================================================================
 `;
 
-exports[`declare_class.js 1`] = `
+exports[`declare_class.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -254,7 +254,7 @@ foo.propOverriddenWithSetter = 123; // Error number ~> string
 ================================================================================
 `;
 
-exports[`object.js 1`] = `
+exports[`object.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -379,7 +379,7 @@ var obj = {
   set [z](x: string) {},
   get [z](): string {
     return string;
-  }
+  },
 };
 
 // Test getting properties with getters
@@ -410,7 +410,7 @@ var testExampleOrOrderOfGetterAndSetterReordered: number =
 ================================================================================
 `;
 
-exports[`object_type.js 1`] = `
+exports[`object_type.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -499,7 +499,7 @@ type T = {
   set exampleOfOrderOfGetterAndSetter(x: B): void,
 
   set exampleOfOrderOfGetterAndSetterReordered(x: B): void,
-  get exampleOfOrderOfGetterAndSetterReordered(): A
+  get exampleOfOrderOfGetterAndSetterReordered(): A,
 };
 
 function test(obj: T) {
@@ -529,7 +529,7 @@ function test(obj: T) {
 ================================================================================
 `;
 
-exports[`react.js 1`] = `
+exports[`react.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -569,8 +569,8 @@ const Example = React.createClass({
     set b(x: number) {
       this.c = x;
     },
-    c: React.PropTypes.string
-  }
+    c: React.PropTypes.string,
+  },
 });
 
 <Example />; // error: property \`a\` not found
@@ -581,7 +581,7 @@ const Example = React.createClass({
 ================================================================================
 `;
 
-exports[`variance.js 1`] = `
+exports[`variance.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80

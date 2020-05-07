@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`conditional.js 1`] = `
+exports[`conditional.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -20,7 +20,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`expand.js 1`] = `
+exports[`expand.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -71,12 +71,12 @@ const promises = [
   promise
     .resolve()
     .then(console.log)
-    .catch(err => {
+    .catch((err) => {
       console.log(err);
       return null;
     }),
   redis.fetch(),
-  other.fetch()
+  other.fetch(),
 ];
 
 const promises2 = [
@@ -85,35 +85,35 @@ const promises2 = [
     .veryLongFunctionCall()
     .veryLongFunctionCall()
     .then(console.log)
-    .catch(err => {
+    .catch((err) => {
       console.log(err);
       return null;
     }),
   redis.fetch(),
-  other.fetch()
+  other.fetch(),
 ];
 
 window.FooClient.setVars({
   locale: getFooLocale({ page }),
-  authorizationToken: data.token
+  authorizationToken: data.token,
 }).initVerify("foo_container");
 
 window.something.FooClient.setVars({
   locale: getFooLocale({ page }),
-  authorizationToken: data.token
+  authorizationToken: data.token,
 }).initVerify("foo_container");
 
 window.FooClient.something
   .setVars({
     locale: getFooLocale({ page }),
-    authorizationToken: data.token
+    authorizationToken: data.token,
   })
   .initVerify("foo_container");
 
 ================================================================================
 `;
 
-exports[`logical.js 1`] = `
+exports[`logical.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80

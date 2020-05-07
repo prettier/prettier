@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`arrow-return-type.ts 1`] = `
+exports[`arrow-return-type.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -130,7 +130,7 @@ export const getVehicleDescriptor = async (
 ================================================================================
 `;
 
-exports[`object-method.ts 1`] = `
+exports[`object-method.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -146,7 +146,7 @@ export default {
 export default {
   load<K, T>(k: K, t: T) {
     return { k, t };
-  }
+  },
 };
 
 ================================================================================

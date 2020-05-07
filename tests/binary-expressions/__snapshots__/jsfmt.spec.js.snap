@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`arrow.js 1`] = `
+exports[`arrow.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -20,10 +20,13 @@ function f() {
   )
 }
 
+((x) => x) + '';
+'' + ((x) => x);
+
 =====================================output=====================================
 function f() {
   const appEntities = getAppEntities(loadObject).filter(
-    entity =>
+    (entity) =>
       entity &&
       entity.isInstallAvailable() &&
       !entity.isQueue() &&
@@ -33,20 +36,23 @@ function f() {
 
 function f() {
   const appEntities = getAppEntities(loadObject).map(
-    entity =>
+    (entity) =>
       entity &&
       entity.isInstallAvailable() &&
       !entity.isQueue() &&
       entity.isDisabled() && {
-        id: entity.id
+        id: entity.id,
       }
   );
 }
 
+((x) => x) + "";
+"" + ((x) => x);
+
 ================================================================================
 `;
 
-exports[`bitwise-flags.js 1`] = `
+exports[`bitwise-flags.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -68,7 +74,7 @@ const all = FLAG_A | FLAG_B | FLAG_C;
 ================================================================================
 `;
 
-exports[`call.js 1`] = `
+exports[`call.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -198,7 +204,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`comment.js 1`] = `
+exports[`comment.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -220,7 +226,7 @@ a =
 ================================================================================
 `;
 
-exports[`equality.js 1`] = `
+exports[`equality.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -250,7 +256,7 @@ x !== y !== z;
 ================================================================================
 `;
 
-exports[`exp.js 1`] = `
+exports[`exp.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -280,7 +286,7 @@ a ** (b * c);
 ================================================================================
 `;
 
-exports[`if.js 1`] = `
+exports[`if.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -319,7 +325,7 @@ if (
 ================================================================================
 `;
 
-exports[`inline-jsx.js 1`] = `
+exports[`inline-jsx.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -357,7 +363,7 @@ const avatar = (hasAvatar || showPlaceholder) && (
 ================================================================================
 `;
 
-exports[`inline-object-array.js 1`] = `
+exports[`inline-object-array.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -459,7 +465,7 @@ prevState = prevState || {
   loadState: LOADED,
   opened: false,
   searchQuery: "",
-  selectedCatalog: null
+  selectedCatalog: null,
 };
 
 prevState = prevState ||
@@ -468,7 +474,7 @@ prevState = prevState ||
     loadState: LOADED,
     opened: false,
     searchQuery: "",
-    selectedCatalog: null
+    selectedCatalog: null,
   };
 
 prevState =
@@ -478,7 +484,7 @@ prevState =
     loadState: LOADED,
     opened: false,
     searchQuery: "",
-    selectedCatalog: null
+    selectedCatalog: null,
   });
 
 prevState = prevState ||
@@ -487,14 +493,14 @@ prevState = prevState ||
     loadState: LOADED,
     opened: false,
     searchQuery: "",
-    selectedCatalog: null
+    selectedCatalog: null,
   };
 
 this.steps = steps || [
   {
     name: "mock-module",
-    path: "/nux/mock-module"
-  }
+    path: "/nux/mock-module",
+  },
 ];
 
 this.steps =
@@ -502,15 +508,15 @@ this.steps =
   (checkStep && [
     {
       name: "mock-module",
-      path: "/nux/mock-module"
-    }
+      path: "/nux/mock-module",
+    },
   ]);
 
 this.steps = (steps && checkStep) || [
   {
     name: "mock-module",
-    path: "/nux/mock-module"
-  }
+    path: "/nux/mock-module",
+  },
 ];
 
 const create = () => {
@@ -520,7 +526,7 @@ const create = () => {
     result.ok && {
       status: "ok",
       createdAt: result.createdAt,
-      updatedAt: result.updatedAt
+      updatedAt: result.updatedAt,
     }
   );
 };
@@ -531,7 +537,7 @@ const create = () => {
     (shouldReturn && result.ok && result) || {
       status: "ok",
       createdAt: result.createdAt,
-      updatedAt: result.updatedAt
+      updatedAt: result.updatedAt,
     }
   );
 };
@@ -540,18 +546,18 @@ const obj = {
   state: shouldHaveState &&
     stateIsOK && {
       loadState: LOADED,
-      opened: false
+      opened: false,
     },
   loadNext: (stateIsOK && hasNext) || {
-    skipNext: true
+    skipNext: true,
   },
-  loaded: true
+  loaded: true,
 };
 
 ================================================================================
 `;
 
-exports[`jsx_parent.js 1`] = `
+exports[`jsx_parent.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -611,7 +617,7 @@ printWidth: 80
     !isJellyfishEnabled &&
     diffUpdateMessageInput && {
       fontSize: 14,
-      color: "#fff"
+      color: "#fff",
     }
   }
 />;
@@ -635,7 +641,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`math.js 1`] = `
+exports[`math.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -691,7 +697,7 @@ x & (y >> z);
 ================================================================================
 `;
 
-exports[`return.js 1`] = `
+exports[`return.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -738,7 +744,7 @@ function foo() {
 ================================================================================
 `;
 
-exports[`short-right.js 1`] = `
+exports[`short-right.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -778,14 +784,14 @@ foooooooooooooooooooooooooooooooooooooooooooooooooooooooooo(
 const isPartOfPackageJSON =
   dependenciesArray.indexOf(dependencyWithOutRelativePath.split("/")[0]) !== -1;
 
-defaultContent.filter(defaultLocale => {
+defaultContent.filter((defaultLocale) => {
   // ...
 })[0] || null;
 
 ================================================================================
 `;
 
-exports[`test.js 1`] = `
+exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -874,7 +880,7 @@ foo(
 ================================================================================
 `;
 
-exports[`unary.js 1`] = `
+exports[`unary.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80

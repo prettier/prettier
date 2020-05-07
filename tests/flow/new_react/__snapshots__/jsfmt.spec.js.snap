@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`FeedUFI.react.js 1`] = `
+exports[`FeedUFI.react.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -63,12 +63,12 @@ var UFILikeCount = require("UFILikeCount.react");
 var React = require("react");
 
 var FeedUFI = React.createClass({
-  _renderLikeCount: function(feedback: any) {
+  _renderLikeCount: function (feedback: any) {
     var props = {
       className: "",
       key: "",
       feedback: { feedback },
-      permalink: ""
+      permalink: "",
     };
     var ignored = <UFILikeCount {...props} />;
     return (
@@ -76,9 +76,9 @@ var FeedUFI = React.createClass({
     );
   },
 
-  render: function(): ?React.Element<any> {
+  render: function (): ?React.Element<any> {
     return <div />;
-  }
+  },
 });
 
 module.exports = FeedUFI;
@@ -86,7 +86,7 @@ module.exports = FeedUFI;
 ================================================================================
 `;
 
-exports[`Mixin.js 1`] = `
+exports[`Mixin.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -100,13 +100,13 @@ module.exports = {
 =====================================output=====================================
 /* @providesModule Mixin */
 module.exports = {
-  success: function() {}
+  success: function () {},
 };
 
 ================================================================================
 `;
 
-exports[`UFILikeCount.react.js 1`] = `
+exports[`UFILikeCount.react.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -151,12 +151,12 @@ var React = require("react");
 var UFILikeCount = React.createClass({
   propTypes: {
     permalink: React.PropTypes.string,
-    feedback: React.PropTypes.object.isRequired
+    feedback: React.PropTypes.object.isRequired,
   },
 
-  render: function(): ?React.Element<any> {
+  render: function (): ?React.Element<any> {
     return <div />;
-  }
+  },
 });
 
 module.exports = UFILikeCount;
@@ -164,7 +164,7 @@ module.exports = UFILikeCount;
 ================================================================================
 `;
 
-exports[`bad_default_props.js 1`] = `
+exports[`bad_default_props.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -242,7 +242,7 @@ class C6 extends React.Component {
 ================================================================================
 `;
 
-exports[`classes.js 1`] = `
+exports[`classes.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -377,7 +377,7 @@ var FooLegacy = React.createClass({
   is_mounted: (undefined: ?boolean),
 
   propTypes: {
-    x: React.PropTypes.number.isRequired
+    x: React.PropTypes.number.isRequired,
   },
 
   getDefaultProps(): DefaultProps {
@@ -385,7 +385,7 @@ var FooLegacy = React.createClass({
   },
 
   statics: {
-    bar(): void {}
+    bar(): void {},
   },
 
   qux(): void {
@@ -404,7 +404,7 @@ var FooLegacy = React.createClass({
 
   componentWillReceiveProps(nextProps: Object, nextContext: any): void {
     this.qux();
-  }
+  },
 });
 
 FooLegacy.defaultProps = 0;
@@ -415,7 +415,7 @@ FooLegacy.bar();
 ================================================================================
 `;
 
-exports[`import-react.js 1`] = `
+exports[`import-react.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -465,7 +465,7 @@ class HelloMessage extends React.Component {
 ================================================================================
 `;
 
-exports[`new_react.js 1`] = `
+exports[`new_react.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -512,7 +512,7 @@ var C = React.createClass({
   propTypes: {
     x: React.PropTypes.string.isRequired,
     y: React.PropTypes.array,
-    z: React.PropTypes.number
+    z: React.PropTypes.number,
   },
   replaceProps(props: {}) {},
 
@@ -531,7 +531,7 @@ var C = React.createClass({
     var len: number = this.props.x.length;
     this.success();
     return <div />;
-  }
+  },
 });
 
 var element = <C x={0} />;
@@ -542,7 +542,7 @@ var x: number = C.displayName;
 ================================================================================
 `;
 
-exports[`propTypes.js 1`] = `
+exports[`propTypes.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -579,23 +579,23 @@ var C = React.createClass({
     statistics: PropTypes.arrayOf(
       PropTypes.shape({
         label: PropTypes.string.isRequired,
-        value: PropTypes.number
+        value: PropTypes.number,
       })
-    ).isRequired
-  }
+    ).isRequired,
+  },
 });
 
 <C statistics={[{}, { label: "", value: undefined }]} />; // error (label is required, value not required)
 
 var props: Array<{ label: string, value?: number }> = [
   {},
-  { label: "", value: undefined }
+  { label: "", value: undefined },
 ]; // error (same as ^)
 
 ================================================================================
 `;
 
-exports[`props.js 1`] = `
+exports[`props.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -634,18 +634,18 @@ var React = require("react");
 var TestProps = React.createClass({
   propTypes: {
     x: React.PropTypes.string,
-    z: React.PropTypes.number
+    z: React.PropTypes.number,
   },
 
-  getDefaultProps: function() {
+  getDefaultProps: function () {
     return { x: "", y: 0 };
   },
 
-  test: function() {
+  test: function () {
     var a: number = this.props.x; // error
     var b: string = this.props.y; // error
     var c: string = this.props.z; // error
-  }
+  },
 });
 
 var element = <TestProps x={false} y={false} z={false} />; // 3 errors
@@ -653,14 +653,14 @@ var element = <TestProps x={false} y={false} z={false} />; // 3 errors
 (element: $jsx<*>);
 (element: $jsx<TestProps>);
 var FooProps = React.createClass({
-  propTypes: { w: React.PropTypes.string.isRequired }
+  propTypes: { w: React.PropTypes.string.isRequired },
 });
 (element: $jsx<FooProps>);
 
 ================================================================================
 `;
 
-exports[`props2.js 1`] = `
+exports[`props2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -689,24 +689,24 @@ var React = require("react");
 var C = React.createClass({
   propTypes: {
     foo: React.PropTypes.string.isRequired,
-    bar: React.PropTypes.string.isRequired
-  }
+    bar: React.PropTypes.string.isRequired,
+  },
 });
 var D = React.createClass({
-  getInitialState: function(): { bar: number } {
+  getInitialState: function (): { bar: number } {
     return { bar: 0 };
   },
-  render: function() {
+  render: function () {
     var obj = { bar: 0 };
     var s: string = this.state.bar;
     return <C {...this.state} foo={0} />;
-  }
+  },
 });
 
 ================================================================================
 `;
 
-exports[`props3.js 1`] = `
+exports[`props3.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -800,31 +800,31 @@ var TestProps = React.createClass({
     oneOf_rec: React.PropTypes.oneOf(["yes", "no"]).isRequired,
     oneOfType: React.PropTypes.oneOfType([
       React.PropTypes.string,
-      React.PropTypes.number
+      React.PropTypes.number,
     ]),
     oneOfType_rec: React.PropTypes.oneOfType([
       React.PropTypes.string,
-      React.PropTypes.number
+      React.PropTypes.number,
     ]).isRequired,
     shape: React.PropTypes.shape({
       foo: React.PropTypes.string,
-      bar: React.PropTypes.number
+      bar: React.PropTypes.number,
     }),
     shape_rec: React.PropTypes.shape({
       foo: React.PropTypes.string,
-      bar: React.PropTypes.number
+      bar: React.PropTypes.number,
     }).isRequired,
 
     // And do something bad here
     bad_one: React.PropTypes.imaginaryType,
-    bad_two: React.PropTypes.string.inRequired
-  }
+    bad_two: React.PropTypes.string.inRequired,
+  },
 });
 
 ================================================================================
 `;
 
-exports[`props4.js 1`] = `
+exports[`props4.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -865,7 +865,7 @@ import React from "React";
 class JDiv extends React.Component {
   // static defaultProps: { };
   props: {
-    id: string
+    id: string,
   };
 }
 
@@ -885,7 +885,7 @@ React.render(<Example foo="foo" />, document.body);
 ================================================================================
 `;
 
-exports[`props5.js 1`] = `
+exports[`props5.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -905,9 +905,9 @@ module.exports = C;
 var React = require("React");
 
 var C = React.createClass({
-  getDefaultProps: function() {
+  getDefaultProps: function () {
     return { x: 0 };
-  }
+  },
 });
 
 module.exports = C;
@@ -915,7 +915,7 @@ module.exports = C;
 ================================================================================
 `;
 
-exports[`state.js 1`] = `
+exports[`state.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -951,25 +951,25 @@ var ReactClass = React.createClass({
 var React = require("react");
 
 type State = {
-  bar: ?{ qux: string }
+  bar: ?{ qux: string },
 };
 
 var ReactClass = React.createClass({
-  getInitialState: function(): State {
+  getInitialState: function (): State {
     return { bar: null };
   },
 
-  render: function(): any {
+  render: function (): any {
     // Any state access here seems to make state any
     this.state;
     return <div>{this.state.bar.qux}</div>;
-  }
+  },
 });
 
 ================================================================================
 `;
 
-exports[`state2.js 1`] = `
+exports[`state2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -999,15 +999,15 @@ module.exports = Comp;
 var React = require("react");
 
 type FooState = {
-  key: ?Object
+  key: ?Object,
 };
 
 var Comp = React.createClass({
-  getInitialState: function(): FooState {
+  getInitialState: function (): FooState {
     return {
-      key: null // this used to cause a missing annotation error
+      key: null, // this used to cause a missing annotation error
     };
-  }
+  },
 });
 
 module.exports = Comp;
@@ -1015,7 +1015,7 @@ module.exports = Comp;
 ================================================================================
 `;
 
-exports[`state3.js 1`] = `
+exports[`state3.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1043,25 +1043,25 @@ var TestState = React.createClass({
 =====================================output=====================================
 var React = require("react");
 var TestState = React.createClass({
-  getInitialState: function(): { x: string } {
+  getInitialState: function (): { x: string } {
     return {
-      x: ""
+      x: "",
     };
   },
 
-  test: function() {
+  test: function () {
     var a: number = this.state.x; // error
 
     this.setState({
-      x: false // error
+      x: false, // error
     });
-  }
+  },
 });
 
 ================================================================================
 `;
 
-exports[`state4.js 1`] = `
+exports[`state4.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1085,20 +1085,20 @@ var C = React.createClass({
 var React = require("React");
 
 var C = React.createClass({
-  getInitialState: function(): { x: number } {
+  getInitialState: function (): { x: number } {
     return { x: 0 };
   },
 
   render() {
     this.setState({ y: 0 });
     return <div>{this.state.z}</div>;
-  }
+  },
 });
 
 ================================================================================
 `;
 
-exports[`state5.js 1`] = `
+exports[`state5.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

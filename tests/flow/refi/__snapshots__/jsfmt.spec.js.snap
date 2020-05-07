@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`bound.js 1`] = `
+exports[`bound.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -78,29 +78,29 @@ var tests =
 var x: ?string = "xxx";
 
 var tests = [
-  function() {
+  function () {
     var y: string = x; // not ok
   },
 
-  function() {
+  function () {
     if (x != null) {
       var y: string = x; // ok
     }
   },
 
-  function() {
+  function () {
     if (x == null) {
     } else {
       var y: string = x; // ok
     }
   },
 
-  function() {
+  function () {
     if (x == null) return;
     var y: string = x; // ok
   },
 
-  function() {
+  function () {
     if (!(x != null)) {
     } else {
       var y: string = x; // ok
@@ -116,32 +116,32 @@ var tests = [
     }
   },
   */
-  function() {
+  function () {
     if (x != null) {
     }
     var y: string = x; // not ok
   },
 
-  function() {
+  function () {
     if (x != null) {
     } else {
       var y: string = x; // not ok
     }
   },
 
-  function() {
+  function () {
     var y: string = x != null ? x : ""; // ok
   },
 
-  function() {
+  function () {
     var y: string = x || ""; // ok
-  }
+  },
 ];
 
 ================================================================================
 `;
 
-exports[`heap.js 1`] = `
+exports[`heap.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -387,19 +387,19 @@ var tests =
 
 =====================================output=====================================
 var tests = [
-  function() {
+  function () {
     var x: { p: ?string } = { p: "xxx" };
     var y: string = x.p; // not ok
   },
 
-  function() {
+  function () {
     var x: { p: ?string } = { p: "xxx" };
     if (x.p != null) {
       var y: string = x.p; // ok
     }
   },
 
-  function() {
+  function () {
     var x: { p: ?string } = { p: "xxx" };
     if (x.p == null) {
     } else {
@@ -407,13 +407,13 @@ var tests = [
     }
   },
 
-  function() {
+  function () {
     var x: { p: ?string } = { p: "xxx" };
     if (x.p == null) return;
     var y: string = x.p; // ok
   },
 
-  function() {
+  function () {
     var x: { p: ?string } = { p: "xxx" };
     if (!(x.p != null)) {
     } else {
@@ -421,7 +421,7 @@ var tests = [
     }
   },
 
-  function() {
+  function () {
     var x: { p: ?string } = { p: "xxx" };
     if (x.p != null) {
       alert("");
@@ -429,7 +429,7 @@ var tests = [
     }
   },
 
-  function() {
+  function () {
     var x: { p: ?string } = { p: "xxx" };
     if (x.p != null) {
       x.p = null;
@@ -437,14 +437,14 @@ var tests = [
     }
   },
 
-  function() {
+  function () {
     var x: { p: ?string } = { p: "xxx" };
     if (x.p != null) {
     }
     var y: string = x.p; // not ok
   },
 
-  function() {
+  function () {
     var x: { p: ?string } = { p: "xxx" };
     if (x.p != null) {
     } else {
@@ -452,17 +452,17 @@ var tests = [
     }
   },
 
-  function() {
+  function () {
     var x: { p: ?string } = { p: "xxx" };
     var y: string = x.p != null ? x.p : ""; // ok
   },
 
-  function() {
+  function () {
     var x: { p: ?string } = { p: "xxx" };
     var y: string = x.p || ""; // ok
   },
 
-  function() {
+  function () {
     var x: { p: string | string[] } = { p: ["xxx"] };
     if (Array.isArray(x.p)) {
       var y: string[] = x.p; // ok
@@ -471,7 +471,7 @@ var tests = [
     }
   },
 
-  function() {
+  function () {
     var x: { y: ?string } = { y: null };
     if (!x.y) {
       x.y = "foo";
@@ -479,7 +479,7 @@ var tests = [
     (x.y: string);
   },
 
-  function() {
+  function () {
     var x: { y: ?string } = { y: null };
     if (x.y) {
     } else {
@@ -488,7 +488,7 @@ var tests = [
     (x.y: string);
   },
 
-  function() {
+  function () {
     var x: { y: ?string } = { y: null };
     if (!x.y) {
       x.y = 123; // error
@@ -496,7 +496,7 @@ var tests = [
     (x.y: string); // error, this got widened to a number
   },
 
-  function() {
+  function () {
     var x: { y: ?string } = { y: null };
     if (x.y) {
       x.y = "foo";
@@ -506,7 +506,7 @@ var tests = [
     (x.y: string);
   },
 
-  function() {
+  function () {
     var x: { y: string | number | boolean } = { y: false };
     if (typeof x.y == "number") {
       x.y = "foo";
@@ -514,7 +514,7 @@ var tests = [
     (x.y: string); // error, could also be boolean
   },
 
-  function() {
+  function () {
     var x: { y: string | number | boolean } = { y: false };
     if (typeof x.y == "number") {
       x.y = "foo";
@@ -524,7 +524,7 @@ var tests = [
     (x.y: boolean); // error, string
   },
 
-  function() {
+  function () {
     var x: { y: ?string } = { y: null };
     if (!x.y) {
       x.y = "foo";
@@ -535,7 +535,7 @@ var tests = [
     (x.y: string); // error
   },
 
-  function() {
+  function () {
     var x: { y: string | number | boolean } = { y: false };
     if (typeof x.y == "number") {
       x.y = "foo";
@@ -548,7 +548,7 @@ var tests = [
     (x.y: string); // error
   },
 
-  function() {
+  function () {
     var x: { y: string | number | boolean } = { y: false };
     if (typeof x.y == "number") {
       x.y = "foo";
@@ -561,7 +561,7 @@ var tests = [
     (x.y: string); // error
   },
 
-  function() {
+  function () {
     var x: { y: ?string } = { y: null };
     var z: string = "foo";
     if (x.y) {
@@ -572,13 +572,13 @@ var tests = [
     (x.y: string);
   },
 
-  function(x: string) {
+  function (x: string) {
     if (x === "a") {
     }
     (x: "b"); // error (but only once, string !~> 'b'; 'a' is irrelevant)
   },
 
-  function(x: mixed) {
+  function (x: mixed) {
     if (typeof x.bar === "string") {
     } // error, so \`x.bar\` refinement is empty
     (x: string & number);
@@ -591,7 +591,7 @@ var tests = [
   // post-condition scope, not the one that was saved at the beginning of the
   // if statement.
 
-  function() {
+  function () {
     let x: { foo: ?string } = { foo: null };
     if (!x.foo) {
       if (false) {
@@ -601,7 +601,7 @@ var tests = [
     (x.foo: string);
   },
 
-  function() {
+  function () {
     let x: { foo: ?string } = { foo: null };
     if (!x.foo) {
       while (false) {}
@@ -610,7 +610,7 @@ var tests = [
     (x.foo: string);
   },
 
-  function() {
+  function () {
     let x: { foo: ?string } = { foo: null };
     if (!x.foo) {
       for (var i = 0; i < 0; i++) {}
@@ -619,19 +619,19 @@ var tests = [
     (x.foo: string);
   },
 
-  function() {
+  function () {
     var x: { p: ?string } = { p: "xxx" };
     if (x.p != null) {
       var { p } = x; // TODO: annot checked against type of x
       (p: string); // ok
     }
-  }
+  },
 ];
 
 ================================================================================
 `;
 
-exports[`lex.js 1`] = `
+exports[`lex.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -715,7 +715,7 @@ function try_scope_catch(x: string | number) {
 ================================================================================
 `;
 
-exports[`local.js 1`] = `
+exports[`local.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -808,19 +808,19 @@ var paths =
 
 =====================================output=====================================
 var paths = [
-  function() {
+  function () {
     var x: ?string = "xxx";
     var y: string = x; // not ok
   },
 
-  function() {
+  function () {
     var x: ?string = "xxx";
     if (x != null) {
       var y: string = x; // ok
     }
   },
 
-  function() {
+  function () {
     var x: ?string = "xxx";
     if (x == null) {
     } else {
@@ -828,13 +828,13 @@ var paths = [
     }
   },
 
-  function() {
+  function () {
     var x: ?string = "xxx";
     if (x == null) return;
     var y: string = x; // ok
   },
 
-  function() {
+  function () {
     var x: ?string = "xxx";
     if (!(x != null)) {
     } else {
@@ -842,7 +842,7 @@ var paths = [
     }
   },
 
-  function() {
+  function () {
     var x: ?string = "xxx";
     if (x != null) {
       alert("");
@@ -850,14 +850,14 @@ var paths = [
     }
   },
 
-  function() {
+  function () {
     var x: ?string = "xxx";
     if (x != null) {
     }
     var y: string = x; // not ok
   },
 
-  function() {
+  function () {
     var x: ?string = "xxx";
     if (x != null) {
     } else {
@@ -865,17 +865,17 @@ var paths = [
     }
   },
 
-  function() {
+  function () {
     var x: ?string = "xxx";
     var y: string = x != null ? x : ""; // ok
   },
 
-  function() {
+  function () {
     var x: ?string = "xxx";
     var y: string = x || ""; // ok
   },
 
-  function() {
+  function () {
     var x: string | string[] = ["xxx"];
     if (Array.isArray(x)) {
       var y: string[] = x; // ok
@@ -884,19 +884,19 @@ var paths = [
     }
   },
 
-  function() {
+  function () {
     var x: ?string = null;
     if (!x) {
       x = "xxx";
     }
     var y: string = x;
-  }
+  },
 ];
 
 ================================================================================
 `;
 
-exports[`null_tests.js 1`] = `
+exports[`null_tests.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1060,28 +1060,28 @@ class D extends C {
 =====================================output=====================================
 var null_tests = [
   // expr != null
-  function() {
+  function () {
     var x: ?string = "xxx";
     if (x != null) {
       var y: string = x; // ok
     }
   },
 
-  function() {
+  function () {
     var x: ?string = "xxx";
     if (null != x) {
       var y: string = x; // ok
     }
   },
 
-  function() {
+  function () {
     var x: { p: ?string } = { p: "xxx" };
     if (x.p != null) {
       var y: string = x.p; // ok
     }
   },
 
-  function() {
+  function () {
     var x: { p: { q: ?string } } = { p: { q: "xxx" } };
     if (x.p.q != null) {
       var y: string = x.p.q; // ok
@@ -1089,7 +1089,7 @@ var null_tests = [
   },
 
   // expr == null
-  function() {
+  function () {
     var x: ?string = "xxx";
     if (x == null) {
     } else {
@@ -1097,7 +1097,7 @@ var null_tests = [
     }
   },
 
-  function() {
+  function () {
     var x: { p: ?string } = { p: "xxx" };
     if (x.p == null) {
     } else {
@@ -1105,7 +1105,7 @@ var null_tests = [
     }
   },
 
-  function() {
+  function () {
     var x: { p: { q: ?string } } = { p: { q: "xxx" } };
     if (x.p.q == null) {
     } else {
@@ -1114,21 +1114,21 @@ var null_tests = [
   },
 
   // expr !== null
-  function() {
+  function () {
     var x: ?string = "xxx";
     if (x !== null) {
       var y: string | void = x; // ok
     }
   },
 
-  function() {
+  function () {
     var x: { p: ?string } = { p: "xxx" };
     if (x.p !== null) {
       var y: string | void = x.p; // ok
     }
   },
 
-  function() {
+  function () {
     var x: { p: { q: ?string } } = { p: { q: "xxx" } };
     if (x.p.q !== null) {
       var y: string | void = x.p.q; // ok
@@ -1136,7 +1136,7 @@ var null_tests = [
   },
 
   // expr === null
-  function() {
+  function () {
     var x: ?string = "xxx";
     if (x === null) {
     } else {
@@ -1144,7 +1144,7 @@ var null_tests = [
     }
   },
 
-  function() {
+  function () {
     var x: { p: ?string } = { p: "xxx" };
     if (x.p === null) {
     } else {
@@ -1152,13 +1152,13 @@ var null_tests = [
     }
   },
 
-  function() {
+  function () {
     var x: { p: { q: ?string } } = { p: { q: "xxx" } };
     if (x.p.q === null) {
     } else {
       var y: string | void = x.p.q; // ok
     }
-  }
+  },
 ];
 
 // this.p op null
@@ -1210,7 +1210,7 @@ class D extends C {
 ================================================================================
 `;
 
-exports[`switch.js 1`] = `
+exports[`switch.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1348,7 +1348,7 @@ function exhaustion3(x): number {
 ================================================================================
 `;
 
-exports[`typeof_tests.js 1`] = `
+exports[`typeof_tests.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1488,28 +1488,28 @@ class A {
 =====================================output=====================================
 var null_tests = [
   // typeof expr == typename
-  function() {
+  function () {
     var x: ?string = "xxx";
     if (typeof x == "string") {
       var y: string = x; // ok
     }
   },
 
-  function() {
+  function () {
     var x: ?string = "xxx";
     if ("string" == typeof x) {
       var y: string = x; // ok
     }
   },
 
-  function() {
+  function () {
     var x: { p: ?string } = { p: "xxx" };
     if (typeof x.p == "string") {
       var y: string = x.p; // ok
     }
   },
 
-  function() {
+  function () {
     var x: { p: { q: ?string } } = { p: { q: "xxx" } };
     if (typeof x.p.q == "string") {
       var y: string = x.p.q; // ok
@@ -1517,7 +1517,7 @@ var null_tests = [
   },
 
   // typeof expr != typename
-  function() {
+  function () {
     var x: ?string = "xxx";
     if (typeof x != "string") {
     } else {
@@ -1525,7 +1525,7 @@ var null_tests = [
     }
   },
 
-  function() {
+  function () {
     var x: { p: ?string } = { p: "xxx" };
     if (typeof x.p != "string") {
     } else {
@@ -1533,7 +1533,7 @@ var null_tests = [
     }
   },
 
-  function() {
+  function () {
     var x: { p: { q: ?string } } = { p: { q: "xxx" } };
     if (typeof x.p.q != "string") {
     } else {
@@ -1542,21 +1542,21 @@ var null_tests = [
   },
 
   // typeof expr === typename
-  function() {
+  function () {
     var x: ?string = "xxx";
     if (typeof x === "string") {
       var y: string = x; // ok
     }
   },
 
-  function() {
+  function () {
     var x: { p: ?string } = { p: "xxx" };
     if (typeof x.p === "string") {
       var y: string = x.p; // ok
     }
   },
 
-  function() {
+  function () {
     var x: { p: { q: ?string } } = { p: { q: "xxx" } };
     if (typeof x.p.q === "string") {
       var y: string = x.p.q; // ok
@@ -1564,7 +1564,7 @@ var null_tests = [
   },
 
   // typeof expr !== typename
-  function() {
+  function () {
     var x: ?string = "xxx";
     if (typeof x !== "string") {
     } else {
@@ -1572,7 +1572,7 @@ var null_tests = [
     }
   },
 
-  function() {
+  function () {
     var x: { p: ?string } = { p: "xxx" };
     if (typeof x.p !== "string") {
     } else {
@@ -1580,13 +1580,13 @@ var null_tests = [
     }
   },
 
-  function() {
+  function () {
     var x: { p: { q: ?string } } = { p: { q: "xxx" } };
     if (typeof x.p.q !== "string") {
     } else {
       var y: string = x.p.q; // ok
     }
-  }
+  },
 ];
 
 // typeof this.p op typename
@@ -1617,7 +1617,7 @@ class A {
 ================================================================================
 `;
 
-exports[`undef_tests.js 1`] = `
+exports[`undef_tests.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1703,28 +1703,28 @@ var undef_tests = [
   // NOTE: not (yet?) supporting non-strict eq test for undefined
 
   // expr !== undefined
-  function() {
+  function () {
     var x: ?string = "xxx";
     if (x !== undefined && x !== null) {
       var y: string = x; // ok
     }
   },
 
-  function() {
+  function () {
     var x: ?string = "xxx";
     if (undefined !== x && x !== null) {
       var y: string = x; // ok
     }
   },
 
-  function() {
+  function () {
     var x: { p: ?string } = { p: "xxx" };
     if (x.p !== undefined && x.p !== null) {
       var y: string = x.p; // ok
     }
   },
 
-  function() {
+  function () {
     var x: { p: { q: ?string } } = { p: { q: "xxx" } };
     if (x.p.q !== undefined && x.p.q !== null) {
       var y: string = x.p.q; // ok
@@ -1732,7 +1732,7 @@ var undef_tests = [
   },
 
   // expr === undefined
-  function() {
+  function () {
     var x: ?string = "xxx";
     if (x === undefined || x === null) {
     } else {
@@ -1740,7 +1740,7 @@ var undef_tests = [
     }
   },
 
-  function() {
+  function () {
     var x: { p: ?string } = { p: "xxx" };
     if (x.p === undefined || x.p === null) {
     } else {
@@ -1748,13 +1748,13 @@ var undef_tests = [
     }
   },
 
-  function() {
+  function () {
     var x: { p: { q: ?string } } = { p: { q: "xxx" } };
     if (x.p.q === undefined || x.p.q === null) {
     } else {
       var y: string = x.p.q; // ok
     }
-  }
+  },
 ];
 
 // this.p op undefined
@@ -1775,7 +1775,7 @@ class A {
 ================================================================================
 `;
 
-exports[`void_tests.js 1`] = `
+exports[`void_tests.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -1861,28 +1861,28 @@ var void_tests = [
   // NOTE: not (yet?) supporting non-strict eq test for undefined
 
   // expr !== void(...)
-  function() {
+  function () {
     var x: ?string = "xxx";
     if (x !== void 0 && x !== null) {
       var y: string = x; // ok
     }
   },
 
-  function() {
+  function () {
     var x: ?string = "xxx";
     if (void 0 !== x && x !== null) {
       var y: string = x; // ok
     }
   },
 
-  function() {
+  function () {
     var x: { p: ?string } = { p: "xxx" };
     if (x.p !== void 0 && x.p !== null) {
       var y: string | void = x.p; // ok
     }
   },
 
-  function() {
+  function () {
     var x: { p: { q: ?string } } = { p: { q: "xxx" } };
     if (x.p.q !== void 0 && x.p.q !== null) {
       var y: string = x.p.q; // ok
@@ -1890,7 +1890,7 @@ var void_tests = [
   },
 
   // expr === void(...)
-  function() {
+  function () {
     var x: ?string = "xxx";
     if (x === void 0 || x === null) {
     } else {
@@ -1898,7 +1898,7 @@ var void_tests = [
     }
   },
 
-  function() {
+  function () {
     var x: { p: ?string } = { p: "xxx" };
     if (x.p === void 0 || x.p === null) {
     } else {
@@ -1906,13 +1906,13 @@ var void_tests = [
     }
   },
 
-  function() {
+  function () {
     var x: { p: { q: ?string } } = { p: { q: "xxx" } };
     if (x.p.q === void 0 || x.p.q === null) {
     } else {
       var y: string = x.p.q; // ok
     }
-  }
+  },
 ];
 
 // this.p op void(...)

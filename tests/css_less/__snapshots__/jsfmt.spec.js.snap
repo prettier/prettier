@@ -1,6 +1,89 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`less.less 1`] = `
+exports[`comments.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// This comment won't be included in the CSS. 
+//This comment won't be included in the CSS.
+//     This comment won't be included in the CSS.     
+
+/* But this comment will, except in compressed mode. */
+/*     But this comment will, except in compressed mode.     */
+/*But this comment will, except in compressed mode.*/
+
+/*! This comment will be included even in compressed mode. */
+
+/// Computes an exponent.
+///// Computes an exponent.
+
+=====================================output=====================================
+// This comment won't be included in the CSS.
+//This comment won't be included in the CSS.
+//     This comment won't be included in the CSS.
+
+/* But this comment will, except in compressed mode. */
+/*     But this comment will, except in compressed mode.     */
+/*But this comment will, except in compressed mode.*/
+
+/*! This comment will be included even in compressed mode. */
+
+/// Computes an exponent.
+///// Computes an exponent.
+
+================================================================================
+`;
+
+exports[`function-each.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// http://lesscss.org/functions/#list-functions-each
+
+@selectors: blue, green, red;
+
+each(@selectors, {
+  .sel-@{value} {
+    a: b;
+  }
+});
+
+
+// TODO: fix this
+each(@selectors, 
+{
+  .sel-@{value} {
+a: b;
+  }
+});
+
+=====================================output=====================================
+// http://lesscss.org/functions/#list-functions-each
+
+@selectors: blue, green, red;
+
+each(@selectors, {
+  .sel-@{value} {
+    a: b;
+  }
+});
+
+// TODO: fix this
+each(@selectors, 
+{
+  .sel-@{value} {
+a: b;
+  }
+});
+
+================================================================================
+`;
+
+exports[`less.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
 printWidth: 80
@@ -1656,8 +1739,8 @@ li + li {
 // Variables
 @link-color: #428bca; // Comment
 
-[href]:hover &, // Comment
-[href]:focus &, // Comment
+[href]:hover &, // Comment'
+[href]:focus &, // Comment"
 [href]:active & {
   .tooltip {
     opacity: 1;
@@ -1682,6 +1765,23 @@ label {
 
 // should not parse as custom-selector
 @custom-selector     :--icon #id;
+
+// extend #7977
+.class {
+  &:extend(.some-class .some-other-class .some-very-loooooooooooooong-class all);
+}
+.class {
+  &:extend(
+    .some-class .some-other-class .some-very-loooooooooooooong-class all
+  );
+}
+.class {
+  &:extend(.some-class .some-other-class .some-very-loooooooooooooong-class .some-very-loooooooooooooong-class all);
+}
+
+// #8177
+.hello {
+  &:extend(.input:disabled)}
 
 =====================================output=====================================
 @nice-blue: #5b83ad;
@@ -2744,7 +2844,9 @@ div {
 header {
   background-color: blue;
 
-  .desktop-and-old-ie({background-color: red;});
+  .desktop-and-old-ie({
+    background-color: red;
+  });
 }
 
 header {
@@ -3266,8 +3368,8 @@ li + li {
 // Variables
 @link-color: #428bca; // Comment
 
-[href]:hover &, // Comment
-[href]:focus &, // Comment
+[href]:hover &, // Comment'
+[href]:focus &, // Comment"
 [href]:active & {
   .tooltip {
     opacity: 1;
@@ -3292,6 +3394,115 @@ label {
 
 // should not parse as custom-selector
 @custom-selector: --icon #id;
+
+// extend #7977
+.class {
+  &:extend(.some-class
+    .some-other-class
+    .some-very-loooooooooooooong-class
+    all);
+}
+.class {
+  &:extend(.some-class
+    .some-other-class
+    .some-very-loooooooooooooong-class
+    all);
+}
+.class {
+  &:extend(.some-class
+    .some-other-class
+    .some-very-loooooooooooooong-class
+    .some-very-loooooooooooooong-class
+    all);
+}
+
+// #8177
+.hello {
+  &:extend(.input:disabled);
+}
+
+================================================================================
+`;
+
+exports[`quotes-in-comments.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// Animation   
+// '
+.a { color: red }
+
+.aa:hover::after { content: "\\""; } // "
+    
+    
+.b { background:url(http://example.com); }   .b::after { content: "a"; }
+
+.bb { background:url('http://example.com/(foo)bar'); }   .bb::after { content: "'a"; } // """
+
+// Animation   !
+.c { color:red    }
+
+.d { color: red /* // */ }  .d::after { content: "'"; }
+
+/*        fff
+   //   */     .d:hover::after {
+     // qw'erty 
+    content: "'''"; }
+   
+[href]:active  {
+  opacity:   // '!' "?"
+    1;
+}
+=====================================output=====================================
+// Animation
+// '
+.a {
+  color: red;
+}
+
+.aa:hover::after {
+  content: '"';
+} // "
+
+.b {
+  background: url(http://example.com);
+}
+.b::after {
+  content: "a";
+}
+
+.bb {
+  background: url("http://example.com/(foo)bar");
+}
+.bb::after {
+  content: "'a";
+} // """
+
+// Animation   !
+.c {
+  color: red;
+}
+
+.d {
+  color: red; /* // */
+}
+.d::after {
+  content: "'";
+}
+
+/*        fff
+   //   */
+.d:hover::after {
+  // qw'erty
+  content: "'''";
+}
+
+[href]:active {
+  opacity: // '!' "?"
+    1;
+}
 
 ================================================================================
 `;

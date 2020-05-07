@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`as-const.ts 1`] = `
+exports[`as-const.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -14,7 +14,7 @@ let x = "123" as const;
 ================================================================================
 `;
 
-exports[`generic-cast.ts 1`] = `
+exports[`generic-cast.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -139,7 +139,7 @@ function y() {
   );
 
   const testObjLiteral = <Immutable.Map<string, any>>{
-    property1: "myPropertyVal"
+    property1: "myPropertyVal",
   };
 
   const testObjLiteral2 = <
@@ -159,7 +159,7 @@ function y() {
   const testArrayLiteral = <Immutable.Map<string, any>>[
     "first",
     "second",
-    "third"
+    "third",
   ];
 
   const testArrayLiteral2 = <
@@ -226,7 +226,7 @@ function x() {
   ];
 
   const testObjLiteral = <PermissionsChecker<any> | undefined>{
-    prop1: "myPropVal"
+    prop1: "myPropVal",
   };
 
   const testObjLiteral2 = <
@@ -243,7 +243,7 @@ function x() {
   const testArrayLiteral = <PermissionsChecker<any> | undefined>[
     "first",
     "second",
-    "third"
+    "third",
   ];
 
   const testArrayLiteral2 = <
@@ -267,7 +267,7 @@ function x() {
 ================================================================================
 `;
 
-exports[`hug-args.ts 1`] = `
+exports[`hug-args.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -299,25 +299,25 @@ postMessages(
 =====================================output=====================================
 postMessage(<IActionMessage>{
   context: item.context,
-  topic: item.topic
+  topic: item.topic,
 });
 
 window.postMessage({
   context: item.context,
-  topic: item.topic
+  topic: item.topic,
 } as IActionMessage);
 
 postMessages(<IActionMessage[]>[
   {
     context: item.context,
-    topic: item.topic
-  }
+    topic: item.topic,
+  },
 ]);
 
 ================================================================================
 `;
 
-exports[`parenthesis.ts 1`] = `
+exports[`parenthesis.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

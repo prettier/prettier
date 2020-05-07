@@ -1,9 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`at-rules.css 1`] = `
+exports[`at-rules.css - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 a {
@@ -75,11 +76,10 @@ a {
 ================================================================================
 `;
 
-exports[`at-rules.css 2`] = `
+exports[`at-rules.css format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 a {
@@ -151,10 +151,11 @@ a {
 ================================================================================
 `;
 
-exports[`declaration.css 1`] = `
+exports[`declaration.css - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 a {
@@ -169,11 +170,10 @@ a {
 ================================================================================
 `;
 
-exports[`declaration.css 2`] = `
+exports[`declaration.css format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 a {
@@ -188,10 +188,11 @@ a {
 ================================================================================
 `;
 
-exports[`list.css 1`] = `
+exports[`list.css - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 $colors: hotpink deepskyblue firebrick,;
@@ -293,11 +294,10 @@ $breakpoint-map: (
 ================================================================================
 `;
 
-exports[`list.css 2`] = `
+exports[`list.css format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 $colors: hotpink deepskyblue firebrick,;
@@ -399,10 +399,11 @@ $breakpoint-map: (
 ================================================================================
 `;
 
-exports[`map.css 1`] = `
+exports[`map.css - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 $map: (
@@ -443,11 +444,10 @@ $map: (
 ================================================================================
 `;
 
-exports[`map.css 2`] = `
+exports[`map.css format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 $map: (
@@ -488,10 +488,11 @@ $map: (
 ================================================================================
 `;
 
-exports[`selector_list.css 1`] = `
+exports[`selector_list.css - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkasdhkajsdhakjsdhkajsdhjkahskjdkjahsjkdjkakjsdm,
@@ -519,11 +520,10 @@ asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkasdhkajsdhakjsdhkajsdhjkahskjdkjahsj
 ================================================================================
 `;
 
-exports[`selector_list.css 2`] = `
+exports[`selector_list.css format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkasdhkajsdhakjsdhkajsdhjkahskjdkjahsjkdjkakjsdm,
@@ -551,10 +551,11 @@ asdasldaskdhjkashdahsdkjahskdjhakjsdkjahsdhkasdhkajsdhakjsdhkajsdhjkahskjdkjahsj
 ================================================================================
 `;
 
-exports[`variable.css 1`] = `
+exports[`variable.css - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 $test: 1,;
@@ -568,11 +569,10 @@ $margin: 0, 2em, 0, 1.5em;
 ================================================================================
 `;
 
-exports[`variable.css 2`] = `
+exports[`variable.css format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 $test: 1,;

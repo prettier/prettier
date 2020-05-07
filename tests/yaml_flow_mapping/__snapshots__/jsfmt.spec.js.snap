@@ -1,7 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`alias-key.yml 1`] = `
+exports[`alias-key.yml - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
+bracketSpacing: false
 parsers: ["yaml"]
 printWidth: 80
                                                                                 | printWidth
@@ -9,12 +10,12 @@ printWidth: 80
 {&123 foo, *123 : 456}
 
 =====================================output=====================================
-{ &123 foo, *123 : 456 }
+{&123 foo, *123 : 456}
 
 ================================================================================
 `;
 
-exports[`alias-key.yml 2`] = `
+exports[`alias-key.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -29,9 +30,8 @@ tabWidth: 4
 ================================================================================
 `;
 
-exports[`alias-key.yml 3`] = `
+exports[`alias-key.yml format 1`] = `
 ====================================options=====================================
-bracketSpacing: false
 parsers: ["yaml"]
 printWidth: 80
                                                                                 | printWidth
@@ -39,73 +39,12 @@ printWidth: 80
 {&123 foo, *123 : 456}
 
 =====================================output=====================================
-{&123 foo, *123 : 456}
+{ &123 foo, *123 : 456 }
 
 ================================================================================
 `;
 
-exports[`array-key.yml 1`] = `
-====================================options=====================================
-parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-{? [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],? [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],? [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]}
-
-=====================================output=====================================
-{
-  [
-    longlonglonglonglonglonglonglonglonglonglong,
-    longlonglonglonglonglonglonglonglonglonglong,
-    longlonglonglonglonglonglonglonglonglonglong,
-  ],
-  [
-    longlonglonglonglonglonglonglonglonglonglong,
-    longlonglonglonglonglonglonglonglonglonglong,
-    longlonglonglonglonglonglonglonglonglonglong,
-  ],
-  [
-    longlonglonglonglonglonglonglonglonglonglong,
-    longlonglonglonglonglonglonglonglonglonglong,
-    longlonglonglonglonglonglonglonglonglonglong,
-  ],
-}
-
-================================================================================
-`;
-
-exports[`array-key.yml 2`] = `
-====================================options=====================================
-parsers: ["yaml"]
-printWidth: 80
-tabWidth: 4
-                                                                                | printWidth
-=====================================input======================================
-{? [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],? [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],? [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]}
-
-=====================================output=====================================
-{
-    [
-        longlonglonglonglonglonglonglonglonglonglong,
-        longlonglonglonglonglonglonglonglonglonglong,
-        longlonglonglonglonglonglonglonglonglonglong,
-    ],
-    [
-        longlonglonglonglonglonglonglonglonglonglong,
-        longlonglonglonglonglonglonglonglonglonglong,
-        longlonglonglonglonglonglonglonglonglonglong,
-    ],
-    [
-        longlonglonglonglonglonglonglonglonglonglong,
-        longlonglonglonglonglonglonglonglonglonglong,
-        longlonglonglonglonglonglonglonglonglonglong,
-    ],
-}
-
-================================================================================
-`;
-
-exports[`array-key.yml 3`] = `
+exports[`array-key.yml - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["yaml"]
@@ -136,98 +75,68 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`array-key-array-value.yml 1`] = `
-====================================options=====================================
-parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-{[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]}
-
-=====================================output=====================================
-{
-  ? [
-      longlonglonglonglonglonglonglonglonglonglong,
-      longlonglonglonglonglonglonglonglonglonglong,
-      longlonglonglonglonglonglonglonglonglonglong,
-    ]
-  : [
-      longlonglonglonglonglonglonglonglonglonglong,
-      longlonglonglonglonglonglonglonglonglonglong,
-      longlonglonglonglonglonglonglonglonglonglong,
-    ],
-  ? [
-      longlonglonglonglonglonglonglonglonglonglong,
-      longlonglonglonglonglonglonglonglonglonglong,
-      longlonglonglonglonglonglonglonglonglonglong,
-    ]
-  : [
-      longlonglonglonglonglonglonglonglonglonglong,
-      longlonglonglonglonglonglonglonglonglonglong,
-      longlonglonglonglonglonglonglonglonglonglong,
-    ],
-  ? [
-      longlonglonglonglonglonglonglonglonglonglong,
-      longlonglonglonglonglonglonglonglonglonglong,
-      longlonglonglonglonglonglonglonglonglonglong,
-    ]
-  : [
-      longlonglonglonglonglonglonglonglonglonglong,
-      longlonglonglonglonglonglonglonglonglonglong,
-      longlonglonglonglonglonglonglonglonglonglong,
-    ],
-}
-
-================================================================================
-`;
-
-exports[`array-key-array-value.yml 2`] = `
+exports[`array-key.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
 tabWidth: 4
                                                                                 | printWidth
 =====================================input======================================
-{[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]}
+{? [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],? [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],? [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]}
 
 =====================================output=====================================
 {
-    ? [
-          longlonglonglonglonglonglonglonglonglonglong,
-          longlonglonglonglonglonglonglonglonglonglong,
-          longlonglonglonglonglonglonglonglonglonglong,
-      ]
-    : [
-          longlonglonglonglonglonglonglonglonglonglong,
-          longlonglonglonglonglonglonglonglonglonglong,
-          longlonglonglonglonglonglonglonglonglonglong,
-      ],
-    ? [
-          longlonglonglonglonglonglonglonglonglonglong,
-          longlonglonglonglonglonglonglonglonglonglong,
-          longlonglonglonglonglonglonglonglonglonglong,
-      ]
-    : [
-          longlonglonglonglonglonglonglonglonglonglong,
-          longlonglonglonglonglonglonglonglonglonglong,
-          longlonglonglonglonglonglonglonglonglonglong,
-      ],
-    ? [
-          longlonglonglonglonglonglonglonglonglonglong,
-          longlonglonglonglonglonglonglonglonglonglong,
-          longlonglonglonglonglonglonglonglonglonglong,
-      ]
-    : [
-          longlonglonglonglonglonglonglonglonglonglong,
-          longlonglonglonglonglonglonglonglonglonglong,
-          longlonglonglonglonglonglonglonglonglonglong,
-      ],
+    [
+        longlonglonglonglonglonglonglonglonglonglong,
+        longlonglonglonglonglonglonglonglonglonglong,
+        longlonglonglonglonglonglonglonglonglonglong,
+    ],
+    [
+        longlonglonglonglonglonglonglonglonglonglong,
+        longlonglonglonglonglonglonglonglonglonglong,
+        longlonglonglonglonglonglonglonglonglonglong,
+    ],
+    [
+        longlonglonglonglonglonglonglonglonglonglong,
+        longlonglonglonglonglonglonglonglonglonglong,
+        longlonglonglonglonglonglonglonglonglonglong,
+    ],
 }
 
 ================================================================================
 `;
 
-exports[`array-key-array-value.yml 3`] = `
+exports[`array-key.yml format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+{? [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],? [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],? [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]}
+
+=====================================output=====================================
+{
+  [
+    longlonglonglonglonglonglonglonglonglonglong,
+    longlonglonglonglonglonglonglonglonglonglong,
+    longlonglonglonglonglonglonglonglonglonglong,
+  ],
+  [
+    longlonglonglonglonglonglonglonglonglonglong,
+    longlonglonglonglonglonglonglonglonglonglong,
+    longlonglonglonglonglonglonglonglonglonglong,
+  ],
+  [
+    longlonglonglonglonglonglonglonglonglonglong,
+    longlonglonglonglonglonglonglonglonglonglong,
+    longlonglonglonglonglonglonglonglonglonglong,
+  ],
+}
+
+================================================================================
+`;
+
+exports[`array-key-array-value.yml - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["yaml"]
@@ -273,68 +182,98 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`array-plain.yml 1`] = `
-====================================options=====================================
-parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-{[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]}
-
-=====================================output=====================================
-{
-  [
-    longlonglonglonglonglonglonglonglonglonglong,
-    longlonglonglonglonglonglonglonglonglonglong,
-    longlonglonglonglonglonglonglonglonglonglong,
-  ],
-  [
-    longlonglonglonglonglonglonglonglonglonglong,
-    longlonglonglonglonglonglonglonglonglonglong,
-    longlonglonglonglonglonglonglonglonglonglong,
-  ],
-  [
-    longlonglonglonglonglonglonglonglonglonglong,
-    longlonglonglonglonglonglonglonglonglonglong,
-    longlonglonglonglonglonglonglonglonglonglong,
-  ],
-}
-
-================================================================================
-`;
-
-exports[`array-plain.yml 2`] = `
+exports[`array-key-array-value.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
 tabWidth: 4
                                                                                 | printWidth
 =====================================input======================================
-{[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]}
+{[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]}
 
 =====================================output=====================================
 {
-    [
-        longlonglonglonglonglonglonglonglonglonglong,
-        longlonglonglonglonglonglonglonglonglonglong,
-        longlonglonglonglonglonglonglonglonglonglong,
+    ? [
+          longlonglonglonglonglonglonglonglonglonglong,
+          longlonglonglonglonglonglonglonglonglonglong,
+          longlonglonglonglonglonglonglonglonglonglong,
+      ]
+    : [
+          longlonglonglonglonglonglonglonglonglonglong,
+          longlonglonglonglonglonglonglonglonglonglong,
+          longlonglonglonglonglonglonglonglonglonglong,
+      ],
+    ? [
+          longlonglonglonglonglonglonglonglonglonglong,
+          longlonglonglonglonglonglonglonglonglonglong,
+          longlonglonglonglonglonglonglonglonglonglong,
+      ]
+    : [
+          longlonglonglonglonglonglonglonglonglonglong,
+          longlonglonglonglonglonglonglonglonglonglong,
+          longlonglonglonglonglonglonglonglonglonglong,
+      ],
+    ? [
+          longlonglonglonglonglonglonglonglonglonglong,
+          longlonglonglonglonglonglonglonglonglonglong,
+          longlonglonglonglonglonglonglonglonglonglong,
+      ]
+    : [
+          longlonglonglonglonglonglonglonglonglonglong,
+          longlonglonglonglonglonglonglonglonglonglong,
+          longlonglonglonglonglonglonglonglonglonglong,
+      ],
+}
+
+================================================================================
+`;
+
+exports[`array-key-array-value.yml format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+{[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]: [longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]}
+
+=====================================output=====================================
+{
+  ? [
+      longlonglonglonglonglonglonglonglonglonglong,
+      longlonglonglonglonglonglonglonglonglonglong,
+      longlonglonglonglonglonglonglonglonglonglong,
+    ]
+  : [
+      longlonglonglonglonglonglonglonglonglonglong,
+      longlonglonglonglonglonglonglonglonglonglong,
+      longlonglonglonglonglonglonglonglonglonglong,
     ],
-    [
-        longlonglonglonglonglonglonglonglonglonglong,
-        longlonglonglonglonglonglonglonglonglonglong,
-        longlonglonglonglonglonglonglonglonglonglong,
+  ? [
+      longlonglonglonglonglonglonglonglonglonglong,
+      longlonglonglonglonglonglonglonglonglonglong,
+      longlonglonglonglonglonglonglonglonglonglong,
+    ]
+  : [
+      longlonglonglonglonglonglonglonglonglonglong,
+      longlonglonglonglonglonglonglonglonglonglong,
+      longlonglonglonglonglonglonglonglonglonglong,
     ],
-    [
-        longlonglonglonglonglonglonglonglonglonglong,
-        longlonglonglonglonglonglonglonglonglonglong,
-        longlonglonglonglonglonglonglonglonglonglong,
+  ? [
+      longlonglonglonglonglonglonglonglonglonglong,
+      longlonglonglonglonglonglonglonglonglonglong,
+      longlonglonglonglonglonglonglonglonglonglong,
+    ]
+  : [
+      longlonglonglonglonglonglonglonglonglonglong,
+      longlonglonglonglonglonglonglonglonglonglong,
+      longlonglonglonglonglonglonglonglonglonglong,
     ],
 }
 
 ================================================================================
 `;
 
-exports[`array-plain.yml 3`] = `
+exports[`array-plain.yml - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["yaml"]
@@ -365,8 +304,70 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`array-value.yml 1`] = `
+exports[`array-plain.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+tabWidth: 4
+                                                                                | printWidth
+=====================================input======================================
+{[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]}
+
+=====================================output=====================================
+{
+    [
+        longlonglonglonglonglonglonglonglonglonglong,
+        longlonglonglonglonglonglonglonglonglonglong,
+        longlonglonglonglonglonglonglonglonglonglong,
+    ],
+    [
+        longlonglonglonglonglonglonglonglonglonglong,
+        longlonglonglonglonglonglonglonglonglonglong,
+        longlonglonglonglonglonglonglonglonglonglong,
+    ],
+    [
+        longlonglonglonglonglonglonglonglonglonglong,
+        longlonglonglonglonglonglonglonglonglonglong,
+        longlonglonglonglonglonglonglonglonglonglong,
+    ],
+}
+
+================================================================================
+`;
+
+exports[`array-plain.yml format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+{[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong],[longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong, longlonglonglonglonglonglonglonglonglonglong]}
+
+=====================================output=====================================
+{
+  [
+    longlonglonglonglonglonglonglonglonglonglong,
+    longlonglonglonglonglonglonglonglonglonglong,
+    longlonglonglonglonglonglonglonglonglonglong,
+  ],
+  [
+    longlonglonglonglonglonglonglonglonglonglong,
+    longlonglonglonglonglonglonglonglonglonglong,
+    longlonglonglonglonglonglonglonglonglonglong,
+  ],
+  [
+    longlonglonglonglonglonglonglonglonglonglong,
+    longlonglonglonglonglonglonglonglonglonglong,
+    longlonglonglonglonglonglonglonglonglonglong,
+  ],
+}
+
+================================================================================
+`;
+
+exports[`array-value.yml - {"bracketSpacing":false} format 1`] = `
+====================================options=====================================
+bracketSpacing: false
 parsers: ["yaml"]
 printWidth: 80
                                                                                 | printWidth
@@ -398,7 +399,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`array-value.yml 2`] = `
+exports[`array-value.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -432,9 +433,8 @@ tabWidth: 4
 ================================================================================
 `;
 
-exports[`array-value.yml 3`] = `
+exports[`array-value.yml format 1`] = `
 ====================================options=====================================
-bracketSpacing: false
 parsers: ["yaml"]
 printWidth: 80
                                                                                 | printWidth
@@ -466,8 +466,9 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`comment-between.yml 1`] = `
+exports[`comment-between.yml - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
+bracketSpacing: false
 parsers: ["yaml"]
 printWidth: 80
                                                                                 | printWidth
@@ -488,7 +489,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`comment-between.yml 2`] = `
+exports[`comment-between.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -511,9 +512,8 @@ tabWidth: 4
 ================================================================================
 `;
 
-exports[`comment-between.yml 3`] = `
+exports[`comment-between.yml format 1`] = `
 ====================================options=====================================
-bracketSpacing: false
 parsers: ["yaml"]
 printWidth: 80
                                                                                 | printWidth
@@ -534,8 +534,9 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`comment-trailing.yml 1`] = `
+exports[`comment-trailing.yml - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
+bracketSpacing: false
 parsers: ["yaml"]
 printWidth: 80
                                                                                 | printWidth
@@ -551,7 +552,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`comment-trailing.yml 2`] = `
+exports[`comment-trailing.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -569,9 +570,8 @@ tabWidth: 4
 ================================================================================
 `;
 
-exports[`comment-trailing.yml 3`] = `
+exports[`comment-trailing.yml format 1`] = `
 ====================================options=====================================
-bracketSpacing: false
 parsers: ["yaml"]
 printWidth: 80
                                                                                 | printWidth
@@ -587,36 +587,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`empty.yml 1`] = `
-====================================options=====================================
-parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-{}
-
-=====================================output=====================================
-{}
-
-================================================================================
-`;
-
-exports[`empty.yml 2`] = `
-====================================options=====================================
-parsers: ["yaml"]
-printWidth: 80
-tabWidth: 4
-                                                                                | printWidth
-=====================================input======================================
-{}
-
-=====================================output=====================================
-{}
-
-================================================================================
-`;
-
-exports[`empty.yml 3`] = `
+exports[`empty.yml - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["yaml"]
@@ -631,36 +602,36 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`empty-item-colon.yml 1`] = `
-====================================options=====================================
-parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-{ : }
-
-=====================================output=====================================
-{ : }
-
-================================================================================
-`;
-
-exports[`empty-item-colon.yml 2`] = `
+exports[`empty.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
 tabWidth: 4
                                                                                 | printWidth
 =====================================input======================================
-{ : }
+{}
 
 =====================================output=====================================
-{ : }
+{}
 
 ================================================================================
 `;
 
-exports[`empty-item-colon.yml 3`] = `
+exports[`empty.yml format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+{}
+
+=====================================output=====================================
+{}
+
+================================================================================
+`;
+
+exports[`empty-item-colon.yml - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["yaml"]
@@ -675,8 +646,38 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`empty-line.yml 1`] = `
+exports[`empty-item-colon.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+tabWidth: 4
+                                                                                | printWidth
+=====================================input======================================
+{ : }
+
+=====================================output=====================================
+{ : }
+
+================================================================================
+`;
+
+exports[`empty-item-colon.yml format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+{ : }
+
+=====================================output=====================================
+{ : }
+
+================================================================================
+`;
+
+exports[`empty-line.yml - {"bracketSpacing":false} format 1`] = `
+====================================options=====================================
+bracketSpacing: false
 parsers: ["yaml"]
 printWidth: 80
                                                                                 | printWidth
@@ -695,7 +696,7 @@ bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb }
 ================================================================================
 `;
 
-exports[`empty-line.yml 2`] = `
+exports[`empty-line.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -716,9 +717,8 @@ bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb }
 ================================================================================
 `;
 
-exports[`empty-line.yml 3`] = `
+exports[`empty-line.yml format 1`] = `
 ====================================options=====================================
-bracketSpacing: false
 parsers: ["yaml"]
 printWidth: 80
                                                                                 | printWidth
@@ -737,40 +737,7 @@ bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb }
 ================================================================================
 `;
 
-exports[`empty-line-collapse.yml 1`] = `
-====================================options=====================================
-parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-{ aaa, 
-
-bbb }
-
-=====================================output=====================================
-{ aaa, bbb }
-
-================================================================================
-`;
-
-exports[`empty-line-collapse.yml 2`] = `
-====================================options=====================================
-parsers: ["yaml"]
-printWidth: 80
-tabWidth: 4
-                                                                                | printWidth
-=====================================input======================================
-{ aaa, 
-
-bbb }
-
-=====================================output=====================================
-{ aaa, bbb }
-
-================================================================================
-`;
-
-exports[`empty-line-collapse.yml 3`] = `
+exports[`empty-line-collapse.yml - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["yaml"]
@@ -787,8 +754,42 @@ bbb }
 ================================================================================
 `;
 
-exports[`long-key.yml 1`] = `
+exports[`empty-line-collapse.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+tabWidth: 4
+                                                                                | printWidth
+=====================================input======================================
+{ aaa, 
+
+bbb }
+
+=====================================output=====================================
+{ aaa, bbb }
+
+================================================================================
+`;
+
+exports[`empty-line-collapse.yml format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+{ aaa, 
+
+bbb }
+
+=====================================output=====================================
+{ aaa, bbb }
+
+================================================================================
+`;
+
+exports[`long-key.yml - {"bracketSpacing":false} format 1`] = `
+====================================options=====================================
+bracketSpacing: false
 parsers: ["yaml"]
 printWidth: 80
                                                                                 | printWidth
@@ -805,7 +806,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`long-key.yml 2`] = `
+exports[`long-key.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -824,9 +825,8 @@ tabWidth: 4
 ================================================================================
 `;
 
-exports[`long-key.yml 3`] = `
+exports[`long-key.yml format 1`] = `
 ====================================options=====================================
-bracketSpacing: false
 parsers: ["yaml"]
 printWidth: 80
                                                                                 | printWidth
@@ -843,8 +843,9 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`long-key-long-value.yml 1`] = `
+exports[`long-key-long-value.yml - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
+bracketSpacing: false
 parsers: ["yaml"]
 printWidth: 80
                                                                                 | printWidth
@@ -861,7 +862,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`long-key-long-value.yml 2`] = `
+exports[`long-key-long-value.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -880,9 +881,8 @@ tabWidth: 4
 ================================================================================
 `;
 
-exports[`long-key-long-value.yml 3`] = `
+exports[`long-key-long-value.yml format 1`] = `
 ====================================options=====================================
-bracketSpacing: false
 parsers: ["yaml"]
 printWidth: 80
                                                                                 | printWidth
@@ -899,8 +899,9 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`long-plain.yml 1`] = `
+exports[`long-plain.yml - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
+bracketSpacing: false
 parsers: ["yaml"]
 printWidth: 80
                                                                                 | printWidth
@@ -917,7 +918,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`long-plain.yml 2`] = `
+exports[`long-plain.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -936,9 +937,8 @@ tabWidth: 4
 ================================================================================
 `;
 
-exports[`long-plain.yml 3`] = `
+exports[`long-plain.yml format 1`] = `
 ====================================options=====================================
-bracketSpacing: false
 parsers: ["yaml"]
 printWidth: 80
                                                                                 | printWidth
@@ -955,8 +955,9 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`long-value.yml 1`] = `
+exports[`long-value.yml - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
+bracketSpacing: false
 parsers: ["yaml"]
 printWidth: 80
                                                                                 | printWidth
@@ -973,7 +974,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`long-value.yml 2`] = `
+exports[`long-value.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -992,9 +993,8 @@ tabWidth: 4
 ================================================================================
 `;
 
-exports[`long-value.yml 3`] = `
+exports[`long-value.yml format 1`] = `
 ====================================options=====================================
-bracketSpacing: false
 parsers: ["yaml"]
 printWidth: 80
                                                                                 | printWidth
@@ -1011,40 +1011,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`middle-comment.yml 1`] = `
-====================================options=====================================
-parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-!!map #comment
-{}
-
-=====================================output=====================================
-!!map #comment
-{}
-
-================================================================================
-`;
-
-exports[`middle-comment.yml 2`] = `
-====================================options=====================================
-parsers: ["yaml"]
-printWidth: 80
-tabWidth: 4
-                                                                                | printWidth
-=====================================input======================================
-!!map #comment
-{}
-
-=====================================output=====================================
-!!map #comment
-{}
-
-================================================================================
-`;
-
-exports[`middle-comment.yml 3`] = `
+exports[`middle-comment.yml - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["yaml"]
@@ -1061,46 +1028,40 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`middle-comments.yml 1`] = `
-====================================options=====================================
-parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-!!map # comment 1
-# comment 2
-{}
-
-=====================================output=====================================
-!!map
-# comment 1
-# comment 2
-{}
-
-================================================================================
-`;
-
-exports[`middle-comments.yml 2`] = `
+exports[`middle-comment.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
 tabWidth: 4
                                                                                 | printWidth
 =====================================input======================================
-!!map # comment 1
-# comment 2
+!!map #comment
 {}
 
 =====================================output=====================================
-!!map
-# comment 1
-# comment 2
+!!map #comment
 {}
 
 ================================================================================
 `;
 
-exports[`middle-comments.yml 3`] = `
+exports[`middle-comment.yml format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+!!map #comment
+{}
+
+=====================================output=====================================
+!!map #comment
+{}
+
+================================================================================
+`;
+
+exports[`middle-comments.yml - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["yaml"]
@@ -1120,8 +1081,48 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`next-empty-line.yml 1`] = `
+exports[`middle-comments.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+tabWidth: 4
+                                                                                | printWidth
+=====================================input======================================
+!!map # comment 1
+# comment 2
+{}
+
+=====================================output=====================================
+!!map
+# comment 1
+# comment 2
+{}
+
+================================================================================
+`;
+
+exports[`middle-comments.yml format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+!!map # comment 1
+# comment 2
+{}
+
+=====================================output=====================================
+!!map
+# comment 1
+# comment 2
+{}
+
+================================================================================
+`;
+
+exports[`next-empty-line.yml - {"bracketSpacing":false} format 1`] = `
+====================================options=====================================
+bracketSpacing: false
 parsers: ["yaml"]
 printWidth: 80
                                                                                 | printWidth
@@ -1143,7 +1144,7 @@ c: 123
 ================================================================================
 `;
 
-exports[`next-empty-line.yml 2`] = `
+exports[`next-empty-line.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -1167,9 +1168,8 @@ c: 123
 ================================================================================
 `;
 
-exports[`next-empty-line.yml 3`] = `
+exports[`next-empty-line.yml format 1`] = `
 ====================================options=====================================
-bracketSpacing: false
 parsers: ["yaml"]
 printWidth: 80
                                                                                 | printWidth
@@ -1191,36 +1191,7 @@ c: 123
 ================================================================================
 `;
 
-exports[`props.yml 1`] = `
-====================================options=====================================
-parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-!!map &anchor {a: 1}
-
-=====================================output=====================================
-!!map &anchor { a: 1 }
-
-================================================================================
-`;
-
-exports[`props.yml 2`] = `
-====================================options=====================================
-parsers: ["yaml"]
-printWidth: 80
-tabWidth: 4
-                                                                                | printWidth
-=====================================input======================================
-!!map &anchor {a: 1}
-
-=====================================output=====================================
-!!map &anchor { a: 1 }
-
-================================================================================
-`;
-
-exports[`props.yml 3`] = `
+exports[`props.yml - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["yaml"]
@@ -1235,36 +1206,36 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`props-in-map.yml 1`] = `
-====================================options=====================================
-parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-a: !!map &anchor {a: 1}
-
-=====================================output=====================================
-a: !!map &anchor { a: 1 }
-
-================================================================================
-`;
-
-exports[`props-in-map.yml 2`] = `
+exports[`props.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
 tabWidth: 4
                                                                                 | printWidth
 =====================================input======================================
-a: !!map &anchor {a: 1}
+!!map &anchor {a: 1}
 
 =====================================output=====================================
-a: !!map &anchor { a: 1 }
+!!map &anchor { a: 1 }
 
 ================================================================================
 `;
 
-exports[`props-in-map.yml 3`] = `
+exports[`props.yml format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+!!map &anchor {a: 1}
+
+=====================================output=====================================
+!!map &anchor { a: 1 }
+
+================================================================================
+`;
+
+exports[`props-in-map.yml - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["yaml"]
@@ -1279,36 +1250,36 @@ a: !!map &anchor {a: 1}
 ================================================================================
 `;
 
-exports[`short-key.yml 1`] = `
-====================================options=====================================
-parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-{? 1,? 2,? 3}
-
-=====================================output=====================================
-{ 1, 2, 3 }
-
-================================================================================
-`;
-
-exports[`short-key.yml 2`] = `
+exports[`props-in-map.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
 tabWidth: 4
                                                                                 | printWidth
 =====================================input======================================
-{? 1,? 2,? 3}
+a: !!map &anchor {a: 1}
 
 =====================================output=====================================
-{ 1, 2, 3 }
+a: !!map &anchor { a: 1 }
 
 ================================================================================
 `;
 
-exports[`short-key.yml 3`] = `
+exports[`props-in-map.yml format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+a: !!map &anchor {a: 1}
+
+=====================================output=====================================
+a: !!map &anchor { a: 1 }
+
+================================================================================
+`;
+
+exports[`short-key.yml - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["yaml"]
@@ -1323,36 +1294,36 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`short-key-short-value.yml 1`] = `
-====================================options=====================================
-parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-{1: a,2: b,3: c}
-
-=====================================output=====================================
-{ 1: a, 2: b, 3: c }
-
-================================================================================
-`;
-
-exports[`short-key-short-value.yml 2`] = `
+exports[`short-key.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
 tabWidth: 4
                                                                                 | printWidth
 =====================================input======================================
-{1: a,2: b,3: c}
+{? 1,? 2,? 3}
 
 =====================================output=====================================
-{ 1: a, 2: b, 3: c }
+{ 1, 2, 3 }
 
 ================================================================================
 `;
 
-exports[`short-key-short-value.yml 3`] = `
+exports[`short-key.yml format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+{? 1,? 2,? 3}
+
+=====================================output=====================================
+{ 1, 2, 3 }
+
+================================================================================
+`;
+
+exports[`short-key-short-value.yml - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["yaml"]
@@ -1367,36 +1338,36 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`short-plain.yml 1`] = `
-====================================options=====================================
-parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-{1,2,3}
-
-=====================================output=====================================
-{ 1, 2, 3 }
-
-================================================================================
-`;
-
-exports[`short-plain.yml 2`] = `
+exports[`short-key-short-value.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
 tabWidth: 4
                                                                                 | printWidth
 =====================================input======================================
-{1,2,3}
+{1: a,2: b,3: c}
 
 =====================================output=====================================
-{ 1, 2, 3 }
+{ 1: a, 2: b, 3: c }
 
 ================================================================================
 `;
 
-exports[`short-plain.yml 3`] = `
+exports[`short-key-short-value.yml format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+{1: a,2: b,3: c}
+
+=====================================output=====================================
+{ 1: a, 2: b, 3: c }
+
+================================================================================
+`;
+
+exports[`short-plain.yml - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["yaml"]
@@ -1411,36 +1382,36 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`short-value.yml 1`] = `
-====================================options=====================================
-parsers: ["yaml"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-{1: 1,2: 2,3: 3}
-
-=====================================output=====================================
-{ 1: 1, 2: 2, 3: 3 }
-
-================================================================================
-`;
-
-exports[`short-value.yml 2`] = `
+exports[`short-plain.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
 tabWidth: 4
                                                                                 | printWidth
 =====================================input======================================
-{1: 1,2: 2,3: 3}
+{1,2,3}
 
 =====================================output=====================================
-{ 1: 1, 2: 2, 3: 3 }
+{ 1, 2, 3 }
 
 ================================================================================
 `;
 
-exports[`short-value.yml 3`] = `
+exports[`short-plain.yml format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+{1,2,3}
+
+=====================================output=====================================
+{ 1, 2, 3 }
+
+================================================================================
+`;
+
+exports[`short-value.yml - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["yaml"]
@@ -1455,8 +1426,38 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`very-long-value.yml 1`] = `
+exports[`short-value.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+tabWidth: 4
+                                                                                | printWidth
+=====================================input======================================
+{1: 1,2: 2,3: 3}
+
+=====================================output=====================================
+{ 1: 1, 2: 2, 3: 3 }
+
+================================================================================
+`;
+
+exports[`short-value.yml format 1`] = `
+====================================options=====================================
+parsers: ["yaml"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+{1: 1,2: 2,3: 3}
+
+=====================================output=====================================
+{ 1: 1, 2: 2, 3: 3 }
+
+================================================================================
+`;
+
+exports[`very-long-value.yml - {"bracketSpacing":false} format 1`] = `
+====================================options=====================================
+bracketSpacing: false
 parsers: ["yaml"]
 printWidth: 80
                                                                                 | printWidth
@@ -1473,7 +1474,7 @@ x: 12345678901234567890123456789012345678901234567890123456789012345678901234567
 ================================================================================
 `;
 
-exports[`very-long-value.yml 2`] = `
+exports[`very-long-value.yml - {"tabWidth":4} format 1`] = `
 ====================================options=====================================
 parsers: ["yaml"]
 printWidth: 80
@@ -1492,9 +1493,8 @@ x: 12345678901234567890123456789012345678901234567890123456789012345678901234567
 ================================================================================
 `;
 
-exports[`very-long-value.yml 3`] = `
+exports[`very-long-value.yml format 1`] = `
 ====================================options=====================================
-bracketSpacing: false
 parsers: ["yaml"]
 printWidth: 80
                                                                                 | printWidth

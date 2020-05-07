@@ -1,7 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`single.js 1`] = `
+exports[`single.js - {"arrowParens":"avoid"} format 1`] = `
 ====================================options=====================================
+arrowParens: "avoid"
 parsers: ["flow", "babel"]
 printWidth: 80
                                                                                 | printWidth
@@ -24,7 +25,7 @@ const selectorByPath: Path => SomethingSelector<
 ================================================================================
 `;
 
-exports[`single.js 2`] = `
+exports[`single.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -40,7 +41,7 @@ const selectorByPath:
 > = memoizeWithArgs(/* ... */)
 
 =====================================output=====================================
-const selectorByPath: Path => SomethingSelector<
+const selectorByPath: (Path) => SomethingSelector<
   SomethingUEditorContextType,
   SomethingUEditorContextType,
   SomethingBulkValue<string>,
@@ -49,9 +50,8 @@ const selectorByPath: Path => SomethingSelector<
 ================================================================================
 `;
 
-exports[`single.js 3`] = `
+exports[`single.js format 1`] = `
 ====================================options=====================================
-arrowParens: "always"
 parsers: ["flow", "babel"]
 printWidth: 80
                                                                                 | printWidth
@@ -74,8 +74,9 @@ const selectorByPath: (Path) => SomethingSelector<
 ================================================================================
 `;
 
-exports[`test.js 1`] = `
+exports[`test.js - {"arrowParens":"avoid"} format 1`] = `
 ====================================options=====================================
+arrowParens: "avoid"
 parsers: ["flow", "babel"]
 printWidth: 80
                                                                                 | printWidth
@@ -143,7 +144,7 @@ type T8 = ?(?() => A) | B;
 
 =====================================output=====================================
 type Banana = {
-  eat: string => boolean
+  eat: string => boolean,
 };
 
 type Hex = { n: 0x01 };
@@ -210,7 +211,7 @@ type T8 = ??(() => A) | B;
 ================================================================================
 `;
 
-exports[`test.js 2`] = `
+exports[`test.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -280,12 +281,12 @@ type T8 = ?(?() => A) | B;
 
 =====================================output=====================================
 type Banana = {
-  eat: string => boolean,
+  eat: (string) => boolean,
 };
 
 type Hex = { n: 0x01 };
 
-type T1 = { method: a => void };
+type T1 = { method: (a) => void };
 
 type T2 = { method(a): void };
 
@@ -295,36 +296,36 @@ declare class X {
 
 declare function f(a): void;
 
-var f: a => void;
+var f: (a) => void;
 
 interface F1 {
   m(string): number;
 }
 
 interface F2 {
-  m: string => number;
+  m: (string) => number;
 }
 
-function f1(o: { f: string => void }) {}
+function f1(o: { f: (string) => void }) {}
 
 function f2(o: { f(string): void }) {}
 
 type f3 = (...arg) => void;
 
-type f4 = /* comment */ arg => void;
+type f4 = (/* comment */ arg) => void;
 
-type f5 = arg /* comment */ => void;
+type f5 = (arg /* comment */) => void;
 
 type f6 = (?arg) => void;
 
 class Y {
   constructor(
-    ideConnectionFactory: child_process$ChildProcess => FlowIDEConnection = defaultIDEConnectionFactory,
+    ideConnectionFactory: (child_process$ChildProcess) => FlowIDEConnection = defaultIDEConnectionFactory,
   ) {}
 }
 
 interface F {
-  ideConnectionFactoryLongLongLong: child_process$ChildProcess => FlowIDEConnection;
+  ideConnectionFactoryLongLongLong: (child_process$ChildProcess) => FlowIDEConnection;
 }
 
 type ExtractType = <A>(B<C>) => D;
@@ -347,9 +348,8 @@ type T8 = ??(() => A) | B;
 ================================================================================
 `;
 
-exports[`test.js 3`] = `
+exports[`test.js format 1`] = `
 ====================================options=====================================
-arrowParens: "always"
 parsers: ["flow", "babel"]
 printWidth: 80
                                                                                 | printWidth
@@ -417,7 +417,7 @@ type T8 = ?(?() => A) | B;
 
 =====================================output=====================================
 type Banana = {
-  eat: (string) => boolean
+  eat: (string) => boolean,
 };
 
 type Hex = { n: 0x01 };

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.js 1`] = `
+exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -52,14 +52,14 @@ function parseGroup(
   counter: number,
   begin: number,
   end: number,
-  text: string
+  text: string,
 } {
   var counter = parseCounter(lines[0]);
   var timeframe = parseTimeframe(lines[1]);
   return {
     counter,
     ...timeframe,
-    text: lines[2]
+    text: lines[2],
   };
 }
 
@@ -67,14 +67,14 @@ function parseTimeframe(line: string): { begin: number, end: number } {
   var timestamps = line.split("-->");
   return {
     begin: parseTimestamp(timestamps[0].trim()),
-    end: parseTimestamp(timestamps[1].trim())
+    end: parseTimestamp(timestamps[1].trim()),
   };
 }
 
 ================================================================================
 `;
 
-exports[`test2.js 1`] = `
+exports[`test2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -104,7 +104,7 @@ foo({ foo: 42 });
 ================================================================================
 `;
 
-exports[`test3.js 1`] = `
+exports[`test3.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -134,7 +134,7 @@ var q = { z: "" };
 var o = {
   x: 5,
   ...p,
-  ...q
+  ...q,
 };
 var y: number = o.y;
 var z: number = o.z;
@@ -143,14 +143,14 @@ var z: number = o.z;
 var r = { y: 123 };
 var s = {
   ...p,
-  ...r
+  ...r,
 };
 var t: boolean = s.y; // error, string or number
 
 ================================================================================
 `;
 
-exports[`test4.js 1`] = `
+exports[`test4.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -170,7 +170,7 @@ test(0, ...[1, 2, 3]);
 ================================================================================
 `;
 
-exports[`test5.js 1`] = `
+exports[`test5.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -220,11 +220,11 @@ function test(
   x: { kind: ?string },
   kinds: { [key: string]: string }
 ): Array<{ kind: ?string }> {
-  return map(kinds, value => {
+  return map(kinds, (value) => {
     (value: string); // OK
     return {
       ...x,
-      kind: value
+      kind: value,
     };
   });
 }
@@ -232,7 +232,7 @@ function test(
 ================================================================================
 `;
 
-exports[`test6.js 1`] = `
+exports[`test6.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -261,20 +261,20 @@ for (var i = 0; i < 10; i++) {
 
 =====================================output=====================================
 var o = {
-  foo: "bar"
+  foo: "bar",
 };
 o = { ...o };
 (o: { foo: string });
 
 var p = {
-  foo: "bar"
+  foo: "bar",
 };
 (p: { foo: string, abc: string }); // error, p doesn't have \`abc\` yet
 p = { ...p, abc: "def" };
 (p: { foo: string, abc: string });
 
 var q = {
-  foo: "bar"
+  foo: "bar",
 };
 for (var i = 0; i < 10; i++) {
   q = { ...q };
@@ -284,7 +284,7 @@ for (var i = 0; i < 10; i++) {
 ================================================================================
 `;
 
-exports[`test7.js 1`] = `
+exports[`test7.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -303,10 +303,10 @@ let tests = [
 // @flow
 
 let tests = [
-  function(x: Object) {
+  function (x: Object) {
     ({ ...x }: Object);
     ({ ...x }: void); // error, Object
-  }
+  },
 ];
 
 ================================================================================

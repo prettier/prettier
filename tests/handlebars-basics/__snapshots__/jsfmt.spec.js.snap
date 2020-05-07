@@ -1,140 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`basic-handlebars.hbs 1`] = `
-====================================options=====================================
-parsers: ["glimmer"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-<script id="entry-template" type="text/x-handlebars-template">
-  <div class="entry">
-    <h1>{{title}}</h1>
-    <div class="body">
-      {{body}}
-    </div>
-  </div>
-</script>
-
-<div class="{{hello}} {{world}}"></div>
-
-=====================================output=====================================
-<script id="entry-template" type="text/x-handlebars-template">
-  <div class="entry">
-    <h1>
-      {{title}}
-    </h1>
-    <div class="body">
-      {{body}}
-    </div>
-  </div>
-</script>
-
-<div class="{{hello}} {{world}}"></div>
-================================================================================
-`;
-
-exports[`basic-handlebars.hbs 2`] = `
-====================================options=====================================
-parsers: ["glimmer"]
-printWidth: 80
-singleQuote: true
-                                                                                | printWidth
-=====================================input======================================
-<script id="entry-template" type="text/x-handlebars-template">
-  <div class="entry">
-    <h1>{{title}}</h1>
-    <div class="body">
-      {{body}}
-    </div>
-  </div>
-</script>
-
-<div class="{{hello}} {{world}}"></div>
-
-=====================================output=====================================
-<script id='entry-template' type='text/x-handlebars-template'>
-  <div class='entry'>
-    <h1>
-      {{title}}
-    </h1>
-    <div class='body'>
-      {{body}}
-    </div>
-  </div>
-</script>
-
-<div class="{{hello}} {{world}}"></div>
-================================================================================
-`;
-
-exports[`component.hbs 1`] = `
-====================================options=====================================
-parsers: ["glimmer"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-<UserGreeting @name="Ricardo" @greeting="Olá" />
-{{@greeting}}, {{@name}}!
-
-<div>
-  <UserGreeting
-    @aVeryLongArgumentNameThatIsStillGoing={{@alsoAVeryLongArgument}}
-  />
-</div>
-
-<Form as |f|>
-  <f.input @title="hello" />
-  <f.input>hello</f.input>
-</Form>
-
-<this.label @title="hello" />
-
-<button onclick={{action next}}>Next</button>
-
-<button disabled class="disabled"></button>
-
-<button disabled=disabled class="disabled"></button>
-
-<img alt="" />
-
-<div ...attributes>Hello</div>
-
-=====================================output=====================================
-<UserGreeting @name="Ricardo" @greeting="Olá" />
-{{@greeting}}, {{@name}}!
-
-<div>
-  <UserGreeting
-    @aVeryLongArgumentNameThatIsStillGoing={{@alsoAVeryLongArgument}}
-  />
-</div>
-
-<Form as |f|>
-  <f.input @title="hello" />
-  <f.input>
-    hello
-  </f.input>
-</Form>
-
-<this.label @title="hello" />
-
-<button onclick={{action next}}>
-  Next
-</button>
-
-<button disabled class="disabled"></button>
-
-<button disabled="disabled" class="disabled"></button>
-
-<img alt="" />
-
-<div ...attributes>
-  Hello
-</div>
-================================================================================
-`;
-
-exports[`component.hbs 2`] = `
+exports[`component.hbs - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -167,6 +33,9 @@ singleQuote: true
 
 <div ...attributes>Hello</div>
 
+<ul class="list-unstyled
+  one-tab">
+</ul>
 =====================================output=====================================
 <UserGreeting @name='Ricardo' @greeting='Olá' />
 {{@greeting}}, {{@name}}!
@@ -199,35 +68,88 @@ singleQuote: true
 <div ...attributes>
   Hello
 </div>
+
+<ul class='list-unstyled
+  one-tab'>
+</ul>
 ================================================================================
 `;
 
-exports[`literals.hbs 1`] = `
+exports[`component.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-{{mustache true}}
-{{mustache 5}}
-{{mustache undefined}}
-{{mustache null}}
-<!-- hello world -->
-{{! Mustache Comment}}
-{{!-- Mustache Comment }} --}}
+<UserGreeting @name="Ricardo" @greeting="Olá" />
+{{@greeting}}, {{@name}}!
 
+<div>
+  <UserGreeting
+    @aVeryLongArgumentNameThatIsStillGoing={{@alsoAVeryLongArgument}}
+  />
+</div>
+
+<Form as |f|>
+  <f.input @title="hello" />
+  <f.input>hello</f.input>
+</Form>
+
+<this.label @title="hello" />
+
+<button onclick={{action next}}>Next</button>
+
+<button disabled class="disabled"></button>
+
+<button disabled=disabled class="disabled"></button>
+
+<img alt="" />
+
+<div ...attributes>Hello</div>
+
+<ul class="list-unstyled
+  one-tab">
+</ul>
 =====================================output=====================================
-{{mustache true}}
-{{mustache 5}}
-{{mustache undefined}}
-{{mustache null}}
-<!-- hello world -->
-{{! Mustache Comment}}
-{{!-- Mustache Comment }} --}}
+<UserGreeting @name="Ricardo" @greeting="Olá" />
+{{@greeting}}, {{@name}}!
+
+<div>
+  <UserGreeting
+    @aVeryLongArgumentNameThatIsStillGoing={{@alsoAVeryLongArgument}}
+  />
+</div>
+
+<Form as |f|>
+  <f.input @title="hello" />
+  <f.input>
+    hello
+  </f.input>
+</Form>
+
+<this.label @title="hello" />
+
+<button onclick={{action next}}>
+  Next
+</button>
+
+<button disabled class="disabled"></button>
+
+<button disabled="disabled" class="disabled"></button>
+
+<img alt="" />
+
+<div ...attributes>
+  Hello
+</div>
+
+<ul class="list-unstyled
+  one-tab">
+</ul>
 ================================================================================
 `;
 
-exports[`literals.hbs 2`] = `
+exports[`literals.hbs - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -253,38 +175,32 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`nested-path.hbs 1`] = `
+exports[`literals.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-<div class="entry">
-  <h1>{{title}}</h1>
-  <h2>By {{author.name}}</h2>
-
-  <div class="body">
-    {{body}}
-  </div>
-</div>
+{{mustache true}}
+{{mustache 5}}
+{{mustache undefined}}
+{{mustache null}}
+<!-- hello world -->
+{{! Mustache Comment}}
+{{!-- Mustache Comment }} --}}
 
 =====================================output=====================================
-<div class="entry">
-  <h1>
-    {{title}}
-  </h1>
-  <h2>
-    By {{author.name}}
-  </h2>
-
-  <div class="body">
-    {{body}}
-  </div>
-</div>
+{{mustache true}}
+{{mustache 5}}
+{{mustache undefined}}
+{{mustache null}}
+<!-- hello world -->
+{{! Mustache Comment}}
+{{!-- Mustache Comment }} --}}
 ================================================================================
 `;
 
-exports[`nested-path.hbs 2`] = `
+exports[`nested-path.hbs - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -316,22 +232,38 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`raw.hbs 1`] = `
+exports[`nested-path.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-<p>{{{raw}}}</p>
+<div class="entry">
+  <h1>{{title}}</h1>
+  <h2>By {{author.name}}</h2>
+
+  <div class="body">
+    {{body}}
+  </div>
+</div>
 
 =====================================output=====================================
-<p>
-  {{{raw}}}
-</p>
+<div class="entry">
+  <h1>
+    {{title}}
+  </h1>
+  <h2>
+    By {{author.name}}
+  </h2>
+
+  <div class="body">
+    {{body}}
+  </div>
+</div>
 ================================================================================
 `;
 
-exports[`raw.hbs 2`] = `
+exports[`raw.hbs - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -347,10 +279,26 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`string-literals.hbs 1`] = `
+exports[`raw.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<p>{{{raw}}}</p>
+
+=====================================output=====================================
+<p>
+  {{{raw}}}
+</p>
+================================================================================
+`;
+
+exports[`string-literals.hbs - {"singleQuote":true} format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+singleQuote: true
                                                                                 | printWidth
 =====================================input======================================
 {{"abc"}}
@@ -361,8 +309,8 @@ printWidth: 80
 {{" \\" \\' ' \\\\ "}}
 
 =====================================output=====================================
-{{"abc"}}
-{{"abc"}}
+{{'abc'}}
+{{'abc'}}
 {{' " " \\' more double quote than single quote '}}
 {{" ' ' \\" more single quote than double quote "}}
 {{' " \\' \\" \\\\ '}}
@@ -370,11 +318,10 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`string-literals.hbs 2`] = `
+exports[`string-literals.hbs format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
-singleQuote: true
                                                                                 | printWidth
 =====================================input======================================
 {{"abc"}}
@@ -385,8 +332,8 @@ singleQuote: true
 {{" \\" \\' ' \\\\ "}}
 
 =====================================output=====================================
-{{'abc'}}
-{{'abc'}}
+{{"abc"}}
+{{"abc"}}
 {{' " " \\' more double quote than single quote '}}
 {{" ' ' \\" more single quote than double quote "}}
 {{' " \\' \\" \\\\ '}}

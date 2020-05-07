@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`id.js 1`] = `
+exports[`id.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -18,7 +18,7 @@ module.exports = id;
 ================================================================================
 `;
 
-exports[`subtype.js 1`] = `
+exports[`subtype.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -44,7 +44,7 @@ function subtypeCheck(x: Interface): ObjectType {
 ================================================================================
 `;
 
-exports[`test.js 1`] = `
+exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -68,7 +68,7 @@ module.exports = id(
 const id = require("./id");
 
 export type ObjectType = {
-  +m: () => void
+  +m: () => void,
 };
 
 function methodCaller(x: ObjectType) {
@@ -80,7 +80,7 @@ module.exports = id(methodCaller);
 ================================================================================
 `;
 
-exports[`test2.js 1`] = `
+exports[`test2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -113,11 +113,11 @@ function f() {
 
 var a = {
   p: 0,
-  f
+  f,
 };
 
 var b = {
-  f
+  f,
 };
 
 a.f(); // okey-dokie
@@ -126,7 +126,7 @@ b.f(); // error, property \`p\` not found
 ================================================================================
 `;
 
-exports[`test3.js 1`] = `
+exports[`test3.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`import.js 1`] = `
+exports[`import.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -22,7 +22,7 @@ module.exports = num;
 ================================================================================
 `;
 
-exports[`test.js 1`] = `
+exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -62,7 +62,7 @@ function unannotated(x) {
 }
 
 // test deduping of inferred types
-const nullToUndefined = val => (val === null ? undefined : val);
+const nullToUndefined = (val) => (val === null ? undefined : val);
 
 function f0(x: ?Object) {
   return nullToUndefined(x);
@@ -79,7 +79,7 @@ function f3(x: ?string) {
 
 declare var idx: $Facebookism$Idx;
 declare var obj: { a?: { b: ?{ c: null | { d: number } } } };
-const idxResult = idx(obj, obj => obj.a.b.c.d);
+const idxResult = idx(obj, (obj) => obj.a.b.c.d);
 
 ================================================================================
 `;

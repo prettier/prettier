@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`typecheck.js 1`] = `
+exports[`typecheck.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -58,7 +58,7 @@ function test2() {
 ================================================================================
 `;
 
-exports[`unreachable.js 1`] = `
+exports[`unreachable.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -105,7 +105,7 @@ function foo(x, y) {
   }
 
   // assignment is not hoisted, should generate warning
-  var baz = function(why) {
+  var baz = function (why) {
     return y + why;
   };
 

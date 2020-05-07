@@ -1,2 +1,2 @@
-run_spec(__dirname, ["css"]);
-run_spec(__dirname, ["scss"], { trailingComma: "es5" });
+run_spec(__dirname, ["css"], { trailingComma: "none" });
+run_spec(__dirname, ["scss"]);

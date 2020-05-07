@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`unary.js 1`] = `
+exports[`unary.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -50,7 +50,7 @@ function x4(y: string): boolean {
 ================================================================================
 `;
 
-exports[`update.js 1`] = `
+exports[`update.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -99,40 +99,40 @@ let tests = [
 // @flow
 
 let tests = [
-  function(y: number) {
+  function (y: number) {
     y++;
     y--;
     ++y;
     --y;
   },
 
-  function(y: string) {
+  function (y: string) {
     y++; // error, we don't allow coercion here
     (y: number); // ok, y is a number now
     y++; // error, but you still can't write a number to a string
   },
 
-  function(y: string) {
+  function (y: string) {
     y--; // error, we don't allow coercion here
   },
 
-  function(y: string) {
+  function (y: string) {
     ++y; // error, we don't allow coercion here
   },
 
-  function(y: string) {
+  function (y: string) {
     --y; // error, we don't allow coercion here
   },
 
-  function() {
+  function () {
     const y = 123;
     y++; // error, can't update const
     y--; // error, can't update const
   },
 
-  function(y: any) {
+  function (y: any) {
     y++; // ok
-  }
+  },
 ];
 
 ================================================================================

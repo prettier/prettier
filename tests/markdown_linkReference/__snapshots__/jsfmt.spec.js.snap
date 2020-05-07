@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`cjk.md 1`] = `
+exports[`cjk.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -15,7 +15,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`cjk.md 2`] = `
+exports[`cjk.md - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -30,7 +30,7 @@ proseWrap: "never"
 ================================================================================
 `;
 
-exports[`collapsed.md 1`] = `
+exports[`collapsed.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -45,7 +45,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`collapsed.md 2`] = `
+exports[`collapsed.md - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -60,7 +60,7 @@ proseWrap: "never"
 ================================================================================
 `;
 
-exports[`definition.md 1`] = `
+exports[`definition.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -94,7 +94,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`definition.md 2`] = `
+exports[`definition.md - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -122,7 +122,7 @@ proseWrap: "never"
 ================================================================================
 `;
 
-exports[`full.md 1`] = `
+exports[`full.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -137,7 +137,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`full.md 2`] = `
+exports[`full.md - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -152,7 +152,7 @@ proseWrap: "never"
 ================================================================================
 `;
 
-exports[`shortcut.md 1`] = `
+exports[`shortcut.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -167,7 +167,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`shortcut.md 2`] = `
+exports[`shortcut.md - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -182,7 +182,7 @@ proseWrap: "never"
 ================================================================================
 `;
 
-exports[`title.md 1`] = `
+exports[`title.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -245,7 +245,7 @@ https://example.com (\\\\\\))
 ================================================================================
 `;
 
-exports[`title.md 2`] = `
+exports[`title.md - {"proseWrap":"never"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80

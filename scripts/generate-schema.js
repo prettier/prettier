@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 "use strict";
+const fromPairs = require("lodash/fromPairs");
 
 if (require.main !== module) {
   module.exports = generateSchema;
@@ -21,11 +22,9 @@ function generateSchema(options) {
     definitions: {
       optionsDefinition: {
         type: "object",
-        properties: options.reduce(
-          (props, option) =>
-            Object.assign(props, { [option.name]: optionToSchema(option) }),
-          {}
-        )
+        properties: fromPairs(
+          options.map((option) => [option.name, optionToSchema(option)])
+        ),
       },
       overridesDefinition: {
         type: "object",
@@ -42,55 +41,53 @@ function generateSchema(options) {
                   description: "Include these files in this override.",
                   oneOf: [
                     { type: "string" },
-                    { type: "array", items: { type: "string" } }
-                  ]
+                    { type: "array", items: { type: "string" } },
+                  ],
                 },
                 excludeFiles: {
                   description: "Exclude these files from this override.",
                   oneOf: [
                     { type: "string" },
-                    { type: "array", items: { type: "string" } }
-                  ]
+                    { type: "array", items: { type: "string" } },
+                  ],
                 },
                 options: {
                   type: "object",
                   description: "The options to apply for this override.",
-                  $ref: "#/definitions/optionsDefinition"
-                }
+                  $ref: "#/definitions/optionsDefinition",
+                },
               },
-              additionalProperties: false
-            }
-          }
-        }
-      }
+              additionalProperties: false,
+            },
+          },
+        },
+      },
     },
     oneOf: [
       {
         type: "object",
         allOf: [
           { $ref: "#/definitions/optionsDefinition" },
-          { $ref: "#/definitions/overridesDefinition" }
-        ]
+          { $ref: "#/definitions/overridesDefinition" },
+        ],
       },
       {
-        type: "string"
-      }
-    ]
+        type: "string",
+      },
+    ],
   };
 }
 
 function optionToSchema(option) {
-  return Object.assign(
-    {
-      description: option.description,
-      default: option.default
-    },
-    (option.array ? wrapWithArraySchema : identity)(
+  return {
+    description: option.description,
+    default: option.default,
+    ...(option.array ? wrapWithArraySchema : identity)(
       option.type === "choice"
         ? { oneOf: option.choices.map(choiceToSchema) }
         : { type: optionTypeToSchemaType(option.type) }
-    )
-  );
+    ),
+  };
 }
 
 function identity(x) {

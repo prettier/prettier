@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`with_munging.js 1`] = `
+exports[`with_munging.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -42,7 +42,7 @@ class Bar extends Foo {
 ================================================================================
 `;
 
-exports[`without_munging.js 1`] = `
+exports[`without_munging.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

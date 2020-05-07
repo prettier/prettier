@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.js 1`] = `
+exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -177,11 +177,11 @@ const render7B = () => (
   </div>
 );
 
-const render8 = props => <div>{props.text}</div>;
-const render9 = props => (
+const render8 = (props) => <div>{props.text}</div>;
+const render9 = (props) => (
   <div>{props.looooooooooooooooooooooooooooooong_text}</div>
 );
-const render10 = props => (
+const render10 = (props) => (
   <div>
     {props.even_looooooooooooooooooooooooooooooooooooooooooonger_contents}
   </div>
@@ -204,7 +204,7 @@ React.render(
   document.querySelector("#react-root")
 );
 
-const renderTernary = props => (
+const renderTernary = (props) => (
   <BaseForm
     url="/auth/google"
     method="GET"

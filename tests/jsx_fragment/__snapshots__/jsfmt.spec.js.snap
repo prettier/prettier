@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`fragment.js 1`] = `
+exports[`fragment.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -142,7 +142,7 @@ test ? <></> : x;
   <></>
 </a>;
 const obj = {
-  foo: <></>
+  foo: <></>,
 };
 const fragmentVar = <></>;
 function fun3() {

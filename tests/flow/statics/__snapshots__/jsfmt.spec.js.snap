@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`class_statics.js 1`] = `
+exports[`class_statics.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -22,7 +22,7 @@ class C {
   static x: string;
 }
 
-C.g = function(x: string) {
+C.g = function (x: string) {
   C.f(x);
 };
 C.g(0);
@@ -33,7 +33,7 @@ C.x = 0;
 ================================================================================
 `;
 
-exports[`funstatics.js 1`] = `
+exports[`funstatics.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -47,10 +47,10 @@ var x:string = new C().f();
 
 =====================================output=====================================
 function C() {}
-C.prototype.f = function() {
+C.prototype.f = function () {
   return C.g(0);
 };
-C.g = function(x) {
+C.g = function (x) {
   return x;
 };
 

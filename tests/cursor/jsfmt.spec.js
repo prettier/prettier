@@ -7,7 +7,7 @@ test("translates cursor correctly in basic case", () => {
     prettier.formatWithCursor(" 1", { parser: "babel", cursorOffset: 2 })
   ).toEqual({
     formatted: "1;\n",
-    cursorOffset: 1
+    cursorOffset: 1,
   });
 });
 
@@ -17,7 +17,7 @@ test("positions cursor relative to closest node, not SourceElement", () => {
     prettier.formatWithCursor(code, { parser: "babel", cursorOffset: 15 })
   ).toEqual({
     formatted: "return 15;\n",
-    cursorOffset: 7
+    cursorOffset: 7,
   });
 });
 
@@ -27,7 +27,7 @@ test("keeps cursor inside formatted node", () => {
     prettier.formatWithCursor(code, { parser: "babel", cursorOffset: 14 })
   ).toEqual({
     formatted: "return 15;\n",
-    cursorOffset: 7
+    cursorOffset: 7,
   });
 });
 
@@ -39,10 +39,10 @@ foo('bar', cb => {
   expect(
     prettier.formatWithCursor(code, { parser: "babel", cursorOffset: 24 })
   ).toEqual({
-    formatted: `foo("bar", cb => {
+    formatted: `foo("bar", (cb) => {
   console.log("stuff");
 });
 `,
-    cursorOffset: 23
+    cursorOffset: 25,
   });
 });

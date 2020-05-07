@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`atx.md 1`] = `
+exports[`atx.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -19,7 +19,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`long-heading.md 1`] = `
+exports[`long-heading.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -34,7 +34,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`mixed.md 1`] = `
+exports[`mixed.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -49,7 +49,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`setext.md 1`] = `
+exports[`setext.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -70,7 +70,7 @@ h2
 ================================================================================
 `;
 
-exports[`unbreakable.md 1`] = `
+exports[`unbreakable.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80

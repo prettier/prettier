@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`annot.js 1`] = `
+exports[`annot.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -34,7 +34,7 @@ module.exports = B;
 ================================================================================
 `;
 
-exports[`fun.js 1`] = `
+exports[`fun.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -74,7 +74,7 @@ module.exports = f;
 ================================================================================
 `;
 
-exports[`obj.js 1`] = `
+exports[`obj.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

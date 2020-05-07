@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.js 1`] = `
+exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -29,7 +29,7 @@ class B extends A {
 }
 class C extends A {}
 var a: A = new B();
-a.foo = function(): C {
+a.foo = function (): C {
   return new C();
 };
 

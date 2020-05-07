@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`generic.js 1`] = `
+exports[`generic.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel-flow", "flow"]
 printWidth: 80

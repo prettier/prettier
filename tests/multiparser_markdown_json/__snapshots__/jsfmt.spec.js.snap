@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`jsonc.md 1`] = `
+exports[`jsonc.md - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -25,7 +25,7 @@ trailingComma: "all"
 ================================================================================
 `;
 
-exports[`trailing_comma.md 1`] = `
+exports[`trailing_comma.md - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80

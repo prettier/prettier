@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`member-chain.js 1`] = `
+exports[`member-chain.js format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -17,28 +17,22 @@ foo!.bar().baz().what();
 =====================================output=====================================
 const {
   somePropThatHasAReallyLongName,
-  anotherPropThatHasALongName
+  anotherPropThatHasALongName,
 } = this.props.imReallySureAboutThis!;
 
 const {
   somePropThatHasAReallyLongName2,
-  anotherPropThatHasALongName2
+  anotherPropThatHasALongName2,
 } = this.props.imReallySureAboutThis!.anotherObject;
 
-this.foo
-  .get("bar")!
-  .doThings()
-  .more();
+this.foo.get("bar")!.doThings().more();
 
-foo!
-  .bar()
-  .baz()
-  .what();
+foo!.bar().baz().what();
 
 ================================================================================
 `;
 
-exports[`parens.ts 1`] = `
+exports[`parens.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -68,6 +62,8 @@ new (x()\`\`!.y)();
 new (x()!\`\`.y)();
 new (x!()\`\`.y)();
 
+xyz.a(b!).a(b!).a(b!)
+
 =====================================output=====================================
 (a ? b : c)![tokenKey];
 (a || b)![tokenKey];
@@ -92,6 +88,8 @@ new (x()\`\`.y!)();
 new (x()\`\`!.y)();
 new (x()!\`\`.y)();
 new (x!()\`\`.y)();
+
+xyz.a(b!).a(b!).a(b!);
 
 ================================================================================
 `;

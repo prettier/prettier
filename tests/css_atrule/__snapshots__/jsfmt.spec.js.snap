@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`at-root.css 1`] = `
+exports[`at-root.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -479,7 +479,7 @@ red
 ================================================================================
 `;
 
-exports[`charset.css 1`] = `
+exports[`charset.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -503,7 +503,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`counter-style.css 1`] = `
+exports[`counter-style.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -617,7 +617,7 @@ suffix
 ================================================================================
 `;
 
-exports[`custom-media.css 1`] = `
+exports[`custom-media.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -753,7 +753,7 @@ max-width
 ================================================================================
 `;
 
-exports[`custom-selector.css 1`] = `
+exports[`custom-selector.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -877,7 +877,7 @@ h6
 ================================================================================
 `;
 
-exports[`debug.css 1`] = `
+exports[`debug.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -919,7 +919,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`each.css 1`] = `
+exports[`each.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -1214,7 +1214,7 @@ h3
 ================================================================================
 `;
 
-exports[`extend.css 1`] = `
+exports[`extend.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -1472,7 +1472,7 @@ a.important {
 ================================================================================
 `;
 
-exports[`font-face.css 1`] = `
+exports[`font-face.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -1604,7 +1604,7 @@ format(
 ================================================================================
 `;
 
-exports[`font-feature-values.css 1`] = `
+exports[`font-feature-values.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -1699,7 +1699,7 @@ nice-style
 ================================================================================
 `;
 
-exports[`for.css 1`] = `
+exports[`for.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -1809,7 +1809,7 @@ through
 ================================================================================
 `;
 
-exports[`function.css 1`] = `
+exports[`function.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -1942,7 +1942,7 @@ $args
 ================================================================================
 `;
 
-exports[`if-else.css 1`] = `
+exports[`if-else.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -2229,7 +2229,7 @@ p {
 ================================================================================
 `;
 
-exports[`import.css 1`] = `
+exports[`import.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -2413,7 +2413,7 @@ $family: unquote("Droid+Sans");
 ================================================================================
 `;
 
-exports[`include.css 1`] = `
+exports[`include.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -2584,29 +2584,20 @@ a {
   @include section-type-1(
     $header: (
       margin: 0 0 $margin-base,
-      text-align: left
+      text-align: left,
     ),
     $decoration: (
       type: base,
       margin: 0 auto -1px 0,
       primary-color: $brand-primary,
-      secondary-color: $gray-light
+      secondary-color: $gray-light,
     ),
     $title: (
       margin: 0 0 $margin-small,
       color: false,
       font-size: $font-size-h3,
       font-weight: false,
-      line-height: $line-height-h3
-    )
-  );
-}
-
-a {
-  @include item-spotlight-properties-transition(
-    "-title",
-    (
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15)
+      line-height: $line-height-h3,
     )
   );
 }
@@ -2616,7 +2607,16 @@ a {
     "-title",
     (
       box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15),
-      border-color: $brand-primary
+    )
+  );
+}
+
+a {
+  @include item-spotlight-properties-transition(
+    "-title",
+    (
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15),
+      border-color: $brand-primary,
     )
   );
 }
@@ -2627,7 +2627,7 @@ a {
     (
       box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15),
       border-color:
-        $very-very-very-very-very-very-very-very-very-very-very-very-very-long-value
+        $very-very-very-very-very-very-very-very-very-very-very-very-very-long-value,
     )
   );
 }
@@ -2635,7 +2635,7 @@ a {
 ================================================================================
 `;
 
-exports[`keyframes.css 1`] = `
+exports[`keyframes.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -3015,7 +3015,7 @@ margin-top: 100px;
 ================================================================================
 `;
 
-exports[`media.css 1`] = `
+exports[`media.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -3347,7 +3347,7 @@ black
 ================================================================================
 `;
 
-exports[`mixin.css 1`] = `
+exports[`mixin.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -3527,7 +3527,7 @@ $background
 ================================================================================
 `;
 
-exports[`namespaces.css 1`] = `
+exports[`namespaces.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -3599,7 +3599,7 @@ url("http://example.com/foo/very/very/very/very/very/very/very/very/very/very/ve
 ================================================================================
 `;
 
-exports[`page.css 1`] = `
+exports[`page.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -3719,7 +3719,7 @@ margin
 ================================================================================
 `;
 
-exports[`return.css 1`] = `
+exports[`return.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -3905,7 +3905,7 @@ $gutter-width
 ================================================================================
 `;
 
-exports[`supports.css 1`] = `
+exports[`supports.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -4347,7 +4347,7 @@ run-in
 ================================================================================
 `;
 
-exports[`viewport.css 1`] = `
+exports[`viewport.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -4442,7 +4442,7 @@ max-width
 ================================================================================
 `;
 
-exports[`while.css 1`] = `
+exports[`while.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80

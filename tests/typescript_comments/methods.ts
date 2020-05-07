@@ -43,4 +43,5 @@ export class Point {
    */
   mismatchedIndentation() {}
 
+  inline /* foo*/ (/* bar */) /* baz */ {}
 }

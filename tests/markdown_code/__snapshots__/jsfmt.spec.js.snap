@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`0-indent-js.md 1`] = `
+exports[`0-indent-js.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -56,7 +56,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`additional-space.md 1`] = `
+exports[`additional-space.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -115,7 +115,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`backtick.md 1`] = `
+exports[`backtick.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -142,7 +142,7 @@ console.log("hello world!");
 ================================================================================
 `;
 
-exports[`format.md 1`] = `
+exports[`format.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -167,7 +167,7 @@ console.log(213);
 ================================================================================
 `;
 
-exports[`indent.md 1`] = `
+exports[`indent.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -226,7 +226,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`lang.md 1`] = `
+exports[`lang.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -245,7 +245,7 @@ console.log("hello world");
 ================================================================================
 `;
 
-exports[`leading-trailing-newlines.md 1`] = `
+exports[`leading-trailing-newlines.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -272,7 +272,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`simple.md 1`] = `
+exports[`simple.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80

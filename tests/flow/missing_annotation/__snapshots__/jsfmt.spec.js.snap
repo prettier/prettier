@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`array.js 1`] = `
+exports[`array.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -22,7 +22,7 @@ export var arr = [f];
 ================================================================================
 `;
 
-exports[`async_return.js 1`] = `
+exports[`async_return.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -44,7 +44,7 @@ export async function foo() {
 ================================================================================
 `;
 
-exports[`infer.js 1`] = `
+exports[`infer.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -113,52 +113,52 @@ module.exports = Foo, Bar;
 /* @flow */
 
 var Foo = {
-  a: function(arg) {
+  a: function (arg) {
     // missing arg annotation
     return arg;
   },
 
-  b: function(arg) {
+  b: function (arg) {
     // missing arg annotation
     return {
-      bar: arg
+      bar: arg,
     };
   },
 
-  c: function(arg: string) {
+  c: function (arg: string) {
     // no return annotation required
     return {
-      bar: arg
+      bar: arg,
     };
   },
 
-  d: function(
+  d: function (
     arg: string
   ): {
-    bar: string
+    bar: string,
   } {
     return {
-      bar: arg
+      bar: arg,
     };
   },
 
   // return type annotation may be omitted, but if so, input positions on
   // observed return type (e.g. param types in a function type) must come
   // from annotations
-  e: function(arg: string) {
-    return function(x) {
+  e: function (arg: string) {
+    return function (x) {
       // missing param annotation
       return x;
     };
   },
 
   // ...if the return type is annotated explicitly, this is unnecessary
-  f: function(arg: string): (x: number) => number {
-    return function(x) {
+  f: function (arg: string): (x: number) => number {
+    return function (x) {
       // no error
       return x;
     };
-  }
+  },
 };
 
 var Bar = {
@@ -170,7 +170,7 @@ var Bar = {
 
   c: Foo.c("bar"), // no annotation required
 
-  d: Foo.d("bar") // no annotation required
+  d: Foo.d("bar"), // no annotation required
 };
 
 (module.exports = Foo), Bar;

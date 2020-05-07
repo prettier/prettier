@@ -9,7 +9,7 @@ const prettier = require("prettier");
 
 ## `prettier.format(source [, options])`
 
-`format` is used to format text using Prettier. [Options](options.md) may be provided to override the defaults.
+`format` is used to format text using Prettier. [Options](options.md) may be provided to override the defaults. Set `options.parser` according to the language you are formatting (see the [list of available parsers](options.md#parser)).
 
 ```js
 prettier.format("foo ( );", { semi: false, parser: "babel" });
@@ -44,7 +44,7 @@ If `options.useCache` is `false`, all caching will be bypassed.
 
 ```js
 const text = fs.readFileSync(filePath, "utf8");
-prettier.resolveConfig(filePath).then(options => {
+prettier.resolveConfig(filePath).then((options) => {
   const formatted = prettier.format(text, options);
 });
 ```
@@ -70,8 +70,8 @@ The promise will be rejected if there was an error parsing the configuration fil
 The search starts at `process.cwd()`, or at `filePath` if provided. Please see the [cosmiconfig docs](https://github.com/davidtheclark/cosmiconfig#explorersearch) for details on how the resolving works.
 
 ```js
-prettier.resolveConfigFile().then(filePath => {
-  prettier.resolveConfig(filePath).then(options => {
+prettier.resolveConfigFile().then((filePath) => {
+  prettier.resolveConfig(filePath).then((options) => {
     const formatted = prettier.format(text, options);
   });
 });
@@ -81,7 +81,7 @@ Use `prettier.resolveConfigFile.sync([filePath])` if you'd like to use sync vers
 
 ## `prettier.clearConfigCache()`
 
-As you repeatedly call `resolveConfig`, the file system structure will be cached for performance. This function will clear the cache. Generally this is only needed for editor integrations that know that the file system has changed since the last format took place.
+When Prettier loads configuration files and plugins, the file system structure is cached for performance. This function will clear the cache. Generally this is only needed for editor integrations that know that the file system has changed since the last format took place.
 
 ## `prettier.getFileInfo(filePath [, options])`
 
@@ -104,11 +104,9 @@ When setting `options.resolveConfig` (`boolean`, default `false`), Prettier will
 
 Use `prettier.getFileInfo.sync(filePath [, options])` if you'd like to use sync version.
 
-## `prettier.getSupportInfo([version])`
+## `prettier.getSupportInfo()`
 
-Returns an object representing the parsers, languages and file types Prettier supports.
-
-If `version` is provided (e.g. `"1.5.0"`), information for that version will be returned, otherwise information for the current version will be returned.
+Returns an object representing the options, parsers, languages and file types Prettier supports.
 
 The support information looks like this:
 
@@ -148,7 +146,7 @@ prettier.format("lodash ( )", {
     const ast = babel(text);
     ast.program.body[0].expression.callee.name = "_";
     return ast;
-  }
+  },
 });
 // -> "_();\n"
 ```

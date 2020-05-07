@@ -1,6 +1,34 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`expand.js 1`] = `
+exports[`escape sequence-key.js format 1`] = `
+====================================options=====================================
+parsers: ["babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// #6235
+const a = {
+  '\\u2139': 'why "\\\\u2139" is converted to "i"?',
+};
+
+const a = {
+  "\\x66\\x69\\x73\\x6b\\x65\\x72": "\\x66\\x69\\x73\\x6b\\x65\\x72",
+};
+
+=====================================output=====================================
+// #6235
+const a = {
+  "\\u2139": 'why "\\\\u2139" is converted to "i"?',
+};
+
+const a = {
+  "\\x66\\x69\\x73\\x6b\\x65\\x72": "\\x66\\x69\\x73\\x6b\\x65\\x72",
+};
+
+================================================================================
+`;
+
+exports[`expand.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -24,7 +52,7 @@ const Component2 = ({ props }) => <Text>Test</Text>;
 ================================================================================
 `;
 
-exports[`expression.js 1`] = `
+exports[`expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -67,25 +95,25 @@ a = () => ({}.x);
 ({} = 0), 1;
 
 const a1 = {
-  someKey: (shortName, shortName)
+  someKey: (shortName, shortName),
 };
 
 const a2 = {
   someKey:
-    (longLongLongLongLongLongLongLongLongLongLongLongLongLongName, shortName)
+    (longLongLongLongLongLongLongLongLongLongLongLongLongLongName, shortName),
 };
 
 const a3 = {
   someKey:
     (longLongLongLongLongLongLongLongLongLongLongLongLongLongName,
     longLongLongLongLongLongLongLongLongLongLongLongLongLongName,
-    longLongLongLongLongLongLongLongLongLongLongLongLongLongName)
+    longLongLongLongLongLongLongLongLongLongLongLongLongLongName),
 };
 
 ================================================================================
 `;
 
-exports[`method.js 1`] = `
+exports[`method.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -99,7 +127,7 @@ a = { f() {} };
 ================================================================================
 `;
 
-exports[`range.js 1`] = `
+exports[`range.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -129,7 +157,7 @@ group(
     ),
     options.trailingComma ? "," : "",
     line,
-    ")"
+    ")",
   ]),
   { shouldBreak: true }
 );
@@ -137,7 +165,7 @@ group(
 ================================================================================
 `;
 
-exports[`right_break.js 1`] = `
+exports[`right_break.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -172,7 +200,7 @@ const k = {
   blablah:
     "aldkfkladfskladklsfkladklfkaldfadfkdaf" +
     "adlfasdklfkldsklfakldsfkladsfkadsfladsfa" +
-    "dflkadfkladsfklkadlfkladlfkadklfjadlfdfdaf"
+    "dflkadfkladsfklkadlfkladlfkadklfjadlfdfdaf",
 };
 
 somethingThatsAReallyLongPropName =
@@ -180,7 +208,7 @@ somethingThatsAReallyLongPropName =
 
 const o = {
   somethingThatsAReallyLongPropName:
-    this.props.cardType === AwesomizerCardEnum.SEEFIRST
+    this.props.cardType === AwesomizerCardEnum.SEEFIRST,
 };
 
 ================================================================================

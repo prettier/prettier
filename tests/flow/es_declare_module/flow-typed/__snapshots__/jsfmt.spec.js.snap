@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`declares.js 1`] = `
+exports[`declares.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -38,7 +38,7 @@ declare module "CJS_Clobbered" {
   declare var num2: number;
   declare type numType = number;
   declare var exports: {
-    numExport: number
+    numExport: number,
   };
 }
 

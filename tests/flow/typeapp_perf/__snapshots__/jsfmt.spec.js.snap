@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test1.js 1`] = `
+exports[`test1.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -42,7 +42,7 @@ type B<T> = A & {
   +f: () => B<T>,
   +g: () => B<T>,
   +h: () => B<T>,
-  +i: () => B<T>
+  +i: () => B<T>,
 };
 
 declare var b: B<any>;
@@ -52,7 +52,7 @@ declare var b: B<any>;
 ================================================================================
 `;
 
-exports[`test2.js 1`] = `
+exports[`test2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -94,7 +94,7 @@ type B<T> = A & {
   +f: (x: B<T>) => void,
   +g: (x: B<T>) => void,
   +h: (x: B<T>) => void,
-  +i: (x: B<T>) => void
+  +i: (x: B<T>) => void,
 };
 
 declare var b: B<any>;

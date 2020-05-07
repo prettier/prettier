@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`cjs_with_types.js 1`] = `
+exports[`cjs_with_types.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -26,7 +26,7 @@ module.exports = {};
 ================================================================================
 `;
 
-exports[`importer.js 1`] = `
+exports[`importer.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -72,7 +72,7 @@ import type {
   inlinedType1,
   standaloneType1,
   talias1,
-  talias3
+  talias3,
 } from "./types_only";
 
 var a: inlinedType1 = 42;
@@ -102,7 +102,7 @@ var n: IFoo2 = { prop: 42 }; // Error: {prop:number} ~> {prop:string}
 ================================================================================
 `;
 
-exports[`types_only.js 1`] = `
+exports[`types_only.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -146,7 +146,7 @@ export interface IFoo {
 ================================================================================
 `;
 
-exports[`types_only2.js 1`] = `
+exports[`types_only2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

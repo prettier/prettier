@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`0-indent.js 1`] = `
+exports[`0-indent.js - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -54,7 +54,7 @@ text3
 ================================================================================
 `;
 
-exports[`codeblock.js 1`] = `
+exports[`codeblock.js - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -85,7 +85,7 @@ markdown\\\`
 ================================================================================
 `;
 
-exports[`escape.js 1`] = `
+exports[`escape.js - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -124,7 +124,7 @@ markdown\`
 ================================================================================
 `;
 
-exports[`issue-5021.js 1`] = `
+exports[`issue-5021.js - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -208,7 +208,7 @@ text3
 ================================================================================
 `;
 
-exports[`markdown.js 1`] = `
+exports[`markdown.js - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80
@@ -269,7 +269,7 @@ export default function ReadMe() {
 ================================================================================
 `;
 
-exports[`single-line.js 1`] = `
+exports[`single-line.js - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["babel"]
 printWidth: 80

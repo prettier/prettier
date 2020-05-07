@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`main.js 1`] = `
+exports[`main.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -31,7 +31,7 @@ var React = require("react");
 
 class CustomComponent extends React.Component {
   props: {
-    prop: string
+    prop: string,
   };
 }
 
@@ -46,7 +46,7 @@ var d: React.Element<{ id: number }> = <div id="asdf" />; // Error: Props<{id:st
 ================================================================================
 `;
 
-exports[`strings.js 1`] = `
+exports[`strings.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

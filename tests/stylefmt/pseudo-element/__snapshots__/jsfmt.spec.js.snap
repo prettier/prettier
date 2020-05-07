@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`pseudo-element.css 1`] = `
+exports[`pseudo-element.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`array.js 1`] = `
+exports[`array.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -28,7 +28,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`caching_bug.js 1`] = `
+exports[`caching_bug.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -86,7 +86,7 @@ function miss_the_cache(x: Array<string | number>): Iterable<string> {
 ================================================================================
 `;
 
-exports[`iter.js 1`] = `
+exports[`iter.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -120,7 +120,7 @@ foo(m.keys());
 ================================================================================
 `;
 
-exports[`iterator_result.js 1`] = `
+exports[`iterator_result.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -171,7 +171,7 @@ function makeIterator(coin_flip: () => boolean): Iterator<string> {
       } else {
         return { done };
       }
-    }
+    },
   };
 }
 
@@ -188,14 +188,14 @@ function makeIterator(coin_flip: () => boolean): Iterator<string> {
       } else {
         return { done }; // Error void ~> string
       }
-    }
+    },
   };
 }
 
 ================================================================================
 `;
 
-exports[`map.js 1`] = `
+exports[`map.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -237,7 +237,7 @@ function mapTest4(map: Map<number, string>): Iterable<string> {
 ================================================================================
 `;
 
-exports[`set.js 1`] = `
+exports[`set.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -279,7 +279,7 @@ function setTest4(set: Set<string>): Iterable<number> {
 ================================================================================
 `;
 
-exports[`string.js 1`] = `
+exports[`string.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -301,7 +301,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`variance.js 1`] = `
+exports[`variance.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`destructuring.js 1`] = `
+exports[`destructuring.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -58,23 +58,23 @@ a = ([s = 1]) => 1;
 const { children, ...props } = this.props;
 
 const {
-  user: { firstName, lastName }
+  user: { firstName, lastName },
 } = this.props;
 
 const {
   name: { first, last },
   organisation: {
-    address: { street: orgStreetAddress, postcode: orgPostcode }
-  }
+    address: { street: orgStreetAddress, postcode: orgPostcode },
+  },
 } = user;
 
 function f({ data: { name } }) {}
 
-const UserComponent = function({
+const UserComponent = function ({
   name: { first, last },
   organisation: {
-    address: { street: orgStreetAddress, postcode: orgPostcode }
-  }
+    address: { street: orgStreetAddress, postcode: orgPostcode },
+  },
 }) {
   return;
 };
@@ -83,7 +83,7 @@ const {
   a,
   b,
   c,
-  d: { e }
+  d: { e },
 } = someObject;
 
 try {
@@ -96,8 +96,8 @@ try {
   // code
 } catch ({
   data: {
-    message: { errors }
-  }
+    message: { errors },
+  },
 }) {
   // code
 }
@@ -105,7 +105,7 @@ try {
 const obj = {
   func(id, { blog: { title } }) {
     return id + title;
-  }
+  },
 };
 
 class A {

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comments.js 1`] = `
+exports[`comments.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -368,33 +368,33 @@ async function bar2() {
   { a: 1, b: 2 } // foo
 );
 
-!function() {
+!function () {
   return x;
 };
 !(
-  function() {
+  function () {
     return x;
   } /* foo */
 );
 !(
-  /* foo */ function() {
+  /* foo */ function () {
     return x;
   }
 );
 !(
   /* foo */
-  function() {
+  function () {
     return x;
   }
 );
 !(
-  function() {
+  function () {
     return x;
   }
   /* foo */
 );
 !(
-  function() {
+  function () {
     return x;
   } // foo
 );
@@ -580,7 +580,7 @@ async function bar2() {
 ================================================================================
 `;
 
-exports[`urnary_expression.js 1`] = `
+exports[`urnary_expression.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80

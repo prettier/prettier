@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`non-nested-combinator.css 1`] = `
+exports[`non-nested-combinator.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80

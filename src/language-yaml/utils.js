@@ -22,18 +22,19 @@ function isNode(value, types) {
   return (
     value &&
     typeof value.type === "string" &&
-    (!types || types.indexOf(value.type) !== -1)
+    (!types || types.includes(value.type))
   );
 }
 
 function mapNode(node, callback, parent) {
   return callback(
     "children" in node
-      ? Object.assign({}, node, {
-          children: node.children.map(childNode =>
+      ? {
+          ...node,
+          children: node.children.map((childNode) =>
             mapNode(childNode, callback, node)
-          )
-        })
+          ),
+        }
       : node,
     parent
   );
@@ -42,7 +43,7 @@ function mapNode(node, callback, parent) {
 function defineShortcut(x, key, getter) {
   Object.defineProperty(x, key, {
     get: getter,
-    enumerable: false
+    enumerable: false,
   });
 }
 
@@ -198,18 +199,18 @@ function getFlowScalarLineContents(nodeType, content, options) {
         : index !== 0 && index !== lineContents.length - 1
         ? lineContent.trim()
         : index === 0
-        ? lineContent.trimRight()
-        : lineContent.trimLeft()
+        ? lineContent.trimEnd()
+        : lineContent.trimStart()
     );
 
   if (options.proseWrap === "preserve") {
-    return rawLineContents.map(lineContent =>
+    return rawLineContents.map((lineContent) =>
       lineContent.length === 0 ? [] : [lineContent]
     );
   }
 
   return rawLineContents
-    .map(lineContent =>
+    .map((lineContent) =>
       lineContent.length === 0 ? [] : splitWithSingleSpace(lineContent)
     )
     .reduce(
@@ -228,7 +229,7 @@ function getFlowScalarLineContents(nodeType, content, options) {
           : reduced.concat([lineContentWords]),
       []
     )
-    .map(lineContentWords =>
+    .map((lineContentWords) =>
       options.proseWrap === "never"
         ? [lineContentWords.join(" ")]
         : lineContentWords
@@ -245,22 +246,22 @@ function getBlockValueLineContents(
       : options.originalText
           .slice(node.position.start.offset, node.position.end.offset)
           // exclude open line `>` or `|`
-          .match(/^[^\n]*?\n([\s\S]*)$/)[1];
+          .match(/^[^\n]*?\n([\S\s]*)$/)[1];
 
   const leadingSpaceCount =
     node.indent === null
-      ? (match => (match ? match[1].length : Infinity))(
+      ? ((match) => (match ? match[1].length : Infinity))(
           content.match(/^( *)\S/m)
         )
       : node.indent - 1 + parentIndent;
 
   const rawLineContents = content
     .split("\n")
-    .map(lineContent => lineContent.slice(leadingSpaceCount));
+    .map((lineContent) => lineContent.slice(leadingSpaceCount));
 
   if (options.proseWrap === "preserve" || node.type === "blockLiteral") {
     return removeUnnecessaryTrailingNewlines(
-      rawLineContents.map(lineContent =>
+      rawLineContents.map((lineContent) =>
         lineContent.length === 0 ? [] : [lineContent]
       )
     );
@@ -268,7 +269,7 @@ function getBlockValueLineContents(
 
   return removeUnnecessaryTrailingNewlines(
     rawLineContents
-      .map(lineContent =>
+      .map((lineContent) =>
         lineContent.length === 0 ? [] : splitWithSingleSpace(lineContent)
       )
       .reduce(
@@ -282,7 +283,7 @@ function getBlockValueLineContents(
             : reduced.concat([lineContentWords]),
         []
       )
-      .map(lineContentWords =>
+      .map((lineContentWords) =>
         lineContentWords.reduce(
           (reduced, word) =>
             // disallow trailing spaces
@@ -292,7 +293,7 @@ function getBlockValueLineContents(
           []
         )
       )
-      .map(lineContentWords =>
+      .map((lineContentWords) =>
         options.proseWrap === "never"
           ? [lineContentWords.join(" ")]
           : lineContentWords
@@ -341,5 +342,5 @@ module.exports = {
   hasMiddleComments,
   hasIndicatorComment,
   hasTrailingComment,
-  hasEndComments
+  hasEndComments,
 };

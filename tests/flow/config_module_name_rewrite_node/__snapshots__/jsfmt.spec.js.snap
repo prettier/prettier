@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`A.js 1`] = `
+exports[`A.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -62,7 +62,7 @@ var c_4: string = numVal3; // Error: number ~> string
 ================================================================================
 `;
 
-exports[`Exists.js 1`] = `
+exports[`Exists.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -78,7 +78,7 @@ module.exports = {
 /* @flow */
 
 module.exports = {
-  numVal: 42
+  numVal: 42,
 };
 
 ================================================================================

@@ -1648,8 +1648,8 @@ li + li {
 // Variables
 @link-color: #428bca; // Comment
 
-[href]:hover &, // Comment
-[href]:focus &, // Comment
+[href]:hover &, // Comment'
+[href]:focus &, // Comment"
 [href]:active & {
   .tooltip {
     opacity: 1;
@@ -1674,3 +1674,20 @@ label {
 
 // should not parse as custom-selector
 @custom-selector     :--icon #id;
+
+// extend #7977
+.class {
+  &:extend(.some-class .some-other-class .some-very-loooooooooooooong-class all);
+}
+.class {
+  &:extend(
+    .some-class .some-other-class .some-very-loooooooooooooong-class all
+  );
+}
+.class {
+  &:extend(.some-class .some-other-class .some-very-loooooooooooooong-class .some-very-loooooooooooooong-class all);
+}
+
+// #8177
+.hello {
+  &:extend(.input:disabled)}

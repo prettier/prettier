@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`directive_decl.graphql 1`] = `
+exports[`directive_decl.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
 printWidth: 80
@@ -30,7 +30,7 @@ directive @dir(
 ================================================================================
 `;
 
-exports[`directives.graphql 1`] = `
+exports[`directives.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
 printWidth: 80
@@ -56,29 +56,29 @@ query MyQuery @directive(
 
 =====================================output=====================================
 query MyQuery
-  @directive(
-    arg: 5
+@directive(
+  arg: 5
+
+  # comment
+  arg2: 10
+) {
+  field
+  @skip(
+    if: true
 
     # comment
-    arg2: 10
-  ) {
-  field
-    @skip(
-      if: true
-
-      # comment
-      cursor: 10
-    )
-    @nope
+    cursor: 10
+  )
+  @nope
   otherField
   ...fragmentSpread
-    @include(if: ["this isn't even a boolean", "wow, that's really odd"])
+  @include(if: ["this isn't even a boolean", "wow, that's really odd"])
 }
 
 ================================================================================
 `;
 
-exports[`enum.graphql 1`] = `
+exports[`enum.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
 printWidth: 80
@@ -112,7 +112,7 @@ enum State {
 ================================================================================
 `;
 
-exports[`fields.graphql 1`] = `
+exports[`fields.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
 printWidth: 80
@@ -187,7 +187,7 @@ subscription MySubscription {
 ================================================================================
 `;
 
-exports[`input.graphql 1`] = `
+exports[`input.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
 printWidth: 80
@@ -214,7 +214,7 @@ input Params {
 ================================================================================
 `;
 
-exports[`interface.graphql 1`] = `
+exports[`interface.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
 printWidth: 80
@@ -243,7 +243,7 @@ interface Actor {
 ================================================================================
 `;
 
-exports[`object_type_def.graphql 1`] = `
+exports[`object_type_def.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
 printWidth: 80
@@ -298,7 +298,7 @@ type Artist implements Node, Entity {
 ================================================================================
 `;
 
-exports[`schema.graphql 1`] = `
+exports[`schema.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
 printWidth: 80

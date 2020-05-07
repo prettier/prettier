@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`argument_comment.graphql 1`] = `
+exports[`argument_comment.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
 printWidth: 80
@@ -25,7 +25,7 @@ query(
 ================================================================================
 `;
 
-exports[`fields.graphql 1`] = `
+exports[`fields.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
 printWidth: 80
@@ -45,7 +45,33 @@ query {
 ================================================================================
 `;
 
-exports[`tokens.graphql 1`] = `
+exports[`interfaces.graphql format 1`] = `
+====================================options=====================================
+parsers: ["graphql"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type Type1
+implements
+A & B &
+# comment 1
+                 C & D &
+# comment 2
+ E {a: a}
+
+=====================================output=====================================
+type Type1 implements A & B &
+# comment 1
+C & D &
+# comment 2
+E {
+  a: a
+}
+
+================================================================================
+`;
+
+exports[`tokens.graphql format 1`] = `
 ====================================options=====================================
 parsers: ["graphql"]
 printWidth: 80

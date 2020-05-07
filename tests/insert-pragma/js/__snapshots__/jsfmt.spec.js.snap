@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`module-with-late-docblock.js 1`] = `
+exports[`module-with-late-docblock.js - {"insertPragma":true} format 1`] = `
 ====================================options=====================================
 insertPragma: true
 parsers: ["flow", "babel", "typescript"]
@@ -26,13 +26,12 @@ function foo(bar) {
 /**
  * Some notes that should not be appended to
  */
-
 const fruit = "tomatoes";
 
 ================================================================================
 `;
 
-exports[`module-with-multiple-same-pragma.js 1`] = `
+exports[`module-with-multiple-same-pragma.js - {"insertPragma":true} format 1`] = `
 ====================================options=====================================
 insertPragma: true
 parsers: ["flow", "babel", "typescript"]
@@ -54,7 +53,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`module-with-pragma.js 1`] = `
+exports[`module-with-pragma.js - {"insertPragma":true} format 1`] = `
 ====================================options=====================================
 insertPragma: true
 parsers: ["flow", "babel", "typescript"]
@@ -87,7 +86,7 @@ function foo(bar) {
 ================================================================================
 `;
 
-exports[`module-without-docblock.js 1`] = `
+exports[`module-without-docblock.js - {"insertPragma":true} format 1`] = `
 ====================================options=====================================
 insertPragma: true
 parsers: ["flow", "babel", "typescript"]
@@ -108,7 +107,7 @@ function foo(bar) {
 ================================================================================
 `;
 
-exports[`module-without-pragma.js 1`] = `
+exports[`module-without-pragma.js - {"insertPragma":true} format 1`] = `
 ====================================options=====================================
 insertPragma: true
 parsers: ["flow", "babel", "typescript"]
@@ -140,7 +139,7 @@ function foo(bar) {
 ================================================================================
 `;
 
-exports[`trailing-spaces-first-line.js 1`] = `
+exports[`trailing-spaces-first-line.js - {"insertPragma":true} format 1`] = `
 ====================================options=====================================
 insertPragma: true
 parsers: ["flow", "babel", "typescript"]

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Fun.js 1`] = `
+exports[`Fun.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -51,8 +51,8 @@ function mul(x: number, y: number) {
 }
 
 function fix(fold) {
-  var delta = function(delta) {
-    return fold(function(x) {
+  var delta = function (delta) {
+    return fold(function (x) {
       var eta = delta(delta);
       return eta(x);
     });
@@ -61,8 +61,8 @@ function fix(fold) {
 }
 
 function mk_factorial() {
-  return fix(function(factorial) {
-    return function(n) {
+  return fix(function (factorial) {
+    return function (n) {
       if (eq(n, 1)) {
         return 1;
       }
@@ -79,7 +79,7 @@ module.exports = { fn: fix };
 ================================================================================
 `;
 
-exports[`Ycombinator.js 1`] = `
+exports[`Ycombinator.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`client_object.js 1`] = `
+exports[`client_object.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -18,7 +18,7 @@ var a: number = o.w.z.y;
 ================================================================================
 `;
 
-exports[`object.js 1`] = `
+exports[`object.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -48,7 +48,7 @@ module.exports = o3;
 ================================================================================
 `;
 
-exports[`proto.js 1`] = `
+exports[`proto.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -65,7 +65,7 @@ var o2: Foo = new Foo();
 function Foo() {
   this.x = 0;
 }
-Foo.prototype.m = function() {};
+Foo.prototype.m = function () {};
 
 var o1: { x: number, m(): void } = new Foo();
 
@@ -74,7 +74,7 @@ var o2: Foo = new Foo();
 ================================================================================
 `;
 
-exports[`super.js 1`] = `
+exports[`super.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`A.js 1`] = `
+exports[`A.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -72,7 +72,7 @@ function f(): number {
 ================================================================================
 `;
 
-exports[`B.js 1`] = `
+exports[`B.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -101,44 +101,44 @@ var z : Object = function (x: number): string { return "hi"; };
 
 =====================================output=====================================
 // You should be able to use a function as an object with a call property
-var a: { (x: number): string } = function(x: number): string {
+var a: { (x: number): string } = function (x: number): string {
   return "hi";
 };
 
 // ...and it should notice when the return type is wrong
-var b: { (x: number): number } = function(x: number): string {
+var b: { (x: number): number } = function (x: number): string {
   return "hi";
 };
 
 // ...or if the param type is wrong
-var c: { (x: string): string } = function(x: number): string {
+var c: { (x: string): string } = function (x: number): string {
   return "hi";
 };
 
 // ...or if the arity is wrong
-var d: { (): string } = function(x: number): string {
+var d: { (): string } = function (x: number): string {
   return "hi";
 };
 
 // ...but subtyping rules still apply
-var e: { (x: any): void } = function() {}; // arity
-var f: { (): mixed } = function(): string {
+var e: { (x: any): void } = function () {}; // arity
+var f: { (): mixed } = function (): string {
   return "hi";
 }; // return type
-var g: { (x: string): void } = function(x: mixed) {}; // param type
+var g: { (x: string): void } = function (x: mixed) {}; // param type
 
 // A function can be an object
-var y: {} = function(x: number): string {
+var y: {} = function (x: number): string {
   return "hi";
 };
-var z: Object = function(x: number): string {
+var z: Object = function (x: number): string {
   return "hi";
 };
 
 ================================================================================
 `;
 
-exports[`C.js 1`] = `
+exports[`C.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -218,7 +218,7 @@ function g(x: {}): Function {
 ================================================================================
 `;
 
-exports[`D.js 1`] = `
+exports[`D.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -254,12 +254,12 @@ function a(f: { (): string, (x: number): string }): string {
 }
 
 // It should be fine when a function satisfies them all
-var b: { (): string, (x: number): string } = function(x?: number): string {
+var b: { (): string, (x: number): string } = function (x?: number): string {
   return "hi";
 };
 
 // ...but should notice when a function doesn't satisfy them all
-var c: { (): string, (x: number): string } = function(x: number): string {
+var c: { (): string, (x: number): string } = function (x: number): string {
   return "hi";
 };
 
@@ -276,7 +276,7 @@ function e(x: { (): string, (x: number): string }): () => number {
 ================================================================================
 `;
 
-exports[`E.js 1`] = `
+exports[`E.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -295,20 +295,20 @@ var c : { myProp: number } = f;
 
 =====================================output=====================================
 // Expecting properties that don't exist should be an error
-var a: { someProp: number } = function() {};
+var a: { someProp: number } = function () {};
 
 // Expecting properties that do exist should be fine
-var b: { apply: Function } = function() {};
+var b: { apply: Function } = function () {};
 
 // Expecting properties in the functions statics should be fine
-var f = function() {};
+var f = function () {};
 f.myProp = 123;
 var c: { myProp: number } = f;
 
 ================================================================================
 `;
 
-exports[`F.js 1`] = `
+exports[`F.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -339,27 +339,27 @@ var z : Object = (x) => "hi"
 =====================================output=====================================
 // You should be able to use an arrow function as an object with a call property
 
-var a: { (x: number): string } = x => x.toString();
+var a: { (x: number): string } = (x) => x.toString();
 
 // ...and it should notice when the return type is wrong
-var b: { (x: number): number } = x => "hi";
+var b: { (x: number): number } = (x) => "hi";
 
 // ...or if the param type is wrong
-var c: { (x: string): string } = x => x.toFixed();
+var c: { (x: string): string } = (x) => x.toFixed();
 
 // ...or if the arity is wrong
-var d: { (): string } = x => "hi";
+var d: { (): string } = (x) => "hi";
 
 // ...but subtyping rules still apply
 var e: { (x: any): void } = () => {}; // arity
 var f: { (): mixed } = () => "hi"; // return type
-var g: { (x: Date): void } = x => {
+var g: { (x: Date): void } = (x) => {
   x * 2;
 }; // param type (date < number)
 
 // A function can be an object
-var y: {} = x => "hi";
-var z: Object = x => "hi";
+var y: {} = (x) => "hi";
+var z: Object = (x) => "hi";
 
 ================================================================================
 `;

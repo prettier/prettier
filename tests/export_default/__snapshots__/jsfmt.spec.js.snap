@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`binary_and_template.js 1`] = `
+exports[`binary_and_template.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -9,12 +9,12 @@ printWidth: 80
 export default (function() {} + foo)\`\`;
 
 =====================================output=====================================
-export default (function() {} + foo)\`\`;
+export default (function () {} + foo)\`\`;
 
 ================================================================================
 `;
 
-exports[`body.js 1`] = `
+exports[`body.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -28,7 +28,7 @@ export default (class {}[1] = 1);
 ================================================================================
 `;
 
-exports[`class_instance.js 1`] = `
+exports[`class_instance.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -42,7 +42,7 @@ export default (class {}.getInstance());
 ================================================================================
 `;
 
-exports[`function_in_template.js 1`] = `
+exports[`function_in_template.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -56,7 +56,7 @@ export default (function templ() {})\`foo\`;
 ================================================================================
 `;
 
-exports[`function_tostring.js 1`] = `
+exports[`function_tostring.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -65,12 +65,12 @@ printWidth: 80
 export default (function() {}).toString();
 
 =====================================output=====================================
-export default (function() {}.toString());
+export default (function () {}.toString());
 
 ================================================================================
 `;
 
-exports[`iife.js 1`] = `
+exports[`iife.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

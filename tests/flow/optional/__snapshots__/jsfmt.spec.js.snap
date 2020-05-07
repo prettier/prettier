@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`client_optional.js 1`] = `
+exports[`client_optional.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -18,7 +18,7 @@ qux(0);
 ================================================================================
 `;
 
-exports[`default.js 1`] = `
+exports[`default.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -36,7 +36,7 @@ function f<T>(foo, bar = foo): [T, T] {
 ================================================================================
 `;
 
-exports[`generic.js 1`] = `
+exports[`generic.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -58,7 +58,7 @@ class C {
 ================================================================================
 `;
 
-exports[`loop.js 1`] = `
+exports[`loop.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -82,7 +82,7 @@ function f<T: *>(x: T, y?: T) {
 ================================================================================
 `;
 
-exports[`maybe.js 1`] = `
+exports[`maybe.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -100,7 +100,7 @@ function foo(x?: string): ?string {
 ================================================================================
 `;
 
-exports[`nullable.js 1`] = `
+exports[`nullable.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -210,7 +210,7 @@ function optionalNullable8(x: { y?: ?number }) {
 ================================================================================
 `;
 
-exports[`optional.js 1`] = `
+exports[`optional.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -253,7 +253,7 @@ module.exports = qux;
 ================================================================================
 `;
 
-exports[`optional_param.js 1`] = `
+exports[`optional_param.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -340,14 +340,14 @@ function testOptionalNullableProperty(obj: { x?: ?string }): string {
 }
 
 function testOptionalNullableFlowingToNullable(x?: ?string): ?string {
-  var f = function(y: ?string) {};
+  var f = function (y: ?string) {};
   f(x);
 }
 
 ================================================================================
 `;
 
-exports[`optional_param2.js 1`] = `
+exports[`optional_param2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -366,12 +366,12 @@ declare class I<V> {
   map<M>(mapper: (value?: V) => M): I<M>;
 }
 var i: I<number> = new I();
-var j: I<number> = i.map(id => id);
+var j: I<number> = i.map((id) => id);
 
 ================================================================================
 `;
 
-exports[`optional_param3.js 1`] = `
+exports[`optional_param3.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -397,7 +397,7 @@ bar(undefined); // ok
 ================================================================================
 `;
 
-exports[`optional_param4.js 1`] = `
+exports[`optional_param4.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -434,7 +434,7 @@ foo(123, true); // ERROR boolean ~> string
 ================================================================================
 `;
 
-exports[`undefined.js 1`] = `
+exports[`undefined.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -464,7 +464,7 @@ function bar() {
 ================================================================================
 `;
 
-exports[`undefined2.js 1`] = `
+exports[`undefined2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

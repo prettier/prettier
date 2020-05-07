@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`function.js 1`] = `
+exports[`function.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -22,10 +22,10 @@ module.exports = Bar;
 function Bar(x: number) {
   this.x = x;
 }
-Bar.prototype.getX = function() {
+Bar.prototype.getX = function () {
   return this.x;
 };
-Bar.prototype.getY = function(): string {
+Bar.prototype.getY = function (): string {
   return this.y;
 };
 
@@ -34,7 +34,7 @@ module.exports = Bar;
 ================================================================================
 `;
 
-exports[`proto.js 1`] = `
+exports[`proto.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -60,7 +60,7 @@ function Foo() {}
 var o = new Foo();
 var x: number = o.x;
 
-Foo.prototype.m = function() {
+Foo.prototype.m = function () {
   return this.x;
 };
 
@@ -68,9 +68,9 @@ var y: number = o.m();
 o.x = "...";
 
 Foo.prototype = {
-  m: function() {
+  m: function () {
     return false;
-  }
+  },
 };
 
 var export_o: { x: any } = o; // awkward type cast
@@ -80,7 +80,7 @@ module.exports = export_o;
 ================================================================================
 `;
 
-exports[`sealed.js 1`] = `
+exports[`sealed.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

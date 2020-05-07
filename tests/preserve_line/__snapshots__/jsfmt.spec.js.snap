@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`argument-list.js 1`] = `
+exports[`argument-list.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -267,7 +267,7 @@ moreArgTypes(
 
   {
     name: "Hello World",
-    age: 29
+    age: 29,
   },
 
   doSomething(
@@ -333,7 +333,7 @@ doAnotherThing(
 
   {
     solution_type,
-    time_frame
+    time_frame,
   }
 );
 
@@ -342,7 +342,7 @@ stuff.doThing(
 
   -1,
   {
-    accept: node => doSomething(node)
+    accept: (node) => doSomething(node),
   }
 );
 
@@ -352,7 +352,7 @@ doThing(
   // This is important
   true,
   {
-    decline: creditCard => takeMoney(creditCard)
+    decline: (creditCard) => takeMoney(creditCard),
   }
 );
 
@@ -395,7 +395,7 @@ function foo(
 ================================================================================
 `;
 
-exports[`comments.js 1`] = `
+exports[`comments.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -463,7 +463,7 @@ function a() {
 ================================================================================
 `;
 
-exports[`member-chain.js 1`] = `
+exports[`member-chain.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -573,7 +573,7 @@ helloWorld
 
   .text()
 
-  .then(t => t);
+  .then((t) => t);
 
 (
   veryLongVeryLongVeryLong ||
@@ -581,19 +581,19 @@ helloWorld
   veryVeryVeryLongError
 )
 
-  .map(tickets => TicketRecord.createFromSomeLongString())
+  .map((tickets) => TicketRecord.createFromSomeLongString())
 
-  .filter(obj => !!obj);
+  .filter((obj) => !!obj);
 
 const sel = this.connections
 
   .concat(this.activities.concat(this.operators))
-  .filter(x => x.selected);
+  .filter((x) => x.selected);
 
 ================================================================================
 `;
 
-exports[`parameter-list.js 1`] = `
+exports[`parameter-list.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -808,7 +808,7 @@ function test({
   nine,
   ten,
 
-  eleven
+  eleven,
 }) {}
 
 function test({ one, two, three, four }) {}
@@ -818,7 +818,7 @@ function test({
 
   two,
   three,
-  four
+  four,
 }) {}
 
 function test({ one, two, three, four }, $a) {}
@@ -844,7 +844,7 @@ f(
   ...args
 );
 
-it("does something really long and complicated so I have to write a very long name for the test", function(done, foo) {
+it("does something really long and complicated so I have to write a very long name for the test", function (done, foo) {
   console.log("hello!");
 });
 

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comment.js 1`] = `
+exports[`comment.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -22,7 +22,7 @@ const myValue = (callcallcallcallcallcall(
 ================================================================================
 `;
 
-exports[`union.js 1`] = `
+exports[`union.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -59,7 +59,7 @@ export function aPrettyLongFunctionE(aRatherLongParameterName: Array<{
 interface RelayProps {
   articles:
     | Array<{
-        __id: string
+        __id: string,
       } | null>
     | null
     | void
@@ -68,7 +68,7 @@ interface RelayProps {
 
 interface RelayProps2 {
   articles: Array<{
-    __id: string
+    __id: string,
   } | null> | null | void;
 }
 
@@ -95,14 +95,14 @@ export function aShortFn(aShortParmName: MyType | null): string[] {}
 
 export function aPrettyLongFunctionE(
   aRatherLongParameterName: Array<{
-    __id: string
+    __id: string,
   } | null> | null | void
 ): string[] {}
 
 ================================================================================
 `;
 
-exports[`within-tuple.js 1`] = `
+exports[`within-tuple.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80

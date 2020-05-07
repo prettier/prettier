@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`html-with-markdown-script.html 1`] = `
+exports[`html-with-markdown-script.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80

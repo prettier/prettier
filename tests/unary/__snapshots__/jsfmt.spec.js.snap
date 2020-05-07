@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`object.js 1`] = `
+exports[`object.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -14,13 +14,13 @@ state = {
 =====================================output=====================================
 state = {
   // students
-  hoverColumn: -1
+  hoverColumn: -1,
 };
 
 ================================================================================
 `;
 
-exports[`series.js 1`] = `
+exports[`series.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80

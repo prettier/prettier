@@ -1,6 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`type-annotation.ts 1`] = `
+exports[`single-parameter.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+type X = (options:{ a: string; b: AbstractCompositeThingamabobberFactoryProvider}) => {};
+type Y = new (options:{ a: string; b: AbstractCompositeThingamabobberFactoryProvider}) => {};
+=====================================output=====================================
+type X = (options: {
+  a: string;
+  b: AbstractCompositeThingamabobberFactoryProvider;
+}) => {};
+type Y = new (options: {
+  a: string;
+  b: AbstractCompositeThingamabobberFactoryProvider;
+}) => {};
+
+================================================================================
+`;
+
+exports[`type-annotation.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80

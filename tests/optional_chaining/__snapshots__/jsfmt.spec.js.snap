@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`chaining.js 1`] = `
+exports[`chaining.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -46,6 +46,8 @@ a?.[b?.c]?.d();
 
 (one?.fn());
 (one?.two).fn();
+(one?.two)();
+(one?.two())();
 (one.two?.fn());
 (one.two?.three).fn();
 (one.two?.three?.fn());
@@ -83,6 +85,10 @@ a = () => ({}?.b() && a);
 (x) => ({}?.b.b);
 ({}?.a().b());
 ({ a: 1 }?.entries());
+
+new (foo?.bar)();
+new (foo?.bar())();
+new (foo?.())();
 
 =====================================output=====================================
 var street = user.address?.street;
@@ -125,6 +131,8 @@ a?.[b?.c]?.d();
 
 one?.fn();
 (one?.two).fn();
+(one?.two)();
+(one?.two())();
 one.two?.fn();
 (one.two?.three).fn();
 one.two?.three?.fn();
@@ -141,7 +149,7 @@ a?.[b ? c : d];
 (void fn)?.();
 (a && b)?.();
 (a ? b : c)?.();
-(function() {})?.();
+(function () {})?.();
 (() => f)?.();
 (() => f)?.x;
 (a?.(x)).x;
@@ -158,19 +166,23 @@ a = () => ({}?.()() && a);
 a = () => ({}?.().b && a);
 a = () => ({}?.b && a);
 a = () => ({}?.b() && a);
-a => ({}?.()?.b && 0);
-a => ({}?.b?.b && 0);
-x => ({}?.()());
-x => ({}?.().b);
-x => ({}?.b());
-x => ({}?.b.b);
+(a) => ({}?.()?.b && 0);
+(a) => ({}?.b?.b && 0);
+(x) => ({}?.()());
+(x) => ({}?.().b);
+(x) => ({}?.b());
+(x) => ({}?.b.b);
 ({}?.a().b());
 ({ a: 1 }?.entries());
+
+new (foo?.bar)();
+new (foo?.bar())();
+new (foo?.())();
 
 ================================================================================
 `;
 
-exports[`comments.js 1`] = `
+exports[`comments.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

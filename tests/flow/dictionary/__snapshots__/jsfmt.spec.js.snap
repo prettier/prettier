@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`any.js 1`] = `
+exports[`any.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -22,7 +22,7 @@ const val: string = dict[k]; // error: number incompatible with string
 ================================================================================
 `;
 
-exports[`compatible.js 1`] = `
+exports[`compatible.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -57,7 +57,7 @@ function foo0(
 }
 
 function foo2(x: {
-  [key: string]: number
+  [key: string]: number,
 }): { [key: string]: number, +toString: () => string } {
   // x's prototype has a toString method
   return x;
@@ -66,7 +66,7 @@ function foo2(x: {
 ================================================================================
 `;
 
-exports[`dictionary.js 1`] = `
+exports[`dictionary.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -469,7 +469,7 @@ function mix_with_declared_props(o: { [k: number]: X, p: Y }, x: X, y: Y) {
 
 // Indeed, dict types are still Objects and have Object.prototype stuff
 function object_prototype(o: {
-  [k: string]: number
+  [k: string]: number,
 }): { [k: string]: number, +toString: () => string } {
   (o.toString(): boolean); // error: string ~> boolean
   return o; // ok
@@ -480,7 +480,7 @@ function object_prototype(o: {
 // write into a declared prop unsoundly.
 function unsound_string_conversion_alias_declared_prop(o: {
   [k: number]: any,
-  "0": X
+  "0": X,
 }) {
   o[0] = "not-x"; // a["0"] no longer X
 }
@@ -509,19 +509,19 @@ function subtype_dict_values_fresh_exception() {
   let a: { [k: string]: A } = {
     a: new A(), // ok, A == A
     b: new B(), // ok, B <: A
-    c: new C() // ok, C <: A
+    c: new C(), // ok, C <: A
   };
 
   let b: { [k: string]: B } = {
     a: new A(), // error, A not <: B
     b: new B(), // ok, B == B
-    c: new C() // ok, C <: A
+    c: new C(), // ok, C <: A
   };
 
   let c: { [k: string]: C } = {
     a: new A(), // error, A not <: C
     b: new B(), // error, A not <: C
-    c: new C() // ok, C == C
+    c: new C(), // ok, C == C
   };
 }
 
@@ -674,7 +674,7 @@ function subtype_optional_c_to_dict(x: { p?: C }): { [k: string]: B } {
 ================================================================================
 `;
 
-exports[`incompatible.js 1`] = `
+exports[`incompatible.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -777,7 +777,7 @@ function foo3(x: { [key: string]: number }): { foo: number } {
 
 // error: foo can't exist in x
 function foo4(x: {
-  [key: string]: number
+  [key: string]: number,
 }): { [key: string]: number, foo: string } {
   return x;
 }
@@ -804,7 +804,7 @@ function foo8(x: { [key: string]: number }) {
 ================================================================================
 `;
 
-exports[`issue-1745.js 1`] = `
+exports[`issue-1745.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -866,7 +866,7 @@ class B {
 ================================================================================
 `;
 
-exports[`test.js 1`] = `
+exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -890,7 +890,7 @@ type QueryFunction = (params: Params) => string;
 var o: { foo: QueryFunction } = {
   foo(params) {
     return params.count; // error, number ~/~ string
-  }
+  },
 };
 
 module.exports = o;
@@ -898,7 +898,7 @@ module.exports = o;
 ================================================================================
 `;
 
-exports[`test_client.js 1`] = `
+exports[`test_client.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -913,7 +913,7 @@ o.foo = function (params) {
 =====================================output=====================================
 var o = require("./test");
 
-o.foo = function(params) {
+o.foo = function (params) {
   return params.count; // error, number ~/~ string
 };
 

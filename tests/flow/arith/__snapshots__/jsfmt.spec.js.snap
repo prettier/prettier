@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Arith.js 1`] = `
+exports[`Arith.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -161,7 +161,7 @@ str("foo" + undefined); // error
 str(undefined + "foo"); // error
 
 let tests = [
-  function(x: mixed, y: mixed) {
+  function (x: mixed, y: mixed) {
     x + y; // error
     x + 0; // error
     0 + x; // error
@@ -174,26 +174,26 @@ let tests = [
   // when one side is a string or number and the other is invalid, we
   // assume you are expecting a string or number (respectively), rather than
   // erroring twice saying number !~> string and obj !~> string.
-  function() {
+  function () {
     (1 + {}: number); // error: object !~> number
     ({} + 1: number); // error: object !~> number
     ("1" + {}: string); // error: object !~> string
     ({} + "1": string); // error: object !~> string
   },
 
-  function(x: any, y: number, z: string) {
+  function (x: any, y: number, z: string) {
     (x + y: string); // ok
     (y + x: string); // ok
 
     (x + z: empty); // error, string ~> empty
     (z + x: empty); // error, string ~> empty
-  }
+  },
 ];
 
 ================================================================================
 `;
 
-exports[`exponent.js 1`] = `
+exports[`exponent.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -227,7 +227,7 @@ y **= 2; // error
 ================================================================================
 `;
 
-exports[`generic.js 1`] = `
+exports[`generic.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -263,7 +263,7 @@ function f<A, B>(a: A, b: B): B {
 ================================================================================
 `;
 
-exports[`mult.js 1`] = `
+exports[`mult.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -299,7 +299,7 @@ y *= 2; // error
 ================================================================================
 `;
 
-exports[`relational.js 1`] = `
+exports[`relational.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -362,10 +362,10 @@ NaN < 1;
 NaN < NaN;
 
 let tests = [
-  function(x: any, y: number, z: string) {
+  function (x: any, y: number, z: string) {
     x > y;
     x > z;
-  }
+  },
 ];
 
 ================================================================================

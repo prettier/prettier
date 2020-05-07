@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`array-iter.js 1`] = `
+exports[`array-iter.js - {"singleQuote":false,"jsxSingleQuote":false} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -44,7 +44,7 @@ const UsersList = ({ users }) => (
   <section>
     <h2>Users list</h2>
     <ul>
-      {users.map(user => (
+      {users.map((user) => (
         <li key={user.id}>{user.name}</li>
       ))}
     </ul>
@@ -63,7 +63,7 @@ const TodoList = ({ todos }) => (
 
 <div className="search-filter-chips">
   {scopes
-    .filter(scope => scope.value !== "")
+    .filter((scope) => scope.value !== "")
     .map((scope, i) => (
       <FilterChip
         query={this.props.query}
@@ -78,7 +78,7 @@ const TodoList = ({ todos }) => (
 ================================================================================
 `;
 
-exports[`array-iter.js 2`] = `
+exports[`array-iter.js - {"singleQuote":false,"jsxSingleQuote":true} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -122,7 +122,7 @@ const UsersList = ({ users }) => (
   <section>
     <h2>Users list</h2>
     <ul>
-      {users.map(user => (
+      {users.map((user) => (
         <li key={user.id}>{user.name}</li>
       ))}
     </ul>
@@ -141,7 +141,7 @@ const TodoList = ({ todos }) => (
 
 <div className='search-filter-chips'>
   {scopes
-    .filter(scope => scope.value !== "")
+    .filter((scope) => scope.value !== "")
     .map((scope, i) => (
       <FilterChip
         query={this.props.query}
@@ -156,7 +156,7 @@ const TodoList = ({ todos }) => (
 ================================================================================
 `;
 
-exports[`array-iter.js 3`] = `
+exports[`array-iter.js - {"singleQuote":true,"jsxSingleQuote":false} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -200,7 +200,7 @@ const UsersList = ({ users }) => (
   <section>
     <h2>Users list</h2>
     <ul>
-      {users.map(user => (
+      {users.map((user) => (
         <li key={user.id}>{user.name}</li>
       ))}
     </ul>
@@ -219,7 +219,7 @@ const TodoList = ({ todos }) => (
 
 <div className="search-filter-chips">
   {scopes
-    .filter(scope => scope.value !== '')
+    .filter((scope) => scope.value !== '')
     .map((scope, i) => (
       <FilterChip
         query={this.props.query}
@@ -234,7 +234,7 @@ const TodoList = ({ todos }) => (
 ================================================================================
 `;
 
-exports[`array-iter.js 4`] = `
+exports[`array-iter.js - {"singleQuote":true,"jsxSingleQuote":true} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -278,7 +278,7 @@ const UsersList = ({ users }) => (
   <section>
     <h2>Users list</h2>
     <ul>
-      {users.map(user => (
+      {users.map((user) => (
         <li key={user.id}>{user.name}</li>
       ))}
     </ul>
@@ -297,7 +297,7 @@ const TodoList = ({ todos }) => (
 
 <div className='search-filter-chips'>
   {scopes
-    .filter(scope => scope.value !== '')
+    .filter((scope) => scope.value !== '')
     .map((scope, i) => (
       <FilterChip
         query={this.props.query}
@@ -312,7 +312,7 @@ const TodoList = ({ todos }) => (
 ================================================================================
 `;
 
-exports[`attr-comments.js 1`] = `
+exports[`attr-comments.js - {"singleQuote":false,"jsxSingleQuote":false} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -356,19 +356,19 @@ singleQuote: false
 <Component
   propFn={
     // comment
-    function(arg) {
+    function (arg) {
       fn(arg);
     }
   }
   propArrowFn={
     // comment
-    arg => fn(arg)
+    (arg) => fn(arg)
   }
   propArrowWithBreak={
     // comment
-    arg =>
+    (arg) =>
       fn({
-        makeItBreak
+        makeItBreak,
       })
   }
   propArray={
@@ -388,7 +388,7 @@ singleQuote: false
 ================================================================================
 `;
 
-exports[`attr-comments.js 2`] = `
+exports[`attr-comments.js - {"singleQuote":false,"jsxSingleQuote":true} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -432,19 +432,19 @@ singleQuote: false
 <Component
   propFn={
     // comment
-    function(arg) {
+    function (arg) {
       fn(arg);
     }
   }
   propArrowFn={
     // comment
-    arg => fn(arg)
+    (arg) => fn(arg)
   }
   propArrowWithBreak={
     // comment
-    arg =>
+    (arg) =>
       fn({
-        makeItBreak
+        makeItBreak,
       })
   }
   propArray={
@@ -464,7 +464,7 @@ singleQuote: false
 ================================================================================
 `;
 
-exports[`attr-comments.js 3`] = `
+exports[`attr-comments.js - {"singleQuote":true,"jsxSingleQuote":false} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -508,19 +508,19 @@ singleQuote: true
 <Component
   propFn={
     // comment
-    function(arg) {
+    function (arg) {
       fn(arg);
     }
   }
   propArrowFn={
     // comment
-    arg => fn(arg)
+    (arg) => fn(arg)
   }
   propArrowWithBreak={
     // comment
-    arg =>
+    (arg) =>
       fn({
-        makeItBreak
+        makeItBreak,
       })
   }
   propArray={
@@ -540,7 +540,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`attr-comments.js 4`] = `
+exports[`attr-comments.js - {"singleQuote":true,"jsxSingleQuote":true} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -584,19 +584,19 @@ singleQuote: true
 <Component
   propFn={
     // comment
-    function(arg) {
+    function (arg) {
       fn(arg);
     }
   }
   propArrowFn={
     // comment
-    arg => fn(arg)
+    (arg) => fn(arg)
   }
   propArrowWithBreak={
     // comment
-    arg =>
+    (arg) =>
       fn({
-        makeItBreak
+        makeItBreak,
       })
   }
   propArray={
@@ -616,7 +616,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`conditional-expression.js 1`] = `
+exports[`conditional-expression.js - {"singleQuote":false,"jsxSingleQuote":false} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -755,6 +755,10 @@ cable ? (
     )
   ) : null}
 </div>;
+
+// #3552
+foo ? <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span> :
+undefined
 
 =====================================output=====================================
 // There are two ways to print ConditionalExpressions: "normal mode" and
@@ -901,10 +905,17 @@ cable ? (
   ) : null}
 </div>;
 
+// #3552
+foo ? (
+  <span>
+    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
+  </span>
+) : undefined;
+
 ================================================================================
 `;
 
-exports[`conditional-expression.js 2`] = `
+exports[`conditional-expression.js - {"singleQuote":false,"jsxSingleQuote":true} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -1043,6 +1054,10 @@ cable ? (
     )
   ) : null}
 </div>;
+
+// #3552
+foo ? <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span> :
+undefined
 
 =====================================output=====================================
 // There are two ways to print ConditionalExpressions: "normal mode" and
@@ -1189,10 +1204,17 @@ cable ? (
   ) : null}
 </div>;
 
+// #3552
+foo ? (
+  <span>
+    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
+  </span>
+) : undefined;
+
 ================================================================================
 `;
 
-exports[`conditional-expression.js 3`] = `
+exports[`conditional-expression.js - {"singleQuote":true,"jsxSingleQuote":false} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -1331,6 +1353,10 @@ cable ? (
     )
   ) : null}
 </div>;
+
+// #3552
+foo ? <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span> :
+undefined
 
 =====================================output=====================================
 // There are two ways to print ConditionalExpressions: "normal mode" and
@@ -1477,10 +1503,17 @@ cable ? (
   ) : null}
 </div>;
 
+// #3552
+foo ? (
+  <span>
+    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
+  </span>
+) : undefined;
+
 ================================================================================
 `;
 
-exports[`conditional-expression.js 4`] = `
+exports[`conditional-expression.js - {"singleQuote":true,"jsxSingleQuote":true} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -1619,6 +1652,10 @@ cable ? (
     )
   ) : null}
 </div>;
+
+// #3552
+foo ? <span>loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx</span> :
+undefined
 
 =====================================output=====================================
 // There are two ways to print ConditionalExpressions: "normal mode" and
@@ -1765,10 +1802,17 @@ cable ? (
   ) : null}
 </div>;
 
+// #3552
+foo ? (
+  <span>
+    loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong jsx
+  </span>
+) : undefined;
+
 ================================================================================
 `;
 
-exports[`expression.js 1`] = `
+exports[`expression.js - {"singleQuote":false,"jsxSingleQuote":false} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -1914,7 +1958,7 @@ singleQuote: false
     someVeryLongStyle1: "true",
     someVeryLongStyle2: "true",
     someVeryLongStyle3: "true",
-    someVeryLongStyle4: "true"
+    someVeryLongStyle4: "true",
   }}
 />;
 
@@ -1924,8 +1968,8 @@ singleQuote: false
       someVeryLongStyle1: "true",
       someVeryLongStyle2: "true",
       someVeryLongStyle3: "true",
-      someVeryLongStyle4: "true"
-    }
+      someVeryLongStyle4: "true",
+    },
   ]}
 />;
 
@@ -1938,7 +1982,7 @@ singleQuote: false
 </Something>;
 
 <Something>
-  {items.map(item => (
+  {items.map((item) => (
     <SomethingElse>
       <span />
     </SomethingElse>
@@ -1946,7 +1990,7 @@ singleQuote: false
 </Something>;
 
 <Something>
-  {function() {
+  {function () {
     return (
       <SomethingElse>
         <span />
@@ -1974,11 +2018,11 @@ singleQuote: false
 
 <BookingIntroPanel
   prop="long_string_make_to_force_break"
-  logClick={data => doLogClick("short", "short", data)}
+  logClick={(data) => doLogClick("short", "short", data)}
 />;
 
 <BookingIntroPanel
-  logClick={data =>
+  logClick={(data) =>
     doLogClick(
       "long_name_long_name_long_name",
       "long_name_long_name_long_name",
@@ -1988,7 +2032,7 @@ singleQuote: false
 />;
 
 <BookingIntroPanel
-  logClick={data => {
+  logClick={(data) => {
     doLogClick(
       "long_name_long_name_long_name",
       "long_name_long_name_long_name",
@@ -2003,17 +2047,17 @@ singleQuote: false
     value: string | Immutable.List<string>
   ) => {
     this.setState({
-      updatedTask: this.state.updatedTask.set(key, value)
+      updatedTask: this.state.updatedTask.set(key, value),
     });
   }}
 />;
 
 <BookingIntroPanel>
-  {data => doLogClick("short", "short", data)}
+  {(data) => doLogClick("short", "short", data)}
 </BookingIntroPanel>;
 
 <BookingIntroPanel>
-  {data =>
+  {(data) =>
     doLogClick(
       "long_name_long_name_long_name",
       "long_name_long_name_long_name",
@@ -2023,7 +2067,7 @@ singleQuote: false
 </BookingIntroPanel>;
 
 <BookingIntroPanel>
-  {data => {
+  {(data) => {
     doLogClick(
       "long_name_long_name_long_name",
       "long_name_long_name_long_name",
@@ -2038,7 +2082,7 @@ singleQuote: false
     value: string | Immutable.List<string>
   ) => {
     this.setState({
-      updatedTask: this.state.updatedTask.set(key, value)
+      updatedTask: this.state.updatedTask.set(key, value),
     });
   }}
 </Component>;
@@ -2056,7 +2100,7 @@ singleQuote: false
 ================================================================================
 `;
 
-exports[`expression.js 2`] = `
+exports[`expression.js - {"singleQuote":false,"jsxSingleQuote":true} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -2202,7 +2246,7 @@ singleQuote: false
     someVeryLongStyle1: "true",
     someVeryLongStyle2: "true",
     someVeryLongStyle3: "true",
-    someVeryLongStyle4: "true"
+    someVeryLongStyle4: "true",
   }}
 />;
 
@@ -2212,8 +2256,8 @@ singleQuote: false
       someVeryLongStyle1: "true",
       someVeryLongStyle2: "true",
       someVeryLongStyle3: "true",
-      someVeryLongStyle4: "true"
-    }
+      someVeryLongStyle4: "true",
+    },
   ]}
 />;
 
@@ -2226,7 +2270,7 @@ singleQuote: false
 </Something>;
 
 <Something>
-  {items.map(item => (
+  {items.map((item) => (
     <SomethingElse>
       <span />
     </SomethingElse>
@@ -2234,7 +2278,7 @@ singleQuote: false
 </Something>;
 
 <Something>
-  {function() {
+  {function () {
     return (
       <SomethingElse>
         <span />
@@ -2262,11 +2306,11 @@ singleQuote: false
 
 <BookingIntroPanel
   prop='long_string_make_to_force_break'
-  logClick={data => doLogClick("short", "short", data)}
+  logClick={(data) => doLogClick("short", "short", data)}
 />;
 
 <BookingIntroPanel
-  logClick={data =>
+  logClick={(data) =>
     doLogClick(
       "long_name_long_name_long_name",
       "long_name_long_name_long_name",
@@ -2276,7 +2320,7 @@ singleQuote: false
 />;
 
 <BookingIntroPanel
-  logClick={data => {
+  logClick={(data) => {
     doLogClick(
       "long_name_long_name_long_name",
       "long_name_long_name_long_name",
@@ -2291,17 +2335,17 @@ singleQuote: false
     value: string | Immutable.List<string>
   ) => {
     this.setState({
-      updatedTask: this.state.updatedTask.set(key, value)
+      updatedTask: this.state.updatedTask.set(key, value),
     });
   }}
 />;
 
 <BookingIntroPanel>
-  {data => doLogClick("short", "short", data)}
+  {(data) => doLogClick("short", "short", data)}
 </BookingIntroPanel>;
 
 <BookingIntroPanel>
-  {data =>
+  {(data) =>
     doLogClick(
       "long_name_long_name_long_name",
       "long_name_long_name_long_name",
@@ -2311,7 +2355,7 @@ singleQuote: false
 </BookingIntroPanel>;
 
 <BookingIntroPanel>
-  {data => {
+  {(data) => {
     doLogClick(
       "long_name_long_name_long_name",
       "long_name_long_name_long_name",
@@ -2326,7 +2370,7 @@ singleQuote: false
     value: string | Immutable.List<string>
   ) => {
     this.setState({
-      updatedTask: this.state.updatedTask.set(key, value)
+      updatedTask: this.state.updatedTask.set(key, value),
     });
   }}
 </Component>;
@@ -2344,7 +2388,7 @@ singleQuote: false
 ================================================================================
 `;
 
-exports[`expression.js 3`] = `
+exports[`expression.js - {"singleQuote":true,"jsxSingleQuote":false} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -2490,7 +2534,7 @@ singleQuote: true
     someVeryLongStyle1: 'true',
     someVeryLongStyle2: 'true',
     someVeryLongStyle3: 'true',
-    someVeryLongStyle4: 'true'
+    someVeryLongStyle4: 'true',
   }}
 />;
 
@@ -2500,8 +2544,8 @@ singleQuote: true
       someVeryLongStyle1: 'true',
       someVeryLongStyle2: 'true',
       someVeryLongStyle3: 'true',
-      someVeryLongStyle4: 'true'
-    }
+      someVeryLongStyle4: 'true',
+    },
   ]}
 />;
 
@@ -2514,7 +2558,7 @@ singleQuote: true
 </Something>;
 
 <Something>
-  {items.map(item => (
+  {items.map((item) => (
     <SomethingElse>
       <span />
     </SomethingElse>
@@ -2522,7 +2566,7 @@ singleQuote: true
 </Something>;
 
 <Something>
-  {function() {
+  {function () {
     return (
       <SomethingElse>
         <span />
@@ -2550,11 +2594,11 @@ singleQuote: true
 
 <BookingIntroPanel
   prop="long_string_make_to_force_break"
-  logClick={data => doLogClick('short', 'short', data)}
+  logClick={(data) => doLogClick('short', 'short', data)}
 />;
 
 <BookingIntroPanel
-  logClick={data =>
+  logClick={(data) =>
     doLogClick(
       'long_name_long_name_long_name',
       'long_name_long_name_long_name',
@@ -2564,7 +2608,7 @@ singleQuote: true
 />;
 
 <BookingIntroPanel
-  logClick={data => {
+  logClick={(data) => {
     doLogClick(
       'long_name_long_name_long_name',
       'long_name_long_name_long_name',
@@ -2579,17 +2623,17 @@ singleQuote: true
     value: string | Immutable.List<string>
   ) => {
     this.setState({
-      updatedTask: this.state.updatedTask.set(key, value)
+      updatedTask: this.state.updatedTask.set(key, value),
     });
   }}
 />;
 
 <BookingIntroPanel>
-  {data => doLogClick('short', 'short', data)}
+  {(data) => doLogClick('short', 'short', data)}
 </BookingIntroPanel>;
 
 <BookingIntroPanel>
-  {data =>
+  {(data) =>
     doLogClick(
       'long_name_long_name_long_name',
       'long_name_long_name_long_name',
@@ -2599,7 +2643,7 @@ singleQuote: true
 </BookingIntroPanel>;
 
 <BookingIntroPanel>
-  {data => {
+  {(data) => {
     doLogClick(
       'long_name_long_name_long_name',
       'long_name_long_name_long_name',
@@ -2614,7 +2658,7 @@ singleQuote: true
     value: string | Immutable.List<string>
   ) => {
     this.setState({
-      updatedTask: this.state.updatedTask.set(key, value)
+      updatedTask: this.state.updatedTask.set(key, value),
     });
   }}
 </Component>;
@@ -2632,7 +2676,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`expression.js 4`] = `
+exports[`expression.js - {"singleQuote":true,"jsxSingleQuote":true} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -2778,7 +2822,7 @@ singleQuote: true
     someVeryLongStyle1: 'true',
     someVeryLongStyle2: 'true',
     someVeryLongStyle3: 'true',
-    someVeryLongStyle4: 'true'
+    someVeryLongStyle4: 'true',
   }}
 />;
 
@@ -2788,8 +2832,8 @@ singleQuote: true
       someVeryLongStyle1: 'true',
       someVeryLongStyle2: 'true',
       someVeryLongStyle3: 'true',
-      someVeryLongStyle4: 'true'
-    }
+      someVeryLongStyle4: 'true',
+    },
   ]}
 />;
 
@@ -2802,7 +2846,7 @@ singleQuote: true
 </Something>;
 
 <Something>
-  {items.map(item => (
+  {items.map((item) => (
     <SomethingElse>
       <span />
     </SomethingElse>
@@ -2810,7 +2854,7 @@ singleQuote: true
 </Something>;
 
 <Something>
-  {function() {
+  {function () {
     return (
       <SomethingElse>
         <span />
@@ -2838,11 +2882,11 @@ singleQuote: true
 
 <BookingIntroPanel
   prop='long_string_make_to_force_break'
-  logClick={data => doLogClick('short', 'short', data)}
+  logClick={(data) => doLogClick('short', 'short', data)}
 />;
 
 <BookingIntroPanel
-  logClick={data =>
+  logClick={(data) =>
     doLogClick(
       'long_name_long_name_long_name',
       'long_name_long_name_long_name',
@@ -2852,7 +2896,7 @@ singleQuote: true
 />;
 
 <BookingIntroPanel
-  logClick={data => {
+  logClick={(data) => {
     doLogClick(
       'long_name_long_name_long_name',
       'long_name_long_name_long_name',
@@ -2867,17 +2911,17 @@ singleQuote: true
     value: string | Immutable.List<string>
   ) => {
     this.setState({
-      updatedTask: this.state.updatedTask.set(key, value)
+      updatedTask: this.state.updatedTask.set(key, value),
     });
   }}
 />;
 
 <BookingIntroPanel>
-  {data => doLogClick('short', 'short', data)}
+  {(data) => doLogClick('short', 'short', data)}
 </BookingIntroPanel>;
 
 <BookingIntroPanel>
-  {data =>
+  {(data) =>
     doLogClick(
       'long_name_long_name_long_name',
       'long_name_long_name_long_name',
@@ -2887,7 +2931,7 @@ singleQuote: true
 </BookingIntroPanel>;
 
 <BookingIntroPanel>
-  {data => {
+  {(data) => {
     doLogClick(
       'long_name_long_name_long_name',
       'long_name_long_name_long_name',
@@ -2902,7 +2946,7 @@ singleQuote: true
     value: string | Immutable.List<string>
   ) => {
     this.setState({
-      updatedTask: this.state.updatedTask.set(key, value)
+      updatedTask: this.state.updatedTask.set(key, value),
     });
   }}
 </Component>;
@@ -2920,7 +2964,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`flow_fix_me.js 1`] = `
+exports[`flow_fix_me.js - {"singleQuote":false,"jsxSingleQuote":false} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -2944,7 +2988,7 @@ const aDiv = (
 ================================================================================
 `;
 
-exports[`flow_fix_me.js 2`] = `
+exports[`flow_fix_me.js - {"singleQuote":false,"jsxSingleQuote":true} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -2968,7 +3012,7 @@ const aDiv = (
 ================================================================================
 `;
 
-exports[`flow_fix_me.js 3`] = `
+exports[`flow_fix_me.js - {"singleQuote":true,"jsxSingleQuote":false} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -2992,7 +3036,7 @@ const aDiv = (
 ================================================================================
 `;
 
-exports[`flow_fix_me.js 4`] = `
+exports[`flow_fix_me.js - {"singleQuote":true,"jsxSingleQuote":true} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -3016,7 +3060,7 @@ const aDiv = (
 ================================================================================
 `;
 
-exports[`html_escape.js 1`] = `
+exports[`html_escape.js - {"singleQuote":false,"jsxSingleQuote":false} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -3036,7 +3080,7 @@ export default () => <a href="https://foo.bar?q1=foo&q2=bar" />;
 ================================================================================
 `;
 
-exports[`html_escape.js 2`] = `
+exports[`html_escape.js - {"singleQuote":false,"jsxSingleQuote":true} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -3056,7 +3100,7 @@ export default () => <a href='https://foo.bar?q1=foo&q2=bar' />;
 ================================================================================
 `;
 
-exports[`html_escape.js 3`] = `
+exports[`html_escape.js - {"singleQuote":true,"jsxSingleQuote":false} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -3076,7 +3120,7 @@ export default () => <a href="https://foo.bar?q1=foo&q2=bar" />;
 ================================================================================
 `;
 
-exports[`html_escape.js 4`] = `
+exports[`html_escape.js - {"singleQuote":true,"jsxSingleQuote":true} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -3096,7 +3140,7 @@ export default () => <a href='https://foo.bar?q1=foo&q2=bar' />;
 ================================================================================
 `;
 
-exports[`hug.js 1`] = `
+exports[`hug.js - {"singleQuote":false,"jsxSingleQuote":false} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -3143,7 +3187,7 @@ singleQuote: false
     this.renderDevApp()
   ) : (
     <div>
-      {routes.map(route => (
+      {routes.map((route) => (
         <MatchAsync
           key={\`\${route.to}-async\`}
           pattern={route.to}
@@ -3158,7 +3202,7 @@ singleQuote: false
 <div>
   {__DEV__ && (
     <div>
-      {routes.map(route => (
+      {routes.map((route) => (
         <MatchAsync
           key={\`\${route.to}-async\`}
           pattern={route.to}
@@ -3178,7 +3222,7 @@ singleQuote: false
 ================================================================================
 `;
 
-exports[`hug.js 2`] = `
+exports[`hug.js - {"singleQuote":false,"jsxSingleQuote":true} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -3225,7 +3269,7 @@ singleQuote: false
     this.renderDevApp()
   ) : (
     <div>
-      {routes.map(route => (
+      {routes.map((route) => (
         <MatchAsync
           key={\`\${route.to}-async\`}
           pattern={route.to}
@@ -3240,7 +3284,7 @@ singleQuote: false
 <div>
   {__DEV__ && (
     <div>
-      {routes.map(route => (
+      {routes.map((route) => (
         <MatchAsync
           key={\`\${route.to}-async\`}
           pattern={route.to}
@@ -3260,7 +3304,7 @@ singleQuote: false
 ================================================================================
 `;
 
-exports[`hug.js 3`] = `
+exports[`hug.js - {"singleQuote":true,"jsxSingleQuote":false} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -3307,7 +3351,7 @@ singleQuote: true
     this.renderDevApp()
   ) : (
     <div>
-      {routes.map(route => (
+      {routes.map((route) => (
         <MatchAsync
           key={\`\${route.to}-async\`}
           pattern={route.to}
@@ -3322,7 +3366,7 @@ singleQuote: true
 <div>
   {__DEV__ && (
     <div>
-      {routes.map(route => (
+      {routes.map((route) => (
         <MatchAsync
           key={\`\${route.to}-async\`}
           pattern={route.to}
@@ -3342,7 +3386,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`hug.js 4`] = `
+exports[`hug.js - {"singleQuote":true,"jsxSingleQuote":true} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -3389,7 +3433,7 @@ singleQuote: true
     this.renderDevApp()
   ) : (
     <div>
-      {routes.map(route => (
+      {routes.map((route) => (
         <MatchAsync
           key={\`\${route.to}-async\`}
           pattern={route.to}
@@ -3404,7 +3448,7 @@ singleQuote: true
 <div>
   {__DEV__ && (
     <div>
-      {routes.map(route => (
+      {routes.map((route) => (
         <MatchAsync
           key={\`\${route.to}-async\`}
           pattern={route.to}
@@ -3424,7 +3468,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`logical-expression.js 1`] = `
+exports[`logical-expression.js - {"singleQuote":false,"jsxSingleQuote":false} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -3502,7 +3546,7 @@ singleQuote: false
 ================================================================================
 `;
 
-exports[`logical-expression.js 2`] = `
+exports[`logical-expression.js - {"singleQuote":false,"jsxSingleQuote":true} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -3580,7 +3624,7 @@ singleQuote: false
 ================================================================================
 `;
 
-exports[`logical-expression.js 3`] = `
+exports[`logical-expression.js - {"singleQuote":true,"jsxSingleQuote":false} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -3658,7 +3702,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`logical-expression.js 4`] = `
+exports[`logical-expression.js - {"singleQuote":true,"jsxSingleQuote":true} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -3736,7 +3780,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`object-property.js 1`] = `
+exports[`object-property.js - {"singleQuote":false,"jsxSingleQuote":false} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -3769,14 +3813,14 @@ const tabs = [
         onCancel={onCancel}
         countries={countries}
       />
-    )
-  }
+    ),
+  },
 ];
 
 ================================================================================
 `;
 
-exports[`object-property.js 2`] = `
+exports[`object-property.js - {"singleQuote":false,"jsxSingleQuote":true} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -3809,14 +3853,14 @@ const tabs = [
         onCancel={onCancel}
         countries={countries}
       />
-    )
-  }
+    ),
+  },
 ];
 
 ================================================================================
 `;
 
-exports[`object-property.js 3`] = `
+exports[`object-property.js - {"singleQuote":true,"jsxSingleQuote":false} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -3849,14 +3893,14 @@ const tabs = [
         onCancel={onCancel}
         countries={countries}
       />
-    )
-  }
+    ),
+  },
 ];
 
 ================================================================================
 `;
 
-exports[`object-property.js 4`] = `
+exports[`object-property.js - {"singleQuote":true,"jsxSingleQuote":true} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -3889,14 +3933,14 @@ const tabs = [
         onCancel={onCancel}
         countries={countries}
       />
-    )
-  }
+    ),
+  },
 ];
 
 ================================================================================
 `;
 
-exports[`open-break.js 1`] = `
+exports[`open-break.js - {"singleQuote":false,"jsxSingleQuote":false} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -3940,7 +3984,7 @@ onClick={() => {
 ================================================================================
 `;
 
-exports[`open-break.js 2`] = `
+exports[`open-break.js - {"singleQuote":false,"jsxSingleQuote":true} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -3984,7 +4028,7 @@ onClick={() => {
 ================================================================================
 `;
 
-exports[`open-break.js 3`] = `
+exports[`open-break.js - {"singleQuote":true,"jsxSingleQuote":false} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -4028,7 +4072,7 @@ onClick={() => {
 ================================================================================
 `;
 
-exports[`open-break.js 4`] = `
+exports[`open-break.js - {"singleQuote":true,"jsxSingleQuote":true} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -4072,7 +4116,7 @@ onClick={() => {
 ================================================================================
 `;
 
-exports[`parens.js 1`] = `
+exports[`parens.js - {"singleQuote":false,"jsxSingleQuote":false} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -4109,7 +4153,7 @@ a = [
   <path
     key="1"
     d="M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,"
-  />
+  />,
 ];
 
 <div {...(foo || foo === null ? { foo } : null)} />;
@@ -4124,7 +4168,7 @@ new Foo(<Component />);
 ================================================================================
 `;
 
-exports[`parens.js 2`] = `
+exports[`parens.js - {"singleQuote":false,"jsxSingleQuote":true} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -4161,7 +4205,7 @@ a = [
   <path
     key='1'
     d='M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,'
-  />
+  />,
 ];
 
 <div {...(foo || foo === null ? { foo } : null)} />;
@@ -4176,7 +4220,7 @@ new Foo(<Component />);
 ================================================================================
 `;
 
-exports[`parens.js 3`] = `
+exports[`parens.js - {"singleQuote":true,"jsxSingleQuote":false} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -4213,7 +4257,7 @@ a = [
   <path
     key="1"
     d="M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,"
-  />
+  />,
 ];
 
 <div {...(foo || foo === null ? { foo } : null)} />;
@@ -4228,7 +4272,7 @@ new Foo(<Component />);
 ================================================================================
 `;
 
-exports[`parens.js 4`] = `
+exports[`parens.js - {"singleQuote":true,"jsxSingleQuote":true} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -4265,7 +4309,7 @@ a = [
   <path
     key='1'
     d='M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,M13.6,10.6l,4-2.8L9.5,'
-  />
+  />,
 ];
 
 <div {...(foo || foo === null ? { foo } : null)} />;
@@ -4280,7 +4324,7 @@ new Foo(<Component />);
 ================================================================================
 `;
 
-exports[`quotes.js 1`] = `
+exports[`quotes.js - {"singleQuote":false,"jsxSingleQuote":false} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -4370,7 +4414,7 @@ singleQuote: false
 ================================================================================
 `;
 
-exports[`quotes.js 2`] = `
+exports[`quotes.js - {"singleQuote":false,"jsxSingleQuote":true} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -4460,7 +4504,7 @@ singleQuote: false
 ================================================================================
 `;
 
-exports[`quotes.js 3`] = `
+exports[`quotes.js - {"singleQuote":true,"jsxSingleQuote":false} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -4550,7 +4594,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`quotes.js 4`] = `
+exports[`quotes.js - {"singleQuote":true,"jsxSingleQuote":true} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -4640,7 +4684,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`return-statement.js 1`] = `
+exports[`return-statement.js - {"singleQuote":false,"jsxSingleQuote":false} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -4723,11 +4767,11 @@ const BreakingArrowExpressionWBody = () => {
   );
 };
 
-const NonBreakingFunction = function() {
+const NonBreakingFunction = function () {
   return <div />;
 };
 
-const BreakingFunction = function() {
+const BreakingFunction = function () {
   return (
     <div>
       <div>bla bla bla</div>
@@ -4754,7 +4798,7 @@ class BreakingClass extends React.component {
 ================================================================================
 `;
 
-exports[`return-statement.js 2`] = `
+exports[`return-statement.js - {"singleQuote":false,"jsxSingleQuote":true} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -4837,11 +4881,11 @@ const BreakingArrowExpressionWBody = () => {
   );
 };
 
-const NonBreakingFunction = function() {
+const NonBreakingFunction = function () {
   return <div />;
 };
 
-const BreakingFunction = function() {
+const BreakingFunction = function () {
   return (
     <div>
       <div>bla bla bla</div>
@@ -4868,7 +4912,7 @@ class BreakingClass extends React.component {
 ================================================================================
 `;
 
-exports[`return-statement.js 3`] = `
+exports[`return-statement.js - {"singleQuote":true,"jsxSingleQuote":false} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -4951,11 +4995,11 @@ const BreakingArrowExpressionWBody = () => {
   );
 };
 
-const NonBreakingFunction = function() {
+const NonBreakingFunction = function () {
   return <div />;
 };
 
-const BreakingFunction = function() {
+const BreakingFunction = function () {
   return (
     <div>
       <div>bla bla bla</div>
@@ -4982,7 +5026,7 @@ class BreakingClass extends React.component {
 ================================================================================
 `;
 
-exports[`return-statement.js 4`] = `
+exports[`return-statement.js - {"singleQuote":true,"jsxSingleQuote":true} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -5065,11 +5109,11 @@ const BreakingArrowExpressionWBody = () => {
   );
 };
 
-const NonBreakingFunction = function() {
+const NonBreakingFunction = function () {
   return <div />;
 };
 
-const BreakingFunction = function() {
+const BreakingFunction = function () {
   return (
     <div>
       <div>bla bla bla</div>
@@ -5096,7 +5140,7 @@ class BreakingClass extends React.component {
 ================================================================================
 `;
 
-exports[`self-closing.js 1`] = `
+exports[`self-closing.js - {"singleQuote":false,"jsxSingleQuote":false} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -5114,7 +5158,7 @@ singleQuote: false
 ================================================================================
 `;
 
-exports[`self-closing.js 2`] = `
+exports[`self-closing.js - {"singleQuote":false,"jsxSingleQuote":true} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -5132,7 +5176,7 @@ singleQuote: false
 ================================================================================
 `;
 
-exports[`self-closing.js 3`] = `
+exports[`self-closing.js - {"singleQuote":true,"jsxSingleQuote":false} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -5150,7 +5194,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`self-closing.js 4`] = `
+exports[`self-closing.js - {"singleQuote":true,"jsxSingleQuote":true} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -5168,7 +5212,7 @@ singleQuote: true
 ================================================================================
 `;
 
-exports[`spacing.js 1`] = `
+exports[`spacing.js - {"singleQuote":false,"jsxSingleQuote":false} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -5202,13 +5246,13 @@ const Labels = {
 
   label2: <fbt>Label 2</fbt>,
 
-  label3: <fbt>Label 3</fbt>
+  label3: <fbt>Label 3</fbt>,
 };
 
 ================================================================================
 `;
 
-exports[`spacing.js 2`] = `
+exports[`spacing.js - {"singleQuote":false,"jsxSingleQuote":true} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -5242,13 +5286,13 @@ const Labels = {
 
   label2: <fbt>Label 2</fbt>,
 
-  label3: <fbt>Label 3</fbt>
+  label3: <fbt>Label 3</fbt>,
 };
 
 ================================================================================
 `;
 
-exports[`spacing.js 3`] = `
+exports[`spacing.js - {"singleQuote":true,"jsxSingleQuote":false} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: false
 parsers: ["flow", "babel", "typescript"]
@@ -5282,13 +5326,13 @@ const Labels = {
 
   label2: <fbt>Label 2</fbt>,
 
-  label3: <fbt>Label 3</fbt>
+  label3: <fbt>Label 3</fbt>,
 };
 
 ================================================================================
 `;
 
-exports[`spacing.js 4`] = `
+exports[`spacing.js - {"singleQuote":true,"jsxSingleQuote":true} format 1`] = `
 ====================================options=====================================
 jsxSingleQuote: true
 parsers: ["flow", "babel", "typescript"]
@@ -5322,7 +5366,7 @@ const Labels = {
 
   label2: <fbt>Label 2</fbt>,
 
-  label3: <fbt>Label 3</fbt>
+  label3: <fbt>Label 3</fbt>,
 };
 
 ================================================================================

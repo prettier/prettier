@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`boundary.js 1`] = `
+exports[`boundary.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -32,7 +32,8 @@ ExampleStory.getFragment('story')}
 </div>;
 
 =====================================output=====================================
-\`\${a + a // a
+\`\${
+  a + a // a
 }
 
 \${
@@ -55,7 +56,8 @@ ExampleStory.getFragment('story')}
 \`;
 
 <div>
-  {ExampleStory.getFragment("story") // $FlowFixMe found when converting React.createClass to ES6
+  {
+    ExampleStory.getFragment("story") // $FlowFixMe found when converting React.createClass to ES6
   }
 </div>;
 

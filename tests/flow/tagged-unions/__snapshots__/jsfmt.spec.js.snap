@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`classes.js 1`] = `
+exports[`classes.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -74,7 +74,7 @@ function bar(x: Bar): string {
 ================================================================================
 `;
 
-exports[`interfaces-neg.js 1`] = `
+exports[`interfaces-neg.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -128,7 +128,7 @@ declare type IData = IUserData | ISystemData;
 const data: IData = {
   id: "",
   name: "",
-  kind: "system"
+  kind: "system",
 };
 
 if (data.kind === "user") {
@@ -138,7 +138,7 @@ if (data.kind === "user") {
 ================================================================================
 `;
 
-exports[`interfaces-pos.js 1`] = `
+exports[`interfaces-pos.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -192,7 +192,7 @@ declare type IData = IUserData | ISystemData;
 const data: IData = {
   id: "",
   name: "",
-  kind: "system"
+  kind: "system",
 };
 
 if (data.kind === "system") {
@@ -202,7 +202,7 @@ if (data.kind === "system") {
 ================================================================================
 `;
 
-exports[`type-decls-neg.js 1`] = `
+exports[`type-decls-neg.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -244,19 +244,19 @@ if (data.kind === "user") {
 
 type DataBase = {
   id: string,
-  name: string
+  name: string,
 };
 
 type UserData = {
   id: string,
   name: string,
-  kind: "user"
+  kind: "user",
 };
 
 type SystemData = {
   id: string,
   name: string,
-  kind: "system"
+  kind: "system",
 };
 
 declare type Data = UserData | SystemData;
@@ -264,7 +264,7 @@ declare type Data = UserData | SystemData;
 const data: Data = {
   id: "",
   name: "",
-  kind: "system"
+  kind: "system",
 };
 
 if (data.kind === "user") {
@@ -274,7 +274,7 @@ if (data.kind === "user") {
 ================================================================================
 `;
 
-exports[`type-decls-pos.js 1`] = `
+exports[`type-decls-pos.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -316,19 +316,19 @@ if (data.kind === "system") {
 
 type DataBase = {
   id: string,
-  name: string
+  name: string,
 };
 
 type UserData = {
   id: string,
   name: string,
-  kind: "user"
+  kind: "user",
 };
 
 type SystemData = {
   id: string,
   name: string,
-  kind: "system"
+  kind: "system",
 };
 
 declare type Data = UserData | SystemData;
@@ -336,7 +336,7 @@ declare type Data = UserData | SystemData;
 const data: Data = {
   id: "",
   name: "",
-  kind: "system"
+  kind: "system",
 };
 
 if (data.kind === "system") {

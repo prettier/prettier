@@ -1,20 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`declare_export.js 1`] = `
-====================================options=====================================
-parsers: ["flow", "babel"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-declare export default 5;
-
-=====================================output=====================================
-declare export default 5;
-
-================================================================================
-`;
-
-exports[`declare_export.js 2`] = `
+exports[`declare_export.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -29,21 +15,21 @@ declare export default 5
 ================================================================================
 `;
 
-exports[`declare_type.js 1`] = `
+exports[`declare_export.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-declare type A = string;
+declare export default 5;
 
 =====================================output=====================================
-declare type A = string;
+declare export default 5;
 
 ================================================================================
 `;
 
-exports[`declare_type.js 2`] = `
+exports[`declare_type.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -58,21 +44,21 @@ declare type A = string
 ================================================================================
 `;
 
-exports[`declare_var.js 1`] = `
+exports[`declare_type.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-declare var bool: React$PropType$Primitive<boolean>;
+declare type A = string;
 
 =====================================output=====================================
-declare var bool: React$PropType$Primitive<boolean>;
+declare type A = string;
 
 ================================================================================
 `;
 
-exports[`declare_var.js 2`] = `
+exports[`declare_var.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -87,35 +73,21 @@ declare var bool: React$PropType$Primitive<boolean>
 ================================================================================
 `;
 
-exports[`long.js 1`] = `
+exports[`declare_var.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-export type AdamPlacementValidationSingleErrorKey =
-  'SOME_FANCY_TARGETS.GLOBAL_TARGET';
-
-export type SomeReallyLongLongLongLongLongLongLongLongLongLongLongLongLongLongKey = true;
-
-export type SomeOtherLongLongLongLongLongLongLongLongLongLongLongLongLongLongKey = null;
-
-type SomeOtherLongLongLongLongLongLongLongLongLongLongLongLongLongLongKey2 = SomeReallyLongLongLongLongLongLongIdentifier;
+declare var bool: React$PropType$Primitive<boolean>;
 
 =====================================output=====================================
-export type AdamPlacementValidationSingleErrorKey =
-  "SOME_FANCY_TARGETS.GLOBAL_TARGET";
-
-export type SomeReallyLongLongLongLongLongLongLongLongLongLongLongLongLongLongKey = true;
-
-export type SomeOtherLongLongLongLongLongLongLongLongLongLongLongLongLongLongKey = null;
-
-type SomeOtherLongLongLongLongLongLongLongLongLongLongLongLongLongLongKey2 = SomeReallyLongLongLongLongLongLongIdentifier;
+declare var bool: React$PropType$Primitive<boolean>;
 
 ================================================================================
 `;
 
-exports[`long.js 2`] = `
+exports[`long.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -144,47 +116,35 @@ type SomeOtherLongLongLongLongLongLongLongLongLongLongLongLongLongLongKey2 = Som
 ================================================================================
 `;
 
-exports[`opaque.js 1`] = `
+exports[`long.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-declare export opaque type Foo;
-declare export opaque type Bar<T>;
-declare export opaque type Baz: Foo;
-declare export opaque type Foo1<T>: Bar<T>;
-declare export opaque type Foo2<T>: Bar;
-declare export opaque type Foo3: Bar<T>;
-opaque type ID = string;
-opaque type Foo4<T> = Bar<T>;
-opaque type Maybe<T> = _Maybe<T, *>;
-export opaque type Foo5 = number;
-opaque type union =
- | {type: "A"}
- | {type: "B"};
-opaque type overloads =
-  & ((x: string) => number)
-  & ((x: number) => string);
+export type AdamPlacementValidationSingleErrorKey =
+  'SOME_FANCY_TARGETS.GLOBAL_TARGET';
+
+export type SomeReallyLongLongLongLongLongLongLongLongLongLongLongLongLongLongKey = true;
+
+export type SomeOtherLongLongLongLongLongLongLongLongLongLongLongLongLongLongKey = null;
+
+type SomeOtherLongLongLongLongLongLongLongLongLongLongLongLongLongLongKey2 = SomeReallyLongLongLongLongLongLongIdentifier;
 
 =====================================output=====================================
-declare export opaque type Foo;
-declare export opaque type Bar<T>;
-declare export opaque type Baz: Foo;
-declare export opaque type Foo1<T>: Bar<T>;
-declare export opaque type Foo2<T>: Bar;
-declare export opaque type Foo3: Bar<T>;
-opaque type ID = string;
-opaque type Foo4<T> = Bar<T>;
-opaque type Maybe<T> = _Maybe<T, *>;
-export opaque type Foo5 = number;
-opaque type union = { type: "A" } | { type: "B" };
-opaque type overloads = ((x: string) => number) & ((x: number) => string);
+export type AdamPlacementValidationSingleErrorKey =
+  "SOME_FANCY_TARGETS.GLOBAL_TARGET";
+
+export type SomeReallyLongLongLongLongLongLongLongLongLongLongLongLongLongLongKey = true;
+
+export type SomeOtherLongLongLongLongLongLongLongLongLongLongLongLongLongLongKey = null;
+
+type SomeOtherLongLongLongLongLongLongLongLongLongLongLongLongLongLongKey2 = SomeReallyLongLongLongLongLongLongIdentifier;
 
 ================================================================================
 `;
 
-exports[`opaque.js 2`] = `
+exports[`opaque.js - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -221,6 +181,46 @@ opaque type Maybe<T> = _Maybe<T, *>
 export opaque type Foo5 = number
 opaque type union = { type: "A" } | { type: "B" }
 opaque type overloads = ((x: string) => number) & ((x: number) => string)
+
+================================================================================
+`;
+
+exports[`opaque.js format 1`] = `
+====================================options=====================================
+parsers: ["flow", "babel"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+declare export opaque type Foo;
+declare export opaque type Bar<T>;
+declare export opaque type Baz: Foo;
+declare export opaque type Foo1<T>: Bar<T>;
+declare export opaque type Foo2<T>: Bar;
+declare export opaque type Foo3: Bar<T>;
+opaque type ID = string;
+opaque type Foo4<T> = Bar<T>;
+opaque type Maybe<T> = _Maybe<T, *>;
+export opaque type Foo5 = number;
+opaque type union =
+ | {type: "A"}
+ | {type: "B"};
+opaque type overloads =
+  & ((x: string) => number)
+  & ((x: number) => string);
+
+=====================================output=====================================
+declare export opaque type Foo;
+declare export opaque type Bar<T>;
+declare export opaque type Baz: Foo;
+declare export opaque type Foo1<T>: Bar<T>;
+declare export opaque type Foo2<T>: Bar;
+declare export opaque type Foo3: Bar<T>;
+opaque type ID = string;
+opaque type Foo4<T> = Bar<T>;
+opaque type Maybe<T> = _Maybe<T, *>;
+export opaque type Foo5 = number;
+opaque type union = { type: "A" } | { type: "B" };
+opaque type overloads = ((x: string) => number) & ((x: number) => string);
 
 ================================================================================
 `;

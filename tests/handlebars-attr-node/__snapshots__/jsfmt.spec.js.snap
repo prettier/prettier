@@ -1,25 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`brackets.hbs 1`] = `
-====================================options=====================================
-parsers: ["glimmer"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-<div title='My title'></div>
-<div title="My title"></div>
-<div title='My "title"'></div>
-<div title="My other 'title'"></div>
-
-=====================================output=====================================
-<div title="My title"></div>
-<div title="My title"></div>
-<div title='My "title"'></div>
-<div title="My other 'title'"></div>
-================================================================================
-`;
-
-exports[`brackets.hbs 2`] = `
+exports[`brackets.hbs - {"singleQuote":true} format 1`] = `
 ====================================options=====================================
 parsers: ["glimmer"]
 printWidth: 80
@@ -34,6 +15,25 @@ singleQuote: true
 =====================================output=====================================
 <div title='My title'></div>
 <div title='My title'></div>
+<div title='My "title"'></div>
+<div title="My other 'title'"></div>
+================================================================================
+`;
+
+exports[`brackets.hbs format 1`] = `
+====================================options=====================================
+parsers: ["glimmer"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<div title='My title'></div>
+<div title="My title"></div>
+<div title='My "title"'></div>
+<div title="My other 'title'"></div>
+
+=====================================output=====================================
+<div title="My title"></div>
+<div title="My title"></div>
 <div title='My "title"'></div>
 <div title="My other 'title'"></div>
 ================================================================================

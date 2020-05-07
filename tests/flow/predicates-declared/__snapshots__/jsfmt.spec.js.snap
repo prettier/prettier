@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`function-bind.js 1`] = `
+exports[`function-bind.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -93,7 +93,7 @@ if (m.bind(this)(x)) {
 ================================================================================
 `;
 
-exports[`function-union.js 1`] = `
+exports[`function-union.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -140,7 +140,7 @@ function foo(x: number | string | Array<string>): number {
 ================================================================================
 `;
 
-exports[`is-string-decl.js 1`] = `
+exports[`is-string-decl.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -188,7 +188,7 @@ function foo(x: string | Array<string>): string {
 ================================================================================
 `;
 
-exports[`logical-or.js 1`] = `
+exports[`logical-or.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -246,7 +246,7 @@ Number(dollars) || 0;
 ================================================================================
 `;
 
-exports[`object-invariant.js 1`] = `
+exports[`object-invariant.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -285,11 +285,11 @@ function f(_this: { m: ?Meeting }): string {
 
 type Meeting = {
   organizer: ?Invitee,
-  es: Array<Invitee>
+  es: Array<Invitee>,
 };
 
 type Invitee = {
-  fbid: number
+  fbid: number,
 };
 
 function f(_this: { m: ?Meeting }): string {
@@ -297,7 +297,7 @@ function f(_this: { m: ?Meeting }): string {
     return "0";
   }
 
-  if (_this.m.es.some(a => a.fbid === 0)) {
+  if (_this.m.es.some((a) => a.fbid === 0)) {
   }
   return "3";
 }
@@ -305,7 +305,7 @@ function f(_this: { m: ?Meeting }): string {
 ================================================================================
 `;
 
-exports[`orig-string-tag-check.js 1`] = `
+exports[`orig-string-tag-check.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -340,7 +340,7 @@ function foo(x: string | Array<string>): string {
 ================================================================================
 `;
 
-exports[`sanity-fall-through.js 1`] = `
+exports[`sanity-fall-through.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -378,7 +378,7 @@ function foo(s: Array<string>): string {
 ================================================================================
 `;
 
-exports[`sanity-invalid-calls.js 1`] = `
+exports[`sanity-invalid-calls.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -427,7 +427,7 @@ function foo(s: Array<string>): string {
 ================================================================================
 `;
 
-exports[`sanity-is-string-bug.js 1`] = `
+exports[`sanity-is-string-bug.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -469,7 +469,7 @@ function bar(x: string | Array<string>): string {
 ================================================================================
 `;
 
-exports[`sanity-parameter-mismatch.js 1`] = `
+exports[`sanity-parameter-mismatch.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -501,7 +501,7 @@ foo(3, 3);
 ================================================================================
 `;
 
-exports[`sanity-pred-with-body.js 1`] = `
+exports[`sanity-pred-with-body.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -544,7 +544,7 @@ function foo(x: string | Array<string>): string {
 ================================================================================
 `;
 
-exports[`sanity-return-type.js 1`] = `
+exports[`sanity-return-type.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`break.js 1`] = `
+exports[`break.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -78,14 +78,14 @@ deepCopyAndAsyncMapLeavesC(
 
 function someFunction(url) {
   return get(url).then(
-    json => dispatch(success(json)),
-    error => dispatch(failed(error))
+    (json) => dispatch(success(json)),
+    (error) => dispatch(failed(error))
   );
 }
 
 const mapChargeItems = fp.flow(
-  l => (l < 10 ? l : 1),
-  l => Immutable.Range(l).toMap()
+  (l) => (l < 10 ? l : 1),
+  (l) => Immutable.Range(l).toMap()
 );
 
 expect(
@@ -102,7 +102,7 @@ expect(
 ================================================================================
 `;
 
-exports[`parent.js 1`] = `
+exports[`parent.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -132,7 +132,7 @@ runtimeAgent.getProperties(
 ================================================================================
 `;
 
-exports[`react.js 1`] = `
+exports[`react.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80
@@ -189,7 +189,7 @@ function helloWorld() {
     props.value,
     props.value,
     props.value,
-    props.value
+    props.value,
   ]);
 }
 
@@ -210,7 +210,7 @@ function helloWorldWithReact() {
     props.value,
     props.value,
     props.value,
-    props.value
+    props.value,
   ]);
 }
 
@@ -232,7 +232,7 @@ function MyComponent(props) {
 ================================================================================
 `;
 
-exports[`type_args.js 1`] = `
+exports[`type_args.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 80

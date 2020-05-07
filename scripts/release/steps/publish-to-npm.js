@@ -5,7 +5,7 @@ const dedent = require("dedent");
 const execa = require("execa");
 const { logPromise, waitForEnter } = require("../utils");
 
-module.exports = async function({ dry, version }) {
+module.exports = async function ({ dry, version }) {
   if (dry) {
     return;
   }
@@ -14,7 +14,7 @@ module.exports = async function({ dry, version }) {
     "Publishing to npm",
     execa("npm", ["publish"], {
       cwd: "./dist",
-      stdio: "inherit" // we need to input OTP if 2FA enabled
+      stdio: "inherit", // we need to input OTP if 2FA enabled
     })
   );
 
@@ -34,7 +34,7 @@ module.exports = async function({ dry, version }) {
       - Test the API and CLI
 
       After that, we can proceed to bump this repo's Prettier dependency.
-      Press any key to continue.
+      Press ENTER to continue.
     `)
   );
   await waitForEnter();

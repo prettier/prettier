@@ -1,6 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`logical_expression_operators.js 1`] = `
+exports[`issue-7024.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const radioSelectedAttr =
+  (isAnyValueSelected &&
+    node.getAttribute(radioAttr.toLowerCase()) === radioValue) ||
+  ((!isAnyValueSelected && values[a].default === true) || a === 0);
+
+=====================================output=====================================
+const radioSelectedAttr =
+  (isAnyValueSelected &&
+    node.getAttribute(radioAttr.toLowerCase()) === radioValue) ||
+  (!isAnyValueSelected && values[a].default === true) ||
+  a === 0;
+
+================================================================================
+`;
+
+exports[`logical_expression_operators.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80

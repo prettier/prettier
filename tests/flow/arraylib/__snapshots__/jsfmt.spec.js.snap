@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`array_lib.js 1`] = `
+exports[`array_lib.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -69,7 +69,7 @@ function from_test() {
 function foo(x: string) {}
 
 var a = [0];
-var b = a.map(function(x) {
+var b = a.map(function (x) {
   foo(x);
   return "" + x;
 });
@@ -80,7 +80,7 @@ var d: number = b[0];
 var e: Array<string> = a.reverse();
 
 var f = [""];
-var g: number = f.map(function() {
+var g: number = f.map(function () {
   return 0;
 })[0];
 
@@ -96,23 +96,23 @@ function reduce_test() {
   /* Adapted from the following source:
    * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
    */
-  [0, 1, 2, 3, 4].reduce(function(previousValue, currentValue, index, array) {
+  [0, 1, 2, 3, 4].reduce(function (previousValue, currentValue, index, array) {
     return previousValue + currentValue + array[index];
   });
 
-  [0, 1, 2, 3, 4].reduce(function(previousValue, currentValue, index, array) {
+  [0, 1, 2, 3, 4].reduce(function (previousValue, currentValue, index, array) {
     return previousValue + currentValue + array[index];
   }, 10);
 
-  var total = [0, 1, 2, 3].reduce(function(a, b) {
+  var total = [0, 1, 2, 3].reduce(function (a, b) {
     return a + b;
   });
 
   var flattened = [
     [0, 1],
     [2, 3],
-    [4, 5]
-  ].reduce(function(a, b) {
+    [4, 5],
+  ].reduce(function (a, b) {
     return a.concat(b);
   });
 
@@ -124,10 +124,10 @@ function reduce_test() {
 }
 
 function from_test() {
-  var a: Array<string> = Array.from([1, 2, 3], function(val, index) {
+  var a: Array<string> = Array.from([1, 2, 3], function (val, index) {
     return index % 2 ? "foo" : String(val);
   });
-  var b: Array<string> = Array.from([1, 2, 3], function(val) {
+  var b: Array<string> = Array.from([1, 2, 3], function (val) {
     return String(val);
   });
 }

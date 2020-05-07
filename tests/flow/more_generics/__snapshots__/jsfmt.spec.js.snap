@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`poly.js 1`] = `
+exports[`poly.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -37,7 +37,7 @@ function foo8<U>(x:U,y):U {
 */
 
 =====================================output=====================================
-var foo1 = function<T>(x: T): T {
+var foo1 = function <T>(x: T): T {
   return x;
 };
 
@@ -45,7 +45,7 @@ function foo2<T, S>(x: T): S {
   return x;
 }
 
-var foo3 = function<T>(x: T): T {
+var foo3 = function <T>(x: T): T {
   return foo3(x);
 };
 
@@ -64,7 +64,7 @@ function foo5<T>(): Array<T> {
  var y: string = b[0];
 */
 
-var foo6 = function<R>(x: R): R {
+var foo6 = function <R>(x: R): R {
   return foo1(x);
 };
 

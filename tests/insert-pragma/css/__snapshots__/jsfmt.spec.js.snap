@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`front-matter.css 1`] = `
+exports[`front-matter.css - {"insertPragma":true} format 1`] = `
 ====================================options=====================================
 insertPragma: true
 parsers: ["css"]
@@ -27,7 +27,7 @@ something
 ================================================================================
 `;
 
-exports[`simple.css 1`] = `
+exports[`simple.css - {"insertPragma":true} format 1`] = `
 ====================================options=====================================
 insertPragma: true
 parsers: ["css"]
@@ -46,7 +46,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`start-with-comment.css 1`] = `
+exports[`start-with-comment.css - {"insertPragma":true} format 1`] = `
 ====================================options=====================================
 insertPragma: true
 parsers: ["css"]

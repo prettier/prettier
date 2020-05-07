@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`assignment.js 1`] = `
+exports[`assignment.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -51,7 +51,7 @@ function foo(x: ?number) {
 
 type Bar = {
   parent: ?Bar,
-  doStuff: () => void
+  doStuff: () => void,
 };
 
 function bar0(x: Bar) {
@@ -78,7 +78,7 @@ function bar2(x: Bar) {
 ================================================================================
 `;
 
-exports[`ast_node.js 1`] = `
+exports[`ast_node.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -99,12 +99,12 @@ export type ASTNode = Node1 | Node2;
 =====================================output=====================================
 type Node1 = {
   kind: "Node1",
-  prop1?: string
+  prop1?: string,
 };
 
 type Node2 = {
   kind: "Node2",
-  prop2?: string
+  prop2?: string,
 };
 
 export type ASTNode = Node1 | Node2;
@@ -112,7 +112,7 @@ export type ASTNode = Node1 | Node2;
 ================================================================================
 `;
 
-exports[`bool.js 1`] = `
+exports[`bool.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -198,25 +198,25 @@ function baz(x: ?boolean) {
 }
 
 let tests = [
-  function(x: { done: true, result: string } | { done: false }) {
+  function (x: { done: true, result: string } | { done: false }) {
     if (x.done === true) {
       return x.result;
     }
     return x.result; // error
   },
 
-  function(x: { done: true, result: string } | { done: false }) {
+  function (x: { done: true, result: string } | { done: false }) {
     if (true === x.done) {
       return x.result;
     }
     return x.result; // error
-  }
+  },
 ];
 
 ================================================================================
 `;
 
-exports[`computed_string_literal.js 1`] = `
+exports[`computed_string_literal.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -246,7 +246,7 @@ function testLiteralProperty(a: A) {
 // @flow
 
 type A = {
-  b_c: ?string
+  b_c: ?string,
 };
 
 function stuff(str: string) {}
@@ -266,7 +266,7 @@ function testLiteralProperty(a: A) {
 ================================================================================
 `;
 
-exports[`cond_prop.js 1`] = `
+exports[`cond_prop.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -340,21 +340,21 @@ function getTypeASTName(typeAST: Type): string {
 }
 
 let tests = [
-  function(x: { done: true, result: string } | { done: false }) {
+  function (x: { done: true, result: string } | { done: false }) {
     if (x.done) {
       return x.result;
     }
     return x.result; // error
   },
 
-  function(x: { done: true, result: string } | { foo: string }) {
+  function (x: { done: true, result: string } | { foo: string }) {
     if (x.done) {
       return x.result; // error, consider { foo: "herp", done: "derp" }
     }
     return x.result; // error
   },
 
-  function() {
+  function () {
     type T = { foo: Object, bar: string } | { baz: string, quux: string };
 
     function testAlwaysTruthyProp(t: T) {
@@ -374,13 +374,13 @@ let tests = [
         (t.quux: string); // error, consider { foo: {}, bar: "" }
       }
     }
-  }
+  },
 ];
 
 ================================================================================
 `;
 
-exports[`constants.js 1`] = `
+exports[`constants.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -400,7 +400,7 @@ export const ERROR: "ERROR" = "ERROR";
 ================================================================================
 `;
 
-exports[`eq.js 1`] = `
+exports[`eq.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -433,37 +433,37 @@ let tests = [
 /* @flow */
 
 let tests = [
-  function(x: string, y: number) {
+  function (x: string, y: number) {
     if (x == y) {
     } // error, string & number are not comparable (unsafe casting)
     if (x === y) {
     } // no error, to match \`let z = (x === y)\` which is allowed
   },
 
-  function(x: string) {
+  function (x: string) {
     if (x == undefined) {
     } // ok
     if (x == void 0) {
     } // ok
   },
 
-  function(x: string) {
+  function (x: string) {
     if (x == null) {
     } // ok
   },
 
-  function(x: { y: "foo" } | { y: "bar" }) {
+  function (x: { y: "foo" } | { y: "bar" }) {
     if (x.y == 123) {
     } // error
     if (x.y === 123) {
     } // ok
-  }
+  },
 ];
 
 ================================================================================
 `;
 
-exports[`exists.js 1`] = `
+exports[`exists.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -505,7 +505,7 @@ function foo2(x: ?Class<Foo>): string {
 ================================================================================
 `;
 
-exports[`func_call.js 1`] = `
+exports[`func_call.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -528,20 +528,20 @@ let tests = [
 // @flow
 
 let tests = [
-  function(x: { y?: string }, z: () => string) {
+  function (x: { y?: string }, z: () => string) {
     if (x.y) {
       // make sure we visit the AST in the correct order. if we visit z() before
       // x.y, then the function call will invalidate the refinement of x.y
       // incorrectly.
       x.y.indexOf(z()); // no error
     }
-  }
+  },
 ];
 
 ================================================================================
 `;
 
-exports[`hasOwnProperty.js 1`] = `
+exports[`hasOwnProperty.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -595,7 +595,7 @@ function bar(x: Object) {
 ================================================================================
 `;
 
-exports[`heap_defassign.js 1`] = `
+exports[`heap_defassign.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -775,7 +775,7 @@ function def_assign_setprop_nohavoc(obj: Obj, obj2: Obj2) {
 ================================================================================
 `;
 
-exports[`lib.js 1`] = `
+exports[`lib.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -793,7 +793,7 @@ declare var BAZ: { stuff?: (x: number) => void } | void;
 ================================================================================
 `;
 
-exports[`missing-property-cond.js 1`] = `
+exports[`missing-property-cond.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -899,7 +899,7 @@ function foo5() {
     o.p();
   }
   function _foo5() {
-    o.p = function() {};
+    o.p = function () {};
   }
 }
 
@@ -927,7 +927,7 @@ function foo8(o: { p: mixed }) {
 }
 
 type Foo9Expected = {
-  foo: string
+  foo: string,
 };
 
 function foo9() {
@@ -941,7 +941,7 @@ function foo9() {
 ================================================================================
 `;
 
-exports[`mixed.js 1`] = `
+exports[`mixed.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -1195,7 +1195,7 @@ function arr0(x: mixed) {
 ================================================================================
 `;
 
-exports[`node1.js 1`] = `
+exports[`node1.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -1209,7 +1209,7 @@ module.exports = "Node1";
 ================================================================================
 `;
 
-exports[`not.js 1`] = `
+exports[`not.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -1296,36 +1296,36 @@ function baz(x: ?number) {
 class TestClass {}
 
 let tests = [
-  function() {
+  function () {
     var y = true;
     while (y) {
       y = !y;
     }
   },
-  function(x: Function) {
+  function (x: Function) {
     (!x: false); // ok, functions are always truthy
   },
-  function(x: Object) {
+  function (x: Object) {
     (!x: false); // ok, objects are always truthy
   },
-  function(x: string) {
+  function (x: string) {
     (!x: false); // error, strings are not always truthy
   },
-  function(x: number) {
+  function (x: number) {
     (!x: false); // error, numbers are not always truthy
   },
-  function(x: boolean) {
+  function (x: boolean) {
     (!x: false); // error, bools are not always truthy
   },
-  function(x: TestClass) {
+  function (x: TestClass) {
     (!x: false); // ok, classes are always truthy
-  }
+  },
 ];
 
 ================================================================================
 `;
 
-exports[`null.js 1`] = `
+exports[`null.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -1357,7 +1357,7 @@ function null_bogus_comparison() {
 ================================================================================
 `;
 
-exports[`number.js 1`] = `
+exports[`number.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -1491,49 +1491,49 @@ let tests = [
 type Mode = 0 | 1 | 2;
 
 let tests = [
-  function(x: number) {
+  function (x: number) {
     if (x === 0) {
       (x: void); // error
     }
     (x: 0); // error
   },
 
-  function(x: number) {
+  function (x: number) {
     if (x !== 0) {
       (x: 0); // error
     }
     (x: void); // error
   },
 
-  function(x: 1): 0 {
+  function (x: 1): 0 {
     if (x === 0) {
       return x; // unreachable, no error
     }
     return 0;
   },
 
-  function(x: 0): number {
+  function (x: 0): number {
     if (x === 1) {
       return x;
     }
     return x;
   },
 
-  function(x: 0) {
+  function (x: 0) {
     if (x !== 1) {
       (x: 0);
     }
     (x: 0);
   },
 
-  function(x: 0): number {
+  function (x: 0): number {
     if (x === 0) {
       return x;
     }
     return x;
   },
 
-  function(x: 0 | 1) {
+  function (x: 0 | 1) {
     if (x === 0) {
       (x: 0);
       (x: void); // error
@@ -1544,14 +1544,14 @@ let tests = [
     }
   },
 
-  function(x: { foo: number }): 0 {
+  function (x: { foo: number }): 0 {
     if (x.foo === 0) {
       return x.foo;
     }
     return x.foo; // error
   },
 
-  function(x: { kind: 0, foo: number } | { kind: 1, bar: number }): number {
+  function (x: { kind: 0, foo: number } | { kind: 1, bar: number }): number {
     if (x.kind === 0) {
       return x.foo;
     } else {
@@ -1559,26 +1559,26 @@ let tests = [
     }
   },
 
-  function(num: number, obj: { foo: number }) {
+  function (num: number, obj: { foo: number }) {
     if (num === obj.bar) {
       // ok, typos allowed in conditionals
     }
   },
 
-  function(num: number, obj: { [key: string]: number }) {
+  function (num: number, obj: { [key: string]: number }) {
     if (num === obj.bar) {
       // ok
     }
   },
 
-  function(n: number): Mode {
+  function (n: number): Mode {
     if (n !== 0 && n !== 1 && n !== 2) {
       throw new Error("Wrong number passed");
     }
     return n;
   },
 
-  function(s: number): ?Mode {
+  function (s: number): ?Mode {
     if (s === 0) {
       return s;
     } else if (s === 3) {
@@ -1586,7 +1586,7 @@ let tests = [
     }
   },
 
-  function(mode: Mode) {
+  function (mode: Mode) {
     switch (mode) {
       case 0:
         (mode: 0);
@@ -1599,19 +1599,19 @@ let tests = [
     }
   },
 
-  function(x: number): 0 {
+  function (x: number): 0 {
     if (x) {
       return x; // error
     } else {
       return x; // no error, inferred to be 0
     }
-  }
+  },
 ];
 
 ================================================================================
 `;
 
-exports[`property.js 1`] = `
+exports[`property.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -1790,7 +1790,7 @@ function c3(
 ================================================================================
 `;
 
-exports[`refinements.js 1`] = `
+exports[`refinements.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -1960,7 +1960,7 @@ function global_in_conditional2(x: number) {
 ================================================================================
 `;
 
-exports[`string.js 1`] = `
+exports[`string.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -2106,49 +2106,49 @@ let tests = [
 type Mode = "a" | "b" | "c";
 
 let tests = [
-  function(x: string) {
+  function (x: string) {
     if (x === "foo") {
       (x: void); // error
     }
     (x: "foo"); // error
   },
 
-  function(x: string) {
+  function (x: string) {
     if (x !== "foo") {
       (x: "foo"); // error
     }
     (x: void); // error
   },
 
-  function(x: "bar"): "foo" {
+  function (x: "bar"): "foo" {
     if (x === "foo") {
       return x; // unreachable, no error
     }
     return "foo";
   },
 
-  function(x: "foo"): string {
+  function (x: "foo"): string {
     if (x === "bar") {
       return x;
     }
     return x;
   },
 
-  function(x: "foo") {
+  function (x: "foo") {
     if (x !== "bar") {
       (x: "foo");
     }
     (x: "foo");
   },
 
-  function(x: "foo"): string {
+  function (x: "foo"): string {
     if (x === "foo") {
       return x;
     }
     return x;
   },
 
-  function(x: "foo" | "bar") {
+  function (x: "foo" | "bar") {
     if (x === "foo") {
       (x: "foo");
       (x: void); // error
@@ -2159,14 +2159,14 @@ let tests = [
     }
   },
 
-  function(x: { foo: string }): "foo" {
+  function (x: { foo: string }): "foo" {
     if (x.foo === "foo") {
       return x.foo;
     }
     return x.foo; // error
   },
 
-  function(
+  function (
     x: { kind: "foo", foo: string } | { kind: "bar", bar: string }
   ): string {
     if (x.kind === "foo") {
@@ -2176,19 +2176,19 @@ let tests = [
     }
   },
 
-  function(str: string, obj: { foo: string }) {
+  function (str: string, obj: { foo: string }) {
     if (str === obj.bar) {
       // ok, typos allowed in conditionals
     }
   },
 
-  function(str: string, obj: { [key: string]: string }) {
+  function (str: string, obj: { [key: string]: string }) {
     if (str === obj.bar) {
       // ok
     }
   },
 
-  function(str: string): Mode {
+  function (str: string): Mode {
     var ch = str[0];
     if (ch !== "a" && ch !== "b" && ch !== "c") {
       throw new Error("Wrong string passed");
@@ -2196,7 +2196,7 @@ let tests = [
     return ch;
   },
 
-  function(s: string): ?Mode {
+  function (s: string): ?Mode {
     if (s === "a") {
       return s;
     } else if (s === "d") {
@@ -2204,7 +2204,7 @@ let tests = [
     }
   },
 
-  function(mode: Mode) {
+  function (mode: Mode) {
     switch (mode) {
       case "a":
         (mode: "a");
@@ -2217,7 +2217,7 @@ let tests = [
     }
   },
 
-  function(x: string): "" {
+  function (x: string): "" {
     if (x) {
       return x; // error
     } else {
@@ -2226,7 +2226,7 @@ let tests = [
   },
 
   // Simple template literals are ok
-  function(x: string): "foo" {
+  function (x: string): "foo" {
     if (x === \`foo\`) {
       return x;
     }
@@ -2234,13 +2234,13 @@ let tests = [
       return x;
     }
     return "foo";
-  }
+  },
 ];
 
 ================================================================================
 `;
 
-exports[`super_member.js 1`] = `
+exports[`super_member.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -2305,7 +2305,7 @@ class C extends A {
 ================================================================================
 `;
 
-exports[`switch.js 1`] = `
+exports[`switch.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -2427,7 +2427,7 @@ function corge(text: string | number | Array<string>): string {
 ================================================================================
 `;
 
-exports[`tagged_union.js 1`] = `
+exports[`tagged_union.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -2811,7 +2811,7 @@ let tests = [
   },
 
   // invalid RHS
-  function(x: A) {
+  function (x: A) {
     if (x.kind === null.toString()) {
     } // error, method on null
     if ({ kind: 1 }.kind === null.toString()) {
@@ -2819,7 +2819,7 @@ let tests = [
   },
 
   // non-objects on LHS
-  function(
+  function (
     x: Array<string>,
     y: string,
     z: number,
@@ -2875,7 +2875,7 @@ let tests = [
   },
 
   // sentinel props become the RHS
-  function(x: { str: string, num: number, bool: boolean }) {
+  function (x: { str: string, num: number, bool: boolean }) {
     if (x.str === "str") {
       (x.str: "not str"); // error: 'str' !~> 'not str'
     }
@@ -2898,7 +2898,7 @@ let tests = [
   },
 
   // type mismatch
-  function(x: { foo: 123, y: string } | { foo: "foo", z: string }) {
+  function (x: { foo: 123, y: string } | { foo: "foo", z: string }) {
     if (x.foo === 123) {
       (x.y: string);
       x.z; // error
@@ -2916,7 +2916,7 @@ let tests = [
   },
 
   // type mismatch, but one is not a literal
-  function(x: { foo: number, y: string } | { foo: "foo", z: string }) {
+  function (x: { foo: number, y: string } | { foo: "foo", z: string }) {
     if (x.foo === 123) {
       (x.y: string); // ok, because 123 !== 'foo'
       x.z; // error
@@ -2935,7 +2935,7 @@ let tests = [
   },
 
   // type mismatch, neither is a literal
-  function(x: { foo: number, y: string } | { foo: string, z: string }) {
+  function (x: { foo: number, y: string } | { foo: string, z: string }) {
     if (x.foo === 123) {
       (x.y: string); // ok, because 123 !== string
       x.z; // error
@@ -2954,7 +2954,7 @@ let tests = [
   },
 
   // type mismatch, neither is a literal, test is not a literal either
-  function(
+  function (
     x: { foo: number, y: string } | { foo: string, z: string },
     num: number
   ) {
@@ -2965,7 +2965,7 @@ let tests = [
   },
 
   // null
-  function(x: { foo: null, y: string } | { foo: "foo", z: string }) {
+  function (x: { foo: null, y: string } | { foo: "foo", z: string }) {
     if (x.foo === null) {
       (x.y: string);
       x.z; // error
@@ -2983,7 +2983,7 @@ let tests = [
   },
 
   // void
-  function(x: { foo: void, y: string } | { foo: "foo", z: string }) {
+  function (x: { foo: void, y: string } | { foo: "foo", z: string }) {
     if (x.foo === undefined) {
       (x.y: string);
       x.z; // error
@@ -2998,13 +2998,13 @@ let tests = [
       (x.y: string);
       x.z; // error
     }
-  }
+  },
 ];
 
 ================================================================================
 `;
 
-exports[`tagged_union_import.js 1`] = `
+exports[`tagged_union_import.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -3041,12 +3041,12 @@ import { SUCCESS, ERROR } from "./constants";
 
 type Success = {
   type: typeof SUCCESS,
-  message: string
+  message: string,
 };
 
 type Error = {
   type: typeof ERROR,
-  error: string
+  error: string,
 };
 
 function handleStatus(status: Success | Error) {
@@ -3062,7 +3062,7 @@ function handleStatus(status: Success | Error) {
 ================================================================================
 `;
 
-exports[`typeof.js 1`] = `
+exports[`typeof.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -3202,7 +3202,7 @@ function testInvalidTemplateLiteral(x: string | number) {
 ================================================================================
 `;
 
-exports[`undef.js 1`] = `
+exports[`undef.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -3374,7 +3374,7 @@ function undef_bogus_comparison() {
 ================================================================================
 `;
 
-exports[`union.js 1`] = `
+exports[`union.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80
@@ -3428,7 +3428,7 @@ function baz(x: ?thing) {
 ================================================================================
 `;
 
-exports[`void.js 1`] = `
+exports[`void.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`constructor.ts 1`] = `
+exports[`constructor.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -14,6 +14,13 @@ class foo {
   constructor(export a: number) {}
 }
 
+class A {
+    'constructor': typeof A
+    static Foo() {
+        return new A()
+    }
+}
+
 =====================================output=====================================
 class foo {
   constructor(static a: number) {}
@@ -23,10 +30,17 @@ class foo {
   constructor(export a: number) {}
 }
 
+class A {
+  "constructor": typeof A;
+  static Foo() {
+    return new A();
+  }
+}
+
 ================================================================================
 `;
 
-exports[`dunder.ts 1`] = `
+exports[`dunder.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -40,7 +54,7 @@ class F<__T> {}
 ================================================================================
 `;
 
-exports[`extends_implements.ts 1`] = `
+exports[`extends_implements.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -138,7 +152,7 @@ class ExtendsAbstractClassAndImplementsInterfaces5
 ================================================================================
 `;
 
-exports[`generics.ts 1`] = `
+exports[`generics.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -160,7 +174,7 @@ interface AudioBufferList {
 ================================================================================
 `;
 
-exports[`methods.ts 1`] = `
+exports[`methods.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -194,7 +208,7 @@ export class Check {
 ================================================================================
 `;
 
-exports[`optional.ts 1`] = `
+exports[`optional.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -222,7 +236,7 @@ class A {
 ================================================================================
 `;
 
-exports[`quoted-property.ts 1`] = `
+exports[`quoted-property.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
 printWidth: 80
@@ -235,6 +249,60 @@ class User {
 =====================================output=====================================
 class User {
   "username": string;
+}
+
+================================================================================
+`;
+
+exports[`standard_private_fields.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class Square {
+    #sideLength: number;
+    readonly #area: number;
+    #unit?: string;
+
+    constructor(sideLength: number, unit?: string) {
+        this.#sideLength = sideLength;
+        this.#area = this.#sideLength ** 2;
+        if (unit) {
+          this.#unit = unit;
+        }
+    }
+
+    equals(other: any) {
+        return this.#sideLength === other.#sideLength;
+    }
+
+    getArea() {
+      return this.#area + (this.#unit ?? 'px') + '²';
+    }
+}
+
+=====================================output=====================================
+class Square {
+  #sideLength: number;
+  readonly #area: number;
+  #unit?: string;
+
+  constructor(sideLength: number, unit?: string) {
+    this.#sideLength = sideLength;
+    this.#area = this.#sideLength ** 2;
+    if (unit) {
+      this.#unit = unit;
+    }
+  }
+
+  equals(other: any) {
+    return this.#sideLength === other.#sideLength;
+  }
+
+  getArea() {
+    return this.#area + (this.#unit ?? "px") + "²";
+  }
 }
 
 ================================================================================

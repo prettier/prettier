@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ast.js 1`] = `
+exports[`ast.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -105,7 +105,7 @@ export type Pos = {
   firstLine: number,
   firstColumn: number,
   lastLine: number,
-  lastColumn: number
+  lastColumn: number,
 };
 
 export type TypedBinaryOpNode = {
@@ -115,7 +115,7 @@ export type TypedBinaryOpNode = {
   rhs: TypedNode,
   pos: Pos,
   exprType: InferredType,
-  typed: true
+  typed: true,
 };
 
 export type TypedUnaryMinusNode = {
@@ -123,7 +123,7 @@ export type TypedUnaryMinusNode = {
   op: TypedNode,
   pos: Pos,
   exprType: InferredType,
-  typed: true
+  typed: true,
 };
 
 export type TypedNumberNode = {
@@ -131,7 +131,7 @@ export type TypedNumberNode = {
   value: number,
   pos: Pos,
   exprType: "number",
-  typed: true
+  typed: true,
 };
 
 export type TypedStringLiteralNode = {
@@ -139,7 +139,7 @@ export type TypedStringLiteralNode = {
   value: string,
   pos: Pos,
   exprType: "string",
-  typed: true
+  typed: true,
 };
 
 export type TypedVariableNode = {
@@ -147,7 +147,7 @@ export type TypedVariableNode = {
   name: string,
   pos: Pos,
   exprType: InferredType,
-  typed: true
+  typed: true,
 };
 
 export type TypedFunctionInvocationNode = {
@@ -156,7 +156,7 @@ export type TypedFunctionInvocationNode = {
   parameters: TypedNode[],
   pos: Pos,
   exprType: "error" | "string",
-  typed: true
+  typed: true,
 };
 
 export type TypedNode =
@@ -170,7 +170,7 @@ export type TypedNode =
 ================================================================================
 `;
 
-exports[`emit.js 1`] = `
+exports[`emit.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -298,7 +298,7 @@ export function emitExpression(node: TypedNode): t.Expression {
         false
       );
 
-      const args = node.parameters.map(n => emitExpression(n));
+      const args = node.parameters.map((n) => emitExpression(n));
 
       return b.callExpression(callee, args);
     }
@@ -310,7 +310,7 @@ export function emitExpression(node: TypedNode): t.Expression {
 ================================================================================
 `;
 
-exports[`jsAst.js 1`] = `
+exports[`jsAst.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -961,18 +961,18 @@ export type Comment = {
   loc: ?SourceLocation,
   value: string,
   leading: boolean,
-  trailing: boolean
+  trailing: boolean,
 };
 
 export type SourceLocation = {
   start: SourcePosition,
   end: SourcePosition,
-  source: ?string
+  source: ?string,
 };
 
 export type SourcePosition = {
   line: number,
-  column: number
+  column: number,
 };
 
 export type File = {
@@ -981,7 +981,7 @@ export type File = {
   end: SourcePosition,
   comments: ?Array<Comment>,
   type: "File",
-  program: Program
+  program: Program,
 };
 
 export type Program = {
@@ -990,7 +990,7 @@ export type Program = {
   end: SourcePosition,
   comments: ?Array<Comment>,
   type: "Program",
-  body: Statement[]
+  body: Statement[],
 };
 
 export type BinaryOperator =
@@ -1098,7 +1098,7 @@ export type EmptyStatement = {
   start: SourcePosition,
   end: SourcePosition,
   comments: ?Array<Comment>,
-  type: "EmptyStatement"
+  type: "EmptyStatement",
 };
 
 export type BlockStatement = {
@@ -1107,7 +1107,7 @@ export type BlockStatement = {
   end: SourcePosition,
   comments: ?Array<Comment>,
   type: "BlockStatement",
-  body: Statement[]
+  body: Statement[],
 };
 
 export type ExpressionStatement = {
@@ -1116,7 +1116,7 @@ export type ExpressionStatement = {
   end: SourcePosition,
   comments: ?Array<Comment>,
   type: "ExpressionStatement",
-  expression: Expression
+  expression: Expression,
 };
 
 export type IfStatement = {
@@ -1127,7 +1127,7 @@ export type IfStatement = {
   type: "IfStatement",
   test: Expression,
   consequent: Statement,
-  alternate: ?Statement
+  alternate: ?Statement,
 };
 
 export type BreakStatement = {
@@ -1136,7 +1136,7 @@ export type BreakStatement = {
   end: SourcePosition,
   comments: ?Array<Comment>,
   type: "BreakStatement",
-  label: ?Identifier
+  label: ?Identifier,
 };
 
 export type ContinueStatement = {
@@ -1145,7 +1145,7 @@ export type ContinueStatement = {
   end: SourcePosition,
   comments: ?Array<Comment>,
   type: "ContinueStatement",
-  label: ?Identifier
+  label: ?Identifier,
 };
 
 export type ReturnStatement = {
@@ -1154,7 +1154,7 @@ export type ReturnStatement = {
   end: SourcePosition,
   comments: ?Array<Comment>,
   type: "ReturnStatement",
-  argument: ?Expression
+  argument: ?Expression,
 };
 
 export type ThrowStatement = {
@@ -1163,7 +1163,7 @@ export type ThrowStatement = {
   end: SourcePosition,
   comments: ?Array<Comment>,
   type: "ThrowStatement",
-  argument: ?Expression
+  argument: ?Expression,
 };
 
 export type WhileStatement = {
@@ -1173,7 +1173,7 @@ export type WhileStatement = {
   comments: ?Array<Comment>,
   type: "WhileStatement",
   test: Expression,
-  body: Statement
+  body: Statement,
 };
 
 export type ForStatement = {
@@ -1185,7 +1185,7 @@ export type ForStatement = {
   init: ?(VariableDeclaration | Expression),
   test: ?Expression,
   update: ?Expression,
-  body: Statement
+  body: Statement,
 };
 
 export type ForInStatement = {
@@ -1196,7 +1196,7 @@ export type ForInStatement = {
   type: "ForInStatement",
   left: VariableDeclaration | Expression,
   right: Expression,
-  body: Statement
+  body: Statement,
 };
 
 export type TryStatement = {
@@ -1208,7 +1208,7 @@ export type TryStatement = {
   block: BlockStatement,
   handler: ?CatchClause,
   handlers: CatchClause[],
-  finalizer: ?BlockStatement
+  finalizer: ?BlockStatement,
 };
 
 export type CatchClause = {
@@ -1219,7 +1219,7 @@ export type CatchClause = {
   type: "CatchClause",
   param: Pattern,
   guard: ?Expression,
-  body: BlockStatement
+  body: BlockStatement,
 };
 
 export type Expression =
@@ -1245,7 +1245,7 @@ export type Identifier = {
   end: SourcePosition,
   comments: ?Array<Comment>,
   type: "Identifier",
-  name: string
+  name: string,
 };
 
 export type Literal = {
@@ -1255,7 +1255,7 @@ export type Literal = {
   comments: ?Array<Comment>,
   type: "Literal",
   value: ?(string | boolean | number | RegExp),
-  regex: ?{ pattern: string, flags: string }
+  regex: ?{ pattern: string, flags: string },
 };
 
 export type ThisExpression = {
@@ -1263,7 +1263,7 @@ export type ThisExpression = {
   start: SourcePosition,
   end: SourcePosition,
   comments: ?Array<Comment>,
-  type: "ThisExpression"
+  type: "ThisExpression",
 };
 
 export type ArrayExpression = {
@@ -1272,7 +1272,7 @@ export type ArrayExpression = {
   end: SourcePosition,
   comments: ?Array<Comment>,
   type: "ArrayExpression",
-  elements: Expression[]
+  elements: Expression[],
 };
 
 export type ObjectExpreession = {
@@ -1281,7 +1281,7 @@ export type ObjectExpreession = {
   end: SourcePosition,
   comments: ?Array<Comment>,
   type: "ObjectExpression",
-  properties: Property[]
+  properties: Property[],
 };
 
 export type Property = {
@@ -1292,7 +1292,7 @@ export type Property = {
   type: "Property",
   kind: "init" | "get" | "set",
   key: Literal | Identifier,
-  value: Expression
+  value: Expression,
 };
 
 export type FunctionExpression = {
@@ -1303,7 +1303,7 @@ export type FunctionExpression = {
   type: "FunctionExpression",
   id: ?Identifier,
   params: Pattern[],
-  body: BlockStatement
+  body: BlockStatement,
 };
 
 export type BinaryExpression = {
@@ -1314,7 +1314,7 @@ export type BinaryExpression = {
   type: "BinaryExpression",
   operator: BinaryOperator,
   left: Expression,
-  right: Expression
+  right: Expression,
 };
 
 export type UnaryExpression = {
@@ -1325,7 +1325,7 @@ export type UnaryExpression = {
   type: "UnaryExpression",
   operator: UnaryOperator,
   argument: Expression,
-  prefix: boolean
+  prefix: boolean,
 };
 
 export type AssignmentExpression = {
@@ -1336,7 +1336,7 @@ export type AssignmentExpression = {
   type: "AssignmentExpression",
   operator: AssignmentOperator,
   left: Pattern,
-  right: Expression
+  right: Expression,
 };
 
 export type UpdateExpression = {
@@ -1347,7 +1347,7 @@ export type UpdateExpression = {
   type: "UpdateExpression",
   operator: UpdateOperator,
   argument: Expression,
-  prefix: boolean
+  prefix: boolean,
 };
 
 export type LogicalExpression = {
@@ -1358,7 +1358,7 @@ export type LogicalExpression = {
   type: "LogicalExpression",
   operator: LogicalOperator,
   left: Expression,
-  right: Expression
+  right: Expression,
 };
 
 export type ConditionalExpression = {
@@ -1369,7 +1369,7 @@ export type ConditionalExpression = {
   type: "ConditionalExpression",
   test: Expression,
   consequent: Expression,
-  alternate: Expression
+  alternate: Expression,
 };
 
 export type NewExpression = {
@@ -1379,7 +1379,7 @@ export type NewExpression = {
   comments: ?Array<Comment>,
   type: "NewExpression",
   callee: Expression,
-  arguments: Expression[]
+  arguments: Expression[],
 };
 
 export type CallExpression = {
@@ -1389,7 +1389,7 @@ export type CallExpression = {
   comments: ?Array<Comment>,
   type: "CallExpression",
   callee: Expression,
-  arguments: Expression[]
+  arguments: Expression[],
 };
 
 export type MemberExpression = {
@@ -1400,7 +1400,7 @@ export type MemberExpression = {
   type: "MemberExpression",
   object: Expression,
   property: Identifier | Expression,
-  computed: boolean
+  computed: boolean,
 };
 // ast-types exports all expressions as patterns.
 // That seems not like it was intended.
@@ -1415,7 +1415,7 @@ export type VariableDeclaration = {
   comments: ?Array<Comment>,
   type: "VariableDeclaration",
   kind: "var" | "let" | "const",
-  declarations: VariableDeclarator[]
+  declarations: VariableDeclarator[],
 };
 
 export type FunctionDeclaration = {
@@ -1426,7 +1426,7 @@ export type FunctionDeclaration = {
   type: "FunctionDeclaration",
   id: Identifier,
   body: BlockStatement,
-  params: Pattern[]
+  params: Pattern[],
 };
 
 export type VariableDeclarator = {
@@ -1436,7 +1436,7 @@ export type VariableDeclarator = {
   comments: ?Array<Comment>,
   type: "VariableDeclarator",
   id: Pattern,
-  init: ?Expression
+  init: ?Expression,
 };
 
 const a: any = null;
@@ -1541,7 +1541,7 @@ export const builders: {
     body: BlockStatement,
     params: Pattern[]
   ): FunctionDeclaration,
-  variableDeclarator(id: Pattern, init?: Expression): VariableDeclarator
+  variableDeclarator(id: Pattern, init?: Expression): VariableDeclarator,
 } = a;
 
 ================================================================================

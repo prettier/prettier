@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`chinese-japanese.md 1`] = `
+exports[`chinese-japanese.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -38,7 +38,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`korean.md 1`] = `
+exports[`korean.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -53,7 +53,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`link.md 1`] = `
+exports[`link.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -68,7 +68,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`mixed.md 1`] = `
+exports[`mixed.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -92,7 +92,7 @@ English 混合著中文的一段 Paragraph！
 ================================================================================
 `;
 
-exports[`space.md 1`] = `
+exports[`space.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80

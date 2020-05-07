@@ -1,7 +1,242 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`attr-name.component.html 1`] = `
+exports[`angularjs.html - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
+bracketSpacing: false
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<div ng-if="$ctrl .shouldShowWarning&&!$ctrl.loading">Warning!</div>
+
+<div
+	class="common--error-message"
+	test-hook="upper-error-message"
+	ng-if="!$ctrl.showsFormBelowPlain() && !!$ctrl.error.message && !($ctrl.error.kind === 'validator' && $ctrl.form.$valid && $ctrl.error.form === $ctrl.form)"
+>
+	<div ng-if="$ctrl.error.html" ng-bind-html="$ctrl.error.message"></div>
+	<div ng-if="!$ctrl.error.html" ng-bind="$ctrl.error.message"></div>
+</div>
+
+=====================================output=====================================
+<div ng-if="$ctrl.shouldShowWarning && !$ctrl.loading">Warning!</div>
+
+<div
+  class="common--error-message"
+  test-hook="upper-error-message"
+  ng-if="
+    !$ctrl.showsFormBelowPlain() &&
+    !!$ctrl.error.message &&
+    !(
+      $ctrl.error.kind === 'validator' &&
+      $ctrl.form.$valid &&
+      $ctrl.error.form === $ctrl.form
+    )
+  "
+>
+  <div ng-if="$ctrl.error.html" ng-bind-html="$ctrl.error.message"></div>
+  <div ng-if="!$ctrl.error.html" ng-bind="$ctrl.error.message"></div>
+</div>
+
+================================================================================
+`;
+
+exports[`angularjs.html - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "ignore"
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<div ng-if="$ctrl .shouldShowWarning&&!$ctrl.loading">Warning!</div>
+
+<div
+	class="common--error-message"
+	test-hook="upper-error-message"
+	ng-if="!$ctrl.showsFormBelowPlain() && !!$ctrl.error.message && !($ctrl.error.kind === 'validator' && $ctrl.form.$valid && $ctrl.error.form === $ctrl.form)"
+>
+	<div ng-if="$ctrl.error.html" ng-bind-html="$ctrl.error.message"></div>
+	<div ng-if="!$ctrl.error.html" ng-bind="$ctrl.error.message"></div>
+</div>
+
+=====================================output=====================================
+<div ng-if="$ctrl.shouldShowWarning && !$ctrl.loading">Warning!</div>
+
+<div
+  class="common--error-message"
+  test-hook="upper-error-message"
+  ng-if="
+    !$ctrl.showsFormBelowPlain() &&
+    !!$ctrl.error.message &&
+    !(
+      $ctrl.error.kind === 'validator' &&
+      $ctrl.form.$valid &&
+      $ctrl.error.form === $ctrl.form
+    )
+  "
+>
+  <div ng-if="$ctrl.error.html" ng-bind-html="$ctrl.error.message"></div>
+  <div ng-if="!$ctrl.error.html" ng-bind="$ctrl.error.message"></div>
+</div>
+
+================================================================================
+`;
+
+exports[`angularjs.html - {"printWidth":1} format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 1
+ | printWidth
+=====================================input======================================
+<div ng-if="$ctrl .shouldShowWarning&&!$ctrl.loading">Warning!</div>
+
+<div
+	class="common--error-message"
+	test-hook="upper-error-message"
+	ng-if="!$ctrl.showsFormBelowPlain() && !!$ctrl.error.message && !($ctrl.error.kind === 'validator' && $ctrl.form.$valid && $ctrl.error.form === $ctrl.form)"
+>
+	<div ng-if="$ctrl.error.html" ng-bind-html="$ctrl.error.message"></div>
+	<div ng-if="!$ctrl.error.html" ng-bind="$ctrl.error.message"></div>
+</div>
+
+=====================================output=====================================
+<div
+  ng-if="
+    $ctrl.shouldShowWarning &&
+    !$ctrl.loading
+  "
+>
+  Warning!
+</div>
+
+<div
+  class="common--error-message"
+  test-hook="upper-error-message"
+  ng-if="
+    !$ctrl.showsFormBelowPlain() &&
+    !!$ctrl
+      .error
+      .message &&
+    !(
+      $ctrl
+        .error
+        .kind ===
+        'validator' &&
+      $ctrl
+        .form
+        .$valid &&
+      $ctrl
+        .error
+        .form ===
+        $ctrl.form
+    )
+  "
+>
+  <div
+    ng-if="
+      $ctrl
+        .error
+        .html
+    "
+    ng-bind-html="$ctrl.error.message"
+  ></div>
+  <div
+    ng-if="
+      !$ctrl
+        .error
+        .html
+    "
+    ng-bind="$ctrl.error.message"
+  ></div>
+</div>
+
+================================================================================
+`;
+
+exports[`angularjs.html - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+<div ng-if="$ctrl .shouldShowWarning&&!$ctrl.loading">Warning!</div>
+
+<div
+	class="common--error-message"
+	test-hook="upper-error-message"
+	ng-if="!$ctrl.showsFormBelowPlain() && !!$ctrl.error.message && !($ctrl.error.kind === 'validator' && $ctrl.form.$valid && $ctrl.error.form === $ctrl.form)"
+>
+	<div ng-if="$ctrl.error.html" ng-bind-html="$ctrl.error.message"></div>
+	<div ng-if="!$ctrl.error.html" ng-bind="$ctrl.error.message"></div>
+</div>
+
+=====================================output=====================================
+<div ng-if="$ctrl.shouldShowWarning && !$ctrl.loading">Warning!</div>
+
+<div
+  class="common--error-message"
+  test-hook="upper-error-message"
+  ng-if="
+    !$ctrl.showsFormBelowPlain() &&
+    !!$ctrl.error.message &&
+    !(
+      $ctrl.error.kind === 'validator' &&
+      $ctrl.form.$valid &&
+      $ctrl.error.form === $ctrl.form
+    )
+  "
+>
+  <div ng-if="$ctrl.error.html" ng-bind-html="$ctrl.error.message"></div>
+  <div ng-if="!$ctrl.error.html" ng-bind="$ctrl.error.message"></div>
+</div>
+
+================================================================================
+`;
+
+exports[`angularjs.html format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<div ng-if="$ctrl .shouldShowWarning&&!$ctrl.loading">Warning!</div>
+
+<div
+	class="common--error-message"
+	test-hook="upper-error-message"
+	ng-if="!$ctrl.showsFormBelowPlain() && !!$ctrl.error.message && !($ctrl.error.kind === 'validator' && $ctrl.form.$valid && $ctrl.error.form === $ctrl.form)"
+>
+	<div ng-if="$ctrl.error.html" ng-bind-html="$ctrl.error.message"></div>
+	<div ng-if="!$ctrl.error.html" ng-bind="$ctrl.error.message"></div>
+</div>
+
+=====================================output=====================================
+<div ng-if="$ctrl.shouldShowWarning && !$ctrl.loading">Warning!</div>
+
+<div
+  class="common--error-message"
+  test-hook="upper-error-message"
+  ng-if="
+    !$ctrl.showsFormBelowPlain() &&
+    !!$ctrl.error.message &&
+    !(
+      $ctrl.error.kind === 'validator' &&
+      $ctrl.form.$valid &&
+      $ctrl.error.form === $ctrl.form
+    )
+  "
+>
+  <div ng-if="$ctrl.error.html" ng-bind-html="$ctrl.error.message"></div>
+  <div ng-if="!$ctrl.error.html" ng-bind="$ctrl.error.message"></div>
+</div>
+
+================================================================================
+`;
+
+exports[`attr-name.component.html - {"bracketSpacing":false} format 1`] = `
+====================================options=====================================
+bracketSpacing: false
 parsers: ["angular"]
 printWidth: 80
                                                                                 | printWidth
@@ -14,11 +249,11 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`attr-name.component.html 2`] = `
+exports[`attr-name.component.html - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
 ====================================options=====================================
+htmlWhitespaceSensitivity: "ignore"
 parsers: ["angular"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 <div someDirective itemType="x"></div>
@@ -29,7 +264,7 @@ trailingComma: "es5"
 ================================================================================
 `;
 
-exports[`attr-name.component.html 3`] = `
+exports[`attr-name.component.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 1
@@ -46,9 +281,23 @@ printWidth: 1
 ================================================================================
 `;
 
-exports[`attr-name.component.html 4`] = `
+exports[`attr-name.component.html - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
-htmlWhitespaceSensitivity: "ignore"
+parsers: ["angular"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+<div someDirective itemType="x"></div>
+
+=====================================output=====================================
+<div someDirective itemType="x"></div>
+
+================================================================================
+`;
+
+exports[`attr-name.component.html format 1`] = `
+====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
                                                                                 | printWidth
@@ -61,23 +310,280 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`attr-name.component.html 5`] = `
+exports[`attributes.component.html - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["angular"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-<div someDirective itemType="x"></div>
+<div
+    bindon-target=" a | b : c "
+    [(target)]=" a | b : c "
+    bind-target=" a | b : c "
+    [target]=" a | b : c "
+    [target]=" a | pipe   "
+    [target]=" 0 - 1 "
+    [target]=" - 1 "
+    [target]=" a ? 1 : 2 "
+    [target]=" "
+    [target]=" a ( 1 ) ( 2 ) "
+    [target]=" a [ b ] "
+    [target]=" [ 1 ] "
+    [target]=" { 'a' : 1 } "
+    [target]=" { a : 1 } "
+    [target]=" { 
+      trailingComma : 'notAllowed'
+    }"
+    [target]=" [ 
+      longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+    ]"
+    [target]=" true "
+    [target]=" undefined "
+    [target]=" null "
+    [target]=" ( 1 ) "
+    [target]=" 1 "
+    [target]="  'hello' "
+    [target]=" a ( 1 , 2 ) "
+    [target]=" a . b ( 1 , 2 ) "
+    [target]=" x ! "
+    [target]=" ! x "
+    [target]=" ( ( a ) ) "
+    [target]=" a "
+    [target]=" a // hello "
+    [target]=" a . b "
+    [target]=" javascript : 'hello world' "
+    [target]=" a ?. b ( ) "
+    [target]=" a ?. b "
+    [target]=" this . a "
+    on-target=" a = 1 "
+    (target)=" a = 1 "
+    (target)=" a . b = 1 "
+    (target)=" a [ b ] = 1 "
+    (target)=" a // hello "
+    (target)=" a ; b "
+    (event)="  0  "
+    (event)="  a.b  "
+    (event)="  hello  "
+    (event)="  hello()  "
+    (event)="  a && b  "
+    (event)="  a && b()  "
+    (event)="  foo = $event  "
+    (event)="  foo == $event  "
+    *ngIf=" something?true:false    "
+    *ngIf=" a | pipe   "
+    *ngFor="  let     hero     of     heroes"
+    *ngFor="  let    hero     of[1,2,3,666666666666666666666666666666666666]; let i=index"
+    *ngFor="     let hero     of     heroes;     trackBy    :    trackByHeroes     "
+    *ngFor=" let     item   of   items   ;    index    as   i  ; trackBy  :     trackByFn"
+    *ngFor="  let    hero     of heroes; let i  =  index"
+    *ngFor="  let    hero     of heroes; value     myValue"
+    *ngIf=" condition  ;  else  elseBlock "
+    *ngIf=" condition  ;  then  thenBlock  else  elseBlock "
+    *ngIf=" condition  as  value  ;  else  elseBlock "
+    *directive=" let hero "
+    *directive=" let hero = hello "
+    *directive=" let hero of heroes "
+    *directive=" let hero ; of : heroes "
+    *directive=" a "
+    *directive=" a as b "
+    *directive=" a , b "
+    *directive=" a ; b "
+    *directive=" a ; b c "
+    *directive=" a ; b : c "
+    *directive=" a ; b : c as d "
+    *directive=" a ; b as c "
+    *ngIf="listRow.NextScheduledSendStatus == 1 || listRow.NextScheduledSendStatus == 2 || listRow.NextScheduledSendStatus == 3"
+    *ngIf="listRow.NextScheduledSendStatus == 1 || listRow.NextScheduledSendStatus == 2 || listRow.NextScheduledSendStatus == 3; else hello"
+    (target)="listRow.NextScheduledSendStatus == 1 || listRow.NextScheduledSendStatus == 2 || listRow.NextScheduledSendStatus == 3"
+    [target]="listRow.NextScheduledSendStatus == 1 || listRow.NextScheduledSendStatus == 2 || listRow.NextScheduledSendStatus == 3"
+    [target]="{ longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true }"
+    [error]="'We couldn\\\\\\'t find anything with that name.'"
+    *ngIf="form.controls.details?.controls.amount?.errors.min"
+    [ngClass]="
+    {'btn-success': (dialog$ | async).level === dialogLevelEnum.SUCCESS,
+      'btn-warning': (dialog$ | async).level === dialogLevelEnum.WARNING,
+      'btn-svg': (dialog$ | async).level === dialogLevelEnum.DANGER}"
+    [stickout]="+toolAssembly.stickoutMm"
+    test='{{ "test" | translate }}'
+    test='foo {{       invalid invalid       }} bar {{       valid       }} baz'
+    test='foo
+    
+    {{       invalid
+             invalid       }} 
+    
+    bar 
+    
+          {{       valid       }} 
+    
+    baz'
+    i18n="Normal i18n text"
+    i18n="This is a very long internationalization description text, exceeding the configured print width, but could easily be formatted"
+    i18n-test="Attribute i18n text"
+    i18n-test="This is a very long internationalization description text, exceeding the configured print width, but could easily be formatted"
+    i18n="This is a very long internationalization description text, exceeding the configured print width, but could easily be formatted" i18n="This is yet another very long internationalization description text, exceeding the configured print width, but could easily be formatted"
+    i18n="@@customId"
+    i18n="Some description@@customIdWithDescription"
+    i18n="some meaning|Some description@@customIdWithDescription"
+    i18n="some meaning|Some very long internationalization description text exceeding the configured print width@@customIdWithDescription"
+></div>
 
 =====================================output=====================================
-<div someDirective itemType="x"></div>
+<div
+  bindon-target="a | b: c"
+  [(target)]="a | b: c"
+  bind-target="a | b: c"
+  [target]="a | b: c"
+  [target]="a | pipe"
+  [target]="0 - 1"
+  [target]="-1"
+  [target]="a ? 1 : 2"
+  [target]=""
+  [target]="a(1)(2)"
+  [target]="a[b]"
+  [target]="[1]"
+  [target]="{a: 1}"
+  [target]="{a: 1}"
+  [target]="{
+    trailingComma: 'notAllowed'
+  }"
+  [target]="[
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+  ]"
+  [target]="true"
+  [target]="undefined"
+  [target]="null"
+  [target]="1"
+  [target]="1"
+  [target]="'hello'"
+  [target]="a(1, 2)"
+  [target]="a.b(1, 2)"
+  [target]="x!"
+  [target]="!x"
+  [target]="a"
+  [target]="a"
+  [target]="a // hello"
+  [target]="a.b"
+  [target]="javascript: 'hello world'"
+  [target]="a?.b()"
+  [target]="a?.b"
+  [target]="this.a"
+  on-target="a = 1"
+  (target)="a = 1"
+  (target)="a.b = 1"
+  (target)="a[b] = 1"
+  (target)="(a) // hello"
+  (target)="(a); (b)"
+  (event)="(0)"
+  (event)="(a.b)"
+  (event)="(hello)"
+  (event)="hello()"
+  (event)="(a && b)"
+  (event)="a && b()"
+  (event)="foo = $event"
+  (event)="(foo == $event)"
+  *ngIf="something ? true : false"
+  *ngIf="a | pipe"
+  *ngFor="let hero of heroes"
+  *ngFor="
+    let hero of [1, 2, 3, 666666666666666666666666666666666666];
+    let i = index
+  "
+  *ngFor="let hero of heroes; trackBy: trackByHeroes"
+  *ngFor="let item of items; index as i; trackBy: trackByFn"
+  *ngFor="let hero of heroes; let i = index"
+  *ngFor="let hero of heroes; value: myValue"
+  *ngIf="condition; else elseBlock"
+  *ngIf="condition; then thenBlock; else elseBlock"
+  *ngIf="condition as value; else elseBlock"
+  *directive="let hero"
+  *directive="let hero = hello"
+  *directive="let hero of heroes"
+  *directive="let hero of heroes"
+  *directive="a"
+  *directive="a as b"
+  *directive="a; b"
+  *directive="a; b"
+  *directive="a; b: c"
+  *directive="a; b: c"
+  *directive="a; b: c as d"
+  *directive="a; b as c"
+  *ngIf="
+    listRow.NextScheduledSendStatus == 1 ||
+    listRow.NextScheduledSendStatus == 2 ||
+    listRow.NextScheduledSendStatus == 3
+  "
+  *ngIf="
+    listRow.NextScheduledSendStatus == 1 ||
+      listRow.NextScheduledSendStatus == 2 ||
+      listRow.NextScheduledSendStatus == 3;
+    else hello
+  "
+  (target)="
+    (listRow.NextScheduledSendStatus == 1 ||
+      listRow.NextScheduledSendStatus == 2 ||
+      listRow.NextScheduledSendStatus == 3)
+  "
+  [target]="
+    listRow.NextScheduledSendStatus == 1 ||
+    listRow.NextScheduledSendStatus == 2 ||
+    listRow.NextScheduledSendStatus == 3
+  "
+  [target]="{
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true
+  }"
+  [error]="'We couldn\\\\\\'t find anything with that name.'"
+  *ngIf="form.controls.details?.controls.amount?.errors.min"
+  [ngClass]="{
+    'btn-success': (dialog$ | async).level === dialogLevelEnum.SUCCESS,
+    'btn-warning': (dialog$ | async).level === dialogLevelEnum.WARNING,
+    'btn-svg': (dialog$ | async).level === dialogLevelEnum.DANGER
+  }"
+  [stickout]="+toolAssembly.stickoutMm"
+  test="{{ 'test' | translate }}"
+  test="foo {{       invalid invalid       }} bar {{ valid }} baz"
+  test="foo
+    
+    {{       invalid
+             invalid       }} 
+    
+    bar 
+    
+          {{ valid }} 
+    
+    baz"
+  i18n="Normal i18n text"
+  i18n="
+    This is a very long internationalization description text, exceeding the
+    configured print width, but could easily be formatted
+  "
+  i18n-test="Attribute i18n text"
+  i18n-test="
+    This is a very long internationalization description text, exceeding the
+    configured print width, but could easily be formatted
+  "
+  i18n="
+    This is a very long internationalization description text, exceeding the
+    configured print width, but could easily be formatted
+  "
+  i18n="
+    This is yet another very long internationalization description text,
+    exceeding the configured print width, but could easily be formatted
+  "
+  i18n="@@customId"
+  i18n="Some description@@customIdWithDescription"
+  i18n="some meaning|Some description@@customIdWithDescription"
+  i18n="
+    some meaning|Some very long internationalization description text exceeding
+    the configured print width@@customIdWithDescription"
+></div>
 
 ================================================================================
 `;
 
-exports[`attributes.component.html 1`] = `
+exports[`attributes.component.html - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
 ====================================options=====================================
+htmlWhitespaceSensitivity: "ignore"
 parsers: ["angular"]
 printWidth: 80
                                                                                 | printWidth
@@ -229,7 +735,7 @@ printWidth: 80
   [target]="a"
   [target]="a // hello"
   [target]="a.b"
-  [target]="javascript: 'hello world' "
+  [target]="javascript: 'hello world'"
   [target]="a?.b()"
   [target]="a?.b"
   [target]="this.a"
@@ -340,286 +846,13 @@ printWidth: 80
   i18n="some meaning|Some description@@customIdWithDescription"
   i18n="
     some meaning|Some very long internationalization description text exceeding
-    the configured print width@@customIdWithDescription
-  "
+    the configured print width@@customIdWithDescription"
 ></div>
 
 ================================================================================
 `;
 
-exports[`attributes.component.html 2`] = `
-====================================options=====================================
-parsers: ["angular"]
-printWidth: 80
-trailingComma: "es5"
-                                                                                | printWidth
-=====================================input======================================
-<div
-    bindon-target=" a | b : c "
-    [(target)]=" a | b : c "
-    bind-target=" a | b : c "
-    [target]=" a | b : c "
-    [target]=" a | pipe   "
-    [target]=" 0 - 1 "
-    [target]=" - 1 "
-    [target]=" a ? 1 : 2 "
-    [target]=" "
-    [target]=" a ( 1 ) ( 2 ) "
-    [target]=" a [ b ] "
-    [target]=" [ 1 ] "
-    [target]=" { 'a' : 1 } "
-    [target]=" { a : 1 } "
-    [target]=" { 
-      trailingComma : 'notAllowed'
-    }"
-    [target]=" [ 
-      longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
-    ]"
-    [target]=" true "
-    [target]=" undefined "
-    [target]=" null "
-    [target]=" ( 1 ) "
-    [target]=" 1 "
-    [target]="  'hello' "
-    [target]=" a ( 1 , 2 ) "
-    [target]=" a . b ( 1 , 2 ) "
-    [target]=" x ! "
-    [target]=" ! x "
-    [target]=" ( ( a ) ) "
-    [target]=" a "
-    [target]=" a // hello "
-    [target]=" a . b "
-    [target]=" javascript : 'hello world' "
-    [target]=" a ?. b ( ) "
-    [target]=" a ?. b "
-    [target]=" this . a "
-    on-target=" a = 1 "
-    (target)=" a = 1 "
-    (target)=" a . b = 1 "
-    (target)=" a [ b ] = 1 "
-    (target)=" a // hello "
-    (target)=" a ; b "
-    (event)="  0  "
-    (event)="  a.b  "
-    (event)="  hello  "
-    (event)="  hello()  "
-    (event)="  a && b  "
-    (event)="  a && b()  "
-    (event)="  foo = $event  "
-    (event)="  foo == $event  "
-    *ngIf=" something?true:false    "
-    *ngIf=" a | pipe   "
-    *ngFor="  let     hero     of     heroes"
-    *ngFor="  let    hero     of[1,2,3,666666666666666666666666666666666666]; let i=index"
-    *ngFor="     let hero     of     heroes;     trackBy    :    trackByHeroes     "
-    *ngFor=" let     item   of   items   ;    index    as   i  ; trackBy  :     trackByFn"
-    *ngFor="  let    hero     of heroes; let i  =  index"
-    *ngFor="  let    hero     of heroes; value     myValue"
-    *ngIf=" condition  ;  else  elseBlock "
-    *ngIf=" condition  ;  then  thenBlock  else  elseBlock "
-    *ngIf=" condition  as  value  ;  else  elseBlock "
-    *directive=" let hero "
-    *directive=" let hero = hello "
-    *directive=" let hero of heroes "
-    *directive=" let hero ; of : heroes "
-    *directive=" a "
-    *directive=" a as b "
-    *directive=" a , b "
-    *directive=" a ; b "
-    *directive=" a ; b c "
-    *directive=" a ; b : c "
-    *directive=" a ; b : c as d "
-    *directive=" a ; b as c "
-    *ngIf="listRow.NextScheduledSendStatus == 1 || listRow.NextScheduledSendStatus == 2 || listRow.NextScheduledSendStatus == 3"
-    *ngIf="listRow.NextScheduledSendStatus == 1 || listRow.NextScheduledSendStatus == 2 || listRow.NextScheduledSendStatus == 3; else hello"
-    (target)="listRow.NextScheduledSendStatus == 1 || listRow.NextScheduledSendStatus == 2 || listRow.NextScheduledSendStatus == 3"
-    [target]="listRow.NextScheduledSendStatus == 1 || listRow.NextScheduledSendStatus == 2 || listRow.NextScheduledSendStatus == 3"
-    [target]="{ longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true }"
-    [error]="'We couldn\\\\\\'t find anything with that name.'"
-    *ngIf="form.controls.details?.controls.amount?.errors.min"
-    [ngClass]="
-    {'btn-success': (dialog$ | async).level === dialogLevelEnum.SUCCESS,
-      'btn-warning': (dialog$ | async).level === dialogLevelEnum.WARNING,
-      'btn-svg': (dialog$ | async).level === dialogLevelEnum.DANGER}"
-    [stickout]="+toolAssembly.stickoutMm"
-    test='{{ "test" | translate }}'
-    test='foo {{       invalid invalid       }} bar {{       valid       }} baz'
-    test='foo
-    
-    {{       invalid
-             invalid       }} 
-    
-    bar 
-    
-          {{       valid       }} 
-    
-    baz'
-    i18n="Normal i18n text"
-    i18n="This is a very long internationalization description text, exceeding the configured print width, but could easily be formatted"
-    i18n-test="Attribute i18n text"
-    i18n-test="This is a very long internationalization description text, exceeding the configured print width, but could easily be formatted"
-    i18n="This is a very long internationalization description text, exceeding the configured print width, but could easily be formatted" i18n="This is yet another very long internationalization description text, exceeding the configured print width, but could easily be formatted"
-    i18n="@@customId"
-    i18n="Some description@@customIdWithDescription"
-    i18n="some meaning|Some description@@customIdWithDescription"
-    i18n="some meaning|Some very long internationalization description text exceeding the configured print width@@customIdWithDescription"
-></div>
-
-=====================================output=====================================
-<div
-  bindon-target="a | b: c"
-  [(target)]="a | b: c"
-  bind-target="a | b: c"
-  [target]="a | b: c"
-  [target]="a | pipe"
-  [target]="0 - 1"
-  [target]="-1"
-  [target]="a ? 1 : 2"
-  [target]=""
-  [target]="a(1)(2)"
-  [target]="a[b]"
-  [target]="[1]"
-  [target]="{ a: 1 }"
-  [target]="{ a: 1 }"
-  [target]="{
-    trailingComma: 'notAllowed'
-  }"
-  [target]="[
-    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
-  ]"
-  [target]="true"
-  [target]="undefined"
-  [target]="null"
-  [target]="1"
-  [target]="1"
-  [target]="'hello'"
-  [target]="a(1, 2)"
-  [target]="a.b(1, 2)"
-  [target]="x!"
-  [target]="!x"
-  [target]="a"
-  [target]="a"
-  [target]="a // hello"
-  [target]="a.b"
-  [target]="javascript: 'hello world' "
-  [target]="a?.b()"
-  [target]="a?.b"
-  [target]="this.a"
-  on-target="a = 1"
-  (target)="a = 1"
-  (target)="a.b = 1"
-  (target)="a[b] = 1"
-  (target)="(a) // hello"
-  (target)="(a); (b)"
-  (event)="(0)"
-  (event)="(a.b)"
-  (event)="(hello)"
-  (event)="hello()"
-  (event)="(a && b)"
-  (event)="a && b()"
-  (event)="foo = $event"
-  (event)="(foo == $event)"
-  *ngIf="something ? true : false"
-  *ngIf="a | pipe"
-  *ngFor="let hero of heroes"
-  *ngFor="
-    let hero of [1, 2, 3, 666666666666666666666666666666666666];
-    let i = index
-  "
-  *ngFor="let hero of heroes; trackBy: trackByHeroes"
-  *ngFor="let item of items; index as i; trackBy: trackByFn"
-  *ngFor="let hero of heroes; let i = index"
-  *ngFor="let hero of heroes; value: myValue"
-  *ngIf="condition; else elseBlock"
-  *ngIf="condition; then thenBlock; else elseBlock"
-  *ngIf="condition as value; else elseBlock"
-  *directive="let hero"
-  *directive="let hero = hello"
-  *directive="let hero of heroes"
-  *directive="let hero of heroes"
-  *directive="a"
-  *directive="a as b"
-  *directive="a; b"
-  *directive="a; b"
-  *directive="a; b: c"
-  *directive="a; b: c"
-  *directive="a; b: c as d"
-  *directive="a; b as c"
-  *ngIf="
-    listRow.NextScheduledSendStatus == 1 ||
-    listRow.NextScheduledSendStatus == 2 ||
-    listRow.NextScheduledSendStatus == 3
-  "
-  *ngIf="
-    listRow.NextScheduledSendStatus == 1 ||
-      listRow.NextScheduledSendStatus == 2 ||
-      listRow.NextScheduledSendStatus == 3;
-    else hello
-  "
-  (target)="
-    (listRow.NextScheduledSendStatus == 1 ||
-      listRow.NextScheduledSendStatus == 2 ||
-      listRow.NextScheduledSendStatus == 3)
-  "
-  [target]="
-    listRow.NextScheduledSendStatus == 1 ||
-    listRow.NextScheduledSendStatus == 2 ||
-    listRow.NextScheduledSendStatus == 3
-  "
-  [target]="{
-    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true
-  }"
-  [error]="'We couldn\\\\\\'t find anything with that name.'"
-  *ngIf="form.controls.details?.controls.amount?.errors.min"
-  [ngClass]="{
-    'btn-success': (dialog$ | async).level === dialogLevelEnum.SUCCESS,
-    'btn-warning': (dialog$ | async).level === dialogLevelEnum.WARNING,
-    'btn-svg': (dialog$ | async).level === dialogLevelEnum.DANGER
-  }"
-  [stickout]="+toolAssembly.stickoutMm"
-  test="{{ 'test' | translate }}"
-  test="foo {{       invalid invalid       }} bar {{ valid }} baz"
-  test="foo
-    
-    {{       invalid
-             invalid       }} 
-    
-    bar 
-    
-          {{ valid }} 
-    
-    baz"
-  i18n="Normal i18n text"
-  i18n="
-    This is a very long internationalization description text, exceeding the
-    configured print width, but could easily be formatted
-  "
-  i18n-test="Attribute i18n text"
-  i18n-test="
-    This is a very long internationalization description text, exceeding the
-    configured print width, but could easily be formatted
-  "
-  i18n="
-    This is a very long internationalization description text, exceeding the
-    configured print width, but could easily be formatted
-  "
-  i18n="
-    This is yet another very long internationalization description text,
-    exceeding the configured print width, but could easily be formatted
-  "
-  i18n="@@customId"
-  i18n="Some description@@customIdWithDescription"
-  i18n="some meaning|Some description@@customIdWithDescription"
-  i18n="
-    some meaning|Some very long internationalization description text exceeding
-    the configured print width@@customIdWithDescription
-  "
-></div>
-
-================================================================================
-`;
-
-exports[`attributes.component.html 3`] = `
+exports[`attributes.component.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 1
@@ -1192,17 +1425,14 @@ printWidth: 1
     formatted
   "
   i18n="
-    @@customId
-  "
+    @@customId"
   i18n="
     Some
-    description@@customIdWithDescription
-  "
+    description@@customIdWithDescription"
   i18n="
     some
     meaning|Some
-    description@@customIdWithDescription
-  "
+    description@@customIdWithDescription"
   i18n="
     some
     meaning|Some
@@ -1215,16 +1445,285 @@ printWidth: 1
     the
     configured
     print
-    width@@customIdWithDescription
-  "
+    width@@customIdWithDescription"
 ></div>
 
 ================================================================================
 `;
 
-exports[`attributes.component.html 4`] = `
+exports[`attributes.component.html - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
-htmlWhitespaceSensitivity: "ignore"
+parsers: ["angular"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+<div
+    bindon-target=" a | b : c "
+    [(target)]=" a | b : c "
+    bind-target=" a | b : c "
+    [target]=" a | b : c "
+    [target]=" a | pipe   "
+    [target]=" 0 - 1 "
+    [target]=" - 1 "
+    [target]=" a ? 1 : 2 "
+    [target]=" "
+    [target]=" a ( 1 ) ( 2 ) "
+    [target]=" a [ b ] "
+    [target]=" [ 1 ] "
+    [target]=" { 'a' : 1 } "
+    [target]=" { a : 1 } "
+    [target]=" { 
+      trailingComma : 'notAllowed'
+    }"
+    [target]=" [ 
+      longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+    ]"
+    [target]=" true "
+    [target]=" undefined "
+    [target]=" null "
+    [target]=" ( 1 ) "
+    [target]=" 1 "
+    [target]="  'hello' "
+    [target]=" a ( 1 , 2 ) "
+    [target]=" a . b ( 1 , 2 ) "
+    [target]=" x ! "
+    [target]=" ! x "
+    [target]=" ( ( a ) ) "
+    [target]=" a "
+    [target]=" a // hello "
+    [target]=" a . b "
+    [target]=" javascript : 'hello world' "
+    [target]=" a ?. b ( ) "
+    [target]=" a ?. b "
+    [target]=" this . a "
+    on-target=" a = 1 "
+    (target)=" a = 1 "
+    (target)=" a . b = 1 "
+    (target)=" a [ b ] = 1 "
+    (target)=" a // hello "
+    (target)=" a ; b "
+    (event)="  0  "
+    (event)="  a.b  "
+    (event)="  hello  "
+    (event)="  hello()  "
+    (event)="  a && b  "
+    (event)="  a && b()  "
+    (event)="  foo = $event  "
+    (event)="  foo == $event  "
+    *ngIf=" something?true:false    "
+    *ngIf=" a | pipe   "
+    *ngFor="  let     hero     of     heroes"
+    *ngFor="  let    hero     of[1,2,3,666666666666666666666666666666666666]; let i=index"
+    *ngFor="     let hero     of     heroes;     trackBy    :    trackByHeroes     "
+    *ngFor=" let     item   of   items   ;    index    as   i  ; trackBy  :     trackByFn"
+    *ngFor="  let    hero     of heroes; let i  =  index"
+    *ngFor="  let    hero     of heroes; value     myValue"
+    *ngIf=" condition  ;  else  elseBlock "
+    *ngIf=" condition  ;  then  thenBlock  else  elseBlock "
+    *ngIf=" condition  as  value  ;  else  elseBlock "
+    *directive=" let hero "
+    *directive=" let hero = hello "
+    *directive=" let hero of heroes "
+    *directive=" let hero ; of : heroes "
+    *directive=" a "
+    *directive=" a as b "
+    *directive=" a , b "
+    *directive=" a ; b "
+    *directive=" a ; b c "
+    *directive=" a ; b : c "
+    *directive=" a ; b : c as d "
+    *directive=" a ; b as c "
+    *ngIf="listRow.NextScheduledSendStatus == 1 || listRow.NextScheduledSendStatus == 2 || listRow.NextScheduledSendStatus == 3"
+    *ngIf="listRow.NextScheduledSendStatus == 1 || listRow.NextScheduledSendStatus == 2 || listRow.NextScheduledSendStatus == 3; else hello"
+    (target)="listRow.NextScheduledSendStatus == 1 || listRow.NextScheduledSendStatus == 2 || listRow.NextScheduledSendStatus == 3"
+    [target]="listRow.NextScheduledSendStatus == 1 || listRow.NextScheduledSendStatus == 2 || listRow.NextScheduledSendStatus == 3"
+    [target]="{ longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true }"
+    [error]="'We couldn\\\\\\'t find anything with that name.'"
+    *ngIf="form.controls.details?.controls.amount?.errors.min"
+    [ngClass]="
+    {'btn-success': (dialog$ | async).level === dialogLevelEnum.SUCCESS,
+      'btn-warning': (dialog$ | async).level === dialogLevelEnum.WARNING,
+      'btn-svg': (dialog$ | async).level === dialogLevelEnum.DANGER}"
+    [stickout]="+toolAssembly.stickoutMm"
+    test='{{ "test" | translate }}'
+    test='foo {{       invalid invalid       }} bar {{       valid       }} baz'
+    test='foo
+    
+    {{       invalid
+             invalid       }} 
+    
+    bar 
+    
+          {{       valid       }} 
+    
+    baz'
+    i18n="Normal i18n text"
+    i18n="This is a very long internationalization description text, exceeding the configured print width, but could easily be formatted"
+    i18n-test="Attribute i18n text"
+    i18n-test="This is a very long internationalization description text, exceeding the configured print width, but could easily be formatted"
+    i18n="This is a very long internationalization description text, exceeding the configured print width, but could easily be formatted" i18n="This is yet another very long internationalization description text, exceeding the configured print width, but could easily be formatted"
+    i18n="@@customId"
+    i18n="Some description@@customIdWithDescription"
+    i18n="some meaning|Some description@@customIdWithDescription"
+    i18n="some meaning|Some very long internationalization description text exceeding the configured print width@@customIdWithDescription"
+></div>
+
+=====================================output=====================================
+<div
+  bindon-target="a | b: c"
+  [(target)]="a | b: c"
+  bind-target="a | b: c"
+  [target]="a | b: c"
+  [target]="a | pipe"
+  [target]="0 - 1"
+  [target]="-1"
+  [target]="a ? 1 : 2"
+  [target]=""
+  [target]="a(1)(2)"
+  [target]="a[b]"
+  [target]="[1]"
+  [target]="{ a: 1 }"
+  [target]="{ a: 1 }"
+  [target]="{
+    trailingComma: 'notAllowed'
+  }"
+  [target]="[
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+  ]"
+  [target]="true"
+  [target]="undefined"
+  [target]="null"
+  [target]="1"
+  [target]="1"
+  [target]="'hello'"
+  [target]="a(1, 2)"
+  [target]="a.b(1, 2)"
+  [target]="x!"
+  [target]="!x"
+  [target]="a"
+  [target]="a"
+  [target]="a // hello"
+  [target]="a.b"
+  [target]="javascript: 'hello world'"
+  [target]="a?.b()"
+  [target]="a?.b"
+  [target]="this.a"
+  on-target="a = 1"
+  (target)="a = 1"
+  (target)="a.b = 1"
+  (target)="a[b] = 1"
+  (target)="(a) // hello"
+  (target)="(a); (b)"
+  (event)="(0)"
+  (event)="(a.b)"
+  (event)="(hello)"
+  (event)="hello()"
+  (event)="(a && b)"
+  (event)="a && b()"
+  (event)="foo = $event"
+  (event)="(foo == $event)"
+  *ngIf="something ? true : false"
+  *ngIf="a | pipe"
+  *ngFor="let hero of heroes"
+  *ngFor="
+    let hero of [1, 2, 3, 666666666666666666666666666666666666];
+    let i = index
+  "
+  *ngFor="let hero of heroes; trackBy: trackByHeroes"
+  *ngFor="let item of items; index as i; trackBy: trackByFn"
+  *ngFor="let hero of heroes; let i = index"
+  *ngFor="let hero of heroes; value: myValue"
+  *ngIf="condition; else elseBlock"
+  *ngIf="condition; then thenBlock; else elseBlock"
+  *ngIf="condition as value; else elseBlock"
+  *directive="let hero"
+  *directive="let hero = hello"
+  *directive="let hero of heroes"
+  *directive="let hero of heroes"
+  *directive="a"
+  *directive="a as b"
+  *directive="a; b"
+  *directive="a; b"
+  *directive="a; b: c"
+  *directive="a; b: c"
+  *directive="a; b: c as d"
+  *directive="a; b as c"
+  *ngIf="
+    listRow.NextScheduledSendStatus == 1 ||
+    listRow.NextScheduledSendStatus == 2 ||
+    listRow.NextScheduledSendStatus == 3
+  "
+  *ngIf="
+    listRow.NextScheduledSendStatus == 1 ||
+      listRow.NextScheduledSendStatus == 2 ||
+      listRow.NextScheduledSendStatus == 3;
+    else hello
+  "
+  (target)="
+    (listRow.NextScheduledSendStatus == 1 ||
+      listRow.NextScheduledSendStatus == 2 ||
+      listRow.NextScheduledSendStatus == 3)
+  "
+  [target]="
+    listRow.NextScheduledSendStatus == 1 ||
+    listRow.NextScheduledSendStatus == 2 ||
+    listRow.NextScheduledSendStatus == 3
+  "
+  [target]="{
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true
+  }"
+  [error]="'We couldn\\\\\\'t find anything with that name.'"
+  *ngIf="form.controls.details?.controls.amount?.errors.min"
+  [ngClass]="{
+    'btn-success': (dialog$ | async).level === dialogLevelEnum.SUCCESS,
+    'btn-warning': (dialog$ | async).level === dialogLevelEnum.WARNING,
+    'btn-svg': (dialog$ | async).level === dialogLevelEnum.DANGER
+  }"
+  [stickout]="+toolAssembly.stickoutMm"
+  test="{{ 'test' | translate }}"
+  test="foo {{       invalid invalid       }} bar {{ valid }} baz"
+  test="foo
+    
+    {{       invalid
+             invalid       }} 
+    
+    bar 
+    
+          {{ valid }} 
+    
+    baz"
+  i18n="Normal i18n text"
+  i18n="
+    This is a very long internationalization description text, exceeding the
+    configured print width, but could easily be formatted
+  "
+  i18n-test="Attribute i18n text"
+  i18n-test="
+    This is a very long internationalization description text, exceeding the
+    configured print width, but could easily be formatted
+  "
+  i18n="
+    This is a very long internationalization description text, exceeding the
+    configured print width, but could easily be formatted
+  "
+  i18n="
+    This is yet another very long internationalization description text,
+    exceeding the configured print width, but could easily be formatted
+  "
+  i18n="@@customId"
+  i18n="Some description@@customIdWithDescription"
+  i18n="some meaning|Some description@@customIdWithDescription"
+  i18n="
+    some meaning|Some very long internationalization description text exceeding
+    the configured print width@@customIdWithDescription"
+></div>
+
+================================================================================
+`;
+
+exports[`attributes.component.html format 1`] = `
+====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
                                                                                 | printWidth
@@ -1376,7 +1875,7 @@ printWidth: 80
   [target]="a"
   [target]="a // hello"
   [target]="a.b"
-  [target]="javascript: 'hello world' "
+  [target]="javascript: 'hello world'"
   [target]="a?.b()"
   [target]="a?.b"
   [target]="this.a"
@@ -1487,287 +1986,108 @@ printWidth: 80
   i18n="some meaning|Some description@@customIdWithDescription"
   i18n="
     some meaning|Some very long internationalization description text exceeding
-    the configured print width@@customIdWithDescription
-  "
+    the configured print width@@customIdWithDescription"
 ></div>
 
 ================================================================================
 `;
 
-exports[`attributes.component.html 5`] = `
+exports[`first-lf.component.html - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["angular"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-<div
-    bindon-target=" a | b : c "
-    [(target)]=" a | b : c "
-    bind-target=" a | b : c "
-    [target]=" a | b : c "
-    [target]=" a | pipe   "
-    [target]=" 0 - 1 "
-    [target]=" - 1 "
-    [target]=" a ? 1 : 2 "
-    [target]=" "
-    [target]=" a ( 1 ) ( 2 ) "
-    [target]=" a [ b ] "
-    [target]=" [ 1 ] "
-    [target]=" { 'a' : 1 } "
-    [target]=" { a : 1 } "
-    [target]=" { 
-      trailingComma : 'notAllowed'
-    }"
-    [target]=" [ 
-      longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
-    ]"
-    [target]=" true "
-    [target]=" undefined "
-    [target]=" null "
-    [target]=" ( 1 ) "
-    [target]=" 1 "
-    [target]="  'hello' "
-    [target]=" a ( 1 , 2 ) "
-    [target]=" a . b ( 1 , 2 ) "
-    [target]=" x ! "
-    [target]=" ! x "
-    [target]=" ( ( a ) ) "
-    [target]=" a "
-    [target]=" a // hello "
-    [target]=" a . b "
-    [target]=" javascript : 'hello world' "
-    [target]=" a ?. b ( ) "
-    [target]=" a ?. b "
-    [target]=" this . a "
-    on-target=" a = 1 "
-    (target)=" a = 1 "
-    (target)=" a . b = 1 "
-    (target)=" a [ b ] = 1 "
-    (target)=" a // hello "
-    (target)=" a ; b "
-    (event)="  0  "
-    (event)="  a.b  "
-    (event)="  hello  "
-    (event)="  hello()  "
-    (event)="  a && b  "
-    (event)="  a && b()  "
-    (event)="  foo = $event  "
-    (event)="  foo == $event  "
-    *ngIf=" something?true:false    "
-    *ngIf=" a | pipe   "
-    *ngFor="  let     hero     of     heroes"
-    *ngFor="  let    hero     of[1,2,3,666666666666666666666666666666666666]; let i=index"
-    *ngFor="     let hero     of     heroes;     trackBy    :    trackByHeroes     "
-    *ngFor=" let     item   of   items   ;    index    as   i  ; trackBy  :     trackByFn"
-    *ngFor="  let    hero     of heroes; let i  =  index"
-    *ngFor="  let    hero     of heroes; value     myValue"
-    *ngIf=" condition  ;  else  elseBlock "
-    *ngIf=" condition  ;  then  thenBlock  else  elseBlock "
-    *ngIf=" condition  as  value  ;  else  elseBlock "
-    *directive=" let hero "
-    *directive=" let hero = hello "
-    *directive=" let hero of heroes "
-    *directive=" let hero ; of : heroes "
-    *directive=" a "
-    *directive=" a as b "
-    *directive=" a , b "
-    *directive=" a ; b "
-    *directive=" a ; b c "
-    *directive=" a ; b : c "
-    *directive=" a ; b : c as d "
-    *directive=" a ; b as c "
-    *ngIf="listRow.NextScheduledSendStatus == 1 || listRow.NextScheduledSendStatus == 2 || listRow.NextScheduledSendStatus == 3"
-    *ngIf="listRow.NextScheduledSendStatus == 1 || listRow.NextScheduledSendStatus == 2 || listRow.NextScheduledSendStatus == 3; else hello"
-    (target)="listRow.NextScheduledSendStatus == 1 || listRow.NextScheduledSendStatus == 2 || listRow.NextScheduledSendStatus == 3"
-    [target]="listRow.NextScheduledSendStatus == 1 || listRow.NextScheduledSendStatus == 2 || listRow.NextScheduledSendStatus == 3"
-    [target]="{ longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true }"
-    [error]="'We couldn\\\\\\'t find anything with that name.'"
-    *ngIf="form.controls.details?.controls.amount?.errors.min"
-    [ngClass]="
-    {'btn-success': (dialog$ | async).level === dialogLevelEnum.SUCCESS,
-      'btn-warning': (dialog$ | async).level === dialogLevelEnum.WARNING,
-      'btn-svg': (dialog$ | async).level === dialogLevelEnum.DANGER}"
-    [stickout]="+toolAssembly.stickoutMm"
-    test='{{ "test" | translate }}'
-    test='foo {{       invalid invalid       }} bar {{       valid       }} baz'
-    test='foo
-    
-    {{       invalid
-             invalid       }} 
-    
-    bar 
-    
-          {{       valid       }} 
-    
-    baz'
-    i18n="Normal i18n text"
-    i18n="This is a very long internationalization description text, exceeding the configured print width, but could easily be formatted"
-    i18n-test="Attribute i18n text"
-    i18n-test="This is a very long internationalization description text, exceeding the configured print width, but could easily be formatted"
-    i18n="This is a very long internationalization description text, exceeding the configured print width, but could easily be formatted" i18n="This is yet another very long internationalization description text, exceeding the configured print width, but could easily be formatted"
-    i18n="@@customId"
-    i18n="Some description@@customIdWithDescription"
-    i18n="some meaning|Some description@@customIdWithDescription"
-    i18n="some meaning|Some very long internationalization description text exceeding the configured print width@@customIdWithDescription"
-></div>
+<textarea>{{ generatedDiscountCodes }}</textarea>
+<textarea>
+{{ generatedDiscountCodes }}</textarea>
+<textarea>
+    {{ generatedDiscountCodes }}</textarea>
+<textarea>  
+{{ generatedDiscountCodes }}</textarea>
+<textarea>  
+    {{ generatedDiscountCodes }}</textarea>
+<textarea>{{ generatedDiscountCodes }}123</textarea>
+<textarea>
+{{ generatedDiscountCodes }}123</textarea>
+<textarea>
+    {{ generatedDiscountCodes }}123</textarea>
+<textarea>  
+{{ generatedDiscountCodes }}123</textarea>
+<textarea>  
+    {{ generatedDiscountCodes }}123</textarea>
+<textarea type="text">{{ generatedDiscountCodes }}</textarea>
+<textarea type="text">
+{{ generatedDiscountCodes }}</textarea>
+<textarea type="text">
+    {{ generatedDiscountCodes }}</textarea>
+<textarea type="text">  
+{{ generatedDiscountCodes }}</textarea>
+<textarea type="text">  
+    {{ generatedDiscountCodes }}</textarea>
+<textarea type="text">{{ generatedDiscountCodes }}123</textarea>
+<textarea type="text">
+{{ generatedDiscountCodes }}123</textarea>
+<textarea type="text">
+    {{ generatedDiscountCodes }}123</textarea>
+<textarea type="text">  
+{{ generatedDiscountCodes }}123</textarea>
+<textarea type="text">  
+    {{ generatedDiscountCodes }}123</textarea>
 
 =====================================output=====================================
-<div
-  bindon-target="a | b: c"
-  [(target)]="a | b: c"
-  bind-target="a | b: c"
-  [target]="a | b: c"
-  [target]="a | pipe"
-  [target]="0 - 1"
-  [target]="-1"
-  [target]="a ? 1 : 2"
-  [target]=""
-  [target]="a(1)(2)"
-  [target]="a[b]"
-  [target]="[1]"
-  [target]="{a: 1}"
-  [target]="{a: 1}"
-  [target]="{
-    trailingComma: 'notAllowed'
-  }"
-  [target]="[
-    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
-  ]"
-  [target]="true"
-  [target]="undefined"
-  [target]="null"
-  [target]="1"
-  [target]="1"
-  [target]="'hello'"
-  [target]="a(1, 2)"
-  [target]="a.b(1, 2)"
-  [target]="x!"
-  [target]="!x"
-  [target]="a"
-  [target]="a"
-  [target]="a // hello"
-  [target]="a.b"
-  [target]="javascript: 'hello world' "
-  [target]="a?.b()"
-  [target]="a?.b"
-  [target]="this.a"
-  on-target="a = 1"
-  (target)="a = 1"
-  (target)="a.b = 1"
-  (target)="a[b] = 1"
-  (target)="(a) // hello"
-  (target)="(a); (b)"
-  (event)="(0)"
-  (event)="(a.b)"
-  (event)="(hello)"
-  (event)="hello()"
-  (event)="(a && b)"
-  (event)="a && b()"
-  (event)="foo = $event"
-  (event)="(foo == $event)"
-  *ngIf="something ? true : false"
-  *ngIf="a | pipe"
-  *ngFor="let hero of heroes"
-  *ngFor="
-    let hero of [1, 2, 3, 666666666666666666666666666666666666];
-    let i = index
-  "
-  *ngFor="let hero of heroes; trackBy: trackByHeroes"
-  *ngFor="let item of items; index as i; trackBy: trackByFn"
-  *ngFor="let hero of heroes; let i = index"
-  *ngFor="let hero of heroes; value: myValue"
-  *ngIf="condition; else elseBlock"
-  *ngIf="condition; then thenBlock; else elseBlock"
-  *ngIf="condition as value; else elseBlock"
-  *directive="let hero"
-  *directive="let hero = hello"
-  *directive="let hero of heroes"
-  *directive="let hero of heroes"
-  *directive="a"
-  *directive="a as b"
-  *directive="a; b"
-  *directive="a; b"
-  *directive="a; b: c"
-  *directive="a; b: c"
-  *directive="a; b: c as d"
-  *directive="a; b as c"
-  *ngIf="
-    listRow.NextScheduledSendStatus == 1 ||
-    listRow.NextScheduledSendStatus == 2 ||
-    listRow.NextScheduledSendStatus == 3
-  "
-  *ngIf="
-    listRow.NextScheduledSendStatus == 1 ||
-      listRow.NextScheduledSendStatus == 2 ||
-      listRow.NextScheduledSendStatus == 3;
-    else hello
-  "
-  (target)="
-    (listRow.NextScheduledSendStatus == 1 ||
-      listRow.NextScheduledSendStatus == 2 ||
-      listRow.NextScheduledSendStatus == 3)
-  "
-  [target]="
-    listRow.NextScheduledSendStatus == 1 ||
-    listRow.NextScheduledSendStatus == 2 ||
-    listRow.NextScheduledSendStatus == 3
-  "
-  [target]="{
-    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong: true
-  }"
-  [error]="'We couldn\\\\\\'t find anything with that name.'"
-  *ngIf="form.controls.details?.controls.amount?.errors.min"
-  [ngClass]="{
-    'btn-success': (dialog$ | async).level === dialogLevelEnum.SUCCESS,
-    'btn-warning': (dialog$ | async).level === dialogLevelEnum.WARNING,
-    'btn-svg': (dialog$ | async).level === dialogLevelEnum.DANGER
-  }"
-  [stickout]="+toolAssembly.stickoutMm"
-  test="{{ 'test' | translate }}"
-  test="foo {{       invalid invalid       }} bar {{ valid }} baz"
-  test="foo
-    
-    {{       invalid
-             invalid       }} 
-    
-    bar 
-    
-          {{ valid }} 
-    
-    baz"
-  i18n="Normal i18n text"
-  i18n="
-    This is a very long internationalization description text, exceeding the
-    configured print width, but could easily be formatted
-  "
-  i18n-test="Attribute i18n text"
-  i18n-test="
-    This is a very long internationalization description text, exceeding the
-    configured print width, but could easily be formatted
-  "
-  i18n="
-    This is a very long internationalization description text, exceeding the
-    configured print width, but could easily be formatted
-  "
-  i18n="
-    This is yet another very long internationalization description text,
-    exceeding the configured print width, but could easily be formatted
-  "
-  i18n="@@customId"
-  i18n="Some description@@customIdWithDescription"
-  i18n="some meaning|Some description@@customIdWithDescription"
-  i18n="
-    some meaning|Some very long internationalization description text exceeding
-    the configured print width@@customIdWithDescription
-  "
-></div>
+<textarea>{{ generatedDiscountCodes }}</textarea>
+<textarea>{{ generatedDiscountCodes }}</textarea>
+<textarea>    {{ generatedDiscountCodes }}</textarea>
+<textarea>
+  
+{{ generatedDiscountCodes }}</textarea
+>
+<textarea>
+  
+    {{ generatedDiscountCodes }}</textarea
+>
+<textarea>{{ generatedDiscountCodes }}123</textarea>
+<textarea>{{ generatedDiscountCodes }}123</textarea>
+<textarea>    {{ generatedDiscountCodes }}123</textarea>
+<textarea>
+  
+{{ generatedDiscountCodes }}123</textarea
+>
+<textarea>
+  
+    {{ generatedDiscountCodes }}123</textarea
+>
+<textarea type="text">{{ generatedDiscountCodes }}</textarea>
+<textarea type="text">{{ generatedDiscountCodes }}</textarea>
+<textarea type="text">    {{ generatedDiscountCodes }}</textarea>
+<textarea type="text">
+  
+{{ generatedDiscountCodes }}</textarea
+>
+<textarea type="text">
+  
+    {{ generatedDiscountCodes }}</textarea
+>
+<textarea type="text">{{ generatedDiscountCodes }}123</textarea>
+<textarea type="text">{{ generatedDiscountCodes }}123</textarea>
+<textarea type="text">    {{ generatedDiscountCodes }}123</textarea>
+<textarea type="text">
+  
+{{ generatedDiscountCodes }}123</textarea
+>
+<textarea type="text">
+  
+    {{ generatedDiscountCodes }}123</textarea
+>
 
 ================================================================================
 `;
 
-exports[`first-lf.component.html 1`] = `
+exports[`first-lf.component.html - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
 ====================================options=====================================
+htmlWhitespaceSensitivity: "ignore"
 parsers: ["angular"]
 printWidth: 80
                                                                                 | printWidth
@@ -1858,100 +2178,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`first-lf.component.html 2`] = `
-====================================options=====================================
-parsers: ["angular"]
-printWidth: 80
-trailingComma: "es5"
-                                                                                | printWidth
-=====================================input======================================
-<textarea>{{ generatedDiscountCodes }}</textarea>
-<textarea>
-{{ generatedDiscountCodes }}</textarea>
-<textarea>
-    {{ generatedDiscountCodes }}</textarea>
-<textarea>  
-{{ generatedDiscountCodes }}</textarea>
-<textarea>  
-    {{ generatedDiscountCodes }}</textarea>
-<textarea>{{ generatedDiscountCodes }}123</textarea>
-<textarea>
-{{ generatedDiscountCodes }}123</textarea>
-<textarea>
-    {{ generatedDiscountCodes }}123</textarea>
-<textarea>  
-{{ generatedDiscountCodes }}123</textarea>
-<textarea>  
-    {{ generatedDiscountCodes }}123</textarea>
-<textarea type="text">{{ generatedDiscountCodes }}</textarea>
-<textarea type="text">
-{{ generatedDiscountCodes }}</textarea>
-<textarea type="text">
-    {{ generatedDiscountCodes }}</textarea>
-<textarea type="text">  
-{{ generatedDiscountCodes }}</textarea>
-<textarea type="text">  
-    {{ generatedDiscountCodes }}</textarea>
-<textarea type="text">{{ generatedDiscountCodes }}123</textarea>
-<textarea type="text">
-{{ generatedDiscountCodes }}123</textarea>
-<textarea type="text">
-    {{ generatedDiscountCodes }}123</textarea>
-<textarea type="text">  
-{{ generatedDiscountCodes }}123</textarea>
-<textarea type="text">  
-    {{ generatedDiscountCodes }}123</textarea>
-
-=====================================output=====================================
-<textarea>{{ generatedDiscountCodes }}</textarea>
-<textarea>{{ generatedDiscountCodes }}</textarea>
-<textarea>    {{ generatedDiscountCodes }}</textarea>
-<textarea>
-  
-{{ generatedDiscountCodes }}</textarea
->
-<textarea>
-  
-    {{ generatedDiscountCodes }}</textarea
->
-<textarea>{{ generatedDiscountCodes }}123</textarea>
-<textarea>{{ generatedDiscountCodes }}123</textarea>
-<textarea>    {{ generatedDiscountCodes }}123</textarea>
-<textarea>
-  
-{{ generatedDiscountCodes }}123</textarea
->
-<textarea>
-  
-    {{ generatedDiscountCodes }}123</textarea
->
-<textarea type="text">{{ generatedDiscountCodes }}</textarea>
-<textarea type="text">{{ generatedDiscountCodes }}</textarea>
-<textarea type="text">    {{ generatedDiscountCodes }}</textarea>
-<textarea type="text">
-  
-{{ generatedDiscountCodes }}</textarea
->
-<textarea type="text">
-  
-    {{ generatedDiscountCodes }}</textarea
->
-<textarea type="text">{{ generatedDiscountCodes }}123</textarea>
-<textarea type="text">{{ generatedDiscountCodes }}123</textarea>
-<textarea type="text">    {{ generatedDiscountCodes }}123</textarea>
-<textarea type="text">
-  
-{{ generatedDiscountCodes }}123</textarea
->
-<textarea type="text">
-  
-    {{ generatedDiscountCodes }}123</textarea
->
-
-================================================================================
-`;
-
-exports[`first-lf.component.html 3`] = `
+exports[`first-lf.component.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 1
@@ -2123,9 +2350,101 @@ printWidth: 1
 ================================================================================
 `;
 
-exports[`first-lf.component.html 4`] = `
+exports[`first-lf.component.html - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
-htmlWhitespaceSensitivity: "ignore"
+parsers: ["angular"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+<textarea>{{ generatedDiscountCodes }}</textarea>
+<textarea>
+{{ generatedDiscountCodes }}</textarea>
+<textarea>
+    {{ generatedDiscountCodes }}</textarea>
+<textarea>  
+{{ generatedDiscountCodes }}</textarea>
+<textarea>  
+    {{ generatedDiscountCodes }}</textarea>
+<textarea>{{ generatedDiscountCodes }}123</textarea>
+<textarea>
+{{ generatedDiscountCodes }}123</textarea>
+<textarea>
+    {{ generatedDiscountCodes }}123</textarea>
+<textarea>  
+{{ generatedDiscountCodes }}123</textarea>
+<textarea>  
+    {{ generatedDiscountCodes }}123</textarea>
+<textarea type="text">{{ generatedDiscountCodes }}</textarea>
+<textarea type="text">
+{{ generatedDiscountCodes }}</textarea>
+<textarea type="text">
+    {{ generatedDiscountCodes }}</textarea>
+<textarea type="text">  
+{{ generatedDiscountCodes }}</textarea>
+<textarea type="text">  
+    {{ generatedDiscountCodes }}</textarea>
+<textarea type="text">{{ generatedDiscountCodes }}123</textarea>
+<textarea type="text">
+{{ generatedDiscountCodes }}123</textarea>
+<textarea type="text">
+    {{ generatedDiscountCodes }}123</textarea>
+<textarea type="text">  
+{{ generatedDiscountCodes }}123</textarea>
+<textarea type="text">  
+    {{ generatedDiscountCodes }}123</textarea>
+
+=====================================output=====================================
+<textarea>{{ generatedDiscountCodes }}</textarea>
+<textarea>{{ generatedDiscountCodes }}</textarea>
+<textarea>    {{ generatedDiscountCodes }}</textarea>
+<textarea>
+  
+{{ generatedDiscountCodes }}</textarea
+>
+<textarea>
+  
+    {{ generatedDiscountCodes }}</textarea
+>
+<textarea>{{ generatedDiscountCodes }}123</textarea>
+<textarea>{{ generatedDiscountCodes }}123</textarea>
+<textarea>    {{ generatedDiscountCodes }}123</textarea>
+<textarea>
+  
+{{ generatedDiscountCodes }}123</textarea
+>
+<textarea>
+  
+    {{ generatedDiscountCodes }}123</textarea
+>
+<textarea type="text">{{ generatedDiscountCodes }}</textarea>
+<textarea type="text">{{ generatedDiscountCodes }}</textarea>
+<textarea type="text">    {{ generatedDiscountCodes }}</textarea>
+<textarea type="text">
+  
+{{ generatedDiscountCodes }}</textarea
+>
+<textarea type="text">
+  
+    {{ generatedDiscountCodes }}</textarea
+>
+<textarea type="text">{{ generatedDiscountCodes }}123</textarea>
+<textarea type="text">{{ generatedDiscountCodes }}123</textarea>
+<textarea type="text">    {{ generatedDiscountCodes }}123</textarea>
+<textarea type="text">
+  
+{{ generatedDiscountCodes }}123</textarea
+>
+<textarea type="text">
+  
+    {{ generatedDiscountCodes }}123</textarea
+>
+
+================================================================================
+`;
+
+exports[`first-lf.component.html format 1`] = `
+====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
                                                                                 | printWidth
@@ -2216,101 +2535,68 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`first-lf.component.html 5`] = `
+exports[`ignore-attribute.component.html - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["angular"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-<textarea>{{ generatedDiscountCodes }}</textarea>
-<textarea>
-{{ generatedDiscountCodes }}</textarea>
-<textarea>
-    {{ generatedDiscountCodes }}</textarea>
-<textarea>  
-{{ generatedDiscountCodes }}</textarea>
-<textarea>  
-    {{ generatedDiscountCodes }}</textarea>
-<textarea>{{ generatedDiscountCodes }}123</textarea>
-<textarea>
-{{ generatedDiscountCodes }}123</textarea>
-<textarea>
-    {{ generatedDiscountCodes }}123</textarea>
-<textarea>  
-{{ generatedDiscountCodes }}123</textarea>
-<textarea>  
-    {{ generatedDiscountCodes }}123</textarea>
-<textarea type="text">{{ generatedDiscountCodes }}</textarea>
-<textarea type="text">
-{{ generatedDiscountCodes }}</textarea>
-<textarea type="text">
-    {{ generatedDiscountCodes }}</textarea>
-<textarea type="text">  
-{{ generatedDiscountCodes }}</textarea>
-<textarea type="text">  
-    {{ generatedDiscountCodes }}</textarea>
-<textarea type="text">{{ generatedDiscountCodes }}123</textarea>
-<textarea type="text">
-{{ generatedDiscountCodes }}123</textarea>
-<textarea type="text">
-    {{ generatedDiscountCodes }}123</textarea>
-<textarea type="text">  
-{{ generatedDiscountCodes }}123</textarea>
-<textarea type="text">  
-    {{ generatedDiscountCodes }}123</textarea>
+<div
+    bindon-target=" a | b : c "
+    [(target)]=" a | b : c "
+    bind-target=" a | b : c "
+></div>
+<!--  prettier-ignore-attribute -->
+<div
+    bindon-target=" a | b : c "
+    [(target)]=" a | b : c "
+    bind-target=" a | b : c "
+></div>
+<!--  prettier-ignore-attribute bind-target -->
+<div
+    bindon-target=" a | b : c "
+    [(target)]=" a | b : c "
+    bind-target=" a | b : c "
+></div>
+<!--  prettier-ignore-attribute [(target)] bind-target -->
+<div
+    bindon-target=" a | b : c "
+    [(target)]=" a | b : c "
+    bind-target=" a | b : c "
+></div>
 
 =====================================output=====================================
-<textarea>{{ generatedDiscountCodes }}</textarea>
-<textarea>{{ generatedDiscountCodes }}</textarea>
-<textarea>    {{ generatedDiscountCodes }}</textarea>
-<textarea>
-  
-{{ generatedDiscountCodes }}</textarea
->
-<textarea>
-  
-    {{ generatedDiscountCodes }}</textarea
->
-<textarea>{{ generatedDiscountCodes }}123</textarea>
-<textarea>{{ generatedDiscountCodes }}123</textarea>
-<textarea>    {{ generatedDiscountCodes }}123</textarea>
-<textarea>
-  
-{{ generatedDiscountCodes }}123</textarea
->
-<textarea>
-  
-    {{ generatedDiscountCodes }}123</textarea
->
-<textarea type="text">{{ generatedDiscountCodes }}</textarea>
-<textarea type="text">{{ generatedDiscountCodes }}</textarea>
-<textarea type="text">    {{ generatedDiscountCodes }}</textarea>
-<textarea type="text">
-  
-{{ generatedDiscountCodes }}</textarea
->
-<textarea type="text">
-  
-    {{ generatedDiscountCodes }}</textarea
->
-<textarea type="text">{{ generatedDiscountCodes }}123</textarea>
-<textarea type="text">{{ generatedDiscountCodes }}123</textarea>
-<textarea type="text">    {{ generatedDiscountCodes }}123</textarea>
-<textarea type="text">
-  
-{{ generatedDiscountCodes }}123</textarea
->
-<textarea type="text">
-  
-    {{ generatedDiscountCodes }}123</textarea
->
+<div
+  bindon-target="a | b: c"
+  [(target)]="a | b: c"
+  bind-target="a | b: c"
+></div>
+<!--  prettier-ignore-attribute -->
+<div
+  bindon-target=" a | b : c "
+  [(target)]=" a | b : c "
+  bind-target=" a | b : c "
+></div>
+<!--  prettier-ignore-attribute bind-target -->
+<div
+  bindon-target="a | b: c"
+  [(target)]="a | b: c"
+  bind-target=" a | b : c "
+></div>
+<!--  prettier-ignore-attribute [(target)] bind-target -->
+<div
+  bindon-target="a | b: c"
+  [(target)]=" a | b : c "
+  bind-target=" a | b : c "
+></div>
 
 ================================================================================
 `;
 
-exports[`ignore-attribute.component.html 1`] = `
+exports[`ignore-attribute.component.html - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
 ====================================options=====================================
+htmlWhitespaceSensitivity: "ignore"
 parsers: ["angular"]
 printWidth: 80
                                                                                 | printWidth
@@ -2367,66 +2653,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`ignore-attribute.component.html 2`] = `
-====================================options=====================================
-parsers: ["angular"]
-printWidth: 80
-trailingComma: "es5"
-                                                                                | printWidth
-=====================================input======================================
-<div
-    bindon-target=" a | b : c "
-    [(target)]=" a | b : c "
-    bind-target=" a | b : c "
-></div>
-<!--  prettier-ignore-attribute -->
-<div
-    bindon-target=" a | b : c "
-    [(target)]=" a | b : c "
-    bind-target=" a | b : c "
-></div>
-<!--  prettier-ignore-attribute bind-target -->
-<div
-    bindon-target=" a | b : c "
-    [(target)]=" a | b : c "
-    bind-target=" a | b : c "
-></div>
-<!--  prettier-ignore-attribute [(target)] bind-target -->
-<div
-    bindon-target=" a | b : c "
-    [(target)]=" a | b : c "
-    bind-target=" a | b : c "
-></div>
-
-=====================================output=====================================
-<div
-  bindon-target="a | b: c"
-  [(target)]="a | b: c"
-  bind-target="a | b: c"
-></div>
-<!--  prettier-ignore-attribute -->
-<div
-  bindon-target=" a | b : c "
-  [(target)]=" a | b : c "
-  bind-target=" a | b : c "
-></div>
-<!--  prettier-ignore-attribute bind-target -->
-<div
-  bindon-target="a | b: c"
-  [(target)]="a | b: c"
-  bind-target=" a | b : c "
-></div>
-<!--  prettier-ignore-attribute [(target)] bind-target -->
-<div
-  bindon-target="a | b: c"
-  [(target)]=" a | b : c "
-  bind-target=" a | b : c "
-></div>
-
-================================================================================
-`;
-
-exports[`ignore-attribute.component.html 3`] = `
+exports[`ignore-attribute.component.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 1
@@ -2508,9 +2735,67 @@ printWidth: 1
 ================================================================================
 `;
 
-exports[`ignore-attribute.component.html 4`] = `
+exports[`ignore-attribute.component.html - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
-htmlWhitespaceSensitivity: "ignore"
+parsers: ["angular"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+<div
+    bindon-target=" a | b : c "
+    [(target)]=" a | b : c "
+    bind-target=" a | b : c "
+></div>
+<!--  prettier-ignore-attribute -->
+<div
+    bindon-target=" a | b : c "
+    [(target)]=" a | b : c "
+    bind-target=" a | b : c "
+></div>
+<!--  prettier-ignore-attribute bind-target -->
+<div
+    bindon-target=" a | b : c "
+    [(target)]=" a | b : c "
+    bind-target=" a | b : c "
+></div>
+<!--  prettier-ignore-attribute [(target)] bind-target -->
+<div
+    bindon-target=" a | b : c "
+    [(target)]=" a | b : c "
+    bind-target=" a | b : c "
+></div>
+
+=====================================output=====================================
+<div
+  bindon-target="a | b: c"
+  [(target)]="a | b: c"
+  bind-target="a | b: c"
+></div>
+<!--  prettier-ignore-attribute -->
+<div
+  bindon-target=" a | b : c "
+  [(target)]=" a | b : c "
+  bind-target=" a | b : c "
+></div>
+<!--  prettier-ignore-attribute bind-target -->
+<div
+  bindon-target="a | b: c"
+  [(target)]="a | b: c"
+  bind-target=" a | b : c "
+></div>
+<!--  prettier-ignore-attribute [(target)] bind-target -->
+<div
+  bindon-target="a | b: c"
+  [(target)]=" a | b : c "
+  bind-target=" a | b : c "
+></div>
+
+================================================================================
+`;
+
+exports[`ignore-attribute.component.html format 1`] = `
+====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
                                                                                 | printWidth
@@ -2567,67 +2852,176 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`ignore-attribute.component.html 5`] = `
+exports[`interpolation.component.html - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
 bracketSpacing: false
 parsers: ["angular"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-<div
-    bindon-target=" a | b : c "
-    [(target)]=" a | b : c "
-    bind-target=" a | b : c "
-></div>
-<!--  prettier-ignore-attribute -->
-<div
-    bindon-target=" a | b : c "
-    [(target)]=" a | b : c "
-    bind-target=" a | b : c "
-></div>
-<!--  prettier-ignore-attribute bind-target -->
-<div
-    bindon-target=" a | b : c "
-    [(target)]=" a | b : c "
-    bind-target=" a | b : c "
-></div>
-<!--  prettier-ignore-attribute [(target)] bind-target -->
-<div
-    bindon-target=" a | b : c "
-    [(target)]=" a | b : c "
-    bind-target=" a | b : c "
-></div>
+<div>{{ a | b : c }}</div>
+<div>{{  a | pipe    }}</div>
+<div>{{ 0 - 1 }}</div>
+<div>{{ - 1 }}</div>
+<div>{{ a ? 1 : 2 }}</div>
+<div>{{ a ( 1 ) ( 2 ) }}</div>
+<div>{{ a [ b ] }}</div>
+<div>{{ [ 1 ] }}</div>
+<div>{{ { 'a' : 1 } }}</div>
+<div>{{ { a : 1 } }}</div>
+<div>{{ true }}</div>
+<div>{{ undefined }}</div>
+<div>{{ null }}</div>
+<div>{{ ( 1 ) }}</div>
+<div>{{ 1 }}</div>
+<div>{{  'hello' }}</div>
+<div>{{ a ( 1 , 2 ) }}</div>
+<div>{{ a . b ( 1 , 2 ) }}</div>
+<div>{{ x ! }}</div>
+<div>{{ ! x }}</div>
+<div>{{ ( ( a ) ) }}</div>
+<div>{{ a }}</div>
+<div>{{ a // hello }}</div>
+<div>{{ a . b }}</div>
+<div>{{ a ?. b ( ) }}</div>
+<div>{{ a ?. b }}</div>
+<div>{{  a // hello  }}</div>
+<label for="transmissionLayoutRadioButton">{{
+"SearchSelection.transmissionLayoutRadioButton" | localize:localizationSection
+}}</label>
+<label for="transmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButton">{{
+"SearchSelection.transmissionLayoutRadioButton" | localize:localizationSection
+}}</label>
+<label for="transmissionLayoutRadioButton">{{
+"SearchSelection.transmissionLayoutRadioButton" | localize:localizationSection
+}} </label>
+<label for="transmissionLayoutRadioButton"> {{
+"SearchSelection.transmissionLayoutRadioButton" | localize:localizationSection
+}}</label>
+<label for="transmissionLayoutRadioButton"> {{
+"SearchSelection.transmissionLayoutRadioButton" | localize:localizationSection
+}} </label>
+<div class="Nemo possimus non voluptates dicta accusamus id quia">{{copyTypes[options.copyType]}}</div>
+{{listRow.NextScheduledSendStatus == 1 || listRow.NextScheduledSendStatus == 2 || listRow.NextScheduledSendStatus == 3}}
+<span
+><!--
+--><span
+  >{{a}}</span
+><!--
+--><span
+  >{{b}}</span
+><!--
+--></span>
+<span>
+  {{ aNormalValue | aPipe }}:
+  <strong>{{ aReallyReallySuperLongValue | andASuperLongPipeJustToBreakThis }}</strong>
+</span>
+<p>
+  {{
+      'delete'
+          | translate: {what: ('entities' | translate: {count: array.length})}
+  }}
+</p>
+<p>{{ {a:1+{} } }}</p>
+<p>{{ {a:a==={} } }}</p>
+<p>{{ {a:!{} } }}</p>
+<p>{{ {a:a?b:{} } }}</p>
 
 =====================================output=====================================
-<div
-  bindon-target="a | b: c"
-  [(target)]="a | b: c"
-  bind-target="a | b: c"
-></div>
-<!--  prettier-ignore-attribute -->
-<div
-  bindon-target=" a | b : c "
-  [(target)]=" a | b : c "
-  bind-target=" a | b : c "
-></div>
-<!--  prettier-ignore-attribute bind-target -->
-<div
-  bindon-target="a | b: c"
-  [(target)]="a | b: c"
-  bind-target=" a | b : c "
-></div>
-<!--  prettier-ignore-attribute [(target)] bind-target -->
-<div
-  bindon-target="a | b: c"
-  [(target)]=" a | b : c "
-  bind-target=" a | b : c "
-></div>
+<div>{{ a | b: c }}</div>
+<div>{{ a | pipe }}</div>
+<div>{{ 0 - 1 }}</div>
+<div>{{ -1 }}</div>
+<div>{{ a ? 1 : 2 }}</div>
+<div>{{ a(1)(2) }}</div>
+<div>{{ a[b] }}</div>
+<div>{{ [1] }}</div>
+<div>{{ {a: 1} }}</div>
+<div>{{ {a: 1} }}</div>
+<div>{{ true }}</div>
+<div>{{ undefined }}</div>
+<div>{{ null }}</div>
+<div>{{ 1 }}</div>
+<div>{{ 1 }}</div>
+<div>{{ "hello" }}</div>
+<div>{{ a(1, 2) }}</div>
+<div>{{ a.b(1, 2) }}</div>
+<div>{{ x! }}</div>
+<div>{{ !x }}</div>
+<div>{{ a }}</div>
+<div>{{ a }}</div>
+<div>{{ a // hello }}</div>
+<div>{{ a.b }}</div>
+<div>{{ a?.b() }}</div>
+<div>{{ a?.b }}</div>
+<div>{{ a // hello }}</div>
+<label for="transmissionLayoutRadioButton">{{
+  "SearchSelection.transmissionLayoutRadioButton"
+    | localize: localizationSection
+}}</label>
+<label
+  for="transmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButton"
+  >{{
+    "SearchSelection.transmissionLayoutRadioButton"
+      | localize: localizationSection
+  }}</label
+>
+<label for="transmissionLayoutRadioButton"
+  >{{
+    "SearchSelection.transmissionLayoutRadioButton"
+      | localize: localizationSection
+  }}
+</label>
+<label for="transmissionLayoutRadioButton">
+  {{
+    "SearchSelection.transmissionLayoutRadioButton"
+      | localize: localizationSection
+  }}</label
+>
+<label for="transmissionLayoutRadioButton">
+  {{
+    "SearchSelection.transmissionLayoutRadioButton"
+      | localize: localizationSection
+  }}
+</label>
+<div class="Nemo possimus non voluptates dicta accusamus id quia">
+  {{ copyTypes[options.copyType] }}
+</div>
+{{
+  listRow.NextScheduledSendStatus == 1 ||
+    listRow.NextScheduledSendStatus == 2 ||
+    listRow.NextScheduledSendStatus == 3
+}}
+<span
+  ><!--
+--><span>{{ a }}</span
+  ><!--
+--><span>{{ b }}</span
+  ><!--
+--></span>
+<span>
+  {{ aNormalValue | aPipe }}:
+  <strong>{{
+    aReallyReallySuperLongValue | andASuperLongPipeJustToBreakThis
+  }}</strong>
+</span>
+<p>
+  {{
+    "delete"
+      | translate: {what: "entities" | translate: ({count: array.length})}
+  }}
+</p>
+<p>{{ {a: 1 + ({})} }}</p>
+<p>{{ {a: a === ({})} }}</p>
+<p>{{ {a: !({})} }}</p>
+<p>{{ {a: a ? b : ({})} }}</p>
 
 ================================================================================
 `;
 
-exports[`interpolation.component.html 1`] = `
+exports[`interpolation.component.html - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
 ====================================options=====================================
+htmlWhitespaceSensitivity: "ignore"
 parsers: ["angular"]
 printWidth: 80
                                                                                 | printWidth
@@ -2728,19 +3122,16 @@ printWidth: 80
 <div>{{ a?.b() }}</div>
 <div>{{ a?.b }}</div>
 <div>{{ a // hello }}</div>
-<label for="transmissionLayoutRadioButton">{{
-  "SearchSelection.transmissionLayoutRadioButton"
-    | localize: localizationSection
-}}</label>
-<label
-  for="transmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButton"
-  >{{
+<label for="transmissionLayoutRadioButton">
+  {{
     "SearchSelection.transmissionLayoutRadioButton"
       | localize: localizationSection
-  }}</label
+  }}
+</label>
+<label
+  for="transmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButton"
 >
-<label for="transmissionLayoutRadioButton"
-  >{{
+  {{
     "SearchSelection.transmissionLayoutRadioButton"
       | localize: localizationSection
   }}
@@ -2749,8 +3140,14 @@ printWidth: 80
   {{
     "SearchSelection.transmissionLayoutRadioButton"
       | localize: localizationSection
-  }}</label
->
+  }}
+</label>
+<label for="transmissionLayoutRadioButton">
+  {{
+    "SearchSelection.transmissionLayoutRadioButton"
+      | localize: localizationSection
+  }}
+</label>
 <label for="transmissionLayoutRadioButton">
   {{
     "SearchSelection.transmissionLayoutRadioButton"
@@ -2765,18 +3162,20 @@ printWidth: 80
     listRow.NextScheduledSendStatus == 2 ||
     listRow.NextScheduledSendStatus == 3
 }}
-<span
-  ><!--
---><span>{{ a }}</span
-  ><!--
---><span>{{ b }}</span
-  ><!--
+<span>
+  <!--
+-->
+  <span>{{ a }}</span>
+  <!--
+-->
+  <span>{{ b }}</span>
+  <!--
 --></span>
 <span>
   {{ aNormalValue | aPipe }}:
-  <strong>{{
-    aReallyReallySuperLongValue | andASuperLongPipeJustToBreakThis
-  }}</strong>
+  <strong>
+    {{ aReallyReallySuperLongValue | andASuperLongPipeJustToBreakThis }}
+  </strong>
 </span>
 <p>
   {{
@@ -2792,174 +3191,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`interpolation.component.html 2`] = `
-====================================options=====================================
-parsers: ["angular"]
-printWidth: 80
-trailingComma: "es5"
-                                                                                | printWidth
-=====================================input======================================
-<div>{{ a | b : c }}</div>
-<div>{{  a | pipe    }}</div>
-<div>{{ 0 - 1 }}</div>
-<div>{{ - 1 }}</div>
-<div>{{ a ? 1 : 2 }}</div>
-<div>{{ a ( 1 ) ( 2 ) }}</div>
-<div>{{ a [ b ] }}</div>
-<div>{{ [ 1 ] }}</div>
-<div>{{ { 'a' : 1 } }}</div>
-<div>{{ { a : 1 } }}</div>
-<div>{{ true }}</div>
-<div>{{ undefined }}</div>
-<div>{{ null }}</div>
-<div>{{ ( 1 ) }}</div>
-<div>{{ 1 }}</div>
-<div>{{  'hello' }}</div>
-<div>{{ a ( 1 , 2 ) }}</div>
-<div>{{ a . b ( 1 , 2 ) }}</div>
-<div>{{ x ! }}</div>
-<div>{{ ! x }}</div>
-<div>{{ ( ( a ) ) }}</div>
-<div>{{ a }}</div>
-<div>{{ a // hello }}</div>
-<div>{{ a . b }}</div>
-<div>{{ a ?. b ( ) }}</div>
-<div>{{ a ?. b }}</div>
-<div>{{  a // hello  }}</div>
-<label for="transmissionLayoutRadioButton">{{
-"SearchSelection.transmissionLayoutRadioButton" | localize:localizationSection
-}}</label>
-<label for="transmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButton">{{
-"SearchSelection.transmissionLayoutRadioButton" | localize:localizationSection
-}}</label>
-<label for="transmissionLayoutRadioButton">{{
-"SearchSelection.transmissionLayoutRadioButton" | localize:localizationSection
-}} </label>
-<label for="transmissionLayoutRadioButton"> {{
-"SearchSelection.transmissionLayoutRadioButton" | localize:localizationSection
-}}</label>
-<label for="transmissionLayoutRadioButton"> {{
-"SearchSelection.transmissionLayoutRadioButton" | localize:localizationSection
-}} </label>
-<div class="Nemo possimus non voluptates dicta accusamus id quia">{{copyTypes[options.copyType]}}</div>
-{{listRow.NextScheduledSendStatus == 1 || listRow.NextScheduledSendStatus == 2 || listRow.NextScheduledSendStatus == 3}}
-<span
-><!--
---><span
-  >{{a}}</span
-><!--
---><span
-  >{{b}}</span
-><!--
---></span>
-<span>
-  {{ aNormalValue | aPipe }}:
-  <strong>{{ aReallyReallySuperLongValue | andASuperLongPipeJustToBreakThis }}</strong>
-</span>
-<p>
-  {{
-      'delete'
-          | translate: {what: ('entities' | translate: {count: array.length})}
-  }}
-</p>
-<p>{{ {a:1+{} } }}</p>
-<p>{{ {a:a==={} } }}</p>
-<p>{{ {a:!{} } }}</p>
-<p>{{ {a:a?b:{} } }}</p>
-
-=====================================output=====================================
-<div>{{ a | b: c }}</div>
-<div>{{ a | pipe }}</div>
-<div>{{ 0 - 1 }}</div>
-<div>{{ -1 }}</div>
-<div>{{ a ? 1 : 2 }}</div>
-<div>{{ a(1)(2) }}</div>
-<div>{{ a[b] }}</div>
-<div>{{ [1] }}</div>
-<div>{{ { a: 1 } }}</div>
-<div>{{ { a: 1 } }}</div>
-<div>{{ true }}</div>
-<div>{{ undefined }}</div>
-<div>{{ null }}</div>
-<div>{{ 1 }}</div>
-<div>{{ 1 }}</div>
-<div>{{ "hello" }}</div>
-<div>{{ a(1, 2) }}</div>
-<div>{{ a.b(1, 2) }}</div>
-<div>{{ x! }}</div>
-<div>{{ !x }}</div>
-<div>{{ a }}</div>
-<div>{{ a }}</div>
-<div>{{ a // hello }}</div>
-<div>{{ a.b }}</div>
-<div>{{ a?.b() }}</div>
-<div>{{ a?.b }}</div>
-<div>{{ a // hello }}</div>
-<label for="transmissionLayoutRadioButton">{{
-  "SearchSelection.transmissionLayoutRadioButton"
-    | localize: localizationSection
-}}</label>
-<label
-  for="transmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButton"
-  >{{
-    "SearchSelection.transmissionLayoutRadioButton"
-      | localize: localizationSection
-  }}</label
->
-<label for="transmissionLayoutRadioButton"
-  >{{
-    "SearchSelection.transmissionLayoutRadioButton"
-      | localize: localizationSection
-  }}
-</label>
-<label for="transmissionLayoutRadioButton">
-  {{
-    "SearchSelection.transmissionLayoutRadioButton"
-      | localize: localizationSection
-  }}</label
->
-<label for="transmissionLayoutRadioButton">
-  {{
-    "SearchSelection.transmissionLayoutRadioButton"
-      | localize: localizationSection
-  }}
-</label>
-<div class="Nemo possimus non voluptates dicta accusamus id quia">
-  {{ copyTypes[options.copyType] }}
-</div>
-{{
-  listRow.NextScheduledSendStatus == 1 ||
-    listRow.NextScheduledSendStatus == 2 ||
-    listRow.NextScheduledSendStatus == 3
-}}
-<span
-  ><!--
---><span>{{ a }}</span
-  ><!--
---><span>{{ b }}</span
-  ><!--
---></span>
-<span>
-  {{ aNormalValue | aPipe }}:
-  <strong>{{
-    aReallyReallySuperLongValue | andASuperLongPipeJustToBreakThis
-  }}</strong>
-</span>
-<p>
-  {{
-    "delete"
-      | translate: { what: "entities" | translate: { count: array.length } }
-  }}
-</p>
-<p>{{ { a: 1 + {} } }}</p>
-<p>{{ { a: a === {} } }}</p>
-<p>{{ { a: !{} } }}</p>
-<p>{{ { a: a ? b : {} } }}</p>
-
-================================================================================
-`;
-
-exports[`interpolation.component.html 3`] = `
+exports[`interpolation.component.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 1
@@ -3331,11 +3563,11 @@ printWidth: 1
 ================================================================================
 `;
 
-exports[`interpolation.component.html 4`] = `
+exports[`interpolation.component.html - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
-htmlWhitespaceSensitivity: "ignore"
 parsers: ["angular"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <div>{{ a | b : c }}</div>
@@ -3417,178 +3649,6 @@ printWidth: 80
 <div>{{ [1] }}</div>
 <div>{{ { a: 1 } }}</div>
 <div>{{ { a: 1 } }}</div>
-<div>{{ true }}</div>
-<div>{{ undefined }}</div>
-<div>{{ null }}</div>
-<div>{{ 1 }}</div>
-<div>{{ 1 }}</div>
-<div>{{ "hello" }}</div>
-<div>{{ a(1, 2) }}</div>
-<div>{{ a.b(1, 2) }}</div>
-<div>{{ x! }}</div>
-<div>{{ !x }}</div>
-<div>{{ a }}</div>
-<div>{{ a }}</div>
-<div>{{ a // hello }}</div>
-<div>{{ a.b }}</div>
-<div>{{ a?.b() }}</div>
-<div>{{ a?.b }}</div>
-<div>{{ a // hello }}</div>
-<label for="transmissionLayoutRadioButton">
-  {{
-    "SearchSelection.transmissionLayoutRadioButton"
-      | localize: localizationSection
-  }}
-</label>
-<label
-  for="transmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButton"
->
-  {{
-    "SearchSelection.transmissionLayoutRadioButton"
-      | localize: localizationSection
-  }}
-</label>
-<label for="transmissionLayoutRadioButton">
-  {{
-    "SearchSelection.transmissionLayoutRadioButton"
-      | localize: localizationSection
-  }}
-</label>
-<label for="transmissionLayoutRadioButton">
-  {{
-    "SearchSelection.transmissionLayoutRadioButton"
-      | localize: localizationSection
-  }}
-</label>
-<label for="transmissionLayoutRadioButton">
-  {{
-    "SearchSelection.transmissionLayoutRadioButton"
-      | localize: localizationSection
-  }}
-</label>
-<div class="Nemo possimus non voluptates dicta accusamus id quia">
-  {{ copyTypes[options.copyType] }}
-</div>
-{{
-  listRow.NextScheduledSendStatus == 1 ||
-    listRow.NextScheduledSendStatus == 2 ||
-    listRow.NextScheduledSendStatus == 3
-}}
-<span>
-  <!--
--->
-  <span>{{ a }}</span>
-  <!--
--->
-  <span>{{ b }}</span>
-  <!--
---></span>
-<span>
-  {{ aNormalValue | aPipe }}:
-  <strong>
-    {{ aReallyReallySuperLongValue | andASuperLongPipeJustToBreakThis }}
-  </strong>
-</span>
-<p>
-  {{
-    "delete"
-      | translate: { what: "entities" | translate: { count: array.length } }
-  }}
-</p>
-<p>{{ { a: 1 + {} } }}</p>
-<p>{{ { a: a === {} } }}</p>
-<p>{{ { a: !{} } }}</p>
-<p>{{ { a: a ? b : {} } }}</p>
-
-================================================================================
-`;
-
-exports[`interpolation.component.html 5`] = `
-====================================options=====================================
-bracketSpacing: false
-parsers: ["angular"]
-printWidth: 80
-                                                                                | printWidth
-=====================================input======================================
-<div>{{ a | b : c }}</div>
-<div>{{  a | pipe    }}</div>
-<div>{{ 0 - 1 }}</div>
-<div>{{ - 1 }}</div>
-<div>{{ a ? 1 : 2 }}</div>
-<div>{{ a ( 1 ) ( 2 ) }}</div>
-<div>{{ a [ b ] }}</div>
-<div>{{ [ 1 ] }}</div>
-<div>{{ { 'a' : 1 } }}</div>
-<div>{{ { a : 1 } }}</div>
-<div>{{ true }}</div>
-<div>{{ undefined }}</div>
-<div>{{ null }}</div>
-<div>{{ ( 1 ) }}</div>
-<div>{{ 1 }}</div>
-<div>{{  'hello' }}</div>
-<div>{{ a ( 1 , 2 ) }}</div>
-<div>{{ a . b ( 1 , 2 ) }}</div>
-<div>{{ x ! }}</div>
-<div>{{ ! x }}</div>
-<div>{{ ( ( a ) ) }}</div>
-<div>{{ a }}</div>
-<div>{{ a // hello }}</div>
-<div>{{ a . b }}</div>
-<div>{{ a ?. b ( ) }}</div>
-<div>{{ a ?. b }}</div>
-<div>{{  a // hello  }}</div>
-<label for="transmissionLayoutRadioButton">{{
-"SearchSelection.transmissionLayoutRadioButton" | localize:localizationSection
-}}</label>
-<label for="transmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButton">{{
-"SearchSelection.transmissionLayoutRadioButton" | localize:localizationSection
-}}</label>
-<label for="transmissionLayoutRadioButton">{{
-"SearchSelection.transmissionLayoutRadioButton" | localize:localizationSection
-}} </label>
-<label for="transmissionLayoutRadioButton"> {{
-"SearchSelection.transmissionLayoutRadioButton" | localize:localizationSection
-}}</label>
-<label for="transmissionLayoutRadioButton"> {{
-"SearchSelection.transmissionLayoutRadioButton" | localize:localizationSection
-}} </label>
-<div class="Nemo possimus non voluptates dicta accusamus id quia">{{copyTypes[options.copyType]}}</div>
-{{listRow.NextScheduledSendStatus == 1 || listRow.NextScheduledSendStatus == 2 || listRow.NextScheduledSendStatus == 3}}
-<span
-><!--
---><span
-  >{{a}}</span
-><!--
---><span
-  >{{b}}</span
-><!--
---></span>
-<span>
-  {{ aNormalValue | aPipe }}:
-  <strong>{{ aReallyReallySuperLongValue | andASuperLongPipeJustToBreakThis }}</strong>
-</span>
-<p>
-  {{
-      'delete'
-          | translate: {what: ('entities' | translate: {count: array.length})}
-  }}
-</p>
-<p>{{ {a:1+{} } }}</p>
-<p>{{ {a:a==={} } }}</p>
-<p>{{ {a:!{} } }}</p>
-<p>{{ {a:a?b:{} } }}</p>
-
-=====================================output=====================================
-<div>{{ a | b: c }}</div>
-<div>{{ a | pipe }}</div>
-<div>{{ 0 - 1 }}</div>
-<div>{{ -1 }}</div>
-<div>{{ a ? 1 : 2 }}</div>
-<div>{{ a(1)(2) }}</div>
-<div>{{ a[b] }}</div>
-<div>{{ [1] }}</div>
-<div>{{ {a: 1} }}</div>
-<div>{{ {a: 1} }}</div>
 <div>{{ true }}</div>
 <div>{{ undefined }}</div>
 <div>{{ null }}</div>
@@ -3659,19 +3719,186 @@ printWidth: 80
 <p>
   {{
     "delete"
-      | translate: {what: "entities" | translate: ({count: array.length})}
+      | translate: { what: "entities" | translate: { count: array.length } }
   }}
 </p>
-<p>{{ {a: 1 + ({})} }}</p>
-<p>{{ {a: a === ({})} }}</p>
-<p>{{ {a: !({})} }}</p>
-<p>{{ {a: a ? b : ({})} }}</p>
+<p>{{ { a: 1 + {} } }}</p>
+<p>{{ { a: a === {} } }}</p>
+<p>{{ { a: !{} } }}</p>
+<p>{{ { a: a ? b : {} } }}</p>
 
 ================================================================================
 `;
 
-exports[`real-world.component.html 1`] = `
+exports[`interpolation.component.html format 1`] = `
 ====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<div>{{ a | b : c }}</div>
+<div>{{  a | pipe    }}</div>
+<div>{{ 0 - 1 }}</div>
+<div>{{ - 1 }}</div>
+<div>{{ a ? 1 : 2 }}</div>
+<div>{{ a ( 1 ) ( 2 ) }}</div>
+<div>{{ a [ b ] }}</div>
+<div>{{ [ 1 ] }}</div>
+<div>{{ { 'a' : 1 } }}</div>
+<div>{{ { a : 1 } }}</div>
+<div>{{ true }}</div>
+<div>{{ undefined }}</div>
+<div>{{ null }}</div>
+<div>{{ ( 1 ) }}</div>
+<div>{{ 1 }}</div>
+<div>{{  'hello' }}</div>
+<div>{{ a ( 1 , 2 ) }}</div>
+<div>{{ a . b ( 1 , 2 ) }}</div>
+<div>{{ x ! }}</div>
+<div>{{ ! x }}</div>
+<div>{{ ( ( a ) ) }}</div>
+<div>{{ a }}</div>
+<div>{{ a // hello }}</div>
+<div>{{ a . b }}</div>
+<div>{{ a ?. b ( ) }}</div>
+<div>{{ a ?. b }}</div>
+<div>{{  a // hello  }}</div>
+<label for="transmissionLayoutRadioButton">{{
+"SearchSelection.transmissionLayoutRadioButton" | localize:localizationSection
+}}</label>
+<label for="transmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButton">{{
+"SearchSelection.transmissionLayoutRadioButton" | localize:localizationSection
+}}</label>
+<label for="transmissionLayoutRadioButton">{{
+"SearchSelection.transmissionLayoutRadioButton" | localize:localizationSection
+}} </label>
+<label for="transmissionLayoutRadioButton"> {{
+"SearchSelection.transmissionLayoutRadioButton" | localize:localizationSection
+}}</label>
+<label for="transmissionLayoutRadioButton"> {{
+"SearchSelection.transmissionLayoutRadioButton" | localize:localizationSection
+}} </label>
+<div class="Nemo possimus non voluptates dicta accusamus id quia">{{copyTypes[options.copyType]}}</div>
+{{listRow.NextScheduledSendStatus == 1 || listRow.NextScheduledSendStatus == 2 || listRow.NextScheduledSendStatus == 3}}
+<span
+><!--
+--><span
+  >{{a}}</span
+><!--
+--><span
+  >{{b}}</span
+><!--
+--></span>
+<span>
+  {{ aNormalValue | aPipe }}:
+  <strong>{{ aReallyReallySuperLongValue | andASuperLongPipeJustToBreakThis }}</strong>
+</span>
+<p>
+  {{
+      'delete'
+          | translate: {what: ('entities' | translate: {count: array.length})}
+  }}
+</p>
+<p>{{ {a:1+{} } }}</p>
+<p>{{ {a:a==={} } }}</p>
+<p>{{ {a:!{} } }}</p>
+<p>{{ {a:a?b:{} } }}</p>
+
+=====================================output=====================================
+<div>{{ a | b: c }}</div>
+<div>{{ a | pipe }}</div>
+<div>{{ 0 - 1 }}</div>
+<div>{{ -1 }}</div>
+<div>{{ a ? 1 : 2 }}</div>
+<div>{{ a(1)(2) }}</div>
+<div>{{ a[b] }}</div>
+<div>{{ [1] }}</div>
+<div>{{ { a: 1 } }}</div>
+<div>{{ { a: 1 } }}</div>
+<div>{{ true }}</div>
+<div>{{ undefined }}</div>
+<div>{{ null }}</div>
+<div>{{ 1 }}</div>
+<div>{{ 1 }}</div>
+<div>{{ "hello" }}</div>
+<div>{{ a(1, 2) }}</div>
+<div>{{ a.b(1, 2) }}</div>
+<div>{{ x! }}</div>
+<div>{{ !x }}</div>
+<div>{{ a }}</div>
+<div>{{ a }}</div>
+<div>{{ a // hello }}</div>
+<div>{{ a.b }}</div>
+<div>{{ a?.b() }}</div>
+<div>{{ a?.b }}</div>
+<div>{{ a // hello }}</div>
+<label for="transmissionLayoutRadioButton">{{
+  "SearchSelection.transmissionLayoutRadioButton"
+    | localize: localizationSection
+}}</label>
+<label
+  for="transmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButtontransmissionLayoutRadioButton"
+  >{{
+    "SearchSelection.transmissionLayoutRadioButton"
+      | localize: localizationSection
+  }}</label
+>
+<label for="transmissionLayoutRadioButton"
+  >{{
+    "SearchSelection.transmissionLayoutRadioButton"
+      | localize: localizationSection
+  }}
+</label>
+<label for="transmissionLayoutRadioButton">
+  {{
+    "SearchSelection.transmissionLayoutRadioButton"
+      | localize: localizationSection
+  }}</label
+>
+<label for="transmissionLayoutRadioButton">
+  {{
+    "SearchSelection.transmissionLayoutRadioButton"
+      | localize: localizationSection
+  }}
+</label>
+<div class="Nemo possimus non voluptates dicta accusamus id quia">
+  {{ copyTypes[options.copyType] }}
+</div>
+{{
+  listRow.NextScheduledSendStatus == 1 ||
+    listRow.NextScheduledSendStatus == 2 ||
+    listRow.NextScheduledSendStatus == 3
+}}
+<span
+  ><!--
+--><span>{{ a }}</span
+  ><!--
+--><span>{{ b }}</span
+  ><!--
+--></span>
+<span>
+  {{ aNormalValue | aPipe }}:
+  <strong>{{
+    aReallyReallySuperLongValue | andASuperLongPipeJustToBreakThis
+  }}</strong>
+</span>
+<p>
+  {{
+    "delete"
+      | translate: { what: "entities" | translate: { count: array.length } }
+  }}
+</p>
+<p>{{ { a: 1 + {} } }}</p>
+<p>{{ { a: a === {} } }}</p>
+<p>{{ { a: !{} } }}</p>
+<p>{{ { a: a ? b : {} } }}</p>
+
+================================================================================
+`;
+
+exports[`real-world.component.html - {"bracketSpacing":false} format 1`] = `
+====================================options=====================================
+bracketSpacing: false
 parsers: ["angular"]
 printWidth: 80
                                                                                 | printWidth
@@ -4408,7 +4635,7 @@ can be found in the LICENSE file at http://angular.io/license
 <a href="#prop-vs-attrib">Properties vs. Attributes</a><br />
 <br />
 <a href="#property-binding">Property Binding</a><br />
-<div style="margin-left:8px">
+<div style="margin-left: 8px">
   <a href="#attribute-binding">Attribute Binding</a><br />
   <a href="#class-binding">Class Binding</a><br />
   <a href="#style-binding">Style Binding</a><br />
@@ -4418,13 +4645,13 @@ can be found in the LICENSE file at http://angular.io/license
 <a href="#two-way">Two-way Binding</a><br />
 <br />
 <div>Directives</div>
-<div style="margin-left:8px">
+<div style="margin-left: 8px">
   <a href="#ngModel">NgModel (two-way) Binding</a><br />
   <a href="#ngClass">NgClass Binding</a><br />
   <a href="#ngStyle">NgStyle Binding</a><br />
   <a href="#ngIf">NgIf</a><br />
   <a href="#ngFor">NgFor</a><br />
-  <div style="margin-left:8px">
+  <div style="margin-left: 8px">
     <a href="#ngFor-index">NgFor with index</a><br />
     <a href="#ngFor-trackBy">NgFor with trackBy</a><br />
   </div>
@@ -4448,7 +4675,7 @@ can be found in the LICENSE file at http://angular.io/license
 
 <h3>
   {{ title }}
-  <img src="{{ heroImageUrl }}" style="height:30px" />
+  <img src="{{ heroImageUrl }}" style="height: 30px" />
 </h3>
 
 <!-- "The sum of 1 + 1 is 2" -->
@@ -4541,7 +4768,7 @@ can be found in the LICENSE file at http://angular.io/license
 <div>
   <img [src]="heroImageUrl" />
   <app-hero-detail [hero]="currentHero"></app-hero-detail>
-  <div [ngClass]="{ special: isSpecial }"></div>
+  <div [ngClass]="{special: isSpecial}"></div>
 </div>
 <br /><br />
 
@@ -4760,7 +4987,7 @@ can be found in the LICENSE file at http://angular.io/license
 <div id="two-way-1">
   <app-sizer [(size)]="fontSizePx"></app-sizer>
   <div [style.font-size.px]="fontSizePx">Resizable Text</div>
-  <label>FontSize (px): <input [(ngModel)]="fontSizePx"/></label>
+  <label>FontSize (px): <input [(ngModel)]="fontSizePx" /></label>
 </div>
 <br />
 <div id="two-way-2">
@@ -4814,7 +5041,7 @@ bindon-ngModel
 
 <!-- not used in chapter -->
 <br />
-<label>saveable <input type="checkbox" [(ngModel)]="canSave"/></label> |
+<label>saveable <input type="checkbox" [(ngModel)]="canSave" /></label> |
 <label
   >modified:
   <input
@@ -4823,7 +5050,7 @@ bindon-ngModel
     (change)="isUnchanged = !isUnchanged"
 /></label>
 |
-<label>special: <input type="checkbox" [(ngModel)]="isSpecial"/></label>
+<label>special: <input type="checkbox" [(ngModel)]="isSpecial" /></label>
 <button (click)="setCurrentClasses()">Refresh currentClasses</button>
 <br /><br />
 <div [ngClass]="currentClasses">
@@ -4836,7 +5063,7 @@ bindon-ngModel
 <div [ngClass]="isSpecial ? 'special' : ''">This div is special</div>
 
 <div class="bad curly special">Bad curly special</div>
-<div [ngClass]="{ bad: false, curly: true, special: true }">Curly special</div>
+<div [ngClass]="{bad: false, curly: true, special: true}">Curly special</div>
 
 <a class="to-toc" href="#toc">top</a>
 
@@ -4856,9 +5083,9 @@ bindon-ngModel
 
 <!-- not used in chapter -->
 <br />
-<label>italic: <input type="checkbox" [(ngModel)]="canSave"/></label> |
-<label>normal: <input type="checkbox" [(ngModel)]="isUnchanged"/></label> |
-<label>xlarge: <input type="checkbox" [(ngModel)]="isSpecial"/></label>
+<label>italic: <input type="checkbox" [(ngModel)]="canSave" /></label> |
+<label>normal: <input type="checkbox" [(ngModel)]="isUnchanged" /></label> |
+<label>xlarge: <input type="checkbox" [(ngModel)]="isSpecial" /></label>
 <button (click)="setCurrentStyles()">Refresh currentStyles</button>
 <br /><br />
 <div [ngStyle]="currentStyles">
@@ -5198,11 +5425,11 @@ can be found in the LICENSE file at http://angular.io/license
 ================================================================================
 `;
 
-exports[`real-world.component.html 2`] = `
+exports[`real-world.component.html - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
 ====================================options=====================================
+htmlWhitespaceSensitivity: "ignore"
 parsers: ["angular"]
 printWidth: 80
-trailingComma: "es5"
                                                                                 | printWidth
 =====================================input======================================
 <!-- copied from: https://stackblitz.com/angular/ymdjlgmlavo -->
@@ -5929,45 +6156,75 @@ can be found in the LICENSE file at http://angular.io/license
 
 <a id="toc"></a>
 <h1>Template Syntax</h1>
-<a href="#interpolation">Interpolation</a><br />
-<a href="#expression-context">Expression context</a><br />
-<a href="#statement-context">Statement context</a><br />
-<a href="#mental-model">Mental Model</a><br />
-<a href="#buttons">Buttons</a><br />
-<a href="#prop-vs-attrib">Properties vs. Attributes</a><br />
+<a href="#interpolation">Interpolation</a>
 <br />
-<a href="#property-binding">Property Binding</a><br />
-<div style="margin-left:8px">
-  <a href="#attribute-binding">Attribute Binding</a><br />
-  <a href="#class-binding">Class Binding</a><br />
-  <a href="#style-binding">Style Binding</a><br />
+<a href="#expression-context">Expression context</a>
+<br />
+<a href="#statement-context">Statement context</a>
+<br />
+<a href="#mental-model">Mental Model</a>
+<br />
+<a href="#buttons">Buttons</a>
+<br />
+<a href="#prop-vs-attrib">Properties vs. Attributes</a>
+<br />
+<br />
+<a href="#property-binding">Property Binding</a>
+<br />
+<div style="margin-left: 8px">
+  <a href="#attribute-binding">Attribute Binding</a>
+  <br />
+  <a href="#class-binding">Class Binding</a>
+  <br />
+  <a href="#style-binding">Style Binding</a>
+  <br />
 </div>
 <br />
-<a href="#event-binding">Event Binding</a><br />
-<a href="#two-way">Two-way Binding</a><br />
+<a href="#event-binding">Event Binding</a>
+<br />
+<a href="#two-way">Two-way Binding</a>
+<br />
 <br />
 <div>Directives</div>
-<div style="margin-left:8px">
-  <a href="#ngModel">NgModel (two-way) Binding</a><br />
-  <a href="#ngClass">NgClass Binding</a><br />
-  <a href="#ngStyle">NgStyle Binding</a><br />
-  <a href="#ngIf">NgIf</a><br />
-  <a href="#ngFor">NgFor</a><br />
-  <div style="margin-left:8px">
-    <a href="#ngFor-index">NgFor with index</a><br />
-    <a href="#ngFor-trackBy">NgFor with trackBy</a><br />
+<div style="margin-left: 8px">
+  <a href="#ngModel">NgModel (two-way) Binding</a>
+  <br />
+  <a href="#ngClass">NgClass Binding</a>
+  <br />
+  <a href="#ngStyle">NgStyle Binding</a>
+  <br />
+  <a href="#ngIf">NgIf</a>
+  <br />
+  <a href="#ngFor">NgFor</a>
+  <br />
+  <div style="margin-left: 8px">
+    <a href="#ngFor-index">NgFor with index</a>
+    <br />
+    <a href="#ngFor-trackBy">NgFor with trackBy</a>
+    <br />
   </div>
-  <a href="#ngSwitch">NgSwitch</a><br />
+  <a href="#ngSwitch">NgSwitch</a>
+  <br />
 </div>
 <br />
-<a href="#ref-vars">Template reference variables</a><br />
-<a href="#inputs-and-outputs">Inputs and outputs</a><br />
-<a href="#pipes">Pipes</a><br />
-<a href="#safe-navigation-operator">Safe navigation operator <i>?.</i></a
-><br />
-<a href="#non-null-assertion-operator">Non-null assertion operator <i>!.</i></a
-><br />
-<a href="#enums">Enums</a><br />
+<a href="#ref-vars">Template reference variables</a>
+<br />
+<a href="#inputs-and-outputs">Inputs and outputs</a>
+<br />
+<a href="#pipes">Pipes</a>
+<br />
+<a href="#safe-navigation-operator">
+  Safe navigation operator
+  <i>?.</i>
+</a>
+<br />
+<a href="#non-null-assertion-operator">
+  Non-null assertion operator
+  <i>!.</i>
+</a>
+<br />
+<a href="#enums">Enums</a>
+<br />
 
 <!-- Interpolation and expressions -->
 <hr />
@@ -5977,7 +6234,7 @@ can be found in the LICENSE file at http://angular.io/license
 
 <h3>
   {{ title }}
-  <img src="{{ heroImageUrl }}" style="height:30px" />
+  <img src="{{ heroImageUrl }}" style="height: 30px" />
 </h3>
 
 <!-- "The sum of 1 + 1 is 2" -->
@@ -6009,7 +6266,8 @@ can be found in the LICENSE file at http://angular.io/license
 <p>Template reference variable expression context (#heroInput)</p>
 <div (keyup)="(0)" class="context">
   Type something:
-  <input #heroInput /> {{ heroInput.value }}
+  <input #heroInput />
+  {{ heroInput.value }}
 </div>
 
 <a class="to-toc" href="#toc">top</a>
@@ -6051,7 +6309,8 @@ can be found in the LICENSE file at http://angular.io/license
 <div class="special">Mental Model</div>
 <img src="assets/images/hero.png" />
 <button disabled>Save</button>
-<br /><br />
+<br />
+<br />
 
 <div>
   <!-- Normal HTML -->
@@ -6059,39 +6318,46 @@ can be found in the LICENSE file at http://angular.io/license
   <!-- Wow! A new element! -->
   <app-hero-detail></app-hero-detail>
 </div>
-<br /><br />
+<br />
+<br />
 
 <div>
   <!-- Bind button disabled state to \`isUnchanged\` property -->
   <button [disabled]="isUnchanged">Save</button>
 </div>
-<br /><br />
+<br />
+<br />
 
 <div>
   <img [src]="heroImageUrl" />
   <app-hero-detail [hero]="currentHero"></app-hero-detail>
   <div [ngClass]="{ special: isSpecial }"></div>
 </div>
-<br /><br />
+<br />
+<br />
 
 <button (click)="onSave()">Save</button>
 <app-hero-detail (deleteRequest)="deleteHero()"></app-hero-detail>
 <div (myClick)="clicked = $event" clickable>click me</div>
 {{ clicked }}
-<br /><br />
+<br />
+<br />
 
 <div>
   Hero Name:
   <input [(ngModel)]="name" />
   {{ name }}
 </div>
-<br /><br />
+<br />
+<br />
 
 <button [attr.aria-label]="help">help</button>
-<br /><br />
+<br />
+<br />
 
 <div [class.special]="isSpecial">Special</div>
-<br /><br />
+<br />
+<br />
 
 <button [style.color]="isSpecial ? 'red' : 'green'">
   button
@@ -6105,7 +6371,8 @@ can be found in the LICENSE file at http://angular.io/license
 <!-- examine the following <img> tag in the browser tools -->
 <img src="images/ng-logo.png" [src]="heroImageUrl" />
 
-<br /><br />
+<br />
+<br />
 
 <img [src]="iconUrl" />
 <img bind-src="heroImageUrl" />
@@ -6120,10 +6387,12 @@ can be found in the LICENSE file at http://angular.io/license
 <button>Enabled (but does nothing)</button>
 <button disabled>Disabled</button>
 <button disabled="false">Still disabled</button>
-<br /><br />
+<br />
+<br />
 <button disabled>disabled by attribute</button>
 <button [disabled]="isUnchanged">disabled by property binding</button>
-<br /><br />
+<br />
+<br />
 <button bind-disabled="isUnchanged" on-click="onSave($event)">
   Disabled Cancel
 </button>
@@ -6148,24 +6417,51 @@ can be found in the LICENSE file at http://angular.io/license
 </div>
 <app-hero-detail prefix="You are my" [hero]="currentHero"></app-hero-detail>
 
-<p><img src="{{ heroImageUrl }}" /> is the <i>interpolated</i> image.</p>
-<p><img [src]="heroImageUrl" /> is the <i>property bound</i> image.</p>
+<p>
+  <img src="{{ heroImageUrl }}" />
+  is the
+  <i>interpolated</i>
+  image.
+</p>
+<p>
+  <img [src]="heroImageUrl" />
+  is the
+  <i>property bound</i>
+  image.
+</p>
 
 <p>
-  <span>"{{ title }}" is the <i>interpolated</i> title.</span>
+  <span>
+    "{{ title }}" is the
+    <i>interpolated</i>
+    title.
+  </span>
 </p>
-<p>"<span [innerHTML]="title"></span>" is the <i>property bound</i> title.</p>
+<p>
+  "
+  <span [innerHTML]="title"></span>
+  " is the
+  <i>property bound</i>
+  title.
+</p>
 
 <!--
   Angular generates warnings for these two lines as it sanitizes them
   WARNING: sanitizing HTML stripped some content (see http://g.co/ng/security#xss).
  -->
 <p>
-  <span>"{{ evilTitle }}" is the <i>interpolated</i> evil title.</span>
+  <span>
+    "{{ evilTitle }}" is the
+    <i>interpolated</i>
+    evil title.
+  </span>
 </p>
 <p>
-  "<span [innerHTML]="evilTitle"></span>" is the <i>property bound</i> evil
-  title.
+  "
+  <span [innerHTML]="evilTitle"></span>
+  " is the
+  <i>property bound</i>
+  evil title.
 </p>
 
 <a class="to-toc" href="#toc">top</a>
@@ -6177,9 +6473,7 @@ can be found in the LICENSE file at http://angular.io/license
 <!--  create and set a colspan attribute -->
 <table border="1">
   <!--  expression calculates colspan=2 -->
-  <tr>
-    <td [attr.colspan]="1 + 1">One-Two</td>
-  </tr>
+  <tr><td [attr.colspan]="1 + 1">One-Two</td></tr>
 
   <!-- ERROR: There is no \`colspan\` property to set!
     <tr><td colspan="{{1 + 1}}">Three-Four</td></tr>
@@ -6194,7 +6488,8 @@ can be found in the LICENSE file at http://angular.io/license
 <br />
 <!-- create and set an aria attribute for assistive technology -->
 <button [attr.aria-label]="actionName">{{ actionName }} with Aria</button>
-<br /><br />
+<br />
+<br />
 
 <!-- The following effects are not discussed in the chapter -->
 <div>
@@ -6264,8 +6559,10 @@ can be found in the LICENSE file at http://angular.io/license
 ></app-hero-detail>
 <br />
 
-<app-big-hero-detail (deleteRequest)="deleteHero($event)" [hero]="currentHero">
-</app-big-hero-detail>
+<app-big-hero-detail
+  (deleteRequest)="deleteHero($event)"
+  [hero]="currentHero"
+></app-big-hero-detail>
 
 <div class="parent-div" (click)="onClickMe($event)" clickable>
   Click me
@@ -6289,7 +6586,10 @@ can be found in the LICENSE file at http://angular.io/license
 <div id="two-way-1">
   <app-sizer [(size)]="fontSizePx"></app-sizer>
   <div [style.font-size.px]="fontSizePx">Resizable Text</div>
-  <label>FontSize (px): <input [(ngModel)]="fontSizePx"/></label>
+  <label>
+    FontSize (px):
+    <input [(ngModel)]="fontSizePx" />
+  </label>
 </div>
 <br />
 <div id="two-way-2">
@@ -6343,24 +6643,34 @@ bindon-ngModel
 
 <!-- not used in chapter -->
 <br />
-<label>saveable <input type="checkbox" [(ngModel)]="canSave"/></label> |
-<label
-  >modified:
+<label>
+  saveable
+  <input type="checkbox" [(ngModel)]="canSave" />
+</label>
+|
+<label>
+  modified:
   <input
     type="checkbox"
     [value]="!isUnchanged"
     (change)="isUnchanged = !isUnchanged"
-/></label>
+  />
+</label>
 |
-<label>special: <input type="checkbox" [(ngModel)]="isSpecial"/></label>
+<label>
+  special:
+  <input type="checkbox" [(ngModel)]="isSpecial" />
+</label>
 <button (click)="setCurrentClasses()">Refresh currentClasses</button>
-<br /><br />
+<br />
+<br />
 <div [ngClass]="currentClasses">
   This div should be {{ canSave ? "" : "not" }} saveable,
   {{ isUnchanged ? "unchanged" : "modified" }} and,
   {{ isSpecial ? "" : "not" }} special after clicking "Refresh".
 </div>
-<br /><br />
+<br />
+<br />
 
 <div [ngClass]="isSpecial ? 'special' : ''">This div is special</div>
 
@@ -6385,11 +6695,23 @@ bindon-ngModel
 
 <!-- not used in chapter -->
 <br />
-<label>italic: <input type="checkbox" [(ngModel)]="canSave"/></label> |
-<label>normal: <input type="checkbox" [(ngModel)]="isUnchanged"/></label> |
-<label>xlarge: <input type="checkbox" [(ngModel)]="isSpecial"/></label>
+<label>
+  italic:
+  <input type="checkbox" [(ngModel)]="canSave" />
+</label>
+|
+<label>
+  normal:
+  <input type="checkbox" [(ngModel)]="isUnchanged" />
+</label>
+|
+<label>
+  xlarge:
+  <input type="checkbox" [(ngModel)]="isSpecial" />
+</label>
 <button (click)="setCurrentStyles()">Refresh currentStyles</button>
-<br /><br />
+<br />
+<br />
 <div [ngStyle]="currentStyles">
   This div should be {{ canSave ? "italic" : "plain" }},
   {{ isUnchanged ? "normal weight" : "bold" }} and,
@@ -6409,9 +6731,9 @@ bindon-ngModel
 
 <!-- NgIf binding with template (no *) -->
 
-<ng-template [ngIf]="currentHero"
-  >Add {{ currentHero.name }} with template</ng-template
->
+<ng-template [ngIf]="currentHero">
+  Add {{ currentHero.name }} with template
+</ng-template>
 
 <!-- Does not show because isActive is false! -->
 <div>Hero Detail removed from DOM (via template) because isActive is false</div>
@@ -6448,14 +6770,22 @@ bindon-ngModel
 <a class="to-toc" href="#toc">top</a>
 
 <h4 id="ngFor-index">*ngFor with index</h4>
-<p>with <i>semi-colon</i> separator</p>
+<p>
+  with
+  <i>semi-colon</i>
+  separator
+</p>
 <div class="box">
   <div *ngFor="let hero of heroes; let i = index">
     {{ i + 1 }} - {{ hero.name }}
   </div>
 </div>
 
-<p>with <i>comma</i> separator</p>
+<p>
+  with
+  <i>comma</i>
+  separator
+</p>
 <div class="box">
   <!-- Ex: "1 - Hercules" -->
   <div *ngFor="let hero of heroes; let i = index">
@@ -6470,7 +6800,10 @@ bindon-ngModel
 <button (click)="changeIds()">Change ids</button>
 <button (click)="clearTrackByCounts()">Clear counts</button>
 
-<p><i>without</i> trackBy</p>
+<p>
+  <i>without</i>
+  trackBy
+</p>
 <div class="box">
   <div #noTrackBy *ngFor="let hero of heroes">
     ({{ hero.id }}) {{ hero.name }}
@@ -6492,30 +6825,48 @@ bindon-ngModel
   </div>
 </div>
 
-<br /><br /><br />
+<br />
+<br />
+<br />
 
-<p>with trackBy and <i>semi-colon</i> separator</p>
+<p>
+  with trackBy and
+  <i>semi-colon</i>
+  separator
+</p>
 <div class="box">
   <div *ngFor="let hero of heroes; trackBy: trackByHeroes">
     ({{ hero.id }}) {{ hero.name }}
   </div>
 </div>
 
-<p>with trackBy and <i>comma</i> separator</p>
+<p>
+  with trackBy and
+  <i>comma</i>
+  separator
+</p>
 <div class="box">
   <div *ngFor="let hero of heroes; trackBy: trackByHeroes">
     ({{ hero.id }}) {{ hero.name }}
   </div>
 </div>
 
-<p>with trackBy and <i>space</i> separator</p>
+<p>
+  with trackBy and
+  <i>space</i>
+  separator
+</p>
 <div class="box">
   <div *ngFor="let hero of heroes; trackBy: trackByHeroes">
     ({{ hero.id }}) {{ hero.name }}
   </div>
 </div>
 
-<p>with <i>generic</i> trackById function</p>
+<p>
+  with
+  <i>generic</i>
+  trackById function
+</p>
 <div class="box">
   <div *ngFor="let hero of heroes; trackBy: trackById">
     ({{ hero.id }}) {{ hero.name }}
@@ -6531,9 +6882,8 @@ bindon-ngModel
 <p>Pick your favorite hero</p>
 <div>
   <label *ngFor="let h of heroes">
-    <input type="radio" name="heroes" [(ngModel)]="currentHero" [value]="h" />{{
-      h.name
-    }}
+    <input type="radio" name="heroes" [(ngModel)]="currentHero" [value]="h" />
+    {{ h.name }}
   </label>
 </div>
 
@@ -6585,8 +6935,10 @@ bindon-ngModel
 <img [src]="iconUrl" />
 <button (click)="onSave()">Save</button>
 
-<app-hero-detail [hero]="currentHero" (deleteRequest)="deleteHero($event)">
-</app-hero-detail>
+<app-hero-detail
+  [hero]="currentHero"
+  (deleteRequest)="deleteHero($event)"
+></app-hero-detail>
 
 <div (myClick)="clickMessage2 = $event" clickable>myClick2</div>
 {{ clickMessage2 }}
@@ -6616,14 +6968,18 @@ bindon-ngModel
 
 <div>
   <!-- pipe price to USD and display the $ symbol -->
-  <label>Price: </label>{{ product.price | currency: "USD":true }}
+  <label>Price:</label>
+  {{ product.price | currency: "USD":true }}
 </div>
 
 <a class="to-toc" href="#toc">top</a>
 
 <!-- Null values and the safe navigation operator -->
 <hr />
-<h2 id="safe-navigation-operator">Safe navigation operator <i>?.</i></h2>
+<h2 id="safe-navigation-operator">
+  Safe navigation operator
+  <i>?.</i>
+</h2>
 
 <div>The title is {{ title }}</div>
 
@@ -6652,7 +7008,10 @@ See console log:
 
 <!-- non-null assertion operator -->
 <hr />
-<h2 id="non-null-assertion-operator">Non-null assertion operator <i>!.</i></h2>
+<h2 id="non-null-assertion-operator">
+  Non-null assertion operator
+  <i>!.</i>
+</h2>
 
 <div>
   <!--No hero, no text -->
@@ -6663,7 +7022,11 @@ See console log:
 
 <!-- non-null assertion operator -->
 <hr />
-<h2 id="any-type-cast-function">$any type cast function <i>$any( )</i>.</h2>
+<h2 id="any-type-cast-function">
+  $any type cast function
+  <i>$any( )</i>
+  .
+</h2>
 
 <div>
   <!-- Accessing an undeclared member -->
@@ -6683,8 +7046,10 @@ See console log:
 <h2 id="enums">Enums in binding</h2>
 
 <p>
-  The name of the Color.Red enum is {{ Color[Color.Red] }}.<br />
-  The current color is {{ Color[color] }} and its number is {{ color }}.<br />
+  The name of the Color.Red enum is {{ Color[Color.Red] }}.
+  <br />
+  The current color is {{ Color[color] }} and its number is {{ color }}.
+  <br />
   <button [style.color]="Color[color]" (click)="colorToggle()">
     Enum Toggle
   </button>
@@ -6701,8 +7066,8 @@ can be found in the LICENSE file at http://angular.io/license
 <div id="heroForm">
   <form (ngSubmit)="onSubmit(heroForm)" #heroForm="ngForm">
     <div class="form-group">
-      <label for="name"
-        >Name
+      <label for="name">
+        Name
         <input
           class="form-control"
           name="name"
@@ -6727,7 +7092,7 @@ can be found in the LICENSE file at http://angular.io/license
 ================================================================================
 `;
 
-exports[`real-world.component.html 3`] = `
+exports[`real-world.component.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
 parsers: ["angular"]
 printWidth: 1
@@ -7498,7 +7863,9 @@ can be found in the LICENSE file at http://angular.io/license
   Binding</a
 ><br />
 <div
-  style="margin-left:8px"
+  style="
+    margin-left: 8px;
+  "
 >
   <a
     href="#attribute-binding"
@@ -7532,7 +7899,9 @@ can be found in the LICENSE file at http://angular.io/license
   Directives
 </div>
 <div
-  style="margin-left:8px"
+  style="
+    margin-left: 8px;
+  "
 >
   <a
     href="#ngModel"
@@ -7559,7 +7928,9 @@ can be found in the LICENSE file at http://angular.io/license
     >NgFor</a
   ><br />
   <div
-    style="margin-left:8px"
+    style="
+      margin-left: 8px;
+    "
   >
     <a
       href="#ngFor-index"
@@ -7645,7 +8016,9 @@ can be found in the LICENSE file at http://angular.io/license
     src="{{
       heroImageUrl
     }}"
-    style="height:30px"
+    style="
+      height: 30px;
+    "
   />
 </h3>
 
@@ -10130,11 +10503,11 @@ can be found in the LICENSE file at http://angular.io/license
 ================================================================================
 `;
 
-exports[`real-world.component.html 4`] = `
+exports[`real-world.component.html - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
-htmlWhitespaceSensitivity: "ignore"
 parsers: ["angular"]
 printWidth: 80
+trailingComma: "none"
                                                                                 | printWidth
 =====================================input======================================
 <!-- copied from: https://stackblitz.com/angular/ymdjlgmlavo -->
@@ -10861,75 +11234,45 @@ can be found in the LICENSE file at http://angular.io/license
 
 <a id="toc"></a>
 <h1>Template Syntax</h1>
-<a href="#interpolation">Interpolation</a>
+<a href="#interpolation">Interpolation</a><br />
+<a href="#expression-context">Expression context</a><br />
+<a href="#statement-context">Statement context</a><br />
+<a href="#mental-model">Mental Model</a><br />
+<a href="#buttons">Buttons</a><br />
+<a href="#prop-vs-attrib">Properties vs. Attributes</a><br />
 <br />
-<a href="#expression-context">Expression context</a>
-<br />
-<a href="#statement-context">Statement context</a>
-<br />
-<a href="#mental-model">Mental Model</a>
-<br />
-<a href="#buttons">Buttons</a>
-<br />
-<a href="#prop-vs-attrib">Properties vs. Attributes</a>
-<br />
-<br />
-<a href="#property-binding">Property Binding</a>
-<br />
-<div style="margin-left:8px">
-  <a href="#attribute-binding">Attribute Binding</a>
-  <br />
-  <a href="#class-binding">Class Binding</a>
-  <br />
-  <a href="#style-binding">Style Binding</a>
-  <br />
+<a href="#property-binding">Property Binding</a><br />
+<div style="margin-left: 8px">
+  <a href="#attribute-binding">Attribute Binding</a><br />
+  <a href="#class-binding">Class Binding</a><br />
+  <a href="#style-binding">Style Binding</a><br />
 </div>
 <br />
-<a href="#event-binding">Event Binding</a>
-<br />
-<a href="#two-way">Two-way Binding</a>
-<br />
+<a href="#event-binding">Event Binding</a><br />
+<a href="#two-way">Two-way Binding</a><br />
 <br />
 <div>Directives</div>
-<div style="margin-left:8px">
-  <a href="#ngModel">NgModel (two-way) Binding</a>
-  <br />
-  <a href="#ngClass">NgClass Binding</a>
-  <br />
-  <a href="#ngStyle">NgStyle Binding</a>
-  <br />
-  <a href="#ngIf">NgIf</a>
-  <br />
-  <a href="#ngFor">NgFor</a>
-  <br />
-  <div style="margin-left:8px">
-    <a href="#ngFor-index">NgFor with index</a>
-    <br />
-    <a href="#ngFor-trackBy">NgFor with trackBy</a>
-    <br />
+<div style="margin-left: 8px">
+  <a href="#ngModel">NgModel (two-way) Binding</a><br />
+  <a href="#ngClass">NgClass Binding</a><br />
+  <a href="#ngStyle">NgStyle Binding</a><br />
+  <a href="#ngIf">NgIf</a><br />
+  <a href="#ngFor">NgFor</a><br />
+  <div style="margin-left: 8px">
+    <a href="#ngFor-index">NgFor with index</a><br />
+    <a href="#ngFor-trackBy">NgFor with trackBy</a><br />
   </div>
-  <a href="#ngSwitch">NgSwitch</a>
-  <br />
+  <a href="#ngSwitch">NgSwitch</a><br />
 </div>
 <br />
-<a href="#ref-vars">Template reference variables</a>
-<br />
-<a href="#inputs-and-outputs">Inputs and outputs</a>
-<br />
-<a href="#pipes">Pipes</a>
-<br />
-<a href="#safe-navigation-operator">
-  Safe navigation operator
-  <i>?.</i>
-</a>
-<br />
-<a href="#non-null-assertion-operator">
-  Non-null assertion operator
-  <i>!.</i>
-</a>
-<br />
-<a href="#enums">Enums</a>
-<br />
+<a href="#ref-vars">Template reference variables</a><br />
+<a href="#inputs-and-outputs">Inputs and outputs</a><br />
+<a href="#pipes">Pipes</a><br />
+<a href="#safe-navigation-operator">Safe navigation operator <i>?.</i></a
+><br />
+<a href="#non-null-assertion-operator">Non-null assertion operator <i>!.</i></a
+><br />
+<a href="#enums">Enums</a><br />
 
 <!-- Interpolation and expressions -->
 <hr />
@@ -10939,7 +11282,7 @@ can be found in the LICENSE file at http://angular.io/license
 
 <h3>
   {{ title }}
-  <img src="{{ heroImageUrl }}" style="height:30px" />
+  <img src="{{ heroImageUrl }}" style="height: 30px" />
 </h3>
 
 <!-- "The sum of 1 + 1 is 2" -->
@@ -10971,8 +11314,7 @@ can be found in the LICENSE file at http://angular.io/license
 <p>Template reference variable expression context (#heroInput)</p>
 <div (keyup)="(0)" class="context">
   Type something:
-  <input #heroInput />
-  {{ heroInput.value }}
+  <input #heroInput /> {{ heroInput.value }}
 </div>
 
 <a class="to-toc" href="#toc">top</a>
@@ -11014,8 +11356,7 @@ can be found in the LICENSE file at http://angular.io/license
 <div class="special">Mental Model</div>
 <img src="assets/images/hero.png" />
 <button disabled>Save</button>
-<br />
-<br />
+<br /><br />
 
 <div>
   <!-- Normal HTML -->
@@ -11023,46 +11364,39 @@ can be found in the LICENSE file at http://angular.io/license
   <!-- Wow! A new element! -->
   <app-hero-detail></app-hero-detail>
 </div>
-<br />
-<br />
+<br /><br />
 
 <div>
   <!-- Bind button disabled state to \`isUnchanged\` property -->
   <button [disabled]="isUnchanged">Save</button>
 </div>
-<br />
-<br />
+<br /><br />
 
 <div>
   <img [src]="heroImageUrl" />
   <app-hero-detail [hero]="currentHero"></app-hero-detail>
   <div [ngClass]="{ special: isSpecial }"></div>
 </div>
-<br />
-<br />
+<br /><br />
 
 <button (click)="onSave()">Save</button>
 <app-hero-detail (deleteRequest)="deleteHero()"></app-hero-detail>
 <div (myClick)="clicked = $event" clickable>click me</div>
 {{ clicked }}
-<br />
-<br />
+<br /><br />
 
 <div>
   Hero Name:
   <input [(ngModel)]="name" />
   {{ name }}
 </div>
-<br />
-<br />
+<br /><br />
 
 <button [attr.aria-label]="help">help</button>
-<br />
-<br />
+<br /><br />
 
 <div [class.special]="isSpecial">Special</div>
-<br />
-<br />
+<br /><br />
 
 <button [style.color]="isSpecial ? 'red' : 'green'">
   button
@@ -11076,8 +11410,7 @@ can be found in the LICENSE file at http://angular.io/license
 <!-- examine the following <img> tag in the browser tools -->
 <img src="images/ng-logo.png" [src]="heroImageUrl" />
 
-<br />
-<br />
+<br /><br />
 
 <img [src]="iconUrl" />
 <img bind-src="heroImageUrl" />
@@ -11092,12 +11425,10 @@ can be found in the LICENSE file at http://angular.io/license
 <button>Enabled (but does nothing)</button>
 <button disabled>Disabled</button>
 <button disabled="false">Still disabled</button>
-<br />
-<br />
+<br /><br />
 <button disabled>disabled by attribute</button>
 <button [disabled]="isUnchanged">disabled by property binding</button>
-<br />
-<br />
+<br /><br />
 <button bind-disabled="isUnchanged" on-click="onSave($event)">
   Disabled Cancel
 </button>
@@ -11122,51 +11453,24 @@ can be found in the LICENSE file at http://angular.io/license
 </div>
 <app-hero-detail prefix="You are my" [hero]="currentHero"></app-hero-detail>
 
-<p>
-  <img src="{{ heroImageUrl }}" />
-  is the
-  <i>interpolated</i>
-  image.
-</p>
-<p>
-  <img [src]="heroImageUrl" />
-  is the
-  <i>property bound</i>
-  image.
-</p>
+<p><img src="{{ heroImageUrl }}" /> is the <i>interpolated</i> image.</p>
+<p><img [src]="heroImageUrl" /> is the <i>property bound</i> image.</p>
 
 <p>
-  <span>
-    "{{ title }}" is the
-    <i>interpolated</i>
-    title.
-  </span>
+  <span>"{{ title }}" is the <i>interpolated</i> title.</span>
 </p>
-<p>
-  "
-  <span [innerHTML]="title"></span>
-  " is the
-  <i>property bound</i>
-  title.
-</p>
+<p>"<span [innerHTML]="title"></span>" is the <i>property bound</i> title.</p>
 
 <!--
   Angular generates warnings for these two lines as it sanitizes them
   WARNING: sanitizing HTML stripped some content (see http://g.co/ng/security#xss).
  -->
 <p>
-  <span>
-    "{{ evilTitle }}" is the
-    <i>interpolated</i>
-    evil title.
-  </span>
+  <span>"{{ evilTitle }}" is the <i>interpolated</i> evil title.</span>
 </p>
 <p>
-  "
-  <span [innerHTML]="evilTitle"></span>
-  " is the
-  <i>property bound</i>
-  evil title.
+  "<span [innerHTML]="evilTitle"></span>" is the <i>property bound</i> evil
+  title.
 </p>
 
 <a class="to-toc" href="#toc">top</a>
@@ -11178,7 +11482,9 @@ can be found in the LICENSE file at http://angular.io/license
 <!--  create and set a colspan attribute -->
 <table border="1">
   <!--  expression calculates colspan=2 -->
-  <tr><td [attr.colspan]="1 + 1">One-Two</td></tr>
+  <tr>
+    <td [attr.colspan]="1 + 1">One-Two</td>
+  </tr>
 
   <!-- ERROR: There is no \`colspan\` property to set!
     <tr><td colspan="{{1 + 1}}">Three-Four</td></tr>
@@ -11193,8 +11499,7 @@ can be found in the LICENSE file at http://angular.io/license
 <br />
 <!-- create and set an aria attribute for assistive technology -->
 <button [attr.aria-label]="actionName">{{ actionName }} with Aria</button>
-<br />
-<br />
+<br /><br />
 
 <!-- The following effects are not discussed in the chapter -->
 <div>
@@ -11264,10 +11569,8 @@ can be found in the LICENSE file at http://angular.io/license
 ></app-hero-detail>
 <br />
 
-<app-big-hero-detail
-  (deleteRequest)="deleteHero($event)"
-  [hero]="currentHero"
-></app-big-hero-detail>
+<app-big-hero-detail (deleteRequest)="deleteHero($event)" [hero]="currentHero">
+</app-big-hero-detail>
 
 <div class="parent-div" (click)="onClickMe($event)" clickable>
   Click me
@@ -11291,10 +11594,7 @@ can be found in the LICENSE file at http://angular.io/license
 <div id="two-way-1">
   <app-sizer [(size)]="fontSizePx"></app-sizer>
   <div [style.font-size.px]="fontSizePx">Resizable Text</div>
-  <label>
-    FontSize (px):
-    <input [(ngModel)]="fontSizePx" />
-  </label>
+  <label>FontSize (px): <input [(ngModel)]="fontSizePx" /></label>
 </div>
 <br />
 <div id="two-way-2">
@@ -11348,34 +11648,24 @@ bindon-ngModel
 
 <!-- not used in chapter -->
 <br />
-<label>
-  saveable
-  <input type="checkbox" [(ngModel)]="canSave" />
-</label>
-|
-<label>
-  modified:
+<label>saveable <input type="checkbox" [(ngModel)]="canSave" /></label> |
+<label
+  >modified:
   <input
     type="checkbox"
     [value]="!isUnchanged"
     (change)="isUnchanged = !isUnchanged"
-  />
-</label>
+/></label>
 |
-<label>
-  special:
-  <input type="checkbox" [(ngModel)]="isSpecial" />
-</label>
+<label>special: <input type="checkbox" [(ngModel)]="isSpecial" /></label>
 <button (click)="setCurrentClasses()">Refresh currentClasses</button>
-<br />
-<br />
+<br /><br />
 <div [ngClass]="currentClasses">
   This div should be {{ canSave ? "" : "not" }} saveable,
   {{ isUnchanged ? "unchanged" : "modified" }} and,
   {{ isSpecial ? "" : "not" }} special after clicking "Refresh".
 </div>
-<br />
-<br />
+<br /><br />
 
 <div [ngClass]="isSpecial ? 'special' : ''">This div is special</div>
 
@@ -11400,23 +11690,11 @@ bindon-ngModel
 
 <!-- not used in chapter -->
 <br />
-<label>
-  italic:
-  <input type="checkbox" [(ngModel)]="canSave" />
-</label>
-|
-<label>
-  normal:
-  <input type="checkbox" [(ngModel)]="isUnchanged" />
-</label>
-|
-<label>
-  xlarge:
-  <input type="checkbox" [(ngModel)]="isSpecial" />
-</label>
+<label>italic: <input type="checkbox" [(ngModel)]="canSave" /></label> |
+<label>normal: <input type="checkbox" [(ngModel)]="isUnchanged" /></label> |
+<label>xlarge: <input type="checkbox" [(ngModel)]="isSpecial" /></label>
 <button (click)="setCurrentStyles()">Refresh currentStyles</button>
-<br />
-<br />
+<br /><br />
 <div [ngStyle]="currentStyles">
   This div should be {{ canSave ? "italic" : "plain" }},
   {{ isUnchanged ? "normal weight" : "bold" }} and,
@@ -11436,9 +11714,9 @@ bindon-ngModel
 
 <!-- NgIf binding with template (no *) -->
 
-<ng-template [ngIf]="currentHero">
-  Add {{ currentHero.name }} with template
-</ng-template>
+<ng-template [ngIf]="currentHero"
+  >Add {{ currentHero.name }} with template</ng-template
+>
 
 <!-- Does not show because isActive is false! -->
 <div>Hero Detail removed from DOM (via template) because isActive is false</div>
@@ -11475,22 +11753,14 @@ bindon-ngModel
 <a class="to-toc" href="#toc">top</a>
 
 <h4 id="ngFor-index">*ngFor with index</h4>
-<p>
-  with
-  <i>semi-colon</i>
-  separator
-</p>
+<p>with <i>semi-colon</i> separator</p>
 <div class="box">
   <div *ngFor="let hero of heroes; let i = index">
     {{ i + 1 }} - {{ hero.name }}
   </div>
 </div>
 
-<p>
-  with
-  <i>comma</i>
-  separator
-</p>
+<p>with <i>comma</i> separator</p>
 <div class="box">
   <!-- Ex: "1 - Hercules" -->
   <div *ngFor="let hero of heroes; let i = index">
@@ -11505,10 +11775,7 @@ bindon-ngModel
 <button (click)="changeIds()">Change ids</button>
 <button (click)="clearTrackByCounts()">Clear counts</button>
 
-<p>
-  <i>without</i>
-  trackBy
-</p>
+<p><i>without</i> trackBy</p>
 <div class="box">
   <div #noTrackBy *ngFor="let hero of heroes">
     ({{ hero.id }}) {{ hero.name }}
@@ -11530,48 +11797,30 @@ bindon-ngModel
   </div>
 </div>
 
-<br />
-<br />
-<br />
+<br /><br /><br />
 
-<p>
-  with trackBy and
-  <i>semi-colon</i>
-  separator
-</p>
+<p>with trackBy and <i>semi-colon</i> separator</p>
 <div class="box">
   <div *ngFor="let hero of heroes; trackBy: trackByHeroes">
     ({{ hero.id }}) {{ hero.name }}
   </div>
 </div>
 
-<p>
-  with trackBy and
-  <i>comma</i>
-  separator
-</p>
+<p>with trackBy and <i>comma</i> separator</p>
 <div class="box">
   <div *ngFor="let hero of heroes; trackBy: trackByHeroes">
     ({{ hero.id }}) {{ hero.name }}
   </div>
 </div>
 
-<p>
-  with trackBy and
-  <i>space</i>
-  separator
-</p>
+<p>with trackBy and <i>space</i> separator</p>
 <div class="box">
   <div *ngFor="let hero of heroes; trackBy: trackByHeroes">
     ({{ hero.id }}) {{ hero.name }}
   </div>
 </div>
 
-<p>
-  with
-  <i>generic</i>
-  trackById function
-</p>
+<p>with <i>generic</i> trackById function</p>
 <div class="box">
   <div *ngFor="let hero of heroes; trackBy: trackById">
     ({{ hero.id }}) {{ hero.name }}
@@ -11587,8 +11836,9 @@ bindon-ngModel
 <p>Pick your favorite hero</p>
 <div>
   <label *ngFor="let h of heroes">
-    <input type="radio" name="heroes" [(ngModel)]="currentHero" [value]="h" />
-    {{ h.name }}
+    <input type="radio" name="heroes" [(ngModel)]="currentHero" [value]="h" />{{
+      h.name
+    }}
   </label>
 </div>
 
@@ -11640,10 +11890,8 @@ bindon-ngModel
 <img [src]="iconUrl" />
 <button (click)="onSave()">Save</button>
 
-<app-hero-detail
-  [hero]="currentHero"
-  (deleteRequest)="deleteHero($event)"
-></app-hero-detail>
+<app-hero-detail [hero]="currentHero" (deleteRequest)="deleteHero($event)">
+</app-hero-detail>
 
 <div (myClick)="clickMessage2 = $event" clickable>myClick2</div>
 {{ clickMessage2 }}
@@ -11673,18 +11921,14 @@ bindon-ngModel
 
 <div>
   <!-- pipe price to USD and display the $ symbol -->
-  <label>Price:</label>
-  {{ product.price | currency: "USD":true }}
+  <label>Price: </label>{{ product.price | currency: "USD":true }}
 </div>
 
 <a class="to-toc" href="#toc">top</a>
 
 <!-- Null values and the safe navigation operator -->
 <hr />
-<h2 id="safe-navigation-operator">
-  Safe navigation operator
-  <i>?.</i>
-</h2>
+<h2 id="safe-navigation-operator">Safe navigation operator <i>?.</i></h2>
 
 <div>The title is {{ title }}</div>
 
@@ -11713,10 +11957,7 @@ See console log:
 
 <!-- non-null assertion operator -->
 <hr />
-<h2 id="non-null-assertion-operator">
-  Non-null assertion operator
-  <i>!.</i>
-</h2>
+<h2 id="non-null-assertion-operator">Non-null assertion operator <i>!.</i></h2>
 
 <div>
   <!--No hero, no text -->
@@ -11727,11 +11968,7 @@ See console log:
 
 <!-- non-null assertion operator -->
 <hr />
-<h2 id="any-type-cast-function">
-  $any type cast function
-  <i>$any( )</i>
-  .
-</h2>
+<h2 id="any-type-cast-function">$any type cast function <i>$any( )</i>.</h2>
 
 <div>
   <!-- Accessing an undeclared member -->
@@ -11751,10 +11988,8 @@ See console log:
 <h2 id="enums">Enums in binding</h2>
 
 <p>
-  The name of the Color.Red enum is {{ Color[Color.Red] }}.
-  <br />
-  The current color is {{ Color[color] }} and its number is {{ color }}.
-  <br />
+  The name of the Color.Red enum is {{ Color[Color.Red] }}.<br />
+  The current color is {{ Color[color] }} and its number is {{ color }}.<br />
   <button [style.color]="Color[color]" (click)="colorToggle()">
     Enum Toggle
   </button>
@@ -11771,8 +12006,8 @@ can be found in the LICENSE file at http://angular.io/license
 <div id="heroForm">
   <form (ngSubmit)="onSubmit(heroForm)" #heroForm="ngForm">
     <div class="form-group">
-      <label for="name">
-        Name
+      <label for="name"
+        >Name
         <input
           class="form-control"
           name="name"
@@ -11797,9 +12032,8 @@ can be found in the LICENSE file at http://angular.io/license
 ================================================================================
 `;
 
-exports[`real-world.component.html 5`] = `
+exports[`real-world.component.html format 1`] = `
 ====================================options=====================================
-bracketSpacing: false
 parsers: ["angular"]
 printWidth: 80
                                                                                 | printWidth
@@ -12536,7 +12770,7 @@ can be found in the LICENSE file at http://angular.io/license
 <a href="#prop-vs-attrib">Properties vs. Attributes</a><br />
 <br />
 <a href="#property-binding">Property Binding</a><br />
-<div style="margin-left:8px">
+<div style="margin-left: 8px">
   <a href="#attribute-binding">Attribute Binding</a><br />
   <a href="#class-binding">Class Binding</a><br />
   <a href="#style-binding">Style Binding</a><br />
@@ -12546,13 +12780,13 @@ can be found in the LICENSE file at http://angular.io/license
 <a href="#two-way">Two-way Binding</a><br />
 <br />
 <div>Directives</div>
-<div style="margin-left:8px">
+<div style="margin-left: 8px">
   <a href="#ngModel">NgModel (two-way) Binding</a><br />
   <a href="#ngClass">NgClass Binding</a><br />
   <a href="#ngStyle">NgStyle Binding</a><br />
   <a href="#ngIf">NgIf</a><br />
   <a href="#ngFor">NgFor</a><br />
-  <div style="margin-left:8px">
+  <div style="margin-left: 8px">
     <a href="#ngFor-index">NgFor with index</a><br />
     <a href="#ngFor-trackBy">NgFor with trackBy</a><br />
   </div>
@@ -12576,7 +12810,7 @@ can be found in the LICENSE file at http://angular.io/license
 
 <h3>
   {{ title }}
-  <img src="{{ heroImageUrl }}" style="height:30px" />
+  <img src="{{ heroImageUrl }}" style="height: 30px" />
 </h3>
 
 <!-- "The sum of 1 + 1 is 2" -->
@@ -12669,7 +12903,7 @@ can be found in the LICENSE file at http://angular.io/license
 <div>
   <img [src]="heroImageUrl" />
   <app-hero-detail [hero]="currentHero"></app-hero-detail>
-  <div [ngClass]="{special: isSpecial}"></div>
+  <div [ngClass]="{ special: isSpecial }"></div>
 </div>
 <br /><br />
 
@@ -12888,7 +13122,7 @@ can be found in the LICENSE file at http://angular.io/license
 <div id="two-way-1">
   <app-sizer [(size)]="fontSizePx"></app-sizer>
   <div [style.font-size.px]="fontSizePx">Resizable Text</div>
-  <label>FontSize (px): <input [(ngModel)]="fontSizePx"/></label>
+  <label>FontSize (px): <input [(ngModel)]="fontSizePx" /></label>
 </div>
 <br />
 <div id="two-way-2">
@@ -12942,7 +13176,7 @@ bindon-ngModel
 
 <!-- not used in chapter -->
 <br />
-<label>saveable <input type="checkbox" [(ngModel)]="canSave"/></label> |
+<label>saveable <input type="checkbox" [(ngModel)]="canSave" /></label> |
 <label
   >modified:
   <input
@@ -12951,7 +13185,7 @@ bindon-ngModel
     (change)="isUnchanged = !isUnchanged"
 /></label>
 |
-<label>special: <input type="checkbox" [(ngModel)]="isSpecial"/></label>
+<label>special: <input type="checkbox" [(ngModel)]="isSpecial" /></label>
 <button (click)="setCurrentClasses()">Refresh currentClasses</button>
 <br /><br />
 <div [ngClass]="currentClasses">
@@ -12964,7 +13198,7 @@ bindon-ngModel
 <div [ngClass]="isSpecial ? 'special' : ''">This div is special</div>
 
 <div class="bad curly special">Bad curly special</div>
-<div [ngClass]="{bad: false, curly: true, special: true}">Curly special</div>
+<div [ngClass]="{ bad: false, curly: true, special: true }">Curly special</div>
 
 <a class="to-toc" href="#toc">top</a>
 
@@ -12984,9 +13218,9 @@ bindon-ngModel
 
 <!-- not used in chapter -->
 <br />
-<label>italic: <input type="checkbox" [(ngModel)]="canSave"/></label> |
-<label>normal: <input type="checkbox" [(ngModel)]="isUnchanged"/></label> |
-<label>xlarge: <input type="checkbox" [(ngModel)]="isSpecial"/></label>
+<label>italic: <input type="checkbox" [(ngModel)]="canSave" /></label> |
+<label>normal: <input type="checkbox" [(ngModel)]="isUnchanged" /></label> |
+<label>xlarge: <input type="checkbox" [(ngModel)]="isSpecial" /></label>
 <button (click)="setCurrentStyles()">Refresh currentStyles</button>
 <br /><br />
 <div [ngStyle]="currentStyles">
@@ -13326,8 +13560,9 @@ can be found in the LICENSE file at http://angular.io/license
 ================================================================================
 `;
 
-exports[`tag-name.component.html 1`] = `
+exports[`tag-name.component.html - {"bracketSpacing":false} format 1`] = `
 ====================================options=====================================
+bracketSpacing: false
 parsers: ["angular"]
 printWidth: 80
                                                                                 | printWidth
@@ -13340,36 +13575,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`tag-name.component.html 2`] = `
-====================================options=====================================
-parsers: ["angular"]
-printWidth: 80
-trailingComma: "es5"
-                                                                                | printWidth
-=====================================input======================================
-<Table></Table>
-
-=====================================output=====================================
-<Table></Table>
-
-================================================================================
-`;
-
-exports[`tag-name.component.html 3`] = `
-====================================options=====================================
-parsers: ["angular"]
-printWidth: 1
- | printWidth
-=====================================input======================================
-<Table></Table>
-
-=====================================output=====================================
-<Table></Table>
-
-================================================================================
-`;
-
-exports[`tag-name.component.html 4`] = `
+exports[`tag-name.component.html - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
 parsers: ["angular"]
@@ -13384,9 +13590,37 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`tag-name.component.html 5`] = `
+exports[`tag-name.component.html - {"printWidth":1} format 1`] = `
 ====================================options=====================================
-bracketSpacing: false
+parsers: ["angular"]
+printWidth: 1
+ | printWidth
+=====================================input======================================
+<Table></Table>
+
+=====================================output=====================================
+<Table></Table>
+
+================================================================================
+`;
+
+exports[`tag-name.component.html - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["angular"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+<Table></Table>
+
+=====================================output=====================================
+<Table></Table>
+
+================================================================================
+`;
+
+exports[`tag-name.component.html format 1`] = `
+====================================options=====================================
 parsers: ["angular"]
 printWidth: 80
                                                                                 | printWidth

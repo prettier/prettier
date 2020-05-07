@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Arrays.js 1`] = `
+exports[`Arrays.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -57,7 +57,7 @@ a[1] = "...";
 
 foo(a[1]);
 var y;
-a.forEach(x => (y = x));
+a.forEach((x) => (y = x));
 
 // for literals, composite element type is union of individuals
 // note: test both tuple and non-tuple inferred literals
@@ -81,7 +81,7 @@ var abig2: Array<{ x: number, y: number }> = [
   { x: 0, y: 0, a: true },
   { x: 0, y: 0, b: "hey" },
   { x: 0, y: 0, c: 1 },
-  { x: 0, y: 0, c: "hey" }
+  { x: 0, y: 0, c: "hey" },
 ];
 
 module.exports = "arrays";
@@ -89,7 +89,7 @@ module.exports = "arrays";
 ================================================================================
 `;
 
-exports[`numeric_elem.js 1`] = `
+exports[`numeric_elem.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

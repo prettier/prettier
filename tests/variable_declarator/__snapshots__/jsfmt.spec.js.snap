@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`multiple.js 1`] = `
+exports[`multiple.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80
@@ -48,10 +48,10 @@ for (var i = 0, len = arr.length; i < len; i++) {}
 
 var templateTagsMapping = {
     "%{itemIndex}": "index",
-    "%{itemContentMetaTextViews}": "views"
+    "%{itemContentMetaTextViews}": "views",
   },
   separator = '<span class="item__content__meta__separator">•</span>',
-  templateTagsList = $.map(templateTagsMapping, function(value, key) {
+  templateTagsList = $.map(templateTagsMapping, function (value, key) {
     return key;
   }),
   data;
@@ -59,7 +59,7 @@ var templateTagsMapping = {
 ================================================================================
 `;
 
-exports[`string.js 1`] = `
+exports[`string.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "babel", "typescript"]
 printWidth: 80

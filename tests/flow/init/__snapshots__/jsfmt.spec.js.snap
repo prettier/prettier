@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`hoisted.js 1`] = `
+exports[`hoisted.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -61,42 +61,42 @@ function _for_of(arr: Array<number>) {
 
 function _if(b: () => boolean) {
   if (b()) {
-    var f = function() {};
+    var f = function () {};
   }
   f(); // error, possibly undefined
 }
 
 function _while(b: () => boolean) {
   while (b()) {
-    var f = function() {};
+    var f = function () {};
   }
   f(); // error, possibly undefined
 }
 
 function _do_while(b: () => boolean) {
   do {
-    var f = function() {};
+    var f = function () {};
   } while (b());
   f(); // ok
 }
 
 function _for(n: number) {
   for (var i = 0; i < n; i++) {
-    var f = function() {};
+    var f = function () {};
   }
   f(); // error, possibly undefined
 }
 
 function _for_in(obj: Object) {
   for (var p in obj) {
-    var f = function() {};
+    var f = function () {};
   }
   f(); // error, possibly undefined
 }
 
 function _for_of(arr: Array<number>) {
   for (var x of arr) {
-    var f = function() {};
+    var f = function () {};
   }
   f(); // error, possibly undefined
 }
@@ -104,7 +104,7 @@ function _for_of(arr: Array<number>) {
 ================================================================================
 `;
 
-exports[`hoisted2.js 1`] = `
+exports[`hoisted2.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -652,7 +652,7 @@ function for_in_post_init() {
 ================================================================================
 `;
 
-exports[`let.js 1`] = `
+exports[`let.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -967,10 +967,10 @@ function switch_post_init2(i): number {
 
 // reference of a let-binding is permitted in a sub-closure within the init expr
 function sub_closure_init_reference() {
-  let x = function() {
+  let x = function () {
     return x;
   };
-  const y = function() {
+  const y = function () {
     return y;
   };
 
@@ -982,7 +982,7 @@ function sub_closure_init_reference() {
 ================================================================================
 `;
 
-exports[`nullable-init.js 1`] = `
+exports[`nullable-init.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`asterisk.md 1`] = `
+exports[`asterisk.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -15,7 +15,7 @@ _123_
 ================================================================================
 `;
 
-exports[`complex.md 1`] = `
+exports[`complex.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -34,7 +34,7 @@ _bug_?
 ================================================================================
 `;
 
-exports[`special.md 1`] = `
+exports[`special.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80
@@ -109,7 +109,7 @@ proseWrap: "always"
 ================================================================================
 `;
 
-exports[`underscore.md 1`] = `
+exports[`underscore.md - {"proseWrap":"always"} format 1`] = `
 ====================================options=====================================
 parsers: ["markdown"]
 printWidth: 80

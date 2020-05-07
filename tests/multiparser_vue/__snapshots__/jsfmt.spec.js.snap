@@ -1,6 +1,41 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`lang-ts.vue 1`] = `
+exports[`lang-jsx.vue format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<script lang="jsx">
+export default {
+  data: () => ({
+    message: 'hello with jsx'
+  }),
+  render(h) {
+
+
+
+    return <div>{this.message}</div>
+  }
+}
+</script>
+
+=====================================output=====================================
+<script lang="jsx">
+export default {
+  data: () => ({
+    message: "hello with jsx",
+  }),
+  render(h) {
+    return <div>{this.message}</div>;
+  },
+};
+</script>
+
+================================================================================
+`;
+
+exports[`lang-ts.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -27,15 +62,15 @@ export default {
   computed: {
     foo(): string {
       return "foo";
-    }
-  }
+    },
+  },
 };
 </script>
 
 ================================================================================
 `;
 
-exports[`lang-tsx.vue 1`] = `
+exports[`lang-tsx.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -56,18 +91,18 @@ export default {
   computed: {
     foo(): string {
       return "foo";
-    }
+    },
   },
   render(h): VNode {
     return <div>{this.foo}</div>;
-  }
+  },
 };
 </script>
 
 ================================================================================
 `;
 
-exports[`template-bind.vue 1`] = `
+exports[`template-bind.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -98,7 +133,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`template-class.vue 1`] = `
+exports[`template-class.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -120,7 +155,7 @@ printWidth: 80
     class="title"
     :class="{
       'issue-realtime-pre-pulse': preAnimation,
-      'issue-realtime-trigger-pulse': pulseAnimation
+      'issue-realtime-trigger-pulse': pulseAnimation,
     }"
     v-html="titleHtml"
   ></h2>
@@ -129,7 +164,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`vue-component.vue 1`] = `
+exports[`vue-component.vue format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
 printWidth: 80
@@ -168,11 +203,11 @@ p { font-size : 2em ; text-align : center ; }
 
 <script>
 module.exports = {
-  data: function() {
+  data: function () {
     return {
-      greeting: "Hello"
+      greeting: "Hello",
     };
-  }
+  },
 };
 </script>
 

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`any.js 1`] = `
+exports[`any.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -36,7 +36,7 @@ var z: string = qux(0);
 ================================================================================
 `;
 
-exports[`anyexportflowfile.js 1`] = `
+exports[`anyexportflowfile.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -54,7 +54,7 @@ module.exports = ((x: any) => x: any);
 ================================================================================
 `;
 
-exports[`flowfixme.js 1`] = `
+exports[`flowfixme.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -112,7 +112,7 @@ var w: string = baz(0);
 ================================================================================
 `;
 
-exports[`flowissue.js 1`] = `
+exports[`flowissue.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -170,7 +170,7 @@ var w: string = baz(0);
 ================================================================================
 `;
 
-exports[`nonflowfile.js 1`] = `
+exports[`nonflowfile.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -183,12 +183,12 @@ module.exports = (x) => x;
 =====================================output=====================================
 // @noflow
 
-module.exports = x => x;
+module.exports = (x) => x;
 
 ================================================================================
 `;
 
-exports[`propagate.js 1`] = `
+exports[`propagate.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -250,7 +250,7 @@ function bar2(x: mixed) {
 ================================================================================
 `;
 
-exports[`reach.js 1`] = `
+exports[`reach.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

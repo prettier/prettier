@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ExportCJSDefault_Class.js 1`] = `
+exports[`ExportCJSDefault_Class.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -38,7 +38,7 @@ module.exports = ClassFoo3;
 ================================================================================
 `;
 
-exports[`ExportCJSDefault_Number.js 1`] = `
+exports[`ExportCJSDefault_Number.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -56,7 +56,7 @@ module.exports = 42;
 ================================================================================
 `;
 
-exports[`ExportCJSNamed_Class.js 1`] = `
+exports[`ExportCJSNamed_Class.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -82,7 +82,7 @@ exports.ClassFoo4 = ClassFoo4;
 ================================================================================
 `;
 
-exports[`ExportCJSNamed_Number.js 1`] = `
+exports[`ExportCJSNamed_Number.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -100,7 +100,7 @@ exports.num = 42;
 ================================================================================
 `;
 
-exports[`ExportDefault_Class.js 1`] = `
+exports[`ExportDefault_Class.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -132,7 +132,7 @@ export default ClassFoo1;
 ================================================================================
 `;
 
-exports[`ExportDefault_Number.js 1`] = `
+exports[`ExportDefault_Number.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -150,7 +150,7 @@ export default 42;
 ================================================================================
 `;
 
-exports[`ExportNamed_Alias.js 1`] = `
+exports[`ExportNamed_Alias.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -175,20 +175,20 @@ export function givesAFoo3Obj(): AliasFoo3 {
  */
 
 export type AliasFoo3 = {
-  givesANum(): number
+  givesANum(): number,
 };
 export function givesAFoo3Obj(): AliasFoo3 {
   return {
     givesANum(): number {
       return 42;
-    }
+    },
   };
 }
 
 ================================================================================
 `;
 
-exports[`ExportNamed_Class.js 1`] = `
+exports[`ExportNamed_Class.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -220,7 +220,7 @@ export { ClassFoo2 };
 ================================================================================
 `;
 
-exports[`ExportNamed_Multi.js 1`] = `
+exports[`ExportNamed_Multi.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -240,7 +240,7 @@ export var str = "asdf";
 ================================================================================
 `;
 
-exports[`ExportNamed_Number.js 1`] = `
+exports[`ExportNamed_Number.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -258,7 +258,7 @@ export var num = 42;
 ================================================================================
 `;
 
-exports[`import_typeof.js 1`] = `
+exports[`import_typeof.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

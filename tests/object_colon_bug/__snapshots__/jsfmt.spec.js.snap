@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`bug.js 1`] = `
+exports[`bug.js - {"printWidth":35} format 1`] = `
 ====================================options=====================================
 parsers: ["flow", "typescript"]
 printWidth: 35
@@ -16,7 +16,7 @@ const foo = {
   bar: props.bar
     ? props.bar
     : noop,
-  baz: props.baz
+  baz: props.baz,
 };
 
 ================================================================================

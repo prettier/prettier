@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CRLF.css 1`] = `
+exports[`CRLF.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -50,7 +50,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`CRLF.less 1`] = `
+exports[`CRLF.less format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -112,7 +112,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`CRLF.scss 1`] = `
+exports[`CRLF.scss format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -204,7 +204,7 @@ $light-blue: $nice-blue + #111;
 ================================================================================
 `;
 
-exports[`at-rule.scss 1`] = `
+exports[`at-rule.scss format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -235,7 +235,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`at-rules.css 1`] = `
+exports[`at-rules.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -451,7 +451,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`block.css 1`] = `
+exports[`block.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -475,7 +475,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`bug.css 1`] = `
+exports[`bug.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -511,7 +511,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`declaration.css 1`] = `
+exports[`declaration.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -683,7 +683,7 @@ body {
 ================================================================================
 `;
 
-exports[`if-eslit-at-rule-decloration.scss 1`] = `
+exports[`if-eslit-at-rule-decloration.scss format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -720,7 +720,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`lists.scss 1`] = `
+exports[`lists.scss format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -746,7 +746,7 @@ $my-list2: a // a
 ================================================================================
 `;
 
-exports[`maps.scss 1`] = `
+exports[`maps.scss format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -768,7 +768,7 @@ $my-map: (
 ================================================================================
 `;
 
-exports[`places.css 1`] = `
+exports[`places.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -797,7 +797,7 @@ div {
 ================================================================================
 `;
 
-exports[`prettier-ignore.css 1`] = `
+exports[`prettier-ignore.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -827,7 +827,7 @@ foo {
 ================================================================================
 `;
 
-exports[`selectors.css 1`] = `
+exports[`selectors.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -1031,8 +1031,7 @@ input:not(/* comment 125 */[/* comment 126 */disabled/* comment 127 */]/* commen
 ,
 /* comment 21 */
 .element
-/* comment 22 */
- {
+/* comment 22 */ {
 }
 
 /* comment 23 */
@@ -1042,8 +1041,7 @@ input:not(/* comment 125 */[/* comment 126 */disabled/* comment 127 */]/* commen
 .element
 /* comment 27 */
 .element
-/* comment 28 */
- {
+/* comment 28 */ {
 }
 
 /* comment 29 */
@@ -1055,8 +1053,7 @@ input:not(/* comment 125 */[/* comment 126 */disabled/* comment 127 */]/* commen
 >
 /* comment 35 */
 .element
-/* comment 36 */
- {
+/* comment 36 */ {
 }
 
 /* comment 37 */
@@ -1068,8 +1065,7 @@ input:not(/* comment 125 */[/* comment 126 */disabled/* comment 127 */]/* commen
 +
 /* comment 43 */
 .element
-/* comment 44 */
- {
+/* comment 44 */ {
 }
 
 /* comment 45 */
@@ -1081,8 +1077,7 @@ input:not(/* comment 125 */[/* comment 126 */disabled/* comment 127 */]/* commen
 ~
 /* comment 51 */
 .element
-/* comment 52 */
- {
+/* comment 52 */ {
 }
 
 /* comment 53 */
@@ -1094,8 +1089,7 @@ input:not(/* comment 125 */[/* comment 126 */disabled/* comment 127 */]/* commen
 >>>
 /* comment 59 */
 .element
-/* comment 60 */
- {
+/* comment 60 */ {
 }
 
 a[/* comment 61 */target/* comment 62 */] {
@@ -1232,7 +1226,7 @@ article /* comment 168 */ :--heading /* comment 169 */ + /* comment 170 */ p /* 
 ================================================================================
 `;
 
-exports[`selectors.scss 1`] = `
+exports[`selectors.scss format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -1323,7 +1317,7 @@ printWidth: 80
   &[data-field-id="1"], // comment 4
   &[data-field-id="2"], // comment 5
   &[data-field-id="3"], // comment 6
- {
+  {
     background: green;
   }
 }
@@ -1331,7 +1325,7 @@ printWidth: 80
 // comment 7
 .field
 // comment 8
- {
+{
   // comment 9
   // comment 10
   &[data-field-id="1"], // comment 11
@@ -1342,7 +1336,7 @@ printWidth: 80
   // comment 16
   &[data-field-id="3"], // comment 17
   // comment 18
- {
+  {
     // comment 19
     // comment 20
     background: green;
@@ -1356,7 +1350,7 @@ printWidth: 80
 // comment 25
 .bar
 // comment 26
- {
+{
 }
 
 .foo
@@ -1365,13 +1359,13 @@ printWidth: 80
 // comment 28
 .bar
 // comment 29
- {
+{
 }
 
 ================================================================================
 `;
 
-exports[`source-map.css 1`] = `
+exports[`source-map.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -1393,7 +1387,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`trailing_star_slash.css 1`] = `
+exports[`trailing_star_slash.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -1414,7 +1408,7 @@ a {
 ================================================================================
 `;
 
-exports[`types.css 1`] = `
+exports[`types.css format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80
@@ -1516,7 +1510,7 @@ span {
 ================================================================================
 `;
 
-exports[`variable-declaration.scss 1`] = `
+exports[`variable-declaration.scss format 1`] = `
 ====================================options=====================================
 parsers: ["css"]
 printWidth: 80

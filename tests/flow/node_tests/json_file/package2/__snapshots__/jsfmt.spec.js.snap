@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`index.js 1`] = `
+exports[`index.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -16,7 +16,7 @@ module.exports = {
 // @flow
 
 module.exports = {
-  foo: 123
+  foo: 123,
 };
 
 ================================================================================

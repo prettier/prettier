@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`logical.js 1`] = `
+exports[`logical.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -916,7 +916,7 @@ function logical13(x: number): Array<{ x: string }> {
     { x: 1 && "bar" },
     { x: "foo" && "bar" },
     { x: "foo" && "bar" },
-    { x: "foo" && "bar" }
+    { x: "foo" && "bar" },
   ];
 }
 
@@ -932,7 +932,7 @@ function logical14(x: number): Array<{ x: string }> {
     { x: 0 || "bar" },
     { x: "foo" || "bar" },
     { x: "foo" || "bar" },
-    { x: "foo" || "bar" }
+    { x: "foo" || "bar" },
   ];
 }
 

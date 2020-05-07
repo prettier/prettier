@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`apply.js 1`] = `
+exports[`apply.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -112,7 +112,7 @@ function test3(x: { (a: string, b: string): void }) {
 ================================================================================
 `;
 
-exports[`bind.js 1`] = `
+exports[`bind.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -151,35 +151,35 @@ let tests = [
 // @flow
 
 let tests = [
-  function(x: (a: string, b: string) => void) {
+  function (x: (a: string, b: string) => void) {
     let y = x.bind(x, "foo");
     y("bar"); // ok
     y(123); // error, number !~> string
   },
 
   // callable objects
-  function(x: { (a: string, b: string): void }) {
+  function (x: { (a: string, b: string): void }) {
     let y = x.bind(x, "foo");
     y("bar"); // ok
     y(123); // error, number !~> string
   },
 
   // non-callable objects
-  function(x: { a: string }) {
+  function (x: { a: string }) {
     x.bind(x, "foo"); // error
   },
 
   // callable objects with overridden \`bind\` method
-  function(x: { (a: string, b: string): void, bind(a: string): void }) {
+  function (x: { (a: string, b: string): void, bind(a: string): void }) {
     (x.bind("foo"): void); // ok
     (x.bind(123): void); // error, number !~> string
-  }
+  },
 ];
 
 ================================================================================
 `;
 
-exports[`call.js 1`] = `
+exports[`call.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -277,7 +277,7 @@ function test3(x: { (a: string, b: string): void }) {
 ================================================================================
 `;
 
-exports[`function.js 1`] = `
+exports[`function.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -360,7 +360,7 @@ var e = (d.bind(1): Function)();
 // can only be called with 3 arguments.
 var a: Function = (a, b, c) => 123;
 
-var b: Function = function(a: number, b: number): number {
+var b: Function = function (a: number, b: number): number {
   return a + b;
 };
 
@@ -387,7 +387,7 @@ function bad(x: Function, y: Object): void {
 }
 
 let tests = [
-  function(y: () => void, z: Function) {
+  function (y: () => void, z: Function) {
     function x() {}
     (x.length: void); // error, it's a number
     (y.length: void); // error, it's a number
@@ -398,7 +398,7 @@ let tests = [
     (z.name: void); // error, it's a string
   },
 
-  function(y: () => void, z: Function) {
+  function (y: () => void, z: Function) {
     function x() {}
     x.length = "foo"; // error, it's a number
     y.length = "foo"; // error, it's a number
@@ -411,7 +411,7 @@ let tests = [
     // Non-(Function.prototype) properties on a \`Function\` type should be \`any\`
     (z.foo: number);
     (z.foo: string);
-  }
+  },
 ];
 
 // \`Function\` types can be bound (resulting in a \`Function\` type)
@@ -423,7 +423,7 @@ var e = (d.bind(1): Function)();
 ================================================================================
 `;
 
-exports[`rest.js 1`] = `
+exports[`rest.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -530,7 +530,7 @@ function roarray_rest_t<T: $ReadOnlyArray<mixed>>(...xs: T): void {}
 function iterable_rest_t<T: Iterable<mixed>>(...xs: T): void {}
 function empty_rest_t<T: empty>(...xs: T): void {}
 function bounds_on_bounds<T>() {
-  return function<U: T>(...xs: T): void {};
+  return function <U: T>(...xs: T): void {};
 }
 
 // These are bad bounds for the rest param
@@ -561,7 +561,7 @@ function empty_rest<T: Array<mixed>>(...xs: T): T {
 function return_rest_param<Args: Array<mixed>>(
   f: (...args: Args) => void
 ): (...args: Args) => number {
-  return function(...args) {
+  return function (...args) {
     return args; // Error: Array ~> number
   };
 }
@@ -572,7 +572,7 @@ requires_first_param(); // Error: missing first arg
 ================================================================================
 `;
 
-exports[`rest_type.js 1`] = `
+exports[`rest_type.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80

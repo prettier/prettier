@@ -1,9 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`order.js 1`] = `
+exports[`order.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
+trailingComma: "all"
                                                                                 | printWidth
 =====================================input======================================
 type Foo = {
@@ -28,7 +29,7 @@ type Foo = {
   [key: string]: void,
   // c
 
-  beta: 10
+  beta: 10,
 
   // d
 };
@@ -36,11 +37,10 @@ type Foo = {
 ================================================================================
 `;
 
-exports[`order.js 2`] = `
+exports[`order.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
-trailingComma: "all"
                                                                                 | printWidth
 =====================================input======================================
 type Foo = {

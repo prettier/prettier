@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`break-tags.html 1`] = `
+exports[`break-tags.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -20,7 +20,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`display-inline-block.html 1`] = `
+exports[`display-inline-block.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -69,7 +69,7 @@ Click here! Click here! Click here! Click here! Click here! Click here!
 ================================================================================
 `;
 
-exports[`display-none.html 1`] = `
+exports[`display-none.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -90,7 +90,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`fill.html 1`] = `
+exports[`fill.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -113,7 +113,7 @@ printWidth: 80
   <img
     src="/images/pansies.jpg"
     alt="about fedco bottom image"
-    style="float: left;"
+    style="float: left"
   /><strong>We are a cooperative</strong>, one of the few seed companies so
   organized in the United States. Because we do not have an individual owner or
   beneficiary, profit is not our primary goal. Consumers own 60% of the
@@ -125,7 +125,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`inline-leading-trailing-spaces.html 1`] = `
+exports[`inline-leading-trailing-spaces.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -143,7 +143,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`inline-nodes.html 1`] = `
+exports[`inline-nodes.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -193,7 +193,7 @@ conubia nostra, per inceptos himenaeos. Donec in ornare velit.</p>
 ================================================================================
 `;
 
-exports[`non-breaking-whitespace.html 1`] = `
+exports[`non-breaking-whitespace.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -222,7 +222,274 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`surrounding-linebreak.html 1`] = `
+exports[`snippet: #18 format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<div> </div>
+=====================================output=====================================
+<div> </div>
+
+================================================================================
+`;
+
+exports[`snippet: #19 format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<div>          </div>
+=====================================output=====================================
+<div> </div>
+
+================================================================================
+`;
+
+exports[`snippet: #20 format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<div>           </div>
+=====================================output=====================================
+<div>  </div>
+
+================================================================================
+`;
+
+exports[`snippet: #21 format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<div>                   </div>
+=====================================output=====================================
+<div>   </div>
+
+================================================================================
+`;
+
+exports[`snippet: #22 format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<span> </span>
+=====================================output=====================================
+<span> </span>
+
+================================================================================
+`;
+
+exports[`snippet: #23 format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<span>          </span>
+=====================================output=====================================
+<span>   </span>
+
+================================================================================
+`;
+
+exports[`snippet: #24 format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<span>           </span>
+=====================================output=====================================
+<span>    </span>
+
+================================================================================
+`;
+
+exports[`snippet: #25 format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<span>                   </span>
+=====================================output=====================================
+<span>     </span>
+
+================================================================================
+`;
+
+exports[`snippet: #26 format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<img/> <img/>
+=====================================output=====================================
+<img /> <img />
+
+================================================================================
+`;
+
+exports[`snippet: #27 format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<img/>          <img/>
+=====================================output=====================================
+<img />   <img />
+
+================================================================================
+`;
+
+exports[`snippet: #28 format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<img/>           <img/>
+=====================================output=====================================
+<img />    <img />
+
+================================================================================
+`;
+
+exports[`snippet: #29 format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<img/>                   <img/>
+=====================================output=====================================
+<img />     <img />
+
+================================================================================
+`;
+
+exports[`snippet: #30 format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<i />   |   <i />
+=====================================output=====================================
+<i />   |   <i />
+
+================================================================================
+`;
+
+exports[`snippet: #31 format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<p><span>X</span>   or   <span>Y</span></p><p>X   or   Y</p>
+=====================================output=====================================
+<p><span>X</span>   or   <span>Y</span></p>
+<p>X   or   Y</p>
+
+================================================================================
+`;
+
+exports[`snippet: \`U+2005\` should format like \`U+005F\` not like \`U+0020\` format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<!-- U+2005 -->
+<div>before<span> </span>afterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafter</div>
+<!-- U+005F -->
+<div>before<span>_</span>afterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafter</div>
+<!-- U+0020 -->
+<div>before<span> </span>afterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafter</div>
+=====================================output=====================================
+<!-- U+2005 -->
+<div>
+  before<span> </span>afterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafter
+</div>
+<!-- U+005F -->
+<div>
+  before<span>_</span>afterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafter
+</div>
+<!-- U+0020 -->
+<div>
+  before<span
+  > </span
+  >afterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafterafter
+</div>
+
+================================================================================
+`;
+
+exports[`snippet: \`U+2005\` should indent like \`U+005F\` not like \`U+0020\` format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<!-- U+2005 -->
+<script type="text/unknown" lang="unknown">
+        // comment
+          // comment
+          // comment
+          // comment
+</script>
+<!-- U+005F -->
+<script type="text/unknown" lang="unknown">
+   _    // comment
+          // comment
+          // comment
+          // comment
+</script>
+<!-- U+0020 -->
+<script type="text/unknown" lang="unknown">
+        // comment
+          // comment
+          // comment
+          // comment
+</script>
+=====================================output=====================================
+<!-- U+2005 -->
+<script type="text/unknown" lang="unknown">
+       // comment
+         // comment
+         // comment
+         // comment
+</script>
+<!-- U+005F -->
+<script type="text/unknown" lang="unknown">
+  _    // comment
+         // comment
+         // comment
+         // comment
+</script>
+<!-- U+0020 -->
+<script type="text/unknown" lang="unknown">
+  // comment
+    // comment
+    // comment
+    // comment
+</script>
+
+================================================================================
+`;
+
+exports[`surrounding-linebreak.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -266,7 +533,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`table.html 1`] = `
+exports[`table.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80
@@ -333,7 +600,7 @@ printWidth: 80
 ================================================================================
 `;
 
-exports[`template.html 1`] = `
+exports[`template.html format 1`] = `
 ====================================options=====================================
 parsers: ["html"]
 printWidth: 80

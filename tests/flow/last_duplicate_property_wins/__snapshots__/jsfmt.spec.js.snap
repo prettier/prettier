@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`test.js 1`] = `
+exports[`test.js format 1`] = `
 ====================================options=====================================
 parsers: ["flow"]
 printWidth: 80
@@ -97,7 +97,7 @@ const o = {
   qux: 42,
   qux(): string {
     return "hello";
-  } // last wins
+  }, // last wins
 };
 
 // check

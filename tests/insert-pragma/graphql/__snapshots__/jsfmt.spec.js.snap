@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`with-pragma.graphql 1`] = `
+exports[`with-pragma.graphql - {"insertPragma":true} format 1`] = `
 ====================================options=====================================
 insertPragma: true
 parsers: ["graphql"]
@@ -21,7 +21,7 @@ query Browse($offset: Int) {
 ================================================================================
 `;
 
-exports[`without-pragma.graphql 1`] = `
+exports[`without-pragma.graphql - {"insertPragma":true} format 1`] = `
 ====================================options=====================================
 insertPragma: true
 parsers: ["graphql"]
