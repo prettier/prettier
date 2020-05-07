@@ -119,11 +119,16 @@ function hasPrettierIgnore(node) {
   }
 
   const prevNode = node.parent.children[node.index - 1];
-  return isPrettierIgnore(prevNode);
+  return isPrettierIgnore(prevNode) === "next";
 }
 
+/** @return {false | 'next' | 'start' | 'end'} */
 function isPrettierIgnore(node) {
-  return node.type === "comment" && node.value.trim() === "prettier-ignore";
+  if (node.type !== "comment") {
+    return false;
+  }
+  const match = node.value.match(/^\s*prettier-ignore(?:-(start|end))?\s*$/);
+  return match === null ? false : match[1] ? match[1] : "next";
 }
 
 function getPrettierIgnoreAttributeCommentData(value) {
@@ -138,6 +143,39 @@ function getPrettierIgnoreAttributeCommentData(value) {
   }
 
   return match[1].split(/\s+/);
+}
+
+function getIgnoreRanges(children) {
+  /** @typedef {{ index: number, offset: number }} IgnorePosition */
+  /** @type {Array<{start: IgnorePosition, end: IgnorePosition}>} */
+  const ignoreRanges = [];
+
+  /** @type {IgnorePosition | null} */
+  let ignoreStart = null;
+
+  children.forEach((childNode, index) => {
+    switch (isPrettierIgnore(childNode)) {
+      case "start":
+        if (ignoreStart === null) {
+          ignoreStart = { index, offset: childNode.sourceSpan.end.offset };
+        }
+        break;
+      case "end":
+        if (ignoreStart !== null) {
+          ignoreRanges.push({
+            start: ignoreStart,
+            end: { index, offset: childNode.sourceSpan.start.offset },
+          });
+          ignoreStart = null;
+        }
+        break;
+      default:
+        // do nothing
+        break;
+    }
+  });
+
+  return ignoreRanges;
 }
 
 /** there's no opening/closing tag or it's considered not breakable */
@@ -677,6 +715,7 @@ module.exports = {
   forceBreakChildren,
   forceBreakContent,
   forceNextEmptyLine,
+  getIgnoreRanges,
   getLastDescendant,
   getNodeCssStyleDisplay,
   getNodeCssStyleWhiteSpace,
@@ -690,6 +729,7 @@ module.exports = {
   isIndentationSensitiveNode,
   isLeadingSpaceSensitiveNode,
   isPreLikeNode,
+  isPrettierIgnore,
   isScriptLikeTag,
   isTextLikeNode,
   isTrailingSpaceSensitiveNode,

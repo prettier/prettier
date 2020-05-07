@@ -160,3 +160,136 @@ A super long string that has been marked as ignore because it was probably gener
 
 ================================================================================
 `;
+
+exports[`range.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<!-- prettier-ignore-start -->
+  <span>
+  Toplevel test
+</span>
+  <span>    test</span>
+<!-- prettier-ignore-end -->
+
+<div>
+  <!-- prettier-ignore-start -->
+  <p attribute =   "value">
+    Test  Test   Test
+    </p>
+
+    <span>
+      Test</span>
+
+  <!-- prettier-ignore-end -->
+
+  <ul>
+    <!-- prettier-ignore-start -->
+    <li>   First   </li><!--
+    --><li>   Second   </li><!--
+    --><li>       Third   </li>
+    <!-- prettier-ignore-end -->
+  </ul>
+
+  <!-- Should properly indent the start/end comments themselves -->
+          <!-- prettier-ignore-start -->
+  <p attribute =   "value">
+    Test  Test   Test
+    </p>
+
+    <span>
+      Test</span>
+
+                            <!-- prettier-ignore-end -->
+
+  <!-- But should not move the comments if they are on a single line -->
+  <!-- prettier-ignore-start -->     <span   test =  "foo" ></span>       <!-- prettier-ignore-end -->
+
+  <!-- This next one is invalid, and shouldn't affect the format -->
+  <div>
+    <!-- prettier-ignore-start -->
+    <p attribute =   "value">
+      Test  Test   Test
+      </p>
+
+      <span>
+        Test</span>
+  </div>
+  <!-- prettier-ignore-end -->
+</div>
+
+=====================================output=====================================
+<!-- prettier-ignore-start -->
+  <span>
+  Toplevel test
+</span>
+  <span>    test</span>
+<!-- prettier-ignore-end -->
+
+<div>
+  <!-- prettier-ignore-start -->
+  <p attribute =   "value">
+    Test  Test   Test
+    </p>
+
+    <span>
+      Test</span>
+
+  <!-- prettier-ignore-end -->
+
+  <ul>
+    <!-- prettier-ignore-start -->
+    <li>   First   </li><!--
+    --><li>   Second   </li><!--
+    --><li>       Third   </li>
+    <!-- prettier-ignore-end -->
+  </ul>
+
+  <!-- Should properly indent the start/end comments themselves -->
+  <!-- prettier-ignore-start -->
+  <p attribute =   "value">
+    Test  Test   Test
+    </p>
+
+    <span>
+      Test</span>
+
+  <!-- prettier-ignore-end -->
+
+  <!-- But should not move the comments if they are on a single line -->
+  <!-- prettier-ignore-start -->     <span   test =  "foo" ></span>       <!-- prettier-ignore-end -->
+
+  <!-- This next one is invalid, and shouldn't affect the format -->
+  <div>
+    <!-- prettier-ignore-start -->
+    <p attribute="value">
+      Test Test Test
+    </p>
+
+    <span> Test</span>
+  </div>
+  <!-- prettier-ignore-end -->
+</div>
+
+================================================================================
+`;
+
+exports[`range-invalid.html 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<div><!-- prettier-ignore-start -->test   test   </div><!-- prettier-ignore-end -->
+<div><!-- prettier-ignore-start --><span>test        test</span></div><!-- prettier-ignore-end -->
+
+=====================================output=====================================
+<div><!-- prettier-ignore-start -->test test</div>
+<!-- prettier-ignore-end -->
+<div><!-- prettier-ignore-start --><span>test test</span></div>
+<!-- prettier-ignore-end -->
+
+================================================================================
+`;
