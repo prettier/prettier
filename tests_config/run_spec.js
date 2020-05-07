@@ -57,13 +57,13 @@ global.run_spec = (fixtures, parsers, options) => {
   // `IS_PARSER_INFERENCE_TESTS` mean to test `inferParser` on `standalone`
   const IS_PARSER_INFERENCE_TESTS = isTestDirectory(
     dirname,
-    "parser-inference"
+    "misc/parser-inference"
   );
 
   // `IS_ERROR_TESTS` mean to watch errors like:
   // - syntax parser hasn't supported yet
   // - syntax errors that should throws
-  const IS_ERROR_TESTS = isTestDirectory(dirname, "errors");
+  const IS_ERROR_TESTS = isTestDirectory(dirname, "misc/errors");
 
   if (IS_PARSER_INFERENCE_TESTS) {
     parsers = [];
