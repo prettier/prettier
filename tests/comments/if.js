@@ -59,3 +59,21 @@ else if (15) // comment
 /* comment */
 /* comment */ // comment
 true
+
+if (cond) 
+  console.log("db");
+/* comment */ 
+else {
+}
+
+if (cond) {}
+/* comment */ 
+else {
+}
+
+if (cond) {
+  console.log("db");
+}
+/* comment */ 
+else {
+}

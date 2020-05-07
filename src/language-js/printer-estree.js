@@ -1829,7 +1829,7 @@ function printPathNoParens(path, options, print, args) {
               (comment) =>
                 comment.trailing && !handleComments.isBlockComment(comment)
             )) ||
-          needsHardlineAfterDanglingComment(n);
+          hasDanglingComments(n);
         const elseOnSameLine =
           n.consequent.type === "BlockStatement" && !commentOnOwnLine;
         parts.push(elseOnSameLine ? " " : hardline);
