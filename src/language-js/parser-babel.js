@@ -65,9 +65,8 @@ function createParse(parseMethod, ...pluginCombinations) {
     // Inline the require to avoid loading all the JS if we don't use it
     const babel = require("@babel/parser");
 
-    // HTML-like Comments https://tc39.es/ecma262/#sec-html-like-comments
-    // requires sourceType to be `script` https://github.com/babel/babel/issues/7802#issuecomment-492522145
-    const sourceType = /<!--|-->/.test(text) ? "unambiguous" : "module";
+    const sourceType =
+      opts && opts.__babelSourceType === "script" ? "script" : "module";
 
     let ast;
     try {

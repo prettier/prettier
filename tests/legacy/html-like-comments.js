@@ -1,4 +1,0 @@
-alert(
-<!-- comment
-'hello world'
-)
