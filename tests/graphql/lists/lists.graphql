@@ -1,0 +1,4 @@
+{
+  shortWithList(list: [1, 2, 3])
+  longWithList(list: ["hello world this is a very long string!","hello world this is a very long string!", "hello world this is a very long string!"])
+}

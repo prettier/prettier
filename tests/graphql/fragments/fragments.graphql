@@ -1,0 +1,15 @@
+{
+  field
+  ...   XYZ
+  ... on TheType {
+    ...AFragment
+    ...          {
+      noTypeCondition
+    }
+  }
+}
+
+fragment XYZ on ABC {
+  field
+  ...AFragment
+}

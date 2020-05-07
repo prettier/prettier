@@ -1,0 +1,35 @@
+query MyFirstQuery {
+  # comment
+  field {
+
+    subfield
+
+    # comment
+    subfield
+
+  }
+
+  field
+  #comment
+  field
+
+}
+
+mutation MyFirstMutation {
+
+  # comment
+  name
+
+  comment # comment
+  kind
+
+}
+
+subscription MySubscription {
+
+  name
+
+  comment
+  kind
+
+}

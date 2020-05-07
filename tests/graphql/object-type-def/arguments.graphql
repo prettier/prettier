@@ -1,0 +1,3 @@
+type Video {
+  playable_url(quality: String, preferred: String): Url
+}

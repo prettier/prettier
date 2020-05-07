@@ -1,0 +1,4 @@
+input Params {
+  app_id: ID!
+  key_hash: String!
+}
