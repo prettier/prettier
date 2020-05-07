@@ -7,6 +7,7 @@ const parseFrontMatter = require("../utils/front-matter");
 const { mapAst, INLINE_NODE_WRAPPER_TYPES } = require("./utils");
 const mdx = require("./mdx");
 const remarkMath = require("remark-math");
+const footnotes = require("remark-footnotes");
 
 /**
  * based on [MDAST](https://github.com/syntax-tree/mdast) with following modifications:
@@ -26,10 +27,10 @@ function createParse({ isMDX }) {
   return (text) => {
     const processor = unified()
       .use(remarkParse, {
-        footnotes: true,
         commonmark: true,
         ...(isMDX && { blocks: [mdx.BLOCKS_REGEX] }),
       })
+      .use(footnotes)
       .use(frontMatter)
       .use(remarkMath)
       .use(isMDX ? mdx.esSyntax : identity)
