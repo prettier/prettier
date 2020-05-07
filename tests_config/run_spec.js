@@ -32,7 +32,7 @@ const unstableTests = new Map(
     "markdown_footnoteDefinition/multiline.md",
     "markdown_spec/example-234.md",
     "markdown_spec/example-235.md",
-    "multiparser_html_js/script-tag-escaping.html",
+    "html/multiparser-js/script-tag-escaping.html",
     [
       "multiparser_js_markdown/codeblock.js",
       (options) => options.proseWrap === "always",
