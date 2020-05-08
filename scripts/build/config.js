@@ -172,6 +172,7 @@ const coreBundles = [
       // cosmiconfig@5 -> import-fresh uses `require` to resolve js config, which caused Error:
       // Dynamic requires are not currently supported by rollup-plugin-commonjs.
       "require(filePath)": "eval('require')(filePath)",
+      "parent.eval('require')(filePath)": "parent.require(filePath)",
       "require.cache": "eval('require').cache",
       // cosmiconfig@6 -> import-fresh can't find parentModule, since module is bundled
       "parentModule(__filename)": "__filename",
