@@ -147,8 +147,7 @@ function getRollupConfig(bundle) {
 
   const babelConfig = getBabelConfig(bundle);
 
-  const alias = { ...bundle.alias };
-  alias.entries = [...entries, ...(alias.entries || [])];
+  const alias = { ...bundle.alias, entries: [...entries, ...(bundle.alias.entries || [])] };
 
   config.plugins = [
     replace({
