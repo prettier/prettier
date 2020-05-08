@@ -374,21 +374,6 @@ Valid options:
 | ------- | ------------------------------------------------------------------------ | ----------------------------------------------------------------------- |
 | `"css"` | <code>--html-whitespace-sensitivity <css&#124;strict&#124;ignore></code> | <code>htmlWhitespaceSensitivity: "<css&#124;strict&#124;ignore>"</code> |
 
-## Single Attribute Per Line
-
-_First available in v1.19.0_
-
-Enforce single attribute per line in HTML, Vue and JSX.
-
-Valid options:
-
-- `false` - Do not enforce single attribute per line.
-- `true` - Enforce single attribute per line.
-
-| Default | CLI Override                  | API Override                     |
-| ------- | ----------------------------- | -------------------------------- |
-| `false` | `--single-attribute-per-line` | `singleAttributePerLine: <bool>` |
-
 ## Vue files script and style tags indentation
 
 _First available in v1.19.0_
@@ -458,3 +443,18 @@ Valid options:
 | Default  | CLI Override                         | API Override                        |
 | -------- | ------------------------------------ | ----------------------------------- |
 | `"auto"` | `--embedded-language-formatting=off` | `embeddedLanguageFormatting: "off"` |
+
+## Single Attribute Per Line
+
+_First available in v2.1.0_
+
+Enforce single attribute per line in HTML, Vue and JSX.
+
+Valid options:
+
+- `false` - Do not enforce single attribute per line.
+- `true` - Enforce single attribute per line.
+
+| Default | CLI Override                  | API Override                     |
+| ------- | ----------------------------- | -------------------------------- |
+| `false` | `--single-attribute-per-line` | `singleAttributePerLine: <bool>` |

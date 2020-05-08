@@ -55,7 +55,7 @@ module.exports = {
       "Put > of opening tags on the last line instead of on a new line.",
   },
   singleAttributePerLine: {
-    since: "1.19.0",
+    since: "2.1.0",
     category: CATEGORY_COMMON,
     type: "boolean",
     default: false,
