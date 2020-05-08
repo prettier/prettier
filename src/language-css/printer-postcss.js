@@ -552,9 +552,10 @@ function genericPrint(path, options, print) {
 
         // styled.div` background: var(--${one}); `
         if (
-          !iPrevNode &&
-          iNode.value === "--" &&
-          iNextNode.type === "value-atword"
+          iNode.type === "value-word" &&
+          iNode.value.endsWith("-") &&
+          iNextNode.type === "value-atword" &&
+          iNextNode.value.startsWith("prettier-placeholder-")
         ) {
           continue;
         }
