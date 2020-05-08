@@ -5,7 +5,7 @@ const { thirdParty } = require("../env");
 const { cosmiconfig, cosmiconfigSync } = require(thirdParty);
 
 // This don't has to be the same result as `prettier.resolveConfig`,
-// Because we are using default `cosmiconfigOptions`
+// Because we are testing with default `cosmiconfigOptions`
 describe("cosmiconfig", () => {
   const configs = [
     {
