@@ -8,7 +8,7 @@ const prettier = require("../index");
 const stringify = require("json-stable-stringify");
 const util = require("./util");
 
-function run(args) {
+async function run(args) {
   const context = util.createContext(args);
 
   try {
@@ -71,7 +71,7 @@ function run(args) {
     } else if (useStdin) {
       util.formatStdin(context);
     } else if (hasFilePatterns) {
-      util.formatFiles(context);
+      await util.formatFiles(context);
     } else {
       context.logger.log(util.createUsage(context));
       process.exit(1);
