@@ -4,6 +4,7 @@ const fs = require("fs");
 const path = require("path");
 const raw = require("jest-snapshot-serializer-raw").wrap;
 const { isCI } = require("ci-info");
+const checkParsers = require("./utils/check-parsers");
 
 const { TEST_STANDALONE } = process.env;
 const AST_COMPARE = isCI || process.env.AST_COMPARE;
@@ -53,6 +54,9 @@ const isTestDirectory = (dirname, name) =>
 global.run_spec = (fixtures, parsers, options) => {
   fixtures = typeof fixtures === "string" ? { dirname: fixtures } : fixtures;
   const { dirname } = fixtures;
+
+  // Make sure tests are in correct location
+  checkParsers(dirname, parsers);
 
   // `IS_PARSER_INFERENCE_TESTS` mean to test `inferParser` on `standalone`
   const IS_PARSER_INFERENCE_TESTS = isTestDirectory(
