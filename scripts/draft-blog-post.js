@@ -67,9 +67,9 @@ for (const dir of dirs) {
         highlight: title.includes("[HIGHLIGHT]"),
         content: [
           title
-            .replace(/\[(BREAKING|HIGHLIGHT)\]/g, "")
+            .replace(/\[(BREAKING|HIGHLIGHT)]/g, "")
             .replace(/\s+/g, " ")
-            .replace(/^#### [a-z]/, (s) => s.toUpperCase()),
+            .replace(/^#{4} [a-z]/, (s) => s.toUpperCase()),
           ...rest,
         ].join("\n"),
       };

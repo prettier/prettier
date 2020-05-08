@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - patch-release
   pull_request:
 
 jobs:
@@ -19,10 +20,24 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: "12"
+          node-version: "14"
 
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
+
+      - name: Cache Build Results
+        # Prevent error on re-run
+        # https://github.com/actions/cache/issues/107#issuecomment-556037278
+        if: github.event_name == 'push' || github.event_name == 'pull_request'
+        id: build-cache
+        uses: actions/cache@v1
+        with:
+          path: .cache
+          key: v1-build-cache-${{ hashFiles('yarn.lock') }}-${{ hashFiles('scripts/build/**/*') }}-${{ github.ref }}-
+          restore-keys: |
+            v1-build-cache-${{ hashFiles('yarn.lock') }}-${{ hashFiles('scripts/build/**/*') }}-${{ github.ref }}-
+            v1-build-cache-${{ hashFiles('yarn.lock') }}-${{ hashFiles('scripts/build/**/*') }}-refs/heads/${{ github.base_ref }}-
+            v1-build-cache-${{ hashFiles('yarn.lock') }}-${{ hashFiles('scripts/build/**/*') }}-refs/heads/master-
 
       - name: Build Package
         run: yarn build
@@ -46,7 +61,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: "12"
+          node-version: "14"
 
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
@@ -69,12 +84,14 @@ jobs:
           - "macos-latest"
           - "windows-latest"
         node:
-          - "13"
+          - "14"
           - "12"
           - "10"
         exclude:
           - os: "macos-latest"
-            node: "13"
+            node: "12"
+          - os: "windows-latest"
+            node: "12"
     name: Node.js ${{ matrix.node }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     needs: [build]
@@ -98,48 +115,25 @@ jobs:
           name: dist
           path: dist
 
-      - name: Run Tests
-        run: yarn test:dist
+      - name: Run Tests (macOS)
+        if: matrix.os == 'macos-latest'
+        run: yarn test:dist --maxWorkers=4
 
-  standalone:
-    strategy:
-      fail-fast: false
-      matrix:
-        os:
-          - "ubuntu-latest"
-          - "macos-latest"
-          - "windows-latest"
-        node:
-          - "13"
-          - "12"
-          - "10"
-        exclude:
-          - os: "macos-latest"
-            node: "13"
-    env:
-      STANDALONE: true
-    name: Node.js ${{ matrix.node }} on ${{ matrix.os }} (standalone)
-    runs-on: ${{ matrix.os }}
-    needs: [build]
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 1
+      - name: Run Tests (Linux and Windows)
+        if: matrix.os != 'macos-latest'
+        run: yarn test:dist --maxWorkers=2
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node }}
+      - name: Run Tests (standalone) (macOS)
+        if: matrix.os == 'macos-latest'
+        run: yarn test:dist-standalone --maxWorkers=4
 
-      - name: Install Dependencies
-        run: yarn install --frozen-lockfile
+      - name: Run Tests (standalone) (Linux and Windows)
+        if: matrix.os != 'macos-latest'
+        run: yarn test:dist-standalone --maxWorkers=2
 
-      - name: Download Artifact
-        uses: actions/download-artifact@v1
-        with:
-          name: dist
-          path: dist
-
-      - name: Run Tests
-        run: yarn test:dist
+      # #8073 test
+      - name: Run Tests (PRETTIER_FALLBACK_RESOLVE)
+        run: yarn test "tests_integration/__tests__/(config|plugin)"
+        env:
+          NODE_ENV: production
+          PRETTIER_FALLBACK_RESOLVE: true

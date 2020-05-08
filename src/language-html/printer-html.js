@@ -20,6 +20,8 @@ const {
   softline,
 } = builders;
 const {
+  htmlTrimPreserveIndentation,
+  splitByHtmlWhitespace,
   countChars,
   countParents,
   dedentString,
@@ -30,6 +32,7 @@ const {
   getPrettierIgnoreAttributeCommentData,
   hasPrettierIgnore,
   inferScriptParser,
+  isVueCustomBlock,
   isScriptLikeTag,
   isTextLikeNode,
   normalizeParts,
@@ -73,7 +76,20 @@ function embed(path, print, textToDoc, options) {
             concat([
               breakParent,
               printOpeningTagPrefix(node, options),
-              stripTrailingHardline(textToDoc(value, { parser })),
+              stripTrailingHardline(
+                textToDoc(
+                  value,
+                  options.parser === "html" && parser === "babel"
+                    ? {
+                        parser,
+                        __babelSourceType:
+                          node.attrMap && node.attrMap.type === "module"
+                            ? "module"
+                            : "script",
+                      }
+                    : { parser }
+                )
+              ),
               printClosingTagSuffix(node, options),
             ]),
           ]);
@@ -98,6 +114,25 @@ function embed(path, print, textToDoc, options) {
             ? " "
             : line,
         ]);
+      } else if (isVueCustomBlock(node.parent, options)) {
+        const parser = inferScriptParser(node.parent, options);
+        let printed;
+        if (parser) {
+          try {
+            printed = textToDoc(node.value, { parser });
+          } catch (error) {
+            // Do nothing
+          }
+        }
+        if (printed == null) {
+          printed = node.value;
+        }
+        return concat([
+          parser ? breakParent : "",
+          printOpeningTagPrefix(node),
+          stripTrailingHardline(printed, true),
+          printClosingTagSuffix(node),
+        ]);
       }
       break;
     }
@@ -120,7 +155,7 @@ function embed(path, print, textToDoc, options) {
 
       // lwc: html`<my-element data-for={value}></my-element>`
       if (options.parser === "lwc") {
-        const interpolationRegex = /^\{[\s\S]*\}$/;
+        const interpolationRegex = /^{[\S\s]*}$/;
         if (
           interpolationRegex.test(
             options.originalText.slice(
@@ -225,7 +260,8 @@ function genericPrint(path, options, print) {
                       ? ifBreak(indent(childrenDoc), childrenDoc, {
                           groupId: attrGroupId,
                         })
-                      : isScriptLikeTag(node) &&
+                      : (isScriptLikeTag(node) ||
+                          isVueCustomBlock(node, options)) &&
                         node.parent.type === "root" &&
                         options.parser === "vue" &&
                         !options.vueIndentScriptAndStyle
@@ -264,7 +300,7 @@ function genericPrint(path, options, print) {
                           node.isWhitespaceSensitive &&
                           node.isIndentationSensitive)) &&
                       new RegExp(
-                        `\\n\\s{${
+                        `\\n[\\t ]{${
                           options.tabWidth *
                           countParents(
                             path,
@@ -920,11 +956,10 @@ function getTextValueParts(node, value = node.value) {
     ? node.parent.isIndentationSensitive
       ? replaceEndOfLineWith(value, literalline)
       : replaceEndOfLineWith(
-          dedentString(value.replace(/^\s*?\n|\n\s*?$/g, "")),
+          dedentString(htmlTrimPreserveIndentation(value)),
           hardline
         )
-    : // https://infra.spec.whatwg.org/#ascii-whitespace
-      join(line, value.split(/[\t\n\f\r ]+/)).parts;
+    : join(line, splitByHtmlWhitespace(value)).parts;
 }
 
 function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
@@ -1100,7 +1135,7 @@ function printEmbeddedAttributeValue(node, originalTextToDoc, options) {
       );
     }
 
-    const interpolationRegex = /\{\{([\s\S]+?)\}\}/g;
+    const interpolationRegex = /{{([\S\s]+?)}}/g;
     const value = getValue();
     if (interpolationRegex.test(value)) {
       const parts = [];

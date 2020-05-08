@@ -151,6 +151,9 @@ function genericPrint(path, options, print) {
         insideICSSRuleNode(path) ? node.prop : maybeToLowerCase(node.prop),
         node.raws.between.trim() === ":" ? ":" : node.raws.between.trim(),
         node.extend ? "" : " ",
+        isLessParser(options) && node.extend && node.selector
+          ? concat(["extend(", path.call(print, "selector"), ")"])
+          : "",
         hasComposesNode(node)
           ? removeLines(path.call(print, "value"))
           : path.call(print, "value"),
@@ -182,6 +185,8 @@ function genericPrint(path, options, print) {
             !parentNode.raws.semicolon &&
             options.originalText[options.locEnd(node) - 1] !== ";"
           ? ""
+          : options.__isHTMLStyleAttribute && isLastNode(path, node)
+          ? ifBreak(";", "")
           : ";",
       ]);
     }
@@ -280,7 +285,17 @@ function genericPrint(path, options, print) {
           : "",
         node.nodes
           ? concat([
-              isSCSSControlDirectiveNode(node) ? "" : " ",
+              isSCSSControlDirectiveNode(node)
+                ? ""
+                : (node.selector &&
+                    !node.selector.nodes &&
+                    typeof node.selector.value === "string" &&
+                    lastLineHasInlineComment(node.selector.value)) ||
+                  (!node.selector &&
+                    typeof node.params === "string" &&
+                    lastLineHasInlineComment(node.params))
+                ? line
+                : " ",
               "{",
               indent(
                 concat([
@@ -537,9 +552,10 @@ function genericPrint(path, options, print) {
 
         // styled.div` background: var(--${one}); `
         if (
-          !iPrevNode &&
-          iNode.value === "--" &&
-          iNextNode.type === "value-atword"
+          iNode.type === "value-word" &&
+          iNode.value.endsWith("-") &&
+          iNextNode.type === "value-atword" &&
+          iNextNode.value.startsWith("prettier-placeholder-")
         ) {
           continue;
         }
@@ -974,10 +990,10 @@ function printNodeSequence(path, options, print) {
   return concat(parts);
 }
 
-const STRING_REGEX = /(['"])(?:(?!\1)[^\\]|\\[\s\S])*\1/g;
-const NUMBER_REGEX = /(?:\d*\.\d+|\d+\.?)(?:[eE][+-]?\d+)?/g;
-const STANDARD_UNIT_REGEX = /[a-zA-Z]+/g;
-const WORD_PART_REGEX = /[$@]?[a-zA-Z_\u0080-\uFFFF][\w\-\u0080-\uFFFF]*/g;
+const STRING_REGEX = /(["'])(?:(?!\1)[^\\]|\\[\S\s])*\1/g;
+const NUMBER_REGEX = /(?:\d*\.\d+|\d+\.?)(?:[Ee][+-]?\d+)?/g;
+const STANDARD_UNIT_REGEX = /[A-Za-z]+/g;
+const WORD_PART_REGEX = /[$@]?[A-Z_a-z\u0080-\uFFFF][\w\u0080-\uFFFF-]*/g;
 const ADJUST_NUMBERS_REGEX = new RegExp(
   STRING_REGEX.source +
     "|" +

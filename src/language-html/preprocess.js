@@ -1,6 +1,9 @@
 "use strict";
 
 const {
+  htmlTrim,
+  getLeadingAndTrailingHtmlWhitespace,
+  hasHtmlWhitespace,
   canHaveInterpolation,
   getNodeCssStyleDisplay,
   isDanglingSpaceSensitiveNode,
@@ -176,8 +179,7 @@ function mergeSimpleElementIntoText(ast /*, options */) {
     node.attrs.length === 0 &&
     node.children.length === 1 &&
     node.firstChild.type === "text" &&
-    // \xA0: non-breaking whitespace
-    !/[^\S\xA0]/.test(node.children[0].value) &&
+    !hasHtmlWhitespace(node.children[0].value) &&
     !node.firstChild.hasLeadingSpaces &&
     !node.firstChild.hasTrailingSpaces &&
     node.isLeadingSpaceSensitive &&
@@ -232,7 +234,7 @@ function extractInterpolation(ast, options) {
     return ast;
   }
 
-  const interpolationRegex = /\{\{([\s\S]+?)\}\}/g;
+  const interpolationRegex = /{{([\S\s]+?)}}/g;
   return ast.map((node) => {
     if (!canHaveInterpolation(node)) {
       return node;
@@ -313,7 +315,7 @@ function extractWhitespaces(ast /*, options*/) {
       node.children.length === 0 ||
       (node.children.length === 1 &&
         node.children[0].type === "text" &&
-        node.children[0].value.trim().length === 0)
+        htmlTrim(node.children[0].value).length === 0)
     ) {
       return node.clone({
         children: [],
@@ -336,11 +338,13 @@ function extractWhitespaces(ast /*, options*/) {
 
           const localChildren = [];
 
-          const [, leadingSpaces, text, trailingSpaces] = child.value.match(
-            /^(\s*)([\s\S]*?)(\s*)$/
-          );
+          const {
+            leadingWhitespace,
+            text,
+            trailingWhitespace,
+          } = getLeadingAndTrailingHtmlWhitespace(child.value);
 
-          if (leadingSpaces) {
+          if (leadingWhitespace) {
             localChildren.push({ type: TYPE_WHITESPACE });
           }
 
@@ -351,13 +355,13 @@ function extractWhitespaces(ast /*, options*/) {
               type: "text",
               value: text,
               sourceSpan: new ParseSourceSpan(
-                child.sourceSpan.start.moveBy(leadingSpaces.length),
-                child.sourceSpan.end.moveBy(-trailingSpaces.length)
+                child.sourceSpan.start.moveBy(leadingWhitespace.length),
+                child.sourceSpan.end.moveBy(-trailingWhitespace.length)
               ),
             });
           }
 
-          if (trailingSpaces) {
+          if (trailingWhitespace) {
             localChildren.push({ type: TYPE_WHITESPACE });
           }
 
@@ -426,7 +430,7 @@ function addCssDisplay(ast, options) {
  * - add `isTrailingSpaceSensitive` field
  * - add `isDanglingSpaceSensitive` field for parent nodes
  */
-function addIsSpaceSensitive(ast /*, options */) {
+function addIsSpaceSensitive(ast, options) {
   return ast.map((node) => {
     if (!node.children) {
       return node;
@@ -443,8 +447,14 @@ function addIsSpaceSensitive(ast /*, options */) {
         .map((child) => {
           return {
             ...child,
-            isLeadingSpaceSensitive: isLeadingSpaceSensitiveNode(child),
-            isTrailingSpaceSensitive: isTrailingSpaceSensitiveNode(child),
+            isLeadingSpaceSensitive: isLeadingSpaceSensitiveNode(
+              child,
+              options
+            ),
+            isTrailingSpaceSensitive: isTrailingSpaceSensitiveNode(
+              child,
+              options
+            ),
           };
         })
         .map((child, index, children) => ({

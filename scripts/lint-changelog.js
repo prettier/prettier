@@ -52,14 +52,14 @@ for (const file of [
   }
 }
 
-const authorRegex = /by \[@(.*?)\]\(https:\/\/github\.com\/\1\)/;
+const authorRegex = /by \[@(.*?)]\(https:\/\/github\.com\/\1\)/;
 const titleRegex = /^#{4} (.*?)\(\[#\d{4,}]/;
 
 const template = fs.readFileSync(
   path.join(CHANGELOG_ROOT, TEMPLATE_FILE),
   "utf8"
 );
-const [templateComment] = template.match(/<!--[\s\S]*?-->/);
+const [templateComment] = template.match(/<!--[\S\s]*?-->/);
 const [templateAuthorLink] = template.match(authorRegex);
 
 for (const category of CHANGELOG_CATEGORIES) {
@@ -117,7 +117,9 @@ for (const category of CHANGELOG_CATEGORIES) {
     }
     const [, title] = titleMatch;
     const categoryInTitle = title.split(":").shift().trim();
-    if (CHANGELOG_CATEGORIES.includes(categoryInTitle.toLowerCase())) {
+    if (
+      [...CHANGELOG_CATEGORIES, "js"].includes(categoryInTitle.toLowerCase())
+    ) {
       showErrorMessage(
         `[${displayPath}]: Please remove "${categoryInTitle}:" in title.`
       );

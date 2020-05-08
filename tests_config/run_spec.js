@@ -4,6 +4,7 @@ const fs = require("fs");
 const path = require("path");
 const raw = require("jest-snapshot-serializer-raw").wrap;
 const { isCI } = require("ci-info");
+const checkParsers = require("./utils/check-parsers");
 
 const { TEST_STANDALONE } = process.env;
 const AST_COMPARE = isCI || process.env.AST_COMPARE;
@@ -22,23 +23,23 @@ const prettier = !TEST_STANDALONE
 // TODO: these test files need fix
 const unstableTests = new Map(
   [
-    "class_comment/comments.js",
-    ["comments/dangling_array.js", (options) => options.semi === false],
-    ["comments/jsx.js", (options) => options.semi === false],
-    "comments/return-statement.js",
-    "comments/tagged-template-literal.js",
-    "comments_closure_typecast/iife.js",
-    "graphql_interface/separator-detection.graphql",
-    "markdown_footnoteDefinition/multiline.md",
-    "markdown_spec/example-234.md",
-    "markdown_spec/example-235.md",
-    "multiparser_html_js/script-tag-escaping.html",
+    "js/class-comment/comments.js",
+    ["js/comments/dangling_array.js", (options) => options.semi === false],
+    ["js/comments/jsx.js", (options) => options.semi === false],
+    "js/comments/binary-expressions-single-comments.js",
+    "js/comments/return-statement.js",
+    "js/comments/tagged-template-literal.js",
+    "js/comments-closure-typecast/iife.js",
+    "markdown/footnoteDefinition/multiline.md",
+    "markdown/spec/example-234.md",
+    "markdown/spec/example-235.md",
+    "html/multiparser-js/script-tag-escaping.html",
     [
-      "multiparser_js_markdown/codeblock.js",
+      "js/multiparser-markdown/codeblock.js",
       (options) => options.proseWrap === "always",
     ],
-    ["no-semi/comments.js", (options) => options.semi === false],
-    "yaml_prettier_ignore/document.yml",
+    ["js/no-semi/comments.js", (options) => options.semi === false],
+    "yaml/prettier-ignore/document.yml",
   ].map((fixture) => {
     const [file, isUnstable = () => true] = Array.isArray(fixture)
       ? fixture
@@ -47,36 +48,76 @@ const unstableTests = new Map(
   })
 );
 
-global.run_spec = (dirname, parsers, options) => {
+const isTestDirectory = (dirname, name) =>
+  dirname.startsWith(path.join(__dirname, "../tests", name));
+
+global.run_spec = (fixtures, parsers, options) => {
+  fixtures = typeof fixtures === "string" ? { dirname: fixtures } : fixtures;
+  const { dirname } = fixtures;
+
+  // Make sure tests are in correct location
+  checkParsers(dirname, parsers);
+
   // `IS_PARSER_INFERENCE_TESTS` mean to test `inferParser` on `standalone`
-  const IS_PARSER_INFERENCE_TESTS = dirname.endsWith("parser-inference");
+  const IS_PARSER_INFERENCE_TESTS = isTestDirectory(
+    dirname,
+    "misc/parser-inference"
+  );
+
+  // `IS_ERROR_TESTS` mean to watch errors like:
+  // - syntax parser hasn't supported yet
+  // - syntax errors that should throws
+  const IS_ERROR_TESTS = isTestDirectory(dirname, "misc/errors");
+
   if (IS_PARSER_INFERENCE_TESTS) {
     parsers = [];
   } else if (!parsers || !parsers.length) {
     throw new Error(`No parsers were specified for ${dirname}`);
   }
 
-  const files = fs.readdirSync(dirname, { withFileTypes: true });
-  for (const file of files) {
-    const basename = file.name;
-    const filename = path.join(dirname, basename);
+  const snippets = (fixtures.snippets || []).map((test, index) => {
+    test = typeof test === "string" ? { code: test } : test;
+    return {
+      ...test,
+      name: `snippet: ${test.name || `#${index}`}`,
+    };
+  });
 
-    if (
-      path.extname(basename) === ".snap" ||
-      !file.isFile() ||
-      basename[0] === "." ||
-      basename === "jsfmt.spec.js"
-    ) {
-      continue;
-    }
-    describe(basename, () => {
+  const files = fs
+    .readdirSync(dirname, { withFileTypes: true })
+    .map((file) => {
+      const basename = file.name;
+      const filename = path.join(dirname, basename);
+      if (
+        path.extname(basename) === ".snap" ||
+        !file.isFile() ||
+        basename[0] === "." ||
+        basename === "jsfmt.spec.js"
+      ) {
+        return;
+      }
+
+      const text = fs.readFileSync(filename, "utf8");
+
+      return {
+        name: basename,
+        filename,
+        code: text,
+      };
+    })
+    .filter(Boolean);
+
+  const stringifiedOptions = stringifyOptions(options);
+
+  for (const { name, filename, code, output } of [...files, ...snippets]) {
+    describe(`${name}${
+      stringifiedOptions ? ` - ${stringifiedOptions}` : ""
+    }`, () => {
       let rangeStart;
       let rangeEnd;
       let cursorOffset;
 
-      const text = fs.readFileSync(filename, "utf8");
-
-      const source = (TEST_CRLF ? text.replace(/\n/g, "\r\n") : text)
+      const source = (TEST_CRLF ? code.replace(/\n/g, "\r\n") : code)
         .replace(RANGE_START_PLACEHOLDER, (match, offset) => {
           rangeStart = offset;
           return "";
@@ -106,53 +147,48 @@ global.run_spec = (dirname, parsers, options) => {
       };
 
       const hasEndOfLine = "endOfLine" in mainOptions;
-      const output = format(input, filename, mainOptions);
-      const visualizedOutput = visualizeEndOfLine(output);
+
+      if (IS_ERROR_TESTS) {
+        test("error test", () => {
+          expect(() => {
+            format(input, filename, mainOptions);
+          }).toThrowErrorMatchingSnapshot();
+        });
+        return;
+      }
+
+      const formattedWithCursor = format(input, filename, mainOptions);
+      const formatted = formattedWithCursor.replace(CURSOR_PLACEHOLDER, "");
+      const visualizedOutput = visualizeEndOfLine(formattedWithCursor);
 
       test("format", () => {
         expect(visualizedOutput).toEqual(
-          visualizeEndOfLine(consistentEndOfLine(output))
+          visualizeEndOfLine(consistentEndOfLine(formattedWithCursor))
         );
-        expect(
-          raw(
-            createSnapshot(
-              hasEndOfLine
-                ? visualizeEndOfLine(
-                    text
-                      .replace(RANGE_START_PLACEHOLDER, "")
-                      .replace(RANGE_END_PLACEHOLDER, "")
-                  )
-                : source,
-              hasEndOfLine ? visualizedOutput : output,
-              { ...baseOptions, parsers }
+        if (typeof output === "string") {
+          expect(formatted).toEqual(output);
+        } else {
+          expect(
+            raw(
+              createSnapshot(
+                hasEndOfLine
+                  ? visualizeEndOfLine(
+                      code
+                        .replace(RANGE_START_PLACEHOLDER, "")
+                        .replace(RANGE_END_PLACEHOLDER, "")
+                    )
+                  : source,
+                hasEndOfLine ? visualizedOutput : formattedWithCursor,
+                { ...baseOptions, parsers }
+              )
             )
-          )
-        ).toMatchSnapshot();
+          ).toMatchSnapshot();
+        }
       });
 
       const parsersToVerify = parsers.slice(1);
       if (parsers.includes("typescript") && !parsers.includes("babel-ts")) {
         parsersToVerify.push("babel-ts");
-      }
-
-      if (
-        DEEP_COMPARE &&
-        typeof rangeStart === "undefined" &&
-        typeof rangeEnd === "undefined" &&
-        typeof cursorOffset === "undefined" &&
-        !TEST_CRLF
-      ) {
-        test("second format", () => {
-          const secondOutput = format(output, filename, mainOptions);
-          const isUnstable = unstableTests.get(filename);
-          if (isUnstable && isUnstable(options || {})) {
-            // To keep eye on failed tests, this assert never supposed to pass,
-            // if it fails, just remove the file from `unstableTests`
-            expect(secondOutput).not.toEqual(output);
-          } else {
-            expect(secondOutput).toEqual(output);
-          }
-        });
       }
 
       for (const parser of parsersToVerify) {
@@ -164,7 +200,7 @@ global.run_spec = (dirname, parsers, options) => {
             options &&
             (options.disableBabelTS === true ||
               (Array.isArray(options.disableBabelTS) &&
-                options.disableBabelTS.includes(basename)))
+                options.disableBabelTS.includes(name)))
           ) {
             expect(() => {
               format(input, filename, verifyOptions);
@@ -176,17 +212,35 @@ global.run_spec = (dirname, parsers, options) => {
         });
       }
 
-      if (AST_COMPARE) {
-        const formatted = output.replace(CURSOR_PLACEHOLDER, "");
+      const isUnstable = unstableTests.get(filename);
+      const isUnstableTest = isUnstable && isUnstable(options || {});
+      if (
+        DEEP_COMPARE &&
+        (formatted !== input || isUnstableTest) &&
+        typeof rangeStart === "undefined" &&
+        typeof rangeEnd === "undefined" &&
+        typeof cursorOffset === "undefined" &&
+        !TEST_CRLF
+      ) {
+        test("second format", () => {
+          const secondOutput = format(formatted, filename, mainOptions);
+          if (isUnstableTest) {
+            // To keep eye on failed tests, this assert never supposed to pass,
+            // if it fails, just remove the file from `unstableTests`
+            expect(secondOutput).not.toEqual(formatted);
+          } else {
+            expect(secondOutput).toEqual(formatted);
+          }
+        });
+      }
 
-        if (formatted !== input) {
-          test("compare AST", () => {
-            const { cursorOffset, ...parseOptions } = mainOptions;
-            const originalAst = parse(input, parseOptions);
-            const formattedAst = parse(formatted, parseOptions);
-            expect(originalAst).toEqual(formattedAst);
-          });
-        }
+      if (AST_COMPARE && formatted !== input) {
+        test("compare AST", () => {
+          const { cursorOffset, ...parseOptions } = mainOptions;
+          const originalAst = parse(input, parseOptions);
+          const formattedAst = parse(formatted, parseOptions);
+          expect(originalAst).toEqual(formattedAst);
+        });
       }
     });
   }
@@ -290,4 +344,16 @@ function omit(obj, fn) {
     }
     return reduced;
   }, {});
+}
+
+function stringifyOptions(options) {
+  const string = JSON.stringify(options || {}, (key, value) =>
+    key === "disableBabelTS"
+      ? undefined
+      : value === Infinity
+      ? "Infinity"
+      : value
+  );
+
+  return string === "{}" ? "" : string;
 }

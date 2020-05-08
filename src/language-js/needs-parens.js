@@ -622,7 +622,11 @@ function needsParens(path, options) {
     case "OptionalMemberExpression":
     case "OptionalCallExpression":
       if (
-        (parent.type === "MemberExpression" && name === "object") ||
+        (parent.type === "MemberExpression" &&
+          name === "object" &&
+          // https://github.com/prettier/prettier/issues/8252
+          (!options.parser.startsWith("__ng_") ||
+            (node.extra && node.extra.parenthesized))) ||
         ((parent.type === "CallExpression" ||
           parent.type === "NewExpression") &&
           name === "callee")
@@ -677,7 +681,9 @@ function needsParens(path, options) {
       if (
         parent.type === "NGRoot" ||
         parent.type === "NGMicrosyntaxExpression" ||
-        parent.type === "ObjectProperty" ||
+        (parent.type === "ObjectProperty" &&
+          // Preserve parens for compatibility with AngularJS expressions
+          !(node.extra && node.extra.parenthesized)) ||
         parent.type === "ArrayExpression" ||
         ((parent.type === "CallExpression" ||
           parent.type === "OptionalCallExpression") &&

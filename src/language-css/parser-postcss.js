@@ -375,14 +375,21 @@ function parseNestedCSS(node, options) {
       node.value = parseValue(value);
     }
 
-    // extend is missing
     if (
       isLessParser(options) &&
       node.type === "css-decl" &&
-      !node.extend &&
       value.startsWith("extend(")
     ) {
-      node.extend = node.raws.between === ":";
+      // extend is missing
+      if (!node.extend) {
+        node.extend = node.raws.between === ":";
+      }
+
+      // `:extend()` is parsed as value
+      if (node.extend && !node.selector) {
+        delete node.value;
+        node.selector = parseSelector(value.slice("extend(".length, -1));
+      }
     }
 
     if (node.type === "css-atrule") {
@@ -464,7 +471,7 @@ function parseNestedCSS(node, options) {
       }
 
       if (name === "at-root") {
-        if (/^\(\s*(without|with)\s*:[\s\S]+\)$/.test(params)) {
+        if (/^\(\s*(without|with)\s*:[\S\s]+\)$/.test(params)) {
           node.params = parseValue(params);
         } else {
           node.selector = parseSelector(params);
@@ -500,7 +507,7 @@ function parseNestedCSS(node, options) {
         ].includes(name)
       ) {
         // Remove unnecessary spaces in SCSS variable arguments
-        params = params.replace(/(\$\S+?)\s+?\.\.\./, "$1...");
+        params = params.replace(/(\$\S+?)\s+?\.{3}/, "$1...");
         // Remove unnecessary spaces before SCSS control, mixin and function directives
         params = params.replace(/^(?!if)(\S+)\s+\(/, "$1(");
 

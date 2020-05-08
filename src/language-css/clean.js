@@ -113,7 +113,7 @@ function clean(ast, newObj, parent) {
     }
 
     if (newObj.value) {
-      newObj.value = newObj.value.trim().replace(/^['"]|['"]$/g, "");
+      newObj.value = newObj.value.trim().replace(/^["']|["']$/g, "");
       delete newObj.quoted;
     }
   }
@@ -129,7 +129,7 @@ function clean(ast, newObj, parent) {
     newObj.value
   ) {
     newObj.value = newObj.value.replace(
-      /([\d.eE+-]+)([a-zA-Z]*)/g,
+      /([\d+.Ee-]+)([A-Za-z]*)/g,
       (match, numStr, unit) => {
         const num = Number(numStr);
         return isNaN(num) ? match : num + unit.toLowerCase();
@@ -157,7 +157,7 @@ function clean(ast, newObj, parent) {
 }
 
 function cleanCSSStrings(value) {
-  return value.replace(/'/g, '"').replace(/\\([^a-fA-F\d])/g, "$1");
+  return value.replace(/'/g, '"').replace(/\\([^\dA-Fa-f])/g, "$1");
 }
 
 module.exports = clean;

@@ -121,13 +121,13 @@ function trim(out) {
   while (
     out.length > 0 &&
     typeof out[out.length - 1] === "string" &&
-    out[out.length - 1].match(/^[ \t]*$/)
+    out[out.length - 1].match(/^[\t ]*$/)
   ) {
     trimCount += out.pop().length;
   }
 
   if (out.length && typeof out[out.length - 1] === "string") {
-    const trimmed = out[out.length - 1].replace(/[ \t]*$/, "");
+    const trimmed = out[out.length - 1].replace(/[\t ]*$/, "");
     trimCount += out[out.length - 1].length - trimmed.length;
     out[out.length - 1] = trimmed;
   }

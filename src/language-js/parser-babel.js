@@ -5,9 +5,9 @@ const { hasPragma } = require("./pragma");
 const locFns = require("./loc");
 const postprocess = require("./postprocess");
 
-function babelOptions(extraPlugins = []) {
+function babelOptions({ sourceType, extraPlugins = [] }) {
   return {
-    sourceType: "module",
+    sourceType,
     allowAwaitOutsideFunction: true,
     allowImportExportEverywhere: true,
     allowReturnOutsideFunction: true,
@@ -65,6 +65,9 @@ function createParse(parseMethod, ...pluginCombinations) {
     // Inline the require to avoid loading all the JS if we don't use it
     const babel = require("@babel/parser");
 
+    const sourceType =
+      opts && opts.__babelSourceType === "script" ? "script" : "module";
+
     let ast;
     try {
       const combinations = resolvePluginsConflict(
@@ -78,7 +81,9 @@ function createParse(parseMethod, ...pluginCombinations) {
       );
       ast = tryCombinations(
         (options) => babel[parseMethod](text, options),
-        combinations.map(babelOptions)
+        combinations.map((extraPlugins) =>
+          babelOptions({ sourceType, extraPlugins })
+        )
       );
     } catch (error) {
       throw createError(
@@ -140,11 +145,10 @@ function assertJsonNode(node, parent) {
     case "ObjectExpression":
       return node.properties.forEach(assertJsonChildNode);
     case "ObjectProperty":
-      // istanbul ignore if
       if (node.computed) {
         throw createJsonError("computed");
       }
-      // istanbul ignore if
+
       if (node.shorthand) {
         throw createJsonError("shorthand");
       }
@@ -154,7 +158,6 @@ function assertJsonNode(node, parent) {
         case "+":
         case "-":
           return assertJsonChildNode(node.argument);
-        // istanbul ignore next
         default:
           throw createJsonError("operator");
       }
@@ -168,7 +171,6 @@ function assertJsonNode(node, parent) {
     case "NumericLiteral":
     case "StringLiteral":
       return;
-    // istanbul ignore next
     default:
       throw createJsonError();
   }
@@ -177,7 +179,6 @@ function assertJsonNode(node, parent) {
     return assertJsonNode(child, node);
   }
 
-  // istanbul ignore next
   function createJsonError(attribute) {
     const name = !attribute
       ? node.type
