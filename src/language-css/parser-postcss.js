@@ -375,14 +375,21 @@ function parseNestedCSS(node, options) {
       node.value = parseValue(value);
     }
 
-    // extend is missing
     if (
       isLessParser(options) &&
       node.type === "css-decl" &&
-      !node.extend &&
       value.startsWith("extend(")
     ) {
-      node.extend = node.raws.between === ":";
+      // extend is missing
+      if (!node.extend) {
+        node.extend = node.raws.between === ":";
+      }
+
+      // `:extend()` is parsed as value
+      if (node.extend && !node.selector) {
+        delete node.value;
+        node.selector = parseSelector(value.slice("extend(".length, -1));
+      }
     }
 
     if (node.type === "css-atrule") {
