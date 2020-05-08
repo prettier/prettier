@@ -8,3 +8,19 @@ const StyledPurchaseCard = styled(Card)`
   background-color: var(--${props => props.color});
   color: #fff;
 `;
+
+const v1 =  css`
+prop: var(--global--color--${props.variant});
+`;
+
+const v2 = css`
+        background-color: var(--global--color--${props.variant});
+
+        &:hover {
+          background-color: var(--global--color--${props.variant}__one);
+        }
+      `
+
+export const StyledComponent = styled.div`
+  grid-area:  area-${props => props.propName};
+`
