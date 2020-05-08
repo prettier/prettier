@@ -25,7 +25,7 @@ const categoryParsers = new Map(
     ["markdown", ["markdown"]],
     ["mdx", ["mdx"]],
     ["scss", ["css", "scss"]],
-    ["stylefmt-repo", ["css"]],
+    ["stylefmt-repo", ["css", "scss"]],
     ["typescript", ["typescript", "babel-ts"]],
     ["vue", ["vue"]],
     ["yaml", ["yaml"]],
