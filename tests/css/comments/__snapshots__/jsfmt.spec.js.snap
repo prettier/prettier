@@ -272,12 +272,16 @@ parsers: ["css"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
+// Animation definitions cannot cross the shadow boundary,
+// and thus need to be loaded directly into the atom-text-editor scope.
 /* Kikoo */
 /**
  * Kikoo
  */
 
 =====================================output=====================================
+// Animation definitions cannot cross the shadow boundary,
+// and thus need to be loaded directly into the atom-text-editor scope.
 /* Kikoo */
 /**
  * Kikoo
@@ -292,12 +296,29 @@ parsers: ["css"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
+@font-face  {
+  src: url(if(
+    $bootstrap-sass-asset-helper,
+    twbs-font-path('#{$icon-font-path}#{$icon-font-name}.eot'),
+    '#{$icon-font-path}#{$icon-font-name}.eot'
+  ));
+}
 
+// Catchall baseclass
 /* Catchall baseclass */
 .glyphicon {
 }
 
 =====================================output=====================================
+@font-face {
+  src: url(if(
+    $bootstrap-sass-asset-helper,
+    twbs-font-path("#{$icon-font-path}#{$icon-font-name}.eot"),
+    "#{$icon-font-path}#{$icon-font-name}.eot"
+  ));
+}
+
+// Catchall baseclass
 /* Catchall baseclass */
 .glyphicon {
 }
@@ -483,6 +504,9 @@ parsers: ["css"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
+// prettier-ignore
+@blue:  blue;
+@black: darkgray;
 
 foo {
   /* prettier-ignore */
@@ -491,6 +515,10 @@ foo {
 }
 
 =====================================output=====================================
+// prettier-ignore
+@blue:  blue;
+@black: darkgray;
+
 foo {
   /* prettier-ignore */
   thing:     foo;
