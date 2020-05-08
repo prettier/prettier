@@ -616,20 +616,7 @@ function printDirectives(path, print, n) {
     return "";
   }
 
-  return concat([
-    " ",
-    group(
-      indent(
-        concat([
-          softline,
-          join(
-            concat([ifBreak("", " "), softline]),
-            path.map(print, "directives")
-          ),
-        ])
-      )
-    ),
-  ]);
+  return group(concat([line, join(line, path.map(print, "directives"))]));
 }
 
 function printSequence(sequencePath, options, print) {
