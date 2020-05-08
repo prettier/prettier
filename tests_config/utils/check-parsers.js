@@ -63,6 +63,8 @@ const checkParser = (dirname, parsers) => {
               ${suggestCategories
                 .map((category) => `- ${path.join(TESTS_ROOT, category)}`)
                 .join("\n")}
+
+              Or config to allow use this parser in "${__filename}".
             `;
 
       throw new Error(
