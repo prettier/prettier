@@ -14,6 +14,11 @@ module.exports = [
       get babel() {
         return eval("require")("../language-js/parser-babel").parsers.babel;
       },
+      get "async-babel"() {
+        return eval("require")("../language-js/parser-babel").parsers[
+          "async-babel"
+        ];
+      },
       get "babel-flow"() {
         return eval("require")("../language-js/parser-babel").parsers[
           "babel-flow"
