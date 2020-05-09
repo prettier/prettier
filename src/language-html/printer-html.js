@@ -76,7 +76,20 @@ function embed(path, print, textToDoc, options) {
             concat([
               breakParent,
               printOpeningTagPrefix(node, options),
-              stripTrailingHardline(textToDoc(value, { parser })),
+              stripTrailingHardline(
+                textToDoc(
+                  value,
+                  options.parser === "html" && parser === "babel"
+                    ? {
+                        parser,
+                        __babelSourceType:
+                          node.attrMap && node.attrMap.type === "module"
+                            ? "module"
+                            : "script",
+                      }
+                    : { parser }
+                )
+              ),
               printClosingTagSuffix(node, options),
             ]),
           ]);
