@@ -140,7 +140,7 @@ function getRollupConfig(bundle) {
     externals(bundle.externals),
     bundle.target === "universal" && nodeGlobals(),
     babelConfig && babel(babelConfig),
-    bundle.type === "plugin" && terser(),
+    bundle.minify !== false && bundle.target === "universal" && terser(),
   ].filter(Boolean);
 
   if (bundle.target === "node") {
