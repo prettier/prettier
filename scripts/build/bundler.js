@@ -113,6 +113,15 @@ function getRollupConfig(bundle) {
     // We can't reference `process` in UMD bundles and this is
     // an undocumented "feature"
     replaceStrings["process.env.PRETTIER_DEBUG"] = "global.PRETTIER_DEBUG";
+    // `rollup-plugin-node-globals` replace `__dirname` with the real dirname
+    // `parser-typescript.js` will contain a path of working directory
+    // See #8268
+    replaceStrings.__filename = JSON.stringify(
+      "/prettier-security-filename-placeholder.js"
+    );
+    replaceStrings.__dirname = JSON.stringify(
+      "/prettier-security-dirname-placeholder"
+    );
   }
   Object.assign(replaceStrings, bundle.replace);
 
