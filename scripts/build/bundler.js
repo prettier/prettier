@@ -151,7 +151,6 @@ function getRollupOutputOptions(bundle) {
   const options = {
     file: `dist/${bundle.output}`,
     strict: typeof bundle.strict === "undefined" ? true : bundle.strict,
-    paths: [{ "graceful-fs": "fs" }],
   };
 
   if (bundle.target === "node") {
