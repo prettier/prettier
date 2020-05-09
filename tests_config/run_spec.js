@@ -4,6 +4,7 @@ const fs = require("fs");
 const path = require("path");
 const raw = require("jest-snapshot-serializer-raw").wrap;
 const { isCI } = require("ci-info");
+const checkParsers = require("./utils/check-parsers");
 
 const { TEST_STANDALONE } = process.env;
 const AST_COMPARE = isCI || process.env.AST_COMPARE;
@@ -22,22 +23,23 @@ const prettier = !TEST_STANDALONE
 // TODO: these test files need fix
 const unstableTests = new Map(
   [
-    "class_comment/comments.js",
-    ["comments/dangling_array.js", (options) => options.semi === false],
-    ["comments/jsx.js", (options) => options.semi === false],
-    "comments/return-statement.js",
-    "comments/tagged-template-literal.js",
-    "comments_closure_typecast/iife.js",
-    "markdown_footnoteDefinition/multiline.md",
-    "markdown_spec/example-234.md",
-    "markdown_spec/example-235.md",
-    "multiparser_html_js/script-tag-escaping.html",
+    "js/class-comment/comments.js",
+    ["js/comments/dangling_array.js", (options) => options.semi === false],
+    ["js/comments/jsx.js", (options) => options.semi === false],
+    "js/comments/binary-expressions-single-comments.js",
+    "js/comments/return-statement.js",
+    "js/comments/tagged-template-literal.js",
+    "js/comments-closure-typecast/iife.js",
+    "markdown/footnoteDefinition/multiline.md",
+    "markdown/spec/example-234.md",
+    "markdown/spec/example-235.md",
+    "html/multiparser-js/script-tag-escaping.html",
     [
-      "multiparser_js_markdown/codeblock.js",
+      "js/multiparser-markdown/codeblock.js",
       (options) => options.proseWrap === "always",
     ],
-    ["no-semi/comments.js", (options) => options.semi === false],
-    "yaml_prettier_ignore/document.yml",
+    ["js/no-semi/comments.js", (options) => options.semi === false],
+    "yaml/prettier-ignore/document.yml",
   ].map((fixture) => {
     const [file, isUnstable = () => true] = Array.isArray(fixture)
       ? fixture
@@ -53,16 +55,19 @@ global.run_spec = (fixtures, parsers, options) => {
   fixtures = typeof fixtures === "string" ? { dirname: fixtures } : fixtures;
   const { dirname } = fixtures;
 
+  // Make sure tests are in correct location
+  checkParsers(dirname, parsers);
+
   // `IS_PARSER_INFERENCE_TESTS` mean to test `inferParser` on `standalone`
   const IS_PARSER_INFERENCE_TESTS = isTestDirectory(
     dirname,
-    "parser-inference"
+    "misc/parser-inference"
   );
 
   // `IS_ERROR_TESTS` mean to watch errors like:
   // - syntax parser hasn't supported yet
   // - syntax errors that should throws
-  const IS_ERROR_TESTS = isTestDirectory(dirname, "errors");
+  const IS_ERROR_TESTS = isTestDirectory(dirname, "misc/errors");
 
   if (IS_PARSER_INFERENCE_TESTS) {
     parsers = [];

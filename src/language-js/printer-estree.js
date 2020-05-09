@@ -5462,13 +5462,10 @@ function printComment(commentPath, options) {
     }
     case "CommentLine":
     case "Line":
-      // Print shebangs with the proper comment characters
-      if (
-        options.originalText.slice(options.locStart(comment)).startsWith("#!")
-      ) {
-        return "#!" + comment.value.trimEnd();
-      }
-      return "//" + comment.value.trimEnd();
+      // Supports `//`, `#!`, `<!--`, and `-->`
+      return options.originalText
+        .slice(options.locStart(comment), options.locEnd(comment))
+        .trimEnd();
     default:
       throw new Error("Not a comment: " + JSON.stringify(comment));
   }

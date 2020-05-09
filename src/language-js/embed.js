@@ -261,12 +261,12 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
     return quasisDoc;
   }
 
-  const expressions = expressionDocs.slice();
   let replaceCounter = 0;
   const newDoc = mapDoc(quasisDoc, (doc) => {
     if (!doc || !doc.parts || !doc.parts.length) {
       return doc;
     }
+
     let { parts } = doc;
     const atIndex = parts.indexOf("@");
     const placeholderIndex = atIndex + 1;
@@ -284,32 +284,31 @@ function replacePlaceholders(quasisDoc, expressionDocs) {
         .concat([at + placeholder])
         .concat(rest);
     }
-    const atPlaceholderIndex = parts.findIndex(
-      (part) =>
-        typeof part === "string" && part.startsWith("@prettier-placeholder")
-    );
-    if (atPlaceholderIndex > -1) {
-      const placeholder = parts[atPlaceholderIndex];
-      const rest = parts.slice(atPlaceholderIndex + 1);
-      const placeholderMatch = placeholder.match(
-        /@prettier-placeholder-(.+)-id([\S\s]*)/
-      );
-      const placeholderID = placeholderMatch[1];
-      // When the expression has a suffix appended, like:
-      // animation: linear ${time}s ease-out;
-      const suffix = placeholderMatch[2];
-      const expression = expressions[placeholderID];
 
-      replaceCounter++;
-      parts = parts
-        .slice(0, atPlaceholderIndex)
-        .concat(["${", expression, "}" + suffix])
-        .concat(rest);
-    }
-    return { ...doc, parts };
+    const replacedParts = [];
+    parts.forEach((part) => {
+      if (typeof part !== "string" || !part.includes("@prettier-placeholder")) {
+        replacedParts.push(part);
+        return;
+      }
+
+      // When we have multiple placeholders in one line, like:
+      // ${Child}${Child2}:not(:first-child)
+      part.split(/@prettier-placeholder-(\d+)-id/).forEach((component, idx) => {
+        // The placeholder is always at odd indices
+        if (idx % 2 === 0) {
+          replacedParts.push(component);
+          return;
+        }
+
+        // The component will always be a number at odd index
+        replacedParts.push("${", expressionDocs[component], "}");
+        replaceCounter++;
+      });
+    });
+    return { ...doc, parts: replacedParts };
   });
-
-  return expressions.length === replaceCounter ? newDoc : null;
+  return expressionDocs.length === replaceCounter ? newDoc : null;
 }
 
 function printGraphqlComments(lines) {

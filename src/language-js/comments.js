@@ -120,7 +120,8 @@ function handleEndOfLineComment(comment, text, options, ast, isLastComment) {
     handlePropertyComments(enclosingNode, comment) ||
     handleOnlyComments(enclosingNode, ast, comment, isLastComment) ||
     handleTypeAliasComments(enclosingNode, followingNode, comment) ||
-    handleVariableDeclaratorComments(enclosingNode, followingNode, comment)
+    handleVariableDeclaratorComments(enclosingNode, followingNode, comment) ||
+    handleBinaryExpression(enclosingNode, followingNode, comment)
   );
 }
 
@@ -908,6 +909,20 @@ function handleTSMappedTypeComments(
     return true;
   }
 
+  return false;
+}
+
+function handleBinaryExpression(enclosingNode, followingNode, comment) {
+  if (
+    enclosingNode &&
+    (enclosingNode.type === "LogicalExpression" ||
+      enclosingNode.type === "BinaryExpression") &&
+    followingNode &&
+    isBlockComment(comment)
+  ) {
+    addLeadingComment(followingNode, comment);
+    return true;
+  }
   return false;
 }
 
