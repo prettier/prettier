@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`important.css format 1`] = `
+exports[`important.less format 1`] = `
 ====================================options=====================================
-parsers: ["css"]
+parsers: ["less"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -10,9 +10,17 @@ div {
   max-height: none !important;
 }
 
+.important {
+  .foo() !important;
+}
+
 =====================================output=====================================
 div {
   max-height: none !important;
+}
+
+.important {
+  .foo() !important;
 }
 
 ================================================================================
