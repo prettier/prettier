@@ -10,7 +10,7 @@ const getCategory = (dirname) =>
 
 const categoryParsers = new Map(
   [
-    ["angular", ["angular", "__ng_interpolation"]],
+    ["angular", ["angular", "__ng_interpolation", "__ng_action"]],
     ["css", ["css" /* ,"less", "scss" These may allow, but not using */]],
     ["flow", ["babel", "flow", "babel-flow"]],
     ["flow-repo", ["babel", "flow", "babel-flow"]],
