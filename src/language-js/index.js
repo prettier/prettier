@@ -47,7 +47,7 @@ const languages = [
   createLanguage(require("linguist-languages/data/JSON"), (data) => ({
     since: "1.5.0",
     parsers: ["json"],
-    vscodeLanguageIds: ["json"],
+    vscodeLanguageIds: ["json", "arm-template"],
     filenames: data.filenames.concat([".prettierrc"]),
   })),
   createLanguage(
@@ -55,7 +55,7 @@ const languages = [
     (data) => ({
       since: "1.5.0",
       parsers: ["json"],
-      vscodeLanguageIds: ["jsonc"],
+      vscodeLanguageIds: ["jsonc", "arm-template"],
       filenames: data.filenames.concat([".eslintrc"]),
     })
   ),
