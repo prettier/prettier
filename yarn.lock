@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@angular/compiler@9.1.5":
-  version "9.1.5"
-  resolved "https://registry.yarnpkg.com/@angular/compiler/-/compiler-9.1.5.tgz#8adc0eb335ab9a89d2549fda5bdbdfd084fb7849"
-  integrity sha512-VhMnHHH9mqQKaqy8ZAyRpX9S+21U+xIyrMMXrYoBRLndP3PUn7GpLST2eUZxqsg2yEEWWhJZExpuYzOPToCV/g==
+"@angular/compiler@9.1.6":
+  version "9.1.6"
+  resolved "https://registry.yarnpkg.com/@angular/compiler/-/compiler-9.1.6.tgz#be4bc14e000c4b9e4c1ebf85f15f8de0b2603dc5"
+  integrity sha512-tHOQEjWuWqSkrk6/vI6BK7uJnpAyFajCXPW37rH5xspF/aMbetrpoOiGBNUQg/HLaFh04nOAnnFntjLkW0ooaA==
 
 "@babel/code-frame@7.0.0":
   version "7.0.0"
@@ -1479,10 +1479,10 @@ ajv@^6.1.0, ajv@^6.10.0, ajv@^6.10.2, ajv@^6.12.0, ajv@^6.5.5:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
-angular-estree-parser@2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/angular-estree-parser/-/angular-estree-parser-2.0.1.tgz#7c6bbe79d2ca1d04990b5051d78a3621a3387e81"
-  integrity sha512-rqdx4ptxN98wbH9nlCy8jFSoLLnj9LEGgQYgQhch7/mbvXgn1iXmiBtdHiZ+Q4dGbLLXH/6qyU2VS2DdYH2tTw==
+angular-estree-parser@2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/angular-estree-parser/-/angular-estree-parser-2.0.3.tgz#9bd11af19853fdf3101a85fa71d75227885b21f1"
+  integrity sha512-IJ1X6QUZuqkk4U0F92zm3HH9kb6PedPYN7YMcCKwwsKd/GknlcJ6jn70FO80nntuaiaFHoseet6bY1oZpQ4NyQ==
   dependencies:
     lines-and-columns "^1.1.6"
     tslib "^1.9.3"
