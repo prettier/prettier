@@ -26,9 +26,15 @@ const categoryParsers = new Map([
   [
     "flow",
     {
-      // TODO: only allow `flow` and `babel-flow`
-      parsers: ["babel", "flow", "babel-flow"],
+      parsers: ["flow", "babel-flow"],
       verifyParsers: ["babel", "flow", "babel-flow", "typescript", "babel-ts"],
+    },
+  ],
+  [
+    "flow-babel-only",
+    {
+      parsers: ["babel"],
+      verifyParsers: [],
     },
   ],
   [
@@ -111,8 +117,16 @@ const getParserCategories = (parser) => {
 
 const checkParser = (dirname, parsers = []) => {
   const category = getCategory(dirname);
-  const { parsers: allowedParsers, verifyParsers: allowedVerifyParsers } =
-    categoryParsers.get(category) || {};
+  const categoryAllowedParsers = categoryParsers.get(category);
+
+  if (!categoryAllowedParsers) {
+    return;
+  }
+
+  const {
+    parsers: allowedParsers = [],
+    verifyParsers: allowedVerifyParsers = [],
+  } = categoryAllowedParsers;
 
   const [parser, ...verifyParsers] = parsers;
 
