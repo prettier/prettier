@@ -21,6 +21,20 @@ trailingComma: "none"
 ================================================================================
 `;
 
+exports[`optional-chaining.ng - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["__ng_interpolation"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+[  a?.b[c], (a?.b)[c]  ]
+
+=====================================output=====================================
+[a?.b[c], (a?.b)[c]]
+================================================================================
+`;
+
 exports[`pipe-expression.ng - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
 parsers: ["__ng_interpolation"]
@@ -85,5 +99,19 @@ trailingComma: "none"
     : "ReportSelection.HideShowLabel_Hide.String"
   ) | localize: localizationSection
 ]
+================================================================================
+`;
+
+exports[`pipe-in-object.ng - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["__ng_interpolation"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+[{ AngularJS: '1.x', 'color': ('#222' | darken)}]
+
+=====================================output=====================================
+[{ AngularJS: "1.x", color: ("#222" | darken) }]
 ================================================================================
 `;

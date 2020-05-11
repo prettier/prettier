@@ -1,0 +1,187 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CRLF.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@nice-blue: #5B83AD;
+@light-blue: @nice-blue + #111;
+
+// Comment 1
+/*
+ * Comment 2
+ */
+#header {
+  // Comment 3
+  /*
+   * Comment 4
+   */
+  color: @light-blue;
+}
+
+@media only screen and (max-width: 600px) {
+  // Comment 1
+  /*
+   * Comment 5
+   */
+  body {
+    background-color: lightblue; // Comment 6
+    color: red; /* Comment 7 */
+  }
+}
+
+=====================================output=====================================
+@nice-blue: #5b83ad;
+@light-blue: @nice-blue + #111;
+
+// Comment 1
+/*
+ * Comment 2
+ */
+#header {
+  // Comment 3
+  /*
+   * Comment 4
+   */
+  color: @light-blue;
+}
+
+@media only screen and (max-width: 600px) {
+  // Comment 1
+  /*
+   * Comment 5
+   */
+  body {
+    background-color: lightblue; // Comment 6
+    color: red; /* Comment 7 */
+  }
+}
+
+================================================================================
+`;
+
+exports[`block.css format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+/* Kikoo */
+/**
+ * Kikoo
+ */
+
+=====================================output=====================================
+/* Kikoo */
+/**
+ * Kikoo
+ */
+
+================================================================================
+`;
+
+exports[`block.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// Animation definitions cannot cross the shadow boundary,
+// and thus need to be loaded directly into the atom-text-editor scope.
+/* Kikoo */
+/**
+ * Kikoo
+ */
+
+=====================================output=====================================
+// Animation definitions cannot cross the shadow boundary,
+// and thus need to be loaded directly into the atom-text-editor scope.
+/* Kikoo */
+/**
+ * Kikoo
+ */
+
+================================================================================
+`;
+
+exports[`places.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+div {
+  // a
+
+  margin-left: -@leftMargin; // b
+} // c
+
+// d
+div {}
+
+=====================================output=====================================
+div {
+  // a
+
+  margin-left: -@leftMargin; // b
+} // c
+
+// d
+div {
+}
+
+================================================================================
+`;
+
+exports[`prettier-ignore.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+// prettier-ignore
+@blue:  blue;
+@black: darkgray;
+
+foo {
+  /* prettier-ignore */
+  thing:     foo;
+  -ms-thing: foo;
+}
+
+=====================================output=====================================
+// prettier-ignore
+@blue:  blue;
+@black: darkgray;
+
+foo {
+  /* prettier-ignore */
+  thing:     foo;
+  -ms-thing: foo;
+}
+
+================================================================================
+`;
+
+exports[`trailing_star_slash.scss format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@media (max-width: 1) {}
+a {
+  // element.style */
+}
+
+=====================================output=====================================
+@media (max-width: 1) {
+}
+a {
+  // element.style */
+}
+
+================================================================================
+`;

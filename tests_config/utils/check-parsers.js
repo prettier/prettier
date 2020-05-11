@@ -10,8 +10,8 @@ const getCategory = (dirname) =>
 
 const categoryParsers = new Map(
   [
-    ["angular", ["angular", "__ng_interpolation"]],
-    ["css", ["css" /* ,"less", "scss" These may allow, but not using */]],
+    ["angular", ["angular", "__ng_interpolation", "__ng_action"]],
+    ["css", ["css"]],
     ["flow", ["babel", "flow", "babel-flow"]],
     ["flow-repo", ["babel", "flow", "babel-flow"]],
     ["graphql", ["graphql"]],
@@ -20,12 +20,12 @@ const categoryParsers = new Map(
     ["js", ["babel", "flow", "babel-flow", "typescript", "babel-ts"]],
     ["json", ["json", "json5", "json-stringify"]],
     ["jsx", ["babel", "flow", "babel-flow", "typescript", "babel-ts"]],
-    ["less", ["css", "less"]],
+    ["less", ["less"]],
     ["lwc", ["lwc"]],
     ["markdown", ["markdown"]],
     ["mdx", ["mdx"]],
-    ["scss", ["css", "scss"]],
-    ["stylefmt-repo", ["css"]],
+    ["scss", ["scss"]],
+    ["stylefmt-repo", ["css", "scss"]],
     ["typescript", ["typescript", "babel-ts"]],
     ["vue", ["vue"]],
     ["yaml", ["yaml"]],

@@ -3008,7 +3008,7 @@ printWidth: 80
 <p>
   {{
     "delete"
-      | translate: {what: "entities" | translate: ({count: array.length})}
+      | translate: {what: ("entities" | translate: ({count: array.length}))}
   }}
 </p>
 <p>{{ {a: 1 + ({})} }}</p>
@@ -3180,7 +3180,7 @@ printWidth: 80
 <p>
   {{
     "delete"
-      | translate: { what: "entities" | translate: { count: array.length } }
+      | translate: { what: ("entities" | translate: { count: array.length }) }
   }}
 </p>
 <p>{{ { a: 1 + {} } }}</p>
@@ -3516,12 +3516,12 @@ printWidth: 1
       | translate
         : {
             what:
-              "entities"
+              ("entities"
               | translate
                 : {
                     count:
                       array.length
-                  }
+                  })
           }
   }}
 </p>
@@ -3719,7 +3719,7 @@ trailingComma: "none"
 <p>
   {{
     "delete"
-      | translate: { what: "entities" | translate: { count: array.length } }
+      | translate: { what: ("entities" | translate: { count: array.length }) }
   }}
 </p>
 <p>{{ { a: 1 + {} } }}</p>
@@ -3885,7 +3885,7 @@ printWidth: 80
 <p>
   {{
     "delete"
-      | translate: { what: "entities" | translate: { count: array.length } }
+      | translate: { what: ("entities" | translate: { count: array.length }) }
   }}
 </p>
 <p>{{ { a: 1 + {} } }}</p>
@@ -5370,7 +5370,7 @@ See console log:
 
 <div>
   <!-- Accessing an undeclared member -->
-  <div>Undeclared members is {{$any(this).member}}</div>
+  <div>Undeclared members is {{ $any(this).member }}</div>
 </div>
 
 <a class="to-toc" href="#toc">top</a>
@@ -7035,7 +7035,7 @@ See console log:
 
 <div>
   <!-- Accessing an undeclared member -->
-  <div>Undeclared members is {{$any(this).member}}</div>
+  <div>Undeclared members is {{ $any(this).member }}</div>
 </div>
 
 <a class="to-toc" href="#toc">top</a>
@@ -10365,7 +10365,12 @@ See console log:
     Undeclared
     members
     is
-    {{$any(this).member}}
+    {{
+      $any(
+        this
+      )
+        .member
+    }}
   </div>
 </div>
 
@@ -11977,7 +11982,7 @@ See console log:
 
 <div>
   <!-- Accessing an undeclared member -->
-  <div>Undeclared members is {{$any(this).member}}</div>
+  <div>Undeclared members is {{ $any(this).member }}</div>
 </div>
 
 <a class="to-toc" href="#toc">top</a>
@@ -13505,7 +13510,7 @@ See console log:
 
 <div>
   <!-- Accessing an undeclared member -->
-  <div>Undeclared members is {{$any(this).member}}</div>
+  <div>Undeclared members is {{ $any(this).member }}</div>
 </div>
 
 <a class="to-toc" href="#toc">top</a>
