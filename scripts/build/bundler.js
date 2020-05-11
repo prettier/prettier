@@ -68,7 +68,6 @@ function getBabelConfig(bundle) {
     babelrc: false,
     plugins: bundle.babelPlugins || [],
     compact: bundle.type === "plugin" ? false : "auto",
-    babelHelpers: "bundled",
   };
   if (bundle.type === "core") {
     config.plugins.push(
@@ -152,7 +151,7 @@ function getRollupConfig(bundle) {
   }
   Object.assign(replaceStrings, bundle.replace);
 
-  const babelConfig = getBabelConfig(bundle);
+  const babelConfig = { babelHelpers: "bundled", ...getBabelConfig(bundle) };
 
   const alias = { ...bundle.alias };
   alias.entries = [...entries, ...(alias.entries || [])];
@@ -178,7 +177,7 @@ function getRollupConfig(bundle) {
     }),
     externals(bundle.externals),
     bundle.target === "universal" && nodeGlobals(),
-    babelConfig && babel(babelConfig),
+    babel(babelConfig),
     bundle.type === "plugin" && terser(),
   ].filter(Boolean);
 
@@ -211,7 +210,6 @@ function getWebpackConfig(bundle) {
   }
 
   const root = path.resolve(__dirname, "..", "..");
-  const { babelHelpers, ...babelConfig } = getBabelConfig(bundle);
   const config = {
     entry: path.resolve(root, bundle.input),
     module: {
@@ -220,7 +218,7 @@ function getWebpackConfig(bundle) {
           test: /\.js$/,
           use: {
             loader: "babel-loader",
-            options: babelConfig,
+            options: getBabelConfig(bundle),
           },
         },
       ],
