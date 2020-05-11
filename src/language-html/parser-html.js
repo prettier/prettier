@@ -68,8 +68,6 @@ function ngHtmlParser(
       const secondParseRootNodes = secondParseResult.rootNodes;
       const secondParseErrors = secondParseResult.errors;
 
-      errors = [];
-
       for (let i = 0; i < rootNodes.length; i++) {
         const node = rootNodes[i];
         const { endSourceSpan, startSourceSpan } = node;
@@ -83,7 +81,7 @@ function ngHtmlParser(
           for (const error of secondParseErrors) {
             const { offset } = error.span.start;
             if (startOffset < offset && offset < endOffset) {
-              errors.push(error);
+              errors = [error];
               break;
             }
           }
