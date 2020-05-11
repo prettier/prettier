@@ -2,7 +2,7 @@
 
 exports[`comments.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -91,7 +91,7 @@ const { configureStore } =
 
 exports[`new-expression.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -109,7 +109,7 @@ const testConsole = new TestConsole(
 
 exports[`no-confusing-arrow.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

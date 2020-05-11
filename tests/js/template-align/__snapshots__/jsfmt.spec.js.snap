@@ -2,7 +2,7 @@
 
 exports[`indent.js - {"useTabs":true,"tabWidth":8} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
 tabWidth: 8
 useTabs: true
@@ -70,7 +70,7 @@ Tabs:
 
 exports[`indent.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
