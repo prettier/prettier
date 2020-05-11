@@ -76,9 +76,10 @@ function ngHtmlParser(
 
     for (let i = 0; i < rootNodes.length; i++) {
       const node = rootNodes[i];
+      const { endSourceSpan, startSourceSpan } = node;
+      const isUncloseNode = endSourceSpan === null;
       if (node.name === "template" || node.name === "html") {
         if (shouldParseAsHtml) {
-          const { endSourceSpan, startSourceSpan } = node;
           if (startSourceSpan && endSourceSpan) {
             // push error to errors array if it occurred inside template tag
             const startOffset = startSourceSpan.end.offset;
@@ -94,6 +95,8 @@ function ngHtmlParser(
             errors = _errors;
           }
         }
+        rootNodes[i] = _rootNodes[i];
+      } else if (isUncloseNode) {
         rootNodes[i] = _rootNodes[i];
       }
     }
