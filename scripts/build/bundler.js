@@ -11,7 +11,7 @@ const nodeGlobals = require("rollup-plugin-node-globals");
 const json = require("@rollup/plugin-json");
 const replace = require("@rollup/plugin-replace");
 const { terser } = require("rollup-plugin-terser");
-const babel = require("rollup-plugin-babel");
+const { babel } = require("@rollup/plugin-babel");
 const nativeShims = require("./rollup-plugins/native-shims");
 const executable = require("./rollup-plugins/executable");
 const evaluate = require("./rollup-plugins/evaluate");
@@ -151,7 +151,7 @@ function getRollupConfig(bundle) {
   }
   Object.assign(replaceStrings, bundle.replace);
 
-  const babelConfig = getBabelConfig(bundle);
+  const babelConfig = { babelHelpers: "bundled", ...getBabelConfig(bundle) };
 
   const alias = { ...bundle.alias };
   alias.entries = [...entries, ...(alias.entries || [])];
@@ -177,7 +177,7 @@ function getRollupConfig(bundle) {
     }),
     externals(bundle.externals),
     bundle.target === "universal" && nodeGlobals(),
-    babelConfig && babel(babelConfig),
+    babel(babelConfig),
     bundle.minify !== false && bundle.target === "universal" && terser(),
   ].filter(Boolean);
 
