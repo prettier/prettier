@@ -34,9 +34,6 @@ const EXTERNALS = [
   "util",
   "readline",
   "tty",
-
-  // See comment in jest.config.js
-  "graceful-fs",
 ];
 
 const entries = [
@@ -186,7 +183,6 @@ function getRollupOutputOptions(bundle) {
   const options = {
     file: `dist/${bundle.output}`,
     strict: typeof bundle.strict === "undefined" ? true : bundle.strict,
-    paths: [{ "graceful-fs": "fs" }],
   };
 
   if (bundle.target === "node") {
