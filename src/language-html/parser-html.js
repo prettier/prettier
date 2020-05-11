@@ -253,6 +253,20 @@ function locEnd(node) {
   return node.sourceSpan.end.offset;
 }
 
+const htmlParseOptions = {
+  recognizeSelfClosing: true,
+  normalizeTagName: true,
+  normalizeAttributeName: true,
+  allowHtmComponentClosingTags: true,
+};
+
+const isVueHtml = (ast) =>
+  ast &&
+  Array.isArray(ast.children) &&
+  ast.children.some(
+    ({ type, value }) => type === "docType" && value === "html"
+  );
+
 function createParser({
   recognizeSelfClosing = false,
   normalizeTagName = false,
@@ -261,14 +275,22 @@ function createParser({
   isTagNameCaseSensitive = false,
 } = {}) {
   return {
-    parse: (text, parsers, options) =>
-      _parse(text, options, {
+    parse: (text, parsers, options) => {
+      let ast = _parse(text, options, {
         recognizeSelfClosing,
         normalizeTagName,
         normalizeAttributeName,
         allowHtmComponentClosingTags,
         isTagNameCaseSensitive,
-      }),
+      });
+
+      if (options.parser === "vue" && isVueHtml(ast)) {
+        // If not Vue SFC, treat as html
+        ast = _parse(text, options, htmlParseOptions);
+      }
+
+      return ast;
+    },
     hasPragma,
     astFormat: "html",
     locStart,
@@ -278,12 +300,7 @@ function createParser({
 
 module.exports = {
   parsers: {
-    html: createParser({
-      recognizeSelfClosing: true,
-      normalizeTagName: true,
-      normalizeAttributeName: true,
-      allowHtmComponentClosingTags: true,
-    }),
+    html: createParser(htmlParseOptions),
     angular: createParser(),
     vue: createParser({
       recognizeSelfClosing: true,

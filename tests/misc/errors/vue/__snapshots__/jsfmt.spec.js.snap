@@ -53,3 +53,69 @@ exports[`custom_block.vue error test 2`] = `
   3 | </custom>
   4 | "
 `;
+
+exports[`upper-case.html - {"embeddedLanguageFormatting":"off"} error test 1`] = `
+"Void elements do not have end tags \\"Input\\" (8:21)
+   6 |   <div id=\\"app\\">
+   7 |     <!-- when vue parse use for html, Input should not treat as component -->
+>  8 |     <Input>{{value}}</Input>
+     |                     ^
+   9 |   </div>
+  10 | </body>
+  11 |   <script src=\\"https://unpkg.com/vue/dist/vue.js\\"></script>"
+`;
+
+exports[`upper-case.html - {"semi":false} error test 1`] = `
+"Void elements do not have end tags \\"Input\\" (8:21)
+   6 |   <div id=\\"app\\">
+   7 |     <!-- when vue parse use for html, Input should not treat as component -->
+>  8 |     <Input>{{value}}</Input>
+     |                     ^
+   9 |   </div>
+  10 | </body>
+  11 |   <script src=\\"https://unpkg.com/vue/dist/vue.js\\"></script>"
+`;
+
+exports[`upper-case.html - {"trailingComma":"none"} error test 1`] = `
+"Void elements do not have end tags \\"Input\\" (8:21)
+   6 |   <div id=\\"app\\">
+   7 |     <!-- when vue parse use for html, Input should not treat as component -->
+>  8 |     <Input>{{value}}</Input>
+     |                     ^
+   9 |   </div>
+  10 | </body>
+  11 |   <script src=\\"https://unpkg.com/vue/dist/vue.js\\"></script>"
+`;
+
+exports[`upper-case.html - {"vueIndentScriptAndStyle":true} error test 1`] = `
+"Void elements do not have end tags \\"Input\\" (8:21)
+   6 |   <div id=\\"app\\">
+   7 |     <!-- when vue parse use for html, Input should not treat as component -->
+>  8 |     <Input>{{value}}</Input>
+     |                     ^
+   9 |   </div>
+  10 | </body>
+  11 |   <script src=\\"https://unpkg.com/vue/dist/vue.js\\"></script>"
+`;
+
+exports[`upper-case.html error test 1`] = `
+"Void elements do not have end tags \\"Input\\" (8:21)
+   6 |   <div id=\\"app\\">
+   7 |     <!-- when vue parse use for html, Input should not treat as component -->
+>  8 |     <Input>{{value}}</Input>
+     |                     ^
+   9 |   </div>
+  10 | </body>
+  11 |   <script src=\\"https://unpkg.com/vue/dist/vue.js\\"></script>"
+`;
+
+exports[`upper-case.html error test 2`] = `
+"Void elements do not have end tags \\"Input\\" (8:21)
+   6 |   <div id=\\"app\\">
+   7 |     <!-- when vue parse use for html, Input should not treat as component -->
+>  8 |     <Input>{{value}}</Input>
+     |                     ^
+   9 |   </div>
+  10 | </body>
+  11 |   <script src=\\"https://unpkg.com/vue/dist/vue.js\\"></script>"
+`;
