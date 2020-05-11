@@ -1,27 +1,26 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`empty.css format 1`] = `
+exports[`important.less format 1`] = `
 ====================================options=====================================
-parsers: ["css"]
+parsers: ["less"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-
-details[open] {
+div {
+  max-height: none !important;
 }
 
-div {
-  box-sizing: border-box;;
-  color: red;
+.important {
+  .foo() !important;
 }
 
 =====================================output=====================================
-details[open] {
+div {
+  max-height: none !important;
 }
 
-div {
-  box-sizing: border-box;
-  color: red;
+.important {
+  .foo() !important;
 }
 
 ================================================================================

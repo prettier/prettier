@@ -1,7 +1,7 @@
 "use strict";
 
 const chalk = require("chalk");
-const dedent = require("dedent");
+const { string: outdentString } = require("outdent");
 const execa = require("execa");
 const { logPromise, waitForEnter } = require("../utils");
 
@@ -19,7 +19,7 @@ module.exports = async function ({ dry, version }) {
   );
 
   console.log(
-    dedent(chalk`
+    outdentString(chalk`
       {green.bold Prettier ${version} published!}
 
       {yellow.bold Some manual steps are necessary.}

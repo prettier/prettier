@@ -1,11 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`empty.css format 1`] = `
+exports[`empty.less format 1`] = `
 ====================================options=====================================
-parsers: ["css"]
+parsers: ["less"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
+.ui-syntax-color();
 
 details[open] {
 }
@@ -16,6 +17,8 @@ div {
 }
 
 =====================================output=====================================
+.ui-syntax-color();
+
 details[open] {
 }
 

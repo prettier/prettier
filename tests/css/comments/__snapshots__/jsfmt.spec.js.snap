@@ -292,7 +292,6 @@ parsers: ["css"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-
 /* Catchall baseclass */
 .glyphicon {
 }
@@ -483,7 +482,6 @@ parsers: ["css"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-
 foo {
   /* prettier-ignore */
   thing:     foo;

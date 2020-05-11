@@ -10,7 +10,7 @@ const getCategory = (dirname) =>
 
 const categoryParsers = new Map(
   [
-    ["angular", ["angular", "__ng_interpolation"]],
+    ["angular", ["angular", "__ng_interpolation", "__ng_action"]],
     ["css", ["css"]],
     ["flow", ["babel", "flow", "babel-flow"]],
     ["flow-repo", ["babel", "flow", "babel-flow"]],

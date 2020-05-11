@@ -5,7 +5,7 @@ const path = require("path");
 const { rollup } = require("rollup");
 const webpack = require("webpack");
 const resolve = require("@rollup/plugin-node-resolve");
-const alias = require("@rollup/plugin-alias");
+const rollupPluginAlias = require("@rollup/plugin-alias");
 const commonjs = require("@rollup/plugin-commonjs");
 const nodeGlobals = require("rollup-plugin-node-globals");
 const json = require("@rollup/plugin-json");
@@ -16,6 +16,8 @@ const nativeShims = require("./rollup-plugins/native-shims");
 const executable = require("./rollup-plugins/executable");
 const evaluate = require("./rollup-plugins/evaluate");
 const externals = require("./rollup-plugins/externals");
+
+const PROJECT_ROOT = path.resolve(__dirname, "../..");
 
 const EXTERNALS = [
   "assert",
@@ -32,9 +34,33 @@ const EXTERNALS = [
   "util",
   "readline",
   "tty",
+];
 
-  // See comment in jest.config.js
-  "graceful-fs",
+const entries = [
+  // Force using the CJS file, instead of ESM; i.e. get the file
+  // from `"main"` instead of `"module"` (rollup default) of package.json
+  {
+    find: "outdent",
+    replacement: require.resolve("outdent"),
+  },
+  {
+    find: "lines-and-columns",
+    replacement: require.resolve("lines-and-columns"),
+  },
+  // `handlebars` causes webpack warning by using `require.extensions`
+  // `dist/handlebars.js` also complaint on `window` variable
+  // use cjs build instead
+  // https://github.com/prettier/prettier/issues/6656
+  {
+    find: "handlebars",
+    replacement: require.resolve("handlebars/dist/cjs/handlebars.js"),
+  },
+  {
+    find: "@angular/compiler/src",
+    replacement: path.resolve(
+      `${PROJECT_ROOT}/node_modules/@angular/compiler/esm2015/src`
+    ),
+  },
 ];
 
 function getBabelConfig(bundle) {
@@ -113,10 +139,22 @@ function getRollupConfig(bundle) {
     // We can't reference `process` in UMD bundles and this is
     // an undocumented "feature"
     replaceStrings["process.env.PRETTIER_DEBUG"] = "global.PRETTIER_DEBUG";
+    // `rollup-plugin-node-globals` replace `__dirname` with the real dirname
+    // `parser-typescript.js` will contain a path of working directory
+    // See #8268
+    replaceStrings.__filename = JSON.stringify(
+      "/prettier-security-filename-placeholder.js"
+    );
+    replaceStrings.__dirname = JSON.stringify(
+      "/prettier-security-dirname-placeholder"
+    );
   }
   Object.assign(replaceStrings, bundle.replace);
 
   const babelConfig = getBabelConfig(bundle);
+
+  const alias = { ...bundle.alias };
+  alias.entries = [...entries, ...(alias.entries || [])];
 
   config.plugins = [
     replace({
@@ -126,7 +164,7 @@ function getRollupConfig(bundle) {
     executable(),
     evaluate(),
     json(),
-    bundle.alias && alias(bundle.alias),
+    rollupPluginAlias(alias),
     bundle.target === "universal" &&
       nativeShims(path.resolve(__dirname, "shims")),
     resolve({
@@ -154,7 +192,6 @@ function getRollupOutputOptions(bundle) {
   const options = {
     file: `dist/${bundle.output}`,
     strict: typeof bundle.strict === "undefined" ? true : bundle.strict,
-    paths: [{ "graceful-fs": "fs" }],
   };
 
   if (bundle.target === "node") {
