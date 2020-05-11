@@ -34,8 +34,7 @@ const categoryParsers = new Map([
   [
     "flow-repo",
     {
-      // TODO: only allow `flow` and `babel-flow`
-      parsers: ["babel", "flow", "babel-flow"],
+      parsers: ["flow", "babel-flow"],
       verifyParsers: ["babel", "flow", "babel-flow", "typescript", "babel-ts"],
     },
   ],
