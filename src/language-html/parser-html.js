@@ -25,7 +25,6 @@ function ngHtmlParser(
   options
 ) {
   const parser = require("angular-html-parser");
-  const { TagContentType } = parser;
   const {
     RecursiveVisitor,
     visitAll,
@@ -60,44 +59,36 @@ function ngHtmlParser(
     const shouldParseAsHtml =
       langValue == null || getParserName(langValue, options) === "html";
 
-    const parseResult = parser.parse(input, {
-      canSelfClose: recognizeSelfClosing,
-      allowHtmComponentClosingTags,
-      isTagNameCaseSensitive,
-      // For not HTML languages written inside template like pug
-      getTagContentType: shouldParseAsHtml
-        ? undefined
-        : () => TagContentType.RAW_TEXT,
-    });
-    const _rootNodes = parseResult.rootNodes;
-    const _errors = parseResult.errors;
+    if (shouldParseAsHtml) {
+      const secondParseResult = parser.parse(input, {
+        canSelfClose: recognizeSelfClosing,
+        allowHtmComponentClosingTags,
+        isTagNameCaseSensitive,
+      });
+      const secondParseRootNodes = secondParseResult.rootNodes;
+      const secondParseErrors = secondParseResult.errors;
 
-    errors = [];
+      errors = [];
 
-    for (let i = 0; i < rootNodes.length; i++) {
-      const node = rootNodes[i];
-      const { endSourceSpan, startSourceSpan } = node;
-      const isUncloseNode = endSourceSpan === null;
-      if (node.name === "template" || node.name === "html") {
-        if (shouldParseAsHtml) {
-          if (startSourceSpan && endSourceSpan) {
-            // push error to errors array if it occurred inside template tag
-            const startOffset = startSourceSpan.end.offset;
-            const endOffset = endSourceSpan.start.offset;
-            for (const error of _errors) {
-              const { offset } = error.span.start;
-              if (startOffset < offset && offset < endOffset) {
-                errors.push(error);
-                break;
-              }
+      for (let i = 0; i < rootNodes.length; i++) {
+        const node = rootNodes[i];
+        const { endSourceSpan, startSourceSpan } = node;
+        const isUnclosedNode = endSourceSpan === null;
+        if (isUnclosedNode) {
+          errors = secondParseErrors;
+          rootNodes[i] = secondParseRootNodes[i];
+        } else if (node.name === "template" || node.name === "html") {
+          const startOffset = startSourceSpan.end.offset;
+          const endOffset = endSourceSpan.start.offset;
+          for (const error of secondParseErrors) {
+            const { offset } = error.span.start;
+            if (startOffset < offset && offset < endOffset) {
+              errors.push(error);
+              break;
             }
-          } else {
-            errors = _errors;
           }
+          rootNodes[i] = secondParseRootNodes[i];
         }
-        rootNodes[i] = _rootNodes[i];
-      } else if (isUncloseNode) {
-        rootNodes[i] = _rootNodes[i];
       }
     }
   }
@@ -347,8 +338,13 @@ module.exports = {
     vue: createParser({
       recognizeSelfClosing: true,
       isTagNameCaseSensitive: true,
-      getTagContentType: (tagName, prefix, hasParent) => {
-        if (tagName !== "template" && tagName !== "html" && !hasParent) {
+      getTagContentType: (tagName, prefix, hasParent, attrs) => {
+        if (
+          tagName !== "html" &&
+          !hasParent &&
+          (tagName !== "template" ||
+            attrs.find((attr) => attr.name === "lang" && attr.value !== "html"))
+        ) {
           return require("angular-html-parser").TagContentType.RAW_TEXT;
         }
       },
