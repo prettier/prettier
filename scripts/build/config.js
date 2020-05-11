@@ -1,7 +1,6 @@
 "use strict";
 
 const path = require("path");
-const PROJECT_ROOT = path.resolve(__dirname, "../..");
 
 /**
  * @typedef {Object} Bundle
@@ -39,22 +38,6 @@ const parsers = [
   },
   {
     input: "src/language-js/parser-angular.js",
-    alias: {
-      // Force using the CJS file, instead of ESM; i.e. get the file
-      // from `"main"` instead of `"module"` (rollup default) of package.json
-      entries: [
-        {
-          find: "lines-and-columns",
-          replacement: require.resolve("lines-and-columns"),
-        },
-        {
-          find: "@angular/compiler/src",
-          replacement: path.resolve(
-            `${PROJECT_ROOT}/node_modules/@angular/compiler/esm2015/src`
-          ),
-        },
-      ],
-    },
   },
   {
     input: "src/language-css/parser-postcss.js",
@@ -81,18 +64,6 @@ const parsers = [
   },
   {
     input: "src/language-handlebars/parser-glimmer.js",
-    alias: {
-      entries: [
-        // `handlebars` causes webpack warning by using `require.extensions`
-        // `dist/handlebars.js` also complaint on `window` variable
-        // use cjs build instead
-        // https://github.com/prettier/prettier/issues/6656
-        {
-          find: "handlebars",
-          replacement: require.resolve("handlebars/dist/cjs/handlebars.js"),
-        },
-      ],
-    },
     commonjs: {
       namedExports: {
         [require.resolve("handlebars/dist/cjs/handlebars.js")]: [
@@ -111,16 +82,6 @@ const parsers = [
   },
   {
     input: "src/language-yaml/parser-yaml.js",
-    alias: {
-      // Force using the CJS file, instead of ESM; i.e. get the file
-      // from `"main"` instead of `"module"` (rollup default) of package.json
-      entries: [
-        {
-          find: "lines-and-columns",
-          replacement: require.resolve("lines-and-columns"),
-        },
-      ],
-    },
   },
 ].map((parser) => ({
   type: "plugin",
