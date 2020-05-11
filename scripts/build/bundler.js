@@ -211,6 +211,7 @@ function getWebpackConfig(bundle) {
   }
 
   const root = path.resolve(__dirname, "..", "..");
+  const { babelHelpers, ...babelConfig } = getBabelConfig(bundle);
   const config = {
     entry: path.resolve(root, bundle.input),
     module: {
@@ -219,7 +220,7 @@ function getWebpackConfig(bundle) {
           test: /\.js$/,
           use: {
             loader: "babel-loader",
-            options: getBabelConfig(bundle),
+            options: babelConfig,
           },
         },
       ],
