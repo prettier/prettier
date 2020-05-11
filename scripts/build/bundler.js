@@ -11,7 +11,7 @@ const nodeGlobals = require("rollup-plugin-node-globals");
 const json = require("@rollup/plugin-json");
 const replace = require("@rollup/plugin-replace");
 const { terser } = require("rollup-plugin-terser");
-const babel = require("@rollup/plugin-babel");
+const { babel } = require("@rollup/plugin-babel");
 const nativeShims = require("./rollup-plugins/native-shims");
 const executable = require("./rollup-plugins/executable");
 const evaluate = require("./rollup-plugins/evaluate");
@@ -68,6 +68,7 @@ function getBabelConfig(bundle) {
     babelrc: false,
     plugins: bundle.babelPlugins || [],
     compact: bundle.type === "plugin" ? false : "auto",
+    babelHelpers: "bundled",
   };
   if (bundle.type === "core") {
     config.plugins.push(
