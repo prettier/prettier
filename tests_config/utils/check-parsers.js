@@ -31,13 +31,6 @@ const categoryParsers = new Map([
     },
   ],
   [
-    "flow-babel-only",
-    {
-      parsers: ["babel"],
-      verifyParsers: [],
-    },
-  ],
-  [
     "flow-repo",
     {
       parsers: ["flow", "babel-flow"],
