@@ -21,7 +21,7 @@ process.on("unhandledRejection", (err) => {
   process.exit(1);
 });
 
-const CACHE_VERSION = "v23"; // This need update when updating build scripts
+const CACHE_VERSION = "v24"; // This need update when updating build scripts
 const CACHED = chalk.bgYellow.black(" CACHED ");
 const OK = chalk.bgGreen.black("  DONE  ");
 const FAIL = chalk.bgRed.black("  FAIL  ");
