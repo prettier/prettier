@@ -5370,7 +5370,7 @@ See console log:
 
 <div>
   <!-- Accessing an undeclared member -->
-  <div>Undeclared members is {{$any(this).member}}</div>
+  <div>Undeclared members is {{ $any(this).member }}</div>
 </div>
 
 <a class="to-toc" href="#toc">top</a>
@@ -7035,7 +7035,7 @@ See console log:
 
 <div>
   <!-- Accessing an undeclared member -->
-  <div>Undeclared members is {{$any(this).member}}</div>
+  <div>Undeclared members is {{ $any(this).member }}</div>
 </div>
 
 <a class="to-toc" href="#toc">top</a>
@@ -10365,7 +10365,12 @@ See console log:
     Undeclared
     members
     is
-    {{$any(this).member}}
+    {{
+      $any(
+        this
+      )
+        .member
+    }}
   </div>
 </div>
 
@@ -11977,7 +11982,7 @@ See console log:
 
 <div>
   <!-- Accessing an undeclared member -->
-  <div>Undeclared members is {{$any(this).member}}</div>
+  <div>Undeclared members is {{ $any(this).member }}</div>
 </div>
 
 <a class="to-toc" href="#toc">top</a>
@@ -13505,7 +13510,7 @@ See console log:
 
 <div>
   <!-- Accessing an undeclared member -->
-  <div>Undeclared members is {{$any(this).member}}</div>
+  <div>Undeclared members is {{ $any(this).member }}</div>
 </div>
 
 <a class="to-toc" href="#toc">top</a>
