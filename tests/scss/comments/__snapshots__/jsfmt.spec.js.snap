@@ -123,6 +123,42 @@ printWidth: 80
 ================================================================================
 `;
 
+exports[`bug.scss format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@font-face  {
+  src: url(if(
+    $bootstrap-sass-asset-helper,
+    twbs-font-path('#{$icon-font-path}#{$icon-font-name}.eot'),
+    '#{$icon-font-path}#{$icon-font-name}.eot'
+  ));
+}
+
+// Catchall baseclass
+/* Catchall baseclass */
+.glyphicon {
+}
+
+=====================================output=====================================
+@font-face {
+  src: url(if(
+    $bootstrap-sass-asset-helper,
+    twbs-font-path("#{$icon-font-path}#{$icon-font-name}.eot"),
+    "#{$icon-font-path}#{$icon-font-name}.eot"
+  ));
+}
+
+// Catchall baseclass
+/* Catchall baseclass */
+.glyphicon {
+}
+
+================================================================================
+`;
+
 exports[`if-eslit-at-rule-decloration.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]
