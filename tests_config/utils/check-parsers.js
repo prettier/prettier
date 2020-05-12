@@ -16,13 +16,7 @@ const categoryParsers = new Map([
       verifyParsers: [],
     },
   ],
-  [
-    "css",
-    {
-      parsers: ["css"],
-      verifyParsers: ["less", "scss"],
-    },
-  ],
+  ["css", { parsers: ["css"], verifyParsers: ["less", "scss"] }],
   [
     "flow",
     {
@@ -37,27 +31,9 @@ const categoryParsers = new Map([
       verifyParsers: ["babel", "flow", "babel-flow", "typescript", "babel-ts"],
     },
   ],
-  [
-    "graphql",
-    {
-      parsers: ["graphql"],
-      verifyParsers: [],
-    },
-  ],
-  [
-    "handlebars",
-    {
-      parsers: ["glimmer"],
-      verifyParsers: [],
-    },
-  ],
-  [
-    "html",
-    {
-      parsers: ["html"],
-      verifyParsers: [],
-    },
-  ],
+  ["graphql", { parsers: ["graphql"], verifyParsers: [] }],
+  ["handlebars", { parsers: ["glimmer"], verifyParsers: [] }],
+  ["html", { parsers: ["html"], verifyParsers: [] }],
   [
     "js",
     {
@@ -65,13 +41,7 @@ const categoryParsers = new Map([
       verifyParsers: ["babel", "flow", "babel-flow", "typescript", "babel-ts"],
     },
   ],
-  [
-    "json",
-    {
-      parsers: ["json", "json5", "json-stringify"],
-      verifyParsers: [],
-    },
-  ],
+  ["json", { parsers: ["json", "json5", "json-stringify"], verifyParsers: [] }],
   [
     "jsx",
     {
