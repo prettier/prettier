@@ -1,6 +1,33 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`jsx_same_line.js - {"jsxBracketSameLine":true} format 1`] = `
+exports[`eslint-disable.js - {"jsxBracketSameLine":true} format 1`] = `
+====================================options=====================================
+jsxBracketSameLine: true
+parsers: ["flow", "babel", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const render = items => (
+  <div>{ /* eslint-disable */
+    	 items.map(item => null)
+      /* eslint-enable */    }</div>
+)
+
+=====================================output=====================================
+const render = (items) => (
+  <div>
+    {
+      /* eslint-disable */
+      items.map((item) => null)
+      /* eslint-enable */
+    }
+  </div>
+);
+
+================================================================================
+`;
+
+exports[`in-tags.js - {"jsxBracketSameLine":true} format 1`] = `
 ====================================options=====================================
 jsxBracketSameLine: true
 parsers: ["flow", "babel", "typescript"]
