@@ -130,6 +130,38 @@ export const getVehicleDescriptor = async (
 ================================================================================
 `;
 
+exports[`issue-6899.ts format 1`] = `
+====================================options=====================================
+parsers: ["typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+const getUnusedAuthorizationHoldDocuments = async (): Promise<DocumentData[]> => {}
+
+const firestorePersonallyIdentifiablePaths: Array<
+  keyof Collections.Users.Entity
+> = []
+
+export const SUPPORTED_VEHICLE_TYPES: Array<
+  Collections.VehiclesStates.Entity['type']
+> = Object.values(Collections.VehiclesStates.Type);
+
+=====================================output=====================================
+const getUnusedAuthorizationHoldDocuments = async (): Promise<
+  DocumentData[]
+> => {};
+
+const firestorePersonallyIdentifiablePaths: Array<
+  keyof Collections.Users.Entity
+> = [];
+
+export const SUPPORTED_VEHICLE_TYPES: Array<
+  Collections.VehiclesStates.Entity["type"]
+> = Object.values(Collections.VehiclesStates.Type);
+
+================================================================================
+`;
+
 exports[`object-method.ts format 1`] = `
 ====================================options=====================================
 parsers: ["typescript"]
