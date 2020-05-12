@@ -719,6 +719,156 @@ printWidth: 80
 ================================================================================
 `;
 
+exports[`option.html - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "ignore"
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<select><option>Blue</option><option>Green</option><optgroup label="Darker"><option>Dark Blue</option><option>Dark Green</option></optgroup></select>
+<input list=colors>
+<datalist id=colors><option>Blue</option><option>Green</option></datalist>
+
+=====================================output=====================================
+<select>
+  <option>Blue</option>
+  <option>Green</option>
+  <optgroup label="Darker">
+    <option>Dark Blue</option>
+    <option>Dark Green</option>
+  </optgroup>
+</select>
+<input list="colors" />
+<datalist id="colors">
+  <option>Blue</option>
+  <option>Green</option>
+</datalist>
+
+================================================================================
+`;
+
+exports[`option.html - {"htmlWhitespaceSensitivity":"strict"} format 1`] = `
+====================================options=====================================
+htmlWhitespaceSensitivity: "strict"
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<select><option>Blue</option><option>Green</option><optgroup label="Darker"><option>Dark Blue</option><option>Dark Green</option></optgroup></select>
+<input list=colors>
+<datalist id=colors><option>Blue</option><option>Green</option></datalist>
+
+=====================================output=====================================
+<select
+  ><option>Blue</option
+  ><option>Green</option
+  ><optgroup label="Darker"
+    ><option>Dark Blue</option><option>Dark Green</option></optgroup
+  ></select
+>
+<input list="colors" />
+<datalist id="colors"><option>Blue</option><option>Green</option></datalist>
+
+================================================================================
+`;
+
+exports[`option.html - {"printWidth":"Infinity"} format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: Infinity
+=====================================input======================================
+<select><option>Blue</option><option>Green</option><optgroup label="Darker"><option>Dark Blue</option><option>Dark Green</option></optgroup></select>
+<input list=colors>
+<datalist id=colors><option>Blue</option><option>Green</option></datalist>
+
+=====================================output=====================================
+<select>
+  <option>Blue</option
+  ><option>Green</option
+  ><optgroup label="Darker"><option>Dark Blue</option><option>Dark Green</option></optgroup>
+</select>
+<input list="colors" />
+<datalist id="colors">
+  <option>Blue</option>
+  <option>Green</option>
+</datalist>
+
+================================================================================
+`;
+
+exports[`option.html - {"printWidth":1} format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 1
+ | printWidth
+=====================================input======================================
+<select><option>Blue</option><option>Green</option><optgroup label="Darker"><option>Dark Blue</option><option>Dark Green</option></optgroup></select>
+<input list=colors>
+<datalist id=colors><option>Blue</option><option>Green</option></datalist>
+
+=====================================output=====================================
+<select>
+  <option
+    >Blue</option
+  ><option
+    >Green</option
+  ><optgroup
+    label="Darker"
+  >
+    <option
+      >Dark
+      Blue</option
+    ><option
+      >Dark
+      Green</option
+    >
+  </optgroup>
+</select>
+<input
+  list="colors"
+/>
+<datalist
+  id="colors"
+>
+  <option
+    >Blue</option
+  >
+  <option
+    >Green</option
+  >
+</datalist>
+
+================================================================================
+`;
+
+exports[`option.html format 1`] = `
+====================================options=====================================
+parsers: ["html"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<select><option>Blue</option><option>Green</option><optgroup label="Darker"><option>Dark Blue</option><option>Dark Green</option></optgroup></select>
+<input list=colors>
+<datalist id=colors><option>Blue</option><option>Green</option></datalist>
+
+=====================================output=====================================
+<select>
+  <option>Blue</option
+  ><option>Green</option
+  ><optgroup label="Darker">
+    <option>Dark Blue</option><option>Dark Green</option>
+  </optgroup>
+</select>
+<input list="colors" />
+<datalist id="colors">
+  <option>Blue</option>
+  <option>Green</option>
+</datalist>
+
+================================================================================
+`;
+
 exports[`pre.html - {"htmlWhitespaceSensitivity":"ignore"} format 1`] = `
 ====================================options=====================================
 htmlWhitespaceSensitivity: "ignore"
