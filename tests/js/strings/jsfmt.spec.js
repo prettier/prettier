@@ -1,2 +1,2 @@
-run_spec(__dirname, ["flow"]);
-run_spec(__dirname, ["flow"], { trailingComma: "all" });
+run_spec(__dirname, ["babel", "flow"]);
+run_spec(__dirname, ["babel", "flow"], { trailingComma: "all" });
