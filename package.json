@@ -107,7 +107,6 @@
     "jest-snapshot-serializer-ansi": "1.0.0",
     "jest-snapshot-serializer-raw": "1.1.0",
     "jest-watch-typeahead": "0.6.0",
-    "outdent": "0.7.1",
     "prettier": "2.0.5",
     "rimraf": "3.0.2",
     "rollup": "2.9.1",
