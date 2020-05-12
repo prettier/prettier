@@ -60,32 +60,37 @@ function ngHtmlParser(
       langValue == null || getParserName(langValue, options) === "html";
 
     if (shouldParseAsHtml) {
-      const secondParseResult = parser.parse(input, {
-        canSelfClose: recognizeSelfClosing,
-        allowHtmComponentClosingTags,
-        isTagNameCaseSensitive,
-      });
-      const secondParseRootNodes = secondParseResult.rootNodes;
-      const secondParseErrors = secondParseResult.errors;
-
+      let secondParseResult;
+      const doSecondParse = () =>
+        parser.parse(input, {
+          canSelfClose: recognizeSelfClosing,
+          allowHtmComponentClosingTags,
+          isTagNameCaseSensitive,
+        });
+      const getSecondParse = () =>
+        secondParseResult
+          ? secondParseResult
+          : (secondParseResult = doSecondParse());
       for (let i = 0; i < rootNodes.length; i++) {
         const node = rootNodes[i];
         const { endSourceSpan, startSourceSpan } = node;
         const isUnclosedNode = endSourceSpan === null;
         if (isUnclosedNode) {
-          errors = secondParseErrors;
-          rootNodes[i] = secondParseRootNodes[i];
+          const result = getSecondParse();
+          errors = result.errors;
+          rootNodes[i] = result.rootNodes[i];
         } else if (node.name === "template" || node.name === "html") {
+          const result = getSecondParse();
           const startOffset = startSourceSpan.end.offset;
           const endOffset = endSourceSpan.start.offset;
-          for (const error of secondParseErrors) {
+          for (const error of result.errors) {
             const { offset } = error.span.start;
             if (startOffset < offset && offset < endOffset) {
               errors = [error];
               break;
             }
           }
-          rootNodes[i] = secondParseRootNodes[i];
+          rootNodes[i] = result.rootNodes[i];
         }
       }
     }
