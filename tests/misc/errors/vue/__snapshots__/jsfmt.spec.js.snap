@@ -1,33 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`unclosed_tag.vue - {"embeddedLanguageFormatting":"off"} error test 1`] = `
-"Unexpected character \\"EOF\\" (2:1)
-  1 | <div
-> 2 | 
-    | ^"
-`;
-
-exports[`unclosed_tag.vue - {"semi":false} error test 1`] = `
-"Unexpected character \\"EOF\\" (2:1)
-  1 | <div
-> 2 | 
-    | ^"
-`;
-
-exports[`unclosed_tag.vue - {"trailingComma":"none"} error test 1`] = `
-"Unexpected character \\"EOF\\" (2:1)
-  1 | <div
-> 2 | 
-    | ^"
-`;
-
-exports[`unclosed_tag.vue - {"vueIndentScriptAndStyle":true} error test 1`] = `
-"Unexpected character \\"EOF\\" (2:1)
-  1 | <div
-> 2 | 
-    | ^"
-`;
-
 exports[`unclosed_tag.vue error test 1`] = `
 "Unexpected character \\"EOF\\" (2:1)
   1 | <div
@@ -35,59 +7,7 @@ exports[`unclosed_tag.vue error test 1`] = `
     | ^"
 `;
 
-exports[`unclosed_tag.vue error test 2`] = `
-"Unexpected character \\"EOF\\" (2:1)
-  1 | <div
-> 2 | 
-    | ^"
-`;
-
-exports[`unclosed_tag_in_template.vue - {"embeddedLanguageFormatting":"off"} error test 1`] = `
-"Unexpected character \\"/\\" (4:2)
-  2 |   <p>Templates are formatted as well...
-  3 |     </
-> 4 | </template>
-    |  ^
-  5 | "
-`;
-
-exports[`unclosed_tag_in_template.vue - {"semi":false} error test 1`] = `
-"Unexpected character \\"/\\" (4:2)
-  2 |   <p>Templates are formatted as well...
-  3 |     </
-> 4 | </template>
-    |  ^
-  5 | "
-`;
-
-exports[`unclosed_tag_in_template.vue - {"trailingComma":"none"} error test 1`] = `
-"Unexpected character \\"/\\" (4:2)
-  2 |   <p>Templates are formatted as well...
-  3 |     </
-> 4 | </template>
-    |  ^
-  5 | "
-`;
-
-exports[`unclosed_tag_in_template.vue - {"vueIndentScriptAndStyle":true} error test 1`] = `
-"Unexpected character \\"/\\" (4:2)
-  2 |   <p>Templates are formatted as well...
-  3 |     </
-> 4 | </template>
-    |  ^
-  5 | "
-`;
-
 exports[`unclosed_tag_in_template.vue error test 1`] = `
-"Unexpected character \\"/\\" (4:2)
-  2 |   <p>Templates are formatted as well...
-  3 |     </
-> 4 | </template>
-    |  ^
-  5 | "
-`;
-
-exports[`unclosed_tag_in_template.vue error test 2`] = `
 "Unexpected character \\"/\\" (4:2)
   2 |   <p>Templates are formatted as well...
   3 |     </
