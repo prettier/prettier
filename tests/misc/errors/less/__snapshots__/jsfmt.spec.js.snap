@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`scss-syntax.css error test 1`] = `
+"(postcss) CssSyntaxError Unknown word (1:15)
+> 1 | a {content: #{$foo}}
+    |               ^
+  2 | "
+`;
