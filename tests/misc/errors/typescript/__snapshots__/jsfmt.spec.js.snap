@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`jsx.ts error test 1`] = `
+"Unexpected token. Did you mean \`{'>'}\` or \`&gt;\`? (3:45)
+  1 | // https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-9.html#-and--are-now-invalid-jsx-text-characters
+  2 | 
+> 3 | let directions = <div>Navigate to: Menu Bar > Tools > Options</div>
+    |                                             ^
+  4 | "
+`;
