@@ -713,7 +713,7 @@ function createDetailedUsage(context, flag) {
 function getOptionDefaultValue(context, optionName) {
   // --no-option
   if (!(optionName in context.detailedOptionMap)) {
-    return undefined;
+    return;
   }
 
   const option = context.detailedOptionMap[optionName];
@@ -726,8 +726,6 @@ function getOptionDefaultValue(context, optionName) {
   if (optionCamelName in context.apiDefaultOptions) {
     return context.apiDefaultOptions[optionCamelName];
   }
-
-  return undefined;
 }
 
 function indent(str, spaces) {
