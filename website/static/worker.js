@@ -87,11 +87,11 @@ var parsers = {
   },
   get less() {
     importScriptOnce("lib/parser-postcss.js");
-    return prettierPlugins.postcss.parsers.css;
+    return prettierPlugins.postcss.parsers.less;
   },
   get scss() {
     importScriptOnce("lib/parser-postcss.js");
-    return prettierPlugins.postcss.parsers.css;
+    return prettierPlugins.postcss.parsers.scss;
   },
 
   // GraphQL
