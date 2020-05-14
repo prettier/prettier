@@ -285,7 +285,17 @@ function genericPrint(path, options, print) {
           : "",
         node.nodes
           ? concat([
-              isSCSSControlDirectiveNode(node) ? "" : " ",
+              isSCSSControlDirectiveNode(node)
+                ? ""
+                : (node.selector &&
+                    !node.selector.nodes &&
+                    typeof node.selector.value === "string" &&
+                    lastLineHasInlineComment(node.selector.value)) ||
+                  (!node.selector &&
+                    typeof node.params === "string" &&
+                    lastLineHasInlineComment(node.params))
+                ? line
+                : " ",
               "{",
               indent(
                 concat([
@@ -542,9 +552,10 @@ function genericPrint(path, options, print) {
 
         // styled.div` background: var(--${one}); `
         if (
-          !iPrevNode &&
-          iNode.value === "--" &&
-          iNextNode.type === "value-atword"
+          iNode.type === "value-word" &&
+          iNode.value.endsWith("-") &&
+          iNextNode.type === "value-atword" &&
+          iNextNode.value.startsWith("prettier-placeholder-")
         ) {
           continue;
         }

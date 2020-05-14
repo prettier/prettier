@@ -2,7 +2,7 @@
 
 exports[`binaryish.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "typescript", "babel"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -60,7 +60,7 @@ function f() {
 
 exports[`comment.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "typescript", "babel"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -116,7 +116,7 @@ fn(function f() {
 
 exports[`jsx.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "typescript", "babel"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

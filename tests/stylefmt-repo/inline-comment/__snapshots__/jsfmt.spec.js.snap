@@ -2,7 +2,7 @@
 
 exports[`inline-comment.css format 1`] = `
 ====================================options=====================================
-parsers: ["css"]
+parsers: ["scss"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

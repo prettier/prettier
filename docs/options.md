@@ -240,6 +240,8 @@ For example, the following will use the CSS parser:
 cat foo | prettier --stdin-filepath foo.css
 ```
 
+This option is only useful in the CLI and API. It doesn't make sense to use it in a configuration file.
+
 | Default | CLI Override                | API Override           |
 | ------- | --------------------------- | ---------------------- |
 | None    | `--stdin-filepath <string>` | `filepath: "<string>"` |

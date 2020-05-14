@@ -6,7 +6,6 @@ parsers: ["css"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-.ui-syntax-color();
 
 details[open] {
 }
@@ -17,8 +16,6 @@ div {
 }
 
 =====================================output=====================================
-.ui-syntax-color();
-
 details[open] {
 }
 

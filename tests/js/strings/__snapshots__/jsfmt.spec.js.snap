@@ -2,7 +2,7 @@
 
 exports[`strings.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
-parsers: ["flow"]
+parsers: ["babel", "flow"]
 printWidth: 80
 trailingComma: "all"
                                                                                 | printWidth
@@ -65,7 +65,7 @@ trailingComma: "all"
 
 exports[`strings.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow"]
+parsers: ["babel", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -127,7 +127,7 @@ printWidth: 80
 
 exports[`template-literals.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
-parsers: ["flow"]
+parsers: ["babel", "flow"]
 printWidth: 80
 trailingComma: "all"
                                                                                 | printWidth
@@ -311,7 +311,7 @@ const Bar = styled.div\`
 
 exports[`template-literals.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow"]
+parsers: ["babel", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

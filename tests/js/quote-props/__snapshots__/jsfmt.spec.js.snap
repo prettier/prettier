@@ -2,7 +2,7 @@
 
 exports[`classes.js - {"quoteProps":"as-needed"} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel"]
+parsers: ["babel", "flow"]
 printWidth: 80
 quoteProps: "as-needed"
                                                                                 | printWidth
@@ -49,7 +49,7 @@ class D {
 
 exports[`classes.js - {"quoteProps":"consistent","singleQuote":true} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel"]
+parsers: ["babel", "flow"]
 printWidth: 80
 quoteProps: "consistent"
 singleQuote: true
@@ -97,7 +97,7 @@ class D {
 
 exports[`classes.js - {"quoteProps":"consistent"} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel"]
+parsers: ["babel", "flow"]
 printWidth: 80
 quoteProps: "consistent"
                                                                                 | printWidth
@@ -144,7 +144,7 @@ class D {
 
 exports[`classes.js - {"quoteProps":"preserve"} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel"]
+parsers: ["babel", "flow"]
 printWidth: 80
 quoteProps: "preserve"
                                                                                 | printWidth
@@ -191,7 +191,7 @@ class D {
 
 exports[`objects.js - {"quoteProps":"as-needed"} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel"]
+parsers: ["babel", "flow"]
 printWidth: 80
 quoteProps: "as-needed"
                                                                                 | printWidth
@@ -238,7 +238,7 @@ const d = {
 
 exports[`objects.js - {"quoteProps":"consistent","singleQuote":true} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel"]
+parsers: ["babel", "flow"]
 printWidth: 80
 quoteProps: "consistent"
 singleQuote: true
@@ -286,7 +286,7 @@ const d = {
 
 exports[`objects.js - {"quoteProps":"consistent"} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel"]
+parsers: ["babel", "flow"]
 printWidth: 80
 quoteProps: "consistent"
                                                                                 | printWidth
@@ -333,7 +333,7 @@ const d = {
 
 exports[`objects.js - {"quoteProps":"preserve"} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel"]
+parsers: ["babel", "flow"]
 printWidth: 80
 quoteProps: "preserve"
                                                                                 | printWidth
@@ -380,7 +380,7 @@ const d = {
 
 exports[`with_member_expressions.js - {"quoteProps":"as-needed"} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel"]
+parsers: ["babel", "flow"]
 printWidth: 80
 quoteProps: "as-needed"
                                                                                 | printWidth
@@ -411,7 +411,7 @@ class Foo {
 
 exports[`with_member_expressions.js - {"quoteProps":"consistent","singleQuote":true} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel"]
+parsers: ["babel", "flow"]
 printWidth: 80
 quoteProps: "consistent"
 singleQuote: true
@@ -443,7 +443,7 @@ class Foo {
 
 exports[`with_member_expressions.js - {"quoteProps":"consistent"} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel"]
+parsers: ["babel", "flow"]
 printWidth: 80
 quoteProps: "consistent"
                                                                                 | printWidth
@@ -474,7 +474,7 @@ class Foo {
 
 exports[`with_member_expressions.js - {"quoteProps":"preserve"} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel"]
+parsers: ["babel", "flow"]
 printWidth: 80
 quoteProps: "preserve"
                                                                                 | printWidth
@@ -505,7 +505,7 @@ class Foo {
 
 exports[`with_numbers.js - {"quoteProps":"as-needed"} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel"]
+parsers: ["babel", "flow"]
 printWidth: 80
 quoteProps: "as-needed"
                                                                                 | printWidth
@@ -546,7 +546,7 @@ obj = {
 
 exports[`with_numbers.js - {"quoteProps":"consistent","singleQuote":true} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel"]
+parsers: ["babel", "flow"]
 printWidth: 80
 quoteProps: "consistent"
 singleQuote: true
@@ -588,7 +588,7 @@ obj = {
 
 exports[`with_numbers.js - {"quoteProps":"consistent"} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel"]
+parsers: ["babel", "flow"]
 printWidth: 80
 quoteProps: "consistent"
                                                                                 | printWidth
@@ -629,7 +629,7 @@ obj = {
 
 exports[`with_numbers.js - {"quoteProps":"preserve"} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel"]
+parsers: ["babel", "flow"]
 printWidth: 80
 quoteProps: "preserve"
                                                                                 | printWidth

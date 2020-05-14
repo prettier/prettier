@@ -37,7 +37,7 @@ x
 
 exports[`comments.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow"]
+parsers: ["babel", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -157,7 +157,7 @@ interface E {
 
 exports[`flow-interfaces.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow"]
+parsers: ["babel", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -271,7 +271,7 @@ var c = a.e
 
 exports[`issue2006.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow"]
+parsers: ["babel", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -650,7 +650,7 @@ aReallyLongLine012345678901234567890123456789012345678901234567890123456789 *
 
 exports[`no-semi.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow"]
+parsers: ["babel", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
