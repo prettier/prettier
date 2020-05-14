@@ -139,7 +139,7 @@ function genericPrint(path, options, print) {
         "`"
       );
       const style = "`".repeat(backtickCount || 1);
-      const gap = backtickCount ? " " : "";
+      const gap = backtickCount && !/^\s/.test(node.value) ? " " : "";
       return concat([style, gap, node.value, gap, style]);
     }
     case "link":
