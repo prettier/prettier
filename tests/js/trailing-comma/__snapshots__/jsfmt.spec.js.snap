@@ -2,7 +2,7 @@
 
 exports[`dynamic-import.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
 trailingComma: "all"
                                                                                 | printWidth
@@ -21,7 +21,7 @@ import(
 
 exports[`dynamic-import.js - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
 trailingComma: "none"
                                                                                 | printWidth
@@ -40,7 +40,7 @@ import(
 
 exports[`dynamic-import.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -58,7 +58,7 @@ import(
 
 exports[`es5.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
 trailingComma: "all"
                                                                                 | printWidth
@@ -105,7 +105,7 @@ function send_single_email(
 
 exports[`es5.js - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
 trailingComma: "none"
                                                                                 | printWidth
@@ -152,7 +152,7 @@ function send_single_email(
 
 exports[`es5.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -198,7 +198,7 @@ function send_single_email(
 
 exports[`function-calls.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
 trailingComma: "all"
                                                                                 | printWidth
@@ -251,7 +251,7 @@ a.b().c(
 
 exports[`function-calls.js - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
 trailingComma: "none"
                                                                                 | printWidth
@@ -304,7 +304,7 @@ a.b().c(
 
 exports[`function-calls.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -356,7 +356,7 @@ a.b().c(
 
 exports[`jsx.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
 trailingComma: "all"
                                                                                 | printWidth
@@ -383,7 +383,7 @@ trailingComma: "all"
 
 exports[`jsx.js - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
 trailingComma: "none"
                                                                                 | printWidth
@@ -410,7 +410,7 @@ trailingComma: "none"
 
 exports[`jsx.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -436,7 +436,7 @@ printWidth: 80
 
 exports[`object.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
 trailingComma: "all"
                                                                                 | printWidth
@@ -491,7 +491,7 @@ const aLong = {
 
 exports[`object.js - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
 trailingComma: "none"
                                                                                 | printWidth
@@ -546,7 +546,7 @@ const aLong = {
 
 exports[`object.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -600,7 +600,7 @@ const aLong = {
 
 exports[`trailing_whitespace.js - {"trailingComma":"all"} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
 trailingComma: "all"
                                                                                 | printWidth
@@ -699,7 +699,7 @@ this.getAttribute(function (s) /*string*/ {
 
 exports[`trailing_whitespace.js - {"trailingComma":"none"} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
 trailingComma: "none"
                                                                                 | printWidth
@@ -798,7 +798,7 @@ this.getAttribute(function (s) /*string*/ {
 
 exports[`trailing_whitespace.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

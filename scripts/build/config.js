@@ -15,6 +15,7 @@ const path = require("path");
  * @property {Object.<string, string>} replace - map of strings to replace when processing the bundle
  * @property {string[]} babelPlugins - babel plugins
  * @property {Object?} terserOptions - options for `terser`
+ * @property {boolean?} minify - minify
 
  * @typedef {Object} CommonJSConfig
  * @property {Object} namedExports - for cases where rollup can't infer what's exported
@@ -108,6 +109,7 @@ const coreBundles = [
     type: "core",
     output: "doc.js",
     target: "universal",
+    minify: false,
   },
   {
     input: "standalone.js",

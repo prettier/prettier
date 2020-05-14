@@ -8,34 +8,68 @@ const TESTS_ROOT = path.join(__dirname, "../../tests");
 const getCategory = (dirname) =>
   path.relative(TESTS_ROOT, dirname).split(path.sep).shift();
 
-const categoryParsers = new Map(
+const categoryParsers = new Map([
   [
-    ["angular", ["angular", "__ng_interpolation", "__ng_action"]],
-    ["css", ["css"]],
-    ["flow", ["babel", "flow", "babel-flow"]],
-    ["flow-repo", ["babel", "flow", "babel-flow"]],
-    ["graphql", ["graphql"]],
-    ["handlebars", ["glimmer"]],
-    ["html", ["html"]],
-    ["js", ["babel", "flow", "babel-flow", "typescript", "babel-ts"]],
-    ["json", ["json", "json5", "json-stringify"]],
-    ["jsx", ["babel", "flow", "babel-flow", "typescript", "babel-ts"]],
-    ["less", ["less"]],
-    ["lwc", ["lwc"]],
-    ["markdown", ["markdown"]],
-    ["mdx", ["mdx"]],
-    ["scss", ["scss"]],
-    ["stylefmt-repo", ["css", "scss"]],
-    ["typescript", ["typescript", "babel-ts"]],
-    ["vue", ["vue"]],
-    ["yaml", ["yaml"]],
-  ].map(([category, parsers]) => [category, new Set(parsers)])
-);
+    "angular",
+    {
+      parsers: ["angular", "__ng_interpolation", "__ng_action"],
+      verifyParsers: [],
+    },
+  ],
+  ["css", { parsers: ["css"], verifyParsers: ["less", "scss"] }],
+  [
+    "flow",
+    {
+      parsers: ["flow", "babel-flow"],
+      verifyParsers: ["babel", "flow", "babel-flow", "typescript", "babel-ts"],
+    },
+  ],
+  [
+    "flow-repo",
+    {
+      parsers: ["flow", "babel-flow"],
+      verifyParsers: ["babel", "flow", "babel-flow", "typescript", "babel-ts"],
+    },
+  ],
+  ["graphql", { parsers: ["graphql"], verifyParsers: [] }],
+  ["handlebars", { parsers: ["glimmer"], verifyParsers: [] }],
+  ["html", { parsers: ["html"], verifyParsers: [] }],
+  [
+    "js",
+    {
+      parsers: ["babel"],
+      verifyParsers: ["babel", "flow", "babel-flow", "typescript", "babel-ts"],
+    },
+  ],
+  ["json", { parsers: ["json", "json5", "json-stringify"], verifyParsers: [] }],
+  [
+    "jsx",
+    {
+      parsers: ["babel", "flow", "babel-flow", "typescript", "babel-ts"],
+      verifyParsers: ["babel", "flow", "babel-flow", "typescript", "babel-ts"],
+    },
+  ],
+  ["less", { parsers: ["less"], verifyParsers: ["css", "scss"] }],
+  ["lwc", { parsers: ["lwc"], verifyParsers: [] }],
+  ["markdown", { parsers: ["markdown"], verifyParsers: [] }],
+  ["mdx", { parsers: ["mdx"], verifyParsers: [] }],
+  ["scss", { parsers: ["scss"], verifyParsers: ["css", "less"] }],
+  ["stylefmt-repo", { parsers: ["css", "scss"], verifyParsers: [] }],
+  [
+    "typescript",
+    {
+      parsers: ["typescript", "babel-ts"],
+      verifyParsers: ["babel", "flow", "babel-flow", "typescript", "babel-ts"],
+    },
+  ],
+  ["vue", { parsers: ["vue"], verifyParsers: [] }],
+  ["yaml", { parsers: ["yaml"], verifyParsers: [] }],
+]);
 
 const getParserCategories = (parser) => {
   const categories = [];
-  for (const [category, parsers] of categoryParsers) {
-    if (parsers.has(parser)) {
+  for (const [category, { parsers }] of categoryParsers) {
+    if (parsers.includes(parser)) {
       categories.push(category);
     }
   }
@@ -43,35 +77,61 @@ const getParserCategories = (parser) => {
   return categories;
 };
 
-const checkParser = (dirname, parsers) => {
+const checkParser = (dirname, parsers = []) => {
   const category = getCategory(dirname);
-  const allowedParsers = categoryParsers.get(category);
+  const categoryAllowedParsers = categoryParsers.get(category);
 
-  if (!allowedParsers) {
+  if (!categoryAllowedParsers) {
     return;
   }
 
-  for (const parser of parsers) {
-    if (!allowedParsers.has(parser)) {
-      const suggestCategories = getParserCategories(parser);
+  const {
+    parsers: allowedParsers = [],
+    verifyParsers: allowedVerifyParsers = [],
+  } = categoryAllowedParsers;
 
-      const suggestion =
-        suggestCategories.length === 0
-          ? ""
-          : outdent`
-              Suggest move your tests to:
-              ${suggestCategories
-                .map((category) => `- ${path.join(TESTS_ROOT, category)}`)
-                .join("\n")}
+  const [parser, ...verifyParsers] = parsers;
 
-              Or config to allow use this parser in "${__filename}".
-            `;
+  if (verifyParsers.includes(parser)) {
+    throw new Error(
+      `verifyParsers ${JSON.stringify(
+        verifyParsers
+      )} should not include parser "${parser}".`
+    );
+  }
 
-      throw new Error(
-        `Parser "${parser}" should not used in "${dirname}".${
-          suggestion ? `\n\n${suggestion}` : ""
-        }`
-      );
+  if (allowedParsers && !allowedParsers.includes(parser)) {
+    const suggestCategories = getParserCategories(parser);
+
+    const suggestion =
+      suggestCategories.length === 0
+        ? ""
+        : outdent`
+            Suggest move your tests to:
+            ${suggestCategories
+              .map((category) => `- ${path.join(TESTS_ROOT, category)}`)
+              .join("\n")}
+
+            Or config to allow use this parser in "${__filename}".
+          `;
+
+    throw new Error(
+      `Parser "${parser}" should not used in "${dirname}".${
+        suggestion ? `\n\n${suggestion}` : ""
+      }`
+    );
+  }
+
+  if (allowedVerifyParsers) {
+    for (const verifyParser of verifyParsers) {
+      if (!allowedVerifyParsers.includes(verifyParser)) {
+        throw new Error(
+          outdent`
+            Parser "${verifyParser}" should not used to verify in "${dirname}".
+            Please remove it or config to allow use this parser in "${__filename}".
+          `
+        );
+      }
     }
   }
 };
