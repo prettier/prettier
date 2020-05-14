@@ -451,7 +451,7 @@ function printPathNoParens(path, options, print, args) {
       // Babel 6
       if (n.directives) {
         path.each((childPath) => {
-          parts.push(print(childPath), semi, hardline);
+          parts.push(print(childPath), hardline);
           if (
             isNextLineEmpty(
               options.originalText,
@@ -489,7 +489,10 @@ function printPathNoParens(path, options, print, args) {
     case "ExpressionStatement":
       // Detect Flow-parsed directives
       if (n.directive) {
-        return concat([nodeStr(n.expression, options, true), semi]);
+        return concat([
+          nodeStr(n.expression, options, true),
+          printDirectiveSemi(n.directive, semi),
+        ]);
       }
 
       if (options.parser === "__vue_event_binding") {
@@ -1114,7 +1117,7 @@ function printPathNoParens(path, options, print, args) {
       // Babel 6
       if (hasDirectives) {
         path.each((childPath) => {
-          parts.push(indent(concat([hardline, print(childPath), semi])));
+          parts.push(indent(concat([hardline, print(childPath)])));
           if (
             isNextLineEmpty(
               options.originalText,
@@ -1676,7 +1679,7 @@ function printPathNoParens(path, options, print, args) {
     case "Directive":
       return path.call(print, "value"); // Babel 6
     case "DirectiveLiteral":
-      return nodeStr(n, options);
+      return concat([nodeStr(n, options), printDirectiveSemi(n.value, semi)]);
     case "UnaryExpression":
       parts.push(n.operator);
 
@@ -5495,6 +5498,10 @@ function printIndentableBlockComment(comment) {
     ),
     "*/",
   ]);
+}
+
+function printDirectiveSemi(directive, semi) {
+  return directive === ":" ? "" : semi;
 }
 
 module.exports = {

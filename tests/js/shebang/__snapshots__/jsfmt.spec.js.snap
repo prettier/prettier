@@ -1,5 +1,98 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`multiline-shebang.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+#!/bin/sh
+":" //; exec /usr/bin/env ts-node --transpile-only "$0" "$@"
+const ten = 10;
+
+=====================================output=====================================
+#!/bin/sh
+":" //; exec /usr/bin/env ts-node --transpile-only "$0" "$@"
+const ten = 10
+
+================================================================================
+`;
+
+exports[`multiline-shebang.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+#!/bin/sh
+":" //; exec /usr/bin/env ts-node --transpile-only "$0" "$@"
+const ten = 10;
+
+=====================================output=====================================
+#!/bin/sh
+":" //; exec /usr/bin/env ts-node --transpile-only "$0" "$@"
+const ten = 10;
+
+================================================================================
+`;
+
+exports[`multiline-shebang-semi.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+#!/bin/sh
+":" //; exec /usr/bin/env ts-node --transpile-only "$0" "$@"
+;(function() {
+})();
+
+=====================================output=====================================
+#!/bin/sh
+":" //; exec /usr/bin/env ts-node --transpile-only "$0" "$@"
+;(function () {})()
+
+================================================================================
+`;
+
+exports[`multiline-shebang-semi.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+#!/bin/sh
+":" //; exec /usr/bin/env ts-node --transpile-only "$0" "$@"
+;(function() {
+})();
+
+=====================================output=====================================
+#!/bin/sh
+":" //; exec /usr/bin/env ts-node --transpile-only "$0" "$@"
+(function () {})();
+
+================================================================================
+`;
+
+exports[`shebang.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+#!/usr/bin/env node
+function a() {}
+
+=====================================output=====================================
+#!/usr/bin/env node
+function a() {}
+
+================================================================================
+`;
+
 exports[`shebang.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
@@ -11,6 +104,25 @@ function a() {}
 
 =====================================output=====================================
 #!/usr/bin/env node
+function a() {}
+
+================================================================================
+`;
+
+exports[`shebang-newline.js - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+#!/usr/bin/env node
+
+function a() {}
+
+=====================================output=====================================
+#!/usr/bin/env node
+
 function a() {}
 
 ================================================================================

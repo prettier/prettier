@@ -58,6 +58,14 @@ function postprocess(ast, options) {
         }
         break;
       }
+      // Fix `directive` unexpected locEnd caused by --no-semi style
+      case "ExpressionStatement": {
+        if (node.directive) {
+          overrideLocEnd(node, node.expression);
+        }
+
+        break;
+      }
       // remove redundant TypeScript nodes
       case "TSParenthesizedType": {
         return { ...node.typeAnnotation, ...composeLoc(node) };
