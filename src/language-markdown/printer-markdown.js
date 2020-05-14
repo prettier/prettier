@@ -972,7 +972,12 @@ function clean(ast, newObj, parent) {
       .toLowerCase();
   }
 
-  if ((ast.type === "definition" || ast.type === "link" || ast.type === "image") && ast.title){
+  if (
+    (ast.type === "definition" ||
+      ast.type === "link" ||
+      ast.type === "image") &&
+    ast.title
+  ) {
     newObj.title = ast.title.replace(/\\(["')])/g, "$1");
   }
 
