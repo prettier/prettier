@@ -435,7 +435,6 @@ function genericPrint(path, options, print) {
 function printListItem(path, options, print, listPrefix) {
   const node = path.getValue();
   const prefix = node.checked === null ? "" : node.checked ? "[x] " : "[ ] ";
-
   return concat([
     prefix,
     printChildren(path, options, print, {
@@ -447,7 +446,6 @@ function printListItem(path, options, print, listPrefix) {
         const alignment = " ".repeat(
           clamp(options.tabWidth - listPrefix.length, 0, 3) // 4+ will cause indented code block
         );
-
         return concat([alignment, align(alignment, childPath.call(print))]);
       },
     }),
@@ -800,7 +798,8 @@ function shouldPrePrintDoubleHardline(node, data) {
     data.parentNode.type === "listItem" && !data.parentNode.loose;
 
   const isPrevNodeLooseListItem =
-    data.prevNode && data.prevNode === "listItem" && data.prevNode.loose;
+    data.prevNode && data.prevNode.type === "listItem" && data.prevNode.loose;
+
   const isPrevNodePrettierIgnore = isPrettierIgnore(data.prevNode) === "next";
 
   const isBlockHtmlWithoutBlankLineBetweenPrevHtml =
