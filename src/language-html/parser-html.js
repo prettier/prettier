@@ -75,24 +75,13 @@ function ngHtmlParser(
           isTagNameCaseSensitive,
         });
       const getSecondParse = () =>
-        secondParseResult
-          ? secondParseResult
-          : (secondParseResult = doSecondParse());
-      const getSameLocationNode = (node) => {
-        const result = getSecondParse();
-        return result.rootNodes.find((_node) => {
-          if (!_node || !_node.startSourceSpan) {
-            return false;
-          }
-          if (
-            node.startSourceSpan.start.offset ===
-            _node.startSourceSpan.start.offset
-          ) {
-            return true;
-          }
-          return false;
-        });
-      };
+        secondParseResult || (secondParseResult = doSecondParse());
+      const getSameLocationNode = (node) =>
+        getSecondParse().rootNodes.find(
+          ({ startSourceSpan }) =>
+            startSourceSpan &&
+            startSourceSpan.start.offset === node.startSourceSpan.start.offset
+        );
       for (let i = 0; i < rootNodes.length; i++) {
         const node = rootNodes[i];
         const { endSourceSpan, startSourceSpan } = node;
@@ -100,7 +89,7 @@ function ngHtmlParser(
         if (isUnclosedNode) {
           const result = getSecondParse();
           errors = result.errors;
-          rootNodes[i] = getSameLocationNode(node);
+          rootNodes[i] = getSameLocationNode(node) || node;
         } else if (shouldParseAsHTML(node)) {
           const result = getSecondParse();
           const startOffset = startSourceSpan.end.offset;
@@ -112,10 +101,7 @@ function ngHtmlParser(
               break;
             }
           }
-          const replaceNode = getSameLocationNode(node);
-          if (replaceNode) {
-            rootNodes[i] = replaceNode;
-          }
+          rootNodes[i] = getSameLocationNode(node) || node;
         }
       }
     }
@@ -371,7 +357,9 @@ module.exports = {
           tagName !== "html" &&
           !hasParent &&
           (tagName !== "template" ||
-            attrs.find((attr) => attr.name === "lang" && attr.value !== "html"))
+            attrs.some(
+              ({ name, value }) => name === "lang" && value !== "html"
+            ))
         ) {
           return require("angular-html-parser").TagContentType.RAW_TEXT;
         }
