@@ -953,6 +953,7 @@ function clean(ast, newObj, parent) {
 
   if (ast.type === "list" || ast.type === "listItem") {
     delete newObj.spread;
+    delete newObj.loose;
   }
 
   // texts can be splitted or merged
