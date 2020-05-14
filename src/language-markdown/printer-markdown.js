@@ -952,6 +952,10 @@ function clean(ast, newObj, parent) {
     delete newObj.isAligned;
   }
 
+  if (ast.type === "list" || ast.type === "listItem") {
+    delete newObj.spread;
+  }
+
   // texts can be splitted or merged
   if (ast.type === "text") {
     return null;
@@ -961,11 +965,15 @@ function clean(ast, newObj, parent) {
     newObj.value = ast.value.replace(/[\t\n ]+/g, " ");
   }
 
-  if (ast.type === "definition") {
+  if (ast.type === "definition" || ast.type === "linkReference") {
     newObj.label = ast.label
       .trim()
       .replace(/[\t\n ]+/g, " ")
       .toLowerCase();
+  }
+
+  if (ast.type === "definition" && ast.title){
+    newObj.title = ast.title.replace(/\\(["')])/g, "$1");
   }
 
   // for insert pragma
