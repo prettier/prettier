@@ -321,7 +321,7 @@ function createParser({
   normalizeAttributeName = false,
   allowHtmComponentClosingTags = false,
   isTagNameCaseSensitive = false,
-  getTagContentType = undefined,
+  getTagContentType,
 } = {}) {
   return {
     parse: (text, parsers, options) =>
