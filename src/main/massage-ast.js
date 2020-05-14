@@ -19,7 +19,7 @@ function massageAST(ast, options, parent) {
   if (options.printer.massageAstNode) {
     const result = options.printer.massageAstNode(ast, newObj, parent);
     if (result === null) {
-      return undefined;
+      return;
     }
     if (result) {
       return result;
