@@ -10,6 +10,7 @@ const { hasPragma } = require("./pragma");
 const createError = require("../common/parser-create-error");
 const { Node } = require("./ast");
 const { parseIeConditionalComment } = require("./conditional-comment");
+const { getParserName } = require("../common/util");
 
 function ngHtmlParser(
   input,
@@ -19,7 +20,9 @@ function ngHtmlParser(
     normalizeAttributeName,
     allowHtmComponentClosingTags,
     isTagNameCaseSensitive,
-  }
+    getTagContentType,
+  },
+  options
 ) {
   const parser = require("angular-html-parser");
   const {
@@ -39,11 +42,70 @@ function ngHtmlParser(
     getHtmlTagDefinition,
   } = require("angular-html-parser/lib/compiler/src/ml_parser/html_tags");
 
-  const { rootNodes, errors } = parser.parse(input, {
+  const parseResult = parser.parse(input, {
     canSelfClose: recognizeSelfClosing,
     allowHtmComponentClosingTags,
     isTagNameCaseSensitive,
+    getTagContentType,
   });
+  const { rootNodes } = parseResult;
+  let { errors } = parseResult;
+
+  if (options.parser === "vue") {
+    const shouldParseAsHTML = (node) => {
+      if (!node) {
+        return false;
+      }
+      if (node.name === "html") {
+        return true;
+      }
+      if (node.name !== "template") {
+        return false;
+      }
+      const langAttr = node.attrs.find((attr) => attr.name === "lang");
+      const langValue = langAttr && langAttr.value;
+      return langValue == null || getParserName(langValue, options) === "html";
+    };
+    if (rootNodes.some(shouldParseAsHTML)) {
+      let secondParseResult;
+      const doSecondParse = () =>
+        parser.parse(input, {
+          canSelfClose: recognizeSelfClosing,
+          allowHtmComponentClosingTags,
+          isTagNameCaseSensitive,
+        });
+      const getSecondParse = () =>
+        secondParseResult || (secondParseResult = doSecondParse());
+      const getSameLocationNode = (node) =>
+        getSecondParse().rootNodes.find(
+          ({ startSourceSpan }) =>
+            startSourceSpan &&
+            startSourceSpan.start.offset === node.startSourceSpan.start.offset
+        );
+      for (let i = 0; i < rootNodes.length; i++) {
+        const node = rootNodes[i];
+        const { endSourceSpan, startSourceSpan } = node;
+        const isUnclosedNode = endSourceSpan === null;
+        if (isUnclosedNode) {
+          const result = getSecondParse();
+          errors = result.errors;
+          rootNodes[i] = getSameLocationNode(node) || node;
+        } else if (shouldParseAsHTML(node)) {
+          const result = getSecondParse();
+          const startOffset = startSourceSpan.end.offset;
+          const endOffset = endSourceSpan.start.offset;
+          for (const error of result.errors) {
+            const { offset } = error.span.start;
+            if (startOffset < offset && offset < endOffset) {
+              errors = [error];
+              break;
+            }
+          }
+          rootNodes[i] = getSameLocationNode(node) || node;
+        }
+      }
+    }
+  }
 
   if (errors.length !== 0) {
     const { msg, span } = errors[0];
@@ -193,7 +255,7 @@ function _parse(text, options, parserOptions, shouldParseFrontMatter = true) {
   const rawAst = {
     type: "root",
     sourceSpan: { start: { offset: 0 }, end: { offset: text.length } },
-    children: ngHtmlParser(content, parserOptions),
+    children: ngHtmlParser(content, parserOptions, options),
   };
 
   if (frontMatter) {
@@ -259,6 +321,7 @@ function createParser({
   normalizeAttributeName = false,
   allowHtmComponentClosingTags = false,
   isTagNameCaseSensitive = false,
+  getTagContentType,
 } = {}) {
   return {
     parse: (text, parsers, options) =>
@@ -268,6 +331,7 @@ function createParser({
         normalizeAttributeName,
         allowHtmComponentClosingTags,
         isTagNameCaseSensitive,
+        getTagContentType,
       }),
     hasPragma,
     astFormat: "html",
@@ -288,6 +352,18 @@ module.exports = {
     vue: createParser({
       recognizeSelfClosing: true,
       isTagNameCaseSensitive: true,
+      getTagContentType: (tagName, prefix, hasParent, attrs) => {
+        if (
+          tagName !== "html" &&
+          !hasParent &&
+          (tagName !== "template" ||
+            attrs.some(
+              ({ name, value }) => name === "lang" && value !== "html"
+            ))
+        ) {
+          return require("angular-html-parser").TagContentType.RAW_TEXT;
+        }
+      },
     }),
     lwc: createParser(),
   },

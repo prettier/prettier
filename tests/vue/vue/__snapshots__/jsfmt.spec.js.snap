@@ -1754,6 +1754,240 @@ x => {
 ================================================================================
 `;
 
+exports[`multiple-template1.vue - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+<template></template>
+<template lang=unknown>
+<a>
+</template>
+cloned.
+
+=====================================output=====================================
+<template></template>
+<template lang="unknown">
+<a>
+</template>
+cloned.
+
+================================================================================
+`;
+
+exports[`multiple-template1.vue - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+<template></template>
+<template lang=unknown>
+<a>
+</template>
+cloned.
+
+=====================================output=====================================
+<template></template>
+<template lang="unknown">
+<a>
+</template>
+cloned.
+
+================================================================================
+`;
+
+exports[`multiple-template1.vue format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<template></template>
+<template lang=unknown>
+<a>
+</template>
+cloned.
+
+=====================================output=====================================
+<template></template>
+<template lang="unknown">
+<a>
+</template>
+cloned.
+
+================================================================================
+`;
+
+exports[`multiple-template2.vue - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+<template></template>
+<template lang=unknown>
+<a>
+</template>
+<template></template >
+
+=====================================output=====================================
+<template></template>
+<template lang="unknown">
+<a>
+</template>
+<template></template>
+
+================================================================================
+`;
+
+exports[`multiple-template2.vue - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+<template></template>
+<template lang=unknown>
+<a>
+</template>
+<template></template >
+
+=====================================output=====================================
+<template></template>
+<template lang="unknown">
+<a>
+</template>
+<template></template>
+
+================================================================================
+`;
+
+exports[`multiple-template2.vue format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<template></template>
+<template lang=unknown>
+<a>
+</template>
+<template></template >
+
+=====================================output=====================================
+<template></template>
+<template lang="unknown">
+<a>
+</template>
+<template></template>
+
+================================================================================
+`;
+
+exports[`nested-template.vue - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+<template>
+  <div>
+      <template>
+        <div></div>
+      </template>
+      <div>
+               Do not go out, you'll got yourself cloned by bad bad people.
+      </div>
+  </div>
+</template>
+
+=====================================output=====================================
+<template>
+  <div>
+    <template>
+      <div></div>
+    </template>
+    <div>
+      Do not go out, you'll got yourself cloned by bad bad people.
+    </div>
+  </div>
+</template>
+
+================================================================================
+`;
+
+exports[`nested-template.vue - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+<template>
+  <div>
+      <template>
+        <div></div>
+      </template>
+      <div>
+               Do not go out, you'll got yourself cloned by bad bad people.
+      </div>
+  </div>
+</template>
+
+=====================================output=====================================
+<template>
+  <div>
+    <template>
+      <div></div>
+    </template>
+    <div>
+      Do not go out, you'll got yourself cloned by bad bad people.
+    </div>
+  </div>
+</template>
+
+================================================================================
+`;
+
+exports[`nested-template.vue format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<template>
+  <div>
+      <template>
+        <div></div>
+      </template>
+      <div>
+               Do not go out, you'll got yourself cloned by bad bad people.
+      </div>
+  </div>
+</template>
+
+=====================================output=====================================
+<template>
+  <div>
+    <template>
+      <div></div>
+    </template>
+    <div>
+      Do not go out, you'll got yourself cloned by bad bad people.
+    </div>
+  </div>
+</template>
+
+================================================================================
+`;
+
 exports[`pre-child.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
@@ -2926,6 +3160,101 @@ printWidth: 80
 ================================================================================
 `;
 
+exports[`template-dom.html - {"semi":false} format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+semi: false
+                                                                                | printWidth
+=====================================input======================================
+<!DOCTYPE html><html>
+  <body>
+    <div v-if="foo ===    'foo'">
+
+</div>
+    <script>
+new Vue({el: '#app'})
+    </script>
+  </body>
+</html>
+
+=====================================output=====================================
+<!DOCTYPE html>
+<html>
+  <body>
+    <div v-if="foo === 'foo'"></div>
+    <script>
+      new Vue({ el: "#app" })
+    </script>
+  </body>
+</html>
+
+================================================================================
+`;
+
+exports[`template-dom.html - {"trailingComma":"none"} format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+trailingComma: "none"
+                                                                                | printWidth
+=====================================input======================================
+<!DOCTYPE html><html>
+  <body>
+    <div v-if="foo ===    'foo'">
+
+</div>
+    <script>
+new Vue({el: '#app'})
+    </script>
+  </body>
+</html>
+
+=====================================output=====================================
+<!DOCTYPE html>
+<html>
+  <body>
+    <div v-if="foo === 'foo'"></div>
+    <script>
+      new Vue({ el: "#app" });
+    </script>
+  </body>
+</html>
+
+================================================================================
+`;
+
+exports[`template-dom.html format 1`] = `
+====================================options=====================================
+parsers: ["vue"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+<!DOCTYPE html><html>
+  <body>
+    <div v-if="foo ===    'foo'">
+
+</div>
+    <script>
+new Vue({el: '#app'})
+    </script>
+  </body>
+</html>
+
+=====================================output=====================================
+<!DOCTYPE html>
+<html>
+  <body>
+    <div v-if="foo === 'foo'"></div>
+    <script>
+      new Vue({ el: "#app" });
+    </script>
+  </body>
+</html>
+
+================================================================================
+`;
+
 exports[`template-lang.vue - {"semi":false} format 1`] = `
 ====================================options=====================================
 parsers: ["vue"]
@@ -2949,6 +3278,11 @@ semi: false
   .bla
 </template>
 
+<template lang="unknown">
+  #container
+    some-component(tag='<some-tag>')
+</template>
+
 =====================================output=====================================
 <template lang="pug">
   .test
@@ -2960,6 +3294,11 @@ semi: false
   .test
     #foo
   .bla
+</template>
+
+<template lang="unknown">
+  #container
+    some-component(tag='<some-tag>')
 </template>
 
 ================================================================================
@@ -2988,6 +3327,11 @@ trailingComma: "none"
   .bla
 </template>
 
+<template lang="unknown">
+  #container
+    some-component(tag='<some-tag>')
+</template>
+
 =====================================output=====================================
 <template lang="pug">
   .test
@@ -2999,6 +3343,11 @@ trailingComma: "none"
   .test
     #foo
   .bla
+</template>
+
+<template lang="unknown">
+  #container
+    some-component(tag='<some-tag>')
 </template>
 
 ================================================================================
@@ -3026,6 +3375,11 @@ printWidth: 80
   .bla
 </template>
 
+<template lang="unknown">
+  #container
+    some-component(tag='<some-tag>')
+</template>
+
 =====================================output=====================================
 <template lang="pug">
   .test
@@ -3037,6 +3391,11 @@ printWidth: 80
   .test
     #foo
   .bla
+</template>
+
+<template lang="unknown">
+  #container
+    some-component(tag='<some-tag>')
 </template>
 
 ================================================================================
