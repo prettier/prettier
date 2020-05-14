@@ -239,7 +239,7 @@ global.run_spec = (fixtures, parsers, options) => {
           const { cursorOffset, ...parseOptions } = mainOptions;
           const originalAst = parse(input, parseOptions);
           const formattedAst = parse(formatted, parseOptions);
-          expect(originalAst).toEqual(formattedAst);
+          expect(formattedAst).toEqual(originalAst);
         });
       }
     });
