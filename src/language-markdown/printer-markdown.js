@@ -374,7 +374,7 @@ function genericPrint(path, options, print) {
           : group(
               concat([
                 align(
-                  " ".repeat(options.tabWidth),
+                  " ".repeat(options.tabWidth * 2),
                   printChildren(path, options, print, {
                     processor: (childPath, index) => {
                       return index === 0
