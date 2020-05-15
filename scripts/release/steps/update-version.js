@@ -43,11 +43,11 @@ async function bump({ version }) {
   processFile("website/pages/en/index.js", (content) =>
     content
       .replace(
-        /(<strong data-name="dependent-npm">)(.*?)(<\/strong>)/,
+        /(<strong data-placeholder="dependent-npm">)(.*?)(<\/strong>)/,
         `$1${humanFormat(dependentsCountNpm)}$3`
       )
       .replace(
-        /(<strong data-name="dependent-github">)(.*?)(<\/strong>)/,
+        /(<strong data-placeholder="dependent-github">)(.*?)(<\/strong>)/,
         `$1${humanFormat(dependentsCountGithub)}$3`
       )
   );
