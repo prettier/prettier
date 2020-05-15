@@ -4460,25 +4460,38 @@ function printClass(path, options, print) {
 
   parts.push("class");
 
+  // Keep old behaviour of extends in same line
+  // If there is only on extends and there are not comments
+  const groupMode =
+    (n.superClass &&
+      n.superClass.comments &&
+      n.superClass.comments.length !== 0) ||
+    (n.implements && n.implements.length !== 0) ||
+    (n.id && hasTrailingComment(n.id));
+
+  const partsGroup = [];
+
   if (n.id) {
-    parts.push(" ", path.call(print, "id"));
+    if (!groupMode) {
+      parts.push(" ", path.call(print, "id"));
+    } else {
+      partsGroup.push(
+        " ",
+        path.call(print, "id"),
+        hasTrailingComment(n.id) ? line : " "
+      );
+    }
   }
 
   parts.push(path.call(print, "typeParameters"));
 
-  const partsGroup = [];
   if (n.superClass) {
     const printed = concat([
       "extends ",
       path.call(print, "superClass"),
       path.call(print, "superTypeParameters"),
     ]);
-    // Keep old behaviour of extends in same line
-    // If there is only on extends and there are not comments
-    if (
-      (!n.implements || n.implements.length === 0) &&
-      (!n.superClass.comments || n.superClass.comments.length === 0)
-    ) {
+    if (!groupMode) {
       parts.push(
         concat([
           " ",
@@ -4492,14 +4505,11 @@ function printClass(path, options, print) {
     } else {
       partsGroup.push(
         group(
-          concat([
-            line,
-            path.call(
-              (superClass) =>
-                comments.printComments(superClass, () => printed, options),
-              "superClass"
-            ),
-          ])
+          path.call(
+            (superClass) =>
+              comments.printComments(superClass, () => printed, options),
+            "superClass"
+          )
         )
       );
     }

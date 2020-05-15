@@ -81,8 +81,7 @@ b // comment-b2
 }
 
 =====================================output=====================================
-class a1
-  extends b // comment
+class a1 extends b // comment
   implements z {
   constructor() {}
 }
@@ -137,8 +136,7 @@ class a7 extends b
   constructor() {}
 }
 
-class a8
-  extends b // comment-b
+class a8 extends b // comment-b
   implements
     // comment-z1
     z, // comment-z2
@@ -148,8 +146,7 @@ class a8
   constructor() {}
 }
 
-class a9
-  // comment-b1
+class a9 // comment-b1
   extends b // comment-b2
   implements
     // comment-b3
@@ -306,7 +303,8 @@ class c extends d {
   constructor() {}
 }
 
-class C2 extends Base { // comment
+class C2 // comment
+  extends Base {
   foo() {}
 }
 
