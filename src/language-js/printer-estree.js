@@ -1216,40 +1216,6 @@ function printPathNoParens(path, options, print, args) {
 
       return contents;
     }
-    case "TSInterfaceDeclaration":
-      if (n.declare) {
-        parts.push("declare ");
-      }
-
-      parts.push(
-        n.abstract ? "abstract " : "",
-        printTypeScriptModifiers(path, options, print),
-        "interface ",
-        path.call(print, "id"),
-        n.typeParameters ? path.call(print, "typeParameters") : "",
-        " "
-      );
-
-      if (n.extends && n.extends.length) {
-        parts.push(
-          group(
-            indent(
-              concat([
-                softline,
-                "extends ",
-                (n.extends.length === 1 ? identity : indent)(
-                  join(concat([",", line]), path.map(print, "extends"))
-                ),
-                " ",
-              ])
-            )
-          )
-        );
-      }
-
-      parts.push(path.call(print, "body"));
-
-      return concat(parts);
 
     case "ObjectTypeInternalSlot":
       return concat([
@@ -2807,14 +2773,22 @@ function printPathNoParens(path, options, print, args) {
 
     case "DeclareInterface":
     case "InterfaceDeclaration":
-    case "InterfaceTypeAnnotation": {
+    case "InterfaceTypeAnnotation":
+    case "TSInterfaceDeclaration": {
       if (n.type === "DeclareInterface" || n.declare) {
         parts.push("declare ");
       }
 
+      if (n.type === "TSInterfaceDeclaration") {
+        parts.push(
+          n.abstract ? "abstract " : "",
+          printTypeScriptModifiers(path, options, print)
+        );
+      }
+
       parts.push("interface");
 
-      if (n.type === "DeclareInterface" || n.type === "InterfaceDeclaration") {
+      if (n.type !== "InterfaceTypeAnnotation") {
         parts.push(
           " ",
           path.call(print, "id"),
@@ -2822,7 +2796,7 @@ function printPathNoParens(path, options, print, args) {
         );
       }
 
-      if (n.extends.length > 0) {
+      if (n.extends && n.extends.length !== 0) {
         parts.push(
           group(
             indent(
