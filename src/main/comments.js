@@ -24,6 +24,8 @@ const {
 } = require("../common/util-shared");
 const childNodesCacheKey = Symbol("child-nodes");
 
+/** @typedef {import("../document/doc-builders").Doc} Doc */
+
 function getSortedChildNodes(node, options, resultArray) {
   if (!node) {
     return;
@@ -436,19 +438,19 @@ function printTrailingComment(commentPath, print, options) {
     );
   }
 
-  if (isBlock) {
-    // Trailing block comments never need a newline
-    return concat([" ", contents]);
+  /** @type {Doc} */
+  let printed = concat([" ", contents]);
+
+  // Trailing block comments never need a newline
+  if (!isBlock) {
+    printed = lineSuffix(printed);
+
+    if (!printer.isBreakingComment || printer.isBreakingComment(commentPath)) {
+      printed = concat([printed, breakParent]);
+    }
   }
 
-  const isGroupBreakingComment =
-    !printer.isGroupBreakingComment ||
-    printer.isGroupBreakingComment(commentPath);
-
-  return concat([
-    lineSuffix(concat([" ", contents])),
-    isGroupBreakingComment ? breakParent : "",
-  ]);
+  return printed;
 }
 
 function printDanglingComments(path, options, sameIndent, filter) {
