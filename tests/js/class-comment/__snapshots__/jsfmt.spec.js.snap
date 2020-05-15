@@ -261,6 +261,10 @@ class c extends d
   constructor() {}
 }
 
+class C2  // comment
+extends Base
+{  foo(){} }
+
 =====================================output=====================================
 class A // comment 1
   // comment 2
@@ -300,6 +304,10 @@ class a extends b {
 class c extends d {
   // comment2
   constructor() {}
+}
+
+class C2 extends Base { // comment
+  foo() {}
 }
 
 ================================================================================

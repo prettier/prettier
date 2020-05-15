@@ -441,7 +441,9 @@ function handleClassComments(
   if (
     enclosingNode &&
     (enclosingNode.type === "ClassDeclaration" ||
-      enclosingNode.type === "ClassExpression")
+      enclosingNode.type === "ClassExpression" ||
+      enclosingNode.type === "InterfaceDeclaration" ||
+      enclosingNode.type === "TSInterfaceDeclaration")
   ) {
     if (
       enclosingNode.decorators &&

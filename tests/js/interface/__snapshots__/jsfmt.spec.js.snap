@@ -180,6 +180,79 @@ export interface ExtendsLongOneWithGenerics
 ================================================================================
 `;
 
+exports[`comments.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+interface A1  // comment
+{  foo(): bar;}
+
+interface A2  // comment
+extends Base
+{  foo(): bar;}
+
+interface A3  // comment1
+extends Base  // comment2
+{  foo(): bar;}
+
+interface A4  // comment1
+extends Base  // comment2
+              // comment3
+{  foo(): bar;}
+
+interface A5  // comment1
+extends Base  // comment2
+              // comment3
+{             // comment4
+foo(): bar;}
+
+interface A6  // comment1
+extends Base  // comment2
+              // comment3
+{
+// comment4
+foo(): bar;}
+
+=====================================output=====================================
+interface A1 {
+  // comment
+  foo(): bar;
+}
+
+interface A2 extends Base { // comment
+  foo(): bar;
+}
+
+interface A3 extends Base { // comment1
+  // comment2
+  foo(): bar;
+}
+
+interface A4 extends Base { // comment1
+  // comment2
+  // comment3
+  foo(): bar;
+}
+
+interface A5 extends Base { // comment1
+  // comment2
+  // comment3
+  // comment4
+  foo(): bar;
+}
+
+interface A6 extends Base { // comment1
+  // comment2
+  // comment3
+  // comment4
+  foo(): bar;
+}
+
+================================================================================
+`;
+
 exports[`module.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]

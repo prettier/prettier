@@ -34,3 +34,7 @@ class c extends d
 {
   constructor() {}
 }
+
+class C2  // comment
+extends Base
+{  foo(){} }
