@@ -5515,5 +5515,4 @@ module.exports = {
   },
   getGapRegex: handleComments.getGapRegex,
   getCommentChildNodes: handleComments.getCommentChildNodes,
-  isBreakingComment: handleComments.isBreakingComment,
 };

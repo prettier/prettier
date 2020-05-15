@@ -185,7 +185,9 @@ function handleRemainingComment(comment, text, options, ast, isLastComment) {
 }
 
 function addBlockStatementFirstComment(node, comment) {
-  const body = node.body.filter((n) => n.type !== "EmptyStatement");
+  const body = (node.body || node.properties).filter(
+    (n) => n.type !== "EmptyStatement"
+  );
   if (body.length === 0) {
     addDanglingComment(node, comment);
   } else {
@@ -439,20 +441,28 @@ function handleClassComments(
   if (
     enclosingNode &&
     (enclosingNode.type === "ClassDeclaration" ||
-      enclosingNode.type === "ClassExpression") &&
-    enclosingNode.decorators &&
-    enclosingNode.decorators.length > 0 &&
-    !(followingNode && followingNode.type === "Decorator")
+      enclosingNode.type === "ClassExpression")
   ) {
-    if (!enclosingNode.decorators || enclosingNode.decorators.length === 0) {
-      addLeadingComment(enclosingNode, comment);
-    } else {
-      addTrailingComment(
-        enclosingNode.decorators[enclosingNode.decorators.length - 1],
-        comment
-      );
+    if (
+      enclosingNode.decorators &&
+      enclosingNode.decorators.length > 0 &&
+      !(followingNode && followingNode.type === "Decorator")
+    ) {
+      if (!enclosingNode.decorators || enclosingNode.decorators.length === 0) {
+        addLeadingComment(enclosingNode, comment);
+      } else {
+        addTrailingComment(
+          enclosingNode.decorators[enclosingNode.decorators.length - 1],
+          comment
+        );
+      }
+      return true;
     }
-    return true;
+
+    if (enclosingNode.body && followingNode === enclosingNode.body) {
+      addBlockStatementFirstComment(enclosingNode.body, comment);
+      return true;
+    }
   }
   return false;
 }
@@ -1003,17 +1013,6 @@ function isTypeCastComment(comment) {
   );
 }
 
-function isBreakingComment(commentPath) {
-  // Don't break groups in `extends` in class declarations and expressions.
-  return !commentPath.match(
-    undefined,
-    undefined,
-    (node, name) =>
-      (node.type === "ClassDeclaration" || node.type === "ClassExpression") &&
-      name === "superClass"
-  );
-}
-
 module.exports = {
   handleOwnLineComment,
   handleEndOfLineComment,
@@ -1023,5 +1022,4 @@ module.exports = {
   isTypeCastComment,
   getGapRegex,
   getCommentChildNodes,
-  isBreakingComment,
 };

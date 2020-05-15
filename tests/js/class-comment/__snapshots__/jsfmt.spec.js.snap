@@ -102,10 +102,10 @@ class A // comment 1
   // comment 2
   extends B {}
 
-class A1 extends B // comment1
-// comment2
-// comment3
-{
+class A1 extends B {
+  // comment1
+  // comment2
+  // comment3
 }
 
 class A2 /* a */ extends B {}
@@ -117,10 +117,10 @@ class A4 /* a */ extends B {}
   // comment 2
   extends B {});
 
-(class A6 extends B // comment1
-// comment2
-// comment3
-{
+(class A6 extends B {
+  // comment1
+  // comment2
+  // comment3
 });
 
 (class A7 /* a */ extends B {});
@@ -128,13 +128,13 @@ class A4 /* a */ extends B {}
 });
 (class A9 /* a */ extends B {});
 
-class a extends b { // comment
+class a extends b {
+  // comment
   constructor() {}
 }
 
-class c extends d
-// comment2
-{
+class c extends d {
+  // comment2
   constructor() {}
 }
 

@@ -438,16 +438,11 @@ function printTrailingComment(commentPath, print, options) {
     );
   }
 
-  /** @type {Doc} */
   let printed = concat([" ", contents]);
 
   // Trailing block comments never need a newline
   if (!isBlock) {
-    printed = lineSuffix(printed);
-
-    if (!printer.isBreakingComment || printer.isBreakingComment(commentPath)) {
-      printed = concat([printed, breakParent]);
-    }
+    printed = concat([lineSuffix(printed), breakParent]);
   }
 
   return printed;
