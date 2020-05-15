@@ -409,25 +409,10 @@ function printTrailingComment(commentPath, print, options) {
   if (!contents) {
     return "";
   }
-  const isBlock =
-    options.printer.isBlockComment && options.printer.isBlockComment(comment);
+  const { printer, originalText, locStart } = options;
+  const isBlock = printer.isBlockComment && printer.isBlockComment(comment);
 
-  // We don't want the line to break
-  // when the parentParentNode is a ClassDeclaration/-Expression
-  // And the parentNode is in the superClass property
-  const parentNode = commentPath.getNode(1);
-  const parentParentNode = commentPath.getNode(2);
-  const isParentSuperClass =
-    parentParentNode &&
-    (parentParentNode.type === "ClassDeclaration" ||
-      parentParentNode.type === "ClassExpression") &&
-    parentParentNode.superClass === parentNode;
-
-  if (
-    hasNewline(options.originalText, options.locStart(comment), {
-      backwards: true,
-    })
-  ) {
+  if (hasNewline(originalText, locStart(comment), { backwards: true })) {
     // This allows comments at the end of nested structures:
     // {
     //   x: 1,
@@ -441,22 +426,28 @@ function printTrailingComment(commentPath, print, options) {
     // always at the end of another expression.
 
     const isLineBeforeEmpty = isPreviousLineEmpty(
-      options.originalText,
+      originalText,
       comment,
-      options.locStart
+      locStart
     );
 
     return lineSuffix(
       concat([hardline, isLineBeforeEmpty ? hardline : "", contents])
     );
-  } else if (isBlock || isParentSuperClass) {
+  }
+
+  if (isBlock) {
     // Trailing block comments never need a newline
     return concat([" ", contents]);
   }
 
+  const isGroupBreakingComment =
+    !printer.isGroupBreakingComment ||
+    printer.isGroupBreakingComment(commentPath);
+
   return concat([
     lineSuffix(concat([" ", contents])),
-    !isBlock ? breakParent : "",
+    isGroupBreakingComment ? breakParent : "",
   ]);
 }
 

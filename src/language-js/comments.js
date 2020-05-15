@@ -1003,6 +1003,17 @@ function isTypeCastComment(comment) {
   );
 }
 
+function isGroupBreakingComment(commentPath) {
+  // Don't break groups in `extends` in class declarations and expressions.
+  return !commentPath.match(
+    undefined,
+    undefined,
+    (node, name) =>
+      (node.type === "ClassDeclaration" || node.type === "ClassExpression") &&
+      name === "superClass"
+  );
+}
+
 module.exports = {
   handleOwnLineComment,
   handleEndOfLineComment,
@@ -1012,4 +1023,5 @@ module.exports = {
   isTypeCastComment,
   getGapRegex,
   getCommentChildNodes,
+  isGroupBreakingComment,
 };

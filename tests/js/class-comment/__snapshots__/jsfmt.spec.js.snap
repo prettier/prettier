@@ -1,5 +1,36 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`comment-after-extends.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class a extends b // comment
+{
+  constructor() {}
+}
+
+class c extends d
+// comment2
+{
+  constructor() {}
+}
+
+=====================================output=====================================
+class a extends b { // comment
+  constructor() {}
+}
+
+class c extends d
+// comment2
+{
+  constructor() {}
+}
+
+================================================================================
+`;
+
 exports[`comments.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
