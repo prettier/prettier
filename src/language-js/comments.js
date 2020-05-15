@@ -467,10 +467,13 @@ function handleClassComments(
     if (
       precedingNode &&
       followingNode &&
-      ((enclosingNode.implements &&
-        followingNode === enclosingNode.implements[0]) ||
-        (enclosingNode.mixins && followingNode === enclosingNode.mixins[0]))
+      followingNode ===
+        ((enclosingNode.implements && enclosingNode.implements[0]) ||
+          (enclosingNode.extends && enclosingNode.extends[0]) ||
+          (enclosingNode.mixins && enclosingNode.mixins[0]))
     ) {
+      // Don't add leading comments to `implements`, `extends`, `mixins` to
+      // avoid printing the comment after the keyword.
       addTrailingComment(precedingNode, comment);
       return true;
     }
