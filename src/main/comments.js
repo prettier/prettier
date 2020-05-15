@@ -379,7 +379,7 @@ function getQuasiRange(expr) {
   return { start: expr.range[0], end: expr.range[1] };
 }
 
-function printLeadingComment(commentPath, print, options) {
+function printLeadingComment(commentPath, options) {
   const comment = commentPath.getValue();
   const contents = printComment(commentPath, options);
   if (!contents) {
@@ -405,7 +405,7 @@ function printLeadingComment(commentPath, print, options) {
   return concat([contents, hardline]);
 }
 
-function printTrailingComment(commentPath, print, options) {
+function printTrailingComment(commentPath, options) {
   const comment = commentPath.getValue();
   const contents = printComment(commentPath, options);
   if (!contents) {
@@ -502,7 +502,7 @@ function printComments(path, print, options, needsSemi) {
     const { leading, trailing } = comment;
 
     if (leading) {
-      const contents = printLeadingComment(commentPath, print, options);
+      const contents = printLeadingComment(commentPath, options);
       if (!contents) {
         return;
       }
@@ -517,7 +517,7 @@ function printComments(path, print, options, needsSemi) {
         leadingParts.push(hardline);
       }
     } else if (trailing) {
-      trailingParts.push(printTrailingComment(commentPath, print, options));
+      trailingParts.push(printTrailingComment(commentPath, options));
     }
   }, "comments");
 
