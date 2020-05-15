@@ -467,10 +467,10 @@ function handleClassComments(
     if (
       precedingNode &&
       followingNode &&
-      followingNode ===
-        ((enclosingNode.implements && enclosingNode.implements[0]) ||
-          (enclosingNode.extends && enclosingNode.extends[0]) ||
-          (enclosingNode.mixins && enclosingNode.mixins[0]))
+      (followingNode ===
+        (enclosingNode.implements && enclosingNode.implements[0]) ||
+        followingNode === (enclosingNode.extends && enclosingNode.extends[0]) ||
+        followingNode === (enclosingNode.mixins && enclosingNode.mixins[0]))
     ) {
       // Don't add leading comments to `implements`, `extends`, `mixins` to
       // avoid printing the comment after the keyword.

@@ -45,15 +45,18 @@ declare class D3<T> // 1
   // 3
 }
 
-declare class D4<T> extends B<T> // 1
+declare class D4<T> // 1
   // 2
+  extends B<T>
   mixins C<T> {
   // 3
 }
 
-declare class D5<T> extends B<T> // 1
-  mixins // 2
-    C<T> {
+declare class D5<T> // 1
+  extends
+    B<T>
+    // 2
+  mixins C<T> {
   // 3
 }
 

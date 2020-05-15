@@ -4479,59 +4479,42 @@ function printClass(path, options, print) {
 
   partsGroup.push(path.call(print, "typeParameters"));
 
+  function printList(listName) {
+    if (n[listName] && n[listName].length !== 0) {
+      partsGroup.push(
+        line,
+        listName,
+        group(
+          indent(
+            concat([line, join(concat([",", line]), path.map(print, listName))])
+          )
+        )
+      );
+    }
+  }
+
   if (n.superClass) {
     const printed = concat([
       "extends ",
       path.call(print, "superClass"),
       path.call(print, "superTypeParameters"),
     ]);
-    if (!groupMode) {
-      partsGroup.push(
-        " ",
-        path.call(
-          (superClass) =>
-            comments.printComments(superClass, () => printed, options),
-          "superClass"
-        )
-      );
+    const printedWithComments = path.call(
+      (superClass) =>
+        comments.printComments(superClass, () => printed, options),
+      "superClass"
+    );
+    if (groupMode) {
+      partsGroup.push(line, group(printedWithComments));
     } else {
-      partsGroup.push(
-        line,
-        group(
-          path.call(
-            (superClass) =>
-              comments.printComments(superClass, () => printed, options),
-            "superClass"
-          )
-        )
-      );
+      partsGroup.push(" ", printedWithComments);
     }
-  } else if (n.extends && n.extends.length > 0) {
-    partsGroup.push(line, "extends ", join(", ", path.map(print, "extends")));
+  } else {
+    printList("extends");
   }
 
-  if (n.mixins && n.mixins.length > 0) {
-    partsGroup.push(
-      line,
-      "mixins ",
-      group(indent(join(concat([",", line]), path.map(print, "mixins"))))
-    );
-  }
-
-  if (n.implements && n.implements.length > 0) {
-    partsGroup.push(
-      line,
-      "implements",
-      group(
-        indent(
-          concat([
-            line,
-            join(concat([",", line]), path.map(print, "implements")),
-          ])
-        )
-      )
-    );
-  }
+  printList("mixins");
+  printList("implements");
 
   if (groupMode) {
     parts.push(group(indent(concat(partsGroup))));
