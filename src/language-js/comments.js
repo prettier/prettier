@@ -443,6 +443,7 @@ function handleClassComments(
     (enclosingNode.type === "ClassDeclaration" ||
       enclosingNode.type === "ClassExpression" ||
       enclosingNode.type === "DeclareClass" ||
+      enclosingNode.type === "DeclareInterface" ||
       enclosingNode.type === "InterfaceDeclaration" ||
       enclosingNode.type === "TSInterfaceDeclaration")
   ) {
@@ -463,15 +464,15 @@ function handleClassComments(
       return true;
     }
 
-    if (precedingNode) {
-      if (
-        enclosingNode.implements &&
-        enclosingNode.implements.length !== 0 &&
-        followingNode === enclosingNode.implements[0]
-      ) {
-        addTrailingComment(precedingNode, comment);
-        return true;
-      }
+    if (
+      precedingNode &&
+      followingNode &&
+      ((enclosingNode.implements &&
+        followingNode === enclosingNode.implements[0]) ||
+        (enclosingNode.mixins && followingNode === enclosingNode.mixins[0]))
+    ) {
+      addTrailingComment(precedingNode, comment);
+      return true;
     }
   }
   return false;

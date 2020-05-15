@@ -253,6 +253,25 @@ interface A6 extends Base { // comment1
 ================================================================================
 `;
 
+exports[`comments-declare.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+declare interface a // 1
+  extends b  // 2
+{  foo: boolean}
+
+=====================================output=====================================
+declare interface a extends b { // 1
+  // 2
+  foo: boolean;
+}
+
+================================================================================
+`;
+
 exports[`module.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
