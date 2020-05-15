@@ -9,7 +9,6 @@ const path = require("path");
  * @property {string?} name - name for the UMD bundle (for plugins, it'll be `prettierPlugins.${name}`)
  * @property {'node' | 'universal'} target - should generate a CJS only for node or UMD bundle
  * @property {'core' | 'plugin'} type - it's a plugin bundle or core part of prettier
- * @property {'rollup' | 'webpack'} [bundler='rollup'] - define which bundler to use
  * @property {CommonJSConfig} [commonjs={}] - options for `rollup-plugin-commonjs`
  * @property {string[]} externals - array of paths that should not be included in the final bundle
  * @property {Object.<string, string>} replace - map of strings to replace when processing the bundle
@@ -42,18 +41,12 @@ const parsers = [
   },
   {
     input: "src/language-css/parser-postcss.js",
-    // postcss has dependency cycles that don't work with rollup
-    bundler: "webpack",
     terserOptions: {
-      // prevent terser generate extra .LICENSE file
-      extractComments: false,
-      terserOptions: {
-        mangle: {
-          // postcss need keep_fnames when minify
-          keep_fnames: true,
-          // we don't transform class anymore, so we need keep_classnames too
-          keep_classnames: true,
-        },
+      mangle: {
+        // postcss need keep_fnames when minify
+        keep_fnames: true,
+        // we don't transform class anymore, so we need keep_classnames too
+        keep_classnames: true,
       },
     },
   },

@@ -3,7 +3,6 @@
 const execa = require("execa");
 const path = require("path");
 const { rollup } = require("rollup");
-const webpack = require("webpack");
 const resolve = require("@rollup/plugin-node-resolve");
 const rollupPluginAlias = require("@rollup/plugin-alias");
 const commonjs = require("@rollup/plugin-commonjs");
@@ -178,7 +177,9 @@ function getRollupConfig(bundle) {
     externals(bundle.externals),
     bundle.target === "universal" && nodeGlobals(),
     babel(babelConfig),
-    bundle.minify !== false && bundle.target === "universal" && terser(),
+    bundle.minify !== false &&
+      bundle.target === "universal" &&
+      terser(bundle.terserOptions),
   ].filter(Boolean);
 
   if (bundle.target === "node") {
@@ -204,58 +205,6 @@ function getRollupOutputOptions(bundle) {
   return options;
 }
 
-function getWebpackConfig(bundle) {
-  if (bundle.type !== "plugin" || bundle.target !== "universal") {
-    throw new Error("Must use rollup for this bundle");
-  }
-
-  const root = path.resolve(__dirname, "..", "..");
-  const config = {
-    entry: path.resolve(root, bundle.input),
-    module: {
-      rules: [
-        {
-          test: /\.js$/,
-          use: {
-            loader: "babel-loader",
-            options: getBabelConfig(bundle),
-          },
-        },
-      ],
-    },
-    output: {
-      path: path.resolve(root, "dist"),
-      filename: bundle.output,
-      library: ["prettierPlugins", bundle.name],
-      libraryTarget: "umd",
-      // https://github.com/webpack/webpack/issues/6642
-      globalObject: 'new Function("return this")()',
-    },
-  };
-
-  if (bundle.terserOptions) {
-    const TerserPlugin = require("terser-webpack-plugin");
-
-    config.optimization = {
-      minimizer: [new TerserPlugin(bundle.terserOptions)],
-    };
-  }
-
-  return config;
-}
-
-function runWebpack(config) {
-  return new Promise((resolve, reject) => {
-    webpack(config, (err) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve();
-      }
-    });
-  });
-}
-
 module.exports = async function createBundle(bundle, cache) {
   const inputOptions = getRollupConfig(bundle);
   const outputOptions = getRollupOutputOptions(bundle);
@@ -277,12 +226,8 @@ module.exports = async function createBundle(bundle, cache) {
     }
   }
 
-  if (bundle.bundler === "webpack") {
-    await runWebpack(getWebpackConfig(bundle));
-  } else {
-    const result = await rollup(inputOptions);
-    await result.write(outputOptions);
-  }
+  const result = await rollup(inputOptions);
+  await result.write(outputOptions);
 
   return { bundled: true };
 };
