@@ -464,18 +464,24 @@ function handleClassComments(
       return true;
     }
 
-    if (
-      precedingNode &&
-      followingNode &&
-      (followingNode ===
-        (enclosingNode.implements && enclosingNode.implements[0]) ||
-        followingNode === (enclosingNode.extends && enclosingNode.extends[0]) ||
-        followingNode === (enclosingNode.mixins && enclosingNode.mixins[0]))
-    ) {
-      // Don't add leading comments to `implements`, `extends`, `mixins` to
-      // avoid printing the comment after the keyword.
-      addTrailingComment(precedingNode, comment);
-      return true;
+    // Don't add leading comments to `implements`, `extends`, `mixins` to
+    // avoid printing the comment after the keyword.
+    if (followingNode) {
+      for (const prop of ["implements", "extends", "mixins"]) {
+        if (enclosingNode[prop] && followingNode === enclosingNode[prop][0]) {
+          if (
+            precedingNode &&
+            (precedingNode === enclosingNode.id ||
+              precedingNode === enclosingNode.typeParameters ||
+              precedingNode === enclosingNode.superClass)
+          ) {
+            addTrailingComment(precedingNode, comment);
+          } else {
+            addDanglingComment(enclosingNode, comment, prop);
+          }
+          return true;
+        }
+      }
     }
   }
   return false;

@@ -53,9 +53,8 @@ declare class D4<T> // 1
 }
 
 declare class D5<T> // 1
-  extends
-    B<T>
-    // 2
+  extends B<T>
+  // 2
   mixins C<T> {
   // 3
 }

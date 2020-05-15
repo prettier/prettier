@@ -4481,8 +4481,16 @@ function printClass(path, options, print) {
 
   function printList(listName) {
     if (n[listName] && n[listName].length !== 0) {
+      const printedLeadingComments = comments.printDanglingComments(
+        path,
+        options,
+        /* sameIndent */ true,
+        ({ marker }) => marker === listName
+      );
       partsGroup.push(
         line,
+        printedLeadingComments,
+        printedLeadingComments && hardline,
         listName,
         group(
           indent(
