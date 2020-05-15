@@ -450,14 +450,10 @@ function handleClassComments(
       enclosingNode.decorators.length > 0 &&
       !(followingNode && followingNode.type === "Decorator")
     ) {
-      if (!enclosingNode.decorators || enclosingNode.decorators.length === 0) {
-        addLeadingComment(enclosingNode, comment);
-      } else {
-        addTrailingComment(
-          enclosingNode.decorators[enclosingNode.decorators.length - 1],
-          comment
-        );
-      }
+      addTrailingComment(
+        enclosingNode.decorators[enclosingNode.decorators.length - 1],
+        comment
+      );
       return true;
     }
 
