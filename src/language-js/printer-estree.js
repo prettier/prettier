@@ -4467,6 +4467,7 @@ function printClass(path, options, print) {
     (n.superClass &&
       n.superClass.comments &&
       n.superClass.comments.length !== 0) ||
+    (n.extends && n.extends.length !== 0) || // DeclareClass
     (n.mixins && n.mixins.length !== 0) ||
     (n.implements && n.implements.length !== 0);
 
@@ -4506,7 +4507,7 @@ function printClass(path, options, print) {
       );
     }
   } else if (n.extends && n.extends.length > 0) {
-    partsGroup.push(" extends ", join(", ", path.map(print, "extends")));
+    partsGroup.push(line, "extends ", join(", ", path.map(print, "extends")));
   }
 
   if (n.mixins && n.mixins.length > 0) {
