@@ -27,6 +27,7 @@ module.exports = {
     ],
   },
   bracketSpacing: commonOptions.bracketSpacing,
+  parenSpacing: commonOptions.parenSpacing,
   jsxBracketSameLine: {
     since: "0.17.0",
     category: CATEGORY_JAVASCRIPT,

@@ -1,9 +1,11 @@
 {
-  "name": "prettier",
-  "version": "2.0.5",
+  "name": "wp-prettier",
+  "version": "2.0.5-beta-1",
   "description": "Prettier is an opinionated code formatter",
-  "bin": "./bin/prettier.js",
-  "repository": "prettier/prettier",
+  "bin": {
+    "prettier": "./bin/prettier.js"
+  },
+  "repository": "Automattic/wp-prettier",
   "homepage": "https://prettier.io",
   "author": "James Long",
   "license": "MIT",

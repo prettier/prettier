@@ -86,6 +86,7 @@ function group(contents, opts) {
     contents,
     break: !!opts.shouldBreak,
     expandedStates: opts.expandedStates,
+    addedLine: !!opts.addedLine,
   };
 }
 

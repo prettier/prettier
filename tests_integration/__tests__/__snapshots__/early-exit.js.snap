@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`node version error (stderr) 1`] = `
-"prettier requires at least version 10.13.0 of Node, please upgrade
+"wp-prettier requires at least version 10.13.0 of Node, please upgrade
 "
 `;
 
@@ -80,6 +80,8 @@ Format options:
   --jsx-bracket-same-line  Put > on the last line instead of at a new line.
                            Defaults to false.
   --jsx-single-quote       Use single quotes in JSX.
+                           Defaults to false.
+  --paren-spacing          Print spaces between parens, WordPress style.
                            Defaults to false.
   --parser <flow|babel|babel-flow|babel-ts|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|html|angular|lwc>
                            Which parser to use.
@@ -236,6 +238,8 @@ Format options:
   --jsx-bracket-same-line  Put > on the last line instead of at a new line.
                            Defaults to false.
   --jsx-single-quote       Use single quotes in JSX.
+                           Defaults to false.
+  --paren-spacing          Print spaces between parens, WordPress style.
                            Defaults to false.
   --parser <flow|babel|babel-flow|babel-ts|typescript|css|less|scss|json|json5|json-stringify|graphql|markdown|mdx|vue|yaml|html|angular|lwc>
                            Which parser to use.

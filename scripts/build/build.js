@@ -76,7 +76,7 @@ async function cacheFiles() {
 
 async function preparePackage() {
   const pkg = await util.readJson("package.json");
-  pkg.bin = "./bin-prettier.js";
+  pkg.bin = { prettier: "./bin-prettier.js" };
   delete pkg.dependencies;
   delete pkg.devDependencies;
   pkg.scripts = {

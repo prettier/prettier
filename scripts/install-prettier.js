@@ -19,5 +19,5 @@ module.exports = () => {
   shell.exec(`npm install "${tarPath}"`, { cwd: tmpDir });
   shell.config.silent = false;
 
-  return path.join(tmpDir, "node_modules/prettier");
+  return path.join(tmpDir, "node_modules/wp-prettier");
 };

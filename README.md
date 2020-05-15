@@ -59,6 +59,42 @@
   <a href="https://twitter.com/PrettierCode">
     <img alt="Follow Prettier on Twitter" src="https://img.shields.io/twitter/follow/prettiercode.svg?label=follow+prettier&style=flat-square"></a>
 </p>
+# WordPress Prettier
+
+This is a fork of Prettier that adds a new command line option `--paren-spacing` which inserts many extra spaces inside parentheses, the way how projects in the WordPress ecosystem (Calypso, Gutenberg, etc.) like to format their code.
+
+In order to install the latest version, run
+
+```sh
+npm i --save-dev "prettier@npm:wp-prettier@latest"
+```
+
+To order to install a version based on a particular upstream version (like 1.x.x), run
+
+```sh
+npm i --save-dev "prettier@git+https://github.com/Automattic/wp-prettier.git#wp-prettier-1.x.x"
+```
+
+To figure out what the latest supported version of the fork is, look at the default branch of this repository.
+
+## Versioning
+
+This project uses the following convention for versions:
+
+- When there is a new version of prettier (eg: `prettier@2.0.5`), we'll rebase our changes on top of it and release as `wp-prettier@2.0.5-beta-1`.
+- If we found bugs, we'll release `wp-prettier@2.0.5-beta-2` and so on.
+- When we are confident our patch doesn't break we'll release it as `wp-prettier@2.0.5`.
+- If we found bugs after the release, we'll release them as `wp-prettier@2.0.6-alpha-1`, `wp-prettier@2.0.6-alpha-2`...
+
+The rationale is to ensure the version ordering gives you the latest patch. If you have a dependency on `wp-prettier@^2.0.0` you will get the following versions in order:
+
+- `wp-prettier@2.0.5-alpha-1` -> contains `prettier@2.0.4` + patch
+- `wp-prettier@2.0.5-alpha-N` -> contains to `prettier@2.0.4` + patch + fixes (if any)
+- `wp-prettier@2.0.5-beta-1` -> contains to `prettier@2.0.5` + patch
+- `wp-prettier@2.0.5-beta-1` -> contains to `prettier@2.0.5` + patch + fixes (if any)
+- `wp-prettier@2.0.5` -> contains to `prettier@2.0.5` + final patch
+
+The original readme continues unchanged below:
 
 ## Intro
 
