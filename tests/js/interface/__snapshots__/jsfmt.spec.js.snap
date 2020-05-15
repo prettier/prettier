@@ -221,29 +221,34 @@ interface A1 {
   foo(): bar;
 }
 
-interface A2 extends Base { // comment
+interface A2 // comment
+  extends Base {
   foo(): bar;
 }
 
-interface A3 extends Base { // comment1
+interface A3 // comment1
+  extends Base {
   // comment2
   foo(): bar;
 }
 
-interface A4 extends Base { // comment1
+interface A4 // comment1
+  extends Base {
   // comment2
   // comment3
   foo(): bar;
 }
 
-interface A5 extends Base { // comment1
+interface A5 // comment1
+  extends Base {
   // comment2
   // comment3
   // comment4
   foo(): bar;
 }
 
-interface A6 extends Base { // comment1
+interface A6 // comment1
+  extends Base {
   // comment2
   // comment3
   // comment4
@@ -264,7 +269,8 @@ declare interface a // 1
 {  foo: boolean}
 
 =====================================output=====================================
-declare interface a extends b { // 1
+declare interface a // 1
+  extends b {
   // 2
   foo: boolean;
 }

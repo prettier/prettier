@@ -249,8 +249,7 @@ export interface ThirdVeryLongAndBoringInterfaceName
 }
 
 export interface ThirdVeryLongAndBoringInterfaceName
-  extends ALongAndBoringInterfaceName,
-    AnotherLongAndBoringInterfaceName {
+  extends ALongAndBoringInterfaceName, AnotherLongAndBoringInterfaceName {
   c: string
 }
 
@@ -307,8 +306,7 @@ export interface ThirdVeryLongAndBoringInterfaceName
 }
 
 export interface ThirdVeryLongAndBoringInterfaceName
-  extends ALongAndBoringInterfaceName,
-    AnotherLongAndBoringInterfaceName {
+  extends ALongAndBoringInterfaceName, AnotherLongAndBoringInterfaceName {
   c: string;
 }
 

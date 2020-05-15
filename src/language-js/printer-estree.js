@@ -2788,8 +2788,13 @@ function printPathNoParens(path, options, print, args) {
 
       parts.push("interface");
 
+      const groupMode =
+        (n.id && hasTrailingComment(n.id)) ||
+        (n.extends && n.extends.length !== 0);
+      const partsGroup = [];
+
       if (n.type !== "InterfaceTypeAnnotation") {
-        parts.push(
+        partsGroup.push(
           " ",
           path.call(print, "id"),
           path.call(print, "typeParameters")
@@ -2797,19 +2802,36 @@ function printPathNoParens(path, options, print, args) {
       }
 
       if (n.extends && n.extends.length !== 0) {
-        parts.push(
+        // partsGroup.push(
+        //   line,
+        //   "extends",
+        //   group(
+        //     indent(
+        //       concat([
+        //         line,
+        //         join(concat([",", line]), path.map(print, "extends")),
+        //       ])
+        //     )
+        //   )
+        // );
+
+        partsGroup.push(
+          line,
           group(
-            indent(
-              concat([
-                line,
-                "extends ",
-                (n.extends.length === 1 ? identity : indent)(
-                  join(concat([",", line]), path.map(print, "extends"))
-                ),
-              ])
-            )
+            concat([
+              "extends ",
+              (n.extends.length === 1 ? identity : indent)(
+                join(concat([",", line]), path.map(print, "extends"))
+              ),
+            ])
           )
         );
+      }
+
+      if (groupMode) {
+        parts.push(group(indent(concat(partsGroup))));
+      } else {
+        parts.push(...partsGroup);
       }
 
       parts.push(" ", path.call(print, "body"));
