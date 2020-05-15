@@ -2802,19 +2802,6 @@ function printPathNoParens(path, options, print, args) {
       }
 
       if (n.extends && n.extends.length !== 0) {
-        // partsGroup.push(
-        //   line,
-        //   "extends",
-        //   group(
-        //     indent(
-        //       concat([
-        //         line,
-        //         join(concat([",", line]), path.map(print, "extends")),
-        //       ])
-        //     )
-        //   )
-        // );
-
         partsGroup.push(
           line,
           group(
