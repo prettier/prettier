@@ -7,9 +7,9 @@ printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
 class x {
-  focus() // do nothing
+  focus() // comment 1
   {
-    // do nothing
+    // comment 2
   }
 }
 
@@ -31,8 +31,8 @@ export class SnapshotLogger {
 
 =====================================output=====================================
 class x {
-  focus() { // do nothing
-    // do nothing
+  focus() { // comment 1
+    // comment 2
   }
 }
 

@@ -1,7 +1,7 @@
 class x {
-  focus() // do nothing
+  focus() // comment 1
   {
-    // do nothing
+    // comment 2
   }
 }
 
