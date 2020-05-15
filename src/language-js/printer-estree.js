@@ -2788,9 +2788,6 @@ function printPathNoParens(path, options, print, args) {
 
       parts.push("interface");
 
-      const groupMode =
-        (n.id && hasTrailingComment(n.id)) ||
-        (n.extends && n.extends.length !== 0);
       const partsGroup = [];
 
       if (n.type !== "InterfaceTypeAnnotation") {
@@ -2811,7 +2808,10 @@ function printPathNoParens(path, options, print, args) {
         );
       }
 
-      if (groupMode) {
+      if (
+        (n.id && hasTrailingComment(n.id)) ||
+        (n.extends && n.extends.length !== 0)
+      ) {
         parts.push(group(indent(concat(partsGroup))));
       } else {
         parts.push(...partsGroup);
