@@ -29,6 +29,10 @@ const parsers = [
   },
   {
     input: "src/language-js/parser-flow.js",
+    replace: {
+      // `flow-parser` use this for `globalThis`, can't work in strictMode
+      "(function(){return this}())": '(new Function("return this")())',
+    },
   },
   {
     input: "src/language-js/parser-typescript.js",
