@@ -2804,13 +2804,9 @@ function printPathNoParens(path, options, print, args) {
       if (n.extends && n.extends.length !== 0) {
         partsGroup.push(
           line,
-          group(
-            concat([
-              "extends ",
-              (n.extends.length === 1 ? identity : indent)(
-                join(concat([",", line]), path.map(print, "extends"))
-              ),
-            ])
+          "extends ",
+          (n.extends.length === 1 ? identity : indent)(
+            join(concat([",", line]), path.map(print, "extends"))
           )
         );
       }
