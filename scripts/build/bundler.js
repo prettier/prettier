@@ -191,7 +191,6 @@ function getRollupConfig(bundle) {
 function getRollupOutputOptions(bundle) {
   const options = {
     file: `dist/${bundle.output}`,
-    strict: typeof bundle.strict === "undefined" ? true : bundle.strict,
   };
 
   if (bundle.target === "node") {

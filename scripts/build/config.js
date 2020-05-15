@@ -29,7 +29,6 @@ const parsers = [
   },
   {
     input: "src/language-js/parser-flow.js",
-    strict: false,
   },
   {
     input: "src/language-js/parser-typescript.js",
