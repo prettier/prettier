@@ -1,37 +1,60 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`comment-after-extends.js format 1`] = `
+exports[`misc.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-class a extends b // comment
-{
-  constructor() {}
+class x {
+  focus() // do nothing
+  {
+    // do nothing
+  }
 }
 
-class c extends d
-// comment2
-{
-  constructor() {}
+class X {
+  TEMPLATE =
+    // tab index is needed so we can focus, which is needed for keyboard events
+    '<div class="ag-large-text" tabindex="0">' +
+    '<div class="ag-large-textarea"></div>' +
+    '</div>';
+}
+
+export class SnapshotLogger {
+  constructor(
+    retentionPeriod: number = 5 * 60 * 1000, // retain past five minutes
+    snapshotInterval: number = 30 * 1000, // snapshot no more than every 30s
+  ) {
+  }
 }
 
 =====================================output=====================================
-class a extends b { // comment
-  constructor() {}
+class x {
+  focus() { // do nothing
+    // do nothing
+  }
 }
 
-class c extends d
-// comment2
-{
-  constructor() {}
+class X {
+  TEMPLATE =
+    // tab index is needed so we can focus, which is needed for keyboard events
+    '<div class="ag-large-text" tabindex="0">' +
+    '<div class="ag-large-textarea"></div>' +
+    "</div>";
+}
+
+export class SnapshotLogger {
+  constructor(
+    retentionPeriod: number = 5 * 60 * 1000, // retain past five minutes
+    snapshotInterval: number = 30 * 1000 // snapshot no more than every 30s
+  ) {}
 }
 
 ================================================================================
 `;
 
-exports[`comments.js format 1`] = `
+exports[`superclass.js format 1`] = `
 ====================================options=====================================
 parsers: ["babel", "flow", "typescript"]
 printWidth: 80
@@ -63,27 +86,15 @@ class A4 extends /* a */ B {}
 (class A8 extends B /* a */ {});
 (class A9 extends /* a */ B {});
 
-class x {
-  focus() // do nothing
-  {
-    // do nothing
-  }
+class a extends b // comment
+{
+  constructor() {}
 }
 
-class X {
-  TEMPLATE =
-    // tab index is needed so we can focus, which is needed for keyboard events
-    '<div class="ag-large-text" tabindex="0">' +
-    '<div class="ag-large-textarea"></div>' +
-    '</div>';
-}
-
-export class SnapshotLogger {
-  constructor(
-    retentionPeriod: number = 5 * 60 * 1000, // retain past five minutes
-    snapshotInterval: number = 30 * 1000, // snapshot no more than every 30s
-  ) {
-  }
+class c extends d
+// comment2
+{
+  constructor() {}
 }
 
 =====================================output=====================================
@@ -117,25 +128,14 @@ class A4 /* a */ extends B {}
 });
 (class A9 /* a */ extends B {});
 
-class x {
-  focus() { // do nothing
-    // do nothing
-  }
+class a extends b { // comment
+  constructor() {}
 }
 
-class X {
-  TEMPLATE =
-    // tab index is needed so we can focus, which is needed for keyboard events
-    '<div class="ag-large-text" tabindex="0">' +
-    '<div class="ag-large-textarea"></div>' +
-    "</div>";
-}
-
-export class SnapshotLogger {
-  constructor(
-    retentionPeriod: number = 5 * 60 * 1000, // retain past five minutes
-    snapshotInterval: number = 30 * 1000 // snapshot no more than every 30s
-  ) {}
+class c extends d
+// comment2
+{
+  constructor() {}
 }
 
 ================================================================================
