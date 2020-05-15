@@ -97,10 +97,12 @@ class ExtendsAbstractClassAndImplementsInterfaces5
     Interface8 {}
 
 =====================================output=====================================
-class Class extends AbstractClass
+class Class
+  extends AbstractClass
   implements Interface1, Interface2, Interface3, Interface4 {}
 
-class ExtendsAbstractClassAndImplementsInterfaces1 extends AbstractClass
+class ExtendsAbstractClassAndImplementsInterfaces1
+  extends AbstractClass
   implements Interface1, Interface2, Interface3, Interface4 {}
 
 class ExtendsAbstractClassAndImplementsInterfaces2

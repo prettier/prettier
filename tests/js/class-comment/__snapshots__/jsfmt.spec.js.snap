@@ -81,7 +81,8 @@ b // comment-b2
 }
 
 =====================================output=====================================
-class a1 extends b // comment
+class a1
+  extends b // comment
   implements z {
   constructor() {}
 }
@@ -91,22 +92,23 @@ class a2 extends b implements z {
   constructor() {}
 }
 
-class a3 extends b
-  implements
-    // comment
-    z,
-    y {
+class a3
+  extends b
+  // comment
+  implements z, y {
   constructor() {}
 }
 
-class a4 extends b
+class a4
+  extends b
   implements
     z, // comment
     y {
   constructor() {}
 }
 
-class a5 extends b
+class a5
+  extends b
   implements
     z, // comment-z
     y {
@@ -114,9 +116,10 @@ class a5 extends b
   constructor() {}
 }
 
-class a6 extends b
+class a6
+  extends b
+  // comment-z1
   implements
-    // comment-z1
     z, // comment-z2
     // comment-y1
     y {
@@ -124,9 +127,10 @@ class a6 extends b
   constructor() {}
 }
 
-class a7 extends b
+class a7
+  extends b
+  // comment-z1
   implements
-    // comment-z1
     z, // comment-z2
     // comment-y1
     y {
@@ -136,9 +140,10 @@ class a7 extends b
   constructor() {}
 }
 
-class a8 extends b // comment-b
+class a8
+  extends b // comment-b
+  // comment-z1
   implements
-    // comment-z1
     z, // comment-z2
     // comment-y1
     y {
@@ -146,16 +151,69 @@ class a8 extends b // comment-b
   constructor() {}
 }
 
-class a9 // comment-b1
+class a9
+  // comment-b1
   extends b // comment-b2
+  // comment-b3
+  // comment-z1
   implements
-    // comment-b3
-    // comment-z1
     z, // comment-z2
     // comment-y1
     y {
   // comment-y2
   constructor() {}
+}
+
+================================================================================
+`;
+
+exports[`generic.js format 1`] = `
+====================================options=====================================
+parsers: ["babel", "flow", "typescript"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+class G1<T> implements IPoly<T> {
+  x: T;
+}
+
+class G2 // g2
+<T> implements IPoly<T> {
+  x: T;
+}
+
+class G3 // g3
+<T> extends U implements IPoly<T> {
+  x: T;
+}
+
+class G4<T // g4
+> extends U implements IPoly<T> {
+  x: T;
+}
+
+=====================================output=====================================
+class G1<T> implements IPoly<T> {
+  x: T;
+}
+
+class G2<T> // g2
+  implements IPoly<T> {
+  x: T;
+}
+
+class G3<T> // g3
+  extends U
+  implements IPoly<T> {
+  x: T;
+}
+
+class G4<
+    T // g4
+  >
+  extends U
+  implements IPoly<T> {
+  x: T;
 }
 
 ================================================================================

@@ -4463,27 +4463,20 @@ function printClass(path, options, print) {
   // Keep old behaviour of extends in same line
   // If there is only on extends and there are not comments
   const groupMode =
+    (n.id && hasTrailingComment(n.id)) ||
     (n.superClass &&
       n.superClass.comments &&
       n.superClass.comments.length !== 0) ||
-    (n.implements && n.implements.length !== 0) ||
-    (n.id && hasTrailingComment(n.id));
+    (n.mixins && n.mixins.length !== 0) ||
+    (n.implements && n.implements.length !== 0);
 
   const partsGroup = [];
 
   if (n.id) {
-    if (!groupMode) {
-      parts.push(" ", path.call(print, "id"));
-    } else {
-      partsGroup.push(
-        " ",
-        path.call(print, "id"),
-        hasTrailingComment(n.id) ? line : " "
-      );
-    }
+    partsGroup.push(" ", path.call(print, "id"));
   }
 
-  parts.push(path.call(print, "typeParameters"));
+  partsGroup.push(path.call(print, "typeParameters"));
 
   if (n.superClass) {
     const printed = concat([
@@ -4492,18 +4485,17 @@ function printClass(path, options, print) {
       path.call(print, "superTypeParameters"),
     ]);
     if (!groupMode) {
-      parts.push(
-        concat([
-          " ",
-          path.call(
-            (superClass) =>
-              comments.printComments(superClass, () => printed, options),
-            "superClass"
-          ),
-        ])
+      partsGroup.push(
+        " ",
+        path.call(
+          (superClass) =>
+            comments.printComments(superClass, () => printed, options),
+          "superClass"
+        )
       );
     } else {
       partsGroup.push(
+        line,
         group(
           path.call(
             (superClass) =>
@@ -4514,7 +4506,7 @@ function printClass(path, options, print) {
       );
     }
   } else if (n.extends && n.extends.length > 0) {
-    parts.push(" extends ", join(", ", path.map(print, "extends")));
+    partsGroup.push(" extends ", join(", ", path.map(print, "extends")));
   }
 
   if (n.mixins && n.mixins.length > 0) {
@@ -4540,8 +4532,10 @@ function printClass(path, options, print) {
     );
   }
 
-  if (partsGroup.length > 0) {
+  if (groupMode) {
     parts.push(group(indent(concat(partsGroup))));
+  } else {
+    parts.push(...partsGroup);
   }
 
   if (

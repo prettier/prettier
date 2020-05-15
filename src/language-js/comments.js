@@ -461,6 +461,17 @@ function handleClassComments(
       addBlockStatementFirstComment(enclosingNode.body, comment);
       return true;
     }
+
+    if (precedingNode) {
+      if (
+        enclosingNode.implements &&
+        enclosingNode.implements.length !== 0 &&
+        followingNode === enclosingNode.implements[0]
+      ) {
+        addTrailingComment(precedingNode, comment);
+        return true;
+      }
+    }
   }
   return false;
 }
