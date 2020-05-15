@@ -442,6 +442,7 @@ function handleClassComments(
     enclosingNode &&
     (enclosingNode.type === "ClassDeclaration" ||
       enclosingNode.type === "ClassExpression" ||
+      enclosingNode.type === "DeclareClass" ||
       enclosingNode.type === "InterfaceDeclaration" ||
       enclosingNode.type === "TSInterfaceDeclaration")
   ) {
