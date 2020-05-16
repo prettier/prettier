@@ -4509,16 +4509,7 @@ function printClass(path, options, print) {
     parts.push(...partsGroup);
   }
 
-  if (
-    n.body &&
-    n.body.comments &&
-    hasLeadingOwnLineComment(options.originalText, n.body, options)
-  ) {
-    parts.push(hardline);
-  } else {
-    parts.push(" ");
-  }
-  parts.push(path.call(print, "body"));
+  parts.push(" ", path.call(print, "body"));
 
   return parts;
 }
