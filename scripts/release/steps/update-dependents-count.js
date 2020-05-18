@@ -67,6 +67,5 @@ module.exports = async function () {
     await update();
   } catch (error) {
     console.log(chalk.red.bold(error.message));
-    throw error;
   }
 };
