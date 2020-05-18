@@ -51,15 +51,16 @@ function ngHtmlParser(
 
   const isVueHtml =
     options.parser === "vue" &&
-    rootNodes.some((node) => node instanceof DocType && node.value === "html");
+    rootNodes.some(
+      (node) =>
+        (node instanceof DocType && node.value === "html") ||
+        (node instanceof Element && node.name.toLowerCase() === "html")
+    );
 
   if (options.parser === "vue" && !isVueHtml) {
     const shouldParseAsHTML = (node) => {
       if (!node) {
         return false;
-      }
-      if (node.name && node.name.toLowerCase() === "html") {
-        return true;
       }
       if (node.name !== "template") {
         return false;
