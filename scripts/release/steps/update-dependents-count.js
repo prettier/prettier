@@ -1,27 +1,45 @@
 "use strict";
 
+const chalk = require("chalk");
 const fetch = require("node-fetch");
 const { logPromise, processFile } = require("../utils");
 
 async function update() {
-  // Update dependents count
+  const npmPage = await logPromise(
+    "Fetching npm dependents count",
+    fetch("https://www.npmjs.com/package/prettier").then((response) =>
+      response.text()
+    )
+  );
   const dependentsCountNpm = Number(
-    (
-      await (await fetch("https://www.npmjs.com/package/prettier")).text()
-    ).match(/"dependentsCount":(\d+),/)[1]
+    npmPage.match(/"dependentsCount":(\d+),/)[1]
+  );
+  if (isNaN(dependentsCountNpm)) {
+    throw new TypeError(
+      "Invalid data from https://www.npmjs.com/package/prettier"
+    );
+  }
+
+  const githubPage = await logPromise(
+    "Fetching github dependents count",
+    fetch(
+      "https://github.com/prettier/prettier/network/dependents"
+    ).then((response) => response.text())
   );
   const dependentsCountGithub = Number(
-    (
-      await (
-        await fetch("https://github.com/prettier/prettier/network/dependents")
-      ).text()
-    )
+    githubPage
       .replace(/\n/g, "")
       .match(
         /<svg.*?octicon-gist.*?>.*?<\/svg>\s*([\d,]+?)\s*Repositories\s*<\/a>/
       )[1]
       .replace(/,/g, "")
   );
+  if (isNaN(dependentsCountNpm)) {
+    throw new TypeError(
+      "Invalid data from https://github.com/prettier/prettier/network/dependents"
+    );
+  }
+
   processFile("website/pages/en/index.js", (content) =>
     content
       .replace(
@@ -44,6 +62,11 @@ function formatNumber(value) {
   return Math.floor(value / 1e5) / 10 + "m";
 }
 
-module.exports = async function (params) {
-  await logPromise("Updating dependents count", update(params));
+module.exports = async function () {
+  try {
+    await update();
+  } catch (error) {
+    console.log(chalk.red.bold(error.message));
+    throw error;
+  }
 };
