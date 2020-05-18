@@ -35,12 +35,12 @@ async function run() {
     require("./steps/install-dependencies"),
     require("./steps/run-tests"),
     require("./steps/update-version"),
-    require("./steps/update-dependents-count"),
     require("./steps/generate-bundles"),
     require("./steps/update-changelog"),
     require("./steps/push-to-git"),
     require("./steps/publish-to-npm"),
     require("./steps/bump-prettier"),
+    require("./steps/update-dependents-count"),
     require("./steps/post-publish-steps"),
   ];
 
