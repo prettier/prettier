@@ -534,7 +534,7 @@ function getNodeCssStyleDisplay(node, options) {
       // See https://github.com/prettier/prettier/issues/8151
       if (
         options.parser === "vue" &&
-        node.name === "template" &&
+        node.parent &&
         node.parent.type === "root"
       ) {
         return "block";
