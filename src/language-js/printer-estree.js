@@ -1142,11 +1142,14 @@ function printPathNoParens(path, options, print, args) {
         printReturnAndThrowArgument(path, options, print),
       ]);
     case "NewExpression":
+    case "ImportExpression":
     case "OptionalCallExpression":
     case "CallExpression": {
       const isNew = n.type === "NewExpression";
+      const isDynamicImport = n.type === "ImportExpression";
 
       const optional = printOptionalToken(path);
+      const args = isDynamicImport ? [n.source] : n.arguments;
       if (
         // We want to keep CommonJS- and AMD-style require calls, and AMD-style
         // define calls, as a unit.
@@ -1155,12 +1158,8 @@ function printPathNoParens(path, options, print, args) {
           n.callee.type === "Identifier" &&
           (n.callee.name === "require" || n.callee.name === "define")) ||
         // Template literals as single arguments
-        (n.arguments.length === 1 &&
-          isTemplateOnItsOwnLine(
-            n.arguments[0],
-            options.originalText,
-            options
-          )) ||
+        (args.length === 1 &&
+          isTemplateOnItsOwnLine(args[0], options.originalText, options)) ||
         // Keep test declarations on a single line
         // e.g. `it('long name', () => {`
         (!isNew && isTestCall(n, path.getParentNode()))
@@ -1170,7 +1169,13 @@ function printPathNoParens(path, options, print, args) {
           path.call(print, "callee"),
           optional,
           printFunctionTypeParameters(path, options, print),
-          concat(["(", join(", ", path.map(print, "arguments")), ")"]),
+          concat([
+            "(",
+            isDynamicImport
+              ? path.call(print, "source")
+              : join(", ", path.map(print, "arguments")),
+            ")",
+          ]),
         ]);
       }
 
