@@ -1,1 +1,1 @@
-run_spec(__dirname, ["babel"], { parenSpacing: false });
+run_spec(__dirname, ["babel"], { parenSpacing: true });

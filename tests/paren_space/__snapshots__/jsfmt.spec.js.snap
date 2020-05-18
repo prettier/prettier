@@ -2,7 +2,7 @@
 
 exports[`arrays.js 1`] = `
 ====================================options=====================================
-parenSpacing: false
+parenSpacing: true
 parsers: ["babel"]
 printWidth: 80
                                                                                 | printWidth
@@ -18,22 +18,22 @@ printWidth: 80
 [...a, ...b];
 
 =====================================output=====================================
-[[]];
-[[], []];
-[[], [], []];
-[[], [0], []];
-[[], [0], [0]];
-[[], [0, 1], [0]];
-[[], [0, 1], [0, 1]];
-[...a, ...b];
-[...a, ...b];
+[ [] ];
+[ [], [] ];
+[ [], [], [] ];
+[ [], [ 0 ], [] ];
+[ [], [ 0 ], [ 0 ] ];
+[ [], [ 0, 1 ], [ 0 ] ];
+[ [], [ 0, 1 ], [ 0, 1 ] ];
+[ ...a, ...b ];
+[ ...a, ...b ];
 
 ================================================================================
 `;
 
 exports[`bind.js 1`] = `
 ====================================options=====================================
-parenSpacing: false
+parenSpacing: true
 parsers: ["babel"]
 printWidth: 80
                                                                                 | printWidth
@@ -78,51 +78,51 @@ a => ({}:: b()\`\`[''].c++ && 0 ? 0 : 0);
 a:: (b => c);
 
 =====================================output=====================================
-(a || b)::c;
+( a || b )::c;
 a || b::c;
 ::obj.prop;
-(void 0)::func();
-(+0)::is(-0);
+( void 0 )::func();
+( +0 )::is( -0 );
 a::b.c;
-a::(b.c());
+a::( b.c() );
 a::b.c();
-a::(b.c()());
-a::(b.c()());
-a::(b.c())();
-a::(b.c().d);
-a::(c().d.e);
-a::(b());
-a::(b::c());
-a::(b()::c);
-a::(b().c::d);
-a::(b.c::d);
-a::(b::c.d);
-a::(b.c::d::e);
-a::(b::c::d);
-a::(b::c::d.e);
-a::(b::c::d).e;
-a::(void 0);
-a::(b.c()::d.e);
-a::(b.c::d.e);
-a::(b.c::d.e)::f.g;
+a::( b.c()() );
+a::( b.c()() );
+a::( b.c() )();
+a::( b.c().d );
+a::( c().d.e );
+a::( b() );
+a::( b::c() );
+a::( b()::c );
+a::( b().c::d );
+a::( b.c::d );
+a::( b::c.d );
+a::( b.c::d::e );
+a::( b::c::d );
+a::( b::c::d.e );
+a::( b::c::d ).e;
+a::( void 0 );
+a::( b.c()::d.e );
+a::( b.c::d.e );
+a::( b.c::d.e )::f.g;
 b.c::d.e;
-(b.c::d).e;
-(b::c::d).e;
-new (a::b)();
-new f(a::b);
-f[a::b];
-f[a::b()];
+( b.c::d ).e;
+( b::c::d ).e;
+new ( a::b )();
+new f( a::b );
+f[ a::b ];
+f[ a::b() ];
 
-(a) => ({}::b()\`\`[""].c++ && 0 ? 0 : 0);
-((a) => b)::c;
-a::((b) => c);
+( a ) => ( {}::b()\`\`[ "" ].c++ && 0 ? 0 : 0 );
+( ( a ) => b )::c;
+a::( ( b ) => c );
 
 ================================================================================
 `;
 
 exports[`class.js 1`] = `
 ====================================options=====================================
-parenSpacing: false
+parenSpacing: true
 parsers: ["babel"]
 printWidth: 80
                                                                                 | printWidth
@@ -144,13 +144,13 @@ class X {
 
 =====================================output=====================================
 class c {
-  ["i"]() {}
+  [ "i" ]() {}
 }
 
-(class {} + 1);
-(class a {} + 1);
-(class extends b {} + 1);
-(class a extends b {} + 1);
+( class {} + 1 );
+( class a {} + 1 );
+( class extends b {} + 1 );
+( class a extends b {} + 1 );
 
 class X {
   async *b() {
@@ -163,7 +163,7 @@ class X {
 
 exports[`conditionals.js 1`] = `
 ====================================options=====================================
-parenSpacing: false
+parenSpacing: true
 parsers: ["babel"]
 printWidth: 80
                                                                                 | printWidth
@@ -205,17 +205,17 @@ if (
 }
 
 const radioSelectedAttr =
-  (isAnyValueSelected &&
-    node.getAttribute(radioAttr.toLowerCase()) === radioValue) ||
-  (!isAnyValueSelected && values[a].default === true) ||
+  ( isAnyValueSelected &&
+    node.getAttribute( radioAttr.toLowerCase() ) === radioValue ) ||
+  ( ! isAnyValueSelected && values[ a ].default === true ) ||
   a === 0;
 
 function f() {
-  if (position) return { name: pair };
+  if ( position ) return { name: pair };
   else
     return {
-      name: pair.substring(0, position),
-      value: pair.substring(position + 1),
+      name: pair.substring( 0, position ),
+      value: pair.substring( position + 1 ),
     };
 }
 
@@ -231,7 +231,7 @@ foo || bar || baz || qux || xyz;
 
 exports[`destructuring.js 1`] = `
 ====================================options=====================================
-parenSpacing: false
+parenSpacing: true
 parsers: ["babel"]
 printWidth: 80
                                                                                 | printWidth
@@ -241,8 +241,8 @@ a = ([s = 1,]) => 1
 const { children, ...props } = this.props
 
 =====================================output=====================================
-const [one, two = null, three = null] = arr;
-a = ([s = 1]) => 1;
+const [ one, two = null, three = null ] = arr;
+a = ( [ s = 1 ] ) => 1;
 const { children, ...props } = this.props;
 
 ================================================================================
@@ -250,7 +250,7 @@ const { children, ...props } = this.props;
 
 exports[`expressions.js 1`] = `
 ====================================options=====================================
-parenSpacing: false
+parenSpacing: true
 parsers: ["babel"]
 printWidth: 80
                                                                                 | printWidth
@@ -272,19 +272,19 @@ new (factory())(factory())
 object.foo().bar().baz();
 
 =====================================output=====================================
-(this.x++).toString();
+( this.x++ ).toString();
 
-new (r++)();
+new ( r++ )();
 
-(x++)();
+( x++ )();
 
-const uuid = String(this._uuidCounter++);
+const uuid = String( this._uuidCounter++ );
 
-!(
+! (
   { a: 1, b: 2 } // foo
 );
 
-new (factory())(factory());
+new ( factory() )( factory() );
 
 object.foo().bar().baz();
 
@@ -293,7 +293,7 @@ object.foo().bar().baz();
 
 exports[`functions.js 1`] = `
 ====================================options=====================================
-parenSpacing: false
+parenSpacing: true
 parsers: ["babel"]
 printWidth: 80
                                                                                 | printWidth
@@ -320,31 +320,31 @@ new function () { };
 
 =====================================output=====================================
 function* f() {
-  yield async (a) => a;
+  yield async ( a ) => a;
 }
 
 async function f3() {
-  a = (await 1) ? 1 : 1;
+  a = ( await 1 ) ? 1 : 1;
 }
 
-(function () {}.length);
+( function () {}.length );
 typeof function () {};
-export default (function () {})();
-(function () {})()\`\`;
-(function () {})\`\`;
-new (function () {})();
-(function () {});
+export default ( function () {} )();
+( function () {} )()\`\`;
+( function () {} )\`\`;
+new ( function () {} )();
+( function () {} );
 a = function f() {} || b;
-(function () {} && a);
+( function () {} && a );
 a + function () {};
-new (function () {})();
+new ( function () {} )();
 
 ================================================================================
 `;
 
 exports[`import-export.js 1`] = `
 ====================================options=====================================
-parenSpacing: false
+parenSpacing: true
 parsers: ["babel"]
 printWidth: 80
                                                                                 | printWidth
@@ -362,20 +362,20 @@ export default (function f() { })
 =====================================output=====================================
 import { fitsIn, oneLine } from ".";
 
-import("module.js").then((a) => a);
+import( "module.js" ).then( ( a ) => a );
 
 export a, { b } from "./baz";
 
 export default () => {};
 
-export default (function f() {});
+export default ( function f() {} );
 
 ================================================================================
 `;
 
 exports[`loops.js 1`] = `
 ====================================options=====================================
-parenSpacing: false
+parenSpacing: true
 parsers: ["babel"]
 printWidth: 80
                                                                                 | printWidth
@@ -415,23 +415,23 @@ do {} while (
   )
 );
 
-for (var i = 0, len = arr.length; i < len; i++) {}
+for ( var i = 0, len = arr.length; i < len; i++ ) {}
 
-(async () => {
-  for await (num of asyncIterable) {
-    console.log(num);
+( async () => {
+  for await ( num of asyncIterable ) {
+    console.log( num );
   }
-  for await (const x of delegate_yield()) {
+  for await ( const x of delegate_yield() ) {
     x;
   }
-})();
+} )();
 
 ================================================================================
 `;
 
 exports[`nullish.js 1`] = `
 ====================================options=====================================
-parenSpacing: false
+parenSpacing: true
 parsers: ["babel"]
 printWidth: 80
                                                                                 | printWidth
@@ -444,7 +444,7 @@ foo ?? (bar ?? baz);
 (foo ?? bar) ?? baz;
 
 =====================================output=====================================
-const x = (foo, bar = foo ?? bar) => {};
+const x = ( foo, bar = foo ?? bar ) => {};
 
 foo ? bar ?? foo : baz;
 
@@ -456,7 +456,7 @@ foo ?? bar ?? baz;
 
 exports[`objects.js 1`] = `
 ====================================options=====================================
-parenSpacing: false
+parenSpacing: true
 parsers: ["babel"]
 printWidth: 80
                                                                                 | printWidth
@@ -472,22 +472,22 @@ a = () => ({}).x;
 (({} = 0), 1);
 
 =====================================output=====================================
-() => ({}\`\`);
-({}\`\`);
-a = () => ({}.x);
-({} && a, b);
-({}::b, 0);
-({}::b()\`\`[""].c++ && 0 ? 0 : 0, 0);
-({}(), 0);
-({} = 0);
-({} = 0), 1;
+() => ( {}\`\` );
+( {}\`\` );
+a = () => ( {}.x );
+( {} && a, b );
+( {}::b, 0 );
+( {}::b()\`\`[ "" ].c++ && 0 ? 0 : 0, 0 );
+( {}(), 0 );
+( {} = 0 );
+( {} = 0 ), 1;
 
 ================================================================================
 `;
 
 exports[`return.js 1`] = `
 ====================================options=====================================
-parenSpacing: false
+parenSpacing: true
 parsers: ["babel"]
 printWidth: 80
                                                                                 | printWidth
@@ -514,7 +514,7 @@ function f() {
 
 exports[`sequence.js 1`] = `
 ====================================options=====================================
-parenSpacing: false
+parenSpacing: true
 parsers: ["babel"]
 printWidth: 80
                                                                                 | printWidth
@@ -526,38 +526,38 @@ printWidth: 80
   (a = b ? c : function () { return 0; });
 
 =====================================output=====================================
-(a = b
+( a = b
   ? c
   : function () {
       return 0;
-    }),
-  (a = b
+    } ),
+  ( a = b
     ? c
     : function () {
         return 0;
-      }),
-  (a = b
+      } ),
+  ( a = b
     ? c
     : function () {
         return 0;
-      }),
-  (a = b
+      } ),
+  ( a = b
     ? c
     : function () {
         return 0;
-      }),
-  (a = b
+      } ),
+  ( a = b
     ? c
     : function () {
         return 0;
-      });
+      } );
 
 ================================================================================
 `;
 
 exports[`spread.js 1`] = `
 ====================================options=====================================
-parenSpacing: false
+parenSpacing: true
 parsers: ["babel"]
 printWidth: 80
                                                                                 | printWidth
@@ -571,14 +571,14 @@ async () => ({ ...(await foo) });
 declare class C { f(...r): void; }
 
 =====================================output=====================================
-const foo = { ...(a || b) };
-const foo2 = { ...(a || b) };
-const foo3 = { ...(a ? b : c) };
+const foo = { ...( a || b ) };
+const foo2 = { ...( a || b ) };
+const foo3 = { ...( a ? b : c ) };
 
-async () => ({ ...(await foo) });
+async () => ( { ...( await foo ) } );
 
 declare class C {
-  f(...r): void;
+  f( ...r ): void;
 }
 
 ================================================================================
@@ -586,7 +586,7 @@ declare class C {
 
 exports[`switch.js 1`] = `
 ====================================options=====================================
-parenSpacing: false
+parenSpacing: true
 parsers: ["babel"]
 printWidth: 80
                                                                                 | printWidth
@@ -606,18 +606,18 @@ switch (a) {
 }
 
 =====================================output=====================================
-switch (a) {
+switch ( a ) {
   case 3:
-    alert("3");
+    alert( "3" );
     break;
   case 4:
-    alert("4");
+    alert( "4" );
     break;
   case 5:
-    alert("5");
+    alert( "5" );
     break;
   default:
-    alert("default");
+    alert( "default" );
 }
 
 ================================================================================
@@ -625,7 +625,7 @@ switch (a) {
 
 exports[`template-literals.js 1`] = `
 ====================================options=====================================
-parenSpacing: false
+parenSpacing: true
 parsers: ["babel"]
 printWidth: 80
                                                                                 | printWidth
@@ -667,9 +667,9 @@ return (<div css={\`
 \`}/>)
 
 =====================================output=====================================
-\`\${1 ?? 2}\`;
+\`\${ 1 ?? 2 }\`;
 
-\`glp-text-\${isImagePresent ? 56 : 64}@M\`;
+\`glp-text-\${ isImagePresent ? 56 : 64 }@M\`;
 
 const headerResolve = css.resolve\`
   .top-bar {
@@ -695,7 +695,7 @@ const headerResolve = css.resolve\`
 
 return (
   <div
-    css={\`
+    css={ \`
       color: blue;
       font-size: 17 px;
 
@@ -706,7 +706,7 @@ return (
       & .some-class {
         font-size: 20px;
       }
-    \`}
+    \` }
   />
 );
 
@@ -715,7 +715,7 @@ return (
 
 exports[`ternaries.js 1`] = `
 ====================================options=====================================
-parenSpacing: false
+parenSpacing: true
 parsers: ["babel"]
 printWidth: 80
                                                                                 | printWidth
@@ -723,7 +723,7 @@ printWidth: 80
 a => a ? () => { a } : () => { a }
 
 =====================================output=====================================
-(a) =>
+( a ) =>
   a
     ? () => {
         a;
@@ -737,7 +737,7 @@ a => a ? () => { a } : () => { a }
 
 exports[`throw.js 1`] = `
 ====================================options=====================================
-parenSpacing: false
+parenSpacing: true
 parsers: ["babel"]
 printWidth: 80
                                                                                 | printWidth
@@ -755,16 +755,16 @@ function f() {
   throw foo.bar();
 }
 
-lint(ast, {
-  with: () => throw new Error("avoid using 'with' statements."),
-});
+lint( ast, {
+  with: () => throw new Error( "avoid using 'with' statements." ),
+} );
 
 ================================================================================
 `;
 
 exports[`try-catch.js 1`] = `
 ====================================options=====================================
-parenSpacing: false
+parenSpacing: true
 parsers: ["babel"]
 printWidth: 80
                                                                                 | printWidth
@@ -776,7 +776,7 @@ finally { await baz() }
 =====================================output=====================================
 try {
   foo();
-} catch (e) {
+} catch ( e ) {
   bar();
 } finally {
   await baz();
@@ -787,7 +787,7 @@ try {
 
 exports[`with.js 1`] = `
 ====================================options=====================================
-parenSpacing: false
+parenSpacing: true
 parsers: ["babel"]
 printWidth: 80
                                                                                 | printWidth
@@ -795,7 +795,7 @@ printWidth: 80
 with (0) { };
 
 =====================================output=====================================
-with (0) {
+with ( 0 ) {
 }
 
 ================================================================================
