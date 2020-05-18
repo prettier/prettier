@@ -1,6 +1,6 @@
 {
   "name": "wp-prettier",
-  "version": "2.0.5-beta-1",
+  "version": "2.0.5-beta-2",
   "description": "Prettier is an opinionated code formatter",
   "bin": {
     "prettier": "./bin/prettier.js"
