@@ -58,7 +58,7 @@ function ngHtmlParser(
       if (!node) {
         return false;
       }
-      if (node.name === "html") {
+      if (node.name && node.name.toLowerCase() === "html") {
         return true;
       }
       if (node.name !== "template") {
@@ -371,7 +371,7 @@ module.exports = {
       isTagNameCaseSensitive: true,
       getTagContentType: (tagName, prefix, hasParent, attrs) => {
         if (
-          tagName !== "html" &&
+          tagName.toLowerCase() !== "html" &&
           !hasParent &&
           (tagName !== "template" ||
             attrs.some(
