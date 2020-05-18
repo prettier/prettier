@@ -1,7 +1,7 @@
 "use strict";
 
 const execa = require("execa");
-const got = require("got");
+const fetch = require("node-fetch");
 const { logPromise, readJson, writeJson, processFile } = require("../utils");
 
 async function bump({ version }) {
@@ -27,12 +27,16 @@ async function bump({ version }) {
 
   // Update dependents count
   const dependentsCountNpm = Number(
-    (await got("https://www.npmjs.com/package/prettier")).body.match(
-      /"dependentsCount":(\d+),/
-    )[1]
+    (
+      await (await fetch("https://www.npmjs.com/package/prettier")).text()
+    ).match(/"dependentsCount":(\d+),/)[1]
   );
   const dependentsCountGithub = Number(
-    (await got("https://github.com/prettier/prettier/network/dependents")).body
+    (
+      await (
+        await fetch("https://github.com/prettier/prettier/network/dependents")
+      ).text()
+    )
       .replace(/\n/g, "")
       .match(
         /<svg.*?octicon-gist.*?>.*?<\/svg>\s*([\d,]+?)\s*Repositories\s*<\/a>/
