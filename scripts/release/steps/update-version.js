@@ -2,7 +2,6 @@
 
 const execa = require("execa");
 const got = require("got");
-const humanFormat = require("human-format");
 const { logPromise, readJson, writeJson, processFile } = require("../utils");
 
 async function bump({ version }) {
@@ -44,17 +43,26 @@ async function bump({ version }) {
     content
       .replace(
         /(<strong data-placeholder="dependent-npm">)(.*?)(<\/strong>)/,
-        `$1${humanFormat(dependentsCountNpm)}$3`
+        `$1${formatNumber(dependentsCountNpm)}$3`
       )
       .replace(
         /(<strong data-placeholder="dependent-github">)(.*?)(<\/strong>)/,
-        `$1${humanFormat(dependentsCountGithub)}$3`
+        `$1${formatNumber(dependentsCountGithub)}$3`
       )
   );
 
   await execa("yarn", ["update-stable-docs"], {
     cwd: "./website",
   });
+}
+
+function formatNumber(value) {
+  if (value < 1e4) {
+    return String(value).slice(0, 1) + "0".repeat(String(value).length - 1);
+  } else if (value < 1e6) {
+    return Math.floor(value / 1e2) / 10 + " K";
+  }
+  return Math.floor(value / 1e5) / 10 + " M";
 }
 
 module.exports = async function (params) {
