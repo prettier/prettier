@@ -42,16 +42,18 @@ function ngHtmlParser(
     getHtmlTagDefinition,
   } = require("angular-html-parser/lib/compiler/src/ml_parser/html_tags");
 
-  const parseResult = parser.parse(input, {
+  let { rootNodes, errors } = parser.parse(input, {
     canSelfClose: recognizeSelfClosing,
     allowHtmComponentClosingTags,
     isTagNameCaseSensitive,
     getTagContentType,
   });
-  const { rootNodes } = parseResult;
-  let { errors } = parseResult;
 
-  if (options.parser === "vue") {
+  const isVueHtml =
+    options.parser === "vue" &&
+    rootNodes.some((node) => node instanceof DocType && node.value === "html");
+
+  if (options.parser === "vue" && !isVueHtml) {
     const shouldParseAsHTML = (node) => {
       if (!node) {
         return false;
@@ -105,6 +107,21 @@ function ngHtmlParser(
         }
       }
     }
+  } else if (isVueHtml) {
+    // If not Vue SFC, treat as html
+    recognizeSelfClosing = true;
+    normalizeTagName = true;
+    normalizeAttributeName = true;
+    allowHtmComponentClosingTags = true;
+    isTagNameCaseSensitive = false;
+    const htmlParseResult = parser.parse(input, {
+      canSelfClose: recognizeSelfClosing,
+      allowHtmComponentClosingTags,
+      isTagNameCaseSensitive,
+    });
+
+    rootNodes = htmlParseResult.rootNodes;
+    errors = htmlParseResult.errors;
   }
 
   if (errors.length !== 0) {
