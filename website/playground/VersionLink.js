@@ -13,13 +13,20 @@ export default function ({ version }) {
   } else {
     href = `blob/master/CHANGELOG.md#${version.replace(/\./g, "")}`;
   }
+
+  const formattedVersion = match ? `PR #${match[1]}` : `v${version}`;
+
+  React.useEffect(() => {
+    document.title = `Prettier ${formattedVersion}`;
+  }, [formattedVersion]);
+
   return ReactDOM.createPortal(
     <a
       href={`https://github.com/prettier/prettier/${href}`}
       target="_blank"
       rel="noreferrer noopener"
     >
-      {match ? `PR #${match[1]}` : `v${version}`}
+      {formattedVersion}
     </a>,
     root
   );
