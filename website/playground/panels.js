@@ -1,5 +1,5 @@
 import CodeMirror from "codemirror";
-import React from "react";
+import * as React from "react";
 
 class CodeMirrorPanel extends React.Component {
   constructor() {
