@@ -57,9 +57,9 @@ function formatNumber(value) {
   if (value < 1e4) {
     return String(value).slice(0, 1) + "0".repeat(String(value).length - 1);
   } else if (value < 1e6) {
-    return Math.floor(value / 1e2) / 10 + "k";
+    return Math.floor(value / 1e2) / 10 + " K";
   }
-  return Math.floor(value / 1e5) / 10 + "m";
+  return Math.floor(value / 1e5) / 10 + " M";
 }
 
 module.exports = async function () {
