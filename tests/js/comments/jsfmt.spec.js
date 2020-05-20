@@ -6,5 +6,5 @@ const fixtures = {
   ],
 };
 
-run_spec(fixtures, ["flow", "babel", "typescript"]);
-run_spec(fixtures, ["flow", "babel", "typescript"], { semi: false });
+run_spec(fixtures, ["babel", "flow", "typescript"]);
+run_spec(fixtures, ["babel", "flow", "typescript"], { semi: false });

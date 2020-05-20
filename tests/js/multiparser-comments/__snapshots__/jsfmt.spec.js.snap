@@ -2,7 +2,7 @@
 
 exports[`comments.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow"]
+parsers: ["babel", "flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

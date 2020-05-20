@@ -2,7 +2,7 @@
 
 exports[`binaryish.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -30,7 +30,7 @@ computedDescriptionLines =
 
 exports[`destructuring.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -68,7 +68,7 @@ const {
 
 exports[`sequence.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

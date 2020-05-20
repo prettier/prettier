@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 
 import { stateToggler, shallowEqual } from "./helpers";
 import * as storage from "./storage";

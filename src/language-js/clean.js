@@ -201,6 +201,10 @@ function clean(ast, newObj, parent) {
       newObj.quasis.forEach((quasi) => delete quasi.value);
     }
   }
+
+  if (ast.type === "InterpreterDirective") {
+    newObj.value = newObj.value.trimEnd();
+  }
 }
 
 module.exports = clean;

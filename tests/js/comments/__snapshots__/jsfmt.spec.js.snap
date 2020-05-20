@@ -2,7 +2,7 @@
 
 exports[`arrow.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -21,7 +21,7 @@ const fn2 = (/*event, data*/) => doSomething(anything)
 
 exports[`arrow.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -39,7 +39,7 @@ const fn2 = (/*event, data*/) => doSomething(anything);
 
 exports[`assignment-pattern.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -65,7 +65,7 @@ let {
 
 exports[`assignment-pattern.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -90,7 +90,7 @@ let {
 
 exports[`before-comma.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -115,7 +115,7 @@ const foo = {
 
 exports[`before-comma.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -139,7 +139,7 @@ const foo = {
 
 exports[`binary-expressions.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -294,7 +294,7 @@ function bitwiseXor() {
 
 exports[`binary-expressions.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -448,7 +448,7 @@ function bitwiseXor() {
 
 exports[`binary-expressions-block-comments.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -551,7 +551,7 @@ a =
 
 exports[`binary-expressions-block-comments.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -653,7 +653,7 @@ a =
 
 exports[`binary-expressions-single-comments.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -699,7 +699,7 @@ a =
 
 exports[`binary-expressions-single-comments.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -744,7 +744,7 @@ a =
 
 exports[`blank.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -799,7 +799,7 @@ semi: false
 
 exports[`blank.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -853,7 +853,7 @@ printWidth: 80
 
 exports[`break-continue-statements.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -888,7 +888,7 @@ loop: for (;;) {
 
 exports[`break-continue-statements.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -922,7 +922,7 @@ loop: for (;;) {
 
 exports[`call_comment.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -966,7 +966,7 @@ render?.(
 
 exports[`call_comment.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -1009,7 +1009,7 @@ render?.(
 
 exports[`dangling.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -1054,7 +1054,7 @@ export /* dangling */{}
 
 exports[`dangling.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -1098,7 +1098,7 @@ export /* dangling */{};
 
 exports[`dangling_array.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -1121,7 +1121,7 @@ expect(() => {}).toTriggerReadyStateChanges([
 
 exports[`dangling_array.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -1143,7 +1143,7 @@ expect(() => {}).toTriggerReadyStateChanges([
 
 exports[`dangling_for.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -1165,7 +1165,7 @@ for (;;);
 
 exports[`dangling_for.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -1186,7 +1186,7 @@ for (;;);
 
 exports[`dynamic_imports.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -1233,7 +1233,7 @@ wrap(import(/* Hello */ "something"))
 
 exports[`dynamic_imports.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -1279,7 +1279,7 @@ wrap(import(/* Hello */ "something"));
 
 exports[`emoji.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -1302,7 +1302,7 @@ const test = "💖"
 
 exports[`emoji.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -1324,7 +1324,7 @@ const test = "💖";
 
 exports[`export.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -1381,7 +1381,7 @@ export {
 
 exports[`export.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -1437,7 +1437,7 @@ export {
 
 exports[`first-line.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -1454,7 +1454,7 @@ b
 
 exports[`first-line.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -1470,7 +1470,7 @@ b;
 
 exports[`function-declaration.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -1605,7 +1605,7 @@ function foo4() {
 
 exports[`function-declaration.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -1739,7 +1739,7 @@ function foo4() {
 
 exports[`if.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -1886,7 +1886,7 @@ if (14) {
 
 exports[`if.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -2032,7 +2032,7 @@ if (14) {
 
 exports[`issues.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -2196,7 +2196,7 @@ foo(
 
 exports[`issues.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -2359,7 +2359,7 @@ foo(
 
 exports[`jsdoc.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -2423,7 +2423,7 @@ function HelloWorld() {
 
 exports[`jsdoc.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -2486,7 +2486,7 @@ function HelloWorld() {
 
 exports[`jsx.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -2728,7 +2728,7 @@ onClick={() => {}}>
 
 exports[`jsx.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -2969,7 +2969,7 @@ onClick={() => {}}>
 
 exports[`last-arg.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -3162,7 +3162,7 @@ class Foo {
 
 exports[`last-arg.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -3354,7 +3354,7 @@ class Foo {
 
 exports[`preserve-new-line-last.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -3409,7 +3409,7 @@ function name() {
 
 exports[`preserve-new-line-last.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -3463,7 +3463,7 @@ function name() {
 
 exports[`return-statement.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -3726,7 +3726,7 @@ function inlineComment() {
 
 exports[`return-statement.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -3988,7 +3988,7 @@ function inlineComment() {
 
 exports[`single-star-jsdoc.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -4061,7 +4061,7 @@ if (true) {
 
 exports[`single-star-jsdoc.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -4133,7 +4133,7 @@ if (true) {
 
 exports[`snippet: #0 - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -4150,7 +4150,7 @@ var a = {
 
 exports[`snippet: #0 format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -4166,7 +4166,7 @@ var a = {
 
 exports[`snippet: #1 - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -4183,7 +4183,7 @@ var a = {
 
 exports[`snippet: #1 format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -4199,7 +4199,7 @@ var a = {
 
 exports[`switch.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -4287,7 +4287,7 @@ switch (foo) {
 
 exports[`switch.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -4374,7 +4374,7 @@ switch (foo) {
 
 exports[`tagged-template-literal.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -4416,7 +4416,7 @@ foo /* comment */\`
 
 exports[`tagged-template-literal.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -4457,7 +4457,7 @@ foo /* comment */\`
 
 exports[`template-literal.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -4496,7 +4496,7 @@ d //comment
 
 exports[`template-literal.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -4534,7 +4534,7 @@ d //comment
 
 exports[`trailing_space.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -4557,7 +4557,7 @@ semi: false
 
 exports[`trailing_space.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -4579,7 +4579,7 @@ printWidth: 80
 
 exports[`trailing-jsdocs.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -4641,7 +4641,7 @@ const CONNECTION_STATUS = (exports.CONNECTION_STATUS = {
 
 exports[`trailing-jsdocs.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -4702,7 +4702,7 @@ const CONNECTION_STATUS = (exports.CONNECTION_STATUS = {
 
 exports[`try.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -4742,7 +4742,7 @@ try {
 
 exports[`try.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -4781,7 +4781,7 @@ try {
 
 exports[`variable_declarator.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -4932,7 +4932,7 @@ const foo3 = 123
 
 exports[`variable_declarator.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
@@ -5082,7 +5082,7 @@ const foo3 = 123;
 
 exports[`while.js - {"semi":false} format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
 semi: false
                                                                                 | printWidth
@@ -5138,7 +5138,7 @@ while (true) /* comment */ ++x
 
 exports[`while.js format 1`] = `
 ====================================options=====================================
-parsers: ["flow", "babel", "typescript"]
+parsers: ["babel", "flow", "typescript"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================

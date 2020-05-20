@@ -1,21 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`constructor-field-override.js format 1`] = `
+exports[`type_args.js format 1`] = `
 ====================================options=====================================
-parsers: ["babel"]
+parsers: ["flow"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
-// https://github.com/prettier/prettier/issues/1481
-class Foo {
-  constructor: () => this;
-}
+const response = something.$http.get<ThingamabobService.DetailsData>(
+  \`api/foo.ashx/foo-details/\${myId}\`,
+  { cache: quux.httpCache, timeout }
+);
 
 =====================================output=====================================
-// https://github.com/prettier/prettier/issues/1481
-class Foo {
-  constructor: () => this;
-}
+const response = something.$http.get<ThingamabobService.DetailsData>(
+  \`api/foo.ashx/foo-details/\${myId}\`,
+  { cache: quux.httpCache, timeout }
+);
 
 ================================================================================
 `;
