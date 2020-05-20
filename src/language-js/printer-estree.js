@@ -1554,7 +1554,7 @@ function printPathNoParens(path, options, print, args) {
         const needsForcedTrailingComma =
           canHaveTrailingComma && lastElem === null;
 
-        const shouldBreak =
+        let shouldBreak =
           n.elements.length > 1 &&
           n.elements.every((element, i, elements) => {
             const elementType = element && element.type;
@@ -1575,6 +1575,19 @@ function printPathNoParens(path, options, print, args) {
 
             return element[itemsKey] && element[itemsKey].length > 1;
           });
+
+        for (let i = 0; i < path.stack.length; i++) {
+          if (path.getParentNode(i) !== null) {
+            if (
+              isJestEachTemplateLiteral(path.getNode(i), path.getParentNode(i))
+            ) {
+              shouldBreak = false;
+              break;
+            }
+          } else {
+            break;
+          }
+        }
 
         parts.push(
           group(
