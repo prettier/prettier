@@ -156,9 +156,8 @@ printWidth: 80
 // '/*' <-- this breaks formatting
 
 @import "b";
-
 // another comment
-// '/*' <-- this breaks formatting
+//no-space before
 
 ================================================================================
 `;
@@ -187,7 +186,6 @@ printWidth: 80
 // '/*' <-- this breaks formatting
 
 @import "b";
-
 /* block */
 /*no-space block*/
 

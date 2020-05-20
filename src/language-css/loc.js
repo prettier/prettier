@@ -98,9 +98,9 @@ function replaceQuotesInInlineComments(text) {
   let state = "initial";
   /** @type {State} */
   let stateToReturnFromQuotes = "initial";
-  let inlineCommentStartIndex;
-  let inlineCommentContainsQuotes = false;
   const inlineCommentsToReplace = [];
+  const chars = text.split("");
+  const SPECIAL_CHAR_PLACEHOLDER = " ";
 
   for (let i = 0; i < text.length; i++) {
     const c = text[i];
@@ -133,7 +133,6 @@ function replaceQuotesInInlineComments(text) {
 
         if (c === "/" && text[i - 1] === "/") {
           state = "comment-inline";
-          inlineCommentStartIndex = i - 1;
           continue;
         }
 
@@ -186,27 +185,21 @@ function replaceQuotesInInlineComments(text) {
 
       case "comment-inline":
         if (c === '"' || c === "'") {
-          inlineCommentContainsQuotes = true;
+          chars[i] = SPECIAL_CHAR_PLACEHOLDER;
+        }
+        if (c === "/" && text[i + 1] === "*") {
+          chars[i] = SPECIAL_CHAR_PLACEHOLDER;
+          chars[i + 1] = SPECIAL_CHAR_PLACEHOLDER;
+          i++;
         }
         if (c === "\n" || c === "\r") {
-          if (inlineCommentContainsQuotes) {
-            inlineCommentsToReplace.push([inlineCommentStartIndex, i]);
-          }
           state = "initial";
-          inlineCommentContainsQuotes = false;
         }
         continue;
     }
   }
 
-  for (const [start, end] of inlineCommentsToReplace) {
-    text =
-      text.slice(0, start) +
-      text.slice(start, end).replace(/["']/g, " ") +
-      text.slice(end);
-  }
-
-  return text;
+  return chars.join("");
 }
 
 function getLeadingWhitespaceLength(string) {
