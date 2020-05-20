@@ -138,22 +138,27 @@ parsers: ["less"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
+/* DO NOT ADD EXTRA CODE TO THIS FILE */
+
 @import "a";
 
-// '/*' <-- this makes breaks formatting
+// '/*' <-- this breaks formatting
 
 @import 'b';
 // another comment
 //no-space before
 
 =====================================output=====================================
+/* DO NOT ADD EXTRA CODE TO THIS FILE */
+
 @import "a";
 
-// '/*' <-- this makes breaks formatting
+// '/*' <-- this breaks formatting
 
 @import "b";
+
 // another comment
-//no-space before
+// '/*' <-- this breaks formatting
 
 ================================================================================
 `;
@@ -164,20 +169,25 @@ parsers: ["less"]
 printWidth: 80
                                                                                 | printWidth
 =====================================input======================================
+/* DO NOT ADD EXTRA CODE TO THIS FILE */
+
 @import "a";
 
-// '/*' <-- this makes breaks formatting
+// '/*' <-- this breaks formatting
 
 @import 'b';
 /* block */
 /*no-space block*/
 
 =====================================output=====================================
+/* DO NOT ADD EXTRA CODE TO THIS FILE */
+
 @import "a";
 
-// '/*' <-- this makes breaks formatting
+// '/*' <-- this breaks formatting
 
 @import "b";
+
 /* block */
 /*no-space block*/
 
