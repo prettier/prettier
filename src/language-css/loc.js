@@ -98,8 +98,9 @@ function replaceQuotesInInlineComments(text) {
   let state = "initial";
   /** @type {State} */
   let stateToReturnFromQuotes = "initial";
-  const chars = text.split("");
-  const SPECIAL_CHAR_PLACEHOLDER = " ";
+  let inlineCommentStartIndex;
+  let inlineCommentContainsQuotes = false;
+  const inlineCommentsToReplace = [];
 
   for (let i = 0; i < text.length; i++) {
     const c = text[i];
@@ -132,6 +133,7 @@ function replaceQuotesInInlineComments(text) {
 
         if (c === "/" && text[i - 1] === "/") {
           state = "comment-inline";
+          inlineCommentStartIndex = i - 1;
           continue;
         }
 
@@ -184,16 +186,27 @@ function replaceQuotesInInlineComments(text) {
 
       case "comment-inline":
         if (c === '"' || c === "'" || c === "*") {
-          chars[i] = SPECIAL_CHAR_PLACEHOLDER;
+          inlineCommentContainsQuotes = true;
         }
         if (c === "\n" || c === "\r") {
+          if (inlineCommentContainsQuotes) {
+            inlineCommentsToReplace.push([inlineCommentStartIndex, i]);
+          }
           state = "initial";
+          inlineCommentContainsQuotes = false;
         }
         continue;
     }
   }
 
-  return chars.join("");
+  for (const [start, end] of inlineCommentsToReplace) {
+    text =
+      text.slice(0, start) +
+      text.slice(start, end).replace(/["'*]/g, " ") +
+      text.slice(end);
+  }
+
+  return text;
 }
 
 function getLeadingWhitespaceLength(string) {
