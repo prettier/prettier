@@ -111,11 +111,18 @@ function genericPrint(path, options, print) {
     }
     case "css-comment": {
       const isInlineComment = node.inline || node.raws.inline;
-      const text = options.originalText.slice(
-        options.locStart(node),
-        options.locEnd(node)
-      );
-
+      const start = options.locStart(node);
+      const end = options.locEnd(node);
+      let text = options.originalText.slice(start, end);
+      if (
+        start === end ||
+        (isInlineComment && !text.startsWith("//")) ||
+        (!isInlineComment && (!text.startsWith("/*") || !text.endsWith("*/")))
+      ) {
+        text = isInlineComment
+          ? "//" + node.raws.left + node.text
+          : "/*" + node.raws.left + node.text + node.raws.right + "*/";
+      }
       return isInlineComment ? text.trimEnd() : text;
     }
     case "css-rule": {

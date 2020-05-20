@@ -244,6 +244,58 @@ $my-map: (
 ================================================================================
 `;
 
+exports[`mixed.less format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@import "a";
+
+// '/*' <-- this makes breaks formatting
+
+@import 'b';
+// another comment
+//no-space before
+
+=====================================output=====================================
+@import "a";
+
+// '/*' <-- this makes breaks formatting
+
+@import "b";
+// another comment
+//no-space before
+
+================================================================================
+`;
+
+exports[`mixed-block.less format 1`] = `
+====================================options=====================================
+parsers: ["scss"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@import "a";
+
+// '/*' <-- this makes breaks formatting
+
+@import 'b';
+/* block */
+/*no-space block*/
+
+=====================================output=====================================
+@import "a";
+
+// '/*' <-- this makes breaks formatting
+
+@import "b";
+/* block */
+/*no-space block*/
+
+================================================================================
+`;
+
 exports[`prettier-ignore.scss format 1`] = `
 ====================================options=====================================
 parsers: ["scss"]

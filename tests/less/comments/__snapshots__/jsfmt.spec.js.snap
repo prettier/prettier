@@ -106,6 +106,32 @@ printWidth: 80
 ================================================================================
 `;
 
+exports[`issue-8130.less format 1`] = `
+====================================options=====================================
+parsers: ["less"]
+printWidth: 80
+                                                                                | printWidth
+=====================================input======================================
+@import "../node_modules/foo/bar.less";
+
+// @index(['./components/**/*.less', '!./**/_demo/**'], f => \`@import '\${f.path}\${f.ext}';\`)
+@import './components/Button/Button.less';
+@import './components/Form/Form.less';
+@import './components/Input/Input.less';
+// @endindex
+
+=====================================output=====================================
+@import "../node_modules/foo/bar.less";
+
+// @index(['./components/**/*.less', '!./**/_demo/**'], f => \`@import '\${f.path}\${f.ext}';\`)
+@import "./components/Button/Button.less";
+@import "./components/Form/Form.less";
+@import "./components/Input/Input.less";
+// @endindex
+
+================================================================================
+`;
+
 exports[`mixed.less format 1`] = `
 ====================================options=====================================
 parsers: ["less"]
@@ -119,6 +145,7 @@ printWidth: 80
 @import 'b';
 // another comment
 //no-space before
+
 =====================================output=====================================
 @import "a";
 
@@ -144,16 +171,15 @@ printWidth: 80
 @import 'b';
 /* block */
 /*no-space block*/
+
 =====================================output=====================================
 @import "a";
 
 // '/*' <-- this makes breaks formatting
 
 @import "b";
-
-@import 'b
-@import 'b';
-/* bl
+/* block */
+/*no-space block*/
 
 ================================================================================
 `;
